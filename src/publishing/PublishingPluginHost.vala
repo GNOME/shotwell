@@ -78,7 +78,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     }
     
     public void post_error(Error err) {
-        string msg = _("Publishing to %s can't continue because an error occurred:").printf(
+        string msg = _("Publishing to %s can’t continue because an error occurred:").printf(
             active_publisher.get_service().get_pluggable_name());
         msg += GLib.Markup.printf_escaped("\n\n<i>%s</i>\n\n", err.message);
         msg += _("To try publishing to another service, select one from the above menu.");

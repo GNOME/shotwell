@@ -185,7 +185,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
-    public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
+    public const string ENHANCE_TOOLTIP = _("Automatically improve the photo’s appearance");
     
     public const string COPY_ADJUSTMENTS_MENU = _("_Copy Color Adjustments");
     public const string COPY_ADJUSTMENTS_LABEL = _("Copy Color Adjustments");
@@ -197,7 +197,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string CROP_MENU = _("_Crop");
     public const string CROP_LABEL = _("Crop");
-    public const string CROP_TOOLTIP = _("Crop the photo's size");
+    public const string CROP_TOOLTIP = _("Crop the photo’s size");
 
     public const string STRAIGHTEN_MENU = _("_Straighten");
     public const string STRAIGHTEN_LABEL = _("Straighten");    
@@ -209,7 +209,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string ADJUST_MENU = _("_Adjust");
     public const string ADJUST_LABEL = _("Adjust");
-    public const string ADJUST_TOOLTIP = _("Adjust the photo's color and tone");
+    public const string ADJUST_TOOLTIP = _("Adjust the photo’s color and tone");
     
     public const string REVERT_MENU = _("Re_vert to Original");
     public const string REVERT_LABEL = _("Revert to Original");
@@ -277,7 +277,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
     public const string VIEW_RATINGS_MENU = _("_Ratings");
-    public const string VIEW_RATINGS_TOOLTIP = _("Display each photo's rating");
+    public const string VIEW_RATINGS_TOOLTIP = _("Display each photo’s rating");
 
     public const string FILTER_PHOTOS_MENU = _("_Filter Photos");
     public const string FILTER_PHOTOS_LABEL = _("Filter Photos");
@@ -337,10 +337,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public string add_tags_label(string[] names) {
         if (names.length == 1) {
-            return _("Add Tag \"%s\"").printf(HierarchicalTagUtilities.get_basename(names[0]));
+            return _("Add Tag “%s”").printf(HierarchicalTagUtilities.get_basename(names[0]));
         } else if (names.length == 2) {
             // Used when adding two tags to photo(s)
-            return _("Add Tags \"%s\" and \"%s\"").printf(
+            return _("Add Tags “%s” and “%s”").printf(
                 HierarchicalTagUtilities.get_basename(names[0]),
                 HierarchicalTagUtilities.get_basename(names[1]));
         } else {
@@ -350,11 +350,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public string delete_tag_menu(string name) {
-        return _("_Delete Tag \"%s\"").printf(name);
+        return _("_Delete Tag “%s”").printf(name);
     }
     
     public string delete_tag_label(string name) {
-        return _("Delete Tag \"%s\"").printf(name);
+        return _("Delete Tag “%s”").printf(name);
     }
     
     public const string DELETE_TAG_TITLE = _("Delete Tag");
@@ -363,11 +363,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string NEW_CHILD_TAG_SIDEBAR_MENU = _("_New");
     
     public string rename_tag_menu(string name) {
-        return _("Re_name Tag \"%s\"…").printf(name);
+        return _("Re_name Tag “%s”…").printf(name);
     }
     
     public string rename_tag_label(string old_name, string new_name) {
-        return _("Rename Tag \"%s\" to \"%s\"").printf(old_name, new_name);
+        return _("Rename Tag “%s” to “%s”").printf(old_name, new_name);
     }
     
     public const string RENAME_TAG_SIDEBAR_MENU = _("_Rename…");
@@ -376,30 +376,30 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
     
     public string tag_photos_label(string name, int count) {
-        return ((count == 1) ? _("Tag Photo as \"%s\"") : _("Tag Photos as \"%s\"")).printf(name);
+        return ((count == 1) ? _("Tag Photo as “%s”") : _("Tag Photos as “%s”")).printf(name);
     }
     
     public string tag_photos_tooltip(string name, int count) {
-        return ((count == 1) ? _("Tag the selected photo as \"%s\"") :
-            _("Tag the selected photos as \"%s\"")).printf(name);
+        return ((count == 1) ? _("Tag the selected photo as “%s”") :
+            _("Tag the selected photos as “%s”")).printf(name);
     }
     
     public string untag_photos_menu(string name, int count) {
-        return ((count == 1) ? _("Remove Tag \"%s\" From _Photo") :
-            _("Remove Tag \"%s\" From _Photos")).printf(name);
+        return ((count == 1) ? _("Remove Tag “%s” From _Photo") :
+            _("Remove Tag “%s” From _Photos")).printf(name);
     }
     
     public string untag_photos_label(string name, int count) {
-        return ((count == 1) ? _("Remove Tag \"%s\" From Photo") :
-            _("Remove Tag \"%s\" From Photos")).printf(name);
+        return ((count == 1) ? _("Remove Tag “%s” From Photo") :
+            _("Remove Tag “%s” From Photos")).printf(name);
     }
     
     public static string rename_tag_exists_message(string name) {
-        return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
+        return _("Unable to rename tag to “%s” because the tag already exists.").printf(name);
     }
     
     public static string rename_search_exists_message(string name) {
-        return _("Unable to rename search to \"%s\" because the search already exists.").printf(name);
+        return _("Unable to rename search to “%s” because the search already exists.").printf(name);
     }
     
     public const string DEFAULT_SAVED_SEARCH_NAME = _("Saved Search");
@@ -411,11 +411,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RENAME_SEARCH_MENU = _("Re_name…");
     
     public string rename_search_label(string old_name, string new_name) {
-        return _("Rename Search \"%s\" to \"%s\"").printf(old_name, new_name);
+        return _("Rename Search “%s” to “%s”").printf(old_name, new_name);
     }
     
     public string delete_search_label(string name) {
-        return _("Delete Search \"%s\"").printf(name);
+        return _("Delete Search “%s”").printf(name);
     }
     
     private unowned string rating_menu(Rating rating) {
@@ -679,7 +679,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
     
     public const string JUMP_TO_FILE_MENU = _("Show in File Mana_ger");
-    public const string JUMP_TO_FILE_TOOLTIP = _("Open the selected photo's directory in the file manager");
+    public const string JUMP_TO_FILE_TOOLTIP = _("Open the selected photo’s directory in the file manager");
     
     public string jump_to_file_failed(Error err) {
         return _("Unable to open in file manager: %s").printf(err.message);

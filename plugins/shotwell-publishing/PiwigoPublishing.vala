@@ -744,7 +744,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         assert(category.is_local());
 
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Creating album %s...").printf(category.name));
+        host.install_static_message_pane(_("Creating album %s…").printf(category.name));
 
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(
             session, category.name.strip(), int.parse(category.uppercats), category.comment);
@@ -1227,10 +1227,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += new SizeEntry(500, _("500 x 375 pixels"));
-        result += new SizeEntry(1024, _("1024 x 768 pixels"));
-        result += new SizeEntry(2048, _("2048 x 1536 pixels"));
-        result += new SizeEntry(4096, _("4096 x 3072 pixels"));
+        result += new SizeEntry(500, _("500 × 375 pixels"));
+        result += new SizeEntry(1024, _("1024 × 768 pixels"));
+        result += new SizeEntry(2048, _("2048 × 1536 pixels"));
+        result += new SizeEntry(4096, _("4096 × 3072 pixels"));
         result += new SizeEntry(ORIGINAL_SIZE, _("Original size"));
 
         return result;

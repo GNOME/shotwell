@@ -13,8 +13,8 @@ public bool confirm_delete_tag(Tag tag) {
     if (count == 0)
         return true;
     string msg = ngettext(
-        "This will remove the tag \"%s\" from one photo.  Continue?",
-        "This will remove the tag \"%s\" from %d photos.  Continue?",
+        "This will remove the tag “%s” from one photo.  Continue?",
+        "This will remove the tag “%s” from %d photos.  Continue?",
         count).printf(tag.get_user_visible_name(), count);
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
@@ -22,7 +22,7 @@ public bool confirm_delete_tag(Tag tag) {
 }
 
 public bool confirm_delete_saved_search(SavedSearch search) {
-    string msg = _("This will remove the saved search \"%s\".  Continue?")
+    string msg = _("This will remove the saved search “%s”.  Continue?")
         .printf(search.get_name());
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
@@ -113,7 +113,7 @@ public void open_external_editor_error_dialog(Error err, Photo photo) {
     if (err is IOError.PERMISSION_DENIED || err is FileError.PERM) {
          // Yes - display an alternate error message here.
          AppWindow.error_message(          
-            _("Shotwell couldn't create a file for editing this photo because you do not have permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
+            _("Shotwell couldn’t create a file for editing this photo because you do not have permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
     } else {
         // No - something else is wrong, display the error message 
         // the system gave us.
@@ -576,7 +576,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     // Files Not Imported Because They Weren't Recognized as Photos or Videos
     //
     if (manifest.skipped_files.size > 0) {
-        builder.append(_("Files Not Imported Because They Weren't Recognized as Photos or Videos:")
+        builder.append(_("Files Not Imported Because They Weren’t Recognized as Photos or Videos:")
             + "\n\n");
         
         foreach (BatchImportResult result in manifest.skipped_files) {
@@ -591,7 +591,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     // Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
     //
     if (manifest.skipped_photos.size > 0) {
-        builder.append(_("Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands:")
+        builder.append(_("Photos/Videos Not Imported Because They Weren’t in a Format Shotwell Understands:")
             + "\n\n");
         
         foreach (BatchImportResult result in manifest.skipped_photos) {
@@ -606,11 +606,11 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     // Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
     //
     if (manifest.write_failed.size > 0) {
-        builder.append(_("Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library:")
+        builder.append(_("Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its Library:")
              + "\n\n");
         
         foreach (BatchImportResult result in manifest.write_failed) {
-            current_file_summary = (_("couldn't copy %s\n\tto %s")).printf(result.src_identifier,
+            current_file_summary = (_("couldn’t copy %s\n\tto %s")).printf(result.src_identifier,
             result.dest_identifier) + "\n\t" + _("error message:") + " " +
             result.errmsg + "\n\n";
 
@@ -2143,7 +2143,7 @@ public class WelcomeDialog : Gtk.Dialog {
         content.add(import_content);
         content.pack_start(instructions, false, false, 0);
 
-        hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));
+        hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don’t show this message again"));
         hide_button.set_active(true);
         content.pack_start(hide_button, false, false, 6);
         

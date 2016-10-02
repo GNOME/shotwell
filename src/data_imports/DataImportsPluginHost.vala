@@ -145,7 +145,7 @@ public class ConcreteDataImportsHost : Plugins.StandardHostInterface,
     }
     
     public void post_error_message(string message) {
-        string msg = _("Importing from %s can't continue because an error occurred:").printf(
+        string msg = _("Importing from %s can’t continue because an error occurred:").printf(
             active_importer.get_service().get_pluggable_name());
         msg += GLib.Markup.printf_escaped("\n\n<i>%s</i>\n\n", message);
         msg += _("To try importing from another service, select one from the above menu.");
@@ -291,7 +291,7 @@ public class WelcomeDataImportsHost : Plugins.StandardHostInterface,
     }
     
     public void post_error_message(string message) {
-        string msg = _("Importing from %s can't continue because an error occurred:").printf(
+        string msg = _("Importing from %s can’t continue because an error occurred:").printf(
             active_importer.get_service().get_pluggable_name());
         
         debug(msg);

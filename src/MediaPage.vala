@@ -467,7 +467,7 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
             TRANSLATABLE, on_display_tags, Config.Facade.get_instance().get_display_photo_tags() };
         tags.label = _("Ta_gs");
-        tags.tooltip = _("Display each photo's tags");
+        tags.tooltip = _("Display each photo’s tags");
         toggle_actions += tags;
         
         return toggle_actions;

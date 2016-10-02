@@ -102,12 +102,12 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += new SizeEntry(_("500 x 375 pixels"), 500);
-        result += new SizeEntry(_("1024 x 768 pixels"), 1024);
-        result += new SizeEntry(_("1280 x 853 pixels"), 1280);
+        result += new SizeEntry(_("500 × 375 pixels"), 500);
+        result += new SizeEntry(_("1024 × 768 pixels"), 1024);
+        result += new SizeEntry(_("1280 × 853 pixels"), 1280);
 //Larger images make no sense for Tumblr
-//        result += new SizeEntry(_("2048 x 1536 pixels"), 2048);
-//        result += new SizeEntry(_("4096 x 3072 pixels"), 4096);
+//        result += new SizeEntry(_("2048 × 1536 pixels"), 2048);
+//        result += new SizeEntry(_("4096 × 3072 pixels"), 4096);
 //        result += new SizeEntry(_("Original size"), ORIGINAL_SIZE);
 
         return result;
@@ -308,7 +308,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             
             if (split_pair.length != 2)
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    _("'%s' isn't a valid response to an OAuth authentication request")));
+                    _("“%s” isn’t a valid response to an OAuth authentication request")));
 
             if (split_pair[0] == "oauth_token")
                 oauth_token = split_pair[1];
@@ -318,7 +318,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                _("'%s' isn't a valid response to an OAuth authentication request")));
+                _("“%s” isn’t a valid response to an OAuth authentication request")));
         
         session.set_access_phase_credentials(oauth_token, oauth_token_secret);
     }
@@ -556,7 +556,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
         
         if (was_started)
-            error(_("TumblrPublisher: start( ): can't start; this publisher is not restartable."));
+            error(_("TumblrPublisher: start( ): can’t start; this publisher is not restartable."));
         
         debug("TumblrPublisher: starting interaction.");
         

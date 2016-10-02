@@ -61,7 +61,7 @@ internal const string USER_VISIBLE_NAME = "Facebook";
 internal const string APPLICATION_ID = "1612018629063184";
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 internal const string SERVICE_WELCOME_MESSAGE =
-    _("You are not currently logged into Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
+    _("You are not currently logged into Facebook.\n\nIf you don’t yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
 internal const string RESTART_ERROR_MESSAGE =
     _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 internal const string USER_AGENT = "Java/1.6.0_16";
@@ -252,7 +252,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: testing connection to Facebook endpoint.");
         host.set_service_locked(true);
         
-        host.install_static_message_pane(_("Testing connection to Facebook..."));
+        host.install_static_message_pane(_("Testing connection to Facebook…"));
         
         GraphMessage endpoint_test_message = graph_session.new_endpoint_test();
         endpoint_test_message.completed.connect(on_endpoint_test_completed);
@@ -345,7 +345,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: creating a new album named \"%s\".\n", publishing_params.new_album_name);
         
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Creating album..."));
+        host.install_static_message_pane(_("Creating album…"));
         
         GraphMessage create_album_message = graph_session.new_create_album(
             publishing_params.new_album_name, publishing_params.privacy_object);
@@ -371,7 +371,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Facebook can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to Facebook can’t continue.")));
             return;
         }
         

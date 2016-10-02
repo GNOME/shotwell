@@ -358,7 +358,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
             warning("Could not parse UI file! Error: %s.", e.message);
             get_host().post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Picasa can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to Picasa can’t continue.")));
             return;
         }
 
@@ -376,7 +376,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
         debug("ACTION: creating new album '%s' on remote server.",
             publishing_parameters.get_target_album_name());
 
-        get_host().install_static_message_pane(_("Creating album..."));
+        get_host().install_static_message_pane(_("Creating album…"));
 
         get_host().set_service_locked(true);
 
@@ -743,10 +743,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private SizeDescription[] create_size_descriptions() {
         SizeDescription[] result = new SizeDescription[0];
 
-        result += new SizeDescription(_("Small (640 x 480 pixels)"), 640);
-        result += new SizeDescription(_("Medium (1024 x 768 pixels)"), 1024);
-        result += new SizeDescription(_("Recommended (1600 x 1200 pixels)"), 1600);
-        result += new SizeDescription(_("Google+ (2048 x 1536 pixels)"), 2048);
+        result += new SizeDescription(_("Small (640 × 480 pixels)"), 640);
+        result += new SizeDescription(_("Medium (1024 × 768 pixels)"), 1024);
+        result += new SizeDescription(_("Recommended (1600 × 1200 pixels)"), 1600);
+        result += new SizeDescription(_("Google+ (2048 × 1536 pixels)"), 2048);
         result += new SizeDescription(_("Original Size"), PublishingParameters.ORIGINAL_SIZE);
 
         return result;

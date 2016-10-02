@@ -1026,7 +1026,7 @@ public class ImportPage : CheckerboardPage {
                         unmount_camera(mount);
                     }
                 } else {
-                    string locked_message = _("The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again.");
+                    string locked_message = _("The camera is locked by another application.  Shotwell can only access the camera when it’s unlocked.  Please close any other application using the camera and try again.");
 
                     // it's not mounted, so another application must have it locked
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),

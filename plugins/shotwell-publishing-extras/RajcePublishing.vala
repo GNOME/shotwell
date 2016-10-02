@@ -37,7 +37,7 @@ public class RajceService : Object, Spit.Pluggable, Spit.Publishing.Service
     public void get_info(ref Spit.PluggableInfo info)
 	{
         info.authors = "rajce.net developers";
-        info.copyright = _("Copyright (C) 2013 rajce.net");
+        info.copyright = _("Copyright © 2013 rajce.net");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;

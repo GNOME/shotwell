@@ -798,7 +798,7 @@ private class GalleryUploadTransaction :
 
 
 public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
-    private const string BAD_FILE_MSG = _("\n\nThe file \"%s\" may not be supported by or may be too large for this instance of Gallery3.");
+    private const string BAD_FILE_MSG = _("\n\nThe file “%s” may not be supported by or may be too large for this instance of Gallery3.");
     private const string BAD_MOVIE_MSG = _("\nNote that Gallery3 only supports the video types that Flowplayer does.");
 
     private weak Spit.Publishing.PluginHost host = null;
@@ -1018,7 +1018,7 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to %s can't continue.")
+                    _("A file required for publishing is unavailable. Publishing to %s can’t continue.")
                         .printf(SERVICE_NAME)
                 )
             );
@@ -1770,7 +1770,7 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to %s can't continue.")
+                    _("A file required for publishing is unavailable. Publishing to %s can’t continue.")
                         .printf(SERVICE_NAME)
                     )
                 );

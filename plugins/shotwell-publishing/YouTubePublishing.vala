@@ -360,7 +360,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             warning("Could not parse UI file! Error: %s.", e.message);
             get_host().post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Youtube can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to Youtube can’t continue.")));
             return;
         }
 
@@ -461,7 +461,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(
             publishing_parameters.get_user_name()));
-        publish_to_label.set_label(_("Videos will appear in '%s'").printf(
+        publish_to_label.set_label(_("Videos will appear in “%s”").printf(
             publishing_parameters.get_channel_name()));
 
         foreach(PrivacyDescription desc in privacy_descriptions) {

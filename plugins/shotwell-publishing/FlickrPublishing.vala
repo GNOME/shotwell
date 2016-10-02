@@ -371,7 +371,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: running authentication request transaction");
 
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Preparing for login..."));
+        host.install_static_message_pane(_("Preparing for login…"));
 
         AuthenticationRequestTransaction txn = new AuthenticationRequestTransaction(session);
         txn.completed.connect(on_auth_request_txn_completed);
@@ -441,7 +441,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Flickr can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to Flickr can’t continue.")));
             return;        
         }
         
@@ -454,7 +454,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: validating authorization PIN %s", pin);
         
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Verifying authorization..."));
+        host.install_static_message_pane(_("Verifying authorization…"));
         
         AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session, pin);
         txn.completed.connect(on_access_token_fetch_txn_completed);
@@ -591,7 +591,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Flickr can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to Flickr can’t continue.")));
             return;
         }
 
@@ -1228,10 +1228,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += new SizeEntry(_("500 x 375 pixels"), 500);
-        result += new SizeEntry(_("1024 x 768 pixels"), 1024);
-        result += new SizeEntry(_("2048 x 1536 pixels"), 2048);
-        result += new SizeEntry(_("4096 x 3072 pixels"), 4096);
+        result += new SizeEntry(_("500 × 375 pixels"), 500);
+        result += new SizeEntry(_("1024 × 768 pixels"), 1024);
+        result += new SizeEntry(_("2048 × 1536 pixels"), 2048);
+        result += new SizeEntry(_("4096 × 3072 pixels"), 4096);
         result += new SizeEntry(_("Original size"), ORIGINAL_SIZE);
 
         return result;

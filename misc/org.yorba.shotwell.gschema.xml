@@ -74,7 +74,7 @@
     <key name="display-photo-ratings" type="b">
         <default>true</default>
         <summary>display photo ratings</summary>
-        <description>True if a photo's rating should be displayed as overlaid trinket, false otherwise.</description>
+        <description>True if a photo’s rating should be displayed as overlaid trinket, false otherwise.</description>
     </key>
     
     <key name="photo-rating-filter" type="i">
@@ -163,8 +163,8 @@
     
     <key name="hide-photos-already-imported" type="b">
         <default>false</default>
-        <summary>Selection state of "hide photos" option</summary>
-        <description>Last used selection state of the "hide photos already imported" option in the import page.</description>
+        <summary>Selection state of “hide photos” option</summary>
+        <description>Last used selection state of the “hide photos already imported” option in the import page.</description>
     </key>
 </schema>
 
@@ -290,12 +290,12 @@
     </key>
     <key name="last-crop-width" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop custom aspect ratio's numerator.</summary>
+        <summary>Most-recently-used crop custom aspect ratio’s numerator.</summary>
         <description>A nonzero, positive integer representing the width part of the last custom crop ratio the user entered.</description>
     </key>
     <key name="last-crop-height" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop custom aspect ratio's denominator.</summary>
+        <summary>Most-recently-used crop custom aspect ratio’s denominator.</summary>
         <description>A nonzero, positive integer representing the height part of the last custom crop ratio the user entered.</description>
     </key>
 </schema>

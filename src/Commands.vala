@@ -1692,7 +1692,7 @@ public class ReparentTagCommand : PageCommand {
     bool to_path_exists = false;
     
     public ReparentTagCommand(Tag tag, string new_parent_path) {
-        base (_("Move Tag \"%s\"").printf(tag.get_user_visible_name()), "");
+        base (_("Move Tag “%s”").printf(tag.get_user_visible_name()), "");
 
         this.from_path = tag.get_path();
 
