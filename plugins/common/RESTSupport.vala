@@ -73,6 +73,11 @@ public abstract class Session {
         
         soup_session.request_unqueued.disconnect(notify_wire_message_unqueued);
     }
+
+    public void set_insecure () {
+        this.soup_session.ssl_use_system_ca_file = false;
+        this.soup_session.ssl_strict = false;
+    }
 }
 
 public enum HttpMethod {
@@ -185,6 +190,60 @@ public class Transaction {
             this.err = err;
         }
     }
+
+    /* Texts copied from epiphany */
+    public string detailed_error_from_tls_flags () {
+        TlsCertificate cert;
+        TlsCertificateFlags tls_errors;
+        this.message.get_https_status (out cert, out tls_errors);
+
+        var list = new Gee.ArrayList<string> ();
+        if (TlsCertificateFlags.BAD_IDENTITY in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website presented identification that belongs to a different website."));
+        }
+
+        if (TlsCertificateFlags.EXPIRED in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."));
+        }
+
+        if (TlsCertificateFlags.UNKNOWN_CA in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification was not issued by a trusted organization."));
+        }
+
+        if (TlsCertificateFlags.GENERIC_ERROR in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification could not be processed. It may be corrupted."));
+        }
+
+        if (TlsCertificateFlags.REVOKED in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification has been revoked by the trusted organization that issued it."));
+        }
+
+        if (TlsCertificateFlags.INSECURE in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification cannot be trusted because it uses very weak encryption."));
+        }
+
+        if (TlsCertificateFlags.NOT_ACTIVATED in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."));
+        }
+
+        var builder = new StringBuilder ();
+        if (list.size == 1) {
+            builder.append (list.get (0));
+        } else {
+            foreach (var entry in list) {
+                builder.append_printf ("%s\n", entry);
+            }
+        }
+
+        return builder.str;
+  }
 
     protected void check_response(Soup.Message message) throws Spit.Publishing.PublishingError {
         switch (message.status_code) {
