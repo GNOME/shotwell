@@ -5,7 +5,7 @@
     <property name="label" translatable="yes">Go _Back</property>
   </object>
   <object class="GtkAction" id="login_action">
-    <property name="label" translatable="yes">_Login</property>
+    <property name="label" translatable="yes">_Log in</property>
   </object>
   <object class="GtkGrid" id="gallery3_auth_pane_widget">
     <property name="visible">True</property>
@@ -142,7 +142,7 @@
         </child>
         <child>
           <object class="GtkButton" id="login_button">
-            <property name="label" translatable="yes">_Login</property>
+            <property name="label" translatable="yes">_Log in</property>
             <property name="related_action">login_action</property>
             <property name="width_request">102</property>
             <property name="visible">True</property>

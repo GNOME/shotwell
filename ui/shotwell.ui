@@ -1624,7 +1624,7 @@ changes made here will not display.</property>
     </child>
     <child>
       <object class="GtkButton" id="login_button">
-        <property name="label" translatable="yes">_Login</property>
+        <property name="label" translatable="yes">_Log in</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>

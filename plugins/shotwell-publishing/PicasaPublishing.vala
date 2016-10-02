@@ -56,7 +56,7 @@ public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
 namespace Publishing.Picasa {
 
 internal const string SERVICE_WELCOME_MESSAGE = 
-    _("You are not currently logged into Picasa Web Albums.\n\nClick Login to log into Picasa Web Albums in your Web browser. You will have to authorize Shotwell Connect to link to your Picasa Web Albums account.");
+    _("You are not currently logged into Picasa Web Albums.\n\nClick Log in to log into Picasa Web Albums in your Web browser. You will have to authorize Shotwell Connect to link to your Picasa Web Albums account.");
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 
 public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {

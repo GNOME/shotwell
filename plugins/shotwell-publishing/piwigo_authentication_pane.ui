@@ -148,7 +148,7 @@
                 <property name="can_focus">False</property>
                 <child>
                   <object class="GtkButton" id="login_button">
-                    <property name="label" translatable="yes">Login</property>
+                    <property name="label" translatable="yes">Log in</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
