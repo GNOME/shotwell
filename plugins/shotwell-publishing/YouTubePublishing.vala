@@ -360,7 +360,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             warning("Could not parse UI file! Error: %s.", e.message);
             get_host().post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Youtube can’t continue.")));
+                    _("A file required for publishing is unavailable. Publishing to YouTube can’t continue.")));
             return;
         }
 
