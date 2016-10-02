@@ -2,7 +2,7 @@
 # Copyright (C) 2011, 2012, 2014, 2015, 2016. Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015, 2016.
 # L. Csordas <csola48@gmail.com>, 2012.
 # lsbeeler <lucas@yorba.org>, 2011.
 # Balázs Úr <urbalazs at gmail dot com>, 2014, 2016.
@@ -12,16 +12,16 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-21 18:37+0000\n"
-"PO-Revision-Date: 2016-09-22 13:02+0200\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"POT-Creation-Date: 2016-09-29 21:07+0000\n"
+"PO-Revision-Date: 2016-10-02 10:05+0200\n"
+"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -1306,7 +1306,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "Peter Bojtos <ptr at ulx dot hu>\n"
@@ -2351,26 +2351,27 @@ msgstr "Eszköztár rögzítése nyitva"
 msgid "Leave fullscreen"
 msgstr "Teljes képernyő elhagyása"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "_Gyakran ismételt kérdések"
 
-#: src/AppWindow.vala:506
-msgid "_Report a Problem..."
+#: src/AppWindow.vala:509
+#| msgid "_Report a Problem..."
+msgid "_Report a Problem…"
 msgstr "_Hiba jelentése…"
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2383,21 +2384,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nem lehet megjeleníteni a súgót: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nem nyitható meg a hibaadatbázis: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nem jeleníthető meg a GyIK: %s"
@@ -2568,11 +2569,13 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1061
-msgid "Unmounting..."
+#| msgid "Unmounting..."
+msgid "Unmounting…"
 msgstr "Leválasztás…"
 
 #: src/camera/ImportPage.vala:1152
-msgid "Starting import, please wait..."
+#| msgid "Starting import, please wait..."
+msgid "Starting import, please wait…"
 msgstr "Importálás kezdése, kis türelmet…"
 
 #: src/camera/ImportPage.vala:1169
@@ -3069,7 +3072,8 @@ msgid "Export metadata"
 msgstr "Metaadatok exportálása"
 
 #: src/Dialogs.vala:462
-msgid "Save Details..."
+#| msgid "Save Details"
+msgid "Save Details…"
 msgstr "Részletek mentése…"
 
 #: src/Dialogs.vala:463
@@ -3878,7 +3882,8 @@ msgid "Save photo"
 msgstr "Fénykép mentése"
 
 #: src/direct/DirectPhotoPage.vala:57
-msgid "Save _As..."
+#| msgid "Save _As"
+msgid "Save _As…"
 msgstr "Men_tés másként…"
 
 #: src/direct/DirectPhotoPage.vala:58
@@ -4294,7 +4299,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "%s események"
@@ -4348,7 +4353,8 @@ msgid "Flagged"
 msgstr "Megjelölve"
 
 #: src/library/ImportQueuePage.vala:8
-msgid "Importing..."
+#| msgid "Importing"
+msgid "Importing…"
 msgstr "Importálás…"
 
 #: src/library/ImportQueuePage.vala:67
@@ -4360,7 +4366,8 @@ msgid "Stop importing photos"
 msgstr "Fényképek importálásának leállítása"
 
 #: src/library/ImportQueuePage.vala:124
-msgid "Preparing to import..."
+#| msgid "Preparing to import"
+msgid "Preparing to import…"
 msgstr "Importálás előkészítése…"
 
 #: src/library/ImportQueuePage.vala:151
@@ -4373,7 +4380,8 @@ msgid "Last Import"
 msgstr "Utolsó importálás"
 
 #: src/library/LibraryWindow.vala:285
-msgid "_Import From Folder..."
+#| msgid "Import From Folder"
+msgid "_Import From Folder…"
 msgstr "_Importálás mappából…"
 
 #: src/library/LibraryWindow.vala:286
@@ -4381,7 +4389,8 @@ msgid "Import photos from disk to library"
 msgstr "Fényképek importálása a gyűjteménybe lemezről"
 
 #: src/library/LibraryWindow.vala:293
-msgid "Import From _Application..."
+#| msgid "Import From Application"
+msgid "Import From _Application…"
 msgstr "Importálás _alkalmazásból…"
 
 #: src/library/LibraryWindow.vala:297
@@ -4410,7 +4419,8 @@ msgstr "Fényképek és videók keresése keresőkifejezésekkel"
 
 #: src/library/LibraryWindow.vala:329 src/searches/Branch.vala:77
 #: src/sidebar/Tree.vala:199
-msgid "Ne_w Saved Search..."
+#| msgid "Ne_w Saved Search..."
+msgid "Ne_w Saved Search…"
 msgstr "Új _mentett keresés…"
 
 #: src/library/LibraryWindow.vala:351
@@ -4490,7 +4500,8 @@ msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
 #: src/library/LibraryWindow.vala:726
-msgid "Emptying Trash..."
+#| msgid "Emptying Trash..."
+msgid "Emptying Trash…"
 msgstr "Kuka ürítése…"
 
 #: src/library/LibraryWindow.vala:901
@@ -4521,19 +4532,23 @@ msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
 #: src/library/LibraryWindow.vala:1247 src/library/LibraryWindow.vala:1258
-msgid "Updating library..."
+#| msgid "Updating library..."
+msgid "Updating library…"
 msgstr "Gyűjtemény frissítése…"
 
 #: src/library/LibraryWindow.vala:1264
-msgid "Preparing to auto-import photos..."
+#| msgid "Preparing to auto-import photos..."
+msgid "Preparing to auto-import photos…"
 msgstr "Felkészülés fényképek automatikus importáláshoz…"
 
 #: src/library/LibraryWindow.vala:1269
-msgid "Auto-importing photos..."
+#| msgid "Auto-importing photos..."
+msgid "Auto-importing photos…"
 msgstr "Fényképek automatikus importálása…"
 
 #: src/library/LibraryWindow.vala:1277
-msgid "Writing metadata to files..."
+#| msgid "Writing metadata to files..."
+msgid "Writing metadata to files…"
 msgstr "Metaadatok írása a fájlokba…"
 
 #: src/library/OfflinePage.vala:8
@@ -4541,7 +4556,8 @@ msgid "Missing Files"
 msgstr "Hiányzó fájlok"
 
 #: src/library/OfflinePage.vala:106
-msgid "Deleting..."
+#| msgid "Deleting..."
+msgid "Deleting…"
 msgstr "Törlés…"
 
 #: src/library/TrashPage.vala:8
@@ -4835,7 +4851,8 @@ msgid "Image Settings"
 msgstr "Képbeállítások"
 
 #: src/Printing.vala:889
-msgid "Printing..."
+#| msgid "Printing..."
+msgid "Printing…"
 msgstr "Nyomtatás…"
 
 #: src/Printing.vala:909 src/Printing.vala:1112
@@ -5010,11 +5027,13 @@ msgid "The selected photo was successfully published."
 msgstr "A kijelölt fénykép sikeresen közzétéve."
 
 #: src/publishing/PublishingUI.vala:122
-msgid "Fetching account information..."
+#| msgid "Fetching account information..."
+msgid "Fetching account information…"
 msgstr "Fiókinformációk letöltése…"
 
 #: src/publishing/PublishingUI.vala:128
-msgid "Logging in..."
+#| msgid "Logging in..."
+msgid "Logging in…"
 msgstr "Bejelentkezés…"
 
 #: src/publishing/PublishingUI.vala:188
@@ -5301,7 +5320,8 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Kiválasztott fénykép beállítása asztalháttérként"
 
 #: src/Resources.vala:222
-msgid "Set as _Desktop Slideshow..."
+#| msgid "Set as Desktop Slideshow"
+msgid "Set as _Desktop Slideshow…"
 msgstr "Beállítás asztali _diavetítésként…"
 
 #: src/Resources.vala:224
@@ -5321,7 +5341,8 @@ msgid "Redo"
 msgstr "Újra"
 
 #: src/Resources.vala:230
-msgid "Re_name Event..."
+#| msgid "Rename Event"
+msgid "Re_name Event…"
 msgstr "Esemé_ny átnevezése…"
 
 #: src/Resources.vala:233
@@ -5491,15 +5512,18 @@ msgid "Make a duplicate of the photo"
 msgstr "Másolat készítése a fényképről"
 
 #: src/Resources.vala:290
-msgid "_Export..."
-msgstr "_Exportálás…"
+#| msgid "Export"
+msgid "_Export…"
+msgstr "E_xportálás…"
 
 #: src/Resources.vala:292
-msgid "_Print..."
+#| msgid "_Print"
+msgid "_Print…"
 msgstr "_Nyomtatás…"
 
 #: src/Resources.vala:294
-msgid "Pu_blish..."
+#| msgid "Publish"
+msgid "Pu_blish…"
 msgstr "Kö_zzététel…"
 
 #: src/Resources.vala:296
@@ -5507,7 +5531,9 @@ msgid "Publish to various websites"
 msgstr "Közzététel különböző weboldalakon"
 
 #: src/Resources.vala:298
-msgid "Edit _Title..."
+#| msgctxt "Dialog Title"
+#| msgid "Edit Title"
+msgid "Edit _Title…"
 msgstr "_Cím szerkesztése…"
 
 #. Button label
@@ -5517,7 +5543,8 @@ msgid "Edit Title"
 msgstr "Cím szerkesztése"
 
 #: src/Resources.vala:302
-msgid "Edit _Comment..."
+#| msgid "Edit Comment"
+msgid "Edit _Comment…"
 msgstr "Megjegyzés s_zerkesztése…"
 
 #. Button label
@@ -5526,11 +5553,13 @@ msgid "Edit Comment"
 msgstr "A megjegyzés szerkesztése"
 
 #: src/Resources.vala:306
-msgid "Edit Event _Comment..."
+#| msgid "Edit Event Comment"
+msgid "Edit Event _Comment…"
 msgstr "_Eseménymegjegyzés szerkesztése…"
 
 #: src/Resources.vala:309
-msgid "_Adjust Date and Time..."
+#| msgid "Adjust Date and Time"
+msgid "_Adjust Date and Time…"
 msgstr "_Dátum és idő módosítása…"
 
 #: src/Resources.vala:310
@@ -5538,12 +5567,16 @@ msgid "Adjust Date and Time"
 msgstr "Dátum és idő módosítása"
 
 #: src/Resources.vala:312
-msgid "Add _Tags..."
+#| msgctxt "Dialog Title"
+#| msgid "Add Tags"
+msgid "Add _Tags…"
 msgstr "_Címkék hozzáadása…"
 
 #: src/Resources.vala:313
-msgid "_Add Tags..."
-msgstr "Címkék hozzáadása…"
+#| msgctxt "Dialog Title"
+#| msgid "Add Tags"
+msgid "_Add Tags…"
+msgstr "Címkék _hozzáadása…"
 
 #. Dialog title
 #: src/Resources.vala:315
@@ -5560,15 +5593,18 @@ msgid "Open With RA_W Editor"
 msgstr "Megnyitás RA_W szerkesztővel"
 
 #: src/Resources.vala:323
-msgid "Send _To..."
+#| msgid "Send To"
+msgid "Send _To…"
 msgstr "Kül_dés…"
 
 #: src/Resources.vala:324
-msgid "Send T_o..."
-msgstr "Küldés _célja…"
+#| msgid "Send To"
+msgid "Send T_o…"
+msgstr "_Küldés…"
 
 #: src/Resources.vala:326
-msgid "_Find..."
+#| msgid "_Find"
+msgid "_Find…"
 msgstr "_Keresés…"
 
 #: src/Resources.vala:327
@@ -5625,7 +5661,8 @@ msgstr "Címke törlése"
 
 #: src/Resources.vala:366
 #, c-format
-msgid "Re_name Tag \"%s\"..."
+#| msgid "Re_name Tag \"%s\"..."
+msgid "Re_name Tag \"%s\"…"
 msgstr "„%s” címke át_nevezése…"
 
 #: src/Resources.vala:370
@@ -5634,11 +5671,13 @@ msgid "Rename Tag \"%s\" to \"%s\""
 msgstr "„%s” címke átnevezése erre: „%s”"
 
 #: src/Resources.vala:373
-msgid "_Rename..."
+#| msgid "_Rename..."
+msgid "_Rename…"
 msgstr "Át_nevezés…"
 
 #: src/Resources.vala:375
-msgid "Modif_y Tags..."
+#| msgid "Modify Tags"
+msgid "Modif_y Tags…"
 msgstr "Cí_mkék módosítása…"
 
 #: src/Resources.vala:376
@@ -5705,11 +5744,13 @@ msgid "Delete Search"
 msgstr "Keresés törlése"
 
 #: src/Resources.vala:410
-msgid "_Edit..."
+#| msgid "_Edit"
+msgid "_Edit…"
 msgstr "S_zerkesztés…"
 
 #: src/Resources.vala:411
-msgid "Re_name..."
+#| msgid "Re_name..."
+msgid "Re_name…"
 msgstr "Át_nevezés…"
 
 #: src/Resources.vala:414
@@ -6078,7 +6119,8 @@ msgid "Use a saved search to filter items in the current view"
 msgstr "Mentett keresés használata a jelenlegi nézetben történő szűréshez"
 
 #: src/sidebar/Tree.vala:203
-msgid "New _Tag..."
+#| msgid "New _Tag..."
+msgid "New _Tag…"
 msgstr "Új _címke…"
 
 #: src/SlideshowPage.vala:49 src/SlideshowPage.vala:183
@@ -6344,3 +6386,69 @@ msgstr "_Cím megjelenítése"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "másodperc"
+
+#~ msgid "Save Details..."
+#~ msgstr "Részletek mentése…"
+
+#~ msgid "Save _As..."
+#~ msgstr "Men_tés másként…"
+
+#~ msgid "Importing..."
+#~ msgstr "Importálás…"
+
+#~ msgid "Preparing to import..."
+#~ msgstr "Importálás előkészítése…"
+
+#~ msgid "_Import From Folder..."
+#~ msgstr "_Importálás mappából…"
+
+#~ msgid "Import From _Application..."
+#~ msgstr "Importálás _alkalmazásból…"
+
+#~ msgid "Set as _Desktop Slideshow..."
+#~ msgstr "Beállítás asztali _diavetítésként…"
+
+#~ msgid "Re_name Event..."
+#~ msgstr "Esemé_ny átnevezése…"
+
+#~ msgid "_Export..."
+#~ msgstr "_Exportálás…"
+
+#~ msgid "_Print..."
+#~ msgstr "_Nyomtatás…"
+
+#~ msgid "Pu_blish..."
+#~ msgstr "Kö_zzététel…"
+
+#~ msgid "Edit _Title..."
+#~ msgstr "_Cím szerkesztése…"
+
+#~ msgid "Edit _Comment..."
+#~ msgstr "Megjegyzés s_zerkesztése…"
+
+#~ msgid "Edit Event _Comment..."
+#~ msgstr "_Eseménymegjegyzés szerkesztése…"
+
+#~ msgid "_Adjust Date and Time..."
+#~ msgstr "_Dátum és idő módosítása…"
+
+#~ msgid "Add _Tags..."
+#~ msgstr "_Címkék hozzáadása…"
+
+#~ msgid "_Add Tags..."
+#~ msgstr "Címkék hozzáadása…"
+
+#~ msgid "Send _To..."
+#~ msgstr "Kül_dés…"
+
+#~ msgid "Send T_o..."
+#~ msgstr "Küldés _célja…"
+
+#~ msgid "_Find..."
+#~ msgstr "_Keresés…"
+
+#~ msgid "Modif_y Tags..."
+#~ msgstr "Cí_mkék módosítása…"
+
+#~ msgid "_Edit..."
+#~ msgstr "S_zerkesztés…"
