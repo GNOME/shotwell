@@ -455,7 +455,7 @@ public class CameraAccumulator : Object, Core.TrackerAccumulator {
 }
 
 public class ImportPage : CheckerboardPage {
-    private const string UNMOUNT_FAILED_MSG = _("Unable to unmount camera.  Try unmounting the camera from the file manager.");
+    private const string UNMOUNT_FAILED_MSG = _("Unable to unmount camera. Try unmounting the camera from the file manager.");
     
     private class ImportViewManager : ViewManager {
         private ImportPage owner;
@@ -1010,7 +1010,7 @@ public class ImportPage : CheckerboardPage {
                 
                 if (mount != null) {
                     // it's mounted, offer to unmount for the user
-                    string mounted_message = _("Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?");
+                    string mounted_message = _("Shotwell needs to unmount the camera from the filesystem in order to access it. Continue?");
 
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), 
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
@@ -1026,7 +1026,7 @@ public class ImportPage : CheckerboardPage {
                         unmount_camera(mount);
                     }
                 } else {
-                    string locked_message = _("The camera is locked by another application.  Shotwell can only access the camera when it’s unlocked.  Please close any other application using the camera and try again.");
+                    string locked_message = _("The camera is locked by another application. Shotwell can only access the camera when it’s unlocked. Please close any other application using the camera and try again.");
 
                     // it's not mounted, so another application must have it locked
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),

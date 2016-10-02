@@ -653,7 +653,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public static void database_error(DatabaseError err) {
-        panic(_("A fatal error occurred when accessing Shotwell’s library.  Shotwell cannot continue.\n\n%s").printf(
+        panic(_("A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n\n%s").printf(
             err.message));
     }
     

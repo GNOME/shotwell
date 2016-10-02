@@ -57,7 +57,7 @@ namespace Publishing.Flickr {
 
 internal const string SERVICE_NAME = "Flickr";
 internal const string SERVICE_WELCOME_MESSAGE = 
-    _("You are not currently logged into Flickr.\n\nClick Log in to log into Flickr in your Web browser.  You will have to authorize Shotwell Connect to link to your Flickr account.");
+    _("You are not currently logged into Flickr.\n\nClick Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account.");
 internal const string RESTART_ERROR_MESSAGE = 
     _("You have already logged in and out of Flickr during this Shotwell session.\nTo continue publishing to Flickr, quit and restart Shotwell, then try publishing again.");
 internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";

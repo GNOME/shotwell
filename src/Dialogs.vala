@@ -13,8 +13,8 @@ public bool confirm_delete_tag(Tag tag) {
     if (count == 0)
         return true;
     string msg = ngettext(
-        "This will remove the tag “%s” from one photo.  Continue?",
-        "This will remove the tag “%s” from %d photos.  Continue?",
+        "This will remove the tag “%s” from one photo. Continue?",
+        "This will remove the tag “%s” from %d photos. Continue?",
         count).printf(tag.get_user_visible_name(), count);
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
@@ -22,7 +22,7 @@ public bool confirm_delete_tag(Tag tag) {
 }
 
 public bool confirm_delete_saved_search(SavedSearch search) {
-    string msg = _("This will remove the saved search “%s”.  Continue?")
+    string msg = _("This will remove the saved search “%s”. Continue?")
         .printf(search.get_name());
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
@@ -1414,8 +1414,8 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
            
     string headline = (count == 1) ? _("Revert External Edit?") : _("Revert External Edits?");
     string msg = ngettext(
-        "This will destroy all changes made to the external file.  Continue?",
-        "This will destroy all changes made to %d external files.  Continue?",
+        "This will destroy all changes made to the external file. Continue?",
+        "This will destroy all changes made to %d external files. Continue?",
         count).printf(count);
 
     string action = (count == 1) ? _("Re_vert External Edit") : _("Re_vert External Edits");
@@ -1439,8 +1439,8 @@ public bool remove_offline_dialog(Gtk.Window owner, int count) {
         return false;
     
     string msg = ngettext(
-        "This will remove the photo from the library.  Continue?",
-        "This will remove %d photos from the library.  Continue?",
+        "This will remove the photo from the library. Continue?",
+        "This will remove %d photos from the library. Continue?",
         count).printf(count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
@@ -2716,16 +2716,16 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     
     string? user_message = null;
     if ((!photos.is_empty) && (!videos.is_empty)) {
-        user_message = ngettext("This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        user_message = ngettext("This will remove the photo/video from your Shotwell library. Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos/videos from your Shotwell library. Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
              sources.size).printf(sources.size);
     } else if (!videos.is_empty) {
-        user_message = ngettext("This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        user_message = ngettext("This will remove the video from your Shotwell library. Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d videos from your Shotwell library. Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
              sources.size).printf(sources.size);
     } else {
-        user_message = ngettext("This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        user_message = ngettext("This will remove the photo from your Shotwell library. Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos from your Shotwell library. Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
              sources.size).printf(sources.size);
     }
     
