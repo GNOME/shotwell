@@ -2756,8 +2756,8 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     int num_not_removed = not_removed_photos.size + not_removed_videos.size;
     if (delete_backing && num_not_removed > 0) {
         string not_deleted_message = 
-            ngettext("The photo or video cannot be moved to your desktop trash.  Delete this file?",
-                "%d photos/videos cannot be moved to your desktop trash.  Delete these files?",
+            ngettext("The photo or video cannot be moved to your desktop trash. Delete this file?",
+                "%d photos/videos cannot be moved to your desktop trash. Delete these files?",
                 num_not_removed).printf(num_not_removed);
         Gtk.ResponseType result_delete = remove_from_filesystem_dialog(AppWindow.get_instance(), 
             dialog_title, not_deleted_message);
