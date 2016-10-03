@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-29 21:07+0000\n"
-"PO-Revision-Date: 2016-09-30 07:40+0200\n"
+"POT-Creation-Date: 2016-10-02 19:45+0000\n"
+"PO-Revision-Date: 2016-10-03 11:39+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -44,7 +44,7 @@ msgid ""
 "desktop. It allows you to import photos from your camera or disk, organize "
 "them by date and subject matter, even ratings. It also offers basic photo "
 "editing, like crop, red-eye correction, color adjustments, and straighten. "
-"Shotwell's non-destructive photo editor does not alter your master photos, "
+"Shotwell’s non-destructive photo editor does not alter your master photos, "
 "making it easy to experiment and correct errors."
 msgstr ""
 "Shotwell je rychlá a na obsluhu jednoduchá aplikace pro správu fotografií v "
@@ -334,7 +334,7 @@ msgstr "Zobrazovat hodnocení fotografií"
 
 #: misc/org.yorba.shotwell.gschema.xml:77
 msgid ""
-"True if a photo's rating should be displayed as overlaid trinket, false "
+"True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise."
 msgstr "Zapnuto, když se má zobrazovat hodnocení jako překrývající doplněk."
 
@@ -481,12 +481,12 @@ msgid "A grayscale color for use as the background color."
 msgstr "Odstín šedé, který se má použít jako barva pozadí."
 
 #: misc/org.yorba.shotwell.gschema.xml:166
-msgid "Selection state of \"hide photos\" option"
+msgid "Selection state of “hide photos” option"
 msgstr "Stav volby „Skrýt fotky“"
 
 #: misc/org.yorba.shotwell.gschema.xml:167
 msgid ""
-"Last used selection state of the \"hide photos already imported\" option in "
+"Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
 "Poslední použitý stav volby „Skrýt již naimportované fotky“ na stránce "
@@ -677,7 +677,7 @@ msgstr ""
 "pro ořez."
 
 #: misc/org.yorba.shotwell.gschema.xml:293
-msgid "Most-recently-used crop custom aspect ratio's numerator."
+msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgstr "Čitatel z posledního použitého vlastního poměru stran pro ořez"
 
 #: misc/org.yorba.shotwell.gschema.xml:294
@@ -689,7 +689,7 @@ msgstr ""
 "zadaném uživatelem pro ořez."
 
 #: misc/org.yorba.shotwell.gschema.xml:298
-msgid "Most-recently-used crop custom aspect ratio's denominator."
+msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgstr "Jmenovatel z posledního použitého vlastního poměru stran pro ořez"
 
 #: misc/org.yorba.shotwell.gschema.xml:299
@@ -1351,7 +1351,7 @@ msgstr ""
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Dočasný soubor potřebný pro zveřejnění není k dispozici"
 
-#: plugins/common/RESTSupport.vala:1157
+#: plugins/common/RESTSupport.vala:1109
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1469,7 +1469,7 @@ msgstr "Jít _zpět"
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
 #: ui/shotwell.ui:1627
-msgid "_Login"
+msgid "_Log in"
 msgstr "_Přihlásit se"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:34
@@ -1575,8 +1575,8 @@ msgstr "Výchozí složka Shotwell"
 msgid ""
 "\n"
 "\n"
-"The file \"%s\" may not be supported by or may be too large for this "
-"instance of Gallery3."
+"The file “%s” may not be supported by or may be too large for this instance "
+"of Gallery3."
 msgstr ""
 "\n"
 "\n"
@@ -1595,7 +1595,7 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
 #, c-format
 msgid ""
-"A file required for publishing is unavailable. Publishing to %s can't "
+"A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
 msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na %s nemůže "
@@ -1664,8 +1664,8 @@ msgstr "Za_pamatovat"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:107
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:151
-msgid "Login"
-msgstr "Přihlásit"
+msgid "Log in"
+msgstr "Přihlásit se"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
@@ -1691,7 +1691,7 @@ msgid "Open target _album in browser"
 msgstr "Otevřít cílové _album v prohlížeči"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-msgid "Copyright (C) 2013 rajce.net"
+msgid "Copyright © 2013 rajce.net"
 msgstr "Copyright © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
@@ -1741,28 +1741,28 @@ msgstr "Copyright 2012 BJA Electronics"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1231
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
-msgid "500 x 375 pixels"
+msgid "500 × 375 pixels"
 msgstr "500 × 375 pixelů"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1232
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
-msgid "1024 x 768 pixels"
+msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pixelů"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 x 853 pixels"
+msgid "1280 × 853 pixels"
 msgstr "1280 × 853 pixelů"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
 msgstr "„%s“ není platná odpověď na požadavek ověření protokolu OAuth"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
 msgid ""
-"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start (): Nelze spustit a tuto zveřejňovací službu nelze "
 "restartovat."
@@ -1804,7 +1804,7 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Navštivte webové stránky Yandex.Fotki"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:658
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Momentálně nejste k Yandex.Fotki přihlášeni."
 
@@ -1829,7 +1829,7 @@ msgid "Public"
 msgstr "Veřejné"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:162
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1194
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1144
 msgid "Friends"
 msgstr "Přátelé"
 
@@ -1847,7 +1847,7 @@ msgid "Create a _new album named:"
 msgstr "Vytvořit _nové album s názvem:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1034
+#: plugins/shotwell-publishing/FacebookPublishing.vala:984
 msgid "Upload _size:"
 msgstr "Nahrávaná veliko_st:"
 
@@ -1875,7 +1875,7 @@ msgstr "Připojení Shotwell"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
+"If you don’t yet have a Facebook account, you can create one during the "
 "login process. During login, Shotwell Connect may ask you for permission to "
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
@@ -1908,23 +1908,23 @@ msgid "Large (2048 pixels)"
 msgstr "Velké (2048 pixelů)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:255
-msgid "Testing connection to Facebook..."
+msgid "Testing connection to Facebook…"
 msgstr "Testuje se připojení k Facebooku…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
 #: plugins/shotwell-publishing/PicasaPublishing.vala:379
-msgid "Creating album..."
+msgid "Creating album…"
 msgstr "Vytváří se album…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
-"A file required for publishing is unavailable. Publishing to Facebook can't "
+"A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
 msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Facebook "
 "nemůže pokračovat."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1032
+#: plugins/shotwell-publishing/FacebookPublishing.vala:982
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -1933,16 +1933,16 @@ msgstr ""
 "Jste přihlášeni k Facebooku jako %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1033
+#: plugins/shotwell-publishing/FacebookPublishing.vala:983
 msgid "Where would you like to publish the selected photos?"
 msgstr "Kde chcete vybrané fotografie zveřejnit?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1193
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1143
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Just me"
 msgstr "mě výhradně"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1195
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1145
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1209
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
 msgid "Everyone"
@@ -1967,7 +1967,7 @@ msgstr "Pokračova_t"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"Click Login to log into Flickr in your Web browser.  You will have to "
+"Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Momentálně nejste ke službě Flickr přihlášeni.\n"
@@ -1987,20 +1987,20 @@ msgstr ""
 "zkuste zveřejnění znovu."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:374
-msgid "Preparing for login..."
+msgid "Preparing for login…"
 msgstr "Připravuje se přihlášení…"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: plugins/shotwell-publishing/FlickrPublishing.vala:594
 msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can't "
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Flickr nemůže "
 "pokračovat."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:457
-msgid "Verifying authorization..."
+msgid "Verifying authorization…"
 msgstr "Ověřuje se autorizace…"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1152
@@ -2060,12 +2060,12 @@ msgstr "přátele výhradně"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1233
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
-msgid "2048 x 1536 pixels"
+msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pixelů"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1234
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
-msgid "4096 x 3072 pixels"
+msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pixelů"
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
@@ -2080,8 +2080,8 @@ msgstr "Předvolená veliko_st fotek:"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"Click Login to log into Picasa Web Albums in your Web browser. You will have "
-"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+"Click Log in to log into Picasa Web Albums in your Web browser. You will "
+"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
 "Nejste přihlášeni ke službě Picasa Web Albums.\n"
 "\n"
@@ -2091,7 +2091,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
-"A file required for publishing is unavailable. Publishing to Picasa can't "
+"A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
 msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Picasa nemůže "
@@ -2108,19 +2108,19 @@ msgid "Videos will appear in:"
 msgstr "Videa se objeví:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:746
-msgid "Small (640 x 480 pixels)"
+msgid "Small (640 × 480 pixels)"
 msgstr "malá (640 × 480 pixelů)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:747
-msgid "Medium (1024 x 768 pixels)"
+msgid "Medium (1024 × 768 pixels)"
 msgstr "střední (1024 × 768 pixelů)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:748
-msgid "Recommended (1600 x 1200 pixels)"
+msgid "Recommended (1600 × 1200 pixels)"
 msgstr "doporučená (1600 × 1200 pixelů)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:749
-msgid "Google+ (2048 x 1536 pixels)"
+msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 pixelů)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:750
@@ -2180,7 +2180,7 @@ msgstr "Zveřejnit"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:747
 #, c-format
-msgid "Creating album %s..."
+msgid "Creating album %s…"
 msgstr "Vytváří se album %s…"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:920
@@ -2247,7 +2247,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:363
 msgid ""
-"A file required for publishing is unavailable. Publishing to Youtube can't "
+"A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Youtube "
@@ -2260,7 +2260,7 @@ msgstr "Jste přihlášeni ke službě YouTube jako %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:464
 #, c-format
-msgid "Videos will appear in '%s'"
+msgid "Videos will appear in “%s”"
 msgstr "Videa se objeví v „%s“"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:496
@@ -2392,7 +2392,7 @@ msgstr "_Zrušit"
 #: src/AppWindow.vala:656
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
@@ -2498,7 +2498,7 @@ msgstr "RAW + JPEG"
 
 #: src/camera/ImportPage.vala:458
 msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+"Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
 "Nepodařilo se odpojit fotoaparát. Pokuste se odpojit fotoaparát pomocí "
 "správce souborů."
@@ -2550,7 +2550,7 @@ msgstr "Importovat všechny fotografie do knihovny"
 #: src/camera/ImportPage.vala:1013
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
+"it. Continue?"
 msgstr ""
 "Shotwell potřebuje kvůli přístupu odpojit fotoaparát ze souborového systému. "
 "Pokračovat?"
@@ -2565,8 +2565,8 @@ msgstr "Odpojte prosím fotoaparát."
 
 #: src/camera/ImportPage.vala:1029
 msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
+"The camera is locked by another application. Shotwell can only access the "
+"camera when it’s unlocked. Please close any other application using the "
 "camera and try again."
 msgstr ""
 "Fotoaparát je používán jinou aplikací. Shotwell může použít jen fotoaparát, "
@@ -2832,7 +2832,7 @@ msgstr "Vytvořit štítek"
 
 #: src/Commands.vala:1695
 #, c-format
-msgid "Move Tag \"%s\""
+msgid "Move Tag “%s”"
 msgstr "Přesunout štítek „%s“"
 
 #: src/Commands.vala:2347
@@ -2893,7 +2893,7 @@ msgstr "Databáze %s"
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
-msgid "Importing from %s can't continue because an error occurred:"
+msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "Import z %s nemůže pokračovat kvůli chybě:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
@@ -2992,8 +2992,8 @@ msgstr "Nelze připravit prezentaci na ploše: %s"
 
 #: src/Dialogs.vala:16
 #, c-format
-msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgid "This will remove the tag “%s” from one photo. Continue?"
+msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Tím odstraníte štítek „%s“ z jedné fotografie. Pokračovat?"
 msgstr[1] "Tím odstraníte štítek „%s“ ze %d fotografií. Pokračovat?"
 msgstr[2] "Tím odstraníte štítek „%s“ z %d fotografií. Pokračovat?"
@@ -3006,7 +3006,7 @@ msgstr "S_mazat"
 
 #: src/Dialogs.vala:25
 #, c-format
-msgid "This will remove the saved search \"%s\".  Continue?"
+msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Tím bude odstraněno uložené hledání „%s“. Pokračovat?"
 
 #: src/Dialogs.vala:36
@@ -3042,7 +3042,7 @@ msgstr "Export videa"
 #: src/Dialogs.vala:116
 #, c-format
 msgid ""
-"Shotwell couldn't create a file for editing this photo because you do not "
+"Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
 "Shotwell nemůže vytvořit soubor pro úpravy této fotografie, protože nemá "
@@ -3158,7 +3158,7 @@ msgstr "chybová zpráva:"
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
 #: src/Dialogs.vala:579
-msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr "Soubory nebyly importovány, protože nejde o fotografie nebo videa:"
 
 #.
@@ -3166,7 +3166,7 @@ msgstr "Soubory nebyly importovány, protože nejde o fotografie nebo videa:"
 #.
 #: src/Dialogs.vala:594
 msgid ""
-"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
 msgstr ""
 "Fotografie/videa nelze importovat, protože nejde o formát, který Shotwell "
@@ -3177,7 +3177,7 @@ msgstr ""
 #.
 #: src/Dialogs.vala:609
 msgid ""
-"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr ""
 "Fotografie/videa nelze importovat, protože Shotwell je nemůže zkopírovat do "
@@ -3186,7 +3186,7 @@ msgstr ""
 #: src/Dialogs.vala:613
 #, c-format
 msgid ""
-"couldn't copy %s\n"
+"couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
 "nelze zkopírovat %s\n"
@@ -3564,9 +3564,9 @@ msgstr "Vrátit zpět externí úpravy?"
 
 #: src/Dialogs.vala:1417
 #, c-format
-msgid "This will destroy all changes made to the external file.  Continue?"
+msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+"This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
 "Tím se odstraní všechny změny provedené v externím souboru. Pokračovat?"
 msgstr[1] ""
@@ -3584,8 +3584,8 @@ msgstr "_Vrátit zpět externí úpravy"
 
 #: src/Dialogs.vala:1442
 #, c-format
-msgid "This will remove the photo from the library.  Continue?"
-msgid_plural "This will remove %d photos from the library.  Continue?"
+msgid "This will remove the photo from the library. Continue?"
+msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Tím se fotka odebere z knihovny. Pokračovat?"
 msgstr[1] "Tím se odeberou %d fotky z knihovny. Pokračovat?"
 msgstr[2] "Tím se odebere %d fotek z knihovny. Pokračovat?"
@@ -3764,7 +3764,7 @@ msgid "You can also import photos in any of these ways:"
 msgstr "Můžete také některým z těchto způsobů importovat fotky:"
 
 #: src/Dialogs.vala:2146
-msgid "_Don't show this message again"
+msgid "_Don’t show this message again"
 msgstr "Příště _nezobrazovat"
 
 #: src/Dialogs.vala:2181
@@ -3844,13 +3844,13 @@ msgstr "Odstraňují se fotografie z knihovny"
 #: src/Dialogs.vala:2719
 #, c-format
 msgid ""
-"This will remove the photo/video from your Shotwell library.  Would you also "
+"This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos/videos from your Shotwell library.  Would you "
-"also like to move the files to your desktop trash?\n"
+"This will remove %d photos/videos from your Shotwell library. Would you also "
+"like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -3872,12 +3872,12 @@ msgstr[2] ""
 #: src/Dialogs.vala:2723
 #, c-format
 msgid ""
-"This will remove the video from your Shotwell library.  Would you also like "
+"This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d videos from your Shotwell library.  Would you also like "
+"This will remove %d videos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -3900,12 +3900,12 @@ msgstr[2] ""
 #: src/Dialogs.vala:2727
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
+"This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
+"This will remove %d photos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -4146,83 +4146,83 @@ msgid "-"
 msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:758
-msgid "SD Video (4 : 3)"
+msgid "SD Video (4 ∶ 3)"
 msgstr "SD video (4:3)"
 
 #: src/editing_tools/EditingTools.vala:759
-msgid "HD Video (16 : 9)"
+msgid "HD Video (16 ∶ 9)"
 msgstr "HD video (16:9)"
 
 #: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
-msgid "Wallet (2 x 3 in.)"
+msgid "Wallet (2 × 3 in.)"
 msgstr "Do peněženky (2 × 3 palce)"
 
 #: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
-msgid "Notecard (3 x 5 in.)"
+msgid "Notecard (3 × 5 in.)"
 msgstr "Poznámková karta (3 × 5 palců)"
 
 #: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
-msgid "4 x 6 in."
+msgid "4 × 6 in."
 msgstr "4 × 6 palců"
 
 #: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
-msgid "5 x 7 in."
+msgid "5 × 7 in."
 msgstr "5 × 7 palců"
 
 #: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
-msgid "8 x 10 in."
+msgid "8 × 10 in."
 msgstr "8 × 10 palců"
 
 #: src/editing_tools/EditingTools.vala:766
-msgid "Letter (8.5 x 11 in.)"
+msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8,5 x 11 palců)"
 
 #: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
-msgid "11 x 14 in."
+msgid "11 × 14 in."
 msgstr "11 × 14 palců"
 
 #: src/editing_tools/EditingTools.vala:768
-msgid "Tabloid (11 x 17 in.)"
+msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 palců)"
 
 #: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
-msgid "16 x 20 in."
+msgid "16 × 20 in."
 msgstr "16 × 20 palců"
 
 #: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
-msgid "Metric Wallet (9 x 13 cm)"
+msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Do peněženky (9 × 13 cm)"
 
 #: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
-msgid "Postcard (10 x 15 cm)"
+msgid "Postcard (10 × 15 cm)"
 msgstr "Pohlednice (10 × 15 cm)"
 
 #: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
-msgid "13 x 18 cm"
+msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
 #: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
-msgid "18 x 24 cm"
+msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
 #: src/editing_tools/EditingTools.vala:775
-msgid "A4 (210 x 297 mm)"
+msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
 #: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
-msgid "20 x 30 cm"
+msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
 #: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
-msgid "24 x 40 cm"
+msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
-msgid "30 x 40 cm"
+msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:779
-msgid "A3 (297 x 420 mm)"
+msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
 
 #: src/editing_tools/EditingTools.vala:1872 src/Properties.vala:395
@@ -4401,7 +4401,7 @@ msgstr "Exportuje se"
 
 #: src/Exporter.vala:317
 #, c-format
-msgid "File %s already exists.  Replace?"
+msgid "File %s already exists. Replace?"
 msgstr "Soubor %s již existuje. Přepsat?"
 
 #: src/Exporter.vala:319
@@ -4653,9 +4653,9 @@ msgstr "Mažou se fotografie"
 #: src/main.vala:54
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please use the latest version of Shotwell."
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please use the latest version of Shotwell."
 msgstr ""
 "Vaše knihovna fotografií není kompatibilní s touto verzí aplikace Shotwell. "
 "Knihovna je vytvořena ve verzi %s (schéma %d). Spuštěná verze je %s (schéma "
@@ -4665,7 +4665,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
 "Aplikaci Shotwell se nepodařilo aktualizovat knihovnu fotografií z verze %s "
@@ -4675,9 +4675,9 @@ msgstr ""
 #: src/main.vala:65
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please clear your library by deleting %s and re-import your "
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
 "Vaše knihovna fotografií není kompatibilní s touto verzí aplikace Shotwell. "
@@ -4686,7 +4686,7 @@ msgstr ""
 
 #: src/main.vala:71
 #, c-format
-msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Neznámá chyba při přístupu k databázi Shotwell: %s"
 
 #: src/main.vala:104
@@ -4694,7 +4694,7 @@ msgid "Loading Shotwell"
 msgstr "Načítá se Shotwell"
 
 #: src/main.vala:294
-msgid "Path to Shotwell's private data"
+msgid "Path to Shotwell’s private data"
 msgstr "Cesta k soukromým datům aplikace Shotwell"
 
 #: src/main.vala:294
@@ -4706,11 +4706,11 @@ msgid "Do not monitor library directory at runtime for changes"
 msgstr "Nesledovat průběžné změny ve složce s knihovnou"
 
 #: src/main.vala:302
-msgid "Don't display startup progress meter"
+msgid "Don’t display startup progress meter"
 msgstr "Při spuštění nezobrazovat ukazatel průběhu"
 
 #: src/main.vala:306
-msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Zobrazit verzi aplikace"
 
 #. init GTK (valac has already called g_threads_init())
@@ -4720,7 +4720,7 @@ msgstr "[SOUBOR]"
 
 #: src/main.vala:342
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Spuštěním „%s --help“ si zobrazíte všechny přepínače příkazového řádku.\n"
 
@@ -4762,7 +4762,7 @@ msgid "Display the comment of each photo"
 msgstr "U každé fotografie zobrazit komentář"
 
 #: src/MediaPage.vala:470
-msgid "Display each photo's tags"
+msgid "Display each photo’s tags"
 msgstr "U každé fotografie zobrazit štítky"
 
 #: src/MediaPage.vala:486
@@ -5071,7 +5071,7 @@ msgstr "Nahrává se %d z %d"
 
 #: src/publishing/PublishingPluginHost.vala:81
 #, c-format
-msgid "Publishing to %s can't continue because an error occurred:"
+msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "Zveřejnění na %s nemůže pokračovat kvůli chybě:"
 
 #: src/publishing/PublishingPluginHost.vala:84
@@ -5294,7 +5294,7 @@ msgid "Enhance"
 msgstr "Vylepšit"
 
 #: src/Resources.vala:188
-msgid "Automatically improve the photo's appearance"
+msgid "Automatically improve the photo’s appearance"
 msgstr "Automaticky vylepšit vzhled fotografie"
 
 #: src/Resources.vala:190
@@ -5330,7 +5330,7 @@ msgid "Crop"
 msgstr "Oříznout"
 
 #: src/Resources.vala:200
-msgid "Crop the photo's size"
+msgid "Crop the photo’s size"
 msgstr "Oříznout rozměry fotografie"
 
 #: src/Resources.vala:203
@@ -5362,7 +5362,7 @@ msgid "Adjust"
 msgstr "Upravit"
 
 #: src/Resources.vala:212
-msgid "Adjust the photo's color and tone"
+msgid "Adjust the photo’s color and tone"
 msgstr "Upravit barvy a tón fotografie"
 
 #: src/Resources.vala:214
@@ -5552,7 +5552,7 @@ msgid "_Ratings"
 msgstr "_Hodnocení"
 
 #: src/Resources.vala:280
-msgid "Display each photo's rating"
+msgid "Display each photo’s rating"
 msgstr "U každé fotografie zobrazit hodnocení"
 
 #: src/Resources.vala:282
@@ -5683,13 +5683,13 @@ msgstr "Nelze spustit editor: %s"
 
 #: src/Resources.vala:340
 #, c-format
-msgid "Add Tag \"%s\""
+msgid "Add Tag “%s”"
 msgstr "Přidat štítek „%s“"
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:343
 #, c-format
-msgid "Add Tags \"%s\" and \"%s\""
+msgid "Add Tags “%s” and “%s”"
 msgstr "Přidat štítky „%s“ a „%s“"
 
 #. Undo/Redo command name (in Edit menu)
@@ -5700,12 +5700,12 @@ msgstr "Přidat štítky"
 
 #: src/Resources.vala:353
 #, c-format
-msgid "_Delete Tag \"%s\""
+msgid "_Delete Tag “%s”"
 msgstr "S_mazat štítek „%s“"
 
 #: src/Resources.vala:357
 #, c-format
-msgid "Delete Tag \"%s\""
+msgid "Delete Tag “%s”"
 msgstr "Smazat štítek „%s“"
 
 #: src/Resources.vala:360
@@ -5714,12 +5714,12 @@ msgstr "Smazat štítek"
 
 #: src/Resources.vala:366
 #, c-format
-msgid "Re_name Tag \"%s\"…"
+msgid "Re_name Tag “%s”…"
 msgstr "Přejme_novat štítek „%s“…"
 
 #: src/Resources.vala:370
 #, c-format
-msgid "Rename Tag \"%s\" to \"%s\""
+msgid "Rename Tag “%s” to “%s”"
 msgstr "Přejmenovat štítek „%s“ na „%s“"
 
 #: src/Resources.vala:373
@@ -5736,52 +5736,52 @@ msgstr "Změnit štítky"
 
 #: src/Resources.vala:379
 #, c-format
-msgid "Tag Photo as \"%s\""
+msgid "Tag Photo as “%s”"
 msgstr "Oštítkovat fotku jak „%s“"
 
 #: src/Resources.vala:379
 #, c-format
-msgid "Tag Photos as \"%s\""
+msgid "Tag Photos as “%s”"
 msgstr "Oštítkovat fotku jak „%s“"
 
 #: src/Resources.vala:383
 #, c-format
-msgid "Tag the selected photo as \"%s\""
+msgid "Tag the selected photo as “%s”"
 msgstr "Oštítkovat vybranou fotku jako „%s“"
 
 #: src/Resources.vala:384
 #, c-format
-msgid "Tag the selected photos as \"%s\""
+msgid "Tag the selected photos as “%s”"
 msgstr "Oštítkovat vybrané fotky jako „%s“"
 
 #: src/Resources.vala:388
 #, c-format
-msgid "Remove Tag \"%s\" From _Photo"
+msgid "Remove Tag “%s” From _Photo"
 msgstr "Odstranit z _fotky štítek „%s“"
 
 #: src/Resources.vala:389
 #, c-format
-msgid "Remove Tag \"%s\" From _Photos"
+msgid "Remove Tag “%s” From _Photos"
 msgstr "Odstranit z _fotek štítek „%s“"
 
 #: src/Resources.vala:393
 #, c-format
-msgid "Remove Tag \"%s\" From Photo"
+msgid "Remove Tag “%s” From Photo"
 msgstr "Odstranit z fotky šítek „%s“"
 
 #: src/Resources.vala:394
 #, c-format
-msgid "Remove Tag \"%s\" From Photos"
+msgid "Remove Tag “%s” From Photos"
 msgstr "Odstranit z fotek štítek „%s“"
 
 #: src/Resources.vala:398
 #, c-format
-msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Nelze přejmenovat šítek na „%s“, protože takový už existuje."
 
 #: src/Resources.vala:402
 #, c-format
-msgid "Unable to rename search to \"%s\" because the search already exists."
+msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Nelze přejmenovat hledání na „%s“, protože takové už existuje."
 
 #. Saved search button
@@ -5803,12 +5803,12 @@ msgstr "Přejme_novat…"
 
 #: src/Resources.vala:414
 #, c-format
-msgid "Rename Search \"%s\" to \"%s\""
+msgid "Rename Search “%s” to “%s”"
 msgstr "Přejmenovat hledání „%s“ na „%s“"
 
 #: src/Resources.vala:418
 #, c-format
-msgid "Delete Search \"%s\""
+msgid "Delete Search “%s”"
 msgstr "Smazat hledání „%s“"
 
 #: src/Resources.vala:576
@@ -5872,7 +5872,7 @@ msgid "Show in File Mana_ger"
 msgstr "Otevřít ve _správci souborů"
 
 #: src/Resources.vala:682
-msgid "Open the selected photo's directory in the file manager"
+msgid "Open the selected photo’s directory in the file manager"
 msgstr "Otevřít vybranou složku s fotografiemi ve správci souborů"
 
 #: src/Resources.vala:685
@@ -6434,3 +6434,5 @@ msgstr "Zobrazovat n_ázev"
 msgid "seconds"
 msgstr "vteřin"
 
+#~ msgid "Login"
+#~ msgstr "Přihlásit"
