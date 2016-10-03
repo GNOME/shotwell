@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-29 21:07+0000\n"
-"PO-Revision-Date: 2016-10-02 10:05+0200\n"
+"POT-Creation-Date: 2016-10-02 19:45+0000\n"
+"PO-Revision-Date: 2016-10-03 11:48+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -39,7 +39,7 @@ msgid ""
 "desktop. It allows you to import photos from your camera or disk, organize "
 "them by date and subject matter, even ratings. It also offers basic photo "
 "editing, like crop, red-eye correction, color adjustments, and straighten. "
-"Shotwell's non-destructive photo editor does not alter your master photos, "
+"Shotwell’s non-destructive photo editor does not alter your master photos, "
 "making it easy to experiment and correct errors."
 msgstr ""
 "A Shotwell egy könnyen használható, gyors fényképrendező a GNOME asztali "
@@ -332,7 +332,7 @@ msgstr "fénykép értékelések megjelenítése"
 
 #: misc/org.yorba.shotwell.gschema.xml:77
 msgid ""
-"True if a photo's rating should be displayed as overlaid trinket, false "
+"True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise."
 msgstr ""
 "Igaz, ha a fényképek értékelését meg kell jeleníteni a fényképek felett, "
@@ -482,12 +482,12 @@ msgid "A grayscale color for use as the background color."
 msgstr "Háttérszínként használandó szürkeárnyalatos szín."
 
 #: misc/org.yorba.shotwell.gschema.xml:166
-msgid "Selection state of \"hide photos\" option"
+msgid "Selection state of “hide photos” option"
 msgstr "A „Fényképek elrejtése” beállítás bejelölési állapota."
 
 #: misc/org.yorba.shotwell.gschema.xml:167
 msgid ""
-"Last used selection state of the \"hide photos already imported\" option in "
+"Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
 "A „már importált fényképek elrejtése” beállítás legutóbbi állapota az "
@@ -678,7 +678,7 @@ msgstr ""
 "menüpontot jelöli."
 
 #: misc/org.yorba.shotwell.gschema.xml:293
-msgid "Most-recently-used crop custom aspect ratio's numerator."
+msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgstr "A legutóbb használt vágás egyéni képarányának számlálója."
 
 #: misc/org.yorba.shotwell.gschema.xml:294
@@ -690,7 +690,7 @@ msgstr ""
 "egyéni vágási arány szélesség komponensét jelöli."
 
 #: misc/org.yorba.shotwell.gschema.xml:298
-msgid "Most-recently-used crop custom aspect ratio's denominator."
+msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgstr "A legutóbb használt vágás egyéni képarányának nevezője."
 
 #: misc/org.yorba.shotwell.gschema.xml:299
@@ -1334,7 +1334,7 @@ msgstr ""
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "A közzétételhez szükséges ideiglenes fájl nem érhető el"
 
-#: plugins/common/RESTSupport.vala:1157
+#: plugins/common/RESTSupport.vala:1109
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1451,7 +1451,7 @@ msgstr "_Vissza"
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
 #: ui/shotwell.ui:1627
-msgid "_Login"
+msgid "_Log in"
 msgstr "Bejele_ntkezés"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:34
@@ -1556,8 +1556,8 @@ msgstr "Shotwell alapértelmezett könyvtár"
 msgid ""
 "\n"
 "\n"
-"The file \"%s\" may not be supported by or may be too large for this "
-"instance of Gallery3."
+"The file “%s” may not be supported by or may be too large for this instance "
+"of Gallery3."
 msgstr ""
 "\n"
 "\n"
@@ -1577,7 +1577,7 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
 #, c-format
 msgid ""
-"A file required for publishing is unavailable. Publishing to %s can't "
+"A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
 msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel nem "
@@ -1646,7 +1646,7 @@ msgstr "_Megjegyzés"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:107
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:151
-msgid "Login"
+msgid "Log in"
 msgstr "Bejelentkezés"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
@@ -1673,8 +1673,8 @@ msgid "Open target _album in browser"
 msgstr "_Cél album megnyitása böngészőben"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-msgid "Copyright (C) 2013 rajce.net"
-msgstr "Copyright (C) 2013 rajce.net"
+msgid "Copyright © 2013 rajce.net"
+msgstr "Copyright © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
@@ -1723,28 +1723,28 @@ msgstr "Copyright 2012 BJA Electronics"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1231
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
-msgid "500 x 375 pixels"
-msgstr "500 x 375 képpont"
+msgid "500 × 375 pixels"
+msgstr "500 × 375 képpont"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1232
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
-msgid "1024 x 768 pixels"
-msgstr "1024 x 768 képpont"
+msgid "1024 × 768 pixels"
+msgstr "1024 × 768 képpont"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 x 853 pixels"
-msgstr "1280 x 853 képpont"
+msgid "1280 × 853 pixels"
+msgstr "1280 × 853 képpont"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
 msgstr "„%s” nem érvényes válasz OAuth hitelesítési kérésre"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
 msgid ""
-"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): nem lehet elindítani, ez a közzétevő nem "
 "indítható újra."
@@ -1786,7 +1786,7 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "A Yandex.Fotki weboldal felkeresése"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:658
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Jelenleg nincs bejelentkezve a Yandex.Fotki oldalra."
 
@@ -1811,7 +1811,7 @@ msgid "Public"
 msgstr "Nyilvános"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:162
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1194
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1144
 msgid "Friends"
 msgstr "Barátok"
 
@@ -1829,7 +1829,7 @@ msgid "Create a _new album named:"
 msgstr "Új _album létrehozása ezen a néven:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1034
+#: plugins/shotwell-publishing/FacebookPublishing.vala:984
 msgid "Upload _size:"
 msgstr "Feltöltés _mérete:"
 
@@ -1857,7 +1857,7 @@ msgstr "Shotwell kapcsolat"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
+"If you don’t yet have a Facebook account, you can create one during the "
 "login process. During login, Shotwell Connect may ask you for permission to "
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
@@ -1889,23 +1889,23 @@ msgid "Large (2048 pixels)"
 msgstr "Nagy (2048 képpont)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:255
-msgid "Testing connection to Facebook..."
+msgid "Testing connection to Facebook…"
 msgstr "Kapcsolat tesztelése a Facebookhoz…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
 #: plugins/shotwell-publishing/PicasaPublishing.vala:379
-msgid "Creating album..."
+msgid "Creating album…"
 msgstr "Album létrehozása…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
-"A file required for publishing is unavailable. Publishing to Facebook can't "
+"A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
 msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Facebookra "
 "nem folytatódhat."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1032
+#: plugins/shotwell-publishing/FacebookPublishing.vala:982
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -1914,16 +1914,16 @@ msgstr ""
 "Bejelentkezett a Facebookra %s néven.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1033
+#: plugins/shotwell-publishing/FacebookPublishing.vala:983
 msgid "Where would you like to publish the selected photos?"
 msgstr "Hová szeretné feltölteni a kijelölt fényképeket?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1193
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1143
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Just me"
 msgstr "Csak én"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1195
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1145
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1209
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
 msgid "Everyone"
@@ -1949,7 +1949,7 @@ msgstr "Foly_tatás"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"Click Login to log into Flickr in your Web browser.  You will have to "
+"Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Jelenleg nincs bejelentkezve Flickr-re\n"
@@ -1970,20 +1970,20 @@ msgstr ""
 "próbálja újra a feltöltést."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:374
-msgid "Preparing for login..."
+msgid "Preparing for login…"
 msgstr "Felkészülés a bejelentkezésre…"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: plugins/shotwell-publishing/FlickrPublishing.vala:594
 msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can't "
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Flickrre "
 "nem folytatódhat."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:457
-msgid "Verifying authorization..."
+msgid "Verifying authorization…"
 msgstr "Felhatalmazás ellenőrzése…"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1152
@@ -2040,13 +2040,13 @@ msgstr "Csak barátok"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1233
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
-msgid "2048 x 1536 pixels"
-msgstr "2048 x 1536 képpont"
+msgid "2048 × 1536 pixels"
+msgstr "2048 × 1536 képpont"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1234
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
-msgid "4096 x 3072 pixels"
-msgstr "4096 x 3072 képpont"
+msgid "4096 × 3072 pixels"
+msgstr "4096 × 3072 képpont"
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
 msgid "L_ist album in public gallery"
@@ -2060,8 +2060,8 @@ msgstr "Fénykép_méret előbeállítása:"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"Click Login to log into Picasa Web Albums in your Web browser. You will have "
-"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+"Click Log in to log into Picasa Web Albums in your Web browser. You will "
+"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
 "Jelenleg nincs bejelentkezve Picasa Webalbumokba.\n"
 "\n"
@@ -2071,7 +2071,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
-"A file required for publishing is unavailable. Publishing to Picasa can't "
+"A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
 msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Picasara "
@@ -2088,20 +2088,20 @@ msgid "Videos will appear in:"
 msgstr "A videók itt jelennek meg:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:746
-msgid "Small (640 x 480 pixels)"
-msgstr "Kicsi (640 x 480 képpont)"
+msgid "Small (640 × 480 pixels)"
+msgstr "Kicsi (640 × 480 képpont)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:747
-msgid "Medium (1024 x 768 pixels)"
-msgstr "Közepes (1024 x 768 képpont)"
+msgid "Medium (1024 × 768 pixels)"
+msgstr "Közepes (1024 × 768 képpont)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:748
-msgid "Recommended (1600 x 1200 pixels)"
-msgstr "Ajánlott (1600 x 1200 képpont)"
+msgid "Recommended (1600 × 1200 pixels)"
+msgstr "Ajánlott (1600 × 1200 képpont)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:749
-msgid "Google+ (2048 x 1536 pixels)"
-msgstr "Google+ (2048 x 1536 képpont)"
+msgid "Google+ (2048 × 1536 pixels)"
+msgstr "Google+ (2048 × 1536 képpont)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:750
 #: src/editing_tools/EditingTools.vala:756
@@ -2161,7 +2161,7 @@ msgstr "Közzététel"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:747
 #, c-format
-msgid "Creating album %s..."
+msgid "Creating album %s…"
 msgstr "%s album létrehozása…"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:920
@@ -2228,7 +2228,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:363
 msgid ""
-"A file required for publishing is unavailable. Publishing to Youtube can't "
+"A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Youtube-ra "
@@ -2241,7 +2241,7 @@ msgstr "Bejelentkezett a YouTube-ra %s néven."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:464
 #, c-format
-msgid "Videos will appear in '%s'"
+msgid "Videos will appear in “%s”"
 msgstr "A videók itt jelennek meg: „%s”"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:496
@@ -2360,7 +2360,6 @@ msgid "_Frequently Asked Questions"
 msgstr "_Gyakran ismételt kérdések"
 
 #: src/AppWindow.vala:509
-#| msgid "_Report a Problem..."
 msgid "_Report a Problem…"
 msgstr "_Hiba jelentése…"
 
@@ -2374,7 +2373,7 @@ msgstr "Mé_gse"
 #: src/AppWindow.vala:656
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
@@ -2480,7 +2479,7 @@ msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:458
 msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+"Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
 "A fényképezőgép leválasztása nem sikerült, próbálja meg a fájlkezelőből "
 "leválasztani."
@@ -2532,7 +2531,7 @@ msgstr "Minden fénykép importálása a gyűjteményébe"
 #: src/camera/ImportPage.vala:1013
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
+"it. Continue?"
 msgstr ""
 "A Shotwellnek le kell választania a fényképezőgépet a fájlrendszerről az "
 "eléréséhez. Folytatja?"
@@ -2547,8 +2546,8 @@ msgstr "Válassza le a fényképezőgépet."
 
 #: src/camera/ImportPage.vala:1029
 msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
+"The camera is locked by another application. Shotwell can only access the "
+"camera when it’s unlocked. Please close any other application using the "
 "camera and try again."
 msgstr ""
 "A fényképezőgépet egy másik alkalmazás zárolta, így a Shotwell nem tudja "
@@ -2569,12 +2568,10 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1061
-#| msgid "Unmounting..."
 msgid "Unmounting…"
 msgstr "Leválasztás…"
 
 #: src/camera/ImportPage.vala:1152
-#| msgid "Starting import, please wait..."
 msgid "Starting import, please wait…"
 msgstr "Importálás kezdése, kis türelmet…"
 
@@ -2807,7 +2804,7 @@ msgstr "Címke létrehozása"
 
 #: src/Commands.vala:1695
 #, c-format
-msgid "Move Tag \"%s\""
+msgid "Move Tag “%s”"
 msgstr "„%s” címke mozgatása"
 
 #: src/Commands.vala:2347
@@ -2868,7 +2865,7 @@ msgstr "%s adatbázis"
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
-msgid "Importing from %s can't continue because an error occurred:"
+msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "Az importálás innen: %s egy hiba miatt nem folytatódhat:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
@@ -2969,8 +2966,8 @@ msgstr "Az asztali diavetítés nem készíthető elő: %s"
 
 #: src/Dialogs.vala:16
 #, c-format
-msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgid "This will remove the tag “%s” from one photo. Continue?"
+msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Ez eltávolítja a(z) „%s” címkét egy fényképről. Folytatja?"
 msgstr[1] "Ez eltávolítja a(z) „%s” címkét %d fényképről. Folytatja?"
 
@@ -2982,7 +2979,7 @@ msgstr "_Törlés"
 
 #: src/Dialogs.vala:25
 #, c-format
-msgid "This will remove the saved search \"%s\".  Continue?"
+msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Ezzel törli a(z) „%s” mentett keresést. Folytatja?"
 
 #: src/Dialogs.vala:36
@@ -3015,7 +3012,7 @@ msgstr "Videó exportálása"
 #: src/Dialogs.vala:116
 #, c-format
 msgid ""
-"Shotwell couldn't create a file for editing this photo because you do not "
+"Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
 "A Shotwell nem tudott létrehozni fájlt a fénykép szerkesztéséhez, mert nincs "
@@ -3072,7 +3069,6 @@ msgid "Export metadata"
 msgstr "Metaadatok exportálása"
 
 #: src/Dialogs.vala:462
-#| msgid "Save Details"
 msgid "Save Details…"
 msgstr "Részletek mentése…"
 
@@ -3130,7 +3126,7 @@ msgstr "hibaüzenet:"
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
 #: src/Dialogs.vala:579
-msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Fényképként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
 
@@ -3139,7 +3135,7 @@ msgstr ""
 #.
 #: src/Dialogs.vala:594
 msgid ""
-"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
 msgstr ""
 "A Shotwell által nem értelmezhető formátumú, és emiatt nem importált "
@@ -3150,7 +3146,7 @@ msgstr ""
 #.
 #: src/Dialogs.vala:609
 msgid ""
-"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr ""
 "A Shotwell által a gyűjteménybe nem másolható, és emiatt nem importált "
@@ -3159,7 +3155,7 @@ msgstr ""
 #: src/Dialogs.vala:613
 #, c-format
 msgid ""
-"couldn't copy %s\n"
+"couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
 "%s nem másolható\n"
@@ -3506,12 +3502,11 @@ msgstr "Visszavonja a külső szerkesztéseket?"
 
 #: src/Dialogs.vala:1417
 #, c-format
-msgid "This will destroy all changes made to the external file.  Continue?"
+msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+"This will destroy all changes made to %d external files. Continue?"
 msgstr[0] "Ezzel a külső fájlon végzett minden változtatás elvész. Folytatja?"
-msgstr[1] ""
-"Ezzel a külső %d fájlon végzett minden változtatás elvész. Folytatja?"
+msgstr[1] "Ezzel %d külső fájlon végzett minden változtatás elvész. Folytatja?"
 
 #: src/Dialogs.vala:1421
 msgid "Re_vert External Edit"
@@ -3523,8 +3518,8 @@ msgstr "Külső szerkesztések _visszavonása"
 
 #: src/Dialogs.vala:1442
 #, c-format
-msgid "This will remove the photo from the library.  Continue?"
-msgid_plural "This will remove %d photos from the library.  Continue?"
+msgid "This will remove the photo from the library. Continue?"
+msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Ezzel eltávolítja a fényképet a gyűjteményből. Folytatja?"
 msgstr[1] "Ezzel eltávolít %d fényképet a gyűjteményből. Folytatja?"
 
@@ -3697,7 +3692,7 @@ msgid "You can also import photos in any of these ways:"
 msgstr "Fényképeket a következő módokon is importálhat:"
 
 #: src/Dialogs.vala:2146
-msgid "_Don't show this message again"
+msgid "_Don’t show this message again"
 msgstr "_Ne jelenjen meg ez az üzenet többé"
 
 #: src/Dialogs.vala:2181
@@ -3777,13 +3772,13 @@ msgstr "Fényképek eltávolítása a gyűjteményből"
 #: src/Dialogs.vala:2719
 #, c-format
 msgid ""
-"This will remove the photo/video from your Shotwell library.  Would you also "
+"This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos/videos from your Shotwell library.  Would you "
-"also like to move the files to your desktop trash?\n"
+"This will remove %d photos/videos from your Shotwell library. Would you also "
+"like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -3800,12 +3795,12 @@ msgstr[1] ""
 #: src/Dialogs.vala:2723
 #, c-format
 msgid ""
-"This will remove the video from your Shotwell library.  Would you also like "
+"This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d videos from your Shotwell library.  Would you also like "
+"This will remove %d videos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -3823,12 +3818,12 @@ msgstr[1] ""
 #: src/Dialogs.vala:2727
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
+"This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
+"This will remove %d photos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -3882,7 +3877,6 @@ msgid "Save photo"
 msgstr "Fénykép mentése"
 
 #: src/direct/DirectPhotoPage.vala:57
-#| msgid "Save _As"
 msgid "Save _As…"
 msgstr "Men_tés másként…"
 
@@ -4063,84 +4057,84 @@ msgid "-"
 msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:758
-msgid "SD Video (4 : 3)"
-msgstr "SD videó (4 : 3)"
+msgid "SD Video (4 ∶ 3)"
+msgstr "SD videó (4 ∶ 3)"
 
 #: src/editing_tools/EditingTools.vala:759
-msgid "HD Video (16 : 9)"
-msgstr "HD videó (16 : 9)"
+msgid "HD Video (16 ∶ 9)"
+msgstr "HD videó (16 ∶ 9)"
 
 #: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
-msgid "Wallet (2 x 3 in.)"
-msgstr "Tárca (2 x 3 hüvelyk)"
+msgid "Wallet (2 × 3 in.)"
+msgstr "Tárca (2 × 3 hüvelyk)"
 
 #: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
-msgid "Notecard (3 x 5 in.)"
-msgstr "Jegyzettömb (3 x 5 hüvelyk)"
+msgid "Notecard (3 × 5 in.)"
+msgstr "Jegyzettömb (3 × 5 hüvelyk)"
 
 #: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
-msgid "4 x 6 in."
-msgstr "4 x 6 hüvelyk"
+msgid "4 × 6 in."
+msgstr "4 × 6 hüvelyk"
 
 #: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
-msgid "5 x 7 in."
-msgstr "5 x 7 hüvelyk"
+msgid "5 × 7 in."
+msgstr "5 × 7 hüvelyk"
 
 #: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
-msgid "8 x 10 in."
-msgstr "8 x 10 hüvelyk"
+msgid "8 × 10 in."
+msgstr "8 × 10 hüvelyk"
 
 #: src/editing_tools/EditingTools.vala:766
-msgid "Letter (8.5 x 11 in.)"
-msgstr "Letter (8.5 x 11 hüvelyk)"
+msgid "Letter (8.5 × 11 in.)"
+msgstr "Letter (8.5 × 11 hüvelyk)"
 
 #: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
-msgid "11 x 14 in."
-msgstr "11 x 14 hüvelyk"
+msgid "11 × 14 in."
+msgstr "11 × 14 hüvelyk"
 
 #: src/editing_tools/EditingTools.vala:768
-msgid "Tabloid (11 x 17 in.)"
-msgstr "Tabloid (11 x 17 hüvelyk)"
+msgid "Tabloid (11 × 17 in.)"
+msgstr "Tabloid (11 × 17 hüvelyk)"
 
 #: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
-msgid "16 x 20 in."
-msgstr "16 x 20 hüvelyk"
+msgid "16 × 20 in."
+msgstr "16 × 20 hüvelyk"
 
 #: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
-msgid "Metric Wallet (9 x 13 cm)"
-msgstr "Metrikus tárca (9 x 13 cm)"
+msgid "Metric Wallet (9 × 13 cm)"
+msgstr "Metrikus tárca (9 × 13 cm)"
 
 #: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
-msgid "Postcard (10 x 15 cm)"
-msgstr "Képeslap (10 x 15 cm)"
+msgid "Postcard (10 × 15 cm)"
+msgstr "Képeslap (10 × 15 cm)"
 
 #: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
-msgid "13 x 18 cm"
-msgstr "13 x 18 cm"
+msgid "13 × 18 cm"
+msgstr "13 × 18 cm"
 
 #: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
-msgid "18 x 24 cm"
-msgstr "18 x 24 cm"
+msgid "18 × 24 cm"
+msgstr "18 × 24 cm"
 
 #: src/editing_tools/EditingTools.vala:775
-msgid "A4 (210 x 297 mm)"
-msgstr "A4 (210 x 297 mm)"
+msgid "A4 (210 × 297 mm)"
+msgstr "A4 (210 × 297 mm)"
 
 #: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
-msgid "20 x 30 cm"
-msgstr "20 x 30 cm"
+msgid "20 × 30 cm"
+msgstr "20 × 30 cm"
 
 #: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
-msgid "24 x 40 cm"
-msgstr "24 x 40 cm"
+msgid "24 × 40 cm"
+msgstr "24 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
-msgid "30 x 40 cm"
-msgstr "30 x 40 cm"
+msgid "30 × 40 cm"
+msgstr "30 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:779
-msgid "A3 (297 x 420 mm)"
-msgstr "A3 (297 x 420 mm)"
+msgid "A3 (297 × 420 mm)"
+msgstr "A3 (297 × 420 mm)"
 
 #: src/editing_tools/EditingTools.vala:1872 src/Properties.vala:395
 msgid "Size:"
@@ -4315,8 +4309,8 @@ msgstr "Exportálás"
 
 #: src/Exporter.vala:317
 #, c-format
-msgid "File %s already exists.  Replace?"
-msgstr "A fájl (%s) már létezik. Lecseréli?"
+msgid "File %s already exists. Replace?"
+msgstr "A(z) %s fájl már létezik. Lecseréli?"
 
 #: src/Exporter.vala:319
 msgid "_Skip"
@@ -4353,7 +4347,6 @@ msgid "Flagged"
 msgstr "Megjelölve"
 
 #: src/library/ImportQueuePage.vala:8
-#| msgid "Importing"
 msgid "Importing…"
 msgstr "Importálás…"
 
@@ -4366,7 +4359,6 @@ msgid "Stop importing photos"
 msgstr "Fényképek importálásának leállítása"
 
 #: src/library/ImportQueuePage.vala:124
-#| msgid "Preparing to import"
 msgid "Preparing to import…"
 msgstr "Importálás előkészítése…"
 
@@ -4380,7 +4372,6 @@ msgid "Last Import"
 msgstr "Utolsó importálás"
 
 #: src/library/LibraryWindow.vala:285
-#| msgid "Import From Folder"
 msgid "_Import From Folder…"
 msgstr "_Importálás mappából…"
 
@@ -4389,7 +4380,6 @@ msgid "Import photos from disk to library"
 msgstr "Fényképek importálása a gyűjteménybe lemezről"
 
 #: src/library/LibraryWindow.vala:293
-#| msgid "Import From Application"
 msgid "Import From _Application…"
 msgstr "Importálás _alkalmazásból…"
 
@@ -4419,7 +4409,6 @@ msgstr "Fényképek és videók keresése keresőkifejezésekkel"
 
 #: src/library/LibraryWindow.vala:329 src/searches/Branch.vala:77
 #: src/sidebar/Tree.vala:199
-#| msgid "Ne_w Saved Search..."
 msgid "Ne_w Saved Search…"
 msgstr "Új _mentett keresés…"
 
@@ -4500,7 +4489,6 @@ msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
 #: src/library/LibraryWindow.vala:726
-#| msgid "Emptying Trash..."
 msgid "Emptying Trash…"
 msgstr "Kuka ürítése…"
 
@@ -4532,22 +4520,18 @@ msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
 #: src/library/LibraryWindow.vala:1247 src/library/LibraryWindow.vala:1258
-#| msgid "Updating library..."
 msgid "Updating library…"
 msgstr "Gyűjtemény frissítése…"
 
 #: src/library/LibraryWindow.vala:1264
-#| msgid "Preparing to auto-import photos..."
 msgid "Preparing to auto-import photos…"
 msgstr "Felkészülés fényképek automatikus importáláshoz…"
 
 #: src/library/LibraryWindow.vala:1269
-#| msgid "Auto-importing photos..."
 msgid "Auto-importing photos…"
 msgstr "Fényképek automatikus importálása…"
 
 #: src/library/LibraryWindow.vala:1277
-#| msgid "Writing metadata to files..."
 msgid "Writing metadata to files…"
 msgstr "Metaadatok írása a fájlokba…"
 
@@ -4556,7 +4540,6 @@ msgid "Missing Files"
 msgstr "Hiányzó fájlok"
 
 #: src/library/OfflinePage.vala:106
-#| msgid "Deleting..."
 msgid "Deleting…"
 msgstr "Törlés…"
 
@@ -4579,9 +4562,9 @@ msgstr "Fényképek törlése"
 #: src/main.vala:54
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please use the latest version of Shotwell."
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please use the latest version of Shotwell."
 msgstr ""
 "A fényképgyűjteménye nem kompatibilis ezzel a Shotwell verzióval. Úgy tűnik, "
 "a Shotwell %s verzióval (%d. séma) készült, míg a jelenlegi verzió: %s (%d. "
@@ -4591,7 +4574,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
 "A Shotwell nem volt képes frissíteni az Ön fényképgyűjteményét %s verzióról "
@@ -4601,9 +4584,9 @@ msgstr ""
 #: src/main.vala:65
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please clear your library by deleting %s and re-import your "
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
 "A fényképgyűjteménye nem kompatibilis ezzel a Shotwell verzióval. Úgy tűnik, "
@@ -4613,7 +4596,7 @@ msgstr ""
 
 #: src/main.vala:71
 #, c-format
-msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Ismeretlen hiba a Shotwell adatbázisának ellenőrzésekor: %s"
 
 #: src/main.vala:104
@@ -4621,7 +4604,7 @@ msgid "Loading Shotwell"
 msgstr "A Shotwell betöltése"
 
 #: src/main.vala:294
-msgid "Path to Shotwell's private data"
+msgid "Path to Shotwell’s private data"
 msgstr "A Shotwell privát adatainak útvonala"
 
 #: src/main.vala:294
@@ -4633,11 +4616,11 @@ msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne figyelje a változásokat a gyűjteménykönyvtárban futás közben"
 
 #: src/main.vala:302
-msgid "Don't display startup progress meter"
+msgid "Don’t display startup progress meter"
 msgstr "Ne jelenítse meg az indítási folyamatjelzőt"
 
 #: src/main.vala:306
-msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Az alkalmazás verziószámának megjelenítése"
 
 #. init GTK (valac has already called g_threads_init())
@@ -4647,7 +4630,7 @@ msgstr "[FÁJL]"
 
 #: src/main.vala:342
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "A parancssori paraméterek teljes listája a „%s --help” paranccsal íratható "
 "ki.\n"
@@ -4690,7 +4673,7 @@ msgid "Display the comment of each photo"
 msgstr "Az egyes képek megjegyzéseinek megjelenítése"
 
 #: src/MediaPage.vala:470
-msgid "Display each photo's tags"
+msgid "Display each photo’s tags"
 msgstr "Fényképek címkéinek megjelenítése"
 
 #: src/MediaPage.vala:486
@@ -4851,7 +4834,6 @@ msgid "Image Settings"
 msgstr "Képbeállítások"
 
 #: src/Printing.vala:889
-#| msgid "Printing..."
 msgid "Printing…"
 msgstr "Nyomtatás…"
 
@@ -4998,8 +4980,8 @@ msgstr "%d/%d feltöltése"
 
 #: src/publishing/PublishingPluginHost.vala:81
 #, c-format
-msgid "Publishing to %s can't continue because an error occurred:"
-msgstr "A közzététel egy hiba miatt nem folytatódhat erre: %s:"
+msgid "Publishing to %s can’t continue because an error occurred:"
+msgstr "A közzététel ide: %s, egy hiba miatt nem folytatódhat:"
 
 #: src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
@@ -5027,12 +5009,10 @@ msgid "The selected photo was successfully published."
 msgstr "A kijelölt fénykép sikeresen közzétéve."
 
 #: src/publishing/PublishingUI.vala:122
-#| msgid "Fetching account information..."
 msgid "Fetching account information…"
 msgstr "Fiókinformációk letöltése…"
 
 #: src/publishing/PublishingUI.vala:128
-#| msgid "Logging in..."
 msgid "Logging in…"
 msgstr "Bejelentkezés…"
 
@@ -5224,7 +5204,7 @@ msgid "Enhance"
 msgstr "Feljavítás"
 
 #: src/Resources.vala:188
-msgid "Automatically improve the photo's appearance"
+msgid "Automatically improve the photo’s appearance"
 msgstr "Fényképek megjelenésének automatikus javítása"
 
 #: src/Resources.vala:190
@@ -5260,7 +5240,7 @@ msgid "Crop"
 msgstr "Levágás"
 
 #: src/Resources.vala:200
-msgid "Crop the photo's size"
+msgid "Crop the photo’s size"
 msgstr "Levágás a fénykép méretéből"
 
 #: src/Resources.vala:203
@@ -5292,7 +5272,7 @@ msgid "Adjust"
 msgstr "Módosítás"
 
 #: src/Resources.vala:212
-msgid "Adjust the photo's color and tone"
+msgid "Adjust the photo’s color and tone"
 msgstr "Fénykép színének és tónusának módosítása"
 
 #: src/Resources.vala:214
@@ -5320,7 +5300,6 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Kiválasztott fénykép beállítása asztalháttérként"
 
 #: src/Resources.vala:222
-#| msgid "Set as Desktop Slideshow"
 msgid "Set as _Desktop Slideshow…"
 msgstr "Beállítás asztali _diavetítésként…"
 
@@ -5341,7 +5320,6 @@ msgid "Redo"
 msgstr "Újra"
 
 #: src/Resources.vala:230
-#| msgid "Rename Event"
 msgid "Re_name Event…"
 msgstr "Esemé_ny átnevezése…"
 
@@ -5484,7 +5462,7 @@ msgid "_Ratings"
 msgstr "É_rtékelések"
 
 #: src/Resources.vala:280
-msgid "Display each photo's rating"
+msgid "Display each photo’s rating"
 msgstr "A fényképek értékelésének megjelenítése"
 
 #: src/Resources.vala:282
@@ -5512,17 +5490,14 @@ msgid "Make a duplicate of the photo"
 msgstr "Másolat készítése a fényképről"
 
 #: src/Resources.vala:290
-#| msgid "Export"
 msgid "_Export…"
 msgstr "E_xportálás…"
 
 #: src/Resources.vala:292
-#| msgid "_Print"
 msgid "_Print…"
 msgstr "_Nyomtatás…"
 
 #: src/Resources.vala:294
-#| msgid "Publish"
 msgid "Pu_blish…"
 msgstr "Kö_zzététel…"
 
@@ -5531,8 +5506,6 @@ msgid "Publish to various websites"
 msgstr "Közzététel különböző weboldalakon"
 
 #: src/Resources.vala:298
-#| msgctxt "Dialog Title"
-#| msgid "Edit Title"
 msgid "Edit _Title…"
 msgstr "_Cím szerkesztése…"
 
@@ -5543,7 +5516,6 @@ msgid "Edit Title"
 msgstr "Cím szerkesztése"
 
 #: src/Resources.vala:302
-#| msgid "Edit Comment"
 msgid "Edit _Comment…"
 msgstr "Megjegyzés s_zerkesztése…"
 
@@ -5553,12 +5525,10 @@ msgid "Edit Comment"
 msgstr "A megjegyzés szerkesztése"
 
 #: src/Resources.vala:306
-#| msgid "Edit Event Comment"
 msgid "Edit Event _Comment…"
 msgstr "_Eseménymegjegyzés szerkesztése…"
 
 #: src/Resources.vala:309
-#| msgid "Adjust Date and Time"
 msgid "_Adjust Date and Time…"
 msgstr "_Dátum és idő módosítása…"
 
@@ -5567,14 +5537,10 @@ msgid "Adjust Date and Time"
 msgstr "Dátum és idő módosítása"
 
 #: src/Resources.vala:312
-#| msgctxt "Dialog Title"
-#| msgid "Add Tags"
 msgid "Add _Tags…"
 msgstr "_Címkék hozzáadása…"
 
 #: src/Resources.vala:313
-#| msgctxt "Dialog Title"
-#| msgid "Add Tags"
 msgid "_Add Tags…"
 msgstr "Címkék _hozzáadása…"
 
@@ -5593,17 +5559,14 @@ msgid "Open With RA_W Editor"
 msgstr "Megnyitás RA_W szerkesztővel"
 
 #: src/Resources.vala:323
-#| msgid "Send To"
 msgid "Send _To…"
 msgstr "Kül_dés…"
 
 #: src/Resources.vala:324
-#| msgid "Send To"
 msgid "Send T_o…"
 msgstr "_Küldés…"
 
 #: src/Resources.vala:326
-#| msgid "_Find"
 msgid "_Find…"
 msgstr "_Keresés…"
 
@@ -5630,13 +5593,13 @@ msgstr "A szerkesztő nem indítható el: %s"
 
 #: src/Resources.vala:340
 #, c-format
-msgid "Add Tag \"%s\""
+msgid "Add Tag “%s”"
 msgstr "„%s” címke hozzáadása"
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:343
 #, c-format
-msgid "Add Tags \"%s\" and \"%s\""
+msgid "Add Tags “%s” and “%s”"
 msgstr "„%s” és „%s” címke hozzáadása"
 
 #. Undo/Redo command name (in Edit menu)
@@ -5647,12 +5610,12 @@ msgstr "Címkék hozzáadása"
 
 #: src/Resources.vala:353
 #, c-format
-msgid "_Delete Tag \"%s\""
+msgid "_Delete Tag “%s”"
 msgstr "„%s” címke _törlése"
 
 #: src/Resources.vala:357
 #, c-format
-msgid "Delete Tag \"%s\""
+msgid "Delete Tag “%s”"
 msgstr "„%s” címke törlése"
 
 #: src/Resources.vala:360
@@ -5661,22 +5624,19 @@ msgstr "Címke törlése"
 
 #: src/Resources.vala:366
 #, c-format
-#| msgid "Re_name Tag \"%s\"..."
-msgid "Re_name Tag \"%s\"…"
+msgid "Re_name Tag “%s”…"
 msgstr "„%s” címke át_nevezése…"
 
 #: src/Resources.vala:370
 #, c-format
-msgid "Rename Tag \"%s\" to \"%s\""
+msgid "Rename Tag “%s” to “%s”"
 msgstr "„%s” címke átnevezése erre: „%s”"
 
 #: src/Resources.vala:373
-#| msgid "_Rename..."
 msgid "_Rename…"
 msgstr "Át_nevezés…"
 
 #: src/Resources.vala:375
-#| msgid "Modify Tags"
 msgid "Modif_y Tags…"
 msgstr "Cí_mkék módosítása…"
 
@@ -5686,52 +5646,52 @@ msgstr "Címkék módosítása"
 
 #: src/Resources.vala:379
 #, c-format
-msgid "Tag Photo as \"%s\""
-msgstr "Fényképek címkézése ezzel: „%s”"
+msgid "Tag Photo as “%s”"
+msgstr "Fénykép címkézése ezzel: „%s”"
 
 #: src/Resources.vala:379
 #, c-format
-msgid "Tag Photos as \"%s\""
+msgid "Tag Photos as “%s”"
 msgstr "Fényképek címkézése ezzel: „%s”"
 
 #: src/Resources.vala:383
 #, c-format
-msgid "Tag the selected photo as \"%s\""
-msgstr "Kiválasztott fényképek címkézése ezzel: „%s”"
+msgid "Tag the selected photo as “%s”"
+msgstr "Kiválasztott fénykép címkézése ezzel: „%s”"
 
 #: src/Resources.vala:384
 #, c-format
-msgid "Tag the selected photos as \"%s\""
+msgid "Tag the selected photos as “%s”"
 msgstr "Kiválasztott fényképek címkézése ezzel: „%s”"
 
 #: src/Resources.vala:388
 #, c-format
-msgid "Remove Tag \"%s\" From _Photo"
+msgid "Remove Tag “%s” From _Photo"
 msgstr "„%s” címke _eltávolítása a fényképről"
 
 #: src/Resources.vala:389
 #, c-format
-msgid "Remove Tag \"%s\" From _Photos"
+msgid "Remove Tag “%s” From _Photos"
 msgstr "„%s” címke _eltávolítása a fényképekről"
 
 #: src/Resources.vala:393
 #, c-format
-msgid "Remove Tag \"%s\" From Photo"
+msgid "Remove Tag “%s” From Photo"
 msgstr "„%s” címke eltávolítása a fényképről"
 
 #: src/Resources.vala:394
 #, c-format
-msgid "Remove Tag \"%s\" From Photos"
+msgid "Remove Tag “%s” From Photos"
 msgstr "„%s” címke eltávolítása a fényképekről"
 
 #: src/Resources.vala:398
 #, c-format
-msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "A címke nem nevezhető át erre: „%s”, mert a címke már létezik."
 
 #: src/Resources.vala:402
 #, c-format
-msgid "Unable to rename search to \"%s\" because the search already exists."
+msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Nem lehet átnevezni a keresést erre: „%s”, mert a keresés már létezik."
 
 #. Saved search button
@@ -5744,23 +5704,21 @@ msgid "Delete Search"
 msgstr "Keresés törlése"
 
 #: src/Resources.vala:410
-#| msgid "_Edit"
 msgid "_Edit…"
 msgstr "S_zerkesztés…"
 
 #: src/Resources.vala:411
-#| msgid "Re_name..."
 msgid "Re_name…"
 msgstr "Át_nevezés…"
 
 #: src/Resources.vala:414
 #, c-format
-msgid "Rename Search \"%s\" to \"%s\""
+msgid "Rename Search “%s” to “%s”"
 msgstr "„%s” keresés átnevezése erre: „%s”"
 
 #: src/Resources.vala:418
 #, c-format
-msgid "Delete Search \"%s\""
+msgid "Delete Search “%s”"
 msgstr "„%s” keresés törlése"
 
 #: src/Resources.vala:576
@@ -5824,7 +5782,7 @@ msgid "Show in File Mana_ger"
 msgstr "_Megjelenítés a fájlkezelőben"
 
 #: src/Resources.vala:682
-msgid "Open the selected photo's directory in the file manager"
+msgid "Open the selected photo’s directory in the file manager"
 msgstr "Kijelölt fénykép könyvtárának megnyitása a fájlkezelőben"
 
 #: src/Resources.vala:685
@@ -6119,7 +6077,6 @@ msgid "Use a saved search to filter items in the current view"
 msgstr "Mentett keresés használata a jelenlegi nézetben történő szűréshez"
 
 #: src/sidebar/Tree.vala:203
-#| msgid "New _Tag..."
 msgid "New _Tag…"
 msgstr "Új _címke…"
 
@@ -6386,6 +6343,9 @@ msgstr "_Cím megjelenítése"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "másodperc"
+
+#~ msgid "Login"
+#~ msgstr "Bejelentkezés"
 
 #~ msgid "Save Details..."
 #~ msgstr "Részletek mentése…"
