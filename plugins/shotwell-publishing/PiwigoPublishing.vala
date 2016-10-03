@@ -1014,6 +1014,7 @@ internal class SSLErrorPane : Spit.Publishing.DialogPane, Object {
     public SSLErrorPane (SessionLoginTransaction transaction,
                          string host) {
         try {
+            TlsCertificate cert;
             this.builder = new Gtk.Builder ();
             this.builder.add_from_resource (Resources.RESOURCE_PATH +
                                             "/piwigo_ssl_failure_pane.ui");
@@ -1024,7 +1025,23 @@ internal class SSLErrorPane : Spit.Publishing.DialogPane, Object {
             label.use_markup = true;
 
             label = this.builder.get_object ("ssl_errors") as Gtk.Label;
-            label.set_text (transaction.detailed_error_from_tls_flags ());
+            var text = transaction.detailed_error_from_tls_flags (out cert);
+            label.set_text (text);
+
+            var info = this.builder.get_object ("default") as Gtk.Button;
+            info.clicked.connect (() => {
+                var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
+                var widget = new Gcr.CertificateWidget (simple_cert);
+
+                var dialog = new Gtk.Dialog ();
+                dialog.get_content_area ().add (widget);
+                dialog.add_button ("_OK", Gtk.ResponseType.OK);
+                dialog.set_default_response (Gtk.ResponseType.OK);
+                dialog.set_default_size (640, -1);
+                dialog.show_all ();
+                dialog.run ();
+                dialog.destroy ();
+            });
 
             var proceed = this.builder.get_object ("proceed_button") as Gtk.Button;
             proceed.clicked.connect (() => { this.proceed (); });
@@ -1047,7 +1064,7 @@ internal class SSLErrorPane : Spit.Publishing.DialogPane, Object {
     }
 
     public Gtk.Widget get_default_widget () {
-        return this.builder.get_object ("cancel_button") as Gtk.Widget;
+        return this.builder.get_object ("default") as Gtk.Widget;
     }
 
     public void on_pane_installed () { }

@@ -192,8 +192,7 @@ public class Transaction {
     }
 
     /* Texts copied from epiphany */
-    public string detailed_error_from_tls_flags () {
-        TlsCertificate cert;
+    public string detailed_error_from_tls_flags (out TlsCertificate cert) {
         TlsCertificateFlags tls_errors;
         this.message.get_https_status (out cert, out tls_errors);
 

@@ -41,12 +41,16 @@ plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	--pkg shotwell-plugin-dev-1.0 \
 	--pkg libxml-2.0 \
 	--pkg webkit2gtk-4.0 \
+	--pkg gcr-3 \
+	--pkg gcr-ui-3 \
 	--vapidir $(abs_top_srcdir)/plugins
 
 plugins_shotwell_publishing_shotwell_publishing_la_CFLAGS = \
 	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Publishing"' \
 	$(PLUGIN_CFLAGS) \
 	$(COMMON_CFLAGS) \
+	-DGCR_API_SUBJECT_TO_CHANGE \
+	$(PUBLISHING_CFLAGS) \
 	-I $(top_srcdir)/plugins
 
 plugins_shotwell_publishing_shotwell_publishing_la_LDFLAGS = \
