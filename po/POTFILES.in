@@ -43,6 +43,7 @@ plugins/shotwell-publishing/PicasaPublishing.vala
 plugins/shotwell-publishing/piwigo_authentication_pane.ui
 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
+plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui
 plugins/shotwell-publishing/shotwell-publishing.vala
 plugins/shotwell-publishing/youtube_publishing_options_pane.ui
 plugins/shotwell-publishing/YouTubePublishing.vala
