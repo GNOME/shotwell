@@ -1437,8 +1437,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         bool isfirst = true;
         if (publishables != null) {
             foreach (Spit.Publishing.Publishable pub in publishables) {
-                string cur = pub.get_param_string(
+                string? cur = pub.get_param_string(
                     Spit.Publishing.Publishable.PARAM_STRING_EVENTCOMMENT);
+                if (cur == null) {
+                    continue;
+                }
+
                 if (isfirst) {
                     common = cur;
                     isfirst = false;
