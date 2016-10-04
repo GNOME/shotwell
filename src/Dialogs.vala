@@ -66,15 +66,11 @@ public File? choose_file(string current_file_basename) {
     chooser.set_current_name(current_file_basename);
     chooser.set_local_only(false);
     
-    // The log handler reset should be removed once GTK 3.4 becomes widely available; 
-    // please see https://bugzilla.gnome.org/show_bug.cgi?id=662814 for details.
-    Log.set_handler("Gtk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
     File file = null;
     if (chooser.run() == Gtk.ResponseType.ACCEPT) {
         file = File.new_for_path(chooser.get_filename());
         current_export_dir = file.get_parent();
     }
-    Log.set_handler("Gtk", LogLevelFlags.LEVEL_WARNING, Log.default_handler);    
     chooser.destroy();
     
     return file;
