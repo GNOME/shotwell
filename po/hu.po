@@ -12,16 +12,16 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-10-02 19:45+0000\n"
-"PO-Revision-Date: 2016-10-03 11:48+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"POT-Creation-Date: 2016-10-03 13:19+0000\n"
+"PO-Revision-Date: 2016-10-03 16:38+0200\n"
+"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -1329,12 +1329,68 @@ msgstr ""
 "  Vera Yin https://launchpad.net/~vera-yorba\n"
 "  csola48 https://launchpad.net/~mail-csordaslaszlo"
 
-#: plugins/common/RESTSupport.vala:451
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:202
+msgid ""
+"⚫ This website presented identification that belongs to a different website."
+msgstr ""
+"⚫ Ez a weboldal olyan tanúsítványt mutatott be, amely egy másik weboldalhoz "
+"tartozik."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:207
+msgid ""
+"⚫ This website’s identification is too old to trust. Check the date on your "
+"computer’s calendar."
+msgstr ""
+"⚫ A weboldal tanúsítványa túl régi ahhoz, hogy megbízható legyen. "
+"Ellenőrizze a dátumot a számítógépe naptárában."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:212
+msgid ""
+"⚫ This website’s identification was not issued by a trusted organization."
+msgstr "⚫ A weboldal tanúsítványát nem egy megbízható szervezet állította ki."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:217
+msgid ""
+"⚫ This website’s identification could not be processed. It may be corrupted."
+msgstr ""
+"⚫ A weboldal tanúsítványát nem sikerült feldolgozni. Lehet, hogy sérült."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:222
+msgid ""
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
+msgstr ""
+"⚫ A weboldal tanúsítványát visszavonta az azt kiállító megbízható szervezet."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:227
+msgid ""
+"⚫ This website’s identification cannot be trusted because it uses very weak "
+"encryption."
+msgstr ""
+"⚫ A weboldal tanúsítványában nem lehet megbízni, mert nagyon gyenge "
+"titkosítást használ."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:232
+msgid ""
+"⚫ This website’s identification is only valid for future dates. Check the "
+"date on your computer’s calendar."
+msgstr ""
+"⚫ A weboldal tanúsítványa csak jövőbeli dátumokra érvényes. Ellenőrizze a "
+"dátumot a számítógépe naptárában."
+
+#: plugins/common/RESTSupport.vala:509
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "A közzétételhez szükséges ideiglenes fájl nem érhető el"
 
-#: plugins/common/RESTSupport.vala:1109
+#: plugins/common/RESTSupport.vala:1167
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1522,7 +1578,7 @@ msgstr "képpont"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1235
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Eredeti méret"
@@ -1722,13 +1778,13 @@ msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1231
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1325
 msgid "500 × 375 pixels"
 msgstr "500 × 375 képpont"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1232
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1326
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 képpont"
 
@@ -1754,12 +1810,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Adja meg a Tumblr fiókjához tartozó felhasználónevet és jelszót."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:992
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid "Username and/or password invalid. Please try again"
 msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Érvénytelen felhasználónév vagy jelszó"
 
@@ -1849,7 +1905,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: plugins/shotwell-publishing/PicasaPublishing.vala:60
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1114
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1209
 msgid "Shotwell Connect"
 msgstr "Shotwell kapcsolat"
 
@@ -1925,7 +1981,7 @@ msgstr "Csak én"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1145
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1209
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "Everyone"
 msgstr "Mindenki"
 
@@ -2039,12 +2095,12 @@ msgid "Friends only"
 msgstr "Csak barátok"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 képpont"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1234
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 képpont"
 
@@ -2159,16 +2215,29 @@ msgstr "Kijelentkezés"
 msgid "Publish"
 msgstr "Közzététel"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:747
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:775
 #, c-format
 msgid "Creating album %s…"
 msgstr "%s album létrehozása…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:920
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:948
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Hibaüzenet érkezett a Piwigon való közzététel során. Próbálja újra."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
+#. %s is the host name that we tried to connect to
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#, c-format
+msgid ""
+"This does not look like the real <b>%s</b>. Attackers might be trying to "
+"steal or alter information going to or from this site (for example, private "
+"messages, credit card information, or passwords)."
+msgstr ""
+"Ez nem a valódi <b>%s</b> weboldalnak tűnik. A támadók megpróbálhatják "
+"ellopni vagy megváltoztatni az oldalhoz menő, vagy az onnan jövő "
+"információkat (például privát üzeneteket, bankkártya-adatokat vagy "
+"jelszavakat)."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2176,7 +2245,7 @@ msgstr ""
 "Adja meg a Piwigo fényképgyűjteményének URL-címét, valamint az ahhoz tartozó "
 "Piwigo fiókjának felhasználónevét és jelszavát."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:991
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2184,25 +2253,37 @@ msgstr ""
 "A Shotwell nem éri el a Piwigo fényképgyűjteményét. Ellenőrizze a megadott "
 "URL-címet."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Érvénytelen URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Adminok, család, barátok, partnerek"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "Admins, Family, Friends"
 msgstr "Adminok, család, barátok"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1221
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "Admins, Family"
 msgstr "Adminok, család"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1222
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 msgid "Admins"
 msgstr "Adminok"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
+msgid "This connection is not secure"
+msgstr "Ez a kapcsolat nem biztonságos"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
+msgid "Show the certificate…"
+msgstr "Tanúsítvány megjelenítése…"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
+msgid "I understand, please _proceed."
+msgstr "Megértettem, _folytatás."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:26
 msgid "Core Publishing Services"
@@ -3841,10 +3922,10 @@ msgstr[1] ""
 #: src/Dialogs.vala:2759
 #, c-format
 msgid ""
-"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+"The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
-msgstr[0] "%d fénykép vagy videó nem helyezhető át a Kukába. Törli a fájlt?"
+"%d photos/videos cannot be moved to your desktop trash. Delete these files?"
+msgstr[0] "A fénykép vagy videó nem helyezhető át a Kukába. Törli a fájlt?"
 msgstr[1] "%d fénykép vagy videó nem helyezhető át a Kukába. Törli a fájlokat?"
 
 #. Alert the user that the files were not removed.
