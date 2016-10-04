@@ -12,6 +12,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string WINDOW_PREFS_SCHEMA_NAME =  PREFS_SCHEMA_NAME + ".window";
     private const string FILES_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".files";
     private const string EDITING_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".editing";
+    private const string EXPORT_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".export";
     private const string VIDEO_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".video";
     private const string PRINTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".printing";
     private const string SHARING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".sharing";
@@ -53,6 +54,13 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_CONSTRAINT] = EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_IS_SET] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_QUALITY] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_SCALE] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXTERNAL_PHOTO_APP] = EDITING_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXTERNAL_RAW_APP] = EDITING_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] = UI_PREFS_SCHEMA_NAME;
@@ -119,6 +127,13 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = "event-photos-sort-ascending";
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = "event-photos-sort-by";
         key_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = "events-sort-ascending";
+        key_names[ConfigurableProperty.EXPORT_CONSTRAINT] = "constraint";
+        key_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  "export-format-mode";
+        key_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  "export-metadata";
+        key_names[ConfigurableProperty.EXPORT_IS_SET] =  "is-set";
+        key_names[ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT] =  "photo-file-format";
+        key_names[ConfigurableProperty.EXPORT_QUALITY] =  "quality";
+        key_names[ConfigurableProperty.EXPORT_SCALE] =  "scale";
         key_names[ConfigurableProperty.EXTERNAL_PHOTO_APP] = "external-photo-editor";
         key_names[ConfigurableProperty.EXTERNAL_RAW_APP] = "external-raw-editor";
         key_names[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] = "hide-photos-already-imported";

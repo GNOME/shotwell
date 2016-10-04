@@ -172,6 +172,17 @@ public class ExportDialog : Gtk.Dialog {
         this.title = title;
         resizable = false;
 
+        //get information about the export settings out of our config backend
+        Config.Facade config = Config.Facade.get_instance();
+        if (config.get_export_is_set()) {
+            current_parameters.mode = config.get_export_export_format_mode(); //ExportFormatMode
+            current_parameters.specified_format = config.get_export_photo_file_format(); //PhotoFileFormat
+            current_parameters.quality = config.get_export_quality(); //quality
+            current_parameters.export_metadata = config.get_export_export_metadata(); //export metadata
+            current_constraint = config.get_export_constraint(); //constraint
+            current_scale = config.get_export_scale(); //scale
+        }
+
         quality_combo = new Gtk.ComboBoxText();
         int ctr = 0;
         foreach (Jpeg.Quality quality in QUALITY_ARRAY) {
@@ -339,6 +350,17 @@ public class ExportDialog : Gtk.Dialog {
                 if (current_parameters.specified_format == PhotoFileFormat.JFIF)
                     parameters.quality = current_parameters.quality = QUALITY_ARRAY[quality_combo.get_active()];
             }
+
+            //save current settings in config backend for reusing later
+            Config.Facade config = Config.Facade.get_instance();
+            config.set_export_is_set(true);
+
+            config.set_export_export_format_mode(current_parameters.mode); //ExportFormatMode
+            config.set_export_photo_file_format(current_parameters.specified_format); //PhotoFileFormat
+            config.set_export_quality(current_parameters.quality); //quality
+            config.set_export_export_metadata(current_parameters.export_metadata); //export metadata
+            config.set_export_constraint(current_constraint); //constraint
+            config.set_export_scale(current_scale); //scale
         } else {
             scale = 0;
             constraint = ScaleConstraint.ORIGINAL;

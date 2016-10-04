@@ -14,6 +14,7 @@
     <child name="window" schema="org.yorba.shotwell.preferences.window" />
     <child name="files" schema="org.yorba.shotwell.preferences.files" />
     <child name="editing" schema="org.yorba.shotwell.preferences.editing" />
+    <child name="export" schema="org.yorba.shotwell.preferences.export" />
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.ui" path="/org/yorba/shotwell/preferences/ui/">
@@ -311,6 +312,50 @@
         <default>""</default>
         <summary>external raw editor</summary>
         <description>External application used to edit RAW photos.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.export" path="/org/yorba/shotwell/preferences/export/">
+    <key name="constraint" type="i">
+        <default>0</default>
+        <summary>Setting in export dialog: how to trim images</summary>
+        <description>Setting in export dialog: how to trim images</description>
+    </key>
+
+    <key name="export-metadata" type="b">
+        <default>true</default>
+        <summary>export metadata</summary>
+        <description>Setting in export dialog: option to export metadata</description>
+    </key>
+
+    <key name="export-format-mode" type="i">
+        <default>0</default>
+        <summary>format setting, special value</summary>
+        <description>Setting in export dialog: format setting, special value</description>
+    </key>
+
+    <key name="is-set" type="b">
+        <default>false</default>
+        <summary>are these datas set by Shotwell</summary>
+        <description>Will be set to true the first time data is saved in the export schema. This helps Shotwell to use this data only if they are set by Shotwell</description>
+    </key>
+
+    <key name="photo-file-format" type="i">
+        <default>0</default>
+        <summary>format setting, type value</summary>
+        <description>Setting in export dialog: format setting, type value</description>
+    </key>
+
+    <key name="quality" type="i">
+        <default>0</default>
+        <summary>jpeg quality option</summary>
+        <description>Setting in export dialog: jpeg quality option</description>
+    </key>
+
+    <key name="scale" type="i">
+        <default>0</default>
+        <summary>maximal size of image</summary>
+        <description>Setting in export dialog: maximal size of image</description>
     </key>
 </schema>
 
