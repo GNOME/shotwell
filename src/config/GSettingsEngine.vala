@@ -57,7 +57,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.EXPORT_CONSTRAINT] = EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  EXPORT_PREFS_SCHEMA_NAME;
-        schema_names[ConfigurableProperty.EXPORT_IS_SET] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_QUALITY] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_SCALE] =  EXPORT_PREFS_SCHEMA_NAME;
@@ -130,7 +129,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.EXPORT_CONSTRAINT] = "constraint";
         key_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  "export-format-mode";
         key_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  "export-metadata";
-        key_names[ConfigurableProperty.EXPORT_IS_SET] =  "is-set";
         key_names[ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT] =  "photo-file-format";
         key_names[ConfigurableProperty.EXPORT_QUALITY] =  "quality";
         key_names[ConfigurableProperty.EXPORT_SCALE] =  "scale";
@@ -200,6 +198,20 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         Settings schema_object = new Settings(schema);
 
         schema_object.set_boolean(key, value);
+    }
+
+    private void set_gs_enum (string schema, string key, int value) throws ConfigurationError {
+        check_key_valid (schema, key);
+
+        var schema_object = new Settings (schema);
+        schema_object.set_enum (key, value);
+    }
+
+    private int get_gs_enum (string schema, string key) throws ConfigurationError {
+        check_key_valid (schema, key);
+
+        var schema_object = new Settings (schema);
+        return schema_object.get_enum (key);
     }
 
     private int get_gs_int(string schema, string key) throws ConfigurationError {
@@ -291,6 +303,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
     public string get_name() {
         return "GSettings";
+    }
+
+    public int get_enum_property (ConfigurableProperty p) throws ConfigurationError{
+        return get_gs_enum (schema_names[p], key_names[p]);
+    }
+
+    public void set_enum_property (ConfigurableProperty p, int val) throws ConfigurationError {
+        set_gs_enum (schema_names[p], key_names[p], val);
+        property_changed (p);
     }
 
     public int get_int_property(ConfigurableProperty p) throws ConfigurationError {

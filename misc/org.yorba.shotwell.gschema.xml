@@ -315,9 +315,40 @@
     </key>
 </schema>
 
+<enum id="org.yorba.shotwell.ScaleConstraint">
+    <value value="0" nick="ORIGINAL" />
+    <value value="1" nick="DIMENSIONS" />
+    <value value="2" nick="WIDTH" />
+    <value value="3" nick="HEIGHT" />
+    <value value="4" nick="FILL_VIEWPORT" />
+</enum>
+
+<enum id="org.yorba.shotwell.ExportFormatMode">
+    <value value="0" nick="UNMODIFIED" />
+    <value value="1" nick="CURRENT" />
+    <value value="2" nick="SPECIFIED" />
+    <value value="3" nick="LAS" />
+</enum>
+
+<enum id="org.yorba.shotwell.PhotoFileFormat">
+    <value value="0" nick="JFIF" />
+    <value value="1" nick="RAW" />
+    <value value="2" nick="PNG" />
+    <value value="3" nick="TIFF" />
+    <value value="4" nick="BMP" />
+    <value value="5" nick="UNKNOWN" />
+</enum>
+
+<enum id="org.yorba.shotwell.JpegQuality">
+    <value value="50" nick="LOW" />
+    <value value="75" nick="MEDIUM" />
+    <value value="90" nick="HIGH" />
+    <value value="100" nick="MAXIMUM" />
+</enum>
+
 <schema id="org.yorba.shotwell.preferences.export" path="/org/yorba/shotwell/preferences/export/">
-    <key name="constraint" type="i">
-        <default>0</default>
+    <key name="constraint" enum="org.yorba.shotwell.ScaleConstraint">
+        <default>'ORIGINAL'</default>
         <summary>Setting in export dialog: how to trim images</summary>
         <description>Setting in export dialog: how to trim images</description>
     </key>
@@ -328,32 +359,26 @@
         <description>Setting in export dialog: option to export metadata</description>
     </key>
 
-    <key name="export-format-mode" type="i">
-        <default>0</default>
+    <key name="export-format-mode" enum="org.yorba.shotwell.ExportFormatMode">
+        <default>'CURRENT'</default>
         <summary>format setting, special value</summary>
         <description>Setting in export dialog: format setting, special value</description>
     </key>
 
-    <key name="is-set" type="b">
-        <default>false</default>
-        <summary>are these datas set by Shotwell</summary>
-        <description>Will be set to true the first time data is saved in the export schema. This helps Shotwell to use this data only if they are set by Shotwell</description>
-    </key>
-
-    <key name="photo-file-format" type="i">
-        <default>0</default>
+    <key name="photo-file-format" enum="org.yorba.shotwell.PhotoFileFormat">
+        <default>'JFIF'</default>
         <summary>format setting, type value</summary>
         <description>Setting in export dialog: format setting, type value</description>
     </key>
 
-    <key name="quality" type="i">
-        <default>0</default>
-        <summary>jpeg quality option</summary>
+    <key name="quality" enum="org.yorba.shotwell.JpegQuality">
+        <default>'HIGH'</default>
+        <summary>JPEG quality option</summary>
         <description>Setting in export dialog: jpeg quality option</description>
     </key>
 
     <key name="scale" type="i">
-        <default>0</default>
+        <default>1200</default>
         <summary>maximal size of image</summary>
         <description>Setting in export dialog: maximal size of image</description>
     </key>
