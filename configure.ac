@@ -87,7 +87,7 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              gee-0.8 >= 0.8.5
                              gexiv2 >= 0.10.4
                              gio-unix-2.0 >= 2.20
-                             glib-2.0 >= 2.30.0
+                             glib-2.0 >= 2.40.0
                              gmodule-2.0 >= 2.24.0
                              gstreamer-1.0 >= 1.0.0
                              gstreamer-base-1.0 >= 1.0.0

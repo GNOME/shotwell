@@ -22,16 +22,10 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string PLUGINS_ENABLE_DISABLE_SCHEMA_NAME = ROOT_SCHEMA_NAME +
         ".plugins.enable-state";
 
-    private Gee.Set<string> known_schemas;
     private string[] schema_names;
     private string[] key_names;
     
     public GSettingsConfigurationEngine() {
-        known_schemas = new Gee.HashSet<string>();
-        
-        foreach (string current_schema in Settings.list_schemas())
-            known_schemas.add(current_schema);
-        
         schema_names = new string[ConfigurableProperty.NUM_PROPERTIES];
 
         schema_names[ConfigurableProperty.AUTO_IMPORT_FROM_LIBRARY] = FILES_PREFS_SCHEMA_NAME;
@@ -164,23 +158,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = "use-lowercase-filenames";
         key_names[ConfigurableProperty.VIDEO_INTERPRETER_STATE_COOKIE] = "interpreter-state-cookie";
     }
-    
-    private bool schema_has_key(Settings schema_object, string key) {
-        foreach (string current_key in schema_object.list_keys()) {
-            if (current_key == key)
-                return true;
-        }
-        
-        return false;
-    }
-    
-    private void check_key_valid(string schema, string key) throws ConfigurationError {
-        if (!known_schemas.contains(schema))
-            throw new ConfigurationError.ENGINE_ERROR("schema '%s' is not installed".printf(schema));
 
-        Settings schema_object = new Settings(schema);
-        
-        if (!schema_has_key(schema_object, key))
+    private void check_key_valid(string schema, string key) throws ConfigurationError {
+        var schema_source = SettingsSchemaSource.get_default ();
+        var settings_scheme = schema_source.lookup (schema, true);
+        if (settings_scheme == null) {
+            throw new ConfigurationError.ENGINE_ERROR("schema '%s' is not installed".printf(schema));
+        }
+
+        if (!settings_scheme.has_key (key))
             throw new ConfigurationError.ENGINE_ERROR("schema '%s' does not define key '%s'".printf(
                 schema, key));
     }
