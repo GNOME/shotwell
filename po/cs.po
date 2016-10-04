@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-10-02 19:45+0000\n"
-"PO-Revision-Date: 2016-10-03 11:39+0200\n"
+"POT-Creation-Date: 2016-10-03 13:19+0000\n"
+"PO-Revision-Date: 2016-10-04 14:21+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1346,12 +1346,70 @@ msgstr ""
 "Petr Šimáček <petr.simacek@gmail.com>\n"
 "Marek Černocký <marek@manet.cz>"
 
-#: plugins/common/RESTSupport.vala:451
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:202
+msgid ""
+"⚫ This website presented identification that belongs to a different website."
+msgstr ""
+"⚫ Tyto webové stránky se prezentují identifikací, která patří jiným webovým "
+"stránkám."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:207
+msgid ""
+"⚫ This website’s identification is too old to trust. Check the date on your "
+"computer’s calendar."
+msgstr ""
+"⚫ Identifikace těchto webových stránek je příliš stará na to, aby se jí dalo "
+"důvěřovat. Zkontrolujte si nastavení data na svém počítači."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:212
+msgid ""
+"⚫ This website’s identification was not issued by a trusted organization."
+msgstr ""
+"⚫ Identifikace těchto webových stránek nebyla vydána důvěryhodnou organizací."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:217
+msgid ""
+"⚫ This website’s identification could not be processed. It may be corrupted."
+msgstr ""
+"⚫ Identifikaci těchto webových stránek nelze zpracovat. Možná je poškozená."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:222
+msgid ""
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
+msgstr ""
+"⚫ Identifikace těchto webových stránek byla odvolána důvěryhodnou "
+"organizací, která ji původně vydala."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:227
+msgid ""
+"⚫ This website’s identification cannot be trusted because it uses very weak "
+"encryption."
+msgstr ""
+"⚫ Identifikaci těchto webových stránek se nedá důvěřovat, protože používá "
+"velmi slabé šifrování."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:232
+msgid ""
+"⚫ This website’s identification is only valid for future dates. Check the "
+"date on your computer’s calendar."
+msgstr ""
+"⚫ Identifikace těchto webových stránek je platná až v budoucnu. Zkontrolujte "
+"si nastavení data na svém počítači."
+
+#: plugins/common/RESTSupport.vala:509
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Dočasný soubor potřebný pro zveřejnění není k dispozici"
 
-#: plugins/common/RESTSupport.vala:1109
+#: plugins/common/RESTSupport.vala:1167
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1540,7 +1598,7 @@ msgstr "pixely"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1235
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Původní velikost"
@@ -1740,13 +1798,13 @@ msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1231
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1325
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pixelů"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1232
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1326
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pixelů"
 
@@ -1772,12 +1830,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Zadejte uživatelské jméno a heslo ke svému účtu Tumblr."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:992
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid "Username and/or password invalid. Please try again"
 msgstr "Neplatné uživatelské jméno a/nebo heslo. Zkuste to prosím znovu"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Neplatné uživatelské jméno nebo heslo"
 
@@ -1867,7 +1925,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: plugins/shotwell-publishing/PicasaPublishing.vala:60
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1114
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1209
 msgid "Shotwell Connect"
 msgstr "Připojení Shotwell"
 
@@ -1944,7 +2002,7 @@ msgstr "mě výhradně"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1145
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1209
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "Everyone"
 msgstr "všem"
 
@@ -2059,12 +2117,12 @@ msgid "Friends only"
 msgstr "přátele výhradně"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pixelů"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1234
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pixelů"
 
@@ -2178,16 +2236,28 @@ msgstr "Odhlásit"
 msgid "Publish"
 msgstr "Zveřejnit"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:747
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:775
 #, c-format
 msgid "Creating album %s…"
 msgstr "Vytváří se album %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:920
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:948
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Při zveřejňování na Piwigo došlo k chybě. Zkuste to prosím znovu."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
+#. %s is the host name that we tried to connect to
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#, c-format
+msgid ""
+"This does not look like the real <b>%s</b>. Attackers might be trying to "
+"steal or alter information going to or from this site (for example, private "
+"messages, credit card information, or passwords)."
+msgstr ""
+"Nevypadá to jako skutečný server <b>%s</b>. Možná se nějací útočníci snaží "
+"ukrást nebo změnit údaje jdoucí do nebo z tohoto serveru (například soukromé "
+"zprávy, údaje z platebních karet nebo hesla)."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2195,7 +2265,7 @@ msgstr ""
 "Zadejte adresu URL fotoknihovny Piwigo a k tomu uživatelské jméno a heslo "
 "spojené s vaším účtem Piwigo pro danou knihovnu."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:991
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2203,25 +2273,37 @@ msgstr ""
 "Shotwell se nemůže připojit k vaší fotoknihovně Piwigo. Ověřte prosím adresu "
 "URL, kterou jste zadali"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Neplatná adresa URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administrátoři, rodina, přátelé, kontakty"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "Admins, Family, Friends"
 msgstr "Administrátoři, rodina, přátelé"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1221
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "Admins, Family"
 msgstr "Administrátoři, rodina"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1222
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 msgid "Admins"
 msgstr "Administrátoři"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
+msgid "This connection is not secure"
+msgstr "Připojení není bezpečné"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
+msgid "Show the certificate…"
+msgstr "Zobrazit certifikát…"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
+msgid "I understand, please _proceed."
+msgstr "Rozumím, přesto prosím _pokračovat."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:26
 msgid "Core Publishing Services"
@@ -3928,9 +4010,9 @@ msgstr[2] ""
 #: src/Dialogs.vala:2759
 #, c-format
 msgid ""
-"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+"The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+"%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] "Fotografii či video nelze přesunout do koše. Má se soubor smazat?"
 msgstr[1] ""
 "%d fotografie/videa nelze přesunout do koše. Mají se soubory smazat?"
