@@ -327,7 +327,7 @@
     <value value="0" nick="UNMODIFIED" />
     <value value="1" nick="CURRENT" />
     <value value="2" nick="SPECIFIED" />
-    <value value="3" nick="LAS" />
+    <value value="3" nick="LAST" />
 </enum>
 
 <enum id="org.yorba.shotwell.PhotoFileFormat">
