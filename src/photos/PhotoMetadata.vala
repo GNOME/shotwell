@@ -103,7 +103,7 @@ public class PhotoMetadata : MediaMetadata {
         AT_LEAST_DEFAULT_DOMAIN
     }
     
-    private const PrepareInputTextOptions PREPARE_STRING_OPTIONS =
+    public const PrepareInputTextOptions PREPARE_STRING_OPTIONS =
         PrepareInputTextOptions.INVALID_IS_NULL
         | PrepareInputTextOptions.EMPTY_IS_NULL
         | PrepareInputTextOptions.STRIP
