@@ -1416,8 +1416,8 @@ internal class GraphSession {
     private GraphMessage? current_message;
     
     public GraphSession() {
-        this.soup_session = new Soup.SessionAsync();
-        this.soup_session.request_unqueued.connect(on_request_unqueued);
+        this.soup_session = new Soup.Session ();
+        this.soup_session.request_unqueued.connect (on_request_unqueued);
         this.soup_session.timeout = 15;
         this.access_token = null;
         this.current_message = null;
@@ -1425,7 +1425,7 @@ internal class GraphSession {
     }
 
     ~GraphSession() {
-         soup_session.request_unqueued.disconnect(on_request_unqueued);
+         soup_session.request_unqueued.disconnect (on_request_unqueued);
      }
     
     private void manage_message(GraphMessage msg) {

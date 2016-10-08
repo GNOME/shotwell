@@ -98,7 +98,7 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              libexif >= 0.6.16
                              libgphoto2 >= 2.5.0
                              libraw >= 0.13.2
-                             libsoup-2.4 >= 2.26.0
+                             libsoup-2.4 >= 2.42.0
                              libxml-2.0 >= 2.6.32
                              sqlite3 >= 3.5.9
                              webkit2gtk-4.0
