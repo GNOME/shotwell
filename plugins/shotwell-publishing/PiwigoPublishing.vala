@@ -1309,7 +1309,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             !(
                 create_new_radio.get_active() &&
                 (
-                    category_name != "" ||
+                    category_name == "" ||
                     category_already_exists(search_name)
                 )
             )
