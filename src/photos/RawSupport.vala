@@ -240,6 +240,7 @@ public class RawReader : PhotoFileReader {
     }
     
     public override Gdk.Pixbuf scaled_read(Dimensions full, Dimensions scaled) throws Error {
+        // Try to get the embedded thumbnail first
         double width_proportion = (double) scaled.width / (double) full.width;
         double height_proportion = (double) scaled.height / (double) full.height;
         bool half_size = width_proportion < 0.5 && height_proportion < 0.5;
@@ -249,6 +250,18 @@ public class RawReader : PhotoFileReader {
         processor.output_params->user_flip = GRaw.Flip.NONE;
         
         processor.open_file(get_filepath());
+        try {
+            if (this.get_role () == Role.THUMBNAIL) {
+                processor.unpack_thumb();
+                var image = processor.make_thumb_image ();
+                return resize_pixbuf (image.get_pixbuf_copy (),
+                                      scaled,
+                                      Gdk.InterpType.BILINEAR);
+            }
+        } catch (Error error) {
+            // Nothing to do, continue with raw developer
+        }
+
         processor.unpack();
         processor.process();
         
