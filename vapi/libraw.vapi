@@ -247,7 +247,6 @@ public struct Thumbnail {
     public ushort theight;
     public uint tlength;
     public int tcolors;
-    public int tbits;
     [CCode (array_length_cname="tlength")]
     public uint8[] thumb;
 }
