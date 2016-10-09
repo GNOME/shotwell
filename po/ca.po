@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=Shotwell&component=Internationalization\n"
-"POT-Creation-Date: 2016-08-07 23:43+0200\n"
-"PO-Revision-Date: 2016-08-07 23:39+0200\n"
+"POT-Creation-Date: 2016-10-09 19:59+0200\n"
+"PO-Revision-Date: 2016-10-08 17:13+0200\n"
 "Last-Translator: Jordi Mas <paugnu@gmail.com>\n"
 "Language-Team: ca_ES <tradgnome@softcatala.net>\n"
 "Language: ca\n"
@@ -27,24 +27,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../plugins/common/Resources.vala:12
 msgid "Visit the Shotwell home page"
 msgstr "Visiteu la pàgina web del Shotwell"
 
-#: ../plugins/common/Resources.vala:31 ../src/AppWindow.vala:676
+#: ../plugins/common/Resources.vala:31 ../src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "Pau Iranzo <paugnu@gmail.com>, 2015\n"
 "Jordi Mas <jmas@softcatala.org>, 2016"
 
-#: ../plugins/common/RESTSupport.vala:448
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:202
+msgid ""
+"⚫ This website presented identification that belongs to a different website."
+msgstr ""
+
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:207
+msgid ""
+"⚫ This website’s identification is too old to trust. Check the date on your "
+"computer’s calendar."
+msgstr ""
+
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:212
+msgid ""
+"⚫ This website’s identification was not issued by a trusted organization."
+msgstr ""
+
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:217
+msgid ""
+"⚫ This website’s identification could not be processed. It may be corrupted."
+msgstr ""
+
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:222
+msgid ""
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
+msgstr ""
+
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:227
+msgid ""
+"⚫ This website’s identification cannot be trusted because it uses very weak "
+"encryption."
+msgstr ""
+
+#. Possible error message when a site presents a bad certificate.
+#: ../plugins/common/RESTSupport.vala:232
+msgid ""
+"⚫ This website’s identification is only valid for future dates. Check the "
+"date on your computer’s calendar."
+msgstr ""
+
+#: ../plugins/common/RESTSupport.vala:509
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "No està disponible un fitxer temporal que cal per publicar"
 
-#: ../plugins/common/RESTSupport.vala:1154
+#: ../plugins/common/RESTSupport.vala:1167
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -182,12 +228,12 @@ msgid "Shotwell default directory"
 msgstr "Directori per defecte del Shotwell"
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:801
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "\n"
-"The file \"%s\" may not be supported by or may be too large for this "
-"instance of Gallery3."
+"The file “%s” may not be supported by or may be too large for this instance "
+"of Gallery3."
 msgstr ""
 "\n"
 "\n"
@@ -205,9 +251,9 @@ msgstr ""
 
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
 #: ../plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"A file required for publishing is unavailable. Publishing to %s can't "
+"A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
 msgstr ""
 "Un fitxer necessari per la publicació no està disponible. No es pot "
@@ -255,7 +301,8 @@ msgid " Site Not Found"
 msgstr "No s'ha trobat el lloc"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-msgid "Copyright (C) 2013 rajce.net"
+#, fuzzy
+msgid "Copyright © 2013 rajce.net"
 msgstr "Copyright (C) 2013 rajce.net"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:744
@@ -289,8 +336,9 @@ msgid "_Remember"
 msgstr "_Recorda"
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-msgid "Login"
-msgstr "Entra"
+#, fuzzy
+msgid "Log in"
+msgstr "S'està entrant..."
 
 #: ../plugins/shotwell-publishing-extras/RajcePublishing.vala:1005
 msgid "_Hide album"
@@ -336,29 +384,33 @@ msgstr "Copyright 2012 BJA Electronics"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1231
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1228
-msgid "500 x 375 pixels"
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1325
+#, fuzzy
+msgid "500 × 375 pixels"
 msgstr "500 x 375 píxels"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1232
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1229
-msgid "1024 x 768 pixels"
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1326
+#, fuzzy
+msgid "1024 × 768 pixels"
 msgstr "1024 × 768 píxels"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 x 853 pixels"
+#, fuzzy
+msgid "1280 × 853 pixels"
 msgstr "1280 × 853 píxels"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
-#, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+#, fuzzy, c-format
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
 msgstr "«%s» no és una resposta vàlida per a una petició d'autenticació OAuth"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
+#, fuzzy
 msgid ""
-"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): no es pot iniciar; aquest editor no es pot "
 "reiniciar."
@@ -368,12 +420,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Introduïu el nom i contrasenya associats amb el vostre compte Tumblr."
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:990
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid "Username and/or password invalid. Please try again"
 msgstr "L'usuari i/o la contrasenya no són vàlids. Proveu de nou"
 
 #: ../plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Nom d'usuari o contrasenya incorrectes"
 
@@ -400,21 +452,22 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Vés al lloc web del Yandex.Fotki"
 
-#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:658
+#: ../plugins/shotwell-publishing-extras/YandexPublishing.vala:609
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Actualment no esteu connectat al Yandex.Fotki."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:60
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1209
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:64
+#, fuzzy
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
+"If you don’t yet have a Facebook account, you can create one during the "
 "login process. During login, Shotwell Connect may ask you for permission to "
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
@@ -447,23 +500,26 @@ msgid "Large (2048 pixels)"
 msgstr "Gran (2048 píxels)"
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:255
-msgid "Testing connection to Facebook..."
+#, fuzzy
+msgid "Testing connection to Facebook…"
 msgstr "S'està comprovant la connexió amb el Facebook..."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:348
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:379
-msgid "Creating album..."
+#, fuzzy
+msgid "Creating album…"
 msgstr "S'està creant l'àlbum..."
 
 #: ../plugins/shotwell-publishing/FacebookPublishing.vala:374
+#, fuzzy
 msgid ""
-"A file required for publishing is unavailable. Publishing to Facebook can't "
+"A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
 msgstr ""
 "Un dels fitxers necessaris per a la publicació no està disponible. No es pot "
 "continuar amb la publicació a Facebook."
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1032
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:982
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -472,34 +528,35 @@ msgstr ""
 "Actualment esteu connectat al Facebook com a %s.\n"
 "\n"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1033
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:983
 msgid "Where would you like to publish the selected photos?"
 msgstr "On us agradaria publicar les fotografies seleccionades?"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1034
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:984
 msgid "Upload _size:"
 msgstr "Mida de _pujada:"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1193
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1143
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Just me"
 msgstr "Només jo"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1194
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1144
 msgid "Friends"
 msgstr "Amics"
 
-#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1195
+#: ../plugins/shotwell-publishing/FacebookPublishing.vala:1145
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1209
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1216
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "Everyone"
 msgstr "Tothom"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:60
+#, fuzzy
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"Click Login to log into Flickr in your Web browser.  You will have to "
+"Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Actualment no esteu connectat al Flickr.\n"
@@ -519,20 +576,23 @@ msgstr ""
 "intentar-ho."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:374
-msgid "Preparing for login..."
+#, fuzzy
+msgid "Preparing for login…"
 msgstr "S'està preparant per connectar..."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:594
+#, fuzzy
 msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can't "
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
 "Un dels fitxers necessaris per a la publicació no està disponible. No es pot "
 "continuar amb la publicació a Flickr."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:457
-msgid "Verifying authorization..."
+#, fuzzy
+msgid "Verifying authorization…"
 msgstr "S'està verificant l'autorització..."
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1152
@@ -590,27 +650,30 @@ msgid "Friends only"
 msgstr "Només amics"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1230
-msgid "2048 x 1536 pixels"
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1327
+#, fuzzy
+msgid "2048 × 1536 pixels"
 msgstr "2048 x 1536 píxels"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1234
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1231
-msgid "4096 x 3072 pixels"
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1328
+#, fuzzy
+msgid "4096 × 3072 pixels"
 msgstr "4096 x 3072 píxels"
 
 #: ../plugins/shotwell-publishing/FlickrPublishing.vala:1235
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1232
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1329
 #: ../src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Mida original"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:59
+#, fuzzy
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"Click Login to log into Picasa Web Albums in your Web browser. You will have "
-"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+"Click Log in to log into Picasa Web Albums in your Web browser. You will "
+"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
 "No esteu connectat a Picasa Web Albums.\n"
 "\n"
@@ -619,8 +682,9 @@ msgstr ""
 "Picasa Web Albums."
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:361
+#, fuzzy
 msgid ""
-"A file required for publishing is unavailable. Publishing to Picasa can't "
+"A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
 msgstr ""
 "Un fitxer necessari per la publicació no està disponible. No es pot dur a "
@@ -637,19 +701,23 @@ msgid "Videos will appear in:"
 msgstr "Els vídeos apareixeran a:"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:746
-msgid "Small (640 x 480 pixels)"
+#, fuzzy
+msgid "Small (640 × 480 pixels)"
 msgstr "Petita (640 x 480 píxels)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:747
-msgid "Medium (1024 x 768 pixels)"
+#, fuzzy
+msgid "Medium (1024 × 768 pixels)"
 msgstr "Mitjana (1024 x 768 píxels)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:748
-msgid "Recommended (1600 x 1200 pixels)"
+#, fuzzy
+msgid "Recommended (1600 × 1200 pixels)"
 msgstr "Recomanada (1600 x 1200 píxels)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:749
-msgid "Google+ (2048 x 1536 pixels)"
+#, fuzzy
+msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 x 1536 píxels)"
 
 #: ../plugins/shotwell-publishing/PicasaPublishing.vala:750
@@ -657,16 +725,25 @@ msgstr "Google+ (2048 x 1536 píxels)"
 msgid "Original Size"
 msgstr "Mida original"
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:747
-#, c-format
-msgid "Creating album %s..."
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:775
+#, fuzzy, c-format
+msgid "Creating album %s…"
 msgstr "Creant àlbum %s..."
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:918
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:948
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "S'ha produït un error en connectar-se a Piwigo. Proveu de nou."
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:988
+#. %s is the host name that we tried to connect to
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#, c-format
+msgid ""
+"This does not look like the real <b>%s</b>. Attackers might be trying to "
+"steal or alter information going to or from this site (for example, private "
+"messages, credit card information, or passwords)."
+msgstr ""
+
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -675,7 +752,7 @@ msgstr ""
 "d'usuari i contrasenya associats amb el vostre compte Piwigo per aquesta "
 "biblioteca."
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:989
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -683,23 +760,23 @@ msgstr ""
 "El Shotwell no pot contactar amb la vostra biblioteca fotogràfica Piwigo. "
 "Comproveu l'URL que heu introduït"
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1019
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Adreça incorrecta"
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1217
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administradors, família, amics, contactes"
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1218
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "Admins, Family, Friends"
 msgstr "Administradors, família, amics"
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1219
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "Admins, Family"
 msgstr "Administradors, família"
 
-#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1220
+#: ../plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 msgid "Admins"
 msgstr "Administradors"
 
@@ -722,8 +799,9 @@ msgstr ""
 "utilitzant el navegador i entrant almenys un cop al lloc YouTube."
 
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:363
+#, fuzzy
 msgid ""
-"A file required for publishing is unavailable. Publishing to Youtube can't "
+"A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 "Un dels fitxers necessaris per a la publicació no està disponible. No es pot "
@@ -735,8 +813,8 @@ msgid "You are logged into YouTube as %s."
 msgstr "Actualment esteu connectat al YouTube com a %s."
 
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:464
-#, c-format
-msgid "Videos will appear in '%s'"
+#, fuzzy, c-format
+msgid "Videos will appear in “%s”"
 msgstr "Els vídeos apareixeran a «%s»"
 
 #: ../plugins/shotwell-publishing/YouTubePublishing.vala:496
@@ -850,30 +928,30 @@ msgstr "Mantén la barra d'eines oberta"
 msgid "Leave fullscreen"
 msgstr "Surt de la pantalla completa"
 
-#: ../src/AppWindow.vala:496
+#: ../src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "C_ontingut"
 
-#: ../src/AppWindow.vala:501
+#: ../src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "_Preguntes més freqüents"
 
-#: ../src/AppWindow.vala:506
-msgid "_Report a Problem..."
-msgstr "Info_rma d'un problema..."
+#: ../src/AppWindow.vala:509
+msgid "_Report a Problem…"
+msgstr "Info_rma d'un problema…"
 
-#: ../src/AppWindow.vala:605 ../src/AppWindow.vala:626
-#: ../src/AppWindow.vala:643 ../src/data_imports/DataImportsUI.vala:413
-#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1425
-#: ../src/Dialogs.vala:1448 ../src/publishing/PublishingUI.vala:512
+#: ../src/AppWindow.vala:608 ../src/AppWindow.vala:629
+#: ../src/AppWindow.vala:646 ../src/data_imports/DataImportsUI.vala:413
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1441
+#: ../src/Dialogs.vala:1464 ../src/publishing/PublishingUI.vala:512
 #: ../src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: ../src/AppWindow.vala:653
+#: ../src/AppWindow.vala:656
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
@@ -883,21 +961,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/AppWindow.vala:673
+#: ../src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Visiteu la pàgina web del Shotwell"
 
-#: ../src/AppWindow.vala:685
+#: ../src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "No s'ha pogut mostrar l'ajuda: %s"
 
-#: ../src/AppWindow.vala:693
+#: ../src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "No es pot navegar a causa d'un error a la base de dades: %s"
 
-#: ../src/AppWindow.vala:701
+#: ../src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "No s'han pogut mostrar les PMF: %s"
@@ -979,7 +1057,7 @@ msgstr "RAW+JPEG"
 
 #: ../src/camera/ImportPage.vala:458
 msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+"Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
 "No s'ha pogut desmuntar la càmera. Intenteu desmuntar-la des del gestor de "
 "fitxers."
@@ -993,13 +1071,15 @@ msgstr "Amaga les fotografies que ja s'hagin importat"
 msgid "Only display photos that have not been imported"
 msgstr "Mostra només les fotografies que no s'hagin importat"
 
-#. Ticket #3304 - Import page shouldn't display confusing message
-#. prior to import.
-#. TODO: replace this with approved text for "talking to camera,
-#. please wait" once new strings are being accepted.
+#: ../src/camera/ImportPage.vala:842
+msgid "The camera seems to be empty. No photos/videos found to import"
+msgstr ""
+"Sembla que la càmera està buida. No s'han trobat fotografies o vídeos per "
+"importar."
+
 #: ../src/camera/ImportPage.vala:846
-msgid "Starting import, please wait..."
-msgstr "S'està iniciant la importació, espereu..."
+msgid "No new photos/videos found on camera"
+msgstr "No s'han trobat fotografies o vídeos nous a la càmera."
 
 #: ../src/camera/ImportPage.vala:873 ../src/MediaPage.vala:451
 msgid "_Titles"
@@ -1029,7 +1109,7 @@ msgstr "Importa totes les fotografies a la biblioteca"
 #: ../src/camera/ImportPage.vala:1013
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
+"it. Continue?"
 msgstr ""
 "Cal que el Shotwell desmunti la càmera del sistema de fitxers per poder-hi "
 "accedir. Voleu continuar?"
@@ -1044,8 +1124,8 @@ msgstr "Desmunteu la càmera."
 
 #: ../src/camera/ImportPage.vala:1029
 msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
+"The camera is locked by another application. Shotwell can only access the "
+"camera when it’s unlocked. Please close any other application using the "
 "camera and try again."
 msgstr ""
 "Una altra aplicació està blocant la càmera. El Shotwell només pot accedir a "
@@ -1066,60 +1146,64 @@ msgstr ""
 "%s"
 
 #: ../src/camera/ImportPage.vala:1061
-msgid "Unmounting..."
-msgstr "S'està desmuntant..."
+msgid "Unmounting…"
+msgstr "S'està desmuntant…"
 
-#: ../src/camera/ImportPage.vala:1167
+#: ../src/camera/ImportPage.vala:1152
+msgid "Starting import, please wait…"
+msgstr "S'està iniciant la importació, espereu…"
+
+#: ../src/camera/ImportPage.vala:1169
 msgid "Fetching photo information"
 msgstr "S'està recollint la informació de les fotografies"
 
-#: ../src/camera/ImportPage.vala:1522
+#: ../src/camera/ImportPage.vala:1527
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "S'està recollint la previsualització de %s"
 
-#: ../src/camera/ImportPage.vala:1638
+#: ../src/camera/ImportPage.vala:1643
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "No es pot blocar la càmera: %s"
 
-#: ../src/camera/ImportPage.vala:1723
+#: ../src/camera/ImportPage.vala:1728
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Voleu suprimir aquesta fotografia de la càmera?"
 msgstr[1] "Voleu suprimir aquestes %d fotografies de la càmera?"
 
-#: ../src/camera/ImportPage.vala:1726
+#: ../src/camera/ImportPage.vala:1731
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Voleu suprimir aquest vídeo de la càmera?"
 msgstr[1] "Voleu suprimir aquests %d vídeos de la càmera?"
 
-#: ../src/camera/ImportPage.vala:1729
+#: ../src/camera/ImportPage.vala:1734
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Voleu suprimir aquesta fotografia/vídeo de la càmera?"
 msgstr[1] "Voleu suprimir aquestes %d fotografies/vídeos de la càmera?"
 
-#: ../src/camera/ImportPage.vala:1732
+#: ../src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Voleu suprimir aquest fitxer de la càmera?"
 msgstr[1] "Voleu suprimir aquests %d fitxers de la càmera?"
 
-#: ../src/camera/ImportPage.vala:1740 ../src/Dialogs.vala:1392
+#: ../src/camera/ImportPage.vala:1745 ../src/Dialogs.vala:1408
 msgid "_Keep"
 msgstr "_Manté"
 
-#: ../src/camera/ImportPage.vala:1759
+#: ../src/camera/ImportPage.vala:1764
 msgid "Removing photos/videos from camera"
 msgstr "S'estan suprimint les fotografies/vídeos de la càmera"
 
-#: ../src/camera/ImportPage.vala:1763
+#: ../src/camera/ImportPage.vala:1768
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -1149,7 +1233,7 @@ msgstr "Exporta les fotografies/vídeos"
 msgid "Export Photo"
 msgstr "Exporta les fotografies"
 
-#: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:88
+#: ../src/CollectionPage.vala:458 ../src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Exporta les fotografies"
 
@@ -1305,8 +1389,8 @@ msgstr "Crea una etiqueta"
 
 #: ../src/Commands.vala:1695
 #, c-format
-msgid "Move Tag \"%s\""
-msgstr "Mou l'etiqueta «%s»"
+msgid "Move Tag “%s”"
+msgstr "Mou l'etiqueta «%s» "
 
 #: ../src/Commands.vala:2347
 msgid "Move Photos to Trash"
@@ -1366,7 +1450,7 @@ msgstr "Base de dades %s"
 #: ../src/data_imports/DataImportsPluginHost.vala:148
 #: ../src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
-msgid "Importing from %s can't continue because an error occurred:"
+msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "No pot continuar la importació des de %s perquè s'ha produït un error:"
 
 #: ../src/data_imports/DataImportsPluginHost.vala:151
@@ -1472,12 +1556,12 @@ msgstr ""
 
 #: ../src/Dialogs.vala:16
 #, c-format
-msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgid "This will remove the tag “%s” from one photo. Continue?"
+msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Això suprimirà l'etiqueta «%s» d'una fotografia. Voleu continuar?"
 msgstr[1] "Això suprimirà l'etiqueta «%s» de %d fotografies. Voleu continuar?"
 
-#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1393
+#: ../src/Dialogs.vala:20 ../src/Dialogs.vala:28 ../src/Dialogs.vala:1409
 #: ../src/Resources.vala:158 ../src/Resources.vala:361
 #: ../src/Resources.vala:409 ../src/Resources.vala:674
 msgid "_Delete"
@@ -1485,7 +1569,7 @@ msgstr "_Suprimeix"
 
 #: ../src/Dialogs.vala:25
 #, c-format
-msgid "This will remove the saved search \"%s\".  Continue?"
+msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Això suprimirà la cerca desada «%s». Voleu continuar?"
 
 #: ../src/Dialogs.vala:36
@@ -1515,16 +1599,16 @@ msgstr "Exporta vídeos"
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: ../src/Dialogs.vala:116
+#: ../src/Dialogs.vala:112
 #, c-format
 msgid ""
-"Shotwell couldn't create a file for editing this photo because you do not "
+"Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
 "El Shotwell no ha pogut crear un fitxer per editar aquesta fotografia perquè "
 "no teniu permís per escriure a %s."
 
-#: ../src/Dialogs.vala:125
+#: ../src/Dialogs.vala:121
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -1533,7 +1617,7 @@ msgstr ""
 "fitxer.\n"
 "\n"
 
-#: ../src/Dialogs.vala:131
+#: ../src/Dialogs.vala:127
 msgid ""
 "\n"
 "\n"
@@ -1543,67 +1627,68 @@ msgstr ""
 "\n"
 "Voleu continuar exportant?"
 
-#: ../src/Dialogs.vala:132
+#: ../src/Dialogs.vala:128
 msgid "Con_tinue"
 msgstr "Con_tinua"
 
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
 #. Hereafter we'll refer to these as "special formats."
-#: ../src/Dialogs.vala:148
+#: ../src/Dialogs.vala:144
 msgid "Unmodified"
 msgstr "Sense modificar"
 
-#: ../src/Dialogs.vala:149
+#: ../src/Dialogs.vala:145
 msgid "Current"
 msgstr "Actual"
 
 #. layout controls
-#: ../src/Dialogs.vala:216
+#: ../src/Dialogs.vala:221
 msgid "_Format:"
 msgstr "_Format:"
 
-#: ../src/Dialogs.vala:219
+#: ../src/Dialogs.vala:224
 msgid "_Quality:"
 msgstr "_Qualitat:"
 
-#: ../src/Dialogs.vala:222
+#: ../src/Dialogs.vala:227
 msgid "_Scaling constraint:"
 msgstr "Restricció d'e_scala:"
 
-#: ../src/Dialogs.vala:225
+#: ../src/Dialogs.vala:230
 msgid "_Pixels:"
 msgstr " _Píxels:"
 
-#: ../src/Dialogs.vala:228
-msgid "Export metadata"
+#: ../src/Dialogs.vala:234
+#, fuzzy
+msgid "Export _metadata:"
 msgstr "Exporta les metadades"
 
-#: ../src/Dialogs.vala:462
-msgid "Save Details..."
-msgstr "Desa els detalls..."
+#: ../src/Dialogs.vala:478
+msgid "Save Details…"
+msgstr "Desa els detalls…"
 
-#: ../src/Dialogs.vala:463
+#: ../src/Dialogs.vala:479
 msgid "Save Details"
 msgstr "Desa els detalls"
 
-#: ../src/Dialogs.vala:478
+#: ../src/Dialogs.vala:494
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(i %d més)\n"
 
-#: ../src/Dialogs.vala:531
+#: ../src/Dialogs.vala:547
 msgid "Import Results Report"
 msgstr "Importa l'informe de resultats"
 
-#: ../src/Dialogs.vala:535
+#: ../src/Dialogs.vala:551
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "S'ha intentat importar %d fitxer."
 msgstr[1] "S'han intentat importar %d fitxers."
 
-#: ../src/Dialogs.vala:538
+#: ../src/Dialogs.vala:554
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -1613,60 +1698,60 @@ msgstr[1] "D'aquests, s'han importat correctament %d fitxers."
 #.
 #. Duplicates
 #.
-#: ../src/Dialogs.vala:550
+#: ../src/Dialogs.vala:566
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Fotos/Vídeos duplicats que no s'han importat:"
 
-#: ../src/Dialogs.vala:554
+#: ../src/Dialogs.vala:570
 msgid "duplicates existing media item"
 msgstr "duplica un element multimèdia existent"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: ../src/Dialogs.vala:565
+#: ../src/Dialogs.vala:581
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Fotos/Vídeos que no s'han importat a causa d'errors de la càmera:"
 
-#: ../src/Dialogs.vala:568 ../src/Dialogs.vala:583 ../src/Dialogs.vala:598
-#: ../src/Dialogs.vala:614 ../src/Dialogs.vala:629 ../src/Dialogs.vala:643
+#: ../src/Dialogs.vala:584 ../src/Dialogs.vala:599 ../src/Dialogs.vala:614
+#: ../src/Dialogs.vala:630 ../src/Dialogs.vala:645 ../src/Dialogs.vala:659
 msgid "error message:"
 msgstr "missatge d'error:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: ../src/Dialogs.vala:579
-msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+#: ../src/Dialogs.vala:595
+msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Fitxers que no s'han importat perquè no s'han reconegut com a fotos o vídeos:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: ../src/Dialogs.vala:594
+#: ../src/Dialogs.vala:610
 msgid ""
-"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
 msgstr ""
-"Fitxers que no s'han importat perquè no estaven en un format que el Shotwell "
-"pugui comprendre:"
+"Fotos i vídeos que no s'han importat perquè no estaven en un format que el "
+"Shotwell pugui comprendre:"
 
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: ../src/Dialogs.vala:609
+#: ../src/Dialogs.vala:625
 msgid ""
-"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr ""
-"Fotos/Vídeos que no s'han importat perquè el Shotwell no ha pogut copiar-los "
-"en aquesta biblioteca:"
+"Fotos i vídeos que no s'han importat perquè el Shotwell no ha pogut copiar-"
+"los a la biblioteca:"
 
-#: ../src/Dialogs.vala:613
+#: ../src/Dialogs.vala:629
 #, c-format
 msgid ""
-"couldn't copy %s\n"
+"couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
 "no s'ha pogut copiar %s\n"
@@ -1675,7 +1760,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: ../src/Dialogs.vala:625
+#: ../src/Dialogs.vala:641
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr ""
 "Fotos/Vídeos que no s'han importat perquè els fitxers estan corromputs:"
@@ -1683,32 +1768,32 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: ../src/Dialogs.vala:640
+#: ../src/Dialogs.vala:656
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Fotos/Vídeos que no s'han importat per altres raons:"
 
-#: ../src/Dialogs.vala:660
+#: ../src/Dialogs.vala:676
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "No s'ha importat una fotografia duplicada:\n"
 msgstr[1] "No s'han importat %d fotografies duplicades:\n"
 
-#: ../src/Dialogs.vala:663
+#: ../src/Dialogs.vala:679
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "No s'ha importat un vídeo duplicat:\n"
 msgstr[1] "No s'han importat %d vídeos duplicats:\n"
 
-#: ../src/Dialogs.vala:666
+#: ../src/Dialogs.vala:682
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "No s'ha importat una fotografia/vídeo duplicat:\n"
 msgstr[1] "No s'han importat %d fotografies/vídeos duplicats:\n"
 
-#: ../src/Dialogs.vala:680
+#: ../src/Dialogs.vala:696
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -1719,7 +1804,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fotografies a causa d'un error de fitxer o de "
 "maquinari:\n"
 
-#: ../src/Dialogs.vala:683
+#: ../src/Dialogs.vala:699
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -1730,7 +1815,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d vídeos a causa d'un error de fitxer o de "
 "maquinari:\n"
 
-#: ../src/Dialogs.vala:686
+#: ../src/Dialogs.vala:702
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -1742,7 +1827,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fotografies/vídeos a causa d'un error de "
 "fitxer o de maquinari:\n"
 
-#: ../src/Dialogs.vala:689
+#: ../src/Dialogs.vala:705
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
@@ -1753,7 +1838,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fitxers a causa d'un error de fitxer o de "
 "maquinari:\n"
 
-#: ../src/Dialogs.vala:703
+#: ../src/Dialogs.vala:719
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -1767,7 +1852,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fotografies perquè no es pot escriure a la "
 "carpeta de la biblioteca de fotografies:\n"
 
-#: ../src/Dialogs.vala:706
+#: ../src/Dialogs.vala:722
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -1781,7 +1866,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d vídeos perquè no es pot escriure a la carpeta "
 "de la biblioteca de fotografies:\n"
 
-#: ../src/Dialogs.vala:709
+#: ../src/Dialogs.vala:725
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -1796,7 +1881,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fotografies/vídeos perquè no es pot escriure a "
 "la carpeta de la biblioteca de fotografies:\n"
 
-#: ../src/Dialogs.vala:712
+#: ../src/Dialogs.vala:728
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -1810,7 +1895,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fitxers perquè no es pot escriure a la carpeta "
 "de la biblioteca de fotografies:\n"
 
-#: ../src/Dialogs.vala:726
+#: ../src/Dialogs.vala:742
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
@@ -1819,7 +1904,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Ha fallat la importació de %d fotografies a causa d'un error de la càmera:\n"
 
-#: ../src/Dialogs.vala:729
+#: ../src/Dialogs.vala:745
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
@@ -1828,7 +1913,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Ha fallat la importació de %d vídeos a causa d'un error de la càmera:\n"
 
-#: ../src/Dialogs.vala:732
+#: ../src/Dialogs.vala:748
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -1839,7 +1924,7 @@ msgstr[1] ""
 "Ha fallat la importació de %d fotografies/vídeos a causa d'un error de la "
 "càmera:\n"
 
-#: ../src/Dialogs.vala:735
+#: ../src/Dialogs.vala:751
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
@@ -1848,7 +1933,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Ha fallat la importació de %d fitxers a causa d'un error de la càmera:\n"
 
-#: ../src/Dialogs.vala:749
+#: ../src/Dialogs.vala:765
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
@@ -1856,7 +1941,7 @@ msgstr[0] "No s'ha pogut importar 1 foto perquè el fitxer està corromput:\n"
 msgstr[1] ""
 "No s'han pogut importar %d fotos perquè els fitxers estan corromputs:\n"
 
-#: ../src/Dialogs.vala:752
+#: ../src/Dialogs.vala:768
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
@@ -1864,7 +1949,7 @@ msgstr[0] "No s'ha pogut importar 1 vídeo perquè el fitxer està corromput:\n"
 msgstr[1] ""
 "No s'han pogut importar %d vídeos perquè els fitxers estan corromputs:\n"
 
-#: ../src/Dialogs.vala:755
+#: ../src/Dialogs.vala:771
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
@@ -1874,7 +1959,7 @@ msgstr[1] ""
 "No s'han pogut importar %d fotos/vídeos perquè els fitxers estan "
 "corromputs:\n"
 
-#: ../src/Dialogs.vala:758
+#: ../src/Dialogs.vala:774
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -1885,7 +1970,7 @@ msgstr[1] "No s'han pogut importar %d fitxers perquè estan corromputs:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: ../src/Dialogs.vala:775
+#: ../src/Dialogs.vala:791
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -1894,28 +1979,28 @@ msgstr[1] "S'han omès %d fotografies no compatibles:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: ../src/Dialogs.vala:790
+#: ../src/Dialogs.vala:806
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "S'ha omès un fitxer que no era d'imatge.\n"
 msgstr[1] "S'han omès %d fitxers que no eren d'imatge.\n"
 
-#: ../src/Dialogs.vala:801
+#: ../src/Dialogs.vala:817
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "S'ha omès una fotografia a causa de la cancel·lació de l'usuari:\n"
 msgstr[1] "S'han omès %d fotografies a causa de la cancel·lació de l'usuari:\n"
 
-#: ../src/Dialogs.vala:804
+#: ../src/Dialogs.vala:820
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "S'ha omès un vídeo a causa de la cancel·lació de l'usuari:\n"
 msgstr[1] "S'han omès %d vídeos a causa de la cancel·lació de l'usuari:\n"
 
-#: ../src/Dialogs.vala:807
+#: ../src/Dialogs.vala:823
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
@@ -1924,28 +2009,28 @@ msgstr[0] ""
 msgstr[1] ""
 "S'han omès %d fotografies/vídeos a causa de la cancel·lació de l'usuari:\n"
 
-#: ../src/Dialogs.vala:810
+#: ../src/Dialogs.vala:826
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "S'ha omès un fitxer a causa de la cancel·lació de l'usuari:\n"
 msgstr[1] "S'han omès %d fitxers a causa de la cancel·lació de l'usuari:\n"
 
-#: ../src/Dialogs.vala:824
+#: ../src/Dialogs.vala:840
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "S'ha importat una fotografia correctament.\n"
 msgstr[1] "S'han importat %d fotografies correctament.\n"
 
-#: ../src/Dialogs.vala:827
+#: ../src/Dialogs.vala:843
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "S'ha importat un vídeo correctament.\n"
 msgstr[1] "S'han importat %d vídeos correctament.\n"
 
-#: ../src/Dialogs.vala:830
+#: ../src/Dialogs.vala:846
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -1954,179 +2039,179 @@ msgstr[1] "S'han importat %d fotografies/vídeos correctament.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: ../src/Dialogs.vala:846
+#: ../src/Dialogs.vala:862
 msgid "No photos or videos imported.\n"
 msgstr "No s'ha importat cap vídeo o fotografia.\n"
 
-#: ../src/Dialogs.vala:853 ../src/Dialogs.vala:872
+#: ../src/Dialogs.vala:869 ../src/Dialogs.vala:888
 msgid "Import Complete"
 msgstr "S'ha completat la importació"
 
-#: ../src/Dialogs.vala:1158
+#: ../src/Dialogs.vala:1174
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d segon"
 msgstr[1] "%d segons"
 
-#: ../src/Dialogs.vala:1161
+#: ../src/Dialogs.vala:1177
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minut"
 msgstr[1] "%d minuts"
 
-#: ../src/Dialogs.vala:1165
+#: ../src/Dialogs.vala:1181
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d hora"
 msgstr[1] "%d hores"
 
-#: ../src/Dialogs.vala:1168
+#: ../src/Dialogs.vala:1184
 msgid "1 day"
 msgstr "1 dia"
 
-#: ../src/Dialogs.vala:1322 ../src/Resources.vala:231
+#: ../src/Dialogs.vala:1338 ../src/Resources.vala:231
 msgid "Rename Event"
 msgstr "Canvia el nom de l'esdeveniment"
 
-#: ../src/Dialogs.vala:1322
+#: ../src/Dialogs.vala:1338
 msgid "Name:"
 msgstr "Nom:"
 
 #. Dialog title
-#: ../src/Dialogs.vala:1333
+#: ../src/Dialogs.vala:1349
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Edita el títol"
 
-#: ../src/Dialogs.vala:1334 ../src/Properties.vala:340
+#: ../src/Dialogs.vala:1350 ../src/Properties.vala:340
 msgid "Title:"
 msgstr "Títol:"
 
 #. Dialog title
-#: ../src/Dialogs.vala:1350 ../src/Resources.vala:307
+#: ../src/Dialogs.vala:1366 ../src/Resources.vala:307
 msgid "Edit Event Comment"
 msgstr "Edita el comentari de l'esdeveniment"
 
-#: ../src/Dialogs.vala:1351
+#: ../src/Dialogs.vala:1367
 msgid "Edit Photo/Video Comment"
 msgstr "Edita el comentari de la foto/vídeo"
 
-#: ../src/Dialogs.vala:1352 ../src/Properties.vala:628
+#: ../src/Dialogs.vala:1368 ../src/Properties.vala:628
 msgid "Comment:"
 msgstr "Comentari:"
 
-#: ../src/Dialogs.vala:1368
+#: ../src/Dialogs.vala:1384
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Suprimeix i _envia el fitxer a la paperera"
 msgstr[1] "Suprimeix i _envia els fitxers a la paperera"
 
-#: ../src/Dialogs.vala:1372
+#: ../src/Dialogs.vala:1388
 msgid "_Remove From Library"
 msgstr "_Suprimeix de la biblioteca"
 
-#: ../src/Dialogs.vala:1415
+#: ../src/Dialogs.vala:1431
 msgid "Revert External Edit?"
 msgstr "Voleu revertir l'edició externa?"
 
-#: ../src/Dialogs.vala:1415
+#: ../src/Dialogs.vala:1431
 msgid "Revert External Edits?"
 msgstr "Voleu revertir les edicions externes?"
 
-#: ../src/Dialogs.vala:1417
+#: ../src/Dialogs.vala:1433
 #, c-format
-msgid "This will destroy all changes made to the external file.  Continue?"
+msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+"This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
 "Això suprimirà tots els canvis fets al fitxer extern. Voleu continuar?"
 msgstr[1] ""
 "Això suprimirà tots els canvis fets als %d fitxers externs. Voleu continuar?"
 
-#: ../src/Dialogs.vala:1421
+#: ../src/Dialogs.vala:1437
 msgid "Re_vert External Edit"
 msgstr "_Reverteix l'edició externa"
 
-#: ../src/Dialogs.vala:1421
+#: ../src/Dialogs.vala:1437
 msgid "Re_vert External Edits"
 msgstr "_Reverteix les edicions externes"
 
-#: ../src/Dialogs.vala:1442
+#: ../src/Dialogs.vala:1458
 #, c-format
-msgid "This will remove the photo from the library.  Continue?"
-msgid_plural "This will remove %d photos from the library.  Continue?"
+msgid "This will remove the photo from the library. Continue?"
+msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Això suprimirà la fotografia de la biblioteca. Voleu continuar?"
 msgstr[1] "Això suprimirà %d fotografies de la biblioteca. Voleu continuar?"
 
-#: ../src/Dialogs.vala:1449 ../src/Resources.vala:173
+#: ../src/Dialogs.vala:1465 ../src/Resources.vala:173
 msgid "_Remove"
 msgstr "_Suprimeix"
 
-#: ../src/Dialogs.vala:1450
+#: ../src/Dialogs.vala:1466
 msgid "Remove Photo From Library"
 msgstr "Suprimeix la fotografia de la biblioteca"
 
-#: ../src/Dialogs.vala:1450
+#: ../src/Dialogs.vala:1466
 msgid "Remove Photos From Library"
 msgstr "Suprimeix les fotografies de la biblioteca"
 
-#: ../src/Dialogs.vala:1543
+#: ../src/Dialogs.vala:1559
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: ../src/Dialogs.vala:1697
+#: ../src/Dialogs.vala:1713
 msgid "AM"
 msgstr "AM"
 
-#: ../src/Dialogs.vala:1698
+#: ../src/Dialogs.vala:1714
 msgid "PM"
 msgstr "PM"
 
-#: ../src/Dialogs.vala:1699
+#: ../src/Dialogs.vala:1715
 msgid "24 Hr"
 msgstr "24 h"
 
-#: ../src/Dialogs.vala:1714
+#: ../src/Dialogs.vala:1730
 msgid "_Shift photos/videos by the same amount"
 msgstr "_Desplaça les fotografies/vídeos amb la mateixa quantitat"
 
-#: ../src/Dialogs.vala:1719
+#: ../src/Dialogs.vala:1735
 msgid "Set _all photos/videos to this time"
 msgstr "Estableix _totes les fotografies/vídeos a aquesta hora"
 
-#: ../src/Dialogs.vala:1726
+#: ../src/Dialogs.vala:1742
 msgid "_Modify original photo file"
 msgstr "_Modifica el fitxer d'imatge original"
 
-#: ../src/Dialogs.vala:1726
+#: ../src/Dialogs.vala:1742
 msgid "_Modify original photo files"
 msgstr "_Modifica els fitxers d'imatges originals"
 
-#: ../src/Dialogs.vala:1729
+#: ../src/Dialogs.vala:1745
 msgid "_Modify original file"
 msgstr "_Modifica el fitxer original"
 
-#: ../src/Dialogs.vala:1729
+#: ../src/Dialogs.vala:1745
 msgid "_Modify original files"
 msgstr "_Modifica els fitxers originals"
 
-#: ../src/Dialogs.vala:1815
+#: ../src/Dialogs.vala:1831
 msgid "Original: "
 msgstr "Original: "
 
-#: ../src/Dialogs.vala:1816
+#: ../src/Dialogs.vala:1832
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
-#: ../src/Dialogs.vala:1817
+#: ../src/Dialogs.vala:1833
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y, %I:%M:%S %p"
 
-#: ../src/Dialogs.vala:1906
+#: ../src/Dialogs.vala:1922
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -2135,7 +2220,7 @@ msgstr ""
 "El temps d'exposició es desplaçarà cap endavant per\n"
 "%d %s, %d %s, %d %s i %d %s."
 
-#: ../src/Dialogs.vala:1907
+#: ../src/Dialogs.vala:1923
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -2144,31 +2229,31 @@ msgstr ""
 "El temps d'exposició es desplaçarà cap enrere per\n"
 "%d %s, %d %s, %d %s i %d %s."
 
-#: ../src/Dialogs.vala:1909
+#: ../src/Dialogs.vala:1925
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dia"
 msgstr[1] "dies"
 
-#: ../src/Dialogs.vala:1910
+#: ../src/Dialogs.vala:1926
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hora"
 msgstr[1] "hores"
 
-#: ../src/Dialogs.vala:1911
+#: ../src/Dialogs.vala:1927
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minuts"
 
-#: ../src/Dialogs.vala:1912
+#: ../src/Dialogs.vala:1928
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "segon"
 msgstr[1] "segons"
 
-#: ../src/Dialogs.vala:1956
+#: ../src/Dialogs.vala:1972
 #, c-format
 msgid ""
 "\n"
@@ -2187,50 +2272,50 @@ msgstr[1] ""
 "\n"
 "I %d altres."
 
-#: ../src/Dialogs.vala:1980 ../src/Dialogs.vala:2007
+#: ../src/Dialogs.vala:1996 ../src/Dialogs.vala:2023
 msgid "Tags (separated by commas):"
 msgstr "Etiquetes (separades per comes):"
 
-#: ../src/Dialogs.vala:2087
+#: ../src/Dialogs.vala:2103
 msgid "Welcome!"
 msgstr "Us donem la benvinguda"
 
-#: ../src/Dialogs.vala:2094
+#: ../src/Dialogs.vala:2110
 msgid "Welcome to Shotwell!"
 msgstr "Us donem la benvinguda al Shotwell"
 
-#: ../src/Dialogs.vala:2098
+#: ../src/Dialogs.vala:2114
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Per començar, importeu fotografies de qualsevol de les següents formes:"
 
-#: ../src/Dialogs.vala:2117
+#: ../src/Dialogs.vala:2133
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Trieu <span weight=\"bold\">Fitxer %s Importa des d'una carpeta</span>"
 
-#: ../src/Dialogs.vala:2118
+#: ../src/Dialogs.vala:2134
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Arrossegueu i deixeu anar fotografies a la finestra del Shotwell"
 
-#: ../src/Dialogs.vala:2119
+#: ../src/Dialogs.vala:2135
 msgid "Connect a camera to your computer and import"
 msgstr "Connecteu una càmera al vostre ordinador i importeu-ne les fotografies"
 
-#: ../src/Dialogs.vala:2129
+#: ../src/Dialogs.vala:2145
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importa les fotografies de la carpeta %s"
 
-#: ../src/Dialogs.vala:2136
+#: ../src/Dialogs.vala:2152
 msgid "You can also import photos in any of these ways:"
 msgstr "També podeu importar fotografies de qualsevol d'aquestes maneres:"
 
-#: ../src/Dialogs.vala:2146
-msgid "_Don't show this message again"
+#: ../src/Dialogs.vala:2162
+msgid "_Don’t show this message again"
 msgstr "_No tornis a mostrar aquest missatge"
 
-#: ../src/Dialogs.vala:2181
+#: ../src/Dialogs.vala:2197
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importa fotografies de la biblioteca %s"
@@ -2238,42 +2323,42 @@ msgstr "Importa fotografies de la biblioteca %s"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: ../src/Dialogs.vala:2328 ../src/Dialogs.vala:2332
+#: ../src/Dialogs.vala:2344 ../src/Dialogs.vala:2348
 msgid "(Help)"
 msgstr "(ajuda)"
 
-#: ../src/Dialogs.vala:2341
+#: ../src/Dialogs.vala:2357
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Any%sMes%sDia"
 
-#: ../src/Dialogs.vala:2343
+#: ../src/Dialogs.vala:2359
 #, c-format
 msgid "Year%sMonth"
 msgstr "Any%sMes"
 
-#: ../src/Dialogs.vala:2345
+#: ../src/Dialogs.vala:2361
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Any%sMes-Dia"
 
-#: ../src/Dialogs.vala:2347
+#: ../src/Dialogs.vala:2363
 msgid "Year-Month-Day"
 msgstr "Any-Mes-Dia"
 
 # N.T.: femení
-#: ../src/Dialogs.vala:2348 ../src/editing_tools/EditingTools.vala:781
+#: ../src/Dialogs.vala:2364 ../src/editing_tools/EditingTools.vala:781
 msgid "Custom"
 msgstr "Personalitzada"
 
 #. Invalid pattern.
-#: ../src/Dialogs.vala:2585
+#: ../src/Dialogs.vala:2601
 msgid "Invalid pattern"
 msgstr "Patró no vàlid"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: ../src/Dialogs.vala:2687
+#: ../src/Dialogs.vala:2703
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -2281,40 +2366,40 @@ msgstr ""
 "El Shotwell pot copiar les fotografies a la carpeta de la biblioteca o les "
 "pot importar sense copiar-les."
 
-#: ../src/Dialogs.vala:2692
+#: ../src/Dialogs.vala:2708
 msgid "Co_py Photos"
 msgstr "Co_pia les fotografies"
 
-#: ../src/Dialogs.vala:2693
+#: ../src/Dialogs.vala:2709
 msgid "_Import in Place"
 msgstr "_Importa-les a la ubicació"
 
-#: ../src/Dialogs.vala:2694
+#: ../src/Dialogs.vala:2710
 msgid "Import to Library"
 msgstr "Importa a la biblioteca"
 
-#: ../src/Dialogs.vala:2704 ../src/PhotoPage.vala:3085
+#: ../src/Dialogs.vala:2720 ../src/PhotoPage.vala:3085
 msgid "Remove From Library"
 msgstr "Suprimeix de la biblioteca"
 
-#: ../src/Dialogs.vala:2705 ../src/PhotoPage.vala:3085
+#: ../src/Dialogs.vala:2721 ../src/PhotoPage.vala:3085
 msgid "Removing Photo From Library"
 msgstr "S'està suprimint la fotografia de la biblioteca"
 
-#: ../src/Dialogs.vala:2705
+#: ../src/Dialogs.vala:2721
 msgid "Removing Photos From Library"
 msgstr "S'estan suprimint les fotografies de la biblioteca"
 
-#: ../src/Dialogs.vala:2719
+#: ../src/Dialogs.vala:2735
 #, c-format
 msgid ""
-"This will remove the photo/video from your Shotwell library.  Would you also "
+"This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos/videos from your Shotwell library.  Would you "
-"also like to move the files to your desktop trash?\n"
+"This will remove %d photos/videos from your Shotwell library. Would you also "
+"like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -2328,15 +2413,15 @@ msgstr[1] ""
 "\n"
 "Aquesta acció no es pot desfer."
 
-#: ../src/Dialogs.vala:2723
+#: ../src/Dialogs.vala:2739
 #, c-format
 msgid ""
-"This will remove the video from your Shotwell library.  Would you also like "
+"This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d videos from your Shotwell library.  Would you also like "
+"This will remove %d videos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -2351,15 +2436,15 @@ msgstr[1] ""
 "\n"
 "Aquesta acció no es pot desfer."
 
-#: ../src/Dialogs.vala:2727
+#: ../src/Dialogs.vala:2743
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
+"This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
+"This will remove %d photos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -2374,12 +2459,12 @@ msgstr[1] ""
 "\n"
 "Aquesta acció no es pot desfer."
 
-#: ../src/Dialogs.vala:2759
+#: ../src/Dialogs.vala:2775
 #, c-format
 msgid ""
-"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+"The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+"%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
 "La fotografia o el vídeo no es pot moure a la paperera de l'escriptori. "
 "Voleu suprimir aquest fitxer?"
@@ -2388,7 +2473,7 @@ msgstr[1] ""
 "suprimir aquests fitxers?"
 
 #. Alert the user that the files were not removed.
-#: ../src/Dialogs.vala:2776
+#: ../src/Dialogs.vala:2792
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -2421,8 +2506,8 @@ msgid "Save photo"
 msgstr "Desa la fotografia"
 
 #: ../src/direct/DirectPhotoPage.vala:57
-msgid "Save _As..."
-msgstr "Anomena i _desa..."
+msgid "Save _As…"
+msgstr "_Anomena i desa"
 
 #: ../src/direct/DirectPhotoPage.vala:58
 msgid "Save photo with a different name"
@@ -2603,84 +2688,84 @@ msgid "-"
 msgstr "-"
 
 #: ../src/editing_tools/EditingTools.vala:758
-msgid "SD Video (4 : 3)"
-msgstr "Vídeo SD (4 : 3)"
+msgid "SD Video (4 ∶ 3)"
+msgstr "Vídeo SD (4 ∶ 3)"
 
 #: ../src/editing_tools/EditingTools.vala:759
-msgid "HD Video (16 : 9)"
-msgstr "Vídeo HD (16 : 9)"
+msgid "HD Video (16 ∶ 9)"
+msgstr "Vídeo HD (16 ∶ 9)"
 
-#: ../src/editing_tools/EditingTools.vala:761 ../src/Printing.vala:817
-msgid "Wallet (2 x 3 in.)"
-msgstr "Cartera (2 x 3 polzades)"
+#: ../src/editing_tools/EditingTools.vala:761 ../src/Printing.vala:818
+msgid "Wallet (2 × 3 in.)"
+msgstr "Cartera (2 × 3 polzades)"
 
-#: ../src/editing_tools/EditingTools.vala:762 ../src/Printing.vala:820
-msgid "Notecard (3 x 5 in.)"
-msgstr "Targeta (3 x 5 polzades)"
+#: ../src/editing_tools/EditingTools.vala:762 ../src/Printing.vala:821
+msgid "Notecard (3 × 5 in.)"
+msgstr "Targeta (3 × 5 polzades)"
 
-#: ../src/editing_tools/EditingTools.vala:763 ../src/Printing.vala:823
-msgid "4 x 6 in."
-msgstr "4 x 6 polzades"
+#: ../src/editing_tools/EditingTools.vala:763 ../src/Printing.vala:824
+msgid "4 × 6 in."
+msgstr "4 × 6 polzades"
 
-#: ../src/editing_tools/EditingTools.vala:764 ../src/Printing.vala:826
-msgid "5 x 7 in."
-msgstr "5 x 7 polzades"
+#: ../src/editing_tools/EditingTools.vala:764 ../src/Printing.vala:827
+msgid "5 × 7 in."
+msgstr "5 × 7 polzades"
 
-#: ../src/editing_tools/EditingTools.vala:765 ../src/Printing.vala:829
-msgid "8 x 10 in."
-msgstr "8 x 10 polzades"
+#: ../src/editing_tools/EditingTools.vala:765 ../src/Printing.vala:830
+msgid "8 × 10 in."
+msgstr "8 × 10 polzades"
 
 #: ../src/editing_tools/EditingTools.vala:766
-msgid "Letter (8.5 x 11 in.)"
-msgstr "Carta (8.5 x 11 in.)"
+msgid "Letter (8.5 × 11 in.)"
+msgstr "Carta (8.5 × 11 polzades)"
 
-#: ../src/editing_tools/EditingTools.vala:767 ../src/Printing.vala:832
-msgid "11 x 14 in."
-msgstr "11 x 14 polzades"
+#: ../src/editing_tools/EditingTools.vala:767 ../src/Printing.vala:833
+msgid "11 × 14 in."
+msgstr "11 × 14 polzades"
 
 #: ../src/editing_tools/EditingTools.vala:768
-msgid "Tabloid (11 x 17 in.)"
-msgstr "Tabloide (11 x 17 in.)"
+msgid "Tabloid (11 × 17 in.)"
+msgstr "Tabloide (11 × 17 polzades)"
 
-#: ../src/editing_tools/EditingTools.vala:769 ../src/Printing.vala:835
-msgid "16 x 20 in."
-msgstr "16 x 20 polzades"
+#: ../src/editing_tools/EditingTools.vala:769 ../src/Printing.vala:836
+msgid "16 × 20 in."
+msgstr "16 × 20 polzades"
 
-#: ../src/editing_tools/EditingTools.vala:771 ../src/Printing.vala:841
-msgid "Metric Wallet (9 x 13 cm)"
-msgstr "Cartera en sistema mètric (9 x 13 cm)"
+#: ../src/editing_tools/EditingTools.vala:771 ../src/Printing.vala:842
+msgid "Metric Wallet (9 × 13 cm)"
+msgstr "Cartera en sistema mètric (9 × 13 cm)"
 
-#: ../src/editing_tools/EditingTools.vala:772 ../src/Printing.vala:844
-msgid "Postcard (10 x 15 cm)"
-msgstr "Postal (10 x 15 cm)"
+#: ../src/editing_tools/EditingTools.vala:772 ../src/Printing.vala:845
+msgid "Postcard (10 × 15 cm)"
+msgstr "Postal (10 × 15 cm)"
 
-#: ../src/editing_tools/EditingTools.vala:773 ../src/Printing.vala:847
-msgid "13 x 18 cm"
-msgstr "13 x 18 cm"
+#: ../src/editing_tools/EditingTools.vala:773 ../src/Printing.vala:848
+msgid "13 × 18 cm"
+msgstr "13 × 18 cm"
 
-#: ../src/editing_tools/EditingTools.vala:774 ../src/Printing.vala:850
-msgid "18 x 24 cm"
-msgstr "18 x 24 cm"
+#: ../src/editing_tools/EditingTools.vala:774 ../src/Printing.vala:851
+msgid "18 × 24 cm"
+msgstr "18 × 24 cm"
 
 #: ../src/editing_tools/EditingTools.vala:775
-msgid "A4 (210 x 297 mm)"
-msgstr "A4 (210 x 297 mm)"
+msgid "A4 (210 × 297 mm)"
+msgstr "A4 (210 × 297 mm)"
 
-#: ../src/editing_tools/EditingTools.vala:776 ../src/Printing.vala:853
-msgid "20 x 30 cm"
-msgstr "20 x 30 cm"
+#: ../src/editing_tools/EditingTools.vala:776 ../src/Printing.vala:854
+msgid "20 × 30 cm"
+msgstr "20 × 30 cm"
 
-#: ../src/editing_tools/EditingTools.vala:777 ../src/Printing.vala:856
-msgid "24 x 40 cm"
-msgstr "24 x 40 cm"
+#: ../src/editing_tools/EditingTools.vala:777 ../src/Printing.vala:857
+msgid "24 × 40 cm"
+msgstr "24 × 40 cm"
 
-#: ../src/editing_tools/EditingTools.vala:778 ../src/Printing.vala:859
-msgid "30 x 40 cm"
-msgstr "30 x 40 cm"
+#: ../src/editing_tools/EditingTools.vala:778 ../src/Printing.vala:860
+msgid "30 × 40 cm"
+msgstr "30 × 40 cm"
 
 #: ../src/editing_tools/EditingTools.vala:779
-msgid "A3 (297 x 420 mm)"
-msgstr "A3 (297 x 420 mm)"
+msgid "A3 (297 × 420 mm)"
+msgstr "A3 (297 × 420 mm)"
 
 #: ../src/editing_tools/EditingTools.vala:1872 ../src/Properties.vala:395
 msgid "Size:"
@@ -2694,70 +2779,78 @@ msgstr "Tanca l'eina d'ulls vermells"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Suprimeix tots els efectes d'ulls vermells de la regió seleccionada"
 
-#: ../src/editing_tools/EditingTools.vala:2226
+#: ../src/editing_tools/EditingTools.vala:2229
 #: ../src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reinicia"
 
 #. fit both on the top line, emit and move on
-#: ../src/editing_tools/EditingTools.vala:2240 ../src/Properties.vala:436
+#: ../src/editing_tools/EditingTools.vala:2243 ../src/Properties.vala:436
 #: ../src/Properties.vala:440 ../src/Properties.vala:447
 msgid "Exposure:"
 msgstr "Exposició:"
 
-#: ../src/editing_tools/EditingTools.vala:2248
+#: ../src/editing_tools/EditingTools.vala:2251
+msgid "Contrast:"
+msgstr "Contrast:"
+
+#: ../src/editing_tools/EditingTools.vala:2259
 msgid "Saturation:"
 msgstr "Saturació:"
 
-#: ../src/editing_tools/EditingTools.vala:2256
+#: ../src/editing_tools/EditingTools.vala:2267
 msgid "Tint:"
 msgstr "Tint:"
 
-#: ../src/editing_tools/EditingTools.vala:2265
+#: ../src/editing_tools/EditingTools.vala:2276
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: ../src/editing_tools/EditingTools.vala:2273
+#: ../src/editing_tools/EditingTools.vala:2284
 msgid "Shadows:"
 msgstr "Ombres:"
 
-#: ../src/editing_tools/EditingTools.vala:2281
+#: ../src/editing_tools/EditingTools.vala:2292
 msgid "Highlights:"
 msgstr "Realçats:"
 
-#: ../src/editing_tools/EditingTools.vala:2335
+#: ../src/editing_tools/EditingTools.vala:2346
 msgid "Reset Colors"
 msgstr "Reinicialitza els colors"
 
-#: ../src/editing_tools/EditingTools.vala:2335
+#: ../src/editing_tools/EditingTools.vala:2346
 msgid "Reset all color adjustments to original"
 msgstr "Reinicialitza tots els ajustaments de color a l'original"
 
-#: ../src/editing_tools/EditingTools.vala:2687
+#: ../src/editing_tools/EditingTools.vala:2705
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: ../src/editing_tools/EditingTools.vala:2700
+#: ../src/editing_tools/EditingTools.vala:2717
 msgid "Tint"
 msgstr "Tint"
 
-#: ../src/editing_tools/EditingTools.vala:2713
+#: ../src/editing_tools/EditingTools.vala:2729
+msgid "Contrast"
+msgstr "Contrast"
+
+#: ../src/editing_tools/EditingTools.vala:2743
 msgid "Saturation"
 msgstr "Saturació"
 
-#: ../src/editing_tools/EditingTools.vala:2726
+#: ../src/editing_tools/EditingTools.vala:2756
 msgid "Exposure"
 msgstr "Exposició"
 
-#: ../src/editing_tools/EditingTools.vala:2739
+#: ../src/editing_tools/EditingTools.vala:2769
 msgid "Shadows"
 msgstr "Ombres"
 
-#: ../src/editing_tools/EditingTools.vala:2752
+#: ../src/editing_tools/EditingTools.vala:2782
 msgid "Highlights"
 msgstr "Realçats"
 
-#: ../src/editing_tools/EditingTools.vala:2762
+#: ../src/editing_tools/EditingTools.vala:2792
 msgid "Contrast Expansion"
 msgstr "Expansió del contrast"
 
@@ -2831,7 +2924,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: ../src/Event.vala:751
+#: ../src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Esdeveniment %s"
@@ -2848,7 +2941,7 @@ msgstr "Exportació"
 
 #: ../src/Exporter.vala:317
 #, c-format
-msgid "File %s already exists.  Replace?"
+msgid "File %s already exists. Replace?"
 msgstr "Ja existeix el fitxer %s. Voleu reemplaçar-lo?"
 
 #: ../src/Exporter.vala:319
@@ -2875,19 +2968,20 @@ msgstr "Carpetes"
 msgid "Library"
 msgstr "Biblioteca"
 
-#: ../src/library/Branch.vala:97 ../src/SearchFilter.vala:594
-#: ../src/SearchFilter.vala:595
+#: ../src/library/Branch.vala:97 ../src/SearchFilter.vala:608
+#: ../src/SearchFilter.vala:609
 msgid "Photos"
 msgstr "Fotografies"
 
-#: ../src/library/FlaggedPage.vala:8 ../src/SearchFilter.vala:588
-#: ../src/SearchFilter.vala:589 ../src/SearchFilter.vala:988
+#: ../src/library/FlaggedPage.vala:8 ../src/SearchFilter.vala:602
+#: ../src/SearchFilter.vala:603 ../src/SearchFilter.vala:1188
 msgid "Flagged"
 msgstr "Senyalat"
 
+# N.T.: Títol d'una secció a un quadre de diàleg
 #: ../src/library/ImportQueuePage.vala:8
-msgid "Importing..."
-msgstr "S'està important..."
+msgid "Importing…"
+msgstr "S'està important…"
 
 #: ../src/library/ImportQueuePage.vala:67
 msgid "_Stop Import"
@@ -2898,8 +2992,8 @@ msgid "Stop importing photos"
 msgstr "Atura la importació de fotografies"
 
 #: ../src/library/ImportQueuePage.vala:124
-msgid "Preparing to import..."
-msgstr "S'està preparant per importar..."
+msgid "Preparing to import…"
+msgstr "S'està preparant per importar…"
 
 #: ../src/library/ImportQueuePage.vala:151
 #, c-format
@@ -2911,16 +3005,16 @@ msgid "Last Import"
 msgstr "Darrera importació"
 
 #: ../src/library/LibraryWindow.vala:285
-msgid "_Import From Folder..."
-msgstr "_Importa des d'una carpeta..."
+msgid "_Import From Folder…"
+msgstr "Importa des d'una carpeta"
 
 #: ../src/library/LibraryWindow.vala:286
 msgid "Import photos from disk to library"
 msgstr "Importa fotografies des del disc a la biblioteca"
 
 #: ../src/library/LibraryWindow.vala:293
-msgid "Import From _Application..."
-msgstr "Importa des de l'_aplicació..."
+msgid "Import From _Application…"
+msgstr "Importa des de l'aplicació"
 
 #: ../src/library/LibraryWindow.vala:297
 msgid "Sort _Events"
@@ -2948,8 +3042,8 @@ msgstr "Cerca fotografies i vídeos per criteri de cerca"
 
 #: ../src/library/LibraryWindow.vala:329 ../src/searches/Branch.vala:77
 #: ../src/sidebar/Tree.vala:199
-msgid "Ne_w Saved Search..."
-msgstr "Cerca no_va desada..."
+msgid "Ne_w Saved Search…"
+msgstr "Cerca no_va desada…"
 
 #: ../src/library/LibraryWindow.vala:351
 msgid "_Photos"
@@ -3028,8 +3122,8 @@ msgid "Empty Trash"
 msgstr "Buida la paperera"
 
 #: ../src/library/LibraryWindow.vala:726
-msgid "Emptying Trash..."
-msgstr "S'està buidant la paperera..."
+msgid "Emptying Trash…"
+msgstr "S'està buidant la paperera…"
 
 #: ../src/library/LibraryWindow.vala:901
 #, c-format
@@ -3061,28 +3155,28 @@ msgstr "%s (%d%%)"
 
 #: ../src/library/LibraryWindow.vala:1247
 #: ../src/library/LibraryWindow.vala:1258
-msgid "Updating library..."
-msgstr "S'està actualitzant la biblioteca..."
+msgid "Updating library…"
+msgstr "S'està actualitzant la biblioteca…"
 
 #: ../src/library/LibraryWindow.vala:1264
-msgid "Preparing to auto-import photos..."
-msgstr "S'està preparant la importació automàtica de fotografies..."
+msgid "Preparing to auto-import photos…"
+msgstr "S'està preparant la importació automàtica de fotografies…"
 
 #: ../src/library/LibraryWindow.vala:1269
-msgid "Auto-importing photos..."
-msgstr "S'estan important automàticament les fotografies..."
+msgid "Auto-importing photos…"
+msgstr "S'estan important automàticament les fotografies…"
 
 #: ../src/library/LibraryWindow.vala:1277
-msgid "Writing metadata to files..."
-msgstr "S'estan escrivint les metadades als fitxers..."
+msgid "Writing metadata to files…"
+msgstr "S'estan escrivint les metadades als fitxers…"
 
 #: ../src/library/OfflinePage.vala:8
 msgid "Missing Files"
 msgstr "Manquen fitxers"
 
 #: ../src/library/OfflinePage.vala:106
-msgid "Deleting..."
-msgstr "S'està suprimint..."
+msgid "Deleting…"
+msgstr "S'està suprimint…"
 
 #: ../src/library/TrashPage.vala:8
 msgid "Trash"
@@ -3103,9 +3197,9 @@ msgstr "S'estan suprimint les fotografies"
 #: ../src/main.vala:54
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please use the latest version of Shotwell."
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please use the latest version of Shotwell."
 msgstr ""
 "La biblioteca de fotografies no és compatible amb aquesta versió del "
 "Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta "
@@ -3115,7 +3209,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
 "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la "
@@ -3125,9 +3219,9 @@ msgstr ""
 #: ../src/main.vala:65
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please clear your library by deleting %s and re-import your "
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
 "La biblioteca de fotografies no és compatible amb aquesta versió del "
@@ -3137,7 +3231,7 @@ msgstr ""
 
 #: ../src/main.vala:71
 #, c-format
-msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr ""
 "S'ha produït un error desconegut en intentar verificar la base de dades del "
 "Shotwell: %s"
@@ -3147,7 +3241,7 @@ msgid "Loading Shotwell"
 msgstr "S'està carregant el Shotwell"
 
 #: ../src/main.vala:294
-msgid "Path to Shotwell's private data"
+msgid "Path to Shotwell’s private data"
 msgstr "Camí a les dades privades del Shotwell"
 
 #: ../src/main.vala:294
@@ -3160,11 +3254,11 @@ msgstr ""
 "No monitoritzis el directori de la biblioteca en mode d'execució per canvis"
 
 #: ../src/main.vala:302
-msgid "Don't display startup progress meter"
+msgid "Don’t display startup progress meter"
 msgstr "No mostris la barra de progrés d'inici"
 
 #: ../src/main.vala:306
-msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Mostra la versió de l'aplicació"
 
 #. init GTK (valac has already called g_threads_init())
@@ -3174,7 +3268,7 @@ msgstr "[FITXER]"
 
 #: ../src/main.vala:342
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Executeu «%s --help» per veure una llista completa de les opcions "
 "disponibles de la línia d'ordres.\n"
@@ -3217,7 +3311,7 @@ msgid "Display the comment of each photo"
 msgstr "Mostra el comentari de cada foto"
 
 #: ../src/MediaPage.vala:470
-msgid "Display each photo's tags"
+msgid "Display each photo’s tags"
 msgstr "Mostra les etiquetes de cada fotografia"
 
 #: ../src/MediaPage.vala:486
@@ -3269,7 +3363,7 @@ msgstr "Cap fotografia/vídeo"
 msgid "No photos/videos found which match the current filter"
 msgstr "No s'han trobat fotos o vídeos que coincideixin amb el filtre actual"
 
-#: ../src/Page.vala:2568
+#: ../src/Page.vala:2576
 msgid "Photos cannot be exported to this directory."
 msgstr "No es poden exportar fotografies a aquest directori."
 
@@ -3373,15 +3467,15 @@ msgstr "polzades"
 msgid "cm"
 msgstr "cm"
 
-#: ../src/Printing.vala:875
+#: ../src/Printing.vala:876
 msgid "Image Settings"
 msgstr "Paràmetres de la imatge"
 
-#: ../src/Printing.vala:888
-msgid "Printing..."
+#: ../src/Printing.vala:889
+msgid "Printing…"
 msgstr "S'està imprimint..."
 
-#: ../src/Printing.vala:908 ../src/Printing.vala:1111
+#: ../src/Printing.vala:909 ../src/Printing.vala:1112
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -3524,7 +3618,7 @@ msgstr "S'està pujant %d de %d"
 
 #: ../src/publishing/PublishingPluginHost.vala:81
 #, c-format
-msgid "Publishing to %s can't continue because an error occurred:"
+msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "La publicació a %s no pot continuar perquè s'ha produït un error:"
 
 #: ../src/publishing/PublishingPluginHost.vala:84
@@ -3554,12 +3648,12 @@ msgid "The selected photo was successfully published."
 msgstr "S'ha publicat correctament la fotografia seleccionada."
 
 #: ../src/publishing/PublishingUI.vala:122
-msgid "Fetching account information..."
-msgstr "S'està recollint la informació del compte..."
+msgid "Fetching account information…"
+msgstr "S'està recollint la informació del compte…"
 
 #: ../src/publishing/PublishingUI.vala:128
-msgid "Logging in..."
-msgstr "S'està entrant..."
+msgid "Logging in…"
+msgstr "S'està entrant…"
 
 #: ../src/publishing/PublishingUI.vala:188
 msgid "Publish Photos"
@@ -3759,7 +3853,7 @@ msgid "Enhance"
 msgstr "Millora"
 
 #: ../src/Resources.vala:188
-msgid "Automatically improve the photo's appearance"
+msgid "Automatically improve the photo’s appearance"
 msgstr "Millora automàticament l'aparença de la fotografia"
 
 #: ../src/Resources.vala:190
@@ -3795,7 +3889,7 @@ msgid "Crop"
 msgstr "Escapça"
 
 #: ../src/Resources.vala:200
-msgid "Crop the photo's size"
+msgid "Crop the photo’s size"
 msgstr "Escapça la mida de la fotografia"
 
 #: ../src/Resources.vala:203
@@ -3827,7 +3921,7 @@ msgid "Adjust"
 msgstr "Ajusta"
 
 #: ../src/Resources.vala:212
-msgid "Adjust the photo's color and tone"
+msgid "Adjust the photo’s color and tone"
 msgstr "Ajusta el color i el to de la fotografia"
 
 #: ../src/Resources.vala:214
@@ -3855,8 +3949,8 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Estableix la imatge seleccionada com a fons de l'escriptori"
 
 #: ../src/Resources.vala:222
-msgid "Set as _Desktop Slideshow..."
-msgstr "Estableix com a presentació de _diapositives de l'escriptori..."
+msgid "Set as _Desktop Slideshow…"
+msgstr "Estableix com a presentació de diapositives de l'escriptori…"
 
 #: ../src/Resources.vala:224
 msgid "_Undo"
@@ -3875,8 +3969,8 @@ msgid "Redo"
 msgstr "Refés"
 
 #: ../src/Resources.vala:230
-msgid "Re_name Event..."
-msgstr "Can_via el nom de l'esdeveniment..."
+msgid "Re_name Event…"
+msgstr "Canvia el nom de l'esdeveniment…"
 
 #: ../src/Resources.vala:233
 msgid "Make _Key Photo for Event"
@@ -4017,7 +4111,7 @@ msgid "_Ratings"
 msgstr "_Puntuacions"
 
 #: ../src/Resources.vala:280
-msgid "Display each photo's rating"
+msgid "Display each photo’s rating"
 msgstr "Mostra la puntuació de cada fotografia"
 
 #: ../src/Resources.vala:282
@@ -4045,16 +4139,16 @@ msgid "Make a duplicate of the photo"
 msgstr "Fes un duplicat de la fotografia"
 
 #: ../src/Resources.vala:290
-msgid "_Export..."
-msgstr "_Exporta..."
+msgid "_Export…"
+msgstr "Exporta…"
 
 #: ../src/Resources.vala:292
-msgid "_Print..."
-msgstr "_Imprimeix..."
+msgid "_Print…"
+msgstr "_Imprimeix…"
 
 #: ../src/Resources.vala:294
-msgid "Pu_blish..."
-msgstr "Pu_blica..."
+msgid "Pu_blish…"
+msgstr "Publica…"
 
 #: ../src/Resources.vala:295
 msgid "Publish"
@@ -4065,8 +4159,8 @@ msgid "Publish to various websites"
 msgstr "Publica a diversos llocs web"
 
 #: ../src/Resources.vala:298
-msgid "Edit _Title..."
-msgstr "Edita el _títol..."
+msgid "Edit _Title…"
+msgstr "Edita el títol…"
 
 #. Button label
 #: ../src/Resources.vala:300
@@ -4075,8 +4169,8 @@ msgid "Edit Title"
 msgstr "Edita el títol"
 
 #: ../src/Resources.vala:302
-msgid "Edit _Comment..."
-msgstr "Edita el _comentari..."
+msgid "Edit _Comment…"
+msgstr "Edita el comentari…"
 
 #. Button label
 #: ../src/Resources.vala:304
@@ -4084,24 +4178,24 @@ msgid "Edit Comment"
 msgstr "Edita el comentari..."
 
 #: ../src/Resources.vala:306
-msgid "Edit Event _Comment..."
-msgstr "Edita el _comentari de l'esdeveniment..."
+msgid "Edit Event _Comment…"
+msgstr "Edita el comentari de l'esdeveniment…"
 
 #: ../src/Resources.vala:309
-msgid "_Adjust Date and Time..."
-msgstr "_Ajusta la data i l'hora..."
+msgid "_Adjust Date and Time…"
+msgstr "Ajusta la data i l'hora…"
 
 #: ../src/Resources.vala:310
 msgid "Adjust Date and Time"
 msgstr "Ajusta la data i l'hora"
 
 #: ../src/Resources.vala:312
-msgid "Add _Tags..."
-msgstr "Afegeix e_tiquetes..."
+msgid "Add _Tags…"
+msgstr "Afegeix etiquetes…"
 
 #: ../src/Resources.vala:313
-msgid "_Add Tags..."
-msgstr "_Afegeix etiquetes..."
+msgid "_Add Tags…"
+msgstr "Afegeix etiquetes…"
 
 #. Dialog title
 #: ../src/Resources.vala:315
@@ -4118,16 +4212,16 @@ msgid "Open With RA_W Editor"
 msgstr "Obre amb un editor d'imatges RA_W"
 
 #: ../src/Resources.vala:323
-msgid "Send _To..."
-msgstr "Envia _a..."
+msgid "Send _To…"
+msgstr "Envia a…"
 
 #: ../src/Resources.vala:324
-msgid "Send T_o..."
-msgstr "Enviar _a..."
+msgid "Send T_o…"
+msgstr "Envia a…"
 
 #: ../src/Resources.vala:326
-msgid "_Find..."
-msgstr "_Cerca..."
+msgid "_Find…"
+msgstr "_Cerca…"
 
 #: ../src/Resources.vala:327
 msgid "Find"
@@ -4154,30 +4248,29 @@ msgstr "No s'ha pogut executar l'editor: %s"
 
 #: ../src/Resources.vala:340
 #, c-format
-msgid "Add Tag \"%s\""
+msgid "Add Tag “%s”"
 msgstr "Afegeix l'etiqueta «%s»"
 
 #. Used when adding two tags to photo(s)
 #: ../src/Resources.vala:343
 #, c-format
-msgid "Add Tags \"%s\" and \"%s\""
+msgid "Add Tags “%s” and “%s”"
 msgstr "Afegeix les etiquetes «%s» i «%s»"
 
 #. Undo/Redo command name (in Edit menu)
 #: ../src/Resources.vala:348
-#, fuzzy
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Afegeix etiquetes"
 
 #: ../src/Resources.vala:353
 #, c-format
-msgid "_Delete Tag \"%s\""
+msgid "_Delete Tag “%s”"
 msgstr "_Suprimeix l'etiqueta «%s»"
 
 #: ../src/Resources.vala:357
 #, c-format
-msgid "Delete Tag \"%s\""
+msgid "Delete Tag “%s”"
 msgstr "Suprimeix l'etiqueta «%s»"
 
 #: ../src/Resources.vala:360
@@ -4186,21 +4279,21 @@ msgstr "Suprimeix l'etiqueta"
 
 #: ../src/Resources.vala:366
 #, c-format
-msgid "Re_name Tag \"%s\"..."
-msgstr "Can_via el nom de l'etiqueta «%s»..."
+msgid "Re_name Tag “%s”…"
+msgstr "Can_via el nom de l'etiqueta «%s»…"
 
 #: ../src/Resources.vala:370
 #, c-format
-msgid "Rename Tag \"%s\" to \"%s\""
+msgid "Rename Tag “%s” to “%s”"
 msgstr "Canvia el nom de l'etiqueta «%s» a «%s»"
 
 #: ../src/Resources.vala:373
-msgid "_Rename..."
-msgstr "_Canvia el nom..."
+msgid "_Rename…"
+msgstr "_Canvia el nom…"
 
 #: ../src/Resources.vala:375
-msgid "Modif_y Tags..."
-msgstr "Modi_fica les etiquetes..."
+msgid "Modif_y Tags…"
+msgstr "Modifica les etiquetes…"
 
 #: ../src/Resources.vala:376
 msgid "Modify Tags"
@@ -4208,58 +4301,59 @@ msgstr "Modifica les etiquetes"
 
 #: ../src/Resources.vala:379
 #, c-format
-msgid "Tag Photo as \"%s\""
+msgid "Tag Photo as “%s”"
 msgstr "Etiqueta la fotografia com a «%s»"
 
 #: ../src/Resources.vala:379
 #, c-format
-msgid "Tag Photos as \"%s\""
+msgid "Tag Photos as “%s”"
 msgstr "Etiqueta les fotografies com a «%s»"
 
 #: ../src/Resources.vala:383
 #, c-format
-msgid "Tag the selected photo as \"%s\""
+msgid "Tag the selected photo as “%s”"
 msgstr "Etiqueta la fotografia seleccionada com a «%s»"
 
 #: ../src/Resources.vala:384
 #, c-format
-msgid "Tag the selected photos as \"%s\""
+msgid "Tag the selected photos as “%s”"
 msgstr "Etiqueta les fotografies seleccionades com a «%s»"
 
 #: ../src/Resources.vala:388
 #, c-format
-msgid "Remove Tag \"%s\" From _Photo"
+msgid "Remove Tag “%s” From _Photo"
 msgstr "Suprimeix l'etiqueta «%s» de la _fotografia"
 
 #: ../src/Resources.vala:389
 #, c-format
-msgid "Remove Tag \"%s\" From _Photos"
+msgid "Remove Tag “%s” From _Photos"
 msgstr "Suprimeix l'etiqueta «%s» de les _fotografies"
 
 #: ../src/Resources.vala:393
 #, c-format
-msgid "Remove Tag \"%s\" From Photo"
+msgid "Remove Tag “%s” From Photo"
 msgstr "Suprimeix l'etiqueta «%s» de la fotografia"
 
 #: ../src/Resources.vala:394
 #, c-format
-msgid "Remove Tag \"%s\" From Photos"
+msgid "Remove Tag “%s” From Photos"
 msgstr "Suprimeix l'etiqueta «%s» de les fotografies"
 
 #: ../src/Resources.vala:398
 #, c-format
-msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 "No s'ha pogut canviar el nom de l'etiqueta a «%s» perquè l'etiqueta ja "
 "existeix."
 
 #: ../src/Resources.vala:402
 #, c-format
-msgid "Unable to rename search to \"%s\" because the search already exists."
+msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
 "No s'ha pogut canviar el nom de la cerca a «%s» perquè aquesta ja existeix."
 
-#: ../src/Resources.vala:405
+#. Saved search button
+#: ../src/Resources.vala:405 ../src/SearchFilter.vala:1210
 msgid "Saved Search"
 msgstr "Cerca desada"
 
@@ -4268,21 +4362,21 @@ msgid "Delete Search"
 msgstr "Suprimeix la cerca"
 
 #: ../src/Resources.vala:410
-msgid "_Edit..."
-msgstr "_Edita..."
+msgid "_Edit…"
+msgstr "_Edita…"
 
 #: ../src/Resources.vala:411
-msgid "Re_name..."
-msgstr "Ca_nvia el nom..."
+msgid "Re_name…"
+msgstr "Ca_nvia el nom…"
 
 #: ../src/Resources.vala:414
 #, c-format
-msgid "Rename Search \"%s\" to \"%s\""
+msgid "Rename Search “%s” to “%s”"
 msgstr "Canvia el nom de la cerca «%s» a «%s»"
 
 #: ../src/Resources.vala:418
 #, c-format
-msgid "Delete Search \"%s\""
+msgid "Delete Search “%s”"
 msgstr "Suprimeix la cerca «%s»"
 
 #: ../src/Resources.vala:576
@@ -4346,7 +4440,7 @@ msgid "Show in File Mana_ger"
 msgstr "Mostra al nave_gador de fitxers"
 
 #: ../src/Resources.vala:682
-msgid "Open the selected photo's directory in the file manager"
+msgid "Open the selected photo’s directory in the file manager"
 msgstr "Obre el directori de la fotografia seleccionada al gestor de fitxers"
 
 #: ../src/Resources.vala:685
@@ -4374,39 +4468,46 @@ msgstr "Selecciona tots els elements"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:772
-msgid "%-I:%M %p"
-msgstr "%-I:%M %p"
-
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:777
-msgid "%-I:%M:%S %p"
-msgstr "%-I:%M:%S %p"
-
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:781
+#: ../src/Resources.vala:782
 msgid "%a %b %d, %Y"
-msgstr "%a, %l de %b de %Y"
+msgstr "%a, %d de %b de %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#. / Locale-specific calendar date format for multi-month strings,
-#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:786 ../src/Resources.vala:796
+#: ../src/Resources.vala:787
+msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a, %l de %d"
+msgstr "%a, %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: ../src/Resources.vala:791
+#: ../src/Resources.vala:792
+msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr "%l de %Y"
+msgstr "%d de %b de %Y"
+
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:797
+msgctxt "MultimonthFormat"
+msgid "%a %b %d"
+msgstr "%a, %d de %b"
+
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: ../src/Resources.vala:802
+msgctxt "MultimonthFormat"
+msgid "%a %b %d, %Y"
+msgstr "%a, %d de %b de %Y"
 
 #: ../src/Screensaver.vala:18 ../src/SlideshowPage.vala:141
 msgid "Slideshow"
@@ -4590,7 +4691,7 @@ msgid "Photo state"
 msgstr "Estat de la foto"
 
 #. Rating button
-#: ../src/searches/SearchBoolean.vala:184 ../src/SearchFilter.vala:999
+#: ../src/searches/SearchBoolean.vala:184 ../src/SearchFilter.vala:1199
 msgid "Rating"
 msgstr "Valoració"
 
@@ -4598,19 +4699,19 @@ msgstr "Valoració"
 msgid "Date"
 msgstr "Data"
 
-#: ../src/SearchFilter.vala:600 ../src/SearchFilter.vala:601
+#: ../src/SearchFilter.vala:614 ../src/SearchFilter.vala:615
 msgid "Videos"
 msgstr "Vídeos"
 
-#: ../src/SearchFilter.vala:606
+#: ../src/SearchFilter.vala:620
 msgid "RAW Photos"
 msgstr "Fotografies RAW"
 
-#: ../src/SearchFilter.vala:607
+#: ../src/SearchFilter.vala:621
 msgid "RAW photos"
 msgstr "Fotografies RAW"
 
-#: ../src/SearchFilter.vala:948
+#: ../src/SearchFilter.vala:1148
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr ""
@@ -4621,18 +4722,22 @@ msgstr ""
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: ../src/SearchFilter.vala:959
+#: ../src/SearchFilter.vala:1159
 msgid "Close"
 msgstr "Tanca"
 
 #. Type label and toggles
-#: ../src/SearchFilter.vala:965
+#: ../src/SearchFilter.vala:1165
 msgid "Type"
 msgstr "Tipus"
 
+#: ../src/SearchFilter.vala:1211
+msgid "Use a saved search to filter items in the current view"
+msgstr "Utilitza un cerca desada per filtrar els elements de la vista actual"
+
 #: ../src/sidebar/Tree.vala:203
-msgid "New _Tag..."
-msgstr "_Etiqueta nova..."
+msgid "New _Tag…"
+msgstr "_Etiqueta nova…"
 
 #: ../src/SlideshowPage.vala:49 ../src/SlideshowPage.vala:183
 msgid "Settings"
@@ -4701,7 +4806,7 @@ msgstr "Aleatori"
 msgid "Tags"
 msgstr "Etiquetes"
 
-#: ../src/Tag.vala:817
+#: ../src/Tag.vala:830
 msgid "untitled"
 msgstr "sense títol"
 
@@ -4710,17 +4815,366 @@ msgstr "sense títol"
 msgid "Export Videos"
 msgstr "Exporta vídeos"
 
-#~ msgid "Copyright 2009-2015 Yorba Foundation"
-#~ msgstr "Copyright 2009-2015 Yorba Foundation"
+#~ msgid "Popular photo manager"
+#~ msgstr "Gestor fotogràfic popular"
+
+#~ msgid "Organize your photos"
+#~ msgstr "Organitzeu les vostres fotografies"
+
+#~ msgid "Shotwell Viewer"
+#~ msgstr "Visualitzador del Shotwell"
+
+#, fuzzy
+#~| msgid "User _name"
+#~ msgid "username"
+#~ msgstr "_Nom d'usuari"
+
+#, fuzzy
+#~| msgid "within category:"
+#~ msgid "last category"
+#~ msgstr "a la categoria:"
+
+#, fuzzy
+#~| msgid "Photo size:"
+#~ msgid "last photo size"
+#~ msgstr "Mida de la fotografia:"
+
+#, fuzzy
+#~| msgid "_Remember"
+#~ msgid "remember"
+#~ msgstr "_Recorda"
+
+#, fuzzy
+#~| msgid "_Hide album"
+#~ msgid "hide album"
+#~ msgstr "A_maga l'àlbum"
+
+#, fuzzy
+#~| msgid "Open target _album in browser"
+#~ msgid "open album in web browser"
+#~ msgstr "Obre l'_àlbum al navegador"
+
+#, fuzzy
+#~| msgid "Display extended information for the selection"
+#~ msgid "display extended properties"
+#~ msgstr "Mostra informació ampliada sobre la selecció"
+
+#, fuzzy
+#~| msgid "Display the sidebar"
+#~ msgid "display sidebar"
+#~ msgstr "Mostra la barra lateral"
+
+#, fuzzy
+#~| msgid "Display the tool bar"
+#~ msgid "display toolbar"
+#~ msgstr "Mostra la barra d'eines"
+
+#, fuzzy
+#~| msgid "Display the search bar"
+#~ msgid "display search bar"
+#~ msgstr "Mostra la barra de cerca"
+
+#, fuzzy
+#~| msgid "Display each photo's tags"
+#~ msgid "display photo titles"
+#~ msgstr "Mostra les etiquetes de cada fotografia"
+
+#, fuzzy
+#~| msgid "Display each photo's tags"
+#~ msgid "display photo comments"
+#~ msgstr "Mostra les etiquetes de cada fotografia"
+
+#, fuzzy
+#~| msgid "Edit Event Comment"
+#~ msgid "display event comments"
+#~ msgstr "Edita el comentari de l'esdeveniment"
+
+#, fuzzy
+#~| msgid "Display each photo's tags"
+#~ msgid "display photo tags"
+#~ msgstr "Mostra les etiquetes de cada fotografia"
+
+#, fuzzy
+#~| msgid "Display each photo's rating"
+#~ msgid "display photo ratings"
+#~ msgstr "Mostra la puntuació de cada fotografia"
+
+#, fuzzy
+#~| msgid "Sort _Descending"
+#~ msgid "sort events ascending"
+#~ msgstr "Ordre d_escendent"
+
+#, fuzzy
+#~| msgid "Sort photos in an ascending order"
+#~ msgid "sort library photos ascending"
+#~ msgstr "Ordena les fotografies en ordre ascendent"
+
+#, fuzzy
+#~| msgid "Sort photos in an ascending order"
+#~ msgid "sort event photos ascending"
+#~ msgstr "Ordena les fotografies en ordre ascendent"
+
+#, fuzzy
+#~| msgid "Sort photos by title"
+#~ msgid "sort event photos criteria"
+#~ msgstr "Ordena les fotografies per títol"
+
+#, fuzzy
+#~| msgid "_Modify original photo files"
+#~ msgid "modify original photo files"
+#~ msgstr "_Modifica els fitxers d'imatges originals"
+
+#, fuzzy
+#~| msgid "Library Location"
+#~ msgid "sidebar position"
+#~ msgstr "Ubicació de la biblioteca"
+
+#, fuzzy
+#~| msgid "Pin the toolbar open"
+#~ msgid "pin toolbar state"
+#~ msgstr "Mantén la barra d'eines oberta"
+
+#, fuzzy
+#~| msgid "_Background:"
+#~ msgid "background color"
+#~ msgstr "_Fons:"
+
+#, fuzzy
+#~| msgid "_Delay:"
+#~ msgid "delay"
+#~ msgstr "_Retard:"
+
+#, fuzzy
+#~| msgid "Transition d_elay:"
+#~ msgid "transition delay"
+#~ msgstr "R_etard de transició:"
+
+#, fuzzy
+#~| msgid "_Transition effect:"
+#~ msgid "transition effect id"
+#~ msgstr "Efecte de _transició:"
+
+#, fuzzy
+#~| msgid "Show t_itle"
+#~ msgid "Show title"
+#~ msgstr "Mostra el t_ítol"
+
+#, fuzzy
+#~| msgid "Import to Library"
+#~ msgid "import directory"
+#~ msgstr "Importa a la biblioteca"
+
+#, fuzzy
+#~| msgid "_Watch library directory for new files"
+#~ msgid "watch library directory for new files"
+#~ msgstr "_Vigila si hi ha fitxers nous al directori de la biblioteca"
+
+#, fuzzy
+#~| msgid "Writing metadata to files..."
+#~ msgid "write metadata to master files"
+#~ msgstr "S'estan escrivint les metadades als fitxers..."
+
+#, fuzzy
+#~| msgid "_Directory structure:"
+#~ msgid "directory pattern"
+#~ msgstr "_Estructura dels directoris:"
+
+#, fuzzy
+#~| msgid "RAW Developer"
+#~ msgid "RAW developer default"
+#~ msgstr "Revelador RAW"
+
+#, fuzzy
+#~| msgid "E_xternal photo editor:"
+#~ msgid "external photo editor"
+#~ msgstr "Editor fotogràfic e_xtern:"
+
+#, fuzzy
+#~| msgid "External _RAW editor:"
+#~ msgid "external raw editor"
+#~ msgstr "Editor d'imatges _RAW extern:"
+
+#, fuzzy
+#~| msgid "Export metadata"
+#~ msgid "export metadata"
+#~ msgstr "Exporta les metadades"
+
+#, fuzzy
+#~| msgid "Core Publishing Services"
+#~ msgid "last used publishing service"
+#~ msgstr "Serveis de publicació principals"
+
+#, fuzzy
+#~| msgid "Core Publishing Services"
+#~ msgid "default publishing service"
+#~ msgstr "Serveis de publicació principals"
+
+#, fuzzy
+#~| msgid "Access _type:"
+#~ msgid "access token"
+#~ msgstr "_Tipus d'accés:"
+
+#, fuzzy
+#~| msgid "User _name"
+#~ msgid "user name"
+#~ msgstr "_Nom d'usuari"
+
+#, fuzzy
+#~| msgid "You are not currently logged into Yandex.Fotki."
+#~ msgid "The name of the currently logged in Facebook user, if any"
+#~ msgstr "Actualment no esteu connectat al Yandex.Fotki."
+
+#, fuzzy
+#~| msgid "_Password"
+#~ msgid "password"
+#~ msgstr "_Contrasenya"
+
+#, fuzzy
+#~| msgid "_Remember Password"
+#~ msgid "remember password"
+#~ msgstr "_Recorda la contrasenya"
+
+#, fuzzy
+#~| msgid "_If a title is set and comment unset, use title as comment"
+#~ msgid ""
+#~ "if title is set and comment unset, use title as comment for uploads to "
+#~ "Piwigo"
+#~ msgstr ""
+#~ "S_i el títol està definit i el comentari no ho està, es farà servir el "
+#~ "títol com a comentari"
+
+#, fuzzy
+#~| msgid "Gallery3 publishing module"
+#~ msgid "Gallery3 username"
+#~ msgstr "Mòdul de publicació Gallery3"
+
+#, fuzzy
+#~| msgid "API _Key:"
+#~ msgid "API key"
+#~ msgstr "_Clau API:"
+
+#, fuzzy
+#~| msgid "_Gallery3 URL:"
+#~ msgid "Gallery3 API key"
+#~ msgstr "URL _Gallery3:"
+
+#, fuzzy
+#~| msgid "_Gallery3 URL:"
+#~ msgid "Gallery3 site URL"
+#~ msgstr "URL _Gallery3:"
+
+#, fuzzy
+#~| msgid "Core Data Import Services"
+#~ msgid "last used import service"
+#~ msgstr "Serveis d'importació Core Data"
+
+#, fuzzy
+#~| msgid "_Contents"
+#~ msgid "content ppi"
+#~ msgstr "C_ontingut"
+
+#, fuzzy
+#~| msgid "Rotate Right"
+#~ msgid "content height"
+#~ msgstr "Gira a la dreta"
+
+#, fuzzy
+#~| msgid "_Contents"
+#~ msgid "content units"
+#~ msgstr "C_ontingut"
+
+#, fuzzy
+#~| msgid "2 images per page"
+#~ msgid "images per page code"
+#~ msgstr "2 imatges per pàgina"
+
+#, fuzzy
+#~| msgid "_Match photo aspect ratio"
+#~ msgid "match aspect ratio"
+#~ msgstr "_Coincideix la relació d'aspecte de la fotografia"
+
+#, fuzzy
+#~| msgid "Print image _title"
+#~ msgid "print titles"
+#~ msgstr "Imprimeix el _títol de la imatge"
+
+#, fuzzy
+#~| msgid "Unable to publish"
+#~ msgid "enable facebook publishing plugin"
+#~ msgstr "No s'ha pogut publicar"
+
+#, fuzzy
+#~| msgid "Unable to publish"
+#~ msgid "enable youtube publishing plugin"
+#~ msgstr "No s'ha pogut publicar"
+
+#, fuzzy
+#~| msgid "Unable to publish"
+#~ msgid "enable piwigo publishing plugin"
+#~ msgstr "No s'ha pogut publicar"
+
+#, fuzzy
+#~| msgid "Unable to publish"
+#~ msgid "enable tumblr publishing plugin"
+#~ msgstr "No s'ha pogut publicar"
+
+#, fuzzy
+#~| msgid "Gallery3 publishing module"
+#~ msgid "enable rajce publishing plugin"
+#~ msgstr "Mòdul de publicació Gallery3"
+
+#, fuzzy
+#~| msgid "Gallery3 publishing module"
+#~ msgid "enable gallery3 publishing plugin"
+#~ msgstr "Mòdul de publicació Gallery3"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow crumble transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow fade transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow slide transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow clock transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow circle transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow squares transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow stripes transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
+
+#, fuzzy
+#~| msgid "Core Slideshow Transitions"
+#~ msgid "enable slideshow chess transition"
+#~ msgstr "Transicions principals de la projecció de diapositives"
 
 #~ msgid "Go _Back"
 #~ msgstr "_Enrere"
 
-#~ msgid "_Login"
+#, fuzzy
+#~| msgid "_Login"
+#~ msgid "_Log in"
 #~ msgstr "_Connecta"
-
-#~ msgid "Intro message replaced at runtime"
-#~ msgstr "Messatge d'introducció reemplaçat en temps d'execució"
 
 #~ msgid "_Gallery3 URL:"
 #~ msgstr "URL _Gallery3:"
@@ -4748,30 +5202,17 @@ msgstr "Exporta vídeos"
 #~ "Sup_rimeix les dades d'ubicació, d'etiquetes i d'identificació de la "
 #~ "càmera abans de la càrrega."
 
-#~ msgid "'Publishing to $url as $username' (populated in application code)"
-#~ msgstr ""
-#~ "«S'està publicant a $url com $username» (completat al codi de l'aplicació)"
-
 #~ msgid "Scaling constraint:"
 #~ msgstr "Constant d'e_scala:"
 
 #~ msgid "pixels"
 #~ msgstr " píxels"
 
-#~ msgid "label"
-#~ msgstr "etiqueta"
-
 #~ msgid "Blogs:"
 #~ msgstr "Blogs:"
 
 #~ msgid "Photo _size:"
 #~ msgstr "_Mida de la fotografia:"
-
-#~ msgid "you are logged in rajce as $name"
-#~ msgstr "Actualment esteu connectat al rajce com a $name"
-
-#~ msgid "$mediatype will appear in"
-#~ msgstr "$mediatype apareixeran a"
 
 #~ msgid "_Albums (or write new):"
 #~ msgstr "À_lbums (o escriviu-ne un de nou):"
@@ -4858,12 +5299,6 @@ msgstr "Exporta vídeos"
 #~ msgid "Video privacy _setting:"
 #~ msgstr "_Paràmetres de la privacitat dels vídeos:"
 
-#~ msgid "Visit the Yorba web site"
-#~ msgstr "Vés al lloc web d'en Yorba"
-
-#~ msgid "No photos/videos found"
-#~ msgstr "No s'ha trobat cap fotografia/vídeo"
-
 #~ msgid "Set as Desktop Background"
 #~ msgstr "Estableix com a fons d'escriptori"
 
@@ -4926,6 +5361,9 @@ msgstr "Exporta vídeos"
 
 #~ msgid "pixels per inch"
 #~ msgstr "píxels per polzada"
+
+#~ msgid "label"
+#~ msgstr "etiqueta"
 
 #~ msgid "Shotwell Preferences"
 #~ msgstr "Preferències del Shotwell"
@@ -5003,6 +5441,100 @@ msgstr "Exporta vídeos"
 
 #~ msgid "seconds"
 #~ msgstr "segons"
+
+#~ msgid "Login"
+#~ msgstr "Entra"
+
+#~ msgid "Save Details..."
+#~ msgstr "Desa els detalls..."
+
+#~ msgid "Save _As..."
+#~ msgstr "Anomena i _desa..."
+
+#~ msgid "Importing..."
+#~ msgstr "S'està important..."
+
+#~ msgid "Preparing to import..."
+#~ msgstr "S'està preparant per importar..."
+
+#~ msgid "_Import From Folder..."
+#~ msgstr "_Importa des d'una carpeta..."
+
+#~ msgid "Import From _Application..."
+#~ msgstr "Importa des de l'_aplicació..."
+
+#~ msgid "Set as _Desktop Slideshow..."
+#~ msgstr "Estableix com a presentació de _diapositives de l'escriptori..."
+
+#~ msgid "Re_name Event..."
+#~ msgstr "Can_via el nom de l'esdeveniment..."
+
+#~ msgid "_Export..."
+#~ msgstr "_Exporta..."
+
+#~ msgid "_Print..."
+#~ msgstr "_Imprimeix..."
+
+#~ msgid "Pu_blish..."
+#~ msgstr "Pu_blica..."
+
+#~ msgid "Edit _Title..."
+#~ msgstr "Edita el _títol..."
+
+#~ msgid "Edit _Comment..."
+#~ msgstr "Edita el _comentari..."
+
+#~ msgid "Edit Event _Comment..."
+#~ msgstr "Edita el _comentari de l'esdeveniment..."
+
+#~ msgid "_Adjust Date and Time..."
+#~ msgstr "_Ajusta la data i l'hora..."
+
+#~ msgid "Add _Tags..."
+#~ msgstr "Afegeix e_tiquetes..."
+
+#~ msgid "_Add Tags..."
+#~ msgstr "_Afegeix etiquetes..."
+
+#~ msgid "Send _To..."
+#~ msgstr "Envia _a..."
+
+#~ msgid "Send T_o..."
+#~ msgstr "Enviar _a..."
+
+#~ msgid "_Find..."
+#~ msgstr "_Cerca..."
+
+#~ msgid "Modif_y Tags..."
+#~ msgstr "Modi_fica les etiquetes..."
+
+#~ msgid "_Edit..."
+#~ msgstr "_Edita..."
+
+#~ msgid "%-I:%M %p"
+#~ msgstr "%-I:%M %p"
+
+#~ msgid "%-I:%M:%S %p"
+#~ msgstr "%-I:%M:%S %p"
+
+#~ msgid "Copyright 2009-2015 Yorba Foundation"
+#~ msgstr "Copyright 2009-2015 Yorba Foundation"
+
+#~ msgid "Intro message replaced at runtime"
+#~ msgstr "Messatge d'introducció reemplaçat en temps d'execució"
+
+#~ msgid "'Publishing to $url as $username' (populated in application code)"
+#~ msgstr ""
+#~ "«S'està publicant a $url com $username» (completat al codi de l'aplicació)"
+
+#~ msgid "you are logged in rajce as $name"
+#~ msgstr "Actualment esteu connectat al rajce com a $name"
+
+#~ msgid "$mediatype will appear in"
+#~ msgstr "$mediatype apareixeran a"
+
+#~ msgid "Visit the Yorba web site"
+#~ msgstr "Vés al lloc web d'en Yorba"
 
 #~ msgid "Only _Remove"
 #~ msgstr "_Suprimeix només"
