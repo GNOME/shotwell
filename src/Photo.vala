@@ -1258,6 +1258,7 @@ public abstract class Photo : PhotoSource, Dateable {
         if (params.thumbnails != null) {
             PhotoFileReader reader = params.row.master.file_format.create_reader(
                 params.row.master.filepath);
+            reader.set_role (PhotoFileReader.Role.THUMBNAIL);
             try {
                 ThumbnailCache.generate_for_photo(params.thumbnails, reader, params.row.orientation, 
                     params.row.master.dim);

@@ -57,6 +57,13 @@ public abstract class PhotoFileAdapter {
 //
 
 public abstract class PhotoFileReader : PhotoFileAdapter {
+    public enum Role {
+        DEFAULT,
+        THUMBNAIL
+    }
+
+    PhotoFileReader.Role role = Role.DEFAULT;
+
     protected PhotoFileReader(string filepath, PhotoFileFormat file_format) {
         base (filepath, file_format);
     }
@@ -75,6 +82,14 @@ public abstract class PhotoFileReader : PhotoFileAdapter {
     
     public virtual Gdk.Pixbuf scaled_read(Dimensions full, Dimensions scaled) throws Error {
         return resize_pixbuf(unscaled_read(), scaled, Gdk.InterpType.BILINEAR);
+    }
+
+    public void set_role (PhotoFileReader.Role role) {
+        this.role = role;
+    }
+
+    public PhotoFileReader.Role get_role () {
+        return this.role;
     }
 }
 
