@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-10-03 13:19+0000\n"
-"PO-Revision-Date: 2016-10-03 16:38+0200\n"
+"POT-Creation-Date: 2016-10-09 18:03+0000\n"
+"PO-Revision-Date: 2016-10-10 17:09+0200\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -122,7 +122,7 @@ msgid "The secret token to sign oauth requests"
 msgstr "A titkos token az oauth kérések aláírására"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
-#: misc/org.yorba.shotwell.gschema.xml:416
+#: misc/org.yorba.shotwell.gschema.xml:486
 msgid "default size"
 msgstr "alapértelmezett méret"
 
@@ -150,9 +150,9 @@ msgid "URL of the Rajce server."
 msgstr "A Rajce kiszolgáló URL-e."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:46
-#: misc/org.yorba.shotwell.gschema.xml:384
-#: misc/org.yorba.shotwell.gschema.xml:442
-#: misc/org.yorba.shotwell.gschema.xml:498
+#: misc/org.yorba.shotwell.gschema.xml:454
+#: misc/org.yorba.shotwell.gschema.xml:512
+#: misc/org.yorba.shotwell.gschema.xml:568
 msgid "username"
 msgstr "felhasználónév"
 
@@ -169,7 +169,7 @@ msgid "user token, if remembered."
 msgstr "felhasználói token, ha meg lett jegyezve."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
-#: misc/org.yorba.shotwell.gschema.xml:460
+#: misc/org.yorba.shotwell.gschema.xml:530
 msgid "last category"
 msgstr "legutóbbi kategória"
 
@@ -178,7 +178,7 @@ msgid "The last selected Rajce category."
 msgstr "A legutóbb választott Rajce kategória."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:64
-#: misc/org.yorba.shotwell.gschema.xml:472
+#: misc/org.yorba.shotwell.gschema.xml:542
 msgid "last photo size"
 msgstr "legutóbbi fényképméret"
 
@@ -218,11 +218,11 @@ msgstr ""
 "után"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:88
-#: misc/org.yorba.shotwell.gschema.xml:364
-#: misc/org.yorba.shotwell.gschema.xml:402
-#: misc/org.yorba.shotwell.gschema.xml:428
-#: misc/org.yorba.shotwell.gschema.xml:478
-#: misc/org.yorba.shotwell.gschema.xml:522
+#: misc/org.yorba.shotwell.gschema.xml:434
+#: misc/org.yorba.shotwell.gschema.xml:472
+#: misc/org.yorba.shotwell.gschema.xml:498
+#: misc/org.yorba.shotwell.gschema.xml:548
+#: misc/org.yorba.shotwell.gschema.xml:592
 msgid "remove sensitive info from uploads"
 msgstr "érzékeny adatok eltávolítása a feltöltésekből"
 
@@ -233,56 +233,56 @@ msgid ""
 msgstr ""
 "A Rajce-re feltöltött képek metaadatai előbb eltávolításra kerüljenek-e"
 
-#: misc/org.yorba.shotwell.gschema.xml:22
+#: misc/org.yorba.shotwell.gschema.xml:23
 msgid "display basic properties"
 msgstr "alapvető tulajdonságok megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:23
+#: misc/org.yorba.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise."
 msgstr ""
 "Igaz, ha meg kell jelennie az alapvető tulajdonságok panelnek, különben "
 "hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:28
+#: misc/org.yorba.shotwell.gschema.xml:29
 msgid "display extended properties"
 msgstr "további tulajdonságok megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:29
+#: misc/org.yorba.shotwell.gschema.xml:30
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise."
 msgstr ""
 "Igaz, ha meg kell jelennie a további tulajdonságok panelnek, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:34
+#: misc/org.yorba.shotwell.gschema.xml:35
 msgid "display sidebar"
 msgstr "oldalsáv megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:35
+#: misc/org.yorba.shotwell.gschema.xml:36
 msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr "Igaz, ha a meg kell jelennie az oldalsávnak, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:40
+#: misc/org.yorba.shotwell.gschema.xml:41
 msgid "display toolbar"
 msgstr "eszköztár megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:41
+#: misc/org.yorba.shotwell.gschema.xml:42
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgstr "Igaz, ha a meg kell jelennie az alsó eszköztárnak, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:46
+#: misc/org.yorba.shotwell.gschema.xml:47
 msgid "display search bar"
 msgstr "keresősáv megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:47
+#: misc/org.yorba.shotwell.gschema.xml:48
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgstr ""
 "Igaz, ha a meg kell jelennie a kereső/szűrő eszköztárnak, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:52
+#: misc/org.yorba.shotwell.gschema.xml:53
 msgid "display photo titles"
 msgstr "fényképcímek megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:53
+#: misc/org.yorba.shotwell.gschema.xml:54
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
@@ -290,11 +290,11 @@ msgstr ""
 "Igaz, ha a fényképcímeket meg kell jeleníteni a bélyegképek alatt a "
 "gyűjteménynézetekben, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:58
+#: misc/org.yorba.shotwell.gschema.xml:59
 msgid "display photo comments"
 msgstr "fénykép megjegyzések megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:59
+#: misc/org.yorba.shotwell.gschema.xml:60
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
@@ -302,11 +302,11 @@ msgstr ""
 "Igaz, ha a fénykép megjegyzéseket meg kell jeleníteni a bélyegképek alatt a "
 "gyűjteménynézetekben, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:64
+#: misc/org.yorba.shotwell.gschema.xml:65
 msgid "display event comments"
 msgstr "esemény megjegyzések megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:65
+#: misc/org.yorba.shotwell.gschema.xml:66
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise."
@@ -314,11 +314,11 @@ msgstr ""
 "Igaz, ha az esemény megjegyzéseket meg kell jeleníteni a bélyegképek alatt a "
 "gyűjteménynézetekben, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:70
+#: misc/org.yorba.shotwell.gschema.xml:71
 msgid "display photo tags"
 msgstr "fényképcímkék megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:71
+#: misc/org.yorba.shotwell.gschema.xml:72
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise."
@@ -326,11 +326,11 @@ msgstr ""
 "Igaz, ha a fényképcímeket listázni kell a bélyegképek alatt a "
 "gyűjteménynézeten, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:76
+#: misc/org.yorba.shotwell.gschema.xml:77
 msgid "display photo ratings"
 msgstr "fénykép értékelések megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:77
+#: misc/org.yorba.shotwell.gschema.xml:78
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise."
@@ -338,11 +338,11 @@ msgstr ""
 "Igaz, ha a fényképek értékelését meg kell jeleníteni a fényképek felett, "
 "különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:82
+#: misc/org.yorba.shotwell.gschema.xml:83
 msgid "rating filter level"
 msgstr "értékelési szűrő szint"
 
-#: misc/org.yorba.shotwell.gschema.xml:83
+#: misc/org.yorba.shotwell.gschema.xml:84
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
@@ -352,59 +352,59 @@ msgstr ""
 "Visszautasítva vagy jobb, 2: Nem értékelt vagy jobb, 3: Egy vagy jobb, 4: "
 "Kettő vagy jobb, 5: Három vagy jobb, 6: Négy vagy jobb, 7: Öt vagy jobb."
 
-#: misc/org.yorba.shotwell.gschema.xml:88
+#: misc/org.yorba.shotwell.gschema.xml:89
 msgid "sort events ascending"
 msgstr "események rendezése növekvő sorrendben"
 
-#: misc/org.yorba.shotwell.gschema.xml:89
+#: misc/org.yorba.shotwell.gschema.xml:90
 msgid "True if events should be sorted ascending, false if descending."
 msgstr ""
 "Igaz, ha az eseményeket növekvő sorrendbe kell rendezni, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:94
+#: misc/org.yorba.shotwell.gschema.xml:95
 msgid "sort library photos ascending"
 msgstr "a gyűjteményben lévő fényképek rendezése növekvő sorrendben"
 
-#: misc/org.yorba.shotwell.gschema.xml:95
+#: misc/org.yorba.shotwell.gschema.xml:96
 msgid "True if library photos should be sorted ascending, false if descending."
 msgstr ""
 "Igaz, ha a gyűjteményben lévő fényképeket növekvő sorrendbe kell rendezni, "
 "különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:100
+#: misc/org.yorba.shotwell.gschema.xml:101
 msgid "sort library photos criteria"
 msgstr "a gyűjteményben lévő fényképek rendezési feltétele"
 
-#: misc/org.yorba.shotwell.gschema.xml:101
+#: misc/org.yorba.shotwell.gschema.xml:102
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views."
 msgstr ""
 "Numerikus kód, amely meghatározza a gyűjteménynézetben lévő fényképek "
 "rendezési feltételét."
 
-#: misc/org.yorba.shotwell.gschema.xml:106
+#: misc/org.yorba.shotwell.gschema.xml:107
 msgid "sort event photos ascending"
 msgstr "az események fényképeinek rendezése növekvő sorrendben"
 
-#: misc/org.yorba.shotwell.gschema.xml:107
+#: misc/org.yorba.shotwell.gschema.xml:108
 msgid "True if event photos should be sorted ascending, false if descending."
 msgstr ""
 "Igaz, ha az események fényképeit növekvő sorrendbe kell rendezni, különben "
 "hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:112
+#: misc/org.yorba.shotwell.gschema.xml:113
 msgid "sort event photos criteria"
 msgstr "esemény fényképek rendezési feltétele"
 
-#: misc/org.yorba.shotwell.gschema.xml:113
+#: misc/org.yorba.shotwell.gschema.xml:114
 msgid "Specifies the sort criteria for event photos."
 msgstr "Megadja az esemény fényképek rendezési feltételeit."
 
-#: misc/org.yorba.shotwell.gschema.xml:118
+#: misc/org.yorba.shotwell.gschema.xml:119
 msgid "use 24 hour time"
 msgstr "24 órás idő használata"
 
-#: misc/org.yorba.shotwell.gschema.xml:119
+#: misc/org.yorba.shotwell.gschema.xml:120
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation."
@@ -412,11 +412,11 @@ msgstr ""
 "Igaz, ha 24 órás időt jelenítsen meg, hamis ha az idők a de./du. jelölést "
 "használják."
 
-#: misc/org.yorba.shotwell.gschema.xml:124
+#: misc/org.yorba.shotwell.gschema.xml:125
 msgid "keep relative time between photos"
 msgstr "relatív idő megtartása a fényképek között"
 
-#: misc/org.yorba.shotwell.gschema.xml:125
+#: misc/org.yorba.shotwell.gschema.xml:126
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time."
@@ -424,11 +424,11 @@ msgstr ""
 "Igaz, ha a fényképek dátumának és idejének módosításakor a relatív idő meg "
 "kell maradjon. Hamis, ha minden fényképét ugyanarra az időre kell állítani."
 
-#: misc/org.yorba.shotwell.gschema.xml:130
+#: misc/org.yorba.shotwell.gschema.xml:131
 msgid "modify original photo files"
 msgstr "eredeti fényképfájlok módosítása"
 
-#: misc/org.yorba.shotwell.gschema.xml:131
+#: misc/org.yorba.shotwell.gschema.xml:132
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database."
@@ -437,11 +437,11 @@ msgstr ""
 "is módosítani kell. Hamis, ha a változások csak az adatbázisba kerülnek "
 "feljegyzésre."
 
-#: misc/org.yorba.shotwell.gschema.xml:136
+#: misc/org.yorba.shotwell.gschema.xml:137
 msgid "show welcome dialog on startup"
 msgstr "üdvözlő párbeszédablak megjelenítése indításkor"
 
-#: misc/org.yorba.shotwell.gschema.xml:137
+#: misc/org.yorba.shotwell.gschema.xml:138
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown."
@@ -449,43 +449,43 @@ msgstr ""
 "Igaz, ha indításkor meg kell jeleníteni az üdvözlőképernyőt. Hamis, ha nem "
 "kell megjeleníteni."
 
-#: misc/org.yorba.shotwell.gschema.xml:142
+#: misc/org.yorba.shotwell.gschema.xml:143
 msgid "sidebar position"
 msgstr "oldalsáv pozíciója"
 
-#: misc/org.yorba.shotwell.gschema.xml:143
+#: misc/org.yorba.shotwell.gschema.xml:144
 msgid "The width, in pixels, of the sidebar"
 msgstr "Az oldalsáv szélessége pixelekben"
 
-#: misc/org.yorba.shotwell.gschema.xml:148
+#: misc/org.yorba.shotwell.gschema.xml:149
 msgid "photo thumbnail scale"
 msgstr "fénykép bélyegkép méretezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:149
+#: misc/org.yorba.shotwell.gschema.xml:150
 msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr "A fénykép bélyegképek méretezése, 72-től 360-ig."
 
-#: misc/org.yorba.shotwell.gschema.xml:154
+#: misc/org.yorba.shotwell.gschema.xml:155
 msgid "pin toolbar state"
 msgstr "eszköztár állapotának rögzítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:155
+#: misc/org.yorba.shotwell.gschema.xml:156
 msgid "Pin toolbar in fullscreen, or not."
 msgstr "Az eszköztár rögzítésre kerüljön-e teljes képernyő esetén."
 
-#: misc/org.yorba.shotwell.gschema.xml:160
+#: misc/org.yorba.shotwell.gschema.xml:161
 msgid "background color"
 msgstr "háttérszín"
 
-#: misc/org.yorba.shotwell.gschema.xml:161
+#: misc/org.yorba.shotwell.gschema.xml:162
 msgid "A grayscale color for use as the background color."
 msgstr "Háttérszínként használandó szürkeárnyalatos szín."
 
-#: misc/org.yorba.shotwell.gschema.xml:166
+#: misc/org.yorba.shotwell.gschema.xml:167
 msgid "Selection state of “hide photos” option"
 msgstr "A „Fényképek elrejtése” beállítás bejelölési állapota."
 
-#: misc/org.yorba.shotwell.gschema.xml:167
+#: misc/org.yorba.shotwell.gschema.xml:168
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
@@ -493,29 +493,29 @@ msgstr ""
 "A „már importált fényképek elrejtése” beállítás legutóbbi állapota az "
 "importálási oldalon."
 
-#: misc/org.yorba.shotwell.gschema.xml:174
+#: misc/org.yorba.shotwell.gschema.xml:175
 msgid "delay"
 msgstr "késleltetés"
 
-#: misc/org.yorba.shotwell.gschema.xml:175
+#: misc/org.yorba.shotwell.gschema.xml:176
 msgid "Delay (in seconds) between photos in the slideshow."
 msgstr "A fényképek közti késleltetés (másodpercekben) diavetítéskor."
 
-#: misc/org.yorba.shotwell.gschema.xml:180
+#: misc/org.yorba.shotwell.gschema.xml:181
 msgid "transition delay"
 msgstr "átmenet késleltetése"
 
-#: misc/org.yorba.shotwell.gschema.xml:181
+#: misc/org.yorba.shotwell.gschema.xml:182
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr ""
 "A fényképek közti átmenetek futásának ideje (másodpercekben) diavetítéskor."
 
-#: misc/org.yorba.shotwell.gschema.xml:186
+#: misc/org.yorba.shotwell.gschema.xml:187
 msgid "transition effect id"
 msgstr "átmenet effektus azonosító"
 
-#: misc/org.yorba.shotwell.gschema.xml:187
+#: misc/org.yorba.shotwell.gschema.xml:188
 msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
@@ -523,67 +523,67 @@ msgstr ""
 "Az átmeneti effektus azonosítója, amely a fényképek közti váltás során lesz "
 "használva diavetítéskor"
 
-#: misc/org.yorba.shotwell.gschema.xml:192
+#: misc/org.yorba.shotwell.gschema.xml:193
 msgid "Show title"
 msgstr "Cím megjelenítése"
 
-#: misc/org.yorba.shotwell.gschema.xml:193
+#: misc/org.yorba.shotwell.gschema.xml:194
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr "Megjelenjen-e a fénykép címe diavetítés alatt"
 
-#: misc/org.yorba.shotwell.gschema.xml:200
+#: misc/org.yorba.shotwell.gschema.xml:201
 msgid "maximize library window"
 msgstr "gyűjtemény alkalmazásablak maximalizálása"
 
-#: misc/org.yorba.shotwell.gschema.xml:201
+#: misc/org.yorba.shotwell.gschema.xml:202
 msgid "True if library application is maximized, false otherwise."
 msgstr "Igaz, ha maximalizált a gyűjtemény alkalmazásablak, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:206
+#: misc/org.yorba.shotwell.gschema.xml:207
 msgid "width of library window"
 msgstr "a gyűjtemény alkalmazásablak szélessége"
 
-#: misc/org.yorba.shotwell.gschema.xml:207
+#: misc/org.yorba.shotwell.gschema.xml:208
 msgid "The last recorded width of the library application window."
 msgstr "A gyűjtemény alkalmazásablak legutóbb mentett szélessége."
 
-#: misc/org.yorba.shotwell.gschema.xml:212
+#: misc/org.yorba.shotwell.gschema.xml:213
 msgid "height of library window"
 msgstr "a gyűjtemény alkalmazásablak magassága"
 
-#: misc/org.yorba.shotwell.gschema.xml:213
+#: misc/org.yorba.shotwell.gschema.xml:214
 msgid "The last recorded height of the library application window."
 msgstr "A gyűjtemény alkalmazásablak legutóbb mentett magassága."
 
-#: misc/org.yorba.shotwell.gschema.xml:218
+#: misc/org.yorba.shotwell.gschema.xml:219
 msgid "maximize direct-edit window"
 msgstr "közvetlen szerkesztés ablak maximalizálása"
 
-#: misc/org.yorba.shotwell.gschema.xml:219
+#: misc/org.yorba.shotwell.gschema.xml:220
 msgid "True if direct-edit application is maximized, false otherwise."
 msgstr "Igaz, ha maximalizált a közvetlen szerkesztés ablak, különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:224
+#: misc/org.yorba.shotwell.gschema.xml:225
 msgid "width of direct-edit window"
 msgstr "közvetlen szerkesztés ablak szélessége"
 
-#: misc/org.yorba.shotwell.gschema.xml:225
+#: misc/org.yorba.shotwell.gschema.xml:226
 msgid "The last recorded width of the direct-edit application window."
 msgstr "A közvetlen szerkesztés alkalmazásablak legutóbb mentett szélessége."
 
-#: misc/org.yorba.shotwell.gschema.xml:230
+#: misc/org.yorba.shotwell.gschema.xml:231
 msgid "height of direct-edit window"
 msgstr "közvetlen szerkesztés ablak magassága"
 
-#: misc/org.yorba.shotwell.gschema.xml:231
+#: misc/org.yorba.shotwell.gschema.xml:232
 msgid "The last recorded height of the direct-edit application window."
 msgstr "A közvetlen szerkesztés alkalmazásablak legutóbb mentett magassága."
 
-#: misc/org.yorba.shotwell.gschema.xml:236
+#: misc/org.yorba.shotwell.gschema.xml:237
 msgid "sidebar divider position"
 msgstr "oldalsáv elválasztó pozíciója"
 
-#: misc/org.yorba.shotwell.gschema.xml:237
+#: misc/org.yorba.shotwell.gschema.xml:238
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
@@ -591,30 +591,30 @@ msgstr ""
 "Az elválasztó legutóbb mentett pozíciója az oldalsáv és a gyűjteménynézet "
 "ablaka között."
 
-#: misc/org.yorba.shotwell.gschema.xml:244
+#: misc/org.yorba.shotwell.gschema.xml:245
 msgid "import directory"
 msgstr "importálási könyvtár"
 
-#: misc/org.yorba.shotwell.gschema.xml:245
+#: misc/org.yorba.shotwell.gschema.xml:246
 msgid "Directory in which imported photo files are placed."
 msgstr "Könyvtár, amelybe az importált fényképfájlok kerülnek."
 
-#: misc/org.yorba.shotwell.gschema.xml:250
+#: misc/org.yorba.shotwell.gschema.xml:251
 msgid "watch library directory for new files"
 msgstr "új fájlok figyelése a gyűjteménykönyvtárban"
 
-#: misc/org.yorba.shotwell.gschema.xml:251
+#: misc/org.yorba.shotwell.gschema.xml:252
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr ""
 "Ha igaz, akkor a gyűjteménykönyvtárba helyezett fájlok automatikus "
 "importálásra kerülnek."
 
-#: misc/org.yorba.shotwell.gschema.xml:256
+#: misc/org.yorba.shotwell.gschema.xml:257
 msgid "write metadata to master files"
 msgstr "metaadatok írása az eredeti fájlokba"
 
-#: misc/org.yorba.shotwell.gschema.xml:257
+#: misc/org.yorba.shotwell.gschema.xml:258
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
@@ -622,11 +622,11 @@ msgstr ""
 "Ha igaz, akkor a metaadatok (címkék, címek stb.) beírásra kerülnek az "
 "eredeti fényképfájlokba."
 
-#: misc/org.yorba.shotwell.gschema.xml:262
+#: misc/org.yorba.shotwell.gschema.xml:263
 msgid "use lowercase filenames"
 msgstr "kisbetűs fájlnevek használata"
 
-#: misc/org.yorba.shotwell.gschema.xml:263
+#: misc/org.yorba.shotwell.gschema.xml:264
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
@@ -634,11 +634,11 @@ msgstr ""
 "Ha igaz, akkor a Shotwell átalakít minden fájlnevet kisbetűsre a fényképek "
 "importálásakor"
 
-#: misc/org.yorba.shotwell.gschema.xml:268
+#: misc/org.yorba.shotwell.gschema.xml:269
 msgid "directory pattern"
 msgstr "könyvtárminta"
 
-#: misc/org.yorba.shotwell.gschema.xml:269
+#: misc/org.yorba.shotwell.gschema.xml:270
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
@@ -646,11 +646,11 @@ msgstr ""
 "A névmintát kódoló karakterlánc, amely a fényképkönyvtárak elnevezésekor "
 "kerül használatra importáláskor."
 
-#: misc/org.yorba.shotwell.gschema.xml:274
+#: misc/org.yorba.shotwell.gschema.xml:275
 msgid "directory pattern custom"
 msgstr "egyéni könyvtárminta"
 
-#: misc/org.yorba.shotwell.gschema.xml:275
+#: misc/org.yorba.shotwell.gschema.xml:276
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
@@ -658,30 +658,30 @@ msgstr ""
 "A névmintát kódoló egyéni karakterlánc, amely a fényképkönyvtárak "
 "elnevezésekor kerül használatra importáláskor."
 
-#: misc/org.yorba.shotwell.gschema.xml:280
+#: misc/org.yorba.shotwell.gschema.xml:281
 msgid "RAW developer default"
 msgstr "RAW előhívó alapbeállítás"
 
-#: misc/org.yorba.shotwell.gschema.xml:281
+#: misc/org.yorba.shotwell.gschema.xml:282
 msgid "Default option for which RAW developer Shotwell will use."
 msgstr ""
 "Az alapértelmezett beállítás, hogy melyik RAW előhívót használja a Shotwell."
 
-#: misc/org.yorba.shotwell.gschema.xml:288
+#: misc/org.yorba.shotwell.gschema.xml:289
 msgid "Most-recently-used crop aspect ratio menu choice."
 msgstr "A legutóbb használt vágás egyéni képarány menüpontja."
 
-#: misc/org.yorba.shotwell.gschema.xml:289
+#: misc/org.yorba.shotwell.gschema.xml:290
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr ""
 "Numerikus kód, amely a felhasználó által legutóbb választott vágás "
 "menüpontot jelöli."
 
-#: misc/org.yorba.shotwell.gschema.xml:293
+#: misc/org.yorba.shotwell.gschema.xml:294
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgstr "A legutóbb használt vágás egyéni képarányának számlálója."
 
-#: misc/org.yorba.shotwell.gschema.xml:294
+#: misc/org.yorba.shotwell.gschema.xml:295
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
@@ -689,11 +689,11 @@ msgstr ""
 "Egy pozitív egész, amely a felhasználó által megadott, legutóbb használt "
 "egyéni vágási arány szélesség komponensét jelöli."
 
-#: misc/org.yorba.shotwell.gschema.xml:298
+#: misc/org.yorba.shotwell.gschema.xml:299
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgstr "A legutóbb használt vágás egyéni képarányának nevezője."
 
-#: misc/org.yorba.shotwell.gschema.xml:299
+#: misc/org.yorba.shotwell.gschema.xml:300
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
@@ -701,96 +701,144 @@ msgstr ""
 "Egy pozitív egész, amely a felhasználó által megadott, legutóbb használt "
 "egyéni vágási arány magasság komponensét jelöli."
 
-#: misc/org.yorba.shotwell.gschema.xml:306
+#: misc/org.yorba.shotwell.gschema.xml:307
 msgid "external photo editor"
 msgstr "külső fényképszerkesztő"
 
-#: misc/org.yorba.shotwell.gschema.xml:307
+#: misc/org.yorba.shotwell.gschema.xml:308
 msgid "External application used to edit photos."
 msgstr "A fényképek szerkesztéséhez használt külső alkalmazás."
 
-#: misc/org.yorba.shotwell.gschema.xml:312
+#: misc/org.yorba.shotwell.gschema.xml:313
 msgid "external raw editor"
 msgstr "külső RAW szerkesztő"
 
-#: misc/org.yorba.shotwell.gschema.xml:313
+#: misc/org.yorba.shotwell.gschema.xml:314
 msgid "External application used to edit RAW photos."
 msgstr "A RAW fájlok szerkesztésére használt külső alkalmazás."
 
-#: misc/org.yorba.shotwell.gschema.xml:320
+#: misc/org.yorba.shotwell.gschema.xml:352
+#: misc/org.yorba.shotwell.gschema.xml:353
+msgid "Setting in export dialog: how to trim images"
+msgstr "Beállítás az exportálási párbeszédablakon: hogyan vágja le a képeket"
+
+#: misc/org.yorba.shotwell.gschema.xml:358
+msgid "export metadata"
+msgstr "metaadatok exportálása"
+
+#: misc/org.yorba.shotwell.gschema.xml:359
+msgid "Setting in export dialog: option to export metadata"
+msgstr "Beállítás az exportálási párbeszédablakon: metaadatok exportálása"
+
+#: misc/org.yorba.shotwell.gschema.xml:364
+msgid "format setting, special value"
+msgstr "formátumbeállítás, különleges érték"
+
+#: misc/org.yorba.shotwell.gschema.xml:365
+msgid "Setting in export dialog: format setting, special value"
+msgstr ""
+"Beállítás az exportálási párbeszédablakon: formátumbeállítás, különleges "
+"érték"
+
+#: misc/org.yorba.shotwell.gschema.xml:370
+msgid "format setting, type value"
+msgstr "formátumbeállítás, típusérték"
+
+#: misc/org.yorba.shotwell.gschema.xml:371
+msgid "Setting in export dialog: format setting, type value"
+msgstr ""
+"Beállítás az exportálási párbeszédablakon: formátumbeállítás, típusérték"
+
+#: misc/org.yorba.shotwell.gschema.xml:376
+msgid "JPEG quality option"
+msgstr "JPEG minőség beállítás"
+
+#: misc/org.yorba.shotwell.gschema.xml:377
+msgid "Setting in export dialog: jpeg quality option"
+msgstr "Beállítás az exportálási párbeszédablakon: jpeg minőség beállítás"
+
+#: misc/org.yorba.shotwell.gschema.xml:382
+msgid "maximal size of image"
+msgstr "maximális képméret"
+
+#: misc/org.yorba.shotwell.gschema.xml:383
+msgid "Setting in export dialog: maximal size of image"
+msgstr "Beállítás az exportálási párbeszédablakon: maximális képméret"
+
+#: misc/org.yorba.shotwell.gschema.xml:390
 msgid "last used publishing service"
 msgstr "legutóbb használt közzétételi szolgáltatás"
 
-#: misc/org.yorba.shotwell.gschema.xml:321
-#: misc/org.yorba.shotwell.gschema.xml:327
+#: misc/org.yorba.shotwell.gschema.xml:391
+#: misc/org.yorba.shotwell.gschema.xml:397
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
 "Numerikus kód, amely a legutóbbi fénykép-közzétételi szolgáltatást képviseli"
 
-#: misc/org.yorba.shotwell.gschema.xml:326
+#: misc/org.yorba.shotwell.gschema.xml:396
 msgid "default publishing service"
 msgstr "alapértelmezett közzétételi szolgáltatás"
 
-#: misc/org.yorba.shotwell.gschema.xml:340
+#: misc/org.yorba.shotwell.gschema.xml:410
 msgid "access token"
 msgstr "hozzáférési token"
 
-#: misc/org.yorba.shotwell.gschema.xml:341
+#: misc/org.yorba.shotwell.gschema.xml:411
 msgid "Facebook OAuth token for the currently logged in session, if any"
 msgstr ""
 "A pillanatnyilag bejelentkezett munkamenet Facebook OAuth tokenje, ha van"
 
-#: misc/org.yorba.shotwell.gschema.xml:346
+#: misc/org.yorba.shotwell.gschema.xml:416
 msgid "user i.d."
 msgstr "felhasználóazonosító"
 
-#: misc/org.yorba.shotwell.gschema.xml:347
+#: misc/org.yorba.shotwell.gschema.xml:417
 msgid "Facebook user i.d. for the currently logged in user, if any"
 msgstr ""
 "A pillanatnyilag bejelentkezett Facebook felhasználó azonosítója, ha van"
 
-#: misc/org.yorba.shotwell.gschema.xml:352
+#: misc/org.yorba.shotwell.gschema.xml:422
 msgid "user name"
 msgstr "felhasználónév"
 
-#: misc/org.yorba.shotwell.gschema.xml:353
+#: misc/org.yorba.shotwell.gschema.xml:423
 msgid "The name of the currently logged in Facebook user, if any"
 msgstr "A pillanatnyilag bejelentkezett Facebook felhasználó neve, ha van"
 
-#: misc/org.yorba.shotwell.gschema.xml:358
-#: misc/org.yorba.shotwell.gschema.xml:390
+#: misc/org.yorba.shotwell.gschema.xml:428
+#: misc/org.yorba.shotwell.gschema.xml:460
 msgid "default size code"
 msgstr "alapértelmezett méretkód"
 
-#: misc/org.yorba.shotwell.gschema.xml:359
+#: misc/org.yorba.shotwell.gschema.xml:429
 msgid ""
 "A numeric code representing the default size for photos published to Facebook"
 msgstr ""
 "Numerikus kód, amely a Facebookon közzétett fényképek alapértelmezett "
 "méretét képviseli"
 
-#: misc/org.yorba.shotwell.gschema.xml:365
+#: misc/org.yorba.shotwell.gschema.xml:435
 msgid ""
 "Whether images being uploaded to Facebook should have their metadata removed "
 "first"
 msgstr ""
 "A Facebookra feltöltött képek metaadatai előbb eltávolításra kerüljenek-e"
 
-#: misc/org.yorba.shotwell.gschema.xml:372
+#: misc/org.yorba.shotwell.gschema.xml:442
 msgid "OAuth Access Phase Token"
 msgstr "OAuth hozzáférési fázis token"
 
-#: misc/org.yorba.shotwell.gschema.xml:373
+#: misc/org.yorba.shotwell.gschema.xml:443
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 "A jelenleg bejelentkezett Flickr felhasználó engedélyezési tokene, ha van"
 
-#: misc/org.yorba.shotwell.gschema.xml:378
+#: misc/org.yorba.shotwell.gschema.xml:448
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth hozzáférési fázis token titka"
 
-#: misc/org.yorba.shotwell.gschema.xml:379
+#: misc/org.yorba.shotwell.gschema.xml:449
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -798,23 +846,23 @@ msgstr ""
 "A bejelentkezett Flickr felhasználó engedélyezési tokenje felé érkező "
 "kérések aláírására használt kriptográfiai titok, ha van"
 
-#: misc/org.yorba.shotwell.gschema.xml:385
+#: misc/org.yorba.shotwell.gschema.xml:455
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr ""
 "A jelenleg bejelentkezett Flickr felhasználó felhasználóneve, ha van ilyen"
 
-#: misc/org.yorba.shotwell.gschema.xml:391
+#: misc/org.yorba.shotwell.gschema.xml:461
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Numerikus kód, amely a Flickr-re feltöltött képek alapértelmezett méretét "
 "képviseli"
 
-#: misc/org.yorba.shotwell.gschema.xml:396
+#: misc/org.yorba.shotwell.gschema.xml:466
 msgid "default visibility"
 msgstr "alapértelmezett láthatóság"
 
-#: misc/org.yorba.shotwell.gschema.xml:397
+#: misc/org.yorba.shotwell.gschema.xml:467
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -822,19 +870,19 @@ msgstr ""
 "Numerikus kód, amely a Flickr-re feltöltött képek alapértelmezett "
 "láthatóságát képviseli"
 
-#: misc/org.yorba.shotwell.gschema.xml:403
+#: misc/org.yorba.shotwell.gschema.xml:473
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
 "A Flickr-re feltöltött képek metaadatai előbb eltávolításra kerüljenek-e"
 
-#: misc/org.yorba.shotwell.gschema.xml:410
-#: misc/org.yorba.shotwell.gschema.xml:542
+#: misc/org.yorba.shotwell.gschema.xml:480
+#: misc/org.yorba.shotwell.gschema.xml:612
 msgid "refresh token"
 msgstr "frissítési token"
 
-#: misc/org.yorba.shotwell.gschema.xml:411
+#: misc/org.yorba.shotwell.gschema.xml:481
 msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
@@ -842,7 +890,7 @@ msgstr ""
 "Az OAuth token, amelyet a jelenleg bejelentkezett felhasználó Picasa "
 "Webalbumok munkamenetének frissítésére használ."
 
-#: misc/org.yorba.shotwell.gschema.xml:417
+#: misc/org.yorba.shotwell.gschema.xml:487
 msgid ""
 "A numeric code representing the default size for photos uploaded to Picasa "
 "Web Albums"
@@ -850,66 +898,66 @@ msgstr ""
 "Numerikus kód, amely a legutóbb, a Picasa Webalbumokba történő feltöltéskor "
 "használt alapértelmezett fényképméretet képviseli."
 
-#: misc/org.yorba.shotwell.gschema.xml:422
-#: misc/org.yorba.shotwell.gschema.xml:516
+#: misc/org.yorba.shotwell.gschema.xml:492
+#: misc/org.yorba.shotwell.gschema.xml:586
 msgid "last album"
 msgstr "legutóbbi album"
 
-#: misc/org.yorba.shotwell.gschema.xml:423
-#: misc/org.yorba.shotwell.gschema.xml:517
+#: misc/org.yorba.shotwell.gschema.xml:493
+#: misc/org.yorba.shotwell.gschema.xml:587
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
 "A legutóbbi album neve, ahová a felhasználó képeket töltött fel, ha van "
 "ilyen."
 
-#: misc/org.yorba.shotwell.gschema.xml:429
+#: misc/org.yorba.shotwell.gschema.xml:499
 msgid ""
 "Whether images being uploaded to Picasa should have their metadata removed "
 "first"
 msgstr ""
 "A Picasára feltöltött képek metaadatai előbb eltávolításra kerüljenek-e"
 
-#: misc/org.yorba.shotwell.gschema.xml:436
+#: misc/org.yorba.shotwell.gschema.xml:506
 msgid "Piwigo URL"
 msgstr "Piwigo URL"
 
-#: misc/org.yorba.shotwell.gschema.xml:437
+#: misc/org.yorba.shotwell.gschema.xml:507
 msgid "URL of the Piwigo server."
 msgstr "A Piwigo kiszolgáló URL-e."
 
-#: misc/org.yorba.shotwell.gschema.xml:443
+#: misc/org.yorba.shotwell.gschema.xml:513
 msgid "Piwigo username, if logged in."
 msgstr "Piwigo felhasználónév, ha be van jelentkezve."
 
-#: misc/org.yorba.shotwell.gschema.xml:448
+#: misc/org.yorba.shotwell.gschema.xml:518
 msgid "password"
 msgstr "jelszó"
 
-#: misc/org.yorba.shotwell.gschema.xml:449
+#: misc/org.yorba.shotwell.gschema.xml:519
 msgid "Piwigo password, if logged in."
 msgstr "Piwigo jelszó, ha be van jelentkezve."
 
-#: misc/org.yorba.shotwell.gschema.xml:454
+#: misc/org.yorba.shotwell.gschema.xml:524
 msgid "remember password"
 msgstr "jelszó megjegyzése"
 
-#: misc/org.yorba.shotwell.gschema.xml:455
+#: misc/org.yorba.shotwell.gschema.xml:525
 msgid "If true, remember the Piwigo password."
 msgstr "Ha igaz, megjegyzi a Piwigo jelszót."
 
-#: misc/org.yorba.shotwell.gschema.xml:461
+#: misc/org.yorba.shotwell.gschema.xml:531
 msgid "The last selected Piwigo category."
 msgstr "A legutóbb választott Piwigo kategória."
 
-#: misc/org.yorba.shotwell.gschema.xml:466
+#: misc/org.yorba.shotwell.gschema.xml:536
 msgid "last permission level"
 msgstr "legutóbbi engedélyszint"
 
-#: misc/org.yorba.shotwell.gschema.xml:467
+#: misc/org.yorba.shotwell.gschema.xml:537
 msgid "The last chosen Piwigo permission level."
 msgstr "A legutóbb választott Piwigo engedélyszint."
 
-#: misc/org.yorba.shotwell.gschema.xml:473
+#: misc/org.yorba.shotwell.gschema.xml:543
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
@@ -917,21 +965,21 @@ msgstr ""
 "Numerikus kód, amely a legutóbbi, Piwigóra történő feltöltéskor használt "
 "fényképméret előbeállítást képviseli."
 
-#: misc/org.yorba.shotwell.gschema.xml:479
+#: misc/org.yorba.shotwell.gschema.xml:549
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
 "A Piwigóra feltöltött képek metaadatai előbb eltávolításra kerüljenek-e"
 
-#: misc/org.yorba.shotwell.gschema.xml:484
+#: misc/org.yorba.shotwell.gschema.xml:554
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "ha be van állítva cím, de megjegyzés nincs, akkor a cím használata "
 "megjegyzésként a Piwigo feltöltéseknél"
 
-#: misc/org.yorba.shotwell.gschema.xml:485
+#: misc/org.yorba.shotwell.gschema.xml:555
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -939,11 +987,11 @@ msgstr ""
 "A Piwigóra feltöltött fájlok megjegyzése legyen-e beállítva a címből, ha a "
 "cím meg van adva, de a megjegyzés nincs"
 
-#: misc/org.yorba.shotwell.gschema.xml:490
+#: misc/org.yorba.shotwell.gschema.xml:560
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "ne töltse fel a címkéket a Piwigora feltöltéskor"
 
-#: misc/org.yorba.shotwell.gschema.xml:491
+#: misc/org.yorba.shotwell.gschema.xml:561
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
@@ -951,46 +999,46 @@ msgstr ""
 "A Piwigóra feltöltött képek metaadatai előbb eltávolításra kerüljenek-e, így "
 "ezek a címkék nem fognak megjelenni a távoli Piwigo kiszolgálón."
 
-#: misc/org.yorba.shotwell.gschema.xml:499
+#: misc/org.yorba.shotwell.gschema.xml:569
 msgid "Gallery3 username"
 msgstr "Gallery3 felhasználónév"
 
-#: misc/org.yorba.shotwell.gschema.xml:504
+#: misc/org.yorba.shotwell.gschema.xml:574
 msgid "API key"
 msgstr "API kulcs"
 
-#: misc/org.yorba.shotwell.gschema.xml:505
+#: misc/org.yorba.shotwell.gschema.xml:575
 msgid "Gallery3 API key"
 msgstr "Gallery3 API kulcs"
 
-#: misc/org.yorba.shotwell.gschema.xml:510
+#: misc/org.yorba.shotwell.gschema.xml:580
 msgid "URL"
 msgstr "URL"
 
-#: misc/org.yorba.shotwell.gschema.xml:511
+#: misc/org.yorba.shotwell.gschema.xml:581
 msgid "Gallery3 site URL"
 msgstr "Gallery3 oldal URL"
 
-#: misc/org.yorba.shotwell.gschema.xml:523
+#: misc/org.yorba.shotwell.gschema.xml:593
 msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
 msgstr ""
 "A Gallery3-ra feltöltött képek metaadatai előbb eltávolításra kerüljenek-e"
 
-#: misc/org.yorba.shotwell.gschema.xml:528
+#: misc/org.yorba.shotwell.gschema.xml:598
 msgid "scaling constraint of uploaded picture"
 msgstr "a feltöltött kép méretezési megszorítása"
 
-#: misc/org.yorba.shotwell.gschema.xml:529
+#: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "A feltöltendő kép méretezési megszorításának azonosítója"
 
-#: misc/org.yorba.shotwell.gschema.xml:534
+#: misc/org.yorba.shotwell.gschema.xml:604
 msgid "pixels of the major axis uploaded picture"
 msgstr "a feltöltött kép fő tengelyeinek pixelei"
 
-#: misc/org.yorba.shotwell.gschema.xml:535
+#: misc/org.yorba.shotwell.gschema.xml:605
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -998,7 +1046,7 @@ msgstr ""
 "A feltöltendő képek fő tengelyeinek pixelei; csak akkor használt, ha a "
 "scaling-constraint-id egy megfelelő érték"
 
-#: misc/org.yorba.shotwell.gschema.xml:543
+#: misc/org.yorba.shotwell.gschema.xml:613
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
@@ -1006,65 +1054,65 @@ msgstr ""
 "Az OAuth token, amely a pillanatnyilag bejelentkezett felhasználó YouTube "
 "munkamenetének frissítésére használt, ha van ilyen."
 
-#: misc/org.yorba.shotwell.gschema.xml:550
+#: misc/org.yorba.shotwell.gschema.xml:620
 msgid "last used import service"
 msgstr "legutóbb használt importálási szolgáltatás"
 
-#: misc/org.yorba.shotwell.gschema.xml:551
+#: misc/org.yorba.shotwell.gschema.xml:621
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Numerikus kód, amely a fényképek legutóbbi importálási forrását képviseli"
 
-#: misc/org.yorba.shotwell.gschema.xml:558
+#: misc/org.yorba.shotwell.gschema.xml:628
 msgid "interpreter state cookie"
 msgstr "értelmező állapot sütije"
 
-#: misc/org.yorba.shotwell.gschema.xml:559
+#: misc/org.yorba.shotwell.gschema.xml:629
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
 msgstr ""
 "Numerikus kód, amely lementi a GStreamer bővítmény környezeti állapotát"
 
-#: misc/org.yorba.shotwell.gschema.xml:566
+#: misc/org.yorba.shotwell.gschema.xml:636
 msgid "content layout mode"
 msgstr "tartalomelrendezési mód"
 
-#: misc/org.yorba.shotwell.gschema.xml:567
+#: misc/org.yorba.shotwell.gschema.xml:637
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr "Numerikus kód, amely leírja a képek elrendezését nyomtatáskor"
 
-#: misc/org.yorba.shotwell.gschema.xml:572
+#: misc/org.yorba.shotwell.gschema.xml:642
 msgid "content ppi"
 msgstr "tartalom ppi"
 
-#: misc/org.yorba.shotwell.gschema.xml:573
+#: misc/org.yorba.shotwell.gschema.xml:643
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "A nyomtatónak nyomtatáskor kiküldött pixelek száma hüvelykenként (ppi)"
 
-#: misc/org.yorba.shotwell.gschema.xml:578
+#: misc/org.yorba.shotwell.gschema.xml:648
 msgid "content width"
 msgstr "tartalom szélessége"
 
-#: misc/org.yorba.shotwell.gschema.xml:579
+#: misc/org.yorba.shotwell.gschema.xml:649
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "A nyomtatott emulzió szélessége az oldalon nyomtatáskor"
 
-#: misc/org.yorba.shotwell.gschema.xml:584
+#: misc/org.yorba.shotwell.gschema.xml:654
 msgid "content height"
 msgstr "tartalom magassága"
 
-#: misc/org.yorba.shotwell.gschema.xml:585
+#: misc/org.yorba.shotwell.gschema.xml:655
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "A nyomtatott emulzió magassága az oldalon nyomtatáskor"
 
-#: misc/org.yorba.shotwell.gschema.xml:590
+#: misc/org.yorba.shotwell.gschema.xml:660
 msgid "content units"
 msgstr "tartalom mértékegysége"
 
-#: misc/org.yorba.shotwell.gschema.xml:591
+#: misc/org.yorba.shotwell.gschema.xml:661
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -1072,11 +1120,11 @@ msgstr ""
 "Numerikus kód, amely a nyomtatás során használt mértékegységet képviseli "
 "(hüvelyk vagy centiméter)"
 
-#: misc/org.yorba.shotwell.gschema.xml:596
+#: misc/org.yorba.shotwell.gschema.xml:666
 msgid "images per page code"
 msgstr "kép / oldal kód"
 
-#: misc/org.yorba.shotwell.gschema.xml:597
+#: misc/org.yorba.shotwell.gschema.xml:667
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -1084,22 +1132,22 @@ msgstr ""
 "Numerikus kód, amely a jelenleg kiválasztott, nyomtatás során érvényes kép / "
 "oldal módot képviseli"
 
-#: misc/org.yorba.shotwell.gschema.xml:602
+#: misc/org.yorba.shotwell.gschema.xml:672
 msgid "size selection"
 msgstr "méret kiválasztása"
 
-#: misc/org.yorba.shotwell.gschema.xml:603
+#: misc/org.yorba.shotwell.gschema.xml:673
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "A jelenlegi nyomtatási méret indexe a szabványos méretek előre meghatározott "
 "listájában"
 
-#: misc/org.yorba.shotwell.gschema.xml:608
+#: misc/org.yorba.shotwell.gschema.xml:678
 msgid "match aspect ratio"
 msgstr "méretarány megtartása"
 
-#: misc/org.yorba.shotwell.gschema.xml:609
+#: misc/org.yorba.shotwell.gschema.xml:679
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1107,11 +1155,11 @@ msgstr ""
 "Meghatározza, hogy az egyéni nyomtatási méretek képátlója megegyezzen-e az "
 "eredeti képével"
 
-#: misc/org.yorba.shotwell.gschema.xml:614
+#: misc/org.yorba.shotwell.gschema.xml:684
 msgid "print titles"
 msgstr "címek nyomtatása"
 
-#: misc/org.yorba.shotwell.gschema.xml:615
+#: misc/org.yorba.shotwell.gschema.xml:685
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
@@ -1119,183 +1167,183 @@ msgstr ""
 "Igaz, ha a fénykép neve is nyomtatásra kerül a kinyomtatott fényképre, "
 "különben hamis."
 
-#: misc/org.yorba.shotwell.gschema.xml:620
+#: misc/org.yorba.shotwell.gschema.xml:690
 msgid "titles font"
 msgstr "címek betűkészlete"
 
-#: misc/org.yorba.shotwell.gschema.xml:621
+#: misc/org.yorba.shotwell.gschema.xml:691
 msgid "The name of the font to use for photo titles when they are printed."
 msgstr "Nyomtatáskor, a fénykép címekhez használt betűkészlet neve."
 
-#: misc/org.yorba.shotwell.gschema.xml:632
+#: misc/org.yorba.shotwell.gschema.xml:702
 msgid "enable facebook publishing plugin"
 msgstr "facebook közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:633
+#: misc/org.yorba.shotwell.gschema.xml:703
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha a Facebook közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:638
+#: misc/org.yorba.shotwell.gschema.xml:708
 msgid "enable flickr publishing plugin"
 msgstr "flickr közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:639
+#: misc/org.yorba.shotwell.gschema.xml:709
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Flickr közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:644
+#: misc/org.yorba.shotwell.gschema.xml:714
 msgid "enable picasa publishing plugin"
 msgstr "picasa közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:645
+#: misc/org.yorba.shotwell.gschema.xml:715
 msgid ""
 "True if the Picasa Web Albums publishing plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha a Picasa Webalbumok közzétételi bővítmény engedélyezett, különben "
 "hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:650
+#: misc/org.yorba.shotwell.gschema.xml:720
 msgid "enable youtube publishing plugin"
 msgstr "youtube közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:651
+#: misc/org.yorba.shotwell.gschema.xml:721
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Igaz, ha a YouTube közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:656
+#: misc/org.yorba.shotwell.gschema.xml:726
 msgid "enable piwigo publishing plugin"
 msgstr "piwigo közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:657
+#: misc/org.yorba.shotwell.gschema.xml:727
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Piwigo közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:662
+#: misc/org.yorba.shotwell.gschema.xml:732
 msgid "enable yandex publishing plugin"
 msgstr "yandex közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:663
+#: misc/org.yorba.shotwell.gschema.xml:733
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha a Yandex.Fotki közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:668
+#: misc/org.yorba.shotwell.gschema.xml:738
 msgid "enable tumblr publishing plugin"
 msgstr "tumblr közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:669
+#: misc/org.yorba.shotwell.gschema.xml:739
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Tumblr közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:674
+#: misc/org.yorba.shotwell.gschema.xml:744
 msgid "enable rajce publishing plugin"
 msgstr "rajce közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:675
+#: misc/org.yorba.shotwell.gschema.xml:745
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Rajce közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:680
+#: misc/org.yorba.shotwell.gschema.xml:750
 msgid "enable gallery3 publishing plugin"
 msgstr "gallery3 közzétételi bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:681
+#: misc/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha a Gallery3 közzétételi bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:686
+#: misc/org.yorba.shotwell.gschema.xml:756
 msgid "enable F-Spot import plugin"
 msgstr "F-Spot importálás bővítmény engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:687
+#: misc/org.yorba.shotwell.gschema.xml:757
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "Igaz, ha az F-Spot importálás bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:692
+#: misc/org.yorba.shotwell.gschema.xml:762
 msgid "enable slideshow crumble transition"
 msgstr "összecsuklás diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:693
+#: misc/org.yorba.shotwell.gschema.xml:763
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha az Összecsuklás diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:698
+#: misc/org.yorba.shotwell.gschema.xml:768
 msgid "enable slideshow fade transition"
 msgstr "elhalványodás diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:699
+#: misc/org.yorba.shotwell.gschema.xml:769
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha az Elhalványodás diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:704
-#: misc/org.yorba.shotwell.gschema.xml:728
+#: misc/org.yorba.shotwell.gschema.xml:774
+#: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow slide transition"
 msgstr "csúszás diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:705
+#: misc/org.yorba.shotwell.gschema.xml:775
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Csúszás diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:710
+#: misc/org.yorba.shotwell.gschema.xml:780
 msgid "enable slideshow clock transition"
 msgstr "óra diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:711
+#: misc/org.yorba.shotwell.gschema.xml:781
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha az Óra diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:716
-#: misc/org.yorba.shotwell.gschema.xml:722
+#: misc/org.yorba.shotwell.gschema.xml:786
+#: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow circle transition"
 msgstr "kör diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:717
+#: misc/org.yorba.shotwell.gschema.xml:787
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Kör diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:723
+#: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Körök diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:729
+#: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Lamellák diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:734
+#: misc/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow squares transition"
 msgstr "négyzetek diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:735
+#: misc/org.yorba.shotwell.gschema.xml:805
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Igaz, ha a Négyzetek diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:740
+#: misc/org.yorba.shotwell.gschema.xml:810
 msgid "enable slideshow stripes transition"
 msgstr "csíkok diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:741
+#: misc/org.yorba.shotwell.gschema.xml:811
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Csíkok diaátmenet bővítmény engedélyezett, különben hamis"
 
-#: misc/org.yorba.shotwell.gschema.xml:746
+#: misc/org.yorba.shotwell.gschema.xml:816
 msgid "enable slideshow chess transition"
 msgstr "sakktábla diaátmenet engedélyezése"
 
-#: misc/org.yorba.shotwell.gschema.xml:747
+#: misc/org.yorba.shotwell.gschema.xml:817
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1997,7 +2045,7 @@ msgstr ""
 msgid "Authorization _Number:"
 msgstr "_Hitelesítési szám:"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:132
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:128
 msgid "Con_tinue"
 msgstr "Foly_tatás"
 
@@ -2446,7 +2494,7 @@ msgstr "_Hiba jelentése…"
 
 #: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
+#: src/Dialogs.vala:28 src/Dialogs.vala:1441 src/Dialogs.vala:1464
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "Mé_gse"
@@ -2698,7 +2746,7 @@ msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Törli ezt a fájlt a fényképezőgépről?"
 msgstr[1] "Törli ezt a(z) %d fájlt a fényképezőgépről?"
 
-#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1408
 msgid "_Keep"
 msgstr "_Megtartás"
 
@@ -2735,7 +2783,7 @@ msgstr "Fényképek vagy videók exportálása"
 msgid "Export Photo"
 msgstr "Fényképek exportálása"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:88
+#: src/CollectionPage.vala:458 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Fényképek exportálása"
 
@@ -3052,7 +3100,7 @@ msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Ez eltávolítja a(z) „%s” címkét egy fényképről. Folytatja?"
 msgstr[1] "Ez eltávolítja a(z) „%s” címkét %d fényképről. Folytatja?"
 
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1393
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1409
 #: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:409
 #: src/Resources.vala:674
 msgid "_Delete"
@@ -3090,7 +3138,7 @@ msgstr "Videó exportálása"
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: src/Dialogs.vala:116
+#: src/Dialogs.vala:112
 #, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
@@ -3099,7 +3147,7 @@ msgstr ""
 "A Shotwell nem tudott létrehozni fájlt a fénykép szerkesztéséhez, mert nincs "
 "jogosultsága ide írni: %s."
 
-#: src/Dialogs.vala:125
+#: src/Dialogs.vala:121
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -3107,7 +3155,7 @@ msgstr ""
 "A következő fényképek exportálása fájlhiba miatt nem lehetséges.\n"
 "\n"
 
-#: src/Dialogs.vala:131
+#: src/Dialogs.vala:127
 msgid ""
 "\n"
 "\n"
@@ -3120,60 +3168,60 @@ msgstr ""
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
 #. Hereafter we'll refer to these as "special formats."
-#: src/Dialogs.vala:148
+#: src/Dialogs.vala:144
 msgid "Unmodified"
 msgstr "Módosítatlan"
 
-#: src/Dialogs.vala:149
+#: src/Dialogs.vala:145
 msgid "Current"
 msgstr "Jelenlegi"
 
 #. layout controls
-#: src/Dialogs.vala:216
+#: src/Dialogs.vala:221
 msgid "_Format:"
 msgstr "_Formátum:"
 
-#: src/Dialogs.vala:219
+#: src/Dialogs.vala:224
 msgid "_Quality:"
 msgstr "_Minőség:"
 
-#: src/Dialogs.vala:222
+#: src/Dialogs.vala:227
 msgid "_Scaling constraint:"
 msgstr "_Méretezési megszorítás:"
 
-#: src/Dialogs.vala:225
+#: src/Dialogs.vala:230
 msgid "_Pixels:"
 msgstr "Ké_ppont:"
 
-#: src/Dialogs.vala:228
-msgid "Export metadata"
-msgstr "Metaadatok exportálása"
+#: src/Dialogs.vala:234
+msgid "Export _metadata:"
+msgstr "_Metaadatok exportálása:"
 
-#: src/Dialogs.vala:462
+#: src/Dialogs.vala:478
 msgid "Save Details…"
 msgstr "Részletek mentése…"
 
-#: src/Dialogs.vala:463
+#: src/Dialogs.vala:479
 msgid "Save Details"
 msgstr "Részletek mentése"
 
-#: src/Dialogs.vala:478
+#: src/Dialogs.vala:494
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(és még %d)\n"
 
-#: src/Dialogs.vala:531
+#: src/Dialogs.vala:547
 msgid "Import Results Report"
 msgstr "Importálás eredményei jelentés"
 
-#: src/Dialogs.vala:535
+#: src/Dialogs.vala:551
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Kísérlet történt %d fájl importálására."
 msgstr[1] "Kísérlet történt %d fájl importálására."
 
-#: src/Dialogs.vala:538
+#: src/Dialogs.vala:554
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -3183,30 +3231,30 @@ msgstr[1] "Ebből %d fájl lett sikeresen importálva."
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:550
+#: src/Dialogs.vala:566
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Nem importált, kettőzött fényképek vagy videók:"
 
-#: src/Dialogs.vala:554
+#: src/Dialogs.vala:570
 msgid "duplicates existing media item"
 msgstr "lemásolja a meglévő médiaelemet"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:565
+#: src/Dialogs.vala:581
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "A fényképezőgép hibája miatt nem importált fényképek vagy videók:"
 
-#: src/Dialogs.vala:568 src/Dialogs.vala:583 src/Dialogs.vala:598
-#: src/Dialogs.vala:614 src/Dialogs.vala:629 src/Dialogs.vala:643
+#: src/Dialogs.vala:584 src/Dialogs.vala:599 src/Dialogs.vala:614
+#: src/Dialogs.vala:630 src/Dialogs.vala:645 src/Dialogs.vala:659
 msgid "error message:"
 msgstr "hibaüzenet:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:579
+#: src/Dialogs.vala:595
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Fényképként vagy videóként fel nem ismert, és emiatt nem importált fájlok:"
@@ -3214,7 +3262,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:594
+#: src/Dialogs.vala:610
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -3225,7 +3273,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:609
+#: src/Dialogs.vala:625
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
@@ -3233,7 +3281,7 @@ msgstr ""
 "A Shotwell által a gyűjteménybe nem másolható, és emiatt nem importált "
 "fényképek vagy videók:"
 
-#: src/Dialogs.vala:613
+#: src/Dialogs.vala:629
 #, c-format
 msgid ""
 "couldn’t copy %s\n"
@@ -3245,7 +3293,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:625
+#: src/Dialogs.vala:641
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr ""
 "A fényképek vagy videók importálása sikertelen volt, mert néhány fájl sérült:"
@@ -3253,32 +3301,32 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:640
+#: src/Dialogs.vala:656
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Más okból nem importált fényképek vagy videók:"
 
-#: src/Dialogs.vala:660
+#: src/Dialogs.vala:676
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "%d kettőzött fénykép nem lett importálva:\n"
 msgstr[1] "%d kettőzött fénykép nem lett importálva:\n"
 
-#: src/Dialogs.vala:663
+#: src/Dialogs.vala:679
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d kettőzött videó nem lett importálva:\n"
 msgstr[1] "%d kettőzött videó nem lett importálva:\n"
 
-#: src/Dialogs.vala:666
+#: src/Dialogs.vala:682
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "%d kettőzött fénykép vagy videó nem lett importálva:\n"
 msgstr[1] "%d kettőzött fénykép vagy videó nem lett importálva:\n"
 
-#: src/Dialogs.vala:680
+#: src/Dialogs.vala:696
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -3287,14 +3335,14 @@ msgstr[0] ""
 msgstr[1] ""
 "%d fényképet nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 
-#: src/Dialogs.vala:683
+#: src/Dialogs.vala:699
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] "%d videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 msgstr[1] "%d videót nem sikerült importálni fájl- vagy hardverhiba miatt:\n"
 
-#: src/Dialogs.vala:686
+#: src/Dialogs.vala:702
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -3306,14 +3354,14 @@ msgstr[1] ""
 "%d fényképet vagy videót nem sikerült importálni fájl- vagy hardverhiba "
 "miatt:\n"
 
-#: src/Dialogs.vala:689
+#: src/Dialogs.vala:705
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] "%d fájlt nem sikerült importálni hardver- vagy fájlhiba miatt:\n"
 msgstr[1] "%d fájlt nem sikerült importálni hardver- vagy fájlhiba miatt:\n"
 
-#: src/Dialogs.vala:703
+#: src/Dialogs.vala:719
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -3327,7 +3375,7 @@ msgstr[1] ""
 "%d fényképet nem sikerült importálni, mert a fényképgyűjtemény mappája nem "
 "írható:\n"
 
-#: src/Dialogs.vala:706
+#: src/Dialogs.vala:722
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -3341,7 +3389,7 @@ msgstr[1] ""
 "%d fényképet nem sikerült importálni, mert a fényképgyűjtemény mappája nem "
 "írható:\n"
 
-#: src/Dialogs.vala:709
+#: src/Dialogs.vala:725
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -3356,7 +3404,7 @@ msgstr[1] ""
 "%d fényképet vagy videót nem sikerült importálni, mert a fényképgyűjtemény "
 "mappája nem írható:\n"
 
-#: src/Dialogs.vala:712
+#: src/Dialogs.vala:728
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -3370,21 +3418,21 @@ msgstr[1] ""
 "A fényképgyűjtemény mappája nem írható, emiatt %d fájl importálása nem "
 "sikerült:\n"
 
-#: src/Dialogs.vala:726
+#: src/Dialogs.vala:742
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "%d fényképet nem sikerült importálni fényképezőgép-hiba miatt:\n"
 msgstr[1] "%d fényképet nem sikerült importálni fényképezőgép-hiba miatt:\n"
 
-#: src/Dialogs.vala:729
+#: src/Dialogs.vala:745
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "1 videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 msgstr[1] "%d videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 
-#: src/Dialogs.vala:732
+#: src/Dialogs.vala:748
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -3393,35 +3441,35 @@ msgstr[0] ""
 msgstr[1] ""
 "%d fényképet vagy videót nem sikerült importálni fényképezőgép-hiba miatt:\n"
 
-#: src/Dialogs.vala:735
+#: src/Dialogs.vala:751
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "1 fájlt nem sikerült importálni fényképezőgép-hiba miatt:\n"
 msgstr[1] "%d fájlt nem sikerült importálni fényképezőgép-hiba miatt:\n"
 
-#: src/Dialogs.vala:749
+#: src/Dialogs.vala:765
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "1 fénykép importálása sikertelen, mert sérült:\n"
 msgstr[1] "%d fénykép importálása sikertelen, mert sérült:\n"
 
-#: src/Dialogs.vala:752
+#: src/Dialogs.vala:768
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "1 videó importálása sikertelen, mert sérült:\n"
 msgstr[1] "%d videó importálása sikertelen, mert sérült:\n"
 
-#: src/Dialogs.vala:755
+#: src/Dialogs.vala:771
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] "1 fénykép vagy videó importálása sikertelen, mert sérült:\n"
 msgstr[1] "%d fénykép vagy videó importálása sikertelen, mert sérült:\n"
 
-#: src/Dialogs.vala:758
+#: src/Dialogs.vala:774
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -3432,7 +3480,7 @@ msgstr[1] "%d fájl importálása sikertelen, mert sérült:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:775
+#: src/Dialogs.vala:791
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -3441,56 +3489,56 @@ msgstr[1] "%d nem támogatott formátumú fénykép kihagyva:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:806
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "%d nem képfájl kihagyva.\n"
 msgstr[1] "%d nem képfájl kihagyva.\n"
 
-#: src/Dialogs.vala:801
+#: src/Dialogs.vala:817
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "%d fénykép a felhasználó utasítására kihagyva.\n"
 msgstr[1] "%d fénykép a felhasználó utasítására kihagyva.\n"
 
-#: src/Dialogs.vala:804
+#: src/Dialogs.vala:820
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "%d videó a felhasználó utasítására kihagyva:\n"
 msgstr[1] "%d videó a felhasználó utasítására kihagyva:\n"
 
-#: src/Dialogs.vala:807
+#: src/Dialogs.vala:823
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "%d fénykép vagy videó a felhasználó utasítására kihagyva:\n"
 msgstr[1] "%d fénykép vagy videó a felhasználó utasítására kihagyva:\n"
 
-#: src/Dialogs.vala:810
+#: src/Dialogs.vala:826
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "%d fájl a felhasználó utasítására kihagyva:\n"
 msgstr[1] "%d fájl a felhasználó utasítására kihagyva:\n"
 
-#: src/Dialogs.vala:824
+#: src/Dialogs.vala:840
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "%d fénykép sikeresen importálva.\n"
 msgstr[1] "%d fénykép sikeresen importálva.\n"
 
-#: src/Dialogs.vala:827
+#: src/Dialogs.vala:843
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "%d videó sikeresen importálva.\n"
 msgstr[1] "%d videó sikeresen importálva.\n"
 
-#: src/Dialogs.vala:830
+#: src/Dialogs.vala:846
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -3499,89 +3547,89 @@ msgstr[1] "%d fénykép vagy videó sikeresen importálva.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:846
+#: src/Dialogs.vala:862
 msgid "No photos or videos imported.\n"
 msgstr "Nem lettek importálva fényképek vagy videók.\n"
 
-#: src/Dialogs.vala:853 src/Dialogs.vala:872
+#: src/Dialogs.vala:869 src/Dialogs.vala:888
 msgid "Import Complete"
 msgstr "Importálás kész"
 
-#: src/Dialogs.vala:1158
+#: src/Dialogs.vala:1174
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d másodperc"
 msgstr[1] "%d másodperc"
 
-#: src/Dialogs.vala:1161
+#: src/Dialogs.vala:1177
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d perc"
 msgstr[1] "%d perc"
 
-#: src/Dialogs.vala:1165
+#: src/Dialogs.vala:1181
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d óra"
 msgstr[1] "%d óra"
 
-#: src/Dialogs.vala:1168
+#: src/Dialogs.vala:1184
 msgid "1 day"
 msgstr "1 nap"
 
-#: src/Dialogs.vala:1322 src/Resources.vala:231
+#: src/Dialogs.vala:1338 src/Resources.vala:231
 msgid "Rename Event"
 msgstr "Esemény átnevezése"
 
-#: src/Dialogs.vala:1322
+#: src/Dialogs.vala:1338
 msgid "Name:"
 msgstr "Név:"
 
 #. Dialog title
-#: src/Dialogs.vala:1333
+#: src/Dialogs.vala:1349
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Cím szerkesztése"
 
-#: src/Dialogs.vala:1334 src/Properties.vala:340
+#: src/Dialogs.vala:1350 src/Properties.vala:340
 msgid "Title:"
 msgstr "Cím:"
 
 #. Dialog title
-#: src/Dialogs.vala:1350 src/Resources.vala:307
+#: src/Dialogs.vala:1366 src/Resources.vala:307
 msgid "Edit Event Comment"
 msgstr "Eseménymegjegyzés szerkesztése"
 
-#: src/Dialogs.vala:1351
+#: src/Dialogs.vala:1367
 msgid "Edit Photo/Video Comment"
 msgstr "Fénykép vagy videó megjegyzésének szerkesztése"
 
-#: src/Dialogs.vala:1352 src/Properties.vala:628
+#: src/Dialogs.vala:1368 src/Properties.vala:628
 msgid "Comment:"
 msgstr "Megjegyzés:"
 
-#: src/Dialogs.vala:1368
+#: src/Dialogs.vala:1384
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "_Fájl eltávolítása és a Kukába helyezése"
 msgstr[1] "_Fájlok eltávolítása és a Kukába helyezésük"
 
-#: src/Dialogs.vala:1372
+#: src/Dialogs.vala:1388
 msgid "_Remove From Library"
 msgstr "_Eltávolítás a gyűjteményből"
 
-#: src/Dialogs.vala:1415
+#: src/Dialogs.vala:1431
 msgid "Revert External Edit?"
 msgstr "Visszavonja a külső szerkesztést?"
 
-#: src/Dialogs.vala:1415
+#: src/Dialogs.vala:1431
 msgid "Revert External Edits?"
 msgstr "Visszavonja a külső szerkesztéseket?"
 
-#: src/Dialogs.vala:1417
+#: src/Dialogs.vala:1433
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
@@ -3589,87 +3637,87 @@ msgid_plural ""
 msgstr[0] "Ezzel a külső fájlon végzett minden változtatás elvész. Folytatja?"
 msgstr[1] "Ezzel %d külső fájlon végzett minden változtatás elvész. Folytatja?"
 
-#: src/Dialogs.vala:1421
+#: src/Dialogs.vala:1437
 msgid "Re_vert External Edit"
 msgstr "Külső szerkesztés _visszavonása"
 
-#: src/Dialogs.vala:1421
+#: src/Dialogs.vala:1437
 msgid "Re_vert External Edits"
 msgstr "Külső szerkesztések _visszavonása"
 
-#: src/Dialogs.vala:1442
+#: src/Dialogs.vala:1458
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Ezzel eltávolítja a fényképet a gyűjteményből. Folytatja?"
 msgstr[1] "Ezzel eltávolít %d fényképet a gyűjteményből. Folytatja?"
 
-#: src/Dialogs.vala:1449 src/Resources.vala:173
+#: src/Dialogs.vala:1465 src/Resources.vala:173
 msgid "_Remove"
 msgstr "_Eltávolítás"
 
-#: src/Dialogs.vala:1450
+#: src/Dialogs.vala:1466
 msgid "Remove Photo From Library"
 msgstr "Fénykép eltávolítása a gyűjteményből"
 
-#: src/Dialogs.vala:1450
+#: src/Dialogs.vala:1466
 msgid "Remove Photos From Library"
 msgstr "Fényképek eltávolítása a gyűjteményből"
 
-#: src/Dialogs.vala:1543
+#: src/Dialogs.vala:1559
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:1697
+#: src/Dialogs.vala:1713
 msgid "AM"
 msgstr "DE"
 
-#: src/Dialogs.vala:1698
+#: src/Dialogs.vala:1714
 msgid "PM"
 msgstr "DU"
 
-#: src/Dialogs.vala:1699
+#: src/Dialogs.vala:1715
 msgid "24 Hr"
 msgstr "24 óra"
 
-#: src/Dialogs.vala:1714
+#: src/Dialogs.vala:1730
 msgid "_Shift photos/videos by the same amount"
 msgstr "Fényképek vagy videók _eltolása azonos mennyiséggel"
 
-#: src/Dialogs.vala:1719
+#: src/Dialogs.vala:1735
 msgid "Set _all photos/videos to this time"
 msgstr "Min_den fénykép vagy videó beállítása erre az időre"
 
-#: src/Dialogs.vala:1726
+#: src/Dialogs.vala:1742
 msgid "_Modify original photo file"
 msgstr "Eredeti fényképfájl _módosítása"
 
-#: src/Dialogs.vala:1726
+#: src/Dialogs.vala:1742
 msgid "_Modify original photo files"
 msgstr "Eredeti fényképfájlok _módosítása"
 
-#: src/Dialogs.vala:1729
+#: src/Dialogs.vala:1745
 msgid "_Modify original file"
 msgstr "Eredeti fájl _módosítása"
 
-#: src/Dialogs.vala:1729
+#: src/Dialogs.vala:1745
 msgid "_Modify original files"
 msgstr "Eredeti fájlok _módosítása"
 
-#: src/Dialogs.vala:1815
+#: src/Dialogs.vala:1831
 msgid "Original: "
 msgstr "Eredeti: "
 
-#: src/Dialogs.vala:1816
+#: src/Dialogs.vala:1832
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y. %m. %d., %k.%M.%S"
 
-#: src/Dialogs.vala:1817
+#: src/Dialogs.vala:1833
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y. %m. %d., %l.%M.%S %p"
 
-#: src/Dialogs.vala:1906
+#: src/Dialogs.vala:1922
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3678,7 +3726,7 @@ msgstr ""
 "A képek készítése előre lesz tolva ennyivel:\n"
 "%d %s, %d %s, %d %s, és %d %s."
 
-#: src/Dialogs.vala:1907
+#: src/Dialogs.vala:1923
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3687,31 +3735,31 @@ msgstr ""
 "A képek készítése vissza lesz tolva ennyivel:\n"
 "%d %s, %d %s, %d %s, és %d %s."
 
-#: src/Dialogs.vala:1909
+#: src/Dialogs.vala:1925
 msgid "day"
 msgid_plural "days"
 msgstr[0] "nap"
 msgstr[1] "nap"
 
-#: src/Dialogs.vala:1910
+#: src/Dialogs.vala:1926
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "óra"
 msgstr[1] "óra"
 
-#: src/Dialogs.vala:1911
+#: src/Dialogs.vala:1927
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "perc"
 msgstr[1] "perc"
 
-#: src/Dialogs.vala:1912
+#: src/Dialogs.vala:1928
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "másodperc"
 msgstr[1] "másodperc"
 
-#: src/Dialogs.vala:1956
+#: src/Dialogs.vala:1972
 #, c-format
 msgid ""
 "\n"
@@ -3730,53 +3778,53 @@ msgstr[1] ""
 "\n"
 "És %d egyéb."
 
-#: src/Dialogs.vala:1980 src/Dialogs.vala:2007
+#: src/Dialogs.vala:1996 src/Dialogs.vala:2023
 msgid "Tags (separated by commas):"
 msgstr "Címkék (vesszővel elválasztva):"
 
-#: src/Dialogs.vala:2087
+#: src/Dialogs.vala:2103
 msgid "Welcome!"
 msgstr "Üdvözöljük!"
 
-#: src/Dialogs.vala:2094
+#: src/Dialogs.vala:2110
 msgid "Welcome to Shotwell!"
 msgstr "Üdvözöljük a Shotwellben!"
 
-#: src/Dialogs.vala:2098
+#: src/Dialogs.vala:2114
 msgid "To get started, import photos in any of these ways:"
 msgstr "Az alábbi módokon importálhatja fényképeit:"
 
-#: src/Dialogs.vala:2117
+#: src/Dialogs.vala:2133
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr ""
 "Válassza a <span weight=\"bold\">Fájl %s Importálás mappából</span> "
 "menüpontot"
 
-#: src/Dialogs.vala:2118
+#: src/Dialogs.vala:2134
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Húzza fényképeit a Shotwell ablakába"
 
-#: src/Dialogs.vala:2119
+#: src/Dialogs.vala:2135
 msgid "Connect a camera to your computer and import"
 msgstr ""
 "Csatlakoztasson egy fényképezőgépet a számítógéphez, és importálja a "
 "fényképeit"
 
-#: src/Dialogs.vala:2129
+#: src/Dialogs.vala:2145
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "Fényképek i_mportálása a(z) %s mappájából"
 
-#: src/Dialogs.vala:2136
+#: src/Dialogs.vala:2152
 msgid "You can also import photos in any of these ways:"
 msgstr "Fényképeket a következő módokon is importálhat:"
 
-#: src/Dialogs.vala:2146
+#: src/Dialogs.vala:2162
 msgid "_Don’t show this message again"
 msgstr "_Ne jelenjen meg ez az üzenet többé"
 
-#: src/Dialogs.vala:2181
+#: src/Dialogs.vala:2197
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Fényképek importálása a(z) %s gyűjteményéből"
@@ -3784,41 +3832,41 @@ msgstr "Fényképek importálása a(z) %s gyűjteményéből"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2328 src/Dialogs.vala:2332
+#: src/Dialogs.vala:2344 src/Dialogs.vala:2348
 msgid "(Help)"
 msgstr "(Súgó)"
 
-#: src/Dialogs.vala:2341
+#: src/Dialogs.vala:2357
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Év%sHónap%sNap"
 
-#: src/Dialogs.vala:2343
+#: src/Dialogs.vala:2359
 #, c-format
 msgid "Year%sMonth"
 msgstr "Év%sHónap"
 
-#: src/Dialogs.vala:2345
+#: src/Dialogs.vala:2361
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Év%sHónap-Nap"
 
-#: src/Dialogs.vala:2347
+#: src/Dialogs.vala:2363
 msgid "Year-Month-Day"
 msgstr "Év-Hónap-Nap"
 
-#: src/Dialogs.vala:2348 src/editing_tools/EditingTools.vala:781
+#: src/Dialogs.vala:2364 src/editing_tools/EditingTools.vala:781
 msgid "Custom"
 msgstr "Egyéni"
 
 #. Invalid pattern.
-#: src/Dialogs.vala:2585
+#: src/Dialogs.vala:2601
 msgid "Invalid pattern"
 msgstr "Érvénytelen minta"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2687
+#: src/Dialogs.vala:2703
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -3826,31 +3874,31 @@ msgstr ""
 "A Shotwell átmásolhatja a fényképeket a gyűjtemény könyvtárába, vagy "
 "importálhatja azokat másolás nélkül is."
 
-#: src/Dialogs.vala:2692
+#: src/Dialogs.vala:2708
 msgid "Co_py Photos"
 msgstr "Fény_képek másolása"
 
-#: src/Dialogs.vala:2693
+#: src/Dialogs.vala:2709
 msgid "_Import in Place"
 msgstr "_Importálás"
 
-#: src/Dialogs.vala:2694
+#: src/Dialogs.vala:2710
 msgid "Import to Library"
 msgstr "Importálás a gyűjteménybe"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2720 src/PhotoPage.vala:3085
 msgid "Remove From Library"
 msgstr "Eltávolítás a gyűjteményből"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2721 src/PhotoPage.vala:3085
 msgid "Removing Photo From Library"
 msgstr "Fényképek eltávolítás a gyűjteményből"
 
-#: src/Dialogs.vala:2705
+#: src/Dialogs.vala:2721
 msgid "Removing Photos From Library"
 msgstr "Fényképek eltávolítása a gyűjteményből"
 
-#: src/Dialogs.vala:2719
+#: src/Dialogs.vala:2735
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -3873,7 +3921,7 @@ msgstr[1] ""
 "\n"
 "Ez a művelet nem vonható vissza."
 
-#: src/Dialogs.vala:2723
+#: src/Dialogs.vala:2739
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -3896,7 +3944,7 @@ msgstr[1] ""
 "\n"
 "Ez a művelet nem vonható vissza."
 
-#: src/Dialogs.vala:2727
+#: src/Dialogs.vala:2743
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -3919,7 +3967,7 @@ msgstr[1] ""
 "\n"
 "Ez a művelet nem vonható vissza."
 
-#: src/Dialogs.vala:2759
+#: src/Dialogs.vala:2775
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -3929,7 +3977,7 @@ msgstr[0] "A fénykép vagy videó nem helyezhető át a Kukába. Törli a fájl
 msgstr[1] "%d fénykép vagy videó nem helyezhető át a Kukába. Törli a fájlokat?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2776
+#: src/Dialogs.vala:2792
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
