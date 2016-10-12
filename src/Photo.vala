@@ -813,12 +813,6 @@ public abstract class Photo : PhotoSource, Dateable {
             // Perform development, bail out if it doesn't work.
             if (!is_raw_developer_complete(d)) {
                 develop_photo(d);
-                try {
-                    get_prefetched_copy();
-                } catch (Error e) {
-                    // couldn't reload the freshly-developed image, nothing to display
-                    return;
-                }
             }
             if (!developments.has_key(d))
                 return; // we tried!
@@ -830,7 +824,14 @@ public abstract class Photo : PhotoSource, Dateable {
             row.developer = d;
             backing_photo_row = developments.get(d);
             readers.developer = backing_photo_row.file_format.create_reader(backing_photo_row.filepath);
-            
+
+            try {
+                get_prefetched_copy();
+            } catch (Error e) {
+                // couldn't reload the freshly-developed image, nothing to display
+                return;
+            }
+
             set_orientation(backing_photo_row.original_orientation);
             
             try {
