@@ -1,3 +1,36 @@
+Shotwell 0.24.1 - 16 Oct 2016
+  * Add debug output when shifting day of event
+  * Add debug output of Shotwell's current timezone
+  * Fix Vala generic handling with recent Vala compiler
+  * Fix focus handling when in fullscreen (#771969)
+  * Remove obsolete CSS style
+  * Prevent a critical in Piwigo uploader
+  * Fix issue with accessability in recent Vala compiler
+  * Fix album creation with Piwigo uploader (#772648)
+  * Add option to enable SQL debugging without recompilation
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=771969
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772648
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Marek Černocký <marek@manet.cz>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Bernd Homuth <dev@hmt.im>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Bernd Homuth
+ - de, courtesy of Christian Kirbach
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.24.0 - 20 Sep 2016
   * Fix a memory leak in library mode
   * Translation updates

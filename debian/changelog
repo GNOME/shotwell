@@ -1,3 +1,18 @@
+shotwell (0.24.1-1~jensge1~xenial1) xenial; urgency=medium
+
+  * Add debug output when shifting day of event
+  * Add debug output of Shotwell's current timezone
+  * Fix Vala generic handling with recent Vala compiler
+  * Fix focus handling when in fullscreen (#771969)
+  * Remove obsolete CSS style
+  * Prevent a critical in Piwigo uploader
+  * Fix issue with accessability in recent Vala compiler
+  * Fix album creation with Piwigo uploader (#772648)
+  * Add option to enable SQL debugging without recompilation
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Sun, 16 Oct 2016 22:31:22 +0200
+
 shotwell (0.23.7-1~jensge1~xenial1) xenial; urgency=medium
 
   * Language updates
