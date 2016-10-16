@@ -53,7 +53,7 @@ public abstract class DatabaseTable {
         unowned string? sql_debug = Environment.get_variable
                                                          ("SHOTWELL_SQL_DEBUG");
 
-        if (sql_debug != "") {
+        if (sql_debug != null && sql_debug != "") {
             db.trace (on_trace);
         }
     }
