@@ -368,12 +368,12 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     
         // initialize GStreamer, but don't pass it our actual command line arguments -- we don't
         // want our end users to be able to parameterize the GStreamer configuration
-        string[] fake_args = new string[0];
-        unowned string[] fake_unowned_args = fake_args;
-        Gst.init(ref fake_unowned_args);
-        
+        unowned string[] args = null;
+        Gst.init(ref args);
+
+        var registry = Gst.Registry.@get ();
         int saved_state = Config.Facade.get_instance().get_video_interpreter_state_cookie();
-        current_state = (int) Gst.Registry.get().get_feature_list_cookie();
+        current_state = (int) registry.get_feature_list_cookie();
         if (saved_state == Config.Facade.NO_VIDEO_INTERPRETER_STATE) {
             message("interpreter state cookie not found; assuming all video thumbnails are out of date");
             interpreter_state_changed = true;
@@ -381,7 +381,25 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             message("interpreter state has changed; video thumbnails may be out of date");
             interpreter_state_changed = true;
         }
-        
+
+        /* First do the cookie state handling, then update our local registry
+         * to not include vaapi stuff. This is basically to work-around
+         * concurrent access to VAAPI/X11 which it doesn't like, cf
+         * https://bugzilla.gnome.org/show_bug.cgi?id=762416
+         */
+
+        var feature = registry.find_feature ("vaapidecodebin",
+                                             typeof (Gst.ElementFactory));
+        if (feature != null) {
+            registry.remove_feature (feature);
+        }
+
+        feature = registry.find_feature ("vaapidecode",
+                                         typeof (Gst.ElementFactory));
+        if (feature != null) {
+            registry.remove_feature (feature);
+        }
+
         global = new VideoSourceCollection();
         
         Gee.ArrayList<VideoRow?> all = VideoTable.get_instance().get_all();
