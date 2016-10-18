@@ -21,7 +21,21 @@ class ShotwellThumbnailer {
         Gst.StateChangeReturn ret;
         
         Gst.init(ref args);
-        
+
+        var registry = Gst.Registry.@get ();
+
+        var feature = registry.find_feature ("vaapidecodebin",
+                                             typeof (Gst.ElementFactory));
+        if (feature != null) {
+            registry.remove_feature (feature);
+        }
+
+        feature = registry.find_feature ("vaapidecode",
+                                             typeof (Gst.ElementFactory));
+        if (feature != null) {
+            registry.remove_feature (feature);
+        }
+
         if (args.length != 2) {
             stdout.printf("usage: %s [filename]\n Writes video thumbnail to stdout\n", args[0]);
             return 1;
