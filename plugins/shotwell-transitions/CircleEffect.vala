@@ -47,7 +47,7 @@ private class CircleEffect : Object, Transitions.Effect {
     public void paint(Transitions.Visuals visuals, Transitions.Motion motion, Cairo.Context ctx,
         int width, int height, int frame_number) {
         double alpha = motion.get_alpha(frame_number);
-        int radius = (int)((alpha) * Math.fmax(width,height));
+        int radius = (int)(alpha * Math.fmax(width,height));
         
         if (visuals.from_pixbuf != null) {
             Gdk.cairo_set_source_pixbuf(ctx, visuals.from_pixbuf, visuals.from_pos.x,
