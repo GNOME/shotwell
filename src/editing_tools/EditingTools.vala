@@ -675,8 +675,8 @@ public class CropTool : EditingTool {
             constraint_combo.set_row_separator_func(constraint_combo_separator_func);
             constraint_combo.set_active(0);
 
-            pivot_reticle_button.set_image(new Gtk.Image.from_stock(Resources.CROP_PIVOT_RETICLE,
-                Gtk.IconSize.SMALL_TOOLBAR));
+            var image = new Gtk.Image.from_resource ("/org/gnome/Shotwell/crop-pivot-reticle.png");
+            pivot_reticle_button.set_image (image);
             pivot_reticle_button.set_tooltip_text(_("Pivot the crop rectangle between portrait and landscape orientations"));
 
             custom_width_entry.set_width_chars(4);
@@ -1240,8 +1240,13 @@ public class CropTool : EditingTool {
         }
 
         // make sure the cursor isn't set to a modify indicator
-        if (canvas != null)
-            canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        if (canvas != null) {
+            var drawing_window = canvas.get_drawing_window ();
+            var display = drawing_window.get_display ();
+            var cursor = new Gdk.Cursor.for_display (display,
+                                                     Gdk.CursorType.LEFT_PTR);
+            drawing_window.set_cursor (cursor);
+        }
 
         crop_surface = null;
 
@@ -1435,8 +1440,10 @@ public class CropTool : EditingTool {
         }
 
         if (cursor_type != current_cursor_type) {
-            Gdk.Cursor cursor = new Gdk.Cursor(cursor_type);
-            canvas.get_drawing_window().set_cursor(cursor);
+            var drawing_window = canvas.get_drawing_window ();
+            var display = drawing_window.get_display ();
+            var cursor = new Gdk.Cursor.for_display (display, cursor_type);
+            drawing_window.set_cursor (cursor);
             current_cursor_type = cursor_type;
         }
     }

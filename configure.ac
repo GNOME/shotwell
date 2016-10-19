@@ -93,7 +93,7 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              gstreamer-base-1.0 >= 1.0.0
                              gstreamer-plugins-base-1.0 >= 1.0.0
                              gstreamer-pbutils-1.0 >= 1.0.0
-                             gtk+-3.0 >= 3.12.2
+                             gtk+-3.0 >= 3.14.0
                              gudev-1.0 >= 145
                              libexif >= 0.6.16
                              libgphoto2 >= 2.5.0
@@ -103,7 +103,7 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              sqlite3 >= 3.5.9
                              webkit2gtk-4.0
                             ])
-PKG_CHECK_MODULES(THUMBNAILER, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.12.2
+PKG_CHECK_MODULES(THUMBNAILER, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.14.0
                                 gstreamer-base-1.0 >= 1.0.0])
 
 PKG_CHECK_MODULES(PLUGIN, [gobject-2.0 glib-2.0 json-glib-1.0 libxml-2.0
