@@ -10,7 +10,10 @@ public class Folders.Branch : Sidebar.Branch {
     private File home_dir;
     
     public class Branch() {
-        base (new Folders.Root(), Sidebar.Branch.Options.STARTUP_OPEN_GROUPING, comparator);
+        base (new Folders.Root(),
+              Sidebar.Branch.Options.STARTUP_OPEN_GROUPING
+              | Sidebar.Branch.Options.HIDE_IF_EMPTY,
+              comparator);
         
         home_dir = File.new_for_path(Environment.get_home_dir());
         
