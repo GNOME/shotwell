@@ -2378,352 +2378,105 @@ public class LibraryPhotoPage : EditingHostPage {
         ui_filenames.add("photo_context.ui");
         ui_filenames.add("photo.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry export = { "Export", Resources.SAVE_AS_LABEL, TRANSLATABLE, "<Ctrl><Shift>E",
-            TRANSLATABLE, on_export };
-        export.label = Resources.EXPORT_MENU;
-        actions += export;
 
-        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
-            TRANSLATABLE, on_print };
-        print.label = Resources.PRINT_MENU;
-        actions += print;
-        
-        Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
-            TRANSLATABLE, on_publish };
-        publish.label = Resources.PUBLISH_MENU;
-        publish.tooltip = Resources.PUBLISH_TOOLTIP;
-        actions += publish;
-        
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE,
-            "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
-        remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        actions += remove_from_library;
+    private const GLib.ActionEntry[] entries = {
+        { "Export", on_export },
+        { "Print", on_print },
+        { "Publish", on_publish },
+        { "RemoveFromLibrary", on_remove_from_library },
+        { "MoveToTrash", on_move_to_trash },
+        { "PrevPhoto", on_previous_photo },
+        { "NextPhoto", on_next_photo },
+        { "RotateClockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", on_rotate_counterclockwise },
+        { "FlipHorizontally", on_flip_horizontally },
+        { "FlipVertically", on_flip_vertically },
+        { "Enhance", on_enhance },
+        { "CopyColorAdjustments", on_copy_adjustments },
+        { "PasteColorAdjustments", on_paste_adjustments },
+        { "Crop", toggle_crop },
+        { "Straighten", toggle_straighten },
+        { "RedEye", toggle_redeye },
+        { "Adjust", toggle_adjust },
+        { "Revert", on_revert },
+        { "EditTitle", on_edit_title },
+        { "EditComment", on_edit_comment },
+        { "AdjustDateTime", on_adjust_date_time },
+        { "ExternalEdit", on_external_edit },
+        { "ExternalEditRAW", on_external_edit_raw },
+        { "SendTo", on_send_to },
+        { "SetBackground", on_set_background },
+        { "Flag", on_flag_unflag },
+        { "IncreaseRating", on_increase_rating },
+        { "DecreaseRating", on_decrease_rating },
+        { "RateRejected", on_rate_rejected },
+        { "RateUnrated", on_rate_unrated },
+        { "RateOne", on_rate_one },
+        { "RateTwo", on_rate_two },
+        { "RateThree", on_rate_three },
+        { "RateFour", on_rate_four },
+        { "RateFive", on_rate_five },
+        { "IncreaseSize", on_increase_size },
+        { "DecreaseSize", on_decrease_size },
+        { "ZoomFit", snap_zoom_to_min },
+        { "Zoom100", snap_zoom_to_isomorphic },
+        { "Zoom200", snap_zoom_to_max },
+        { "AddTags", on_add_tags },
+        { "ModifyTags", on_modify_tags },
+        { "Slideshow", on_slideshow },
 
-        Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_move_to_trash };
-        move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        actions += move_to_trash;
+        // Toggle actions
+        { "ViewRatings", on_action_toggle, null, "false", on_display_ratings },
 
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
-        view.label = _("_View");
-        actions += view;
-        
-        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
-        tools.label = _("T_ools");
-        actions += tools;
-        
-        Gtk.ActionEntry prev = { "PrevPhoto", Resources.PREVIOUS_LABEL, TRANSLATABLE, null,
-            TRANSLATABLE, on_previous_photo };
-        prev.label = _("_Previous Photo");
-        prev.tooltip = _("Previous Photo");
-        actions += prev;
+        // Radio actions
+        { "RawDeveloper", on_action_radio, "s", "'Shotwell'", on_raw_developer_changed }
+    };
 
-        Gtk.ActionEntry next = { "NextPhoto", Resources.NEXT_LABEL, TRANSLATABLE, null,
-            TRANSLATABLE, on_next_photo };
-        next.label = _("_Next Photo");
-        next.tooltip = _("Next Photo");
-        actions += next;
+    protected override void add_actions () {
+        base.add_actions ();
 
-        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE, TRANSLATABLE,
-            "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
-        rotate_right.label = Resources.ROTATE_CW_MENU;
-        rotate_right.tooltip = Resources.ROTATE_CW_TOOLTIP;
-        actions += rotate_right;
-
-        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
-        rotate_left.label = Resources.ROTATE_CCW_MENU;
-        rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
-        actions += rotate_left;
-
-        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_horizontally };
-        hflip.label = Resources.HFLIP_MENU;
-        actions += hflip;
-        
-        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_vertically };
-        vflip.label = Resources.VFLIP_MENU;
-        actions += vflip;
-        
-        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
-            TRANSLATABLE, on_enhance };
-        enhance.label = Resources.ENHANCE_MENU;
-        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
-        actions += enhance;
-        
-        Gtk.ActionEntry copy_adjustments = { "CopyColorAdjustments", null, TRANSLATABLE,
-            "<Ctrl><Shift>C", TRANSLATABLE, on_copy_adjustments};
-        copy_adjustments.label = Resources.COPY_ADJUSTMENTS_MENU;
-        copy_adjustments.tooltip = Resources.COPY_ADJUSTMENTS_TOOLTIP;
-        actions += copy_adjustments;
-        
-        Gtk.ActionEntry paste_adjustments = { "PasteColorAdjustments", null, TRANSLATABLE,
-            "<Ctrl><Shift>V", TRANSLATABLE, on_paste_adjustments};
-        paste_adjustments.label = Resources.PASTE_ADJUSTMENTS_MENU;
-        paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
-        actions += paste_adjustments;
-        
-        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
-            TRANSLATABLE, toggle_crop };
-        crop.label = Resources.CROP_MENU;
-        crop.tooltip = Resources.CROP_TOOLTIP;
-        actions += crop;
-        
-        Gtk.ActionEntry straighten = { "Straighten", Resources.REFRESH_LABEL, TRANSLATABLE, "<Ctrl>A",
-            TRANSLATABLE, toggle_straighten };
-        straighten.label = Resources.STRAIGHTEN_MENU;
-        straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
-        actions += straighten;
-        
-        Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
-            TRANSLATABLE, toggle_redeye };
-        red_eye.label = Resources.RED_EYE_MENU;
-        red_eye.tooltip = Resources.RED_EYE_TOOLTIP;
-        actions += red_eye;
-        
-        Gtk.ActionEntry adjust = { "Adjust", Resources.ADJUST, TRANSLATABLE, "<Ctrl>D",
-            TRANSLATABLE, toggle_adjust };
-        adjust.label = Resources.ADJUST_MENU;
-        adjust.tooltip = Resources.ADJUST_TOOLTIP;
-        actions += adjust;
-        
-        Gtk.ActionEntry revert = { "Revert", Resources.REVERT_TO_SAVED_LABEL, TRANSLATABLE,
-            null, TRANSLATABLE, on_revert };
-        revert.label = Resources.REVERT_MENU;
-        actions += revert;
-        
-        Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
-            on_edit_title };
-        edit_title.label = Resources.EDIT_TITLE_MENU;
-        actions += edit_title;
-
-        Gtk.ActionEntry edit_comment = { "EditComment", null, TRANSLATABLE, "F3", TRANSLATABLE,
-            on_edit_comment };
-        edit_comment.label = Resources.EDIT_COMMENT_MENU;
-        actions += edit_comment;
-
-        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_adjust_date_time };
-        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        actions += adjust_date_time;
-        
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Resources.EDIT_LABEL, TRANSLATABLE,
-            "<Ctrl>Return", TRANSLATABLE, on_external_edit };
-        external_edit.label = Resources.EXTERNAL_EDIT_MENU;
-        actions += external_edit;
-
-        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
-            TRANSLATABLE, on_external_edit_raw };
-        edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
-        actions += edit_raw;
-        
-        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
-            TRANSLATABLE, on_send_to };
-        send_to.label = Resources.SEND_TO_MENU;
-        actions += send_to;
-        
-        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
-            TRANSLATABLE, on_set_background };
-        set_background.label = Resources.SET_BACKGROUND_MENU;
-        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
-        actions += set_background;
-        
-        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>G", TRANSLATABLE, on_flag_unflag };
-        flag.label = Resources.FLAG_MENU;
-        actions += flag;
-        
-        Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
-        set_rating.label = Resources.RATING_MENU;
-        actions += set_rating;
-
-        Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
-            "greater", TRANSLATABLE, on_increase_rating };
-        increase_rating.label = Resources.INCREASE_RATING_MENU;
-        actions += increase_rating;
-
-        Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
-            "less", TRANSLATABLE, on_decrease_rating };
-        decrease_rating.label = Resources.DECREASE_RATING_MENU;
-        actions += decrease_rating;
-
-        Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
-            "9", TRANSLATABLE, on_rate_rejected };
-        rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
-        actions += rate_rejected;
-
-        Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
-            "0", TRANSLATABLE, on_rate_unrated };
-        rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
-        actions += rate_unrated;
-
-        Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
-            "1", TRANSLATABLE, on_rate_one };
-        rate_one.label = Resources.rating_menu(Rating.ONE);
-        actions += rate_one;
-
-        Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
-            "2", TRANSLATABLE, on_rate_two };
-        rate_two.label = Resources.rating_menu(Rating.TWO);
-        actions += rate_two;
-
-        Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
-            "3", TRANSLATABLE, on_rate_three };
-        rate_three.label = Resources.rating_menu(Rating.THREE);
-        actions += rate_three;
-
-        Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
-            "4", TRANSLATABLE, on_rate_four };
-        rate_four.label = Resources.rating_menu(Rating.FOUR);
-        actions += rate_four;
-
-        Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
-            "5", TRANSLATABLE, on_rate_five };
-        rate_five.label = Resources.rating_menu(Rating.FIVE);
-        actions += rate_five;
-
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
-            "<Ctrl>plus", TRANSLATABLE, on_increase_size };
-        increase_size.label = _("Zoom _In");
-        increase_size.tooltip = _("Increase the magnification of the photo");
-        actions += increase_size;
-
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
-            "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
-        decrease_size.label = _("Zoom _Out");
-        decrease_size.tooltip = _("Decrease the magnification of the photo");
-        actions += decrease_size;
-
-        Gtk.ActionEntry best_fit = { "ZoomFit", Resources.ZOOM_FIT_LABEL, TRANSLATABLE,
-            "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
-        best_fit.label = _("Fit to _Page");
-        best_fit.tooltip = _("Zoom the photo to fit on the screen");
-        actions += best_fit;
-
-        Gtk.ActionEntry actual_size = { "Zoom100", Resources.ZOOM_100_LABEL, TRANSLATABLE,
-            "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
-        /// xgettext:no-c-format
-        actual_size.label = _("Zoom _100%");
-        /// xgettext:no-c-format
-        actual_size.tooltip = _("Zoom the photo to 100% magnification");
-        actions += actual_size;
-        
-        Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
-            "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
-        /// xgettext:no-c-format
-        max_size.label = _("Zoom _200%");
-        /// xgettext:no-c-format
-        max_size.tooltip = _("Zoom the photo to 200% magnification");
-        actions += max_size;
-
-        Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
-            on_add_tags };
-        add_tags.label = Resources.ADD_TAGS_MENU;
-        actions += add_tags;
-        
-        Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
-            on_modify_tags };
-        modify_tags.label = Resources.MODIFY_TAGS_MENU;
-        actions += modify_tags;
-        
-        Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
-            on_slideshow };
-        slideshow.label = _("S_lideshow");
-        slideshow.tooltip = _("Play a slideshow");
-        actions += slideshow;
-        
-        Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
-        raw_developer.label = _("_Developer");
-        actions += raw_developer;
-
-        // These are identical to add_tags and send_to, except that they have
-        // different mnemonics and are _only_ for use in the context menu.
-        Gtk.ActionEntry send_to_context_menu = { "SendToContextMenu", "document-send", TRANSLATABLE, null,
-            TRANSLATABLE, on_send_to };
-        send_to_context_menu.label = Resources.SEND_TO_CONTEXT_MENU;
-        actions += send_to_context_menu;        
-
-        Gtk.ActionEntry add_tags_context_menu = { "AddTagsContextMenu", null, TRANSLATABLE, "<Ctrl>A", TRANSLATABLE,
-            on_add_tags };
-        add_tags_context_menu.label = Resources.ADD_TAGS_CONTEXT_MENU;
-        actions += add_tags_context_menu;
-
-        return actions;
+        AppWindow.get_instance ().add_action_entries (entries, this);
+        (get_action ("ViewRatings") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_ratings ());
+        var d = Config.Facade.get_instance().get_default_raw_developer();
+        var action = get_action ("RawDeveloper") as GLib.SimpleAction;
+        action.set_state (d == RawDeveloper.SHOTWELL ? "'Shotwell'" : "'Camera'");
     }
-    
-    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
-        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
-        
-        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>N",
-            TRANSLATABLE, on_display_ratings, Config.Facade.get_instance().get_display_photo_ratings() };
-        ratings.label = Resources.VIEW_RATINGS_MENU;
-        ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
-        toggle_actions += ratings;
-        
-        return toggle_actions;
-    }
-    
+
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
-        
-        InjectionGroup print_group = new InjectionGroup("/MenuBar/FileMenu/PrintPlaceholder");
-        print_group.add_menu_item("Print");
+
+        InjectionGroup print_group = new InjectionGroup("PrintPlaceholder");
+        print_group.add_menu_item(_("_Print"), "Print", "<Primary>p");
         
         groups += print_group;
         
-        InjectionGroup publish_group = new InjectionGroup("/MenuBar/FileMenu/PublishPlaceholder");
-        publish_group.add_menu_item("Publish");
+        InjectionGroup publish_group = new InjectionGroup("PublishPlaceholder");
+        publish_group.add_menu_item(_("_Publish"), "Publish", "<Primary><Shift>p");
         
         groups += publish_group;
         
-        InjectionGroup bg_group = new InjectionGroup("/MenuBar/FileMenu/SetBackgroundPlaceholder");
-        bg_group.add_menu_item("SetBackground");
+        InjectionGroup bg_group = new InjectionGroup("SetBackgroundPlaceholder");
+        bg_group.add_menu_item(_("Set as _Desktop Background"), "SetBackground");
         
         groups += bg_group;
         
         return groups;
     }
     
-    protected override void register_radio_actions(Gtk.ActionGroup action_group) {
-        // RAW developer.
-        //get_config_photos_sort(out sort_order, out sort_by); // TODO: fetch default from config
-        
-        Gtk.RadioActionEntry[] developer_actions = new Gtk.RadioActionEntry[0];
-        
-        Gtk.RadioActionEntry dev_shotwell = { "RawDeveloperShotwell", null, TRANSLATABLE, null, TRANSLATABLE,
-            RawDeveloper.SHOTWELL };
-        string label_shotwell = RawDeveloper.SHOTWELL.get_label();
-        dev_shotwell.label = label_shotwell;
-        developer_actions += dev_shotwell;
-        
-        Gtk.RadioActionEntry dev_camera = { "RawDeveloperCamera", null, TRANSLATABLE, null, TRANSLATABLE,
-            RawDeveloper.CAMERA };
-        string label_camera = RawDeveloper.CAMERA.get_label();
-        dev_camera.label = label_camera;
-        developer_actions += dev_camera;
-        
-        action_group.add_radio_actions(developer_actions, RawDeveloper.SHOTWELL, on_raw_developer_changed);
-        
-        base.register_radio_actions(action_group);
-    }
-    
-    private void on_display_ratings(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    private void on_display_ratings(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
         
         set_display_ratings(display);
         
         Config.Facade.get_instance().set_display_photo_ratings(display);
-        repaint();
+        action.set_state (value);
     }
 
+
     private void set_display_ratings(bool display) {
-        Gtk.ToggleAction? action = get_action("ViewRatings") as Gtk.ToggleAction;
+        var action = get_action("ViewRatings") as GLib.SimpleAction;
         if (action != null)
-            action.set_active(display);
+            action.set_enabled(display);
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -2774,8 +2527,24 @@ public class LibraryPhotoPage : EditingHostPage {
         update_flag_action();
     }
     
-    private void on_raw_developer_changed(Gtk.Action action, Gtk.Action current) {
-        developer_changed((RawDeveloper) ((Gtk.RadioAction) current).get_current_value());
+    private void on_raw_developer_changed(GLib.SimpleAction action,
+                                          Variant? value) {
+        RawDeveloper developer = RawDeveloper.SHOTWELL;
+
+        switch (value.get_string ()) {
+            case "Shotwell":
+                developer = RawDeveloper.SHOTWELL;
+                break;
+            case "Camera":
+                developer = RawDeveloper.CAMERA;
+                break;
+            default:
+                break;
+        }
+
+        developer_changed(developer);
+
+        action.set_state (value);
     }
     
     protected virtual void developer_changed(RawDeveloper rd) {
@@ -2799,13 +2568,14 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void update_flag_action() {
         if (has_photo()) {
-            Gtk.Action? action = get_action("Flag");
+            var action = get_action("Flag") as GLib.SimpleAction;
             assert(action != null);
             
-            bool is_flagged = ((LibraryPhoto) get_photo()).is_flagged();
+//            bool is_flagged = ((LibraryPhoto) get_photo()).is_flagged();
             
-            action.label = is_flagged ? Resources.UNFLAG_MENU : Resources.FLAG_MENU;
-            action.sensitive = true;
+            debug ("Setting label of action flagged");
+//            action.label = is_flagged ? Resources.UNFLAG_MENU : Resources.FLAG_MENU;
+            action.set_enabled (true);
         } else {
             set_action_sensitive("Flag", false);
         }
@@ -3049,11 +2819,18 @@ public class LibraryPhotoPage : EditingHostPage {
         
         return base.on_left_released(event);
     }
-    
+
+    private Gtk.Menu context_menu;
+
     private Gtk.Menu get_context_menu() {
-        Gtk.Menu menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
-        assert(menu != null);
-        return menu;
+        if (context_menu == null) {
+            var model = this.builder.get_object ("PhotoContextMenu")
+                as GLib.MenuModel;
+            context_menu = new Gtk.Menu.from_model (model);
+            context_menu.attach_to_widget (this, null);
+        }
+
+        return this.context_menu;
     }
     
     protected override bool on_context_buttonpress(Gdk.EventButton event) {
@@ -3236,10 +3013,6 @@ public class LibraryPhotoPage : EditingHostPage {
                 (Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
     
-    private void on_view_menu() {
-        update_zoom_menu_item_sensitivity();
-    }
-
     private void on_increase_rating() {
         if (!has_photo() || get_photo_missing())
             return;
@@ -3315,22 +3088,16 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("RawDeveloper", format == PhotoFileFormat.RAW);
         
         if (format == PhotoFileFormat.RAW) {
-            // Set which developers are available.
-            set_action_sensitive("RawDeveloperShotwell", 
-                get_photo().is_raw_developer_available(RawDeveloper.SHOTWELL));
-            set_action_sensitive("RawDeveloperCamera", 
-                get_photo().is_raw_developer_available(RawDeveloper.EMBEDDED) || 
-                get_photo().is_raw_developer_available(RawDeveloper.CAMERA));;
-                
+            // FIXME: Only enable radio actions that are actually possible..
             // Set active developer in menu.
             switch (get_photo().get_raw_developer()) {
                 case RawDeveloper.SHOTWELL:
-                    activate_action("RawDeveloperShotwell");
+                    get_action ("RawDeveloper").change_state ("'Shotwell'");
                     break;
                 
                 case RawDeveloper.CAMERA:
                 case RawDeveloper.EMBEDDED:
-                    activate_action("RawDeveloperCamera");
+                    get_action ("RawDeveloper").change_state ("'Camera'");
                     break;
                 
                 default:

@@ -13,8 +13,8 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    public const int SORT_EVENTS_ORDER_ASCENDING = 0;
-    public const int SORT_EVENTS_ORDER_DESCENDING = 1;
+    public const string SORT_EVENTS_ORDER_ASCENDING = "ascending";
+    public const string SORT_EVENTS_ORDER_DESCENDING = "descending";
     
     private const string[] SUPPORTED_MOUNT_SCHEMES = {
         "gphoto2:",
@@ -98,8 +98,6 @@ public class LibraryWindow : AppWindow {
     private Gtk.Paned client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
     
-    private Gtk.ActionGroup common_action_group = new Gtk.ActionGroup("LibraryWindowGlobalActionGroup");
-    
     private OneShotScheduler properties_scheduler = null;
     private bool notify_library_is_home_dir = true;
     
@@ -176,7 +174,7 @@ public class LibraryWindow : AppWindow {
         // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
         
-        try {
+/*        try {
             File ui_file = Resources.get_ui("top.ui");
             ui.add_ui_from_file(ui_file.get_path());
         } catch (Error e) {
@@ -189,6 +187,7 @@ public class LibraryWindow : AppWindow {
         // We never want to invoke show_all() on the menubar since that will show empty menus,
         // which should be hidden.
         menubar.no_show_all = true;
+        */
         
         // create the main layout & start at the Library page
         create_layout(library_branch.photos_entry.get_page());
@@ -276,227 +275,88 @@ public class LibraryWindow : AppWindow {
         monitor.auto_import_preparing.disconnect(on_library_monitor_auto_import_preparing);
         monitor.auto_import_progress.disconnect(on_library_monitor_auto_import_progress);
     }
-    
-    private Gtk.ActionEntry[] create_common_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry import = { "CommonFileImport", Resources.IMPORT,
-            TRANSLATABLE, "<Ctrl>I", TRANSLATABLE, on_file_import };
-        import.label = _("_Import From Folder…");
-        import.tooltip = _("Import photos from disk to library");
-        actions += import;
-        
-        Gtk.ActionEntry import_from_external = {
-            "ExternalLibraryImport", Resources.IMPORT, TRANSLATABLE,
-            null, TRANSLATABLE, on_external_library_import
-        };
-        import_from_external.label = _("Import From _Application…");
-        actions += import_from_external;
 
-        Gtk.ActionEntry sort = { "CommonSortEvents", null, TRANSLATABLE, null, null, null };
-        sort.label = _("Sort _Events");
-        actions += sort;
+    private const GLib.ActionEntry[] common_actions = {
+        // Normal actions
+        { "CommonFileImport", on_file_import },
+        { "ExternalLibraryImport", on_external_library_import },
+        { "CommonPreferences", on_preferences },
+        { "CommonEmptyTrash", on_empty_trash },
+        { "CommonJumpToEvent", on_jump_to_event },
+        { "CommonFind", on_find },
+        { "CommonNewSearch", on_new_search },
 
-        Gtk.ActionEntry preferences = { "CommonPreferences", Resources.PREFERENCES_LABEL, TRANSLATABLE,
-            null, TRANSLATABLE, on_preferences };
-        preferences.label = Resources.PREFERENCES_MENU;
-        actions += preferences;
-        
-        Gtk.ActionEntry empty = { "CommonEmptyTrash", null, TRANSLATABLE, null, null,
-            on_empty_trash };
-        empty.label = _("Empty T_rash");
-        empty.tooltip = _("Delete all photos in the trash");
-        actions += empty;
-        
-        Gtk.ActionEntry jump_to_event = { "CommonJumpToEvent", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_jump_to_event };
-        jump_to_event.label = _("View Eve_nt for Photo");
-        actions += jump_to_event;
-        
-        Gtk.ActionEntry find = { "CommonFind", null, TRANSLATABLE, null, null, on_find };
-        find.label = _("_Find");
-        find.tooltip = _("Find photos and videos by search criteria");
-        actions += find;
-        
-        // add the common action for the FilterPhotos submenu (the submenu contains items from
-        // SearchFilterActions)
-        Gtk.ActionEntry filter_photos = { "CommonFilterPhotos", null, TRANSLATABLE, null, null, null };
-        filter_photos.label = Resources.FILTER_PHOTOS_MENU;
-        actions += filter_photos;
-        
-        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, "<Ctrl>S", null, 
-            on_new_search };
-        new_search.label =  _("Ne_w Saved Search…");
-        actions += new_search;
+        // Toogle actions
+        { "CommonDisplayBasicProperties", on_action_toggle, null, "false", on_display_basic_properties },
+        { "CommonDisplayExtendedProperties", on_action_toggle, null, "false", on_display_extended_properties },
 
-        // top-level menus
-        
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
+#if 0
+        { "CommonDisplaySearchbar", on_display_searchbar, null, is_search_toolbar_visible.to_string () },
+        { "CommonDisplaySidebar", on_display_sidebar, null, is_sidebar_visible ().to_string () },
+        { "CommonDisplayToolbar", on_display_toolbar, null, is_toolbar_visible ().to_string () }
+#endif
+        { "CommonDisplaySearchbar", on_action_toggle, null, "false", on_display_searchbar },
+        { "CommonDisplaySidebar", on_action_toggle, null, "true", on_display_sidebar },
+        { "CommonDisplayToolbar", on_action_toggle, null, "true", on_display_toolbar },
 
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("_Edit");
-        actions += edit;
+        { "CommonSortEvents", on_action_radio, "s", "'ascending'", on_events_sort_changed }
+    };
 
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
-        view.label = _("_View");
-        actions += view;
-
-        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, null };
-        photo.label = _("_Photo");
-        actions += photo;
-
-        Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
-        photos.label = _("_Photos");
-        actions += photos;
-
-        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
-        event.label = _("Even_ts");
-        actions += event;
-
-        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
-        tags.label = _("Ta_gs");
-        actions += tags;
-
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
-
-        return actions;
+    protected override void add_actions () {
+        base.add_actions ();
+        this.add_action_entries (common_actions, this);
+        this.add_action_entries (search_actions.get_actions (), search_actions);
     }
-    
-    private Gtk.ToggleActionEntry[] create_common_toggle_actions() {
-        Gtk.ToggleActionEntry[] actions = new Gtk.ToggleActionEntry[0];
-        
-        Gtk.ToggleActionEntry basic_props = { "CommonDisplayBasicProperties", null,
-            TRANSLATABLE, "<Ctrl><Shift>I", TRANSLATABLE, on_display_basic_properties, false };
-        basic_props.label = _("_Basic Information");
-        basic_props.tooltip = _("Display basic information for the selection");
-        actions += basic_props;
 
-        Gtk.ToggleActionEntry extended_props = { "CommonDisplayExtendedProperties", null,
-            TRANSLATABLE, "<Ctrl><Shift>X", TRANSLATABLE, on_display_extended_properties, false };
-        extended_props.label = _("E_xtended Information");
-        extended_props.tooltip = _("Display extended information for the selection");
-        actions += extended_props;
-        
-        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", "edit-find", TRANSLATABLE,
-            "F8", TRANSLATABLE, on_display_searchbar, is_search_toolbar_visible };
-        searchbar.label = _("_Search Bar");
-        searchbar.tooltip = _("Display the search bar");
-        actions += searchbar;
-        
-        Gtk.ToggleActionEntry sidebar = { "CommonDisplaySidebar", null, TRANSLATABLE,
-            "F9", TRANSLATABLE, on_display_sidebar, is_sidebar_visible() };
-        sidebar.label = _("S_idebar");
-        sidebar.tooltip = _("Display the sidebar");
-        actions += sidebar;
-
-        Gtk.ToggleActionEntry toolbar = { "CommonDisplayToolbar", null, TRANSLATABLE,
-            "<Ctrl>F9", TRANSLATABLE, on_display_toolbar, is_toolbar_visible() };
-        toolbar.label = _("T_oolbar");
-        toolbar.tooltip = _("Display the tool bar");
-        actions += toolbar;
-
-        return actions;
-    }
-    
-    private void add_common_radio_actions(Gtk.ActionGroup group) {
-        Gtk.RadioActionEntry[] actions = new Gtk.RadioActionEntry[0];
-        
-        Gtk.RadioActionEntry ascending = { "CommonSortEventsAscending",
-            Resources.SORT_ASCENDING_LABEL, TRANSLATABLE, null, TRANSLATABLE,
-            SORT_EVENTS_ORDER_ASCENDING };
-        ascending.label = _("_Ascending");
-        ascending.tooltip = _("Sort photos in an ascending order");
-        actions += ascending;
-
-        Gtk.RadioActionEntry descending = { "CommonSortEventsDescending",
-            Resources.SORT_DESCENDING_LABEL, TRANSLATABLE, null, TRANSLATABLE,
-            SORT_EVENTS_ORDER_DESCENDING };
-        descending.label = _("D_escending");
-        descending.tooltip = _("Sort photos in a descending order");
-        actions += descending;
-        
-        group.add_radio_actions(actions, SORT_EVENTS_ORDER_ASCENDING, on_events_sort_changed);
-    }
-    
-    protected override Gtk.ActionGroup[] create_common_action_groups() {
-        Gtk.ActionGroup[] groups = base.create_common_action_groups();
-        
-        common_action_group.add_actions(create_common_actions(), this);
-        common_action_group.add_toggle_actions(create_common_toggle_actions(), this);
-        add_common_radio_actions(common_action_group);
-        
-        Gtk.Action? action = common_action_group.get_action("CommonDisplaySearchbar");
-        if (action != null) {
-            action.short_label = Resources.FIND_LABEL;
-            action.is_important = true;
-        }
-        
-        groups += common_action_group;
-        groups += search_actions.get_action_group();
-        
-        return groups;
-    }
-    
-    public override void replace_common_placeholders(Gtk.UIManager ui) {
-        base.replace_common_placeholders(ui);
-    }
-    
     protected override void switched_pages(Page? old_page, Page? new_page) {
         base.switched_pages(old_page, new_page);
-        
+
         // monitor when the ViewFilter is changed in any page
         if (old_page != null) {
             old_page.get_view().view_filter_installed.disconnect(on_view_filter_installed);
             old_page.get_view().view_filter_removed.disconnect(on_view_filter_removed);
         }
-        
+
         if (new_page != null) {
             new_page.get_view().view_filter_installed.connect(on_view_filter_installed);
             new_page.get_view().view_filter_removed.connect(on_view_filter_removed);
         }
-        
+
         search_actions.monitor_page_contents(old_page, new_page);
     }
-    
+
     private void on_view_filter_installed(ViewFilter filter) {
         filter.refresh.connect(on_view_filter_refreshed);
     }
-    
+
     private void on_view_filter_removed(ViewFilter filter) {
         filter.refresh.disconnect(on_view_filter_refreshed);
     }
-    
+
     private void on_view_filter_refreshed() {
         // if view filter is reset to show all items, do nothing (leave searchbar in current
         // state)
         if (!get_current_page().get_view().are_items_filtered_out())
             return;
-        
+
         // always show the searchbar when items are filtered
-        Gtk.ToggleAction? display_searchbar = get_common_action("CommonDisplaySearchbar")
-            as Gtk.ToggleAction;
-        if (display_searchbar != null)
-            display_searchbar.active = true;
+        var action = this.lookup_action ("CommonDisplaySearchbar") as
+            GLib.SimpleAction;
+
+        if (action != null)
+            action.set_state (true);
     }
-    
+
     // show_all() may make visible certain items we wish to keep programmatically hidden
     public override void show_all() {
         base.show_all();
-        
-        Gtk.ToggleAction? basic_properties_action = get_current_page().get_common_action(
-            "CommonDisplayBasicProperties") as Gtk.ToggleAction;
+
+        var basic_properties_action = get_current_page ().get_common_action
+            ("CommonDisplayBasicProperties");
         assert(basic_properties_action != null);
-        
-        if (!basic_properties_action.get_active())
+
+        if (!basic_properties_action.get_state().get_boolean())
             bottom_frame.hide();
-        
-        Gtk.ToggleAction? searchbar_action = get_current_page().get_common_action(
-            "CommonDisplaySearchbar") as Gtk.ToggleAction;
-        assert(searchbar_action != null);
 
         // Make sure rejected pictures are not being displayed on startup
         CheckerboardPage? current_page = get_current_page() as CheckerboardPage;
@@ -504,27 +364,27 @@ public class LibraryWindow : AppWindow {
             init_view_filter(current_page);
 
         toggle_search_bar(should_show_search_bar(), current_page);
-        
+
         // Sidebar
         set_sidebar_visible(is_sidebar_visible());
     }
-    
+
     public static LibraryWindow get_app() {
         assert(instance is LibraryWindow);
-        
+
         return (LibraryWindow) instance;
     }
-    
+
     // This may be called before Debug.init(), so no error logging may be made
     public static bool is_mount_uri_supported(string uri) {
         foreach (string scheme in SUPPORTED_MOUNT_SCHEMES) {
             if (uri.has_prefix(scheme))
                 return true;
         }
-        
+
         return false;
     }
-    
+
     public override string get_app_role() {
         return Resources.APP_LIBRARY_ROLE;
     }
@@ -536,7 +396,7 @@ public class LibraryWindow : AppWindow {
         else
             debug("No tag entry found for rename");
     }
-    
+
     public void rename_event_in_sidebar(Event event) {
         Events.EventEntry? entry = events_branch.get_entry_for_event(event);
         if (entry != null)
@@ -544,7 +404,7 @@ public class LibraryWindow : AppWindow {
         else
             debug("No event entry found for rename");
     }
-    
+
     public void rename_search_in_sidebar(SavedSearch search) {
         Searches.SidebarEntry? entry = saved_search_branch.get_entry_for_saved_search(search);
         if (entry != null)
@@ -552,28 +412,28 @@ public class LibraryWindow : AppWindow {
         else
             debug("No search entry found for rename");
     }
-    
+
     protected override void on_quit() {
         Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 
         Config.Facade.get_instance().set_sidebar_position(client_paned.position);
-        
+
         base.on_quit();
     }
-    
+
     private Photo? get_start_fullscreen_photo(CollectionPage page) {
         ViewCollection view = page.get_view();
-        
+
         // if a selection is present, use the first selected LibraryPhoto, otherwise do
         // nothing; if no selection present, use the first LibraryPhoto
         Gee.List<DataSource>? sources = (view.get_selected_count() > 0)
             ? view.get_selected_sources_of_type(typeof(LibraryPhoto))
             : view.get_sources_of_type(typeof(LibraryPhoto));
-        
+
         return (sources != null && sources.size != 0)
             ? (Photo) sources[0] : null;
     }
-    
+
     private bool get_fullscreen_photo(Page page, out CollectionPage collection, out Photo start,
         out ViewCollection? view_collection = null) {
         collection = null;
@@ -586,7 +446,7 @@ public class LibraryWindow : AppWindow {
             Photo? photo = get_start_fullscreen_photo(collection);
             if (photo == null)
                 return false;
-            
+
             start = photo;
             view_collection = null;
             
@@ -601,11 +461,11 @@ public class LibraryWindow : AppWindow {
             Event? event = (Event?) ((DataView) view.get_at(0)).get_source();
             if (event == null)
                 return false;
-            
+
             Events.EventEntry? entry = events_branch.get_entry_for_event(event);
             if (entry == null)
                 return false;
-            
+
             collection = (EventPage) entry.get_page();
             Photo? photo = get_start_fullscreen_photo(collection);
             if (photo == null)
@@ -616,7 +476,7 @@ public class LibraryWindow : AppWindow {
             
             return true;
         }
-        
+
         if (page is LibraryPhotoPage) {
             LibraryPhotoPage photo_page = (LibraryPhotoPage) page;
             
@@ -626,11 +486,11 @@ public class LibraryWindow : AppWindow {
             
             if (!photo_page.has_photo())
                 return false;
-            
+
             collection = controller;
             start = photo_page.get_photo();
             view_collection = photo_page.get_view();
-            
+
             return true;
         }
         
@@ -652,7 +512,7 @@ public class LibraryWindow : AppWindow {
 
         go_fullscreen(fs_photo);
     }
-    
+
     private void on_file_import() {
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
             Gtk.FileChooserAction.SELECT_FOLDER, Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, 
@@ -670,7 +530,7 @@ public class LibraryWindow : AppWindow {
                     ? Gtk.ResponseType.REJECT : copy_files_dialog();
             
             if (copy_files_response != Gtk.ResponseType.CANCEL) {
-                dispatch_import_jobs(import_dialog.get_uris(), "folders", 
+                dispatch_import_jobs(import_dialog.get_uris(), "folders",
                     copy_files_response == Gtk.ResponseType.ACCEPT);
             }
         }
@@ -689,7 +549,7 @@ public class LibraryWindow : AppWindow {
         base.update_common_action_availability(old_page, new_page);
         
         bool is_checkerboard = new_page is CheckerboardPage;
-        
+
         set_common_action_sensitive("CommonDisplaySearchbar", is_checkerboard);
         set_common_action_sensitive("CommonFind", is_checkerboard);
     }
@@ -717,7 +577,7 @@ public class LibraryWindow : AppWindow {
     private bool can_empty_trash() {
         return (LibraryPhoto.global.get_trashcan_count() > 0) || (Video.global.get_trashcan_count() > 0);
     }
-    
+
     private void on_empty_trash() {
         Gee.ArrayList<MediaSource> to_remove = new Gee.ArrayList<MediaSource>();
         to_remove.add_all(LibraryPhoto.global.get_trashcan_contents());
@@ -762,10 +622,10 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_find() {
-        Gtk.ToggleAction action = (Gtk.ToggleAction) get_current_page().get_common_action(
-            "CommonDisplaySearchbar");
-        action.active = true;
-        
+        var action = this.lookup_action ("CommonDisplaySearchbar") as
+            GLib.SimpleAction;
+        action.set_state (true);
+
         // give it focus (which should move cursor to the text entry control)
         search_toolbar.take_focus();
     }
@@ -780,24 +640,27 @@ public class LibraryWindow : AppWindow {
     }
     
     public int get_events_sort() {
-        Gtk.RadioAction? action = get_common_action("CommonSortEventsAscending") as Gtk.RadioAction;
+        var action = this.lookup_action ("CommonSortEvents") as GLib.SimpleAction;
         
-        return (action != null) ? action.current_value : SORT_EVENTS_ORDER_DESCENDING;
+        return (action != null) ? (action.state.get_string () == SORT_EVENTS_ORDER_ASCENDING)
+            ? 0 : 1
+            : 1;
     }
 
-    private void on_events_sort_changed(Gtk.Action action, Gtk.Action c) {
-        Gtk.RadioAction current = (Gtk.RadioAction) c;
+    private void on_events_sort_changed(GLib.SimpleAction action, Variant? value) {
         
         Config.Facade.get_instance().set_events_sort_ascending(
-            current.current_value == SORT_EVENTS_ORDER_ASCENDING);
+            value.get_string () == SORT_EVENTS_ORDER_ASCENDING);
+
+        action.set_state (value);
     }
     
     private void on_preferences() {
         PreferencesDialog.show();
     }
     
-    private void on_display_basic_properties(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    private void on_display_basic_properties(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
 
         if (display) {
             basic_properties.update_properties(get_current_page());
@@ -810,10 +673,20 @@ public class LibraryWindow : AppWindow {
 
         // sync the setting so it will persist
         Config.Facade.get_instance().set_display_basic_properties(display);
+        action.set_state (value);
     }
 
-    private void on_display_extended_properties(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    private void on_action_toggle (GLib.Action action, Variant? value) {
+        Variant new_state = ! (bool) action.get_state ();
+        action.change_state (new_state);
+    }
+
+    private void on_action_radio (GLib.Action action, Variant? value) {
+        action.change_state (value);
+    }
+
+    private void on_display_extended_properties(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
 
         if (display) {
             extended_properties.update_properties(get_current_page());
@@ -821,12 +694,17 @@ public class LibraryWindow : AppWindow {
         } else {
             extended_properties.hide();
         }
+
+        action.set_state (value);
     }
     
-    private void on_display_searchbar(Gtk.Action action) {
-        bool is_shown = ((Gtk.ToggleAction) action).get_active();
+    private void on_display_searchbar(GLib.SimpleAction action, Variant? value) {
+        bool is_shown = value.get_boolean ();
+
         Config.Facade.get_instance().set_display_search_bar(is_shown);
         show_search_bar(is_shown);
+
+        action.set_state (value);
     }
     
     public void show_search_bar(bool display) {
@@ -839,9 +717,10 @@ public class LibraryWindow : AppWindow {
             search_actions.reset();
     }
     
-    private void on_display_sidebar(Gtk.Action action) {
-        set_sidebar_visible(((Gtk.ToggleAction) action).get_active());
-        
+    private void on_display_sidebar(GLib.SimpleAction action, Variant? variant) {
+        set_sidebar_visible(variant.get_boolean ());
+
+        action.set_state (variant);
     }
 
     private void set_sidebar_visible(bool visible) {
@@ -853,8 +732,10 @@ public class LibraryWindow : AppWindow {
         return Config.Facade.get_instance().get_display_sidebar();
     }
     
-    private void on_display_toolbar (Gtk.Action action) {
-        set_toolbar_visible ((action as Gtk.ToggleAction).get_active ());
+    private void on_display_toolbar (GLib.SimpleAction action, Variant? variant) {
+        set_toolbar_visible (variant.get_boolean ());
+
+        action.set_state (variant);
     }
 
     private void set_toolbar_visible (bool visible) {
@@ -878,10 +759,9 @@ public class LibraryWindow : AppWindow {
     }
 
     private void sync_extended_properties(bool show) {
-        Gtk.ToggleAction? extended_display_action = get_common_action("CommonDisplayExtendedProperties")
-            as Gtk.ToggleAction;
-        assert(extended_display_action != null);
-        extended_display_action.set_active(show);
+        var action = this.lookup_action ("CommonDisplayExtendedProperties")
+            as GLib.SimpleAction;
+        action.set_state (show);
 
         // sync the setting so it will persist
         Config.Facade.get_instance().set_display_extended_properties(show);
@@ -966,7 +846,7 @@ public class LibraryWindow : AppWindow {
             
             return true;
         }
-        
+
         // since we cannot set a default action, we must set it when we spy a drag motion
         Gdk.DragAction drag_action = get_drag_action();
         
@@ -1120,32 +1000,28 @@ public class LibraryWindow : AppWindow {
     
     // check for settings that should persist between instances
     private void load_configuration() {
-        Gtk.ToggleAction? basic_display_action = get_common_action("CommonDisplayBasicProperties")
-            as Gtk.ToggleAction;
+        var basic_display_action = lookup_action("CommonDisplayBasicProperties");
         assert(basic_display_action != null);
-        basic_display_action.set_active(Config.Facade.get_instance().get_display_basic_properties());
+        basic_display_action.change_state (Config.Facade.get_instance().get_display_basic_properties());
 
-        Gtk.ToggleAction? extended_display_action = get_common_action("CommonDisplayExtendedProperties")
-            as Gtk.ToggleAction;
+        var extended_display_action = lookup_action("CommonDisplayExtendedProperties");
         assert(extended_display_action != null);
-        extended_display_action.set_active(Config.Facade.get_instance().get_display_extended_properties());
+        extended_display_action.change_state(Config.Facade.get_instance().get_display_extended_properties());
         
-        Gtk.ToggleAction? search_bar_display_action = get_common_action("CommonDisplaySearchbar")
-            as Gtk.ToggleAction;
+        var search_bar_display_action = lookup_action("CommonDisplaySearchbar");
         assert(search_bar_display_action != null);
-        search_bar_display_action.set_active(Config.Facade.get_instance().get_display_search_bar());
+        search_bar_display_action.change_state(Config.Facade.get_instance().get_display_search_bar());
 
-        Gtk.RadioAction? sort_events_action = get_common_action("CommonSortEventsAscending")
-            as Gtk.RadioAction;
+        var sort_events_action = lookup_action("CommonSortEvents");
         assert(sort_events_action != null);
         
         // Ticket #3321 - Event sorting order wasn't saving on exit.
         // Instead of calling set_active against one of the toggles, call
         // set_current_value against the entire radio group...
-        int event_sort_val = Config.Facade.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
+        string event_sort_val = Config.Facade.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
             SORT_EVENTS_ORDER_DESCENDING;
         
-        sort_events_action.set_current_value(event_sort_val);
+        sort_events_action.change_state (event_sort_val);
     }
     
     private void start_pulse_background_progress_bar(string label, int priority) {
@@ -1345,6 +1221,11 @@ public class LibraryWindow : AppWindow {
         
         Page current_page = get_current_page();
         if (current_page != null) {
+            var menubar = current_page.get_menubar ();
+            if (menubar != null) {
+                layout.remove (menubar);
+            }
+
             Gtk.Toolbar toolbar = current_page.get_toolbar();
             if (toolbar != null)
                 right_vbox.remove(toolbar);
@@ -1399,6 +1280,12 @@ public class LibraryWindow : AppWindow {
         subscribe_for_basic_information(get_current_page());
         
         page.switched_to();
+
+        var menubar = page.get_menubar ();
+        if (menubar != null) {
+            layout.pack_start (menubar, false, false);
+            menubar.show_all ();
+        }
         
         Gtk.Toolbar toolbar = page.get_toolbar();
         if (toolbar != null) {

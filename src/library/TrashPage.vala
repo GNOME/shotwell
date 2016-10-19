@@ -28,9 +28,9 @@ public class TrashPage : CheckerboardPage {
     public TrashPage() {
         base (NAME);
         
-        init_item_context_menu("/TrashContextMenu");
-        init_page_context_menu("/TrashPageMenu");
-        init_toolbar("/TrashToolbar");
+        init_item_context_menu("TrashContextMenu");
+        init_page_context_menu("TrashPageMenu");
+        init_toolbar("TrashToolbar");
         
         tracker = new MediaViewTracker(get_view());
         
@@ -46,25 +46,18 @@ public class TrashPage : CheckerboardPage {
         
         ui_filenames.add("trash.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry delete_action = { "Delete", Resources.DELETE_LABEL, TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_delete };
-        delete_action.label = Resources.DELETE_PHOTOS_MENU;
-        delete_action.tooltip = Resources.DELETE_FROM_TRASH_TOOLTIP;
-        actions += delete_action;
-        
-        Gtk.ActionEntry restore = { "Restore", Resources.UNDELETE_LABEL, TRANSLATABLE, null, TRANSLATABLE,
-            on_restore };
-        restore.label = Resources.RESTORE_PHOTOS_MENU;
-        restore.tooltip = Resources.RESTORE_PHOTOS_TOOLTIP;
-        actions += restore;
-        
-        return actions;
+
+    private const GLib.ActionEntry[] entries = {
+        { "Delete", on_delete },
+        { "Restore", on_restore }
+    };
+
+    protected override void add_actions () {
+        base.add_actions ();
+
+        AppWindow.get_instance ().add_action_entries (entries, this);
     }
-    
+
     public override Core.ViewTracker? get_view_tracker() {
         return tracker;
     }

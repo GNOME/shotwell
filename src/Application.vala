@@ -91,6 +91,10 @@ public class Application {
         return get_instance().direct;
     }
 
+    public static void set_accels_for_action (string action, string[] accel) {
+        get_instance().system_app.set_accels_for_action (action, accel);
+    }
+
     /**
      * @brief Signal handler for GApplication's 'command-line' signal.
      *

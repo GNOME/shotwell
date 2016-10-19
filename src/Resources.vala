@@ -423,27 +423,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Delete Search “%s”").printf(name);
     }
     
-    private unowned string rating_menu(Rating rating) {
-        switch (rating) {
-            case Rating.REJECTED:
-                return RATE_REJECTED_MENU;
-            case Rating.UNRATED:
-                return RATE_UNRATED_MENU;
-            case Rating.ONE:
-                return RATE_ONE_MENU;
-            case Rating.TWO:
-                return RATE_TWO_MENU;
-            case Rating.THREE:
-                return RATE_THREE_MENU;
-            case Rating.FOUR:
-                return RATE_FOUR_MENU;
-            case Rating.FIVE:
-                return RATE_FIVE_MENU;
-            default:
-                return RATE_UNRATED_MENU;
-        }
-    }
-
     private unowned string rating_label(Rating rating) {
         switch (rating) {
             case Rating.REJECTED:

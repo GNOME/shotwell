@@ -38,184 +38,49 @@ public class DirectPhotoPage : EditingHostPage {
         ui_filenames.add("direct_context.ui");
         ui_filenames.add("direct.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
-        file.label = _("_File");
-        actions += file;
 
-        Gtk.ActionEntry save = { "Save", Resources.SAVE_LABEL, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
-            on_save };
-        save.label = _("_Save");
-        save.tooltip = _("Save photo");
-        actions += save;
+    private const GLib.ActionEntry[] entries = {
+        { "Save", on_save },
+        { "SaveAs", on_save_as },
+        { "SendTo", on_send_to },
+        { "Print", on_print },
+        { "PrevPhoto", on_previous_photo },
+        { "NextPhoto", on_next_photo },
+        { "RotateClockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", on_rotate_counterclockwise },
+        { "FlipHorizontally", on_flip_horizontally },
+        { "FlipVertically", on_flip_vertically },
+        { "Enhance", on_enhance },
+        { "Crop", toggle_crop },
+        { "Straighten", toggle_straighten },
+        { "RedEye", toggle_redeye },
+        { "Adjust", toggle_adjust },
+        { "Revert", on_revert },
+        { "AdjustDateTime", on_adjust_date_time },
+        { "SetBackground", on_set_background },
+        { "IncreaseSize", on_increase_size },
+        { "DecreaseSize", on_decrease_size },
+        { "ZoomFit", snap_zoom_to_min },
+        { "Zoom100", snap_zoom_to_isomorphic },
+        { "Zoom200", snap_zoom_to_max }
+    };
 
-        Gtk.ActionEntry save_as = { "SaveAs", Resources.SAVE_AS_LABEL, TRANSLATABLE,
-            "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
-        save_as.label = _("Save _As…");
-        save_as.tooltip = _("Save photo with a different name");
-        actions += save_as;
-        
-        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
-            TRANSLATABLE, on_send_to };
-        send_to.label = Resources.SEND_TO_MENU;
-        actions += send_to;
+    protected override void add_actions () {
+        base.add_actions ();
 
-        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
-            TRANSLATABLE, on_print };
-        print.label = Resources.PRINT_MENU;
-        print.tooltip = _("Print the photo to a printer connected to your computer");
-        actions += print;
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
-        edit.label = _("_Edit");
-        actions += edit;
-
-        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, null };
-        photo.label = _("_Photo");
-        actions += photo;
-        
-        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
-        tools.label = _("T_ools");
-        actions += tools;
-        
-        Gtk.ActionEntry prev = { "PrevPhoto", Resources.PREVIOUS_LABEL, TRANSLATABLE, null,
-            TRANSLATABLE, on_previous_photo };
-        prev.label = _("_Previous Photo");
-        prev.tooltip = _("Previous Photo");
-        actions += prev;
-
-        Gtk.ActionEntry next = { "NextPhoto", Resources.NEXT_LABEL, TRANSLATABLE, null,
-            TRANSLATABLE, on_next_photo };
-        next.label = _("_Next Photo");
-        next.tooltip = _("Next Photo");
-        actions += next;
-
-        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
-            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
-        rotate_right.label = Resources.ROTATE_CW_MENU;
-        rotate_right.tooltip = Resources.ROTATE_CCW_TOOLTIP;
-        actions += rotate_right;
-
-        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
-        rotate_left.label = Resources.ROTATE_CCW_MENU;
-        rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
-        actions += rotate_left;
-
-        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_horizontally };
-        hflip.label = Resources.HFLIP_MENU;
-        actions += hflip;
-        
-        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_vertically };
-        vflip.label = Resources.VFLIP_MENU;
-        actions += vflip;
-        
-        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
-            TRANSLATABLE, on_enhance };
-        enhance.label = Resources.ENHANCE_MENU;
-        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
-        actions += enhance;
-        
-        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>O",
-            TRANSLATABLE, toggle_crop };
-        crop.label = Resources.CROP_MENU;
-        crop.tooltip = Resources.CROP_TOOLTIP;
-        actions += crop;
-        
-        Gtk.ActionEntry straighten = { "Straighten", Resources.REFRESH_LABEL, TRANSLATABLE, "<Ctrl>A",
-            TRANSLATABLE, toggle_straighten };
-        straighten.label = Resources.STRAIGHTEN_MENU;
-        straighten.tooltip = Resources.STRAIGHTEN_TOOLTIP;
-        actions += straighten;
-        
-        Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
-            TRANSLATABLE, toggle_redeye };
-        red_eye.label = Resources.RED_EYE_MENU;
-        red_eye.tooltip = Resources.RED_EYE_TOOLTIP;
-        actions += red_eye;
-        
-        Gtk.ActionEntry adjust = { "Adjust", Resources.ADJUST, TRANSLATABLE, "<Ctrl>D",
-            TRANSLATABLE, toggle_adjust };
-        adjust.label = Resources.ADJUST_MENU;
-        adjust.tooltip = Resources.ADJUST_TOOLTIP;
-        actions += adjust;
-        
-        Gtk.ActionEntry revert = { "Revert", Resources.REVERT_LABEL, TRANSLATABLE,
-            null, TRANSLATABLE, on_revert };
-        revert.label = Resources.REVERT_MENU;
-        actions += revert;
-
-        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_adjust_date_time };
-        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        actions += adjust_date_time;
-        
-        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
-            TRANSLATABLE, on_set_background };
-        set_background.label = Resources.SET_BACKGROUND_MENU;
-        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
-        actions += set_background;
-
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
-        view.label = _("_View");
-        actions += view;
-
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
-
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
-            "<Ctrl>plus", TRANSLATABLE, on_increase_size };
-        increase_size.label = _("Zoom _In");
-        increase_size.tooltip = _("Increase the magnification of the photo");
-        actions += increase_size;
-
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
-            "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
-        decrease_size.label = _("Zoom _Out");
-        decrease_size.tooltip = _("Decrease the magnification of the photo");
-        actions += decrease_size;
-
-        Gtk.ActionEntry best_fit = { "ZoomFit", Resources.ZOOM_FIT_LABEL, TRANSLATABLE,
-            "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
-        best_fit.label = _("Fit to _Page");
-        best_fit.tooltip = _("Zoom the photo to fit on the screen");
-        actions += best_fit;
-
-        Gtk.ActionEntry actual_size = { "Zoom100", Resources.ZOOM_100_LABEL, TRANSLATABLE,
-            "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
-        /// xgettext:no-c-format
-        actual_size.label = _("Zoom _100%");
-        /// xgettext:no-c-format
-        actual_size.tooltip = _("Zoom the photo to 100% magnification");
-        actions += actual_size;
-        
-        Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
-            "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
-        /// xgettext:no-c-format
-        max_size.label = _("Zoom _200%");
-        /// xgettext:no-c-format
-        max_size.tooltip = _("Zoom the photo to 200% magnification");
-        actions += max_size;
-
-        return actions;
+        AppWindow.get_instance ().add_action_entries (entries, this);
     }
     
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
-        InjectionGroup print_group = new InjectionGroup("/MenuBar/FileMenu/PrintPlaceholder");
-        print_group.add_menu_item("Print");
+        InjectionGroup print_group = new InjectionGroup("PrintPlaceholder");
+        print_group.add_menu_item(_("_Print"), "Print", "<Primary>p");
         
         groups += print_group;
         
-        InjectionGroup bg_group = new InjectionGroup("/MenuBar/FileMenu/SetBackgroundPlaceholder");
-        bg_group.add_menu_item("SetBackground");
+        InjectionGroup bg_group = new InjectionGroup("SetBackgroundPlaceholder");
+        bg_group.add_menu_item(_("Set as _Desktop Background"), "SetBackground");
         
         groups += bg_group;
         
@@ -274,8 +139,8 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     protected override bool on_context_buttonpress(Gdk.EventButton event) {
-        Gtk.Menu context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
-        popup_context_menu(context_menu, event);
+//        Gtk.Menu context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
+//        popup_context_menu(context_menu, event);
 
         return true;
     }

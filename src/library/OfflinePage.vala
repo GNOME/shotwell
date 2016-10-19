@@ -28,8 +28,8 @@ public class OfflinePage : CheckerboardPage {
     public OfflinePage() {
         base (NAME);
         
-        init_item_context_menu("/OfflineContextMenu");
-        init_toolbar("/OfflineToolbar");
+        init_item_context_menu("OfflineContextMenu");
+        init_toolbar("OfflineToolbar");
         
         tracker = new MediaViewTracker(get_view());
         
@@ -51,27 +51,24 @@ public class OfflinePage : CheckerboardPage {
         
         ui_filenames.add("offline.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry remove = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_remove_from_library };
-        remove.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove.tooltip = Resources.DELETE_FROM_LIBRARY_TOOLTIP;
-        actions += remove;
-        
-        return actions;
+
+    private const GLib.ActionEntry[] entries = {
+        { "RemoveFromLibrary", on_remove_from_library }
+    };
+
+    protected override void add_actions () {
+        base.add_actions ();
+
+        AppWindow.get_instance ().add_action_entries (entries, this);
     }
-    
+
     public override Core.ViewTracker? get_view_tracker() {
         return tracker;
     }
     
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("RemoveFromLibrary", selected_count > 0);
-        set_action_important("RemoveFromLibrary", true);
-        
+
         base.update_actions(selected_count, count);
     }
     

@@ -801,7 +801,7 @@ public class ImportPage : CheckerboardPage {
             
             // Find button
             Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
-            find_button.set_related_action(get_action("CommonDisplaySearchbar"));
+            find_button.set_action_name ("win.CommonDisplaySearchbar");
             
             toolbar.insert(find_button, -1);
             
@@ -811,14 +811,14 @@ public class ImportPage : CheckerboardPage {
             // Import selected
             Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
             import_selected_button.set_icon_name(Resources.IMPORT);
-            import_selected_button.set_related_action(get_action("ImportSelected"));
+            import_selected_button.set_action_name ("win.ImportSelected");
             
             toolbar.insert(import_selected_button, -1);
             
             // Import all
             Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
             import_all_button.set_icon_name(Resources.IMPORT_ALL);
-            import_all_button.set_related_action(get_action("ImportAll"));
+            import_all_button.set_action_name ("win.ImportAll");
             
             toolbar.insert(import_all_button, -1);
 
@@ -864,35 +864,20 @@ public class ImportPage : CheckerboardPage {
         
         ui_filenames.add("import.ui");
     }
-    
-    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
-        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
 
-        Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, Config.Facade.get_instance().get_display_photo_titles() };
-        titles.label = _("_Titles");
-        titles.tooltip = _("Display the title of each photo");
-        toggle_actions += titles;
+    private const GLib.ActionEntry[] entries = {
+        { "ImportSelected", on_import_selected },
+        { "ImportAll", on_import_all },
+        // Toggle actions
+        { "ViewTitle", on_action_toggle, null, "false", on_display_titles },
+    };
 
-        return toggle_actions;
-    }
+    protected override void add_actions () {
+        base.add_actions ();
 
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry import_selected = { "ImportSelected", Resources.IMPORT,
-            TRANSLATABLE, null, null, on_import_selected };
-        import_selected.label = _("Import _Selected");
-        import_selected.tooltip = _("Import the selected photos into your library");
-        actions += import_selected;
+        AppWindow.get_instance ().add_action_entries (entries, this);
 
-        Gtk.ActionEntry import_all = { "ImportAll", Resources.IMPORT_ALL, TRANSLATABLE,
-            null, null, on_import_all };
-        import_all.label = _("Import _All");
-        import_all.tooltip = _("Import all the photos into your library");
-        actions += import_all;
-
-        return actions;
+        (get_action ("ViewTitle") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_titles ());
     }
     
     public GPhoto.Camera get_camera() {
@@ -948,8 +933,7 @@ public class ImportPage : CheckerboardPage {
     private void on_view_changed() {
         set_action_sensitive("ImportSelected", !busy && refreshed && get_view().get_selected_count() > 0);
         set_action_sensitive("ImportAll", !busy && refreshed && get_view().get_count() > 0);
-        AppWindow.get_instance().set_common_action_sensitive("CommonSelectAll",
-            !busy && (get_view().get_count() > 0));
+        set_action_sensitive("CommonSelectAll", !busy && (get_view().get_count() > 0));
 
         update_toolbar_state();
     }
@@ -958,13 +942,15 @@ public class ImportPage : CheckerboardPage {
         search_filter.refresh();
     }
 
-    private void on_display_titles(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    private void on_display_titles(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
 
         set_display_titles(display);
+
         Config.Facade.get_instance().set_display_photo_titles(display);
+        action.set_state (value);
     }
-    
+
     public override void switched_to() {
         set_display_titles(Config.Facade.get_instance().get_display_photo_titles());
         
@@ -1791,10 +1777,8 @@ public class ImportPage : CheckerboardPage {
 
     public override void set_display_titles(bool display) {
         base.set_display_titles(display);
-    
-        Gtk.ToggleAction? action = get_action("ViewTitle") as Gtk.ToggleAction;
-        if (action != null)
-            action.set_active(display);
+
+        set_action_active ("ViewTitle", display);
     }
     
     // Gets the search view filter for this page.

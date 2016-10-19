@@ -282,250 +282,62 @@ public abstract class MediaPage : CheckerboardPage {
         
         ui_filenames.add("media.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry export = { "Export", Resources.SAVE_AS_LABEL, TRANSLATABLE, "<Ctrl><Shift>E",
-            TRANSLATABLE, on_export };
-        export.label = Resources.EXPORT_MENU;
-        actions += export;
 
-        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null, 
-            TRANSLATABLE, on_send_to };
-        send_to.label = Resources.SEND_TO_MENU;
-        actions += send_to;
+    private const GLib.ActionEntry[] entries = {
+        { "Export", on_export },
+        { "SendTo", on_send_to },
+        { "SendToContextMenu", on_send_to },
+        { "RemoveFromLibrary", on_remove_from_library },
+        { "MoveToTrash", on_move_to_trash },
+        { "NewEvent", on_new_event },
+        { "AddTags", on_add_tags },
+        { "AddTagsContextMenu", on_add_tags },
+        { "ModifyTags", on_modify_tags },
+        { "IncreaseSize", on_increase_size },
+        { "DecreaseSize", on_decrease_size },
+        { "Flag", on_flag_unflag },
+        { "IncreaseRating", on_increase_rating },
+        { "DecreaseRating", on_decrease_rating },
+        { "RateRejected", on_rate_rejected },
+        { "RateUnrated", on_rate_unrated },
+        { "RateOne", on_rate_one },
+        { "RateTwo", on_rate_two },
+        { "RateThree", on_rate_three },
+        { "RateFour", on_rate_four },
+        { "RateFive", on_rate_five },
+        { "EditTitle", on_edit_title },
+        { "EditComment", on_edit_comment },
+        { "PlayVideo", on_play_video },
 
-        // This is identical to the above action, except that it has different 
-        // mnemonics and is _only_ for use in the context menu.
-        Gtk.ActionEntry send_to_context_menu = { "SendToContextMenu", "document-send", TRANSLATABLE, null,
-            TRANSLATABLE, on_send_to };
-        send_to_context_menu.label = Resources.SEND_TO_CONTEXT_MENU;
-        actions += send_to_context_menu;
-        
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE,
-            "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
-        remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        actions += remove_from_library;
-        
-        Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_move_to_trash };
-        move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        actions += move_to_trash;
-        
-        Gtk.ActionEntry new_event = { "NewEvent", Resources.NEW_LABEL, TRANSLATABLE, "<Ctrl>N",
-            TRANSLATABLE, on_new_event };
-        new_event.label = Resources.NEW_EVENT_MENU;
-        actions += new_event;
+        // Toggle actions
+        { "ViewTitle", on_action_toggle, null, "false", on_display_titles },
+        { "ViewComment", on_action_toggle, null, "false", on_display_comments },
+        { "ViewRatings", on_action_toggle, null, "false", on_display_ratings },
+        { "ViewTags", on_action_toggle, null, "false", on_display_tags },
 
-        Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
-            on_add_tags };
-        add_tags.label = Resources.ADD_TAGS_MENU;
-        actions += add_tags;
+        // Radio actions
+        { "SortBy", on_action_radio, "s", "'1'", on_sort_changed },
+        { "Sort", on_action_radio, "s", "'ascending'", on_sort_changed },
+        { "RawDeveloper", on_action_radio, "s", "'Shotwell'", on_raw_developer_changed }
+    };
 
-        // This is identical to the above action, except that it has different 
-        // mnemonics and is _only_ for use in the context menu.
-        Gtk.ActionEntry add_tags_context_menu = { "AddTagsContextMenu", null, TRANSLATABLE, "<Ctrl>A", TRANSLATABLE,
-            on_add_tags };
-        add_tags_context_menu.label = Resources.ADD_TAGS_CONTEXT_MENU;
-        actions += add_tags_context_menu;
+    protected override void add_actions () {
+        base.add_actions ();
 
-        Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
-            on_modify_tags };
-        modify_tags.label = Resources.MODIFY_TAGS_MENU;
-        actions += modify_tags;
-
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Resources.ZOOM_IN_LABEL, TRANSLATABLE,
-            "<Ctrl>plus", TRANSLATABLE, on_increase_size };
-        increase_size.label = _("Zoom _In");
-        increase_size.tooltip = _("Increase the magnification of the thumbnails");
-        actions += increase_size;
-
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Resources.ZOOM_OUT_LABEL, TRANSLATABLE,
-            "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
-        decrease_size.label = _("Zoom _Out");
-        decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
-        actions += decrease_size;
-        
-        Gtk.ActionEntry flag = { "Flag", null, TRANSLATABLE, "<Ctrl>G", TRANSLATABLE, on_flag_unflag };
-        flag.label = Resources.FLAG_MENU;
-        actions += flag;
-        
-        Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
-        set_rating.label = Resources.RATING_MENU;
-        actions += set_rating;
-
-        Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
-            "greater", TRANSLATABLE, on_increase_rating };
-        increase_rating.label = Resources.INCREASE_RATING_MENU;
-        actions += increase_rating;
-
-        Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
-            "less", TRANSLATABLE, on_decrease_rating };
-        decrease_rating.label = Resources.DECREASE_RATING_MENU;
-        actions += decrease_rating;
-
-        Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
-            "9", TRANSLATABLE, on_rate_rejected };
-        rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
-        actions += rate_rejected;
-
-        Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
-            "0", TRANSLATABLE, on_rate_unrated };
-        rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
-        actions += rate_unrated;
-
-        Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
-            "1", TRANSLATABLE, on_rate_one };
-        rate_one.label = Resources.rating_menu(Rating.ONE);
-        actions += rate_one;
-
-        Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
-            "2", TRANSLATABLE, on_rate_two };
-        rate_two.label = Resources.rating_menu(Rating.TWO);
-        actions += rate_two;
-
-        Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
-            "3", TRANSLATABLE, on_rate_three };
-        rate_three.label = Resources.rating_menu(Rating.THREE);
-        actions += rate_three;
-
-        Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
-            "4", TRANSLATABLE, on_rate_four };
-        rate_four.label = Resources.rating_menu(Rating.FOUR);
-        actions += rate_four;
-
-        Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
-            "5", TRANSLATABLE, on_rate_five };
-        rate_five.label = Resources.rating_menu(Rating.FIVE);
-        actions += rate_five;
-
-        Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
-            on_edit_title };
-        edit_title.label = Resources.EDIT_TITLE_MENU;
-        actions += edit_title;
-
-        Gtk.ActionEntry edit_comment = { "EditComment", null, TRANSLATABLE, "F3", TRANSLATABLE,
-            on_edit_comment };
-        edit_comment.label = Resources.EDIT_COMMENT_MENU;
-        actions += edit_comment;
-
-        Gtk.ActionEntry sort_photos = { "SortPhotos", null, TRANSLATABLE, null, null, null };
-        sort_photos.label = _("Sort _Photos");
-        actions += sort_photos;
-
-        Gtk.ActionEntry filter_photos = { "FilterPhotos", null, TRANSLATABLE, null, null, null };
-        filter_photos.label = Resources.FILTER_PHOTOS_MENU;
-        actions += filter_photos;
-        
-        Gtk.ActionEntry play = { "PlayVideo", Resources.PLAY_LABEL, TRANSLATABLE, "<Ctrl>Y",
-            TRANSLATABLE, on_play_video };
-        play.label = _("_Play Video");
-        play.tooltip = _("Open the selected videos in the system video player");
-        actions += play;
-        
-        Gtk.ActionEntry raw_developer = { "RawDeveloper", null, TRANSLATABLE, null, null, null };
-        raw_developer.label = _("_Developer");
-        actions += raw_developer;
-        
-        // RAW developers.
-        
-        Gtk.ActionEntry dev_shotwell = { "RawDeveloperShotwell", null, TRANSLATABLE, null, TRANSLATABLE,
-            on_raw_developer_shotwell };
-        dev_shotwell.label = _("Shotwell");
-        actions += dev_shotwell;
-        
-        Gtk.ActionEntry dev_camera = { "RawDeveloperCamera", null, TRANSLATABLE, null, TRANSLATABLE,
-            on_raw_developer_camera };
-        dev_camera.label = _("Camera");
-        actions += dev_camera;
-
-        return actions;
-    }
-    
-    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
-        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
-        
-        Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, Config.Facade.get_instance().get_display_photo_titles() };
-        titles.label = _("_Titles");
-        titles.tooltip = _("Display the title of each photo");
-        toggle_actions += titles;
-        
-        Gtk.ToggleActionEntry comments = { "ViewComment", null, TRANSLATABLE, "<Ctrl><Shift>C",
-            TRANSLATABLE, on_display_comments, Config.Facade.get_instance().get_display_photo_comments() };
-        comments.label = _("_Comments");
-        comments.tooltip = _("Display the comment of each photo");
-        toggle_actions += comments;
-        
-        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>N",
-            TRANSLATABLE, on_display_ratings, Config.Facade.get_instance().get_display_photo_ratings() };
-        ratings.label = Resources.VIEW_RATINGS_MENU;
-        ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
-        toggle_actions += ratings;
-
-        Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
-            TRANSLATABLE, on_display_tags, Config.Facade.get_instance().get_display_photo_tags() };
-        tags.label = _("Ta_gs");
-        tags.tooltip = _("Display each photo’s tags");
-        toggle_actions += tags;
-        
-        return toggle_actions;
-    }
-    
-    protected override void register_radio_actions(Gtk.ActionGroup action_group) {
         bool sort_order;
         int sort_by;
         get_config_photos_sort(out sort_order, out sort_by);
-        
-        // Sort criteria.
-        Gtk.RadioActionEntry[] sort_crit_actions = new Gtk.RadioActionEntry[0];
-        
-        Gtk.RadioActionEntry by_title = { "SortByTitle", null, TRANSLATABLE, null, TRANSLATABLE,
-            SortBy.TITLE };
-        by_title.label = _("By _Title");
-        by_title.tooltip = _("Sort photos by title");
-        sort_crit_actions += by_title;
-        
-        Gtk.RadioActionEntry by_date = { "SortByExposureDate", null, TRANSLATABLE, null,
-            TRANSLATABLE, SortBy.EXPOSURE_DATE };
-        by_date.label = _("By Exposure _Date");
-        by_date.tooltip = _("Sort photos by exposure date");
-        sort_crit_actions += by_date;
-        
-        Gtk.RadioActionEntry by_rating = { "SortByRating", null, TRANSLATABLE, null,
-            TRANSLATABLE, SortBy.RATING };
-        by_rating.label = _("By _Rating");
-        by_rating.tooltip = _("Sort photos by rating");
-        sort_crit_actions += by_rating;
-        
-        Gtk.RadioActionEntry by_filename = { "SortByFilename", null, TRANSLATABLE, null,
-            TRANSLATABLE, SortBy.FILENAME };
-        by_filename.label = _("By _Filename");
-        by_filename.tooltip = _("Sort photos by filename");
-        sort_crit_actions += by_filename;
 
-        action_group.add_radio_actions(sort_crit_actions, sort_by, on_sort_changed);
-        
-        // Sort order.
-        Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
-        
-        Gtk.RadioActionEntry ascending = { "SortAscending", Resources.SORT_ASCENDING_LABEL,
-            TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_ASCENDING };
-        ascending.label = _("_Ascending");
-        ascending.tooltip = _("Sort photos in an ascending order");
-        sort_order_actions += ascending;
-        
-        Gtk.RadioActionEntry descending = { "SortDescending", Resources.SORT_DESCENDING_LABEL,
-            TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_DESCENDING };
-        descending.label = _("D_escending");
-        descending.tooltip = _("Sort photos in a descending order");
-        sort_order_actions += descending;
-        
-        action_group.add_radio_actions(sort_order_actions,
-            sort_order ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING, on_sort_changed);
-        
-        base.register_radio_actions(action_group);
+        AppWindow.get_instance ().add_action_entries (entries, this);
+        (get_action ("ViewTitle") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_titles ());
+        (get_action ("ViewComment") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_comments ());
+        (get_action ("ViewRatings") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_ratings ());
+        (get_action ("ViewTags") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_tags ());
+        (get_action ("SortBy") as GLib.SimpleAction).set_state ("%d".printf (sort_by));
+        (get_action ("Sort") as GLib.SimpleAction).set_state (sort_order ? "'ascending'" : "'descending'");
+        var d = Config.Facade.get_instance().get_default_raw_developer();
+        var action = get_action ("RawDeveloper") as GLib.SimpleAction;
+        action.set_state (d == RawDeveloper.SHOTWELL ? "'Shotwell'" : "'Camera'");
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -584,76 +396,34 @@ public abstract class MediaPage : CheckerboardPage {
         }
         
         // Collect some stats about what's selected.
-        bool avail_shotwell = false; // True if Shotwell developer is available.
-        bool avail_camera = false;   // True if camera developer is available.
         bool is_raw = false;    // True if any RAW photos are selected
         foreach (DataView view in get_view().get_selected()) {
             Photo? photo = ((Thumbnail) view).get_media_source() as Photo;
             if (photo != null && photo.get_master_file_format() == PhotoFileFormat.RAW) {
                 is_raw = true;
-                
-                if (!avail_shotwell && photo.is_raw_developer_available(RawDeveloper.SHOTWELL))
-                    avail_shotwell = true;
-                
-                if (!avail_camera && (photo.is_raw_developer_available(RawDeveloper.CAMERA) ||
-                    photo.is_raw_developer_available(RawDeveloper.EMBEDDED)))
-                    avail_camera = true;
-                
-                if (avail_shotwell && avail_camera)
-                    break; // optimization: break out of loop when all options available
-                
+
+                break;
             }
         }
         
         // Enable/disable menu.
         set_action_sensitive("RawDeveloper", is_raw);
-        
-        if (is_raw) {
-            // Set which developers are available.
-            set_action_sensitive("RawDeveloperShotwell", avail_shotwell);
-            set_action_sensitive("RawDeveloperCamera", avail_camera);
-        }
     }
     
     private void update_flag_action(int selected_count) {
         set_action_sensitive("Flag", selected_count > 0);
-        
-        string flag_label = Resources.FLAG_MENU;
-
-        if (selected_count > 0) {
-            bool all_flagged = true;
-            foreach (DataSource source in get_view().get_selected_sources()) {
-                Flaggable? flaggable = source as Flaggable;
-                if (flaggable != null && !flaggable.is_flagged()) {
-                    all_flagged = false;
-                    
-                    break;
-                }
-            }
-            
-            if (all_flagged) {
-                flag_label = Resources.UNFLAG_MENU;
-            }
-        }
-        
-        Gtk.Action? flag_action = get_action("Flag");
-        if (flag_action != null) {
-            flag_action.label = flag_label;
-        }
     }
     
     public override Core.ViewTracker? get_view_tracker() {
         return tracker;
     }
-    
+
     public void set_display_ratings(bool display) {
         get_view().freeze_notifications();
         get_view().set_property(Thumbnail.PROP_SHOW_RATINGS, display);
         get_view().thaw_notifications();
-        
-        Gtk.ToggleAction? action = get_action("ViewRatings") as Gtk.ToggleAction;
-        if (action != null)
-            action.set_active(display);
+
+        this.set_action_active ("ViewRatings", display);
     }
 
     private bool can_rate_selected(Rating rating) {
@@ -937,10 +707,8 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().freeze_notifications();
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);
         get_view().thaw_notifications();
-        
-        Gtk.ToggleAction? action = get_action("ViewTags") as Gtk.ToggleAction;
-        if (action != null)
-            action.set_active(display);
+
+        this.set_action_active ("ViewTags", display);
     }
 
     private void on_new_event() {
@@ -1072,58 +840,84 @@ public abstract class MediaPage : CheckerboardPage {
             get_command_manager().execute(new EditMultipleCommentsCommand(media_sources, new_comment));
     }
 
-    protected virtual void on_display_titles(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    protected virtual void on_display_titles(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
         
         set_display_titles(display);
         
         Config.Facade.get_instance().set_display_photo_titles(display);
+        action.set_state (value);
     }
 
-    protected virtual void on_display_comments(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    protected virtual void on_display_comments(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
         
         set_display_comments(display);
         
         Config.Facade.get_instance().set_display_photo_comments(display);
+        action.set_state (value);
     }
 
-    protected virtual void on_display_ratings(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    protected virtual void on_display_ratings(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
         
         set_display_ratings(display);
         
         Config.Facade.get_instance().set_display_photo_ratings(display);
+        action.set_state (value);
     }
 
-    protected virtual void on_display_tags(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    protected virtual void on_display_tags(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
         
         set_display_tags(display);
         
         Config.Facade.get_instance().set_display_photo_tags(display);
+        action.set_state (value);
     }
 
     protected abstract void get_config_photos_sort(out bool sort_order, out int sort_by);
 
     protected abstract void set_config_photos_sort(bool sort_order, int sort_by);
 
-    public virtual void on_sort_changed() {
+    public virtual void on_sort_changed(GLib.SimpleAction action, Variant? value) {
         int sort_by = get_menu_sort_by();
         bool sort_order = get_menu_sort_order();
         
         set_view_comparator(sort_by, sort_order);
         set_config_photos_sort(sort_order, sort_by);
+
+        action.set_state (value);
     }
     
-    public void on_raw_developer_shotwell(Gtk.Action action) {
+    public void on_raw_developer_shotwell() {
         developer_changed(RawDeveloper.SHOTWELL);
     }
     
-    public void on_raw_developer_camera(Gtk.Action action) {
+    public void on_raw_developer_camera() {
         developer_changed(RawDeveloper.CAMERA);
     }
-    
+
+    private void on_raw_developer_changed(GLib.SimpleAction action,
+                                          Variant? value) {
+        RawDeveloper developer = RawDeveloper.SHOTWELL;
+
+        switch (value.get_string ()) {
+            case "Shotwell":
+                developer = RawDeveloper.SHOTWELL;
+                break;
+            case "Camera":
+                developer = RawDeveloper.CAMERA;
+                break;
+            default:
+                break;
+        }
+
+        developer_changed(developer);
+
+        action.set_state (value);
+    }
+
     protected virtual void developer_changed(RawDeveloper rd) {
         if (get_view().get_selected_count() == 0)
             return;
@@ -1156,49 +950,46 @@ public abstract class MediaPage : CheckerboardPage {
 
     protected override void set_display_titles(bool display) {
         base.set_display_titles(display);
-    
-        Gtk.ToggleAction? action = get_action("ViewTitle") as Gtk.ToggleAction;
-        if (action != null)
-            action.set_active(display);
+
+        this.set_action_active ("ViewTitle", display);
     }
 
     protected override void set_display_comments(bool display) {
         base.set_display_comments(display);
     
-        Gtk.ToggleAction? action = get_action("ViewComment") as Gtk.ToggleAction;
-        if (action != null)
-            action.set_active(display);
+        this.set_action_active ("ViewComment", display);
     }
 
-    private Gtk.RadioAction sort_by_title_action() {
-        Gtk.RadioAction action = (Gtk.RadioAction) get_action("SortByTitle");
+    private GLib.Action sort_by_title_action() {
+        var action = get_action ("SortBy");
         assert(action != null);
         return action;
     }
 
-    private Gtk.RadioAction sort_ascending_action() {
-        Gtk.RadioAction action = (Gtk.RadioAction) get_action("SortAscending");
+    private GLib.Action sort_ascending_action() {
+        var action = get_action ("Sort");
         assert(action != null);
         return action;
     }
 
     protected int get_menu_sort_by() {
         // any member of the group knows the current value
-        return sort_by_title_action().get_current_value();
+        return int.parse (sort_by_title_action().get_state().get_string ());
     }
     
     protected void set_menu_sort_by(int val) {
-        sort_by_title_action().set_current_value(val);
+        var sort = "%d".printf (val);
+        (sort_by_title_action() as GLib.SimpleAction).set_state (sort);
     }
     
     protected bool get_menu_sort_order() {
         // any member of the group knows the current value
-        return sort_ascending_action().get_current_value() == SORT_ORDER_ASCENDING;
+        return sort_ascending_action().get_state ().get_string () == "ascending";
     }
     
     protected void set_menu_sort_order(bool ascending) {
-        sort_ascending_action().set_current_value(
-            ascending ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING);
+        (sort_ascending_action() as GLib.SimpleAction).set_state (
+            ascending ? "'ascending'" : "'descending'");
     }
     
     void set_view_comparator(int sort_by, bool ascending) {
@@ -1242,26 +1033,6 @@ public abstract class MediaPage : CheckerboardPage {
         }
         
         get_view().set_comparator(comparator, predicate);
-    }
-
-    protected string get_sortby_path(int sort_by) {
-        switch(sort_by) {
-            case SortBy.TITLE:
-                return "/MenuBar/ViewMenu/SortPhotos/SortByTitle";
-            
-            case SortBy.EXPOSURE_DATE:
-                return "/MenuBar/ViewMenu/SortPhotos/SortByExposureDate";
-            
-            case SortBy.RATING:
-                return "/MenuBar/ViewMenu/SortPhotos/SortByRating";
-
-            case SortBy.FILENAME:
-                return "/MenuBar/ViewMenu/SortPhotos/SortByFilename";
-            
-            default:
-                debug("Unknown sort criteria: %d", sort_by);
-                return "/MenuBar/ViewMenu/SortPhotos/SortByTitle";
-        }
     }
 
     protected void sync_sort() {

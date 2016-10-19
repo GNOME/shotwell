@@ -59,7 +59,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         typeof (string?)            // ICON
     );
     
-    private Gtk.UIManager ui = new Gtk.UIManager();
+    private Gtk.Builder builder = new Gtk.Builder ();
     private Gtk.CellRendererText text_renderer;
     private unowned ExternalDropHandler drop_handler;
     private Gtk.Entry? text_entry = null;
@@ -190,33 +190,27 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         return false;
     }
-    
-    private void setup_default_context_menu() {
-        Gtk.ActionGroup group = new Gtk.ActionGroup("SidebarDefault");
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
-        new_search.label = _("Ne_w Saved Search…");
-        actions += new_search;
 
-        Gtk.ActionEntry new_tag = { "CommonNewTag", null, TRANSLATABLE, null, null, on_new_tag };
-        new_tag.label = _("New _Tag…");
-        actions += new_tag;
-        
-        group.add_actions(actions, this);
-        ui.insert_action_group(group, 0);
-        
-        File ui_file = Resources.get_ui("sidebar_default_context.ui");
+    private const GLib.ActionEntry[] entries = {
+        { "tag.new", on_new_tag },
+        { "search.new", on_new_search }
+    };
+
+    private void setup_default_context_menu() {
         try {
-            ui.add_ui_from_file(ui_file.get_path());
-        } catch (Error err) {
-            AppWindow.error_message("Error loading UI file %s: %s".printf(
-                ui_file.get_path(), err.message));
+            this.builder.add_from_resource
+                            ("/org/gnome/Shotwell/sidebar_default_context.ui");
+            var model = builder.get_object ("popup-menu") as GLib.MenuModel;
+            this.default_context_menu = new Gtk.Menu.from_model (model);
+            var group = new GLib.SimpleActionGroup ();
+            group.add_action_entries (entries, this);
+            this.insert_action_group ("sidebar", group);
+            this.default_context_menu.attach_to_widget (this, null);
+        } catch (Error error) {
+            AppWindow.error_message("Error loading UI resource: %s".printf(
+                error.message));
             Application.get_instance().panic();
         }
-        default_context_menu = (Gtk.Menu) ui.get_widget("/SidebarDefaultContextMenu");
-        
-        ui.ensure_update();
     }
     
     private bool has_wrapper(Sidebar.Entry entry) {
@@ -851,6 +845,8 @@ public class Sidebar.Tree : Gtk.TreeView {
         Gtk.Menu? context_menu = contextable.get_sidebar_context_menu(event);
         if (context_menu == null)
             return false;
+
+        context_menu.attach_to_widget (this, null);
 
         if (event != null)
             context_menu.popup(null, null, null, event.button, event.time);

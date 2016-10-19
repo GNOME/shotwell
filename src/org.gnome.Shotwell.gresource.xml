@@ -2,5 +2,9 @@
 <gresources>
   <gresource prefix="/org/gnome/Shotwell">
       <file>crop-pivot-reticle.png</file>
+      <file>search_sidebar_context.ui</file>
+      <file>tag_sidebar_context.ui</file>
+      <file>sidebar_default_context.ui</file>
+      <file>search_bar.ui</file>
   </gresource>
 </gresources>

@@ -30,7 +30,7 @@ public class ImportQueuePage : SinglePhotoPage {
         // Stop button
         Gtk.ToolButton stop_button = new Gtk.ToolButton(null, null);
         stop_button.set_icon_name("stop");
-        stop_button.set_related_action(get_action("Stop"));
+        stop_button.set_action_name ("win.Stop");
         
         toolbar.insert(stop_button, -1);
 
@@ -58,17 +58,15 @@ public class ImportQueuePage : SinglePhotoPage {
         
         base.init_collect_ui_filenames(ui_filenames);
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry stop = { "Stop", Resources.STOP_LABEL, TRANSLATABLE, null, TRANSLATABLE,
-            on_stop };
-        stop.label = _("_Stop Import");
-        stop.tooltip = _("Stop importing photos");
-        actions += stop;
 
-        return actions;
+    private const GLib.ActionEntry[] entries = {
+        {"Stop", on_stop }
+    };
+
+    protected override void add_actions () {
+        base.add_actions ();
+
+        AppWindow.get_instance ().add_action_entries (entries, this);
     }
     
     public void enqueue_and_schedule(BatchImport batch_import, bool allow_user_cancel) {

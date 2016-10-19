@@ -6,50 +6,60 @@
 
 public class InjectionGroup {
     public class Element {
+        public enum ItemType {
+            MENUITEM,
+            MENU,
+            SEPARATOR
+        }
         public string name;
         public string action;
-        public Gtk.UIManagerItemType kind;
-        
-        public Element(string name, string? action, Gtk.UIManagerItemType kind) {
+        public string? accellerator;
+        public ItemType kind;
+
+        public Element(string name, string? action, string? accellerator, ItemType kind) {
             this.name = name;
             this.action = action != null ? action : name;
+            this.accellerator = accellerator;
             this.kind = kind;
         }
     }
-    
+
     private string path;
     private Gee.ArrayList<Element?> elements = new Gee.ArrayList<Element?>();
     private int separator_id = 0;
-    
+
     public InjectionGroup(string path) {
         this.path = path;
     }
-    
+
     public string get_path() {
         return path;
     }
-    
+
     public Gee.List<Element?> get_elements() {
         return elements;
     }
-    
-    public void add_menu_item(string name, string? action = null) {
-        elements.add(new Element(name, action, Gtk.UIManagerItemType.MENUITEM));
+
+    public void add_menu_item(string name, string? action = null, string?
+            accellerator = null) {
+        elements.add(new Element(name, action, accellerator, Element.ItemType.MENUITEM));
     }
-    
+
     public void add_menu(string name, string? action = null) {
-        elements.add(new Element(name, action, Gtk.UIManagerItemType.MENU));
+        elements.add(new Element(name, action, null, Element.ItemType.MENU));
     }
-    
+
     public void add_separator() {
-        elements.add(new Element("%d-separator".printf(separator_id++), null, Gtk.UIManagerItemType.SEPARATOR));
+        elements.add(new Element("%d-separator".printf(separator_id++), null,
+                    null,
+                    Element.ItemType.SEPARATOR));
     }
 }
 
 public abstract class Page : Gtk.ScrolledWindow {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
-    protected Gtk.UIManager ui;
+    protected Gtk.Builder builder = new Gtk.Builder ();
     protected Gtk.Toolbar toolbar;
     protected bool in_view = false;
     
@@ -76,10 +86,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     private int cursor_hide_time_cached = 0;
     private bool are_actions_attached = false;
     private OneShotScheduler? update_actions_scheduler = null;
-    private Gtk.ActionGroup? action_group = null;
-    private Gtk.ActionGroup[]? common_action_groups = null;
-    
-    private uint[] merge_ids = new uint[0];
     
     protected Page(string page_name) {
         this.page_name = page_name;
@@ -155,7 +161,6 @@ public abstract class Page : Gtk.ScrolledWindow {
         assert(this.container == null);
         
         this.container = container;
-        ui = ((PageWindow) container).get_ui_manager();
     }
     
     public virtual void clear_container() {
@@ -199,22 +204,59 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.Widget? get_event_source() {
         return event_source;
     }
-    
-    public virtual Gtk.MenuBar get_menubar() {
-        Gtk.MenuBar? menubar = ui.get_widget("/MenuBar") as Gtk.MenuBar;
-        assert(menubar != null);
-        
-        return menubar;
-    }
 
-    public virtual unowned Gtk.Widget get_page_ui_widget(string path) {
-        return ui.get_widget(path);
+    private Gtk.MenuBar menubar;
+
+    public Gtk.MenuBar get_menubar() {
+        if (this.menubar == null) {
+            var model = builder.get_object ("MenuBar") as GLib.Menu;
+
+            // Collect injected UI elements and add them to the UI manager
+            InjectionGroup[] injection_groups = init_collect_injection_groups();
+            foreach (InjectionGroup group in injection_groups) {
+                var items = model.get_n_items ();
+                for (int i = 0; i < items; i++) {
+                    var submenu = model.get_item_link (i, GLib.Menu.LINK_SUBMENU);
+
+                    var section = this.find_extension_point (submenu,
+                                                             group.get_path ());
+
+                    if (section == null) {
+                        continue;
+                    }
+
+                    foreach (var element in group.get_elements ()) {
+                        var menu = section as GLib.Menu;
+                        switch (element.kind) {
+                            case InjectionGroup.Element.ItemType.MENUITEM:
+                                var item = new GLib.MenuItem (element.name,
+                                                              "win." + element.action);
+                                if (element.accellerator != null) {
+                                    item.set_attribute ("accel",
+                                                        "s",
+                                                        element.accellerator);
+                                }
+
+                                menu.append_item (item);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            this.menubar = new Gtk.MenuBar.from_model (model);
+        }
+
+        return this.menubar;
     }
 
     public virtual Gtk.Toolbar get_toolbar() {
         if (toolbar == null) {
             toolbar = toolbar_path == null ? new Gtk.Toolbar() :
-                                             ui.get_widget(toolbar_path) as Gtk.Toolbar;
+                                             builder.get_object (toolbar_path)
+                                             as Gtk.Toolbar;
             toolbar.get_style_context().add_class("bottom-toolbar");  // for elementary theme
             toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
         }
@@ -227,7 +269,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public virtual void switching_from() {
         in_view = false;
-        remove_ui();
         if (toolbar_path != null)
             toolbar = null;
     }
@@ -250,77 +291,59 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public virtual void returning_from_fullscreen(FullscreenWindow fsw) {
     }
-    
-    public Gtk.Action? get_action(string name) {
-        if (action_group == null)
-            return null;
-        
-        Gtk.Action? action = action_group.get_action(name);
-        if (action == null)
-            action = get_common_action(name, false);
-        
-        if (action == null)
-            warning("Page %s: Unable to locate action %s", get_page_name(), name);
-        
-        return action;
+
+    public GLib.Action? get_action (string name) {
+        var aw = AppWindow.get_instance ();
+
+        if (aw != null) {
+            return aw.lookup_action (name);
+        }
+
+        return null;
     }
     
     public void set_action_sensitive(string name, bool sensitive) {
-        Gtk.Action? action = get_action(name);
+        GLib.SimpleAction? action = get_action(name) as GLib.SimpleAction;
         if (action != null)
-            action.sensitive = sensitive;
+            action.set_enabled (sensitive);
     }
     
     public void set_action_important(string name, bool important) {
-        Gtk.Action? action = get_action(name);
-        if (action != null)
-            action.is_important = important;
+        set_action_sensitive (name, important);
     }
     
     public void set_action_visible(string name, bool visible) {
-        Gtk.Action? action = get_action(name);
-        if (action == null)
-            return;
-        
-        action.visible = visible;
-        action.sensitive = visible;
+        set_action_sensitive (name, visible);
     }
     
     public void set_action_short_label(string name, string short_label) {
-        Gtk.Action? action = get_action(name);
-        if (action != null)
-            action.short_label = short_label;
+        debug ("=> Set action short_label called for %s", name);
     }
     
     public void set_action_details(string name, string? label, string? tooltip, bool sensitive) {
-        Gtk.Action? action = get_action(name);
+        GLib.SimpleAction? action = get_action(name) as GLib.SimpleAction;
+
         if (action == null)
             return;
-        
+
         if (label != null)
-            action.label = label;
-        
-        if (tooltip != null)
-            action.tooltip = tooltip;
-        
-        action.sensitive = sensitive;
+            this.update_menu_item_label (name, label);
+
+        action.set_enabled (sensitive);
     }
     
     public void activate_action(string name) {
-        Gtk.Action? action = get_action(name);
+        var action = get_action(name);
+
         if (action != null)
-            action.activate();
+            action.activate (null);
     }
     
-    public Gtk.Action? get_common_action(string name, bool log_warning = true) {
-        if (common_action_groups == null)
-            return null;
-        
-        foreach (Gtk.ActionGroup group in common_action_groups) {
-            Gtk.Action? action = group.get_action(name);
-            if (action != null)
-                return action;
-        }
+    public GLib.Action? get_common_action(string name, bool log_warning = true) {
+        var action = get_action (name);
+
+        if (action != null)
+            return action;
         
         if (log_warning)
             warning("Page %s: Unable to locate common action %s", get_page_name(), name);
@@ -329,27 +352,23 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public void set_common_action_sensitive(string name, bool sensitive) {
-        Gtk.Action? action = get_common_action(name);
+        var action = get_common_action(name) as GLib.SimpleAction;
         if (action != null)
-            action.sensitive = sensitive;
+            action.set_enabled (sensitive);
     }
 
     public void set_common_action_label(string name, string label) {
-        Gtk.Action? action = get_common_action(name);
-        if (action != null)
-            action.set_label(label);
+        debug ("Trying to set common action label for %s", name);
     }
     
     public void set_common_action_important(string name, bool important) {
-        Gtk.Action? action = get_common_action(name);
-        if (action != null)
-            action.is_important = important;
+        debug ("Setting action to important: %s", name);
     }
     
     public void activate_common_action(string name) {
-        Gtk.Action? action = get_common_action(name);
+        var action = get_common_action(name) as GLib.SimpleAction;
         if (action != null)
-            action.activate();
+            action.activate(null);
     }
     
     public bool get_ctrl_pressed() {
@@ -367,7 +386,14 @@ public abstract class Page : Gtk.ScrolledWindow {
     public bool get_super_pressed() {
         return super_pressed;
     }
-    
+
+     protected void set_action_active (string name, bool active) {
+        var action = get_action (name) as GLib.SimpleAction;
+        if (action != null) {
+            action.set_state (active);
+        }
+    }
+
     private bool get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
         if (AppWindow.get_instance().get_window() == null) {
             ctrl = false;
@@ -440,27 +466,20 @@ public abstract class Page : Gtk.ScrolledWindow {
     public CommandManager get_command_manager() {
         return AppWindow.get_command_manager();
     }
-    
+
+    protected virtual void add_actions () { }
+
+    protected void on_action_toggle (GLib.Action action, Variant? value) {
+        Variant new_state = ! (bool) action.get_state ();
+        action.change_state (new_state);
+    }
+
+    protected void on_action_radio (GLib.Action action, Variant? value) {
+        action.change_state (value);
+    }
+
     private void init_ui() {
-        action_group = new Gtk.ActionGroup("PageActionGroup");
-        
-        // Collect all Gtk.Actions and add them to the Page's Gtk.ActionGroup
-        Gtk.ActionEntry[] action_entries = init_collect_action_entries();
-        if (action_entries.length > 0)
-            action_group.add_actions(action_entries, this);
-        
-        // Collect all Gtk.ToggleActionEntries and add them to the Gtk.ActionGroup
-        Gtk.ToggleActionEntry[] toggle_entries = init_collect_toggle_action_entries();
-        if (toggle_entries.length > 0)
-            action_group.add_toggle_actions(toggle_entries, this);
-        
-        // Collect all Gtk.RadioActionEntries and add them to the Gtk.ActionGroup
-        // (Would use a similar collection scheme as the other calls, but there is a binding
-        // problem with Gtk.RadioActionCallback that doesn't allow it to be stored in a struct)
-        register_radio_actions(action_group);
-        
-        // Get global (common) action groups from the application window
-        common_action_groups = AppWindow.get_instance().get_common_action_groups();
+        add_actions ();
     }
     
     private void add_ui() {
@@ -472,34 +491,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         foreach (string ui_filename in ui_filenames)
             init_load_ui(ui_filename);
-            
-        ui.insert_action_group(action_group, 0);
 
-        // Collect injected UI elements and add them to the UI manager
-        InjectionGroup[] injection_groups = init_collect_injection_groups();
-        foreach (InjectionGroup group in injection_groups) {
-            foreach (InjectionGroup.Element element in group.get_elements()) {
-                uint merge_id = ui.new_merge_id();
-                ui.add_ui(merge_id, group.get_path(), element.name, element.action,
-                    element.kind, false);
-                merge_ids += merge_id;
-            }
-        }
-        
-        AppWindow.get_instance().replace_common_placeholders(ui);
-        
-        ui.ensure_update();
+        //ui.insert_action_group(action_group, 0);
     }
-    
-    private void remove_ui() {
-        for (int i = merge_ids.length - 1 ; i >= 0 ; --i)
-            ui.remove_ui(merge_ids[i]);
-        ui.remove_action_group(action_group);
-        merge_ids.resize(0);
-        
-        ui.ensure_update();
-    }
-    
+
     public void init_toolbar(string path) {
         toolbar_path = path;
     }
@@ -558,7 +553,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         File ui_file = Resources.get_ui(ui_filename);
         
         try {
-            merge_ids += ui.add_ui_from_file(ui_file.get_path());
+            builder.add_from_file(ui_file.get_path());
         } catch (Error err) {
             AppWindow.error_message("Error loading UI file %s: %s".printf(
                 ui_file.get_path(), err.message));
@@ -571,21 +566,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     // classes' filename.
     protected virtual void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
     }
-    
-    // This is called during init_ui() to collect all Gtk.ActionEntries for the page.
-    protected virtual Gtk.ActionEntry[] init_collect_action_entries() {
-        return new Gtk.ActionEntry[0];
-    }
-    
-    // This is called during init_ui() to collect all Gtk.ToggleActionEntries for the page
-    protected virtual Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
-        return new Gtk.ToggleActionEntry[0];
-    }
-    
-    // This is called during init_ui() to collect all Gtk.RadioActionEntries for the page
-    protected virtual void register_radio_actions(Gtk.ActionGroup action_group) {
-    }
-    
+
     // This is called during init_ui() to collect all Page.InjectedUIElements for the page.  They
     // should be added to the MultiSet using the injection path as the key.
     protected virtual InjectionGroup[] init_collect_injection_groups() {
@@ -1162,6 +1143,84 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         return false;
     }
+
+    protected void update_menu_item_label (string id,
+                                           string new_label) {
+        var bar = this.builder.get_object ("MenuBar") as GLib.Menu;
+
+        if (bar == null) {
+            return;
+        }
+
+        var items = bar.get_n_items ();
+        for (var i = 0; i< items; i++) {
+            var model = bar.get_item_link (i, GLib.Menu.LINK_SUBMENU);
+            if (bar == null) {
+                continue;
+            }
+
+            var model_items = model.get_n_items ();
+            for (var j = 0; j < model_items; j++) {
+                var subsection = model.get_item_link (j, GLib.Menu.LINK_SECTION);
+
+                if (subsection == null)
+                    continue;
+
+                // Recurse into submenus
+                var sub_items = subsection.get_n_items ();
+                for (var k = 0; k < sub_items; k++) {
+                    var it = subsection.iterate_item_attributes (k);
+                    while (it.next ()) {
+                        if (it.get_name () == "id") {
+                            if (it.get_value ().get_string () == id) {
+                                var md = subsection as GLib.Menu;
+                                var m = new GLib.MenuItem.from_model
+                                    (subsection, k);
+                                m.set_label (new_label);
+                                md.remove (k);
+                                md.insert_item (k, m);
+
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected GLib.MenuModel? find_extension_point (GLib.MenuModel model,
+                                                    string extension_point) {
+        var items = model.get_n_items ();
+        GLib.MenuModel? section = null;
+
+        for (int i = 0; i < items && section == null; i++) {
+            string? name = null;
+            model.get_item_attribute (i, "id", "s", out name);
+            if (name == extension_point) {
+                section = model.get_item_link (i, GLib.Menu.LINK_SECTION);
+            } else {
+                var subsection = model.get_item_link (i, GLib.Menu.LINK_SECTION);
+
+                if (subsection == null)
+                    continue;
+
+                // Recurse into submenus
+                var sub_items = subsection.get_n_items ();
+                for (int j = 0; j < sub_items && section == null; j++) {
+                    var submenu = subsection.get_item_link
+                                                (j, GLib.Menu.LINK_SUBMENU);
+                    if (submenu != null) {
+                        section = this.find_extension_point (submenu,
+                                                             extension_point);
+                    }
+                }
+            }
+        }
+
+        return section;
+    }
+
 }
 
 public abstract class CheckerboardPage : Page {
@@ -1244,18 +1303,28 @@ public abstract class CheckerboardPage : Page {
             get_page_context_menu();
     }
     
+    private Gtk.Menu item_context_menu;
     public virtual Gtk.Menu? get_item_context_menu() {
-        Gtk.Menu menu = (Gtk.Menu) ui.get_widget(item_context_menu_path);
-        assert(menu != null);
-        return menu;
+        if (item_context_menu == null) {
+            var model = this.builder.get_object (item_context_menu_path)
+                as GLib.MenuModel;
+            item_context_menu = new Gtk.Menu.from_model (model);
+            item_context_menu.attach_to_widget (this, null);
+        }
+
+        return item_context_menu;
     }
     
+    private Gtk.Menu page_context_menu;
     public override Gtk.Menu? get_page_context_menu() {
-        if (page_context_menu_path == null)
-            return null;
-        Gtk.Menu menu = (Gtk.Menu) ui.get_widget(page_context_menu_path);
-        assert(menu != null);
-        return menu;
+        if (page_context_menu == null) {
+            var model = this.builder.get_object (page_context_menu_path)
+                as GLib.MenuModel;
+            page_context_menu = new Gtk.Menu.from_model (model);
+            page_context_menu.attach_to_widget (this, null);
+        }
+
+        return page_context_menu;
     }
     
     protected override bool on_context_keypress() {
@@ -2593,4 +2662,6 @@ public class DragAndDropHandler {
     private void on_export_completed() {
         exporter = null;
     }
+
+
 }

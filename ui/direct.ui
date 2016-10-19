@@ -1,70 +1,197 @@
-<ui>
-
-    <menubar name="MenuBar">
-        <menu name="FileMenu" action="FileMenu">
-            <menuitem name="Save" action="Save" />
-            <menuitem name="SaveAs" action="SaveAs" />
-            <separator />
-            <placeholder name="PrintPlaceholder"/>
-            <separator />
-            <menuitem name="SendTo" action="SendTo" />
-            <placeholder name="SetBackgroundPlaceholder" />
-            <separator />
-            <menuitem name="JumpToFile" action="CommonJumpToFile" />
-            <separator />
-            <menuitem name="Quit" action="CommonQuit" />
-        </menu>
-        
-        <menu name="EditMenu" action="EditMenu">
-            <menuitem name="Undo" action="CommonUndo" />
-            <menuitem name="Redo" action="CommonRedo" />
-        </menu>
-        
-        <menu name="ViewMenu" action="ViewMenu">
-            <menuitem name="Fullscreen" action="CommonFullscreen" />
-            <separator />
-            <menuitem name="IncreaseSize" action="IncreaseSize" />
-            <menuitem name="DecreaseSize" action="DecreaseSize" />
-            <separator />
-            <menuitem name="ZoomFit" action="ZoomFit" />
-            <menuitem name="Zoom100" action="Zoom100" />
-            <menuitem name="Zoom200" action="Zoom200" />
-        </menu>
-
-        <menu name="PhotoMenu" action="PhotoMenu">
-            <menuitem name="PrevPhoto" action="PrevPhoto" />
-            <menuitem name="NextPhoto" action="NextPhoto" />
-            <separator />
-            <menuitem name="RotateClockwise" action="RotateClockwise" />
-            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
-            <menuitem name="FlipHorizontally" action="FlipHorizontally" />
-            <menuitem name="FlipVertically" action="FlipVertically" />
-            <separator />
-            <menu name="Tools" action="Tools">
-                <menuitem name="Enhance" action="Enhance" />
-                <menuitem name="Crop" action="Crop" />
-                <menuitem name="Straighten" action="Straighten" />
-                <menuitem name="RedEye" action="RedEye" />
-                <menuitem name="Adjust" action="Adjust" />
-            </menu>
-            <menuitem name="Revert" action="Revert" />
-            <separator />
-            <menuitem name="AdjustDateTime" action="AdjustDateTime" />
-        </menu>
-        
-        <menu name="HelpMenu" action="HelpMenu">
-            <menuitem name="Contents" action="CommonHelpContents" />
-            <menuitem name="Frequently Asked Questions" action="CommonHelpFAQ" />
-            <menuitem name="Report a Problem…" action="CommonHelpReportProblem" />
-            <separator />
-            <menuitem name="About" action="CommonAbout" />
-        </menu>
-    </menubar>
-
-    <popup name="DirectContextMenu">
-        <placeholder name="ContextJumpPlaceholder">
-            <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
-        </placeholder>
-    </popup>
-    
-</ui>
+<?xml version="1.0"?>
+<interface domain="shotwell">
+  <menu id="MenuBar">
+    <submenu>
+      <attribute name="label" translatable="yes">_File</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Save</attribute>
+          <attribute name="accel">&lt;Primary&gt;s</attribute>
+          <attribute name="action">win.Save</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Save _As…</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;s</attribute>
+          <attribute name="action">win.SaveAs</attribute>
+        </item>
+      </section>
+      <section>
+      <attribute name="id">PrintPlaceholder</attribute>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Send _To…</attribute>
+          <attribute name="action">win.SendTo</attribute>
+        </item>
+      <attribute name="id">SetBackgroundPlaceholder</attribute>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Show in File Mana_ger</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;q</attribute>
+          <attribute name="action">win.CommonJumpToFile</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Quit</attribute>
+          <attribute name="accel">&lt;Primary&gt;q</attribute>
+          <attribute name="action">win.CommonQuit</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Edit</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Undo</attribute>
+          <attribute name="accel">&lt;Primary&gt;z</attribute>
+          <attribute name="action">win.CommonUndo</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Redo</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;z</attribute>
+          <attribute name="action">win.CommonRedo</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_View</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Fulls_creen</attribute>
+          <attribute name="accel">F11</attribute>
+          <attribute name="action">win.CommonFullscreen</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Zoom _In</attribute>
+          <attribute name="accel">&lt;Primary&gt;plus</attribute>
+          <attribute name="action">win.IncreaseSize</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Zoom _Out</attribute>
+          <attribute name="accel">&lt;Primary&gt;minus</attribute>
+          <attribute name="action">win.DecreaseSize</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Fit to _Page</attribute>
+          <attribute name="accel">&lt;Primary&gt;0</attribute>
+          <attribute name="action">win.ZoomFit</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Zoom _100%</attribute>
+          <attribute name="accel">&lt;Primary&gt;1</attribute>
+          <attribute name="action">win.Zoom100</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Zoom _200%</attribute>
+          <attribute name="accel">&lt;Primary&gt;2</attribute>
+          <attribute name="action">win.Zoom200</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Photo</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Previous Photo</attribute>
+          <attribute name="action">win.PrevPhoto</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Next Photo</attribute>
+          <attribute name="action">win.NextPhoto</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Rotate _Right</attribute>
+          <attribute name="accel">&lt;Primary&gt;r</attribute>
+          <attribute name="action">win.RotateClockwise</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Rotate _Left</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;r</attribute>
+          <attribute name="action">win.RotateCounterclockwise</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Flip Hori_zontally</attribute>
+          <attribute name="action">win.FlipHorizontally</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Flip Verti_cally</attribute>
+          <attribute name="action">win.FlipVertically</attribute>
+        </item>
+      </section>
+      <section>
+        <submenu>
+          <attribute name="label" translatable="yes">T_ools</attribute>
+          <section>
+            <item>
+              <attribute name="label" translatable="yes">_Enhance</attribute>
+              <attribute name="accel">&lt;Primary&gt;e</attribute>
+              <attribute name="action">win.Enhance</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">_Crop</attribute>
+              <attribute name="accel">&lt;Primary&gt;o</attribute>
+              <attribute name="action">win.Crop</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">_Straighten</attribute>
+              <attribute name="accel">&lt;Primary&gt;a</attribute>
+              <attribute name="action">win.Straighten</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">_Red-eye</attribute>
+              <attribute name="accel">&lt;Primary&gt;y</attribute>
+              <attribute name="action">win.RedEye</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">_Adjust</attribute>
+              <attribute name="accel">&lt;Primary&gt;d</attribute>
+              <attribute name="action">win.Adjust</attribute>
+            </item>
+          </section>
+        </submenu>
+        <item>
+          <attribute name="label" translatable="yes">Re_vert to Original</attribute>
+          <attribute name="action">win.Revert</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Adjust Date and Time…</attribute>
+          <attribute name="action">win.AdjustDateTime</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Help</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Help</attribute>
+          <attribute name="accel">F1</attribute>
+          <attribute name="action">win.CommonHelpContents</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Frequently Asked Questions</attribute>
+          <attribute name="action">win.CommonHelpFAQ</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Report a Problem…</attribute>
+          <attribute name="action">win.CommonHelpReportProblem</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_About</attribute>
+          <attribute name="action">win.CommonAbout</attribute>
+        </item>
+      </section>
+    </submenu>
+  </menu>
+</interface>

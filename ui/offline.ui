@@ -1,70 +1,249 @@
-<ui>
-
-    <menubar name="MenuBar">
-        <menu name="FileMenu" action="FileMenu">
-            <menuitem name="Import" action="CommonFileImport" />
-            <menuitem name="ImportExternal" action="ExternalLibraryImport" />
-            <separator />
-            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
-            <separator />
-            <menuitem name="Quit" action="CommonQuit" />
-        </menu>
-        
-        <menu name="EditMenu" action="EditMenu">
-            <menuitem name="Undo" action="CommonUndo" />
-            <menuitem name="Redo" action="CommonRedo" />
-            <separator />
-            <menuitem name="Find" action="CommonFind" />
-            <menuitem name="NewSearch" action="CommonNewSearch" />
-            <separator />
-            <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
-            <separator />
-            <menuitem name="SelectAll" action="CommonSelectAll" />
-            <separator />
-            <menuitem name="Preferences" action="CommonPreferences" />
-        </menu>
-        
-        <menu name="ViewMenu" action="ViewMenu">
-            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
-            <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
-            <menuitem name="DisplaySearchbar" action="CommonDisplaySearchbar" />
-            <menuitem name="DisplaySidebar" action="CommonDisplaySidebar" />
-            <menuitem name="DisplayToolbar" action="CommonDisplayToolbar" />
-            <separator />
-            <menu name="FilterPhotos" action="CommonFilterPhotos">
-                <menuitem name="DisplayFiveOrHigher" action="CommonDisplayFiveOrHigher" />
-                <menuitem name="DisplayFourOrHigher" action="CommonDisplayFourOrHigher" />
-                <menuitem name="DisplayThreeOrHigher" action="CommonDisplayThreeOrHigher" />
-                <menuitem name="DisplayTwoOrHigher" action="CommonDisplayTwoOrHigher" />
-                <menuitem name="DisplayOneOrHigher" action="CommonDisplayOneOrHigher" />
-                <menuitem name="DisplayUnratedOrHigher" action="CommonDisplayUnratedOrHigher" />
-                <menuitem name="DisplayRejectedOrHigher" action="CommonDisplayRejectedOrHigher" />
-                <menuitem name="DisplayRejectedOnly" action="CommonDisplayRejectedOnly" />
-            </menu>
-            <separator />
-            <menu name="SortEvents" action="CommonSortEvents">
-                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
-                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
-            </menu>
-        </menu>
-        
-        <menu name="HelpMenu" action="HelpMenu">
-            <menuitem name="Contents" action="CommonHelpContents" />
-            <menuitem name="Frequently Asked Questions" action="CommonHelpFAQ" />
-            <menuitem name="Report a Problem…" action="CommonHelpReportProblem" />
-            <separator />
-            <menuitem name="About" action="CommonAbout" />
-        </menu>
-    </menubar>
-    
-    <popup name="OfflineContextMenu">
-        <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
-    </popup>
-    
-    <toolbar name="OfflineToolbar">
-        <toolitem name="ToolRemoveFromLibrary" action="RemoveFromLibrary" />
-        <separator />
-        <toolitem name="ToolFind" action="CommonDisplaySearchbar" />
-    </toolbar>
-    
-</ui>
+<?xml version="1.0"?>
+<interface domain="shotwell">
+  <menu id="MenuBar">
+    <submenu>
+      <attribute name="label" translatable="yes">_File</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Import from Folder…</attribute>
+          <attribute name="accel">&lt;Primary&gt;i</attribute>
+          <attribute name="action">win.CommonFileImport</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Import From _Application…</attribute>
+          <attribute name="action">win.ExternalLibraryImport</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Empty T_rash</attribute>
+          <attribute name="action">win.CommonEmptyTrash</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Quit</attribute>
+          <attribute name="accel">&lt;Primary&gt;q</attribute>
+          <attribute name="action">win.CommonQuit</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Edit</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Undo</attribute>
+          <attribute name="accel">&lt;Primary&gt;z</attribute>
+          <attribute name="action">win.CommonUndo</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Redo</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;z</attribute>
+          <attribute name="action">win.CommonRedo</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Find</attribute>
+          <attribute name="action">win.CommonFind</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Ne_w Saved Search…</attribute>
+          <attribute name="accel">&lt;Primary&gt;s</attribute>
+          <attribute name="action">win.CommonNewSearch</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">R_emove from Library</attribute>
+          <attribute name="accel">Delete</attribute>
+          <attribute name="action">win.RemoveFromLibrary</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Select _All</attribute>
+          <attribute name="accel">&lt;Primary&gt;a</attribute>
+          <attribute name="action">win.CommonSelectAll</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Preferences</attribute>
+          <attribute name="action">win.CommonPreferences</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_View</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Basic Information</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;i</attribute>
+          <attribute name="action">win.CommonDisplayBasicProperties</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">E_xtended Information</attribute>
+          <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;x</attribute>
+          <attribute name="action">win.CommonDisplayExtendedProperties</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Search Bar</attribute>
+          <attribute name="accel">F8</attribute>
+          <attribute name="action">win.CommonDisplaySearchbar</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">S_idebar</attribute>
+          <attribute name="accel">F9</attribute>
+          <attribute name="action">win.CommonDisplaySidebar</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">T_oolbar</attribute>
+          <attribute name="accel">&lt;Primary&gt;F9</attribute>
+          <attribute name="action">win.CommonDisplayToolbar</attribute>
+        </item>
+      </section>
+      <section>
+        <submenu>
+          <attribute name="label" translatable="yes">_Filter Photos</attribute>
+          <section>
+            <item>
+              <attribute name="label" translatable="no">★★★★★</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">7</attribute>
+              <attribute name="accel">&lt;Primary&gt;5</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="no">★★★★</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">6</attribute>
+              <attribute name="accel">&lt;Primary&gt;4</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="no">★★★</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">5</attribute>
+              <attribute name="accel">&lt;Primary&gt;3</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="no">★★</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">4</attribute>
+              <attribute name="accel">&lt;Primary&gt;2</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="no">★</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">3</attribute>
+              <attribute name="accel">&lt;Primary&gt;1</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">_All Photos</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">2</attribute>
+              <attribute name="accel">&lt;Primary&gt;0</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">All + _Rejected</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">1</attribute>
+              <attribute name="accel">&lt;Primary&gt;9</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">Rejected _Only</attribute>
+              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="target">8</attribute>
+              <attribute name="accel">&lt;Primary&gt;8</attribute>
+            </item>
+          </section>
+        </submenu>
+      </section>
+      <section>
+        <submenu>
+          <attribute name="label" translatable="yes">Sort _Events</attribute>
+          <section>
+            <item>
+              <attribute name="label" translatable="yes">_Ascending</attribute>
+              <attribute name="action">win.CommonSortEvents</attribute>
+              <attribute name="target">ascending</attribute>
+            </item>
+            <item>
+              <attribute name="label" translatable="yes">D_escending</attribute>
+              <attribute name="action">win.CommonSortEvents</attribute>
+              <attribute name="target">descending</attribute>
+            </item>
+          </section>
+        </submenu>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Help</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Help</attribute>
+          <attribute name="accel">F1</attribute>
+          <attribute name="action">win.CommonHelpContents</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Frequently Asked Questions</attribute>
+          <attribute name="action">win.CommonHelpFAQ</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Report a Problem…</attribute>
+          <attribute name="action">win.CommonHelpReportProblem</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_About</attribute>
+          <attribute name="action">win.CommonAbout</attribute>
+        </item>
+      </section>
+    </submenu>
+  </menu>
+  <menu id="OfflineContextMenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">R_emove from Library</attribute>
+        <attribute name="accel">Delete</attribute>
+        <attribute name="action">win.RemoveFromLibrary</attribute>
+      </item>
+    </section>
+  </menu>
+  <object class="GtkToolbar" id="OfflineToolbar">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="toolbar_style">both-horiz</property>
+    <child>
+      <object class="GtkToolButton" id="ToolRemoveFromLibrary">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Remove the selected photos from the library</property>
+        <property name="is_important">True</property>
+        <property name="action_name">win.RemoveFromLibrary</property>
+        <property name="label" translatable="yes">R_emove From Library</property>
+        <property name="use_underline">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolButton" id="ToolFind">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
+        <property name="is_important">True</property>
+        <property name="action_name">win.CommonDisplaySearchbar</property>
+        <property name="label" translatable="yes">Find</property>
+        <property name="use_underline">True</property>
+        <property name="icon_name">edit-find</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+  </object>
+</interface>

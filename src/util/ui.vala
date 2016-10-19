@@ -86,13 +86,3 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
         | Gdk.ModifierType.META_MASK)) == mask;
 }
 
-public string build_dummy_ui_string(Gtk.ActionGroup[] groups) {
-    string ui_string = "<ui>";
-    foreach (Gtk.ActionGroup group in groups) {
-        foreach (Gtk.Action action in group.list_actions())
-            ui_string += "<accelerator name=\"%s\" action=\"%s\" />".printf(action.name, action.name);
-    }
-    ui_string += "</ui>";
-    
-    return ui_string;
-}

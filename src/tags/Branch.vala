@@ -124,38 +124,28 @@ public class Tags.Branch : Sidebar.Branch {
 
 public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
     Sidebar.InternalDragSourceEntry, Sidebar.Contextable {
-    private Gtk.UIManager ui = new Gtk.UIManager();
+    private Gtk.Builder builder;
     private Gtk.Menu? context_menu = null;
     
     public Header() {
         base (_("Tags"));
         setup_context_menu();
     }
-    
+
     private void setup_context_menu() {
-        Gtk.ActionGroup group = new Gtk.ActionGroup("SidebarDefault");
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry new_tag = { "CommonNewTag", null, TRANSLATABLE, null, null, on_new_tag };
-        new_tag.label = Resources.NEW_CHILD_TAG_SIDEBAR_MENU;
-        actions += new_tag;
-        
-        group.add_actions(actions, this);
-        ui.insert_action_group(group, 0);
-        
-        File ui_file = Resources.get_ui("tag_sidebar_context.ui");
+        this.builder = new Gtk.Builder ();
         try {
-            ui.add_ui_from_file(ui_file.get_path());
-        } catch (Error err) {
-            AppWindow.error_message("Error loading UI file %s: %s".printf(
-                ui_file.get_path(), err.message));
+            this.builder.add_from_resource
+                            ("/org/gnome/Shotwell/tag_sidebar_context.ui");
+            var model = builder.get_object ("popup-menu") as GLib.MenuModel;
+            this.context_menu = new Gtk.Menu.from_model (model);
+        } catch (Error error) {
+            AppWindow.error_message("Error loading UI resource: %s".printf(
+                error.message));
             Application.get_instance().panic();
         }
-        context_menu = (Gtk.Menu) ui.get_widget("/SidebarTagContextMenu");
-        
-        ui.ensure_update();
     }
-    
+
     public bool internal_drop_received(Gee.List<MediaSource> media) {
         AddTagsDialog dialog = new AddTagsDialog();
         string[]? names = dialog.execute();
@@ -191,12 +181,6 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
 
     public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
         return context_menu;
-    }
-    
-    private void on_new_tag() {
-        NewRootTagCommand creation_command = new NewRootTagCommand();
-        AppWindow.get_command_manager().execute(creation_command);
-        LibraryWindow.get_app().rename_tag_in_sidebar(creation_command.get_created_tag());
     }
 }
 

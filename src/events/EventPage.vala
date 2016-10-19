@@ -46,27 +46,19 @@ public class EventPage : CollectionPage {
         
         ui_filenames.add("event.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] new_actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry make_primary = { "MakePrimary", Resources.MAKE_PRIMARY,
-            TRANSLATABLE, null, TRANSLATABLE, on_make_primary };
-        make_primary.label = Resources.MAKE_KEY_PHOTO_MENU;
-        new_actions += make_primary;
 
-        Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, null, TRANSLATABLE, on_rename };
-        rename.label = Resources.RENAME_EVENT_MENU;
-        new_actions += rename;
+    private const GLib.ActionEntry[] entries = {
+        { "MakePrimary", on_make_primary },
+        { "Rename", on_rename },
+        { "EditEventComment", on_edit_comment }
+    };
 
-        Gtk.ActionEntry comment = { "EditEventComment", null, TRANSLATABLE, null,
-            Resources.EDIT_EVENT_COMMENT_MENU, on_edit_comment};
-        comment.label = Resources.EDIT_EVENT_COMMENT_MENU;
-        new_actions += comment;
+    protected override void add_actions () {
+        base.add_actions ();
 
-        return new_actions;
+        AppWindow.get_instance ().add_action_entries (entries, this);
     }
-    
+
     protected override void init_actions(int selected_count, int count) {
         base.init_actions(selected_count, count);
     }

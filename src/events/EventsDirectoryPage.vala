@@ -54,7 +54,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         get_view().set_property(Event.PROP_SHOW_COMMENTS,
             Config.Facade.get_instance().get_display_event_comments());
         
-        init_item_context_menu("/EventsDirectoryContextMenu");
+        init_item_context_menu("EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
 
@@ -63,15 +63,18 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         
         // merge tool
         Gtk.ToolButton merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
-        merge_button.set_related_action(get_action("Merge"));
+        merge_button.set_action_name("win.Merge");
+        merge_button.is_important = true;
+        merge_button.set_tooltip_text (Resources.MERGE_TOOLTIP);
+        merge_button.set_label (Resources.MERGE_LABEL);
         
         toolbar.insert(merge_button, -1);
     }
     
     ~EventsDirectoryPage() {
-        Gtk.RadioAction? action = get_action("CommonSortEventsAscending") as Gtk.RadioAction;
+        var action = get_action("CommonSortEvents") as GLib.SimpleAction;
         assert(action != null);
-        action.changed.disconnect(on_sort_changed);
+        action.change_state.disconnect(on_sort_changed);
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -101,45 +104,30 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         else
             return event_descending_comparator;
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, "F2", TRANSLATABLE, on_rename };
-        rename.label = Resources.RENAME_EVENT_MENU;
-        actions += rename;
-       
-        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, null, Resources.MERGE_TOOLTIP,
-            on_merge };
-        merge.label = Resources.MERGE_MENU;
-        actions += merge;
-        
-        Gtk.ActionEntry comment = { "EditComment", null, TRANSLATABLE, null, Resources.EDIT_COMMENT_MENU,
-            on_edit_comment };
-        comment.label = Resources.EDIT_COMMENT_MENU;
-        actions += comment;
-        
-        return actions;
-    }
-    
-    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
-        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
-        
-        Gtk.ToggleActionEntry comments = { "ViewComment", null, TRANSLATABLE, "<Ctrl><Shift>C",
-            TRANSLATABLE, on_display_comments, Config.Facade.get_instance().get_display_event_comments() };
-        comments.label = _("_Comments");
-        comments.tooltip = _("Display the comment of each event");
-        toggle_actions += comments;
-        
-        return toggle_actions;
+
+    private const GLib.ActionEntry[] entries = {
+        { "Rename", on_rename },
+        { "Merge", on_merge },
+        { "EditComment", on_edit_comment },
+
+        // Toggle actions
+        { "ViewComment", on_action_toggle, null, "false", on_display_comments  }
+    };
+
+    protected override void add_actions () {
+        base.add_actions ();
+        AppWindow.get_instance ().add_action_entries (entries, this);
+
+        (get_action ("ViewComment") as GLib.SimpleAction).set_state
+            (Config.Facade.get_instance().get_display_event_comments());
     }
 
     protected override void init_actions(int selected_count, int count) {
         base.init_actions(selected_count, count);
         
-        Gtk.RadioAction? action = get_action("CommonSortEventsAscending") as Gtk.RadioAction;
+        var action = get_action("CommonSortEvents") as GLib.SimpleAction;
         assert(action != null);
-        action.changed.connect(on_sort_changed);
+        action.change_state.connect(on_sort_changed);
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -165,12 +153,12 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         LibraryWindow.get_app().switch_to_event(event.event);
     }
     
-    private void on_sort_changed(Gtk.Action action, Gtk.Action c) {
-        Gtk.RadioAction current = (Gtk.RadioAction) c;
-        
+    private void on_sort_changed(GLib.SimpleAction action, Variant? value) {
         get_view().set_comparator(
-            get_event_comparator(current.current_value == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING),
+            get_event_comparator(value.get_string() == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING),
             event_comparator_predicate);
+
+        action.set_state (value);
     }
     
     private void on_rename() {
@@ -213,12 +201,14 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
-    private void on_display_comments(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
+    private void on_display_comments(GLib.SimpleAction action, Variant? value) {
+        bool display = value.get_boolean ();
         
         set_display_comments(display);
         
         Config.Facade.get_instance().set_display_event_comments(display);
+
+        action.set_state (value);
     }
     
     public override SearchViewFilter get_search_view_filter() {

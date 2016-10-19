@@ -34,8 +34,8 @@ public abstract class CollectionPage : MediaPage {
         
         get_view().items_altered.connect(on_photos_altered);
         
-        init_item_context_menu("/CollectionContextMenu");
-        init_toolbar("/CollectionToolbar");
+        init_item_context_menu("CollectionContextMenu");
+        init_toolbar("CollectionToolbar");
         
         show_all();
 
@@ -46,7 +46,7 @@ public abstract class CollectionPage : MediaPage {
     public override Gtk.Toolbar get_toolbar() {
         if (toolbar == null) {
             base.get_toolbar();
-            
+
             // separator to force slider to right side of toolbar
             Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
             separator.set_expand(true);
@@ -69,66 +69,78 @@ public abstract class CollectionPage : MediaPage {
     }
     
     private static InjectionGroup create_file_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MenuBar/FileMenu/FileExtrasPlaceholder");
+        InjectionGroup group = new InjectionGroup("FileExtrasPlaceholder");
         
-        group.add_menu_item("Print");
+        group.add_menu_item(_("_Print"), "Print", "<Primary>p");
         group.add_separator();
-        group.add_menu_item("Publish");
-        group.add_menu_item("SendTo");
-        group.add_menu_item("SetBackground");
+        group.add_menu_item(_("_Publish"), "Publish", "<Primary><Shift>p");
+        group.add_menu_item(_("Send _To…"), "SendTo");
+        group.add_menu_item(_("Set as _Desktop Background"), "SetBackground");
         
         return group;
     }
     
     private static InjectionGroup create_edit_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MenuBar/EditMenu/EditExtrasPlaceholder");
+        InjectionGroup group = new InjectionGroup("EditExtrasPlaceholder");
         
-        group.add_menu_item("Duplicate");
+        group.add_menu_item(_("_Duplicate"), "Duplicate", "<Primary>D");
 
         return group;
     }
 
     private static InjectionGroup create_view_menu_fullscreen_injectables() {
-        InjectionGroup group = new InjectionGroup("/MenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder");
+        InjectionGroup group = new InjectionGroup("ViewExtrasFullscreenSlideshowPlaceholder");
         
-        group.add_menu_item("Fullscreen", "CommonFullscreen");
+        group.add_menu_item(_("Fullscreen"), "CommonFullscreen", "F11");
         group.add_separator();
-        group.add_menu_item("Slideshow");
+        group.add_menu_item(_("S_lideshow"), "Slideshow", "F5");
         
         return group;
     }
 
     private static InjectionGroup create_photos_menu_edits_injectables() {
-        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder");
+        InjectionGroup group = new InjectionGroup("PhotosExtrasEditsPlaceholder");
         
-        group.add_menu_item("RotateClockwise");
-        group.add_menu_item("RotateCounterclockwise");
-        group.add_menu_item("FlipHorizontally");
-        group.add_menu_item("FlipVertically");
+        group.add_menu_item(_("Rotate _Right"),
+                            "RotateClockwise",
+                            "<Primary>r");
+        group.add_menu_item(_("Rotate _Left"),
+                            "RotateCounterclockwise",
+                            "<Primary><Shift>r");
+        group.add_menu_item(_("Flip Hori_zontally"), "FlipHorizontally");
+        group.add_menu_item(_("Flip Verti_cally"), "FlipVertically");
         group.add_separator();
-        group.add_menu_item("Enhance");
-        group.add_menu_item("Revert");
+        group.add_menu_item(_("_Enhance"), "Enhance");
+        group.add_menu_item(_("Re_vert to Original"), "Revert");
         group.add_separator();
-        group.add_menu_item("CopyColorAdjustments");
-        group.add_menu_item("PasteColorAdjustments");
+        group.add_menu_item(_("_Copy Color Adjustments"),
+                            "CopyColorAdjustments",
+                            "<Primary><Shift>c");
+        group.add_menu_item(_("_Paste Color Adjustments"),
+                            "PasteColorAdjustments",
+                            "<Primary><Shift>v");
         
         return group;
     }
   
     private static InjectionGroup create_photos_menu_date_injectables() {
-        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder");
+        InjectionGroup group = new InjectionGroup("PhotosExtrasDateTimePlaceholder");
         
-        group.add_menu_item("AdjustDateTime");
+        group.add_menu_item(_("Adjust Date and Time…"), "AdjustDateTime");
         
         return group;
     }
 
     private static InjectionGroup create_photos_menu_externals_injectables() {
-        InjectionGroup group = new InjectionGroup("/MenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
+        InjectionGroup group = new InjectionGroup("PhotosExtrasExternalsPlaceholder");
         
-        group.add_menu_item("ExternalEdit");
-        group.add_menu_item("ExternalEditRAW");
-        group.add_menu_item("PlayVideo");
+        group.add_menu_item(_("Open With E_xternal Editor"),
+                            "ExternalEdit",
+                            "<Primary>Return");
+        group.add_menu_item(_("Open With RA_W Editor"),
+                            "ExternalEditRAW",
+                            "<Primary><Shift>Return");
+        group.add_menu_item(_("_Play"), "PlayVideo", "<Primary>Y");
         
         return group;
     }
@@ -138,102 +150,32 @@ public abstract class CollectionPage : MediaPage {
         
         ui_filenames.add("collection.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-        Gtk.ActionEntry print = { "Print", Resources.PRINT_LABEL, TRANSLATABLE, "<Ctrl>P",
-            TRANSLATABLE, on_print };
-        print.label = Resources.PRINT_MENU;
-        actions += print;
-        
-        Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
-            TRANSLATABLE, on_publish };
-        publish.label = Resources.PUBLISH_MENU;
-        publish.tooltip = Resources.PUBLISH_TOOLTIP;
-        actions += publish;
-  
-        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
-            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
-        rotate_right.label = Resources.ROTATE_CW_MENU;
-        rotate_right.tooltip = Resources.ROTATE_CW_TOOLTIP;
-        actions += rotate_right;
+    private const GLib.ActionEntry[] entries = {
+        { "Print", on_print },
+        { "Publish", on_publish },
+        { "RotateClockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", on_rotate_counterclockwise },
+        { "FlipHorizontally", on_flip_horizontally },
+        { "FlipVertically", on_flip_vertically },
+        { "Enhance", on_enhance },
+        { "CopyColorAdjustments", on_copy_adjustments },
+        { "PasteColorAdjustments", on_paste_adjustments },
+        { "Revert", on_revert },
+        { "SetBackground", on_set_background },
+        { "Duplicate", on_duplicate_photo },
+        { "AdjustDateTime", on_adjust_date_time },
+        { "ExternalEdit", on_external_edit },
+        { "ExternalEditRAW", on_external_edit_raw },
+        { "Slideshow", on_slideshow }
+    };
 
-        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
-        rotate_left.label = Resources.ROTATE_CCW_MENU;
-        rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
-        actions += rotate_left;
+    protected override void add_actions () {
+        base.add_actions ();
 
-        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_horizontally };
-        hflip.label = Resources.HFLIP_MENU;
-        actions += hflip;
-        
-        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip_vertically };
-        vflip.label = Resources.VFLIP_MENU;
-        actions += vflip;
-
-        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
-            TRANSLATABLE, on_enhance };
-        enhance.label = Resources.ENHANCE_MENU;
-        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
-        actions += enhance;
-
-        Gtk.ActionEntry copy_adjustments = { "CopyColorAdjustments", null, TRANSLATABLE,
-            "<Ctrl><Shift>C", TRANSLATABLE, on_copy_adjustments};
-        copy_adjustments.label = Resources.COPY_ADJUSTMENTS_MENU;
-        copy_adjustments.tooltip = Resources.COPY_ADJUSTMENTS_TOOLTIP;
-        actions += copy_adjustments;
-
-        Gtk.ActionEntry paste_adjustments = { "PasteColorAdjustments", null, TRANSLATABLE,
-            "<Ctrl><Shift>V", TRANSLATABLE, on_paste_adjustments};
-        paste_adjustments.label = Resources.PASTE_ADJUSTMENTS_MENU;
-        paste_adjustments.tooltip = Resources.PASTE_ADJUSTMENTS_TOOLTIP;
-        actions += paste_adjustments;
-
-        Gtk.ActionEntry revert = { "Revert", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_revert };
-        revert.label = Resources.REVERT_MENU;
-        actions += revert;
-        
-        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
-            TRANSLATABLE, on_set_background };
-        set_background.label = Resources.SET_BACKGROUND_MENU;
-        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
-        actions += set_background;
-
-        Gtk.ActionEntry duplicate = { "Duplicate", null, TRANSLATABLE, "<Ctrl>D", TRANSLATABLE,
-            on_duplicate_photo };
-        duplicate.label = Resources.DUPLICATE_PHOTO_MENU;
-        duplicate.tooltip = Resources.DUPLICATE_PHOTO_TOOLTIP;
-        actions += duplicate;
-
-        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_adjust_date_time };
-        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
-        actions += adjust_date_time;
-        
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Resources.EDIT_LABEL, TRANSLATABLE, "<Ctrl>Return",
-            TRANSLATABLE, on_external_edit };
-        external_edit.label = Resources.EXTERNAL_EDIT_MENU;
-        actions += external_edit;
-        
-        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
-            TRANSLATABLE, on_external_edit_raw };
-        edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
-        actions += edit_raw;
-        
-        Gtk.ActionEntry slideshow = { "Slideshow", null, TRANSLATABLE, "F5", TRANSLATABLE,
-            on_slideshow };
-        slideshow.label = _("S_lideshow");
-        slideshow.tooltip = _("Play a slideshow");
-        actions += slideshow;
-        
-        return actions;
+        AppWindow.get_instance ().add_action_entries (entries, this);
     }
-    
+
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
@@ -321,12 +263,13 @@ public abstract class CollectionPage : MediaPage {
         
         set_action_sensitive("SetBackground", (!selection_has_videos) && has_selected );
         if (has_selected) {
-            Gtk.Action? set_background = get_action("SetBackground");
+            debug ("Setting action label for SetBackground...");
+/*            Gtk.Action? set_background = get_action("SetBackground");
             if (set_background != null) {
                 set_background.label = one_selected
                     ? Resources.SET_BACKGROUND_MENU
                     : Resources.SET_BACKGROUND_SLIDESHOW_MENU;
-            }
+            } */
         }
     }
 
@@ -745,20 +688,24 @@ public abstract class CollectionPage : MediaPage {
     }
     
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
-        Gtk.ToolButton? rotate_button = ui.get_widget("/CollectionToolbar/ToolRotate")
-            as Gtk.ToolButton;
-        if (rotate_button != null)
-            rotate_button.set_related_action(get_action("RotateCounterclockwise"));
-        
+        Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+        if (rotate_button != null) {
+            rotate_button.set_action_name ("win.RotateCounterclockwise");
+            rotate_button.set_icon_name ("object-rotate-left");
+            rotate_button.set_tooltip_text (Resources.ROTATE_CCW_TOOLTIP);
+        }
+
         return base.on_ctrl_pressed(event);
     }
     
     protected override bool on_ctrl_released(Gdk.EventKey? event) {
-        Gtk.ToolButton? rotate_button = ui.get_widget("/CollectionToolbar/ToolRotate")
-            as Gtk.ToolButton;
-        if (rotate_button != null)
-            rotate_button.set_related_action(get_action("RotateClockwise"));
-        
+        Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+        if (rotate_button != null) {
+            rotate_button.set_action_name ("win.RotateClockwise");
+            rotate_button.set_icon_name ("object-rotate-right");
+            rotate_button.set_tooltip_text (Resources.ROTATE_CW_TOOLTIP);
+        }
+
         return base.on_ctrl_released(event);
     }
     
