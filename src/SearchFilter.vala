@@ -678,14 +678,12 @@ public class SearchFilterToolbar : Gtk.Revealer {
         public LabelToolItem(string s, int left_padding = 0, int right_padding = 0) {
             label = new Gtk.Label(s);
             if (left_padding != 0 || right_padding != 0) {
-                Gtk.Alignment alignment = new Gtk.Alignment(0, 0.5f, 0, 0);
-                alignment.add(label);
-                alignment.left_padding = left_padding;
-                alignment.right_padding = right_padding;
-                add(alignment);
-            } else {
-                add(label);
+                label.halign = Gtk.Align.START;
+                label.valign = Gtk.Align.CENTER;
+                label.margin_start = left_padding;
+                label.margin_end = right_padding;
             }
+            add (label);
         }
     }
     
