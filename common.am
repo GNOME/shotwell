@@ -12,7 +12,9 @@ COMMON_CFLAGS = \
 	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
 	-D_LANG_SUPPORT_DIR='"$(prefix)/share/locale"' \
 	-D_LIBEXECDIR='"$(libexecdir)"' \
-	-D_LIB='"$(libdir)"'
+	-D_LIB='"$(libdir)"' \
+	-Wno-incompatible-pointer-types \
+	-Wno-discarded-qualifiers
 
 if IS_GITVERSION
 COMMON_CFLAGS += -D_GIT_VERSION='"@GITVER@"'
