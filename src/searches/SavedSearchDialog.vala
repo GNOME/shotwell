@@ -14,7 +14,6 @@ public class SavedSearchDialog {
         
         private Gtk.ComboBoxText type_combo;
         private Gtk.Box box;
-        private Gtk.Alignment align;
         private Gtk.Button remove_button;
         private SearchCondition.SearchType[] search_types;
         private Gee.HashMap<SearchCondition.SearchType, int> search_types_index;
@@ -51,13 +50,9 @@ public class SavedSearchDialog {
             remove_button = new Gtk.Button.from_icon_name("list-remove-symbolic", Gtk.IconSize.BUTTON);
             remove_button.button_press_event.connect(on_removed);
             
-            align = new Gtk.Alignment(0,0,0,0);
-        
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(type_combo, false, false, 0);
-            box.pack_start(align, false, false, 0);
-            box.pack_start(new Gtk.Alignment(0,0,0,0), true, true, 0); // Fill space.
-            box.pack_start(remove_button, false, false, 0);
+            box.pack_end(remove_button, false, false, 0);
             box.show_all();
         }
         
@@ -72,7 +67,7 @@ public class SavedSearchDialog {
         
         private void set_type(SearchCondition.SearchType type) {
             if (my_row != null)
-                align.remove(my_row.get_widget());
+                box.remove(my_row.get_widget());
             
             switch (type) {
                 case SearchCondition.SearchType.ANY_TEXT:
@@ -105,11 +100,10 @@ public class SavedSearchDialog {
                     break;
                 
                 default:
-                    assert(false);
-                    break;
+                    assert_not_reached ();
             }
             
-            align.add(my_row.get_widget());
+            box.pack_start (my_row.get_widget());
         }
         
         public SearchCondition.SearchType get_search_type() {
@@ -707,6 +701,7 @@ public class SavedSearchDialog {
         dialog.set_default_response(Gtk.ResponseType.OK);
         dialog.response.connect(on_response);
         dialog.get_content_area().add(builder.get_object("criteria") as Gtk.Widget);
+        dialog.set_default_response (Gtk.ResponseType.OK);
 
         add_criteria = builder.get_object("Add search button") as Gtk.Button;
         add_criteria.button_press_event.connect(on_add_criteria);
