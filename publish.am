@@ -12,6 +12,7 @@ dist_noinst_DATA += \
 	plugins/shotwell-publishing/picasa_publishing_options_pane.ui \
 	plugins/shotwell-publishing/piwigo_authentication_pane.ui \
 	plugins/shotwell-publishing/piwigo_publishing_options_pane.ui \
+	plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui \
 	plugins/shotwell-publishing/youtube_publishing_options_pane.ui \
 	plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
 
