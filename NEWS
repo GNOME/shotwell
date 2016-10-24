@@ -1,3 +1,75 @@
+Shotwell 0.25.0 - 24 Oct 2016
+  * Add contrast to improvements
+  * Add a log when shifting events
+  * Add a debug output of the current timezone
+  * Fix compilation with recent Vala compiler
+  * Fix focus handling of full-screen viewer
+  * Remove obsolete CSS style property
+  * Support ACDSEE tags
+  * Use unicode characters
+  * Remove deprecated calls
+  * Silence two C warnings that are usually caused by valac
+  * Refactor web authenticator
+  * Spelling fixes
+  * Piwigo: Add option to override SSL certificate handling
+  * Piwigo: Add option to show the SSL certificate
+  * Remove an old GTK+ work-around
+  * Remove deprecated GSettings calls
+  * Persist export dialog settings
+  * Remove deprecated elements from export dialog
+  * Port web plugins to new libsoup API
+  * Fix libraw binding
+  * Piwigo: Fix new album creation
+  * Blacklist vaapi decoder to prevent crashes in video meta data extraction
+  * Hide "Folder" side-bar when empty
+  * Enable SQL debugging through environment variable
+
+Added/Updated requirements:
+  GExiv2 >= 0.10.4
+  GCR-3
+  GLib >= 2.40
+  GTK+ >= 3.14
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716259
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716660
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718586
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719127
+ - https://bugzilla.gnome.org/show_bug.cgi?id=762416
+ - https://bugzilla.gnome.org/show_bug.cgi?id=765149
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767126
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767473
+ - https://bugzilla.gnome.org/show_bug.cgi?id=771969
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772295
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772648
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Josh Freeman <josh@twilightedge.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Benedikt M. Thoma <gnome@thomba.net>
+ - Balázs Meskó <meskobalazs@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - ca, courtesy of Jordi Mas
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Christian Kirbach
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - hu, courtesy of Meskó Balázs
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.24.0 - 20 Sep 2016
   * Fix a memory leak in library mode
   * Translation updates

@@ -1,3 +1,33 @@
+shotwell (0.25.-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Add contrast to improvements
+  * Add a log when shifting events
+  * Add a debug output of the current timezone
+  * Fix compilation with recent Vala compiler
+  * Fix focus handling of full-screen viewer
+  * Remove obsolete CSS style property
+  * Support ACDSEE tags
+  * Use unicode characters
+  * Remove deprecated calls
+  * Silence two C warnings that are usually caused by valac
+  * Refactor web authenticator
+  * Spelling fixes
+  * Piwigo: Add option to override SSL certificate handling
+  * Piwigo: Add option to show the SSL certificate
+  * Remove an old GTK+ work-around
+  * Remove deprecated GSettings calls
+  * Persist export dialog settings
+  * Remove deprecated elements from export dialog
+  * Port web plugins to new libsoup API
+  * Fix libraw binding
+  * Piwigo: Fix new album creation
+  * Blacklist vaapi decoder to prevent crashes in video meta data extraction
+  * Hide "Folder" side-bar when empty
+  * Enable SQL debugging through environment variable
+
+
+ -- Jens Georg <mail@jensge.org>  Mon, 24 Oct 2016 20:07:30 +0200
+
 shotwell (0.23.7-1~jensge1~xenial1) xenial; urgency=medium
 
   * Language updates
