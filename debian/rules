@@ -27,7 +27,7 @@ override_dh_auto_configure:
 override_dh_strip:
 	dh_strip --dbg-package=shotwell-dbg
 
-override_dh_mkshlibs:
+override_dh_makeshlibs:
 	dh_mkshlibs -X /usr/lib/shotwell
 
 override_dh_install:

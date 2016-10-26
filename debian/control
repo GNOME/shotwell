@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 9),
  libatk1.0-dev (>= 1.30.0),
  libexif-dev (>= 0.6.16),
  libgee-0.8-dev (>= 0.8.5),
- libgexiv2-dev (>= 0.4.90),
+ libgexiv2-dev (>= 0.10.4),
  libglib2.0-dev (>= 2.30.0),
  libgphoto2-dev (>= 2.5.0),
  libgstreamer1.0-dev (>= 1.0.0),
@@ -27,7 +27,8 @@ Build-Depends: debhelper (>= 9),
  autotools-dev,
  yelp-tools,
  appstream-util,
- gettext ( >= 0.19.8)
+ gettext ( >= 0.19.8),
+ libgcr-3-dev ( >= 3.18)
 Standards-Version: 3.8.3
 Homepage: https://wiki.gnome.org/Apps/Shotwell/
 
