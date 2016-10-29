@@ -85,6 +85,10 @@ internal class Category {
     public bool is_local() {
         return this.id == NO_ID;
     }
+
+    public static bool equal (Category self, Category other) {
+        return self.id == other.id;
+    }
 }
 
 internal class PermissionLevel {
@@ -1179,12 +1183,10 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
 /**
  * The publishing options pane.
  */
-internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
+internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private static string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
 
-    private Gtk.Box pane_widget = null;
-    private Gtk.Builder builder;
     private Gtk.RadioButton use_existing_radio;
     private Gtk.RadioButton create_new_radio;
     private Gtk.ComboBoxText existing_categories_combo;
@@ -1200,89 +1202,88 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.Button publish_button;
     private Gtk.TextView album_comment;
     private Gtk.Label album_comment_label;
-    
-    private Category[] existing_categories;
+
     private PermissionLevel[] perm_levels;
     private SizeEntry[] photo_sizes;
-    
-    private int last_category;
-    private int last_permission_level;
-    private int last_photo_size;
-    private bool last_title_as_comment;
-    private bool last_no_upload_tags;
+
+    public int last_category { private get; construct; }
+    public int last_permission_level { private get; construct; }
+    public int last_photo_size { private get; construct; }
+    public bool last_title_as_comment { private get; construct; }
+    public bool last_no_upload_tags { private get; construct; }
+    public bool strip_metadata_enabled { private get; construct; }
+    public Gee.List<Category> existing_categories { private get; construct; }
+    public string default_comment { private get; construct; }
 
     public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
 
-    public PublishingOptionsPane(
-        PiwigoPublisher publisher, Category[] categories,
-        int last_category, int last_permission_level, int last_photo_size,
-        bool last_title_as_comment, bool last_no_upload_tags, bool strip_metadata_enabled
-    ) {
-        this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        this.last_category = last_category;
-        this.last_permission_level = last_permission_level;
-        this.last_photo_size = last_photo_size;
-        this.last_title_as_comment = last_title_as_comment;
-        this.last_no_upload_tags = last_no_upload_tags;
+    public PublishingOptionsPane(PiwigoPublisher publisher,
+                                 Category[] categories,
+                                 int last_category,
+                                 int last_permission_level,
+                                 int last_photo_size,
+                                 bool last_title_as_comment,
+                                 bool last_no_upload_tags,
+                                 bool strip_metadata_enabled) {
+        Object (resource_path : Resources.RESOURCE_PATH +
+                                "/piwigo_publishing_options_pane.ui",
+                connect_signals : true,
+                default_id : "publish_button",
+                last_category : last_category,
+                last_permission_level : last_permission_level,
+                last_photo_size : last_photo_size,
+                last_title_as_comment : last_title_as_comment,
+                last_no_upload_tags : last_no_upload_tags,
+                strip_metadata_enabled : strip_metadata_enabled,
+                existing_categories : new Gee.ArrayList<Category>.wrap (categories,
+                                                          Category.equal),
+                default_comment : get_common_comment_if_possible (publisher));
+    }
 
-        try {
-            builder = new Gtk.Builder();
-            builder.add_from_resource (Resources.RESOURCE_PATH + "/piwigo_publishing_options_pane.ui");
-            builder.connect_signals(null);
-            var content = builder.get_object ("content") as Gtk.Box;
-            
-            use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
-            create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
-            existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
-            new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
-            within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
-            within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
+    public override void constructed () {
+        base.constructed ();
+        var builder = this.get_builder ();
 
-            album_comment = builder.get_object ("album_comment") as Gtk.TextView;
-            album_comment.buffer = new Gtk.TextBuffer(null);
-            album_comment_label = builder.get_object ("album_comment_label") as Gtk.Label;
+        use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
+        create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
+        existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
+        new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
+        within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
+        within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
 
-            perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
-            size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
+        album_comment = builder.get_object ("album_comment") as Gtk.TextView;
+        album_comment.buffer = new Gtk.TextBuffer(null);
+        album_comment_label = builder.get_object ("album_comment_label") as Gtk.Label;
 
-            strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
-            strip_metadata_check.set_active(strip_metadata_enabled);
+        perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
+        size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
 
-            title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
-            title_as_comment_check.set_active(last_title_as_comment);
+        strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
+        strip_metadata_check.set_active(strip_metadata_enabled);
 
-            no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
-            no_upload_tags_check.set_active(last_no_upload_tags);
+        title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
+        title_as_comment_check.set_active(last_title_as_comment);
 
-            logout_button = builder.get_object("logout_button") as Gtk.Button;
-            logout_button.clicked.connect(on_logout_button_clicked);
+        no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
+        no_upload_tags_check.set_active(last_no_upload_tags);
 
-            publish_button = builder.get_object("publish_button") as Gtk.Button;
-            publish_button.clicked.connect(on_publish_button_clicked);
-            
-            use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
-            create_new_radio.clicked.connect(on_create_new_radio_clicked);
-            new_category_entry.changed.connect(on_new_category_entry_changed);
-            within_existing_combo.changed.connect(on_existing_combo_changed);
+        logout_button = builder.get_object("logout_button") as Gtk.Button;
+        logout_button.clicked.connect(on_logout_button_clicked);
 
-            content.parent.remove (content);
-            pane_widget.add (content);
-            pane_widget.set_child_packing (content, true, true, 0, Gtk.PackType.START);
-        } catch (Error e) {
-            warning("Could not load UI: %s", e.message);
-        }
-        
-        this.existing_categories = categories;
+        publish_button = builder.get_object("publish_button") as Gtk.Button;
+        publish_button.clicked.connect(on_publish_button_clicked);
+
+        use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
+        create_new_radio.clicked.connect(on_create_new_radio_clicked);
+        new_category_entry.changed.connect(on_new_category_entry_changed);
+        within_existing_combo.changed.connect(on_existing_combo_changed);
+
         this.perm_levels = create_perm_levels();
         this.photo_sizes = create_sizes();
-        this.album_comment.buffer.set_text(get_common_comment_if_possible(publisher));
+        this.album_comment.buffer.set_text(this.default_comment);
     }
-    
-    public Gtk.Widget get_default_widget() {
-        return publish_button;
-    }
-    
+
     private PermissionLevel[] create_perm_levels() {
         PermissionLevel[] result = new PermissionLevel[0];
 
@@ -1386,16 +1387,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             )
         );
     }
-    
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public void on_pane_installed() {
+
+    public override void on_pane_installed() {
+        base.on_pane_installed ();
+
         create_categories_combo();
         create_within_categories_combo();
         create_permissions_combo();
@@ -1404,8 +1399,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         publish_button.can_default = true;
         update_publish_button_sensitivity();
     }
-    
-    private string get_common_comment_if_possible(PiwigoPublisher publisher) {
+
+    private static string get_common_comment_if_possible(PiwigoPublisher publisher) {
         // we have to determine whether all the publishing items
         // belong to the same event
         Spit.Publishing.Publishable[] publishables = publisher.get_host().get_publishables();
@@ -1438,7 +1433,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         foreach (Category cat in existing_categories) {
             existing_categories_combo.append_text(cat.display_name);
         }
-        if (existing_categories.length == 0) {
+        if (existing_categories.is_empty) {
             // if no existing categories, disable the option to choose one
             existing_categories_combo.set_sensitive(false);
             use_existing_radio.set_sensitive(false);
@@ -1448,11 +1443,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             new_category_entry.grab_focus();
         } else {
             int last_category_index = find_category_index(last_category);
-            if (last_category_index < 0) {
-                existing_categories_combo.set_active(0);
-            } else {
-                existing_categories_combo.set_active(last_category_index);
-            }
+            existing_categories_combo.set_active(last_category_index);
             new_category_entry.set_sensitive(false);
             album_comment.set_sensitive(false);
             album_comment_label.set_sensitive(false);
@@ -1496,13 +1487,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             size_combo.set_active(last_size_index);
         }
     }
-    
-    public void on_pane_uninstalled() {
-    }
-    
+
     private int find_category_index(int category_id) {
-        int result = -1;
-        for(int i = 0; i < existing_categories.length; i++) {
+        int result = 0;
+        for(int i = 0; i < existing_categories.size; i++) {
             if (existing_categories[i].id == category_id) {
                 result = i;
                 break;
