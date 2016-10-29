@@ -1076,18 +1076,20 @@ internal class SSLErrorPane : Spit.Publishing.DialogPane, Object {
  * The authentication pane used when asking service URL, user name and password
  * from the user.
  */
-internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
+internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
     public enum Mode {
         INTRO,
         FAILED_RETRY_URL,
         FAILED_RETRY_USER
     }
+
+    public Mode mode { get; construct; }
+    public unowned PiwigoPublisher publisher { get; construct; }
+
     private static string INTRO_MESSAGE = _("Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library.");
     private static string FAILED_RETRY_URL_MESSAGE = _("Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered");
     private static string FAILED_RETRY_USER_MESSAGE = _("Username and/or password invalid. Please try again");
 
-    private Gtk.Box pane_widget = null;
-    private Gtk.Builder builder;
     private Gtk.Entry url_entry;
     private Gtk.Entry username_entry;
     private Gtk.Entry password_entry;
@@ -1096,67 +1098,64 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
 
     public signal void login(string url, string user, string password, bool remember_password);
 
-    public AuthenticationPane(PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
-        this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        try {
-            builder = new Gtk.Builder();
-            builder.add_from_resource (Resources.RESOURCE_PATH + "/piwigo_authentication_pane.ui");
-            builder.connect_signals(null);
-            var content = builder.get_object ("content") as Gtk.Box;
-            
-            Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
-            switch (mode) {
-                case Mode.INTRO:
-                    message_label.set_text(INTRO_MESSAGE);
-                    break;
-
-                case Mode.FAILED_RETRY_URL:
-                    message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
-                        "Invalid URL"), FAILED_RETRY_URL_MESSAGE));
-                    break;
-
-                case Mode.FAILED_RETRY_USER:
-                    message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
-                        "Invalid User Name or Password"), FAILED_RETRY_USER_MESSAGE));
-                    break;
-            }
-
-            url_entry = builder.get_object ("url_entry") as Gtk.Entry;
-            string? persistent_url = publisher.get_persistent_url();
-            if (persistent_url != null) {
-                url_entry.set_text(persistent_url);
-            }
-            username_entry = builder.get_object ("username_entry") as Gtk.Entry;
-            string? persistent_username = publisher.get_persistent_username();
-            if (persistent_username != null) {
-                username_entry.set_text(persistent_username);
-            }
-            password_entry = builder.get_object ("password_entry") as Gtk.Entry;
-            string? persistent_password = publisher.get_persistent_password();
-            if (persistent_password != null) {
-                password_entry.set_text(persistent_password);
-            }
-            remember_password_checkbutton =
-                builder.get_object ("remember_password_checkbutton") as
-                Gtk.Switch;
-            remember_password_checkbutton.set_active(publisher.get_remember_password());
-
-            login_button = builder.get_object("login_button") as Gtk.Button;
-
-            username_entry.changed.connect(on_user_changed);
-            url_entry.changed.connect(on_url_changed);
-            password_entry.changed.connect(on_password_changed);
-            login_button.clicked.connect(on_login_button_clicked);
-            content.parent.remove (content);
-            pane_widget.add (content);
-
-            publisher.get_host().set_dialog_default_widget(login_button);
-        } catch (Error e) {
-            warning("Could not load UI: %s", e.message);
-        }
+    public AuthenticationPane (PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
+        Object (resource_path : Resources.RESOURCE_PATH +
+                                "/piwigo_authentication_pane.ui",
+                connect_signals : true,
+                mode : mode,
+                publisher : publisher);
     }
-    
+
+    public override void constructed () {
+        base.constructed ();
+
+        var builder = this.get_builder ();
+        var message_label = builder.get_object("message_label") as Gtk.Label;
+        switch (mode) {
+            case Mode.INTRO:
+                message_label.set_text(INTRO_MESSAGE);
+                break;
+
+            case Mode.FAILED_RETRY_URL:
+                message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
+                    "Invalid URL"), FAILED_RETRY_URL_MESSAGE));
+                break;
+
+            case Mode.FAILED_RETRY_USER:
+                message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
+                    "Invalid User Name or Password"), FAILED_RETRY_USER_MESSAGE));
+                break;
+        }
+
+        url_entry = builder.get_object ("url_entry") as Gtk.Entry;
+        string? persistent_url = publisher.get_persistent_url();
+        if (persistent_url != null) {
+            url_entry.set_text(persistent_url);
+        }
+        username_entry = builder.get_object ("username_entry") as Gtk.Entry;
+        string? persistent_username = publisher.get_persistent_username();
+        if (persistent_username != null) {
+            username_entry.set_text(persistent_username);
+        }
+        password_entry = builder.get_object ("password_entry") as Gtk.Entry;
+        string? persistent_password = publisher.get_persistent_password();
+        if (persistent_password != null) {
+            password_entry.set_text(persistent_password);
+        }
+        remember_password_checkbutton =
+            builder.get_object ("remember_password_checkbutton") as Gtk.Switch;
+        remember_password_checkbutton.set_active(publisher.get_remember_password());
+
+        login_button = builder.get_object("login_button") as Gtk.Button;
+
+        username_entry.changed.connect(on_user_changed);
+        url_entry.changed.connect(on_url_changed);
+        password_entry.changed.connect(on_password_changed);
+        login_button.clicked.connect(on_login_button_clicked);
+
+        publisher.get_host().set_dialog_default_widget(login_button);
+    }
+
     public Gtk.Widget get_default_widget() {
         return login_button;
     }
@@ -1184,22 +1183,13 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
                                    password_entry.text_length != 0);
     }
     
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public void on_pane_installed() {
+    public override void on_pane_installed() {
+        base.on_pane_installed ();
+
         url_entry.grab_focus();
         password_entry.set_activates_default(true);
         login_button.can_default = true;
         update_login_button_sensitivity();
-    }
-    
-    public void on_pane_uninstalled() {
     }
 }
 
