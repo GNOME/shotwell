@@ -29,8 +29,17 @@ nodist_plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/resource.c
 MOSTLYCLEANFILES += plugins/shotwell-publishing/resource.c
 
-plugins/shotwell-publishing/resource.c: plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing --generate $<
+PUBLISHING_RESOURCE_FILE := plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
+
+PUBLISHING_RESOURCE_DEPS = $(shell $(GLIB_COMPILE_RESOURCES) \
+		--sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing \
+		--generate-dependencies $(PUBLISHING_RESOURCE_FILE))
+
+plugins/shotwell-publishing/resource.c: $(PUBLISHING_RESOURCE_DEPS) $(PUBLISHING_RESOURCE_FILE)
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) \
+		--target=$@ \
+		--sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing \
+		--generate $(PUBLISHING_RESOURCE_FILE)
 
 plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
