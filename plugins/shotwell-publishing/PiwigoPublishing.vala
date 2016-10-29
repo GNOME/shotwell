@@ -613,35 +613,29 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             string name = "";
             string id_string = "";
             string uppercats = "";
+            var id_map = new Gee.HashMap<string, string> ();
+
             for ( ; category_node_iter != null; category_node_iter = category_node_iter->next) {
                 name_node = doc.get_named_child(category_node_iter, "name");
                 name = name_node->get_content();
                 uppercats_node = doc.get_named_child(category_node_iter, "uppercats");
                 uppercats = (string)uppercats_node->get_content();
                 id_string = category_node_iter->get_prop("id");
+                id_map.set (id_string, name);
+
                 if (categories == null) {
                     categories = new Category[0];
                 }
                 categories += new Category(int.parse(id_string), name, uppercats);
             }
+
             // compute the display name for the categories
-            // currently done by an unnecessary triple loop
-            // one could make a loop that goes over the categories
-            // and creates a list of back references cat_id -> index
-            // but since cat_ids are not guaranteed to be continuous
-            // that needs a perl hash ;-)
             for(int i = 0; i < categories.length; i++) {
                 string[] upcatids = categories[i].uppercats.split(",");
                 var builder = new StringBuilder();
                 for (int j=0; j < upcatids.length; j++) {
                     builder.append ("/ ");
-                    // search for the upper category
-                    for (int k=0; k < categories.length; k++) {
-                        if (upcatids[j] == categories[k].id.to_string()) {
-                            builder.append (categories[k].name);
-                            break;
-                        }
-                    }
+                    builder.append (id_map.get (upcatids[j]));
                     builder.append (" ");
                 }
                 categories[i].display_name = builder.str;
