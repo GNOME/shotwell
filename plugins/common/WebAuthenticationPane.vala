@@ -14,7 +14,6 @@ namespace Shotwell.Plugins.Common {
         public string login_uri { owned get; construct; }
 
         private WebKit.WebView webview;
-        private Gtk.Box pane_widget;
 
         public override void constructed () {
             base.constructed ();
@@ -24,15 +23,12 @@ namespace Shotwell.Plugins.Common {
 
             this.webview.load_changed.connect (this.on_page_load_changed);
             this.webview.context_menu.connect ( () => { return false; });
-
-            this.pane_widget = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            this.pane_widget.pack_start (this.webview, true, true, 0);
         }
 
         public abstract void on_page_load ();
 
         protected void set_cursor (Gdk.CursorType type) {
-            var window = pane_widget.get_window ();
+            var window = webview.get_window ();
             var display = window.get_display ();
             var cursor = new Gdk.Cursor.for_display (display, type);
             window.set_cursor (cursor);
@@ -62,7 +58,7 @@ namespace Shotwell.Plugins.Common {
         }
 
         public Gtk.Widget get_widget() {
-            return pane_widget;
+            return this.webview;
         }
 
         public void on_pane_installed () {
