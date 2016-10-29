@@ -12,6 +12,9 @@ namespace Shotwell.Plugins.Common {
         }
         public string resource_path { owned get; construct; }
         public bool connect_signals { get; construct; default = false; }
+        public string default_id {
+            owned get; construct; default = "default";
+        }
 
         private Gtk.Builder builder;
         private Gtk.Widget content;
@@ -44,6 +47,10 @@ namespace Shotwell.Plugins.Common {
 
         public Gtk.Builder get_builder () {
             return this.builder;
+        }
+
+        public virtual Gtk.Widget get_default_widget () {
+            return this.get_builder ().get_object (this.default_id) as Gtk.Widget;
         }
 
         public virtual void on_pane_installed () {}

@@ -1056,10 +1056,6 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         var proceed = this.get_builder ().get_object ("proceed_button") as Gtk.Button;
         proceed.clicked.connect (() => { this.proceed (); });
     }
-
-    public Gtk.Widget get_default_widget () {
-        return this.get_builder ().get_object ("default") as Gtk.Widget;
-    }
 }
 
 /**
@@ -1092,6 +1088,7 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
         Object (resource_path : Resources.RESOURCE_PATH +
                                 "/piwigo_authentication_pane.ui",
                 connect_signals : true,
+                default_id : "login_button",
                 mode : mode,
                 publisher : publisher);
     }
@@ -1144,10 +1141,6 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
         login_button.clicked.connect(on_login_button_clicked);
 
         publisher.get_host().set_dialog_default_widget(login_button);
-    }
-
-    public Gtk.Widget get_default_widget() {
-        return login_button;
     }
 
     private void on_login_button_clicked() {
