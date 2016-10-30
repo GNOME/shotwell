@@ -46,8 +46,8 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-29 21:07+0000\n"
-"PO-Revision-Date: 2016-09-30 09:04+0200\n"
+"POT-Creation-Date: 2016-10-18 08:41+0000\n"
+"PO-Revision-Date: 2016-10-30 19:08+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -73,7 +73,7 @@ msgid ""
 "desktop. It allows you to import photos from your camera or disk, organize "
 "them by date and subject matter, even ratings. It also offers basic photo "
 "editing, like crop, red-eye correction, color adjustments, and straighten. "
-"Shotwell's non-destructive photo editor does not alter your master photos, "
+"Shotwell’s non-destructive photo editor does not alter your master photos, "
 "making it easy to experiment and correct errors."
 msgstr ""
 "Shotwell ist eine einfach zu bedienende, schnelle Fotoverwaltung, die für "
@@ -158,7 +158,7 @@ msgid "The secret token to sign oauth requests"
 msgstr "Geheimer Token zum Signieren von OAuth-Anfragen"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
-#: misc/org.yorba.shotwell.gschema.xml:416
+#: misc/org.yorba.shotwell.gschema.xml:486
 msgid "default size"
 msgstr "Standardgröße"
 
@@ -186,9 +186,9 @@ msgid "URL of the Rajce server."
 msgstr "Adresse des Rajce-Servers"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:46
-#: misc/org.yorba.shotwell.gschema.xml:384
-#: misc/org.yorba.shotwell.gschema.xml:442
-#: misc/org.yorba.shotwell.gschema.xml:498
+#: misc/org.yorba.shotwell.gschema.xml:454
+#: misc/org.yorba.shotwell.gschema.xml:512
+#: misc/org.yorba.shotwell.gschema.xml:568
 msgid "username"
 msgstr "Benutzername"
 
@@ -205,7 +205,7 @@ msgid "user token, if remembered."
 msgstr "Benutzer-Token, falls gespeichert."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
-#: misc/org.yorba.shotwell.gschema.xml:460
+#: misc/org.yorba.shotwell.gschema.xml:530
 msgid "last category"
 msgstr "Letzte Kategorie"
 
@@ -214,7 +214,7 @@ msgid "The last selected Rajce category."
 msgstr "Die zuletzt in Rajce ausgewählte Kategorie."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:64
-#: misc/org.yorba.shotwell.gschema.xml:472
+#: misc/org.yorba.shotwell.gschema.xml:542
 msgid "last photo size"
 msgstr "Letzte Bildgröße"
 
@@ -254,11 +254,11 @@ msgstr ""
 "geöffnet werden soll."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:88
-#: misc/org.yorba.shotwell.gschema.xml:364
-#: misc/org.yorba.shotwell.gschema.xml:402
-#: misc/org.yorba.shotwell.gschema.xml:428
-#: misc/org.yorba.shotwell.gschema.xml:478
-#: misc/org.yorba.shotwell.gschema.xml:522
+#: misc/org.yorba.shotwell.gschema.xml:434
+#: misc/org.yorba.shotwell.gschema.xml:472
+#: misc/org.yorba.shotwell.gschema.xml:498
+#: misc/org.yorba.shotwell.gschema.xml:548
+#: misc/org.yorba.shotwell.gschema.xml:592
 msgid "remove sensitive info from uploads"
 msgstr "Sensible Informationen entfernen"
 
@@ -269,58 +269,58 @@ msgid ""
 msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Rajce entfernt werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:22
+#: misc/org.yorba.shotwell.gschema.xml:23
 msgid "display basic properties"
 msgstr "Grundlegende Informationen anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:23
+#: misc/org.yorba.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise."
 msgstr ""
 "Legt fest, ob die grundlegenden Informationen angezeigt werden sollen oder "
 "nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:28
+#: misc/org.yorba.shotwell.gschema.xml:29
 msgid "display extended properties"
 msgstr "Erweiterte Informationen anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:29
+#: misc/org.yorba.shotwell.gschema.xml:30
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise."
 msgstr ""
 "Legt fest, ob das Fenster für die erweiterten Informationen angezeigt werden "
 "soll oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:34
+#: misc/org.yorba.shotwell.gschema.xml:35
 msgid "display sidebar"
 msgstr "Seitenleiste anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:35
+#: misc/org.yorba.shotwell.gschema.xml:36
 msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr "Legt fest, ob die Seitenleiste angezeigt werden soll oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:40
+#: misc/org.yorba.shotwell.gschema.xml:41
 msgid "display toolbar"
 msgstr "Werkzeugleiste anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:41
+#: misc/org.yorba.shotwell.gschema.xml:42
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgstr ""
 "Legt fest, ob die untere Werkzeugleiste angezeigt werden soll oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:46
+#: misc/org.yorba.shotwell.gschema.xml:47
 msgid "display search bar"
 msgstr "Suchleiste anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:47
+#: misc/org.yorba.shotwell.gschema.xml:48
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgstr ""
 "Legt fest, ob die Such- und Filterleiste angezeigt werden soll oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:52
+#: misc/org.yorba.shotwell.gschema.xml:53
 msgid "display photo titles"
 msgstr "Bildtitel anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:53
+#: misc/org.yorba.shotwell.gschema.xml:54
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
@@ -328,11 +328,11 @@ msgstr ""
 "Legt fest, ob Bildtitel unter den Vorschaubildern in Sammlungsansichten "
 "angezeigt werden sollen oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:58
+#: misc/org.yorba.shotwell.gschema.xml:59
 msgid "display photo comments"
 msgstr "Kommentare zu den Fotos anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:59
+#: misc/org.yorba.shotwell.gschema.xml:60
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
@@ -340,11 +340,11 @@ msgstr ""
 "Legt fest, ob Kommentare unter den Vorschaubildern in Sammlungsansichten "
 "angezeigt werden sollen oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:64
+#: misc/org.yorba.shotwell.gschema.xml:65
 msgid "display event comments"
 msgstr "Kommentare zu den Ereignissen anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:65
+#: misc/org.yorba.shotwell.gschema.xml:66
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise."
@@ -352,11 +352,11 @@ msgstr ""
 "Legt fest, ob Kommentare unter den Vorschaubildern in Ereignisansichten "
 "angezeigt werden sollen oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:70
+#: misc/org.yorba.shotwell.gschema.xml:71
 msgid "display photo tags"
 msgstr "Stichworte jedes Fotos anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:71
+#: misc/org.yorba.shotwell.gschema.xml:72
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise."
@@ -364,23 +364,23 @@ msgstr ""
 "Legt fest, ob Stichworte unter den Vorschaubildern in Sammlungsansichten "
 "angezeigt werden sollen oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:76
+#: misc/org.yorba.shotwell.gschema.xml:77
 msgid "display photo ratings"
 msgstr "Bewertung jedes Fotos anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:77
+#: misc/org.yorba.shotwell.gschema.xml:78
 msgid ""
-"True if a photo's rating should be displayed as overlaid trinket, false "
+"True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise."
 msgstr ""
 "Legt fest, ob Bewertungen als überlagerte Markierung angezeigt werden sollen "
 "oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:82
+#: misc/org.yorba.shotwell.gschema.xml:83
 msgid "rating filter level"
 msgstr "Filterstufe für Bewertungen"
 
-#: misc/org.yorba.shotwell.gschema.xml:83
+#: misc/org.yorba.shotwell.gschema.xml:84
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
@@ -391,60 +391,60 @@ msgstr ""
 "Zwei oder besser, 5: Drei oder besser, 6: Vier oder besser, 7: Fünf oder "
 "besser."
 
-#: misc/org.yorba.shotwell.gschema.xml:88
+#: misc/org.yorba.shotwell.gschema.xml:89
 msgid "sort events ascending"
 msgstr "Ereignisse absteigend sortieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:89
+#: misc/org.yorba.shotwell.gschema.xml:90
 msgid "True if events should be sorted ascending, false if descending."
 msgstr ""
 "Legt fest, ob Ereignisse aufsteigend sortiert werden sollen, anderenfalls "
 "absteigend."
 
-#: misc/org.yorba.shotwell.gschema.xml:94
+#: misc/org.yorba.shotwell.gschema.xml:95
 msgid "sort library photos ascending"
 msgstr "Fotos in der Bibliothek aufsteigend sortieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:95
+#: misc/org.yorba.shotwell.gschema.xml:96
 msgid "True if library photos should be sorted ascending, false if descending."
 msgstr ""
 "Legt fest, ob Fotos in der Bibliothek aufsteigend sortiert werden sollen, "
 "anderenfalls absteigend."
 
-#: misc/org.yorba.shotwell.gschema.xml:100
+#: misc/org.yorba.shotwell.gschema.xml:101
 msgid "sort library photos criteria"
 msgstr "Kriterien für Fotosortierung"
 
-#: misc/org.yorba.shotwell.gschema.xml:101
+#: misc/org.yorba.shotwell.gschema.xml:102
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views."
 msgstr ""
 "Ein Zahlencode, der die Sortierkriterien für Fotos in Bibliotheksansichten "
 "darstellt."
 
-#: misc/org.yorba.shotwell.gschema.xml:106
+#: misc/org.yorba.shotwell.gschema.xml:107
 msgid "sort event photos ascending"
 msgstr "Fotos in Ereignissen aufsteigend sortieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:107
+#: misc/org.yorba.shotwell.gschema.xml:108
 msgid "True if event photos should be sorted ascending, false if descending."
 msgstr ""
 "Legt fest, ob Fotos in Ereignissen aufsteigend sortiert werden sollen, "
 "anderenfalls absteigend."
 
-#: misc/org.yorba.shotwell.gschema.xml:112
+#: misc/org.yorba.shotwell.gschema.xml:113
 msgid "sort event photos criteria"
 msgstr "Kriterien für Fotosortierung in Ereignissen"
 
-#: misc/org.yorba.shotwell.gschema.xml:113
+#: misc/org.yorba.shotwell.gschema.xml:114
 msgid "Specifies the sort criteria for event photos."
 msgstr "Legt die Sortierkriterien für Fotos in Ereignissen fest."
 
-#: misc/org.yorba.shotwell.gschema.xml:118
+#: misc/org.yorba.shotwell.gschema.xml:119
 msgid "use 24 hour time"
 msgstr "Zeitangaben im 24-Stunden-System"
 
-#: misc/org.yorba.shotwell.gschema.xml:119
+#: misc/org.yorba.shotwell.gschema.xml:120
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation."
@@ -452,11 +452,11 @@ msgstr ""
 "Legt fest, ob Zeiten im 24-Stunden-Format angegeben werden sollen, "
 "anderenfalls im AM/PM-Format."
 
-#: misc/org.yorba.shotwell.gschema.xml:124
+#: misc/org.yorba.shotwell.gschema.xml:125
 msgid "keep relative time between photos"
 msgstr "Relative Zeit zwischen Fotos erhalten"
 
-#: misc/org.yorba.shotwell.gschema.xml:125
+#: misc/org.yorba.shotwell.gschema.xml:126
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time."
@@ -465,11 +465,11 @@ msgstr ""
 "erhalten bleiben soll, anderenfalls werden alle Fotos auf die gleiche Zeit "
 "gesetzt."
 
-#: misc/org.yorba.shotwell.gschema.xml:130
+#: misc/org.yorba.shotwell.gschema.xml:131
 msgid "modify original photo files"
 msgstr "Originale Bilddateien verändern"
 
-#: misc/org.yorba.shotwell.gschema.xml:131
+#: misc/org.yorba.shotwell.gschema.xml:132
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database."
@@ -478,11 +478,11 @@ msgstr ""
 "ebenfalls verändert werden sollen, oder die Zeitstempel nur in der Datenbank "
 "verändert werden."
 
-#: misc/org.yorba.shotwell.gschema.xml:136
+#: misc/org.yorba.shotwell.gschema.xml:137
 msgid "show welcome dialog on startup"
 msgstr "Begrüßungsdialog beim Start anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:137
+#: misc/org.yorba.shotwell.gschema.xml:138
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown."
@@ -490,77 +490,77 @@ msgstr ""
 "Legt fest, ob dem Start ein Begrüßungsdialog angezeigt werden soll oder "
 "nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:142
+#: misc/org.yorba.shotwell.gschema.xml:143
 msgid "sidebar position"
 msgstr "Position der Seitenleiste"
 
-#: misc/org.yorba.shotwell.gschema.xml:143
+#: misc/org.yorba.shotwell.gschema.xml:144
 msgid "The width, in pixels, of the sidebar"
 msgstr "Größe der Seitenleiste in Pixel"
 
-#: misc/org.yorba.shotwell.gschema.xml:148
+#: misc/org.yorba.shotwell.gschema.xml:149
 msgid "photo thumbnail scale"
 msgstr "Vorschaubild-Skalierung"
 
-#: misc/org.yorba.shotwell.gschema.xml:149
+#: misc/org.yorba.shotwell.gschema.xml:150
 msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr "Vorschaubild-Skalierung im Bereich von 72 bis 360."
 
-#: misc/org.yorba.shotwell.gschema.xml:154
+#: misc/org.yorba.shotwell.gschema.xml:155
 msgid "pin toolbar state"
 msgstr "Anheften-Status der Werkzeugleiste"
 
-#: misc/org.yorba.shotwell.gschema.xml:155
+#: misc/org.yorba.shotwell.gschema.xml:156
 msgid "Pin toolbar in fullscreen, or not."
 msgstr ""
 "Legt fest, ob die Werkzeugleiste im Vollbildmodus angeheftet werden soll "
 "oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:160
+#: misc/org.yorba.shotwell.gschema.xml:161
 msgid "background color"
 msgstr "Hintergrundfarbe"
 
-#: misc/org.yorba.shotwell.gschema.xml:161
+#: misc/org.yorba.shotwell.gschema.xml:162
 msgid "A grayscale color for use as the background color."
 msgstr ""
 "Eine Farbe der Graustufenskala, die als Hintergrundfarbe verwendet werden "
 "soll."
 
-#: misc/org.yorba.shotwell.gschema.xml:166
-msgid "Selection state of \"hide photos\" option"
+#: misc/org.yorba.shotwell.gschema.xml:167
+msgid "Selection state of “hide photos” option"
 msgstr "Auswahlstatus für »Bereits importierte Fotos verbergen«"
 
-#: misc/org.yorba.shotwell.gschema.xml:167
+#: misc/org.yorba.shotwell.gschema.xml:168
 msgid ""
-"Last used selection state of the \"hide photos already imported\" option in "
+"Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
 "Der zuletzt verwendete Status der Option »Bereits importierte Fotos "
 "verbergen« der Importseite."
 
-#: misc/org.yorba.shotwell.gschema.xml:174
+#: misc/org.yorba.shotwell.gschema.xml:175
 msgid "delay"
 msgstr "Verzögerung"
 
-#: misc/org.yorba.shotwell.gschema.xml:175
+#: misc/org.yorba.shotwell.gschema.xml:176
 msgid "Delay (in seconds) between photos in the slideshow."
 msgstr "Verzögerung des Bildwechsels in einer Diaschau (in Sekunden)."
 
-#: misc/org.yorba.shotwell.gschema.xml:180
+#: misc/org.yorba.shotwell.gschema.xml:181
 msgid "transition delay"
 msgstr "Übergangsverzögerung"
 
-#: misc/org.yorba.shotwell.gschema.xml:181
+#: misc/org.yorba.shotwell.gschema.xml:182
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr ""
 "Die Dauer eines Übergangs zwischen Fotos (in Sekunden) in einer Diaschau"
 
-#: misc/org.yorba.shotwell.gschema.xml:186
+#: misc/org.yorba.shotwell.gschema.xml:187
 msgid "transition effect id"
 msgstr "Übergangseffekt-Kennung"
 
-#: misc/org.yorba.shotwell.gschema.xml:187
+#: misc/org.yorba.shotwell.gschema.xml:188
 msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
@@ -568,71 +568,71 @@ msgstr ""
 "Der Name des Übergangseffekts, der zwischen Fotos während einer Diaschau "
 "angewendet werden soll"
 
-#: misc/org.yorba.shotwell.gschema.xml:192
+#: misc/org.yorba.shotwell.gschema.xml:193
 msgid "Show title"
 msgstr "Titel anzeigen"
 
-#: misc/org.yorba.shotwell.gschema.xml:193
+#: misc/org.yorba.shotwell.gschema.xml:194
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr ""
 "Legt fest, ob der Titel einer Bildes in einer Diaschau angezeigt werden soll"
 
-#: misc/org.yorba.shotwell.gschema.xml:200
+#: misc/org.yorba.shotwell.gschema.xml:201
 msgid "maximize library window"
 msgstr "Bibliotheksfenster maximieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:201
+#: misc/org.yorba.shotwell.gschema.xml:202
 msgid "True if library application is maximized, false otherwise."
 msgstr "Legt fest, ob das Bibliotheksfenster maximiert ist oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:206
+#: misc/org.yorba.shotwell.gschema.xml:207
 msgid "width of library window"
 msgstr "Breite des Bibliotheksfensters"
 
-#: misc/org.yorba.shotwell.gschema.xml:207
+#: misc/org.yorba.shotwell.gschema.xml:208
 msgid "The last recorded width of the library application window."
 msgstr "Die zuletzt gespeicherte Breite des Bibliotheksfensters der Anwendung."
 
-#: misc/org.yorba.shotwell.gschema.xml:212
+#: misc/org.yorba.shotwell.gschema.xml:213
 msgid "height of library window"
 msgstr "Höhe des Bibliotheksfensters"
 
-#: misc/org.yorba.shotwell.gschema.xml:213
+#: misc/org.yorba.shotwell.gschema.xml:214
 msgid "The last recorded height of the library application window."
 msgstr "Die zuletzt gespeicherte Höhe des Bibliotheksfensters der Anwendung."
 
-#: misc/org.yorba.shotwell.gschema.xml:218
+#: misc/org.yorba.shotwell.gschema.xml:219
 msgid "maximize direct-edit window"
 msgstr "Direktbearbeitungsfenster maximieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:219
+#: misc/org.yorba.shotwell.gschema.xml:220
 msgid "True if direct-edit application is maximized, false otherwise."
 msgstr ""
 "Legt fest, ob das Direktbearbeitungsfenster maximiert werden soll oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:224
+#: misc/org.yorba.shotwell.gschema.xml:225
 msgid "width of direct-edit window"
 msgstr "Breite des Direktbearbeitungsfensters"
 
-#: misc/org.yorba.shotwell.gschema.xml:225
+#: misc/org.yorba.shotwell.gschema.xml:226
 msgid "The last recorded width of the direct-edit application window."
 msgstr ""
 "Die zuletzt gespeicherte Breite des Direktbearbeitungsfensters der Anwendung."
 
-#: misc/org.yorba.shotwell.gschema.xml:230
+#: misc/org.yorba.shotwell.gschema.xml:231
 msgid "height of direct-edit window"
 msgstr "Höhe des Direktbearbeitungsfensters"
 
-#: misc/org.yorba.shotwell.gschema.xml:231
+#: misc/org.yorba.shotwell.gschema.xml:232
 msgid "The last recorded height of the direct-edit application window."
 msgstr ""
 "Die zuletzt gespeicherte Höhe des Direktbearbeitungsfensters der Anwendung."
 
-#: misc/org.yorba.shotwell.gschema.xml:236
+#: misc/org.yorba.shotwell.gschema.xml:237
 msgid "sidebar divider position"
 msgstr "Position des Seitenleistentrenners"
 
-#: misc/org.yorba.shotwell.gschema.xml:237
+#: misc/org.yorba.shotwell.gschema.xml:238
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
@@ -640,30 +640,30 @@ msgstr ""
 "Die zuletzt gespeicherte Position des Trenners zwischen der Werkzeugleiste "
 "und der Ansicht im Bibliotheksfenster der Anwendung."
 
-#: misc/org.yorba.shotwell.gschema.xml:244
+#: misc/org.yorba.shotwell.gschema.xml:245
 msgid "import directory"
 msgstr "Import-Ordner"
 
-#: misc/org.yorba.shotwell.gschema.xml:245
+#: misc/org.yorba.shotwell.gschema.xml:246
 msgid "Directory in which imported photo files are placed."
 msgstr "Ordner, in dem die importierten Fotodateien abgelegt werden."
 
-#: misc/org.yorba.shotwell.gschema.xml:250
+#: misc/org.yorba.shotwell.gschema.xml:251
 msgid "watch library directory for new files"
 msgstr "Bibliotheksordner auf neue Dateien überwachen"
 
-#: misc/org.yorba.shotwell.gschema.xml:251
+#: misc/org.yorba.shotwell.gschema.xml:252
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr ""
 "Legt fest, ob die zum Bibliotheksordner hinzugefügten Dateien automatisch "
 "importiert werden sollen."
 
-#: misc/org.yorba.shotwell.gschema.xml:256
+#: misc/org.yorba.shotwell.gschema.xml:257
 msgid "write metadata to master files"
 msgstr "Metadaten in Master-Dateien schreiben"
 
-#: misc/org.yorba.shotwell.gschema.xml:257
+#: misc/org.yorba.shotwell.gschema.xml:258
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
@@ -671,11 +671,11 @@ msgstr ""
 "Legt fest, ob geänderte Metadaten (Stichworte, Titel usw.) in die Master-"
 "Datei geschrieben werden sollen."
 
-#: misc/org.yorba.shotwell.gschema.xml:262
+#: misc/org.yorba.shotwell.gschema.xml:263
 msgid "use lowercase filenames"
 msgstr "Dateinamen in Kleinschreibung"
 
-#: misc/org.yorba.shotwell.gschema.xml:263
+#: misc/org.yorba.shotwell.gschema.xml:264
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
@@ -683,11 +683,11 @@ msgstr ""
 "Legt fest, ob Shotwell beim Import von Fotodateien alle Dateinamen in "
 "Kleinbuchstaben umwandeln soll"
 
-#: misc/org.yorba.shotwell.gschema.xml:268
+#: misc/org.yorba.shotwell.gschema.xml:269
 msgid "directory pattern"
 msgstr "Muster für Ordnernamen"
 
-#: misc/org.yorba.shotwell.gschema.xml:269
+#: misc/org.yorba.shotwell.gschema.xml:270
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
@@ -695,11 +695,11 @@ msgstr ""
 "Eine Zeichenkette, die als Namensmuster beim Benennen der importierten Foto-"
 "Ordner verwendet werden soll."
 
-#: misc/org.yorba.shotwell.gschema.xml:274
+#: misc/org.yorba.shotwell.gschema.xml:275
 msgid "directory pattern custom"
 msgstr "Benutzerdefiniertes Muster für Ordnernamen"
 
-#: misc/org.yorba.shotwell.gschema.xml:275
+#: misc/org.yorba.shotwell.gschema.xml:276
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
@@ -707,32 +707,32 @@ msgstr ""
 "Eine Zeichenkette, die als benutzerdefiniertes Namensmuster beim Benennen "
 "der importierten Foto-Ordner verwendet werden soll."
 
-#: misc/org.yorba.shotwell.gschema.xml:280
+#: misc/org.yorba.shotwell.gschema.xml:281
 msgid "RAW developer default"
 msgstr "Standard-RAW-Entwickler"
 
-#: misc/org.yorba.shotwell.gschema.xml:281
+#: misc/org.yorba.shotwell.gschema.xml:282
 msgid "Default option for which RAW developer Shotwell will use."
 msgstr "Vorgabe für den durch Shotwell zu verwendenden RAW-Entwickler."
 
-#: misc/org.yorba.shotwell.gschema.xml:288
+#: misc/org.yorba.shotwell.gschema.xml:289
 msgid "Most-recently-used crop aspect ratio menu choice."
 msgstr ""
 "Das im Menü am häufigsten ausgewählte Seitenverhältnis beim Zuschneiden."
 
-#: misc/org.yorba.shotwell.gschema.xml:289
+#: misc/org.yorba.shotwell.gschema.xml:290
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr ""
 "Ein Zahlencode, der das im Menü am häufigsten ausgewählte Seitenverhältnis "
 "beim Zuschneiden darstellt."
 
-#: misc/org.yorba.shotwell.gschema.xml:293
-msgid "Most-recently-used crop custom aspect ratio's numerator."
+#: misc/org.yorba.shotwell.gschema.xml:294
+msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgstr ""
 "Erster Wert (Zähler) des am häufigsten verwendeten benutzerdefinierten "
 "Seitenverhältnisses beim Zuschneiden."
 
-#: misc/org.yorba.shotwell.gschema.xml:294
+#: misc/org.yorba.shotwell.gschema.xml:295
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
@@ -740,13 +740,13 @@ msgstr ""
 "Eine von Null verschiedene, positive Ganzzahl, die die zuletzt genutzte und "
 "gespeicherte Höhe des Zuschnittverhältnisses darstellt."
 
-#: misc/org.yorba.shotwell.gschema.xml:298
-msgid "Most-recently-used crop custom aspect ratio's denominator."
+#: misc/org.yorba.shotwell.gschema.xml:299
+msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgstr ""
 "Zweiter Wert (Nenner) des am häufigsten verwendeten benutzerdefinierten "
 "Seitenverhältnisses beim Zuschneiden."
 
-#: misc/org.yorba.shotwell.gschema.xml:299
+#: misc/org.yorba.shotwell.gschema.xml:300
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
@@ -754,97 +754,142 @@ msgstr ""
 "Eine von Null verschiedene, positive Ganzzahl, die das zuletzt genutzte und "
 "gespeicherte Zuschnittverhältnis darstellt."
 
-#: misc/org.yorba.shotwell.gschema.xml:306
+#: misc/org.yorba.shotwell.gschema.xml:307
 msgid "external photo editor"
 msgstr "Externer Foto-Editor"
 
-#: misc/org.yorba.shotwell.gschema.xml:307
+#: misc/org.yorba.shotwell.gschema.xml:308
 msgid "External application used to edit photos."
 msgstr "Externe Anwendung zum Bearbeiten von Fotos."
 
-#: misc/org.yorba.shotwell.gschema.xml:312
+#: misc/org.yorba.shotwell.gschema.xml:313
 msgid "external raw editor"
 msgstr "Externer RAW-Editor"
 
-#: misc/org.yorba.shotwell.gschema.xml:313
+#: misc/org.yorba.shotwell.gschema.xml:314
 msgid "External application used to edit RAW photos."
 msgstr "Externe Anwendung zum Bearbeiten von RAW-Fotos."
 
-#: misc/org.yorba.shotwell.gschema.xml:320
+#: misc/org.yorba.shotwell.gschema.xml:352
+#: misc/org.yorba.shotwell.gschema.xml:353
+msgid "Setting in export dialog: how to trim images"
+msgstr "Einstellung im Exportdialog: Zuschneiden von Bildern"
+
+#: misc/org.yorba.shotwell.gschema.xml:358
+msgid "export metadata"
+msgstr "Metadaten exportieren"
+
+#: misc/org.yorba.shotwell.gschema.xml:359
+msgid "Setting in export dialog: option to export metadata"
+msgstr "Einstellung im Exportdialog: Option zum Exportieren von Metadaten"
+
+#: misc/org.yorba.shotwell.gschema.xml:364
+msgid "format setting, special value"
+msgstr "Formatierungseinstellung, spezieller Wert"
+
+#: misc/org.yorba.shotwell.gschema.xml:365
+msgid "Setting in export dialog: format setting, special value"
+msgstr "Einstellung im Exportdialog: Formatierungseinstellung, spezieller Wert"
+
+#: misc/org.yorba.shotwell.gschema.xml:370
+msgid "format setting, type value"
+msgstr "Formatierungseinstellung, Typwert"
+
+#: misc/org.yorba.shotwell.gschema.xml:371
+msgid "Setting in export dialog: format setting, type value"
+msgstr "Einstellung im Exportdialog: Formatierungseinstellung, Typwert"
+
+#: misc/org.yorba.shotwell.gschema.xml:376
+msgid "JPEG quality option"
+msgstr "JPEG-Qualitätsoption"
+
+#: misc/org.yorba.shotwell.gschema.xml:377
+msgid "Setting in export dialog: jpeg quality option"
+msgstr "Einstellung im Exportdialog: JPEG-Qualitätsoption"
+
+#: misc/org.yorba.shotwell.gschema.xml:382
+msgid "maximal size of image"
+msgstr "Maximale Bildgröße"
+
+#: misc/org.yorba.shotwell.gschema.xml:383
+msgid "Setting in export dialog: maximal size of image"
+msgstr "Einstellung im Exportdialog: Maximale Bildgröße"
+
+#: misc/org.yorba.shotwell.gschema.xml:390
 msgid "last used publishing service"
 msgstr "Zuletzt genutzter Veröffentlichungsdienst"
 
-#: misc/org.yorba.shotwell.gschema.xml:321
-#: misc/org.yorba.shotwell.gschema.xml:327
+#: misc/org.yorba.shotwell.gschema.xml:391
+#: misc/org.yorba.shotwell.gschema.xml:397
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
 "Ein Zahlencode, der den letzten Dienst darstellt, bei dem Fotos "
 "veröffentlicht wurden"
 
-#: misc/org.yorba.shotwell.gschema.xml:326
+#: misc/org.yorba.shotwell.gschema.xml:396
 msgid "default publishing service"
 msgstr "Standard-Veröffentlichungsdienst"
 
-#: misc/org.yorba.shotwell.gschema.xml:340
+#: misc/org.yorba.shotwell.gschema.xml:410
 msgid "access token"
 msgstr "Zugriffs-Token"
 
-#: misc/org.yorba.shotwell.gschema.xml:341
+#: misc/org.yorba.shotwell.gschema.xml:411
 msgid "Facebook OAuth token for the currently logged in session, if any"
 msgstr "OAuth-Token für die aktuell laufende Facebook-Sitzung, falls vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:346
+#: misc/org.yorba.shotwell.gschema.xml:416
 msgid "user i.d."
 msgstr "Benutzerkennung"
 
-#: misc/org.yorba.shotwell.gschema.xml:347
+#: misc/org.yorba.shotwell.gschema.xml:417
 msgid "Facebook user i.d. for the currently logged in user, if any"
 msgstr ""
 "Benutzerkennung für die aktuell laufende Facebook-Sitzung, falls vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:352
+#: misc/org.yorba.shotwell.gschema.xml:422
 msgid "user name"
 msgstr "Benutzername"
 
-#: misc/org.yorba.shotwell.gschema.xml:353
+#: misc/org.yorba.shotwell.gschema.xml:423
 msgid "The name of the currently logged in Facebook user, if any"
 msgstr "Name des aktuell angemeldeten Facebook-Benutzers, falls vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:358
-#: misc/org.yorba.shotwell.gschema.xml:390
+#: misc/org.yorba.shotwell.gschema.xml:428
+#: misc/org.yorba.shotwell.gschema.xml:460
 msgid "default size code"
 msgstr "Code für Standardgröße"
 
-#: misc/org.yorba.shotwell.gschema.xml:359
+#: misc/org.yorba.shotwell.gschema.xml:429
 msgid ""
 "A numeric code representing the default size for photos published to Facebook"
 msgstr ""
 "Ein Zahlencode, der die Standardgröße für Fotos darstellt, die zu Facebook "
 "hochgeladen werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:365
+#: misc/org.yorba.shotwell.gschema.xml:435
 msgid ""
 "Whether images being uploaded to Facebook should have their metadata removed "
 "first"
 msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Facebook entfernt werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:372
+#: misc/org.yorba.shotwell.gschema.xml:442
 msgid "OAuth Access Phase Token"
 msgstr "OAuth-Token für die Zugriffsphase"
 
-#: misc/org.yorba.shotwell.gschema.xml:373
+#: misc/org.yorba.shotwell.gschema.xml:443
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 "Authentifizierungs-Token für den aktuell angemeldeten Facebook-Benutzer, "
 "falls vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:378
+#: misc/org.yorba.shotwell.gschema.xml:448
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth-Token-Geheimnis für die Zugriffsphase"
 
-#: misc/org.yorba.shotwell.gschema.xml:379
+#: misc/org.yorba.shotwell.gschema.xml:449
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -853,22 +898,22 @@ msgstr ""
 "Authentifizierungs-Token des zur Zeit angemeldeten Flickr-Benutzers "
 "verwendet wird, soweit vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:385
+#: misc/org.yorba.shotwell.gschema.xml:455
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Name des aktuell angemeldeten Flickr-Benutzers, falls vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:391
+#: misc/org.yorba.shotwell.gschema.xml:461
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Ein Zahlencode, der die Standardgröße für Fotos darstellt, die zu Flickr "
 "hochgeladen werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:396
+#: misc/org.yorba.shotwell.gschema.xml:466
 msgid "default visibility"
 msgstr "Standard-Sichtbarkeit"
 
-#: misc/org.yorba.shotwell.gschema.xml:397
+#: misc/org.yorba.shotwell.gschema.xml:467
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -876,19 +921,19 @@ msgstr ""
 "Ein Zahlencode, der die Standard-Sichtbarkeit für Fotos darstellt, die zu "
 "Flickr hochgeladen werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:403
+#: misc/org.yorba.shotwell.gschema.xml:473
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Flickr entfernt werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:410
-#: misc/org.yorba.shotwell.gschema.xml:542
+#: misc/org.yorba.shotwell.gschema.xml:480
+#: misc/org.yorba.shotwell.gschema.xml:612
 msgid "refresh token"
 msgstr "Auffrischungs-Token"
 
-#: misc/org.yorba.shotwell.gschema.xml:411
+#: misc/org.yorba.shotwell.gschema.xml:481
 msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
@@ -896,7 +941,7 @@ msgstr ""
 "Der OAuth-Token, der beim Auffrischen der Picasa-Web-Album-Sitzung des "
 "aktuell angemeldeten Benutzers verwendet wird, soweit vorhanden."
 
-#: misc/org.yorba.shotwell.gschema.xml:417
+#: misc/org.yorba.shotwell.gschema.xml:487
 msgid ""
 "A numeric code representing the default size for photos uploaded to Picasa "
 "Web Albums"
@@ -904,68 +949,68 @@ msgstr ""
 "Ein Zahlencode, der die Standardgröße für Fotos darstellt, die zu Picasa "
 "Webalben hochgeladen werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:422
-#: misc/org.yorba.shotwell.gschema.xml:516
+#: misc/org.yorba.shotwell.gschema.xml:492
+#: misc/org.yorba.shotwell.gschema.xml:586
 msgid "last album"
 msgstr "Letztes Album"
 
-#: misc/org.yorba.shotwell.gschema.xml:423
-#: misc/org.yorba.shotwell.gschema.xml:517
+#: misc/org.yorba.shotwell.gschema.xml:493
+#: misc/org.yorba.shotwell.gschema.xml:587
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
 "Der Name des letzten Albums, in dem der Benutzer Fotos veröffentlicht hat, "
 "falls vorhanden"
 
-#: misc/org.yorba.shotwell.gschema.xml:429
+#: misc/org.yorba.shotwell.gschema.xml:499
 msgid ""
 "Whether images being uploaded to Picasa should have their metadata removed "
 "first"
 msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Picasa entfernt werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:436
+#: misc/org.yorba.shotwell.gschema.xml:506
 msgid "Piwigo URL"
 msgstr "Piwigo-Adresse"
 
-#: misc/org.yorba.shotwell.gschema.xml:437
+#: misc/org.yorba.shotwell.gschema.xml:507
 msgid "URL of the Piwigo server."
 msgstr "Adresse des Piwigo-Servers"
 
-#: misc/org.yorba.shotwell.gschema.xml:443
+#: misc/org.yorba.shotwell.gschema.xml:513
 msgid "Piwigo username, if logged in."
 msgstr "Piwigo-Benutzername für die Anmeldung"
 
-#: misc/org.yorba.shotwell.gschema.xml:448
+#: misc/org.yorba.shotwell.gschema.xml:518
 msgid "password"
 msgstr "Passwort"
 
-#: misc/org.yorba.shotwell.gschema.xml:449
+#: misc/org.yorba.shotwell.gschema.xml:519
 msgid "Piwigo password, if logged in."
 msgstr "Piwigo-Passwort für die Anmeldung"
 
-#: misc/org.yorba.shotwell.gschema.xml:454
+#: misc/org.yorba.shotwell.gschema.xml:524
 msgid "remember password"
 msgstr "Passwort speichern"
 
-#: misc/org.yorba.shotwell.gschema.xml:455
+#: misc/org.yorba.shotwell.gschema.xml:525
 msgid "If true, remember the Piwigo password."
 msgstr ""
 "Legt fest, ob das Piwigo-Passwort für weitere Anmeldungen gespeichert werden "
 "soll."
 
-#: misc/org.yorba.shotwell.gschema.xml:461
+#: misc/org.yorba.shotwell.gschema.xml:531
 msgid "The last selected Piwigo category."
 msgstr "Die zuletzt in Piwigo ausgewählte Kategorie."
 
-#: misc/org.yorba.shotwell.gschema.xml:466
+#: misc/org.yorba.shotwell.gschema.xml:536
 msgid "last permission level"
 msgstr "Letzte Zugriffsstufe"
 
-#: misc/org.yorba.shotwell.gschema.xml:467
+#: misc/org.yorba.shotwell.gschema.xml:537
 msgid "The last chosen Piwigo permission level."
 msgstr "Die zuletzt gewählte Zugriffsstufe bei Piwigo."
 
-#: misc/org.yorba.shotwell.gschema.xml:473
+#: misc/org.yorba.shotwell.gschema.xml:543
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
@@ -973,21 +1018,21 @@ msgstr ""
 "Ein Zahlencode, der die Größe des letzten Fotos darstellt, das zu Piwigo "
 "hochgeladen wurde."
 
-#: misc/org.yorba.shotwell.gschema.xml:479
+#: misc/org.yorba.shotwell.gschema.xml:549
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Piwigo entfernt werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:484
+#: misc/org.yorba.shotwell.gschema.xml:554
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "Falls ein Titel und kein Kommentar gesetzt ist, den Titel als Kommentar beim "
 "Hochladen zu Piwigo verwenden"
 
-#: misc/org.yorba.shotwell.gschema.xml:485
+#: misc/org.yorba.shotwell.gschema.xml:555
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -995,11 +1040,11 @@ msgstr ""
 "Legt fest, ob beim Hochladen von Bildern zu Piwigo die Kommentare aus den "
 "Titeln erzeugt werden, sofern Titel, aber keine Kommentare festgelegt sind"
 
-#: misc/org.yorba.shotwell.gschema.xml:490
+#: misc/org.yorba.shotwell.gschema.xml:560
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "Keine Stichworte zu Piwigo hochladen"
 
-#: misc/org.yorba.shotwell.gschema.xml:491
+#: misc/org.yorba.shotwell.gschema.xml:561
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
@@ -1008,46 +1053,46 @@ msgstr ""
 "werden sollen, so dass diese auf dem entfernten Piwigo-Server nicht "
 "erscheinen."
 
-#: misc/org.yorba.shotwell.gschema.xml:499
+#: misc/org.yorba.shotwell.gschema.xml:569
 msgid "Gallery3 username"
 msgstr "Gallery3-Benutzername"
 
-#: misc/org.yorba.shotwell.gschema.xml:504
+#: misc/org.yorba.shotwell.gschema.xml:574
 msgid "API key"
 msgstr "API-Schlüssel"
 
-#: misc/org.yorba.shotwell.gschema.xml:505
+#: misc/org.yorba.shotwell.gschema.xml:575
 msgid "Gallery3 API key"
 msgstr "Gallery3-API-Schlüssel"
 
-#: misc/org.yorba.shotwell.gschema.xml:510
+#: misc/org.yorba.shotwell.gschema.xml:580
 msgid "URL"
 msgstr "Adresse"
 
-#: misc/org.yorba.shotwell.gschema.xml:511
+#: misc/org.yorba.shotwell.gschema.xml:581
 msgid "Gallery3 site URL"
 msgstr "Gallery3-Adresse"
 
-#: misc/org.yorba.shotwell.gschema.xml:523
+#: misc/org.yorba.shotwell.gschema.xml:593
 msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
 msgstr ""
 "Legt fest, ob Metadaten vor dem Hochladen zu Gallery3 entfernt werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:528
+#: misc/org.yorba.shotwell.gschema.xml:598
 msgid "scaling constraint of uploaded picture"
 msgstr "Skalierungsbeschränkung des hochgeladenen Bildes"
 
-#: misc/org.yorba.shotwell.gschema.xml:529
+#: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "Die Kennung der Skalierungsbeschränkung des hochgeladenen Bildes"
 
-#: misc/org.yorba.shotwell.gschema.xml:534
+#: misc/org.yorba.shotwell.gschema.xml:604
 msgid "pixels of the major axis uploaded picture"
 msgstr "Pixel der Hauptachse des hochgeladenen Bildes"
 
-#: misc/org.yorba.shotwell.gschema.xml:535
+#: misc/org.yorba.shotwell.gschema.xml:605
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -1055,7 +1100,7 @@ msgstr ""
 "Pixel der Hauptachse des hochzuladenden Bildes. Dies wird nur verwendet, "
 "wenn scaling-constraint-id auf einen entsprechenden Wert gesetzt ist"
 
-#: misc/org.yorba.shotwell.gschema.xml:543
+#: misc/org.yorba.shotwell.gschema.xml:613
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
@@ -1063,32 +1108,32 @@ msgstr ""
 "Der OAuth-Token, der beim Auffrischen der YouTube-Sitzung des aktuell "
 "angemeldeten Benutzers verwendet wird, soweit vorhanden."
 
-#: misc/org.yorba.shotwell.gschema.xml:550
+#: misc/org.yorba.shotwell.gschema.xml:620
 msgid "last used import service"
 msgstr "Zuletzt verwendeter Importdienst"
 
-#: misc/org.yorba.shotwell.gschema.xml:551
+#: misc/org.yorba.shotwell.gschema.xml:621
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Ein Zahlencode, der den letzten Dienst darstellt, von dem Fotos importiert "
 "wurden"
 
-#: misc/org.yorba.shotwell.gschema.xml:558
+#: misc/org.yorba.shotwell.gschema.xml:628
 msgid "interpreter state cookie"
 msgstr "Cookie für Interpreter-Status"
 
-#: misc/org.yorba.shotwell.gschema.xml:559
+#: misc/org.yorba.shotwell.gschema.xml:629
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
 msgstr ""
 "Ein Zahlencode, der den Status der Plugin-Umgebung von GStreamer darstellt"
 
-#: misc/org.yorba.shotwell.gschema.xml:566
+#: misc/org.yorba.shotwell.gschema.xml:636
 msgid "content layout mode"
 msgstr "Anordnungsmodus"
 
-#: misc/org.yorba.shotwell.gschema.xml:567
+#: misc/org.yorba.shotwell.gschema.xml:637
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -1096,35 +1141,35 @@ msgstr ""
 "Ein Zahlencode, der darstellt, wie Fotos auf dem Medium beim Druck "
 "angeordnet werden sollen"
 
-#: misc/org.yorba.shotwell.gschema.xml:572
+#: misc/org.yorba.shotwell.gschema.xml:642
 msgid "content ppi"
 msgstr "PPI für den Inhalt"
 
-#: misc/org.yorba.shotwell.gschema.xml:573
+#: misc/org.yorba.shotwell.gschema.xml:643
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Wert für Pixel pro Zoll (ppi), der an den Drucker gesendet werden soll"
 
-#: misc/org.yorba.shotwell.gschema.xml:578
+#: misc/org.yorba.shotwell.gschema.xml:648
 msgid "content width"
 msgstr "Breite des Inhalts"
 
-#: misc/org.yorba.shotwell.gschema.xml:579
+#: misc/org.yorba.shotwell.gschema.xml:649
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Die Breite des Druckbereiches auf der Seite"
 
-#: misc/org.yorba.shotwell.gschema.xml:584
+#: misc/org.yorba.shotwell.gschema.xml:654
 msgid "content height"
 msgstr "Höhe des Inhalts"
 
-#: misc/org.yorba.shotwell.gschema.xml:585
+#: misc/org.yorba.shotwell.gschema.xml:655
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Die Höhe des Druckbereiches auf der Seite"
 
-#: misc/org.yorba.shotwell.gschema.xml:590
+#: misc/org.yorba.shotwell.gschema.xml:660
 msgid "content units"
 msgstr "Einheiten für Inhalte"
 
-#: misc/org.yorba.shotwell.gschema.xml:591
+#: misc/org.yorba.shotwell.gschema.xml:661
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -1132,11 +1177,11 @@ msgstr ""
 "Ein Zahlencode, der die beim Drucken verwendete Maßeinheit (Zoll oder "
 "Millimeter) darstellt"
 
-#: misc/org.yorba.shotwell.gschema.xml:596
+#: misc/org.yorba.shotwell.gschema.xml:666
 msgid "images per page code"
 msgstr "Anzahl der Bilder pro Seite"
 
-#: misc/org.yorba.shotwell.gschema.xml:597
+#: misc/org.yorba.shotwell.gschema.xml:667
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -1144,22 +1189,22 @@ msgstr ""
 "Ein Zahlencode, der den aktuell ausgewählten Bilder-pro-Seite-Modus beim "
 "Drucken darstellt"
 
-#: misc/org.yorba.shotwell.gschema.xml:602
+#: misc/org.yorba.shotwell.gschema.xml:672
 msgid "size selection"
 msgstr "Größenauswahl"
 
-#: misc/org.yorba.shotwell.gschema.xml:603
+#: misc/org.yorba.shotwell.gschema.xml:673
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Der Index der aktuellen Druckgröße aus einer vordefinierten Liste von "
 "Standardgrößen"
 
-#: misc/org.yorba.shotwell.gschema.xml:608
+#: misc/org.yorba.shotwell.gschema.xml:678
 msgid "match aspect ratio"
 msgstr "Seitenverhältnis beibehalten"
 
-#: misc/org.yorba.shotwell.gschema.xml:609
+#: misc/org.yorba.shotwell.gschema.xml:679
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1167,205 +1212,205 @@ msgstr ""
 "Legt fest, ob benutzerdefinierte Druckgrößen dem Seitenverhältnis des "
 "Originalfotos entsprechen müssen"
 
-#: misc/org.yorba.shotwell.gschema.xml:614
+#: misc/org.yorba.shotwell.gschema.xml:684
 msgid "print titles"
 msgstr "Bildtitel drucken"
 
-#: misc/org.yorba.shotwell.gschema.xml:615
+#: misc/org.yorba.shotwell.gschema.xml:685
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
 msgstr ""
 "Legt fest, ob der Bildtitel beim Drucken mit gedruckt werden soll oder nicht."
 
-#: misc/org.yorba.shotwell.gschema.xml:620
+#: misc/org.yorba.shotwell.gschema.xml:690
 msgid "titles font"
 msgstr "Titelschrift"
 
-#: misc/org.yorba.shotwell.gschema.xml:621
+#: misc/org.yorba.shotwell.gschema.xml:691
 msgid "The name of the font to use for photo titles when they are printed."
 msgstr ""
 "Der Name der Schrift, die beim Drucken für Bildtitel verwendet werden soll."
 
-#: misc/org.yorba.shotwell.gschema.xml:632
+#: misc/org.yorba.shotwell.gschema.xml:702
 msgid "enable facebook publishing plugin"
 msgstr "Facebook-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:633
+#: misc/org.yorba.shotwell.gschema.xml:703
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Facebook-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:638
+#: misc/org.yorba.shotwell.gschema.xml:708
 msgid "enable flickr publishing plugin"
 msgstr "Flickr-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:639
+#: misc/org.yorba.shotwell.gschema.xml:709
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Flickr-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:644
+#: misc/org.yorba.shotwell.gschema.xml:714
 msgid "enable picasa publishing plugin"
 msgstr "Picasa-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:645
+#: misc/org.yorba.shotwell.gschema.xml:715
 msgid ""
 "True if the Picasa Web Albums publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Picasa-Webalben-Veröffentlichungs-Plugin aktiviert ist "
 "oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:650
+#: misc/org.yorba.shotwell.gschema.xml:720
 msgid "enable youtube publishing plugin"
 msgstr "Youtube-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:651
+#: misc/org.yorba.shotwell.gschema.xml:721
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Youtube-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:656
+#: misc/org.yorba.shotwell.gschema.xml:726
 msgid "enable piwigo publishing plugin"
 msgstr "Piwigo-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:657
+#: misc/org.yorba.shotwell.gschema.xml:727
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Piwigo-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:662
+#: misc/org.yorba.shotwell.gschema.xml:732
 msgid "enable yandex publishing plugin"
 msgstr "Yandex-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:663
+#: misc/org.yorba.shotwell.gschema.xml:733
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Yandex.Fotki-Veröffentlichungs-Plugin aktiviert ist oder "
 "nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:668
+#: misc/org.yorba.shotwell.gschema.xml:738
 msgid "enable tumblr publishing plugin"
 msgstr "Tumblr-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:669
+#: misc/org.yorba.shotwell.gschema.xml:739
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Tumblr-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:674
+#: misc/org.yorba.shotwell.gschema.xml:744
 msgid "enable rajce publishing plugin"
 msgstr "Rajce-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:675
+#: misc/org.yorba.shotwell.gschema.xml:745
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Rajce-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:680
+#: misc/org.yorba.shotwell.gschema.xml:750
 msgid "enable gallery3 publishing plugin"
 msgstr "Gallery3-Veröffentlichungs-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:681
+#: misc/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob das Gallery3-Veröffentlichungs-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:686
+#: misc/org.yorba.shotwell.gschema.xml:756
 msgid "enable F-Spot import plugin"
 msgstr "F-Spot-Import-Plugin aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:687
+#: misc/org.yorba.shotwell.gschema.xml:757
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "Legt fest, ob das F-Spot-Import-Plugin aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:692
+#: misc/org.yorba.shotwell.gschema.xml:762
 msgid "enable slideshow crumble transition"
 msgstr "Zerfallen-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:693
+#: misc/org.yorba.shotwell.gschema.xml:763
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Zerfallen-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:698
+#: misc/org.yorba.shotwell.gschema.xml:768
 msgid "enable slideshow fade transition"
 msgstr "Überblendung für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:699
+#: misc/org.yorba.shotwell.gschema.xml:769
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr "Legt fest, ob die Überbledung für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:704
-#: misc/org.yorba.shotwell.gschema.xml:728
+#: misc/org.yorba.shotwell.gschema.xml:774
+#: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow slide transition"
 msgstr "Gleiten-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:705
+#: misc/org.yorba.shotwell.gschema.xml:775
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Gleiten-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:710
+#: misc/org.yorba.shotwell.gschema.xml:780
 msgid "enable slideshow clock transition"
 msgstr "Uhr-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:711
+#: misc/org.yorba.shotwell.gschema.xml:781
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "Legt fest, ob der Uhr-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:716
-#: misc/org.yorba.shotwell.gschema.xml:722
+#: misc/org.yorba.shotwell.gschema.xml:786
+#: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow circle transition"
 msgstr "Kreis-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:717
+#: misc/org.yorba.shotwell.gschema.xml:787
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Kreis-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:723
+#: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Kreis-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:729
+#: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Vorhang-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:734
+#: misc/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow squares transition"
 msgstr "Quadrat-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:735
+#: misc/org.yorba.shotwell.gschema.xml:805
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Quadrat-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:740
+#: misc/org.yorba.shotwell.gschema.xml:810
 msgid "enable slideshow stripes transition"
 msgstr "Streifen-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:741
+#: misc/org.yorba.shotwell.gschema.xml:811
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Legt fest, ob der Streifen-Übergang für Diaschauen aktiviert ist oder nicht"
 
-#: misc/org.yorba.shotwell.gschema.xml:746
+#: misc/org.yorba.shotwell.gschema.xml:816
 msgid "enable slideshow chess transition"
 msgstr "Schachbrett-Übergang für Diaschauen aktivieren"
 
-#: misc/org.yorba.shotwell.gschema.xml:747
+#: misc/org.yorba.shotwell.gschema.xml:817
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1383,14 +1428,76 @@ msgstr ""
 "Christian Kirbach <Christian.Kirbach@gmail.com>, 2014, 2015, 2016\n"
 "Mario Blättermann <mario.blaettermann@gmail.com>"
 
-#: plugins/common/RESTSupport.vala:451
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:202
+msgid ""
+"⚫ This website presented identification that belongs to a different website."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung verweist auf eine andere "
+"Webseite."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:207
+msgid ""
+"⚫ This website’s identification is too old to trust. Check the date on your "
+"computer’s calendar."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung ist zu alt, um "
+"vertrauenswürdig zu sein. Überprüfen Sie das Datum mithilfe des Kalenders "
+"Ihres Rechners."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:212
+msgid ""
+"⚫ This website’s identification was not issued by a trusted organization."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung wurde nicht von einer "
+"vertrauenswürdigen Organisation herausgegeben."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:217
+msgid ""
+"⚫ This website’s identification could not be processed. It may be corrupted."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung konnte nicht verarbeitet "
+"werden. Sie könnte beschädigt sein."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:222
+msgid ""
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung wurde von der "
+"vertrauenswürdigen Organisation zurückgezogen, von der sie ausgegeben wurde."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:227
+msgid ""
+"⚫ This website’s identification cannot be trusted because it uses very weak "
+"encryption."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung ist nicht "
+"vertrauenswürdig, weil die Verschlüsselung zu schwach ist."
+
+#. Possible error message when a site presents a bad certificate.
+#: plugins/common/RESTSupport.vala:232
+msgid ""
+"⚫ This website’s identification is only valid for future dates. Check the "
+"date on your computer’s calendar."
+msgstr ""
+"⚫ Die von dieser Webseite erhaltene Identifizierung gilt nur für ein Datum "
+"in der Zukunft. Überprüfen Sie das Datum mithilfe des Kalenders Ihres "
+"Rechners."
+
+#: plugins/common/RESTSupport.vala:509
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
 "Eine temporäre Datei, die für das Veröffentlichen benötigt wird, ist nicht "
 "verfügbar"
 
-#: plugins/common/RESTSupport.vala:1157
+#: plugins/common/RESTSupport.vala:1167
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1509,7 +1616,7 @@ msgstr "_Zurück gehen"
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
 #: ui/shotwell.ui:1627
-msgid "_Login"
+msgid "_Log in"
 msgstr "_Anmelden"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:34
@@ -1580,7 +1687,7 @@ msgstr "Pixel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1235
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprüngliche Größe"
@@ -1615,8 +1722,8 @@ msgstr "Vorgabeordner für Shotwell"
 msgid ""
 "\n"
 "\n"
-"The file \"%s\" may not be supported by or may be too large for this "
-"instance of Gallery3."
+"The file “%s” may not be supported by or may be too large for this instance "
+"of Gallery3."
 msgstr ""
 "\n"
 "\n"
@@ -1636,7 +1743,7 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
 #, c-format
 msgid ""
-"A file required for publishing is unavailable. Publishing to %s can't "
+"A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
 msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
@@ -1707,8 +1814,8 @@ msgstr "Dauerhaft _merken"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:107
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:151
-msgid "Login"
-msgstr "Anmelden"
+msgid "Log in"
+msgstr "Anmelden in"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
@@ -1734,8 +1841,9 @@ msgid "Open target _album in browser"
 msgstr "Ziel-_Album im Browser öffnen"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-msgid "Copyright (C) 2013 rajce.net"
-msgstr "Copyright (C) 2013 rajce.net"
+#| msgid "Copyright (C) 2013 rajce.net"
+msgid "Copyright © 2013 rajce.net"
+msgstr "Copyright © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
@@ -1785,30 +1893,33 @@ msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1231
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
-msgid "500 x 375 pixels"
-msgstr "500 x 375 Pixel"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1325
+#| msgid "500 x 375 pixels"
+msgid "500 × 375 pixels"
+msgstr "500 × 375 Pixel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1232
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
-msgid "1024 x 768 pixels"
-msgstr "1024 x 768 Pixel"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1326
+#| msgid "1024 x 768 pixels"
+msgid "1024 × 768 pixels"
+msgstr "1024 × 768 Pixel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 x 853 pixels"
-msgstr "1280 x 853 Pixel"
+#| msgid "1280 x 853 pixels"
+msgid "1280 × 853 pixels"
+msgstr "1280 × 853 Pixel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
 msgstr ""
 "»%s« ist keine gültige Antwort auf eine OAuth-Authentifizierungsanfrage"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
 msgid ""
-"TumblrPublisher: start( ): can't start; this publisher is not restartable."
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): kann nicht gestartet werden; das Werkzeug zum "
 "Veröffentlichen ist nicht neu startbar."
@@ -1820,13 +1931,13 @@ msgstr ""
 "Konto ein."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:992
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Benutzername und/oder Passwort sind ungültig. Bitte versuchen Sie es erneut"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Ungültiger Benutzername oder Passwort"
 
@@ -1854,7 +1965,7 @@ msgstr "Copyright 2010+ Jewgeni Poljakow <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Besuchen Sie die Yandex.Fotki-Webseite"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:658
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Sie sind aktuell nicht bei Yandex.Fotki angemeldet."
 
@@ -1879,7 +1990,7 @@ msgid "Public"
 msgstr "Öffentlich"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:162
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1194
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1144
 msgid "Friends"
 msgstr "Freunde"
 
@@ -1897,7 +2008,7 @@ msgid "Create a _new album named:"
 msgstr "Ein _neues Album mit folgendem Namen erstellen:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1034
+#: plugins/shotwell-publishing/FacebookPublishing.vala:984
 msgid "Upload _size:"
 msgstr "_Größe zum Hochladen:"
 
@@ -1917,7 +2028,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: plugins/shotwell-publishing/PicasaPublishing.vala:60
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1114
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1209
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -1925,7 +2036,7 @@ msgstr "Shotwell Connect"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
+"If you don’t yet have a Facebook account, you can create one during the "
 "login process. During login, Shotwell Connect may ask you for permission to "
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
@@ -1959,23 +2070,23 @@ msgid "Large (2048 pixels)"
 msgstr "Groß (2048 Pixel)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:255
-msgid "Testing connection to Facebook..."
+msgid "Testing connection to Facebook…"
 msgstr "Verbindung zu Facebook wird geprüft …"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
 #: plugins/shotwell-publishing/PicasaPublishing.vala:379
-msgid "Creating album..."
+msgid "Creating album…"
 msgstr "Album wird erstellt …"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:374
 msgid ""
-"A file required for publishing is unavailable. Publishing to Facebook can't "
+"A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
 msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
 "Veröffentlichung auf Facebook ist nicht möglich."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1032
+#: plugins/shotwell-publishing/FacebookPublishing.vala:982
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -1984,18 +2095,18 @@ msgstr ""
 "Sie sind bei Facebook als %s angemeldet.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1033
+#: plugins/shotwell-publishing/FacebookPublishing.vala:983
 msgid "Where would you like to publish the selected photos?"
 msgstr "Wo möchten Sie die ausgewählten Fotos veröffentlichen?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1193
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1143
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Just me"
 msgstr "Nur mich"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1195
+#: plugins/shotwell-publishing/FacebookPublishing.vala:1145
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1209
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "Everyone"
 msgstr "Alle"
 
@@ -2011,7 +2122,7 @@ msgstr ""
 msgid "Authorization _Number:"
 msgstr "Autorisierungsnummer:"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:132
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:128
 msgid "Con_tinue"
 msgstr "For_tsetzen"
 
@@ -2019,7 +2130,7 @@ msgstr "For_tsetzen"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"Click Login to log into Flickr in your Web browser.  You will have to "
+"Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Sie sind zurzeit nicht bei Flickr angemeldet.\n"
@@ -2040,21 +2151,21 @@ msgstr ""
 "starten Sie es nochmals und versuchen es dann erneut."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:374
-msgid "Preparing for login..."
+msgid "Preparing for login…"
 msgstr "Anmeldung wird vorbereitet …"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: plugins/shotwell-publishing/FlickrPublishing.vala:594
 msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can't "
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
 "Veröffentlichung auf Flickr ist nicht möglich."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:457
-msgid "Verifying authorization..."
-msgstr "Autorisierung wird bestätigt …"
+msgid "Verifying authorization…"
+msgstr "Legitimierung wird bestätigt …"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1152
 #, c-format
@@ -2111,14 +2222,16 @@ msgid "Friends only"
 msgstr "Nur Freunde"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
-msgid "2048 x 1536 pixels"
-msgstr "2048 x 1536 Pixel"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
+#| msgid "2048 x 1536 pixels"
+msgid "2048 × 1536 pixels"
+msgstr "2048 × 1536 Pixel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1234
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
-msgid "4096 x 3072 pixels"
-msgstr "4096 x 3072 Pixel"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
+#| msgid "4096 x 3072 pixels"
+msgid "4096 × 3072 pixels"
+msgstr "4096 × 3072 Pixel"
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
 msgid "L_ist album in public gallery"
@@ -2132,8 +2245,8 @@ msgstr "Voreingestellte Foto_größe:"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"Click Login to log into Picasa Web Albums in your Web browser. You will have "
-"to authorize Shotwell Connect to link to your Picasa Web Albums account."
+"Click Log in to log into Picasa Web Albums in your Web browser. You will "
+"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
 "Sie sind zur Zeit nicht bei Picasa Webalben angemeldet.\n"
 "\n"
@@ -2143,7 +2256,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:361
 msgid ""
-"A file required for publishing is unavailable. Publishing to Picasa can't "
+"A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
 msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
@@ -2160,20 +2273,20 @@ msgid "Videos will appear in:"
 msgstr "Videos werden folgendermaßen dargestellt:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:746
-msgid "Small (640 x 480 pixels)"
-msgstr "Klein (640 x 480 Pixel)"
+msgid "Small (640 × 480 pixels)"
+msgstr "Klein (640 × 480 Pixel)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:747
-msgid "Medium (1024 x 768 pixels)"
-msgstr "Mittel (1024 x 768 Pixel)"
+msgid "Medium (1024 × 768 pixels)"
+msgstr "Mittel (1024 × 768 Pixel)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:748
-msgid "Recommended (1600 x 1200 pixels)"
-msgstr "Empfohlen (1600 x 1200 Pixel)"
+msgid "Recommended (1600 × 1200 pixels)"
+msgstr "Empfohlen (1600 × 1200 Pixel)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:749
-msgid "Google+ (2048 x 1536 pixels)"
-msgstr "Google+ (2048 x 1536 Pixel)"
+msgid "Google+ (2048 × 1536 pixels)"
+msgstr "Google+ (2048 × 1536 Pixel)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:750
 #: src/editing_tools/EditingTools.vala:756
@@ -2231,18 +2344,31 @@ msgstr "Abmelden"
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:747
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:775
 #, c-format
-msgid "Creating album %s..."
+msgid "Creating album %s…"
 msgstr "Album %s wird erstellt …"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:920
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:948
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Ein Fehler trat beim Veröffentlichen auf Piwigo auf. Bitte versuchen Sie "
 "erneut."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
+#. %s is the host name that we tried to connect to
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#, c-format
+msgid ""
+"This does not look like the real <b>%s</b>. Attackers might be trying to "
+"steal or alter information going to or from this site (for example, private "
+"messages, credit card information, or passwords)."
+msgstr ""
+"Dies scheint kein echtes <b>%s</b> zu sein. Angreifer könnten versuchen, von "
+"oder zu dieser Seite übertragene Informationen zu stehlen oder zu "
+"beeinflussen (zum Beispiel private Nachrichten, Kreditkartendaten oder "
+"Passwörter)."
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2250,7 +2376,7 @@ msgstr ""
 "Geben Sie die Adresse Ihrer Piwigo-Fotobibliothek sowie Ihren Benutzernamen "
 "und Passwort für das mit Ihrer Bibliothek verbundene Piwigo-Benutzerkonto an."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:991
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2258,25 +2384,37 @@ msgstr ""
 "Shotwell kann sich nicht mit Ihrer Piwigo-Fotobibliothek verbinden. Bitte "
 "überprüfen Sie Ihre angegebene Adresse."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Ungültige Adresse"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Admins, Familie, Freunde, Kontakte"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "Admins, Family, Friends"
 msgstr "Admins, Familie, Freunde"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1221
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "Admins, Family"
 msgstr "Admins, Familie"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1222
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 msgid "Admins"
 msgstr "Admins"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
+msgid "This connection is not secure"
+msgstr "Diese Verbindung ist nicht sicher"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
+msgid "Show the certificate…"
+msgstr "Zertifikat anzeigen …"
+
+#: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
+msgid "I understand, please _proceed."
+msgstr "Verstanden, bitte _fortfahren."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:26
 msgid "Core Publishing Services"
@@ -2302,7 +2440,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:363
 msgid ""
-"A file required for publishing is unavailable. Publishing to Youtube can't "
+"A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
@@ -2315,7 +2453,7 @@ msgstr "Sie sind bei YouTube als %s angemeldet."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:464
 #, c-format
-msgid "Videos will appear in '%s'"
+msgid "Videos will appear in “%s”"
 msgstr "Videos werden in »%s« erscheinen"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:496
@@ -2440,7 +2578,7 @@ msgstr "_Ein Problem melden …"
 
 #: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
+#: src/Dialogs.vala:28 src/Dialogs.vala:1441 src/Dialogs.vala:1464
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Abbrechen"
@@ -2448,7 +2586,7 @@ msgstr "_Abbrechen"
 #: src/AppWindow.vala:656
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
@@ -2554,7 +2692,7 @@ msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:458
 msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+"Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
 "Das Kameramedium kann nicht ausgehängt werden. Versuchen Sie es bitte über "
 "die Dateiverwaltung."
@@ -2606,7 +2744,7 @@ msgstr "Alle Fotos in die Bibliothek importieren"
 #: src/camera/ImportPage.vala:1013
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
+"it. Continue?"
 msgstr ""
 "Shotwell muss die Kamera aus dem Dateisystem aushängen, um auf sie zugreifen "
 "zu können. Möchten Sie fortsetzen?"
@@ -2621,8 +2759,8 @@ msgstr "Bitte hängen Sie die Kamera aus."
 
 #: src/camera/ImportPage.vala:1029
 msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
+"The camera is locked by another application. Shotwell can only access the "
+"camera when it’s unlocked. Please close any other application using the "
 "camera and try again."
 msgstr ""
 "Die Kamera ist von einer anderen Anwendung reserviert. Shotwell kann nur auf "
@@ -2693,7 +2831,7 @@ msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Sollen diese Dateien von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Dateien von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1408
 msgid "_Keep"
 msgstr "_Behalten"
 
@@ -2730,7 +2868,7 @@ msgstr "Fotos/Videos exportieren"
 msgid "Export Photo"
 msgstr "Foto exportieren"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:88
+#: src/CollectionPage.vala:458 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Fotos exportieren"
 
@@ -2882,7 +3020,7 @@ msgstr "Stichwort zuordnen"
 
 #: src/Commands.vala:1695
 #, c-format
-msgid "Move Tag \"%s\""
+msgid "Move Tag “%s”"
 msgstr "Stichwort »%s« verschieben"
 
 #: src/Commands.vala:2347
@@ -2943,7 +3081,7 @@ msgstr "%s-Datenbank"
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
-msgid "Importing from %s can't continue because an error occurred:"
+msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "Import von %s kann nicht fortgesetzt werden, da ein Fehler auftrat:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
@@ -3047,12 +3185,12 @@ msgstr "Die Hintergrund-Bildvorführung kann nicht vorbereitet werden: %s"
 
 #: src/Dialogs.vala:16
 #, c-format
-msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgid "This will remove the tag “%s” from one photo. Continue?"
+msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Dies wird das Stichwort »%s« von einem Foto entfernen. Fortsetzen?"
 msgstr[1] "Dies wird das Stichwort »%s« von %d Fotos entfernen. Fortsetzen?"
 
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1393
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1409
 #: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:409
 #: src/Resources.vala:674
 msgid "_Delete"
@@ -3060,7 +3198,7 @@ msgstr "_Löschen"
 
 #: src/Dialogs.vala:25
 #, c-format
-msgid "This will remove the saved search \"%s\".  Continue?"
+msgid "This will remove the saved search “%s”. Continue?"
 msgstr ""
 "Hiermit wird die gespeicherte Suche »%s« entfernt. Soll fortgesetzt werden?"
 
@@ -3091,16 +3229,16 @@ msgstr "Video exportieren"
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: src/Dialogs.vala:116
+#: src/Dialogs.vala:112
 #, c-format
 msgid ""
-"Shotwell couldn't create a file for editing this photo because you do not "
+"Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
 "Shotwell konnte keine Datei zur Bearbeitung dieses Fotos erstellen, weil Sie "
 "keine Berechtigung haben, um auf %s zu schreiben."
 
-#: src/Dialogs.vala:125
+#: src/Dialogs.vala:121
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -3108,7 +3246,7 @@ msgstr ""
 "Das Foto kann wegen eines Dateifehlers nicht exportiert werden.\n"
 "\n"
 
-#: src/Dialogs.vala:131
+#: src/Dialogs.vala:127
 msgid ""
 "\n"
 "\n"
@@ -3121,61 +3259,61 @@ msgstr ""
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
 #. Hereafter we'll refer to these as "special formats."
-#: src/Dialogs.vala:148
+#: src/Dialogs.vala:144
 msgid "Unmodified"
 msgstr "Unverändert"
 
 # Bildformat
-#: src/Dialogs.vala:149
+#: src/Dialogs.vala:145
 msgid "Current"
 msgstr "Aktuelles"
 
 #. layout controls
-#: src/Dialogs.vala:216
+#: src/Dialogs.vala:221
 msgid "_Format:"
 msgstr "_Format:"
 
-#: src/Dialogs.vala:219
+#: src/Dialogs.vala:224
 msgid "_Quality:"
 msgstr "_Qualität:"
 
-#: src/Dialogs.vala:222
+#: src/Dialogs.vala:227
 msgid "_Scaling constraint:"
 msgstr "_Skalierungsbeschränkung:"
 
-#: src/Dialogs.vala:225
+#: src/Dialogs.vala:230
 msgid "_Pixels:"
 msgstr "_Pixel:"
 
-#: src/Dialogs.vala:228
-msgid "Export metadata"
-msgstr "Metadaten exportieren"
+#: src/Dialogs.vala:234
+msgid "Export _metadata:"
+msgstr "_Metadaten exportieren:"
 
-#: src/Dialogs.vala:462
+#: src/Dialogs.vala:478
 msgid "Save Details…"
 msgstr "Details speichern …"
 
-#: src/Dialogs.vala:463
+#: src/Dialogs.vala:479
 msgid "Save Details"
 msgstr "Details speichern"
 
-#: src/Dialogs.vala:478
+#: src/Dialogs.vala:494
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(und %d andere)\n"
 
-#: src/Dialogs.vala:531
+#: src/Dialogs.vala:547
 msgid "Import Results Report"
 msgstr "Importergebnisse anzeigen"
 
-#: src/Dialogs.vala:535
+#: src/Dialogs.vala:551
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "%d Datei zu importieren versucht."
 msgstr[1] "%d Dateien zu importieren versucht."
 
-#: src/Dialogs.vala:538
+#: src/Dialogs.vala:554
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -3185,31 +3323,31 @@ msgstr[1] "Davon wurden %d Dateien erfolgreich importiert."
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:550
+#: src/Dialogs.vala:566
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Duplikate von Fotos und Videos wurden nicht importiert:"
 
-#: src/Dialogs.vala:554
+#: src/Dialogs.vala:570
 msgid "duplicates existing media item"
 msgstr "dupliziert bestehendes Medienelement"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:565
+#: src/Dialogs.vala:581
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Fotos/Videos wurden aufgrund von Kamera-Fehlern nicht importiert:"
 
-#: src/Dialogs.vala:568 src/Dialogs.vala:583 src/Dialogs.vala:598
-#: src/Dialogs.vala:614 src/Dialogs.vala:629 src/Dialogs.vala:643
+#: src/Dialogs.vala:584 src/Dialogs.vala:599 src/Dialogs.vala:614
+#: src/Dialogs.vala:630 src/Dialogs.vala:645 src/Dialogs.vala:659
 msgid "error message:"
 msgstr "Fehlermeldung:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:579
-msgid "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
+#: src/Dialogs.vala:595
+msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Diese Dateien wurden nicht importiert, da Sie nicht als Foto oder Video "
 "erkannt wurden:"
@@ -3217,9 +3355,9 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:594
+#: src/Dialogs.vala:610
 msgid ""
-"Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
+"Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
 msgstr ""
 "Dateien wurden nicht importiert, da Sie nicht in einem mit Shotwell "
@@ -3228,18 +3366,18 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:609
+#: src/Dialogs.vala:625
 msgid ""
-"Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
+"Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr ""
 "Dateien wurden nicht importiert, da Sie nicht in die Bibliothek kopiert "
 "werden konnten:"
 
-#: src/Dialogs.vala:613
+#: src/Dialogs.vala:629
 #, c-format
 msgid ""
-"couldn't copy %s\n"
+"couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
 "%s konnte nicht\n"
@@ -3248,7 +3386,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:625
+#: src/Dialogs.vala:641
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr ""
 "Fotos/Videos konnten nicht importiert werden, da die Dateien beschädigt sind:"
@@ -3256,32 +3394,32 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:640
+#: src/Dialogs.vala:656
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Foto/Videos wurden aus anderen Gründen nicht importiert:"
 
-#: src/Dialogs.vala:660
+#: src/Dialogs.vala:676
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "1 Duplikat des Fotos wurde nicht importiert:\n"
 msgstr[1] "%d Duplikate des Fotos wurden nicht importiert:\n"
 
-#: src/Dialogs.vala:663
+#: src/Dialogs.vala:679
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "1 Duplikat des Videos wurde nicht importiert:\n"
 msgstr[1] "%d Duplikate des Videos wurden nicht importiert:\n"
 
-#: src/Dialogs.vala:666
+#: src/Dialogs.vala:682
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "1 Duplikat des Fotos/Videos wurde nicht importiert:\n"
 msgstr[1] "%d Duplikate der Fotos/Videos wurden nicht importiert:\n"
 
-#: src/Dialogs.vala:680
+#: src/Dialogs.vala:696
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
@@ -3291,7 +3429,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d Fotos konnten wegen Datei- oder Hardwarefehlern nicht importiert werden:\n"
 
-#: src/Dialogs.vala:683
+#: src/Dialogs.vala:699
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -3302,7 +3440,7 @@ msgstr[1] ""
 "%d Videos konnten wegen Datei- oder Hardwarefehlern nicht importiert "
 "werden:\n"
 
-#: src/Dialogs.vala:686
+#: src/Dialogs.vala:702
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -3314,7 +3452,7 @@ msgstr[1] ""
 "%d Fotos/Videos konnten wegen Datei- oder Hardwarefehlern nicht importiert "
 "werden:\n"
 
-#: src/Dialogs.vala:689
+#: src/Dialogs.vala:705
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
@@ -3325,7 +3463,7 @@ msgstr[1] ""
 "%d Dateien konnten wegen eines Datei- oder Hardwarefehlers nicht importiert "
 "werden:\n"
 
-#: src/Dialogs.vala:703
+#: src/Dialogs.vala:719
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -3339,7 +3477,7 @@ msgstr[1] ""
 "%d Fotos wurden nicht importiert, weil der Ordner der Foto-Bibliothek "
 "schreibgeschützt ist:\n"
 
-#: src/Dialogs.vala:706
+#: src/Dialogs.vala:722
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -3353,7 +3491,7 @@ msgstr[1] ""
 "%d Videos wurden nicht importiert, weil der Ordner mit der Foto-Bibliothek "
 "schreibgeschützt ist:\n"
 
-#: src/Dialogs.vala:709
+#: src/Dialogs.vala:725
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -3368,7 +3506,7 @@ msgstr[1] ""
 "%d Fotos/Videos wurden nicht importiert, weil der Ordner mit der Foto-"
 "Bibliothek schreibgeschützt ist:\n"
 
-#: src/Dialogs.vala:712
+#: src/Dialogs.vala:728
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -3382,7 +3520,7 @@ msgstr[1] ""
 "%d Dateien wurden nicht importiert, weil der Ordner mit der Foto-Bibliothek "
 "schreibgeschützt ist:\n"
 
-#: src/Dialogs.vala:726
+#: src/Dialogs.vala:742
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
@@ -3391,7 +3529,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d Fotos konnten wegen eines Kamerafehlers nicht importiert werden:\n"
 
-#: src/Dialogs.vala:729
+#: src/Dialogs.vala:745
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
@@ -3400,7 +3538,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d Videos konnten wegen eines Kamerafehlers nicht importiert werden:\n"
 
-#: src/Dialogs.vala:732
+#: src/Dialogs.vala:748
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
@@ -3409,7 +3547,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d Fotos/Videos konnten wegen eines Kamerafehlers nicht importiert werden:\n"
 
-#: src/Dialogs.vala:735
+#: src/Dialogs.vala:751
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
@@ -3418,7 +3556,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d Dateien konnte wegen eines Kamerafehlers nicht importiert werden:\n"
 
-#: src/Dialogs.vala:749
+#: src/Dialogs.vala:765
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
@@ -3428,7 +3566,7 @@ msgstr[1] ""
 "%d Fotos konnten nicht importiert werden, weil die Dateien beschädigt "
 "waren:\n"
 
-#: src/Dialogs.vala:752
+#: src/Dialogs.vala:768
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
@@ -3437,7 +3575,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d Videos konnten nicht importiert werden, weil die Datei beschädigt war:\n"
 
-#: src/Dialogs.vala:755
+#: src/Dialogs.vala:771
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
@@ -3448,7 +3586,7 @@ msgstr[1] ""
 "%d Fotos/Videos konnten nicht importiert werden, weil die Datei beschädigt "
 "war:\n"
 
-#: src/Dialogs.vala:758
+#: src/Dialogs.vala:774
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -3461,7 +3599,7 @@ msgstr[1] ""
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:775
+#: src/Dialogs.vala:791
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -3470,56 +3608,56 @@ msgstr[1] "%d Fotos mit nicht unterstütztem Format wurden übersprungen:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:806
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Eine Nicht-Bilddatei wurde übersprungen.\n"
 msgstr[1] "%d Nicht-Bilddateien wurde übersprungen.\n"
 
-#: src/Dialogs.vala:801
+#: src/Dialogs.vala:817
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "Ein Foto wurde wegen Abbruchs durch den Benutzer übersprungen:\n"
 msgstr[1] "%d Fotos wurden wegen Abbruchs durch den Benutzer übersprungen:\n"
 
-#: src/Dialogs.vala:804
+#: src/Dialogs.vala:820
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "Ein Video wurde wegen Abbruchs durch den Benutzer übersprungen:\n"
 msgstr[1] "%d Videos wurden wegen Abbruchs durch den Benutzer übersprungen:\n"
 
-#: src/Dialogs.vala:807
+#: src/Dialogs.vala:823
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "Ein Foto/Video wegen Abbruchs durch den Benutzer übersprungen.\n"
 msgstr[1] "%d Fotos/Videos wegen Abbruchs durch den Benutzer übersprungen.\n"
 
-#: src/Dialogs.vala:810
+#: src/Dialogs.vala:826
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "Eine Datei wegen Abbruchs durch den Benutzer übersprungen.\n"
 msgstr[1] "%d Dateien wegen Abbruchs durch den Benutzer übersprungen.\n"
 
-#: src/Dialogs.vala:824
+#: src/Dialogs.vala:840
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "Ein Foto wurde erfolgreich importiert.\n"
 msgstr[1] "%d Fotos wurden erfolgreich importiert.\n"
 
-#: src/Dialogs.vala:827
+#: src/Dialogs.vala:843
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "Ein Video wurde erfolgreich importiert.\n"
 msgstr[1] "%d Videos wurden erfolgreich importiert.\n"
 
-#: src/Dialogs.vala:830
+#: src/Dialogs.vala:846
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -3528,179 +3666,179 @@ msgstr[1] "%d Fotos/Videos wurden erfolgreich importiert.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:846
+#: src/Dialogs.vala:862
 msgid "No photos or videos imported.\n"
 msgstr "Es wurden keine Fotos oder Videos importiert.\n"
 
-#: src/Dialogs.vala:853 src/Dialogs.vala:872
+#: src/Dialogs.vala:869 src/Dialogs.vala:888
 msgid "Import Complete"
 msgstr "Import abgeschlossen"
 
-#: src/Dialogs.vala:1158
+#: src/Dialogs.vala:1174
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d Sekunde"
 msgstr[1] "%d Sekunden"
 
-#: src/Dialogs.vala:1161
+#: src/Dialogs.vala:1177
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d Minute"
 msgstr[1] "%d Minuten"
 
-#: src/Dialogs.vala:1165
+#: src/Dialogs.vala:1181
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
 
-#: src/Dialogs.vala:1168
+#: src/Dialogs.vala:1184
 msgid "1 day"
 msgstr "1 Tag"
 
-#: src/Dialogs.vala:1322 src/Resources.vala:231
+#: src/Dialogs.vala:1338 src/Resources.vala:231
 msgid "Rename Event"
 msgstr "Ereignis umbenennen"
 
-#: src/Dialogs.vala:1322
+#: src/Dialogs.vala:1338
 msgid "Name:"
 msgstr "Name:"
 
 #. Dialog title
-#: src/Dialogs.vala:1333
+#: src/Dialogs.vala:1349
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Titel bearbeiten"
 
-#: src/Dialogs.vala:1334 src/Properties.vala:340
+#: src/Dialogs.vala:1350 src/Properties.vala:340
 msgid "Title:"
 msgstr "Titel:"
 
 #. Dialog title
-#: src/Dialogs.vala:1350 src/Resources.vala:307
+#: src/Dialogs.vala:1366 src/Resources.vala:307
 msgid "Edit Event Comment"
 msgstr "Kommentar des Ereignisses bearbeiten"
 
-#: src/Dialogs.vala:1351
+#: src/Dialogs.vala:1367
 msgid "Edit Photo/Video Comment"
 msgstr "Foto-/Video-Kommentar bearbeiten"
 
-#: src/Dialogs.vala:1352 src/Properties.vala:628
+#: src/Dialogs.vala:1368 src/Properties.vala:628
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: src/Dialogs.vala:1368
+#: src/Dialogs.vala:1384
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Datei entfernen und _löschen"
 msgstr[1] "Dateien entfernen und _löschen"
 
-#: src/Dialogs.vala:1372
+#: src/Dialogs.vala:1388
 msgid "_Remove From Library"
 msgstr "Aus der Bibliothek _entfernen"
 
-#: src/Dialogs.vala:1415
+#: src/Dialogs.vala:1431
 msgid "Revert External Edit?"
 msgstr "Externe Veränderung zurücknehmen?"
 
-#: src/Dialogs.vala:1415
+#: src/Dialogs.vala:1431
 msgid "Revert External Edits?"
 msgstr "Externe Veränderungen zurücknehmen?"
 
-#: src/Dialogs.vala:1417
+#: src/Dialogs.vala:1433
 #, c-format
-msgid "This will destroy all changes made to the external file.  Continue?"
+msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+"This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
 "Dies wird alle Veränderungen der externen Datei zerstören. Fortfahren?"
 msgstr[1] ""
 "Dies wird alle Veränderungen der %d externen Dateien zerstören. Fortfahren?"
 
-#: src/Dialogs.vala:1421
+#: src/Dialogs.vala:1437
 msgid "Re_vert External Edit"
 msgstr "Externe _Veränderung zurücknehmen"
 
-#: src/Dialogs.vala:1421
+#: src/Dialogs.vala:1437
 msgid "Re_vert External Edits"
 msgstr "Externe _Veränderungen zurücknehmen"
 
-#: src/Dialogs.vala:1442
+#: src/Dialogs.vala:1458
 #, c-format
-msgid "This will remove the photo from the library.  Continue?"
-msgid_plural "This will remove %d photos from the library.  Continue?"
+msgid "This will remove the photo from the library. Continue?"
+msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Dies wird das Foto aus der Bibliothek entfernen. Fortsetzen?"
 msgstr[1] "Dies wird %d Fotos aus der Bibliothek entfernen. Fortsetzen?"
 
-#: src/Dialogs.vala:1449 src/Resources.vala:173
+#: src/Dialogs.vala:1465 src/Resources.vala:173
 msgid "_Remove"
 msgstr "Entfe_rnen"
 
-#: src/Dialogs.vala:1450
+#: src/Dialogs.vala:1466
 msgid "Remove Photo From Library"
 msgstr "Foto aus der Bibliothek entfernen"
 
-#: src/Dialogs.vala:1450
+#: src/Dialogs.vala:1466
 msgid "Remove Photos From Library"
 msgstr "Fotos aus der Bibliothek entfernen"
 
-#: src/Dialogs.vala:1543
+#: src/Dialogs.vala:1559
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:1697
+#: src/Dialogs.vala:1713
 msgid "AM"
 msgstr "Vormittag"
 
-#: src/Dialogs.vala:1698
+#: src/Dialogs.vala:1714
 msgid "PM"
 msgstr "Nachmittag"
 
-#: src/Dialogs.vala:1699
+#: src/Dialogs.vala:1715
 msgid "24 Hr"
 msgstr "24 Stunden"
 
-#: src/Dialogs.vala:1714
+#: src/Dialogs.vala:1730
 msgid "_Shift photos/videos by the same amount"
 msgstr "Fotos/Videos um den gleichen Betrag _versetzen"
 
-#: src/Dialogs.vala:1719
+#: src/Dialogs.vala:1735
 msgid "Set _all photos/videos to this time"
 msgstr "Zeit für _alle Fotos/Videos setzen"
 
-#: src/Dialogs.vala:1726
+#: src/Dialogs.vala:1742
 msgid "_Modify original photo file"
 msgstr "Originale Bilddatei _verändern"
 
-#: src/Dialogs.vala:1726
+#: src/Dialogs.vala:1742
 msgid "_Modify original photo files"
 msgstr "Originale Bilddateien _verändern"
 
-#: src/Dialogs.vala:1729
+#: src/Dialogs.vala:1745
 msgid "_Modify original file"
 msgstr "Originaldateien _bearbeiten"
 
-#: src/Dialogs.vala:1729
+#: src/Dialogs.vala:1745
 msgid "_Modify original files"
 msgstr "Originaldateien _verändern"
 
-#: src/Dialogs.vala:1815
+#: src/Dialogs.vala:1831
 msgid "Original: "
 msgstr "Ursprüngliche Größe:"
 
-#: src/Dialogs.vala:1816
+#: src/Dialogs.vala:1832
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d.%m.%Y, %H:%M:%S"
 
-#: src/Dialogs.vala:1817
+#: src/Dialogs.vala:1833
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d.%m.%Y, %I:%M:%S %p"
 
-#: src/Dialogs.vala:1906
+#: src/Dialogs.vala:1922
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3709,7 +3847,7 @@ msgstr ""
 "Aufnahmezeit wird um \n"
 "%d %s, %d %s, %d %s, und %d %s nach vorne verlegt."
 
-#: src/Dialogs.vala:1907
+#: src/Dialogs.vala:1923
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3718,31 +3856,31 @@ msgstr ""
 "Aufnahmezeit wird um \n"
 "%d %s, %d %s, %d %s, und %d %s nach hinten verlegt."
 
-#: src/Dialogs.vala:1909
+#: src/Dialogs.vala:1925
 msgid "day"
 msgid_plural "days"
 msgstr[0] "Tag"
 msgstr[1] "Tage"
 
-#: src/Dialogs.vala:1910
+#: src/Dialogs.vala:1926
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "Stunde"
 msgstr[1] "Stunden"
 
-#: src/Dialogs.vala:1911
+#: src/Dialogs.vala:1927
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "Minute"
 msgstr[1] "Minuten"
 
-#: src/Dialogs.vala:1912
+#: src/Dialogs.vala:1928
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "Sekunde"
 msgstr[1] "Sekunden"
 
-#: src/Dialogs.vala:1956
+#: src/Dialogs.vala:1972
 #, c-format
 msgid ""
 "\n"
@@ -3761,50 +3899,50 @@ msgstr[1] ""
 "\n"
 "und %d andere."
 
-#: src/Dialogs.vala:1980 src/Dialogs.vala:2007
+#: src/Dialogs.vala:1996 src/Dialogs.vala:2023
 msgid "Tags (separated by commas):"
 msgstr "Stichworte (getrennt durch Kommata):"
 
-#: src/Dialogs.vala:2087
+#: src/Dialogs.vala:2103
 msgid "Welcome!"
 msgstr "Willkommen!"
 
-#: src/Dialogs.vala:2094
+#: src/Dialogs.vala:2110
 msgid "Welcome to Shotwell!"
 msgstr "Willkommen zu Shotwell!"
 
-#: src/Dialogs.vala:2098
+#: src/Dialogs.vala:2114
 msgid "To get started, import photos in any of these ways:"
 msgstr "Importieren Sie zunächst Fotos auf eine der folgenden Arten:"
 
-#: src/Dialogs.vala:2117
+#: src/Dialogs.vala:2133
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr ""
 "Wählen Sie <span weight=\"bold\">Datei %s aus Ordner importieren</span>"
 
-#: src/Dialogs.vala:2118
+#: src/Dialogs.vala:2134
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Verschieben Sie Fotos per Ziehen und Ablegen in das Shotwell-Fenster"
 
-#: src/Dialogs.vala:2119
+#: src/Dialogs.vala:2135
 msgid "Connect a camera to your computer and import"
 msgstr "Verbinden Sie die Kamera mit Ihrem Rechner und importieren Sie"
 
-#: src/Dialogs.vala:2129
+#: src/Dialogs.vala:2145
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "Fotos aus dem Ordner »%s« _importieren"
 
-#: src/Dialogs.vala:2136
+#: src/Dialogs.vala:2152
 msgid "You can also import photos in any of these ways:"
 msgstr "Sie können Fotos auch auf eine der folgenden Weisen importieren:"
 
-#: src/Dialogs.vala:2146
-msgid "_Don't show this message again"
+#: src/Dialogs.vala:2162
+msgid "_Don’t show this message again"
 msgstr "Diese Meldung nicht noch einmal _zeigen"
 
-#: src/Dialogs.vala:2181
+#: src/Dialogs.vala:2197
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Bilder aus der %s-Bibliothek importieren"
@@ -3812,41 +3950,41 @@ msgstr "Bilder aus der %s-Bibliothek importieren"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2328 src/Dialogs.vala:2332
+#: src/Dialogs.vala:2344 src/Dialogs.vala:2348
 msgid "(Help)"
 msgstr "(Hilfe)"
 
-#: src/Dialogs.vala:2341
+#: src/Dialogs.vala:2357
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Jahr%sMonat%sTag"
 
-#: src/Dialogs.vala:2343
+#: src/Dialogs.vala:2359
 #, c-format
 msgid "Year%sMonth"
 msgstr "Jahr%sMonat"
 
-#: src/Dialogs.vala:2345
+#: src/Dialogs.vala:2361
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Jahr%sMonat-Tag"
 
-#: src/Dialogs.vala:2347
+#: src/Dialogs.vala:2363
 msgid "Year-Month-Day"
 msgstr "Jahr-Monat-Tag"
 
-#: src/Dialogs.vala:2348 src/editing_tools/EditingTools.vala:781
+#: src/Dialogs.vala:2364 src/editing_tools/EditingTools.vala:781
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #. Invalid pattern.
-#: src/Dialogs.vala:2585
+#: src/Dialogs.vala:2601
 msgid "Invalid pattern"
 msgstr "Ungültiges Muster"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2687
+#: src/Dialogs.vala:2703
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -3854,40 +3992,40 @@ msgstr ""
 "Shotwell kann die Fotos aus dem Ordner in die Bibliothek kopieren oder sie "
 "können verknüpft werden, ohne sie zu kopieren."
 
-#: src/Dialogs.vala:2692
+#: src/Dialogs.vala:2708
 msgid "Co_py Photos"
 msgstr "Fotos ko_pieren"
 
-#: src/Dialogs.vala:2693
+#: src/Dialogs.vala:2709
 msgid "_Import in Place"
 msgstr "_Import durch Verknüpfen"
 
-#: src/Dialogs.vala:2694
+#: src/Dialogs.vala:2710
 msgid "Import to Library"
 msgstr "In Bibliothek importieren"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2720 src/PhotoPage.vala:3085
 msgid "Remove From Library"
 msgstr "Aus Bibliothek entfernen"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2721 src/PhotoPage.vala:3085
 msgid "Removing Photo From Library"
 msgstr "Foto wird aus Bibliothek entfernt"
 
-#: src/Dialogs.vala:2705
+#: src/Dialogs.vala:2721
 msgid "Removing Photos From Library"
 msgstr "Fotos werden aus Bibliothek entfernt"
 
-#: src/Dialogs.vala:2719
+#: src/Dialogs.vala:2735
 #, c-format
 msgid ""
-"This will remove the photo/video from your Shotwell library.  Would you also "
+"This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos/videos from your Shotwell library.  Would you "
-"also like to move the files to your desktop trash?\n"
+"This will remove %d photos/videos from your Shotwell library. Would you also "
+"like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -3901,15 +4039,15 @@ msgstr[1] ""
 "\n"
 "Diese Aktion kann nicht rückgängig gemacht werden!"
 
-#: src/Dialogs.vala:2723
+#: src/Dialogs.vala:2739
 #, c-format
 msgid ""
-"This will remove the video from your Shotwell library.  Would you also like "
+"This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d videos from your Shotwell library.  Would you also like "
+"This will remove %d videos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -3924,15 +4062,15 @@ msgstr[1] ""
 "\n"
 "Diese Aktion kann nicht rückgängig gemacht werden!"
 
-#: src/Dialogs.vala:2727
+#: src/Dialogs.vala:2743
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
+"This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
+"This will remove %d photos from your Shotwell library. Would you also like "
 "to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
@@ -3947,12 +4085,12 @@ msgstr[1] ""
 "\n"
 "Diese Aktion kann nicht rückgängig gemacht werden!"
 
-#: src/Dialogs.vala:2759
+#: src/Dialogs.vala:2775
 #, c-format
 msgid ""
-"The photo or video cannot be moved to your desktop trash.  Delete this file?"
+"The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
-"%d photos/videos cannot be moved to your desktop trash.  Delete these files?"
+"%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
 "Das Foto oder Video konnte nicht in den Papierkorb verschoben werden. "
 "Endgültig löschen?"
@@ -3961,7 +4099,7 @@ msgstr[1] ""
 "löschen?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2776
+#: src/Dialogs.vala:2792
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -4170,84 +4308,84 @@ msgid "-"
 msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:758
-msgid "SD Video (4 : 3)"
+msgid "SD Video (4 ∶ 3)"
 msgstr "SD-Video (4 : 3)"
 
 #: src/editing_tools/EditingTools.vala:759
-msgid "HD Video (16 : 9)"
+msgid "HD Video (16 ∶ 9)"
 msgstr "HD-Video (16 : 9)"
 
 #: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
-msgid "Wallet (2 x 3 in.)"
-msgstr "Brieftasche (2 x 3 Zoll)"
+msgid "Wallet (2 × 3 in.)"
+msgstr "Brieftasche (2 × 3 Zoll)"
 
 #: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
-msgid "Notecard (3 x 5 in.)"
-msgstr "Notizzettel (3 x 5 Zoll)"
+msgid "Notecard (3 × 5 in.)"
+msgstr "Notizzettel (3 × 5 Zoll)"
 
 #: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
-msgid "4 x 6 in."
-msgstr "4 x 6 Zoll"
+msgid "4 × 6 in."
+msgstr "4 × 6 Zoll"
 
 #: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
-msgid "5 x 7 in."
-msgstr "5 x 7 Zoll"
+msgid "5 × 7 in."
+msgstr "5 × 7 Zoll"
 
 #: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
-msgid "8 x 10 in."
-msgstr "8 x 10 Zoll"
+msgid "8 × 10 in."
+msgstr "8 × 10 Zoll"
 
 #: src/editing_tools/EditingTools.vala:766
-msgid "Letter (8.5 x 11 in.)"
-msgstr "US-Letter (8.5 x 11 in.)"
+msgid "Letter (8.5 × 11 in.)"
+msgstr "US-Letter (8.5 × 11 Zoll)"
 
 #: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
-msgid "11 x 14 in."
-msgstr "11 x 14 Zoll"
+msgid "11 × 14 in."
+msgstr "11 × 14 Zoll"
 
 #: src/editing_tools/EditingTools.vala:768
-msgid "Tabloid (11 x 17 in.)"
-msgstr "Boulevardblatt (11 x 17 in.)"
+msgid "Tabloid (11 × 17 in.)"
+msgstr "Boulevardblatt (11 × 17 Zoll)"
 
 #: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
-msgid "16 x 20 in."
-msgstr "16 x 20 Zoll"
+msgid "16 × 20 in."
+msgstr "16 × 20 Zoll"
 
 #: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
-msgid "Metric Wallet (9 x 13 cm)"
-msgstr "Metrische Brieftasche (9 x 13 cm)"
+msgid "Metric Wallet (9 × 13 cm)"
+msgstr "Metrische Brieftasche (9 × 13 cm)"
 
 #: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
-msgid "Postcard (10 x 15 cm)"
-msgstr "Postkarte (10 x 15 cm)"
+msgid "Postcard (10 × 15 cm)"
+msgstr "Postkarte (10 × 15 cm)"
 
 #: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
-msgid "13 x 18 cm"
-msgstr "13 x 18 cm"
+msgid "13 × 18 cm"
+msgstr "13 × 18 cm"
 
 #: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
-msgid "18 x 24 cm"
-msgstr "18 x 24 cm"
+msgid "18 × 24 cm"
+msgstr "18 × 24 cm"
 
 #: src/editing_tools/EditingTools.vala:775
-msgid "A4 (210 x 297 mm)"
-msgstr "A4 (210 x 297 mm)"
+msgid "A4 (210 × 297 mm)"
+msgstr "A4 (210 × 297 mm)"
 
 #: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
-msgid "20 x 30 cm"
-msgstr "20 x 30 cm"
+msgid "20 × 30 cm"
+msgstr "20 × 30 cm"
 
 #: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
-msgid "24 x 40 cm"
-msgstr "24 x 40 cm"
+msgid "24 × 40 cm"
+msgstr "24 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
-msgid "30 x 40 cm"
-msgstr "30 x 40 cm"
+msgid "30 × 40 cm"
+msgstr "30 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:779
-msgid "A3 (297 x 420 mm)"
-msgstr "A3 (297 x 420 mm)"
+msgid "A3 (297 × 420 mm)"
+msgstr "A3 (297 × 420 mm)"
 
 #: src/editing_tools/EditingTools.vala:1872 src/Properties.vala:395
 msgid "Size:"
@@ -4422,7 +4560,7 @@ msgstr "Wird exportiert"
 
 #: src/Exporter.vala:317
 #, c-format
-msgid "File %s already exists.  Replace?"
+msgid "File %s already exists. Replace?"
 msgstr "Die Datei %s existiert bereits. Soll sie überschrieben werden?"
 
 #: src/Exporter.vala:319
@@ -4638,7 +4776,6 @@ msgid "Updating library…"
 msgstr "Bibliothek wird aktualisiert …"
 
 #: src/library/LibraryWindow.vala:1264
-#| msgid "Preparing to auto-import photos..."
 msgid "Preparing to auto-import photos…"
 msgstr "Preparing to auto-import photos…"
 
@@ -4677,9 +4814,9 @@ msgstr "Fotos werden gelöscht"
 #: src/main.vala:54
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please use the latest version of Shotwell."
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please use the latest version of Shotwell."
 msgstr ""
 "Die Datenbank für die Foto-Bibliothek ist nicht mit dieser Version von "
 "Shotwell kompatibel. Es sieht so aus, als wäre sie von Shotwell %s (Schema "
@@ -4690,7 +4827,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d).  For more information please check the Shotwell Wiki "
+"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
 "Shotwell konnte Ihre Foto-Bibliothek nicht von Version %s (Schema %d) zu %s "
@@ -4700,9 +4837,9 @@ msgstr ""
 #: src/main.vala:65
 #, c-format
 msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s (schema %d).  This version is %s "
-"(schema %d).  Please clear your library by deleting %s and re-import your "
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
 "Die Datenbank für die Foto-Bibliothek ist nicht mit dieser Version von "
@@ -4712,7 +4849,7 @@ msgstr ""
 
 #: src/main.vala:71
 #, c-format
-msgid "Unknown error attempting to verify Shotwell's database: %s"
+msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Unbekannter Fehler bei der Überprüfung von Shotwells Datenbank: %s"
 
 #: src/main.vala:104
@@ -4720,7 +4857,7 @@ msgid "Loading Shotwell"
 msgstr "Shotwell wird geladen"
 
 #: src/main.vala:294
-msgid "Path to Shotwell's private data"
+msgid "Path to Shotwell’s private data"
 msgstr "Pfad zu Shotwells Verwaltungsinformation"
 
 #: src/main.vala:294
@@ -4732,11 +4869,11 @@ msgid "Do not monitor library directory at runtime for changes"
 msgstr "Bibliotheksordner nicht laufend auf Veränderungen prüfen"
 
 #: src/main.vala:302
-msgid "Don't display startup progress meter"
+msgid "Don’t display startup progress meter"
 msgstr "Fortschrittsbalken beim Start nicht anzeigen"
 
 #: src/main.vala:306
-msgid "Show the application's version"
+msgid "Show the application’s version"
 msgstr "Versionsnummer anzeigen"
 
 #. init GTK (valac has already called g_threads_init())
@@ -4746,7 +4883,7 @@ msgstr "[DATEI]"
 
 #: src/main.vala:342
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Rufen Sie »%s --help« auf, um eine vollständige Liste von möglichen "
 "Befehlszeilenoptionen zu erhalten.\n"
@@ -4790,7 +4927,7 @@ msgid "Display the comment of each photo"
 msgstr "Die Kommentare zu jedem Bild anzeigen"
 
 #: src/MediaPage.vala:470
-msgid "Display each photo's tags"
+msgid "Display each photo’s tags"
 msgstr "Stichworte jedes Fotos anzeigen"
 
 #: src/MediaPage.vala:486
@@ -5097,7 +5234,7 @@ msgstr "%d von %d wird hochgeladen"
 
 #: src/publishing/PublishingPluginHost.vala:81
 #, c-format
-msgid "Publishing to %s can't continue because an error occurred:"
+msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr ""
 "Veröffentlichung auf %s kann nicht fortgesetzt werden, weil ein Fehler "
 "aufgetreten ist:"
@@ -5325,7 +5462,7 @@ msgid "Enhance"
 msgstr "Verbessern"
 
 #: src/Resources.vala:188
-msgid "Automatically improve the photo's appearance"
+msgid "Automatically improve the photo’s appearance"
 msgstr "Automatisch das Aussehen des Fotos verbessern"
 
 #: src/Resources.vala:190
@@ -5361,7 +5498,7 @@ msgid "Crop"
 msgstr "Zuschneiden"
 
 #: src/Resources.vala:200
-msgid "Crop the photo's size"
+msgid "Crop the photo’s size"
 msgstr "Foto auf eine gewünschte Größe zuschneiden"
 
 #: src/Resources.vala:203
@@ -5393,7 +5530,7 @@ msgid "Adjust"
 msgstr "Anpassen"
 
 #: src/Resources.vala:212
-msgid "Adjust the photo's color and tone"
+msgid "Adjust the photo’s color and tone"
 msgstr "Farbe und Farbton des Fotos anpassen"
 
 #: src/Resources.vala:214
@@ -5583,7 +5720,7 @@ msgid "_Ratings"
 msgstr "_Bewertungen"
 
 #: src/Resources.vala:280
-msgid "Display each photo's rating"
+msgid "Display each photo’s rating"
 msgstr "Bewertung jedes Fotos anzeigen"
 
 #: src/Resources.vala:282
@@ -5716,13 +5853,13 @@ msgstr "Editor kann nicht gestartet werden: %s"
 
 #: src/Resources.vala:340
 #, c-format
-msgid "Add Tag \"%s\""
+msgid "Add Tag “%s”"
 msgstr "Stichwort »%s« hinzufügen"
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:343
 #, c-format
-msgid "Add Tags \"%s\" and \"%s\""
+msgid "Add Tags “%s” and “%s”"
 msgstr "Stichworte »%s« und »%s« hinzufügen"
 
 #. Undo/Redo command name (in Edit menu)
@@ -5733,12 +5870,12 @@ msgstr "Stichworte hinzufügen"
 
 #: src/Resources.vala:353
 #, c-format
-msgid "_Delete Tag \"%s\""
+msgid "_Delete Tag “%s”"
 msgstr "Stichwort »%s« _entfernen"
 
 #: src/Resources.vala:357
 #, c-format
-msgid "Delete Tag \"%s\""
+msgid "Delete Tag “%s”"
 msgstr "Stichwort »%s« entfernen"
 
 #: src/Resources.vala:360
@@ -5747,12 +5884,12 @@ msgstr "Stichwort entfernen"
 
 #: src/Resources.vala:366
 #, c-format
-msgid "Re_name Tag \"%s\"…"
+msgid "Re_name Tag “%s”…"
 msgstr "Stichwort »%s« _umbenennen …"
 
 #: src/Resources.vala:370
 #, c-format
-msgid "Rename Tag \"%s\" to \"%s\""
+msgid "Rename Tag “%s” to “%s”"
 msgstr "Stichwort »%s« zu »%s« umbenennen"
 
 #: src/Resources.vala:373
@@ -5769,54 +5906,54 @@ msgstr "Stichworte ändern"
 
 #: src/Resources.vala:379
 #, c-format
-msgid "Tag Photo as \"%s\""
+msgid "Tag Photo as “%s”"
 msgstr "Foto mit Stichwort »%s« versehen"
 
 #: src/Resources.vala:379
 #, c-format
-msgid "Tag Photos as \"%s\""
+msgid "Tag Photos as “%s”"
 msgstr "Fotos mit Stichwort »%s« versehen"
 
 #: src/Resources.vala:383
 #, c-format
-msgid "Tag the selected photo as \"%s\""
+msgid "Tag the selected photo as “%s”"
 msgstr "Ausgewähltes Foto mit Stichwort »%s« versehen"
 
 #: src/Resources.vala:384
 #, c-format
-msgid "Tag the selected photos as \"%s\""
+msgid "Tag the selected photos as “%s”"
 msgstr "Ausgewählte Fotos mit Stichwort »%s« versehen"
 
 #: src/Resources.vala:388
 #, c-format
-msgid "Remove Tag \"%s\" From _Photo"
+msgid "Remove Tag “%s” From _Photo"
 msgstr "Stichwort »%s« von _Foto entfernen"
 
 #: src/Resources.vala:389
 #, c-format
-msgid "Remove Tag \"%s\" From _Photos"
+msgid "Remove Tag “%s” From _Photos"
 msgstr "Stichwort »%s« von _Fotos entfernen"
 
 #: src/Resources.vala:393
 #, c-format
-msgid "Remove Tag \"%s\" From Photo"
+msgid "Remove Tag “%s” From Photo"
 msgstr "Stichwort »%s« von Foto entfernen"
 
 #: src/Resources.vala:394
 #, c-format
-msgid "Remove Tag \"%s\" From Photos"
+msgid "Remove Tag “%s” From Photos"
 msgstr "Stichwort »%s« von Fotos entfernen"
 
 #: src/Resources.vala:398
 #, c-format
-msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 "Stichwort kann nicht zu »%s« umbenannt werden, weil ein entsprechendes "
 "Stichwort bereits vorhanden ist."
 
 #: src/Resources.vala:402
 #, c-format
-msgid "Unable to rename search to \"%s\" because the search already exists."
+msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
 "Die Suche kann nicht nach »%s« umbenannt werden, weil die Suche bereits "
 "vorhanden ist."
@@ -5840,12 +5977,12 @@ msgstr "_Umbenennen …"
 
 #: src/Resources.vala:414
 #, c-format
-msgid "Rename Search \"%s\" to \"%s\""
+msgid "Rename Search “%s” to “%s”"
 msgstr "Suche »%s« zu »%s« umbenennen"
 
 #: src/Resources.vala:418
 #, c-format
-msgid "Delete Search \"%s\""
+msgid "Delete Search “%s”"
 msgstr "Suche »%s« löschen"
 
 #: src/Resources.vala:576
@@ -5909,8 +6046,9 @@ msgid "Show in File Mana_ger"
 msgstr "Mit der Dateiverwaltun_g öffnen"
 
 #: src/Resources.vala:682
-msgid "Open the selected photo's directory in the file manager"
-msgstr "Den Speicherort des ausgewählten Fotos in der Dateiverwaltung öffnen"
+msgid "Open the selected photo’s directory in the file manager"
+msgstr ""
+"Den Speicherordner des ausgewählten Fotos in der Dateiverwaltung öffnen"
 
 #: src/Resources.vala:685
 #, c-format
@@ -6472,6 +6610,9 @@ msgstr "T_itel anzeigen"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "Sekunden"
+
+#~ msgid "Login"
+#~ msgstr "Anmelden"
 
 #~ msgid "Save Details..."
 #~ msgstr "Details speichern …"
