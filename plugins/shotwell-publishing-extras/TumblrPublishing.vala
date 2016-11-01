@@ -308,7 +308,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             
             if (split_pair.length != 2)
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    _("“%s” isn’t a valid response to an OAuth authentication request")));
+                    _("“%s” isn’t a valid response to an OAuth authentication request"), response));
 
             if (split_pair[0] == "oauth_token")
                 oauth_token = split_pair[1];
@@ -318,7 +318,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                _("“%s” isn’t a valid response to an OAuth authentication request")));
+                _("“%s” isn’t a valid response to an OAuth authentication request"), response));
         
         session.set_access_phase_credentials(oauth_token, oauth_token_secret);
     }
