@@ -6,7 +6,6 @@
 # 
 # Translators:
 # Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2011-2013
-# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2013
 # Alejandro Johnson C. <alejandrojohnson750@hotmail.com>, 2012
 # Andres <andreshko9@hotmail.com>, 2011
 # Claudio Rodrigo Pereyra Diaz <elsupergomez@gmail.com>, 2012-2013
@@ -14,22 +13,20 @@
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012-2013
 # verayin <vera@yorba.org>, 2011
-# Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2011-2012
 # freddy  sequera <nemecis000@gmail.com>, 2011
 # Jorge González <aloriel@gmail.com>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012
-# 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016., 2016.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-01 20:13+0000\n"
-"PO-Revision-Date: 2016-11-03 10:01+0100\n"
+"POT-Creation-Date: 2016-11-03 09:08+0000\n"
+"PO-Revision-Date: 2016-11-04 08:49+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -315,7 +312,7 @@ msgid ""
 "views, false otherwise."
 msgstr ""
 "Cierto si se deben mostrar los comentarios debajo de las miniaturas en la "
-"vista de la coleción, falso en otro caso."
+"vista de la colección, falso en otro caso."
 
 #: misc/org.yorba.shotwell.gschema.xml:65
 msgid "display event comments"
@@ -326,6 +323,8 @@ msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise."
 msgstr ""
+"Cierto si se deben mostrar los comentarios debajo de las miniaturas en la "
+"vista de la colección, falso en otro caso."
 
 #: misc/org.yorba.shotwell.gschema.xml:71
 msgid "display photo tags"
@@ -336,6 +335,8 @@ msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise."
 msgstr ""
+"Cierto si se deben poner en una lista las etiquetas de las fotos debajo de "
+"las miniaturas en la vista de colección."
 
 #: misc/org.yorba.shotwell.gschema.xml:77
 msgid "display photo ratings"
@@ -361,6 +362,9 @@ msgid ""
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
 "or better, 6: Four or better, 7: Five or better."
 msgstr ""
+"Determina cómo filtrar las fotos según sus calificaciones. 1: rechazada o "
+"mejor, 2: sin puntuar o mejor, 3: una o mejor, 4: dos o mejor, 5: tres o "
+"mejor, 6: cuatro o mejor, 7: cinco o mejor"
 
 #: misc/org.yorba.shotwell.gschema.xml:89
 msgid "sort events ascending"
@@ -369,6 +373,8 @@ msgstr "ordenar eventos ascendentemente"
 #: misc/org.yorba.shotwell.gschema.xml:90
 msgid "True if events should be sorted ascending, false if descending."
 msgstr ""
+"Cierto si se deben clasificar los eventos ascendentemente, falso si "
+"descendentemente."
 
 #: misc/org.yorba.shotwell.gschema.xml:95
 msgid "sort library photos ascending"
@@ -377,6 +383,8 @@ msgstr "ordenar fotos de la biblioteca ascendentemente"
 #: misc/org.yorba.shotwell.gschema.xml:96
 msgid "True if library photos should be sorted ascending, false if descending."
 msgstr ""
+"Cierto si se debe clasificar la biblioteca de fotos ascendentemente, falso "
+"si descendentemente."
 
 #: misc/org.yorba.shotwell.gschema.xml:101
 msgid "sort library photos criteria"
@@ -396,6 +404,8 @@ msgstr "ordenar fotos de eventos ascendentemente"
 #: misc/org.yorba.shotwell.gschema.xml:108
 msgid "True if event photos should be sorted ascending, false if descending."
 msgstr ""
+"Cierto si se deben ordenar las fotos de eventos ascendentemente, falso si es "
+"descendentemente."
 
 #: misc/org.yorba.shotwell.gschema.xml:113
 msgid "sort event photos criteria"
@@ -414,6 +424,8 @@ msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation."
 msgstr ""
+"Cierto si se debe mostrar la hora con formato 24 horas, falso si se debe "
+"usar el formato am/pm."
 
 #: misc/org.yorba.shotwell.gschema.xml:125
 msgid "keep relative time between photos"
@@ -424,6 +436,8 @@ msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time."
 msgstr ""
+"Cierto si cuando se ajusta la hora y la fecha de las fotos se mantiene la "
+"hora relativa. Falso si todas las fotos deben ajustarse a la misma hora."
 
 #: misc/org.yorba.shotwell.gschema.xml:131
 msgid "modify original photo files"
@@ -434,6 +448,9 @@ msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database."
 msgstr ""
+"Cierto si cuando ajustamos la hora y la fecha de las fotos los archivos "
+"originales también se deben modificar. Falso si los cambios sólo se hacen en "
+"la base de datos."
 
 #: misc/org.yorba.shotwell.gschema.xml:137
 msgid "show welcome dialog on startup"
@@ -481,13 +498,15 @@ msgstr "La escala de color que usar como color de fondo."
 
 #: misc/org.yorba.shotwell.gschema.xml:167
 msgid "Selection state of “hide photos” option"
-msgstr ""
+msgstr "Estado de la selección de la opción «ocultar fotos»"
 
 #: misc/org.yorba.shotwell.gschema.xml:168
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
+"Último estado de selección usado de la opción «ocultar fotos ya importadas» "
+"en la página de importación."
 
 #: misc/org.yorba.shotwell.gschema.xml:175
 msgid "delay"
@@ -505,6 +524,8 @@ msgstr "retraso de la transición"
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr ""
+"El tiempo (en segundos) que transcurre entre las fotos en una presentación "
+"de diapositivas"
 
 #: misc/org.yorba.shotwell.gschema.xml:187
 msgid "transition effect id"
@@ -589,6 +610,8 @@ msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
 msgstr ""
+"La última posición registrada del divisor entre la barra lateral y la vista "
+"de la ventana de la aplicación de la biblioteca."
 
 #: misc/org.yorba.shotwell.gschema.xml:245
 msgid "import directory"
@@ -606,6 +629,8 @@ msgstr "vigilar carpeta de biblioteca en busca de archivos nuevos"
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr ""
+"Si es cierto si los archivos añadidos a la carpeta de la biblioteca se "
+"importan automáticamente."
 
 #: misc/org.yorba.shotwell.gschema.xml:257
 msgid "write metadata to master files"
@@ -628,6 +653,8 @@ msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr ""
+"Si es cierto, Shotwell convertirá todos los nombres de archivos en "
+"minúsculas cuando importe archivos de fotos"
 
 #: misc/org.yorba.shotwell.gschema.xml:269
 msgid "directory pattern"
