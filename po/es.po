@@ -18,15 +18,16 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-03 09:08+0000\n"
-"PO-Revision-Date: 2016-11-04 08:49+0100\n"
+"POT-Creation-Date: 2016-11-04 07:54+0000\n"
+"PO-Revision-Date: 2016-11-04 12:54+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -665,16 +666,20 @@ msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
+"Una cadena que codifica un patrón de nombre que se utilizará para nombrar "
+"las carpetas de fotos en la importación."
 
 #: misc/org.yorba.shotwell.gschema.xml:275
 msgid "directory pattern custom"
-msgstr ""
+msgstr "Patrón de carpetas personalizadas"
 
 #: misc/org.yorba.shotwell.gschema.xml:276
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
+"Una cadena que codifica un patrón de nombre que se utilizará para nombrar "
+"las carpetas de fotos en la importación."
 
 #: misc/org.yorba.shotwell.gschema.xml:281
 msgid "RAW developer default"
@@ -682,11 +687,11 @@ msgstr "desarrollador RAW predeterminado"
 
 #: misc/org.yorba.shotwell.gschema.xml:282
 msgid "Default option for which RAW developer Shotwell will use."
-msgstr ""
+msgstr "Opción predeterminada que utilizará el desarrollador RAW Shotwell."
 
 #: misc/org.yorba.shotwell.gschema.xml:289
 msgid "Most-recently-used crop aspect ratio menu choice."
-msgstr ""
+msgstr "Elección más reciente del menú de relación de aspecto del recorte."
 
 #: misc/org.yorba.shotwell.gschema.xml:290
 msgid "A numeric code representing the last crop menu choice the user made."
@@ -697,26 +702,34 @@ msgstr ""
 #: misc/org.yorba.shotwell.gschema.xml:294
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgstr ""
+"Numerador utilizado más recientemente de relación de aspecto del recorte "
+"personalizado."
 
 #: misc/org.yorba.shotwell.gschema.xml:295
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr ""
+"Un número entero positivo no cero que representa el ancho de la última "
+"relación del recorte personalizado que el usuario introdujo."
 
 #: misc/org.yorba.shotwell.gschema.xml:299
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgstr ""
+"Denominador utilizado más recientemente de relación de aspecto del recorte "
+"personalizado."
 
 #: misc/org.yorba.shotwell.gschema.xml:300
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
 msgstr ""
+"Un número entero positivo no cero que representa la altura de la última "
+"relación del recorte personalizado que el usuario introdujo."
 
 #: misc/org.yorba.shotwell.gschema.xml:307
 msgid "external photo editor"
-msgstr "dditor de fotos externo"
+msgstr "editor de fotos externo"
 
 #: misc/org.yorba.shotwell.gschema.xml:308
 msgid "External application used to edit photos."
@@ -734,28 +747,31 @@ msgstr "Aplicación externa usada para editar fotos RAW."
 #: misc/org.yorba.shotwell.gschema.xml:353
 msgid "Setting in export dialog: how to trim images"
 msgstr ""
+"Configurando el cuadro de diálogo de exportación: cómo recortar imágenes"
 
 #: misc/org.yorba.shotwell.gschema.xml:358
-#, fuzzy
-#| msgid "Export metadata"
 msgid "export metadata"
-msgstr "Exportar metadatos"
+msgstr "exportar metadatos"
 
 #: misc/org.yorba.shotwell.gschema.xml:359
 msgid "Setting in export dialog: option to export metadata"
 msgstr ""
+"Configurando el cuadro de diálogo de exportación: opción para exportar "
+"metadatos"
 
 #: misc/org.yorba.shotwell.gschema.xml:364
 msgid "format setting, special value"
-msgstr ""
+msgstr "configuración de formato, valor especial"
 
 #: misc/org.yorba.shotwell.gschema.xml:365
 msgid "Setting in export dialog: format setting, special value"
 msgstr ""
+"Configurando el cuadro de diálogo de exportación: configuración de formato, "
+"valor especial"
 
 #: misc/org.yorba.shotwell.gschema.xml:370
 msgid "format setting, type value"
-msgstr ""
+msgstr "configuración de formato, valor de tipo"
 
 #: misc/org.yorba.shotwell.gschema.xml:371
 msgid "Setting in export dialog: format setting, type value"
