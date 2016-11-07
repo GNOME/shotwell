@@ -264,7 +264,6 @@ public class VideoReader {
             buf = null;
         }
         
-        Posix.close(child_stdout);
         GLib.Process.close_pid(thumbnailer_pid);
         thumbnailer_pid = 0;
         return buf;
