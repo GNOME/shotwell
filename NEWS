@@ -1,3 +1,19 @@
+Shotwell 0.24.2 - 7 Nov 2016
+  * Blacklist vaapi decoder to prevent crash when discovering videos in
+    parallel
+  * Remove paranthesis that will break newer vala compiler
+  * Fix a double close() in thumbnailer
+  * Only enable SQL debugging if the variable is really set
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=762416
+ - https://bugzilla.gnome.org/show_bug.cgi?id=774057
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Damian Pietras <bug1@daper.net>
+
 Shotwell 0.24.1 - 16 Oct 2016
   * Add debug output when shifting day of event
   * Add debug output of Shotwell's current timezone

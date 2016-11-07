@@ -1,3 +1,13 @@
+shotwell (0.24.2-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Blacklist vaapi decoder to prevent crash when discovering videos in
+    parallel
+  * Remove paranthesis that will break newer vala compiler
+  * Fix a double close() in thumbnailer
+  * Only enable SQL debugging if the variable is really set
+
+ -- Jens Georg <mail@jensge.org>  Mon, 07 Nov 2016 22:15:36 +0100
+
 shotwell (0.24.1-1~jensge1~xenial1) xenial; urgency=medium
 
   * Add debug output when shifting day of event
