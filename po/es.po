@@ -19,6 +19,7 @@
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016., 2016.
 #
 msgid ""
@@ -26,8 +27,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-04 07:54+0000\n"
-"PO-Revision-Date: 2016-11-04 12:54+0100\n"
+"POT-Creation-Date: 2016-11-04 11:59+0000\n"
+"PO-Revision-Date: 2016-11-07 11:27+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -776,22 +777,26 @@ msgstr "configuración de formato, valor de tipo"
 #: misc/org.yorba.shotwell.gschema.xml:371
 msgid "Setting in export dialog: format setting, type value"
 msgstr ""
+"Configurando el cuadro de diálogo de exportación: configuración de formato, "
+"valor de tipo"
 
 #: misc/org.yorba.shotwell.gschema.xml:376
 msgid "JPEG quality option"
-msgstr ""
+msgstr "Opción de calidad JPEG"
 
 #: misc/org.yorba.shotwell.gschema.xml:377
 msgid "Setting in export dialog: jpeg quality option"
 msgstr ""
+"Configurando el cuadro de diálogo de exportación: opción de calidad JPEG"
 
 #: misc/org.yorba.shotwell.gschema.xml:382
 msgid "maximal size of image"
-msgstr ""
+msgstr "tamaño máximo de la imagen"
 
 #: misc/org.yorba.shotwell.gschema.xml:383
 msgid "Setting in export dialog: maximal size of image"
 msgstr ""
+"Configurando el cuadro de diálogo de exportación: tamaño máximo de la imagen"
 
 #: misc/org.yorba.shotwell.gschema.xml:390
 msgid "last used publishing service"
@@ -860,15 +865,17 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:442
 msgid "OAuth Access Phase Token"
-msgstr ""
+msgstr "Fase de acceso de testigo OAuth"
 
 #: misc/org.yorba.shotwell.gschema.xml:443
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
+"El testigo de autenticación para el usuario que actualmente ha iniciado "
+"sesión en Flickr, si existe"
 
 #: misc/org.yorba.shotwell.gschema.xml:448
 msgid "OAuth Access Phase Token Secret"
-msgstr ""
+msgstr "Fase de acceso del testigo secreto OAuth"
 
 #: misc/org.yorba.shotwell.gschema.xml:449
 msgid ""
@@ -921,6 +928,8 @@ msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
 msgstr ""
+"El testigo OAuth utilizado para actualizar la sesión de álbumes web de "
+"Picasa para el usuario que actualmente ha iniciado sesión, si existe"
 
 #: misc/org.yorba.shotwell.gschema.xml:487
 msgid ""
