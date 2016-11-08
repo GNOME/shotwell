@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-08-24 19:05+0000\n"
-"PO-Revision-Date: 2016-10-28 16:33+0200\n"
+"POT-Creation-Date: 2016-11-08 07:15+0000\n"
+"PO-Revision-Date: 2016-11-08 23:25+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
 "X-Generator: Lokalize 2.0\n"
@@ -42,10 +42,10 @@ msgid ""
 "intensity thresholds of the photograph, expanding the contrast of the middle "
 "range."
 msgstr ""
-"Poga <gui>Pielāgot</gui> atver peldošu lodziņu ar histogrammu un slīdņiem, ar"
-" ko pielabot fotogrāfijas ekspozīciju, piesātinājumu, toni, temperatūru un"
-" ēnas. Histogrammai ir arī slīdņi, ar ko samazināt fotogrāfijas augšējo un"
-" apakšējo sliekšņu intensitāti, palielinot vidējā apgabala kontrastu."
+"Poga <gui>Pielāgot</gui> atver peldošu lodziņu ar histogrammu un slīdņiem, "
+"ar ko pielabot fotogrāfijas ekspozīciju, piesātinājumu, toni, temperatūru un "
+"ēnas. Histogrammai ir arī slīdņi, ar ko samazināt fotogrāfijas augšējo un "
+"apakšējo sliekšņu intensitāti, palielinot vidējā apgabala kontrastu."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:16
@@ -53,8 +53,8 @@ msgid ""
 "The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
 "improve the quality of a photo."
 msgstr ""
-"Poga <gui>Uzlabot</gui> pielāgot histogrammas un ēnu slīdņus, lai uzlabotu"
-" fotogrāfijas kvalitāti."
+"Poga <gui>Uzlabot</gui> pielāgot histogrammas un ēnu slīdņus, lai uzlabotu "
+"fotogrāfijas kvalitāti."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:18
@@ -63,9 +63,10 @@ msgid ""
 "to save the changes. <gui>Reset</gui> will return the image to its original "
 "state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
-"Kad fotogrāfijas krāsas un kontrasts atbilst jūsu vēlmēm, spiediet <gui>Labi<"
-"/gui>, lai saglabātu izmaiņas. <gui>Atiestatīt</gui> atgriezīs bildi tās"
-" sākotnējā stāvoklī. <gui>Atcelt</gui> atmetīs visas veiktās izmaiņas."
+"Kad fotogrāfijas krāsas un kontrasts atbilst jūsu vēlmēm, spiediet "
+"<gui>Labi</gui>, lai saglabātu izmaiņas. <gui>Atiestatīt</gui> atgriezīs "
+"bildi tās sākotnējā stāvoklī. <gui>Atcelt</gui> atmetīs visas veiktās "
+"izmaiņas."
 
 #. (itstool) path: section/title
 #: C/edit-adjustments.page:21
@@ -83,9 +84,9 @@ msgid ""
 "Changes the brightness to make it look like the photo was exposed for a "
 "longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
-"Maina gaišumu, lai izskatītos, ka fotogrāfijas ir eksponētas ilgāku vai īsāku"
-" laiku. Ar to var labot pāreksponētas vai nepietiekami eksponētas"
-" fotogrāfijas."
+"Maina gaišumu, lai izskatītos, ka fotogrāfijas ir eksponētas ilgāku vai "
+"īsāku laiku. Ar to var labot pāreksponētas vai nepietiekami eksponētas "
+"fotogrāfijas."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
@@ -98,9 +99,9 @@ msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
-"Maina, cik spilgtas izskatās krāsas. Ja fotogrāfija izskatās pārāk pelēka vai"
-" izbalējusi, mēģiniet palielināt piesātinājumu. Ja krāsas ir pārāk izteiktas,"
-" samaziniet to."
+"Maina, cik spilgtas izskatās krāsas. Ja fotogrāfija izskatās pārāk pelēka "
+"vai izbalējusi, mēģiniet palielināt piesātinājumu. Ja krāsas ir pārāk "
+"izteiktas, samaziniet to."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:32
@@ -115,11 +116,11 @@ msgid ""
 "color cast. For example, photos taken outdoors with the white balance set to "
 "\"Tungsten\" may have a blue cast."
 msgstr ""
-"Tonē fotogrāfiju ar noteiktu krāsu. Šī iespēja noder, ja fotogrāfija ir"
-" uzņemta ne nepareiziem baltās krāsas balansa iestatījumiem, kas rada"
-" nedabīgu nokrāsu. Piemēram, fotogrāfijas, kas uzņemtas ārtelpās ar"
-" “Tungsten” (volframs) baltās krāsas balansa iestatījumiem, var radīt zilu"
-" nokrāsu."
+"Tonē fotogrāfiju ar noteiktu krāsu. Šī iespēja noder, ja fotogrāfija ir "
+"uzņemta ne nepareiziem baltās krāsas balansa iestatījumiem, kas rada "
+"nedabīgu nokrāsu. Piemēram, fotogrāfijas, kas uzņemtas ārtelpās ar "
+"“Tungsten” (volframs) baltās krāsas balansa iestatījumiem, var radīt zilu "
+"nokrāsu."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:36
@@ -132,8 +133,8 @@ msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
-"Maina, cik “silta” vai “auksta” izskatās bilde. Ar to aukstu un nomācošu ainu"
-" var padarīt dzīvīgāku."
+"Maina, cik “silta” vai “auksta” izskatās bilde. Ar to aukstu un nomācošu "
+"ainu var padarīt dzīvīgāku."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:40
@@ -146,8 +147,8 @@ msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
 msgstr ""
-"Tas liek tumšākām attēla daļām izskatīties gaišākām. Izmantojiet šo, lai"
-" padarītu redzamākas tās detaļas, kuras ir pārāk tumšas vai ir ēnā."
+"Tas liek tumšākām attēla daļām izskatīties gaišākām. Izmantojiet šo, lai "
+"padarītu redzamākas tās detaļas, kuras ir pārāk tumšas vai ir ēnā."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:44
@@ -161,9 +162,9 @@ msgid ""
 "darkest black is. Use them to change the contrast of the photo. Photos which "
 "look washed out should particularly benefit from changing these settings."
 msgstr ""
-"Šie slīdņi maina, cik gaišs ir pats gaišākais punkts un cik tumšs ir pats"
-" tumšākais punkts. Tos varat izmantot, lai mainītu attēla kontrastu. Tas"
-" īpaši noderēs fotogrāfijām, kas izskatās izbalējušas vai miglainas."
+"Šie slīdņi maina, cik gaišs ir pats gaišākais punkts un cik tumšs ir pats "
+"tumšākais punkts. Tos varat izmantot, lai mainītu attēla kontrastu. Tas "
+"īpaši noderēs fotogrāfijām, kas izskatās izbalējušas vai miglainas."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -194,9 +195,9 @@ msgid ""
 "smaller portion of it, use the Crop tool. The crop tool is only available in "
 "full-window or fullscreen mode."
 msgstr ""
-"Lai samazinātu fotogrāfijas laukumu un virzītu skatītāja uzmanību uz mazāku"
-" tās daļu, izmantojiet Kadrēšanas rīku. Tas ir pieejams tikai pilna loga vai"
-" pilnekrāna režīmos."
+"Lai samazinātu fotogrāfijas laukumu un virzītu skatītāja uzmanību uz mazāku "
+"tās daļu, izmantojiet Kadrēšanas rīku. Tas ir pieejams tikai pilna loga vai "
+"pilnekrāna režīmos."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:19
@@ -204,8 +205,8 @@ msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
-"Dubultklikšķiniet uz fotogrāfijas, lai atvērtu to pilna loga režīmā, tad"
-" rīkjoslā spiediet pogu <gui>Kadrēt</gui>."
+"Dubultklikšķiniet uz fotogrāfijas, lai atvērtu to pilna loga režīmā, tad "
+"rīkjoslā spiediet pogu <gui>Kadrēt</gui>."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:22
@@ -214,8 +215,8 @@ msgid ""
 "portion of the photo within the crop rectangle represents what the photo "
 "will look like when you crop it."
 msgstr ""
-"Virs fotogrāfijas parādīsies balta kaste — kadrēšanas taisnstūris. Gaišākā"
-" fotogrāfijas daļa attēlo to attēla daļu, kas paliks pāri pēc kadrēšanas."
+"Virs fotogrāfijas parādīsies balta kaste — kadrēšanas taisnstūris. Gaišākā "
+"fotogrāfijas daļa attēlo to attēla daļu, kas paliks pāri pēc kadrēšanas."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:25
@@ -225,11 +226,11 @@ msgid ""
 "move and adjust the crop box, you'll see four lines appear inside it, like a "
 "tic-tac-toe grid. These are <em>rule of thirds</em> lines."
 msgstr ""
-"Ja novietosiet kursoru kaste vidū, varēsiet to pārvietot uz citu bildes daļu."
-" Ja vilksiet kastes malu, varēsiet pielāgot tās izmēru. Pārvietojot un"
-" pielāgojot kadrēšanas kasti, jūs tajā redzēsiet četras tievas līnijas,"
-" līdzīgi kā krustiņu-nullīšu spēles režģi. Tās ir <em>trešdaļu likuma</em>"
-" līnijas."
+"Ja novietosiet kursoru kaste vidū, varēsiet to pārvietot uz citu bildes "
+"daļu. Ja vilksiet kastes malu, varēsiet pielāgot tās izmēru. Pārvietojot un "
+"pielāgojot kadrēšanas kasti, jūs tajā redzēsiet četras tievas līnijas, "
+"līdzīgi kā krustiņu-nullīšu spēles režģi. Tās ir <em>trešdaļu likuma</em> "
+"līnijas."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:26
@@ -239,10 +240,10 @@ msgid ""
 "button next to it, the orientation of the constraint will switch (from "
 "landscape to portrait)."
 msgstr ""
-"Jūs varat arī ierobežot kadrēšanas kasti uz kādu no daudziem biežāk"
-" izmantotajiem izmēriem. Izvēlieties izmēru no izkrītošās izvēlnes. Ja"
-" piespiedīsiet tai blakus esošo apmešanas pogu, ierobežojuma virziens"
-" mainīsies (no ainavas uz portreta orientāciju)."
+"Jūs varat arī ierobežot kadrēšanas kasti uz kādu no daudziem biežāk "
+"izmantotajiem izmēriem. Izvēlieties izmēru no izkrītošās izvēlnes. Ja "
+"piespiedīsiet tai blakus esošo apmešanas pogu, ierobežojuma virziens "
+"mainīsies (no ainavas uz portreta orientāciju)."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:29
@@ -250,8 +251,8 @@ msgid ""
 "When you're happy with your crop outline, apply it by pressing the "
 "<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
-"Kad izvēlētā kadrēšanas kontūra jūs apmierina, spiediet pogu"
-"<gui>Kadrēt</gui>. Shotwell attēlos kadrēto fotogrāfiju."
+"Kad izvēlētā kadrēšanas kontūra jūs apmierina, spiediet pogu<gui>Kadrēt</"
+"gui>. Shotwell attēlos kadrēto fotogrāfiju."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:32
@@ -266,8 +267,8 @@ msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
-"Ja spiedīsiet <gui>Atcelt</gui> nevis <gui>Pielietot</gui>, Shotwell"
-" atgriezīs fotogrāfiju uz tās iepriekšējo kadrējumu."
+"Ja spiedīsiet <gui>Atcelt</gui> nevis <gui>Pielietot</gui>, Shotwell "
+"atgriezīs fotogrāfiju uz tās iepriekšējo kadrējumu."
 
 #. (itstool) path: section/title
 #: C/edit-crop.page:38
@@ -280,8 +281,8 @@ msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
 msgstr ""
-"<em>Trešdaļu likums</em> jums palīdz izvēlēties patīkamu fotogrāfijas"
-" kompozīciju."
+"<em>Trešdaļu likums</em> jums palīdz izvēlēties patīkamu fotogrāfijas "
+"kompozīciju."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:40
@@ -293,11 +294,11 @@ msgid ""
 "Paying attention to the way features flow from one part of the grid to "
 "another can also help."
 msgstr ""
-"Iedomājieties ainu, kura ir sadalīta 3×3 režģī ar divām vienādā atstatumā"
-" esošām vertikālām un horizontālām līnijām. Vadoties pēc šī likuma,"
-" kompozīcija izskatīsies labāk, ja bildes galvenie elementi (horizonts,"
-" cilvēks) būs pie kādas no šīm līnijām. Pievērsiet uzmanību tam, kā elementi"
-" pāriet no vienas režģa daļas uz citu."
+"Iedomājieties ainu, kura ir sadalīta 3×3 režģī ar divām vienādā atstatumā "
+"esošām vertikālām un horizontālām līnijām. Vadoties pēc šī likuma, "
+"kompozīcija izskatīsies labāk, ja bildes galvenie elementi (horizonts, "
+"cilvēks) būs pie kādas no šīm līnijām. Pievērsiet uzmanību tam, kā elementi "
+"pāriet no vienas režģa daļas uz citu."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:41
@@ -305,8 +306,8 @@ msgid ""
 "Cropping a photo so that it conforms to the rule of thirds often results in "
 "a more visually appealing image."
 msgstr ""
-"Fotogrāfijas kadrēšana, lai tā atbilstu trešdaļu likumam, bieži var uzlabot"
-" tās vizuālo pievilcību."
+"Fotogrāfijas kadrēšana, lai tā atbilstu trešdaļu likumam, bieži var uzlabot "
+"tās vizuālo pievilcību."
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -314,8 +315,8 @@ msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
 msgstr ""
-"Fotogrāfijas kadrēšana, izmantojot “trešdaļu likumu” līnijas, lai uzlabotu"
-" kompozīciju."
+"Fotogrāfijas kadrēšana, izmantojot “trešdaļu likumu” līnijas, lai uzlabotu "
+"kompozīciju."
 
 #. (itstool) path: info/desc
 #: C/edit-enhance.page:7
@@ -336,10 +337,10 @@ msgid ""
 "photo that is correctly exposed. You can also use it as a starting point and "
 "then improve the adjustments by clicking on the <gui>Adjust</gui> button."
 msgstr ""
-"Spiežot pogu <gui>Uzlabot</gui>, var ātri un automātiski pielabot"
-" fotogrāfijas gaišumu un kontrastu. Tas dos pareizi eksponētu fotogrāfiju."
-" Jūs to varat arī izmantot kā sākuma punktu un pēc tam uzlabot attēlu ar pogu"
-" <gui>Pielāgot</gui>."
+"Spiežot pogu <gui>Uzlabot</gui>, var ātri un automātiski pielabot "
+"fotogrāfijas gaišumu un kontrastu. Tas dos pareizi eksponētu fotogrāfiju. "
+"Jūs to varat arī izmantot kā sākuma punktu un pēc tam uzlabot attēlu ar pogu "
+"<gui>Pielāgot</gui>."
 
 #. (itstool) path: info/desc
 #: C/edit-external.page:7
@@ -361,12 +362,12 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
 "menus of installed applications."
 msgstr ""
-"Jūs varat izmantot ārēju redaktoru, lai veiktu papildu izmaiņās fotogrāfijā."
-" Ja ir instalēts, GIMP un UFRaw ir noklusējuma ārējie redaktori attiecīgi"
-" fotogrāfijām un jēlajām datnēm. Ja šīs programmas nav instalētas, jums"
-" jāizvēlas vēlamie redaktori <guiseq><gui>Rediģēt</"
-"gui><gui>Iestatījumi</gui></guiseq> un jāizvēlas redaktori no instalēto"
-" lietotņu izkrītošajām izvēlnēm."
+"Jūs varat izmantot ārēju redaktoru, lai veiktu papildu izmaiņās fotogrāfijā. "
+"Ja ir instalēts, GIMP un UFRaw ir noklusējuma ārējie redaktori attiecīgi "
+"fotogrāfijām un jēlajām datnēm. Ja šīs programmas nav instalētas, jums "
+"jāizvēlas vēlamie redaktori <guiseq><gui>Rediģēt</gui><gui>Iestatījumi</"
+"gui></guiseq> un jāizvēlas redaktori no instalēto lietotņu izkrītošajām "
+"izvēlnēm."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:24
@@ -377,13 +378,12 @@ msgid ""
 "a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
 "guiseq> to edit the RAW file directly with the set RAW editor."
 msgstr ""
-"Kad redaktors ir iestatīs, izvēlieties fotogrāfiju un izvēlieties"
-"<guiseq><gui>Fotogrāfijas</gui> <gui>Atvērt ar ārēju redaktoru</gui></guiseq>"
-" lai "
-"atvērtu fotogrāfiju ar ārēju redaktoru. Līdzīgi, ja fotogrāfija ir jēldatne,"
-" izvēlieties <guiseq><gui>Fotogrāfijas</gui><gui>Atvērt ar RAW redaktoru</gui"
-"></"
-"guiseq>, lai rediģētu jēldatni ar iestatīto RAW redaktoru."
+"Kad redaktors ir iestatīs, izvēlieties fotogrāfiju un "
+"izvēlieties<guiseq><gui>Fotogrāfijas</gui> <gui>Atvērt ar ārēju redaktoru</"
+"gui></guiseq> lai atvērtu fotogrāfiju ar ārēju redaktoru. Līdzīgi, ja "
+"fotogrāfija ir jēldatne, izvēlieties <guiseq><gui>Fotogrāfijas</"
+"gui><gui>Atvērt ar RAW redaktoru</gui></guiseq>, lai rediģētu jēldatni ar "
+"iestatīto RAW redaktoru."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:31
@@ -393,10 +393,10 @@ msgid ""
 "hold the <key>Shift</key> key in full-window view to show the original photo "
 "rather than the externally-edited one."
 msgstr ""
-"Kad beigsiet rediģēt un saglabāsiet datni, Shotwell pamanīs izmaiņas un"
-" atjauninās fotogrāfiju. Kad ārējās izmaiņas ir pabeigtas, spiediet taustiņu"
-" <key>Shift</key> pilnekrāna logā, lai rādītu sākotnējo fotogrāfiju, nevis"
-" ārēji rediģēto."
+"Kad beigsiet rediģēt un saglabāsiet datni, Shotwell pamanīs izmaiņas un "
+"atjauninās fotogrāfiju. Kad ārējās izmaiņas ir pabeigtas, spiediet taustiņu "
+"<key>Shift</key> pilnekrāna logā, lai rādītu sākotnējo fotogrāfiju, nevis "
+"ārēji rediģēto."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:38
@@ -410,9 +410,9 @@ msgid ""
 "such as a JPEG or PNG, Shotwell cannot automatically determine that the "
 "original RAW and the new image should be paired."
 msgstr ""
-"Ja jūs ārēji rediģējat RAW fotogrāfiju un to saglabājat citā attēlā,"
-" piemēram, JPEG vai PNG, Shotwell nevar automātiski noteikt, ka oriģinālā RAW"
-" un jaunais attēls ir saistīti."
+"Ja jūs ārēji rediģējat RAW fotogrāfiju un to saglabājat citā attēlā, "
+"piemēram, JPEG vai PNG, Shotwell nevar automātiski noteikt, ka oriģinālā RAW "
+"un jaunais attēls ir saistīti."
 
 #. (itstool) path: note/p
 #: C/edit-external.page:49
@@ -420,8 +420,8 @@ msgid ""
 "If you want to work within the resulting image within Shotwell, you'll need "
 "to import it yourself."
 msgstr ""
-"Ja vēlaties Shotwell lietotnē strādāt ar iegūto attēlu, jums pašam tā būs"
-" jāimportē."
+"Ja vēlaties Shotwell lietotnē strādāt ar iegūto attēlu, jums pašam tā būs "
+"jāimportē."
 
 #. (itstool) path: info/desc
 #: C/edit-nondestructive.page:7
@@ -429,8 +429,8 @@ msgid ""
 "Shotwell is a non-destructive photo editor - it does not modify your "
 "original photos."
 msgstr ""
-"Shotwell ir nedestruktīvs fotogrāfiju redaktors — tas nemaina jūsu sākotnējās"
-" fotogrāfijas."
+"Shotwell ir nedestruktīvs fotogrāfiju redaktors — tas nemaina jūsu "
+"sākotnējās fotogrāfijas."
 
 #. (itstool) path: page/title
 #: C/edit-nondestructive.page:12
@@ -446,11 +446,11 @@ msgid ""
 "database and applies them on the fly as necessary. This means you can undo "
 "any alterations you make to a photograph."
 msgstr ""
-"Shotwell in neiznīcinošs fotogrāfiju redaktors. Tas nemaina jūsu sākotnējās"
-" fotogrāfijas. Tas nozīmē, ka, ka kadrējat attēlu vai maināt tā krāsas,"
-" fotogrāfijas datne uz diska netiek mainīta. Shotwell Saglabā jūsu veiktās"
-" izmaiņas datubāzē un tās vēlāk tiek pielietotas, kad tas ir vajadzīgs. Tas"
-" nozīmē,ka varat atsaukt jebkuras izmaiņas, ko veicāt ar fotogrāfiju."
+"Shotwell in neiznīcinošs fotogrāfiju redaktors. Tas nemaina jūsu sākotnējās "
+"fotogrāfijas. Tas nozīmē, ka, ka kadrējat attēlu vai maināt tā krāsas, "
+"fotogrāfijas datne uz diska netiek mainīta. Shotwell Saglabā jūsu veiktās "
+"izmaiņas datubāzē un tās vēlāk tiek pielietotas, kad tas ir vajadzīgs. Tas "
+"nozīmē,ka varat atsaukt jebkuras izmaiņas, ko veicāt ar fotogrāfiju."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:16 C/edit-undo.page:18
@@ -459,9 +459,9 @@ msgid ""
 "the <key>Shift</key> key. The original photo will be displayed as long as "
 "you hold the key down."
 msgstr ""
-"Ja vēlaties redzēt, kā attēls izskatījās pirs izmaiņu veikšanas, spiediet <"
-"key>Shift</key> taustiņu. Sākotnējā bilde būs redzama, kamēr vien būs"
-" piespiests taustiņš."
+"Ja vēlaties redzēt, kā attēls izskatījās pirs izmaiņu veikšanas, spiediet "
+"<key>Shift</key> taustiņu. Sākotnējā bilde būs redzama, kamēr vien būs "
+"piespiests taustiņš."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:18
@@ -470,16 +470,17 @@ msgid ""
 "to photo files. For more information, see the section <link xref=\"other-"
 "files\">Photo files</link>."
 msgstr ""
-"Ņemiet vērā, ka Shotwell var ierakstīt metadatus (piemēram, tagus un"
-" nosaukumus) fotogrāfiju datnēs. Lai uzzinātu vairāk, skatiet nodaļu <link"
-" xref=\"other-files\">Fotogrāfiju datnes</link>."
+"Ņemiet vērā, ka Shotwell var ierakstīt metadatus (piemēram, tagus un "
+"nosaukumus) fotogrāfiju datnēs. Lai uzzinātu vairāk, skatiet nodaļu <link "
+"xref=\"other-files\">Fotogrāfiju datnes</link>."
 
 #. (itstool) path: info/desc
 #: C/edit-redeye.page:7
 msgid ""
 "Correct photos where people have red eyes because of the camera's flash."
 msgstr ""
-"Labojiet fotogrāfijas, kur cilvēkiem ir sarkanas acis dēļ kameras zibspuldzes."
+"Labojiet fotogrāfijas, kur cilvēkiem ir sarkanas acis dēļ kameras "
+"zibspuldzes."
 
 #. (itstool) path: page/title
 #: C/edit-redeye.page:12
@@ -492,8 +493,8 @@ msgid ""
 "Red-eye occurs when the camera's flash reflects off the pupil of someone's "
 "eye. To eliminate this in a photo, use the Red-eye tool."
 msgstr ""
-"Sarkano acu efekts notiek, kad kameras zibspuldze atspīd no acu zīlītes. Lai"
-" šo efektu novērstu fotogrāfijā, izmantojiet sarkano acu rīku."
+"Sarkano acu efekts notiek, kad kameras zibspuldze atspīd no acu zīlītes. Lai "
+"šo efektu novērstu fotogrāfijā, izmantojiet sarkano acu rīku."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:17
@@ -506,8 +507,8 @@ msgid ""
 "Drag the circle over the affected pupil, adjust its size with the slider "
 "control, and press <gui>Apply</gui>. The redness will be removed."
 msgstr ""
-"Velciet apli virs sarkanās zīlītes, pielāgojiet tā izmēru ar slīdni un"
-" spiediet <gui>Pielietot</gui>. Sarkanums tiks noņemts."
+"Velciet apli virs sarkanās zīlītes, pielāgojiet tā izmēru ar slīdni un "
+"spiediet <gui>Pielietot</gui>. Sarkanums tiks noņemts."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:23
@@ -515,8 +516,8 @@ msgid ""
 "Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
 "when finished."
 msgstr ""
-"Atkārtojiet procesu visām sarkanajām acīm fotogrāfijā. Kad pabeidzat,"
-" spiediet <gui>Aizvērt</gui>."
+"Atkārtojiet procesu visām sarkanajām acīm fotogrāfijā. Kad pabeidzat, "
+"spiediet <gui>Aizvērt</gui>."
 
 #. (itstool) path: info/desc
 #: C/edit-rotate.page:7
@@ -524,8 +525,8 @@ msgid ""
 "Click the <gui>Rotate</gui> button, or choose one of the commands in the "
 "<gui>Photo</gui> menu."
 msgstr ""
-"Spiediet pogu <gui>Pagriezt</gui>, vai izvēlieties vienu no komandām <gui"
-">Fotogrāfiju</gui> izvēlnē."
+"Spiediet pogu <gui>Pagriezt</gui>, vai izvēlieties vienu no komandām "
+"<gui>Fotogrāfiju</gui> izvēlnē."
 
 #. (itstool) path: page/title
 #: C/edit-rotate.page:12
@@ -539,9 +540,9 @@ msgid ""
 "with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
 "make a mirror image of any photo."
 msgstr ""
-"Jūs varat pagriezt fotogrāfijas pa labi vai pa kreisi (pulksteņa rādītāja"
-" virzienā vai pretēji) ar pogu <gui>Pagriezt</gui>, kas ir pieejams rīkjoslā."
-" Jūs varat arī iegūt jebkuras fotogrāfijas spoguļattēlu."
+"Jūs varat pagriezt fotogrāfijas pa labi vai pa kreisi (pulksteņa rādītāja "
+"virzienā vai pretēji) ar pogu <gui>Pagriezt</gui>, kas ir pieejams rīkjoslā. "
+"Jūs varat arī iegūt jebkuras fotogrāfijas spoguļattēlu."
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:16
@@ -551,11 +552,10 @@ msgid ""
 "commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
 "the following keyboard shortcuts:"
 msgstr ""
-"Lai pagrieztu pa labi, spiediet pogu <gui>Pagriezt</gui>. Lai pagrieztu pa"
-" kreisi, "
-"turiet piespiestu <key>Ctrl</key> taustiņu un spiediet pagriešanas pogu. Abas"
-" komandas ir pieejamas arī <gui>Fotogrāfiju</gui> izvēlnē. Varat izmantot arī"
-" tastatūras saīsnes:"
+"Lai pagrieztu pa labi, spiediet pogu <gui>Pagriezt</gui>. Lai pagrieztu pa "
+"kreisi, turiet piespiestu <key>Ctrl</key> taustiņu un spiediet pagriešanas "
+"pogu. Abas komandas ir pieejamas arī <gui>Fotogrāfiju</gui> izvēlnē. Varat "
+"izmantot arī tastatūras saīsnes:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
@@ -563,17 +563,16 @@ msgid ""
 "rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
 "<key>[</key>"
 msgstr ""
-"pagriezt pa kreisi: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key><"
-"/keyseq> vai "
-"<key>[</key>"
+"pagriezt pa kreisi: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></"
+"keyseq> vai <key>[</key>"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:19
 msgid ""
 "rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
 msgstr ""
-"pagriezt pa labi: <keyseq><key>Ctrl</key><key>R</key></keyseq> vai <key>]<"
-"/key>"
+"pagriezt pa labi: <keyseq><key>Ctrl</key><key>R</key></keyseq> vai <key>]</"
+"key>"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:21
@@ -582,11 +581,10 @@ msgid ""
 "command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
 "<gui>Flip Vertically</gui> command in the same menu."
 msgstr ""
-"Lai izveidotu fotogrāfijas spoguļattēlu, izmantojiet <gui>Apmest horizontāli<"
-"/gui> "
-"komandu <gui>Fotogrāfiju</gui> izvēlnē. Lai apmestu fotogrāfiju vertikāli,"
-" izmantojiet "
-"<gui>Apmest vertikāli</gui> komandu tajā pat izvēlnē."
+"Lai izveidotu fotogrāfijas spoguļattēlu, izmantojiet <gui>Apmest "
+"horizontāli</gui> komandu <gui>Fotogrāfiju</gui> izvēlnē. Lai apmestu "
+"fotogrāfiju vertikāli, izmantojiet <gui>Apmest vertikāli</gui> komandu tajā "
+"pat izvēlnē."
 
 #. (itstool) path: note/p
 #: C/edit-rotate.page:24
@@ -612,8 +610,8 @@ msgid ""
 "The straighten tools allows photos to be leveled and straightened. The "
 "straighten tool is only available in full-window or fullscreen mode."
 msgstr ""
-"Iztaisnošanas rīks ļauj izlīdzināt un iztaisnot fotogrāfijas. Iztaisnošanas"
-" rīks ir pieejams tikai pilna loga un pilnekrāna režīmā."
+"Iztaisnošanas rīks ļauj izlīdzināt un iztaisnot fotogrāfijas. Iztaisnošanas "
+"rīks ir pieejams tikai pilna loga un pilnekrāna režīmā."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:18
@@ -622,8 +620,8 @@ msgid ""
 "Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
 "key></keyseq>."
 msgstr ""
-"Spiediet <gui>Iztaisnot</gui>. Parādīsies iztaisnošanas slīdnis. Varat"
-" izmantot arī tastatūras saīsni <keyseq><key>Ctrl</key><key>A</key></keyseq>."
+"Spiediet <gui>Iztaisnot</gui>. Parādīsies iztaisnošanas slīdnis. Varat "
+"izmantot arī tastatūras saīsni <keyseq><key>Ctrl</key><key>A</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:21
@@ -652,9 +650,9 @@ msgid ""
 "adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
 "guiseq> and select a new date and time."
 msgstr ""
-"Lai pielāgotu fotogrāfiju datumu un laiku, izvēlieties fotogrāfijas,"
-" izvēlieties <guiseq><gui>Fotogrāfijas</gui><gui>Pielāgot datumu un laiku...<"
-"/gui></guiseq> un iestatiet jaunu datumu un laiku."
+"Lai pielāgotu fotogrāfiju datumu un laiku, izvēlieties fotogrāfijas, "
+"izvēlieties <guiseq><gui>Fotogrāfijas</gui><gui>Pielāgot datumu un laiku...</"
+"gui></guiseq> un iestatiet jaunu datumu un laiku."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:16
@@ -663,9 +661,9 @@ msgid ""
 "choose to shift all the photos by the same amount of time or to set all the "
 "photos to the same time."
 msgstr ""
-"Ja maināt datumu un laiku vairākām fotogrāfijām uzreiz, varat to mainīt visām"
-" fotogrāfijām par vienādu laika nobīdi, vai arī visām iestatīt vienu un to"
-" pašu laiku."
+"Ja maināt datumu un laiku vairākām fotogrāfijām uzreiz, varat to mainīt "
+"visām fotogrāfijām par vienādu laika nobīdi, vai arī visām iestatīt vienu un "
+"to pašu laiku."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:18
@@ -674,9 +672,9 @@ msgid ""
 "choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
-"Pēc noklusējuma, datums un laiks tiek mainīts tikai pašā Shotwell. Jūs varat"
-" arī mainīt datumu un laiku oriģinālajā datnē, bet to nevar atsaukt, kad"
-" iziesiet ārā no Shotwell lietotnes."
+"Pēc noklusējuma, datums un laiks tiek mainīts tikai pašā Shotwell. Jūs varat "
+"arī mainīt datumu un laiku oriģinālajā datnē, bet to nevar atsaukt, kad "
+"iziesiet ārā no Shotwell lietotnes."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
@@ -694,8 +692,8 @@ msgid ""
 "Because Shotwell is a non-destructive photo editor, you can undo any "
 "alterations you make to a photograph."
 msgstr ""
-"Tā kā Shotwell ir nedestruktīvs fotogrāfiju redaktors, jūs varat atsaukt"
-" visas izmaiņas, kas ir veiktas ar fotogrāfiju."
+"Tā kā Shotwell ir nedestruktīvs fotogrāfiju redaktors, jūs varat atsaukt "
+"visas izmaiņas, kas ir veiktas ar fotogrāfiju."
 
 #. (itstool) path: page/p
 #: C/edit-undo.page:20
@@ -704,9 +702,9 @@ msgid ""
 "<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
 "exception is that time and date adjustments will not be reverted."
 msgstr ""
-"Lai pilnībā atsauktu visas fotogrāfijā veiktās izmaiņas, spiediet <guiseq><"
-"gui>Fotogrāfijas</gui><gui>Atgriezties pie oriģināla</gui></guiseq>."
-" Vienīgais izņēmums ir laiks un datums, tie netiks atjaunoti."
+"Lai pilnībā atsauktu visas fotogrāfijā veiktās izmaiņas, spiediet "
+"<guiseq><gui>Fotogrāfijas</gui><gui>Atgriezties pie oriģināla</gui></"
+"guiseq>. Vienīgais izņēmums ir laiks un datums, tie netiks atjaunoti."
 
 #. (itstool) path: info/desc
 #: C/formats.page:7
@@ -714,8 +712,8 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
 "files."
 msgstr ""
-"Shotwell atbalsta JPEG, PNG, TIFF, BMP un RAW fotogrāfiju datnes, kā arī"
-" video datnes."
+"Shotwell atbalsta JPEG, PNG, TIFF, BMP un RAW fotogrāfiju datnes, kā arī "
+"video datnes."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
@@ -730,8 +728,8 @@ msgid ""
 "format such as GIF."
 msgstr ""
 "Shotwell atbalsta JPEG, PNG, TIFF, BMP un <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> fotogrāfiju datnes. Shotwell vēl neatbalsta citus grafikas"
-" formātus, piemēram, GIF."
+"raw\">RAW</link> fotogrāfiju datnes. Shotwell vēl neatbalsta citus grafikas "
+"formātus, piemēram, GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -742,11 +740,11 @@ msgid ""
 "- you can only export edited photos as 8-bit files. All supported formats "
 "can be used for export (JPEG, PNG, TIFF, BMP)."
 msgstr ""
-"Pašlaik Shotwell jēlattēlu (RAW) formātu atbalsts ir ierobežots. Skatoties"
-" jēlattēlu, jūs redzat JPEG datni, kas ir izvilkta no jēlattēla, nevis pašu"
-" jēlattēlu. Bez tam, RAW rediģēšanas konveijers nav pilnībā 16 bitu —"
-" rediģētās fotogrāfijas var eksportēt tikai kā 8 bitu datnes. Eksportēšanai"
-" var izmantot visus atbalstītos formātus (JPEG, PNG, TIFF, BMP)."
+"Pašlaik Shotwell jēlattēlu (RAW) formātu atbalsts ir ierobežots. Skatoties "
+"jēlattēlu, jūs redzat JPEG datni, kas ir izvilkta no jēlattēla, nevis pašu "
+"jēlattēlu. Bez tam, RAW rediģēšanas konveijers nav pilnībā 16 bitu — "
+"rediģētās fotogrāfijas var eksportēt tikai kā 8 bitu datnes. Eksportēšanai "
+"var izmantot visus atbalstītos formātus (JPEG, PNG, TIFF, BMP)."
 
 #. (itstool) path: page/p
 #: C/formats.page:18
@@ -754,8 +752,8 @@ msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
 msgstr ""
-"Lai uzzinātu vairāk par jēlā formāta fotogrāfijām Shotwell lietotnē, skatiet"
-" nodaļu par <link type=\"guide\" xref=\"other-raw\">jēlattēliem</link>."
+"Lai uzzinātu vairāk par jēlā formāta fotogrāfijām Shotwell lietotnē, skatiet "
+"nodaļu par <link type=\"guide\" xref=\"other-raw\">jēlattēliem</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -764,9 +762,9 @@ msgid ""
 "media library on the system where Shotwell is running. This typically "
 "includes the following formats among others:"
 msgstr ""
-"Shotwell atbalsta arī video datnes visos formātos, ko atbalsta GStreamer"
-" multimediju bibliotēka sistēmā, uz kuras darbojas Shotwell. Tas parasti"
-" iekļauj šos formātus:"
+"Shotwell atbalsta arī video datnes visos formātos, ko atbalsta GStreamer "
+"multimediju bibliotēka sistēmā, uz kuras darbojas Shotwell. Tas parasti "
+"iekļauj šos formātus:"
 
 #. (itstool) path: item/p
 #: C/formats.page:25
@@ -780,9 +778,9 @@ msgid ""
 "systems may not include all codecs listed here due to legal or licensing "
 "restrictions.</em>"
 msgstr ""
-"Kodeki: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Ņemiet vērā, ka dažas"
-" operētājsistēmas var neiekļaut visus šeit uzskaitītos kodekus dēļ"
-" juridiskiem vai licenču ierobežojumiem.</em>"
+"Kodeki: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Ņemiet vērā, ka dažas "
+"operētājsistēmas var neiekļaut visus šeit uzskaitītos kodekus dēļ "
+"juridiskiem vai licenču ierobežojumiem.</em>"
 
 #. (itstool) path: page/p
 #: C/formats.page:30
@@ -793,11 +791,11 @@ msgid ""
 "flagging, rating, tagging, and publishing work both for photos and for "
 "videos."
 msgstr ""
-"Shotwell atbalsta gan fotogrāfijas, gan video, bet dokumentācijā vienkāršības"
-" labad tiek izmantots termins “fotogrāfijas”. Vairums darbību Shotwell var"
-" veikt gan ar fotogrāfijām, gan video, precīzāk, notikumi, atzīmēšana ar"
-" karogu, vērtēšana, tagošana un publicēšana darbojas vienlīdz labi ar"
-" fotogrāfijām un video."
+"Shotwell atbalsta gan fotogrāfijas, gan video, bet dokumentācijā "
+"vienkāršības labad tiek izmantots termins “fotogrāfijas”. Vairums darbību "
+"Shotwell var veikt gan ar fotogrāfijām, gan video, precīzāk, notikumi, "
+"atzīmēšana ar karogu, vērtēšana, tagošana un publicēšana darbojas vienlīdz "
+"labi ar fotogrāfijām un video."
 
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
@@ -820,8 +818,8 @@ msgid ""
 "Connect the camera to your computer and switch it on. Shotwell will detect "
 "it and list it in the sidebar."
 msgstr ""
-"Pievienojiet kameru savam datoram un ieslēdziet to. Shotwell to atpazīs un"
-" parādīs sānu joslā."
+"Pievienojiet kameru savam datoram un ieslēdziet to. Shotwell to atpazīs un "
+"parādīs sānu joslā."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:22
@@ -829,8 +827,8 @@ msgid ""
 "Select the camera in the sidebar. Previews of each photo on the camera will "
 "be displayed."
 msgstr ""
-"Izvēlieties kameru sānu joslā. Tiks attēloti katras fotogrāfijas"
-" priekšskatījums."
+"Izvēlieties kameru sānu joslā. Tiks attēloti katras fotogrāfijas "
+"priekšskatījums."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:25
@@ -839,10 +837,10 @@ msgid ""
 "hold down the <key>Ctrl</key> key and click to select individual photos. You "
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
-"Ja vēlaties, varat izvēlēties, kuras tieši fotogrāfijas importēt. Lai to"
-" izdarītu, turiet piespiestu <key>Ctrl</key> taustiņu un spiediet uz"
-" attiecīgajām fotogrāfijām. Varat arī turēt piespiestu <key>Shift</key>"
-" taustiņu un spiest uz fotogrāfijām, lai izvēlētos virkni fotogrāfiju uzreiz."
+"Ja vēlaties, varat izvēlēties, kuras tieši fotogrāfijas importēt. Lai to "
+"izdarītu, turiet piespiestu <key>Ctrl</key> taustiņu un spiediet uz "
+"attiecīgajām fotogrāfijām. Varat arī turēt piespiestu <key>Shift</key> "
+"taustiņu un spiest uz fotogrāfijām, lai izvēlētos virkni fotogrāfiju uzreiz."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:28
@@ -850,8 +848,8 @@ msgid ""
 "Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
 "will be copied from the camera and saved on your computer."
 msgstr ""
-"Spiediet vai nu <gui>Importēt izvēlētās</gui> vai <gui>Importēt visas</gui>."
-" Fotogrāfijas tiks nokopētas no kameras un saglabātas datorā."
+"Spiediet vai nu <gui>Importēt izvēlētās</gui> vai <gui>Importēt visas</gui>. "
+"Fotogrāfijas tiks nokopētas no kameras un saglabātas datorā."
 
 #. (itstool) path: page/p
 #: C/import-camera.page:32
@@ -860,10 +858,10 @@ msgid ""
 "(in the sidebar) to see all photos that were imported. The Events list (also "
 "in the sidebar) will also show the new photos, organized by date."
 msgstr ""
-"Kad importēšana ir pabeigta, varat atvērt skatu <gui>Pēdējais imports</gui>"
-" (sānu joslā) un tur būs redzamas visas importētās fotogrāfijas. Notikumu"
-" saraksts (arī sānu joslā) arī saturēs jaunās fotogrāfijas, kas ir"
-" organizētas pēc datuma."
+"Kad importēšana ir pabeigta, varat atvērt skatu <gui>Pēdējais imports</gui> "
+"(sānu joslā) un tur būs redzamas visas importētās fotogrāfijas. Notikumu "
+"saraksts (arī sānu joslā) arī saturēs jaunās fotogrāfijas, kas ir "
+"organizētas pēc datuma."
 
 #. (itstool) path: info/desc
 #: C/import-file.page:7
@@ -881,8 +879,8 @@ msgid ""
 "To import photo files from your hard disk into Shotwell, just drag them from "
 "your file browser into the Shotwell window."
 msgstr ""
-"Lai importētu datnes no cietā diska uz Shotwell, velciet tās no datņu pārlūka"
-" Shotwell logā."
+"Lai importētu datnes no cietā diska uz Shotwell, velciet tās no datņu "
+"pārlūka Shotwell logā."
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
@@ -890,9 +888,9 @@ msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 "gui></guiseq> and select the folder containing the photos you want to import."
 msgstr ""
-"Varat arī spiest <guiseq><gui>Datne</gui><gui>Importēt no mapes...</gui><"
-"/guiseq> un izvēlieties mapi, kura satur fotogrāfijas, kuras vēlaties"
-" importēt."
+"Varat arī spiest <guiseq><gui>Datne</gui><gui>Importēt no mapes...</gui></"
+"guiseq> un izvēlieties mapi, kura satur fotogrāfijas, kuras vēlaties "
+"importēt."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -901,9 +899,9 @@ msgid ""
 "folder (usually this is the <file>Pictures</file> folder in your home "
 "directory) or to import them in place without copying the files."
 msgstr ""
-"Shotwell jums prasīs, vai vēlaties kopēt fotogrāfiju datnes uz jūsu"
-" bibliotēkas mapi (parasti tā ir mape <file>Attēli</file>, kas atrodas jūsu"
-" mājas direktorijā), vai importējiet tās, nekopējot datnes."
+"Shotwell jums prasīs, vai vēlaties kopēt fotogrāfiju datnes uz jūsu "
+"bibliotēkas mapi (parasti tā ir mape <file>Attēli</file>, kas atrodas jūsu "
+"mājas direktorijā), vai importējiet tās, nekopējot datnes."
 
 #. (itstool) path: page/p
 #: C/import-file.page:20
@@ -913,10 +911,10 @@ msgid ""
 "you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
 "dragging photos in, Shotwell will import the photos without copying them."
 msgstr ""
-"Ja turat piespiestu <key>Ctrl</key> taustiņu,  kamēr velkat fotogrāfijas,"
-" Shotwell kopēs jūsu fotogrāfijas bez nejautājot. Līdzīgi, ja velkot turēsiet"
-" piespiestus taustiņus <keyseq><key>Ctrl</key><key>Shift</key></keyseq>,"
-" Shotwell importēs fotogrāfijas tās nekopējot."
+"Ja turat piespiestu <key>Ctrl</key> taustiņu,  kamēr velkat fotogrāfijas, "
+"Shotwell kopēs jūsu fotogrāfijas bez nejautājot. Līdzīgi, ja velkot turēsiet "
+"piespiestus taustiņus <keyseq><key>Ctrl</key><key>Shift</key></keyseq>, "
+"Shotwell importēs fotogrāfijas tās nekopējot."
 
 #. (itstool) path: page/p
 #: C/import-file.page:22
@@ -925,18 +923,18 @@ msgid ""
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
-"Kad importēšana ir pabeigta, varat izvēlēties <gui>Pēdējais imports</gui>"
-" sānu joslā, lai redzētu visas veiksmīgi importētās fotogrāfijas. Notikumu"
-" saraksts arī attēlos jaunos ierakstus datumiem, kas atbilst importētajām"
-" fotogrāfijām."
+"Kad importēšana ir pabeigta, varat izvēlēties <gui>Pēdējais imports</gui> "
+"sānu joslā, lai redzētu visas veiksmīgi importētās fotogrāfijas. Notikumu "
+"saraksts arī attēlos jaunos ierakstus datumiem, kas atbilst importētajām "
+"fotogrāfijām."
 
 #. (itstool) path: info/desc
 #: C/import-f-spot.page:7
 msgid ""
 "Shotwell can import all your photos and tags from the F-Spot photo manager."
 msgstr ""
-"Shotwell var arī importēt visas jūsu fotogrāfijas un tagus no F-Spot"
-" fotogrāfiju pārvaldnieka."
+"Shotwell var arī importēt visas jūsu fotogrāfijas un tagus no F-Spot "
+"fotogrāfiju pārvaldnieka."
 
 #. (itstool) path: page/title
 #: C/import-f-spot.page:12
@@ -961,9 +959,9 @@ msgid ""
 "importing from another F-Spot database, select a directory and file from the "
 "chooser dialog box."
 msgstr ""
-"Tagad izvēlieties vai no noklusējuma F-Spot bibliotēku vai citu F-Spot"
-" datubāzi. Ja importējat no citas F-Spot datubāzes, izvēlēties direktoriju un"
-" datni ar izvēlētāja dialoglodziņu."
+"Tagad izvēlieties vai no noklusējuma F-Spot bibliotēku vai citu F-Spot "
+"datubāzi. Ja importējat no citas F-Spot datubāzes, izvēlēties direktoriju un "
+"datni ar izvēlētāja dialoglodziņu."
 
 #. (itstool) path: page/p
 #: C/import-f-spot.page:20
@@ -974,11 +972,11 @@ msgid ""
 "will also show new entries for the dates corresponding to the imported "
 "photos."
 msgstr ""
-"Shotwell importēs jūsu fotogrāfijas ar to tagiem un citu informāciju. Kad"
-" importēšana ir pabeigta, varat izvēlēties <gui>Pēdējais imports</gui> sānu"
-" joslā, lai redzētu visas veiksmīgi importētās fotogrāfijas. Notikumu"
-" saraksts arī attēlos jaunos ierakstus datumiem, kas atbilst importētajām"
-" fotogrāfijām."
+"Shotwell importēs jūsu fotogrāfijas ar to tagiem un citu informāciju. Kad "
+"importēšana ir pabeigta, varat izvēlēties <gui>Pēdējais imports</gui> sānu "
+"joslā, lai redzētu visas veiksmīgi importētās fotogrāfijas. Notikumu "
+"saraksts arī attēlos jaunos ierakstus datumiem, kas atbilst importētajām "
+"fotogrāfijām."
 
 #. (itstool) path: info/desc
 #: C/import-memorycard.page:7
@@ -1001,8 +999,8 @@ msgid ""
 "Put the card into your card reader. Make sure the card reader is plugged in "
 "to the computer and switched on."
 msgstr ""
-"Ievietojiet atmiņas karti savā karšu lasītājā. Pārliecinieties, ka lasītājs"
-" ir pievienots datoram un ieslēdziet to."
+"Ievietojiet atmiņas karti savā karšu lasītājā. Pārliecinieties, ka lasītājs "
+"ir pievienots datoram un ieslēdziet to."
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:21
@@ -1017,10 +1015,10 @@ msgid ""
 "Folder...</gui></guiseq>, the memory card should be visible as a folder in "
 "the side bar of the file selection window."
 msgstr ""
-"Sekojiet instrukcijām, kā <link xref=\"import-file\">importēt fotogrāfijas no"
-" cietā diska</link>. Ja spiedīsiet <guiseq><gui>Datne</gui><gui>Importēt no"
-" mapes...</gui></guiseq>, atmiņas karte būs redzama kā mape izvēlēs loga sānu"
-" joslā."
+"Sekojiet instrukcijām, kā <link xref=\"import-file\">importēt fotogrāfijas "
+"no cietā diska</link>. Ja spiedīsiet <guiseq><gui>Datne</gui><gui>Importēt "
+"no mapes...</gui></guiseq>, atmiņas karte būs redzama kā mape izvēlēs loga "
+"sānu joslā."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:28
@@ -1028,8 +1026,8 @@ msgid ""
 "Shotwell can import photos from any memory card that is compatible with your "
 "card reader."
 msgstr ""
-"Shotwell var importēt fotogrāfijas no jebkuras atmiņas kartes, kas ir"
-" savietojama ar jūsu karšu lasītāju."
+"Shotwell var importēt fotogrāfijas no jebkuras atmiņas kartes, kas ir "
+"savietojama ar jūsu karšu lasītāju."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:30
@@ -1040,10 +1038,10 @@ msgid ""
 "\"import-camera\">connecting your camera directly to the computer</link>, "
 "though."
 msgstr ""
-"Ja karte nav automātiski atpazīta, iespējams, ka karšu lasītājs nav atpazīts."
-" Mēģiniet to atvienot un atkal pievienot datoram. Ja tas nepalīdz jums"
-" vajadzētu varēt importēt fotogrāfijas, <link xref="
-"\"import-camera\">pievienojot datoram pašu kameru</link>."
+"Ja karte nav automātiski atpazīta, iespējams, ka karšu lasītājs nav "
+"atpazīts. Mēģiniet to atvienot un atkal pievienot datoram. Ja tas nepalīdz "
+"jums vajadzētu varēt importēt fotogrāfijas, <link xref=\"import-camera"
+"\">pievienojot datoram pašu kameru</link>."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -1102,8 +1100,8 @@ msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
 msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell fotogrāfiju"
-" pārvaldnieks"
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
+"fotogrāfiju pārvaldnieks"
 
 #. (itstool) path: section/title
 #: C/index.page:26
@@ -1141,8 +1139,8 @@ msgid ""
 "Group photos together that were taken at the same time. Learn how to rename, "
 "merge, and sort events."
 msgstr ""
-"Grupēt kopā fotogrāfijas, kas ir uzņemtas tajā pašā laikā. Uzziniet, kā"
-" pārdēvēt, apvienot un kārtot notikumus."
+"Grupēt kopā fotogrāfijas, kas ir uzņemtas tajā pašā laikā. Uzziniet, kā "
+"pārdēvēt, apvienot un kārtot notikumus."
 
 #. (itstool) path: page/title
 #: C/organize-event.page:12
@@ -1156,9 +1154,9 @@ msgid ""
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
-"Notikums ir virkne ar fotogrāfijām, kas ir uzņemtas aptuveni vienā laikā."
-" Importējot fotogrāfijas, Shotwell pārbauda, kad katra fotogrāfija ir"
-" uzņemta. Tad tas sagrupē fotogrāfijas notikumos."
+"Notikums ir virkne ar fotogrāfijām, kas ir uzņemtas aptuveni vienā laikā. "
+"Importējot fotogrāfijas, Shotwell pārbauda, kad katra fotogrāfija ir "
+"uzņemta. Tad tas sagrupē fotogrāfijas notikumos."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:16
@@ -1168,10 +1166,10 @@ msgid ""
 "be displayed in the main window. Double-click an event to see all the photos "
 "that were taken around that time."
 msgstr ""
-"Izvēlieties <gui>Notikumi</gui> sānu joslā, lai redzētu fotogrāfijas, kas ir"
-" organizētas pēc datumiem. Ja sānu joslā izvēlēsities mēnesi vai gadu,"
-" galvenajā logā parādīsies saraksts ar notikumiem. Dubultklikšķiniet uz"
-" notikuma, lai redzētu visas fotogrāfijas, kas tika uzņemtas ap to laiku."
+"Izvēlieties <gui>Notikumi</gui> sānu joslā, lai redzētu fotogrāfijas, kas ir "
+"organizētas pēc datumiem. Ja sānu joslā izvēlēsities mēnesi vai gadu, "
+"galvenajā logā parādīsies saraksts ar notikumiem. Dubultklikšķiniet uz "
+"notikuma, lai redzētu visas fotogrāfijas, kas tika uzņemtas ap to laiku."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:18
@@ -1181,10 +1179,10 @@ msgid ""
 "the <gui>No Event</gui> view accessible from the sidebar. You can still move "
 "the photo to any event you like as described below."
 msgstr ""
-"Ja fotogrāfijā nav iekļauta informācija par datumu un laiku, Shotwell nevar"
-" automātiski to novietot kādā notikumā. Šādā gadījumā fotogrāfija parādīsies"
-" <gui>Nav notikuma</gui> sadaļā sānu joslā. Jūs vēl aizvien varat pārvietot"
-" šādu fotogrāfiju uz jebkuru notikumu tāpat kā pārējās fotogrāfijas."
+"Ja fotogrāfijā nav iekļauta informācija par datumu un laiku, Shotwell nevar "
+"automātiski to novietot kādā notikumā. Šādā gadījumā fotogrāfija parādīsies "
+"<gui>Nav notikuma</gui> sadaļā sānu joslā. Jūs vēl aizvien varat pārvietot "
+"šādu fotogrāfiju uz jebkuru notikumu tāpat kā pārējās fotogrāfijas."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:25
@@ -1199,11 +1197,11 @@ msgid ""
 "and enter a new name. Another way of renaming an event is to double-click "
 "its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
-"Lai notikumam piešķirtu nosaukumu, nevis norādīt uz to pēc datuma,"
-" izvēlieties notikumu, spiediet <guiseq><gui>Notikumi</gui><gui>Pārdēvēt"
-" notikumu...</gui></guiseq> un ievadiet jauno nosaukumu. Vēl notikumus var"
-" pārdēvēt, dubultklikšķinot uz to nosaukuma sānu joslā, ievadot jauno"
-" nosaukumu un spiežot <key>Enter</key>."
+"Lai notikumam piešķirtu nosaukumu, nevis norādīt uz to pēc datuma, "
+"izvēlieties notikumu, spiediet <guiseq><gui>Notikumi</gui><gui>Pārdēvēt "
+"notikumu...</gui></guiseq> un ievadiet jauno nosaukumu. Vēl notikumus var "
+"pārdēvēt, dubultklikšķinot uz to nosaukuma sānu joslā, ievadot jauno "
+"nosaukumu un spiežot <key>Enter</key>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
@@ -1217,9 +1215,9 @@ msgid ""
 "move photos between events. To do this, drag any photo to the sidebar and "
 "drop it on an event."
 msgstr ""
-"Lai gan fotogrāfijas sākumā tiek grupētas notikumos pēc to datumiem, jūs"
-" varat pārvietot fotogrāfijas starp notikumiem. Lai to izdarītu, velciet"
-" jebkuru fotogrāfiju uz sānu joslu un nometiet to notikumā."
+"Lai gan fotogrāfijas sākumā tiek grupētas notikumos pēc to datumiem, jūs "
+"varat pārvietot fotogrāfijas starp notikumiem. Lai to izdarītu, velciet "
+"jebkuru fotogrāfiju uz sānu joslu un nometiet to notikumā."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
@@ -1232,9 +1230,9 @@ msgid ""
 "To create a new event, select the photos you would like in the new event and "
 "click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgstr ""
-"Lai izveidotu jaunu notikumu, izvēlieties fotogrāfijas, ko redzēt jaunajā"
-" notikumā un spiediet <guiseq><gui>Notikumi</gui><gui>Jauni notikumi</gui><"
-"/guiseq>."
+"Lai izveidotu jaunu notikumu, izvēlieties fotogrāfijas, ko redzēt jaunajā "
+"notikumā un spiediet <guiseq><gui>Notikumi</gui><gui>Jauni notikumi</gui></"
+"guiseq>."
 
 #. (itstool) path: section/p
 #: C/organize-event.page:39
@@ -1244,11 +1242,10 @@ msgid ""
 "merge in the main window area. Finally, click <guiseq><gui>Events</"
 "gui><gui>Merge Events</gui></guiseq>."
 msgstr ""
-"Lai apvienotu notikumus, izvēlieties <guiseq><gui>Notikumi</gui></guiseq>"
-" sānu joslā, "
-"tad, turot piespiestu <key>Ctrl</key>, spiediet uz notikumiem, kurus vēlaties"
-" apvienot galvenā loga laukumā. Visbeidzot, spiediet <guiseq><gui>Notikumi<"
-"/gui><gui>Apvienot notikumus</gui></guiseq>."
+"Lai apvienotu notikumus, izvēlieties <guiseq><gui>Notikumi</gui></guiseq> "
+"sānu joslā, tad, turot piespiestu <key>Ctrl</key>, spiediet uz notikumiem, "
+"kurus vēlaties apvienot galvenā loga laukumā. Visbeidzot, spiediet "
+"<guiseq><gui>Notikumi</gui><gui>Apvienot notikumus</gui></guiseq>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:43
@@ -1263,10 +1260,10 @@ msgid ""
 "click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
 "either ascending or descending."
 msgstr ""
-"Notikumi tiek attēloti sānu joslas kokā, organizēti pa notikumiem, pēc"
-" vecākās fotogrāfijas datuma un mēneša. Lai mainītu notikumu kārtošanas"
-" secību, spiediet <guiseq><gui>Skats</gui><gui>Kārtot notikumus</gui></guiseq"
-"> un izvēlieties kārtot vai nu augoši, vai dilstoši."
+"Notikumi tiek attēloti sānu joslas kokā, organizēti pa notikumiem, pēc "
+"vecākās fotogrāfijas datuma un mēneša. Lai mainītu notikumu kārtošanas "
+"secību, spiediet <guiseq><gui>Skats</gui><gui>Kārtot notikumus</gui></"
+"guiseq> un izvēlieties kārtot vai nu augoši, vai dilstoši."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:51
@@ -1279,8 +1276,8 @@ msgid ""
 "If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
 "photo which represents each event. This is called the key photo."
 msgstr ""
-"Ja sānu joslā izvēlieties vienumu <gui>notikumi</gui>, redzēsiet vienu"
-" fotogrāfiju, kas reprezentē katru notikumu. To dēvē par atslēgas fotogrāfiju."
+"Ja sānu joslā izvēlieties vienumu <gui>notikumi</gui>, redzēsiet vienu "
+"fotogrāfiju, kas reprezentē katru notikumu. To dēvē par atslēgas fotogrāfiju."
 
 #. (itstool) path: section/p
 #: C/organize-event.page:55
@@ -1289,17 +1286,17 @@ msgid ""
 "use a different key photo, select the photo and choose <guiseq><gui>Photos</"
 "gui><gui>Make Key Photo for Event</gui></guiseq>."
 msgstr ""
-"Pēc noklusējuma, Shotwell izmanto pirmo fotogrāfiju kā atslēgas fotogrāfiju."
-" Lai izmantotu citu atslēgas fotogrāfiju, izvēlieties vēlamo fotogrāfiju uz"
-" spiediet <guiseq><gui>Fotogrāfijas</gui><gui>Izvēlēties kā atslēgas"
-" fotogrāfiju notikumam</gui></guiseq>."
+"Pēc noklusējuma, Shotwell izmanto pirmo fotogrāfiju kā atslēgas fotogrāfiju. "
+"Lai izmantotu citu atslēgas fotogrāfiju, izvēlieties vēlamo fotogrāfiju uz "
+"spiediet <guiseq><gui>Fotogrāfijas</gui><gui>Izvēlēties kā atslēgas "
+"fotogrāfiju notikumam</gui></guiseq>."
 
 #. (itstool) path: info/desc
 #: C/organize-flag.page:7
 msgid "Flag photos to mark them as special or to work with them as a set."
 msgstr ""
-"Atzīmēt fotogrāfijas, lai marķētu tās kā īpašas vai darbotos ar tām kā ar"
-" kopu."
+"Atzīmēt fotogrāfijas, lai marķētu tās kā īpašas vai darbotos ar tām kā ar "
+"kopu."
 
 #. (itstool) path: page/title
 #: C/organize-flag.page:12
@@ -1314,10 +1311,10 @@ msgid ""
 "<gui>Flagged</gui> item in the sidebar to see all photos which have been "
 "flagged."
 msgstr ""
-"Shotwell jums ļauj <em>marķēt</em> fotogrāfijas. Kad fotogrāfija ir marķēta,"
-" tas augšējā labajā stūrī parādās maza karodziņa ikona. Jūs varat izvēlēties"
-" vienumu <gui>Ar karodziņu</gui> sānu joslā, lai redzētu visus marķētos"
-" vienumus."
+"Shotwell jums ļauj <em>marķēt</em> fotogrāfijas. Kad fotogrāfija ir marķēta, "
+"tas augšējā labajā stūrī parādās maza karodziņa ikona. Jūs varat izvēlēties "
+"vienumu <gui>Ar karodziņu</gui> sānu joslā, lai redzētu visus marķētos "
+"vienumus."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:18
@@ -1326,10 +1323,10 @@ msgid ""
 "like. For example, you might flag all photos which need visual adjustment, "
 "or all photos which you want to share with a friend."
 msgstr ""
-"Fotogrāfiju marķēšana atzīmē tās kā īpašas. Jūs to varat interpretēt kā vien"
-" vēlaties. Piemēram, varat ar karodziņu atzīmēt visas fotogrāfijas, kurām"
-" jāveic vizuāla pielabošanas, vai visas fotogrāfijas, ar kurām vēlaties"
-" dalīties ar draugu."
+"Fotogrāfiju marķēšana atzīmē tās kā īpašas. Jūs to varat interpretēt kā vien "
+"vēlaties. Piemēram, varat ar karodziņu atzīmēt visas fotogrāfijas, kurām "
+"jāveic vizuāla pielabošanas, vai visas fotogrāfijas, ar kurām vēlaties "
+"dalīties ar draugu."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:22
@@ -1338,10 +1335,10 @@ msgid ""
 "set. For example, you can select the <gui>Flagged</gui> view and then upload "
 "all flagged photos to a publishing service."
 msgstr ""
-"Marķēšana ir arī noderīga, jo varat darboties ar visām marķētajām"
-" fotogrāfijām kā ar vienu kopumu. Piemēram, varat izvēlēties <gui>Ar"
-" karodziņu</gui> skatu un augšupielādēt visas marķētās fotogrāfijas uz"
-" publicēšanas pakalpojumu."
+"Marķēšana ir arī noderīga, jo varat darboties ar visām marķētajām "
+"fotogrāfijām kā ar vienu kopumu. Piemēram, varat izvēlēties <gui>Ar "
+"karodziņu</gui> skatu un augšupielādēt visas marķētās fotogrāfijas uz "
+"publicēšanas pakalpojumu."
 
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
@@ -1355,10 +1352,10 @@ msgid ""
 "or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
 "key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
-"Lai marķētu vai noņemtu marķējumu no fotogrāfijas, spiediet peles labo pogu"
-" uz fotogrāfijas, izvēlieties <gui>Marķēt</gui> vai <gui>Noņemt marķējumu<"
-"/gui> konteksta izvēlnē. Vai lietojat tastatūras saīsnes <keyseq><key>Ctrl<"
-"/key><key>G</key></keyseq> vai <key>/</key>."
+"Lai marķētu vai noņemtu marķējumu no fotogrāfijas, spiediet peles labo pogu "
+"uz fotogrāfijas, izvēlieties <gui>Marķēt</gui> vai <gui>Noņemt marķējumu</"
+"gui> konteksta izvēlnē. Vai lietojat tastatūras saīsnes <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> vai <key>/</key>."
 
 #. (itstool) path: info/desc
 #: C/organize-rating.page:7
@@ -1366,8 +1363,8 @@ msgid ""
 "Give photos a rating between 1 and 5 stars. You can reject bad photos, "
 "hiding them from view."
 msgstr ""
-"Vērtējiet fotogrāfijas skalā no 1 līdz 5 zvaigznes. Jūs varat noraidīt"
-" sliktās fotogrāfijas, slēpjot tās no skata."
+"Vērtējiet fotogrāfijas skalā no 1 līdz 5 zvaigznes. Jūs varat noraidīt "
+"sliktās fotogrāfijas, slēpjot tās no skata."
 
 #. (itstool) path: page/title
 #: C/organize-rating.page:12
@@ -1380,8 +1377,8 @@ msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate "
 "it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
-"Jūs varat katrai fotogrāfijai piešķirt vērtējumu no 1 līdz 5 zvaigznēm, vai"
-" arī tās noraidīt, kas pēc noklusējuma šīs bildes paslēps."
+"Jūs varat katrai fotogrāfijai piešķirt vērtējumu no 1 līdz 5 zvaigznēm, vai "
+"arī tās noraidīt, kas pēc noklusējuma šīs bildes paslēps."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:15
@@ -1394,8 +1391,9 @@ msgid ""
 "Select the photo(s), then choose a rating from the top-level "
 "<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
 msgstr ""
-"Izvēlieties fotogrāfiju(-as), tad izvēlieties vērtējumu no izvēlnes<guiseq><"
-"gui>Fotogrāfijas</gui><gui>Iestatīt vērtējumu</gui></guiseq>."
+"Izvēlieties fotogrāfiju(-as), tad izvēlieties vērtējumu no "
+"izvēlnes<guiseq><gui>Fotogrāfijas</gui><gui>Iestatīt vērtējumu</gui></"
+"guiseq>."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:19
@@ -1403,8 +1401,8 @@ msgid ""
 "Right-click on the photo(s), then choose a rating from the Set Rating "
 "context menu."
 msgstr ""
-"Spiediet labo peles pogu uz fotogrāfijas(-ām) un izvēlieties vērtējumu no"
-" “Iestatīt vērtējumu” konteksta izvēlnes."
+"Spiediet labo peles pogu uz fotogrāfijas(-ām) un izvēlieties vērtējumu no "
+"“Iestatīt vērtējumu” konteksta izvēlnes."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:20
@@ -1414,10 +1412,10 @@ msgid ""
 "Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
 "clear the rating(s)."
 msgstr ""
-"Izvēlieties fotogrāfiju(-as), tad spiediet kādu no saīsnes taustiņiem <key>1<"
-"/key>, <key>2</key>, <key>3</key>, <key>4</key> vai <key>5</key>, lai"
-" piešķirtu vērtējumu. Vai spiediet <key>9</key>, lai atzīmētu fotogrāfiju kā"
-" noraidītu, vai <key>0</key>, lai noņemtu vērtējumu."
+"Izvēlieties fotogrāfiju(-as), tad spiediet kādu no saīsnes taustiņiem "
+"<key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> vai <key>5</key>, lai "
+"piešķirtu vērtējumu. Vai spiediet <key>9</key>, lai atzīmētu fotogrāfiju kā "
+"noraidītu, vai <key>0</key>, lai noņemtu vērtējumu."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:23
@@ -1429,12 +1427,12 @@ msgid ""
 "rejected. The Shotwell icon on the toolbar displays the current rating "
 "filter and can also be used to set the filter."
 msgstr ""
-"Parasti Shotwell attēlo visas fotogrāfijas, izņemot noraidītās. Jūs varat"
-" iestatīt citu vērtējumu filtru, piemēram, izmantojot <guiseq><gui>Skats</gui"
-"><gui>Filtrēt attēlus</gui></guiseq> izvēlni, jūs varat rādīt tikai attēlus"
-" ar vismaz 3 zvaigznēm vērtējumā, vai rādīt visas noraidītās fotogrāfijas."
-" Shotwell ikona rīkjoslā attēlo aktuālo filtru un to var izmantot filtru"
-" iestatīšanai."
+"Parasti Shotwell attēlo visas fotogrāfijas, izņemot noraidītās. Jūs varat "
+"iestatīt citu vērtējumu filtru, piemēram, izmantojot <guiseq><gui>Skats</"
+"gui><gui>Filtrēt attēlus</gui></guiseq> izvēlni, jūs varat rādīt tikai "
+"attēlus ar vismaz 3 zvaigznēm vērtējumā, vai rādīt visas noraidītās "
+"fotogrāfijas. Shotwell ikona rīkjoslā attēlo aktuālo filtru un to var "
+"izmantot filtru iestatīšanai."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:26
@@ -1443,9 +1441,9 @@ msgid ""
 "corner. You can turn off the display of ratings using the <guiseq><gui>View</"
 "gui><gui>Ratings</gui></guiseq> menu item."
 msgstr ""
-"Shotwell parasti attēlo katras fotogrāfijas vērtējumu tās apakšējā kreisajā"
-" stūrī. Jūs varat izslēgt vērtējumu attēlošanu, izmantojot <guiseq><gui"
-">Skats</gui><gui>Vērtējumi</gui></guiseq> izvēlni."
+"Shotwell parasti attēlo katras fotogrāfijas vērtējumu tās apakšējā kreisajā "
+"stūrī. Jūs varat izslēgt vērtējumu attēlošanu, izmantojot "
+"<guiseq><gui>Skats</gui><gui>Vērtējumi</gui></guiseq> izvēlni."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:28
@@ -1455,10 +1453,10 @@ msgid ""
 "gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
 "<key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
-"Jūs varat palielināt vai samazināt fotogrāfijas vērtējumu, izmantojot"
-" komandas <guiseq><gui>Iestatīt vērtējumu</gui><gui>Palielināt</gui></guiseq>"
-" un <guiseq><gui>Iestatīt vērtējumu</gui><gui>samazināt</gui></guiseq>, vai"
-" ar tastatūras saīsnēm <key>&lt;</key> un <key>&gt;</key>."
+"Jūs varat palielināt vai samazināt fotogrāfijas vērtējumu, izmantojot "
+"komandas <guiseq><gui>Iestatīt vērtējumu</gui><gui>Palielināt</gui></guiseq> "
+"un <guiseq><gui>Iestatīt vērtējumu</gui><gui>samazināt</gui></guiseq>, vai "
+"ar tastatūras saīsnēm <key>&lt;</key> un <key>&gt;</key>."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -1470,7 +1468,7 @@ msgctxt "_"
 msgid ""
 "external ref='figures/trash_process.png' "
 "md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr "Iztulkots"
+msgstr "> Tulkots"
 
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
@@ -1489,8 +1487,8 @@ msgid ""
 "You may remove photos from your library and you may additionally delete them "
 "entirely from your hard disk."
 msgstr ""
-"Jūs varat izņemt fotogrāfijas ārā no savas bibliotēkas un jūs varat tās"
-" pavisam izdzēst ārā no cietā diska."
+"Jūs varat izņemt fotogrāfijas ārā no savas bibliotēkas un jūs varat tās "
+"pavisam izdzēst ārā no cietā diska."
 
 #. (itstool) path: page/media
 #: C/organize-remove.page:15
@@ -1505,10 +1503,10 @@ msgid ""
 "computer's trash. If you delete it from your computer's trash the photo is "
 "finally and irretrievably deleted from your computer."
 msgstr ""
-"Šī diagramma rāda, kā dzēstā fotogrāfija vispirms tiek ievietota Shotwell"
-" miskastē. Ja izdzēsīsiet to ārā no Shotwell miskastes, tā tiks ievietota"
-" datora miskastē. Ja izdzēsīsiet to ārā no tās, fotogrāfija tiks"
-" neatgriezeniski izdzēsta no datora."
+"Šī diagramma rāda, kā dzēstā fotogrāfija vispirms tiek ievietota Shotwell "
+"miskastē. Ja izdzēsīsiet to ārā no Shotwell miskastes, tā tiks ievietota "
+"datora miskastē. Ja izdzēsīsiet to ārā no tās, fotogrāfija tiks "
+"neatgriezeniski izdzēsta no datora."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:18
@@ -1522,10 +1520,10 @@ msgid ""
 "Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
 "photos will be moved from your library to Shotwell's Trash."
 msgstr ""
-"Izvēlieties fotogrāfijas, kuras izņemt, izvēlieties <guiseq><gui>Rediģēt</gui"
-"><gui>Pārvietot uz miskasti</gui></guiseq>. (Jūs varat arī spiest taustiņu <"
-"key>Dzēst</key>.) Fotogrāfijas tiks pārvietotas no jūsu bibliotēkas uz"
-" Shotwell's miskasti."
+"Izvēlieties fotogrāfijas, kuras izņemt, izvēlieties <guiseq><gui>Rediģēt</"
+"gui><gui>Pārvietot uz miskasti</gui></guiseq>. (Jūs varat arī spiest "
+"taustiņu <key>Dzēst</key>.) Fotogrāfijas tiks pārvietotas no jūsu "
+"bibliotēkas uz Shotwell's miskasti."
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:22
@@ -1535,10 +1533,10 @@ msgid ""
 "<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
 "files will be left in place on disk."
 msgstr ""
-"Ja vēlaties izņemt fotogrāfijas no Shotwell, neizmetot tās miskastē,"
-" izvēlieties izņemamās fotogrāfijas un izvēlieties <guiseq><gui>Rediģēt</gui"
-"><gui>Izņemt no bibliotēkas</gui></guiseq>. Fotogrāfiju datnes paliks uz"
-" diska."
+"Ja vēlaties izņemt fotogrāfijas no Shotwell, neizmetot tās miskastē, "
+"izvēlieties izņemamās fotogrāfijas un izvēlieties <guiseq><gui>Rediģēt</"
+"gui><gui>Izņemt no bibliotēkas</gui></guiseq>. Fotogrāfiju datnes paliks uz "
+"diska."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:26
@@ -1552,9 +1550,9 @@ msgid ""
 "that have been marked for removal or deletion. In the Trash view, the "
 "following commands are available:"
 msgstr ""
-"Izvēlieties miskastes ierakstu sānu joslā un Shotwell parādīs visas"
-" fotogrāfijas, kas ir atzīmētas kā izņemamas vai dzēšamas. Miskastes skatā ir"
-" pieejamas šādas komandas:"
+"Izvēlieties miskastes ierakstu sānu joslā un Shotwell parādīs visas "
+"fotogrāfijas, kas ir atzīmētas kā izņemamas vai dzēšamas. Miskastes skatā ir "
+"pieejamas šādas komandas:"
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:29
@@ -1597,8 +1595,8 @@ msgid ""
 "When you delete files from the Trash folder or empty the Trash folder, you "
 "will be given the following choices:"
 msgstr ""
-"Kad dzēšat datnes no miskastes mapes, vai arī iztīrāt miskastes mapi, jums"
-" tiks dotas šādas izvēles:"
+"Kad dzēšat datnes no miskastes mapes, vai arī iztīrāt miskastes mapi, jums "
+"tiks dotas šādas izvēles:"
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:39
@@ -1611,8 +1609,8 @@ msgid ""
 "Remove photos from the library but leave the photos in their location on the "
 "computer."
 msgstr ""
-"Fotogrāfiju izņemšana no bibliotēkas, bet uz datora atstāt fotogrāfijas"
-" turpat, kur tās bija."
+"Fotogrāfiju izņemšana no bibliotēkas, bet uz datora atstāt fotogrāfijas "
+"turpat, kur tās bija."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:40
@@ -1652,10 +1650,10 @@ msgid ""
 "for certain criteria. Saved Searches feature more complex search criteria "
 "and persist in the sidebar between sessions."
 msgstr ""
-"Shotwell var veikt divu veidu meklēšanu: ar filtru rīkjoslā un ar saglabātu"
-" meklēšanu. Meklēšanas josla jums ļauj ātri meklēt dotajā skatā pēc"
-" noteiktiem kritērijiem. Saglabātās meklēšanas sniedz kompleksākus meklēšanas"
-" kritērijus un paliek sānu joslā starp sesijām."
+"Shotwell var veikt divu veidu meklēšanu: ar filtru rīkjoslā un ar saglabātu "
+"meklēšanu. Meklēšanas josla jums ļauj ātri meklēt dotajā skatā pēc "
+"noteiktiem kritērijiem. Saglabātās meklēšanas sniedz kompleksākus meklēšanas "
+"kritērijus un paliek sānu joslā starp sesijām."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:21
@@ -1671,12 +1669,11 @@ msgid ""
 "this bar, you can find, show and hide photos and videos based on title, tag, "
 "rating or other options."
 msgstr ""
-"<guiseq><gui>Skats</gui><gui>Meklēšanas josla</gui></guiseq> izvēles rūtiņa"
-" pārslēdz meklēšanas joslas attēlošanu. Jūs varat arī spiest <keyseq><key"
-">Ctrl</"
-"key><key>F</key></keyseq> vai <key>F8</key>, lai parādītu meklēšanas joslu."
-" Šajā joslā jūs varat meklēt, attēlot un slēpt fotogrāfijas un video pēc to"
-" nosaukumiem, tagiem, vērtējumiem un citām opcijām."
+"<guiseq><gui>Skats</gui><gui>Meklēšanas josla</gui></guiseq> izvēles rūtiņa "
+"pārslēdz meklēšanas joslas attēlošanu. Jūs varat arī spiest "
+"<keyseq><key>Ctrl</key><key>F</key></keyseq> vai <key>F8</key>, lai parādītu "
+"meklēšanas joslu. Šajā joslā jūs varat meklēt, attēlot un slēpt fotogrāfijas "
+"un video pēc to nosaukumiem, tagiem, vērtējumiem un citām opcijām."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:29
@@ -1689,13 +1686,13 @@ msgid ""
 "flagged, their current number of stars, and whether the items shown are "
 "images, videos, or raw camera files, respectively."
 msgstr ""
-"Lai sāktu meklēšanu, ievadiet meklēšanas atslēgvārdus teksta laukā, vai"
-" spiediet <gui>Ar karodziņu</gui>, <gui>Vērtējums</gui> vai <gui>Tips</gui>."
-" Teksta meklēšana salīdzinās jūsu atslēgvārdus ar tagu nosaukumiem,"
-" fotogrāfiju vai video nosaukumiem un fotogrāfiju datņu nosaukumiem. Pogas <"
-"gui>Ar karodziņu</gui>, <gui>Vērtējums</gui> and <gui>Tips</gui> jums"
-" attiecīgi ļauj filtrēt savu kolekciju pēc to marķējuma, zvaigznēm vērtējumā"
-" un pēc tā, vai vienumā ir attēli, video vai kameras jēlās datnes."
+"Lai sāktu meklēšanu, ievadiet meklēšanas atslēgvārdus teksta laukā, vai "
+"spiediet <gui>Ar karodziņu</gui>, <gui>Vērtējums</gui> vai <gui>Tips</gui>. "
+"Teksta meklēšana salīdzinās jūsu atslēgvārdus ar tagu nosaukumiem, "
+"fotogrāfiju vai video nosaukumiem un fotogrāfiju datņu nosaukumiem. Pogas "
+"<gui>Ar karodziņu</gui>, <gui>Vērtējums</gui> and <gui>Tips</gui> jums "
+"attiecīgi ļauj filtrēt savu kolekciju pēc to marķējuma, zvaigznēm vērtējumā "
+"un pēc tā, vai vienumā ir attēli, video vai kameras jēlās datnes."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:38
@@ -1703,8 +1700,8 @@ msgid ""
 "Disabling the search bar or exiting Shotwell automatically resets the search "
 "bar."
 msgstr ""
-"Meklēšanas joslas izslēgšana un Shotwell aizvēršana automātiski atstata"
-" meklēšanas joslu."
+"Meklēšanas joslas izslēgšana un Shotwell aizvēršana automātiski atstata "
+"meklēšanas joslu."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:44
@@ -1717,9 +1714,9 @@ msgid ""
 "A saved search persists across Shotwell sessions, and is updated as photos "
 "and videos are added and removed from your Shotwell library."
 msgstr ""
-"Paplašinātā meklēšana saglabājas starp Shotwell sesijām un tiek atjaunināta,"
-" kad fotogrāfijas un video tiek pievienotas vai izņemtas no Shotwell"
-" bibliotēkas."
+"Paplašinātā meklēšana saglabājas starp Shotwell sesijām un tiek atjaunināta, "
+"kad fotogrāfijas un video tiek pievienotas vai izņemtas no Shotwell "
+"bibliotēkas."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:50
@@ -1730,10 +1727,11 @@ msgid ""
 "whether you want to meet Any, All, or None of the criteria in the following "
 "rows."
 msgstr ""
-"Izveido saglabāto meklēšanu ar <guiseq><gui>Rediģēt</gui><gui>Jauna saglabātā"
-" meklēšana...</gui></guiseq> vai spiežot <keyseq><key>Ctrl</key><key>S</key><"
-"/keyseq>. Dialoglodziņš jums ļauj ievadīt meklējuma nosaukuu un izvēlēties,"
-" vai sekojošajās rindās jāizpildās Kādam, Visiem vai Nevienam kritērijam."
+"Izveido saglabāto meklēšanu ar <guiseq><gui>Rediģēt</gui><gui>Jauna "
+"saglabātā meklēšana...</gui></guiseq> vai spiežot <keyseq><key>Ctrl</"
+"key><key>S</key></keyseq>. Dialoglodziņš jums ļauj ievadīt meklējuma "
+"nosaukuu un izvēlēties, vai sekojošajās rindās jāizpildās Kādam, Visiem vai "
+"Nevienam kritērijam."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:56
@@ -1743,11 +1741,11 @@ msgid ""
 "box on the left of each row selects the type of criteria. Criteria must be "
 "entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
-"Katra rinda apzīmē meklēšanas kritēriju. Izmantojiet pogu <gui>+</gui>, lai"
-" pievienotu vairāk rindu, un pogu <gui>-</gui>, lai izņemtu attiecīgo rindu."
-" Kombinētais lodziņš katras rindas kreisajā pusē izvēlas kritērija veidu."
-" Kritērijam ir jābūt pareizi ievadītām, pirms kļūst pieejama poga <gui>Labi<"
-"/gui>."
+"Katra rinda apzīmē meklēšanas kritēriju. Izmantojiet pogu <gui>+</gui>, lai "
+"pievienotu vairāk rindu, un pogu <gui>-</gui>, lai izņemtu attiecīgo rindu. "
+"Kombinētais lodziņš katras rindas kreisajā pusē izvēlas kritērija veidu. "
+"Kritērijam ir jābūt pareizi ievadītām, pirms kļūst pieejama poga <gui>Labi</"
+"gui>."
 
 #. (itstool) path: info/desc
 #: C/organize-tag.page:7
@@ -1765,8 +1763,8 @@ msgid ""
 "You can assign one or more tags to selected photos. A tag can be one or more "
 "words that you want to associate with those photos."
 msgstr ""
-"Jūs varat izvēlētajām fotogrāfijām piešķirt vienu vai vairākus tagus. Tags"
-" var būt viens vai vairāki vārdi, kurus varat saistīt ar šīm fotogrāfijām."
+"Jūs varat izvēlētajām fotogrāfijām piešķirt vienu vai vairākus tagus. Tags "
+"var būt viens vai vairāki vārdi, kurus varat saistīt ar šīm fotogrāfijām."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:22
@@ -1774,8 +1772,8 @@ msgid ""
 "To add new tags to photos, select the photos you would like to tag, then do "
 "any of the following:"
 msgstr ""
-"Lai pievienotu jaunu tagu fotogrāfijām, izvēlieties attiecīgās fotogrāfijas"
-" un veiciet vienu no šīm darbībām:"
+"Lai pievienotu jaunu tagu fotogrāfijām, izvēlieties attiecīgās fotogrāfijas "
+"un veiciet vienu no šīm darbībām:"
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:28
@@ -1804,13 +1802,13 @@ msgid ""
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
-"Ja izmantojat <keyseq><key>Ctrl</key><key>T</key></keyseq> vai <guiseq><gui"
-">Tagi</gui><gui>Pievienot tagus...</gui></guiseq>, varat ierakstīt vienu vai"
-" vairāku tagu nosaukumus, atdalot tos ar komatiem. Kad tags ir izveidots,"
-" varat to pārdēvēt, izvēloties to tagu sānu joslā un izvēloties <guiseq><gui"
-">Tagi</ui><gui>Pārdēvēt tagu \"[nosaukums]\"...</gui></guiseq>, veicot labo"
-" klikšķi un izvēloties <gui>Pārdēvēt...</gui> vai dubultklikšķinot tagu sānu"
-" joslā."
+"Ja izmantojat <keyseq><key>Ctrl</key><key>T</key></keyseq> vai "
+"<guiseq><gui>Tagi</gui><gui>Pievienot tagus...</gui></guiseq>, varat "
+"ierakstīt vienu vai vairāku tagu nosaukumus, atdalot tos ar komatiem. Kad "
+"tags ir izveidots, varat to pārdēvēt, izvēloties to tagu sānu joslā un "
+"izvēloties <guiseq><gui>Tagi</ui><gui>Pārdēvēt tagu \"[nosaukums]\"...</"
+"gui></guiseq>, veicot labo klikšķi un izvēloties <gui>Pārdēvēt...</gui> vai "
+"dubultklikšķinot tagu sānu joslā."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:44
@@ -1824,16 +1822,16 @@ msgid ""
 "gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
 "\"[name]\" from Photos</gui>."
 msgstr ""
-"Lai mainītu, kuri tagi ir saistīti ar kurām fotogrāfijām, izvēlieties"
-" attiecīgo fotogrāfiju , izvēlieties <guiseq><gui>Tagi</gui><gui>Modificēt"
-" tagus...</gui></guiseq> vai spiediet labo peles pogu uz fotogrāfijas un"
-" izvēlieties <gui>Modificēt tagus...</gui> un rediģējiet ar komatiem atdalīto"
-" sarakstu. Lai izņemtu tagu no vienas vai vairākām fotogrāfijām, vispirms"
-" izvēlieties attiecīgo tagu sānu joslā, tad izvēlieties fotogrāfijas, ko"
-" vēlaties izņemt un izvēlieties <guiseq><gui>Tagi</gui><gui>Izņemt tagu"
-" \"[nosaukums]\" no fotogrāfijām</gui></guiseq> vai spiediet labo peles pogu"
-" uz fotogrāfijām un izvēlieties <gui>Izņemt tagu \"[nosaukums]\" no"
-" fotogrāfijām</gui>."
+"Lai mainītu, kuri tagi ir saistīti ar kurām fotogrāfijām, izvēlieties "
+"attiecīgo fotogrāfiju , izvēlieties <guiseq><gui>Tagi</gui><gui>Modificēt "
+"tagus...</gui></guiseq> vai spiediet labo peles pogu uz fotogrāfijas un "
+"izvēlieties <gui>Modificēt tagus...</gui> un rediģējiet ar komatiem atdalīto "
+"sarakstu. Lai izņemtu tagu no vienas vai vairākām fotogrāfijām, vispirms "
+"izvēlieties attiecīgo tagu sānu joslā, tad izvēlieties fotogrāfijas, ko "
+"vēlaties izņemt un izvēlieties <guiseq><gui>Tagi</gui><gui>Izņemt tagu "
+"\"[nosaukums]\" no fotogrāfijām</gui></guiseq> vai spiediet labo peles pogu "
+"uz fotogrāfijām un izvēlieties <gui>Izņemt tagu \"[nosaukums]\" no "
+"fotogrāfijām</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -1842,10 +1840,10 @@ msgid ""
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
 "click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
-"Lai pavisam izdzēstu tagu, izvēlieties to tagu sānu joslā un izvēlieties <"
-"guiseq><gui>Tagi</gui><gui>Dzēst tagu \"[nosaukums]\"</gui></guiseq> vai"
-" spiediet labo peles pogu un izvēlieties <gui>Dzēst tagu \"[nosaukums]\"</gui"
-">."
+"Lai pavisam izdzēstu tagu, izvēlieties to tagu sānu joslā un izvēlieties "
+"<guiseq><gui>Tagi</gui><gui>Dzēst tagu \"[nosaukums]\"</gui></guiseq> vai "
+"spiediet labo peles pogu un izvēlieties <gui>Dzēst tagu \"[nosaukums]\"</"
+"gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:64
@@ -1855,10 +1853,10 @@ msgid ""
 "tags attached to them, and when you click on the name of a given tag in the "
 "sidebar, you will see all the photos associated with that tag."
 msgstr ""
-"Izveidojot tagu, tas parādīsies sānu joslā sadaļā <gui>Tagi</gui>, kas ir"
-" slēpts, ja nav neviena taga. Fotogrāfijām var būt piesaistīti vairāki tagi."
-" Sānu joslā, uzspiežot uz taga, redzēsiet visas fotogrāfijas, kurām ir šis"
-" tags."
+"Izveidojot tagu, tas parādīsies sānu joslā sadaļā <gui>Tagi</gui>, kas ir "
+"slēpts, ja nav neviena taga. Fotogrāfijām var būt piesaistīti vairāki tagi. "
+"Sānu joslā, uzspiežot uz taga, redzēsiet visas fotogrāfijas, kurām ir šis "
+"tags."
 
 #. (itstool) path: section/title
 #: C/organize-tag.page:73
@@ -1872,9 +1870,9 @@ msgid ""
 "and drop a tag onto another. To create a new subtag right-click on a tag and "
 "select <gui>New</gui>."
 msgstr ""
-"Shotwell atbalsta hierarhiskos tagus. Jūs varat pārkārtot tagus, velkot un"
-" nometot tos vienu otrā. Lai izveidotu jaunu apakštagu, spiediet labo peles"
-" pogu uz taga un izvēlieties <gui>Jauns</gui>."
+"Shotwell atbalsta hierarhiskos tagus. Jūs varat pārkārtot tagus, velkot un "
+"nometot tos vienu otrā. Lai izveidotu jaunu apakštagu, spiediet labo peles "
+"pogu uz taga un izvēlieties <gui>Jauns</gui>."
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:81
@@ -1884,9 +1882,9 @@ msgid ""
 "\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
 "be placed under the tag \"Summer Holidays\"."
 msgstr ""
-"Hierarhiskie tagi jums palīdz kārtot tagu sarakstu tuvāk jūsu domāšanas"
-" veidam; piemēram, jūs varat saglabāt vietu tagus “Kalni” vai “Pludmale” zem"
-" taga “Vietas”, kas var būt zem taga “Vasaras brīvdienas”."
+"Hierarhiskie tagi jums palīdz kārtot tagu sarakstu tuvāk jūsu domāšanas "
+"veidam; piemēram, jūs varat saglabāt vietu tagus “Kalni” vai “Pludmale” zem "
+"taga “Vietas”, kas var būt zem taga “Vasaras brīvdienas”."
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:89
@@ -1910,9 +1908,9 @@ msgid ""
 "display of titles beneath each photo. By default, a photo's title is its "
 "filename."
 msgstr ""
-"<guiseq><gui>Skats</gui><gui>Nosaukumi</gui></guiseq> izvēles rūtiņa pārslēdz"
-" nosaukumu rādīšanu zem katras fotogrāfijas. Pēc noklusējuma, fotogrāfijas"
-" nosaukums ir tās datnes nosaukums."
+"<guiseq><gui>Skats</gui><gui>Nosaukumi</gui></guiseq> izvēles rūtiņa "
+"pārslēdz nosaukumu rādīšanu zem katras fotogrāfijas. Pēc noklusējuma, "
+"fotogrāfijas nosaukums ir tās datnes nosaukums."
 
 #. (itstool) path: page/p
 #: C/organize-title.page:17
@@ -1920,9 +1918,9 @@ msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
 "gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
-"Lai mainītu fotogrāfijas nosaukumu, izvēlieties fotogrāfiju un spiediet <"
-"guiseq><gui>Fotogrāfijas</gui><gui>Rediģēt nosaukumu...</gui></guiseq>, vai"
-" spiediet <key>F2</key>."
+"Lai mainītu fotogrāfijas nosaukumu, izvēlieties fotogrāfiju un spiediet "
+"<guiseq><gui>Fotogrāfijas</gui><gui>Rediģēt nosaukumu...</gui></guiseq>, vai "
+"spiediet <key>F2</key>."
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
@@ -1941,9 +1939,9 @@ msgid ""
 "hard disk. Shotwell has several features which help you keep the Shotwell "
 "library and files on disk in sync."
 msgstr ""
-"Katra fotogrāfija Shotwell bibliotēkā atbilst datnei jūsu cietajā diskā."
-" Shotwell ir vairākas iespējas, kas palīdz saglabāt sinhroni Shotwell"
-" bibliotēku un datnes diskā."
+"Katra fotogrāfija Shotwell bibliotēkā atbilst datnei jūsu cietajā diskā. "
+"Shotwell ir vairākas iespējas, kas palīdz saglabāt sinhroni Shotwell "
+"bibliotēku un datnes diskā."
 
 #. (itstool) path: section/title
 #: C/other-files.page:21
@@ -1958,11 +1956,11 @@ msgid ""
 "gui> settings in the <gui>Preferences</gui> dialog. You may use a "
 "preselected pattern, or choose <gui>Custom</gui> and type in your own."
 msgstr ""
-"Shotwell jums ļauj norādīt, kā saglabāt direktorijas jūsu bibliotēkā. Jūs to"
-" varat izdarīt, mainot iestatījumus <gui>Direktoriju struktūra</gui> un <gui"
-">Šablons</gui> dialoglodziņā <gui>Iestatījumi</gui>. Jūs varat izmantot"
-" iepriekš izveidotus šablonus vai izvēlēties <gui>Pielāgots</gui> un ievadīt"
-" paši savu."
+"Shotwell jums ļauj norādīt, kā saglabāt direktorijas jūsu bibliotēkā. Jūs to "
+"varat izdarīt, mainot iestatījumus <gui>Direktoriju struktūra</gui> un "
+"<gui>Šablons</gui> dialoglodziņā <gui>Iestatījumi</gui>. Jūs varat izmantot "
+"iepriekš izveidotus šablonus vai izvēlēties <gui>Pielāgots</gui> un ievadīt "
+"paši savu."
 
 #. (itstool) path: section/p
 #: C/other-files.page:29
@@ -1971,9 +1969,9 @@ msgid ""
 "sign). The values these symbols produce are locale-dependent, so what you "
 "see on your computer may vary from the examples below."
 msgstr ""
-"Pieejamie simboli direktoriju šablonam sākas ar % (procentu zīme). Vērtības,"
-" ko šie simboli veido, ir atkarīgi no lokalizācijas, tāpēc iegūtie rezultāti"
-" uz jūsu datoriem var atšķirties no piemēriem zemāk."
+"Pieejamie simboli direktoriju šablonam sākas ar % (procentu zīme). Vērtības, "
+"ko šie simboli veido, ir atkarīgi no lokalizācijas, tāpēc iegūtie rezultāti "
+"uz jūsu datoriem var atšķirties no piemēriem zemāk."
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
@@ -2192,9 +2190,9 @@ msgid ""
 "running the command <cmd>man strftime</cmd> if you need one that isn't "
 "listed here."
 msgstr ""
-"Ir pieejami vēl vairāki simboli; skatiet strftime rokasgrāmatu, izpildot"
-" komandu <cmd>man strftime</cmd>, ja ir vajadzīgs simbols, kas nav šeit"
-" sarakstā."
+"Ir pieejami vēl vairāki simboli; skatiet strftime rokasgrāmatu, izpildot "
+"komandu <cmd>man strftime</cmd>, ja ir vajadzīgs simbols, kas nav šeit "
+"sarakstā."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -2209,10 +2207,10 @@ msgid ""
 "directory in your home directory; you can change its location in in the "
 "<gui>Preferences</gui> window.)"
 msgstr ""
-"Shotwell var automātiski importēt jaunās fotogrāfijas, kas parādās"
-" bibliotēkas direktorijā. Bibliotēkas direktorija parasti ir <file>Attēli<"
-"/file> direktorija mājas mapē; jūs varat mainīt tās atrašanās vietu logā <gui"
-">Iestatījumi</gui>."
+"Shotwell var automātiski importēt jaunās fotogrāfijas, kas parādās "
+"bibliotēkas direktorijā. Bibliotēkas direktorija parasti ir <file>Attēli</"
+"file> direktorija mājas mapē; jūs varat mainīt tās atrašanās vietu logā "
+"<gui>Iestatījumi</gui>."
 
 #. (itstool) path: section/p
 #: C/other-files.page:86
@@ -2220,8 +2218,8 @@ msgid ""
 "To enable auto-import, check the box <gui>Watch library directory for new "
 "files</gui> in the <gui>Preferences</gui> window."
 msgstr ""
-"Lai ieslēgtu automātisko importēšanu, ieķeksējiet lodziņu <gui>Sekot līdzi"
-" jaunām datnēm manā bibliotēkā</gui> logā <gui>Iestatījumi</gui>."
+"Lai ieslēgtu automātisko importēšanu, ieķeksējiet lodziņu <gui>Sekot līdzi "
+"jaunām datnēm manā bibliotēkā</gui> logā <gui>Iestatījumi</gui>."
 
 #. (itstool) path: note/p
 #: C/other-files.page:90
@@ -2229,8 +2227,8 @@ msgid ""
 "Shotwell can also follow symbolic links inside automatically-imported "
 "directories."
 msgstr ""
-"Shotwell var arī sekot simboliskajām saitēm automātiski importētajās"
-" direktorijās."
+"Shotwell var arī sekot simboliskajām saitēm automātiski importētajās "
+"direktorijās."
 
 #. (itstool) path: section/title
 #: C/other-files.page:95
@@ -2245,10 +2243,10 @@ msgid ""
 "gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
 "<gui>Rename imported files to lowercase</gui> box."
 msgstr ""
-"Shotwell var automātiski mainīt importēto fotogrāfiju datņu nosaukumus uz"
-" mazo burtu reģistru. Lai to ieslēgtu, izvēlieties <guiseq><gui>Rediģēt</gui"
-"><gui>Iestatījumi</gui></guiseq>, logā <gui>Iestatījumi</gui> izvēlieties"
-" kasti <gui>Pārdēvēt importētās datnes uz mazajiem burtiem</gui>."
+"Shotwell var automātiski mainīt importēto fotogrāfiju datņu nosaukumus uz "
+"mazo burtu reģistru. Lai to ieslēgtu, izvēlieties <guiseq><gui>Rediģēt</"
+"gui><gui>Iestatījumi</gui></guiseq>, logā <gui>Iestatījumi</gui> izvēlieties "
+"kasti <gui>Pārdēvēt importētās datnes uz mazajiem burtiem</gui>."
 
 #. (itstool) path: section/title
 #: C/other-files.page:107
@@ -2262,9 +2260,9 @@ msgid ""
 "or change their tags or titles. Shotwell records these changes in its own "
 "database only."
 msgstr ""
-"Pēc noklusējuma Shotwell nemaina fotogrāfiju datnes, pat rediģējot"
-" fotogrāfijas vai mainot to tagus vai nosaukumus. Shotwell ieraksta šīs"
-" izmaiņas tikai savā datubāzē."
+"Pēc noklusējuma Shotwell nemaina fotogrāfiju datnes, pat rediģējot "
+"fotogrāfijas vai mainot to tagus vai nosaukumus. Shotwell ieraksta šīs "
+"izmaiņas tikai savā datubāzē."
 
 #. (itstool) path: section/p
 #: C/other-files.page:112
@@ -2274,10 +2272,11 @@ msgid ""
 "dialog. When this option is enabled, Shotwell will write the following "
 "metadata to most photo files whenever you change it in Shotwell:"
 msgstr ""
-"Lai mainītu šo uzvedību, varat ieslēgt izvēles rūtiņu <gui>Rakstīt tagus,"
-" nosaukumus un citus metadatus fotogrāfiju datnēs</gui> dialoglodziņā <gui"
-">Iestatījumi</gui>. Kad šī opcija ir ieslēgta, veicot izmaiņas fotogrāfijā,"
-" Shotwell ierakstīs sekojošos metadatus vairumā fotogrāfiju datēs:"
+"Lai mainītu šo uzvedību, varat ieslēgt izvēles rūtiņu <gui>Rakstīt tagus, "
+"nosaukumus un citus metadatus fotogrāfiju datnēs</gui> dialoglodziņā "
+"<gui>Iestatījumi</gui>. Kad šī opcija ir ieslēgta, veicot izmaiņas "
+"fotogrāfijā, Shotwell ierakstīs sekojošos metadatus vairumā fotogrāfiju "
+"datēs:"
 
 #. (itstool) path: item/p
 #: C/other-files.page:118
@@ -2311,9 +2310,9 @@ msgid ""
 "format. Note that Shotwell can write only to photo files in JPEG, PNG and "
 "TIFF format, not to BMP photos, RAW photos or to video files."
 msgstr ""
-"Shotwell saglabā šo informāciju fotogrāfiju datnēs EXIF, IPTC un / vai XMP"
-" formātos. Ņemiet vērā, ka Shotwell fotogrāfiju datnēs var rakstīt tikai"
-" JPEG, PNG un TIFF formātos, bet ne BMP, RAW vai video datnēs."
+"Shotwell saglabā šo informāciju fotogrāfiju datnēs EXIF, IPTC un / vai XMP "
+"formātos. Ņemiet vērā, ka Shotwell fotogrāfiju datnēs var rakstīt tikai "
+"JPEG, PNG un TIFF formātos, bet ne BMP, RAW vai video datnēs."
 
 #. (itstool) path: section/title
 #: C/other-files.page:133
@@ -2327,9 +2326,9 @@ msgid ""
 "externally. When a photo file changes, Shotwell rereads the file and updates "
 "your view of the photo and metadata."
 msgstr ""
-"Kamēr Shotwell ir palaists, tas pamana izmaiņas, kas no ārpuses notiek ar"
-" fotogrāfijām. Kad fotogrāfijas datnes mainās, Shotwell pārlasa datni un"
-" atjaunina jūsu fotogrāfijas skatu un metadatus."
+"Kamēr Shotwell ir palaists, tas pamana izmaiņas, kas no ārpuses notiek ar "
+"fotogrāfijām. Kad fotogrāfijas datnes mainās, Shotwell pārlasa datni un "
+"atjaunina jūsu fotogrāfijas skatu un metadatus."
 
 #. (itstool) path: section/p
 #: C/other-files.page:139
@@ -2338,16 +2337,16 @@ msgid ""
 "photo files contained in the library directory are monitored in real time "
 "after startup. We hope to remove this limitation in a further release."
 msgstr ""
-"Ņemiet vērā, ka palaižoties Shotwell visās fotogrāfiju datnēs pārbauda, vai"
-" ir izmaiņas, bet pēc palaišanās tikai bibliotēkas direktorijas mape tiek"
-" uzraudzīta reālā laikā. Mēs ceram nākošajos laidienos šo ierobežojumu noņemt."
+"Ņemiet vērā, ka palaižoties Shotwell visās fotogrāfiju datnēs pārbauda, vai "
+"ir izmaiņas, bet pēc palaišanās tikai bibliotēkas direktorijas mape tiek "
+"uzraudzīta reālā laikā. Mēs ceram nākošajos laidienos šo ierobežojumu noņemt."
 
 #. (itstool) path: info/desc
 #: C/other-missing.page:7
 msgid "If Shotwell can't find a photo in your library, it marks it as missing."
 msgstr ""
-"Ja Shotwell nevar atrast fotogrāfiju bibliotēkā, tā tiek atzīmēta kā"
-" trūkstoša."
+"Ja Shotwell nevar atrast fotogrāfiju bibliotēkā, tā tiek atzīmēta kā "
+"trūkstoša."
 
 #. (itstool) path: page/title
 #: C/other-missing.page:12
@@ -2363,11 +2362,11 @@ msgid ""
 "Tags views, but will instead show them in a separate Missing Files view "
 "which will appear in the sidebar."
 msgstr ""
-"Katru reizi, kad Shotwell tiek palaists, tas skenē jūsu fotogrāfiju"
-" bibliotēku, lai pārliecinātos, ka fotogrāfijas vēl aizvien atrodas uz cietā"
-" diska. Ja Shotwell konstatē, ka kāda fotogrāfija trūkst, tā nebūs redzama"
-" parasto fotogrāfiju, notikumu un tagu skatos, bet tiks parādīta atsevišķā"
-" “Iztrūkstošās datnes” skatā, kas parādīsies sānu joslā."
+"Katru reizi, kad Shotwell tiek palaists, tas skenē jūsu fotogrāfiju "
+"bibliotēku, lai pārliecinātos, ka fotogrāfijas vēl aizvien atrodas uz cietā "
+"diska. Ja Shotwell konstatē, ka kāda fotogrāfija trūkst, tā nebūs redzama "
+"parasto fotogrāfiju, notikumu un tagu skatos, bet tiks parādīta atsevišķā "
+"“Iztrūkstošās datnes” skatā, kas parādīsies sānu joslā."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:16
@@ -2376,10 +2375,10 @@ msgid ""
 "collection (perhaps because you deleted them), go to the Missing Files view, "
 "select the photos and then click <gui>Remove From Library</gui>."
 msgstr ""
-"Ja vairs nevēlaties redzēt trūkstošās fotogrāfijas savā Shotwell kolekcijā"
-" (iespējams, tāpēc, ka esat tās izdzēsis), ejiet uz skatu “Iztrūkstošās"
-" datnes”, izvēlieties fotogrāfijas un spiediet <gui>Izņemt no bibliotēkas<"
-"/gui>."
+"Ja vairs nevēlaties redzēt trūkstošās fotogrāfijas savā Shotwell kolekcijā "
+"(iespējams, tāpēc, ka esat tās izdzēsis), ejiet uz skatu “Iztrūkstošās "
+"datnes”, izvēlieties fotogrāfijas un spiediet <gui>Izņemt no bibliotēkas</"
+"gui>."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:18
@@ -2390,11 +2389,11 @@ msgid ""
 "if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
 "to learn how to copy files from removable disks onto your computer."
 msgstr ""
-"Ja jūsu fotogrāfijas ir uz noņemamiem datu nesējiem, piemēram, CD vai USB"
-" zibatmiņām, un esat tās <link xref=\"index#import\">importējis</link>"
-" Shotwell tās <em>nekopējot</em> uz savu datoru, tās parādīsies kā trūkstošas"
-" datnes, ja atvienojāt noņemamo disku. Skatiet <link xref=\"import-file\"/>,"
-" lai uzzinātu, kā kopēt datnes no noņemamiem diskiem uz savu datoru."
+"Ja jūsu fotogrāfijas ir uz noņemamiem datu nesējiem, piemēram, CD vai USB "
+"zibatmiņām, un esat tās <link xref=\"index#import\">importējis</link> "
+"Shotwell tās <em>nekopējot</em> uz savu datoru, tās parādīsies kā trūkstošas "
+"datnes, ja atvienojāt noņemamo disku. Skatiet <link xref=\"import-file\"/>, "
+"lai uzzinātu, kā kopēt datnes no noņemamiem diskiem uz savu datoru."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:20
@@ -2403,9 +2402,9 @@ msgid ""
 "the next time it starts. The photos will once again appear in the Photos, "
 "Events and Tags views."
 msgstr ""
-"Ja kāda no trūkstošajām fotogrāfijām atkal kļūs pieejama, Shotwell to pamanīs"
-" nākamajā startēšanās reizē. Šīs fotogrāfijas atkal parādīsies fotogrāfiju,"
-" notikumu un tagu skatos."
+"Ja kāda no trūkstošajām fotogrāfijām atkal kļūs pieejama, Shotwell to "
+"pamanīs nākamajā startēšanās reizē. Šīs fotogrāfijas atkal parādīsies "
+"fotogrāfiju, notikumu un tagu skatos."
 
 #. (itstool) path: info/desc
 #: C/other-multiple.page:7
@@ -2413,8 +2412,8 @@ msgid ""
 "You can open Shotwell with a different photo library by using the command "
 "line."
 msgstr ""
-"Jūs varat atvērt Shotwell ar citu fotogrāfiju bibliotēku, izmantojot"
-" komandrindu."
+"Jūs varat atvērt Shotwell ar citu fotogrāfiju bibliotēku, izmantojot "
+"komandrindu."
 
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
@@ -2429,9 +2428,9 @@ msgid ""
 "database in this directory contains a list of all the photos in the Shotwell "
 "library."
 msgstr ""
-"Shotwell parasti saglabā savu datubāzi un fotogrāfiju sīktēlus direktorijā <"
-"file>~/.shotwell</file> . Šajā direktorijā nav fotogrāfiju, bet tajā esošā"
-" datubāze satur sarakstu ar visām fotogrāfijām Shotwell bibliotēkā."
+"Shotwell parasti saglabā savu datubāzi un fotogrāfiju sīktēlus direktorijā "
+"<file>~/.shotwell</file> . Šajā direktorijā nav fotogrāfiju, bet tajā esošā "
+"datubāze satur sarakstu ar visām fotogrāfijām Shotwell bibliotēkā."
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:16
@@ -2441,10 +2440,10 @@ msgid ""
 "own database directory. To launch Shotwell with an alternate library, "
 "specify an alternate database directory on the command line as follows:"
 msgstr ""
-"Šī iespēja ir domāta lietpratējiem — ir iespējams uzturēt vairākas Shotwell"
-" bibliotēkas, kur katrai no tām ir sava fotogrāfiju kopa. Katrai bibliotēkai"
-" ir vajadzīga sava datubāzes direktorija. Lai palaistu Shotwell ar citu"
-" bibliotēku, norādiet tās datubāzes direktoriju komandrindā šādi:"
+"Šī iespēja ir domāta lietpratējiem — ir iespējams uzturēt vairākas Shotwell "
+"bibliotēkas, kur katrai no tām ir sava fotogrāfiju kopa. Katrai bibliotēkai "
+"ir vajadzīga sava datubāzes direktorija. Lai palaistu Shotwell ar citu "
+"bibliotēku, norādiet tās datubāzes direktoriju komandrindā šādi:"
 
 #. (itstool) path: page/screen
 #: C/other-multiple.page:18
@@ -2473,9 +2472,9 @@ msgid ""
 "libraries that can add support for new publishing destinations or new "
 "slideshow transitions."
 msgstr ""
-"Shotwell var lietot ar <em>spraudņiem</em>, kas ir koplietotās bibliotēkas,"
-" kas var pievienot atbalstu jauniem publicēšanas mērķiem vai jaunām"
-" slaidrādes pārejām."
+"Shotwell var lietot ar <em>spraudņiem</em>, kas ir koplietotās bibliotēkas, "
+"kas var pievienot atbalstu jauniem publicēšanas mērķiem vai jaunām "
+"slaidrādes pārejām."
 
 #. (itstool) path: page/p
 #: C/other-plugins.page:18
@@ -2486,11 +2485,11 @@ msgid ""
 "installed plugins, each with a checkbox by it, and you may enable or disable "
 "each by selecting or deselecting the checkbox by its name."
 msgstr ""
-"Lai redzētu instalēto spraudņu sarakstu, izvēlieties <guiseq><gui>Rediģēt<"
-"/gui><gui>Iestatījumi</gui></guiseq>, un logā <gui>Iestatījumi</gui> spiediet"
-" uz cilni <gui>Spraudņi</gui>. Tur būs redzami pašlaik instalētie spraudņi un"
-" tiem blakus izvēles rūtiņu. Jūs varat ieslēgt vai izslēgt katru no tiem,"
-" ieķeksējot vai noņemot ķeksi no attiecīgās izvēles rūtiņas."
+"Lai redzētu instalēto spraudņu sarakstu, izvēlieties <guiseq><gui>Rediģēt</"
+"gui><gui>Iestatījumi</gui></guiseq>, un logā <gui>Iestatījumi</gui> spiediet "
+"uz cilni <gui>Spraudņi</gui>. Tur būs redzami pašlaik instalētie spraudņi un "
+"tiem blakus izvēles rūtiņu. Jūs varat ieslēgt vai izslēgt katru no tiem, "
+"ieķeksējot vai noņemot ķeksi no attiecīgās izvēles rūtiņas."
 
 #. (itstool) path: note/p
 #: C/other-plugins.page:25
@@ -2500,10 +2499,10 @@ msgid ""
 "\">http://redmine.yorba.org/projects/shotwell/wiki/"
 "ShotwellArchWritingPlugins</link>"
 msgstr ""
-"Pilna informācija par to, kā izstrādāt spraudņus, ir pieejama <link"
-" href=\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlu"
-"gins\">http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlug"
-"ins</link>"
+"Pilna informācija par to, kā izstrādāt spraudņus, ir pieejama <link href="
+"\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins"
+"\">http://redmine.yorba.org/projects/shotwell/wiki/"
+"ShotwellArchWritingPlugins</link>"
 
 #. (itstool) path: info/desc
 #: C/raw.page:7
@@ -2522,9 +2521,9 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
-"Dažas kameras var datus no sensora saglabāt pa tiešo datnē, kas satur papildu"
-" krāsu informāciju; tos parasti dēvē par “RAW” (jēlie) vai “kameras RAW”, un"
-" Shotwell atbalsta arī šīs datnes."
+"Dažas kameras var datus no sensora saglabāt pa tiešo datnē, kas satur "
+"papildu krāsu informāciju; tos parasti dēvē par “RAW” (jēlie) vai “kameras "
+"RAW”, un Shotwell atbalsta arī šīs datnes."
 
 #. (itstool) path: page/p
 #: C/raw.page:18
@@ -2537,12 +2536,12 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
-"Tā kā RAW fotogrāfijas nevar attēlot tiešā veidā, tās vispirms ir jāattīsta —"
-" tas ir, tās papildu informācija ir jālasa un jāinterpretē attēlošanai."
-" Vairums kameru vai nu ieguls JPEG iekšā RAW datnē, vai izveidos gan RAW, gan"
-" JPEG datnes vienam un tam pašam kadram. Otrais risinājums šajā dokumentā"
-" tiks apzīmēts kā RAW+ JPEG. Ja importēsiet RAW+JPEG pāri, Shotwell tos"
-" paturēs sapārotus un bibliotēkā tie parādīsies kā viens vienums."
+"Tā kā RAW fotogrāfijas nevar attēlot tiešā veidā, tās vispirms ir jāattīsta "
+"— tas ir, tās papildu informācija ir jālasa un jāinterpretē attēlošanai. "
+"Vairums kameru vai nu ieguls JPEG iekšā RAW datnē, vai izveidos gan RAW, gan "
+"JPEG datnes vienam un tam pašam kadram. Otrais risinājums šajā dokumentā "
+"tiks apzīmēts kā RAW+ JPEG. Ja importēsiet RAW+JPEG pāri, Shotwell tos "
+"paturēs sapārotus un bibliotēkā tie parādīsies kā viens vienums."
 
 #. (itstool) path: page/p
 #: C/raw.page:27
@@ -2551,9 +2550,9 @@ msgid ""
 "internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
 "gui><gui>Developer</gui></guiseq> in the menus."
 msgstr ""
-"Importējot RAW datni, jūs varat izvēlēties vai nu izmantot kameras iekšēji"
-" attīstīto JPEG vai Shotwell attīstīto, izvēlnēs izvēloties <guiseq><gui"
-">Fotogrāfijas</gui><gui>Attīstītājs</gui></guiseq>."
+"Importējot RAW datni, jūs varat izvēlēties vai nu izmantot kameras iekšēji "
+"attīstīto JPEG vai Shotwell attīstīto, izvēlnēs izvēloties "
+"<guiseq><gui>Fotogrāfijas</gui><gui>Attīstītājs</gui></guiseq>."
 
 #. (itstool) path: note/p
 #: C/raw.page:33
@@ -2570,9 +2569,9 @@ msgid ""
 "or BMP format, and, when publishing, will internally export a JPEG version "
 "for you and publish that."
 msgstr ""
-"Lai publicētu vai lietotu RAW fotogrāfijas vairumā lietotņu, tās vispirms ir"
-" jāeksportē. Shotwell var eksportēt RAW fotogrāfijas JPEG, PNG, TIFF un BMP"
-" formātos. Publicējot tās tiks eksportētas JPEG formātā."
+"Lai publicētu vai lietotu RAW fotogrāfijas vairumā lietotņu, tās vispirms ir "
+"jāeksportē. Shotwell var eksportēt RAW fotogrāfijas JPEG, PNG, TIFF un BMP "
+"formātos. Publicējot tās tiks eksportētas JPEG formātā."
 
 #. (itstool) path: info/desc
 #: C/running.page:7
@@ -2593,8 +2592,8 @@ msgid ""
 "Once installed, Shotwell is available in your <gui>Applications</gui> menu "
 "under <gui>Graphics</gui> or <gui>Photography</gui>."
 msgstr ""
-"Kad Shotwell ir uzinstalēts, tas ir pieejams izvēlnē <gui>Lietotnes</gui> zem"
-" <gui>Grafika</gui> vai <gui>Fotogrāfija</gui>."
+"Kad Shotwell ir uzinstalēts, tas ir pieejams izvēlnē <gui>Lietotnes</gui> "
+"zem <gui>Grafika</gui> vai <gui>Fotogrāfija</gui>."
 
 #. (itstool) path: page/p
 #: C/running.page:18
@@ -2606,13 +2605,12 @@ msgid ""
 "gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
-"Shotwell var tikt palaist automātiski, kad kamera ir pievienota datoram. Lai"
-" pārbaudītu, vai sistēma palaidīs Shotwell, kad ir atklāta kamera, ejiet uz <"
-"guiseq><gui>Rediģēt</gui><gui>Iestatījumi</gui></"
-"guiseq> jebkurā Nautilus (datņu pārlūka) logā un izvēlieties cilni <gui>Datu"
-" nesēji</gui>. Tur būs redzams izkrītošais saraksts ar nosaukumu <gui"
-">Fotogrāfijas:</gui>, kas ļauj izvēlēties Shotwell kā lietotni, kas apstrādā"
-" fotogrāfijas."
+"Shotwell var tikt palaist automātiski, kad kamera ir pievienota datoram. Lai "
+"pārbaudītu, vai sistēma palaidīs Shotwell, kad ir atklāta kamera, ejiet uz "
+"<guiseq><gui>Rediģēt</gui><gui>Iestatījumi</gui></guiseq> jebkurā Nautilus "
+"(datņu pārlūka) logā un izvēlieties cilni <gui>Datu nesēji</gui>. Tur būs "
+"redzams izkrītošais saraksts ar nosaukumu <gui>Fotogrāfijas:</gui>, kas ļauj "
+"izvēlēties Shotwell kā lietotni, kas apstrādā fotogrāfijas."
 
 #. (itstool) path: note/p
 #: C/running.page:25
@@ -2620,8 +2618,8 @@ msgid ""
 "Shotwell may also be executed directly from its build directory, although "
 "this is only recommended for testing out Shotwell or for developers."
 msgstr ""
-"Shotwell var arī palaist no tās būvēšanas direktorijas, lai gan to iesaka"
-" darīt tikai Shotwell testēšanai vai izstrādāšanai."
+"Shotwell var arī palaist no tās būvēšanas direktorijas, lai gan to iesaka "
+"darīt tikai Shotwell testēšanai vai izstrādāšanai."
 
 #. (itstool) path: info/desc
 #: C/share-background.page:7
@@ -2640,9 +2638,9 @@ msgid ""
 "To set a single photo as your desktop background, select the photo and "
 "choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
-"Lai iestatītu vienu fotogrāfiju kā fona attēlu, izvēlieties fotogrāfiju un"
-" izvēlieties <guiseq><gui>Datne</gui><gui>Iestatīt kā darbvirsmas fonu</gui><"
-"/guiseq>."
+"Lai iestatītu vienu fotogrāfiju kā fona attēlu, izvēlieties fotogrāfiju un "
+"izvēlieties <guiseq><gui>Datne</gui><gui>Iestatīt kā darbvirsmas fonu</gui></"
+"guiseq>."
 
 #. (itstool) path: page/p
 #: C/share-background.page:16
@@ -2654,11 +2652,11 @@ msgid ""
 "length. The background slideshow will proceed even when Shotwell is not "
 "running."
 msgstr ""
-"Jūs varat arī iestatīt fonu kā fotogrāfiju slaidrādi. Lai to izdarītu,"
-" izvēlieties fotogrāfijas slaidrādei un izvēlieties <guiseq><gui>Datne</gui><"
-"gui>Iestatīt kā darbvirsmas slaidrādi...</gui></guiseq>. Shotwell vaicās, cik"
-" ilgai ir jābūt slaidrādes aizturei, kas var būt līdz vienai dienai. Fona"
-" slaidrāde strādās arī tad, kad Shotwell nav palaists."
+"Jūs varat arī iestatīt fonu kā fotogrāfiju slaidrādi. Lai to izdarītu, "
+"izvēlieties fotogrāfijas slaidrādei un izvēlieties <guiseq><gui>Datne</"
+"gui><gui>Iestatīt kā darbvirsmas slaidrādi...</gui></guiseq>. Shotwell "
+"vaicās, cik ilgai ir jābūt slaidrādes aizturei, kas var būt līdz vienai "
+"dienai. Fona slaidrāde strādās arī tad, kad Shotwell nav palaists."
 
 #. (itstool) path: info/desc
 #: C/share-export.page:7
@@ -2677,9 +2675,9 @@ msgid ""
 "Shotwell onto a file manager window or your desktop. The new files will be "
 "full-sized copies of the photos in your library."
 msgstr ""
-"Lai eksportētu fotogrāfijas no Shotwell ar vilkšanas-nomešanas metodi,"
-" velciet fotogrāfijas no Shotwell uz datņu pārvaldnieka logu savā darbvirsmā."
-" Jaunās datnes būs pilna izmēra kopijas fotogrāfijām bibliotēkā."
+"Lai eksportētu fotogrāfijas no Shotwell ar vilkšanas-nomešanas metodi, "
+"velciet fotogrāfijas no Shotwell uz datņu pārvaldnieka logu savā darbvirsmā. "
+"Jaunās datnes būs pilna izmēra kopijas fotogrāfijām bibliotēkā."
 
 #. (itstool) path: page/p
 #: C/share-export.page:18
@@ -2690,11 +2688,11 @@ msgid ""
 "you fine-tune the size and dimensions of your photo files. A window will "
 "appear allowing you to make several choices:"
 msgstr ""
-"Varat arī izvēlēties noteiktas fotogrāfijas un izvēlēties <guiseq><gui>Datne<"
-"/gui><gui>Eksportēt...</gui></guiseq> komandu vai spiest <keyseq><key>Shift<"
-"/key><key>Ctrl</key><key>E</key></keyseq>,  kas eksportē fotogrāfijas, ļaujot"
-" precizēt foto datņu izmērus un dimensijas. Parādīsies logs, kas ļauj veikt"
-" vairākas izvēles:"
+"Varat arī izvēlēties noteiktas fotogrāfijas un izvēlēties "
+"<guiseq><gui>Datne</gui><gui>Eksportēt...</gui></guiseq> komandu vai spiest "
+"<keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq>,  kas eksportē "
+"fotogrāfijas, ļaujot precizēt foto datņu izmērus un dimensijas. Parādīsies "
+"logs, kas ļauj veikt vairākas izvēles:"
 
 #. (itstool) path: item/p
 #: C/share-export.page:24
@@ -2708,9 +2706,9 @@ msgid ""
 "without any edits made in Shotwell. RAW photos will be exported in their "
 "original RAW format."
 msgstr ""
-"Izvēlieties <gui>Nemainīts</gui>, lai eksportētu fotogrāfijas to sākotnējā"
-" formātā, bez izmaiņām, kas veiktas ar Shotwell. RAW fotogrāfijas tiks"
-" eksportētas RAW formātā."
+"Izvēlieties <gui>Nemainīts</gui>, lai eksportētu fotogrāfijas to sākotnējā "
+"formātā, bez izmaiņām, kas veiktas ar Shotwell. RAW fotogrāfijas tiks "
+"eksportētas RAW formātā."
 
 #. (itstool) path: item/p
 #: C/share-export.page:29
@@ -2719,9 +2717,9 @@ msgid ""
 "RAW photos will be exported in JPEG format if you have edited them in "
 "Shotwell, and otherwise in their original RAW format."
 msgstr ""
-"Izvēlieties <gui>Pašreizējais</gui> lai eksportētu fotogrāfijas ar izmaiņām,"
-" kas veiktas Shotwell. RAW fotogrāfijas tiks eksportētas JPEG formātā, ja"
-" esat tās rediģējuši ar Shotwell, citādi tās paliks sākotnējā RAW formātā."
+"Izvēlieties <gui>Pašreizējais</gui> lai eksportētu fotogrāfijas ar izmaiņām, "
+"kas veiktas Shotwell. RAW fotogrāfijas tiks eksportētas JPEG formātā, ja "
+"esat tās rediģējuši ar Shotwell, citādi tās paliks sākotnējā RAW formātā."
 
 #. (itstool) path: item/p
 #: C/share-export.page:31
@@ -2730,9 +2728,9 @@ msgid ""
 "used for exporting. Any edits made in Shotwell will be included, and "
 "Shotwell will convert photos to the destination format."
 msgstr ""
-"Jūs varat izvēlēties noteiktu attēlu formātu (JPEG, PNG, TIFF, BMP), ko"
-" izmantot eksportēšanā. Tiks iekļautas visas izmaiņas, kas ir veiktas ar"
-" Shotwell un fotogrāfijas tiks konvertētas uz mērķa formātu."
+"Jūs varat izvēlēties noteiktu attēlu formātu (JPEG, PNG, TIFF, BMP), ko "
+"izmantot eksportēšanā. Tiks iekļautas visas izmaiņas, kas ir veiktas ar "
+"Shotwell un fotogrāfijas tiks konvertētas uz mērķa formātu."
 
 #. (itstool) path: item/p
 #: C/share-export.page:37
@@ -2745,8 +2743,8 @@ msgid ""
 "A scaling constraint (which means how Shotwell will decide to scale the "
 "photos down), and the desired pixel size."
 msgstr ""
-"Mēroga ierobežojums (kas norāda, kā Shotwell izlems samazināt fotogrāfijas)"
-" un vēlamais pikseļu izmērs."
+"Mēroga ierobežojums (kas norāda, kā Shotwell izlems samazināt fotogrāfijas) "
+"un vēlamais pikseļu izmērs."
 
 #. (itstool) path: item/p
 #: C/share-export.page:39
@@ -2755,9 +2753,9 @@ msgid ""
 "This can help to save your privacy if you have geolocation tags or tags "
 "which shouldn't be seen by anyone."
 msgstr ""
-"Opcija, vai vēlaties eksportēt metadatus, piemēram, tagus un vērtējumus. Tas"
-" var palīdzēt saglabāt privātumu, ja jums ir ģeolokācijas tagi vai tādi tagi,"
-" ko citiem nevajadzētu redzēt."
+"Opcija, vai vēlaties eksportēt metadatus, piemēram, tagus un vērtējumus. Tas "
+"var palīdzēt saglabāt privātumu, ja jums ir ģeolokācijas tagi vai tādi tagi, "
+"ko citiem nevajadzētu redzēt."
 
 #. (itstool) path: page/p
 #: C/share-export.page:42
@@ -2765,8 +2763,8 @@ msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
 msgstr ""
-"Ja ir izvēlēts, Shotwell ierakstīs tagus, nosaukumus un citus metadatus"
-" jaunajās datnēs."
+"Ja ir izvēlēts, Shotwell ierakstīs tagus, nosaukumus un citus metadatus "
+"jaunajās datnēs."
 
 #. (itstool) path: info/desc
 #: C/share-print.page:7
@@ -2774,9 +2772,9 @@ msgid ""
 "Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
 msgstr ""
-"Spiediet <guiseq><gui>Datne</gui><gui>Drukāt...</gui></guiseq>. Lai piekļūtu"
-" papildu drukāšanas opcijām, dialoglodziņā <gui>Drukāt</gui> izvēlieties"
-" cilni <gui>Lappuses iestatīšana</gui>."
+"Spiediet <guiseq><gui>Datne</gui><gui>Drukāt...</gui></guiseq>. Lai piekļūtu "
+"papildu drukāšanas opcijām, dialoglodziņā <gui>Drukāt</gui> izvēlieties "
+"cilni <gui>Lappuses iestatīšana</gui>."
 
 #. (itstool) path: page/title
 #: C/share-print.page:12
@@ -2789,8 +2787,8 @@ msgid ""
 "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
 "gui></guiseq>."
 msgstr ""
-"Lai izdrukātu fotogrāfiju, atlasiet to un izvēlieties <guiseq><gui>Datne</gui"
-"><gui>Drukāt...</gui></guiseq>."
+"Lai izdrukātu fotogrāfiju, atlasiet to un izvēlieties <guiseq><gui>Datne</"
+"gui><gui>Drukāt...</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:16
@@ -2801,11 +2799,12 @@ msgid ""
 "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
 "options under <gui>Autosize</gui>."
 msgstr ""
-"Shotwell var arī izdrukāt vairākus attēlus vienā lappusē. Lai to izdarītu,"
-" izvēlieties vairākus attēlus, izvēlieties <guiseq><gui>Datne</gui><gui"
-">Drukāt...</gui></guiseq>, un dialoglodziņā <gui>Drukāt</gui> izvēlieties <"
-"gui>Attēla iestatījumi</gui> cilni. Šajā cilnē sadaļā <gui>Automātiskais"
-" izmērs</gui> izvēlieties kādu no vairāku attēlu izkārtošanas opcijām."
+"Shotwell var arī izdrukāt vairākus attēlus vienā lappusē. Lai to izdarītu, "
+"izvēlieties vairākus attēlus, izvēlieties <guiseq><gui>Datne</"
+"gui><gui>Drukāt...</gui></guiseq>, un dialoglodziņā <gui>Drukāt</gui> "
+"izvēlieties <gui>Attēla iestatījumi</gui> cilni. Šajā cilnē sadaļā "
+"<gui>Automātiskais izmērs</gui> izvēlieties kādu no vairāku attēlu "
+"izkārtošanas opcijām."
 
 #. (itstool) path: page/p
 #: C/share-print.page:23
@@ -2814,9 +2813,9 @@ msgid ""
 "choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
 "printing."
 msgstr ""
-"Ja vēlaties iestatīt formatējumu, papīra izmēru un orientācijas opcijas,"
-" pirms drukāšanas dialoglodziņā <gui>Drukāt</gui> izvēlieties cilni<gui"
-">Lappuses iestatīšana</gui>."
+"Ja vēlaties iestatīt formatējumu, papīra izmēru un orientācijas opcijas, "
+"pirms drukāšanas dialoglodziņā <gui>Drukāt</gui> izvēlieties "
+"cilni<gui>Lappuses iestatīšana</gui>."
 
 #. (itstool) path: info/desc
 #: C/share-send.page:7
@@ -2835,9 +2834,9 @@ msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email, instant messaging or in other ways."
 msgstr ""
-"Shotwell var sūtīt fotogrāfijas, izmantojot GNOME darbvirsmas “Sūtīt uz”"
-" mehānismu, kas jums ļauj sūtīt fotogrāfijas caur e-pastu, tūlītējo"
-" ziņojumapmaiņu un citos veidos."
+"Shotwell var sūtīt fotogrāfijas, izmantojot GNOME darbvirsmas “Sūtīt uz” "
+"mehānismu, kas jums ļauj sūtīt fotogrāfijas caur e-pastu, tūlītējo "
+"ziņojumapmaiņu un citos veidos."
 
 #. (itstool) path: page/p
 #: C/share-send.page:16
@@ -2849,13 +2848,13 @@ msgid ""
 "email or instant messaging) and a destination. You can optionally choose to "
 "send the files in a compressed format."
 msgstr ""
-"Lai sūtītu fotogrāfijas, atlasiet tās Shotwell lietotnē un izvēlieties <"
-"guiseq><gui>Datne</gui><gui>Sūtīt uz...</gui></guiseq>, vai spiediet labo"
-" peles klikšķi uz fotogrāfijām un izvēlieties <gui>Sūtīt uz...</gui>"
-" konteksta izvēlnē. Parādīsies dialoglodziņš <gui>Sūtīt uz</gui>, kas ļauj"
-" izvēlēties datņu sūtīšanas mehānismu (piemēram, e-pasts vai tūlītējā"
-" ziņojumapmaiņa) un gala mērķi. Jūs varat arī izvēlēties sūtīt datnes"
-" saspiestā formātā."
+"Lai sūtītu fotogrāfijas, atlasiet tās Shotwell lietotnē un izvēlieties "
+"<guiseq><gui>Datne</gui><gui>Sūtīt uz...</gui></guiseq>, vai spiediet labo "
+"peles klikšķi uz fotogrāfijām un izvēlieties <gui>Sūtīt uz...</gui> "
+"konteksta izvēlnē. Parādīsies dialoglodziņš <gui>Sūtīt uz</gui>, kas ļauj "
+"izvēlēties datņu sūtīšanas mehānismu (piemēram, e-pasts vai tūlītējā "
+"ziņojumapmaiņa) un gala mērķi. Jūs varat arī izvēlēties sūtīt datnes "
+"saspiestā formātā."
 
 #. (itstool) path: info/desc
 #: C/share-slideshow.page:7
@@ -2874,9 +2873,9 @@ msgid ""
 "and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
 "<key>F5</key>."
 msgstr ""
-"Lai Shotwell lietotnē redzētu kādas kolekcijas slaidrādi, ejiet uz kolekciju"
-" un izvēlieties <guiseq><gui>Skats</gui><gui>Slaidrāde</gui></guiseq> vai"
-" spiediet <key>F5</key>."
+"Lai Shotwell lietotnē redzētu kādas kolekcijas slaidrādi, ejiet uz kolekciju "
+"un izvēlieties <guiseq><gui>Skats</gui><gui>Slaidrāde</gui></guiseq> vai "
+"spiediet <key>F5</key>."
 
 #. (itstool) path: page/p
 #: C/share-slideshow.page:16
@@ -2916,9 +2915,9 @@ msgid ""
 "publish photos and videos to the following services, each of which requires "
 "an account:"
 msgstr ""
-"Izmantojot <link xref=\"other-plugins\">spraudņus</link>, Shotwell var"
-" publicēt fotogrāfijas un video uz sekojošajiem pakalpojumiem, kur katram ir"
-" nepieciešams konts:"
+"Izmantojot <link xref=\"other-plugins\">spraudņus</link>, Shotwell var "
+"publicēt fotogrāfijas un video uz sekojošajiem pakalpojumiem, kur katram ir "
+"nepieciešams konts:"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
@@ -2936,8 +2935,8 @@ msgid ""
 "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> un <link"
-" href=\"http://plus.google.com\">Google+</link>"
+"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> un <link "
+"href=\"http://plus.google.com\">Google+</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
@@ -2950,8 +2949,8 @@ msgid ""
 "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
 "popular in Russia (photos only)"
 msgstr ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, Krievijā populāra"
-" fotogrāfiju vietne (tikai fotogrāfijas)"
+"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, Krievijā populāra "
+"fotogrāfiju vietne (tikai fotogrāfijas)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -2959,8 +2958,8 @@ msgid ""
 "Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
 "gallery software (photos only)"
 msgstr ""
-"Jebkura vietne, kas izmanto <link href=\"http://piwigo.org\">Piwigo</link>"
-" fotogrāfiju galerijas programmatūru (tikai fotogrāfijas)"
+"Jebkura vietne, kas izmanto <link href=\"http://piwigo.org\">Piwigo</link> "
+"fotogrāfiju galerijas programmatūru (tikai fotogrāfijas)"
 
 #. (itstool) path: page/p
 #: C/share-upload.page:26
@@ -2973,14 +2972,14 @@ msgid ""
 "will see a dialog that lets you select a publishing service. You will then "
 "need to log in or create an account."
 msgstr ""
-"Lai publicētu kolekcijā izvēlētās fotogrāfijas, izvēlieties <guiseq><gui"
-">Rediģēt</gui><gui>Iestatījumi</gui></guiseq> un spiediet cilni <gui"
-">Spraudņi</gui>, lai ieslēgtu tā pakalpojuma spraudni, kurā publicēt. Pēc tam"
-" izvēlieties <guiseq><gui>Datne</gui><gui>Publicēt</gui></guiseq>, spiediet"
-" rīkjoslas pogu <gui>Publicēt</gui> vai izmantojiet <keyseq><key>Ctrl</key><"
-"key>P</key></keyseq>. Parādīsies dialoglodziņš, kas ļauj izvēlēties"
-" publicēšanas pakalpojumu. Pēc tam jums vajadzēs ierakstīties vai izveidot"
-" kontu."
+"Lai publicētu kolekcijā izvēlētās fotogrāfijas, izvēlieties "
+"<guiseq><gui>Rediģēt</gui><gui>Iestatījumi</gui></guiseq> un spiediet cilni "
+"<gui>Spraudņi</gui>, lai ieslēgtu tā pakalpojuma spraudni, kurā publicēt. "
+"Pēc tam izvēlieties <guiseq><gui>Datne</gui><gui>Publicēt</gui></guiseq>, "
+"spiediet rīkjoslas pogu <gui>Publicēt</gui> vai izmantojiet "
+"<keyseq><key>Ctrl</key><key>P</key></keyseq>. Parādīsies dialoglodziņš, kas "
+"ļauj izvēlēties publicēšanas pakalpojumu. Pēc tam jums vajadzēs ierakstīties "
+"vai izveidot kontu."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
@@ -2989,9 +2988,9 @@ msgid ""
 "Shotwell Facebook application. You only need to grant these permissions "
 "once, when you first associate Shotwell with your Facebook account."
 msgstr ""
-"Lai publicētu Facebook vietnē Shotwell Facebook lietotnei vajag īpašas"
-" atļaujas. Šīs atļaujas ir jādod tikai vienreiz, kad asociējat Shotwell ar"
-" savu Facebook kontu."
+"Lai publicētu Facebook vietnē Shotwell Facebook lietotnei vajag īpašas "
+"atļaujas. Šīs atļaujas ir jādod tikai vienreiz, kad asociējat Shotwell ar "
+"savu Facebook kontu."
 
 #. (itstool) path: note/p
 #: C/share-upload.page:34
@@ -2999,8 +2998,8 @@ msgid ""
 "You will be only able to publish images with at most the permission you "
 "granted to the Shotwell Facebook application"
 msgstr ""
-"Jūs varēsiet publicēt attēlus ar tām tiesībām, kādas sniedzāt Shotwell"
-" Facebook lietotnei"
+"Jūs varēsiet publicēt attēlus ar tām tiesībām, kādas sniedzāt Shotwell "
+"Facebook lietotnei"
 
 #. (itstool) path: page/p
 #: C/share-upload.page:36
@@ -3008,8 +3007,8 @@ msgid ""
 "Similarly, publishing to Flickr requires you to log in and permit Shotwell "
 "Connect to access your account."
 msgstr ""
-"Līdzīgi, publicēšanai Flickr vietnē vajag ierakstīties un ļaut Shotwell"
-" savienojumiem piekļūt jūsu kontam."
+"Līdzīgi, publicēšanai Flickr vietnē vajag ierakstīties un ļaut Shotwell "
+"savienojumiem piekļūt jūsu kontam."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:38
@@ -3018,9 +3017,9 @@ msgid ""
 "will need to log in to Picasa using a browser once before you can publish to "
 "this service."
 msgstr ""
-"Ja jums ir Google konts, bet vēl neesat izmantojis Picasa Web Albums, jums"
-" vienreiz jāierakstās Picasa, izmantojot pārlūku, pirms varēsiet publicēt"
-" šajā pakalpojumā."
+"Ja jums ir Google konts, bet vēl neesat izmantojis Picasa Web Albums, jums "
+"vienreiz jāierakstās Picasa, izmantojot pārlūku, pirms varēsiet publicēt "
+"šajā pakalpojumā."
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -3028,8 +3027,8 @@ msgid ""
 "Learn about different ways of viewing your photos: in a grid, filling the "
 "main window, or filling the whole screen."
 msgstr ""
-"Uzziniet par dažādiem veidiem, kā skatīt fotogrāfijas — režģī, aizpildot"
-" galveno logu vai aizpildot visu ekrānu."
+"Uzziniet par dažādiem veidiem, kā skatīt fotogrāfijas — režģī, aizpildot "
+"galveno logu vai aizpildot visu ekrānu."
 
 #. (itstool) path: page/title
 #: C/view-displaying.page:12
@@ -3045,11 +3044,11 @@ msgid ""
 "thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
 "or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
 msgstr ""
-"Izvēloties kādu kolekciju sānu joslā, Shotwell attēlos visas šīs kolekcijas"
-" fotogrāfijas galvenajā loga daļā. Loga apakšējā labajā pusē ri slīdnis, ar"
-" ko var pielāgot sīktēlu izmēru. Varat sīktēlu izmēru pielāgot arī ar pluss"
-" un mīnuss taustiņiem (<key>+</key> un <key>-</key>) vai spiežot <key>Ctrl<"
-"/key> un kustinot peles riteni."
+"Izvēloties kādu kolekciju sānu joslā, Shotwell attēlos visas šīs kolekcijas "
+"fotogrāfijas galvenajā loga daļā. Loga apakšējā labajā pusē ri slīdnis, ar "
+"ko var pielāgot sīktēlu izmēru. Varat sīktēlu izmēru pielāgot arī ar pluss "
+"un mīnuss taustiņiem (<key>+</key> un <key>-</key>) vai spiežot <key>Ctrl</"
+"key> un kustinot peles riteni."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:16
@@ -3059,10 +3058,10 @@ msgid ""
 "buttons. To return to the collection, double-click on the photo or press "
 "<key>Esc</key>."
 msgstr ""
-"Jūs varat arī skatīt fotogrāfijas pilnekrāna režīmā, uz tām dubultklikšķinot."
-" Šajā režīmā jūs varat pāriet starp fotogrāfijām, izmantojot bultiņu pogas."
-" Lai atgrieztos kolekcijā, dubultklikšķiniet uz fotogrāfijas vai spiediet <"
-"key>Esc</key>."
+"Jūs varat arī skatīt fotogrāfijas pilnekrāna režīmā, uz tām "
+"dubultklikšķinot. Šajā režīmā jūs varat pāriet starp fotogrāfijām, "
+"izmantojot bultiņu pogas. Lai atgrieztos kolekcijā, dubultklikšķiniet uz "
+"fotogrāfijas vai spiediet <key>Esc</key>."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:18
@@ -3075,6 +3074,13 @@ msgid ""
 "and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
 "pixels)."
 msgstr ""
+"Kad attēls tiek skatīts pilnekrāna režīmā, rīkjoslā esošais slīdnis nosaka"
+" tuvinājumu. Jūs varat panoramēt, sagrābjot un velkot jebkuru vietu"
+" fotogrāfijā. Jūs varat arī mainīt mērogu, izmantojot peles riteni vai"
+" spiežot šīs saīsnes: <keyseq><key>Ctrl</key>0</keyseq> lai redzētu"
+" pilnekrānā, <keyseq><key>Ctrl</key>1</keyseq> 100% tuvinājumam (1"
+" fotogrāfijas pikselis = 1 ekrāna pikseli), un <keyseq><key>Ctrl</key>2<"
+"/keyseq> 200% tuvinājumam (1 fotogrāfijas pikselis = 2x2 ekrāna pikseļiem)."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:20
@@ -3086,11 +3092,17 @@ msgid ""
 "the toolbar down (so it isn't hidden when you move the mouse away), and to "
 "leave fullscreen view."
 msgstr ""
+"Shotwell piedāvā iespēju attēlot fotogrāfijas pilnekrāna režīmā. Izvēlieties"
+" <guiseq><gui>Skats</gui><gui>Pilnekrāns</gui></guiseq> vai spiediet <key"
+">F11</key>. Lai redzētu pilnekrāna rīkjoslu, novietojiet peli ekrāna"
+" apakšpusē. Rīkjosla piedāvā pogas, ar kurām var pārvietoties pa kolekciju,"
+" nofiksēt rīkjoslu (lai tā nepazūd, kad pārvietojat peli kur citur), un"
+" pamest pilnekrāna skatu."
 
 #. (itstool) path: section/title
 #: C/view-displaying.page:23
 msgid "Viewing videos"
-msgstr ""
+msgstr "Video atskaņošana"
 
 #. (itstool) path: section/p
 #: C/view-displaying.page:24
@@ -3099,6 +3111,9 @@ msgid ""
 "to play the video. It's not currently possible to display a video in full-"
 "window mode in Shotwell or to play the video within Shotwell itself."
 msgstr ""
+"Dubultklikšķinot uz video, Shotwell palaidīs ārējo video atskaņotāju, lai"
+" atskaņotu video. Pašlaik nevar attēlot video Shotwell pilnekrāna režīmā, vai"
+" atskaņot video pašā Shotwell."
 
 #. (itstool) path: info/desc
 #: C/view-information.page:7
@@ -3106,11 +3121,13 @@ msgid ""
 "View more detailed information about photos, like the exposure mode used by "
 "the camera."
 msgstr ""
+"Skatīt sīkāku informāciju par fotogrāfijām, piemēram, kameras ekspozīcijas"
+" režīmu."
 
 #. (itstool) path: page/title
 #: C/view-information.page:12
 msgid "Basic and extended information"
-msgstr ""
+msgstr "Pamata un paplašinātā informācija"
 
 #. (itstool) path: page/p
 #: C/view-information.page:14
@@ -3121,6 +3138,11 @@ msgid ""
 "display of this pane using the <guiseq><gui>View</gui><gui>Basic "
 "Information</gui></guiseq> command."
 msgstr ""
+"Pamatinformācijas rūts parādās sānu joslas apakšpusē un attēlo īsu"
+" kopsavilkumu par izvēlētajām fotogrāfijām. Ja nav izvēlētu fotogrāfiju, tas"
+" attēlo visas kolekcijas kopsavilkumu. Jūs varat pārslēgt šīs rūts"
+" attēlošanu, izmantojot komandu <guiseq><gui>Skats</gui><gui"
+">Pamatinformācija</gui></guiseq>"
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
@@ -3130,17 +3152,21 @@ msgid ""
 "guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
 "keyseq> toggles the display of this window."
 msgstr ""
+"Peldošais paplašinātās informācijas logs attēlo vairāk informācijas par"
+" izvēlēto fotogrāfiju. <guiseq><gui>Skats</gui><gui>Paplašināta informācija<"
+"/gui></guiseq> komanda vai <keyseq><key>Ctrl</key><key>Shift</key><key>X</key"
+"></keyseq> pārslēdz šī loga attēlošanu."
 
 #. (itstool) path: info/desc
 #: C/view-sidebar.page:7
 msgid ""
 "The sidebar on the left of the window lists various views of your library."
-msgstr ""
+msgstr "Sānjosla loga kreisajā pusē parāda dažādus jūsu bibliotēkas skatus."
 
 #. (itstool) path: page/title
 #: C/view-sidebar.page:21
 msgid "The sidebar"
-msgstr ""
+msgstr "Sānjosla"
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:23
@@ -3149,6 +3175,9 @@ msgid ""
 "your library. Although you may see the same photo in multiple views, it's "
 "only stored once on your hard drive."
 msgstr ""
+"Sānjosla kreisajā Shotwell loga pusē uzskaita vairākus jūsu bibliotēkas"
+" skatus. Lai gan varat redzēt vienu un to pašu fotogrāfiju dažādos skatos,"
+" cietajā diskā tā tiek saglabāta tikai vienā vietā."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:25
@@ -3156,17 +3185,24 @@ msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
 msgstr ""
+"Skatā <gui>Pēdējais imports</gui> ir redzamas fotogrāfijas, kas ir importētas"
+" neatkarīgi no tā, vai tās ir importētas no F-Spot, kameras, atmiņas kartes"
+" vai cietā diska."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:27
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
 msgstr ""
+"<gui>Ar karodziņu</gui> uzrāda visas fotogrāfijas, kas ir iepriekš atzīmētas"
+" ar karodziņu."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:29
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
+"<gui>Saglabātie meklējumi</gui> jums ļauj kārtot bibliotēku pēc vairākiem"
+" kritērijiem."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:31
@@ -3174,6 +3210,8 @@ msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
 msgstr ""
+"Mapē <gui>Notikumi</gui> ir atrodami visi notikumi jūsu bibliotēkā. Notikums"
+" ir fotogrāfiju kopums, kas ir uzņemts aptuveni vienā laikā."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:33
@@ -3182,5 +3220,7 @@ msgid ""
 "can have multiple tags attached to them. When you click on the name of a tag "
 "in the sidebar, you will see all the photos associated with that tag."
 msgstr ""
-
+"Mapē <gui>Tagi</gui> ir visi tagi, kas ir piešķirti fotogrāfijām."
+" Fotogrāfijām var būt piešķirti vairāki tagi. Sānu joslā spiežot uz taga"
+" nosaukuma, redzēsiet visas fotogrāfijas, kurām ir šie tagi."
 
