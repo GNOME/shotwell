@@ -14,10 +14,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.15\n"
+"Project-Id-Version: shotwell shotwell-0.24\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-09-04 08:43+0000\n"
+"POT-Creation-Date: 2016-11-07 22:02+0000\n"
 "PO-Revision-Date: 2016-09-04 10:45+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
@@ -1337,7 +1337,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "David Štancl <dstancl@dstancl.cz>\n"
@@ -1757,7 +1757,7 @@ msgstr "1280 × 853 pixelů"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgid "“%s” isn't a valid response to an OAuth authentication request"
 msgstr "„%s“ není platná odpověď na požadavek ověření protokolu OAuth"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
@@ -2370,26 +2370,26 @@ msgstr "Připíchnout otevřenou nástrojovou lištu"
 msgid "Leave fullscreen"
 msgstr "Opustit režim celé obrazovky"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "Ča_sté dotazy a odpovědi"
 
-#: src/AppWindow.vala:506
+#: src/AppWindow.vala:509
 msgid "_Report a Problem..."
 msgstr "_Nahlásit problém…"
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2402,21 +2402,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nelze zobrazit nápovědu: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nelze se připojit k databázi chyb: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nelze zobrazit časté dotazy a odpovědi: %s"
@@ -2519,7 +2519,6 @@ msgstr ""
 "naimportování."
 
 #: src/camera/ImportPage.vala:846
-#| msgid "Removing photos/videos from camera"
 msgid "No new photos/videos found on camera"
 msgstr "Ve fotoaparátu nejsou žádné nové fotografie/videa"
 
@@ -2967,7 +2966,7 @@ msgstr ""
 "Chyba:\n"
 "%s"
 
-#: src/db/DatabaseTable.vala:88
+#: src/db/DatabaseTable.vala:92
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nelze obnovit databázi s fotografiemi %s"
@@ -3489,9 +3488,9 @@ msgstr "Import dokončen"
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d vteřina"
-msgstr[1] "%d vteřiny"
-msgstr[2] "%d vteřin"
+msgstr[0] "%d sekunda"
+msgstr[1] "%d sekundy"
+msgstr[2] "%d sekund"
 
 #: src/Dialogs.vala:1161
 #, c-format
@@ -3698,9 +3697,9 @@ msgstr[2] "minut"
 #: src/Dialogs.vala:1912
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] "vteřinu"
-msgstr[1] "vteřiny"
-msgstr[2] "vteřin"
+msgstr[0] "sekundu"
+msgstr[1] "sekundy"
+msgstr[2] "sekund"
 
 #: src/Dialogs.vala:1956
 #, c-format
@@ -4378,7 +4377,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Událost %s"
@@ -4978,7 +4977,7 @@ msgstr "Délka:"
 #: src/Properties.vala:404
 #, c-format
 msgid "%.1f seconds"
-msgstr "%.1f vteřin"
+msgstr "%.1f sekund"
 
 #: src/Properties.vala:408
 msgid "Developer:"
@@ -6235,7 +6234,7 @@ msgid "untitled"
 msgstr "bez názvu"
 
 #. multiple videos
-#: src/VideoSupport.vala:490
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Export videí"
 
@@ -6425,4 +6424,5 @@ msgstr "Zobrazovat n_ázev"
 
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
-msgstr "vteřin"
+msgstr "sekund"
+
