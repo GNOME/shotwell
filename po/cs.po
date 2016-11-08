@@ -14,7 +14,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.15\n"
+"Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2016-10-08 14:29+0000\n"
@@ -3616,9 +3616,9 @@ msgstr "Import dokončen"
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "%d vteřina"
-msgstr[1] "%d vteřiny"
-msgstr[2] "%d vteřin"
+msgstr[0] "%d sekunda"
+msgstr[1] "%d sekundy"
+msgstr[2] "%d sekund"
 
 #: src/Dialogs.vala:1177
 #, c-format
@@ -3825,9 +3825,9 @@ msgstr[2] "minut"
 #: src/Dialogs.vala:1928
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] "vteřinu"
-msgstr[1] "vteřiny"
-msgstr[2] "vteřin"
+msgstr[0] "sekundu"
+msgstr[1] "sekundy"
+msgstr[2] "sekund"
 
 #: src/Dialogs.vala:1972
 #, c-format
@@ -5113,7 +5113,7 @@ msgstr "Délka:"
 #: src/Properties.vala:404
 #, c-format
 msgid "%.1f seconds"
-msgstr "%.1f vteřin"
+msgstr "%.1f sekund"
 
 #: src/Properties.vala:408
 msgid "Developer:"
@@ -6560,7 +6560,4 @@ msgstr "Zobrazovat n_ázev"
 
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
-msgstr "vteřin"
-
-#~ msgid "Login"
-#~ msgstr "Přihlásit"
+msgstr "sekund"
