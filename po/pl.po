@@ -9,9 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-04 08:43+0000\n"
-"PO-Revision-Date: 2016-09-10 19:14+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2016-11-08 07:14+0000\n"
+"PO-Revision-Date: 2016-11-08 09:50+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1340,7 +1341,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Witryna programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
@@ -1680,7 +1681,7 @@ msgstr "Istni_ejącym albumie:"
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
-msgstr "_Nowym albumie o nazwie:"
+msgstr "_Nowym albumie o nazwie:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:159
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1005
@@ -1761,7 +1762,7 @@ msgstr "1280×853 piksele"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgid "“%s” isn't a valid response to an OAuth authentication request"
 msgstr "„%s” nie jest prawidłową odpowiedzią na żądanie uwierzytelnienia OAuth"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
@@ -1849,7 +1850,7 @@ msgstr "Opublikowanie do i_stniejącego albumu:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:57
 msgid "Create a _new album named:"
-msgstr "Utworzenie _nowego albumu o nazwie:"
+msgstr "Utworzenie _nowego albumu o nazwie:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1034
@@ -1889,7 +1890,7 @@ msgstr ""
 "\n"
 "Jeśli użytkownik nie ma jeszcze konta w serwisie Facebook, można je utworzyć "
 "podczas procesu logowania. Podczas logowania Shotwell Connect może zapytać "
-"o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale użytkownika. To "
+"o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale użytkownika. To "
 "pozwolenie jest wymagane, aby Shotwell Connect mogło działać."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:66
@@ -2385,26 +2386,26 @@ msgstr "Przypina pasek narzędziowy"
 msgid "Leave fullscreen"
 msgstr "Opuszcza pełny ekran"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "_Spis treści"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "Naj_częściej zadawane pytania"
 
-#: src/AppWindow.vala:506
+#: src/AppWindow.vala:509
 msgid "_Report a Problem..."
 msgstr "_Zgłoś problem…"
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2417,21 +2418,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Witryna programu Shotwell"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nie można wyświetlić pomocy: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nie można przejść do bazy danych błędów: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nie można wyświetlić dokumentu FAQ: %s"
@@ -2611,7 +2612,7 @@ msgstr "Rozpoczynanie importowania, proszę czekać…"
 
 #: src/camera/ImportPage.vala:1169
 msgid "Fetching photo information"
-msgstr "Pobieranie informacji o zdjęciach"
+msgstr "Pobieranie informacji o zdjęciach"
 
 #: src/camera/ImportPage.vala:1527
 #, c-format
@@ -2983,7 +2984,7 @@ msgstr ""
 "Błąd: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:88
+#: src/db/DatabaseTable.vala:92
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nie można przywrócić bazy danych zdjęć %s"
@@ -3130,7 +3131,7 @@ msgstr "(oraz %d więcej)\n"
 
 #: src/Dialogs.vala:531
 msgid "Import Results Report"
-msgstr "Zaimportuj raport o wynikach"
+msgstr "Zaimportuj raport o wynikach"
 
 #: src/Dialogs.vala:535
 #, c-format
@@ -3699,7 +3700,7 @@ msgstr "24-godzinny"
 
 #: src/Dialogs.vala:1714
 msgid "_Shift photos/videos by the same amount"
-msgstr "Prze_suń zdjęcia/nagrania wideo o tę samą wartość"
+msgstr "Prze_suń zdjęcia/nagrania wideo o tę samą wartość"
 
 #: src/Dialogs.vala:1719
 msgid "Set _all photos/videos to this time"
@@ -4458,7 +4459,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Wydarzenie %s"
@@ -4595,7 +4596,7 @@ msgstr "_Podstawowe informacje"
 
 #: src/library/LibraryWindow.vala:375
 msgid "Display basic information for the selection"
-msgstr "Wyświetla podstawowe informacje o wybranych zdjęciach"
+msgstr "Wyświetla podstawowe informacje o wybranych zdjęciach"
 
 #: src/library/LibraryWindow.vala:380
 msgid "E_xtended Information"
@@ -4603,7 +4604,7 @@ msgstr "_Rozszerzone informacje"
 
 #: src/library/LibraryWindow.vala:381
 msgid "Display extended information for the selection"
-msgstr "Wyświetla rozszerzone informacje o wybranych zdjęciach"
+msgstr "Wyświetla rozszerzone informacje o wybranych zdjęciach"
 
 #: src/library/LibraryWindow.vala:386
 msgid "_Search Bar"
@@ -5179,7 +5180,7 @@ msgstr "Wybrane nagrania wideo zostały pomyślnie opublikowane."
 
 #: src/publishing/PublishingUI.vala:122
 msgid "Fetching account information..."
-msgstr "Pobieranie informacji o koncie…"
+msgstr "Pobieranie informacji o koncie…"
 
 #: src/publishing/PublishingUI.vala:128
 msgid "Logging in..."
@@ -5278,7 +5279,7 @@ msgstr "Odwróć pionowo"
 
 #: src/Resources.vala:155
 msgid "_About"
-msgstr "_O programie"
+msgstr "_O programie"
 
 #: src/Resources.vala:156
 msgid "_Apply"
@@ -6327,7 +6328,7 @@ msgid "untitled"
 msgstr "bez nazwy"
 
 #. multiple videos
-#: src/VideoSupport.vala:490
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
 
