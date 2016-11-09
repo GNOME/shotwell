@@ -162,7 +162,14 @@ public class PhotoTable : DatabaseTable {
         // https://bugzilla.gnome.org/show_bug.cgi?id=742670
         //
         // 1) index on md5,file_format
-        res = db.prepare_v2 ("CREATE UNIQUE INDEX IF NOT EXISTS PhotoTableMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
+        res = db.prepare_v2 ("DROP INDEX IF EXISTS PhotoTableMD5Format", -1, out stmt);
+        assert (res == Sqlite.OK);
+        res = stmt.step ();
+        if (res != Sqlite.DONE) {
+            DatabaseTable.warning ("Failed to drop old PhotoTable index", res);
+        }
+
+        res = db.prepare_v2 ("CREATE INDEX IF NOT EXISTS PhotoTableMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
         if (res != Sqlite.DONE) {
