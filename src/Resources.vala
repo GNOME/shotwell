@@ -376,22 +376,27 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
     
     public string tag_photos_label(string name, int count) {
-        return ((count == 1) ? _("Tag Photo as “%s”") : _("Tag Photos as “%s”")).printf(name);
+        return ngettext ("Tag Photo as “%s”",
+                         "Tag Photos as “%s”",
+                         count).printf(name);
     }
     
     public string tag_photos_tooltip(string name, int count) {
-        return ((count == 1) ? _("Tag the selected photo as “%s”") :
-            _("Tag the selected photos as “%s”")).printf(name);
+        return ngettext ("Tag the selected photo as “%s”",
+                         "Tag the selected photos as “%s”",
+                         count).printf(name);
     }
     
     public string untag_photos_menu(string name, int count) {
-        return ((count == 1) ? _("Remove Tag “%s” From _Photo") :
-            _("Remove Tag “%s” From _Photos")).printf(name);
+        return ngettext ("Remove Tag “%s” From _Photo",
+                         "Remove Tag “%s” From _Photos",
+                         count).printf(name);
     }
     
     public string untag_photos_label(string name, int count) {
-        return ((count == 1) ? _("Remove Tag “%s” From Photo") :
-            _("Remove Tag “%s” From Photos")).printf(name);
+        return ngettext ("Remove Tag “%s” From Photo",
+                         "Remove Tag “%s” From Photos",
+                         count).printf(name);
     }
     
     public static string rename_tag_exists_message(string name) {
