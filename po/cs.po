@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-10-08 14:29+0000\n"
-"PO-Revision-Date: 2016-10-16 22:00+0200\n"
+"POT-Creation-Date: 2016-11-09 21:37+0000\n"
+"PO-Revision-Date: 2016-11-10 12:33+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -3094,7 +3094,7 @@ msgstr ""
 "Chyba:\n"
 "%s"
 
-#: src/db/DatabaseTable.vala:88
+#: src/db/DatabaseTable.vala:92
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nelze obnovit databázi s fotografiemi %s"
@@ -3127,8 +3127,8 @@ msgstr[1] "Tím odstraníte štítek „%s“ ze %d fotografií. Pokračovat?"
 msgstr[2] "Tím odstraníte štítek „%s“ z %d fotografií. Pokračovat?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1409
-#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:409
-#: src/Resources.vala:674
+#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:414
+#: src/Resources.vala:679
 msgid "_Delete"
 msgstr "S_mazat"
 
@@ -4548,7 +4548,7 @@ msgstr "Přepsat _vše"
 msgid "Export"
 msgstr "Export"
 
-#: src/folders/Branch.vala:141
+#: src/folders/Branch.vala:144
 msgid "Folders"
 msgstr "Složky"
 
@@ -5865,162 +5865,154 @@ msgstr "Změnit štítky"
 #: src/Resources.vala:379
 #, c-format
 msgid "Tag Photo as “%s”"
-msgstr "Oštítkovat fotku jak „%s“"
+msgid_plural "Tag Photos as “%s”"
+msgstr[0] "Oštítkovat fotku jako „%s“"
+msgstr[1] "Oštítkovat fotky jako „%s“"
+msgstr[2] "Oštítkovat fotky jako „%s“"
 
-#: src/Resources.vala:379
-#, c-format
-msgid "Tag Photos as “%s”"
-msgstr "Oštítkovat fotku jak „%s“"
-
-#: src/Resources.vala:383
+#: src/Resources.vala:385
 #, c-format
 msgid "Tag the selected photo as “%s”"
-msgstr "Oštítkovat vybranou fotku jako „%s“"
+msgid_plural "Tag the selected photos as “%s”"
+msgstr[0] "Oštítkovat vybranou fotku jako „%s“"
+msgstr[1] "Oštítkovat vybrané fotky jako „%s“"
+msgstr[2] "Oštítkovat vybrané fotky jako „%s“"
 
-#: src/Resources.vala:384
-#, c-format
-msgid "Tag the selected photos as “%s”"
-msgstr "Oštítkovat vybrané fotky jako „%s“"
-
-#: src/Resources.vala:388
+#: src/Resources.vala:391
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
-msgstr "Odstranit z _fotky štítek „%s“"
+msgid_plural "Remove Tag “%s” From _Photos"
+msgstr[0] "Odstranit z _fotky štítek „%s“"
+msgstr[1] "Odstranit z _fotek štítek „%s“"
+msgstr[2] "Odstranit z _fotek štítek „%s“"
 
-#: src/Resources.vala:389
-#, c-format
-msgid "Remove Tag “%s” From _Photos"
-msgstr "Odstranit z _fotek štítek „%s“"
-
-#: src/Resources.vala:393
+#: src/Resources.vala:397
 #, c-format
 msgid "Remove Tag “%s” From Photo"
-msgstr "Odstranit z fotky šítek „%s“"
+msgid_plural "Remove Tag “%s” From Photos"
+msgstr[0] "Odstranit z fotky šítek „%s“"
+msgstr[1] "Odstranit z fotek šítek „%s“"
+msgstr[2] "Odstranit z fotek šítek „%s“"
 
-#: src/Resources.vala:394
-#, c-format
-msgid "Remove Tag “%s” From Photos"
-msgstr "Odstranit z fotek štítek „%s“"
-
-#: src/Resources.vala:398
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Nelze přejmenovat šítek na „%s“, protože takový už existuje."
 
-#: src/Resources.vala:402
+#: src/Resources.vala:407
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Nelze přejmenovat hledání na „%s“, protože takové už existuje."
 
 #. Saved search button
-#: src/Resources.vala:405 src/SearchFilter.vala:1210
+#: src/Resources.vala:410 src/SearchFilter.vala:1210
 msgid "Saved Search"
 msgstr "Uložené hledání"
 
-#: src/Resources.vala:407
+#: src/Resources.vala:412
 msgid "Delete Search"
 msgstr "Smazat hledání"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:415
 msgid "_Edit…"
 msgstr "_Upravit…"
 
-#: src/Resources.vala:411
+#: src/Resources.vala:416
 msgid "Re_name…"
 msgstr "Přejme_novat…"
 
-#: src/Resources.vala:414
+#: src/Resources.vala:419
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Přejmenovat hledání „%s“ na „%s“"
 
-#: src/Resources.vala:418
+#: src/Resources.vala:423
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Smazat hledání „%s“"
 
-#: src/Resources.vala:576
+#: src/Resources.vala:581
 #, c-format
 msgid "Rate %s"
 msgstr "Hodnocení %s"
 
-#: src/Resources.vala:577
+#: src/Resources.vala:582
 #, c-format
 msgid "Set rating to %s"
 msgstr "Nastavit ohodnocení na %s"
 
-#: src/Resources.vala:578
+#: src/Resources.vala:583
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Nastavuje se ohodnocení na %s"
 
-#: src/Resources.vala:580
+#: src/Resources.vala:585
 #, c-format
 msgid "Display %s"
 msgstr "Zobrazit %s"
 
-#: src/Resources.vala:581
+#: src/Resources.vala:586
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Zobrazit jen fotografie s ohodnocením %s"
 
-#: src/Resources.vala:582
+#: src/Resources.vala:587
 #, c-format
 msgid "%s or Better"
 msgstr "%s nebo lepší"
 
-#: src/Resources.vala:583
+#: src/Resources.vala:588
 #, c-format
 msgid "Display %s or Better"
 msgstr "Zobrazit %s nebo lepší"
 
-#: src/Resources.vala:584
+#: src/Resources.vala:589
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Zobrazit jen fotografie s hodnocením %s nebo lepším"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:680
 msgid "Remove the selected photos from the trash"
 msgstr "Odstranit vybrané fotografie z koše"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:681
 msgid "Remove the selected photos from the library"
 msgstr "Odstraní vybrané fotografie z knihovny"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:683
 msgid "_Restore"
 msgstr "O_bnovit"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:684
 msgid "Move the selected photos back into the library"
 msgstr "Přesunout vybrané fotografie zpět do knihovny"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:686
 msgid "Show in File Mana_ger"
 msgstr "Otevřít ve _správci souborů"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:687
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Otevřít vybranou složku s fotografiemi ve správci souborů"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:690
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nelze otevřít ve správci souborů: %s"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:693
 msgid "R_emove From Library"
 msgstr "O_dstranit z knihovny"
 
-#: src/Resources.vala:690
+#: src/Resources.vala:695
 msgid "_Move to Trash"
 msgstr "Přesu_nout do koše"
 
-#: src/Resources.vala:692
+#: src/Resources.vala:697
 msgid "Select _All"
 msgstr "Vybrat _vše"
 
-#: src/Resources.vala:693
+#: src/Resources.vala:698
 msgid "Select all items"
 msgstr "Vybrat všechny položky"
 
@@ -6033,14 +6025,14 @@ msgstr "Vybrat všechny položky"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:782
+#: src/Resources.vala:787
 msgid "%a %b %d, %Y"
 msgstr "%a, %e. %B %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:787
+#: src/Resources.vala:792
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %e."
@@ -6048,7 +6040,7 @@ msgstr "%a, %e."
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:792
+#: src/Resources.vala:797
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%e. %B %Y"
@@ -6056,7 +6048,7 @@ msgstr "%e. %B %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:797
+#: src/Resources.vala:802
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %e. %B"
@@ -6064,7 +6056,7 @@ msgstr "%a, %e. %B"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:802
+#: src/Resources.vala:807
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %e. %B %Y"
@@ -6370,7 +6362,7 @@ msgid "untitled"
 msgstr "bez názvu"
 
 #. multiple videos
-#: src/VideoSupport.vala:490
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Export videí"
 
@@ -6561,3 +6553,4 @@ msgstr "Zobrazovat n_ázev"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "sekund"
+
