@@ -20,6 +20,7 @@
 # Rodrigo Cares <rcares@gmail.com>, 2012
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016., 2016.
 #
 msgid ""
@@ -27,8 +28,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-04 11:59+0000\n"
-"PO-Revision-Date: 2016-11-07 11:27+0100\n"
+"POT-Creation-Date: 2016-11-09 21:37+0000\n"
+"PO-Revision-Date: 2016-11-10 11:12+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1071,21 +1072,23 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:598
 msgid "scaling constraint of uploaded picture"
-msgstr ""
+msgstr "restricción de escala de una foto subida"
 
 #: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The scaling constraint ID of the picture to be uploaded"
-msgstr ""
+msgstr "El ID de la restricción de escala de la foto que se subirá"
 
 #: misc/org.yorba.shotwell.gschema.xml:604
 msgid "pixels of the major axis uploaded picture"
-msgstr ""
+msgstr "píxeles del eje principal de la foto subida"
 
 #: misc/org.yorba.shotwell.gschema.xml:605
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr ""
+"Los píxeles del eje principal de la foto que se subirá; usados solo si el ID "
+"de la restricción de escala tiene un valor adecuado"
 
 #: misc/org.yorba.shotwell.gschema.xml:613
 msgid ""
@@ -1198,6 +1201,8 @@ msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
+"Determina si los tamaños de impresión personalizados deben coincidir con la "
+"relación de aspecto de la fotografía original"
 
 #: misc/org.yorba.shotwell.gschema.xml:684
 msgid "print titles"
@@ -1388,6 +1393,8 @@ msgstr ""
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Cierto si el complemento de transición de persianas está activado, falso en "
+"otro caso"
 
 #: misc/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow squares transition"
@@ -1442,6 +1449,8 @@ msgstr ""
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
+"⚫ Este sitio web presenta una identificación que pertenece a un sitio web "
+"diferente."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:207
@@ -1449,18 +1458,24 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
+"⚫ La identificación de este sitio web es demasiado antigua como para "
+"confiar. Compruebe la fecha en el calendario de su equipo."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:212
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
+"⚫ La identificación de este sitio web no ha sido emitida por una "
+"organización de confianza."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:217
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
+"⚫ La identificación de este sitio web no se pudo procesar. Puede estar "
+"dañada."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:222
@@ -1468,6 +1483,8 @@ msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
 msgstr ""
+"⚫ La identificación de este sitio web ha sido revocada por la organización "
+"de confianza que la emitió."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:227
@@ -1475,6 +1492,8 @@ msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr ""
+"⚫ No se puede confiar en la identificación de este sitio web porque utiliza "
+"un cifrado muy débil."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:232
@@ -1482,6 +1501,8 @@ msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
+"⚫ La identificación de este sitio web sólo es válida para fechas futuras. "
+"Compruebe la fecha en el calendario de su equipo."
 
 #: plugins/common/RESTSupport.vala:509
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
@@ -2409,6 +2430,9 @@ msgid ""
 "steal or alter information going to or from this site (for example, private "
 "messages, credit card information, or passwords)."
 msgstr ""
+"Esto no parece el <b>%s</b> real. Los atacantes pueden estar tratando de "
+"robar o alterar la información que entra o sale de este sitio (por ejemplo, "
+"mensajes privados, información de tarjetas de crédito o contraseñas)."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid ""
@@ -2448,7 +2472,7 @@ msgstr "Administradores"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
 msgid "This connection is not secure"
-msgstr ""
+msgstr "Esta conexión no es segura"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
 msgid "Show the certificate…"
@@ -3256,8 +3280,8 @@ msgstr[0] "Esto eliminará la etiqueta «%s» de una foto. ¿Continuar?"
 msgstr[1] "Esto eliminará la etiqueta «%s» de %d fotos. ¿Continuar?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1409
-#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:409
-#: src/Resources.vala:674
+#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:414
+#: src/Resources.vala:679
 msgid "_Delete"
 msgstr "_Eliminar"
 
@@ -6081,175 +6105,159 @@ msgstr "Modificar etiquetas"
 #, fuzzy, c-format
 #| msgid "Tag Photo as \"%s\""
 msgid "Tag Photo as “%s”"
-msgstr "Etiquetar fotos como «%s»"
+msgid_plural "Tag Photos as “%s”"
+msgstr[0] "Etiquetar fotos como «%s»"
+msgstr[1] "Etiquetar fotos como «%s»"
 
-#: src/Resources.vala:379
-#, fuzzy, c-format
-#| msgid "Tag Photos as \"%s\""
-msgid "Tag Photos as “%s”"
-msgstr "Etiquetar fotos como «%s»"
-
-#: src/Resources.vala:383
+#: src/Resources.vala:385
 #, fuzzy, c-format
 #| msgid "Tag the selected photo as \"%s\""
 msgid "Tag the selected photo as “%s”"
-msgstr "Etiquetar las fotos seleccionadas como «%s»"
+msgid_plural "Tag the selected photos as “%s”"
+msgstr[0] "Etiquetar las fotos seleccionadas como «%s»"
+msgstr[1] "Etiquetar las fotos seleccionadas como «%s»"
 
-#: src/Resources.vala:384
-#, fuzzy, c-format
-#| msgid "Tag the selected photos as \"%s\""
-msgid "Tag the selected photos as “%s”"
-msgstr "Etiquetar las fotos seleccionadas como «%s»"
-
-#: src/Resources.vala:388
+#: src/Resources.vala:391
 #, fuzzy, c-format
 #| msgid "Remove Tag \"%s\" From _Photo"
 msgid "Remove Tag “%s” From _Photo"
-msgstr "Quitar la etiqueta «%s» de las _fotos"
+msgid_plural "Remove Tag “%s” From _Photos"
+msgstr[0] "Quitar la etiqueta «%s» de las _fotos"
+msgstr[1] "Quitar la etiqueta «%s» de las _fotos"
 
-#: src/Resources.vala:389
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photos"
-msgid "Remove Tag “%s” From _Photos"
-msgstr "Quitar la etiqueta «%s» de las _fotos"
-
-#: src/Resources.vala:393
+#: src/Resources.vala:397
 #, fuzzy, c-format
 #| msgid "Remove Tag \"%s\" From Photo"
 msgid "Remove Tag “%s” From Photo"
-msgstr "Quitar la etiqueta «%s» de las fotos"
+msgid_plural "Remove Tag “%s” From Photos"
+msgstr[0] "Quitar la etiqueta «%s» de las fotos"
+msgstr[1] "Quitar la etiqueta «%s» de las fotos"
 
-#: src/Resources.vala:394
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photos"
-msgid "Remove Tag “%s” From Photos"
-msgstr "Quitar la etiqueta «%s» de las fotos"
-
-#: src/Resources.vala:398
+#: src/Resources.vala:403
 #, fuzzy, c-format
 #| msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "No se puede renombrar la etiqueta a «%s» porque la etiqueta ya existe."
 
-#: src/Resources.vala:402
+#: src/Resources.vala:407
 #, fuzzy, c-format
 #| msgid "Unable to rename search to \"%s\" because the search already exists."
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "No se pudo renombrar la búsqueda «%s» porque la búsqueda ya existe."
 
 #. Saved search button
-#: src/Resources.vala:405 src/SearchFilter.vala:1210
+#: src/Resources.vala:410 src/SearchFilter.vala:1210
 msgid "Saved Search"
 msgstr "Búsqueda guardada"
 
-#: src/Resources.vala:407
+#: src/Resources.vala:412
 msgid "Delete Search"
 msgstr "Eliminar búsqueda"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:415
 msgid "_Edit…"
 msgstr "_Editar…"
 
-#: src/Resources.vala:411
+#: src/Resources.vala:416
 msgid "Re_name…"
 msgstr "Re_nombrar…"
 
-#: src/Resources.vala:414
+#: src/Resources.vala:419
 #, fuzzy, c-format
 #| msgid "Rename Search \"%s\" to \"%s\""
 msgid "Rename Search “%s” to “%s”"
 msgstr "Renombrar la búsqueda «%s» a «%s»"
 
-#: src/Resources.vala:418
+#: src/Resources.vala:423
 #, fuzzy, c-format
 #| msgid "Delete Search \"%s\""
 msgid "Delete Search “%s”"
 msgstr "Eliminar búsqueda «%s»"
 
-#: src/Resources.vala:576
+#: src/Resources.vala:581
 #, c-format
 msgid "Rate %s"
 msgstr "Puntuar %s"
 
-#: src/Resources.vala:577
+#: src/Resources.vala:582
 #, c-format
 msgid "Set rating to %s"
 msgstr "Establecer puntuación para %s"
 
-#: src/Resources.vala:578
+#: src/Resources.vala:583
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Estableciendo la puntuación de %s"
 
-#: src/Resources.vala:580
+#: src/Resources.vala:585
 #, c-format
 msgid "Display %s"
 msgstr "Mostrar %s"
 
-#: src/Resources.vala:581
+#: src/Resources.vala:586
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Solo mostrar fotos con puntuación %s"
 
-#: src/Resources.vala:582
+#: src/Resources.vala:587
 #, c-format
 msgid "%s or Better"
 msgstr "%s o mayor"
 
-#: src/Resources.vala:583
+#: src/Resources.vala:588
 #, c-format
 msgid "Display %s or Better"
 msgstr "Mostrar %s o mayor"
 
-#: src/Resources.vala:584
+#: src/Resources.vala:589
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Solo mostrar fotos con puntuación %s o mayor"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:680
 msgid "Remove the selected photos from the trash"
 msgstr "Quitar las fotos seleccionadas de la papelera"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:681
 msgid "Remove the selected photos from the library"
 msgstr "Quitar las fotos seleccionadas de la colección"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:683
 msgid "_Restore"
 msgstr "_Restaurar"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:684
 msgid "Move the selected photos back into the library"
 msgstr "Mover las fotos seleccionadas de vuelta a la colección"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:686
 msgid "Show in File Mana_ger"
 msgstr "Mostrar en ge_stor de archivos"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:687
 #, fuzzy
 #| msgid "Open the selected photo's directory in the file manager"
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Abrir el directorio de la foto seleccionada en el gestor de archivos"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:690
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "No se puede abrir el gestor de archivos: %s"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:693
 msgid "R_emove From Library"
 msgstr "_Quitar de la colección"
 
-#: src/Resources.vala:690
+#: src/Resources.vala:695
 msgid "_Move to Trash"
 msgstr "_Mover a la papelera"
 
-#: src/Resources.vala:692
+#: src/Resources.vala:697
 msgid "Select _All"
 msgstr "Seleccionar _todo"
 
-#: src/Resources.vala:693
+#: src/Resources.vala:698
 msgid "Select all items"
 msgstr "Seleccionar todos los elementos"
 
@@ -6262,14 +6270,14 @@ msgstr "Seleccionar todos los elementos"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:782
+#: src/Resources.vala:787
 msgid "%a %b %d, %Y"
 msgstr "%a %d de %b de %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:787
+#: src/Resources.vala:792
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %d de %b"
@@ -6277,7 +6285,7 @@ msgstr "%a, %d de %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:792
+#: src/Resources.vala:797
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6285,7 +6293,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:797
+#: src/Resources.vala:802
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %d de %b"
@@ -6293,7 +6301,7 @@ msgstr "%a, %d de %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:802
+#: src/Resources.vala:807
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d de %b de %Y"
@@ -6599,7 +6607,7 @@ msgid "untitled"
 msgstr "sin título"
 
 #. multiple videos
-#: src/VideoSupport.vala:508
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Exportar vídeos"
 
@@ -6791,6 +6799,26 @@ msgstr "Mostrar tít_ulo"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "segundos"
+
+#, fuzzy
+#~| msgid "Tag Photos as \"%s\""
+#~ msgid "Tag Photos as “%s”"
+#~ msgstr "Etiquetar fotos como «%s»"
+
+#, fuzzy
+#~| msgid "Tag the selected photos as \"%s\""
+#~ msgid "Tag the selected photos as “%s”"
+#~ msgstr "Etiquetar las fotos seleccionadas como «%s»"
+
+#, fuzzy
+#~| msgid "Remove Tag \"%s\" From _Photos"
+#~ msgid "Remove Tag “%s” From _Photos"
+#~ msgstr "Quitar la etiqueta «%s» de las _fotos"
+
+#, fuzzy
+#~| msgid "Remove Tag \"%s\" From Photos"
+#~ msgid "Remove Tag “%s” From Photos"
+#~ msgstr "Quitar la etiqueta «%s» de las fotos"
 
 #~ msgid "Login"
 #~ msgstr "Iniciar sesión"
