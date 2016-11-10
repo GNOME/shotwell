@@ -169,7 +169,7 @@ public class PhotoTable : DatabaseTable {
             DatabaseTable.warning ("Failed to drop old PhotoTable index", res);
         }
 
-        res = db.prepare_v2 ("CREATE INDEX IF NOT EXISTS PhotoTableMD5Format on PhotoTable(md5, file_format)", -1, out stmt);
+        res = db.prepare_v2 ("CREATE INDEX IF NOT EXISTS PhotoTableMD5FormatV2 on PhotoTable(md5, file_format)", -1, out stmt);
         assert (res == Sqlite.OK);
         res = stmt.step ();
         if (res != Sqlite.DONE) {
