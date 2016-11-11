@@ -21,6 +21,7 @@
 # 
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016., 2016.
 #
 msgid ""
@@ -28,8 +29,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-09 21:37+0000\n"
-"PO-Revision-Date: 2016-11-10 11:12+0100\n"
+"POT-Creation-Date: 2016-11-10 11:50+0000\n"
+"PO-Revision-Date: 2016-11-11 13:40+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -2476,11 +2477,11 @@ msgstr "Esta conexión no es segura"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
 msgid "Show the certificate…"
-msgstr ""
+msgstr "Mostrar el certificado…"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
 msgid "I understand, please _proceed."
-msgstr ""
+msgstr "Lo entiendo, _continuar."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:26
 msgid "Core Publishing Services"
@@ -2788,7 +2789,7 @@ msgstr "Mostrar solo las fotos que no han sido importadas"
 
 #: src/camera/ImportPage.vala:842
 msgid "The camera seems to be empty. No photos/videos found to import"
-msgstr ""
+msgstr "La cámara parece estar vacía. No se han importado fotos/vídeos"
 
 #: src/camera/ImportPage.vala:846
 msgid "No new photos/videos found on camera"
@@ -6530,6 +6531,7 @@ msgstr "Tipo"
 #: src/SearchFilter.vala:1211
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
+"Utilizar una búsqueda guardada para filtrar elementos en la vista actual"
 
 #: src/sidebar/Tree.vala:203
 msgid "New _Tag…"
