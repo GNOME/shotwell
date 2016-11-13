@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-10-08 14:29+0000\n"
-"PO-Revision-Date: 2016-10-09 08:55+0200\n"
+"POT-Creation-Date: 2016-11-11 12:44+0000\n"
+"PO-Revision-Date: 2016-11-13 14:32+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -3108,7 +3108,7 @@ msgstr ""
 "Błąd: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:88
+#: src/db/DatabaseTable.vala:92
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nie można przywrócić bazy danych zdjęć %s"
@@ -3141,8 +3141,8 @@ msgstr[1] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 msgstr[2] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1409
-#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:409
-#: src/Resources.vala:674
+#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:414
+#: src/Resources.vala:679
 msgid "_Delete"
 msgstr "_Usuń"
 
@@ -4626,7 +4626,7 @@ msgstr "Z_astąp wszystkie"
 msgid "Export"
 msgstr "Eksport"
 
-#: src/folders/Branch.vala:141
+#: src/folders/Branch.vala:144
 msgid "Folders"
 msgstr "Katalogi"
 
@@ -5951,50 +5951,42 @@ msgstr "Modyfikuj etykiety"
 #: src/Resources.vala:379
 #, c-format
 msgid "Tag Photo as “%s”"
-msgstr "Dodaje etykietę „%s” do zdjęcia"
+msgid_plural "Tag Photos as “%s”"
+msgstr[0] "Dodaje etykietę „%s” do zdjęcia"
+msgstr[1] "Dodaje etykietę „%s” do zdjęć"
+msgstr[2] "Dodaje etykietę „%s” do zdjęć"
 
-#: src/Resources.vala:379
-#, c-format
-msgid "Tag Photos as “%s”"
-msgstr "Dodaje etykietę „%s” do zdjęć"
-
-#: src/Resources.vala:383
+#: src/Resources.vala:385
 #, c-format
 msgid "Tag the selected photo as “%s”"
-msgstr "Dodaje etykietę „%s” do wybranego zdjęcia"
+msgid_plural "Tag the selected photos as “%s”"
+msgstr[0] "Dodaje etykietę „%s” do wybranego zdjęcia"
+msgstr[1] "Dodaje etykietę „%s” do wybranych zdjęć"
+msgstr[2] "Dodaje etykietę „%s” do wybranych zdjęć"
 
-#: src/Resources.vala:384
-#, c-format
-msgid "Tag the selected photos as “%s”"
-msgstr "Dodaje etykietę „%s” do wybranych zdjęć"
-
-#: src/Resources.vala:388
+#: src/Resources.vala:391
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
-msgstr "Usuń etykietę „%s” ze _zdjęcia"
+msgid_plural "Remove Tag “%s” From _Photos"
+msgstr[0] "Usuwa etykietę „%s” ze _zdjęcia"
+msgstr[1] "Usuwa etykietę „%s” ze _zdjęć"
+msgstr[2] "Usuwa etykietę „%s” ze _zdjęć"
 
-#: src/Resources.vala:389
-#, c-format
-msgid "Remove Tag “%s” From _Photos"
-msgstr "Usuwa etykietę „%s” ze _zdjęć"
-
-#: src/Resources.vala:393
+#: src/Resources.vala:397
 #, c-format
 msgid "Remove Tag “%s” From Photo"
-msgstr "Usuwa etykietę „%s” ze zdjęcia"
+msgid_plural "Remove Tag “%s” From Photos"
+msgstr[0] "Usuwa etykietę „%s” ze zdjęcia"
+msgstr[1] "Usuwa etykietę „%s” ze zdjęć"
+msgstr[2] "Usuwa etykietę „%s” ze zdjęć"
 
-#: src/Resources.vala:394
-#, c-format
-msgid "Remove Tag “%s” From Photos"
-msgstr "Usuwa etykietę „%s” ze zdjęć"
-
-#: src/Resources.vala:398
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 "Nie można zmienić nazwy etykiety na „%s”, ponieważ ta etykieta już istnieje."
 
-#: src/Resources.vala:402
+#: src/Resources.vala:407
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
@@ -6002,114 +5994,114 @@ msgstr ""
 "już istnieje."
 
 #. Saved search button
-#: src/Resources.vala:405 src/SearchFilter.vala:1210
+#: src/Resources.vala:410 src/SearchFilter.vala:1210
 msgid "Saved Search"
 msgstr "Zapisane wyszukiwanie"
 
-#: src/Resources.vala:407
+#: src/Resources.vala:412
 msgid "Delete Search"
 msgstr "Usunięcie wyszukiwania"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:415
 msgid "_Edit…"
 msgstr "_Modyfikuj…"
 
-#: src/Resources.vala:411
+#: src/Resources.vala:416
 msgid "Re_name…"
 msgstr "Zmień _nazwę…"
 
-#: src/Resources.vala:414
+#: src/Resources.vala:419
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Zmienia nazwę wyszukiwania z „%s” na „%s”"
 
-#: src/Resources.vala:418
+#: src/Resources.vala:423
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Usuwa wyszukiwanie „%s”"
 
-#: src/Resources.vala:576
+#: src/Resources.vala:581
 #, c-format
 msgid "Rate %s"
 msgstr "Ocena %s"
 
-#: src/Resources.vala:577
+#: src/Resources.vala:582
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ustaw ocenę na %s"
 
-#: src/Resources.vala:578
+#: src/Resources.vala:583
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Ustawianie oceny na %s"
 
-#: src/Resources.vala:580
+#: src/Resources.vala:585
 #, c-format
 msgid "Display %s"
 msgstr "Wyświetlanie %s"
 
-#: src/Resources.vala:581
+#: src/Resources.vala:586
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Wyświetla tylko z oceną %s"
 
-#: src/Resources.vala:582
+#: src/Resources.vala:587
 #, c-format
 msgid "%s or Better"
 msgstr "%s lub lepszą"
 
-#: src/Resources.vala:583
+#: src/Resources.vala:588
 #, c-format
 msgid "Display %s or Better"
 msgstr "Wyświetlanie %s lub lepszych"
 
-#: src/Resources.vala:584
+#: src/Resources.vala:589
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Wyświetla tylko zdjęcia z oceną %s lub lepszą"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:680
 msgid "Remove the selected photos from the trash"
 msgstr "Usuwa wybrane zdjęcia z kosza"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:681
 msgid "Remove the selected photos from the library"
 msgstr "Usuwa wybrane zdjęcia z kolekcji"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:683
 msgid "_Restore"
 msgstr "P_rzywróć"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:684
 msgid "Move the selected photos back into the library"
 msgstr "Przenosi wybrane zdjęcia z powrotem do kolekcji"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:686
 msgid "Show in File Mana_ger"
 msgstr "Wyświetl w mene_dżerze plików"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:687
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Otwiera wybrany katalog zdjęć w menedżerze plików"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:690
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nie można otworzyć w menedżerze plików: %s"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:693
 msgid "R_emove From Library"
 msgstr "_Usuń z kolekcji"
 
-#: src/Resources.vala:690
+#: src/Resources.vala:695
 msgid "_Move to Trash"
 msgstr "Przenieś do _kosza"
 
-#: src/Resources.vala:692
+#: src/Resources.vala:697
 msgid "Select _All"
 msgstr "Z_aznacz wszystkie"
 
-#: src/Resources.vala:693
+#: src/Resources.vala:698
 msgid "Select all items"
 msgstr "Zaznacza wszystkie elementy"
 
@@ -6122,14 +6114,14 @@ msgstr "Zaznacza wszystkie elementy"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:782
+#: src/Resources.vala:787
 msgid "%a %b %d, %Y"
 msgstr "%a, %e %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:787
+#: src/Resources.vala:792
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %e %b"
@@ -6137,7 +6129,7 @@ msgstr "%a, %e %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:792
+#: src/Resources.vala:797
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%e, %Y"
@@ -6145,7 +6137,7 @@ msgstr "%e, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:797
+#: src/Resources.vala:802
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %e %b"
@@ -6153,7 +6145,7 @@ msgstr "%a, %e %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:802
+#: src/Resources.vala:807
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %e %b %Y"
@@ -6460,7 +6452,7 @@ msgid "untitled"
 msgstr "bez nazwy"
 
 #. multiple videos
-#: src/VideoSupport.vala:490
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
 
