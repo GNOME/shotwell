@@ -205,12 +205,11 @@ public abstract class Page : Gtk.ScrolledWindow {
         return event_source;
     }
 
-    private Gtk.MenuBar menubar;
+    private bool menubar_injected = false;
+    public GLib.MenuModel get_menubar() {
+        var model = builder.get_object ("MenuBar") as GLib.Menu;
 
-    public Gtk.MenuBar get_menubar() {
-        if (this.menubar == null) {
-            var model = builder.get_object ("MenuBar") as GLib.Menu;
-
+        if (!menubar_injected) {
             // Collect injected UI elements and add them to the UI manager
             InjectionGroup[] injection_groups = init_collect_injection_groups();
             foreach (InjectionGroup group in injection_groups) {
@@ -246,10 +245,10 @@ public abstract class Page : Gtk.ScrolledWindow {
                 }
             }
 
-            this.menubar = new Gtk.MenuBar.from_model (model);
+            this.menubar_injected = true;
         }
 
-        return this.menubar;
+        return model;
     }
 
     public virtual Gtk.Toolbar get_toolbar() {

@@ -276,9 +276,12 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
     }
     
     public PageWindow() {
+        Object (application: Application.get_instance().get_system_app ());
+
         // the current page needs to know when modifier keys are pressed
         add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
             | Gdk.EventMask.STRUCTURE_MASK);
+        set_show_menubar (true);
     }
     
     public Page? get_current_page() {

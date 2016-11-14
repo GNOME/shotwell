@@ -29,6 +29,10 @@ public class Application {
         return fixup_raw_thumbs;
     }
 
+    public Gtk.Application get_system_app () {
+        return system_app;
+    }
+
     private bool running = false;
     private bool exiting_fired = false;
 
@@ -93,6 +97,10 @@ public class Application {
 
     public static void set_accels_for_action (string action, string[] accel) {
         get_instance().system_app.set_accels_for_action (action, accel);
+    }
+
+    public static void set_menubar (GLib.MenuModel? model) {
+        get_instance().system_app.set_menubar (model);
     }
 
     /**
