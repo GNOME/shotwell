@@ -406,7 +406,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         int x, y;
         Gdk.ModifierType mask;
         AppWindow.get_instance().get_window().get_device_position(Gdk.Display.get_default().
-            get_device_manager().get_client_pointer(), out x, out y, out mask);
+            get_default_seat().get_pointer(), out x, out y, out mask);
         
         ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
@@ -666,8 +666,8 @@ public abstract class Page : Gtk.ScrolledWindow {
             return false;
         }
         
-        event_source.get_window().get_device_position(Gdk.Display.get_default().get_device_manager()
-            .get_client_pointer(), out x, out y, out mask);
+        event_source.get_window().get_device_position(Gdk.Display.get_default().get_default_seat()
+            .get_pointer(), out x, out y, out mask);
         
         if (last_down.x < 0 || last_down.y < 0)
             return true;
@@ -1114,8 +1114,10 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected virtual void set_page_cursor(Gdk.CursorType cursor_type) {
         last_cursor = cursor_type;
 
-        if (!cursor_hidden && event_source != null)
-            event_source.get_window().set_cursor(new Gdk.Cursor(cursor_type));
+        if (!cursor_hidden && event_source != null) {
+            var display = event_source.get_window ().get_display ();
+            event_source.get_window().set_cursor(new Gdk.Cursor.for_display(display, cursor_type));
+        }
     }
 
     private void check_cursor_hiding() {
@@ -1134,8 +1136,10 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool on_hide_cursor() {
         cursor_hidden = true;
 
-        if (event_source != null)
-            event_source.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR));
+        if (event_source != null) {
+            var display = event_source.get_window().get_display ();
+            event_source.get_window().set_cursor(new Gdk.Cursor.for_display(display, Gdk.CursorType.BLANK_CURSOR));
+        }
 
         // We remove the timeout so reset the id
         last_timeout_id = 0;
