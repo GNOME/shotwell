@@ -2,8 +2,8 @@
 # PO message string template file for Shotwell Core Components
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
-# 
-# 
+#
+#
 # Translators:
 # Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2011-2013
 # Alejandro Johnson C. <alejandrojohnson750@hotmail.com>, 2012
@@ -18,10 +18,10 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2015, 2016., 2016.
 #
 msgid ""
@@ -30,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2016-11-10 11:50+0000\n"
-"PO-Revision-Date: 2016-11-11 13:40+0100\n"
+"PO-Revision-Date: 2016-11-11 \n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -347,7 +347,6 @@ msgid "display photo ratings"
 msgstr "mostrar puntuación de las fotos"
 
 #: misc/org.yorba.shotwell.gschema.xml:78
-#, fuzzy
 #| msgid ""
 #| "True if the basic properties pane is to be displayed, false otherwise."
 msgid ""
@@ -1626,7 +1625,6 @@ msgstr "A_trás"
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
 #: ui/shotwell.ui:1627
-#, fuzzy
 #| msgid "_Login"
 msgid "_Log in"
 msgstr "Iniciar _sesión"
@@ -1727,7 +1725,7 @@ msgid "Shotwell default directory"
 msgstr "Carpeta predeterminada de Shotwell"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:801
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "\n"
 #| "\n"
@@ -1755,7 +1753,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to %s can't "
 #| "continue."
@@ -1830,7 +1828,6 @@ msgstr "_Recordar"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:107
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:151
-#, fuzzy
 #| msgid "Logging in…"
 msgid "Log in"
 msgstr "Iniciando sesión…"
@@ -1859,7 +1856,6 @@ msgid "Open target _album in browser"
 msgstr "Abrir ál_bum objetivo en el navegador"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-#, fuzzy
 #| msgid "Copyright (C) 2013 rajce.net"
 msgid "Copyright © 2013 rajce.net"
 msgstr "Copyright (C) 2013 rajce.net"
@@ -1912,7 +1908,6 @@ msgstr "Copyright 2012 BJA Electronics"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1231
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1325
-#, fuzzy
 #| msgid "500 x 375 pixels"
 msgid "500 × 375 pixels"
 msgstr "500 × 375 píxeles"
@@ -1920,26 +1915,23 @@ msgstr "500 × 375 píxeles"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1232
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1326
-#, fuzzy
 #| msgid "1024 x 768 pixels"
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 píxeles"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-#, fuzzy
 #| msgid "1280 x 853 pixels"
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 píxeles"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
-#, fuzzy, c-format
+#, c-format
 #| msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgid "“%s” isn’t a valid response to an OAuth authentication request"
 msgstr "«%s» no es una respuesta válida a una solicitud de autenticación OAuth"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
-#, fuzzy
 #| msgid ""
 #| "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgid ""
@@ -2052,7 +2044,6 @@ msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:64
-#, fuzzy
 #| msgid ""
 #| "You are not currently logged into Facebook.\n"
 #| "\n"
@@ -2096,20 +2087,17 @@ msgid "Large (2048 pixels)"
 msgstr "Grande (2048 píxeles)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:255
-#, fuzzy
 #| msgid "Testing connection to Facebook..."
 msgid "Testing connection to Facebook…"
 msgstr "Comprobando la conexión a Facebook…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
 #: plugins/shotwell-publishing/PicasaPublishing.vala:379
-#, fuzzy
 #| msgid "Creating album..."
 msgid "Creating album…"
 msgstr "Creando el álbum…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:374
-#, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Facebook "
 #| "can't continue."
@@ -2162,7 +2150,6 @@ msgid "Con_tinue"
 msgstr "Con_tinuar"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:60
-#, fuzzy
 #| msgid ""
 #| "You are not currently logged into Flickr.\n"
 #| "\n"
@@ -2191,14 +2178,12 @@ msgstr ""
 "publicar de nuevo."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:374
-#, fuzzy
 #| msgid "Preparing for login..."
 msgid "Preparing for login…"
 msgstr "Preparándose para iniciar sesión…"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:444
 #: plugins/shotwell-publishing/FlickrPublishing.vala:594
-#, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Flickr can't "
 #| "continue."
@@ -2210,7 +2195,6 @@ msgstr ""
 "Flickr no puede continuar."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:457
-#, fuzzy
 #| msgid "Verifying authorization..."
 msgid "Verifying authorization…"
 msgstr "Comprobando la autorización…"
@@ -2271,14 +2255,12 @@ msgstr "Solo amigos"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1233
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
-#, fuzzy
 #| msgid "2048 x 1536 pixels"
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:1234
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
-#, fuzzy
 #| msgid "4096 x 3072 pixels"
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 píxeles"
@@ -2292,7 +2274,6 @@ msgid "Photo _size preset:"
 msgstr "_Tamaño de foto predefinido:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:59
-#, fuzzy
 #| msgid ""
 #| "You are not currently logged into Picasa Web Albums.\n"
 #| "\n"
@@ -2312,7 +2293,6 @@ msgstr ""
 "su cuenta de Álbumes web de Picasa."
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:361
-#, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Picasa can't "
 #| "continue."
@@ -2334,25 +2314,21 @@ msgid "Videos will appear in:"
 msgstr "Los vídeos aparecerán en:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:746
-#, fuzzy
 #| msgid "Small (640 x 480 pixels)"
 msgid "Small (640 × 480 pixels)"
 msgstr "Pequeño (640 × 480 píxeles)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:747
-#, fuzzy
 #| msgid "Medium (1024 x 768 pixels)"
 msgid "Medium (1024 × 768 pixels)"
 msgstr "Mediano (1024 × 768 píxeles)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:748
-#, fuzzy
 #| msgid "Recommended (1600 x 1200 pixels)"
 msgid "Recommended (1600 × 1200 pixels)"
 msgstr "Recomendado (1600 × 1200 píxeles)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:749
-#, fuzzy
 #| msgid "Google+ (2048 x 1536 pixels)"
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 píxeles)"
@@ -2414,7 +2390,7 @@ msgid "Publish"
 msgstr "Publicar"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:775
-#, fuzzy, c-format
+#, c-format
 #| msgid "Creating album %s..."
 msgid "Creating album %s…"
 msgstr "Creando el álbum %s…"
@@ -2507,7 +2483,6 @@ msgstr ""
 "vez."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:363
-#, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Youtube "
 #| "can't continue."
@@ -2524,7 +2499,7 @@ msgid "You are logged into YouTube as %s."
 msgstr "Ha iniciado sesión en YouTube como %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:464
-#, fuzzy, c-format
+#, c-format
 #| msgid "Videos will appear in '%s'"
 msgid "Videos will appear in “%s”"
 msgstr "Los vídeos aparecerán en «%s»"
@@ -2656,7 +2631,7 @@ msgid "_Cancel"
 msgstr "_Cancelar"
 
 #: src/AppWindow.vala:656
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "A fatal error occurred when accessing Shotwell's library.  Shotwell "
 #| "cannot continue.\n"
@@ -2768,7 +2743,6 @@ msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:458
-#, fuzzy
 #| msgid ""
 #| "Unable to unmount camera.  Try unmounting the camera from the file "
 #| "manager."
@@ -2821,7 +2795,6 @@ msgstr "Importar todas las fotos a su colección"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:1013
-#, fuzzy
 #| msgid ""
 #| "Shotwell needs to unmount the camera from the filesystem in order to "
 #| "access it.  Continue?"
@@ -2841,7 +2814,6 @@ msgid "Please unmount the camera."
 msgstr "Desmonte la cámara."
 
 #: src/camera/ImportPage.vala:1029
-#, fuzzy
 #| msgid ""
 #| "The camera is locked by another application.  Shotwell can only access "
 #| "the camera when it's unlocked.  Please close any other application using "
@@ -3105,7 +3077,7 @@ msgid "Create Tag"
 msgstr "Crear etiqueta"
 
 #: src/Commands.vala:1695
-#, fuzzy, c-format
+#, c-format
 #| msgid "Move Tag \"%s\""
 msgid "Move Tag “%s”"
 msgstr "Mover etiqueta «%s»"
@@ -3167,7 +3139,7 @@ msgstr "Base de datos %s"
 
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
-#, fuzzy, c-format
+#, c-format
 #| msgid "Importing from %s can't continue because an error occurred:"
 msgid "Importing from %s can’t continue because an error occurred:"
 msgstr ""
@@ -3272,7 +3244,7 @@ msgid "Unable to prepare desktop slideshow: %s"
 msgstr "No se puede preparar el presentación de diapositivas de escritorio: %s"
 
 #: src/Dialogs.vala:16
-#, fuzzy, c-format
+#, c-format
 #| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 #| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgid "This will remove the tag “%s” from one photo. Continue?"
@@ -3287,7 +3259,7 @@ msgid "_Delete"
 msgstr "_Eliminar"
 
 #: src/Dialogs.vala:25
-#, fuzzy, c-format
+#, c-format
 #| msgid "This will remove the saved search \"%s\".  Continue?"
 msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Esto quitará la búsqueda guardada «%s». ¿Quiere continuar?"
@@ -3320,7 +3292,7 @@ msgstr "Exportar vídeo"
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
 #: src/Dialogs.vala:112
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Shotwell couldn't create a file for editing this photo because you do not "
 #| "have permission to write to %s."
@@ -3376,10 +3348,9 @@ msgid "_Pixels:"
 msgstr "_Píxeles:"
 
 #: src/Dialogs.vala:234
-#, fuzzy
 #| msgid "Export metadata"
 msgid "Export _metadata:"
-msgstr "Exportar metadatos"
+msgstr "Exportar metadatos:"
 
 #: src/Dialogs.vala:478
 msgid "Save Details…"
@@ -3439,7 +3410,6 @@ msgstr "mensaje de error:"
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
 #: src/Dialogs.vala:595
-#, fuzzy
 #| msgid ""
 #| "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
@@ -3449,7 +3419,6 @@ msgstr "Archivos no importados porque no se reconocieron como fotos o vídeos:"
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
 #: src/Dialogs.vala:610
-#, fuzzy
 #| msgid ""
 #| "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
 #| "Understands:"
@@ -3464,7 +3433,6 @@ msgstr ""
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
 #: src/Dialogs.vala:625
-#, fuzzy
 #| msgid ""
 #| "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
 #| "Library:"
@@ -3475,7 +3443,7 @@ msgstr ""
 "Fotos/vídeos no importados porque Shotwell no pudo copiarlos a su colección:"
 
 #: src/Dialogs.vala:629
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "couldn't copy %s\n"
 #| "\tto %s"
@@ -3827,7 +3795,7 @@ msgid "Revert External Edits?"
 msgstr "¿Revertir ediciones externas?"
 
 #: src/Dialogs.vala:1433
-#, fuzzy, c-format
+#, c-format
 #| msgid "This will destroy all changes made to the external file.  Continue?"
 #| msgid_plural ""
 #| "This will destroy all changes made to %d external files.  Continue?"
@@ -3835,7 +3803,7 @@ msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
-"Esto destruirá todos los cambios realizados en el archivo externo.  "
+"Esto destruirá todos los cambios realizados en el archivo externo. "
 "¿Continuar?"
 msgstr[1] ""
 "Esto destruirá todos los cambios realizados en los %d archivos externos.  "
@@ -3850,7 +3818,7 @@ msgid "Re_vert External Edits"
 msgstr "Re_vertir ediciones externas"
 
 #: src/Dialogs.vala:1458
-#, fuzzy, c-format
+#, c-format
 #| msgid "This will remove the photo from the library.  Continue?"
 #| msgid_plural "This will remove %d photos from the library.  Continue?"
 msgid "This will remove the photo from the library. Continue?"
@@ -4023,7 +3991,6 @@ msgid "You can also import photos in any of these ways:"
 msgstr "También puede importar fotos en cualquiera de estas formas:"
 
 #: src/Dialogs.vala:2162
-#, fuzzy
 #| msgid "_Don't show this message again"
 msgid "_Don’t show this message again"
 msgstr "_No mostrar este mensaje de nuevo"
@@ -4103,7 +4070,7 @@ msgid "Removing Photos From Library"
 msgstr "Quitando fotos de la colección"
 
 #: src/Dialogs.vala:2735
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "This will remove the photo/video from your Shotwell library.  Would you "
 #| "also like to move the file to your desktop trash?\n"
@@ -4136,7 +4103,7 @@ msgstr[1] ""
 "Esta acción no se puede deshacer."
 
 #: src/Dialogs.vala:2739
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "This will remove the video from your Shotwell library.  Would you also "
 #| "like to move the file to your desktop trash?\n"
@@ -4169,7 +4136,7 @@ msgstr[1] ""
 "Esta acción no se puede deshacer."
 
 #: src/Dialogs.vala:2743
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "This will remove the photo from your Shotwell library.  Would you also "
 #| "like to move the file to your desktop trash?\n"
@@ -4202,7 +4169,7 @@ msgstr[1] ""
 "Esta acción no se puede deshacer."
 
 #: src/Dialogs.vala:2775
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "The photo or video cannot be moved to your desktop trash.  Delete this "
 #| "file?"
@@ -4431,121 +4398,101 @@ msgid "-"
 msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:758
-#, fuzzy
 #| msgid "SD Video (4 : 3)"
 msgid "SD Video (4 ∶ 3)"
 msgstr "Vídeo SD (4:3)"
 
 #: src/editing_tools/EditingTools.vala:759
-#, fuzzy
 #| msgid "HD Video (16 : 9)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "Vídeo HD (16:9)"
 
 #: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
-#, fuzzy
 #| msgid "Wallet (2 x 3 in.)"
 msgid "Wallet (2 × 3 in.)"
 msgstr "Cartera (2 × 3 pulg.)"
 
 #: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
-#, fuzzy
 #| msgid "Notecard (3 x 5 in.)"
 msgid "Notecard (3 × 5 in.)"
 msgstr "Tarjeta de notas (3 × 5 pulg.)"
 
 #: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
-#, fuzzy
 #| msgid "4 x 6 in."
 msgid "4 × 6 in."
 msgstr "4 × 6 pulg."
 
 #: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
-#, fuzzy
 #| msgid "5 x 7 in."
 msgid "5 × 7 in."
 msgstr "5 × 7 pulg."
 
 #: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
-#, fuzzy
 #| msgid "8 x 10 in."
 msgid "8 × 10 in."
 msgstr "8 × 10 pulg."
 
 #: src/editing_tools/EditingTools.vala:766
-#, fuzzy
 #| msgid "Letter (8.5 x 11 in.)"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Carta (8.5 × 11 pulg.)"
 
 #: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
-#, fuzzy
 #| msgid "11 x 14 in."
 msgid "11 × 14 in."
 msgstr "11 × 14 pulg."
 
 #: src/editing_tools/EditingTools.vala:768
-#, fuzzy
 #| msgid "Tabloid (11 x 17 in.)"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloide (11 × 17 pulg.)"
 
 #: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
-#, fuzzy
 #| msgid "16 x 20 in."
 msgid "16 × 20 in."
 msgstr "16 × 20 pulg."
 
 #: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
-#, fuzzy
 #| msgid "Metric Wallet (9 x 13 cm)"
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Cartera métrica (9 × 13 cm)"
 
 #: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
-#, fuzzy
 #| msgid "Postcard (10 x 15 cm)"
 msgid "Postcard (10 × 15 cm)"
 msgstr "Tarjeta postal (10 × 15 cm)"
 
 #: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
-#, fuzzy
 #| msgid "13 x 18 cm"
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
 #: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
-#, fuzzy
 #| msgid "18 x 24 cm"
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
 #: src/editing_tools/EditingTools.vala:775
-#, fuzzy
 #| msgid "A4 (210 x 297 mm)"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
 #: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
-#, fuzzy
 #| msgid "20 x 30 cm"
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
 #: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
-#, fuzzy
 #| msgid "24 x 40 cm"
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
-#, fuzzy
 #| msgid "30 x 40 cm"
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:779
-#, fuzzy
 #| msgid "A3 (297 x 420 mm)"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
@@ -4722,7 +4669,7 @@ msgid "Exporting"
 msgstr "Exportando"
 
 #: src/Exporter.vala:317
-#, fuzzy, c-format
+#, c-format
 #| msgid "File %s already exists.  Replace?"
 msgid "File %s already exists. Replace?"
 msgstr "El archivo %s ya existe. ¿Quiere reemplazarlo?"
@@ -4975,7 +4922,7 @@ msgid "Deleting Photos"
 msgstr "Eliminando fotos"
 
 #: src/main.vala:54
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Your photo library is not compatible with this version of Shotwell.  It "
 #| "appears it was created by Shotwell %s (schema %d).  This version is %s "
@@ -4986,26 +4933,26 @@ msgid ""
 "(schema %d). Please use the latest version of Shotwell."
 msgstr ""
 "Su colección de fotos no es compatible con esta versión de Shotwell. Parece "
-"que fue creada por Shotwell %s (esquema %d). Esta versión es %s (esquema "
-"%d). Use la versión más reciente de Shotwell."
+"que fue creada por Shotwell %s (esquema %d). Esta versión es %s (esquema %"
+"d). Use la versión más reciente de Shotwell."
 
 #: src/main.vala:59
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Shotwell was unable to upgrade your photo library from version %s (schema "
 #| "%d) to %s (schema %d).  For more information please check the Shotwell "
 #| "Wiki at %s"
 msgid ""
-"Shotwell was unable to upgrade your photo library from version %s (schema "
-"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
-"at %s"
+"Shotwell was unable to upgrade your photo library from version %s (schema %"
+"d) to %s (schema %d). For more information please check the Shotwell Wiki at "
+"%s"
 msgstr ""
 "Shotwell no pudo actualizar su colección de fotos desde la versión %s "
 "(esquema %d) a la %s (esquema %d). Para obtener más información , consulte "
 "el wiki de Shotwell en %s"
 
 #: src/main.vala:65
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Your photo library is not compatible with this version of Shotwell.  It "
 #| "appears it was created by Shotwell %s (schema %d).  This version is %s "
@@ -5018,12 +4965,12 @@ msgid ""
 "photos."
 msgstr ""
 "Su colección de fotos no es compatible con esta versión de Shotwell. Parece "
-"que fue creada por Shotwell %s (esquema %d). Esta versión es %s (esquema "
-"%d). Vacíe la colección mediante la eliminación de %s, y vuelva a importar "
+"que fue creada por Shotwell %s (esquema %d). Esta versión es %s (esquema %"
+"d). Vacíe la colección mediante la eliminación de %s, y vuelva a importar "
 "las fotos."
 
 #: src/main.vala:71
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unknown error attempting to verify Shotwell's database: %s"
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr ""
@@ -5034,7 +4981,6 @@ msgid "Loading Shotwell"
 msgstr "Cargando Shotwell"
 
 #: src/main.vala:294
-#, fuzzy
 #| msgid "Path to Shotwell's private data"
 msgid "Path to Shotwell’s private data"
 msgstr "Ruta a los datos privados de Shotwell"
@@ -5050,13 +4996,11 @@ msgstr ""
 "buscar cambios"
 
 #: src/main.vala:302
-#, fuzzy
 #| msgid "Don't display startup progress meter"
 msgid "Don’t display startup progress meter"
 msgstr "No mostrar medidor de progreso de inicio"
 
 #: src/main.vala:306
-#, fuzzy
 #| msgid "Show the application's version"
 msgid "Show the application’s version"
 msgstr "Mostrar la versión de la aplicación"
@@ -5067,7 +5011,7 @@ msgid "[FILE]"
 msgstr "[ARCHIVO]"
 
 #: src/main.vala:342
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Run '%s --help' to see a full list of available command line options.\n"
 msgid "Run “%s --help” to see a full list of available command line options.\n"
@@ -5113,7 +5057,6 @@ msgid "Display the comment of each photo"
 msgstr "Mostrar el comentario de cada foto"
 
 #: src/MediaPage.vala:470
-#, fuzzy
 #| msgid "Display each photo's tags"
 msgid "Display each photo’s tags"
 msgstr "Mostrar la etiqueta de cada foto"
@@ -5421,7 +5364,7 @@ msgid "Uploading %d of %d"
 msgstr "Subiendo %d de %d"
 
 #: src/publishing/PublishingPluginHost.vala:81
-#, fuzzy, c-format
+#, c-format
 #| msgid "Publishing to %s can't continue because an error occurred:"
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "No se puede continuar la publicación en %s porque ocurrió un error:"
@@ -5647,7 +5590,6 @@ msgid "Enhance"
 msgstr "Mejorar"
 
 #: src/Resources.vala:188
-#, fuzzy
 #| msgid "Automatically improve the photo's appearance"
 msgid "Automatically improve the photo’s appearance"
 msgstr "Mejorar automáticamente la apariencia de la foto"
@@ -5685,7 +5627,6 @@ msgid "Crop"
 msgstr "Recortar"
 
 #: src/Resources.vala:200
-#, fuzzy
 #| msgid "Crop the photo's size"
 msgid "Crop the photo’s size"
 msgstr "Recortar el tamaño de la foto"
@@ -5719,7 +5660,6 @@ msgid "Adjust"
 msgstr "Ajuste"
 
 #: src/Resources.vala:212
-#, fuzzy
 #| msgid "Adjust the photo's color and tone"
 msgid "Adjust the photo’s color and tone"
 msgstr "Ajustar el color y el tono de la foto"
@@ -5911,7 +5851,6 @@ msgid "_Ratings"
 msgstr "_Puntuaciones"
 
 #: src/Resources.vala:280
-#, fuzzy
 #| msgid "Display each photo's rating"
 msgid "Display each photo’s rating"
 msgstr "Mostrar la puntuación de cada foto"
@@ -6044,14 +5983,14 @@ msgid "Unable to launch editor: %s"
 msgstr "No se puede abrir el editor: %s"
 
 #: src/Resources.vala:340
-#, fuzzy, c-format
+#, c-format
 #| msgid "Add Tag \"%s\""
 msgid "Add Tag “%s”"
 msgstr "Añadir etiqueta «%s»"
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:343
-#, fuzzy, c-format
+#, c-format
 #| msgid "Add Tags \"%s\" and \"%s\""
 msgid "Add Tags “%s” and “%s”"
 msgstr "Añadir etiquetas «%s» y «%s»"
@@ -6063,13 +6002,13 @@ msgid "Add Tags"
 msgstr "Añadir etiquetas"
 
 #: src/Resources.vala:353
-#, fuzzy, c-format
+#, c-format
 #| msgid "_Delete Tag \"%s\""
 msgid "_Delete Tag “%s”"
 msgstr "_Eliminar etiqueta «%s»"
 
 #: src/Resources.vala:357
-#, fuzzy, c-format
+#, c-format
 #| msgid "Delete Tag \"%s\""
 msgid "Delete Tag “%s”"
 msgstr "Eliminar etiqueta «%s»"
@@ -6079,13 +6018,13 @@ msgid "Delete Tag"
 msgstr "Eliminar etiqueta"
 
 #: src/Resources.vala:366
-#, fuzzy, c-format
+#, c-format
 #| msgid "Re_name Tag \"%s\"…"
 msgid "Re_name Tag “%s”…"
 msgstr "Re_nombrar etiqueta «%s»…"
 
 #: src/Resources.vala:370
-#, fuzzy, c-format
+#, c-format
 #| msgid "Rename Tag \"%s\" to \"%s\""
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Renombrar la etiqueta «%s» a «%s»"
@@ -6103,7 +6042,7 @@ msgid "Modify Tags"
 msgstr "Modificar etiquetas"
 
 #: src/Resources.vala:379
-#, fuzzy, c-format
+#, c-format
 #| msgid "Tag Photo as \"%s\""
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
@@ -6111,7 +6050,7 @@ msgstr[0] "Etiquetar fotos como «%s»"
 msgstr[1] "Etiquetar fotos como «%s»"
 
 #: src/Resources.vala:385
-#, fuzzy, c-format
+#, c-format
 #| msgid "Tag the selected photo as \"%s\""
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
@@ -6119,7 +6058,7 @@ msgstr[0] "Etiquetar las fotos seleccionadas como «%s»"
 msgstr[1] "Etiquetar las fotos seleccionadas como «%s»"
 
 #: src/Resources.vala:391
-#, fuzzy, c-format
+#, c-format
 #| msgid "Remove Tag \"%s\" From _Photo"
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
@@ -6127,7 +6066,7 @@ msgstr[0] "Quitar la etiqueta «%s» de las _fotos"
 msgstr[1] "Quitar la etiqueta «%s» de las _fotos"
 
 #: src/Resources.vala:397
-#, fuzzy, c-format
+#, c-format
 #| msgid "Remove Tag \"%s\" From Photo"
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
@@ -6135,13 +6074,13 @@ msgstr[0] "Quitar la etiqueta «%s» de las fotos"
 msgstr[1] "Quitar la etiqueta «%s» de las fotos"
 
 #: src/Resources.vala:403
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "No se puede renombrar la etiqueta a «%s» porque la etiqueta ya existe."
 
 #: src/Resources.vala:407
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unable to rename search to \"%s\" because the search already exists."
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "No se pudo renombrar la búsqueda «%s» porque la búsqueda ya existe."
@@ -6164,13 +6103,13 @@ msgid "Re_name…"
 msgstr "Re_nombrar…"
 
 #: src/Resources.vala:419
-#, fuzzy, c-format
+#, c-format
 #| msgid "Rename Search \"%s\" to \"%s\""
 msgid "Rename Search “%s” to “%s”"
 msgstr "Renombrar la búsqueda «%s» a «%s»"
 
 #: src/Resources.vala:423
-#, fuzzy, c-format
+#, c-format
 #| msgid "Delete Search \"%s\""
 msgid "Delete Search “%s”"
 msgstr "Eliminar búsqueda «%s»"
@@ -6236,7 +6175,6 @@ msgid "Show in File Mana_ger"
 msgstr "Mostrar en ge_stor de archivos"
 
 #: src/Resources.vala:687
-#, fuzzy
 #| msgid "Open the selected photo's directory in the file manager"
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Abrir el directorio de la foto seleccionada en el gestor de archivos"
