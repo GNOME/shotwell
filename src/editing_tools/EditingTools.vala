@@ -52,7 +52,6 @@ public abstract class EditingToolWindow : Gtk.Window {
         focus_on_map = true;
         set_accept_focus(true);
         set_can_focus(true);
-        set_has_resize_grip(false);
 
         // Needed to prevent the (spurious) 'This event was synthesised outside of GDK'
         // warnings after a keypress.
@@ -90,7 +89,7 @@ public abstract class EditingToolWindow : Gtk.Window {
     }
 
     public override void realize() {
-        set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
+        (this as Gtk.Widget).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();
     }
