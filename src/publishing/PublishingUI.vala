@@ -156,7 +156,7 @@ public class PublishingDialog : Gtk.Dialog {
     protected PublishingDialog(Gee.Collection<MediaSource> to_publish) {
         assert(to_publish.size > 0);
 
-        bool use_header;
+        bool use_header = false;
         Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
         Object(use_header_bar: use_header ? 1 : 0);
         if (use_header)
@@ -250,30 +250,35 @@ public class PublishingDialog : Gtk.Dialog {
         {
             var service_selector_box_label = new Gtk.Label.with_mnemonic(label);
             service_selector_box_label.set_mnemonic_widget(service_selector_box);
-            service_selector_box_label.set_alignment(0.0f, 0.5f);
+            service_selector_box_label.halign = Gtk.Align.START;
+            service_selector_box_label.valign = Gtk.Align.CENTER;
 
             /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
                selection box from growing and shrinking whenever its parent's size changes.
                When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
                the service selection box. */
-            Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
-            service_selector_box_wrapper.add(service_selector_box);
+            service_selector_box.halign = Gtk.Align.END;
+            service_selector_box.valign = Gtk.Align.CENTER;
+            service_selector_box.hexpand = false;
+            service_selector_box.vexpand = false;
 
             Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             service_selector_layouter.set_border_width(12);
+            service_selector_layouter.hexpand = true;
             service_selector_layouter.add(service_selector_box_label);
-            service_selector_layouter.pack_start(service_selector_box_wrapper, true, true, 0);
+            service_selector_layouter.pack_start(service_selector_box, true, true, 0);
 
             /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
                rest of the dialog */
             Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             service_area_layouter.add(service_selector_layouter);
             service_area_layouter.add(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
+            service_area_layouter.halign = Gtk.Align.FILL;
+            service_area_layouter.valign = Gtk.Align.START;
+            service_area_layouter.hexpand = true;
+            service_area_layouter.vexpand = false;
 
-            Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
-            service_area_wrapper.add(service_area_layouter);
-
-            get_content_area().pack_start(service_area_wrapper, false, false, 0);
+            get_content_area().pack_start(service_area_layouter, false, false, 0);
         }
 
         central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
@@ -287,8 +292,15 @@ public class PublishingDialog : Gtk.Dialog {
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
             ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
         }
-        else
-            ((Gtk.Container) get_action_area()).add(close_cancel_button);
+        else {
+          add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+          response.connect((id) => {
+              if (id == Gtk.ResponseType.CANCEL) {
+                  on_close_cancel_clicked();
+              }
+          });
+
+        }
 
         set_standard_window_mode();
         
