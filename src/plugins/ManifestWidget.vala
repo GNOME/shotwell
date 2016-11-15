@@ -29,7 +29,7 @@ public class ManifestWidgetMediator {
     private ManifestListView list = new ManifestListView();
     
     public ManifestWidgetMediator() {
-        list_bin.add_with_viewport(list);
+        list_bin.add(list);
         
         about_button.clicked.connect(on_about);
         list.get_selection().changed.connect(on_selection_changed);
@@ -156,7 +156,6 @@ private class ManifestListView : Gtk.TreeView {
         
         set_headers_visible(false);
         set_enable_search(false);
-        set_rules_hint(true);
         set_show_expanders(true);
         set_reorderable(false);
         set_enable_tree_lines(false);
