@@ -797,8 +797,8 @@ public class LibraryWindow : AppWindow {
     private Gdk.DragAction get_drag_action() {
         Gdk.ModifierType mask;
         
-        get_window().get_device_position(Gdk.Display.get_default().get_device_manager()
-            .get_client_pointer(), null, null, out mask);
+        get_window().get_device_position(Gdk.Display.get_default().get_default_seat()
+            .get_pointer(), null, null, out mask);
 
         bool ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         bool alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
@@ -816,9 +816,7 @@ public class LibraryWindow : AppWindow {
     
     public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
         Gdk.Atom target = Gtk.drag_dest_find_target(this, context, Gtk.drag_dest_get_target_list(this));
-        // Want to use GDK_NONE (or, properly bound, Gdk.Atom.NONE) but GTK3 doesn't have it bound
-        // See: https://bugzilla.gnome.org/show_bug.cgi?id=655094
-        if (((int) target) == 0) {
+        if (target == Gdk.Atom.NONE) {
             debug("drag target is GDK_NONE");
             Gdk.drag_status(context, 0, time);
             
@@ -1152,12 +1150,16 @@ public class LibraryWindow : AppWindow {
         background_progress_frame.get_style_context().remove_class("frame");
 
         // pad the bottom frame (properties)
-        Gtk.Alignment bottom_alignment = new Gtk.Alignment(0, 0.5f, 1, 0);
-        
-        bottom_alignment.set_padding(10, 10, 6, 0);
-        bottom_alignment.add(basic_properties);
+        basic_properties.halign = Gtk.Align.FILL;
+        basic_properties.valign = Gtk.Align.CENTER;
+        basic_properties.hexpand = true;
+        basic_properties.vexpand = false;
+        basic_properties.margin_top = 10;
+        basic_properties.margin_bottom = 10;
+        basic_properties.margin_start = 6;
+        basic_properties.margin_end = 0;
 
-        bottom_frame.add(bottom_alignment);
+        bottom_frame.add(basic_properties);
         bottom_frame.get_style_context().remove_class("frame");
         
         // "attach" the progress bar to the sidebar tree, so the movable ridge is to resize the
