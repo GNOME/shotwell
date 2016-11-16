@@ -206,7 +206,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolFind">
+      <object class="GtkToggleToolButton" id="ToolFind">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
