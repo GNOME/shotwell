@@ -830,7 +830,29 @@ public class SearchFilterToolbar : Gtk.Revealer {
 
         public void set_filter_icon(RatingFilter filter) {
             button.set_always_show_image(true);
-            button.set_image(get_filter_icon(filter));
+            switch (filter) {
+            case RatingFilter.ONE_OR_HIGHER:
+                button.set_label (_("★+ Rating"));
+                break;
+            case RatingFilter.TWO_OR_HIGHER:
+                button.set_label (_("★★+ Rating"));
+                break;
+            case RatingFilter.THREE_OR_HIGHER:
+                button.set_label (_("★★★+ Rating"));
+                break;
+            case RatingFilter.FOUR_OR_HIGHER:
+                button.set_label (_("★★★★+ Rating"));
+                break;
+            case RatingFilter.FIVE_ONLY:
+            case RatingFilter.FIVE_OR_HIGHER:
+                button.set_label (_("★★★★★+ Rating"));
+                break;
+            default:
+                button.set_label (_("Rating"));
+                button.set_image(get_filter_icon(filter));
+                break;
+            }
+
             set_size_request(get_filter_button_size(filter), -1);
             set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
             set_has_tooltip(true);
