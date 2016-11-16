@@ -325,11 +325,10 @@ public class LibraryWindow : AppWindow {
             return;
 
         // always show the searchbar when items are filtered
-        var action = this.lookup_action ("CommonDisplaySearchbar") as
-            GLib.SimpleAction;
+        var action = this.lookup_action ("CommonDisplaySearchbar");
 
         if (action != null)
-            action.set_state (true);
+            action.change_state (true);
     }
 
     // show_all() may make visible certain items we wish to keep programmatically hidden
@@ -607,9 +606,8 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_find() {
-        var action = this.lookup_action ("CommonDisplaySearchbar") as
-            GLib.SimpleAction;
-        action.set_state (true);
+        var action = this.lookup_action ("CommonDisplaySearchbar");
+        action.change_state (true);
 
         // give it focus (which should move cursor to the text entry control)
         search_toolbar.take_focus();
@@ -744,9 +742,8 @@ public class LibraryWindow : AppWindow {
     }
 
     private void sync_extended_properties(bool show) {
-        var action = this.lookup_action ("CommonDisplayExtendedProperties")
-            as GLib.SimpleAction;
-        action.set_state (show);
+        var action = this.lookup_action ("CommonDisplayExtendedProperties");
+        action.change_state (show);
 
         // sync the setting so it will persist
         Config.Facade.get_instance().set_display_extended_properties(show);
