@@ -75,7 +75,7 @@ public abstract class BackgroundJob {
             return (int) other - (int) this;
         }
         
-        public static int compare_func(void *a, void *b) {
+        public static int compare_func(JobPriority a, JobPriority b) {
             return (int) b - (int) a;
         }
     }

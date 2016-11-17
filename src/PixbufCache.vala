@@ -14,7 +14,7 @@ public class PixbufCache : Object {
     
     public class PixbufCacheBatch : Gee.TreeMultiMap<BackgroundJob.JobPriority, Photo> {
         public PixbufCacheBatch() {
-            base (BackgroundJob.JobPriority.compare_func);
+            base ((GLib.CompareDataFunc<BackgroundJob.JobPriority>)BackgroundJob.JobPriority.compare_func);
         }
     }
     
