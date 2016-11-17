@@ -64,8 +64,8 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         this.host = host;
         
         Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
-        content_box.set_margin_left(30);
-        content_box.set_margin_right(30);
+        content_box.set_margin_start(30);
+        content_box.set_margin_end(30);
         Gtk.Label welcome_label = new Gtk.Label(null);
         welcome_label.set_markup(welcome_message);
         welcome_label.set_line_wrap(true);
@@ -104,8 +104,8 @@ public class LibrarySelectionPane : ConcreteDialogPane {
                     file_radio.active = true;
                 set_import_button_sensitivity();
             });
-            file_chooser.set_margin_left(chooser_margin_left);
-            file_chooser.set_margin_right(chooser_margin_right);
+            file_chooser.set_margin_start(chooser_margin_left);
+            file_chooser.set_margin_end(chooser_margin_right);
             content_box.pack_start(file_chooser, false, false, 6);
         }
         
@@ -144,8 +144,8 @@ public class LibrarySelectionPane : ConcreteDialogPane {
             }
             
         });
-        button.set_margin_left(margin_left);
-        button.set_margin_right(margin_right);
+        button.set_margin_start(margin_left);
+        button.set_margin_end(margin_right);
         box.pack_start(button, false, false, 6);
         return button;
     }
@@ -208,7 +208,7 @@ public class DataImportsDialog : Gtk.Dialog {
     private Spit.DataImports.ConcreteDataImportsHost host;
 
     protected DataImportsDialog() {
-        bool use_header;
+        bool use_header = false;
         Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
         Object(use_header_bar: use_header ? 1 : 0);
         if (use_header)
@@ -254,19 +254,22 @@ public class DataImportsDialog : Gtk.Dialog {
             {
                 var service_selector_box_label = new Gtk.Label.with_mnemonic(label);
                 service_selector_box_label.set_mnemonic_widget(service_selector_box);
-                service_selector_box_label.set_alignment(0.0f, 0.5f);
+                service_selector_box_label.halign = Gtk.Align.START;
+                service_selector_box_label.valign = Gtk.Align.CENTER;
 
                 /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
                    selection box from growing and shrinking whenever its parent's size changes.
                    When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
                    the service selection box. */
-                Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
-                service_selector_box_wrapper.add(service_selector_box);
+                service_selector_box.halign = Gtk.Align.END;
+                service_selector_box.valign = Gtk.Align.CENTER;
+                service_selector_box.hexpand = false;
+                service_selector_box.vexpand = false;
 
                 Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
                 service_selector_layouter.set_border_width(12);
                 service_selector_layouter.add(service_selector_box_label);
-                service_selector_layouter.pack_start(service_selector_box_wrapper, true, true, 0);
+                service_selector_layouter.pack_start(service_selector_box, true, true, 0);
 
                 /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
                    rest of the dialog */
@@ -274,11 +277,12 @@ public class DataImportsDialog : Gtk.Dialog {
                 service_area_layouter.pack_start(service_selector_layouter, true, true, 0);
                 Gtk.Separator service_central_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
                 service_area_layouter.add(service_central_separator);
+                service_area_layouter.halign = Gtk.Align.FILL;
+                service_area_layouter.valign = Gtk.Align.START;
+                service_area_layouter.hexpand = true;
+                service_area_layouter.vexpand = false;
 
-                Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
-                service_area_wrapper.add(service_area_layouter);
-
-                ((Gtk.Box) get_content_area()).pack_start(service_area_wrapper, false, false, 0);
+                ((Gtk.Box) get_content_area()).pack_start(service_area_layouter, false, false, 0);
             }
         }
         
@@ -286,16 +290,18 @@ public class DataImportsDialog : Gtk.Dialog {
         central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
         
-        close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
-        close_cancel_button.set_can_default(true);
-        close_cancel_button.clicked.connect(on_close_cancel_clicked);
 
         if (use_header) {
+            close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
+            close_cancel_button.set_can_default(true);
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
             ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
         }
-        else
-            ((Gtk.Box) get_action_area()).add(close_cancel_button);
+        else {
+            add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+            close_cancel_button = get_widget_for_response (Gtk.ResponseType.CANCEL) as Gtk.Button;
+        }
+        close_cancel_button.clicked.connect(on_close_cancel_clicked);
 
         set_standard_window_mode();
         
