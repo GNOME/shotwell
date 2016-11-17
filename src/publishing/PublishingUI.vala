@@ -285,22 +285,18 @@ public class PublishingDialog : Gtk.Dialog {
 
         get_content_area().pack_start(central_area_layouter, true, true, 0);
         
-        close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
-        close_cancel_button.set_can_default(true);
-        close_cancel_button.clicked.connect(on_close_cancel_clicked);
         if (use_header) {
+            close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
+            close_cancel_button.set_can_default(true);
+
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
             ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
         }
         else {
-          add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
-          response.connect((id) => {
-              if (id == Gtk.ResponseType.CANCEL) {
-                  on_close_cancel_clicked();
-              }
-          });
-
+            add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+            close_cancel_button = get_widget_for_response (Gtk.ResponseType.CANCEL) as Gtk.Button;
         }
+        close_cancel_button.clicked.connect(on_close_cancel_clicked);
 
         set_standard_window_mode();
         
