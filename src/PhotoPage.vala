@@ -434,16 +434,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // rotate tool
-        rotate_button = new Gtk.ToolButton.from_stock("");
+        rotate_button = new Gtk.ToolButton (null, Resources.ROTATE_CW_LABEL);
         rotate_button.set_icon_name(Resources.CLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked.connect(on_rotate_clockwise);
         rotate_button.is_important = true;
         toolbar.insert(rotate_button, -1);
         
         // crop tool
-        crop_button = new Gtk.ToggleToolButton.from_stock(Resources.CROP);
+        crop_button = new Gtk.ToggleToolButton ();
+        crop_button.set_icon_name("crop");
         crop_button.set_label(Resources.CROP_LABEL);
         crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
         crop_button.toggled.connect(on_crop_toggled);
@@ -451,7 +451,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(crop_button, -1);
 
         // straightening tool
-        straighten_button = new Gtk.ToggleToolButton.from_stock(Resources.STRAIGHTEN);
+        straighten_button = new Gtk.ToggleToolButton ();
+        straighten_button.set_icon_name("straighten");
         straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
         straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
         straighten_button.toggled.connect(on_straighten_toggled);
@@ -459,7 +460,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(straighten_button, -1);
 
         // redeye reduction tool
-        redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
+        redeye_button = new Gtk.ToggleToolButton ();
+        redeye_button.set_icon_name("redeye");
         redeye_button.set_label(Resources.RED_EYE_LABEL);
         redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
         redeye_button.toggled.connect(on_redeye_toggled);
