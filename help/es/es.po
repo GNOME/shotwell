@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-07-04 07:20+0000\n"
-"PO-Revision-Date: 2016-07-04 14:35+0200\n"
+"POT-Creation-Date: 2016-11-16 10:41+0000\n"
+"PO-Revision-Date: 2016-11-17 09:13+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,6 +24,7 @@ msgstr ""
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
+"Marina Prado <mapraro93@hotmail.com>, 2016\n"
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2016\n"
 "Dámaris Letelier <dam.letelier@gmail.com>, 2014"
 
@@ -45,6 +47,11 @@ msgid ""
 "intensity thresholds of the photograph, expanding the contrast of the middle "
 "range."
 msgstr ""
+"El botón <gui>Ajustes</gui> abre una ventana flotante con un histograma y el "
+"control deslizante para ajustar la exposición, la saturación, el matiz, la "
+"calidez y las sombras de una fotografía. El histograma también tiene control "
+"deslizante para reducir los umbrales de intensidad superior e inferior de la "
+"fotografía, ampliando el contraste de la gama media."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:16
@@ -52,6 +59,8 @@ msgid ""
 "The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
 "improve the quality of a photo."
 msgstr ""
+"El botón <gui>Mejorar</gui> ajusta el histograma y el control deslizante de "
+"las sombras para mejorar la calidad de una foto."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:18
@@ -60,6 +69,10 @@ msgid ""
 "to save the changes. <gui>Reset</gui> will return the image to its original "
 "state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
+"Si los colores y el contraste de la foto son adecuados, pulse <gui>Aceptar</"
+"gui> para guardar los cambios. El botón <gui>Restablecer</gui> devolverá la "
+"imagen a su estado original. El botón <gui>Cancelar</gui> deshace todos los "
+"cambios realizados."
 
 #. (itstool) path: section/title
 #: C/edit-adjustments.page:21
@@ -77,6 +90,9 @@ msgid ""
 "Changes the brightness to make it look like the photo was exposed for a "
 "longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
+"Cambia el brillo para que parezca que la foto se ha expuesto por un tiempo "
+"más o menos largo. Utilice esta opción para corregir las fotografías "
+"sobreexpuestas o excesivamente subexpuestas."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
@@ -89,6 +105,9 @@ msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
+"Cambia la intensidad de los colores. Si su foto parece gris y pálida, pruebe "
+"a aumentar la saturación. Si los colores se ven demasiado intensos, intente "
+"disminuirlos."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:32
