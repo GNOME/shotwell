@@ -1732,11 +1732,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         batch_radio_button.toggled.connect(on_time_changed);
 
         if (contains_video) {
-            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
-                _("_Modify original photo file") : _("_Modify original photo files"));
+            var text = ngettext ("_Modify original photo file", "_Modify original photo files",
+                                 photo_count);
+            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(text);
         } else {
-            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
-                _("_Modify original file") : _("_Modify original files"));
+            var text = ngettext ("_Modify original file", "_Modify original files", photo_count);
+            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(text);
         }
 
         modify_originals_check_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters() &&
