@@ -100,19 +100,24 @@ public class SuccessPane : StaticMessagePane {
 
         // Here, we check whether more than one item is being uploaded, and if so, display
         // an alternate message.
-        if(num_uploaded > 1) {
-            if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO))
-                message_string = _("The selected photos/videos were successfully published.");
-            else if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
-                message_string = _("The selected videos were successfully published.");
-            else
-                message_string = _("The selected photos were successfully published.");
-        } else {
-            if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
-                message_string = _("The selected video was successfully published.");
-            else
-                message_string = _("The selected photo was successfully published.");
+        if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO) {
+            message_string = ngettext ("The selected video was successfully published.",
+                                       "The selected videos were successfully published.",
+                                       num_uploaded);
         }
+        else if (published_media == Spit.Publishing.Publisher.MediaType.PHOTO) {
+            message_string = ngettext ("The selected video was successfully published.",
+                                       "The selected videos were successfully published.",
+                                       num_uploaded);
+        }
+        else if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO
+                                     | Spit.Publishing.Publisher.MediaType.VIDEO)) {
+            message_string = _("The selected photos/videos were successfully published.");
+        }
+        else {
+            assert_not_reached ();
+        }
+
         base(message_string);
     }
 }
@@ -161,10 +166,10 @@ public class PublishingDialog : Gtk.Dialog {
         Object(use_header_bar: use_header ? 1 : 0);
         if (use_header)
             ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
-        
+
         resizable = false;
         delete_event.connect(on_window_close);
-        
+
         publishables = new Spit.Publishing.Publishable[0];
         bool has_photos = false;
         bool has_videos = false;
