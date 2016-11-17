@@ -1207,7 +1207,6 @@ public class TextEntryDialog : Gtk.Dialog {
     private Gtk.Builder builder;
     private Gtk.Button button1;
     private Gtk.Button button2;
-    private Gtk.ButtonBox action_area_box;
     
     public TextEntryDialog() {
         bool use_header;
@@ -1235,9 +1234,6 @@ public class TextEntryDialog : Gtk.Dialog {
         entry.grab_focus();
         entry.changed.connect(on_entry_changed);
         
-        action_area_box = (Gtk.ButtonBox) get_action_area();
-        action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
-        
         button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
         button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
@@ -1249,7 +1245,6 @@ public class TextEntryDialog : Gtk.Dialog {
         }
         
         set_default_response(Gtk.ResponseType.OK);
-        set_has_resize_grip(false);
     }
 
     public string? execute() {
@@ -1282,7 +1277,6 @@ public class MultiTextEntryDialog : Gtk.Dialog {
     private Gtk.Builder builder;
     private Gtk.Button button1;
     private Gtk.Button button2;
-    private Gtk.ButtonBox action_area_box;
     
     public MultiTextEntryDialog() {
         bool use_header;
@@ -1309,14 +1303,9 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         
         entry.grab_focus();
         
-        action_area_box = (Gtk.ButtonBox) get_action_area();
-        action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
-        
         button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
         button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
-        
-        set_has_resize_grip(true);
     }
         
     public string? execute() {
@@ -1513,18 +1502,23 @@ public class ProgressDialog : Gtk.Window {
         
         Gtk.Label primary_text_label = new Gtk.Label("");
         primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
-        primary_text_label.set_alignment(0, 0.5f);
+        primary_text_label.xalign = 0.0f;
+        primary_text_label.yalign = 0.5f;
 
         Gtk.Box vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
         vbox.pack_start(primary_text_label, false, false, 0);
         vbox.pack_start(hbox, true, false, 0);
+        vbox.halign = Gtk.Align.CENTER;
+        vbox.valign = Gtk.Align.CENTER;
+        vbox.hexpand = true;
+        vbox.vexpand = true;
+        vbox.margin_start = 12;
+        vbox.margin_end = 12;
+        vbox.margin_top = 12;
+        vbox.margin_bottom = 12;
 
-        Gtk.Alignment alignment = new Gtk.Alignment(0.5f, 0.5f, 1.0f, 1.0f);
-        alignment.set_padding(12, 12, 12, 12);
-        alignment.add(vbox);
-        
-        add(alignment);
-        
+        add(vbox);
+
         time_started = now_ms();
     }
     
@@ -1782,11 +1776,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         hbox.set_border_width(3);
         hbox.pack_start(image_content, true, false, 0);
         hbox.pack_start(time_content, true, false, 0);
+        hbox.halign = Gtk.Align.CENTER;
+        hbox.valign = Gtk.Align.CENTER;
+        hbox.hexpand = false;
+        hbox.vexpand = false;
 
-        Gtk.Alignment hbox_alignment = new Gtk.Alignment(0.5f, 0.5f, 0, 0);
-        hbox_alignment.add(hbox);
-
-        ((Gtk.Box) get_content_area()).pack_start(hbox_alignment, true, false, 0);
+        ((Gtk.Box) get_content_area()).pack_start(hbox, true, false, 0);
 
         notification = new Gtk.Label("");
         notification.set_line_wrap(true);
@@ -2108,11 +2103,13 @@ public class WelcomeDialog : Gtk.Dialog {
         Gtk.Label primary_text = new Gtk.Label("");
         primary_text.set_markup(
             "<span size=\"large\" weight=\"bold\">%s</span>".printf(_("Welcome to Shotwell!")));
-        primary_text.set_alignment(0, 0.5f);
+        primary_text.xalign = 0.0f;
+        primary_text.yalign = 0.5f;
         secondary_text = new Gtk.Label("");
         secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
             _("To get started, import photos in any of these ways:")));
-        secondary_text.set_alignment(0, 0.5f);
+        secondary_text.xalign = 0.0f;
+        secondary_text.yalign = 0.5f;
         var image = new Gtk.Image.from_icon_name ("shotwell", Gtk.IconSize.DIALOG);
         
         Gtk.Box header_text = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
@@ -2133,7 +2130,8 @@ public class WelcomeDialog : Gtk.Dialog {
             _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf(arrow_glyph),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
-        instructions.set_alignment(0, 0.5f);
+        instructions.xalign = 0.0f;
+        instructions.yalign = 0.5f;
         
         import_action_checkbox_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
         
@@ -2150,7 +2148,8 @@ public class WelcomeDialog : Gtk.Dialog {
         
         instruction_header = new Gtk.Label(
             _("You can also import photos in any of these ways:"));
-        instruction_header.set_alignment(0.0f, 0.5f);
+        instruction_header.xalign = 0.0f;
+        instruction_header.yalign = 0.5f;
         instruction_header.set_margin_top(20);
         
         Gtk.Box content = new Gtk.Box(Gtk.Orientation.VERTICAL, 16);
@@ -2162,19 +2161,21 @@ public class WelcomeDialog : Gtk.Dialog {
         hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don’t show this message again"));
         hide_button.set_active(true);
         content.pack_start(hide_button, false, false, 6);
-        
-        Gtk.Alignment alignment = new Gtk.Alignment(0, 0, 0, 0);
-        alignment.set_padding(12, 0, 12, 12);
-        alignment.add(content);
+        content.halign = Gtk.Align.FILL;
+        content.valign = Gtk.Align.FILL;
+        content.hexpand = false;
+        content.vexpand = false;
+        content.margin_top = 12;
+        content.margin_bottom = 0;
+        content.margin_start = 12;
+        content.margin_end = 12;
 
-        ((Gtk.Box) get_content_area()).pack_start(alignment, false, false, 0);
+        ((Gtk.Box) get_content_area()).pack_start(content, false, false, 0);
 
-        set_has_resize_grip(false);
-        
         ok_button.grab_focus();
-        
+
         install_import_content();
-        
+
         import_meta_host.start();
     }
 
@@ -2315,7 +2316,6 @@ public class PreferencesDialog {
         dialog.set_transient_for(AppWindow.get_instance());
         dialog.delete_event.connect(on_delete);
         dialog.response.connect(on_close);
-        dialog.set_has_resize_grip(false);
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
@@ -2349,9 +2349,7 @@ public class PreferencesDialog {
             pattern_help.activate_link.connect(on_local_pattern_help);
         }
         
-        dir_pattern_combo = new Gtk.ComboBoxText();
-        Gtk.Alignment dir_choser_align = builder.get_object("dir choser") as Gtk.Alignment;
-        dir_choser_align.add(dir_pattern_combo);
+        dir_pattern_combo = builder.get_object("dir choser") as Gtk.ComboBoxText;
         dir_pattern_entry = builder.get_object("dir_pattern_entry") as Gtk.Entry;
         dir_pattern_example = builder.get_object("dynamic example") as Gtk.Label;
         add_to_dir_formats(_("Year%sMonth%sDay").printf(Path.DIR_SEPARATOR_S, Path.DIR_SEPARATOR_S), 

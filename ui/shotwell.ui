@@ -978,11 +978,14 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkAlignment" id="dir choser">
+                      <object class="GtkAlignment" id="dir choser align">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <placeholder/>
+                          <object class="GtkComboBoxText" id="dir choser">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
                         </child>
                       </object>
                       <packing>
