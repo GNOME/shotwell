@@ -759,26 +759,6 @@ public class SearchFilterToolbar : Gtk.Revealer {
             string filename = null;
 
             switch (filter) {
-                case RatingFilter.ONE_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_ONE_OR_BETTER;
-                break;
-
-                case RatingFilter.TWO_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_TWO_OR_BETTER;
-                break;
-                
-                case RatingFilter.THREE_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_THREE_OR_BETTER;
-                break;
-                
-                case RatingFilter.FOUR_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_FOUR_OR_BETTER;
-                break;
-                
-                case RatingFilter.FIVE_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_FIVE;
-                break;
-                
                 case RatingFilter.REJECTED_OR_HIGHER:
                     filename = Resources.ICON_FILTER_REJECTED_OR_BETTER;
                 break;
