@@ -5,13 +5,14 @@
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-11-17 18:15+0000\n"
-"PO-Revision-Date: 2016-11-18 09:14+0100\n"
+"POT-Creation-Date: 2016-11-18 08:18+0000\n"
+"PO-Revision-Date: 2016-11-18 13:32+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -212,7 +213,7 @@ msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
-"Para entrar en el modo a pantalla completa, haga puls dos veces en la foto y "
+"Para entrar en el modo a pantalla completa, pulse dos veces en la foto y "
 "luego pulse el botón <gui>Recortar</gui> en la barra de herramientas."
 
 #. (itstool) path: item/p
@@ -222,6 +223,9 @@ msgid ""
 "portion of the photo within the crop rectangle represents what the photo "
 "will look like when you crop it."
 msgstr ""
+"Unas líneas blancas, que representan el rectángulo de recorte, aparecerán "
+"sobre la foto. La parte más clara de la foto dentro del rectángulo de "
+"recorte representa cómo se verá la foto cuando la recorte."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:25
@@ -231,6 +235,11 @@ msgid ""
 "move and adjust the crop box, you'll see four lines appear inside it, like a "
 "tic-tac-toe grid. These are <em>rule of thirds</em> lines."
 msgstr ""
+"Si coloca el cursor en el centro del recuadro, podrá moverlo. Si arrastra "
+"los bordes del recuadro, puede ajustar su tamaño. Al mover y ajustar la caja "
+"de recorte, verá aparecer cuatro líneas en su interior, como las cuadrículas "
+"para el tres en raya. Estas son las líneas de la <em>regla de los tercios</"
+"em>."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:26
@@ -240,6 +249,10 @@ msgid ""
 "button next to it, the orientation of the constraint will switch (from "
 "landscape to portrait)."
 msgstr ""
+"También puede limitar el recuadro a uno de los tamaños más comunes. Elija un "
+"tamaño de la lista desplegable que se adapte a sus necesidades. Si pulsa el "
+"botón voltear situado junto a esta, la orientación de la restricción "
+"cambiará (de horizontal a vertical)."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:29
@@ -247,6 +260,8 @@ msgid ""
 "When you're happy with your crop outline, apply it by pressing the "
 "<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
+"Cuando esté satisfecho con su recorte, aplíquelo pulsando el botón "
+"<gui>Recortar<gui>. Shotwell mostrará la foto recortada."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:32
@@ -254,6 +269,8 @@ msgid ""
 "If you change your mind, press the <gui>Crop</gui> button again and fine-"
 "tune the crop."
 msgstr ""
+"Si cambia de opinión, pulse el botón <gui>Recortar</gui> de nuevo y ajuste "
+"el recorte."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:33
@@ -261,6 +278,8 @@ msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
+"Si pulsa el botón <gui>Cancelar</gui> en vez del botón <gui>Aplicar</gui>, "
+"Shotwell devolverá a la foto las dimensiones anteriores del recorte."
 
 #. (itstool) path: section/title
 #: C/edit-crop.page:38
@@ -273,6 +292,8 @@ msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
 msgstr ""
+"La <em>regla de los tercios </em> le ayuda a elegir una composición "
+"satisfactoria para una foto."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:40
