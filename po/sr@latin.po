@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
 "l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-08-26 21:27+0000\n"
-"PO-Revision-Date: 2016-09-03 16:51+0200\n"
+"POT-Creation-Date: 2016-11-07 22:02+0000\n"
+"PO-Revision-Date: 2016-11-18 07:31+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: srpski <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -28,7 +28,6 @@ msgid "Shotwell"
 msgstr "Foto-bunar"
 
 #: misc/shotwell.appdata.xml.in:9
-#| msgid "Photo Manager"
 msgid "Popular photo manager"
 msgstr "Popularni upravnik fotografija"
 
@@ -66,7 +65,6 @@ msgid "Photo Manager"
 msgstr "Upravnik fotografija"
 
 #: misc/shotwell.desktop.in.in:6
-#| msgid "any photo"
 msgid "Organize your photos"
 msgstr "Organizujte vaše fotografije"
 
@@ -77,18 +75,16 @@ msgid ""
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
 "rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"album;foto-aparat;foto-aparati;otseci;uredi;poboljšaj;izvezi;galerija;zbirka;s"
-"lika;slike;uvezi;sredi;razvrstaj;fotografija;fotografije;štampaj;objavi;okren"
-"i;deli;oznake;video;fejsbuk;flikr;pikasa;jutub;pivigo;"
+"album;foto-aparat;foto-aparati;otseci;uredi;poboljšaj;izvezi;galerija;zbirka;"
+"slika;slike;uvezi;sredi;razvrstaj;fotografija;fotografije;štampaj;objavi;"
+"okreni;deli;oznake;video;fejsbuk;flikr;pikasa;jutub;pivigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
-#| msgid "Shotwell"
 msgid "shotwell"
 msgstr "foto-bunar"
 
 #: misc/shotwell-viewer.desktop.in.in:4
-#| msgid "Photo Viewer"
 msgid "Shotwell Viewer"
 msgstr "Foto-bunar pregledač fotografija"
 
@@ -152,7 +148,6 @@ msgstr "Adresa Rajce servera."
 #: misc/org.yorba.shotwell.gschema.xml:384
 #: misc/org.yorba.shotwell.gschema.xml:442
 #: misc/org.yorba.shotwell.gschema.xml:498
-#| msgid "User _name"
 msgid "username"
 msgstr "korisnik"
 
@@ -170,7 +165,6 @@ msgstr "korisnikov simbol, ako je zapamćen."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
 #: misc/org.yorba.shotwell.gschema.xml:460
-#| msgid "within category:"
 msgid "last category"
 msgstr "poslednja kategorija"
 
@@ -180,7 +174,6 @@ msgstr "Poslednja izabrana Rajce kategorija."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:64
 #: misc/org.yorba.shotwell.gschema.xml:472
-#| msgid "Photo size:"
 msgid "last photo size"
 msgstr "poslednja veličina fotografije"
 
@@ -193,7 +186,6 @@ msgstr ""
 "je korišćena prilikom objavljivanja na Rajce."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:70
-#| msgid "_Remember"
 msgid "remember"
 msgstr "pamti"
 
@@ -202,7 +194,6 @@ msgid "If true, remember last login."
 msgstr "Ako je izabrano, pamtiće poslednje prijavljivanje."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:76
-#| msgid "_Hide album"
 msgid "hide album"
 msgstr "skriva album"
 
@@ -211,7 +202,6 @@ msgid "If true, hide the newly created Rajce album."
 msgstr "Ako je izabrano, skriva novostvoren album Rajcea."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:82
-#| msgid "Open target _album in browser"
 msgid "open album in web browser"
 msgstr "otvara album u veb pregledniku"
 
@@ -248,7 +238,6 @@ msgstr ""
 "poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:28
-#| msgid "Display extended information for the selection"
 msgid "display extended properties"
 msgstr "prikazuje proširena svojstva"
 
@@ -260,7 +249,6 @@ msgstr ""
 "poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:34
-#| msgid "Display the sidebar"
 msgid "display sidebar"
 msgstr "prikazuje bočnu površ"
 
@@ -269,16 +257,15 @@ msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr "Izabrano ako će bočna površ biti prikazana, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:40
-#| msgid "Display the sidebar"
 msgid "display toolbar"
 msgstr "prikazuje traku alata"
 
 #: misc/org.yorba.shotwell.gschema.xml:41
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
-msgstr "Izabrano ako će donja traka alata biti prikazana, u suprotnom poništeno."
+msgstr ""
+"Izabrano ako će donja traka alata biti prikazana, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:46
-#| msgid "Display the search bar"
 msgid "display search bar"
 msgstr "prikazuje traku pretrage"
 
@@ -288,7 +275,6 @@ msgstr ""
 "Izabrano ako će traka pretrage/filtera biti prikazana, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:52
-#| msgid "Display each photo's tags"
 msgid "display photo titles"
 msgstr "prikazuje naslove fotografija"
 
@@ -301,7 +287,6 @@ msgstr ""
 "zbirke, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:58
-#| msgid "Display each photo's tags"
 msgid "display photo comments"
 msgstr "prikazuje napomene fotografija"
 
@@ -314,7 +299,6 @@ msgstr ""
 "zbirke, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:64
-#| msgid "Edit Event Comment"
 msgid "display event comments"
 msgstr "prikazuje napomene događaja"
 
@@ -327,7 +311,6 @@ msgstr ""
 "događaja, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:70
-#| msgid "Display each photo's tags"
 msgid "display photo tags"
 msgstr "prikazuje oznake fotografija"
 
@@ -340,7 +323,6 @@ msgstr ""
 "zbirke, u suprotnom poništeno."
 
 #: misc/org.yorba.shotwell.gschema.xml:76
-#| msgid "Display each photo's rating"
 msgid "display photo ratings"
 msgstr "prikazuje ocene fotografija"
 
@@ -367,7 +349,6 @@ msgstr ""
 "bolje, 5: Tri ili bolje, 6: Četiri ili bolje, 7: Pet ili bolje."
 
 #: misc/org.yorba.shotwell.gschema.xml:88
-#| msgid "Sort _Descending"
 msgid "sort events ascending"
 msgstr "ređa događaje rastućim redom"
 
@@ -378,7 +359,6 @@ msgstr ""
 "opadajućim."
 
 #: misc/org.yorba.shotwell.gschema.xml:94
-#| msgid "Sort photos in an ascending order"
 msgid "sort library photos ascending"
 msgstr "ređa fotografije biblioteke rastućim redom"
 
@@ -399,7 +379,6 @@ msgstr ""
 "Brojčani kod koji navodi merilo ređanja za fotografije u pregledu biblioteke."
 
 #: misc/org.yorba.shotwell.gschema.xml:106
-#| msgid "Sort photos in an ascending order"
 msgid "sort event photos ascending"
 msgstr "ređa fotografije događaja rastućim redom"
 
@@ -410,7 +389,6 @@ msgstr ""
 "suprotnom opadajućim."
 
 #: misc/org.yorba.shotwell.gschema.xml:112
-#| msgid "Sort photos by title"
 msgid "sort event photos criteria"
 msgstr "merilo ređanja fotografija događaja"
 
@@ -444,7 +422,6 @@ msgstr ""
 "isto vreme."
 
 #: misc/org.yorba.shotwell.gschema.xml:130
-#| msgid "_Modify original photo files"
 msgid "modify original photo files"
 msgstr "menja datoteke izvorne fotografije"
 
@@ -470,7 +447,6 @@ msgstr ""
 "prikazano. Poništeno ako ne treba biti prikazano."
 
 #: misc/org.yorba.shotwell.gschema.xml:142
-#| msgid "Library Location"
 msgid "sidebar position"
 msgstr "položaj bočne površi"
 
@@ -487,7 +463,6 @@ msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr "Srazmera minijature fotografije, u opsegu od 72 do 360."
 
 #: misc/org.yorba.shotwell.gschema.xml:154
-#| msgid "Pin the toolbar open"
 msgid "pin toolbar state"
 msgstr "pribada stanje trake alata"
 
@@ -496,7 +471,6 @@ msgid "Pin toolbar in fullscreen, or not."
 msgstr "Pribada traku alata u punom ekranu, ili ne."
 
 #: misc/org.yorba.shotwell.gschema.xml:160
-#| msgid "_Background:"
 msgid "background color"
 msgstr "boja pozadine"
 
@@ -517,7 +491,6 @@ msgstr ""
 "stranici uvoza."
 
 #: misc/org.yorba.shotwell.gschema.xml:174
-#| msgid "_Delay:"
 msgid "delay"
 msgstr "zastoj"
 
@@ -526,7 +499,6 @@ msgid "Delay (in seconds) between photos in the slideshow."
 msgstr "Zastoj (u sekundama) između fotografija u pokretnom prikazu."
 
 #: misc/org.yorba.shotwell.gschema.xml:180
-#| msgid "Transition d_elay:"
 msgid "transition delay"
 msgstr "zastoj prelaza"
 
@@ -537,7 +509,6 @@ msgstr ""
 "Vreme (u sekundama) trajanja prelaza između fotografija u pokretnom prikazu"
 
 #: misc/org.yorba.shotwell.gschema.xml:186
-#| msgid "_Transition effect:"
 msgid "transition effect id"
 msgstr "id dejstva prelaza"
 
@@ -550,7 +521,6 @@ msgstr ""
 "trajanja pokretnog prikaza"
 
 #: misc/org.yorba.shotwell.gschema.xml:192
-#| msgid "Show t_itle"
 msgid "Show title"
 msgstr "prikazuje naslov"
 
@@ -621,7 +591,6 @@ msgstr ""
 "prozoru programa biblioteke."
 
 #: misc/org.yorba.shotwell.gschema.xml:244
-#| msgid "Import to Library"
 msgid "import directory"
 msgstr "direktorijum uvoza"
 
@@ -630,7 +599,6 @@ msgid "Directory in which imported photo files are placed."
 msgstr "Direktorijum u kome se stavljaju datoteke uvezenih fotografija."
 
 #: misc/org.yorba.shotwell.gschema.xml:250
-#| msgid "_Watch library directory for new files"
 msgid "watch library directory for new files"
 msgstr "prati prispeće novih datoteka u fascikli fototeke"
 
@@ -641,7 +609,6 @@ msgstr ""
 "Ako je izabrano, datoteke dodate u direktorijum biblioteke se odmah uvoze."
 
 #: misc/org.yorba.shotwell.gschema.xml:256
-#| msgid "Writing metadata to files..."
 msgid "write metadata to master files"
 msgstr "upisuje metapodatke u glavne datoteke"
 
@@ -666,7 +633,6 @@ msgstr ""
 "prilikom uvoza datoteka fotografija"
 
 #: misc/org.yorba.shotwell.gschema.xml:268
-#| msgid "_Directory structure:"
 msgid "directory pattern"
 msgstr "šablon direktorijuma"
 
@@ -691,7 +657,6 @@ msgstr ""
 "imenovanje direktorijuma fotografija pri uvozu."
 
 #: misc/org.yorba.shotwell.gschema.xml:280
-#| msgid "RAW Developer"
 msgid "RAW developer default"
 msgstr "osnovni sirovi razvijač"
 
@@ -711,7 +676,8 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:293
 msgid "Most-recently-used crop custom aspect ratio's numerator."
-msgstr "Najčešće skoro korišćen numerator proizvoljnog odnosa srazmere odsecanja."
+msgstr ""
+"Najčešće skoro korišćen numerator proizvoljnog odnosa srazmere odsecanja."
 
 #: misc/org.yorba.shotwell.gschema.xml:294
 msgid ""
@@ -735,7 +701,6 @@ msgstr ""
 "proizvoljnog odsecanja koji je uneo korisnik."
 
 #: misc/org.yorba.shotwell.gschema.xml:306
-#| msgid "E_xternal photo editor:"
 msgid "external photo editor"
 msgstr "spoljni uređivač fotografija"
 
@@ -744,7 +709,6 @@ msgid "External application used to edit photos."
 msgstr "Spoljni program korišćen za uređivanje fotografija."
 
 #: misc/org.yorba.shotwell.gschema.xml:312
-#| msgid "External _RAW editor:"
 msgid "external raw editor"
 msgstr "spoljni sirovi uređivač"
 
@@ -753,7 +717,6 @@ msgid "External application used to edit RAW photos."
 msgstr "Spoljni program korišćen za uređivanje sirovih fotografija."
 
 #: misc/org.yorba.shotwell.gschema.xml:320
-#| msgid "Core Publishing Services"
 msgid "last used publishing service"
 msgstr "poslednja korišćena usluga objavljivanja"
 
@@ -766,12 +729,10 @@ msgstr ""
 "objavljene"
 
 #: misc/org.yorba.shotwell.gschema.xml:326
-#| msgid "Core Publishing Services"
 msgid "default publishing service"
 msgstr "osnovna usluga objavljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:340
-#| msgid "Access _type:"
 msgid "access token"
 msgstr "simbol pristupa"
 
@@ -787,15 +748,14 @@ msgstr "i.d. korisnika"
 
 #: misc/org.yorba.shotwell.gschema.xml:347
 msgid "Facebook user i.d. for the currently logged in user, if any"
-msgstr "i.d. korisnika Fejsbuka, za trenutno prijavljenog korisnika, ako postoji"
+msgstr ""
+"i.d. korisnika Fejsbuka, za trenutno prijavljenog korisnika, ako postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:352
-#| msgid "User _name"
 msgid "user name"
 msgstr "korisnik"
 
 #: misc/org.yorba.shotwell.gschema.xml:353
-#| msgid "You are not currently logged into Yandex.Fotki."
 msgid "The name of the currently logged in Facebook user, if any"
 msgstr "Ime trenutno prijavljenog korisnika Fejsbuka, ako ga ima"
 
@@ -919,7 +879,6 @@ msgid "Piwigo username, if logged in."
 msgstr "Korisničko ime za Pivigo, ako ste prijavljeni."
 
 #: misc/org.yorba.shotwell.gschema.xml:448
-#| msgid "_Password"
 msgid "password"
 msgstr "lozinka"
 
@@ -928,7 +887,6 @@ msgid "Piwigo password, if logged in."
 msgstr "Lozinka za Pivigo, ako ste prijavljeni."
 
 #: misc/org.yorba.shotwell.gschema.xml:454
-#| msgid "_Remember Password"
 msgid "remember password"
 msgstr "zapamti lozinku"
 
@@ -963,7 +921,6 @@ msgid ""
 msgstr "Da li će sa slika otpremljenih na Pivigo biti prvo uklonjeni metapodaci"
 
 #: misc/org.yorba.shotwell.gschema.xml:484
-#| msgid "_If a title is set and comment unset, use title as comment"
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
@@ -991,17 +948,14 @@ msgstr ""
 "pri otpremanju, tako da se te oznake neće pojaviti na udaljenom serveru Piviga."
 
 #: misc/org.yorba.shotwell.gschema.xml:499
-#| msgid "Gallery3 publishing module"
 msgid "Gallery3 username"
 msgstr "Korisničko ime Galerije 3"
 
 #: misc/org.yorba.shotwell.gschema.xml:504
-#| msgid "API _Key:"
 msgid "API key"
 msgstr "API ključ"
 
 #: misc/org.yorba.shotwell.gschema.xml:505
-#| msgid "_Gallery3 URL:"
 msgid "Gallery3 API key"
 msgstr "API ključ Galerije 3"
 
@@ -1010,7 +964,6 @@ msgid "URL"
 msgstr "Adresa"
 
 #: misc/org.yorba.shotwell.gschema.xml:511
-#| msgid "_Gallery3 URL:"
 msgid "Gallery3 site URL"
 msgstr "Adresa sajta Galerije 3"
 
@@ -1051,7 +1004,6 @@ msgstr ""
 "trenutno prijavljenog korisnika, ako postoji."
 
 #: misc/org.yorba.shotwell.gschema.xml:550
-#| msgid "Core Data Import Services"
 msgid "last used import service"
 msgstr "poslednja korišćena usluga uvoza"
 
@@ -1083,7 +1035,6 @@ msgstr ""
 "štampanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:572
-#| msgid "_Contents"
 msgid "content ppi"
 msgstr "ppi sadržaja"
 
@@ -1100,7 +1051,6 @@ msgid "The width of the printed emulsion on the page when printing"
 msgstr "Širina štampanog materijala na stranici prilikom štampanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:584
-#| msgid "Rotate Right"
 msgid "content height"
 msgstr "visina sadržaja"
 
@@ -1109,7 +1059,6 @@ msgid "The height of the printed emulsion on the page when printing"
 msgstr "Visina štampanog materijala na stranici prilikom štampanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:590
-#| msgid "_Contents"
 msgid "content units"
 msgstr "jedinice sadržaja"
 
@@ -1122,7 +1071,6 @@ msgstr ""
 "koristi prilikom štampanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:596
-#| msgid "2 images per page"
 msgid "images per page code"
 msgstr "broj fotografija po stranici"
 
@@ -1146,7 +1094,6 @@ msgstr ""
 "veličina"
 
 #: misc/org.yorba.shotwell.gschema.xml:608
-#| msgid "_Match photo aspect ratio"
 msgid "match aspect ratio"
 msgstr "odgovara odnosu srazmere"
 
@@ -1159,7 +1106,6 @@ msgstr ""
 "srazmere izvorne fotografije"
 
 #: misc/org.yorba.shotwell.gschema.xml:614
-#| msgid "Print image _title"
 msgid "print titles"
 msgstr "štampa naslove"
 
@@ -1182,7 +1128,6 @@ msgstr ""
 "štampanja."
 
 #: misc/org.yorba.shotwell.gschema.xml:632
-#| msgid "Unable to publish"
 msgid "enable facebook publishing plugin"
 msgstr "uključuje priključak objavljivanja na fejsbuk"
 
@@ -1214,7 +1159,6 @@ msgstr ""
 "poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:650
-#| msgid "Unable to publish"
 msgid "enable youtube publishing plugin"
 msgstr "uključuje priključak objavljivanja na jutub"
 
@@ -1225,7 +1169,6 @@ msgstr ""
 "poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:656
-#| msgid "Unable to publish"
 msgid "enable piwigo publishing plugin"
 msgstr "uključuje priključak objavljivanja na pivigo"
 
@@ -1246,7 +1189,6 @@ msgstr ""
 "suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:668
-#| msgid "Unable to publish"
 msgid "enable tumblr publishing plugin"
 msgstr "uključuje priključak objavljivanja na tumblr"
 
@@ -1257,7 +1199,6 @@ msgstr ""
 "poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:674
-#| msgid "Gallery3 publishing module"
 msgid "enable rajce publishing plugin"
 msgstr "uključuje priključak objavljivanja na rajce"
 
@@ -1268,7 +1209,6 @@ msgstr ""
 "poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:680
-#| msgid "Gallery3 publishing module"
 msgid "enable gallery3 publishing plugin"
 msgstr "uključuje priključak objavljivanja na galeriju 3"
 
@@ -1287,7 +1227,6 @@ msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "Izabrano ako je uključen priključak uvoza F-boja, u suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:692
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow crumble transition"
 msgstr "uključuje raspadanje prelaza pokretnog prikaza"
 
@@ -1299,7 +1238,6 @@ msgstr ""
 "suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:698
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow fade transition"
 msgstr "uključuje iščezavanje prelaza pokretnog prikaza"
 
@@ -1312,7 +1250,6 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:704
 #: misc/org.yorba.shotwell.gschema.xml:728
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow slide transition"
 msgstr "uključuje klizanje prelaza pokretnog prikaza"
 
@@ -1324,7 +1261,6 @@ msgstr ""
 "suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:710
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow clock transition"
 msgstr "uključuje sat prelaza pokretnog prikaza"
 
@@ -1337,7 +1273,6 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:716
 #: misc/org.yorba.shotwell.gschema.xml:722
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circle transition"
 msgstr "uključuje krug prelaza pokretnog prikaza"
 
@@ -1363,7 +1298,6 @@ msgstr ""
 "suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:734
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow squares transition"
 msgstr "uključuje kvadrate prelaza pokretnog prikaza"
 
@@ -1375,7 +1309,6 @@ msgstr ""
 "suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:740
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow stripes transition"
 msgstr "uključuje štrafte prelaza pokretnog prikaza"
 
@@ -1387,7 +1320,6 @@ msgstr ""
 "suprotnom poništeno"
 
 #: misc/org.yorba.shotwell.gschema.xml:746
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow chess transition"
 msgstr "uključuje šah prelaza pokretnog prikaza"
 
@@ -1403,7 +1335,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Posetite veb stranicu Foto-bunara"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "Nikola Radovanović <nrad@eunet.rs>\n"
@@ -1820,7 +1752,8 @@ msgstr "1280 x 853 tačkica"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
+#| msgid "'%s' isn't a valid response to an OAuth authentication request"
+msgid "“%s” isn't a valid response to an OAuth authentication request"
 msgstr ""
 "„%s“ nije ispravan odgovor na zahtev potvrđivanja identiteta otvorenog "
 "potvrđivanja"
@@ -2374,7 +2307,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Ključni prelazi pokretnog prikaza"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:76
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -2441,26 +2373,26 @@ msgstr "Pribodite otvorenu traku lata"
 msgid "Leave fullscreen"
 msgstr "Napustite prikaz preko celog ekrana"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "_Sadržaj"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "_Često postaljana pitanja"
 
-#: src/AppWindow.vala:506
+#: src/AppWindow.vala:509
 msgid "_Report a Problem..."
 msgstr "_Prijavi problem..."
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Otkaži"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2473,22 +2405,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
-#| msgid "Visit the Shotwell home page"
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Posetite veb stranicu Foto-bunara"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Ne mogu da prikažem pomoć: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Ne mogu da pristupim bazi podataka grešaka: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Ne mogu da prikažem ČPP: %s"
@@ -2589,7 +2520,6 @@ msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "Izgleda da je foto-aparat prazan. Nema fotografija/snimaka za uvoz"
 
 #: src/camera/ImportPage.vala:846
-#| msgid "No photos/videos found"
 msgid "No new photos/videos found on camera"
 msgstr "Nisam pronašao nove fotografije/snimke na foto-aparatu"
 
@@ -3052,11 +2982,8 @@ msgstr ""
 "Greška je:\n"
 "%s"
 
-#: src/db/DatabaseTable.vala:88
+#: src/db/DatabaseTable.vala:92
 #, c-format
-#| msgid ""
-#| "Unable to write to photo database file:\n"
-#| " %s"
 msgid "Unable to restore photo database %s"
 msgstr "Ne mogu da vratim bazu podataka fotografija „%s“"
 
@@ -3670,7 +3597,6 @@ msgstr "Naziv:"
 
 #. Dialog title
 #: src/Dialogs.vala:1333
-#| msgid "Edit Title"
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Uredite naslov"
@@ -4264,10 +4190,6 @@ msgstr ""
 
 #: src/direct/DirectPhotoPage.vala:248
 #, c-format
-#| msgid ""
-#| "Unable to print photo:\n"
-#| "\n"
-#| "%s"
 msgid "Unable open photo %s. Sorry."
 msgstr "Ne mogu da otvorim fotografiju „%s“. Izvinite."
 
@@ -4565,7 +4487,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Događaj „%s“"
@@ -4729,12 +4651,10 @@ msgid "Display the sidebar"
 msgstr "Prikažite bočnu površ"
 
 #: src/library/LibraryWindow.vala:398
-#| msgid "Pin Toolbar"
 msgid "T_oolbar"
 msgstr "_Traka alata"
 
 #: src/library/LibraryWindow.vala:399
-#| msgid "Display the sidebar"
 msgid "Display the tool bar"
 msgstr "Prikažite traku alata"
 
@@ -5331,9 +5251,9 @@ msgid ""
 "<b>Plugins</b> tab."
 msgstr ""
 "Foto-bunar ne može da objavi izabrane stavke jer nemate uključen saglasan "
-"priključak objavljivanja. Da ispravite ovo, izaberite <b>Uređivanje %s "
-"Postavke</b> i uključite jedan ili više priključaka objavljivanja u jezičku "
-"<b>Priključci</b>."
+"priključak objavljivanja. Da ispravite ovo, izaberite <b>Uređivanje %s Postavke</"
+"b> i uključite jedan ili više priključaka objavljivanja u jezičku <b>Priključci</"
+"b>."
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
@@ -5720,7 +5640,6 @@ msgid "All + _Rejected"
 msgstr "Sve + _odbačene"
 
 #: src/Resources.vala:273
-#| msgid "Show all photos, including rejected"
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Prikažite sve fotografije, uključujući i odbačene"
@@ -5788,7 +5707,6 @@ msgstr "Izmeni _naslov..."
 
 #. Button label
 #: src/Resources.vala:300
-#| msgid "Edit Title"
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Uredi naslov"
@@ -5824,7 +5742,6 @@ msgstr "_Dodaj oznake..."
 
 #. Dialog title
 #: src/Resources.vala:315
-#| msgid "Add Tags"
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Dodajte oznake"
@@ -5883,7 +5800,6 @@ msgstr "Dodaj oznaku „%s“ i „%s“"
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:348
-#| msgid "Add Tags"
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Dodaj oznake"
@@ -6103,7 +6019,6 @@ msgstr "%A, %d. %B %Y."
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:787
-#| msgid "%a %b %d"
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%A, %d. %B"
@@ -6112,7 +6027,6 @@ msgstr "%A, %d. %B"
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:792
-#| msgid "%d, %Y"
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d., %Y."
@@ -6121,7 +6035,6 @@ msgstr "%d., %Y."
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:797
-#| msgid "%a %b %d"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%A, %d. %B"
@@ -6130,7 +6043,6 @@ msgstr "%A, %d. %B"
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:802
-#| msgid "%a %b %d, %Y"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%A, %d. %B %Y."
@@ -6436,7 +6348,7 @@ msgid "untitled"
 msgstr "bezimeno"
 
 #. multiple videos
-#: src/VideoSupport.vala:490
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Izvezite snimke"
 
