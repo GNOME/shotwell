@@ -4,13 +4,14 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-11-16 10:41+0000\n"
-"PO-Revision-Date: 2016-11-17 09:13+0100\n"
+"POT-Creation-Date: 2016-11-17 18:15+0000\n"
+"PO-Revision-Date: 2016-11-18 09:14+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -122,6 +123,11 @@ msgid ""
 "color cast. For example, photos taken outdoors with the white balance set to "
 "\"Tungsten\" may have a blue cast."
 msgstr ""
+"Esto matiza la foto con un color. Es útil para corregir fotos que se han "
+"tomado con el ajuste del balance de blancos erróneo, que normalmente tiene "
+"unas tonalidades de color poco naturales. Por ejemplo, las fotos tomadas en "
+"el exterior con el ajuste del balance de blancos en «Tungsten» pueden tener "
+"una tonalidad azulada."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:36
@@ -134,6 +140,8 @@ msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
+"Cambia el aspecto «cálido» o «frío» de la imagen. Utilice esto, por ejemplo, "
+"para hacer que las escenas frías y tristes parezcan más alegres."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:40
@@ -146,6 +154,8 @@ msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
 msgstr ""
+"Esto hace que las áreas oscuras aparezcan más claras. Si los detalles se han "
+"oscurecido por las sombras, utilice esto para hacerlos más visibles."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:44
@@ -159,6 +169,9 @@ msgid ""
 "darkest black is. Use them to change the contrast of the photo. Photos which "
 "look washed out should particularly benefit from changing these settings."
 msgstr ""
+"Estos controles deslizantes cambian cómo de claro es el blanco más brillante "
+"y cómo de oscuro es el negro más oscuro. Utilícelos para cambiar el "
+"contraste de la foto, sobre todo en las fotos que son pálidas."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -175,7 +188,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
 msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr ""
+msgstr "Mejore la composición de una foto cortando partes de la misma."
 
 #. (itstool) path: page/title
 #: C/edit-crop.page:12
@@ -189,6 +202,9 @@ msgid ""
 "smaller portion of it, use the Crop tool. The crop tool is only available in "
 "full-window or fullscreen mode."
 msgstr ""
+"Para reducir el área de una foto y concentrar la atención del espectador en "
+"una parte más pequeña de ella, utilice la herramienta Recortar. La "
+"herramienta Recortar sólo está disponible en el modo a pantalla completa."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:19
@@ -196,6 +212,8 @@ msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
+"Para entrar en el modo a pantalla completa, haga puls dos veces en la foto y "
+"luego pulse el botón <gui>Recortar</gui> en la barra de herramientas."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:22
