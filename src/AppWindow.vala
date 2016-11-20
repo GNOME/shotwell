@@ -24,6 +24,8 @@ public class FullscreenWindow : PageWindow {
     };
 
     public FullscreenWindow(Page page) {
+        base ();
+
         set_current_page(page);
 
         AppWindow.get_instance().add_action_entries (entries, this);
@@ -92,6 +94,9 @@ public class FullscreenWindow : PageWindow {
 
         // Toolbar steals keyboard focus from page, put it back again
         page.grab_focus ();
+
+        // Do not show menubar in fullscreen
+        set_show_menubar (false);
     }
 
     public void disable_toolbar_dismissal() {
