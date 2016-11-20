@@ -32,9 +32,6 @@ public abstract class EditingToolWindow : Gtk.Window {
     private bool user_moved = false;
 
     public EditingToolWindow(Gtk.Window container) {
-        // needed so that windows will appear properly in fullscreen mode
-        type_hint = Gdk.WindowTypeHint.UTILITY;
-
         set_decorated(false);
         set_transient_for(container);
 
