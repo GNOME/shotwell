@@ -20,6 +20,8 @@ shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	$(UNITY_VALAFLAGS) \
 	$(COMMON_VALAFLAGS_POST)
 
+dist_noinst_DATA += src/org.gnome.Shotwell.gresource.xml
+
 nodist_shotwell_SOURCES = \
 	src/resource.c
 MOSTLYCLEANFILES += src/resource.c
