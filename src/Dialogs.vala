@@ -2369,9 +2369,9 @@ public class PreferencesDialog {
         lowercase = builder.get_object("lowercase") as Gtk.CheckButton;
         lowercase.toggled.connect(on_lowercase_toggled);
         
-        Gtk.Bin plugin_manifest_container = builder.get_object("plugin-manifest-bin") as Gtk.Bin;
-        plugin_manifest_container.add(plugins_mediator.widget);
-        
+        var notebook = builder.get_object("preferences-notebook") as Gtk.Notebook;
+        (notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator.widget);
+
         populate_preference_options();
 
         photo_editor_combo.changed.connect(on_photo_editor_changed);
