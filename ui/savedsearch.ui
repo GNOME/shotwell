@@ -2,7 +2,6 @@
 <interface domain="shotwell">
   <menu id="SearchContextMenu">
     <submenu>
-      <attribute name="label" translatable="yes">SearchContextMenu</attribute>
       <section>
         <item>
           <attribute name="label" translatable="yes">Re_name…</attribute>
