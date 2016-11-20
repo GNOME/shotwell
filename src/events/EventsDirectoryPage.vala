@@ -62,11 +62,11 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // merge tool
-        Gtk.ToolButton merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
+        Gtk.ToolButton merge_button = new Gtk.ToolButton (null, Resources.MERGE_LABEL);
         merge_button.set_action_name("win.Merge");
         merge_button.is_important = true;
         merge_button.set_tooltip_text (Resources.MERGE_TOOLTIP);
-        merge_button.set_label (Resources.MERGE_LABEL);
+        merge_button.set_icon_name ("merge");
         
         toolbar.insert(merge_button, -1);
     }
