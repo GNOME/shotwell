@@ -215,6 +215,11 @@ public abstract class CollectionPage : MediaPage {
     }
     
     protected override void update_actions(int selected_count, int count) {
+        //FIXME: Hack. Otherwise it will disable actions that just have been enabled by photo page
+        if (AppWindow.get_instance().get_current_page() != this) {
+            return;
+        }
+
         base.update_actions(selected_count, count);
 
         bool one_selected = selected_count == 1;
