@@ -36,15 +36,18 @@ private abstract class Properties : Gtk.Grid {
             view.set_editable(false);
             view.buffer.text = is_string_empty(info_text) ? "" : info_text;
             info_scroll.add(view);
-            label.set_alignment(1, 0);
+            label.xalign = 1.0f;
+            label.yalign = 0.0f;
             info = (Gtk.Widget) info_scroll;
         } else {
             Gtk.Label info_label = new Gtk.Label("");
             info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
-            info_label.set_alignment(0, (float) 5e-1);
             info_label.set_ellipsize(Pango.EllipsizeMode.END);
+            info_label.xalign = 0.0f;
+            info_label.yalign = 0.5f;
             info_label.set_selectable(true);
-            label.set_alignment(1, (float) 5e-1);
+            label.xalign = 1.0f;
+            label.yalign = 0.5f;
             info = (Gtk.Widget) info_label;
         }
 
@@ -646,10 +649,15 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         delete_event.connect(hide_on_delete);
 
         properties = new ExtendedProperties();
-        Gtk.Alignment alignment = new Gtk.Alignment(0.5f,0.5f,1,1);
-        alignment.add(properties);
-        alignment.set_border_width(3);
-        ((Gtk.Box) get_content_area()).add(alignment);
+        properties.halign = Gtk.Align.FILL;
+        properties.valign = Gtk.Align.FILL;
+        properties.hexpand = true;
+        properties.vexpand = true;
+        properties.set_margin_top (3);
+        properties.set_margin_bottom (3);
+        properties.set_margin_start (3);
+        properties.set_margin_end (3);
+        ((Gtk.Box) get_content_area()).add(properties);
     }
 
     public override bool button_press_event(Gdk.EventButton event) {
