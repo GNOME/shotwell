@@ -29,7 +29,7 @@ nodist_plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/resource.c
 MOSTLYCLEANFILES += plugins/shotwell-publishing/resource.c
 
-PUBLISHING_RESOURCE_FILE := plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
+PUBLISHING_RESOURCE_FILE := $(abs_top_srcdir)/plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
 
 PUBLISHING_RESOURCE_DEPS = $(shell $(GLIB_COMPILE_RESOURCES) \
 		--sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing \
