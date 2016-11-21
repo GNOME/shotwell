@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-# 
-# 
-# 
+#
+#
+#
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-11-18 08:18+0000\n"
-"PO-Revision-Date: 2016-11-18 13:32+0100\n"
+"POT-Creation-Date: 2016-11-19 01:52+0000\n"
+"PO-Revision-Date: 2016-11-21 \n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -305,6 +305,13 @@ msgid ""
 "Paying attention to the way features flow from one part of the grid to "
 "another can also help."
 msgstr ""
+"Imagine que la escena se divide en una cuadrícula de 3x3 por dos líneas "
+"verticales espaciadas y por dos líneas horizontales igualmente espaciadas. "
+"De acuerdo con la regla, es más probable que obtenga una composición "
+"satisfactoria si alinea las características principales (como el horizonte o "
+"una persona) con una de estas líneas. Prestar atención a la forma en que las "
+"características van de una parte de la cuadrícula a la otra también puede "
+"ser de ayuda."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:41
@@ -312,6 +319,8 @@ msgid ""
 "Cropping a photo so that it conforms to the rule of thirds often results in "
 "a more visually appealing image."
 msgstr ""
+"Recortar una foto siguiendo la regla de los tercios suele dar como resultado "
+"una imagen visualmente más satisfactoria."
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -319,12 +328,16 @@ msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
 msgstr ""
+"Recorte una foto siguiendo las líneas de la «regla de los tercios» para "
+"mejorar la composición."
 
 #. (itstool) path: info/desc
 #: C/edit-enhance.page:7
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
+"Permita que Shotwell mejore el brillo y el contraste de una foto "
+"automáticamente."
 
 #. (itstool) path: page/title
 #: C/edit-enhance.page:14
@@ -339,6 +352,11 @@ msgid ""
 "photo that is correctly exposed. You can also use it as a starting point and "
 "then improve the adjustments by clicking on the <gui>Adjust</gui> button."
 msgstr ""
+"Pulsar en el botón <gui>Mejorar</gui> es una forma rápida de ajustar "
+"automáticamente el brillo y el contraste de la foto. Normalmente le ofrecerá "
+"una foto que esté correctamente expuesta. También puede utilizarlo como "
+"punto de partida y luego mejorar los ajustes pulsando en el botón "
+"<gui>Ajustar</gui>."
 
 #. (itstool) path: info/desc
 #: C/edit-external.page:7
@@ -360,6 +378,12 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
 "menus of installed applications."
 msgstr ""
+"Quizás quiera utilizar un editor externo para trabajar adicionalmente en una "
+"foto. Si están instalados, GIMP y UFRaw son los editores externos "
+"predeterminados para editar una foto o RAW, respectivamente. Si estos "
+"programas no están instalados, tiene que seleccionar sus editores preferidos "
+"eligiendo <guiseq><gui>Editar<gui><gui>Preferencias</gui></guiseq> y "
+"seleccionar los editores del menú desplegable de las aplicaciones instaladas."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:24
@@ -370,6 +394,12 @@ msgid ""
 "a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
 "guiseq> to edit the RAW file directly with the set RAW editor."
 msgstr ""
+"Una vez que los editores se han establecido, seleccione una foto y elija "
+"<guiseq><gui>Fotos</gui> <gui>Abrir con un editor externo</gui></guiseq> "
+"para abrir la foto con un editor externo. De la misma manera, si la foto "
+"original es un archivo RAW, seleccione <guiseq><gui>Fotos</gui><gui>Abrir "
+"con un editor RAW</gui></guiseq> para editar el archivo RAW directamente con "
+"un editor RAW establecido."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:31
@@ -1605,8 +1635,8 @@ msgid ""
 "comma separated list. To remove a tag from one or more photos, first select "
 "that tag in the sidebar, then select the photos you would like to remove, "
 "and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
-"gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
-"\"[name]\" from Photos</gui>."
+"gui></guiseq> or right-click on the photos an select <gui>Remove Tag \"[name]"
+"\" from Photos</gui>."
 msgstr ""
 
 #. (itstool) path: page/p
