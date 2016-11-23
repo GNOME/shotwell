@@ -275,11 +275,6 @@ public class LibraryWindow : AppWindow {
         { "CommonDisplayBasicProperties", on_action_toggle, null, "false", on_display_basic_properties },
         { "CommonDisplayExtendedProperties", on_action_toggle, null, "false", on_display_extended_properties },
 
-#if 0
-        { "CommonDisplaySearchbar", on_display_searchbar, null, is_search_toolbar_visible.to_string () },
-        { "CommonDisplaySidebar", on_display_sidebar, null, is_sidebar_visible ().to_string () },
-        { "CommonDisplayToolbar", on_display_toolbar, null, is_toolbar_visible ().to_string () }
-#endif
         { "CommonDisplaySearchbar", on_action_toggle, null, "false", on_display_searchbar },
         { "CommonDisplaySidebar", on_action_toggle, null, "true", on_display_sidebar },
         { "CommonDisplayToolbar", on_action_toggle, null, "true", on_display_toolbar },
@@ -291,6 +286,10 @@ public class LibraryWindow : AppWindow {
         base.add_actions ();
         this.add_action_entries (common_actions, this);
         this.add_action_entries (search_actions.get_actions (), search_actions);
+
+        lookup_action ("CommonDisplaySearchbar").change_state (is_search_toolbar_visible);
+        lookup_action ("CommonDisplaySidebar").change_state (is_sidebar_visible ());
+        lookup_action ("CommonDisplayToolbar").change_state (is_toolbar_visible ());
     }
 
     protected override void switched_pages(Page? old_page, Page? new_page) {
