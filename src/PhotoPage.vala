@@ -2438,10 +2438,10 @@ public class LibraryPhotoPage : EditingHostPage {
         base.add_actions ();
 
         AppWindow.get_instance ().add_action_entries (entries, this);
-        (get_action ("ViewRatings") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_ratings ());
+        (get_action ("ViewRatings") as GLib.SimpleAction).change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
         var d = Config.Facade.get_instance().get_default_raw_developer();
         var action = get_action ("RawDeveloper") as GLib.SimpleAction;
-        action.set_state (d == RawDeveloper.SHOTWELL ? "'Shotwell'" : "'Camera'");
+        action.change_state (d == RawDeveloper.SHOTWELL ? "'Shotwell'" : "'Camera'");
     }
 
     protected override InjectionGroup[] init_collect_injection_groups() {

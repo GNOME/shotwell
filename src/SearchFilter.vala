@@ -441,7 +441,7 @@ public class SearchFilterActions {
         raw.set_enabled (false);
         videos.set_enabled (false);
         Variant v = "'%d'".printf (RatingFilter.UNRATED_OR_HIGHER);
-        rating.set_state (v);
+        rating.change_state (v);
 
         text.set_text(null);
     }
@@ -1212,7 +1212,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         // Could we find the appropriate action?
         if(action != null) {
             // Yes, hide the search bar.
-            action.set_state(false);
+            action.change_state(false);
         }
     }
     
@@ -1247,7 +1247,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
 
         // Could we find the appropriate action?
         if(action != null) {
-            action.set_state(true);
+            action.change_state(true);
         }
 
         update();

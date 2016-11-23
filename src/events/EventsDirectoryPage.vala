@@ -118,8 +118,8 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         base.add_actions ();
         AppWindow.get_instance ().add_action_entries (entries, this);
 
-        (get_action ("ViewComment") as GLib.SimpleAction).set_state
-            (Config.Facade.get_instance().get_display_event_comments());
+        var display_comments = Config.Facade.get_instance().get_display_event_comments()
+        get_action ("ViewComment").change_state (display_comments);
     }
 
     protected override void init_actions(int selected_count, int count) {

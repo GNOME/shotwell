@@ -877,7 +877,7 @@ public class ImportPage : CheckerboardPage {
 
         AppWindow.get_instance ().add_action_entries (entries, this);
 
-        (get_action ("ViewTitle") as GLib.SimpleAction).set_state (Config.Facade.get_instance ().get_display_photo_titles ());
+        get_action ("ViewTitle").change_state (Config.Facade.get_instance ().get_display_photo_titles ());
     }
     
     public GPhoto.Camera get_camera() {
