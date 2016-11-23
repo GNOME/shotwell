@@ -118,7 +118,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         base.add_actions ();
         AppWindow.get_instance ().add_action_entries (entries, this);
 
-        var display_comments = Config.Facade.get_instance().get_display_event_comments()
+        var display_comments = Config.Facade.get_instance().get_display_event_comments();
         get_action ("ViewComment").change_state (display_comments);
     }
 
