@@ -447,6 +447,7 @@ public abstract class AppWindow : PageWindow {
     }
 
     private const GLib.ActionEntry[] common_actions = {
+        { "CommonAbout", on_about },
         { "CommonQuit", on_quit },
         { "CommonFullscreen", on_fullscreen },
         { "CommonHelpContents", on_help_contents },
