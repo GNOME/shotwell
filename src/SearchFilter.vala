@@ -440,7 +440,7 @@ public class SearchFilterActions {
         photos.set_enabled (false);
         raw.set_enabled (false);
         videos.set_enabled (false);
-        Variant v = "'%d'".printf (RatingFilter.UNRATED_OR_HIGHER);
+        Variant v = "%d".printf (RatingFilter.UNRATED_OR_HIGHER);
         rating.change_state (v);
 
         text.set_text(null);

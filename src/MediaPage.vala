@@ -334,10 +334,10 @@ public abstract class MediaPage : CheckerboardPage {
         get_action ("ViewRatings").change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
         get_action ("ViewTags").change_state (Config.Facade.get_instance ().get_display_photo_tags ());
         get_action ("SortBy").change_state ("%d".printf (sort_by));
-        get_action ("Sort").change_state (sort_order ? "'ascending'" : "'descending'");
+        get_action ("Sort").change_state (sort_order ? "ascending" : "descending");
 
         var d = Config.Facade.get_instance().get_default_raw_developer();
-        get_action ("RawDeveloper").change_state (d == RawDeveloper.SHOTWELL ? "'Shotwell'" : "'Camera'");
+        get_action ("RawDeveloper").change_state (d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -988,7 +988,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     protected void set_menu_sort_order(bool ascending) {
-        sort_ascending_action().change_state (ascending ? "'ascending'" : "'descending'");
+        sort_ascending_action().change_state (ascending ? "ascending" : "descending");
     }
     
     void set_view_comparator(int sort_by, bool ascending) {
