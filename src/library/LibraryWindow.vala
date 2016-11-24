@@ -721,6 +721,10 @@ public class LibraryWindow : AppWindow {
     }
 
     private void set_toolbar_visible (bool visible) {
+        if (get_current_page() == null) {
+            return;
+        }
+
         var toolbar = get_current_page ().get_toolbar ();
         if (toolbar != null) {
             toolbar.set_visible (visible);
