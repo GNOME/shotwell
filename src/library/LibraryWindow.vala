@@ -275,7 +275,7 @@ public class LibraryWindow : AppWindow {
         { "CommonDisplayBasicProperties", on_action_toggle, null, "false", on_display_basic_properties },
         { "CommonDisplayExtendedProperties", on_action_toggle, null, "false", on_display_extended_properties },
 
-        { "CommonDisplaySearchbar", on_action_toggle, null, "false", on_display_searchbar },
+        { "CommonDisplaySearchbar", null, null, "false", on_display_searchbar },
         { "CommonDisplaySidebar", on_action_toggle, null, "true", on_display_sidebar },
         { "CommonDisplayToolbar", on_action_toggle, null, "true", on_display_toolbar },
 
@@ -685,8 +685,7 @@ public class LibraryWindow : AppWindow {
 
         Config.Facade.get_instance().set_display_search_bar(is_shown);
         show_search_bar(is_shown);
-
-        action.set_state (value);
+        action.set_state (is_shown);
     }
     
     public void show_search_bar(bool display) {

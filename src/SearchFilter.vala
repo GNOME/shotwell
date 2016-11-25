@@ -554,8 +554,11 @@ public class SearchFilterActions {
 
     private void on_rating_changed (GLib.SimpleAction action,
                                     GLib.Variant      value) {
-        action.set_state (value);
+        if (value.get_string () == action.get_state().get_string ())
+            return;
+
         var filter = (RatingFilter) int.parse (value.get_string ());
+        action.set_state (value);
         rating_changed(filter);
     }
     
