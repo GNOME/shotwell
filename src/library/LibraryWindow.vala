@@ -137,6 +137,7 @@ public class LibraryWindow : AppWindow {
     private Gtk.Stack stack = new Gtk.Stack();
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Box right_vbox;
+    private Gtk.Revealer toolbar_revealer = new Gtk.Revealer ();
     
     private int current_progress_priority = 0;
     private uint background_progress_pulse_id = 0;
@@ -277,7 +278,7 @@ public class LibraryWindow : AppWindow {
 
         { "CommonDisplaySearchbar", null, null, "false", on_display_searchbar },
         { "CommonDisplaySidebar", on_action_toggle, null, "true", on_display_sidebar },
-        { "CommonDisplayToolbar", on_action_toggle, null, "true", on_display_toolbar },
+        { "CommonDisplayToolbar", null, null, "true", on_display_toolbar },
 
         { "CommonSortEvents", on_action_radio, "s", "'ascending'", on_events_sort_changed }
     };
@@ -726,7 +727,7 @@ public class LibraryWindow : AppWindow {
 
         var toolbar = get_current_page ().get_toolbar ();
         if (toolbar != null) {
-            toolbar.set_visible (visible);
+            this.toolbar_revealer.set_reveal_child (visible);
         }
         Config.Facade.get_instance().set_display_toolbar (visible);
     }
@@ -1172,6 +1173,7 @@ public class LibraryWindow : AppWindow {
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_vbox.pack_start(search_toolbar, false, false, 0);
         right_vbox.pack_start(stack, true, true, 0);
+        right_vbox.add (toolbar_revealer);
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.pack1(sidebar_paned, false, false);
@@ -1212,7 +1214,7 @@ public class LibraryWindow : AppWindow {
 
             Gtk.Toolbar toolbar = current_page.get_toolbar();
             if (toolbar != null)
-                right_vbox.remove(toolbar);
+                toolbar_revealer.remove(toolbar);
 
             current_page.switching_from();
             
@@ -1270,9 +1272,9 @@ public class LibraryWindow : AppWindow {
         
         Gtk.Toolbar toolbar = page.get_toolbar();
         if (toolbar != null) {
-            right_vbox.add(toolbar);
+            toolbar_revealer.add(toolbar);
             toolbar.show_all();
-            toolbar.set_visible (this.is_toolbar_visible ());
+            toolbar_revealer.set_reveal_child (this.is_toolbar_visible ());
         }
 
         page.ready();
