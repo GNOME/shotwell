@@ -881,13 +881,13 @@ public abstract class MediaPage : CheckerboardPage {
     protected abstract void set_config_photos_sort(bool sort_order, int sort_by);
 
     public virtual void on_sort_changed(GLib.SimpleAction action, Variant? value) {
+        action.set_state (value);
+
         int sort_by = get_menu_sort_by();
         bool sort_order = get_menu_sort_order();
         
         set_view_comparator(sort_by, sort_order);
         set_config_photos_sort(sort_order, sort_by);
-
-        action.set_state (value);
     }
     
     public void on_raw_developer_shotwell() {
