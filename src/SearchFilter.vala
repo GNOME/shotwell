@@ -436,7 +436,6 @@ public class SearchFilterActions {
     }
     
     public void reset() {
-        rating.set_enabled (false);
         photos.set_enabled (false);
         raw.set_enabled (false);
         videos.set_enabled (false);
