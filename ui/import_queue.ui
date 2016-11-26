@@ -26,13 +26,6 @@
           <attribute name="action">win.CommonEmptyTrash</attribute>
         </item>
       </section>
-      <section>
-        <item>
-          <attribute name="label" translatable="yes">_Quit</attribute>
-          <attribute name="accel">&lt;Primary&gt;q</attribute>
-          <attribute name="action">win.CommonQuit</attribute>
-        </item>
-      </section>
     </submenu>
     <submenu>
       <attribute name="label" translatable="yes">_View</attribute>
@@ -76,12 +69,6 @@
         <item>
           <attribute name="label" translatable="yes">_Report a Problem…</attribute>
           <attribute name="action">win.CommonHelpReportProblem</attribute>
-        </item>
-      </section>
-      <section>
-        <item>
-          <attribute name="label" translatable="yes">_About</attribute>
-          <attribute name="action">win.CommonAbout</attribute>
         </item>
       </section>
     </submenu>

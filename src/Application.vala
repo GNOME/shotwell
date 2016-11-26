@@ -103,6 +103,10 @@ public class Application {
         get_instance().system_app.set_menubar (model);
     }
 
+    public static void set_appmenu (GLib.MenuModel? model) {
+        get_instance().system_app.set_app_menu (model);
+    }
+
     /**
      * @brief Signal handler for GApplication's 'command-line' signal.
      *
