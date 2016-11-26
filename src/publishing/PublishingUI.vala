@@ -106,8 +106,8 @@ public class SuccessPane : StaticMessagePane {
                                        num_uploaded);
         }
         else if (published_media == Spit.Publishing.Publisher.MediaType.PHOTO) {
-            message_string = ngettext ("The selected video was successfully published.",
-                                       "The selected videos were successfully published.",
+            message_string = ngettext ("The selected photo was successfully published.",
+                                       "The selected photos were successfully published.",
                                        num_uploaded);
         }
         else if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO
