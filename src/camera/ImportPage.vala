@@ -338,14 +338,22 @@ class ImportPreview : MediaSourceItem {
                 uint64 filesize = get_import_source().get_filesize();
                 // unlikely to be a problem, but what the hay
                 if (filesize <= int64.MAX) {
-                    if (LibraryPhoto.global.has_basename_filesize_duplicate(
-                        get_import_source().get_filename(), (int64) filesize)) {
+                    PhotoID duplicated_photo_id = LibraryPhoto.global.get_basename_filesize_duplicate(
+                                get_import_source().get_filename(), (int64) filesize);
+
+                    if (duplicated_photo_id.is_valid()) {
+                        // Check exposure timestamp
+                        LibraryPhoto duplicated_photo = LibraryPhoto.global.fetch(duplicated_photo_id);
+                        time_t photo_exposure_time = photo_import_source.get_exposure_time();
+                        time_t duplicated_photo_exposure_time = duplicated_photo.get_exposure_time();
                         
-                        duplicated_file = DuplicatedFile.create_from_photo_id(
-                            LibraryPhoto.global.get_basename_filesize_duplicate(
-                            get_import_source().get_filename(), (int64) filesize));
-                        
-                        return true;
+                        if (photo_exposure_time == duplicated_photo_exposure_time) {
+                            duplicated_file = DuplicatedFile.create_from_photo_id(
+                                LibraryPhoto.global.get_basename_filesize_duplicate(
+                                get_import_source().get_filename(), (int64) filesize));
+
+                            return true;
+                        }
                     }
                 }
             }
