@@ -13,7 +13,7 @@ m4_define([api_version],[major_version])
 
 AX_IS_RELEASE([micro-version])
 
-m4_define([git_version],[m4_esyscmd(git rev-parse HEAD)])
+m4_define([git_version],[m4_esyscmd(git rev-parse HEAD 2>/dev/null)])
 
 dnl ***********************************************************************
 dnl Initialize autoconf
