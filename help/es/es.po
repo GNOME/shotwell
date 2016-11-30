@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-#
-#
-#
+# 
+# 
+# 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-11-19 01:52+0000\n"
-"PO-Revision-Date: 2016-11-21 \n"
+"POT-Creation-Date: 2016-11-27 16:26+0000\n"
+"PO-Revision-Date: 2016-11-30 09:03+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -409,6 +410,10 @@ msgid ""
 "hold the <key>Shift</key> key in full-window view to show the original photo "
 "rather than the externally-edited one."
 msgstr ""
+"Cuando complete sus ediciones y guarde el archivo, Shotwell detectará los "
+"cambios y actualizará la foto. Cuando se hayan realizado ediciones externas, "
+"mantenga pulsada la tecla <tecla>Mayús</tecla> en la vista de la pantalla "
+"completa para mostrar la foto original en lugar de la editada externamente."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:38
@@ -422,6 +427,10 @@ msgid ""
 "such as a JPEG or PNG, Shotwell cannot automatically determine that the "
 "original RAW and the new image should be paired."
 msgstr ""
+"Si edita de manera externa una foto RAW y guarda el resultado en otra "
+"imagen, como un archivo JPEG o PNG, Shotwell no puede determinar "
+"automáticamente que la RAW original y la nueva imagen deberían estar "
+"emparejadas."
 
 #. (itstool) path: note/p
 #: C/edit-external.page:49
@@ -429,6 +438,8 @@ msgid ""
 "If you want to work within the resulting image within Shotwell, you'll need "
 "to import it yourself."
 msgstr ""
+"Si desea trabajar sobre la imagen resultante con Shotwell, tendrá que "
+"importarla usted mismo."
 
 #. (itstool) path: info/desc
 #: C/edit-nondestructive.page:7
@@ -436,6 +447,8 @@ msgid ""
 "Shotwell is a non-destructive photo editor - it does not modify your "
 "original photos."
 msgstr ""
+"Shotwell es un editor de fotos no destructivo, es decir, no modifica sus "
+"fotos originales."
 
 #. (itstool) path: page/title
 #: C/edit-nondestructive.page:12
@@ -451,6 +464,12 @@ msgid ""
 "database and applies them on the fly as necessary. This means you can undo "
 "any alterations you make to a photograph."
 msgstr ""
+"Shotwell es un editor de fotos no destructivo. No modifica sus fotografías "
+"originales. Es decir, si recorta una foto o ajusta sus colores, el archivo "
+"de la foto del disco permanece intacto. Shotwell almacena sus ediciones en "
+"una base de datos y las aplica sobre la marcha, según sea necesario. Esto "
+"significa que puede deshacer cualquier alteración que realices en una "
+"fotografía."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:16 C/edit-undo.page:18
@@ -459,6 +478,9 @@ msgid ""
 "the <key>Shift</key> key. The original photo will be displayed as long as "
 "you hold the key down."
 msgstr ""
+"Si quiere ver qué aspecto tenía una foto antes de realizar las "
+"modificaciones, pulse la tecla <tecla>Mayús<tecla>. La foto original se "
+"mostrará siempre que mantenga pulsada esta tecla."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:18
@@ -467,6 +489,9 @@ msgid ""
 "to photo files. For more information, see the section <link xref=\"other-"
 "files\">Photo files</link>."
 msgstr ""
+"Tenga en cuenta que Shotwell puede escribir metadatos opcionalmente (como "
+"etiquetas y títulos) en los archivos de fotos. Para obtener más información, "
+"consulte la sección <link xref=\"other-files\">Archivos de fotos</link>."
 
 #. (itstool) path: info/desc
 #: C/edit-redeye.page:7
@@ -487,6 +512,9 @@ msgid ""
 "Red-eye occurs when the camera's flash reflects off the pupil of someone's "
 "eye. To eliminate this in a photo, use the Red-eye tool."
 msgstr ""
+"Los ojos rojos aparecen cuando el flash de la cámara se refleja en las "
+"pupilas de los ojos. Para eliminar esto en una foto, utilice la herramienta "
+"Ojos rojos."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:17
@@ -1635,8 +1663,8 @@ msgid ""
 "comma separated list. To remove a tag from one or more photos, first select "
 "that tag in the sidebar, then select the photos you would like to remove, "
 "and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
-"gui></guiseq> or right-click on the photos an select <gui>Remove Tag \"[name]"
-"\" from Photos</gui>."
+"gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
+"\"[name]\" from Photos</gui>."
 msgstr ""
 
 #. (itstool) path: page/p
