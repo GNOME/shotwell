@@ -436,9 +436,10 @@ public class SearchFilterActions {
     }
     
     public void reset() {
-        photos.set_enabled (false);
-        raw.set_enabled (false);
-        videos.set_enabled (false);
+        flagged.change_state (false);
+        photos.change_state (false);
+        raw.change_state (false);
+        videos.change_state (false);
         Variant v = "%d".printf (RatingFilter.UNRATED_OR_HIGHER);
         rating.change_state (v);
 
