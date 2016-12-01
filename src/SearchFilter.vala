@@ -646,10 +646,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         public void set_icon_name(string icon_name) {
             Gtk.Image? image = null;
             button.set_always_show_image(true);
-            if (icon_name.contains("disabled"))
-                image = new Gtk.Image.from_stock(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
-            else
-                image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
+            image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
             image.set_margin_end(6);
             button.set_image(image);
         }

@@ -676,7 +676,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string SELECT_ALL_MENU = _("Select _All");
     public const string SELECT_ALL_TOOLTIP = _("Select all items");
     
-    private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
@@ -689,35 +688,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string END_MULTIMONTH_DATE_FORMAT_STRING = null;
         
     public void init () {
+        var icon_theme = Gtk.IconTheme.get_default();
         // load application-wide stock icons as IconSets
-        factory = new Gtk.IconFactory();
-
-        File icons_dir = AppDirs.get_resources_dir().get_child("icons");
-        add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
-        add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
-        add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
-        add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
-        add_stock_icon(icons_dir.get_child("straighten.svg"), STRAIGHTEN);
-        add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
-        add_stock_icon(icons_dir.get_child("shotwell-auto-enhance.png"), ENHANCE);
-        add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
-        add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FLAGGED_PAGE), ICON_FLAGGED_PAGE);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_VIDEOS_PAGE), ICON_VIDEOS_PAGE);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_SINGLE_PHOTO), ICON_SINGLE_PHOTO);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_CAMERAS), ICON_CAMERAS);
-        
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_FLAGGED), 
-            ICON_FILTER_FLAGGED_DISABLED, dim_pixbuf);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_PHOTOS), 
-            ICON_FILTER_PHOTOS_DISABLED, dim_pixbuf);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_VIDEOS), 
-            ICON_FILTER_VIDEOS_DISABLED, dim_pixbuf);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_RAW), 
-            ICON_FILTER_RAW_DISABLED, dim_pixbuf);
-        
-        factory.add_default();
-
+        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
         generate_rating_strings();
     }
     
@@ -935,44 +908,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
     }
     
-    private void add_stock_icon(File file, string stock_id) {
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            critical("Unable to load stock icon %s: %s", stock_id, err.message);
-        }
-        
-        Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
-        factory.add(stock_id, icon_set);
-    }
-    
-    public delegate void AddStockIconModify(Gdk.Pixbuf pixbuf);
-    
-    private void add_stock_icon_from_themed_icon(GLib.ThemedIcon gicon, string stock_id, 
-        AddStockIconModify? modify = null) {
-        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
-        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
-
-        Gtk.IconInfo? info = icon_theme.lookup_by_gicon(gicon, 
-            Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
-        if (info == null) {
-            debug("unable to load icon for: %s", stock_id);
-            return;
-        }
-        
-        try {
-            Gdk.Pixbuf pix = info.load_icon();
-            if (modify != null) {
-                modify(pix);
-            }
-            Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pix);
-                factory.add(stock_id, icon_set);
-        } catch (Error err) {
-            debug("%s", err.message);
-        }
-    }
-
     // Get the directory where our help files live.  Returns a string
     // describing the help path we want, or, if we're installed system
     // -wide already, returns null.

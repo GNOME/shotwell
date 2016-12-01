@@ -250,14 +250,6 @@ public void shift_colors(Gdk.Pixbuf pixbuf, int red, int green, int blue, int al
     }
 }
 
-public void dim_pixbuf(Gdk.Pixbuf pixbuf) {
-    PixelTransformer transformer = new PixelTransformer();
-    SaturationTransformation sat = new SaturationTransformation(SaturationTransformation.MIN_PARAMETER);
-    transformer.attach_transformation(sat);
-    transformer.transform_pixbuf(pixbuf);
-    shift_colors(pixbuf, 0, 0, 0, -100);
-}
-
 bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
     return (x >= rect.x && x < (rect.x + rect.width) && y >= rect.y && y <= (rect.y + rect.height));
 }
