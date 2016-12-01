@@ -3,17 +3,13 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-# 
-# 
-# 
-# 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-11-27 16:26+0000\n"
-"PO-Revision-Date: 2016-11-30 09:03+0100\n"
+"POT-Creation-Date: 2016-11-30 08:07+0000\n"
+"PO-Revision-Date: 2016-12-01 08:34+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -527,6 +523,8 @@ msgid ""
 "Drag the circle over the affected pupil, adjust its size with the slider "
 "control, and press <gui>Apply</gui>. The redness will be removed."
 msgstr ""
+"Arrastre el círculo sobre la pupila afectada, ajuste su tamaño con el "
+"control deslizante y presione <gui>Aplicar</gui>. Se eliminará el color rojo."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:23
@@ -534,6 +532,8 @@ msgid ""
 "Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
 "when finished."
 msgstr ""
+"Repita este proceso para todas las pupilas rojas en su foto. Pulse "
+"<gui>Cerrar</gui> cuando haya terminado."
 
 #. (itstool) path: info/desc
 #: C/edit-rotate.page:7
@@ -556,6 +556,9 @@ msgid ""
 "with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
 "make a mirror image of any photo."
 msgstr ""
+"Puede girar las fotos a la izquierda y a la derecha con el botón <gui>Girar</"
+"gui> en la barra de herramientas de la mayoría de las vistas. También puede "
+"hacer una imagen reflejada de cualquier foto."
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:16
@@ -565,6 +568,10 @@ msgid ""
 "commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
 "the following keyboard shortcuts:"
 msgstr ""
+"Para girar hacia la derecha, pulse el botón <gui>Girar</gui>. Para girar "
+"hacia la izquierda, mantenga pulsada la tecla <tecla>Ctrl</key> y luego "
+"pulse el botón. Ambos comandos están disponibles en el menú <gui>Fotos</"
+"gui>. Como alternativa, utilice los siguientes atajos del teclado:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
@@ -590,6 +597,10 @@ msgid ""
 "command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
 "<gui>Flip Vertically</gui> command in the same menu."
 msgstr ""
+"Para crear una imagen reflejada de una foto, utilice el comando <gui>Voltear "
+"horizontalmente</gui> en el menú <gui>Fotos</gui>. Para voltear una imagen "
+"verticalmente, utilice el comando <gui>Voltear verticalmente</gui> en el "
+"mismo menú."
 
 #. (itstool) path: note/p
 #: C/edit-rotate.page:24
@@ -615,6 +626,9 @@ msgid ""
 "The straighten tools allows photos to be leveled and straightened. The "
 "straighten tool is only available in full-window or fullscreen mode."
 msgstr ""
+"Las herramientas de enderezar permiten que las fotos se nivelen y enderecen. "
+"La herramienta de enderezado sólo está disponible en modo de pantalla "
+"completa."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:18
@@ -623,6 +637,9 @@ msgid ""
 "Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
 "key></keyseq>."
 msgstr ""
+"Pulse en <gui>Enderezar</gui>. Aparecerá el control deslizante de "
+"enderezamiento. También puede utilizar el atajo de teclado "
+"<keyseq><key>Ctrl</key><key>A</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:21
