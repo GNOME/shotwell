@@ -288,7 +288,7 @@ public class LibraryWindow : AppWindow {
         this.add_action_entries (common_actions, this);
         this.add_action_entries (search_actions.get_actions (), search_actions);
 
-        lookup_action ("CommonDisplaySearchbar").change_state (is_search_toolbar_visible);
+        lookup_action ("CommonDisplaySearchbar").change_state (Config.Facade.get_instance().get_display_search_bar());
         lookup_action ("CommonDisplaySidebar").change_state (is_sidebar_visible ());
         lookup_action ("CommonDisplayToolbar").change_state (is_toolbar_visible ());
     }
