@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-11-30 08:07+0000\n"
-"PO-Revision-Date: 2016-12-01 08:34+0100\n"
+"POT-Creation-Date: 2016-12-01 07:39+0000\n"
+"PO-Revision-Date: 2016-12-02 08:08+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -690,6 +691,9 @@ msgid ""
 "choose to shift all the photos by the same amount of time or to set all the "
 "photos to the same time."
 msgstr ""
+"Si está cambiando la fecha y la hora de varias fotos a la vez, puede elegir "
+"cambiar todas las fotos en la misma cantidad de horas o establecer todas las "
+"fotos en la misma hora."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:18
@@ -698,6 +702,9 @@ msgid ""
 "choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
+"De manera predeterminada, la fecha y la hora sólo se cambian dentro de "
+"Shotwell. También puede optar por modificar la fecha y la hora en el archivo "
+"original, pero esto no se puede deshacer una vez que salga de Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
@@ -715,6 +722,8 @@ msgid ""
 "Because Shotwell is a non-destructive photo editor, you can undo any "
 "alterations you make to a photograph."
 msgstr ""
+"Gracias a que Shotwell es un editor de fotos no destructivo, puede deshacer "
+"cualquier alteración que realice en una foto."
 
 #. (itstool) path: page/p
 #: C/edit-undo.page:20
@@ -723,6 +732,9 @@ msgid ""
 "<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
 "exception is that time and date adjustments will not be reverted."
 msgstr ""
+"Para deshacer por completo todos los cambios realizados en una foto, haga "
+"clic en <guiseq><gui>Fotos</gui><gui>Volver al original</gui></guiseq>. La "
+"única excepción es que los ajustes de hora y fecha no se revertirán."
 
 #. (itstool) path: info/desc
 #: C/formats.page:7
@@ -730,6 +742,8 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
 "files."
 msgstr ""
+"Shotwell soporta archivos JPEG, PNG, TIFF, BMP y RAW, así como archivos de "
+"vídeo."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
@@ -743,6 +757,9 @@ msgid ""
 "raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
 "format such as GIF."
 msgstr ""
+"Shotwell soporta archivos JPEG, PNG, TIFF, BMP y <link type =\"guide\" xref="
+"\"other-raw\">RAW</link>. Shotwell todavía no soporta otros formatos "
+"gráficos como GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -753,6 +770,12 @@ msgid ""
 "- you can only export edited photos as 8-bit files. All supported formats "
 "can be used for export (JPEG, PNG, TIFF, BMP)."
 msgstr ""
+"El soporte del formato RAW de Shotwell está actualmente limitado. Cuando ve "
+"una foto RAW, en realidad está viendo un JPEG derivado de la foto RAW, no la "
+"imagen RAW en sí. Además, la ruta de edición RAW no es completamente de 16 "
+"bits; sólo puede exportar las fotos editadas como archivos de 8 bits. Todos "
+"los formatos compatibles se pueden utilizar para la exportación (JPEG, PNG, "
+"TIFF, BMP)."
 
 #. (itstool) path: page/p
 #: C/formats.page:18
@@ -760,6 +783,8 @@ msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
 msgstr ""
+"Para obtener más información acerca de las fotos en formato RAW en Shotwell, "
+"consulte la sección <link type=\"guide\" xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
