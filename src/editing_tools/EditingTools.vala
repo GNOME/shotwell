@@ -52,6 +52,7 @@ public abstract class EditingToolWindow : Gtk.Window {
 
         // Needed to prevent the (spurious) 'This event was synthesised outside of GDK'
         // warnings after a keypress.
+        // TODO: Check if really still necessary
         Log.set_handler("Gdk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
     }
 
@@ -89,6 +90,10 @@ public abstract class EditingToolWindow : Gtk.Window {
         (this as Gtk.Widget).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();
+    }
+
+    private void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
+        // do nothing.
     }
 }
 
