@@ -80,7 +80,7 @@ public class DirectPhotoPage : EditingHostPage {
         groups += print_group;
         
         InjectionGroup bg_group = new InjectionGroup("SetBackgroundPlaceholder");
-        bg_group.add_menu_item(_("Set as _Desktop Background"), "SetBackground");
+        bg_group.add_menu_item(_("Set as _Desktop Background"), "SetBackground", "<Primary>b");
         
         groups += bg_group;
         
