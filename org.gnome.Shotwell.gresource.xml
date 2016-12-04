@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Shotwell">
+      <file alias="crop-pivot-reticle.png">icons/crop-pivot-reticle.png</file>
+      <file alias="search_sidebar_context.ui">ui/search_sidebar_context.ui</file>
+      <file alias="tag_sidebar_context.ui">ui/tag_sidebar_context.ui</file>
+      <file alias="sidebar_default_context.ui">ui/sidebar_default_context.ui</file>
+      <file alias="search_bar.ui">ui/search_bar.ui</file>
+      <file alias="appmenu.ui">ui/appmenu.ui</file>
+  </gresource>
+</gresources>
