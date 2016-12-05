@@ -15,15 +15,17 @@ dist_ui_DATA = \
 	savedsearch.ui \
 	search_bar.ui \
 	search_sidebar_context.ui \
-	set_background_dialog.ui \
-	set_background_slideshow_dialog.ui \
 	shotwell.ui \
-	shotwell.xml \
 	sidebar_default_context.ui \
 	tag_sidebar_context.ui \
 	tags.ui \
 	top.ui \
 	trash.ui
+
+dist_noinst_DATA = \
+	appmenu.ui \
+	set_background_dialog.ui \
+	set_background_slideshow_dialog.ui
 
 
 -include $(top_srcdir)/git.mk

@@ -1080,94 +1080,80 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
     }
 }
 
-public abstract class SetBackgroundDialog {
-    protected Gtk.Dialog dialog;
-    protected Gtk.CheckButton desktop_background_button;
-    protected Gtk.CheckButton screensaver_button;
-    protected Gtk.Button ok_button;
-    // the checkbuttons themselves are initialized to these values
-    protected bool desktop = true;
-    protected bool screensaver = false;
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/set_background_dialog.ui")]
+public class SetBackgroundPhotoDialog : Gtk.Dialog {
+    [GtkChild]
+    private Gtk.CheckButton desktop_background_checkbox;
+    [GtkChild]
+    private Gtk.CheckButton screensaver_checkbox;
 
-    public SetBackgroundDialog(Gtk.Builder builder) {
-        
-        dialog = builder.get_object("dialog1") as Gtk.Dialog;
-        dialog.set_type_hint(Gdk.WindowTypeHint.DIALOG);
-        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
-        dialog.set_transient_for(AppWindow.get_instance());
-        dialog.set_default_response(Gtk.ResponseType.OK);
-        
-        desktop_background_button = builder.get_object("desktop_background_checkbox") as Gtk.CheckButton;
-        desktop_background_button.active = desktop;
-        desktop_background_button.toggled.connect(on_checkbox_clicked);
-        screensaver_button = builder.get_object("screensaver_checkbox") as Gtk.CheckButton;
-        screensaver_button.active = screensaver;
-        screensaver_button.toggled.connect(on_checkbox_clicked);
-        
-        ok_button = builder.get_object("ok_button") as Gtk.Button;
-    }
-    
-    protected void on_checkbox_clicked() {
-        desktop = desktop_background_button.active;
-        screensaver = screensaver_button.active;
-
-        if (!desktop && !screensaver) {
-            ok_button.sensitive = false;
-        } else {
-            ok_button.sensitive = true;
-        }
-    }
-    
-    protected bool execute_base() {
-        dialog.show_all();
-        bool result = dialog.run() == Gtk.ResponseType.OK;
-        dialog.destroy();
-        
-        return result;
-    }
-}
-
-public class SetBackgroundPhotoDialog : SetBackgroundDialog {
-    
     public SetBackgroundPhotoDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.ui", this);
-        base(builder);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
+        this.set_transient_for (AppWindow.get_instance());
     }
-    
+
+    [GtkCallback]
+    private void on_checkbox_clicked() {
+        set_response_sensitive (Gtk.ResponseType.OK,
+                                desktop_background_checkbox.active ||
+                                screensaver_checkbox.active);
+    }
+
     public bool execute(out bool desktop_background, out bool screensaver) {
-        bool result = execute_base();
-        
-        desktop_background = this.desktop;
-        screensaver = this.screensaver;
-        
+        this.show_all();
+        var result = this.run() == Gtk.ResponseType.OK;
+        this.hide ();
+
+        desktop_background = desktop_background_checkbox.active;
+        screensaver = screensaver_checkbox.active;
+
+        this.destroy();
         return result;
     }
 }
 
-public class SetBackgroundSlideshowDialog : SetBackgroundDialog {
-    private Gtk.Label delay_value_label;
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/set_background_slideshow_dialog.ui")]
+public class SetBackgroundSlideshowDialog : Gtk.Dialog {
+    [GtkChild]
+    private Gtk.CheckButton desktop_background_checkbox;
+    [GtkChild]
+    private Gtk.CheckButton screensaver_checkbox;
+    [GtkChild]
     private Gtk.Scale delay_scale;
+    [GtkChild]
+    private Gtk.Label delay_value_label;
+
     private int delay_value = 0;
-    
+
     public SetBackgroundSlideshowDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_slideshow_dialog.ui", this);
-        base(builder);
-        
-        delay_value_label = builder.get_object("delay_value_label") as Gtk.Label;
-        
-        delay_scale = builder.get_object("delay_scale") as Gtk.Scale;
-        delay_scale.value_changed.connect(on_delay_scale_value_changed);
-        delay_scale.adjustment.value = 50;
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
+        this.set_transient_for (AppWindow.get_instance());
     }
-    
+
+    public override void constructed () {
+        on_delay_scale_value_changed ();
+    }
+
+    [GtkCallback]
+    private void on_checkbox_clicked() {
+        set_response_sensitive (Gtk.ResponseType.OK,
+                                desktop_background_checkbox.active ||
+                                screensaver_checkbox.active);
+    }
+
+    [GtkCallback]
     private void on_delay_scale_value_changed() {
         double value = delay_scale.adjustment.value;
-        
+
         // f(x)=x^5 allows to have fine-grained values (seconds) to the left
         // and very coarse-grained values (hours) to the right of the slider.
         // We limit maximum value to 1 day and minimum to 5 seconds.
         delay_value = (int) (Math.pow(value, 5) / Math.pow(90, 5) * 60 * 60 * 24 + 5);
-        
+
         // convert to text and remove fractions from values > 1 minute
         string text;
         if (delay_value < 60) {
@@ -1184,20 +1170,24 @@ public class SetBackgroundSlideshowDialog : SetBackgroundDialog {
             text = _("1 day");
             delay_value = 60 * 60 * 24;
         }
-        
+
         delay_value_label.label = text;
     }
-    
+
     public bool execute(out int delay_value, out bool desktop_background, out bool screensaver) {
-        bool result = execute_base();
-        
+        this.show_all();
+        var result = this.run() == Gtk.ResponseType.OK;
+        this.hide ();
+
         delay_value = this.delay_value;
-        desktop_background = this.desktop;
-        screensaver = this.screensaver;
-        
+        desktop_background = desktop_background_checkbox.active;
+        screensaver = screensaver_checkbox.active;
+
+        this.destroy();
         return result;
     }
 }
+
 
 public class TextEntryDialog : Gtk.Dialog {
     public delegate bool OnModifyValidateType(string text);

@@ -17,6 +17,7 @@ shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--pkg libgphoto2 --pkg posix --pkg libraw --pkg gexiv2 \
 	--pkg libexif --pkg gudev-1.0 --pkg gstreamer-1.0 \
 	--pkg gstreamer-pbutils-1.0 --pkg misc \
+	--gresources $(abs_top_srcdir)/org.gnome.Shotwell.gresource.xml \
 	$(UNITY_VALAFLAGS) \
 	$(COMMON_VALAFLAGS_POST)
 
