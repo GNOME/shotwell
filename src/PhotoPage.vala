@@ -2569,18 +2569,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void update_flag_action() {
-        if (has_photo()) {
-            var action = get_action("Flag") as GLib.SimpleAction;
-            assert(action != null);
-            
-//            bool is_flagged = ((LibraryPhoto) get_photo()).is_flagged();
-            
-            debug ("Setting label of action flagged");
-//            action.label = is_flagged ? Resources.UNFLAG_MENU : Resources.FLAG_MENU;
-            action.set_enabled (true);
-        } else {
-            set_action_sensitive("Flag", false);
-        }
+        set_action_sensitive ("Flag", has_photo());
     }
     
     // Displays a photo from a specific CollectionPage.  When the user exits this view,

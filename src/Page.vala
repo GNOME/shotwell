@@ -40,8 +40,7 @@ public class InjectionGroup {
         return elements;
     }
 
-    public void add_menu_item(string name, string? action = null, string?
-            accellerator = null) {
+    public void add_menu_item(string name, string? action = null, string? accellerator = null) {
         elements.add(new Element(name, action, accellerator, Element.ItemType.MENUITEM));
     }
 
@@ -1174,17 +1173,15 @@ public abstract class Page : Gtk.ScrolledWindow {
                 for (var k = 0; k < sub_items; k++) {
                     var it = subsection.iterate_item_attributes (k);
                     while (it.next ()) {
-                        if (it.get_name () == "id") {
-                            if (it.get_value ().get_string () == id) {
-                                var md = subsection as GLib.Menu;
-                                var m = new GLib.MenuItem.from_model
-                                    (subsection, k);
-                                m.set_label (new_label);
-                                md.remove (k);
-                                md.insert_item (k, m);
+                        if ((it.get_name() == "id" && it.get_value ().get_string () == id) ||
+                            (it.get_name() == "action" && it.get_value().get_string().has_suffix("." + id))) {
+                            var md = subsection as GLib.Menu;
+                            var m = new GLib.MenuItem.from_model (subsection, k);
+                            m.set_label (new_label);
+                            md.remove (k);
+                            md.insert_item (k, m);
 
-                                return;
-                            }
+                            return;
                         }
                     }
                 }
