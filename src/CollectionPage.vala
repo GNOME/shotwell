@@ -75,7 +75,7 @@ public abstract class CollectionPage : MediaPage {
         group.add_separator();
         group.add_menu_item(_("_Publish"), "Publish", "<Primary><Shift>p");
         group.add_menu_item(_("Send _To…"), "SendTo");
-        group.add_menu_item(_("Set as _Desktop Background"), "SetBackground");
+        group.add_menu_item(_("Set as _Desktop Background"), "SetBackground", "<Primary>b");
         
         return group;
     }
