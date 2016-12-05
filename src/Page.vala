@@ -207,6 +207,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool menubar_injected = false;
     public GLib.MenuModel get_menubar() {
         var model = builder.get_object ("MenuBar") as GLib.Menu;
+        if (model == null) {
+            return new GLib.Menu();
+        }
 
         if (!menubar_injected) {
             // Collect injected UI elements and add them to the UI manager
@@ -1147,46 +1150,8 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     protected void update_menu_item_label (string id,
-                                           string new_label) {
-        var bar = this.builder.get_object ("MenuBar") as GLib.Menu;
-
-        if (bar == null) {
-            return;
-        }
-
-        var items = bar.get_n_items ();
-        for (var i = 0; i< items; i++) {
-            var model = bar.get_item_link (i, GLib.Menu.LINK_SUBMENU);
-            if (bar == null) {
-                continue;
-            }
-
-            var model_items = model.get_n_items ();
-            for (var j = 0; j < model_items; j++) {
-                var subsection = model.get_item_link (j, GLib.Menu.LINK_SECTION);
-
-                if (subsection == null)
-                    continue;
-
-                // Recurse into submenus
-                var sub_items = subsection.get_n_items ();
-                for (var k = 0; k < sub_items; k++) {
-                    var it = subsection.iterate_item_attributes (k);
-                    while (it.next ()) {
-                        if ((it.get_name() == "id" && it.get_value ().get_string () == id) ||
-                            (it.get_name() == "action" && it.get_value().get_string().has_suffix("." + id))) {
-                            var md = subsection as GLib.Menu;
-                            var m = new GLib.MenuItem.from_model (subsection, k);
-                            m.set_label (new_label);
-                            md.remove (k);
-                            md.insert_item (k, m);
-
-                            return;
-                        }
-                    }
-                }
-            }
-        }
+                                         string new_label) {
+        AppWindow.get_instance().update_menu_item_label (id, new_label);
     }
 
     protected GLib.MenuModel? find_extension_point (GLib.MenuModel model,

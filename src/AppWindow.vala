@@ -783,6 +783,51 @@ public abstract class AppWindow : PageWindow {
         if (page != null)
             update_common_actions(page, page.get_view().get_selected_count(), page.get_view().get_count());
     }
+
+    public void update_menu_item_label (string id,
+                                         string new_label) {
+        var bar = this.get_current_page().get_menubar() as GLib.Menu;
+
+        if (bar == null) {
+            return;
+        }
+
+        var items = bar.get_n_items ();
+        for (var i = 0; i< items; i++) {
+            var model = bar.get_item_link (i, GLib.Menu.LINK_SUBMENU);
+            if (bar == null) {
+                continue;
+            }
+
+            var model_items = model.get_n_items ();
+            for (var j = 0; j < model_items; j++) {
+                var subsection = model.get_item_link (j, GLib.Menu.LINK_SECTION);
+
+                if (subsection == null)
+                    continue;
+
+                // Recurse into submenus
+                var sub_items = subsection.get_n_items ();
+                for (var k = 0; k < sub_items; k++) {
+                    var it = subsection.iterate_item_attributes (k);
+                    while (it.next ()) {
+                        if ((it.get_name() == "id" && it.get_value ().get_string () == id) ||
+                            (it.get_name() == "action" && it.get_value().get_string().has_suffix("." + id))) {
+                            var md = subsection as GLib.Menu;
+                            var m = new GLib.MenuItem.from_model (subsection, k);
+                            m.set_label (new_label);
+                            md.remove (k);
+                            md.insert_item (k, m);
+
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     
     public static CommandManager get_command_manager() {
         return command_manager;
@@ -795,21 +840,21 @@ public abstract class AppWindow : PageWindow {
     
     private void decorate_command_manager_action(string name, string prefix,
         string default_explanation, CommandDescription? desc) {
-#if 0
-        Gtk.Action? action = get_common_action(name);
-        if (action == null)
+        var action = get_common_action(name) as GLib.SimpleAction;
+        if (action == null) {
             return;
-        
-        if (desc != null) {
-            action.label = "%s %s".printf(prefix, desc.get_name());
-            action.tooltip = desc.get_explanation();
-            action.sensitive = true;
-        } else {
-            action.label = prefix;
-            action.tooltip = default_explanation;
-            action.sensitive = false;
         }
-#endif
+
+        string label = prefix;
+
+        if (desc != null) {
+            label += " " + desc.get_name();
+            action.set_enabled(true);
+        } else {
+            label = prefix;
+            action.set_enabled(false);
+        }
+        this.update_menu_item_label(name, label);
     }
     
     public void decorate_undo_action() {
