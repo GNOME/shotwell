@@ -4,13 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
 # 
+# 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-12-01 07:39+0000\n"
-"PO-Revision-Date: 2016-12-02 08:08+0100\n"
+"POT-Creation-Date: 2016-12-05 22:43+0000\n"
+"PO-Revision-Date: 2016-12-07 09:25+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -435,7 +437,7 @@ msgid ""
 "If you want to work within the resulting image within Shotwell, you'll need "
 "to import it yourself."
 msgstr ""
-"Si desea trabajar sobre la imagen resultante con Shotwell, tendrá que "
+"Si quiere trabajar sobre la imagen resultante con Shotwell, tendrá que "
 "importarla usted mismo."
 
 #. (itstool) path: info/desc
@@ -793,6 +795,9 @@ msgid ""
 "media library on the system where Shotwell is running. This typically "
 "includes the following formats among others:"
 msgstr ""
+"Shotwell también soporta archivos de vídeo en cualquier formato soportado "
+"por la biblioteca multimedia de GStreamer en el sistema donde Shotwell está "
+"funcionando. Esto normalmente incluye los siguientes formatos, entre otros:"
 
 #. (itstool) path: item/p
 #: C/formats.page:25
@@ -806,6 +811,9 @@ msgid ""
 "systems may not include all codecs listed here due to legal or licensing "
 "restrictions.</em>"
 msgstr ""
+"Códecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Tenga en cuenta que "
+"algunos sistemas operativos pueden no incluir todos los códecs que se "
+"enumeran aquí debido a restricciones legales o de licencia.</em>"
 
 #. (itstool) path: page/p
 #: C/formats.page:30
@@ -816,6 +824,11 @@ msgid ""
 "flagging, rating, tagging, and publishing work both for photos and for "
 "videos."
 msgstr ""
+"Shotwell soporta fotos y vídeos, pero por simplicidad, esta documentación "
+"usa sólo el término «fotos» en la mayoría de ocasiones. Sin embargo, muchas "
+"operaciones en Shotwell se aplican tanto a fotos como a vídeos. En "
+"particular, los eventos, los marcados, las clasificaciones, los etiquetados "
+"y los trabajos publicados funcionan tanto para fotos como para vídeos."
 
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
@@ -857,6 +870,10 @@ msgid ""
 "hold down the <key>Ctrl</key> key and click to select individual photos. You "
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
+"Si quiere, puede elegir un conjunto de fotos específicas para importar. Para "
+"ello, mantenga presionada la tecla <tecla>Ctrl</key> y pulse para "
+"seleccionar las fotos individuales. Puede mantener pulsada la tecla "
+"<tecla>Mayús</tecla> y pulsar para seleccionar varias fotos también."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:28
@@ -864,6 +881,8 @@ msgid ""
 "Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
 "will be copied from the camera and saved on your computer."
 msgstr ""
+"Pulse <gui>Importar seleccionadas</gui> o <gui> Importar todo</gui>. Las "
+"fotos se copiarán de la cámara y se guardarán en el ordenador."
 
 #. (itstool) path: page/p
 #: C/import-camera.page:32
@@ -872,6 +891,10 @@ msgid ""
 "(in the sidebar) to see all photos that were imported. The Events list (also "
 "in the sidebar) will also show the new photos, organized by date."
 msgstr ""
+"Una vez finalizada la importación, puede abrir la vista <gui>Última "
+"importación</gui> (en la barra lateral) para ver todas las fotos que se "
+"importaron. La lista de Eventos (también en la barra lateral) también "
+"mostrará las nuevas fotos, organizadas por fecha."
 
 #. (itstool) path: info/desc
 #: C/import-file.page:7
@@ -898,6 +921,9 @@ msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 "gui></guiseq> and select the folder containing the photos you want to import."
 msgstr ""
+"Alternativamente, pulse <guiseq><gui>Archivo</gui><gui>Importar desde la "
+"carpeta...</gui></guiseq> y seleccione la carpeta que contiene las fotos que "
+"quiere importar."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -906,6 +932,10 @@ msgid ""
 "folder (usually this is the <file>Pictures</file> folder in your home "
 "directory) or to import them in place without copying the files."
 msgstr ""
+"Shotwell le preguntará si quiere copiar los archivos de fotos en su carpeta "
+"de la biblioteca (la carpeta de la biblioteca está normalmente en la carpeta "
+"<file>Imágenes</file> en su carpeta local) o importarlos en su lugar sin "
+"copiar los archivos."
 
 #. (itstool) path: page/p
 #: C/import-file.page:20
@@ -915,6 +945,10 @@ msgid ""
 "you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
 "dragging photos in, Shotwell will import the photos without copying them."
 msgstr ""
+"Si mantiene pulsada la tecla <key>Ctrl</key> mientras arrastra las fotos, "
+"Shotwell copiará las fotos en la carpeta de la biblioteca sin preguntar. Del "
+"mismo modo, si mantiene presionadas las teclas <keyseq><key>Ctrl</"
+"key><key>Shift</key></keyseq>, Shotwell importará las fotos sin copiarlas."
 
 #. (itstool) path: page/p
 #: C/import-file.page:22
@@ -923,6 +957,10 @@ msgid ""
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
+"Una vez finalizada la importación, puede seleccionar <gui>Última "
+"importación</gui> en la barra lateral para ver todas las fotos importadas "
+"correctamente. La lista de Eventos también mostrará nuevas entradas para las "
+"fechas correspondientes a las fotos importadas."
 
 #. (itstool) path: info/desc
 #: C/import-f-spot.page:7
@@ -956,6 +994,9 @@ msgid ""
 "importing from another F-Spot database, select a directory and file from the "
 "chooser dialog box."
 msgstr ""
+"Ahora elija la biblioteca predeterminada F-Spot u otra base de datos F-Spot. "
+"Si quiere importar desde otra base de datos F-Spot, seleccione una carpeta y "
+"un archivo en el cuadro de diálogo del selector."
 
 #. (itstool) path: page/p
 #: C/import-f-spot.page:20
@@ -966,6 +1007,11 @@ msgid ""
 "will also show new entries for the dates corresponding to the imported "
 "photos."
 msgstr ""
+"Shotwell importará sus fotos, junto con sus etiquetas y otra información. "
+"Una vez finalizada la importación, puede seleccionar <gui>Última "
+"importación</gui> en la barra lateral para ver todas las fotos importadas "
+"correctamente. La lista de Eventos también mostrará nuevas entradas para las "
+"fechas correspondientes a las fotos importadas."
 
 #. (itstool) path: info/desc
 #: C/import-memorycard.page:7
@@ -1005,6 +1051,10 @@ msgid ""
 "Folder...</gui></guiseq>, the memory card should be visible as a folder in "
 "the side bar of the file selection window."
 msgstr ""
+"Siga las instrucciones para <link xref=\"import-file\">importar fotos desde "
+"el disco duro</link>. Si pulsa en <guiseq><gui>Archivo</gui><gui>Importar "
+"desde la carpeta...</gui></guiseq>, la tarjeta de memoria será visible como "
+"una carpeta en la barra lateral de la ventana de selección de archivos."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:28
@@ -1024,6 +1074,10 @@ msgid ""
 "\"import-camera\">connecting your camera directly to the computer</link>, "
 "though."
 msgstr ""
+"Si la tarjeta no se detecta automáticamente, es posible que su lector de "
+"tarjetas no se haya reconocido. Intente desenchufarlo y vuelva a enchufarlo. "
+"Sin embargo, si eso no funciona, podrá importar fotos mediante <link xref="
+"\"import-camera\">conectar su cámara directamente al ordenador</link>."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -1136,6 +1190,9 @@ msgid ""
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
+"Un evento es un grupo de fotos que fueron hechas aproximadamente al mismo "
+"tiempo. Cuando importa fotos, Shotwell comprueba cuándo se hizo cada foto y "
+"las agrupa por eventos."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:16
