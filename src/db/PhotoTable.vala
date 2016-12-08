@@ -920,14 +920,15 @@ public class PhotoTable : DatabaseTable {
                 sql += " OR ((";
             first = false;
             
-            if (thumbnail_md5 != null)
-                sql += " thumbnail_md5=?";
-            
             if (md5 != null) {
-                if (thumbnail_md5 == null)
-                    sql += " md5=?";
+                sql += " md5=?";
+
+            }
+            if (thumbnail_md5 != null) {
+                if (md5 == null)
+                    sql += " thumbnail_md5=?";
                 else
-                    sql += " OR md5=?";
+                    sql += " OR (md5 IS NULL AND thumbnail_md5=?)";
             }
             
             sql += ")";
