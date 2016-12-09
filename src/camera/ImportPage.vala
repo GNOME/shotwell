@@ -758,8 +758,8 @@ public class ImportPage : CheckerboardPage {
         LibraryPhoto.global.contents_altered.connect(on_media_added_removed);
         Video.global.contents_altered.connect(on_media_added_removed);
         
-        init_item_context_menu("/ImportContextMenu");
-        init_page_context_menu("/ImportContextMenu");
+        init_item_context_menu("ImportContextMenu");
+        init_page_context_menu("ImportContextMenu");
     }
     
     ~ImportPage() {
