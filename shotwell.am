@@ -27,11 +27,13 @@ nodist_shotwell_SOURCES = \
 	resource.c
 MOSTLYCLEANFILES += resource.c
 
-shotwell_resource_deps = $(shell $(GLIB_COMPILE_RESOURCES) \
-		--generate-dependencies $(abs_top_srcdir)/org.gnome.Shotwell.gresource.xml)
+shotwell_resource_deps := $(shell $(GLIB_COMPILE_RESOURCES) \
+	--sourcedir=$(abs_top_srcdir) \
+	--generate-dependencies $(abs_top_srcdir)/org.gnome.Shotwell.gresource.xml)
 
 resource.c: org.gnome.Shotwell.gresource.xml $(shotwell_resource_deps)
 	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ \
+		--sourcedir=$(abs_top_srcdir) \
 		--generate $<
 
 shotwell_SOURCES = \
