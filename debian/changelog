@@ -1,3 +1,28 @@
+shotwell (0.25.2-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Fix missing About action
+  * Fix setting of initial action state
+  * Fix missing initialzation of several states
+  * Fix sort order not working
+  * Fix a critical on startup
+  * Fix initial sort order
+  * Fix hiding of search toolbar
+  * Fix rating filter menu initially being disabled
+  * Use Gtk.Revealer for bottom toolbar
+  * Fix a copy and paste error in the publishing result
+  * Use Application menu
+  * Fix debian scripts
+  * Fix filter actions not being active
+  * Fix initial search bar state not being persisted
+  * Remove deprecated Gtk.IconFactory
+  * Add missing keyboard shortcut for setting the background
+  * Move some dialogs to GtkTemplate, preparing for issues with valac master
+  * Fix context-sensitive label of background menu
+  * Fix context-sensitive label of Undo and Redo menu
+  * Fix context menu on import page
+
+ -- Jens Georg <mail@jensge.org>  Mon, 12 Dec 2016 18:18:45 +0100
+
 shotwell (0.25.1-0~jensge1~xenial1) xenial; urgency=medium
 
   * Remove deprecated libsoup API

@@ -1,3 +1,50 @@
+Shotwell 0.25.2 - 12 Dec 2016
+  * Fix missing About action
+  * Fix setting of initial action state
+  * Fix missing initialzation of several states
+  * Fix sort order not working
+  * Fix a critical on startup
+  * Fix initial sort order
+  * Fix hiding of search toolbar
+  * Fix rating filter menu initially being disabled
+  * Use Gtk.Revealer for bottom toolbar
+  * Fix a copy and paste error in the publishing result
+  * Use Application menu
+  * Do not make errors in git version check cause false identifiaction of git
+    versions
+  * Fix debian scripts
+  * Fix filter actions not being active
+  * Fix initial search bar state not being persisted
+  * Remove deprecated Gtk.IconFactory
+  * Add missing keyboard shortcut for setting the background
+  * Move some dialogs to GtkTemplate, preparing for issues with valac master
+  * Fix context-sensitive label of background menu
+  * Fix context-sensitive label of Undo and Redo menu
+  * Fix context menu on import page
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719279
+ - https://bugzilla.gnome.org/show_bug.cgi?id=774901
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Marina Prado <mapraro93@hotmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - gogo <trebelnik2@gmail.com>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - da, courtesy of Alan Mortensen
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - hr, courtesy of gogo
+ - hu, courtesy of Gabor Kelemen
+ - pl, courtesy of Piotr Drąg
+
 Shotwell 0.25.1 - 21 Nov 2016
   * Remove deprecated libsoup API
   * Remove extra box around WebKit authenticator view
