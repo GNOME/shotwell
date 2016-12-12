@@ -6,13 +6,14 @@
 # 
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-12-05 22:43+0000\n"
-"PO-Revision-Date: 2016-12-07 09:25+0100\n"
+"POT-Creation-Date: 2016-12-08 19:26+0000\n"
+"PO-Revision-Date: 2016-12-12 16:08+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1190,7 +1191,7 @@ msgid ""
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
-"Un evento es un grupo de fotos que fueron hechas aproximadamente al mismo "
+"Un evento es un grupo de fotos que se han hecho aproximadamente al mismo "
 "tiempo. Cuando importa fotos, Shotwell comprueba cuándo se hizo cada foto y "
 "las agrupa por eventos."
 
@@ -1202,6 +1203,10 @@ msgid ""
 "be displayed in the main window. Double-click an event to see all the photos "
 "that were taken around that time."
 msgstr ""
+"Elija <gui>Eventos</gui> en la barra lateral para ver sus fotos organizadas "
+"por fecha. Si selecciona un mes o un año en la barra lateral, se mostrará "
+"una lista de eventos en la ventana principal. Pulse dos veces en un evento "
+"para ver todas las fotos tomadas en ese momento."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:18
@@ -1211,6 +1216,11 @@ msgid ""
 "the <gui>No Event</gui> view accessible from the sidebar. You can still move "
 "the photo to any event you like as described below."
 msgstr ""
+"Si una foto no tiene información insertada de la fecha o la hora, entonces "
+"Shotwell no puede colocarla automáticamente en ningún evento. En este caso, "
+"la foto aparecerá en la vista <gui>No hay eventos</gui> a la que se accede "
+"desde la barra lateral. Todavía puede mover la foto a cualquier evento que "
+"quiera como se describe a continuación."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:25
@@ -1225,6 +1235,11 @@ msgid ""
 "and enter a new name. Another way of renaming an event is to double-click "
 "its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
+"Para dar un nombre a un evento en lugar de referirse a él por su fecha, "
+"seleccione el evento, pulse en <guiseq><gui>Eventos</gui><gui>Renombrar "
+"evento...</gui></guiseq> e introduzca un nuevo nombre. Otra forma de cambiar "
+"el nombre de un evento es pulsar dos veces en su nombre en la barra lateral; "
+"Escriba un nuevo nombre y luego pulse <key>Intro</key>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
@@ -1238,6 +1253,9 @@ msgid ""
 "move photos between events. To do this, drag any photo to the sidebar and "
 "drop it on an event."
 msgstr ""
+"Aunque las fotos se agrupan inicialmente por eventos según su fecha, puede "
+"mover fotos entre eventos. Para ello, arrastre cualquier foto a la barra "
+"lateral y suéltela en un evento."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
@@ -1261,6 +1279,10 @@ msgid ""
 "merge in the main window area. Finally, click <guiseq><gui>Events</"
 "gui><gui>Merge Events</gui></guiseq>."
 msgstr ""
+"Para combinar eventos, seleccione <guiseq><gui>Eventos</gui></guiseq> de la "
+"barra lateral, luego, mientras presiona <key>Ctrl</key> pulse en los eventos "
+"que quiere combinar en la ventana principal. Finalmente, pulse en "
+"<guiseq><gui>Eventos</gui><gui>Combinar eventos</gui></guiseq>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:43
@@ -1275,6 +1297,11 @@ msgid ""
 "click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
 "either ascending or descending."
 msgstr ""
+"Los eventos se muestran en la estructura de árbol en la barra lateral, "
+"organizados por el año y el mes de la primera foto del evento. Para cambiar "
+"el orden de clasificación del evento, pulse en <guiseq><gui>Vista</"
+"gui><gui>Ordenar eventos</gui></guiseq> y seleccione si quiere el orden "
+"ascendente o descendente."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:51
@@ -1301,6 +1328,10 @@ msgid ""
 "use a different key photo, select the photo and choose <guiseq><gui>Photos</"
 "gui><gui>Make Key Photo for Event</gui></guiseq>."
 msgstr ""
+"De manera predeterminada, Shotwell utiliza la primera foto de cada evento "
+"como su vista de miniatura. Para utilizar una foto distinta, seleccione la "
+"foto y elija <guiseq><gui>Fotos</gui><gui>Definir vista de miniatura de "
+"eventos </gui></guiseq>."
 
 #. (itstool) path: info/desc
 #: C/organize-flag.page:7
@@ -1322,6 +1353,10 @@ msgid ""
 "<gui>Flagged</gui> item in the sidebar to see all photos which have been "
 "flagged."
 msgstr ""
+"Shotwell le permite <em>marcar</em> sus fotos. Cuando se marca una foto, "
+"aparece un pequeño icono de una bandera en su esquina superior derecha. "
+"Puede seleccionar el elemento <gui>Marcada</gui> en la barra lateral para "
+"ver todas las fotos que se han marcado."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:18
