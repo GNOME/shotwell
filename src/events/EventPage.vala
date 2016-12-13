@@ -13,7 +13,7 @@ public class EventPage : CollectionPage {
         this.page_event = page_event;
         page_event.mirror_photos(get_view(), create_thumbnail);
         
-        init_page_context_menu("/EventContextMenu");
+        init_page_context_menu("EventContextMenu");
         
         Event.global.items_altered.connect(on_events_altered);
     }
