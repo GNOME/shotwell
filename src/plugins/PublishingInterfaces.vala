@@ -608,5 +608,14 @@ public interface Service : Object, Spit.Pluggable {
     protected virtual void reserved7() {}
 }
 
+public interface Authenticator : Object {
+    public signal void authenticated();
+
+    public abstract void authenticate();
+    public abstract void invalidate_persistent_session();
+    public abstract bool can_logout();
+    public abstract void logout();
+}
+
 }
 
