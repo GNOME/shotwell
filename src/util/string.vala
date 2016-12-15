@@ -91,15 +91,57 @@ public enum PrepareInputTextOptions {
     DEFAULT = EMPTY_IS_NULL | VALIDATE | INVALID_IS_NULL | STRIP_CRLF | STRIP | NORMALIZE;
 }
 
+private string? guess_convert(string text) {
+    string? output = null;
+    size_t bytes_read = 0;
+    unowned string charset = null;
+    debug ("CONVERT: Text did not validate as UTF-8, trying conversion");
+
+    // Try with locale
+    if (!GLib.get_charset(out charset)) {
+        output = text.locale_to_utf8(text.length, out bytes_read, null, null);
+        if (bytes_read == text.length) {
+            debug ("CONVERT: Locale is not UTF-8, convert from %s", charset);
+            return output;
+        }
+    }
+
+    try {
+        output = GLib.convert (text, text.length, "UTF-8", "WINDOWS-1252", out bytes_read);
+        charset = "WINDOWS-1252";
+    } catch (ConvertError error) {
+        if (error is ConvertError.NO_CONVERSION) {
+            try {
+                output = GLib.convert (text, text.length, "UTF-8", "ISO-8859-1", out bytes_read);
+                charset = "ISO-8859-1";
+            } catch (Error error) { /* do nothing */ }
+        }
+    }
+
+    if (bytes_read == text.length) {
+        debug ("CONVERT: Guessed conversion from %s", charset);
+
+        return output;
+    }
+
+    return null;
+}
+
 public string? prepare_input_text(string? text, PrepareInputTextOptions options, int dest_length) {
     if (text == null)
         return null;
     
-    if ((options & PrepareInputTextOptions.VALIDATE) != 0 && !text.validate())
-        return (options & PrepareInputTextOptions.INVALID_IS_NULL) != 0 ? null : "";
-    
-    string prepped = text;
-    
+    string? prepped = text;
+    if (PrepareInputTextOptions.VALIDATE in options) {
+        if (!text.validate()) {
+            prepped = guess_convert (text);
+
+            if (prepped == null) {
+                return (options & PrepareInputTextOptions.INVALID_IS_NULL) != 0 ? null : "";
+            }
+        }
+    }
+
     // Using composed form rather than GLib's default (decomposed) as NFC is the preferred form in
     // Linux and WWW.  More importantly, Pango seems to have serious problems displaying decomposed
     // forms of Korean language glyphs (and perhaps others).  See:
