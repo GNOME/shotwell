@@ -7,13 +7,14 @@
 # 
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-12-08 19:26+0000\n"
-"PO-Revision-Date: 2016-12-12 16:08+0100\n"
+"POT-Creation-Date: 2016-12-13 18:31+0000\n"
+"PO-Revision-Date: 2016-12-15 09:34+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1365,6 +1366,9 @@ msgid ""
 "like. For example, you might flag all photos which need visual adjustment, "
 "or all photos which you want to share with a friend."
 msgstr ""
+"Marcar una foto hace que esta sea especial. Puede interpretar esto de la "
+"manera que quiera. Por ejemplo, puede marcar todas las fotos que necesitan "
+"un ajuste visual o todas las fotos que quiere compartir con un amigo."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:22
@@ -1373,6 +1377,10 @@ msgid ""
 "set. For example, you can select the <gui>Flagged</gui> view and then upload "
 "all flagged photos to a publishing service."
 msgstr ""
+"Marcar fotos es útil porque también puede trabajar en todas las fotos "
+"marcadas como un conjunto. Por ejemplo, puede seleccionar la vista "
+"<gui>Marcada</gui> y luego subir todas las fotos marcadas a un servicio de "
+"publicación."
 
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
@@ -1386,6 +1394,10 @@ msgid ""
 "or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
 "key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
+"Para marcar o desmarcar una foto, pulse con el botón derecho en la foto y "
+"seleccione <gui>Marcar</gui> o <gui>Desmarcar</gui> desde el menú "
+"contextual. O pulse use los atajos del teclado <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> o <key>/</key>."
 
 #. (itstool) path: info/desc
 #: C/organize-rating.page:7
@@ -1443,6 +1455,10 @@ msgid ""
 "Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
 "clear the rating(s)."
 msgstr ""
+"Seleccione la foto o las fotos, luego pulse cualquiera de los atajos del "
+"teclado <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> o <key>5</"
+"key> para asignar una puntuación. Pulse <key>9</key> para marcar las fotos "
+"como rechazadas o pulse <key>0</key> para borrar las puntuaciones."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:23
@@ -1454,6 +1470,13 @@ msgid ""
 "rejected. The Shotwell icon on the toolbar displays the current rating "
 "filter and can also be used to set the filter."
 msgstr ""
+"Normalmente, Shotwell muestra todas las fotos excepto las rechazadas. Puede "
+"establecer un filtro de puntuaciones diferente utilizando el menú "
+"<guiseq><gui>Vista</gui><gui>Filtrar fotos</gui></guiseq>. Por ejemplo, "
+"puede mostrar sólo las fotos con puntuación de 3 estrellas o más, o puede "
+"mostrar todas las fotos, incluidas las marcadas como rechazadas. El icono "
+"Shotwell de la barra de herramientas muestra el filtro de puntuación actual "
+"y también se puede utilizar para configurar el filtro."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:26
@@ -1462,6 +1485,10 @@ msgid ""
 "corner. You can turn off the display of ratings using the <guiseq><gui>View</"
 "gui><gui>Ratings</gui></guiseq> menu item."
 msgstr ""
+"Shotwell normalmente muestra la puntuación de cada foto en su esquina "
+"inferior izquierda. Puede desactivar la visualización de las puntuaciones "
+"utilzando el elemento del menú <guiseq><gui>Vista</gui><gui>Valoraciones</"
+"gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:28
@@ -1471,6 +1498,10 @@ msgid ""
 "gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
 "<key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
+"Puede aumentar o disminuir la puntuación de una foto utilizando los comandos "
+"<guiseq><gui>Establecer puntuación</gui><gui>Aumentar</gui></guiseq> y "
+"<guiseq><gui>Establecer puntuación</gui><gui>Disminuir</gui></guiseq>, o los "
+"atajos del teclado <key>&lt;</key> y <key>&gt;</key>."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
