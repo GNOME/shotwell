@@ -407,8 +407,10 @@
 
   <menu id="TagsContextMenu">
     <section>
-      <attribute name="label" translatable="yes">_New</attribute>
-      <attribute name="action">win.NewChildTagSidebar</attribute>
+      <item>
+        <attribute name="label" translatable="yes">_New</attribute>
+        <attribute name="action">win.NewChildTagSidebar</attribute>
+      </item>
     </section>
     <section>
       <item>
