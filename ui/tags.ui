@@ -345,7 +345,7 @@
             <item>
               <attribute name="label" translatable="yes">Camera</attribute>
               <attribute name="action">win.RawDeveloper</attribute>
-              <attribute name="action">Camera</attribute>
+              <attribute name="target">Camera</attribute>
             </item>
           </section>
         </submenu>
@@ -406,5 +406,19 @@
   </menu>
 
   <menu id="TagsContextMenu">
+    <section>
+      <attribute name="label" translatable="yes">_New</attribute>
+      <attribute name="action">win.NewChildTagSidebar</attribute>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Rename…</attribute>
+        <attribute name="action">win.RenameTag</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Delete</attribute>
+        <attribute name="action">win.DeleteTag</attribute>
+      </item>
+    </section>
   </menu>
 </interface>
