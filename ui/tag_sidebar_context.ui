@@ -4,7 +4,7 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">New _Tag…</attribute>
-        <attribute name="action">win.CommonNewTag</attribute>
+        <attribute name="action">sidebar.tag.new</attribute>
       </item>
     </section>
   </menu>

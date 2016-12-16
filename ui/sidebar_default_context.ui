@@ -4,12 +4,12 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">Ne_w Saved Search…</attribute>
-        <attribute name="action">win.CommonNewSearch</attribute>
+        <attribute name="action">sidebar.search.new</attribute>
         <attribute name="accel">&lt;Primary&gt;s</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">New _Tag…</attribute>
-        <attribute name="action">win.CommonNewTag</attribute>
+        <attribute name="action">sidebar.tag.new</attribute>
       </item>
     </section>
   </menu>
