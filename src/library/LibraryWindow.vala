@@ -1272,6 +1272,9 @@ public class LibraryWindow : AppWindow {
 
         Application.set_menubar (page.get_menubar ());
         set_show_menubar (true);
+        var old = get_settings().gtk_shell_shows_menubar;
+        get_settings().gtk_shell_shows_menubar = !old;
+        get_settings().gtk_shell_shows_menubar = old;
         
         Gtk.Toolbar toolbar = page.get_toolbar();
         if (toolbar != null) {
