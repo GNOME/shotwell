@@ -1052,7 +1052,6 @@ public class SearchFilterToolbar : Gtk.Revealer {
     public SearchFilterToolbar(SearchFilterActions actions) {
         this.actions = actions;
         toolbar = new Gtk.Toolbar();
-//        toolbar.insert_action_group ("filterbar", actions.get_action_group ());
         actions.media_context_changed.connect(on_media_context_changed);
         search_box = new SearchBox(actions.text);
         

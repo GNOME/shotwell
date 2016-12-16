@@ -96,49 +96,49 @@
           <section>
             <item>
               <attribute name="label" translatable="no">★★★★★</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">7</attribute>
               <attribute name="accel">&lt;Primary&gt;5</attribute>
             </item>
             <item>
               <attribute name="label" translatable="no">★★★★</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">6</attribute>
               <attribute name="accel">&lt;Primary&gt;4</attribute>
             </item>
             <item>
               <attribute name="label" translatable="no">★★★</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">5</attribute>
               <attribute name="accel">&lt;Primary&gt;3</attribute>
             </item>
             <item>
               <attribute name="label" translatable="no">★★</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">4</attribute>
               <attribute name="accel">&lt;Primary&gt;2</attribute>
             </item>
             <item>
               <attribute name="label" translatable="no">★</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">3</attribute>
               <attribute name="accel">&lt;Primary&gt;1</attribute>
             </item>
             <item>
               <attribute name="label" translatable="yes">_All Photos</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">2</attribute>
               <attribute name="accel">&lt;Primary&gt;0</attribute>
             </item>
             <item>
               <attribute name="label" translatable="yes">All + _Rejected</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">1</attribute>
               <attribute name="accel">&lt;Primary&gt;9</attribute>
             </item>
             <item>
               <attribute name="label" translatable="yes">Rejected _Only</attribute>
-              <attribute name="action">filterbar.display.rating</attribute>
+              <attribute name="action">win.display.rating</attribute>
               <attribute name="target">8</attribute>
               <attribute name="accel">&lt;Primary&gt;8</attribute>
             </item>
