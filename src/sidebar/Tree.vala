@@ -845,7 +845,9 @@ public class Sidebar.Tree : Gtk.TreeView {
         if (context_menu == null)
             return false;
 
-        context_menu.attach_to_widget (this, null);
+        if (context_menu.get_attach_widget() == null) {
+            context_menu.attach_to_widget (this, null);
+        }
 
         if (event != null)
             context_menu.popup(null, null, null, event.button, event.time);
