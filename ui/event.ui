@@ -36,11 +36,7 @@
         </item>
       </section>
       <section>
-        <item>
-          <attribute name="label" translatable="yes">_Quit</attribute>
-          <attribute name="accel">&lt;Primary&gt;q</attribute>
-          <attribute name="action">win.CommonQuit</attribute>
-        </item>
+        <attribute name="id">QuitPlaceholder</attribute>
       </section>
     </submenu>
     <submenu>

@@ -571,7 +571,15 @@ public abstract class Page : Gtk.ScrolledWindow {
     // This is called during init_ui() to collect all Page.InjectedUIElements for the page.  They
     // should be added to the MultiSet using the injection path as the key.
     protected virtual InjectionGroup[] init_collect_injection_groups() {
-        return new InjectionGroup[0];
+        var result = new InjectionGroup[0];
+        var settings = Gtk.Settings.get_default ();
+        if (settings.gtk_shell_shows_app_menu) {
+            InjectionGroup group = new InjectionGroup("QuitPlaceholder");
+            group.add_menu_item ("_Quit", "CommonQuit", "<Primary>q");
+            result += group;
+        }
+
+        return result;
     }
     
     // This is called during "map" allowing for Gtk.Actions to be updated at
