@@ -1,3 +1,32 @@
+Shotwell 0.24.3 - 18 Dec 2016
+  * Fix issue with unique constraint on Photo database table
+  * Updated translations
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772223
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - gogo <trebelnik2@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - hr, courtesy of gogo
+ - hu, courtesy of Meskó Balázs
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.24.2 - 7 Nov 2016
   * Blacklist vaapi decoder to prevent crash when discovering videos in
     parallel

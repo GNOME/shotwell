@@ -1,3 +1,10 @@
+shotwell (0.24.3-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Fix issue with unique constraint on Photo database table
+  * Updated translations
+
+ -- Jens Georg <mail@jensge.org>  Sun, 18 Dec 2016 23:13:55 +0100
+
 shotwell (0.24.2-0~jensge1~xenial1) xenial; urgency=medium
 
   * Blacklist vaapi decoder to prevent crash when discovering videos in
