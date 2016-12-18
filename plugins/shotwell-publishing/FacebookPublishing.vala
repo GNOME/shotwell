@@ -171,12 +171,122 @@ internal class PublishingParameters {
     }
 }
 
+public class FacebookAuthenticator : Spit.Publishing.Authenticator, GLib.Object {
+    private Spit.Publishing.PluginHost host;
+    private WebAuthenticationPane web_auth_pane = null;
+    private GLib.HashTable<string, Variant> params;
+
+    /* Interface functions */
+    public FacebookAuthenticator(Spit.Publishing.PluginHost host) {
+        this.host = host;
+        this.params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
+    }
+
+    public void authenticate() {
+        this.do_show_service_welcome_pane();
+    }
+
+    public bool can_logout() {
+        return true;
+    }
+
+    public GLib.HashTable<string, Variant> get_authentication_parameter() {
+        return this.params;
+    }
+
+    public void invalidate_persistent_session() {
+    }
+
+    public void logout() {
+    }
+
+    /* Private functions */
+    private void do_show_service_welcome_pane() {
+        debug("ACTION: showing service welcome pane.");
+
+        host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
+        host.set_service_locked(false);
+    }
+
+    private void on_login_clicked() {
+        debug("EVENT: user clicked 'Login' on welcome pane.");
+
+        do_hosted_web_authentication();
+    }
+
+    private void do_hosted_web_authentication() {
+        debug("ACTION: doing hosted web authentication.");
+
+        this.host.set_service_locked(false);
+
+        this.web_auth_pane = new WebAuthenticationPane();
+        this.web_auth_pane.login_succeeded.connect(on_web_auth_pane_login_succeeded);
+        this.web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
+
+        this.host.install_dialog_pane(this.web_auth_pane,
+                                      Spit.Publishing.PluginHost.ButtonMode.CANCEL);
+
+    }
+
+    private void on_web_auth_pane_login_succeeded(string success_url) {
+        debug("EVENT: hosted web login succeeded.");
+
+        do_authenticate_session(success_url);
+    }
+
+    private void on_web_auth_pane_login_failed() {
+        debug("EVENT: hosted web login failed.");
+
+        // In this case, "failed" doesn't mean that the user didn't enter the right username and
+        // password -- Facebook handles that case inside the Facebook Connect web control. Instead,
+        // it means that no session was initiated in response to our login request. The only
+        // way this happens is if the user clicks the "Cancel" button that appears inside
+        // the web control. In this case, the correct behavior is to return the user to the
+        // service welcome pane so that they can start the web interaction again.
+        do_show_service_welcome_pane();
+    }
+
+    private void do_authenticate_session(string good_login_uri) {
+        debug("ACTION: preparing to extract session information encoded in uri = '%s'",
+             good_login_uri);
+
+        // the raw uri is percent-encoded, so decode it
+        string decoded_uri = Soup.URI.decode(good_login_uri);
+
+        // locate the access token within the URI
+        string? access_token = null;
+        int index = decoded_uri.index_of("#access_token=");
+        if (index >= 0)
+            access_token = decoded_uri[index:decoded_uri.length];
+        if (access_token == null) {
+            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                "Server redirect URL contained no access token"));
+            return;
+        }
+
+        // remove any trailing parameters from the session description string
+        string? trailing_params = null;
+        index = access_token.index_of_char('&');
+        if (index >= 0)
+            trailing_params = access_token[index:access_token.length];
+        if (trailing_params != null)
+            access_token = access_token.replace(trailing_params, "");
+
+        // remove the key from the session description string
+        access_token = access_token.replace("#access_token=", "");
+        this.params.insert("AccessToken", new Variant.string(access_token));
+
+        this.authenticated();
+    }
+
+}
+
 public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private PublishingParameters publishing_params;
     private weak Spit.Publishing.PluginHost host = null;
-    private WebAuthenticationPane web_auth_pane = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private weak Spit.Publishing.Service service = null;
+    private Spit.Publishing.Authenticator authenticator = null;
     private bool running = false;
     private GraphSession graph_session;
     private PublishingOptionsPane? publishing_options_pane = null;
@@ -185,13 +295,14 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private string? username = null;
 
     public FacebookPublisher(Spit.Publishing.Service service,
-        Spit.Publishing.PluginHost host) {
+                             Spit.Publishing.PluginHost host) {
         debug("FacebookPublisher instantiated.");
 
         this.service = service;
         this.host = host;
 
         this.publishing_params = new PublishingParameters();
+        this.authenticator = new FacebookAuthenticator(host);
 
         this.graph_session = new GraphSession();
         graph_session.authenticated.connect(on_session_authenticated);
@@ -241,13 +352,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_persistent_access_token("");
     }
 
-    private void do_show_service_welcome_pane() {
-        debug("ACTION: showing service welcome pane.");
-
-        host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
-        host.set_service_locked(false);
-    }
-
+    /*
     private void do_test_connection_to_endpoint() {
         debug("ACTION: testing connection to Facebook endpoint.");
         host.set_service_locked(true);
@@ -260,6 +365,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         graph_session.send_message(endpoint_test_message);
     }
+    */
     
     private void do_fetch_user_info() {
         debug("ACTION: fetching user information.");
@@ -411,52 +517,25 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_upload();
     }
 
-    private void do_hosted_web_authentication() {
-        debug("ACTION: doing hosted web authentication.");
 
-        host.set_service_locked(false);
+    private void on_authenticator_succeeded() {
+        debug("EVENT: Authenticator login succeeded.");
 
-        web_auth_pane = new WebAuthenticationPane();
-        web_auth_pane.login_succeeded.connect(on_web_auth_pane_login_succeeded);
-        web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
-
-        host.install_dialog_pane(web_auth_pane,
-            Spit.Publishing.PluginHost.ButtonMode.CANCEL);
-
+        do_authenticate_session();
     }
 
-    private void do_authenticate_session(string good_login_uri) {
-        debug("ACTION: preparing to extract session information encoded in uri = '%s'",
-             good_login_uri);
+    private void on_authenticator_failed() {
+    }
 
-        // the raw uri is percent-encoded, so decode it
-        string decoded_uri = Soup.URI.decode(good_login_uri);
-
-        // locate the access token within the URI
-        string? access_token = null;
-        int index = decoded_uri.index_of("#access_token=");
-        if (index >= 0)
-            access_token = decoded_uri[index:decoded_uri.length];
-        if (access_token == null) {
-            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "Server redirect URL contained no access token"));
-            return;
+    private void do_authenticate_session() {
+        var parameter = this.authenticator.get_authentication_parameter();
+        Variant access_token;
+        if (!parameter.lookup_extended("AccessToken", null, out access_token)) {
+            critical("Authenticator signalled success, but does not provide access token");
+            assert_not_reached();
         }
-
-        // remove any trailing parameters from the session description string
-        string? trailing_params = null;
-        index = access_token.index_of_char('&');
-        if (index >= 0)
-            trailing_params = access_token[index:access_token.length];
-        if (trailing_params != null)
-            access_token = access_token.replace(trailing_params, "");
-
-        // remove the key from the session description string
-        access_token = access_token.replace("#access_token=", "");
-        
-        // we've got an access token!
         graph_session.authenticated.connect(on_session_authenticated);
-        graph_session.authenticate(access_token);
+        graph_session.authenticate(access_token.get_string());
     }
 
     private void do_save_session_information() {
@@ -505,15 +584,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             host.post_error(error);
     }
 
-    private void on_login_clicked() {
-        if (!is_running())
-            return;
-
-        debug("EVENT: user clicked 'Login' on welcome pane.");
-
-        do_test_connection_to_endpoint();
-    }
-
+#if 0
     private void on_endpoint_test_completed(GraphMessage message) {
         message.completed.disconnect(on_endpoint_test_completed);
         message.failed.disconnect(on_endpoint_test_error);
@@ -539,32 +610,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         on_generic_error(error);
     }
-
-    private void on_web_auth_pane_login_succeeded(string success_url) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: hosted web login succeeded.");
-
-        do_authenticate_session(success_url);
-    }
-
-
-
-    private void on_web_auth_pane_login_failed() {
-        if (!is_running())
-            return;
-
-        debug("EVENT: hosted web login failed.");
-
-        // In this case, "failed" doesn't mean that the user didn't enter the right username and
-        // password -- Facebook handles that case inside the Facebook Connect web control. Instead,
-        // it means that no session was initiated in response to our login request. The only
-        // way this happens is if the user clicks the "Cancel" button that appears inside
-        // the web control. In this case, the correct behavior is to return the user to the
-        // service welcome pane so that they can start the web interaction again.
-        do_show_service_welcome_pane();
-    }
+#endif
 
     private void on_session_authenticated() {
         graph_session.authenticated.disconnect(on_session_authenticated);
@@ -786,13 +832,16 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (is_persistent_session_valid()) {
             graph_session.authenticate(get_persistent_access_token());
         } else {
-            if (WebAuthenticationPane.is_cache_dirty()) {
+            this.authenticator.authenticated.connect(on_authenticator_succeeded);
+            this.authenticator.authentication_failed.connect(on_authenticator_failed);
+            this.authenticator.authenticate();
+/*            if (WebAuthenticationPane.is_cache_dirty()) {
                 host.set_service_locked(false);
                 host.install_static_message_pane(RESTART_ERROR_MESSAGE,
                     Spit.Publishing.PluginHost.ButtonMode.CANCEL);
             } else {
                 do_show_service_welcome_pane();
-            }
+            } */
         }
     }
 
@@ -953,9 +1002,11 @@ internal class WebAuthenticationPane : Shotwell.Plugins.Common.WebAuthentication
         }
     }
 
+#if 0
     public static bool is_cache_dirty() {
         return cache_dirty;
     }
+#endif
 }
 
 internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
@@ -1525,9 +1576,11 @@ internal class GraphSession {
         return access_token;
     }
     
+#if 0
     public GraphMessage new_endpoint_test() {
         return new GraphEndpointProbeMessage(this);
     }
+#endif
     
     public GraphMessage new_query(string resource_path) {
         return new GraphQueryMessage(this, resource_path, access_token);

@@ -610,11 +610,19 @@ public interface Service : Object, Spit.Pluggable {
 
 public interface Authenticator : Object {
     public signal void authenticated();
+    public signal void authentication_failed();
 
     public abstract void authenticate();
     public abstract void invalidate_persistent_session();
     public abstract bool can_logout();
     public abstract void logout();
+
+    public abstract GLib.HashTable<string, Variant> get_authentication_parameter();
+}
+
+public interface AuthenticatorFactory : Object {
+    public abstract GLib.List<string> get_available_authenticators();
+    public abstract Authenticator? create(string provider);
 }
 
 }
