@@ -482,7 +482,8 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
         
         publishing_options_pane = new PublishingOptionsPane(username, publishing_params.albums,
-            host.get_publishable_media_type(), this, builder, get_persistent_strip_metadata());
+            host.get_publishable_media_type(), this, builder, get_persistent_strip_metadata(),
+            authenticator.can_logout());
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         host.install_dialog_pane(publishing_options_pane,
@@ -1052,7 +1053,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
     public PublishingOptionsPane(string username, Album[] albums,
         Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher,
-        Gtk.Builder builder, bool strip_metadata) {
+        Gtk.Builder builder, bool strip_metadata, bool can_logout) {
 
         this.builder = builder;
         assert(builder != null);
@@ -1076,6 +1077,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         visibility_combo = (Gtk.ComboBoxText) this.builder.get_object("visibility_combo");
         publish_button = (Gtk.Button) this.builder.get_object("publish_button");
         logout_button = (Gtk.Button) this.builder.get_object("logout_button");
+        if (!can_logout) {
+            logout_button.parent.remove (logout_button);
+        }
         new_album_entry = (Gtk.Entry) this.builder.get_object("new_album_entry");
         resolution_combo = (Gtk.ComboBoxText) this.builder.get_object("resolution_combo");
         how_to_label = (Gtk.Label) this.builder.get_object("how_to_label");
