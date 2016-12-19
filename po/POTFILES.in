@@ -23,6 +23,7 @@ plugins/shotwell-publishing-extras/YandexPublishing.vala
 plugins/shotwell-publishing-extras/yandex_publish_model.ui
 plugins/shotwell-publishing/facebook_publishing_options_pane.ui
 plugins/shotwell-publishing/FacebookPublishing.vala
+plugins/shotwell-publishing/FacebookPublishingAuthenticator.vala
 plugins/shotwell-publishing/flickr_pin_entry_pane.ui
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala

@@ -19,6 +19,7 @@ dist_noinst_DATA += \
 plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/shotwell-publishing.vala \
 	plugins/shotwell-publishing/FacebookPublishing.vala \
+	plugins/shotwell-publishing/FacebookPublishingAuthenticator.vala \
 	plugins/shotwell-publishing/PicasaPublishing.vala \
 	plugins/shotwell-publishing/FlickrPublishing.vala \
 	plugins/shotwell-publishing/YouTubePublishing.vala \
