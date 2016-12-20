@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <!-- interface-requires gtk+ 3.0 -->
+<!-- Generated with glade 3.20.0 -->
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.14"/>
   <object class="GtkBox" id="picasa_pane_widget">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -15,7 +16,7 @@
         <property name="can_focus">False</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">32</property>
-        <property name="label" translatable="no">'you are logged in as $name'
+        <property name="label">'you are logged in as $name'
 (populated in the application code)</property>
       </object>
       <packing>
@@ -47,14 +48,10 @@
               <object class="GtkComboBoxText" id="existing_albums_combo">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="entry_text_column">0</property>
-                <property name="id_column">1</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -66,8 +63,6 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -76,8 +71,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="halign">start</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <property name="group">create_new_radio</property>
@@ -85,8 +80,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -95,17 +88,14 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="halign">start</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="yalign">0.47999998927116394</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -114,39 +104,36 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="halign">start</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="publish_to_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="margin_top">32</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="no">$mediatype will appear in
+                <property name="label">$mediatype will appear in
 (populated in code)</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
                 <property name="width">2</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="margin_top">32</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Photo _size preset:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">size_combo</property>
@@ -154,8 +141,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">4</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -163,14 +148,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">32</property>
-                <property name="entry_text_column">0</property>
-                <property name="id_column">1</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -179,18 +160,16 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="halign">center</property>
+                <property name="halign">start</property>
                 <property name="margin_top">16</property>
                 <property name="hexpand">True</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0.20000000298023224</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">5</property>
                 <property name="width">2</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
