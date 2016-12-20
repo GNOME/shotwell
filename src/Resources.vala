@@ -76,8 +76,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST = "image-adjust";
     public const string PIN_TOOLBAR = "shotwell-pin-toolbar";
     public const string MAKE_PRIMARY = "shotwell-make-primary";
-    public const string IMPORT = "shotwell-import";
-    public const string IMPORT_ALL = "shotwell-import-all";
+    public const string IMPORT = "import";
+    public const string IMPORT_ALL = "import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";

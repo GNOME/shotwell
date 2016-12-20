@@ -801,6 +801,7 @@ public class ImportPage : CheckerboardPage {
             
             // Find button
             Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
+            find_button.set_icon_name("edit-find");
             find_button.set_action_name ("win.CommonDisplaySearchbar");
             
             toolbar.insert(find_button, -1);
@@ -810,14 +811,20 @@ public class ImportPage : CheckerboardPage {
             
             // Import selected
             Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
-            import_selected_button.set_icon_name(Resources.IMPORT);
+            import_selected_button.set_icon_name("import");
+            import_selected_button.set_label(_("Import _All"));
+            import_selected_button.is_important = true;
+            import_selected_button.use_underline = true;
             import_selected_button.set_action_name ("win.ImportSelected");
             
             toolbar.insert(import_selected_button, -1);
             
             // Import all
             Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
-            import_all_button.set_icon_name(Resources.IMPORT_ALL);
+            import_all_button.set_icon_name("import-all");
+            import_all_button.set_label(_("Import _Selected"));
+            import_all_button.is_important = true;
+            import_all_button.use_underline = true;
             import_all_button.set_action_name ("win.ImportAll");
             
             toolbar.insert(import_all_button, -1);
