@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <!-- interface-requires gtk+ 3.0 -->
+<!-- Generated with glade 3.20.0 -->
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.14"/>
   <object class="GtkBox" id="flickr_pane">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -16,7 +17,7 @@
           <object class="GtkLabel" id="upload_info_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="no">You are logged into Flickr as (name).
+            <property name="label">You are logged into Flickr as (name).
 
 (this label's string is populated and set inside the code,
 so changes made here will not display)</property>
@@ -41,7 +42,8 @@ so changes made here will not display)</property>
               <object class="GtkLabel" id="visibility_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="no">_visibility label (populated in the code)</property>
+                <property name="halign">end</property>
+                <property name="label">_visibility label (populated in the code)</property>
                 <property name="use_underline">True</property>
                 <property name="justify">right</property>
                 <property name="mnemonic_widget">visibility_combo</property>
@@ -49,15 +51,13 @@ so changes made here will not display)</property>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel" id="size_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">1</property>
+                <property name="halign">end</property>
                 <property name="label" translatable="yes">Photo _size:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">size_combo</property>
@@ -65,36 +65,26 @@ so changes made here will not display)</property>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkComboBoxText" id="visibility_combo">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="entry_text_column">0</property>
-                <property name="id_column">1</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkComboBoxText" id="size_combo">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="entry_text_column">0</property>
-                <property name="id_column">1</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -103,17 +93,15 @@ so changes made here will not display)</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="halign">center</property>
+                <property name="halign">start</property>
                 <property name="margin_top">16</property>
                 <property name="use_underline">True</property>
-                <property name="xalign">0.17000000178813934</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">2</property>
                 <property name="width">2</property>
-                <property name="height">1</property>
               </packing>
             </child>
           </object>
