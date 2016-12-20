@@ -8,13 +8,14 @@
 # 
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-12-13 18:31+0000\n"
-"PO-Revision-Date: 2016-12-15 09:34+0100\n"
+"POT-Creation-Date: 2016-12-18 19:09+0000\n"
+"PO-Revision-Date: 2016-12-20 13:14+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1580,6 +1581,10 @@ msgid ""
 "<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
 "files will be left in place on disk."
 msgstr ""
+"Si quiere quitar las fotos de Shotwell sin tener que moverlas a la papelera, "
+"simplemente seleccione las fotos que va a quitar y elija "
+"<guiseq><gui>Editar</gui><gui>Eliminar de la biblioteca</gui></guiseq>. Los "
+"archivos de fotos se dejarán en su lugar en el disco."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:26
@@ -1693,6 +1698,11 @@ msgid ""
 "for certain criteria. Saved Searches feature more complex search criteria "
 "and persist in the sidebar between sessions."
 msgstr ""
+"Hay dos maneras de hacer una búsqueda en Shotwell: con la barra de "
+"herramientas de filtro, y con una búsqueda guardada. La barra de búsqueda le "
+"permite buscar rápidamente la vista actual para ciertos criterios. Las "
+"búsquedas guardadas tienen criterios de búsqueda más complejos y se "
+"mantienen en la barra lateral entre sesiones."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:21
@@ -1708,6 +1718,11 @@ msgid ""
 "this bar, you can find, show and hide photos and videos based on title, tag, "
 "rating or other options."
 msgstr ""
+"La casilla <guiseq><gui>Vista</gui><gui>Barra de búsqueda</gui></guiseq> "
+"activa la visualización de la barra de búsqueda. También puede pulsar "
+"<keyseq><key>Ctrl</key><key>F</key></keyseq> o <key>F8</key> para abrir la "
+"barra de búsqueda. Desde esta barra, puede encontrar, mostrar y ocultar "
+"fotos y vídeos basados en su título, etiqueta, valoración u otras opciones."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:29
@@ -1720,6 +1735,15 @@ msgid ""
 "flagged, their current number of stars, and whether the items shown are "
 "images, videos, or raw camera files, respectively."
 msgstr ""
+"Para comenzar la búsqueda, simplemente introduzca una palabra clave de "
+"búsqueda en el cuadro de texto o pulse en <gui>Marcada</gui>, "
+"<gui>Puntuación</gui> o <gui>Tipo</gui>. La búsqueda de texto compara sus "
+"palabras clave con los nombres de las etiquetas, los títulos de fotos o "
+"vídeos y los nombres de los archivos originales de las fotos. Los botones "
+"<gui>Marcada</gui>, <gui>Puntuación</gui> y <gui>Tipo</gui> le permiten "
+"filtrar su colección según las fotos marcadas, su número actual de estrellas "
+"y si los elementos mostrados son imágenes, vídeos o archivos de cámara RAW, "
+"respectivamente."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:38
@@ -1753,6 +1777,11 @@ msgid ""
 "whether you want to meet Any, All, or None of the criteria in the following "
 "rows."
 msgstr ""
+"Cree una nueva búsqueda guardada con <guiseq><gui>Editar</gui><gui>Nueva "
+"búsqueda guardada...</gui></guiseq> o pulsando <keyseq><key>Ctrl</"
+"key><key>S</key></keyseq>. El cuadro de diálogo le permite introducir un "
+"nombre para la búsqueda y seleccionar si desea marcar alguno, todos o "
+"ninguno de los criterios de las siguientes filas."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:56
@@ -1762,6 +1791,11 @@ msgid ""
 "box on the left of each row selects the type of criteria. Criteria must be "
 "entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
+"Cada fila representa un criterio de búsqueda. Pulse el botón <gui>+</gui> "
+"para añadir más filas y el botón <gui>-</gui> para eliminar una fila "
+"específica. El cuadro combinado de la izquierda de cada fila selecciona el "
+"tipo de criterios. Los criterios se deben introducir correctamente antes de "
+"que el botón <gui>Aceptar</gui> esté disponible."
 
 #. (itstool) path: info/desc
 #: C/organize-tag.page:7
@@ -1818,6 +1852,14 @@ msgid ""
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
+"Cuando pulse <keyseq><key>Ctrl</key><key>T</key></keyseq> o "
+"<guiseq><gui>Etiquetas</gui><gui>Añadir etiquetas...</gui></guiseq> puede "
+"escribir los nombres de una o más etiquetas, separadas por comas. Una vez "
+"que haya creado una etiqueta, puede renombrarla seleccionando esa etiqueta "
+"en la barra lateral y eligiendo <guiseq><gui>Etiquetas</gui><gui>Renombrar "
+"etiqueta \"[nombre]\"...</gui></guiseq> pulsando con el botón derecho y "
+"eligiendo <gui>Renombrar...</gui> o pulsando dos veces en la etiqueta de la "
+"barra lateral. "
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:44
