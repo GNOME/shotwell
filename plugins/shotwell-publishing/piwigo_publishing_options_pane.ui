@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.20.0 -->
-<interface>
-  <requires lib="gtk+" version="3.0"/>
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.14"/>
   <object class="GtkWindow" id="publishing_options_pane">
     <property name="can_focus">False</property>
     <child>
