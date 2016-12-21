@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkAction" id="logout_action">
-    <property name="label" translatable="yes">_Logout</property>
-  </object>
-  <object class="GtkAction" id="publish_action">
-    <property name="label" translatable="yes">_Publish</property>
-  </object>
-  <object class="GtkRadioAction" id="publish_new_radioaction">
-    <property name="label" translatable="yes">A _new album</property>
-    <property name="draw_as_radio">True</property>
-    <property name="value">1</property>
-    <property name="current_value">1</property>
-  </object>
-  <object class="GtkRadioAction" id="publish_to_existing_radioaction">
-    <property name="label" translatable="yes">An _existing album</property>
-    <property name="draw_as_radio">True</property>
-    <property name="group">publish_new_radioaction</property>
-  </object>
-  <object class="GtkToggleAction" id="strip_metadata_toggleaction">
-    <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
-  </object>
+<!-- Generated with glade 3.20.0 -->
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.14"/>
   <object class="GtkGrid" id="pane_widget">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -28,15 +9,15 @@
       <object class="GtkLabel" id="title_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="xalign">0.30000001192092896</property>
-        <property name="ypad">16</property>
+        <property name="halign">start</property>
+        <property name="margin_top">16</property>
+        <property name="margin_bottom">16</property>
         <property name="label">'Publishing to $url as $username' (populated in application code)</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
         <property name="top_attach">0</property>
         <property name="width">2</property>
-        <property name="height">1</property>
       </packing>
     </child>
     <child>
@@ -50,49 +31,43 @@
         <property name="column_homogeneous">True</property>
         <child>
           <object class="GtkRadioButton" id="publish_to_existing_radio">
-            <property name="related_action">publish_to_existing_radioaction</property>
+            <property name="label" translatable="yes">An _existing album</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">publish_new_radio</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkComboBoxText" id="existing_albums_combo">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="entry_text_column">0</property>
-            <property name="id_column">1</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkRadioButton" id="publish_new_radio">
-            <property name="related_action">publish_new_radioaction</property>
+            <property name="label" translatable="yes">A _new album</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="xalign">0</property>
+            <property name="halign">start</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -104,27 +79,25 @@
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkCheckButton" id="strip_metadata_check">
-            <property name="related_action">strip_metadata_toggleaction</property>
+            <property name="label" translatable="yes">_Remove location, tag and camera-identifying data before uploading</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
+            <property name="halign">start</property>
             <property name="valign">center</property>
             <property name="margin_top">16</property>
             <property name="hexpand">True</property>
-            <property name="xalign">0</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">5</property>
             <property name="width">2</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -137,8 +110,6 @@
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -155,8 +126,6 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -173,24 +142,18 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">4</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkComboBoxText" id="scaling_constraint_combo">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="entry_text_column">0</property>
-            <property name="id_column">1</property>
             <items>
               <item translatable="yes">Original size</item>
               <item translatable="yes">Width or height</item>
@@ -199,8 +162,6 @@
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">3</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -214,7 +175,6 @@
             <property name="left_attach">0</property>
             <property name="top_attach">2</property>
             <property name="width">2</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
@@ -225,7 +185,6 @@
         <property name="left_attach">0</property>
         <property name="top_attach">1</property>
         <property name="width">2</property>
-        <property name="height">1</property>
       </packing>
     </child>
     <child>
@@ -241,33 +200,31 @@
         <property name="column_homogeneous">True</property>
         <child>
           <object class="GtkButton" id="logout_button">
-            <property name="related_action">logout_action</property>
+            <property name="label" translatable="yes">_Logout</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkButton" id="publish_button">
-            <property name="related_action">publish_action</property>
+            <property name="label" translatable="yes">_Publish</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="is_focus">True</property>
             <property name="can_default">True</property>
             <property name="has_default">True</property>
             <property name="receives_default">True</property>
+            <property name="use_underline">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
           </packing>
         </child>
       </object>
@@ -275,7 +232,6 @@
         <property name="left_attach">0</property>
         <property name="top_attach">2</property>
         <property name="width">2</property>
-        <property name="height">1</property>
       </packing>
     </child>
   </object>
