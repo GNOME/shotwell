@@ -389,20 +389,10 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         string? oauth_token = null;
         string? oauth_token_secret = null;
-        
-        string[] key_value_pairs = response.split("&");
-        foreach (string pair in key_value_pairs) {
-            string[] split_pair = pair.split("=");
-            
-            if (split_pair.length != 2)
-                host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    "'%s' isn't a valid response to an OAuth authentication request", response));
 
-            if (split_pair[0] == "oauth_token")
-                oauth_token = split_pair[1];
-            else if (split_pair[0] == "oauth_token_secret")
-                oauth_token_secret = split_pair[1];
-        }
+        var data = Soup.Form.decode(response);
+        data.lookup_extended("oauth_token", null, out oauth_token);
+        data.lookup_extended("oauth_token_secret", null, out oauth_token_secret);
         
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
@@ -469,32 +459,19 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     private void do_extract_access_phase_credentials_from_reponse(string response) {
         debug("ACTION: extracting access phase credentials from '%s'", response);
-        
-        string[] key_value_pairs = response.split("&");
 
         string? token = null;
         string? token_secret = null;
         string? username = null;
-        foreach (string key_value_pair in key_value_pairs) {
-            string[] split_pair = key_value_pair.split("=");
 
-            if (split_pair.length != 2)
-                continue;
+        var data = Soup.Form.decode(response);
+        data.lookup_extended("oauth_token", null, out token);
+        data.lookup_extended("oauth_token_secret", null, out token_secret);
+        data.lookup_extended("username", null, out username);
 
-            string key = split_pair[0];
-            string value = split_pair[1];
-            
-            if (key == "oauth_token")
-                token = value;
-            else if (key == "oauth_token_secret")
-                token_secret = value;
-            else if (key == "username")
-                username = value;
-        }
-        
         debug("access phase credentials: { token = '%s'; token_secret = '%s'; username = '%s' }",
             token, token_secret, username);
-        
+
         if (token == null || token_secret == null || username == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("expected " +
                 "access phase credentials to contain token, token secret, and username but at " +
