@@ -87,7 +87,7 @@ internal class VisibilitySpecification {
 // not a struct because we want reference semantics
 internal class PublishingParameters {
     public UserKind user_kind;
-    public int quota_free_mb;
+    public int64 quota_free_bytes;
     public int photo_major_axis_size;
     public string username;
     public VisibilitySpecification visibility_specification;
@@ -520,9 +520,9 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
                 throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
                     "Unable to determine if user has free or pro account");
             
-            int quota_mb_left = int.parse(remaining_kb_str) / 1024;
+            var quota_bytes_left = int64.parse(remaining_kb_str) * 1024;
 
-            parameters.quota_free_mb = quota_mb_left;
+            parameters.quota_free_bytes = quota_bytes_left;
             parameters.user_kind = user_kind;
 
         } catch (Spit.Publishing.PublishingError err) {
@@ -1128,10 +1128,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         string upload_label_text = _("You are logged into Flickr as %s.\n\n").printf(parameters.username);
         if (parameters.user_kind == UserKind.FREE) {
-            upload_label_text += ngettext(
-            "Your free Flickr account limits how much data you can upload per month.\nThis month you have %d megabyte remaining in your upload quota.",
-            "Your free Flickr account limits how much data you can upload per month.\nThis month you have %d megabytes remaining in your upload quota.",
-            parameters.quota_free_mb).printf(parameters.quota_free_mb);
+            upload_label_text += _("Your free Flickr account limits how much data you can upload per month.\nThis month you have %s remaining in your upload quota.").printf(GLib.format_size(parameters.quota_free_bytes, FormatSizeFlags.LONG_FORMAT | FormatSizeFlags.IEC_UNITS));
         } else {
             upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
         }
