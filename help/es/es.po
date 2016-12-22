@@ -9,13 +9,14 @@
 # 
 # 
 # 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-12-18 19:09+0000\n"
-"PO-Revision-Date: 2016-12-20 13:14+0100\n"
+"POT-Creation-Date: 2016-12-21 14:18+0000\n"
+"PO-Revision-Date: 2016-12-22 17:44+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1780,7 +1781,7 @@ msgstr ""
 "Cree una nueva búsqueda guardada con <guiseq><gui>Editar</gui><gui>Nueva "
 "búsqueda guardada...</gui></guiseq> o pulsando <keyseq><key>Ctrl</"
 "key><key>S</key></keyseq>. El cuadro de diálogo le permite introducir un "
-"nombre para la búsqueda y seleccionar si desea marcar alguno, todos o "
+"nombre para la búsqueda y seleccionar si quiere marcar alguno, todos o "
 "ninguno de los criterios de las siguientes filas."
 
 #. (itstool) path: section/p
@@ -1873,6 +1874,15 @@ msgid ""
 "gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
 "\"[name]\" from Photos</gui>."
 msgstr ""
+"Para cambiar las etiquetas asociadas a una foto en particular, seleccione "
+"esa foto, elija <guiseq><gui>Etiquetas</gui><gui>Modificar etiquetas...</"
+"gui></guiseq> o pulse con el botón derecho en una foto y seleccione "
+"<gui>Modificar etiquetas...</gui> y edite la lista separada por comas. Para "
+"quitar una etiqueta de una o más fotos, primero seleccione esa etiqueta en "
+"la barra lateral, luego seleccione las fotos que quiere quitar y elija "
+"<guiseq><gui>Etiquetas</gui><gui>Quitar etiquetas \"[nombre]\" de fotos</"
+"gui></guiseq> o pulse con el botón derecho en las fotos y seleccione "
+"<gui>Quitar etiquetas \"[nombre]\" de fotos</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -1959,6 +1969,9 @@ msgid ""
 "display of titles beneath each photo. By default, a photo's title is its "
 "filename."
 msgstr ""
+"La casilla de <guiseq><gui>Vista</gui><gui>Títulos</gui></guiseq> activa la "
+"visualización de títulos debajo de cada foto. De manera predeterminada, el "
+"título de la foto es su nombre de archivo."
 
 #. (itstool) path: page/p
 #: C/organize-title.page:17
@@ -2395,6 +2408,10 @@ msgid ""
 "photo files contained in the library directory are monitored in real time "
 "after startup. We hope to remove this limitation in a further release."
 msgstr ""
+"Tenga en cuenta que Shotwell comprueba todos los archivos de fotos para ver "
+"si hay cambios al inicio, pero sólo los archivos de fotos contenidos en la "
+"carpeta de la biblioteca se supervisan en tiempo real después del inicio. "
+"Esperamos eliminar esta limitación en una nueva versión."
 
 #. (itstool) path: info/desc
 #: C/other-missing.page:7
@@ -2430,6 +2447,10 @@ msgid ""
 "collection (perhaps because you deleted them), go to the Missing Files view, "
 "select the photos and then click <gui>Remove From Library</gui>."
 msgstr ""
+"Si ya no quiere que los archivos que faltan formen parte de su colección "
+"Shotwell (tal vez porque los ha eliminado), vaya a la vista de Fotos "
+"ausentes, seleccione las fotos y, a continuación, pulse en <gui>Eliminar de "
+"la biblioteca</gui>."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:18
@@ -2479,6 +2500,10 @@ msgid ""
 "database in this directory contains a list of all the photos in the Shotwell "
 "library."
 msgstr ""
+"Normalmente, Shotwell almacena su base de datos y miniaturas de fotos en la "
+"carpeta <file>~/.shotwell</file>. Esta carpeta no contiene fotos, pero la "
+"base de datos de esta carpeta contiene una lista de todas las fotos de la "
+"biblioteca de Shotwell."
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:16
@@ -2521,6 +2546,9 @@ msgid ""
 "libraries that can add support for new publishing destinations or new "
 "slideshow transitions."
 msgstr ""
+"Shotwell se puede usar con <em>complementos</em>, que son bibliotecas "
+"compartidas complementarias que pueden agregar soporte para nuevos destinos "
+"de publicación o nuevas transiciones de presentación de diapositivas."
 
 #. (itstool) path: page/p
 #: C/other-plugins.page:18
@@ -2567,6 +2595,10 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
+"Algunas cámaras tienen la capacidad de almacenar datos directamente del "
+"sensor y en un archivo que contiene información adicional de color; Esto se "
+"conoce comúnmente como «RAW» o «cámara RAW», y Shotwell soporta estos "
+"archivos también."
 
 #. (itstool) path: page/p
 #: C/raw.page:18
@@ -2579,6 +2611,14 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
+"Dado que las fotografías RAW normalmente no se pueden mostrar directamente, "
+"sino que deben ser desarrolladas por primera vez (se interpreta y se prepara "
+"su información adicional para mostrarse) la mayoría de las cámaras "
+"incorporarán un JPEG dentro de un archivo en formato RAW, o producirán un "
+"JPEG junto con el archivo RAW en el momento en que se toma la foto. Este "
+"último se refiere a todo este documento como RAW+JPEG. Si usted importa una "
+"pareja de RAW+JPEG, Shotwell los mantendrá sincronizados y los tratará como "
+"un elemento de su biblioteca."
 
 #. (itstool) path: page/p
 #: C/raw.page:27
@@ -2587,6 +2627,9 @@ msgid ""
 "internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
 "gui><gui>Developer</gui></guiseq> in the menus."
 msgstr ""
+"Al importar un archivo RAW, puede elegir entre usar el desarrollador JPEG "
+"interno de la cámara o el de Shotwell seleccionando <guiseq><gui>Fotos</"
+"gui><gui>Desarrollador</gui></guiseq> en los menús."
 
 #. (itstool) path: note/p
 #: C/raw.page:33
@@ -2594,6 +2637,8 @@ msgid ""
 "Changing between developers will cause all edits made to a photograph to be "
 "discarded."
 msgstr ""
+"Cambiar entre desarrolladores hará que todas las ediciones hechas en una "
+"fotografía se descarten."
 
 #. (itstool) path: page/p
 #: C/raw.page:39
