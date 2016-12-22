@@ -28,9 +28,6 @@
           <attribute name="action">win.CommonEmptyTrash</attribute>
         </item>
       </section>
-      <section>
-        <attribute name="id">QuitPlaceholder</attribute>
-      </section>
     </submenu>
     <submenu>
       <attribute name="label" translatable="yes">_Edit</attribute>
