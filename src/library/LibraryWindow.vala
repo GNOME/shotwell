@@ -1191,9 +1191,6 @@ public class LibraryWindow : AppWindow {
         
         add(layout);
 
-        var builder = new Gtk.Builder.from_resource ("/org/gnome/Shotwell/appmenu.ui");
-        Application.set_appmenu (builder.get_object ("appmenu") as GLib.Menu);
-
         switch_to_page(start_page);
         start_page.grab_focus();
     }

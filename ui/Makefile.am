@@ -23,7 +23,6 @@ dist_ui_DATA = \
 	trash.ui
 
 dist_noinst_DATA = \
-	appmenu.ui \
 	set_background_dialog.ui \
 	set_background_slideshow_dialog.ui
 

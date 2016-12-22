@@ -24,9 +24,7 @@ public class DirectWindow : AppWindow {
         layout.pack_start(direct_photo_page, true, true, 0);
         layout.pack_end(direct_photo_page.get_toolbar(), false, false, 0);
         
-        var builder = new Gtk.Builder.from_resource ("/org/gnome/Shotwell/appmenu.ui");
         Application.set_menubar (direct_photo_page.get_menubar ());
-        Application.set_appmenu (builder.get_object ("direct-appmenu") as GLib.Menu);
 
         add(layout);
     }

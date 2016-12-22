@@ -88,6 +88,12 @@
           <attribute name="action">win.CommonSelectAll</attribute>
         </item>
       </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Preferences</attribute>
+          <attribute name="action">win.CommonPreferences</attribute>
+        </item>
+      </section>
     </submenu>
     <submenu>
       <attribute name="label" translatable="yes">_View</attribute>
@@ -408,6 +414,30 @@
       </section>
     </submenu>
     <!-- Faces menu goes here FacesMenuPlaceholder -->
+    <submenu>
+      <attribute name="label" translatable="yes">_Help</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Help</attribute>
+          <attribute name="accel">F1</attribute>
+          <attribute name="action">win.CommonHelpContents</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Frequently Asked Questions</attribute>
+          <attribute name="action">win.CommonHelpFAQ</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Report a Problem…</attribute>
+          <attribute name="action">win.CommonHelpReportProblem</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_About</attribute>
+          <attribute name="action">win.CommonAbout</attribute>
+        </item>
+      </section>
+    </submenu>
   </menu>
   <menu id="CollectionContextMenu">
     <section>

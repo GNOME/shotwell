@@ -6,7 +6,6 @@
       <file alias="tag_sidebar_context.ui">ui/tag_sidebar_context.ui</file>
       <file alias="sidebar_default_context.ui">ui/sidebar_default_context.ui</file>
       <file alias="search_bar.ui">ui/search_bar.ui</file>
-      <file alias="appmenu.ui">ui/appmenu.ui</file>
       <file>ui/set_background_dialog.ui</file>
       <file>ui/set_background_slideshow_dialog.ui</file>
   </gresource>
