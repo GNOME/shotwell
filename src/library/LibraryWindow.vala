@@ -209,7 +209,11 @@ public class LibraryWindow : AppWindow {
         CameraTable.get_instance().camera_added.connect(on_camera_added);
         
         background_progress_bar.set_show_text(true);
-        
+
+        // Need to re-install F8 here as it will overwrite the binding created
+        // by the menu
+        const string[] accels = { "<Primary>f", "F8", null };
+        Application.set_accels_for_action("win.CommonDisplaySearchbar", accels);
     }
 
     ~LibraryWindow() {
