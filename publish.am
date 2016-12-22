@@ -22,6 +22,7 @@ plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/FacebookPublishingAuthenticator.vala \
 	plugins/shotwell-publishing/PicasaPublishing.vala \
 	plugins/shotwell-publishing/FlickrPublishing.vala \
+	plugins/shotwell-publishing/FlickrPublishingAuthenticator.vala \
 	plugins/shotwell-publishing/YouTubePublishing.vala \
 	plugins/shotwell-publishing/PiwigoPublishing.vala \
 	plugins/shotwell-plugin-common.vapi
