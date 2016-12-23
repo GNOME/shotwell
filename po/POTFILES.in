@@ -106,7 +106,6 @@ src/slideshow/TransitionEffects.vala
 src/tags/Branch.vala
 src/Tag.vala
 src/VideoSupport.vala
-ui/appmenu.ui
 ui/collection.ui
 ui/direct_context.ui
 ui/direct.ui
