@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-12-08 19:26+0000\n"
-"PO-Revision-Date: 2016-12-17 17:02+0100\n"
+"POT-Creation-Date: 2016-12-23 00:18+0000\n"
+"PO-Revision-Date: 2016-12-24 14:45+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -30,9 +30,9 @@ msgstr ""
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:300 ui/collection.ui:85 ui/event.ui:348
-#: ui/event.ui:492 ui/media.ui:341 ui/photo_context.ui:91 ui/photo.ui:331
-#: ui/tags.ui:341
+#: src/photos/RawSupport.vala:300 ui/collection.ui:85 ui/event.ui:354
+#: ui/event.ui:522 ui/media.ui:354 ui/photo_context.ui:91 ui/photo.ui:344
+#: ui/tags.ui:354
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1567,95 +1567,93 @@ msgstr "Připravuje se k importu"
 msgid "Core Data Import Services"
 msgstr "Hlavní služby importu dat"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:5
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
+msgid "_Gallery3 URL:"
+msgstr "Adresa URL _Gallery3:"
+
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:55
+msgid "_User name:"
+msgstr "_Uživatelské jméno:"
+
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:68
+msgid "_Password:"
+msgstr "_Heslo:"
+
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
 msgid "Go _Back"
 msgstr "Jít _zpět"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 #: ui/shotwell.ui:1464
 msgid "_Log in"
 msgstr "_Přihlásit se"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:34
-msgid "_Gallery3 URL:"
-msgstr "Adresa URL _Gallery3:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:64
-msgid "_User name:"
-msgstr "_Uživatelské jméno:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:79
-msgid "_Password:"
-msgstr "_Heslo:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:178
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
 msgid "API _Key:"
 msgstr "_Klíč k API:"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:208
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:180
 msgid "or"
 msgstr "nebo"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:5
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:38
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:116
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:142
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
-msgid "_Logout"
-msgstr "_Odhlásit"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:8
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:247
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:134
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:156
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2456
-msgid "_Publish"
-msgstr "_Zveřejnit"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:11
-msgid "A _new album"
-msgstr "_Nové album"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:17
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:34
 msgid "An _existing album"
 msgstr "_Stávající album"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:22
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:60
+msgid "A _new album"
+msgstr "_Nové album"
+
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
 "Před nahráním odstranit identifikační údaje, jako místo, štítky nebo model "
 "fotoaparátu"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:135
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
 msgid "Scaling constraint:"
 msgstr "Přeškálovat:"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:153
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
 msgid "pixels"
 msgstr "pixely"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1235
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Původní velikost"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:196
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "Šířka nebo výška"
+
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:105
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:208
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+msgid "_Logout"
+msgstr "_Odhlásit"
+
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:121
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:222
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: src/CollectionPage.vala:76 src/PhotoPage.vala:2456
+msgid "_Publish"
+msgstr "_Zveřejnit"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
 msgid "Gallery3 publishing module"
@@ -1749,49 +1747,49 @@ msgstr "Nerozpoznaný uživatel"
 msgid " Site Not Found"
 msgstr " Server nenalezen"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:43
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:43
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:42
 msgid "_Email address"
 msgstr "_E-mailová adresa"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:53
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:53
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "_Heslo"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:97
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
 msgid "_Remember"
 msgstr "Za_pamatovat"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:118
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:101
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
 msgstr "Přihlásit se"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:70
 msgid "An _existing album:"
 msgstr "_Stávající album:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:87
 msgid "A _new album named:"
 msgstr "_Nové album s názvem:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
 msgid "_Hide album"
 msgstr "S_krýt album"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
 msgid "Open target _album in browser"
 msgstr "Otevřít cílové _album v prohlížeči"
@@ -1831,11 +1829,11 @@ msgstr "Fotky se objeví:"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Doplňkové zveřejňovací služby Shotwell"
 
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:43
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:44
 msgid "Blogs:"
 msgstr "Blogy:"
 
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:60
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 msgid "Photo _size:"
 msgstr "Veliko_st fotografie:"
@@ -1845,13 +1843,13 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1205
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pixelů"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1206
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pixelů"
@@ -1928,42 +1926,42 @@ msgstr "Přátelé"
 msgid "Private"
 msgstr "Soukromé"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:44
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:47
 msgid "_Albums (or write new):"
 msgstr "_Alba (nebo vepište nové):"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:59
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:85
 msgid "Access _type:"
 msgstr "_Typ přístupu:"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:103
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:106
 msgid "Disable _comments"
 msgstr "Zakázat _komentáře"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:120
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:123
 msgid "_Forbid downloading original photo"
 msgstr "Ne_dovolit stahovat originální fotografii"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:39
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:42
 msgid "Publish to an e_xisting album:"
 msgstr "Zveřejnit ve stáva_jícím albu:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:57
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:58
 msgid "Create a _new album named:"
 msgstr "Vytvořit _nové album s názvem:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:100
 #: plugins/shotwell-publishing/FacebookPublishing.vala:984
 msgid "Upload _size:"
 msgstr "Nahrávaná veliko_st:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:139
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:125
 msgid "Videos and new photo albums _visible to:"
 msgstr "Videa a nová fotoalba jsou viditelná:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:155
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:159
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -2044,17 +2042,17 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Kde chcete vybrané fotografie zveřejnit?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1143
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1213
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1187
 msgid "Just me"
 msgstr "mě výhradně"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1145
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1183
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "všem"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:16
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:17
 msgid ""
 "Enter the confirmation number which appears after you log into Flickr in "
 "your Web browser."
@@ -2065,7 +2063,7 @@ msgstr ""
 msgid "Authorization _Number:"
 msgstr "Ověřovací _kód:"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:128
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:70 src/Dialogs.vala:128
 msgid "Con_tinue"
 msgstr "Pokračova_t"
 
@@ -2096,8 +2094,8 @@ msgstr ""
 msgid "Preparing for login…"
 msgstr "Připravuje se přihlášení…"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:444
-#: plugins/shotwell-publishing/FlickrPublishing.vala:594
+#: plugins/shotwell-publishing/FlickrPublishing.vala:434
+#: plugins/shotwell-publishing/FlickrPublishing.vala:571
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2105,11 +2103,11 @@ msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Flickr nemůže "
 "pokračovat."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+#: plugins/shotwell-publishing/FlickrPublishing.vala:447
 msgid "Verifying authorization…"
 msgstr "Ověřuje se autorizace…"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1152
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2118,67 +2116,58 @@ msgstr ""
 "Jste přihlášeni ke službě Flickr jako %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1131
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
-"This month you have %d megabyte remaining in your upload quota."
-msgid_plural ""
-"Your free Flickr account limits how much data you can upload per month.\n"
-"This month you have %d megabytes remaining in your upload quota."
-msgstr[0] ""
+"This month you have %s remaining in your upload quota."
+msgstr ""
 "Váš bezplatný účet Flickr má omezení na množství nahraných dat za měsíc.\n"
-"Tento měsíc vám z přidělené kvóty zbývá %d megabajt."
-msgstr[1] ""
-"Váš bezplatný účet Flickr má omezení na množství nahraných dat za měsíc.\n"
-"Tento měsíc vám z přidělené kvóty zbývají %d megabajty."
-msgstr[2] ""
-"Váš bezplatný účet Flickr má omezení na množství nahraných dat za měsíc.\n"
-"Tento měsíc vám z přidělené kvóty zbývá %d megabajtů."
+"Tento měsíc vám z přidělené kvóty zbývá %s."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1159
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1133
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Účet Flickr Pro umožňuje nahrávat neomezeně."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1138
 msgid "Photos _visible to:"
 msgstr "Fotky _viditelné pro:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1140
 msgid "Videos _visible to:"
 msgstr "Videa _viditelná pro:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1169
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1143
 msgid "Photos and videos _visible to:"
 msgstr "Fotky a videa _viditelná pro:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1184
 msgid "Friends & family only"
 msgstr "přátele a rodinu výhradně"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1185
 msgid "Family only"
 msgstr "rodinu výhradně"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1212
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1186
 msgid "Friends only"
 msgstr "přátele výhradně"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pixelů"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1234
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pixelů"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:103
 msgid "L_ist album in public gallery"
 msgstr "_Uvést album ve veřejném seznamu"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:137
 msgid "Photo _size preset:"
 msgstr "Předvolená veliko_st fotek:"
 
@@ -2622,8 +2611,8 @@ msgstr "Fotoaparáty"
 
 #: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
 #: src/camera/ImportPage.vala:726 src/photos/RawSupport.vala:303
-#: ui/collection.ui:90 ui/event.ui:353 ui/event.ui:497 ui/media.ui:346
-#: ui/photo_context.ui:96 ui/photo.ui:336 ui/tags.ui:346
+#: ui/collection.ui:90 ui/event.ui:359 ui/event.ui:527 ui/media.ui:359
+#: ui/photo_context.ui:96 ui/photo.ui:349 ui/tags.ui:359
 msgid "Camera"
 msgstr "Fotoaparát"
 
@@ -2647,18 +2636,26 @@ msgstr "Skrýt již naimportované fotky"
 msgid "Only display photos that have not been imported"
 msgstr "Zobrazit jen fotografie, které ještě nebyly naimportovány"
 
-#: src/camera/ImportPage.vala:842
+#: src/camera/ImportPage.vala:815 ui/import.ui:17 ui/import.ui:214
+msgid "Import _All"
+msgstr "Importovat _vše"
+
+#: src/camera/ImportPage.vala:825 ui/import.ui:13 ui/import.ui:210
+msgid "Import _Selected"
+msgstr "Importovat vy_brané"
+
+#: src/camera/ImportPage.vala:849
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Vypadá to, že fotoaparát je prázdný. Nebyly nalezeny žádné fotografie/vide k "
 "naimportování."
 
-#: src/camera/ImportPage.vala:846
+#: src/camera/ImportPage.vala:853
 msgid "No new photos/videos found on camera"
 msgstr "Ve fotoaparátu nejsou žádné nové fotografie/videa"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:999
+#: src/camera/ImportPage.vala:1006
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2666,15 +2663,15 @@ msgstr ""
 "Shotwell potřebuje kvůli přístupu odpojit fotoaparát ze souborového systému. "
 "Pokračovat?"
 
-#: src/camera/ImportPage.vala:1005
+#: src/camera/ImportPage.vala:1012
 msgid "_Unmount"
 msgstr "_Odpojit"
 
-#: src/camera/ImportPage.vala:1010
+#: src/camera/ImportPage.vala:1017
 msgid "Please unmount the camera."
 msgstr "Odpojte prosím fotoaparát."
 
-#: src/camera/ImportPage.vala:1015
+#: src/camera/ImportPage.vala:1022
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2684,11 +2681,11 @@ msgstr ""
 "který není blokovaný jinou aplikací. Ukončete všechny aplikace, které ho "
 "používají, a zkuste to znovu."
 
-#: src/camera/ImportPage.vala:1025
+#: src/camera/ImportPage.vala:1032
 msgid "Please close any other application using the camera."
 msgstr "Ukončete prosím ostatní aplikace používající fotoaparát."
 
-#: src/camera/ImportPage.vala:1030
+#: src/camera/ImportPage.vala:1037
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2697,29 +2694,29 @@ msgstr ""
 "Nelze načíst náhledy z fotoaparátu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1047
+#: src/camera/ImportPage.vala:1054
 msgid "Unmounting…"
 msgstr "Odpojuje se…"
 
-#: src/camera/ImportPage.vala:1138
+#: src/camera/ImportPage.vala:1145
 msgid "Starting import, please wait…"
 msgstr "Začíná import, čekejte prosím…"
 
-#: src/camera/ImportPage.vala:1155
+#: src/camera/ImportPage.vala:1162
 msgid "Fetching photo information"
 msgstr "Získávají se informace o fotografii"
 
-#: src/camera/ImportPage.vala:1513
+#: src/camera/ImportPage.vala:1520
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Získává se náhled pro %s"
 
-#: src/camera/ImportPage.vala:1629
+#: src/camera/ImportPage.vala:1636
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nelze uzamknout fotoaparát: %s"
 
-#: src/camera/ImportPage.vala:1714
+#: src/camera/ImportPage.vala:1721
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2727,7 +2724,7 @@ msgstr[0] "Smazat tuto fotografii z fotoaparátu?"
 msgstr[1] "Smazat tyto %d fotografie z fotoaparátu?"
 msgstr[2] "Smazat těchto %d fotografií z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1717
+#: src/camera/ImportPage.vala:1724
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2735,7 +2732,7 @@ msgstr[0] "Smazat toto video z fotoaparátu?"
 msgstr[1] "Smazat tato %d videa z fotoaparátu?"
 msgstr[2] "Smazat těchto %d videí z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1720
+#: src/camera/ImportPage.vala:1727
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2743,7 +2740,7 @@ msgstr[0] "Smazat tuto fotografii/video z fotoaparátu?"
 msgstr[1] "Smazat tyto %d fotografie/videa z fotoaparátu?"
 msgstr[2] "Smazat těchto %d fotografií/videí z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1723
+#: src/camera/ImportPage.vala:1730
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2751,15 +2748,15 @@ msgstr[0] "Smazat tento soubor z fotoaparátu?"
 msgstr[1] "Smazat tyto %d soubory z fotoaparátu?"
 msgstr[2] "Smazat těchto %d souborů z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1731 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1738 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Zachovat"
 
-#: src/camera/ImportPage.vala:1750
+#: src/camera/ImportPage.vala:1757
 msgid "Removing photos/videos from camera"
 msgstr "Odstraňují se fotografie/videa z fotoaparátu"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1761
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2773,7 +2770,7 @@ msgid "_Print"
 msgstr "_Tisk"
 
 #: src/CollectionPage.vala:77 src/Resources.vala:323 ui/collection.ui:126
-#: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:533 ui/photo.ui:28
+#: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:563 ui/photo.ui:28
 msgid "Send _To…"
 msgstr "Odesla_t…"
 
@@ -2790,47 +2787,47 @@ msgstr "_Duplikovat"
 msgid "Fullscreen"
 msgstr "Celá obrazovka"
 
-#: src/CollectionPage.vala:96 ui/photo.ui:167
+#: src/CollectionPage.vala:96 ui/photo.ui:180
 msgid "S_lideshow"
 msgstr "P_romítat"
 
-#: src/CollectionPage.vala:104 src/Resources.vala:139 ui/direct.ui:104
-#: ui/photo.ui:187
+#: src/CollectionPage.vala:104 src/Resources.vala:139 ui/direct.ui:111
+#: ui/photo.ui:200
 msgid "Rotate _Right"
 msgstr "Otočit dop_rava"
 
-#: src/CollectionPage.vala:107 src/Resources.vala:144 ui/direct.ui:109
-#: ui/photo.ui:192
+#: src/CollectionPage.vala:107 src/Resources.vala:144 ui/direct.ui:116
+#: ui/photo.ui:205
 msgid "Rotate _Left"
 msgstr "Otočit do_leva"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:149 ui/direct.ui:114
-#: ui/photo.ui:197
+#: src/CollectionPage.vala:110 src/Resources.vala:149 ui/direct.ui:121
+#: ui/photo.ui:210
 msgid "Flip Hori_zontally"
 msgstr "Překlopit vo_dorovně"
 
-#: src/CollectionPage.vala:111 src/Resources.vala:152 ui/direct.ui:118
-#: ui/photo.ui:201
+#: src/CollectionPage.vala:111 src/Resources.vala:152 ui/direct.ui:125
+#: ui/photo.ui:214
 msgid "Flip Verti_cally"
 msgstr "Překlopit s_visle"
 
 #: src/CollectionPage.vala:113 src/Resources.vala:186 ui/collection.ui:8
-#: ui/direct_context.ui:9 ui/direct.ui:127 ui/event.ui:415
-#: ui/photo_context.ui:6 ui/photo.ui:210
+#: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:445
+#: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "_Vylepšit"
 
 #: src/CollectionPage.vala:114 src/Resources.vala:214 ui/collection.ui:13
-#: ui/direct_context.ui:14 ui/direct.ui:154 ui/event.ui:420
-#: ui/photo_context.ui:11 ui/photo.ui:237
+#: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:450
+#: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "_Vrátit zpět na původní"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:190 ui/photo.ui:243
+#: src/CollectionPage.vala:116 src/Resources.vala:190 ui/photo.ui:256
 msgid "_Copy Color Adjustments"
 msgstr "_Kopírovat úpravu barev"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:194 ui/photo.ui:248
+#: src/CollectionPage.vala:119 src/Resources.vala:194 ui/photo.ui:261
 msgid "_Paste Color Adjustments"
 msgstr "Vložit ú_pravu barev"
 
@@ -2843,7 +2840,7 @@ msgid "Open With E_xternal Editor"
 msgstr "Otevřít v e_xterním editoru"
 
 #: src/CollectionPage.vala:140 src/Resources.vala:321 ui/collection.ui:111
-#: ui/event.ui:518 ui/photo_context.ui:118 ui/photo.ui:350
+#: ui/event.ui:548 ui/photo_context.ui:118 ui/photo.ui:363
 msgid "Open With RA_W Editor"
 msgstr "Otevřít v editoru RA_W"
 
@@ -3104,7 +3101,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Databázový soubor:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:769
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:773
 msgid "_Import"
 msgstr "_Import"
 
@@ -3187,8 +3184,8 @@ msgstr[2] "Tím odstraníte štítek „%s“ z %d fotografií. Pokračovat?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:414
-#: src/Resources.vala:658 ui/savedsearch.ui:15 ui/trash.ui:56 ui/trash.ui:179
-#: ui/trash.ui:221
+#: src/Resources.vala:658 ui/savedsearch.ui:15 ui/tags.ui:458 ui/trash.ui:63
+#: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "S_mazat"
 
@@ -4397,7 +4394,7 @@ msgid "Angle:"
 msgstr "Úhel:"
 
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:202
-#: ui/direct.ui:137 ui/photo.ui:220
+#: ui/direct.ui:144 ui/photo.ui:233
 msgid "_Straighten"
 msgstr "_Vyrovnat"
 
@@ -4501,12 +4498,12 @@ msgstr "Složky"
 msgid "Library"
 msgstr "Knihovna"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:1084
+#: src/library/Branch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
 msgstr "Fotografie"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1103
-#: src/SearchFilter.vala:1104
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
+#: src/SearchFilter.vala:1103
 msgid "Flagged"
 msgstr "Označeno"
 
@@ -4527,19 +4524,19 @@ msgstr "Naimportováno %s"
 msgid "Last Import"
 msgstr "Poslední import"
 
-#: src/library/LibraryWindow.vala:501
+#: src/library/LibraryWindow.vala:505
 msgid "Import From Folder"
 msgstr "Import ze složky"
 
-#: src/library/LibraryWindow.vala:570 ui/trash.ui:251
+#: src/library/LibraryWindow.vala:574 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Vyprázdnění koše"
 
-#: src/library/LibraryWindow.vala:570
+#: src/library/LibraryWindow.vala:574
 msgid "Emptying Trash…"
 msgstr "Vyprazdňuje se koš…"
 
-#: src/library/LibraryWindow.vala:766
+#: src/library/LibraryWindow.vala:770
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4551,33 +4548,33 @@ msgstr ""
 "Doporučujeme to v <span weight=\"bold\">Upravit %s Předvolby</span> změnit.\n"
 "Chcete pokračovat v importu fotografií?"
 
-#: src/library/LibraryWindow.vala:769 ui/shotwell.ui:142
+#: src/library/LibraryWindow.vala:773 ui/shotwell.ui:142
 msgid "Library Location"
 msgstr "Umístění knihovny"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:782
+#: src/library/LibraryWindow.vala:786
 msgid "Photos cannot be imported from this directory."
 msgstr "Z této složky nemohou být fotografie importovány."
 
-#: src/library/LibraryWindow.vala:1062
+#: src/library/LibraryWindow.vala:1066
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d %%)"
 
-#: src/library/LibraryWindow.vala:1106 src/library/LibraryWindow.vala:1117
+#: src/library/LibraryWindow.vala:1110 src/library/LibraryWindow.vala:1121
 msgid "Updating library…"
 msgstr "Aktualizuje se knihovna…"
 
-#: src/library/LibraryWindow.vala:1123
+#: src/library/LibraryWindow.vala:1127
 msgid "Preparing to auto-import photos…"
 msgstr "Připravuje se automatický import fotografií…"
 
-#: src/library/LibraryWindow.vala:1128
+#: src/library/LibraryWindow.vala:1132
 msgid "Auto-importing photos…"
 msgstr "Provádí se automatický import fotografií…"
 
-#: src/library/LibraryWindow.vala:1136
+#: src/library/LibraryWindow.vala:1140
 msgid "Writing metadata to files…"
 msgstr "Zapisují se metadata do souborů…"
 
@@ -5072,7 +5069,9 @@ msgstr "Překlopit vodorovně"
 msgid "Flip Vertically"
 msgstr "Překlopit svisle"
 
-#: src/Resources.vala:155 ui/appmenu.ui:27 ui/appmenu.ui:55
+#: src/Resources.vala:155 ui/direct.ui:191 ui/events_directory.ui:168
+#: ui/event.ui:436 ui/import_queue.ui:83 ui/import.ui:201 ui/media.ui:419
+#: ui/offline.ui:198 ui/photo.ui:402 ui/tags.ui:438 ui/trash.ui:207
 msgid "_About"
 msgstr "O _aplikaci"
 
@@ -5080,9 +5079,9 @@ msgstr "O _aplikaci"
 msgid "_Apply"
 msgstr "_Použít"
 
-#: src/Resources.vala:159 ui/direct.ui:37 ui/events_directory.ui:25
-#: ui/event.ui:47 ui/import.ui:33 ui/media.ui:40 ui/offline.ui:25
-#: ui/photo.ui:48 ui/tags.ui:40 ui/top.ui:10 ui/trash.ui:30
+#: src/Resources.vala:159 ui/direct.ui:44 ui/events_directory.ui:32
+#: ui/event.ui:47 ui/import.ui:40 ui/media.ui:47 ui/offline.ui:32
+#: ui/photo.ui:55 ui/tags.ui:47 ui/top.ui:10 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Upravit"
 
@@ -5090,13 +5089,17 @@ msgstr "_Upravit"
 msgid "_Forward"
 msgstr "V_před"
 
-#: src/Resources.vala:161 ui/direct.ui:55 ui/events_directory.ui:112
-#: ui/photo.ui:160
+#: src/Resources.vala:161 ui/direct.ui:62 ui/events_directory.ui:125
+#: ui/photo.ui:173
 msgid "Fulls_creen"
 msgstr "_Celá obrazovka"
 
-#: src/Resources.vala:162 ui/appmenu.ui:14 ui/appmenu.ui:42
-#: ui/import_queue.ui:58 ui/import_queue.ui:61 ui/top.ui:40
+#: src/Resources.vala:162 ui/direct.ui:173 ui/direct.ui:176
+#: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:418
+#: ui/event.ui:421 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
+#: ui/import.ui:186 ui/media.ui:401 ui/media.ui:404 ui/offline.ui:180
+#: ui/offline.ui:183 ui/photo.ui:384 ui/photo.ui:387 ui/tags.ui:420
+#: ui/tags.ui:423 ui/top.ui:40 ui/trash.ui:189 ui/trash.ui:192
 msgid "_Help"
 msgstr "_Nápověda"
 
@@ -5104,7 +5107,7 @@ msgstr "_Nápověda"
 msgid "Leave _Fullscreen"
 msgstr "Opustit _celou obrazovku"
 
-#: src/Resources.vala:164 src/Resources.vala:363
+#: src/Resources.vala:164 src/Resources.vala:363 ui/tags.ui:448
 msgid "_New"
 msgstr "_Nový"
 
@@ -5112,7 +5115,9 @@ msgstr "_Nový"
 msgid "_Next"
 msgstr "_Následující"
 
-#: src/Resources.vala:168 src/Resources.vala:317 ui/appmenu.ui:8
+#: src/Resources.vala:168 src/Resources.vala:317 ui/events_directory.ui:65
+#: ui/event.ui:93 ui/import.ui:68 ui/media.ui:93 ui/offline.ui:72
+#: ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "_Předvolby"
 
@@ -5120,7 +5125,9 @@ msgstr "_Předvolby"
 msgid "_Previous"
 msgstr "_Předchozí"
 
-#: src/Resources.vala:171 ui/appmenu.ui:33 ui/appmenu.ui:61 ui/event.ui:40
+#: src/Resources.vala:171 ui/direct.ui:37 ui/events_directory.ui:25
+#: ui/event.ui:40 ui/import_queue.ui:31 ui/import.ui:33 ui/media.ui:40
+#: ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "U_končit"
 
@@ -5160,13 +5167,13 @@ msgstr "_Normální velikost"
 msgid "Best _Fit"
 msgstr "Přizpůso_bit"
 
-#: src/Resources.vala:183 ui/direct.ui:62 ui/event.ui:254 ui/media.ui:247
-#: ui/photo.ui:131 ui/tags.ui:247
+#: src/Resources.vala:183 ui/direct.ui:69 ui/event.ui:260 ui/media.ui:260
+#: ui/photo.ui:144 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "Přiblíž_it"
 
-#: src/Resources.vala:184 ui/direct.ui:67 ui/event.ui:259 ui/media.ui:252
-#: ui/photo.ui:136 ui/tags.ui:252
+#: src/Resources.vala:184 ui/direct.ui:74 ui/event.ui:265 ui/media.ui:265
+#: ui/photo.ui:149 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
@@ -5194,7 +5201,7 @@ msgstr "Vložit úpravu barev"
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Použít u vybraných fotografií zkopírované parametry úpravy barev"
 
-#: src/Resources.vala:198 ui/direct.ui:132 ui/photo.ui:215
+#: src/Resources.vala:198 ui/direct.ui:139 ui/photo.ui:228
 msgid "_Crop"
 msgstr "_Oříznout"
 
@@ -5214,7 +5221,7 @@ msgstr "Vyrovnat"
 msgid "Straighten the photo"
 msgstr "Vyrovnat fotografii"
 
-#: src/Resources.vala:206 ui/direct.ui:142 ui/photo.ui:225
+#: src/Resources.vala:206 ui/direct.ui:149 ui/photo.ui:238
 msgid "_Red-eye"
 msgstr "Če_rvené oči"
 
@@ -5226,7 +5233,7 @@ msgstr "Červené oči"
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Odstranit nebo potlačit efekt červených očí ve fotografii"
 
-#: src/Resources.vala:210 ui/direct.ui:147 ui/photo.ui:230
+#: src/Resources.vala:210 ui/direct.ui:154 ui/photo.ui:243
 msgid "_Adjust"
 msgstr "_Upravit"
 
@@ -5258,9 +5265,9 @@ msgstr "Nastavit vybranou fotografii jako obrázek na pozadí pracovní plochy"
 msgid "Set as _Desktop Slideshow…"
 msgstr "Nastavit jako prezentaci na p_loše…"
 
-#: src/Resources.vala:224 ui/direct.ui:40 ui/events_directory.ui:28
-#: ui/event.ui:50 ui/import.ui:36 ui/media.ui:43 ui/offline.ui:28
-#: ui/photo.ui:51 ui/tags.ui:43 ui/trash.ui:33
+#: src/Resources.vala:224 ui/direct.ui:47 ui/events_directory.ui:35
+#: ui/event.ui:50 ui/import.ui:43 ui/media.ui:50 ui/offline.ui:35
+#: ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "_Zpět"
 
@@ -5268,9 +5275,9 @@ msgstr "_Zpět"
 msgid "Undo"
 msgstr "Zpět"
 
-#: src/Resources.vala:227 ui/direct.ui:45 ui/events_directory.ui:33
-#: ui/event.ui:55 ui/import.ui:41 ui/media.ui:48 ui/offline.ui:33
-#: ui/photo.ui:56 ui/tags.ui:48 ui/trash.ui:38
+#: src/Resources.vala:227 ui/direct.ui:52 ui/events_directory.ui:40
+#: ui/event.ui:55 ui/import.ui:48 ui/media.ui:55 ui/offline.ui:40
+#: ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "Zn_ovu"
 
@@ -5278,12 +5285,12 @@ msgstr "Zn_ovu"
 msgid "Redo"
 msgstr "Znovu"
 
-#: src/Resources.vala:230 ui/events_directory.ui:126 ui/events_directory.ui:144
-#: ui/event.ui:385 ui/event.ui:554
+#: src/Resources.vala:230 ui/events_directory.ui:139 ui/events_directory.ui:181
+#: ui/event.ui:391 ui/event.ui:584
 msgid "Re_name Event…"
 msgstr "Přejme_novat událost…"
 
-#: src/Resources.vala:233 ui/event.ui:365 ui/event.ui:546
+#: src/Resources.vala:233 ui/event.ui:371 ui/event.ui:576
 msgid "Make _Key Photo for Event"
 msgstr "Použít jako _klíčovou fotku pro událost"
 
@@ -5291,7 +5298,7 @@ msgstr "Použít jako _klíčovou fotku pro událost"
 msgid "Make Key Photo for Event"
 msgstr "Nastavit jako klíčovou fotografii pro událost"
 
-#: src/Resources.vala:236 ui/event.ui:374 ui/media.ui:361 ui/tags.ui:361
+#: src/Resources.vala:236 ui/event.ui:380 ui/media.ui:374 ui/tags.ui:374
 msgid "_New Event"
 msgstr "_Nová událost"
 
@@ -5307,7 +5314,7 @@ msgstr "Přesunout fotky"
 msgid "Move photos to an event"
 msgstr "Přiřadit fotografie k události"
 
-#: src/Resources.vala:242 ui/events_directory.ui:122 ui/events_directory.ui:140
+#: src/Resources.vala:242 ui/events_directory.ui:135 ui/events_directory.ui:177
 msgid "_Merge Events"
 msgstr "S_pojit události"
 
@@ -5319,8 +5326,8 @@ msgstr "Spojit"
 msgid "Combine events into a single event"
 msgstr "Sloučit události do jedné"
 
-#: src/Resources.vala:246 ui/collection.ui:39 ui/event.ui:280 ui/event.ui:446
-#: ui/media.ui:273 ui/photo_context.ui:35 ui/photo.ui:260 ui/tags.ui:273
+#: src/Resources.vala:246 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:476
+#: ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273 ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "_Hodnotit"
 
@@ -5332,8 +5339,8 @@ msgstr "Nastavit hodnocení"
 msgid "Change the rating of your photo"
 msgstr "Změnit hodnocení své fotografie"
 
-#: src/Resources.vala:250 ui/collection.ui:72 ui/event.ui:320 ui/event.ui:479
-#: ui/media.ui:313 ui/photo_context.ui:75 ui/photo.ui:300 ui/tags.ui:313
+#: src/Resources.vala:250 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:509
+#: ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313 ui/tags.ui:326
 msgid "_Increase"
 msgstr "Z_výšit"
 
@@ -5341,8 +5348,8 @@ msgstr "Z_výšit"
 msgid "Increase Rating"
 msgstr "Zvýšení hodnocení"
 
-#: src/Resources.vala:253 ui/collection.ui:76 ui/event.ui:325 ui/event.ui:483
-#: ui/media.ui:318 ui/photo_context.ui:80 ui/photo.ui:305 ui/tags.ui:318
+#: src/Resources.vala:253 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:513
+#: ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318 ui/tags.ui:331
 msgid "_Decrease"
 msgstr "S_nížit"
 
@@ -5350,8 +5357,8 @@ msgstr "S_nížit"
 msgid "Decrease Rating"
 msgstr "Snížení hodnocení"
 
-#: src/Resources.vala:256 ui/collection.ui:62 ui/event.ui:308 ui/event.ui:469
-#: ui/media.ui:301 ui/photo_context.ui:63 ui/photo.ui:288 ui/tags.ui:301
+#: src/Resources.vala:256 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:499
+#: ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301 ui/tags.ui:314
 msgid "_Unrated"
 msgstr "_Bez ohodnocení"
 
@@ -5371,8 +5378,8 @@ msgstr "Nastavuje se jako nehodnocené"
 msgid "Remove any ratings"
 msgstr "Odebrat hodnocení"
 
-#: src/Resources.vala:262 ui/collection.ui:66 ui/event.ui:313 ui/event.ui:473
-#: ui/media.ui:306 ui/photo_context.ui:68 ui/photo.ui:293 ui/tags.ui:306
+#: src/Resources.vala:262 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:503
+#: ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306 ui/tags.ui:319
 msgid "_Rejected"
 msgstr "_Zamítnout"
 
@@ -5392,8 +5399,8 @@ msgstr "Nastavuje se na zamítnuté"
 msgid "Set rating to rejected"
 msgstr "Nastavit hodnocení na zamítnuté"
 
-#: src/Resources.vala:268 ui/event.ui:190 ui/import.ui:143 ui/media.ui:183
-#: ui/offline.ui:140 ui/search_bar.ui:6 ui/tags.ui:183 ui/trash.ui:149
+#: src/Resources.vala:268 ui/event.ui:196 ui/import.ui:156 ui/media.ui:196
+#: ui/offline.ui:153 ui/search_bar.ui:6 ui/tags.ui:196 ui/trash.ui:162
 msgid "Rejected _Only"
 msgstr "Jen _zamítnuté"
 
@@ -5405,8 +5412,8 @@ msgstr "Jen zamítnuté"
 msgid "Show only rejected photos"
 msgstr "Zobrazovat je zamítnuté fotografie"
 
-#: src/Resources.vala:272 ui/event.ui:184 ui/import.ui:137 ui/media.ui:177
-#: ui/offline.ui:134 ui/search_bar.ui:12 ui/tags.ui:177 ui/trash.ui:143
+#: src/Resources.vala:272 ui/event.ui:190 ui/import.ui:150 ui/media.ui:190
+#: ui/offline.ui:147 ui/search_bar.ui:12 ui/tags.ui:190 ui/trash.ui:156
 msgid "All + _Rejected"
 msgstr "Všechny + _zamítnuté"
 
@@ -5415,8 +5422,8 @@ msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Zobrazovat všechny fotografie, včetně zamítnutých"
 
-#: src/Resources.vala:275 ui/event.ui:178 ui/import.ui:131 ui/media.ui:171
-#: ui/offline.ui:128 ui/search_bar.ui:18 ui/tags.ui:171 ui/trash.ui:137
+#: src/Resources.vala:275 ui/event.ui:184 ui/import.ui:144 ui/media.ui:184
+#: ui/offline.ui:141 ui/search_bar.ui:18 ui/tags.ui:184 ui/trash.ui:150
 msgid "_All Photos"
 msgstr "_Všechny fotografie"
 
@@ -5425,8 +5432,8 @@ msgstr "_Všechny fotografie"
 msgid "Show all photos"
 msgstr "Zobrazovat všechny fotografie"
 
-#: src/Resources.vala:279 ui/event.ui:138 ui/media.ui:131 ui/photo.ui:107
-#: ui/tags.ui:131
+#: src/Resources.vala:279 ui/event.ui:144 ui/media.ui:144 ui/photo.ui:120
+#: ui/tags.ui:144
 msgid "_Ratings"
 msgstr "_Hodnocení"
 
@@ -5434,8 +5441,8 @@ msgstr "_Hodnocení"
 msgid "Display each photo’s rating"
 msgstr "U každé fotografie zobrazit hodnocení"
 
-#: src/Resources.vala:282 ui/event.ui:145 ui/import.ui:98 ui/media.ui:138
-#: ui/offline.ui:95 ui/tags.ui:138 ui/trash.ui:104
+#: src/Resources.vala:282 ui/event.ui:151 ui/import.ui:111 ui/media.ui:151
+#: ui/offline.ui:108 ui/tags.ui:151 ui/trash.ui:117
 msgid "_Filter Photos"
 msgstr "_Filtrovat fotografie"
 
@@ -5471,8 +5478,8 @@ msgstr "Z_veřejnit…"
 msgid "Publish to various websites"
 msgstr "Zveřejnit na různých webových stránkách"
 
-#: src/Resources.vala:298 ui/collection.ui:98 ui/event.ui:334 ui/event.ui:505
-#: ui/media.ui:327 ui/photo_context.ui:105 ui/photo.ui:314 ui/tags.ui:327
+#: src/Resources.vala:298 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:535
+#: ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327 ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "Úpravi_t název…"
 
@@ -5482,9 +5489,9 @@ msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Upravit název"
 
-#: src/Resources.vala:302 ui/collection.ui:102 ui/events_directory.ui:131
-#: ui/events_directory.ui:149 ui/event.ui:338 ui/event.ui:390 ui/event.ui:509
-#: ui/media.ui:331 ui/photo_context.ui:109 ui/photo.ui:318 ui/tags.ui:331
+#: src/Resources.vala:302 ui/collection.ui:102 ui/events_directory.ui:144
+#: ui/events_directory.ui:186 ui/event.ui:344 ui/event.ui:396 ui/event.ui:539
+#: ui/media.ui:344 ui/photo_context.ui:109 ui/photo.ui:331 ui/tags.ui:344
 msgid "Edit _Comment…"
 msgstr "Upravit _komentář…"
 
@@ -5493,11 +5500,11 @@ msgstr "Upravit _komentář…"
 msgid "Edit Comment"
 msgstr "Upravit komentář"
 
-#: src/Resources.vala:306 ui/event.ui:558
+#: src/Resources.vala:306 ui/event.ui:588
 msgid "Edit Event _Comment…"
 msgstr "Úpravit _komentář k události…"
 
-#: src/Resources.vala:309 ui/direct.ui:160 ui/photo.ui:322
+#: src/Resources.vala:309 ui/direct.ui:167 ui/photo.ui:335
 msgid "_Adjust Date and Time…"
 msgstr "N_astavit datum a čas…"
 
@@ -5505,8 +5512,8 @@ msgstr "N_astavit datum a čas…"
 msgid "Adjust Date and Time"
 msgstr "Nastavení data a času"
 
-#: src/Resources.vala:312 ui/collection.ui:19 ui/event.ui:399 ui/event.ui:426
-#: ui/media.ui:375 ui/photo.ui:359 ui/tags.ui:375
+#: src/Resources.vala:312 ui/collection.ui:19 ui/event.ui:405 ui/event.ui:456
+#: ui/media.ui:388 ui/photo.ui:372 ui/tags.ui:388
 msgid "Add _Tags…"
 msgstr "Přidat š_títky…"
 
@@ -5528,13 +5535,13 @@ msgstr "_Odeslat…"
 msgid "_Find…"
 msgstr "Na_jít…"
 
-#: src/Resources.vala:327 ui/collection.ui:215 ui/offline.ui:202
-#: ui/trash.ui:275
+#: src/Resources.vala:327 ui/collection.ui:215 ui/offline.ui:239
+#: ui/trash.ui:312
 msgid "Find"
 msgstr "Najít"
 
-#: src/Resources.vala:328 ui/collection.ui:212 ui/offline.ui:199
-#: ui/trash.ui:272
+#: src/Resources.vala:328 ui/collection.ui:212 ui/offline.ui:236
+#: ui/trash.ui:309
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Najít obrázky, jejichž název nebo štítek obsahují napsaný text"
 
@@ -5592,12 +5599,12 @@ msgstr "Přejme_novat štítek „%s“…"
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Přejmenovat štítek „%s“ na „%s“"
 
-#: src/Resources.vala:373
+#: src/Resources.vala:373 ui/tags.ui:454
 msgid "_Rename…"
 msgstr "_Přejmenovat…"
 
-#: src/Resources.vala:375 ui/collection.ui:24 ui/event.ui:404 ui/event.ui:431
-#: ui/media.ui:380 ui/photo_context.ui:22 ui/photo.ui:364 ui/tags.ui:380
+#: src/Resources.vala:375 ui/collection.ui:24 ui/event.ui:410 ui/event.ui:461
+#: ui/media.ui:393 ui/photo_context.ui:22 ui/photo.ui:377 ui/tags.ui:393
 msgid "Modif_y Tags…"
 msgstr "Změn_it štítky…"
 
@@ -5648,7 +5655,7 @@ msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Nelze přejmenovat hledání na „%s“, protože takové už existuje."
 
 #. Saved search button
-#: src/Resources.vala:410 src/SearchFilter.vala:1125
+#: src/Resources.vala:410 src/SearchFilter.vala:1124
 msgid "Saved Search"
 msgstr "Uložené hledání"
 
@@ -5714,26 +5721,26 @@ msgstr "Zobrazit %s nebo lepší"
 msgid "Only show photos with a rating of %s or better"
 msgstr "Zobrazit jen fotografie s hodnocením %s nebo lepším"
 
-#: src/Resources.vala:659 ui/trash.ui:218
+#: src/Resources.vala:659 ui/trash.ui:255
 msgid "Remove the selected photos from the trash"
 msgstr "Odstranit vybrané fotografie z koše"
 
-#: src/Resources.vala:660 ui/offline.ui:184
+#: src/Resources.vala:660 ui/offline.ui:221
 msgid "Remove the selected photos from the library"
 msgstr "Odstraní vybrané fotografie z knihovny"
 
-#: src/Resources.vala:662 ui/trash.ui:61 ui/trash.ui:184 ui/trash.ui:236
+#: src/Resources.vala:662 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
 msgid "_Restore"
 msgstr "O_bnovit"
 
-#: src/Resources.vala:663 ui/trash.ui:233
+#: src/Resources.vala:663 ui/trash.ui:270
 msgid "Move the selected photos back into the library"
 msgstr "Přesunout vybrané fotografie zpět do knihovny"
 
 #: src/Resources.vala:665 ui/collection.ui:121 ui/direct_context.ui:20
-#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:528 ui/media.ui:27
+#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:558 ui/media.ui:27
 #: ui/photo_context.ui:128 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
-#: ui/trash.ui:190
+#: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Otevřít ve _správci souborů"
 
@@ -5746,17 +5753,17 @@ msgstr "Otevřít vybranou složku s fotografiemi ve správci souborů"
 msgid "Unable to open in file manager: %s"
 msgstr "Nelze otevřít ve správci souborů: %s"
 
-#: src/Resources.vala:672 ui/offline.ui:187
+#: src/Resources.vala:672 ui/offline.ui:224
 msgid "R_emove From Library"
 msgstr "O_dstranit z knihovny"
 
-#: src/Resources.vala:674 ui/collection.ui:132 ui/event.ui:79 ui/event.ui:539
-#: ui/media.ui:72 ui/photo_context.ui:139 ui/photo.ui:75 ui/tags.ui:72
+#: src/Resources.vala:674 ui/collection.ui:132 ui/event.ui:79 ui/event.ui:569
+#: ui/media.ui:79 ui/photo_context.ui:139 ui/photo.ui:82 ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "Přesu_nout do koše"
 
-#: src/Resources.vala:676 ui/events_directory.ui:51 ui/event.ui:86
-#: ui/import.ui:54 ui/media.ui:79 ui/offline.ui:58 ui/tags.ui:79 ui/trash.ui:67
+#: src/Resources.vala:676 ui/events_directory.ui:58 ui/event.ui:86
+#: ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65 ui/tags.ui:86 ui/trash.ui:74
 msgid "Select _All"
 msgstr "Vybrat _vše"
 
@@ -5991,7 +5998,7 @@ msgid "Photo state"
 msgstr "Stav fotky"
 
 #: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1115
+#: src/SearchFilter.vala:1114
 msgid "Rating"
 msgstr "Hodnocení"
 
@@ -6019,7 +6026,7 @@ msgstr "Hodnocení ★★★★+"
 msgid "★★★★★+ Rating"
 msgstr "Hodnocení ★★★★★+"
 
-#: src/SearchFilter.vala:1065
+#: src/SearchFilter.vala:1064
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Chyba při načítání uživatelského rozhraním vyhledávací lišty: %s"
@@ -6029,24 +6036,24 @@ msgstr "Chyba při načítání uživatelského rozhraním vyhledávací lišty:
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1074
+#: src/SearchFilter.vala:1073
 msgid "Close"
 msgstr "Zavřít"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1080
+#: src/SearchFilter.vala:1079
 msgid "Type"
 msgstr "Typ"
 
-#: src/SearchFilter.vala:1087
+#: src/SearchFilter.vala:1086
 msgid "Videos"
 msgstr "Videa"
 
-#: src/SearchFilter.vala:1090
+#: src/SearchFilter.vala:1089
 msgid "RAW Photos"
 msgstr "Fotografie RAW"
 
-#: src/SearchFilter.vala:1126
+#: src/SearchFilter.vala:1125
 msgid "Use a saved search to filter items in the current view"
 msgstr "Použít uložené hledání k filtrování položek v aktuálním zobrazení"
 
@@ -6126,30 +6133,22 @@ msgstr "bez názvu"
 msgid "Export Videos"
 msgstr "Export videí"
 
-#: ui/appmenu.ui:19 ui/appmenu.ui:47 ui/import_queue.ui:66
-msgid "_Frequently Asked Questions"
-msgstr "Ča_sté dotazy a odpovědi"
-
-#: ui/appmenu.ui:23 ui/appmenu.ui:51 ui/import_queue.ui:70
-msgid "_Report a Problem…"
-msgstr "_Nahlásit problém…"
-
-#: ui/collection.ui:33 ui/event.ui:275 ui/event.ui:440 ui/media.ui:268
-#: ui/photo_context.ui:30 ui/photo.ui:255 ui/tags.ui:268
+#: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:470 ui/media.ui:281
+#: ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "_Přepnout označení"
 
-#: ui/collection.ui:82 ui/event.ui:345 ui/event.ui:489 ui/media.ui:338
-#: ui/photo_context.ui:88 ui/photo.ui:328 ui/tags.ui:338
+#: ui/collection.ui:82 ui/event.ui:351 ui/event.ui:519 ui/media.ui:351
+#: ui/photo_context.ui:88 ui/photo.ui:341 ui/tags.ui:351
 msgid "_Developer"
 msgstr "_Vývojka"
 
-#: ui/collection.ui:106 ui/event.ui:513 ui/photo_context.ui:113 ui/photo.ui:345
+#: ui/collection.ui:106 ui/event.ui:543 ui/photo_context.ui:113 ui/photo.ui:358
 msgid "Open with E_xternal Editor"
 msgstr "Otevřít v e_xterním editoru"
 
-#: ui/collection.ui:117 ui/event.ui:379 ui/event.ui:524 ui/media.ui:366
-#: ui/photo_context.ui:124 ui/tags.ui:366
+#: ui/collection.ui:117 ui/event.ui:385 ui/event.ui:554 ui/media.ui:379
+#: ui/photo_context.ui:124 ui/tags.ui:379
 msgid "View Eve_nt for Photo"
 msgstr "Zobrazit u_dálosti pro fotku"
 
@@ -6163,39 +6162,51 @@ msgstr "_Soubor"
 msgid "Save _As…"
 msgstr "Uložit j_ako"
 
-#: ui/direct.ui:52 ui/events_directory.ui:58 ui/event.ui:93
-#: ui/import_queue.ui:31 ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65
-#: ui/photo.ui:82 ui/tags.ui:86 ui/top.ui:15 ui/trash.ui:74
+#: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99
+#: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
+#: ui/photo.ui:95 ui/tags.ui:99 ui/top.ui:15 ui/trash.ui:87
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: ui/direct.ui:74 ui/photo.ui:143
+#: ui/direct.ui:81 ui/photo.ui:156
 msgid "Fit to _Page"
 msgstr "Přizpůsobit _stránce"
 
-#: ui/direct.ui:79 ui/photo.ui:148
+#: ui/direct.ui:86 ui/photo.ui:161
 msgid "Zoom _100%"
 msgstr "Přiblížení _100%"
 
-#: ui/direct.ui:84 ui/photo.ui:153
+#: ui/direct.ui:91 ui/photo.ui:166
 msgid "Zoom _200%"
 msgstr "Přiblížení _200%"
 
-#: ui/direct.ui:91 ui/photo.ui:174 ui/top.ui:20
+#: ui/direct.ui:98 ui/photo.ui:187 ui/top.ui:20
 msgid "_Photo"
 msgstr "_Fotografie"
 
-#: ui/direct.ui:94 ui/photo.ui:177
+#: ui/direct.ui:101 ui/photo.ui:190
 msgid "_Previous Photo"
 msgstr "_Předchozí fotka"
 
-#: ui/direct.ui:98 ui/photo.ui:181
+#: ui/direct.ui:105 ui/photo.ui:194
 msgid "_Next Photo"
 msgstr "_Následující fotka"
 
-#: ui/direct.ui:124 ui/photo.ui:207
+#: ui/direct.ui:131 ui/photo.ui:220
 msgid "T_ools"
 msgstr "Nástr_oje"
+
+#: ui/direct.ui:181 ui/events_directory.ui:158 ui/event.ui:426
+#: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:409 ui/offline.ui:188
+#: ui/photo.ui:392 ui/tags.ui:428 ui/trash.ui:197
+msgid "_Frequently Asked Questions"
+msgstr "Ča_sté dotazy a odpovědi"
+
+#: ui/direct.ui:185 ui/events_directory.ui:162 ui/event.ui:430
+#: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:413 ui/offline.ui:192
+#: ui/photo.ui:396 ui/tags.ui:432 ui/trash.ui:201
+msgid "_Report a Problem…"
+msgstr "_Nahlásit problém…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/import_queue.ui:14 ui/import.ui:8
 #: ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8 ui/trash.ui:8
@@ -6210,128 +6221,120 @@ msgstr "Import z _aplikace…"
 
 #: ui/events_directory.ui:19 ui/event.ui:34 ui/import_queue.ui:25
 #: ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19 ui/photo.ui:42 ui/tags.ui:34
-#: ui/trash.ui:24 ui/trash.ui:197 ui/trash.ui:205
+#: ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
 msgid "Empty T_rash"
 msgstr "Vyp_rázdnit koš"
 
-#: ui/events_directory.ui:40 ui/event.ui:62 ui/import.ui:48 ui/media.ui:55
-#: ui/offline.ui:40 ui/tags.ui:55 ui/trash.ui:45
+#: ui/events_directory.ui:47 ui/event.ui:62 ui/import.ui:55 ui/media.ui:62
+#: ui/offline.ui:47 ui/tags.ui:62 ui/trash.ui:52
 msgid "_Find"
 msgstr "Na_jít"
 
-#: ui/events_directory.ui:44 ui/event.ui:66 ui/media.ui:59 ui/offline.ui:44
-#: ui/photo.ui:63 ui/search_sidebar_context.ui:6
-#: ui/sidebar_default_context.ui:6 ui/tags.ui:59 ui/trash.ui:49
+#: ui/events_directory.ui:51 ui/event.ui:66 ui/media.ui:66 ui/offline.ui:51
+#: ui/photo.ui:70 ui/search_sidebar_context.ui:6
+#: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
 msgid "Ne_w Saved Search…"
 msgstr "No_vé uložené vyhledávání…"
 
-#: ui/events_directory.ui:61 ui/event.ui:96 ui/import_queue.ui:34
-#: ui/import.ui:64 ui/media.ui:89 ui/offline.ui:68 ui/photo.ui:85 ui/tags.ui:89
-#: ui/trash.ui:77
+#: ui/events_directory.ui:74 ui/event.ui:102 ui/import_queue.ui:41
+#: ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81 ui/photo.ui:98
+#: ui/tags.ui:102 ui/trash.ui:90
 msgid "_Basic Information"
 msgstr "_Základní informace"
 
-#: ui/events_directory.ui:66 ui/event.ui:101 ui/import.ui:69 ui/media.ui:94
-#: ui/offline.ui:73 ui/photo.ui:90 ui/tags.ui:94 ui/trash.ui:82
+#: ui/events_directory.ui:79 ui/event.ui:107 ui/import.ui:82 ui/media.ui:107
+#: ui/offline.ui:86 ui/photo.ui:103 ui/tags.ui:107 ui/trash.ui:95
 msgid "E_xtended Information"
 msgstr "_Rozšiřující informace"
 
-#: ui/events_directory.ui:71 ui/event.ui:106 ui/import.ui:74 ui/media.ui:99
-#: ui/offline.ui:78 ui/tags.ui:99 ui/trash.ui:87
+#: ui/events_directory.ui:84 ui/event.ui:112 ui/import.ui:87 ui/media.ui:112
+#: ui/offline.ui:91 ui/tags.ui:112 ui/trash.ui:100
 msgid "_Search Bar"
 msgstr "Vy_hledávací lišta"
 
-#: ui/events_directory.ui:76 ui/event.ui:111 ui/import.ui:79 ui/media.ui:104
-#: ui/offline.ui:83 ui/photo.ui:95 ui/tags.ui:104 ui/trash.ui:92
+#: ui/events_directory.ui:89 ui/event.ui:117 ui/import.ui:92 ui/media.ui:117
+#: ui/offline.ui:96 ui/photo.ui:108 ui/tags.ui:117 ui/trash.ui:105
 msgid "S_idebar"
 msgstr "P_ostranní panel"
 
-#: ui/events_directory.ui:81 ui/event.ui:116 ui/import.ui:84 ui/media.ui:109
-#: ui/offline.ui:88 ui/photo.ui:100 ui/tags.ui:109 ui/trash.ui:97
+#: ui/events_directory.ui:94 ui/event.ui:122 ui/import.ui:97 ui/media.ui:122
+#: ui/offline.ui:101 ui/photo.ui:113 ui/tags.ui:122 ui/trash.ui:110
 msgid "T_oolbar"
 msgstr "Nástroj_ová lišta"
 
-#: ui/events_directory.ui:88 ui/event.ui:128 ui/media.ui:121 ui/tags.ui:121
+#: ui/events_directory.ui:101 ui/event.ui:134 ui/media.ui:134 ui/tags.ui:134
 msgid "_Comments"
 msgstr "_Komentáře"
 
-#: ui/events_directory.ui:95 ui/event.ui:237 ui/import_queue.ui:41
-#: ui/import.ui:153 ui/media.ui:230 ui/offline.ui:150 ui/photo.ui:114
-#: ui/tags.ui:230 ui/trash.ui:159
+#: ui/events_directory.ui:108 ui/event.ui:243 ui/import_queue.ui:48
+#: ui/import.ui:166 ui/media.ui:243 ui/offline.ui:163 ui/photo.ui:127
+#: ui/tags.ui:243 ui/trash.ui:172
 msgid "Sort _Events"
 msgstr "S_eřadit události"
 
-#: ui/events_directory.ui:98 ui/event.ui:225 ui/event.ui:240
-#: ui/import_queue.ui:44 ui/import.ui:156 ui/media.ui:218 ui/media.ui:233
-#: ui/offline.ui:153 ui/photo.ui:117 ui/tags.ui:218 ui/tags.ui:233
-#: ui/trash.ui:162
+#: ui/events_directory.ui:111 ui/event.ui:231 ui/event.ui:246
+#: ui/import_queue.ui:51 ui/import.ui:169 ui/media.ui:231 ui/media.ui:246
+#: ui/offline.ui:166 ui/photo.ui:130 ui/tags.ui:231 ui/tags.ui:246
+#: ui/trash.ui:175
 msgid "_Ascending"
 msgstr "_Vzestupně"
 
-#: ui/events_directory.ui:103 ui/event.ui:230 ui/import_queue.ui:49
-#: ui/media.ui:223 ui/offline.ui:158 ui/tags.ui:223 ui/trash.ui:167
+#: ui/events_directory.ui:116 ui/event.ui:236 ui/import_queue.ui:56
+#: ui/media.ui:236 ui/offline.ui:171 ui/tags.ui:236 ui/trash.ui:180
 msgid "D_escending"
 msgstr "_Sestupně"
 
-#: ui/events_directory.ui:119 ui/event.ui:371 ui/media.ui:358 ui/tags.ui:358
+#: ui/events_directory.ui:132 ui/event.ui:377 ui/media.ui:371 ui/tags.ui:371
 #: ui/top.ui:30
 msgid "Even_ts"
 msgstr "Událos_ti"
 
-#: ui/event.ui:74 ui/media.ui:67 ui/offline.ui:51 ui/offline.ui:170
-#: ui/photo.ui:70 ui/tags.ui:67
+#: ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58 ui/offline.ui:207
+#: ui/photo.ui:77 ui/tags.ui:74
 msgid "R_emove from Library"
 msgstr "O_dstranit z knihovny"
 
-#: ui/event.ui:123 ui/import.ui:91 ui/media.ui:116 ui/tags.ui:116
+#: ui/event.ui:129 ui/import.ui:104 ui/media.ui:129 ui/tags.ui:129
 msgid "_Titles"
 msgstr "_Názvy"
 
-#: ui/event.ui:133 ui/event.ui:396 ui/media.ui:126 ui/media.ui:372
-#: ui/photo.ui:356 ui/tags.ui:126 ui/tags.ui:372 ui/top.ui:35
+#: ui/event.ui:139 ui/event.ui:402 ui/media.ui:139 ui/media.ui:385
+#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385 ui/top.ui:35
 msgid "Ta_gs"
 msgstr "Štít_ky"
 
-#: ui/event.ui:200 ui/media.ui:193 ui/tags.ui:193
+#: ui/event.ui:206 ui/media.ui:206 ui/tags.ui:206
 msgid "Sort _Photos"
 msgstr "Seřadit _fotky"
 
-#: ui/event.ui:203 ui/media.ui:196 ui/tags.ui:196
+#: ui/event.ui:209 ui/media.ui:209 ui/tags.ui:209
 msgid "By _Title"
 msgstr "Podle _názvu"
 
-#: ui/event.ui:208 ui/media.ui:201 ui/tags.ui:201
+#: ui/event.ui:214 ui/media.ui:214 ui/tags.ui:214
 msgid "By _Filename"
 msgstr "Podle názvu _souboru"
 
-#: ui/event.ui:213 ui/media.ui:206 ui/tags.ui:206
+#: ui/event.ui:219 ui/media.ui:219 ui/tags.ui:219
 msgid "By Exposure _Date"
 msgstr "Podle _data pořízení"
 
-#: ui/event.ui:218 ui/media.ui:211 ui/tags.ui:211
+#: ui/event.ui:224 ui/media.ui:224 ui/tags.ui:224
 msgid "By _Rating"
 msgstr "Podle _hodnocení"
 
-#: ui/event.ui:245 ui/import.ui:161 ui/media.ui:238 ui/photo.ui:122
-#: ui/tags.ui:238
+#: ui/event.ui:251 ui/import.ui:174 ui/media.ui:251 ui/photo.ui:135
+#: ui/tags.ui:251
 msgid "_Descending"
 msgstr "_Sestupně"
 
-#: ui/event.ui:269 ui/media.ui:262 ui/tags.ui:262 ui/top.ui:25
+#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275 ui/top.ui:25
 msgid "_Photos"
 msgstr "_Fotografie"
 
 #: ui/import_queue.ui:8
 msgid "_Stop Import"
 msgstr "Za_stavit import"
-
-#: ui/import.ui:13 ui/import.ui:173
-msgid "Import _Selected"
-msgstr "Importovat vy_brané"
-
-#: ui/import.ui:17 ui/import.ui:177
-msgid "Import _All"
-msgstr "Importovat _vše"
 
 #: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
@@ -6521,7 +6524,7 @@ msgstr "sekund"
 msgid "New _Tag…"
 msgstr "Nový š_títek…"
 
-#: ui/trash.ui:248
+#: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Vymazat všechny fotografie v koši"
 
