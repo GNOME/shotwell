@@ -28,7 +28,7 @@ public class FullscreenWindow : PageWindow {
 
         set_current_page(page);
 
-        AppWindow.get_instance().add_action_entries (entries, this);
+        this.add_action_entries (entries, this);
         const string[] accels = { "F11", null };
         Application.set_accels_for_action ("win.LeaveFullscreen", accels);
 
