@@ -176,6 +176,13 @@ public abstract class CollectionPage : MediaPage {
         AppWindow.get_instance ().add_action_entries (entries, this);
     }
 
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         

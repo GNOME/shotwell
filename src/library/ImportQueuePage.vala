@@ -68,7 +68,14 @@ public class ImportQueuePage : SinglePhotoPage {
 
         AppWindow.get_instance ().add_action_entries (entries, this);
     }
-    
+
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     public void enqueue_and_schedule(BatchImport batch_import, bool allow_user_cancel) {
         assert(!queue.contains(batch_import));
         

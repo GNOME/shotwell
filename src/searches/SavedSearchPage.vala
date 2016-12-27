@@ -58,7 +58,15 @@ public class SavedSearchPage : CollectionPage {
 
         AppWindow.get_instance ().add_action_entries (entries, this);
     }
-    
+
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
+
     private void on_delete_search() {
         if (Dialogs.confirm_delete_saved_search(search))
             AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));

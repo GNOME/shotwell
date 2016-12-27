@@ -886,7 +886,14 @@ public class ImportPage : CheckerboardPage {
 
         get_action ("ViewTitle").change_state (Config.Facade.get_instance ().get_display_photo_titles ());
     }
-    
+
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     public GPhoto.Camera get_camera() {
         return camera;
     }

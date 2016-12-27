@@ -53,6 +53,13 @@ public class TagPage : CollectionPage {
         AppWindow.get_instance ().add_action_entries (entries, this);
     }
 
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {
         if (map.has_key(tag)) {
             set_page_name(tag.get_name());

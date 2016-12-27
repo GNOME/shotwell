@@ -318,7 +318,6 @@ public abstract class MediaPage : CheckerboardPage {
         // Radio actions
         { "SortBy", on_action_radio, "s", "'1'", on_sort_changed },
         { "Sort", on_action_radio, "s", "'ascending'", on_sort_changed },
-        { "RawDeveloper", on_action_radio, "s", "'Shotwell'", on_raw_developer_changed }
     };
 
     protected override void add_actions () {
@@ -337,9 +336,20 @@ public abstract class MediaPage : CheckerboardPage {
         get_action ("Sort").change_state (sort_order ? "ascending" : "descending");
 
         var d = Config.Facade.get_instance().get_default_raw_developer();
-        get_action ("RawDeveloper").change_state (d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");
+        var action = new GLib.SimpleAction.stateful("RawDeveloper",
+                GLib.VariantType.STRING, d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");
+        action.change_state.connect(on_raw_developer_changed);
+        action.set_enabled(true);
+        AppWindow.get_instance().add_action(action);
     }
-    
+
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("Export", selected_count > 0);
         set_action_sensitive("EditTitle", selected_count > 0);
@@ -890,14 +900,6 @@ public abstract class MediaPage : CheckerboardPage {
         set_config_photos_sort(sort_order, sort_by);
     }
     
-    public void on_raw_developer_shotwell() {
-        developer_changed(RawDeveloper.SHOTWELL);
-    }
-    
-    public void on_raw_developer_camera() {
-        developer_changed(RawDeveloper.CAMERA);
-    }
-
     private void on_raw_developer_changed(GLib.SimpleAction action,
                                           Variant? value) {
         RawDeveloper developer = RawDeveloper.SHOTWELL;

@@ -97,8 +97,6 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         popup_menu.connect(on_context_keypress);
         
-        init_ui();
-        
         realize.connect(attach_view_signals);
     }
     
@@ -270,6 +268,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public virtual void switching_from() {
         in_view = false;
+        remove_actions();
         if (toolbar_path != null)
             toolbar = null;
     }
@@ -277,6 +276,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     public virtual void switched_to() {
         in_view = true;
         add_ui();
+        add_actions();
         update_modifiers();
     }
     
@@ -469,6 +469,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     protected virtual void add_actions () { }
+    protected virtual void remove_actions () { }
 
     protected void on_action_toggle (GLib.Action action, Variant? value) {
         Variant new_state = ! (bool) action.get_state ();
@@ -479,10 +480,6 @@ public abstract class Page : Gtk.ScrolledWindow {
         action.change_state (value);
     }
 
-    private void init_ui() {
-        add_actions ();
-    }
-    
     private void add_ui() {
         // Collect all UI filenames and load them into the UI manager
         Gee.List<string> ui_filenames = new Gee.ArrayList<string>();
@@ -562,13 +559,13 @@ public abstract class Page : Gtk.ScrolledWindow {
         }
     }
     
-    // This is called during init_ui() to collect all the UI files to be loaded into the UI
+    // This is called during add_ui() to collect all the UI files to be loaded into the UI
     // manager.  Because order is important here, call the base method *first*, then add the
     // classes' filename.
     protected virtual void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
     }
 
-    // This is called during init_ui() to collect all Page.InjectedUIElements for the page.  They
+    // This is called during add_ui() to collect all Page.InjectedUIElements for the page.  They
     // should be added to the MultiSet using the injection path as the key.
     protected virtual InjectionGroup[] init_collect_injection_groups() {
         return new InjectionGroup[0];

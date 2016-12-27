@@ -59,6 +59,13 @@ public class EventPage : CollectionPage {
         AppWindow.get_instance ().add_action_entries (entries, this);
     }
 
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     protected override void init_actions(int selected_count, int count) {
         base.init_actions(selected_count, count);
     }

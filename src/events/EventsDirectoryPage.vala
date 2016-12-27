@@ -122,6 +122,13 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         get_action ("ViewComment").change_state (display_comments);
     }
 
+    protected override void remove_actions() {
+        base.remove_actions();
+        foreach (var entry in entries) {
+            AppWindow.get_instance().remove_action(entry.name);
+        }
+    }
+
     protected override void init_actions(int selected_count, int count) {
         base.init_actions(selected_count, count);
         
