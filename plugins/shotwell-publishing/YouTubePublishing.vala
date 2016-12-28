@@ -565,7 +565,7 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
 
         string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(title),
             private_video, unlisted_video);
-        var metadata_buffer = new Soup.Buffer.take (metadata.data);
+        Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
         message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
 
         // attempt to read the binary video data from disk
@@ -585,7 +585,8 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         // bind the binary video data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        var bindable_data = new Soup.Buffer.take (video_data.data);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY,
+            video_data.data[0:data_length]);
 
         message_parts.append_form_file("", publishable.get_serialized_file().get_path(),
             "video/mpeg", bindable_data);
