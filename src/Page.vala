@@ -277,6 +277,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         in_view = true;
         add_ui();
         add_actions();
+        int selected_count = get_view().get_selected_count();
+        int count = get_view().get_count();
+        init_actions(selected_count, count);
+        update_actions(selected_count, count);
         update_modifiers();
     }
     
@@ -542,6 +546,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     private void on_update_actions_on_idle() {
         if (is_destroyed)
+            return;
+
+        if (!this.in_view)
             return;
         
         update_actions(get_view().get_selected_count(), get_view().get_count());
