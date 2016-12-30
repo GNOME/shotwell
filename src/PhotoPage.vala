@@ -2433,23 +2433,23 @@ public class LibraryPhotoPage : EditingHostPage {
         // Radio actions
     };
 
-    protected override void add_actions () {
-        base.add_actions ();
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions (map);
 
-        AppWindow.get_instance ().add_action_entries (entries, this);
+        map.add_action_entries (entries, this);
         (get_action ("ViewRatings") as GLib.SimpleAction).change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
         var d = Config.Facade.get_instance().get_default_raw_developer();
         var action = new GLib.SimpleAction.stateful("RawDeveloper",
                 GLib.VariantType.STRING, d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");
         action.change_state.connect(on_raw_developer_changed);
         action.set_enabled(true);
-        AppWindow.get_instance().add_action(action);
+        map.add_action(action);
     }
 
-    protected override void remove_actions() {
-        base.remove_actions();
+    protected override void remove_actions(GLib.ActionMap map) {
+        base.remove_actions(map);
         foreach (var entry in entries) {
-            AppWindow.get_instance().remove_action(entry.name);
+            map.remove_action(entry.name);
         }
     }
 
@@ -3140,6 +3140,5 @@ public class LibraryPhotoPage : EditingHostPage {
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
-
 }
 

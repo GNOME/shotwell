@@ -84,12 +84,14 @@ public class LibraryWindow : AppWindow {
             base.switched_to();
         }
 
+        public override void switching_from() {
+        }
+
         protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
             // We intentionally don't call the base class here since we don't want the
             // top-level menu in photo.ui.
             ui_filenames.add("photo_context.ui");
         }
-        
     }
 
     private string import_dir = Environment.get_home_dir();

@@ -268,7 +268,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public virtual void switching_from() {
         in_view = false;
-        remove_actions();
+        remove_actions(AppWindow.get_instance());
         if (toolbar_path != null)
             toolbar = null;
     }
@@ -276,7 +276,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     public virtual void switched_to() {
         in_view = true;
         add_ui();
-        add_actions();
+        add_actions(AppWindow.get_instance());
         int selected_count = get_view().get_selected_count();
         int count = get_view().get_count();
         init_actions(selected_count, count);
@@ -292,16 +292,24 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public virtual void switching_to_fullscreen(FullscreenWindow fsw) {
+        add_actions(fsw);
     }
     
     public virtual void returning_from_fullscreen(FullscreenWindow fsw) {
+        remove_actions(fsw);
+        switched_to();
     }
 
     public GLib.Action? get_action (string name) {
-        var aw = AppWindow.get_instance ();
+        GLib.ActionMap? map = null;
+        if (container is FullscreenWindow) {
+            map = container as GLib.ActionMap;
+        } else {
+            map = AppWindow.get_instance () as GLib.ActionMap;
+        }
 
-        if (aw != null) {
-            return aw.lookup_action (name);
+        if (map != null) {
+            return map.lookup_action(name);
         }
 
         return null;
@@ -472,8 +480,8 @@ public abstract class Page : Gtk.ScrolledWindow {
         return AppWindow.get_command_manager();
     }
 
-    protected virtual void add_actions () { }
-    protected virtual void remove_actions () { }
+    protected virtual void add_actions (GLib.ActionMap map) { }
+    protected virtual void remove_actions (GLib.ActionMap map) { }
 
     protected void on_action_toggle (GLib.Action action, Variant? value) {
         Variant new_state = ! (bool) action.get_state ();

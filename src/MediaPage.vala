@@ -320,14 +320,14 @@ public abstract class MediaPage : CheckerboardPage {
         { "Sort", on_action_radio, "s", "'ascending'", on_sort_changed },
     };
 
-    protected override void add_actions () {
-        base.add_actions ();
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions (map);
 
         bool sort_order;
         int sort_by;
         get_config_photos_sort(out sort_order, out sort_by);
 
-        AppWindow.get_instance ().add_action_entries (entries, this);
+        map.add_action_entries (entries, this);
         get_action ("ViewTitle").change_state (Config.Facade.get_instance ().get_display_photo_titles ());
         get_action ("ViewComment").change_state (Config.Facade.get_instance ().get_display_photo_comments ());
         get_action ("ViewRatings").change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
@@ -340,13 +340,13 @@ public abstract class MediaPage : CheckerboardPage {
                 GLib.VariantType.STRING, d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");
         action.change_state.connect(on_raw_developer_changed);
         action.set_enabled(true);
-        AppWindow.get_instance().add_action(action);
+        map.add_action(action);
     }
 
-    protected override void remove_actions() {
-        base.remove_actions();
+    protected override void remove_actions(GLib.ActionMap map) {
+        base.remove_actions(map);
         foreach (var entry in entries) {
-            AppWindow.get_instance().remove_action(entry.name);
+            map.remove_action(entry.name);
         }
     }
 

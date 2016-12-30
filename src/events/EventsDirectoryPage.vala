@@ -114,18 +114,18 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         { "ViewComment", on_action_toggle, null, "false", on_display_comments  }
     };
 
-    protected override void add_actions () {
-        base.add_actions ();
-        AppWindow.get_instance ().add_action_entries (entries, this);
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions (map);
+        map.add_action_entries (entries, this);
 
         var display_comments = Config.Facade.get_instance().get_display_event_comments();
         get_action ("ViewComment").change_state (display_comments);
     }
 
-    protected override void remove_actions() {
-        base.remove_actions();
+    protected override void remove_actions(GLib.ActionMap map) {
+        base.remove_actions(map);
         foreach (var entry in entries) {
-            AppWindow.get_instance().remove_action(entry.name);
+            map.remove_action(entry.name);
         }
     }
 

@@ -879,18 +879,18 @@ public class ImportPage : CheckerboardPage {
         { "ViewTitle", on_action_toggle, null, "false", on_display_titles },
     };
 
-    protected override void add_actions () {
-        base.add_actions ();
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions (map);
 
-        AppWindow.get_instance ().add_action_entries (entries, this);
+        map.add_action_entries (entries, this);
 
         get_action ("ViewTitle").change_state (Config.Facade.get_instance ().get_display_photo_titles ());
     }
 
-    protected override void remove_actions() {
-        base.remove_actions();
+    protected override void remove_actions(GLib.ActionMap map) {
+        base.remove_actions(map);
         foreach (var entry in entries) {
-            AppWindow.get_instance().remove_action(entry.name);
+            map.remove_action(entry.name);
         }
     }
 
