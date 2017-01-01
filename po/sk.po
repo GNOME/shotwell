@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-08-01 03:04+0000\n"
-"PO-Revision-Date: 2016-08-10 14:39+0200\n"
+"POT-Creation-Date: 2016-11-07 22:02+0000\n"
+"PO-Revision-Date: 2017-01-01 20:36+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -84,7 +84,6 @@ msgstr ""
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
-#| msgid "Shotwell"
 msgid "shotwell"
 msgstr "shotwell"
 
@@ -799,7 +798,7 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:436
-msgid "Piwigio URL"
+msgid "Piwigo URL"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:437
@@ -1236,7 +1235,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Navštíviť domovskú stránku programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:676
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:679
 msgid "translator-credits"
 msgstr ""
 "Laco Gubík <lacogubik@googlemail.com>\n"
@@ -1244,12 +1243,12 @@ msgstr ""
 "Tomáš Vadina <kyberdev@gmail.com>\n"
 "Dušan Kazik <prescott66@gmail.com>"
 
-#: plugins/common/RESTSupport.vala:448
+#: plugins/common/RESTSupport.vala:451
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Dočasný súbor potrebný na uverejnenie nie je dostupný"
 
-#: plugins/common/RESTSupport.vala:1154
+#: plugins/common/RESTSupport.vala:1157
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1264,7 +1263,7 @@ msgstr ""
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:36
 #: plugins/shotwell-publishing/FacebookPublishing.vala:33
-#: plugins/shotwell-publishing/FlickrPublishing.vala:35
+#: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PicasaPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:27
@@ -1436,8 +1435,8 @@ msgid "pixels"
 msgstr " _pixelov"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1237
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1235
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1234
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Pôvodnej veľkosti"
@@ -1638,14 +1637,14 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Autorské práva 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1228
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
 msgid "500 x 375 pixels"
 msgstr "500 x 375 bodov"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1234
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1229
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
 msgid "1024 x 768 pixels"
 msgstr "1024 x 768 bodov"
 
@@ -1656,8 +1655,8 @@ msgstr "1280 x 853 bodov"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-msgid "'%s' isn't a valid response to an OAuth authentication request"
-msgstr "'%s' nie je platnou odpoveďou na autorizačnú požiadavku OAuth"
+msgid "“%s” isn't a valid response to an OAuth authentication request"
+msgstr "„%s“ nie je platnou odpoveďou na autorizačnú požiadavku OAuth"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
 msgid ""
@@ -1671,12 +1670,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Zadajte meno používateľa a heslo pre váš príslušný účet Tumblr."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:992
 msgid "Username and/or password invalid. Please try again"
 msgstr "Neplatné užívateľské meno a/alebo heslo. Prosím, skúste to znovu."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1024
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1026
 msgid "Invalid User Name or Password"
 msgstr "Neplatné meno používateľa alebo heslo"
 
@@ -1766,7 +1765,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:62
 #: plugins/shotwell-publishing/PicasaPublishing.vala:60
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1114
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -1837,13 +1836,13 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Kde si želáte uverejniť vybrané fotografie?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1193
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1215
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1213
 msgid "Just me"
 msgstr "Len pre mňa"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1195
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1216
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
 msgid "Everyone"
 msgstr "Všetkých"
 
@@ -1863,7 +1862,7 @@ msgstr "Autorizačné čí_slo:"
 msgid "Con_tinue"
 msgstr "_Pokračovať"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:62
+#: plugins/shotwell-publishing/FlickrPublishing.vala:60
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -1876,7 +1875,7 @@ msgstr ""
 "prehliadači.  Budete musieť autorizovať Shotwell Connect odkaz na váš účet "
 "Flickr."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:64
+#: plugins/shotwell-publishing/FlickrPublishing.vala:62
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try "
@@ -1887,12 +1886,12 @@ msgstr ""
 "Aby ste mohli naďalej uverejňovať fotografie pomocou služby Flickr, ukončite "
 "a znova spustite Shotwell, a potom to skúste znova."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:376
+#: plugins/shotwell-publishing/FlickrPublishing.vala:374
 msgid "Preparing for login..."
 msgstr "Pripravuje sa na prihlásenie..."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:446
-#: plugins/shotwell-publishing/FlickrPublishing.vala:596
+#: plugins/shotwell-publishing/FlickrPublishing.vala:444
+#: plugins/shotwell-publishing/FlickrPublishing.vala:594
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can't "
 "continue."
@@ -1900,11 +1899,11 @@ msgstr ""
 "Súbor potrebný na uverejňovanie nie je dostupný. Uverejňovanie na službu "
 "Flickr nemôže pokračovať."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:459
+#: plugins/shotwell-publishing/FlickrPublishing.vala:457
 msgid "Verifying authorization..."
 msgstr "Overuje sa autorizácia..."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1154
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1152
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -1914,7 +1913,7 @@ msgstr ""
 "\n"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=736633
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1157
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -1935,42 +1934,42 @@ msgstr[2] ""
 "mesiac.\n"
 "Tento mesiac vám ešte zostávajú  %d  megabajty z vašej kvóty."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1161
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1159
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 "Váš účet služby Flickr Pro vám umožňuje neobmedzené odovzdávania fotografií."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
 msgid "Photos _visible to:"
 msgstr "Fotografie _viditeľné pre:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1168
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
 msgid "Videos _visible to:"
 msgstr "Videá budú v_iditeľné:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1171
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1169
 msgid "Photos and videos _visible to:"
 msgstr "Fotografie a videá budú v_iditeľné:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1212
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
 msgid "Friends & family only"
 msgstr "Len pre priateľov a rodinu"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1213
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
 msgid "Family only"
 msgstr "Iba rodina"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1214
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1212
 msgid "Friends only"
 msgstr "Iba priatelia"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1235
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1230
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1232
 msgid "2048 x 1536 pixels"
 msgstr "2048 x 1536 pixelov"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1236
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1231
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1234
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1233
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 pixelov"
 
@@ -2088,13 +2087,13 @@ msgstr "Uverejniť"
 msgid "Creating album %s..."
 msgstr "Vytvára sa album %s..."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:918
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:920
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Vyskytla sa chybová hláška počas uverejňovania na službu Piwigo. Prosím, "
 "skúste to znovu."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:988
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:990
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2102,7 +2101,7 @@ msgstr ""
 "Zadajte adresu URL vašej knižnice fotografií v službe Piwigo a taktiež "
 "patričné používateľské meno a heslo k účtu služby Piwigo pre danú knižnicu."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:989
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:991
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2110,23 +2109,23 @@ msgstr ""
 "Program Shotwell nedokáže kontaktovať vašu knižnicu v službe Piwigo. Prosím, "
 "overte vami zadanú adresu URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1019
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1021
 msgid "Invalid URL"
 msgstr "Neplatná adresa URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1217
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administrátori, rodina, priatelia, kontakty"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1218
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
 msgid "Admins, Family, Friends"
 msgstr "Administrátori, rodina, priatelia"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1219
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1221
 msgid "Admins, Family"
 msgstr "Administrátori, rodina"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1220
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1222
 msgid "Admins"
 msgstr "Administrátori"
 
@@ -2278,26 +2277,26 @@ msgstr "Pripnúť panel nástrojov otvorený"
 msgid "Leave fullscreen"
 msgstr "Opustiť režim celej obrazovky"
 
-#: src/AppWindow.vala:496
+#: src/AppWindow.vala:499
 msgid "_Contents"
 msgstr "Ob_sah"
 
-#: src/AppWindow.vala:501
+#: src/AppWindow.vala:504
 msgid "_Frequently Asked Questions"
 msgstr "Často _kladené otázky"
 
-#: src/AppWindow.vala:506
+#: src/AppWindow.vala:509
 msgid "_Report a Problem..."
 msgstr "_Nahlásiť problém..."
 
-#: src/AppWindow.vala:605 src/AppWindow.vala:626 src/AppWindow.vala:643
+#: src/AppWindow.vala:608 src/AppWindow.vala:629 src/AppWindow.vala:646
 #: src/data_imports/DataImportsUI.vala:413 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1425 src/Dialogs.vala:1448
 #: src/publishing/PublishingUI.vala:512 src/Resources.vala:157
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: src/AppWindow.vala:653
+#: src/AppWindow.vala:656
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
@@ -2310,21 +2309,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:673
+#: src/AppWindow.vala:676
 msgid "Visit the Shotwell web site"
 msgstr "Navštíviť webovú stránku programu Shotwell"
 
-#: src/AppWindow.vala:685
+#: src/AppWindow.vala:688
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nepodarilo sa zobraziť pomocníka: %s"
 
-#: src/AppWindow.vala:693
+#: src/AppWindow.vala:696
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nepodarilo sa prejsť do databázy chýb: %s"
 
-#: src/AppWindow.vala:701
+#: src/AppWindow.vala:704
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nepodarilo sa zobraziť FAQ: %s"
@@ -2420,13 +2419,13 @@ msgstr "Skryť fotografie, ktoré sú už importované"
 msgid "Only display photos that have not been imported"
 msgstr "Zobraziť iba fotografie, ktoré neboli importované"
 
-#. Ticket #3304 - Import page shouldn't display confusing message
-#. prior to import.
-#. TODO: replace this with approved text for "talking to camera,
-#. please wait" once new strings are being accepted.
+#: src/camera/ImportPage.vala:842
+msgid "The camera seems to be empty. No photos/videos found to import"
+msgstr ""
+
 #: src/camera/ImportPage.vala:846
-msgid "Starting import, please wait..."
-msgstr "Začína sa import, prosím, čakajte..."
+msgid "No new photos/videos found on camera"
+msgstr "Vo fotoaparáte neboli nájdené žiadne nové fotografie alebo videá"
 
 #: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
 msgid "_Titles"
@@ -2496,21 +2495,25 @@ msgstr ""
 msgid "Unmounting..."
 msgstr "Odpája sa..."
 
-#: src/camera/ImportPage.vala:1167
+#: src/camera/ImportPage.vala:1152
+msgid "Starting import, please wait..."
+msgstr "Začína sa import, prosím, čakajte..."
+
+#: src/camera/ImportPage.vala:1169
 msgid "Fetching photo information"
 msgstr "Získavajú sa informácie o fotografiách"
 
-#: src/camera/ImportPage.vala:1522
+#: src/camera/ImportPage.vala:1527
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Získava sa náhľad pre %s"
 
-#: src/camera/ImportPage.vala:1638
+#: src/camera/ImportPage.vala:1643
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nepodarilo sa uzamknúť fotoaparát: %s"
 
-#: src/camera/ImportPage.vala:1723
+#: src/camera/ImportPage.vala:1728
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2518,7 +2521,7 @@ msgstr[0] "Odstrániť týchto %d fotografií z fotoaparátu?"
 msgstr[1] "Odstrániť túto fotografiu z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d fotografie z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1726
+#: src/camera/ImportPage.vala:1731
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2526,7 +2529,7 @@ msgstr[0] "Odstrániť týchto %d videí z fotoaparátu?"
 msgstr[1] "Odstrániť toto %d video z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d videá z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1729
+#: src/camera/ImportPage.vala:1734
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2534,7 +2537,7 @@ msgstr[0] "Odstrániť týchto %d fotografií/videí z fotoaparátu?"
 msgstr[1] "Odstrániť túto %d fotografiu/video z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d fotografie/videá z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2542,15 +2545,15 @@ msgstr[0] "Odstrániť týchto %d súborov z fotoaparátu?"
 msgstr[1] "Odstrániť tento %d súbor z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d súbory z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1740 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
 msgid "_Keep"
 msgstr "_Ponechať"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1764
 msgid "Removing photos/videos from camera"
 msgstr "Odstraňujú sa fotografie/videá z fotoaparátu"
 
-#: src/camera/ImportPage.vala:1763
+#: src/camera/ImportPage.vala:1768
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2870,7 +2873,7 @@ msgstr ""
 "Popis chyby: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:88
+#: src/db/DatabaseTable.vala:92
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nie je možné obnoviť databázu fotografií %s"
@@ -4105,23 +4108,23 @@ msgstr "SD Video (4 : 3)"
 msgid "HD Video (16 : 9)"
 msgstr "HD Video (16 : 9)"
 
-#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:817
+#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:818
 msgid "Wallet (2 x 3 in.)"
 msgstr "Peňaženka (2 x 3 palce)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:820
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:821
 msgid "Notecard (3 x 5 in.)"
 msgstr "Zápisník (3 x 5 palcov)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:823
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:824
 msgid "4 x 6 in."
 msgstr "4 x 6 palcov"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:826
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:827
 msgid "5 x 7 in."
 msgstr "5 x 7 palcov"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:829
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:830
 msgid "8 x 10 in."
 msgstr "8 x 10 palcov"
 
@@ -4129,7 +4132,7 @@ msgstr "8 x 10 palcov"
 msgid "Letter (8.5 x 11 in.)"
 msgstr "Dopis (8.5 x 11 in.)"
 
-#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:832
+#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:833
 msgid "11 x 14 in."
 msgstr "11 x 14 palcov"
 
@@ -4137,23 +4140,23 @@ msgstr "11 x 14 palcov"
 msgid "Tabloid (11 x 17 in.)"
 msgstr "Tabloid (11 x 17 palca)"
 
-#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:835
+#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:836
 msgid "16 x 20 in."
 msgstr "16 x 20 palcov"
 
-#: src/editing_tools/EditingTools.vala:771 src/Printing.vala:841
+#: src/editing_tools/EditingTools.vala:771 src/Printing.vala:842
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "Metrická peňaženka (9 x 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:844
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:845
 msgid "Postcard (10 x 15 cm)"
 msgstr "Pohľadnica (10 x 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:847
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:848
 msgid "13 x 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:850
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:851
 msgid "18 x 24 cm"
 msgstr "18 x 24 cm"
 
@@ -4161,15 +4164,15 @@ msgstr "18 x 24 cm"
 msgid "A4 (210 x 297 mm)"
 msgstr "A4 (210 x 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:776 src/Printing.vala:853
+#: src/editing_tools/EditingTools.vala:776 src/Printing.vala:854
 msgid "20 x 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:856
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:857
 msgid "24 x 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:859
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:860
 msgid "30 x 40 cm"
 msgstr "30 x 40 cm"
 
@@ -4330,7 +4333,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:751
+#: src/Event.vala:753
 #, c-format
 msgid "Event %s"
 msgstr "Udalosť %s"
@@ -4374,13 +4377,13 @@ msgstr "Priečinky"
 msgid "Library"
 msgstr "Knižnica"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:594
-#: src/SearchFilter.vala:595
+#: src/library/Branch.vala:97 src/SearchFilter.vala:608
+#: src/SearchFilter.vala:609
 msgid "Photos"
 msgstr "Fotografie"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:588
-#: src/SearchFilter.vala:589 src/SearchFilter.vala:988
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:602
+#: src/SearchFilter.vala:603 src/SearchFilter.vala:1188
 msgid "Flagged"
 msgstr "Označené"
 
@@ -4774,7 +4777,7 @@ msgstr ""
 "Nenašli sa žiadne fotografie alebo videá, ktoré by vyhovovali aktuálnemu "
 "filtru"
 
-#: src/Page.vala:2568
+#: src/Page.vala:2576
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografie nemôžu byť exportované do tohoto adresára."
 
@@ -4878,15 +4881,15 @@ msgstr "palcov"
 msgid "cm"
 msgstr "cm"
 
-#: src/Printing.vala:875
+#: src/Printing.vala:876
 msgid "Image Settings"
 msgstr "Nastavenia obrázka"
 
-#: src/Printing.vala:888
+#: src/Printing.vala:889
 msgid "Printing..."
 msgstr "Tlačí sa..."
 
-#: src/Printing.vala:908 src/Printing.vala:1111
+#: src/Printing.vala:909 src/Printing.vala:1112
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5761,7 +5764,8 @@ msgstr ""
 "Nepodarilo sa premenovať vyhľadávanie na „%s“, lebo takéto vyhľadávanie už "
 "existuje."
 
-#: src/Resources.vala:405
+#. Saved search button
+#: src/Resources.vala:405 src/SearchFilter.vala:1210
 msgid "Saved Search"
 msgstr "Uložené vyhľadávanie"
 
@@ -5878,39 +5882,46 @@ msgstr "Vybrať všetky položky"
 #. / Locale-specific time format for 12-hour time, i.e. 8:31 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:772
-msgid "%-I:%M %p"
-msgstr "%-H:%M"
-
 #. / Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
 #. / Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:777
-msgid "%-I:%M:%S %p"
-msgstr "%-H:%M:%S"
-
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:781
+#: src/Resources.vala:782
 msgid "%a %b %d, %Y"
 msgstr "%a %d. %b, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#. / Locale-specific calendar date format for multi-month strings,
-#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
-#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:786 src/Resources.vala:796
+#: src/Resources.vala:787
+msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a %d. %b"
+msgstr "%a %e. %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:791
+#: src/Resources.vala:792
+msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr "%d. %b, %Y"
+msgstr "%e., %Y"
+
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: src/Resources.vala:797
+msgctxt "MultimonthFormat"
+msgid "%a %b %d"
+msgstr "%a %e. %b"
+
+#. / Locale-specific calendar date format for multi-month strings,
+#. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
+#. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+#: src/Resources.vala:802
+msgctxt "MultimonthFormat"
+msgid "%a %b %d, %Y"
+msgstr "%a %e. %b, %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:141
 msgid "Slideshow"
@@ -6094,7 +6105,7 @@ msgid "Photo state"
 msgstr "Stav fotografie"
 
 #. Rating button
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:999
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:1199
 msgid "Rating"
 msgstr "Hodnotenie"
 
@@ -6102,19 +6113,19 @@ msgstr "Hodnotenie"
 msgid "Date"
 msgstr "Dátum"
 
-#: src/SearchFilter.vala:600 src/SearchFilter.vala:601
+#: src/SearchFilter.vala:614 src/SearchFilter.vala:615
 msgid "Videos"
 msgstr "Videá"
 
-#: src/SearchFilter.vala:606
+#: src/SearchFilter.vala:620
 msgid "RAW Photos"
 msgstr "RAW fotografie"
 
-#: src/SearchFilter.vala:607
+#: src/SearchFilter.vala:621
 msgid "RAW photos"
 msgstr "RAW fotografie"
 
-#: src/SearchFilter.vala:948
+#: src/SearchFilter.vala:1148
 #, c-format
 msgid "Error loading UI file %s: %s"
 msgstr "Chyba pri nahrávaní súboru používateľského rozhrania %s: %s"
@@ -6124,14 +6135,18 @@ msgstr "Chyba pri nahrávaní súboru používateľského rozhrania %s: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:959
+#: src/SearchFilter.vala:1159
 msgid "Close"
 msgstr "Zavrieť"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:965
+#: src/SearchFilter.vala:1165
 msgid "Type"
 msgstr "Typ"
+
+#: src/SearchFilter.vala:1211
+msgid "Use a saved search to filter items in the current view"
+msgstr ""
 
 #: src/sidebar/Tree.vala:203
 msgid "New _Tag..."
@@ -6204,12 +6219,12 @@ msgstr "Náhodná"
 msgid "Tags"
 msgstr "Značky"
 
-#: src/Tag.vala:817
+#: src/Tag.vala:830
 msgid "untitled"
 msgstr "bez názvu"
 
 #. multiple videos
-#: src/VideoSupport.vala:490
+#: src/VideoSupport.vala:507
 msgid "Export Videos"
 msgstr "Exportovať videá"
 
@@ -6402,6 +6417,12 @@ msgstr "Zobraziť ná_zov"
 msgid "seconds"
 msgstr "sekúnd"
 
+#~ msgid "%-I:%M %p"
+#~ msgstr "%-H:%M"
+
+#~ msgid "%-I:%M:%S %p"
+#~ msgstr "%-H:%M:%S"
+
 #~ msgid "Intro message replaced at runtime"
 #~ msgstr "Úvodná správa nahradená pri spustení"
 
@@ -6413,9 +6434,6 @@ msgstr "sekúnd"
 
 #~ msgid "$mediatype will appear in"
 #~ msgstr "Videá sa zobrazia v:"
-
-#~ msgid "No photos/videos found"
-#~ msgstr "Neboli nájdené žiadne fotografie/videá"
 
 #~ msgid "Copyright 2009-2015 Yorba Foundation"
 #~ msgstr "Autorské práva 2009-2015 Nadácia Yorba"
