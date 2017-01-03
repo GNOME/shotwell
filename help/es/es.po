@@ -3,15 +3,22 @@
 # This file is distributed under the same license as the shotwell package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Dámaris Letelier <dam.letelier@gmail.com>, 2014.
+# 
+# 
+# 
+# 
+# 
+# 
+# 
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-07-04 07:20+0000\n"
-"PO-Revision-Date: 2016-07-04 14:35+0200\n"
+"POT-Creation-Date: 2017-01-01 20:02+0000\n"
+"PO-Revision-Date: 2016-12-23 \n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,6 +30,7 @@ msgstr ""
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
+"Marina Prado <mapraro93@hotmail.com>, 2016\n"
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2016\n"
 "Dámaris Letelier <dam.letelier@gmail.com>, 2014"
 
@@ -45,6 +53,11 @@ msgid ""
 "intensity thresholds of the photograph, expanding the contrast of the middle "
 "range."
 msgstr ""
+"El botón <gui>Ajustes</gui> abre una ventana flotante con un histograma y el "
+"control deslizante para ajustar la exposición, la saturación, el matiz, la "
+"calidez y las sombras de una fotografía. El histograma también tiene control "
+"deslizante para reducir los umbrales de intensidad superior e inferior de la "
+"fotografía, ampliando el contraste de la gama media."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:16
@@ -52,6 +65,8 @@ msgid ""
 "The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
 "improve the quality of a photo."
 msgstr ""
+"El botón <gui>Mejorar</gui> ajusta el histograma y el control deslizante de "
+"las sombras para mejorar la calidad de una foto."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:18
@@ -60,6 +75,10 @@ msgid ""
 "to save the changes. <gui>Reset</gui> will return the image to its original "
 "state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
+"Si los colores y el contraste de la foto son adecuados, pulse <gui>Aceptar</"
+"gui> para guardar los cambios. El botón <gui>Restablecer</gui> devolverá la "
+"imagen a su estado original. El botón <gui>Cancelar</gui> deshace todos los "
+"cambios realizados."
 
 #. (itstool) path: section/title
 #: C/edit-adjustments.page:21
@@ -77,6 +96,9 @@ msgid ""
 "Changes the brightness to make it look like the photo was exposed for a "
 "longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
+"Cambia el brillo para que parezca que la foto se ha expuesto por un tiempo "
+"más o menos largo. Utilice esta opción para corregir las fotografías "
+"sobreexpuestas o excesivamente subexpuestas."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
@@ -89,6 +111,9 @@ msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
+"Cambia la intensidad de los colores. Si su foto parece gris y pálida, pruebe "
+"a aumentar la saturación. Si los colores se ven demasiado intensos, intente "
+"disminuirlos."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:32
@@ -103,6 +128,11 @@ msgid ""
 "color cast. For example, photos taken outdoors with the white balance set to "
 "\"Tungsten\" may have a blue cast."
 msgstr ""
+"Esto matiza la foto con un color. Es útil para corregir fotos que se han "
+"tomado con el ajuste del balance de blancos erróneo, que normalmente tiene "
+"unas tonalidades de color poco naturales. Por ejemplo, las fotos tomadas en "
+"el exterior con el ajuste del balance de blancos en «Tungsten» pueden tener "
+"una tonalidad azulada."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:36
@@ -115,6 +145,8 @@ msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
+"Cambia el aspecto «cálido» o «frío» de la imagen. Utilice esto, por ejemplo, "
+"para hacer que las escenas frías y tristes parezcan más alegres."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:40
@@ -127,6 +159,8 @@ msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
 msgstr ""
+"Esto hace que las áreas oscuras aparezcan más claras. Si los detalles se han "
+"oscurecido por las sombras, utilice esto para hacerlos más visibles."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:44
@@ -140,6 +174,9 @@ msgid ""
 "darkest black is. Use them to change the contrast of the photo. Photos which "
 "look washed out should particularly benefit from changing these settings."
 msgstr ""
+"Estos controles deslizantes cambian cómo de claro es el blanco más brillante "
+"y cómo de oscuro es el negro más oscuro. Utilícelos para cambiar el "
+"contraste de la foto, sobre todo en las fotos que son pálidas."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -156,7 +193,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
 msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr ""
+msgstr "Mejore la composición de una foto cortando partes de la misma."
 
 #. (itstool) path: page/title
 #: C/edit-crop.page:12
@@ -170,6 +207,9 @@ msgid ""
 "smaller portion of it, use the Crop tool. The crop tool is only available in "
 "full-window or fullscreen mode."
 msgstr ""
+"Para reducir el área de una foto y concentrar la atención del espectador en "
+"una parte más pequeña de ella, utilice la herramienta Recortar. La "
+"herramienta Recortar sólo está disponible en el modo a pantalla completa."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:19
@@ -177,6 +217,8 @@ msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
+"Para entrar en el modo a pantalla completa, pulse dos veces en la foto y "
+"luego pulse el botón <gui>Recortar</gui> en la barra de herramientas."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:22
@@ -185,6 +227,9 @@ msgid ""
 "portion of the photo within the crop rectangle represents what the photo "
 "will look like when you crop it."
 msgstr ""
+"Unas líneas blancas, que representan el rectángulo de recorte, aparecerán "
+"sobre la foto. La parte más clara de la foto dentro del rectángulo de "
+"recorte representa cómo se verá la foto cuando la recorte."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:25
@@ -194,6 +239,11 @@ msgid ""
 "move and adjust the crop box, you'll see four lines appear inside it, like a "
 "tic-tac-toe grid. These are <em>rule of thirds</em> lines."
 msgstr ""
+"Si coloca el cursor en el centro del recuadro, podrá moverlo. Si arrastra "
+"los bordes del recuadro, puede ajustar su tamaño. Al mover y ajustar la caja "
+"de recorte, verá aparecer cuatro líneas en su interior, como las cuadrículas "
+"para el tres en raya. Estas son las líneas de la <em>regla de los tercios</"
+"em>."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:26
@@ -203,6 +253,10 @@ msgid ""
 "button next to it, the orientation of the constraint will switch (from "
 "landscape to portrait)."
 msgstr ""
+"También puede limitar el recuadro a uno de los tamaños más comunes. Elija un "
+"tamaño de la lista desplegable que se adapte a sus necesidades. Si pulsa el "
+"botón voltear situado junto a esta, la orientación de la restricción "
+"cambiará (de horizontal a vertical)."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:29
@@ -210,6 +264,8 @@ msgid ""
 "When you're happy with your crop outline, apply it by pressing the "
 "<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
+"Cuando esté satisfecho con su recorte, aplíquelo pulsando el botón "
+"<gui>Recortar<gui>. Shotwell mostrará la foto recortada."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:32
@@ -217,6 +273,8 @@ msgid ""
 "If you change your mind, press the <gui>Crop</gui> button again and fine-"
 "tune the crop."
 msgstr ""
+"Si cambia de opinión, pulse el botón <gui>Recortar</gui> de nuevo y ajuste "
+"el recorte."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:33
@@ -224,6 +282,8 @@ msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
+"Si pulsa el botón <gui>Cancelar</gui> en vez del botón <gui>Aplicar</gui>, "
+"Shotwell devolverá a la foto las dimensiones anteriores del recorte."
 
 #. (itstool) path: section/title
 #: C/edit-crop.page:38
@@ -236,6 +296,8 @@ msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
 msgstr ""
+"La <em>regla de los tercios </em> le ayuda a elegir una composición "
+"satisfactoria para una foto."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:40
@@ -247,6 +309,13 @@ msgid ""
 "Paying attention to the way features flow from one part of the grid to "
 "another can also help."
 msgstr ""
+"Imagine que la escena se divide en una cuadrícula de 3x3 por dos líneas "
+"verticales espaciadas y por dos líneas horizontales igualmente espaciadas. "
+"De acuerdo con la regla, es más probable que obtenga una composición "
+"satisfactoria si alinea las características principales (como el horizonte o "
+"una persona) con una de estas líneas. Prestar atención a la forma en que las "
+"características van de una parte de la cuadrícula a la otra también puede "
+"ser de ayuda."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:41
@@ -254,6 +323,8 @@ msgid ""
 "Cropping a photo so that it conforms to the rule of thirds often results in "
 "a more visually appealing image."
 msgstr ""
+"Recortar una foto siguiendo la regla de los tercios suele dar como resultado "
+"una imagen visualmente más satisfactoria."
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -261,12 +332,16 @@ msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
 msgstr ""
+"Recorte una foto siguiendo las líneas de la «regla de los tercios» para "
+"mejorar la composición."
 
 #. (itstool) path: info/desc
 #: C/edit-enhance.page:7
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
+"Permita que Shotwell mejore el brillo y el contraste de una foto "
+"automáticamente."
 
 #. (itstool) path: page/title
 #: C/edit-enhance.page:14
@@ -281,6 +356,11 @@ msgid ""
 "photo that is correctly exposed. You can also use it as a starting point and "
 "then improve the adjustments by clicking on the <gui>Adjust</gui> button."
 msgstr ""
+"Pulsar en el botón <gui>Mejorar</gui> es una forma rápida de ajustar "
+"automáticamente el brillo y el contraste de la foto. Normalmente le ofrecerá "
+"una foto que esté correctamente expuesta. También puede utilizarlo como "
+"punto de partida y luego mejorar los ajustes pulsando en el botón "
+"<gui>Ajustar</gui>."
 
 #. (itstool) path: info/desc
 #: C/edit-external.page:7
@@ -302,6 +382,12 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
 "menus of installed applications."
 msgstr ""
+"Quizás quiera utilizar un editor externo para trabajar adicionalmente en una "
+"foto. Si están instalados, GIMP y UFRaw son los editores externos "
+"predeterminados para editar una foto o RAW, respectivamente. Si estos "
+"programas no están instalados, tiene que seleccionar sus editores preferidos "
+"eligiendo <guiseq><gui>Editar<gui><gui>Preferencias</gui></guiseq> y "
+"seleccionar los editores del menú desplegable de las aplicaciones instaladas."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:24
@@ -312,6 +398,12 @@ msgid ""
 "a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
 "guiseq> to edit the RAW file directly with the set RAW editor."
 msgstr ""
+"Una vez que los editores se han establecido, seleccione una foto y elija "
+"<guiseq><gui>Fotos</gui> <gui>Abrir con un editor externo</gui></guiseq> "
+"para abrir la foto con un editor externo. De la misma manera, si la foto "
+"original es un archivo RAW, seleccione <guiseq><gui>Fotos</gui><gui>Abrir "
+"con un editor RAW</gui></guiseq> para editar el archivo RAW directamente con "
+"un editor RAW establecido."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:31
@@ -321,6 +413,10 @@ msgid ""
 "hold the <key>Shift</key> key in full-window view to show the original photo "
 "rather than the externally-edited one."
 msgstr ""
+"Cuando complete sus ediciones y guarde el archivo, Shotwell detectará los "
+"cambios y actualizará la foto. Cuando se hayan realizado ediciones externas, "
+"mantenga pulsada la tecla <tecla>Mayús</tecla> en la vista de la pantalla "
+"completa para mostrar la foto original en lugar de la editada externamente."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:38
@@ -334,6 +430,10 @@ msgid ""
 "such as a JPEG or PNG, Shotwell cannot automatically determine that the "
 "original RAW and the new image should be paired."
 msgstr ""
+"Si edita de manera externa una foto RAW y guarda el resultado en otra "
+"imagen, como un archivo JPEG o PNG, Shotwell no puede determinar "
+"automáticamente que la RAW original y la nueva imagen deberían estar "
+"emparejadas."
 
 #. (itstool) path: note/p
 #: C/edit-external.page:49
@@ -341,6 +441,8 @@ msgid ""
 "If you want to work within the resulting image within Shotwell, you'll need "
 "to import it yourself."
 msgstr ""
+"Si quiere trabajar sobre la imagen resultante con Shotwell, tendrá que "
+"importarla usted mismo."
 
 #. (itstool) path: info/desc
 #: C/edit-nondestructive.page:7
@@ -348,6 +450,8 @@ msgid ""
 "Shotwell is a non-destructive photo editor - it does not modify your "
 "original photos."
 msgstr ""
+"Shotwell es un editor de fotos no destructivo, es decir, no modifica sus "
+"fotos originales."
 
 #. (itstool) path: page/title
 #: C/edit-nondestructive.page:12
@@ -363,6 +467,12 @@ msgid ""
 "database and applies them on the fly as necessary. This means you can undo "
 "any alterations you make to a photograph."
 msgstr ""
+"Shotwell es un editor de fotos no destructivo. No modifica sus fotografías "
+"originales. Es decir, si recorta una foto o ajusta sus colores, el archivo "
+"de la foto del disco permanece intacto. Shotwell almacena sus ediciones en "
+"una base de datos y las aplica sobre la marcha, según sea necesario. Esto "
+"significa que puede deshacer cualquier alteración que realices en una "
+"fotografía."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:16 C/edit-undo.page:18
@@ -371,6 +481,9 @@ msgid ""
 "the <key>Shift</key> key. The original photo will be displayed as long as "
 "you hold the key down."
 msgstr ""
+"Si quiere ver qué aspecto tenía una foto antes de realizar las "
+"modificaciones, pulse la tecla <tecla>Mayús<tecla>. La foto original se "
+"mostrará siempre que mantenga pulsada esta tecla."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:18
@@ -379,6 +492,9 @@ msgid ""
 "to photo files. For more information, see the section <link xref=\"other-"
 "files\">Photo files</link>."
 msgstr ""
+"Tenga en cuenta que Shotwell puede escribir metadatos opcionalmente (como "
+"etiquetas y títulos) en los archivos de fotos. Para obtener más información, "
+"consulte la sección <link xref=\"other-files\">Archivos de fotos</link>."
 
 #. (itstool) path: info/desc
 #: C/edit-redeye.page:7
@@ -399,6 +515,9 @@ msgid ""
 "Red-eye occurs when the camera's flash reflects off the pupil of someone's "
 "eye. To eliminate this in a photo, use the Red-eye tool."
 msgstr ""
+"Los ojos rojos aparecen cuando el flash de la cámara se refleja en las "
+"pupilas de los ojos. Para eliminar esto en una foto, utilice la herramienta "
+"Ojos rojos."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:17
@@ -411,6 +530,8 @@ msgid ""
 "Drag the circle over the affected pupil, adjust its size with the slider "
 "control, and press <gui>Apply</gui>. The redness will be removed."
 msgstr ""
+"Arrastre el círculo sobre la pupila afectada, ajuste su tamaño con el "
+"control deslizante y presione <gui>Aplicar</gui>. Se eliminará el color rojo."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:23
@@ -418,6 +539,8 @@ msgid ""
 "Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
 "when finished."
 msgstr ""
+"Repita este proceso para todas las pupilas rojas en su foto. Pulse "
+"<gui>Cerrar</gui> cuando haya terminado."
 
 #. (itstool) path: info/desc
 #: C/edit-rotate.page:7
@@ -440,6 +563,9 @@ msgid ""
 "with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
 "make a mirror image of any photo."
 msgstr ""
+"Puede girar las fotos a la izquierda y a la derecha con el botón <gui>Girar</"
+"gui> en la barra de herramientas de la mayoría de las vistas. También puede "
+"hacer una imagen reflejada de cualquier foto."
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:16
@@ -449,6 +575,10 @@ msgid ""
 "commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
 "the following keyboard shortcuts:"
 msgstr ""
+"Para girar hacia la derecha, pulse el botón <gui>Girar</gui>. Para girar "
+"hacia la izquierda, mantenga pulsada la tecla <tecla>Ctrl</key> y luego "
+"pulse el botón. Ambos comandos están disponibles en el menú <gui>Fotos</"
+"gui>. Como alternativa, utilice los siguientes atajos del teclado:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
@@ -474,6 +604,10 @@ msgid ""
 "command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
 "<gui>Flip Vertically</gui> command in the same menu."
 msgstr ""
+"Para crear una imagen reflejada de una foto, utilice el comando <gui>Voltear "
+"horizontalmente</gui> en el menú <gui>Fotos</gui>. Para voltear una imagen "
+"verticalmente, utilice el comando <gui>Voltear verticalmente</gui> en el "
+"mismo menú."
 
 #. (itstool) path: note/p
 #: C/edit-rotate.page:24
@@ -499,6 +633,9 @@ msgid ""
 "The straighten tools allows photos to be leveled and straightened. The "
 "straighten tool is only available in full-window or fullscreen mode."
 msgstr ""
+"Las herramientas de enderezar permiten que las fotos se nivelen y enderecen. "
+"La herramienta de enderezado sólo está disponible en modo de pantalla "
+"completa."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:18
@@ -507,6 +644,9 @@ msgid ""
 "Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
 "key></keyseq>."
 msgstr ""
+"Pulse en <gui>Enderezar</gui>. Aparecerá el control deslizante de "
+"enderezamiento. También puede utilizar el atajo de teclado "
+"<keyseq><key>Ctrl</key><key>A</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:21
@@ -517,38 +657,29 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:24
-#, fuzzy
-#| msgid "Press <gui>OK</gui> when finished."
 msgid "Press <gui>Straighten</gui> when finished."
-msgstr "Pulse <gui>Aceptar</gui> cuando haya acabado."
+msgstr "Pulse <gui>Enderezar</gui> cuando haya acabado."
 
 #. (itstool) path: info/desc
 #: C/edit-date-time.page:7
-#, fuzzy
-#| msgid "Change the time and date of photos if those details are incorrect."
 msgid "Change the date and time of photos if those details are incorrect."
 msgstr "Cambiar la hora y la fecha de las fotos si son incorrectas."
 
 #. (itstool) path: page/title
 #: C/edit-date-time.page:12
-#, fuzzy
-#| msgid "Adjust the time and date of photos"
 msgid "Adjust the date and time of photos"
 msgstr "Ajustar la hora y fecha de las fotos"
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:14
-#, fuzzy
-#| msgid ""
-#| "To create a new event, select the photos you would like in the new event "
-#| "and click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgid ""
 "To adjust the date and time of photos, select the photos you would like to "
 "adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
 "guiseq> and select a new date and time."
 msgstr ""
-"Para crear un evento nuevo, seleccione las fotos que quiere tener en el "
-"evento y pulse <guiseq><gui>Eventos</gui><gui>Nuevo evento</gui></guiseq>."
+"Para ajustar la hora y fecha de las fotos, seleccione las fotos que quiere "
+"ajustar y pulse <guiseq><gui>Fotos</gui><gui>Ajustar fecha y hora...</gui></"
+"guiseq> y seleccione una nueva fecha y hora."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:16
@@ -557,6 +688,9 @@ msgid ""
 "choose to shift all the photos by the same amount of time or to set all the "
 "photos to the same time."
 msgstr ""
+"Si está cambiando la fecha y la hora de varias fotos a la vez, puede elegir "
+"cambiar todas las fotos en la misma cantidad de horas o establecer todas las "
+"fotos en la misma hora."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:18
@@ -565,6 +699,9 @@ msgid ""
 "choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
+"De manera predeterminada, la fecha y la hora sólo se cambian dentro de "
+"Shotwell. También puede optar por modificar la fecha y la hora en el archivo "
+"original, pero esto no se puede deshacer una vez que salga de Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
@@ -582,6 +719,8 @@ msgid ""
 "Because Shotwell is a non-destructive photo editor, you can undo any "
 "alterations you make to a photograph."
 msgstr ""
+"Gracias a que Shotwell es un editor de fotos no destructivo, puede deshacer "
+"cualquier alteración que realice en una foto."
 
 #. (itstool) path: page/p
 #: C/edit-undo.page:20
@@ -590,6 +729,9 @@ msgid ""
 "<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
 "exception is that time and date adjustments will not be reverted."
 msgstr ""
+"Para deshacer por completo todos los cambios realizados en una foto, haga "
+"clic en <guiseq><gui>Fotos</gui><gui>Volver al original</gui></guiseq>. La "
+"única excepción es que los ajustes de hora y fecha no se revertirán."
 
 #. (itstool) path: info/desc
 #: C/formats.page:7
@@ -597,6 +739,8 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
 "files."
 msgstr ""
+"Shotwell soporta archivos JPEG, PNG, TIFF, BMP y RAW, así como archivos de "
+"vídeo."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
@@ -610,6 +754,9 @@ msgid ""
 "raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
 "format such as GIF."
 msgstr ""
+"Shotwell soporta archivos JPEG, PNG, TIFF, BMP y <link type =\"guide\" xref="
+"\"other-raw\">RAW</link>. Shotwell todavía no soporta otros formatos "
+"gráficos como GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -620,6 +767,12 @@ msgid ""
 "- you can only export edited photos as 8-bit files. All supported formats "
 "can be used for export (JPEG, PNG, TIFF, BMP)."
 msgstr ""
+"El soporte del formato RAW de Shotwell está actualmente limitado. Cuando ve "
+"una foto RAW, en realidad está viendo un JPEG derivado de la foto RAW, no la "
+"imagen RAW en sí. Además, la ruta de edición RAW no es completamente de 16 "
+"bits; sólo puede exportar las fotos editadas como archivos de 8 bits. Todos "
+"los formatos compatibles se pueden utilizar para la exportación (JPEG, PNG, "
+"TIFF, BMP)."
 
 #. (itstool) path: page/p
 #: C/formats.page:18
@@ -627,6 +780,8 @@ msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
 msgstr ""
+"Para obtener más información acerca de las fotos en formato RAW en Shotwell, "
+"consulte la sección <link type=\"guide\" xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -635,6 +790,9 @@ msgid ""
 "media library on the system where Shotwell is running. This typically "
 "includes the following formats among others:"
 msgstr ""
+"Shotwell también soporta archivos de vídeo en cualquier formato soportado "
+"por la biblioteca multimedia de GStreamer en el sistema donde Shotwell está "
+"funcionando. Esto normalmente incluye los siguientes formatos, entre otros:"
 
 #. (itstool) path: item/p
 #: C/formats.page:25
@@ -648,6 +806,9 @@ msgid ""
 "systems may not include all codecs listed here due to legal or licensing "
 "restrictions.</em>"
 msgstr ""
+"Códecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Tenga en cuenta que "
+"algunos sistemas operativos pueden no incluir todos los códecs que se "
+"enumeran aquí debido a restricciones legales o de licencia.</em>"
 
 #. (itstool) path: page/p
 #: C/formats.page:30
@@ -658,6 +819,11 @@ msgid ""
 "flagging, rating, tagging, and publishing work both for photos and for "
 "videos."
 msgstr ""
+"Shotwell soporta fotos y vídeos, pero por simplicidad, esta documentación "
+"usa sólo el término «fotos» en la mayoría de ocasiones. Sin embargo, muchas "
+"operaciones en Shotwell se aplican tanto a fotos como a vídeos. En "
+"particular, los eventos, los marcados, las clasificaciones, los etiquetados "
+"y los trabajos publicados funcionan tanto para fotos como para vídeos."
 
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
@@ -699,6 +865,10 @@ msgid ""
 "hold down the <key>Ctrl</key> key and click to select individual photos. You "
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
+"Si quiere, puede elegir un conjunto de fotos específicas para importar. Para "
+"ello, mantenga presionada la tecla <tecla>Ctrl</key> y pulse para "
+"seleccionar las fotos individuales. Puede mantener pulsada la tecla "
+"<tecla>Mayús</tecla> y pulsar para seleccionar varias fotos también."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:28
@@ -706,6 +876,8 @@ msgid ""
 "Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
 "will be copied from the camera and saved on your computer."
 msgstr ""
+"Pulse <gui>Importar seleccionadas</gui> o <gui> Importar todo</gui>. Las "
+"fotos se copiarán de la cámara y se guardarán en el ordenador."
 
 #. (itstool) path: page/p
 #: C/import-camera.page:32
@@ -714,6 +886,10 @@ msgid ""
 "(in the sidebar) to see all photos that were imported. The Events list (also "
 "in the sidebar) will also show the new photos, organized by date."
 msgstr ""
+"Una vez finalizada la importación, puede abrir la vista <gui>Última "
+"importación</gui> (en la barra lateral) para ver todas las fotos que se "
+"importaron. La lista de Eventos (también en la barra lateral) también "
+"mostrará las nuevas fotos, organizadas por fecha."
 
 #. (itstool) path: info/desc
 #: C/import-file.page:7
@@ -740,6 +916,9 @@ msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 "gui></guiseq> and select the folder containing the photos you want to import."
 msgstr ""
+"Alternativamente, pulse <guiseq><gui>Archivo</gui><gui>Importar desde la "
+"carpeta...</gui></guiseq> y seleccione la carpeta que contiene las fotos que "
+"quiere importar."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -748,6 +927,10 @@ msgid ""
 "folder (usually this is the <file>Pictures</file> folder in your home "
 "directory) or to import them in place without copying the files."
 msgstr ""
+"Shotwell le preguntará si quiere copiar los archivos de fotos en su carpeta "
+"de la biblioteca (la carpeta de la biblioteca está normalmente en la carpeta "
+"<file>Imágenes</file> en su carpeta local) o importarlos en su lugar sin "
+"copiar los archivos."
 
 #. (itstool) path: page/p
 #: C/import-file.page:20
@@ -757,6 +940,10 @@ msgid ""
 "you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
 "dragging photos in, Shotwell will import the photos without copying them."
 msgstr ""
+"Si mantiene pulsada la tecla <key>Ctrl</key> mientras arrastra las fotos, "
+"Shotwell copiará las fotos en la carpeta de la biblioteca sin preguntar. Del "
+"mismo modo, si mantiene presionadas las teclas <keyseq><key>Ctrl</"
+"key><key>Shift</key></keyseq>, Shotwell importará las fotos sin copiarlas."
 
 #. (itstool) path: page/p
 #: C/import-file.page:22
@@ -765,6 +952,10 @@ msgid ""
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
+"Una vez finalizada la importación, puede seleccionar <gui>Última "
+"importación</gui> en la barra lateral para ver todas las fotos importadas "
+"correctamente. La lista de Eventos también mostrará nuevas entradas para las "
+"fechas correspondientes a las fotos importadas."
 
 #. (itstool) path: info/desc
 #: C/import-f-spot.page:7
@@ -798,6 +989,9 @@ msgid ""
 "importing from another F-Spot database, select a directory and file from the "
 "chooser dialog box."
 msgstr ""
+"Ahora elija la biblioteca predeterminada F-Spot u otra base de datos F-Spot. "
+"Si quiere importar desde otra base de datos F-Spot, seleccione una carpeta y "
+"un archivo en el cuadro de diálogo del selector."
 
 #. (itstool) path: page/p
 #: C/import-f-spot.page:20
@@ -808,6 +1002,11 @@ msgid ""
 "will also show new entries for the dates corresponding to the imported "
 "photos."
 msgstr ""
+"Shotwell importará sus fotos, junto con sus etiquetas y otra información. "
+"Una vez finalizada la importación, puede seleccionar <gui>Última "
+"importación</gui> en la barra lateral para ver todas las fotos importadas "
+"correctamente. La lista de Eventos también mostrará nuevas entradas para las "
+"fechas correspondientes a las fotos importadas."
 
 #. (itstool) path: info/desc
 #: C/import-memorycard.page:7
@@ -847,6 +1046,10 @@ msgid ""
 "Folder...</gui></guiseq>, the memory card should be visible as a folder in "
 "the side bar of the file selection window."
 msgstr ""
+"Siga las instrucciones para <link xref=\"import-file\">importar fotos desde "
+"el disco duro</link>. Si pulsa en <guiseq><gui>Archivo</gui><gui>Importar "
+"desde la carpeta...</gui></guiseq>, la tarjeta de memoria será visible como "
+"una carpeta en la barra lateral de la ventana de selección de archivos."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:28
@@ -866,6 +1069,10 @@ msgid ""
 "\"import-camera\">connecting your camera directly to the computer</link>, "
 "though."
 msgstr ""
+"Si la tarjeta no se detecta automáticamente, es posible que su lector de "
+"tarjetas no se haya reconocido. Intente desenchufarlo y vuelva a enchufarlo. "
+"Sin embargo, si eso no funciona, podrá importar fotos mediante <link xref="
+"\"import-camera\">conectar su cámara directamente al ordenador</link>."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -978,6 +1185,9 @@ msgid ""
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
+"Un evento es un grupo de fotos que se han hecho aproximadamente al mismo "
+"tiempo. Cuando importa fotos, Shotwell comprueba cuándo se hizo cada foto y "
+"las agrupa por eventos."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:16
@@ -987,6 +1197,10 @@ msgid ""
 "be displayed in the main window. Double-click an event to see all the photos "
 "that were taken around that time."
 msgstr ""
+"Elija <gui>Eventos</gui> en la barra lateral para ver sus fotos organizadas "
+"por fecha. Si selecciona un mes o un año en la barra lateral, se mostrará "
+"una lista de eventos en la ventana principal. Pulse dos veces en un evento "
+"para ver todas las fotos tomadas en ese momento."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:18
@@ -996,6 +1210,11 @@ msgid ""
 "the <gui>No Event</gui> view accessible from the sidebar. You can still move "
 "the photo to any event you like as described below."
 msgstr ""
+"Si una foto no tiene información insertada de la fecha o la hora, entonces "
+"Shotwell no puede colocarla automáticamente en ningún evento. En este caso, "
+"la foto aparecerá en la vista <gui>No hay eventos</gui> a la que se accede "
+"desde la barra lateral. Todavía puede mover la foto a cualquier evento que "
+"quiera como se describe a continuación."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:25
@@ -1010,6 +1229,11 @@ msgid ""
 "and enter a new name. Another way of renaming an event is to double-click "
 "its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
+"Para dar un nombre a un evento en lugar de referirse a él por su fecha, "
+"seleccione el evento, pulse en <guiseq><gui>Eventos</gui><gui>Renombrar "
+"evento...</gui></guiseq> e introduzca un nuevo nombre. Otra forma de cambiar "
+"el nombre de un evento es pulsar dos veces en su nombre en la barra lateral; "
+"Escriba un nuevo nombre y luego pulse <key>Intro</key>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
@@ -1023,6 +1247,9 @@ msgid ""
 "move photos between events. To do this, drag any photo to the sidebar and "
 "drop it on an event."
 msgstr ""
+"Aunque las fotos se agrupan inicialmente por eventos según su fecha, puede "
+"mover fotos entre eventos. Para ello, arrastre cualquier foto a la barra "
+"lateral y suéltela en un evento."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
@@ -1046,6 +1273,10 @@ msgid ""
 "merge in the main window area. Finally, click <guiseq><gui>Events</"
 "gui><gui>Merge Events</gui></guiseq>."
 msgstr ""
+"Para combinar eventos, seleccione <guiseq><gui>Eventos</gui></guiseq> de la "
+"barra lateral, luego, mientras presiona <key>Ctrl</key> pulse en los eventos "
+"que quiere combinar en la ventana principal. Finalmente, pulse en "
+"<guiseq><gui>Eventos</gui><gui>Combinar eventos</gui></guiseq>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:43
@@ -1060,6 +1291,11 @@ msgid ""
 "click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
 "either ascending or descending."
 msgstr ""
+"Los eventos se muestran en la estructura de árbol en la barra lateral, "
+"organizados por el año y el mes de la primera foto del evento. Para cambiar "
+"el orden de clasificación del evento, pulse en <guiseq><gui>Vista</"
+"gui><gui>Ordenar eventos</gui></guiseq> y seleccione si quiere el orden "
+"ascendente o descendente."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:51
@@ -1068,15 +1304,11 @@ msgstr "Cambiar la foto usada para representar cada evento"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:53
-#, fuzzy
-#| msgid ""
-#| "If you select the Events item in the sidebar, you'll see a single photo "
-#| "which represents each event. This is called the key photo."
 msgid ""
 "If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
 "photo which represents each event. This is called the key photo."
 msgstr ""
-"Si selecciona el elemento Eventos en la barra lateral, verá una única foto "
+"Si selecciona <gui>Eventos</gui> en la barra lateral, verá una única foto "
 "que representa cada evento. Esto se denomina «foto clave»."
 
 #. (itstool) path: section/p
@@ -1086,6 +1318,10 @@ msgid ""
 "use a different key photo, select the photo and choose <guiseq><gui>Photos</"
 "gui><gui>Make Key Photo for Event</gui></guiseq>."
 msgstr ""
+"De manera predeterminada, Shotwell utiliza la primera foto de cada evento "
+"como su vista de miniatura. Para utilizar una foto distinta, seleccione la "
+"foto y elija <guiseq><gui>Fotos</gui><gui>Definir vista de miniatura de "
+"eventos </gui></guiseq>."
 
 #. (itstool) path: info/desc
 #: C/organize-flag.page:7
@@ -1107,6 +1343,10 @@ msgid ""
 "<gui>Flagged</gui> item in the sidebar to see all photos which have been "
 "flagged."
 msgstr ""
+"Shotwell le permite <em>marcar</em> sus fotos. Cuando se marca una foto, "
+"aparece un pequeño icono de una bandera en su esquina superior derecha. "
+"Puede seleccionar el elemento <gui>Marcada</gui> en la barra lateral para "
+"ver todas las fotos que se han marcado."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:18
@@ -1115,6 +1355,9 @@ msgid ""
 "like. For example, you might flag all photos which need visual adjustment, "
 "or all photos which you want to share with a friend."
 msgstr ""
+"Marcar una foto hace que esta sea especial. Puede interpretar esto de la "
+"manera que quiera. Por ejemplo, puede marcar todas las fotos que necesitan "
+"un ajuste visual o todas las fotos que quiere compartir con un amigo."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:22
@@ -1123,6 +1366,10 @@ msgid ""
 "set. For example, you can select the <gui>Flagged</gui> view and then upload "
 "all flagged photos to a publishing service."
 msgstr ""
+"Marcar fotos es útil porque también puede trabajar en todas las fotos "
+"marcadas como un conjunto. Por ejemplo, puede seleccionar la vista "
+"<gui>Marcada</gui> y luego subir todas las fotos marcadas a un servicio de "
+"publicación."
 
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
@@ -1136,6 +1383,10 @@ msgid ""
 "or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
 "key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
+"Para marcar o desmarcar una foto, pulse con el botón derecho en la foto y "
+"seleccione <gui>Marcar</gui> o <gui>Desmarcar</gui> desde el menú "
+"contextual. O pulse use los atajos del teclado <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> o <key>/</key>."
 
 #. (itstool) path: info/desc
 #: C/organize-rating.page:7
@@ -1193,6 +1444,10 @@ msgid ""
 "Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
 "clear the rating(s)."
 msgstr ""
+"Seleccione la foto o las fotos, luego pulse cualquiera de los atajos del "
+"teclado <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> o <key>5</"
+"key> para asignar una puntuación. Pulse <key>9</key> para marcar las fotos "
+"como rechazadas o pulse <key>0</key> para borrar las puntuaciones."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:23
@@ -1204,6 +1459,13 @@ msgid ""
 "rejected. The Shotwell icon on the toolbar displays the current rating "
 "filter and can also be used to set the filter."
 msgstr ""
+"Normalmente, Shotwell muestra todas las fotos excepto las rechazadas. Puede "
+"establecer un filtro de puntuaciones diferente utilizando el menú "
+"<guiseq><gui>Vista</gui><gui>Filtrar fotos</gui></guiseq>. Por ejemplo, "
+"puede mostrar sólo las fotos con puntuación de 3 estrellas o más, o puede "
+"mostrar todas las fotos, incluidas las marcadas como rechazadas. El icono "
+"Shotwell de la barra de herramientas muestra el filtro de puntuación actual "
+"y también se puede utilizar para configurar el filtro."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:26
@@ -1212,6 +1474,10 @@ msgid ""
 "corner. You can turn off the display of ratings using the <guiseq><gui>View</"
 "gui><gui>Ratings</gui></guiseq> menu item."
 msgstr ""
+"Shotwell normalmente muestra la puntuación de cada foto en su esquina "
+"inferior izquierda. Puede desactivar la visualización de las puntuaciones "
+"utilzando el elemento del menú <guiseq><gui>Vista</gui><gui>Valoraciones</"
+"gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:28
@@ -1221,6 +1487,10 @@ msgid ""
 "gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
 "<key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
+"Puede aumentar o disminuir la puntuación de una foto utilizando los comandos "
+"<guiseq><gui>Establecer puntuación</gui><gui>Aumentar</gui></guiseq> y "
+"<guiseq><gui>Establecer puntuación</gui><gui>Disminuir</gui></guiseq>, o los "
+"atajos del teclado <key>&lt;</key> y <key>&gt;</key>."
 
 #. (itstool) path: media
 #. This is a reference to an external file such as an image or video. When
@@ -1299,6 +1569,10 @@ msgid ""
 "<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
 "files will be left in place on disk."
 msgstr ""
+"Si quiere quitar las fotos de Shotwell sin tener que moverlas a la papelera, "
+"simplemente seleccione las fotos que va a quitar y elija "
+"<guiseq><gui>Editar</gui><gui>Eliminar de la biblioteca</gui></guiseq>. Los "
+"archivos de fotos se dejarán en su lugar en el disco."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:26
@@ -1412,6 +1686,11 @@ msgid ""
 "for certain criteria. Saved Searches feature more complex search criteria "
 "and persist in the sidebar between sessions."
 msgstr ""
+"Hay dos maneras de hacer una búsqueda en Shotwell: con la barra de "
+"herramientas de filtro, y con una búsqueda guardada. La barra de búsqueda le "
+"permite buscar rápidamente la vista actual para ciertos criterios. Las "
+"búsquedas guardadas tienen criterios de búsqueda más complejos y se "
+"mantienen en la barra lateral entre sesiones."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:21
@@ -1427,6 +1706,11 @@ msgid ""
 "this bar, you can find, show and hide photos and videos based on title, tag, "
 "rating or other options."
 msgstr ""
+"La casilla <guiseq><gui>Vista</gui><gui>Barra de búsqueda</gui></guiseq> "
+"activa la visualización de la barra de búsqueda. También puede pulsar "
+"<keyseq><key>Ctrl</key><key>F</key></keyseq> o <key>F8</key> para abrir la "
+"barra de búsqueda. Desde esta barra, puede encontrar, mostrar y ocultar "
+"fotos y vídeos basados en su título, etiqueta, valoración u otras opciones."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:29
@@ -1439,6 +1723,15 @@ msgid ""
 "flagged, their current number of stars, and whether the items shown are "
 "images, videos, or raw camera files, respectively."
 msgstr ""
+"Para comenzar la búsqueda, simplemente introduzca una palabra clave de "
+"búsqueda en el cuadro de texto o pulse en <gui>Marcada</gui>, "
+"<gui>Puntuación</gui> o <gui>Tipo</gui>. La búsqueda de texto compara sus "
+"palabras clave con los nombres de las etiquetas, los títulos de fotos o "
+"vídeos y los nombres de los archivos originales de las fotos. Los botones "
+"<gui>Marcada</gui>, <gui>Puntuación</gui> y <gui>Tipo</gui> le permiten "
+"filtrar su colección según las fotos marcadas, su número actual de estrellas "
+"y si los elementos mostrados son imágenes, vídeos o archivos de cámara RAW, "
+"respectivamente."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:38
@@ -1472,6 +1765,11 @@ msgid ""
 "whether you want to meet Any, All, or None of the criteria in the following "
 "rows."
 msgstr ""
+"Cree una nueva búsqueda guardada con <guiseq><gui>Editar</gui><gui>Nueva "
+"búsqueda guardada...</gui></guiseq> o pulsando <keyseq><key>Ctrl</"
+"key><key>S</key></keyseq>. El cuadro de diálogo le permite introducir un "
+"nombre para la búsqueda y seleccionar si quiere marcar alguno, todos o "
+"ninguno de los criterios de las siguientes filas."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:56
@@ -1481,6 +1779,11 @@ msgid ""
 "box on the left of each row selects the type of criteria. Criteria must be "
 "entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
+"Cada fila representa un criterio de búsqueda. Pulse el botón <gui>+</gui> "
+"para añadir más filas y el botón <gui>-</gui> para eliminar una fila "
+"específica. El cuadro combinado de la izquierda de cada fila selecciona el "
+"tipo de criterios. Los criterios se deben introducir correctamente antes de "
+"que el botón <gui>Aceptar</gui> esté disponible."
 
 #. (itstool) path: info/desc
 #: C/organize-tag.page:7
@@ -1537,6 +1840,14 @@ msgid ""
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
+"Cuando pulse <keyseq><key>Ctrl</key><key>T</key></keyseq> o "
+"<guiseq><gui>Etiquetas</gui><gui>Añadir etiquetas...</gui></guiseq> puede "
+"escribir los nombres de una o más etiquetas, separadas por comas. Una vez "
+"que haya creado una etiqueta, puede renombrarla seleccionando esa etiqueta "
+"en la barra lateral y eligiendo <guiseq><gui>Etiquetas</gui><gui>Renombrar "
+"etiqueta \"[nombre]\"...</gui></guiseq> pulsando con el botón derecho y "
+"eligiendo <gui>Renombrar...</gui> o pulsando dos veces en la etiqueta de la "
+"barra lateral. "
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:44
@@ -1550,6 +1861,15 @@ msgid ""
 "gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
 "\"[name]\" from Photos</gui>."
 msgstr ""
+"Para cambiar las etiquetas asociadas a una foto en particular, seleccione "
+"esa foto, elija <guiseq><gui>Etiquetas</gui><gui>Modificar etiquetas...</"
+"gui></guiseq> o pulse con el botón derecho en una foto y seleccione "
+"<gui>Modificar etiquetas...</gui> y edite la lista separada por comas. Para "
+"quitar una etiqueta de una o más fotos, primero seleccione esa etiqueta en "
+"la barra lateral, luego seleccione las fotos que quiere quitar y elija "
+"<guiseq><gui>Etiquetas</gui><gui>Quitar etiquetas \"[nombre]\" de fotos</"
+"gui></guiseq> o pulse con el botón derecho en las fotos y seleccione "
+"<gui>Quitar etiquetas \"[nombre]\" de fotos</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -1565,22 +1885,17 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:64
-#, fuzzy
-#| msgid ""
-#| "The <gui>Tags</gui> folder lists all tags you've assigned to photos. "
-#| "Photos can have multiple tags attached to them. When you click on the "
-#| "name of a tag in the sidebar, you will see all the photos associated with "
-#| "that tag."
 msgid ""
 "When you create a tag, it will appear in the sidebar under the <gui>Tags</"
 "gui> item, which is hidden if there are no tags. Photos can have multiple "
 "tags attached to them, and when you click on the name of a given tag in the "
 "sidebar, you will see all the photos associated with that tag."
 msgstr ""
-"La carpeta <gui>Etiquetas</gui> lista todas las etiquetas que ha asignado a "
-"sus fotos. Las fotos pueden tener múltiples etiquetas relacionadas con las "
-"mismas. Cuando posiciona el cursor sobre el nombre de una etiqueta en la "
-"barra lateral, podrá ver todas las fotos asociadas a esa etiqueta."
+"Cuando crea una etiqueta, aparecerá en la barra lateral bajo el elemento "
+"<gui>Etiquetas</gui>, que se oculta si no hay etiquetas. Las fotos pueden "
+"tener múltiples etiquetas relacionadas con las mismas. Cuando posiciona el "
+"cursor sobre el nombre de una etiqueta en la barra lateral, podrá ver todas "
+"las fotos asociadas a esa etiqueta."
 
 #. (itstool) path: section/title
 #: C/organize-tag.page:73
@@ -1636,14 +1951,12 @@ msgid ""
 "display of titles beneath each photo. By default, a photo's title is its "
 "filename."
 msgstr ""
+"La casilla de <guiseq><gui>Vista</gui><gui>Títulos</gui></guiseq> activa la "
+"visualización de títulos debajo de cada foto. De manera predeterminada, el "
+"título de la foto es su nombre de archivo."
 
 #. (itstool) path: page/p
 #: C/organize-title.page:17
-#, fuzzy
-#| msgid ""
-#| "To change a photo's title, select the photo and click "
-#| "<guiseq><gui>Photos</gui><gui>Edit Title</gui></guiseq>, or press "
-#| "<key>F2</key>."
 msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
 "gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
@@ -2072,6 +2385,10 @@ msgid ""
 "photo files contained in the library directory are monitored in real time "
 "after startup. We hope to remove this limitation in a further release."
 msgstr ""
+"Tenga en cuenta que Shotwell comprueba todos los archivos de fotos para ver "
+"si hay cambios al inicio, pero sólo los archivos de fotos contenidos en la "
+"carpeta de la biblioteca se supervisan en tiempo real después del inicio. "
+"Esperamos eliminar esta limitación en una nueva versión."
 
 #. (itstool) path: info/desc
 #: C/other-missing.page:7
@@ -2107,6 +2424,10 @@ msgid ""
 "collection (perhaps because you deleted them), go to the Missing Files view, "
 "select the photos and then click <gui>Remove From Library</gui>."
 msgstr ""
+"Si ya no quiere que los archivos que faltan formen parte de su colección "
+"Shotwell (tal vez porque los ha eliminado), vaya a la vista de Fotos "
+"ausentes, seleccione las fotos y, a continuación, pulse en <gui>Eliminar de "
+"la biblioteca</gui>."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:18
@@ -2156,6 +2477,10 @@ msgid ""
 "database in this directory contains a list of all the photos in the Shotwell "
 "library."
 msgstr ""
+"Normalmente, Shotwell almacena su base de datos y miniaturas de fotos en la "
+"carpeta <file>~/.shotwell</file>. Esta carpeta no contiene fotos, pero la "
+"base de datos de esta carpeta contiene una lista de todas las fotos de la "
+"biblioteca de Shotwell."
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:16
@@ -2198,6 +2523,9 @@ msgid ""
 "libraries that can add support for new publishing destinations or new "
 "slideshow transitions."
 msgstr ""
+"Shotwell se puede usar con <em>complementos</em>, que son bibliotecas "
+"compartidas complementarias que pueden agregar soporte para nuevos destinos "
+"de publicación o nuevas transiciones de presentación de diapositivas."
 
 #. (itstool) path: page/p
 #: C/other-plugins.page:18
@@ -2244,6 +2572,10 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
+"Algunas cámaras tienen la capacidad de almacenar datos directamente del "
+"sensor y en un archivo que contiene información adicional de color; Esto se "
+"conoce comúnmente como «RAW» o «cámara RAW», y Shotwell soporta estos "
+"archivos también."
 
 #. (itstool) path: page/p
 #: C/raw.page:18
@@ -2256,6 +2588,14 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
+"Dado que las fotografías RAW normalmente no se pueden mostrar directamente, "
+"sino que deben ser desarrolladas por primera vez (se interpreta y se prepara "
+"su información adicional para mostrarse) la mayoría de las cámaras "
+"incorporarán un JPEG dentro de un archivo en formato RAW, o producirán un "
+"JPEG junto con el archivo RAW en el momento en que se toma la foto. Este "
+"último se refiere a todo este documento como RAW+JPEG. Si importa una pareja "
+"de RAW+JPEG, Shotwell los mantendrá sincronizados y los tratará como un "
+"elemento de su biblioteca."
 
 #. (itstool) path: page/p
 #: C/raw.page:27
@@ -2264,6 +2604,9 @@ msgid ""
 "internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
 "gui><gui>Developer</gui></guiseq> in the menus."
 msgstr ""
+"Al importar un archivo RAW, puede elegir entre usar el desarrollador JPEG "
+"interno de la cámara o el de Shotwell seleccionando <guiseq><gui>Fotos</"
+"gui><gui>Desarrollador</gui></guiseq> en los menús."
 
 #. (itstool) path: note/p
 #: C/raw.page:33
@@ -2271,6 +2614,8 @@ msgid ""
 "Changing between developers will cause all edits made to a photograph to be "
 "discarded."
 msgstr ""
+"Cambiar entre desarrolladores hará que todas las ediciones hechas en una "
+"foto se descarten."
 
 #. (itstool) path: page/p
 #: C/raw.page:39
@@ -2280,6 +2625,10 @@ msgid ""
 "or BMP format, and, when publishing, will internally export a JPEG version "
 "for you and publish that."
 msgstr ""
+"Para publicar o usar una foto RAW en la mayoría de los programas, primero se "
+"debe exportar. Shotwell puede exportar sus fotos RAW en formato JPEG, PNG, "
+"TIFF o BMP y, al publicarlas, exportará internamente una versión JPEG para y "
+"la publicará."
 
 #. (itstool) path: info/desc
 #: C/running.page:7
@@ -2314,6 +2663,13 @@ msgid ""
 "gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
+"Shotwell también se puede ejecutar automáticamente cuando una cámara está "
+"conectada a su ordenador. Para comprobar que su sistema está configurado "
+"para ejecutar Shotwell cuando se detecta una cámara, pulse en "
+"<guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> en cualquier "
+"ventana de Nautilus (explorador) y elija la pestaña <gui>Media</gui>.Verá un "
+"cuadro desplegable titulado <gui>Fotos:</gui> que le permitirá elegir "
+"Shotwell como su aplicación de gestión de fotos."
 
 #. (itstool) path: note/p
 #: C/running.page:25
@@ -2358,6 +2714,13 @@ msgid ""
 "length. The background slideshow will proceed even when Shotwell is not "
 "running."
 msgstr ""
+"También puede configurar su fondo para una presentación de fotos. Para ello, "
+"seleccione las fotos de la presentación y elija <guiseq><gui>Archivo</"
+"gui><gui>Establecer como presentación de diapositivas de escritorio...</"
+"gui></guiseq>. Shotwell le pedirá el tiempo de duración de cada diapositiva, "
+"que puede ser desde cualquier intervalo de tiempo hasta un día. La "
+"presentación de diapositivas de fondo continuará incluso cuando Shotwell no "
+"esté funcionando."
 
 #. (itstool) path: info/desc
 #: C/share-export.page:7
@@ -2391,6 +2754,12 @@ msgid ""
 "you fine-tune the size and dimensions of your photo files. A window will "
 "appear allowing you to make several choices:"
 msgstr ""
+"Alternativamente, seleccione un conjunto de fotos y elija el comando "
+"<guiseq><gui>Archivo</gui><gui>Exportar...</gui></guiseq> o pulse "
+"<keyseq><key>Shift</key><key>Ctrl</key><key>E</key></keyseq> , para exportar "
+"las fotos y al mismo tiempo ajustar el tamaño y las dimensiones de sus "
+"archivos de fotos. Aparecerá una ventana que le permitirá realizar varias "
+"opciones:"
 
 #. (itstool) path: item/p
 #: C/share-export.page:24
@@ -2451,6 +2820,9 @@ msgid ""
 "This can help to save your privacy if you have geolocation tags or tags "
 "which shouldn't be seen by anyone."
 msgstr ""
+"La opción de si quiere exportar metadatos como etiquetas o puntuaciones "
+"puede ayudar a preservar su privacidad en caso de que tenga etiquetas o "
+"etiquetas de geolocalización que nadie debería ver."
 
 #. (itstool) path: page/p
 #: C/share-export.page:42
@@ -2478,10 +2850,6 @@ msgstr "Imprimir"
 
 #. (itstool) path: page/p
 #: C/share-print.page:14
-#, fuzzy
-#| msgid ""
-#| "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
-#| "gui></guiseq>."
 msgid ""
 "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
 "gui></guiseq>."
@@ -2491,13 +2859,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-print.page:16
-#, fuzzy
-#| msgid ""
-#| "Shotwell can also print multiple images in one page; to do this, select "
-#| "multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
-#| "and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
-#| "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-"
-#| "page options under <gui>Autosize</gui>."
 msgid ""
 "Shotwell can also print multiple images in one page; to do this, select "
 "multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
@@ -2506,11 +2867,11 @@ msgid ""
 "options under <gui>Autosize</gui>."
 msgstr ""
 "Shotwell puede también imprimir varias imágenes en una página; para hacer "
-"esto, seleccione las imágenes, escoja <guiseq><gui>Archivo</"
+"esto, seleccione las imágenes, elija <guiseq><gui>Archivo</"
 "gui><gui>Imprimir</gui></guiseq> y en el cuadro de diálogo <gui>Imprimir</"
 "gui>, seleccione la pestaña <gui>Configuraciones de la imagen</gui>. "
-"En<gui>Configuración de la imagen</gui>, escoja una de las opciones "
-"múltiples imágenes por página en <gui>Tamaño automático</gui>."
+"En<gui>Configuración de la imagen</gui>, elija una de las opciones múltiples "
+"imágenes por página en <gui>Tamaño automático</gui>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:23
@@ -2691,12 +3052,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
-#, fuzzy
-#| msgid ""
-#| "Publishing to Facebook requires you to grant certain permissions to the "
-#| "Shotwell Connect Facebook application. You only need to grant these "
-#| "permissions once, when you first associate Shotwell Connect with your "
-#| "Facebook account."
 msgid ""
 "Publishing to Facebook requires you to grant certain permissions to the "
 "Shotwell Facebook application. You only need to grant these permissions "
@@ -2712,6 +3067,8 @@ msgid ""
 "You will be only able to publish images with at most the permission you "
 "granted to the Shotwell Facebook application"
 msgstr ""
+"Solo podrá publicar imágenes con el permiso que concedió a la aplicación "
+"Facebook de Shotwell"
 
 #. (itstool) path: page/p
 #: C/share-upload.page:36
@@ -2787,6 +3144,14 @@ msgid ""
 "and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
 "pixels)."
 msgstr ""
+"Al visualizar una foto en pantalla completa, el control deslizante de la "
+"barra de herramientas controla el zoom. Puede desplazarse agarrando y "
+"arrastrando donde quiera en la foto. También puede hacer zoom utilizando la "
+"rueda de desplazamiento o pulsando los siguientes atajos de teclado: "
+"<keyseq><key>Ctrl</key>0</keyseq> para la imagen completa, "
+"<keyseq><key>Ctrl</key>1</keyseq> para el 100% (1 pixel de la foto = 1 pixel "
+"de la pantalla), y <keyseq><key>Ctrl</key>2</keyseq> para el 200% (1 pixel "
+"de la foto = 2x2 pixeles de la pantalla)."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:20
@@ -2859,6 +3224,10 @@ msgid ""
 "guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
 "keyseq> toggles the display of this window."
 msgstr ""
+"La ventana flotante de información extendida muestra más información sobre "
+"la foto seleccionada. El comando <guiseq><gui>Vista</gui><gui>Información "
+"extendida</gui></guiseq> o <keyseq><key>Ctrl</key><key>Shift</key><key>X</"
+"key></keyseq> activa la visualización de esta ventana."
 
 #. (itstool) path: info/desc
 #: C/view-sidebar.page:7
