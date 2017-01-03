@@ -319,7 +319,7 @@ public abstract class CollectionPage : MediaPage {
     }
     
     // see #2020
-    // double clcik = switch to photo page
+    // double click = switch to photo page
     // Super + double click = open in external editor
     // Enter = switch to PhotoPage
     // Ctrl + Enter = open in external editor (handled with accelerators)

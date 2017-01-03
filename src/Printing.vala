@@ -164,7 +164,7 @@ public class PrintSettings {
 
 /* we define our own measurement enum instead of using the Gtk.Unit enum
    provided by Gtk+ 2.0 because Gtk.Unit doesn't define a CENTIMETERS
-   constant (thout it does define an MM for millimeters). This is
+   constant (though it does define an MM for millimeters). This is
    unfortunate, because in metric countries people like to think about
    paper sizes for printing in CM not MM. so, to avoid having to
    multiply and divide everything by 10 (which is error prone) to convert

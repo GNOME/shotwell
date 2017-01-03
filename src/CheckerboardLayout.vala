@@ -336,7 +336,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         this.is_cursor = is_cursor;
     }
 
-    public bool get_is_cusor() {
+    public bool get_is_cursor() {
         return is_cursor;
     }
     

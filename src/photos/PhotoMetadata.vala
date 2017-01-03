@@ -7,7 +7,7 @@
 //
 // PhotoMetadata
 //
-// PhotoMetadata is a wrapper class around gexiv2.  The reasoning for this is (a) to facilitiate
+// PhotoMetadata is a wrapper class around gexiv2.  The reasoning for this is (a) to facilitate
 // interface changes to meet Shotwell's requirements without needing modifications of the library
 // itself, and (b) some requirements for this class (i.e. obtaining raw metadata) is not available
 // in gexiv2, and so must be done by hand.

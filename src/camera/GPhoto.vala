@@ -115,7 +115,7 @@ namespace GPhoto {
         return true;
     }
 
-    // Libgphoto will in some instances refuse to get metadata from a camera, but the camera is accessable as a
+    // Libgphoto will in some instances refuse to get metadata from a camera, but the camera is accessible as a
     // filesystem.  In these cases shotwell can access the file directly. See:
     // http://redmine.yorba.org/issues/2959
     public PhotoMetadata? get_fallback_metadata(Camera camera, Context context, string folder, string filename) {

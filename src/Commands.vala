@@ -2269,7 +2269,7 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     private void do_detach(Tag tag) {
         if (attached_to == null) {
             // detaching a MediaSource from a Tag may result in the MediaSource being detached from
-            // many tags (due to heirarchical tagging), so save the MediaSources for each detached
+            // many tags (due to hierarchical tagging), so save the MediaSources for each detached
             // Tag for reversing the process
             detached_from = tag.detach_many(sources);
             

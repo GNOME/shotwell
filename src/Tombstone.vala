@@ -121,7 +121,7 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
                 info = monitor.get_file_info(file);
             
             // Want to be conservative here; only resurrect a tombstone if file is actually detected
-            // as not present, and not some other problem (which may be intermittant)
+            // as not present, and not some other problem (which may be intermittent)
             if (info == null) {
                 try {
                     info = yield file.query_info_async(FileAttribute.STANDARD_NAME,

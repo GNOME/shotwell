@@ -199,7 +199,7 @@ public struct Dimensions {
         return scaled_rect;
     }
     
-    // Returns the current dimensions scaled in a similar proportion as the two suppled dimensions
+    // Returns the current dimensions scaled in a similar proportion as the two supplied dimensions
     public Dimensions get_scaled_similar(Dimensions original, Dimensions scaled) {
         double x_scale, y_scale;
         original.get_scale_ratios(scaled, out x_scale, out y_scale);

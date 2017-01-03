@@ -271,7 +271,7 @@ public class BatchImportRoll {
 
 // A BatchImportResult associates a particular job with a File that an import was performed on
 // and the import result.  A BatchImportJob can specify multiple files, so there is not necessarily
-// a one-to-one relationship beteen it and this object.
+// a one-to-one relationship between it and this object.
 //
 // Note that job may be null (in the case of a pre-failed job that must be reported) and file may
 // be null (for similar reasons).

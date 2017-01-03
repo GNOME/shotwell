@@ -51,7 +51,7 @@ public class Upgrades {
 // When creating a new upgrade task, you MUST add it to the constructor
 // supplied in Upgrades (see above.)
 private interface UpgradeTask : Object{
-    // Returns the number of steps involved in the ugprade.
+    // Returns the number of steps involved in the upgrade.
     public abstract uint64 get_step_count();
     
     // Performs the upgrade.  Note that when using the progress
@@ -62,7 +62,7 @@ private interface UpgradeTask : Object{
 
 // Deletes the mimics folder, if it still exists.
 // Note: for the step count to be consistent, files cannot be written
-// to the mimcs folder for the durration of this task.
+// to the mimcs folder for the duration of this task.
 private class MimicsRemovalTask : Object, UpgradeTask {
     // Mimics folder (to be deleted, if present)
     private File mimic_dir = AppDirs.get_data_dir().get_child("mimics");

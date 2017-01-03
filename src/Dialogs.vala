@@ -2668,7 +2668,7 @@ public class PreferencesDialog {
     
     private bool map_event() {
         // Set the signal for the lib dir button after the dialog is displayed, 
-        // because the FileChooserButton has a nasty habbit of selecting a
+        // because the FileChooserButton has a nasty habit of selecting a
         // different folder when displayed if the provided path doesn't exist.
         // See ticket #3000 for more info.
         library_dir_button.current_folder_changed.connect(on_current_folder_changed);

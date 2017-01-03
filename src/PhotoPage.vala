@@ -2582,7 +2582,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     // Displays a photo from a specific CollectionPage.  When the user exits this view,
-    // they will be sent back to the return_page. The optional view paramters is for using
+    // they will be sent back to the return_page. The optional view parameters is for using
     // a ViewCollection other than the one inside return_page; this is necessary if the 
     // view and return_page have different filters.
     public void display_for_collection(CollectionPage return_page, Photo photo, 

@@ -2212,7 +2212,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         // Note: *Not* firing altered or metadata_altered signal because link_state is not a
-        // property that's available to users of Photo.  Persisting it as a mechanism for deaing 
+        // property that's available to users of Photo.  Persisting it as a mechanism for dealing
         // with unlink/relink properly.
     }
 
