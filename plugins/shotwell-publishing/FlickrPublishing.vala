@@ -171,21 +171,13 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         var params = this.authenticator.get_authentication_parameter();
         Variant consumer_key = null;
         Variant consumer_secret = null;
-        Variant request_token = null;
-        Variant request_token_secret = null;
         Variant auth_token = null;
         Variant auth_token_secret = null;
         Variant username = null;
 
         params.lookup_extended("ConsumerKey", null, out consumer_key);
         params.lookup_extended("ConsumerSecret", null, out consumer_secret);
-        session.set_api_credentials(consumer_key.get_string(),
-                consumer_secret.get_string());
-
-        params.lookup_extended("RequestToken", null, out request_token);
-        params.lookup_extended("RequestTokenSecret", null, out request_token_secret);
-        session.set_request_phase_credentials(request_token.get_string(),
-                request_token_secret.get_string());
+        session.set_api_credentials(consumer_key.get_string(), consumer_secret.get_string());
 
         params.lookup_extended("AuthToken", null, out auth_token);
         params.lookup_extended("AuthTokenSecret", null, out auth_token_secret);
