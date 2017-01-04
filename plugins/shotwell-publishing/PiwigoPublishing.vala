@@ -1733,7 +1733,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         string name = publishable.get_publishing_name();
         string comment = publishable.get_param_string(
             Spit.Publishing.Publishable.PARAM_STRING_COMMENT);
-        if (name != "") {
+        if (name == null || name == "") {
             name = publishable.get_param_string(
                 Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
             add_argument("name", name);
