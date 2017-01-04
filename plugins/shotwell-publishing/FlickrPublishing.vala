@@ -57,8 +57,6 @@ namespace Publishing.Flickr {
 
 internal const string SERVICE_NAME = "Flickr";
 internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";
-internal const string API_KEY = "60dd96d4a2ad04888b09c9e18d82c26f";
-internal const string API_SECRET = "d0960565e03547c1";
 internal const int ORIGINAL_SIZE = -1;
 internal const string EXPIRED_SESSION_ERROR_CODE = "98";
 internal const string ENCODE_RFC_3986_EXTRA = "!*'();:@&=+$,/?%#[] \\";
@@ -171,11 +169,18 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("EVENT: a fully authenticated session has become available");
 
         var params = this.authenticator.get_authentication_parameter();
+        Variant consumer_key = null;
+        Variant consumer_secret = null;
         Variant request_token = null;
         Variant request_token_secret = null;
         Variant auth_token = null;
         Variant auth_token_secret = null;
         Variant username = null;
+
+        params.lookup_extended("ConsumerKey", null, out consumer_key);
+        params.lookup_extended("ConsumerSecret", null, out consumer_secret);
+        session.set_api_credentials(consumer_key.get_string(),
+                consumer_secret.get_string());
 
         params.lookup_extended("RequestToken", null, out request_token);
         params.lookup_extended("RequestTokenSecret", null, out request_token_secret);
@@ -460,6 +465,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (is_persistent_session_valid()) {
             debug("attempt start: a persistent session is available; using it");
+            var params = this.authenticator.get_authentication_parameter();
+            Variant consumer_key = null;
+            Variant consumer_secret = null;
+
+            params.lookup_extended("ConsumerKey", null, out consumer_key);
+            params.lookup_extended("ConsumerSecret", null, out consumer_secret);
+            session.set_api_credentials(consumer_key.get_string(),
+                    consumer_secret.get_string());
 
             session.authenticate_from_persistent_credentials(get_persistent_access_phase_token(),
                 get_persistent_access_phase_token_secret(), get_persistent_access_phase_username());
@@ -502,7 +515,7 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
         add_argument("oauth_version", "1.0");
         add_argument("oauth_callback", "oob");
         add_argument("oauth_timestamp", session.get_oauth_timestamp());
-        add_argument("oauth_consumer_key", API_KEY);
+        add_argument("oauth_consumer_key", session.get_consumer_key());
     }
     
     public Transaction.with_uri(Session session, string uri,
@@ -514,7 +527,7 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
         add_argument("oauth_version", "1.0");
         add_argument("oauth_callback", "oob");
         add_argument("oauth_timestamp", session.get_oauth_timestamp());
-        add_argument("oauth_consumer_key", API_KEY);
+        add_argument("oauth_consumer_key", session.get_consumer_key());
     }
 
     public override void execute() throws Spit.Publishing.PublishingError {
@@ -598,7 +611,7 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
         add_authorization_header_field("oauth_version", "1.0");
         add_authorization_header_field("oauth_callback", "oob");
         add_authorization_header_field("oauth_timestamp", session.get_oauth_timestamp());
-        add_authorization_header_field("oauth_consumer_key", API_KEY);
+        add_authorization_header_field("oauth_consumer_key", session.get_consumer_key());
         add_authorization_header_field("oauth_token", session.get_access_phase_token());
         
         add_argument("is_public", ("%d".printf(parameters.visibility_specification.everyone_level)));
@@ -663,6 +676,8 @@ internal class Session : Publishing.RESTSupport.Session {
     private string? access_phase_token = null;
     private string? access_phase_token_secret = null;
     private string? username = null;
+    private string? consumer_key = null;
+    private string? consumer_secret = null;
 
     public Session() {
         base(ENDPOINT_URL);
@@ -686,6 +701,11 @@ internal class Session : Publishing.RESTSupport.Session {
         access_phase_token = null;
         access_phase_token_secret = null;
         username = null;
+    }
+
+    public void set_api_credentials(string consumer_key, string consumer_secret) {
+        this.consumer_key = consumer_key;
+        this.consumer_secret = consumer_secret;
     }
     
     public void sign_transaction(Publishing.RESTSupport.Transaction txn) {
@@ -722,16 +742,16 @@ internal class Session : Publishing.RESTSupport.Session {
         if (access_phase_token_secret != null) {
             debug("access phase token secret available; using it as signing key");
 
-            signing_key = API_SECRET + "&" + access_phase_token_secret;
+            signing_key = consumer_secret + "&" + access_phase_token_secret;
         } else if (request_phase_token_secret != null) {
             debug("request phase token secret available; using it as signing key");
 
-            signing_key = API_SECRET + "&" + request_phase_token_secret;
+            signing_key = consumer_secret + "&" + request_phase_token_secret;
         } else {
             debug("neither access phase nor request phase token secrets available; using API " +
                 "key as signing key");
 
-            signing_key = API_SECRET + "&";
+            signing_key = consumer_secret + "&";
         }
         
         string signature_base_string = http_method + "&" + Soup.URI.encode(
@@ -777,6 +797,11 @@ internal class Session : Publishing.RESTSupport.Session {
     
     public string get_oauth_timestamp() {
         return GLib.get_real_time().to_string().substring(0, 10);
+    }
+
+    public string get_consumer_key() {
+        assert(consumer_key != null);
+        return consumer_key;
     }
     
     public string get_request_phase_token() {

@@ -5,6 +5,9 @@
  */
 
 namespace Publishing.Authenticator {
+    internal const string API_KEY = "60dd96d4a2ad04888b09c9e18d82c26f";
+    internal const string API_SECRET = "d0960565e03547c1";
+
     internal const string SERVICE_WELCOME_MESSAGE =
         _("You are not currently logged into Flickr.\n\nClick Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account.");
 
@@ -89,8 +92,11 @@ namespace Publishing.Authenticator {
 
             this.host = host;
             params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
+            params.insert("ConsumerKey", API_KEY);
+            params.insert("ConsumerSecret", API_SECRET);
 
             session = new Publishing.Flickr.Session();
+            session.set_api_credentials(API_KEY, API_SECRET);
             session.authenticated.connect(on_session_authenticated);
         }
 
