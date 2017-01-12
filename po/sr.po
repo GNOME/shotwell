@@ -83,9 +83,8 @@ msgstr ""
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
-#| msgid "Shotwell"
 msgid "shotwell"
-msgstr "фото-бунар"
+msgstr "shotwell"
 
 #: misc/shotwell-viewer.desktop.in.in:4
 #| msgid "Photo Viewer"
