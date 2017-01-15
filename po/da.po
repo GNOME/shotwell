@@ -1,6 +1,6 @@
 # po/shotwell-core/shotwell.pot
 # PO message string template file for Shotwell Core Components
-# Copyright 2016 Software Freedom Conservancy Inc.
+# Copyright 2017 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
 #
@@ -11,7 +11,7 @@
 # johanneswilm <johanneswilm@gmail.com>, 2011
 # Kris Thomsen <lakristho@gmail.com>, 2011
 # verayin <vera@yorba.org>, 2011
-# Alan Mortensen <alanmortensen.am@gmail.com>, 2016.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2016, 2017.
 #
 # Konventioner:
 # slideshow -> slideshow (accepteret af RO; MicroSoft har forladt diasshow; dias relaterer sig til lysbilleder)
@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15.1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-26 08:07+0000\n"
-"PO-Revision-Date: 2016-12-08 20:17+0100\n"
+"POT-Creation-Date: 2017-01-10 17:57+0000\n"
+"PO-Revision-Date: 2017-01-14 12:51+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/shotwell/language/"
 "da/)\n"
@@ -1560,95 +1560,93 @@ msgstr "Forbereder import"
 msgid "Core Data Import Services"
 msgstr "Kerne-tjenester til dataimport"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:5
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
+msgid "_Gallery3 URL:"
+msgstr "_Gallery3-URL:"
+
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:55
+msgid "_User name:"
+msgstr "Bruger_navn:"
+
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:68
+msgid "_Password:"
+msgstr "Ad_gangskode:"
+
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
 msgid "Go _Back"
 msgstr "Gå _tilbage"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:8
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:145
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 #: ui/shotwell.ui:1464
 msgid "_Log in"
 msgstr "_Log ind"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:34
-msgid "_Gallery3 URL:"
-msgstr "_Gallery3-URL:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:64
-msgid "_User name:"
-msgstr "Bruger_navn:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:79
-msgid "_Password:"
-msgstr "Ad_gangskode:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:178
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
 msgid "API _Key:"
 msgstr "API-_nøgle:"
 
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:208
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:180
 msgid "or"
 msgstr "eller"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:5
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:38
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:116
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:142
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
-msgid "_Logout"
-msgstr "_Log ud"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:8
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:247
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:134
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:156
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2456
-msgid "_Publish"
-msgstr "_Udgiv"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:11
-msgid "A _new album"
-msgstr "Et _nyt album"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:17
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:34
 msgid "An _existing album"
 msgstr "Et _eksisterende album"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:22
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:60
+msgid "A _new album"
+msgstr "Et _nyt album"
+
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
 "_Fjern sted, mærke og samt information som identificerer kameraet før "
 "overførsel"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:135
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
 msgid "Scaling constraint:"
 msgstr "Skaleringsbegrænsning:"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:153
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
 msgid "pixels"
 msgstr "billedpunkter"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1235
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Oprindelig størrelse"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:196
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "Bredde eller højde"
+
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:105
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:208
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+msgid "_Logout"
+msgstr "_Log ud"
+
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:121
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:222
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: src/CollectionPage.vala:76 src/PhotoPage.vala:2465
+msgid "_Publish"
+msgstr "_Udgiv"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
 msgid "Gallery3 publishing module"
@@ -1742,49 +1740,49 @@ msgstr "Bruger ikke genkendt"
 msgid " Site Not Found"
 msgstr "Websted kunne ikke findes"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:43
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:43
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:42
 msgid "_Email address"
 msgstr "_E-mail-adresse"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:53
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:53
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "_Adgangskode"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:97
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
 msgid "_Remember"
 msgstr "_Husk"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:118
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:101
+#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
 msgstr "Log ind"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:70
 msgid "An _existing album:"
 msgstr "Et _eksisterende album:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:87
 msgid "A _new album named:"
 msgstr "Et _nyt album med navnet:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
 msgid "_Hide album"
 msgstr "_Skjul album"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
 msgid "Open target _album in browser"
 msgstr "Åbn mål_album i browser"
@@ -1825,11 +1823,11 @@ msgstr "Billeder vil blive vist i:"
 msgid "Shotwell Extra Publishing Services"
 msgstr "Shotwells ekstra udgivelsestjenester"
 
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:43
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:44
 msgid "Blogs:"
 msgstr "Blogs:"
 
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:60
+#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 msgid "Photo _size:"
 msgstr "_Billedstørrelse:"
@@ -1839,13 +1837,13 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1231
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1205
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "500 × 375 pixels"
 msgstr "500 × 375 billedpunkter"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1232
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1206
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 billedpunkter"
@@ -1922,42 +1920,42 @@ msgstr "Venner"
 msgid "Private"
 msgstr "Privat"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:44
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:47
 msgid "_Albums (or write new):"
 msgstr "_Album (eller skriv nyt):"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:59
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:85
 msgid "Access _type:"
 msgstr "Adgangs_type:"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:103
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:106
 msgid "Disable _comments"
 msgstr "Deaktivér _kommentarer"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:120
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:123
 msgid "_Forbid downloading original photo"
 msgstr "_Forbyd at oprindeligt billede kan hentes"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:39
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:42
 msgid "Publish to an e_xisting album:"
 msgstr "Udgiv til et eks_isterende album:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:57
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:58
 msgid "Create a _new album named:"
 msgstr "Opret et _nyt album med navnet:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:108
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:100
 #: plugins/shotwell-publishing/FacebookPublishing.vala:984
 msgid "Upload _size:"
 msgstr "Overførsels_størrelse:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:139
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:125
 msgid "Videos and new photo albums _visible to:"
 msgstr "Videoer og nye fotoalbum _synlige for:"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:155
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:159
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -2036,17 +2034,17 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Hvor vil du gerne udgive de valgte billeder?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1143
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1213
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1187
 msgid "Just me"
 msgstr "Kun mig"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:1145
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1183
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "Alle"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:16
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:17
 msgid ""
 "Enter the confirmation number which appears after you log into Flickr in "
 "your Web browser."
@@ -2058,7 +2056,7 @@ msgstr ""
 msgid "Authorization _Number:"
 msgstr "Godkendelses_nummer:"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:83 src/Dialogs.vala:128
+#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:70 src/Dialogs.vala:128
 msgid "Con_tinue"
 msgstr "For_tsæt"
 
@@ -2088,8 +2086,8 @@ msgstr ""
 msgid "Preparing for login…"
 msgstr "Forbereder på login …"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:444
-#: plugins/shotwell-publishing/FlickrPublishing.vala:594
+#: plugins/shotwell-publishing/FlickrPublishing.vala:434
+#: plugins/shotwell-publishing/FlickrPublishing.vala:571
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2097,11 +2095,11 @@ msgstr ""
 "En fil, som kræves for at udgive, mangler. Udgivelse til Flickr kan ikke "
 "fortsætte."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:457
+#: plugins/shotwell-publishing/FlickrPublishing.vala:447
 msgid "Verifying authorization…"
 msgstr "Bekræfter godkendelse …"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1152
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2110,66 +2108,59 @@ msgstr ""
 "Du er logget på Flickr som %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1155
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1131
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
-"This month you have %d megabyte remaining in your upload quota."
-msgid_plural ""
-"Your free Flickr account limits how much data you can upload per month.\n"
-"This month you have %d megabytes remaining in your upload quota."
-msgstr[0] ""
+"This month you have %s remaining in your upload quota."
+msgstr ""
 "Din gratis Flickr-konto begrænser, hvor mange data du kan overføre per "
 "måned.\n"
-"Denne måned har du %d megabyte tilbage i din overførselskvote."
-msgstr[1] ""
-"Din gratis Flickr-konto begrænser, hvor mange data du kan overføre per "
-"måned.\n"
-"Denne måned har du %d megabyte tilbage i din overførselskvote."
+"Denne måned har du %s tilbage i din overførselskvote."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1159
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1133
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Din Flickr Pro-konto giver dig ubegrænset overførsel."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1164
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1138
 msgid "Photos _visible to:"
 msgstr "Billeder _synlige for:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1166
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1140
 msgid "Videos _visible to:"
 msgstr "Videoer _synlige for:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1169
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1143
 msgid "Photos and videos _visible to:"
 msgstr "Billeder og videoer _synlige for:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1210
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1184
 msgid "Friends & family only"
 msgstr "Kun venner & familie"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1211
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1185
 msgid "Family only"
 msgstr "Kun familie"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1212
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1186
 msgid "Friends only"
 msgstr "Kun venner"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1233
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 billedpunkter"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1234
+#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 billedpunkter"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:103
 msgid "L_ist album in public gallery"
 msgstr "V_is album i offentlig galleri"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:137
 msgid "Photo _size preset:"
 msgstr "_Standardstørrelse på billede:"
 
@@ -2221,7 +2212,7 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 billedpunkter)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:750
-#: src/editing_tools/EditingTools.vala:752
+#: src/editing_tools/EditingTools.vala:757
 msgid "Original Size"
 msgstr "Oprindelig størrelse"
 
@@ -2512,7 +2503,7 @@ msgstr "Forlad fuldskærm"
 #: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
 #: src/data_imports/DataImportsUI.vala:301
 #: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:1430 src/Dialogs.vala:1453
+#: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
 #: src/publishing/PublishingUI.vala:301 src/publishing/PublishingUI.vala:525
 #: src/Resources.vala:157
 msgid "_Cancel"
@@ -2615,8 +2606,8 @@ msgstr "Import mislykkedes (%d)"
 msgid "Cameras"
 msgstr "Kameraer"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
-#: src/camera/ImportPage.vala:726 src/photos/RawSupport.vala:303
+#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:303
 #: ui/collection.ui:90 ui/event.ui:359 ui/event.ui:527 ui/media.ui:359
 #: ui/photo_context.ui:96 ui/photo.ui:349 ui/tags.ui:359
 msgid "Camera"
@@ -2626,7 +2617,7 @@ msgstr "Kamera"
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:458
+#: src/camera/ImportPage.vala:466
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
@@ -2634,25 +2625,33 @@ msgstr ""
 "filhåndteringen."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:775
+#: src/camera/ImportPage.vala:783
 msgid "Hide photos already imported"
 msgstr "Skjul allerede importerede billeder"
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:784
 msgid "Only display photos that have not been imported"
 msgstr "Vis kun billeder som endnu ikke er blevet importeret"
 
-#: src/camera/ImportPage.vala:842
+#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
+msgid "Import _Selected"
+msgstr "Importér _valgte"
+
+#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
+msgid "Import _All"
+msgstr "Importér a_lle"
+
+#: src/camera/ImportPage.vala:857
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Kameraet ser ud til at være tomt. Fandt ingen billeder/videoer at importere"
 
-#: src/camera/ImportPage.vala:846
+#: src/camera/ImportPage.vala:861
 msgid "No new photos/videos found on camera"
 msgstr "Fandt ingen nye billeder/videoer på kameraet"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:999
+#: src/camera/ImportPage.vala:1021
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2660,15 +2659,15 @@ msgstr ""
 "Shotwell har brug for at afmontere kameraet fra filsystemet for at få adgang "
 "til det. Fortsæt?"
 
-#: src/camera/ImportPage.vala:1005
+#: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
 msgstr "A_fmontér"
 
-#: src/camera/ImportPage.vala:1010
+#: src/camera/ImportPage.vala:1032
 msgid "Please unmount the camera."
 msgstr "Afmontér venligst kameraet."
 
-#: src/camera/ImportPage.vala:1015
+#: src/camera/ImportPage.vala:1037
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2678,11 +2677,11 @@ msgstr ""
 "det ikke er låst. Luk venligst alle andre programmer, som bruger kameraet, "
 "og forsøg igen."
 
-#: src/camera/ImportPage.vala:1025
+#: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
 msgstr "Luk venligst alle andre programmer, som bruger kameraet."
 
-#: src/camera/ImportPage.vala:1030
+#: src/camera/ImportPage.vala:1052
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2691,73 +2690,73 @@ msgstr ""
 "Kunne ikke indhente forhåndsvisninger fra kameraet:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1047
+#: src/camera/ImportPage.vala:1069
 msgid "Unmounting…"
 msgstr "Afmonterer …"
 
-#: src/camera/ImportPage.vala:1138
+#: src/camera/ImportPage.vala:1160
 msgid "Starting import, please wait…"
 msgstr "Begynder import. Vent venligst …"
 
-#: src/camera/ImportPage.vala:1155
+#: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
 msgstr "Indhenter billedinformation"
 
-#: src/camera/ImportPage.vala:1513
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Indhenter forhåndsvisning for %s"
 
-#: src/camera/ImportPage.vala:1629
+#: src/camera/ImportPage.vala:1651
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kan ikke låse kamera: %s"
 
-#: src/camera/ImportPage.vala:1714
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Slet dette billede fra kameraet?"
 msgstr[1] "Slet disse %d billeder fra kameraet?"
 
-#: src/camera/ImportPage.vala:1717
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Slet denne video fra kameraet?"
 msgstr[1] "Slet disse %d videoer fra kameraet?"
 
-#: src/camera/ImportPage.vala:1720
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Slet dette billede/denne video fra kameraet?"
 msgstr[1] "Slet disse %d billeder/videoer fra kameraet?"
 
-#: src/camera/ImportPage.vala:1723
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Slette disse filer fra kameraet?"
 msgstr[1] "Slette disse %d filer fra kameraet?"
 
-#: src/camera/ImportPage.vala:1731 src/Dialogs.vala:1397
+#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Behold"
 
-#: src/camera/ImportPage.vala:1750
+#: src/camera/ImportPage.vala:1772
 msgid "Removing photos/videos from camera"
 msgstr "Fjern billeder/videoer fra kameraet"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1776
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Kan ikke slette %d billede/video fra kameraet på grund af fejl."
 msgstr[1] "Kan ikke slette %d billeder/videoer fra kameraet på grund af fejl."
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:78
-#: src/PhotoPage.vala:2451 src/Resources.vala:170
+#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2460 src/Resources.vala:170
 msgid "_Print"
 msgstr "_Udskriv"
 
@@ -2766,8 +2765,8 @@ msgstr "_Udskriv"
 msgid "Send _To…"
 msgstr "Send _til …"
 
-#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:83
-#: src/PhotoPage.vala:2461 src/Resources.vala:220
+#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2470 src/Resources.vala:220
 msgid "Set as _Desktop Background"
 msgstr "Angiv som skrivebords_baggrund"
 
@@ -2840,43 +2839,43 @@ msgstr "Åbn med RA_W-redigeringsprogram"
 msgid "_Play"
 msgstr "_Afspil"
 
-#: src/CollectionPage.vala:404
+#: src/CollectionPage.vala:409
 msgid "Export Photo/Video"
 msgstr "Eksportér billede/video"
 
-#: src/CollectionPage.vala:404
+#: src/CollectionPage.vala:409
 msgid "Export Photos/Videos"
 msgstr "Eksportér billeder/videoer"
 
-#: src/CollectionPage.vala:406 src/Dialogs.vala:59 src/PhotoPage.vala:2988
+#: src/CollectionPage.vala:411 src/Dialogs.vala:59 src/PhotoPage.vala:2994
 msgid "Export Photo"
 msgstr "Eksportér billede"
 
-#: src/CollectionPage.vala:406 src/Dialogs.vala:84
+#: src/CollectionPage.vala:411 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Eksportér billeder"
 
-#: src/CollectionPage.vala:493 src/CollectionPage.vala:509
+#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
 msgid "Rotating"
 msgstr "Roterer"
 
-#: src/CollectionPage.vala:493 src/CollectionPage.vala:509
+#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
 msgid "Undoing Rotate"
 msgstr "Fortryder rotering"
 
-#: src/CollectionPage.vala:518
+#: src/CollectionPage.vala:523
 msgid "Flipping Horizontally"
 msgstr "Vender vandret"
 
-#: src/CollectionPage.vala:519
+#: src/CollectionPage.vala:524
 msgid "Undoing Flip Horizontally"
 msgstr "Fortryder vandret vending"
 
-#: src/CollectionPage.vala:528
+#: src/CollectionPage.vala:533
 msgid "Flipping Vertically"
 msgstr "Vender lodret"
 
-#: src/CollectionPage.vala:529
+#: src/CollectionPage.vala:534
 msgid "Undoing Flip Vertically"
 msgstr "Fortryder lodret vending"
 
@@ -3090,7 +3089,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Database-fil:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:769
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
 msgid "_Import"
 msgstr "_Importér"
 
@@ -3170,10 +3169,10 @@ msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Dette vil fjerne mærket \"%s\" fra et billede. Fortsæt?"
 msgstr[1] "Dette vil fjerne mærket \"%s\" fra %d billeder. Fortsæt?"
 
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1398
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:414
-#: src/Resources.vala:658 ui/savedsearch.ui:15 ui/trash.ui:63 ui/trash.ui:216
-#: ui/trash.ui:258
+#: src/Resources.vala:658 ui/savedsearch.ui:15 ui/tags.ui:458 ui/trash.ui:63
+#: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Slet"
 
@@ -3623,81 +3622,81 @@ msgstr "Ingen billeder eller videoer importeret.\n"
 msgid "Import Complete"
 msgstr "Import færdig"
 
-#: src/Dialogs.vala:1174
+#: src/Dialogs.vala:1160
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d sekund"
 msgstr[1] "%d sekunder"
 
-#: src/Dialogs.vala:1177
+#: src/Dialogs.vala:1163
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minut"
 msgstr[1] "%d minutter"
 
-#: src/Dialogs.vala:1181
+#: src/Dialogs.vala:1167
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d time"
 msgstr[1] "%d timer"
 
-#: src/Dialogs.vala:1184
+#: src/Dialogs.vala:1170
 msgid "1 day"
 msgstr "1 dag"
 
-#: src/Dialogs.vala:1327 src/Resources.vala:231
+#: src/Dialogs.vala:1317 src/Resources.vala:231
 msgid "Rename Event"
 msgstr "Omdøb begivenhed"
 
-#: src/Dialogs.vala:1327
+#: src/Dialogs.vala:1317
 msgid "Name:"
 msgstr "Navn:"
 
 #. Dialog title
-#: src/Dialogs.vala:1338
+#: src/Dialogs.vala:1328
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Redigér titel"
 
-#: src/Dialogs.vala:1339 src/Properties.vala:343
+#: src/Dialogs.vala:1329 src/Properties.vala:343
 msgid "Title:"
 msgstr "Titel:"
 
 #. Dialog title
-#: src/Dialogs.vala:1355 src/Resources.vala:307
+#: src/Dialogs.vala:1345 src/Resources.vala:307
 msgid "Edit Event Comment"
 msgstr "Redigér kommentar til begivenhed"
 
-#: src/Dialogs.vala:1356
+#: src/Dialogs.vala:1346
 msgid "Edit Photo/Video Comment"
 msgstr "Redigér kommentar til billede/video"
 
-#: src/Dialogs.vala:1357 src/Properties.vala:631
+#: src/Dialogs.vala:1347 src/Properties.vala:631
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: src/Dialogs.vala:1373
+#: src/Dialogs.vala:1363
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "_Fjern fil og smid i papirkurven"
 msgstr[1] "_Fjern filer og smid i papirkurven"
 
-#: src/Dialogs.vala:1377
+#: src/Dialogs.vala:1367
 msgid "_Remove From Library"
 msgstr "_Fjern fra biblioteket"
 
-#: src/Dialogs.vala:1420
+#: src/Dialogs.vala:1410
 msgid "Revert External Edit?"
 msgstr "Fortryd ekstern redigering?"
 
-#: src/Dialogs.vala:1420
+#: src/Dialogs.vala:1410
 msgid "Revert External Edits?"
 msgstr "Fortryd eksterne redigeringer?"
 
-#: src/Dialogs.vala:1422
+#: src/Dialogs.vala:1412
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
@@ -3705,83 +3704,83 @@ msgid_plural ""
 msgstr[0] "Dette vil ødelægge alle forandringer i den eksterne fil. Fortsæt?"
 msgstr[1] "Dette vil ødelægge alle forandringer i %d eksterne filer. Fortsæt?"
 
-#: src/Dialogs.vala:1426
+#: src/Dialogs.vala:1416
 msgid "Re_vert External Edit"
 msgstr "For_tryd ekstern redigering"
 
-#: src/Dialogs.vala:1426
+#: src/Dialogs.vala:1416
 msgid "Re_vert External Edits"
 msgstr "For_tryd eksterne redigeringer"
 
-#: src/Dialogs.vala:1447
+#: src/Dialogs.vala:1437
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Dette vil fjerne billedet fra biblioteket. Fortsæt?"
 msgstr[1] "Dette vil fjerne %d billeder fra biblioteket. Fortsæt?"
 
-#: src/Dialogs.vala:1454 src/Resources.vala:173
+#: src/Dialogs.vala:1444 src/Resources.vala:173
 msgid "_Remove"
 msgstr "_Fjern"
 
-#: src/Dialogs.vala:1455
+#: src/Dialogs.vala:1445
 msgid "Remove Photo From Library"
 msgstr "Fjern billede fra biblioteket"
 
-#: src/Dialogs.vala:1455
+#: src/Dialogs.vala:1445
 msgid "Remove Photos From Library"
 msgstr "Fjern billeder fra biblioteket"
 
-#: src/Dialogs.vala:1553
+#: src/Dialogs.vala:1543
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:1707
+#: src/Dialogs.vala:1697
 msgid "AM"
 msgstr "AM"
 
-#: src/Dialogs.vala:1708
+#: src/Dialogs.vala:1698
 msgid "PM"
 msgstr "PM"
 
-#: src/Dialogs.vala:1709
+#: src/Dialogs.vala:1699
 msgid "24 Hr"
 msgstr "24 t."
 
-#: src/Dialogs.vala:1724
+#: src/Dialogs.vala:1714
 msgid "_Shift photos/videos by the same amount"
 msgstr "_Flyt billeder/videoer på samme måde"
 
-#: src/Dialogs.vala:1729
+#: src/Dialogs.vala:1719
 msgid "Set _all photos/videos to this time"
 msgstr "Sæt _alle billeder til denne tid"
 
-#: src/Dialogs.vala:1735
+#: src/Dialogs.vala:1725
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Ændr oprindelig billedfil"
 msgstr[1] "_Ændr oprindelige billedfiler"
 
-#: src/Dialogs.vala:1739
+#: src/Dialogs.vala:1729
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Ændr oprindelig fil"
 msgstr[1] "_Ændr oprindelige filer"
 
-#: src/Dialogs.vala:1827
+#: src/Dialogs.vala:1817
 msgid "Original: "
 msgstr "Oprindelig: "
 
-#: src/Dialogs.vala:1828
+#: src/Dialogs.vala:1818
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
-#: src/Dialogs.vala:1829
+#: src/Dialogs.vala:1819
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
-#: src/Dialogs.vala:1918
+#: src/Dialogs.vala:1908
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3790,7 +3789,7 @@ msgstr ""
 "Belysningstidspunkt vil blive flyttet fremad med\n"
 "%d %s, %d %s, %d %s, og %d %s."
 
-#: src/Dialogs.vala:1919
+#: src/Dialogs.vala:1909
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3799,31 +3798,31 @@ msgstr ""
 "Belysningstidspunkt vil blive flyttet tilbage med\n"
 "%d %s, %d %s, %d %s, og %d %s."
 
-#: src/Dialogs.vala:1921
+#: src/Dialogs.vala:1911
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dag"
 msgstr[1] "dage"
 
-#: src/Dialogs.vala:1922
+#: src/Dialogs.vala:1912
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "time"
 msgstr[1] "timer"
 
-#: src/Dialogs.vala:1923
+#: src/Dialogs.vala:1913
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minutter"
 
-#: src/Dialogs.vala:1924
+#: src/Dialogs.vala:1914
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "sekund"
 msgstr[1] "sekunder"
 
-#: src/Dialogs.vala:1968
+#: src/Dialogs.vala:1958
 #, c-format
 msgid ""
 "\n"
@@ -3842,49 +3841,49 @@ msgstr[1] ""
 "\n"
 "Og %d andre."
 
-#: src/Dialogs.vala:1992 src/Dialogs.vala:2019
+#: src/Dialogs.vala:1982 src/Dialogs.vala:2009
 msgid "Tags (separated by commas):"
 msgstr "Mærker (adskilt af kommaer):"
 
-#: src/Dialogs.vala:2099
+#: src/Dialogs.vala:2089
 msgid "Welcome!"
 msgstr "Velkommen!"
 
-#: src/Dialogs.vala:2106
+#: src/Dialogs.vala:2096
 msgid "Welcome to Shotwell!"
 msgstr "Velkommen til Shotwell!"
 
-#: src/Dialogs.vala:2111
+#: src/Dialogs.vala:2101
 msgid "To get started, import photos in any of these ways:"
 msgstr "For at komme i gang importeres billeder på en af følgende måder:"
 
-#: src/Dialogs.vala:2131
+#: src/Dialogs.vala:2121
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr "Vælg <span weight=\"bold\">Import af fil %s fra mappe</span>"
 
-#: src/Dialogs.vala:2132
+#: src/Dialogs.vala:2122
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Træk og slip billeder i Shotwell-vinduet"
 
-#: src/Dialogs.vala:2133
+#: src/Dialogs.vala:2123
 msgid "Connect a camera to your computer and import"
 msgstr "Forbind et kamera til din computer og importér"
 
-#: src/Dialogs.vala:2144
+#: src/Dialogs.vala:2134
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importér billeder fra din mappe %s"
 
-#: src/Dialogs.vala:2151
+#: src/Dialogs.vala:2141
 msgid "You can also import photos in any of these ways:"
 msgstr "Du kan også importere billeder på en af følgende måder:"
 
-#: src/Dialogs.vala:2162
+#: src/Dialogs.vala:2152
 msgid "_Don’t show this message again"
 msgstr "_Vis ikke denne besked igen"
 
-#: src/Dialogs.vala:2199
+#: src/Dialogs.vala:2189
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importér billeder fra dit %s-bibliotek"
@@ -3892,41 +3891,41 @@ msgstr "Importér billeder fra dit %s-bibliotek"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2345 src/Dialogs.vala:2349
+#: src/Dialogs.vala:2335 src/Dialogs.vala:2339
 msgid "(Help)"
 msgstr "(Hjælp)"
 
-#: src/Dialogs.vala:2356
+#: src/Dialogs.vala:2346
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "År%småned%sdag"
 
-#: src/Dialogs.vala:2358
+#: src/Dialogs.vala:2348
 #, c-format
 msgid "Year%sMonth"
 msgstr "År%småned"
 
-#: src/Dialogs.vala:2360
+#: src/Dialogs.vala:2350
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "År%småned-dag"
 
-#: src/Dialogs.vala:2362
+#: src/Dialogs.vala:2352
 msgid "Year-Month-Day"
 msgstr "År-måned-dag"
 
-#: src/Dialogs.vala:2363 src/editing_tools/EditingTools.vala:777
+#: src/Dialogs.vala:2353 src/editing_tools/EditingTools.vala:782
 msgid "Custom"
 msgstr "Tilpasset"
 
 #. Invalid pattern.
-#: src/Dialogs.vala:2600
+#: src/Dialogs.vala:2590
 msgid "Invalid pattern"
 msgstr "Ugyldigt mønster"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2702
+#: src/Dialogs.vala:2692
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -3934,31 +3933,31 @@ msgstr ""
 "Shotwell kan kopiere billederne ind i din biblioteksmappe eller det kan "
 "importere dem uden at kopiere."
 
-#: src/Dialogs.vala:2707
+#: src/Dialogs.vala:2697
 msgid "Co_py Photos"
 msgstr "Ko_piér billeder"
 
-#: src/Dialogs.vala:2708
+#: src/Dialogs.vala:2698
 msgid "_Import in Place"
 msgstr "_Importér uden at kopiere"
 
-#: src/Dialogs.vala:2709
+#: src/Dialogs.vala:2699
 msgid "Import to Library"
 msgstr "Importér til bibliotek"
 
-#: src/Dialogs.vala:2719 src/PhotoPage.vala:2864
+#: src/Dialogs.vala:2709 src/PhotoPage.vala:2870
 msgid "Remove From Library"
 msgstr "Fjern fra biblioteket"
 
-#: src/Dialogs.vala:2720 src/PhotoPage.vala:2864
+#: src/Dialogs.vala:2710 src/PhotoPage.vala:2870
 msgid "Removing Photo From Library"
 msgstr "Fjerner billede fra biblioteket"
 
-#: src/Dialogs.vala:2720
+#: src/Dialogs.vala:2710
 msgid "Removing Photos From Library"
 msgstr "Fjerner billeder fra bibliotek"
 
-#: src/Dialogs.vala:2734
+#: src/Dialogs.vala:2724
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -3981,7 +3980,7 @@ msgstr[1] ""
 "\n"
 "Denne handling kan ikke fortrydes."
 
-#: src/Dialogs.vala:2738
+#: src/Dialogs.vala:2728
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -4004,7 +4003,7 @@ msgstr[1] ""
 "\n"
 "Denne handling kan ikke fortrydes."
 
-#: src/Dialogs.vala:2742
+#: src/Dialogs.vala:2732
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4027,7 +4026,7 @@ msgstr[1] ""
 "\n"
 "Denne handling kan ikke fortrydes."
 
-#: src/Dialogs.vala:2774
+#: src/Dialogs.vala:2764
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4038,7 +4037,7 @@ msgstr[1] ""
 "%d billeder/videoer kan ikke flyttes til papirkurven. Slet disse filer?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2791
+#: src/Dialogs.vala:2781
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -4053,17 +4052,17 @@ msgstr "Bredde"
 msgid "Height"
 msgstr "Højde"
 
-#: src/direct/DirectPhotoPage.vala:92
+#: src/direct/DirectPhotoPage.vala:99
 #, c-format
 msgid "%s does not exist."
 msgstr "%s findes ikke."
 
-#: src/direct/DirectPhotoPage.vala:94
+#: src/direct/DirectPhotoPage.vala:101
 #, c-format
 msgid "%s is not a file."
 msgstr "%s er ikke en fil."
 
-#: src/direct/DirectPhotoPage.vala:96
+#: src/direct/DirectPhotoPage.vala:103
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -4072,34 +4071,34 @@ msgstr ""
 "%s understøtter ikke filformatet for\n"
 "%s."
 
-#: src/direct/DirectPhotoPage.vala:113
+#: src/direct/DirectPhotoPage.vala:120
 #, c-format
 msgid "Unable open photo %s. Sorry."
 msgstr "Kunne ikke åbne billedet %s. Beklager."
 
-#: src/direct/DirectPhotoPage.vala:297 src/Resources.vala:175 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:304 src/Resources.vala:175 ui/direct.ui:8
 msgid "_Save"
 msgstr "_Gem"
 
-#: src/direct/DirectPhotoPage.vala:297
+#: src/direct/DirectPhotoPage.vala:304
 msgid "_Save a Copy"
 msgstr "_Gem en kopi"
 
-#: src/direct/DirectPhotoPage.vala:300
+#: src/direct/DirectPhotoPage.vala:307
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Mist ændringer til %s?"
 
-#: src/direct/DirectPhotoPage.vala:301
+#: src/direct/DirectPhotoPage.vala:308
 msgid "Close _without Saving"
 msgstr "Luk _uden at gemme"
 
-#: src/direct/DirectPhotoPage.vala:334
+#: src/direct/DirectPhotoPage.vala:341
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Fejl i forsøget på at gemme til %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:362 src/direct/DirectPhotoPage.vala:383
+#: src/direct/DirectPhotoPage.vala:369 src/direct/DirectPhotoPage.vala:390
 msgid "Save As"
 msgstr "Gem som"
 
@@ -4109,201 +4108,201 @@ msgstr "Gem som"
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Ikke muligt at overvåge %s: Ikke en mappe (%s)"
 
-#: src/editing_tools/EditingTools.vala:661
+#: src/editing_tools/EditingTools.vala:666
 msgid "Return to current photo dimensions"
 msgstr "Gendan aktuelle billeddimensioner"
 
-#: src/editing_tools/EditingTools.vala:664
+#: src/editing_tools/EditingTools.vala:669
 msgid "Set the crop for this photo"
 msgstr "Angiv beskæring på dette billede"
 
-#: src/editing_tools/EditingTools.vala:676
+#: src/editing_tools/EditingTools.vala:681
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "Drej beskæringsrektanglen mellem stående og liggende"
 
-#: src/editing_tools/EditingTools.vala:749
+#: src/editing_tools/EditingTools.vala:754
 msgid "Unconstrained"
 msgstr "Ubegrænset"
 
-#: src/editing_tools/EditingTools.vala:750
+#: src/editing_tools/EditingTools.vala:755
 msgid "Square"
 msgstr "Firkant"
 
-#: src/editing_tools/EditingTools.vala:751
+#: src/editing_tools/EditingTools.vala:756
 msgid "Screen"
 msgstr "Skærm"
 
-#: src/editing_tools/EditingTools.vala:753
-#: src/editing_tools/EditingTools.vala:756
-#: src/editing_tools/EditingTools.vala:766
-#: src/editing_tools/EditingTools.vala:776
+#: src/editing_tools/EditingTools.vala:758
+#: src/editing_tools/EditingTools.vala:761
+#: src/editing_tools/EditingTools.vala:771
+#: src/editing_tools/EditingTools.vala:781
 msgid "-"
 msgstr "-"
 
-#: src/editing_tools/EditingTools.vala:754
+#: src/editing_tools/EditingTools.vala:759
 msgid "SD Video (4 ∶ 3)"
 msgstr "SD-video (4 ∶ 3)"
 
-#: src/editing_tools/EditingTools.vala:755
+#: src/editing_tools/EditingTools.vala:760
 msgid "HD Video (16 ∶ 9)"
 msgstr "HD-video (16 ∶ 9)"
 
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:818
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:818
 msgid "Wallet (2 × 3 in.)"
 msgstr "Tegnebog (2 × 3 in.)"
 
-#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:821
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:821
 msgid "Notecard (3 × 5 in.)"
 msgstr "Noteskort (3 × 5 in.)"
 
-#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:824
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:824
 msgid "4 × 6 in."
 msgstr "4 × 6 in."
 
-#: src/editing_tools/EditingTools.vala:760 src/Printing.vala:827
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:827
 msgid "5 × 7 in."
 msgstr "5 × 7 in."
 
-#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:830
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:830
 msgid "8 × 10 in."
 msgstr "8 × 10 in."
 
-#: src/editing_tools/EditingTools.vala:762
+#: src/editing_tools/EditingTools.vala:767
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8.5 × 11 in.)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:833
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:833
 msgid "11 × 14 in."
 msgstr "11 × 14 in."
 
-#: src/editing_tools/EditingTools.vala:764
+#: src/editing_tools/EditingTools.vala:769
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 in.)"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:836
+#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:836
 msgid "16 × 20 in."
 msgstr "16 × 20 in."
 
-#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:842
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:842
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Metrisk tegnebog (9 × 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:845
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:845
 msgid "Postcard (10 × 15 cm)"
 msgstr "Postkort (10 × 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:769 src/Printing.vala:848
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:848
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:851
+#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:851
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
-#: src/editing_tools/EditingTools.vala:771
+#: src/editing_tools/EditingTools.vala:776
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:854
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:854
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:857
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:857
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:860
+#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:860
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:775
+#: src/editing_tools/EditingTools.vala:780
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
 
-#: src/editing_tools/EditingTools.vala:1875 src/Properties.vala:398
+#: src/editing_tools/EditingTools.vala:1880 src/Properties.vala:398
 msgid "Size:"
 msgstr "Størrelse:"
 
-#: src/editing_tools/EditingTools.vala:1890
+#: src/editing_tools/EditingTools.vala:1895
 msgid "Close the red-eye tool"
 msgstr "Luk værktøjet til rødøje"
 
-#: src/editing_tools/EditingTools.vala:1893
+#: src/editing_tools/EditingTools.vala:1898
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Fjern alle rødøjeeffekter i det valgte område"
 
-#: src/editing_tools/EditingTools.vala:2233
+#: src/editing_tools/EditingTools.vala:2238
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Nulstil"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2247 src/Properties.vala:439
+#: src/editing_tools/EditingTools.vala:2252 src/Properties.vala:439
 #: src/Properties.vala:443 src/Properties.vala:450
 msgid "Exposure:"
 msgstr "Belysning:"
 
-#: src/editing_tools/EditingTools.vala:2256
+#: src/editing_tools/EditingTools.vala:2261
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: src/editing_tools/EditingTools.vala:2265
+#: src/editing_tools/EditingTools.vala:2270
 msgid "Saturation:"
 msgstr "Mætning:"
 
-#: src/editing_tools/EditingTools.vala:2274
+#: src/editing_tools/EditingTools.vala:2279
 msgid "Tint:"
 msgstr "Nuance:"
 
-#: src/editing_tools/EditingTools.vala:2284
+#: src/editing_tools/EditingTools.vala:2289
 msgid "Temperature:"
 msgstr "Temperatur:"
 
-#: src/editing_tools/EditingTools.vala:2293
+#: src/editing_tools/EditingTools.vala:2298
 msgid "Shadows:"
 msgstr "Skygger:"
 
-#: src/editing_tools/EditingTools.vala:2302
+#: src/editing_tools/EditingTools.vala:2307
 msgid "Highlights:"
 msgstr "Højlys:"
 
-#: src/editing_tools/EditingTools.vala:2358
+#: src/editing_tools/EditingTools.vala:2363
 msgid "Reset Colors"
 msgstr "Nulstil farver"
 
-#: src/editing_tools/EditingTools.vala:2358
+#: src/editing_tools/EditingTools.vala:2363
 msgid "Reset all color adjustments to original"
 msgstr "Nulstil alle farvejusteringer til oprindelige farver"
 
-#: src/editing_tools/EditingTools.vala:2717
+#: src/editing_tools/EditingTools.vala:2722
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: src/editing_tools/EditingTools.vala:2729
+#: src/editing_tools/EditingTools.vala:2734
 msgid "Tint"
 msgstr "Nuance"
 
-#: src/editing_tools/EditingTools.vala:2741
+#: src/editing_tools/EditingTools.vala:2746
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/editing_tools/EditingTools.vala:2755
+#: src/editing_tools/EditingTools.vala:2760
 msgid "Saturation"
 msgstr "Mætning"
 
-#: src/editing_tools/EditingTools.vala:2768
+#: src/editing_tools/EditingTools.vala:2773
 msgid "Exposure"
 msgstr "Belysning"
 
-#: src/editing_tools/EditingTools.vala:2781
+#: src/editing_tools/EditingTools.vala:2786
 msgid "Shadows"
 msgstr "Skygger"
 
-#: src/editing_tools/EditingTools.vala:2794
+#: src/editing_tools/EditingTools.vala:2799
 msgid "Highlights"
 msgstr "Højlys"
 
-#: src/editing_tools/EditingTools.vala:2804
+#: src/editing_tools/EditingTools.vala:2809
 msgid "Contrast Expansion"
 msgstr "Kontrastudvidelse"
 
@@ -4341,31 +4340,31 @@ msgid_plural "%d Photos"
 msgstr[0] "%d billede"
 msgstr[1] "%d billeder"
 
-#: src/events/EventPage.vala:121
+#: src/events/EventPage.vala:128
 msgid "No Event"
 msgstr "Ingen begivenhed"
 
-#: src/events/EventsDirectoryPage.vala:143
+#: src/events/EventsDirectoryPage.vala:150
 msgid "No events"
 msgstr "Ingen begivenheder"
 
-#: src/events/EventsDirectoryPage.vala:147
+#: src/events/EventsDirectoryPage.vala:154
 msgid "No events found"
 msgstr "Ingen begivenheder fundet"
 
-#: src/events/EventsDirectoryPage.vala:220
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Alle begivenheder"
 
-#: src/events/EventsDirectoryPage.vala:234
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Uden dato"
 
-#: src/events/EventsDirectoryPage.vala:235
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:236
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -4413,12 +4412,12 @@ msgstr "Mapper"
 msgid "Library"
 msgstr "Bibliotek"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:1086
+#: src/library/Branch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
 msgstr "Billeder"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1105
-#: src/SearchFilter.vala:1106
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
+#: src/SearchFilter.vala:1103
 msgid "Flagged"
 msgstr "Med flag på"
 
@@ -4426,11 +4425,11 @@ msgstr "Med flag på"
 msgid "Importing…"
 msgstr "Importerer …"
 
-#: src/library/ImportQueuePage.vala:122
+#: src/library/ImportQueuePage.vala:129
 msgid "Preparing to import…"
 msgstr "Forbereder import …"
 
-#: src/library/ImportQueuePage.vala:149
+#: src/library/ImportQueuePage.vala:156
 #, c-format
 msgid "Imported %s"
 msgstr "Importerede %s"
@@ -4439,19 +4438,19 @@ msgstr "Importerede %s"
 msgid "Last Import"
 msgstr "Sidste import"
 
-#: src/library/LibraryWindow.vala:501
+#: src/library/LibraryWindow.vala:507
 msgid "Import From Folder"
 msgstr "Importér fra mappe"
 
-#: src/library/LibraryWindow.vala:570 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:576 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Tøm papirkurven"
 
-#: src/library/LibraryWindow.vala:570
+#: src/library/LibraryWindow.vala:576
 msgid "Emptying Trash…"
 msgstr "Tømmer papirkurven …"
 
-#: src/library/LibraryWindow.vala:766
+#: src/library/LibraryWindow.vala:772
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4464,33 +4463,33 @@ msgstr ""
 "Indstillinger</span>.\n"
 "Vil du fortsætte med at importere billeder?"
 
-#: src/library/LibraryWindow.vala:769 ui/shotwell.ui:142
+#: src/library/LibraryWindow.vala:775 ui/shotwell.ui:142
 msgid "Library Location"
 msgstr "Bibliotekets placering"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:782
+#: src/library/LibraryWindow.vala:788
 msgid "Photos cannot be imported from this directory."
 msgstr "Billeder kan ikke importeres fra denne mappe."
 
-#: src/library/LibraryWindow.vala:1062
+#: src/library/LibraryWindow.vala:1068
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1106 src/library/LibraryWindow.vala:1117
+#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
 msgid "Updating library…"
 msgstr "Opdaterer bibliotek …"
 
-#: src/library/LibraryWindow.vala:1123
+#: src/library/LibraryWindow.vala:1129
 msgid "Preparing to auto-import photos…"
 msgstr "Forbereder auto-import af billeder …"
 
-#: src/library/LibraryWindow.vala:1128
+#: src/library/LibraryWindow.vala:1134
 msgid "Auto-importing photos…"
 msgstr "Auto-importerer billeder …"
 
-#: src/library/LibraryWindow.vala:1136
+#: src/library/LibraryWindow.vala:1142
 msgid "Writing metadata to files…"
 msgstr "Skriver metadata til filer …"
 
@@ -4498,7 +4497,7 @@ msgstr "Skriver metadata til filer …"
 msgid "Missing Files"
 msgstr "Manglende filer"
 
-#: src/library/OfflinePage.vala:103
+#: src/library/OfflinePage.vala:110
 msgid "Deleting…"
 msgstr "Sletter …"
 
@@ -4506,15 +4505,15 @@ msgstr "Sletter …"
 msgid "Trash"
 msgstr "Papirkurv"
 
-#: src/library/TrashPage.vala:101
+#: src/library/TrashPage.vala:108
 msgid "Trash is empty"
 msgstr "Papirkurven er tom"
 
-#: src/library/TrashPage.vala:105
+#: src/library/TrashPage.vala:112
 msgid "Delete"
 msgstr "Slet"
 
-#: src/library/TrashPage.vala:106
+#: src/library/TrashPage.vala:113
 msgid "Deleting Photos"
 msgstr "Sletter billeder"
 
@@ -4602,7 +4601,7 @@ msgstr "Kan ikke behandle overvågningsopdateringer: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Justér størrelsen på miniaturebillederne"
 
-#: src/MediaPage.vala:493
+#: src/MediaPage.vala:503
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4611,16 +4610,16 @@ msgstr ""
 "Shotwell kunne ikke afspille den valgte video:\n"
 "%s"
 
-#: src/Page.vala:1338
+#: src/Page.vala:1312
 msgid "No photos/videos"
 msgstr "Ingen billeder/videoer"
 
-#: src/Page.vala:1342
+#: src/Page.vala:1316
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Der blev ikke fundet nogen billeder/videoer, som matcher det nuværende filter"
 
-#: src/Page.vala:2648
+#: src/Page.vala:2622
 msgid "Photos cannot be exported to this directory."
 msgstr "Billeder kan ikke eksporteres til denne mappe."
 
@@ -4639,7 +4638,7 @@ msgstr "Næste billede"
 msgid "Photo source file missing: %s"
 msgstr "Kildefil for billede mangler: %s"
 
-#: src/PhotoPage.vala:3008
+#: src/PhotoPage.vala:3014
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Kunne ikke eksportere %s: %s"
@@ -5023,7 +5022,7 @@ msgstr "_Hjælp"
 msgid "Leave _Fullscreen"
 msgstr "Forlad _fuldskærm"
 
-#: src/Resources.vala:164 src/Resources.vala:363
+#: src/Resources.vala:164 src/Resources.vala:363 ui/tags.ui:448
 msgid "_New"
 msgstr "_Nyt"
 
@@ -5516,7 +5515,7 @@ msgstr "Om_døb mærke \"%s\" …"
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Omdøb mærke \"%s\" til \"%s\""
 
-#: src/Resources.vala:373
+#: src/Resources.vala:373 ui/tags.ui:454
 msgid "_Rename…"
 msgstr "_Omdøb …"
 
@@ -5569,7 +5568,7 @@ msgstr ""
 "Kunne ikke omdøbe søgningen til \"%s\", fordi søgningen allerede findes."
 
 #. Saved search button
-#: src/Resources.vala:410 src/SearchFilter.vala:1127
+#: src/Resources.vala:410 src/SearchFilter.vala:1124
 msgid "Saved Search"
 msgstr "Gemt søgning"
 
@@ -5694,14 +5693,14 @@ msgstr "Vælg alle elementer"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:766
+#: src/Resources.vala:739
 msgid "%a %b %d, %Y"
 msgstr "%a %d. %b. %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:771
+#: src/Resources.vala:744
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %d. %b"
@@ -5709,7 +5708,7 @@ msgstr "%a %d. %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:776
+#: src/Resources.vala:749
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5717,7 +5716,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:781
+#: src/Resources.vala:754
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %d. %b"
@@ -5725,7 +5724,7 @@ msgstr "%a %d. %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:786
+#: src/Resources.vala:759
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d. %b. %Y"
@@ -5911,8 +5910,8 @@ msgstr "Flagstatus"
 msgid "Photo state"
 msgstr "Billedtilstand"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:833
-#: src/SearchFilter.vala:1117
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
+#: src/SearchFilter.vala:1114
 msgid "Rating"
 msgstr "Bedømmelse"
 
@@ -5920,27 +5919,27 @@ msgstr "Bedømmelse"
 msgid "Date"
 msgstr "Dato"
 
-#: src/SearchFilter.vala:817
+#: src/SearchFilter.vala:815
 msgid "★+ Rating"
 msgstr "Bedømmelse ★+"
 
-#: src/SearchFilter.vala:820
+#: src/SearchFilter.vala:818
 msgid "★★+ Rating"
 msgstr "Bedømmelse ★★+"
 
-#: src/SearchFilter.vala:823
+#: src/SearchFilter.vala:821
 msgid "★★★+ Rating"
 msgstr "Bedømmelse ★★★+"
 
-#: src/SearchFilter.vala:826
+#: src/SearchFilter.vala:824
 msgid "★★★★+ Rating"
 msgstr "Bedømmelse ★★★★+"
 
-#: src/SearchFilter.vala:830
+#: src/SearchFilter.vala:828
 msgid "★★★★★+ Rating"
 msgstr "Bedømmelse ★★★★★+"
 
-#: src/SearchFilter.vala:1067
+#: src/SearchFilter.vala:1064
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Fejl under indlæsning af brugerflade til søgebjælke: %s"
@@ -5950,24 +5949,24 @@ msgstr "Fejl under indlæsning af brugerflade til søgebjælke: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1076
+#: src/SearchFilter.vala:1073
 msgid "Close"
 msgstr "Luk"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1082
+#: src/SearchFilter.vala:1079
 msgid "Type"
 msgstr "Type"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1086
 msgid "Videos"
 msgstr "Videoer"
 
-#: src/SearchFilter.vala:1092
+#: src/SearchFilter.vala:1089
 msgid "RAW Photos"
 msgstr "RAW-billeder"
 
-#: src/SearchFilter.vala:1128
+#: src/SearchFilter.vala:1125
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 "Brug en gemt søgning til at filtrere elementerne i den aktuelle visning"
@@ -6251,43 +6250,35 @@ msgstr "_Billeder"
 msgid "_Stop Import"
 msgstr "_Stop import"
 
-#: ui/import.ui:13 ui/import.ui:210
-msgid "Import _Selected"
-msgstr "Importér _valgte"
-
-#: ui/import.ui:17 ui/import.ui:214
-msgid "Import _All"
-msgstr "Importér a_lle"
-
-#: ui/set_background_dialog.ui:15
+#: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
 msgstr "Angiv som skrivebordsbaggrund"
 
-#: ui/set_background_dialog.ui:77 ui/set_background_slideshow_dialog.ui:132
+#: ui/set_background_dialog.ui:69 ui/set_background_slideshow_dialog.ui:134
 msgid "Use for Desktop"
 msgstr "Anvend til skrivebordet"
 
-#: ui/set_background_dialog.ui:92 ui/set_background_slideshow_dialog.ui:148
+#: ui/set_background_dialog.ui:86 ui/set_background_slideshow_dialog.ui:151
 msgid "Use for Lock Screen"
 msgstr "Anvend til låseskærmen"
 
-#: ui/set_background_slideshow_dialog.ui:15
+#: ui/set_background_slideshow_dialog.ui:16
 msgid "Set as Desktop Slideshow"
 msgstr "Angiv som slideshow på skrivebord"
 
-#: ui/set_background_slideshow_dialog.ui:33
-msgid "Show each photo for"
-msgstr "Vis hvert billede i"
-
-#: ui/set_background_slideshow_dialog.ui:45
-msgid "period of time"
-msgstr "tidsrum"
-
-#: ui/set_background_slideshow_dialog.ui:94
+#: ui/set_background_slideshow_dialog.ui:56
 msgid "Generate desktop background slideshow"
 msgstr "Opret slideshow til skrivebordets baggrund"
 
-#: ui/set_background_slideshow_dialog.ui:115
+#: ui/set_background_slideshow_dialog.ui:82
+msgid "Show each photo for"
+msgstr "Vis hvert billede i"
+
+#: ui/set_background_slideshow_dialog.ui:94
+msgid "period of time"
+msgstr "tidsrum"
+
+#: ui/set_background_slideshow_dialog.ui:116
 msgid "How long each photo is shown on the desktop background"
 msgstr "Det tidsrum som hvert billede vises i på skrivebordets baggrund"
 
