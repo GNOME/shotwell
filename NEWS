@@ -1,3 +1,60 @@
+Shotwell 0.25.3 - 16 Jan 2017
+  * Fix event page context menu
+  * Try to guess character set of string when UTF-8 validation fails
+  * Fix tags context menu
+  * Properly switch menu bar when changing pages
+  * Fix rating
+  * Fix a critical about reparenting a popup menu
+  * Fix sidebar context menu
+  * Fix toolbar in camera import page
+  * Update glade files for all publishers
+  * Flickr: Simplify OAuth parsing by using libsoup
+  * Fix accellerators not coming from menu model
+  * Add <Ctrl>-f as shortcut for search bar
+  * Remove AppMenu, needs more thinking about the design.
+  * Flickr: Use human-readable size of upload quota
+  * Fix leave fullscreen option
+  * Fix upload issues with flickr
+  * Fix several disabled actions when switching away from pages
+  * Fix actions in fullscreen
+  * Fix several typos
+  * Piwigo: Fix title and comments on upload
+  * Improved duplicate detection
+  * Updated translations
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718107
+ - https://bugzilla.gnome.org/show_bug.cgi?id=775196
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776298
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776527
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776589
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776614
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776664
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776839
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marina Prado <mapraro93@hotmail.com>
+ - Richard B. Kreckel <kreckel@ginac.de>
+ - Marek Černocký <marek@manet.cz>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Andreas Brauchli <andreas.brauchli@sensirion.com>
+ - Amos Brocco <amos.brocco@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - da, courtesy of Alan Mortensen
+ - es, courtesy of Daniel Mustieles
+ - ko, courtesy of Kim Boram
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.25.2 - 12 Dec 2016
   * Fix missing About action
   * Fix setting of initial action state
