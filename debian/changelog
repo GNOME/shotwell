@@ -1,3 +1,11 @@
+shotwell (0.24.4-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Piwigo: Fix title and comments for uploaded images
+  * Fix icon file name for Serbian and Korean
+  * Improved duplicate detection
+
+ -- Jens Georg <mail@jensge.org>  Wed, 18 Jan 2017 21:08:40 +0100
+
 shotwell (0.24.3-0~jensge1~xenial1) xenial; urgency=medium
 
   * Fix issue with unique constraint on Photo database table

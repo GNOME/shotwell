@@ -1,3 +1,28 @@
+Shotwell 0.24.4 - 18 Jan 2016
+  * Piwigo: Fix title and comments for uploaded images
+  * Fix icon file name for Serbian and Korean
+  * Improved duplicate detection
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718107
+ - https://bugzilla.gnome.org/show_bug.cgi?id=775196
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776664
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Andreas Brauchli <andreas.brauchli@sensirion.com>
+ - Amos Brocco <amos.brocco@gmail.com>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - ko, courtesy of Kim Boram
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.24.3 - 18 Dec 2016
   * Fix issue with unique constraint on Photo database table
   * Updated translations
