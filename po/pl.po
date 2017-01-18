@@ -1,18 +1,18 @@
 # Polish translation for shotwell.
-# Copyright © 2011-2016 the shotwell authors.
+# Copyright © 2011-2017 the shotwell authors.
 # This file is distributed under the same license as the shotwell package.
 # verayin <vera@yorba.org>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2016.
-# Aviary.pl <community-poland@mozilla.org>, 2014-2016.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2017.
+# Aviary.pl <community-poland@mozilla.org>, 2014-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-08 07:14+0000\n"
-"PO-Revision-Date: 2016-11-08 09:50+0100\n"
+"POT-Creation-Date: 2017-01-18 21:05+0000\n"
+"PO-Revision-Date: 2017-01-18 22:37+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -62,6 +62,10 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Shotwell obsługuje formaty JPEG, PNG, TIFF i wiele rodzajów plików RAW."
+
+#: misc/shotwell.appdata.xml.in:52
+msgid "The Shotwell developers"
+msgstr "Programiści projektu Shotwell"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -1346,8 +1350,8 @@ msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
 "lsbeeler <lucas@yorba.org>, 2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2011-2016\n"
-"Aviary.pl <community-poland@mozilla.org>, 2014-2016"
+"Piotr Drąg <piotrdrag@gmail.com>, 2011-2017\n"
+"Aviary.pl <community-poland@mozilla.org>, 2014-2017"
 
 #: plugins/common/RESTSupport.vala:451
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:958
@@ -2502,8 +2506,8 @@ msgstr "Zaimportowanie się nie powiodło (%d)"
 msgid "Cameras"
 msgstr "Aparaty"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
-#: src/camera/ImportPage.vala:726 src/MediaPage.vala:440
+#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/MediaPage.vala:440
 #: src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Aparat"
@@ -2512,7 +2516,7 @@ msgstr "Aparat"
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:458
+#: src/camera/ImportPage.vala:466
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
@@ -2520,50 +2524,50 @@ msgstr ""
 "w menedżerze plików."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:775
+#: src/camera/ImportPage.vala:783
 msgid "Hide photos already imported"
 msgstr "Ukrywa już zaimportowane zdjęcia"
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:784
 msgid "Only display photos that have not been imported"
 msgstr "Wyświetla tylko zdjęcia, które nie zostały jeszcze zaimportowane"
 
-#: src/camera/ImportPage.vala:842
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Aparat jest pusty. Nie odnaleziono żadnych zdjęć/nagrań wideo do "
 "zaimportowania"
 
-#: src/camera/ImportPage.vala:846
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr "Nie odnaleziono nowych zdjęć/nagrań wideo w aparacie"
 
-#: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
+#: src/camera/ImportPage.vala:881 src/MediaPage.vala:451
 msgid "_Titles"
 msgstr "_Tytuły"
 
-#: src/camera/ImportPage.vala:874 src/MediaPage.vala:452
+#: src/camera/ImportPage.vala:882 src/MediaPage.vala:452
 msgid "Display the title of each photo"
 msgstr "Wyświetla tytuł każdego zdjęcia"
 
-#: src/camera/ImportPage.vala:885
+#: src/camera/ImportPage.vala:893
 msgid "Import _Selected"
 msgstr "_Zaimportuj wybrane"
 
-#: src/camera/ImportPage.vala:886
+#: src/camera/ImportPage.vala:894
 msgid "Import the selected photos into your library"
 msgstr "Importuje wybrane zdjęcia do kolekcji"
 
-#: src/camera/ImportPage.vala:891
+#: src/camera/ImportPage.vala:899
 msgid "Import _All"
 msgstr "Z_aimportuj wszystkie"
 
-#: src/camera/ImportPage.vala:892
+#: src/camera/ImportPage.vala:900
 msgid "Import all the photos into your library"
 msgstr "Importuje wszystkie zdjęcia do kolekcji"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1013
+#: src/camera/ImportPage.vala:1021
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
@@ -2571,15 +2575,15 @@ msgstr ""
 "Program Shotwell musi odmontować aparat z systemu plików, aby uzyskać do "
 "niego dostęp. Kontynuować?"
 
-#: src/camera/ImportPage.vala:1019
+#: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
 msgstr "Odmont_uj"
 
-#: src/camera/ImportPage.vala:1024
+#: src/camera/ImportPage.vala:1032
 msgid "Please unmount the camera."
 msgstr "Proszę odmontować aparat."
 
-#: src/camera/ImportPage.vala:1029
+#: src/camera/ImportPage.vala:1037
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
@@ -2589,11 +2593,11 @@ msgstr ""
 "dostęp do aparatu tylko wtedy, kiedy nie jest zablokowany. Proszę zamknąć "
 "wszystkie pozostałe programy używające aparatu i spróbować ponownie."
 
-#: src/camera/ImportPage.vala:1039
+#: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
 msgstr "Proszę zamknąć inne programy używające aparatu."
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1052
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2602,29 +2606,29 @@ msgstr ""
 "Nie można pobrać podglądu z aparatu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1061
+#: src/camera/ImportPage.vala:1069
 msgid "Unmounting..."
 msgstr "Odmontowywanie…"
 
-#: src/camera/ImportPage.vala:1152
+#: src/camera/ImportPage.vala:1160
 msgid "Starting import, please wait..."
 msgstr "Rozpoczynanie importowania, proszę czekać…"
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
 msgstr "Pobieranie informacji o zdjęciach"
 
-#: src/camera/ImportPage.vala:1527
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Pobieranie podglądu dla %s"
 
-#: src/camera/ImportPage.vala:1643
+#: src/camera/ImportPage.vala:1651
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie można zablokować aparatu: %s"
 
-#: src/camera/ImportPage.vala:1728
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2632,7 +2636,7 @@ msgstr[0] "Usunąć to zdjęcie z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć z aparatu?"
 
-#: src/camera/ImportPage.vala:1731
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2640,7 +2644,7 @@ msgstr[0] "Usunąć to nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1734
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2648,7 +2652,7 @@ msgstr[0] "Usunąć to zdjęcie/nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia/nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć/nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2656,15 +2660,15 @@ msgstr[0] "Usunąć te pliki z aparatu?"
 msgstr[1] "Usunąć %d pliki z aparatu?"
 msgstr[2] "Usunąć %d plików z aparatu?"
 
-#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1392
 msgid "_Keep"
 msgstr "_Zatrzymaj"
 
-#: src/camera/ImportPage.vala:1764
+#: src/camera/ImportPage.vala:1772
 msgid "Removing photos/videos from camera"
 msgstr "Usuwanie zdjęć/nagrań wideo z aparatu"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1776
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
