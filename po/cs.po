@@ -10,15 +10,15 @@
 # David Štancl <dstancl@gmail.com>, 2011, 2012
 # jui <appukonrad@gmail.com>, 2012
 # petr.simacek <petr.simacek@gmail.com>, 2012, 2013.
-# Marek Černocký <marek@manet.cz>, 2014, 2015, 2016.
+# Marek Černocký <marek@manet.cz>, 2014, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-12-23 00:18+0000\n"
-"PO-Revision-Date: 2016-12-24 14:45+0100\n"
+"POT-Creation-Date: 2017-01-18 22:12+0000\n"
+"PO-Revision-Date: 2017-01-23 00:10+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -70,6 +70,10 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Shotwell podporuje souborové formáty JPEG, PNG, TIFF a různé varianty RAW."
+
+#: misc/shotwell.appdata.xml.in:52
+msgid "The Shotwell developers"
+msgstr "Vývojáři aplikace Shotwell"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -1651,7 +1655,7 @@ msgstr "_Odhlásit"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:222
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2456
+#: src/CollectionPage.vala:76 src/PhotoPage.vala:2465
 msgid "_Publish"
 msgstr "_Zveřejnit"
 
@@ -2609,8 +2613,8 @@ msgstr "Import selhal (%d)"
 msgid "Cameras"
 msgstr "Fotoaparáty"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
-#: src/camera/ImportPage.vala:726 src/photos/RawSupport.vala:303
+#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:303
 #: ui/collection.ui:90 ui/event.ui:359 ui/event.ui:527 ui/media.ui:359
 #: ui/photo_context.ui:96 ui/photo.ui:349 ui/tags.ui:359
 msgid "Camera"
@@ -2620,7 +2624,7 @@ msgstr "Fotoaparát"
 msgid "RAW+JPEG"
 msgstr "RAW + JPEG"
 
-#: src/camera/ImportPage.vala:458
+#: src/camera/ImportPage.vala:466
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
@@ -2628,34 +2632,34 @@ msgstr ""
 "správce souborů."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:775
+#: src/camera/ImportPage.vala:783
 msgid "Hide photos already imported"
 msgstr "Skrýt již naimportované fotky"
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:784
 msgid "Only display photos that have not been imported"
 msgstr "Zobrazit jen fotografie, které ještě nebyly naimportovány"
 
-#: src/camera/ImportPage.vala:815 ui/import.ui:17 ui/import.ui:214
-msgid "Import _All"
-msgstr "Importovat _vše"
-
-#: src/camera/ImportPage.vala:825 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "Importovat vy_brané"
 
-#: src/camera/ImportPage.vala:849
+#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
+msgid "Import _All"
+msgstr "Importovat _vše"
+
+#: src/camera/ImportPage.vala:857
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Vypadá to, že fotoaparát je prázdný. Nebyly nalezeny žádné fotografie/vide k "
 "naimportování."
 
-#: src/camera/ImportPage.vala:853
+#: src/camera/ImportPage.vala:861
 msgid "No new photos/videos found on camera"
 msgstr "Ve fotoaparátu nejsou žádné nové fotografie/videa"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1006
+#: src/camera/ImportPage.vala:1021
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2663,15 +2667,15 @@ msgstr ""
 "Shotwell potřebuje kvůli přístupu odpojit fotoaparát ze souborového systému. "
 "Pokračovat?"
 
-#: src/camera/ImportPage.vala:1012
+#: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
 msgstr "_Odpojit"
 
-#: src/camera/ImportPage.vala:1017
+#: src/camera/ImportPage.vala:1032
 msgid "Please unmount the camera."
 msgstr "Odpojte prosím fotoaparát."
 
-#: src/camera/ImportPage.vala:1022
+#: src/camera/ImportPage.vala:1037
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2681,11 +2685,11 @@ msgstr ""
 "který není blokovaný jinou aplikací. Ukončete všechny aplikace, které ho "
 "používají, a zkuste to znovu."
 
-#: src/camera/ImportPage.vala:1032
+#: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
 msgstr "Ukončete prosím ostatní aplikace používající fotoaparát."
 
-#: src/camera/ImportPage.vala:1037
+#: src/camera/ImportPage.vala:1052
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2694,29 +2698,29 @@ msgstr ""
 "Nelze načíst náhledy z fotoaparátu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1054
+#: src/camera/ImportPage.vala:1069
 msgid "Unmounting…"
 msgstr "Odpojuje se…"
 
-#: src/camera/ImportPage.vala:1145
+#: src/camera/ImportPage.vala:1160
 msgid "Starting import, please wait…"
 msgstr "Začíná import, čekejte prosím…"
 
-#: src/camera/ImportPage.vala:1162
+#: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
 msgstr "Získávají se informace o fotografii"
 
-#: src/camera/ImportPage.vala:1520
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Získává se náhled pro %s"
 
-#: src/camera/ImportPage.vala:1636
+#: src/camera/ImportPage.vala:1651
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nelze uzamknout fotoaparát: %s"
 
-#: src/camera/ImportPage.vala:1721
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2724,7 +2728,7 @@ msgstr[0] "Smazat tuto fotografii z fotoaparátu?"
 msgstr[1] "Smazat tyto %d fotografie z fotoaparátu?"
 msgstr[2] "Smazat těchto %d fotografií z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1724
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2732,7 +2736,7 @@ msgstr[0] "Smazat toto video z fotoaparátu?"
 msgstr[1] "Smazat tato %d videa z fotoaparátu?"
 msgstr[2] "Smazat těchto %d videí z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1727
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2740,7 +2744,7 @@ msgstr[0] "Smazat tuto fotografii/video z fotoaparátu?"
 msgstr[1] "Smazat tyto %d fotografie/videa z fotoaparátu?"
 msgstr[2] "Smazat těchto %d fotografií/videí z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1730
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2748,15 +2752,15 @@ msgstr[0] "Smazat tento soubor z fotoaparátu?"
 msgstr[1] "Smazat tyto %d soubory z fotoaparátu?"
 msgstr[2] "Smazat těchto %d souborů z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1738 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Zachovat"
 
-#: src/camera/ImportPage.vala:1757
+#: src/camera/ImportPage.vala:1772
 msgid "Removing photos/videos from camera"
 msgstr "Odstraňují se fotografie/videa z fotoaparátu"
 
-#: src/camera/ImportPage.vala:1761
+#: src/camera/ImportPage.vala:1776
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2764,8 +2768,8 @@ msgstr[0] "Kvůli chybě nelze smazat fotografii/video z fotoaparátu."
 msgstr[1] "Kvůli chybě nelze smazat %d fotografie/videa z fotoaparátu."
 msgstr[2] "Kvůli chybě nelze smazat %d fotografií/videí z fotoaparátu."
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:78
-#: src/PhotoPage.vala:2451 src/Resources.vala:170
+#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2460 src/Resources.vala:170
 msgid "_Print"
 msgstr "_Tisk"
 
@@ -2774,8 +2778,8 @@ msgstr "_Tisk"
 msgid "Send _To…"
 msgstr "Odesla_t…"
 
-#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:83
-#: src/PhotoPage.vala:2461 src/Resources.vala:220
+#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2470 src/Resources.vala:220
 msgid "Set as _Desktop Background"
 msgstr "Nastavit jako poza_dí plochy"
 
@@ -2848,43 +2852,43 @@ msgstr "Otevřít v editoru RA_W"
 msgid "_Play"
 msgstr "_Přehrát"
 
-#: src/CollectionPage.vala:402
+#: src/CollectionPage.vala:409
 msgid "Export Photo/Video"
 msgstr "Export fotografie/videa"
 
-#: src/CollectionPage.vala:402
+#: src/CollectionPage.vala:409
 msgid "Export Photos/Videos"
 msgstr "Export fotografií/videí"
 
-#: src/CollectionPage.vala:404 src/Dialogs.vala:59 src/PhotoPage.vala:2977
+#: src/CollectionPage.vala:411 src/Dialogs.vala:59 src/PhotoPage.vala:2994
 msgid "Export Photo"
 msgstr "Export fotografie"
 
-#: src/CollectionPage.vala:404 src/Dialogs.vala:84
+#: src/CollectionPage.vala:411 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Export fotografií"
 
-#: src/CollectionPage.vala:491 src/CollectionPage.vala:507
+#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
 msgid "Rotating"
 msgstr "Otáčí se"
 
-#: src/CollectionPage.vala:491 src/CollectionPage.vala:507
+#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
 msgid "Undoing Rotate"
 msgstr "Vrací se zpět otočení"
 
-#: src/CollectionPage.vala:516
+#: src/CollectionPage.vala:523
 msgid "Flipping Horizontally"
 msgstr "Překlápí se vodorovně"
 
-#: src/CollectionPage.vala:517
+#: src/CollectionPage.vala:524
 msgid "Undoing Flip Horizontally"
 msgstr "Vrací se zpět vodorovné překlopení"
 
-#: src/CollectionPage.vala:526
+#: src/CollectionPage.vala:533
 msgid "Flipping Vertically"
 msgstr "Překlápí se svisle"
 
-#: src/CollectionPage.vala:527
+#: src/CollectionPage.vala:534
 msgid "Undoing Flip Vertically"
 msgstr "Vrací se zpět svislé překlopení"
 
@@ -3101,7 +3105,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Databázový soubor:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:773
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
 msgid "_Import"
 msgstr "_Import"
 
@@ -4012,11 +4016,11 @@ msgstr "_Importovat bez kopírování"
 msgid "Import to Library"
 msgstr "Import do knihovny"
 
-#: src/Dialogs.vala:2709 src/PhotoPage.vala:2853
+#: src/Dialogs.vala:2709 src/PhotoPage.vala:2870
 msgid "Remove From Library"
 msgstr "Odstranění z knihovny"
 
-#: src/Dialogs.vala:2710 src/PhotoPage.vala:2853
+#: src/Dialogs.vala:2710 src/PhotoPage.vala:2870
 msgid "Removing Photo From Library"
 msgstr "Odstraňuje se fotografie z knihovny"
 
@@ -4137,51 +4141,51 @@ msgstr "Šířka"
 msgid "Height"
 msgstr "Výška"
 
-#: src/direct/DirectPhotoPage.vala:92
+#: src/direct/DirectPhotoPage.vala:99
 #, c-format
 msgid "%s does not exist."
 msgstr "%s neexistuje."
 
-#: src/direct/DirectPhotoPage.vala:94
+#: src/direct/DirectPhotoPage.vala:101
 #, c-format
 msgid "%s is not a file."
 msgstr "%s není soubor."
 
-#: src/direct/DirectPhotoPage.vala:96
+#: src/direct/DirectPhotoPage.vala:103
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
 "%s."
 msgstr "%s nepodporuje formát %s."
 
-#: src/direct/DirectPhotoPage.vala:113
+#: src/direct/DirectPhotoPage.vala:120
 #, c-format
 msgid "Unable open photo %s. Sorry."
 msgstr "Nelze otevřít fotografii %s."
 
-#: src/direct/DirectPhotoPage.vala:297 src/Resources.vala:175 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:304 src/Resources.vala:175 ui/direct.ui:8
 msgid "_Save"
 msgstr "_Uložit"
 
-#: src/direct/DirectPhotoPage.vala:297
+#: src/direct/DirectPhotoPage.vala:304
 msgid "_Save a Copy"
 msgstr "Uložit _kopii"
 
-#: src/direct/DirectPhotoPage.vala:300
+#: src/direct/DirectPhotoPage.vala:307
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Zahodit změny v %s?"
 
-#: src/direct/DirectPhotoPage.vala:301
+#: src/direct/DirectPhotoPage.vala:308
 msgid "Close _without Saving"
 msgstr "Zavřít _bez uložení"
 
-#: src/direct/DirectPhotoPage.vala:334
+#: src/direct/DirectPhotoPage.vala:341
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Chyba při ukládání %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:362 src/direct/DirectPhotoPage.vala:383
+#: src/direct/DirectPhotoPage.vala:369 src/direct/DirectPhotoPage.vala:390
 msgid "Save As"
 msgstr "Uložení jako"
 
@@ -4426,31 +4430,31 @@ msgstr[0] "%d fotografie"
 msgstr[1] "%d fotografie"
 msgstr[2] "%d fotografií"
 
-#: src/events/EventPage.vala:121
+#: src/events/EventPage.vala:128
 msgid "No Event"
 msgstr "Žádná událost"
 
-#: src/events/EventsDirectoryPage.vala:143
+#: src/events/EventsDirectoryPage.vala:150
 msgid "No events"
 msgstr "Žádné události"
 
-#: src/events/EventsDirectoryPage.vala:147
+#: src/events/EventsDirectoryPage.vala:154
 msgid "No events found"
 msgstr "Nebyly nalezeny žádné události"
 
-#: src/events/EventsDirectoryPage.vala:220
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Všechny události"
 
-#: src/events/EventsDirectoryPage.vala:234
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Bez data"
 
-#: src/events/EventsDirectoryPage.vala:235
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:236
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -4511,11 +4515,11 @@ msgstr "Označeno"
 msgid "Importing…"
 msgstr "Import…"
 
-#: src/library/ImportQueuePage.vala:122
+#: src/library/ImportQueuePage.vala:129
 msgid "Preparing to import…"
 msgstr "Připravuje se k importu…"
 
-#: src/library/ImportQueuePage.vala:149
+#: src/library/ImportQueuePage.vala:156
 #, c-format
 msgid "Imported %s"
 msgstr "Naimportováno %s"
@@ -4524,19 +4528,19 @@ msgstr "Naimportováno %s"
 msgid "Last Import"
 msgstr "Poslední import"
 
-#: src/library/LibraryWindow.vala:505
+#: src/library/LibraryWindow.vala:507
 msgid "Import From Folder"
 msgstr "Import ze složky"
 
-#: src/library/LibraryWindow.vala:574 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:576 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Vyprázdnění koše"
 
-#: src/library/LibraryWindow.vala:574
+#: src/library/LibraryWindow.vala:576
 msgid "Emptying Trash…"
 msgstr "Vyprazdňuje se koš…"
 
-#: src/library/LibraryWindow.vala:770
+#: src/library/LibraryWindow.vala:772
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4548,33 +4552,33 @@ msgstr ""
 "Doporučujeme to v <span weight=\"bold\">Upravit %s Předvolby</span> změnit.\n"
 "Chcete pokračovat v importu fotografií?"
 
-#: src/library/LibraryWindow.vala:773 ui/shotwell.ui:142
+#: src/library/LibraryWindow.vala:775 ui/shotwell.ui:142
 msgid "Library Location"
 msgstr "Umístění knihovny"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:786
+#: src/library/LibraryWindow.vala:788
 msgid "Photos cannot be imported from this directory."
 msgstr "Z této složky nemohou být fotografie importovány."
 
-#: src/library/LibraryWindow.vala:1066
+#: src/library/LibraryWindow.vala:1068
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d %%)"
 
-#: src/library/LibraryWindow.vala:1110 src/library/LibraryWindow.vala:1121
+#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
 msgid "Updating library…"
 msgstr "Aktualizuje se knihovna…"
 
-#: src/library/LibraryWindow.vala:1127
+#: src/library/LibraryWindow.vala:1129
 msgid "Preparing to auto-import photos…"
 msgstr "Připravuje se automatický import fotografií…"
 
-#: src/library/LibraryWindow.vala:1132
+#: src/library/LibraryWindow.vala:1134
 msgid "Auto-importing photos…"
 msgstr "Provádí se automatický import fotografií…"
 
-#: src/library/LibraryWindow.vala:1140
+#: src/library/LibraryWindow.vala:1142
 msgid "Writing metadata to files…"
 msgstr "Zapisují se metadata do souborů…"
 
@@ -4582,7 +4586,7 @@ msgstr "Zapisují se metadata do souborů…"
 msgid "Missing Files"
 msgstr "Chybějící soubory"
 
-#: src/library/OfflinePage.vala:103
+#: src/library/OfflinePage.vala:110
 msgid "Deleting…"
 msgstr "Maže se…"
 
@@ -4590,15 +4594,15 @@ msgstr "Maže se…"
 msgid "Trash"
 msgstr "Koš"
 
-#: src/library/TrashPage.vala:101
+#: src/library/TrashPage.vala:108
 msgid "Trash is empty"
 msgstr "Koš je prázdný"
 
-#: src/library/TrashPage.vala:105
+#: src/library/TrashPage.vala:112
 msgid "Delete"
 msgstr "Smazání"
 
-#: src/library/TrashPage.vala:106
+#: src/library/TrashPage.vala:113
 msgid "Deleting Photos"
 msgstr "Mažou se fotografie"
 
@@ -4685,7 +4689,7 @@ msgstr "Nelze sledovat změny: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Nastavit velikost náhledů"
 
-#: src/MediaPage.vala:493
+#: src/MediaPage.vala:503
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4694,16 +4698,16 @@ msgstr ""
 "Nelze přehrát vybrané video:\n"
 "%s"
 
-#: src/Page.vala:1300
+#: src/Page.vala:1312
 msgid "No photos/videos"
 msgstr "Žádné fotografie/videa"
 
-#: src/Page.vala:1304
+#: src/Page.vala:1316
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Nebyly nalezeny žádné fotografie/videa, které by vyhovovaly aktuálnímu filtru"
 
-#: src/Page.vala:2610
+#: src/Page.vala:2622
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografie nelze exportovat do této složky."
 
@@ -4722,7 +4726,7 @@ msgstr "Následující fotografie"
 msgid "Photo source file missing: %s"
 msgstr "Chybí zdrojový soubor s fotografií: %s"
 
-#: src/PhotoPage.vala:2997
+#: src/PhotoPage.vala:3014
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nelze exportovat %s: %s"
@@ -6527,4 +6531,3 @@ msgstr "Nový š_títek…"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Vymazat všechny fotografie v koši"
-
