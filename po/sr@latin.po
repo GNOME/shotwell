@@ -3,22 +3,23 @@
 # Copyright 2016 Software Freedom Conservancy Inc.
 # Mitko Krstev <m.krstev@hotmail.com>, 2011.
 # Nikola Radovanović <nrad@eunet.rs>, 2011—2013.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2014—2016.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2014—2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
 "l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-07 22:02+0000\n"
-"PO-Revision-Date: 2016-11-18 07:31+0200\n"
+"POT-Creation-Date: 2017-01-24 11:34+0000\n"
+"PO-Revision-Date: 2017-01-26 06:56+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: srpski <gnome-sr@googlegroups.org>\n"
+"Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Project-Style: gnome\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
@@ -59,6 +60,11 @@ msgstr ""
 #: misc/shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Foto-bunar podržava JPEG, PNG, TIFF i razne sirove zapise datoteka."
+
+#: misc/shotwell.appdata.xml.in:52
+#| msgid "Shotwell Viewer"
+msgid "The Shotwell developers"
+msgstr "Programeri Foto-bunara"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -1752,7 +1758,6 @@ msgstr "1280 x 853 tačkica"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-#| msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgid "“%s” isn't a valid response to an OAuth authentication request"
 msgstr ""
 "„%s“ nije ispravan odgovor na zahtev potvrđivanja identiteta otvorenog "
@@ -2489,8 +2494,8 @@ msgstr "Uvoz nije uspeo (%d)"
 msgid "Cameras"
 msgstr "Foto-aparati"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
-#: src/camera/ImportPage.vala:726 src/MediaPage.vala:440
+#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/MediaPage.vala:440
 #: src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Foto-aparat"
@@ -2499,7 +2504,7 @@ msgstr "Foto-aparat"
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:458
+#: src/camera/ImportPage.vala:466
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
@@ -2507,48 +2512,48 @@ msgstr ""
 "upravnika datoteka."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:775
+#: src/camera/ImportPage.vala:783
 msgid "Hide photos already imported"
 msgstr "Sakrij već uvezene fotografije"
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:784
 msgid "Only display photos that have not been imported"
 msgstr "Prikaži samo fotografije koje nisu uvezene"
 
-#: src/camera/ImportPage.vala:842
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "Izgleda da je foto-aparat prazan. Nema fotografija/snimaka za uvoz"
 
-#: src/camera/ImportPage.vala:846
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr "Nisam pronašao nove fotografije/snimke na foto-aparatu"
 
-#: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
+#: src/camera/ImportPage.vala:881 src/MediaPage.vala:451
 msgid "_Titles"
 msgstr "_Naslovi"
 
-#: src/camera/ImportPage.vala:874 src/MediaPage.vala:452
+#: src/camera/ImportPage.vala:882 src/MediaPage.vala:452
 msgid "Display the title of each photo"
 msgstr "Prikažite nazive svake fotografije"
 
-#: src/camera/ImportPage.vala:885
+#: src/camera/ImportPage.vala:893
 msgid "Import _Selected"
 msgstr "Uvezi _izabrano"
 
-#: src/camera/ImportPage.vala:886
+#: src/camera/ImportPage.vala:894
 msgid "Import the selected photos into your library"
 msgstr "Uvezite izabrane fotografije u vašu fototeku"
 
-#: src/camera/ImportPage.vala:891
+#: src/camera/ImportPage.vala:899
 msgid "Import _All"
 msgstr "Uvezi _sve"
 
-#: src/camera/ImportPage.vala:892
+#: src/camera/ImportPage.vala:900
 msgid "Import all the photos into your library"
 msgstr "Uvezite sve fotografije u vašu fototeku"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1013
+#: src/camera/ImportPage.vala:1021
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
@@ -2556,15 +2561,15 @@ msgstr ""
 "Foto-bunar mora da otkači foto-aparat sa sistema da bi mu pristupio.  Da "
 "nastavim?"
 
-#: src/camera/ImportPage.vala:1019
+#: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
 msgstr "_Otkači"
 
-#: src/camera/ImportPage.vala:1024
+#: src/camera/ImportPage.vala:1032
 msgid "Please unmount the camera."
 msgstr "Otkačite foto-aparat."
 
-#: src/camera/ImportPage.vala:1029
+#: src/camera/ImportPage.vala:1037
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
@@ -2574,11 +2579,11 @@ msgstr ""
 "aparatu samo kada je otključan.  Zatvorite sve druge programe koji koriste "
 "foto-aparat i pokušajte ponovo."
 
-#: src/camera/ImportPage.vala:1039
+#: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
 msgstr "Zatvorite sve druge programe koji koriste foto-aparat."
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1052
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2587,29 +2592,29 @@ msgstr ""
 "Ne mogu da dovučem pretpreglede fotografija sa foto-aparata:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1061
+#: src/camera/ImportPage.vala:1069
 msgid "Unmounting..."
 msgstr "Otkačinjem..."
 
-#: src/camera/ImportPage.vala:1152
+#: src/camera/ImportPage.vala:1160
 msgid "Starting import, please wait..."
 msgstr "Započinjem uvoz, sačekajte malo..."
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
 msgstr "Preuzimam podatke o fotografiji"
 
-#: src/camera/ImportPage.vala:1527
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Preuzimam pretpregled za „%s“"
 
-#: src/camera/ImportPage.vala:1643
+#: src/camera/ImportPage.vala:1651
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Ne mogu da zaključam foto-aparat: %s"
 
-#: src/camera/ImportPage.vala:1728
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2618,7 +2623,7 @@ msgstr[1] "Da obrišem ove %d fotografije sa foto-aparata?"
 msgstr[2] "Da obrišem ovih %d fotografija sa foto-aparata?"
 msgstr[3] "Da obrišem ovu %d fotografiju sa foto-aparata?"
 
-#: src/camera/ImportPage.vala:1731
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2627,7 +2632,7 @@ msgstr[1] "Da obrišem ova %d snimka sa foto-aparata?"
 msgstr[2] "Da obrišem ovih %d snimaka sa foto-aparata?"
 msgstr[3] "Da obrišem ovaj %d snimak sa foto-aparata?"
 
-#: src/camera/ImportPage.vala:1734
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2636,7 +2641,7 @@ msgstr[1] "Da obrišem ove %d fotografije/snimka sa foto-aparata?"
 msgstr[2] "Da obrišem ovih %d fotografija/snimaka sa foto-aparata?"
 msgstr[3] "Da obrišem ovu %d fotografiju/snimak sa foto-aparata?"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2645,15 +2650,15 @@ msgstr[1] "Da obrišem ove %d datoteke sa foto-aparata?"
 msgstr[2] "Da obrišem ovih %d datoteka sa foto-aparata?"
 msgstr[3] "Da obrišem ovu %d datoteku sa foto-aparata?"
 
-#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1392
 msgid "_Keep"
 msgstr "_Zadrži"
 
-#: src/camera/ImportPage.vala:1764
+#: src/camera/ImportPage.vala:1772
 msgid "Removing photos/videos from camera"
 msgstr "Uklanjam fotografije/snimke sa foto-aparata"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1776
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
