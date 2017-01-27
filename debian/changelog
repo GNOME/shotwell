@@ -1,3 +1,30 @@
+shotwell (0.25.3-0~jensge1~yakkety1) yakkety; urgency=medium
+
+  * Fix event page context menu
+  * Try to guess character set of string when UTF-8 validation fails
+  * Fix tags context menu
+  * Properly switch menu bar when changing pages
+  * Fix rating
+  * Fix a critical about reparenting a popup menu
+  * Fix sidebar context menu
+  * Fix toolbar in camera import page
+  * Update glade files for all publishers
+  * Flickr: Simplify OAuth parsing by using libsoup
+  * Fix accellerators not coming from menu model
+  * Add <Ctrl>-f as shortcut for search bar
+  * Remove AppMenu, needs more thinking about the design.
+  * Flickr: Use human-readable size of upload quota
+  * Fix leave fullscreen option
+  * Fix upload issues with flickr
+  * Fix several disabled actions when switching away from pages
+  * Fix actions in fullscreen
+  * Fix several typos
+  * Piwigo: Fix title and comments on upload
+  * Improved duplicate detection
+  * Updated translations
+
+ -- Jens Georg <mail@jensge.org>  Wed, 18 Jan 2017 23:21:38 +0100
+
 shotwell (0.25.2-0~jensge1~xenial1) xenial; urgency=medium
 
   * Fix missing About action
