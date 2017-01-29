@@ -67,7 +67,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
 
     public PicasaPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
-        base(service, host, "http://picasaweb.google.com/data/");
+        base(service, host, "https://picasaweb.google.com/data/");
         
         this.publishing_parameters = new PublishingParameters();
         load_parameters_from_configuration_system(publishing_parameters);
@@ -473,7 +473,7 @@ internal class Album {
 
 internal class AlbumDirectoryTransaction :
     Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "http://picasaweb.google.com/data/feed/api/user/" +
+    private const string ENDPOINT_URL = "https://picasaweb.google.com/data/feed/api/user/" +
         "default";
 
     public AlbumDirectoryTransaction(Publishing.RESTSupport.GoogleSession session) {
@@ -491,7 +491,7 @@ internal class AlbumDirectoryTransaction :
 
 private class AlbumCreationTransaction :
     Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "http://picasaweb.google.com/data/feed/api/user/" +
+    private const string ENDPOINT_URL = "https://picasaweb.google.com/data/feed/api/user/" +
         "default";
     private const string ALBUM_ENTRY_TEMPLATE = "<?xml version='1.0' encoding='utf-8'?><entry xmlns='http://www.w3.org/2005/Atom' xmlns:gphoto='http://schemas.google.com/photos/2007'><title type='text'>%s</title><gphoto:access>%s</gphoto:access><category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#album'></category></entry>";
     

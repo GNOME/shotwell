@@ -104,7 +104,7 @@ private class PublishingParameters {
 public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     private class ChannelDirectoryTransaction :
         Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-        private const string ENDPOINT_URL = "http://gdata.youtube.com/feeds/users/default";
+        private const string ENDPOINT_URL = "https://gdata.youtube.com/feeds/users/default";
 
         public ChannelDirectoryTransaction(Publishing.RESTSupport.GoogleSession session) {
             base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
@@ -518,7 +518,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 }
 
 internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "http://uploads.gdata.youtube.com/feeds/api/users/default/uploads";
+    private const string ENDPOINT_URL = "https://uploads.gdata.youtube.com/feeds/api/users/default/uploads";
     private const string UNLISTED_XML = "<yt:accessControl action='list' permission='denied'/>";
     private const string PRIVATE_XML = "<yt:private/>";
     private const string METADATA_TEMPLATE ="""<?xml version='1.0'?>
