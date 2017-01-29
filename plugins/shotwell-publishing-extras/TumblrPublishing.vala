@@ -59,7 +59,7 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
 namespace Publishing.Tumblr {
 
 internal const string SERVICE_NAME = "Tumblr";
-internal const string ENDPOINT_URL = "http://www.tumblr.com/";
+internal const string ENDPOINT_URL = "https://www.tumblr.com/";
 internal const string API_KEY = "NdXvXQuKVccOsCOj0H4k9HUJcbcjDBYSo2AkaHzXFECHGNuP9k";
 internal const string API_SECRET = "BN0Uoig0MwbeD27OgA0IwYlp3Uvonyfsrl9pf1cnnMj1QoEUvi";
 internal const string ENCODE_RFC_3986_EXTRA = "!*'();:@&=+$,/?%#[] \\";
@@ -865,7 +865,7 @@ internal class AccessTokenFetchTransaction : Transaction {
 
 internal class UserInfoFetchTransaction : Transaction {
     public UserInfoFetchTransaction(Session session) {
-        base.with_uri(session, "http://api.tumblr.com/v2/user/info",
+        base.with_uri(session, "https://api.tumblr.com/v2/user/info",
             Publishing.RESTSupport.HttpMethod.POST);
     }
 }
@@ -896,7 +896,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
     public UploadTransaction(Session session,Spit.Publishing.Publishable publishable, string blog_url)  {
 		debug("Init upload transaction");
-        base.with_endpoint_url(session, publishable,"http://api.tumblr.com/v2/blog/%s/post".printf(blog_url) );
+        base.with_endpoint_url(session, publishable,"https://api.tumblr.com/v2/blog/%s/post".printf(blog_url) );
         this.session = session;
 
     }

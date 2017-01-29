@@ -23,7 +23,7 @@ public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = _("Visit the Yandex.Fotki web site");
-        info.website_url = "http://fotki.yandex.ru/";
+        info.website_url = "https://fotki.yandex.ru/";
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
     }
@@ -571,7 +571,7 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void fetch_account_information(string auth_token) {
         session.set_auth_token(auth_token);
 
-        Transaction t = new Transaction.with_url(session, "http://api-fotki.yandex.ru/api/me/");
+        Transaction t = new Transaction.with_url(session, "https://api-fotki.yandex.ru/api/me/");
         t.completed.connect(fetch_account_complete);
         t.network_error.connect(fetch_account_error);
 
@@ -598,7 +598,7 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void start_web_auth() {
         host.set_service_locked(false);
 
-        web_auth_pane = new WebAuthPane(("http://oauth.yandex.ru/authorize?client_id=%s&response_type=token").printf(client_id));
+        web_auth_pane = new WebAuthPane(("https://oauth.yandex.ru/authorize?client_id=%s&response_type=token").printf(client_id));
         web_auth_pane.login_succeeded.connect(web_auth_login_succeeded);
         web_auth_pane.login_failed.connect(web_auth_login_failed);
 
