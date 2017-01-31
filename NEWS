@@ -1,3 +1,18 @@
+Shotwell 0.25.4 - 31 Jan 2017
+  * Publishing: Use HTTPS everywhere
+  * Translation updates
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Daniel Korostil <ted.korostiled@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - pl, courtesy of Piotr Drąg
+ - uk, courtesy of Yuri Chornoivan
+
 Shotwell 0.25.3 - 16 Jan 2017
   * Fix event page context menu
   * Try to guess character set of string when UTF-8 validation fails

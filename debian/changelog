@@ -1,3 +1,10 @@
+shotwell (0.25.4-0~jensge1~yakkety1) yakkety; urgency=high
+
+  * Publishing: Use HTTPS everywhere
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Tue, 31 Jan 2017 21:24:30 +0100
+
 shotwell (0.25.3-0~jensge1~yakkety1) yakkety; urgency=medium
 
   * Fix event page context menu
