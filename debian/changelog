@@ -1,3 +1,10 @@
+shotwell (0.24.5-0~jensge1~xenial1) xenial; urgency=high
+
+  * Publishing: Use HTTPS consistently
+  * Updated translations
+
+ -- Jens Georg <mail@jensge.org>  Tue, 31 Jan 2017 20:59:13 +0100
+
 shotwell (0.24.4-0~jensge1~xenial1) xenial; urgency=medium
 
   * Piwigo: Fix title and comments for uploaded images

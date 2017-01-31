@@ -1,3 +1,21 @@
+Shotwell 0.24.5 - 31 Jan 2016
+  * Publishing: Use HTTPS consistently
+  * Updated translations
+
+All contributors to this release:
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Jens Georg <mail@jensge.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - es, courtesy of Daniel Mustieles
+ - pl, courtesy of Piotr Drąg
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.24.4 - 18 Jan 2016
   * Piwigo: Fix title and comments for uploaded images
   * Fix icon file name for Serbian and Korean
