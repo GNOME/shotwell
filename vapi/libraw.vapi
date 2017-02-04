@@ -107,7 +107,7 @@ public struct OutputParams {
     public int highlight;
     public bool use_auto_wb;
     public bool use_camera_wb;
-    public bool use_camera_matrix;
+    public int use_camera_matrix;
     public int output_color;
     public int output_bps;
     public bool output_tiff;
