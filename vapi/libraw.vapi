@@ -150,7 +150,7 @@ public struct OutputParams {
     }
     
     public void set_gamma_curve(double power, double slope) {
-        gamm[0] = power;
+        gamm[0] = 1.0 / power;
         gamm[1] = slope;
     }
 }
