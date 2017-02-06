@@ -232,8 +232,8 @@ public class Processor {
         // These fields are set to reasonable defaults by libraw.
         
         // greybox
-        output_params->set_chromatic_aberrations(1.0, 1.0);
-        output_params->set_gamma_curve(GRaw.SRGB_POWER, GRaw.SRGB_SLOPE);
+        LibRaw.OutputParams.set_chromatic_aberrations(output_params, 1.0, 1.0);
+        LibRaw.OutputParams.set_gamma_curve(output_params, GRaw.SRGB_POWER, GRaw.SRGB_SLOPE);
         // user_mul
         // shot_select
         // multi_out
