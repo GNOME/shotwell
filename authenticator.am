@@ -1,0 +1,52 @@
+lib_LTLIBRARIES += plugins/authenticator/libshotwell-authenticator.la
+
+dist_noinst_DATA += \
+	plugins/authenticator/shotwell/flickr_pin_entry_pane.ui
+
+plugins_authenticator_libshotwell_authenticator_la_SOURCES = \
+	$(abs_top_srcdir)/plugins/shotwell-plugin-common.vapi
+
+plugins_authenticator_libshotwell_authenticator_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	--library shotwell-authenticator \
+	--vapi=plugins/authenticator/shotwell-authenticator.vapi \
+	--header=plugins/authenticator/shotwell-authenticator.h \
+	--pkg shotwell-plugin-dev-1.0 \
+	$(AUTHENTICATOR_PACKAGES) \
+	--vapidir $(abs_top_srcdir)/plugins
+
+plugins_authenticator_libshotwell_authenticator_la_LIBADD = \
+	$(AUTHENTICATOR_LIBS) \
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la
+
+plugins_authenticator_libshotwell_authenticator_la_CFLAGS = \
+	$(COMMON_CFLAGS) \
+	$(AUTHENTICATOR_CFLAGS) \
+	-I $(top_srcdir)/plugins \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Authenticator"'
+
+## Resource handling
+
+nodist_plugins_authenticator_libshotwell_authenticator_la_SOURCES = \
+	plugins/authenticator/resource.c
+MOSTLYCLEANFILES += plugins/authenticator/resource.c
+
+AUTHENTICATOR_RESOURCE_DEPS = $(shell $(GLIB_COMPILE_RESOURCES) \
+		--sourcedir=$(AUTHENTICATOR_RESOURCE_SOURCEDIR) \
+		--generate-dependencies $(AUTHENTICATOR_SHOTWELL_RESOURCE_FILE))
+
+plugins/authenticator/resource.c: $(AUTHENTICATOR_RESOURCE_DEPS) $(AUTHENTICATOR_RESOURCE_FILE)
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) \
+		--target=$@ \
+		--sourcedir=$(AUTHENTICATOR_RESOURCE_SOURCEDIR) \
+		--generate $(AUTHENTICATOR_RESOURCE_FILE)
+
+if AUTHENTICATOR_SHOTWELL
+AUTHENTICATOR_RESOURCE_FILE := $(abs_top_srcdir)/plugins/authenticator/shotwell/org.gnome.Shotwell.Authenticator.gresource.xml
+AUTHENTICATOR_RESOURCE_SOURCEDIR := $(abs_top_srcdir)/plugins/authenticator/shotwell
+
+plugins_authenticator_libshotwell_authenticator_la_SOURCES += \
+	plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala \
+	plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala \
+	plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala
+endif

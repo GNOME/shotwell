@@ -4,10 +4,13 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-namespace Publishing.Facebook {
+using Shotwell;
+using Shotwell.Plugins;
+
+namespace Publishing.Authenticator.Shotwell.Facebook {
     private const string APPLICATION_ID = "1612018629063184";
 
-    private class WebAuthenticationPane : Shotwell.Plugins.Common.WebAuthenticationPane {
+    private class WebAuthenticationPane : Common.WebAuthenticationPane {
         private static bool cache_dirty = false;
 
         public signal void login_succeeded(string success_url);
@@ -154,9 +157,9 @@ namespace Publishing.Facebook {
         }
     }
 
-    public class FacebookAuthenticator : Spit.Publishing.Authenticator, GLib.Object {
+    internal class Facebook : Spit.Publishing.Authenticator, GLib.Object {
         private Spit.Publishing.PluginHost host;
-        private Publishing.Facebook.WebAuthenticationPane web_auth_pane = null;
+        private Publishing.Authenticator.Shotwell.Facebook.WebAuthenticationPane web_auth_pane = null;
         private GLib.HashTable<string, Variant> params;
 
         private const string SERVICE_WELCOME_MESSAGE =
@@ -165,7 +168,7 @@ namespace Publishing.Facebook {
     _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 
         /* Interface functions */
-        public FacebookAuthenticator(Spit.Publishing.PluginHost host) {
+        public Facebook(Spit.Publishing.PluginHost host) {
             this.host = host;
             this.params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
         }

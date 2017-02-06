@@ -81,6 +81,25 @@ VALAFLAGS="-g"
 AC_SUBST([VALAFLAGS])
 
 dnl ***********************************************************************
+dnl Check for authenticator
+dnl ***********************************************************************
+AC_ARG_WITH([authenticator],
+            AS_HELP_STRING([--with-authenticator=@<:@shotwell,goa,uoa@:>@]
+                           [Which authentication back-end to use (defaul: shotwell)]),
+                           [with_authenticator=$withval],
+                           [with_authenticator=shotwell])
+AS_IF([test "x$with_authenticator" != "xshotwell" &&
+       test "x$with_authenticator" != "xgoa" &&
+       test "x$with_authenticator" != "xuoa"],
+            [AC_MSG_NOTICE([Unknown authenticator $[]with_authenticator, using shotwell])
+             with_authenticator="shotwell"
+            ])
+
+AM_CONDITIONAL([AUTHENTICATOR_SHOTWELL],[test "x$with_authenticator" = "xshotwell"])
+AM_CONDITIONAL([AUTHENTICATOR_GOA],[test "x$with_authenticator" = "xgoa"])
+AM_CONDITIONAL([AUTHENTICATOR_UOA],[test "x$with_authenticator" = "xuoa"])
+
+dnl ***********************************************************************
 dnl Check for required packages
 dnl ***********************************************************************
 PKG_CHECK_MODULES(SHOTWELL, [
@@ -117,6 +136,14 @@ PKG_CHECK_MODULES(PUBLISHING, [gobject-2.0 glib-2.0 gexiv2 json-glib-1.0
 
 PKG_CHECK_MODULES(TRANSITIONS, [gobject-2.0 cairo gio-2.0 gdk-pixbuf-2.0
                                 gdk-3.0])
+
+AS_IF([test "x$with_authenticator" = "xshotwell"],
+      [
+        PKG_CHECK_MODULES(AUTHENTICATOR, [gobject-2.0 glib-2.0 libsoup-2.4
+                                          webkit2gtk-4.0 gee-0.8 gtk+-3.0
+                                          libxml-2.0])
+        AC_SUBST(AUTHENTICATOR_PACKAGES, ["--pkg webkit2gtk-4.0 --pkg gtk+-3.0 --pkg libsoup-2.4 --pkg gee-0.8 --pkg libxml-2.0"])
+      ])
 
 dnl ***********************************************************************
 dnl Unity support
@@ -199,4 +226,5 @@ echo "  Prefix ............................... : ${prefix}"
 echo "  Libdir ............................... : ${libdir}"
 echo "  Unity support ........................ : ${HAVE_UNITY}"
 echo "  Additional publishing plugins ........ : ${HAVE_EXTRA_PLUGINS}"
+echo "  Authentication library ................: ${with_authenticator}"
 echo ""

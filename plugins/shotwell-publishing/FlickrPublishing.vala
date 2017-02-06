@@ -98,7 +98,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private bool was_started = false;
     private Session session = null;
     private PublishingOptionsPane publishing_options_pane = null;
-    private Publishing.Authenticator.Flickr authenticator;
+    private Spit.Publishing.Authenticator authenticator = null;
    
     private PublishingParameters parameters = null;
 
@@ -109,7 +109,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.host = host;
         this.session = new Session();
         this.parameters = new PublishingParameters();
-        this.authenticator = new Publishing.Authenticator.Flickr (host);
+        this.authenticator = Publishing.Authenticator.Factory.get_instance().create("flickr", host);
 
         this.authenticator.authenticated.connect(on_session_authenticated);
     }
@@ -663,8 +663,6 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 }
 
 internal class Session : Publishing.RESTSupport.Session {
-    private string? request_phase_token = null;
-    private string? request_phase_token_secret = null;
     private string? access_phase_token = null;
     private string? access_phase_token_secret = null;
     private string? username = null;
@@ -735,10 +733,6 @@ internal class Session : Publishing.RESTSupport.Session {
             debug("access phase token secret available; using it as signing key");
 
             signing_key = consumer_secret + "&" + access_phase_token_secret;
-        } else if (request_phase_token_secret != null) {
-            debug("request phase token secret available; using it as signing key");
-
-            signing_key = consumer_secret + "&" + request_phase_token_secret;
         } else {
             debug("neither access phase nor request phase token secrets available; using API " +
                 "key as signing key");
@@ -766,11 +760,6 @@ internal class Session : Publishing.RESTSupport.Session {
             txn.add_argument("oauth_signature", signature);
     }
     
-    public void set_request_phase_credentials(string token, string secret) {
-        this.request_phase_token = token;
-        this.request_phase_token_secret = secret;
-    }
-    
     public void set_access_phase_credentials(string token, string secret, string username) {
         this.access_phase_token = token;
         this.access_phase_token_secret = secret;
@@ -794,16 +783,6 @@ internal class Session : Publishing.RESTSupport.Session {
     public string get_consumer_key() {
         assert(consumer_key != null);
         return consumer_key;
-    }
-    
-    public string get_request_phase_token() {
-        assert(request_phase_token != null);
-        return request_phase_token;
-    }
-
-    public string get_request_phase_token_secret() {
-        assert(request_phase_token_secret != null);
-        return request_phase_token_secret;
     }
 
     public string get_access_phase_token() {

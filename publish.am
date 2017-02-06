@@ -7,7 +7,6 @@ dist_noinst_DATA += \
 	plugins/shotwell-publishing/piwigo.png \
 	plugins/shotwell-publishing/youtube.png \
 	plugins/shotwell-publishing/facebook_publishing_options_pane.ui \
-	plugins/shotwell-publishing/flickr_pin_entry_pane.ui \
 	plugins/shotwell-publishing/flickr_publishing_options_pane.ui \
 	plugins/shotwell-publishing/picasa_publishing_options_pane.ui \
 	plugins/shotwell-publishing/piwigo_authentication_pane.ui \
@@ -19,13 +18,12 @@ dist_noinst_DATA += \
 plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/shotwell-publishing.vala \
 	plugins/shotwell-publishing/FacebookPublishing.vala \
-	plugins/shotwell-publishing/FacebookPublishingAuthenticator.vala \
 	plugins/shotwell-publishing/PicasaPublishing.vala \
 	plugins/shotwell-publishing/FlickrPublishing.vala \
-	plugins/shotwell-publishing/FlickrPublishingAuthenticator.vala \
 	plugins/shotwell-publishing/YouTubePublishing.vala \
 	plugins/shotwell-publishing/PiwigoPublishing.vala \
-	plugins/shotwell-plugin-common.vapi
+	plugins/shotwell-plugin-common.vapi \
+	plugins/authenticator/shotwell-authenticator.vapi
 
 nodist_plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
 	plugins/shotwell-publishing/resource.c
@@ -63,11 +61,13 @@ plugins_shotwell_publishing_shotwell_publishing_la_CFLAGS = \
 	$(COMMON_CFLAGS) \
 	-DGCR_API_SUBJECT_TO_CHANGE \
 	$(PUBLISHING_CFLAGS) \
-	-I $(top_srcdir)/plugins
+	-I $(top_srcdir)/plugins \
+	-I $(top_srcdir)/plugins/authenticator
 
 plugins_shotwell_publishing_shotwell_publishing_la_LDFLAGS = \
 	$(SHOTWELL_PLUGIN_LDFLAGS)
 
 plugins_shotwell_publishing_shotwell_publishing_la_LIBADD = \
 	$(PUBLISHING_LIBS) \
-	$(top_builddir)/plugins/common/libshotwell-plugin-common.la
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la \
+	$(top_builddir)/plugins/authenticator/libshotwell-authenticator.la

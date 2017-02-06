@@ -186,7 +186,9 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.host = host;
 
         this.publishing_params = new PublishingParameters();
-        this.authenticator = new Publishing.Facebook.FacebookAuthenticator(host);
+        this.authenticator =
+            Publishing.Authenticator.Factory.get_instance().create("facebook",
+                    host);
 
         this.graph_session = new GraphSession();
         graph_session.authenticated.connect(on_session_authenticated);

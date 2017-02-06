@@ -131,6 +131,9 @@ include $(top_srcdir)/common.am
 include $(top_srcdir)/shotwell.am
 include $(top_srcdir)/thumbnailer.am
 
+# Authenticators
+include $(top_srcdir)/authenticator.am
+
 # Plugins
 include $(top_srcdir)/publish.am
 
