@@ -415,6 +415,10 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
         do_show_service_welcome_pane();
     }
+
+    protected override Spit.Publishing.Authenticator get_authenticator() {
+        return Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+    }
 }
 
 internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {

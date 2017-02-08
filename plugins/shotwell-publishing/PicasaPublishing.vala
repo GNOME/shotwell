@@ -459,6 +459,10 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
 
         running = false;
     }
+
+    protected override Spit.Publishing.Authenticator get_authenticator() {
+        return Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+    }
 }
 
 internal class Album {

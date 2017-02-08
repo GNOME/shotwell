@@ -48,5 +48,6 @@ AUTHENTICATOR_RESOURCE_SOURCEDIR := $(abs_top_srcdir)/plugins/authenticator/shot
 plugins_authenticator_libshotwell_authenticator_la_SOURCES += \
 	plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala \
 	plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala \
-	plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala
+	plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala \
+	plugins/authenticator/shotwell/GoogleAuthenticator.vala
 endif

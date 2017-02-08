@@ -141,8 +141,8 @@ AS_IF([test "x$with_authenticator" = "xshotwell"],
       [
         PKG_CHECK_MODULES(AUTHENTICATOR, [gobject-2.0 glib-2.0 libsoup-2.4
                                           webkit2gtk-4.0 gee-0.8 gtk+-3.0
-                                          libxml-2.0])
-        AC_SUBST(AUTHENTICATOR_PACKAGES, ["--pkg webkit2gtk-4.0 --pkg gtk+-3.0 --pkg libsoup-2.4 --pkg gee-0.8 --pkg libxml-2.0"])
+                                          libxml-2.0 json-glib-1.0])
+        AC_SUBST(AUTHENTICATOR_PACKAGES, ["--pkg webkit2gtk-4.0 --pkg gtk+-3.0 --pkg libsoup-2.4 --pkg gee-0.8 --pkg libxml-2.0 --pkg json-glib-1.0"])
       ])
 
 dnl ***********************************************************************
