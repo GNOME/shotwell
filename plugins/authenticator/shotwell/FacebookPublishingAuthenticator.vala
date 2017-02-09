@@ -174,6 +174,16 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
         }
 
         public void authenticate() {
+            // Do we have saved user credentials? If so, go ahead and authenticate the session
+            // with the saved credentials and proceed with the publishing interaction. Otherwise, show
+            // the Welcome pane
+            if (is_persistent_session_valid()) {
+                var access_token = get_persistent_access_token();
+                this.params.insert("AccessToken", new Variant.string(access_token));
+                this.authenticated();
+                return;
+            }
+
             // FIXME: Find a way for a proper logout
             if (WebAuthenticationPane.is_cache_dirty()) {
                 host.set_service_locked(false);
@@ -193,12 +203,35 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
         }
 
         public void invalidate_persistent_session() {
+            debug("invalidating saved Facebook session.");
+            set_persistent_access_token("");
         }
 
         public void logout() {
+            invalidate_persistent_session();
         }
 
         /* Private functions */
+        private bool is_persistent_session_valid() {
+            string? token = get_persistent_access_token();
+
+            if (token != null)
+                debug("existing Facebook session found in configuration database (access_token = %s).",
+                        token);
+            else
+                debug("no existing Facebook session available.");
+
+            return token != null;
+        }
+
+        private string? get_persistent_access_token() {
+            return host.get_config_string("access_token", null);
+        }
+
+        private void set_persistent_access_token(string access_token) {
+            host.set_config_string("access_token", access_token);
+        }
+
         private void do_show_service_welcome_pane() {
             debug("ACTION: showing service welcome pane.");
 
@@ -273,6 +306,7 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
             // remove the key from the session description string
             access_token = access_token.replace("#access_token=", "");
             this.params.insert("AccessToken", new Variant.string(access_token));
+            set_persistent_access_token(access_token);
 
             this.authenticated();
         }

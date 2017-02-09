@@ -194,30 +194,10 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         graph_session.authenticated.connect(on_session_authenticated);
     }
 
-    private bool is_persistent_session_valid() {
-        string? token = get_persistent_access_token();
-
-        if (token != null)
-            debug("existing Facebook session found in configuration database (access_token = %s).",
-                token);
-        else
-            debug("no existing Facebook session available.");
-
-        return token != null;
-    }
-
-    private string? get_persistent_access_token() {
-        return host.get_config_string("access_token", null);
-    }
-    
     private bool get_persistent_strip_metadata() {
         return host.get_config_bool("strip_metadata", false);
     }
 
-    private void set_persistent_access_token(string access_token) {
-        host.set_config_string("access_token", access_token);
-    }
-    
     private void set_persistent_strip_metadata(bool strip_metadata) {
         host.set_config_bool("strip_metadata", strip_metadata);
     }
@@ -230,12 +210,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     public void set_persistent_default_size(int size) {
         host.set_config_int("default_size", size);
-    }
-
-    private void invalidate_persistent_session() {
-        debug("invalidating saved Facebook session.");
-
-        set_persistent_access_token("");
     }
 
     /*
@@ -380,8 +354,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: clearing persistent session information and restaring interaction.");
         this.authenticator.logout();
 
-        invalidate_persistent_session();
-
         running = false;
         start();
     }
@@ -426,12 +398,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         graph_session.authenticate(access_token.get_string());
     }
 
-    private void do_save_session_information() {
-        debug("ACTION: saving session information to configuration system.");
-
-        set_persistent_access_token(graph_session.get_access_token());
-    }
-    
     private void do_upload() {
         debug("ACTION: uploading photos to album '%s'",
             publishing_params.target_album == PublishingParameters.UNKNOWN_ALBUM ? "(none)" :
@@ -509,7 +475,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         assert(graph_session.is_authenticated());
         debug("EVENT: an authenticated session has become available.");
 
-        do_save_session_information();
         do_fetch_user_info();
     }
     
@@ -714,16 +679,9 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         // actually a restart
         publishing_params = new PublishingParameters();
 
-        // Do we have saved user credentials? If so, go ahead and authenticate the session
-        // with the saved credentials and proceed with the publishing interaction. Otherwise, show
-        // the Welcome pane
-        if (is_persistent_session_valid()) {
-            graph_session.authenticate(get_persistent_access_token());
-        } else {
-            this.authenticator.authenticated.connect(on_authenticator_succeeded);
-            this.authenticator.authentication_failed.connect(on_authenticator_failed);
-            this.authenticator.authenticate();
-        }
+        this.authenticator.authenticated.connect(on_authenticator_succeeded);
+        this.authenticator.authentication_failed.connect(on_authenticator_failed);
+        this.authenticator.authenticate();
     }
 
     public void stop() {
@@ -1304,11 +1262,6 @@ internal class GraphSession {
     
     public bool is_authenticated() {
         return access_token != null;
-    }
-    
-    public string get_access_token() {
-        assert(is_authenticated());
-        return access_token;
     }
     
 #if 0
