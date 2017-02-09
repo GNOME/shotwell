@@ -117,50 +117,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     ~FlickrPublisher() {
         this.authenticator.authenticated.disconnect(on_session_authenticated);
     }
-    
-    private void invalidate_persistent_session() {
-        set_persistent_access_phase_token("");
-        set_persistent_access_phase_token_secret("");
-        set_persistent_access_phase_username("");
-    }
-    
-    private bool is_persistent_session_valid() {
-        return (get_persistent_access_phase_username() != null &&
-                get_persistent_access_phase_token() != null &&
-                get_persistent_access_phase_token_secret() != null);
-    }
-    
-    private string? get_persistent_access_phase_username() {
-        return host.get_config_string("access_phase_username", null);
-    }
-    
-    private void set_persistent_access_phase_username(string username) {
-        host.set_config_string("access_phase_username", username);
-    }
-
-    private string? get_persistent_access_phase_token() {
-        return host.get_config_string("access_phase_token", null);
-    }
-
-    private void set_persistent_access_phase_token(string token) {
-        host.set_config_string("access_phase_token", token);
-    }
-
-    private string? get_persistent_access_phase_token_secret() {
-        return host.get_config_string("access_phase_token_secret", null);
-    }
-
-    private void set_persistent_access_phase_token_secret(string secret) {
-        host.set_config_string("access_phase_token_secret", secret);
-    }
 
     private bool get_persistent_strip_metadata() {
         return host.get_config_bool("strip_metadata", false);
     }
-    
+
     private void set_persistent_strip_metadata(bool strip_metadata) {
         host.set_config_bool("strip_metadata", strip_metadata);
-    }    
+    }
 
     private void on_session_authenticated() {
         if (!is_running())
@@ -186,10 +150,6 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
                 auth_token_secret.get_string(), username.get_string());
 
         parameters.username = session.get_username();
-
-        set_persistent_access_phase_token(session.get_access_phase_token());
-        set_persistent_access_phase_token_secret(session.get_access_phase_token_secret());
-        set_persistent_access_phase_username(session.get_username());
 
         do_fetch_account_info();
     }
@@ -349,8 +309,9 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void do_logout() {
         debug("ACTION: logging user out, deauthenticating session, and erasing stored credentials");
 
-        session.deauthenticate();
-        invalidate_persistent_session();
+        if (authenticator.can_logout()) {
+            authenticator.logout();
+        }
 
         running = false;
 
@@ -455,24 +416,6 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         running = true;
         was_started = true;
         
-        if (is_persistent_session_valid()) {
-            debug("attempt start: a persistent session is available; using it");
-            var params = this.authenticator.get_authentication_parameter();
-            Variant consumer_key = null;
-            Variant consumer_secret = null;
-
-            params.lookup_extended("ConsumerKey", null, out consumer_key);
-            params.lookup_extended("ConsumerSecret", null, out consumer_secret);
-            session.set_api_credentials(consumer_key.get_string(),
-                    consumer_secret.get_string());
-
-            session.authenticate_from_persistent_credentials(get_persistent_access_phase_token(),
-                get_persistent_access_phase_token_secret(), get_persistent_access_phase_username());
-            do_fetch_account_info();
-        } else {
-            debug("attempt start: no persistent session available; showing login welcome pane");
-            authenticator.authenticate();
-        }
     }
     
     public void start() {
@@ -678,21 +621,6 @@ internal class Session : Publishing.RESTSupport.Session {
             username != null);
     }
 
-    public void authenticate_from_persistent_credentials(string token, string secret,
-        string username) {
-        this.access_phase_token = token;
-        this.access_phase_token_secret = secret;
-        this.username = username;
-        
-        authenticated();
-    }
-    
-    public void deauthenticate() {
-        access_phase_token = null;
-        access_phase_token_secret = null;
-        username = null;
-    }
-
     public void set_api_credentials(string consumer_key, string consumer_secret) {
         this.consumer_key = consumer_key;
         this.consumer_secret = consumer_secret;
@@ -788,11 +716,6 @@ internal class Session : Publishing.RESTSupport.Session {
     public string get_access_phase_token() {
         assert(access_phase_token != null);
         return access_phase_token;
-    }
-    
-    public string get_access_phase_token_secret() {
-        assert(access_phase_token_secret != null);
-        return access_phase_token_secret;
     }
     
     public string get_username() {

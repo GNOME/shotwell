@@ -13,18 +13,17 @@ namespace Publishing.Flickr {
         public Transaction(Session session, Publishing.RESTSupport.HttpMethod method =
                 Publishing.RESTSupport.HttpMethod.POST) {
             base(session, method);
-
-            add_argument("oauth_nonce", session.get_oauth_nonce());
-            add_argument("oauth_signature_method", "HMAC-SHA1");
-            add_argument("oauth_version", "1.0");
-            add_argument("oauth_callback", "oob");
-            add_argument("oauth_timestamp", session.get_oauth_timestamp());
-            add_argument("oauth_consumer_key", session.get_consumer_key());
+            setup_arguments();
         }
 
         public Transaction.with_uri(Session session, string uri,
                 Publishing.RESTSupport.HttpMethod method = Publishing.RESTSupport.HttpMethod.POST) {
             base.with_endpoint_url(session, uri, method);
+            setup_arguments();
+        }
+
+        private void setup_arguments() {
+            var session = (Session) get_parent_session();
 
             add_argument("oauth_nonce", session.get_oauth_nonce());
             add_argument("oauth_signature_method", "HMAC-SHA1");
@@ -33,6 +32,7 @@ namespace Publishing.Flickr {
             add_argument("oauth_timestamp", session.get_oauth_timestamp());
             add_argument("oauth_consumer_key", session.get_consumer_key());
         }
+
 
         public override void execute() throws Spit.Publishing.PublishingError {
             ((Session) get_parent_session()).sign_transaction(this);
@@ -57,6 +57,21 @@ namespace Publishing.Flickr {
         public override bool is_authenticated() {
             return (access_phase_token != null && access_phase_token_secret != null &&
                     username != null);
+        }
+
+        public void authenticate_from_persistent_credentials(string token, string secret,
+                string username) {
+            this.access_phase_token = token;
+            this.access_phase_token_secret = secret;
+            this.username = username;
+
+            authenticated();
+        }
+
+        public void deauthenticate() {
+            access_phase_token = null;
+            access_phase_token_secret = null;
+            username = null;
         }
 
         public void set_api_credentials(string consumer_key, string consumer_secret) {
@@ -272,8 +287,53 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             session.authenticated.disconnect(on_session_authenticated);
         }
 
+        public void invalidate_persistent_session() {
+            set_persistent_access_phase_token("");
+            set_persistent_access_phase_token_secret("");
+            set_persistent_access_phase_username("");
+        }
+
+        private bool is_persistent_session_valid() {
+            return (get_persistent_access_phase_username() != null &&
+                    get_persistent_access_phase_token() != null &&
+                    get_persistent_access_phase_token_secret() != null);
+        }
+
+        private string? get_persistent_access_phase_username() {
+            return host.get_config_string("access_phase_username", null);
+        }
+
+        private void set_persistent_access_phase_username(string username) {
+            host.set_config_string("access_phase_username", username);
+        }
+
+        private string? get_persistent_access_phase_token() {
+            return host.get_config_string("access_phase_token", null);
+        }
+
+        private void set_persistent_access_phase_token(string token) {
+            host.set_config_string("access_phase_token", token);
+        }
+
+        private string? get_persistent_access_phase_token_secret() {
+            return host.get_config_string("access_phase_token_secret", null);
+        }
+
+        private void set_persistent_access_phase_token_secret(string secret) {
+            host.set_config_string("access_phase_token_secret", secret);
+        }
+
         public void authenticate() {
-            do_show_login_welcome_pane();
+            if (is_persistent_session_valid()) {
+                debug("attempt start: a persistent session is available; using it");
+
+                session.authenticate_from_persistent_credentials(get_persistent_access_phase_token(),
+                        get_persistent_access_phase_token_secret(), get_persistent_access_phase_username());
+            } else {
+                debug("attempt start: no persistent session available; showing login welcome pane");
+                do_show_login_welcome_pane();
+            }
+
         }
 
         public bool can_logout() {
@@ -284,10 +344,9 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             return this.params;
         }
 
-        public void invalidate_persistent_session() {
-        }
-
         public void logout () {
+            session.deauthenticate();
+            invalidate_persistent_session();
         }
 
         private void do_show_login_welcome_pane() {
@@ -488,6 +547,12 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             params.insert("AuthToken", session.get_access_phase_token());
             params.insert("AuthTokenSecret", session.get_access_phase_token_secret());
             params.insert("Username", session.get_username());
+
+            set_persistent_access_phase_token(session.get_access_phase_token());
+            set_persistent_access_phase_token_secret(session.get_access_phase_token_secret());
+            set_persistent_access_phase_username(session.get_username());
+
+
             this.authenticated();
         }
     }
