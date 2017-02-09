@@ -14,11 +14,25 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
     // module file directory
     public ShotwellPublishingCoreServices(GLib.File module_file) {
         GLib.File resource_directory = module_file.get_parent();
+        var factory = Publishing.Authenticator.Factory.get_instance();
+        var authenicators = factory.get_available_authenticators();
         
-        pluggables += new FacebookService(resource_directory);
-        pluggables += new PicasaService(resource_directory);
-        pluggables += new FlickrService(resource_directory);
-        pluggables += new YouTubeService(resource_directory);
+        if (authenicators.contains("facebook")) {
+            pluggables += new FacebookService(resource_directory);
+        }
+
+        if (authenicators.contains("picasa")) {
+            pluggables += new PicasaService(resource_directory);
+        }
+
+        if (authenicators.contains("flickr")) {
+            pluggables += new FlickrService(resource_directory);
+        }
+
+        if (authenicators.contains("youtube")) {
+            pluggables += new YouTubeService(resource_directory);
+        }
+
         pluggables += new PiwigoService(resource_directory);
     }
     

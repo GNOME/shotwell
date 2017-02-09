@@ -10,12 +10,12 @@ namespace Publishing.Authenticator {
             return Factory.instance;
         }
 
-        public GLib.List<string> get_available_authenticators() {
-            var list = new GLib.List<string>();
-            list.append("flickr");
-            list.append("facebook");
-            list.append("picasa");
-            list.append("youtube");
+        public Gee.List<string> get_available_authenticators() {
+            var list = new Gee.ArrayList<string>();
+            list.add("flickr");
+            list.add("facebook");
+            list.add("picasa");
+            list.add("youtube");
 
             return list;
         }

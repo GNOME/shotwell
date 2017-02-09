@@ -613,7 +613,6 @@ public interface Authenticator : Object {
     public signal void authentication_failed();
 
     public abstract void authenticate();
-    public abstract void invalidate_persistent_session();
     public abstract bool can_logout();
     public abstract void logout();
 
@@ -625,7 +624,7 @@ public interface AuthenticatorFactory : Object {
     // static get_instance() method. Unfortunately this is not expressable in
     // Vala.
 
-    public abstract GLib.List<string> get_available_authenticators();
+    public abstract Gee.List<string> get_available_authenticators();
     public abstract Authenticator? create(string provider,
             Spit.Publishing.PluginHost host);
 }

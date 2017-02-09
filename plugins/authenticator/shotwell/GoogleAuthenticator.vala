@@ -118,9 +118,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
             return this.params;
         }
 
-        public void invalidate_persistent_session() {
-        }
-
         public void logout() {
         }
 
