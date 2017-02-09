@@ -746,7 +746,6 @@ public string asciify_string(string s) {
 public abstract class GoogleSession : Session {
     public abstract string get_user_name();
     public abstract string get_access_token();
-    public abstract string get_refresh_token();
     public abstract void deauthenticate();
 }
 
@@ -777,11 +776,6 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
         public override string get_access_token() {
             assert(is_authenticated());
             return access_token;
-        }
-        
-        public override string get_refresh_token() {
-            assert(refresh_token != null);
-            return refresh_token;
         }
         
         public override void deauthenticate() {
@@ -832,10 +826,6 @@ public abstract class GooglePublisher : Object, Spit.Publishing.Publisher {
         return session;
     }
 
-    protected void start_oauth_flow(string? refresh_token = null) {
-        authenticator.authenticate();
-    }
-    
     protected abstract void on_login_flow_complete();
     
     protected abstract void do_logout();

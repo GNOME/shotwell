@@ -54,8 +54,6 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
 namespace Publishing.YouTube {
 
-private const string SERVICE_WELCOME_MESSAGE =
-    _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.");
 private const string DEVELOPER_KEY =
     "AI39si5VEpzWK0z-pzo4fonEj9E4driCpEs9lK8y3HJsbbebIIRWqW3bIyGr42bjQv-N3siAfqVoM8XNmtbbp5x2gpbjiSAMTQ";
     
@@ -120,7 +118,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     }
     
     private bool running;
-    private string? refresh_token;
     private PublishingParameters publishing_parameters;
     private Spit.Publishing.ProgressCallback? progress_reporter;
 
@@ -128,7 +125,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         base(service, host, "https://gdata.youtube.com/");
         
         this.running = false;
-        this.refresh_token = host.get_config_string("refresh_token", null);
         this.publishing_parameters = new PublishingParameters();
         this.progress_reporter = null;
     }
@@ -144,13 +140,10 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             return;
 
         running = true;
-        
-        if (refresh_token == null)
-            do_show_service_welcome_pane();
-        else
-            start_oauth_flow(refresh_token);
+
+        this.authenticator.authenticate();
     }
-    
+
     public override void stop() {
         debug("YouTubePublisher: stopped.");
 
@@ -200,21 +193,10 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
         return result;
     }
-    
-    private void on_service_welcome_login() {
-        debug("EVENT: user clicked 'Login' in welcome pane.");
 
-        if (!is_running())
-            return;
-        
-        start_oauth_flow(refresh_token);
-    }
-    
     protected override void on_login_flow_complete() {
         debug("EVENT: OAuth login flow complete.");
         
-        get_host().set_config_string("refresh_token", get_session().get_refresh_token());
-
         publishing_parameters.set_user_name(get_session().get_user_name());
         
         do_fetch_account_information();
@@ -301,12 +283,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         get_host().post_error(err);
     }
 
-    private void do_show_service_welcome_pane() {
-        debug("ACTION: showing service welcome pane.");
-
-        get_host().install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_service_welcome_login);
-    }
-    
     private void do_fetch_account_information() {
         debug("ACTION: fetching channel information.");
 
@@ -407,13 +383,11 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
     protected override void do_logout() {
         debug("ACTION: logging out user.");
-        
-        get_session().deauthenticate();
-        refresh_token = null;
-        get_host().unset_config_key("refresh_token");
-          
 
-        do_show_service_welcome_pane();
+        if (this.authenticator.can_logout()) {
+            this.authenticator.logout();
+            this.authenticator.authenticate();
+        }
     }
 
     protected override Spit.Publishing.Authenticator get_authenticator() {

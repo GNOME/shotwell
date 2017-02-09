@@ -55,15 +55,12 @@ public class PicasaService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
 namespace Publishing.Picasa {
 
-internal const string SERVICE_WELCOME_MESSAGE = 
-    _("You are not currently logged into Picasa Web Albums.\n\nClick Log in to log into Picasa Web Albums in your Web browser. You will have to authorize Shotwell Connect to link to your Picasa Web Albums account.");
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 
 public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
     private bool running;
     private Spit.Publishing.ProgressCallback progress_reporter;
     private PublishingParameters publishing_parameters;
-    private string? refresh_token;
 
     public PicasaPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
@@ -77,7 +74,6 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
             media_type |= p.get_media_type();
         publishing_parameters.set_media_type(media_type);
         
-        this.refresh_token = host.get_config_string("refresh_token", null);
         this.progress_reporter = null;
     }
 
@@ -132,19 +128,9 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
         get_host().set_config_string("last-album", parameters.get_target_album_name());
     }
 
-    private void on_service_welcome_login() {
-        debug("EVENT: user clicked 'Login' in welcome pane.");
-
-        if (!is_running())
-            return;
-        
-        start_oauth_flow(refresh_token);
-    }
-
     protected override void on_login_flow_complete() {
         debug("EVENT: OAuth login flow complete.");
 
-        get_host().set_config_string("refresh_token", get_session().get_refresh_token());
 
         publishing_parameters.set_user_name(get_session().get_user_name());
         
@@ -296,12 +282,6 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
         get_host().post_error(err);
     }
 
-    private void do_show_service_welcome_pane() {
-        debug("ACTION: showing service welcome pane.");
-
-        get_host().install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_service_welcome_login);
-    }
-
     private void do_fetch_account_information() {
         debug("ACTION: fetching account and album information.");
 
@@ -425,13 +405,12 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
 
     protected override void do_logout() {
         debug("ACTION: logging out user.");
-        
         get_session().deauthenticate();
-        refresh_token = null;
-        get_host().unset_config_key("refresh_token");
-          
 
-        do_show_service_welcome_pane();
+        if (this.authenticator.can_logout()) {
+            this.authenticator.logout();
+            this.authenticator.authenticate();
+        }
     }
 
     public override bool is_running() {
@@ -446,10 +425,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
 
         running = true;
 
-        if (refresh_token == null)
-            do_show_service_welcome_pane();
-        else
-            start_oauth_flow(refresh_token);
+        this.authenticator.authenticate();
     }
 
     public override void stop() {

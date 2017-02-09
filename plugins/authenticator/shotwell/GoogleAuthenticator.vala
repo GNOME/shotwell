@@ -42,6 +42,11 @@ namespace Publishing.Authenticator.Shotwell.Google {
         public override bool is_authenticated() {
             return (access_token != null);
         }
+
+        public void deauthenticate() {
+            access_token = null;
+            refresh_token = null;
+        }
     }
 
     private class GetAccessTokensTransaction : Publishing.RESTSupport.Transaction {
@@ -85,19 +90,24 @@ namespace Publishing.Authenticator.Shotwell.Google {
         private GLib.HashTable<string, Variant> params = null;
         private WebAuthenticationPane web_auth_pane = null;
         private Session session = null;
+        private string welcome_message = null;
 
-        public Google(string scope, Spit.Publishing.PluginHost host) {
+        public Google(string scope,
+                      string welcome_message,
+                      Spit.Publishing.PluginHost host) {
             this.host = host;
             this.params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
             this.scope = scope;
             this.session = new Session();
+            this.welcome_message = welcome_message;
         }
 
         public void authenticate() {
             var refresh_token = host.get_config_string("refresh_token", null);
             if (refresh_token != null && refresh_token != "") {
-                session.refresh_token = refresh_token;
+                on_refresh_token_available(refresh_token);
                 do_exchange_refresh_token_for_access_token();
+                return;
             }
 
             // FIXME: Find a way for a proper logout
@@ -106,7 +116,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
                 host.install_static_message_pane(_("You have already logged in and out of a Google service during this Shotwell session.\n\nTo continue publishing to Google services, quit and restart Shotwell, then try publishing again."));
             } else {
-                this.do_hosted_web_authentication();
+                this.do_show_service_welcome_pane();
             }
         }
 
@@ -119,6 +129,8 @@ namespace Publishing.Authenticator.Shotwell.Google {
         }
 
         public void logout() {
+            session.deauthenticate();
+            host.set_config_string("refresh_token", "");
         }
 
         private void do_hosted_web_authentication() {
@@ -305,6 +317,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             // by the time we get a username, the session should be authenticated, or else something
             // really tragic has happened
             assert(session.is_authenticated());
+            host.set_config_string("refresh_token", session.refresh_token);
 
             this.authenticated();
         }
@@ -362,6 +375,18 @@ namespace Publishing.Authenticator.Shotwell.Google {
             host.post_error(err);
         }
 
-    }
+        private void do_show_service_welcome_pane() {
+            debug("ACTION: showing service welcome pane.");
 
+            this.host.install_welcome_pane(this.welcome_message, on_service_welcome_login);
+        }
+
+        private void on_service_welcome_login() {
+            debug("EVENT: user clicked 'Login' in welcome pane.");
+
+            this.do_hosted_web_authentication();
+        }
+
+
+    }
 }
