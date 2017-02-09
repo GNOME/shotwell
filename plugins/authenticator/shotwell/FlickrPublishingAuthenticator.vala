@@ -4,7 +4,7 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-namespace Publishing.Flickr {
+namespace Publishing.Authenticator.Shotwell.Flickr {
     internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";
     internal const string EXPIRED_SESSION_ERROR_CODE = "98";
     internal const string ENCODE_RFC_3986_EXTRA = "!*'();:@&=+$,/?%#[] \\";
@@ -65,7 +65,7 @@ namespace Publishing.Flickr {
             this.access_phase_token_secret = secret;
             this.username = username;
 
-            authenticated();
+            this.authenticated();
         }
 
         public void deauthenticate() {
@@ -165,11 +165,6 @@ namespace Publishing.Flickr {
             return request_phase_token;
         }
 
-        public string get_request_phase_token_secret() {
-            assert(request_phase_token_secret != null);
-            return request_phase_token_secret;
-        }
-
         public string get_access_phase_token() {
             assert(access_phase_token != null);
             return access_phase_token;
@@ -185,24 +180,21 @@ namespace Publishing.Flickr {
             return username;
         }
     }
-}
-
-namespace Publishing.Authenticator.Shotwell.Flickr {
     internal const string API_KEY = "60dd96d4a2ad04888b09c9e18d82c26f";
     internal const string API_SECRET = "d0960565e03547c1";
 
     internal const string SERVICE_WELCOME_MESSAGE =
         _("You are not currently logged into Flickr.\n\nClick Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account.");
 
-    internal class AuthenticationRequestTransaction : Publishing.Flickr.Transaction {
-        public AuthenticationRequestTransaction(Publishing.Flickr.Session session) {
+    internal class AuthenticationRequestTransaction : Transaction {
+        public AuthenticationRequestTransaction(Session session) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
                     Publishing.RESTSupport.HttpMethod.GET);
         }
     }
 
-    internal class AccessTokenFetchTransaction : Publishing.Flickr.Transaction {
-        public AccessTokenFetchTransaction(Publishing.Flickr.Session session, string user_verifier) {
+    internal class AccessTokenFetchTransaction : Transaction {
+        public AccessTokenFetchTransaction(Session session, string user_verifier) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/access_token",
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_verifier", user_verifier);
@@ -267,7 +259,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
     internal class Flickr : GLib.Object, Spit.Publishing.Authenticator {
         private GLib.HashTable<string, Variant> params;
-        private Publishing.Flickr.Session session;
+        private Session session;
         private Spit.Publishing.PluginHost host;
 
         public Flickr(Spit.Publishing.PluginHost host) {
@@ -278,7 +270,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             params.insert("ConsumerKey", API_KEY);
             params.insert("ConsumerSecret", API_SECRET);
 
-            session = new Publishing.Flickr.Session();
+            session = new Session();
             session.set_api_credentials(API_KEY, API_SECRET);
             session.authenticated.connect(on_session_authenticated);
         }
@@ -333,7 +325,6 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
                 debug("attempt start: no persistent session available; showing login welcome pane");
                 do_show_login_welcome_pane();
             }
-
         }
 
         public bool can_logout() {
@@ -542,8 +533,6 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         }
 
         private void on_session_authenticated() {
-            params.insert("RequestToken", session.get_request_phase_token());
-            params.insert("RequestTokenSecret", session.get_request_phase_token_secret());
             params.insert("AuthToken", session.get_access_phase_token());
             params.insert("AuthTokenSecret", session.get_access_phase_token_secret());
             params.insert("Username", session.get_username());

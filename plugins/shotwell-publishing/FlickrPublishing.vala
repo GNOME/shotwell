@@ -416,6 +416,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         running = true;
         was_started = true;
         
+        authenticator.authenticate();
     }
     
     public void start() {
