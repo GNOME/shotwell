@@ -120,6 +120,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     private bool running;
     private PublishingParameters publishing_parameters;
     private Spit.Publishing.ProgressCallback? progress_reporter;
+    private Spit.Publishing.Authenticator authenticator;
 
     public YouTubePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host) {
         base(service, host, "https://gdata.youtube.com/");
@@ -340,8 +341,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             return;
         }
 
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(get_host(), builder,
-            publishing_parameters);
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(authenticator, get_host(), builder, publishing_parameters);
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         get_host().install_dialog_pane(opts_pane);
@@ -391,7 +391,11 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     }
 
     protected override Spit.Publishing.Authenticator get_authenticator() {
-        return Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+        if (this.authenticator == null) {
+            this.authenticator = Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+        }
+
+        return this.authenticator;
     }
 }
 
@@ -420,8 +424,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     private PrivacyDescription[] privacy_descriptions;
     private PublishingParameters publishing_parameters;
 
-    public PublishingOptionsPane(Spit.Publishing.PluginHost host, Gtk.Builder builder,
-        PublishingParameters publishing_parameters) {
+    public PublishingOptionsPane(Spit.Publishing.Authenticator authenticator,
+                                 Spit.Publishing.PluginHost host,
+                                 Gtk.Builder builder,
+                                 PublishingParameters publishing_parameters) {
         this.privacy_descriptions = create_privacy_descriptions();
         this.publishing_parameters = publishing_parameters;
 
@@ -436,6 +442,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         logout_button = this.builder.get_object("logout_button") as Gtk.Button;
         pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
         privacy_label = this.builder.get_object("privacy_label") as Gtk.Label;
+
+        if (!authenticator.can_logout()) {
+            logout_button.parent.remove(logout_button);
+        }
 
         login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(
             publishing_parameters.get_user_name()));

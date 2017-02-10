@@ -103,7 +103,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private PublishingParameters parameters = null;
 
     public FlickrPublisher(Spit.Publishing.Service service,
-        Spit.Publishing.PluginHost host) {
+                           Spit.Publishing.PluginHost host) {
         debug("FlickrPublisher instantiated.");
         this.service = service;
         this.host = host;
@@ -116,6 +116,10 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     ~FlickrPublisher() {
         this.authenticator.authenticated.disconnect(on_session_authenticated);
+    }
+
+    public Spit.Publishing.Authenticator get_authenticator() {
+        return this.authenticator;
     }
 
     private bool get_persistent_strip_metadata() {
@@ -781,6 +785,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         size_combo = (Gtk.ComboBoxText) this.builder.get_object("size_combo");
         size_label = (Gtk.Label) this.builder.get_object("size_label");
         strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
+
+        if (!publisher.get_authenticator().can_logout()) {
+            logout_button.parent.remove(logout_button);
+        }
 
         this.parameters = parameters;
         this.publisher = publisher;

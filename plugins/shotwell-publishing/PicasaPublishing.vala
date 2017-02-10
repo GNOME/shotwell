@@ -61,6 +61,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
     private bool running;
     private Spit.Publishing.ProgressCallback progress_reporter;
     private PublishingParameters publishing_parameters;
+    private Spit.Publishing.Authenticator authenticator;
 
     public PicasaPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
@@ -342,7 +343,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
             return;
         }
 
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(builder, publishing_parameters);
+        var opts_pane = new PublishingOptionsPane(builder, publishing_parameters, this.authenticator.can_logout());
         opts_pane.publish.connect(on_publishing_options_publish);
         opts_pane.logout.connect(on_publishing_options_logout);
         get_host().install_dialog_pane(opts_pane);
@@ -437,7 +438,11 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
     }
 
     protected override Spit.Publishing.Authenticator get_authenticator() {
-        return Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+        if (this.authenticator == null) {
+            this.authenticator = Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+        }
+
+        return this.authenticator;
     }
 }
 
@@ -612,7 +617,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public signal void publish();
     public signal void logout();
 
-    public PublishingOptionsPane(Gtk.Builder builder, PublishingParameters parameters) {
+    public PublishingOptionsPane(Gtk.Builder builder, PublishingParameters parameters, bool can_logout) {
         size_descriptions = create_size_descriptions();
 
         this.builder = builder;
@@ -634,6 +639,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
         publish_button = (Gtk.Button) builder.get_object("publish_button");
         logout_button = (Gtk.Button) builder.get_object("logout_button");
+
+        if (!can_logout) {
+            logout_button.parent.remove(logout_button);
+        }
 
         // populate any widgets whose contents are programmatically-generated.
         login_identity_label.set_label(_("You are logged into Picasa Web Albums as %s.").printf(
