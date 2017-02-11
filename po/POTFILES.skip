@@ -3,6 +3,10 @@
 misc/shotwell.appdata.xml
 misc/shotwell.desktop.in
 misc/shotwell-viewer.desktop.in
+plugins/authenticator/shotwell/FacebookPublishingAuthenticator.c
+plugins/authenticator/shotwell/FlickrPublishingAuthenticator.c
+plugins/authenticator/shotwell/GoogleAuthenticator.c
+plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.c
 plugins/common/Resources.c
 plugins/common/RESTSupport.c
 plugins/shotwell-data-imports/FSpotImporter.c
