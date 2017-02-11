@@ -53,6 +53,8 @@ plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	--pkg webkit2gtk-4.0 \
 	--pkg gcr-3 \
 	--pkg gcr-ui-3 \
+	--pkg libgdata \
+	--pkg goa-1.0 \
 	--vapidir $(abs_top_srcdir)/plugins
 
 plugins_shotwell_publishing_shotwell_publishing_la_CFLAGS = \

@@ -132,7 +132,7 @@ PKG_CHECK_MODULES(IMPORT, [gee-0.8 >= 0.8.5 glib-2.0 gio-2.0 sqlite3])
 
 PKG_CHECK_MODULES(PUBLISHING, [gobject-2.0 glib-2.0 gexiv2 json-glib-1.0
                                gee-0.8 libsoup-2.4 libxml-2.0 gtk+-3.0
-                               webkit2gtk-4.0 gcr-3 gcr-ui-3])
+                               webkit2gtk-4.0 gcr-3 gcr-ui-3 libgdata])
 
 PKG_CHECK_MODULES(TRANSITIONS, [gobject-2.0 cairo gio-2.0 gdk-pixbuf-2.0
                                 gdk-3.0])

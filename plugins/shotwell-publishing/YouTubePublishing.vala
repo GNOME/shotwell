@@ -65,12 +65,10 @@ private enum PrivacySetting {
 
 private class PublishingParameters {
     private PrivacySetting privacy;
-    private string? channel_name;
     private string? user_name;
 
     public PublishingParameters() {
         this.privacy = PrivacySetting.PRIVATE;
-        this.channel_name = null;
         this.user_name = null;
     }
 
@@ -82,14 +80,6 @@ private class PublishingParameters {
         this.privacy = privacy;
     }
     
-    public string? get_channel_name() {
-        return channel_name;
-    }
-    
-    public void set_channel_name(string? channel_name) {
-        this.channel_name = channel_name;
-    }
-    
     public string? get_user_name() {
         return user_name;
     }
@@ -99,28 +89,45 @@ private class PublishingParameters {
     }
 }
 
-public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
-    private class ChannelDirectoryTransaction :
-        Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-        private const string ENDPOINT_URL = "https://gdata.youtube.com/feeds/users/default";
+internal class YoutubeAuthorizer : GData.Authorizer, Object {
+    private RESTSupport.GoogleSession session;
 
-        public ChannelDirectoryTransaction(Publishing.RESTSupport.GoogleSession session) {
-            base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
-        }
-
-        public static string? validate_xml(Publishing.RESTSupport.XmlDocument doc) {
-            Xml.Node* document_root = doc.get_root_node();
-            if ((document_root->name == "feed") || (document_root->name == "entry"))
-                return null;
-            else
-                return "response root node isn't a <feed> or <entry>";
-        }
+    public YoutubeAuthorizer(RESTSupport.GoogleSession session) {
+        this.session = session;
     }
-    
+
+    public bool is_authorized_for_domain(GData.AuthorizationDomain domain) {
+        return true;
+    }
+
+    public void process_request(GData.AuthorizationDomain? domain,
+                                Soup.Message message) {
+        critical ("process_request called");
+        var header = "Bearer %s".printf(session.get_access_token());
+        message.request_headers.replace ("Authorization", header);
+    }
+
+    public bool refresh_authorization (GLib.Cancellable? cancellable = null) throws GLib.Error {
+        critical("refresh_authorization called");
+        return false;
+    }
+
+    public async bool refresh_authorization_async (GLib.Cancellable? cancellable) throws GLib.Error {
+        critical("refresh_authorization_async called");
+        Idle.add(() => { refresh_authorization_async.callback(); return false; });
+
+        yield;
+
+        return false;
+    }
+}
+
+public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     private bool running;
     private PublishingParameters publishing_parameters;
     private Spit.Publishing.ProgressCallback? progress_reporter;
     private Spit.Publishing.Authenticator authenticator;
+    private GData.YouTubeService youtube_service;
 
     public YouTubePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host) {
         base(service, host, "https://gdata.youtube.com/");
@@ -152,81 +159,15 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
         get_session().stop_transactions();
     }
-    
-    private string extract_channel_name_helper(Xml.Node* document_root) throws
-        Spit.Publishing.PublishingError {
-        string result = "";
-
-        Xml.Node* doc_node_iter = null;
-        if (document_root->name == "feed")
-            doc_node_iter = document_root->children;
-        else if (document_root->name == "entry")
-            doc_node_iter = document_root;
-        else
-            throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "response root node isn't a <feed> or <entry>");
-
-        for ( ; doc_node_iter != null; doc_node_iter = doc_node_iter->next) {
-            if (doc_node_iter->name != "entry")
-                continue;
-
-            string name_val = null;
-            string url_val = null;
-            Xml.Node* channel_node_iter = doc_node_iter->children;
-            for ( ; channel_node_iter != null; channel_node_iter = channel_node_iter->next) {
-                if (channel_node_iter->name == "title") {
-                    name_val = channel_node_iter->get_content();
-                } else if (channel_node_iter->name == "id") {
-                    // we only want nodes in the default namespace -- the feed that we get back
-                    // from Google also defines <entry> child nodes named <id> in the media
-                    // namespace
-                    if (channel_node_iter->ns->prefix != null)
-                        continue;
-                    url_val = channel_node_iter->get_content();
-                }
-            }
-
-            result = name_val;
-            break;
-        }
-
-        debug("YouTubePublisher: extracted channel name '%s' from response XML.", result);
-
-        return result;
-    }
 
     protected override void on_login_flow_complete() {
         debug("EVENT: OAuth login flow complete.");
         
         publishing_parameters.set_user_name(get_session().get_user_name());
         
-        do_fetch_account_information();
-    }
-
-    private void on_initial_channel_fetch_complete(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_initial_channel_fetch_complete);
-        txn.network_error.disconnect(on_initial_channel_fetch_error);
-
-        debug("EVENT: finished fetching account and channel information.");
-
-        if (!is_running())
-            return;
-
-        do_parse_and_display_account_information((ChannelDirectoryTransaction) txn);
-    }
-
-    private void on_initial_channel_fetch_error(Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err) {
-        bad_txn.completed.disconnect(on_initial_channel_fetch_complete);
-        bad_txn.network_error.disconnect(on_initial_channel_fetch_error);
-
-        debug("EVENT: fetching account and channel information failed; response = '%s'.",
-            bad_txn.get_response());
-
-        if (!is_running())
-            return;
-
-        get_host().post_error(err);
+        this.youtube_service = new GData.YouTubeService(DEVELOPER_KEY,
+                new YoutubeAuthorizer(get_session()));
+        do_show_publishing_options_pane();
     }
 
     private void on_publishing_options_logout() {
@@ -284,47 +225,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         get_host().post_error(err);
     }
 
-    private void do_fetch_account_information() {
-        debug("ACTION: fetching channel information.");
-
-        get_host().install_account_fetch_wait_pane();
-        get_host().set_service_locked(true);
-
-        ChannelDirectoryTransaction directory_trans =
-            new ChannelDirectoryTransaction(get_session());
-        directory_trans.network_error.connect(on_initial_channel_fetch_error);
-        directory_trans.completed.connect(on_initial_channel_fetch_complete);
-
-        try {
-            directory_trans.execute();
-        } catch (Spit.Publishing.PublishingError err) {
-            on_initial_channel_fetch_error(directory_trans, err);
-        }
-    }
-
-    private void do_parse_and_display_account_information(ChannelDirectoryTransaction transaction) {
-        debug("ACTION: extracting account and channel information from body of server response");
-
-        Publishing.RESTSupport.XmlDocument response_doc;
-        try {
-            response_doc = Publishing.RESTSupport.XmlDocument.parse_string(
-                transaction.get_response(), ChannelDirectoryTransaction.validate_xml);
-        } catch (Spit.Publishing.PublishingError err) {
-            get_host().post_error(err);
-            return;
-        }
-
-        try {
-            publishing_parameters.set_channel_name(extract_channel_name_helper(
-                response_doc.get_root_node()));
-        } catch (Spit.Publishing.PublishingError err) {
-            get_host().post_error(err);
-            return;
-        }
-
-        do_show_publishing_options_pane();
-    }
-
     private void do_show_publishing_options_pane() {
         debug("ACTION: showing publishing options pane.");
 
@@ -366,7 +266,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             return;
 
         Spit.Publishing.Publishable[] publishables = get_host().get_publishables();
-        Uploader uploader = new Uploader(get_session(), publishables, publishing_parameters);
+        Uploader uploader = new Uploader(this.youtube_service, get_session(), publishables, publishing_parameters);
 
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
@@ -392,7 +292,8 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
     protected override Spit.Publishing.Authenticator get_authenticator() {
         if (this.authenticator == null) {
-            this.authenticator = Publishing.Authenticator.Factory.get_instance().create("picasa", get_host());
+            this.authenticator =
+                Publishing.Authenticator.Factory.get_instance().create("youtube", get_host());
         }
 
         return this.authenticator;
@@ -415,7 +316,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
     private Gtk.Box pane_widget = null;
     private Gtk.ComboBoxText privacy_combo = null;
-    private Gtk.Label publish_to_label = null;
     private Gtk.Label login_identity_label = null;
     private Gtk.Button publish_button = null;
     private Gtk.Button logout_button = null;
@@ -437,7 +337,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         login_identity_label = this.builder.get_object("login_identity_label") as Gtk.Label;
         privacy_combo = this.builder.get_object("privacy_combo") as Gtk.ComboBoxText;
-        publish_to_label = this.builder.get_object("publish_to_label") as Gtk.Label;
         publish_button = this.builder.get_object("publish_button") as Gtk.Button;
         logout_button = this.builder.get_object("logout_button") as Gtk.Button;
         pane_widget = this.builder.get_object("youtube_pane_widget") as Gtk.Box;
@@ -449,8 +348,6 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(
             publishing_parameters.get_user_name()));
-        publish_to_label.set_label(_("Videos will appear in “%s”").printf(
-            publishing_parameters.get_channel_name()));
 
         foreach(PrivacyDescription desc in privacy_descriptions) {
             privacy_combo.append_text(desc.description);
@@ -507,107 +404,70 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
 internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
     private const string ENDPOINT_URL = "https://uploads.gdata.youtube.com/feeds/api/users/default/uploads";
-    private const string UNLISTED_XML = "<yt:accessControl action='list' permission='denied'/>";
-    private const string PRIVATE_XML = "<yt:private/>";
-    private const string METADATA_TEMPLATE ="""<?xml version='1.0'?>
-                                                <entry xmlns='http://www.w3.org/2005/Atom'
-                                                xmlns:media='http://search.yahoo.com/mrss/'
-                                                xmlns:yt='http://gdata.youtube.com/schemas/2007'>
-                                                <media:group>
-                                                    <media:title type='plain'>%s</media:title>
-                                                    <media:category
-                                                    scheme='http://gdata.youtube.com/schemas/2007/categories.cat'>People
-                                                    </media:category>
-                                                    %s
-                                                </media:group>
-                                                    %s
-                                                </entry>""";
     private PublishingParameters parameters;
     private Publishing.RESTSupport.GoogleSession session;
     private Spit.Publishing.Publishable publishable;
+    private GData.YouTubeService youtube_service;
 
-    public UploadTransaction(Publishing.RESTSupport.GoogleSession session,
+    public UploadTransaction(GData.YouTubeService youtube_service, Publishing.RESTSupport.GoogleSession session,
         PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
         base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.POST);
         assert(session.is_authenticated());
         this.session = session;
         this.parameters = parameters;
         this.publishable = publishable;
+        this.youtube_service = youtube_service;
     }
 
     public override void execute() throws Spit.Publishing.PublishingError {
-        // create the multipart request container
-        Soup.Multipart message_parts = new Soup.Multipart("multipart/related");
+        var video = new GData.YouTubeVideo(null);
 
-        string unlisted_video =
-            (parameters.get_privacy() == PrivacySetting.UNLISTED) ? UNLISTED_XML : "";
-
-        string private_video =
-            (parameters.get_privacy() == PrivacySetting.PRIVATE) ? PRIVATE_XML : "";
-
+        var slug = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
         // Set title to publishing name, but if that's empty default to filename.
         string title = publishable.get_publishing_name();
         if (title == "") {
             title = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
         }
+        video.title = title;
 
-        string metadata = METADATA_TEMPLATE.printf(Publishing.RESTSupport.decimal_entity_encode(title),
-            private_video, unlisted_video);
-        Soup.Buffer metadata_buffer = new Soup.Buffer(Soup.MemoryUse.COPY, metadata.data);
-        message_parts.append_form_file("", "", "application/atom+xml", metadata_buffer);
+        video.is_private = (parameters.get_privacy() == PrivacySetting.PRIVATE);
 
-        // attempt to read the binary video data from disk
-        string video_data;
-        size_t data_length;
-        try {
-            FileUtils.get_contents(publishable.get_serialized_file().get_path(), out video_data,
-                out data_length);
-        } catch (FileError e) {
-            string msg = "YouTube: couldn't read data from %s: %s".printf(
-                publishable.get_serialized_file().get_path(), e.message);
-            warning("%s", msg);
-
-            throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(msg);
+        if (parameters.get_privacy() == PrivacySetting.UNLISTED) {
+            video.set_access_control("list", GData.YouTubePermission.DENIED);
+        } else if (!video.is_private) {
+            video.set_access_control("list", GData.YouTubePermission.ALLOWED);
         }
 
-        // bind the binary video data read from disk into a Soup.Buffer object so that we
-        // can attach it to the multipart request, then actaully append the buffer
-        // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY,
-            video_data.data[0:data_length]);
+        var file = publishable.get_serialized_file();
 
-        message_parts.append_form_file("", publishable.get_serialized_file().get_path(),
-            "video/mpeg", bindable_data);
-        // create a message that can be sent over the wire whose payload is the multipart container
-        // that we've been building up
-        Soup.Message outbound_message =
-            Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
-        outbound_message.request_headers.append("X-GData-Key", "key=%s".printf(DEVELOPER_KEY));
-        outbound_message.request_headers.append("Slug",
-            publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME));
-        outbound_message.request_headers.append("Authorization", "Bearer " +
-            session.get_access_token());
-        set_message(outbound_message);
-
-        // send the message and get its response
-        set_is_executed(true);
-        send();
+        try {
+            var info = file.query_info(FileAttribute.STANDARD_CONTENT_TYPE, FileQueryInfoFlags.NONE);
+            var upload_stream = this.youtube_service.upload_video(video, slug,
+                    info.get_content_type());
+            var input_stream = file.read();
+            upload_stream.splice(input_stream, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
+            video = this.youtube_service.finish_video_upload(upload_stream);
+        } catch (Error error) {
+            critical("Upload failed: %s", error.message);
+        }
     }
 }
 
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
+    private GData.YouTubeService youtube_service;
 
-    public Uploader(Publishing.RESTSupport.GoogleSession session,
+    public Uploader(GData.YouTubeService youtube_service, Publishing.RESTSupport.GoogleSession session,
         Spit.Publishing.Publishable[] publishables, PublishingParameters parameters) {
         base(session, publishables);
 
         this.parameters = parameters;
+        this.youtube_service = youtube_service;
     }
 
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
-        return new UploadTransaction((Publishing.RESTSupport.GoogleSession) get_session(),
+        return new UploadTransaction(this.youtube_service, (Publishing.RESTSupport.GoogleSession) get_session(),
             parameters, get_current_publishable());
     }
 }
