@@ -2,8 +2,8 @@ using Shotwell;
 using Shotwell.Plugins;
 
 namespace Publishing.Authenticator.Shotwell.Google {
-    private const string OAUTH_CLIENT_ID = "1073902228337-gm4uf5etk25s0hnnm0g7uv2tm2bm1j0b.apps.googleusercontent.com";
-    private const string OAUTH_CLIENT_SECRET = "_kA4RZz72xqed4DqfO7xMmMN";
+    private const string OAUTH_CLIENT_ID = "534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67.apps.googleusercontent.com";
+    private const string OAUTH_CLIENT_SECRET = "pwpzZ7W1TCcD5uIfYCu8sM7x";
 
     private class WebAuthenticationPane : Common.WebAuthenticationPane {
         public static bool cache_dirty = false;
@@ -340,7 +340,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             try {
                 txn.execute();
             } catch (Spit.Publishing.PublishingError err) {
-                host.post_error(err);
+                    host.post_error(err);
             }
         }
 
@@ -366,15 +366,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             if (session.is_authenticated()) // ignore these events if the session is already auth'd
                 return;
-
-            // 400 errors indicate that the OAuth client ID and secret have become invalid. In most
-            // cases, this can be fixed by logging the user out
-#if 0
-            if (txn.get_status_code() == 400) {
-                do_logout();
-                return;
+            if (txn.get_status_code() == Soup.Status.BAD_REQUEST ||
+                txn.get_status_code() == Soup.Status.UNAUTHORIZED) {
+                // Refresh token invalid, starting over
+                host.set_config_string("refresh_token", "");
+                Idle.add (() => { this.authenticate(); return false; });
             }
-#endif
 
             host.post_error(err);
         }
