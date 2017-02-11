@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15.1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-01-10 17:57+0000\n"
-"PO-Revision-Date: 2017-01-14 12:51+0100\n"
+"POT-Creation-Date: 2017-02-06 12:17+0000\n"
+"PO-Revision-Date: 2017-02-11 15:40+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/shotwell/language/"
 "da/)\n"
@@ -75,6 +75,10 @@ msgstr ""
 #: misc/shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell understøtter JPEG, PNG, TIFF og en række RAW-filformater."
+
+#: misc/shotwell.appdata.xml.in:52
+msgid "The Shotwell developers"
+msgstr "Udviklerne af Shotwell"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
