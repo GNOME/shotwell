@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-07-01 22:30+0000\n"
-"PO-Revision-Date: 2016-09-21 13:25+0200\n"
+"POT-Creation-Date: 2017-01-18 21:37+0000\n"
+"PO-Revision-Date: 2017-02-12 15:58+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -171,8 +171,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/edit-crop.page:42
-#| msgid ""
-#| "@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
 msgctxt "_"
 msgid ""
 "external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
@@ -1266,7 +1264,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/organize-event.page:51
 msgid "Change the photo used to represent each event"
-msgstr "Ändra bilden som representerar varje händelse."
+msgstr "Ändra bilden som representerar varje händelse"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:53
@@ -1457,8 +1455,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/organize-remove.page:15
-#| msgid ""
-#| "@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
 msgctxt "_"
 msgid ""
 "external ref='figures/trash_process.png' "
@@ -2227,7 +2223,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/other-files.page:95
 msgid "Automatically renaming imported photos to lowercase"
-msgstr "Automatiskt döpa om importerade bilder till gemener."
+msgstr "Automatiskt byta namn på importerade bilder till gemener"
 
 #. (itstool) path: section/p
 #: C/other-files.page:97
@@ -2632,7 +2628,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/share-background.page:12
 msgid "Set a desktop background or slideshow"
-msgstr "Ange en skrivbordsbakgrund eller ett bildspel."
+msgstr "Ange en skrivbordsbakgrund eller ett bildspel"
 
 #. (itstool) path: page/p
 #: C/share-background.page:14
@@ -2921,13 +2917,11 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"http://facebook.com\">Facebook</link>"
 msgstr "<link href=\"http://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"http://flickr.com\">Flickr</link>"
 msgstr "<link href=\"http://flickr.com\">Flickr</link>"
 
