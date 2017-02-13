@@ -1,7 +1,9 @@
 lib_LTLIBRARIES += plugins/authenticator/libshotwell-authenticator.la
 
 dist_noinst_DATA += \
-	plugins/authenticator/shotwell/flickr_pin_entry_pane.ui
+	plugins/authenticator/shotwell/flickr_pin_entry_pane.ui \
+	plugins/authenticator/shotwell/org.gnome.Shotwell.Authenticator.gresource.xml \
+	plugins/authenticator/shotwell-authenticator.h
 
 plugins/authenticator/shotwell-authenticator.vapi plugins/authenticator/shotwell-authenticator.h: \
 	plugins_authenticator_libshotwell_authenticator_la_vala.stamp
