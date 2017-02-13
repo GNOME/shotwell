@@ -1,3 +1,25 @@
+Shotwell 0.25.5 - 31 Feb 2017
+  * Fix setting of gamma value and color matrix in libraw
+  * Extract web publishing authenticators into separate library. That should
+    make it possible to easily support UOA and GOA without patching Shotwell.
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=778174
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Debarshi Ray <debarshir@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - da, courtesy of Alan Mortensen
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.25.4 - 31 Jan 2017
   * Publishing: Use HTTPS everywhere
   * Translation updates
