@@ -340,6 +340,10 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             invalidate_persistent_session();
         }
 
+        public void refresh() {
+            // No-Op with flickr
+        }
+
         private void do_show_login_welcome_pane() {
             debug("ACTION: installing login welcome pane");
 

@@ -615,6 +615,7 @@ public interface Authenticator : Object {
     public abstract void authenticate();
     public abstract bool can_logout();
     public abstract void logout();
+    public abstract void refresh();
 
     public abstract GLib.HashTable<string, Variant> get_authentication_parameter();
 }

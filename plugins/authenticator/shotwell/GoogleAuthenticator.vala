@@ -133,6 +133,10 @@ namespace Publishing.Authenticator.Shotwell.Google {
             host.set_config_string("refresh_token", "");
         }
 
+        public void refresh() {
+            // TODO: Needs to re-auth
+        }
+
         private void do_hosted_web_authentication() {
             debug("ACTION: running OAuth authentication flow in hosted web pane.");
 

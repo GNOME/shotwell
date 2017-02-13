@@ -211,6 +211,10 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
             invalidate_persistent_session();
         }
 
+        public void refresh() {
+            // No-Op with Flickr
+        }
+
         /* Private functions */
         private bool is_persistent_session_valid() {
             string? token = get_persistent_access_token();
