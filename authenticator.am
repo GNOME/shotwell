@@ -3,15 +3,18 @@ lib_LTLIBRARIES += plugins/authenticator/libshotwell-authenticator.la
 dist_noinst_DATA += \
 	plugins/authenticator/shotwell/flickr_pin_entry_pane.ui
 
+plugins/authenticator/shotwell-authenticator.vapi plugins/authenticator/shotwell-authenticator.h: \
+	plugins_authenticator_libshotwell_authenticator_la_vala.stamp
+
 plugins_authenticator_libshotwell_authenticator_la_SOURCES = \
-	$(abs_top_srcdir)/plugins/shotwell-plugin-common.vapi
+	plugins/shotwell-plugin-common.vapi \
+	plugins/shotwell-plugin-dev-1.0.vapi
 
 plugins_authenticator_libshotwell_authenticator_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
 	--library shotwell-authenticator \
 	--vapi=plugins/authenticator/shotwell-authenticator.vapi \
 	--header=plugins/authenticator/shotwell-authenticator.h \
-	--pkg shotwell-plugin-dev-1.0 \
 	$(AUTHENTICATOR_PACKAGES) \
 	--vapidir $(abs_top_srcdir)/plugins
 
