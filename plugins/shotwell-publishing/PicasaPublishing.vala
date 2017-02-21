@@ -350,10 +350,7 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
         Gtk.Builder builder = new Gtk.Builder();
 
         try {
-            // the trailing get_path() is required, since add_from_file can't cope
-            // with File objects directly and expects a pathname instead.
-            builder.add_from_resource(Resources.RESOURCE_PATH + "/" +
-                "picasa_publishing_options_pane.ui");
+            builder.add_from_resource(Resources.RESOURCE_PATH + "/" + "picasa_publishing_options_pane.ui");
         } catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
             get_host().post_error(
