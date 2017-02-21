@@ -429,8 +429,16 @@ internal class UploadTransaction :
         this.session = session;
         this.parameters = parameters;
         this.publishable = publishable;
-        this.mime_type = (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) ?
-            "video/mpeg" : "image/jpeg";
+        if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) {
+            try {
+                var info = this.publishable.get_serialized_file().query_info(FileAttribute.STANDARD_CONTENT_TYPE, FileQueryInfoFlags.NONE);
+                this.mime_type = ContentType.get_mime_type(info.get_content_type());
+            } catch (Error err) {
+                this.mime_type = "video/mpeg";
+            }
+        } else {
+            this.mime_type = "image/jpeg";
+        }
     }
 
     public override void execute() throws Spit.Publishing.PublishingError {
