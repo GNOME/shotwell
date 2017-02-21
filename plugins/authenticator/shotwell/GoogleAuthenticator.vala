@@ -37,6 +37,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
     private class Session : Publishing.RESTSupport.Session {
         public string access_token = null;
         public string refresh_token = null;
+        public int64 expires_at = -1;
 
         public override bool is_authenticated() {
             return (access_token != null);
@@ -45,6 +46,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
         public void deauthenticate() {
             access_token = null;
             refresh_token = null;
+            expires_at = -1;
         }
     }
 
@@ -153,7 +155,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
             web_auth_pane.authorized.connect(on_web_auth_pane_authorized);
 
             host.install_dialog_pane(web_auth_pane);
-
         }
 
         private void on_web_auth_pane_authorized(string auth_code) {
@@ -222,6 +223,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 return;
             }
 
+            if (response_obj.has_member("expires_in")) {
+                var duration = response_obj.get_int_member("expires_in");
+                var abs_time = GLib.get_real_time() + duration * 1000L * 1000L;
+                on_expiry_time_avilable(abs_time);
+            }
+
             if (response_obj.has_member("refresh_token")) {
                 string refresh_token = response_obj.get_string_member("refresh_token");
 
@@ -243,6 +250,15 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             session.refresh_token = token;
         }
+
+        private void on_expiry_time_avilable(int64 abs_time) {
+            debug("EVENT: an OAuth access token expiry time became available; time = %'" + int64.FORMAT +
+                    "'.", abs_time);
+
+            session.expires_at = abs_time;
+            this.params.insert("ExpiryTime", new Variant.int64(abs_time));
+        }
+
 
         private void on_access_token_available(string token) {
             debug("EVENT: an OAuth access token has become available; token = '%s'.", token);
