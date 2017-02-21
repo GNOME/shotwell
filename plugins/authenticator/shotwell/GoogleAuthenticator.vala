@@ -25,8 +25,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 if (auth_code_field_start < 0)
                     return;
 
-                string auth_code =
-                    page_title.substring(auth_code_field_start + 5); // 5 = "code=".length
+                string auth_code = page_title.substring(auth_code_field_start + 5); // 5 = "code=".length
 
                 cache_dirty = true;
 
@@ -237,6 +236,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
                     on_access_token_available(access_token);
             }
         }
+
         private void on_refresh_token_available(string token) {
             debug("EVENT: an OAuth refresh token has become available; token = '%s'.", token);
             this.params.insert("RefreshToken", new Variant.string(token));
