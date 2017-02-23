@@ -1,3 +1,12 @@
+shotwell (0.25.5-0~jensge1~yakkety1) yakkety; urgency=medium
+
+  * Fix setting of gamma value and color matrix in libraw
+  * Extract web publishing authenticators into separate library. That should
+    make it possible to easily support UOA and GOA without patching Shotwell.
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Thu, 23 Feb 2017 18:06:00 +0100
+
 shotwell (0.25.4-0~jensge1~yakkety1) yakkety; urgency=high
 
   * Publishing: Use HTTPS everywhere
