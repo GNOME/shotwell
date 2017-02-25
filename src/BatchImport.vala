@@ -1777,7 +1777,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     private ImportResult prepare_file(BatchImportJob job, File file, File? associated_file, 
         bool copy_to_library, out PreparedFile prepared_file) {
         prepared_file = null;
-        
+
         bool is_video = VideoReader.is_supported_video_file(file);
         
         if ((!is_video) && (!Photo.is_file_image(file)))
