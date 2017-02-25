@@ -89,11 +89,11 @@ private class PublishingParameters {
     }
 }
 
-internal class YoutubeAuthorizer : GData.Authorizer, Object {
+internal class YouTubeAuthorizer : GData.Authorizer, Object {
     private RESTSupport.GoogleSession session;
     private Spit.Publishing.Authenticator authenticator;
 
-    public YoutubeAuthorizer(RESTSupport.GoogleSession session, Spit.Publishing.Authenticator authenticator) {
+    public YouTubeAuthorizer(RESTSupport.GoogleSession session, Spit.Publishing.Authenticator authenticator) {
         this.session = session;
         this.authenticator = authenticator;
     }
@@ -162,7 +162,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         publishing_parameters.set_user_name(get_session().get_user_name());
         
         this.youtube_service = new GData.YouTubeService(DEVELOPER_KEY,
-                new YoutubeAuthorizer(get_session(), this.authenticator));
+                new YouTubeAuthorizer(get_session(), this.authenticator));
         do_show_publishing_options_pane();
     }
 
@@ -250,7 +250,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
         get_host().set_service_locked(true);
         get_host().install_account_fetch_wait_pane();
-        
 
         progress_reporter = get_host().serialize_publishables(-1);
 
@@ -437,15 +436,47 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         var file = publishable.get_serialized_file();
 
         try {
-            var info = file.query_info(FileAttribute.STANDARD_CONTENT_TYPE, FileQueryInfoFlags.NONE);
+            var info = file.query_info(FileAttribute.STANDARD_CONTENT_TYPE + "," +
+                                       FileAttribute.STANDARD_SIZE, FileQueryInfoFlags.NONE);
             var upload_stream = this.youtube_service.upload_video(video, slug,
                     info.get_content_type());
             var input_stream = file.read();
-            upload_stream.splice(input_stream, OutputStreamSpliceFlags.CLOSE_SOURCE | OutputStreamSpliceFlags.CLOSE_TARGET);
+
+            // Yuck...
+            var loop = new MainLoop(null, false);
+            this.splice_with_progress.begin(info, input_stream, upload_stream,
+                    (obj, res) => {
+                try {
+                    this.splice_with_progress.end(res);
+                } catch (Error error) {
+                    critical("Failed to upload: %s", error.message);
+                }
+                loop.quit();
+            });
+            loop.run();
             video = this.youtube_service.finish_video_upload(upload_stream);
         } catch (Error error) {
             critical("Upload failed: %s", error.message);
         }
+    }
+
+    private async void splice_with_progress(GLib.FileInfo info, GLib.InputStream input, GLib.OutputStream output) throws Error {
+        var total_bytes = info.get_size();
+        var bytes_to_write = total_bytes;
+        uint8 buffer[8192];
+
+        while (bytes_to_write > 0) {
+            var bytes_read = yield input.read_async(buffer);
+            if (bytes_read == 0)
+                break;
+
+            var bytes_written = yield output.write_async(buffer[0:bytes_read]);
+            bytes_to_write -= bytes_written;
+            chunk_transmitted((int)(total_bytes - bytes_to_write), (int) total_bytes);
+        }
+
+        yield output.close_async();
+        yield input.close_async();
     }
 }
 
