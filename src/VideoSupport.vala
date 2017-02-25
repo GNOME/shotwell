@@ -53,9 +53,24 @@ public class VideoReader {
      }
     
     public static bool is_supported_video_file(File file) {
+        var mime_type = ContentType.guess(file.get_basename(), new uchar[0], null);
+        // special case: deep-check content-type of files ending with .ogg
+        if (mime_type == "audio/ogg" && file.has_uri_scheme("file")) {
+            try {
+                var info = file.query_info(FileAttribute.STANDARD_CONTENT_TYPE,
+                                           FileQueryInfoFlags.NONE);
+                var content_type = info.get_content_type();
+                if (content_type != null && content_type.has_prefix ("video/")) {
+                    return true;
+                }
+            } catch (Error error) {
+                debug("Failed to query content type: %s", error.message);
+            }
+        }
+
         return is_supported_video_filename(file.get_basename());
     }
-    
+
     public static bool is_supported_video_filename(string filename) {
         string mime_type;
         mime_type = ContentType.guess(filename, new uchar[0], null);
@@ -63,7 +78,7 @@ public class VideoReader {
             string? extension = null;
             string? name = null;
             disassemble_filename(filename, out name, out extension);
-            
+
             if (extension == null)
                 return true;
 
@@ -71,9 +86,10 @@ public class VideoReader {
                 if (utf8_ci_compare(s, extension) == 0)
                     return false;
             }
-                
+
             return true;
         } else {
+            debug("Skipping %s, unsupported mime type %s", filename, mime_type);
             return false;
         }
     }
