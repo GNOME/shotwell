@@ -91,9 +91,11 @@ private class PublishingParameters {
 
 internal class YoutubeAuthorizer : GData.Authorizer, Object {
     private RESTSupport.GoogleSession session;
+    private Spit.Publishing.Authenticator authenticator;
 
-    public YoutubeAuthorizer(RESTSupport.GoogleSession session) {
+    public YoutubeAuthorizer(RESTSupport.GoogleSession session, Spit.Publishing.Authenticator authenticator) {
         this.session = session;
+        this.authenticator = authenticator;
     }
 
     public bool is_authorized_for_domain(GData.AuthorizationDomain domain) {
@@ -102,23 +104,17 @@ internal class YoutubeAuthorizer : GData.Authorizer, Object {
 
     public void process_request(GData.AuthorizationDomain? domain,
                                 Soup.Message message) {
-        critical ("process_request called");
+        if (domain == null) {
+            return;
+        }
+
         var header = "Bearer %s".printf(session.get_access_token());
-        message.request_headers.replace ("Authorization", header);
+        message.request_headers.replace("Authorization", header);
     }
 
     public bool refresh_authorization (GLib.Cancellable? cancellable = null) throws GLib.Error {
-        critical("refresh_authorization called");
-        return false;
-    }
-
-    public async bool refresh_authorization_async (GLib.Cancellable? cancellable) throws GLib.Error {
-        critical("refresh_authorization_async called");
-        Idle.add(() => { refresh_authorization_async.callback(); return false; });
-
-        yield;
-
-        return false;
+        this.authenticator.refresh();
+        return true;
     }
 }
 
@@ -131,7 +127,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
 
     public YouTubePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host) {
         base(service, host, "https://gdata.youtube.com/");
-        
+
         this.running = false;
         this.publishing_parameters = new PublishingParameters();
         this.progress_reporter = null;
@@ -166,7 +162,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         publishing_parameters.set_user_name(get_session().get_user_name());
         
         this.youtube_service = new GData.YouTubeService(DEVELOPER_KEY,
-                new YoutubeAuthorizer(get_session()));
+                new YoutubeAuthorizer(get_session(), this.authenticator));
         do_show_publishing_options_pane();
     }
 
