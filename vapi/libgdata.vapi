@@ -1661,14 +1661,6 @@ namespace GData {
 		[Version (since = "0.4.0")]
 		public string version { get; }
 	}
-	[CCode (cheader_filename = "gdata/gdata.h", type_id = "gdata_goa_authorizer_get_type ()")]
-	[Version (since = "0.13.1")]
-	public class GoaAuthorizer : GLib.Object, GData.Authorizer {
-		[CCode (has_construct_function = false)]
-		public GoaAuthorizer (Goa.Object goa_object);
-		public unowned Goa.Object get_goa_object ();
-		public Goa.Object goa_object { get; construct; }
-	}
 	[CCode (cheader_filename = "gdata/gdata.h", type_id = "gdata_link_get_type ()")]
 	public class Link : GData.Parsable, GData.Comparable {
 		[CCode (has_construct_function = false)]
