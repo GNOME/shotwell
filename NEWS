@@ -1,3 +1,29 @@
+Shotwell 0.25.6 - 27 Feb 2017
+  * Remove obsolete option to create new folders on Picasa web albums
+  * Update Google API keys
+  * Fix Youtube upload by porting to libgdata
+  * Use embedded thumbnails in RAW files when default developer is set to
+    Camera
+  * Remove accidental raw development while importing
+  * Fix "Export" menu accidently being labelled as "Save As"
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717305
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718248
+ - https://bugzilla.gnome.org/show_bug.cgi?id=777910
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+
+Added/updated translations
+ - fi, courtesy of Jiri Grönroos
+ - pl, courtesy of Piotr Drąg
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.25.5 - 31 Feb 2017
   * Fix setting of gamma value and color matrix in libraw
   * Extract web publishing authenticators into separate library. That should

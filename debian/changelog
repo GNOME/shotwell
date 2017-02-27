@@ -1,3 +1,15 @@
+shotwell (0.25.6-0~jensge1~yakkety1) yakkety; urgency=medium
+
+  * Remove obsolete option to create new folders on Picasa web albums
+  * Update Google API keys
+  * Fix Youtube upload by porting to libgdata
+  * Use embedded thumbnails in RAW files when default developer is set to
+    Camera
+  * Remove accidental raw development while importing
+  * Fix "Export" menu accidently being labelled as "Save As"
+
+ -- Jens Georg <mail@jensge.org>  Mon, 27 Feb 2017 20:38:51 +0100
+
 shotwell (0.25.5-0~jensge1~yakkety1) yakkety; urgency=medium
 
   * Fix setting of gamma value and color matrix in libraw
