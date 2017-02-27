@@ -444,8 +444,7 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
 
             // Yuck...
             var loop = new MainLoop(null, false);
-            this.splice_with_progress.begin(info, input_stream, upload_stream,
-                    (obj, res) => {
+            this.splice_with_progress.begin(info, input_stream, upload_stream, (obj, res) => {
                 try {
                     this.splice_with_progress.end(res);
                 } catch (Error error) {

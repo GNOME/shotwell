@@ -115,6 +115,11 @@ public class PicasaPublisher : Publishing.RESTSupport.GooglePublisher {
                 }
             }
 
+            // If default album is present in the result list, just skip it because we added it on top anyway
+            if (url_val == DEFAULT_ALBUM_FEED_URL) {
+                continue;
+            }
+
             result += new Album(name_val, url_val);
         }
 
