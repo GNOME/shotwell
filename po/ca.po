@@ -4733,7 +4733,7 @@ msgstr "Tipus"
 
 #: ../src/SearchFilter.vala:1211
 msgid "Use a saved search to filter items in the current view"
-msgstr "Utilitza un cerca desada per filtrar els elements de la vista actual"
+msgstr "Utilitza una cerca desada per filtrar els elements de la vista actual"
 
 #: ../src/sidebar/Tree.vala:203
 msgid "New _Tag…"
