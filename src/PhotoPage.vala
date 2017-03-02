@@ -2180,6 +2180,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         // do this so window size is properly allocated, but window not shown
+        tool_window.set_transient_for(AppWindow.get_instance());
         tool_window.show_all();
         tool_window.hide();
         
