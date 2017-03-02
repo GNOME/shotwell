@@ -268,7 +268,11 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public virtual void switching_from() {
         in_view = false;
-        remove_actions(AppWindow.get_instance());
+        //remove_actions(AppWindow.get_instance());
+        var map = get_container() as GLib.ActionMap;
+        if (map != null) {
+            remove_actions(map);
+        }
         if (toolbar_path != null)
             toolbar = null;
     }
@@ -276,7 +280,10 @@ public abstract class Page : Gtk.ScrolledWindow {
     public virtual void switched_to() {
         in_view = true;
         add_ui();
-        add_actions(AppWindow.get_instance());
+        var map = get_container() as GLib.ActionMap;
+        if (map != null) {
+            add_actions(map);
+        }
         int selected_count = get_view().get_selected_count();
         int count = get_view().get_count();
         init_actions(selected_count, count);
