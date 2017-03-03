@@ -476,8 +476,10 @@ public class DirectPhotoPage : EditingHostPage {
         DirectPhoto photo;
         DirectPhoto.global.fetch(dest, out photo, true);
 
-        DirectView tmp_view = new DirectView(photo);
-        view_controller.add(tmp_view);
+        if (!get_photo().equals(photo)) {
+            DirectView tmp_view = new DirectView(photo);
+            view_controller.add(tmp_view);
+        }
 
         DirectPhoto.global.reimport_photo(photo);
         display_mirror_of(view_controller, photo);
