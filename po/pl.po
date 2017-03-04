@@ -9,10 +9,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-01-18 21:05+0000\n"
-"PO-Revision-Date: 2017-01-18 22:37+0100\n"
+"POT-Creation-Date: 2017-03-04 09:41+0000\n"
+"PO-Revision-Date: 2017-03-04 19:30+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1506,7 +1506,7 @@ msgstr "lub"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:115
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Wyloguj"
@@ -1518,7 +1518,7 @@ msgstr "_Wyloguj"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:129
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 msgid "_Publish"
 msgstr "Opu_blikuj"
@@ -1676,13 +1676,11 @@ msgstr "Zaloguj"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
 msgid "An _existing album:"
 msgstr "Istni_ejącym albumie:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
 msgstr "_Nowym albumie o nazwie:"
@@ -1725,7 +1723,7 @@ msgid "You are logged into Rajce as %s."
 msgstr "Zalogowano w serwisie Rajce jako użytkownik %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:577
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:24
 msgid "Photos will appear in:"
 msgstr "Zdjęcia pojawią się w:"
@@ -1867,7 +1865,7 @@ msgstr "Nagrania wideo i nowe albumy zdjęć _widoczne dla:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:226
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1923,7 +1921,6 @@ msgid "Testing connection to Facebook..."
 msgstr "Testowanie połączenia z serwisem Facebook…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
 msgstr "Tworzenie albumu…"
 
@@ -2084,11 +2081,7 @@ msgstr "2048×1536 pikseli"
 msgid "4096 x 3072 pixels"
 msgstr "4096×3072 piksele"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
-msgid "L_ist album in public gallery"
-msgstr "Wyśw_ietlenie listy albumów w publicznej galerii"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "Rozmiar _zdjęcia:"
 
@@ -2105,7 +2098,15 @@ msgstr ""
 "w przeglądarce WWW. Należy upoważnić program Shotwell Connect do powiązania "
 "z kontem serwisu Picasa Web Albums."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:99
+#: plugins/shotwell-publishing/PicasaPublishing.vala:636
+msgid "Default album"
+msgstr "Domyślny album"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:305
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
@@ -2114,32 +2115,32 @@ msgstr ""
 "publikowania do serwisu Picasa."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Zalogowano w serwisie Picasa Web Albums jako użytkownik %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:572
 msgid "Videos will appear in:"
 msgstr "Nagrania wideo pojawią się w:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+#: plugins/shotwell-publishing/PicasaPublishing.vala:616
 msgid "Small (640 x 480 pixels)"
 msgstr "Małe (640×480 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+#: plugins/shotwell-publishing/PicasaPublishing.vala:617
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Średnie (1024×768 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+#: plugins/shotwell-publishing/PicasaPublishing.vala:618
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Zalecane (1600×1200 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+#: plugins/shotwell-publishing/PicasaPublishing.vala:619
 msgid "Google+ (2048 x 1536 pixels)"
 msgstr "Google+ (2048×1536 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:620
 #: src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
 msgstr "Rozmiar pierwotny"
@@ -2677,11 +2678,11 @@ msgstr[0] ""
 msgstr[1] "Nie można usunąć %d zdjęć/nagrań wideo z aparatu z powodu błędów."
 msgstr[2] "Nie można usunąć %d zdjęć/nagrań wideo z aparatu z powodu błędów."
 
-#: src/CollectionPage.vala:230 src/PhotoPage.vala:2635
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2636
 msgid "S_lideshow"
 msgstr "Pokaz s_lajdów"
 
-#: src/CollectionPage.vala:231 src/PhotoPage.vala:2636
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2637
 msgid "Play a slideshow"
 msgstr "Odtwarza pokaz slajdów"
 
@@ -2693,7 +2694,7 @@ msgstr "Eksport zdjęcia/nagrania wideo"
 msgid "Export Photos/Videos"
 msgstr "Eksport zdjęć/nagrań wideo"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3209
+#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3210
 msgid "Export Photo"
 msgstr "Eksport zdjęcia"
 
@@ -3912,11 +3913,11 @@ msgstr "_Zaimportowanie"
 msgid "Import to Library"
 msgstr "Zaimportuj do kolekcji"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2704 src/PhotoPage.vala:3086
 msgid "Remove From Library"
 msgstr "Usuń z kolekcji"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2705 src/PhotoPage.vala:3086
 msgid "Removing Photo From Library"
 msgstr "Usuwanie zdjęcia z kolekcji"
 
@@ -4072,28 +4073,28 @@ msgstr "_Edycja"
 msgid "_Photo"
 msgstr "_Zdjęcie"
 
-#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2416
+#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2417
 msgid "T_ools"
 msgstr "_Narzędzia"
 
-#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2421
+#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2422
 msgid "_Previous Photo"
 msgstr "_Poprzednie zdjęcie"
 
-#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2422
+#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2423
 msgid "Previous Photo"
 msgstr "Poprzednie zdjęcie"
 
-#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2427
+#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2428
 msgid "_Next Photo"
 msgstr "_Następne zdjęcie"
 
-#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2428
+#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2429
 msgid "Next Photo"
 msgstr "Następne zdjęcie"
 
 #: src/direct/DirectPhotoPage.vala:165 src/library/LibraryWindow.vala:343
-#: src/PhotoPage.vala:2412
+#: src/PhotoPage.vala:2413
 msgid "_View"
 msgstr "_Widok"
 
@@ -4103,47 +4104,47 @@ msgid "_Help"
 msgstr "Pomo_c"
 
 #: src/direct/DirectPhotoPage.vala:174 src/MediaPage.vala:340
-#: src/PhotoPage.vala:2591 src/Resources.vala:183
+#: src/PhotoPage.vala:2592 src/Resources.vala:183
 msgid "Zoom _In"
 msgstr "Pow_iększ"
 
-#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2592
+#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2593
 msgid "Increase the magnification of the photo"
 msgstr "Zwiększa powiększenie zdjęcia"
 
 #: src/direct/DirectPhotoPage.vala:180 src/MediaPage.vala:346
-#: src/PhotoPage.vala:2597 src/Resources.vala:184
+#: src/PhotoPage.vala:2598 src/Resources.vala:184
 msgid "Zoom _Out"
 msgstr "P_omniejsz"
 
-#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2598
+#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2599
 msgid "Decrease the magnification of the photo"
 msgstr "Zmniejsza powiększenie zdjęcia"
 
-#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2603
+#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2604
 msgid "Fit to _Page"
 msgstr "Dopasowanie do _strony"
 
-#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2604
+#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2605
 msgid "Zoom the photo to fit on the screen"
 msgstr "Powiększa zdjęcie, aby pasowało do ekranu"
 
-#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2610
+#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2611
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Powiększenie _100%"
 
-#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2612
+#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2613
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Powiększa zdjęcie do 100%"
 
-#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2618
+#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2619
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Powiększenie _200%"
 
-#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2620
+#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2621
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Powiększa zdjęcie do 200%"
@@ -4190,7 +4191,7 @@ msgstr "Zamknij _bez zapisywania"
 msgid "Error while saving to %s: %s"
 msgstr "Błąd podczas zapisywania zdjęcia do %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:497 src/direct/DirectPhotoPage.vala:518
+#: src/direct/DirectPhotoPage.vala:499 src/direct/DirectPhotoPage.vala:520
 msgid "Save As"
 msgstr "Zapisz jako"
 
@@ -4836,7 +4837,7 @@ msgstr "_Odtwórz nagranie wideo"
 msgid "Open the selected videos in the system video player"
 msgstr "Otwiera wybrane nagrania wideo w systemowym odtwarzaczu filmów"
 
-#: src/MediaPage.vala:428 src/PhotoPage.vala:2640
+#: src/MediaPage.vala:428 src/PhotoPage.vala:2641
 msgid "_Developer"
 msgstr "_Wywoływacz"
 
@@ -4916,7 +4917,7 @@ msgstr "Następne zdjęcie"
 msgid "Photo source file missing: %s"
 msgstr "Brak pliku źródłowego zdjęcia: %s"
 
-#: src/PhotoPage.vala:3229
+#: src/PhotoPage.vala:3230
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nie można wyeksportować: %s: %s"
@@ -6332,7 +6333,7 @@ msgid "untitled"
 msgstr "bez nazwy"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
 
