@@ -28,7 +28,9 @@ Build-Depends: debhelper (>= 9),
  yelp-tools,
  appstream-util,
  gettext ( >= 0.19.8),
- libgcr-3-dev ( >= 3.18)
+ libgcr-3-dev ( >= 3.18),
+ libgdata-dev,
+ autoconf
 Standards-Version: 3.8.3
 Homepage: https://wiki.gnome.org/Apps/Shotwell/
 

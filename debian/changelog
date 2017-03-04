@@ -1,4 +1,4 @@
-shotwell (0.25.6-0~jensge1~yakkety1) yakkety; urgency=medium
+shotwell (0.25.90-0~jensge1~xenial1) xenial; urgency=medium
 
   * Remove obsolete option to create new folders on Picasa web albums
   * Update Google API keys
