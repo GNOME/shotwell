@@ -31,6 +31,7 @@ plugins/shotwell-publishing-extras/resource.c: plugins/shotwell-publishing-extra
 
 plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
+	@PUBLISHER_VALAFLAGS@ \
 	--pkg gtk+-3.0 \
 	--pkg libsoup-2.4 \
 	--pkg gexiv2 \

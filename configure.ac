@@ -163,6 +163,70 @@ AC_SUBST([HAVE_UNITY])
 AM_CONDITIONAL([HAVE_UNITY],[test "x$HAVE_UNITY" = "xyes"])
 
 dnl ***********************************************************************
+dnl Publishers
+dnl ***********************************************************************
+
+m4_define(ALL_PUBLISHERS, [facebook, flickr, picasa, piwigo, youtube, gallery3, rajce, tumblr, yandex])
+AC_ARG_ENABLE([publishers],
+            AS_HELP_STRING([--enable-publishers=@<:@list-of-publishers or all@:>@],
+                           [A comma-separated list of publishers from ALL_PUBLISHERS]),
+            [],[enable_publishers="ALL_PUBLISHERS"])
+
+AS_IF([test "$xenable_publishers" = "xall"],
+      [enable_publishers="ALL_PUBLISHERS"],[])
+
+save_ifs=$IFS
+IFS=,
+PUBLISHER_VALAFLAGS=""
+ENABLED_PUBLISHERS=""
+for publisher in $enable_publishers; do
+    echo "Checking publisher >${publisher}<"
+    case $publisher in
+        *facebook*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_FACEBOOK"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS facebook"
+        ;;
+        *flickr*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_FLICKR"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS flickr"
+        ;;
+        *picasa*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_PICASA"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS picasa"
+        ;;
+        *piwigo*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_PIWIGO"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS piwigo"
+        ;;
+        *youtube*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_YOUTUBE"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS youtube"
+        ;;
+        *gallery3*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_GALLERY3"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS gallery3"
+        ;;
+        *rajce*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_RAJCE"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS rajce"
+        ;;
+        *tumblr*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_TUMBLR"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS tumblr"
+        ;;
+        *yandex*)
+            PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_YANDEX"
+            ENABLED_PUBLISHERS="$ENABLED_PUBLISHERS yandex"
+        ;;
+        *)
+        ;;
+    esac
+done
+IFS=$save_ifs
+AC_SUBST([PUBLISHER_VALAFLAGS])
+
+
+dnl ***********************************************************************
 dnl Extra publishing plugins
 dnl ***********************************************************************
 AC_ARG_ENABLE([extra-plugins],
@@ -222,5 +286,6 @@ echo "  Prefix ............................... : ${prefix}"
 echo "  Libdir ............................... : ${libdir}"
 echo "  Unity support ........................ : ${HAVE_UNITY}"
 echo "  Additional publishing plugins ........ : ${HAVE_EXTRA_PLUGINS}"
-echo "  Authentication library ................: ${with_authenticator}"
+echo "  Authentication library ............... : ${with_authenticator}"
+echo "  Publishers ........................... : ${ENABLED_PUBLISHERS}"
 echo ""

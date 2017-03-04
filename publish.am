@@ -44,6 +44,7 @@ plugins/shotwell-publishing/resource.c: $(PUBLISHING_RESOURCE_DEPS) $(PUBLISHING
 
 plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
+	@PUBLISHER_VALAFLAGS@ \
 	--pkg gtk+-3.0 \
 	--pkg libsoup-2.4 \
 	--pkg gexiv2 \
