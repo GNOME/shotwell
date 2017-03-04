@@ -117,10 +117,8 @@ PKG_CHECK_MODULES(SHOTWELL, [
                              libexif >= 0.6.16
                              libgphoto2 >= 2.5.0
                              libraw >= 0.13.2
-                             libsoup-2.4 >= 2.42.0
                              libxml-2.0 >= 2.6.32
                              sqlite3 >= 3.5.9
-                             webkit2gtk-4.0
                             ])
 PKG_CHECK_MODULES(THUMBNAILER, [gee-0.8 >= 0.8.5 gtk+-3.0 >= 3.14.0
                                 gstreamer-base-1.0 >= 1.0.0])
