@@ -19,7 +19,6 @@ dist_ui_DATA = \
 	sidebar_default_context.ui \
 	tag_sidebar_context.ui \
 	tags.ui \
-	top.ui \
 	trash.ui
 
 dist_noinst_DATA = \
