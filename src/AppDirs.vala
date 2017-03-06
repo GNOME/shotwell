@@ -258,13 +258,6 @@ class AppDirs {
         return subdir;
     }
     
-    public static File get_resources_dir() {
-        File? install_dir = get_install_dir();
-        
-        return (install_dir != null) ? install_dir.get_child("share").get_child("shotwell")
-            : get_exec_dir();
-    }
-    
     public static File get_lib_dir() {
         File? install_dir = get_install_dir();
         

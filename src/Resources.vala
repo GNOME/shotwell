@@ -686,11 +686,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string END_MULTIDAY_DATE_FORMAT_STRING = null;
     private string START_MULTIMONTH_DATE_FORMAT_STRING = null;
     private string END_MULTIMONTH_DATE_FORMAT_STRING = null;
-        
+
     public void init () {
-        var icon_theme = Gtk.IconTheme.get_default();
+        get_icon_theme_engine();
         // load application-wide stock icons as IconSets
-        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
         generate_rating_strings();
     }
     
@@ -838,8 +837,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public Gdk.Pixbuf? get_noninterpretable_badge_pixbuf() {
         if (noninterpretable_badge_pixbuf == null) {
             try {
-                noninterpretable_badge_pixbuf = new Gdk.Pixbuf.from_file(AppDirs.get_resources_dir().get_child(
-                    "icons").get_child(NONINTERPRETABLE_BADGE_FILE).get_path());
+                var path = "/org/gnome/Shotwell/icons/" + NONINTERPRETABLE_BADGE_FILE;
+                noninterpretable_badge_pixbuf = new Gdk.Pixbuf.from_resource(path);
             } catch (Error err) {
                 error("VideoReader can't load noninterpretable badge image: %s", err.message);
             }
@@ -850,7 +849,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public Gtk.IconTheme get_icon_theme_engine() {
         Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
-        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
+        icon_theme.add_resource_path("/org/gnome/Shotwell/icons");
         
         return icon_theme;
     }
@@ -893,18 +892,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public Gdk.Pixbuf? load_icon(string name, int scale = DEFAULT_ICON_SCALE) {
-        File icons_dir = AppDirs.get_resources_dir().get_child("icons");
-        
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = new Gdk.Pixbuf.from_file(icons_dir.get_child(name).get_path());
+            var path = "/org/gnome/Shotwell/icons/%s".printf(name);
+            pixbuf = new Gdk.Pixbuf.from_resource(path);
         } catch (Error err) {
             critical("Unable to load icon %s: %s", name, err.message);
         }
 
         if (pixbuf == null)
             return null;
-        
+
         return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
     }
     

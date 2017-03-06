@@ -1,6 +1,4 @@
-imagesdir = $(datadir)/shotwell/icons
-
-dist_images_DATA = \
+dist_noinst_DATA = \
 	all-rejected.png \
 	crop-pivot-reticle.png \
 	crop.svg \
