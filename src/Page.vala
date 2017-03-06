@@ -570,13 +570,12 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     private void init_load_ui(string ui_filename) {
-        File ui_file = Resources.get_ui(ui_filename);
-        
+        var ui_resource = Resources.get_ui(ui_filename);
         try {
-            builder.add_from_file(ui_file.get_path());
+            builder.add_from_resource(ui_resource);
         } catch (Error err) {
-            AppWindow.error_message("Error loading UI file %s: %s".printf(
-                ui_file.get_path(), err.message));
+            AppWindow.error_message("Error loading UI resource %s: %s".printf(
+                ui_resource, err.message));
             Application.get_instance().panic();
         }
     }

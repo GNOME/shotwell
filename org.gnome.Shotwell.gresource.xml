@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Shotwell">
-      <file alias="search_sidebar_context.ui">ui/search_sidebar_context.ui</file>
-      <file alias="tag_sidebar_context.ui">ui/tag_sidebar_context.ui</file>
-      <file alias="sidebar_default_context.ui">ui/sidebar_default_context.ui</file>
-      <file alias="search_bar.ui">ui/search_bar.ui</file>
-      <file>ui/set_background_dialog.ui</file>
-      <file>ui/set_background_slideshow_dialog.ui</file>
+      <!-- UI files -->
+      <file preprocess="xml-stripblanks">ui/collection.ui</file>
+      <file preprocess="xml-stripblanks">ui/direct_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/direct.ui</file>
+      <file preprocess="xml-stripblanks">ui/events_directory.ui</file>
+      <file preprocess="xml-stripblanks">ui/event.ui</file>
+      <file preprocess="xml-stripblanks">ui/fullscreen.ui</file>
+      <file preprocess="xml-stripblanks">ui/import_queue.ui</file>
+      <file preprocess="xml-stripblanks">ui/import.ui</file>
+      <file preprocess="xml-stripblanks">ui/media.ui</file>
+      <file preprocess="xml-stripblanks">ui/offline.ui</file>
+      <file preprocess="xml-stripblanks">ui/photo_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/photo.ui</file>
+      <file preprocess="xml-stripblanks">ui/savedsearch.ui</file>
+      <file preprocess="xml-stripblanks">ui/search_bar.ui</file>
+      <file preprocess="xml-stripblanks">ui/search_sidebar_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/set_background_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/set_background_slideshow_dialog.ui</file>
+      <file compressed="true">ui/shotwell.ui</file>
+      <file preprocess="xml-stripblanks">ui/sidebar_default_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/tag_sidebar_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/tags.ui</file>
+      <file preprocess="xml-stripblanks">ui/trash.ui</file>
+      <!-- Icons -->
       <file>icons/all-rejected.png</file>
       <file>icons/crop-pivot-reticle.png</file>
       <file>icons/crop.svg</file>

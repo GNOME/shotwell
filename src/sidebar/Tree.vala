@@ -197,8 +197,7 @@ public class Sidebar.Tree : Gtk.TreeView {
 
     private void setup_default_context_menu() {
         try {
-            this.builder.add_from_resource
-                            ("/org/gnome/Shotwell/sidebar_default_context.ui");
+            this.builder.add_from_resource(Resources.get_ui("sidebar_default_context.ui"));
             var model = builder.get_object ("popup-menu") as GLib.MenuModel;
             this.default_context_menu = new Gtk.Menu.from_model (model);
             var group = new GLib.SimpleActionGroup ();

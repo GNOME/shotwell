@@ -1,5 +1,4 @@
-uidir = $(datadir)/shotwell/ui
-dist_ui_DATA = \
+dist_noinst_DATA = \
 	collection.ui \
 	direct_context.ui \
 	direct.ui \
@@ -15,15 +14,12 @@ dist_ui_DATA = \
 	savedsearch.ui \
 	search_bar.ui \
 	search_sidebar_context.ui \
+	set_background_dialog.ui \
+	set_background_slideshow_dialog.ui
 	shotwell.ui \
 	sidebar_default_context.ui \
 	tag_sidebar_context.ui \
 	tags.ui \
 	trash.ui
-
-dist_noinst_DATA = \
-	set_background_dialog.ui \
-	set_background_slideshow_dialog.ui
-
 
 -include $(top_srcdir)/git.mk

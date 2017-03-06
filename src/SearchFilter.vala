@@ -1059,7 +1059,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
         
         try {
-            this.builder.add_from_resource ("/org/gnome/Shotwell/search_bar.ui");
+            this.builder.add_from_resource (Resources.get_ui("search_bar.ui"));
         } catch (Error err) {
             AppWindow.panic(_("Error loading search bar UI: %s").printf(
                 err.message));

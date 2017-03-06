@@ -477,8 +477,7 @@ public abstract class AppWindow : PageWindow {
     public static Gtk.Builder create_builder(string glade_filename = "shotwell.ui", void *user = null) {
         Gtk.Builder builder = new Gtk.Builder();
         try {
-            builder.add_from_file(AppDirs.get_resources_dir().get_child("ui").get_child(
-                glade_filename).get_path());
+            builder.add_from_resource(Resources.get_ui(glade_filename));
         } catch(GLib.Error error) {
             warning("Unable to create Gtk.Builder: %s\n", error.message);
         }

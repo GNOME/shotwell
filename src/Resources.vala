@@ -827,8 +827,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return END_MULTIMONTH_DATE_FORMAT_STRING;
     }
 
-    public File get_ui(string filename) {
-        return AppDirs.get_resources_dir().get_child("ui").get_child(filename);
+    public string get_ui(string filename) {
+        return "/org/gnome/Shotwell/ui/%s".printf(filename);
     }
 
     private const string NONINTERPRETABLE_BADGE_FILE = "noninterpretable-video.png";

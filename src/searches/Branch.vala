@@ -72,8 +72,7 @@ public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
     private void setup_context_menu() {
         this.builder = new Gtk.Builder ();
         try {
-            this.builder.add_from_resource
-                            ("/org/gnome/Shotwell/search_sidebar_context.ui");
+            this.builder.add_from_resource(Resources.get_ui("search_sidebar_context.ui"));
             var model = builder.get_object ("popup-menu") as GLib.MenuModel;
             this.context_menu = new Gtk.Menu.from_model (model);
         } catch (Error error) {
