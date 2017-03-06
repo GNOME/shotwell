@@ -265,22 +265,34 @@ private enum PrintLayout {
     }
 }
 
-public class CustomPrintTab : Gtk.Fixed {
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/printing_widget.ui")]
+public class CustomPrintTab : Gtk.Box {
     private const int INCHES_COMBO_CHOICE = 0;
     private const int CENTIMETERS_COMBO_CHOICE = 1;
 
-    private Gtk.Box custom_image_settings_pane = null;
+    [GtkChild]
     private Gtk.RadioButton standard_size_radio = null;
+    [GtkChild]
     private Gtk.RadioButton custom_size_radio = null;
+    [GtkChild]
     private Gtk.RadioButton image_per_page_radio = null;
+    [GtkChild]
     private Gtk.ComboBox image_per_page_combo = null;
+    [GtkChild]
     private Gtk.ComboBox standard_sizes_combo = null;
+    [GtkChild]
     private Gtk.ComboBoxText units_combo = null;
+    [GtkChild]
     private Gtk.Entry custom_width_entry = null;
+    [GtkChild]
     private Gtk.Entry custom_height_entry = null;
+    [GtkChild]
     private Gtk.Entry ppi_entry;
+    [GtkChild]
     private Gtk.CheckButton aspect_ratio_check = null;
+    [GtkChild]
     private Gtk.CheckButton title_print_check = null;
+    [GtkChild]
     private Gtk.FontButton title_print_font = null;
     private Measurement local_content_width = Measurement(5.0, MeasurementUnit.INCHES);
     private Measurement local_content_height = Measurement(5.0, MeasurementUnit.INCHES);
@@ -290,28 +302,14 @@ public class CustomPrintTab : Gtk.Fixed {
 
     public CustomPrintTab(PrintJob source_job) {
         this.source_job = source_job;
-        Gtk.Builder builder = AppWindow.create_builder();
 
-        // an enclosing box for every widget on this tab...
-        custom_image_settings_pane = builder.get_object("box_ImgSettingsPane") as Gtk.Box;
-
-        standard_size_radio = builder.get_object("radio_UseStandardSize") as Gtk.RadioButton;
         standard_size_radio.clicked.connect(on_radio_group_click);
-        
-        custom_size_radio = builder.get_object("radio_UseCustomSize") as Gtk.RadioButton;
         custom_size_radio.clicked.connect(on_radio_group_click);
-
-        image_per_page_radio = builder.get_object("radio_Autosize") as Gtk.RadioButton;
         image_per_page_radio.clicked.connect(on_radio_group_click);
-
-        image_per_page_combo = builder.get_object("combo_Autosize") as Gtk.ComboBox;
-        Gtk.CellRendererText image_per_page_combo_text_renderer =
-            new Gtk.CellRendererText();
+        Gtk.CellRendererText image_per_page_combo_text_renderer = new Gtk.CellRendererText();
         image_per_page_combo.pack_start(image_per_page_combo_text_renderer, true);
-        image_per_page_combo.add_attribute(image_per_page_combo_text_renderer,
-            "text", 0);
-        Gtk.ListStore image_per_page_combo_store = new Gtk.ListStore(2, typeof(string),
-            typeof(string));
+        image_per_page_combo.add_attribute(image_per_page_combo_text_renderer, "text", 0);
+        Gtk.ListStore image_per_page_combo_store = new Gtk.ListStore(2, typeof(string), typeof(string));
         foreach (PrintLayout layout in PrintLayout.get_all()) {
             Gtk.TreeIter iter;
             image_per_page_combo_store.append(out iter);
@@ -320,7 +318,6 @@ public class CustomPrintTab : Gtk.Fixed {
         image_per_page_combo.set_model(image_per_page_combo_store);
 
         StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
-        standard_sizes_combo = builder.get_object("combo_StdSizes") as Gtk.ComboBox;
         Gtk.CellRendererText standard_sizes_combo_text_renderer =
             new Gtk.CellRendererText();
         standard_sizes_combo.pack_start(standard_sizes_combo_text_renderer, true);
@@ -336,29 +333,19 @@ public class CustomPrintTab : Gtk.Fixed {
         }
         standard_sizes_combo.set_model(standard_sizes_combo_store);
 
-        custom_width_entry = builder.get_object("entry_CustomWidth") as Gtk.Entry;
         custom_width_entry.insert_text.connect(on_entry_insert_text);
         custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
 
-        custom_height_entry = builder.get_object("entry_CustomHeight") as Gtk.Entry;
         custom_height_entry.insert_text.connect(on_entry_insert_text);
         custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
 
-        units_combo = builder.get_object("combo_Units") as Gtk.ComboBoxText;
         units_combo.append_text(_("in."));
         units_combo.append_text(_("cm"));
         units_combo.set_active(0);
         units_combo.changed.connect(on_units_combo_changed);
 
-        aspect_ratio_check = builder.get_object("check_MatchAspectRatio") as Gtk.CheckButton;
-        title_print_check = builder.get_object("check_PrintImageTitle") as Gtk.CheckButton;
-        title_print_font = builder.get_object("fntbn_TitleFont") as Gtk.FontButton;
-
-        ppi_entry = builder.get_object("entry_PixelsPerInch") as Gtk.Entry;
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
         ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
-
-        this.add(custom_image_settings_pane);
 
         sync_state_from_job(source_job);
 

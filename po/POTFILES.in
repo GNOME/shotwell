@@ -121,6 +121,7 @@ ui/media.ui
 ui/offline.ui
 ui/photo_context.ui
 ui/photo.ui
+ui/printing_widget.ui
 ui/savedsearch.ui
 ui/search_bar.ui
 ui/search_sidebar_context.ui
