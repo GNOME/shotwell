@@ -17,6 +17,11 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
         var factory = Publishing.Authenticator.Factory.get_instance();
         var authenicators = factory.get_available_authenticators();
 
+        // Prevent vala complaining when all authenticators from this plugin
+        // are disabled
+        debug("Looking for resources in %s", resource_directory.get_path());
+        debug("Found %d authenicators", authenicators.size);
+
 #if HAVE_FACEBOOK
         if (authenicators.contains("facebook")) {
             pluggables += new FacebookService(resource_directory);
