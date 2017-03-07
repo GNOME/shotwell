@@ -1773,9 +1773,12 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename",  Soup.URI.encode(
-            publishable.get_param_string(
-                Spit.Publishing.Publishable.PARAM_STRING_BASENAME), null));
+        var basename = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        if (!basename.down().has_suffix(".jpeg") &&
+            !basename.down().has_suffix(".jpg")) {
+            basename += ".jpg";
+        }
+        disposition_table.insert("filename",  Soup.URI.encode(basename, null));
         disposition_table.insert("name", "image");
 
         set_binary_disposition_table(disposition_table);
