@@ -440,6 +440,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.clicked.connect(on_rotate_clockwise);
         rotate_button.is_important = true;
         toolbar.insert(rotate_button, -1);
+        unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
+        Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
+        Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
         
         // crop tool
         crop_button = new Gtk.ToggleToolButton ();
