@@ -146,10 +146,22 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     protected override bool on_context_buttonpress(Gdk.EventButton event) {
-//        Gtk.Menu context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
-//        popup_context_menu(context_menu, event);
+        popup_context_menu(get_context_menu(), event);
 
         return true;
+    }
+
+    private Gtk.Menu context_menu;
+
+    private Gtk.Menu get_context_menu() {
+        if (context_menu == null) {
+            var model = this.builder.get_object ("DirectContextMenu")
+                as GLib.MenuModel;
+            context_menu = new Gtk.Menu.from_model (model);
+            context_menu.attach_to_widget (this, null);
+        }
+
+        return this.context_menu;
     }
 
     private void update_zoom_menu_item_sensitivity() {
