@@ -196,22 +196,27 @@ namespace GPhoto {
         return new Gdk.Pixbuf.from_stream(ins, null);
     }
 
-    public void save_image(Context context, Camera camera, string folder, string filename, 
-        File dest_file) throws Error {
+    public void save_image(Context context, Camera camera, string folder, string filename, File dest_file) throws Error {
+        var fd = Posix.creat(dest_file.get_path(), 0640);
+        if (fd < 0) {
+            throw new IOError.FAILED("[%d] Error creating file %s: %m", GLib.errno, dest_file.get_path());
+        }
+
         GPhoto.CameraFile camera_file;
-        GPhoto.Result res = GPhoto.CameraFile.create(out camera_file);
-        if (res != Result.OK)
+        GPhoto.Result res = GPhoto.CameraFile.create_from_fd(out camera_file, fd);
+        if (res != Result.OK) {
+            Posix.close(fd);
             throw new GPhotoError.LIBRARY("[%d] Error allocating camera file: %s", (int) res, res.as_string());
+        }
         
         res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, camera_file, context);
-        if (res != Result.OK)
+        if (res != Result.OK) {
+            Posix.close(fd);
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s", 
                 (int) res, folder, filename, res.as_string());
+        }
 
-        res = camera_file.save(dest_file.get_path());
-        if (res != Result.OK)
-            throw new GPhotoError.LIBRARY("[%d] Error copying file %s/%s to %s: %s", (int) res, 
-                folder, filename, dest_file.get_path(), res.as_string());
+        Posix.close(fd);
     }
     
     public PhotoMetadata? load_metadata(Context context, Camera camera, string folder, string filename)
