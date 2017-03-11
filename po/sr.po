@@ -7,12 +7,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
-"l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-01-24 11:34+0000\n"
-"PO-Revision-Date: 2017-01-26 07:00+0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2017-03-10 18:24+0000\n"
+"PO-Revision-Date: 2017-03-11 18:55+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <(nothing)>\n"
+"Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,6 @@ msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Фото-бунар подржава ЈПЕГ, ПНГ, ТИФФ и разне сирове записе датотека."
 
 #: misc/shotwell.appdata.xml.in:52
-#| msgid "Shotwell Viewer"
 msgid "The Shotwell developers"
 msgstr "Програмери Фото-бунара"
 
@@ -1500,7 +1499,7 @@ msgstr "или"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:115
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Одјави ме"
@@ -1512,7 +1511,7 @@ msgstr "_Одјави ме"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:129
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 msgid "_Publish"
 msgstr "_Објави"
@@ -1669,13 +1668,11 @@ msgstr "Пријави ме"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
 msgid "An _existing album:"
 msgstr "_Постојећи албум:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
 msgstr "_Нови албум под називом:"
@@ -1716,7 +1713,7 @@ msgid "You are logged into Rajce as %s."
 msgstr "Пријављени сте на Рајс као %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:577
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:24
 msgid "Photos will appear in:"
 msgstr "Фотографије ће се појавити у:"
@@ -1859,7 +1856,7 @@ msgstr "Видео снимке и нове албуме фотографија 
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:226
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1912,7 +1909,6 @@ msgid "Testing connection to Facebook..."
 msgstr "Испробавам везу са Фејсбуком..."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
 msgstr "Правим албум..."
 
@@ -2076,11 +2072,7 @@ msgstr "2048 x 1536 тачкица"
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 тачкица"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
-msgid "L_ist album in public gallery"
-msgstr "_Испиши албум у јавној галерији"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "_Величина фотографије:"
 
@@ -2097,7 +2089,16 @@ msgstr ""
 "овластите Повезивање Фото-бунара да направи везу до вашег налога Веб албума "
 "Пикасе."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:99
+#: plugins/shotwell-publishing/PicasaPublishing.vala:636
+#| msgid "last album"
+msgid "Default album"
+msgstr "Основни албум"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:305
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
@@ -2106,32 +2107,32 @@ msgstr ""
 "настави."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Пријављени сте на веб албуме Пикасе као %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:572
 msgid "Videos will appear in:"
 msgstr "Видео снимци ће се појавити у:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+#: plugins/shotwell-publishing/PicasaPublishing.vala:616
 msgid "Small (640 x 480 pixels)"
 msgstr "Мала (640 x 480 тачкица)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+#: plugins/shotwell-publishing/PicasaPublishing.vala:617
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Средња (1024 x 768 тачкица)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+#: plugins/shotwell-publishing/PicasaPublishing.vala:618
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Препоручено (1600 x 1200 тачкица)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+#: plugins/shotwell-publishing/PicasaPublishing.vala:619
 msgid "Google+ (2048 x 1536 pixels)"
 msgstr "Гугл+ (2048 x 1536 тачкица)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:620
 #: src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
 msgstr "Изворна величина"
@@ -2670,11 +2671,11 @@ msgstr[2] ""
 msgstr[3] ""
 "Не могу да обришем %d фотографију/снимак са фото-апарата, услед грешке."
 
-#: src/CollectionPage.vala:230 src/PhotoPage.vala:2635
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2636
 msgid "S_lideshow"
 msgstr "_Покретни приказ"
 
-#: src/CollectionPage.vala:231 src/PhotoPage.vala:2636
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2637
 msgid "Play a slideshow"
 msgstr "Покрените покретни приказ"
 
@@ -2686,7 +2687,7 @@ msgstr "Извезите фотографију/снимак"
 msgid "Export Photos/Videos"
 msgstr "Извезите фотографије/снимке"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3209
+#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3210
 msgid "Export Photo"
 msgstr "Извезите фотографију"
 
@@ -3919,11 +3920,11 @@ msgstr "Увези _на месту"
 msgid "Import to Library"
 msgstr "Увезите у фототеку"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2704 src/PhotoPage.vala:3086
 msgid "Remove From Library"
 msgstr "Уклоните из фототеке"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2705 src/PhotoPage.vala:3086
 msgid "Removing Photo From Library"
 msgstr "Уклањам фотографију из фототеке"
 
@@ -4097,28 +4098,28 @@ msgstr "_Уређивање"
 msgid "_Photo"
 msgstr "_Фотографија"
 
-#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2416
+#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2417
 msgid "T_ools"
 msgstr "_Алати"
 
-#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2421
+#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2422
 msgid "_Previous Photo"
 msgstr "_Претходна фотографија"
 
-#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2422
+#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2423
 msgid "Previous Photo"
 msgstr "Претходна фотографија"
 
-#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2427
+#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2428
 msgid "_Next Photo"
 msgstr "_Следећа фотографија"
 
-#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2428
+#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2429
 msgid "Next Photo"
 msgstr "Следећа фотографија"
 
 #: src/direct/DirectPhotoPage.vala:165 src/library/LibraryWindow.vala:343
-#: src/PhotoPage.vala:2412
+#: src/PhotoPage.vala:2413
 msgid "_View"
 msgstr "_Преглед"
 
@@ -4128,47 +4129,47 @@ msgid "_Help"
 msgstr "По_моћ"
 
 #: src/direct/DirectPhotoPage.vala:174 src/MediaPage.vala:340
-#: src/PhotoPage.vala:2591 src/Resources.vala:183
+#: src/PhotoPage.vala:2592 src/Resources.vala:183
 msgid "Zoom _In"
 msgstr "У_већај"
 
-#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2592
+#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2593
 msgid "Increase the magnification of the photo"
 msgstr "Увећајте приказ фотографије"
 
 #: src/direct/DirectPhotoPage.vala:180 src/MediaPage.vala:346
-#: src/PhotoPage.vala:2597 src/Resources.vala:184
+#: src/PhotoPage.vala:2598 src/Resources.vala:184
 msgid "Zoom _Out"
 msgstr "У_мањи"
 
-#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2598
+#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2599
 msgid "Decrease the magnification of the photo"
 msgstr "Умањите приказ фотографије"
 
-#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2603
+#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2604
 msgid "Fit to _Page"
 msgstr "Испуни _страницу"
 
-#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2604
+#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2605
 msgid "Zoom the photo to fit on the screen"
 msgstr "Увећајте фотографију да испуни екран"
 
-#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2610
+#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2611
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Увећај на _100%"
 
-#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2612
+#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2613
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Прикажите фотографију у пуној величини"
 
-#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2618
+#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2619
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Увећај на _200%"
 
-#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2620
+#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2621
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Прикажите фотографију увећану два пута"
@@ -4215,7 +4216,7 @@ msgstr "Затвори _без чувања"
 msgid "Error while saving to %s: %s"
 msgstr "Грешка приликом чувања у „%s“: %s"
 
-#: src/direct/DirectPhotoPage.vala:497 src/direct/DirectPhotoPage.vala:518
+#: src/direct/DirectPhotoPage.vala:499 src/direct/DirectPhotoPage.vala:520
 msgid "Save As"
 msgstr "Сачувајте као"
 
@@ -4861,7 +4862,7 @@ msgstr "_Пусти снимак"
 msgid "Open the selected videos in the system video player"
 msgstr "Отворите изабрани снимак у системском програму за пуштање"
 
-#: src/MediaPage.vala:428 src/PhotoPage.vala:2640
+#: src/MediaPage.vala:428 src/PhotoPage.vala:2641
 msgid "_Developer"
 msgstr "_Развијач"
 
@@ -4941,7 +4942,7 @@ msgstr "Наредна фотографија"
 msgid "Photo source file missing: %s"
 msgstr "Недостаје изворна датотека фотографије: %s"
 
-#: src/PhotoPage.vala:3229
+#: src/PhotoPage.vala:3230
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Не могу да извезем „%s“: %s"
@@ -6352,7 +6353,7 @@ msgid "untitled"
 msgstr "безимено"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Извезите снимке"
 
@@ -6544,6 +6545,9 @@ msgstr "Прикажи _наслов"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "секунде"
+
+#~ msgid "L_ist album in public gallery"
+#~ msgstr "_Испиши албум у јавној галерији"
 
 #~| msgid "Copyright 2009-2014 Yorba Foundation"
 #~ msgid "Copyright 2009-2015 Yorba Foundation"
