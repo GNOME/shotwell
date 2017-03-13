@@ -11,7 +11,7 @@ m4_define([package_version],[major_version.minor_version.micro_version])
 m4_define([bug_report_url],[https://bugzilla.gnome.org/enter_bug.cgi?product=shotwell])
 m4_define([api_version],[major_version])
 
-AX_IS_RELEASE([micro-version])
+AX_IS_RELEASE([git-directory])
 
 m4_define([git_version],[m4_esyscmd(git rev-parse HEAD 2>/dev/null)])
 
