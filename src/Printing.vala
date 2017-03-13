@@ -582,7 +582,7 @@ public class CustomPrintTab : Gtk.Box {
         Value val;
         model.get_value(iter, 0, out val);
 
-        return (val.dup_string() == "-");
+        return (val.get_string() == "-");
     }
 
     private void set_content_layout(ContentLayout content_layout) {
