@@ -322,6 +322,11 @@ void main(string[] args) {
     // parser is initialized in a thread-safe fashion; please see 
     // http://redmine.yorba.org/issues/4120 for details.
     GExiv2.initialize();
+    GExiv2.log_use_glib_logging();
+
+    // Set GExiv2 log level to DEBUG, filtering will be done through Shotwell
+    // logging mechanisms
+    GExiv2.log_set_level(GExiv2.LogLevel.DEBUG);
 
     // following the GIO programming guidelines at http://developer.gnome.org/gio/2.26/ch03.html,
     // set the GSETTINGS_SCHEMA_DIR environment variable to allow us to load GSettings schemas from 
