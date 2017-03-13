@@ -180,7 +180,6 @@ IFS=,
 PUBLISHER_VALAFLAGS=""
 ENABLED_PUBLISHERS=""
 for publisher in $enable_publishers; do
-    echo "Checking publisher >${publisher}<"
     case $publisher in
         *facebook*)
             PUBLISHER_VALAFLAGS="$PUBLISHER_VALAFLAGS --define HAVE_FACEBOOK"
