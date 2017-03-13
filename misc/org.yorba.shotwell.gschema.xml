@@ -789,13 +789,13 @@
     
     <key name="transitions-circles" type="b">
         <default>true</default>
-        <summary>enable slideshow circle transition</summary>
+        <summary>enable slideshow circles transition</summary>
         <description>True if the Circles slideshow transition plugin is enabled, false otherwise</description>
     </key>
     
     <key name="transitions-blinds" type="b">
         <default>true</default>
-        <summary>enable slideshow slide transition</summary>
+        <summary>enable slideshow blinds transition</summary>
         <description>True if the Blinds slideshow transition plugin is enabled, false otherwise</description>
     </key>
 
