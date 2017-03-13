@@ -11,11 +11,12 @@ dist_noinst_DATA = \
 	offline.ui \
 	photo_context.ui \
 	photo.ui \
+	printing_widget.ui \
 	savedsearch.ui \
 	search_bar.ui \
 	search_sidebar_context.ui \
 	set_background_dialog.ui \
-	set_background_slideshow_dialog.ui
+	set_background_slideshow_dialog.ui \
 	shotwell.ui \
 	sidebar_default_context.ui \
 	tag_sidebar_context.ui \
