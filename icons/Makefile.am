@@ -4,9 +4,13 @@ dist_noinst_DATA = \
 	crop.svg \
 	drag_nub.png \
 	faces-tool.png \
+	filter-flagged-disabled.png \
 	filter-flagged.png \
+	filter-photos-disabled.png \
 	filter-photos.png \
+	filter-raw-disabled.png \
 	filter-raw.png \
+	filter-videos-disabled.png \
 	filter-videos.png \
 	five-star-filter.svg \
 	five-stars.svg \
