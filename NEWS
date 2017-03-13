@@ -1,3 +1,53 @@
+Shotwell 0.25.92 - 13 Mar 2017
+  * Fix navigation issue when deleting image in fullscreen view
+  * Fix toolbox not visible on Mate in fullscreen view
+  * Fix navigation in viewer when saving modified photo
+  * Fix wrong macro in manpage
+  * Clean-up some dependencies
+  * Make it possible to enable/disable individual publishers
+  * Remove obsolete UI file
+  * Move all icons in the resource file
+  * Move ui files into resources
+  * Remove obsolete Glade helpers
+  * Clean-up printing dialog a little
+  * Piwigo: Append .jpg extension to published raw files
+  * Fix keyboard accessability of CCW rotation
+  * Fix massive memory consumption when importing videos
+  * Fix context menu of viewer
+  * Fix a useless string copy
+  * Use defalt measurements depending on locale when none are set
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=715501
+ - https://bugzilla.gnome.org/show_bug.cgi?id=729091
+ - https://bugzilla.gnome.org/show_bug.cgi?id=732663
+ - https://bugzilla.gnome.org/show_bug.cgi?id=734816
+ - https://bugzilla.gnome.org/show_bug.cgi?id=775158
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779558
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779844
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779989
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jörg Frings-Fürst <debian@jff-webhosting.net>
+ - Jordi Mas <jmas@softcatala.org>
+ - GNOME Translation Robot <gnome-sysadmin@gnome.org>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - ca, courtesy of Jordi Mas
+ - de, courtesy of Mario Blättermann
+ - gd, courtesy of GunChleoc
+ - hu, courtesy of Gabor Kelemen
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.25.90 - 27 Feb 2017
   * Remove obsolete option to create new folders on Picasa web albums
   * Update Google API keys
