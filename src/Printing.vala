@@ -318,6 +318,8 @@ public class CustomPrintTab : Gtk.Box {
             standard_sizes_combo.append_text(size.name);
         }
 
+        standard_sizes_combo.set_active(9 * Resources.get_default_measurement_unit());
+
         custom_width_entry.insert_text.connect(on_entry_insert_text);
         custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
 
@@ -325,6 +327,7 @@ public class CustomPrintTab : Gtk.Box {
         custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
 
         units_combo.changed.connect(on_units_combo_changed);
+        units_combo.set_active(Resources.get_default_measurement_unit());
 
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
         ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);

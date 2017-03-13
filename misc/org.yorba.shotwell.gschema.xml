@@ -668,7 +668,7 @@
     </key>
 
     <key name="size-selection" type="i">
-        <default>3</default>
+        <default>-1</default>
         <summary>size selection</summary>
         <description>The index of the current print size in a pre-defined list of standard sizes</description>
     </key>

@@ -1515,7 +1515,16 @@ public abstract class ConfigurationFacade : Object {
     //
     public virtual int get_printing_size_selection() {
         try {
-            return get_engine().get_int_property(ConfigurableProperty.PRINTING_SIZE_SELECTION) - 1;
+            var val = get_engine().get_int_property(ConfigurableProperty.PRINTING_SIZE_SELECTION) - 1;
+            if (val == -2) {
+                if (Resources.get_default_measurement_unit() == Resources.UnitSystem.IMPERIAL) {
+                    val = 2;
+                } else {
+                    val = 10;
+                }
+            }
+
+            return val;
         } catch (ConfigurationError err) {
             on_configuration_error(err);
 

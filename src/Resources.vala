@@ -765,6 +765,45 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (old_language != null) {
             Environment.set_variable("LANGUAGE", old_language, true);
         }
+
+    }
+
+    [CCode (cname = "int", cprefix = "LC_", cheader_filename = "locale.h", has_type_id = false)]
+    private enum Lc {
+        MEASUREMENT
+    }
+
+    public enum UnitSystem {
+        IMPERIAL,
+        METRIC,
+        UNKNOWN
+    }
+
+    private string lc_measurement = null;
+    private UnitSystem unit_system = UnitSystem.UNKNOWN;
+    private const string IMPERIAL_COUNTRIES[] = {"unm_US", "es_US", "en_US", "yi_US" };
+
+    public UnitSystem get_default_measurement_unit() {
+        if (unit_system != UnitSystem.UNKNOWN) {
+            return unit_system;
+        }
+
+        lc_measurement = Intl.setlocale((LocaleCategory) Lc.MEASUREMENT, null);
+        if (lc_measurement == null) {
+            lc_measurement = Intl.get_language_names()[0];
+        }
+
+        var index = lc_measurement.last_index_of_char('.');
+        if (index > 0) {
+            lc_measurement = lc_measurement.substring(0, index);
+        }
+
+        unit_system = UnitSystem.METRIC;
+        if (lc_measurement in IMPERIAL_COUNTRIES) {
+            unit_system = UnitSystem.IMPERIAL;
+        }
+
+        return unit_system;
     }
     
     /**
