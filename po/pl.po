@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-02-26 16:02+0000\n"
-"PO-Revision-Date: 2017-02-26 18:33+0100\n"
+"POT-Creation-Date: 2017-03-13 18:10+0000\n"
+"PO-Revision-Date: 2017-03-14 13:43+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -64,6 +64,10 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Shotwell obsługuje formaty JPEG, PNG, TIFF i wiele rodzajów plików RAW."
+
+#: misc/shotwell.appdata.xml.in:52
+msgid "The Shotwell developers"
+msgstr "Programiści projektu Shotwell"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -1302,7 +1306,6 @@ msgstr ""
 "slajdów jest włączona"
 
 #: misc/org.yorba.shotwell.gschema.xml:774
-#: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow slide transition"
 msgstr "włączenie przejścia osunięcia pokazu slajdów"
 
@@ -1325,7 +1328,6 @@ msgstr ""
 "slajdów jest włączona"
 
 #: misc/org.yorba.shotwell.gschema.xml:786
-#: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow circle transition"
 msgstr "włączenie przejścia okręgu pokazu slajdów"
 
@@ -1336,12 +1338,20 @@ msgstr ""
 "Jeśli jest ustawione na wartość „true”, wtyczka przejścia okręgu pokazu "
 "slajdów jest włączona"
 
+#: misc/org.yorba.shotwell.gschema.xml:792
+msgid "enable slideshow circles transition"
+msgstr "włączenie przejścia okręgów pokazu slajdów"
+
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Jeśli jest ustawione na wartość „true”, wtyczka przejścia okręgów pokazu "
 "slajdów jest włączona"
+
+#: misc/org.yorba.shotwell.gschema.xml:798
+msgid "enable slideshow blinds transition"
+msgstr "włączenie przejścia żaluzji pokazu slajdów"
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
@@ -1506,7 +1516,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Witryna programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:602
 msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
@@ -1687,7 +1697,7 @@ msgid "Go _Back"
 msgstr "_Wstecz"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#: ui/shotwell.ui:1464
+#: ui/shotwell.ui:1105
 msgid "_Log in"
 msgstr "Za_loguj"
 
@@ -1754,7 +1764,7 @@ msgstr "_Wyloguj"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2465
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
 msgstr "Opu_blikuj"
 
@@ -1923,12 +1933,12 @@ msgid "You are logged into Rajce as %s."
 msgstr "Zalogowano w serwisie Rajce jako użytkownik %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/PicasaPublishing.vala:566
+#: plugins/shotwell-publishing/PicasaPublishing.vala:571
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
 msgid "Photos will appear in:"
 msgstr "Zdjęcia pojawią się w:"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:31
 msgid "Shotwell Extra Publishing Services"
 msgstr "Dodatkowe usługi publikowania programu Shotwell"
 
@@ -2188,11 +2198,11 @@ msgstr "Rozmiar _zdjęcia:"
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PicasaPublishing.vala:96
-#: plugins/shotwell-publishing/PicasaPublishing.vala:625
+#: plugins/shotwell-publishing/PicasaPublishing.vala:630
 msgid "Default album"
 msgstr "Domyślny album"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:286
+#: plugins/shotwell-publishing/PicasaPublishing.vala:291
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
@@ -2201,32 +2211,32 @@ msgstr ""
 "publikowania do serwisu Picasa."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:555
+#: plugins/shotwell-publishing/PicasaPublishing.vala:560
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Zalogowano w serwisie Picasa Web Albums jako użytkownik %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:561
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 msgid "Videos will appear in:"
 msgstr "Nagrania wideo pojawią się w:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:605
+#: plugins/shotwell-publishing/PicasaPublishing.vala:610
 msgid "Small (640 × 480 pixels)"
 msgstr "Małe (640×480 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:606
+#: plugins/shotwell-publishing/PicasaPublishing.vala:611
 msgid "Medium (1024 × 768 pixels)"
 msgstr "Średnie (1024×768 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:607
+#: plugins/shotwell-publishing/PicasaPublishing.vala:612
 msgid "Recommended (1600 × 1200 pixels)"
 msgstr "Zalecane (1600×1200 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:608
+#: plugins/shotwell-publishing/PicasaPublishing.vala:613
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048×1536 pikseli)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:609
+#: plugins/shotwell-publishing/PicasaPublishing.vala:614
 #: src/editing_tools/EditingTools.vala:757
 msgid "Original Size"
 msgstr "Oryginalny rozmiar"
@@ -2367,7 +2377,7 @@ msgstr "Wyświetl certyfikat…"
 msgid "I understand, please _proceed."
 msgstr "_Rozumiem, proszę kontynuować."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:40
+#: plugins/shotwell-publishing/shotwell-publishing.vala:55
 msgid "Core Publishing Services"
 msgstr "Główne usługi publikowania"
 
@@ -2495,7 +2505,7 @@ msgstr "Przypina pasek narzędziowy"
 msgid "Leave fullscreen"
 msgstr "Opuszcza pełny ekran"
 
-#: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
+#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
 #: src/data_imports/DataImportsUI.vala:301
 #: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
@@ -2504,7 +2514,7 @@ msgstr "Opuszcza pełny ekran"
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:579
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2517,21 +2527,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:599
 msgid "Visit the Shotwell web site"
 msgstr "Witryna programu Shotwell"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:611
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nie można wyświetlić pomocy: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:619
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nie można przejść do bazy danych błędów: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:627
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nie można wyświetlić dokumentu FAQ: %s"
@@ -2757,127 +2767,127 @@ msgstr[0] ""
 msgstr[1] "Nie można usunąć %d zdjęć/nagrań wideo z aparatu z powodu błędów."
 msgstr[2] "Nie można usunąć %d zdjęć/nagrań wideo z aparatu z powodu błędów."
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2460 src/Resources.vala:170
+#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2464 src/Resources.vala:170
 msgid "_Print"
 msgstr "Wy_drukuj"
 
-#: src/CollectionPage.vala:77 src/Resources.vala:323 ui/collection.ui:126
+#: src/CollectionPage.vala:83 src/Resources.vala:323 ui/collection.ui:126
 #: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:563 ui/photo.ui:28
 msgid "Send _To…"
 msgstr "Wyślij _do…"
 
-#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2470 src/Resources.vala:220
+#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2474 src/Resources.vala:220
 msgid "Set as _Desktop Background"
 msgstr "Ustaw jako tło p_ulpitu"
 
-#: src/CollectionPage.vala:86 src/Resources.vala:286
+#: src/CollectionPage.vala:92 src/Resources.vala:286
 msgid "_Duplicate"
 msgstr "Utwórz _kopię"
 
-#: src/CollectionPage.vala:94
+#: src/CollectionPage.vala:100
 msgid "Fullscreen"
 msgstr "Pełny ekran"
 
-#: src/CollectionPage.vala:96 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:180
 msgid "S_lideshow"
 msgstr "Pokaz s_lajdów"
 
-#: src/CollectionPage.vala:104 src/Resources.vala:139 ui/direct.ui:111
+#: src/CollectionPage.vala:110 src/Resources.vala:139 ui/direct.ui:111
 #: ui/photo.ui:200
 msgid "Rotate _Right"
 msgstr "Obróć w p_rawo"
 
-#: src/CollectionPage.vala:107 src/Resources.vala:144 ui/direct.ui:116
+#: src/CollectionPage.vala:113 src/Resources.vala:144 ui/direct.ui:116
 #: ui/photo.ui:205
 msgid "Rotate _Left"
 msgstr "Obróć w _lewo"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:149 ui/direct.ui:121
+#: src/CollectionPage.vala:116 src/Resources.vala:149 ui/direct.ui:121
 #: ui/photo.ui:210
 msgid "Flip Hori_zontally"
 msgstr "Odwróć po_ziomo"
 
-#: src/CollectionPage.vala:111 src/Resources.vala:152 ui/direct.ui:125
+#: src/CollectionPage.vala:117 src/Resources.vala:152 ui/direct.ui:125
 #: ui/photo.ui:214
 msgid "Flip Verti_cally"
 msgstr "Odwróć pi_onowo"
 
-#: src/CollectionPage.vala:113 src/Resources.vala:186 ui/collection.ui:8
+#: src/CollectionPage.vala:119 src/Resources.vala:186 ui/collection.ui:8
 #: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:445
 #: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "_Uwydatnij"
 
-#: src/CollectionPage.vala:114 src/Resources.vala:214 ui/collection.ui:13
+#: src/CollectionPage.vala:120 src/Resources.vala:214 ui/collection.ui:13
 #: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:450
 #: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "Przy_wróć oryginalne"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:190 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:190 ui/photo.ui:256
 msgid "_Copy Color Adjustments"
 msgstr "S_kopiuj dostosowania kolorów"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:194 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:194 ui/photo.ui:261
 msgid "_Paste Color Adjustments"
 msgstr "_Wklej dostosowania kolorów"
 
-#: src/CollectionPage.vala:129
+#: src/CollectionPage.vala:135
 msgid "Adjust Date and Time…"
 msgstr "Dostosuj datę i czas…"
 
-#: src/CollectionPage.vala:137 src/Resources.vala:319
+#: src/CollectionPage.vala:143 src/Resources.vala:319
 msgid "Open With E_xternal Editor"
 msgstr "_Otwórz za pomocą zewnętrznego edytora"
 
-#: src/CollectionPage.vala:140 src/Resources.vala:321 ui/collection.ui:111
+#: src/CollectionPage.vala:146 src/Resources.vala:321 ui/collection.ui:111
 #: ui/event.ui:548 ui/photo_context.ui:118 ui/photo.ui:363
 msgid "Open With RA_W Editor"
 msgstr "Otwórz za pomocą edytora plików _RAW"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:167
+#: src/CollectionPage.vala:149 src/Resources.vala:167
 msgid "_Play"
 msgstr "Od_twórz"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photo/Video"
 msgstr "Eksport zdjęcia/nagrania wideo"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photos/Videos"
 msgstr "Eksport zdjęć/nagrań wideo"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:59 src/PhotoPage.vala:2994
+#: src/CollectionPage.vala:417 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
 msgstr "Eksport zdjęcia"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:84
+#: src/CollectionPage.vala:417 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Eksport zdjęć"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Rotating"
 msgstr "Obracanie"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Undoing Rotate"
 msgstr "Cofanie obrotu"
 
-#: src/CollectionPage.vala:523
+#: src/CollectionPage.vala:529
 msgid "Flipping Horizontally"
 msgstr "Odwracanie poziome"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:530
 msgid "Undoing Flip Horizontally"
 msgstr "Cofanie odwrócenia poziomego"
 
-#: src/CollectionPage.vala:533
+#: src/CollectionPage.vala:539
 msgid "Flipping Vertically"
 msgstr "Odwracanie pionowe"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:540
 msgid "Undoing Flip Vertically"
 msgstr "Cofanie odwrócenia pionowego"
 
@@ -4067,11 +4077,11 @@ msgstr "_Zaimportowanie"
 msgid "Import to Library"
 msgstr "Zaimportuj do kolekcji"
 
-#: src/Dialogs.vala:2709 src/PhotoPage.vala:2870
+#: src/Dialogs.vala:2709 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Usuń z kolekcji"
 
-#: src/Dialogs.vala:2710 src/PhotoPage.vala:2870
+#: src/Dialogs.vala:2710 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Usuwanie zdjęcia z kolekcji"
 
@@ -4217,29 +4227,29 @@ msgstr ""
 msgid "Unable open photo %s. Sorry."
 msgstr "Nie można otworzyć zdjęcia %s."
 
-#: src/direct/DirectPhotoPage.vala:304 src/Resources.vala:175 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:175 ui/direct.ui:8
 msgid "_Save"
 msgstr "Zapi_sz"
 
-#: src/direct/DirectPhotoPage.vala:304
+#: src/direct/DirectPhotoPage.vala:316
 msgid "_Save a Copy"
 msgstr "Zapi_sz kopię"
 
-#: src/direct/DirectPhotoPage.vala:307
+#: src/direct/DirectPhotoPage.vala:319
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Utracić zmiany w %s?"
 
-#: src/direct/DirectPhotoPage.vala:308
+#: src/direct/DirectPhotoPage.vala:320
 msgid "Close _without Saving"
 msgstr "Zamknij _bez zapisywania"
 
-#: src/direct/DirectPhotoPage.vala:341
+#: src/direct/DirectPhotoPage.vala:353
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Błąd podczas zapisywania zdjęcia do %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:369 src/direct/DirectPhotoPage.vala:390
+#: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
 msgid "Save As"
 msgstr "Zapisz jako"
 
@@ -4288,23 +4298,23 @@ msgstr "Plik wideo SD (4∶3)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "Plik wideo HD (16∶9)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:818
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:789
 msgid "Wallet (2 × 3 in.)"
 msgstr "Portfel (2×3 cale)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:821
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:792
 msgid "Notecard (3 × 5 in.)"
 msgstr "Notatka (3×5 cali)"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:824
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:795
 msgid "4 × 6 in."
 msgstr "4×6 cali"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:827
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:798
 msgid "5 × 7 in."
 msgstr "5×7 cali"
 
-#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:830
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:801
 msgid "8 × 10 in."
 msgstr "8×10 cali"
 
@@ -4312,7 +4322,7 @@ msgstr "8×10 cali"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8,5×11 cali)"
 
-#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:833
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:804
 msgid "11 × 14 in."
 msgstr "11×14 cali"
 
@@ -4320,23 +4330,23 @@ msgstr "11×14 cali"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11×17 cali)"
 
-#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:836
+#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:807
 msgid "16 × 20 in."
 msgstr "16×20 cali"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:842
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:813
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Portfel metryczny (9×13 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:845
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:816
 msgid "Postcard (10 × 15 cm)"
 msgstr "Kartka pocztowa (10×15 cm)"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:848
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:819
 msgid "13 × 18 cm"
 msgstr "13×18 cm"
 
-#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:851
+#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:822
 msgid "18 × 24 cm"
 msgstr "18×24 cm"
 
@@ -4344,15 +4354,15 @@ msgstr "18×24 cm"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210×297 mm)"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:854
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:825
 msgid "20 × 30 cm"
 msgstr "20×30 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:857
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:828
 msgid "24 × 40 cm"
 msgstr "24×40 cm"
 
-#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:860
+#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:831
 msgid "30 × 40 cm"
 msgstr "30×40 cm"
 
@@ -4707,32 +4717,32 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr "Wczytywanie programu Shotwell"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "Path to Shotwell’s private data"
 msgstr "Ścieżka do prywatnych danych programu Shotwell"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "DIRECTORY"
 msgstr "KATALOG"
 
-#: src/main.vala:298
+#: src/main.vala:297
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Bez monitorowania zmian w katalogu kolekcji podczas uruchamiania"
 
-#: src/main.vala:302
+#: src/main.vala:301
 msgid "Don’t display startup progress meter"
 msgstr "Bez wyświetlania paska postępu uruchamiania"
 
-#: src/main.vala:306
+#: src/main.vala:305
 msgid "Show the application’s version"
 msgstr "Wyświetla wersję programu"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:338
+#: src/main.vala:342
 msgid "[FILE]"
 msgstr "[PLIK]"
 
-#: src/main.vala:342
+#: src/main.vala:346
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -4757,34 +4767,34 @@ msgstr ""
 "Program Shotwell nie może odtworzyć wybranego nagrania wideo:\n"
 "%s"
 
-#: src/Page.vala:1312
+#: src/Page.vala:1318
 msgid "No photos/videos"
 msgstr "Brak zdjęć/nagrań wideo"
 
-#: src/Page.vala:1316
+#: src/Page.vala:1322
 msgid "No photos/videos found which match the current filter"
 msgstr "Nie odnaleziono zdjęć/nagrań wideo pasujących do bieżącego filtra"
 
-#: src/Page.vala:2622
+#: src/Page.vala:2628
 msgid "Photos cannot be exported to this directory."
 msgstr "Nie można eksportować zdjęć do tego katalogu."
 
 #. previous button
-#: src/PhotoPage.vala:535
+#: src/PhotoPage.vala:538
 msgid "Previous photo"
 msgstr "Poprzednie zdjęcie"
 
 #. next button
-#: src/PhotoPage.vala:541
+#: src/PhotoPage.vala:544
 msgid "Next photo"
 msgstr "Następne zdjęcie"
 
-#: src/PhotoPage.vala:1847
+#: src/PhotoPage.vala:1850
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Brak pliku źródłowego zdjęcia: %s"
 
-#: src/PhotoPage.vala:3014
+#: src/PhotoPage.vala:3018
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nie można wyeksportować: %s: %s"
@@ -4861,23 +4871,15 @@ msgstr "16 obrazów na stronę"
 msgid "32 images per page"
 msgstr "32 obrazy na stronę"
 
-#: src/Printing.vala:348
-msgid "in."
-msgstr "cale"
-
-#: src/Printing.vala:349
-msgid "cm"
-msgstr "cm"
-
-#: src/Printing.vala:876
+#: src/Printing.vala:848
 msgid "Image Settings"
 msgstr "Ustawienia obrazu"
 
-#: src/Printing.vala:889
+#: src/Printing.vala:861
 msgid "Printing…"
 msgstr "Drukowanie…"
 
-#: src/Printing.vala:909 src/Printing.vala:1112
+#: src/Printing.vala:881 src/Printing.vala:1084
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5145,7 +5147,7 @@ msgstr "_Zastosuj"
 
 #: src/Resources.vala:159 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/import.ui:40 ui/media.ui:47 ui/offline.ui:32
-#: ui/photo.ui:55 ui/tags.ui:47 ui/top.ui:10 ui/trash.ui:37
+#: ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Edycja"
 
@@ -5163,7 +5165,7 @@ msgstr "_Pełny ekran"
 #: ui/event.ui:421 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
 #: ui/import.ui:186 ui/media.ui:401 ui/media.ui:404 ui/offline.ui:180
 #: ui/offline.ui:183 ui/photo.ui:384 ui/photo.ui:387 ui/tags.ui:420
-#: ui/tags.ui:423 ui/top.ui:40 ui/trash.ui:189 ui/trash.ui:192
+#: ui/tags.ui:423 ui/trash.ui:189 ui/trash.ui:192
 msgid "_Help"
 msgstr "Pomo_c"
 
@@ -5526,7 +5528,8 @@ msgstr "Utwórz kopię"
 msgid "Make a duplicate of the photo"
 msgstr "Tworzy kopię zdjęcia"
 
-#: src/Resources.vala:290 ui/media.ui:17 ui/photo.ui:17
+#: src/Resources.vala:290 ui/event.ui:17 ui/media.ui:17 ui/photo.ui:17
+#: ui/tags.ui:17
 msgid "_Export…"
 msgstr "Wy_eksportuj…"
 
@@ -5849,14 +5852,14 @@ msgstr "Zaznacza wszystkie elementy"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:739
+#: src/Resources.vala:738
 msgid "%a %b %d, %Y"
 msgstr "%a, %e %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:744
+#: src/Resources.vala:743
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %e %b"
@@ -5864,7 +5867,7 @@ msgstr "%a, %e %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:749
+#: src/Resources.vala:748
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%e, %Y"
@@ -5872,7 +5875,7 @@ msgstr "%e, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:754
+#: src/Resources.vala:753
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %e %b"
@@ -5880,7 +5883,7 @@ msgstr "%a, %e %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:759
+#: src/Resources.vala:758
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %e %b %Y"
@@ -6224,17 +6227,17 @@ msgstr "Wyświetl wydarze_nie dla zdjęcia"
 
 #: ui/direct.ui:5 ui/events_directory.ui:5 ui/event.ui:5 ui/import_queue.ui:5
 #: ui/import.ui:5 ui/media.ui:5 ui/offline.ui:5 ui/photo.ui:5 ui/tags.ui:5
-#: ui/top.ui:5 ui/trash.ui:5
+#: ui/trash.ui:5
 msgid "_File"
 msgstr "_Plik"
 
-#: ui/direct.ui:13 ui/event.ui:17 ui/tags.ui:17
+#: ui/direct.ui:13
 msgid "Save _As…"
 msgstr "Z_apisz jako…"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/top.ui:15 ui/trash.ui:87
+#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
 msgid "_View"
 msgstr "_Widok"
 
@@ -6250,7 +6253,7 @@ msgstr "Powiększenie _100%"
 msgid "Zoom _200%"
 msgstr "Powiększenie _200%"
 
-#: ui/direct.ui:98 ui/photo.ui:187 ui/top.ui:20
+#: ui/direct.ui:98 ui/photo.ui:187
 msgid "_Photo"
 msgstr "_Zdjęcie"
 
@@ -6355,7 +6358,6 @@ msgid "D_escending"
 msgstr "Mal_ejąco"
 
 #: ui/events_directory.ui:132 ui/event.ui:377 ui/media.ui:371 ui/tags.ui:371
-#: ui/top.ui:30
 msgid "Even_ts"
 msgstr "Wy_darzenia"
 
@@ -6369,7 +6371,7 @@ msgid "_Titles"
 msgstr "_Tytuły"
 
 #: ui/event.ui:139 ui/event.ui:402 ui/media.ui:139 ui/media.ui:385
-#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385 ui/top.ui:35
+#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385
 msgid "Ta_gs"
 msgstr "_Etykiety"
 
@@ -6398,13 +6400,63 @@ msgstr "Według _oceny"
 msgid "_Descending"
 msgstr "Mal_ejąco"
 
-#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275 ui/top.ui:25
+#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275
 msgid "_Photos"
 msgstr "_Zdjęcia"
 
 #: ui/import_queue.ui:8
 msgid "_Stop Import"
 msgstr "_Zatrzymaj importowanie"
+
+#: ui/printing_widget.ui:19
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Rozmiar wydrukowanego obrazu</b>"
+
+#: ui/printing_widget.ui:36
+msgid "Use a _standard size:"
+msgstr "Użycie _standardowego rozmiaru:"
+
+#: ui/printing_widget.ui:80
+msgid "Use a c_ustom size:"
+msgstr "_Użycie własnego rozmiaru:"
+
+#. Abbrevation for "inch"
+#: ui/printing_widget.ui:146
+msgid "in."
+msgstr "cale"
+
+#. Abbrevation for "centimeters"
+#: ui/printing_widget.ui:147
+msgid "cm"
+msgstr "cm"
+
+#: ui/printing_widget.ui:173
+msgid "_Match photo aspect ratio"
+msgstr "Utrzy_mywanie proporcji zdjęcia"
+
+#: ui/printing_widget.ui:197
+msgid "_Autosize:"
+msgstr "Rozmiar _automatyczny:"
+
+#: ui/printing_widget.ui:237
+msgid "<b>Titles</b>"
+msgstr "<b>Tytuły</b>"
+
+#: ui/printing_widget.ui:254
+msgid "Print image _title"
+msgstr "Drukowanie _tytułów obrazów"
+
+#: ui/printing_widget.ui:297
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Rozdzielczość w pikselach</b>"
+
+#: ui/printing_widget.ui:317
+msgid "_Output photo at:"
+msgstr "_Wyjście zdjęcia na:"
+
+#: ui/printing_widget.ui:351
+msgid "pixels per inch"
+msgstr "piksele na cal"
 
 #: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
@@ -6514,79 +6566,39 @@ msgstr "Zewnętrzne edytory"
 msgid "Plugins"
 msgstr "Wtyczki"
 
-#: ui/shotwell.ui:583
-msgid "<b>Printed Image Size</b>"
-msgstr "<b>Rozmiar wydrukowanego obrazu</b>"
-
-#: ui/shotwell.ui:600
-msgid "Use a _standard size:"
-msgstr "Użycie _standardowego rozmiaru:"
-
-#: ui/shotwell.ui:643
-msgid "Use a c_ustom size:"
-msgstr "_Użycie własnego rozmiaru:"
-
-#: ui/shotwell.ui:731
-msgid "_Match photo aspect ratio"
-msgstr "Utrzy_mywanie proporcji zdjęcia"
-
-#: ui/shotwell.ui:755
-msgid "_Autosize:"
-msgstr "Rozmiar _automatyczny:"
-
-#: ui/shotwell.ui:795
-msgid "<b>Titles</b>"
-msgstr "<b>Tytuły</b>"
-
-#: ui/shotwell.ui:812
-msgid "Print image _title"
-msgstr "Drukowanie _tytułów obrazów"
-
-#: ui/shotwell.ui:855
-msgid "<b>Pixel Resolution</b>"
-msgstr "<b>Rozdzielczość w pikselach</b>"
-
-#: ui/shotwell.ui:875
-msgid "_Output photo at:"
-msgstr "_Wyjście zdjęcia na:"
-
-#: ui/shotwell.ui:909
-msgid "pixels per inch"
-msgstr "piksele na cal"
-
-#: ui/shotwell.ui:949
+#: ui/shotwell.ui:590
 msgid "_Name of search:"
 msgstr "_Nazwa wyszukiwania:"
 
-#: ui/shotwell.ui:1003
+#: ui/shotwell.ui:644
 msgid "_Match"
 msgstr "_Dopasowanie"
 
-#: ui/shotwell.ui:1030
+#: ui/shotwell.ui:671
 msgid "of the following:"
 msgstr "następujących:"
 
-#: ui/shotwell.ui:1111
+#: ui/shotwell.ui:752
 msgid "label"
 msgstr "etykieta"
 
-#: ui/shotwell.ui:1262
+#: ui/shotwell.ui:903
 msgid "_Delay:"
 msgstr "_Opóźnienie:"
 
-#: ui/shotwell.ui:1276
+#: ui/shotwell.ui:917
 msgid "_Transition effect:"
 msgstr "_Efekt przejścia:"
 
-#: ui/shotwell.ui:1290
+#: ui/shotwell.ui:931
 msgid "Transition d_elay:"
 msgstr "Opóźnienie prz_ejścia:"
 
-#: ui/shotwell.ui:1300
+#: ui/shotwell.ui:941
 msgid "Show t_itle"
 msgstr "Wyświetlanie tyt_ułu"
 
-#: ui/shotwell.ui:1375 ui/shotwell.ui:1386
+#: ui/shotwell.ui:1016 ui/shotwell.ui:1027
 msgid "seconds"
 msgstr "s"
 
@@ -6597,6 +6609,3 @@ msgstr "Nowa _etykieta…"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Usuwa wszystkie zdjęcia z kosza"
-
-#~ msgid "The Shotwell developers"
-#~ msgstr "Programiści projektu Shotwell"
