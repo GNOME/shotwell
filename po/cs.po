@@ -15,10 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.24\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-01-18 21:39+0000\n"
-"PO-Revision-Date: 2017-01-23 00:10+0100\n"
+"POT-Creation-Date: 2017-03-14 12:50+0000\n"
+"PO-Revision-Date: 2017-03-15 00:54+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1503,7 +1503,7 @@ msgstr "nebo"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:115
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Odhlásit"
@@ -1515,7 +1515,7 @@ msgstr "_Odhlásit"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:129
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 msgid "_Publish"
 msgstr "_Zveřejnit"
@@ -1673,13 +1673,11 @@ msgstr "Přihlásit"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
 msgid "An _existing album:"
 msgstr "_Stávající album:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
 msgstr "_Nové album s názvem:"
@@ -1720,7 +1718,7 @@ msgid "You are logged into Rajce as %s."
 msgstr "Jste přihlášeni k Rajčeti jako %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:577
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:24
 msgid "Photos will appear in:"
 msgstr "Fotky se objeví:"
@@ -1861,7 +1859,7 @@ msgstr "Videa a nová fotoalba jsou viditelná:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:226
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1916,7 +1914,6 @@ msgid "Testing connection to Facebook..."
 msgstr "Testuje se připojení k Facebooku…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
 msgstr "Vytváří se album…"
 
@@ -2072,11 +2069,7 @@ msgstr "2048 × 1536 pixelů"
 msgid "4096 x 3072 pixels"
 msgstr "4096 × 3072 pixelů"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
-msgid "L_ist album in public gallery"
-msgstr "_Uvést album ve veřejném seznamu"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "Předvolená veliko_st fotek:"
 
@@ -2093,7 +2086,15 @@ msgstr ""
 "prohlížeči. Pak musíte ve svém účtu Picasa Web Albums povolit přístup pro "
 "Shotwell Connect."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:99
+#: plugins/shotwell-publishing/PicasaPublishing.vala:636
+msgid "Default album"
+msgstr "Výchozí album"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:305
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
@@ -2102,32 +2103,32 @@ msgstr ""
 "pokračovat."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Jste přihlášeni ke službě Picasa Web Albums jako %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:572
 msgid "Videos will appear in:"
 msgstr "Videa se objeví:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+#: plugins/shotwell-publishing/PicasaPublishing.vala:616
 msgid "Small (640 x 480 pixels)"
 msgstr "malá (640 × 480 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+#: plugins/shotwell-publishing/PicasaPublishing.vala:617
 msgid "Medium (1024 x 768 pixels)"
 msgstr "střední (1024 × 768 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+#: plugins/shotwell-publishing/PicasaPublishing.vala:618
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "doporučená (1600 × 1200 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+#: plugins/shotwell-publishing/PicasaPublishing.vala:619
 msgid "Google+ (2048 x 1536 pixels)"
 msgstr "Google+ (2048 × 1536 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:620
 #: src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
 msgstr "Původní velikost"
@@ -2660,11 +2661,11 @@ msgstr[0] "Kvůli chybě nelze smazat fotografii/video z fotoaparátu."
 msgstr[1] "Kvůli chybě nelze smazat %d fotografie/videa z fotoaparátu."
 msgstr[2] "Kvůli chybě nelze smazat %d fotografií/videí z fotoaparátu."
 
-#: src/CollectionPage.vala:230 src/PhotoPage.vala:2635
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2636
 msgid "S_lideshow"
 msgstr "P_romítat"
 
-#: src/CollectionPage.vala:231 src/PhotoPage.vala:2636
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2637
 msgid "Play a slideshow"
 msgstr "Spustit promítání snímků"
 
@@ -2676,7 +2677,7 @@ msgstr "Export fotografie/videa"
 msgid "Export Photos/Videos"
 msgstr "Export fotografií/videí"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3209
+#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3210
 msgid "Export Photo"
 msgstr "Export fotografie"
 
@@ -3833,11 +3834,11 @@ msgstr "_Importovat bez kopírování"
 msgid "Import to Library"
 msgstr "Import do knihovny"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2704 src/PhotoPage.vala:3086
 msgid "Remove From Library"
 msgstr "Odstranění z knihovny"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2705 src/PhotoPage.vala:3086
 msgid "Removing Photo From Library"
 msgstr "Odstraňuje se fotografie z knihovny"
 
@@ -3992,28 +3993,28 @@ msgstr "_Upravit"
 msgid "_Photo"
 msgstr "_Fotografie"
 
-#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2416
+#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2417
 msgid "T_ools"
 msgstr "Nástr_oje"
 
-#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2421
+#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2422
 msgid "_Previous Photo"
 msgstr "_Předchozí fotka"
 
-#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2422
+#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2423
 msgid "Previous Photo"
 msgstr "Předchozí fotografie"
 
-#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2427
+#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2428
 msgid "_Next Photo"
 msgstr "_Následující fotka"
 
-#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2428
+#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2429
 msgid "Next Photo"
 msgstr "Následující fotografie"
 
 #: src/direct/DirectPhotoPage.vala:165 src/library/LibraryWindow.vala:343
-#: src/PhotoPage.vala:2412
+#: src/PhotoPage.vala:2413
 msgid "_View"
 msgstr "_Zobrazit"
 
@@ -4023,47 +4024,47 @@ msgid "_Help"
 msgstr "_Nápověda"
 
 #: src/direct/DirectPhotoPage.vala:174 src/MediaPage.vala:340
-#: src/PhotoPage.vala:2591 src/Resources.vala:183
+#: src/PhotoPage.vala:2592 src/Resources.vala:183
 msgid "Zoom _In"
 msgstr "Přiblíž_it"
 
-#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2592
+#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2593
 msgid "Increase the magnification of the photo"
 msgstr "Zvýšit přiblížení fotografie"
 
 #: src/direct/DirectPhotoPage.vala:180 src/MediaPage.vala:346
-#: src/PhotoPage.vala:2597 src/Resources.vala:184
+#: src/PhotoPage.vala:2598 src/Resources.vala:184
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
-#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2598
+#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2599
 msgid "Decrease the magnification of the photo"
 msgstr "Snížit přiblížení fotografie"
 
-#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2603
+#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2604
 msgid "Fit to _Page"
 msgstr "Přizpůsobit _stránce"
 
-#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2604
+#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2605
 msgid "Zoom the photo to fit on the screen"
 msgstr "Přizpůsobit přiblížení fotografie velikosti obrazovky"
 
-#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2610
+#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2611
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Přiblížení _100%"
 
-#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2612
+#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2613
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Zobrazit fotografii v původní velikosti"
 
-#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2618
+#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2619
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Přiblížení _200%"
 
-#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2620
+#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2621
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Zobrazit fotografii v dvojnásobku původní velikosti"
@@ -4108,7 +4109,7 @@ msgstr "Zavřít _bez uložení"
 msgid "Error while saving to %s: %s"
 msgstr "Chyba při ukládání %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:497 src/direct/DirectPhotoPage.vala:518
+#: src/direct/DirectPhotoPage.vala:499 src/direct/DirectPhotoPage.vala:520
 msgid "Save As"
 msgstr "Uložení jako"
 
@@ -4749,7 +4750,7 @@ msgstr "_Přehrát video"
 msgid "Open the selected videos in the system video player"
 msgstr "Otevřít vybraná videa v systémovém přehrávači videí"
 
-#: src/MediaPage.vala:428 src/PhotoPage.vala:2640
+#: src/MediaPage.vala:428 src/PhotoPage.vala:2641
 msgid "_Developer"
 msgstr "_Vývojka"
 
@@ -4830,7 +4831,7 @@ msgstr "Následující fotografie"
 msgid "Photo source file missing: %s"
 msgstr "Chybí zdrojový soubor s fotografií: %s"
 
-#: src/PhotoPage.vala:3229
+#: src/PhotoPage.vala:3230
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nelze exportovat %s: %s"
@@ -6238,7 +6239,7 @@ msgid "untitled"
 msgstr "bez názvu"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Export videí"
 
@@ -6429,3 +6430,6 @@ msgstr "Zobrazovat n_ázev"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "sekund"
+
+#~ msgid "L_ist album in public gallery"
+#~ msgstr "_Uvést album ve veřejném seznamu"
