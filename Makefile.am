@@ -128,6 +128,7 @@ dist_noinst_DATA = $(NULL)
 MOSTLYCLEANFILES = $(NULL)
 
 include $(top_srcdir)/common.am
+include $(top_srcdir)/pipeline.am
 include $(top_srcdir)/shotwell.am
 include $(top_srcdir)/thumbnailer.am
 

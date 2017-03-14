@@ -4,12 +4,15 @@ shotwell_CFLAGS = \
 	$(UNITY_CFLAGS) \
 	$(COMMON_CFLAGS) \
 	-I$(top_builddir)/plugins \
-	-I$(abs_top_srcdir)/plugins
+	-I$(abs_top_srcdir)/plugins \
+	-I$(abs_top_srcdir)/src
 
 shotwell_LDADD = \
 	src/plugins/libplugin.la \
+	src/libgraphics-processor.la \
 	$(SHOTWELL_LIBS) \
 	$(UNITY_LIBS)
+
 shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--pkg gio-2.0 --pkg gtk+-3.0 --pkg gee-0.8 \
 	--pkg gio-unix-2.0 --pkg sqlite3 --pkg gmodule-2.0 \
@@ -44,7 +47,6 @@ shotwell_SOURCES = \
 	src/util/misc.vala \
 	src/util/string.vala \
 	src/util/system.vala \
-	src/util/KeyValueMap.vala \
 	src/util/ui.vala \
 	src/threads/Threads.vala \
 	src/threads/Workers.vala \
@@ -171,7 +173,6 @@ shotwell_SOURCES = \
 	src/Dialogs.vala \
 	src/Resources.vala \
 	src/Debug.vala \
-	src/ColorTransformation.vala \
 	src/Properties.vala \
 	src/CustomComponents.vala \
 	src/Event.vala \
@@ -228,4 +229,5 @@ shotwell_SOURCES = \
 	src/.unitize/_FoldersInternals.vala \
 	src/.unitize/_Library_unitize_entry.vala \
 	src/.unitize/_Direct_unitize_entry.vala \
-	plugins/shotwell-plugin-dev-1.0.vapi
+	plugins/shotwell-plugin-dev-1.0.vapi \
+	src/shotwell-graphics-processor.vapi

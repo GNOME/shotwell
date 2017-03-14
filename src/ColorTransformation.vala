@@ -955,7 +955,7 @@ public class PixelTransformer {
     }
 }
 
-class RGBHistogram {
+public class RGBHistogram {
     private const uchar MARKED_BACKGROUND = 30;
     private const uchar MARKED_FOREGROUND = 210;
     private const uchar UNMARKED_BACKGROUND = 120;
