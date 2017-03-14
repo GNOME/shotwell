@@ -15,10 +15,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-01-18 22:12+0000\n"
-"PO-Revision-Date: 2017-01-23 00:10+0100\n"
+"POT-Creation-Date: 2017-03-14 12:50+0000\n"
+"PO-Revision-Date: 2017-03-15 00:54+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -30,7 +30,7 @@ msgstr ""
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:300 ui/collection.ui:85 ui/event.ui:354
+#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:354
 #: ui/event.ui:522 ui/media.ui:354 ui/photo_context.ui:91 ui/photo.ui:344
 #: ui/tags.ui:354
 msgid "Shotwell"
@@ -1303,7 +1303,6 @@ msgstr ""
 "Blednutí pro promítání snímků."
 
 #: misc/org.yorba.shotwell.gschema.xml:774
-#: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow slide transition"
 msgstr "Povolit postrkávací přechod prezentace"
 
@@ -1326,7 +1325,6 @@ msgstr ""
 "Hodiny pro promítání snímků."
 
 #: misc/org.yorba.shotwell.gschema.xml:786
-#: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow circle transition"
 msgstr "Povolit kruhový přechod prezentace"
 
@@ -1337,12 +1335,20 @@ msgstr ""
 "Když je zapnuto, je povolen zásuvný modul poskytující přechodový efekt Kruh "
 "pro promítání snímků."
 
+#: misc/org.yorba.shotwell.gschema.xml:792
+msgid "enable slideshow circles transition"
+msgstr "Povolit několikakruhový přechod prezentace"
+
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Když je zapnuto, je povolen zásuvný modul poskytující přechodový efekt Kruhy "
 "pro promítání snímků."
+
+#: misc/org.yorba.shotwell.gschema.xml:798
+msgid "enable slideshow blinds transition"
+msgstr "Povolit roletový přechod prezentace"
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
@@ -1385,11 +1391,126 @@ msgstr ""
 "Když je zapnuto, je povolen zásuvný modul poskytující přechodový efekt "
 "Šachovnice pro promítání snímků."
 
+#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don’t yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Momentálně nejste k Facebooku přihlášeni.\n"
+"\n"
+"Jestliže ještě nemáte vytvořen na Facebooku účet, můžete si jej vytvořit "
+"během přihlašování. Během přihlašování se může zobrazit žádost o povolení k "
+"nahrávání fotografií a jejich zveřejnění v kanále. Povolení je pro připojení "
+"aplikace Shotwell nutné."
+
+#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"V průběhu práce s aplikací Shotwell jste již byli přihlášeni a odhlášeni od "
+"Facebooku.\n"
+"Pro pokračování ve zveřejňování na Facebooku ukončete a opět spusťte "
+"Shotwell a pak zkuste zveřejnění znovu."
+
+#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:17
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Vložte ověřovací kód, který se vám zobrazí po přihlášení ke službě Flickr."
+
+#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:37
+msgid "Authorization _Number:"
+msgstr "Ověřovací _kód:"
+
+#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:70
+#: src/Dialogs.vala:128
+msgid "Con_tinue"
+msgstr "Pokračova_t"
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:187
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Log in to log into Flickr in your Web browser. You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Momentálně nejste ke službě Flickr přihlášeni.\n"
+"\n"
+"Pro přihlášení ke službě Flickr klikněte na Přihlásit se ve webovém "
+"prohlížeči. Pak musíte ve svém účtu Flickr povolit přístup pro Shotwell "
+"Connect."
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:364
+msgid "Preparing for login…"
+msgstr "Připravuje se přihlášení…"
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:468
+#: plugins/shotwell-publishing/FlickrPublishing.vala:341
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
+"continue."
+msgstr ""
+"Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Flickr nemůže "
+"pokračovat."
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:481
+msgid "Verifying authorization…"
+msgstr "Ověřuje se autorizace…"
+
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:118
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+"V průběhu práce s aplikací Shotwell jste již byli přihlášeni a odhlášeni od "
+"služby Google.\n"
+"\n"
+"Pro pokračování ve zveřejňování na službě Google ukončete a opět spusťte "
+"Shotwell a pak zkuste zveřejnění znovu."
+
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:31
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Log in to log into Picasa Web Albums in your Web browser. You will "
+"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Nejste přihlášeni ke službě Picasa Web Albums.\n"
+"\n"
+"Pro přihlášení k webovým albům Picasa klikněte na Přihlásit se ve webovém "
+"prohlížeči. Pak musíte ve svém účtu Picasa Web Albums povolit přístup pro "
+"Shotwell Connect."
+
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Nejste přihlášeni ke službě YouTube.\n"
+"\n"
+"Aby bylo možné pokračovat, musíte být přihlášeni k účtu Google a mít jej "
+"nastavený pro používání s YouTube. Ve svém webovém prohlížeči můžete "
+"nastavit většinu účtů, aby se přihlašovaly ke službě YouTube naráz."
+
 #: plugins/common/Resources.vala:12
 msgid "Visit the Shotwell home page"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:602
 msgid "translator-credits"
 msgstr ""
 "David Štancl <dstancl@dstancl.cz>\n"
@@ -1460,20 +1581,6 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:959
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Dočasný soubor potřebný pro zveřejnění není k dispozici"
-
-#: plugins/common/RESTSupport.vala:1167
-msgid ""
-"You have already logged in and out of a Google service during this Shotwell "
-"session.\n"
-"\n"
-"To continue publishing to Google services, quit and restart Shotwell, then "
-"try publishing again."
-msgstr ""
-"V průběhu práce s aplikací Shotwell jste již byli přihlášeni a odhlášeni od "
-"služby Google.\n"
-"\n"
-"Pro pokračování ve zveřejňování na službě Google ukončete a opět spusťte "
-"Shotwell a pak zkuste zveřejnění znovu."
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:36
 #: plugins/shotwell-publishing/FacebookPublishing.vala:33
@@ -1588,7 +1695,7 @@ msgid "Go _Back"
 msgstr "Jít _zpět"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#: ui/shotwell.ui:1464
+#: ui/shotwell.ui:1105
 msgid "_Log in"
 msgstr "_Přihlásit se"
 
@@ -1623,7 +1730,7 @@ msgid "pixels"
 msgstr "pixely"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: plugins/shotwell-publishing/FlickrPublishing.vala:880
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -1641,7 +1748,7 @@ msgstr "Šířka nebo výška"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:208
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Odhlásit"
@@ -1653,9 +1760,9 @@ msgstr "_Odhlásit"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:222
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2465
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
 msgstr "_Zveřejnit"
 
@@ -1778,13 +1885,11 @@ msgstr "Přihlásit se"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:70
 msgid "An _existing album:"
 msgstr "_Stávající album:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:87
 msgid "A _new album named:"
 msgstr "_Nové album s názvem:"
 
@@ -1824,12 +1929,12 @@ msgid "You are logged into Rajce as %s."
 msgstr "Jste přihlášeni k Rajčeti jako %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:571
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
 msgid "Photos will appear in:"
 msgstr "Fotky se objeví:"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:31
 msgid "Shotwell Extra Publishing Services"
 msgstr "Doplňkové zveřejňovací služby Shotwell"
 
@@ -1847,13 +1952,13 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1205
+#: plugins/shotwell-publishing/FlickrPublishing.vala:876
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pixelů"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1206
+#: plugins/shotwell-publishing/FlickrPublishing.vala:877
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pixelů"
@@ -1921,12 +2026,12 @@ msgid "Public"
 msgstr "Veřejné"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:15
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1144
+#: plugins/shotwell-publishing/FacebookPublishing.vala:888
 msgid "Friends"
 msgstr "Přátelé"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:18
-#: plugins/shotwell-publishing/YouTubePublishing.vala:498
+#: plugins/shotwell-publishing/YouTubePublishing.vala:378
 msgid "Private"
 msgstr "Soukromé"
 
@@ -1955,7 +2060,7 @@ msgid "Create a _new album named:"
 msgstr "Vytvořit _nové album s názvem:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:100
-#: plugins/shotwell-publishing/FacebookPublishing.vala:984
+#: plugins/shotwell-publishing/FacebookPublishing.vala:725
 msgid "Upload _size:"
 msgstr "Nahrávaná veliko_st:"
 
@@ -1965,7 +2070,7 @@ msgstr "Videa a nová fotoalba jsou viditelná:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:155
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1973,58 +2078,25 @@ msgstr ""
 "Před nahráním odstranit identifikační údaje, jako místo, model fotoaparátu "
 "apod."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:62
-#: plugins/shotwell-publishing/PicasaPublishing.vala:60
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1188
 msgid "Shotwell Connect"
 msgstr "Připojení Shotwell"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:64
-msgid ""
-"You are not currently logged into Facebook.\n"
-"\n"
-"If you don’t yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
-msgstr ""
-"Momentálně nejste k Facebooku přihlášeni.\n"
-"\n"
-"Jestliže ještě nemáte vytvořen na Facebooku účet, můžete si jej vytvořit "
-"během přihlašování. Během přihlašování se může zobrazit žádost o povolení k "
-"nahrávání fotografií a jejich zveřejnění v kanále. Povolení je pro připojení "
-"aplikace Shotwell nutné."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:66
-msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
-msgstr ""
-"V průběhu práce s aplikací Shotwell jste již byli přihlášeni a odhlášeni od "
-"Facebooku.\n"
-"Pro pokračování ve zveřejňování na Facebooku ukončete a opět spusťte "
-"Shotwell a pak zkuste zveřejnění znovu."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:87
+#: plugins/shotwell-publishing/FacebookPublishing.vala:81
 msgid "Standard (720 pixels)"
 msgstr "Standardní (720 pixelů)"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:90
+#: plugins/shotwell-publishing/FacebookPublishing.vala:84
 msgid "Large (2048 pixels)"
 msgstr "Velké (2048 pixelů)"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:255
-msgid "Testing connection to Facebook…"
-msgstr "Testuje se připojení k Facebooku…"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:314
 msgid "Creating album…"
 msgstr "Vytváří se album…"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+#: plugins/shotwell-publishing/FacebookPublishing.vala:340
 msgid ""
 "A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
@@ -2032,7 +2104,7 @@ msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Facebook "
 "nemůže pokračovat."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:982
+#: plugins/shotwell-publishing/FacebookPublishing.vala:723
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -2041,77 +2113,22 @@ msgstr ""
 "Jste přihlášeni k Facebooku jako %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:983
+#: plugins/shotwell-publishing/FacebookPublishing.vala:724
 msgid "Where would you like to publish the selected photos?"
 msgstr "Kde chcete vybrané fotografie zveřejnit?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1143
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1187
+#: plugins/shotwell-publishing/FacebookPublishing.vala:887
+#: plugins/shotwell-publishing/FlickrPublishing.vala:858
 msgid "Just me"
 msgstr "mě výhradně"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1145
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1183
+#: plugins/shotwell-publishing/FacebookPublishing.vala:889
+#: plugins/shotwell-publishing/FlickrPublishing.vala:854
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "všem"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:17
-msgid ""
-"Enter the confirmation number which appears after you log into Flickr in "
-"your Web browser."
-msgstr ""
-"Vložte ověřovací kód, který se vám zobrazí po přihlášení ke službě Flickr."
-
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:37
-msgid "Authorization _Number:"
-msgstr "Ověřovací _kód:"
-
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:70 src/Dialogs.vala:128
-msgid "Con_tinue"
-msgstr "Pokračova_t"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:60
-msgid ""
-"You are not currently logged into Flickr.\n"
-"\n"
-"Click Log in to log into Flickr in your Web browser. You will have to "
-"authorize Shotwell Connect to link to your Flickr account."
-msgstr ""
-"Momentálně nejste ke službě Flickr přihlášeni.\n"
-"\n"
-"Pro přihlášení ke službě Flickr klikněte na Přihlásit se ve webovém "
-"prohlížeči. Pak musíte ve svém účtu Flickr povolit přístup pro Shotwell "
-"Connect."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:62
-msgid ""
-"You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
-msgstr ""
-"Již jste se přihlásili a odhlásili během tohoto sezení programu Shotwell.\n"
-"Abyste mohli fotky zveřejnit na Flickr, ukončete a znovu spusťte Shotwell a "
-"zkuste zveřejnění znovu."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:374
-msgid "Preparing for login…"
-msgstr "Připravuje se přihlášení…"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:434
-#: plugins/shotwell-publishing/FlickrPublishing.vala:571
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Flickr nemůže "
-"pokračovat."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:447
-msgid "Verifying authorization…"
-msgstr "Ověřuje se autorizace…"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
+#: plugins/shotwell-publishing/FlickrPublishing.vala:800
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2120,7 +2137,7 @@ msgstr ""
 "Jste přihlášeni ke službě Flickr jako %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1131
+#: plugins/shotwell-publishing/FlickrPublishing.vala:802
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -2129,66 +2146,57 @@ msgstr ""
 "Váš bezplatný účet Flickr má omezení na množství nahraných dat za měsíc.\n"
 "Tento měsíc vám z přidělené kvóty zbývá %s."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1133
+#: plugins/shotwell-publishing/FlickrPublishing.vala:804
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Účet Flickr Pro umožňuje nahrávat neomezeně."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1138
+#: plugins/shotwell-publishing/FlickrPublishing.vala:809
 msgid "Photos _visible to:"
 msgstr "Fotky _viditelné pro:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1140
+#: plugins/shotwell-publishing/FlickrPublishing.vala:811
 msgid "Videos _visible to:"
 msgstr "Videa _viditelná pro:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1143
+#: plugins/shotwell-publishing/FlickrPublishing.vala:814
 msgid "Photos and videos _visible to:"
 msgstr "Fotky a videa _viditelná pro:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1184
+#: plugins/shotwell-publishing/FlickrPublishing.vala:855
 msgid "Friends & family only"
 msgstr "přátele a rodinu výhradně"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1185
+#: plugins/shotwell-publishing/FlickrPublishing.vala:856
 msgid "Family only"
 msgstr "rodinu výhradně"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1186
+#: plugins/shotwell-publishing/FlickrPublishing.vala:857
 msgid "Friends only"
 msgstr "přátele výhradně"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/FlickrPublishing.vala:878
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pixelů"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+#: plugins/shotwell-publishing/FlickrPublishing.vala:879
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pixelů"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:103
-msgid "L_ist album in public gallery"
-msgstr "_Uvést album ve veřejném seznamu"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "Předvolená veliko_st fotek:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:59
-msgid ""
-"You are not currently logged into Picasa Web Albums.\n"
-"\n"
-"Click Log in to log into Picasa Web Albums in your Web browser. You will "
-"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
-msgstr ""
-"Nejste přihlášeni ke službě Picasa Web Albums.\n"
-"\n"
-"Pro přihlášení k webovým albům Picasa klikněte na Přihlásit se ve webovém "
-"prohlížeči. Pak musíte ve svém účtu Picasa Web Albums povolit přístup pro "
-"Shotwell Connect."
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:96
+#: plugins/shotwell-publishing/PicasaPublishing.vala:630
+msgid "Default album"
+msgstr "Výchozí album"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#: plugins/shotwell-publishing/PicasaPublishing.vala:291
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
@@ -2197,32 +2205,32 @@ msgstr ""
 "pokračovat."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:560
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Jste přihlášeni ke službě Picasa Web Albums jako %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 msgid "Videos will appear in:"
 msgstr "Videa se objeví:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+#: plugins/shotwell-publishing/PicasaPublishing.vala:610
 msgid "Small (640 × 480 pixels)"
 msgstr "malá (640 × 480 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+#: plugins/shotwell-publishing/PicasaPublishing.vala:611
 msgid "Medium (1024 × 768 pixels)"
 msgstr "střední (1024 × 768 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+#: plugins/shotwell-publishing/PicasaPublishing.vala:612
 msgid "Recommended (1600 × 1200 pixels)"
 msgstr "doporučená (1600 × 1200 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+#: plugins/shotwell-publishing/PicasaPublishing.vala:613
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 pixelů)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:614
 #: src/editing_tools/EditingTools.vala:757
 msgid "Original Size"
 msgstr "Původní velikost"
@@ -2360,7 +2368,7 @@ msgstr "Zobrazit certifikát…"
 msgid "I understand, please _proceed."
 msgstr "Rozumím, přesto prosím _pokračovat."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+#: plugins/shotwell-publishing/shotwell-publishing.vala:55
 msgid "Core Publishing Services"
 msgstr "Základní zveřejňovací služby"
 
@@ -2368,21 +2376,7 @@ msgstr "Základní zveřejňovací služby"
 msgid "Video privacy _setting:"
 msgstr "Na_stavení soukromí videa:"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:58
-msgid ""
-"You are not currently logged into YouTube.\n"
-"\n"
-"You must have already signed up for a Google account and set it up for use "
-"with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Nejste přihlášeni ke službě YouTube.\n"
-"\n"
-"Aby bylo možné pokračovat, musíte být přihlášeni k účtu Google a mít jej "
-"nastavený pro používání s YouTube. Ve svém webovém prohlížeči můžete "
-"nastavit většinu účtů, aby se přihlašovaly ke službě YouTube naráz."
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:363
+#: plugins/shotwell-publishing/YouTubePublishing.vala:236
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2390,21 +2384,16 @@ msgstr ""
 "Soubor potřebný pro zveřejnění není k dispozici. Zveřejnění na Youtube "
 "nemůže pokračovat."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:462
+#: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Jste přihlášeni ke službě YouTube jako %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:464
-#, c-format
-msgid "Videos will appear in “%s”"
-msgstr "Videa se objeví v „%s“"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+#: plugins/shotwell-publishing/YouTubePublishing.vala:376
 msgid "Public listed"
 msgstr "Veřejné"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+#: plugins/shotwell-publishing/YouTubePublishing.vala:377
 msgid "Public unlisted"
 msgstr "Neveřejné"
 
@@ -2507,7 +2496,7 @@ msgstr "Připíchnout otevřenou nástrojovou lištu"
 msgid "Leave fullscreen"
 msgstr "Opustit režim celé obrazovky"
 
-#: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
+#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
 #: src/data_imports/DataImportsUI.vala:301
 #: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
@@ -2516,7 +2505,7 @@ msgstr "Opustit režim celé obrazovky"
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:579
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2529,21 +2518,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:599
 msgid "Visit the Shotwell web site"
 msgstr "Navštívit web aplikace Shotwell"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:611
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nelze zobrazit nápovědu: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:619
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nelze se připojit k databázi chyb: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:627
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nelze zobrazit časté dotazy a odpovědi: %s"
@@ -2614,7 +2603,7 @@ msgid "Cameras"
 msgstr "Fotoaparáty"
 
 #: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:303
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
 #: ui/collection.ui:90 ui/event.ui:359 ui/event.ui:527 ui/media.ui:359
 #: ui/photo_context.ui:96 ui/photo.ui:349 ui/tags.ui:359
 msgid "Camera"
@@ -2768,127 +2757,127 @@ msgstr[0] "Kvůli chybě nelze smazat fotografii/video z fotoaparátu."
 msgstr[1] "Kvůli chybě nelze smazat %d fotografie/videa z fotoaparátu."
 msgstr[2] "Kvůli chybě nelze smazat %d fotografií/videí z fotoaparátu."
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2460 src/Resources.vala:170
+#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2464 src/Resources.vala:170
 msgid "_Print"
 msgstr "_Tisk"
 
-#: src/CollectionPage.vala:77 src/Resources.vala:323 ui/collection.ui:126
+#: src/CollectionPage.vala:83 src/Resources.vala:323 ui/collection.ui:126
 #: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:563 ui/photo.ui:28
 msgid "Send _To…"
 msgstr "Odesla_t…"
 
-#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2470 src/Resources.vala:220
+#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2474 src/Resources.vala:220
 msgid "Set as _Desktop Background"
 msgstr "Nastavit jako poza_dí plochy"
 
-#: src/CollectionPage.vala:86 src/Resources.vala:286
+#: src/CollectionPage.vala:92 src/Resources.vala:286
 msgid "_Duplicate"
 msgstr "_Duplikovat"
 
-#: src/CollectionPage.vala:94
+#: src/CollectionPage.vala:100
 msgid "Fullscreen"
 msgstr "Celá obrazovka"
 
-#: src/CollectionPage.vala:96 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:180
 msgid "S_lideshow"
 msgstr "P_romítat"
 
-#: src/CollectionPage.vala:104 src/Resources.vala:139 ui/direct.ui:111
+#: src/CollectionPage.vala:110 src/Resources.vala:139 ui/direct.ui:111
 #: ui/photo.ui:200
 msgid "Rotate _Right"
 msgstr "Otočit dop_rava"
 
-#: src/CollectionPage.vala:107 src/Resources.vala:144 ui/direct.ui:116
+#: src/CollectionPage.vala:113 src/Resources.vala:144 ui/direct.ui:116
 #: ui/photo.ui:205
 msgid "Rotate _Left"
 msgstr "Otočit do_leva"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:149 ui/direct.ui:121
+#: src/CollectionPage.vala:116 src/Resources.vala:149 ui/direct.ui:121
 #: ui/photo.ui:210
 msgid "Flip Hori_zontally"
 msgstr "Překlopit vo_dorovně"
 
-#: src/CollectionPage.vala:111 src/Resources.vala:152 ui/direct.ui:125
+#: src/CollectionPage.vala:117 src/Resources.vala:152 ui/direct.ui:125
 #: ui/photo.ui:214
 msgid "Flip Verti_cally"
 msgstr "Překlopit s_visle"
 
-#: src/CollectionPage.vala:113 src/Resources.vala:186 ui/collection.ui:8
+#: src/CollectionPage.vala:119 src/Resources.vala:186 ui/collection.ui:8
 #: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:445
 #: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "_Vylepšit"
 
-#: src/CollectionPage.vala:114 src/Resources.vala:214 ui/collection.ui:13
+#: src/CollectionPage.vala:120 src/Resources.vala:214 ui/collection.ui:13
 #: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:450
 #: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "_Vrátit zpět na původní"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:190 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:190 ui/photo.ui:256
 msgid "_Copy Color Adjustments"
 msgstr "_Kopírovat úpravu barev"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:194 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:194 ui/photo.ui:261
 msgid "_Paste Color Adjustments"
 msgstr "Vložit ú_pravu barev"
 
-#: src/CollectionPage.vala:129
+#: src/CollectionPage.vala:135
 msgid "Adjust Date and Time…"
 msgstr "Nastavit datum a čas…"
 
-#: src/CollectionPage.vala:137 src/Resources.vala:319
+#: src/CollectionPage.vala:143 src/Resources.vala:319
 msgid "Open With E_xternal Editor"
 msgstr "Otevřít v e_xterním editoru"
 
-#: src/CollectionPage.vala:140 src/Resources.vala:321 ui/collection.ui:111
+#: src/CollectionPage.vala:146 src/Resources.vala:321 ui/collection.ui:111
 #: ui/event.ui:548 ui/photo_context.ui:118 ui/photo.ui:363
 msgid "Open With RA_W Editor"
 msgstr "Otevřít v editoru RA_W"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:167
+#: src/CollectionPage.vala:149 src/Resources.vala:167
 msgid "_Play"
 msgstr "_Přehrát"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photo/Video"
 msgstr "Export fotografie/videa"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photos/Videos"
 msgstr "Export fotografií/videí"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:59 src/PhotoPage.vala:2994
+#: src/CollectionPage.vala:417 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
 msgstr "Export fotografie"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:84
+#: src/CollectionPage.vala:417 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Export fotografií"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Rotating"
 msgstr "Otáčí se"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Undoing Rotate"
 msgstr "Vrací se zpět otočení"
 
-#: src/CollectionPage.vala:523
+#: src/CollectionPage.vala:529
 msgid "Flipping Horizontally"
 msgstr "Překlápí se vodorovně"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:530
 msgid "Undoing Flip Horizontally"
 msgstr "Vrací se zpět vodorovné překlopení"
 
-#: src/CollectionPage.vala:533
+#: src/CollectionPage.vala:539
 msgid "Flipping Vertically"
 msgstr "Překlápí se svisle"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:540
 msgid "Undoing Flip Vertically"
 msgstr "Vrací se zpět svislé překlopení"
 
@@ -4016,11 +4005,11 @@ msgstr "_Importovat bez kopírování"
 msgid "Import to Library"
 msgstr "Import do knihovny"
 
-#: src/Dialogs.vala:2709 src/PhotoPage.vala:2870
+#: src/Dialogs.vala:2709 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Odstranění z knihovny"
 
-#: src/Dialogs.vala:2710 src/PhotoPage.vala:2870
+#: src/Dialogs.vala:2710 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Odstraňuje se fotografie z knihovny"
 
@@ -4163,29 +4152,29 @@ msgstr "%s nepodporuje formát %s."
 msgid "Unable open photo %s. Sorry."
 msgstr "Nelze otevřít fotografii %s."
 
-#: src/direct/DirectPhotoPage.vala:304 src/Resources.vala:175 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:175 ui/direct.ui:8
 msgid "_Save"
 msgstr "_Uložit"
 
-#: src/direct/DirectPhotoPage.vala:304
+#: src/direct/DirectPhotoPage.vala:316
 msgid "_Save a Copy"
 msgstr "Uložit _kopii"
 
-#: src/direct/DirectPhotoPage.vala:307
+#: src/direct/DirectPhotoPage.vala:319
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Zahodit změny v %s?"
 
-#: src/direct/DirectPhotoPage.vala:308
+#: src/direct/DirectPhotoPage.vala:320
 msgid "Close _without Saving"
 msgstr "Zavřít _bez uložení"
 
-#: src/direct/DirectPhotoPage.vala:341
+#: src/direct/DirectPhotoPage.vala:353
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Chyba při ukládání %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:369 src/direct/DirectPhotoPage.vala:390
+#: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
 msgid "Save As"
 msgstr "Uložení jako"
 
@@ -4234,23 +4223,23 @@ msgstr "SD video (4:3)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "HD video (16:9)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:818
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Do peněženky (2 × 3 palce)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:821
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
 msgstr "Poznámková karta (3 × 5 palců)"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:824
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4 × 6 palců"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:827
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5 × 7 palců"
 
-#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:830
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8 × 10 palců"
 
@@ -4258,7 +4247,7 @@ msgstr "8 × 10 palců"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8,5 x 11 palců)"
 
-#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:833
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11 × 14 palců"
 
@@ -4266,23 +4255,23 @@ msgstr "11 × 14 palců"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 palců)"
 
-#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:836
+#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16 × 20 palců"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:842
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Do peněženky (9 × 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:845
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Pohlednice (10 × 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:848
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:851
+#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
@@ -4290,15 +4279,15 @@ msgstr "18 × 24 cm"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:854
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:857
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:860
+#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
@@ -4649,32 +4638,32 @@ msgstr "Neznámá chyba při přístupu k databázi Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Načítá se Shotwell"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "Path to Shotwell’s private data"
 msgstr "Cesta k soukromým datům aplikace Shotwell"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "DIRECTORY"
 msgstr "SLOŽKA"
 
-#: src/main.vala:298
+#: src/main.vala:297
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Nesledovat průběžné změny ve složce s knihovnou"
 
-#: src/main.vala:302
+#: src/main.vala:301
 msgid "Don’t display startup progress meter"
 msgstr "Při spuštění nezobrazovat ukazatel průběhu"
 
-#: src/main.vala:306
+#: src/main.vala:305
 msgid "Show the application’s version"
 msgstr "Zobrazit verzi aplikace"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:338
+#: src/main.vala:342
 msgid "[FILE]"
 msgstr "[SOUBOR]"
 
-#: src/main.vala:342
+#: src/main.vala:346
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -4698,35 +4687,35 @@ msgstr ""
 "Nelze přehrát vybrané video:\n"
 "%s"
 
-#: src/Page.vala:1312
+#: src/Page.vala:1318
 msgid "No photos/videos"
 msgstr "Žádné fotografie/videa"
 
-#: src/Page.vala:1316
+#: src/Page.vala:1322
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Nebyly nalezeny žádné fotografie/videa, které by vyhovovaly aktuálnímu filtru"
 
-#: src/Page.vala:2622
+#: src/Page.vala:2628
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografie nelze exportovat do této složky."
 
 #. previous button
-#: src/PhotoPage.vala:535
+#: src/PhotoPage.vala:538
 msgid "Previous photo"
 msgstr "Předchozí fotografie"
 
 #. next button
-#: src/PhotoPage.vala:541
+#: src/PhotoPage.vala:544
 msgid "Next photo"
 msgstr "Následující fotografie"
 
-#: src/PhotoPage.vala:1847
+#: src/PhotoPage.vala:1850
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Chybí zdrojový soubor s fotografií: %s"
 
-#: src/PhotoPage.vala:3014
+#: src/PhotoPage.vala:3018
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nelze exportovat %s: %s"
@@ -4771,7 +4760,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3753
+#: src/Photo.vala:3755
 msgid "modified"
 msgstr "změněno"
 
@@ -4803,23 +4792,15 @@ msgstr "16 obrázků na stránku"
 msgid "32 images per page"
 msgstr "32 obrázků na stránku"
 
-#: src/Printing.vala:348
-msgid "in."
-msgstr "palců"
-
-#: src/Printing.vala:349
-msgid "cm"
-msgstr "cm"
-
-#: src/Printing.vala:876
+#: src/Printing.vala:851
 msgid "Image Settings"
 msgstr "Nastavení obrázku"
 
-#: src/Printing.vala:889
+#: src/Printing.vala:864
 msgid "Printing…"
 msgstr "Tiskne se…"
 
-#: src/Printing.vala:909 src/Printing.vala:1112
+#: src/Printing.vala:884 src/Printing.vala:1087
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5085,7 +5066,7 @@ msgstr "_Použít"
 
 #: src/Resources.vala:159 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/import.ui:40 ui/media.ui:47 ui/offline.ui:32
-#: ui/photo.ui:55 ui/tags.ui:47 ui/top.ui:10 ui/trash.ui:37
+#: ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Upravit"
 
@@ -5103,7 +5084,7 @@ msgstr "_Celá obrazovka"
 #: ui/event.ui:421 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
 #: ui/import.ui:186 ui/media.ui:401 ui/media.ui:404 ui/offline.ui:180
 #: ui/offline.ui:183 ui/photo.ui:384 ui/photo.ui:387 ui/tags.ui:420
-#: ui/tags.ui:423 ui/top.ui:40 ui/trash.ui:189 ui/trash.ui:192
+#: ui/tags.ui:423 ui/trash.ui:189 ui/trash.ui:192
 msgid "_Help"
 msgstr "_Nápověda"
 
@@ -5466,7 +5447,8 @@ msgstr "Duplikovat"
 msgid "Make a duplicate of the photo"
 msgstr "Vytvořit kopii této fotografie"
 
-#: src/Resources.vala:290
+#: src/Resources.vala:290 ui/event.ui:17 ui/media.ui:17 ui/photo.ui:17
+#: ui/tags.ui:17
 msgid "_Export…"
 msgstr "_Export…"
 
@@ -5784,14 +5766,14 @@ msgstr "Vybrat všechny položky"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:739
+#: src/Resources.vala:738
 msgid "%a %b %d, %Y"
 msgstr "%a, %e. %B %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:744
+#: src/Resources.vala:743
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %e."
@@ -5799,7 +5781,7 @@ msgstr "%a, %e."
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:749
+#: src/Resources.vala:748
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%e. %B %Y"
@@ -5807,7 +5789,7 @@ msgstr "%e. %B %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:754
+#: src/Resources.vala:753
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %e. %B"
@@ -5815,7 +5797,7 @@ msgstr "%a, %e. %B"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:759
+#: src/Resources.vala:758
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %e. %B %Y"
@@ -6133,7 +6115,7 @@ msgid "untitled"
 msgstr "bez názvu"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Export videí"
 
@@ -6158,17 +6140,17 @@ msgstr "Zobrazit u_dálosti pro fotku"
 
 #: ui/direct.ui:5 ui/events_directory.ui:5 ui/event.ui:5 ui/import_queue.ui:5
 #: ui/import.ui:5 ui/media.ui:5 ui/offline.ui:5 ui/photo.ui:5 ui/tags.ui:5
-#: ui/top.ui:5 ui/trash.ui:5
+#: ui/trash.ui:5
 msgid "_File"
 msgstr "_Soubor"
 
-#: ui/direct.ui:13 ui/event.ui:17 ui/media.ui:17 ui/photo.ui:17 ui/tags.ui:17
+#: ui/direct.ui:13
 msgid "Save _As…"
 msgstr "Uložit j_ako"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/top.ui:15 ui/trash.ui:87
+#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
 msgid "_View"
 msgstr "_Zobrazit"
 
@@ -6184,7 +6166,7 @@ msgstr "Přiblížení _100%"
 msgid "Zoom _200%"
 msgstr "Přiblížení _200%"
 
-#: ui/direct.ui:98 ui/photo.ui:187 ui/top.ui:20
+#: ui/direct.ui:98 ui/photo.ui:187
 msgid "_Photo"
 msgstr "_Fotografie"
 
@@ -6289,7 +6271,6 @@ msgid "D_escending"
 msgstr "_Sestupně"
 
 #: ui/events_directory.ui:132 ui/event.ui:377 ui/media.ui:371 ui/tags.ui:371
-#: ui/top.ui:30
 msgid "Even_ts"
 msgstr "Událos_ti"
 
@@ -6303,7 +6284,7 @@ msgid "_Titles"
 msgstr "_Názvy"
 
 #: ui/event.ui:139 ui/event.ui:402 ui/media.ui:139 ui/media.ui:385
-#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385 ui/top.ui:35
+#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385
 msgid "Ta_gs"
 msgstr "Štít_ky"
 
@@ -6332,13 +6313,63 @@ msgstr "Podle _hodnocení"
 msgid "_Descending"
 msgstr "_Sestupně"
 
-#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275 ui/top.ui:25
+#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275
 msgid "_Photos"
 msgstr "_Fotografie"
 
 #: ui/import_queue.ui:8
 msgid "_Stop Import"
 msgstr "Za_stavit import"
+
+#: ui/printing_widget.ui:19
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Velikost tištěného obrázku</b>"
+
+#: ui/printing_widget.ui:36
+msgid "Use a _standard size:"
+msgstr "Použít _standardní velikost:"
+
+#: ui/printing_widget.ui:80
+msgid "Use a c_ustom size:"
+msgstr "Použít _vlastní velikost:"
+
+#. Abbrevation for "inch"
+#: ui/printing_widget.ui:146
+msgid "in."
+msgstr "palců"
+
+#. Abbrevation for "centimeters"
+#: ui/printing_widget.ui:147
+msgid "cm"
+msgstr "cm"
+
+#: ui/printing_widget.ui:173
+msgid "_Match photo aspect ratio"
+msgstr "Zachovat po_měr stran"
+
+#: ui/printing_widget.ui:197
+msgid "_Autosize:"
+msgstr "_Automatická velikost:"
+
+#: ui/printing_widget.ui:237
+msgid "<b>Titles</b>"
+msgstr "<b>Názvy</b>"
+
+#: ui/printing_widget.ui:254
+msgid "Print image _title"
+msgstr "Tisknout _název obrázku"
+
+#: ui/printing_widget.ui:297
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Rozlišení</b>"
+
+#: ui/printing_widget.ui:317
+msgid "_Output photo at:"
+msgstr "Vytiskn_out v rozlišení:"
+
+#: ui/printing_widget.ui:351
+msgid "pixels per inch"
+msgstr "bodů na palec"
 
 #: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
@@ -6448,79 +6479,39 @@ msgstr "Externí editory"
 msgid "Plugins"
 msgstr "Zásuvné moduly"
 
-#: ui/shotwell.ui:583
-msgid "<b>Printed Image Size</b>"
-msgstr "<b>Velikost tištěného obrázku</b>"
-
-#: ui/shotwell.ui:600
-msgid "Use a _standard size:"
-msgstr "Použít _standardní velikost:"
-
-#: ui/shotwell.ui:643
-msgid "Use a c_ustom size:"
-msgstr "Použít _vlastní velikost:"
-
-#: ui/shotwell.ui:731
-msgid "_Match photo aspect ratio"
-msgstr "Zachovat po_měr stran"
-
-#: ui/shotwell.ui:755
-msgid "_Autosize:"
-msgstr "_Automatická velikost:"
-
-#: ui/shotwell.ui:795
-msgid "<b>Titles</b>"
-msgstr "<b>Názvy</b>"
-
-#: ui/shotwell.ui:812
-msgid "Print image _title"
-msgstr "Tisknout _název obrázku"
-
-#: ui/shotwell.ui:855
-msgid "<b>Pixel Resolution</b>"
-msgstr "<b>Rozlišení</b>"
-
-#: ui/shotwell.ui:875
-msgid "_Output photo at:"
-msgstr "Vytiskn_out v rozlišení:"
-
-#: ui/shotwell.ui:909
-msgid "pixels per inch"
-msgstr "bodů na palec"
-
-#: ui/shotwell.ui:949
+#: ui/shotwell.ui:590
 msgid "_Name of search:"
 msgstr "_Název hledání:"
 
-#: ui/shotwell.ui:1003
+#: ui/shotwell.ui:644
 msgid "_Match"
 msgstr "_Shoduje se"
 
-#: ui/shotwell.ui:1030
+#: ui/shotwell.ui:671
 msgid "of the following:"
 msgstr "z následujícího:"
 
-#: ui/shotwell.ui:1111
+#: ui/shotwell.ui:752
 msgid "label"
 msgstr "štítek"
 
-#: ui/shotwell.ui:1262
+#: ui/shotwell.ui:903
 msgid "_Delay:"
 msgstr "_Doba zobrazení:"
 
-#: ui/shotwell.ui:1276
+#: ui/shotwell.ui:917
 msgid "_Transition effect:"
 msgstr "Efek_t přechodu:"
 
-#: ui/shotwell.ui:1290
+#: ui/shotwell.ui:931
 msgid "Transition d_elay:"
 msgstr "Trvání př_echodu:"
 
-#: ui/shotwell.ui:1300
+#: ui/shotwell.ui:941
 msgid "Show t_itle"
 msgstr "Zobrazovat n_ázev"
 
-#: ui/shotwell.ui:1375 ui/shotwell.ui:1386
+#: ui/shotwell.ui:1016 ui/shotwell.ui:1027
 msgid "seconds"
 msgstr "sekund"
 
@@ -6531,3 +6522,4 @@ msgstr "Nový š_títek…"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Vymazat všechny fotografie v koši"
+
