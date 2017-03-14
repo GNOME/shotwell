@@ -369,16 +369,21 @@ public class PixelTransformationBundle {
 
 public abstract class PixelTransformation {
     private PixelTransformationType type;
+    private PixelFormat preferred_format;
     
-    public PixelTransformation(PixelTransformationType type) {
+    public PixelTransformation(PixelTransformationType type,
+                               PixelFormat preferred_format) {
         this.type = type;
+        this.preferred_format = preferred_format;
     }
     
     public PixelTransformationType get_transformation_type() {
         return type;
     }
     
-    public abstract PixelFormat get_preferred_format();
+    public PixelFormat get_preferred_format() {
+        return this.preferred_format;
+    }
 
     public virtual CompositionMode get_composition_mode() {
         return CompositionMode.NONE;
@@ -418,7 +423,7 @@ public class RGBTransformation : PixelTransformation {
     protected bool identity = true;
     
     public RGBTransformation(PixelTransformationType type) {
-        base(type);
+        base(type, PixelFormat.RGB);
         
         // Can't initialize these in their member declarations because of a valac bug that
         // I've been unable to produce a minimal test case for to report (JN).  May be 
@@ -429,10 +434,6 @@ public class RGBTransformation : PixelTransformation {
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f };
-    }
-
-    public override PixelFormat get_preferred_format() {
-        return PixelFormat.RGB;
     }
 
     public override CompositionMode get_composition_mode() {
@@ -597,13 +598,9 @@ public class RGBTransformation : PixelTransformation {
 
 public abstract class HSVTransformation : PixelTransformation {
     public HSVTransformation(PixelTransformationType type) {
-        base(type);
+        base(type, PixelFormat.HSV);
     }
     
-    public override PixelFormat get_preferred_format() {
-        return PixelFormat.HSV;
-    }
-
     public override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p) {
         return (transform_pixel_hsv(p.to_hsv())).to_rgb();
     }
