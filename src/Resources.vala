@@ -768,11 +768,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     }
 
-    [CCode (cname = "int", cprefix = "LC_", cheader_filename = "locale.h", has_type_id = false)]
-    private enum Lc {
-        MEASUREMENT
-    }
-
     public enum UnitSystem {
         IMPERIAL,
         METRIC,
@@ -788,7 +783,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             return unit_system;
         }
 
-        lc_measurement = Intl.setlocale((LocaleCategory) Lc.MEASUREMENT, null);
+        lc_measurement = Environment.get_variable("LC_MEASUREMENT");
         if (lc_measurement == null) {
             lc_measurement = Intl.get_language_names()[0];
         }
