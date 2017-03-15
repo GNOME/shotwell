@@ -50,9 +50,12 @@ AX_GENERATE_CHANGELOG
 dnl ***********************************************************************
 dnl Add extra debugging with --enable-debug and --enable-compile-warnings
 dnl ***********************************************************************
-AX_CHECK_ENABLE_DEBUG([no],[]
-                      [G_DISABLE_ASSERT G_DISABLE_CHECKS G_DISABLE_CAST_CHECKS])
-
+AC_ARG_ENABLE(debug,
+              [AS_HELP_STRING([--enable-debug],[compile with debugging]),
+              [], enable_debug=no])
+enable_debug=${enable_debug-no}
+AS_IF([test "x$enable_debug" = "xyes"],[CFLAGS="${CFLAGS} -g -O0"])
+AM_CONDITIONAL([IS_NDEBUG], [test "x$enable_debug" != "xyes"])
 
 dnl ***********************************************************************
 dnl Internationalization
