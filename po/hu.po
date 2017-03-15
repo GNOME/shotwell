@@ -1,27 +1,27 @@
 # Hungarian translation for shotwell.
-# Copyright (C) 2011, 2012, 2014, 2015, 2016. Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017. Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015, 2016, 2017.
 # L. Csordas <csola48@gmail.com>, 2012.
 # lsbeeler <lucas@yorba.org>, 2011.
-# Balázs Úr <urbalazs at gmail dot com>, 2014, 2016.
+# Balázs Úr <urbalazs at gmail dot com>, 2014, 2016, 2017.
 # Meskó Balázs <meskobalazs@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-03-05 19:26+0000\n"
-"PO-Revision-Date: 2017-03-07 01:17+0100\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"POT-Creation-Date: 2017-03-14 23:56+0000\n"
+"PO-Revision-Date: 2017-03-15 18:10+0100\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -67,7 +67,6 @@ msgstr ""
 "támogatja."
 
 #: misc/shotwell.appdata.xml.in:52
-#| msgid "Shotwell Viewer"
 msgid "The Shotwell developers"
 msgstr "A Shotwell fejlesztői"
 
@@ -1289,7 +1288,6 @@ msgstr ""
 "Igaz, ha az Elhalványodás diaátmenet bővítmény engedélyezett, különben hamis"
 
 #: misc/org.yorba.shotwell.gschema.xml:774
-#: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow slide transition"
 msgstr "csúszás diaátmenet engedélyezése"
 
@@ -1308,7 +1306,6 @@ msgid ""
 msgstr "Igaz, ha az Óra diaátmenet bővítmény engedélyezett, különben hamis"
 
 #: misc/org.yorba.shotwell.gschema.xml:786
-#: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow circle transition"
 msgstr "kör diaátmenet engedélyezése"
 
@@ -1317,10 +1314,20 @@ msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Kör diaátmenet bővítmény engedélyezett, különben hamis"
 
+#: misc/org.yorba.shotwell.gschema.xml:792
+#| msgid "enable slideshow circle transition"
+msgid "enable slideshow circles transition"
+msgstr "körök diaátmenet engedélyezése"
+
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "Igaz, ha a Körök diaátmenet bővítmény engedélyezett, különben hamis"
+
+#: misc/org.yorba.shotwell.gschema.xml:798
+#| msgid "enable slideshow slide transition"
+msgid "enable slideshow blinds transition"
+msgstr "lamellák diaátmenet engedélyezése"
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
@@ -1476,7 +1483,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:602
 msgid "translator-credits"
 msgstr ""
 "Peter Bojtos <ptr at ulx dot hu>\n"
@@ -1672,7 +1679,7 @@ msgid "Go _Back"
 msgstr "_Vissza"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#: ui/shotwell.ui:1464
+#: ui/shotwell.ui:1105
 msgid "_Log in"
 msgstr "Bejele_ntkezés"
 
@@ -1739,7 +1746,7 @@ msgstr "_Kijelentkezés"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2466
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
 msgstr "Közzé_tétel"
 
@@ -2116,12 +2123,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:802
 #, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabyte remaining in your upload quota."
-#| msgid_plural ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabytes remaining in your upload quota."
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
@@ -2176,7 +2177,6 @@ msgstr "Fénykép_méret előbeállítása:"
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PicasaPublishing.vala:96
 #: plugins/shotwell-publishing/PicasaPublishing.vala:630
-#| msgid "last album"
 msgid "Default album"
 msgstr "Alapértelmezett album"
 
@@ -2354,7 +2354,7 @@ msgstr "Tanúsítvány megjelenítése…"
 msgid "I understand, please _proceed."
 msgstr "Megértettem, _folytatás."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:50
+#: plugins/shotwell-publishing/shotwell-publishing.vala:55
 msgid "Core Publishing Services"
 msgstr "Alap közzétételi szolgáltatások"
 
@@ -2482,7 +2482,7 @@ msgstr "Eszköztár rögzítése nyitva"
 msgid "Leave fullscreen"
 msgstr "Teljes képernyő elhagyása"
 
-#: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
+#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
 #: src/data_imports/DataImportsUI.vala:301
 #: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
@@ -2491,7 +2491,7 @@ msgstr "Teljes képernyő elhagyása"
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:579
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2504,21 +2504,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:599
 msgid "Visit the Shotwell web site"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:611
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nem lehet megjeleníteni a súgót: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:619
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nem nyitható meg a hibaadatbázis: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:627
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nem jeleníthető meg a GyIK: %s"
@@ -2740,127 +2740,127 @@ msgstr[0] ""
 msgstr[1] ""
 "Hiba történt, %d fénykép vagy videó nem törölhető a fényképezőgépről."
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2461 src/Resources.vala:170
+#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2464 src/Resources.vala:170
 msgid "_Print"
 msgstr "_Nyomtatás"
 
-#: src/CollectionPage.vala:77 src/Resources.vala:323 ui/collection.ui:126
+#: src/CollectionPage.vala:83 src/Resources.vala:323 ui/collection.ui:126
 #: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:563 ui/photo.ui:28
 msgid "Send _To…"
 msgstr "Kül_dés…"
 
-#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2471 src/Resources.vala:220
+#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2474 src/Resources.vala:220
 msgid "Set as _Desktop Background"
 msgstr "Beállítás _asztalháttérként"
 
-#: src/CollectionPage.vala:86 src/Resources.vala:286
+#: src/CollectionPage.vala:92 src/Resources.vala:286
 msgid "_Duplicate"
 msgstr "_Kettőzés"
 
-#: src/CollectionPage.vala:94
+#: src/CollectionPage.vala:100
 msgid "Fullscreen"
 msgstr "Teljes képernyő"
 
-#: src/CollectionPage.vala:96 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:180
 msgid "S_lideshow"
 msgstr "_Diavetítés"
 
-#: src/CollectionPage.vala:104 src/Resources.vala:139 ui/direct.ui:111
+#: src/CollectionPage.vala:110 src/Resources.vala:139 ui/direct.ui:111
 #: ui/photo.ui:200
 msgid "Rotate _Right"
 msgstr "Forgatás j_obbra"
 
-#: src/CollectionPage.vala:107 src/Resources.vala:144 ui/direct.ui:116
+#: src/CollectionPage.vala:113 src/Resources.vala:144 ui/direct.ui:116
 #: ui/photo.ui:205
 msgid "Rotate _Left"
 msgstr "Forgatás _balra"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:149 ui/direct.ui:121
+#: src/CollectionPage.vala:116 src/Resources.vala:149 ui/direct.ui:121
 #: ui/photo.ui:210
 msgid "Flip Hori_zontally"
 msgstr "_Vízszintes tükrözés"
 
-#: src/CollectionPage.vala:111 src/Resources.vala:152 ui/direct.ui:125
+#: src/CollectionPage.vala:117 src/Resources.vala:152 ui/direct.ui:125
 #: ui/photo.ui:214
 msgid "Flip Verti_cally"
 msgstr "_Függőleges tükrözés"
 
-#: src/CollectionPage.vala:113 src/Resources.vala:186 ui/collection.ui:8
+#: src/CollectionPage.vala:119 src/Resources.vala:186 ui/collection.ui:8
 #: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:445
 #: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "_Feljavítás"
 
-#: src/CollectionPage.vala:114 src/Resources.vala:214 ui/collection.ui:13
+#: src/CollectionPage.vala:120 src/Resources.vala:214 ui/collection.ui:13
 #: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:450
 #: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "_Vissza az eredetihez"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:190 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:190 ui/photo.ui:256
 msgid "_Copy Color Adjustments"
 msgstr "_Színbeállítások másolása"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:194 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:194 ui/photo.ui:261
 msgid "_Paste Color Adjustments"
 msgstr "_Színbeállítások beillesztése"
 
-#: src/CollectionPage.vala:129
+#: src/CollectionPage.vala:135
 msgid "Adjust Date and Time…"
 msgstr "Dátum és idő módosítása…"
 
-#: src/CollectionPage.vala:137 src/Resources.vala:319
+#: src/CollectionPage.vala:143 src/Resources.vala:319
 msgid "Open With E_xternal Editor"
 msgstr "Megnyitás külső _szerkesztővel"
 
-#: src/CollectionPage.vala:140 src/Resources.vala:321 ui/collection.ui:111
+#: src/CollectionPage.vala:146 src/Resources.vala:321 ui/collection.ui:111
 #: ui/event.ui:548 ui/photo_context.ui:118 ui/photo.ui:363
 msgid "Open With RA_W Editor"
 msgstr "Megnyitás RA_W szerkesztővel"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:167
+#: src/CollectionPage.vala:149 src/Resources.vala:167
 msgid "_Play"
 msgstr "_Lejátszás"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photo/Video"
 msgstr "Fényképek vagy videók exportálása"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photos/Videos"
 msgstr "Fényképek vagy videók exportálása"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:59 src/PhotoPage.vala:2995
+#: src/CollectionPage.vala:417 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
 msgstr "Fényképek exportálása"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:84
+#: src/CollectionPage.vala:417 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Fényképek exportálása"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Rotating"
 msgstr "Forgatás"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Undoing Rotate"
 msgstr "Forgatás visszavonása"
 
-#: src/CollectionPage.vala:523
+#: src/CollectionPage.vala:529
 msgid "Flipping Horizontally"
 msgstr "Tükrözés vízszintesen"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:530
 msgid "Undoing Flip Horizontally"
 msgstr "Vízszintes tükrözés visszavonása"
 
-#: src/CollectionPage.vala:533
+#: src/CollectionPage.vala:539
 msgid "Flipping Vertically"
 msgstr "Tükrözés függőlegesen"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:540
 msgid "Undoing Flip Vertically"
 msgstr "Függőleges tükrözés visszavonása"
 
@@ -3936,11 +3936,11 @@ msgstr "_Importálás"
 msgid "Import to Library"
 msgstr "Importálás a gyűjteménybe"
 
-#: src/Dialogs.vala:2709 src/PhotoPage.vala:2871
+#: src/Dialogs.vala:2709 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Eltávolítás a gyűjteményből"
 
-#: src/Dialogs.vala:2710 src/PhotoPage.vala:2871
+#: src/Dialogs.vala:2710 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Fényképek eltávolítás a gyűjteményből"
 
@@ -4066,29 +4066,29 @@ msgstr ""
 msgid "Unable open photo %s. Sorry."
 msgstr "Elnézést, a(z) %s fénykép nem nyitható meg."
 
-#: src/direct/DirectPhotoPage.vala:304 src/Resources.vala:175 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:175 ui/direct.ui:8
 msgid "_Save"
 msgstr "M_entés"
 
-#: src/direct/DirectPhotoPage.vala:304
+#: src/direct/DirectPhotoPage.vala:316
 msgid "_Save a Copy"
 msgstr "_Másolat mentése"
 
-#: src/direct/DirectPhotoPage.vala:307
+#: src/direct/DirectPhotoPage.vala:319
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Eldobja a(z) %s változtatásait?"
 
-#: src/direct/DirectPhotoPage.vala:308
+#: src/direct/DirectPhotoPage.vala:320
 msgid "Close _without Saving"
 msgstr "Bezárás mentés _nélkül"
 
-#: src/direct/DirectPhotoPage.vala:341
+#: src/direct/DirectPhotoPage.vala:353
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Hiba a(z) %s helyre mentéskor: %s"
 
-#: src/direct/DirectPhotoPage.vala:371 src/direct/DirectPhotoPage.vala:392
+#: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
 msgid "Save As"
 msgstr "Mentés másként"
 
@@ -4137,23 +4137,23 @@ msgstr "SD videó (4 ∶ 3)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "HD videó (16 ∶ 9)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:818
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Tárca (2 × 3 hüvelyk)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:821
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
 msgstr "Jegyzettömb (3 × 5 hüvelyk)"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:824
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4 × 6 hüvelyk"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:827
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5 × 7 hüvelyk"
 
-#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:830
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8 × 10 hüvelyk"
 
@@ -4161,7 +4161,7 @@ msgstr "8 × 10 hüvelyk"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8.5 × 11 hüvelyk)"
 
-#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:833
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11 × 14 hüvelyk"
 
@@ -4169,23 +4169,23 @@ msgstr "11 × 14 hüvelyk"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 hüvelyk)"
 
-#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:836
+#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16 × 20 hüvelyk"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:842
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Metrikus tárca (9 × 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:845
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Képeslap (10 × 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:848
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:851
+#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
@@ -4193,15 +4193,15 @@ msgstr "18 × 24 cm"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:854
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:857
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:860
+#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
@@ -4551,32 +4551,32 @@ msgstr "Ismeretlen hiba a Shotwell adatbázisának ellenőrzésekor: %s"
 msgid "Loading Shotwell"
 msgstr "A Shotwell betöltése"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "Path to Shotwell’s private data"
 msgstr "A Shotwell privát adatainak útvonala"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "DIRECTORY"
 msgstr "KÖNYVTÁR"
 
-#: src/main.vala:298
+#: src/main.vala:297
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne figyelje a változásokat a gyűjteménykönyvtárban futás közben"
 
-#: src/main.vala:302
+#: src/main.vala:301
 msgid "Don’t display startup progress meter"
 msgstr "Ne jelenítse meg az indítási folyamatjelzőt"
 
-#: src/main.vala:306
+#: src/main.vala:305
 msgid "Show the application’s version"
 msgstr "Az alkalmazás verziószámának megjelenítése"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:338
+#: src/main.vala:342
 msgid "[FILE]"
 msgstr "[FÁJL]"
 
-#: src/main.vala:342
+#: src/main.vala:346
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -4601,34 +4601,34 @@ msgstr ""
 "A Shotwell nem tudta lejátszani a kijelölt videót:\n"
 "%s"
 
-#: src/Page.vala:1319
+#: src/Page.vala:1318
 msgid "No photos/videos"
 msgstr "Nincsenek fényképek vagy videók"
 
-#: src/Page.vala:1323
+#: src/Page.vala:1322
 msgid "No photos/videos found which match the current filter"
 msgstr "Nem található fénykép vagy videó, amely megfelel a jelenlegi szűrőnek"
 
-#: src/Page.vala:2629
+#: src/Page.vala:2628
 msgid "Photos cannot be exported to this directory."
 msgstr "Nem exportálhatók fényképek ebbe a könyvtárba."
 
 #. previous button
-#: src/PhotoPage.vala:535
+#: src/PhotoPage.vala:538
 msgid "Previous photo"
 msgstr "Előző fénykép"
 
 #. next button
-#: src/PhotoPage.vala:541
+#: src/PhotoPage.vala:544
 msgid "Next photo"
 msgstr "Következő fénykép"
 
-#: src/PhotoPage.vala:1847
+#: src/PhotoPage.vala:1850
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "A fénykép forrásfájlja hiányzik: %s"
 
-#: src/PhotoPage.vala:3015
+#: src/PhotoPage.vala:3018
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "%s exportálása sikertelen: %s"
@@ -4705,23 +4705,15 @@ msgstr "16 kép oldalanként"
 msgid "32 images per page"
 msgstr "32 kép oldalanként"
 
-#: src/Printing.vala:348
-msgid "in."
-msgstr "hüvelyk"
-
-#: src/Printing.vala:349
-msgid "cm"
-msgstr "cm"
-
-#: src/Printing.vala:876
+#: src/Printing.vala:851
 msgid "Image Settings"
 msgstr "Képbeállítások"
 
-#: src/Printing.vala:889
+#: src/Printing.vala:864
 msgid "Printing…"
 msgstr "Nyomtatás…"
 
-#: src/Printing.vala:909 src/Printing.vala:1112
+#: src/Printing.vala:884 src/Printing.vala:1087
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -4881,7 +4873,6 @@ msgstr[0] "A kijelölt videó sikeresen közzétéve."
 msgstr[1] "A kijelölt videók sikeresen közzétéve."
 
 #: src/publishing/PublishingUI.vala:109
-#| msgid "The selected photo was successfully published."
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
 msgstr[0] "A kijelölt fénykép sikeresen közzétéve."
@@ -5682,14 +5673,14 @@ msgstr "Minden elem kijelölése"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:739
+#: src/Resources.vala:738
 msgid "%a %b %d, %Y"
 msgstr "%Y. %b. %d., %a"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:744
+#: src/Resources.vala:743
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a. %b. %d"
@@ -5697,7 +5688,7 @@ msgstr "%a. %b. %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:749
+#: src/Resources.vala:748
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%Y. %d."
@@ -5705,7 +5696,7 @@ msgstr "%Y. %d."
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:754
+#: src/Resources.vala:753
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a. %b. %d"
@@ -5713,7 +5704,7 @@ msgstr "%a. %b. %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:759
+#: src/Resources.vala:758
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%Y. %b. %d., %a"
@@ -6237,6 +6228,56 @@ msgstr "Fény_képek"
 msgid "_Stop Import"
 msgstr "Importálás l_eállítása"
 
+#: ui/printing_widget.ui:19
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Nyomtatott képméret</b>"
+
+#: ui/printing_widget.ui:36
+msgid "Use a _standard size:"
+msgstr "_Szabványos méret használata:"
+
+#: ui/printing_widget.ui:80
+msgid "Use a c_ustom size:"
+msgstr "_Egyéni méret használata:"
+
+#. Abbrevation for "inch"
+#: ui/printing_widget.ui:146
+msgid "in."
+msgstr "hüvelyk"
+
+#. Abbrevation for "centimeters"
+#: ui/printing_widget.ui:147
+msgid "cm"
+msgstr "cm"
+
+#: ui/printing_widget.ui:173
+msgid "_Match photo aspect ratio"
+msgstr "Fénykép _méretarányának megtartása"
+
+#: ui/printing_widget.ui:197
+msgid "_Autosize:"
+msgstr "_Automatikus méret:"
+
+#: ui/printing_widget.ui:237
+msgid "<b>Titles</b>"
+msgstr "<b>Címek</b>"
+
+#: ui/printing_widget.ui:254
+msgid "Print image _title"
+msgstr "Kép _címének nyomtatása"
+
+#: ui/printing_widget.ui:297
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Felbontás képpontban</b>"
+
+#: ui/printing_widget.ui:317
+msgid "_Output photo at:"
+msgstr "_Kimenő fénykép:"
+
+#: ui/printing_widget.ui:351
+msgid "pixels per inch"
+msgstr "képpont hüvelykenként"
+
 #: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
 msgstr "Beállítás asztalháttérként"
@@ -6345,79 +6386,39 @@ msgstr "Külső szerkesztők"
 msgid "Plugins"
 msgstr "Bővítmények"
 
-#: ui/shotwell.ui:583
-msgid "<b>Printed Image Size</b>"
-msgstr "<b>Nyomtatott képméret</b>"
-
-#: ui/shotwell.ui:600
-msgid "Use a _standard size:"
-msgstr "_Szabványos méret használata:"
-
-#: ui/shotwell.ui:643
-msgid "Use a c_ustom size:"
-msgstr "_Egyéni méret használata:"
-
-#: ui/shotwell.ui:731
-msgid "_Match photo aspect ratio"
-msgstr "Fénykép _méretarányának megtartása"
-
-#: ui/shotwell.ui:755
-msgid "_Autosize:"
-msgstr "_Automatikus méret:"
-
-#: ui/shotwell.ui:795
-msgid "<b>Titles</b>"
-msgstr "<b>Címek</b>"
-
-#: ui/shotwell.ui:812
-msgid "Print image _title"
-msgstr "Kép _címének nyomtatása"
-
-#: ui/shotwell.ui:855
-msgid "<b>Pixel Resolution</b>"
-msgstr "<b>Felbontás képpontban</b>"
-
-#: ui/shotwell.ui:875
-msgid "_Output photo at:"
-msgstr "_Kimenő fénykép:"
-
-#: ui/shotwell.ui:909
-msgid "pixels per inch"
-msgstr "képpont hüvelykenként"
-
-#: ui/shotwell.ui:949
+#: ui/shotwell.ui:590
 msgid "_Name of search:"
 msgstr "Keresés _neve:"
 
-#: ui/shotwell.ui:1003
+#: ui/shotwell.ui:644
 msgid "_Match"
 msgstr "Illes_zkedjen"
 
-#: ui/shotwell.ui:1030
+#: ui/shotwell.ui:671
 msgid "of the following:"
 msgstr "a következőkkel:"
 
-#: ui/shotwell.ui:1111
+#: ui/shotwell.ui:752
 msgid "label"
 msgstr "címke"
 
-#: ui/shotwell.ui:1262
+#: ui/shotwell.ui:903
 msgid "_Delay:"
 msgstr "_Késleltetés:"
 
-#: ui/shotwell.ui:1276
+#: ui/shotwell.ui:917
 msgid "_Transition effect:"
 msgstr "Átmenet _effektus:"
 
-#: ui/shotwell.ui:1290
+#: ui/shotwell.ui:931
 msgid "Transition d_elay:"
 msgstr "Átmenet _késleltetése:"
 
-#: ui/shotwell.ui:1300
+#: ui/shotwell.ui:941
 msgid "Show t_itle"
 msgstr "_Cím megjelenítése"
 
-#: ui/shotwell.ui:1375 ui/shotwell.ui:1386
+#: ui/shotwell.ui:1016 ui/shotwell.ui:1027
 msgid "seconds"
 msgstr "másodperc"
 
@@ -6429,229 +6430,3 @@ msgstr "Új _címke…"
 msgid "Delete all photos in the trash"
 msgstr "Minden fénykép törlése a Kukában"
 
-#~ msgid "Testing connection to Facebook…"
-#~ msgstr "Kapcsolat tesztelése a Facebookhoz…"
-
-#~ msgid ""
-#~ "You have already logged in and out of Flickr during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Flickr, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "A Shotwell használata közben már bejelentkezett a Flickr-re, és "
-#~ "kijelentkezett onnan.\n"
-#~ "A Flickr-re való feltöltés folytatásához indítsa újra a Shotwellt, és "
-#~ "próbálja újra a feltöltést."
-
-#~ msgid "L_ist album in public gallery"
-#~ msgstr "Alb_um listázása a nyilvános galériában"
-
-#~ msgid "Videos will appear in “%s”"
-#~ msgstr "A videók itt jelennek meg: „%s”"
-
-#~ msgid "_Contents"
-#~ msgstr "_Tartalom"
-
-#~ msgid "Display the title of each photo"
-#~ msgstr "Fényképek címeinek megjelenítése"
-
-#~ msgid "Import the selected photos into your library"
-#~ msgstr "Kijelölt fényképek importálása a gyűjteményébe"
-
-#~ msgid "Import all the photos into your library"
-#~ msgstr "Minden fénykép importálása a gyűjteményébe"
-
-#~ msgid "Play a slideshow"
-#~ msgstr "Diavetítés indítása"
-
-#~ msgid "_Modify original photo files"
-#~ msgstr "Eredeti fényképfájlok _módosítása"
-
-#~ msgid "_Modify original files"
-#~ msgstr "Eredeti fájlok _módosítása"
-
-#~ msgid "Save photo"
-#~ msgstr "Fénykép mentése"
-
-#~ msgid "Save photo with a different name"
-#~ msgstr "Fénykép mentése más névvel"
-
-#~ msgid "Print the photo to a printer connected to your computer"
-#~ msgstr "Fénykép nyomtatása a számítógéphez csatlakozó nyomtatón"
-
-#~ msgid "Previous Photo"
-#~ msgstr "Előző fénykép"
-
-#~ msgid "Next Photo"
-#~ msgstr "Következő fénykép"
-
-#~ msgid "Increase the magnification of the photo"
-#~ msgstr "Fénykép nagyításának növelése"
-
-#~ msgid "Decrease the magnification of the photo"
-#~ msgstr "Fénykép nagyításának csökkentése"
-
-#~ msgid "Zoom the photo to fit on the screen"
-#~ msgstr "Képernyő kitöltése a fényképpel"
-
-#~ msgid "Zoom the photo to 100% magnification"
-#~ msgstr "Fénykép 100%-os nagyítása"
-
-#~ msgid "Zoom the photo to 200% magnification"
-#~ msgstr "Fénykép 200%-os nagyítása"
-
-#~ msgid "Display the comment of each event"
-#~ msgstr "Az egyes események megjegyzéseinek megjelenítése"
-
-#~ msgid "Stop importing photos"
-#~ msgstr "Fényképek importálásának leállítása"
-
-#~ msgid "Import photos from disk to library"
-#~ msgstr "Fényképek importálása a gyűjteménybe lemezről"
-
-#~ msgid "Find photos and videos by search criteria"
-#~ msgstr "Fényképek és videók keresése keresőkifejezésekkel"
-
-#~ msgid "Display basic information for the selection"
-#~ msgstr "Kijelöltek alapvető információinak megjelenítése"
-
-#~ msgid "Display extended information for the selection"
-#~ msgstr "Kijelöltek további információinak megjelenítése"
-
-#~ msgid "Display the search bar"
-#~ msgstr "A keresősáv megjelenítése"
-
-#~ msgid "Display the sidebar"
-#~ msgstr "Az oldalsáv megjelenítése"
-
-#~ msgid "Display the tool bar"
-#~ msgstr "Az eszköztár megjelenítése"
-
-#~ msgid "Sort photos in an ascending order"
-#~ msgstr "Fényképek növekvő sorrendbe rendezése"
-
-#~ msgid "Sort photos in a descending order"
-#~ msgstr "Fényképek csökkenő sorrendbe rendezése"
-
-#~ msgid "Increase the magnification of the thumbnails"
-#~ msgstr "Bélyegképek nagyítása"
-
-#~ msgid "Decrease the magnification of the thumbnails"
-#~ msgstr "Bélyegképek kicsinyítése"
-
-#~ msgid "_Play Video"
-#~ msgstr "_Videó lejátszása"
-
-#~ msgid "Open the selected videos in the system video player"
-#~ msgstr "Kijelölt videók megnyitása a rendszer videolejátszójában"
-
-#~ msgid "Display the comment of each photo"
-#~ msgstr "Az egyes képek megjegyzéseinek megjelenítése"
-
-#~ msgid "Display each photo’s tags"
-#~ msgstr "Fényképek címkéinek megjelenítése"
-
-#~ msgid "Sort photos by title"
-#~ msgstr "Fényképek rendezése cím szerint"
-
-#~ msgid "Sort photos by exposure date"
-#~ msgstr "Fényképek rendezése készítésük dátuma szerint"
-
-#~ msgid "Sort photos by rating"
-#~ msgstr "Fényképek rendezése értékelés szerint"
-
-#~ msgid "Sort photos by filename"
-#~ msgstr "Fényképek rendezése fájlnév szerint"
-
-#~ msgid "The selected videos were successfully published."
-#~ msgstr "A kijelölt videók sikeresen közzétéve."
-
-#~ msgid "The selected photos were successfully published."
-#~ msgstr "A kijelölt fényképek sikeresen közzétéve."
-
-#~ msgid "Tag Photos as “%s”"
-#~ msgstr "Fényképek címkézése ezzel: „%s”"
-
-#~ msgid "Tag the selected photos as “%s”"
-#~ msgstr "Kiválasztott fényképek címkézése ezzel: „%s”"
-
-#~ msgid "Remove Tag “%s” From _Photos"
-#~ msgstr "„%s” címke _eltávolítása a fényképekről"
-
-#~ msgid "Remove Tag “%s” From Photos"
-#~ msgstr "„%s” címke eltávolítása a fényképekről"
-
-#~ msgid "RAW photos"
-#~ msgstr "RAW fényképek"
-
-#~ msgid "Shotwell Preferences"
-#~ msgstr "Shotwell beállítások"
-
-#~ msgid "Login"
-#~ msgstr "Bejelentkezés"
-
-#~ msgid "Save Details..."
-#~ msgstr "Részletek mentése…"
-
-#~ msgid "Save _As..."
-#~ msgstr "Men_tés másként…"
-
-#~ msgid "Importing..."
-#~ msgstr "Importálás…"
-
-#~ msgid "Preparing to import..."
-#~ msgstr "Importálás előkészítése…"
-
-#~ msgid "_Import From Folder..."
-#~ msgstr "_Importálás mappából…"
-
-#~ msgid "Import From _Application..."
-#~ msgstr "Importálás _alkalmazásból…"
-
-#~ msgid "Set as _Desktop Slideshow..."
-#~ msgstr "Beállítás asztali _diavetítésként…"
-
-#~ msgid "Re_name Event..."
-#~ msgstr "Esemé_ny átnevezése…"
-
-#~ msgid "_Export..."
-#~ msgstr "_Exportálás…"
-
-#~ msgid "_Print..."
-#~ msgstr "_Nyomtatás…"
-
-#~ msgid "Pu_blish..."
-#~ msgstr "Kö_zzététel…"
-
-#~ msgid "Edit _Title..."
-#~ msgstr "_Cím szerkesztése…"
-
-#~ msgid "Edit _Comment..."
-#~ msgstr "Megjegyzés s_zerkesztése…"
-
-#~ msgid "Edit Event _Comment..."
-#~ msgstr "_Eseménymegjegyzés szerkesztése…"
-
-#~ msgid "_Adjust Date and Time..."
-#~ msgstr "_Dátum és idő módosítása…"
-
-#~ msgid "Add _Tags..."
-#~ msgstr "_Címkék hozzáadása…"
-
-#~ msgid "_Add Tags..."
-#~ msgstr "Címkék hozzáadása…"
-
-#~ msgid "Send _To..."
-#~ msgstr "Kül_dés…"
-
-#~ msgid "Send T_o..."
-#~ msgstr "Küldés _célja…"
-
-#~ msgid "_Find..."
-#~ msgstr "_Keresés…"
-
-#~ msgid "Modif_y Tags..."
-#~ msgstr "Cí_mkék módosítása…"
-
-#~ msgid "_Edit..."
-#~ msgstr "S_zerkesztés…"
