@@ -1,3 +1,26 @@
+shotwell (0.25.92-0~jensge1~zesty1) zesty; urgency=medium
+
+  * Fix navigation issue when deleting image in fullscreen view
+  * Fix toolbox not visible on Mate in fullscreen view
+  * Fix navigation in viewer when saving modified photo
+  * Fix wrong macro in manpage
+  * Clean-up some dependencies
+  * Make it possible to enable/disable individual publishers
+  * Remove obsolete UI file
+  * Move all icons in the resource file
+  * Move ui files into resources
+  * Remove obsolete Glade helpers
+  * Clean-up printing dialog a little
+  * Piwigo: Append .jpg extension to published raw files
+  * Fix keyboard accessability of CCW rotation
+  * Fix massive memory consumption when importing videos
+  * Fix context menu of viewer
+  * Fix a useless string copy
+  * Use defalt measurements depending on locale when none are set
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Thu, 16 Mar 2017 20:01:59 +0100
+
 shotwell (0.25.90-0~jensge1~xenial1) xenial; urgency=medium
 
   * Remove obsolete option to create new folders on Picasa web albums
