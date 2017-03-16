@@ -10,13 +10,14 @@
 # 
 # 
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016.
 # 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016., 2017.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-12-23 00:18+0000\n"
-"PO-Revision-Date: 2016-12-23 \n"
+"POT-Creation-Date: 2017-03-15 21:36+0000\n"
+"PO-Revision-Date: 2017-03-16 08:13+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -178,18 +179,6 @@ msgstr ""
 "y cómo de oscuro es el negro más oscuro. Utilícelos para cambiar el "
 "contraste de la foto, sobre todo en las fotos que son pálidas."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/edit-crop.page:42
-msgctxt "_"
-msgid ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-msgstr ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
 msgid "Improve the composition of a photo by cutting out parts of it."
@@ -265,7 +254,7 @@ msgid ""
 "<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
 "Cuando esté satisfecho con su recorte, aplíquelo pulsando el botón "
-"<gui>Recortar<gui>. Shotwell mostrará la foto recortada."
+"<gui>Recortar</gui>. Shotwell mostrará la foto recortada."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:32
@@ -325,6 +314,18 @@ msgid ""
 msgstr ""
 "Recortar una foto siguiendo la regla de los tercios suele dar como resultado "
 "una imagen visualmente más satisfactoria."
+
+#. (itstool) path: section/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+msgctxt "_"
+msgid ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+msgstr ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -386,7 +387,7 @@ msgstr ""
 "foto. Si están instalados, GIMP y UFRaw son los editores externos "
 "predeterminados para editar una foto o RAW, respectivamente. Si estos "
 "programas no están instalados, tiene que seleccionar sus editores preferidos "
-"eligiendo <guiseq><gui>Editar<gui><gui>Preferencias</gui></guiseq> y "
+"eligiendo <guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y "
 "seleccionar los editores del menú desplegable de las aplicaciones instaladas."
 
 #. (itstool) path: page/p
@@ -482,7 +483,7 @@ msgid ""
 "you hold the key down."
 msgstr ""
 "Si quiere ver qué aspecto tenía una foto antes de realizar las "
-"modificaciones, pulse la tecla <tecla>Mayús<tecla>. La foto original se "
+"modificaciones, pulse la tecla <key>Mayús</key>. La foto original se "
 "mostrará siempre que mantenga pulsada esta tecla."
 
 #. (itstool) path: page/p
@@ -576,9 +577,9 @@ msgid ""
 "the following keyboard shortcuts:"
 msgstr ""
 "Para girar hacia la derecha, pulse el botón <gui>Girar</gui>. Para girar "
-"hacia la izquierda, mantenga pulsada la tecla <tecla>Ctrl</key> y luego "
-"pulse el botón. Ambos comandos están disponibles en el menú <gui>Fotos</"
-"gui>. Como alternativa, utilice los siguientes atajos del teclado:"
+"hacia la izquierda, mantenga pulsada la tecla <key>Ctrl</key> y luego pulse "
+"el botón. Ambos comandos están disponibles en el menú <gui>Fotos</gui>. Como "
+"alternativa, utilice los siguientes atajos del teclado:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
@@ -866,9 +867,9 @@ msgid ""
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
 "Si quiere, puede elegir un conjunto de fotos específicas para importar. Para "
-"ello, mantenga presionada la tecla <tecla>Ctrl</key> y pulse para "
-"seleccionar las fotos individuales. Puede mantener pulsada la tecla "
-"<tecla>Mayús</tecla> y pulsar para seleccionar varias fotos también."
+"ello, mantenga presionada la tecla <key>Ctrl</key> y pulse para seleccionar "
+"las fotos individuales. Puede mantener pulsada la tecla <key>Mayús</key> y "
+"pulsar para seleccionar varias fotos también."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:28
@@ -1074,20 +1075,6 @@ msgstr ""
 "Sin embargo, si eso no funciona, podrá importar fotos mediante <link xref="
 "\"import-camera\">conectar su cámara directamente al ordenador</link>."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
 #. (itstool) path: info/title
 #: C/index.page:6
 msgctxt "link"
@@ -1124,6 +1111,20 @@ msgstr "Peter Smith"
 #: C/index.page:17
 msgid "Phil Bull"
 msgstr "Phil Bull"
+
+#. (itstool) path: title/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/index.page:23
+msgctxt "_"
+msgid ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
+msgstr ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
 
 #. (itstool) path: page/title
 #: C/index.page:23
@@ -1492,20 +1493,6 @@ msgstr ""
 "<guiseq><gui>Establecer puntuación</gui><gui>Disminuir</gui></guiseq>, o los "
 "atajos del teclado <key>&lt;</key> y <key>&gt;</key>."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/organize-remove.page:15
-msgctxt "_"
-msgid ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
 msgid ""
@@ -1525,6 +1512,20 @@ msgid ""
 msgstr ""
 "Puede eliminar las fotos de su biblioteca y también puede eliminarlas de su "
 "disco duro."
+
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
 
 #. (itstool) path: page/media
 #: C/organize-remove.page:15
@@ -2593,9 +2594,9 @@ msgstr ""
 "su información adicional para mostrarse) la mayoría de las cámaras "
 "incorporarán un JPEG dentro de un archivo en formato RAW, o producirán un "
 "JPEG junto con el archivo RAW en el momento en que se toma la foto. Este "
-"último se refiere a todo este documento como RAW+JPEG. Si importa una "
-"pareja de RAW+JPEG, Shotwell los mantendrá sincronizados y los tratará como "
-"un elemento de su biblioteca."
+"último se refiere a todo este documento como RAW+JPEG. Si importa una pareja "
+"de RAW+JPEG, Shotwell los mantendrá sincronizados y los tratará como un "
+"elemento de su biblioteca."
 
 #. (itstool) path: page/p
 #: C/raw.page:27
@@ -2627,8 +2628,8 @@ msgid ""
 msgstr ""
 "Para publicar o usar una foto RAW en la mayoría de los programas, primero se "
 "debe exportar. Shotwell puede exportar sus fotos RAW en formato JPEG, PNG, "
-"TIFF o BMP y, al publicarlas, exportará internamente una versión JPEG para "
-"y la publicará."
+"TIFF o BMP y, al publicarlas, exportará internamente una versión JPEG para y "
+"la publicará."
 
 #. (itstool) path: info/desc
 #: C/running.page:7
