@@ -11,10 +11,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2016-11-07 22:02+0000\n"
-"PO-Revision-Date: 2016-11-09 14:19+0500\n"
+"POT-Creation-Date: 2017-03-15 21:35+0000\n"
+"PO-Revision-Date: 2017-03-17 08:52+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/projects/p/shotwell/language/"
 "kk/)\n"
@@ -56,6 +56,10 @@ msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Shotwell JPEG, PNG, TIFF және RAW файл пішімдерінің бірнеше түрлерін "
 "қолдайды."
+
+#: misc/shotwell.appdata.xml.in:52
+msgid "The Shotwell developers"
+msgstr "Shotwell жасағандары"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -326,7 +330,6 @@ msgid "True if events should be sorted ascending, false if descending."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:94
-#| msgid "Sort photos in an ascending order"
 msgid "sort library photos ascending"
 msgstr ""
 
@@ -344,7 +347,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:106
-#| msgid "Sort photos in an ascending order"
 msgid "sort event photos ascending"
 msgstr ""
 
@@ -353,7 +355,6 @@ msgid "True if event photos should be sorted ascending, false if descending."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:112
-#| msgid "Sort photos by title"
 msgid "sort event photos criteria"
 msgstr ""
 
@@ -382,7 +383,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:130
-#| msgid "_Modify original photo files"
 msgid "modify original photo files"
 msgstr ""
 
@@ -403,7 +403,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:142
-#| msgid "Library Location"
 msgid "sidebar position"
 msgstr ""
 
@@ -420,7 +419,6 @@ msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:154
-#| msgid "Pin the toolbar open"
 msgid "pin toolbar state"
 msgstr ""
 
@@ -429,9 +427,8 @@ msgid "Pin toolbar in fullscreen, or not."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:160
-#| msgid "_Background:"
 msgid "background color"
-msgstr ""
+msgstr "фон түсі"
 
 #: misc/org.yorba.shotwell.gschema.xml:161
 msgid "A grayscale color for use as the background color."
@@ -456,7 +453,6 @@ msgid "Delay (in seconds) between photos in the slideshow."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:180
-#| msgid "Transition d_elay:"
 msgid "transition delay"
 msgstr ""
 
@@ -466,7 +462,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:186
-#| msgid "_Transition effect:"
 msgid "transition effect id"
 msgstr ""
 
@@ -477,7 +472,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:192
-#| msgid "Show t_itle"
 msgid "Show title"
 msgstr ""
 
@@ -544,7 +538,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:244
-#| msgid "Import to Library"
 msgid "import directory"
 msgstr ""
 
@@ -553,7 +546,6 @@ msgid "Directory in which imported photo files are placed."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:250
-#| msgid "_Watch library directory for new files"
 msgid "watch library directory for new files"
 msgstr ""
 
@@ -563,7 +555,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:256
-#| msgid "Writing metadata to files..."
 msgid "write metadata to master files"
 msgstr ""
 
@@ -584,7 +575,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:268
-#| msgid "_Directory structure:"
 msgid "directory pattern"
 msgstr ""
 
@@ -605,7 +595,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:280
-#| msgid "RAW Developer"
 msgid "RAW developer default"
 msgstr ""
 
@@ -642,7 +631,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:306
-#| msgid "E_xternal photo editor:"
 msgid "external photo editor"
 msgstr ""
 
@@ -651,7 +639,6 @@ msgid "External application used to edit photos."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:312
-#| msgid "External _RAW editor:"
 msgid "external raw editor"
 msgstr ""
 
@@ -660,7 +647,6 @@ msgid "External application used to edit RAW photos."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:320
-#| msgid "Core Publishing Services"
 msgid "last used publishing service"
 msgstr ""
 
@@ -671,12 +657,10 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:326
-#| msgid "Core Publishing Services"
 msgid "default publishing service"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:340
-#| msgid "Access _type:"
 msgid "access token"
 msgstr ""
 
@@ -697,7 +681,6 @@ msgid "user name"
 msgstr "пайдаланушы аты"
 
 #: misc/org.yorba.shotwell.gschema.xml:353
-#| msgid "You are not currently logged into Yandex.Fotki."
 msgid "The name of the currently logged in Facebook user, if any"
 msgstr ""
 
@@ -823,7 +806,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:461
 msgid "The last selected Piwigo category."
-msgstr ""
+msgstr "Соңғы таңдалған Piwigo санаты."
 
 #: misc/org.yorba.shotwell.gschema.xml:466
 msgid "last permission level"
@@ -846,7 +829,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:484
-#| msgid "_If a title is set and comment unset, use title as comment"
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
@@ -918,7 +900,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:550
-#| msgid "Core Data Import Services"
 msgid "last used import service"
 msgstr ""
 
@@ -947,7 +928,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:572
-#| msgid "_Contents"
 msgid "content ppi"
 msgstr ""
 
@@ -964,7 +944,6 @@ msgid "The width of the printed emulsion on the page when printing"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:584
-#| msgid "Rotate Right"
 msgid "content height"
 msgstr ""
 
@@ -973,7 +952,6 @@ msgid "The height of the printed emulsion on the page when printing"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:590
-#| msgid "_Contents"
 msgid "content units"
 msgstr ""
 
@@ -984,7 +962,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:596
-#| msgid "2 images per page"
 msgid "images per page code"
 msgstr ""
 
@@ -1004,9 +981,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:608
-#| msgid "_Match photo aspect ratio"
 msgid "match aspect ratio"
-msgstr ""
+msgstr "жақтарының қатынасын сақтау"
 
 #: misc/org.yorba.shotwell.gschema.xml:609
 msgid ""
@@ -1015,9 +991,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:614
-#| msgid "Print image _title"
 msgid "print titles"
-msgstr ""
+msgstr "атауларын баспаға шығару"
 
 #: misc/org.yorba.shotwell.gschema.xml:615
 msgid ""
@@ -1027,7 +1002,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:620
 msgid "titles font"
-msgstr ""
+msgstr "атаулар қарібі"
 
 #: misc/org.yorba.shotwell.gschema.xml:621
 msgid "The name of the font to use for photo titles when they are printed."
@@ -1115,7 +1090,6 @@ msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:692
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow crumble transition"
 msgstr ""
 
@@ -1125,7 +1099,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:698
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow fade transition"
 msgstr ""
 
@@ -1136,7 +1109,6 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:704
 #: misc/org.yorba.shotwell.gschema.xml:728
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow slide transition"
 msgstr ""
 
@@ -1146,7 +1118,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:710
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow clock transition"
 msgstr ""
 
@@ -1157,7 +1128,6 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:716
 #: misc/org.yorba.shotwell.gschema.xml:722
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circle transition"
 msgstr ""
 
@@ -1177,7 +1147,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:734
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow squares transition"
 msgstr ""
 
@@ -1187,7 +1156,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:740
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow stripes transition"
 msgstr ""
 
@@ -1197,7 +1165,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:746
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow chess transition"
 msgstr ""
 
@@ -1365,7 +1332,7 @@ msgstr "немесе"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:115
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Шығу"
@@ -1377,7 +1344,7 @@ msgstr "_Шығу"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:129
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 msgid "_Publish"
 msgstr "Жари_ялау"
@@ -1533,13 +1500,11 @@ msgstr "Кіру"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
 msgid "An _existing album:"
 msgstr "Б_ар болып тұрған альбом:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
 msgstr "Атау_ы келесідей жаңа альбомда:"
@@ -1581,7 +1546,7 @@ msgid "You are logged into Rajce as %s."
 msgstr "Сіз Rajce қызметіне %s ретінде кірдіңіз."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:577
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:24
 msgid "Photos will appear in:"
 msgstr "Фотолар қайда көрінеді:"
@@ -1622,7 +1587,6 @@ msgstr "1280 x 853 пиксель"
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
 #, c-format
-#| msgid "'%s' isn't a valid response to an OAuth authentication request"
 msgid "“%s” isn't a valid response to an OAuth authentication request"
 msgstr ""
 
@@ -1723,7 +1687,7 @@ msgstr "Видеолар мен жаңа фото альбомдар кі_мге
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:226
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1775,7 +1739,6 @@ msgid "Testing connection to Facebook..."
 msgstr "Facebook-пен байланысты сынау..."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
 msgstr "Альбомды жасау..."
 
@@ -1926,11 +1889,7 @@ msgstr "2048 x 1536 пиксель"
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 пиксель"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
-msgid "L_ist album in public gallery"
-msgstr "Ор_тақ галереясындағы альбомдар тізімі"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "Фото өл_шемінің алдын-ала орнатуы:"
 
@@ -1947,7 +1906,15 @@ msgstr ""
 "шертіңіз. Picasa Web Albums тіркелгіңізге сілтеу үшін Shotwell Connect үшін "
 "авторизация беруіңіз керек."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:99
+#: plugins/shotwell-publishing/PicasaPublishing.vala:636
+msgid "Default album"
+msgstr "Бастапқы альбом"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:305
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
@@ -1956,32 +1923,32 @@ msgstr ""
 "емес."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Сіз Picasa Web Albums ішіне %s ретінде кірдіңіз."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:572
 msgid "Videos will appear in:"
 msgstr "Видеолар жарияланатын жері:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+#: plugins/shotwell-publishing/PicasaPublishing.vala:616
 msgid "Small (640 x 480 pixels)"
 msgstr "Кіші (640 x 480 пиксель)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+#: plugins/shotwell-publishing/PicasaPublishing.vala:617
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Орташа (1024 x 768 пиксель)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+#: plugins/shotwell-publishing/PicasaPublishing.vala:618
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Ұсынылатын (1600 x 1200 пиксель)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+#: plugins/shotwell-publishing/PicasaPublishing.vala:619
 msgid "Google+ (2048 x 1536 pixels)"
 msgstr "Google+ (2048 x 1536 пиксель)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:620
 #: src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
 msgstr "Бастапқы өлшемі"
@@ -2344,8 +2311,8 @@ msgstr "Импорттау қатесі (%d)"
 msgid "Cameras"
 msgstr "Камералар"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
-#: src/camera/ImportPage.vala:726 src/MediaPage.vala:440
+#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/MediaPage.vala:440
 #: src/photos/RawSupport.vala:303
 msgid "Camera"
 msgstr "Камера"
@@ -2354,7 +2321,7 @@ msgstr "Камера"
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:458
+#: src/camera/ImportPage.vala:466
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
@@ -2362,49 +2329,48 @@ msgstr ""
 "тіркеуден босатып көріңіз."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:775
+#: src/camera/ImportPage.vala:783
 msgid "Hide photos already imported"
 msgstr "Алдыңда импортталған фотоларды жасыру"
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:784
 msgid "Only display photos that have not been imported"
 msgstr "Тек импортталмаған фотоларды көрсету"
 
-#: src/camera/ImportPage.vala:842
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 
-#: src/camera/ImportPage.vala:846
-#| msgid "No photos/videos found"
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr ""
 
-#: src/camera/ImportPage.vala:873 src/MediaPage.vala:451
+#: src/camera/ImportPage.vala:881 src/MediaPage.vala:451
 msgid "_Titles"
 msgstr "_Атаулар"
 
-#: src/camera/ImportPage.vala:874 src/MediaPage.vala:452
+#: src/camera/ImportPage.vala:882 src/MediaPage.vala:452
 msgid "Display the title of each photo"
 msgstr "Әр фотоның атауын көрсету"
 
-#: src/camera/ImportPage.vala:885
+#: src/camera/ImportPage.vala:893
 msgid "Import _Selected"
 msgstr "Таңд_алғанды импорттау"
 
-#: src/camera/ImportPage.vala:886
+#: src/camera/ImportPage.vala:894
 msgid "Import the selected photos into your library"
 msgstr "Таңдалған фотоларды жинағыңызға импорттау"
 
-#: src/camera/ImportPage.vala:891
+#: src/camera/ImportPage.vala:899
 msgid "Import _All"
 msgstr "Барл_ығын импорттау"
 
-#: src/camera/ImportPage.vala:892
+#: src/camera/ImportPage.vala:900
 msgid "Import all the photos into your library"
 msgstr "Барлық фотоларды жинағыңызға импорттау"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1013
+#: src/camera/ImportPage.vala:1021
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
@@ -2412,15 +2378,15 @@ msgstr ""
 "Shotwell камераға қолын жеткізу үшін оны алдымен тіркеуден босату керек. "
 "Жалғастыру керек пе?"
 
-#: src/camera/ImportPage.vala:1019
+#: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
 msgstr "_Тіркеуден босату"
 
-#: src/camera/ImportPage.vala:1024
+#: src/camera/ImportPage.vala:1032
 msgid "Please unmount the camera."
 msgstr "Камераны тіркеуден босатыңыз."
 
-#: src/camera/ImportPage.vala:1029
+#: src/camera/ImportPage.vala:1037
 msgid ""
 "The camera is locked by another application.  Shotwell can only access the "
 "camera when it's unlocked.  Please close any other application using the "
@@ -2430,11 +2396,11 @@ msgstr ""
 "ғана қолын жеткізе алады. Камераны қолданып тұрған барлық қолданбалады "
 "жабыңыз да, әрекетті қайталап көріңіз."
 
-#: src/camera/ImportPage.vala:1039
+#: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
 msgstr "Камераны қолданып тұрған барлық қолданбалады жабыңыз."
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1052
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2443,71 +2409,71 @@ msgstr ""
 "Камерадан алдын-ала қарауды алу мүмкін емес:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1061
+#: src/camera/ImportPage.vala:1069
 msgid "Unmounting..."
 msgstr "Тіркеуден босатылуда..."
 
-#: src/camera/ImportPage.vala:1152
+#: src/camera/ImportPage.vala:1160
 msgid "Starting import, please wait..."
 msgstr "Импортты бастау, күте тұрыңыз..."
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
 msgstr "Фото ақпаратын алу"
 
-#: src/camera/ImportPage.vala:1527
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "%s үшін алдын-ала қарауды алу"
 
-#: src/camera/ImportPage.vala:1643
+#: src/camera/ImportPage.vala:1651
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Камераны блоктау мүмкін емес: %s"
 
-#: src/camera/ImportPage.vala:1728
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Камерадан бұл %d фотоны өшіру керек пе?"
 
-#: src/camera/ImportPage.vala:1731
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Камерадан бұл %d видеоны өшіру керек пе?"
 
-#: src/camera/ImportPage.vala:1734
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Камерадан бұл %d фото/видеоны өшіру керек пе?"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Бұл %d файлды камерадан өшіру керек пе?"
 
-#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1392
+#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1392
 msgid "_Keep"
 msgstr "Ұ_стау"
 
-#: src/camera/ImportPage.vala:1764
+#: src/camera/ImportPage.vala:1772
 msgid "Removing photos/videos from camera"
 msgstr "Камерадан фотолар/видеоларды өшіру"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1776
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Қателер салдарынан камерадан %d фото/видеоны өшіру мүмкін емес."
 
-#: src/CollectionPage.vala:230 src/PhotoPage.vala:2635
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2636
 msgid "S_lideshow"
 msgstr "С_лайдшоу"
 
-#: src/CollectionPage.vala:231 src/PhotoPage.vala:2636
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2637
 msgid "Play a slideshow"
 msgstr "Слайдшоуды ойнату"
 
@@ -2519,7 +2485,7 @@ msgstr "Фото/видеоны экспорттау"
 msgid "Export Photos/Videos"
 msgstr "Фото/видеоларды экспорттау"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3209
+#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3210
 msgid "Export Photo"
 msgstr "Фото(лар) экспорттау"
 
@@ -3267,7 +3233,6 @@ msgstr "Аты:"
 
 #. Dialog title
 #: src/Dialogs.vala:1333
-#| msgid "Edit Title"
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr ""
@@ -3549,11 +3514,11 @@ msgstr "Кө_шірусіз импорттау"
 msgid "Import to Library"
 msgstr "Жинақ ішіне импорттау"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2704 src/PhotoPage.vala:3086
 msgid "Remove From Library"
 msgstr "Жинақтан өшіру"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2705 src/PhotoPage.vala:3086
 msgid "Removing Photo From Library"
 msgstr "Фото(лар) жинақтан өшіру"
 
@@ -3674,28 +3639,28 @@ msgstr "Тү_зету"
 msgid "_Photo"
 msgstr "_Фото"
 
-#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2416
+#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2417
 msgid "T_ools"
 msgstr "Са_ймандар"
 
-#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2421
+#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2422
 msgid "_Previous Photo"
 msgstr "Ал_дыңғы фото"
 
-#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2422
+#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2423
 msgid "Previous Photo"
 msgstr "Алдыңғы фото"
 
-#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2427
+#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2428
 msgid "_Next Photo"
 msgstr "К_елесі фото"
 
-#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2428
+#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2429
 msgid "Next Photo"
 msgstr "Келесі фото"
 
 #: src/direct/DirectPhotoPage.vala:165 src/library/LibraryWindow.vala:343
-#: src/PhotoPage.vala:2412
+#: src/PhotoPage.vala:2413
 msgid "_View"
 msgstr "_Түрі"
 
@@ -3705,47 +3670,47 @@ msgid "_Help"
 msgstr "_Көмек"
 
 #: src/direct/DirectPhotoPage.vala:174 src/MediaPage.vala:340
-#: src/PhotoPage.vala:2591 src/Resources.vala:183
+#: src/PhotoPage.vala:2592 src/Resources.vala:183
 msgid "Zoom _In"
 msgstr "Үлке_йту"
 
-#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2592
+#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2593
 msgid "Increase the magnification of the photo"
 msgstr "Фотоны үлкейту"
 
 #: src/direct/DirectPhotoPage.vala:180 src/MediaPage.vala:346
-#: src/PhotoPage.vala:2597 src/Resources.vala:184
+#: src/PhotoPage.vala:2598 src/Resources.vala:184
 msgid "Zoom _Out"
 msgstr "Кі_шірейту"
 
-#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2598
+#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2599
 msgid "Decrease the magnification of the photo"
 msgstr "Фотоны кішірейту"
 
-#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2603
+#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2604
 msgid "Fit to _Page"
 msgstr "Параққа сы_йдыру"
 
-#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2604
+#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2605
 msgid "Zoom the photo to fit on the screen"
 msgstr "Фотоны экранды толығымен алатындай етіп келтіру"
 
-#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2610
+#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2611
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Үлкейту - _100%"
 
-#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2612
+#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2613
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Фотосуретті өлшемнің 100 дейін өзгерту"
 
-#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2618
+#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2619
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Үлкейту - _200%"
 
-#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2620
+#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2621
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Фотосуретті өлшемнің 200 дейін өзгерту"
@@ -3771,10 +3736,6 @@ msgstr ""
 
 #: src/direct/DirectPhotoPage.vala:248
 #, c-format
-#| msgid ""
-#| "Unable to print photo:\n"
-#| "\n"
-#| "%s"
 msgid "Unable open photo %s. Sorry."
 msgstr ""
 
@@ -3796,7 +3757,7 @@ msgstr "Сақтамай-ақ _жабу"
 msgid "Error while saving to %s: %s"
 msgstr "%s ішіне сақтау қатесі: %s"
 
-#: src/direct/DirectPhotoPage.vala:497 src/direct/DirectPhotoPage.vala:518
+#: src/direct/DirectPhotoPage.vala:499 src/direct/DirectPhotoPage.vala:520
 msgid "Save As"
 msgstr "Қалайша сақтау"
 
@@ -4227,12 +4188,10 @@ msgid "Display the sidebar"
 msgstr "Бүйір панелін көрсету"
 
 #: src/library/LibraryWindow.vala:398
-#| msgid "Pin Toolbar"
 msgid "T_oolbar"
 msgstr ""
 
 #: src/library/LibraryWindow.vala:399
-#| msgid "Display the sidebar"
 msgid "Display the tool bar"
 msgstr ""
 
@@ -4434,7 +4393,7 @@ msgstr "Видеоны о_йнату"
 msgid "Open the selected videos in the system video player"
 msgstr "Таңдалған видеоларды жүйелік видео плеерінде ашу"
 
-#: src/MediaPage.vala:428 src/PhotoPage.vala:2640
+#: src/MediaPage.vala:428 src/PhotoPage.vala:2641
 msgid "_Developer"
 msgstr "Ө_ндіруші"
 
@@ -4514,7 +4473,7 @@ msgstr "Келесі фото"
 msgid "Photo source file missing: %s"
 msgstr "Фотоның бастапқы файлы жоқ: %s"
 
-#: src/PhotoPage.vala:3229
+#: src/PhotoPage.vala:3230
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "%s экспорттау мүмкін емес: %s"
@@ -5213,7 +5172,6 @@ msgid "All + _Rejected"
 msgstr "Барл_ығы + тайдырылған"
 
 #: src/Resources.vala:273
-#| msgid "Show all photos, including rejected"
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr ""
@@ -5281,10 +5239,9 @@ msgstr "Атауын _түзету..."
 
 #. Button label
 #: src/Resources.vala:300
-#| msgid "Edit Title"
 msgctxt "Button Label"
 msgid "Edit Title"
-msgstr ""
+msgstr "Атауын түзету"
 
 #: src/Resources.vala:302
 msgid "Edit _Comment..."
@@ -5317,10 +5274,9 @@ msgstr "Тегтерді қ_осу..."
 
 #. Dialog title
 #: src/Resources.vala:315
-#| msgid "Add Tags"
 msgctxt "Dialog Title"
 msgid "Add Tags"
-msgstr ""
+msgstr "Тегтерді қосу"
 
 #: src/Resources.vala:319
 msgid "Open With E_xternal Editor"
@@ -5376,10 +5332,9 @@ msgstr "\"%s\" және \"%s\" тегтерін қосу"
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:348
-#| msgid "Add Tags"
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
-msgstr ""
+msgstr "Тегтерді қосу"
 
 #: src/Resources.vala:353
 #, c-format
@@ -5599,28 +5554,25 @@ msgstr "%a %b %d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:787
-#| msgid "%a %b %d"
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr ""
+msgstr "%a %b %d"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:792
-#| msgid "%d, %Y"
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d, %Y"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:797
-#| msgid "%a %b %d"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr ""
+msgstr "%a %b %d"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -5931,7 +5883,7 @@ msgid "untitled"
 msgstr "атаусыз"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Видеоларды экспорттау"
 
@@ -6122,6 +6074,9 @@ msgstr "А_тауын көрсету"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "секунд"
+
+#~ msgid "L_ist album in public gallery"
+#~ msgstr "Ор_тақ галереясындағы альбомдар тізімі"
 
 #~ msgid "Intro message replaced at runtime"
 #~ msgstr "Орындалу кезінде алмастырылатын қарсы алу хабарламасы"
