@@ -590,8 +590,9 @@ public abstract class AppWindow : PageWindow {
     public abstract string get_app_role();
 
     protected void on_about() {
+        const string[] artists = { "Aachen logo under public domain license https://www.flickr.com/photos/30784528@N04/10860988196/", null };
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION,
+            "version", Resources.APP_VERSION + " \u2013 \"Aachen\"",
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
@@ -599,6 +600,7 @@ public abstract class AppWindow : PageWindow {
             "website-label", _("Visit the Shotwell web site"),
             "authors", Resources.AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1),
+            "artists", artists,
             "translator-credits", _("translator-credits"),
             null
         );

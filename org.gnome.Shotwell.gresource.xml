@@ -26,6 +26,7 @@
       <file preprocess="xml-stripblanks">ui/tags.ui</file>
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
       <!-- Icons -->
+      <file>icons/about-aachen.jpg</file>
       <file>icons/all-rejected.png</file>
       <file>icons/crop-pivot-reticle.png</file>
       <file>icons/crop.svg</file>

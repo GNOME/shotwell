@@ -1,4 +1,5 @@
 dist_noinst_DATA = \
+	about-aachen.jpg \
 	all-rejected.png \
 	crop-pivot-reticle.png \
 	crop.svg \

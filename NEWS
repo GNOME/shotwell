@@ -1,3 +1,34 @@
+Shotwell 0.26.0 - 20 Mar 2017
+  * Translation updates
+  * Fix build on non-glibc systems
+  * Fix missing optimisation in standard configure call
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779844
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780116
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Josef Andersson <l10nl18nsweja@gmail.com>
+ - gogo <trebelnik2@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - hr, courtesy of gogo
+ - hu, courtesy of Balázs Úr
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - lv, courtesy of Rūdolfs Mazurs
+ - pl, courtesy of Piotr Drąg
+ - sv, courtesy of Josef Andersson
+
 Shotwell 0.25.92 - 13 Mar 2017
   * Fix navigation issue when deleting image in fullscreen view
   * Fix toolbox not visible on Mate in fullscreen view
