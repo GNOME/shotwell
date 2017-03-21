@@ -12,8 +12,6 @@ plugins/authenticator/shotwell/GoogleAuthenticator.vala
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala
 plugins/common/Resources.vala
 plugins/common/RESTSupport.vala
-plugins/shotwell-data-imports/FSpotImporter.vala
-plugins/shotwell-data-imports/shotwell-data-imports.vala
 plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui
 plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui
 plugins/shotwell-publishing-extras/GalleryConnector.vala

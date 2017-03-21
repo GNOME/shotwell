@@ -142,7 +142,6 @@ include $(top_srcdir)/publish-extra.am
 endif
 
 include $(top_srcdir)/transition.am
-include $(top_srcdir)/import.am
 
 dist_noinst_SCRIPTS = \
 	autogen.sh
