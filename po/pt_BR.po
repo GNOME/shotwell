@@ -16,10 +16,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=shotwel"
-"l&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-02-06 18:55+0000\n"
-"PO-Revision-Date: 2017-02-13 01:12-0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2017-03-17 03:53+0000\n"
+"PO-Revision-Date: 2017-03-20 23:50-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -71,7 +71,6 @@ msgstr ""
 "arquivo RAW."
 
 #: misc/shotwell.appdata.xml.in:52
-#| msgid "Shotwell Viewer"
 msgid "The Shotwell developers"
 msgstr "Os desenvolvedores do Shotwell"
 
@@ -1534,7 +1533,7 @@ msgstr "ou"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:115
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:197
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:137
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:229
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Sair"
@@ -1546,7 +1545,7 @@ msgstr "_Sair"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:129
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:212
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:153
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:243
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 msgid "_Publish"
 msgstr "_Publicar"
@@ -1705,13 +1704,11 @@ msgstr "Iniciar sessão"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:111
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:75
 msgid "An _existing album:"
 msgstr "Um álbum _existente:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:135
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:94
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:52
 msgid "A _new album named:"
 msgstr "Um _novo álbum chamado:"
@@ -1753,7 +1750,7 @@ msgid "You are logged into Rajce as %s."
 msgstr "Você está autenticado no Rajce como %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:577
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:24
 msgid "Photos will appear in:"
 msgstr "As fotos irão aparecer em:"
@@ -1893,7 +1890,7 @@ msgstr "Vídeos e álbuns de fotos novos _visível para:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:175
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:102
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:178
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:226
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1947,7 +1944,6 @@ msgid "Testing connection to Facebook..."
 msgstr "Testando conexão com o Facebook…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
 msgid "Creating album..."
 msgstr "Criando álbum…"
 
@@ -2100,11 +2096,7 @@ msgstr "2048 x 1536 pixels"
 msgid "4096 x 3072 pixels"
 msgstr "4096 x 3072 pixels"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:113
-msgid "L_ist album in public gallery"
-msgstr "L_istar os álbuns na galeria pública"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:150
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "Tama_nho pré-definido da foto:"
 
@@ -2120,7 +2112,16 @@ msgstr ""
 "Clique em Login para entrar no Picasa Web Albums em seu navegador. Você terá "
 "que autorizar a conexão do Shotwell à sua conta Picasa Web Albums."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:99
+#: plugins/shotwell-publishing/PicasaPublishing.vala:636
+#| msgid "last album"
+msgid "Default album"
+msgstr "Álbum padrão"
+
+#: plugins/shotwell-publishing/PicasaPublishing.vala:305
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can't "
 "continue."
@@ -2129,32 +2130,32 @@ msgstr ""
 "para o Picasa não pode continuar."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Você está autenticado nos Álbuns da Web do Picasa como %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:572
 msgid "Videos will appear in:"
 msgstr "Os vídeos irão aparecer em:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
+#: plugins/shotwell-publishing/PicasaPublishing.vala:616
 msgid "Small (640 x 480 pixels)"
 msgstr "Pequeno (640 x 480 pixels)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
+#: plugins/shotwell-publishing/PicasaPublishing.vala:617
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Médio (1024 x 768 pixels)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
+#: plugins/shotwell-publishing/PicasaPublishing.vala:618
 msgid "Recommended (1600 x 1200 pixels)"
 msgstr "Recomendado (1600 x 1200 pixels)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
+#: plugins/shotwell-publishing/PicasaPublishing.vala:619
 msgid "Google+ (2048 x 1536 pixels)"
 msgstr "Google+ (2048 x 1536 pixels)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:620
 #: src/editing_tools/EditingTools.vala:756
 msgid "Original Size"
 msgstr "Tamanho original"
@@ -2682,11 +2683,11 @@ msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "Não foi possível excluir %d foto/vídeo da câmera devido a erros."
 msgstr[1] "Não foi possível excluir %d fotos/vídeos da câmera devido a erros."
 
-#: src/CollectionPage.vala:230 src/PhotoPage.vala:2635
+#: src/CollectionPage.vala:230 src/PhotoPage.vala:2636
 msgid "S_lideshow"
 msgstr "Apresentação de s_lides"
 
-#: src/CollectionPage.vala:231 src/PhotoPage.vala:2636
+#: src/CollectionPage.vala:231 src/PhotoPage.vala:2637
 msgid "Play a slideshow"
 msgstr "Exibir apresentação de slides"
 
@@ -2698,7 +2699,7 @@ msgstr "Exportar foto/vídeo"
 msgid "Export Photos/Videos"
 msgstr "Exportar fotos/vídeos"
 
-#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3209
+#: src/CollectionPage.vala:458 src/Dialogs.vala:59 src/PhotoPage.vala:3210
 msgid "Export Photo"
 msgstr "Exportar fotos"
 
@@ -3817,11 +3818,11 @@ msgstr "_Importar no local"
 msgid "Import to Library"
 msgstr "Importar para a biblioteca"
 
-#: src/Dialogs.vala:2704 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2704 src/PhotoPage.vala:3086
 msgid "Remove From Library"
 msgstr "Remover da biblioteca"
 
-#: src/Dialogs.vala:2705 src/PhotoPage.vala:3085
+#: src/Dialogs.vala:2705 src/PhotoPage.vala:3086
 msgid "Removing Photo From Library"
 msgstr "Removendo fotos da biblioteca"
 
@@ -3959,28 +3960,28 @@ msgstr "_Editar"
 msgid "_Photo"
 msgstr "_Foto"
 
-#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2416
+#: src/direct/DirectPhotoPage.vala:81 src/PhotoPage.vala:2417
 msgid "T_ools"
 msgstr "F_erramentas"
 
-#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2421
+#: src/direct/DirectPhotoPage.vala:86 src/PhotoPage.vala:2422
 msgid "_Previous Photo"
 msgstr "Foto a_nterior"
 
-#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2422
+#: src/direct/DirectPhotoPage.vala:87 src/PhotoPage.vala:2423
 msgid "Previous Photo"
 msgstr "Foto anterior"
 
-#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2427
+#: src/direct/DirectPhotoPage.vala:92 src/PhotoPage.vala:2428
 msgid "_Next Photo"
 msgstr "Próxi_ma foto"
 
-#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2428
+#: src/direct/DirectPhotoPage.vala:93 src/PhotoPage.vala:2429
 msgid "Next Photo"
 msgstr "Próxima foto"
 
 #: src/direct/DirectPhotoPage.vala:165 src/library/LibraryWindow.vala:343
-#: src/PhotoPage.vala:2412
+#: src/PhotoPage.vala:2413
 msgid "_View"
 msgstr "_Ver"
 
@@ -3990,47 +3991,47 @@ msgid "_Help"
 msgstr "A_juda"
 
 #: src/direct/DirectPhotoPage.vala:174 src/MediaPage.vala:340
-#: src/PhotoPage.vala:2591 src/Resources.vala:183
+#: src/PhotoPage.vala:2592 src/Resources.vala:183
 msgid "Zoom _In"
 msgstr "Ampl_iar"
 
-#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2592
+#: src/direct/DirectPhotoPage.vala:175 src/PhotoPage.vala:2593
 msgid "Increase the magnification of the photo"
 msgstr "Aumentar a ampliação da foto"
 
 #: src/direct/DirectPhotoPage.vala:180 src/MediaPage.vala:346
-#: src/PhotoPage.vala:2597 src/Resources.vala:184
+#: src/PhotoPage.vala:2598 src/Resources.vala:184
 msgid "Zoom _Out"
 msgstr "Redu_zir"
 
-#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2598
+#: src/direct/DirectPhotoPage.vala:181 src/PhotoPage.vala:2599
 msgid "Decrease the magnification of the photo"
 msgstr "Diminuir a ampliação da foto"
 
-#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2603
+#: src/direct/DirectPhotoPage.vala:186 src/PhotoPage.vala:2604
 msgid "Fit to _Page"
 msgstr "Adaptar à _Página"
 
-#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2604
+#: src/direct/DirectPhotoPage.vala:187 src/PhotoPage.vala:2605
 msgid "Zoom the photo to fit on the screen"
 msgstr "Ampliar a foto para se adaptar à tela"
 
-#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2610
+#: src/direct/DirectPhotoPage.vala:193 src/PhotoPage.vala:2611
 #, no-c-format
 msgid "Zoom _100%"
 msgstr "Ampliação _100%"
 
-#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2612
+#: src/direct/DirectPhotoPage.vala:195 src/PhotoPage.vala:2613
 #, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Ampliar a foto em 100%"
 
-#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2618
+#: src/direct/DirectPhotoPage.vala:201 src/PhotoPage.vala:2619
 #, no-c-format
 msgid "Zoom _200%"
 msgstr "Ampliação _200%"
 
-#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2620
+#: src/direct/DirectPhotoPage.vala:203 src/PhotoPage.vala:2621
 #, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Ampliar a foto em 200%"
@@ -4077,7 +4078,7 @@ msgstr "Fechar s_em salvar"
 msgid "Error while saving to %s: %s"
 msgstr "Erro ao salvar para %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:497 src/direct/DirectPhotoPage.vala:518
+#: src/direct/DirectPhotoPage.vala:499 src/direct/DirectPhotoPage.vala:520
 msgid "Save As"
 msgstr "Salvar como"
 
@@ -4720,7 +4721,7 @@ msgstr "_Reproduzir vídeo"
 msgid "Open the selected videos in the system video player"
 msgstr "Abra os vídeos selecionados no reprodutor de vídeo do sistema"
 
-#: src/MediaPage.vala:428 src/PhotoPage.vala:2640
+#: src/MediaPage.vala:428 src/PhotoPage.vala:2641
 msgid "_Developer"
 msgstr "_Desenvolvedor"
 
@@ -4800,7 +4801,7 @@ msgstr "Próxima foto"
 msgid "Photo source file missing: %s"
 msgstr "Faltando arquivo fonte da foto: %s"
 
-#: src/PhotoPage.vala:3229
+#: src/PhotoPage.vala:3230
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Não foi possível exportar %s: %s"
@@ -6213,7 +6214,7 @@ msgid "untitled"
 msgstr "Sem título"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Exportar vídeos"
 
@@ -6405,6 +6406,9 @@ msgstr "Mostrar títul_o"
 #: ui/shotwell.ui:1534 ui/shotwell.ui:1547
 msgid "seconds"
 msgstr "segundos"
+
+#~ msgid "L_ist album in public gallery"
+#~ msgstr "L_istar os álbuns na galeria pública"
 
 # Translated with 24-hour time - default in Brazil. i.e.: 20:31 -- Rafael
 #~ msgid "%-I:%M %p"
