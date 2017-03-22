@@ -592,7 +592,8 @@ public abstract class AppWindow : PageWindow {
     protected void on_about() {
         const string[] artists = { "Aachen logo under public domain license https://www.flickr.com/photos/30784528@N04/10860988196/", null };
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION + " \u2013 \"Aachen\"",
+            // translators: %s will be replaced by application version
+            "version", _("%s \u2013 “Aachen”".printf(Resources.APP_VERSION)),
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
