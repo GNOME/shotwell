@@ -1,7 +1,7 @@
-static string input_file;
-static string output_file;
-static string pipeline;
-static bool auto_enhance;
+static string? input_file = null;
+static string? output_file = null;
+static string? pipeline = null;
+static bool auto_enhance = false;
 
 const GLib.OptionEntry[] options = {
     { "input", 'i', 0, GLib.OptionArg.FILENAME, ref input_file, "FILE to process", "FILE" },
@@ -37,8 +37,7 @@ Gee.HashMap<string, KeyValueMap>? marshall_all_transformations(string filename) 
     }
 }
 
-int main(string[] args)
-{
+int main(string[] args) {
     var ctx = new OptionContext("- Apply shotwell transformations on commandline");
     ctx.set_help_enabled(true);
     ctx.set_ignore_unknown_options(true);
@@ -50,6 +49,19 @@ int main(string[] args)
         print(ctx.get_help(true, null));
 
         return 1;
+    }
+
+    if (input_file == null || output_file == null) {
+        print("You need to provide and input and output file\n");
+        print(ctx.get_help(true, null));
+
+        return 1;
+    }
+
+    if (auto_enhance == false && pipeline == null) {
+        print("No operation provided. Nothing to do.\n");
+
+        return 0;
     }
 
     Gdk.Pixbuf? src = null;
