@@ -19,7 +19,7 @@ src_libgraphics_processor_la_VALAFLAGS = \
 	--header=src/shotwell-graphics-processor.h
 
 src_libgraphics_processor_la_CFLAGS = $(SHOTWELL_CFLAGS) $(COMMON_CFLAGS)
-
+src_libgraphics_processor_la_CFLAGS += -DG_DISABLE_CAST_CHECKS
 
 noinst_PROGRAMS = \
 	src/shotwell-graphics-processor
