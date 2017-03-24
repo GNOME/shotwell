@@ -72,15 +72,22 @@ int main(string[] args) {
     }
 
     var output = src.copy();
+    PixelTransformationBundle? adjustments = null;
 
-    var transformations = marshall_all_transformations(pipeline);
+    if (pipeline != null) {
+        var transformations = marshall_all_transformations(pipeline);
 
-    var adjustments = new PixelTransformationBundle();
-    var map = transformations.get("adjustments");
-    if (map == null) {
-        adjustments.set_to_identity();
-    } else {
-        adjustments.load(map);
+        adjustments = new PixelTransformationBundle();
+        var map = transformations.get("adjustments");
+        if (map == null) {
+            adjustments.set_to_identity();
+        } else {
+            adjustments.load(map);
+        }
+    }
+
+    if (auto_enhance) {
+        adjustments = AutoEnhance.create_auto_enhance_adjustments(src);
     }
 
     var transformer = adjustments.generate_transformer();
