@@ -96,13 +96,12 @@ public struct HSVAnalyticPixel {
         float min_component = float.min(float.min(p.red, p.green), p.blue);
 
         light_value = max_component;
-        saturation = (max_component != 0.0f) ? ((max_component - min_component) /
-            max_component) : 0.0f;
+        var delta = max_component - min_component;
+        saturation = (max_component != 0.0f) ? ((delta) / max_component) : 0.0f;
 
         if (saturation == 0.0f) {
             hue = 0.0f; /* hue is undefined in the zero saturation case */
         } else {
-            float delta = max_component - min_component;
             if (p.red == max_component) {
                 hue = (p.green - p.blue) / delta;
             } else if (p.green == max_component) {
@@ -212,7 +211,8 @@ public struct HSVAnalyticPixel {
 
 public enum CompositionMode {
     NONE,
-    RGB_MATRIX
+    RGB_MATRIX,
+    HSV_LOOKUP
 }
 
 public enum PixelFormat {
@@ -597,12 +597,33 @@ public class RGBTransformation : PixelTransformation {
 }
 
 public abstract class HSVTransformation : PixelTransformation {
+    protected float remap_table[256];
+
     public HSVTransformation(PixelTransformationType type) {
         base(type, PixelFormat.HSV);
     }
-    
+
+    public override CompositionMode get_composition_mode() {
+        return CompositionMode.HSV_LOOKUP;
+    }
+
     public override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p) {
         return (transform_pixel_hsv(p.to_hsv())).to_rgb();
+    }
+
+    public override void compose_with(PixelTransformation other) {
+        if (other.get_composition_mode() != CompositionMode.HSV_LOOKUP) {
+            error("HSVTransformation: compose_with(): wrong");
+        }
+
+        var hsv_trans = (HSVTransformation) other;
+
+        // We can do this because ALL HSV transformations actually only
+        // operate on the light_value
+        for (var i = 0; i < 256; i++) {
+            var idx = (int) (this.remap_table[i] * 255.0f);
+            this.remap_table[i] = hsv_trans.remap_table[idx].clamp (0.0f, 1.0f);
+        }
     }
 }
 
@@ -1250,7 +1271,6 @@ public class IntensityHistogram {
 }
 
 public class ExpansionTransformation : HSVTransformation {
-    private float[] remap_table = null;
     private const float LOW_DISCARD_MASS = 0.02f;
     private const float HIGH_DISCARD_MASS = 0.02f;
 
@@ -1260,8 +1280,6 @@ public class ExpansionTransformation : HSVTransformation {
     public ExpansionTransformation(IntensityHistogram histogram) {
         base(PixelTransformationType.TONE_EXPANSION);
         
-        remap_table = new float[256];
-
         float LOW_KINK_MASS = LOW_DISCARD_MASS;
         low_kink = 0;
         while (histogram.get_cumulative_probability(low_kink) < LOW_KINK_MASS)
@@ -1312,9 +1330,6 @@ public class ExpansionTransformation : HSVTransformation {
     }
 
     private void build_remap_table() {
-        if (remap_table == null)
-            remap_table = new float[256];
-
         float low_kink_f = ((float) low_kink) / 255.0f;
         float high_kink_f = ((float) high_kink) / 255.0f;
 
@@ -1371,7 +1386,6 @@ public class ShadowDetailTransformation : HSVTransformation {
     private const float TONAL_WIDTH = 1.0f;
 
     private float intensity = 0.0f;
-    private float[] remap_table = null;
     
     public const float MIN_PARAMETER = 0.0f;
     public const float MAX_PARAMETER = 32.0f;
@@ -1386,7 +1400,6 @@ public class ShadowDetailTransformation : HSVTransformation {
         HermiteGammaApproximationFunction func =
             new HermiteGammaApproximationFunction(TONAL_WIDTH);
         
-        remap_table = new float[256];
         for (int i = 0; i < 256; i++) {
             float x = ((float) i) / 255.0f;
             float weight = func.evaluate(x);
@@ -1445,7 +1458,6 @@ public class HighlightDetailTransformation : HSVTransformation {
     private const float TONAL_WIDTH = 1.0f;
 
     private float intensity = 0.0f;
-    private float[] remap_table = null;
     
     public const float MIN_PARAMETER = -32.0f;
     public const float MAX_PARAMETER = 0.0f;
@@ -1460,7 +1472,6 @@ public class HighlightDetailTransformation : HSVTransformation {
         HermiteGammaApproximationFunction func =
             new HermiteGammaApproximationFunction(TONAL_WIDTH);
         
-        remap_table = new float[256];
         for (int i = 0; i < 256; i++) {
             float x = ((float) i) / 255.0f;
             float weight = func.evaluate(1.0f - x);
