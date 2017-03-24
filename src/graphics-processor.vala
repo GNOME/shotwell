@@ -14,7 +14,13 @@ const GLib.OptionEntry[] options = {
 Gee.HashMap<string, KeyValueMap>? marshall_all_transformations(string filename) {
     try {
         var keyfile = new KeyFile();
-        keyfile.load_from_file(filename, KeyFileFlags.NONE);
+        if (filename.has_prefix("string:")) {
+            var data = "[adjustments]\n" + filename.substring(7).replace("&", "\n");
+            keyfile.load_from_data(data, data.length, KeyFileFlags.NONE);
+        } else {
+            keyfile.load_from_file(filename, KeyFileFlags.NONE);
+        }
+
         var map = new Gee.HashMap<string, KeyValueMap>();
 
         var objects = keyfile.get_groups();
