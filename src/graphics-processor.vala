@@ -2,12 +2,14 @@ static string? input_file = null;
 static string? output_file = null;
 static string? pipeline = null;
 static bool auto_enhance = false;
+static string? format = null;
 
 const GLib.OptionEntry[] options = {
     { "input", 'i', 0, GLib.OptionArg.FILENAME, ref input_file, "FILE to process", "FILE" },
     { "output", 'o', 0, GLib.OptionArg.FILENAME, ref output_file, "destination FILE", "FILE" },
     { "pipeline", 'p', 0, GLib.OptionArg.FILENAME, ref pipeline, "graphics PIPELINE to run", "PIPELINE" },
     { "auto-enance", 'a', 0, GLib.OptionArg.NONE, ref auto_enhance, "run auto-enhance on input file", null },
+    { "format", 'f', 0, GLib.OptionArg.STRING, ref format, "Save output file in specific format [png, jpeg (default)]", null},
     { null, 0, 0, GLib.OptionArg.NONE, null, null, null }
 };
 
@@ -103,8 +105,18 @@ int main(string[] args) {
 
     print("Transformation took %f\n", elapsed);
 
+    // Trz to guess output format. If it's not PNG, assume JPEG.
+    if (format == null) {
+        var content_type = ContentType.guess(output_file, null, null);
+        if (content_type == "image/png") {
+            format = "png";
+        }
+
+        format = "jpeg";
+    }
+
     try {
-        output.save(output_file, "jpeg", "quality", "100", null);
+        output.save(output_file, format, null);
     } catch (Error err) {
         error("%s", err.message);
     }
