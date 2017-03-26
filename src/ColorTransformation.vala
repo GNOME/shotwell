@@ -961,9 +961,9 @@ public class PixelTransformer {
 
                 current_pixel = apply_transformations(current_pixel);
 
-                dest_pixels[i] = current_pixel.quantized_red();
-                dest_pixels[i + 1] = current_pixel.quantized_green();
-                dest_pixels[i + 2] = current_pixel.quantized_blue();
+                dest_pixels[i] = (uchar) (current_pixel.red * 255.0f);
+                dest_pixels[i + 1] = (uchar) (current_pixel.green * 255.0f);
+                dest_pixels[i + 2] = (uchar) (current_pixel.blue * 255.0f);
             }
 
             if ((cancellable != null) && (cancellable.is_cancelled())) {
