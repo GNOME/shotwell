@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-03-21 22:31+0000\n"
-"PO-Revision-Date: 2017-03-25 22:22+0100\n"
+"POT-Creation-Date: 2017-03-25 21:24+0000\n"
+"PO-Revision-Date: 2017-03-27 22:38+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -5854,7 +5854,7 @@ msgstr "Zaznacza wszystkie elementy"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:739
 msgid "%a %b %d, %Y"
-msgstr "%a, %e %b %Y"
+msgstr "%a, %-d %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -5862,7 +5862,7 @@ msgstr "%a, %e %b %Y"
 #: src/Resources.vala:744
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a, %e %b"
+msgstr "%a, %-d %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -5870,7 +5870,7 @@ msgstr "%a, %e %b"
 #: src/Resources.vala:749
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr "%e, %Y"
+msgstr "%-d, %Y"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -5878,7 +5878,7 @@ msgstr "%e, %Y"
 #: src/Resources.vala:754
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%a, %e %b"
+msgstr "%a, %-d %b"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -5886,7 +5886,7 @@ msgstr "%a, %e %b"
 #: src/Resources.vala:759
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a, %e %b %Y"
+msgstr "%a, %-d %b %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:141
 msgid "Slideshow"
