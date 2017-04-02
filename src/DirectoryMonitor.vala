@@ -109,6 +109,10 @@ public class DirectoryMonitor : Object {
             // finish the async operation to get the result
             try {
                 info = source_file.query_info_async.end(aresult);
+                if (get_file_info_id(info) == null) {
+                    info.set_attribute_string(FileAttribute.ID_FILE,
+                                              file.get_uri());
+                }
             } catch (Error err) {
                 this.err = err;
             }
@@ -267,8 +271,10 @@ public class DirectoryMonitor : Object {
                 return null;
             
             string? id = info.get_attribute_string(FileAttribute.ID_FILE);
-            if (id == null)
-                return null;
+            if (id == null) {
+                info.set_attribute_string(FileAttribute.ID_FILE,
+                                          file.get_uri());
+            }
             
             File? normalized = id_map.get(id);
             if (normalized == null)
@@ -874,14 +880,10 @@ public class DirectoryMonitor : Object {
         }
         
         // File ID is required for directory monitoring.  No ID, no ride!
-        // TODO: Replace the warning with notify_discovery_failed() and provide a user-visible
-        // string.
+        // So we just fake it by using the URI
         if (get_file_info_id(local_dir_info) == null) {
-            warning("Unable to retrieve file ID on %s: skipping", dir.get_path());
-            
-            explore_directory_completed(in_discovery);
-            
-            return;
+            local_dir_info.set_attribute_string(FileAttribute.ID_FILE,
+                                                dir.get_uri());
         }
         
         // verify this is a directory
@@ -911,6 +913,10 @@ public class DirectoryMonitor : Object {
                     break;
                 
                 foreach (FileInfo info in infos) {
+                    if (get_file_info_id(info) == null) {
+                        info.set_attribute_string(FileAttribute.ID_FILE,
+                                                  dir.get_uri());
+                    }
                     // we don't deal with hidden files or directories
                     if (info.get_is_hidden()) {
                         warning("Skipping hidden file/directory %s",
