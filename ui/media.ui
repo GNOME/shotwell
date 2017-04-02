@@ -339,10 +339,12 @@
         <item>
           <attribute name="label" translatable="yes">Edit _Title…</attribute>
           <attribute name="action">win.EditTitle</attribute>
+          <attribute name="accel">F2</attribute>
         </item>
         <item>
           <attribute name="label" translatable="yes">Edit _Comment…</attribute>
           <attribute name="action">win.EditComment</attribute>
+          <attribute name="accel">F3</attribute>
         </item>
       <attribute name="id">PhotosExtrasDateTimePlaceholder</attribute>
       </section>
