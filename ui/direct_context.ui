@@ -3,7 +3,6 @@
 <interface domain="shotwell">
   <requires lib="gtk+" version="3.14"/>
   <menu id="DirectContextMenu">
-    <submenu>
       <section>
         <item>
           <attribute name="label" translatable="yes">_Enhance</attribute>
@@ -26,6 +25,5 @@
           <attribute name="action">win.SendTo</attribute>
         </item>
       </section>
-    </submenu>
   </menu>
 </interface>
