@@ -33,15 +33,8 @@ public class ThemeLoader {
         
         theme_colors = new LightweightColor[NUM_SUPPORTED_INTENSITIES];
 
-        Gtk.Settings settings = Gtk.Settings.get_default();
-        HashTable<string, Gdk.Color?> color_table = settings.color_hash;
-        Gdk.Color? base_color = color_table.lookup("bg_color");
-        if (base_color == null && !Gdk.Color.parse("#fff", out base_color))
-            error("can't parse color");
-
         RGBAnalyticPixel base_color_analytic_rgb =
-            RGBAnalyticPixel.from_quantized_components(base_color.red >> 8,
-            base_color.green >> 8, base_color.blue >> 8);
+            RGBAnalyticPixel.from_components(1.0f, 1.0f, 1.0f);
         HSVAnalyticPixel base_color_analytic_hsv =
             HSVAnalyticPixel.from_rgb(base_color_analytic_rgb);
 
