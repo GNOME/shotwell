@@ -22,6 +22,7 @@
       <file preprocess="xml-stripblanks">ui/set_background_slideshow_dialog.ui</file>
       <file compressed="true">ui/shotwell.ui</file>
       <file preprocess="xml-stripblanks">ui/sidebar_default_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/slideshow_settings.ui</file>
       <file preprocess="xml-stripblanks">ui/tag_sidebar_context.ui</file>
       <file preprocess="xml-stripblanks">ui/tags.ui</file>
       <file preprocess="xml-stripblanks">ui/trash.ui</file>

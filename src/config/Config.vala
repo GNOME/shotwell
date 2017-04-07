@@ -16,12 +16,6 @@
 namespace Config {
 
 public class Facade : ConfigurationFacade {
-    public const double SLIDESHOW_DELAY_MAX = 30.0;
-    public const double SLIDESHOW_DELAY_MIN = 1.0;
-    public const double SLIDESHOW_DELAY_DEFAULT = 3.0;
-    public const double SLIDESHOW_TRANSITION_DELAY_MAX = 1.0;
-    public const double SLIDESHOW_TRANSITION_DELAY_MIN = 0.1;
-    public const double SLIDESHOW_TRANSITION_DELAY_DEFAULT = 0.3;
     public const int WIDTH_DEFAULT = 1024;
     public const int HEIGHT_DEFAULT = 768;
     public const int SIDEBAR_MIN_POSITION = 180;

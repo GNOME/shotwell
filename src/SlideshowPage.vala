@@ -23,46 +23,33 @@ class SlideshowPage : SinglePhotoPage {
 
     public signal void hide_toolbar();
     
+    [GtkTemplate (ui = "/org/gnome/Shotwell/ui/slideshow_settings.ui")]
     private class SettingsDialog : Gtk.Dialog {
-        private Gtk.Builder builder = null;
+        [GtkChild]
+        Gtk.Adjustment delay_adjustment;
+        [GtkChild]
         Gtk.SpinButton delay_entry;
-        Gtk.Scale delay_hscale;
+        [GtkChild]
         Gtk.ComboBoxText transition_effect_selector;
+        [GtkChild]
         Gtk.Scale transition_effect_hscale;
+        [GtkChild]
         Gtk.SpinButton transition_effect_entry;
+        [GtkChild]
         Gtk.Adjustment transition_effect_adjustment;
+        [GtkChild]
         Gtk.CheckButton show_title_button;
-        Gtk.Box pane;
         
         public SettingsDialog() {
-            builder = AppWindow.create_builder();
-            pane = builder.get_object("slideshow_settings_pane") as Gtk.Box;
-            get_content_area().add(pane);
-            
             double delay = Config.Facade.get_instance().get_slideshow_delay();
-            
-            set_modal(true);
-            set_transient_for(AppWindow.get_fullscreen());
-            
-            add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, 
-                Resources.OK_LABEL, Gtk.ResponseType.OK);
-            set_title(_("Settings"));
-            
-            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.Facade.SLIDESHOW_DELAY_MIN, Config.Facade.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
-            delay_hscale = builder.get_object("delay_hscale") as Gtk.Scale;
-            delay_hscale.adjustment = adjustment;
-            
-            delay_entry = builder.get_object("delay_entry") as Gtk.SpinButton;
-            delay_entry.adjustment = adjustment;
-            delay_entry.set_value(delay);
-            delay_entry.set_numeric(true);
-            delay_entry.set_activates_default(true);
 
-            transition_effect_selector = builder.get_object("transition_effect_selector") as Gtk.ComboBoxText;
-            
+            set_transient_for(AppWindow.get_fullscreen());
+
+            delay_adjustment.value = delay;
+
             // get last effect id
             string effect_id = Config.Facade.get_instance().get_slideshow_transition_effect_id();
-            
+
             // null effect first, always, and set active in case no other one is found
             string null_display_name = TransitionEffectsManager.get_instance().get_effect_name(
                 TransitionEffectsManager.NULL_EFFECT_ID);
@@ -84,23 +71,10 @@ class SlideshowPage : SinglePhotoPage {
             transition_effect_selector.changed.connect(on_transition_changed);
             
             double transition_delay = Config.Facade.get_instance().get_slideshow_transition_delay();
-            transition_effect_adjustment = new Gtk.Adjustment(transition_delay,
-                Config.Facade.SLIDESHOW_TRANSITION_DELAY_MIN, Config.Facade.SLIDESHOW_TRANSITION_DELAY_MAX,
-                0.1, 1, 0);
-            transition_effect_hscale = builder.get_object("transition_effect_hscale") as Gtk.Scale;
-            transition_effect_hscale.adjustment = transition_effect_adjustment;
-            
-            transition_effect_entry = builder.get_object("transition_effect_entry") as Gtk.SpinButton;
-            transition_effect_entry.adjustment = transition_effect_adjustment;
-            transition_effect_entry.set_value(transition_delay);
-            transition_effect_entry.set_numeric(true);
-            transition_effect_entry.set_activates_default(true);
+            transition_effect_adjustment.value = transition_delay;
             
             bool show_title = Config.Facade.get_instance().get_slideshow_show_title();
-            show_title_button = builder.get_object("show_title_button") as  Gtk.CheckButton;
             show_title_button.active = show_title;
-            
-            set_default_response(Gtk.ResponseType.OK);
             
             on_transition_changed();
         }
