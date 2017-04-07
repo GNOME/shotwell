@@ -4,177 +4,6 @@
  * See the COPYING file in this distribution.
  */
 
-extern void qsort(void *p, size_t num, size_t size, GLib.CompareFunc func);
-
-public class ThemeLoader {
-    private struct LightweightColor {
-        public uchar red;
-        public uchar green;
-        public uchar blue;
-        
-        public LightweightColor() {
-            red = green = blue = 0;
-        }
-    }
-
-    private const int NUM_SUPPORTED_INTENSITIES = 6;
-    private const int THEME_OUTLINE_COLOR = 0;
-    private const int THEME_BEVEL_DARKER_COLOR = 1;
-    private const int THEME_BEVEL_DARK_COLOR = 2;
-    private const int THEME_BASE_COLOR = 3;
-    private const int THEME_BEVEL_LIGHT_COLOR = 4;
-    private const int THEME_BEVEL_LIGHTER_COLOR = 5;
-
-    private static LightweightColor[] theme_colors = null;
-
-    private static void populate_theme_params() {
-        if (theme_colors != null)
-            return;
-        
-        theme_colors = new LightweightColor[NUM_SUPPORTED_INTENSITIES];
-
-        RGBAnalyticPixel base_color_analytic_rgb =
-            RGBAnalyticPixel.from_components(1.0f, 1.0f, 1.0f);
-        HSVAnalyticPixel base_color_analytic_hsv =
-            HSVAnalyticPixel.from_rgb(base_color_analytic_rgb);
-
-        HSVAnalyticPixel bevel_light_analytic_hsv = base_color_analytic_hsv;
-        bevel_light_analytic_hsv.light_value *= 1.15f;
-        bevel_light_analytic_hsv.light_value =
-            bevel_light_analytic_hsv.light_value.clamp(0.0f, 1.0f);
-        
-        HSVAnalyticPixel bevel_lighter_analytic_hsv = bevel_light_analytic_hsv;
-        bevel_lighter_analytic_hsv.light_value *= 1.15f;
-        bevel_lighter_analytic_hsv.light_value =
-            bevel_lighter_analytic_hsv.light_value.clamp(0.0f, 1.0f);
-
-        HSVAnalyticPixel bevel_dark_analytic_hsv = base_color_analytic_hsv;
-        bevel_dark_analytic_hsv.light_value *= 0.85f;
-        bevel_dark_analytic_hsv.light_value =
-            bevel_dark_analytic_hsv.light_value.clamp(0.0f, 1.0f);
-
-        HSVAnalyticPixel bevel_darker_analytic_hsv = bevel_dark_analytic_hsv;
-        bevel_darker_analytic_hsv.light_value *= 0.85f;
-        bevel_darker_analytic_hsv.light_value =
-            bevel_darker_analytic_hsv.light_value.clamp(0.0f, 1.0f);
-
-        HSVAnalyticPixel outline_analytic_hsv = bevel_darker_analytic_hsv;
-        outline_analytic_hsv.light_value *= 0.66f;
-        outline_analytic_hsv.light_value =
-            outline_analytic_hsv.light_value.clamp(0.0f, 1.0f);
-
-        RGBAnalyticPixel outline_analytic_rgb = outline_analytic_hsv.to_rgb();
-        theme_colors[THEME_OUTLINE_COLOR] =
-            populate_one_theme_param(outline_analytic_rgb);
-
-        RGBAnalyticPixel bevel_darker_analytic_rgb = bevel_darker_analytic_hsv.to_rgb();
-        theme_colors[THEME_BEVEL_DARKER_COLOR] =
-            populate_one_theme_param(bevel_darker_analytic_rgb);
-            
-        RGBAnalyticPixel bevel_dark_analytic_rgb = bevel_dark_analytic_hsv.to_rgb();
-        theme_colors[THEME_BEVEL_DARK_COLOR] =
-            populate_one_theme_param(bevel_dark_analytic_rgb);
-
-        theme_colors[THEME_BASE_COLOR] =
-            populate_one_theme_param(base_color_analytic_rgb);
-
-        RGBAnalyticPixel bevel_light_analytic_rgb = bevel_light_analytic_hsv.to_rgb();
-        theme_colors[THEME_BEVEL_LIGHT_COLOR] =
-            populate_one_theme_param(bevel_light_analytic_rgb);
-        
-        RGBAnalyticPixel bevel_lighter_analytic_rgb = bevel_light_analytic_hsv.to_rgb();
-        theme_colors[THEME_BEVEL_LIGHTER_COLOR] =
-            populate_one_theme_param(bevel_lighter_analytic_rgb);
-    }
-    
-    private static LightweightColor populate_one_theme_param(RGBAnalyticPixel from) {
-        LightweightColor into = LightweightColor();
-
-        into.red = (uchar)(from.red * 255.0f);
-        into.green = (uchar)(from.green * 255.0f);
-        into.blue = (uchar)(from.blue * 255.0f);
-        
-        return into;
-    }
-
-    public static Gdk.Pixbuf load_icon(string source_basename) {
-        populate_theme_params();
-
-        Gdk.Pixbuf loaded_pixbuf = Resources.get_icon(source_basename, 0).copy();
-
-        /* Sweep through the icon image data loaded from disk and determine how many
-           unique colors are in it. We do this with the aid of a HashSet. */
-        Gee.HashSet<RGBAnalyticPixel?> colors =
-            new Gee.HashSet<RGBAnalyticPixel?>(rgb_pixel_hash_func,
-            rgb_pixel_equal_func);
-        unowned uchar[] pixel_data = loaded_pixbuf.get_pixels();
-        for (int j = 0; j < loaded_pixbuf.height; j++) {
-            for (int i = 0; i < loaded_pixbuf.width; i++) {
-                int pixel_index = (j * loaded_pixbuf.rowstride) + (i * loaded_pixbuf.n_channels);
-
-                RGBAnalyticPixel pixel_color = RGBAnalyticPixel.from_quantized_components(
-                    pixel_data[pixel_index], pixel_data[pixel_index + 1],
-                    pixel_data[pixel_index + 2]);
-                colors.add(pixel_color);
-            }
-        }
-        
-        /* If the image data loaded from disk didn't contain NUM_SUPPORTED_INTENSITIES
-           colors, then we can't unambiguously map the colors in the loaded image data
-           to theme colors on the user's system, so propagate an error */
-        if (colors.size != NUM_SUPPORTED_INTENSITIES)
-            error("ThemeLoader: load_icon: pixbuf does not contain the correct number " +
-                "of unique colors");
-        
-        /* sort the colors in the loaded image data in order of increasing intensity; this
-           means that we have to convert the loaded colors from RGB to HSV format */
-        HSVAnalyticPixel[] hsv_pixels = new HSVAnalyticPixel[6];
-        int pixel_ticker = 0;
-        foreach (RGBAnalyticPixel rgb_pixel in colors)
-            hsv_pixels[pixel_ticker++] = HSVAnalyticPixel.from_rgb(rgb_pixel);
-        qsort(hsv_pixels, hsv_pixels.length, sizeof(HSVAnalyticPixel), hsv_pixel_compare_func);
-
-        /* step through each pixel in the image data loaded from disk and map its color
-           to one of the user's theme colors */
-        for (int j = 0; j < loaded_pixbuf.height; j++) {
-            for (int i = 0; i < loaded_pixbuf.width; i++) {
-                int pixel_index = (j * loaded_pixbuf.rowstride) + (i * loaded_pixbuf.n_channels);
-                RGBAnalyticPixel pixel_color = RGBAnalyticPixel.from_quantized_components(
-                    pixel_data[pixel_index], pixel_data[pixel_index + 1],
-                    pixel_data[pixel_index + 2]);
-                HSVAnalyticPixel pixel_color_hsv = HSVAnalyticPixel.from_rgb(pixel_color);
-                int this_intensity = 0;
-                for (int k = 0; k < NUM_SUPPORTED_INTENSITIES; k++) {
-                    if (hsv_pixels[k].light_value == pixel_color_hsv.light_value) {
-                        this_intensity = k;
-                        break;
-                    }
-                }
-                pixel_data[pixel_index] = theme_colors[this_intensity].red;
-                pixel_data[pixel_index + 1] = theme_colors[this_intensity].green;
-                pixel_data[pixel_index + 2] = theme_colors[this_intensity].blue;
-            }
-        }
-
-        return loaded_pixbuf;
-    }
-    
-    private static int hsv_pixel_compare_func(void* pixval1, void* pixval2) {
-        HSVAnalyticPixel pixel_val_1 = * ((HSVAnalyticPixel*) pixval1);
-        HSVAnalyticPixel pixel_val_2 = * ((HSVAnalyticPixel*) pixval2);
-        
-        return (int) (255.0f * (pixel_val_1.light_value - pixel_val_2.light_value));
-    }
-    
-    private static bool rgb_pixel_equal_func(RGBAnalyticPixel? p1, RGBAnalyticPixel? p2) {
-        return (p1.equals(p2));
-    }
-
-    private static uint rgb_pixel_hash_func(RGBAnalyticPixel? pixel_val) {        
-        return pixel_val.hash_code();
-    }
-}
-
 public class RGBHistogramManipulator : Gtk.DrawingArea {
     private enum LocationCode { LEFT_NUB, RIGHT_NUB, LEFT_TROUGH, RIGHT_TROUGH,
         INSENSITIVE_AREA }
@@ -200,7 +29,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private RGBHistogram histogram = null;
     private int left_nub_position = 0;
     private int right_nub_position = 255;
-    private Gdk.Pixbuf nub_pixbuf = ThemeLoader.load_icon("drag_nub.png");
     private bool is_left_nub_tracking = false;
     private bool is_right_nub_tracking = false;
     private int track_start_x = 0;
@@ -462,8 +290,12 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     }
     
     private void draw_nub(Cairo.Context ctx, Gdk.Rectangle area, int position) {
-        Gdk.cairo_set_source_pixbuf(ctx, nub_pixbuf, area.x + position, area.y + NUB_V_POSITION);
-        ctx.paint();
+        ctx.move_to(area.x + position, area.y + NUB_V_POSITION + NUB_SIZE);
+        ctx.line_to(area.x + position + NUB_HALF_WIDTH, area.y + NUB_V_POSITION);
+        ctx.line_to(area.x + position + NUB_SIZE, area.y + NUB_V_POSITION + NUB_SIZE);
+        ctx.close_path();
+        ctx.set_source_rgb(0.333, 0.333, 0.333);
+        ctx.fill();
     }
     
     private void force_update() {

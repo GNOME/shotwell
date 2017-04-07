@@ -3,7 +3,6 @@ dist_noinst_DATA = \
 	all-rejected.png \
 	crop-pivot-reticle.png \
 	crop.svg \
-	drag_nub.png \
 	faces-tool.png \
 	filter-flagged-disabled.png \
 	filter-flagged.png \
