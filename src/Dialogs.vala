@@ -2261,7 +2261,8 @@ public class WelcomeDialog : Gtk.Dialog {
     }
 }
 
-public class PreferencesDialog {
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences_dialog.ui")]
+public class PreferencesDialog : Gtk.Dialog {
     private class PathFormat {
         public PathFormat(string name, string? pattern) {
             this.name = name;
@@ -2273,55 +2274,60 @@ public class PreferencesDialog {
     
     private static PreferencesDialog preferences_dialog;
     
-    private Gtk.Dialog dialog;
-    private Gtk.Builder builder;
+    [GtkChild]
     private Gtk.Adjustment bg_color_adjustment;
+    [GtkChild]
     private Gtk.Scale bg_color_slider;
+    [GtkChild]
     private Gtk.ComboBox photo_editor_combo;
+    [GtkChild]
     private Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
+    [GtkChild]
     private Gtk.FileChooserButton library_dir_button;
+    [GtkChild]
     private Gtk.ComboBoxText dir_pattern_combo;
+    [GtkChild]
     private Gtk.Entry dir_pattern_entry;
+    [GtkChild]
     private Gtk.Label dir_pattern_example;
     private bool allow_closing = false;
     private string? lib_dir = null;
     private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
+    [GtkChild]
     private Gtk.CheckButton lowercase;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+    [GtkChild]
     private Gtk.ComboBoxText default_raw_developer_combo;
 
+    [GtkChild]
+    private Gtk.CheckButton autoimport;
+    [GtkChild]
+    private Gtk.CheckButton write_metadata;
+    [GtkChild]
+    private Gtk.Label pattern_help;
+    [GtkChild]
+    private Gtk.Notebook preferences_notebook;
+
     private PreferencesDialog() {
-        builder = AppWindow.create_builder();
-        
-        dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         bool use_header;
         Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
         if (!use_header) {
             Gtk.Widget null_titlebar = null;
-            dialog.set_titlebar (null_titlebar);
+            set_titlebar (null_titlebar);
         }
-        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
-        dialog.set_transient_for(AppWindow.get_instance());
-        dialog.delete_event.connect(on_delete);
-        dialog.response.connect(on_close);
+        set_parent_window(AppWindow.get_instance().get_parent_window());
+        set_transient_for(AppWindow.get_instance());
+        delete_event.connect(on_delete);
+        response.connect(on_close);
         
-        bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             (Config.Facade.get_instance().get_bg_color().red * 65535.0));
         bg_color_adjustment.value_changed.connect(on_value_changed);
 
-        bg_color_slider = builder.get_object("bg_color_slider") as Gtk.Scale;
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
-
-        library_dir_button = builder.get_object("library_dir_button") as Gtk.FileChooserButton;
-        
-        photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
-        raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
-        
-        Gtk.Label pattern_help = builder.get_object("pattern_help") as Gtk.Label;
 
         // Ticket #3162 - Move dir pattern blurb into Gnome help. 
         // Because specifying a particular snippet of the help requires 
@@ -2340,9 +2346,6 @@ public class PreferencesDialog {
             pattern_help.activate_link.connect(on_local_pattern_help);
         }
         
-        dir_pattern_combo = builder.get_object("dir choser") as Gtk.ComboBoxText;
-        dir_pattern_entry = builder.get_object("dir_pattern_entry") as Gtk.Entry;
-        dir_pattern_example = builder.get_object("dynamic example") as Gtk.Label;
         add_to_dir_formats(_("Year%sMonth%sDay").printf(Path.DIR_SEPARATOR_S, Path.DIR_SEPARATOR_S), 
             "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d");
         add_to_dir_formats(_("Year%sMonth").printf(Path.DIR_SEPARATOR_S), "%Y" +
@@ -2353,33 +2356,24 @@ public class PreferencesDialog {
         add_to_dir_formats(_("Custom"), null); // Custom must always be last.
         dir_pattern_combo.changed.connect(on_dir_pattern_combo_changed);
         dir_pattern_entry.changed.connect(on_dir_pattern_entry_changed);
-        
-        (builder.get_object("dir_structure_label") as Gtk.Label).set_mnemonic_widget(dir_pattern_combo);
-        
-        lowercase = builder.get_object("lowercase") as Gtk.CheckButton;
+
         lowercase.toggled.connect(on_lowercase_toggled);
-        
-        var notebook = builder.get_object("preferences-notebook") as Gtk.Notebook;
-        (notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator.widget);
+
+        (preferences_notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator.widget);
 
         populate_preference_options();
 
         photo_editor_combo.changed.connect(on_photo_editor_changed);
         raw_editor_combo.changed.connect(on_raw_editor_changed);
         
-        Gtk.CheckButton auto_import_button = builder.get_object("autoimport") as Gtk.CheckButton;
-        auto_import_button.set_active(Config.Facade.get_instance().get_auto_import_from_library());
+        autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
         
-        Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
-        commit_metadata_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
+        write_metadata.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
         
-        default_raw_developer_combo = builder.get_object("default_raw_developer") as Gtk.ComboBoxText;
         default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
         default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
-        
-        dialog.map_event.connect(map_event);
     }
     
     public void populate_preference_options() {
@@ -2493,31 +2487,25 @@ public class PreferencesDialog {
         on_dir_pattern_combo_changed();
     }
     
-    public static void show() {
+    public static void show_preferences() {
         if (preferences_dialog == null) 
             preferences_dialog = new PreferencesDialog();
         
         preferences_dialog.populate_preference_options();
-        preferences_dialog.dialog.show_all();
+        preferences_dialog.show_all();
         preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
         // from the menus a second time.
-        preferences_dialog.dialog.present();
+        preferences_dialog.present();
     }
 
     // For items that should only be committed when the dialog is closed, not as soon as the change
     // is made.
     private void commit_on_close() {
         Config.Facade.get_instance().commit_bg_color();
-        
-        Gtk.CheckButton? autoimport = builder.get_object("autoimport") as Gtk.CheckButton;
-        if (autoimport != null)
-            Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
-        
-        Gtk.CheckButton? commit_metadata = builder.get_object("write_metadata") as Gtk.CheckButton;
-        if (commit_metadata != null)
-            Config.Facade.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
+        Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
+        Config.Facade.get_instance().set_commit_metadata_to_masters(write_metadata.active);
        
         if (lib_dir != null)
             AppDirs.set_import_dir(lib_dir);
@@ -2536,14 +2524,14 @@ public class PreferencesDialog {
             return true;
         
         commit_on_close();
-        return dialog.hide_on_delete(); //prevent widgets from getting destroyed
+        return hide_on_delete(); //prevent widgets from getting destroyed
     }
     
     private void on_close() {
         if (!get_allow_closing())
             return;
             
-        dialog.hide();
+        hide();
         commit_on_close();
     }
     
@@ -2600,7 +2588,7 @@ public class PreferencesDialog {
     }
     
     private void set_allow_closing(bool allow) {
-        dialog.set_deletable(allow);
+        set_deletable(allow);
         allow_closing = allow;
     }
     
@@ -2666,13 +2654,15 @@ public class PreferencesDialog {
         lib_dir = library_dir_button.get_filename();
     }
     
-    private bool map_event() {
+    public override bool map_event(Gdk.EventAny event) {
+        var result = base.map_event(event);
         // Set the signal for the lib dir button after the dialog is displayed, 
         // because the FileChooserButton has a nasty habit of selecting a
         // different folder when displayed if the provided path doesn't exist.
         // See ticket #3000 for more info.
         library_dir_button.current_folder_changed.connect(on_current_folder_changed);
-        return true;
+
+        return result;
     }
     
     private void add_to_dir_formats(string name, string? pattern) {

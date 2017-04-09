@@ -645,7 +645,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_preferences() {
-        PreferencesDialog.show();
+        PreferencesDialog.show_preferences();
     }
     
     private void on_display_basic_properties(GLib.SimpleAction action, Variant? value) {
