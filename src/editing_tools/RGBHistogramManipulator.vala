@@ -194,82 +194,28 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private void draw_histogram(Cairo.Context ctx, Gdk.Rectangle area) {
         if (histogram == null)
             return;
-        
-        Gdk.Pixbuf histogram_graphic = histogram.get_graphic().copy();
-        unowned uchar[] pixel_data = histogram_graphic.get_pixels();
-        
-        int edge_blend_red = 0;
-        int edge_blend_green = 0;
-        int edge_blend_blue = 0;
-        int body_blend_red = 20;
-        int body_blend_green = 20;
-        int body_blend_blue = 20;
 
-        if (left_nub_position > 0) {
-            int edge_pixel_index = histogram_graphic.n_channels * left_nub_position;
-            for (int i = 0; i < histogram_graphic.height; i++) {
-                int body_pixel_index = i * histogram_graphic.rowstride;
-                int row_last_pixel = body_pixel_index + histogram_graphic.n_channels *
-                    left_nub_position;
-                while (body_pixel_index < row_last_pixel) {
-                    pixel_data[body_pixel_index] =
-                        (uchar) ((pixel_data[body_pixel_index] + body_blend_red) / 2);
-                    pixel_data[body_pixel_index + 1] =
-                        (uchar) ((pixel_data[body_pixel_index + 1] + body_blend_green) / 2);
-                    pixel_data[body_pixel_index + 2] =
-                        (uchar) ((pixel_data[body_pixel_index + 2] + body_blend_blue) / 2);
-                
-                    body_pixel_index += histogram_graphic.n_channels;
-                }
-            
-                pixel_data[edge_pixel_index] =
-                    (uchar) ((pixel_data[edge_pixel_index] + edge_blend_red) / 2);
-                pixel_data[edge_pixel_index + 1] =
-                    (uchar) ((pixel_data[edge_pixel_index + 1] + edge_blend_green) / 2);
-                pixel_data[edge_pixel_index + 2] =
-                    (uchar) ((pixel_data[edge_pixel_index + 2] + edge_blend_blue) / 2);
+        var histogram_graphic = histogram.get_graphic();
 
-                edge_pixel_index += histogram_graphic.rowstride;
-            }
-        }
-
-        edge_blend_red = 250;
-        edge_blend_green = 250;
-        edge_blend_blue = 250;
-        body_blend_red = 200;
-        body_blend_green = 200;
-        body_blend_blue = 200;
-
-        if (right_nub_position < 255) {
-            int edge_pixel_index = histogram_graphic.n_channels * right_nub_position;
-            for (int i = 0; i < histogram_graphic.height; i++) {
-                int body_pixel_index = i * histogram_graphic.rowstride +
-                    histogram_graphic.n_channels * 255;
-                int row_last_pixel = i * histogram_graphic.rowstride +
-                    histogram_graphic.n_channels * right_nub_position;
-                while (body_pixel_index > row_last_pixel) {
-                    pixel_data[body_pixel_index] =
-                        (uchar) ((pixel_data[body_pixel_index] + body_blend_red) / 2);
-                    pixel_data[body_pixel_index + 1] =
-                        (uchar) ((pixel_data[body_pixel_index + 1] + body_blend_green) / 2);
-                    pixel_data[body_pixel_index + 2] =
-                        (uchar) ((pixel_data[body_pixel_index + 2] + body_blend_blue) / 2);
-                
-                    body_pixel_index -= histogram_graphic.n_channels;
-                }
-                pixel_data[edge_pixel_index] =
-                    (uchar) ((pixel_data[edge_pixel_index] + edge_blend_red) / 2);
-                pixel_data[edge_pixel_index + 1] =
-                    (uchar) ((pixel_data[edge_pixel_index + 1] + edge_blend_green) / 2);
-                pixel_data[edge_pixel_index + 2] =
-                    (uchar) ((pixel_data[edge_pixel_index + 2] + edge_blend_blue) / 2);
-
-                edge_pixel_index += histogram_graphic.rowstride;
-            }
-        }
-        
         Gdk.cairo_set_source_pixbuf(ctx, histogram_graphic, area.x + NUB_HALF_WIDTH, area.y + 2);
         ctx.paint();
+
+        if (left_nub_position > 0) {
+            ctx.rectangle(area.x + NUB_HALF_WIDTH, area.y + 2,
+                          left_nub_position,
+                          histogram_graphic.height);
+            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.45);
+            ctx.fill();
+        }
+
+        if (right_nub_position < 255) {
+            ctx.rectangle(area.x + right_nub_position + NUB_HALF_WIDTH,
+                          area.y + 2,
+                          histogram_graphic.width - right_nub_position,
+                          histogram_graphic.height);
+            ctx.set_source_rgba(1.0, 1.0, 1.0, 0.45);
+            ctx.fill();
+        }
     }
 
     private void draw_nub(Cairo.Context ctx, Gdk.Rectangle area, int position) {
