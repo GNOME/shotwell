@@ -20,8 +20,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int left_nub_max = 255 - NUB_SIZE - 1;
     private int right_nub_min = NUB_SIZE + 1;
 
-    private static Gtk.Widget dummy_slider = null;
-    private static Gtk.Widget dummy_frame = null;
     private static Gtk.WidgetPath slider_draw_path = new Gtk.WidgetPath();
     private static Gtk.WidgetPath frame_draw_path = new Gtk.WidgetPath();
     private static bool paths_setup = false;
@@ -37,12 +35,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     public RGBHistogramManipulator( ) {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
         
-        if (dummy_slider == null)
-            dummy_slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, null);
-            
-        if (dummy_frame == null)
-            dummy_frame = new Gtk.Frame(null);
-            
         if (!paths_setup) {
             slider_draw_path.append_type(typeof(Gtk.Scale));
             slider_draw_path.iter_add_class(0, "scale");
@@ -159,36 +151,11 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         area.width = RGBHistogram.GRAPHIC_WIDTH + padding.right;
         area.height = RGBHistogram.GRAPHIC_HEIGHT + padding.bottom;
 
-        draw_histogram_frame(ctx, area);
         draw_histogram(ctx, area);
         draw_nub(ctx, area, left_nub_position);
         draw_nub(ctx, area, right_nub_position);
 
         return true;
-    }
-    
-    private void draw_histogram_frame(Cairo.Context ctx, Gdk.Rectangle area) {
-        // the framed area is inset and slightly smaller than the overall histogram
-        // control area
-        Gdk.Rectangle framed_area = area;
-        framed_area.x += 5;
-        framed_area.y += 1;
-        framed_area.width -= 8;
-        framed_area.height -= 12;
-        
-        Gtk.StyleContext stylectx = dummy_frame.get_style_context();
-        stylectx.save();
-        
-        stylectx.get_path().append_type(typeof(Gtk.Frame));
-        stylectx.get_path().iter_add_class(0, "default");
-        stylectx.add_class(Gtk.STYLE_CLASS_TROUGH);
-        stylectx.set_junction_sides(Gtk.JunctionSides.TOP | Gtk.JunctionSides.BOTTOM |
-            Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT);
-
-        stylectx.render_frame(ctx, framed_area.x, framed_area.y, framed_area.width,
-            framed_area.height);
-
-        stylectx.restore();
     }
     
     private void draw_histogram(Cairo.Context ctx, Gdk.Rectangle area) {
