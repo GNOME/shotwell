@@ -196,7 +196,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     
     private void force_update() {
         get_window().invalidate_rect(null, true);
-        get_window().process_updates(true);
     }
     
     private void update_nub_extrema() {
