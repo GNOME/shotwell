@@ -161,7 +161,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
 
         draw_histogram_frame(ctx, area);
         draw_histogram(ctx, area);
-        draw_trough(ctx, area);
         draw_nub(ctx, area, left_nub_position);
         draw_nub(ctx, area, right_nub_position);
 
@@ -272,23 +271,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         Gdk.cairo_set_source_pixbuf(ctx, histogram_graphic, area.x + NUB_HALF_WIDTH, area.y + 2);
         ctx.paint();
     }
-    
-    private void draw_trough(Cairo.Context ctx, Gdk.Rectangle area) { 
-        int trough_x = area.x;
-        int trough_y = area.y + (CONTROL_HEIGHT - TROUGH_HEIGHT - TROUGH_BOTTOM_OFFSET - 3);
-        
-        Gtk.StyleContext stylectx = dummy_slider.get_style_context();
-        stylectx.save();
-        
-        stylectx.get_path().append_type(typeof(Gtk.Scale));
-        stylectx.get_path().iter_add_class(0, "scale");
-        stylectx.add_class(Gtk.STYLE_CLASS_TROUGH);
 
-        stylectx.render_activity(ctx, trough_x, trough_y, TROUGH_WIDTH, TROUGH_HEIGHT);
-
-        stylectx.restore();
-    }
-    
     private void draw_nub(Cairo.Context ctx, Gdk.Rectangle area, int position) {
         ctx.move_to(area.x + position, area.y + NUB_V_POSITION + NUB_SIZE);
         ctx.line_to(area.x + position + NUB_HALF_WIDTH, area.y + NUB_V_POSITION);
