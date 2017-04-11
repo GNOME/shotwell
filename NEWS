@@ -1,3 +1,51 @@
+Shotwell 0.24.6 - 11 Apr 2017
+  * Fix gamma and chromatic aberrations when developing
+    with libraw
+  * Picasa: Remove possibility to create new albums
+  * Fix import of files with ".ogg" extension
+  * Fix crash on wayland when dragging tool boxes
+  * Fix toolbox not visible in Cinnamon
+  * Fix manpage
+  * Viewer: Fix navigation after saving a photo
+  * Do not load files into memory when importing
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717305
+ - https://bugzilla.gnome.org/show_bug.cgi?id=732663
+ - https://bugzilla.gnome.org/show_bug.cgi?id=734816
+ - https://bugzilla.gnome.org/show_bug.cgi?id=778174
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779558
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Debarshi Ray <debarshir@gnome.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Jörg Frings-Fürst <debian@jff-webhosting.net>
+ - Inaki Larranaga Murgoitio <dooteo@zundan.com>
+ - GNOME Translation Robot <gnome-sysadmin@gnome.org>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Meskó <meskobalazs@fedoraproject.org>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - eu, courtesy of Iñaki Larrañaga Murgoitio
+ - gd, courtesy of GunChleoc
+ - hu, courtesy of Gabor Kelemen
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.24.5 - 31 Jan 2016
   * Publishing: Use HTTPS consistently
   * Updated translations
