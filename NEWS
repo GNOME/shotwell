@@ -1,3 +1,25 @@
+Shotwell 0.26.1 - 11 Apr 2017
+  * Fix "About" wording
+  * Fix missing Keyboard shortcuts
+  * Viewer: Fix context menu
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780415
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780811
+
+All contributors to this release:
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - de, courtesy of Mario Blättermann
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.26.0 - 20 Mar 2017
   * Translation updates
   * Fix build on non-glibc systems
