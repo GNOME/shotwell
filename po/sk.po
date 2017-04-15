@@ -17,10 +17,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-01-01 19:37+0000\n"
-"PO-Revision-Date: 2017-01-01 21:01+0100\n"
+"POT-Creation-Date: 2017-04-02 16:28+0000\n"
+"PO-Revision-Date: 2017-04-15 19:29+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -32,9 +32,9 @@ msgstr ""
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:300 ui/collection.ui:85 ui/event.ui:354
-#: ui/event.ui:522 ui/media.ui:354 ui/photo_context.ui:91 ui/photo.ui:344
-#: ui/tags.ui:354
+#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:356
+#: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
+#: ui/tags.ui:356
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -62,6 +62,12 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 "Prehliadač Shotwell podporuje formáty JPEG, PNG, TIFF a množstvo súborov RAW."
+
+#: misc/shotwell.appdata.xml.in:52
+#, fuzzy
+#| msgid "Shotwell Viewer"
+msgid "The Shotwell developers"
+msgstr "Prehliadač Shotwell"
 
 #: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -935,7 +941,7 @@ msgstr "Kľúč API služby Gallery3"
 
 #: misc/org.yorba.shotwell.gschema.xml:580
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: misc/org.yorba.shotwell.gschema.xml:581
 msgid "Gallery3 site URL"
@@ -1202,7 +1208,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:774
-#: misc/org.yorba.shotwell.gschema.xml:798
 #, fuzzy
 #| msgid "Core Slideshow Transitions"
 msgid "enable slideshow slide transition"
@@ -1225,7 +1230,6 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:786
-#: misc/org.yorba.shotwell.gschema.xml:792
 #, fuzzy
 #| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circle transition"
@@ -1236,10 +1240,22 @@ msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 
+#: misc/org.yorba.shotwell.gschema.xml:792
+#, fuzzy
+#| msgid "Core Slideshow Transitions"
+msgid "enable slideshow circles transition"
+msgstr "Hlavné prechody prezentácie"
+
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+
+#: misc/org.yorba.shotwell.gschema.xml:798
+#, fuzzy
+#| msgid "Core Slideshow Transitions"
+msgid "enable slideshow blinds transition"
+msgstr "Hlavné prechody prezentácie"
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
@@ -1280,11 +1296,146 @@ msgid ""
 "otherwise"
 msgstr ""
 
+#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
+#, fuzzy
+#| msgid ""
+#| "You are not currently logged into Facebook.\n"
+#| "\n"
+#| "If you don't yet have a Facebook account, you can create one during the "
+#| "login process. During login, Shotwell Connect may ask you for permission "
+#| "to upload photos and publish to your feed. These permissions are required "
+#| "for Shotwell Connect to function."
+msgid ""
+"You are not currently logged into Facebook.\n"
+"\n"
+"If you don’t yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
+msgstr ""
+"Momentálne nie ste prihlásený do služby Facebook.\n"
+"\n"
+"Ak ešte nemáte vytvorený Facebook účet, môžete si jeden vytvoriť počas "
+"prihlasovacieho procesu. Počas prihlásenia si Shotwell Connect môže vyžiadať "
+"povolenie na odovzdanie fotografií a ich uverejnenie vo vašom kanáli. Toto "
+"povolenie je potrebné na to, aby Shotwell Connect mohol správne fungovať."
+
+#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
+msgid ""
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
+msgstr ""
+"Počas tohoto spustenia programu Shotwell ste sa už prihlásili a odhlásili zo "
+"siete Facebook.\n"
+"Aby ste mohli naďalej uverejňovať fotografie na sieti Facebook, ukončite a "
+"znova spustite Shotwell, a potom to skúste znova."
+
+#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:17
+msgid ""
+"Enter the confirmation number which appears after you log into Flickr in "
+"your Web browser."
+msgstr ""
+"Zadajte potvrdzovacie číslo, ktoré bolo zobrazené po prihlásený do služby "
+"Flickr vo vašom webovom prehliadači."
+
+#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:37
+msgid "Authorization _Number:"
+msgstr "Autorizačné čí_slo:"
+
+#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:70
+#: src/Dialogs.vala:128
+msgid "Con_tinue"
+msgstr "_Pokračovať"
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:187
+msgid ""
+"You are not currently logged into Flickr.\n"
+"\n"
+"Click Log in to log into Flickr in your Web browser. You will have to "
+"authorize Shotwell Connect to link to your Flickr account."
+msgstr ""
+"Momentálne nie ste prihlásený do služby Flickr.\n"
+"\n"
+"Kliknite na Prihlásiť pre prihlásenie do služby Flickr vo vašom webovom "
+"prehliadači. Budete musieť autorizovať Shotwell Connect odkaz na váš účet "
+"Flickr."
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:364
+msgid "Preparing for login…"
+msgstr "Pripravuje sa prihlásenie…"
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:468
+#: plugins/shotwell-publishing/FlickrPublishing.vala:341
+#, fuzzy
+#| msgid ""
+#| "A file required for publishing is unavailable. Publishing to Flickr can't "
+#| "continue."
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
+"continue."
+msgstr ""
+"Súbor potrebný na uverejňovanie nie je dostupný. Uverejňovanie na službu "
+"Flickr nemôže pokračovať."
+
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:481
+msgid "Verifying authorization…"
+msgstr "Overuje sa autorizácia…"
+
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:118
+msgid ""
+"You have already logged in and out of a Google service during this Shotwell "
+"session.\n"
+"\n"
+"To continue publishing to Google services, quit and restart Shotwell, then "
+"try publishing again."
+msgstr ""
+"Už ste sa prihlásili a odhlásili zo služby Google počas tejto relácie "
+"programu Shotwell.\n"
+"Na pokračovanie v uverejňovaní na služby Google, ukončite a znovu spustite "
+"program Shotwell a skúste uverejňovanie znovu."
+
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:31
+#, fuzzy
+#| msgid ""
+#| "You are not currently logged into Picasa Web Albums.\n"
+#| "\n"
+#| "Click Login to log into Picasa Web Albums in your Web browser. You will "
+#| "have to authorize Shotwell Connect to link to your Picasa Web Albums "
+#| "account."
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"Click Log in to log into Picasa Web Albums in your Web browser. You will "
+"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
+msgstr ""
+"Momentálne nie ste prihlásený do služby webových albumov Picasa.\n"
+"\n"
+"Kliknite na Prihlásiť na prihlásenie do služby webových albumov Picasa vo "
+"vašom webovom prehliadači. Budete musieť schváliť požiadavku na spojenie "
+"programu Shotwell Connect s vaším účtom webových albumov Picasa."
+
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
+msgid ""
+"You are not currently logged into YouTube.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use "
+"with YouTube to continue. You can set up most accounts by using your browser "
+"to log into the YouTube site at least once."
+msgstr ""
+"Momentálne nie ste prihlásený do služby YouTube.\n"
+"\n"
+"Aby ste mohli pokračovať, musíte si vytvoriť účet Google a nastaviť ho na "
+"používanie služby YouTube. Väčšinu účtov takto môžete nastaviť prihláseným "
+"sa aspoň raz cez prehliadač na stránku služby YouTube (http://www.youtube."
+"com/)."
+
 #: plugins/common/Resources.vala:12
 msgid "Visit the Shotwell home page"
 msgstr "Navštíviť domovskú stránku programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:605
 msgid "translator-credits"
 msgstr ""
 "Laco Gubík <lacogubik@googlemail.com>\n"
@@ -1342,19 +1493,6 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:959
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Dočasný súbor potrebný na uverejnenie nie je dostupný"
-
-#: plugins/common/RESTSupport.vala:1167
-msgid ""
-"You have already logged in and out of a Google service during this Shotwell "
-"session.\n"
-"\n"
-"To continue publishing to Google services, quit and restart Shotwell, then "
-"try publishing again."
-msgstr ""
-"Už ste sa prihlásili a odhlásili zo služby Google počas tejto relácie "
-"programu Shotwell.\n"
-"Na pokračovanie v uverejňovaní na služby Google, ukončite a znovu spustite "
-"program Shotwell a skúste uverejňovanie znovu."
 
 #: plugins/shotwell-data-imports/FSpotImporter.vala:36
 #: plugins/shotwell-publishing/FacebookPublishing.vala:33
@@ -1469,7 +1607,7 @@ msgid "Go _Back"
 msgstr "Späť"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#: ui/shotwell.ui:1464
+#: ui/shotwell.ui:1105
 msgid "_Log in"
 msgstr "_Prihlásiť"
 
@@ -1504,7 +1642,7 @@ msgid "pixels"
 msgstr " _pixelov"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1209
+#: plugins/shotwell-publishing/FlickrPublishing.vala:880
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -1522,7 +1660,7 @@ msgstr "Šírky alebo výšky"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:208
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Odhlásiť"
@@ -1534,9 +1672,9 @@ msgstr "_Odhlásiť"
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:222
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
-#: src/CollectionPage.vala:76 src/PhotoPage.vala:2465
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
 msgstr "U_verejniť"
 
@@ -1667,13 +1805,11 @@ msgstr "Prihlásiť"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:70
 msgid "An _existing album:"
 msgstr "_Existujúcom albume:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:87
 msgid "A _new album named:"
 msgstr "Photos will be _visible by:"
 
@@ -1688,7 +1824,6 @@ msgid "Open target _album in browser"
 msgstr "Otvoriť cieľový _album v prehliadači"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-#| msgid "Copyright (C) 2013 rajce.net"
 msgid "Copyright © 2013 rajce.net"
 msgstr "Autorské práva © 2013 rajce.net"
 
@@ -1716,12 +1851,12 @@ msgid "You are logged into Rajce as %s."
 msgstr "Ste prihlásený do služby Rajce ako %s."
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
-#: plugins/shotwell-publishing/PicasaPublishing.vala:670
+#: plugins/shotwell-publishing/PicasaPublishing.vala:571
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
 msgid "Photos will appear in:"
-msgstr "Fotografie sa zobrazia v:"
+msgstr "Fotografie budú zobrazené v:"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:31
 msgid "Shotwell Extra Publishing Services"
 msgstr "Hlavné uverejňovacie služby"
 
@@ -1739,21 +1874,18 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Autorské práva 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1205
+#: plugins/shotwell-publishing/FlickrPublishing.vala:876
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-#| msgid "500 x 375 pixels"
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pixelov"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1206
+#: plugins/shotwell-publishing/FlickrPublishing.vala:877
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-#| msgid "1024 x 768 pixels"
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pixelov"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-#| msgid "1280 x 853 pixels"
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 pixelov"
 
@@ -1820,12 +1952,12 @@ msgid "Public"
 msgstr "Uverejniť"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:15
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1144
+#: plugins/shotwell-publishing/FacebookPublishing.vala:888
 msgid "Friends"
 msgstr "Priatelia"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:18
-#: plugins/shotwell-publishing/YouTubePublishing.vala:498
+#: plugins/shotwell-publishing/YouTubePublishing.vala:378
 msgid "Private"
 msgstr "Súkromné"
 
@@ -1854,7 +1986,7 @@ msgid "Create a _new album named:"
 msgstr "Vytvoriť _nový album s názvom:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:100
-#: plugins/shotwell-publishing/FacebookPublishing.vala:984
+#: plugins/shotwell-publishing/FacebookPublishing.vala:725
 msgid "Upload _size:"
 msgstr "_Veľkosť odovzdávania:"
 
@@ -1864,7 +1996,7 @@ msgstr "Videá a nové albumy budú v_iditeľné:"
 
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:155
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:159
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:59
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
 msgid ""
 "_Remove location, camera, and other identifying information before uploading"
@@ -1872,66 +2004,25 @@ msgstr ""
 "_Odstrániť umiestnenie, typ fotoaparátu a iné identifikačné informácie pred "
 "odovzdaním"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:62
-#: plugins/shotwell-publishing/PicasaPublishing.vala:60
+#: plugins/shotwell-publishing/FacebookPublishing.vala:61
+#: plugins/shotwell-publishing/PicasaPublishing.vala:58
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1188
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:64
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Facebook.\n"
-#| "\n"
-#| "If you don't yet have a Facebook account, you can create one during the "
-#| "login process. During login, Shotwell Connect may ask you for permission "
-#| "to upload photos and publish to your feed. These permissions are required "
-#| "for Shotwell Connect to function."
-msgid ""
-"You are not currently logged into Facebook.\n"
-"\n"
-"If you don’t yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
-msgstr ""
-"Momentálne nie ste prihlásený do služby Facebook.\n"
-"\n"
-"Ak ešte nemáte vytvorený Facebook účet, môžete si jeden vytvoriť počas "
-"prihlasovacieho procesu. Počas prihlásenia si Shotwell Connect môže vyžiadať "
-"povolenie na odovzdanie fotografií a ich uverejnenie vo vašom kanáli. Toto "
-"povolenie je potrebné na to, aby Shotwell Connect mohol správne fungovať."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:66
-msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
-msgstr ""
-"Počas tohoto spustenia programu Shotwell ste sa už prihlásili a odhlásili zo "
-"siete Facebook.\n"
-"Aby ste mohli naďalej uverejňovať fotografie na sieti Facebook, ukončite a "
-"znova spustite Shotwell, a potom to skúste znova."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:87
+#: plugins/shotwell-publishing/FacebookPublishing.vala:81
 msgid "Standard (720 pixels)"
 msgstr "Štandardná (720 pixelov)"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:90
+#: plugins/shotwell-publishing/FacebookPublishing.vala:84
 msgid "Large (2048 pixels)"
 msgstr "Veľká (2048 pixelov)"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:255
-msgid "Testing connection to Facebook…"
-msgstr "Testuje sa pripojenie k službe Facebook…"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:348
-#: plugins/shotwell-publishing/PicasaPublishing.vala:379
+#: plugins/shotwell-publishing/FacebookPublishing.vala:314
 msgid "Creating album…"
 msgstr "Vytvára sa album…"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:374
+#: plugins/shotwell-publishing/FacebookPublishing.vala:340
 #, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Facebook "
@@ -1943,7 +2034,7 @@ msgstr ""
 "Súbor potrebný na uverejňovanie nie je dostupný. Uverejňovanie na službu "
 "Facebook nemôže pokračovať."
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:982
+#: plugins/shotwell-publishing/FacebookPublishing.vala:723
 #, c-format
 msgid ""
 "You are logged into Facebook as %s.\n"
@@ -1952,83 +2043,22 @@ msgstr ""
 "Ste prihlásený do služby Facebook ako %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:983
+#: plugins/shotwell-publishing/FacebookPublishing.vala:724
 msgid "Where would you like to publish the selected photos?"
 msgstr "Kde si želáte uverejniť vybrané fotografie?"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1143
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1187
+#: plugins/shotwell-publishing/FacebookPublishing.vala:887
+#: plugins/shotwell-publishing/FlickrPublishing.vala:858
 msgid "Just me"
 msgstr "Len pre mňa"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:1145
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1183
+#: plugins/shotwell-publishing/FacebookPublishing.vala:889
+#: plugins/shotwell-publishing/FlickrPublishing.vala:854
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "Všetkých"
 
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:17
-msgid ""
-"Enter the confirmation number which appears after you log into Flickr in "
-"your Web browser."
-msgstr ""
-"Zadajte potvrdzovacie číslo, ktoré bolo zobrazené po prihlásený do služby "
-"Flickr vo vašom webovom prehliadači."
-
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:37
-msgid "Authorization _Number:"
-msgstr "Autorizačné čí_slo:"
-
-#: plugins/shotwell-publishing/flickr_pin_entry_pane.ui:70 src/Dialogs.vala:128
-msgid "Con_tinue"
-msgstr "_Pokračovať"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:60
-msgid ""
-"You are not currently logged into Flickr.\n"
-"\n"
-"Click Log in to log into Flickr in your Web browser. You will have to "
-"authorize Shotwell Connect to link to your Flickr account."
-msgstr ""
-"Momentálne nie ste prihlásený do služby Flickr.\n"
-"\n"
-"Kliknite na Prihlásiť pre prihlásenie do služby Flickr vo vašom webovom "
-"prehliadači.  Budete musieť autorizovať Shotwell Connect odkaz na váš účet "
-"Flickr."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:62
-msgid ""
-"You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
-msgstr ""
-"Počas tohoto spustenia programu Shotwell ste sa už prihlásili a odhlásili k "
-"službe Flickr.\n"
-"Aby ste mohli naďalej uverejňovať fotografie pomocou služby Flickr, ukončite "
-"a znova spustite Shotwell, a potom to skúste znova."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:374
-msgid "Preparing for login…"
-msgstr "Pripravuje sa prihlásenie…"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:434
-#: plugins/shotwell-publishing/FlickrPublishing.vala:571
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Flickr can't "
-#| "continue."
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"Súbor potrebný na uverejňovanie nie je dostupný. Uverejňovanie na službu "
-"Flickr nemôže pokračovať."
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:447
-msgid "Verifying authorization…"
-msgstr "Overuje sa autorizácia…"
-
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1129
+#: plugins/shotwell-publishing/FlickrPublishing.vala:800
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2038,92 +2068,68 @@ msgstr ""
 "\n"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=736633
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1131
-#, fuzzy, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabyte remaining in your upload quota."
-#| msgid_plural ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabytes remaining in your upload quota."
+#: plugins/shotwell-publishing/FlickrPublishing.vala:802
+#, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
 msgstr ""
 "Váš Flickr účet, ktorý je zdarma, obmedzuje koľko dát môžete odovzdať za "
 "mesiac.\n"
-"Tento mesiac vám ešte zostáva  %d  megabajtov z vašej kvóty."
+"Tento mesiac vám ešte zostáva %s megabajtov z vašej kvóty."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1133
+#: plugins/shotwell-publishing/FlickrPublishing.vala:804
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 "Váš účet služby Flickr Pro vám umožňuje neobmedzené odovzdávania fotografií."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1138
+#: plugins/shotwell-publishing/FlickrPublishing.vala:809
 msgid "Photos _visible to:"
 msgstr "Fotografie _viditeľné pre:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1140
+#: plugins/shotwell-publishing/FlickrPublishing.vala:811
 msgid "Videos _visible to:"
 msgstr "Videá budú v_iditeľné:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1143
+#: plugins/shotwell-publishing/FlickrPublishing.vala:814
 msgid "Photos and videos _visible to:"
 msgstr "Fotografie a videá budú v_iditeľné:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1184
+#: plugins/shotwell-publishing/FlickrPublishing.vala:855
 msgid "Friends & family only"
 msgstr "Len pre priateľov a rodinu"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1185
+#: plugins/shotwell-publishing/FlickrPublishing.vala:856
 msgid "Family only"
 msgstr "Iba rodina"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1186
+#: plugins/shotwell-publishing/FlickrPublishing.vala:857
 msgid "Friends only"
 msgstr "Iba priatelia"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1207
+#: plugins/shotwell-publishing/FlickrPublishing.vala:878
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
-#| msgid "2048 x 1536 pixels"
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pixelov"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:1208
+#: plugins/shotwell-publishing/FlickrPublishing.vala:879
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
-#| msgid "4096 x 3072 pixels"
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pixelov"
 
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:103
-msgid "L_ist album in public gallery"
-msgstr "_Zobraziť album vo verejnej galérii"
-
-#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:137
+#: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
 msgstr "Prednastavená _veľkosť fotografie:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:59
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Picasa Web Albums.\n"
-#| "\n"
-#| "Click Login to log into Picasa Web Albums in your Web browser. You will "
-#| "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#| "account."
-msgid ""
-"You are not currently logged into Picasa Web Albums.\n"
-"\n"
-"Click Log in to log into Picasa Web Albums in your Web browser. You will "
-"have to authorize Shotwell Connect to link to your Picasa Web Albums account."
-msgstr ""
-"Momentálne nie ste prihlásený do služby webových albumov Picasa.\n"
-"\n"
-"Kliknite na Prihlásiť na prihlásenie do služby webových albumov Picasa vo "
-"vašom webovom prehliadači. Budete musieť schváliť požiadavku na spojenie "
-"programu Shotwell Connect s vaším účtom webových albumov Picasa."
+#. Add album that will push to the default feed for all the new users
+#. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
+#. or the new "Default album" album for Google Photos
+#: plugins/shotwell-publishing/PicasaPublishing.vala:96
+#: plugins/shotwell-publishing/PicasaPublishing.vala:630
+msgid "Default album"
+msgstr "Predvolený album"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:361
+#: plugins/shotwell-publishing/PicasaPublishing.vala:291
 #, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Picasa can't "
@@ -2136,36 +2142,32 @@ msgstr ""
 "Picasa nemôže pokračovať."
 
 #. populate any widgets whose contents are programmatically-generated.
-#: plugins/shotwell-publishing/PicasaPublishing.vala:659
+#: plugins/shotwell-publishing/PicasaPublishing.vala:560
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
 msgstr "Ste prihlásený do Picasa Web Albums ako %s."
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:665
+#: plugins/shotwell-publishing/PicasaPublishing.vala:566
 msgid "Videos will appear in:"
 msgstr "Videá sa zobrazia v:"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:746
-#| msgid "Small (640 x 480 pixels)"
+#: plugins/shotwell-publishing/PicasaPublishing.vala:610
 msgid "Small (640 × 480 pixels)"
 msgstr "Malá (640 × 480 pixelov)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:747
-#| msgid "Medium (1024 x 768 pixels)"
+#: plugins/shotwell-publishing/PicasaPublishing.vala:611
 msgid "Medium (1024 × 768 pixels)"
 msgstr "Stredná (1024 × 768 pixelov)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:748
-#| msgid "Recommended (1600 x 1200 pixels)"
+#: plugins/shotwell-publishing/PicasaPublishing.vala:612
 msgid "Recommended (1600 × 1200 pixels)"
 msgstr "Odporúčaná (1600 × 1200 pixelov)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:749
-#| msgid "Google+ (2048 x 1536 pixels)"
+#: plugins/shotwell-publishing/PicasaPublishing.vala:613
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 pixelov)"
 
-#: plugins/shotwell-publishing/PicasaPublishing.vala:750
+#: plugins/shotwell-publishing/PicasaPublishing.vala:614
 #: src/editing_tools/EditingTools.vala:757
 msgid "Original Size"
 msgstr "Pôvodná veľkosť"
@@ -2179,28 +2181,20 @@ msgid "User _name"
 msgstr "Používateľské _meno"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
-#, fuzzy
-#| msgid "_Remember Password"
 msgid "Remember Password"
-msgstr "Za_pamätať heslo"
+msgstr "Zapamätať heslo"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
-#, fuzzy
-#| msgid "An _existing category:"
 msgid "An _existing category"
-msgstr "_Existujúcej kategórii:"
+msgstr "_Existujúcej kategórii"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
-#, fuzzy
-#| msgid "A _new album named:"
 msgid "A _new album named"
-msgstr "Photos will be _visible by:"
+msgstr "_Novom pomenovanom albume"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
-#, fuzzy
-#| msgid "within category:"
 msgid "within category"
-msgstr "v kategórii:"
+msgstr "v kategórii"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
 msgid "Album comment"
@@ -2229,7 +2223,7 @@ msgid "Logout"
 msgstr "Odhlásiť sa"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:268
-#: src/Resources.vala:295 ui/collection.ui:190
+#: src/Resources.vala:296 ui/collection.ui:192
 msgid "Publish"
 msgstr "Uverejniť"
 
@@ -2263,7 +2257,7 @@ msgid "Certificate of %s"
 msgstr ""
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
-#: src/Resources.vala:166
+#: src/Resources.vala:167
 msgid "_OK"
 msgstr "_OK"
 
@@ -2315,7 +2309,7 @@ msgstr "Zobraziť certifikát…"
 msgid "I understand, please _proceed."
 msgstr "Rozumiem. Prosím, _pokračovať."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:26
+#: plugins/shotwell-publishing/shotwell-publishing.vala:55
 msgid "Core Publishing Services"
 msgstr "Hlavné uverejňovacie služby"
 
@@ -2323,22 +2317,7 @@ msgstr "Hlavné uverejňovacie služby"
 msgid "Video privacy _setting:"
 msgstr "_Nastavenie súkromia videa:"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:58
-msgid ""
-"You are not currently logged into YouTube.\n"
-"\n"
-"You must have already signed up for a Google account and set it up for use "
-"with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Momentálne nie ste prihlásený do služby YouTube.\n"
-"\n"
-"Aby ste mohli pokračovať, musíte si vytvoriť účet Google a nastaviť ho na "
-"používanie služby YouTube. Väčšinu účtov takto môžete nastaviť prihláseným "
-"sa aspoň raz cez prehliadač na stránku služby YouTube (http://www.youtube."
-"com/)."
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:363
+#: plugins/shotwell-publishing/YouTubePublishing.vala:236
 #, fuzzy
 #| msgid ""
 #| "A file required for publishing is unavailable. Publishing to Youtube "
@@ -2350,21 +2329,16 @@ msgstr ""
 "Súbor potrebný na uverejňovanie nie je dostupný. Uverejňovanie na službu "
 "Youtube nemôže pokračovať."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:462
+#: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Ste prihlásený do služby YouTube ako %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:464
-#, c-format
-msgid "Videos will appear in “%s”"
-msgstr "Videá sa zobrazia v „%s“"
-
-#: plugins/shotwell-publishing/YouTubePublishing.vala:496
+#: plugins/shotwell-publishing/YouTubePublishing.vala:376
 msgid "Public listed"
 msgstr "Verejné zahrnuté"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:497
+#: plugins/shotwell-publishing/YouTubePublishing.vala:377
 msgid "Public unlisted"
 msgstr "Verejné nezahrnuté"
 
@@ -2467,48 +2441,49 @@ msgstr "Pripnúť panel nástrojov otvorený"
 msgid "Leave fullscreen"
 msgstr "Opustiť režim celej obrazovky"
 
-#: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
+#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
 #: src/data_imports/DataImportsUI.vala:301
 #: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
 #: src/publishing/PublishingUI.vala:301 src/publishing/PublishingUI.vala:525
-#: src/Resources.vala:157
+#: src/Resources.vala:158
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
-#: src/AppWindow.vala:580
-#, fuzzy, c-format
-#| msgid ""
-#| "A fatal error occurred when accessing Shotwell's library.  Shotwell "
-#| "cannot continue.\n"
-#| "\n"
-#| "%s"
+#: src/AppWindow.vala:579
+#, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Vyskytla sa fatálna chyba pri prístupe ku knižnici programu Shotwell.  "
-"Shotwell nemôže pokračovať.\n"
+"Vyskytla sa závažná chyba pri prístupe ku knižnici programu Shotwell. "
+"Program Shotwell nemôže pokračovať.\n"
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#. translators: %s will be replaced by application version
+#: src/AppWindow.vala:596
+#, c-format
+msgid "%s – “Aachen”"
+msgstr ""
+
+#: src/AppWindow.vala:601
 msgid "Visit the Shotwell web site"
 msgstr "Navštíviť webovú stránku programu Shotwell"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:614
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nepodarilo sa zobraziť pomocníka: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:622
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nepodarilo sa prejsť do databázy chýb: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:630
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nepodarilo sa zobraziť FAQ: %s"
@@ -2578,10 +2553,10 @@ msgstr "Importovanie zlyhalo (%d)"
 msgid "Cameras"
 msgstr "Fotoaparáty"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:710
-#: src/camera/ImportPage.vala:726 src/photos/RawSupport.vala:303
-#: ui/collection.ui:90 ui/event.ui:359 ui/event.ui:527 ui/media.ui:359
-#: ui/photo_context.ui:96 ui/photo.ui:349 ui/tags.ui:359
+#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
+#: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
+#: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Fotoaparát"
 
@@ -2589,7 +2564,7 @@ msgstr "Fotoaparát"
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
-#: src/camera/ImportPage.vala:458
+#: src/camera/ImportPage.vala:466
 #, fuzzy
 #| msgid ""
 #| "Unable to unmount camera.  Try unmounting the camera from the file "
@@ -2601,54 +2576,50 @@ msgstr ""
 "súborov."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:775
+#: src/camera/ImportPage.vala:783
 msgid "Hide photos already imported"
 msgstr "Skryť fotografie, ktoré sú už importované"
 
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:784
 msgid "Only display photos that have not been imported"
 msgstr "Zobraziť iba fotografie, ktoré neboli importované"
 
-#: src/camera/ImportPage.vala:815 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "Importovať vy_brané"
 
-#: src/camera/ImportPage.vala:825 ui/import.ui:17 ui/import.ui:214
+#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
 msgid "Import _All"
 msgstr "Importovať _všetky"
 
-#: src/camera/ImportPage.vala:849
+#: src/camera/ImportPage.vala:857
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Zdá sa, že fotoaparát je prázdny. Nenašli sa žiadne fotografie ani videá na "
 "importovanie."
 
-#: src/camera/ImportPage.vala:853
+#: src/camera/ImportPage.vala:861
 msgid "No new photos/videos found on camera"
 msgstr "Vo fotoaparáte neboli nájdené žiadne nové fotografie alebo videá"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1013
-#, fuzzy
-#| msgid ""
-#| "Shotwell needs to unmount the camera from the filesystem in order to "
-#| "access it.  Continue?"
+#: src/camera/ImportPage.vala:1021
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
 msgstr ""
-"Shotwell potrebuje odpojiť váš fotoaparát od súborového systému, aby k nemu "
-"mohol pristupovať.  Chcete pokračovať?"
+"Program Shotwell musí odpojiť váš fotoaparát zo súborového systému, aby k "
+"nemu mohol pristupovať. Chcete pokračovať?"
 
-#: src/camera/ImportPage.vala:1019
+#: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
 msgstr "_Odpojiť"
 
-#: src/camera/ImportPage.vala:1024
+#: src/camera/ImportPage.vala:1032
 msgid "Please unmount the camera."
 msgstr "Prosím, odpojte fotoaparát."
 
-#: src/camera/ImportPage.vala:1029
+#: src/camera/ImportPage.vala:1037
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2658,11 +2629,11 @@ msgstr ""
 "fotoaparátu iba ak je odomknutý. Zatvorte, prosím, ostatné aplikácie, ktoré "
 "používajú fotoaparát, a skúste to znova."
 
-#: src/camera/ImportPage.vala:1039
+#: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
 msgstr "Zatvorte, prosím, ostatné aplikácie, ktoré používajú fotoaparát."
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1052
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2671,29 +2642,29 @@ msgstr ""
 "Nepodarilo sa získať náhľady z fotoaparátu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1061
+#: src/camera/ImportPage.vala:1069
 msgid "Unmounting…"
 msgstr "Odpája sa…"
 
-#: src/camera/ImportPage.vala:1152
+#: src/camera/ImportPage.vala:1160
 msgid "Starting import, please wait…"
 msgstr "Spúšťa sa importovanie. Prosím, čakajte…"
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
 msgstr "Získavajú sa informácie o fotografiách"
 
-#: src/camera/ImportPage.vala:1527
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Získava sa náhľad pre %s"
 
-#: src/camera/ImportPage.vala:1643
+#: src/camera/ImportPage.vala:1651
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nepodarilo sa uzamknúť fotoaparát: %s"
 
-#: src/camera/ImportPage.vala:1728
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2701,7 +2672,7 @@ msgstr[0] "Odstrániť týchto %d fotografií z fotoaparátu?"
 msgstr[1] "Odstrániť túto fotografiu z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d fotografie z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1731
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2709,7 +2680,7 @@ msgstr[0] "Odstrániť týchto %d videí z fotoaparátu?"
 msgstr[1] "Odstrániť toto %d video z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d videá z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1734
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2717,7 +2688,7 @@ msgstr[0] "Odstrániť týchto %d fotografií/videí z fotoaparátu?"
 msgstr[1] "Odstrániť túto %d fotografiu/video z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d fotografie/videá z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2725,15 +2696,15 @@ msgstr[0] "Odstrániť týchto %d súborov z fotoaparátu?"
 msgstr[1] "Odstrániť tento %d súbor z fotoaparátu?"
 msgstr[2] "Odstrániť tieto %d súbory z fotoaparátu?"
 
-#: src/camera/ImportPage.vala:1745 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Ponechať"
 
-#: src/camera/ImportPage.vala:1764
+#: src/camera/ImportPage.vala:1772
 msgid "Removing photos/videos from camera"
 msgstr "Odstraňujú sa fotografie/videá z fotoaparátu"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1776
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2744,129 +2715,129 @@ msgstr[1] ""
 msgstr[2] ""
 "Nepodarilo sa odstrániť %d fotografie/videá z fotoaparátu kvôli chybám."
 
-#: src/CollectionPage.vala:74 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2460 src/Resources.vala:170
+#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2464 src/Resources.vala:171
 msgid "_Print"
 msgstr "_Tlačiť"
 
 # dialog title
-#: src/CollectionPage.vala:77 src/Resources.vala:323 ui/collection.ui:126
-#: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:563 ui/photo.ui:28
+#: src/CollectionPage.vala:83 src/Resources.vala:324 ui/collection.ui:128
+#: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
 msgid "Send _To…"
 msgstr "Odoslať _do…"
 
-#: src/CollectionPage.vala:78 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2470 src/Resources.vala:220
+#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2474 src/Resources.vala:221
 msgid "Set as _Desktop Background"
 msgstr "Nastaviť ako _pozadie pracovnej plochy"
 
-#: src/CollectionPage.vala:86 src/Resources.vala:286
+#: src/CollectionPage.vala:92 src/Resources.vala:287
 msgid "_Duplicate"
 msgstr "Du_plikovať"
 
-#: src/CollectionPage.vala:94
+#: src/CollectionPage.vala:100
 msgid "Fullscreen"
 msgstr "Na celú obrazovku"
 
-#: src/CollectionPage.vala:96 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:180
 msgid "S_lideshow"
 msgstr "P_rezentácia"
 
-#: src/CollectionPage.vala:104 src/Resources.vala:139 ui/direct.ui:111
+#: src/CollectionPage.vala:110 src/Resources.vala:140 ui/direct.ui:111
 #: ui/photo.ui:200
 msgid "Rotate _Right"
 msgstr "Otočiť do_prava"
 
-#: src/CollectionPage.vala:107 src/Resources.vala:144 ui/direct.ui:116
+#: src/CollectionPage.vala:113 src/Resources.vala:145 ui/direct.ui:116
 #: ui/photo.ui:205
 msgid "Rotate _Left"
 msgstr "Otočiť doľa_va"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:149 ui/direct.ui:121
+#: src/CollectionPage.vala:116 src/Resources.vala:150 ui/direct.ui:121
 #: ui/photo.ui:210
 msgid "Flip Hori_zontally"
 msgstr "Prevrátiť vodo_rovne"
 
-#: src/CollectionPage.vala:111 src/Resources.vala:152 ui/direct.ui:125
+#: src/CollectionPage.vala:117 src/Resources.vala:153 ui/direct.ui:125
 #: ui/photo.ui:214
 msgid "Flip Verti_cally"
 msgstr "Prevrátiť _zvislo"
 
-#: src/CollectionPage.vala:113 src/Resources.vala:186 ui/collection.ui:8
-#: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:445
+#: src/CollectionPage.vala:119 src/Resources.vala:187 ui/collection.ui:8
+#: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:447
 #: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "Vy_lepšiť"
 
-#: src/CollectionPage.vala:114 src/Resources.vala:214 ui/collection.ui:13
-#: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:450
+#: src/CollectionPage.vala:120 src/Resources.vala:215 ui/collection.ui:13
+#: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:452
 #: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "Vrátiť do _pôvodného stavu"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:190 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:191 ui/photo.ui:256
 msgid "_Copy Color Adjustments"
 msgstr "_Kopírovať úpravu farieb"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:194 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:195 ui/photo.ui:261
 msgid "_Paste Color Adjustments"
 msgstr "_Vložiť úpravu farieb"
 
 # window title
-#: src/CollectionPage.vala:129
+#: src/CollectionPage.vala:135
 msgid "Adjust Date and Time…"
 msgstr "Upraviť dátum a čas…"
 
-#: src/CollectionPage.vala:137 src/Resources.vala:319
+#: src/CollectionPage.vala:143 src/Resources.vala:320
 msgid "Open With E_xternal Editor"
 msgstr "Otvoriť pomocou e_xterného editora"
 
-#: src/CollectionPage.vala:140 src/Resources.vala:321 ui/collection.ui:111
-#: ui/event.ui:548 ui/photo_context.ui:118 ui/photo.ui:363
+#: src/CollectionPage.vala:146 src/Resources.vala:322 ui/collection.ui:113
+#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:365
 msgid "Open With RA_W Editor"
 msgstr "Otvoriť pomocou RA_W editora"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:167
+#: src/CollectionPage.vala:149 src/Resources.vala:168
 msgid "_Play"
 msgstr "_Spustiť"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photo/Video"
 msgstr "Exportovať fotografiu/video"
 
-#: src/CollectionPage.vala:409
+#: src/CollectionPage.vala:415
 msgid "Export Photos/Videos"
 msgstr "Exportovať fotografie/videá"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:59 src/PhotoPage.vala:2994
+#: src/CollectionPage.vala:417 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
 msgstr "Exportovať fotografiu"
 
-#: src/CollectionPage.vala:411 src/Dialogs.vala:84
+#: src/CollectionPage.vala:417 src/Dialogs.vala:84
 msgid "Export Photos"
 msgstr "Exportovať fotografie"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Rotating"
 msgstr "Otáča sa"
 
-#: src/CollectionPage.vala:498 src/CollectionPage.vala:514
+#: src/CollectionPage.vala:504 src/CollectionPage.vala:520
 msgid "Undoing Rotate"
 msgstr "Vracia sa spať otáčanie"
 
-#: src/CollectionPage.vala:523
+#: src/CollectionPage.vala:529
 msgid "Flipping Horizontally"
 msgstr "Prevracia sa horizontálne"
 
-#: src/CollectionPage.vala:524
+#: src/CollectionPage.vala:530
 msgid "Undoing Flip Horizontally"
 msgstr "Vracia sa prevrátenie horizontálne"
 
-#: src/CollectionPage.vala:533
+#: src/CollectionPage.vala:539
 msgid "Flipping Vertically"
 msgstr "Prevracia sa vertikálne"
 
-#: src/CollectionPage.vala:534
+#: src/CollectionPage.vala:540
 msgid "Undoing Flip Vertically"
 msgstr "Vracia sa prevrátenie vertikálne"
 
@@ -2997,8 +2968,7 @@ msgid "Create Tag"
 msgstr "Vytvoriť značku"
 
 #: src/Commands.vala:1695
-#, fuzzy, c-format
-#| msgid "Move Tag \"%s\""
+#, c-format
 msgid "Move Tag “%s”"
 msgstr "Presunúť značku „%s“"
 
@@ -3085,7 +3055,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Súbor databázy:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:773
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
 msgid "_Import"
 msgstr "_Importovať"
 
@@ -3172,8 +3142,8 @@ msgstr[2] ""
 "Táto operácia odstráni značku „%s“ z %d fotografií. Chcete pokračovať?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
-#: src/Resources.vala:158 src/Resources.vala:361 src/Resources.vala:414
-#: src/Resources.vala:658 ui/savedsearch.ui:15 ui/tags.ui:458 ui/trash.ui:63
+#: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
+#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "O_dstrániť"
@@ -3731,7 +3701,7 @@ msgstr[2] "%d hodiny"
 msgid "1 day"
 msgstr "1 deň"
 
-#: src/Dialogs.vala:1317 src/Resources.vala:231
+#: src/Dialogs.vala:1317 src/Resources.vala:232
 msgid "Rename Event"
 msgstr "Premenovať udalosť"
 
@@ -3752,7 +3722,7 @@ msgstr "Názov:"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=736632
 #. Dialog title
-#: src/Dialogs.vala:1345 src/Resources.vala:307
+#: src/Dialogs.vala:1345 src/Resources.vala:308
 msgid "Edit Event Comment"
 msgstr "Upravenie komentára k udalosti"
 
@@ -3785,21 +3755,19 @@ msgid "Revert External Edits?"
 msgstr "Vrátiť externé úpravy?"
 
 #: src/Dialogs.vala:1412
-#, fuzzy, c-format
-#| msgid "This will destroy all changes made to the external file.  Continue?"
-#| msgid_plural ""
-#| "This will destroy all changes made to %d external files.  Continue?"
+#, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
-"Táto operácia zničí všetky zmeny vykonané na %d externých súboroch. "
-"Pokračovať?"
+"Táto operácia zničí všetky zmeny vykonané na %d externých súboroch. Chcete "
+"pokračovať?"
 msgstr[1] ""
-"Táto operácia zničí všetky zmeny vykonané na externom súbore. Pokračovať?"
+"Táto operácia zničí všetky zmeny vykonané na externom súbore. Chcete "
+"pokračovať?"
 msgstr[2] ""
-"Táto operácia zničí všetky zmeny vykonané na %d externých súboroch. "
-"Pokračovať?"
+"Táto operácia zničí všetky zmeny vykonané na %d externých súboroch. Chcete "
+"pokračovať?"
 
 #: src/Dialogs.vala:1416
 msgid "Re_vert External Edit"
@@ -3810,16 +3778,14 @@ msgid "Re_vert External Edits"
 msgstr "V_rátiť externé úpravy"
 
 #: src/Dialogs.vala:1437
-#, fuzzy, c-format
-#| msgid "This will remove the photo from the library.  Continue?"
-#| msgid_plural "This will remove %d photos from the library.  Continue?"
+#, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Táto operácia odstráni %d fotografií z knižnice. Chcete pokračovať?"
 msgstr[1] "Táto operácia odstráni fotografiu z knižnice. Chcete pokračovať?"
 msgstr[2] "Táto operácia odstráni %d fotografie z knižnice. Chcete pokračovať?"
 
-#: src/Dialogs.vala:1444 src/Resources.vala:173
+#: src/Dialogs.vala:1444 src/Resources.vala:174
 msgid "_Remove"
 msgstr "O_dstrániť"
 
@@ -3838,11 +3804,11 @@ msgstr "%d%%"
 
 #: src/Dialogs.vala:1697
 msgid "AM"
-msgstr "AM"
+msgstr "dopoludnia"
 
 #: src/Dialogs.vala:1698
 msgid "PM"
-msgstr "PM"
+msgstr "popoludní"
 
 #: src/Dialogs.vala:1699
 msgid "24 Hr"
@@ -4055,11 +4021,11 @@ msgstr "_Importovať na mieste"
 msgid "Import to Library"
 msgstr "Importovať do knižnice"
 
-#: src/Dialogs.vala:2709 src/PhotoPage.vala:2870
+#: src/Dialogs.vala:2709 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Odstrániť z knižnice"
 
-#: src/Dialogs.vala:2710 src/PhotoPage.vala:2870
+#: src/Dialogs.vala:2710 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Odstraňuje sa fotografia z knižnice"
 
@@ -4068,17 +4034,7 @@ msgid "Removing Photos From Library"
 msgstr "Odstraňujú sa fotografie z knižnice"
 
 #: src/Dialogs.vala:2724
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo/video from your Shotwell library.  Would you "
-#| "also like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos/videos from your Shotwell library.  Would you "
-#| "also like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
@@ -4091,34 +4047,24 @@ msgid_plural ""
 "This action cannot be undone."
 msgstr[0] ""
 "Táto operácia odstráni %d fotografií/videí z vašej knižnice programu "
-"Shotwell.  Chcete tieto súbory tiež presunúť do koša na vašej pracovnej "
+"Shotwell. Chcete tieto súbory tiež presunúť do koša na vašej pracovnej "
 "ploche?\n"
 "\n"
 "Táto operácia sa nedá vrátiť späť."
 msgstr[1] ""
-"Táto operácia odstráni fotografiu/video z vašej knižnice programu Shotwell.  "
+"Táto operácia odstráni fotografiu/video z vašej knižnice programu Shotwell. "
 "Chcete tento súbor tiež presunúť do koša na vašej pracovnej ploche?\n"
 "\n"
 "Táto operácia sa nedá vrátiť späť."
 msgstr[2] ""
 "Táto operácia odstráni %d fotografie/videá z vašej knižnice programu "
-"Shotwell.  Chcete tieto súbory tiež presunúť do koša na vašej pracovnej "
+"Shotwell. Chcete tieto súbory tiež presunúť do koša na vašej pracovnej "
 "ploche?\n"
 "\n"
 "Táto operácia sa nedá vrátiť späť."
 
 #: src/Dialogs.vala:2728
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the video from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d videos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4130,33 +4076,23 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Táto operácia odstráni %d videí z vašej knižnice programu Shotwell.  Chcete "
+"Táto operácia odstráni %d videí z vašej knižnice programu Shotwell. Chcete "
 "tieto súbory tiež presunúť do koša na vašej pracovnej ploche?\n"
 "\n"
 "Táto operácia sa nedá vrátiť späť."
 msgstr[1] ""
-"Táto operácia odstráni video z vašej knižnice programu Shotwell.  Chcete "
+"Táto operácia odstráni video z vašej knižnice programu Shotwell. Chcete "
 "tento súbor tiež presunúť do koša na vašej pracovnej ploche?\n"
 "\n"
 "Táto operácia sa nedá vrátiť späť."
 msgstr[2] ""
-"Táto operácia odstráni %d videá z vašej knižnice programu Shotwell.  Chcete "
+"Táto operácia odstráni %d videá z vašej knižnice programu Shotwell. Chcete "
 "tieto súbory tiež presunúť do koša na vašej pracovnej ploche?\n"
 "\n"
 "Táto operácia sa nedá vrátiť späť."
 
 #: src/Dialogs.vala:2732
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4184,26 +4120,20 @@ msgstr[2] ""
 "Táto akcie nemôže byť vrátená späť."
 
 #: src/Dialogs.vala:2764
-#, fuzzy, c-format
-#| msgid ""
-#| "The photo or video cannot be moved to your desktop trash.  Delete this "
-#| "file?"
-#| msgid_plural ""
-#| "%d photos/videos cannot be moved to your desktop trash.  Delete these "
-#| "files?"
+#, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
-"%d fotografií/videí sa nedá presunúť do koša na vašej pracovnej ploche.  "
-"Chcete tieto súbory odstrániť?"
+"%d fotografií alebo videí sa nedá presunúť do koša na vašej pracovnej "
+"ploche. Majú sa tieto súbory odstrániť?"
 msgstr[1] ""
-"Fotografia/video sa nedá presunúť do koša na vašej pracovnej ploche.  Chcete "
-"tento súbor odstrániť?"
+"Fotografia alebo video sa nedá presunúť do koša na vašej pracovnej ploche. "
+"Má sa tento súbor odstrániť?"
 msgstr[2] ""
-"%d fotografie/videá sa nedajú presunúť do koša na vašej pracovnej ploche.  "
-"Chcete tieto súbory odstrániť?"
+"%d fotografie alebo videá sa nedajú presunúť do koša na vašej pracovnej "
+"ploche. Majú sa tieto súbory odstrániť?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:2781
@@ -4246,29 +4176,29 @@ msgstr ""
 msgid "Unable open photo %s. Sorry."
 msgstr "Nie je možné otvoriť fotografiu %s. Prepáčte."
 
-#: src/direct/DirectPhotoPage.vala:304 src/Resources.vala:175 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:176 ui/direct.ui:8
 msgid "_Save"
 msgstr "_Uložiť"
 
-#: src/direct/DirectPhotoPage.vala:304
+#: src/direct/DirectPhotoPage.vala:316
 msgid "_Save a Copy"
 msgstr "_Uložiť kópiu"
 
-#: src/direct/DirectPhotoPage.vala:307
+#: src/direct/DirectPhotoPage.vala:319
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Zahodiť zmeny vo %s?"
 
-#: src/direct/DirectPhotoPage.vala:308
+#: src/direct/DirectPhotoPage.vala:320
 msgid "Close _without Saving"
 msgstr "Zavrieť _bez uloženia"
 
-#: src/direct/DirectPhotoPage.vala:341
+#: src/direct/DirectPhotoPage.vala:353
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Chyba počas ukladania do %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:369 src/direct/DirectPhotoPage.vala:390
+#: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
 msgid "Save As"
 msgstr "Uložiť ako"
 
@@ -4313,106 +4243,82 @@ msgid "-"
 msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:759
-#| msgid "SD Video (4 : 3)"
 msgid "SD Video (4 ∶ 3)"
 msgstr "Video v nízkom rozlíšení (4 ∶ 3)"
 
 #: src/editing_tools/EditingTools.vala:760
-#| msgid "HD Video (16 : 9)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "Video vo vysokom rozlíšení (16 ∶ 9)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:818
-#| msgid "Wallet (2 x 3 in.)"
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Peňaženka (2 × 3 palcov)"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:821
-#, fuzzy
-#| msgid "Notecard (3 x 5 in.)"
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
-msgstr "Zápisník (3 x 5 palcov)"
+msgstr "Zápisník (3 × 5 palcov)"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:824
-#| msgid "4 x 6 in."
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4 × 6 palcov"
 
-#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:827
-#| msgid "5 x 7 in."
+#: src/editing_tools/EditingTools.vala:765 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5 × 7 palcov"
 
-#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:830
-#| msgid "8 x 10 in."
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8 × 10 palcov"
 
 #: src/editing_tools/EditingTools.vala:767
-#, fuzzy
-#| msgid "Letter (8.5 x 11 in.)"
 msgid "Letter (8.5 × 11 in.)"
-msgstr "Dopis (8.5 x 11 in.)"
+msgstr "Dopis (8.5 × 11 palcov)"
 
-#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:833
-#| msgid "11 x 14 in."
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11 × 14 palcov"
 
 #: src/editing_tools/EditingTools.vala:769
-#, fuzzy
-#| msgid "Tabloid (11 x 17 in.)"
 msgid "Tabloid (11 × 17 in.)"
-msgstr "Tabloid (11 x 17 palca)"
+msgstr "Tabloid (11 × 17 palcov)"
 
-#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:836
-#| msgid "16 x 20 in."
+#: src/editing_tools/EditingTools.vala:770 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16 × 20 palcov"
 
-#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:842
-#, fuzzy
-#| msgid "Metric Wallet (9 x 13 cm)"
+#: src/editing_tools/EditingTools.vala:772 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
-msgstr "Metrická peňaženka (9 x 13 cm)"
+msgstr "Metrická peňaženka (9 × 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:845
-#| msgid "Postcard (10 x 15 cm)"
+#: src/editing_tools/EditingTools.vala:773 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Pohľadnica (10 × 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:848
-#| msgid "13 x 18 cm"
+#: src/editing_tools/EditingTools.vala:774 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:851
-#| msgid "18 x 24 cm"
+#: src/editing_tools/EditingTools.vala:775 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
 #: src/editing_tools/EditingTools.vala:776
-#| msgid "A4 (210 x 297 mm)"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:854
-#| msgid "20 x 30 cm"
+#: src/editing_tools/EditingTools.vala:777 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:857
-#| msgid "24 x 40 cm"
+#: src/editing_tools/EditingTools.vala:778 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:860
-#| msgid "30 x 40 cm"
+#: src/editing_tools/EditingTools.vala:779 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:780
-#| msgid "A3 (297 x 420 mm)"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
 
@@ -4507,7 +4413,7 @@ msgstr "Rozšíriť kontrast"
 msgid "Angle:"
 msgstr "Uhol:"
 
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:202
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:203
 #: ui/direct.ui:144 ui/photo.ui:233
 msgid "_Straighten"
 msgstr "_Vyrovnať"
@@ -4639,19 +4545,19 @@ msgstr "Importovaný súbor „%s“"
 msgid "Last Import"
 msgstr "Posledné importovanie"
 
-#: src/library/LibraryWindow.vala:505
+#: src/library/LibraryWindow.vala:507
 msgid "Import From Folder"
 msgstr "Importovať z priečinka"
 
-#: src/library/LibraryWindow.vala:574 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:576 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Vyprázdniť kôš"
 
-#: src/library/LibraryWindow.vala:574
+#: src/library/LibraryWindow.vala:576
 msgid "Emptying Trash…"
 msgstr "Vyprázdňuje sa kôš…"
 
-#: src/library/LibraryWindow.vala:770
+#: src/library/LibraryWindow.vala:772
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4665,41 +4571,35 @@ msgstr ""
 "programu %s</span>.\n"
 "Chcete pokračovať s importovaním fotografií?"
 
-#: src/library/LibraryWindow.vala:773 ui/shotwell.ui:142
+#: src/library/LibraryWindow.vala:775 ui/shotwell.ui:142
 msgid "Library Location"
 msgstr "Umiestnenie knižnice"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:786
+#: src/library/LibraryWindow.vala:788
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotografie sa nedajú importovať z tohto adresára."
 
-#: src/library/LibraryWindow.vala:1066
+#: src/library/LibraryWindow.vala:1068
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1110 src/library/LibraryWindow.vala:1121
+#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
 msgid "Updating library…"
 msgstr "Aktualizuje sa knižnica…"
 
-#: src/library/LibraryWindow.vala:1127
-#, fuzzy
-#| msgid "Preparing to auto-import photos..."
+#: src/library/LibraryWindow.vala:1129
 msgid "Preparing to auto-import photos…"
-msgstr "Pripravuje sa automatické importovanie fotografií..."
+msgstr "Pripravuje sa automatické importovanie fotografií…"
 
-#: src/library/LibraryWindow.vala:1132
-#, fuzzy
-#| msgid "Auto-importing photos..."
+#: src/library/LibraryWindow.vala:1134
 msgid "Auto-importing photos…"
-msgstr "Prebieha automatické importovanie fotografií..."
+msgstr "Prebieha automatické importovanie fotografií…"
 
-#: src/library/LibraryWindow.vala:1140
-#, fuzzy
-#| msgid "Writing metadata to files..."
+#: src/library/LibraryWindow.vala:1142
 msgid "Writing metadata to files…"
-msgstr "Zapisujú sa metaúdaje do súborov..."
+msgstr "Zapisujú sa metaúdaje do súborov…"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -4726,43 +4626,29 @@ msgid "Deleting Photos"
 msgstr "Odstraňujú sa fotografie"
 
 #: src/main.vala:54
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please use the latest version of Shotwell."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please use the latest version of Shotwell."
 msgstr ""
 "Vaša knižnica fotografií nie je kompatibilná s touto verziou programu "
-"Shotwell.  Zdá sa, že bola vytvorená programom Shotwell %s (schéma %d). Táto "
-"verzia je %s (schéma %d).  Prosím, použite najnovšiu verziu programu "
-"Shotwell."
+"Shotwell. Zdá sa, že bola vytvorená programom Shotwell %s (schéma %d). Táto "
+"verzia je %s (schéma %d). Prosím, použite najnovšiu verziu programu Shotwell."
 
 #: src/main.vala:59
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell was unable to upgrade your photo library from version %s (schema "
-#| "%d) to %s (schema %d).  For more information please check the Shotwell "
-#| "Wiki at %s"
+#, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
-"Shotwell nebol schopný zmeniť verziu vašej knižnice fotografií z %s (schéma "
-"%d) na %s (schéma %d).  Pre viac informácií si, prosím, pozrite wiki stránku "
-"programu Shotwell na %s"
+"Program Shotwell nebol schopný aktualizovať vašu knižnicu fotografií z "
+"verzie %s (schéma %d) na verziu %s (schéma %d). Pre viac informácií si, "
+"prosím, pozrite wiki stránku programu Shotwell na adrese %s"
 
 #: src/main.vala:65
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please clear your library by deleting %s and re-import your "
-#| "photos."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
@@ -4770,13 +4656,12 @@ msgid ""
 "photos."
 msgstr ""
 "Vaša knižnica fotografií nie je kompatibilná s touto verziou programu "
-"Shotwell.  Zdá sa, že bola vytvorená programom Shotwell %s (schéma %d).  "
-"Táto verzia je %s (schéma %d). Prosím, vyčistite vašu knižnicu odstránením "
-"%s a znovu importujte vaše fotografie."
+"Shotwell. Zdá sa, že bola vytvorená programom Shotwell %s (schéma %d). Táto "
+"verzia je %s (schéma %d). Prosím, vyčistite vašu knižnicu odstránením %s a "
+"znovu importujte vaše fotografie."
 
 #: src/main.vala:71
-#, fuzzy, c-format
-#| msgid "Unknown error attempting to verify Shotwell's database: %s"
+#, c-format
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Neznáma chyba pri pokuse o overenie databázy programu Shotwell: %s"
 
@@ -4784,47 +4669,39 @@ msgstr "Neznáma chyba pri pokuse o overenie databázy programu Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Načítavam Shotwell"
 
-#: src/main.vala:294
-#, fuzzy
-#| msgid "Path to Shotwell's private data"
+#: src/main.vala:293
 msgid "Path to Shotwell’s private data"
 msgstr "Cesta k súkromným údajom programu Shotwell"
 
-#: src/main.vala:294
+#: src/main.vala:293
 msgid "DIRECTORY"
 msgstr "ADRESÁR"
 
 # cmd desc
-#: src/main.vala:298
+#: src/main.vala:297
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Nebude sledovať zmeny v adresári s knižnicou pri spustení"
 
 # cmd desc
-#: src/main.vala:302
-#, fuzzy
-#| msgid "Don't display startup progress meter"
+#: src/main.vala:301
 msgid "Don’t display startup progress meter"
 msgstr "Po spustení nezobrazí ukazovateľ priebehu"
 
 # cmd desc
-#: src/main.vala:306
-#, fuzzy
-#| msgid "Show the application's version"
+#: src/main.vala:305
 msgid "Show the application’s version"
 msgstr "Zobrazí verziu aplikácie"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:338
+#: src/main.vala:342
 msgid "[FILE]"
 msgstr "[SÚBOR]"
 
-#: src/main.vala:342
-#, fuzzy, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options.\n"
+#: src/main.vala:346
+#, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
-"Spustením '%s --help' zobrazíte úplný zoznam dostupných volieb príkazového "
+"Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
 "riadku.\n"
 
 #: src/MediaMonitor.vala:400
@@ -4846,36 +4723,36 @@ msgstr ""
 "Shotwell nebol schopný prehrať vybrané video: \n"
 "%s"
 
-#: src/Page.vala:1304
+#: src/Page.vala:1318
 msgid "No photos/videos"
 msgstr "Žiadne fotografie/videá"
 
-#: src/Page.vala:1308
+#: src/Page.vala:1322
 msgid "No photos/videos found which match the current filter"
 msgstr ""
 "Nenašli sa žiadne fotografie alebo videá, ktoré by vyhovovali aktuálnemu "
 "filtru"
 
-#: src/Page.vala:2614
+#: src/Page.vala:2628
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotografie nemôžu byť exportované do tohoto adresára."
 
 #. previous button
-#: src/PhotoPage.vala:535
+#: src/PhotoPage.vala:538
 msgid "Previous photo"
 msgstr "Predchádzajúca fotografia"
 
 #. next button
-#: src/PhotoPage.vala:541
+#: src/PhotoPage.vala:544
 msgid "Next photo"
 msgstr "Ďalšia fotografia"
 
-#: src/PhotoPage.vala:1847
+#: src/PhotoPage.vala:1850
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Chýba zdrojový súbor fotografie: %s"
 
-#: src/PhotoPage.vala:3014
+#: src/PhotoPage.vala:3018
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nepodarilo sa exportovať %s: %s"
@@ -4920,7 +4797,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3753
+#: src/Photo.vala:3755
 msgid "modified"
 msgstr "upravené"
 
@@ -4952,23 +4829,15 @@ msgstr "16 obrázkov na stranu"
 msgid "32 images per page"
 msgstr "32 obrázkov na stranu"
 
-#: src/Printing.vala:348
-msgid "in."
-msgstr "palcov"
-
-#: src/Printing.vala:349
-msgid "cm"
-msgstr "cm"
-
-#: src/Printing.vala:876
+#: src/Printing.vala:851
 msgid "Image Settings"
 msgstr "Nastavenia obrázka"
 
-#: src/Printing.vala:889
+#: src/Printing.vala:864
 msgid "Printing…"
 msgstr "Tlačí sa…"
 
-#: src/Printing.vala:909 src/Printing.vala:1112
+#: src/Printing.vala:884 src/Printing.vala:1087
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -5111,10 +4980,10 @@ msgid "Uploading %d of %d"
 msgstr "Odovzdáva sa %d z %d"
 
 #: src/publishing/PublishingPluginHost.vala:81
-#, fuzzy, c-format
-#| msgid "Publishing to %s can't continue because an error occurred:"
+#, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
-msgstr "Uverejňovanie na %s nemôže pokračovať, pretože sa vyskytla chyba:"
+msgstr ""
+"Uverejňovanie na službu %s nemôže pokračovať, pretože sa vyskytla chyba:"
 
 #: src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
@@ -5125,32 +4994,26 @@ msgstr ""
 #. Here, we check whether more than one item is being uploaded, and if so, display
 #. an alternate message.
 #: src/publishing/PublishingUI.vala:104
-#, fuzzy
-#| msgid "The selected video was successfully published."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
-msgstr[0] "Vybrané video bolo úspešne uverejnené."
+msgstr[0] "Vybrané videá boli úspešne uverejnené."
 msgstr[1] "Vybrané video bolo úspešne uverejnené."
-msgstr[2] "Vybrané video bolo úspešne uverejnené."
+msgstr[2] "Vybrané videá boli úspešne uverejnené."
 
 #: src/publishing/PublishingUI.vala:109
-#, fuzzy
-#| msgid "The selected photo was successfully published."
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
-msgstr[0] "Vybraná fotografia bola úspešne uverejnená."
+msgstr[0] "Vybrané fotografie boli úspešne uverejnené."
 msgstr[1] "Vybraná fotografia bola úspešne uverejnená."
-msgstr[2] "Vybraná fotografia bola úspešne uverejnená."
+msgstr[2] "Vybrané fotografie boli úspešne uverejnené."
 
 #: src/publishing/PublishingUI.vala:115
 msgid "The selected photos/videos were successfully published."
 msgstr "Vybrané fotografie/videá boli úspešne uverejnené."
 
 #: src/publishing/PublishingUI.vala:127
-#, fuzzy
-#| msgid "Fetching account information..."
 msgid "Fetching account information…"
-msgstr "Získavajú sa informácie o účte..."
+msgstr "Získavajú sa informácie o účte…"
 
 #: src/publishing/PublishingUI.vala:133
 msgid "Logging in…"
@@ -5203,776 +5066,760 @@ msgstr ""
 msgid "Publishing"
 msgstr "Uverejňovanie"
 
-#: src/Resources.vala:140 src/Resources.vala:145 ui/collection.ui:149
+#: src/Resources.vala:141 src/Resources.vala:146 ui/collection.ui:151
 msgid "Rotate"
 msgstr "Otočiť"
 
-#: src/Resources.vala:141
+#: src/Resources.vala:142
 msgid "Rotate Right"
 msgstr "Otočiť doprava"
 
-#: src/Resources.vala:142 ui/collection.ui:146
+#: src/Resources.vala:143 ui/collection.ui:148
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Otočí fotografie doprava (stlačte Ctrl na otočenie doľava)"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:147
 msgid "Rotate Left"
 msgstr "Otočiť doľava"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:148
 msgid "Rotate the photos left"
 msgstr "Otočiť fotografie doľava"
 
-#: src/Resources.vala:150
+#: src/Resources.vala:151
 msgid "Flip Horizontally"
 msgstr "Prevrátiť horizontálne"
 
-#: src/Resources.vala:153
+#: src/Resources.vala:154
 msgid "Flip Vertically"
 msgstr "Prevrátiť vertikálne"
 
-#: src/Resources.vala:155 ui/direct.ui:191 ui/events_directory.ui:168
-#: ui/event.ui:436 ui/import_queue.ui:83 ui/import.ui:201 ui/media.ui:419
-#: ui/offline.ui:198 ui/photo.ui:402 ui/tags.ui:438 ui/trash.ui:207
+#: src/Resources.vala:156 ui/direct.ui:191 ui/events_directory.ui:168
+#: ui/event.ui:438 ui/import_queue.ui:83 ui/import.ui:201 ui/media.ui:421
+#: ui/offline.ui:198 ui/photo.ui:404 ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "_O programe"
 
-#: src/Resources.vala:156
+#: src/Resources.vala:157
 msgid "_Apply"
 msgstr "_Použiť"
 
-#: src/Resources.vala:159 ui/direct.ui:44 ui/events_directory.ui:32
+#: src/Resources.vala:160 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/import.ui:40 ui/media.ui:47 ui/offline.ui:32
-#: ui/photo.ui:55 ui/tags.ui:47 ui/top.ui:10 ui/trash.ui:37
+#: ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: src/Resources.vala:160
+#: src/Resources.vala:161
 msgid "_Forward"
 msgstr "_Dopredu"
 
-#: src/Resources.vala:161 ui/direct.ui:62 ui/events_directory.ui:125
+#: src/Resources.vala:162 ui/direct.ui:62 ui/events_directory.ui:125
 #: ui/photo.ui:173
 msgid "Fulls_creen"
 msgstr "Na _celú obrazovku"
 
-#: src/Resources.vala:162 ui/direct.ui:173 ui/direct.ui:176
-#: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:418
-#: ui/event.ui:421 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
-#: ui/import.ui:186 ui/media.ui:401 ui/media.ui:404 ui/offline.ui:180
-#: ui/offline.ui:183 ui/photo.ui:384 ui/photo.ui:387 ui/tags.ui:420
-#: ui/tags.ui:423 ui/top.ui:40 ui/trash.ui:189 ui/trash.ui:192
+#: src/Resources.vala:163 ui/direct.ui:173 ui/direct.ui:176
+#: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
+#: ui/event.ui:423 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
+#: ui/import.ui:186 ui/media.ui:403 ui/media.ui:406 ui/offline.ui:180
+#: ui/offline.ui:183 ui/photo.ui:386 ui/photo.ui:389 ui/tags.ui:422
+#: ui/tags.ui:425 ui/trash.ui:189 ui/trash.ui:192
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: src/Resources.vala:163
+#: src/Resources.vala:164
 msgid "Leave _Fullscreen"
 msgstr "Opustiť režim _celej obrazovky"
 
-#: src/Resources.vala:164 src/Resources.vala:363 ui/tags.ui:448
+#: src/Resources.vala:165 src/Resources.vala:364 ui/tags.ui:450
 msgid "_New"
 msgstr "_Nová"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:166
 msgid "_Next"
 msgstr "Ď_alšia"
 
-#: src/Resources.vala:168 src/Resources.vala:317 ui/events_directory.ui:65
+#: src/Resources.vala:169 src/Resources.vala:318 ui/events_directory.ui:65
 #: ui/event.ui:93 ui/import.ui:68 ui/media.ui:93 ui/offline.ui:72
 #: ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "_Nastavenia"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:170
 msgid "_Previous"
 msgstr "_Predchádzajúca"
 
-#: src/Resources.vala:171 ui/direct.ui:37 ui/events_directory.ui:25
+#: src/Resources.vala:172 ui/direct.ui:37 ui/events_directory.ui:25
 #: ui/event.ui:40 ui/import_queue.ui:31 ui/import.ui:33 ui/media.ui:40
 #: ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "U_končiť"
 
-#: src/Resources.vala:172
+#: src/Resources.vala:173
 msgid "_Refresh"
 msgstr "_Obnoviť"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:175
 msgid "_Revert"
 msgstr "V_rátiť"
 
-#: src/Resources.vala:176
+#: src/Resources.vala:177
 msgid "Save _As"
 msgstr "Uložiť _ako"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:178
 msgid "Sort _Ascending"
 msgstr "Usporiadať vz_ostupne"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:179
 msgid "Sort _Descending"
 msgstr "Usporiadať zo_stupne"
 
-#: src/Resources.vala:179
+#: src/Resources.vala:180
 msgid "_Stop"
 msgstr "_Zastaviť"
 
-#: src/Resources.vala:180
+#: src/Resources.vala:181
 msgid "_Undelete"
 msgstr "Vrátiť o_dstránenie"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:182
 msgid "_Normal Size"
 msgstr "_Normálna veľkosť"
 
-#: src/Resources.vala:182
+#: src/Resources.vala:183
 msgid "Best _Fit"
 msgstr "_Prispôsobiť"
 
-#: src/Resources.vala:183 ui/direct.ui:69 ui/event.ui:260 ui/media.ui:260
+#: src/Resources.vala:184 ui/direct.ui:69 ui/event.ui:260 ui/media.ui:260
 #: ui/photo.ui:144 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "_Priblížiť"
 
-#: src/Resources.vala:184 ui/direct.ui:74 ui/event.ui:265 ui/media.ui:265
+#: src/Resources.vala:185 ui/direct.ui:74 ui/event.ui:265 ui/media.ui:265
 #: ui/photo.ui:149 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "_Vzdialiť"
 
-#: src/Resources.vala:187 ui/collection.ui:165
+#: src/Resources.vala:188 ui/collection.ui:167
 msgid "Enhance"
 msgstr "Vylepšiť"
 
 # tooltip
-#: src/Resources.vala:188 ui/collection.ui:162
+#: src/Resources.vala:189 ui/collection.ui:164
 msgid "Automatically improve the photo’s appearance"
 msgstr "Automaticky vylepší vzhľad fotografie"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:192
 msgid "Copy Color Adjustments"
 msgstr "Kopírovať úpravu farieb"
 
 # tooltip
-#: src/Resources.vala:192
+#: src/Resources.vala:193
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Skopíruje úpravu farieb aplikovanú na fotografiu"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:196
 msgid "Paste Color Adjustments"
 msgstr "Vložiť úpravu farieb"
 
 # tooltip
-#: src/Resources.vala:196
+#: src/Resources.vala:197
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Aplikuje skopírovanú úpravu farieb na vybranú fotografiu"
 
-#: src/Resources.vala:198 ui/direct.ui:139 ui/photo.ui:228
+#: src/Resources.vala:199 ui/direct.ui:139 ui/photo.ui:228
 msgid "_Crop"
 msgstr "O_rezať"
 
-#: src/Resources.vala:199
+#: src/Resources.vala:200
 msgid "Crop"
 msgstr "Orezať"
 
 # tooltip
-#: src/Resources.vala:200
+#: src/Resources.vala:201
 msgid "Crop the photo’s size"
 msgstr "Oreže veľkosť fotografie"
 
-#: src/Resources.vala:203
+#: src/Resources.vala:204
 msgid "Straighten"
 msgstr "Vyrovnať"
 
 # tooltip
-#: src/Resources.vala:204
+#: src/Resources.vala:205
 msgid "Straighten the photo"
 msgstr "Vyrovná fotografiu"
 
-#: src/Resources.vala:206 ui/direct.ui:149 ui/photo.ui:238
+#: src/Resources.vala:207 ui/direct.ui:149 ui/photo.ui:238
 msgid "_Red-eye"
 msgstr "Červené _oči"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:208
 msgid "Red-eye"
 msgstr "Červené oči"
 
 # tooltip
-#: src/Resources.vala:208
+#: src/Resources.vala:209
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Zmierni alebo odstráni efekt červených očí vo fotografii"
 
-#: src/Resources.vala:210 ui/direct.ui:154 ui/photo.ui:243
+#: src/Resources.vala:211 ui/direct.ui:154 ui/photo.ui:243
 msgid "_Adjust"
 msgstr "_Upraviť"
 
-#: src/Resources.vala:211
+#: src/Resources.vala:212
 msgid "Adjust"
 msgstr "Upraviť"
 
 # tooltip
-#: src/Resources.vala:212
-#, fuzzy
-#| msgid "Adjust the photo's color and tone"
+#: src/Resources.vala:213
 msgid "Adjust the photo’s color and tone"
 msgstr "Upraví farbu a tón fotografie"
 
-#: src/Resources.vala:215
+#: src/Resources.vala:216
 msgid "Revert to Original"
 msgstr "Vrátiť do pôvodného stavu"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:218
 msgid "Revert External E_dits"
 msgstr "Vrátiť _externé úpravy"
 
-#: src/Resources.vala:218
+#: src/Resources.vala:219
 msgid "Revert to the master photo"
 msgstr "Vrátiť sa k pôvodnej fotografii"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:222
 msgid "Set selected image to be the new desktop background"
 msgstr "Nastaviť vybraný obrázok ako pozadie pracovnej plochy"
 
-#: src/Resources.vala:222
+#: src/Resources.vala:223
 msgid "Set as _Desktop Slideshow…"
 msgstr "Nastaviť ako prezentáciu _pracovnej plochy…"
 
-#: src/Resources.vala:224 ui/direct.ui:47 ui/events_directory.ui:35
+#: src/Resources.vala:225 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/import.ui:43 ui/media.ui:50 ui/offline.ui:35
 #: ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "Vrátiť _späť"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:226
 msgid "Undo"
 msgstr "Vrátiť späť"
 
-#: src/Resources.vala:227 ui/direct.ui:52 ui/events_directory.ui:40
+#: src/Resources.vala:228 ui/direct.ui:52 ui/events_directory.ui:40
 #: ui/event.ui:55 ui/import.ui:48 ui/media.ui:55 ui/offline.ui:40
 #: ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "_Opakovať vrátené"
 
-#: src/Resources.vala:228
+#: src/Resources.vala:229
 msgid "Redo"
 msgstr "Opakovať vrátené"
 
-#: src/Resources.vala:230 ui/events_directory.ui:139 ui/events_directory.ui:181
-#: ui/event.ui:391 ui/event.ui:584
+#: src/Resources.vala:231 ui/events_directory.ui:139 ui/events_directory.ui:181
+#: ui/event.ui:393 ui/event.ui:588
 msgid "Re_name Event…"
 msgstr "Preme_novať udalosť…"
 
-#: src/Resources.vala:233 ui/event.ui:371 ui/event.ui:576
+#: src/Resources.vala:234 ui/event.ui:373 ui/event.ui:580
 msgid "Make _Key Photo for Event"
 msgstr "Označiť ako _hlavnú fotografiu udalosti"
 
-#: src/Resources.vala:234
+#: src/Resources.vala:235
 msgid "Make Key Photo for Event"
 msgstr "Označiť ako hlavnú fotografiu udalosti"
 
-#: src/Resources.vala:236 ui/event.ui:380 ui/media.ui:374 ui/tags.ui:374
+#: src/Resources.vala:237 ui/event.ui:382 ui/media.ui:376 ui/tags.ui:376
 msgid "_New Event"
 msgstr "_Nová udalosť"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:238
 msgid "New Event"
 msgstr "Nová udalosť"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:240
 msgid "Move Photos"
 msgstr "Presunúť fotografie"
 
-#: src/Resources.vala:240
+#: src/Resources.vala:241
 msgid "Move photos to an event"
 msgstr "Presunúť fotografie do udalosti"
 
-#: src/Resources.vala:242 ui/events_directory.ui:135 ui/events_directory.ui:177
+#: src/Resources.vala:243 ui/events_directory.ui:135 ui/events_directory.ui:177
 msgid "_Merge Events"
 msgstr "_Zlúčiť udalosti"
 
-#: src/Resources.vala:243
+#: src/Resources.vala:244
 msgid "Merge"
 msgstr "Zlúčiť"
 
-#: src/Resources.vala:244
+#: src/Resources.vala:245
 msgid "Combine events into a single event"
 msgstr "Zlúčiť udalosti do jednej udalosti"
 
-#: src/Resources.vala:246 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:476
+#: src/Resources.vala:247 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
 #: ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273 ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "O_hodnotiť"
 
-#: src/Resources.vala:247
+#: src/Resources.vala:248
 msgid "Set Rating"
 msgstr "Ohodnotiť"
 
-#: src/Resources.vala:248
+#: src/Resources.vala:249
 msgid "Change the rating of your photo"
 msgstr "Zmeniť hodnotenie vašej fotografie"
 
-#: src/Resources.vala:250 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:509
+#: src/Resources.vala:251 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
 #: ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313 ui/tags.ui:326
 msgid "_Increase"
 msgstr "Z_výšiť"
 
-#: src/Resources.vala:251
+#: src/Resources.vala:252
 msgid "Increase Rating"
 msgstr "Zvýšiť hodnotenie"
 
-#: src/Resources.vala:253 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:513
+#: src/Resources.vala:254 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
 #: ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318 ui/tags.ui:331
 msgid "_Decrease"
 msgstr "_Znížiť"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:255
 msgid "Decrease Rating"
 msgstr "Znížiť hodnotenie"
 
-#: src/Resources.vala:256 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:499
+#: src/Resources.vala:257 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
 #: ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301 ui/tags.ui:314
 msgid "_Unrated"
 msgstr "_Neohodnotená"
 
-#: src/Resources.vala:257
+#: src/Resources.vala:258
 msgid "Unrated"
 msgstr "Neohodnotená"
 
-#: src/Resources.vala:258
+#: src/Resources.vala:259
 msgid "Rate Unrated"
 msgstr "Hodnotiť neohodnotené"
 
-#: src/Resources.vala:259
+#: src/Resources.vala:260
 msgid "Setting as unrated"
 msgstr "Nastavuje sa ako neohodnotená"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:261
 msgid "Remove any ratings"
 msgstr "Odstrániť všetky hodnotenia"
 
-#: src/Resources.vala:262 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:503
+#: src/Resources.vala:263 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
 #: ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306 ui/tags.ui:319
 msgid "_Rejected"
 msgstr "_Odmietnutá"
 
-#: src/Resources.vala:263
+#: src/Resources.vala:264
 msgid "Rejected"
 msgstr "Odmietnutá"
 
-#: src/Resources.vala:264
+#: src/Resources.vala:265
 msgid "Rate Rejected"
 msgstr "Hodnotiť odmietnuté"
 
-#: src/Resources.vala:265
+#: src/Resources.vala:266
 msgid "Setting as rejected"
 msgstr "Nastavuje sa ako odmietnutá"
 
-#: src/Resources.vala:266
+#: src/Resources.vala:267
 msgid "Set rating to rejected"
 msgstr "Nastaviť hodnotenie ako odmietnuté"
 
-#: src/Resources.vala:268 ui/event.ui:196 ui/import.ui:156 ui/media.ui:196
+#: src/Resources.vala:269 ui/event.ui:196 ui/import.ui:156 ui/media.ui:196
 #: ui/offline.ui:153 ui/search_bar.ui:6 ui/tags.ui:196 ui/trash.ui:162
 msgid "Rejected _Only"
 msgstr "Len _odmietnuté"
 
-#: src/Resources.vala:269
+#: src/Resources.vala:270
 msgid "Rejected Only"
 msgstr "Len odmietnuté"
 
-#: src/Resources.vala:270
+#: src/Resources.vala:271
 msgid "Show only rejected photos"
 msgstr "Zobraziť len odmietnuté fotografie"
 
-#: src/Resources.vala:272 ui/event.ui:190 ui/import.ui:150 ui/media.ui:190
+#: src/Resources.vala:273 ui/event.ui:190 ui/import.ui:150 ui/media.ui:190
 #: ui/offline.ui:147 ui/search_bar.ui:12 ui/tags.ui:190 ui/trash.ui:156
 msgid "All + _Rejected"
 msgstr "Všetky + o_dmietnuté"
 
-#: src/Resources.vala:273
+#: src/Resources.vala:274
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Zobrazí všetky fotografie, vrátane odmietnutých"
 
-#: src/Resources.vala:275 ui/event.ui:184 ui/import.ui:144 ui/media.ui:184
+#: src/Resources.vala:276 ui/event.ui:184 ui/import.ui:144 ui/media.ui:184
 #: ui/offline.ui:141 ui/search_bar.ui:18 ui/tags.ui:184 ui/trash.ui:150
 msgid "_All Photos"
 msgstr "_Všetky fotografie"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=744254
 #. Button tooltip
-#: src/Resources.vala:277
+#: src/Resources.vala:278
 msgid "Show all photos"
 msgstr "Zobraziť všetky fotografie"
 
-#: src/Resources.vala:279 ui/event.ui:144 ui/media.ui:144 ui/photo.ui:120
+#: src/Resources.vala:280 ui/event.ui:144 ui/media.ui:144 ui/photo.ui:120
 #: ui/tags.ui:144
 msgid "_Ratings"
 msgstr "_Hodnotenia"
 
-#: src/Resources.vala:280
-#, fuzzy
-#| msgid "Display each photo's rating"
+#: src/Resources.vala:281
 msgid "Display each photo’s rating"
 msgstr "Zobraziť hodnotenie každej fotografie"
 
-#: src/Resources.vala:282 ui/event.ui:151 ui/import.ui:111 ui/media.ui:151
+#: src/Resources.vala:283 ui/event.ui:151 ui/import.ui:111 ui/media.ui:151
 #: ui/offline.ui:108 ui/tags.ui:151 ui/trash.ui:117
 msgid "_Filter Photos"
 msgstr "_Filtrovať fotografie"
 
-#: src/Resources.vala:283
+#: src/Resources.vala:284
 msgid "Filter Photos"
 msgstr "Filtrovať fotografie"
 
-#: src/Resources.vala:284
+#: src/Resources.vala:285
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Obmedziť počet zobrazených fotografií na základe filtra"
 
-#: src/Resources.vala:287
+#: src/Resources.vala:288
 msgid "Duplicate"
 msgstr "Duplikovať"
 
-#: src/Resources.vala:288
+#: src/Resources.vala:289
 msgid "Make a duplicate of the photo"
 msgstr "Vytvoriť duplikát fotografie"
 
-#: src/Resources.vala:290
+#: src/Resources.vala:291 ui/event.ui:17 ui/media.ui:17 ui/photo.ui:17
+#: ui/tags.ui:17
 msgid "_Export…"
 msgstr "_Exportovať…"
 
-#: src/Resources.vala:292
+#: src/Resources.vala:293
 msgid "_Print…"
 msgstr "_Tlačiť…"
 
-#: src/Resources.vala:294
+#: src/Resources.vala:295
 msgid "Pu_blish…"
 msgstr "Uvere_jniť…"
 
-#: src/Resources.vala:296 ui/collection.ui:187
+#: src/Resources.vala:297 ui/collection.ui:189
 msgid "Publish to various websites"
 msgstr "Uverejní na rôznych webových stránkach"
 
 # DK:https://bugzilla.gnome.org/show_bug.cgi?id=744251
-#: src/Resources.vala:298 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:535
+#: src/Resources.vala:299 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
 #: ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327 ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "_Upraviť názov…"
 
 # DK:https://bugzilla.gnome.org/show_bug.cgi?id=744251
 #. Button label
-#: src/Resources.vala:300
+#: src/Resources.vala:301
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Upraviť názov"
 
-#: src/Resources.vala:302 ui/collection.ui:102 ui/events_directory.ui:144
-#: ui/events_directory.ui:186 ui/event.ui:344 ui/event.ui:396 ui/event.ui:539
-#: ui/media.ui:344 ui/photo_context.ui:109 ui/photo.ui:331 ui/tags.ui:344
+#: src/Resources.vala:303 ui/collection.ui:103 ui/events_directory.ui:144
+#: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
+#: ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332 ui/tags.ui:345
 msgid "Edit _Comment…"
 msgstr "Upraviť _komentár…"
 
 #. Button label
-#: src/Resources.vala:304
+#: src/Resources.vala:305
 msgid "Edit Comment"
 msgstr "Upraviť komentár"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=736632
-#: src/Resources.vala:306 ui/event.ui:588
+#: src/Resources.vala:307 ui/event.ui:592
 msgid "Edit Event _Comment…"
 msgstr "Upraviť _komentár k udalosti…"
 
 # window title
-#: src/Resources.vala:309 ui/direct.ui:167 ui/photo.ui:335
+#: src/Resources.vala:310 ui/direct.ui:167 ui/photo.ui:337
 msgid "_Adjust Date and Time…"
 msgstr "_Upraviť dátum a čas…"
 
 # window title
-#: src/Resources.vala:310
+#: src/Resources.vala:311
 msgid "Adjust Date and Time"
 msgstr "Upráva dátumu a času"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=744255
-#: src/Resources.vala:312 ui/collection.ui:19 ui/event.ui:405 ui/event.ui:456
-#: ui/media.ui:388 ui/photo.ui:372 ui/tags.ui:388
+#: src/Resources.vala:313 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
+#: ui/media.ui:390 ui/photo.ui:374 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "Pridať _značky…"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=744255
-#: src/Resources.vala:313 ui/photo_context.ui:17
+#: src/Resources.vala:314 ui/photo_context.ui:17
 msgid "_Add Tags…"
 msgstr "_Pridať značky…"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=744255
 #. Dialog title
-#: src/Resources.vala:315
+#: src/Resources.vala:316
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Pridanie značiek"
 
 # dialog title
-#: src/Resources.vala:324 ui/photo_context.ui:133
+#: src/Resources.vala:325 ui/photo_context.ui:135
 msgid "Send T_o…"
 msgstr "Odoslať _do…"
 
-#: src/Resources.vala:326
+#: src/Resources.vala:327
 msgid "_Find…"
 msgstr "_Nájsť…"
 
-#: src/Resources.vala:327 ui/collection.ui:215 ui/offline.ui:239
+#: src/Resources.vala:328 ui/collection.ui:217 ui/offline.ui:239
 #: ui/trash.ui:312
 msgid "Find"
 msgstr "Nájsť"
 
-#: src/Resources.vala:328 ui/collection.ui:212 ui/offline.ui:236
+#: src/Resources.vala:329 ui/collection.ui:214 ui/offline.ui:236
 #: ui/trash.ui:309
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Nájdite obrázok napísaním textu ktorý sa nachádza v jeho názve alebo značke"
 
-#: src/Resources.vala:330
+#: src/Resources.vala:331
 msgid "_Flag"
 msgstr "_Označiť"
 
-#: src/Resources.vala:332
+#: src/Resources.vala:333
 msgid "Un_flag"
 msgstr "Odz_načiť"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:336
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Nie je možné spustiť editor: %s"
 
-#: src/Resources.vala:340
-#, fuzzy, c-format
-#| msgid "Add Tag \"%s\""
+#: src/Resources.vala:341
+#, c-format
 msgid "Add Tag “%s”"
 msgstr "Pridať značku „%s“"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:343
-#, fuzzy, c-format
-#| msgid "Add Tags \"%s\" and \"%s\""
+#: src/Resources.vala:344
+#, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Pridať značky „%s“ a „%s“"
 
 # DK: https://bugzilla.gnome.org/show_bug.cgi?id=744255
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:348
+#: src/Resources.vala:349
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Pridanie značiek"
 
-#: src/Resources.vala:353
+#: src/Resources.vala:354
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "O_dstrániť značku „%s“"
 
-#: src/Resources.vala:357
-#, fuzzy, c-format
-#| msgid "Delete Tag \"%s\""
+#: src/Resources.vala:358
+#, c-format
 msgid "Delete Tag “%s”"
 msgstr "Odstrániť značku „%s“"
 
-#: src/Resources.vala:360
+#: src/Resources.vala:361
 msgid "Delete Tag"
 msgstr "Odstrániť značku"
 
-#: src/Resources.vala:366
+#: src/Resources.vala:367
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "Pre_menovať značku „%s“…"
 
-#: src/Resources.vala:370
-#, fuzzy, c-format
-#| msgid "Rename Tag \"%s\" to \"%s\""
+#: src/Resources.vala:371
+#, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Premenovať značku „%s“ na „%s“"
 
-#: src/Resources.vala:373 ui/tags.ui:454
+#: src/Resources.vala:374 ui/tags.ui:456
 msgid "_Rename…"
 msgstr "_Premenovať…"
 
 # dialog title
-#: src/Resources.vala:375 ui/collection.ui:24 ui/event.ui:410 ui/event.ui:461
-#: ui/media.ui:393 ui/photo_context.ui:22 ui/photo.ui:377 ui/tags.ui:393
+#: src/Resources.vala:376 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
+#: ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:379 ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "Uprav_iť značky…"
 
 # dialog title
-#: src/Resources.vala:376
+#: src/Resources.vala:377
 msgid "Modify Tags"
 msgstr "Úprava značiek"
 
-#: src/Resources.vala:379
-#, fuzzy, c-format
-#| msgid "Tag Photo as \"%s\""
+#: src/Resources.vala:380
+#, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Označiť fotografie ako „%s“"
-msgstr[1] "Označiť fotografie ako „%s“"
+msgstr[1] "Označiť fotografiu ako „%s“"
 msgstr[2] "Označiť fotografie ako „%s“"
 
-#: src/Resources.vala:385
-#, fuzzy, c-format
-#| msgid "Tag the selected photo as \"%s\""
+#: src/Resources.vala:386
+#, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Označiť vybrané fotografie ako „%s“"
-msgstr[1] "Označiť vybrané fotografie ako „%s“"
+msgstr[1] "Označiť vybranú fotografiu ako „%s“"
 msgstr[2] "Označiť vybrané fotografie ako „%s“"
 
-#: src/Resources.vala:391
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
+#: src/Resources.vala:392
+#, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Odstrániť značku „%s“ z _fotografií"
-msgstr[1] "Odstrániť značku „%s“ z _fotografií"
+msgstr[1] "Odstrániť značku „%s“ z _fotografie"
 msgstr[2] "Odstrániť značku „%s“ z _fotografií"
 
-#: src/Resources.vala:397
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
+#: src/Resources.vala:398
+#, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Odstrániť značku „%s“ z fotografií"
-msgstr[1] "Odstrániť značku „%s“ z fotografií"
+msgstr[1] "Odstrániť značku „%s“ z fotografie"
 msgstr[2] "Odstrániť značku „%s“ z fotografií"
 
-#: src/Resources.vala:403
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#: src/Resources.vala:404
+#, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "Nie je možné premenovať značku na „%s“, lebo táto značka už existuje."
+msgstr "Nie je možné premenovať značku na „%s“, pretože značka už existuje."
 
-#: src/Resources.vala:407
-#, fuzzy, c-format
-#| msgid "Unable to rename search to \"%s\" because the search already exists."
+#: src/Resources.vala:408
+#, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
-"Nepodarilo sa premenovať vyhľadávanie na „%s“, lebo takéto vyhľadávanie už "
+"Nepodarilo sa premenovať vyhľadávanie na „%s“, pretože vyhľadávanie už "
 "existuje."
 
 #. Saved search button
-#: src/Resources.vala:410 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1124
 msgid "Saved Search"
 msgstr "Uložené vyhľadávanie"
 
-#: src/Resources.vala:412
+#: src/Resources.vala:413
 msgid "Delete Search"
 msgstr "Odstrániť vyhľadávanie"
 
-#: src/Resources.vala:415 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:11
 msgid "_Edit…"
 msgstr "_Upraviť…"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:7
 msgid "Re_name…"
 msgstr "_Premenovať…"
 
-#: src/Resources.vala:419
-#, fuzzy, c-format
-#| msgid "Rename Search \"%s\" to \"%s\""
+#: src/Resources.vala:420
+#, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Premenovať vyhľadávanie „%s“ na „%s“"
 
-#: src/Resources.vala:423
-#, fuzzy, c-format
-#| msgid "Delete Search \"%s\""
+#: src/Resources.vala:424
+#, c-format
 msgid "Delete Search “%s”"
-msgstr "O_dstrániť vyhľadávanie „%s“"
+msgstr "Odstrániť vyhľadávanie „%s“"
 
-#: src/Resources.vala:560
+#: src/Resources.vala:561
 #, c-format
 msgid "Rate %s"
 msgstr "Hodnotiť %s"
 
-#: src/Resources.vala:561
+#: src/Resources.vala:562
 #, c-format
 msgid "Set rating to %s"
 msgstr "Nastaviť hodnotenie na %s"
 
-#: src/Resources.vala:562
+#: src/Resources.vala:563
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Nastavuje sa hodnotenie na %s"
 
-#: src/Resources.vala:564
+#: src/Resources.vala:565
 #, c-format
 msgid "Display %s"
 msgstr "Zobraziť %s"
 
-#: src/Resources.vala:565
+#: src/Resources.vala:566
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Zobraziť len fotografie s hodnotením %s"
 
-#: src/Resources.vala:566
+#: src/Resources.vala:567
 #, c-format
 msgid "%s or Better"
 msgstr "%s alebo lepšie"
 
-#: src/Resources.vala:567
+#: src/Resources.vala:568
 #, c-format
 msgid "Display %s or Better"
 msgstr "Zobraziť %s alebo lepšie"
 
-#: src/Resources.vala:568
+#: src/Resources.vala:569
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Zobraziť iba fotografie s hodnotením %s alebo lepšie"
 
 # tooltip
-#: src/Resources.vala:659 ui/trash.ui:255
+#: src/Resources.vala:660 ui/trash.ui:255
 msgid "Remove the selected photos from the trash"
 msgstr "Odstráni vybrané fotografie z koša"
 
-#: src/Resources.vala:660 ui/offline.ui:221
+#: src/Resources.vala:661 ui/offline.ui:221
 msgid "Remove the selected photos from the library"
 msgstr "Odstrániť vybrané fotografie z knižnice"
 
-#: src/Resources.vala:662 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
+#: src/Resources.vala:663 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
 msgid "_Restore"
 msgstr "_Obnoviť"
 
 # tooltip
-#: src/Resources.vala:663 ui/trash.ui:270
+#: src/Resources.vala:664 ui/trash.ui:270
 msgid "Move the selected photos back into the library"
 msgstr "Presunie vybrané fotografie naspäť do knižnice"
 
-#: src/Resources.vala:665 ui/collection.ui:121 ui/direct_context.ui:20
-#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:558 ui/media.ui:27
-#: ui/photo_context.ui:128 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
+#: src/Resources.vala:666 ui/collection.ui:123 ui/direct_context.ui:20
+#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/media.ui:27
+#: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Zobraziť v správcovi sú_borov"
 
-#: src/Resources.vala:666
-#, fuzzy
-#| msgid "Open the selected photo's directory in the file manager"
+# tooltip
+#: src/Resources.vala:667
 msgid "Open the selected photo’s directory in the file manager"
-msgstr "Otvoriť priečinok zvolených fotografií v správcovi súborov"
+msgstr "Otvorí priečinok vybraných fotografií v správcovi súborov"
 
-#: src/Resources.vala:669
+#: src/Resources.vala:670
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nie je možné otvoriť v správcovi súborov: %s"
 
-#: src/Resources.vala:672 ui/offline.ui:224
+#: src/Resources.vala:673 ui/offline.ui:224
 msgid "R_emove From Library"
 msgstr "_Odstrániť z knižnice"
 
-#: src/Resources.vala:674 ui/collection.ui:132 ui/event.ui:79 ui/event.ui:569
-#: ui/media.ui:79 ui/photo_context.ui:139 ui/photo.ui:82 ui/tags.ui:79
+#: src/Resources.vala:675 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
+#: ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82 ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "Presunúť do _Koša"
 
-#: src/Resources.vala:676 ui/events_directory.ui:58 ui/event.ui:86
+#: src/Resources.vala:677 ui/events_directory.ui:58 ui/event.ui:86
 #: ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65 ui/tags.ui:86 ui/trash.ui:74
 msgid "Select _All"
 msgstr "Ozn_ačiť všetko"
 
-#: src/Resources.vala:677
+#: src/Resources.vala:678
 msgid "Select all items"
 msgstr "Vybrať všetky položky"
 
@@ -6212,12 +6059,10 @@ msgid "Date"
 msgstr "Dátum"
 
 #: src/SearchFilter.vala:815
-#| msgid "Rating"
 msgid "★+ Rating"
 msgstr "Hodnotenie ★+"
 
 #: src/SearchFilter.vala:818
-#| msgid "Rating"
 msgid "★★+ Rating"
 msgstr "Hodnotenie ★★+"
 
@@ -6234,10 +6079,9 @@ msgid "★★★★★+ Rating"
 msgstr "Hodnotenie ★★★★★+"
 
 #: src/SearchFilter.vala:1064
-#, fuzzy, c-format
-#| msgid "Error loading UI file %s: %s"
+#, c-format
 msgid "Error loading search bar UI: %s"
-msgstr "Chyba pri nahrávaní súboru používateľského rozhrania %s: %s"
+msgstr "Chyba pri načítavaní používateľského rozhrania lišty vyhľadávania: %s"
 
 #. Ticket #3260 - Add a 'close' context menu to
 #. the searchbar.
@@ -6338,42 +6182,42 @@ msgid "untitled"
 msgstr "bez názvu"
 
 #. multiple videos
-#: src/VideoSupport.vala:507
+#: src/VideoSupport.vala:523
 msgid "Export Videos"
 msgstr "Exportovať videá"
 
-#: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:470 ui/media.ui:281
+#: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/media.ui:281
 #: ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "Prepnúť _značku"
 
-#: ui/collection.ui:82 ui/event.ui:351 ui/event.ui:519 ui/media.ui:351
-#: ui/photo_context.ui:88 ui/photo.ui:341 ui/tags.ui:351
+#: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/media.ui:353
+#: ui/photo_context.ui:88 ui/photo.ui:343 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Vývojár"
 
-#: ui/collection.ui:106 ui/event.ui:543 ui/photo_context.ui:113 ui/photo.ui:358
+#: ui/collection.ui:108 ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
 msgid "Open with E_xternal Editor"
 msgstr "Otvoriť pomocou e_xterného editora"
 
-#: ui/collection.ui:117 ui/event.ui:385 ui/event.ui:554 ui/media.ui:379
-#: ui/photo_context.ui:124 ui/tags.ui:379
+#: ui/collection.ui:119 ui/event.ui:387 ui/event.ui:558 ui/media.ui:381
+#: ui/photo_context.ui:126 ui/tags.ui:381
 msgid "View Eve_nt for Photo"
 msgstr "Zobraziť u_dalosť fotografie"
 
 #: ui/direct.ui:5 ui/events_directory.ui:5 ui/event.ui:5 ui/import_queue.ui:5
 #: ui/import.ui:5 ui/media.ui:5 ui/offline.ui:5 ui/photo.ui:5 ui/tags.ui:5
-#: ui/top.ui:5 ui/trash.ui:5
+#: ui/trash.ui:5
 msgid "_File"
 msgstr "_Súbor"
 
-#: ui/direct.ui:13 ui/event.ui:17 ui/media.ui:17 ui/photo.ui:17 ui/tags.ui:17
+#: ui/direct.ui:13
 msgid "Save _As…"
 msgstr "Uložiť _ako…"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/top.ui:15 ui/trash.ui:87
+#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
 msgid "_View"
 msgstr "_Zobraziť"
 
@@ -6389,7 +6233,7 @@ msgstr "Mierka _100%"
 msgid "Zoom _200%"
 msgstr "Mierka _200%"
 
-#: ui/direct.ui:98 ui/photo.ui:187 ui/top.ui:20
+#: ui/direct.ui:98 ui/photo.ui:187
 msgid "_Photo"
 msgstr "_Fotografia"
 
@@ -6405,15 +6249,15 @@ msgstr "Ďa_lšia fotografia"
 msgid "T_ools"
 msgstr "Nás_troje"
 
-#: ui/direct.ui:181 ui/events_directory.ui:158 ui/event.ui:426
-#: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:409 ui/offline.ui:188
-#: ui/photo.ui:392 ui/tags.ui:428 ui/trash.ui:197
+#: ui/direct.ui:181 ui/events_directory.ui:158 ui/event.ui:428
+#: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
+#: ui/photo.ui:394 ui/tags.ui:430 ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "Často _kladené otázky"
 
-#: ui/direct.ui:185 ui/events_directory.ui:162 ui/event.ui:430
-#: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:413 ui/offline.ui:192
-#: ui/photo.ui:396 ui/tags.ui:432 ui/trash.ui:201
+#: ui/direct.ui:185 ui/events_directory.ui:162 ui/event.ui:432
+#: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
+#: ui/photo.ui:398 ui/tags.ui:434 ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "_Nahlásiť problém…"
 
@@ -6493,8 +6337,7 @@ msgstr "Vz_ostupne"
 msgid "D_escending"
 msgstr "Zo_stupne"
 
-#: ui/events_directory.ui:132 ui/event.ui:377 ui/media.ui:371 ui/tags.ui:371
-#: ui/top.ui:30
+#: ui/events_directory.ui:132 ui/event.ui:379 ui/media.ui:373 ui/tags.ui:373
 msgid "Even_ts"
 msgstr "U_dalosti"
 
@@ -6507,8 +6350,8 @@ msgstr "_Odstrániť z knižnice"
 msgid "_Titles"
 msgstr "_Názvy"
 
-#: ui/event.ui:139 ui/event.ui:402 ui/media.ui:139 ui/media.ui:385
-#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385 ui/top.ui:35
+#: ui/event.ui:139 ui/event.ui:404 ui/media.ui:139 ui/media.ui:387
+#: ui/photo.ui:371 ui/tags.ui:139 ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "_Značky"
 
@@ -6530,20 +6373,70 @@ msgstr "Podľa _dátumu vytvorenie"
 
 #: ui/event.ui:224 ui/media.ui:224 ui/tags.ui:224
 msgid "By _Rating"
-msgstr "Podľa  _hodnotenia"
+msgstr "Podľa _hodnotenia"
 
 #: ui/event.ui:251 ui/import.ui:174 ui/media.ui:251 ui/photo.ui:135
 #: ui/tags.ui:251
 msgid "_Descending"
 msgstr "Zo_stupne"
 
-#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275 ui/top.ui:25
+#: ui/event.ui:275 ui/media.ui:275 ui/tags.ui:275
 msgid "_Photos"
 msgstr "_Fotografie"
 
 #: ui/import_queue.ui:8
 msgid "_Stop Import"
 msgstr "_Zastaviť importovanie"
+
+#: ui/printing_widget.ui:19
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Veľkosť tlačeného obrázku</b>"
+
+#: ui/printing_widget.ui:36
+msgid "Use a _standard size:"
+msgstr "Použiť š_tandardnú veľkosť:"
+
+#: ui/printing_widget.ui:80
+msgid "Use a c_ustom size:"
+msgstr "Použiť _vlastnú veľkosť:"
+
+#. Abbrevation for "inch"
+#: ui/printing_widget.ui:146
+msgid "in."
+msgstr "palcov"
+
+#. Abbrevation for "centimeters"
+#: ui/printing_widget.ui:147
+msgid "cm"
+msgstr "cm"
+
+#: ui/printing_widget.ui:173
+msgid "_Match photo aspect ratio"
+msgstr "_Zachovať pomer strán fotografie"
+
+#: ui/printing_widget.ui:197
+msgid "_Autosize:"
+msgstr "_Automatická veľkosť:"
+
+#: ui/printing_widget.ui:237
+msgid "<b>Titles</b>"
+msgstr "<b>Názvy</b>"
+
+#: ui/printing_widget.ui:254
+msgid "Print image _title"
+msgstr "Vytlačiť _názov obrázku"
+
+#: ui/printing_widget.ui:297
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Rozlíšenie pixelov</b>"
+
+#: ui/printing_widget.ui:317
+msgid "_Output photo at:"
+msgstr "_Vytvoriť fotografiu v:"
+
+#: ui/printing_widget.ui:351
+msgid "pixels per inch"
+msgstr "pixeloch na palec"
 
 #: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
@@ -6654,79 +6547,39 @@ msgstr "Externé editory"
 msgid "Plugins"
 msgstr "Zásuvné moduly"
 
-#: ui/shotwell.ui:583
-msgid "<b>Printed Image Size</b>"
-msgstr "<b>Veľkosť tlačeného obrázku</b>"
-
-#: ui/shotwell.ui:600
-msgid "Use a _standard size:"
-msgstr "Použiť š_tandardnú veľkosť:"
-
-#: ui/shotwell.ui:643
-msgid "Use a c_ustom size:"
-msgstr "Použiť _vlastnú veľkosť:"
-
-#: ui/shotwell.ui:731
-msgid "_Match photo aspect ratio"
-msgstr "_Zachovať pomer strán fotografie"
-
-#: ui/shotwell.ui:755
-msgid "_Autosize:"
-msgstr "_Automatická veľkosť:"
-
-#: ui/shotwell.ui:795
-msgid "<b>Titles</b>"
-msgstr "<b>Názvy</b>"
-
-#: ui/shotwell.ui:812
-msgid "Print image _title"
-msgstr "Vytlačiť _názov obrázku"
-
-#: ui/shotwell.ui:855
-msgid "<b>Pixel Resolution</b>"
-msgstr "<b>Rozlíšenie pixelov</b>"
-
-#: ui/shotwell.ui:875
-msgid "_Output photo at:"
-msgstr "_Vytvoriť fotografiu v:"
-
-#: ui/shotwell.ui:909
-msgid "pixels per inch"
-msgstr "pixeloch na palec"
-
-#: ui/shotwell.ui:949
+#: ui/shotwell.ui:590
 msgid "_Name of search:"
 msgstr "_Názov vyhľadávania:"
 
-#: ui/shotwell.ui:1003
+#: ui/shotwell.ui:644
 msgid "_Match"
 msgstr "_Zhoda"
 
-#: ui/shotwell.ui:1030
+#: ui/shotwell.ui:671
 msgid "of the following:"
 msgstr "z nasledujúcich:"
 
-#: ui/shotwell.ui:1111
+#: ui/shotwell.ui:752
 msgid "label"
 msgstr "štítok"
 
-#: ui/shotwell.ui:1262
+#: ui/shotwell.ui:903
 msgid "_Delay:"
 msgstr "_Oneskorenie:"
 
-#: ui/shotwell.ui:1276
+#: ui/shotwell.ui:917
 msgid "_Transition effect:"
 msgstr "_Efekt prechodu:"
 
-#: ui/shotwell.ui:1290
+#: ui/shotwell.ui:931
 msgid "Transition d_elay:"
 msgstr "Oneskorenie _prechodu:"
 
-#: ui/shotwell.ui:1300
+#: ui/shotwell.ui:941
 msgid "Show t_itle"
 msgstr "Zobraziť ná_zov"
 
-#: ui/shotwell.ui:1375 ui/shotwell.ui:1386
+#: ui/shotwell.ui:1016 ui/shotwell.ui:1027
 msgid "seconds"
 msgstr "sekúnd"
 
@@ -6738,6 +6591,26 @@ msgstr "Nová _značka…"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Odstráni všetky fotografie v koši"
+
+#~ msgid "Testing connection to Facebook…"
+#~ msgstr "Testuje sa pripojenie k službe Facebook…"
+
+#~ msgid ""
+#~ "You have already logged in and out of Flickr during this Shotwell "
+#~ "session.\n"
+#~ "To continue publishing to Flickr, quit and restart Shotwell, then try "
+#~ "publishing again."
+#~ msgstr ""
+#~ "Počas tohoto spustenia programu Shotwell ste sa už prihlásili a odhlásili "
+#~ "k službe Flickr.\n"
+#~ "Aby ste mohli naďalej uverejňovať fotografie pomocou služby Flickr, "
+#~ "ukončite a znova spustite Shotwell, a potom to skúste znova."
+
+#~ msgid "L_ist album in public gallery"
+#~ msgstr "_Zobraziť album vo verejnej galérii"
+
+#~ msgid "Videos will appear in “%s”"
+#~ msgstr "Videá sa zobrazia v „%s“"
 
 #~ msgid "Login"
 #~ msgstr "Prihlásiť sa"
