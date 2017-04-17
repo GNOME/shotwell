@@ -19,7 +19,11 @@ class ShotwellThumbnailer {
         uint8[]? pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
-        
+
+        if (Posix.nice (19) < 0) {
+            debug ("Failed to reduce thumbnailer nice level. Continuing anyway");
+        }
+
         Gst.init(ref args);
 
         var registry = Gst.Registry.@get ();

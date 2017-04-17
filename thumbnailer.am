@@ -4,7 +4,8 @@ thumbnailer_shotwell_video_thumbnailer_SOURCES = thumbnailer/shotwell-video-thum
 thumbnailer_shotwell_video_thumbnailer_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--pkg gstreamer-1.0 \
 	--pkg gee-0.8 \
-	--pkg gtk+-3.0
+	--pkg gtk+-3.0 \
+	--pkg posix
 
 thumbnailer_shotwell_video_thumbnailer_CFLAGS = $(THUMBNAILER_CFLAGS)
 thumbnailer_shotwell_video_thumbnailer_LDADD = $(THUMBNAILER_LIBS)
