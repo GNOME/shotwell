@@ -403,15 +403,12 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
          * https://bugzilla.gnome.org/show_bug.cgi?id=762416
          */
 
-        var feature = registry.find_feature ("vaapidecodebin",
-                                             typeof (Gst.ElementFactory));
-        if (feature != null) {
-            registry.remove_feature (feature);
-        }
+        var features = registry.feature_filter ((f) => {
+            return f.get_name ().has_prefix ("vaapi");
+        }, false);
 
-        feature = registry.find_feature ("vaapidecode",
-                                         typeof (Gst.ElementFactory));
-        if (feature != null) {
+        foreach (var feature in features) {
+            debug ("Removing registry feature %s", feature.get_name ());
             registry.remove_feature (feature);
         }
 
