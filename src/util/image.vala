@@ -446,6 +446,37 @@ Gdk.Point derotate_point_arb(Gdk.Point source_point, int img_w, int img_h, doubl
     return rotate_point_arb(source_point, img_w, img_h, angle, true);
 }
 
+private static Cairo.Surface background_surface = null;
+
+private Cairo.Surface get_background_surface() {
+    if (background_surface == null) {
+        background_surface = new Cairo.ImageSurface(Cairo.Format.RGB24, 16, 16);
+        var ctx = new Cairo.Context(background_surface);
+        ctx.set_operator(Cairo.Operator.SOURCE);
+        set_source_color_from_string(ctx, "#808080");
+        ctx.rectangle(0,0,8,8);
+        ctx.rectangle(8,8,8,8);
+        ctx.fill();
+        set_source_color_from_string(ctx, "#cccccc");
+        ctx.rectangle(0,8,8,8);
+        ctx.rectangle(8,0,8,8);
+        ctx.fill();
+    }
+
+    return background_surface;
+}
+
+public void paint_pixmap_with_background (Cairo.Context ctx, Gdk.Pixbuf pixbuf, int x, int y) {
+    if (pixbuf.get_has_alpha()) {
+        ctx.set_source_surface(get_background_surface(), 0, 0);
+        ctx.get_source().set_extend(Cairo.Extend.REPEAT);
+        ctx.rectangle(x, y, pixbuf.width, pixbuf.height);
+        ctx.fill();
+    }
+
+    Gdk.cairo_set_source_pixbuf(ctx, pixbuf, x, y);
+    ctx.paint();
+}
 
 // Force an axially-aligned box to be inside a rotated rectangle.
 Box clamp_inside_rotated_image(Box src, int img_w, int img_h, double angle_deg,

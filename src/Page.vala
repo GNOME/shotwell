@@ -2048,9 +2048,7 @@ public abstract class SinglePhotoPage : Page {
 
         int draw_y = (pixmap_dim.height - view_rect.height) / 2;
         draw_y = draw_y.clamp(0, int.MAX);
-        
-        Gdk.cairo_set_source_pixbuf(pixmap_ctx, zoomed, draw_x, draw_y);
-        pixmap_ctx.paint();
+        paint_pixmap_with_background(pixmap_ctx, zoomed, draw_x, draw_y);
     }
 
     protected void on_interactive_zoom(ZoomState interactive_zoom_state) {
@@ -2237,7 +2235,7 @@ public abstract class SinglePhotoPage : Page {
         // when the resize is completed, do a high-quality repaint
         repaint();
     }
-    
+
     private bool on_canvas_exposed(Cairo.Context exposed_ctx) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
@@ -2257,7 +2255,7 @@ public abstract class SinglePhotoPage : Page {
     
     protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
     }
-    
+
     protected virtual void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
             set_source_color_from_string(ctx, "#000");
@@ -2268,12 +2266,11 @@ public abstract class SinglePhotoPage : Page {
         } else if (!transition_clock.paint(ctx, ctx_dim.width, ctx_dim.height)) {
             // transition is not running, so paint the full image on a black background
             set_source_color_from_string(ctx, "#000");
-            
+
             ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
             ctx.fill();
-            
-            Gdk.cairo_set_source_pixbuf(ctx, scaled, scaled_pos.x, scaled_pos.y);
-            ctx.paint();
+
+            paint_pixmap_with_background(ctx, scaled, scaled_pos.x, scaled_pos.y);
         }
     }
     

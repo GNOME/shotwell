@@ -292,10 +292,7 @@ public class StraightenTool : EditingTool {
         // copy image data from photo into a cairo surface.
         photo_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
         Cairo.Context ctx = new Cairo.Context(photo_surf);
-        Gdk.cairo_set_source_pixbuf(ctx, low_res_tmp, 0, 0);
-        ctx.rectangle(0, 0, low_res_tmp.width, low_res_tmp.height);
-        ctx.fill();
-        ctx.paint();
+        paint_pixmap_with_background(ctx, low_res_tmp, 0, 0);
 
         // prepare rotation surface and context. we paint a rotated,
         // low-res copy of the image into it, followed by a faint grid.

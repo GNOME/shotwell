@@ -265,29 +265,7 @@ public abstract class PhotoCanvas {
         default_ctx.fill();
 
         // paint the actual image
-        Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
-        default_ctx.rectangle(scaled_position.x, scaled_position.y,
-            pixbuf.get_width(), pixbuf.get_height());
-        default_ctx.fill();
-        default_ctx.restore();
-    }
-
-    public void paint_pixbuf_area(Gdk.Pixbuf pixbuf, Box source_area) {
-        default_ctx.save();
-        if (pixbuf.get_has_alpha()) {
-            set_source_color_from_string(default_ctx, "#000");
-            default_ctx.rectangle(scaled_position.x + source_area.left,
-                scaled_position.y + source_area.top,
-                source_area.get_width(), source_area.get_height());
-            default_ctx.fill();
-
-        }
-        Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x,
-            scaled_position.y);
-        default_ctx.rectangle(scaled_position.x + source_area.left,
-            scaled_position.y + source_area.top,
-            source_area.get_width(), source_area.get_height());
-        default_ctx.fill();
+        paint_pixmap_with_background(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
         default_ctx.restore();
     }
 
@@ -460,7 +438,7 @@ public abstract class PhotoCanvas {
         Cairo.Surface surface = new Cairo.Surface.similar(default_ctx.get_target(),
             Cairo.Content.COLOR_ALPHA, pos.width, pos.height);
         Cairo.Context ctx = new Cairo.Context(surface);
-        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, 0, 0);
+        paint_pixmap_with_background(ctx, pixbuf, 0, 0);
         ctx.paint();
         return surface;
     }
