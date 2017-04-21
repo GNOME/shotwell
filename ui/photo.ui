@@ -5,7 +5,7 @@
       <attribute name="label" translatable="yes">_File</attribute>
       <section>
         <item>
-          <attribute name="label" translatable="yes">_Import from Folder…</attribute>
+          <attribute name="label" translatable="yes">_Import From Folder…</attribute>
           <attribute name="accel">&lt;Primary&gt;i</attribute>
           <attribute name="action">win.CommonFileImport</attribute>
         </item>
@@ -74,7 +74,7 @@
       </section>
       <section>
         <item>
-          <attribute name="label" translatable="yes">R_emove from Library</attribute>
+          <attribute name="label" translatable="yes">R_emove From Library</attribute>
           <attribute name="accel">&lt;Shift&gt;Delete</attribute>
           <attribute name="action">win.RemoveFromLibrary</attribute>
         </item>
@@ -357,7 +357,7 @@
       </section>
       <section>
         <item>
-          <attribute name="label" translatable="yes">Open with E_xternal Editor</attribute>
+          <attribute name="label" translatable="yes">Open With E_xternal Editor</attribute>
           <attribute name="accel">&lt;Primary&gt;Return</attribute>
           <attribute name="action">win.ExternalEdit</attribute>
         </item>

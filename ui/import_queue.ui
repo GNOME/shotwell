@@ -11,7 +11,7 @@
       </section>
       <section>
         <item>
-          <attribute name="label" translatable="yes">_Import from Folder…</attribute>
+          <attribute name="label" translatable="yes">_Import From Folder…</attribute>
           <attribute name="accel">&lt;Primary&gt;i</attribute>
           <attribute name="action">win.CommonFileImport</attribute>
         </item>

@@ -105,7 +105,7 @@
         <attribute name="accel">F3</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Open with E_xternal Editor</attribute>
+        <attribute name="label" translatable="yes">Open With E_xternal Editor</attribute>
         <attribute name="accel">&lt;Primary&gt;Return</attribute>
         <attribute name="action">win.ExternalEdit</attribute>
       </item>
