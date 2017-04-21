@@ -47,6 +47,8 @@ public class Facade : ConfigurationFacade {
         base(new GSettingsConfigurationEngine());
 
         bg_color_name_changed.connect(on_color_name_changed);
+        transparent_background_type_changed.connect(on_color_name_changed);
+        transparent_background_color_changed.connect(on_color_name_changed);
     }
     
     public static Facade get_instance() {

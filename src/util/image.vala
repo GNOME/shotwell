@@ -484,6 +484,10 @@ private Cairo.Surface get_background_surface() {
     return background_surface;
 }
 
+public void invalidate_transparent_background() {
+    background_surface = null;
+}
+
 public void paint_pixmap_with_background (Cairo.Context ctx, Gdk.Pixbuf pixbuf, int x, int y) {
     if (pixbuf.get_has_alpha()) {
         ctx.set_source_surface(get_background_surface(), 0, 0);

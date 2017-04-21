@@ -355,6 +355,8 @@ public abstract class ConfigurationFacade : Object {
 
     public signal void auto_import_from_library_changed();
     public signal void bg_color_name_changed();
+    public signal void transparent_background_type_changed();
+    public signal void transparent_background_color_changed();
     public signal void commit_metadata_to_masters_changed();
     public signal void events_sort_ascending_changed();
     public signal void external_app_changed();
@@ -376,6 +378,14 @@ public abstract class ConfigurationFacade : Object {
             
             case ConfigurableProperty.BG_COLOR_NAME:
                 bg_color_name_changed();
+            break;
+
+            case ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE:
+                transparent_background_type_changed();
+            break;
+
+            case ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR:
+                transparent_background_color_changed();
             break;
             
             case ConfigurableProperty.COMMIT_METADATA_TO_MASTERS:

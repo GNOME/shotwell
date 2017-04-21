@@ -1998,6 +1998,11 @@ public abstract class SinglePhotoPage : Page {
         canvas.draw.connect(on_canvas_exposed);
         
         set_event_source(canvas);
+        Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
+    }
+
+    ~SinglePhotoPage() {
+        Config.Facade.get_instance().colors_changed.disconnect(on_colors_changed);
     }
     
     public bool is_transition_in_progress() {
@@ -2449,6 +2454,11 @@ public abstract class SinglePhotoPage : Page {
         
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+
+    private void on_colors_changed() {
+        invalidate_transparent_background();
+        repaint();
+    }
 }
 
 //
@@ -2630,6 +2640,5 @@ public class DragAndDropHandler {
     private void on_export_completed() {
         exporter = null;
     }
-
 
 }
