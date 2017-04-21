@@ -161,7 +161,19 @@
         <summary>background color</summary>
         <description>A grayscale color for use as the background color.</description>
     </key>
-    
+
+    <key name="transparent-background-type" type="s">
+        <default>'checkered'</default>
+        <summary>background for transparent images</summary>
+        <description>The background to use for transparent images.</description>
+    </key>
+
+    <key name="transparent-background-color" type="s">
+        <default>'#444'</default>
+        <summary>color for solid transparency background</summary>
+        <description>Color to use if background for transparent images is set to solid color</description>
+    </key>
+
     <key name="hide-photos-already-imported" type="b">
         <default>false</default>
         <summary>Selection state of “hide photos” option</summary>

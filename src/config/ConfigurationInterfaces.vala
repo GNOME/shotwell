@@ -22,6 +22,8 @@ public enum FuzzyPropertyState {
 public enum ConfigurableProperty {   
     AUTO_IMPORT_FROM_LIBRARY = 0,
     BG_COLOR_NAME,
+    TRANSPARENT_BACKGROUND_TYPE,
+    TRANSPARENT_BACKGROUND_COLOR,
     COMMIT_METADATA_TO_MASTERS,
     DESKTOP_BACKGROUND_FILE,
     DESKTOP_BACKGROUND_MODE,
@@ -100,6 +102,12 @@ public enum ConfigurableProperty {
                 
             case BG_COLOR_NAME:
                 return "BG_COLOR_NAME";
+
+            case TRANSPARENT_BACKGROUND_TYPE:
+                return "TRANSPARENT_BACKGROUND_TYPE";
+
+            case TRANSPARENT_BACKGROUND_COLOR:
+                return "TRANSPARENT_BACKGROUND_COLOR";
                 
             case COMMIT_METADATA_TO_MASTERS:
                 return "COMMIT_METADATA_TO_MASTERS";
@@ -446,6 +454,50 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_bg_color_name(string color_name) {
         try {
             get_engine().set_string_property(ConfigurableProperty.BG_COLOR_NAME, color_name);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    //
+    // transparent background type
+    //
+    public virtual string get_transparent_background_type() {
+        try {
+            return get_engine().get_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return "checkered";
+        }
+    }
+
+    public virtual void set_transparent_background_type(string type) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE, type);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    //
+    // transparent background color
+    //
+    public virtual string get_transparent_background_color() {
+        try {
+            return get_engine().get_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return "#444";
+        }
+    }
+
+    public virtual void set_transparent_background_color(string color_name) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR, color_name);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
             return;

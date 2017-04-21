@@ -450,14 +450,32 @@ private static Cairo.Surface background_surface = null;
 
 private Cairo.Surface get_background_surface() {
     if (background_surface == null) {
+        string color_a;
+        string color_b;
+        var config = Config.Facade.get_instance();
+
+        var type = config.get_transparent_background_type();
+        switch (type) {
+            case "checkered":
+                color_a = "#808080";
+                color_b = "#ccc";
+                break;
+            case "solid":
+                color_a = color_b = config.get_transparent_background_color();
+                break;
+            default:
+                color_a = color_b = "#000";
+                break;
+        }
+
         background_surface = new Cairo.ImageSurface(Cairo.Format.RGB24, 16, 16);
         var ctx = new Cairo.Context(background_surface);
         ctx.set_operator(Cairo.Operator.SOURCE);
-        set_source_color_from_string(ctx, "#808080");
+        set_source_color_from_string(ctx, color_a);
         ctx.rectangle(0,0,8,8);
         ctx.rectangle(8,8,8,8);
         ctx.fill();
-        set_source_color_from_string(ctx, "#cccccc");
+        set_source_color_from_string(ctx, color_b);
         ctx.rectangle(0,8,8,8);
         ctx.rectangle(8,0,8,8);
         ctx.fill();
