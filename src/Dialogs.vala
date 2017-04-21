@@ -2311,6 +2311,15 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private Gtk.Notebook preferences_notebook;
 
+    [GtkChild]
+    private Gtk.RadioButton transparent_checker_radio;
+    [GtkChild]
+    private Gtk.RadioButton transparent_solid_radio;
+    [GtkChild]
+    private Gtk.ColorButton transparent_solid_color;
+    [GtkChild]
+    private Gtk.RadioButton transparent_none_radio;
+
     private PreferencesDialog() {
         bool use_header;
         Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
@@ -2328,6 +2337,31 @@ public class PreferencesDialog : Gtk.Dialog {
         bg_color_adjustment.value_changed.connect(on_value_changed);
 
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
+
+        transparent_checker_radio.toggled.connect(on_radio_changed);
+        transparent_solid_radio.toggled.connect(on_radio_changed);
+        transparent_none_radio.toggled.connect(on_radio_changed);
+
+        transparent_solid_radio.bind_property("active",
+                                              transparent_solid_color,
+                                              "sensitive");
+
+        Gdk.RGBA color = Gdk.RGBA();
+        color.parse(Config.Facade.get_instance().get_transparent_background_color());
+        (transparent_solid_color as Gtk.ColorChooser).rgba = color;
+        transparent_solid_color.color_set.connect(on_color_changed);
+
+        switch (Config.Facade.get_instance().get_transparent_background_type()) {
+            case "checkered":
+                transparent_checker_radio.active = true;
+            break;
+            case "solid":
+                transparent_solid_radio.active = true;
+            break;
+            default:
+                transparent_none_radio.active = true;
+            break;
+        }
 
         // Ticket #3162 - Move dir pattern blurb into Gnome help. 
         // Because specifying a particular snippet of the help requires 
@@ -2387,7 +2421,24 @@ public class PreferencesDialog : Gtk.Dialog {
         
         lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
     }
-    
+
+    private void on_radio_changed() {
+        var config = Config.Facade.get_instance();
+
+        if (transparent_checker_radio.active) {
+            config.set_transparent_background_type("checkered");
+        } else if (transparent_solid_radio.active) {
+            config.set_transparent_background_type("solid");
+        } else {
+            config.set_transparent_background_type("none");
+        }
+    }
+
+    private void on_color_changed() {
+        var color = (transparent_solid_color as Gtk.ColorChooser).rgba.to_string();
+        Config.Facade.get_instance().set_transparent_background_color(color);
+    }
+
     // Ticket #3162, part II - if we're not yet installed, then we have to manually launch
     // the help viewer and specify the full path to the subsection we want...
     private bool on_local_pattern_help(string ignore) {
