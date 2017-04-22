@@ -563,12 +563,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
 
     protected virtual void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
-        if (pixbuf.get_has_alpha()) {
-            ctx.rectangle(origin.x, origin.y, pixbuf.get_width(), pixbuf.get_height());
-            ctx.fill();
-        }
-        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, origin.x, origin.y);
-        ctx.paint();
+        paint_pixmap_with_background(ctx, pixbuf, origin.x, origin.y);
     }
 
     private int get_selection_border_width(int scale) {
@@ -2015,6 +2010,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_colors_changed() {
+        invalidate_transparent_background();
         override_background_color(Gtk.StateFlags.NORMAL, Config.Facade.get_instance().get_bg_color());
         set_colors();
     }
