@@ -217,14 +217,10 @@ public abstract class CollectionPage : MediaPage {
     protected override void init_actions(int selected_count, int count) {
         base.init_actions(selected_count, count);
         
-        set_action_short_label("RotateClockwise", Resources.ROTATE_CW_LABEL);
-        set_action_short_label("RotateCounterclockwise", Resources.ROTATE_CCW_LABEL);
-        set_action_short_label("Publish", Resources.PUBLISH_LABEL);
-        
-        set_action_important("RotateClockwise", true);
-        set_action_important("RotateCounterclockwise", true);
-        set_action_important("Enhance", true);
-        set_action_important("Publish", true);
+        set_action_sensitive("RotateClockwise", true);
+        set_action_sensitive("RotateCounterclockwise", true);
+        set_action_sensitive("Enhance", true);
+        set_action_sensitive("Publish", true);
     }
     
     protected override void update_actions(int selected_count, int count) {
@@ -249,10 +245,9 @@ public abstract class CollectionPage : MediaPage {
         // don't allow duplication of the selection if it contains a video -- videos are huge and
         // and they're not editable anyway, so there seems to be no use case for duplicating them
         set_action_sensitive("Duplicate", has_selected && (!selection_has_videos));
-        set_action_visible("ExternalEdit", (!primary_is_video));
         set_action_sensitive("ExternalEdit", 
-            one_selected && !is_string_empty(Config.Facade.get_instance().get_external_photo_app()));
-        set_action_visible("ExternalEditRAW",
+            (!primary_is_video) && one_selected && !is_string_empty(Config.Facade.get_instance().get_external_photo_app()));
+        set_action_sensitive("ExternalEditRAW",
             one_selected && (!primary_is_video)
             && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
                 PhotoFileFormat.RAW

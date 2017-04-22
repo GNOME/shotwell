@@ -362,7 +362,7 @@ public abstract class MediaPage : CheckerboardPage {
         if (DesktopIntegration.is_send_to_installed())
             set_action_sensitive("SendTo", selected_count > 0);
         else
-            set_action_visible("SendTo", false);
+            set_action_sensitive("SendTo", false);
         
         set_action_sensitive("Rate", selected_count > 0);
         update_rating_sensitivities();

@@ -73,9 +73,7 @@ public class TrashPage : CheckerboardPage {
         bool has_selected = selected_count > 0;
         
         set_action_sensitive("Delete", has_selected);
-        set_action_important("Delete", true);
         set_action_sensitive("Restore", has_selected);
-        set_action_important("Restore", true);
         set_common_action_important("CommonEmptyTrash", true);
         
         base.update_actions(selected_count, count);

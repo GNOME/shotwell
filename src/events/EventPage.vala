@@ -74,7 +74,7 @@ public class EventPage : CollectionPage {
         set_action_sensitive("MakePrimary", selected_count == 1);
         
         // hide this command in CollectionPage, as it does not apply here
-        set_action_visible("CommonJumpToEvent", false);
+        set_action_sensitive("CommonJumpToEvent", false);
         
         base.update_actions(selected_count, count);
 

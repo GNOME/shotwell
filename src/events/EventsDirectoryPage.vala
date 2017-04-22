@@ -139,7 +139,6 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
     
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("Merge", selected_count > 1);
-        set_action_important("Merge", true);
         set_action_sensitive("Rename", selected_count == 1);
         set_action_sensitive("EditComment", selected_count == 1);
         

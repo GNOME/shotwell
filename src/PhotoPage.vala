@@ -2530,7 +2530,7 @@ public class LibraryPhotoPage : EditingHostPage {
                  
         update_flag_action();
         
-        set_action_visible("ExternalEditRAW", 
+        set_action_sensitive("ExternalEditRAW",
             is_raw && Config.Facade.get_instance().get_external_raw_app() != "");
         
         base.update_actions(selected_count, count);

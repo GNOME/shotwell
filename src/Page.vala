@@ -328,18 +328,6 @@ public abstract class Page : Gtk.ScrolledWindow {
             action.set_enabled (sensitive);
     }
     
-    public void set_action_important(string name, bool important) {
-        set_action_sensitive (name, important);
-    }
-    
-    public void set_action_visible(string name, bool visible) {
-        set_action_sensitive (name, visible);
-    }
-    
-    public void set_action_short_label(string name, string short_label) {
-        debug ("=> Set action short_label called for %s", name);
-    }
-    
     public void set_action_details(string name, string? label, string? tooltip, bool sensitive) {
         GLib.SimpleAction? action = get_action(name) as GLib.SimpleAction;
 
