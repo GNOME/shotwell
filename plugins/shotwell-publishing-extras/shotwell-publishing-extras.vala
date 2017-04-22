@@ -14,10 +14,6 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
         pluggables += new YandexService();
 #endif
 
-#if HAVE_TUMBLR
-        pluggables += new TumblrService(module_file.get_parent());
-#endif
-
 #if HAVE_RAJCE
         pluggables += new RajceService(module_file.get_parent());
 #endif

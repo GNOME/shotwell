@@ -10,7 +10,7 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
    private const string ICON_FILENAME = "tumblr.png";
 
     private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-    
+
     public TumblrService(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
             icon_pixbuf_set =
@@ -22,15 +22,15 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
             Spit.Publishing.CURRENT_INTERFACE);
     }
-    
+
     public unowned string get_id() {
         return "org.yorba.shotwell.publishing.tumblr";
     }
-    
+
     public unowned string get_pluggable_name() {
         return "Tumblr";
     }
-    
+
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Jeroen Arnoldus";
         info.copyright = _("Copyright 2012 BJA Electronics");
@@ -49,7 +49,7 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
         return new Publishing.Tumblr.TumblrPublisher(this, host);
     }
-    
+
     public Spit.Publishing.Publisher.MediaType get_supported_media() {
         return (Spit.Publishing.Publisher.MediaType.PHOTO |
             Spit.Publishing.Publisher.MediaType.VIDEO);
@@ -98,7 +98,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private BlogEntry[] blogs = null;
 	private string username = "";
 
-    
+
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
@@ -130,21 +130,21 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
 		this.blogs = this.create_blogs();
         session.authenticated.connect(on_session_authenticated);
     }
-    
+
     ~TumblrPublisher() {
         session.authenticated.disconnect(on_session_authenticated);
     }
-    
+
     private void invalidate_persistent_session() {
         set_persistent_access_phase_token("");
         set_persistent_access_phase_token_secret("");
     }
     // Publisher interface implementation
-    
+
     public Spit.Publishing.Service get_service() {
         return service;
     }
-    
+
     public Spit.Publishing.PluginHost get_host() {
         return host;
     }
@@ -173,23 +173,23 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     public string? get_persistent_access_phase_token() {
         return host.get_config_string("token", null);
     }
-    
+
     private void set_persistent_access_phase_token(string? token) {
         host.set_config_string("token", token);
-    } 
-    
+    }
+
     public string? get_persistent_access_phase_token_secret() {
         return host.get_config_string("token_secret", null);
     }
-    
+
     private void set_persistent_access_phase_token_secret(string? token_secret) {
         host.set_config_string("token_secret", token_secret);
-    } 
+    }
 
     internal int get_persistent_default_size() {
         return host.get_config_int("default_size", 1);
     }
-    
+
     internal void set_persistent_default_size(int size) {
         host.set_config_int("default_size", size);
     }
@@ -197,13 +197,13 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     internal int get_persistent_default_blog() {
         return host.get_config_int("default_blog", 0);
     }
-    
+
     internal void set_persistent_default_blog(int blog) {
         host.set_config_int("default_blog", blog);
     }
 
     // Actions and events implementation
-    
+
     /**
      * Action that shows the authentication pane.
      *
@@ -223,8 +223,8 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             new AuthenticationPane(this, mode);
         authentication_pane.login.connect(on_authentication_pane_login_clicked);
         host.install_dialog_pane(authentication_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
-        host.set_dialog_default_widget(authentication_pane.get_default_widget()); 
-    } 
+        host.set_dialog_default_widget(authentication_pane.get_default_widget());
+    }
 
     /**
      * Event triggered when the login button in the authentication panel is
@@ -241,9 +241,9 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!running)
             return;
 
-        do_network_login(username, password); 
+        do_network_login(username, password);
     }
-    
+
     /**
      * Action to perform a network login to a Tumblr blog.
      *
@@ -256,19 +256,19 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: logging in");
         host.set_service_locked(true);
         host.install_login_wait_pane();
-        
+
 
         AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session,username,password);
         txn.completed.connect(on_auth_request_txn_completed);
         txn.network_error.connect(on_auth_request_txn_error);
-       
+
         try {
             txn.execute();
         } catch (Spit.Publishing.PublishingError err) {
             host.post_error(err);
         }
     }
-      
+
 
     private void on_auth_request_txn_completed(Publishing.RESTSupport.Transaction txn) {
         txn.completed.disconnect(on_auth_request_txn_completed);
@@ -298,14 +298,14 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_parse_token_info_from_auth_request(string response) {
         debug("ACTION: parsing authorization request response '%s' into token and secret", response);
-        
+
         string? oauth_token = null;
         string? oauth_token_secret = null;
-        
+
         string[] key_value_pairs = response.split("&");
         foreach (string pair in key_value_pairs) {
             string[] split_pair = pair.split("=");
-            
+
             if (split_pair.length != 2)
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
                     _("“%s” isn’t a valid response to an OAuth authentication request"), response));
@@ -315,11 +315,11 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             else if (split_pair[0] == "oauth_token_secret")
                 oauth_token_secret = split_pair[1];
         }
-        
+
         if (oauth_token == null || oauth_token_secret == null)
             host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
                 _("“%s” isn’t a valid response to an OAuth authentication request"), response));
-        
+
         session.set_access_phase_credentials(oauth_token, oauth_token_secret);
     }
 
@@ -329,7 +329,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!is_running())
             return;
 
-        debug("EVENT: a fully authenticated session has become available");             
+        debug("EVENT: a fully authenticated session has become available");
         set_persistent_access_phase_token(session.get_access_phase_token());
         set_persistent_access_phase_token_secret(session.get_access_phase_token_secret());
 		do_get_blogs();
@@ -341,7 +341,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         UserInfoFetchTransaction txn = new UserInfoFetchTransaction(session);
         txn.completed.connect(on_info_request_txn_completed);
         txn.network_error.connect(on_info_request_txn_error);
-       
+
         try {
             txn.execute();
         } catch (Spit.Publishing.PublishingError err) {
@@ -382,8 +382,8 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
 		        this.blogs += new BlogEntry(name,url);
 		    }
 		} catch (Error err) {
-        	host.post_error(err);
-    	}
+		host.post_error(err);
+	}
     }
 
     private void on_info_request_txn_error(Publishing.RESTSupport.Transaction txn,
@@ -417,7 +417,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
             publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
             publishing_options_pane.logout.disconnect(on_publishing_options_pane_logout);
         }
-        
+
         if (!is_running())
             return;
 
@@ -439,7 +439,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_logout();
     }
 
-    public static int tumblr_date_time_compare_func(Spit.Publishing.Publishable a, 
+    public static int tumblr_date_time_compare_func(Spit.Publishing.Publishable a,
         Spit.Publishing.Publishable b) {
         return a.get_exposure_date_time().compare(b.get_exposure_date_time());
     }
@@ -463,12 +463,12 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         Gee.ArrayList<Spit.Publishing.Publishable> sorted_list =
             new Gee.ArrayList<Spit.Publishing.Publishable>();
         foreach (Spit.Publishing.Publishable p in publishables) {
-	    	debug("ACTION: add publishable");
+		debug("ACTION: add publishable");
             sorted_list.add(p);
         }
         sorted_list.sort(tumblr_date_time_compare_func);
 		string blog_url = this.blogs[get_persistent_default_blog()].url;
-    
+
         Uploader uploader = new Uploader(session, sorted_list.to_array(),blog_url);
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
@@ -530,14 +530,14 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         running = false;
 
         attempt_start();
-    } 
+    }
 
     public void attempt_start() {
         if (is_running())
             return;
-        
+
         debug("TumblrPublisher: starting interaction.");
-        
+
         running = true;
         if (is_persistent_session_valid()) {
             debug("attempt start: a persistent session is available; using it");
@@ -554,15 +554,15 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void start() {
         if (is_running())
             return;
-        
+
         if (was_started)
             error(_("TumblrPublisher: start( ): can’t start; this publisher is not restartable."));
-        
+
         debug("TumblrPublisher: starting interaction.");
-        
+
         attempt_start();
     }
-    
+
     public void stop() {
         debug("TumblrPublisher: stop( ) invoked.");
 
@@ -603,7 +603,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
             builder.add_from_resource (Resources.RESOURCE_PATH + "/tumblr_authentication_pane.ui");
             builder.connect_signals(null);
             var content = builder.get_object ("content") as Gtk.Widget;
-            
+
             Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
             switch (mode) {
                 case Mode.INTRO:
@@ -619,7 +619,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
             username_entry = builder.get_object ("username_entry") as Gtk.Entry;
 
             password_entry = builder.get_object ("password_entry") as Gtk.Entry;
-    
+
 
 
             login_button = builder.get_object("login_button") as Gtk.Button;
@@ -635,7 +635,7 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
             warning(_("Could not load UI: %s"), e.message);
         }
     }
-    
+
     public Gtk.Widget get_default_widget() {
         return login_button;
     }
@@ -653,27 +653,27 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     private void on_password_changed() {
         update_login_button_sensitivity();
     }
-    
+
     private void update_login_button_sensitivity() {
         login_button.set_sensitive(username_entry.text_length > 0 &&
                                    password_entry.text_length > 0);
     }
-    
+
     public Gtk.Widget get_widget() {
         return pane_widget;
     }
-    
+
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
         return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
-    
+
     public void on_pane_installed() {
         username_entry.grab_focus();
         password_entry.set_activates_default(true);
         login_button.can_default = true;
         update_login_button_sensitivity();
     }
-    
+
     public void on_pane_uninstalled() {
     }
 }
@@ -797,7 +797,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     protected void notify_publish() {
         publish();
     }
-    
+
     protected void notify_logout() {
         logout();
     }
@@ -805,16 +805,16 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     public Gtk.Widget get_widget() {
         return pane_widget;
     }
-    
+
     public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
         return Spit.Publishing.DialogPane.GeometryOptions.NONE;
     }
-    
-    public void on_pane_installed() {        
+
+    public void on_pane_installed() {
         publish.connect(notify_publish);
         logout.connect(notify_logout);
     }
-    
+
     public void on_pane_uninstalled() {
         publish.disconnect(notify_publish);
         logout.disconnect(notify_logout);
@@ -827,7 +827,7 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
     public Transaction(Session session, Publishing.RESTSupport.HttpMethod method =
         Publishing.RESTSupport.HttpMethod.POST) {
         base(session, method);
-        
+
     }
 
     public Transaction.with_uri(Session session, string uri,
@@ -842,11 +842,11 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
 		if (session.get_access_phase_token() != null) {
             add_argument("oauth_token", session.get_access_phase_token());
         }
-    } 
+    }
 
     public override void execute() throws Spit.Publishing.PublishingError {
         ((Session) get_parent_session()).sign_transaction(this);
-        
+
         base.execute();
     }
 
@@ -876,7 +876,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
     private Publishing.RESTSupport.Argument[] auth_header_fields;
 
 
-//Workaround for Soup.URI.encode() to support binary data (i.e. string with \0) 
+//Workaround for Soup.URI.encode() to support binary data (i.e. string with \0)
     private string encode( uint8[] data ){
 	var s = new StringBuilder();
 	char[] bytes = new char[2];
@@ -885,7 +885,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
         {
 	   if(byte == 0) {
                 s.append( "%00" );
-	   } else { 
+	   } else {
 		bytes[0] = (char)byte;
 		s.append( Soup.URI.encode((string) bytes, ENCODE_RFC_3986_EXTRA) );
 	   }
@@ -900,32 +900,32 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
         this.session = session;
 
     }
-    
 
-  
+
+
     public void add_authorization_header_field(string key, string value) {
         auth_header_fields += new Publishing.RESTSupport.Argument(key, value);
     }
-    
+
     public Publishing.RESTSupport.Argument[] get_authorization_header_fields() {
         return auth_header_fields;
     }
-    
+
     public string get_authorization_header_string() {
         string result = "OAuth ";
-        
+
         for (int i = 0; i < auth_header_fields.length; i++) {
             result += auth_header_fields[i].key;
             result += "=";
             result += ("\"" + auth_header_fields[i].value + "\"");
-            
+
             if (i < auth_header_fields.length - 1)
                 result += ", ";
         }
-        
+
         return result;
     }
-    
+
     public override void execute() throws Spit.Publishing.PublishingError {
         add_authorization_header_field("oauth_nonce", session.get_oauth_nonce());
         add_authorization_header_field("oauth_signature_method", "HMAC-SHA1");
@@ -962,13 +962,13 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
 
         session.sign_transaction(this);
-        
+
         string authorization_header = get_authorization_header_string();
-        
+
         debug("executing upload transaction: authorization header string = '%s'",
             authorization_header);
         add_header("Authorization", authorization_header);
-        
+
         Publishing.RESTSupport.Argument[] request_arguments = get_arguments();
         assert(request_arguments.length > 0);
 
@@ -989,7 +989,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
             cont = i.next();
         }
         set_message(outbound_message);
-    
+
         set_is_executed(true);
 
         send();
@@ -1005,7 +1005,7 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
 		this.blog_url=blog_url;
 
     }
-    
+
 
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
@@ -1036,18 +1036,18 @@ internal class Session : Publishing.RESTSupport.Session {
         this.access_phase_token = token;
         this.access_phase_token_secret = secret;
 
-        
+
         authenticated();
     }
-    
+
     public void deauthenticate() {
         access_phase_token = null;
         access_phase_token_secret = null;
-    } 
-    
+    }
+
     public void sign_transaction(Publishing.RESTSupport.Transaction txn) {
         string http_method = txn.get_method().to_string();
-        
+
         debug("signing transaction with parameters:");
         debug("HTTP method = " + http_method);
 		string? signing_key = null;
@@ -1064,22 +1064,22 @@ internal class Session : Publishing.RESTSupport.Session {
 
 
         Publishing.RESTSupport.Argument[] base_string_arguments = txn.get_arguments();
-	
+
         UploadTransaction? upload_txn = txn as UploadTransaction;
         if (upload_txn != null) {
             debug("this transaction is an UploadTransaction; including Authorization header " +
                 "fields in signature base string");
-            
+
             Publishing.RESTSupport.Argument[] auth_header_args =
                 upload_txn.get_authorization_header_fields();
 
             foreach (Publishing.RESTSupport.Argument arg in auth_header_args)
                 base_string_arguments += arg;
         }
-        
+
         Publishing.RESTSupport.Argument[] sorted_args =
             Publishing.RESTSupport.Argument.sort(base_string_arguments);
-        
+
         string arguments_string = "";
         for (int i = 0; i < sorted_args.length; i++) {
             arguments_string += (sorted_args[i].key + "=" + sorted_args[i].value);
@@ -1109,14 +1109,14 @@ internal class Session : Publishing.RESTSupport.Session {
 
 
     }
-    
+
     public void set_access_phase_credentials(string token, string secret) {
         this.access_phase_token = token;
         this.access_phase_token_secret = secret;
 
-        
+
         authenticated();
-    } 
+    }
 
     public string get_access_phase_token() {
         return access_phase_token;
@@ -1130,11 +1130,11 @@ internal class Session : Publishing.RESTSupport.Session {
     public string get_oauth_nonce() {
         TimeVal currtime = TimeVal();
         currtime.get_current_time();
-        
+
         return Checksum.compute_for_string(ChecksumType.MD5, currtime.tv_sec.to_string() +
             currtime.tv_usec.to_string());
     }
-    
+
     public string get_oauth_timestamp() {
         return GLib.get_real_time().to_string().substring(0, 10);
     }
@@ -1145,4 +1145,3 @@ internal class Session : Publishing.RESTSupport.Session {
 } //class TumblrPublisher
 
 } //namespace Publishing.Tumblr
-

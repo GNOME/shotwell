@@ -3,13 +3,10 @@ plugin_LTLIBRARIES += plugins/shotwell-publishing-extras/shotwell-publishing-ext
 dist_noinst_DATA += \
 	plugins/shotwell-publishing-extras/gallery3.png \
 	plugins/shotwell-publishing-extras/rajce.png \
-	plugins/shotwell-publishing-extras/tumblr.png \
 	plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui \
 	plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui \
 	plugins/shotwell-publishing-extras/rajce_authentication_pane.ui \
 	plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui \
-	plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui \
-	plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui \
 	plugins/shotwell-publishing-extras/yandex_publish_model.ui \
 	plugins/shotwell-publishing-extras/org.gnome.Shotwell.Publishing.Extras.gresource.xml
 
@@ -17,7 +14,6 @@ plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
 	plugins/shotwell-publishing-extras/GalleryConnector.vala \
 	plugins/shotwell-publishing-extras/RajcePublishing.vala \
 	plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala \
-	plugins/shotwell-publishing-extras/TumblrPublishing.vala \
 	plugins/shotwell-publishing-extras/YandexPublishing.vala \
 	plugins/shotwell-plugin-common.vapi
 

@@ -49,6 +49,10 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
 #if HAVE_PIWIGO
         pluggables += new PiwigoService(resource_directory);
 #endif
+
+#if HAVE_TUMBLR
+        pluggables += new TumblrService(module_file.get_parent());
+#endif
     }
     
     public unowned string get_module_name() {
