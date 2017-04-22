@@ -2323,10 +2323,8 @@ public class PreferencesDialog : Gtk.Dialog {
     private PreferencesDialog() {
         bool use_header;
         Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        if (!use_header) {
-            Gtk.Widget null_titlebar = null;
-            set_titlebar (null_titlebar);
-        }
+        Object (use_header_bar: use_header ? 1 : 0);
+
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         delete_event.connect(on_delete);
