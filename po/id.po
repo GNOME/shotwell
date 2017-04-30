@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2017-04-18 10:17+0000\n"
-"PO-Revision-Date: 2017-04-29 17:57+0000\n"
+"PO-Revision-Date: 2017-04-30 17:02+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -684,23 +684,27 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:294
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
-msgstr ""
+msgstr "Numerator rasio aspek ubahan pemangkasan yang terakhir dipakai."
 
 #: misc/org.yorba.shotwell.gschema.xml:295
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr ""
+"Suatu bilangan bulat positif yang mewakili bagian lebar dari rasio pangkas "
+"ubahan yang terakhir dimasukkan oleh pengguna."
 
 #: misc/org.yorba.shotwell.gschema.xml:299
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
-msgstr ""
+msgstr "Denominator rasio aspek ubahan pemangkasan yang terakhir dipakai."
 
 #: misc/org.yorba.shotwell.gschema.xml:300
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
 msgstr ""
+"Suatu bilangan bulat positif yang mewakili bagian tinggi dari rasio pangkas "
+"ubahan yang terakhir dimasukkan oleh pengguna."
 
 #: misc/org.yorba.shotwell.gschema.xml:307
 msgid "external photo editor"
@@ -721,7 +725,7 @@ msgstr "Aplikasi eksternal untuk menyunting foto RAW."
 #: misc/org.yorba.shotwell.gschema.xml:352
 #: misc/org.yorba.shotwell.gschema.xml:353
 msgid "Setting in export dialog: how to trim images"
-msgstr ""
+msgstr "Pengaturan dalam dialog ekspor: bagaimana memangkas citra"
 
 #: misc/org.yorba.shotwell.gschema.xml:358
 msgid "export metadata"
@@ -812,39 +816,46 @@ msgstr "kode ukuran baku"
 msgid ""
 "A numeric code representing the default size for photos published to Facebook"
 msgstr ""
+"Kode numerik yang mewakili ukuran baku bagi foto yang dipublikasikan ke "
+"Facebook"
 
 #: misc/org.yorba.shotwell.gschema.xml:435
 msgid ""
 "Whether images being uploaded to Facebook should have their metadata removed "
 "first"
 msgstr ""
+"Apakah citra yang diunggah ke Facebook mesti dihapus terlebih dahulu "
+"metadatanya"
 
 #: misc/org.yorba.shotwell.gschema.xml:442
 msgid "OAuth Access Phase Token"
-msgstr ""
+msgstr "Token Fasa Akses OAuth"
 
 #: misc/org.yorba.shotwell.gschema.xml:443
 msgid "The authorization token for the currently logged in Flickr user, if any"
-msgstr ""
+msgstr "Token otorisasi untuk pengguna Flickr yang sedang log masuk, bila ada"
 
 #: misc/org.yorba.shotwell.gschema.xml:448
 msgid "OAuth Access Phase Token Secret"
-msgstr ""
+msgstr "Rahasia Token Fasa Akses OAuth"
 
 #: misc/org.yorba.shotwell.gschema.xml:449
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr ""
+"Rahasia kriptografis yang dipakai untuk menandatangani permintaan atas token "
+"otorisasi bagi pengguna Flickr yang sedang log masuk, bila ada"
 
 #: misc/org.yorba.shotwell.gschema.xml:455
 msgid "The user name of the currently logged in Flickr user, if any"
-msgstr ""
+msgstr "Nama pengguna dari pengguna Flicker yang sedang log masuk, bila ada"
 
 #: misc/org.yorba.shotwell.gschema.xml:461
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
+"Kode numerik yang mewakili ukuran foto baku yang dipublikasikan ke Flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:466
 msgid "default visibility"
@@ -855,29 +866,36 @@ msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr ""
+"Kode numerik yang mewakili kenampakan baku bagi foto yang dipublikasikan ke "
+"Flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:473
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
+"Apakah gambar yang sedang diunggah ke Flickr mesti terlebih dahulu dihapus "
+"metadatanya"
 
 #: misc/org.yorba.shotwell.gschema.xml:480
 #: misc/org.yorba.shotwell.gschema.xml:612
 msgid "refresh token"
-msgstr ""
+msgstr "segarkan token"
 
 #: misc/org.yorba.shotwell.gschema.xml:481
 msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
 msgstr ""
+"Token OAuth yang dipakai untuk menyegarkan sesi Album Web Picasa bagi "
+"pengguna yang sedang log masuk, bila ada."
 
 #: misc/org.yorba.shotwell.gschema.xml:487
 msgid ""
 "A numeric code representing the default size for photos uploaded to Picasa "
 "Web Albums"
 msgstr ""
+"Kode numerik yang mewakili ukuran foto baku yang diunggah ke Album Web Picasa"
 
 #: misc/org.yorba.shotwell.gschema.xml:492
 #: misc/org.yorba.shotwell.gschema.xml:586
@@ -887,13 +905,15 @@ msgstr "album terakhir"
 #: misc/org.yorba.shotwell.gschema.xml:493
 #: misc/org.yorba.shotwell.gschema.xml:587
 msgid "The name of the last album the user published photos to, if any"
-msgstr ""
+msgstr "Nama dari album terakhir tempat pengguna mempublikasi foto, bila ada"
 
 #: misc/org.yorba.shotwell.gschema.xml:499
 msgid ""
 "Whether images being uploaded to Picasa should have their metadata removed "
 "first"
 msgstr ""
+"Apakah gambar yang sedang diunggah ke Picasa mesti terlebih dahulu dihapus "
+"metadatanya"
 
 #: misc/org.yorba.shotwell.gschema.xml:506
 msgid "Piwigo URL"
@@ -905,7 +925,7 @@ msgstr "URL dari server Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:513
 msgid "Piwigo username, if logged in."
-msgstr ""
+msgstr "Nama pengguna Piwigo, bila log masuk."
 
 #: misc/org.yorba.shotwell.gschema.xml:518
 msgid "password"
@@ -913,7 +933,7 @@ msgstr "kata sandi"
 
 #: misc/org.yorba.shotwell.gschema.xml:519
 msgid "Piwigo password, if logged in."
-msgstr ""
+msgstr "Kata sandi Piwigo, bila log masuk."
 
 #: misc/org.yorba.shotwell.gschema.xml:524
 msgid "remember password"
@@ -921,7 +941,7 @@ msgstr "ingat Sandi"
 
 #: misc/org.yorba.shotwell.gschema.xml:525
 msgid "If true, remember the Piwigo password."
-msgstr ""
+msgstr "Jika bernilai true, maka akan mengingat kata sandi Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:531
 msgid "The last selected Piwigo category."
@@ -940,12 +960,16 @@ msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
 msgstr ""
+"Kode numerik yang mewakili pratata ukuran foto terakhir yang dipakai ketika "
+"mempublikasikan ke Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:549
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
+"Apakah gambar yang sedang diunggah ke Piwigo mesti terlebih dahulu dihapus "
+"metadatanya"
 
 #: misc/org.yorba.shotwell.gschema.xml:554
 msgid ""
@@ -959,6 +983,8 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr ""
+"Apakah citra yang sedang diunggap ke Piwigo komentarnya mesti disalin dari "
+"judul bila judul terisi dan komentar kosong"
 
 #: misc/org.yorba.shotwell.gschema.xml:560
 msgid "do not upload tags when uploading to Piwigo"
@@ -969,6 +995,8 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr ""
+"Apakah citra yang sedang diunggah ke Piwigo mesti dihapus terlebih dahulu "
+"tagnya, sehingga tag-tag ini tidak akan muncul pada server Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:569
 msgid "Gallery3 username"
@@ -995,30 +1023,36 @@ msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
 msgstr ""
+"Apakah citra yang diunggah ke Gallery3 mesti dihapus terlebih dahulu "
+"metadatanya"
 
 #: misc/org.yorba.shotwell.gschema.xml:598
 msgid "scaling constraint of uploaded picture"
-msgstr ""
+msgstr "kendala pengaturan skala dari gambar yang diunggah"
 
 #: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The scaling constraint ID of the picture to be uploaded"
-msgstr ""
+msgstr "ID kendala pengaturan skala dari gambar yang diunggah"
 
 #: misc/org.yorba.shotwell.gschema.xml:604
 msgid "pixels of the major axis uploaded picture"
-msgstr ""
+msgstr "piksel sumbu mayor dari gambar yang diunggah"
 
 #: misc/org.yorba.shotwell.gschema.xml:605
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr ""
+"Piksel dari sumbu mayor gambar yang akan diunggah; hanya dipakai bila "
+"scaling-constraint-id adalah nilai yang sesuai"
 
 #: misc/org.yorba.shotwell.gschema.xml:613
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr ""
+"Token OAuth yang dipakai untuk menyegarkan sesi YouTube bagi pengguna yang "
+"sedang log masuk, bila ada."
 
 #: misc/org.yorba.shotwell.gschema.xml:620
 msgid "last used import service"
@@ -1028,25 +1062,29 @@ msgstr "layanan impor yang terakhir digunakan"
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
+"Suatu kode numerik yang mewakili layanan yang terakhir dipakai sebagai "
+"sumber impor foto"
 
 #: misc/org.yorba.shotwell.gschema.xml:628
 msgid "interpreter state cookie"
-msgstr ""
+msgstr "cookie keadaan interpreter"
 
 #: misc/org.yorba.shotwell.gschema.xml:629
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr ""
+msgstr "Kode numerik yang menangkap keadaan dari lingkungan pengaya GStreamer"
 
 #: misc/org.yorba.shotwell.gschema.xml:636
 msgid "content layout mode"
-msgstr ""
+msgstr "mode tata letak isi"
 
 #: misc/org.yorba.shotwell.gschema.xml:637
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr ""
+"Kode numerik yang menjelaskan bagaimana foto disusun pada halaman saat "
+"pencetakan"
 
 #: misc/org.yorba.shotwell.gschema.xml:642
 msgid "content ppi"
@@ -1054,7 +1092,7 @@ msgstr "ppi isi"
 
 #: misc/org.yorba.shotwell.gschema.xml:643
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
-msgstr ""
+msgstr "Angka piksel per inci (ppi) yang dikirim ke pencetak selama pencetakan"
 
 #: misc/org.yorba.shotwell.gschema.xml:648
 msgid "content width"
@@ -1062,7 +1100,7 @@ msgstr "lebar konten"
 
 #: misc/org.yorba.shotwell.gschema.xml:649
 msgid "The width of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Lebar dari emulsi yang dicetak pada halaman ketika mencetak"
 
 #: misc/org.yorba.shotwell.gschema.xml:654
 msgid "content height"
@@ -1070,7 +1108,7 @@ msgstr "tinggi konten"
 
 #: misc/org.yorba.shotwell.gschema.xml:655
 msgid "The height of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Tinggi dari emulsi yang dicetak pada halaman ketika mencetak"
 
 #: misc/org.yorba.shotwell.gschema.xml:660
 msgid "content units"
@@ -1081,6 +1119,8 @@ msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
 msgstr ""
+"Kode numerik yang mewakili satuan pengukuran (inci atau sentimeter) yang "
+"dipakai ketika mencetak"
 
 #: misc/org.yorba.shotwell.gschema.xml:666
 msgid "images per page code"
@@ -1091,27 +1131,31 @@ msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr ""
+"Kode numerik yang mewakili mode cacah citra per halaman yang kini dipakai "
+"ketika mencetak"
 
 #: misc/org.yorba.shotwell.gschema.xml:672
 msgid "size selection"
-msgstr ""
+msgstr "pemilihan ukuran"
 
 #: misc/org.yorba.shotwell.gschema.xml:673
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
+"Indeks dari ukuran cetak saat ini dalam daftar terpradefinisi dari ukuran-"
+"ukuran standar"
 
 #: misc/org.yorba.shotwell.gschema.xml:678
-#, fuzzy
-#| msgid "_Match photo aspect ratio"
 msgid "match aspect ratio"
-msgstr "_Sesuaikan dengan rasio foto"
+msgstr "cocok rasio aspek"
 
 #: misc/org.yorba.shotwell.gschema.xml:679
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
+"Menentukan apakah ukuran cetak ubahan mesti cocok dengan rasio aspek dari "
+"foto asli"
 
 #: misc/org.yorba.shotwell.gschema.xml:684
 msgid "print titles"
@@ -1122,6 +1166,7 @@ msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
 msgstr ""
+"True bila judul foto mesti dicetak ketika foto dicetak, false bila tidak."
 
 #: misc/org.yorba.shotwell.gschema.xml:690
 msgid "titles font"
@@ -1129,7 +1174,7 @@ msgstr "fonta judul"
 
 #: misc/org.yorba.shotwell.gschema.xml:691
 msgid "The name of the font to use for photo titles when they are printed."
-msgstr ""
+msgstr "Nama fonta yang dipakai untuk judul foto ketika mereka dicetak."
 
 #: misc/org.yorba.shotwell.gschema.xml:702
 msgid "enable facebook publishing plugin"
@@ -1137,7 +1182,7 @@ msgstr "aktifkan plugin penerbitan facebook"
 
 #: misc/org.yorba.shotwell.gschema.xml:703
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Facebook difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:708
 msgid "enable flickr publishing plugin"
@@ -1145,7 +1190,7 @@ msgstr "aktifkan plugin penerbitan flickr"
 
 #: misc/org.yorba.shotwell.gschema.xml:709
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Flickr difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:714
 msgid "enable picasa publishing plugin"
@@ -1155,6 +1200,7 @@ msgstr "aktifkan plugin penerbitan picasa"
 msgid ""
 "True if the Picasa Web Albums publishing plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya publikasi Album Web Picasa difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:720
 msgid "enable youtube publishing plugin"
@@ -1162,15 +1208,15 @@ msgstr "aktifkan plugin penerbitan youtube"
 
 #: misc/org.yorba.shotwell.gschema.xml:721
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi YouTube difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:726
 msgid "enable piwigo publishing plugin"
-msgstr "aktifkan plugin penerbitan piwigio"
+msgstr "aktifkan plugin penerbitan piwigo"
 
 #: misc/org.yorba.shotwell.gschema.xml:727
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Piwigo difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:732
 msgid "enable yandex publishing plugin"
@@ -1178,15 +1224,15 @@ msgstr "aktifkan plugin penerbitan yandex"
 
 #: misc/org.yorba.shotwell.gschema.xml:733
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Yandex.Fotki difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:738
 msgid "enable tumblr publishing plugin"
-msgstr "aktifkan plugin penerbitan tublr"
+msgstr "aktifkan plugin penerbitan tumblr"
 
 #: misc/org.yorba.shotwell.gschema.xml:739
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Tumblr difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:744
 msgid "enable rajce publishing plugin"
@@ -1194,7 +1240,7 @@ msgstr "aktifkan plugin penerbitan rajce"
 
 #: misc/org.yorba.shotwell.gschema.xml:745
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Rajce difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:750
 msgid "enable gallery3 publishing plugin"
@@ -1202,7 +1248,7 @@ msgstr "aktifkan plugin penerbitan gallery3"
 
 #: misc/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya publikasi Gallery3 difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:756
 msgid "enable F-Spot import plugin"
@@ -1210,83 +1256,87 @@ msgstr "aktifkan plugin impor F-Spot"
 
 #: misc/org.yorba.shotwell.gschema.xml:757
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya impor F-Spot difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:762
 msgid "enable slideshow crumble transition"
-msgstr "aktifkan transisi hancur pada tampilan slide"
+msgstr "aktifkan transisi rontok pertunjukan salindia"
 
 #: misc/org.yorba.shotwell.gschema.xml:763
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Rontok difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:768
 msgid "enable slideshow fade transition"
-msgstr "aktifkan transisi luntur pada tampilan slide"
+msgstr "aktifkan transisi memudar pertunjukan salindia"
 
 #: misc/org.yorba.shotwell.gschema.xml:769
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Memudar difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:774
 msgid "enable slideshow slide transition"
-msgstr "aktifkan transisi tampilan slide"
+msgstr "aktifkan transisi geser pertunjukan salindia"
 
 #: misc/org.yorba.shotwell.gschema.xml:775
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Geser difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:780
 msgid "enable slideshow clock transition"
-msgstr "aktifkan transisi jam pada tampilan slide"
+msgstr "aktifkan transisi jam pada pertunjukan salindia"
 
 #: misc/org.yorba.shotwell.gschema.xml:781
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "True bila pengaya transisi salindia Jam difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:786
 msgid "enable slideshow circle transition"
-msgstr "aktifkan transisi lingkaran pada tampilan slide"
+msgstr "aktifkan transisi lingkaran pada pertunjukan salindia"
 
 #: misc/org.yorba.shotwell.gschema.xml:787
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Lingkaran difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:792
-#, fuzzy
-#| msgid "enable slideshow circle transition"
 msgid "enable slideshow circles transition"
-msgstr "aktifkan transisi lingkaran pada tampilan slide"
+msgstr "aktifkan transisi lingkaran pertunjukan salindia"
 
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Lingkaran difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:798
-#, fuzzy
-#| msgid "enable slideshow slide transition"
 msgid "enable slideshow blinds transition"
-msgstr "aktifkan transisi tampilan slide"
+msgstr "aktifkan transisi tirai jajar pada tampilan slide"
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Tirai Jajar difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow squares transition"
-msgstr "aktifkan transisi kotak pada tampilan slide"
+msgstr "aktifkan transisi bujur sangkar pada tampilan slide"
 
 #: misc/org.yorba.shotwell.gschema.xml:805
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Bujur Sangkar difungsikan, false bila "
+"tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:810
 msgid "enable slideshow stripes transition"
@@ -1296,6 +1346,7 @@ msgstr "aktifkan transisi bergaris pada tampilan slide"
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Garis-garis difungsikan, false bila tidak"
 
 #: misc/org.yorba.shotwell.gschema.xml:816
 msgid "enable slideshow chess transition"
@@ -1306,16 +1357,9 @@ msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
 msgstr ""
+"True bila pengaya transisi salindia Papan Catur difungsikan, false bila tidak"
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Facebook.\n"
-#| "\n"
-#| "If you don't yet have a Facebook account, you can create one during the "
-#| "login process. During login, Shotwell Connect may ask you for permission "
-#| "to upload photos and publish to your feed. These permissions are required "
-#| "for Shotwell Connect to function."
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
@@ -1324,11 +1368,12 @@ msgid ""
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
 msgstr ""
-"Anda belum terhubung ke Facebook.\n"
+"Anda tidak sedang log masuk ke Facebook.\n"
 "\n"
-"Jika belum memiliki akun Facebook, Anda dapat membuatnya nanti saat login. "
-"Saat login, Shotwell akan menanyakan hak unggah dan hak penerbitan berita. "
-"Hak-hak tersebut diperlukan oleh Shotwell."
+"Jika belum memiliki akun Facebook, Anda dapat membuatnya nanti saat log "
+"masuk. Saat log masuk, Shotwell Connect akan menanyakan hak unggah dan hak "
+"penerbitan berita. Hak-hak tersebut diperlukan oleh Shotwell Connect agar "
+"berfungsi."
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
 msgid ""
@@ -1360,12 +1405,6 @@ msgid "Con_tinue"
 msgstr "Lanju_tkan"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:187
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Flickr.\n"
-#| "\n"
-#| "Click Login to log into Flickr in your Web browser.  You will have to "
-#| "authorize Shotwell Connect to link to your Flickr account."
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -1374,32 +1413,25 @@ msgid ""
 msgstr ""
 "Anda masih belum masuk ke Flickr.\n"
 "\n"
-"Klik Masuk untuk masuk ke Flickr pada peramban Web anda.  Anda diharuskan "
-"memberikan izin Shotwell menyambungkan ke akun Flickr anda."
+"Klik Masuk untuk masuk ke Flickr pada peramban Web Anda. Anda mesti memberi "
+"izin Shotwell Connect untuk menyambungkan ke akun Flickr Anda."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:364
-#, fuzzy
-#| msgid "Preparing for login..."
 msgid "Preparing for login…"
-msgstr "Bersiap untuk login..."
+msgstr "Mempersiapkan log masuk…"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:468
 #: plugins/shotwell-publishing/FlickrPublishing.vala:341
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Flickr can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
-"Berkas penting untuk penerbitan tidak tersedia. Gagal menerbitkan ke Flickr."
+"Berkas penting untuk penerbitan tidak tersedia. Tak bisa lanjutkan "
+"menerbitkan ke Flickr."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:481
-#, fuzzy
-#| msgid "Verifying authorization..."
 msgid "Verifying authorization…"
-msgstr "Verifikasi wewenang..."
+msgstr "Memverifikasi otorisasi…"
 
 #: plugins/authenticator/shotwell/GoogleAuthenticator.vala:118
 msgid ""
@@ -1416,23 +1448,17 @@ msgstr ""
 "Shotwell, lalu cobalah mempublikasikan lagi."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:31
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Picasa Web Albums.\n"
-#| "\n"
-#| "Click Login to log into Picasa Web Albums in your Web browser. You will "
-#| "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#| "account."
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
 "Click Log in to log into Picasa Web Albums in your Web browser. You will "
 "have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
-"Kamu belum masuk ke Album Web Picasa.\n"
+"Kamu tidak sedang log masuk ke Album Web Picasa.\n"
 "\n"
-"Klik Login untuk masuk ke Album Web Picasa lewat Peramban Web. Kamu perlu "
-"memberi wewenang Shotwell Connect menyambung ke akun Album Web Picasa mu."
+"Klik Log Masuk untuk masuk ke Album Web Picasa lewat peramban Web Anda. Anda "
+"perlu memberi wewenang Shotwell Connect menyambung ke akun Album Web Picasa "
+"Anda."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
@@ -1461,13 +1487,13 @@ msgstr ""
 "Malsasa <teknoloid@gmail.com>, 2012\n"
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
-"Andika Triwidada <andika@gmail.com>, 2011, 2014"
+"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:202
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
-msgstr ""
+msgstr "⚫ Situs web ini menyajikan identifikasi milik situs web lain."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:207
@@ -1475,18 +1501,22 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
+"⚫ Identifikasi situs web ini terlalu tua untuk dipercaya. Periksalah tanggal "
+"pada kalender komputer Anda."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:212
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
+"⚫ Identifikasi situs web ini tidak diterbitkan oleh organisasi yang "
+"terpercaya."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:217
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
-msgstr ""
+msgstr "⚫ Identifikasi situs web ini tak dapat diproses. Mungkin itu rusak."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:222
@@ -1494,6 +1524,8 @@ msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
 msgstr ""
+"⚫ Identifikasi situs web ini telah dicabut oleh organisasi terpercaya yang "
+"menerbitkannya."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:227
@@ -1501,6 +1533,8 @@ msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr ""
+"⚫ Identifikasi situs web ini tak dapat dipercaya karena memakai enkripsi "
+"yang sangat lemah."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:232
@@ -1508,6 +1542,8 @@ msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
+"⚫ Identifikasi situs web ini hanya valid pada tanggal di masa depan. Periksa "
+"tanggal pada kalender komputer Anda."
 
 #: plugins/common/RESTSupport.vala:509
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:959
@@ -1628,10 +1664,8 @@ msgstr "_Mundur"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 #: ui/shotwell.ui:1105
-#, fuzzy
-#| msgid "_Login"
 msgid "_Log in"
-msgstr "_Login"
+msgstr "_Log masuk"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
 msgid "API _Key:"
@@ -1719,12 +1753,7 @@ msgid "Shotwell default directory"
 msgstr "Direktori baku Shotwell"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:801
-#, fuzzy, c-format
-#| msgid ""
-#| "\n"
-#| "\n"
-#| "The file \"%s\" may not be supported by or may be too large for this "
-#| "instance of Gallery3."
+#, c-format
 msgid ""
 "\n"
 "\n"
@@ -1733,8 +1762,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Berkas \"%s\" mungkin tak didukung atau mungkin terlalu besar bagi instansi "
-"Gallery3 ini."
+"Berkas \"%s\" mungkin tidak didukung atau mungkin terlalu besar bagi "
+"instansi Gallery3 ini."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
 msgid ""
@@ -1747,16 +1776,13 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
-#, fuzzy, c-format
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to %s can't "
-#| "continue."
+#, c-format
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
 msgstr ""
-"Sebuah berkas yang diperlukan untuk penerbitan tidak tersedia. Tak dapat "
-"lanjutkan menerbitkan ke %s."
+"Sebuah berkas yang diperlukan untuk penerbitan tidak tersedia. Tak bisa "
+"melanjutkan menerbitkan ke %s."
 
 #. populate any widgets whose contents are
 #. programmatically-generated
@@ -1821,8 +1847,6 @@ msgstr "_Ingat"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
-#, fuzzy
-#| msgid "Logging in..."
 msgid "Log in"
 msgstr "Log masuk"
 
@@ -1847,10 +1871,8 @@ msgid "Open target _album in browser"
 msgstr "Buka _album target dalam peramban"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-#, fuzzy
-#| msgid "Copyright (C) 2013 rajce.net"
 msgid "Copyright © 2013 rajce.net"
-msgstr "Hak Cipta (C) 2013 rajce.net"
+msgstr "Hak Cipta © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
@@ -1916,20 +1938,16 @@ msgstr "1280 x 853 piksel"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
-#, fuzzy, c-format
-#| msgid "'%s' isn't a valid response to an OAuth authentication request"
+#, c-format
 msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "'%s' permintaan otentikasi OAuth ke yang tidak valid"
+msgstr "\"%s\" bukan jawaban yang valid ke permintaan otentikasi OAuth"
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
-#, fuzzy
-#| msgid ""
-#| "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
-"TumblrPublisher: start(): tidak dapat memulai, penerbit ini tidak "
-"restartable."
+"TumblrPublisher: start(): tak bisa memulai, penerbit ini tidak bisa di-start "
+"ulang."
 
 #: plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
 msgid "Enter the username and password associated with your Tumblr account."
@@ -2049,16 +2067,12 @@ msgid "Creating album…"
 msgstr "Membuat album…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:340
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Facebook "
-#| "can't continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
 msgstr ""
-"Berkas penting untuk penerbitan tidak tersedia. Gagal menerbitkan ke "
-"Facebook."
+"Berkas yang diperlukan untuk penerbitan tidak tersedia. Tak bisa lanjutkan "
+"menerbitkan ke Facebook."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:723
 #, c-format
@@ -2094,20 +2108,14 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:802
-#, fuzzy, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabyte remaining in your upload quota."
-#| msgid_plural ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabytes remaining in your upload quota."
+#, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
 msgstr ""
 "Akun Flickr gratis Anda membatasi besarnya data yang dapat Anda kirim per "
 "bulan.\n"
-"Bulan ini, Anda punya sisa jatah kuota unggah %d megabyte."
+"Bulan ini Anda punya sisa jatah kuota unggah %s."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:804
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
@@ -2156,21 +2164,16 @@ msgstr "Pratata uku_ran foto:"
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PicasaPublishing.vala:96
 #: plugins/shotwell-publishing/PicasaPublishing.vala:630
-#, fuzzy
-#| msgid "last album"
 msgid "Default album"
-msgstr "album terakhir"
+msgstr "Album baku"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:291
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Picasa can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
 msgstr ""
-"Berkas penting untuk penerbitan tidak tersedia. Gagal menerbitkan ke Picasa."
+"Berkas penting untuk penerbitan tidak tersedia. Penerbitan ke Picasa tak "
+"bisa dilanjutkan."
 
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PicasaPublishing.vala:560
@@ -2216,40 +2219,28 @@ msgid "Remember Password"
 msgstr "Ingat Sandi"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
-#, fuzzy
-#| msgid "An _existing category:"
 msgid "An _existing category"
-msgstr "Direktori yang _ada:"
+msgstr "Kat_egori yang ada"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
-#, fuzzy
-#| msgid "A _new album named:"
 msgid "A _new album named"
-msgstr "Nama album _baru:"
+msgstr "Album _baru dinamai"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
-#, fuzzy
-#| msgid "within category:"
 msgid "within category"
-msgstr "dalam kategori:"
+msgstr "dalam kategori"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
-#, fuzzy
-#| msgid "Album comment:"
 msgid "Album comment"
-msgstr "Komentar album:"
+msgstr "Komentar album"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
-#, fuzzy
-#| msgid "Photos will be _visible by:"
 msgid "Photos will be _visible by"
-msgstr "Gambar akan bisa _dilihat oleh:"
+msgstr "Foto akan _tampak oleh"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
-#, fuzzy
-#| msgid "Photo size:"
 msgid "Photo size"
-msgstr "Ukuran foto:"
+msgstr "Ukuran foto"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
 msgid "_If a title is set and comment unset, use title as comment"
@@ -2269,10 +2260,9 @@ msgid "Publish"
 msgstr "Kirim"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:773
-#, fuzzy, c-format
-#| msgid "Creating album %s..."
+#, c-format
 msgid "Creating album %s…"
-msgstr "Membuat akbum %s..."
+msgstr "Membuat album %s…"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:946
 msgid "An error message occurred when publishing to Piwigo. Please try again."
@@ -2287,11 +2277,14 @@ msgid ""
 "steal or alter information going to or from this site (for example, private "
 "messages, credit card information, or passwords)."
 msgstr ""
+"Ini sepertinya bukan <b>%s</b> yang sebenarnya. Penyerang mungkin mencoba "
+"mencuri atau mengubah informasi menuju atau berasal dari situs ini (sebagai "
+"contoh, pesan pribadi, informasi kartu kredit, atau kata sandi)."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1048
 #, c-format
 msgid "Certificate of %s"
-msgstr ""
+msgstr "Sertifikat dari %s"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
 #: src/Resources.vala:167
@@ -2336,15 +2329,15 @@ msgstr "Admin"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
 msgid "This connection is not secure"
-msgstr ""
+msgstr "Koneksi ini tidak aman"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
 msgid "Show the certificate…"
-msgstr ""
+msgstr "Tampilkan sertifikat…"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
 msgid "I understand, please _proceed."
-msgstr ""
+msgstr "Saya _paham, harap lanjutkan."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:55
 msgid "Core Publishing Services"
@@ -2355,20 +2348,17 @@ msgid "Video privacy _setting:"
 msgstr "Pengaturan priva_si video:"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Youtube "
-#| "can't continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
-"Berkas penting untuk penerbitan tidak tersedia. Gagal menerbitkan ke Youtube."
+"Berkas penting untuk penerbitan tidak tersedia. Penerbitan ke YouTube tak "
+"bisa dilanjutkan."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
 msgid "You are logged into YouTube as %s."
-msgstr "Anda terhubung ke YouTube sebagai %s"
+msgstr "Anda log masuk ke YouTube sebagai %s."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:376
 msgid "Public listed"
@@ -2458,13 +2448,12 @@ msgstr "Gagal membuat direktori data %s: %s"
 #: src/AppDirs.vala:236
 #, c-format
 msgid "Could not make directory %s writable"
-msgstr ""
+msgstr "Tidak bisa membuat direktori %s dapat ditulisi"
 
 #: src/AppDirs.vala:239
-#, fuzzy, c-format
-#| msgid "Unable to create cache directory %s: %s"
+#, c-format
 msgid "Could not make directory %s writable: %s"
-msgstr "Gagal membuat direktori cache %s: %s"
+msgstr "Tidak bisa membuat direktori %s dapat ditulisi: %s"
 
 #: src/AppWindow.vala:47
 msgid "Pin Toolbar"
@@ -2488,19 +2477,14 @@ msgid "_Cancel"
 msgstr "_Batal"
 
 #: src/AppWindow.vala:579
-#, fuzzy, c-format
-#| msgid ""
-#| "A fatal error occurred when accessing Shotwell's library.  Shotwell "
-#| "cannot continue.\n"
-#| "\n"
-#| "%s"
+#, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Ada kesalahan yang fatal saat mengakses pustaka Shotwell. Terpaksa tidak "
+"Terjadi kesalahan yang fatal saat mengakses pustaka Shotwell. Shotwell tidak "
 "dapat dilanjutkan.\n"
 "\n"
 "%s"
@@ -2607,10 +2591,6 @@ msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:466
-#, fuzzy
-#| msgid ""
-#| "Unable to unmount camera.  Try unmounting the camera from the file "
-#| "manager."
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
@@ -2636,25 +2616,20 @@ msgstr "Impor Semu_a"
 #: src/camera/ImportPage.vala:857
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
+"Kamera tampaknya kosong. Tidak ada foto/video yang ditemukan untuk diimpor"
 
 #: src/camera/ImportPage.vala:861
-#, fuzzy
-#| msgid "No photos/videos found"
 msgid "No new photos/videos found on camera"
-msgstr "Foto/video tidak ditemukan"
+msgstr "Tidak ditemukan foto/video baru pada kamera"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:1021
-#, fuzzy
-#| msgid ""
-#| "Shotwell needs to unmount the camera from the filesystem in order to "
-#| "access it.  Continue?"
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
 msgstr ""
-"Shotwell harus dapat melepaskan kamera dari sistem agar dapat mengaksesnya. "
-"Izinkan?"
+"Shotwell perlu melepaskan kamera dari sistem berkas agar dapat mengaksesnya. "
+"Lanjutkan?"
 
 #: src/camera/ImportPage.vala:1027
 msgid "_Unmount"
@@ -2665,19 +2640,14 @@ msgid "Please unmount the camera."
 msgstr "Silakan lepaskan kamera."
 
 #: src/camera/ImportPage.vala:1037
-#, fuzzy
-#| msgid ""
-#| "The camera is locked by another application.  Shotwell can only access "
-#| "the camera when it's unlocked.  Please close any other application using "
-#| "the camera and try again."
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
 "camera and try again."
 msgstr ""
-"Kamera sudah terkunci oleh aplikasi lain. Shotwell hanya dapat mengakses "
-"kamera pada saat tidak terkunci. Silakan matikan aplikasi yang sedang "
-"menggunakan kamera ini dan coba kembali."
+"Kamera terkunci oleh aplikasi lain. Shotwell hanya dapat mengakses kamera "
+"pada saat tidak terkunci. Silakan matikan aplikasi yang sedang menggunakan "
+"kamera ini dan coba kembali."
 
 #: src/camera/ImportPage.vala:1047
 msgid "Please close any other application using the camera."
@@ -2693,16 +2663,12 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1069
-#, fuzzy
-#| msgid "Unmounting..."
 msgid "Unmounting…"
-msgstr "Melepaskan kamera..."
+msgstr "Melepas kaitan…"
 
 #: src/camera/ImportPage.vala:1160
-#, fuzzy
-#| msgid "Starting import, please wait..."
 msgid "Starting import, please wait…"
-msgstr "Mulai mengimpor, silakan tunggu..."
+msgstr "Mulai mengimpor, mohon tunggu…"
 
 #: src/camera/ImportPage.vala:1177
 msgid "Fetching photo information"
@@ -2755,7 +2721,7 @@ msgstr "Menghapus foto/video dari kamera"
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
-"Tidak dapat menghapus %d foto/video dari kamera karena adanya kesalahan"
+"Tidak dapat menghapus %d foto/video dari kamera karena adanya kesalahan."
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
 #: src/PhotoPage.vala:2464 src/Resources.vala:171
@@ -2764,10 +2730,8 @@ msgstr "_Cetak"
 
 #: src/CollectionPage.vala:83 src/Resources.vala:324 ui/collection.ui:128
 #: ui/direct_context.ui:24 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
-#, fuzzy
-#| msgid "Send To"
 msgid "Send _To…"
-msgstr "Kirim _Ke..."
+msgstr "Kirim _Ke…"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
 #: src/PhotoPage.vala:2474 src/Resources.vala:221
@@ -2827,10 +2791,8 @@ msgid "_Paste Color Adjustments"
 msgstr "Tem_pel Penyetelan Warna"
 
 #: src/CollectionPage.vala:135
-#, fuzzy
-#| msgid "Adjust Date and Time"
 msgid "Adjust Date and Time…"
-msgstr "Atur Jam dan Tanggal"
+msgstr "Atur Jam dan Tanggal…"
 
 #: src/CollectionPage.vala:143 src/Resources.vala:320
 msgid "Open With E_xternal Editor"
@@ -2973,7 +2935,7 @@ msgstr "Atur Pengembang"
 
 #: src/Commands.vala:1347
 msgid "Original photo could not be adjusted."
-msgstr "Foto asli tidak dapat diatur"
+msgstr "Foto asli tidak dapat diatur."
 
 #: src/Commands.vala:1368
 msgid "Adjusting Date and Time"
@@ -2986,7 +2948,7 @@ msgstr "Batalkan Pengaturan Tanggal dan Jam"
 #: src/Commands.vala:1399
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] "Foto ini tidak dapat diatur"
+msgstr[0] "Foto asli ini tidak dapat diatur."
 
 #: src/Commands.vala:1401 src/Commands.vala:1425
 msgid "Time Adjustment Error"
@@ -2996,17 +2958,17 @@ msgstr "Tidak Dapat Mengatur Jam"
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] "Jam asli pada foto ini tidak dapat dikembalikan"
+msgstr[0] ""
+"Penyesuaian jam tidak dapat dikembalikan pada berkas-berkas foto berikut."
 
 #: src/Commands.vala:1637 src/Commands.vala:1660
 msgid "Create Tag"
 msgstr "Buat Tanda"
 
 #: src/Commands.vala:1695
-#, fuzzy, c-format
-#| msgid "Move Tag \"%s\""
+#, c-format
 msgid "Move Tag “%s”"
-msgstr "Pindah Tag \"%s\""
+msgstr "Pindahkan Tag \"%s\""
 
 #: src/Commands.vala:2347
 msgid "Move Photos to Trash"
@@ -3065,10 +3027,9 @@ msgstr "Basisdata %s"
 
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
-#, fuzzy, c-format
-#| msgid "Importing from %s can't continue because an error occurred:"
+#, c-format
 msgid "Importing from %s can’t continue because an error occurred:"
-msgstr "Gagal lanjut mengimpor dari %s karena terjadi eror:"
+msgstr "Mengimpor dari %s tak bisa berlanjut karena terjadi eror:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
@@ -3100,10 +3061,8 @@ msgid "Import From Application"
 msgstr "Impor Dari Aplikasi"
 
 #: src/data_imports/DataImportsUI.vala:221
-#, fuzzy
-#| msgid "Imported %s"
 msgid "Import media _from:"
-msgstr "%s diimpor"
+msgstr "Impor media _dari:"
 
 #: src/data_imports/DataImportsUI.vala:414 src/publishing/PublishingUI.vala:520
 msgid "_Close"
@@ -3143,14 +3102,9 @@ msgstr ""
 "%s"
 
 #: src/db/DatabaseTable.vala:92
-#, fuzzy, c-format
-#| msgid ""
-#| "Unable to write to photo database file:\n"
-#| " %s"
+#, c-format
 msgid "Unable to restore photo database %s"
-msgstr ""
-"Gagal menulis ke berkas basis data foto:\n"
-" %s"
+msgstr "Gagal memulihkan basis data foto %s"
 
 #: src/DesktopIntegration.vala:121
 #, c-format
@@ -3172,12 +3126,10 @@ msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Gagal menyiapkan salindia destop: %s"
 
 #: src/Dialogs.vala:16
-#, fuzzy, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+#, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] "Tanda \"%s\" akan dihapus dari %d foto. Teruskan?"
+msgstr[0] "Ini akan menghapus tag \"%s\" dari %d foto. Teruskan?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
@@ -3187,10 +3139,9 @@ msgid "_Delete"
 msgstr "_Hapus"
 
 #: src/Dialogs.vala:25
-#, fuzzy, c-format
-#| msgid "This will remove the saved search \"%s\".  Continue?"
+#, c-format
 msgid "This will remove the saved search “%s”. Continue?"
-msgstr "Pencarian tersimpan \"%s\" akan dihapus.  Teruskan?"
+msgstr "Pencarian tersimpan \"%s\" akan dihapus. Teruskan?"
 
 #: src/Dialogs.vala:36
 msgid ""
@@ -3217,16 +3168,13 @@ msgstr "Ekspor Video"
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
 #: src/Dialogs.vala:112
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell couldn't create a file for editing this photo because you do not "
-#| "have permission to write to %s."
+#, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
-"Shotwell tidak dapat membuat berkas penyuntingan foto karena tidak ada izin "
-"menulisi %s"
+"Shotwell tak bisa membuat berkas untuk penyuntingan foto ini karena Anda "
+"tidak punya izin menulis ke %s."
 
 #: src/Dialogs.vala:121
 msgid ""
@@ -3275,16 +3223,12 @@ msgid "_Pixels:"
 msgstr "_Piksel:"
 
 #: src/Dialogs.vala:234
-#, fuzzy
-#| msgid "Export metadata"
 msgid "Export _metadata:"
-msgstr "Ekspor metadata"
+msgstr "Ekspor _metadata:"
 
 #: src/Dialogs.vala:478
-#, fuzzy
-#| msgid "Save Details"
 msgid "Save Details…"
-msgstr "Simpan Rincian"
+msgstr "Simpan Rincian…"
 
 #: src/Dialogs.vala:479
 msgid "Save Details"
@@ -3338,46 +3282,34 @@ msgstr "pesan kesalahan:"
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
 #: src/Dialogs.vala:595
-#, fuzzy
-#| msgid ""
-#| "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
-msgstr "Berkas Yang Tak Diimpor Karena Tak Dikenali Sebagai Foto atau Video:"
+msgstr ""
+"Berkas-berkas Tidak Diimpor Karena Tak Dikenali Sebagai Foto atau Video:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
 #: src/Dialogs.vala:610
-#, fuzzy
-#| msgid ""
-#| "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
-#| "Understands:"
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
 msgstr ""
-"Foto/Video Yang Tak Diimpor Karena Bukan Dalam Format Yang Dikenal Shotwell:"
+"Foto/Video Yang Tidak Diimpor Karena Bukan Dalam Format Yang Dikenal "
+"Shotwell:"
 
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
 #: src/Dialogs.vala:625
-#, fuzzy
-#| msgid ""
-#| "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
-#| "Library:"
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr ""
-"Foto/Video Yang Tak Diimpor Karena Shotwell Tak Bisa Menyalin Mereka Ke "
+"Foto/Video Yang Tidak Diimpor Karena Shotwell Tak Bisa Menyalin Mereka Ke "
 "Pustaka:"
 
 #: src/Dialogs.vala:629
-#, fuzzy, c-format
-#| msgid ""
-#| "couldn't copy %s\n"
-#| "\tto %s"
+#, c-format
 msgid ""
 "couldn’t copy %s\n"
 "\tto %s"
@@ -3687,16 +3619,13 @@ msgid "Revert External Edits?"
 msgstr "Batalkan Penyuntingan Eksternal?"
 
 #: src/Dialogs.vala:1412
-#, fuzzy, c-format
-#| msgid "This will destroy all changes made to the external file.  Continue?"
-#| msgid_plural ""
-#| "This will destroy all changes made to %d external files.  Continue?"
+#, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
-"Jika proses ini diteruskan maka semua perubahan yang sudah Anda lakukan pada "
-"berkas %d foto eksternal tidak akan disimpan. Lanjutan?"
+"Ini akan menghancurkan semua perubahan yang telah dibuat pada %d berkas "
+"eksternal. Lanjutan?"
 
 #: src/Dialogs.vala:1416
 msgid "Re_vert External Edit"
@@ -3707,12 +3636,10 @@ msgid "Re_vert External Edits"
 msgstr "_Batalkan Penyuntingan Eksternal"
 
 #: src/Dialogs.vala:1437
-#, fuzzy, c-format
-#| msgid "This will remove the photo from the library.  Continue?"
-#| msgid_plural "This will remove %d photos from the library.  Continue?"
+#, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
-msgstr[0] "%d foto akan dihapus dari album. Lanjutkan?"
+msgstr[0] "Ini akan menghapus %d foto dari pustaka. Lanjutkan?"
 
 #: src/Dialogs.vala:1444 src/Resources.vala:174
 msgid "_Remove"
@@ -3752,22 +3679,18 @@ msgid "Set _all photos/videos to this time"
 msgstr "Atur semu_a foto/video ke waktu ini"
 
 #: src/Dialogs.vala:1725
-#, fuzzy
-#| msgid "_Modify original photo file"
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Modifikasi berkas asli foto"
 
 #: src/Dialogs.vala:1729
-#, fuzzy
-#| msgid "_Modify original file"
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] "Ubah pada _berkas foto aslinya"
+msgstr[0] "_Modifikasi berkas asli"
 
 #: src/Dialogs.vala:1817
 msgid "Original: "
-msgstr "Aslinya:"
+msgstr "Asli: "
 
 #: src/Dialogs.vala:1818
 msgid "%m/%d/%Y, %H:%M:%S"
@@ -3866,13 +3789,11 @@ msgstr "_Impor foto dari folder %s"
 
 #: src/Dialogs.vala:2141
 msgid "You can also import photos in any of these ways:"
-msgstr "Anda juga dapat mengimpor foto dengan cara berikut"
+msgstr "Anda juga dapat mengimpor foto dengan cara berikut:"
 
 #: src/Dialogs.vala:2152
-#, fuzzy
-#| msgid "_Don't show this message again"
 msgid "_Don’t show this message again"
-msgstr "_Jangan tampilkan pesan ini pada masa mendatang"
+msgstr "Janga_n tampilkan pesan ini lagi"
 
 #: src/Dialogs.vala:2189
 #, c-format
@@ -3921,8 +3842,8 @@ msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr ""
-"Shotwell dapat menyalin foto foto ke folder album ataupun mengimpor tanpa "
-"menyalin"
+"Shotwell dapat menyalin foto ke dalam folder pustaka atau mengimpor mereka "
+"tanpa menyalin."
 
 #: src/Dialogs.vala:2697
 msgid "Co_py Photos"
@@ -3949,17 +3870,7 @@ msgid "Removing Photos From Library"
 msgstr "Hapus Foto Dari Album"
 
 #: src/Dialogs.vala:2724
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo/video from your Shotwell library.  Would you "
-#| "also like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos/videos from your Shotwell library.  Would you "
-#| "also like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
@@ -3971,23 +3882,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Anda dapat menghapus %d foto/video ini dari Album saja atau memindahkannya "
-"ke tempat pembuangan. Mana yang Anda pilih?\n"
+"Ini akan menghapus %d foto/video dari pustaka Shotwell Anda. Apakah Anda "
+"juga hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
 "\n"
-"(proses ini tidak dapat dikembalikan ke semula)"
+"Aksi ini tidak dapat dikembalikan ke semula."
 
 #: src/Dialogs.vala:2728
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the video from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d videos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -3999,23 +3900,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Anda dapat menghapus %d video ini dari Album saja atau memindahkannya ke "
-"tempat pembuangan. Mana yang Anda pilih?\n"
+"Ini akan menghapus %d video dari pustaka Shotwell Anda. Apakah Anda juga "
+"hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
 "\n"
-"(proses ini tidak dapat dikembalikan ke semula)"
+"Aksi ini tidak dapat dikembalikan ke semula."
 
 #: src/Dialogs.vala:2732
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4027,32 +3918,27 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Anda dapat menghapus %d foto ini dari Album saja atau memindahkannya ke "
-"tempat pembuangan. Mana yang Anda pilih?\n"
+"Ini akan menghapus %d foto dari pustaka Shotwell Anda. Apakah Anda juga "
+"hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
 "\n"
-"(proses ini tidak dapat dikembalikan ke semula)"
+"Aksi ini tidak dapat dikembalikan ke semula."
 
 #: src/Dialogs.vala:2764
-#, fuzzy, c-format
-#| msgid ""
-#| "The photo or video cannot be moved to your desktop trash.  Delete this "
-#| "file?"
-#| msgid_plural ""
-#| "%d photos/videos cannot be moved to your desktop trash.  Delete these "
-#| "files?"
+#, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
-"Foto/video %d tidak dapat dipindahkan ke tempat pembuangan. Hapus berkas ini?"
+"%d foto/video tidak dapat dipindahkan ke tong sampah desktop Anda. Hapus "
+"berkas ini?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:2781
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] "Foto/video %d tidak dapat dihapus"
+msgstr[0] "%d foto/video tidak dapat dihapus."
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -4082,16 +3968,9 @@ msgstr ""
 "%s."
 
 #: src/direct/DirectPhotoPage.vala:120
-#, fuzzy, c-format
-#| msgid ""
-#| "Unable to print photo:\n"
-#| "\n"
-#| "%s"
+#, c-format
 msgid "Unable open photo %s. Sorry."
-msgstr ""
-"Foto tidak dapat dicetak:\n"
-"\n"
-"%s"
+msgstr "Tidak bisa membuka foto %s. Maaf."
 
 #: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:176 ui/direct.ui:8
 msgid "_Save"
@@ -4201,10 +4080,8 @@ msgid "16 × 20 in."
 msgstr "16 × 20 in."
 
 #: src/editing_tools/EditingTools.vala:772 src/Printing.vala:816
-#, fuzzy
-#| msgid "Metric Wallet (9 x 13 cm)"
 msgid "Metric Wallet (9 × 13 cm)"
-msgstr "Dompet (9 x 13 cm)"
+msgstr "Dompet Metrik (9 x 13 cm)"
 
 #: src/editing_tools/EditingTools.vala:773 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
@@ -4400,8 +4277,7 @@ msgid "Exporting"
 msgstr "Mengekspor"
 
 #: src/Exporter.vala:317
-#, fuzzy, c-format
-#| msgid "File %s already exists.  Replace?"
+#, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Berkas %s sudah ada. Timpa?"
 
@@ -4439,16 +4315,12 @@ msgid "Flagged"
 msgstr "Ditandai"
 
 #: src/library/ImportQueuePage.vala:8
-#, fuzzy
-#| msgid "Importing"
 msgid "Importing…"
-msgstr "Mengimpor"
+msgstr "Mengimpor…"
 
 #: src/library/ImportQueuePage.vala:129
-#, fuzzy
-#| msgid "Preparing to import"
 msgid "Preparing to import…"
-msgstr "Bersiap mengimpor"
+msgstr "Bersiap mengimpor…"
 
 #: src/library/ImportQueuePage.vala:156
 #, c-format
@@ -4468,10 +4340,8 @@ msgid "Empty Trash"
 msgstr "Hapus Permanen Foto Buangan"
 
 #: src/library/LibraryWindow.vala:576
-#, fuzzy
-#| msgid "Emptying Trash..."
 msgid "Emptying Trash…"
-msgstr "Foto Buangan Sedang Dihapus Permanen..."
+msgstr "Mengosongkan Tong Sampah…"
 
 #: src/library/LibraryWindow.vala:772
 #, c-format
@@ -4488,7 +4358,7 @@ msgstr ""
 
 #: src/library/LibraryWindow.vala:775 ui/shotwell.ui:142
 msgid "Library Location"
-msgstr "Lokasi Album:"
+msgstr "Lokasi Pustaka"
 
 #. TODO: Specify which directory/file.
 #: src/library/LibraryWindow.vala:788
@@ -4501,38 +4371,28 @@ msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
 #: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
-#, fuzzy
-#| msgid "Updating library..."
 msgid "Updating library…"
-msgstr "Memperbaharui album..."
+msgstr "Memutakhirkan pustaka…"
 
 #: src/library/LibraryWindow.vala:1129
-#, fuzzy
-#| msgid "Preparing to auto-import photos..."
 msgid "Preparing to auto-import photos…"
-msgstr "Bersiap impor foto otomatis..."
+msgstr "Bersiap mengimpor otomatis foto…"
 
 #: src/library/LibraryWindow.vala:1134
-#, fuzzy
-#| msgid "Auto-importing photos..."
 msgid "Auto-importing photos…"
-msgstr "Mengimpor foto otomatis"
+msgstr "Mengimpor otomatis foto…"
 
 #: src/library/LibraryWindow.vala:1142
-#, fuzzy
-#| msgid "Writing metadata to files..."
 msgid "Writing metadata to files…"
-msgstr "Menulis metadata ke berkas..."
+msgstr "Menulis metadata ke berkas…"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
 msgstr "Berkas Hilang"
 
 #: src/library/OfflinePage.vala:110
-#, fuzzy
-#| msgid "Deleting..."
 msgid "Deleting…"
-msgstr "Menghapus..."
+msgstr "Menghapus…"
 
 #: src/library/TrashPage.vala:8
 msgid "Trash"
@@ -4551,65 +4411,50 @@ msgid "Deleting Photos"
 msgstr "Menghapus foto-foto"
 
 #: src/main.vala:54
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please use the latest version of Shotwell."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please use the latest version of Shotwell."
 msgstr ""
-"Album foto tidak kompatibel dengan versi Shotwell sekarang. Tampaknya album "
-"dibuat dengan Shotwell %s (schema %d). Versi sekarang adalah %s (schema %d). "
-"Harap gunakan Shotwell versi terbaru"
+"Pustaka foto Anda tidak kompatibel dengan versi Shotwell ini. Tampaknya ini "
+"dibuat dengan Shotwell %s (skema %d). Versi ini adalah %s (skema %d). Harap "
+"gunakan Shotwell versi terbaru."
 
 #: src/main.vala:59
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell was unable to upgrade your photo library from version %s (schema "
-#| "%d) to %s (schema %d).  For more information please check the Shotwell "
-#| "Wiki at %s"
+#, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
-"Shotwell gagal meningkatkan album foto dari versi %s (schema %d) ke %s "
-"(schema %d). Untuk informasi lebih lanjut, silakan periksa Shotwell Wiki di "
-"%s"
+"Shotwell tidak bisa meningkatkan pustaka foto Anda dari versi %s (skema %d) "
+"ke %s (skema %d). Untuk informasi lebih lanjut, silakan periksa Wiki "
+"Shotwell di %s"
 
 #: src/main.vala:65
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please clear your library by deleting %s and re-import your "
-#| "photos."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
-"Album foto tidak kompatibel dengan versi Shotwell sekarang. Tampaknya album "
-"dibuat dengan Shotwell %s (schema %d). Versi sekarang adalah %s (schema %d). "
-"Harap bersihkan album dengan menghapus %s dan mengimpor ulang foto"
+"Pustaka foto Anda tidak kompatibel dengan versi Shotwell ini. Tampaknya ini "
+"dibuat dengan Shotwell %s (skema %d). Versi ini adalah %s (skema %d). Harap "
+"bersihkan pustaka Anda dengan menghapus %s dan mengimpor ulang foto-foto "
+"Anda."
 
 #: src/main.vala:71
-#, fuzzy, c-format
-#| msgid "Unknown error attempting to verify Shotwell's database: %s"
+#, c-format
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
-msgstr "Kesalahan tak dikenal saat mencoba verifikasi database Shotwell: %s"
+msgstr "Kesalahan tak dikenal saat mencoba verifikasi basis data Shotwell: %s"
 
 #: src/main.vala:104
 msgid "Loading Shotwell"
 msgstr "Menjalankan Shotwell"
 
 #: src/main.vala:293
-#, fuzzy
-#| msgid "Path to Shotwell's private data"
 msgid "Path to Shotwell’s private data"
 msgstr "Path ke data privat Shotwell"
 
@@ -4622,14 +4467,10 @@ msgid "Do not monitor library directory at runtime for changes"
 msgstr "Jangan pantau perubahan direktori pustaka saat runtime"
 
 #: src/main.vala:301
-#, fuzzy
-#| msgid "Don't display startup progress meter"
 msgid "Don’t display startup progress meter"
 msgstr "Jangan tampilkan meter kemajuan awal mula"
 
 #: src/main.vala:305
-#, fuzzy
-#| msgid "Show the application's version"
 msgid "Show the application’s version"
 msgstr "Tampilkan versi aplikasi"
 
@@ -4639,13 +4480,11 @@ msgid "[FILE]"
 msgstr "[FILE]"
 
 #: src/main.vala:346
-#, fuzzy, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options.\n"
+#, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
-"Jalankan dengan perintah '%s --help' untuk melihat daftar opsi yang bisa "
-"digunakan.\n"
+"Jalankan \"%s --help\" untuk melihat daftar lengkap opsi baris perintah yang "
+"tersedia.\n"
 
 #: src/MediaMonitor.vala:400
 #, c-format
@@ -4671,7 +4510,7 @@ msgstr "Tidak ada foto/video"
 
 #: src/Page.vala:1322
 msgid "No photos/videos found which match the current filter"
-msgstr ""
+msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
 #: src/Page.vala:2628
 msgid "Photos cannot be exported to this directory."
@@ -4918,10 +4757,9 @@ msgid "Uploading %d of %d"
 msgstr "Mengunggah %d dari %d"
 
 #: src/publishing/PublishingPluginHost.vala:81
-#, fuzzy, c-format
-#| msgid "Publishing to %s can't continue because an error occurred:"
+#, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
-msgstr "Unggahan ke %s tidak dapat diteruskan karena galat berikut"
+msgstr "Publikasi ke %s tak bisa berlanjut karena terjadi kesalahan:"
 
 #: src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
@@ -4930,34 +4768,26 @@ msgstr "Pilih dari menu untuk menggunakan layanan lain."
 #. Here, we check whether more than one item is being uploaded, and if so, display
 #. an alternate message.
 #: src/publishing/PublishingUI.vala:104
-#, fuzzy
-#| msgid "The selected video was successfully published."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
-msgstr[0] "Video terpilih telah berhasil dikirim"
+msgstr[0] "Video yang dipilih telah berhasil dipublikasikan."
 
 #: src/publishing/PublishingUI.vala:109
-#, fuzzy
-#| msgid "The selected photo was successfully published."
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
-msgstr[0] "Foto terpilih telah berhasil dikirim"
+msgstr[0] "Foto yang dipilih telah berhasil dipublikasikan."
 
 #: src/publishing/PublishingUI.vala:115
 msgid "The selected photos/videos were successfully published."
-msgstr "Foto/video terpilih telah berhasil dikirim"
+msgstr "Foto/video yang dipilih telah berhasil dipublikasikan."
 
 #: src/publishing/PublishingUI.vala:127
-#, fuzzy
-#| msgid "Fetching account information..."
 msgid "Fetching account information…"
-msgstr "Mengambil informasi akun..."
+msgstr "Mengambil informasi akun…"
 
 #: src/publishing/PublishingUI.vala:133
-#, fuzzy
-#| msgid "Logging in..."
 msgid "Logging in…"
-msgstr "Masuk ke sistem..."
+msgstr "Sedang log masuk…"
 
 #: src/publishing/PublishingUI.vala:193
 msgid "Publish Photos"
@@ -5147,10 +4977,8 @@ msgid "Enhance"
 msgstr "Tajamkan"
 
 #: src/Resources.vala:189 ui/collection.ui:164
-#, fuzzy
-#| msgid "Automatically improve the photo's appearance"
 msgid "Automatically improve the photo’s appearance"
-msgstr "Membuat foto lebih tajam"
+msgstr "Secara otomatis memperbaiki penampilan foto"
 
 #: src/Resources.vala:192
 msgid "Copy Color Adjustments"
@@ -5170,17 +4998,15 @@ msgstr "Terapkan penyetelan warna yang disalin ke foto yang dipilih"
 
 #: src/Resources.vala:199 ui/direct.ui:139 ui/photo.ui:228
 msgid "_Crop"
-msgstr "_Potong"
+msgstr "_Pangkas"
 
 #: src/Resources.vala:200
 msgid "Crop"
-msgstr "Potong"
+msgstr "Pangkas"
 
 #: src/Resources.vala:201
-#, fuzzy
-#| msgid "Crop the photo's size"
 msgid "Crop the photo’s size"
-msgstr "Potong ukuran foto"
+msgstr "Pangkas ukuran foto"
 
 #: src/Resources.vala:204
 msgid "Straighten"
@@ -5211,8 +5037,6 @@ msgid "Adjust"
 msgstr "Atur"
 
 #: src/Resources.vala:213
-#, fuzzy
-#| msgid "Adjust the photo's color and tone"
 msgid "Adjust the photo’s color and tone"
 msgstr "Atur warna dan tonal foto"
 
@@ -5233,16 +5057,14 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Jadikan foto ini menjadi gambar latar desktop"
 
 #: src/Resources.vala:223
-#, fuzzy
-#| msgid "Set as Desktop Slideshow"
 msgid "Set as _Desktop Slideshow…"
-msgstr "Atur sebagai Salindia Destop"
+msgstr "Atur sebagai Salindia _Desktop…"
 
 #: src/Resources.vala:225 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/import.ui:43 ui/media.ui:50 ui/offline.ui:35
 #: ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
-msgstr "_Batalkan: "
+msgstr "_Tak Jadi"
 
 #: src/Resources.vala:226
 msgid "Undo"
@@ -5252,7 +5074,7 @@ msgstr "Batalkan"
 #: ui/event.ui:55 ui/import.ui:48 ui/media.ui:55 ui/offline.ui:40
 #: ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
-msgstr "_Jadikan: "
+msgstr "_Jadi Lagi"
 
 #: src/Resources.vala:229
 msgid "Redo"
@@ -5260,10 +5082,8 @@ msgstr "Jadikan"
 
 #: src/Resources.vala:231 ui/events_directory.ui:139 ui/events_directory.ui:181
 #: ui/event.ui:393 ui/event.ui:588
-#, fuzzy
-#| msgid "Rename Event"
 msgid "Re_name Event…"
-msgstr "Ubah Nama Peristiwa"
+msgstr "Ubah _Nama Peristiwa…"
 
 #: src/Resources.vala:234 ui/event.ui:373 ui/event.ui:580
 msgid "Make _Key Photo for Event"
@@ -5393,8 +5213,6 @@ msgid "All + _Rejected"
 msgstr "Semua + _Ditolak"
 
 #: src/Resources.vala:274
-#, fuzzy
-#| msgid "Show all photos, including rejected"
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Tampilkan semua foto, termasuk yang ditolak"
@@ -5415,8 +5233,6 @@ msgid "_Ratings"
 msgstr "_Rating"
 
 #: src/Resources.vala:281
-#, fuzzy
-#| msgid "Display each photo's rating"
 msgid "Display each photo’s rating"
 msgstr "Tampilkan rating tiap foto"
 
@@ -5451,10 +5267,8 @@ msgid "_Print…"
 msgstr "_Cetak…"
 
 #: src/Resources.vala:295
-#, fuzzy
-#| msgid "Publish"
 msgid "Pu_blish…"
-msgstr "Kirim"
+msgstr "Pu_blikasikan…"
 
 #: src/Resources.vala:297 ui/collection.ui:189
 msgid "Publish to various websites"
@@ -5483,16 +5297,12 @@ msgid "Edit Comment"
 msgstr "Sunting Komentar"
 
 #: src/Resources.vala:307 ui/event.ui:592
-#, fuzzy
-#| msgid "Edit Event Comment"
 msgid "Edit Event _Comment…"
-msgstr "Sunting Komentar Peristiwa"
+msgstr "Sunting Komentar Peristiwa…"
 
 #: src/Resources.vala:310 ui/direct.ui:167 ui/photo.ui:337
-#, fuzzy
-#| msgid "Adjust Date and Time"
 msgid "_Adjust Date and Time…"
-msgstr "Atur Jam dan Tanggal"
+msgstr "_Atur Jam dan Tanggal…"
 
 #: src/Resources.vala:311
 msgid "Adjust Date and Time"
@@ -5514,10 +5324,8 @@ msgid "Add Tags"
 msgstr "Tambah Tag"
 
 #: src/Resources.vala:325 ui/photo_context.ui:135
-#, fuzzy
-#| msgid "Send To"
 msgid "Send T_o…"
-msgstr "Kirim Ke"
+msgstr "_Kirim Ke…"
 
 #: src/Resources.vala:327
 msgid "_Find…"
@@ -5547,110 +5355,92 @@ msgid "Unable to launch editor: %s"
 msgstr "Program penyunting tidak dapat dijalankan: %s"
 
 #: src/Resources.vala:341
-#, fuzzy, c-format
-#| msgid "Add Tag \"%s\""
+#, c-format
 msgid "Add Tag “%s”"
-msgstr "Beri Tanda \"%s\""
+msgstr "Tambah Tag \"%s\""
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:344
-#, fuzzy, c-format
-#| msgid "Add Tags \"%s\" and \"%s\""
+#, c-format
 msgid "Add Tags “%s” and “%s”"
-msgstr "Beri Tanda \"%s\" dan \"%s\""
+msgstr "Tambah Tag \"%s\" dan \"%s\""
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:349
-#, fuzzy
-#| msgid "Add Tags"
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Tambah Tag"
 
 #: src/Resources.vala:354
-#, fuzzy, c-format
-#| msgid "_Delete Tag \"%s\""
+#, c-format
 msgid "_Delete Tag “%s”"
-msgstr "_Hapus Tanda \"%s\""
+msgstr "_Hapus Tag \"%s\""
 
 #: src/Resources.vala:358
-#, fuzzy, c-format
-#| msgid "Delete Tag \"%s\""
+#, c-format
 msgid "Delete Tag “%s”"
-msgstr "Hapus Tanda \"%s\""
+msgstr "Hapus Tag \"%s\""
 
 #: src/Resources.vala:361
 msgid "Delete Tag"
-msgstr "Hapus Tanda"
+msgstr "Hapus Tag"
 
 #: src/Resources.vala:367
-#, fuzzy, c-format
-#| msgid "Re_name Tag \"%s\"..."
+#, c-format
 msgid "Re_name Tag “%s”…"
-msgstr "Ganti _Nama Tanda \"%s\"..."
+msgstr "Ubah _Nama Tag \"%s\"…"
 
 #: src/Resources.vala:371
-#, fuzzy, c-format
-#| msgid "Rename Tag \"%s\" to \"%s\""
+#, c-format
 msgid "Rename Tag “%s” to “%s”"
-msgstr "Ganti Nama Tanda \"%s\" menjadi \"%s\""
+msgstr "Ubah Nama Tag \"%s\" menjadi \"%s\""
 
 #: src/Resources.vala:374 ui/tags.ui:456
-#, fuzzy
-#| msgid "_Rename..."
 msgid "_Rename…"
-msgstr "_Ubah Nama..."
+msgstr "_Ubah Nama…"
 
 #: src/Resources.vala:376 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
 #: ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:379 ui/tags.ui:395
-#, fuzzy
-#| msgid "Modify Tags"
 msgid "Modif_y Tags…"
-msgstr "Ubah Tanda"
+msgstr "U_bah Tag…"
 
 #: src/Resources.vala:377
 msgid "Modify Tags"
-msgstr "Ubah Tanda"
+msgstr "Ubah Tag"
 
 #: src/Resources.vala:380
-#, fuzzy, c-format
-#| msgid "Tag Photo as \"%s\""
+#, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
-msgstr[0] "Tandai Foto Sebagai \"%s\""
+msgstr[0] "Tag Foto sebagai \"%s\""
 
 #: src/Resources.vala:386
-#, fuzzy, c-format
-#| msgid "Tag the selected photo as \"%s\""
+#, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
-msgstr[0] "Tandai foto terpilih sebagai \"%s\""
+msgstr[0] "Tag foto terpilih sebagai \"%s\""
 
 #: src/Resources.vala:392
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
+#, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
-msgstr[0] "Hapus Tanda \"%s\" Dari _Foto"
+msgstr[0] "Hapus Tag \"%s\" Dari _Foto"
 
 #: src/Resources.vala:398
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
+#, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
-msgstr[0] "Hapus Tanda \"%s\" Dari Foto"
+msgstr[0] "Hapus Tag \"%s\" Dari Foto"
 
 #: src/Resources.vala:404
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "Tanda tidak dapat diganti menjadi \"%s\" karena sudah ada."
+msgstr "Tag tidak dapat diubah menjadi \"%s\" karena sudah ada."
 
 #: src/Resources.vala:408
-#, fuzzy, c-format
-#| msgid "Unable to rename search to \"%s\" because the search already exists."
+#, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
-msgstr "Gagal mengubah nama pencarian ke \"%s\" karena sudah ada "
+msgstr "Tidak bisa mengubah nama pencarian ke \"%s\" karena sudah ada."
 
 #. Saved search button
 #: src/Resources.vala:411 src/SearchFilter.vala:1124
@@ -5663,21 +5453,19 @@ msgstr "Hapus Pencarian"
 
 #: src/Resources.vala:416 ui/savedsearch.ui:11
 msgid "_Edit…"
-msgstr "S_unting"
+msgstr "S_unting…"
 
 #: src/Resources.vala:417 ui/savedsearch.ui:7
 msgid "Re_name…"
 msgstr "Ganti _nama…"
 
 #: src/Resources.vala:420
-#, fuzzy, c-format
-#| msgid "Rename Search \"%s\" to \"%s\""
+#, c-format
 msgid "Rename Search “%s” to “%s”"
-msgstr "Ubah Nama Pencarian \"%s\" ke \"%s\""
+msgstr "Ubah Nama Pencarian \"%s\" menjadi \"%s\""
 
 #: src/Resources.vala:424
-#, fuzzy, c-format
-#| msgid "Delete Search \"%s\""
+#, c-format
 msgid "Delete Search “%s”"
 msgstr "Hapus Pencarian \"%s\""
 
@@ -5745,10 +5533,8 @@ msgid "Show in File Mana_ger"
 msgstr "Lihat di Program Pengatur Berkas"
 
 #: src/Resources.vala:667
-#, fuzzy
-#| msgid "Open the selected photo's directory in the file manager"
 msgid "Open the selected photo’s directory in the file manager"
-msgstr "Buka direktori foto dengan program pengatur berkas"
+msgstr "Buka direktori foto yang dipilih dalam manajer berkas"
 
 #: src/Resources.vala:670
 #, c-format
@@ -6029,10 +5815,9 @@ msgid "★★★★★+ Rating"
 msgstr "Peringkat ★★★★★+"
 
 #: src/SearchFilter.vala:1064
-#, fuzzy, c-format
-#| msgid "Error loading UI file %s: %s"
+#, c-format
 msgid "Error loading search bar UI: %s"
-msgstr "Gagal memuat berkas UI %s:%s"
+msgstr "Gagal memuat UI bilah pencarian:%s"
 
 #. Ticket #3260 - Add a 'close' context menu to
 #. the searchbar.
@@ -6059,6 +5844,8 @@ msgstr "Foto RAW"
 #: src/SearchFilter.vala:1125
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
+"Gunakan pencarian tersimpan untuk menyaring butir-butir dalam tilikan saat "
+"ini"
 
 #: src/SlideshowPage.vala:49 src/SlideshowPage.vala:183
 msgid "Settings"
@@ -6139,7 +5926,7 @@ msgstr "Ekspor Video"
 #: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/media.ui:281
 #: ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
 msgid "Toggle _Flag"
-msgstr ""
+msgstr "Jungki_tkan Bendera"
 
 #: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/media.ui:353
 #: ui/photo_context.ui:88 ui/photo.ui:343 ui/tags.ui:353
@@ -6514,7 +6301,7 @@ msgstr "label"
 
 #: ui/shotwell.ui:903
 msgid "_Delay:"
-msgstr "Penun_daan"
+msgstr "Tun_daan:"
 
 #: ui/shotwell.ui:917
 msgid "_Transition effect:"
@@ -6522,7 +6309,7 @@ msgstr "Efek _Transisi:"
 
 #: ui/shotwell.ui:931
 msgid "Transition d_elay:"
-msgstr "P_enundaan Peralihan"
+msgstr "Tundaan p_eralihan:"
 
 #: ui/shotwell.ui:941
 msgid "Show t_itle"
