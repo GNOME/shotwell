@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of shotwell.
-# Copyright 2016 Software Freedom Conservancy Inc.
+# Copyright 2017 Software Freedom Conservancy Inc.
 # This file is distributed under the same license as the shotwell package.
 # Translators from Transifex (until 2014):
 # Djavan Fagundes <djavan@comum.org>, 2011-2012
@@ -12,14 +12,14 @@
 # Translators from GNOME Translation Project (2014 forward):
 # Felipe Braga <fbobraga@gmail.com>, 2015.
 # Enrico Nicoletto <liverig@gmail.com>, 2016.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2014, 2015, 2016, 2017.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2014-2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
 "ll&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-03-27 20:38+0000\n"
-"PO-Revision-Date: 2017-04-01 16:37-0200\n"
+"POT-Creation-Date: 2017-04-30 10:05+0000\n"
+"PO-Revision-Date: 2017-04-30 17:11-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -32,9 +32,9 @@ msgstr ""
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:354
-#: ui/event.ui:522 ui/media.ui:354 ui/photo_context.ui:91 ui/photo.ui:344
-#: ui/tags.ui:354
+#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:356
+#: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
+#: ui/tags.ui:356
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1365,7 +1365,6 @@ msgstr ""
 "está habilitado; do contrário, falso"
 
 #: misc/org.yorba.shotwell.gschema.xml:792
-#| msgid "enable slideshow circle transition"
 msgid "enable slideshow circles transition"
 msgstr "habilitar transição de círculos de apresentações de slides"
 
@@ -1377,7 +1376,6 @@ msgstr ""
 "está habilitado; do contrário, falso"
 
 #: misc/org.yorba.shotwell.gschema.xml:798
-#| msgid "enable slideshow slide transition"
 msgid "enable slideshow blinds transition"
 msgstr "habilitar transição de enscurecimento de apresentações de slides"
 
@@ -1539,7 +1537,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Visitar o site do Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:604
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:605
 msgid "translator-credits"
 msgstr ""
 "Djavan Fagundes <djavan@comum.org>\n"
@@ -2226,7 +2224,6 @@ msgstr "Tama_nho pré-definido da foto:"
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PicasaPublishing.vala:96
 #: plugins/shotwell-publishing/PicasaPublishing.vala:630
-#| msgid "last album"
 msgid "Default album"
 msgstr "Álbum padrão"
 
@@ -2319,7 +2316,7 @@ msgid "Logout"
 msgstr "Encerrar sessão"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:268
-#: src/Resources.vala:296 ui/collection.ui:190
+#: src/Resources.vala:296 ui/collection.ui:192
 msgid "Publish"
 msgstr "Publicar"
 
@@ -2553,21 +2550,27 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#. translators: %s will be replaced by application version
+#: src/AppWindow.vala:596
+#, c-format
+msgid "%s – “Aachen”"
+msgstr "%s – “Aachen”"
+
+#: src/AppWindow.vala:601
 msgid "Visit the Shotwell web site"
 msgstr "Visitar o página web do Shotwell"
 
-#: src/AppWindow.vala:613
+#: src/AppWindow.vala:614
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Não foi possível exibir a ajuda: %s"
 
-#: src/AppWindow.vala:621
+#: src/AppWindow.vala:622
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Não foi possível navegar no banco de dados de bugs: %s"
 
-#: src/AppWindow.vala:629
+#: src/AppWindow.vala:630
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Não foi possível exibir FAQ: %s"
@@ -2639,8 +2642,8 @@ msgstr "Câmeras"
 
 #: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
 #: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
-#: ui/collection.ui:90 ui/event.ui:359 ui/event.ui:527 ui/media.ui:359
-#: ui/photo_context.ui:96 ui/photo.ui:349 ui/tags.ui:359
+#: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
+#: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Câmera"
 
@@ -2791,8 +2794,8 @@ msgstr[1] "Não foi possível excluir %d fotos/vídeos da câmera devido a erros
 msgid "_Print"
 msgstr "Im_primir"
 
-#: src/CollectionPage.vala:83 src/Resources.vala:324 ui/collection.ui:126
-#: ui/direct_context.ui:25 ui/direct.ui:23 ui/event.ui:563 ui/photo.ui:28
+#: src/CollectionPage.vala:83 src/Resources.vala:324 ui/collection.ui:128
+#: ui/direct_context.ui:24 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
 msgid "Send _To…"
 msgstr "Enviar _para…"
 
@@ -2834,13 +2837,13 @@ msgid "Flip Verti_cally"
 msgstr "Inverter verti_calmente"
 
 #: src/CollectionPage.vala:119 src/Resources.vala:187 ui/collection.ui:8
-#: ui/direct_context.ui:9 ui/direct.ui:134 ui/event.ui:445
+#: ui/direct_context.ui:8 ui/direct.ui:134 ui/event.ui:447
 #: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "_Melhorar"
 
 #: src/CollectionPage.vala:120 src/Resources.vala:215 ui/collection.ui:13
-#: ui/direct_context.ui:14 ui/direct.ui:161 ui/event.ui:450
+#: ui/direct_context.ui:13 ui/direct.ui:161 ui/event.ui:452
 #: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "Re_verter para o original"
@@ -2861,8 +2864,8 @@ msgstr "Ajustar a data e hora…"
 msgid "Open With E_xternal Editor"
 msgstr "Abrir com o editor e_xterno"
 
-#: src/CollectionPage.vala:146 src/Resources.vala:322 ui/collection.ui:111
-#: ui/event.ui:548 ui/photo_context.ui:118 ui/photo.ui:363
+#: src/CollectionPage.vala:146 src/Resources.vala:322 ui/collection.ui:113
+#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:365
 msgid "Open With RA_W Editor"
 msgstr "Abrir com editor de RA_W"
 
@@ -3204,7 +3207,7 @@ msgstr[1] "Isto irá remover a etiqueta “%s” de %d fotos. Continuar?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:458 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Apagar"
@@ -4998,7 +5001,7 @@ msgstr ""
 msgid "Publishing"
 msgstr "Publicando"
 
-#: src/Resources.vala:141 src/Resources.vala:146 ui/collection.ui:149
+#: src/Resources.vala:141 src/Resources.vala:146 ui/collection.ui:151
 msgid "Rotate"
 msgstr "Girar"
 
@@ -5006,7 +5009,7 @@ msgstr "Girar"
 msgid "Rotate Right"
 msgstr "Girar à direita"
 
-#: src/Resources.vala:143 ui/collection.ui:146
+#: src/Resources.vala:143 ui/collection.ui:148
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Gira as fotos para direita (pressione Ctrl para girar para esquerda)"
 
@@ -5027,8 +5030,8 @@ msgid "Flip Vertically"
 msgstr "Inverter verticalmente"
 
 #: src/Resources.vala:156 ui/direct.ui:191 ui/events_directory.ui:168
-#: ui/event.ui:436 ui/import_queue.ui:83 ui/import.ui:201 ui/media.ui:419
-#: ui/offline.ui:198 ui/photo.ui:402 ui/tags.ui:438 ui/trash.ui:207
+#: ui/event.ui:438 ui/import_queue.ui:83 ui/import.ui:201 ui/media.ui:421
+#: ui/offline.ui:198 ui/photo.ui:404 ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "S_obre"
 
@@ -5052,11 +5055,11 @@ msgid "Fulls_creen"
 msgstr "Tela _cheia"
 
 #: src/Resources.vala:163 ui/direct.ui:173 ui/direct.ui:176
-#: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:418
-#: ui/event.ui:421 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
-#: ui/import.ui:186 ui/media.ui:401 ui/media.ui:404 ui/offline.ui:180
-#: ui/offline.ui:183 ui/photo.ui:384 ui/photo.ui:387 ui/tags.ui:420
-#: ui/tags.ui:423 ui/trash.ui:189 ui/trash.ui:192
+#: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
+#: ui/event.ui:423 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
+#: ui/import.ui:186 ui/media.ui:403 ui/media.ui:406 ui/offline.ui:180
+#: ui/offline.ui:183 ui/photo.ui:386 ui/photo.ui:389 ui/tags.ui:422
+#: ui/tags.ui:425 ui/trash.ui:189 ui/trash.ui:192
 msgid "_Help"
 msgstr "A_juda"
 
@@ -5064,7 +5067,7 @@ msgstr "A_juda"
 msgid "Leave _Fullscreen"
 msgstr "Sair da _tela cheia"
 
-#: src/Resources.vala:165 src/Resources.vala:364 ui/tags.ui:448
+#: src/Resources.vala:165 src/Resources.vala:364 ui/tags.ui:450
 msgid "_New"
 msgstr "_Nova"
 
@@ -5134,11 +5137,11 @@ msgstr "Ampl_iar"
 msgid "Zoom _Out"
 msgstr "Redu_zir"
 
-#: src/Resources.vala:188 ui/collection.ui:165
+#: src/Resources.vala:188 ui/collection.ui:167
 msgid "Enhance"
 msgstr "Melhorar"
 
-#: src/Resources.vala:189 ui/collection.ui:162
+#: src/Resources.vala:189 ui/collection.ui:164
 msgid "Automatically improve the photo’s appearance"
 msgstr "Melhora automaticamente a aparência da foto"
 
@@ -5244,11 +5247,11 @@ msgid "Redo"
 msgstr "Refazer"
 
 #: src/Resources.vala:231 ui/events_directory.ui:139 ui/events_directory.ui:181
-#: ui/event.ui:391 ui/event.ui:584
+#: ui/event.ui:393 ui/event.ui:588
 msgid "Re_name Event…"
 msgstr "Re_nomear evento…"
 
-#: src/Resources.vala:234 ui/event.ui:371 ui/event.ui:576
+#: src/Resources.vala:234 ui/event.ui:373 ui/event.ui:580
 msgid "Make _Key Photo for Event"
 msgstr "Designar f_oto como chave para evento"
 
@@ -5256,7 +5259,7 @@ msgstr "Designar f_oto como chave para evento"
 msgid "Make Key Photo for Event"
 msgstr "Designa a foto como chave para evento"
 
-#: src/Resources.vala:237 ui/event.ui:380 ui/media.ui:374 ui/tags.ui:374
+#: src/Resources.vala:237 ui/event.ui:382 ui/media.ui:376 ui/tags.ui:376
 msgid "_New Event"
 msgstr "_Novo evento"
 
@@ -5284,7 +5287,7 @@ msgstr "Unir"
 msgid "Combine events into a single event"
 msgstr "Combinar eventos em um único evento"
 
-#: src/Resources.vala:247 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:476
+#: src/Resources.vala:247 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
 #: ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273 ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "A_valiar"
@@ -5297,7 +5300,7 @@ msgstr "Avaliar"
 msgid "Change the rating of your photo"
 msgstr "Alterar a avaliação da foto"
 
-#: src/Resources.vala:251 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:509
+#: src/Resources.vala:251 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
 #: ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313 ui/tags.ui:326
 msgid "_Increase"
 msgstr "_Aumentar"
@@ -5306,7 +5309,7 @@ msgstr "_Aumentar"
 msgid "Increase Rating"
 msgstr "Aumentar avaliação"
 
-#: src/Resources.vala:254 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:513
+#: src/Resources.vala:254 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
 #: ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318 ui/tags.ui:331
 msgid "_Decrease"
 msgstr "_Diminuir"
@@ -5315,7 +5318,7 @@ msgstr "_Diminuir"
 msgid "Decrease Rating"
 msgstr "Diminuir avaliação"
 
-#: src/Resources.vala:257 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:499
+#: src/Resources.vala:257 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
 #: ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301 ui/tags.ui:314
 msgid "_Unrated"
 msgstr "_Sem avaliação"
@@ -5336,7 +5339,7 @@ msgstr "Definir como não avaliado"
 msgid "Remove any ratings"
 msgstr "Remove avaliação"
 
-#: src/Resources.vala:263 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:503
+#: src/Resources.vala:263 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
 #: ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306 ui/tags.ui:319
 msgid "_Rejected"
 msgstr "_Rejeitada"
@@ -5433,11 +5436,11 @@ msgstr "Im_primir…"
 msgid "Pu_blish…"
 msgstr "Pu_blicar…"
 
-#: src/Resources.vala:297 ui/collection.ui:187
+#: src/Resources.vala:297 ui/collection.ui:189
 msgid "Publish to various websites"
 msgstr "Publicar para vários sites"
 
-#: src/Resources.vala:299 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:535
+#: src/Resources.vala:299 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
 #: ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327 ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "Editar _título…"
@@ -5448,9 +5451,9 @@ msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Editar título"
 
-#: src/Resources.vala:303 ui/collection.ui:102 ui/events_directory.ui:144
-#: ui/events_directory.ui:186 ui/event.ui:344 ui/event.ui:396 ui/event.ui:539
-#: ui/media.ui:344 ui/photo_context.ui:109 ui/photo.ui:331 ui/tags.ui:344
+#: src/Resources.vala:303 ui/collection.ui:103 ui/events_directory.ui:144
+#: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
+#: ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332 ui/tags.ui:345
 msgid "Edit _Comment…"
 msgstr "Editar _comentário…"
 
@@ -5459,11 +5462,11 @@ msgstr "Editar _comentário…"
 msgid "Edit Comment"
 msgstr "Editar comentário"
 
-#: src/Resources.vala:307 ui/event.ui:588
+#: src/Resources.vala:307 ui/event.ui:592
 msgid "Edit Event _Comment…"
 msgstr "Editar _comentário de evento…"
 
-#: src/Resources.vala:310 ui/direct.ui:167 ui/photo.ui:335
+#: src/Resources.vala:310 ui/direct.ui:167 ui/photo.ui:337
 msgid "_Adjust Date and Time…"
 msgstr "_Ajustar data e hora…"
 
@@ -5471,8 +5474,8 @@ msgstr "_Ajustar data e hora…"
 msgid "Adjust Date and Time"
 msgstr "Ajustar a data e hora"
 
-#: src/Resources.vala:313 ui/collection.ui:19 ui/event.ui:405 ui/event.ui:456
-#: ui/media.ui:388 ui/photo.ui:372 ui/tags.ui:388
+#: src/Resources.vala:313 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
+#: ui/media.ui:390 ui/photo.ui:374 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "Adicionar e_tiquetas…"
 
@@ -5486,7 +5489,7 @@ msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Adicionar etiquetas"
 
-#: src/Resources.vala:325 ui/photo_context.ui:133
+#: src/Resources.vala:325 ui/photo_context.ui:135
 msgid "Send T_o…"
 msgstr "Enviar p_ara…"
 
@@ -5494,12 +5497,12 @@ msgstr "Enviar p_ara…"
 msgid "_Find…"
 msgstr "_Localizar…"
 
-#: src/Resources.vala:328 ui/collection.ui:215 ui/offline.ui:239
+#: src/Resources.vala:328 ui/collection.ui:217 ui/offline.ui:239
 #: ui/trash.ui:312
 msgid "Find"
 msgstr "Localização"
 
-#: src/Resources.vala:329 ui/collection.ui:212 ui/offline.ui:236
+#: src/Resources.vala:329 ui/collection.ui:214 ui/offline.ui:236
 #: ui/trash.ui:309
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
@@ -5559,12 +5562,12 @@ msgstr "Re_nomear etiqueta “%s”…"
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Renomear a etiqueta “%s” para “%s”"
 
-#: src/Resources.vala:374 ui/tags.ui:454
+#: src/Resources.vala:374 ui/tags.ui:456
 msgid "_Rename…"
 msgstr "_Renomear…"
 
-#: src/Resources.vala:376 ui/collection.ui:24 ui/event.ui:410 ui/event.ui:461
-#: ui/media.ui:393 ui/photo_context.ui:22 ui/photo.ui:377 ui/tags.ui:393
+#: src/Resources.vala:376 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
+#: ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:379 ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "_Modificar etiquetas…"
 
@@ -5697,9 +5700,9 @@ msgstr "_Restaurar"
 msgid "Move the selected photos back into the library"
 msgstr "Mover as fotos selecionadas para a biblioteca"
 
-#: src/Resources.vala:666 ui/collection.ui:121 ui/direct_context.ui:20
-#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:558 ui/media.ui:27
-#: ui/photo_context.ui:128 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
+#: src/Resources.vala:666 ui/collection.ui:123 ui/direct_context.ui:19
+#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/media.ui:27
+#: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Abrir com o gerenciador de a_rquivos"
@@ -5717,8 +5720,8 @@ msgstr "Não foi possível abrir no gerenciador de arquivos: %s"
 msgid "R_emove From Library"
 msgstr "R_emover da biblioteca"
 
-#: src/Resources.vala:675 ui/collection.ui:132 ui/event.ui:79 ui/event.ui:569
-#: ui/media.ui:79 ui/photo_context.ui:139 ui/photo.ui:82 ui/tags.ui:79
+#: src/Resources.vala:675 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
+#: ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82 ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "_Mover para a lixeira"
 
@@ -6093,22 +6096,22 @@ msgstr "Sem título"
 msgid "Export Videos"
 msgstr "Exportar vídeos"
 
-#: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:470 ui/media.ui:281
+#: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/media.ui:281
 #: ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "Alternar _marca"
 
-#: ui/collection.ui:82 ui/event.ui:351 ui/event.ui:519 ui/media.ui:351
-#: ui/photo_context.ui:88 ui/photo.ui:341 ui/tags.ui:351
+#: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/media.ui:353
+#: ui/photo_context.ui:88 ui/photo.ui:343 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Desenvolvedor"
 
-#: ui/collection.ui:106 ui/event.ui:543 ui/photo_context.ui:113 ui/photo.ui:358
+#: ui/collection.ui:108 ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
 msgid "Open with E_xternal Editor"
 msgstr "Abrir com editor e_xterno"
 
-#: ui/collection.ui:117 ui/event.ui:385 ui/event.ui:554 ui/media.ui:379
-#: ui/photo_context.ui:124 ui/tags.ui:379
+#: ui/collection.ui:119 ui/event.ui:387 ui/event.ui:558 ui/media.ui:381
+#: ui/photo_context.ui:126 ui/tags.ui:381
 msgid "View Eve_nt for Photo"
 msgstr "Ver eve_nto para foto"
 
@@ -6156,15 +6159,15 @@ msgstr "Próxi_ma foto"
 msgid "T_ools"
 msgstr "F_erramentas"
 
-#: ui/direct.ui:181 ui/events_directory.ui:158 ui/event.ui:426
-#: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:409 ui/offline.ui:188
-#: ui/photo.ui:392 ui/tags.ui:428 ui/trash.ui:197
+#: ui/direct.ui:181 ui/events_directory.ui:158 ui/event.ui:428
+#: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
+#: ui/photo.ui:394 ui/tags.ui:430 ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "Perguntas _frequentes (FAQ)"
 
-#: ui/direct.ui:185 ui/events_directory.ui:162 ui/event.ui:430
-#: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:413 ui/offline.ui:192
-#: ui/photo.ui:396 ui/tags.ui:432 ui/trash.ui:201
+#: ui/direct.ui:185 ui/events_directory.ui:162 ui/event.ui:432
+#: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
+#: ui/photo.ui:398 ui/tags.ui:434 ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "_Relate um problema…"
 
@@ -6244,7 +6247,7 @@ msgstr "_Ascendente"
 msgid "D_escending"
 msgstr "D_escendente"
 
-#: ui/events_directory.ui:132 ui/event.ui:377 ui/media.ui:371 ui/tags.ui:371
+#: ui/events_directory.ui:132 ui/event.ui:379 ui/media.ui:373 ui/tags.ui:373
 msgid "Even_ts"
 msgstr "Even_tos"
 
@@ -6257,8 +6260,8 @@ msgstr "R_emover da biblioteca"
 msgid "_Titles"
 msgstr "_Títulos"
 
-#: ui/event.ui:139 ui/event.ui:402 ui/media.ui:139 ui/media.ui:385
-#: ui/photo.ui:369 ui/tags.ui:139 ui/tags.ui:385
+#: ui/event.ui:139 ui/event.ui:404 ui/media.ui:139 ui/media.ui:387
+#: ui/photo.ui:371 ui/tags.ui:139 ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "Eti_quetas"
 
