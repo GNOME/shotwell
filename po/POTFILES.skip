@@ -12,13 +12,13 @@ plugins/common/RESTSupport.c
 plugins/shotwell-publishing-extras/GalleryConnector.c
 plugins/shotwell-publishing-extras/RajcePublishing.c
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.c
-plugins/shotwell-publishing-extras/TumblrPublishing.c
 plugins/shotwell-publishing-extras/YandexPublishing.c
 plugins/shotwell-publishing/FacebookPublishing.c
 plugins/shotwell-publishing/FlickrPublishing.c
 plugins/shotwell-publishing/PicasaPublishing.c
 plugins/shotwell-publishing/PiwigoPublishing.c
 plugins/shotwell-publishing/shotwell-publishing.c
+plugins/shotwell-publishing/TumblrPublishing.c
 plugins/shotwell-publishing/YouTubePublishing.c
 plugins/shotwell-transitions/BlindsEffect.c
 plugins/shotwell-transitions/ChessEffect.c
