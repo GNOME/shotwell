@@ -970,8 +970,13 @@ public class PhotoMetadata : MediaMetadata {
     
     public void set_comment(string? comment,
                             SetOption option = SetOption.ALL_DOMAINS) {
+        /* https://bugzilla.gnome.org/show_bug.cgi?id=781897 - Do not strip
+         * newlines from comments */
         if (!is_string_empty(comment))
-            set_all_string(COMMENT_TAGS, comment, option);
+            set_all_generic(COMMENT_TAGS, option, (tag) => {
+                set_string(tag, comment, PREPARE_STRING_OPTIONS &
+                        ~PrepareInputTextOptions.STRIP_CRLF);
+            });
         else
             remove_tags(COMMENT_TAGS);
     }
