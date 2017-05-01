@@ -441,7 +441,7 @@ msgid ""
 "maintained. False if all photos should be set to the same time."
 msgstr ""
 "Veritat si s'ajusta l'hora/data de les fotografies, s'ha de mantenir el "
-"temps relativament. Fals si totes las imatges s'han de classificar al mateix "
+"temps relativament. Fals si totes les imatges s'han de classificar al mateix "
 "temps."
 
 #: misc/org.yorba.shotwell.gschema.xml:131
@@ -598,7 +598,7 @@ msgstr "amplada de la finestra d'edició directa"
 #: misc/org.yorba.shotwell.gschema.xml:226
 msgid "The last recorded width of the direct-edit application window."
 msgstr ""
-"L'últim amplada registrada de la finestra de l'aplicació d'edició directa."
+"L'última amplada registrada de la finestra de l'aplicació d'edició directa."
 
 #: misc/org.yorba.shotwell.gschema.xml:231
 msgid "height of direct-edit window"
@@ -719,7 +719,7 @@ msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr ""
-"Un nombre sencer positiu diferent de cero que representa la part ample de "
+"Un nombre sencer positiu diferent de zero que representa la part ample de "
 "l'última proporció del cultiu personalitzat que l'usuari va introduir."
 
 #: misc/org.yorba.shotwell.gschema.xml:299
@@ -743,7 +743,7 @@ msgstr "editor extern d'imatge"
 
 #: misc/org.yorba.shotwell.gschema.xml:308
 msgid "External application used to edit photos."
-msgstr "Aplicació externa utilitzada per a la edició de fotografies."
+msgstr "Aplicació externa utilitzada per a l'edició de fotografies."
 
 #: misc/org.yorba.shotwell.gschema.xml:313
 msgid "external raw editor"
@@ -1031,7 +1031,7 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr ""
-"Si ls imatges que es pugen a Piwigo han de tenir les seves etiquetes "
+"Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes "
 "eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en "
 "el servidor remot de Piwigo."
 
@@ -1328,7 +1328,7 @@ msgstr "Activa la transició d'engruna de la presentació de diapositives"
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Veritat si el connector de transició de la presentació de la engruna està "
+"Veritat si el connector de transició de la presentació de l'engruna està "
 "activat, fals en cas contrari"
 
 #: misc/org.yorba.shotwell.gschema.xml:768
@@ -1457,7 +1457,7 @@ msgstr ""
 "Ja us heu connectat i desconnectat al Facebook en aquesta sessió del "
 "Shotwell.\n"
 "Per continuar publicant al Facebook, sortiu i reinicieu el Shotwell i a "
-"continuació, proveu a publicar de nou."
+"continuació, proveu de publicar de nou."
 
 #: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:17
 msgid ""
@@ -1571,7 +1571,7 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
-"⚫ La identificació d'aquest lloc web es massa antic com per a confiar-hi. "
+"⚫ La identificació d'aquest lloc web és massa antic per a confiar-hi. "
 "Comprovi la data en el calendari del seu equip."
 
 #. Possible error message when a site presents a bad certificate.
@@ -3960,7 +3960,7 @@ msgstr "S'està suprimint la fotografia de la biblioteca"
 
 #: src/Dialogs.vala:2710
 msgid "Removing Photos From Library"
-msgstr "S'esta suprimint les fotografies de la biblioteca"
+msgstr "S'estan suprimint les fotografies de la biblioteca"
 
 #: src/Dialogs.vala:2724
 #, c-format
