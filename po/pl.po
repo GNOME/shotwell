@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-04-22 06:59+0000\n"
-"PO-Revision-Date: 2017-04-23 20:24+0200\n"
+"POT-Creation-Date: 2017-05-07 14:01+0000\n"
+"PO-Revision-Date: 2017-05-14 15:19+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1598,7 +1598,7 @@ msgstr ""
 "poprawność daty w kalendarzu komputera."
 
 #: plugins/common/RESTSupport.vala:509
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:959
+#: plugins/shotwell-publishing/TumblrPublishing.vala:959
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Plik tymczasowy wymagany do publikacji jest niedostępny"
 
@@ -1668,11 +1668,11 @@ msgstr "Szerokość lub wysokość"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:105
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Wyloguj"
@@ -1680,11 +1680,11 @@ msgstr "_Wyloguj"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
@@ -1784,14 +1784,14 @@ msgstr " Nie odnaleziono witryny"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:42
 msgid "_Email address"
 msgstr "Adres _e-mail"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:82
 msgid "_Password"
 msgstr "_Hasło"
 
@@ -1802,8 +1802,8 @@ msgstr "_Zapamiętanie"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:104
 msgid "Log in"
 msgstr "Zaloguj"
 
@@ -1860,81 +1860,9 @@ msgstr "Zalogowano w serwisie Rajce jako użytkownik %s."
 msgid "Photos will appear in:"
 msgstr "Zdjęcia pojawią się w:"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:31
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:27
 msgid "Shotwell Extra Publishing Services"
 msgstr "Dodatkowe usługi publikowania programu Shotwell"
-
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:44
-msgid "Blogs:"
-msgstr "Blogi:"
-
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:59
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-msgid "Photo _size:"
-msgstr "_Rozmiar zdjęcia:"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:36
-msgid "Copyright 2012 BJA Electronics"
-msgstr "Copyright 2012 BJA Electronics"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:876
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-msgid "500 × 375 pixels"
-msgstr "500×375 pikseli"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:877
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-msgid "1024 × 768 pixels"
-msgstr "1024×768 pikseli"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 × 853 pixels"
-msgstr "1280×853 piksele"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
-#, c-format
-msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "„%s” nie jest prawidłową odpowiedzią na żądanie uwierzytelnienia OAuth"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
-msgid ""
-"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
-msgstr ""
-"TumblrPublisher: start( ): nie można uruchomić; tego modułu publikującego "
-"nie można uruchamiać ponownie."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr ""
-"Proszę podać nazwę użytkownika i hasło powiązane z kontem serwisu Tumblr."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
-msgid "Username and/or password invalid. Please try again"
-msgstr "Nieprawidłowa nazwa użytkownika lub hasło. Proszę spróbować ponownie"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
-msgid "Invalid User Name or Password"
-msgstr "Nieprawidłowa nazwa użytkownika lub hasło"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:753
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Nie można wczytać interfejsu użytkownika: %s"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:735
-#, c-format
-msgid ""
-"You are logged into Tumblr as %s.\n"
-"\n"
-msgstr ""
-"Zalogowano w serwisie Tumblr jako %s.\n"
-"\n"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
@@ -2063,6 +1991,11 @@ msgstr "Tylko dla mnie"
 msgid "Everyone"
 msgstr "Wszystkich"
 
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:59
+msgid "Photo _size:"
+msgstr "_Rozmiar zdjęcia:"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:800
 #, c-format
 msgid ""
@@ -2109,6 +2042,18 @@ msgstr "Tylko rodzina"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:857
 msgid "Friends only"
 msgstr "Tylko przyjaciele"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:876
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+msgid "500 × 375 pixels"
+msgstr "500×375 pikseli"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:877
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/TumblrPublishing.vala:106
+msgid "1024 × 768 pixels"
+msgstr "1024×768 pikseli"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:878
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
@@ -2275,9 +2220,19 @@ msgstr ""
 "Program Shotwell nie może połączyć się z kolekcją zdjęć serwisu Piwigo. "
 "Proszę sprawdzić podany adres URL"
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+#: plugins/shotwell-publishing/TumblrPublishing.vala:588
+msgid "Username and/or password invalid. Please try again"
+msgstr "Nieprawidłowa nazwa użytkownika lub hasło. Proszę spróbować ponownie"
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
 msgstr "Nieprawidłowy adres URL"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+#: plugins/shotwell-publishing/TumblrPublishing.vala:615
+msgid "Invalid User Name or Password"
+msgstr "Nieprawidłowa nazwa użytkownika lub hasło"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
 msgid "Admins, Family, Friends, Contacts"
@@ -2307,9 +2262,54 @@ msgstr "Wyświetl certyfikat…"
 msgid "I understand, please _proceed."
 msgstr "_Rozumiem, proszę kontynuować."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:55
+#: plugins/shotwell-publishing/shotwell-publishing.vala:59
 msgid "Core Publishing Services"
 msgstr "Główne usługi publikowania"
+
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:44
+msgid "Blogs:"
+msgstr "Blogi:"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:36
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:107
+msgid "1280 × 853 pixels"
+msgstr "1280×853 piksele"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:311
+#: plugins/shotwell-publishing/TumblrPublishing.vala:321
+#, c-format
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
+msgstr "„%s” nie jest prawidłową odpowiedzią na żądanie uwierzytelnienia OAuth"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:559
+msgid ""
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): nie można uruchomić; tego modułu publikującego "
+"nie można uruchamiać ponownie."
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:587
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr ""
+"Proszę podać nazwę użytkownika i hasło powiązane z kontem serwisu Tumblr."
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:635
+#: plugins/shotwell-publishing/TumblrPublishing.vala:753
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Nie można wczytać interfejsu użytkownika: %s"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:735
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Zalogowano w serwisie Tumblr jako %s.\n"
+"\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
 msgid "Video privacy _setting:"
@@ -2768,7 +2768,8 @@ msgstr "_Wklej dostosowania kolorów"
 msgid "Adjust Date and Time…"
 msgstr "Dostosuj datę i czas…"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:320
+#: src/CollectionPage.vala:143 src/Resources.vala:320 ui/collection.ui:108
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
 msgid "Open With E_xternal Editor"
 msgstr "_Otwórz za pomocą zewnętrznego edytora"
 
@@ -3953,41 +3954,41 @@ msgstr "Import zdjęć z kolekcji programu %s"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2375 src/Dialogs.vala:2379
+#: src/Dialogs.vala:2373 src/Dialogs.vala:2377
 msgid "(Help)"
 msgstr "(Pomoc)"
 
-#: src/Dialogs.vala:2383
+#: src/Dialogs.vala:2381
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Rok%sMiesiąc%sDzień"
 
-#: src/Dialogs.vala:2385
+#: src/Dialogs.vala:2383
 #, c-format
 msgid "Year%sMonth"
 msgstr "Rok%sMiesiąc"
 
-#: src/Dialogs.vala:2387
+#: src/Dialogs.vala:2385
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Rok%sMiesiąc-Dzień"
 
-#: src/Dialogs.vala:2389
+#: src/Dialogs.vala:2387
 msgid "Year-Month-Day"
 msgstr "Rok-Miesiąc-Dzień"
 
-#: src/Dialogs.vala:2390 src/editing_tools/EditingTools.vala:760
+#: src/Dialogs.vala:2388 src/editing_tools/EditingTools.vala:760
 msgid "Custom"
 msgstr "Niestandardowy"
 
 #. Invalid pattern.
-#: src/Dialogs.vala:2629
+#: src/Dialogs.vala:2627
 msgid "Invalid pattern"
 msgstr "Nieprawidłowy wzór"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2733
+#: src/Dialogs.vala:2731
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -3995,31 +3996,31 @@ msgstr ""
 "Program Shotwell może skopiować zdjęcia do katalogu kolekcji lub może "
 "zaimportować je bez tworzenia ich kopii."
 
-#: src/Dialogs.vala:2738
+#: src/Dialogs.vala:2736
 msgid "Co_py Photos"
 msgstr "_Skopiowanie zdjęć"
 
-#: src/Dialogs.vala:2739
+#: src/Dialogs.vala:2737
 msgid "_Import in Place"
 msgstr "_Zaimportowanie"
 
-#: src/Dialogs.vala:2740
+#: src/Dialogs.vala:2738
 msgid "Import to Library"
 msgstr "Zaimportuj do kolekcji"
 
-#: src/Dialogs.vala:2750 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:2748 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Usuń z kolekcji"
 
-#: src/Dialogs.vala:2751 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:2749 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Usuwanie zdjęcia z kolekcji"
 
-#: src/Dialogs.vala:2751
+#: src/Dialogs.vala:2749
 msgid "Removing Photos From Library"
 msgstr "Usuwanie zdjęć z kolekcji"
 
-#: src/Dialogs.vala:2765
+#: src/Dialogs.vala:2763
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -4047,7 +4048,7 @@ msgstr[2] ""
 "\n"
 "Tej czynności nie można cofnąć."
 
-#: src/Dialogs.vala:2769
+#: src/Dialogs.vala:2767
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -4075,7 +4076,7 @@ msgstr[2] ""
 "\n"
 "Tej czynności nie można cofnąć."
 
-#: src/Dialogs.vala:2773
+#: src/Dialogs.vala:2771
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4103,7 +4104,7 @@ msgstr[2] ""
 "\n"
 "Tej czynności nie można cofnąć."
 
-#: src/Dialogs.vala:2805
+#: src/Dialogs.vala:2803
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4117,7 +4118,7 @@ msgstr[2] ""
 "Nie można przenieść %d zdjęć lub nagrań wideo do kosza. Usunąć te pliki?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2822
+#: src/Dialogs.vala:2820
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -5756,7 +5757,8 @@ msgstr "Otwiera wybrany katalog zdjęć w menedżerze plików"
 msgid "Unable to open in file manager: %s"
 msgstr "Nie można otworzyć w menedżerze plików: %s"
 
-#: src/Resources.vala:673 ui/offline.ui:224
+#: src/Resources.vala:673 ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58
+#: ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77 ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "_Usuń z kolekcji"
 
@@ -6147,10 +6149,6 @@ msgstr "_Przełącz flagę"
 msgid "_Developer"
 msgstr "_Wywoływacz"
 
-#: ui/collection.ui:108 ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
-msgid "Open with E_xternal Editor"
-msgstr "_Otwórz za pomocą zewnętrznego edytora"
-
 #: ui/collection.ui:119 ui/event.ui:387 ui/event.ui:558 ui/media.ui:381
 #: ui/photo_context.ui:126 ui/tags.ui:381
 msgid "View Eve_nt for Photo"
@@ -6214,7 +6212,7 @@ msgstr "_Zgłoś problem…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/import_queue.ui:14 ui/import.ui:8
 #: ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8 ui/trash.ui:8
-msgid "_Import from Folder…"
+msgid "_Import From Folder…"
 msgstr "_Zaimportuj z katalogu…"
 
 #: ui/events_directory.ui:13 ui/event.ui:13 ui/import_queue.ui:19
@@ -6291,11 +6289,6 @@ msgstr "Mal_ejąco"
 #: ui/events_directory.ui:132 ui/event.ui:379 ui/media.ui:373 ui/tags.ui:373
 msgid "Even_ts"
 msgstr "Wy_darzenia"
-
-#: ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58 ui/offline.ui:207
-#: ui/photo.ui:77 ui/tags.ui:74
-msgid "R_emove from Library"
-msgstr "_Usuń z kolekcji"
 
 #: ui/event.ui:129 ui/import.ui:104 ui/media.ui:129 ui/tags.ui:129
 msgid "_Titles"
