@@ -251,17 +251,20 @@ namespace GPhoto {
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s", 
                 (int) res, folder, filename, res.as_string());
         
-        // if entire file fits in memory, return a stream from that ... can't merely wrap
-        // MemoryInputStream around the camera_file buffer, as that will be destroyed when the
-        // function returns
+        // if entire file fits in memory, return a stream from that ...
+        // The camera_file is set as data on the object to keep it alive while
+        // the MemoryInputStream is alive.
         unowned uint8 *data;
         ulong data_len;
         res = camera_file.get_data_and_size(out data, out data_len);
         if (res == Result.OK) {
-            uint8[] buffer = new uint8[data_len];
-            Memory.copy(buffer, data, buffer.length);
+            unowned uint8[] buffer = (uint8[])data;
+            buffer.length = (int) data_len;
             
-            return new MemoryInputStream.from_data(buffer, on_mins_destroyed);
+            var mis = new MemoryInputStream.from_data(buffer, () => {});
+            mis.set_data<GPhoto.CameraFile>("camera-file", camera_file);
+
+            return mis;
         }
 
         // if not stored in memory, try copying it to a temp file and then reading out of that
@@ -272,10 +275,6 @@ namespace GPhoto {
                 folder, filename, temp.get_path(), res.as_string());
         
         return temp.read(null);
-    }
-    
-    private static void on_mins_destroyed(void *data) {
-        free(data);
     }
     
     // Returns a buffer with the requested file, if within reason.  Use load_file for larger files.
