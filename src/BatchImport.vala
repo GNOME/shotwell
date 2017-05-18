@@ -1835,13 +1835,8 @@ private class PrepareFilesJob : BackgroundImportJob {
             }
             
             if (metadata != null) {
-                uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
-                if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                    exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
-                
-                uint8[]? flattened_thumbnail = metadata.flatten_exif_preview();
-                if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
-                    thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
+                exif_only_md5 = metadata.exif_hash ();
+                thumbnail_md5 = metadata.thumbnail_hash();
             }
         }
 

@@ -247,6 +247,8 @@ public class PhotoMetadata : MediaMetadata {
     private GExiv2.Metadata exiv2 = new GExiv2.Metadata();
     private Exif.Data? exif = null;
     string source_name = "<uninitialized>";
+    private string? metadata_hash = null;
+    private string? thumbnail_md5 = null;
     
     public PhotoMetadata() {
     }
@@ -691,43 +693,59 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     // Returns raw bytes of EXIF metadata, including signature and optionally the preview (if present).
-    public uint8[]? flatten_exif(bool include_preview) {
+    public string? exif_hash() {
         if (exif == null)
             return null;
-        
-        // save thumbnail to strip if no attachments requested (so it can be added back and
-        // deallocated automatically)
-        uchar *thumbnail = exif.data;
-        uint thumbnail_size = exif.size;
-        if (!include_preview) {
-            exif.data = null;
-            exif.size = 0;
+
+        if (this.metadata_hash != null) {
+            return this.metadata_hash;
         }
-        
-        uint8[]? flattened = null;
-        
-        // save the struct to a buffer and copy into a Vala-friendly one
+
+        string? hash = null;
+
+        var thumb = exif.data;
+        var thumb_size = exif.size;
+
+        // Strip potential thumbnail
+        exif.data = null;
+        exif.size = 0;
+
         uchar *saved_data = null;
         uint saved_size = 0;
+
         exif.save_data(&saved_data, &saved_size);
+
+        exif.data = thumb;
+        exif.size = thumb_size;
+
         if (saved_size > 0 && saved_data != null) {
-            flattened = new uint8[saved_size];
-            Memory.copy(flattened, saved_data, saved_size);
-            
+            var md5 = new Checksum(ChecksumType.MD5);
+            md5.update((uchar []) saved_data, saved_size);
             Exif.Mem.new_default().free(saved_data);
+
+            this.metadata_hash = md5.get_string ();
         }
-        
-        // restore thumbnail (this works in either case)
-        exif.data = thumbnail;
-        exif.size = thumbnail_size;
-        
-        return flattened;
+
+        return hash;
     }
     
     // Returns raw bytes of EXIF preview, if present
-    public uint8[]? flatten_exif_preview() {
+    public string? thumbnail_hash() {
+        if (this.thumbnail_md5 != null) {
+            return this.thumbnail_md5;
+        }
+
         uchar[] buffer;
-        return exiv2.get_exif_thumbnail(out buffer) ? buffer : null;
+        if (exiv2.get_exif_thumbnail(out buffer)) {
+            var md5 = new Checksum(ChecksumType.MD5);
+            md5.update(buffer, buffer.length);
+
+            this.thumbnail_md5 = md5.get_string();
+
+            return this.thumbnail_md5;
+         }
+
+        return null;
     }
     
     public uint get_preview_count() {

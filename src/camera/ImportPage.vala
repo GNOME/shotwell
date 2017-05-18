@@ -1553,9 +1553,7 @@ public class ImportPage : CheckerboardPage {
             // calculate EXIF's fingerprint
             string? exif_only_md5 = null;
             if (metadata != null) {
-                uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
-                if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                    exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
+                exif_only_md5 = metadata.exif_hash();
             }
             
             // XXX: Cannot use the metadata for the thumbnail preview because libgphoto2
