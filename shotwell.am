@@ -87,7 +87,7 @@ shotwell_SOURCES = \
 	src/publishing/APIGlue.vala \
 	src/library/Library.vala \
 	src/library/LibraryWindow.vala \
-	src/library/Branch.vala \
+	src/library/LibraryBranch.vala \
 	src/library/TrashSidebarEntry.vala \
 	src/library/OfflineSidebarEntry.vala \
 	src/library/FlaggedSidebarEntry.vala \
@@ -126,22 +126,22 @@ shotwell_SOURCES = \
 	src/sidebar/Tree.vala \
 	src/sidebar/common.vala \
 	src/events/Events.vala \
-	src/events/Branch.vala \
+	src/events/EventsBranch.vala \
 	src/events/EventsDirectoryPage.vala \
 	src/events/EventPage.vala \
 	src/events/EventDirectoryItem.vala \
 	src/tags/Tags.vala \
-	src/tags/Branch.vala \
+	src/tags/TagsBranch.vala \
 	src/tags/TagPage.vala \
 	src/tags/HierarchicalTagIndex.vala \
 	src/tags/HierarchicalTagUtilities.vala \
 	src/camera/Camera.vala \
-	src/camera/Branch.vala \
+	src/camera/CameraBranch.vala \
 	src/camera/CameraTable.vala \
 	src/camera/GPhoto.vala \
 	src/camera/ImportPage.vala \
 	src/searches/Searches.vala \
-	src/searches/Branch.vala \
+	src/searches/SearchesBranch.vala \
 	src/searches/SearchBoolean.vala \
 	src/searches/SavedSearchPage.vala \
 	src/searches/SavedSearchDialog.vala \
@@ -154,8 +154,8 @@ shotwell_SOURCES = \
 	src/data_imports/DataImportJob.vala \
 	src/data_imports/DataImportSource.vala \
 	src/folders/Folders.vala \
-	src/folders/Branch.vala \
-	src/folders/Page.vala \
+	src/folders/FoldersBranch.vala \
+	src/folders/FoldersPage.vala \
 	src/main.vala \
 	src/AppWindow.vala \
 	src/CollectionPage.vala \
