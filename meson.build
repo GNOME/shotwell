@@ -1,4 +1,6 @@
-project('Shotwell', ['vala', 'c'], version : '0.27.1')
+project('Shotwell', ['vala', 'c'],
+        version : '0.27.1',
+        default_options : ['buildtype=debugoptimized'])
 
 gnome = import('gnome')
 i18n = import('i18n')
