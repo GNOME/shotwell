@@ -1,0 +1,3 @@
+option('enable-unity-support', type: 'boolean', value : 'false', description: 'Enable Ubuntu Unity support')
+option('publishers', type: 'string', value : 'facebook,flickr,picasa,piwigo,youtube,gallery3,rajce,tumblr,yandex', description: 'The list of publishing plugins to build')
+option('enable-extra-plugins', type : 'boolean', value : 'true', description: 'Enable building and installation of extra publishing plugins')

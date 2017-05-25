@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd $MESON_SOURCE_ROOT
+exec git rev-parse HEAD 2>/dev/null

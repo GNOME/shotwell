@@ -16,5 +16,7 @@ sw_plugin_common_dep = declare_dependency(include_directories : include_director
 
 subdir('authenticator')
 subdir('shotwell-publishing')
-subdir('shotwell-publishing-extras')
+if get_option('enable-extra-plugins')
+  subdir('shotwell-publishing-extras')
+endif
 subdir('shotwell-transitions')

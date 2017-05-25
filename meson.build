@@ -12,17 +12,28 @@ conf.set('_PREFIX', '"@0@"'.format(get_option('prefix')))
 conf.set('_LANG_SUPPORT_DIR', '"@0@"'.format(join_paths(get_option('prefix'), get_option('localedir'))))
 conf.set('_LIBEXECDIR', '"@0@"'.format(join_paths(get_option('prefix'), get_option('libexecdir'))))
 conf.set('_LIB', '"@0@"'.format(join_paths(get_option('prefix'), get_option('libdir'))))
-
 configure_file(output : 'config.h', configuration: conf)
+
 config_incdir = include_directories('.')
 vapi_incdir = include_directories('vapi')
 shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'builtin')
 
-add_global_arguments('-DHAVE_CONFIG_H=1', language : 'c')
-add_global_arguments(['-include'], ['config.h'], language : 'c')
-add_global_arguments('--target-glib=2.40', language : 'vala')
-add_global_arguments('--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
-    'vapi')), language : 'vala')
+add_global_arguments(['-DHAVE_CONFIG_H=1'],
+                     ['-include'], ['config.h'], language : 'c')
+add_global_arguments(['--target-glib=2.40',
+                      '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
+                        'vapi')),
+                      '--enable-checking',
+                      '--fatal-warnings',
+                      '--enable-experimental',
+                      '--enable-deprecated'], language : 'vala')
+
+gitver = run_command(find_program('git-hash'))
+if gitver.returncode() == 0
+  add_global_arguments(['-D_GIT_VERSION="@0@"'.format(gitver.stdout().strip())],
+    language : 'c')
+  add_global_arguments(['--define=_GITVERSION'], language : 'vala')
+endif
 
 gtk = dependency('gtk+-3.0', version : '>= 3.18')
 gio = dependency('gio-2.0', version: '>= 2.40')
@@ -43,6 +54,16 @@ gudev = dependency('gudev-1.0', version : '>= 145')
 gexiv2 = dependency('gexiv2', version: '>= 0.10.4')
 libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
+unity = dependency('unity', required : false)
+
+if unity.found() and get_option('enable-unity-support')
+  add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
+endif
+
+foreach publisher : get_option('publishers').split(',')
+  add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],
+                       language : 'vala')
+endforeach
 
 json_glib = dependency('json-glib-1.0')
 gdata = dependency('libgdata')
