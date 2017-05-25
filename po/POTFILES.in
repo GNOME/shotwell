@@ -1,8 +1,8 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 misc/shotwell.appdata.xml.in
-misc/shotwell.desktop.in.in
-misc/shotwell-viewer.desktop.in.in
+misc/shotwell.desktop.in
+misc/shotwell-viewer.desktop.in
 misc/org.yorba.shotwell-extras.gschema.xml
 misc/org.yorba.shotwell.gschema.xml
 plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala
