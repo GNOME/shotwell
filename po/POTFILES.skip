@@ -1,8 +1,5 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-misc/shotwell.appdata.xml
-misc/shotwell.desktop.in
-misc/shotwell-viewer.desktop.in
 plugins/authenticator/shotwell/FacebookPublishingAuthenticator.c
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.c
 plugins/authenticator/shotwell/GoogleAuthenticator.c
@@ -34,7 +31,7 @@ plugins/shotwell-transitions/StripesEffect.c
 src/AppDirs.c
 src/AppWindow.c
 src/BatchImport.c
-src/camera/Branch.c
+src/camera/CameraBranch.c
 src/camera/ImportPage.c
 src/CollectionPage.c
 src/Commands.c
@@ -50,16 +47,16 @@ src/DirectoryMonitor.c
 src/editing_tools/EditingTools.c
 src/editing_tools/StraightenTool.c
 src/Event.c
-src/events/Branch.c
 src/events/EventDirectoryItem.c
 src/events/EventPage.c
+src/events/EventsBranch.c
 src/events/EventsDirectoryPage.c
 src/Exporter.c
-src/folders/Branch.c
-src/library/Branch.c
+src/folders/FoldersBranch.c
 src/library/FlaggedPage.c
 src/library/ImportQueuePage.c
 src/library/LastImportPage.c
+src/library/LibraryBranch.c
 src/library/LibraryWindow.c
 src/library/OfflinePage.c
 src/library/TrashPage.c
@@ -81,13 +78,13 @@ src/publishing/PublishingPluginHost.c
 src/publishing/PublishingUI.c
 src/Resources.c
 src/Screensaver.c
-src/searches/Branch.c
 src/searches/SavedSearchDialog.c
 src/searches/SearchBoolean.c
+src/searches/SearchesBranch.c
 src/SearchFilter.c
 src/SlideshowPage.c
 src/slideshow/Slideshow.c
 src/slideshow/TransitionEffects.c
 src/Tag.c
-src/tags/Branch.c
+src/tags/TagsBranch.c
 src/VideoSupport.c
