@@ -407,9 +407,9 @@ public abstract class CollectionPage : MediaPage {
 
         string title = null;
         if (has_some_videos)
-            title = (export_list.size == 1) ? _("Export Photo/Video") : _("Export Photos/Videos");
+            title = ngettext("Export Photo/Video", "Export Photos/Videos", export_list.size);
         else
-            title = (export_list.size == 1) ?  _("Export Photo") : _("Export Photos");
+            title = ngettext("Export Photo", "Export Photos", export_list.size());
         ExportDialog export_dialog = new ExportDialog(title);
 
         // Setting up the parameters object requires a bit of thinking about what the user wants.
