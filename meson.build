@@ -65,6 +65,20 @@ foreach publisher : get_option('publishers').split(',')
                        language : 'vala')
 endforeach
 
+foreach trace : get_option('trace').split(',')
+  add_global_arguments(['--define=TRACE_@0@'.format(trace.to_upper().underscorify())],
+                       language : 'vala')
+endforeach
+
+foreach measure : get_option('measure').split(',')
+  add_global_arguments(['--define=MEASURE_@0@'.format(trace.to_upper().underscorify())],
+                       language : 'vala')
+endforeach
+
+if get_option('disable-dupe-detection')
+  add_global_arguments(['--define=NO_DUPE_DETECTION'], language : vala)
+endif
+
 json_glib = dependency('json-glib-1.0')
 gdata = dependency('libgdata')
 gcr = dependency('gcr-3')
