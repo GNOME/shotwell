@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-05-07 14:01+0000\n"
-"PO-Revision-Date: 2017-05-14 15:19+0200\n"
+"POT-Creation-Date: 2017-05-27 22:30+0000\n"
+"PO-Revision-Date: 2017-05-28 17:18+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -22,9 +22,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
+#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:356
+#: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
 #: ui/tags.ui:356
 msgid "Shotwell"
@@ -69,16 +69,16 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Programiści projektu Shotwell"
 
-#: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
+#: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Menedżer zdjęć"
 
-#: misc/shotwell.desktop.in.in:6
+#: misc/shotwell.desktop.in:6
 msgid "Organize your photos"
 msgstr "Organizowanie zdjęć"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: misc/shotwell.desktop.in.in:8
+#: misc/shotwell.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -94,15 +94,15 @@ msgstr ""
 "piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
+#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
 msgid "shotwell"
 msgstr "shotwell"
 
-#: misc/shotwell-viewer.desktop.in.in:4
+#: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Przeglądarka Shotwell"
 
-#: misc/shotwell-viewer.desktop.in.in:5 src/Resources.vala:18
+#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
 msgstr "Przeglądarka zdjęć"
 
@@ -2537,12 +2537,12 @@ msgstr "Uszkodzony plik obrazu"
 msgid "Imported failed (%d)"
 msgstr "Zaimportowanie się nie powiodło (%d)"
 
-#: src/camera/Branch.vala:85
+#: src/camera/CameraBranch.vala:85
 msgid "Cameras"
 msgstr "Aparaty"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
@@ -2643,12 +2643,12 @@ msgstr "Pobieranie informacji o zdjęciach"
 msgid "Fetching preview for %s"
 msgstr "Pobieranie podglądu dla %s"
 
-#: src/camera/ImportPage.vala:1651
+#: src/camera/ImportPage.vala:1649
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie można zablokować aparatu: %s"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1734
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2656,7 +2656,7 @@ msgstr[0] "Usunąć to zdjęcie z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć z aparatu?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2664,7 +2664,7 @@ msgstr[0] "Usunąć to nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1742
+#: src/camera/ImportPage.vala:1740
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -2672,7 +2672,7 @@ msgstr[0] "Usunąć to zdjęcie/nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia/nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć/nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1745
+#: src/camera/ImportPage.vala:1743
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2680,15 +2680,15 @@ msgstr[0] "Usunąć te pliki z aparatu?"
 msgstr[1] "Usunąć %d pliki z aparatu?"
 msgstr[2] "Usunąć %d plików z aparatu?"
 
-#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1751 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Zatrzymaj"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1770
 msgid "Removing photos/videos from camera"
 msgstr "Usuwanie zdjęć/nagrań wideo z aparatu"
 
-#: src/camera/ImportPage.vala:1776
+#: src/camera/ImportPage.vala:1774
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2784,19 +2784,17 @@ msgstr "Od_twórz"
 
 #: src/CollectionPage.vala:410
 msgid "Export Photo/Video"
-msgstr "Eksport zdjęcia/nagrania wideo"
-
-#: src/CollectionPage.vala:410
-msgid "Export Photos/Videos"
-msgstr "Eksport zdjęć/nagrań wideo"
+msgid_plural "Export Photos/Videos"
+msgstr[0] "Eksport zdjęcia/nagrania wideo"
+msgstr[1] "Eksport zdjęć/nagrań wideo"
+msgstr[2] "Eksport zdjęć/nagrań wideo"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
-msgstr "Eksport zdjęcia"
-
-#: src/CollectionPage.vala:412 src/Dialogs.vala:84
-msgid "Export Photos"
-msgstr "Eksport zdjęć"
+msgid_plural "Export Photos"
+msgstr[0] "Eksport zdjęcia"
+msgstr[1] "Eksport zdjęć"
+msgstr[2] "Eksport zdjęć"
 
 #: src/CollectionPage.vala:499 src/CollectionPage.vala:515
 msgid "Rotating"
@@ -3153,6 +3151,10 @@ msgstr "_Przełącz wywoływacz"
 #: src/Dialogs.vala:59
 msgid "Export Video"
 msgstr "Eksport nagrań wideo"
+
+#: src/Dialogs.vala:84
+msgid "Export Photos"
+msgstr "Eksport zdjęć"
 
 #. Ticket #3023
 #. Attempt to replace the system error with something friendlier
@@ -4397,7 +4399,7 @@ msgstr "Kąt:"
 msgid "_Straighten"
 msgstr "_Wyrównaj"
 
-#: src/events/Branch.vala:25
+#: src/events/EventsBranch.vala:25
 msgid "Events"
 msgstr "Wydarzenia"
 
@@ -4489,16 +4491,16 @@ msgstr "Z_astąp wszystkie"
 msgid "Export"
 msgstr "Eksport"
 
-#: src/folders/Branch.vala:144
+#: src/folders/FoldersBranch.vala:144
 msgid "Folders"
 msgstr "Katalogi"
 
-#: src/library/Branch.vala:30 src/library/Branch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Kolekcja"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
 msgstr "Zdjęcia"
 
@@ -5825,7 +5827,7 @@ msgstr "%a, %-d %b %Y"
 msgid "Slideshow"
 msgstr "Pokaz slajdów"
 
-#: src/searches/Branch.vala:68
+#: src/searches/SearchesBranch.vala:68
 msgid "Saved Searches"
 msgstr "Zapisane wyszukiwania"
 
@@ -6126,7 +6128,7 @@ msgstr "Brak"
 msgid "Random"
 msgstr "Losowe"
 
-#: src/tags/Branch.vala:131
+#: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Etykiety"
 
