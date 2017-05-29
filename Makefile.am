@@ -154,6 +154,4 @@ dist_noinst_DATA += \
 	vapi/libexif.vapi \
 	vapi/libgphoto2.vapi \
 	vapi/libraw.vapi \
-	vapi/unity.deps \
-	vapi/unity.vapi \
 	vapi/misc.vapi
