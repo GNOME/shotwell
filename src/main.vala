@@ -240,7 +240,7 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
     ImportUI.report_manifest(manifest, true);
 }
 
-void editing_exec(string filename) {
+void editing_exec(string filename, bool fullscreen) {
     File initial_file = File.new_for_commandline_arg(filename);
     
     // preconfigure units
@@ -267,9 +267,16 @@ void editing_exec(string filename) {
     direct_window.show_all();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
+
+    if (fullscreen) {
+        var action = direct_window.get_common_action("CommonFullscreen");
+        if (action != null) {
+            action.activate(null);
+        }
+    }
     
     Application.get_instance().start();
-    
+
     DesktopIntegration.terminate();
     
     // terminate units for direct-edit mode
@@ -282,6 +289,7 @@ bool no_startup_progress = false;
 string data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
+bool fullscreen = false;
 
 private OptionEntry[]? entries = null;
 
@@ -304,6 +312,10 @@ public OptionEntry[] get_options() {
     OptionEntry version = { "version", 'V', 0, OptionArg.NONE, &show_version, 
         _("Show the application’s version"), null };
     entries += version;
+
+    OptionEntry fullscreen = { "fuillscreen", 'f', 0, OptionArg.NONE,
+        &fullscreen, _("Start the application in fullscreen mode"), null };
+    entries += fullscreen;
     
     OptionEntry terminator = { null, 0, 0, 0, null, null, null };
     entries += terminator;
@@ -426,7 +438,7 @@ void main(string[] args) {
     if (is_string_empty(filename))
         library_exec(mounts);
     else
-        editing_exec(filename);
+        editing_exec(filename, CommandlineOptions.fullscreen);
     
     // terminate mode-inspecific modules
     Resources.terminate();
