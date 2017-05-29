@@ -593,7 +593,7 @@ public class LibraryMonitor : DirectoryMonitor {
             if (is_blacklisted(file))
                 continue;
             
-            jobs.add(new FileImportJob(file, false));
+            jobs.add(new FileImportJob(file, false, true));
             pending_imports.add(file);
         }
         

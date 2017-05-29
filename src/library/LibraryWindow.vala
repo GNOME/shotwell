@@ -95,6 +95,7 @@ public class LibraryWindow : AppWindow {
     }
 
     private string import_dir = Environment.get_home_dir();
+    private bool import_recursive = true;
 
     private Gtk.Paned sidebar_paned = new Gtk.Paned(Gtk.Orientation.VERTICAL);
     private Gtk.Paned client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
@@ -510,6 +511,10 @@ public class LibraryWindow : AppWindow {
         import_dialog.set_local_only(false);
         import_dialog.set_select_multiple(true);
         import_dialog.set_current_folder(import_dir);
+
+        var recursive = new Gtk.CheckButton.with_label(_("Recurse Into Subfolders"));
+        recursive.active = import_recursive;
+        import_dialog.set_extra_widget(recursive);
         
         int response = import_dialog.run();
         
@@ -521,11 +526,12 @@ public class LibraryWindow : AppWindow {
             
             if (copy_files_response != Gtk.ResponseType.CANCEL) {
                 dispatch_import_jobs(import_dialog.get_uris(), "folders",
-                    copy_files_response == Gtk.ResponseType.ACCEPT);
+                    copy_files_response == Gtk.ResponseType.ACCEPT, recursive.active);
             }
         }
         
         import_dir = import_dialog.get_current_folder();
+        import_recursive = recursive.active;
         import_dialog.destroy();
     }
     
@@ -766,7 +772,7 @@ public class LibraryWindow : AppWindow {
         ImportUI.report_manifest(manifest, true);
     }
     
-    private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
+    private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library, bool recurse) {
         if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
             Gtk.ResponseType response = AppWindow.affirm_cancel_question(
                 _("Shotwell is configured to import photos to your home directory.\n" + 
@@ -790,7 +796,7 @@ public class LibraryWindow : AppWindow {
                 continue;
             }
 
-            jobs.add(new FileImportJob(file_or_dir, copy_to_library));
+            jobs.add(new FileImportJob(file_or_dir, copy_to_library, recurse));
         }
         
         if (jobs.size > 0) {
@@ -897,7 +903,7 @@ public class LibraryWindow : AppWindow {
             }
         }
         
-        dispatch_import_jobs(uris, "drag-and-drop", selected_action == Gdk.DragAction.COPY);
+        dispatch_import_jobs(uris, "drag-and-drop", selected_action == Gdk.DragAction.COPY, true);
         
         Gtk.drag_finish(context, true, false, time);
     }

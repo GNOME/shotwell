@@ -216,7 +216,7 @@ public void run_system_pictures_import(ImportManifest? external_exclusion_manife
         return;
 
     Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
-    jobs.add(new FileImportJob(AppDirs.get_import_dir(), false));
+    jobs.add(new FileImportJob(AppDirs.get_import_dir(), false, true));
     
     LibraryWindow library_window = (LibraryWindow) AppWindow.get_instance();
     

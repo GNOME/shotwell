@@ -202,16 +202,22 @@ public abstract class BatchImportJob {
     public virtual time_t get_exposure_time_override() {
         return 0;
     }
+
+    public virtual bool recurse() {
+        return true;
+    }
 }
 
 public class FileImportJob : BatchImportJob {
     private File file_or_dir;
     private bool copy_to_library;
     private FileImportJob? associated = null;
+    private bool _recurse;
     
-    public FileImportJob(File file_or_dir, bool copy_to_library) {
+    public FileImportJob(File file_or_dir, bool copy_to_library, bool recurse) {
         this.file_or_dir = file_or_dir;
         this.copy_to_library = copy_to_library;
+        this._recurse = recurse;
     }
     
     public override string get_dest_identifier() {
@@ -254,6 +260,10 @@ public class FileImportJob : BatchImportJob {
     
     public File get_file() {
         return file_or_dir;
+    }
+
+    public override bool recurse() {
+        return this._recurse;
     }
 }
 
@@ -1553,7 +1563,7 @@ private class WorkSniffer : BackgroundImportJob {
             assert(query_is_directory(dir));
             
             try {
-                search_dir(job, dir, copy_to_library);
+                search_dir(job, dir, copy_to_library, job.recurse());
             } catch (Error err) {
                 report_error(job, dir, job.get_source_identifier(), dir.get_path(), err,    
                     ImportResult.FILE_ERROR);
@@ -1572,7 +1582,7 @@ private class WorkSniffer : BackgroundImportJob {
         }
     }
     
-    public void search_dir(BatchImportJob job, File dir, bool copy_to_library) throws Error {
+    public void search_dir(BatchImportJob job, File dir, bool copy_to_library, bool recurse) throws Error {
         FileEnumerator enumerator = dir.enumerate_children("standard::*",
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         
@@ -1586,11 +1596,14 @@ private class WorkSniffer : BackgroundImportJob {
             FileType file_type = info.get_file_type();
             
             if (file_type == FileType.DIRECTORY) {
+                if (!recurse)
+                    continue;
+
                 if (info.get_name().has_prefix("."))
                     continue;
 
                 try {
-                    search_dir(job, child, copy_to_library);
+                    search_dir(job, child, copy_to_library, recurse);
                 } catch (Error err) {
                     report_error(job, child, child.get_path(), child.get_path(), err, 
                         ImportResult.FILE_ERROR);
