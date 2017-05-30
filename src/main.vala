@@ -313,7 +313,7 @@ public OptionEntry[] get_options() {
         _("Show the application’s version"), null };
     entries += version;
 
-    OptionEntry fullscreen = { "fuillscreen", 'f', 0, OptionArg.NONE,
+    OptionEntry fullscreen = { "fullscreen", 'f', 0, OptionArg.NONE,
         &fullscreen, _("Start the application in fullscreen mode"), null };
     entries += fullscreen;
     
