@@ -99,3 +99,7 @@ subdir('misc')
 subdir('thumbnailer')
 subdir('settings-migrator')
 subdir('app-icons')
+
+if get_option('install-apport-hook')
+  subdir('apport')
+endif

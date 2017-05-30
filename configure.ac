@@ -166,6 +166,17 @@ AC_SUBST([HAVE_UNITY])
 AM_CONDITIONAL([HAVE_UNITY],[test "x$HAVE_UNITY" = "xyes"])
 
 dnl ***********************************************************************
+dnl Ubuntu apport hook
+dnl ***********************************************************************
+AC_ARG_ENABLE([apport-hook],
+              AS_HELP_STRING([--enable-apport-hook],
+                             [Install apport hook]),
+              [],
+              [enable_apport_hook=no])
+
+AM_CONDITIONAL([INSTALL_APPORT_HOOK], [test "x$enable_apport_hook" != "xno"])
+
+dnl ***********************************************************************
 dnl Publishers
 dnl ***********************************************************************
 
@@ -275,6 +286,7 @@ AC_CONFIG_FILES([
     app-icons/Makefile
     icons/Makefile
     ui/Makefile
+    apport/Makefile
 ],[],
 [API_VERSION='$API_VERSION'])
 AC_OUTPUT
