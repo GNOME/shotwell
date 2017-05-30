@@ -14,7 +14,6 @@ yelp_pages = [
     'formats.page',
     'import-camera.page',
     'import-file.page',
-    'import-f-spot.page',
     'import-memorycard.page',
     'index.page',
     'organize-event.page',
