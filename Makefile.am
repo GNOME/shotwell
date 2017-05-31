@@ -159,4 +159,40 @@ dist_noinst_DATA += \
 	vapi/libexif.vapi \
 	vapi/libgphoto2.vapi \
 	vapi/libraw.vapi \
-	vapi/misc.vapi
+	vapi/misc.vapi \
+	app-icons/meson.build \
+	thumbnailer/meson.build \
+	meson.build \
+	po/meson.build \
+	apport/meson.build \
+	help/meson.build \
+	settings-migrator/meson.build \
+	misc/meson.build \
+	src/meson.build \
+	src/plugins/meson.build \
+	plugins/meson.build \
+	plugins/shotwell-publishing-extras/meson.build \
+	plugins/shotwell-publishing/meson.build \
+	plugins/authenticator/shotwell/meson.build \
+	plugins/authenticator/meson.build \
+	plugins/common/meson.build \
+	plugins/shotwell-transitions/meson.build \
+	meson_options.txt \
+	app-icons/meson.build \
+	apport/meson.build \
+	help/meson.build \
+	meson.build \
+	meson_options.txt \
+	misc/meson.build \
+	plugins/authenticator/meson.build \
+	plugins/authenticator/shotwell/meson.build \
+	plugins/common/meson.build \
+	plugins/meson.build \
+	plugins/shotwell-publishing-extras/meson.build \
+	plugins/shotwell-publishing/meson.build \
+	plugins/shotwell-transitions/meson.build \
+	po/meson.build \
+	settings-migrator/meson.build \
+	src/meson.build \
+	src/plugins/meson.build \
+	thumbnailer/meson.build
