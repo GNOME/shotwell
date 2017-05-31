@@ -1,4 +1,8 @@
-SUBDIRS = misc help po app-icons icons ui apport
+SUBDIRS = misc help po app-icons icons ui
+
+if INSTALL_APPORT_HOOK
+SUBDIRS += apport
+endif
 
 EXTRA_DIST = AUTHORS
 
@@ -27,6 +31,7 @@ MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
 
 GITIGNOREFILES = \
+	build \
 	ABOUT-NLS \
 	plugins/**/*.h \
 	plugins/**/*.vapi \
