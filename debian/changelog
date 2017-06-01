@@ -1,3 +1,13 @@
+shotwell (0.26.2-0~jensge1~zesty1) UNRELEASED; urgency=medium
+
+  * Fix issue when minimizing publishing UI on Unity
+  * Fix browsing on GVFS-mounted file systems
+  * Fix missing linebreaks in comments when writing back meta-data
+  * Fix crash when no import plugin is selected
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Thu, 01 Jun 2017 18:50:47 +0200
+
 shotwell (0.26.0-0~jensge1~zesty1) zesty; urgency=medium
 
   * Translation updates

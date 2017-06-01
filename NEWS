@@ -1,3 +1,32 @@
+Shotwell 0.26.2 - 1 Jun 2017
+  * Fix issue when minimizing publishing UI on Unity
+  * Fix browsing on GVFS-mounted file systems
+  * Fix missing linebreaks in comments when writing back meta-data
+  * Fix crash when no import plugin is selected
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719240
+ - https://bugzilla.gnome.org/show_bug.cgi?id=733652
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781897
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783250
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - id, courtesy of Andika Triwidada
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
 Shotwell 0.26.1 - 11 Apr 2017
   * Fix "About" wording
   * Fix missing Keyboard shortcuts
