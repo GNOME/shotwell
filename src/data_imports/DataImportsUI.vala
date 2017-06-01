@@ -295,7 +295,9 @@ public class DataImportsDialog : Gtk.Dialog {
             close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
             close_cancel_button.set_can_default(true);
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
-            ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
+            if (service_selector_box != null) {
+                ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
+            }
         }
         else {
             add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
