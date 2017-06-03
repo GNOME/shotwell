@@ -6,6 +6,22 @@
 
 namespace LibraryFiles {
 
+static bool use_fallback_copy_func = false;
+
+public void select_copy_function() {
+    var import_dir = AppDirs.get_import_dir();
+
+    try {
+	var info = import_dir.query_filesystem_info("filesystem::type", null);
+	use_fallback_copy_func = info.get_attribute_as_string("filesystem::type") == "nfs";
+    } catch (Error error) {
+        critical ("Failed to query fs type: %s", error.message);
+	use_fallback_copy_func = true;
+    }
+
+    info ("Using fallback copy: %s", use_fallback_copy_func.to_string());
+}
+
 // This method uses global::generate_unique_file_at in order to "claim" a file in the filesystem.
 // Thus, when the method returns success a file may exist already, and should be overwritten.
 //
@@ -79,7 +95,11 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
         LibraryMonitor.blacklist_file(dest, "LibraryFiles.duplicate");
     
     try {
-        src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);
+        if (use_fallback_copy_func) {
+            fallback_copy(src, dest, progress_callback);
+        } else {
+            src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);
+        }
         if (blacklist)
             LibraryMonitor.unblacklist_file(dest);
     } catch (Error err) {
@@ -100,5 +120,49 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
     }
     
     return dest;
+}
+
+public void fallback_copy(File? src, File? dst, FileProgressCallback? callback) throws Error {
+    if (src == null || dst == null) {
+        return;
+    }
+
+    var f = FileStream.open(src.get_path(), "rb");
+    if (f != null) {
+        f.seek(0, FileSeek.END);
+        var size = f.tell();
+        f.seek(0, FileSeek.SET);
+        debug ("Copying %s to %s, size is %ld", src.get_path(), dst.get_path(), size);
+
+        var g = FileStream.open(dst.get_path(), "wb");
+        if (g != null) {
+            uint8 buffer[4096];
+            size_t written = 0;
+
+            while (!f.eof()) {
+                var len = f.read(buffer);
+                if (len > 0) {
+                    var out_len = g.write(buffer[0:len]);
+                    if (out_len < 0) {
+                        critical("Failed to write to file %s: %m", dst.get_path());
+                        throw new IOError.FAILED("Failed to write to %s", dst.get_path());
+                    }
+                    written += len;
+
+                    if (callback != null)
+                        callback (written, size);
+                } else if (len < 0) {
+                    critical("Failed to read from file %s: %m", src.get_path());
+                    throw new IOError.FAILED("Failed to read from %s", src.get_path());
+                }
+            }
+        } else {
+            critical ("Failed to open %s: %m", dst.get_path());
+            throw new IOError.FAILED("Failed to open %s", dst.get_path());
+        }
+    } else {
+        critical ("Failed to open %s: %m", src.get_path());
+        throw new IOError.FAILED("Failed to open %s", src.get_path());
+    }
 }
 }
