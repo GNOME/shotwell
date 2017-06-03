@@ -347,7 +347,7 @@ void main(string[] args) {
     // the build directory. this allows us to access local GSettings schemas without having to
     // muck with the user's XDG_... directories, which is seriously frowned upon
     if (AppDirs.get_install_dir() == null) {
-        GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_exec_dir().get_path() +
+        GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_lib_dir().get_path() +
             "/misc", true);
     }
     
