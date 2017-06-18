@@ -72,15 +72,6 @@ public inline time_t now_time_t() {
     return (time_t) now_sec();
 }
 
-public string md5_binary(uint8 *buffer, size_t length) {
-    assert(length != 0);
-
-    Checksum md5 = new Checksum(ChecksumType.MD5);
-    md5.update((uchar []) buffer, length);
-    
-    return md5.get_string();
-}
-
 public string md5_file(File file) throws Error {
     Checksum md5 = new Checksum(ChecksumType.MD5);
     uint8[] buffer = new uint8[64 * 1024];

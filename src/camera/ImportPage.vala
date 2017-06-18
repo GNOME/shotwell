@@ -1562,9 +1562,8 @@ public class ImportPage : CheckerboardPage {
             // this means the preview orientation will be wrong and the MD5 is not generated
             // if the EXIF did not parse properly (see above)
             
-            uint8[] preview_raw = null;
-            size_t preview_raw_length = 0;
             Gdk.Pixbuf preview = null;
+            string? preview_md5 = null;
             try {
                 string preview_fulldir = fulldir;
                 string preview_filename = filename;
@@ -1573,7 +1572,7 @@ public class ImportPage : CheckerboardPage {
                     preview_filename = associated.get_filename();
                 }
                 preview = GPhoto.load_preview(spin_idle_context.context, camera, preview_fulldir,
-                    preview_filename, out preview_raw, out preview_raw_length);
+                    preview_filename, out preview_md5);
             } catch (Error err) {
                 // only issue the warning message if we're not reading a video. GPhoto is capable
                 // of reading video previews about 50% of the time, so we don't want to put a guard
@@ -1584,11 +1583,6 @@ public class ImportPage : CheckerboardPage {
                     warning("Unable to fetch preview for %s/%s: %s", fulldir, filename, err.message);
                 }
             }
-            
-            // calculate thumbnail fingerprint
-            string? preview_md5 = null;
-            if (preview != null && preview_raw != null && preview_raw_length > 0)
-                preview_md5 = md5_binary(preview_raw, preview_raw_length);
             
 #if TRACE_MD5
             debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);

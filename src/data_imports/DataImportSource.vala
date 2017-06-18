@@ -58,15 +58,11 @@ public class DataImportSource {
             } else {
                 exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
             }
-            PhotoPreview? preview = metadata != null ? metadata.get_preview(0) : null;
-            if (preview != null) {
-                try {
-                    uint8[] preview_raw = preview.flatten();
-                    preview_md5 = md5_binary(preview_raw, preview_raw.length);
-                } catch(Error e) {
-                    warning("Could not get raw preview for %s: %s", get_filename(), e.message);
-                }
+
+            if (metadata != null) {
+                preview_md5 = metadata.thumbnail_hash();
             }
+
 #if TRACE_MD5
             debug("Photo MD5 %s: preview=%s", get_filename(), preview_md5);
 #endif
