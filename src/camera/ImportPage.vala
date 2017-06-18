@@ -1153,22 +1153,45 @@ public class ImportPage : CheckerboardPage {
         return false;
     }
 
+    private int claim_timeout = 500;
+
     private RefreshResult refresh_camera() {
         if (busy)
             return RefreshResult.BUSY;
             
-        this.set_page_message (_("Starting import, please wait…"));
-
+        this.set_page_message (_("Connecting to camera, please wait…"));
         update_status(busy, false);
         
         refresh_error = null;
         refresh_result = camera.init(spin_idle_context.context);
+
+        // If we fail to claim the device, we might have run into a conflict
+        // with gvfs-gphoto2-volume-monitor. Back off, try again after
+        // claim_timeout ms.
+        // We will wait 3.5s in total (500 + 1000 + 2000) before giving
+        // up with the infamous -53 error dialog.
+        if (refresh_result == GPhoto.Result.IO_USB_CLAIM) {
+            if (claim_timeout < 4000) {
+                Timeout.add (claim_timeout, () => {
+                    refresh_camera();
+                    return false;
+                });
+                claim_timeout *= 2;
+
+                return RefreshResult.BUSY;
+            }
+        }
+
+        // reset claim_timeout to initial value
+        claim_timeout = 500;
+
         if (refresh_result != GPhoto.Result.OK) {
             warning("Unable to initialize camera: %s", refresh_result.to_full_string());
             
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
 
+        this.set_page_message (_("Starting import, please wait…"));
         update_status(true, refreshed);
         
         on_view_changed();
