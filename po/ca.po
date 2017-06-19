@@ -20,7 +20,7 @@ msgstr ""
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
 "POT-Creation-Date: 2017-06-03 11:31+0000\n"
 "PO-Revision-Date: 2017-06-05 21:26+0200\n"
-"Last-Translator: Jordi Mas <paugnu@gmail.com>\n"
+"Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: ca_ES <tradgnome@softcatala.net>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -111,28 +111,27 @@ msgstr "Visualitzador de fotografies"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:6
 msgid "authentication token"
-msgstr "Fitxa d'autenticació"
+msgstr "testimoni d'autenticació"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Fitxa d'autenticació si et connectes a Yandex-Fotki"
+msgstr "Testimoni d'autenticació si et connectes a Yandex-Fotki"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:14
 msgid "Token"
-msgstr "Fitxa"
+msgstr "Testimoni"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:15
 msgid "The token to access tumblr"
-msgstr "La fitxa per accedir a tumblr"
+msgstr "El testimoni per accedir a tumblr"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:20
 msgid "Secret token"
-msgstr "Fitxa secreta"
+msgstr "Testimoni secret"
 
-# "Token" Tinc el dubte de si és Fitxa o botó.
 #: misc/org.yorba.shotwell-extras.gschema.xml:21
 msgid "The secret token to sign oauth requests"
-msgstr "La fitxa secreta per firmar les sol·licituds oauth"
+msgstr "El testimoni secret per firmar les sol·licituds oauth"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
 #: misc/org.yorba.shotwell.gschema.xml:498
@@ -174,11 +173,11 @@ msgstr "Si estàs connectat amb nom d'usuari de Rajce"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:52
 msgid "token"
-msgstr "fitxa"
+msgstr "testimoni"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:53
 msgid "user token, if remembered."
-msgstr "Si recordaves la fitxa d'usuari"
+msgstr "Si recordaves el testimoni d'usuari"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
 #: misc/org.yorba.shotwell.gschema.xml:542
@@ -208,7 +207,7 @@ msgstr "recorda"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:71
 msgid "If true, remember last login."
-msgstr "Si es veritat, recorda l'últim inici de sessió."
+msgstr "Si és veritat, recorda l'últim inici de sessió."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:76
 msgid "hide album"
@@ -216,7 +215,7 @@ msgstr "amaga l'àlbum"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:77
 msgid "If true, hide the newly created Rajce album."
-msgstr "Si és veritat, amaga l'àlbum acabat de crear a Rajce"
+msgstr "Si és veritat, amaga l'àlbum acabat de crear a Rajce."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:82
 msgid "open album in web browser"
@@ -375,7 +374,7 @@ msgstr "Ordena esdeveniments de forma ascendent"
 #: misc/org.yorba.shotwell.gschema.xml:90
 msgid "True if events should be sorted ascending, false if descending."
 msgstr ""
-"Veritat si els esdeveniments s'ordenen de forma ascendent , fals si és de "
+"Veritat si els esdeveniments s'ordenen de forma ascendent, fals si és de "
 "forma descendent."
 
 #: misc/org.yorba.shotwell.gschema.xml:95
@@ -527,7 +526,7 @@ msgid ""
 "the import page."
 msgstr ""
 "Últim estat de selecció utilitzat de l'opció \"ocultar imatges ja importades"
-"\" en la pàgina de importació."
+"\" en la pàgina d'importació."
 
 #: misc/org.yorba.shotwell.gschema.xml:187
 msgid "delay"
@@ -643,7 +642,7 @@ msgstr "importa al directori"
 
 #: misc/org.yorba.shotwell.gschema.xml:258
 msgid "Directory in which imported photo files are placed."
-msgstr "Directori on es col·loquen els fitxers de imatges importades."
+msgstr "Directori on es col·loquen els fitxers d'imatges importades."
 
 #: misc/org.yorba.shotwell.gschema.xml:263
 msgid "watch library directory for new files"
@@ -832,11 +831,11 @@ msgstr "serveis de publicació per defecte"
 
 #: misc/org.yorba.shotwell.gschema.xml:422
 msgid "access token"
-msgstr "Fitxa d'accés"
+msgstr "testimoni d'accés"
 
 #: misc/org.yorba.shotwell.gschema.xml:423
 msgid "Facebook OAuth token for the currently logged in session, if any"
-msgstr "Símbol OAuth de Facebook per la sessió actualment connectada, si escau"
+msgstr "Testimoni OAuth de Facebook per la sessió actualment connectada, si escau"
 
 #: misc/org.yorba.shotwell.gschema.xml:428
 msgid "user i.d."
@@ -876,7 +875,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:454
 msgid "OAuth Access Phase Token"
-msgstr "Fitxa de la Fase d'Accés OAuth"
+msgstr "Testimoni de la fase d'accés OAuth"
 
 #: misc/org.yorba.shotwell.gschema.xml:455
 msgid "The authorization token for the currently logged in Flickr user, if any"
@@ -886,7 +885,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:460
 msgid "OAuth Access Phase Token Secret"
-msgstr "Fitxa de la Fase d'Accés Secret OAuth"
+msgstr "Testimoni de la fase d'accés secreta OAuth"
 
 #: misc/org.yorba.shotwell.gschema.xml:461
 msgid ""
@@ -930,14 +929,14 @@ msgstr ""
 #: misc/org.yorba.shotwell.gschema.xml:492
 #: misc/org.yorba.shotwell.gschema.xml:624
 msgid "refresh token"
-msgstr "Fitxa d'actualització"
+msgstr "testimoni d'actualització"
 
 #: misc/org.yorba.shotwell.gschema.xml:493
 msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
 msgstr ""
-"La fitxa d'OAuth utilitzada per actualitzar la sessió d'Àlbums web de Picasa "
+"El testimoni d'OAuth utilitzat per actualitzar la sessió d'Àlbums web de Picasa "
 "per a l'usuari que ha iniciat sessió actualment, si escau."
 
 #: misc/org.yorba.shotwell.gschema.xml:499
@@ -973,7 +972,7 @@ msgstr "L'URL de Piwigo"
 
 #: misc/org.yorba.shotwell.gschema.xml:519
 msgid "URL of the Piwigo server."
-msgstr "Servidor URL del Piwigo"
+msgstr "Servidor URL del Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:525
 msgid "Piwigo username, if logged in."
@@ -993,11 +992,11 @@ msgstr "recorda la contrasenya"
 
 #: misc/org.yorba.shotwell.gschema.xml:537
 msgid "If true, remember the Piwigo password."
-msgstr "Si és veritat, recorda la contrasenya de Piwigo"
+msgstr "Si és veritat, recorda la contrasenya de Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:543
 msgid "The last selected Piwigo category."
-msgstr "L'última categoria seleccionada de Piwigo"
+msgstr "L'última categoria seleccionada de Piwigo."
 
 #: misc/org.yorba.shotwell.gschema.xml:548
 msgid "last permission level"
@@ -1090,7 +1089,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:616
 msgid "pixels of the major axis uploaded picture"
-msgstr "Píxels del eix principal de la imatge carregada"
+msgstr "Píxels de l'eix principal de la imatge carregada"
 
 #: misc/org.yorba.shotwell.gschema.xml:617
 msgid ""
@@ -1105,7 +1104,7 @@ msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr ""
-"La fitxa d'OAuth utilitzada per actualitzar la sessió de YouTube per "
+"El testimoni d'OAuth utilitzat per actualitzar la sessió de YouTube per "
 "l'usuari actualment connectat, si escau."
 
 #: misc/org.yorba.shotwell.gschema.xml:632
@@ -2516,7 +2515,7 @@ msgstr "No s'han pogut mostrar les FAQ: %s"
 
 #: src/BatchImport.vala:26
 msgid "Success"
-msgstr "Sucesos"
+msgstr "Èxit"
 
 #: src/BatchImport.vala:29
 msgid "File error"
@@ -3252,7 +3251,7 @@ msgstr " _Píxels:"
 
 #: src/Dialogs.vala:234
 msgid "Export _metadata:"
-msgstr "Exporta les _metadades"
+msgstr "Exporta les _metadades:"
 
 #: src/Dialogs.vala:478
 msgid "Save Details…"
