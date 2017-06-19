@@ -18,6 +18,10 @@ src_libgraphics_processor_la_VALAFLAGS = \
 	--vapi=src/shotwell-graphics-processor.vapi \
 	--header=src/shotwell-graphics-processor.h
 
+dist_noinst_DATA += \
+	src/shotwell-graphics-processor.vapi \
+	src/shotwell-graphics-processor.h
+
 src_libgraphics_processor_la_CFLAGS = $(SHOTWELL_CFLAGS) $(COMMON_CFLAGS)
 src_libgraphics_processor_la_CFLAGS += -DG_DISABLE_CAST_CHECKS
 
