@@ -11,6 +11,7 @@ dist_noinst_DATA = \
 	offline.ui \
 	photo_context.ui \
 	photo.ui \
+	preferences_dialog.ui \
 	printing_widget.ui \
 	savedsearch.ui \
 	search_bar.ui \
@@ -19,6 +20,7 @@ dist_noinst_DATA = \
 	set_background_slideshow_dialog.ui \
 	shotwell.ui \
 	sidebar_default_context.ui \
+	slideshow_settings.ui \
 	tag_sidebar_context.ui \
 	tags.ui \
 	trash.ui

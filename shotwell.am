@@ -6,6 +6,7 @@ shotwell_CFLAGS = \
 	-I$(top_builddir)/plugins \
 	-I$(abs_top_srcdir)/plugins \
 	-I$(abs_top_srcdir)/src
+	-I$(abs_top_builddir)/src
 
 shotwell_LDADD = \
 	src/plugins/libplugin.la \
