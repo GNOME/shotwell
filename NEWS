@@ -1,3 +1,131 @@
+Shotwell 0.27.0 - 19 Jun 2017
+  * Remove F-Spot import support
+  * Create a commandline utility to test image transformations
+  * Speed up color transformations a bit
+  * Bump GTK+ requirement to 3.18 and remove deprecated functions
+  * Clean-up histogram drawing code
+  * Run thumbnailer with nice 19
+  * Update VAAPI blacklisting for video thumbnailer and new plugin structure
+  * Add configurable image background
+  * Split several dialogs from shotwell.ui file
+  * Move Tumblr to default plugin set
+  * Remove some unnecessary memcpys on import
+  * Add Meson build support
+  * Some more ngettext for plurals
+  * Add --fullscreen/-f option for viewer
+  * Add option to install Ubuntu apport hook
+  * Fix issue when importing to NTFS-backed vboxfs
+  * Fix GSettings schema search path for running out-of-tree
+  * Work around "Camera locked: -53" error on GNOME
+  * Fix issue with missing highlight on dnd actions
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716448
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716499
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716547
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716599
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716708
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716830
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717767
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718809
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718846
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719020
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719031
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719240
+ - https://bugzilla.gnome.org/show_bug.cgi?id=733652
+ - https://bugzilla.gnome.org/show_bug.cgi?id=742563
+ - https://bugzilla.gnome.org/show_bug.cgi?id=752008
+ - https://bugzilla.gnome.org/show_bug.cgi?id=760868
+ - https://bugzilla.gnome.org/show_bug.cgi?id=768938
+ - https://bugzilla.gnome.org/show_bug.cgi?id=773267
+ - https://bugzilla.gnome.org/show_bug.cgi?id=774650
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780811
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781567
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781897
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783250
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - gogo <trebelnik2@gmail.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - ca, courtesy of Jordi Mas
+ - da, courtesy of Alan Mortensen
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - fr, courtesy of Claude Paroz
+ - hr, courtesy of gogo
+ - id, courtesy of Andika Triwidada
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sk, courtesy of Dušan Kazik
+ - sv, courtesy of Anders Jonsson
+ - tr, courtesy of Emin Tufan Çetin
+
+Shotwell 0.26.2 - 1 Jun 2017
+  * Fix issue when minimizing publishing UI on Unity
+  * Fix browsing on GVFS-mounted file systems
+  * Fix missing linebreaks in comments when writing back meta-data
+  * Fix crash when no import plugin is selected
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719240
+ - https://bugzilla.gnome.org/show_bug.cgi?id=733652
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781897
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783250
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - id, courtesy of Andika Triwidada
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
+Shotwell 0.26.1 - 11 Apr 2017
+  * Fix "About" wording
+  * Fix missing Keyboard shortcuts
+  * Viewer: Fix context menu
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780415
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780811
+
+All contributors to this release:
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - de, courtesy of Mario Blättermann
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.26.0 - 20 Mar 2017
   * Translation updates
   * Fix build on non-glibc systems
