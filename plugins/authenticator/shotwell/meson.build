@@ -16,6 +16,7 @@ authenticator = library('shotwell-authenticator',
                         authenticator_shotwell_sources,
                         dependencies : authenticator_shotwell_deps,
                         include_directories : config_incdir,
+                        version: meson.project_version(),
                         vala_args : ['--gresources',
                         'org.gnome.Shotwell.Authenticator.gresource.xml'],
                         c_args :
