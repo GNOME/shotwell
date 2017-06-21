@@ -4,7 +4,7 @@ if INSTALL_APPORT_HOOK
 SUBDIRS += apport
 endif
 
-EXTRA_DIST = AUTHORS
+EXTRA_DIST = AUTHORS git-hash
 
 AUTHORS:
 	$(AM_V_GEN)if test -d "$(srcdir)/.git"; \
@@ -195,4 +195,5 @@ dist_noinst_DATA += \
 	settings-migrator/meson.build \
 	src/meson.build \
 	src/plugins/meson.build \
-	thumbnailer/meson.build
+	thumbnailer/meson.build \
+	apport/shotwell.py
