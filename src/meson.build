@@ -11,6 +11,10 @@ sw_graphics_processor = static_library('shotwell-graphics-processor',
                vala_args : '--disable-assert',
                install : false)
 
+processor = executable('shotwell-graphics-processor',
+                       ['graphics-processor.vala'],
+                       dependencies: [gio, gdk, gee],
+                       link_with: sw_graphics_processor)
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
