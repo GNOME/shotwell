@@ -11,6 +11,14 @@ sw_graphics_processor = static_library('shotwell-graphics-processor',
                vala_args : '--disable-assert',
                install : false)
 
+
+shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
+                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
+                 libraw, libexif, sw_plugin]
+if unity_available
+    shotwell_deps += [unity]
+endif
+
 executable('shotwell',
            ['unit/Unit.vala',
             'util/Util.vala',
@@ -202,9 +210,7 @@ executable('shotwell',
             '.unitize/_Library_unitize_entry.vala',
             '.unitize/_Direct_unitize_entry.vala'] + shotwell_resources,
            include_directories : vapi_incdir,
-           dependencies : [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                           gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                           libraw, libexif, sw_plugin, unity],
+           dependencies : shotwell_deps,
            vala_args : ['--pkg', 'libgphoto2',
                         '--pkg', 'libraw',
                         '--pkg', 'libexif',
