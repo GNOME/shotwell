@@ -93,7 +93,7 @@ public class FullscreenWindow : PageWindow {
         // fullscreen, start off with toolbar invoked, as a clue for the
         // user. Otherwise leave hidden unless activated by mouse over
         if (Config.Facade.get_instance().get_display_toolbar() ||
-            !Config.Facade.get_instance().get_pin_toolbar_state()) {
+            !is_toolbar_dismissal_enabled) {
             invoke_toolbar();
         } else {
             hide_toolbar();
