@@ -89,8 +89,15 @@ public class FullscreenWindow : PageWindow {
         // capture motion events to show the toolbar
         add_events(Gdk.EventMask.POINTER_MOTION_MASK);
         
-        // start off with toolbar invoked, as a clue for the user
-        invoke_toolbar();
+        // If toolbar is enabled in "normal" ui OR was pinned in
+        // fullscreen, start off with toolbar invoked, as a clue for the
+        // user. Otherwise leave hidden unless activated by mouse over
+        if (Config.Facade.get_instance().get_display_toolbar() ||
+            !Config.Facade.get_instance().get_pin_toolbar_state()) {
+            invoke_toolbar();
+        } else {
+            hide_toolbar();
+        }
 
         // Toolbar steals keyboard focus from page, put it back again
         page.grab_focus ();
