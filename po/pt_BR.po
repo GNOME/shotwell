@@ -16,23 +16,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-04-30 10:11+0000\n"
-"PO-Revision-Date: 2017-04-30 16:09-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
+"ll&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2017-06-24 08:41+0000\n"
+"PO-Revision-Date: 2017-06-25 16:27-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
 "X-Project-Style: gnome\n"
 
-#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
+#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:356
+#: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
 #: ui/tags.ui:356
 msgid "Shotwell"
@@ -76,16 +76,16 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Os desenvolvedores do Shotwell"
 
-#: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
+#: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Organizador de fotos"
 
-#: misc/shotwell.desktop.in.in:6
+#: misc/shotwell.desktop.in:6
 msgid "Organize your photos"
 msgstr "Organize suas fotos"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: misc/shotwell.desktop.in.in:8
+#: misc/shotwell.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -97,15 +97,15 @@ msgstr ""
 "picasa;youtube;piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
+#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
 msgid "shotwell"
 msgstr "shotwell"
 
-#: misc/shotwell-viewer.desktop.in.in:4
+#: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Visualizador do Shotwell"
 
-#: misc/shotwell-viewer.desktop.in.in:5 src/Resources.vala:18
+#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
 msgstr "Visualizador de fotos"
 
@@ -571,8 +571,8 @@ msgstr "maximizar janela da biblioteca"
 #: misc/org.yorba.shotwell.gschema.xml:214
 msgid "True if library application is maximized, false otherwise."
 msgstr ""
-"Verdadeiro se o aplicativo da biblioteca está maximizado. Falso, do "
-"contrário."
+"Verdadeiro se o aplicativo da biblioteca está maximizado; do contrário, "
+"falso."
 
 #: misc/org.yorba.shotwell.gschema.xml:219
 msgid "width of library window"
@@ -1556,7 +1556,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Visitar o site do Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:604
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:611
 msgid "translator-credits"
 msgstr ""
 "Djavan Fagundes <djavan@comum.org>\n"
@@ -1628,7 +1628,7 @@ msgstr ""
 "verifique a data no calendário do seu computador."
 
 #: plugins/common/RESTSupport.vala:509
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:959
+#: plugins/shotwell-publishing/TumblrPublishing.vala:959
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Um arquivo temporário necessário para a publicação não está disponível"
 
@@ -1698,11 +1698,11 @@ msgstr "Largura ou altura"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:105
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Sair"
@@ -1710,11 +1710,11 @@ msgstr "_Sair"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
@@ -1815,14 +1815,14 @@ msgstr " Site não encontrado"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:42
 msgid "_Email address"
 msgstr "_Endereço de e-mail"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:82
 msgid "_Password"
 msgstr "_Senha"
 
@@ -1833,8 +1833,8 @@ msgstr "Lemb_rar"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:104
 msgid "Log in"
 msgstr "Autenticar"
 
@@ -1890,79 +1890,9 @@ msgstr "Você está autenticado no Rajce como %s."
 msgid "Photos will appear in:"
 msgstr "As fotos irão aparecer em:"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:31
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:27
 msgid "Shotwell Extra Publishing Services"
 msgstr "Serviços extras de publicação do Shotwell"
-
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:44
-msgid "Blogs:"
-msgstr "Blogs:"
-
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:59
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-msgid "Photo _size:"
-msgstr "Tamanho da _foto:"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:36
-msgid "Copyright 2012 BJA Electronics"
-msgstr "Copyright 2012 BJA Electronics"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:876
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-msgid "500 × 375 pixels"
-msgstr "500 × 375 pixels"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:877
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-msgid "1024 × 768 pixels"
-msgstr "1024 × 768 pixels"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 × 853 pixels"
-msgstr "1280 × 853 pixels"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
-#, c-format
-msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "“%s” não é uma resposta válida para o pedido de autenticação OAuth"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
-msgid ""
-"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
-msgstr ""
-"TumblrPublisher: start( ): não pode iniciar, o editor não é reiniciável."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Digite o nome de usuário e senha associados à sua conta Tumblr."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
-msgid "Username and/or password invalid. Please try again"
-msgstr "Nome de usuário e/ou senha inválida. Por favor, tente novamente"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
-msgid "Invalid User Name or Password"
-msgstr "Usuário ou senha inválida"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:753
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Não foi possível carregar a interface gráfica: %s"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:735
-#, c-format
-msgid ""
-"You are logged into Tumblr as %s.\n"
-"\n"
-msgstr ""
-"Você está autenticado no Tumblr como %s.\n"
-"\n"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
@@ -2091,6 +2021,11 @@ msgstr "Somente para mim"
 msgid "Everyone"
 msgstr "Todos"
 
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:59
+msgid "Photo _size:"
+msgstr "Tamanho da _foto:"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:800
 #, c-format
 msgid ""
@@ -2136,6 +2071,18 @@ msgstr "Somente família"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:857
 msgid "Friends only"
 msgstr "Somente amigos"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:876
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+msgid "500 × 375 pixels"
+msgstr "500 × 375 pixels"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:877
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/TumblrPublishing.vala:106
+msgid "1024 × 768 pixels"
+msgstr "1024 × 768 pixels"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:878
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
@@ -2300,9 +2247,19 @@ msgstr ""
 "Shotwell não pode acessar sua biblioteca de fotos Piwigo. Por favor, "
 "verifique a URL digitada"
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+#: plugins/shotwell-publishing/TumblrPublishing.vala:588
+msgid "Username and/or password invalid. Please try again"
+msgstr "Nome de usuário e/ou senha inválida. Por favor, tente novamente"
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
 msgstr "URL inválida"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+#: plugins/shotwell-publishing/TumblrPublishing.vala:615
+msgid "Invalid User Name or Password"
+msgstr "Usuário ou senha inválida"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
 msgid "Admins, Family, Friends, Contacts"
@@ -2330,11 +2287,54 @@ msgstr "Mostrar o certificado…"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
 msgid "I understand, please _proceed."
-msgstr "Eu entendo, por favor prosseguir."
+msgstr "Eu entendo, por favor _prossiga."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:55
+#: plugins/shotwell-publishing/shotwell-publishing.vala:59
 msgid "Core Publishing Services"
 msgstr "Principais serviços de publicação"
+
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:44
+msgid "Blogs:"
+msgstr "Blogs:"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:36
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Copyright 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:107
+msgid "1280 × 853 pixels"
+msgstr "1280 × 853 pixels"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:311
+#: plugins/shotwell-publishing/TumblrPublishing.vala:321
+#, c-format
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
+msgstr "“%s” não é uma resposta válida para o pedido de autenticação OAuth"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:559
+msgid ""
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): não pode iniciar, o editor não é reiniciável."
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:587
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Digite o nome de usuário e senha associados à sua conta Tumblr."
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:635
+#: plugins/shotwell-publishing/TumblrPublishing.vala:753
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Não foi possível carregar a UI: %s"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:735
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Você está autenticado no Tumblr como %s.\n"
+"\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
 msgid "Video privacy _setting:"
@@ -2460,16 +2460,16 @@ msgstr "Fixar a barra de ferramentas aberta"
 msgid "Leave fullscreen"
 msgstr "Sai da tela cheia"
 
-#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
-#: src/data_imports/DataImportsUI.vala:301
-#: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
+#: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
+#: src/data_imports/DataImportsUI.vala:303
+#: src/data_imports/DataImportsUI.vala:421 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
 #: src/publishing/PublishingUI.vala:303 src/publishing/PublishingUI.vala:527
 #: src/Resources.vala:158 ui/slideshow_settings.ui:35
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/AppWindow.vala:579
+#: src/AppWindow.vala:586
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2482,21 +2482,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:607
 msgid "Visit the Shotwell web site"
 msgstr "Visitar o página web do Shotwell"
 
-#: src/AppWindow.vala:613
+#: src/AppWindow.vala:620
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Não foi possível exibir a ajuda: %s"
 
-#: src/AppWindow.vala:621
+#: src/AppWindow.vala:628
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Não foi possível navegar no banco de dados de bugs: %s"
 
-#: src/AppWindow.vala:629
+#: src/AppWindow.vala:636
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Não foi possível exibir FAQ: %s"
@@ -2562,12 +2562,12 @@ msgstr "Arquivo de imagem corrompido"
 msgid "Imported failed (%d)"
 msgstr "A importação falhou (%d)"
 
-#: src/camera/Branch.vala:85
+#: src/camera/CameraBranch.vala:85
 msgid "Cameras"
 msgstr "Câmeras"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
@@ -2654,61 +2654,66 @@ msgstr ""
 msgid "Unmounting…"
 msgstr "Desmontando…"
 
-#: src/camera/ImportPage.vala:1160
+#: src/camera/ImportPage.vala:1162
+#| msgid "Starting import, please wait…"
+msgid "Connecting to camera, please wait…"
+msgstr "Conexão com a câmera, por favor aguarde…"
+
+#: src/camera/ImportPage.vala:1194
 msgid "Starting import, please wait…"
 msgstr "Iniciando importação, por favor, aguarde…"
 
-#: src/camera/ImportPage.vala:1177
+#: src/camera/ImportPage.vala:1200
 msgid "Fetching photo information"
 msgstr "Obtendo informação da foto"
 
-#: src/camera/ImportPage.vala:1535
+#: src/camera/ImportPage.vala:1558
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Obtendo visualização para %s"
 
-#: src/camera/ImportPage.vala:1651
+#: src/camera/ImportPage.vala:1666
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Não foi possível travar a câmera: %s"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1751
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Apagar essa foto da câmera?"
 msgstr[1] "Apagar essas %d fotos da câmera?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1754
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Apagar esse vídeo da câmera?"
 msgstr[1] "Apagar esses %d vídeos da câmera?"
 
-#: src/camera/ImportPage.vala:1742
+#: src/camera/ImportPage.vala:1757
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Excluir essa foto/vídeo da câmera?"
 msgstr[1] "Excluir essas %d fotos/vídeos da câmera?"
 
-#: src/camera/ImportPage.vala:1745
+#: src/camera/ImportPage.vala:1760
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Apagar esse arquivo da câmera?"
 msgstr[1] "Apagar esses %d arquivos da câmera?"
 
-#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Manter"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1787
 msgid "Removing photos/videos from camera"
 msgstr "Excluindo fotos/vídeos da câmera"
 
-#: src/camera/ImportPage.vala:1776
+#: src/camera/ImportPage.vala:1791
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2786,7 +2791,8 @@ msgstr "C_olar ajustes de cor"
 msgid "Adjust Date and Time…"
 msgstr "Ajustar a data e hora…"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:320
+#: src/CollectionPage.vala:143 src/Resources.vala:320 ui/collection.ui:108
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
 msgid "Open With E_xternal Editor"
 msgstr "Abrir com o editor e_xterno"
 
@@ -2800,20 +2806,18 @@ msgid "_Play"
 msgstr "_Reproduzir"
 
 #: src/CollectionPage.vala:410
+#| msgid "Export Photo/Video"
 msgid "Export Photo/Video"
-msgstr "Exportar foto/vídeo"
-
-#: src/CollectionPage.vala:410
-msgid "Export Photos/Videos"
-msgstr "Exportar fotos/vídeos"
+msgid_plural "Export Photos/Videos"
+msgstr[0] "Exportar foto/vídeo"
+msgstr[1] "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:59 src/PhotoPage.vala:2998
+#| msgid "Export Photo"
 msgid "Export Photo"
-msgstr "Exportar fotos"
-
-#: src/CollectionPage.vala:412 src/Dialogs.vala:84
-msgid "Export Photos"
-msgstr "Exportar fotos"
+msgid_plural "Export Photos"
+msgstr[0] "Exportar foto"
+msgstr[1] "Exportar fotos"
 
 #: src/CollectionPage.vala:499 src/CollectionPage.vala:515
 msgid "Rotating"
@@ -3049,7 +3053,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Arquivo de banco de dados:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:781
 msgid "_Import"
 msgstr "Parar _importação"
 
@@ -3061,7 +3065,7 @@ msgstr "Importação de aplicativo"
 msgid "Import media _from:"
 msgstr "Impo_rtação de mídia de:"
 
-#: src/data_imports/DataImportsUI.vala:414 src/publishing/PublishingUI.vala:522
+#: src/data_imports/DataImportsUI.vala:416 src/publishing/PublishingUI.vala:522
 msgid "_Close"
 msgstr "Fe_char"
 
@@ -3164,6 +3168,10 @@ msgstr "_Mudar Desenvolvedor"
 #: src/Dialogs.vala:59
 msgid "Export Video"
 msgstr "Exportar vídeo"
+
+#: src/Dialogs.vala:84
+msgid "Export Photos"
+msgstr "Exportar fotos"
 
 #. Ticket #3023
 #. Attempt to replace the system error with something friendlier
@@ -3869,41 +3877,41 @@ msgstr "Importar fotos de sua biblioteca %s"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2375 src/Dialogs.vala:2379
+#: src/Dialogs.vala:2373 src/Dialogs.vala:2377
 msgid "(Help)"
 msgstr "(Ajuda)"
 
-#: src/Dialogs.vala:2383
+#: src/Dialogs.vala:2381
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Ano%sMês%sDia"
 
-#: src/Dialogs.vala:2385
+#: src/Dialogs.vala:2383
 #, c-format
 msgid "Year%sMonth"
 msgstr "Ano%sMês"
 
-#: src/Dialogs.vala:2387
+#: src/Dialogs.vala:2385
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Ano%sMês-Dia"
 
-#: src/Dialogs.vala:2389
+#: src/Dialogs.vala:2387
 msgid "Year-Month-Day"
 msgstr "Ano-Mês-Dia"
 
-#: src/Dialogs.vala:2390 src/editing_tools/EditingTools.vala:760
+#: src/Dialogs.vala:2388 src/editing_tools/EditingTools.vala:760
 msgid "Custom"
 msgstr "Personalizar"
 
 #. Invalid pattern.
-#: src/Dialogs.vala:2629
+#: src/Dialogs.vala:2627
 msgid "Invalid pattern"
 msgstr "Padrão inválido"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2733
+#: src/Dialogs.vala:2731
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -3911,31 +3919,31 @@ msgstr ""
 "Shotwell pode copiar as fotos na sua pasta de biblioteca ou pode importá-los "
 "sem copiar."
 
-#: src/Dialogs.vala:2738
+#: src/Dialogs.vala:2736
 msgid "Co_py Photos"
 msgstr "Co_piar fotos"
 
-#: src/Dialogs.vala:2739
+#: src/Dialogs.vala:2737
 msgid "_Import in Place"
 msgstr "_Importar no local"
 
-#: src/Dialogs.vala:2740
+#: src/Dialogs.vala:2738
 msgid "Import to Library"
 msgstr "Importar para a biblioteca"
 
-#: src/Dialogs.vala:2750 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:2748 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Remover da biblioteca"
 
-#: src/Dialogs.vala:2751 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:2749 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Removendo fotos da biblioteca"
 
-#: src/Dialogs.vala:2751
+#: src/Dialogs.vala:2749
 msgid "Removing Photos From Library"
 msgstr "Removendo fotos da biblioteca"
 
-#: src/Dialogs.vala:2765
+#: src/Dialogs.vala:2763
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -3958,7 +3966,7 @@ msgstr[1] ""
 "\n"
 "Essa ação não poderá ser desfeita."
 
-#: src/Dialogs.vala:2769
+#: src/Dialogs.vala:2767
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -3981,7 +3989,7 @@ msgstr[1] ""
 "\n"
 "Essa ação não poderá ser desfeita."
 
-#: src/Dialogs.vala:2773
+#: src/Dialogs.vala:2771
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4004,7 +4012,7 @@ msgstr[1] ""
 "\n"
 "Essa ação não poderá ser desfeita."
 
-#: src/Dialogs.vala:2805
+#: src/Dialogs.vala:2803
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4016,7 +4024,7 @@ msgstr[1] ""
 "%d fotos/vídeos não podem ser movidos para lixeira. Excluir esses arquivos?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2822
+#: src/Dialogs.vala:2820
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -4294,7 +4302,7 @@ msgstr "Ângulo:"
 msgid "_Straighten"
 msgstr "En_direitar"
 
-#: src/events/Branch.vala:25
+#: src/events/EventsBranch.vala:25
 msgid "Events"
 msgstr "Eventos"
 
@@ -4383,16 +4391,16 @@ msgstr "Sobrescrever _todas"
 msgid "Export"
 msgstr "Exportar"
 
-#: src/folders/Branch.vala:144
+#: src/folders/FoldersBranch.vala:144
 msgid "Folders"
 msgstr "Pastas"
 
-#: src/library/Branch.vala:30 src/library/Branch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Biblioteca"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
 msgstr "Fotos"
 
@@ -4418,19 +4426,23 @@ msgstr "Importado %s"
 msgid "Last Import"
 msgstr "Última importação"
 
-#: src/library/LibraryWindow.vala:507
+#: src/library/LibraryWindow.vala:508
 msgid "Import From Folder"
 msgstr "Importa da pasta"
 
-#: src/library/LibraryWindow.vala:576 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:515
+msgid "Recurse Into Subfolders"
+msgstr "Recursividade em subpastas"
+
+#: src/library/LibraryWindow.vala:582 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
-#: src/library/LibraryWindow.vala:576
+#: src/library/LibraryWindow.vala:582
 msgid "Emptying Trash…"
 msgstr "Esvaziando lixeira…"
 
-#: src/library/LibraryWindow.vala:772
+#: src/library/LibraryWindow.vala:778
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4443,33 +4455,33 @@ msgstr ""
 "%s</span>.\n"
 "Você deseja continuar a importação de fotos?"
 
-#: src/library/LibraryWindow.vala:775 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:781 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Localização da biblioteca"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:788
+#: src/library/LibraryWindow.vala:794
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotos não podem ser importadas deste diretório."
 
-#: src/library/LibraryWindow.vala:1068
+#: src/library/LibraryWindow.vala:1074
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
+#: src/library/LibraryWindow.vala:1118 src/library/LibraryWindow.vala:1129
 msgid "Updating library…"
 msgstr "Atualizando biblioteca…"
 
-#: src/library/LibraryWindow.vala:1129
+#: src/library/LibraryWindow.vala:1135
 msgid "Preparing to auto-import photos…"
 msgstr "Preparando para auto-importação de fotos…"
 
-#: src/library/LibraryWindow.vala:1134
+#: src/library/LibraryWindow.vala:1140
 msgid "Auto-importing photos…"
 msgstr "Auto-importação de fotos…"
 
-#: src/library/LibraryWindow.vala:1142
+#: src/library/LibraryWindow.vala:1148
 msgid "Writing metadata to files…"
 msgstr "Escrevendo metadados para arquivos…"
 
@@ -4541,34 +4553,38 @@ msgstr "Erro desconhecido ao tentar verificar o banco de dados do Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Carregando Shotwell"
 
-#: src/main.vala:293
+#: src/main.vala:303
 msgid "Path to Shotwell’s private data"
 msgstr "Caminho para os dados privados do Shotwell"
 
-#: src/main.vala:293
+#: src/main.vala:303
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: src/main.vala:297
+#: src/main.vala:307
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 "Não monitora o diretório da biblioteca durante o tempo de execução para "
 "mudanças"
 
-#: src/main.vala:301
+#: src/main.vala:311
 msgid "Don’t display startup progress meter"
 msgstr "Não exibe a medida do progresso de inicialização"
 
-#: src/main.vala:305
+#: src/main.vala:315
 msgid "Show the application’s version"
 msgstr "Mostra a versão do aplicativo"
 
+#: src/main.vala:319
+msgid "Start the application in fullscreen mode"
+msgstr "Inicia o aplicativo em modo tela cheia"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:342
+#: src/main.vala:356
 msgid "[FILE]"
 msgstr "[ARQUIVO]"
 
-#: src/main.vala:346
+#: src/main.vala:360
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -5643,7 +5659,8 @@ msgstr "Abre o diretório da foto selecionada no gerenciador de arquivos"
 msgid "Unable to open in file manager: %s"
 msgstr "Não foi possível abrir no gerenciador de arquivos: %s"
 
-#: src/Resources.vala:673 ui/offline.ui:224
+#: src/Resources.vala:673 ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58
+#: ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77 ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "R_emover da biblioteca"
 
@@ -5710,7 +5727,7 @@ msgstr "%a, %d de %b de %Y"
 msgid "Slideshow"
 msgstr "Apresentação de slides"
 
-#: src/searches/Branch.vala:68
+#: src/searches/SearchesBranch.vala:68
 msgid "Saved Searches"
 msgstr "Pesquisas salvas"
 
@@ -6010,13 +6027,13 @@ msgstr "Nenhum"
 msgid "Random"
 msgstr "Aleatório"
 
-#: src/tags/Branch.vala:131
+#: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: src/Tag.vala:830
 msgid "untitled"
-msgstr "Sem título"
+msgstr "sem título"
 
 #. multiple videos
 #: src/VideoSupport.vala:520
@@ -6032,10 +6049,6 @@ msgstr "Alternar _marca"
 #: ui/photo_context.ui:88 ui/photo.ui:343 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Desenvolvedor"
-
-#: ui/collection.ui:108 ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
-msgid "Open with E_xternal Editor"
-msgstr "Abrir com editor e_xterno"
 
 #: ui/collection.ui:119 ui/event.ui:387 ui/event.ui:558 ui/media.ui:381
 #: ui/photo_context.ui:126 ui/tags.ui:381
@@ -6100,7 +6113,8 @@ msgstr "_Relate um problema…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/import_queue.ui:14 ui/import.ui:8
 #: ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8 ui/trash.ui:8
-msgid "_Import from Folder…"
+#| msgid "_Import from Folder…"
+msgid "_Import From Folder…"
 msgstr "_Importar da pasta…"
 
 #: ui/events_directory.ui:13 ui/event.ui:13 ui/import_queue.ui:19
@@ -6177,11 +6191,6 @@ msgstr "D_escendente"
 #: ui/events_directory.ui:132 ui/event.ui:379 ui/media.ui:373 ui/tags.ui:373
 msgid "Even_ts"
 msgstr "Even_tos"
-
-#: ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58 ui/offline.ui:207
-#: ui/photo.ui:77 ui/tags.ui:74
-msgid "R_emove from Library"
-msgstr "R_emover da biblioteca"
 
 #: ui/event.ui:129 ui/import.ui:104 ui/media.ui:129 ui/tags.ui:129
 msgid "_Titles"
@@ -6439,6 +6448,15 @@ msgstr "segundos"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Apaga todas as fotos na lixeira"
+
+#~ msgid "Export Photos/Videos"
+#~ msgstr "Exportar fotos/vídeos"
+
+#~ msgid "Open with E_xternal Editor"
+#~ msgstr "Abrir com editor e_xterno"
+
+#~ msgid "R_emove from Library"
+#~ msgstr "R_emover da biblioteca"
 
 #~ msgid ""
 #~ "Welcome to the F-Spot library import service.\n"
