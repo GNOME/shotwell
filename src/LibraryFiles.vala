@@ -12,11 +12,11 @@ public void select_copy_function() {
     var import_dir = AppDirs.get_import_dir();
 
     try {
-	var info = import_dir.query_filesystem_info("filesystem::type", null);
-	use_fallback_copy_func = info.get_attribute_as_string("filesystem::type") == "nfs";
+        var import_dir = dir.query_filesystem_info("filesystem::type", null);
+        use_fallback_copy_func = info.get_attribute_as_string("filesystem::type") == "nfs";
     } catch (Error error) {
         critical ("Failed to query fs type: %s", error.message);
-	use_fallback_copy_func = true;
+        use_fallback_copy_func = true;
     }
 
     info ("Using fallback copy: %s", use_fallback_copy_func.to_string());
