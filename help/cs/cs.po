@@ -1,13 +1,13 @@
 # Czech translation for shotwell.
 # Copyright (C) 2014 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
-# Marek Černocký <marek@manet.cz>, 2014, 2016.
+# Marek Černocký <marek@manet.cz>, 2014, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-09-04 08:44+0000\n"
-"PO-Revision-Date: 2016-09-13 11:15+0200\n"
+"POT-Creation-Date: 2017-05-30 17:54+0000\n"
+"PO-Revision-Date: 2017-06-25 23:04+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -163,18 +163,6 @@ msgstr ""
 "nejtmavější černá. Použijte ke změně kontrastu fotografie. Změna tohoto "
 "nastavení může přinést výsledky u fotografií, které vypadají mdle a vybledle."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/edit-crop.page:42
-msgctxt "_"
-msgid ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-msgstr ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
 msgid "Improve the composition of a photo by cutting out parts of it."
@@ -306,6 +294,18 @@ msgid ""
 msgstr ""
 "Oříznutí fotografie podle pravidla třetin čas přinese výsledek v podobě "
 "mnohem působivějšího obrázku."
+
+#. (itstool) path: section/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+msgctxt "_"
+msgid ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+msgstr ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -884,11 +884,16 @@ msgstr ""
 #: C/import-file.page:16
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-"gui></guiseq> and select the folder containing the photos you want to import."
+"gui></guiseq> and select the folder containing the photos you want to "
+"import. If you do not want Shotwell to recurse into subfolders while "
+"importing, you can check the <gui>Recurse Into Subfolders</gui> checkbox on "
+"the bottom of the file dialog."
 msgstr ""
 "Případně můžete kliknout na <guiseq><gui>Soubor</gui> <gui>Importovat ze "
 "složky…</gui></guiseq> a vyberte složku obsahující fotografie, které chcete "
-"importovat."
+"importovat. Jestliže chcete, aby se Shotwell při importu zanořoval postupně "
+"do podsložek, můžete zaškrtnout volbu <gui>Zanořovat se do podsložek</gui> "
+"ve spodní části dialogového okna."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -925,56 +930,6 @@ msgstr ""
 "Po dokončení importu můžete v postranním panelu vybrat <gui>Poslední import</"
 "gui>, abyste viděli všechny fotografie, které se úspěšně naimportovaly. "
 "Rovněž v seznamu Události se objeví nové položky s daty odpovídajícími "
-"importovaným fotografiím."
-
-#. (itstool) path: info/desc
-#: C/import-f-spot.page:7
-msgid ""
-"Shotwell can import all your photos and tags from the F-Spot photo manager."
-msgstr ""
-"Shotwell umí naimportovat všechny fotografie a štítky ze správce fotografií "
-"F-Spot."
-
-#. (itstool) path: page/title
-#: C/import-f-spot.page:12
-msgid "Importing from F-Spot"
-msgstr "Import z aplikace F-Spot"
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:14
-msgid "To import an existing photo collection from F-Spot:"
-msgstr "Když chcete importovat stávající sbírku fotografií z aplikace F-Spot:"
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:16
-msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
-msgstr ""
-"Vyberte <guiseq><gui>Soubor</gui><gui>Importovat z aplikace</gui></guiseq>."
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:17
-msgid ""
-"Now choose either the default F-Spot library or another F-Spot database. If "
-"importing from another F-Spot database, select a directory and file from the "
-"chooser dialog box."
-msgstr ""
-"Nyní zvolte buď výchozí knihovnu F-Spot nebo jinou databázi F-Spot. V "
-"případě, že importujete z jiné databáze F-Sport, vyberte složku a soubor v "
-"dialogovém okně, které se objeví."
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:20
-msgid ""
-"Shotwell will import your photos, together with their tags and other "
-"information. Once the import is complete, you can select <gui>Last Import</"
-"gui> in the sidebar to see all photos successfully imported. The Events list "
-"will also show new entries for the dates corresponding to the imported "
-"photos."
-msgstr ""
-"Shotwell naimportuje vaše fotografie, spolu s jejich štítky a dalšími "
-"informacemi. Jakmile je import dokončen, můžete v postranním panelu vybrat "
-"<gui>Poslední import</gui>, abyste viděli všechny naimportované fotografie. "
-"Rovněž v seznamu událostí se objeví nové položky s daty odpovídajícími "
 "importovaným fotografiím."
 
 #. (itstool) path: info/desc
@@ -1043,20 +998,6 @@ msgstr ""
 "<link xref=\"import-camera\">přímo připojením svého fotoaparátu k počítači</"
 "link>."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
 #. (itstool) path: info/title
 #: C/index.page:6
 msgctxt "link"
@@ -1093,6 +1034,20 @@ msgstr "Peter Smith"
 #: C/index.page:17
 msgid "Phil Bull"
 msgstr "Phil Bull"
+
+#. (itstool) path: title/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/index.page:23
+msgctxt "_"
+msgid ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
+msgstr ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
 
 #. (itstool) path: page/title
 #: C/index.page:23
@@ -1461,20 +1416,6 @@ msgstr ""
 "<guiseq><gui>Hodnotit</gui><gui>Snížit</gui></guiseq>, nebo klávesovými "
 "zkratkami <key>&lt;</key> a <key>&gt;</key>."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/organize-remove.page:15
-msgctxt "_"
-msgid ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
 msgid ""
@@ -1493,6 +1434,20 @@ msgid ""
 "entirely from your hard disk."
 msgstr ""
 "Fotografie můžete odebrat z knihovny a navíc i úplně smazat z pevného disku."
+
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
 
 #. (itstool) path: page/media
 #: C/organize-remove.page:15
@@ -2192,13 +2147,13 @@ msgstr "odp."
 #. (itstool) path: section/p
 #: C/other-files.page:72
 msgid ""
-"There are other symbols available; please check the manual for strftime by "
-"running the command <cmd>man strftime</cmd> if you need one that isn't "
-"listed here."
+"There are other symbols available; please check the <link href=\"man:strftime"
+"\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
+"if you need one that isn't listed here."
 msgstr ""
 "Existují ještě další symboly, které zde uvedené nejsou. Jestli vás zajímají, "
-"podívejte se do příručky k funkci strftime, stačí použít příkaz <cmd>man "
-"strftime</cmd>."
+"podívejte se do <link href=\"man:strftime\">příručky k funkci strftime"
+"</link>, stačí použít příkaz <cmd>man strftime</cmd>."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -3183,12 +3138,12 @@ msgstr ""
 "Postranní panel na levé straně okna vypisuje různá zobrazení vaší knihovny."
 
 #. (itstool) path: page/title
-#: C/view-sidebar.page:21
+#: C/view-sidebar.page:20
 msgid "The sidebar"
 msgstr "Postranní panel"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:23
+#: C/view-sidebar.page:22
 msgid ""
 "The sidebar on the left side of the Shotwell window lists various views of "
 "your library. Although you may see the same photo in multiple views, it's "
@@ -3199,7 +3154,7 @@ msgstr ""
 "disku je uchována jen v jedné kopii."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:25
+#: C/view-sidebar.page:24
 msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
@@ -3209,21 +3164,21 @@ msgstr ""
 "fotoaparátu, z paměťové karty nebo z pevného disku."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:27
+#: C/view-sidebar.page:26
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
 msgstr ""
 "V <gui>Označeno</gui> jsou uvedeny všechny fotografie, které jste již dříve "
 "označili."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:29
+#: C/view-sidebar.page:28
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
 "<gui>Uložená hledání</gui> umožňují třídit vaši knihovnu podle řady kritérií."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:31
+#: C/view-sidebar.page:30
 msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
@@ -3232,7 +3187,7 @@ msgstr ""
 "Událost je skupina fotografií, které byly pořízeny přibližně ve stejnou dobu."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:33
+#: C/view-sidebar.page:32
 msgid ""
 "The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
 "can have multiple tags attached to them. When you click on the name of a tag "
@@ -3243,31 +3198,3 @@ msgstr ""
 "kliknete na název štítku v postranním panelu, uvidíte všechny fotografie, "
 "které mají takovýto štítek přiřazený."
 
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "Flickr"
-#~ msgstr "Flickr"
-
-#~ msgid "Symbol"
-#~ msgstr "symbol"
-
-#~ msgid ""
-#~ "@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-#~ msgstr ""
-#~ "@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-
-#~ msgid "jim@yorba.org"
-#~ msgstr "jim@yorba.org"
-
-#~ msgid "allison@yorba.org"
-#~ msgstr "allison@yorba.org"
-
-#~ msgid "robert.ancell@canonical.com"
-#~ msgstr "robert.ancell@canonical.com"
-
-#~ msgid "pdo.smith@gmail.com"
-#~ msgstr "pdo.smith@gmail.com"
-
-#~ msgid "philbull@gmail.com"
-#~ msgstr "philbull@gmail.com"
