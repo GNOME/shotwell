@@ -168,7 +168,7 @@ public class Folders.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.ExpandableE
     
     public SidebarEntry(File dir) {
         this.dir = dir;
-        collation = g_utf8_collate_key_for_filename(dir.get_path());
+        collation = dir.get_path().collate_key_for_filename();
     }
     
     public override string get_sidebar_name() {

@@ -6,8 +6,6 @@
 
 public delegate int64 Comparator(void *a, void *b);
 
-extern string g_utf8_collate_key_for_filename(string str, ssize_t len = -1);
-
 public int64 file_comparator(void *a, void *b) {
     string? path_a = ((File *) a)->get_path();
     string? path_b = ((File *) b)->get_path();
@@ -19,7 +17,7 @@ public int64 file_comparator(void *a, void *b) {
     if (path_b == null)
         return -1;
     
-    return strcmp(g_utf8_collate_key_for_filename(path_a), g_utf8_collate_key_for_filename(path_b));
+    return strcmp(path_a.collate_key_for_filename(), path_b.collate_key_for_filename());
 }
 
 public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Collection<G> {

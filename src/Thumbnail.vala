@@ -198,12 +198,11 @@ public class Thumbnail : MediaSourceItem {
     public static int64 filename_ascending_comparator(void *a, void *b) {
         string path_a = ((Thumbnail *) a)->media.get_file().get_basename().down();
         string path_b = ((Thumbnail *) b)->media.get_file().get_basename().down();
-        
-        int64 result = strcmp(g_utf8_collate_key_for_filename(path_a), 
-            g_utf8_collate_key_for_filename(path_b));
+
+        int64 result = strcmp(path_a.collate_key_for_filename(), path_b.collate_key_for_filename());
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
-    
+
     public static int64 filename_descending_comparator(void *a, void *b) {
         int64 result = filename_ascending_comparator(b, a);
         
