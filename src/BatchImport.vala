@@ -327,9 +327,11 @@ public class ImportManifest {
     public Gee.List<BatchImportResult> already_imported = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> corrupt_files = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> all = new Gee.ArrayList<BatchImportResult>();
+    public GLib.Timer timer;
     
     public ImportManifest(Gee.List<BatchImportJob>? prefailed = null,
         Gee.List<BatchImportJob>? pre_already_imported = null) {
+        this.timer = new Timer();
         if (prefailed != null) {
             foreach (BatchImportJob job in prefailed) {
                 BatchImportResult batch_result = new BatchImportResult(job, null, 
@@ -623,6 +625,7 @@ public class BatchImport : Object {
         flush_ready_sources();
         
         log_status("Import completed: %s".printf(where));
+        debug("Import complete after %f", manifest.timer.elapsed());
         
         // report completed to the reporter (called prior to the "import_complete" signal)
         if (reporter != null)
