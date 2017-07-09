@@ -743,17 +743,33 @@ public abstract class Photo : PhotoSource, Dateable {
                         return;
                     }
                     
-                    Gdk.Pixbuf? pix = prev.get_pixbuf();
+                    var pix = prev.flatten();
                     if (pix == null) {
                         debug("Could not get preview pixbuf");
                         return;
                     }
-                    
+
                     // Write out file.
                     bps = d.create_backing_row_for_development(row.master.filepath);
-                    PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
-                    writer.write(pix, Jpeg.Quality.HIGH);
-                    
+
+                    // Peek at data. If we really have a JPEG image, just use it,
+                    // otherwise do GdkPixbuf roundtrip
+                    if (Jpeg.is_jpeg_bytes(pix)) {
+                        var outfile = File.new_for_path(bps.filepath);
+                        outfile.replace_contents(pix.get_data(), null,
+                                false, FileCreateFlags.NONE, null);
+                    } else {
+                        var pixbuf = prev.get_pixbuf();
+                        if (pixbuf == null) {
+                            debug("Could not get preview pixbuf");
+                            return;
+                        }
+
+                        var writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
+                        writer.write(pixbuf, Jpeg.Quality.HIGH);
+                    }
+
+
                     // Remember that we wrote it (see above
                     // case for why this is necessary).
                     wrote_img_to_disk = true;
