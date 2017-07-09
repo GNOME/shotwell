@@ -1067,7 +1067,7 @@ public class BatchImport : Object {
                         d = RawDeveloper.EMBEDDED;
                     
                     photo.set_default_raw_developer(d);
-                    photo.set_raw_developer(d);
+                    photo.set_raw_developer(d, false);
                 }
             }
             

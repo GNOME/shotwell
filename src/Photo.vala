@@ -628,12 +628,14 @@ public abstract class Photo : PhotoSource, Dateable {
     // Reads info on a backing photo and adds it.
     // Note: this function was created for importing new photos.  It will not
     // notify of changes to the developments.
-    public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr) throws Error {
+    public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr, bool notify = true) throws Error {
         import_developed_backing_photo(row, d, bpr);
         lock (developments) {
             developments.set(d, bpr);
         }
-        notify_altered(new Alteration("image", "developer"));
+
+        if (notify)
+            notify_altered(new Alteration("image", "developer"));
     }
     
     public static void import_developed_backing_photo(PhotoRow row, RawDeveloper d, 
@@ -667,7 +669,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // "Develops" a raw photo
     // Not thread-safe.
-    private void develop_photo(RawDeveloper d) {
+    private void develop_photo(RawDeveloper d, bool notify) {
         bool wrote_img_to_disk = false;
         BackingPhotoRow bps = null;
         
@@ -714,7 +716,7 @@ public abstract class Photo : PhotoSource, Dateable {
                     if (wrote_img_to_disk) {
                         try {
                             // Read in backing photo info, add to DB.
-                            add_backing_photo_for_development(d, bps);
+                            add_backing_photo_for_development(d, bps, notify);
                             
                             notify_raw_development_modified();
                         } catch (Error e) {
@@ -784,7 +786,7 @@ public abstract class Photo : PhotoSource, Dateable {
                     if (wrote_img_to_disk) {
                         try {
                             // Read in backing photo info, add to DB.
-                            add_backing_photo_for_development(d, bps);
+                            add_backing_photo_for_development(d, bps, notify);
                             
                             notify_raw_development_modified();
                         } catch (Error e) {
@@ -808,7 +810,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     // Sets the developer and develops the photo.
-    public void set_raw_developer(RawDeveloper d) {
+    public void set_raw_developer(RawDeveloper d, bool notify = true) {
         if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
         
@@ -828,7 +830,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
             // Perform development, bail out if it doesn't work.
             if (!is_raw_developer_complete(d)) {
-                develop_photo(d);
+                develop_photo(d, notify);
             }
             if (!developments.has_key(d))
                 return; // we tried!
@@ -871,14 +873,15 @@ public abstract class Photo : PhotoSource, Dateable {
             // and is to be preserved.
         }
         
-        notify_altered(new Alteration("image", "developer"));
+        if (notify)
+            notify_altered(new Alteration("image", "developer"));
         discard_prefetched();
     }
-    
+
     public RawDeveloper get_raw_developer() {
         return row.developer;
     }
-    
+
     // Removes a development from the database, filesystem, etc.
     // Returns true if a development was removed, otherwise false.
     private bool delete_raw_development(RawDeveloper d) {
