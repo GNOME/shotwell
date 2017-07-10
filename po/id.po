@@ -19,20 +19,20 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-04-30 10:05+0000\n"
-"PO-Revision-Date: 2017-04-30 17:09+0000\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2017-07-09 22:16+0000\n"
+"PO-Revision-Date: 2017-07-10 17:05+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.2\n"
 
-#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
+#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:356
+#: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
 #: ui/tags.ui:356
 msgid "Shotwell"
@@ -77,16 +77,16 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Para pengembang Shotwell"
 
-#: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
+#: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Manajer Foto"
 
-#: misc/shotwell.desktop.in.in:6
+#: misc/shotwell.desktop.in:6
 msgid "Organize your photos"
 msgstr "Organisasikan foto Anda"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: misc/shotwell.desktop.in.in:8
+#: misc/shotwell.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -97,15 +97,15 @@ msgstr ""
 "picasa;youtube;piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
+#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
 msgid "shotwell"
 msgstr "shotwell"
 
-#: misc/shotwell-viewer.desktop.in.in:4
+#: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Shotwell Penampil"
 
-#: misc/shotwell-viewer.desktop.in.in:5 src/Resources.vala:18
+#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
 msgstr "Penampil Foto"
 
@@ -1494,7 +1494,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Kunjungi laman serambi Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:604
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:611
 msgid "translator-credits"
 msgstr ""
 "Mohammad Anwari <mdamt@di.blankon.in>, 2010\n"
@@ -1505,7 +1505,8 @@ msgstr ""
 "Malsasa <teknoloid@gmail.com>, 2012\n"
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
-"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017"
+"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017.\n"
+"Kukuh Syafaat <syafaatkukuh@gmail.com>, 2017."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:202
@@ -1564,7 +1565,7 @@ msgstr ""
 "tanggal pada kalender komputer Anda."
 
 #: plugins/common/RESTSupport.vala:509
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:959
+#: plugins/shotwell-publishing/TumblrPublishing.vala:959
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Berkas sementara yang diperlukan untuk penerbitan tidak tersedia"
 
@@ -1633,11 +1634,11 @@ msgstr "Lebar atau tinggi"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:105
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:142
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
 msgid "_Logout"
 msgstr "_Keluar"
@@ -1645,11 +1646,11 @@ msgstr "_Keluar"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:156
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2469
 msgid "_Publish"
@@ -1749,14 +1750,14 @@ msgstr " Situs Tidak Ditemukan"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:42
 msgid "_Email address"
 msgstr "_Alamat Email"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:82
 msgid "_Password"
 msgstr "_Kata Sandi"
 
@@ -1767,8 +1768,8 @@ msgstr "_Ingat"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing-extras/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:104
 msgid "Log in"
 msgstr "Log masuk"
 
@@ -1825,82 +1826,9 @@ msgstr "Anda masuk  ke Rajce sebagai %s."
 msgid "Photos will appear in:"
 msgstr "Foto akan muncul di:"
 
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:31
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:27
 msgid "Shotwell Extra Publishing Services"
 msgstr "Layanan Penerbit Ekstra Shotwell"
-
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:44
-msgid "Blogs:"
-msgstr "Blog:"
-
-#: plugins/shotwell-publishing-extras/tumblr_publishing_options_pane.ui:59
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-msgid "Photo _size:"
-msgstr "Ukuran _foto:"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:36
-msgid "Copyright 2012 BJA Electronics"
-msgstr "Hak Cipta 2012 BJA Electronics"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:105
-#: plugins/shotwell-publishing/FlickrPublishing.vala:876
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-msgid "500 × 375 pixels"
-msgstr "500 x 375 piksel"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:106
-#: plugins/shotwell-publishing/FlickrPublishing.vala:877
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-msgid "1024 × 768 pixels"
-msgstr "1024 x 768 piksel"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:107
-msgid "1280 × 853 pixels"
-msgstr "1280 x 853 piksel"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:311
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:321
-#, c-format
-msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "\"%s\" bukan jawaban yang valid ke permintaan otentikasi OAuth"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:559
-msgid ""
-"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
-msgstr ""
-"TumblrPublisher: start(): tak bisa memulai, penerbit ini tidak bisa di-start "
-"ulang."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:587
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr ""
-"Masukkan nama pengguna dan kata sandi yang berhubungan dengan akun Tumblr "
-"anda."
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:588
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
-msgid "Username and/or password invalid. Please try again"
-msgstr "Nama pengguna dan/atau kata sandi tak valid. Harap coba lagi"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:615
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
-msgid "Invalid User Name or Password"
-msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:753
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Tidak dapat membuka UI: %s"
-
-#: plugins/shotwell-publishing-extras/TumblrPublishing.vala:735
-#, c-format
-msgid ""
-"You are logged into Tumblr as %s.\n"
-"\n"
-msgstr ""
-"Anda belum masuk ke Tumblr sebagai %s.\n"
-"\n"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
@@ -2028,6 +1956,11 @@ msgstr "Saya sendiri saja"
 msgid "Everyone"
 msgstr "Semua orang"
 
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:59
+msgid "Photo _size:"
+msgstr "Ukuran _foto:"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:800
 #, c-format
 msgid ""
@@ -2074,6 +2007,18 @@ msgstr "Hanya keluarga"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:857
 msgid "Friends only"
 msgstr "Hanya teman"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:876
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+msgid "500 × 375 pixels"
+msgstr "500 x 375 piksel"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:877
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/TumblrPublishing.vala:106
+msgid "1024 × 768 pixels"
+msgstr "1024 x 768 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:878
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
@@ -2237,9 +2182,19 @@ msgstr ""
 "Shotwell tidak bisa menghubungi pustaka foto Piwigo. Harap periksa kembali "
 "URL yang kamu masukkan"
 
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+#: plugins/shotwell-publishing/TumblrPublishing.vala:588
+msgid "Username and/or password invalid. Please try again"
+msgstr "Nama pengguna dan/atau kata sandi tak valid. Harap coba lagi"
+
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
 msgstr "URL tidak sah"
+
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+#: plugins/shotwell-publishing/TumblrPublishing.vala:615
+msgid "Invalid User Name or Password"
+msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
 msgid "Admins, Family, Friends, Contacts"
@@ -2269,9 +2224,55 @@ msgstr "Tampilkan sertifikat…"
 msgid "I understand, please _proceed."
 msgstr "Saya _paham, harap lanjutkan."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:55
+#: plugins/shotwell-publishing/shotwell-publishing.vala:59
 msgid "Core Publishing Services"
 msgstr "Layanan Penerbit Utama"
+
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:44
+msgid "Blogs:"
+msgstr "Blog:"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:36
+msgid "Copyright 2012 BJA Electronics"
+msgstr "Hak Cipta 2012 BJA Electronics"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:107
+msgid "1280 × 853 pixels"
+msgstr "1280 x 853 piksel"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:311
+#: plugins/shotwell-publishing/TumblrPublishing.vala:321
+#, c-format
+msgid "“%s” isn’t a valid response to an OAuth authentication request"
+msgstr "\"%s\" bukan jawaban yang valid ke permintaan otentikasi OAuth"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:559
+msgid ""
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start(): tak bisa memulai, penerbit ini tidak bisa di-start "
+"ulang."
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:587
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr ""
+"Masukkan nama pengguna dan kata sandi yang berhubungan dengan akun Tumblr "
+"anda."
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:635
+#: plugins/shotwell-publishing/TumblrPublishing.vala:753
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Tidak dapat membuka UI: %s"
+
+#: plugins/shotwell-publishing/TumblrPublishing.vala:735
+#, c-format
+msgid ""
+"You are logged into Tumblr as %s.\n"
+"\n"
+msgstr ""
+"Anda belum masuk ke Tumblr sebagai %s.\n"
+"\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
 msgid "Video privacy _setting:"
@@ -2397,16 +2398,16 @@ msgstr "Sematkan batang alat terbuka"
 msgid "Leave fullscreen"
 msgstr "Tinggalkan layar penuh"
 
-#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
-#: src/data_imports/DataImportsUI.vala:301
-#: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
+#: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
+#: src/data_imports/DataImportsUI.vala:303
+#: src/data_imports/DataImportsUI.vala:421 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
 #: src/publishing/PublishingUI.vala:303 src/publishing/PublishingUI.vala:527
 #: src/Resources.vala:158 ui/slideshow_settings.ui:35
 msgid "_Cancel"
 msgstr "_Batal"
 
-#: src/AppWindow.vala:579
+#: src/AppWindow.vala:586
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2419,21 +2420,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:607
 msgid "Visit the Shotwell web site"
 msgstr "Kunjungi situs web Shotwell"
 
-#: src/AppWindow.vala:613
+#: src/AppWindow.vala:620
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Pedoman penggunaan tidak dapat ditampilkan: %s"
 
-#: src/AppWindow.vala:621
+#: src/AppWindow.vala:628
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Gagal menavigasi basis data bug: %s"
 
-#: src/AppWindow.vala:629
+#: src/AppWindow.vala:636
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Gagal menampilkan FAQ: %s"
@@ -2499,12 +2500,12 @@ msgstr "Berkas citra rusak"
 msgid "Imported failed (%d)"
 msgstr "Impor yang gagal (%d)"
 
-#: src/camera/Branch.vala:85
+#: src/camera/CameraBranch.vala:85
 msgid "Cameras"
 msgstr "Kamera"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
@@ -2590,57 +2591,61 @@ msgstr ""
 msgid "Unmounting…"
 msgstr "Melepas kaitan…"
 
-#: src/camera/ImportPage.vala:1160
+#: src/camera/ImportPage.vala:1162
+msgid "Connecting to camera, please wait…"
+msgstr "Menyambung ke kamera, mohon tunggu…"
+
+#: src/camera/ImportPage.vala:1194
 msgid "Starting import, please wait…"
 msgstr "Mulai mengimpor, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1177
+#: src/camera/ImportPage.vala:1200
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1535
+#: src/camera/ImportPage.vala:1558
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1651
+#: src/camera/ImportPage.vala:1666
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1751
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1754
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1742
+#: src/camera/ImportPage.vala:1757
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1745
+#: src/camera/ImportPage.vala:1760
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1787
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1776
+#: src/camera/ImportPage.vala:1791
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2718,7 +2723,8 @@ msgstr "Tem_pel Penyetelan Warna"
 msgid "Adjust Date and Time…"
 msgstr "Atur Jam dan Tanggal…"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:320
+#: src/CollectionPage.vala:143 src/Resources.vala:320 ui/collection.ui:108
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
 msgid "Open With E_xternal Editor"
 msgstr "Buka Oleh Penyunting E_ksternal"
 
@@ -2733,19 +2739,13 @@ msgstr "_Putar"
 
 #: src/CollectionPage.vala:410
 msgid "Export Photo/Video"
-msgstr "Ekspor Foto/Video"
-
-#: src/CollectionPage.vala:410
-msgid "Export Photos/Videos"
-msgstr "Ekspor Foto-foto/Video-video"
+msgid_plural "Export Photos/Videos"
+msgstr[0] "Ekspor Foto/Video"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
-msgstr "Ekspor Foto"
-
-#: src/CollectionPage.vala:412 src/Dialogs.vala:84
-msgid "Export Photos"
-msgstr "Ekspor Foto-foto"
+msgid_plural "Export Photos"
+msgstr[0] "Ekspor Foto"
 
 #: src/CollectionPage.vala:499 src/CollectionPage.vala:515
 msgid "Rotating"
@@ -2976,7 +2976,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Berkas basis data:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
 msgid "_Import"
 msgstr "_Impor"
 
@@ -2988,7 +2988,7 @@ msgstr "Impor Dari Aplikasi"
 msgid "Import media _from:"
 msgstr "Impor media _dari:"
 
-#: src/data_imports/DataImportsUI.vala:414 src/publishing/PublishingUI.vala:522
+#: src/data_imports/DataImportsUI.vala:416 src/publishing/PublishingUI.vala:522
 msgid "_Close"
 msgstr "_Tutup"
 
@@ -3085,6 +3085,10 @@ msgstr "_Ganti Pengembang"
 #: src/Dialogs.vala:59
 msgid "Export Video"
 msgstr "Ekspor Video"
+
+#: src/Dialogs.vala:84
+msgid "Export Photos"
+msgstr "Ekspor Foto-foto"
 
 #. Ticket #3023
 #. Attempt to replace the system error with something friendlier
@@ -3727,41 +3731,41 @@ msgstr "Impor foto dari %s pustakamu"
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2375 src/Dialogs.vala:2379
+#: src/Dialogs.vala:2373 src/Dialogs.vala:2377
 msgid "(Help)"
 msgstr "(Bantuan)"
 
-#: src/Dialogs.vala:2383
+#: src/Dialogs.vala:2381
 #, c-format
 msgid "Year%sMonth%sDay"
 msgstr "Tahun%sBulan%sHari"
 
-#: src/Dialogs.vala:2385
+#: src/Dialogs.vala:2383
 #, c-format
 msgid "Year%sMonth"
 msgstr "Tahun%sBulan"
 
-#: src/Dialogs.vala:2387
+#: src/Dialogs.vala:2385
 #, c-format
 msgid "Year%sMonth-Day"
 msgstr "Tahun%sBulan-Hari"
 
-#: src/Dialogs.vala:2389
+#: src/Dialogs.vala:2387
 msgid "Year-Month-Day"
 msgstr "Tahun-Bulan-Hari"
 
-#: src/Dialogs.vala:2390 src/editing_tools/EditingTools.vala:760
+#: src/Dialogs.vala:2388 src/editing_tools/EditingTools.vala:760
 msgid "Custom"
 msgstr "Bebas"
 
 #. Invalid pattern.
-#: src/Dialogs.vala:2629
+#: src/Dialogs.vala:2627
 msgid "Invalid pattern"
 msgstr "Pola tak sah"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2733
+#: src/Dialogs.vala:2731
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -3769,31 +3773,31 @@ msgstr ""
 "Shotwell dapat menyalin foto ke dalam folder pustaka atau mengimpor mereka "
 "tanpa menyalin."
 
-#: src/Dialogs.vala:2738
+#: src/Dialogs.vala:2736
 msgid "Co_py Photos"
 msgstr "Sa_lin Foto"
 
-#: src/Dialogs.vala:2739
+#: src/Dialogs.vala:2737
 msgid "_Import in Place"
 msgstr "_Impor di Lokasi"
 
-#: src/Dialogs.vala:2740
+#: src/Dialogs.vala:2738
 msgid "Import to Library"
 msgstr "Impor ke Album"
 
-#: src/Dialogs.vala:2750 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:2748 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Hapus Dari Album"
 
-#: src/Dialogs.vala:2751 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:2749 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Hapus Foto dari Album"
 
-#: src/Dialogs.vala:2751
+#: src/Dialogs.vala:2749
 msgid "Removing Photos From Library"
 msgstr "Hapus Foto Dari Album"
 
-#: src/Dialogs.vala:2765
+#: src/Dialogs.vala:2763
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -3811,7 +3815,7 @@ msgstr[0] ""
 "\n"
 "Aksi ini tidak dapat dikembalikan ke semula."
 
-#: src/Dialogs.vala:2769
+#: src/Dialogs.vala:2767
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -3829,7 +3833,7 @@ msgstr[0] ""
 "\n"
 "Aksi ini tidak dapat dikembalikan ke semula."
 
-#: src/Dialogs.vala:2773
+#: src/Dialogs.vala:2771
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -3847,7 +3851,7 @@ msgstr[0] ""
 "\n"
 "Aksi ini tidak dapat dikembalikan ke semula."
 
-#: src/Dialogs.vala:2805
+#: src/Dialogs.vala:2803
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -3858,7 +3862,7 @@ msgstr[0] ""
 "berkas ini?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2822
+#: src/Dialogs.vala:2820
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -4135,7 +4139,7 @@ msgstr "Sudut:"
 msgid "_Straighten"
 msgstr "_Luruskan"
 
-#: src/events/Branch.vala:25
+#: src/events/EventsBranch.vala:25
 msgid "Events"
 msgstr "Rangkaian"
 
@@ -4221,16 +4225,16 @@ msgstr "Timpa Semu_a"
 msgid "Export"
 msgstr "Ekspor"
 
-#: src/folders/Branch.vala:144
+#: src/folders/FoldersBranch.vala:144
 msgid "Folders"
 msgstr "Folder"
 
-#: src/library/Branch.vala:30 src/library/Branch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Album"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
 msgstr "Foto"
 
@@ -4256,19 +4260,23 @@ msgstr "%s diimpor"
 msgid "Last Import"
 msgstr "Impor terakhir"
 
-#: src/library/LibraryWindow.vala:507
+#: src/library/LibraryWindow.vala:508
 msgid "Import From Folder"
 msgstr "Impor Dari Folder"
 
-#: src/library/LibraryWindow.vala:576 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:515
+msgid "Recurse Into Subfolders"
+msgstr "Rekursi Dalam Sub Folder"
+
+#: src/library/LibraryWindow.vala:583 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Hapus Permanen Foto Buangan"
 
-#: src/library/LibraryWindow.vala:576
+#: src/library/LibraryWindow.vala:583
 msgid "Emptying Trash…"
 msgstr "Mengosongkan Tong Sampah…"
 
-#: src/library/LibraryWindow.vala:772
+#: src/library/LibraryWindow.vala:779
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4281,33 +4289,33 @@ msgstr ""
 "Preferensi %s</span>.\n"
 "Apakah Anda ingin melanjutkan mengimpor foto?"
 
-#: src/library/LibraryWindow.vala:775 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Lokasi Pustaka"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:788
+#: src/library/LibraryWindow.vala:795
 msgid "Photos cannot be imported from this directory."
 msgstr "Foto tidak dapat diimpor dari direktori tersebut."
 
-#: src/library/LibraryWindow.vala:1068
+#: src/library/LibraryWindow.vala:1075
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
+#: src/library/LibraryWindow.vala:1119 src/library/LibraryWindow.vala:1130
 msgid "Updating library…"
 msgstr "Memutakhirkan pustaka…"
 
-#: src/library/LibraryWindow.vala:1129
+#: src/library/LibraryWindow.vala:1136
 msgid "Preparing to auto-import photos…"
 msgstr "Bersiap mengimpor otomatis foto…"
 
-#: src/library/LibraryWindow.vala:1134
+#: src/library/LibraryWindow.vala:1141
 msgid "Auto-importing photos…"
 msgstr "Mengimpor otomatis foto…"
 
-#: src/library/LibraryWindow.vala:1142
+#: src/library/LibraryWindow.vala:1149
 msgid "Writing metadata to files…"
 msgstr "Menulis metadata ke berkas…"
 
@@ -4379,32 +4387,36 @@ msgstr "Kesalahan tak dikenal saat mencoba verifikasi basis data Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Menjalankan Shotwell"
 
-#: src/main.vala:293
+#: src/main.vala:303
 msgid "Path to Shotwell’s private data"
 msgstr "Path ke data privat Shotwell"
 
-#: src/main.vala:293
+#: src/main.vala:303
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
-#: src/main.vala:297
+#: src/main.vala:307
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Jangan pantau perubahan direktori pustaka saat runtime"
 
-#: src/main.vala:301
+#: src/main.vala:311
 msgid "Don’t display startup progress meter"
 msgstr "Jangan tampilkan meter kemajuan awal mula"
 
-#: src/main.vala:305
+#: src/main.vala:315
 msgid "Show the application’s version"
 msgstr "Tampilkan versi aplikasi"
 
+#: src/main.vala:319
+msgid "Start the application in fullscreen mode"
+msgstr "Mulai aplikasi dalam mode layar penuh"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:342
+#: src/main.vala:356
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:346
+#: src/main.vala:360
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -4501,7 +4513,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3755
+#: src/Photo.vala:3774
 msgid "modified"
 msgstr "berubah"
 
@@ -5466,7 +5478,8 @@ msgstr "Buka direktori foto yang dipilih dalam manajer berkas"
 msgid "Unable to open in file manager: %s"
 msgstr "Program pengatur berkas tidak dapat dibuka: %s"
 
-#: src/Resources.vala:673 ui/offline.ui:224
+#: src/Resources.vala:673 ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58
+#: ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77 ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "Hapus _Dari Album"
 
@@ -5533,7 +5546,7 @@ msgstr "%a %d %b, %Y"
 msgid "Slideshow"
 msgstr "Pertunjukan salindia"
 
-#: src/searches/Branch.vala:68
+#: src/searches/SearchesBranch.vala:68
 msgid "Saved Searches"
 msgstr "Pencarian Tersimpan"
 
@@ -5835,7 +5848,7 @@ msgstr "Tidak ada"
 msgid "Random"
 msgstr "Acak"
 
-#: src/tags/Branch.vala:131
+#: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Tag"
 
@@ -5857,10 +5870,6 @@ msgstr "Jungki_tkan Bendera"
 #: ui/photo_context.ui:88 ui/photo.ui:343 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Developer"
-
-#: ui/collection.ui:108 ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
-msgid "Open with E_xternal Editor"
-msgstr "Buka dengan Penyunting E_ksternal"
 
 #: ui/collection.ui:119 ui/event.ui:387 ui/event.ui:558 ui/media.ui:381
 #: ui/photo_context.ui:126 ui/tags.ui:381
@@ -5925,7 +5934,7 @@ msgstr "Lapo_r Masalah…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/import_queue.ui:14 ui/import.ui:8
 #: ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8 ui/trash.ui:8
-msgid "_Import from Folder…"
+msgid "_Import From Folder…"
 msgstr "_Impor Dari Folder…"
 
 #: ui/events_directory.ui:13 ui/event.ui:13 ui/import_queue.ui:19
@@ -6002,11 +6011,6 @@ msgstr "T_urun"
 #: ui/events_directory.ui:132 ui/event.ui:379 ui/media.ui:373 ui/tags.ui:373
 msgid "Even_ts"
 msgstr "Peris_tiwa"
-
-#: ui/event.ui:74 ui/media.ui:74 ui/offline.ui:58 ui/offline.ui:207
-#: ui/photo.ui:77 ui/tags.ui:74
-msgid "R_emove from Library"
-msgstr "Hapus _Dari Pustaka"
 
 #: ui/event.ui:129 ui/import.ui:104 ui/media.ui:129 ui/tags.ui:129
 msgid "_Titles"
@@ -6263,3 +6267,12 @@ msgstr "detik"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Hapus semua foto yang pernah dibuang"
+
+#~ msgid "Export Photos/Videos"
+#~ msgstr "Ekspor Foto-foto/Video-video"
+
+#~ msgid "Open with E_xternal Editor"
+#~ msgstr "Buka dengan Penyunting E_ksternal"
+
+#~ msgid "R_emove from Library"
+#~ msgstr "Hapus _Dari Pustaka"
