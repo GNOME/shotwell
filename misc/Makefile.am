@@ -19,7 +19,7 @@ $(appdata_XML) : $(appdata_in_files)
 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 @GSETTINGS_RULES@
-@APPDATA_XML_RULES@
+@APPSTREAM_XML_RULES@
 
 CLEANFILES = $(appdata_XML) $(desktop_DATA) $(desktop_in_files)
 

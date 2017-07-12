@@ -256,8 +256,8 @@ YELP_HELP_INIT
 dnl ***********************************************************************
 dnl AppData support
 dnl ***********************************************************************
-AX_REQUIRE_DEFINED([APPDATA_XML])
-APPDATA_XML
+AX_REQUIRE_DEFINED([APPSTREAM_XML])
+APPSTREAM_XML
 
 dnl ***********************************************************************
 dnl GResource compiler
