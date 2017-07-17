@@ -1402,6 +1402,7 @@ public class ImportPage : CheckerboardPage {
             
             return true;
         }
+        files.sort();
 
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
