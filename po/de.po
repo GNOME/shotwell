@@ -43,8 +43,8 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-05-07 14:01+0000\n"
-"PO-Revision-Date: 2017-05-14 21:22+0200\n"
+"POT-Creation-Date: 2017-07-09 10:26+0000\n"
+"PO-Revision-Date: 2017-07-28 22:38+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -52,11 +52,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.3\n"
 
-#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in.in:4
+#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:313 ui/collection.ui:85 ui/event.ui:356
+#: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
 #: ui/tags.ui:356
 msgid "Shotwell"
@@ -102,16 +102,16 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Die Shotwell-Entwickler"
 
-#: misc/shotwell.desktop.in.in:5 src/Resources.vala:17
+#: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Fotoverwaltung"
 
-#: misc/shotwell.desktop.in.in:6
+#: misc/shotwell.desktop.in:6
 msgid "Organize your photos"
 msgstr "Ihre Fotos organisieren"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: misc/shotwell.desktop.in.in:8
+#: misc/shotwell.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -123,15 +123,15 @@ msgstr ""
 "Picasa;Youtube;Piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in.in:11 misc/shotwell-viewer.desktop.in.in:8
+#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
 msgid "shotwell"
 msgstr "shotwell"
 
-#: misc/shotwell-viewer.desktop.in.in:4
+#: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Shotwell Fotobetrachter"
 
-#: misc/shotwell-viewer.desktop.in.in:5 src/Resources.vala:18
+#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
 msgstr "Fotobetrachter"
 
@@ -1565,7 +1565,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Die Shotwell-Webseite besuchen"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:604
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:611
 msgid "translator-credits"
 msgstr ""
 "Christian Kirbach <Christian.Kirbach@gmail.com>\n"
@@ -2484,16 +2484,16 @@ msgstr "Werkzeugleiste immer geöffnet"
 msgid "Leave fullscreen"
 msgstr "Vollbild verlassen"
 
-#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
-#: src/data_imports/DataImportsUI.vala:301
-#: src/data_imports/DataImportsUI.vala:419 src/Dialogs.vala:20
+#: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
+#: src/data_imports/DataImportsUI.vala:303
+#: src/data_imports/DataImportsUI.vala:421 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
 #: src/publishing/PublishingUI.vala:303 src/publishing/PublishingUI.vala:527
 #: src/Resources.vala:158 ui/slideshow_settings.ui:35
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: src/AppWindow.vala:579
+#: src/AppWindow.vala:586
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2506,21 +2506,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:607
 msgid "Visit the Shotwell web site"
 msgstr "Besuchen Sie die Shotwell-Internetseite"
 
-#: src/AppWindow.vala:613
+#: src/AppWindow.vala:620
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Die Hilfe kann nicht angezeigt werden: %s"
 
-#: src/AppWindow.vala:621
+#: src/AppWindow.vala:628
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Zur Datenbank von Fehlerberichten kann nicht gewechselt werden: %s"
 
-#: src/AppWindow.vala:629
+#: src/AppWindow.vala:636
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Die oft gestellten Fragen können nicht angezeigt werden: %s"
@@ -2586,12 +2586,12 @@ msgstr "Defekte Bilddatei"
 msgid "Imported failed (%d)"
 msgstr "Import fehlgeschlagen (%d)"
 
-#: src/camera/Branch.vala:85
+#: src/camera/CameraBranch.vala:85
 msgid "Cameras"
 msgstr "Kameras"
 
-#: src/camera/Branch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:316
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
+#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
@@ -2680,61 +2680,65 @@ msgstr ""
 msgid "Unmounting…"
 msgstr "Aushängen läuft …"
 
-#: src/camera/ImportPage.vala:1160
+#: src/camera/ImportPage.vala:1162
+msgid "Connecting to camera, please wait…"
+msgstr "Kamera wird verbunden, bitte warten …"
+
+#: src/camera/ImportPage.vala:1194
 msgid "Starting import, please wait…"
 msgstr "Import wird gestartet, bitte warten …"
 
-#: src/camera/ImportPage.vala:1177
+#: src/camera/ImportPage.vala:1200
 msgid "Fetching photo information"
 msgstr "Foto-Informationen werden abgerufen"
 
-#: src/camera/ImportPage.vala:1535
+#: src/camera/ImportPage.vala:1558
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Vorschaubild für %s wird abgerufen"
 
-#: src/camera/ImportPage.vala:1651
+#: src/camera/ImportPage.vala:1666
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera kann nicht reserviert werden: %s"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1751
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Soll dieses Foto von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Fotos von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1754
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Soll dieses Video von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Videos von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1742
+#: src/camera/ImportPage.vala:1757
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Soll dieses Foto/Video von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Fotos/Videos von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1745
+#: src/camera/ImportPage.vala:1760
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Sollen diese Dateien von der Kamera gelöscht werden?"
 msgstr[1] "Sollen diese %d Dateien von der Kamera gelöscht werden?"
 
-#: src/camera/ImportPage.vala:1753 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Behalten"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1787
 msgid "Removing photos/videos from camera"
 msgstr "Fotos/Videos werden von der Kamera entfernt"
 
-#: src/camera/ImportPage.vala:1776
+#: src/camera/ImportPage.vala:1791
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2830,19 +2834,15 @@ msgstr "_Wiedergabe"
 
 #: src/CollectionPage.vala:410
 msgid "Export Photo/Video"
-msgstr "Foto/Video exportieren"
-
-#: src/CollectionPage.vala:410
-msgid "Export Photos/Videos"
-msgstr "Fotos/Videos exportieren"
+msgid_plural "Export Photos/Videos"
+msgstr[0] "Foto/Video exportieren"
+msgstr[1] "Fotos/Videos exportieren"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:59 src/PhotoPage.vala:2998
 msgid "Export Photo"
-msgstr "Foto exportieren"
-
-#: src/CollectionPage.vala:412 src/Dialogs.vala:84
-msgid "Export Photos"
-msgstr "Fotos exportieren"
+msgid_plural "Export Photos"
+msgstr[0] "Foto exportieren"
+msgstr[1] "Fotos exportieren"
 
 #: src/CollectionPage.vala:499 src/CollectionPage.vala:515
 msgid "Rotating"
@@ -3080,7 +3080,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Datenbank"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
 msgid "_Import"
 msgstr "_Import"
 
@@ -3092,7 +3092,7 @@ msgstr "Importieren von Anwendung"
 msgid "Import media _from:"
 msgstr "Importieren _von:"
 
-#: src/data_imports/DataImportsUI.vala:414 src/publishing/PublishingUI.vala:522
+#: src/data_imports/DataImportsUI.vala:416 src/publishing/PublishingUI.vala:522
 msgid "_Close"
 msgstr "_Schließen"
 
@@ -3196,6 +3196,10 @@ msgstr "Entwickler _wechseln"
 #: src/Dialogs.vala:59
 msgid "Export Video"
 msgstr "Video exportieren"
+
+#: src/Dialogs.vala:84
+msgid "Export Photos"
+msgstr "Fotos exportieren"
 
 #. Ticket #3023
 #. Attempt to replace the system error with something friendlier
@@ -4346,7 +4350,7 @@ msgstr "Winkel:"
 msgid "_Straighten"
 msgstr "Au_srichten"
 
-#: src/events/Branch.vala:25
+#: src/events/EventsBranch.vala:25
 msgid "Events"
 msgstr "Ereignisse"
 
@@ -4435,16 +4439,16 @@ msgstr "_Alle ersetzen"
 msgid "Export"
 msgstr "Exportieren"
 
-#: src/folders/Branch.vala:144
+#: src/folders/FoldersBranch.vala:144
 msgid "Folders"
 msgstr "Ordner"
 
-#: src/library/Branch.vala:30 src/library/Branch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Bibliothek"
 
-#: src/library/Branch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
 msgstr "Fotos"
 
@@ -4470,19 +4474,23 @@ msgstr "%s importiert"
 msgid "Last Import"
 msgstr "Letzter Import"
 
-#: src/library/LibraryWindow.vala:507
+#: src/library/LibraryWindow.vala:508
 msgid "Import From Folder"
 msgstr "Aus Ordner importieren"
 
-#: src/library/LibraryWindow.vala:576 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:515
+msgid "Recurse Into Subfolders"
+msgstr "Unterordner einbeziehen"
+
+#: src/library/LibraryWindow.vala:583 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
-#: src/library/LibraryWindow.vala:576
+#: src/library/LibraryWindow.vala:583
 msgid "Emptying Trash…"
 msgstr "Papierkorb wird geleert …"
 
-#: src/library/LibraryWindow.vala:772
+#: src/library/LibraryWindow.vala:779
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4496,33 +4504,33 @@ msgstr ""
 "bearbeiten</span> zu ändern.\n"
 "Möchten Sie mit dem Importieren der Fotos fortfahren?"
 
-#: src/library/LibraryWindow.vala:775 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Speicherort der Bibliothek"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:788
+#: src/library/LibraryWindow.vala:795
 msgid "Photos cannot be imported from this directory."
 msgstr "Aus diesem Ordner können keine Fotos importiert werden."
 
-#: src/library/LibraryWindow.vala:1068
+#: src/library/LibraryWindow.vala:1075
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
+#: src/library/LibraryWindow.vala:1119 src/library/LibraryWindow.vala:1130
 msgid "Updating library…"
 msgstr "Bibliothek wird aktualisiert …"
 
-#: src/library/LibraryWindow.vala:1129
+#: src/library/LibraryWindow.vala:1136
 msgid "Preparing to auto-import photos…"
 msgstr "Preparing to auto-import photos…"
 
-#: src/library/LibraryWindow.vala:1134
+#: src/library/LibraryWindow.vala:1141
 msgid "Auto-importing photos…"
 msgstr "Fotos werden automatisch importiert …"
 
-#: src/library/LibraryWindow.vala:1142
+#: src/library/LibraryWindow.vala:1149
 msgid "Writing metadata to files…"
 msgstr "Metadaten werden in die Dateien geschrieben …"
 
@@ -4595,32 +4603,36 @@ msgstr "Unbekannter Fehler bei der Überprüfung von Shotwells Datenbank: %s"
 msgid "Loading Shotwell"
 msgstr "Shotwell wird geladen"
 
-#: src/main.vala:293
+#: src/main.vala:303
 msgid "Path to Shotwell’s private data"
 msgstr "Pfad zu Shotwells Verwaltungsinformation"
 
-#: src/main.vala:293
+#: src/main.vala:303
 msgid "DIRECTORY"
 msgstr "ORDNER"
 
-#: src/main.vala:297
+#: src/main.vala:307
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Bibliotheksordner nicht laufend auf Veränderungen prüfen"
 
-#: src/main.vala:301
+#: src/main.vala:311
 msgid "Don’t display startup progress meter"
 msgstr "Fortschrittsbalken beim Start nicht anzeigen"
 
-#: src/main.vala:305
+#: src/main.vala:315
 msgid "Show the application’s version"
 msgstr "Versionsnummer anzeigen"
 
+#: src/main.vala:319
+msgid "Start the application in fullscreen mode"
+msgstr "Anwendung im Vollbildmodus starten"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:342
+#: src/main.vala:356
 msgid "[FILE]"
 msgstr "[DATEI]"
 
-#: src/main.vala:346
+#: src/main.vala:360
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -5769,7 +5781,7 @@ msgstr "%a %d. %b, %Y"
 msgid "Slideshow"
 msgstr "Diaschau"
 
-#: src/searches/Branch.vala:68
+#: src/searches/SearchesBranch.vala:68
 msgid "Saved Searches"
 msgstr "Gespeicherte Suchen"
 
@@ -6071,7 +6083,7 @@ msgstr "Keine"
 msgid "Random"
 msgstr "Zufällig"
 
-#: src/tags/Branch.vala:131
+#: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Stichworte"
 
