@@ -89,7 +89,7 @@ public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
 
 public class Searches.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
     Sidebar.DestroyableEntry {
-    private static string single_search_icon = "find";
+    private static string single_search_icon = "edit-find";
     
     private SavedSearch search;
     
