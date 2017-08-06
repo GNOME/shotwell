@@ -573,6 +573,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         var ui_resource = Resources.get_ui(ui_filename);
         try {
             builder.add_from_resource(ui_resource);
+            this.menubar_injected = false;
         } catch (Error err) {
             AppWindow.error_message("Error loading UI resource %s: %s".printf(
                 ui_resource, err.message));
