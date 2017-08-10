@@ -205,18 +205,14 @@ namespace GPhoto {
         GPhoto.CameraFile camera_file;
         GPhoto.Result res = GPhoto.CameraFile.create_from_fd(out camera_file, fd);
         if (res != Result.OK) {
-            Posix.close(fd);
             throw new GPhotoError.LIBRARY("[%d] Error allocating camera file: %s", (int) res, res.as_string());
         }
         
         res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, camera_file, context);
         if (res != Result.OK) {
-            Posix.close(fd);
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s", 
                 (int) res, folder, filename, res.as_string());
         }
-
-        Posix.close(fd);
     }
     
     public PhotoMetadata? load_metadata(Context context, Camera camera, string folder, string filename)
