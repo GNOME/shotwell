@@ -1,3 +1,28 @@
+Shotwell 0.26.3 - 10 Aug 2017
+  * Fix missing XML escape in wallpaper.xml file
+  * Fix missing "Photos" menu content
+  * Fix missing "find" icon
+  * Fix build macro for appstream
+  * Fix data loss/corruption issue when importing from camera
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784661
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784883
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785196
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785503
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785761
+ - (https://github.com/hughsie/appstream-glib), APPDATA_XML has been
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Brian Masney <masneyb@onstation.org>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Christian Kirbach
+
 Shotwell 0.26.2 - 1 Jun 2017
   * Fix issue when minimizing publishing UI on Unity
   * Fix browsing on GVFS-mounted file systems
