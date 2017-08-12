@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-06-18 11:51+0000\n"
-"PO-Revision-Date: 2017-06-18 21:17+0200\n"
+"POT-Creation-Date: 2017-08-04 20:34+0000\n"
+"PO-Revision-Date: 2017-08-12 02:20+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1534,7 +1534,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr "Witryna programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:604
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:611
 msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
@@ -2011,7 +2011,7 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
 msgstr ""
-"Darmowe konto w serwisie Flickr ogranicza ilość przesyłanych danych na "
+"Bezpłatne konto w serwisie Flickr ogranicza ilość przesyłanych danych na "
 "miesiąc.\n"
 "W tym miesiącu pozostało %s."
 
@@ -2435,7 +2435,7 @@ msgstr "Przypina pasek narzędziowy"
 msgid "Leave fullscreen"
 msgstr "Opuszcza pełny ekran"
 
-#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
+#: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
 #: src/data_imports/DataImportsUI.vala:303
 #: src/data_imports/DataImportsUI.vala:421 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
@@ -2444,7 +2444,7 @@ msgstr "Opuszcza pełny ekran"
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: src/AppWindow.vala:579
+#: src/AppWindow.vala:586
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2457,21 +2457,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:607
 msgid "Visit the Shotwell web site"
 msgstr "Witryna programu Shotwell"
 
-#: src/AppWindow.vala:613
+#: src/AppWindow.vala:620
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nie można wyświetlić pomocy: %s"
 
-#: src/AppWindow.vala:621
+#: src/AppWindow.vala:628
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nie można przejść do bazy danych błędów: %s"
 
-#: src/AppWindow.vala:629
+#: src/AppWindow.vala:636
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nie można wyświetlić dokumentu FAQ: %s"
@@ -3038,7 +3038,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Plik bazy danych:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:781
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
 msgid "_Import"
 msgstr "Zai_mportuj"
 
@@ -4538,15 +4538,15 @@ msgstr "Importowanie z katalogu"
 msgid "Recurse Into Subfolders"
 msgstr "Także podkatalogi"
 
-#: src/library/LibraryWindow.vala:582 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:583 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Opróżnij kosz"
 
-#: src/library/LibraryWindow.vala:582
+#: src/library/LibraryWindow.vala:583
 msgid "Emptying Trash…"
 msgstr "Opróżnianie kosza…"
 
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:779
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4560,33 +4560,33 @@ msgstr ""
 "Preferencje</span>.\n"
 "Kontynuować importowanie zdjęć?"
 
-#: src/library/LibraryWindow.vala:781 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Położenie kolekcji"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:794
+#: src/library/LibraryWindow.vala:795
 msgid "Photos cannot be imported from this directory."
 msgstr "Nie można importować zdjęć z tego katalogu."
 
-#: src/library/LibraryWindow.vala:1074
+#: src/library/LibraryWindow.vala:1075
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1118 src/library/LibraryWindow.vala:1129
+#: src/library/LibraryWindow.vala:1119 src/library/LibraryWindow.vala:1130
 msgid "Updating library…"
 msgstr "Aktualizowanie kolekcji…"
 
-#: src/library/LibraryWindow.vala:1135
+#: src/library/LibraryWindow.vala:1136
 msgid "Preparing to auto-import photos…"
 msgstr "Przygotowywanie do automatycznego zaimportowania zdjęć…"
 
-#: src/library/LibraryWindow.vala:1140
+#: src/library/LibraryWindow.vala:1141
 msgid "Auto-importing photos…"
 msgstr "Automatyczne importowanie zdjęć…"
 
-#: src/library/LibraryWindow.vala:1148
+#: src/library/LibraryWindow.vala:1149
 msgid "Writing metadata to files…"
 msgstr "Zapisywanie metadanych do plików…"
 
@@ -4785,7 +4785,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3755
+#: src/Photo.vala:3774
 msgid "modified"
 msgstr "zmodyfikowany"
 
@@ -4965,7 +4965,7 @@ msgstr "Przygotowywanie do wysłania"
 #: src/publishing/PublishingPluginHost.vala:12
 #, c-format
 msgid "Uploading %d of %d"
-msgstr "Wysyłanie %d z %d"
+msgstr "Wysyłanie %d. z %d"
 
 #: src/publishing/PublishingPluginHost.vala:81
 #, c-format
