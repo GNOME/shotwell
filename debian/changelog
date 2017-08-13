@@ -1,4 +1,14 @@
-shotwell (0.26.2-0~jensge1~zesty1) UNRELEASED; urgency=medium
+shotwell (0.26.3-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Fix missing XML escape in wallpaper.xml file
+  * Fix missing "Photos" menu content
+  * Fix missing "find" icon
+  * Fix build macro for appstream
+  * Fix data loss/corruption issue when importing from camera
+
+ -- Jens Georg <mail@jensge.org>  Fri, 11 Aug 2017 12:01:36 +0200
+
+shotwell (0.26.2-0~jensge1~zesty1) zesty; urgency=medium
 
   * Fix issue when minimizing publishing UI on Unity
   * Fix browsing on GVFS-mounted file systems
