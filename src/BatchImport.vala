@@ -171,6 +171,10 @@ public abstract class BatchImportJob {
     public virtual DuplicatedFile? get_duplicated_file() {
         return null;
     }
+
+    public virtual File? get_associated_file() {
+        return null;
+    }
     
     // Attaches a sibling job (for RAW+JPEG)
     public abstract void set_associated(BatchImportJob associated);
@@ -1973,6 +1977,12 @@ private class PreparedFileImportJob : BackgroundJob {
                 
                 return;
             }
+        }
+
+        // See if the prepared job has a file associated already, then use that
+        // Usually works for import from Cameras
+        if (final_associated_file == null) {
+            final_associated_file = prepared_file.job.get_associated_file();
         }
         
         debug("Importing %s", final_file.get_path());

@@ -615,20 +615,13 @@ public class ImportPage : CheckerboardPage {
             
             return true;
         }
-        
-        public override bool complete(MediaSource source, BatchImportRoll import_roll) throws Error {
-            bool ret = false;
-            if (source is Photo) {
-                Photo photo = source as Photo;
-                
-                // Associate paired JPEG with RAW photo.
-                if (associated_file != null) {
-                    photo.add_backing_photo_for_development(RawDeveloper.CAMERA, associated_file);
-                    ret = true;
-                    photo.set_raw_developer(Config.Facade.get_instance().get_default_raw_developer());
-                }
+
+        public override File? get_associated_file() {
+            if (associated_file == null) {
+                return null;
             }
-            return ret;
+
+            return File.new_for_path(associated_file.filepath);
         }
     }
     
