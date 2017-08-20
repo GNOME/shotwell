@@ -36,12 +36,22 @@ public File? generate_unique_file(string basename, MediaMetadata? metadata, time
     }
     
     // Optionally convert to lower-case.
-    string newbasename = basename;
-    if (Config.Facade.get_instance().get_use_lowercase_filenames())
-        newbasename = newbasename.down();
+    string newbasename = convert_basename(basename);
     
     return global::generate_unique_file(dir, newbasename, out collision);
 }
+
+// Create the basename for files in the library.
+// Depending on the setting USE_LOWERCASE_FILENAMES the basename will be converted to lower case or not
+public string convert_basename(string basename) {
+    if (Config.Facade.get_instance().get_use_lowercase_filenames()) {
+        return basename.down();
+    } else {
+        return basename;
+    }
+
+}
+
 
 // This function is thread-safe.
 private File duplicate(File src, FileProgressCallback? progress_callback, bool blacklist) throws Error {
@@ -59,7 +69,7 @@ private File duplicate(File src, FileProgressCallback? progress_callback, bool b
             metadata = reader.read_metadata();
         } catch (Error err) {
             // ignored, leave metadata as null
-        }            
+        }
     } else {
         PhotoFileReader reader = PhotoFileFormat.get_by_file_extension(src).create_reader(
             src.get_path());

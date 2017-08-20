@@ -352,8 +352,10 @@ public enum RawDeveloper {
             basename = camera_development_filename;
         }
         
+        string newbasename = LibraryFiles.convert_basename(basename);
+
         bool c;
-        File? new_back = generate_unique_file(master.get_parent(), basename, out c);
+        File? new_back = generate_unique_file(master.get_parent(), newbasename, out c);
         claim_file(new_back);
         ns.file_format = PhotoFileFormat.JFIF;
         ns.filepath = new_back.get_path();
