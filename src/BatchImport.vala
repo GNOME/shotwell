@@ -1265,7 +1265,14 @@ public class BatchImport : Object {
             ready_sources.add(completed_object);
             
             imported(completed_object.source, user_preview, total);
-            report_progress(completed_object.source.get_filesize());
+            // If we have a photo, use master size. For RAW import, we might end up with reporting
+            // the size of the (much smaller) JPEG which will look like no progress at all
+            if (completed_object.source is PhotoSource) {
+                var photo_source = completed_object.source as PhotoSource;
+                report_progress(photo_source.get_master_filesize());
+            } else {
+                report_progress(completed_object.source.get_filesize());
+            }
             file_import_complete();
         }
         
