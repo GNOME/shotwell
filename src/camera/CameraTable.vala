@@ -342,11 +342,21 @@ public class CameraTable {
                     display_name = device.get_property("ID_MODEL");
                 }
             }
+
+            if (port.has_prefix("disk:")) {
+                try {
+                    var mount = File.new_for_path (port.substring(5)).find_enclosing_mount();
+                    var volume = mount.get_volume();
+                    // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+                    display_name = _("%s (%s)").printf (name, volume.get_name ());
+                    icon = volume.get_icon().to_string();
+
+                } catch (Error e) { }
+            }
             if (null == display_name) {
                 // Default to GPhoto detected name.
                 display_name = name;
             }
-            
             int index = port_info_list.lookup_path(port);
             if (index < 0)
                 do_op((GPhoto.Result) index, "lookup port %s".printf(port));

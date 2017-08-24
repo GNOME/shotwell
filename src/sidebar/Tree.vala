@@ -56,7 +56,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         typeof (string),            // NAME
         typeof (string?),           // TOOLTIP
         typeof (EntryWrapper),      // WRAPPER
-        typeof (string?)            // ICON
+        typeof (Icon?)             // ICON
     );
     
     private Gtk.Builder builder = new Gtk.Builder ();
@@ -98,8 +98,8 @@ public class Sidebar.Tree : Gtk.TreeView {
         text_column.set_expand(true);
         Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
         icon_renderer.follow_state = true;
-        text_column.pack_start(icon_renderer, false);
-        text_column.add_attribute(icon_renderer, "icon_name", Columns.ICON);
+        text_column.pack_start (icon_renderer, false);
+        text_column.add_attribute(icon_renderer, "gicon", Columns.ICON);
         text_column.set_cell_data_func(icon_renderer, icon_renderer_function);
         text_renderer = new Gtk.CellRendererText();
         text_renderer.ellipsize = Pango.EllipsizeMode.END;
@@ -735,10 +735,17 @@ public class Sidebar.Tree : Gtk.TreeView {
         store.set(wrapper.get_iter(), Columns.TOOLTIP, guarded_markup_escape_text(tooltip));
     }
     
-    private void on_sidebar_icon_changed(Sidebar.Entry entry, string? icon) {
+    private void on_sidebar_icon_changed(Sidebar.Entry entry, string? icon_name) {
         EntryWrapper? wrapper = get_wrapper(entry);
         assert(wrapper != null);
-        
+        Icon? icon = null;
+
+        try {
+            if (icon_name != null) {
+                icon = Icon.new_for_string (icon_name);
+            }
+        } catch (Error e) { }
+
         store.set(wrapper.get_iter(), Columns.ICON, icon);
     }
 
@@ -767,9 +774,18 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     private void load_entry_icons(Gtk.TreeIter iter) {
         EntryWrapper? wrapper = get_wrapper_at_iter(iter);
+        Icon? icon = null;
         if (wrapper == null)
             return;
-        string? icon = wrapper.entry.get_sidebar_icon();
+
+        try {
+            string? name = wrapper.entry.get_sidebar_icon();
+            if (name != null) {
+                icon = Icon.new_for_string (name);
+            }
+        } catch (Error e) { }
+
+
         store.set(iter, Columns.ICON, icon);
     }
     
