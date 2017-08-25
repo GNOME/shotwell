@@ -52,6 +52,7 @@ src/AppDirs.vala
 src/AppWindow.vala
 src/BatchImport.vala
 src/camera/CameraBranch.vala
+src/camera/CameraTable.vala
 src/camera/ImportPage.vala
 src/CollectionPage.vala
 src/Commands.vala
