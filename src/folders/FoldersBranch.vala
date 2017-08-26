@@ -141,7 +141,7 @@ public class Folders.Branch : Sidebar.Branch {
 
 private class Folders.Root : Sidebar.Header {
     public Root() {
-        base (_("Folders"), _("Browse the library's folder structure"));
+        base (_("Folders"), _("Browse the library’s folder structure"));
     }
 }
 
