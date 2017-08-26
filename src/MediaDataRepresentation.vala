@@ -723,6 +723,17 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 // Note: we may get an exception even though the delete succeeded.
                 debug("Exception deleting file %s: %s", file.get_path(), err.message);
             }
+
+            var masterfile = source.get_master_file();
+            if (masterfile != null) {
+                try {
+                    masterfile.delete(null);
+                } catch (Error err) {
+                    if (!(err is IOError.NOT_FOUND)) {
+                        debug("Exception deleting master file %s: %s", masterfile.get_path(), err.message);
+                    }
+                }
+            }
             
             bool deleted = !file.query_exists();
             if (!deleted && null != not_deleted) {
