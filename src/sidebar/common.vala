@@ -120,8 +120,8 @@ public class Sidebar.RootOnlyBranch : Sidebar.Branch {
 public class Sidebar.Header : Sidebar.Grouping, Sidebar.EmphasizableEntry {
     private bool emphasized;
     
-    public Header(string name, bool emphasized = true) {
-        base(name, null);
+    public Header(string name, string? tooltip = null, bool emphasized = true) {
+        base(name, null, tooltip);
         this.emphasized = emphasized;
     }
     

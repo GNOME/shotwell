@@ -128,7 +128,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     private Gtk.Menu? context_menu = null;
     
     public Header() {
-        base (_("Tags"));
+        base (_("Tags"), _("Organize and browse your photo's tags"));
         setup_context_menu();
     }
 

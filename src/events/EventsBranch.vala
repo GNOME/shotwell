@@ -22,7 +22,8 @@ public class Events.Branch : Sidebar.Branch {
     private Events.MasterDirectoryEntry all_events_entry = new Events.MasterDirectoryEntry();
     
     public Branch() {
-        base (new Sidebar.Header(_("Events")), Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
+        base (new Sidebar.Header(_("Events"), _("Browse through your events")),
+            Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
             event_year_comparator);
         
         graft(get_root(), all_events_entry);

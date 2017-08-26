@@ -65,7 +65,7 @@ public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
     private Gtk.Menu? context_menu = null;
     
     public Header() {
-        base (_("Saved Searches"));
+        base (_("Saved Searches"), _("Organize your saved searches"));
         setup_context_menu();
     }
 

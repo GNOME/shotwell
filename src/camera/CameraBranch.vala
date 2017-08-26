@@ -82,7 +82,7 @@ public class Camera.Branch : Sidebar.Branch {
 
 public class Camera.Header : Sidebar.Header {
     public Header() {
-        base (_("Cameras"));
+        base (_("Cameras"), _("List of all discovered camera devices"));
     }
 }
 
