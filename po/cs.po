@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-08-25 01:05+0000\n"
-"PO-Revision-Date: 2017-08-25 18:28+0200\n"
+"POT-Creation-Date: 2017-08-26 14:01+0000\n"
+"PO-Revision-Date: 2017-08-28 15:39+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -2532,6 +2532,10 @@ msgstr "Import selhal (%d)"
 msgid "Cameras"
 msgstr "Fotoaparáty"
 
+#: src/camera/CameraBranch.vala:85
+msgid "List of all discovered camera devices"
+msgstr "Vypsat všechny nalezené fotoaparáty a kamery"
+
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
@@ -4338,6 +4342,10 @@ msgstr "_Vyrovnat"
 msgid "Events"
 msgstr "Události"
 
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Procházet své události"
+
 #: src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -4430,10 +4438,18 @@ msgstr "Export"
 msgid "Folders"
 msgstr "Složky"
 
+#: src/folders/FoldersBranch.vala:144
+msgid "Browse the library’s folder structure"
+msgstr "Procházet strukturu složek knihovny"
+
 #: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Knihovna"
+
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Roztřídit a procházet své fotografie"
 
 #: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
@@ -5763,6 +5779,10 @@ msgstr "Prezentace"
 msgid "Saved Searches"
 msgstr "Uložená hledání"
 
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Roztřídit své uložené fotografie"
+
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
 msgid "contains"
@@ -6062,6 +6082,10 @@ msgstr "Náhodně"
 #: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Štítky"
+
+#: src/tags/TagsBranch.vala:131
+msgid "Organize and browse your photo’s tags"
+msgstr "Roztřidit a procházet štítky svých fotografií"
 
 #: src/Tag.vala:830
 msgid "untitled"
