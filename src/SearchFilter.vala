@@ -204,12 +204,8 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
             } else if (source is Photo) {
                 Photo photo = source as Photo;
                 if (photo.get_master_file_format() == PhotoFileFormat.RAW) {
-                    if (photo.is_raw_developer_available(RawDeveloper.CAMERA)) {
-                        if (!show_media_photos && !show_media_raw)
-                            return false;
-                    } else if (!show_media_raw) {
+                    if (!show_media_photos && !show_media_raw)
                         return false;
-                    }
                 } else if (!show_media_photos)
                     return false;
             }
@@ -1170,7 +1166,9 @@ public class SearchFilterToolbar : Gtk.Revealer {
     
     private void on_media_context_changed(bool has_photos, bool has_videos, bool has_raw,
         bool has_flagged) {
-        if (has_photos)
+        if (has_photos || has_raw)
+            // As a user, I would expect, that a raw photo is still a photo.
+            // Let's enable the photo button even if there ar only raw photos.
             toolbtn_photos.set_icon_name(Resources.ICON_FILTER_PHOTOS);
         else
             toolbtn_photos.set_icon_name(Resources.ICON_FILTER_PHOTOS_DISABLED);
@@ -1391,4 +1389,3 @@ public class SearchFilterToolbar : Gtk.Revealer {
         search_box.get_focus();
     }
 }
-
