@@ -57,6 +57,9 @@ libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
 
+webpdemux = dependency('libwebpdemux')
+webp = dependency('libwebp')
+
 unity_available = false
 if unity.found() and get_option('unity-support')
   unity_available = true
