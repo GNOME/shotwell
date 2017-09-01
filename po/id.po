@@ -19,16 +19,16 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-07-09 22:16+0000\n"
-"PO-Revision-Date: 2017-07-10 17:05+0700\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"POT-Creation-Date: 2017-08-26 14:01+0000\n"
+"PO-Revision-Date: 2017-09-01 15:38+0700\n"
+"Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -2504,12 +2504,23 @@ msgstr "Impor yang gagal (%d)"
 msgid "Cameras"
 msgstr "Kamera"
 
-#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
+#: src/camera/CameraBranch.vala:85
+msgid "List of all discovered camera devices"
+msgstr "Daftar semua peranti kamera yang ditemukan"
+
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Kamera"
+
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+#: src/camera/CameraTable.vala:351
+#, c-format
+#| msgid "%s (%d%%)"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:311 src/Properties.vala:230
 msgid "RAW+JPEG"
@@ -2522,33 +2533,33 @@ msgstr ""
 "Kamera tidak dapat dilepas. Silakan lepas melalui program pengelola berkas."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:783
+#: src/camera/ImportPage.vala:776
 msgid "Hide photos already imported"
 msgstr "Sembunyikan foto yang sudah selesai diimpor"
 
-#: src/camera/ImportPage.vala:784
+#: src/camera/ImportPage.vala:777
 msgid "Only display photos that have not been imported"
 msgstr "Hanya tampilkan foto yang belum diimpor"
 
-#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:816 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "Impor Foto _Terpilih"
 
-#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
+#: src/camera/ImportPage.vala:826 ui/import.ui:17 ui/import.ui:214
 msgid "Import _All"
 msgstr "Impor Semu_a"
 
-#: src/camera/ImportPage.vala:857
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Kamera tampaknya kosong. Tidak ada foto/video yang ditemukan untuk diimpor"
 
-#: src/camera/ImportPage.vala:861
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr "Tidak ditemukan foto/video baru pada kamera"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1021
+#: src/camera/ImportPage.vala:1014
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2556,15 +2567,15 @@ msgstr ""
 "Shotwell perlu melepaskan kamera dari sistem berkas agar dapat mengaksesnya. "
 "Lanjutkan?"
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1020
 msgid "_Unmount"
 msgstr "_Lepas"
 
-#: src/camera/ImportPage.vala:1032
+#: src/camera/ImportPage.vala:1025
 msgid "Please unmount the camera."
 msgstr "Silakan lepaskan kamera."
 
-#: src/camera/ImportPage.vala:1037
+#: src/camera/ImportPage.vala:1030
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2574,11 +2585,11 @@ msgstr ""
 "pada saat tidak terkunci. Silakan matikan aplikasi yang sedang menggunakan "
 "kamera ini dan coba kembali."
 
-#: src/camera/ImportPage.vala:1047
+#: src/camera/ImportPage.vala:1040
 msgid "Please close any other application using the camera."
 msgstr "Mohon segera mematikan aplikasi lain yang sedang menggunakan kamera."
 
-#: src/camera/ImportPage.vala:1052
+#: src/camera/ImportPage.vala:1045
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2587,65 +2598,65 @@ msgstr ""
 "Gambar pratayang tidak dapat diambil dari kamera:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1069
+#: src/camera/ImportPage.vala:1062
 msgid "Unmounting…"
 msgstr "Melepas kaitan…"
 
-#: src/camera/ImportPage.vala:1162
+#: src/camera/ImportPage.vala:1155
 msgid "Connecting to camera, please wait…"
 msgstr "Menyambung ke kamera, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1194
+#: src/camera/ImportPage.vala:1187
 msgid "Starting import, please wait…"
 msgstr "Mulai mengimpor, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1200
+#: src/camera/ImportPage.vala:1193
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1558
+#: src/camera/ImportPage.vala:1552
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1666
+#: src/camera/ImportPage.vala:1660
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1748
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1757
+#: src/camera/ImportPage.vala:1751
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1760
+#: src/camera/ImportPage.vala:1754
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1762 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1787
+#: src/camera/ImportPage.vala:1781
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1791
+#: src/camera/ImportPage.vala:1785
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4143,6 +4154,10 @@ msgstr "_Luruskan"
 msgid "Events"
 msgstr "Rangkaian"
 
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Meramban peristiwa-peristiwa Anda"
+
 #: src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -4229,10 +4244,18 @@ msgstr "Ekspor"
 msgid "Folders"
 msgstr "Folder"
 
+#: src/folders/FoldersBranch.vala:144
+msgid "Browse the library’s folder structure"
+msgstr "Meramban struktur folder pustaka"
+
 #: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Album"
+
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Organisasikan dan ramban foto Anda"
 
 #: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
@@ -4441,15 +4464,15 @@ msgstr ""
 "Shotwell gagal memutar video terpilih:\n"
 "%s"
 
-#: src/Page.vala:1306
+#: src/Page.vala:1307
 msgid "No photos/videos"
 msgstr "Tidak ada foto/video"
 
-#: src/Page.vala:1310
+#: src/Page.vala:1311
 msgid "No photos/videos found which match the current filter"
 msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
-#: src/Page.vala:2623
+#: src/Page.vala:2624
 msgid "Photos cannot be exported to this directory."
 msgstr "Foto tidak dapat diekspor ke direktori tersebut."
 
@@ -5550,6 +5573,10 @@ msgstr "Pertunjukan salindia"
 msgid "Saved Searches"
 msgstr "Pencarian Tersimpan"
 
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Organisasikan pencarian Anda yang telah tersimpan"
+
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
 msgid "contains"
@@ -5851,6 +5878,10 @@ msgstr "Acak"
 #: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Tag"
+
+#: src/tags/TagsBranch.vala:131
+msgid "Organize and browse your photo’s tags"
+msgstr "Organisasikan dan ramban tag foto Anda"
 
 #: src/Tag.vala:830
 msgid "untitled"
@@ -6267,12 +6298,3 @@ msgstr "detik"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Hapus semua foto yang pernah dibuang"
-
-#~ msgid "Export Photos/Videos"
-#~ msgstr "Ekspor Foto-foto/Video-video"
-
-#~ msgid "Open with E_xternal Editor"
-#~ msgstr "Buka dengan Penyunting E_ksternal"
-
-#~ msgid "R_emove from Library"
-#~ msgstr "Hapus _Dari Pustaka"
