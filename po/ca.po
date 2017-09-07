@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-08-19 08:33+0000\n"
-"PO-Revision-Date: 2017-08-18 12:36+0200\n"
+"POT-Creation-Date: 2017-09-01 08:38+0000\n"
+"PO-Revision-Date: 2017-09-07 16:29+0200\n"
 "Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -2581,12 +2581,22 @@ msgstr "Ha fallat la importació (%d)"
 msgid "Cameras"
 msgstr "Càmeres"
 
+#: src/camera/CameraBranch.vala:85
+msgid "List of all discovered camera devices"
+msgstr "Llista tots els dispositius càmera descoberts"
+
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Càmera"
+
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+#: src/camera/CameraTable.vala:351
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:311 src/Properties.vala:230
 msgid "RAW+JPEG"
@@ -4351,6 +4361,10 @@ msgstr "_Redreça"
 msgid "Events"
 msgstr "Esdeveniments"
 
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Navegueu els esdeveniments"
+
 #: src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -4441,10 +4455,18 @@ msgstr "Exporta"
 msgid "Folders"
 msgstr "Carpetes"
 
+#: src/folders/FoldersBranch.vala:144
+msgid "Browse the library’s folder structure"
+msgstr "Navegueu l'estructura de carpetes de la biblioteca"
+
 #: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Biblioteca"
+
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Organitzeu i navegueu les fotografies"
 
 #: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
@@ -5783,6 +5805,10 @@ msgstr "Projecció de diapositives"
 msgid "Saved Searches"
 msgstr "Cerques desades"
 
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Organitzeu les vostres cerques desades"
+
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
 msgid "contains"
@@ -6082,6 +6108,10 @@ msgstr "Aleatori"
 #: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Etiquetes"
+
+#: src/tags/TagsBranch.vala:131
+msgid "Organize and browse your photo’s tags"
+msgstr "Organitzeu i navegueu les etiquetes de les fotografies"
 
 #: src/Tag.vala:830
 msgid "untitled"
