@@ -14,12 +14,13 @@
 # jodufi <jodufi@gmail.com>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
 # Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2017.
+# Jordi Serratosa <jordis@softcatala.cat>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-09-01 08:38+0000\n"
+"POT-Creation-Date: 2017-09-07 14:32+0000\n"
 "PO-Revision-Date: 2017-09-07 16:29+0200\n"
 "Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -1562,7 +1563,7 @@ msgstr ""
 "No esteu connectat al YouTube.\n"
 "\n"
 "Per continuar heu de tenir un compte al Google i configurar-lo per poder "
-"continuar utilitzant-lo amb el YoutTube. Podeu configurar la majoria dels "
+"continuar utilitzant-lo amb el YouTube. Podeu configurar la majoria dels "
 "comptes utilitzant el navegador i entrant almenys un cop al YouTube."
 
 #: plugins/common/Resources.vala:12
