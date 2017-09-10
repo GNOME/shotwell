@@ -6,22 +6,22 @@
 # L. Csordas <csola48@gmail.com>, 2012.
 # lsbeeler <lucas@yorba.org>, 2011.
 # Balázs Úr <urbalazs at gmail dot com>, 2014, 2016, 2017.
-# Meskó Balázs <meskobalazs@gmail.com>, 2016.
+# Meskó Balázs <meskobalazs@gmail.com>, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-07-28 20:39+0000\n"
-"PO-Revision-Date: 2017-08-02 21:44+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"POT-Creation-Date: 2017-09-10 07:27+0000\n"
+"PO-Revision-Date: 2017-09-10 18:38+0200\n"
+"Last-Translator: Meskó Balázs <meskobalazs@fedoraproject.org>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -2516,12 +2516,22 @@ msgstr "Az importálás meghiúsult (%d)"
 msgid "Cameras"
 msgstr "Fényképezőgépek"
 
-#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
+#: src/camera/CameraBranch.vala:85
+msgid "List of all discovered camera devices"
+msgstr "Az összes felfedezett fényképezőgép eszköz listája"
+
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Fényképezőgép"
+
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+#: src/camera/CameraTable.vala:351
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:311 src/Properties.vala:230
 msgid "RAW+JPEG"
@@ -2535,34 +2545,34 @@ msgstr ""
 "leválasztani."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:783
+#: src/camera/ImportPage.vala:776
 msgid "Hide photos already imported"
 msgstr "Már importált fényképek elrejtése"
 
-#: src/camera/ImportPage.vala:784
+#: src/camera/ImportPage.vala:777
 msgid "Only display photos that have not been imported"
 msgstr "Csak a nem importált fényképek megjelenítése"
 
-#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:816 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "_Kijelöltek importálása"
 
-#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
+#: src/camera/ImportPage.vala:826 ui/import.ui:17 ui/import.ui:214
 msgid "Import _All"
 msgstr "Összes im_portálása"
 
-#: src/camera/ImportPage.vala:857
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "A fényképezőgép üresnek tűnik. Nem találhatók fényképek vagy videók az "
 "importáláshoz."
 
-#: src/camera/ImportPage.vala:861
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr "Nem találhatók új fényképek vagy videók a fényképezőgépen"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1021
+#: src/camera/ImportPage.vala:1014
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2570,15 +2580,15 @@ msgstr ""
 "A Shotwellnek le kell választania a fényképezőgépet a fájlrendszerről az "
 "eléréséhez. Folytatja?"
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1020
 msgid "_Unmount"
 msgstr "_Leválasztás"
 
-#: src/camera/ImportPage.vala:1032
+#: src/camera/ImportPage.vala:1025
 msgid "Please unmount the camera."
 msgstr "Válassza le a fényképezőgépet."
 
-#: src/camera/ImportPage.vala:1037
+#: src/camera/ImportPage.vala:1030
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2588,11 +2598,11 @@ msgstr ""
 "használni. Zárja be a fényképezőgépet használó összes alkalmazást, majd "
 "próbálja újra."
 
-#: src/camera/ImportPage.vala:1047
+#: src/camera/ImportPage.vala:1040
 msgid "Please close any other application using the camera."
 msgstr "Zárja be a fényképezőgépet használó összes alkalmazást."
 
-#: src/camera/ImportPage.vala:1052
+#: src/camera/ImportPage.vala:1045
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2601,69 +2611,69 @@ msgstr ""
 "Nem tölthetők le az előnézetek a fényképezőgépről:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1069
+#: src/camera/ImportPage.vala:1062
 msgid "Unmounting…"
 msgstr "Leválasztás…"
 
-#: src/camera/ImportPage.vala:1162
+#: src/camera/ImportPage.vala:1155
 msgid "Connecting to camera, please wait…"
 msgstr "Kapcsolódás a fényképezőgéphez, kis türelmet…"
 
-#: src/camera/ImportPage.vala:1194
+#: src/camera/ImportPage.vala:1187
 msgid "Starting import, please wait…"
 msgstr "Importálás kezdése, kis türelmet…"
 
-#: src/camera/ImportPage.vala:1200
+#: src/camera/ImportPage.vala:1193
 msgid "Fetching photo information"
 msgstr "Fénykép-információk lekérése"
 
-#: src/camera/ImportPage.vala:1558
+#: src/camera/ImportPage.vala:1552
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "%s előnézetének lekérése"
 
-#: src/camera/ImportPage.vala:1666
+#: src/camera/ImportPage.vala:1660
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "A fényképezőgép nem zárolható: %s"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Törli a fényképet a fényképezőgépről?"
 msgstr[1] "Töröl %d fényképet a fényképezőgépről?"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1748
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Törli a videót a fényképezőgépről?"
 msgstr[1] "Töröl %d videót a fényképezőgépről?"
 
-#: src/camera/ImportPage.vala:1757
+#: src/camera/ImportPage.vala:1751
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Törli a fényképet vagy videót a fényképezőgépről?"
 msgstr[1] "Töröl %d fényképet vagy videót a fényképezőgépről?"
 
-#: src/camera/ImportPage.vala:1760
+#: src/camera/ImportPage.vala:1754
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Törli ezt a fájlt a fényképezőgépről?"
 msgstr[1] "Törli ezt a(z) %d fájlt a fényképezőgépről?"
 
-#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1762 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Megtartás"
 
-#: src/camera/ImportPage.vala:1787
+#: src/camera/ImportPage.vala:1781
 msgid "Removing photos/videos from camera"
 msgstr "Fényképek vagy videók eltávolítása a fényképezőgépről"
 
-#: src/camera/ImportPage.vala:1791
+#: src/camera/ImportPage.vala:1785
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4242,6 +4252,10 @@ msgstr "Ki_egyenesítés"
 msgid "Events"
 msgstr "Események"
 
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Tallózás az események között"
+
 #: src/events/EventDirectoryItem.vala:83
 #, c-format
 msgid "%d Photo/Video"
@@ -4331,10 +4345,18 @@ msgstr "Exportálás"
 msgid "Folders"
 msgstr "Mappák"
 
+#: src/folders/FoldersBranch.vala:144
+msgid "Browse the library’s folder structure"
+msgstr "Tallózás a gyűjtemény mappaszerkezetében"
+
 #: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Gyűjtemény"
+
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Rendszerezze fényképeit és tallózzon köztük"
 
 #: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
 msgid "Photos"
@@ -4543,15 +4565,15 @@ msgstr ""
 "A Shotwell nem tudta lejátszani a kijelölt videót:\n"
 "%s"
 
-#: src/Page.vala:1306
+#: src/Page.vala:1307
 msgid "No photos/videos"
 msgstr "Nincsenek fényképek vagy videók"
 
-#: src/Page.vala:1310
+#: src/Page.vala:1311
 msgid "No photos/videos found which match the current filter"
 msgstr "Nem található fénykép vagy videó, amely megfelel a jelenlegi szűrőnek"
 
-#: src/Page.vala:2623
+#: src/Page.vala:2624
 msgid "Photos cannot be exported to this directory."
 msgstr "Nem exportálhatók fényképek ebbe a könyvtárba."
 
@@ -5660,6 +5682,10 @@ msgstr "Diavetítés"
 msgid "Saved Searches"
 msgstr "Mentett keresések"
 
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Rendszerezze mentett kereséseit"
+
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
 msgid "contains"
@@ -5959,6 +5985,10 @@ msgstr "Véletlenszerű"
 #: src/tags/TagsBranch.vala:131
 msgid "Tags"
 msgstr "Címkék"
+
+#: src/tags/TagsBranch.vala:131
+msgid "Organize and browse your photo’s tags"
+msgstr "Rendszerezze fényképei címkéit, és tallózzon köztük"
 
 #: src/Tag.vala:830
 msgid "untitled"
@@ -6376,87 +6406,3 @@ msgstr "másodperc"
 msgid "Delete all photos in the trash"
 msgstr "Minden fénykép törlése a Kukában"
 
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select a library to import, either by selecting one of the "
-#~ "existing libraries found by Shotwell or by selecting an alternative F-"
-#~ "Spot database file."
-#~ msgstr ""
-#~ "Üdvözli az F-Spot gyűjteményimportáló szolgáltatás.\n"
-#~ "\n"
-#~ "Válasszon egy importálandó gyűjteményt a Shotwell által talált egyik "
-#~ "meglévő gyűjtemény kiválasztásával, vagy egy alternatív F-Spot "
-#~ "adatbázisfájl kiválasztásával."
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select an F-Spot database file."
-#~ msgstr ""
-#~ "Üdvözli az F-Spot gyűjteményimportáló szolgáltatás.\n"
-#~ "\n"
-#~ "Válasszon egy F-Spot adatbázisfájlt."
-
-#~ msgid "Manually select an F-Spot database file to import:"
-#~ msgstr "Importálandó F-Spot adatbázisfájl kiválasztása:"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: the file does not exist or "
-#~ "is not an F-Spot database"
-#~ msgstr ""
-#~ "A kijelölt F-Spot adatbázisfájl nem nyitható meg: a fájl nem létezik, "
-#~ "vagy nem F-Spot adatbázis"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: this version of the F-Spot "
-#~ "database is not supported by Shotwell"
-#~ msgstr ""
-#~ "A kijelölt F-Spot adatbázisfájl nem nyitható meg: a Shotwell nem "
-#~ "támogatja az F-Spot adatbázis ezen verzióját"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading tags "
-#~ "table"
-#~ msgstr ""
-#~ "A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a címketábla "
-#~ "olvasásakor"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading photos "
-#~ "table"
-#~ msgstr ""
-#~ "A kijelölt F-Spot adatbázisfájl nem olvasható: hiba a fényképtábla "
-#~ "olvasásakor"
-
-#~ msgid ""
-#~ "Shotwell has found %d photos in the F-Spot library and is currently "
-#~ "importing them. Duplicates will be automatically detected and removed.\n"
-#~ "\n"
-#~ "You can close this dialog and start using Shotwell while the import is "
-#~ "taking place in the background."
-#~ msgstr ""
-#~ "A Shotwell %d fényképet talált az F-Spot gyűjteményben, és éppen "
-#~ "importálja ezeket. A többször szereplő képek felismerésre és "
-#~ "eltávolításra kerülnek.\n"
-#~ "\n"
-#~ "Bezárhatja ezt az ablakot, és megkezdheti a Shotwell használatát mialatt "
-#~ "az importálás a háttérben folytatódik."
-
-#~ msgid "F-Spot library: %s"
-#~ msgstr "F-Spot gyűjtemény: %s"
-
-#~ msgid "Preparing to import"
-#~ msgstr "Importálás előkészítése"
-
-#~ msgid "Core Data Import Services"
-#~ msgstr "Alap adatimportáló szolgáltatások"
-
-#~ msgid "Export Photos/Videos"
-#~ msgstr "Fényképek vagy videók exportálása"
-
-#~ msgid "Open with E_xternal Editor"
-#~ msgstr "Megnyitás külső _szerkesztővel"
-
-#~ msgid "R_emove from Library"
-#~ msgstr "_Eltávolítás a gyűjteményből"
