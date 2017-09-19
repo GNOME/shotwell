@@ -54,7 +54,21 @@ class EventDirectoryItem : CheckerboardItem {
     
     // scale and crop the center square of the media
     private static Gdk.Pixbuf get_paul_lynde(MediaSource media, Gdk.Rectangle paul_lynde) throws Error {
-        Gdk.Pixbuf pixbuf = media.get_preview_pixbuf(squared_scaling);
+        Gdk.Pixbuf pixbuf;
+
+        try {
+            pixbuf = media.get_preview_pixbuf(squared_scaling);
+        } catch (Error error) {
+            ThumbnailCache.fetch_async_scaled(media, ThumbnailCache.Size.BIG,
+                                             new Dimensions(ThumbnailCache.Size.BIG, ThumbnailCache.Size.BIG),
+                                             ThumbnailCache.DEFAULT_INTERP, () => {});
+            if (media is LibraryPhoto) {
+                LibraryPhoto photo = (LibraryPhoto) media;
+                pixbuf = photo.get_pixbuf(squared_scaling);
+            } else {
+                throw error;
+            }
+        }
         
         Dimensions thumbnail_dimensions = Dimensions.for_pixbuf(pixbuf);
         
