@@ -1,21 +1,19 @@
 <?xml version="1.0"?>
 <interface domain="shotwell">
   <menu id="SearchContextMenu">
-    <submenu>
-      <section>
-        <item>
-          <attribute name="label" translatable="yes">Re_name…</attribute>
-          <attribute name="action">win.RenameSearch</attribute>
-        </item>
-        <item>
-          <attribute name="label" translatable="yes">_Edit…</attribute>
-          <attribute name="action">win.EditSearch</attribute>
-        </item>
-        <item>
-          <attribute name="label" translatable="yes">_Delete</attribute>
-          <attribute name="action">win.DeleteSearch</attribute>
-        </item>
-      </section>
-    </submenu>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Re_name…</attribute>
+        <attribute name="action">win.RenameSearch</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Edit…</attribute>
+        <attribute name="action">win.EditSearch</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Delete</attribute>
+        <attribute name="action">win.DeleteSearch</attribute>
+      </item>
+    </section>
   </menu>
 </interface>
