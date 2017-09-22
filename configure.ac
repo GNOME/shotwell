@@ -180,7 +180,7 @@ dnl ***********************************************************************
 dnl Publishers
 dnl ***********************************************************************
 
-m4_define(ALL_PUBLISHERS, [facebook, flickr, picasa, piwigo, youtube, gallery3, rajce, tumblr, yandex])
+m4_define(ALL_PUBLISHERS, [facebook, flickr, picasa, piwigo, youtube, gallery3, tumblr])
 AC_ARG_ENABLE([publishers],
             AS_HELP_STRING([--enable-publishers=@<:@list-of-publishers or all@:>@],
                            [A comma-separated list of publishers from ALL_PUBLISHERS]),
