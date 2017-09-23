@@ -1301,6 +1301,9 @@ public abstract class CheckerboardPage : Page {
     
     private Gtk.Menu page_context_menu;
     public override Gtk.Menu? get_page_context_menu() {
+        if (page_context_menu_path == null)
+            return null;
+
         if (page_context_menu == null) {
             var model = this.builder.get_object (page_context_menu_path)
                 as GLib.MenuModel;
