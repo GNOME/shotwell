@@ -291,7 +291,6 @@ public abstract class MediaPage : CheckerboardPage {
         { "MoveToTrash", on_move_to_trash },
         { "NewEvent", on_new_event },
         { "AddTags", on_add_tags },
-        { "AddTagsContextMenu", on_add_tags },
         { "ModifyTags", on_modify_tags },
         { "IncreaseSize", on_increase_size },
         { "DecreaseSize", on_decrease_size },
