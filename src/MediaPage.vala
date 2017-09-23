@@ -555,46 +555,6 @@ public abstract class MediaPage : CheckerboardPage {
                 activate_action("RateRejected");
             break;
             
-            case "exclam":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.ONE_OR_HIGHER);
-            break;
-            
-            case "at":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.TWO_OR_HIGHER);
-            break;
-
-            case "numbersign":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.THREE_OR_HIGHER);
-            break;
-
-            case "dollar":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.FOUR_OR_HIGHER);
-            break;
-
-            case "percent":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.FIVE_OR_HIGHER);
-            break;
-
-            case "parenright":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.UNRATED_OR_HIGHER);
-            break;
-
-            case "parenleft":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.REJECTED_OR_HIGHER);
-            break;
-            
-            case "asterisk":
-                if (get_ctrl_pressed())
-                    get_search_view_filter().set_rating_filter(RatingFilter.REJECTED_ONLY);
-            break;
-            
             case "slash":
                 activate_action("Flag");
             break;
