@@ -35,7 +35,14 @@ Shotwell will be included, and Shotwell will convert photos to the destination f
 </list>
 </item>
 <item><p>The image quality for exporting (Low, Medium, High, or Maximum).</p></item>
-<item><p>A scaling constraint (which means how Shotwell will decide to scale the photos down), and the desired pixel size.</p></item>
+<item><p>A scaling constraint (which means how Shotwell will decide to scale the photos down), and the desired pixel size.</p>
+<terms>
+<item><title>Original size</title><p>Image will be exported without any scaling applied</p></item>
+<item><title>Longest edge</title><p>Image will be exported by having its longest edge scaled to <gui>Pixels</gui> and the other according to the aspect ratio</p></item>
+<item><title>Width</title><p>The image width will have its width scaled to the given pixel size and its height according to the aspect ratio. This is equivalent to <gui>Longest Edge</gui> for landscape pictures.</p></item>
+<item><title>Height</title><p>The image height will have its height scaled to the given pixel size and its width according to the aspect ratio. This is equivalent to <gui>Longest Edge</gui> for portrait pictures.</p></item>
+</terms>
+</item>
 <item><p>The option whether you like to export metadatas such as tags or ratings. This can help to save your privacy if you have geolocation tags or tags which shouldn't be seen by anyone.</p></item>
 </list>
 

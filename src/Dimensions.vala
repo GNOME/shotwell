@@ -17,7 +17,7 @@ public enum ScaleConstraint {
                 return _("Original size");
                 
             case DIMENSIONS:
-                return _("Width or height");
+                return _("Longest edge");
             
             case WIDTH:
                 return _("Width");
