@@ -19,7 +19,7 @@
 
 <p>Shotwell offers a fullscreen mode to display photos. Choose <guiseq><gui>View</gui><gui>Fullscreen</gui></guiseq> or press <key>F11</key>. To see the fullscreen toolbar, move your mouse to the bottom of the screen. The toolbar offers buttons to move through the collection, to pin the toolbar down (so it isn't hidden when you move the mouse away), and to leave fullscreen view.</p>
 
-<section>
+<section id="viewing-videos">
 <title>Viewing videos</title>
 <p>When you double-click a video, Shotwell will launch an external video player to play the video.  It's not currently
 possible to display a video in full-window mode in Shotwell or to play the video within Shotwell itself.</p>

@@ -21,25 +21,25 @@
     as described below.
     </p>
     
-    <section>
+    <section id="renaming">
     <title>Renaming events</title>
 
     <p>To give an event a name rather than referring to it by its date, select the event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> and enter a new name. Another way of renaming an event is to double-click its name in the sidebar; type a new name and then press <key>Enter</key>.</p>
     </section>
 
-    <section>
+    <section id="moving-photos">
     <title>Moving photos between events</title>
 
     <p>Even though photos are initially grouped into events by their date, you can move photos between events. To do this, drag any photo to the sidebar and drop it on an event.</p>
     </section>
 
-    <section>
+    <section id="creating-events">
     <title>Creating and merging events</title>
     <p>To create a new event, select the photos you would like in the new event and click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>.</p>
     <p>To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, then, while holding down <key>Ctrl</key> click on the events you want to merge in the main window area. Finally, click <guiseq><gui>Events</gui><gui>Merge Events</gui></guiseq>.</p>
     </section>
 
-    <section>
+    <section id="sorting-events">
     <title>Sorting events</title>
 
     <p>Events are displayed in a tree in the sidebar, organized by the year and month of the earliest photo in the event.
@@ -47,7 +47,7 @@
     
     </section>
     
-    <section>
+    <section id="change-photo">
     <title>Change the photo used to represent each event</title>
 
     <p>If you select the <gui>Events</gui> item in the sidebar, you'll see a single photo which represents each event. This is called the key photo.</p>
