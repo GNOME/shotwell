@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2017-08-19 08:33+0000\n"
-"PO-Revision-Date: 2017-08-31 03:16+0200\n"
+"POT-Creation-Date: 2017-09-25 16:12+0000\n"
+"PO-Revision-Date: 2017-09-25 18:55+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -721,13 +721,13 @@ msgstr "Podporované formáty fotografií a videí"
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
+"link> photo files. Shotwell does not yet support other graphics format such "
+"as GIF."
 msgstr ""
 "Shotwell podporuje soubory s fotografiemi ve formátech JPEG, PNG, TIFF, BMP "
-"a <link type=\"guide\" xref=\"other-raw\">RAW</link>. Zatím nepodporuje "
-"další formáty, jako je třeba GIF."
+"a <link xref=\"other-raw\">RAW</link>. Zatím nepodporuje další formáty, jako "
+"je třeba GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -748,10 +748,10 @@ msgstr ""
 #: C/formats.page:18
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 "Více informací o formátu fotografií RAW v aplikaci Shotwell najdete v oddíle "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link>."
+"<link xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -891,9 +891,9 @@ msgid ""
 msgstr ""
 "Případně můžete kliknout na <guiseq><gui>Soubor</gui> <gui>Importovat ze "
 "složky…</gui></guiseq> a vyberte složku obsahující fotografie, které chcete "
-"importovat. Jestliže nechcete, aby se Shotwell při importu zanořoval postupně "
-"do podsložek, můžete zrušit zaškrtnutí volby <gui>Zanořovat se do podsložek"
-"</gui> ve spodní části dialogového okna."
+"importovat. Jestliže nechcete, aby se Shotwell při importu zanořoval "
+"postupně do podsložek, můžete zrušit zaškrtnutí volby <gui>Zanořovat se do "
+"podsložek</gui> ve spodní části dialogového okna."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -1004,34 +1004,28 @@ msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: info/title
-#: C/index.page:7
-msgctxt "text"
-msgid "Shotwell"
-msgstr "Shotwell"
-
 #. (itstool) path: credit/name
-#: C/index.page:9
+#: C/index.page:8
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:11
+#: C/index.page:10
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:13
+#: C/index.page:12
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:15
+#: C/index.page:14
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:17
+#: C/index.page:16
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
@@ -1040,7 +1034,7 @@ msgstr "Phil Bull"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
+#: C/index.page:22
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -1050,7 +1044,7 @@ msgstr ""
 "md5='4b333499555b4e496b1a38f7899067f3'"
 
 #. (itstool) path: page/title
-#: C/index.page:23
+#: C/index.page:22
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -1059,32 +1053,32 @@ msgstr ""
 "Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:26
+#: C/index.page:25
 msgid "Importing Photos"
 msgstr "Import fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:30
+#: C/index.page:29
 msgid "Viewing Photos"
 msgstr "Zobrazení fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:34
+#: C/index.page:33
 msgid "Organizing Photos"
 msgstr "Třídění fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:38
+#: C/index.page:37
 msgid "Editing Photos"
 msgstr "Úprava fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:42
+#: C/index.page:41
 msgid "Sharing Photos"
 msgstr "Sdílení fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:46
+#: C/index.page:45
 msgid "Other Features"
 msgstr "Ostatní funkce"
 
@@ -1449,7 +1443,7 @@ msgstr ""
 "external ref='figures/trash_process.png' "
 "md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
 
-#. (itstool) path: page/media
+#. (itstool) path: media/p
 #: C/organize-remove.page:15
 msgid "Delete process"
 msgstr "Postup mazání"
