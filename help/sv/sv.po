@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2017-08-06 13:33+0000\n"
-"PO-Revision-Date: 2017-08-25 20:58+0200\n"
+"POT-Creation-Date: 2017-09-25 16:12+0000\n"
+"PO-Revision-Date: 2017-09-28 22:48+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -720,16 +720,16 @@ msgstr ""
 msgid "Supported photo and video formats"
 msgstr "Bild- och videoformat som stöds"
 
+# TODO:format->formats?
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
+"link> photo files. Shotwell does not yet support other graphics format such "
+"as GIF."
 msgstr ""
-"Shotwell stödjer JPEG, PNG, TIFF, BMP och <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link>-bildfiler. Shotwell stödjer inte ännu andra grafikformat "
-"som GIF."
+"Shotwell stödjer JPEG, PNG, TIFF, BMP och <link xref=\"other-raw\">RAW</"
+"link>-bildfiler. Shotwell stödjer inte ännu andra grafikformat som GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -750,10 +750,10 @@ msgstr ""
 #: C/formats.page:18
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
-"För mer information om RAW-formatbilder i Shotwell, se avsnittet <link type="
-"\"guide\" xref=\"other-raw\">RAW</link>."
+"För mer information om RAW-formatbilder i Shotwell, se avsnittet <link xref="
+"\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -1001,34 +1001,28 @@ msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: info/title
-#: C/index.page:7
-msgctxt "text"
-msgid "Shotwell"
-msgstr "Shotwell"
-
 #. (itstool) path: credit/name
-#: C/index.page:9
+#: C/index.page:8
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:11
+#: C/index.page:10
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:13
+#: C/index.page:12
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:15
+#: C/index.page:14
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:17
+#: C/index.page:16
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
@@ -1037,7 +1031,7 @@ msgstr "Phil Bull"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
+#: C/index.page:22
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -1047,7 +1041,7 @@ msgstr ""
 "md5='4b333499555b4e496b1a38f7899067f3'"
 
 #. (itstool) path: page/title
-#: C/index.page:23
+#: C/index.page:22
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -1056,32 +1050,32 @@ msgstr ""
 "bildhanterare"
 
 #. (itstool) path: section/title
-#: C/index.page:26
+#: C/index.page:25
 msgid "Importing Photos"
 msgstr "Importera bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:30
+#: C/index.page:29
 msgid "Viewing Photos"
 msgstr "Visa bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:34
+#: C/index.page:33
 msgid "Organizing Photos"
 msgstr "Ordna bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:38
+#: C/index.page:37
 msgid "Editing Photos"
 msgstr "Redigera bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:42
+#: C/index.page:41
 msgid "Sharing Photos"
 msgstr "Dela bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:46
+#: C/index.page:45
 msgid "Other Features"
 msgstr "Andra egenskaper"
 
@@ -1440,7 +1434,7 @@ msgstr ""
 "external ref='figures/trash_process.png' "
 "md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
 
-#. (itstool) path: page/media
+#. (itstool) path: media/p
 #: C/organize-remove.page:15
 msgid "Delete process"
 msgstr "Raderingsprocess"
@@ -3176,6 +3170,10 @@ msgstr ""
 "Mappen <gui>Taggar</gui> listar alla taggar du tilldelat till bilder. Bilder "
 "kan ha flera taggar kopplade till dem. När du klickar på namnet på en tagg i "
 "sidopanelen kommer du att se alla bilder associerade med den taggen."
+
+#~ msgctxt "text"
+#~ msgid "Shotwell"
+#~ msgstr "Shotwell"
 
 #~ msgid ""
 #~ "Shotwell can import all your photos and tags from the F-Spot photo "
