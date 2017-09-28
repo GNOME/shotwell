@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-08-26 14:01+0000\n"
-"PO-Revision-Date: 2017-08-27 17:22+0200\n"
+"POT-Creation-Date: 2017-09-28 12:22+0000\n"
+"PO-Revision-Date: 2017-09-28 15:15+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -3131,7 +3131,7 @@ msgstr[2] "Etykieta „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Usuń"
@@ -4421,7 +4421,7 @@ msgstr "Wydarzenia"
 msgid "Browse through your events"
 msgstr "Przegląda wydarzenia"
 
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
@@ -4429,7 +4429,7 @@ msgstr[0] "%d zdjęcie/nagranie wideo"
 msgstr[1] "%d zdjęcia/nagrania wideo"
 msgstr[2] "%d zdjęć/nagrań wideo"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
@@ -4437,7 +4437,7 @@ msgstr[0] "%d nagranie wideo"
 msgstr[1] "%d nagrania wideo"
 msgstr[2] "%d nagrań wideo"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4726,7 +4726,7 @@ msgstr "Nie można przetworzyć aktualizacji monitorowania: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Dopasowuje rozmiar miniatur"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4735,15 +4735,15 @@ msgstr ""
 "Program Shotwell nie może odtworzyć wybranego nagrania wideo:\n"
 "%s"
 
-#: src/Page.vala:1307
+#: src/Page.vala:1310
 msgid "No photos/videos"
 msgstr "Brak zdjęć/nagrań wideo"
 
-#: src/Page.vala:1311
+#: src/Page.vala:1314
 msgid "No photos/videos found which match the current filter"
 msgstr "Nie odnaleziono zdjęć/nagrań wideo pasujących do bieżącego filtra"
 
-#: src/Page.vala:2624
+#: src/Page.vala:2627
 msgid "Photos cannot be exported to this directory."
 msgstr "Nie można eksportować zdjęć do tego katalogu."
 
@@ -5703,11 +5703,11 @@ msgstr "Zapisane wyszukiwanie"
 msgid "Delete Search"
 msgstr "Usunięcie wyszukiwania"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "_Modyfikuj…"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "Zmień _nazwę…"
 
@@ -6179,7 +6179,7 @@ msgid "untitled"
 msgstr "bez nazwy"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
 
@@ -6463,6 +6463,10 @@ msgstr "Zewnętrzne edytory"
 #: ui/preferences_dialog.ui:642
 msgid "Plugins"
 msgstr "Wtyczki"
+
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Preferencje"
 
 #: ui/printing_widget.ui:19
 msgid "<b>Printed Image Size</b>"
