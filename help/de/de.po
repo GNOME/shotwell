@@ -8,16 +8,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2017-07-08 06:22+0000\n"
-"PO-Revision-Date: 2017-08-04 21:21+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2017-09-10 12:55+0000\n"
+"PO-Revision-Date: 2017-09-20 19:48+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -1300,6 +1300,11 @@ msgid ""
 "click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
 "either ascending or descending."
 msgstr ""
+"Ereignisse werden in einer Baumansicht in der Seitenleiste angezeigt, "
+"geordnet anhand der Jahres- und Monatsangabe des ältesten Fotos in dem "
+"Ereignis. Um die Sortierreihenfolge des Ereignisses zu ändern, wählen Sie "
+"<guiseq><gui>Ansicht</gui><gui>Ereignisse sortieren</gui></guiseq>. Wählen "
+"Sie dann die aufsteigende oder absteigende Sortierung aus."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:51
@@ -1323,6 +1328,10 @@ msgid ""
 "use a different key photo, select the photo and choose <guiseq><gui>Photos</"
 "gui><gui>Make Key Photo for Event</gui></guiseq>."
 msgstr ""
+"In der Voreinstellung verwendet Shotwell des erste Foto in einem Ereignis "
+"als <em>Schlüsselfoto</em>. Um ein anderes Foto als Schlüsselfoto zu "
+"verwenden, wählen Sie das Foto aus und wählen Sie <guiseq><gui>Fotos</"
+"gui><gui>Zum Schlüsselfoto für dieses Ereignis machen</gui></guiseq>."
 
 #. (itstool) path: info/desc
 #: C/organize-flag.page:7
@@ -1344,6 +1353,10 @@ msgid ""
 "<gui>Flagged</gui> item in the sidebar to see all photos which have been "
 "flagged."
 msgstr ""
+"In Shotwell können Sie Fotos <em>markieren</em>. Wenn ein Foto markiert ist, "
+"erscheint ein kleines Flaggensymbol in dessen oberer rechter Ecke. In der "
+"Seitenleiste finden Sie unter dem Eintrag <gui>Markiert</gui> alle Fotos, "
+"die bereits markiert sind."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:18
@@ -1352,6 +1365,10 @@ msgid ""
 "like. For example, you might flag all photos which need visual adjustment, "
 "or all photos which you want to share with a friend."
 msgstr ""
+"Eine Markierung hebt ein Foto besonders hervor. Sie können dies nach "
+"Belieben interpretieren, zum Beispiel alle Fotos markieren, die eine "
+"Nachbearbeitung benötigen, oder alle Fotos, die Sie mit Freunden teilen "
+"wollen."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:22
@@ -1360,6 +1377,10 @@ msgid ""
 "set. For example, you can select the <gui>Flagged</gui> view and then upload "
 "all flagged photos to a publishing service."
 msgstr ""
+"Markierungen sind auch sinnvoll, wenn Sie mit den markierten Fotos als "
+"Sammlung arbeiten wollen. Beispielsweise können Sie die <gui>Markiert</gui>-"
+"Ansicht öffnen und alle markierten Fotos zu einem Veröffentlichungsdienst "
+"übertragen."
 
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
@@ -1373,6 +1394,11 @@ msgid ""
 "or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
 "key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
+"Um ein Foto zu markieren oder die Markierung zu entfernen, klicken Sie mit "
+"der rechten Maustaste auf das Foto und wählen Sie <gui>Markieren</gui> oder "
+"<gui>Markierung aufheben</gui> aus dem Kontextmenü. Alternativ können Sie "
+"die Tastenkombination <keyseq><key>Strg</key><key>G</key></keyseq> oder "
+"einfach <key>/</key> drücken."
 
 #. (itstool) path: info/desc
 #: C/organize-rating.page:7
@@ -1462,6 +1488,9 @@ msgid ""
 "corner. You can turn off the display of ratings using the <guiseq><gui>View</"
 "gui><gui>Ratings</gui></guiseq> menu item."
 msgstr ""
+"Shotwell zeigt normalerweise die Bewertung zu jedem Foto in dessen linker "
+"unterer Ecke an. Sie können diese Anzeige im Menü <guiseq><gui>Ansicht</"
+"gui><gui>Bewertungen</gui></guiseq> ausschalten."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:28
@@ -1471,6 +1500,11 @@ msgid ""
 "gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
 "<key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
+"Die Bewertung eines Fotos können Sie mit <guiseq><gui>Bewerten</"
+"gui><gui>Aufwerten</gui></guiseq> und <guiseq><gui>Bewerten</"
+"gui><gui>Abwerten</gui></guiseq> erhöhen beziehungsweise verringern. "
+"Alternativ können Sie hierzu die Tasten <key>&lt;</key> und <key>&gt;</key> "
+"drücken."
 
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
@@ -1502,7 +1536,7 @@ msgctxt "_"
 msgid ""
 "external ref='figures/trash_process.png' "
 "md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr ""
+msgstr "ok'"
 
 #. (itstool) path: page/media
 #: C/organize-remove.page:15
@@ -1690,6 +1724,12 @@ msgid ""
 "this bar, you can find, show and hide photos and videos based on title, tag, "
 "rating or other options."
 msgstr ""
+"Das Ankreuzfeld in <guiseq><gui>Ansicht</gui><gui>Suchleiste</gui></guiseq> "
+"blendet die Suchleiste ein oder aus. Sie können auch <keyseq><key>Strg</"
+"key><key>F</key></keyseq> oder <key>F8</key> drücken, um die Suchleiste zu "
+"öffnen. In dieser Suchzeile können Fotos und Videos anhand des Titels, des "
+"Stichworts, der Bewertung und weiterer Kriterien finden, anzeigen oder "
+"verbergen."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:29
@@ -1702,6 +1742,14 @@ msgid ""
 "flagged, their current number of stars, and whether the items shown are "
 "images, videos, or raw camera files, respectively."
 msgstr ""
+"Um mit einer Suche zu beginnen, geben Sie einfach einen Suchbegriff in das "
+"Textfeld ein oder klicken Sie auf <gui>Markiert</gui>, <gui>Bewertung</gui> "
+"oder <gui>Typ</gui>. Die Textsuche sucht nach Treffern anhand von "
+"Stichworten, Foto- oder Videotiteln und den Namen von Originaldateien. Mit "
+"den Knöpfen <gui>Markiert</gui>, <gui>Bewertung</gui> oder <gui>Typ</gui> "
+"können Sie Ihre Sammlung danach filtern, ob Fotos markiert sind, nach der "
+"Anzahl der Bewertungssterne oder ob es sich um Bilder, Videos oder Kamera-"
+"Rohbilder (RAW) handelt."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:38
@@ -1736,6 +1784,12 @@ msgid ""
 "whether you want to meet Any, All, or None of the criteria in the following "
 "rows."
 msgstr ""
+"Erstellen Sie eine neue gespeicherte Suche mit <guiseq><gui>Bearbeiten</"
+"gui><gui>Neue gespeicherte Suche …</gui></guiseq> oder durch Drücken von "
+"<keyseq><key>Strg</key><key>S</key></keyseq>. Im Dialogfeld können Sie einen "
+"Namen für die Suche vergeben und entscheiden, ob <gui>beliebige</gui>, "
+"<gui>alle</gui> oder <gui>keine</gui> der Kriterien in den folgenden Zeilen "
+"angewendet werden sollen."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:56
@@ -1745,6 +1799,11 @@ msgid ""
 "box on the left of each row selects the type of criteria. Criteria must be "
 "entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
+"Jede Zeile stellt ein Suchkriterium dar. Mit dem <gui>+</gui>-Knopf können "
+"Sie weitere Zeilen hinzufügen und mit dem <gui>-</gui>-Knopf eine bestimmte "
+"Zeile entfernen. Das Kombinationsfeld links an jeder Zeile wählt das "
+"Suchkriterium aus. Die Kriterien müssen korrekt eingegeben werden, damit der "
+"<gui>OK</gui>-Knopf benutzbar wird."
 
 #. (itstool) path: info/desc
 #: C/organize-tag.page:7
@@ -1827,6 +1886,17 @@ msgid ""
 "gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
 "\"[name]\" from Photos</gui>."
 msgstr ""
+"Um zu ändern, welche Stichworte einem bestimmten Foto zugeordnet sind, "
+"wählen Sie das Foto aus und wählen Sie <guiseq><gui>Stichworte</"
+"gui><gui>Stichworte ändern …</gui></guiseq> oder klicken Sie mit der rechten "
+"Maustaste auf ein Foto und wählen <gui>Stichworte ändern …</gui>, um die "
+"durch Kommata getrennte Liste zu bearbeiten. Um ein Stichwort von einem oder "
+"mehreren Fotos zu entfernen, wählen Sie zunächst das Stichwort in der "
+"Seitenleiste aus und danach die Fotos, von denen Sie die Stichworte "
+"entfernen wollen. Wählen Sie dann <guiseq><gui>Stichworte</"
+"gui><gui>Stichwort »[Name]« von Fotos entfernen</gui></guiseq> oder klicken "
+"Sie mit der rechten Maustaste auf die Fotos und wählen <gui>Stichwort "
+"»[Name]« von Fotos entfernen</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -1835,6 +1905,10 @@ msgid ""
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
 "click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
+"Um ein Stichwort vollständig zu löschen, wählen Sie es in der Seitenleiste "
+"aus und wählen <guiseq><gui>Stichwort</gui><gui>Stichwort »[Name]« "
+"entfernen</gui></guiseq>. Alternativ klicken Sie mit der rechten Maustaste "
+"darauf und wählen <gui>Stichwort »[Name]« entfernen</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:64
@@ -1862,6 +1936,11 @@ msgid ""
 "and drop a tag onto another. To create a new subtag right-click on a tag and "
 "select <gui>New</gui>."
 msgstr ""
+"Shotwell unterstützt auch verschachtelte Stichworte. Sie können Ihre "
+"Stichworte neu arrangieren, indem Sie sie durch Ziehen und Ablegen "
+"ineinander verschieben. Um ein neues untergeordnetes Stichwort zuzuweisen, "
+"klicken Sie mit der rechten Maustaste auf ein Stichwort und wählen Sie "
+"<gui>Neu</gui>."
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:81
@@ -1871,11 +1950,18 @@ msgid ""
 "\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
 "be placed under the tag \"Summer Holidays\"."
 msgstr ""
+"Verschachtelte Stichwörter sind hilfreich, wenn Sie die Sortierung Ihrer "
+"Stichwortliste besser an Ihre eigenen Bedürfnisse anpassen wollen. "
+"Beispielsweise können Sie ortsbezogene Stichworte wie »Berge« oder »Strand« "
+"dem Stichwort »Orte« unterordnen, welches seinerseits zum übergeordneten "
+"Stichwort »Sommerurlaub« gehören könnte."
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:89
 msgid "Note that deleting a parent tag will also delete its child tags."
 msgstr ""
+"Beachten Sie, dass beim Löschen eines übergeordneten Stichworts auch "
+"sämtliche enthaltenen untergeordneten Stichworte gelöscht werden."
 
 #. (itstool) path: info/desc
 #: C/organize-title.page:7
@@ -2520,9 +2606,10 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
-"Einige Kameras können Daten direkt vom Sensor ablesen und mit zusätzlichen "
-"\" \"Farbinformationen in eine Datei schreiben. Diese werden allgemein als "
-"»RAW«-Dateien bezeichnet. Shotwell unterstützt diese Dateien."
+"Einige Kameras können die direkt vom Sensor ausgelesenen Daten mit "
+"zusätzlichen Farbinformationen versehen und in eine Datei schreiben. Diese "
+"werden allgemein als »RAW«-Dateien bezeichnet. Shotwell unterstützt diese "
+"Dateien."
 
 #. (itstool) path: page/p
 #: C/raw.page:18
@@ -3013,6 +3100,8 @@ msgid ""
 "You will be only able to publish images with at most the permission you "
 "granted to the Shotwell Facebook application"
 msgstr ""
+"Sie können Bilder nur mit höchstens den Zugriffsrechten veröffentlichen, die "
+"Sie der Shotwell Facebook-Anwendung gewährt haben."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:36
@@ -3030,7 +3119,7 @@ msgid ""
 "will need to log in to Picasa using a browser once before you can publish to "
 "this service."
 msgstr ""
-"Wenn Sie ein Google-Konto verfügen, aber die Picasa-Webalben noch nicht "
+"Wenn Sie über ein Google-Konto verfügen, aber die Picasa-Webalben noch nicht "
 "genutzt haben, müssen Sie sich zunächst in einem Browser bei Picasa "
 "anmelden, bevor Sie diesen Dienst zur Veröffentlichung nutzen können."
 
@@ -3243,31 +3332,3 @@ msgstr ""
 "Der Ordner <gui>Markierungen</gui> listet alle markierten Fotos auf. Fotos "
 "können mehrfach markiert sein. Klicken Sie auf den Namen einer Markierung in "
 "der Seitenleiste, um alle mit der entsprechenden Markierung zu sehen."
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "Flickr"
-#~ msgstr "Flickr"
-
-#~ msgid "Symbol"
-#~ msgstr "Symbol"
-
-#~ msgid ""
-#~ "@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-#~ msgstr "original"
-
-#~ msgid "jim@yorba.org"
-#~ msgstr "jim@yorba.org"
-
-#~ msgid "allison@yorba.org"
-#~ msgstr "allison@yorba.org"
-
-#~ msgid "robert.ancell@canonical.com"
-#~ msgstr "robert.ancell@canonical.com"
-
-#~ msgid "pdo.smith@gmail.com"
-#~ msgstr "pdo.smith@gmail.com"
-
-#~ msgid "philbull@gmail.com"
-#~ msgstr "philbull@gmail.com"
