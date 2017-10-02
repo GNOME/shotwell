@@ -1,15 +1,15 @@
 # German translation for the shotwell manual.
 # Copyright (C) 2015 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
-# Christian Kirbach <Christian.Kirbach@gmail.com>, 2015, 2016.
+# Christian Kirbach <Christian.Kirbach@gmail.com>, 2015-2016.
 # Benjamin Steinwender <b@stbe.at>, 2015.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2016, 2017.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2016-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2017-09-10 12:55+0000\n"
-"PO-Revision-Date: 2017-09-20 19:48+0200\n"
+"POT-Creation-Date: 2017-10-02 10:19+0000\n"
+"PO-Revision-Date: 2017-10-02 12:23+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -756,13 +756,13 @@ msgstr "Unterstützte Foto- und Video-Formate"
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
+"link> photo files. Shotwell does not yet support other graphics format such "
+"as GIF."
 msgstr ""
-"Shotwell unterstützt JPEG, PNG, TIFF, BMP und <link type=\"guide\" xref="
-"\"other-raw\">RAW</link>-Fotodateien. Andere Grafikformate, wie "
-"beispielsweise GIF, unterstützt Shotwell noch nicht."
+"Shotwell unterstützt JPEG, PNG, TIFF, BMP und <link xref=\"other-raw\">RAW</"
+"link>-Fotodateien. Andere Grafikformate, wie beispielsweise GIF, unterstützt "
+"Shotwell noch nicht."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -784,10 +784,10 @@ msgstr ""
 #: C/formats.page:18
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 "Für weiterführende Informationen über Fotos im RAW-Format in Shotwell lesen "
-"Sie bitte den Abschnitt <link type=\"guide\" xref=\"other-raw\">RAW</link>."
+"Sie bitte den Abschnitt <link xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -922,11 +922,16 @@ msgstr ""
 #: C/import-file.page:16
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-"gui></guiseq> and select the folder containing the photos you want to import."
+"gui></guiseq> and select the folder containing the photos you want to "
+"import. If you do not want Shotwell to recurse into subfolders while "
+"importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
+"on the bottom of the file dialog."
 msgstr ""
 "Wählen Sie alternativ <guiseq><gui>Datei</gui><gui>Aus Ordner importieren …</"
 "gui></guiseq> und wählen Sie den Ordner mit den Fotos aus, die Sie "
-"importieren wollen."
+"importieren wollen. Wenn Sie vermeiden wollen, dass Shotwell beim Import "
+"auch Unterordner mit einbezieht, dann deaktivieren Sie das Ankreuzfeld "
+"<gui>Unterordner einbeziehen</gui> unten im Dateiauswahldialog."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -964,57 +969,6 @@ msgstr ""
 "der Seitenleiste, um alle erfolgreich importierten Fotos zu sehen. Die "
 "Ereignisliste zeigt auch neue Einträge für die importierten Fotos mit den "
 "zugehörigen Zeitstempeln."
-
-#. (itstool) path: info/desc
-#: C/import-f-spot.page:7
-msgid ""
-"Shotwell can import all your photos and tags from the F-Spot photo manager."
-msgstr ""
-"Shotwell kann alle Ihre Fotos und Stichworte aus der Fotoverwaltung F-Spot "
-"importieren."
-
-#. (itstool) path: page/title
-#: C/import-f-spot.page:12
-msgid "Importing from F-Spot"
-msgstr "Importieren aus F-Spot"
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:14
-msgid "To import an existing photo collection from F-Spot:"
-msgstr "So importieren Sie eine bestehende Fotosammlung aus F-Spot:"
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:16
-msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
-msgstr ""
-"Wählen Sie <guiseq><gui>Datei</gui><gui>Importieren aus F-Spot</gui></"
-"guiseq>."
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:17
-msgid ""
-"Now choose either the default F-Spot library or another F-Spot database. If "
-"importing from another F-Spot database, select a directory and file from the "
-"chooser dialog box."
-msgstr ""
-"Wählen Sie anschließend die voreingestellte F-Spot-Bibliothek oder eine "
-"andere F-Spot-Datenbank. Wenn Sie aus einer anderen F-Spot-Datenbank "
-"importieren, wählen Sie einen Ordner und eine Datei im Dateiwähler."
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:20
-msgid ""
-"Shotwell will import your photos, together with their tags and other "
-"information. Once the import is complete, you can select <gui>Last Import</"
-"gui> in the sidebar to see all photos successfully imported. The Events list "
-"will also show new entries for the dates corresponding to the imported "
-"photos."
-msgstr ""
-"Shotwell importiert daraufhin Ihre Fotos zusammen mit den zugehörigen "
-"Markierungen und weiteren Informationen. Sobald der Import abgeschlossen "
-"ist, wählen Sie <gui>Letzter Import</gui> in der Seitenleiste, um alle "
-"erfolgreich importierten Fotos zu sehen. Die Ereignisliste zeigt auch neue "
-"Einträge für die importierten Fotos mit den zugehörigen Zeitstempeln."
 
 #. (itstool) path: info/desc
 #: C/import-memorycard.page:7
@@ -1088,34 +1042,28 @@ msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: info/title
-#: C/index.page:7
-msgctxt "text"
-msgid "Shotwell"
-msgstr "Shotwell"
-
 #. (itstool) path: credit/name
-#: C/index.page:9
+#: C/index.page:8
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:11
+#: C/index.page:10
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:13
+#: C/index.page:12
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:15
+#: C/index.page:14
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:17
+#: C/index.page:16
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
@@ -1124,7 +1072,7 @@ msgstr "Phil Bull"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
+#: C/index.page:22
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -1132,7 +1080,7 @@ msgid ""
 msgstr "original"
 
 #. (itstool) path: page/title
-#: C/index.page:23
+#: C/index.page:22
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -1141,32 +1089,32 @@ msgstr ""
 "Fotoverwaltung"
 
 #. (itstool) path: section/title
-#: C/index.page:26
+#: C/index.page:25
 msgid "Importing Photos"
 msgstr "Fotos importieren"
 
 #. (itstool) path: section/title
-#: C/index.page:30
+#: C/index.page:29
 msgid "Viewing Photos"
 msgstr "Fotos ansehen"
 
 #. (itstool) path: section/title
-#: C/index.page:34
+#: C/index.page:33
 msgid "Organizing Photos"
 msgstr "Fotos organisieren"
 
 #. (itstool) path: section/title
-#: C/index.page:38
+#: C/index.page:37
 msgid "Editing Photos"
 msgstr "Fotos bearbeiten"
 
 #. (itstool) path: section/title
-#: C/index.page:42
+#: C/index.page:41
 msgid "Sharing Photos"
 msgstr "Fotos teilen"
 
 #. (itstool) path: section/title
-#: C/index.page:46
+#: C/index.page:45
 msgid "Other Features"
 msgstr "Weitere Funktionen"
 
@@ -1538,7 +1486,7 @@ msgid ""
 "md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
 msgstr "ok'"
 
-#. (itstool) path: page/media
+#. (itstool) path: media/p
 #: C/organize-remove.page:15
 msgid "Delete process"
 msgstr "Löschvorgang"
@@ -2261,13 +2209,14 @@ msgstr "p. m."
 #. (itstool) path: section/p
 #: C/other-files.page:72
 msgid ""
-"There are other symbols available; please check the manual for strftime by "
-"running the command <cmd>man strftime</cmd> if you need one that isn't "
-"listed here."
+"There are other symbols available; please check the <link href=\"man:strftime"
+"\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
+"if you need one that isn't listed here."
 msgstr ""
-"Es sind weitere Symbole verfügbar. Bitte schauen Sie dazu im Handbuch von "
-"strftime nach, welches Sie mit dem Befehl <cmd>man strftime</cmd> ansehen "
-"können, falls ein benötigtes Symbol hier nicht aufgelistet ist."
+"Es sind weitere Symbole verfügbar. Bitte schauen Sie dazu im <link href="
+"\"man:strftime\">Handbuch von strftime</link> nach, welches Sie mit dem "
+"Befehl <cmd>man strftime</cmd> ansehen können, falls ein benötigtes Symbol "
+"hier nicht aufgelistet ist."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -3274,12 +3223,12 @@ msgstr ""
 "Bibliothek."
 
 #. (itstool) path: page/title
-#: C/view-sidebar.page:21
+#: C/view-sidebar.page:20
 msgid "The sidebar"
 msgstr "Die Seitenleiste"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:23
+#: C/view-sidebar.page:22
 msgid ""
 "The sidebar on the left side of the Shotwell window lists various views of "
 "your library. Although you may see the same photo in multiple views, it's "
@@ -3290,7 +3239,7 @@ msgstr ""
 "sehen, ist es tatsächlich nur einmal auf Ihrem System gespeichert."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:25
+#: C/view-sidebar.page:24
 msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
@@ -3300,12 +3249,12 @@ msgstr ""
 "oder der Festplatte."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:27
+#: C/view-sidebar.page:26
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
 msgstr "<gui>Markiert</gui> listet alle zuvor markierten Fotos."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:29
+#: C/view-sidebar.page:28
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
@@ -3313,7 +3262,7 @@ msgstr ""
 "vielen verschiedenen Kriterien."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:31
+#: C/view-sidebar.page:30
 msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
@@ -3323,7 +3272,7 @@ msgstr ""
 "Zeitraum aufgenommen wurden."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:33
+#: C/view-sidebar.page:32
 msgid ""
 "The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
 "can have multiple tags attached to them. When you click on the name of a tag "
