@@ -43,8 +43,8 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-09-01 08:38+0000\n"
-"PO-Revision-Date: 2017-09-07 20:16+0200\n"
+"POT-Creation-Date: 2017-09-28 12:22+0000\n"
+"PO-Revision-Date: 2017-10-02 11:18+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -186,7 +186,7 @@ msgstr "Rajce-Adresse"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:41
 msgid "URL of the Rajce server."
-msgstr "Adresse des Rajce-Servers"
+msgstr "Adresse des Rajce-Servers."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:46
 #: misc/org.yorba.shotwell.gschema.xml:466
@@ -2263,7 +2263,7 @@ msgid ""
 "entered"
 msgstr ""
 "Shotwell kann sich nicht mit Ihrer Piwigo-Fotobibliothek verbinden. Bitte "
-"überprüfen Sie Ihre angegebene Adresse."
+"überprüfen Sie Ihre angegebene Adresse"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
 #: plugins/shotwell-publishing/TumblrPublishing.vala:588
@@ -2604,7 +2604,6 @@ msgstr "Kamera"
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
 #: src/camera/CameraTable.vala:351
 #, c-format
-#| msgid "%s (%d%%)"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -2640,7 +2639,7 @@ msgstr "_Alle importieren"
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Die Kamera scheint leer zu sein. Es wurden keine Fotos oder Videos zum "
-"Importieren gefunden."
+"Importieren gefunden"
 
 #: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
@@ -3089,7 +3088,7 @@ msgstr ""
 
 #: src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
-msgstr "Datenbank"
+msgstr "Datenbankdatei:"
 
 #: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
 msgid "_Import"
@@ -3175,7 +3174,7 @@ msgstr[1] "Dies wird das Stichwort »%s« von %d Fotos entfernen. Fortsetzen?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Löschen"
@@ -3195,10 +3194,10 @@ msgid_plural ""
 "Shotwell"
 msgstr[0] ""
 "Durch das Wechseln des Entwicklers gehen alle Änderungen verloren, die Sie "
-"an diesem Foto in Shotwell vorgenommen haben."
+"an diesem Foto in Shotwell vorgenommen haben"
 msgstr[1] ""
 "Durch das Wechseln des Entwicklers gehen alle Änderungen verloren, die Sie "
-"an diesen Fotos in Shotwell vorgenommen haben."
+"an diesen Fotos in Shotwell vorgenommen haben"
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -3812,7 +3811,7 @@ msgstr[1] "Originaldateien _bearbeiten"
 
 #: src/Dialogs.vala:1817
 msgid "Original: "
-msgstr "Ursprüngliche Größe:"
+msgstr "Ursprüngliche Größe: "
 
 #: src/Dialogs.vala:1818
 msgid "%m/%d/%Y, %H:%M:%S"
@@ -4369,21 +4368,21 @@ msgstr "Ereignisse"
 msgid "Browse through your events"
 msgstr "Ihre Ereignisse durchsuchen"
 
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d Foto/Video"
 msgstr[1] "%d Fotos/Videos"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d Film"
 msgstr[1] "%d Filme"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4671,7 +4670,7 @@ msgstr "Überwachungsaktualisierungen können nicht verarbeitet werden: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Die Größe der Vorschaubilder anpassen"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4680,15 +4679,15 @@ msgstr ""
 "Shotwell konnte das ausgewählte Video nicht abspielen:\n"
 "%s"
 
-#: src/Page.vala:1307
+#: src/Page.vala:1310
 msgid "No photos/videos"
 msgstr "Keine Fotos/Videos"
 
-#: src/Page.vala:1311
+#: src/Page.vala:1314
 msgid "No photos/videos found which match the current filter"
 msgstr "Keine Fotos oder Videos gefunden, die auf den aktuellen Filter passen"
 
-#: src/Page.vala:2624
+#: src/Page.vala:2627
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotos können nicht in diesen Ordner exportiert werden."
 
@@ -5645,11 +5644,11 @@ msgstr "Gespeicherte Suche"
 msgid "Delete Search"
 msgstr "Suche löschen"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "_Bearbeiten …"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "_Umbenennen …"
 
@@ -6123,7 +6122,7 @@ msgid "untitled"
 msgstr "unbenannt"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "Videos exportieren"
 
@@ -6407,6 +6406,10 @@ msgstr "Externe Editoren"
 #: ui/preferences_dialog.ui:642
 msgid "Plugins"
 msgstr "Erweiterungen"
+
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Shotwell-Einstellungen"
 
 #: ui/printing_widget.ui:19
 msgid "<b>Printed Image Size</b>"
