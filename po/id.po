@@ -3356,7 +3356,6 @@ msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
 "Ada %d foto gagal diimpor karena kesalahan pada berkas atau perangkat "
 "keras:\n"
-"\r\n"
 
 #: src/Dialogs.vala:699
 #, c-format
@@ -3432,7 +3431,6 @@ msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] ""
 "Ada %d foto gagal diimpor karena kesalahan pada kamera:\n"
-"\r\n"
 
 #: src/Dialogs.vala:745
 #, c-format
@@ -3486,7 +3484,6 @@ msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
 msgstr[0] ""
 "Ada %d foto yang tidak dapat dibuka:\n"
-"\r\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
