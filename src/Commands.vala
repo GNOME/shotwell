@@ -920,6 +920,10 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute() {
+
+            // create the new event
+            base.execute();
+
             // Are we at an event page already?
             if ((LibraryWindow.get_app().get_current_page() is EventPage)) {
                 Event evt = ((EventPage) LibraryWindow.get_app().get_current_page()).get_event();
@@ -933,17 +937,13 @@ public abstract class MovePhotosCommand : Command {
             } else {
                 // We're in a library or tag page.
                 
-                // Are we moving these to a newly-created (and therefore empty) event?
-                if (((Event) new_event_proxy.get_source()).get_media_count() == 0) {
+                // Are we moving these to a newly-created event (i.e. has same size)?
+                if (((Event) new_event_proxy.get_source()).get_media_count() == source_list.size) {
                     // Yes - jump to the new event.
                     LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
                 }
             }
-            
             // Otherwise - don't jump; users found the jumping disconcerting.
-            
-            // create the new event
-            base.execute();
         }
         
         public override void execute_on_source(DataSource source) {
