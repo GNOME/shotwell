@@ -19,16 +19,16 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-08-26 14:01+0000\n"
-"PO-Revision-Date: 2017-09-01 15:38+0700\n"
-"Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
+"POT-Creation-Date: 2017-10-03 18:52+0000\n"
+"PO-Revision-Date: 2017-10-04 16:44+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -2518,7 +2518,6 @@ msgstr "Kamera"
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
 #: src/camera/CameraTable.vala:351
 #, c-format
-#| msgid "%s (%d%%)"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -3068,7 +3067,7 @@ msgstr[0] "Ini akan menghapus tag \"%s\" dari %d foto. Teruskan?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Hapus"
@@ -3368,8 +3367,7 @@ msgstr[0] ""
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] ""
-"Ada %d foto gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "Ada %d foto gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:745
 #, c-format
@@ -3421,8 +3419,7 @@ msgstr[0] "%d berkas gagal diimpor karena rusak:\n"
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] ""
-"Ada %d foto yang tidak dapat dibuka:\n"
+msgstr[0] "Ada %d foto yang tidak dapat dibuka:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
@@ -4155,19 +4152,19 @@ msgstr "Rangkaian"
 msgid "Browse through your events"
 msgstr "Meramban peristiwa-peristiwa Anda"
 
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d Foto/Video"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d Video"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4254,12 +4251,12 @@ msgstr "Album"
 msgid "Organize and browse your photos"
 msgstr "Organisasikan dan ramban foto Anda"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
 msgid "Photos"
 msgstr "Foto"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
-#: src/SearchFilter.vala:1103
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
+#: src/SearchFilter.vala:1099
 msgid "Flagged"
 msgstr "Ditandai"
 
@@ -4452,7 +4449,7 @@ msgstr "Gagal memroses pembaruan pemantauan: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Atur ukuran gambar mini"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4461,15 +4458,15 @@ msgstr ""
 "Shotwell gagal memutar video terpilih:\n"
 "%s"
 
-#: src/Page.vala:1307
+#: src/Page.vala:1310
 msgid "No photos/videos"
 msgstr "Tidak ada foto/video"
 
-#: src/Page.vala:1311
+#: src/Page.vala:1314
 msgid "No photos/videos found which match the current filter"
 msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
-#: src/Page.vala:2624
+#: src/Page.vala:2627
 msgid "Photos cannot be exported to this directory."
 msgstr "Foto tidak dapat diekspor ke direktori tersebut."
 
@@ -5400,7 +5397,7 @@ msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Tidak bisa mengubah nama pencarian ke \"%s\" karena sudah ada."
 
 #. Saved search button
-#: src/Resources.vala:411 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1120
 msgid "Saved Search"
 msgstr "Pencarian Tersimpan"
 
@@ -5408,11 +5405,11 @@ msgstr "Pencarian Tersimpan"
 msgid "Delete Search"
 msgstr "Hapus Pencarian"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "S_unting…"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "Ganti _nama…"
 
@@ -5747,8 +5744,8 @@ msgstr "Status tanda"
 msgid "Photo state"
 msgstr "Status foto"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1114
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:827
+#: src/SearchFilter.vala:1110
 msgid "Rating"
 msgstr "Rating"
 
@@ -5756,27 +5753,27 @@ msgstr "Rating"
 msgid "Date"
 msgstr "Tanggal"
 
-#: src/SearchFilter.vala:815
+#: src/SearchFilter.vala:811
 msgid "★+ Rating"
 msgstr "Peringkat ★+"
 
-#: src/SearchFilter.vala:818
+#: src/SearchFilter.vala:814
 msgid "★★+ Rating"
 msgstr "Peringkat ★★+"
 
-#: src/SearchFilter.vala:821
+#: src/SearchFilter.vala:817
 msgid "★★★+ Rating"
 msgstr "Peringkat ★★★+"
 
-#: src/SearchFilter.vala:824
+#: src/SearchFilter.vala:820
 msgid "★★★★+ Rating"
 msgstr "Peringkat ★★★★+"
 
-#: src/SearchFilter.vala:828
+#: src/SearchFilter.vala:824
 msgid "★★★★★+ Rating"
 msgstr "Peringkat ★★★★★+"
 
-#: src/SearchFilter.vala:1064
+#: src/SearchFilter.vala:1060
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Gagal memuat UI bilah pencarian:%s"
@@ -5786,24 +5783,24 @@ msgstr "Gagal memuat UI bilah pencarian:%s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1073
+#: src/SearchFilter.vala:1069
 msgid "Close"
 msgstr "Tutup"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1079
+#: src/SearchFilter.vala:1075
 msgid "Type"
 msgstr "Tipe"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1082
 msgid "Videos"
 msgstr "Video"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1085
 msgid "RAW Photos"
 msgstr "Foto RAW"
 
-#: src/SearchFilter.vala:1125
+#: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 "Gunakan pencarian tersimpan untuk menyaring butir-butir dalam tilikan saat "
@@ -5885,7 +5882,7 @@ msgid "untitled"
 msgstr "tanpa judul"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "Ekspor Video"
 
@@ -6169,6 +6166,10 @@ msgstr "Penyunting eksternal"
 #: ui/preferences_dialog.ui:642
 msgid "Plugins"
 msgstr "Pengaya"
+
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Preferensi Shotwell"
 
 #: ui/printing_widget.ui:19
 msgid "<b>Printed Image Size</b>"
