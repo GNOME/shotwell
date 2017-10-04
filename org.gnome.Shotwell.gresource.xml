@@ -70,6 +70,7 @@
       <file>icons/shotwell-16.png</file>
       <file>icons/shotwell-auto-enhance.png</file>
       <file>icons/shotwell.png</file>
+      <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
       <file>icons/shotwell-street.jpg</file>
       <file>icons/slideshow-extension-point.png</file>
       <file>icons/sprocket.png</file>
