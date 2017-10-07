@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of shotwell.
-# Copyright 2016 Software Freedom Conservancy Inc.
+# Copyright 2017 Software Freedom Conservancy Inc.
 # This file is distributed under the same license as the shotwell package.
 # Translators from Transifex (until 2014):
 # Djavan Fagundes <djavan@comum.org>, 2011-2012
@@ -13,21 +13,22 @@
 # Felipe Braga <fbobraga@gmail.com>, 2015.
 # Enrico Nicoletto <liverig@gmail.com>, 2016.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2014, 2015, 2016, 2017.
+# Isaac Ferreira Filho <isaacmob@riseup.net>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=shotwe"
-"ll&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-06-24 08:41+0000\n"
-"PO-Revision-Date: 2017-06-25 16:27-0200\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
+"POT-Creation-Date: 2017-10-04 12:45+0000\n"
+"PO-Revision-Date: 2017-10-05 16:12-0300\n"
+"Last-Translator: Isaac Ferreira Filho <isaacmob@riseup.net>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 1.0.0-beta1\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Project-Style: gnome\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
@@ -2566,12 +2567,22 @@ msgstr "A importação falhou (%d)"
 msgid "Cameras"
 msgstr "Câmeras"
 
-#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
+#: src/camera/CameraBranch.vala:85
+msgid "List of all discovered camera devices"
+msgstr "Lista de todos os dispositivos de câmera encontrados"
+
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Câmera"
+
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+#: src/camera/CameraTable.vala:351
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:311 src/Properties.vala:230
 msgid "RAW+JPEG"
@@ -2585,32 +2596,32 @@ msgstr ""
 "gerenciador de arquivos."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:783
+#: src/camera/ImportPage.vala:776
 msgid "Hide photos already imported"
 msgstr "Ocultar fotos já importadas"
 
-#: src/camera/ImportPage.vala:784
+#: src/camera/ImportPage.vala:777
 msgid "Only display photos that have not been imported"
 msgstr "Somente exibir fotos que não foram importadas"
 
-#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:816 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "Importar _selecionadas"
 
-#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
+#: src/camera/ImportPage.vala:826 ui/import.ui:17 ui/import.ui:214
 msgid "Import _All"
 msgstr "Importar _todas"
 
-#: src/camera/ImportPage.vala:857
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "A câmera parece está vazia. Não há fotos ou vídeos para importar"
 
-#: src/camera/ImportPage.vala:861
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr "Sem fotos/vídeos na câmera"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1021
+#: src/camera/ImportPage.vala:1014
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2618,15 +2629,15 @@ msgstr ""
 "Shotwell precisa desmontar a câmera do sistema de arquivos para acessá-la. "
 "Continuar?"
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1020
 msgid "_Unmount"
 msgstr "_Desmontar"
 
-#: src/camera/ImportPage.vala:1032
+#: src/camera/ImportPage.vala:1025
 msgid "Please unmount the camera."
 msgstr "Por favor, desmonte a câmera."
 
-#: src/camera/ImportPage.vala:1037
+#: src/camera/ImportPage.vala:1030
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2634,14 +2645,14 @@ msgid ""
 msgstr ""
 "A câmera está travada por outro aplicativo. O Shotwell somente pode acessar "
 "a câmera quando ela está destravada. Por favor, feche qualquer outro "
-"aplicativo que estiver usando a câmera e tente novamente."
+"aplicativo que esteja usando a câmera e tente novamente."
 
-#: src/camera/ImportPage.vala:1047
+#: src/camera/ImportPage.vala:1040
 msgid "Please close any other application using the camera."
 msgstr ""
 "Por favor, encerre qualquer outro aplicativo que esteja usando a câmera."
 
-#: src/camera/ImportPage.vala:1052
+#: src/camera/ImportPage.vala:1045
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2650,70 +2661,69 @@ msgstr ""
 "Não foi possível obter pré-visualizações da câmera:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1069
+#: src/camera/ImportPage.vala:1062
 msgid "Unmounting…"
 msgstr "Desmontando…"
 
-#: src/camera/ImportPage.vala:1162
-#| msgid "Starting import, please wait…"
+#: src/camera/ImportPage.vala:1155
 msgid "Connecting to camera, please wait…"
 msgstr "Conexão com a câmera, por favor aguarde…"
 
-#: src/camera/ImportPage.vala:1194
+#: src/camera/ImportPage.vala:1187
 msgid "Starting import, please wait…"
 msgstr "Iniciando importação, por favor, aguarde…"
 
-#: src/camera/ImportPage.vala:1200
+#: src/camera/ImportPage.vala:1193
 msgid "Fetching photo information"
 msgstr "Obtendo informação da foto"
 
-#: src/camera/ImportPage.vala:1558
+#: src/camera/ImportPage.vala:1552
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Obtendo visualização para %s"
 
-#: src/camera/ImportPage.vala:1666
+#: src/camera/ImportPage.vala:1660
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Não foi possível travar a câmera: %s"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1745
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Apagar essa foto da câmera?"
 msgstr[1] "Apagar essas %d fotos da câmera?"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1748
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Apagar esse vídeo da câmera?"
 msgstr[1] "Apagar esses %d vídeos da câmera?"
 
-#: src/camera/ImportPage.vala:1757
+#: src/camera/ImportPage.vala:1751
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Excluir essa foto/vídeo da câmera?"
 msgstr[1] "Excluir essas %d fotos/vídeos da câmera?"
 
-#: src/camera/ImportPage.vala:1760
+#: src/camera/ImportPage.vala:1754
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Apagar esse arquivo da câmera?"
 msgstr[1] "Apagar esses %d arquivos da câmera?"
 
-#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1762 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Manter"
 
-#: src/camera/ImportPage.vala:1787
+#: src/camera/ImportPage.vala:1781
 msgid "Removing photos/videos from camera"
 msgstr "Excluindo fotos/vídeos da câmera"
 
-#: src/camera/ImportPage.vala:1791
+#: src/camera/ImportPage.vala:1785
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2806,14 +2816,12 @@ msgid "_Play"
 msgstr "_Reproduzir"
 
 #: src/CollectionPage.vala:410
-#| msgid "Export Photo/Video"
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Exportar foto/vídeo"
 msgstr[1] "Exportar fotos/vídeos"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:59 src/PhotoPage.vala:2998
-#| msgid "Export Photo"
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Exportar foto"
@@ -3053,7 +3061,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Arquivo de banco de dados:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:781
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
 msgid "_Import"
 msgstr "Parar _importação"
 
@@ -3137,7 +3145,7 @@ msgstr[1] "Isto irá remover a etiqueta “%s” de %d fotos. Continuar?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Apagar"
@@ -4306,21 +4314,25 @@ msgstr "En_direitar"
 msgid "Events"
 msgstr "Eventos"
 
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Navegue pelos seus eventos"
+
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d fotos/vídeos"
 msgstr[1] "%d foto/vídeo"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d vídeo"
 msgstr[1] "%d vídeos"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4395,17 +4407,25 @@ msgstr "Exportar"
 msgid "Folders"
 msgstr "Pastas"
 
+#: src/folders/FoldersBranch.vala:144
+msgid "Browse the library’s folder structure"
+msgstr "Navegue na estrutura de pasta da biblioteca"
+
 #: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
 #: ui/preferences_dialog.ui:512
 msgid "Library"
 msgstr "Biblioteca"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Organize e navegue por suas fotos"
+
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
 msgid "Photos"
 msgstr "Fotos"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
-#: src/SearchFilter.vala:1103
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
+#: src/SearchFilter.vala:1099
 msgid "Flagged"
 msgstr "Marcadas"
 
@@ -4434,15 +4454,15 @@ msgstr "Importa da pasta"
 msgid "Recurse Into Subfolders"
 msgstr "Recursividade em subpastas"
 
-#: src/library/LibraryWindow.vala:582 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:583 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Esvaziar lixeira"
 
-#: src/library/LibraryWindow.vala:582
+#: src/library/LibraryWindow.vala:583
 msgid "Emptying Trash…"
 msgstr "Esvaziando lixeira…"
 
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:779
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4455,33 +4475,33 @@ msgstr ""
 "%s</span>.\n"
 "Você deseja continuar a importação de fotos?"
 
-#: src/library/LibraryWindow.vala:781 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Localização da biblioteca"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:794
+#: src/library/LibraryWindow.vala:795
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotos não podem ser importadas deste diretório."
 
-#: src/library/LibraryWindow.vala:1074
+#: src/library/LibraryWindow.vala:1075
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1118 src/library/LibraryWindow.vala:1129
+#: src/library/LibraryWindow.vala:1119 src/library/LibraryWindow.vala:1130
 msgid "Updating library…"
 msgstr "Atualizando biblioteca…"
 
-#: src/library/LibraryWindow.vala:1135
+#: src/library/LibraryWindow.vala:1136
 msgid "Preparing to auto-import photos…"
 msgstr "Preparando para auto-importação de fotos…"
 
-#: src/library/LibraryWindow.vala:1140
+#: src/library/LibraryWindow.vala:1141
 msgid "Auto-importing photos…"
 msgstr "Auto-importação de fotos…"
 
-#: src/library/LibraryWindow.vala:1148
+#: src/library/LibraryWindow.vala:1149
 msgid "Writing metadata to files…"
 msgstr "Escrevendo metadados para arquivos…"
 
@@ -4600,7 +4620,7 @@ msgstr "Não foi possível processar as atualizações monitoradas: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Ajustar o tamanho das miniaturas"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4609,15 +4629,15 @@ msgstr ""
 "Shotwell foi incapaz de reproduzir o vídeo selecionado:\n"
 "%s"
 
-#: src/Page.vala:1306
+#: src/Page.vala:1310
 msgid "No photos/videos"
 msgstr "Sem fotos/vídeos"
 
-#: src/Page.vala:1310
+#: src/Page.vala:1314
 msgid "No photos/videos found which match the current filter"
 msgstr "Nenhuma foto ou vídeo encontrados que correspondam ao filtro atual"
 
-#: src/Page.vala:2623
+#: src/Page.vala:2627
 msgid "Photos cannot be exported to this directory."
 msgstr "Fotos não podem ser exportadas para este diretório."
 
@@ -4681,7 +4701,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3755
+#: src/Photo.vala:3774
 msgid "modified"
 msgstr "modificado"
 
@@ -5561,7 +5581,7 @@ msgstr ""
 "existir."
 
 #. Saved search button
-#: src/Resources.vala:411 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1120
 msgid "Saved Search"
 msgstr "Pesquisa salva"
 
@@ -5569,11 +5589,11 @@ msgstr "Pesquisa salva"
 msgid "Delete Search"
 msgstr "Apagar pesquisa"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "_Editar…"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "Re_nomear…"
 
@@ -5730,6 +5750,10 @@ msgstr "Apresentação de slides"
 #: src/searches/SearchesBranch.vala:68
 msgid "Saved Searches"
 msgstr "Pesquisas salvas"
+
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Organize suas pesquisas salvas"
 
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
@@ -5904,8 +5928,8 @@ msgstr "Marcada"
 msgid "Photo state"
 msgstr "Estado da foto"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1114
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:827
+#: src/SearchFilter.vala:1110
 msgid "Rating"
 msgstr "Avaliação"
 
@@ -5913,27 +5937,27 @@ msgstr "Avaliação"
 msgid "Date"
 msgstr "Data"
 
-#: src/SearchFilter.vala:815
+#: src/SearchFilter.vala:811
 msgid "★+ Rating"
 msgstr "★+ Avaliação"
 
-#: src/SearchFilter.vala:818
+#: src/SearchFilter.vala:814
 msgid "★★+ Rating"
 msgstr "★★+ Avaliação"
 
-#: src/SearchFilter.vala:821
+#: src/SearchFilter.vala:817
 msgid "★★★+ Rating"
 msgstr "★★★+ Avaliação"
 
-#: src/SearchFilter.vala:824
+#: src/SearchFilter.vala:820
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Avaliação"
 
-#: src/SearchFilter.vala:828
+#: src/SearchFilter.vala:824
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Avaliação"
 
-#: src/SearchFilter.vala:1064
+#: src/SearchFilter.vala:1060
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Erro ao carregar barra de pesquisa de UI: %s"
@@ -5943,24 +5967,24 @@ msgstr "Erro ao carregar barra de pesquisa de UI: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1073
+#: src/SearchFilter.vala:1069
 msgid "Close"
 msgstr "Fechar"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1079
+#: src/SearchFilter.vala:1075
 msgid "Type"
 msgstr "Tipo"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1082
 msgid "Videos"
 msgstr "Vídeos"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1085
 msgid "RAW Photos"
 msgstr "Fotos RAW"
 
-#: src/SearchFilter.vala:1125
+#: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
 msgstr "Use uma pesquisa salva para filtrar itens na visão atual"
 
@@ -6031,12 +6055,16 @@ msgstr "Aleatório"
 msgid "Tags"
 msgstr "Etiquetas"
 
+#: src/tags/TagsBranch.vala:131
+msgid "Organize and browse your photo’s tags"
+msgstr "Organize e navegue por suas etiquetas de fotos"
+
 #: src/Tag.vala:830
 msgid "untitled"
 msgstr "sem título"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "Exportar vídeos"
 
@@ -6113,7 +6141,6 @@ msgstr "_Relate um problema…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/import_queue.ui:14 ui/import.ui:8
 #: ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8 ui/trash.ui:8
-#| msgid "_Import from Folder…"
 msgid "_Import From Folder…"
 msgstr "_Importar da pasta…"
 
@@ -6321,6 +6348,10 @@ msgstr "Editores externos"
 #: ui/preferences_dialog.ui:642
 msgid "Plugins"
 msgstr "Plug-ins"
+
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Preferências do Shotwell"
 
 #: ui/printing_widget.ui:19
 msgid "<b>Printed Image Size</b>"
@@ -6557,9 +6588,6 @@ msgstr "Apaga todas as fotos na lixeira"
 
 #~ msgid "SearchContextMenu"
 #~ msgstr "SearchContextMenu"
-
-#~ msgid "Shotwell Preferences"
-#~ msgstr "Preferências do Shotwell"
 
 #~ msgid ""
 #~ "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
