@@ -41,6 +41,7 @@ dist_noinst_DATA = \
 	shotwell-16.png \
 	shotwell-auto-enhance.png \
 	shotwell.png \
+	shotwell.svg \
 	shotwell-street.jpg \
 	slideshow-extension-point.png \
 	sprocket.png \
