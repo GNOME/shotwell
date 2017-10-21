@@ -25,14 +25,14 @@ Build-Depends: debhelper (>= 9),
  m4 (>= 1.4.13),
  valac (>= 0.20.1),
  gnome-doc-utils,
- autotools-dev,
  yelp-tools,
  appstream-util,
  gettext ( >= 0.19.8),
  libgcr-3-dev ( >= 3.18),
  libgdata-dev,
- autoconf
-Standards-Version: 3.8.3
+ meson,
+ ninja-build
+Standards-Version: 3.9.8
 Homepage: https://wiki.gnome.org/Apps/Shotwell/
 
 Package: shotwell

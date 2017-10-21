@@ -15,14 +15,21 @@
 
 
 %:
-	dh $@  --with autotools_dev --parallel
+	dh $@  --parallel
 
 
 # dh_make generated override targets
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 override_dh_auto_configure:
-	find . -name "*_vala.stamp" | xargs rm -f
-	dh_auto_configure -- --enable-unity-support --enable-debug=info
+	rm -rf debian/build
+	mkdir debian/build
+	meson debian/build --prefix=/usr -Denable-unity-support=true -Dinstall-apport-hook=true
+
+override_dh_auto_compile:
+	ninja -C -v debian/build
+
+override_dh_auto_install:
+	DESTDIR=${CURDIR}/debian/tmp ninja -v -C debian/build install
 
 override_dh_strip:
 	dh_strip --dbg-package=shotwell-dbg
@@ -32,3 +39,7 @@ override_dh_makeshlibs:
 
 override_dh_install:
 	dh_install --list-missing
+
+override_dh_clean:
+	rm -rf debian/build
+	dh_clean

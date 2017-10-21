@@ -1,3 +1,27 @@
+shotwell (0.27.0-0~jensge1~artful1) artful; urgency=medium
+
+  * Remove F-Spot import support
+  * Create a commandline utility to test image transformations
+  * Speed up color transformations a bit
+  * Bump GTK+ requirement to 3.18 and remove deprecated functions
+  * Clean-up histogram drawing code
+  * Run thumbnailer with nice 19
+  * Update VAAPI blacklisting for video thumbnailer and new plugin structure
+  * Add configurable image background
+  * Split several dialogs from shotwell.ui file
+  * Move Tumblr to default plugin set
+  * Remove some unnecessary memcpys on import
+  * Add Meson build support
+  * Some more ngettext for plurals
+  * Add --fullscreen/-f option for viewer
+  * Add option to install Ubuntu apport hook
+  * Fix issue when importing to NTFS-backed vboxfs
+  * Fix GSettings schema search path for running out-of-tree
+  * Work around "Camera locked: -53" error on GNOME
+  * Fix issue with missing highlight on dnd actions
+
+ -- Jens Georg <mail@jensge.org>  Wed, 21 Jun 2017 08:17:24 +0200
+
 shotwell (0.26.0-0~jensge1~zesty1) zesty; urgency=medium
 
   * Translation updates
