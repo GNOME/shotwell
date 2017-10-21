@@ -1,3 +1,101 @@
+Shotwell 0.27.1 - 21 Oct 2017
+  * Properly dist meson files with autotools
+  * Dist apport helper with autotools
+  * Fix checking against unity
+  * Build the graphics-processor binary when building with meson
+  * Hide toolbar in fullscreen when disabled in settings
+  * When clicking ok in import, hide file selector
+  * Properly xml-escape the file names in wallpaper.xml
+  * Do not re-encode JPEG previews
+  * Only create thumbs for RAW imports once
+  * Use APPSTREAM instead of APPDATA
+  * Improve RAW/JPEG pair matching by sorting file list
+  * Fix deprecated "find" icons
+  * Fix help for non-recursive photo import
+  * Fix menu-bar injection
+  * Avoid data corruption when importing from camera
+  * Re-use RAW/JPEG association from camera import
+  * Rename backing photo when importing to lower case
+  * Improve description of mass-storage cameras
+  * Improve top-level tool-tips on navigation tree
+  * More unicode use
+  * When trashing without trash available, also remove RAW file
+  * Fix trimming of EXIF thumbs from Canon cameras
+  * Import Videos even if they use application/x-extension-mp4
+  * Fix missing event pictures when not copying thumbnails
+  * Remove Rajce and Yandex plugin from default build
+  * Remove useless submenu on saved searches
+  * Fix some criticals on context menu actions
+  * Some code clean-ups
+  * Remove locale-dependent keyboard shortcuts
+  * Fix Help to pass yelp-check
+  * Fix crash on removing last photo from import roll
+  * Fix window icon of start-up dialog
+  * Speed-up event creation on import and merge
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717735
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719142
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719186
+ - https://bugzilla.gnome.org/show_bug.cgi?id=741962
+ - https://bugzilla.gnome.org/show_bug.cgi?id=748666
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=773206
+ - https://bugzilla.gnome.org/show_bug.cgi?id=777626
+ - https://bugzilla.gnome.org/show_bug.cgi?id=782753
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783956
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784661
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784883
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785196
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785503
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785711
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785761
+ - https://bugzilla.gnome.org/show_bug.cgi?id=787400
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Jordi Mas <jmas@softcatala.org>
+ - Andre Klapper <a9016009@gmx.de>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Marek Černocký <marek@manet.cz>
+ - Kukuh Syafaat <syafaatkukuh@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Thomas Moschny <thomas.moschny@gmx.de>
+ - Stefan Willinger <stefan.home@aon.at>
+ - stefan <stefan.home@aon.at>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Peter Seiderer <ps.report@gmx.net>
+ - Marcos Lans <marcoslansgarza@gmail.com>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Isaac F. Ferreira Filho <isaacmob@riseup.net>
+ - Gert <gw.fossdev@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Brian Masney <masneyb@onstation.org>
+ - Balázs Úr <urbalazs@gmail.com>
+ - Balázs Meskó <meskobalazs@fedoraproject.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+
+Added/updated translations
+ - ca, courtesy of Carles Ferrando Garcia
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - fi, courtesy of Jir Grönroos
+ - gl, courtesy of marcos
+ - hu, courtesy of Meskó Balázs
+ - id, courtesy of Kukuh Syafaat
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Isaac Ferreira Filho
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+ - sv, courtesy of Anders Jonsson
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.27.0 - 19 Jun 2017
   * Remove F-Spot import support
   * Create a commandline utility to test image transformations
