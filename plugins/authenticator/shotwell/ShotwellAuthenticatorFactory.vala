@@ -16,6 +16,7 @@ namespace Publishing.Authenticator {
             list.add("facebook");
             list.add("picasa");
             list.add("youtube");
+            list.add("tumblr");
 
             return list;
         }
@@ -32,6 +33,8 @@ namespace Publishing.Authenticator {
 
                 case "youtube":
                     return new Shotwell.Google.Google("https://gdata.youtube.com/", _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."), host);
+                case "tumblr":
+                    return new Shotwell.Tumblr.Tumblr(host);
                 default:
                     return null;
             }

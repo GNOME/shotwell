@@ -3,7 +3,8 @@ authenticator_shotwell_sources = [
         'FacebookPublishingAuthenticator.vala',
         'FlickrPublishingAuthenticator.vala',
         'GoogleAuthenticator.vala',
-        'OAuth1Authenticator.vala'
+        'OAuth1Authenticator.vala',
+        'TumblrAuthenticator.vala'
         ]
 
 authenticator_shotwell_resources = gnome.compile_resources('authenticator-resource',
@@ -14,7 +15,7 @@ authenticator_shotwell_deps = [gee, gtk, gio, soup, json_glib, sw_plugin,
                                sw_plugin_common_dep, json_glib, xml, webkit]
 
 authenticator = library('shotwell-authenticator',
-                        authenticator_shotwell_sources,
+                        authenticator_shotwell_sources + authenticator_shotwell_resources,
                         dependencies : authenticator_shotwell_deps,
                         include_directories : config_incdir,
                         version: meson.project_version(),

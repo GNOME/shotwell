@@ -10,6 +10,7 @@ plugins/authenticator/shotwell/flickr_pin_entry_pane.ui
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala
 plugins/authenticator/shotwell/GoogleAuthenticator.vala
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala
+plugins/authenticator/shotwell/tumblr_authentication_pane.ui
 plugins/common/Resources.vala
 plugins/common/RESTSupport.vala
 plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui
@@ -32,7 +33,6 @@ plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
 plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui
 plugins/shotwell-publishing/shotwell-publishing.vala
-plugins/shotwell-publishing/tumblr_authentication_pane.ui
 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui
 plugins/shotwell-publishing/TumblrPublishing.vala
 plugins/shotwell-publishing/youtube_publishing_options_pane.ui
