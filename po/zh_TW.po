@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.26\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-08-27 15:23+0000\n"
-"PO-Revision-Date: 2017-08-31 12:26+0800\n"
+"POT-Creation-Date: 2017-10-22 09:28+0000\n"
+"PO-Revision-Date: 2017-10-22 21:33+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
@@ -1485,7 +1485,6 @@ msgid "Original size"
 msgstr "原始大小"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
-#: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "寬度或高度"
 
@@ -2893,7 +2892,7 @@ msgstr[0] "這會移除「%s」標籤，共 %d 張相片。要繼續嗎？"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "刪除(_D)"
@@ -3440,7 +3439,7 @@ msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"曝光時間將往前挪動\n"
+"曝光時間將往後挪動\n"
 "%d %s、%d %s、%d %s、%d %s。"
 
 #: src/Dialogs.vala:1909
@@ -3449,7 +3448,7 @@ msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"曝光時間將往後挪動\n"
+"曝光時間將往前挪動\n"
 "%d %s、%d %s、%d %s、%d %s。"
 
 #: src/Dialogs.vala:1911
@@ -3669,6 +3668,10 @@ msgstr[0] "%d 份相片/視訊無法移至您的桌面回收筒。要刪除這�
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "%d 份相片/視訊無法刪除。"
+
+#: src/Dimensions.vala:20
+msgid "Longest edge"
+msgstr "最長邊"
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -3949,19 +3952,19 @@ msgstr "事件"
 msgid "Browse through your events"
 msgstr "瀏覽您經歷的事件"
 
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d 份相片/視訊"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d 份視訊"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4048,12 +4051,12 @@ msgstr "珍藏館"
 msgid "Organize and browse your photos"
 msgstr "整理並瀏覽您的相片"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
 msgid "Photos"
 msgstr "相片"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
-#: src/SearchFilter.vala:1103
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
+#: src/SearchFilter.vala:1099
 msgid "Flagged"
 msgstr "已加上旗幟"
 
@@ -4240,7 +4243,7 @@ msgstr "無法處理監視更新：%s"
 msgid "Adjust the size of the thumbnails"
 msgstr "調整縮圖大小"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4249,15 +4252,15 @@ msgstr ""
 "Shotwell 無法播放所選的視訊：\n"
 "%s"
 
-#: src/Page.vala:1307
+#: src/Page.vala:1310
 msgid "No photos/videos"
 msgstr "無相片/視訊"
 
-#: src/Page.vala:1311
+#: src/Page.vala:1314
 msgid "No photos/videos found which match the current filter"
 msgstr "根據目前的過濾器找不到符合的相片/視訊"
 
-#: src/Page.vala:2624
+#: src/Page.vala:2627
 msgid "Photos cannot be exported to this directory."
 msgstr "無法匯出相片至此目錄。"
 
@@ -5186,7 +5189,7 @@ msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "「%s」搜尋已經存在，故無法重新命名該搜尋。"
 
 #. Saved search button
-#: src/Resources.vala:411 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1120
 msgid "Saved Search"
 msgstr "儲存的搜尋"
 
@@ -5194,11 +5197,11 @@ msgstr "儲存的搜尋"
 msgid "Delete Search"
 msgstr "刪除搜尋"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "編輯(_E)…"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "重新命名(_N)…"
 
@@ -5533,8 +5536,8 @@ msgstr "旗幟狀態"
 msgid "Photo state"
 msgstr "相片狀態"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1114
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:827
+#: src/SearchFilter.vala:1110
 msgid "Rating"
 msgstr "評等"
 
@@ -5542,27 +5545,27 @@ msgstr "評等"
 msgid "Date"
 msgstr "日期"
 
-#: src/SearchFilter.vala:815
+#: src/SearchFilter.vala:811
 msgid "★+ Rating"
 msgstr "★+ 評等"
 
-#: src/SearchFilter.vala:818
+#: src/SearchFilter.vala:814
 msgid "★★+ Rating"
 msgstr "★★+ 評等"
 
-#: src/SearchFilter.vala:821
+#: src/SearchFilter.vala:817
 msgid "★★★+ Rating"
 msgstr "★★★+ 評等"
 
-#: src/SearchFilter.vala:824
+#: src/SearchFilter.vala:820
 msgid "★★★★+ Rating"
 msgstr "★★★★+ 評等"
 
-#: src/SearchFilter.vala:828
+#: src/SearchFilter.vala:824
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ 評等"
 
-#: src/SearchFilter.vala:1064
+#: src/SearchFilter.vala:1060
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "載入搜尋列 UI 時發生錯誤：%s"
@@ -5572,24 +5575,24 @@ msgstr "載入搜尋列 UI 時發生錯誤：%s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1073
+#: src/SearchFilter.vala:1069
 msgid "Close"
 msgstr "關閉"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1079
+#: src/SearchFilter.vala:1075
 msgid "Type"
 msgstr "類型"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1082
 msgid "Videos"
 msgstr "視訊"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1085
 msgid "RAW Photos"
 msgstr "RAW 相片"
 
-#: src/SearchFilter.vala:1125
+#: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
 msgstr "使用儲存的搜尋來過濾目前檢視畫面中的項目"
 
@@ -5669,7 +5672,7 @@ msgid "untitled"
 msgstr "無標題"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "匯出視訊"
 
@@ -5953,6 +5956,10 @@ msgstr "外部編輯器"
 #: ui/preferences_dialog.ui:642
 msgid "Plugins"
 msgstr "插件"
+
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Shotwell 偏好設定"
 
 #: ui/printing_widget.ui:19
 msgid "<b>Printed Image Size</b>"
@@ -6380,9 +6387,6 @@ msgstr "刪除回收筒中的所有相片"
 
 #~ msgid "The selected photos were successfully published."
 #~ msgstr "所選的相片已經成功發布。"
-
-#~ msgid "Shotwell Preferences"
-#~ msgstr "Shotwell 偏好設定"
 
 #~| msgid ""
 #~| "A file required for publishing is unavailable. Publishing to Flickr "
