@@ -2,7 +2,8 @@ authenticator_shotwell_sources = [
         'ShotwellAuthenticatorFactory.vala',
         'FacebookPublishingAuthenticator.vala',
         'FlickrPublishingAuthenticator.vala',
-        'GoogleAuthenticator.vala'
+        'GoogleAuthenticator.vala',
+        'OAuth1Authenticator.vala'
         ]
 
 authenticator_shotwell_resources = gnome.compile_resources('authenticator-resource',
