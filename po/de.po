@@ -43,8 +43,8 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-09-28 12:22+0000\n"
-"PO-Revision-Date: 2017-10-02 11:18+0200\n"
+"POT-Creation-Date: 2017-10-22 09:28+0000\n"
+"PO-Revision-Date: 2017-10-24 09:09+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -1700,7 +1700,6 @@ msgid "Original size"
 msgstr "Ursprüngliche Größe"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
-#: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "Breite oder Höhe"
 
@@ -4089,6 +4088,10 @@ msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "Das Foto oder Video kann nicht gelöscht werden."
 msgstr[1] "%d Fotos/Videos können nicht gelöscht werden."
 
+#: src/Dimensions.vala:20
+msgid "Longest edge"
+msgstr "Längste Seite"
+
 #: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Breite"
@@ -4470,12 +4473,12 @@ msgstr "Bibliothek"
 msgid "Organize and browse your photos"
 msgstr "Ihre Fotos durchsuchen und organisieren"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
 msgid "Photos"
 msgstr "Fotos"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
-#: src/SearchFilter.vala:1103
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
+#: src/SearchFilter.vala:1099
 msgid "Flagged"
 msgstr "Markiert"
 
@@ -5636,7 +5639,7 @@ msgstr ""
 "vorhanden ist."
 
 #. Saved search button
-#: src/Resources.vala:411 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1120
 msgid "Saved Search"
 msgstr "Gespeicherte Suche"
 
@@ -5984,8 +5987,8 @@ msgstr "Markierungsstatus"
 msgid "Photo state"
 msgstr "Status des Fotos"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1114
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:827
+#: src/SearchFilter.vala:1110
 msgid "Rating"
 msgstr "Bewertung"
 
@@ -5993,27 +5996,27 @@ msgstr "Bewertung"
 msgid "Date"
 msgstr "Datum"
 
-#: src/SearchFilter.vala:815
+#: src/SearchFilter.vala:811
 msgid "★+ Rating"
 msgstr "★+ Bewertung"
 
-#: src/SearchFilter.vala:818
+#: src/SearchFilter.vala:814
 msgid "★★+ Rating"
 msgstr "★★+ Bewertung"
 
-#: src/SearchFilter.vala:821
+#: src/SearchFilter.vala:817
 msgid "★★★+ Rating"
 msgstr "★★★+ Bewertung"
 
-#: src/SearchFilter.vala:824
+#: src/SearchFilter.vala:820
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Bewertung"
 
-#: src/SearchFilter.vala:828
+#: src/SearchFilter.vala:824
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Bewertung"
 
-#: src/SearchFilter.vala:1064
+#: src/SearchFilter.vala:1060
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Fehler beim Laden der UI-Datei der Suchzeile: %s"
@@ -6023,24 +6026,24 @@ msgstr "Fehler beim Laden der UI-Datei der Suchzeile: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1073
+#: src/SearchFilter.vala:1069
 msgid "Close"
 msgstr "Schließen"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1079
+#: src/SearchFilter.vala:1075
 msgid "Type"
 msgstr "Typ"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1082
 msgid "Videos"
 msgstr "Videos"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1085
 msgid "RAW Photos"
 msgstr "RAW-Fotos"
 
-#: src/SearchFilter.vala:1125
+#: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 "Eine gespeicherte Suche verwenden, um Objekte in der aktuellen Ansicht zu "
