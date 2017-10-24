@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2017-10-02 10:19+0000\n"
-"PO-Revision-Date: 2017-10-02 12:23+0200\n"
+"POT-Creation-Date: 2017-10-22 09:29+0000\n"
+"PO-Revision-Date: 2017-10-24 09:33+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -321,7 +321,7 @@ msgstr ""
 msgctxt "_"
 msgid ""
 "external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-msgstr "original"
+msgstr "original'"
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -1077,7 +1077,7 @@ msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
 "md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr "original"
+msgstr "original'"
 
 #. (itstool) path: page/title
 #: C/index.page:22
@@ -2793,8 +2793,64 @@ msgstr ""
 "Eine Skalierungsbeschränkung (sie legt fest, wie Shotwell entscheidet die "
 "Fotos zu skalieren) und die gewünschte Pixelgröße."
 
+#. (itstool) path: item/title
+#: C/share-export.page:40
+msgid "Original size"
+msgstr "Ursprüngliche Größe"
+
 #. (itstool) path: item/p
-#: C/share-export.page:39
+#: C/share-export.page:40
+msgid "Image will be exported without any scaling applied"
+msgstr "Das Bild wird ohne Skalierung exportiert"
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Longest edge"
+msgstr "Längste Seite"
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr ""
+"Die längste Seite des Bildes wird anhand der angegebenen <gui>Pixel</gui> "
+"skaliert und die andere Seite entsprechend dem Seitenverhältnis."
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Width"
+msgstr "Breite"
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr ""
+"Die Bildbreite wird anhand der angegebenen Pixel skaliert und die Bildhöhe "
+"entsprechend dem Seitenverhältnis. Dies entspricht der <gui>Längsten Seite</"
+"gui> bei Querformaten."
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Height"
+msgstr "Höhe"
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr ""
+"Die Bildhöhe wird anhand der angegebenen Pixel skaliert und die Bildbreite "
+"entsprechend dem Seitenverhältnis. Dies entspricht der <gui>Längsten Seite</"
+"gui> bei Hochformaten."
+
+#. (itstool) path: item/p
+#: C/share-export.page:46
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -2806,7 +2862,7 @@ msgstr ""
 "Privatsphäre zu schützen."
 
 #. (itstool) path: page/p
-#: C/share-export.page:42
+#: C/share-export.page:49
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
@@ -2881,7 +2937,7 @@ msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email, instant messaging or in other ways."
 msgstr ""
-"Shotwell versendet Fotos mit dem Mechanismus »Senden an« der GNOME "
+"Shotwell versendet Fotos mit dem Mechanismus <gui>Senden an</gui> der GNOME "
 "Arbeitsumgebung. So können Sie Fotos per E-Mail, Sofortnachricht oder auf "
 "andere Weisen verschicken."
 
