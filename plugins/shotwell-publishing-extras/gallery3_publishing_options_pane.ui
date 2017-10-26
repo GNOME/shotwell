@@ -156,7 +156,7 @@
             <property name="can_focus">False</property>
             <items>
               <item translatable="yes">Original size</item>
-              <item translatable="yes">Width or height</item>
+              <item translatable="yes">Longest edge</item>
             </items>
           </object>
           <packing>
