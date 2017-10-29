@@ -3216,7 +3216,7 @@ msgstr "Přešká_lovat:"
 
 #: src/Dialogs.vala:230
 msgid "_Pixels:"
-msgstr "_Pixely:"
+msgstr "_Počet pixelů:"
 
 #: src/Dialogs.vala:234
 msgid "Export _metadata:"

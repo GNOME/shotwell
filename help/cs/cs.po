@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2017-09-25 16:12+0000\n"
-"PO-Revision-Date: 2017-09-25 18:55+0200\n"
+"POT-Creation-Date: 2017-10-22 09:29+0000\n"
+"PO-Revision-Date: 2017-10-29 08:36+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -2709,11 +2709,67 @@ msgid ""
 "A scaling constraint (which means how Shotwell will decide to scale the "
 "photos down), and the desired pixel size."
 msgstr ""
-"Pravidlo pro škálování (což znamená, jak se má Shotwell chovat při škálování "
-"fotografií na menší rozměr) a požadovaná velikost v pixelech."
+"Pravidlo pro škálování (což znamená, jak se má Shotwell chovat při změně "
+"velikosti fotografie na menší rozměr) a požadovaná velikost v pixelech."
+
+#. (itstool) path: item/title
+#: C/share-export.page:40
+msgid "Original size"
+msgstr "Původní velikost"
 
 #. (itstool) path: item/p
-#: C/share-export.page:39
+#: C/share-export.page:40
+msgid "Image will be exported without any scaling applied"
+msgstr "Obrázek bude exportován bez použití změny velikosti"
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Longest edge"
+msgstr "Delší strana"
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr ""
+"Obrázek bude exportována tak, aby u delší strany došlo ke změně velikosti na "
+"<gui>Počet pixelů</gui> a u druhé úměrně tomu při zachování poměru stran."
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Width"
+msgstr "Šířka"
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr ""
+"U obrázku dojde ke změně šířky na zadaný počet pixelů a u výšky na úměrný "
+"počet pixelů tak, aby byl zachován počet stran. Výsledek je stejný, jako "
+"když použijete volbu <gui>Delší strana</gui> u obrázku otočeného na šířku."
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Height"
+msgstr "Výška"
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr ""
+"U obrázku dojde ke změně výšky na zadaný počet pixelů a u šiřky na úměrný "
+"počet pixelů tak, aby byl zachován počet stran. Výsledek je stejný, jako "
+"když použijete volbu <gui>Delší strana</gui> u obrázku otočeného na výšku."
+
+#. (itstool) path: item/p
+#: C/share-export.page:46
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -2724,7 +2780,7 @@ msgstr ""
 "údaji nebo jiné štítky, které nechcete, aby viděl někdo jiný."
 
 #. (itstool) path: page/p
-#: C/share-export.page:42
+#: C/share-export.page:49
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
