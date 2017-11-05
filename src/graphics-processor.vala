@@ -3,6 +3,7 @@ static string? output_file = null;
 static string? pipeline = null;
 static bool auto_enhance = false;
 static string? format = null;
+static int jobs = -1;
 
 const GLib.OptionEntry[] options = {
     { "input", 'i', 0, GLib.OptionArg.FILENAME, ref input_file, "FILE to process", "FILE" },
@@ -10,6 +11,7 @@ const GLib.OptionEntry[] options = {
     { "pipeline", 'p', 0, GLib.OptionArg.FILENAME, ref pipeline, "graphics PIPELINE to run", "PIPELINE" },
     { "auto-enance", 'a', 0, GLib.OptionArg.NONE, ref auto_enhance, "run auto-enhance on input file", null },
     { "format", 'f', 0, GLib.OptionArg.STRING, ref format, "Save output file in specific format [png, jpeg (default)]", null},
+    { "jobs", 'j', 0, GLib.OptionArg.INT, ref jobs, "Number of parallel jobs to run on an image", null },
     { null, 0, 0, GLib.OptionArg.NONE, null, null, null }
 };
 
@@ -100,7 +102,7 @@ int main(string[] args) {
 
     var transformer = adjustments.generate_transformer();
     var timer = new Timer();
-    transformer.transform_to_other_pixbuf(src, output, null);
+    transformer.transform_to_other_pixbuf(src, output, null, jobs);
     var elapsed = timer.elapsed();
 
     print("Transformation took %f\n", elapsed);

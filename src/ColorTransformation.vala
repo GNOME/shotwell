@@ -770,31 +770,52 @@ public class PixelTransformer {
         int dest_num_channels = dest.get_n_channels();
         int dest_rowstride = dest.get_rowstride();
         unowned uchar[] dest_pixels = dest.get_pixels();
-        
-        int cache_pixel_ticker = 0;
 
-        for (int j = 0; j < dest_height; j++) {
-            int row_start_index = j * dest_rowstride;
-            int row_end_index = row_start_index + (dest_width * dest_num_channels);
-            for (int i = row_start_index; i < row_end_index; i += dest_num_channels) {
-                RGBAnalyticPixel pixel = RGBAnalyticPixel.from_components(
-                    fp_pixel_cache[cache_pixel_ticker],
-                    fp_pixel_cache[cache_pixel_ticker + 1],
-                    fp_pixel_cache[cache_pixel_ticker + 2]);
+        var jobs = (int) GLib.get_num_processors() - 1;
 
-                cache_pixel_ticker += 3;
+        uint slice_length = dest_height;
+        if (jobs > 0) {
+            slice_length = dest_height / jobs;
+        }
 
-                pixel = apply_transformations(pixel);
+        var threads = new GLib.Thread<void *>[jobs];
 
-                dest_pixels[i] = (uchar) (pixel.red * 255.0f);
-                dest_pixels[i + 1] = (uchar) (pixel.green * 255.0f);
-                dest_pixels[i + 2] = (uchar) (pixel.blue * 255.0f);
-            }
+        unowned float[] cache = fp_pixel_cache;
+        for (var job = 0; job < jobs; job++) {
+            var row = job * slice_length;
+            var slice_height = (row + slice_length).clamp(0, dest_height);
+            threads[job] = new GLib.Thread<void*>("shotwell-worker", () => {
+                uint cache_pixel_ticker = row * dest_width * dest_num_channels;
+                for (uint j = row; j < slice_height; j++) {
+                    uint row_start_index = j * dest_rowstride;
+                    uint row_end_index = row_start_index + (dest_width * dest_num_channels);
+                    for (uint i = row_start_index; i < row_end_index; i += dest_num_channels) {
+                        RGBAnalyticPixel pixel = RGBAnalyticPixel.from_components(
+                                cache[cache_pixel_ticker],
+                                cache[cache_pixel_ticker + 1],
+                                cache[cache_pixel_ticker + 2]);
+
+                        cache_pixel_ticker += 3;
+
+                        pixel = apply_transformations(pixel);
+
+                        dest_pixels[i] = (uchar) (pixel.red * 255.0f);
+                        dest_pixels[i + 1] = (uchar) (pixel.green * 255.0f);
+                        dest_pixels[i + 2] = (uchar) (pixel.blue * 255.0f);
+                    }
+                }
+
+                return null;
+            });
+        }
+
+        foreach (var thread in threads) {
+            thread.join();
         }
     }
 
     public void transform_to_other_pixbuf(Gdk.Pixbuf source, Gdk.Pixbuf dest,
-        Cancellable? cancellable = null) {
+        Cancellable? cancellable = null, int jobs = -1) {
         if (source.width != dest.width)
             error("PixelTransformer: source and destination pixbufs must have the same width");
 
@@ -815,25 +836,46 @@ public class PixelTransformer {
         int rowbytes = n_channels * width;
         unowned uchar[] source_pixels = source.get_pixels();
         unowned uchar[] dest_pixels = dest.get_pixels();
-        for (int j = 0; j < height; j++) {
-            int row_start_index = j * rowstride;
-            int row_end_index = row_start_index + rowbytes;
-            for (int i = row_start_index; i < row_end_index; i += n_channels) {
-                RGBAnalyticPixel current_pixel = RGBAnalyticPixel.from_quantized_components(
-                    source_pixels[i], source_pixels[i + 1], source_pixels[i + 2]);
+        if (jobs == -1) {
+            jobs = (int) GLib.get_num_processors() - 1;
+        }
 
-                current_pixel = apply_transformations(current_pixel);
+        uint slice_length = height;
+        if (jobs > 0) {
+            slice_length = height / jobs;
+        }
 
-                dest_pixels[i] = (uchar) (current_pixel.red * 255.0f);
-                dest_pixels[i + 1] = (uchar) (current_pixel.green * 255.0f);
-                dest_pixels[i + 2] = (uchar) (current_pixel.blue * 255.0f);
-            }
+        var threads = new GLib.Thread<void*>[jobs];
 
-            if ((cancellable != null) && (cancellable.is_cancelled())) {
-                return;
-            }
+        for (var job = 0; job < jobs; job++) {
+            var row = job * slice_length;
+            var slice_height = (row + slice_length).clamp(0, height);
+
+            threads[job] = new GLib.Thread<void*>("shotwell-worker", () => {
+                for (var j = row; j < slice_height; j++) {
+                    this.apply_transformation(j, rowstride, rowbytes, n_channels, source_pixels,
+                            dest_pixels);
+
+                    if ((cancellable != null) && (cancellable.is_cancelled())) {
+                        break;
+                    }
+                }
+
+                return null;
+            });
+        }
+
+        foreach (var thread in threads) {
+            thread.join();
         }
     }
+
+    private extern void apply_transformation(uint row,
+                                      int rowstride,
+                                      int rowbytes,
+                                      int n_channels,
+                                      uchar[] source_pixels,
+                                      uchar[] dest_pixels);
 
 }
 
