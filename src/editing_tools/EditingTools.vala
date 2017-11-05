@@ -2949,15 +2949,14 @@ public class AdjustTool : EditingTool {
 
         fp_pixel_cache = new float[3 * source_width * source_height];
         int cache_pixel_index = 0;
-        float INV_255 = 1.0f / 255.0f;
 
         for (int j = 0; j < source_height; j++) {
             int row_start_index = j * source_rowstride;
             int row_end_index = row_start_index + (source_width * source_num_channels);
             for (int i = row_start_index; i < row_end_index; i += source_num_channels) {
-                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i]) * INV_255;
-                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 1]) * INV_255;
-                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 2]) * INV_255;
+                fp_pixel_cache[cache_pixel_index++] = rgb_lookup_table[source_pixels[i]];
+                fp_pixel_cache[cache_pixel_index++] = rgb_lookup_table[source_pixels[i + 1]];
+                fp_pixel_cache[cache_pixel_index++] = rgb_lookup_table[source_pixels[i + 2]];
             }
         }
     }
