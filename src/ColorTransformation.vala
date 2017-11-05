@@ -91,112 +91,9 @@ public struct HSVAnalyticPixel {
         this.light_value = rgb_lookup_table[light_value_quantized];
     }
 
-    public HSVAnalyticPixel.from_rgb(RGBAnalyticPixel p) {
-        float max_component = float.max(float.max(p.red, p.green), p.blue);
-        float min_component = float.min(float.min(p.red, p.green), p.blue);
+    public extern HSVAnalyticPixel.from_rgb(RGBAnalyticPixel p);
 
-        light_value = max_component;
-        var delta = max_component - min_component;
-        saturation = (max_component != 0.0f) ? ((delta) / max_component) : 0.0f;
-
-        if (saturation == 0.0f) {
-            hue = 0.0f; /* hue is undefined in the zero saturation case */
-        } else {
-            if (p.red == max_component) {
-                hue = (p.green - p.blue) / delta;
-            } else if (p.green == max_component) {
-                hue = 2.0f + ((p.blue - p.red) / delta);
-            } else if (p.blue == max_component) {
-                hue = 4.0f + ((p.red - p.green) / delta);
-            }
-
-            hue *= 60.0f;
-            if (hue < 0.0f)
-                hue += 360.0f;
-
-            hue /= 360.0f; /* normalize hue */
-        }
-
-        hue = hue.clamp(0.0f, 1.0f);
-        saturation = saturation.clamp(0.0f, 1.0f);
-        light_value = light_value.clamp(0.0f, 1.0f);
-    }
-
-    public RGBAnalyticPixel to_rgb() {
-        RGBAnalyticPixel result = RGBAnalyticPixel();
-
-        if (saturation == 0.0f) {
-            result.red = light_value;
-            result.green = light_value;
-            result.blue = light_value;
-        } else {
-            float hue_denorm = hue * 360.0f;
-            if (hue_denorm == 360.0f)
-                hue_denorm = 0.0f;
-
-            float hue_hexant = hue_denorm / 60.0f;
-
-            int hexant_i_part = (int) hue_hexant;
-
-            float hexant_f_part = hue_hexant - ((float) hexant_i_part);
-
-            /* the p, q, and t quantities from section 13.3 of Foley, et. al. */
-            float p = light_value * (1.0f - saturation);
-            float q = light_value * (1.0f - (saturation * hexant_f_part));
-            float t = light_value * (1.0f - (saturation * (1.0f - hexant_f_part)));
-            switch (hexant_i_part) {
-                /* the (r, g, b) components of the output pixel are computed
-                   from the light_value, p, q, and t quantities differently
-                   depending on which "hexant" (1/6 of a full rotation) of the
-                   HSV color cone the hue lies in. For example, if the hue lies
-                   in the yellow hexant, the dominant channels in the output
-                   are red and green, so we map relatively more of the light_value
-                   into these colors than if, say, the hue were to lie in the
-                   cyan hexant. See chapter 13 of Foley, et. al. for more
-                   information. */
-                case 0:
-                    result.red = light_value;
-                    result.green = t;
-                    result.blue = p;
-                break;
-
-                case 1:
-                    result.red = q;
-                    result.green = light_value;
-                    result.blue = p;
-                break;
-
-                case 2:
-                    result.red = p;
-                    result.green = light_value;
-                    result.blue = t;
-                break;
-
-                case 3:
-                    result.red = p;
-                    result.green = q;
-                    result.blue = light_value;
-                break;
-
-                case 4:
-                    result.red = t;
-                    result.green = p;
-                    result.blue = light_value;
-                break;
-
-                case 5:
-                    result.red = light_value;
-                    result.green = p;
-                    result.blue = q;
-                break;
-
-                default:
-                    error("bad color hexant in HSV-to-RGB conversion");
-            }
-        }
-
-        return result;
-    }
+    public extern RGBAnalyticPixel to_rgb();
 
     public bool equals(ref HSVAnalyticPixel rhs) {
         return ((hue == rhs.hue) && (saturation == rhs.saturation) &&
@@ -559,27 +456,7 @@ public class RGBTransformation : PixelTransformation {
         return (transform_pixel_rgb(p.to_rgb())).to_hsv();
     }
 
-    public override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p) {
-        float red_out = (p.red * matrix_entries[0]) +
-            (p.green * matrix_entries[1]) +
-            (p.blue * matrix_entries[2]) +
-            matrix_entries[3];
-        red_out = red_out.clamp(0.0f, 1.0f);
-
-        float green_out = (p.red * matrix_entries[4]) +
-            (p.green * matrix_entries[5]) +
-            (p.blue * matrix_entries[6]) +
-            matrix_entries[7];
-        green_out = green_out.clamp(0.0f, 1.0f);
-
-        float blue_out = (p.red * matrix_entries[8]) +
-            (p.green * matrix_entries[9]) +
-            (p.blue * matrix_entries[10]) +
-            matrix_entries[11];
-        blue_out = blue_out.clamp(0.0f, 1.0f);
-        
-        return RGBAnalyticPixel.from_components(red_out, green_out, blue_out);
-    }
+    public extern override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p);
 
     public override bool is_identity() {
         return identity;
@@ -625,6 +502,18 @@ public abstract class HSVTransformation : PixelTransformation {
             this.remap_table[i] = hsv_trans.remap_table[idx].clamp (0.0f, 1.0f);
         }
     }
+
+    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
+        int remap_index = (int)(pixel.light_value * 255.0f);
+
+        HSVAnalyticPixel result = pixel;
+        result.light_value = remap_table[remap_index];
+
+        result.light_value = result.light_value.clamp(0.0f, 1.0f);
+
+        return result;
+    }
+
 }
 
 public class TintTransformation : RGBTransformation {
@@ -793,9 +682,9 @@ public class ContrastTransformation : RGBTransformation {
 public class PixelTransformer {
     private Gee.ArrayList<PixelTransformation> transformations =
         new Gee.ArrayList<PixelTransformation>();
-    private PixelTransformation[] optimized_transformations = null;
-    private int optimized_slots_used = 0;
-    
+    public PixelTransformation[] optimized_transformations = null;
+    public int optimized_slots_used = 0;
+
     public PixelTransformer() {
     }
     
@@ -835,33 +724,7 @@ public class PixelTransformer {
         }
     }
     
-    private RGBAnalyticPixel apply_transformations(RGBAnalyticPixel p) {
-        PixelFormat current_format = PixelFormat.RGB;
-        RGBAnalyticPixel p_rgb = p;
-        HSVAnalyticPixel p_hsv = HSVAnalyticPixel();
-
-        for (int i = 0; i < optimized_slots_used; i++) {
-            PixelTransformation trans = optimized_transformations[i];
-            if (trans.get_preferred_format() == PixelFormat.RGB) {
-                if (current_format == PixelFormat.HSV) {
-                    p_rgb = p_hsv.to_rgb();
-                    current_format = PixelFormat.RGB;
-                }
-                p_rgb = trans.transform_pixel_rgb(p_rgb);
-            } else {
-                if (current_format == PixelFormat.RGB) {
-                    p_hsv = p_rgb.to_hsv();
-                    current_format = PixelFormat.HSV;
-                }
-                p_hsv = trans.transform_pixel_hsv(p_hsv);
-            }
-        }
-
-        if (current_format == PixelFormat.HSV)
-            p_rgb = p_hsv.to_rgb();
-
-        return p_rgb;
-    }
+    private extern RGBAnalyticPixel apply_transformations(RGBAnalyticPixel p);
 
     /* NOTE: this method allows the same transformation to be added multiple
              times. There's nothing wrong with this behavior as of today,
@@ -971,6 +834,7 @@ public class PixelTransformer {
             }
         }
     }
+
 }
 
 public class RGBHistogram {
@@ -1347,17 +1211,6 @@ public class ExpansionTransformation : HSVTransformation {
             remap_table[i] = 1.0f;
     }
 
-    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
-        int remap_index = (int)(pixel.light_value * 255.0f);
-
-        HSVAnalyticPixel result = pixel;
-        result.light_value = remap_table[remap_index];
-
-        result.light_value = result.light_value.clamp(0.0f, 1.0f);
-
-        return result;
-    }
-
     public override string to_string() {
         return "{ %d, %d }".printf(low_kink, high_kink);
     }
@@ -1405,12 +1258,6 @@ public class ShadowDetailTransformation : HSVTransformation {
             float weight = func.evaluate(x);
             remap_table[i] = (weight * (x + effect_shift)) + ((1.0f - weight) * x);
         }
-    }
-
-    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
-        HSVAnalyticPixel result = pixel;
-        result.light_value = (remap_table[(int)(pixel.light_value * 255.0f)]).clamp(0.0f, 1.0f);
-        return result;
     }
 
     public override PixelTransformation copy() {
@@ -1477,12 +1324,6 @@ public class HighlightDetailTransformation : HSVTransformation {
             float weight = func.evaluate(1.0f - x);
             remap_table[i] = (weight * (x - effect_shift)) + ((1.0f - weight) * x);
         }
-    }
-
-    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
-        HSVAnalyticPixel result = pixel;
-        result.light_value = (remap_table[(int)(pixel.light_value * 255.0f)]).clamp(0.0f, 1.0f);
-        return result;
     }
 
     public override PixelTransformation copy() {
@@ -1570,7 +1411,7 @@ public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixb
 }
 }
 
-const float rgb_lookup_table[] = {
+public const float rgb_lookup_table[] = {
       0.0f/255.0f,   1.0f/255.0f,   2.0f/255.0f,   3.0f/255.0f,   4.0f/255.0f,
       5.0f/255.0f,   6.0f/255.0f,   7.0f/255.0f,   8.0f/255.0f,   9.0f/255.0f,
      10.0f/255.0f,  11.0f/255.0f,  12.0f/255.0f,  13.0f/255.0f,  14.0f/255.0f,

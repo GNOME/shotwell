@@ -2,7 +2,8 @@ subdir('plugins')
 
 sw_graphics_processor = static_library('shotwell-graphics-processor',
                ['ColorTransformation.vala',
-                'util/KeyValueMap.vala'],
+                'util/KeyValueMap.vala',
+                '_transformation.c'],
                vala_header : 'shotwell-graphics-processor.h',
                vala_vapi : 'shotwell-graphics-processor.vapi',
                dependencies : [gio, gee, gdk],

@@ -6,7 +6,8 @@ noinst_LTLIBRARIES += \
 
 src_libgraphics_processor_la_SOURCES = \
 	src/ColorTransformation.vala \
-	src/util/KeyValueMap.vala
+	src/util/KeyValueMap.vala \
+	src/_transformation.c
 
 src_libgraphics_processor_la_VALAFLAGS = \
 	$(COMMON_VALAFLAGS) \
