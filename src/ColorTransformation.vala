@@ -775,7 +775,7 @@ public class PixelTransformer {
 
         uint slice_length = dest_height;
         if (jobs > 0) {
-            slice_length = dest_height / jobs;
+            slice_length = (dest_height + (jobs - 1)) / jobs;
         }
 
         var threads = new GLib.Thread<void *>[jobs];
@@ -842,7 +842,7 @@ public class PixelTransformer {
 
         uint slice_length = height;
         if (jobs > 0) {
-            slice_length = height / jobs;
+            slice_length = (height + (jobs - 1)) / jobs;
         }
 
         var threads = new GLib.Thread<void*>[jobs];
