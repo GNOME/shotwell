@@ -574,11 +574,7 @@ namespace Publishing.Tumblr {
             }
         }
 
-        internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
-            private Publishing.RESTSupport.OAuth1.Session session;
-            private Publishing.RESTSupport.Argument[] auth_header_fields;
-
-
+        internal class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransaction {
             //Workaround for Soup.URI.encode() to support binary data (i.e. string with \0)
             private string encode( uint8[] data ){
                 var s = new StringBuilder();
@@ -599,41 +595,11 @@ namespace Publishing.Tumblr {
 
             public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session,Spit.Publishing.Publishable publishable, string blog_url)  {
                 debug("Init upload transaction");
-                base.with_endpoint_url(session, publishable,"https://api.tumblr.com/v2/blog/%s/post".printf(blog_url) );
-                this.session = session;
+                base(session, publishable,"https://api.tumblr.com/v2/blog/%s/post".printf(blog_url) );
 
-            }
-
-
-
-            public void add_authorization_header_field(string key, string value) {
-                auth_header_fields += new Publishing.RESTSupport.Argument(key, value);
-            }
-
-            public string get_authorization_header_string() {
-                string result = "OAuth ";
-
-                for (int i = 0; i < auth_header_fields.length; i++) {
-                    result += auth_header_fields[i].key;
-                    result += "=";
-                    result += ("\"" + auth_header_fields[i].value + "\"");
-
-                    if (i < auth_header_fields.length - 1)
-                        result += ", ";
-                }
-
-                return result;
             }
 
             public override void execute() throws Spit.Publishing.PublishingError {
-                add_authorization_header_field("oauth_nonce", session.get_oauth_nonce());
-                add_authorization_header_field("oauth_signature_method", "HMAC-SHA1");
-                add_authorization_header_field("oauth_version", "1.0");
-                add_authorization_header_field("oauth_timestamp", session.get_oauth_timestamp());
-                add_authorization_header_field("oauth_consumer_key", session.get_consumer_key());
-                add_authorization_header_field("oauth_token", session.get_access_phase_token());
-
-
                 string payload;
                 size_t payload_length;
                 try {
@@ -659,24 +625,13 @@ namespace Publishing.Tumblr {
 
                 }
 
-
-                session.sign_transaction(this);
-
-                string authorization_header = get_authorization_header_string();
-
-                debug("executing upload transaction: authorization header string = '%s'",
-                        authorization_header);
-                add_header("Authorization", authorization_header);
+                this.authorize();
 
                 Publishing.RESTSupport.Argument[] request_arguments = get_arguments();
                 assert(request_arguments.length > 0);
 
-                string request_data = "";
-                for (int i = 0; i < request_arguments.length; i++) {
-                    request_data += (request_arguments[i].key + "=" + request_arguments[i].value);
-                    if (i < request_arguments.length - 1)
-                        request_data += "&";
-                }
+                var request_data = Publishing.RESTSupport.Argument.serialize_list(request_arguments);
+
                 Soup.Message outbound_message = new Soup.Message( "POST", get_endpoint_url());
                 outbound_message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY, request_data.data);
 

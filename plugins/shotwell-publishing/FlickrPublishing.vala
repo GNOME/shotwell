@@ -502,27 +502,15 @@ internal class AccountInfoFetchTransaction : Publishing.RESTSupport.OAuth1.Trans
     }
 }
 
-private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
+private class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransaction {
     private PublishingParameters parameters;
-    private Publishing.RESTSupport.OAuth1.Session session;
-    private Publishing.RESTSupport.Argument[] auth_header_fields;
 
     public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session, PublishingParameters parameters,
         Spit.Publishing.Publishable publishable) {
-        base.with_endpoint_url(session, publishable, "https://api.flickr.com/services/upload");
+        base(session, publishable, "https://api.flickr.com/services/upload");
 
         this.parameters = parameters;
-        this.session = session;
-        this.auth_header_fields = new Publishing.RESTSupport.Argument[0];
 
-        add_authorization_header_field("oauth_nonce", session.get_oauth_nonce());
-        add_authorization_header_field("oauth_signature_method", "HMAC-SHA1");
-        add_authorization_header_field("oauth_version", "1.0");
-        add_authorization_header_field("oauth_callback", "oob");
-        add_authorization_header_field("oauth_timestamp", session.get_oauth_timestamp());
-        add_authorization_header_field("oauth_consumer_key", session.get_consumer_key());
-        add_authorization_header_field("oauth_token", session.get_access_phase_token());
-        
         add_argument("is_public", ("%d".printf(parameters.visibility_specification.everyone_level)));
         add_argument("is_friend", ("%d".printf(parameters.visibility_specification.friends_level)));
         add_argument("is_family", ("%d".printf(parameters.visibility_specification.family_level)));
@@ -542,35 +530,9 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
         set_binary_disposition_table(disposition_table);
     }
-    
-    public void add_authorization_header_field(string key, string value) {
-        auth_header_fields += new Publishing.RESTSupport.Argument(key, value);
-    }
-    
-    public string get_authorization_header_string() {
-        string result = "OAuth ";
-        
-        for (int i = 0; i < auth_header_fields.length; i++) {
-            result += auth_header_fields[i].key;
-            result += "=";
-            result += ("\"" + auth_header_fields[i].value + "\"");
-            
-            if (i < auth_header_fields.length - 1)
-                result += ", ";
-        }
-        
-        return result;
-    }
-    
+
     public override void execute() throws Spit.Publishing.PublishingError {
-        session.sign_transaction(this);
-        
-        string authorization_header = get_authorization_header_string();
-        
-        debug("executing upload transaction: authorization header string = '%s'",
-            authorization_header);
-        add_header("Authorization", authorization_header);
-        
+        this.authorize();
         base.execute();
     }
 }

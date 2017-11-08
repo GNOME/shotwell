@@ -123,6 +123,18 @@ public class Argument {
         this.value = value;
     }
 
+    public static string serialize_list(Argument[] args) {
+        var builder = new StringBuilder("");
+
+        foreach (var arg in args) {
+            builder.append(arg.to_string());
+            builder.append("&");
+        }
+        builder.truncate(builder.len - 1);
+
+        return builder.str;
+    }
+
     public static int compare(Argument arg1, Argument arg2) {
         return strcmp(arg1.key, arg2.key);
     }
@@ -154,6 +166,7 @@ public class Transaction {
     public signal void chunk_transmitted(int bytes_written_so_far, int total_bytes);
     public signal void network_error(Spit.Publishing.PublishingError err);
     public signal void completed();
+
     
     public Transaction(Session parent_session, HttpMethod method = HttpMethod.POST) {
         // if our creator doesn't specify an endpoint url by using the Transaction.with_endpoint_url
@@ -910,12 +923,7 @@ namespace OAuth1 {
             Publishing.RESTSupport.Argument[] sorted_args =
                 Publishing.RESTSupport.Argument.sort(base_string_arguments);
 
-            string arguments_string = "";
-            for (int i = 0; i < sorted_args.length; i++) {
-                arguments_string += (sorted_args[i].key + "=" + sorted_args[i].value);
-                if (i < sorted_args.length - 1)
-                    arguments_string += "&";
-            }
+            var arguments_string = Argument.serialize_list(sorted_args);
 
             string? signing_key = null;
             if (access_phase_token_secret != null) {
@@ -1029,6 +1037,46 @@ namespace OAuth1 {
             ((Session) get_parent_session()).sign_transaction(this);
 
             base.execute();
+        }
+    }
+
+    public class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
+        protected Publishing.RESTSupport.OAuth1.Session session;
+        private Publishing.RESTSupport.Argument[] auth_header_fields;
+
+        public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session,
+                                 Spit.Publishing.Publishable publishable,
+                                 string endpoint_uri) {
+            base.with_endpoint_url(session, publishable, endpoint_uri);
+
+            this.auth_header_fields = new Publishing.RESTSupport.Argument[0];
+
+            add_authorization_header_field("oauth_nonce", session.get_oauth_nonce());
+            add_authorization_header_field("oauth_signature_method", "HMAC-SHA1");
+            add_authorization_header_field("oauth_version", "1.0");
+            add_authorization_header_field("oauth_callback", "oob");
+            add_authorization_header_field("oauth_timestamp", session.get_oauth_timestamp());
+            add_authorization_header_field("oauth_consumer_key", session.get_consumer_key());
+            add_authorization_header_field("oauth_token", session.get_access_phase_token());
+        }
+
+        public void add_authorization_header_field(string key, string value) {
+            auth_header_fields += new Publishing.RESTSupport.Argument(key, value);
+        }
+
+        public string get_authorization_header_string() {
+            return "OAuth " + Argument.serialize_list(auth_header_fields);
+        }
+
+        public void authorize() {
+            session.sign_transaction(this);
+
+            string authorization_header = get_authorization_header_string();
+
+            debug("executing upload transaction: authorization header string = '%s'",
+                    authorization_header);
+            add_header("Authorization", authorization_header);
+
         }
     }
 }
