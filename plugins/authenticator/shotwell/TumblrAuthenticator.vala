@@ -115,38 +115,8 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
         }
     }
 
-    // REST support classes
-    internal class Transaction : Publishing.RESTSupport.Transaction {
-        public Transaction(Session session, Publishing.RESTSupport.HttpMethod method =
-                Publishing.RESTSupport.HttpMethod.POST) {
-            base(session, method);
-
-        }
-
-        public Transaction.with_uri(Session session, string uri,
-                Publishing.RESTSupport.HttpMethod method = Publishing.RESTSupport.HttpMethod.POST) {
-            base.with_endpoint_url(session, uri, method);
-
-            add_argument("oauth_nonce", session.get_oauth_nonce());
-            add_argument("oauth_signature_method", "HMAC-SHA1");
-            add_argument("oauth_version", "1.0");
-            add_argument("oauth_timestamp", session.get_oauth_timestamp());
-            add_argument("oauth_consumer_key", API_KEY);
-            if (session.get_access_phase_token() != null) {
-                add_argument("oauth_token", session.get_access_phase_token());
-            }
-        }
-
-        public override void execute() throws Spit.Publishing.PublishingError {
-            ((Session) get_parent_session()).sign_transaction(this);
-
-            base.execute();
-        }
-
-    }
-
-    internal class AccessTokenFetchTransaction : Transaction {
-        public AccessTokenFetchTransaction(Session session, string username, string password) {
+    internal class AccessTokenFetchTransaction : OAuth1.Transaction {
+        public AccessTokenFetchTransaction(OAuth1.Session session, string username, string password) {
             base.with_uri(session, "https://www.tumblr.com/oauth/access_token",
                     Publishing.RESTSupport.HttpMethod.POST);
             add_argument("x_auth_username", Soup.URI.encode(username, ENCODE_RFC_3986_EXTRA));
@@ -155,151 +125,17 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
         }
     }
 
-
-    /**
-     * Session class that keeps track of the authentication status and of the
-     * user token tumblr.
-     */
-    internal class Session : Publishing.RESTSupport.Session {
-        private string? access_phase_token = null;
-        private string? access_phase_token_secret = null;
-        private string? username = null;
-
-        public Session() {
-            base(ENDPOINT_URL);
-        }
-
-        public override bool is_authenticated() {
-            return (access_phase_token != null && access_phase_token_secret != null);
-        }
-
-        public void authenticate_from_persistent_credentials(string token, string secret) {
-            this.access_phase_token = token;
-            this.access_phase_token_secret = secret;
-
-
-            debug("Emitting authenticated() signal");
-            authenticated();
-        }
-
-        public void deauthenticate() {
-            access_phase_token = null;
-            access_phase_token_secret = null;
-        }
-
-        public void sign_transaction(Publishing.RESTSupport.Transaction txn) {
-            string http_method = txn.get_method().to_string();
-
-            debug("signing transaction with parameters:");
-            debug("HTTP method = " + http_method);
-            string? signing_key = null;
-            if (access_phase_token_secret != null) {
-                debug("access phase token secret available; using it as signing key");
-
-                signing_key = API_SECRET + "&" + this.get_access_phase_token_secret();
-            } else {
-                debug("Access phase token secret not available; using API " +
-                        "key as signing key");
-
-                signing_key = API_SECRET + "&";
-            }
-
-
-            Publishing.RESTSupport.Argument[] base_string_arguments = txn.get_arguments();
-
-            Publishing.RESTSupport.Argument[] sorted_args =
-                Publishing.RESTSupport.Argument.sort(base_string_arguments);
-
-            string arguments_string = "";
-            for (int i = 0; i < sorted_args.length; i++) {
-                arguments_string += (sorted_args[i].key + "=" + sorted_args[i].value);
-                if (i < sorted_args.length - 1)
-                    arguments_string += "&";
-            }
-
-
-            string signature_base_string = http_method + "&" + Soup.URI.encode(
-                    txn.get_endpoint_url(), ENCODE_RFC_3986_EXTRA) + "&" +
-                Soup.URI.encode(arguments_string, ENCODE_RFC_3986_EXTRA);
-
-            debug("signature base string = '%s'", signature_base_string);
-            debug("signing key = '%s'", signing_key);
-
-            // compute the signature
-            string signature = Publishing.RESTSupport.hmac_sha1(signing_key, signature_base_string);
-            debug("signature = '%s'", signature);
-            signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
-
-            debug("signature after RFC encode = '%s'", signature);
-
-            txn.add_argument("oauth_signature", signature);
-        }
-
-        public void set_access_phase_credentials(string token, string secret) {
-            this.access_phase_token = token;
-            this.access_phase_token_secret = secret;
-
-            authenticated();
-        }
-
-        public string get_access_phase_token() {
-            return access_phase_token;
-        }
-
-
-        public string get_access_phase_token_secret() {
-            return access_phase_token_secret;
-        }
-
-        public string get_username() {
-            return this.username;
-        }
-
-        public void set_username(string username) {
-            this.username = username;
-        }
-
-        public string get_oauth_nonce() {
-            TimeVal currtime = TimeVal();
-            currtime.get_current_time();
-
-            return Checksum.compute_for_string(ChecksumType.MD5, currtime.tv_sec.to_string() +
-                    currtime.tv_usec.to_string());
-        }
-
-        public string get_oauth_timestamp() {
-            return GLib.get_real_time().to_string().substring(0, 10);
-        }
-    }
-
-    internal class Tumblr : Spit.Publishing.Authenticator, GLib.Object {
-        private GLib.HashTable<string, Variant> params;
-        private Spit.Publishing.PluginHost host;
-        private Session session;
-
+    internal class Tumblr : Publishing.Authenticator.Shotwell.OAuth1.Authenticator {
         public Tumblr(Spit.Publishing.PluginHost host) {
-            base();
-
-            this.host = host;
-
-            this.params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
-            params.insert("ConsumerKey", API_KEY);
-            params.insert("ConsumerSecret", API_SECRET);
-
-            this.session = new Session();
-            this.session.authenticated.connect(this.on_session_authenticated);
+            base(API_KEY, API_SECRET, host);
         }
 
-        ~Tumblr() {
-            this.session.authenticated.disconnect(this.on_session_authenticated);
-        }
-
-        public void authenticate() {
+        public override void authenticate() {
             if (is_persistent_session_valid()) {
                 debug("attempt start: a persistent session is available; using it");
 
                 session.authenticate_from_persistent_credentials(get_persistent_access_phase_token(),
-                        get_persistent_access_phase_token_secret());
+                        get_persistent_access_phase_token_secret(), "");
             } else {
                 debug("attempt start: no persistent session available; showing login welcome pane");
 
@@ -307,65 +143,17 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
             }
         }
 
-        public bool can_logout() {
+        public override bool can_logout() {
             return true;
         }
 
-        public GLib.HashTable<string, Variant> get_authentication_parameter() {
-            return this.params;
-        }
-
-        public void logout() {
+        public override void logout() {
             this.session.deauthenticate();
             invalidate_persistent_session();
         }
 
-        public void refresh() { }
-
-        private void on_session_authenticated() {
-            params.insert("AuthToken", session.get_access_phase_token());
-            params.insert("AuthTokenSecret", session.get_access_phase_token_secret());
-            params.insert("Username", session.get_username());
-
-            set_persistent_access_phase_token(session.get_access_phase_token());
-            set_persistent_access_phase_token_secret(session.get_access_phase_token_secret());
-
-            this.authenticated();
-        }
-
-        private void invalidate_persistent_session() {
-            set_persistent_access_phase_token("");
-            set_persistent_access_phase_token_secret("");
-        }
-
-        private void set_persistent_access_phase_token(string? token) {
-            host.set_config_string("token", token);
-        }
-
-        private void set_persistent_access_phase_token_secret(string? token_secret) {
-            host.set_config_string("token_secret", token_secret);
-        }
-
-        private bool is_persistent_session_valid() {
-            string? access_phase_token = get_persistent_access_phase_token();
-            string? access_phase_token_secret = get_persistent_access_phase_token_secret();
-
-            bool valid = ((access_phase_token != null) && (access_phase_token_secret != null));
-
-            if (valid)
-                debug("existing Tumblr session found in configuration database; using it.");
-            else
-                debug("no persisted Tumblr session exists.");
-
-            return valid;
-        }
-
-        public string? get_persistent_access_phase_token() {
-            return host.get_config_string("token", null);
-        }
-
-        public string? get_persistent_access_phase_token_secret() {
-            return host.get_config_string("token_secret", null);
+        public override void refresh() {
+            // No-op with Tumblr
         }
 
         /**
@@ -417,7 +205,6 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
             debug("ACTION: logging in");
             host.set_service_locked(true);
             host.install_login_wait_pane();
-            session.set_username(username);
 
             AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session,username,password);
             txn.completed.connect(on_auth_request_txn_completed);
@@ -450,30 +237,26 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
         }
 
         private void do_parse_token_info_from_auth_request(string response) {
-            debug("ACTION: parsing authorization request response '%s' into token and secret", response);
+            debug("ACTION: extracting access phase credentials from '%s'", response);
 
-            string? oauth_token = null;
-            string? oauth_token_secret = null;
+            string? token = null;
+            string? token_secret = null;
 
-            string[] key_value_pairs = response.split("&");
-            foreach (string pair in key_value_pairs) {
-                string[] split_pair = pair.split("=");
+            var data = Soup.Form.decode(response);
+            data.lookup_extended("oauth_token", null, out token);
+            data.lookup_extended("oauth_token_secret", null, out token_secret);
 
-                if (split_pair.length != 2)
-                    host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                                _("“%s” isn’t a valid response to an OAuth authentication request"), response));
+            debug("access phase credentials: { token = '%s'; token_secret = '%s' }",
+                    token, token_secret);
 
-                if (split_pair[0] == "oauth_token")
-                    oauth_token = split_pair[1];
-                else if (split_pair[0] == "oauth_token_secret")
-                    oauth_token_secret = split_pair[1];
+            if (token == null || token_secret == null) {
+                host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Expected " +
+                            "access phase credentials to contain token and token secret but at " +
+                            "least one of these is absent"));
+                this.authentication_failed();
+            } else {
+                session.set_access_phase_credentials(token, token_secret, "");
             }
-
-            if (oauth_token == null || oauth_token_secret == null)
-                host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                            _("“%s” isn’t a valid response to an OAuth authentication request"), response));
-
-            session.set_access_phase_credentials(oauth_token, oauth_token_secret);
         }
     }
 }
