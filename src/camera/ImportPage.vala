@@ -1008,6 +1008,17 @@ public class ImportPage : CheckerboardPage {
                 } catch (Error err) {
                     // error means not mounted
                 }
+
+                // Could not find mount for gphoto2://, re-try with mtp://
+                // It seems some devices are mounted using MTP and not gphoto2 daemon
+                if (mount == null && this.uri.has_prefix("gphoto2")) {
+                    uri = File.new_for_uri("mtp" + this.uri.substring(7));
+                    try {
+                        mount = uri.find_enclosing_mount(null);
+                    } catch (Error err) {
+                        // error means not mounted
+                    }
+                }
                 
                 if (mount != null) {
                     // it's mounted, offer to unmount for the user
@@ -1171,7 +1182,7 @@ public class ImportPage : CheckerboardPage {
                 });
                 claim_timeout *= 2;
 
-                return RefreshResult.BUSY;
+                return RefreshResult.LOCKED;
             }
         }
 
