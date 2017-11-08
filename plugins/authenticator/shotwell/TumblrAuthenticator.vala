@@ -115,8 +115,8 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
         }
     }
 
-    internal class AccessTokenFetchTransaction : OAuth1.Transaction {
-        public AccessTokenFetchTransaction(OAuth1.Session session, string username, string password) {
+    internal class AccessTokenFetchTransaction : Publishing.RESTSupport.OAuth1.Transaction {
+        public AccessTokenFetchTransaction(Publishing.RESTSupport.OAuth1.Session session, string username, string password) {
             base.with_uri(session, "https://www.tumblr.com/oauth/access_token",
                     Publishing.RESTSupport.HttpMethod.POST);
             add_argument("x_auth_username", Soup.URI.encode(username, ENCODE_RFC_3986_EXTRA));

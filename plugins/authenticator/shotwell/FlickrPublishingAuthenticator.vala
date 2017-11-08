@@ -14,16 +14,16 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
     internal const string SERVICE_WELCOME_MESSAGE =
         _("You are not currently logged into Flickr.\n\nClick Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account.");
 
-    internal class AuthenticationRequestTransaction : OAuth1.Transaction {
-        public AuthenticationRequestTransaction(OAuth1.Session session) {
+    internal class AuthenticationRequestTransaction : Publishing.RESTSupport.OAuth1.Transaction {
+        public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_callback", "oob");
         }
     }
 
-    internal class AccessTokenFetchTransaction : OAuth1.Transaction {
-        public AccessTokenFetchTransaction(OAuth1.Session session, string user_verifier) {
+    internal class AccessTokenFetchTransaction : Publishing.RESTSupport.OAuth1.Transaction {
+        public AccessTokenFetchTransaction(Publishing.RESTSupport.OAuth1.Session session, string user_verifier) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/access_token",
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_verifier", user_verifier);

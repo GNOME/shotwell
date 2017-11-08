@@ -89,7 +89,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private bool running = false;
     private bool was_started = false;
-    private Session session = null;
+    private Publishing.RESTSupport.OAuth1.Session session = null;
     private PublishingOptionsPane publishing_options_pane = null;
     private SizeEntry[] sizes = null;
     private BlogEntry[] blogs = null;
@@ -123,7 +123,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("TumblrPublisher instantiated.");
         this.service = service;
         this.host = host;
-        this.session = new Session();
+        this.session = new Publishing.RESTSupport.OAuth1.Session();
         this.sizes = this.create_sizes();
         this.blogs = this.create_blogs();
 
@@ -187,7 +187,7 @@ public class TumblrPublisher : Spit.Publishing.Publisher, GLib.Object {
         params.lookup_extended("AuthToken", null, out auth_token);
         params.lookup_extended("AuthTokenSecret", null, out auth_token_secret);
         session.set_access_phase_credentials(auth_token.get_string(),
-                auth_token_secret.get_string());
+                auth_token_secret.get_string(), "");
 
 
         do_get_blogs();
@@ -567,44 +567,15 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 }
 
-internal class Transaction : Publishing.RESTSupport.Transaction {
-    public Transaction(Session session, Publishing.RESTSupport.HttpMethod method =
-            Publishing.RESTSupport.HttpMethod.POST) {
-        base(session, method);
-
-    }
-
-    public Transaction.with_uri(Session session, string uri,
-            Publishing.RESTSupport.HttpMethod method = Publishing.RESTSupport.HttpMethod.POST) {
-        base.with_endpoint_url(session, uri, method);
-
-        add_argument("oauth_nonce", session.get_oauth_nonce());
-        add_argument("oauth_signature_method", "HMAC-SHA1");
-        add_argument("oauth_version", "1.0");
-        add_argument("oauth_timestamp", session.get_oauth_timestamp());
-        add_argument("oauth_consumer_key", session.get_consumer_key());
-        if (session.get_access_phase_token() != null) {
-            add_argument("oauth_token", session.get_access_phase_token());
-        }
-    }
-
-    public override void execute() throws Spit.Publishing.PublishingError {
-        ((Session) get_parent_session()).sign_transaction(this);
-
-        base.execute();
-    }
-
-}
-
-internal class UserInfoFetchTransaction : Transaction {
-    public UserInfoFetchTransaction(Session session) {
+internal class UserInfoFetchTransaction : Publishing.RESTSupport.OAuth1.Transaction {
+    public UserInfoFetchTransaction(Publishing.RESTSupport.OAuth1.Session session) {
         base.with_uri(session, "https://api.tumblr.com/v2/user/info",
             Publishing.RESTSupport.HttpMethod.POST);
     }
 }
 
 internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
-    private Session session;
+    private Publishing.RESTSupport.OAuth1.Session session;
     private Publishing.RESTSupport.Argument[] auth_header_fields;
 
 
@@ -626,7 +597,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
     }
 
 
-    public UploadTransaction(Session session,Spit.Publishing.Publishable publishable, string blog_url)  {
+    public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session,Spit.Publishing.Publishable publishable, string blog_url)  {
 		debug("Init upload transaction");
         base.with_endpoint_url(session, publishable,"https://api.tumblr.com/v2/blog/%s/post".printf(blog_url) );
         this.session = session;
@@ -637,10 +608,6 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
     public void add_authorization_header_field(string key, string value) {
         auth_header_fields += new Publishing.RESTSupport.Argument(key, value);
-    }
-
-    public Publishing.RESTSupport.Argument[] get_authorization_header_fields() {
-        return auth_header_fields;
     }
 
     public string get_authorization_header_string() {
@@ -732,7 +699,7 @@ internal class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
 
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
 	private string blog_url = "";
-    public Uploader(Session session, Spit.Publishing.Publishable[] publishables, string blog_url) {
+    public Uploader(Publishing.RESTSupport.OAuth1.Session session, Spit.Publishing.Publishable[] publishables, string blog_url) {
         base(session, publishables);
 		this.blog_url=blog_url;
 
@@ -742,137 +709,10 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
 		debug("Create upload transaction");
-        return new UploadTransaction((Session) get_session(), get_current_publishable(), this.blog_url);
+        return new UploadTransaction((Publishing.RESTSupport.OAuth1.Session) get_session(), get_current_publishable(), this.blog_url);
 
     }
 }
-
-/**
- * Session class that keeps track of the authentication status and of the
- * user token tumblr.
- */
-internal class Session : Publishing.RESTSupport.Session {
-    private string? access_phase_token = null;
-    private string? access_phase_token_secret = null;
-    private string? consumer_key = null;
-    private string? consumer_secret = null;
-
-    public Session() {
-        base(ENDPOINT_URL);
-    }
-
-    public override bool is_authenticated() {
-        return (access_phase_token != null && access_phase_token_secret != null);
-    }
-
-    public void deauthenticate() {
-        access_phase_token = null;
-        access_phase_token_secret = null;
-    }
-
-    public void set_api_credentials(string consumer_key, string consumer_secret) {
-        this.consumer_key = consumer_key;
-        this.consumer_secret = consumer_secret;
-    }
-
-    public string get_consumer_key() {
-        return this.consumer_key;
-    }
-
-
-    public void set_access_phase_credentials(string token, string secret) {
-        this.access_phase_token = token;
-        this.access_phase_token_secret = secret;
-    }
-
-    public void sign_transaction(Publishing.RESTSupport.Transaction txn) {
-        string http_method = txn.get_method().to_string();
-
-        debug("signing transaction with parameters:");
-        debug("HTTP method = " + http_method);
-		string? signing_key = null;
-        if (access_phase_token_secret != null) {
-            debug("access phase token secret available; using it as signing key");
-
-            signing_key = this.consumer_secret + "&" + this.get_access_phase_token_secret();
-        } else {
-            debug("Access phase token secret not available; using API " +
-                "key as signing key");
-
-            signing_key = this.consumer_secret + "&";
-        }
-
-
-        Publishing.RESTSupport.Argument[] base_string_arguments = txn.get_arguments();
-
-        UploadTransaction? upload_txn = txn as UploadTransaction;
-        if (upload_txn != null) {
-            debug("this transaction is an UploadTransaction; including Authorization header " +
-                "fields in signature base string");
-
-            Publishing.RESTSupport.Argument[] auth_header_args =
-                upload_txn.get_authorization_header_fields();
-
-            foreach (Publishing.RESTSupport.Argument arg in auth_header_args)
-                base_string_arguments += arg;
-        }
-
-        Publishing.RESTSupport.Argument[] sorted_args =
-            Publishing.RESTSupport.Argument.sort(base_string_arguments);
-
-        string arguments_string = "";
-        for (int i = 0; i < sorted_args.length; i++) {
-            arguments_string += (sorted_args[i].key + "=" + sorted_args[i].value);
-            if (i < sorted_args.length - 1)
-                arguments_string += "&";
-        }
-
-
-        string signature_base_string = http_method + "&" + Soup.URI.encode(
-            txn.get_endpoint_url(), ENCODE_RFC_3986_EXTRA) + "&" +
-            Soup.URI.encode(arguments_string, ENCODE_RFC_3986_EXTRA);
-
-        debug("signature base string = '%s'", signature_base_string);
-        debug("signing key = '%s'", signing_key);
-
-        // compute the signature
-        string signature = Publishing.RESTSupport.hmac_sha1(signing_key, signature_base_string);
-        debug("signature = '%s'", signature);
-        signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
-
-        debug("signature after RFC encode = '%s'", signature);
-
-        if (upload_txn != null)
-            upload_txn.add_authorization_header_field("oauth_signature", signature);
-        else
-            txn.add_argument("oauth_signature", signature);
-
-
-    }
-
-    public string get_access_phase_token() {
-        return access_phase_token;
-    }
-
-
-    public string get_access_phase_token_secret() {
-        return access_phase_token_secret;
-    }
-
-    public string get_oauth_nonce() {
-        TimeVal currtime = TimeVal();
-        currtime.get_current_time();
-
-        return Checksum.compute_for_string(ChecksumType.MD5, currtime.tv_sec.to_string() +
-            currtime.tv_usec.to_string());
-    }
-
-    public string get_oauth_timestamp() {
-        return GLib.get_real_time().to_string().substring(0, 10);
-    }
-
-}
-
 
 } //class TumblrPublisher
 

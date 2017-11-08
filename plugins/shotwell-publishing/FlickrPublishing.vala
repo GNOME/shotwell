@@ -96,7 +96,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private bool running = false;
     private bool was_started = false;
-    private Session session = null;
+    private Publishing.RESTSupport.OAuth1.Session session = null;
     private PublishingOptionsPane publishing_options_pane = null;
     private Spit.Publishing.Authenticator authenticator = null;
    
@@ -107,7 +107,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("FlickrPublisher instantiated.");
         this.service = service;
         this.host = host;
-        this.session = new Session();
+        this.session = new Publishing.RESTSupport.OAuth1.Session();
         this.parameters = new PublishingParameters();
         this.authenticator = Publishing.Authenticator.Factory.get_instance().create("flickr", host);
 
@@ -445,37 +445,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
 }
 
-internal class Transaction : Publishing.RESTSupport.Transaction {
-    public Transaction(Session session, Publishing.RESTSupport.HttpMethod method =
-        Publishing.RESTSupport.HttpMethod.POST) {
-        base(session, method);
-        
-        add_argument("oauth_nonce", session.get_oauth_nonce());
-        add_argument("oauth_signature_method", "HMAC-SHA1");
-        add_argument("oauth_version", "1.0");
-        add_argument("oauth_callback", "oob");
-        add_argument("oauth_timestamp", session.get_oauth_timestamp());
-        add_argument("oauth_consumer_key", session.get_consumer_key());
-    }
-    
-    public Transaction.with_uri(Session session, string uri,
-        Publishing.RESTSupport.HttpMethod method = Publishing.RESTSupport.HttpMethod.POST) {
-        base.with_endpoint_url(session, uri, method);
-
-        add_argument("oauth_nonce", session.get_oauth_nonce());
-        add_argument("oauth_signature_method", "HMAC-SHA1");
-        add_argument("oauth_version", "1.0");
-        add_argument("oauth_callback", "oob");
-        add_argument("oauth_timestamp", session.get_oauth_timestamp());
-        add_argument("oauth_consumer_key", session.get_consumer_key());
-    }
-
-    public override void execute() throws Spit.Publishing.PublishingError {
-        ((Session) get_parent_session()).sign_transaction(this);
-        
-        base.execute();
-    }
-
+namespace Transaction {
     public static string? validate_xml(Publishing.RESTSupport.XmlDocument doc) {
         Xml.Node* root = doc.get_root_node();
         string? status = root->get_prop("stat");
@@ -525,20 +495,19 @@ internal class Transaction : Publishing.RESTSupport.Transaction {
     }
 }
 
-internal class AccountInfoFetchTransaction : Transaction {
-    public AccountInfoFetchTransaction(Session session) {
+internal class AccountInfoFetchTransaction : Publishing.RESTSupport.OAuth1.Transaction {
+    public AccountInfoFetchTransaction(Publishing.RESTSupport.OAuth1.Session session) {
         base(session, Publishing.RESTSupport.HttpMethod.GET);
         add_argument("method", "flickr.people.getUploadStatus");
-        add_argument("oauth_token", session.get_access_phase_token());
     }
 }
 
 private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
     private PublishingParameters parameters;
-    private Session session;
+    private Publishing.RESTSupport.OAuth1.Session session;
     private Publishing.RESTSupport.Argument[] auth_header_fields;
 
-    public UploadTransaction(Session session, PublishingParameters parameters,
+    public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session, PublishingParameters parameters,
         Spit.Publishing.Publishable publishable) {
         base.with_endpoint_url(session, publishable, "https://api.flickr.com/services/upload");
 
@@ -578,10 +547,6 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
         auth_header_fields += new Publishing.RESTSupport.Argument(key, value);
     }
     
-    public Publishing.RESTSupport.Argument[] get_authorization_header_fields() {
-        return auth_header_fields;
-    }
-    
     public string get_authorization_header_string() {
         string result = "OAuth ";
         
@@ -607,125 +572,6 @@ private class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
         add_header("Authorization", authorization_header);
         
         base.execute();
-    }
-}
-
-internal class Session : Publishing.RESTSupport.Session {
-    private string? access_phase_token = null;
-    private string? access_phase_token_secret = null;
-    private string? username = null;
-    private string? consumer_key = null;
-    private string? consumer_secret = null;
-
-    public Session() {
-        base(ENDPOINT_URL);
-    }
-
-    public override bool is_authenticated() {
-        return (access_phase_token != null && access_phase_token_secret != null &&
-            username != null);
-    }
-
-    public void set_api_credentials(string consumer_key, string consumer_secret) {
-        this.consumer_key = consumer_key;
-        this.consumer_secret = consumer_secret;
-    }
-    
-    public void sign_transaction(Publishing.RESTSupport.Transaction txn) {
-        string http_method = txn.get_method().to_string();
-        
-        debug("signing transaction with parameters:");
-        debug("HTTP method = " + http_method);
-
-        Publishing.RESTSupport.Argument[] base_string_arguments = txn.get_arguments();
-
-        UploadTransaction? upload_txn = txn as UploadTransaction;
-        if (upload_txn != null) {
-            debug("this transaction is an UploadTransaction; including Authorization header " +
-                "fields in signature base string");
-            
-            Publishing.RESTSupport.Argument[] auth_header_args =
-                upload_txn.get_authorization_header_fields();
-
-            foreach (Publishing.RESTSupport.Argument arg in auth_header_args)
-                base_string_arguments += arg;
-        }
-        
-        Publishing.RESTSupport.Argument[] sorted_args =
-            Publishing.RESTSupport.Argument.sort(base_string_arguments);
-        
-        string arguments_string = "";
-        for (int i = 0; i < sorted_args.length; i++) {
-            arguments_string += (sorted_args[i].key + "=" + sorted_args[i].value);
-            if (i < sorted_args.length - 1)
-                arguments_string += "&";
-        }
-
-        string? signing_key = null;
-        if (access_phase_token_secret != null) {
-            debug("access phase token secret available; using it as signing key");
-
-            signing_key = consumer_secret + "&" + access_phase_token_secret;
-        } else {
-            debug("neither access phase nor request phase token secrets available; using API " +
-                "key as signing key");
-
-            signing_key = consumer_secret + "&";
-        }
-        
-        string signature_base_string = http_method + "&" + Soup.URI.encode(
-            txn.get_endpoint_url(), ENCODE_RFC_3986_EXTRA) + "&" +
-            Soup.URI.encode(arguments_string, ENCODE_RFC_3986_EXTRA);
-
-        debug("signature base string = '%s'", signature_base_string);
-        
-        debug("signing key = '%s'", signing_key);
-
-        // compute the signature
-        string signature = RESTSupport.hmac_sha1(signing_key, signature_base_string);
-        signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
-
-        debug("signature = '%s'", signature);
-
-        if (upload_txn != null)
-            upload_txn.add_authorization_header_field("oauth_signature", signature);
-        else
-            txn.add_argument("oauth_signature", signature);
-    }
-    
-    public void set_access_phase_credentials(string token, string secret, string username) {
-        this.access_phase_token = token;
-        this.access_phase_token_secret = secret;
-        this.username = username;
-        
-        authenticated();
-    }
-
-    public string get_oauth_nonce() {
-        TimeVal currtime = TimeVal();
-        currtime.get_current_time();
-        
-        return Checksum.compute_for_string(ChecksumType.MD5, currtime.tv_sec.to_string() +
-            currtime.tv_usec.to_string());
-    }
-    
-    public string get_oauth_timestamp() {
-        return GLib.get_real_time().to_string().substring(0, 10);
-    }
-
-    public string get_consumer_key() {
-        assert(consumer_key != null);
-        return consumer_key;
-    }
-
-    public string get_access_phase_token() {
-        assert(access_phase_token != null);
-        return access_phase_token;
-    }
-    
-    public string get_username() {
-        assert(is_authenticated());
-        return username;
     }
 }
 
@@ -931,7 +777,7 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
     private bool strip_metadata;
 
-    public Uploader(Session session, Spit.Publishing.Publishable[] publishables,
+    public Uploader(Publishing.RESTSupport.OAuth1.Session session, Spit.Publishing.Publishable[] publishables,
         PublishingParameters parameters, bool strip_metadata) {
         base(session, publishables);
         
@@ -1009,7 +855,7 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
         preprocess_publishable(get_current_publishable());
-        return new UploadTransaction((Session) get_session(), parameters,
+        return new UploadTransaction((Publishing.RESTSupport.OAuth1.Session) get_session(), parameters,
             get_current_publishable());
     }
 }
