@@ -4,6 +4,7 @@ plugins/authenticator/shotwell/FacebookPublishingAuthenticator.c
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.c
 plugins/authenticator/shotwell/GoogleAuthenticator.c
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.c
+plugins/authenticator/shotwell/TumblrAuthenticator.c
 plugins/common/Resources.c
 plugins/common/RESTSupport.c
 plugins/shotwell-publishing-extras/GalleryConnector.c
