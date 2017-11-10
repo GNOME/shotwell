@@ -1,3 +1,48 @@
+Shotwell 0.26.4 - 10 Nov 2017
+  * Fix buld rules for appstream files
+  * Fix import progress bar when importing RAW files
+  * Fix renaming of backing photos when renaming to lower case on import
+  * Fix removing the RAW file when deleting photos and there is no Trash
+  * Fix duplicate detection for Canon imports
+  * Fix importing MP4 videos from certain Android devices
+  * Fix missing event pictures when moving library
+  * Fix useless sub-menu for saved searches
+  * Fix criticals on right-click
+  * Fix help files to pass validation
+  * Fix assert when removing last photo from import roll
+  * Fix scrolling and zooming by mouse wheel on Wayland
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717735
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719142
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719186
+ - https://bugzilla.gnome.org/show_bug.cgi?id=748666
+ - https://bugzilla.gnome.org/show_bug.cgi?id=773206
+ - https://bugzilla.gnome.org/show_bug.cgi?id=777626
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781472
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784883
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Andre Klapper <a9016009@gmx.de>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Thomas Moschny <thomas.moschny@gmx.de>
+ - Stefan Willinger <stefan.home@aon.at>
+ - stefan <stefan.home@aon.at>
+ - Peter Seiderer <ps.report@gmx.net>
+ - Marcos Lans <marcoslansgarza@gmail.com>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Balázs Meskó <meskobalazs@fedoraproject.org>
+
+Added/updated translations
+ - de, courtesy of Mario Blättermann
+ - gl, courtesy of marcos
+ - hu, courtesy of Meskó Balázs
+ - id, courtesy of Andika Triwidada
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.26.3 - 10 Aug 2017
   * Fix missing XML escape in wallpaper.xml file
   * Fix missing "Photos" menu content
@@ -11,7 +56,6 @@ Bugs fixed in this release:
  - https://bugzilla.gnome.org/show_bug.cgi?id=785196
  - https://bugzilla.gnome.org/show_bug.cgi?id=785503
  - https://bugzilla.gnome.org/show_bug.cgi?id=785761
- - (https://github.com/hughsie/appstream-glib), APPDATA_XML has been
 
 All contributors to this release:
  - Jens Georg <mail@jensge.org>
