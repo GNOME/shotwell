@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-10-22 09:28+0000\n"
+"POT-Creation-Date: 2017-11-07 08:07+0000\n"
 "PO-Revision-Date: 2017-10-25 18:12+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/shotwell/language/"
@@ -512,15 +512,15 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:179
 msgid "Selection state of “hide photos” option"
-msgstr "Tilstand for indstillingen \"skjul billeder\""
+msgstr "Tilstand for indstillingen “skjul billeder”"
 
 #: misc/org.yorba.shotwell.gschema.xml:180
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
-"Sidst valgte tilstand af indstillingen \"skjul allerede importerede billeder"
-"\" på importsiden."
+"Sidst valgte tilstand af indstillingen “skjul allerede importerede billeder” "
+"på importsiden."
 
 #: misc/org.yorba.shotwell.gschema.xml:187
 msgid "delay"
@@ -1651,8 +1651,9 @@ msgid "Original size"
 msgstr "Oprindelig størrelse"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
-msgid "Width or height"
-msgstr "Bredde eller højde"
+#: src/Dimensions.vala:20
+msgid "Longest edge"
+msgstr "Længste kant"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
@@ -1709,7 +1710,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Filen \"%s\" er muligvis ikke understøttet eller kan være for stor til denne "
+"Filen “%s” er muligvis ikke understøttet eller kan være for stor til denne "
 "forekomst af Gallery3."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
@@ -2935,7 +2936,7 @@ msgstr "Opret mærke"
 #: src/Commands.vala:1695
 #, c-format
 msgid "Move Tag “%s”"
-msgstr "Flyt mærket \"%s\""
+msgstr "Flyt mærket “%s”"
 
 #: src/Commands.vala:2347
 msgid "Move Photos to Trash"
@@ -3099,8 +3100,8 @@ msgstr "Kunne ikke forberede skrivebordsslideshow: %s"
 #, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] "Dette vil fjerne mærket \"%s\" fra et billede. Fortsæt?"
-msgstr[1] "Dette vil fjerne mærket \"%s\" fra %d billeder. Fortsæt?"
+msgstr[0] "Dette vil fjerne mærket “%s” fra et billede. Fortsæt?"
+msgstr[1] "Dette vil fjerne mærket “%s” fra %d billeder. Fortsæt?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
@@ -3112,7 +3113,7 @@ msgstr "_Slet"
 #: src/Dialogs.vala:25
 #, c-format
 msgid "This will remove the saved search “%s”. Continue?"
-msgstr "Dette vil fjerne den gemte søgning \"%s\". Fortsæt?"
+msgstr "Dette vil fjerne den gemte søgning “%s”. Fortsæt?"
 
 #: src/Dialogs.vala:36
 msgid ""
@@ -3981,10 +3982,6 @@ msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "Billedet eller videoen kan ikke slettes."
 msgstr[1] "%d billeder/videoer kan ikke slettes."
 
-#: src/Dimensions.vala:20
-msgid "Longest edge"
-msgstr "Længste kant"
-
 #: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Bredde"
@@ -4552,7 +4549,7 @@ msgstr "[FIL]"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
-"Kør \"%s --help\" for at se en fuldstændig liste over tilgængelige "
+"Kør “%s --help” for at se en fuldstændig liste over tilgængelige "
 "kommandolinjetilvalg.\n"
 
 #: src/MediaMonitor.vala:400
@@ -5433,13 +5430,13 @@ msgstr "Kan ikke starte redigeringsprogram: %s"
 #: src/Resources.vala:341
 #, c-format
 msgid "Add Tag “%s”"
-msgstr "Tilføj mærket \"%s\""
+msgstr "Tilføj mærket “%s”"
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:344
 #, c-format
 msgid "Add Tags “%s” and “%s”"
-msgstr "Tilføj mærkerne \"%s\" og \"%s\""
+msgstr "Tilføj mærkerne “%s” og “%s”"
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:349
@@ -5450,12 +5447,12 @@ msgstr "Tilføj mærker"
 #: src/Resources.vala:354
 #, c-format
 msgid "_Delete Tag “%s”"
-msgstr "_Slet mærke \"%s\""
+msgstr "_Slet mærke “%s”"
 
 #: src/Resources.vala:358
 #, c-format
 msgid "Delete Tag “%s”"
-msgstr "Slet mærke \"%s\""
+msgstr "Slet mærke “%s”"
 
 #: src/Resources.vala:361
 msgid "Delete Tag"
@@ -5464,12 +5461,12 @@ msgstr "Slet mærke"
 #: src/Resources.vala:367
 #, c-format
 msgid "Re_name Tag “%s”…"
-msgstr "Om_døb mærke \"%s\" …"
+msgstr "Om_døb mærke “%s” …"
 
 #: src/Resources.vala:371
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
-msgstr "Omdøb mærke \"%s\" til \"%s\""
+msgstr "Omdøb mærke “%s” til “%s”"
 
 #: src/Resources.vala:374 ui/tags.ui:456
 msgid "_Rename…"
@@ -5488,40 +5485,39 @@ msgstr "Ændr mærker"
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
-msgstr[0] "Mærk billede som \"%s\""
-msgstr[1] "Mærk billeder som \"%s\""
+msgstr[0] "Mærk billede som “%s”"
+msgstr[1] "Mærk billeder som “%s”"
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
-msgstr[0] "Mærk det valgte billede som \"%s\""
-msgstr[1] "Mærk de valgte billeder som \"%s\""
+msgstr[0] "Mærk det valgte billede som “%s”"
+msgstr[1] "Mærk de valgte billeder som “%s”"
 
 #: src/Resources.vala:392
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
-msgstr[0] "Fjern mærket \"%s\" fra _billedet"
-msgstr[1] "Fjern mærket \"%s\" fra _billederne"
+msgstr[0] "Fjern mærket “%s” fra _billedet"
+msgstr[1] "Fjern mærket “%s” fra _billederne"
 
 #: src/Resources.vala:398
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
-msgstr[0] "Fjern mærket \"%s\" fra billedet"
-msgstr[1] "Fjern mærket \"%s\" fra billederne"
+msgstr[0] "Fjern mærket “%s” fra billedet"
+msgstr[1] "Fjern mærket “%s” fra billederne"
 
 #: src/Resources.vala:404
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "Kunne ikke omdøbe mærket til \"%s\", da mærket allerede findes."
+msgstr "Kunne ikke omdøbe mærket til “%s”, da mærket allerede findes."
 
 #: src/Resources.vala:408
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
-msgstr ""
-"Kunne ikke omdøbe søgningen til \"%s\", fordi søgningen allerede findes."
+msgstr "Kunne ikke omdøbe søgningen til “%s”, fordi søgningen allerede findes."
 
 #. Saved search button
 #: src/Resources.vala:411 src/SearchFilter.vala:1120
@@ -5543,12 +5539,12 @@ msgstr "_Omdøb …"
 #: src/Resources.vala:420
 #, c-format
 msgid "Rename Search “%s” to “%s”"
-msgstr "Omdøb søgning \"%s\" til \"%s\""
+msgstr "Omdøb søgning “%s” til “%s”"
 
 #: src/Resources.vala:424
 #, c-format
 msgid "Delete Search “%s”"
-msgstr "Slet søgningen \"%s\""
+msgstr "Slet søgningen “%s”"
 
 #: src/Resources.vala:561
 #, c-format
@@ -6423,6 +6419,9 @@ msgstr "sekunder"
 msgid "Delete all photos in the trash"
 msgstr "Slet alle billeder i papirkurven"
 
+#~ msgid "Width or height"
+#~ msgstr "Bredde eller højde"
+
 #~ msgid "Export Photos/Videos"
 #~ msgstr "Eksportér billeder/videoer"
 
@@ -6524,7 +6523,7 @@ msgstr "Slet alle billeder i papirkurven"
 #~ msgstr "V_is album i offentlig galleri"
 
 #~ msgid "Videos will appear in “%s”"
-#~ msgstr "Videoer vil blive vist i \"%s\""
+#~ msgstr "Videoer vil blive vist i “%s”"
 
 #, fuzzy
 #~ msgid "A file required for publishing is unavailable. Publishing to "
@@ -6549,7 +6548,7 @@ msgstr "Slet alle billeder i papirkurven"
 #~ msgstr "Afspil et diasshow"
 
 #~ msgid "Save Details..."
-#~ msgstr "Gem detaljer..."
+#~ msgstr "Gem detaljer …"
 
 #~ msgid "_Modify original files"
 #~ msgstr "_Modifiser originale filer"
@@ -6603,61 +6602,61 @@ msgstr "Slet alle billeder i papirkurven"
 #~ msgstr "Zoom billedet til 200 %"
 
 #~ msgid "Set as _Desktop Slideshow..."
-#~ msgstr "Sæt som _Desktop Slideshow..."
+#~ msgstr "Sæt som _Desktop Slideshow …"
 
 #~ msgid "Re_name Event..."
-#~ msgstr "_Omdøb hændelse..."
+#~ msgstr "_Omdøb hændelse …"
 
 #~ msgid "_Export..."
-#~ msgstr "_Eksporterer..."
+#~ msgstr "_Eksporterer …"
 
 #~ msgid "Pu_blish..."
-#~ msgstr "Ud_giv..."
+#~ msgstr "Ud_giv …"
 
 #~ msgid "Edit _Title..."
-#~ msgstr "Redigér _title..."
+#~ msgstr "Redigér _title …"
 
 #~ msgid "Edit _Comment..."
-#~ msgstr "Redigér _kommentar..."
+#~ msgstr "Redigér _kommentar …"
 
 #~ msgid "Edit Event _Comment..."
-#~ msgstr "Redigér _kommentar for hændelse..."
+#~ msgstr "Redigér _kommentar for hændelse …"
 
 #~ msgid "_Adjust Date and Time..."
-#~ msgstr "_Juster dato og tid..."
+#~ msgstr "_Juster dato og tid …"
 
 #~ msgid "Add _Tags..."
-#~ msgstr "Tilføj _mærker..."
+#~ msgstr "Tilføj _mærker …"
 
 #~ msgid "_Add Tags..."
-#~ msgstr "_Tilføj mærker..."
+#~ msgstr "_Tilføj mærker …"
 
 #~ msgid "Send _To..."
-#~ msgstr "Send _til..."
+#~ msgstr "Send _til …"
 
 #~ msgid "Send T_o..."
-#~ msgstr "Send t_il..."
+#~ msgstr "Send t_il …"
 
 #~ msgid "_Find..."
-#~ msgstr "_Find..."
+#~ msgstr "_Find …"
 
 #~ msgid "Modif_y Tags..."
-#~ msgstr "_Ændre mærker..."
+#~ msgstr "_Ændre mærker …"
 
 #~ msgid "Tag Photos as \"%s\""
-#~ msgstr "Mærk billede som \"%s\""
+#~ msgstr "Mærk billede som “%s”"
 
 #~ msgid "Tag the selected photos as \"%s\""
-#~ msgstr "Mærk de udvalgte billeder som \"%s\""
+#~ msgstr "Mærk de udvalgte billeder som “%s”"
 
 #~ msgid "Remove Tag \"%s\" From _Photos"
-#~ msgstr "_Fjern mærke \"%s\" fra billeder"
+#~ msgstr "_Fjern mærke “%s” fra billeder"
 
 #~ msgid "Remove Tag \"%s\" From Photos"
-#~ msgstr "Fjern mærke \"%s\" fra billeder"
+#~ msgstr "Fjern mærke “%s” fra billeder"
 
 #~ msgid "_Edit..."
-#~ msgstr "R_edigér..."
+#~ msgstr "R_edigér …"
 
 #~ msgid "%-I:%M %p"
 #~ msgstr "%-H:%M"
@@ -6678,7 +6677,7 @@ msgstr "Slet alle billeder i papirkurven"
 #~ msgstr "Gem billede"
 
 #~ msgid "Save _As..."
-#~ msgstr "Gem _som..."
+#~ msgstr "Gem _som …"
 
 #~ msgid "Save photo with a different name"
 #~ msgstr "Gem billede med et andet navn"
@@ -6690,22 +6689,22 @@ msgstr "Slet alle billeder i papirkurven"
 #~ msgstr "Vis kommentaren for hver hændelse"
 
 #~ msgid "Importing..."
-#~ msgstr "Importerer..."
+#~ msgstr "Importerer …"
 
 #~ msgid "Stop importing photos"
 #~ msgstr "Stop importering af billeder"
 
 #~ msgid "Preparing to import..."
-#~ msgstr "Forbereder til at importere ..."
+#~ msgstr "Forbereder til at importere …"
 
 #~ msgid "_Import From Folder..."
-#~ msgstr "_Importer fra mappe..."
+#~ msgstr "_Importer fra mappe …"
 
 #~ msgid "Import photos from disk to library"
 #~ msgstr "Importer billeder fra harddisken til biblioteket"
 
 #~ msgid "Import From _Application..."
-#~ msgstr "Importér fra progr_am..."
+#~ msgstr "Importér fra progr_am …"
 
 #~ msgid "Find photos and videos by search criteria"
 #~ msgstr "Find fotos og videoer med søgekriterier"
