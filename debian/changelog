@@ -1,3 +1,21 @@
+shotwell (0.26.4-0~jensge1~artful1) artful; urgency=medium
+
+  * Fix buld rules for appstream files
+  * Fix import progress bar when importing RAW files
+  * Fix renaming of backing photos when renaming to lower case on import
+  * Fix removing the RAW file when deleting photos and there is no Trash
+  * Fix duplicate detection for Canon imports
+  * Fix importing MP4 videos from certain Android devices
+  * Fix missing event pictures when moving library
+  * Fix useless sub-menu for saved searches
+  * Fix criticals on right-click
+  * Fix help files to pass validation
+  * Fix assert when removing last photo from import roll
+  * Fix scrolling and zooming by mouse wheel on Wayland
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Sat, 11 Nov 2017 12:21:44 +0100
+
 shotwell (0.26.3-0~jensge1~xenial1) xenial; urgency=medium
 
   * Fix missing XML escape in wallpaper.xml file
