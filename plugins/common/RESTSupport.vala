@@ -914,13 +914,18 @@ namespace OAuth1 {
             this.consumer_secret = consumer_secret;
         }
 
-        public void sign_transaction(Publishing.RESTSupport.Transaction txn) {
+        public string sign_transaction(Publishing.RESTSupport.Transaction txn,
+                                     Publishing.RESTSupport.Argument[]? extra_arguments = null) {
             string http_method = txn.get_method().to_string();
 
             debug("signing transaction with parameters:");
             debug("HTTP method = " + http_method);
 
             Publishing.RESTSupport.Argument[] base_string_arguments = txn.get_arguments();
+
+            foreach (var arg in extra_arguments) {
+                base_string_arguments += arg;
+            }
 
             Publishing.RESTSupport.Argument[] sorted_args =
                 Publishing.RESTSupport.Argument.sort(base_string_arguments);
@@ -957,7 +962,7 @@ namespace OAuth1 {
 
             debug("signature = '%s'", signature);
 
-            txn.add_argument("oauth_signature", signature);
+            return signature;
         }
 
         public void set_request_phase_credentials(string token, string secret) {
@@ -1043,7 +1048,8 @@ namespace OAuth1 {
 
 
         public override void execute() throws Spit.Publishing.PublishingError {
-            ((Session) get_parent_session()).sign_transaction(this);
+            var signature = ((Session) get_parent_session()).sign_transaction(this);
+            add_argument("oauth_signature", signature);
 
             base.execute();
         }
@@ -1078,7 +1084,9 @@ namespace OAuth1 {
         }
 
         public void authorize() {
-            session.sign_transaction(this);
+            var signature = session.sign_transaction(this, auth_header_fields);
+            add_authorization_header_field("oauth_signature", signature);
+
 
             string authorization_header = get_authorization_header_string();
 
