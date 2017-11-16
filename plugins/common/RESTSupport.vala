@@ -123,14 +123,16 @@ public class Argument {
         this.value = value;
     }
 
-    public static string serialize_list(Argument[] args) {
+    public static string serialize_list(Argument[] args, bool escape = false, string? separator = "&") {
         var builder = new StringBuilder("");
 
         foreach (var arg in args) {
-            builder.append(arg.to_string());
-            builder.append("&");
+            builder.append(arg.to_string(escape));
+            builder.append(separator);
         }
-        builder.truncate(builder.len - 1);
+
+        if (builder.len > 0)
+            builder.truncate(builder.len - separator.length);
 
         return builder.str;
     }
@@ -148,8 +150,8 @@ public class Argument {
         return sorted_args.to_array();
     }
 
-    public string to_string () {
-        return "%s=%s".printf (this.key, this.value);
+    public string to_string (bool escape = false) {
+        return "%s=%s%s%s".printf (this.key, escape ? "\"" : "", this.value, escape ? "\"" : "");
     }
 }
 
@@ -1065,7 +1067,7 @@ namespace OAuth1 {
         }
 
         public string get_authorization_header_string() {
-            return "OAuth " + Argument.serialize_list(auth_header_fields);
+            return "OAuth " + Argument.serialize_list(auth_header_fields, true, ", ");
         }
 
         public void authorize() {
