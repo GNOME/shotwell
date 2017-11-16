@@ -128,12 +128,11 @@ namespace Publishing.Tumblr {
             this.blogs = this.create_blogs();
 
             this.authenticator = Publishing.Authenticator.Factory.get_instance().create("tumblr", host);
-            debug("=> Connecting to signal!");
-            this.authenticator.authenticated.connect(on_session_authenticated);
+            this.authenticator.authenticated.connect(on_authenticator_authenticated);
         }
 
         ~TumblrPublisher() {
-            this.authenticator.authenticated.disconnect(on_session_authenticated);
+            this.authenticator.authenticated.disconnect(on_authenticator_authenticated);
         }
 
         // Publisher interface implementation
@@ -168,7 +167,7 @@ namespace Publishing.Tumblr {
 
         // Actions and events implementation
 
-        private void on_session_authenticated() {
+        private void on_authenticator_authenticated() {
             if (!is_running())
                 return;
 
