@@ -123,7 +123,7 @@ namespace Publishing.Tumblr {
             debug("TumblrPublisher instantiated.");
             this.service = service;
             this.host = host;
-            this.session = new Publishing.RESTSupport.OAuth1.Session();
+            this.session = new Publishing.RESTSupport.OAuth1.Session(ENDPOINT_URL);
             this.sizes = this.create_sizes();
             this.blogs = this.create_blogs();
 

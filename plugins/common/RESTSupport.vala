@@ -885,8 +885,8 @@ namespace OAuth1 {
         private string? consumer_key = null;
         private string? consumer_secret = null;
 
-        public Session() {
-            base();
+        public Session(string? endpoint_uri = null) {
+            base(endpoint_uri);
         }
 
         public override bool is_authenticated() {
@@ -1000,6 +1000,10 @@ namespace OAuth1 {
             return access_phase_token;
         }
 
+        public bool has_access_phase_token() {
+            return access_phase_token != null;
+        }
+
         public string get_access_phase_token_secret() {
             assert(access_phase_token_secret != null);
             return access_phase_token_secret;
@@ -1032,6 +1036,9 @@ namespace OAuth1 {
             add_argument("oauth_version", "1.0");
             add_argument("oauth_timestamp", session.get_oauth_timestamp());
             add_argument("oauth_consumer_key", session.get_consumer_key());
+            if (session.has_access_phase_token()) {
+                add_argument("oauth_token", session.get_access_phase_token());
+            }
         }
 
 
@@ -1043,7 +1050,7 @@ namespace OAuth1 {
     }
 
     public class UploadTransaction : Publishing.RESTSupport.UploadTransaction {
-        protected Publishing.RESTSupport.OAuth1.Session session;
+        protected unowned Publishing.RESTSupport.OAuth1.Session session;
         private Publishing.RESTSupport.Argument[] auth_header_fields;
 
         public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session,
@@ -1052,11 +1059,11 @@ namespace OAuth1 {
             base.with_endpoint_url(session, publishable, endpoint_uri);
 
             this.auth_header_fields = new Publishing.RESTSupport.Argument[0];
+            this.session = session;
 
             add_authorization_header_field("oauth_nonce", session.get_oauth_nonce());
             add_authorization_header_field("oauth_signature_method", "HMAC-SHA1");
             add_authorization_header_field("oauth_version", "1.0");
-            add_authorization_header_field("oauth_callback", "oob");
             add_authorization_header_field("oauth_timestamp", session.get_oauth_timestamp());
             add_authorization_header_field("oauth_consumer_key", session.get_consumer_key());
             add_authorization_header_field("oauth_token", session.get_access_phase_token());

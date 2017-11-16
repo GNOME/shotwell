@@ -59,7 +59,6 @@ internal const string SERVICE_NAME = "Flickr";
 internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";
 internal const int ORIGINAL_SIZE = -1;
 internal const string EXPIRED_SESSION_ERROR_CODE = "98";
-internal const string ENCODE_RFC_3986_EXTRA = "!*'();:@&=+$,/?%#[] \\";
 
 internal enum UserKind {
     PRO,
@@ -107,7 +106,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("FlickrPublisher instantiated.");
         this.service = service;
         this.host = host;
-        this.session = new Publishing.RESTSupport.OAuth1.Session();
+        this.session = new Publishing.RESTSupport.OAuth1.Session(ENDPOINT_URL);
         this.parameters = new PublishingParameters();
         this.authenticator = Publishing.Authenticator.Factory.get_instance().create("flickr", host);
 
