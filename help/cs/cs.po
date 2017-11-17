@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-09-04 08:44+0000\n"
-"PO-Revision-Date: 2016-09-13 11:15+0200\n"
+"POT-Creation-Date: 2017-11-11 19:41+0000\n"
+"PO-Revision-Date: 2017-11-17 22:30+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -163,18 +163,6 @@ msgstr ""
 "nejtmavější černá. Použijte ke změně kontrastu fotografie. Změna tohoto "
 "nastavení může přinést výsledky u fotografií, které vypadají mdle a vybledle."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/edit-crop.page:42
-msgctxt "_"
-msgid ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-msgstr ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
 msgid "Improve the composition of a photo by cutting out parts of it."
@@ -306,6 +294,18 @@ msgid ""
 msgstr ""
 "Oříznutí fotografie podle pravidla třetin čas přinese výsledek v podobě "
 "mnohem působivějšího obrázku."
+
+#. (itstool) path: section/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+msgctxt "_"
+msgid ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+msgstr ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
@@ -721,13 +721,13 @@ msgstr "Podporované formáty fotografií a videí"
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
+"link> photo files. Shotwell does not yet support other graphics format such "
+"as GIF."
 msgstr ""
 "Shotwell podporuje soubory s fotografiemi ve formátech JPEG, PNG, TIFF, BMP "
-"a <link type=\"guide\" xref=\"other-raw\">RAW</link>. Zatím nepodporuje "
-"další formáty, jako je třeba GIF."
+"a <link xref=\"other-raw\">RAW</link>. Zatím nepodporuje další formáty, jako "
+"je třeba GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -748,10 +748,10 @@ msgstr ""
 #: C/formats.page:18
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 "Více informací o formátu fotografií RAW v aplikaci Shotwell najdete v oddíle "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link>."
+"<link xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -1043,12 +1043,43 @@ msgstr ""
 "<link xref=\"import-camera\">přímo připojením svého fotoaparátu k počítači</"
 "link>."
 
-#. (itstool) path: media
+#. (itstool) path: info/title
+#: C/index.page:6
+msgctxt "link"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:8
+msgid "Jim Nelson"
+msgstr "Jim Nelson"
+
+#. (itstool) path: credit/name
+#: C/index.page:10
+msgid "Allison Barlow"
+msgstr "Allison Barlow"
+
+#. (itstool) path: credit/name
+#: C/index.page:12
+msgid "Robert Ancell"
+msgstr "Robert Ancell"
+
+#. (itstool) path: credit/name
+#: C/index.page:14
+msgid "Peter Smith"
+msgstr "Peter Smith"
+
+#. (itstool) path: credit/name
+#: C/index.page:16
+msgid "Phil Bull"
+msgstr "Phil Bull"
+
+#. (itstool) path: title/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
+#: C/index.page:22
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -1057,45 +1088,8 @@ msgstr ""
 "external ref='figures/shotwell_logo.png' "
 "md5='4b333499555b4e496b1a38f7899067f3'"
 
-#. (itstool) path: info/title
-#: C/index.page:6
-msgctxt "link"
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#. (itstool) path: info/title
-#: C/index.page:7
-msgctxt "text"
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#. (itstool) path: credit/name
-#: C/index.page:9
-msgid "Jim Nelson"
-msgstr "Jim Nelson"
-
-#. (itstool) path: credit/name
-#: C/index.page:11
-msgid "Allison Barlow"
-msgstr "Allison Barlow"
-
-#. (itstool) path: credit/name
-#: C/index.page:13
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#. (itstool) path: credit/name
-#: C/index.page:15
-msgid "Peter Smith"
-msgstr "Peter Smith"
-
-#. (itstool) path: credit/name
-#: C/index.page:17
-msgid "Phil Bull"
-msgstr "Phil Bull"
-
 #. (itstool) path: page/title
-#: C/index.page:23
+#: C/index.page:22
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -1104,32 +1098,32 @@ msgstr ""
 "Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:26
+#: C/index.page:25
 msgid "Importing Photos"
 msgstr "Import fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:30
+#: C/index.page:29
 msgid "Viewing Photos"
 msgstr "Zobrazení fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:34
+#: C/index.page:33
 msgid "Organizing Photos"
 msgstr "Třídění fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:38
+#: C/index.page:37
 msgid "Editing Photos"
 msgstr "Úprava fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:42
+#: C/index.page:41
 msgid "Sharing Photos"
 msgstr "Sdílení fotografií"
 
 #. (itstool) path: section/title
-#: C/index.page:46
+#: C/index.page:45
 msgid "Other Features"
 msgstr "Ostatní funkce"
 
@@ -1461,20 +1455,6 @@ msgstr ""
 "<guiseq><gui>Hodnotit</gui><gui>Snížit</gui></guiseq>, nebo klávesovými "
 "zkratkami <key>&lt;</key> a <key>&gt;</key>."
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/organize-remove.page:15
-msgctxt "_"
-msgid ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
 msgid ""
@@ -1495,6 +1475,20 @@ msgstr ""
 "Fotografie můžete odebrat z knihovny a navíc i úplně smazat z pevného disku."
 
 #. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+
+#. (itstool) path: media/p
 #: C/organize-remove.page:15
 msgid "Delete process"
 msgstr "Postup mazání"
@@ -3242,6 +3236,10 @@ msgstr ""
 "fotografiím přiřadili. Každá fotografie může mít přiřazeno více štítků. Když "
 "kliknete na název štítku v postranním panelu, uvidíte všechny fotografie, "
 "které mají takovýto štítek přiřazený."
+
+#~ msgctxt "text"
+#~ msgid "Shotwell"
+#~ msgstr "Shotwell"
 
 #~ msgid "Facebook"
 #~ msgstr "Facebook"
