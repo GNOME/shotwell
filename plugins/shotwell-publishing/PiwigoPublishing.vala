@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -11,7 +11,8 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public PiwigoService(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set = Resources.load_from_resource
+                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
     
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -29,7 +30,7 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Bruno Girin";
-        info.copyright = _("Copyright 2009-2015 Yorba Foundation");
+        info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -63,7 +64,7 @@ internal class Category {
     public string comment;
     public string display_name;
     public string uppercats;
-    public static const int NO_ID = -1;
+    public const int NO_ID = -1;
 
     public Category(int id, string name, string uppercats, string? comment = "") {
         this.id = id;
@@ -83,6 +84,10 @@ internal class Category {
 
     public bool is_local() {
         return this.id == NO_ID;
+    }
+
+    public static bool equal (Category self, Category other) {
+        return self.id == other.id;
     }
 }
 
@@ -283,6 +288,30 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_dialog_default_widget(authentication_pane.get_default_widget());
     }
 
+    private void do_show_ssl_downgrade_pane (SessionLoginTransaction trans,
+                                             string url) {
+        var uri = new Soup.URI (url);
+        host.set_service_locked (false);
+        var ssl_pane = new SSLErrorPane (trans, uri.get_host ());
+        ssl_pane.proceed.connect (() => {
+            debug ("SSL: User wants us to retry with broken certificate");
+            this.session = new Session ();
+            this.session.set_insecure ();
+
+            string? persistent_url = get_persistent_url();
+            string? persistent_username = get_persistent_username();
+            string? persistent_password = get_persistent_password();
+            if (persistent_url != null && persistent_username != null && persistent_password != null)
+                do_network_login(persistent_url, persistent_username,
+                    persistent_password, get_remember_password());
+            else
+                do_show_authentication_pane();
+        });
+        host.install_dialog_pane (ssl_pane,
+                                  Spit.Publishing.PluginHost.ButtonMode.CLOSE);
+        host.set_dialog_default_widget (ssl_pane.get_default_widget ());
+    }
+
     /**
      * Event triggered when the login button in the authentication panel is
      * clicked.
@@ -334,8 +363,13 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             login_trans.execute();
         } catch (Spit.Publishing.PublishingError err) {
-            debug("ERROR: do_network_login");
-            do_show_error(err);
+            if (err is Spit.Publishing.PublishingError.SSL_FAILED) {
+                debug ("ERROR: SSL connection problems");
+                do_show_ssl_downgrade_pane (login_trans, url);
+            } else {
+                debug("ERROR: do_network_login");
+                do_show_error(err);
+            }
         }
     }
     
@@ -399,7 +433,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("Setting endpoint URL to %s", endpoint_url);
         string pwg_id = get_pwg_id_from_transaction(txn);
         debug("Setting session pwg_id to %s", pwg_id);
-        session = new Session();
         session.set_pwg_id(pwg_id);
 
         do_fetch_session_status(endpoint_url, pwg_id);
@@ -584,35 +617,29 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             string name = "";
             string id_string = "";
             string uppercats = "";
+            var id_map = new Gee.HashMap<string, string> ();
+
             for ( ; category_node_iter != null; category_node_iter = category_node_iter->next) {
                 name_node = doc.get_named_child(category_node_iter, "name");
                 name = name_node->get_content();
                 uppercats_node = doc.get_named_child(category_node_iter, "uppercats");
                 uppercats = (string)uppercats_node->get_content();
                 id_string = category_node_iter->get_prop("id");
+                id_map.set (id_string, name);
+
                 if (categories == null) {
                     categories = new Category[0];
                 }
                 categories += new Category(int.parse(id_string), name, uppercats);
             }
+
             // compute the display name for the categories
-            // currently done by an unnecessary triple loop
-            // one could make a loop that goes over the categories
-            // and creates a list of back references cat_id -> index
-            // but since cat_ids are not guaranteed to be continuous
-            // that needs a perl hash ;-)
             for(int i = 0; i < categories.length; i++) {
                 string[] upcatids = categories[i].uppercats.split(",");
                 var builder = new StringBuilder();
                 for (int j=0; j < upcatids.length; j++) {
                     builder.append ("/ ");
-                    // search for the upper category
-                    for (int k=0; k < categories.length; k++) {
-                        if (upcatids[j] == categories[k].id.to_string()) {
-                            builder.append (categories[k].name);
-                            break;
-                        }
-                    }
+                    builder.append (id_map.get (upcatids[j]));
                     builder.append (" ");
                 }
                 categories[i].display_name = builder.str;
@@ -743,7 +770,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         assert(category.is_local());
 
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Creating album %s...").printf(category.name));
+        host.install_static_message_pane(_("Creating album %s…").printf(category.name));
 
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(
             session, category.name.strip(), int.parse(category.uppercats), category.comment);
@@ -911,6 +938,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             error_type = "LOCAL_FILE_ERROR";
         } else if(e is Spit.Publishing.PublishingError.EXPIRED_SESSION) {
             error_type = "EXPIRED_SESSION";
+        } else if (e is Spit.Publishing.PublishingError.SSL_FAILED) {
+            error_type = "SECURE_CONNECTION_FAILED";
         }
         
         debug("Unhandled error: type=%s; message='%s'".printf(error_type, e.message));
@@ -937,29 +966,18 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * @param txn the received transaction
      * @return the value of pwg_id if present or null if not found
      */
-    private new string? get_pwg_id_from_transaction(Publishing.RESTSupport.Transaction txn) {
-        string cookie = txn.get_response_headers().get_list("Set-Cookie");
-        string pwg_id = null;
-        debug("Full cookie string: %s".printf(cookie));
-        if (!is_string_empty(cookie)) {
-            string[] cookie_segments = cookie.split(";");
-            debug("Split full string into %d individual segments".printf(cookie_segments.length));
-            foreach(string cookie_segment in cookie_segments) {
-                debug("Individual cookie segment: %s".printf(cookie_segment));
-                string[] cookie_sub_segments = cookie_segment.split(",");
-                debug("Split segment into %d individual sub-segments".printf(cookie_sub_segments.length));
-                foreach(string cookie_sub_segment in cookie_sub_segments) {
-                    debug("Individual cookie sub-segment: %s".printf(cookie_sub_segment));
-                    string[] cookie_kv = cookie_sub_segment.split("=");
-                    debug("Split sub-segment into %d chunks".printf(cookie_kv.length));
-                    if (cookie_kv.length > 1 && cookie_kv[0].strip() == "pwg_id") {
-                        debug("Found pwg_id: %s".printf(cookie_kv[1].strip()));
-                        pwg_id = cookie_kv[1].strip();
-                    }
-                }
+    private string? get_pwg_id_from_transaction(Publishing.RESTSupport.Transaction txn) {
+        string? pwg_id = null;
+
+        foreach (var cookie in Soup.cookies_from_response(txn.get_message())) {
+            if (cookie.get_name() == "pwg_id") {
+                // Collect all ids, last one is the one to use. First one is
+                // for Guest apparently
+                pwg_id = cookie.get_value();
+                debug ("Found pwg_id %s", pwg_id);
             }
         }
-        
+
         return pwg_id;
     }
 }
@@ -985,94 +1003,148 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
 
 // UI elements
 
+internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
+
+    public signal void proceed ();
+    public string host { owned get; construct; }
+    public TlsCertificate cert { private get; construct; }
+    public string error_text { owned get; construct; }
+
+    public SSLErrorPane (SessionLoginTransaction transaction,
+                         string host) {
+        TlsCertificate cert;
+        var text = transaction.detailed_error_from_tls_flags (out cert);
+        Object (resource_path : Resources.RESOURCE_PATH +
+                                "/piwigo_ssl_failure_pane.ui",
+                default_id: "default",
+                cert : cert,
+                error_text : text,
+                host : host);
+    }
+
+    public override void constructed () {
+        base.constructed ();
+
+        var label = this.get_builder ().get_object ("main_text") as Gtk.Label;
+        // %s is the host name that we tried to connect to
+        label.set_text (_("This does not look like the real <b>%s</b>. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf (host));
+        label.use_markup = true;
+
+        label = this.get_builder ().get_object ("ssl_errors") as Gtk.Label;
+        label.set_text (error_text);
+
+        var info = this.get_builder ().get_object ("default") as Gtk.Button;
+        info.clicked.connect (() => {
+            var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
+            var widget = new Gcr.CertificateWidget (simple_cert);
+            bool use_header = true;
+            Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+            var flags = (Gtk.DialogFlags) 0;
+            if (use_header) {
+                flags |= Gtk.DialogFlags.USE_HEADER_BAR;
+            }
+
+            var dialog = new Gtk.Dialog.with_buttons (
+                            _("Certificate of %s").printf (host),
+                            null,
+                            flags,
+                            _("_OK"), Gtk.ResponseType.OK);
+            dialog.get_content_area ().add (widget);
+            dialog.set_default_response (Gtk.ResponseType.OK);
+            dialog.set_default_size (640, -1);
+            dialog.show_all ();
+            dialog.run ();
+            dialog.destroy ();
+        });
+
+        var proceed = this.get_builder ().get_object ("proceed_button") as Gtk.Button;
+        proceed.clicked.connect (() => { this.proceed (); });
+    }
+}
+
 /**
  * The authentication pane used when asking service URL, user name and password
  * from the user.
  */
-internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
+internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
     public enum Mode {
         INTRO,
         FAILED_RETRY_URL,
         FAILED_RETRY_USER
     }
+
+    public Mode mode { get; construct; }
+    public unowned PiwigoPublisher publisher { get; construct; }
+
     private static string INTRO_MESSAGE = _("Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library.");
     private static string FAILED_RETRY_URL_MESSAGE = _("Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered");
     private static string FAILED_RETRY_USER_MESSAGE = _("Username and/or password invalid. Please try again");
 
-    private Gtk.Box pane_widget = null;
-    private Gtk.Builder builder;
     private Gtk.Entry url_entry;
     private Gtk.Entry username_entry;
     private Gtk.Entry password_entry;
-    private Gtk.CheckButton remember_password_checkbutton;
+    private Gtk.Switch remember_password_checkbutton;
     private Gtk.Button login_button;
 
     public signal void login(string url, string user, string password, bool remember_password);
 
-    public AuthenticationPane(PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
-        this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        File ui_file = publisher.get_host().get_module_file().get_parent().
-            get_child("piwigo_authentication_pane.glade");
-        
-        try {
-            builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
-            builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
-            
-            Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
-            switch (mode) {
-                case Mode.INTRO:
-                    message_label.set_text(INTRO_MESSAGE);
-                    break;
-
-                case Mode.FAILED_RETRY_URL:
-                    message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
-                        "Invalid URL"), FAILED_RETRY_URL_MESSAGE));
-                    break;
-
-                case Mode.FAILED_RETRY_USER:
-                    message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
-                        "Invalid User Name or Password"), FAILED_RETRY_USER_MESSAGE));
-                    break;
-            }
-
-            url_entry = builder.get_object ("url_entry") as Gtk.Entry;
-            string? persistent_url = publisher.get_persistent_url();
-            if (persistent_url != null) {
-                url_entry.set_text(persistent_url);
-            }
-            username_entry = builder.get_object ("username_entry") as Gtk.Entry;
-            string? persistent_username = publisher.get_persistent_username();
-            if (persistent_username != null) {
-                username_entry.set_text(persistent_username);
-            }
-            password_entry = builder.get_object ("password_entry") as Gtk.Entry;
-            string? persistent_password = publisher.get_persistent_password();
-            if (persistent_password != null) {
-                password_entry.set_text(persistent_password);
-            }
-            remember_password_checkbutton =
-                builder.get_object ("remember_password_checkbutton") as Gtk.CheckButton;
-            remember_password_checkbutton.set_active(publisher.get_remember_password());
-
-            login_button = builder.get_object("login_button") as Gtk.Button;
-
-            username_entry.changed.connect(on_user_changed);
-            url_entry.changed.connect(on_url_changed);
-            password_entry.changed.connect(on_password_changed);
-            login_button.clicked.connect(on_login_button_clicked);
-
-            align.reparent(pane_widget);
-            publisher.get_host().set_dialog_default_widget(login_button);
-        } catch (Error e) {
-            warning("Could not load UI: %s", e.message);
-        }
+    public AuthenticationPane (PiwigoPublisher publisher, Mode mode = Mode.INTRO) {
+        Object (resource_path : Resources.RESOURCE_PATH +
+                                "/piwigo_authentication_pane.ui",
+                connect_signals : true,
+                default_id : "login_button",
+                mode : mode,
+                publisher : publisher);
     }
-    
-    public Gtk.Widget get_default_widget() {
-        return login_button;
+
+    public override void constructed () {
+        base.constructed ();
+
+        var builder = this.get_builder ();
+        var message_label = builder.get_object("message_label") as Gtk.Label;
+        switch (mode) {
+            case Mode.INTRO:
+                message_label.set_text(INTRO_MESSAGE);
+                break;
+
+            case Mode.FAILED_RETRY_URL:
+                message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
+                    "Invalid URL"), FAILED_RETRY_URL_MESSAGE));
+                break;
+
+            case Mode.FAILED_RETRY_USER:
+                message_label.set_markup("<b>%s</b>\n\n%s".printf(_(
+                    "Invalid User Name or Password"), FAILED_RETRY_USER_MESSAGE));
+                break;
+        }
+
+        url_entry = builder.get_object ("url_entry") as Gtk.Entry;
+        string? persistent_url = publisher.get_persistent_url();
+        if (persistent_url != null) {
+            url_entry.set_text(persistent_url);
+        }
+        username_entry = builder.get_object ("username_entry") as Gtk.Entry;
+        string? persistent_username = publisher.get_persistent_username();
+        if (persistent_username != null) {
+            username_entry.set_text(persistent_username);
+        }
+        password_entry = builder.get_object ("password_entry") as Gtk.Entry;
+        string? persistent_password = publisher.get_persistent_password();
+        if (persistent_password != null) {
+            password_entry.set_text(persistent_password);
+        }
+        remember_password_checkbutton =
+            builder.get_object ("remember_password_checkbutton") as Gtk.Switch;
+        remember_password_checkbutton.set_active(publisher.get_remember_password());
+
+        login_button = builder.get_object("login_button") as Gtk.Button;
+
+        username_entry.changed.connect(on_user_changed);
+        url_entry.changed.connect(on_url_changed);
+        password_entry.changed.connect(on_password_changed);
+        login_button.clicked.connect(on_login_button_clicked);
+
+        publisher.get_host().set_dialog_default_widget(login_button);
     }
 
     private void on_login_button_clicked() {
@@ -1093,41 +1165,28 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object {
     }
     
     private void update_login_button_sensitivity() {
-        login_button.set_sensitive(
-            !is_string_empty(url_entry.get_text()) &&
-            !is_string_empty(username_entry.get_text()) &&
-            !is_string_empty(password_entry.get_text())
-        );
+        login_button.set_sensitive(url_entry.text_length != 0 &&
+                                   username_entry.text_length != 0 &&
+                                   password_entry.text_length != 0);
     }
     
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public void on_pane_installed() {
+    public override void on_pane_installed() {
+        base.on_pane_installed ();
+
         url_entry.grab_focus();
         password_entry.set_activates_default(true);
         login_button.can_default = true;
         update_login_button_sensitivity();
-    }
-    
-    public void on_pane_uninstalled() {
     }
 }
 
 /**
  * The publishing options pane.
  */
-internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
+internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
     private static string DEFAULT_CATEGORY_NAME = _("Shotwell Connect");
 
-    private Gtk.Box pane_widget = null;
-    private Gtk.Builder builder;
     private Gtk.RadioButton use_existing_radio;
     private Gtk.RadioButton create_new_radio;
     private Gtk.ComboBoxText existing_categories_combo;
@@ -1143,91 +1202,88 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private Gtk.Button publish_button;
     private Gtk.TextView album_comment;
     private Gtk.Label album_comment_label;
-    
-    private Category[] existing_categories;
+
     private PermissionLevel[] perm_levels;
     private SizeEntry[] photo_sizes;
-    
-    private int last_category;
-    private int last_permission_level;
-    private int last_photo_size;
-    private bool last_title_as_comment;
-    private bool last_no_upload_tags;
+
+    public int last_category { private get; construct; }
+    public int last_permission_level { private get; construct; }
+    public int last_photo_size { private get; construct; }
+    public bool last_title_as_comment { private get; construct; }
+    public bool last_no_upload_tags { private get; construct; }
+    public bool strip_metadata_enabled { private get; construct; }
+    public Gee.List<Category> existing_categories { private get; construct; }
+    public string default_comment { private get; construct; }
 
     public signal void publish(PublishingParameters parameters, bool strip_metadata);
     public signal void logout();
 
-    public PublishingOptionsPane(
-        PiwigoPublisher publisher, Category[] categories,
-        int last_category, int last_permission_level, int last_photo_size,
-        bool last_title_as_comment, bool last_no_upload_tags, bool strip_metadata_enabled
-    ) {
-        this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        this.last_category = last_category;
-        this.last_permission_level = last_permission_level;
-        this.last_photo_size = last_photo_size;
-        this.last_title_as_comment = last_title_as_comment;
-        this.last_no_upload_tags = last_no_upload_tags;
+    public PublishingOptionsPane(PiwigoPublisher publisher,
+                                 Category[] categories,
+                                 int last_category,
+                                 int last_permission_level,
+                                 int last_photo_size,
+                                 bool last_title_as_comment,
+                                 bool last_no_upload_tags,
+                                 bool strip_metadata_enabled) {
+        Object (resource_path : Resources.RESOURCE_PATH +
+                                "/piwigo_publishing_options_pane.ui",
+                connect_signals : true,
+                default_id : "publish_button",
+                last_category : last_category,
+                last_permission_level : last_permission_level,
+                last_photo_size : last_photo_size,
+                last_title_as_comment : last_title_as_comment,
+                last_no_upload_tags : last_no_upload_tags,
+                strip_metadata_enabled : strip_metadata_enabled,
+                existing_categories : new Gee.ArrayList<Category>.wrap (categories,
+                                                          Category.equal),
+                default_comment : get_common_comment_if_possible (publisher));
+    }
 
-        File ui_file = publisher.get_host().get_module_file().get_parent().
-            get_child("piwigo_publishing_options_pane.glade");
-        
-        try {
-            builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
-            builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
-            
-            use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
-            create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
-            existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
-            new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
-            within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
-            within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
+    public override void constructed () {
+        base.constructed ();
+        var builder = this.get_builder ();
 
-            album_comment = builder.get_object ("album_comment") as Gtk.TextView;
-            album_comment.buffer = new Gtk.TextBuffer(null);
-            album_comment_label = builder.get_object ("album_comment_label") as Gtk.Label;
+        use_existing_radio = builder.get_object("use_existing_radio") as Gtk.RadioButton;
+        create_new_radio = builder.get_object("create_new_radio") as Gtk.RadioButton;
+        existing_categories_combo = builder.get_object("existing_categories_combo") as Gtk.ComboBoxText;
+        new_category_entry = builder.get_object ("new_category_entry") as Gtk.Entry;
+        within_existing_label = builder.get_object ("within_existing_label") as Gtk.Label;
+        within_existing_combo = builder.get_object ("within_existing_combo") as Gtk.ComboBoxText;
 
-            perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
-            size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
+        album_comment = builder.get_object ("album_comment") as Gtk.TextView;
+        album_comment.buffer = new Gtk.TextBuffer(null);
+        album_comment_label = builder.get_object ("album_comment_label") as Gtk.Label;
 
-            strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
-            strip_metadata_check.set_active(strip_metadata_enabled);
+        perms_combo = builder.get_object("perms_combo") as Gtk.ComboBoxText;
+        size_combo = builder.get_object("size_combo") as Gtk.ComboBoxText;
 
-            title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
-            title_as_comment_check.set_active(last_title_as_comment);
+        strip_metadata_check = builder.get_object("strip_metadata_check") as Gtk.CheckButton;
+        strip_metadata_check.set_active(strip_metadata_enabled);
 
-            no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
-            no_upload_tags_check.set_active(last_no_upload_tags);
+        title_as_comment_check = builder.get_object("title_as_comment_check") as Gtk.CheckButton;
+        title_as_comment_check.set_active(last_title_as_comment);
 
-            logout_button = builder.get_object("logout_button") as Gtk.Button;
-            logout_button.clicked.connect(on_logout_button_clicked);
+        no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
+        no_upload_tags_check.set_active(last_no_upload_tags);
 
-            publish_button = builder.get_object("publish_button") as Gtk.Button;
-            publish_button.clicked.connect(on_publish_button_clicked);
-            
-            use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
-            create_new_radio.clicked.connect(on_create_new_radio_clicked);
-            new_category_entry.changed.connect(on_new_category_entry_changed);
-            within_existing_combo.changed.connect(on_existing_combo_changed);
+        logout_button = builder.get_object("logout_button") as Gtk.Button;
+        logout_button.clicked.connect(on_logout_button_clicked);
 
-            align.reparent(pane_widget);
-            pane_widget.set_child_packing(align, true, true, 0, Gtk.PackType.START);
-        } catch (Error e) {
-            warning("Could not load UI: %s", e.message);
-        }
-        
-        this.existing_categories = categories;
+        publish_button = builder.get_object("publish_button") as Gtk.Button;
+        publish_button.clicked.connect(on_publish_button_clicked);
+
+        use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
+        create_new_radio.clicked.connect(on_create_new_radio_clicked);
+        new_category_entry.changed.connect(on_new_category_entry_changed);
+        within_existing_combo.changed.connect(on_existing_combo_changed);
+
         this.perm_levels = create_perm_levels();
         this.photo_sizes = create_sizes();
-        this.album_comment.buffer.set_text(get_common_comment_if_possible(publisher));
+        this.album_comment.buffer.set_text(this.default_comment);
     }
-    
-    public Gtk.Widget get_default_widget() {
-        return publish_button;
-    }
-    
+
     private PermissionLevel[] create_perm_levels() {
         PermissionLevel[] result = new PermissionLevel[0];
 
@@ -1243,10 +1299,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
     private SizeEntry[] create_sizes() {
         SizeEntry[] result = new SizeEntry[0];
 
-        result += new SizeEntry(500, _("500 x 375 pixels"));
-        result += new SizeEntry(1024, _("1024 x 768 pixels"));
-        result += new SizeEntry(2048, _("2048 x 1536 pixels"));
-        result += new SizeEntry(4096, _("4096 x 3072 pixels"));
+        result += new SizeEntry(500, _("500 × 375 pixels"));
+        result += new SizeEntry(1024, _("1024 × 768 pixels"));
+        result += new SizeEntry(2048, _("2048 × 1536 pixels"));
+        result += new SizeEntry(4096, _("4096 × 3072 pixels"));
         result += new SizeEntry(ORIGINAL_SIZE, _("Original size"));
 
         return result;
@@ -1325,22 +1381,16 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             !(
                 create_new_radio.get_active() &&
                 (
-                    is_string_empty(category_name) ||
+                    category_name == "" ||
                     category_already_exists(search_name)
                 )
             )
         );
     }
-    
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-    
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-    
-    public void on_pane_installed() {
+
+    public override void on_pane_installed() {
+        base.on_pane_installed ();
+
         create_categories_combo();
         create_within_categories_combo();
         create_permissions_combo();
@@ -1349,8 +1399,8 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         publish_button.can_default = true;
         update_publish_button_sensitivity();
     }
-    
-    private string get_common_comment_if_possible(PiwigoPublisher publisher) {
+
+    private static string get_common_comment_if_possible(PiwigoPublisher publisher) {
         // we have to determine whether all the publishing items
         // belong to the same event
         Spit.Publishing.Publishable[] publishables = publisher.get_host().get_publishables();
@@ -1358,8 +1408,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         bool isfirst = true;
         if (publishables != null) {
             foreach (Spit.Publishing.Publishable pub in publishables) {
-                string cur = pub.get_param_string(
+                string? cur = pub.get_param_string(
                     Spit.Publishing.Publishable.PARAM_STRING_EVENTCOMMENT);
+                if (cur == null) {
+                    continue;
+                }
+
                 if (isfirst) {
                     common = cur;
                     isfirst = false;
@@ -1379,7 +1433,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
         foreach (Category cat in existing_categories) {
             existing_categories_combo.append_text(cat.display_name);
         }
-        if (existing_categories.length == 0) {
+        if (existing_categories.is_empty) {
             // if no existing categories, disable the option to choose one
             existing_categories_combo.set_sensitive(false);
             use_existing_radio.set_sensitive(false);
@@ -1389,11 +1443,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             new_category_entry.grab_focus();
         } else {
             int last_category_index = find_category_index(last_category);
-            if (last_category_index < 0) {
-                existing_categories_combo.set_active(0);
-            } else {
-                existing_categories_combo.set_active(last_category_index);
-            }
+            existing_categories_combo.set_active(last_category_index);
             new_category_entry.set_sensitive(false);
             album_comment.set_sensitive(false);
             album_comment_label.set_sensitive(false);
@@ -1437,13 +1487,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, Object {
             size_combo.set_active(last_size_index);
         }
     }
-    
-    public void on_pane_uninstalled() {
-    }
-    
+
     private int find_category_index(int category_id) {
-        int result = -1;
-        for(int i = 0; i < existing_categories.length; i++) {
+        int result = 0;
+        for(int i = 0; i < existing_categories.size; i++) {
             if (existing_categories[i].id == category_id) {
                 result = i;
                 break;
@@ -1599,6 +1646,14 @@ internal class SessionLoginTransaction : Transaction {
         add_argument("username", username);
         add_argument("password", password);
     }
+
+    public SessionLoginTransaction.from_other (Session session, Transaction other) {
+        base.with_endpoint_url (session, other.get_endpoint_url ());
+
+        foreach (var argument in other.get_arguments ()) {
+            add_argument (argument.key, argument.value);
+        }
+    }
 }
 
 /**
@@ -1669,12 +1724,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         string[] keywords = publishable.get_publishing_keywords();
         string tags = "";
         if (keywords != null) {
-            foreach (string tag in keywords) {
-                if (!is_string_empty(tags)) {
-                    tags += ",";
-                }
-                tags += tag;
-            }
+            tags = string.joinv (",", keywords);
         }
         
         debug("PiwigoConnector: Uploading photo %s to category id %d with perm level %d",
@@ -1683,16 +1733,16 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         string name = publishable.get_publishing_name();
         string comment = publishable.get_param_string(
             Spit.Publishing.Publishable.PARAM_STRING_COMMENT);
-        if (is_string_empty(name)) {
+        if (name == null || name == "") {
             name = publishable.get_param_string(
                 Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
             add_argument("name", name);
-            if (!is_string_empty(comment)) {
+            if (comment != null && comment != "") {
                 add_argument("comment", comment);
             }
         } else {
             // name is set
-            if (!is_string_empty(comment)) {
+            if (comment != null && comment != "") {
                 add_argument("name", name);
                 add_argument("comment", comment);
             } else {
@@ -1710,7 +1760,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         add_argument("category", parameters.category.id.to_string());
         add_argument("level", parameters.perm_level.id.to_string());
         if (!parameters.no_upload_tags)
-            if (!is_string_empty(tags))
+            if (tags != "")
                 add_argument("tags", tags);
         // TODO: update the Publishable interface so that it gives access to
         // the image's meta-data where the author (artist) is kept
@@ -1723,9 +1773,12 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename",  Soup.URI.encode(
-            publishable.get_param_string(
-                Spit.Publishing.Publishable.PARAM_STRING_BASENAME), null));
+        var basename = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        if (!basename.down().has_suffix(".jpeg") &&
+            !basename.down().has_suffix(".jpg")) {
+            basename += ".jpg";
+        }
+        disposition_table.insert("filename",  Soup.URI.encode(basename, null));
         disposition_table.insert("name", "image");
 
         set_binary_disposition_table(disposition_table);

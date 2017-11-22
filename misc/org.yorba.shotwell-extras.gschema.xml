@@ -1,4 +1,4 @@
-<schemalist>
+<schemalist gettext-domain="shotwell">
 
 <schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">
     <key name="auth-token" type="s">

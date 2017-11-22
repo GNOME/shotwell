@@ -1,0 +1,52 @@
+plugin_LTLIBRARIES += plugins/shotwell-publishing-extras/shotwell-publishing-extras.la
+
+dist_noinst_DATA += \
+	plugins/shotwell-publishing-extras/gallery3.png \
+	plugins/shotwell-publishing-extras/rajce.png \
+	plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui \
+	plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui \
+	plugins/shotwell-publishing-extras/rajce_authentication_pane.ui \
+	plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui \
+	plugins/shotwell-publishing-extras/yandex_publish_model.ui \
+	plugins/shotwell-publishing-extras/org.gnome.Shotwell.Publishing.Extras.gresource.xml
+
+plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
+	plugins/shotwell-publishing-extras/GalleryConnector.vala \
+	plugins/shotwell-publishing-extras/RajcePublishing.vala \
+	plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala \
+	plugins/shotwell-publishing-extras/YandexPublishing.vala \
+	plugins/shotwell-plugin-common.vapi
+
+nodist_plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_SOURCES = \
+	plugins/shotwell-publishing-extras/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-publishing-extras/resource.c
+
+plugins/shotwell-publishing-extras/resource.c: plugins/shotwell-publishing-extras/org.gnome.Shotwell.Publishing.Extras.gresource.xml
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing-extras --generate $<
+
+
+plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	@PUBLISHER_VALAFLAGS@ \
+	--pkg gtk+-3.0 \
+	--pkg libsoup-2.4 \
+	--pkg gexiv2 \
+	--pkg gee-0.8 \
+	--pkg json-glib-1.0 \
+	--pkg shotwell-plugin-dev-1.0 \
+	--pkg libxml-2.0 \
+	--pkg webkit2gtk-4.0 \
+	--vapidir $(abs_top_srcdir)/plugins
+
+plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_CFLAGS = \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Publishing/Extras"' \
+	$(PLUGIN_CFLAGS) \
+	$(COMMON_CFLAGS) \
+	-I $(abs_top_srcdir)/plugins
+
+plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_LDFLAGS = \
+	$(SHOTWELL_PLUGIN_LDFLAGS)
+
+plugins_shotwell_publishing_extras_shotwell_publishing_extras_la_LIBADD = \
+	$(PUBLISHING_LIBS) \
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

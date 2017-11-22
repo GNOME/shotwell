@@ -1,53 +1,45 @@
 #!/usr/bin/make -f
-#
-# Shotwell debian/rules file
-# http://www.yorba.org/shotwell
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
 
-build: build-stamp
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-build-stamp: configure
-	dh_testdir
-	./configure --prefix=/usr --disable-schemas-compile --disable-desktop-update \
-		--disable-icon-update --unity-support
-	$(MAKE) USER_VALAFLAGS="--vapidir=/usr/share/vala/vapi"
-	touch $@
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
-clean: 
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp 
-	[ ! -f Makefile ] || $(MAKE) distclean
-	dh_clean 
 
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep  
-	dh_installdirs
-	$(MAKE) DESTDIR=$(CURDIR)/debian/shotwell install
+%:
+	dh $@  --parallel
 
-binary-indep: install
 
-binary-arch: install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs 
-	dh_installdocs
-	dh_installexamples
-	dh_installmenu
-	dh_installman
-	dh_icons
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+# dh_make generated override targets
+# This is example for Cmake (See https://bugs.debian.org/641051 )
+override_dh_auto_configure:
+	rm -rf debian/build
+	mkdir debian/build
+	meson debian/build --prefix=/usr -Denable-unity-support=true -Dinstall-apport-hook=true
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install 
+override_dh_auto_compile:
+	ninja -C -v debian/build
+
+override_dh_auto_install:
+	DESTDIR=${CURDIR}/debian/tmp ninja -v -C debian/build install
+
+override_dh_strip:
+	dh_strip --dbg-package=shotwell-dbg
+
+override_dh_makeshlibs:
+	dh_makeshlibs -X /usr/lib/shotwell
+
+override_dh_install:
+	dh_install --list-missing
+
+override_dh_clean:
+	rm -rf debian/build
+	dh_clean

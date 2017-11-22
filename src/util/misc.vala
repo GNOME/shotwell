@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -70,15 +70,6 @@ public ulong now_sec() {
 
 public inline time_t now_time_t() {
     return (time_t) now_sec();
-}
-
-public string md5_binary(uint8 *buffer, size_t length) {
-    assert(length != 0);
-
-    Checksum md5 = new Checksum(ChecksumType.MD5);
-    md5.update((uchar []) buffer, length);
-    
-    return md5.get_string();
 }
 
 public string md5_file(File file) throws Error {
@@ -358,20 +349,5 @@ public class OpTimer {
             return "%s: no operations".printf(name);
         }
     }
-}
-
-// Dummy function for suppressing 'could not stat file' errors
-// generated when saving into a previously non-existent file -
-// please see https://bugzilla.gnome.org/show_bug.cgi?id=662814
-// and to work around a spurious warning given by GDK when a
-// key press event is passed from a child class' event handler
-// to a parent's; (gnome bug pending, but see https://bugzilla.redhat.com/show_bug.cgi?id=665568).
-public void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
-    // do nothing.
-}
-
-public bool is_twentyfour_hr_time_system() {
-    // if no AM/PM designation is found, the location is set to use a 24 hr time system
-    return is_string_empty(Time.local(0).format("%p"));
 }
 

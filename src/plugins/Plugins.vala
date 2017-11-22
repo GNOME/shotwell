@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -313,7 +313,7 @@ private bool is_shared_library(File file) {
 }
 
 private void search_for_plugins(File dir) throws Error {
-    debug("Searching %s for plugins ...", dir.get_path());
+    debug("Searching %s for plugins…", dir.get_path());
     
     // build a set of module names sans file extension ... this is to deal with the question of
     // .so vs. .la existing in the same directory (and letting GModule deal with the problem)

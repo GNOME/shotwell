@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -11,7 +11,8 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
     
     public FacebookService(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set = Resources.load_from_resource
+                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
     
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -29,7 +30,7 @@ public class FacebookService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
     public void get_info(ref Spit.PluggableInfo info) {
         info.authors = "Lucas Beeler";
-        info.copyright = _("Copyright 2009-2015 Yorba Foundation");
+        info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -57,13 +58,7 @@ namespace Publishing.Facebook {
 // truly, deep-down know what you're doing)
 public const string SERVICE_NAME = "facebook";
 internal const string USER_VISIBLE_NAME = "Facebook";
-internal const string APPLICATION_ID = "162702932093";
 internal const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
-internal const string SERVICE_WELCOME_MESSAGE =
-    _("You are not currently logged into Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
-internal const string RESTART_ERROR_MESSAGE =
-    _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
-internal const string USER_AGENT = "Java/1.6.0_16";
 internal const int EXPIRED_SESSION_STATUS_CODE = 400;
 
 internal class Album {
@@ -173,9 +168,9 @@ internal class PublishingParameters {
 public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private PublishingParameters publishing_params;
     private weak Spit.Publishing.PluginHost host = null;
-    private WebAuthenticationPane web_auth_pane = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private weak Spit.Publishing.Service service = null;
+    private Spit.Publishing.Authenticator authenticator = null;
     private bool running = false;
     private GraphSession graph_session;
     private PublishingOptionsPane? publishing_options_pane = null;
@@ -184,42 +179,25 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     private string? username = null;
 
     public FacebookPublisher(Spit.Publishing.Service service,
-        Spit.Publishing.PluginHost host) {
+                             Spit.Publishing.PluginHost host) {
         debug("FacebookPublisher instantiated.");
 
         this.service = service;
         this.host = host;
 
         this.publishing_params = new PublishingParameters();
+        this.authenticator =
+            Publishing.Authenticator.Factory.get_instance().create("facebook",
+                    host);
 
         this.graph_session = new GraphSession();
         graph_session.authenticated.connect(on_session_authenticated);
     }
 
-    private bool is_persistent_session_valid() {
-        string? token = get_persistent_access_token();
-
-        if (token != null)
-            debug("existing Facebook session found in configuration database (access_token = %s).",
-                token);
-        else
-            debug("no existing Facebook session available.");
-
-        return token != null;
-    }
-
-    private string? get_persistent_access_token() {
-        return host.get_config_string("access_token", null);
-    }
-    
     private bool get_persistent_strip_metadata() {
         return host.get_config_bool("strip_metadata", false);
     }
 
-    private void set_persistent_access_token(string access_token) {
-        host.set_config_string("access_token", access_token);
-    }
-    
     private void set_persistent_strip_metadata(bool strip_metadata) {
         host.set_config_bool("strip_metadata", strip_metadata);
     }
@@ -234,24 +212,12 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_config_int("default_size", size);
     }
 
-    private void invalidate_persistent_session() {
-        debug("invalidating saved Facebook session.");
-
-        set_persistent_access_token("");
-    }
-
-    private void do_show_service_welcome_pane() {
-        debug("ACTION: showing service welcome pane.");
-
-        host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_login_clicked);
-        host.set_service_locked(false);
-    }
-
+    /*
     private void do_test_connection_to_endpoint() {
         debug("ACTION: testing connection to Facebook endpoint.");
         host.set_service_locked(true);
         
-        host.install_static_message_pane(_("Testing connection to Facebook..."));
+        host.install_static_message_pane(_("Testing connection to Facebook…"));
         
         GraphMessage endpoint_test_message = graph_session.new_endpoint_test();
         endpoint_test_message.completed.connect(on_endpoint_test_completed);
@@ -259,6 +225,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         graph_session.send_message(endpoint_test_message);
     }
+    */
     
     private void do_fetch_user_info() {
         debug("ACTION: fetching user information.");
@@ -344,7 +311,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("ACTION: creating a new album named \"%s\".\n", publishing_params.new_album_name);
         
         host.set_service_locked(true);
-        host.install_static_message_pane(_("Creating album..."));
+        host.install_static_message_pane(_("Creating album…"));
         
         GraphMessage create_album_message = graph_session.new_create_album(
             publishing_params.new_album_name, publishing_params.privacy_object);
@@ -364,19 +331,19 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             // the trailing get_path() is required, since add_from_file can't cope
             // with File objects directly and expects a pathname instead.
-            builder.add_from_file(
-                host.get_module_file().get_parent().
-                get_child("facebook_publishing_options_pane.glade").get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH + "/" +
+                    "facebook_publishing_options_pane.ui");
         } catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to Facebook can't continue.")));
+                    _("A file required for publishing is unavailable. Publishing to Facebook can’t continue.")));
             return;
         }
         
         publishing_options_pane = new PublishingOptionsPane(username, publishing_params.albums,
-            host.get_publishable_media_type(), this, builder, get_persistent_strip_metadata());
+            host.get_publishable_media_type(), this, builder, get_persistent_strip_metadata(),
+            authenticator.can_logout());
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         host.install_dialog_pane(publishing_options_pane,
@@ -385,8 +352,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_logout() {
         debug("ACTION: clearing persistent session information and restaring interaction.");
-
-        invalidate_persistent_session();
+        this.authenticator.logout();
 
         running = false;
         start();
@@ -411,60 +377,27 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         do_upload();
     }
 
-    private void do_hosted_web_authentication() {
-        debug("ACTION: doing hosted web authentication.");
 
-        host.set_service_locked(false);
+    private void on_authenticator_succeeded() {
+        debug("EVENT: Authenticator login succeeded.");
 
-        web_auth_pane = new WebAuthenticationPane();
-        web_auth_pane.login_succeeded.connect(on_web_auth_pane_login_succeeded);
-        web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
-
-        host.install_dialog_pane(web_auth_pane,
-            Spit.Publishing.PluginHost.ButtonMode.CANCEL);
-
+        do_authenticate_session();
     }
 
-    private void do_authenticate_session(string good_login_uri) {
-        debug("ACTION: preparing to extract session information encoded in uri = '%s'",
-             good_login_uri);
+    private void on_authenticator_failed() {
+    }
 
-        // the raw uri is percent-encoded, so decode it
-        string decoded_uri = Soup.URI.decode(good_login_uri);
-
-        // locate the access token within the URI
-        string? access_token = null;
-        int index = decoded_uri.index_of("#access_token=");
-        if (index >= 0)
-            access_token = decoded_uri[index:decoded_uri.length];
-        if (access_token == null) {
-            host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                "Server redirect URL contained no access token"));
-            return;
+    private void do_authenticate_session() {
+        var parameter = this.authenticator.get_authentication_parameter();
+        Variant access_token;
+        if (!parameter.lookup_extended("AccessToken", null, out access_token)) {
+            critical("Authenticator signalled success, but does not provide access token");
+            assert_not_reached();
         }
-
-        // remove any trailing parameters from the session description string
-        string? trailing_params = null;
-        index = access_token.index_of_char('&');
-        if (index >= 0)
-            trailing_params = access_token[index:access_token.length];
-        if (trailing_params != null)
-            access_token = access_token.replace(trailing_params, "");
-
-        // remove the key from the session description string
-        access_token = access_token.replace("#access_token=", "");
-        
-        // we've got an access token!
         graph_session.authenticated.connect(on_session_authenticated);
-        graph_session.authenticate(access_token);
+        graph_session.authenticate(access_token.get_string());
     }
 
-    private void do_save_session_information() {
-        debug("ACTION: saving session information to configuration system.");
-
-        set_persistent_access_token(graph_session.get_access_token());
-    }
-    
     private void do_upload() {
         debug("ACTION: uploading photos to album '%s'",
             publishing_params.target_album == PublishingParameters.UNKNOWN_ALBUM ? "(none)" :
@@ -505,15 +438,7 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             host.post_error(error);
     }
 
-    private void on_login_clicked() {
-        if (!is_running())
-            return;
-
-        debug("EVENT: user clicked 'Login' on welcome pane.");
-
-        do_test_connection_to_endpoint();
-    }
-
+#if 0
     private void on_endpoint_test_completed(GraphMessage message) {
         message.completed.disconnect(on_endpoint_test_completed);
         message.failed.disconnect(on_endpoint_test_error);
@@ -535,36 +460,11 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: endpoint test transaction failed to detect a connection to the Facebook " +
-            "endpoint");
+            "endpoint" + error.message);
 
         on_generic_error(error);
     }
-
-    private void on_web_auth_pane_login_succeeded(string success_url) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: hosted web login succeeded.");
-
-        do_authenticate_session(success_url);
-    }
-
-
-
-    private void on_web_auth_pane_login_failed() {
-        if (!is_running())
-            return;
-
-        debug("EVENT: hosted web login failed.");
-
-        // In this case, "failed" doesn't mean that the user didn't enter the right username and
-        // password -- Facebook handles that case inside the Facebook Connect web control. Instead,
-        // it means that no session was initiated in response to our login request. The only
-        // way this happens is if the user clicks the "Cancel" button that appears inside
-        // the web control. In this case, the correct behavior is to return the user to the
-        // service welcome pane so that they can start the web interaction again.
-        do_show_service_welcome_pane();
-    }
+#endif
 
     private void on_session_authenticated() {
         graph_session.authenticated.disconnect(on_session_authenticated);
@@ -575,7 +475,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         assert(graph_session.is_authenticated());
         debug("EVENT: an authenticated session has become available.");
 
-        do_save_session_information();
         do_fetch_user_info();
     }
     
@@ -780,20 +679,9 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
         // actually a restart
         publishing_params = new PublishingParameters();
 
-        // Do we have saved user credentials? If so, go ahead and authenticate the session
-        // with the saved credentials and proceed with the publishing interaction. Otherwise, show
-        // the Welcome pane
-        if (is_persistent_session_valid()) {
-            graph_session.authenticate(get_persistent_access_token());
-        } else {
-            if (WebAuthenticationPane.is_cache_dirty()) {
-                host.set_service_locked(false);
-                host.install_static_message_pane(RESTART_ERROR_MESSAGE,
-                    Spit.Publishing.PluginHost.ButtonMode.CANCEL);
-            } else {
-                do_show_service_welcome_pane();
-            }
-        }
+        this.authenticator.authenticated.connect(on_authenticator_succeeded);
+        this.authenticator.authentication_failed.connect(on_authenticator_failed);
+        this.authenticator.authenticate();
     }
 
     public void stop() {
@@ -808,190 +696,6 @@ public class FacebookPublisher : Spit.Publishing.Publisher, GLib.Object {
     
     public bool is_running() {
         return running;
-    }
-}
-
-internal class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
-    private WebKit.WebView webview = null;
-    private Gtk.Box pane_widget = null;
-    private Gtk.ScrolledWindow webview_frame = null;
-    private static bool cache_dirty = false;
-
-    public signal void login_succeeded(string success_url);
-    public signal void login_failed();
-
-    public WebAuthenticationPane() {
-        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        webview_frame = new Gtk.ScrolledWindow(null, null);
-        webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
-        webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-
-        webview = new WebKit.WebView();
-        webview.get_settings().enable_plugins = false;
-        webview.get_settings().enable_default_context_menu = false;
-
-        webview.load_finished.connect(on_page_load);
-        webview.load_started.connect(on_load_started);
-
-        webview_frame.add(webview);
-        pane_widget.pack_start(webview_frame, true, true, 0);
-    }
-    
-    private class LocaleLookup {
-        public string prefix;
-        public string translation;
-        public string? exception_code;
-        public string? exception_translation;
-        public string? exception_code_2;
-        public string? exception_translation_2;
-        
-        public LocaleLookup(string prefix, string translation, string? exception_code = null, 
-            string? exception_translation  = null, string? exception_code_2  = null, 
-            string? exception_translation_2 = null) {
-            this.prefix = prefix;
-            this.translation = translation;
-            this.exception_code = exception_code;
-            this.exception_translation = exception_translation;
-            this.exception_code_2 = exception_code_2;
-            this.exception_translation_2 = exception_translation_2;
-        }
-        
-    }
-    
-    private LocaleLookup[] locale_lookup_table = {
-        new LocaleLookup( "es", "es-la", "ES", "es-es" ),
-        new LocaleLookup( "en", "en-gb", "US", "en-us" ),
-        new LocaleLookup( "fr", "fr-fr", "CA", "fr-ca" ),
-        new LocaleLookup( "pt", "pt-br", "PT", "pt-pt" ),
-        new LocaleLookup( "zh", "zh-cn", "HK", "zh-hk", "TW", "zh-tw" ),
-        new LocaleLookup( "af", "af-za" ),
-        new LocaleLookup( "ar", "ar-ar" ),
-        new LocaleLookup( "nb", "nb-no" ),
-        new LocaleLookup( "no", "nb-no" ),
-        new LocaleLookup( "id", "id-id" ),
-        new LocaleLookup( "ms", "ms-my" ),
-        new LocaleLookup( "ca", "ca-es" ),
-        new LocaleLookup( "cs", "cs-cz" ),
-        new LocaleLookup( "cy", "cy-gb" ),
-        new LocaleLookup( "da", "da-dk" ),
-        new LocaleLookup( "de", "de-de" ),
-        new LocaleLookup( "tl", "tl-ph" ),
-        new LocaleLookup( "ko", "ko-kr" ),
-        new LocaleLookup( "hr", "hr-hr" ),
-        new LocaleLookup( "it", "it-it" ),
-        new LocaleLookup( "lt", "lt-lt" ),
-        new LocaleLookup( "hu", "hu-hu" ),
-        new LocaleLookup( "nl", "nl-nl" ),
-        new LocaleLookup( "ja", "ja-jp" ),
-        new LocaleLookup( "nb", "nb-no" ),
-        new LocaleLookup( "no", "nb-no" ),
-        new LocaleLookup( "pl", "pl-pl" ),
-        new LocaleLookup( "ro", "ro-ro" ),
-        new LocaleLookup( "ru", "ru-ru" ),
-        new LocaleLookup( "sk", "sk-sk" ),
-        new LocaleLookup( "sl", "sl-si" ),
-        new LocaleLookup( "sv", "sv-se" ),
-        new LocaleLookup( "th", "th-th" ),
-        new LocaleLookup( "vi", "vi-vn" ),
-        new LocaleLookup( "tr", "tr-tr" ),
-        new LocaleLookup( "el", "el-gr" ),
-        new LocaleLookup( "bg", "bg-bg" ),
-        new LocaleLookup( "sr", "sr-rs" ),
-        new LocaleLookup( "he", "he-il" ),
-        new LocaleLookup( "hi", "hi-in" ),
-        new LocaleLookup( "bn", "bn-in" ),
-        new LocaleLookup( "pa", "pa-in" ),
-        new LocaleLookup( "ta", "ta-in" ),
-        new LocaleLookup( "te", "te-in" ),
-        new LocaleLookup( "ml", "ml-in" )
-    };
-    
-    private string get_system_locale_as_facebook_locale() {
-        unowned string? raw_system_locale = Intl.setlocale(LocaleCategory.ALL, "");
-        if (raw_system_locale == null || raw_system_locale == "")
-            return "www";
-        
-        string system_locale = raw_system_locale.split(".")[0];
-        
-        foreach (LocaleLookup locale_lookup in locale_lookup_table) {
-            if (!system_locale.has_prefix(locale_lookup.prefix))
-                continue;
-            
-            if (locale_lookup.exception_code != null) {
-                assert(locale_lookup.exception_translation != null);
-                
-                if (system_locale.contains(locale_lookup.exception_code))
-                    return locale_lookup.exception_translation;
-            }
-            
-            if (locale_lookup.exception_code_2 != null) {
-                assert(locale_lookup.exception_translation_2 != null);
-                
-                if (system_locale.contains(locale_lookup.exception_code_2))
-                    return locale_lookup.exception_translation_2;
-            }
-            
-            return locale_lookup.translation;
-        }
-        
-        // default
-        return "www";
-    }
-
-    private string get_login_url() {
-        string facebook_locale = get_system_locale_as_facebook_locale();
-
-        return "https://%s.facebook.com/dialog/oauth?client_id=%s&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=publish_actions,user_photos,user_videos&response_type=token".printf(facebook_locale, APPLICATION_ID);
-    }
-
-    private void on_page_load(WebKit.WebFrame origin_frame) {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-
-        string loaded_url = origin_frame.get_uri().dup();
-
-        // strip parameters from the loaded url
-        if (loaded_url.contains("?")) {
-            int index = loaded_url.index_of_char('?');
-            string params = loaded_url[index:loaded_url.length];
-            loaded_url = loaded_url.replace(params, "");
-        }
-
-        // were we redirected to the facebook login success page?
-        if (loaded_url.contains("login_success")) {
-            cache_dirty = true;
-            login_succeeded(origin_frame.get_uri());
-            return;
-        }
-
-        // were we redirected to the login total failure page?
-        if (loaded_url.contains("login_failure")) {
-            login_failed();
-            return;
-        }
-    }
-
-    private void on_load_started(WebKit.WebFrame frame) {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-    }
-
-    public static bool is_cache_dirty() {
-        return cache_dirty;
-    }
-
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-
-    public void on_pane_installed() {
-        webview.open(get_login_url());
-    }
-
-    public void on_pane_uninstalled() {
     }
 }
 
@@ -1038,7 +742,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
     public PublishingOptionsPane(string username, Album[] albums,
         Spit.Publishing.Publisher.MediaType media_type, FacebookPublisher publisher,
-        Gtk.Builder builder, bool strip_metadata) {
+        Gtk.Builder builder, bool strip_metadata, bool can_logout) {
 
         this.builder = builder;
         assert(builder != null);
@@ -1062,6 +766,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         visibility_combo = (Gtk.ComboBoxText) this.builder.get_object("visibility_combo");
         publish_button = (Gtk.Button) this.builder.get_object("publish_button");
         logout_button = (Gtk.Button) this.builder.get_object("logout_button");
+        if (!can_logout) {
+            logout_button.parent.remove (logout_button);
+        }
         new_album_entry = (Gtk.Entry) this.builder.get_object("new_album_entry");
         resolution_combo = (Gtk.ComboBoxText) this.builder.get_object("resolution_combo");
         how_to_label = (Gtk.Label) this.builder.get_object("how_to_label");
@@ -1453,15 +1160,16 @@ internal class GraphSession {
     private GraphMessage? current_message;
     
     public GraphSession() {
-        this.soup_session = new Soup.SessionAsync();
-        this.soup_session.request_unqueued.connect(on_request_unqueued);
+        this.soup_session = new Soup.Session ();
+        this.soup_session.request_unqueued.connect (on_request_unqueued);
         this.soup_session.timeout = 15;
         this.access_token = null;
         this.current_message = null;
+        this.soup_session.ssl_use_system_ca_file = true;
     }
 
     ~GraphSession() {
-         soup_session.request_unqueued.disconnect(on_request_unqueued);
+         soup_session.request_unqueued.disconnect (on_request_unqueued);
      }
     
     private void manage_message(GraphMessage msg) {
@@ -1527,6 +1235,7 @@ internal class GraphSession {
                         "Service %s returned HTTP status code %u %s", real_message.get_uri(),
                         msg.status_code, msg.reason_phrase);
                 } else {
+                    debug(msg.reason_phrase);
                     error = new Spit.Publishing.PublishingError.NO_ANSWER(
                         "Failure communicating with %s (error code %u)", real_message.get_uri(),
                         msg.status_code);
@@ -1555,14 +1264,11 @@ internal class GraphSession {
         return access_token != null;
     }
     
-    public string get_access_token() {
-        assert(is_authenticated());
-        return access_token;
-    }
-    
+#if 0
     public GraphMessage new_endpoint_test() {
         return new GraphEndpointProbeMessage(this);
     }
+#endif
     
     public GraphMessage new_query(string resource_path) {
         return new GraphQueryMessage(this, resource_path, access_token);

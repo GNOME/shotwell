@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -564,7 +564,9 @@ public class EditTitleCommand : SingleDataSourceCommand {
     private string? old_title;
     
     public EditTitleCommand(MediaSource source, string new_title) {
-        base(source, Resources.EDIT_TITLE_LABEL, "");
+        var title = GLib.dpgettext2 (null, "Button Label",
+                Resources.EDIT_TITLE_LABEL);
+        base(source, title, "");
         
         this.new_title = new_title;
         old_title = source.get_title();
@@ -604,7 +606,9 @@ public class EditMultipleTitlesCommand : MultipleDataSourceAtOnceCommand {
     public Gee.HashMap<MediaSource, string?> old_titles = new Gee.HashMap<MediaSource, string?>();
     
     public EditMultipleTitlesCommand(Gee.Collection<MediaSource> media_sources, string new_title) {
-        base (media_sources, Resources.EDIT_TITLE_LABEL, "");
+        var title = GLib.dpgettext2 (null, "Button Label",
+                Resources.EDIT_TITLE_LABEL);
+        base (media_sources, title, "");
         
         this.new_title = new_title;
         foreach (MediaSource media in media_sources)
@@ -916,6 +920,9 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute() {
+            // create the new event
+            base.execute();
+
             // Are we at an event page already?
             if ((LibraryWindow.get_app().get_current_page() is EventPage)) {
                 Event evt = ((EventPage) LibraryWindow.get_app().get_current_page()).get_event();
@@ -929,17 +936,13 @@ public abstract class MovePhotosCommand : Command {
             } else {
                 // We're in a library or tag page.
                 
-                // Are we moving these to a newly-created (and therefore empty) event?
-                if (((Event) new_event_proxy.get_source()).get_media_count() == 0) {
+                // Are we moving these to a newly-created event (i.e. has same size)?
+                if (((Event) new_event_proxy.get_source()).get_media_count() == source_list.size) {
                     // Yes - jump to the new event.
                     LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
                 }
             }
-            
             // Otherwise - don't jump; users found the jumping disconcerting.
-            
-            // create the new event
-            base.execute();
         }
         
         public override void execute_on_source(DataSource source) {
@@ -1688,7 +1691,7 @@ public class ReparentTagCommand : PageCommand {
     bool to_path_exists = false;
     
     public ReparentTagCommand(Tag tag, string new_parent_path) {
-        base (_("Move Tag \"%s\"").printf(tag.get_user_visible_name()), "");
+        base (_("Move Tag “%s”").printf(tag.get_user_visible_name()), "");
 
         this.from_path = tag.get_path();
 
@@ -2265,7 +2268,7 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     private void do_detach(Tag tag) {
         if (attached_to == null) {
             // detaching a MediaSource from a Tag may result in the MediaSource being detached from
-            // many tags (due to heirarchical tagging), so save the MediaSources for each detached
+            // many tags (due to hierarchical tagging), so save the MediaSources for each detached
             // Tag for reversing the process
             detached_from = tag.detach_many(sources);
             

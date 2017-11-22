@@ -70,7 +70,7 @@
         </table>
 
         <p>
-            There are other symbols available; please check the manual for strftime by running 
+            There are other symbols available; please check the <link href="man:strftime">manual for strftime</link> by running
             the command <cmd>man strftime</cmd> if you need one that isn't listed here.
         </p>
     </section>

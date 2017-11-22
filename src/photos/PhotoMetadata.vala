@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -7,7 +7,7 @@
 //
 // PhotoMetadata
 //
-// PhotoMetadata is a wrapper class around gexiv2.  The reasoning for this is (a) to facilitiate
+// PhotoMetadata is a wrapper class around gexiv2.  The reasoning for this is (a) to facilitate
 // interface changes to meet Shotwell's requirements without needing modifications of the library
 // itself, and (b) some requirements for this class (i.e. obtaining raw metadata) is not available
 // in gexiv2, and so must be done by hand.
@@ -28,18 +28,130 @@ public enum MetadataDomain {
     IPTC
 }
 
+public abstract class KeywordTransformer {
+    public abstract Gee.List<string> transform (string input) throws Error;
+}
+
+public class NullKeywordTransformer : KeywordTransformer {
+    public override Gee.List<string> transform (string input) throws Error {
+        var result = new Gee.ArrayList<string> ();
+        result.add (input);
+
+        return result;
+    }
+}
+
+/* Transforms ACDSEE's pseudo-XML category format into Lightroom format
+ * <Categories>
+ * <Category Assigned=\"1\">Alben
+ *   <Category Assigned=\"1\">Flowers</Category>
+ * </Category>
+ * <Category Assigned=\"1\">Orte</Category>
+ * <Category Assigned=\"1\">Verschiedenes</Category>
+ * </Categories>
+ *
+ * Will be transformed to a list of Alben, Alben|Flowers, Orte, Verschiedenes
+ */
+public class ACDSeeKeywordTransformer : KeywordTransformer {
+    private MarkupParser parser;
+    private Error error;
+    private Gee.ArrayQueue<string> stack;
+    private Gee.ArrayList<string> result;
+    private bool assigned;
+
+    public ACDSeeKeywordTransformer() {
+        this.parser = MarkupParser ();
+        this.parser.start_element = this.on_start;
+        this.parser.end_element = this.on_end;
+        this.parser.text = this.on_text;
+        this.parser.error = this.on_error;
+        this.result = new Gee.ArrayList<string> ();
+        this.stack = new Gee.ArrayQueue<string> ();
+    }
+
+    public override Gee.List<string> transform (string input) throws Error {
+        var ctx = new MarkupParseContext (this.parser, 0, this, null);
+
+        ctx.parse (input, input.length);
+
+        return result;
+    }
+
+    private void on_start (MarkupParseContext ctx,
+                           string name,
+                           [CCode (array_null_terminated = true,
+                                   array_length = false)]
+                           string[] attribute_names,
+                           [CCode (array_null_terminated = true,
+                                   array_length = false)]
+                           string[] attribute_values) throws MarkupError {
+        this.assigned = false;
+        if (name == "Categories") {
+            return;
+        }
+
+        if (name != "Category") {
+            return;
+        }
+
+        Workaround.markup_collect_attributes (name,
+                                              attribute_names,
+                                              attribute_values,
+                                              Markup.CollectType.BOOLEAN,
+                                              "Assigned", out assigned);
+    }
+
+    private void on_end (MarkupParseContext ctx, string name)
+                         throws MarkupError {
+        if (name == "Category") {
+            this.stack.poll_tail ();
+        }
+    }
+
+    private void on_text (MarkupParseContext ctx, string text)
+                          throws MarkupError {
+        if (text == "") {
+            return;
+        }
+
+        this.stack.offer_tail (text);
+        if (this.assigned) {
+            var builder = new StringBuilder ();
+            foreach (var f in this.stack) {
+                builder.append_printf ("%s|", f);
+            }
+            if (builder.len > 0) {
+                builder.truncate (builder.len - 1);
+            }
+            this.result.add (builder.str);
+        }
+    }
+
+    private void on_error (MarkupParseContext ctx, Error error) {
+        this.error = error;
+    }
+}
+
+
+
 public class HierarchicalKeywordField {
     public string field_name;
     public string path_separator;
     public bool wants_leading_separator;
     public bool is_writeable;
-    
-    public HierarchicalKeywordField(string field_name, string path_separator,
-        bool wants_leading_separator, bool is_writeable) {
+    public KeywordTransformer transformer;
+
+    public HierarchicalKeywordField(string field_name,
+                                    string path_separator,
+                                    bool wants_leading_separator,
+                                    bool is_writeable,
+                                    KeywordTransformer transformer =
+                                        new NullKeywordTransformer ()) {
         this.field_name = field_name;
         this.path_separator = path_separator;
         this.wants_leading_separator = wants_leading_separator;
         this.is_writeable = is_writeable;
+        this.transformer = transformer;
     }
 }
 
@@ -78,16 +190,16 @@ public abstract class PhotoPreview {
         return extension;
     }
     
-    public abstract uint8[] flatten() throws Error;
+    public abstract Bytes flatten() throws Error;
     
     public virtual Gdk.Pixbuf? get_pixbuf() throws Error {
-        uint8[] flattened = flatten();
+        var flattened = flatten();
         
         // Need to create from stream or file for decode ... catch decode error and return null,
         // different from an I/O error causing the problem
         try {
-            return new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_data(flattened, null),
-                null);
+            return new Gdk.Pixbuf.from_stream(new
+                    MemoryInputStream.from_bytes(flattened));
         } catch (Error err) {
             warning("Unable to decode thumbnail for %s: %s", name, err.message);
             
@@ -103,7 +215,7 @@ public class PhotoMetadata : MediaMetadata {
         AT_LEAST_DEFAULT_DOMAIN
     }
     
-    private const PrepareInputTextOptions PREPARE_STRING_OPTIONS =
+    public const PrepareInputTextOptions PREPARE_STRING_OPTIONS =
         PrepareInputTextOptions.INVALID_IS_NULL
         | PrepareInputTextOptions.EMPTY_IS_NULL
         | PrepareInputTextOptions.STRIP
@@ -124,17 +236,20 @@ public class PhotoMetadata : MediaMetadata {
             this.number = number;
         }
         
-        public override uint8[] flatten() throws Error {
+        public override Bytes flatten() throws Error {
             unowned GExiv2.PreviewProperties?[] props = owner.exiv2.get_preview_properties();
             assert(props != null && props.length > number);
             
-            return owner.exiv2.get_preview_image(props[number]).get_data();
+            return new
+                Bytes(owner.exiv2.get_preview_image(props[number]).get_data());
         }
     }
     
     private GExiv2.Metadata exiv2 = new GExiv2.Metadata();
     private Exif.Data? exif = null;
     string source_name = "<uninitialized>";
+    private string? metadata_hash = null;
+    private string? thumbnail_md5 = null;
     
     public PhotoMetadata() {
     }
@@ -166,18 +281,13 @@ public class PhotoMetadata : MediaMetadata {
         source_name = "<memory buffer %d bytes>".printf(length);
     }
     
-    public void read_from_app1_segment(uint8[] buffer, int length = 0) throws Error {
-        if (length <= 0)
-            length = buffer.length;
-        
-        assert(buffer.length >= length);
-        
+    public void read_from_app1_segment(Bytes buffer) throws Error {
         exiv2 = new GExiv2.Metadata();
         exif = null;
         
-        exiv2.from_app1_segment(buffer, length);
-        exif = Exif.Data.new_from_data(buffer, length);
-        source_name = "<app1 segment %d bytes>".printf(length);
+        exiv2.from_app1_segment(buffer.get_data(), (long) buffer.get_size());
+        exif = Exif.Data.new_from_data(buffer.get_data(), buffer.get_size());
+        source_name = "<app1 segment %zu bytes>".printf(buffer.get_size());
     }
     
     public static MetadataDomain get_tag_domain(string tag) {
@@ -579,43 +689,59 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     // Returns raw bytes of EXIF metadata, including signature and optionally the preview (if present).
-    public uint8[]? flatten_exif(bool include_preview) {
+    public string? exif_hash() {
         if (exif == null)
             return null;
-        
-        // save thumbnail to strip if no attachments requested (so it can be added back and
-        // deallocated automatically)
-        uchar *thumbnail = exif.data;
-        uint thumbnail_size = exif.size;
-        if (!include_preview) {
-            exif.data = null;
-            exif.size = 0;
+
+        if (this.metadata_hash != null) {
+            return this.metadata_hash;
         }
-        
-        uint8[]? flattened = null;
-        
-        // save the struct to a buffer and copy into a Vala-friendly one
+
+        string? hash = null;
+
+        var thumb = exif.data;
+        var thumb_size = exif.size;
+
+        // Strip potential thumbnail
+        exif.data = null;
+        exif.size = 0;
+
         uchar *saved_data = null;
         uint saved_size = 0;
+
         exif.save_data(&saved_data, &saved_size);
+
+        exif.data = thumb;
+        exif.size = thumb_size;
+
         if (saved_size > 0 && saved_data != null) {
-            flattened = new uint8[saved_size];
-            Memory.copy(flattened, saved_data, saved_size);
-            
+            var md5 = new Checksum(ChecksumType.MD5);
+            md5.update((uchar []) saved_data, saved_size);
             Exif.Mem.new_default().free(saved_data);
+
+            this.metadata_hash = md5.get_string ();
         }
-        
-        // restore thumbnail (this works in either case)
-        exif.data = thumbnail;
-        exif.size = thumbnail_size;
-        
-        return flattened;
+
+        return hash;
     }
     
     // Returns raw bytes of EXIF preview, if present
-    public uint8[]? flatten_exif_preview() {
+    public string? thumbnail_hash() {
+        if (this.thumbnail_md5 != null) {
+            return this.thumbnail_md5;
+        }
+
         uchar[] buffer;
-        return exiv2.get_exif_thumbnail(out buffer) ? buffer : null;
+        if (exiv2.get_exif_thumbnail(out buffer)) {
+            var md5 = new Checksum(ChecksumType.MD5);
+            md5.update(buffer, buffer.length);
+
+            this.thumbnail_md5 = md5.get_string();
+
+            return this.thumbnail_md5;
+         }
+
+        return null;
     }
     
     public uint get_preview_count() {
@@ -674,7 +800,8 @@ public class PhotoMetadata : MediaMetadata {
     private static string[] DATE_TIME_TAGS = {
         "Exif.Image.DateTime",
         "Xmp.tiff.DateTime",
-        "Xmp.xmp.ModifyDate"
+        "Xmp.xmp.ModifyDate",
+        "Xmp.acdsee.datetime"
     };
     
     public MetadataDateTime? get_modification_date_time() {
@@ -805,7 +932,8 @@ public class PhotoMetadata : MediaMetadata {
         "Iptc.Application2.Caption",
         "Xmp.dc.title",
         "Iptc.Application2.Headline",
-        "Xmp.photoshop.Headline"
+        "Xmp.photoshop.Headline",
+        "Xmp.acdsee.caption"
     };
     
     public override string? get_title() {
@@ -844,27 +972,42 @@ public class PhotoMetadata : MediaMetadata {
             remove_tags(STANDARD_TITLE_TAGS);
         }
     }
+
+    private static string[] COMMENT_TAGS = {
+        "Exif.Photo.UserComment",
+        "Xmp.acdsee.notes"
+    };
     
     public override string? get_comment() {
-        return get_string_interpreted("Exif.Photo.UserComment", PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+        return get_first_string_interpreted (COMMENT_TAGS);
     }
     
-    public void set_comment(string? comment) {
+    public void set_comment(string? comment,
+                            SetOption option = SetOption.ALL_DOMAINS) {
+        /* https://bugzilla.gnome.org/show_bug.cgi?id=781897 - Do not strip
+         * newlines from comments */
         if (!is_string_empty(comment))
-            set_string("Exif.Photo.UserComment", comment, PrepareInputTextOptions.DEFAULT & ~PrepareInputTextOptions.STRIP_CRLF);
+            set_all_generic(COMMENT_TAGS, option, (tag) => {
+                set_string(tag, comment, PREPARE_STRING_OPTIONS &
+                        ~PrepareInputTextOptions.STRIP_CRLF);
+            });
         else
-            remove_tag("Exif.Photo.UserComment");
+            remove_tags(COMMENT_TAGS);
     }
     
     private static string[] KEYWORD_TAGS = {
         "Xmp.dc.subject",
-        "Iptc.Application2.Keywords"
+        "Iptc.Application2.Keywords",
+        "Xmp.xmp.Label"
     };
     
     private static HierarchicalKeywordField[] HIERARCHICAL_KEYWORD_TAGS = {
         // Xmp.lr.hierarchicalSubject should be writeable but isn't due to this bug
         // in libexiv2: http://dev.exiv2.org/issues/784
         new HierarchicalKeywordField("Xmp.lr.hierarchicalSubject", "|", false, false),
+        new HierarchicalKeywordField("Xmp.acdsee.keywords", "|", false, false),
+        new HierarchicalKeywordField("Xmp.acdsee.categories", "|", false, false,
+                                     new ACDSeeKeywordTransformer ()),
         new HierarchicalKeywordField("Xmp.digiKam.TagsList", "/", false, true),
         new HierarchicalKeywordField("Xmp.MicrosoftPhoto.LastKeywordXMP", "/", false, true)
     };
@@ -960,9 +1103,22 @@ public class PhotoMetadata : MediaMetadata {
             
             if (values == null || values.size < 1)
                 continue;
+
+            var transformed_values = new Gee.ArrayList<string> ();
+            foreach (var current_value in values) {
+                try {
+                    var transformed = field.transformer.transform (current_value);
+                    transformed_values.add_all (transformed);
+                } catch (Error error) {
+                    critical ("Failed to transform tag value %s: %s",
+                              current_value,
+                              error.message);
+                }
+            }
             
-            foreach (string current_value in values) {
-                string? canonicalized = HierarchicalTagUtilities.canonicalize(current_value,
+            foreach (var current_value in transformed_values) {
+                string? canonicalized =
+                    HierarchicalTagUtilities.canonicalize(current_value,
                     field.path_separator);
 
                 if (canonicalized != null)
@@ -1090,7 +1246,8 @@ public class PhotoMetadata : MediaMetadata {
     
     private static string[] ARTIST_TAGS = {
         "Exif.Image.Artist",
-        "Exif.Canon.OwnerName" // Custom tag used by Canon DSLR cameras
+        "Exif.Canon.OwnerName", // Custom tag used by Canon DSLR cameras
+        "Xmp.acdsee.author" // Custom tag used by ACDSEE software
     };
     
     public string? get_artist() {
@@ -1129,7 +1286,8 @@ public class PhotoMetadata : MediaMetadata {
         "Xmp.xmp.Rating",
         "Iptc.Application2.Urgency",
         "Xmp.photoshop.Urgency",
-        "Exif.Image.Rating"
+        "Exif.Image.Rating",
+        "Xmp.acdsee.rating",
     };
     
     public Rating get_rating() {

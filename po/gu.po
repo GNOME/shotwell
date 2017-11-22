@@ -1,13 +1,12 @@
 # po/shotwell-core/shotwell.pot
 # PO message string template file for Shotwell Core Components
-# Copyright (C) 2009-2013 Yorba Foundation
+# Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
 #
 # Translators:
 # sweta <swkothar@redhat.com>, 2013
 # sweta <swkothar@redhat.com>, 2012
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
@@ -1585,7 +1584,7 @@ msgid "Zoom _100%"
 msgstr "100% જેટલુ મોટુ કરો (_1)"
 
 #: src/PhotoPage.vala:2602 src/direct/DirectPhotoPage.vala:193
-#, c-format
+#, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "ફોટો 100% જેટલો વિસ્તૃત કરો"
 
@@ -1594,7 +1593,7 @@ msgid "Zoom _200%"
 msgstr "200% જેટલુ મોટુ કરો (_2)"
 
 #: src/PhotoPage.vala:2608 src/direct/DirectPhotoPage.vala:199
-#, c-format
+#, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "ફોટો 200% જેટલો વિસ્તૃત કરો"
 

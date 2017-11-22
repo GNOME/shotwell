@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -196,13 +196,8 @@ public class RawSniffer : PhotoFileSniffer {
         }
         
         if (detected.metadata != null) {
-            uint8[]? flattened_sans_thumbnail = detected.metadata.flatten_exif(false);
-            if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                detected.exif_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
-            
-            uint8[]? flattened_thumbnail = detected.metadata.flatten_exif_preview();
-            if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
-                detected.thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
+            detected.exif_md5 = detected.metadata.exif_hash();
+            detected.thumbnail_md5 = detected.metadata.thumbnail_hash();
         }
         
         if (calc_md5)
@@ -240,6 +235,7 @@ public class RawReader : PhotoFileReader {
     }
     
     public override Gdk.Pixbuf scaled_read(Dimensions full, Dimensions scaled) throws Error {
+        // Try to get the embedded thumbnail first
         double width_proportion = (double) scaled.width / (double) full.width;
         double height_proportion = (double) scaled.height / (double) full.height;
         bool half_size = width_proportion < 0.5 && height_proportion < 0.5;
@@ -249,6 +245,18 @@ public class RawReader : PhotoFileReader {
         processor.output_params->user_flip = GRaw.Flip.NONE;
         
         processor.open_file(get_filepath());
+        try {
+            if (this.get_role () == Role.THUMBNAIL) {
+                processor.unpack_thumb();
+                var image = processor.make_thumb_image ();
+                return resize_pixbuf (image.get_pixbuf_copy (),
+                                      scaled,
+                                      Gdk.InterpType.BILINEAR);
+            }
+        } catch (Error error) {
+            // Nothing to do, continue with raw developer
+        }
+
         processor.unpack();
         processor.process();
         
@@ -339,8 +347,10 @@ public enum RawDeveloper {
             basename = camera_development_filename;
         }
         
+        string newbasename = LibraryFiles.convert_basename(basename);
+
         bool c;
-        File? new_back = generate_unique_file(master.get_parent(), basename, out c);
+        File? new_back = generate_unique_file(master.get_parent(), newbasename, out c);
         claim_file(new_back);
         ns.file_format = PhotoFileFormat.JFIF;
         ns.filepath = new_back.get_path();

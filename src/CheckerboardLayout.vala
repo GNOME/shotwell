@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -127,6 +127,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     private CheckerboardItemText? subtitle = null;
     private bool subtitle_visible = false;
     private bool is_cursor = false;
+    private Pango.Alignment tag_alignment = Pango.Alignment.LEFT;
+    private Gee.List<Tag>? user_visible_tag_list = null;
+    private Gee.Collection<Tag> tags;
     private Gdk.Pixbuf pixbuf = null;
     private Gdk.Pixbuf display_pixbuf = null;
     private Gdk.Pixbuf brightened = null;
@@ -154,7 +157,9 @@ public abstract class CheckerboardItem : ThumbnailView {
         // (notify_membership_changed) and calculate when the collection's property settings
         // are known
     }
-    
+
+    public bool has_tags { get; private set; }
+
     public override string get_name() {
         return (title != null) ? title.get_text() : base.get_name();
     }
@@ -236,8 +241,58 @@ public abstract class CheckerboardItem : ThumbnailView {
         recalc_size("set_comment_visible");
         notify_view_altered();
     }
-    
-    
+
+    public void set_tags(Gee.Collection<Tag>? tags,
+            Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        has_tags = (tags != null && tags.size > 0);
+        tag_alignment = alignment;
+        string text;
+        if (has_tags) {
+            this.tags = tags;
+            user_visible_tag_list = Tag.make_user_visible_tag_list(tags);
+            text = Tag.make_tag_markup_string(user_visible_tag_list);
+        } else {
+            text = "<small>.</small>";
+        }
+
+        if (subtitle != null && subtitle.is_set_to(text, true, alignment))
+            return;
+        subtitle = new CheckerboardItemText(text, alignment, true);
+
+        if (subtitle_visible) {
+            recalc_size("set_subtitle");
+            notify_view_altered();
+        }
+    }
+
+    public void clear_tags() {
+        clear_subtitle();
+        has_tags = false;
+        user_visible_tag_list = null;
+    }
+
+    public void highlight_user_visible_tag(int index)
+            requires (user_visible_tag_list != null) {
+        string text = Tag.make_tag_markup_string(user_visible_tag_list, index);
+        subtitle = new CheckerboardItemText(text, tag_alignment, true);
+
+        if (subtitle_visible)
+            notify_view_altered();
+    }
+
+    public Tag get_user_visible_tag(int index)
+            requires (index >= 0 && index < user_visible_tag_list.size) {
+        return user_visible_tag_list.get(index);
+    }
+
+    public Pango.Layout? get_tag_list_layout() {
+        return has_tags ? subtitle.get_pango_layout() : null;
+    }
+
+    public Gdk.Rectangle get_subtitle_allocation() {
+        return subtitle.allocation;
+    }
+
     public string get_subtitle() {
         return (subtitle != null) ? subtitle.get_text() : "";
     }
@@ -281,7 +336,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         this.is_cursor = is_cursor;
     }
 
-    public bool get_is_cusor() {
+    public bool get_is_cursor() {
         return is_cursor;
     }
     
@@ -508,12 +563,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
 
     protected virtual void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
-        if (pixbuf.get_has_alpha()) {
-            ctx.rectangle(origin.x, origin.y, pixbuf.get_width(), pixbuf.get_height());
-            ctx.fill();
-        }
-        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, origin.x, origin.y);
-        ctx.paint();
+        paint_pixmap_with_background(ctx, pixbuf, origin.x, origin.y);
     }
 
     private int get_selection_border_width(int scale) {
@@ -911,7 +961,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
                 size_allocate_due_to_reflow.to_string(), parent_allocation.width, req.height);
 #endif
-            set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
+            // But if the current height is 0, don't request a size yet. Delay
+            // it to do_reflow (bgo#766864)
+            if (req.height != 0) {
+                set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
+            }
         } else {
             // set the layout's width and height to always match the parent's
             set_size_request(parent_allocation.width, parent_allocation.height);
@@ -1178,7 +1232,68 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         return null;
     }
-    
+
+    public static int get_tag_index_at_pos(string tag_list, int pos) {
+        int sep_len = Tag.TAG_LIST_SEPARATOR_STRING.length;
+        assert (sep_len > 0);
+        int len = tag_list.length;
+        if (pos < 0 || pos >= len)
+            return -1;
+
+        // check if we're hovering on a separator
+        for (int i = 0; i < sep_len; ++i) {
+            if (tag_list[pos] == Tag.TAG_LIST_SEPARATOR_STRING[i] && pos >= i) {
+                if (tag_list.substring(pos - i, sep_len) == Tag.TAG_LIST_SEPARATOR_STRING)
+                    return -1;
+            }
+        }
+
+        // Determine the tag index by counting the number of separators before
+        // the requested position. This only works if the separator string
+        // contains the delimiter used to delimit tags (i.e. the comma `,'.)
+        int index = 0;
+        for (int i = 0; i < pos; ++i) {
+            if (tag_list[i] == Tag.TAG_LIST_SEPARATOR_STRING[0] &&
+                    i + sep_len <= len &&
+                    tag_list.substring(i, sep_len) == Tag.TAG_LIST_SEPARATOR_STRING) {
+                ++index;
+                i += sep_len - 1;
+            }
+        }
+        return index;
+    }
+
+    private int internal_handle_tag_mouse_event(CheckerboardItem item, int x, int y) {
+        Pango.Layout? layout = item.get_tag_list_layout();
+        if (layout == null)
+            return -1;
+        Gdk.Rectangle rect = item.get_subtitle_allocation();
+        int index, trailing;
+        int px = (x - rect.x) * Pango.SCALE;
+        int py = (y - rect.y) * Pango.SCALE;
+        if (layout.xy_to_index(px, py, out index, out trailing))
+            return get_tag_index_at_pos(layout.get_text(), index);
+        return -1;
+    }
+
+    public bool handle_mouse_motion(CheckerboardItem item, int x, int y, Gdk.ModifierType mask) {
+        if (!item.has_tags || is_drag_select_active())
+            return false;
+        int tag_index = internal_handle_tag_mouse_event(item, x, y);
+        item.highlight_user_visible_tag(tag_index);
+        return (tag_index >= 0);
+    }
+
+    public bool handle_left_click(CheckerboardItem item, double xd, double yd, Gdk.ModifierType mask) {
+        int tag_index = internal_handle_tag_mouse_event(item, (int)Math.round(xd), (int)Math.round(yd));
+        if (tag_index >= 0) {
+            Tag tag = item.get_user_visible_tag(tag_index);
+            LibraryWindow.get_app().switch_to_tag(tag);
+            return true;
+        }
+        return false;
+    }
+
     public Gee.List<CheckerboardItem> get_visible_items() {
         return intersection(visible_page);
     }
@@ -1808,6 +1923,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // we want switched_to() to be the final call in the process (indicating that the page is
         // now in place and should do its thing to update itself), have to be be prepared for
         // GTK/GDK calls between the widgets being actually present on the screen and "switched to"
+
+        Gtk.Allocation allocation;
+        get_allocation(out allocation);
+        get_style_context().render_background (ctx, 0, 0, allocation.width, allocation.height);
         
         // watch for message mode
         if (message == null) {
@@ -1829,7 +1948,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             int text_width, text_height;
             pango_layout.get_pixel_size(out text_width, out text_height);
             
-            Gtk.Allocation allocation;
             get_allocation(out allocation);
             
             int x = allocation.width - text_width;
@@ -1892,6 +2010,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_colors_changed() {
+        invalidate_transparent_background();
         override_background_color(Gtk.StateFlags.NORMAL, Config.Facade.get_instance().get_bg_color());
         set_colors();
     }

@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -314,7 +314,7 @@ public class ExporterUI {
     
     private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
         progress_dialog.set_modal(false);
-        string question = _("File %s already exists.  Replace?").printf(file.get_basename());
+        string question = _("File %s already exists. Replace?").printf(file.get_basename());
         Gtk.ResponseType response = AppWindow.negate_affirm_all_cancel_question(question, 
             _("_Skip"), _("_Replace"), _("Replace _All"), _("Export"));
         

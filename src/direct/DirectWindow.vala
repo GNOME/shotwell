@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -21,10 +21,11 @@ public class DirectWindow : AppWindow {
         // simple layout: menu on top, photo in center, toolbar along bottom (mimicking the
         // PhotoPage in the library, but without the sidebar)
         Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        layout.pack_start(direct_photo_page.get_menubar(), false, false, 0);
         layout.pack_start(direct_photo_page, true, true, 0);
         layout.pack_end(direct_photo_page.get_toolbar(), false, false, 0);
         
+        Application.set_menubar (direct_photo_page.get_menubar ());
+
         add(layout);
     }
     

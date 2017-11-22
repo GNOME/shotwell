@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -31,7 +31,7 @@ public class SavedSearchPage : CollectionPage {
         foreach (MediaSourceCollection sources in MediaCollectionRegistry.get_instance().get_all())
             get_view().monitor_source_collection(sources, new SavedSearchManager(this, search), null);
         
-        init_page_context_menu("/SearchContextMenu");
+        init_page_context_menu("SearchContextMenu");
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
@@ -46,22 +46,27 @@ public class SavedSearchPage : CollectionPage {
         base.init_collect_ui_filenames(ui_filenames);
         ui_filenames.add("savedsearch.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry rename_search = { "RenameSearch", null, TRANSLATABLE, null, null, on_rename_search };
-        actions += rename_search;
-        
-        Gtk.ActionEntry edit_search = { "EditSearch", null, TRANSLATABLE, null, null, on_edit_search };
-        actions += edit_search;
-        
-        Gtk.ActionEntry delete_search = { "DeleteSearch", null, TRANSLATABLE, null, null, on_delete_search };
-        actions += delete_search;
-        
-        return actions;
+
+    private const GLib.ActionEntry[] entries = {
+        { "RenameSearch", on_rename_search },
+        { "EditSearch", on_edit_search },
+        { "DeleteSearch", on_delete_search }
+    };
+
+    protected override void add_actions(GLib.ActionMap map) {
+        base.add_actions(map);
+
+        map.add_action_entries(entries, this);
     }
-    
+
+    protected override void remove_actions(GLib.ActionMap map) {
+        base.remove_actions(map);
+        foreach (var entry in entries) {
+            map.remove_action(entry.name);
+        }
+    }
+
+
     private void on_delete_search() {
         if (Dialogs.confirm_delete_saved_search(search))
             AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
@@ -77,15 +82,10 @@ public class SavedSearchPage : CollectionPage {
     }
     
     protected override void update_actions(int selected_count, int count) {
-        set_action_details("RenameSearch",
-            Resources.RENAME_SEARCH_MENU,
-            null, true);
-        set_action_details("EditSearch",
-            Resources.EDIT_SEARCH_MENU,
-            null, true);
-        set_action_details("DeleteSearch",
-            Resources.DELETE_SEARCH_MENU,
-            null, true);
+        set_action_sensitive ("RenameSearch", true);
+        set_action_sensitive ("EditSearch", true);
+        set_action_sensitive ("DeleteSearch", true);
+
         base.update_actions(selected_count, count);
     }
 }

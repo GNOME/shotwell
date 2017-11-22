@@ -26,7 +26,7 @@
   <p>You can also constrain the crop box to one of many common sizes. Choose a size from the drop-down list that suits your needs. If you press the flip button next to it, the orientation of the constraint will switch (from landscape to portrait).</p>
  </item>
  <item>
-  <p>When you're happy with your crop outline, press the <gui>Apply</gui> button. Shotwell will display the cropped photo.</p>
+  <p>When you're happy with your crop outline, apply it by pressing the <gui>Crop</gui> button. Shotwell will display the cropped photo.</p>
  </item>
  <item>
   <p>If you change your mind, press the <gui>Crop</gui> button again and fine-tune the crop.</p>
@@ -34,7 +34,7 @@
  </item>
 </steps>
 
-<section>
+<section id="rule-of-thirds">
  <title>What is the rule of thirds?</title>
  <p>The <em>rule of thirds</em> helps you to choose a pleasing composition for a photo.</p>
  <p>Imagine that the scene is divided up into a 3x3 grid by two equally-spaced vertical lines and two equally-spaced horizontal lines. According to the rule, you're more likely to get a pleasing composition if you align major features (like the horizon, or a person's body) with one of the lines. Paying attention to the way features flow from one part of the grid to another can also help.</p>

@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -17,7 +17,7 @@ public enum ScaleConstraint {
                 return _("Original size");
                 
             case DIMENSIONS:
-                return _("Width or height");
+                return _("Longest edge");
             
             case WIDTH:
                 return _("Width");
@@ -199,7 +199,7 @@ public struct Dimensions {
         return scaled_rect;
     }
     
-    // Returns the current dimensions scaled in a similar proportion as the two suppled dimensions
+    // Returns the current dimensions scaled in a similar proportion as the two supplied dimensions
     public Dimensions get_scaled_similar(Dimensions original, Dimensions scaled) {
         double x_scale, y_scale;
         original.get_scale_ratios(scaled, out x_scale, out y_scale);

@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -171,6 +171,10 @@ public abstract class BatchImportJob {
     public virtual DuplicatedFile? get_duplicated_file() {
         return null;
     }
+
+    public virtual File? get_associated_file() {
+        return null;
+    }
     
     // Attaches a sibling job (for RAW+JPEG)
     public abstract void set_associated(BatchImportJob associated);
@@ -202,16 +206,22 @@ public abstract class BatchImportJob {
     public virtual time_t get_exposure_time_override() {
         return 0;
     }
+
+    public virtual bool recurse() {
+        return true;
+    }
 }
 
 public class FileImportJob : BatchImportJob {
     private File file_or_dir;
     private bool copy_to_library;
     private FileImportJob? associated = null;
+    private bool _recurse;
     
-    public FileImportJob(File file_or_dir, bool copy_to_library) {
+    public FileImportJob(File file_or_dir, bool copy_to_library, bool recurse) {
         this.file_or_dir = file_or_dir;
         this.copy_to_library = copy_to_library;
+        this._recurse = recurse;
     }
     
     public override string get_dest_identifier() {
@@ -255,6 +265,10 @@ public class FileImportJob : BatchImportJob {
     public File get_file() {
         return file_or_dir;
     }
+
+    public override bool recurse() {
+        return this._recurse;
+    }
 }
 
 // A BatchImportRoll represents important state for a group of imported media.  If this is shared
@@ -271,7 +285,7 @@ public class BatchImportRoll {
 
 // A BatchImportResult associates a particular job with a File that an import was performed on
 // and the import result.  A BatchImportJob can specify multiple files, so there is not necessarily
-// a one-to-one relationship beteen it and this object.
+// a one-to-one relationship between it and this object.
 //
 // Note that job may be null (in the case of a pre-failed job that must be reported) and file may
 // be null (for similar reasons).
@@ -317,9 +331,11 @@ public class ImportManifest {
     public Gee.List<BatchImportResult> already_imported = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> corrupt_files = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> all = new Gee.ArrayList<BatchImportResult>();
+    public GLib.Timer timer;
     
     public ImportManifest(Gee.List<BatchImportJob>? prefailed = null,
         Gee.List<BatchImportJob>? pre_already_imported = null) {
+        this.timer = new Timer();
         if (prefailed != null) {
             foreach (BatchImportJob job in prefailed) {
                 BatchImportResult batch_result = new BatchImportResult(job, null, 
@@ -431,7 +447,7 @@ public class BatchImport : Object {
     private Gee.HashMap<string, File> imported_full_md5_table = new Gee.HashMap<string, File>();
 #endif
     private uint throbber_id = 0;
-    private int max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
+    private uint max_outstanding_import_jobs = Workers.thread_per_cpu_minus_one();
     private bool untrash_duplicates = true;
     private bool mark_duplicates_online = true;
     
@@ -613,6 +629,7 @@ public class BatchImport : Object {
         flush_ready_sources();
         
         log_status("Import completed: %s".printf(where));
+        debug("Import complete after %f", manifest.timer.elapsed());
         
         // report completed to the reporter (called prior to the "import_complete" signal)
         if (reporter != null)
@@ -1054,7 +1071,7 @@ public class BatchImport : Object {
                         d = RawDeveloper.EMBEDDED;
                     
                     photo.set_default_raw_developer(d);
-                    photo.set_raw_developer(d);
+                    photo.set_raw_developer(d, false);
                 }
             }
             
@@ -1265,7 +1282,14 @@ public class BatchImport : Object {
             ready_sources.add(completed_object);
             
             imported(completed_object.source, user_preview, total);
-            report_progress(completed_object.source.get_filesize());
+            // If we have a photo, use master size. For RAW import, we might end up with reporting
+            // the size of the (much smaller) JPEG which will look like no progress at all
+            if (completed_object.source is PhotoSource) {
+                var photo_source = completed_object.source as PhotoSource;
+                report_progress(photo_source.get_master_filesize());
+            } else {
+                report_progress(completed_object.source.get_filesize());
+            }
             file_import_complete();
         }
         
@@ -1553,7 +1577,7 @@ private class WorkSniffer : BackgroundImportJob {
             assert(query_is_directory(dir));
             
             try {
-                search_dir(job, dir, copy_to_library);
+                search_dir(job, dir, copy_to_library, job.recurse());
             } catch (Error err) {
                 report_error(job, dir, job.get_source_identifier(), dir.get_path(), err,    
                     ImportResult.FILE_ERROR);
@@ -1572,7 +1596,7 @@ private class WorkSniffer : BackgroundImportJob {
         }
     }
     
-    public void search_dir(BatchImportJob job, File dir, bool copy_to_library) throws Error {
+    public void search_dir(BatchImportJob job, File dir, bool copy_to_library, bool recurse) throws Error {
         FileEnumerator enumerator = dir.enumerate_children("standard::*",
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         
@@ -1586,11 +1610,14 @@ private class WorkSniffer : BackgroundImportJob {
             FileType file_type = info.get_file_type();
             
             if (file_type == FileType.DIRECTORY) {
+                if (!recurse)
+                    continue;
+
                 if (info.get_name().has_prefix("."))
                     continue;
 
                 try {
-                    search_dir(job, child, copy_to_library);
+                    search_dir(job, child, copy_to_library, recurse);
                 } catch (Error err) {
                     report_error(job, child, child.get_path(), child.get_path(), err, 
                         ImportResult.FILE_ERROR);
@@ -1777,7 +1804,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     private ImportResult prepare_file(BatchImportJob job, File file, File? associated_file, 
         bool copy_to_library, out PreparedFile prepared_file) {
         prepared_file = null;
-        
+
         bool is_video = VideoReader.is_supported_video_file(file);
         
         if ((!is_video) && (!Photo.is_file_image(file)))
@@ -1835,13 +1862,8 @@ private class PrepareFilesJob : BackgroundImportJob {
             }
             
             if (metadata != null) {
-                uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
-                if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                    exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
-                
-                uint8[]? flattened_thumbnail = metadata.flatten_exif_preview();
-                if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
-                    thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
+                exif_only_md5 = metadata.exif_hash ();
+                thumbnail_md5 = metadata.thumbnail_hash();
             }
         }
 
@@ -1962,6 +1984,12 @@ private class PreparedFileImportJob : BackgroundJob {
                 
                 return;
             }
+        }
+
+        // See if the prepared job has a file associated already, then use that
+        // Usually works for import from Cameras
+        if (final_associated_file == null) {
+            final_associated_file = prepared_file.job.get_associated_file();
         }
         
         debug("Importing %s", final_file.get_path());

@@ -1,0 +1,53 @@
+install_man('shotwell.1')
+
+yelp_pages = [
+    'edit-adjustments.page',
+    'edit-crop.page',
+    'edit-date-time.page',
+    'edit-enhance.page',
+    'edit-external.page',
+    'edit-nondestructive.page',
+    'edit-redeye.page',
+    'edit-rotate.page',
+    'edit-straighten.page',
+    'edit-undo.page',
+    'formats.page',
+    'import-camera.page',
+    'import-file.page',
+    'import-memorycard.page',
+    'index.page',
+    'organize-event.page',
+    'organize-flag.page',
+    'organize-rating.page',
+    'organize-remove.page',
+    'organize-search.page',
+    'organize-tag.page',
+    'organize-title.page',
+    'other-files.page',
+    'other-missing.page',
+    'other-multiple.page',
+    'other-plugins.page',
+    'raw.page',
+    'running.page',
+    'share-background.page',
+    'share-export.page',
+    'share-print.page',
+    'share-send.page',
+    'share-slideshow.page',
+    'share-upload.page',
+    'view-displaying.page',
+    'view-information.page',
+    'view-sidebar.page']
+
+yelp_media = [
+    'figures/edit_toolbar.png',
+    'figures/editing_overview.png',
+    'figures/shotwell_logo.png',
+    'figures/crop_thirds.jpg',
+    'figures/trash_process.png']
+
+gnome.yelp('shotwell',
+           sources : yelp_pages,
+           media : yelp_media,
+           symlink_media : true,
+           languages : [ 'cs', 'de', 'el', 'es', 'hu', 'lv', 'pt_BR', 'sv'])

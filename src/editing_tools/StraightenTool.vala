@@ -1,5 +1,5 @@
 
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -114,8 +114,15 @@ public class StraightenTool : EditingTool {
             angle_slider.set_value(0.0);
             angle_slider.set_draw_value(false);
 
-            description_label.set_padding(CONTROL_SPACING, 0);
-            angle_label.set_padding(0, 0);
+            description_label.margin_start = CONTROL_SPACING;
+            description_label.margin_end = CONTROL_SPACING;
+            description_label.margin_top = 0;
+            description_label.margin_bottom = 0;
+
+            angle_label.margin_start = 0;
+            angle_label.margin_end = 0;
+            angle_label.margin_top = 0;
+            angle_label.margin_bottom = 0;
             angle_label.set_size_request(MIN_LABEL_SIZE,-1);
 
             Gtk.Box slider_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
@@ -285,10 +292,7 @@ public class StraightenTool : EditingTool {
         // copy image data from photo into a cairo surface.
         photo_surf = new Cairo.ImageSurface(Cairo.Format.ARGB32, low_res_tmp.width, low_res_tmp.height);
         Cairo.Context ctx = new Cairo.Context(photo_surf);
-        Gdk.cairo_set_source_pixbuf(ctx, low_res_tmp, 0, 0);
-        ctx.rectangle(0, 0, low_res_tmp.width, low_res_tmp.height);
-        ctx.fill();
-        ctx.paint();
+        paint_pixmap_with_background(ctx, low_res_tmp, 0, 0);
 
         // prepare rotation surface and context. we paint a rotated,
         // low-res copy of the image into it, followed by a faint grid.
@@ -355,7 +359,11 @@ public class StraightenTool : EditingTool {
         prepare_image();
 
         // set crosshair cursor
-        canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.CROSSHAIR));
+        var drawing_window = canvas.get_drawing_window ();
+        var display = drawing_window.get_display ();
+        var cursor = new Gdk.Cursor.for_display (display,
+                                                 Gdk.CursorType.CROSSHAIR);
+        drawing_window.set_cursor (cursor);
 
         window = new StraightenToolWindow(canvas.get_container());
         bind_window_handlers();

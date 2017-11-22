@@ -1,8 +1,19 @@
-<ui>
-    <popup name="SearchContextMenu">
-        <menuitem name="ContextRenameSearch" action="RenameSearch" />
-        <menuitem name="ContextEditSearch" action="EditSearch" />
-        <menuitem name="ContextDeleteSearch" action="DeleteSearch" />
-    </popup>
-
-</ui>
+<?xml version="1.0"?>
+<interface domain="shotwell">
+  <menu id="SearchContextMenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Re_name…</attribute>
+        <attribute name="action">win.RenameSearch</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Edit…</attribute>
+        <attribute name="action">win.EditSearch</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Delete</attribute>
+        <attribute name="action">win.DeleteSearch</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

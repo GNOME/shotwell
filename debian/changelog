@@ -1,3 +1,329 @@
+shotwell (0.27.0-0~jensge1~artful1) artful; urgency=medium
+
+  * Remove F-Spot import support
+  * Create a commandline utility to test image transformations
+  * Speed up color transformations a bit
+  * Bump GTK+ requirement to 3.18 and remove deprecated functions
+  * Clean-up histogram drawing code
+  * Run thumbnailer with nice 19
+  * Update VAAPI blacklisting for video thumbnailer and new plugin structure
+  * Add configurable image background
+  * Split several dialogs from shotwell.ui file
+  * Move Tumblr to default plugin set
+  * Remove some unnecessary memcpys on import
+  * Add Meson build support
+  * Some more ngettext for plurals
+  * Add --fullscreen/-f option for viewer
+  * Add option to install Ubuntu apport hook
+  * Fix issue when importing to NTFS-backed vboxfs
+  * Fix GSettings schema search path for running out-of-tree
+  * Work around "Camera locked: -53" error on GNOME
+  * Fix issue with missing highlight on dnd actions
+
+ -- Jens Georg <mail@jensge.org>  Wed, 21 Jun 2017 08:17:24 +0200
+
+shotwell (0.26.0-0~jensge1~zesty1) zesty; urgency=medium
+
+  * Translation updates
+  * Fix build on non-glibc systems
+  * Fix missing optimisation in standard configure call
+
+ -- Jens Georg <mail@jensge.org>  Mon, 20 Mar 2017 13:40:51 +0100
+
+shotwell (0.25.92-0~jensge1~zesty1) zesty; urgency=medium
+
+  * Fix navigation issue when deleting image in fullscreen view
+  * Fix toolbox not visible on Mate in fullscreen view
+  * Fix navigation in viewer when saving modified photo
+  * Fix wrong macro in manpage
+  * Clean-up some dependencies
+  * Make it possible to enable/disable individual publishers
+  * Remove obsolete UI file
+  * Move all icons in the resource file
+  * Move ui files into resources
+  * Remove obsolete Glade helpers
+  * Clean-up printing dialog a little
+  * Piwigo: Append .jpg extension to published raw files
+  * Fix keyboard accessability of CCW rotation
+  * Fix massive memory consumption when importing videos
+  * Fix context menu of viewer
+  * Fix a useless string copy
+  * Use defalt measurements depending on locale when none are set
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Thu, 16 Mar 2017 20:01:59 +0100
+
+shotwell (0.25.90-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Remove obsolete option to create new folders on Picasa web albums
+  * Update Google API keys
+  * Fix Youtube upload by porting to libgdata
+  * Use embedded thumbnails in RAW files when default developer is set to
+    Camera
+  * Remove accidental raw development while importing
+  * Fix "Export" menu accidently being labelled as "Save As"
+
+ -- Jens Georg <mail@jensge.org>  Mon, 27 Feb 2017 20:38:51 +0100
+
+shotwell (0.25.5-0~jensge1~yakkety1) yakkety; urgency=medium
+
+  * Fix setting of gamma value and color matrix in libraw
+  * Extract web publishing authenticators into separate library. That should
+    make it possible to easily support UOA and GOA without patching Shotwell.
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Thu, 23 Feb 2017 18:06:00 +0100
+
+shotwell (0.25.4-0~jensge1~yakkety1) yakkety; urgency=high
+
+  * Publishing: Use HTTPS everywhere
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Tue, 31 Jan 2017 21:24:30 +0100
+
+shotwell (0.25.3-0~jensge1~yakkety1) yakkety; urgency=medium
+
+  * Fix event page context menu
+  * Try to guess character set of string when UTF-8 validation fails
+  * Fix tags context menu
+  * Properly switch menu bar when changing pages
+  * Fix rating
+  * Fix a critical about reparenting a popup menu
+  * Fix sidebar context menu
+  * Fix toolbar in camera import page
+  * Update glade files for all publishers
+  * Flickr: Simplify OAuth parsing by using libsoup
+  * Fix accellerators not coming from menu model
+  * Add <Ctrl>-f as shortcut for search bar
+  * Remove AppMenu, needs more thinking about the design.
+  * Flickr: Use human-readable size of upload quota
+  * Fix leave fullscreen option
+  * Fix upload issues with flickr
+  * Fix several disabled actions when switching away from pages
+  * Fix actions in fullscreen
+  * Fix several typos
+  * Piwigo: Fix title and comments on upload
+  * Improved duplicate detection
+  * Updated translations
+
+ -- Jens Georg <mail@jensge.org>  Wed, 18 Jan 2017 23:21:38 +0100
+
+shotwell (0.25.2-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Fix missing About action
+  * Fix setting of initial action state
+  * Fix missing initialzation of several states
+  * Fix sort order not working
+  * Fix a critical on startup
+  * Fix initial sort order
+  * Fix hiding of search toolbar
+  * Fix rating filter menu initially being disabled
+  * Use Gtk.Revealer for bottom toolbar
+  * Fix a copy and paste error in the publishing result
+  * Use Application menu
+  * Fix debian scripts
+  * Fix filter actions not being active
+  * Fix initial search bar state not being persisted
+  * Remove deprecated Gtk.IconFactory
+  * Add missing keyboard shortcut for setting the background
+  * Move some dialogs to GtkTemplate, preparing for issues with valac master
+  * Fix context-sensitive label of background menu
+  * Fix context-sensitive label of Undo and Redo menu
+  * Fix context menu on import page
+
+ -- Jens Georg <mail@jensge.org>  Mon, 12 Dec 2016 18:18:45 +0100
+
+shotwell (0.25.1-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Remove deprecated libsoup API
+  * Remove extra box around WebKit authenticator view
+  * Tumblr: Fix compile error with recent vala compiler
+  * Thumbnailer: Fix an issue with accidental closing of file descriptors
+  * Distribute misc.vapi
+  * Use proper ngettext for plurals instead of hard-coded >1
+  * Fix issue with unique index on MD5 and Format
+  * Update Piwigo dialogs
+  * Remove most of the deprecated API calls for GTK+ <= 3.14
+  * Remove some useless warnings generated by Vala
+  * Refactor Plugins to use a common aproach to load panes from glade
+  * Piwigo: Simplify category parsing
+  * Remove GtkUIManager and Gtk*Action* from code
+  * Fix a crash when clicking on tool window under Wayland
+  * Translation updates
+
+ -- Jens Georg <mail@jensge.org>  Mon, 21 Nov 2016 20:28:43 +0100
+
+shotwell (0.25.0-0~jensge1~xenial1) xenial; urgency=medium
+
+  * Add contrast to improvements
+  * Add a log when shifting events
+  * Add a debug output of the current timezone
+  * Fix compilation with recent Vala compiler
+  * Fix focus handling of full-screen viewer
+  * Remove obsolete CSS style property
+  * Support ACDSEE tags
+  * Use unicode characters
+  * Remove deprecated calls
+  * Silence two C warnings that are usually caused by valac
+  * Refactor web authenticator
+  * Spelling fixes
+  * Piwigo: Add option to override SSL certificate handling
+  * Piwigo: Add option to show the SSL certificate
+  * Remove an old GTK+ work-around
+  * Remove deprecated GSettings calls
+  * Persist export dialog settings
+  * Remove deprecated elements from export dialog
+  * Port web plugins to new libsoup API
+  * Fix libraw binding
+  * Piwigo: Fix new album creation
+  * Blacklist vaapi decoder to prevent crashes in video meta data extraction
+  * Hide "Folder" side-bar when empty
+  * Enable SQL debugging through environment variable
+
+
+ -- Jens Georg <mail@jensge.org>  Mon, 24 Oct 2016 20:07:30 +0200
+
+shotwell (0.23.7-1~jensge1~xenial1) xenial; urgency=medium
+
+  * Language updates
+
+ -- Jens Georg <mail@jensge.org>  Mon, 12 Sep 2016 20:10:26 +0200
+
+shotwell (0.23.6-1~jensge1~xenial1) xenial; urgency=medium
+
+  * Fix locale-dependent times
+  * Use nl_langinfo instead of custom LConv
+  * Fix renaming of tags and saved searches
+  * Improve message shown on empty camera
+  * Make thm a recognized extension for JPEG files
+
+ -- Jens Georg <mail@jensge.org>  Mon, 29 Aug 2016 21:26:10 +0200
+
+shotwell (0.23.5-1~jensge1~xenial2) xenial; urgency=medium
+
+  * Plugins: Load icons and GtkBuilder files from GResource
+  * Offer a way to hide the bottom toolbar
+  * Fix .desktop file generation
+  * Use Gtk.MessageDialog's printf-style API for strings
+  * Add SQL indexes to PhotoTable
+  * Add Language headers to po files
+  * Update INSTALL file
+  * Really remove reference to external hmac_sha1
+  * Disambiguate strings for time ranges
+  * Implement linked tags
+  * Make it more clear that something failed if SSL conncetion was not
+    possible
+  * Add option to filter by saved search
+  * Explicitly link plugins to their dependencies
+  * Fix typo in GSettings schema
+  * Re-add --disable-extra-plugins configure option
+  * Fix settings migrator and thumbnailer path
+  * Bump debian compat for proper --libexecdir parameter
+
+ -- Jens Georg <mail@jensge.org>  Tue, 16 Aug 2016 12:57:15 +0200
+
+shotwell (0.23.4-1~jensge1~xenial1) xenial; urgency=medium
+
+  * libraw: Fix binding of ProcessedImage.data
+  * graw: Prevent needless array duplication
+  * Fix screenshot URLs in appdata
+  * db: Add option to trace SQL statements
+  * Change build system to autotools
+  * Add help, appdata, gsettings and desktop files to translation system
+  * Change way help is built and installed
+  * Always install the manpage
+  * Several translation fixes
+  * Make message more clear that there are no photos matching a filter
+
+ -- Jens Georg <mail@jensge.org>  Sun, 24 Jul 2016 18:43:30 +0200
+
+shotwell (0.23.2-1~jensge2~xenial1) xenial; urgency=medium
+
+  * Use yelp-build to generate HTML docs
+  * Remove gphoto-2.4 support
+  * Fix background color drawing (#766864)
+  * Port GtkNotebook to GtkStack (#744289)
+  * Fix missing scroll bars in events (#766864)
+  * Fix URLs in manpage
+  * Clean up external functions
+  * Port librest's internal hmac_sha1 implementation to Vala
+  * Fix multiplication of symbols in plugins
+  * Request "popup" login in Facebook
+  * Update help regarding publishing permissions in Facebook (#766919)
+  * Add source SVG for new app icons
+  * Update logo for help
+  * Remove executable flag on images
+  * Piwigo: Let libsoup parse the cookie
+  * Remove string utility functions in publishing plugins
+  * Remove a libgee work-around, bump to 0.10 minimum version
+  * Make filter toolbar buttons contain text and image
+  * Move commonly used functions into shared library to prevent multiple
+    definition of symbols
+
+ -- Jens Georg <mail@jensge.org>  Mon, 04 Jul 2016 22:06:16 +0200
+
+shotwell (0.23.1-1~jensge2~xenial1) xenial; urgency=medium
+
+  * Update Facebook application id. Facebook integration works again (#748991)
+  * Remove obsolete VAPIs
+  * Remove custom WEXITSTATUS implementation
+  * Fix an assert in file monitor caused by renaming a file (#759403)
+  * Rename "Yorba website" to "Shotwell website" in About dialog so it
+    actually says what it does.
+  * Change the way how shotwell checks whether it runs uninstalled to allow
+    running with symlinks (#747374)
+  * Copyright was transferred from Yorba to SFC
+  * Do not block closing the viewer if there was an issue loading the photo
+    (#740436)
+  * Remove remaining references to .gnome2 directory (#766339)
+  * Update icons to hires versions and add a symbolic one (#717326)
+  * If we can't find any pixbuf representation of the Photo, push an empty
+    pixmap to force the display of the error message (#766338)
+  * Fix a critical when get_metadata returns null
+  * Remove deprecated calls to gtk_widget_render_icon() (#719188)
+  * Panic out if we cannot open the file in the viewer
+  * Make toolbar use GtkOverlay instead of implementing a custom pop-up to
+    prevent all kinds of issues with overlaying other applications or
+    toolboxes (#756126)
+  * Remove criticals caused by mouse hiding algorithm
+
+ -- Jens Georg <mail@jensge.org>  Mon, 23 May 2016 21:04:00 +0200
+
+shotwell (0.23.0-1~xenial1) xenial; urgency=medium
+
+  * Allow thinner minimum sidebar (#718611)
+  * Check .cache directory for read/write permissions (#737747)
+  * Fix crash during metadata update (#739917)
+  * Fixed Crop Ribbon / Control not visible (#747201)
+  * Port to webkit2gtk-4.0 (#751709)
+  * Have all soup sessions validate TLS certificates
+  * Remove shell magic from Makefile
+  * Remove calls to Posix.system()
+  * Documentation fixes and improvements (#764800)
+  * Fix CSS issue introduced with previous CSS improvements (#747637)
+  * Don't use GtkHeaderBar on dialogs if the gtk-dialogs-use-header setting is
+    not set (#749874)
+  * Use proper umask to create XDG_USER_CACHE and XDG_USER_DATA when they not
+    exist (#765182)
+  * Don't build the plugin twice
+  * Call pkg-config only once, not every compiler call
+  * Fix parallel builds not to build plugins several times over
+  * Fix contradicting license in rejected.svg (#757643)
+
+ -- Jens Georg <mail@jensge.org>  Tue, 26 Apr 2016 18:50:55 +0200
+
+shotwell (0.22.0-1~vivid1) vivid; urgency=low
+
+  * Improved metadata support for Facebook upload (#742163)
+  * Saved search now properly supports text is-set, not-set (#743924, #743923)
+  * Import title, exposure time when available
+  * User interface improvements (#744291, #719284, more)
+  * Sort photos by filename (#717878)
+  * Updated translations
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 02 Feb 2015 18:24:34 -0800
+
+
 shotwell (0.21.0-1~utopic1) utopic; urgency=low
 
   * User interface refresh (#742326, #742443)

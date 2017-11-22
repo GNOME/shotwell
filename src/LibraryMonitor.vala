@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -593,7 +593,7 @@ public class LibraryMonitor : DirectoryMonitor {
             if (is_blacklisted(file))
                 continue;
             
-            jobs.add(new FileImportJob(file, false));
+            jobs.add(new FileImportJob(file, false, true));
             pending_imports.add(file);
         }
         

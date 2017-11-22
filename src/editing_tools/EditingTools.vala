@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -32,9 +32,6 @@ public abstract class EditingToolWindow : Gtk.Window {
     private bool user_moved = false;
 
     public EditingToolWindow(Gtk.Window container) {
-        // needed so that windows will appear properly in fullscreen mode
-        type_hint = Gdk.WindowTypeHint.UTILITY;
-
         set_decorated(false);
         set_transient_for(container);
 
@@ -52,10 +49,10 @@ public abstract class EditingToolWindow : Gtk.Window {
         focus_on_map = true;
         set_accept_focus(true);
         set_can_focus(true);
-        set_has_resize_grip(false);
 
         // Needed to prevent the (spurious) 'This event was synthesised outside of GDK'
         // warnings after a keypress.
+        // TODO: Check if really still necessary
         Log.set_handler("Gdk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
     }
 
@@ -90,9 +87,13 @@ public abstract class EditingToolWindow : Gtk.Window {
     }
 
     public override void realize() {
-        set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
+        (this as Gtk.Widget).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();
+    }
+
+    private void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
+        // do nothing.
     }
 }
 
@@ -264,29 +265,7 @@ public abstract class PhotoCanvas {
         default_ctx.fill();
 
         // paint the actual image
-        Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
-        default_ctx.rectangle(scaled_position.x, scaled_position.y,
-            pixbuf.get_width(), pixbuf.get_height());
-        default_ctx.fill();
-        default_ctx.restore();
-    }
-
-    public void paint_pixbuf_area(Gdk.Pixbuf pixbuf, Box source_area) {
-        default_ctx.save();
-        if (pixbuf.get_has_alpha()) {
-            set_source_color_from_string(default_ctx, "#000");
-            default_ctx.rectangle(scaled_position.x + source_area.left,
-                scaled_position.y + source_area.top,
-                source_area.get_width(), source_area.get_height());
-            default_ctx.fill();
-
-        }
-        Gdk.cairo_set_source_pixbuf(default_ctx, pixbuf, scaled_position.x,
-            scaled_position.y);
-        default_ctx.rectangle(scaled_position.x + source_area.left,
-            scaled_position.y + source_area.top,
-            source_area.get_width(), source_area.get_height());
-        default_ctx.fill();
+        paint_pixmap_with_background(default_ctx, pixbuf, scaled_position.x, scaled_position.y);
         default_ctx.restore();
     }
 
@@ -459,7 +438,7 @@ public abstract class PhotoCanvas {
         Cairo.Surface surface = new Cairo.Surface.similar(default_ctx.get_target(),
             Cairo.Content.COLOR_ALPHA, pos.width, pos.height);
         Cairo.Context ctx = new Cairo.Context(surface);
-        Gdk.cairo_set_source_pixbuf(ctx, pixbuf, 0, 0);
+        paint_pixmap_with_background(ctx, pixbuf, 0, 0);
         ctx.paint();
         return surface;
     }
@@ -675,8 +654,8 @@ public class CropTool : EditingTool {
             constraint_combo.set_row_separator_func(constraint_combo_separator_func);
             constraint_combo.set_active(0);
 
-            pivot_reticle_button.set_image(new Gtk.Image.from_stock(Resources.CROP_PIVOT_RETICLE,
-                Gtk.IconSize.SMALL_TOOLBAR));
+            var image = new Gtk.Image.from_icon_name("crop-pivot-reticle", Gtk.IconSize.LARGE_TOOLBAR);
+            pivot_reticle_button.set_image (image);
             pivot_reticle_button.set_tooltip_text(_("Pivot the crop rectangle between portrait and landscape orientations"));
 
             custom_width_entry.set_width_chars(4);
@@ -755,28 +734,28 @@ public class CropTool : EditingTool {
         result += new ConstraintDescription(_("Screen"), 0, 0, true, SCREEN_ASPECT_RATIO);
         result += new ConstraintDescription(_("Original Size"), 0, 0, true, ORIGINAL_ASPECT_RATIO);
         result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += new ConstraintDescription(_("SD Video (4 : 3)"), 4, 3, true);
-        result += new ConstraintDescription(_("HD Video (16 : 9)"), 16, 9, true);
+        result += new ConstraintDescription(_("SD Video (4 ∶ 3)"), 4, 3, true);
+        result += new ConstraintDescription(_("HD Video (16 ∶ 9)"), 16, 9, true);
         result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += new ConstraintDescription(_("Wallet (2 x 3 in.)"), 3, 2, true);
-        result += new ConstraintDescription(_("Notecard (3 x 5 in.)"), 5, 3, true);
-        result += new ConstraintDescription(_("4 x 6 in."), 6, 4, true);
-        result += new ConstraintDescription(_("5 x 7 in."), 7, 5, true);
-        result += new ConstraintDescription(_("8 x 10 in."), 10, 8, true);
-        result += new ConstraintDescription(_("Letter (8.5 x 11 in.)"), 85, 110, true);
-        result += new ConstraintDescription(_("11 x 14 in."), 14, 11, true);
-        result += new ConstraintDescription(_("Tabloid (11 x 17 in.)"), 17, 11, true);
-        result += new ConstraintDescription(_("16 x 20 in."), 20, 16, true);
+        result += new ConstraintDescription(_("Wallet (2 × 3 in.)"), 3, 2, true);
+        result += new ConstraintDescription(_("Notecard (3 × 5 in.)"), 5, 3, true);
+        result += new ConstraintDescription(_("4 × 6 in."), 6, 4, true);
+        result += new ConstraintDescription(_("5 × 7 in."), 7, 5, true);
+        result += new ConstraintDescription(_("8 × 10 in."), 10, 8, true);
+        result += new ConstraintDescription(_("Letter (8.5 × 11 in.)"), 85, 110, true);
+        result += new ConstraintDescription(_("11 × 14 in."), 14, 11, true);
+        result += new ConstraintDescription(_("Tabloid (11 × 17 in.)"), 17, 11, true);
+        result += new ConstraintDescription(_("16 × 20 in."), 20, 16, true);
         result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += new ConstraintDescription(_("Metric Wallet (9 x 13 cm)"), 13, 9, true);
-        result += new ConstraintDescription(_("Postcard (10 x 15 cm)"), 15, 10, true);
-        result += new ConstraintDescription(_("13 x 18 cm"), 18, 13, true);
-        result += new ConstraintDescription(_("18 x 24 cm"), 24, 18, true);
-        result += new ConstraintDescription(_("A4 (210 x 297 mm)"), 210, 297, true);
-        result += new ConstraintDescription(_("20 x 30 cm"), 30, 20, true);
-        result += new ConstraintDescription(_("24 x 40 cm"), 40, 24, true);
-        result += new ConstraintDescription(_("30 x 40 cm"), 40, 30, true);
-        result += new ConstraintDescription(_("A3 (297 x 420 mm)"), 420, 297, true);
+        result += new ConstraintDescription(_("Metric Wallet (9 × 13 cm)"), 13, 9, true);
+        result += new ConstraintDescription(_("Postcard (10 × 15 cm)"), 15, 10, true);
+        result += new ConstraintDescription(_("13 × 18 cm"), 18, 13, true);
+        result += new ConstraintDescription(_("18 × 24 cm"), 24, 18, true);
+        result += new ConstraintDescription(_("A4 (210 × 297 mm)"), 210, 297, true);
+        result += new ConstraintDescription(_("20 × 30 cm"), 30, 20, true);
+        result += new ConstraintDescription(_("24 × 40 cm"), 40, 24, true);
+        result += new ConstraintDescription(_("30 × 40 cm"), 40, 30, true);
+        result += new ConstraintDescription(_("A3 (297 × 420 mm)"), 420, 297, true);
         result += new ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
         result += new ConstraintDescription(_("Custom"), 0, 0, true, CUSTOM_ASPECT_RATIO);
 
@@ -989,12 +968,6 @@ public class CropTool : EditingTool {
             crop_tool_window.get_size(out crop_tool_window.normal_width,
                 out crop_tool_window.normal_height);
 
-        int window_x_pos = 0;
-        int window_y_pos = 0;
-        crop_tool_window.get_position(out window_x_pos, out window_y_pos);
-
-        crop_tool_window.hide();
-
         crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
         crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.remove(crop_tool_window.response_layout);
@@ -1015,7 +988,6 @@ public class CropTool : EditingTool {
         }
         custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
 
-        crop_tool_window.move(window_x_pos, window_y_pos);
         crop_tool_window.show_all();
 
         constraint_mode = ConstraintMode.CUSTOM;
@@ -1024,12 +996,6 @@ public class CropTool : EditingTool {
     private void set_normal_constraint_mode() {
         if (constraint_mode == ConstraintMode.NORMAL)
             return;
-
-        int window_x_pos = 0;
-        int window_y_pos = 0;
-        crop_tool_window.get_position(out window_x_pos, out window_y_pos);
-
-        crop_tool_window.hide();
 
         crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
         crop_tool_window.layout.remove(crop_tool_window.custom_width_entry);
@@ -1045,7 +1011,6 @@ public class CropTool : EditingTool {
         crop_tool_window.resize(crop_tool_window.normal_width,
             crop_tool_window.normal_height);
 
-        crop_tool_window.move(window_x_pos, window_y_pos);
         crop_tool_window.show_all();
 
         constraint_mode = ConstraintMode.NORMAL;
@@ -1156,11 +1121,7 @@ public class CropTool : EditingTool {
 
         base.activate(canvas);
 
-        // make sure the window has its regular size before going into
-        // custom mode, which will resize it and needs to save the old
-        // size first.
         crop_tool_window.show_all();
-        crop_tool_window.hide();
 
         // was 'custom' the most-recently-chosen menu item?
         if(!canvas.get_photo().has_crop()) {
@@ -1258,8 +1219,13 @@ public class CropTool : EditingTool {
         }
 
         // make sure the cursor isn't set to a modify indicator
-        if (canvas != null)
-            canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        if (canvas != null) {
+            var drawing_window = canvas.get_drawing_window ();
+            var display = drawing_window.get_display ();
+            var cursor = new Gdk.Cursor.for_display (display,
+                                                     Gdk.CursorType.LEFT_PTR);
+            drawing_window.set_cursor (cursor);
+        }
 
         crop_surface = null;
 
@@ -1453,8 +1419,10 @@ public class CropTool : EditingTool {
         }
 
         if (cursor_type != current_cursor_type) {
-            Gdk.Cursor cursor = new Gdk.Cursor(cursor_type);
-            canvas.get_drawing_window().set_cursor(cursor);
+            var drawing_window = canvas.get_drawing_window ();
+            var display = drawing_window.get_display ();
+            var cursor = new Gdk.Cursor.for_display (display, cursor_type);
+            drawing_window.set_cursor (cursor);
             current_cursor_type = cursor_type;
         }
     }
@@ -3028,8 +2996,9 @@ public class RedeyeTool : EditingTool {
 
         bind_window_handlers();
 
-        cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.LEFT_PTR);
-        cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
+        var display = canvas.get_drawing_window().get_display();
+        cached_arrow_cursor = new Gdk.Cursor.for_display(display, Gdk.CursorType.LEFT_PTR);
+        cached_grab_cursor = new Gdk.Cursor.for_display(display, Gdk.CursorType.FLEUR);
 
         DataCollection? owner = canvas.get_photo().get_membership();
         if (owner != null)
@@ -3175,6 +3144,9 @@ public class AdjustTool : EditingTool {
         public Gtk.Scale exposure_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             ExposureTransformation.MIN_PARAMETER, ExposureTransformation.MAX_PARAMETER,
             1.0);
+        public Gtk.Scale contrast_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
+            ContrastTransformation.MIN_PARAMETER, ContrastTransformation.MAX_PARAMETER,
+            1.0);
         public Gtk.Scale saturation_slider = new Gtk.Scale.with_range(Gtk.Orientation.HORIZONTAL,
             SaturationTransformation.MIN_PARAMETER, SaturationTransformation.MAX_PARAMETER,
             1.0);
@@ -3204,54 +3176,69 @@ public class AdjustTool : EditingTool {
             slider_organizer.set_column_homogeneous(false);
             slider_organizer.set_row_spacing(12);
             slider_organizer.set_column_spacing(12);
-            slider_organizer.set_margin_left(12);
+            slider_organizer.set_margin_start(12);
             slider_organizer.set_margin_bottom(12);
 
             Gtk.Label exposure_label = new Gtk.Label.with_mnemonic(_("Exposure:"));
-            exposure_label.set_alignment(0.0f, 0.5f);
+            exposure_label.halign = Gtk.Align.START;
+            exposure_label.valign = Gtk.Align.CENTER;
             slider_organizer.attach(exposure_label, 0, 0, 1, 1);
             slider_organizer.attach(exposure_slider, 1, 0, 1, 1);
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
             exposure_slider.set_draw_value(false);
-            exposure_slider.set_margin_right(0);
-            
+            exposure_slider.set_margin_end(0);
+
+            Gtk.Label contrast_label = new Gtk.Label.with_mnemonic(_("Contrast:"));
+            contrast_label.halign = Gtk.Align.START;
+            contrast_label.valign = Gtk.Align.CENTER;
+            slider_organizer.attach(contrast_label, 0, 1, 1, 1);
+            slider_organizer.attach(contrast_slider, 1, 1, 1, 1);
+            contrast_slider.set_size_request(SLIDER_WIDTH, -1);
+            contrast_slider.set_draw_value(false);
+            contrast_slider.set_margin_end(0);
+
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
-            saturation_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(saturation_label, 0, 1, 1, 1);
-            slider_organizer.attach(saturation_slider, 1, 1, 1, 1);
+            saturation_label.halign = Gtk.Align.START;
+            saturation_label.valign = Gtk.Align.CENTER;
+            slider_organizer.attach(saturation_label, 0, 2, 1, 1);
+            slider_organizer.attach(saturation_slider, 1, 2, 1, 1);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
             saturation_slider.set_draw_value(false);
-            saturation_slider.set_margin_right(0);
+            saturation_slider.set_margin_end(0);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
-            tint_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(tint_label, 0, 2, 1, 1);
-            slider_organizer.attach(tint_slider, 1, 2, 1, 1);
+            tint_label.halign = Gtk.Align.START;
+            tint_label.valign = Gtk.Align.CENTER;
+            slider_organizer.attach(tint_label, 0, 3, 1, 1);
+            slider_organizer.attach(tint_slider, 1, 3, 1, 1);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
             tint_slider.set_draw_value(false);
-            tint_slider.set_margin_right(0);
+            tint_slider.set_margin_end(0);
 
             Gtk.Label temperature_label =
                 new Gtk.Label.with_mnemonic(_("Temperature:"));
-            temperature_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(temperature_label, 0, 3, 1, 1);
-            slider_organizer.attach(temperature_slider, 1, 3, 1, 1);
+            temperature_label.halign = Gtk.Align.START;
+            temperature_label.valign = Gtk.Align.CENTER;
+            slider_organizer.attach(temperature_label, 0, 4, 1, 1);
+            slider_organizer.attach(temperature_slider, 1, 4, 1, 1);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
-            temperature_slider.set_margin_right(0);
+            temperature_slider.set_margin_end(0);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
-            shadows_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(shadows_label, 0, 4, 1, 1);
-            slider_organizer.attach(shadows_slider, 1, 4, 1, 1);
+            shadows_label.halign = Gtk.Align.START;
+            shadows_label.valign = Gtk.Align.CENTER;
+            slider_organizer.attach(shadows_label, 0, 5, 1, 1);
+            slider_organizer.attach(shadows_slider, 1, 5, 1, 1);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
-            shadows_slider.set_margin_right(0);
+            shadows_slider.set_margin_end(0);
 
             Gtk.Label highlights_label = new Gtk.Label.with_mnemonic(_("Highlights:"));
-            highlights_label.set_alignment(0.0f, 0.5f);
-            slider_organizer.attach(highlights_label, 0, 5, 1, 1);
-            slider_organizer.attach(highlights_slider, 1, 5, 1, 1);
+            highlights_label.halign = Gtk.Align.START;
+            highlights_label.valign = Gtk.Align.CENTER;
+            slider_organizer.attach(highlights_label, 0, 6, 1, 1);
+            slider_organizer.attach(highlights_slider, 1, 6, 1, 1);
             highlights_slider.set_size_request(SLIDER_WIDTH, -1);
             highlights_slider.set_draw_value(false);
 
@@ -3261,15 +3248,16 @@ public class AdjustTool : EditingTool {
             button_layouter.pack_start(reset_button, true, true, 1);
             button_layouter.pack_start(ok_button, true, true, 1);
 
-            Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.0f, 0.0f, 0.0f, 0.0f);
-            histogram_aligner.add(histogram_manipulator);
-            histogram_aligner.set_padding(12, 8, 12, 12);
+            histogram_manipulator.set_margin_start (12);
+            histogram_manipulator.set_margin_end (12);
+            histogram_manipulator.set_margin_top (12);
+            histogram_manipulator.set_margin_bottom (8);
 
             Gtk.Box pane_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
-            pane_layouter.add(histogram_aligner);
+            pane_layouter.add(histogram_manipulator);
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
-            pane_layouter.set_child_packing(histogram_aligner, true, true, 0, Gtk.PackType.START);
+            pane_layouter.set_child_packing(histogram_manipulator, true, true, 0, Gtk.PackType.START);
 
             add(pane_layouter);
         }
@@ -3452,6 +3440,7 @@ public class AdjustTool : EditingTool {
     private bool disable_histogram_refresh = false;
     private OneShotScheduler? temperature_scheduler = null;
     private OneShotScheduler? tint_scheduler = null;
+    private OneShotScheduler? contrast_scheduler = null;
     private OneShotScheduler? saturation_scheduler = null;
     private OneShotScheduler? exposure_scheduler = null;
     private OneShotScheduler? shadows_scheduler = null;
@@ -3521,6 +3510,12 @@ public class AdjustTool : EditingTool {
             transformations.get_transformation(PixelTransformationType.EXPOSURE);
         histogram_transformer.attach_transformation(exposure_trans);
         adjust_tool_window.exposure_slider.set_value(exposure_trans.get_parameter());
+
+        /* set up contrast */
+        ContrastTransformation contrast_trans = (ContrastTransformation)
+            transformations.get_transformation(PixelTransformationType.CONTRAST);
+        histogram_transformer.attach_transformation(contrast_trans);
+        adjust_tool_window.contrast_slider.set_value(contrast_trans.get_parameter());
 
         bind_canvas_handlers(canvas);
         bind_window_handlers();
@@ -3660,7 +3655,6 @@ public class AdjustTool : EditingTool {
     private void on_tint_adjustment() {
         if (tint_scheduler == null)
             tint_scheduler = new OneShotScheduler("tint", on_delayed_tint_adjustment);
-
         tint_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
     }
 
@@ -3669,6 +3663,19 @@ public class AdjustTool : EditingTool {
             (float) adjust_tool_window.tint_slider.get_value());
         slider_updated(new_tint_trans, _("Tint"));
     }
+
+    private void on_contrast_adjustment() {
+        if (this.contrast_scheduler == null)
+            this.contrast_scheduler = new OneShotScheduler("contrast", on_delayed_contrast_adjustment);
+        this.contrast_scheduler.after_timeout(SLIDER_DELAY_MSEC, true);
+    }
+
+    private void on_delayed_contrast_adjustment() {
+        ContrastTransformation new_exp_trans = new ContrastTransformation(
+            (float) adjust_tool_window.contrast_slider.get_value());
+        slider_updated(new_exp_trans, _("Contrast"));
+    }
+
 
     private void on_saturation_adjustment() {
         if (saturation_scheduler == null)
@@ -3764,6 +3771,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.reset_button.clicked.connect(on_reset);
         adjust_tool_window.cancel_button.clicked.connect(notify_cancel);
         adjust_tool_window.exposure_slider.value_changed.connect(on_exposure_adjustment);
+        adjust_tool_window.contrast_slider.value_changed.connect(on_contrast_adjustment);
         adjust_tool_window.saturation_slider.value_changed.connect(on_saturation_adjustment);
         adjust_tool_window.tint_slider.value_changed.connect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.connect(on_temperature_adjustment);
@@ -3773,6 +3781,7 @@ public class AdjustTool : EditingTool {
 
         adjust_tool_window.saturation_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.exposure_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.contrast_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.tint_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.connect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.connect(on_hscale_reset);
@@ -3784,6 +3793,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.reset_button.clicked.disconnect(on_reset);
         adjust_tool_window.cancel_button.clicked.disconnect(notify_cancel);
         adjust_tool_window.exposure_slider.value_changed.disconnect(on_exposure_adjustment);
+        adjust_tool_window.contrast_slider.value_changed.disconnect(on_contrast_adjustment);
         adjust_tool_window.saturation_slider.value_changed.disconnect(on_saturation_adjustment);
         adjust_tool_window.tint_slider.value_changed.disconnect(on_tint_adjustment);
         adjust_tool_window.temperature_slider.value_changed.disconnect(on_temperature_adjustment);
@@ -3793,6 +3803,7 @@ public class AdjustTool : EditingTool {
 
         adjust_tool_window.saturation_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.exposure_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.contrast_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.tint_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.temperature_slider.button_press_event.disconnect(on_hscale_reset);
         adjust_tool_window.shadows_slider.button_press_event.disconnect(on_hscale_reset);
@@ -3846,6 +3857,11 @@ public class AdjustTool : EditingTool {
                     ((ShadowDetailTransformation) transformation).get_parameter());
             break;
 
+            case PixelTransformationType.CONTRAST:
+                adjust_tool_window.contrast_slider.set_value(
+                    ((ContrastTransformation) transformation).get_parameter());
+            break;
+
             case PixelTransformationType.HIGHLIGHTS:
                 adjust_tool_window.highlights_slider.set_value(
                     ((HighlightDetailTransformation) transformation).get_parameter());
@@ -3885,15 +3901,14 @@ public class AdjustTool : EditingTool {
 
         fp_pixel_cache = new float[3 * source_width * source_height];
         int cache_pixel_index = 0;
-        float INV_255 = 1.0f / 255.0f;
 
         for (int j = 0; j < source_height; j++) {
             int row_start_index = j * source_rowstride;
             int row_end_index = row_start_index + (source_width * source_num_channels);
             for (int i = row_start_index; i < row_end_index; i += source_num_channels) {
-                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i]) * INV_255;
-                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 1]) * INV_255;
-                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 2]) * INV_255;
+                fp_pixel_cache[cache_pixel_index++] = rgb_lookup_table[source_pixels[i]];
+                fp_pixel_cache[cache_pixel_index++] = rgb_lookup_table[source_pixels[i + 1]];
+                fp_pixel_cache[cache_pixel_index++] = rgb_lookup_table[source_pixels[i + 2]];
             }
         }
     }

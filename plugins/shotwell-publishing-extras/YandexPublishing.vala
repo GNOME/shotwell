@@ -23,7 +23,7 @@ public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = _("Visit the Yandex.Fotki web site");
-        info.website_url = "http://fotki.yandex.ru/";
+        info.website_url = "https://fotki.yandex.ru/";
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
     }
@@ -92,84 +92,62 @@ internal class Session : Publishing.RESTSupport.Session {
     }
 }
 
-internal class WebAuthPane : Spit.Publishing.DialogPane, GLib.Object {
-    private WebKit.WebView webview = null;
-    private Gtk.Box pane_widget = null;
-    private Gtk.ScrolledWindow webview_frame = null;
-
+internal class WebAuthPane : Shotwell.Plugins.Common.WebAuthenticationPane {
     private Regex re;
-    private string? login_url = null;
 
     public signal void login_succeeded(string success_url);
     public signal void login_failed();
 
     public WebAuthPane(string login_url) {
-        this.login_url = login_url;
+        Object (login_uri : login_url,
+                preferred_geometry :
+                Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE);
+    }
 
+    public override void constructed () {
         try {
             this.re = new Regex("(.*)#access_token=([a-zA-Z0-9]*)&");
         } catch (RegexError e) {
-            critical("%s", e.message);
+            assert_not_reached ();
         }
 
-        pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-
-        webview_frame = new Gtk.ScrolledWindow(null, null);
-        webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
-        webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-
-        webview = new WebKit.WebView();
-        webview.get_settings().enable_plugins = false;
-        webview.get_settings().enable_default_context_menu = false;
-
-        webview.load_finished.connect(on_page_load);
-        webview.load_started.connect(on_load_started);
-        webview.navigation_requested.connect(navigation_requested);
-
-        webview_frame.add(webview);
-        pane_widget.pack_start(webview_frame, true, true, 0);
+        this.get_view ().decide_policy.connect (on_decide_policy);
     }
 
-    private void on_page_load(WebKit.WebFrame origin_frame) {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-    }
+    public override void on_page_load () { }
 
-    private WebKit.NavigationResponse navigation_requested (WebKit.WebFrame frame, WebKit.NetworkRequest req) {
-        debug("Navigating to '%s'", req.uri);
+    private bool on_decide_policy (WebKit.PolicyDecision decision,
+                                   WebKit.PolicyDecisionType type) {
+        switch (type) {
+            case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+                WebKit.NavigationPolicyDecision n_decision = (WebKit.NavigationPolicyDecision) decision;
+                WebKit.NavigationAction action = n_decision.navigation_action;
+                string uri = action.get_request().uri;
+                debug("Navigating to '%s'", uri);
 
-        MatchInfo info = null;
+                MatchInfo info = null;
 
-        if (re.match(req.uri, 0, out info)) {
-            string access_token = info.fetch_all()[2];
+                if (re.match(uri, 0, out info)) {
+                    string access_token = info.fetch_all()[2];
 
-            debug("Load completed: %s", access_token);
-            pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-            if (access_token != null) {
-                login_succeeded(access_token);
-                return WebKit.NavigationResponse.IGNORE;
-            } else
-                login_failed();
+                    debug("Load completed: %s", access_token);
+                    this.set_cursor (Gdk.CursorType.LEFT_PTR);
+                    if (access_token != null) {
+                        login_succeeded(access_token);
+                        decision.ignore();
+                        break;
+                    } else
+                        login_failed();
+                }
+                decision.use();
+                break;
+            case WebKit.PolicyDecisionType.RESPONSE:
+                decision.use();
+                break;
+            default:
+                return false;
         }
-        return WebKit.NavigationResponse.ACCEPT;
-    }
-
-    private void on_load_started(WebKit.WebFrame frame) {
-        pane_widget.get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-    }
-
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.RESIZABLE;
-    }
-
-    public void on_pane_installed() {
-        webview.open(login_url);
-    }
-
-    public void on_pane_uninstalled() {
+        return true;
     }
 }
 
@@ -211,13 +189,12 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
 
         box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         
-        File ui_file = host.get_module_file().get_parent().get_child("yandex_publish_model.glade");
-        
         try {
             builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH + "/yandex_publish_model.ui");
+
             builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
+            var content = builder.get_object ("content") as Gtk.Widget;
 
             album_list = builder.get_object ("album_list") as Gtk.ComboBoxText;
             foreach (string key in list.keys)
@@ -231,8 +208,8 @@ internal class PublishingOptionsPane: Spit.Publishing.DialogPane, GLib.Object {
             publish_button.clicked.connect(on_publish_clicked);
             logout_button.clicked.connect(on_logout_clicked);
 
-            align.reparent(box);
-			box.set_child_packing(align, true, true, 0, Gtk.PackType.START);
+            content.parent.remove (content);
+            box.pack_start (content, true, true, 0);
         } catch (Error e) {
             warning("Could not load UI: %s", e.message);
         }
@@ -311,7 +288,7 @@ private class UploadTransaction: Transaction {
 
         image_part_header.set_content_disposition("form-data", result);
 
-        Soup.Message outbound_message = soup_form_request_new_from_multipart(get_endpoint_url(), message_parts);
+        Soup.Message outbound_message = Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
         outbound_message.request_headers.append("Authorization", ("OAuth %s").printf(session.get_auth_token()));
         outbound_message.request_headers.append("Connection", "close");
         set_message(outbound_message);
@@ -594,7 +571,7 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     public void fetch_account_information(string auth_token) {
         session.set_auth_token(auth_token);
 
-        Transaction t = new Transaction.with_url(session, "http://api-fotki.yandex.ru/api/me/");
+        Transaction t = new Transaction.with_url(session, "https://api-fotki.yandex.ru/api/me/");
         t.completed.connect(fetch_account_complete);
         t.network_error.connect(fetch_account_error);
 
@@ -621,7 +598,7 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     private void start_web_auth() {
         host.set_service_locked(false);
 
-        web_auth_pane = new WebAuthPane(("http://oauth.yandex.ru/authorize?client_id=%s&response_type=token").printf(client_id));
+        web_auth_pane = new WebAuthPane(("https://oauth.yandex.ru/authorize?client_id=%s&response_type=token").printf(client_id));
         web_auth_pane.login_succeeded.connect(web_auth_login_succeeded);
         web_auth_pane.login_failed.connect(web_auth_login_failed);
 

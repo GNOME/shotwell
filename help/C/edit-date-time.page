@@ -1,0 +1,20 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="edit-date-time">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+        <desc>Change the date and time of photos if those details are incorrect.</desc>
+
+        <link type="next" xref="edit-enhance" />
+    </info>
+
+	<title>Adjust the date and time of photos</title>
+
+<p>To adjust the date and time of photos, select the photos you would like to adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></guiseq> and select a new date and time.</p>
+
+<p>If you are changing the date and time of multiple photos at once, you can choose to shift all the photos by the same amount of time or to set all the photos to the same time.</p>
+
+<p>By default, the date and time are only changed inside Shotwell. You can also choose to modify the date and time in the original file, but this cannot be undone once you exit Shotwell.</p>
+
+</page>

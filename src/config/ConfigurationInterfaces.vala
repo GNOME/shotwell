@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -22,6 +22,8 @@ public enum FuzzyPropertyState {
 public enum ConfigurableProperty {   
     AUTO_IMPORT_FROM_LIBRARY = 0,
     BG_COLOR_NAME,
+    TRANSPARENT_BACKGROUND_TYPE,
+    TRANSPARENT_BACKGROUND_COLOR,
     COMMIT_METADATA_TO_MASTERS,
     DESKTOP_BACKGROUND_FILE,
     DESKTOP_BACKGROUND_MODE,
@@ -36,6 +38,7 @@ public enum ConfigurableProperty {
     DISPLAY_EVENT_COMMENTS,
     DISPLAY_EXTENDED_PROPERTIES,
     DISPLAY_SIDEBAR,
+    DISPLAY_TOOLBAR,
     DISPLAY_SEARCH_BAR,
     DISPLAY_PHOTO_RATINGS,
     DISPLAY_PHOTO_TAGS,
@@ -44,6 +47,12 @@ public enum ConfigurableProperty {
     EVENT_PHOTOS_SORT_ASCENDING,
     EVENT_PHOTOS_SORT_BY,
     EVENTS_SORT_ASCENDING,
+    EXPORT_CONSTRAINT,
+    EXPORT_EXPORT_FORMAT_MODE,
+    EXPORT_EXPORT_METADATA,
+    EXPORT_PHOTO_FILE_FORMAT,
+    EXPORT_QUALITY,
+    EXPORT_SCALE,
     EXTERNAL_PHOTO_APP,
     EXTERNAL_RAW_APP,
     HIDE_PHOTOS_ALREADY_IMPORTED,
@@ -93,6 +102,12 @@ public enum ConfigurableProperty {
                 
             case BG_COLOR_NAME:
                 return "BG_COLOR_NAME";
+
+            case TRANSPARENT_BACKGROUND_TYPE:
+                return "TRANSPARENT_BACKGROUND_TYPE";
+
+            case TRANSPARENT_BACKGROUND_COLOR:
+                return "TRANSPARENT_BACKGROUND_COLOR";
                 
             case COMMIT_METADATA_TO_MASTERS:
                 return "COMMIT_METADATA_TO_MASTERS";
@@ -132,6 +147,9 @@ public enum ConfigurableProperty {
                 
             case DISPLAY_SIDEBAR:
                 return "DISPLAY_SIDEBAR";
+
+            case DISPLAY_TOOLBAR:
+                return "DISPLAY_TOOLBAR";
                 
             case DISPLAY_SEARCH_BAR:
                 return "DISPLAY_SEARCH_BAR";
@@ -160,6 +178,24 @@ public enum ConfigurableProperty {
             case EVENTS_SORT_ASCENDING:
                 return "EVENTS_SORT_ASCENDING";
                 
+            case EXPORT_CONSTRAINT:
+                return "EXPORT_CONSTRAINT";
+
+            case EXPORT_EXPORT_FORMAT_MODE:
+                return "EXPORT_EXPORT_FORMAT_MODE";
+
+            case EXPORT_EXPORT_METADATA:
+                return "EXPORT_EXPORT_METADATA";
+
+            case EXPORT_PHOTO_FILE_FORMAT:
+                return "EXPORT_PHOTO_FILE_FORMAT";
+
+            case EXPORT_QUALITY:
+                return "EXPORT_QUALITY";
+
+            case EXPORT_SCALE:
+                return "EXPORT_SCALE";
+
             case EXTERNAL_PHOTO_APP:
                 return "EXTERNAL_PHOTO_APP";
                 
@@ -288,6 +324,9 @@ public interface ConfigurationEngine : GLib.Object {
     public abstract int get_int_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_int_property(ConfigurableProperty p, int val) throws ConfigurationError;
     
+    public abstract int get_enum_property(ConfigurableProperty p) throws ConfigurationError;
+    public abstract void set_enum_property(ConfigurableProperty p, int val) throws ConfigurationError;
+
     public abstract string get_string_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError;
     
@@ -316,6 +355,8 @@ public abstract class ConfigurationFacade : Object {
 
     public signal void auto_import_from_library_changed();
     public signal void bg_color_name_changed();
+    public signal void transparent_background_type_changed();
+    public signal void transparent_background_color_changed();
     public signal void commit_metadata_to_masters_changed();
     public signal void events_sort_ascending_changed();
     public signal void external_app_changed();
@@ -337,6 +378,14 @@ public abstract class ConfigurationFacade : Object {
             
             case ConfigurableProperty.BG_COLOR_NAME:
                 bg_color_name_changed();
+            break;
+
+            case ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE:
+                transparent_background_type_changed();
+            break;
+
+            case ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR:
+                transparent_background_color_changed();
             break;
             
             case ConfigurableProperty.COMMIT_METADATA_TO_MASTERS:
@@ -415,6 +464,50 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_bg_color_name(string color_name) {
         try {
             get_engine().set_string_property(ConfigurableProperty.BG_COLOR_NAME, color_name);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    //
+    // transparent background type
+    //
+    public virtual string get_transparent_background_type() {
+        try {
+            return get_engine().get_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return "checkered";
+        }
+    }
+
+    public virtual void set_transparent_background_type(string type) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE, type);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    //
+    // transparent background color
+    //
+    public virtual string get_transparent_background_color() {
+        try {
+            return get_engine().get_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return "#444";
+        }
+    }
+
+    public virtual void set_transparent_background_color(string color_name) {
+        try {
+            get_engine().set_string_property(ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR, color_name);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
             return;
@@ -630,6 +723,28 @@ public abstract class ConfigurationFacade : Object {
         }
     }
     
+
+    //
+    // display toolbar
+    //
+    public virtual bool get_display_toolbar() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.DISPLAY_TOOLBAR);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+
+    public virtual void set_display_toolbar(bool display) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.DISPLAY_TOOLBAR, display);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
     //
     // display search & filter toolbar
     //
@@ -844,6 +959,123 @@ public abstract class ConfigurationFacade : Object {
         try {
             get_engine().set_string_property(ConfigurableProperty.EXTERNAL_RAW_APP,
                 external_raw_app);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    //
+    // export dialog settings
+    //
+    public virtual ScaleConstraint get_export_constraint() {
+        try {
+            return (ScaleConstraint) get_engine().get_enum_property(ConfigurableProperty.EXPORT_CONSTRAINT);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return 0;
+        }
+    }
+
+    public virtual void set_export_constraint(ScaleConstraint constraint) {
+        try {
+            get_engine().set_enum_property(ConfigurableProperty.EXPORT_CONSTRAINT, ( (int) constraint));
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    public virtual ExportFormatMode get_export_export_format_mode() {
+        try {
+            return (ExportFormatMode) get_engine().get_enum_property(ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return 0;
+        }
+    }
+
+    public virtual void set_export_export_format_mode(ExportFormatMode export_format_mode) {
+        try {
+            get_engine().set_enum_property(ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE, ( (int) export_format_mode ));
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    public virtual bool get_export_export_metadata() {
+        try {
+            return get_engine().get_bool_property(ConfigurableProperty.EXPORT_EXPORT_METADATA);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return false;
+        }
+    }
+
+    public virtual void set_export_export_metadata(bool export_metadata) {
+        try {
+            get_engine().set_bool_property(ConfigurableProperty.EXPORT_EXPORT_METADATA, export_metadata);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    public virtual PhotoFileFormat get_export_photo_file_format() {
+        try {
+            return PhotoFileFormat.unserialize( get_engine().get_enum_property(ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT) );
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return 0;
+        }
+    }
+
+    public virtual void set_export_photo_file_format(PhotoFileFormat photo_file_format) {
+        try {
+            get_engine().set_enum_property(ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT, photo_file_format.serialize());
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    public virtual Jpeg.Quality get_export_quality() {
+        try {
+            return (Jpeg.Quality) get_engine().get_enum_property(ConfigurableProperty.EXPORT_QUALITY);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return 0;
+        }
+    }
+
+    public virtual void set_export_quality(Jpeg.Quality quality) {
+        try {
+            get_engine().set_enum_property(ConfigurableProperty.EXPORT_QUALITY, ( (int) quality ));
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+            return;
+        }
+    }
+
+    public virtual int get_export_scale() {
+        try {
+            return get_engine().get_int_property(ConfigurableProperty.EXPORT_SCALE);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            return 0;
+        }
+    }
+
+    public virtual void set_export_scale(int scale) {
+        try {
+            get_engine().set_int_property(ConfigurableProperty.EXPORT_SCALE, scale);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
             return;
@@ -1345,7 +1577,16 @@ public abstract class ConfigurationFacade : Object {
     //
     public virtual int get_printing_size_selection() {
         try {
-            return get_engine().get_int_property(ConfigurableProperty.PRINTING_SIZE_SELECTION) - 1;
+            var val = get_engine().get_int_property(ConfigurableProperty.PRINTING_SIZE_SELECTION) - 1;
+            if (val == -2) {
+                if (Resources.get_default_measurement_unit() == Resources.UnitSystem.IMPERIAL) {
+                    val = 2;
+                } else {
+                    val = 10;
+                }
+            }
+
+            return val;
         } catch (ConfigurationError err) {
             on_configuration_error(err);
 

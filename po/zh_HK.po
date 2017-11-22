@@ -1,6 +1,6 @@
 # po/shotwell-core/shotwell.pot
 # PO message string template file for Shotwell Core Components
-# Copyright (C) 2009-2013 Yorba Foundation
+# Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
 #
@@ -20,7 +20,7 @@ msgstr ""
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
 "shotwell/language/zh_TW/)\n"
-"Language: zh_TW\n"
+"Language: zh_HK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

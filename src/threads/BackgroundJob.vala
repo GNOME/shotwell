@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -75,7 +75,7 @@ public abstract class BackgroundJob {
             return (int) other - (int) this;
         }
         
-        public static int compare_func(void *a, void *b) {
+        public static int compare_func(JobPriority a, JobPriority b) {
             return (int) b - (int) a;
         }
     }

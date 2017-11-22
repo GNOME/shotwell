@@ -1,4 +1,4 @@
-<schemalist>
+<schemalist gettext-domain="shotwell">
 
 <schema id="org.yorba.shotwell" path="/org/yorba/shotwell/">
     <child name="preferences" schema="org.yorba.shotwell.preferences" />
@@ -14,6 +14,7 @@
     <child name="window" schema="org.yorba.shotwell.preferences.window" />
     <child name="files" schema="org.yorba.shotwell.preferences.files" />
     <child name="editing" schema="org.yorba.shotwell.preferences.editing" />
+    <child name="export" schema="org.yorba.shotwell.preferences.export" />
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.ui" path="/org/yorba/shotwell/preferences/ui/">
@@ -35,6 +36,12 @@
         <description>True if the sidebar is to be displayed, false otherwise.</description>
     </key>
     
+    <key name="display-toolbar" type="b">
+        <default>true</default>
+        <summary>display toolbar</summary>
+        <description>True if the bottom toolbar is to be displayed, false otherwise.</description>
+    </key>
+
     <key name="display-search-bar" type="b">
         <default>false</default>
         <summary>display search bar</summary>
@@ -68,7 +75,7 @@
     <key name="display-photo-ratings" type="b">
         <default>true</default>
         <summary>display photo ratings</summary>
-        <description>True if a photo's rating should be displayed as overlaid trinket, false otherwise.</description>
+        <description>True if a photo’s rating should be displayed as overlaid trinket, false otherwise.</description>
     </key>
     
     <key name="photo-rating-filter" type="i">
@@ -154,11 +161,23 @@
         <summary>background color</summary>
         <description>A grayscale color for use as the background color.</description>
     </key>
-    
+
+    <key name="transparent-background-type" type="s">
+        <default>'checkered'</default>
+        <summary>background for transparent images</summary>
+        <description>The background to use for transparent images.</description>
+    </key>
+
+    <key name="transparent-background-color" type="s">
+        <default>'#444'</default>
+        <summary>color for solid transparency background</summary>
+        <description>Color to use if background for transparent images is set to solid color</description>
+    </key>
+
     <key name="hide-photos-already-imported" type="b">
         <default>false</default>
-        <summary>Selection state of "hide photos" option</summary>
-        <description>Last used selection state of the "hide photos already imported" option in the import page.</description>
+        <summary>Selection state of “hide photos” option</summary>
+        <description>Last used selection state of the “hide photos already imported” option in the import page.</description>
     </key>
 </schema>
 
@@ -284,12 +303,12 @@
     </key>
     <key name="last-crop-width" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop custom aspect ratio's numerator.</summary>
+        <summary>Most-recently-used crop custom aspect ratio’s numerator.</summary>
         <description>A nonzero, positive integer representing the width part of the last custom crop ratio the user entered.</description>
     </key>
     <key name="last-crop-height" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop custom aspect ratio's denominator.</summary>
+        <summary>Most-recently-used crop custom aspect ratio’s denominator.</summary>
         <description>A nonzero, positive integer representing the height part of the last custom crop ratio the user entered.</description>
     </key>
 </schema>
@@ -305,6 +324,75 @@
         <default>""</default>
         <summary>external raw editor</summary>
         <description>External application used to edit RAW photos.</description>
+    </key>
+</schema>
+
+<enum id="org.yorba.shotwell.ScaleConstraint">
+    <value value="0" nick="ORIGINAL" />
+    <value value="1" nick="DIMENSIONS" />
+    <value value="2" nick="WIDTH" />
+    <value value="3" nick="HEIGHT" />
+    <value value="4" nick="FILL_VIEWPORT" />
+</enum>
+
+<enum id="org.yorba.shotwell.ExportFormatMode">
+    <value value="0" nick="UNMODIFIED" />
+    <value value="1" nick="CURRENT" />
+    <value value="2" nick="SPECIFIED" />
+    <value value="3" nick="LAST" />
+</enum>
+
+<enum id="org.yorba.shotwell.PhotoFileFormat">
+    <value value="0" nick="JFIF" />
+    <value value="1" nick="RAW" />
+    <value value="2" nick="PNG" />
+    <value value="3" nick="TIFF" />
+    <value value="4" nick="BMP" />
+    <value value="5" nick="UNKNOWN" />
+</enum>
+
+<enum id="org.yorba.shotwell.JpegQuality">
+    <value value="50" nick="LOW" />
+    <value value="75" nick="MEDIUM" />
+    <value value="90" nick="HIGH" />
+    <value value="100" nick="MAXIMUM" />
+</enum>
+
+<schema id="org.yorba.shotwell.preferences.export" path="/org/yorba/shotwell/preferences/export/">
+    <key name="constraint" enum="org.yorba.shotwell.ScaleConstraint">
+        <default>'ORIGINAL'</default>
+        <summary>Setting in export dialog: how to trim images</summary>
+        <description>Setting in export dialog: how to trim images</description>
+    </key>
+
+    <key name="export-metadata" type="b">
+        <default>true</default>
+        <summary>export metadata</summary>
+        <description>Setting in export dialog: option to export metadata</description>
+    </key>
+
+    <key name="export-format-mode" enum="org.yorba.shotwell.ExportFormatMode">
+        <default>'CURRENT'</default>
+        <summary>format setting, special value</summary>
+        <description>Setting in export dialog: format setting, special value</description>
+    </key>
+
+    <key name="photo-file-format" enum="org.yorba.shotwell.PhotoFileFormat">
+        <default>'JFIF'</default>
+        <summary>format setting, type value</summary>
+        <description>Setting in export dialog: format setting, type value</description>
+    </key>
+
+    <key name="quality" enum="org.yorba.shotwell.JpegQuality">
+        <default>'HIGH'</default>
+        <summary>JPEG quality option</summary>
+        <description>Setting in export dialog: jpeg quality option</description>
+    </key>
+
+    <key name="scale" type="i">
+        <default>1200</default>
+        <summary>maximal size of image</summary>
+        <description>Setting in export dialog: maximal size of image</description>
     </key>
 </schema>
 
@@ -427,7 +515,7 @@
 <schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-piwigo/">
     <key name="url" type="s">
         <default>""</default>
-        <summary>Piwigio URL</summary>
+        <summary>Piwigo URL</summary>
         <description>URL of the Piwigo server.</description>
     </key>
     
@@ -592,7 +680,7 @@
     </key>
 
     <key name="size-selection" type="i">
-        <default>3</default>
+        <default>-1</default>
         <summary>size selection</summary>
         <description>The index of the current print size in a pre-defined list of standard sizes</description>
     </key>
@@ -713,13 +801,13 @@
     
     <key name="transitions-circles" type="b">
         <default>true</default>
-        <summary>enable slideshow circle transition</summary>
+        <summary>enable slideshow circles transition</summary>
         <description>True if the Circles slideshow transition plugin is enabled, false otherwise</description>
     </key>
     
     <key name="transitions-blinds" type="b">
         <default>true</default>
-        <summary>enable slideshow slide transition</summary>
+        <summary>enable slideshow blinds transition</summary>
         <description>True if the Blinds slideshow transition plugin is enabled, false otherwise</description>
     </key>
 

@@ -1,8 +1,0 @@
-#!/bin/bash
-shared_lib="libshotwell.so"
-
-if [ -f $shared_lib ]; then
-    GLADE_CATALOG_PATH=ui/ GLADE_MODULE_PATH=. glade ui/shotwell.glade &
-else
-    echo "Run './configure --enable-build-for-glade' and then 'make' to generate shared library."
-fi

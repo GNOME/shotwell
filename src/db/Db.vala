@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -6,7 +6,7 @@
 
 namespace Db {
 
-public static const string IN_MEMORY_NAME = ":memory:";
+public const string IN_MEMORY_NAME = ":memory:";
 
 private string? filename = null;
 

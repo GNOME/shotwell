@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -12,6 +12,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string WINDOW_PREFS_SCHEMA_NAME =  PREFS_SCHEMA_NAME + ".window";
     private const string FILES_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".files";
     private const string EDITING_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".editing";
+    private const string EXPORT_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".export";
     private const string VIDEO_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".video";
     private const string PRINTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".printing";
     private const string SHARING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".sharing";
@@ -22,20 +23,16 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string PLUGINS_ENABLE_DISABLE_SCHEMA_NAME = ROOT_SCHEMA_NAME +
         ".plugins.enable-state";
 
-    private Gee.Set<string> known_schemas;
     private string[] schema_names;
     private string[] key_names;
     
     public GSettingsConfigurationEngine() {
-        known_schemas = new Gee.HashSet<string>();
-        
-        foreach (string current_schema in Settings.list_schemas())
-            known_schemas.add(current_schema);
-        
         schema_names = new string[ConfigurableProperty.NUM_PROPERTIES];
 
         schema_names[ConfigurableProperty.AUTO_IMPORT_FROM_LIBRARY] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.BG_COLOR_NAME] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = FILES_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DESKTOP_BACKGROUND_FILE] = SYSTEM_DESKTOP_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DESKTOP_BACKGROUND_MODE] = SYSTEM_DESKTOP_SCHEMA_NAME;
@@ -49,6 +46,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.DISPLAY_BASIC_PROPERTIES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_SIDEBAR] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.DISPLAY_TOOLBAR] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_SEARCH_BAR] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_RATINGS] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = UI_PREFS_SCHEMA_NAME;
@@ -58,6 +56,12 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_CONSTRAINT] = EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_QUALITY] =  EXPORT_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXPORT_SCALE] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXTERNAL_PHOTO_APP] = EDITING_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXTERNAL_RAW_APP] = EDITING_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] = UI_PREFS_SCHEMA_NAME;
@@ -101,6 +105,8 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         
         key_names[ConfigurableProperty.AUTO_IMPORT_FROM_LIBRARY] = "auto-import";
         key_names[ConfigurableProperty.BG_COLOR_NAME] = "background-color";
+        key_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE] = "transparent-background-type";
+        key_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR] = "transparent-background-color";
         key_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = "commit-metadata";
         key_names[ConfigurableProperty.DESKTOP_BACKGROUND_FILE] = "picture-uri";
         key_names[ConfigurableProperty.DESKTOP_BACKGROUND_MODE] = "picture-options";
@@ -114,6 +120,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.DISPLAY_BASIC_PROPERTIES] = "display-basic-properties";
         key_names[ConfigurableProperty.DISPLAY_EXTENDED_PROPERTIES] = "display-extended-properties";
         key_names[ConfigurableProperty.DISPLAY_SIDEBAR] = "display-sidebar";
+        key_names[ConfigurableProperty.DISPLAY_TOOLBAR] = "display-toolbar";
         key_names[ConfigurableProperty.DISPLAY_SEARCH_BAR] = "display-search-bar";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_RATINGS] = "display-photo-ratings";
         key_names[ConfigurableProperty.DISPLAY_PHOTO_TAGS] = "display-photo-tags";
@@ -123,6 +130,12 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = "event-photos-sort-ascending";
         key_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = "event-photos-sort-by";
         key_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = "events-sort-ascending";
+        key_names[ConfigurableProperty.EXPORT_CONSTRAINT] = "constraint";
+        key_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  "export-format-mode";
+        key_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  "export-metadata";
+        key_names[ConfigurableProperty.EXPORT_PHOTO_FILE_FORMAT] =  "photo-file-format";
+        key_names[ConfigurableProperty.EXPORT_QUALITY] =  "quality";
+        key_names[ConfigurableProperty.EXPORT_SCALE] =  "scale";
         key_names[ConfigurableProperty.EXTERNAL_PHOTO_APP] = "external-photo-editor";
         key_names[ConfigurableProperty.EXTERNAL_RAW_APP] = "external-raw-editor";
         key_names[ConfigurableProperty.HIDE_PHOTOS_ALREADY_IMPORTED] = "hide-photos-already-imported";
@@ -162,23 +175,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = "use-lowercase-filenames";
         key_names[ConfigurableProperty.VIDEO_INTERPRETER_STATE_COOKIE] = "interpreter-state-cookie";
     }
-    
-    private bool schema_has_key(Settings schema_object, string key) {
-        foreach (string current_key in schema_object.list_keys()) {
-            if (current_key == key)
-                return true;
-        }
-        
-        return false;
-    }
-    
-    private void check_key_valid(string schema, string key) throws ConfigurationError {
-        if (!known_schemas.contains(schema))
-            throw new ConfigurationError.ENGINE_ERROR("schema '%s' is not installed".printf(schema));
 
-        Settings schema_object = new Settings(schema);
-        
-        if (!schema_has_key(schema_object, key))
+    private void check_key_valid(string schema, string key) throws ConfigurationError {
+        var schema_source = SettingsSchemaSource.get_default ();
+        var settings_scheme = schema_source.lookup (schema, true);
+        if (settings_scheme == null) {
+            throw new ConfigurationError.ENGINE_ERROR("schema '%s' is not installed".printf(schema));
+        }
+
+        if (!settings_scheme.has_key (key))
             throw new ConfigurationError.ENGINE_ERROR("schema '%s' does not define key '%s'".printf(
                 schema, key));
     }
@@ -197,6 +202,20 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         Settings schema_object = new Settings(schema);
 
         schema_object.set_boolean(key, value);
+    }
+
+    private void set_gs_enum (string schema, string key, int value) throws ConfigurationError {
+        check_key_valid (schema, key);
+
+        var schema_object = new Settings (schema);
+        schema_object.set_enum (key, value);
+    }
+
+    private int get_gs_enum (string schema, string key) throws ConfigurationError {
+        check_key_valid (schema, key);
+
+        var schema_object = new Settings (schema);
+        return schema_object.get_enum (key);
     }
 
     private int get_gs_int(string schema, string key) throws ConfigurationError {
@@ -288,6 +307,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
     public string get_name() {
         return "GSettings";
+    }
+
+    public int get_enum_property (ConfigurableProperty p) throws ConfigurationError{
+        return get_gs_enum (schema_names[p], key_names[p]);
+    }
+
+    public void set_enum_property (ConfigurableProperty p, int val) throws ConfigurationError {
+        set_gs_enum (schema_names[p], key_names[p], val);
+        property_changed (p);
     }
 
     public int get_int_property(ConfigurableProperty p) throws ConfigurationError {

@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -56,10 +56,10 @@ public class Sidebar.Tree : Gtk.TreeView {
         typeof (string),            // NAME
         typeof (string?),           // TOOLTIP
         typeof (EntryWrapper),      // WRAPPER
-        typeof (string?)            // ICON
+        typeof (Icon?)             // ICON
     );
     
-    private Gtk.UIManager ui = new Gtk.UIManager();
+    private Gtk.Builder builder = new Gtk.Builder ();
     private Gtk.CellRendererText text_renderer;
     private unowned ExternalDropHandler drop_handler;
     private Gtk.Entry? text_entry = null;
@@ -93,14 +93,13 @@ public class Sidebar.Tree : Gtk.TreeView {
     public Tree(Gtk.TargetEntry[] target_entries, Gdk.DragAction actions,
         ExternalDropHandler drop_handler) {
         set_model(store);
-        get_style_context().add_class("sidebar");
         
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.set_expand(true);
         Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
         icon_renderer.follow_state = true;
-        text_column.pack_start(icon_renderer, false);
-        text_column.add_attribute(icon_renderer, "icon_name", Columns.ICON);
+        text_column.pack_start (icon_renderer, false);
+        text_column.add_attribute(icon_renderer, "gicon", Columns.ICON);
         text_column.set_cell_data_func(icon_renderer, icon_renderer_function);
         text_renderer = new Gtk.CellRendererText();
         text_renderer.ellipsize = Pango.EllipsizeMode.END;
@@ -118,7 +117,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         set_headers_visible(false);
         set_enable_search(false);
-        set_rules_hint(false);
         set_show_expanders(true);
         set_reorderable(false);
         set_enable_tree_lines(false);
@@ -190,33 +188,26 @@ public class Sidebar.Tree : Gtk.TreeView {
         
         return false;
     }
-    
-    private void setup_default_context_menu() {
-        Gtk.ActionGroup group = new Gtk.ActionGroup("SidebarDefault");
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, null, null, on_new_search };
-        new_search.label = _("Ne_w Saved Search...");
-        actions += new_search;
 
-        Gtk.ActionEntry new_tag = { "CommonNewTag", null, TRANSLATABLE, null, null, on_new_tag };
-        new_tag.label = _("New _Tag...");
-        actions += new_tag;
-        
-        group.add_actions(actions, this);
-        ui.insert_action_group(group, 0);
-        
-        File ui_file = Resources.get_ui("sidebar_default_context.ui");
+    private const GLib.ActionEntry[] entries = {
+        { "tag.new", on_new_tag },
+        { "search.new", on_new_search }
+    };
+
+    private void setup_default_context_menu() {
         try {
-            ui.add_ui_from_file(ui_file.get_path());
-        } catch (Error err) {
-            AppWindow.error_message("Error loading UI file %s: %s".printf(
-                ui_file.get_path(), err.message));
+            this.builder.add_from_resource(Resources.get_ui("sidebar_default_context.ui"));
+            var model = builder.get_object ("popup-menu") as GLib.MenuModel;
+            this.default_context_menu = new Gtk.Menu.from_model (model);
+            var group = new GLib.SimpleActionGroup ();
+            group.add_action_entries (entries, this);
+            this.insert_action_group ("sidebar", group);
+            this.default_context_menu.attach_to_widget (this, null);
+        } catch (Error error) {
+            AppWindow.error_message("Error loading UI resource: %s".printf(
+                error.message));
             Application.get_instance().panic();
         }
-        default_context_menu = (Gtk.Menu) ui.get_widget("/SidebarDefaultContextMenu");
-        
-        ui.ensure_update();
     }
     
     private bool has_wrapper(Sidebar.Entry entry) {
@@ -744,10 +735,17 @@ public class Sidebar.Tree : Gtk.TreeView {
         store.set(wrapper.get_iter(), Columns.TOOLTIP, guarded_markup_escape_text(tooltip));
     }
     
-    private void on_sidebar_icon_changed(Sidebar.Entry entry, string? icon) {
+    private void on_sidebar_icon_changed(Sidebar.Entry entry, string? icon_name) {
         EntryWrapper? wrapper = get_wrapper(entry);
         assert(wrapper != null);
-        
+        Icon? icon = null;
+
+        try {
+            if (icon_name != null) {
+                icon = Icon.new_for_string (icon_name);
+            }
+        } catch (Error e) { }
+
         store.set(wrapper.get_iter(), Columns.ICON, icon);
     }
 
@@ -776,9 +774,18 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     private void load_entry_icons(Gtk.TreeIter iter) {
         EntryWrapper? wrapper = get_wrapper_at_iter(iter);
+        Icon? icon = null;
         if (wrapper == null)
             return;
-        string? icon = wrapper.entry.get_sidebar_icon();
+
+        try {
+            string? name = wrapper.entry.get_sidebar_icon();
+            if (name != null) {
+                icon = Icon.new_for_string (name);
+            }
+        } catch (Error e) { }
+
+
         store.set(iter, Columns.ICON, icon);
     }
     
@@ -851,6 +858,10 @@ public class Sidebar.Tree : Gtk.TreeView {
         Gtk.Menu? context_menu = contextable.get_sidebar_context_menu(event);
         if (context_menu == null)
             return false;
+
+        if (context_menu.get_attach_widget() == null) {
+            context_menu.attach_to_widget (this, null);
+        }
 
         if (event != null)
             context_menu.popup(null, null, null, event.button, event.time);
@@ -1009,7 +1020,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         get_cursor(out cursor_path, out cursor_column);
         
         if (can_rename_path(cursor_path)) {
-            set_cursor(cursor_path, cursor_column, true);
+            set_cursor_on_cell (cursor_path, cursor_column, text_renderer, true);
             
             return true;
         }

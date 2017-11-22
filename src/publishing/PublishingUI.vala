@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -100,32 +100,37 @@ public class SuccessPane : StaticMessagePane {
 
         // Here, we check whether more than one item is being uploaded, and if so, display
         // an alternate message.
-        if(num_uploaded > 1) {
-            if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO | Spit.Publishing.Publisher.MediaType.VIDEO))
-                message_string = _("The selected photos/videos were successfully published.");
-            else if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
-                message_string = _("The selected videos were successfully published.");
-            else
-                message_string = _("The selected photos were successfully published.");
-        } else {
-            if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO)
-                message_string = _("The selected video was successfully published.");
-            else
-                message_string = _("The selected photo was successfully published.");
+        if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO) {
+            message_string = ngettext ("The selected video was successfully published.",
+                                       "The selected videos were successfully published.",
+                                       num_uploaded);
         }
+        else if (published_media == Spit.Publishing.Publisher.MediaType.PHOTO) {
+            message_string = ngettext ("The selected photo was successfully published.",
+                                       "The selected photos were successfully published.",
+                                       num_uploaded);
+        }
+        else if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO
+                                     | Spit.Publishing.Publisher.MediaType.VIDEO)) {
+            message_string = _("The selected photos/videos were successfully published.");
+        }
+        else {
+            assert_not_reached ();
+        }
+
         base(message_string);
     }
 }
 
 public class AccountFetchWaitPane : StaticMessagePane {
     public AccountFetchWaitPane() {
-        base(_("Fetching account information..."));
+        base(_("Fetching account information…"));
     }
 }
 
 public class LoginWaitPane : StaticMessagePane {
     public LoginWaitPane() {
-        base(_("Logging in..."));
+        base(_("Logging in…"));
     }
 }
 
@@ -156,12 +161,17 @@ public class PublishingDialog : Gtk.Dialog {
     protected PublishingDialog(Gee.Collection<MediaSource> to_publish) {
         assert(to_publish.size > 0);
 
-        Object(use_header_bar: 1);
-        ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
-        
+        bool use_header = false;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
+        if (use_header)
+            ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
+
         resizable = false;
+        modal = true;
+        set_transient_for(AppWindow.get_instance());
         delete_event.connect(on_window_close);
-        
+
         publishables = new Spit.Publishing.Publishable[0];
         bool has_photos = false;
         bool has_videos = false;
@@ -243,15 +253,57 @@ public class PublishingDialog : Gtk.Dialog {
 
         service_selector_box.changed.connect(on_service_changed);
         
+        if (!use_header)
+        {
+            var service_selector_box_label = new Gtk.Label.with_mnemonic(label);
+            service_selector_box_label.set_mnemonic_widget(service_selector_box);
+            service_selector_box_label.halign = Gtk.Align.START;
+            service_selector_box_label.valign = Gtk.Align.CENTER;
+
+            /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
+               selection box from growing and shrinking whenever its parent's size changes.
+               When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
+               the service selection box. */
+            service_selector_box.halign = Gtk.Align.END;
+            service_selector_box.valign = Gtk.Align.CENTER;
+            service_selector_box.hexpand = false;
+            service_selector_box.vexpand = false;
+
+            Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+            service_selector_layouter.set_border_width(12);
+            service_selector_layouter.hexpand = true;
+            service_selector_layouter.add(service_selector_box_label);
+            service_selector_layouter.pack_start(service_selector_box, true, true, 0);
+
+            /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
+               rest of the dialog */
+            Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            service_area_layouter.add(service_selector_layouter);
+            service_area_layouter.add(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
+            service_area_layouter.halign = Gtk.Align.FILL;
+            service_area_layouter.valign = Gtk.Align.START;
+            service_area_layouter.hexpand = true;
+            service_area_layouter.vexpand = false;
+
+            get_content_area().pack_start(service_area_layouter, false, false, 0);
+        }
+
         central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 
         get_content_area().pack_start(central_area_layouter, true, true, 0);
         
-        close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
-        close_cancel_button.set_can_default(true);
+        if (use_header) {
+            close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
+            close_cancel_button.set_can_default(true);
+
+            ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
+            ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
+        }
+        else {
+            add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+            close_cancel_button = get_widget_for_response (Gtk.ResponseType.CANCEL) as Gtk.Button;
+        }
         close_cancel_button.clicked.connect(on_close_cancel_clicked);
-        ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
-        ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
 
         set_standard_window_mode();
         

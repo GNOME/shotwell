@@ -1,0 +1,50 @@
+plugin_LTLIBRARIES += plugins/shotwell-transitions/shotwell-transitions.la
+dist_noinst_DATA += \
+	plugins/shotwell-transitions/slideshow-plugin.png \
+	plugins/shotwell-transitions/org.gnome.Shotwell.Transitions.gresource.xml
+
+plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
+	plugins/shotwell-transitions/BlindsEffect.vala \
+	plugins/shotwell-transitions/ChessEffect.vala \
+	plugins/shotwell-transitions/CircleEffect.vala \
+	plugins/shotwell-transitions/CirclesEffect.vala \
+	plugins/shotwell-transitions/ClockEffect.vala \
+	plugins/shotwell-transitions/CrumbleEffect.vala \
+	plugins/shotwell-transitions/FadeEffect.vala \
+	plugins/shotwell-transitions/shotwell-transitions.vala \
+	plugins/shotwell-transitions/SlideEffect.vala \
+	plugins/shotwell-transitions/SquaresEffect.vala \
+	plugins/shotwell-transitions/StripesEffect.vala \
+	plugins/shotwell-plugin-common.vapi
+
+nodist_plugins_shotwell_transitions_shotwell_transitions_la_SOURCES = \
+	plugins/shotwell-transitions/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-transitions/resource.c
+
+plugins/shotwell-transitions/resource.c: plugins/shotwell-transitions/org.gnome.Shotwell.Transitions.gresource.xml
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(abs_top_srcdir)/plugins/shotwell-transitions --generate $<
+
+plugins_shotwell_transitions_shotwell_transitions_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	--pkg gtk+-3.0 \
+	--pkg libsoup-2.4 \
+	--pkg gexiv2 \
+	--pkg gee-0.8 \
+	--pkg json-glib-1.0 \
+	--pkg shotwell-plugin-dev-1.0 \
+	--pkg libxml-2.0 \
+	--pkg webkit2gtk-4.0 \
+	--vapidir $(abs_top_srcdir)/plugins
+
+plugins_shotwell_transitions_shotwell_transitions_la_CFLAGS = \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Transitions"' \
+	$(PLUGIN_CFLAGS) \
+	$(COMMON_CFLAGS) \
+	-I $(abs_top_srcdir)/plugins
+
+plugins_shotwell_transitions_shotwell_transitions_la_LDFLAGS = \
+	$(SHOTWELL_PLUGIN_LDFLAGS)
+
+plugins_shotwell_transitions_shotwell_transitions_la_LIBADD = \
+	$(TRANSITIONS_LIBS) -lm \
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la

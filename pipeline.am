@@ -1,0 +1,47 @@
+src/shotwell-graphics-processor.vapi src/shotwell-graphics-processor.h: \
+	src_libgraphics_processor_la_vala.stamp
+
+noinst_LTLIBRARIES += \
+	src/libgraphics-processor.la
+
+src_libgraphics_processor_la_SOURCES = \
+	src/ColorTransformation.vala \
+	src/util/KeyValueMap.vala \
+	src/_transformation.c
+
+src_libgraphics_processor_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	--disable-assert \
+	--pkg gio-2.0 \
+	--pkg gdk-3.0 \
+	--pkg gee-0.8 \
+	--pkg gdk-pixbuf-2.0 \
+	--vapi=src/shotwell-graphics-processor.vapi \
+	--header=src/shotwell-graphics-processor.h
+
+dist_noinst_DATA += \
+	src/shotwell-graphics-processor.vapi \
+	src/shotwell-graphics-processor.h
+
+src_libgraphics_processor_la_CFLAGS = $(SHOTWELL_CFLAGS) $(COMMON_CFLAGS)
+src_libgraphics_processor_la_CFLAGS += -DG_DISABLE_CAST_CHECKS
+
+noinst_PROGRAMS = \
+	src/shotwell-graphics-processor
+
+src_shotwell_graphics_processor_SOURCES = \
+	src/graphics-processor.vala \
+	src/shotwell-graphics-processor.vapi
+
+src_shotwell_graphics_processor_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	--pkg gio-2.0 \
+	--pkg gdk-3.0 \
+	--pkg gee-0.8 \
+	--pkg gdk-pixbuf-2.0
+
+src_shotwell_graphics_processor_CFLAGS = $(SHOTWELL_CFLAGS) $(COMMON_CFLAGS)
+
+src_shotwell_graphics_processor_LDADD = \
+	src/libgraphics-processor.la \
+	$(SHOTWELL_LIBS)

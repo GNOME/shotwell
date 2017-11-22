@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -10,10 +10,17 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
     public ShotwellPublishingExtraServices(GLib.File module_file) {
+#if HAVE_YANDEX
         pluggables += new YandexService();
-        pluggables += new TumblrService(module_file.get_parent());
+#endif
+
+#if HAVE_RAJCE
         pluggables += new RajceService(module_file.get_parent());
+#endif
+
+#if HAVE_GALLERY3
         pluggables += new Gallery3Service(module_file.get_parent());
+#endif
     }
     
     public unowned string get_module_name() {

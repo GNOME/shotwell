@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -80,11 +80,9 @@ public class Thumbnail : MediaSourceItem {
     private void update_tags(bool init = false) {
         Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_source(media);
         if (tags == null || tags.size == 0)
-            clear_subtitle();
-        else if (!init)
-            set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>", true), true);
+            clear_tags();
         else
-            set_subtitle("<small>.</small>", true);
+            set_tags(tags);
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
@@ -200,12 +198,11 @@ public class Thumbnail : MediaSourceItem {
     public static int64 filename_ascending_comparator(void *a, void *b) {
         string path_a = ((Thumbnail *) a)->media.get_file().get_basename().down();
         string path_b = ((Thumbnail *) b)->media.get_file().get_basename().down();
-        
-        int64 result = strcmp(g_utf8_collate_key_for_filename(path_a), 
-            g_utf8_collate_key_for_filename(path_b));
+
+        int64 result = strcmp(path_a.collate_key_for_filename(), path_b.collate_key_for_filename());
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
-    
+
     public static int64 filename_descending_comparator(void *a, void *b) {
         int64 result = filename_ascending_comparator(b, a);
         

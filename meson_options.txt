@@ -1,0 +1,7 @@
+option('enable-unity-support', type: 'boolean', value : 'false', description: 'Enable Ubuntu Unity support')
+option('publishers', type: 'string', value : 'facebook,flickr,picasa,piwigo,youtube,gallery3,tumblr', description: 'The list of publishing plugins to build')
+option('enable-extra-plugins', type : 'boolean', value : 'true', description: 'Enable building and installation of extra publishing plugins')
+option('trace', type: 'string', value : '', description: 'Enable various trace  options (available: dtors, import, md5, metadata-writer, monitoring, pixbuf-cache, reflow, reflow-items)')
+option('measure', type: 'string', value : '', description : 'Enable various timing measurements(available : enhance, import, pipeline, view-filtering, thumbnail-cache)')
+option('disable-dupe-detection', type: 'boolean', value : 'false', description: 'Disable duplicate checks')
+option('install-apport-hook', type : 'boolean', value : 'true', description: 'Enable Ubuntu apport hook')

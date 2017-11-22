@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -215,15 +215,15 @@ private class BackgroundSlideshowXMLBuilder {
     private void write_transition(File from, File to) throws Error {
         outs.put_string("  <transition>\n");
         outs.put_string("    <duration>%2.2f</duration>\n".printf(transition));
-        outs.put_string("    <from>%s</from>\n".printf(from.get_path()));
-        outs.put_string("    <to>%s</to>\n".printf(to.get_path()));
+        outs.put_string("    <from>%s</from>\n".printf(Markup.escape_text(from.get_path())));
+        outs.put_string("    <to>%s</to>\n".printf(Markup.escape_text(to.get_path())));
         outs.put_string("  </transition>\n");
     }
     
     private void write_static(File file) throws Error {
         outs.put_string("  <static>\n");
         outs.put_string("    <duration>%2.2f</duration>\n".printf(duration));
-        outs.put_string("    <file>%s</file>\n".printf(file.get_path()));
+        outs.put_string("    <file>%s</file>\n".printf(Markup.escape_text(file.get_path())));
         outs.put_string("  </static>\n");
     }
     
