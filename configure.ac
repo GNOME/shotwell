@@ -145,6 +145,17 @@ AS_IF([test "x$with_authenticator" = "xshotwell"],
       ])
 
 dnl ***********************************************************************
+dnl Faces tool support
+dnl ***********************************************************************
+AC_ARG_ENABLE([face_tool],
+	      AS_HELP_STRING([--enable-face_tool], [Enable face detection]))
+
+AS_IF([test "x$enable_face_tool" = "xyes"], [
+	PKG_CHECK_MODULES(FACES_TOOL, [opencv >= 2.4])
+	AC_DEFINE(ENABLE_FACES, 1, "Macro inside the code to enable face detection")
+])
+
+dnl ***********************************************************************
 dnl Unity support
 dnl ***********************************************************************
 AC_ARG_ENABLE([unity-support],
