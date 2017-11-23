@@ -151,9 +151,12 @@ AC_ARG_ENABLE([face_tool],
 	      AS_HELP_STRING([--enable-face_tool], [Enable face detection]))
 
 AS_IF([test "x$enable_face_tool" = "xyes"], [
-	PKG_CHECK_MODULES(FACES_TOOL, [opencv >= 2.4])
+	PKG_CHECK_MODULES(FACES_TOOL, [opencv >= 2.4],
+                      [
+					   HAVE_FACE_TOOL=yes
+					  ], [HAVE_FACE_TOOL=no])
 	AC_DEFINE(ENABLE_FACES, 1, "Macro inside the code to enable face detection")
-])
+      ], [HAVE_FACE_TOOL=no])
 
 dnl ***********************************************************************
 dnl Unity support
@@ -313,4 +316,5 @@ echo "  Unity support ........................ : ${HAVE_UNITY}"
 echo "  Additional publishing plugins ........ : ${HAVE_EXTRA_PLUGINS}"
 echo "  Authentication library ............... : ${with_authenticator}"
 echo "  Publishers ........................... : ${ENABLED_PUBLISHERS}"
+echo "  Face_tool ............................ : ${HAVE_FACE_TOOL}"
 echo ""
