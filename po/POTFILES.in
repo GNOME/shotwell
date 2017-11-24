@@ -6,7 +6,6 @@ misc/shotwell-viewer.desktop.in
 misc/org.yorba.shotwell-extras.gschema.xml
 misc/org.yorba.shotwell.gschema.xml
 plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala
-plugins/authenticator/shotwell/flickr_pin_entry_pane.ui
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala
 plugins/authenticator/shotwell/GoogleAuthenticator.vala
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala
