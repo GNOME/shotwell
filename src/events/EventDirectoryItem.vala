@@ -79,15 +79,6 @@ class EventDirectoryItem : CheckerboardItem {
             thumbnail_dimensions = Dimensions.for_pixbuf(pixbuf);
         }
         
-        Dimensions thumbnail_dimensions = Dimensions.for_pixbuf(pixbuf);
-        
-        if (thumbnail_dimensions.width > 2 * paul_lynde.width ||
-            thumbnail_dimensions.height > paul_lynde.height * 2 ) {
-            LibraryPhoto photo = (LibraryPhoto) media;
-            pixbuf = photo.get_pixbuf(squared_scaling);
-            thumbnail_dimensions = Dimensions.for_pixbuf(pixbuf);
-        }
-        
         // to catch rounding errors in the two algorithms
         paul_lynde = clamp_rectangle(paul_lynde, thumbnail_dimensions);
         

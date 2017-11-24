@@ -39,13 +39,8 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.Adjustment transition_effect_adjustment;
         [GtkChild]
         Gtk.CheckButton show_title_button;
-        Gtk.Box pane;
         
         public SettingsDialog() {
-            builder = AppWindow.create_builder();
-            pane = builder.get_object("slideshow_settings_pane") as Gtk.Box;
-            get_content_area().add(pane);
-            
             double delay = Config.Facade.get_instance().get_slideshow_delay();
 
             set_transient_for(AppWindow.get_fullscreen());

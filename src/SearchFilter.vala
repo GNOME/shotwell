@@ -290,16 +290,6 @@ public class DisabledViewFilter : SearchViewFilter {
     }
 }
 
-public class DisabledViewFilter : SearchViewFilter {
-    public override bool predicate(DataView view) {
-        return true;
-    }
-    
-    public override uint get_criteria() {
-        return SearchFilterCriteria.RATING;
-    }
-}
-
 public class TextAction {
     public string? value {
         get {

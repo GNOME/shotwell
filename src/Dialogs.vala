@@ -1223,10 +1223,6 @@ public class TextEntryDialog : Gtk.Dialog {
         Object (use_header_bar: use_header ? 1 : 0);
     }
     
-    public TextEntryDialog() {
-        Object (use_header_bar: 1);
-    }
-    
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
@@ -1297,11 +1293,7 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         Object (use_header_bar: use_header ? 1 : 0);
     }
     
-    public MultiTextEntryDialog() {
-        Object (use_header_bar: 1);
-    }
-    
-    public void set_builder(Gtk.Builder builder) {
+   public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
     

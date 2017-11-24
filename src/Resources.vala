@@ -82,12 +82,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";
-    public const string FACES_TOOL = "faces";
-    public const string GO_NEXT = "go-next";
-    public const string GO_PREVIOUS = "go-previous";
-    public const string ICON_APP = "shotwell.svg";
-    public const string ICON_APP16 = "shotwell-16.svg";
-    public const string ICON_APP24 = "shotwell-24.svg";
     
     public const string GO_NEXT = "go-next";
     public const string GO_PREVIOUS = "go-previous";
@@ -122,8 +116,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_NO_EVENT = "no-event";
     public const string ICON_ONE_TAG = "one-tag";
     public const string ICON_TAGS = "multiple-tags";
-    public const string ICON_ONE_FACE = "one-face";
-    public const string ICON_FACES = "many-faces";
     public const string ICON_FOLDER = "folder";
     public const string ICON_FOLDER_DOCUMENTS = "folder-documents";
     public const string ICON_IMPORTING = "go-down";
@@ -195,14 +187,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
     public const string ENHANCE_TOOLTIP = _("Automatically improve the photo’s appearance");
-    
-    public const string COPY_ADJUSTMENTS_MENU = _("_Copy Color Adjustments");
-    public const string COPY_ADJUSTMENTS_LABEL = _("Copy Color Adjustments");
-    public const string COPY_ADJUSTMENTS_TOOLTIP = _("Copy the color adjustments applied to the photo");
-    
-    public const string PASTE_ADJUSTMENTS_MENU = _("_Paste Color Adjustments");
-    public const string PASTE_ADJUSTMENTS_LABEL = _("Paste Color Adjustments");
-    public const string PASTE_ADJUSTMENTS_TOOLTIP = _("Apply copied color adjustments to the selected photos");
     
     public const string COPY_ADJUSTMENTS_MENU = _("_Copy Color Adjustments");
     public const string COPY_ADJUSTMENTS_LABEL = _("Copy Color Adjustments");
@@ -348,16 +332,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string UNFLAG_MENU = _("Un_flag");
 
-#if ENABLE_FACES    
-    public const string FACES_MENU = _("Faces");
-    public const string FACES_LABEL = _("Faces");
-    public const string FACES_TOOLTIP = _("Mark faces of people in the photo");
-    public const string MODIFY_FACES_LABEL = _("Modify Faces");
-    public const string DELETE_FACE_TITLE = _("Delete Face");
-    public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
-    public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename...");
-#endif
-
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }
@@ -450,57 +424,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Delete Search “%s”").printf(name);
     }
     
-    public static string rename_face_exists_message(string name) {
-        return _("Unable to rename face to \"%s\" because the face already exists.").printf(name);
-    }
-    
-    public string remove_face_from_photos_menu(string name, int count) {
-        return ((count == 1) ? _("Remove Face \"%s\" From _Photo") :
-            _("Remove Face \"%s\" From _Photos")).printf(name);
-    }
-    
-    public string remove_face_from_photos_label(string name, int count) {
-        return ((count == 1) ? _("Remove Face \"%s\" From Photo") :
-            _("Remove Face \"%s\" From Photos")).printf(name);
-    }
-    
-    public string rename_face_menu(string name) {
-        return _("Re_name Face \"%s\"...").printf(name);
-    }
-    
-    public string rename_face_label(string old_name, string new_name) {
-        return _("Rename Face \"%s\" to \"%s\"").printf(old_name, new_name);
-    }
-    
-    public string delete_face_menu(string name) {
-        return _("_Delete Face \"%s\"").printf(name);
-    }
-    
-    public string delete_face_label(string name) {
-        return _("Delete Face \"%s\"").printf(name);
-    }
-    
-    private unowned string rating_menu(Rating rating) {
-        switch (rating) {
-            case Rating.REJECTED:
-                return RATE_REJECTED_MENU;
-            case Rating.UNRATED:
-                return RATE_UNRATED_MENU;
-            case Rating.ONE:
-                return RATE_ONE_MENU;
-            case Rating.TWO:
-                return RATE_TWO_MENU;
-            case Rating.THREE:
-                return RATE_THREE_MENU;
-            case Rating.FOUR:
-                return RATE_FOUR_MENU;
-            case Rating.FIVE:
-                return RATE_FIVE_MENU;
-            default:
-                return RATE_UNRATED_MENU;
-        }
-    }
-
     private unowned string rating_label(Rating rating) {
         switch (rating) {
             case Rating.REJECTED:
@@ -768,10 +691,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public void init () {
         get_icon_theme_engine();
         // load application-wide stock icons as IconSets
-#if ENABLE_FACES
-        //add_stock_icon(icons_dir.get_child("faces-tool.png"), FACES_TOOL);
-	//[TODO] which function call?
-#endif
         generate_rating_strings();
     }
     
