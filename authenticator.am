@@ -1,7 +1,6 @@
 lib_LTLIBRARIES += plugins/authenticator/libshotwell-authenticator.la
 
 dist_noinst_DATA += \
-	plugins/authenticator/shotwell/flickr_pin_entry_pane.ui \
 	plugins/authenticator/shotwell/tumblr_authentication_pane.ui \
 	plugins/authenticator/shotwell/org.gnome.Shotwell.Authenticator.gresource.xml \
 	plugins/authenticator/shotwell-authenticator.h

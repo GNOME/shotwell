@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+using Shotwell.Plugins;
+
 namespace Publishing.Authenticator.Shotwell.Flickr {
     internal const string ENDPOINT_URL = "https://api.flickr.com/services/rest";
     internal const string EXPIRED_SESSION_ERROR_CODE = "98";
@@ -18,7 +20,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
                     Publishing.RESTSupport.HttpMethod.GET);
-            add_argument("oauth_callback", "oob");
+            add_argument("oauth_callback", "shotwell-auth%3A%2F%2Flocal-callback");
         }
     }
 
@@ -28,64 +30,49 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_verifier", user_verifier);
             add_argument("oauth_token", session.get_request_phase_token());
-            add_argument("oauth_callback", "oob");
+            add_argument("oauth_callback", "shotwell-auth%3A%2F%2Flocal-callback");
         }
     }
 
-    internal class PinEntryPane : Spit.Publishing.DialogPane, GLib.Object {
-        private Gtk.Box pane_widget = null;
-        private Gtk.Button continue_button = null;
-        private Gtk.Entry pin_entry = null;
-        private Gtk.Label pin_entry_caption = null;
-        private Gtk.Label explanatory_text = null;
-        private Gtk.Builder builder = null;
+    internal class WebAuthenticationPane : Common.WebAuthenticationPane {
+        private string? auth_code = null;
+        private const string LOGIN_URI = "https://www.flickr.com/services/oauth/authorize?oauth_token=%s&perms=write";
 
-        public signal void proceed(PinEntryPane sender, string authorization_pin);
+        public signal void authorized(string auth_code);
+        public signal void error();
 
-        public PinEntryPane(Gtk.Builder builder) {
-            this.builder = builder;
-            assert(builder != null);
-            assert(builder.get_objects().length() > 0);
-
-            explanatory_text = builder.get_object("explanatory_text") as Gtk.Label;
-            pin_entry_caption = builder.get_object("pin_entry_caption") as Gtk.Label;
-            pin_entry = builder.get_object("pin_entry") as Gtk.Entry;
-            continue_button = builder.get_object("continue_button") as Gtk.Button;
-
-            pane_widget = builder.get_object("pane_widget") as Gtk.Box;
-
-            pane_widget.show_all();
-
-            on_pin_entry_contents_changed();
+        public WebAuthenticationPane(string token) {
+            Object(login_uri : LOGIN_URI.printf(token));
         }
 
-        private void on_continue_clicked() {
-            proceed(this, pin_entry.get_text());
+        public override void constructed() {
+            base.constructed();
+
+            var ctx = WebKit.WebContext.get_default();
+            ctx.register_uri_scheme("shotwell-auth", this.on_shotwell_auth_request_cb);
         }
 
-        private void on_pin_entry_contents_changed() {
-            continue_button.set_sensitive(pin_entry.text_length > 0);
+        public override void on_page_load() {
+            var uri = new Soup.URI(get_view().get_uri());
+            if (uri.scheme == "shotwell-auth" && this.auth_code == null) {
+                this.error();
+            }
+
+            if (this.auth_code != null) {
+                this.authorized(this.auth_code);
+            }
         }
 
-        public Gtk.Widget get_widget() {
-            return pane_widget;
-        }
+        private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
+            var uri = new Soup.URI(request.get_uri());
+            var form_data = Soup.Form.decode (uri.query);
+            this.auth_code = form_data.lookup("oauth_verifier");
 
-        public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-            return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-        }
-
-        public void on_pane_installed() {
-            continue_button.clicked.connect(on_continue_clicked);
-            pin_entry.changed.connect(on_pin_entry_contents_changed);
-        }
-
-        public void on_pane_uninstalled() {
-            continue_button.clicked.disconnect(on_continue_clicked);
-            pin_entry.changed.disconnect(on_pin_entry_contents_changed);
+            var response = "";
+            var mins = new MemoryInputStream.from_data(response.data);
+            request.finish(mins, -1, "text/plain");
         }
     }
-
 
     internal class Flickr : Publishing.Authenticator.Shotwell.OAuth1.Authenticator {
         public Flickr(Spit.Publishing.PluginHost host) {
@@ -192,59 +179,18 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
             session.set_request_phase_credentials(token, token_secret);
 
-            do_launch_system_browser(token);
+            do_web_authentication(token);
         }
 
-        private void on_system_browser_launched() {
-            debug("EVENT: system browser launched.");
-
-            do_show_pin_entry_pane();
+        private void do_web_authentication(string token) {
+            var pane = new WebAuthenticationPane(token);
+            host.install_dialog_pane(pane);
+            pane.authorized.connect(this.do_verify_pin);
+            pane.error.connect(this.on_web_login_error);
         }
 
-        private void on_pin_entry_proceed(PinEntryPane sender, string pin) {
-            sender.proceed.disconnect(on_pin_entry_proceed);
-
-            debug("EVENT: user clicked 'Continue' in PIN entry pane.");
-
-            do_verify_pin(pin);
-        }
-
-        private void do_launch_system_browser(string token) {
-            string login_uri = "https://www.flickr.com/services/oauth/authorize?oauth_token=" + token +
-                "&perms=write";
-
-            debug("ACTION: launching system browser with uri = '%s'", login_uri);
-
-            try {
-                Process.spawn_command_line_async("xdg-open " + login_uri);
-            } catch (SpawnError e) {
-                host.post_error(new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                            "couldn't launch system web browser to complete Flickr login"));
-                return;
-            }
-
-            on_system_browser_launched();
-        }
-
-        private void do_show_pin_entry_pane() {
-            debug("ACTION: showing PIN entry pane");
-
-            Gtk.Builder builder = new Gtk.Builder();
-
-            try {
-                builder.add_from_resource (Resources.RESOURCE_PATH + "/" +
-                        "flickr_pin_entry_pane.ui");
-            } catch (Error e) {
-                warning("Could not parse UI file! Error: %s.", e.message);
-                host.post_error(
-                        new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                            _("A file required for publishing is unavailable. Publishing to Flickr can’t continue.")));
-                return;
-            }
-
-            PinEntryPane pin_entry_pane = new PinEntryPane(builder);
-            pin_entry_pane.proceed.connect(on_pin_entry_proceed);
-            host.install_dialog_pane(pin_entry_pane);
+        private void on_web_login_error() {
+            host.post_error(new Spit.Publishing.PublishingError.PROTOCOL_ERROR(_("Flickr authorization failed")));
         }
 
         private void do_verify_pin(string pin) {
