@@ -59,7 +59,9 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     protected override void notify_altered(Alteration alteration) {
         Alteration local = alteration;
         
-        if (local.has_detail("metadata", "name") || local.has_detail("backing", "master")) {
+        if (local.has_detail("metadata", "name") ||
+            local.has_detail("metadata", "comment") ||
+            local.has_detail("backing", "master")) {
             update_indexable_keywords();
             local = local.compress(new Alteration("indexable", "keywords"));
         }
