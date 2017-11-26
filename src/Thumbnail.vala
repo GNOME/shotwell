@@ -119,8 +119,6 @@ public class Thumbnail : MediaSourceItem {
             clear_title();
         else if (!init)
             set_title(title);
-        else
-            set_title("");
     }
     
     private void update_comment(bool init = false) {
@@ -129,8 +127,6 @@ public class Thumbnail : MediaSourceItem {
             clear_comment();
         else if (!init)
             set_comment(comment);
-        else
-            set_comment("");
     }
 
     protected override void notify_altered(Alteration alteration) {
