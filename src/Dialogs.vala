@@ -1669,6 +1669,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         set_title(Resources.ADJUST_DATE_TIME_LABEL);
 
         calendar = new Gtk.Calendar();
+        calendar.show_heading = false;
         calendar.day_selected.connect(on_time_changed);
         calendar.month_changed.connect(on_time_changed);
         calendar.next_year.connect(on_time_changed);
@@ -1737,6 +1738,19 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         Gtk.Box time_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 5);
 
+        var picker = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
+        var combo = new Gtk.ComboBoxText();
+        for (int i = 0; i < 12; i++){
+            combo.append_text(Time.gm((i * 2764800)).format("%B"));
+        }
+        picker.pack_start(combo, false, false, 0);
+        // Limits taken from GtkCalendar
+        var spin = new Gtk.SpinButton.with_range(0, int.MAX >> 9, 1);
+        picker.pack_end(spin, false, false, 0);
+        spin.bind_property("value", calendar, "year", GLib.BindingFlags.BIDIRECTIONAL);
+        combo.bind_property("active", calendar, "month", GLib.BindingFlags.BIDIRECTIONAL);
+
+        time_content.pack_start(picker, false, false, 0);
         time_content.pack_start(calendar, true, false, 0);
         time_content.pack_start(clock, true, false, 0);
 
@@ -1794,6 +1808,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     private void set_time(Time time) {
         calendar.select_month(time.month, time.year + YEAR_OFFSET);
         calendar.select_day(time.day);
+        calendar.notify_property("year");
+        calendar.notify_property("month");
 
         if (Config.Facade.get_instance().get_use_24_hour_time()) {
             system.set_active(TimeSystem.24HR);
