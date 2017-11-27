@@ -69,7 +69,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             this.auth_code = form_data.lookup("oauth_verifier");
 
             var response = "";
-            var mins = new MemoryInputStream.from_data(response.data);
+            var mins = new MemoryInputStream.from_data(response.data, null);
             request.finish(mins, -1, "text/plain");
         }
     }
