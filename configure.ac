@@ -148,15 +148,18 @@ dnl ***********************************************************************
 dnl Faces tool support
 dnl ***********************************************************************
 AC_ARG_ENABLE([face_tool],
-	      AS_HELP_STRING([--enable-face_tool], [Enable face detection]))
+	      AS_HELP_STRING([--enable-face], [Enable face detection]))
 
-AS_IF([test "x$enable_face_tool" = "xyes"], [
+AS_IF([test "x$enable_face" = "xyes"], [
 	PKG_CHECK_MODULES(FACES_TOOL, [opencv >= 2.4],
                       [
 					   HAVE_FACE_TOOL=yes
+					   FACE_TOOL_VALAFLAGS="-D ENABLE_FACES"
+					   AC_SUBST([FACE_TOOL_VALAFLAGS])
 					  ], [HAVE_FACE_TOOL=no])
-	AC_DEFINE(ENABLE_FACES, 1, "Macro inside the code to enable face detection")
       ], [HAVE_FACE_TOOL=no])
+AC_SUBST([HAVE_FACE_TOOL])
+AM_CONDITIONAL([HAVE_FACE_TOOL],[test "x$enable_face" = "xyes"])
 
 dnl ***********************************************************************
 dnl Unity support

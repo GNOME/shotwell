@@ -396,6 +396,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToggleToolButton adjust_button = null;
     private Gtk.ToggleToolButton straighten_button = null;
+	private Gtk.ToggleToolButton faces_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.Scale zoom_slider = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);
@@ -491,6 +492,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if ENABLE_FACES
         // faces tool
         insert_faces_button(toolbar);
+		faces_button = new Gtk.ToggleToolButton();
+		//face_button
 #endif
 
         // separator to force next/prev buttons to right side of toolbar

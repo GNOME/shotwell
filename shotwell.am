@@ -23,7 +23,8 @@ shotwell_VALAFLAGS = $(COMMON_VALAFLAGS) \
 	--pkg gstreamer-pbutils-1.0 --pkg misc \
 	--gresources $(abs_top_srcdir)/org.gnome.Shotwell.gresource.xml \
 	$(UNITY_VALAFLAGS) \
-	$(COMMON_VALAFLAGS_POST)
+	$(COMMON_VALAFLAGS_POST) \
+	$(FACE_TOOL_VALAFLAGS)
 
 dist_noinst_DATA += org.gnome.Shotwell.gresource.xml
 
@@ -39,6 +40,15 @@ resource.c: org.gnome.Shotwell.gresource.xml $(shotwell_resource_deps)
 	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --target=$@ \
 		--sourcedir=$(abs_top_srcdir) \
 		--generate $(abs_top_srcdir)/org.gnome.Shotwell.gresource.xml
+
+if HAVE_FACE_TOOL
+faces_SOURCES = \
+	src/faces/Face.vala \
+	src/faces/FaceLocation.vala \
+	src/faces/Branch.vala \
+	src/faces/FacePage.vala \
+	src/faces/FaceShape.vala
+endif
 
 shotwell_SOURCES = \
 	src/unit/Unit.vala \
@@ -231,4 +241,5 @@ shotwell_SOURCES = \
 	src/.unitize/_Library_unitize_entry.vala \
 	src/.unitize/_Direct_unitize_entry.vala \
 	plugins/shotwell-plugin-dev-1.0.vapi \
-	src/shotwell-graphics-processor.vapi
+	src/shotwell-graphics-processor.vapi \
+	$faces_SOURCES
