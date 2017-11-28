@@ -2,7 +2,8 @@
 #  https://debbugs.gnu.org/cgi/bugreport.cgi?bug=18734
 COMMON_VALAFLAGS = \
 	--enable-checking --target-glib=2.40 --thread --fatal-warnings \
-	--enable-experimental --enable-deprecated
+	--enable-experimental --enable-deprecated \
+	$(FACE_TOOL_VALAFLAGS)
 
 COMMON_CFLAGS = \
 	-I$(top_srcdir)/vapi \

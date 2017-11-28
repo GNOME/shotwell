@@ -396,7 +396,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToggleToolButton adjust_button = null;
     private Gtk.ToggleToolButton straighten_button = null;
-	private Gtk.ToggleToolButton faces_button = null;
+#if ENABLE_FACES
+    private Gtk.ToggleToolButton faces_button = null;
+#endif
     private Gtk.ToolButton enhance_button = null;
     private Gtk.Scale zoom_slider = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);

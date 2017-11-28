@@ -41,15 +41,6 @@ resource.c: org.gnome.Shotwell.gresource.xml $(shotwell_resource_deps)
 		--sourcedir=$(abs_top_srcdir) \
 		--generate $(abs_top_srcdir)/org.gnome.Shotwell.gresource.xml
 
-if HAVE_FACE_TOOL
-faces_SOURCES = \
-	src/faces/Face.vala \
-	src/faces/FaceLocation.vala \
-	src/faces/Branch.vala \
-	src/faces/FacePage.vala \
-	src/faces/FaceShape.vala
-endif
-
 shotwell_SOURCES = \
 	src/unit/Unit.vala \
 	src/util/Util.vala \

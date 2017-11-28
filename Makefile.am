@@ -120,6 +120,36 @@ SHOTWELL_PLUGIN_LDFLAGS = \
 	-export_dynamic \
 	-avoid-version
 
+if HAVE_FACE_TOOL
+
+noinst_LIBRARIES = libfaces.a
+
+libfaces_a_SOURCES = \
+	src/faces/Face.vala \
+	src/faces/FaceLocation.vala \
+	src/faces/Branch.vala \
+	src/faces/FacePage.vala \
+	src/faces/FaceShape.vala
+
+libfaces_a_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	--pkg gio-2.0 \
+	--pkg gtk+-3.0 \
+	--pkg gmodule-2.0 \
+	--pkg gee-0.8 \
+	--library plugins \
+	--vapi=plugins/shotwell-plugin-dev-1.0.vapi \
+	--header=plugins/shotwell-plugin-dev-1.0.h
+
+libfaces_a_CFLAGS = $(PLUGIN_CFLAGS)
+libfaces_a_LIBADD = $(PLUGIN_LIBS)
+
+#faces_LTLIBRARY = faces
+
+endif
+
+
+
 -include $(top_srcdir)/git.mk
 
 plugindir = $(pkglibdir)/plugins/builtin
