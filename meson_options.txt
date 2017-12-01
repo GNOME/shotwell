@@ -5,3 +5,4 @@ option('trace', type: 'string', value : '', description: 'Enable various trace  
 option('measure', type: 'string', value : '', description : 'Enable various timing measurements(available : enhance, import, pipeline, view-filtering, thumbnail-cache)')
 option('disable-dupe-detection', type: 'boolean', value : 'false', description: 'Disable duplicate checks')
 option('install-apport-hook', type : 'boolean', value : 'true', description: 'Enable Ubuntu apport hook')
+option('face', type:'boolean', value:false)
