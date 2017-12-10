@@ -181,7 +181,7 @@ public class FaceRectangle : FaceShape {
     public new const string SHAPE_TYPE = "Rectangle";
     
     private const int FACE_MIN_SIZE = 8;
-    private const int NULL_SIZE = 0;
+    public const int NULL_SIZE = 0;
     
     private Box box;
     private Box? label_box;

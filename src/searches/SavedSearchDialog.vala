@@ -52,7 +52,7 @@ public class SavedSearchDialog {
            
 #if ENABLE_FACES 
             //included in the faces branch. Change anything?
-            align = new Gtk.Alignment(0,0,0,0);
+            //align = new Gtk.Alignment(0,0,0,0);
 #endif
             box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
             box.pack_start(type_combo, false, false, 0);
