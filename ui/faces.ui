@@ -1,25 +1,56 @@
-<ui>
-
-    <menubar name="MenuBar">
-        <placeholder name="FacesMenuPlaceholder">
-            <menu name="FacesMenu" action="FacesMenu">
-                <menuitem name="RemoveFaceFromPhotos" action="RemoveFaceFromPhotos" />
-                <separator />
-                <menuitem name="RenameFace" action="RenameFace" />
-                <menuitem name="DeleteFace" action="DeleteFace" />
-            </menu>
-        </placeholder>
-    </menubar>
-    
-    <popup name="CollectionContextMenu">
-        <placeholder name="ContextFacesPlaceholder">
-            <menuitem name="ContextRemoveFaceFromPhotos" action="RemoveFaceFromPhotos" />
-        </placeholder>
-    </popup>
-    
-    <popup name="FacesContextMenu">
-        <menuitem name="ContextRenameFace" action="RenameFaceSidebar" />
-        <menuitem name="ContextDeleteFace" action="DeleteFaceSidebar" />
-    </popup>
-
-</ui>
+<?xml version="1.0"?>
+<interface domain="shotwell">
+  <menu id="MenuBar">
+    <submenu>
+      <attribute name="label" translatable="yes">FacesMenu</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_RemoveFaceFromPhotos</attribute>
+          <attribute name="accel">&lt;Primary&gt;r</attribute>
+          <attribute name="action">RemoveFaceFromPhotos</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">R_enameFace</attribute>
+          <attribute name="accel">&lt;Primary&gt;e</attribute>
+          <attribute name="action">RenameFace</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Dele_teFace</attribute>
+          <attribute name="accel">&lt;Primary&gt;t</attribute>
+          <attribute name="action">DeleteFace</attribute>
+        </item>
+      </section>
+    </submenu>
+  </menu>
+  <menu id='popup-menu'>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Teste ricardo…</attribute>
+        <attribute name="action">sidebar.search.new</attribute>
+        <attribute name="accel">&lt;Primary&gt;z</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="CollectionFacesPlaceholder">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">ContextRemoveFaceFromPhotos</attribute>
+        <attribute name="action">RemoveFaceFromPhotos</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="FacesContextMenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">ContextRenameFace</attribute>
+        <attribute name="action">RenameFaceSidebar</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">ContextDeleteFace</attribute>
+        <attribute name="action">DeleteFaceSidebar</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

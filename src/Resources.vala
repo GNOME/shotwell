@@ -141,6 +141,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_FLAGGED_TRINKET = "flag-trinket.png";
 #if ENABLE_FACES
     public const string ICON_ONE_FACE = "one-face";
+	public const string ICON_FACES = "faces-tool";
 #endif
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
