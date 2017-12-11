@@ -1,3 +1,43 @@
+Shotwell 0.27.2 - 11 Dec 2017
+  * Use meson for building the debian package
+  * Improve the wording for the "Width or Height" scaling constraint
+  * Fix unmounting the camera when it is mounted via mtp, not gphoto2
+  * Speed up color transformations
+  * Refactor Tumblr and Flickr code to use common OAuth1 base class
+  * Flickr: Do the authentication in Shotwell, not calling the system browser
+  * Fix sorting by title
+  * Fix searching for newly added keywords
+  * Make it possible to edit month and year easily in date/time picker
+  * Doc: Fix keybord shortcut for publishing pane
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718977
+ - https://bugzilla.gnome.org/show_bug.cgi?id=729857
+ - https://bugzilla.gnome.org/show_bug.cgi?id=736643
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779677
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781472
+ - https://bugzilla.gnome.org/show_bug.cgi?id=786821
+ - https://bugzilla.gnome.org/show_bug.cgi?id=787553
+ - https://bugzilla.gnome.org/show_bug.cgi?id=790668
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Josef Andersson <l10nl18nsweja@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Ask Hjorth Larsen <asklarsen@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - da, courtesy of Alan Mortensen
+ - de, courtesy of Mario Blättermann
+ - pl, courtesy of Piotr Drąg
+ - sv, courtesy of Josef Andersson
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.27.1 - 21 Oct 2017
   * Properly dist meson files with autotools
   * Dist apport helper with autotools
