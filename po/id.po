@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-10-03 18:52+0000\n"
-"PO-Revision-Date: 2017-10-04 16:44+0700\n"
+"POT-Creation-Date: 2017-11-24 20:46+0000\n"
+"PO-Revision-Date: 2017-11-30 13:56+0700\n"
 "Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -1405,24 +1405,7 @@ msgstr ""
 "Untuk dapat mengirim foto ke Facebook, silakan keluar dan jalankan Shotwell "
 "kembali, kemudian ulangi proses pengiriman."
 
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:17
-msgid ""
-"Enter the confirmation number which appears after you log into Flickr in "
-"your Web browser."
-msgstr ""
-"Masukkan nomor konfirmasi yang muncul setelah Anda log masuk ke Flickr dalam "
-"peramban Web Anda."
-
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:37
-msgid "Authorization _Number:"
-msgstr "_Nomor Otorisasi:"
-
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:70
-#: src/Dialogs.vala:128
-msgid "Con_tinue"
-msgstr "Lanju_tkan"
-
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:187
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -1434,20 +1417,15 @@ msgstr ""
 "Klik Masuk untuk masuk ke Flickr pada peramban Web Anda. Anda mesti memberi "
 "izin Shotwell Connect untuk menyambungkan ke akun Flickr Anda."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:364
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:124
 msgid "Preparing for login…"
 msgstr "Mempersiapkan log masuk…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:468
-#: plugins/shotwell-publishing/FlickrPublishing.vala:341
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"Berkas penting untuk penerbitan tidak tersedia. Tak bisa lanjutkan "
-"menerbitkan ke Flickr."
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:193
+msgid "Flickr authorization failed"
+msgstr "Autorisasi Flickr gagal"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:481
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:200
 msgid "Verifying authorization…"
 msgstr "Memverifikasi otorisasi…"
 
@@ -1465,7 +1443,7 @@ msgstr ""
 "Untuk melanjutkan penerbitan ke layanan Google, keluar dan jalankan lagi "
 "Shotwell, lalu cobalah mempublikasikan lagi."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:31
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
@@ -1478,7 +1456,7 @@ msgstr ""
 "perlu memberi wewenang Shotwell Connect menyambung ke akun Album Web Picasa "
 "Anda."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:35
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
@@ -1489,6 +1467,48 @@ msgstr ""
 "Anda tidak terhubung ke YouTube.\n"
 "\n"
 "Anda harus memiliki akun Google/YouTube untuk melanjutkan."
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+msgid "_Email address"
+msgstr "_Alamat Email"
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+msgid "_Password"
+msgstr "_Kata Sandi"
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+msgid "Log in"
+msgstr "Log masuk"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr ""
+"Masukkan nama pengguna dan kata sandi yang berhubungan dengan akun Tumblr "
+"anda."
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+msgid "Username and/or password invalid. Please try again"
+msgstr "Nama pengguna dan/atau kata sandi tak valid. Harap coba lagi"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+msgid "Invalid User Name or Password"
+msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
+#: plugins/shotwell-publishing/TumblrPublishing.vala:498
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Tidak dapat membuka UI: %s"
 
 #: plugins/common/Resources.vala:12
 msgid "Visit the Shotwell home page"
@@ -1509,13 +1529,13 @@ msgstr ""
 "Kukuh Syafaat <syafaatkukuh@gmail.com>, 2017."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:202
+#: plugins/common/RESTSupport.vala:217
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ Situs web ini menyajikan identifikasi milik situs web lain."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:207
+#: plugins/common/RESTSupport.vala:222
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -1524,7 +1544,7 @@ msgstr ""
 "pada kalender komputer Anda."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:212
+#: plugins/common/RESTSupport.vala:227
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
@@ -1532,13 +1552,13 @@ msgstr ""
 "terpercaya."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:217
+#: plugins/common/RESTSupport.vala:232
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr "⚫ Identifikasi situs web ini tak dapat diproses. Mungkin itu rusak."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:222
+#: plugins/common/RESTSupport.vala:237
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -1547,7 +1567,7 @@ msgstr ""
 "menerbitkannya."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:227
+#: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -1556,7 +1576,7 @@ msgstr ""
 "yang sangat lemah."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:232
+#: plugins/common/RESTSupport.vala:247
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -1564,8 +1584,8 @@ msgstr ""
 "⚫ Identifikasi situs web ini hanya valid pada tanggal di masa depan. Periksa "
 "tanggal pada kalender komputer Anda."
 
-#: plugins/common/RESTSupport.vala:509
-#: plugins/shotwell-publishing/TumblrPublishing.vala:959
+#: plugins/common/RESTSupport.vala:524
+#: plugins/shotwell-publishing/TumblrPublishing.vala:623
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Berkas sementara yang diperlukan untuk penerbitan tidak tersedia"
 
@@ -1620,7 +1640,7 @@ msgid "pixels"
 msgstr "piksel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:880
+#: plugins/shotwell-publishing/FlickrPublishing.vala:687
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -1628,8 +1648,8 @@ msgstr "Ukuran asal"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
-msgid "Width or height"
-msgstr "Lebar atau tinggi"
+msgid "Longest edge"
+msgstr "Tepi terpanjang"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
@@ -1748,30 +1768,10 @@ msgstr "Pengguna Tak Dikenal"
 msgid " Site Not Found"
 msgstr " Situs Tidak Ditemukan"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:42
-msgid "_Email address"
-msgstr "_Alamat Email"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:82
-msgid "_Password"
-msgstr "_Kata Sandi"
-
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
 msgid "_Remember"
 msgstr "_Ingat"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:104
-msgid "Log in"
-msgstr "Log masuk"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
@@ -1946,12 +1946,12 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Kirim foto ke mana?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:887
-#: plugins/shotwell-publishing/FlickrPublishing.vala:858
+#: plugins/shotwell-publishing/FlickrPublishing.vala:665
 msgid "Just me"
 msgstr "Saya sendiri saja"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
-#: plugins/shotwell-publishing/FlickrPublishing.vala:854
+#: plugins/shotwell-publishing/FlickrPublishing.vala:661
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "Semua orang"
@@ -1961,7 +1961,15 @@ msgstr "Semua orang"
 msgid "Photo _size:"
 msgstr "Ukuran _foto:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:800
+#: plugins/shotwell-publishing/FlickrPublishing.vala:340
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
+"continue."
+msgstr ""
+"Berkas penting untuk penerbitan tidak tersedia. Tak bisa lanjutkan "
+"menerbitkan ke Flickr."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:607
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -1970,7 +1978,7 @@ msgstr ""
 "Anda sudah login ke Flickr atas nama %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:802
+#: plugins/shotwell-publishing/FlickrPublishing.vala:609
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -1980,52 +1988,52 @@ msgstr ""
 "bulan.\n"
 "Bulan ini Anda punya sisa jatah kuota unggah %s."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:804
+#: plugins/shotwell-publishing/FlickrPublishing.vala:611
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Anda memiliki akun Flickr Pro yang tidak memiliki batas pengiriman."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:809
+#: plugins/shotwell-publishing/FlickrPublishing.vala:616
 msgid "Photos _visible to:"
 msgstr "Foto ini dapat _dilihat oleh:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:811
+#: plugins/shotwell-publishing/FlickrPublishing.vala:618
 msgid "Videos _visible to:"
 msgstr "Video ini dapat _dilihat oleh:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:814
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Photos and videos _visible to:"
 msgstr "Foto dan video ini dapat _dilihat oleh:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:855
+#: plugins/shotwell-publishing/FlickrPublishing.vala:662
 msgid "Friends & family only"
 msgstr "Teman dan keluarga saja"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:856
+#: plugins/shotwell-publishing/FlickrPublishing.vala:663
 msgid "Family only"
 msgstr "Hanya keluarga"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:857
+#: plugins/shotwell-publishing/FlickrPublishing.vala:664
 msgid "Friends only"
 msgstr "Hanya teman"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:876
+#: plugins/shotwell-publishing/FlickrPublishing.vala:683
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 x 375 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:877
+#: plugins/shotwell-publishing/FlickrPublishing.vala:684
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-#: plugins/shotwell-publishing/TumblrPublishing.vala:106
+#: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 x 768 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:878
+#: plugins/shotwell-publishing/FlickrPublishing.vala:685
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "2048 × 1536 pixels"
 msgstr "2048 x 1536 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:879
+#: plugins/shotwell-publishing/FlickrPublishing.vala:686
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "4096 × 3072 pixels"
 msgstr "4096 x 3072 piksel"
@@ -2182,19 +2190,9 @@ msgstr ""
 "Shotwell tidak bisa menghubungi pustaka foto Piwigo. Harap periksa kembali "
 "URL yang kamu masukkan"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
-#: plugins/shotwell-publishing/TumblrPublishing.vala:588
-msgid "Username and/or password invalid. Please try again"
-msgstr "Nama pengguna dan/atau kata sandi tak valid. Harap coba lagi"
-
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
 msgstr "URL tidak sah"
-
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
-#: plugins/shotwell-publishing/TumblrPublishing.vala:615
-msgid "Invalid User Name or Password"
-msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
 msgid "Admins, Family, Friends, Contacts"
@@ -2232,40 +2230,22 @@ msgstr "Layanan Penerbit Utama"
 msgid "Blogs:"
 msgstr "Blog:"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:36
+#: plugins/shotwell-publishing/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Hak Cipta 2012 BJA Electronics"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:107
+#: plugins/shotwell-publishing/TumblrPublishing.vala:105
 msgid "1280 × 853 pixels"
 msgstr "1280 x 853 piksel"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:311
-#: plugins/shotwell-publishing/TumblrPublishing.vala:321
-#, c-format
-msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "\"%s\" bukan jawaban yang valid ke permintaan otentikasi OAuth"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:559
+#: plugins/shotwell-publishing/TumblrPublishing.vala:407
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start(): tak bisa memulai, penerbit ini tidak bisa di-start "
 "ulang."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:587
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr ""
-"Masukkan nama pengguna dan kata sandi yang berhubungan dengan akun Tumblr "
-"anda."
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing/TumblrPublishing.vala:753
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Tidak dapat membuka UI: %s"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:735
+#: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2558,7 +2538,7 @@ msgid "No new photos/videos found on camera"
 msgstr "Tidak ditemukan foto/video baru pada kamera"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1014
+#: src/camera/ImportPage.vala:1025
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2566,15 +2546,15 @@ msgstr ""
 "Shotwell perlu melepaskan kamera dari sistem berkas agar dapat mengaksesnya. "
 "Lanjutkan?"
 
-#: src/camera/ImportPage.vala:1020
+#: src/camera/ImportPage.vala:1031
 msgid "_Unmount"
 msgstr "_Lepas"
 
-#: src/camera/ImportPage.vala:1025
+#: src/camera/ImportPage.vala:1036
 msgid "Please unmount the camera."
 msgstr "Silakan lepaskan kamera."
 
-#: src/camera/ImportPage.vala:1030
+#: src/camera/ImportPage.vala:1041
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2584,11 +2564,11 @@ msgstr ""
 "pada saat tidak terkunci. Silakan matikan aplikasi yang sedang menggunakan "
 "kamera ini dan coba kembali."
 
-#: src/camera/ImportPage.vala:1040
+#: src/camera/ImportPage.vala:1051
 msgid "Please close any other application using the camera."
 msgstr "Mohon segera mematikan aplikasi lain yang sedang menggunakan kamera."
 
-#: src/camera/ImportPage.vala:1045
+#: src/camera/ImportPage.vala:1056
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2597,65 +2577,65 @@ msgstr ""
 "Gambar pratayang tidak dapat diambil dari kamera:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1062
+#: src/camera/ImportPage.vala:1073
 msgid "Unmounting…"
 msgstr "Melepas kaitan…"
 
-#: src/camera/ImportPage.vala:1155
+#: src/camera/ImportPage.vala:1166
 msgid "Connecting to camera, please wait…"
 msgstr "Menyambung ke kamera, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1187
+#: src/camera/ImportPage.vala:1198
 msgid "Starting import, please wait…"
 msgstr "Mulai mengimpor, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1193
+#: src/camera/ImportPage.vala:1204
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1552
+#: src/camera/ImportPage.vala:1563
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1660
+#: src/camera/ImportPage.vala:1671
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1745
+#: src/camera/ImportPage.vala:1756
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1748
+#: src/camera/ImportPage.vala:1759
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1762
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1765
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1762 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1773 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1781
+#: src/camera/ImportPage.vala:1792
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1785
+#: src/camera/ImportPage.vala:1796
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3131,6 +3111,10 @@ msgstr ""
 "\n"
 "\n"
 "Lanjutkan proses ekspor foto?"
+
+#: src/Dialogs.vala:128
+msgid "Con_tinue"
+msgstr "Lanju_tkan"
 
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
@@ -4144,14 +4128,6 @@ msgstr "Sudut:"
 msgid "_Straighten"
 msgstr "_Luruskan"
 
-#: src/events/EventsBranch.vala:25
-msgid "Events"
-msgstr "Rangkaian"
-
-#: src/events/EventsBranch.vala:25
-msgid "Browse through your events"
-msgstr "Meramban peristiwa-peristiwa Anda"
-
 #: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
@@ -4173,6 +4149,14 @@ msgstr[0] "%d Foto"
 #: src/events/EventPage.vala:128
 msgid "No Event"
 msgstr "Tidak Ada Rangkaian"
+
+#: src/events/EventsBranch.vala:25
+msgid "Events"
+msgstr "Rangkaian"
+
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Meramban peristiwa-peristiwa Anda"
 
 #: src/events/EventsDirectoryPage.vala:149
 msgid "No events"
@@ -4242,19 +4226,6 @@ msgstr "Folder"
 msgid "Browse the library’s folder structure"
 msgstr "Meramban struktur folder pustaka"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
-#: ui/preferences_dialog.ui:512
-msgid "Library"
-msgstr "Album"
-
-#: src/library/LibraryBranch.vala:30
-msgid "Organize and browse your photos"
-msgstr "Organisasikan dan ramban foto Anda"
-
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
-msgid "Photos"
-msgstr "Foto"
-
 #: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
 #: src/SearchFilter.vala:1099
 msgid "Flagged"
@@ -4276,6 +4247,19 @@ msgstr "%s diimpor"
 #: src/library/LastImportPage.vala:8
 msgid "Last Import"
 msgstr "Impor terakhir"
+
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: ui/preferences_dialog.ui:512
+msgid "Library"
+msgstr "Album"
+
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Organisasikan dan ramban foto Anda"
+
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
+msgid "Photos"
+msgstr "Foto"
 
 #: src/library/LibraryWindow.vala:508
 msgid "Import From Folder"
@@ -4458,15 +4442,15 @@ msgstr ""
 "Shotwell gagal memutar video terpilih:\n"
 "%s"
 
-#: src/Page.vala:1310
+#: src/Page.vala:1327
 msgid "No photos/videos"
 msgstr "Tidak ada foto/video"
 
-#: src/Page.vala:1314
+#: src/Page.vala:1331
 msgid "No photos/videos found which match the current filter"
 msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
-#: src/Page.vala:2627
+#: src/Page.vala:2644
 msgid "Photos cannot be exported to this directory."
 msgstr "Foto tidak dapat diekspor ke direktori tersebut."
 
@@ -5563,14 +5547,6 @@ msgstr "%a %d %b, %Y"
 msgid "Slideshow"
 msgstr "Pertunjukan salindia"
 
-#: src/searches/SearchesBranch.vala:68
-msgid "Saved Searches"
-msgstr "Pencarian Tersimpan"
-
-#: src/searches/SearchesBranch.vala:68
-msgid "Organize your saved searches"
-msgstr "Organisasikan pencarian Anda yang telah tersimpan"
-
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
 msgid "contains"
@@ -5752,6 +5728,14 @@ msgstr "Rating"
 #: src/searches/SearchBoolean.vala:187
 msgid "Date"
 msgstr "Tanggal"
+
+#: src/searches/SearchesBranch.vala:68
+msgid "Saved Searches"
+msgstr "Pencarian Tersimpan"
+
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Organisasikan pencarian Anda yang telah tersimpan"
 
 #: src/SearchFilter.vala:811
 msgid "★+ Rating"
@@ -6171,53 +6155,53 @@ msgstr "Pengaya"
 msgid "Shotwell Preferences"
 msgstr "Preferensi Shotwell"
 
-#: ui/printing_widget.ui:19
+#: ui/printing_widget.ui:18
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Ukuran Foto Tercetak</b>"
 
-#: ui/printing_widget.ui:36
+#: ui/printing_widget.ui:38
 msgid "Use a _standard size:"
 msgstr "Gunakan ukuran _standar:"
 
-#: ui/printing_widget.ui:80
+#: ui/printing_widget.ui:65
 msgid "Use a c_ustom size:"
 msgstr "Gunakan _ukuran bebas:"
 
 #. Abbrevation for "inch"
-#: ui/printing_widget.ui:146
+#: ui/printing_widget.ui:128
 msgid "in."
 msgstr "in."
 
 #. Abbrevation for "centimeters"
-#: ui/printing_widget.ui:147
+#: ui/printing_widget.ui:129
 msgid "cm"
 msgstr "cm"
 
-#: ui/printing_widget.ui:173
+#: ui/printing_widget.ui:146
 msgid "_Match photo aspect ratio"
 msgstr "_Sesuaikan dengan rasio foto"
 
-#: ui/printing_widget.ui:197
+#: ui/printing_widget.ui:161
 msgid "_Autosize:"
 msgstr "Ukur_an otomatis:"
 
-#: ui/printing_widget.ui:237
+#: ui/printing_widget.ui:202
 msgid "<b>Titles</b>"
 msgstr "<b>Judul</b>"
 
-#: ui/printing_widget.ui:254
+#: ui/printing_widget.ui:219
 msgid "Print image _title"
 msgstr "Ce_tak judul gambar"
 
-#: ui/printing_widget.ui:297
+#: ui/printing_widget.ui:262
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Resolusi Piksel</b>"
 
-#: ui/printing_widget.ui:317
+#: ui/printing_widget.ui:282
 msgid "_Output photo at:"
 msgstr "Tampilkan f_oto pada:"
 
-#: ui/printing_widget.ui:351
+#: ui/printing_widget.ui:316
 msgid "pixels per inch"
 msgstr "piksel per inci"
 
@@ -6296,3 +6280,19 @@ msgstr "detik"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Hapus semua foto yang pernah dibuang"
+
+#~ msgid ""
+#~ "Enter the confirmation number which appears after you log into Flickr in "
+#~ "your Web browser."
+#~ msgstr ""
+#~ "Masukkan nomor konfirmasi yang muncul setelah Anda log masuk ke Flickr "
+#~ "dalam peramban Web Anda."
+
+#~ msgid "Authorization _Number:"
+#~ msgstr "_Nomor Otorisasi:"
+
+#~ msgid "Width or height"
+#~ msgstr "Lebar atau tinggi"
+
+#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
+#~ msgstr "\"%s\" bukan jawaban yang valid ke permintaan otentikasi OAuth"
