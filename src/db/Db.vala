@@ -304,7 +304,7 @@ private VerifyResult upgrade_database(int input_version) {
         if (!DatabaseTable.add_column("PhotoTable", "comment", "TEXT"))
             return VerifyResult.UPGRADE_ERROR;
     }
-    if (!DatabaseTable.has_column("VideoTable", "comment")) {
+    if (DatabaseTable.has_table("VideoTable") & !DatabaseTable.has_column("VideoTable", "comment")) {
         message("upgrade_database: adding comment column to VideoTable");
         if (!DatabaseTable.add_column("VideoTable", "comment", "TEXT"))
             return VerifyResult.UPGRADE_ERROR;
