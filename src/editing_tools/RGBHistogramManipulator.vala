@@ -34,6 +34,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
 
     public RGBHistogramManipulator( ) {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
+        can_focus = true;
         
         if (!paths_setup) {
             slider_draw_path.append_type(typeof(Gtk.Scale));
@@ -49,6 +50,8 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
         add_events(Gdk.EventMask.BUTTON_RELEASE_MASK);
         add_events(Gdk.EventMask.BUTTON_MOTION_MASK);
+        add_events(Gdk.EventMask.FOCUS_CHANGE_MASK);
+        add_events(Gdk.EventMask.KEY_PRESS_MASK);
 
         button_press_event.connect(on_button_press);
         button_release_event.connect(on_button_release);
@@ -141,15 +144,71 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         force_update();
         return true;
     }
+
+    public override bool focus_out_event(Gdk.EventFocus event) {
+        if (base.focus_out_event(event)) {
+            return true;
+        }
+
+        queue_draw();
+
+        return false;
+    }
+
+    public override bool key_press_event(Gdk.EventKey event) {
+        if (base.key_press_event(event)) {
+            return true;
+        }
+
+        int delta = 0;
+
+        if (event.keyval == Gdk.Key.Left || event.keyval == Gdk.Key.Up) {
+            delta = -1;
+        }
+
+        if (event.keyval == Gdk.Key.Right || event.keyval == Gdk.Key.Down) {
+            delta = 1;
+        }
+
+        if (!(Gdk.ModifierType.CONTROL_MASK in event.state)) {
+            delta *= 5;
+        }
+
+        if (delta == 0) {
+            return false;
+        }
+
+        if (Gdk.ModifierType.SHIFT_MASK in event.state) {
+            right_nub_position += delta;
+            right_nub_position = right_nub_position.clamp(right_nub_min, 255);
+        } else {
+            left_nub_position += delta;
+            left_nub_position = left_nub_position.clamp(0, left_nub_max);
+
+        }
+
+        nub_position_changed();
+        update_nub_extrema();
+        force_update();
+
+        return true;
+    }
     
     public override bool draw(Cairo.Context ctx) {
         Gtk.Border padding = get_style_context().get_padding(Gtk.StateFlags.NORMAL);
+
         
         Gdk.Rectangle area = Gdk.Rectangle();
         area.x = padding.left;
         area.y = padding.top;
         area.width = RGBHistogram.GRAPHIC_WIDTH + padding.right;
         area.height = RGBHistogram.GRAPHIC_HEIGHT + padding.bottom;
+
+        if (has_focus) {
+            get_style_context().render_focus(ctx, area.x, area.y,
+                                             area.width + NUB_SIZE,
+                                             area.height + NUB_SIZE + NUB_HALF_WIDTH);
+        }
 
         draw_histogram(ctx, area);
         draw_nub(ctx, area, left_nub_position);
