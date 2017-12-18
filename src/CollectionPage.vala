@@ -132,7 +132,7 @@ public abstract class CollectionPage : MediaPage {
     private static InjectionGroup create_photos_menu_date_injectables() {
         InjectionGroup group = new InjectionGroup("PhotosExtrasDateTimePlaceholder");
         
-        group.add_menu_item(_("Adjust Date and Time…"), "AdjustDateTime");
+        group.add_menu_item(_("Adjust Date and Time…"), "AdjustDateTime", "F4");
         
         return group;
     }

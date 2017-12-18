@@ -335,6 +335,7 @@
         </item>
         <item>
           <attribute name="label" translatable="yes">_Adjust Date and Time…</attribute>
+          <attribute name="accel">F4</attribute>
           <attribute name="action">win.AdjustDateTime</attribute>
         </item>
       </section>
