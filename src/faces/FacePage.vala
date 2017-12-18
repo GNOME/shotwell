@@ -13,12 +13,16 @@ public class FacePage : CollectionPage {
         base (face.get_name());
         
         this.face = face;
+        //this.row.name
         
         Face.global.items_altered.connect(on_faces_altered);
         face.mirror_sources(get_view(), create_thumbnail);
         
         init_page_context_menu("/FacesContextMenu");
-    }
+/*        GLib.MenuModel menu = get_menubar();
+        GLib.MenuModel? section = null;
+        section = find_extension_point (menu, Resources.FACES_MENU_SECTION);*/
+   }
     
     ~FacePage() {
         get_view().halt_mirroring();
@@ -41,18 +45,55 @@ public class FacePage : CollectionPage {
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
         Config.Facade.get_instance().set_event_photos_sort(sort_order, sort_by);
     }
-    
+
+    private const GLib.ActionEntry[] entries = {
+        { "DeleteFace", on_delete_face },
+		{ "RenameFace", on_rename_face },
+		{ "RemoveFaceFromPhotos", on_remove_face_from_photos },
+        { "DeleteFaceSidebar", on_delete_face },
+        { "RenameFaceSidebar", on_rename_face }
+    };
+
+    protected override void init_actions(int selected_count, int count) {
+        base.init_actions(selected_count, count);
+        
+        set_action_sensitive("DeleteFace", true);
+        set_action_sensitive("RenameFace", true);
+        set_action_sensitive("RemoveFaceFromPhotos", true);
+    }
+ 
+
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions (map);
+
+        map.add_action_entries (entries, this);
+    }
+
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
 
         //groups.add_menu_item(_("Face Location"), "FaceLocation");
 
-        groups += create_photos_faces_injectables();
+        //groups += create_photos_faces_injectables();
+		groups += create_faces_menu_injectables();
         
         return groups;
 	}
 
-	private InjectionGroup create_photos_faces_injectables() {
+    private InjectionGroup create_faces_menu_injectables(){
+        InjectionGroup menuFaces = new InjectionGroup("FacesMenuPlaceholder");
+
+        //menuFaces.add_menu("Faces");
+        menuFaces.add_menu_item("Remove Face \"" + this.face.get_name() + "\" From Photos", "RemoveFaceFromPhotos", "&lt;Primary&gt;r");
+        menuFaces.add_menu_item("Rename Face \"" + this.face.get_name() + "\"…", "RenameFace", "&lt;Primary&gt;e");
+        menuFaces.add_menu_item("Dele_teFace", "DeleteFace", "&lt;Primary&gt;t");
+		string res = "create_faces_menu_injectables()".printf();
+		stdout.puts(res);
+
+        return menuFaces;
+	}
+
+/*	private InjectionGroup create_photos_faces_injectables() {
         InjectionGroup group = new InjectionGroup("PhotosFaces");
 
         //InjectionGroup ig = new InjectionGroup("FaceDetection");
@@ -60,8 +101,8 @@ public class FacePage : CollectionPage {
 
 //        group += ig;
 
-		return group;
-    }
+        return group;
+    }*/
 /*
 //        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
@@ -146,11 +187,12 @@ public class FacePage : CollectionPage {
             Resources.remove_face_from_photos_menu(face.get_name(), selected_count),
             null,
             selected_count > 0);
+		stdout.puts("update_actions\n");
         
         base.update_actions(selected_count, count);
     }
     
-/*    private void on_rename_face() {
+    private void on_rename_face() {
         LibraryWindow.get_app().rename_face_in_sidebar(face);
     }
     
@@ -164,7 +206,7 @@ public class FacePage : CollectionPage {
             get_command_manager().execute(new RemoveFacesFromPhotosCommand(face, 
                 (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
         }
-    }*/
+    }
 }
 
 #endif
