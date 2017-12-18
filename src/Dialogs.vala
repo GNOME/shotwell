@@ -1901,6 +1901,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     private void on_time_changed() {
         int64 time_shift = ((int64) get_time() - (int64) original_time);
+        calendar.notify_property("year");
+        calendar.notify_property("month");
 
         previous_time_system = (TimeSystem) system.get_active();
 
