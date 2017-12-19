@@ -674,7 +674,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             case RawDeveloper.SHOTWELL:
                 try {
                     // Create file and prep.
-                    bps = d.create_backing_row_for_development(row.master.filepath);
+                    bps = new BackingPhotoRow.for_development(d, row.master.filepath);
                     Gdk.Pixbuf? pix = null;
                     lock (readers) {
                         // Don't rotate this pixbuf before writing it out. We don't
@@ -749,7 +749,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                     }
 
                     // Write out file.
-                    bps = d.create_backing_row_for_development(row.master.filepath);
+                    bps = new BackingPhotoRow.for_development(d, row.master.filepath);
 
                     // Peek at data. If we really have a JPEG image, just use it,
                     // otherwise do GdkPixbuf roundtrip

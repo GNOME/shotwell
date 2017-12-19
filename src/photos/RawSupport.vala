@@ -325,35 +325,5 @@ public enum RawDeveloper {
         
         return false;
     }
-    
-    // Creates a backing JPEG.
-    // raw_filepath is the full path of the imported RAW file.
-    public BackingPhotoRow create_backing_row_for_development(string raw_filepath,
-        string? camera_development_filename = null) throws Error {
-        BackingPhotoRow ns = new BackingPhotoRow();
-        File master = File.new_for_path(raw_filepath);
-        string name, ext;
-        disassemble_filename(master.get_basename(), out name, out ext);
-        
-        string basename;
-        
-        // If this image is coming in with an existing development, use its existing
-        // filename instead.
-        if (camera_development_filename == null) {
-            basename = name + "_" + ext +
-                (this != CAMERA ? ("_" + this.to_string().down()) : "") + ".jpg";
-        } else {
-            basename = camera_development_filename;
-        }
-        
-        string newbasename = LibraryFiles.convert_basename(basename);
 
-        bool c;
-        File? new_back = generate_unique_file(master.get_parent(), newbasename, out c);
-        claim_file(new_back);
-        ns.file_format = PhotoFileFormat.JFIF;
-        ns.filepath = new_back.get_path();
-        
-        return ns;
-    }
 }

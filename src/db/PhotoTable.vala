@@ -1129,7 +1129,34 @@ public class BackingPhotoRow {
     public PhotoFileFormat file_format;
     public Dimensions dim;
     public Orientation original_orientation;
-    
+
+    // Creates a backing JPEG.
+    // raw_filepath is the full path of the imported RAW file.
+    public BackingPhotoRow.for_development(RawDeveloper development, string raw_filepath, string? camera_development_filename = null) throws Error {
+        File master = File.new_for_path(raw_filepath);
+        string name, ext;
+        disassemble_filename(master.get_basename(), out name, out ext);
+
+        string basename;
+
+        // If this image is coming in with an existing development, use its existing
+        // filename instead.
+        if (camera_development_filename == null) {
+            basename = name + "_" + ext +
+                (development != RawDeveloper.CAMERA ? ("_" + development.to_string().down()) : "") + ".jpg";
+        } else {
+            basename = camera_development_filename;
+        }
+
+        bool c;
+        string newbasename = LibraryFiles.convert_basename(basename);
+        File? new_back = generate_unique_file(master.get_parent(), newbasename, out c);
+        claim_file(new_back);
+        this.file_format = PhotoFileFormat.JFIF;
+        this.filepath = new_back.get_path();
+
+    }
+
     public bool matches_file_info(FileInfo info) {
         if (filesize != info.get_size())
             return false;
