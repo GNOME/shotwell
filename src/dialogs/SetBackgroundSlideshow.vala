@@ -19,9 +19,7 @@ public class SetBackgroundSlideshowDialog : Gtk.Dialog {
     private int delay_value = 0;
 
     public SetBackgroundSlideshowDialog() {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object(use_header_bar: use_header ? 1 : 0);
+        Object(use_header_bar: Resources.use_header_bar());
         this.set_transient_for (AppWindow.get_instance());
     }
 

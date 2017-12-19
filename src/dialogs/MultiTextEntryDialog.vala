@@ -11,12 +11,10 @@ public class MultiTextEntryDialog : Gtk.Dialog {
 
     private unowned OnModifyValidateType on_modify_validate;
     [GtkChild]
-        private Gtk.TextView entry;
+    private Gtk.TextView entry;
 
     public MultiTextEntryDialog() {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object (use_header_bar: use_header ? 1 : 0);
+        Object (use_header_bar: Resources.use_header_bar());
     }
 
     public void setup(OnModifyValidateType? modify_validate, string title, string label, string? initial_text) {

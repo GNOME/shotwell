@@ -26,10 +26,11 @@ public class WelcomeDialog : Gtk.Dialog {
     bool ok_clicked = false;
 
     public WelcomeDialog(Gtk.Window owner) {
+        Object(use_header_bar : Resources.use_header_bar());
         import_meta_host = new Spit.DataImports.WelcomeImportMetaHost(this);
         bool show_system_pictures_import = is_system_pictures_import_possible();
-        Gtk.Widget ok_button = add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
-        set_default_response(Gtk.ResponseType.OK);
+        Gtk.Widget ok_button = add_button(Resources.OK_LABEL, Gtk.ResponseType.CLOSE);
+        set_default_response(Gtk.ResponseType.CLOSE);
 
         set_title(_("Welcome!"));
         set_resizable(false);
@@ -144,7 +145,7 @@ public class WelcomeDialog : Gtk.Dialog {
      * images from a camera; please see #4997 for details.
      */
     private void on_dismiss(int resp) {
-        if (resp == Gtk.ResponseType.OK) {
+        if (resp == Gtk.ResponseType.CLOSE) {
             ok_clicked = true;
         }
         hide();

@@ -36,9 +36,7 @@ public class ExportDialog : Gtk.Dialog {
     private bool in_insert = false;
 
     public ExportDialog(string title) {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object (use_header_bar: use_header ? 1 : 0);
+        Object (use_header_bar: Resources.use_header_bar());
 
         this.title = title;
         resizable = false;

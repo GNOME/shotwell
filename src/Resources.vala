@@ -1040,6 +1040,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         providers.set(widget, styler);
     }
 
+    public static int use_header_bar() {
+        if (Environment.get_variable("SHOTWELL_USE_HEADERBARS") != null) {
+            return 0;
+        }
+
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+
+        return use_header ? 1 : 0;
+    }
+
     public const string CUSTOM_CSS =
          """LibraryWindow .pane-separator {
                background-color: @borders;

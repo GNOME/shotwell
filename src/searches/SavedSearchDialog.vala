@@ -649,6 +649,8 @@ public class SavedSearchDialog : Gtk.Dialog {
     private bool valid = false;
     
     public SavedSearchDialog() {
+        Object (use_header_bar : Resources.use_header_bar());
+
         setup_dialog();
         
         // Default name.
@@ -664,6 +666,9 @@ public class SavedSearchDialog : Gtk.Dialog {
     }
     
     public SavedSearchDialog.edit_existing(SavedSearch saved_search) {
+        Object (use_header_bar : Resources.use_header_bar());
+
+        previous_search = saved_search;
         edit_mode = true;
         setup_dialog();
         

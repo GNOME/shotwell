@@ -13,9 +13,7 @@ public class SetBackgroundPhotoDialog : Gtk.Dialog {
     private Gtk.CheckButton screensaver_checkbox;
 
     public SetBackgroundPhotoDialog() {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object(use_header_bar: use_header ? 1 : 0);
+        Object(use_header_bar: Resources.use_header_bar());
         this.set_transient_for (AppWindow.get_instance());
     }
 

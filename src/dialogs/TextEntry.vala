@@ -18,9 +18,7 @@ public class TextEntryDialog : Gtk.Dialog {
     private Gtk.Label label;
 
     public TextEntryDialog() {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object (use_header_bar: use_header ? 1 : 0);
+        Object (use_header_bar: Resources.use_header_bar());
     }
 
     public void setup(OnModifyValidateType? modify_validate, string title, string label,

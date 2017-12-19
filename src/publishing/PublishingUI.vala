@@ -161,9 +161,8 @@ public class PublishingDialog : Gtk.Dialog {
     protected PublishingDialog(Gee.Collection<MediaSource> to_publish) {
         assert(to_publish.size > 0);
 
-        bool use_header = false;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object(use_header_bar: use_header ? 1 : 0);
+        bool use_header = Resources.use_header_bar() == 1;
+        Object(use_header_bar: Resources.use_header_bar());
         if (use_header)
             ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
 

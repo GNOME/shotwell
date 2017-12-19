@@ -208,9 +208,8 @@ public class DataImportsDialog : Gtk.Dialog {
     private Spit.DataImports.ConcreteDataImportsHost host;
 
     protected DataImportsDialog() {
-        bool use_header = false;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object(use_header_bar: use_header ? 1 : 0);
+        bool use_header = Resources.use_header_bar() == 1;
+        Object(use_header_bar: Resources.use_header_bar());
         if (use_header)
             ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
 

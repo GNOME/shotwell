@@ -65,9 +65,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private Gtk.RadioButton transparent_none_radio;
 
     private PreferencesDialog() {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object (use_header_bar: use_header ? 1 : 0);
+        Object (use_header_bar: Resources.use_header_bar());
 
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());

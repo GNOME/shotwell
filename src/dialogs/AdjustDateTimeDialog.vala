@@ -38,9 +38,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool contains_video = false, bool only_video = false) {
         assert(source != null);
 
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object(use_header_bar: use_header ? 1 : 0);
+        Object(use_header_bar: Resources.use_header_bar());
 
         set_modal(true);
         set_resizable(false);
