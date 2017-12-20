@@ -18,12 +18,8 @@ public class FacePage : CollectionPage {
         Face.global.items_altered.connect(on_faces_altered);
         face.mirror_sources(get_view(), create_thumbnail);
         
-        init_page_context_menu("/FacesContextMenu");
-
-        init_item_context_menu("TrashContextMenu");
-//        init_page_context_menu("TrashPageMenu");
-        init_toolbar("TrashToolbar");
-        
+        init_page_context_menu("FacesContextMenu");
+        init_item_context_menu("CollectionFacesPlaceholder");
 
 /*        GLib.MenuModel menu = get_menubar();
         GLib.MenuModel? section = null;
@@ -77,27 +73,25 @@ public class FacePage : CollectionPage {
 
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
-
+        
         //groups.add_menu_item(_("Face Location"), "FaceLocation");
-
+       
         //groups += create_photos_faces_injectables();
 		groups += create_faces_menu_injectables();
         
         return groups;
-	}
+    }
 
     private InjectionGroup create_faces_menu_injectables(){
         InjectionGroup menuFaces = new InjectionGroup("FacesMenuPlaceholder");
-
+       
         //menuFaces.add_menu("Faces");
         menuFaces.add_menu_item("Remove Face \"" + this.face.get_name() + "\" From Photos", "RemoveFaceFromPhotos", "<Primary>r");
         menuFaces.add_menu_item("Rename Face \"" + this.face.get_name() + "\"…", "RenameFace", "<Primary>e");
         menuFaces.add_menu_item("Dele_teFace", "DeleteFace", "<Primary>t");
-		string res = "create_faces_menu_injectables()".printf();
-		stdout.puts(res);
-
+       
         return menuFaces;
-	}
+    }
 
 /*	private InjectionGroup create_photos_faces_injectables() {
         InjectionGroup group = new InjectionGroup("PhotosFaces");
