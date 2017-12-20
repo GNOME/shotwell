@@ -7,12 +7,15 @@ dist_noinst_DATA = \
 	fullscreen.ui \
 	import_queue.ui \
 	import.ui \
+	manifest_widget.ui \
 	media.ui \
+	multitextentrydialog.ui \
 	offline.ui \
 	photo_context.ui \
 	photo.ui \
 	preferences_dialog.ui \
 	printing_widget.ui \
+	saved_search_dialog.ui \
 	savedsearch.ui \
 	search_bar.ui \
 	search_sidebar_context.ui \
@@ -23,6 +26,7 @@ dist_noinst_DATA = \
 	slideshow_settings.ui \
 	tag_sidebar_context.ui \
 	tags.ui \
+	textentrydialog.ui \
 	trash.ui
 
 -include $(top_srcdir)/git.mk

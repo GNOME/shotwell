@@ -62,8 +62,17 @@ shotwell_SOURCES = \
 	src/db/VideoTable.vala \
 	src/db/VersionTable.vala \
 	src/db/SavedSearchDBTable.vala \
+	src/dialogs/Preferences.vala \
+	src/dialogs/EntryMultiCompletion.vala \
+	src/dialogs/ExportDialog.vala \
+	src/dialogs/TextEntry.vala \
+	src/dialogs/WelcomeDialog.vala \
+	src/dialogs/MultiTextEntryDialog.vala \
+	src/dialogs/AdjustDateTimeDialog.vala \
 	src/dialogs/SetBackground.vala \
+	src/dialogs/ProgressDialog.vala \
 	src/dialogs/SetBackgroundSlideshow.vala \
+	src/dialogs/MaybeHeaderbarDialog.vala \
 	src/editing_tools/EditingTools.vala \
 	src/editing_tools/RGBHistogramManipulator.vala \
 	src/editing_tools/StraightenTool.vala \
