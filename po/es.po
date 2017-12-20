@@ -30,8 +30,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-06-18 11:51+0000\n"
-"PO-Revision-Date: 2017-06-20 13:51+0200\n"
+"POT-Creation-Date: 2017-11-24 20:46+0000\n"
+"PO-Revision-Date: 2017-12-14 14:14+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1486,24 +1486,7 @@ msgstr ""
 "Para seguir publicando en Facebook, cierre y reinicie Shotwell, e intente "
 "publicar de nuevo."
 
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:17
-msgid ""
-"Enter the confirmation number which appears after you log into Flickr in "
-"your Web browser."
-msgstr ""
-"Introduzca el número de confirmación que aparece en su navegador web después "
-"de iniciar sesión en Flickr."
-
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:37
-msgid "Authorization _Number:"
-msgstr "_Número de autorización:"
-
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:70
-#: src/Dialogs.vala:128
-msgid "Con_tinue"
-msgstr "Con_tinuar"
-
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:187
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -1516,20 +1499,15 @@ msgstr ""
 "Tendrá que autorizar a Shotwell Connect para que se enlace a su cuenta de "
 "Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:364
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:124
 msgid "Preparing for login…"
 msgstr "Preparándose para iniciar sesión…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:468
-#: plugins/shotwell-publishing/FlickrPublishing.vala:341
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"No está disponible un archivo necesario para publicar. La publicación en "
-"Flickr no puede continuar."
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:193
+msgid "Flickr authorization failed"
+msgstr "Falló la autorización de Flickr"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:481
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:200
 msgid "Verifying authorization…"
 msgstr "Comprobando la autorización…"
 
@@ -1545,7 +1523,7 @@ msgstr ""
 "Para seguir publicando en servicios de Google, cierre y reinicie Shotwell, e "
 "intente publicar de nuevo."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:31
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
@@ -1558,7 +1536,7 @@ msgstr ""
 "navegador web. Tendrá que autorizar a Shotwell Connect para que se enlace a "
 "su cuenta de Álbumes web de Picasa."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:35
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
@@ -1573,11 +1551,52 @@ msgstr ""
 "el uso de su navegador para registrarse en el sitio de YouTube al menos una "
 "vez."
 
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+msgid "_Email address"
+msgstr "Dirección de correo _electrónico"
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+msgid "_Password"
+msgstr "_Contraseña"
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+msgid "Log in"
+msgstr "Iniciando sesión…"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr ""
+"Escriba el nombre de usuario y contraseña asociados con su cuenta de Tumblr."
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+msgid "Username and/or password invalid. Please try again"
+msgstr "Usuario y/o contraseña no válidos. Inténtelo de nuevo"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+msgid "Invalid User Name or Password"
+msgstr "Nombre de usuario o contraseña no válidos"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
+#: plugins/shotwell-publishing/TumblrPublishing.vala:498
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "No se pudo cargar la IU: %s"
+
 #: plugins/common/Resources.vala:12
 msgid "Visit the Shotwell home page"
 msgstr "Visite la página web de Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:604
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:611
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2014-2016\n"
@@ -1588,7 +1607,7 @@ msgstr ""
 "José Luis Navarro <jlnavarro111@gmail.com>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:202
+#: plugins/common/RESTSupport.vala:217
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -1596,7 +1615,7 @@ msgstr ""
 "diferente."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:207
+#: plugins/common/RESTSupport.vala:222
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -1605,7 +1624,7 @@ msgstr ""
 "confiar. Compruebe la fecha en el calendario de su equipo."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:212
+#: plugins/common/RESTSupport.vala:227
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
@@ -1613,7 +1632,7 @@ msgstr ""
 "organización de confianza."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:217
+#: plugins/common/RESTSupport.vala:232
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -1621,7 +1640,7 @@ msgstr ""
 "dañada."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:222
+#: plugins/common/RESTSupport.vala:237
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -1630,7 +1649,7 @@ msgstr ""
 "de confianza que la emitió."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:227
+#: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -1639,7 +1658,7 @@ msgstr ""
 "un cifrado muy débil."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:232
+#: plugins/common/RESTSupport.vala:247
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -1647,8 +1666,8 @@ msgstr ""
 "⚫ La identificación de este sitio web sólo es válida para fechas futuras. "
 "Compruebe la fecha en el calendario de su equipo."
 
-#: plugins/common/RESTSupport.vala:509
-#: plugins/shotwell-publishing/TumblrPublishing.vala:959
+#: plugins/common/RESTSupport.vala:524
+#: plugins/shotwell-publishing/TumblrPublishing.vala:623
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "No está disponible un archivo temporal necesario para la publicación"
 
@@ -1702,7 +1721,7 @@ msgid "pixels"
 msgstr "píxeles"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:880
+#: plugins/shotwell-publishing/FlickrPublishing.vala:687
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -1710,8 +1729,8 @@ msgstr "Tamaño original"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
-msgid "Width or height"
-msgstr "Anchura o altura"
+msgid "Longest edge"
+msgstr "Borde más largo"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
@@ -1831,30 +1850,10 @@ msgstr "Usuario no reconocido"
 msgid " Site Not Found"
 msgstr " Sitio no encontrado"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:42
-msgid "_Email address"
-msgstr "Dirección de correo _electrónico"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:82
-msgid "_Password"
-msgstr "_Contraseña"
-
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
 msgid "_Remember"
 msgstr "_Recordar"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:104
-msgid "Log in"
-msgstr "Iniciando sesión…"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
@@ -2027,12 +2026,12 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "¿Dónde quiere publicar las fotos seleccionadas?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:887
-#: plugins/shotwell-publishing/FlickrPublishing.vala:858
+#: plugins/shotwell-publishing/FlickrPublishing.vala:665
 msgid "Just me"
 msgstr "Solo yo"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
-#: plugins/shotwell-publishing/FlickrPublishing.vala:854
+#: plugins/shotwell-publishing/FlickrPublishing.vala:661
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "Todos"
@@ -2042,7 +2041,15 @@ msgstr "Todos"
 msgid "Photo _size:"
 msgstr "_Tamaño de la foto:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:800
+#: plugins/shotwell-publishing/FlickrPublishing.vala:340
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
+"continue."
+msgstr ""
+"No está disponible un archivo necesario para publicar. La publicación en "
+"Flickr no puede continuar."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:607
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2051,7 +2058,7 @@ msgstr ""
 "Ha iniciado sesión en Flickr como %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:802
+#: plugins/shotwell-publishing/FlickrPublishing.vala:609
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -2061,52 +2068,52 @@ msgstr ""
 "mes.\n"
 "Este mes le quedan %s de su límite de subida."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:804
+#: plugins/shotwell-publishing/FlickrPublishing.vala:611
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Su cuenta de Flickr Pro le permite subidas ilimitadas."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:809
+#: plugins/shotwell-publishing/FlickrPublishing.vala:616
 msgid "Photos _visible to:"
 msgstr "Fotos _visibles para:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:811
+#: plugins/shotwell-publishing/FlickrPublishing.vala:618
 msgid "Videos _visible to:"
 msgstr "Vídeos _visibles para:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:814
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Photos and videos _visible to:"
 msgstr "Fotos y vídeos _visibles para:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:855
+#: plugins/shotwell-publishing/FlickrPublishing.vala:662
 msgid "Friends & family only"
 msgstr "Solo amigos y familia"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:856
+#: plugins/shotwell-publishing/FlickrPublishing.vala:663
 msgid "Family only"
 msgstr "Solo familia"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:857
+#: plugins/shotwell-publishing/FlickrPublishing.vala:664
 msgid "Friends only"
 msgstr "Solo amigos"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:876
+#: plugins/shotwell-publishing/FlickrPublishing.vala:683
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 píxeles"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:877
+#: plugins/shotwell-publishing/FlickrPublishing.vala:684
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-#: plugins/shotwell-publishing/TumblrPublishing.vala:106
+#: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 píxeles"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:878
+#: plugins/shotwell-publishing/FlickrPublishing.vala:685
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 píxeles"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:879
+#: plugins/shotwell-publishing/FlickrPublishing.vala:686
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 píxeles"
@@ -2264,19 +2271,9 @@ msgstr ""
 "Shotwell no puede contactar su colección de fotos de Piwigo. Compruebe la "
 "URL que ha introducido"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
-#: plugins/shotwell-publishing/TumblrPublishing.vala:588
-msgid "Username and/or password invalid. Please try again"
-msgstr "Usuario y/o contraseña no válidos. Inténtelo de nuevo"
-
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
 msgstr "URL no válida"
-
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
-#: plugins/shotwell-publishing/TumblrPublishing.vala:615
-msgid "Invalid User Name or Password"
-msgstr "Nombre de usuario o contraseña no válidos"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
 msgid "Admins, Family, Friends, Contacts"
@@ -2314,39 +2311,22 @@ msgstr "Servicios de publicación"
 msgid "Blogs:"
 msgstr "Blogs:"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:36
+#: plugins/shotwell-publishing/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:107
+#: plugins/shotwell-publishing/TumblrPublishing.vala:105
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 píxeles"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:311
-#: plugins/shotwell-publishing/TumblrPublishing.vala:321
-#, c-format
-msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "«%s» no es una respuesta válida a una solicitud de autenticación OAuth"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:559
+#: plugins/shotwell-publishing/TumblrPublishing.vala:407
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): no puede iniciar, este publicador no es "
 "reiniciable."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:587
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr ""
-"Escriba el nombre de usuario y contraseña asociados con su cuenta de Tumblr."
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing/TumblrPublishing.vala:753
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "No se pudo cargar la IU: %s"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:735
+#: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2479,7 +2459,7 @@ msgstr "Mantener abierta la barra de herramientas"
 msgid "Leave fullscreen"
 msgstr "Salir de pantalla completa"
 
-#: src/AppWindow.vala:531 src/AppWindow.vala:552 src/AppWindow.vala:569
+#: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
 #: src/data_imports/DataImportsUI.vala:303
 #: src/data_imports/DataImportsUI.vala:421 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
@@ -2488,7 +2468,7 @@ msgstr "Salir de pantalla completa"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/AppWindow.vala:579
+#: src/AppWindow.vala:586
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2501,21 +2481,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:607
 msgid "Visit the Shotwell web site"
 msgstr "Visite la página web de Shotwell"
 
-#: src/AppWindow.vala:613
+#: src/AppWindow.vala:620
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "No se puede mostrar la ayuda: %s"
 
-#: src/AppWindow.vala:621
+#: src/AppWindow.vala:628
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "No se pudo navegar en la base de datos de errores: %s"
 
-#: src/AppWindow.vala:629
+#: src/AppWindow.vala:636
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "No se pudieron mostrar las P+F: %s"
@@ -2585,12 +2565,23 @@ msgstr "Fallo de importación (%d)"
 msgid "Cameras"
 msgstr "Cámaras"
 
-#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:718
-#: src/camera/ImportPage.vala:734 src/photos/RawSupport.vala:311
+#: src/camera/CameraBranch.vala:85
+msgid "List of all discovered camera devices"
+msgstr "Lista de todos los dispositivos de cámara descubiertos"
+
+#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
+#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
 #: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
 msgid "Camera"
 msgstr "Cámara"
+
+#. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+#: src/camera/CameraTable.vala:351
+#, c-format
+#| msgid "%s (%d%%)"
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:311 src/Properties.vala:230
 msgid "RAW+JPEG"
@@ -2604,32 +2595,32 @@ msgstr ""
 "de archivos."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:783
+#: src/camera/ImportPage.vala:776
 msgid "Hide photos already imported"
 msgstr "Ocultar fotos ya importadas"
 
-#: src/camera/ImportPage.vala:784
+#: src/camera/ImportPage.vala:777
 msgid "Only display photos that have not been imported"
 msgstr "Mostrar solo las fotos que no han sido importadas"
 
-#: src/camera/ImportPage.vala:823 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:816 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "Importar _seleccionadas"
 
-#: src/camera/ImportPage.vala:833 ui/import.ui:17 ui/import.ui:214
+#: src/camera/ImportPage.vala:826 ui/import.ui:17 ui/import.ui:214
 msgid "Import _All"
 msgstr "Importar tod_as"
 
-#: src/camera/ImportPage.vala:857
+#: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "La cámara parece estar vacía. No se han importado fotos/vídeos"
 
-#: src/camera/ImportPage.vala:861
+#: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
 msgstr "No se encontraron fotos/vídeos en la cámara"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1021
+#: src/camera/ImportPage.vala:1025
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2637,15 +2628,15 @@ msgstr ""
 "Shotwell necesita desmontar la cámara del sistema de archivos con el fin de "
 "acceder a ella. ¿Continuar?"
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1031
 msgid "_Unmount"
 msgstr "_Desmontar"
 
-#: src/camera/ImportPage.vala:1032
+#: src/camera/ImportPage.vala:1036
 msgid "Please unmount the camera."
 msgstr "Desmonte la cámara."
 
-#: src/camera/ImportPage.vala:1037
+#: src/camera/ImportPage.vala:1041
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2655,11 +2646,11 @@ msgstr ""
 "la cámara cuando está desbloqueada. Cierre cualquier otra aplicación que "
 "esté utilizando la cámara e inténtelo de nuevo."
 
-#: src/camera/ImportPage.vala:1047
+#: src/camera/ImportPage.vala:1051
 msgid "Please close any other application using the camera."
 msgstr "Cierre cualquier otra aplicación que esté utilizando la cámara."
 
-#: src/camera/ImportPage.vala:1052
+#: src/camera/ImportPage.vala:1056
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2668,70 +2659,69 @@ msgstr ""
 "No se pueden obtener previsualizaciones de la cámara:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1069
+#: src/camera/ImportPage.vala:1073
 msgid "Unmounting…"
 msgstr "Desmontando…"
 
-#: src/camera/ImportPage.vala:1162
-#| msgid "Starting import, please wait…"
+#: src/camera/ImportPage.vala:1166
 msgid "Connecting to camera, please wait…"
 msgstr "Conectando a la cámara, espere…"
 
-#: src/camera/ImportPage.vala:1194
+#: src/camera/ImportPage.vala:1198
 msgid "Starting import, please wait…"
 msgstr "Iniciando la importación, espere un momento…"
 
-#: src/camera/ImportPage.vala:1200
+#: src/camera/ImportPage.vala:1204
 msgid "Fetching photo information"
 msgstr "Obteniendo información de la foto"
 
-#: src/camera/ImportPage.vala:1558
+#: src/camera/ImportPage.vala:1563
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Obteniendo previsualización para %s"
 
-#: src/camera/ImportPage.vala:1666
+#: src/camera/ImportPage.vala:1671
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "No se puede bloquear la cámara: %s"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1756
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "¿Quiere eliminar esta foto de la cámara?"
 msgstr[1] "¿Quiere eliminar estas %d fotos de la cámara?"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1759
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "¿Quiere eliminar esta foto de la cámara?"
 msgstr[1] "¿Quiere eliminar estas %d fotos de la cámara?"
 
-#: src/camera/ImportPage.vala:1757
+#: src/camera/ImportPage.vala:1762
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "¿Quiere eliminar esta foto/vídeo de la cámara?"
 msgstr[1] "¿Quiere eliminar estas %d fotos/vídeos de la cámara?"
 
-#: src/camera/ImportPage.vala:1760
+#: src/camera/ImportPage.vala:1765
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "¿Eliminar este archivo de la cámara?"
 msgstr[1] "¿Eliminar estos %d archivos de la cámara?"
 
-#: src/camera/ImportPage.vala:1768 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1773 src/Dialogs.vala:1387
 msgid "_Keep"
 msgstr "_Mantener"
 
-#: src/camera/ImportPage.vala:1787
+#: src/camera/ImportPage.vala:1792
 msgid "Removing photos/videos from camera"
 msgstr "Eliminando fotos/vídeos de la cámara"
 
-#: src/camera/ImportPage.vala:1791
+#: src/camera/ImportPage.vala:1796
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2825,14 +2815,12 @@ msgid "_Play"
 msgstr "_Reproducir"
 
 #: src/CollectionPage.vala:410
-#| msgid "Export Photo/Video"
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Exportar foto o vídeo"
 msgstr[1] "Exportar fotos o vídeos"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:59 src/PhotoPage.vala:2998
-#| msgid "Export Photo"
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Exportar foto"
@@ -3075,7 +3063,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Archivo de base de datos:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:781
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
 msgid "_Import"
 msgstr "_Importar"
 
@@ -3158,7 +3146,7 @@ msgstr[1] "Esto eliminará la etiqueta «%s» de %d fotos. ¿Continuar?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Eliminar"
@@ -3223,6 +3211,10 @@ msgstr ""
 "\n"
 "\n"
 "¿Quiere continuar la exportación?"
+
+#: src/Dialogs.vala:128
+msgid "Con_tinue"
+msgstr "Con_tinuar"
 
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
@@ -4314,25 +4306,21 @@ msgstr "Ángulo:"
 msgid "_Straighten"
 msgstr "_Enderezar"
 
-#: src/events/EventsBranch.vala:25
-msgid "Events"
-msgstr "Eventos"
-
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d foto/vídeo"
 msgstr[1] "%d fotos/vídeos"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d vídeo"
 msgstr[1] "%d vídeos"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4342,6 +4330,14 @@ msgstr[1] "%d fotos"
 #: src/events/EventPage.vala:128
 msgid "No Event"
 msgstr "No hay eventos"
+
+#: src/events/EventsBranch.vala:25
+msgid "Events"
+msgstr "Eventos"
+
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Explorar sus eventos"
 
 #: src/events/EventsDirectoryPage.vala:149
 msgid "No events"
@@ -4407,17 +4403,12 @@ msgstr "Exportar"
 msgid "Folders"
 msgstr "Carpetas"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
-#: ui/preferences_dialog.ui:512
-msgid "Library"
-msgstr "Colección"
+#: src/folders/FoldersBranch.vala:144
+msgid "Browse the library’s folder structure"
+msgstr "Explorar la estructura de carpetas de la biblioteca"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
-msgid "Photos"
-msgstr "Fotos"
-
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
-#: src/SearchFilter.vala:1103
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
+#: src/SearchFilter.vala:1099
 msgid "Flagged"
 msgstr "Marcada"
 
@@ -4438,6 +4429,20 @@ msgstr "Importada %s"
 msgid "Last Import"
 msgstr "Última importación"
 
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: ui/preferences_dialog.ui:512
+msgid "Library"
+msgstr "Colección"
+
+#: src/library/LibraryBranch.vala:30
+#| msgid "Organize your photos"
+msgid "Organize and browse your photos"
+msgstr "Organizar y examinar sus fotos"
+
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
+msgid "Photos"
+msgstr "Fotos"
+
 #: src/library/LibraryWindow.vala:508
 msgid "Import From Folder"
 msgstr "Importar desde carpeta"
@@ -4446,15 +4451,15 @@ msgstr "Importar desde carpeta"
 msgid "Recurse Into Subfolders"
 msgstr "Entrar en subcarpetas"
 
-#: src/library/LibraryWindow.vala:582 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:583 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Vaciar la papelera"
 
-#: src/library/LibraryWindow.vala:582
+#: src/library/LibraryWindow.vala:583
 msgid "Emptying Trash…"
 msgstr "Vaciando la papelera…"
 
-#: src/library/LibraryWindow.vala:778
+#: src/library/LibraryWindow.vala:779
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4467,33 +4472,33 @@ msgstr ""
 "span>.\n"
 "¿Quiere seguir importando fotos?"
 
-#: src/library/LibraryWindow.vala:781 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Ubicación de la colección"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:794
+#: src/library/LibraryWindow.vala:795
 msgid "Photos cannot be imported from this directory."
 msgstr "Las fotos no pueden importarse desde esta carpeta."
 
-#: src/library/LibraryWindow.vala:1074
+#: src/library/LibraryWindow.vala:1075
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1118 src/library/LibraryWindow.vala:1129
+#: src/library/LibraryWindow.vala:1119 src/library/LibraryWindow.vala:1130
 msgid "Updating library…"
 msgstr "Actualizando la colección…"
 
-#: src/library/LibraryWindow.vala:1135
+#: src/library/LibraryWindow.vala:1136
 msgid "Preparing to auto-import photos…"
 msgstr "Preparando para importar fotos automáticamente…"
 
-#: src/library/LibraryWindow.vala:1140
+#: src/library/LibraryWindow.vala:1141
 msgid "Auto-importing photos…"
 msgstr "Importando fotos automáticamente…"
 
-#: src/library/LibraryWindow.vala:1148
+#: src/library/LibraryWindow.vala:1149
 msgid "Writing metadata to files…"
 msgstr "Escribiendo metadatos en los archivos…"
 
@@ -4613,7 +4618,7 @@ msgstr "No se pueden procesar las actualizaciones de la monitorización %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Ajustar el tamaño de las miniaturas"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4622,15 +4627,15 @@ msgstr ""
 "Shotwell no pudo reproducir el vídeo seleccionado:\n"
 "%s"
 
-#: src/Page.vala:1306
+#: src/Page.vala:1327
 msgid "No photos/videos"
 msgstr "No hay fotos/vídeos"
 
-#: src/Page.vala:1310
+#: src/Page.vala:1331
 msgid "No photos/videos found which match the current filter"
 msgstr "No se han encontrado fotos/vídeos que coincidan con el filtro actual"
 
-#: src/Page.vala:2623
+#: src/Page.vala:2644
 msgid "Photos cannot be exported to this directory."
 msgstr "No se pueden exportar las fotos a este directorio."
 
@@ -4694,7 +4699,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3755
+#: src/Photo.vala:3774
 msgid "modified"
 msgstr "modificada"
 
@@ -5571,7 +5576,7 @@ msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "No se pudo renombrar la búsqueda «%s» porque la búsqueda ya existe."
 
 #. Saved search button
-#: src/Resources.vala:411 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1120
 msgid "Saved Search"
 msgstr "Búsqueda guardada"
 
@@ -5579,11 +5584,11 @@ msgstr "Búsqueda guardada"
 msgid "Delete Search"
 msgstr "Eliminar búsqueda"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "_Editar…"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "Re_nombrar…"
 
@@ -5737,10 +5742,6 @@ msgstr "%a %d de %b de %Y"
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:115
 msgid "Slideshow"
 msgstr "Diapositivas"
-
-#: src/searches/SearchesBranch.vala:68
-msgid "Saved Searches"
-msgstr "Búsquedas guardadas"
 
 #. Ordering must correspond with SearchConditionText.Context
 #: src/searches/SavedSearchDialog.vala:162
@@ -5915,8 +5916,8 @@ msgstr "Estado de la opción"
 msgid "Photo state"
 msgstr "Estado de la foto"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1114
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:827
+#: src/SearchFilter.vala:1110
 msgid "Rating"
 msgstr "Puntuación"
 
@@ -5924,27 +5925,36 @@ msgstr "Puntuación"
 msgid "Date"
 msgstr "Fecha"
 
-#: src/SearchFilter.vala:815
+#: src/searches/SearchesBranch.vala:68
+msgid "Saved Searches"
+msgstr "Búsquedas guardadas"
+
+#: src/searches/SearchesBranch.vala:68
+#| msgid "Organize your photos"
+msgid "Organize your saved searches"
+msgstr "Organizar sus búsquedas guardadas"
+
+#: src/SearchFilter.vala:811
 msgid "★+ Rating"
 msgstr "Puntuación ★+"
 
-#: src/SearchFilter.vala:818
+#: src/SearchFilter.vala:814
 msgid "★★+ Rating"
 msgstr "Puntuación ★★+"
 
-#: src/SearchFilter.vala:821
+#: src/SearchFilter.vala:817
 msgid "★★★+ Rating"
 msgstr "Puntuación ★★★+"
 
-#: src/SearchFilter.vala:824
+#: src/SearchFilter.vala:820
 msgid "★★★★+ Rating"
 msgstr "Puntuación ★★★★+"
 
-#: src/SearchFilter.vala:828
+#: src/SearchFilter.vala:824
 msgid "★★★★★+ Rating"
 msgstr "Puntuación ★★★★★+"
 
-#: src/SearchFilter.vala:1064
+#: src/SearchFilter.vala:1060
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Error al cargar la IU de la barra de búsqueda: %s"
@@ -5954,24 +5964,24 @@ msgstr "Error al cargar la IU de la barra de búsqueda: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1073
+#: src/SearchFilter.vala:1069
 msgid "Close"
 msgstr "Cerrar"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1079
+#: src/SearchFilter.vala:1075
 msgid "Type"
 msgstr "Tipo"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1082
 msgid "Videos"
 msgstr "Vídeos"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1085
 msgid "RAW Photos"
 msgstr "Fotos RAW"
 
-#: src/SearchFilter.vala:1125
+#: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 "Utilizar una búsqueda guardada para filtrar elementos en la vista actual"
@@ -6043,12 +6053,17 @@ msgstr "Aleatorio"
 msgid "Tags"
 msgstr "Etiquetas"
 
+#: src/tags/TagsBranch.vala:131
+#| msgid "Organize your photos"
+msgid "Organize and browse your photo’s tags"
+msgstr "Organizar y examinar las etiquetas de sus fotos"
+
 #: src/Tag.vala:830
 msgid "untitled"
 msgstr "sin título"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "Exportar vídeos"
 
@@ -6125,7 +6140,6 @@ msgstr "_Informar de un problema…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/import_queue.ui:14 ui/import.ui:8
 #: ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8 ui/trash.ui:8
-#| msgid "_Import from Folder…"
 msgid "_Import From Folder…"
 msgstr "_Importar desde carpeta…"
 
@@ -6308,7 +6322,6 @@ msgid "_Pattern:"
 msgstr "_Patrón:"
 
 #: ui/preferences_dialog.ui:414
-#| msgid "_Background:"
 msgid "Transparent Background:"
 msgstr "Fondo transparente:"
 
@@ -6336,53 +6349,57 @@ msgstr "Editores externos"
 msgid "Plugins"
 msgstr "Complementos"
 
-#: ui/printing_widget.ui:19
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Preferencias de Shotwell"
+
+#: ui/printing_widget.ui:18
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Tamaño de imagen impresa</b>"
 
-#: ui/printing_widget.ui:36
+#: ui/printing_widget.ui:38
 msgid "Use a _standard size:"
 msgstr "Utilizar un tamaño e_stándar:"
 
-#: ui/printing_widget.ui:80
+#: ui/printing_widget.ui:65
 msgid "Use a c_ustom size:"
 msgstr "Utilizar un tamaño p_ersonalizado:"
 
 #. Abbrevation for "inch"
-#: ui/printing_widget.ui:146
+#: ui/printing_widget.ui:128
 msgid "in."
 msgstr "pulg."
 
 #. Abbrevation for "centimeters"
-#: ui/printing_widget.ui:147
+#: ui/printing_widget.ui:129
 msgid "cm"
 msgstr "cm"
 
-#: ui/printing_widget.ui:173
+#: ui/printing_widget.ui:146
 msgid "_Match photo aspect ratio"
 msgstr "E_mparejar relación de aspecto de la foto"
 
-#: ui/printing_widget.ui:197
+#: ui/printing_widget.ui:161
 msgid "_Autosize:"
 msgstr "Tamaño _automático:"
 
-#: ui/printing_widget.ui:237
+#: ui/printing_widget.ui:202
 msgid "<b>Titles</b>"
 msgstr "<b>Títulos</b>"
 
-#: ui/printing_widget.ui:254
+#: ui/printing_widget.ui:219
 msgid "Print image _title"
 msgstr "Imprimir el _título de la imagen"
 
-#: ui/printing_widget.ui:297
+#: ui/printing_widget.ui:262
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Resolución de píxeles</b>"
 
-#: ui/printing_widget.ui:317
+#: ui/printing_widget.ui:282
 msgid "_Output photo at:"
 msgstr "_Salida de foto en:"
 
-#: ui/printing_widget.ui:351
+#: ui/printing_widget.ui:316
 msgid "pixels per inch"
 msgstr "píxeles por pulgada"
 
@@ -6461,6 +6478,23 @@ msgstr "segundos"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Eliminar todas las fotos en la papelera"
+
+#~ msgid ""
+#~ "Enter the confirmation number which appears after you log into Flickr in "
+#~ "your Web browser."
+#~ msgstr ""
+#~ "Introduzca el número de confirmación que aparece en su navegador web "
+#~ "después de iniciar sesión en Flickr."
+
+#~ msgid "Authorization _Number:"
+#~ msgstr "_Número de autorización:"
+
+#~ msgid "Width or height"
+#~ msgstr "Anchura o altura"
+
+#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
+#~ msgstr ""
+#~ "«%s» no es una respuesta válida a una solicitud de autenticación OAuth"
 
 #~ msgid ""
 #~ "Welcome to the F-Spot library import service.\n"
@@ -6697,9 +6731,6 @@ msgstr "Eliminar todas las fotos en la papelera"
 
 #~ msgid "RAW photos"
 #~ msgstr "Fotos RAW"
-
-#~ msgid "Shotwell Preferences"
-#~ msgstr "Preferencias de Shotwell"
 
 #, fuzzy
 #~| msgid "Tag Photos as \"%s\""
