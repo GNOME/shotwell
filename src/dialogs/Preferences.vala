@@ -135,7 +135,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        (preferences_notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator.widget);
+        (preferences_notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator);
 
         populate_preference_options();
 

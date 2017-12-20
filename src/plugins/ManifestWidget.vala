@@ -6,40 +6,26 @@
 
 namespace Plugins {
 
-public class ManifestWidgetMediator {
-    public Gtk.Widget widget {
-        get {
-            return builder.get_object("plugin-manifest") as Gtk.Widget;
-        }
-    }
+
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/manifest_widget.ui")]
+public class ManifestWidgetMediator : Gtk.Box {
+    [GtkChild]
+    private Gtk.Button about_button;
     
-    private Gtk.Button about_button {
-        get {
-            return builder.get_object("about-plugin-button") as Gtk.Button;
-        }
-    }
+    [GtkChild]
+    private Gtk.ScrolledWindow list_bin;
     
-    private Gtk.ScrolledWindow list_bin {
-        get {
-            return builder.get_object("plugin-list-scrolled-window") as Gtk.ScrolledWindow;
-        }
-    }
-    
-    private Gtk.Builder builder = AppWindow.create_builder();
     private ManifestListView list = new ManifestListView();
     
     public ManifestWidgetMediator() {
+        Object();
+
         list_bin.add(list);
         
         about_button.clicked.connect(on_about);
         list.get_selection().changed.connect(on_selection_changed);
         
         set_about_button_sensitivity();
-    }
-    
-    ~ManifestWidgetMediator() {
-        about_button.clicked.disconnect(on_about);
-        list.get_selection().changed.disconnect(on_selection_changed);
     }
     
     private void on_about() {
