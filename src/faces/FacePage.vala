@@ -19,6 +19,12 @@ public class FacePage : CollectionPage {
         face.mirror_sources(get_view(), create_thumbnail);
         
         init_page_context_menu("/FacesContextMenu");
+
+        init_item_context_menu("TrashContextMenu");
+//        init_page_context_menu("TrashPageMenu");
+        init_toolbar("TrashToolbar");
+        
+
 /*        GLib.MenuModel menu = get_menubar();
         GLib.MenuModel? section = null;
         section = find_extension_point (menu, Resources.FACES_MENU_SECTION);*/
@@ -84,9 +90,9 @@ public class FacePage : CollectionPage {
         InjectionGroup menuFaces = new InjectionGroup("FacesMenuPlaceholder");
 
         //menuFaces.add_menu("Faces");
-        menuFaces.add_menu_item("Remove Face \"" + this.face.get_name() + "\" From Photos", "RemoveFaceFromPhotos", "&lt;Primary&gt;r");
-        menuFaces.add_menu_item("Rename Face \"" + this.face.get_name() + "\"…", "RenameFace", "&lt;Primary&gt;e");
-        menuFaces.add_menu_item("Dele_teFace", "DeleteFace", "&lt;Primary&gt;t");
+        menuFaces.add_menu_item("Remove Face \"" + this.face.get_name() + "\" From Photos", "RemoveFaceFromPhotos", "<Primary>r");
+        menuFaces.add_menu_item("Rename Face \"" + this.face.get_name() + "\"…", "RenameFace", "<Primary>e");
+        menuFaces.add_menu_item("Dele_teFace", "DeleteFace", "<Primary>t");
 		string res = "create_faces_menu_injectables()".printf();
 		stdout.puts(res);
 
