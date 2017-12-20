@@ -65,6 +65,12 @@ src/Dialogs.vala
 src/Dimensions.vala
 src/direct/DirectPhotoPage.vala
 src/DirectoryMonitor.vala
+src/dialogs/AdjustDateTimeDialog.vala
+src/dialogs/ExportDialog.vala
+src/dialogs/Preferences.vala
+src/dialogs/ProgressDialog.vala
+src/dialogs/SetBackgroundSlideshow.vala
+src/dialogs/WelcomeDialog.vala
 src/editing_tools/EditingTools.vala
 src/editing_tools/StraightenTool.vala
 src/events/EventDirectoryItem.vala
@@ -116,12 +122,15 @@ ui/events_directory.ui
 ui/event.ui
 ui/import_queue.ui
 ui/import.ui
+ui/manifest_widget.ui
 ui/media.ui
+ui/multitextentrydialog.ui
 ui/offline.ui
 ui/photo_context.ui
 ui/photo.ui
 ui/preferences_dialog.ui
 ui/printing_widget.ui
+ui/saved_search_dialog.ui
 ui/savedsearch.ui
 ui/search_bar.ui
 ui/search_sidebar_context.ui
@@ -132,4 +141,5 @@ ui/sidebar_default_context.ui
 ui/slideshow_settings.ui
 ui/tag_sidebar_context.ui
 ui/tags.ui
+ui/textentrydialog.ui
 ui/trash.ui

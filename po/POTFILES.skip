@@ -41,6 +41,12 @@ src/data_imports/DataImports.c
 src/data_imports/DataImportsPluginHost.c
 src/data_imports/DataImportsUI.c
 src/db/DatabaseTable.c
+src/dialogs/AdjustDateTimeDialog.c
+src/dialogs/ExportDialog.c
+src/dialogs/Preferences.c
+src/dialogs/ProgressDialog.c
+src/dialogs/SetBackgroundSlideshow.c
+src/dialogs/WelcomeDialog.c
 src/DesktopIntegration.c
 src/Dialogs.c
 src/Dimensions.c
