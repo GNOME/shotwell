@@ -170,34 +170,6 @@
       </packing>
     </child>
   </object>
-  <object class="GtkBox" id="dialog-vbox2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">3</property>
-    <property name="orientation">vertical</property>
-    <property name="spacing">3</property>
-    <child>
-      <object class="GtkLabel" id="label">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="label" translatable="yes">label</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkEntry" id="entry">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="invisible_char">●</property>
-        <property name="activates_default">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="position">1</property>
       </packing>
@@ -231,14 +203,6 @@
       </object>
       <packing>
         <property name="expand">True</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
-    </child>
-    <child>
-      <placeholder/>
-    </child>
-  </object>
   <object class="GtkBox" id="plugin-manifest">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
