@@ -617,10 +617,7 @@ public abstract class MultiTextEntryDialogMediator {
     private MultiTextEntryDialog dialog;
     
     public MultiTextEntryDialogMediator(string title, string label, string? initial_text = null) {
-        Gtk.Builder builder = AppWindow.create_builder();
         dialog = new MultiTextEntryDialog();
-        dialog.get_content_area().add((Gtk.Box) builder.get_object("dialog-vbox4"));
-        dialog.set_builder(builder);
         dialog.setup(on_modify_validate, title, label, initial_text);
     }
     
@@ -647,60 +644,6 @@ public string build_alert_body_text(string? primary_text, string? secondary_text
         guarded_markup_escape_text(primary_text), secondary_text);
 }
 
-
-
-public class MultiTextEntryDialog : Gtk.Dialog {
-    public delegate bool OnModifyValidateType(string text);
-    
-    private unowned OnModifyValidateType on_modify_validate;
-    private Gtk.TextView entry;
-    private Gtk.Builder builder;
-    private Gtk.Button button1;
-    private Gtk.Button button2;
-    
-    public MultiTextEntryDialog() {
-        bool use_header;
-        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-        Object (use_header_bar: use_header ? 1 : 0);
-    }
-    
-    public void set_builder(Gtk.Builder builder) {
-        this.builder = builder;
-    }
-    
-    public void setup(OnModifyValidateType? modify_validate, string title, string label, string? initial_text) {
-        set_title(title);
-        set_resizable(true);
-        set_default_size(500,300);
-        set_parent_window(AppWindow.get_instance().get_parent_window());
-        set_transient_for(AppWindow.get_instance());
-        on_modify_validate = modify_validate;
-        
-        entry = builder.get_object("textview1") as Gtk.TextView;
-        entry.set_wrap_mode (Gtk.WrapMode.WORD);
-        entry.buffer = new Gtk.TextBuffer(null);
-        entry.buffer.text = (initial_text != null ? initial_text : "");
-        
-        entry.grab_focus();
-        
-        button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
-        button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
-        set_default_response(Gtk.ResponseType.OK);
-    }
-        
-    public string? execute() {
-        string? text = null;
-        
-        show_all();
-        
-        if (run() == Gtk.ResponseType.OK)
-            text = entry.buffer.text;
-        
-        destroy();
-        
-        return text;
-    }
-}
 
 public class EventRenameDialog : TextEntryDialogMediator {
     public EventRenameDialog(string? event_name) {
