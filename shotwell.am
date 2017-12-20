@@ -62,6 +62,7 @@ shotwell_SOURCES = \
 	src/db/VideoTable.vala \
 	src/db/VersionTable.vala \
 	src/db/SavedSearchDBTable.vala \
+	src/dialogs/SetBackground.vala \
 	src/editing_tools/EditingTools.vala \
 	src/editing_tools/RGBHistogramManipulator.vala \
 	src/editing_tools/StraightenTool.vala \
