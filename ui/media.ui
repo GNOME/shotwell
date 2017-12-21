@@ -399,9 +399,6 @@
       </section>
     </submenu>
     <!-- Faces menu goes here FacesMenuPlaceholder -->
-    <section>
-      <attribute name="id">FaceMenuPlaceholder</attribute>
-    </section>
     <submenu>
       <attribute name="label" translatable="yes">_Help</attribute>
       <section>
