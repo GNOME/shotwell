@@ -326,6 +326,9 @@ class AppDirs {
     public static File get_facedetect_bin() {
         const string filename = "shotwell-facedetect";
         File f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/facedetect/" + filename);
+        if (!f.query_exists()) {//testing meson builddir
+            f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/../facedetect/" + filename);
+        }
         if (!f.query_exists()) {
             // If we're running installed.
             f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/" + filename);
@@ -334,6 +337,10 @@ class AppDirs {
     }
     
     public static File get_haarcascade_file() {
+        File f = File.new_for_path(AppDirs.get_exec_dir().get_path() + "/../../facedetect/facedetect-haarcascade.xml");
+        if (f.query_exists()) {//testing meson builddir
+            return f;
+        }
         return get_resources_dir().get_child("facedetect").get_child("facedetect-haarcascade.xml");
     }
 #endif
