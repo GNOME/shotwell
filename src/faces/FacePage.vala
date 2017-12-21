@@ -19,7 +19,7 @@ public class FacePage : CollectionPage {
         face.mirror_sources(get_view(), create_thumbnail);
         
         init_page_context_menu("FacesContextMenu");
-        init_item_context_menu("CollectionFacesPlaceholder");
+//        init_item_context_menu("CollectionFacesPlaceholder");
 
 /*        GLib.MenuModel menu = get_menubar();
         GLib.MenuModel? section = null;
@@ -93,78 +93,6 @@ public class FacePage : CollectionPage {
         return menuFaces;
     }
 
-/*	private InjectionGroup create_photos_faces_injectables() {
-        InjectionGroup group = new InjectionGroup("PhotosFaces");
-
-        //InjectionGroup ig = new InjectionGroup("FaceDetection");
-        group.add_menu_item(_("Face Location"), "FaceLocation");
-
-//        group += ig;
-
-        return group;
-    }*/
-/*
-//        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry faces = { "FacesMenu", null, TRANSLATABLE, null, null, null };
-        faces.label = _("F_aces");
-        actions += faces;
-        
-        Gtk.ActionEntry delete_face = { "DeleteFace", null, TRANSLATABLE, null, null, on_delete_face };
-        // label and tooltip are assigned when the menu is displayed
-        actions += delete_face;
-        
-        Gtk.ActionEntry rename_face = { "RenameFace", null, TRANSLATABLE, null, null, on_rename_face };
-        // label and tooltip are assigned when the menu is displayed
-        actions += rename_face;
-        
-        Gtk.ActionEntry remove_face = { "RemoveFaceFromPhotos", null, TRANSLATABLE, null, null, 
-            on_remove_face_from_photos };
-        // label and tooltip are assigned when the menu is displayed
-        actions += remove_face;
-        
-        Gtk.ActionEntry delete_face_sidebar = { "DeleteFaceSidebar", null, Resources.DELETE_FACE_SIDEBAR_MENU, 
-            null, null, on_delete_face };
-        actions += delete_face_sidebar;
-        
-        Gtk.ActionEntry rename_face_sidebar = { "RenameFaceSidebar", null, Resources.RENAME_FACE_SIDEBAR_MENU, 
-            null, null, on_rename_face };
-        actions += rename_face_sidebar;
-        
-        return actions;
-
-    }*/
-/*    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry faces = { "FacesMenu", null, TRANSLATABLE, null, null, null };
-        faces.label = _("F_aces");
-        actions += faces;
-        
-        Gtk.ActionEntry delete_face = { "DeleteFace", null, TRANSLATABLE, null, null, on_delete_face };
-        // label and tooltip are assigned when the menu is displayed
-        actions += delete_face;
-        
-        Gtk.ActionEntry rename_face = { "RenameFace", null, TRANSLATABLE, null, null, on_rename_face };
-        // label and tooltip are assigned when the menu is displayed
-        actions += rename_face;
-        
-        Gtk.ActionEntry remove_face = { "RemoveFaceFromPhotos", null, TRANSLATABLE, null, null, 
-            on_remove_face_from_photos };
-        // label and tooltip are assigned when the menu is displayed
-        actions += remove_face;
-        
-        Gtk.ActionEntry delete_face_sidebar = { "DeleteFaceSidebar", null, Resources.DELETE_FACE_SIDEBAR_MENU, 
-            null, null, on_delete_face };
-        actions += delete_face_sidebar;
-        
-        Gtk.ActionEntry rename_face_sidebar = { "RenameFaceSidebar", null, Resources.RENAME_FACE_SIDEBAR_MENU, 
-            null, null, on_rename_face };
-        actions += rename_face_sidebar;
-        
-        return actions;
-    }*/
-    
     private void on_faces_altered(Gee.Map<DataObject, Alteration> map) {
         if (map.has_key(face)) {
             set_page_name(face.get_name());
@@ -187,7 +115,6 @@ public class FacePage : CollectionPage {
             Resources.remove_face_from_photos_menu(face.get_name(), selected_count),
             null,
             selected_count > 0);
-		stdout.puts("update_actions\n");
         
         base.update_actions(selected_count, count);
     }

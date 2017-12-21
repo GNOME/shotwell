@@ -455,58 +455,20 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">ContextRemoveFaceFromPhotos</attribute>
-        <attribute name="action">RemoveFaceFromPhotos</attribute>
+        <attribute name="action">win.RemoveFaceFromPhotos</attribute>
       </item>
     </section>
   </menu>
   <menu id="FacesContextMenu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">ContextRenameFace</attribute>
-        <attribute name="action">RenameFaceSidebar</attribute>
+        <attribute name="label" translatable="yes">Rename…</attribute>
+        <attribute name="action">win.RenameFaceSidebar</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">ContextDeleteFace</attribute>
-        <attribute name="action">DeleteFaceSidebar</attribute>
+        <attribute name="label" translatable="yes">Delete</attribute>
+        <attribute name="action">win.DeleteFaceSidebar</attribute>
       </item>
     </section>
   </menu>
-  <object class="GtkToolbar" id="FacesToolbar">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="toolbar_style">both-horiz</property>
-    <child>
-      <object class="GtkToolButton" id="ToolFaceDelete">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Delete Face</property>
-        <property name="is_important">True</property>
-        <property name="action_name">DeleteFaceSidebar</property>
-        <property name="label" translatable="yes">Delete Face</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
-  </object>
-  <!--<object class="GtkToolbar" id="FaceToolbar">
-    <child>
-      <object class="GtkToolButton" id="ToolEmptyTrash">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Delete all photos in the trash</property>
-        <property name="is_important">True</property>
-        <property name="action_name">win.CommonEmptyTrash</property>
-        <property name="label" translatable="yes">Empty Trash</property>
-        <property name="use_underline">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
-    </child>
-  </object>
--->
 </interface>
