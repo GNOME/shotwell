@@ -1,5 +1,5 @@
 /* Copyright 2013 Jens Bav
- * Copyright 2011-2015 Yorba Foundation
+ * Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -47,7 +47,7 @@ private class CircleEffect : Object, Transitions.Effect {
     public void paint(Transitions.Visuals visuals, Transitions.Motion motion, Cairo.Context ctx,
         int width, int height, int frame_number) {
         double alpha = motion.get_alpha(frame_number);
-        int radius = (int)((alpha) * Math.fmax(width,height));
+        int radius = (int)(alpha * Math.fmax(width,height));
         
         if (visuals.from_pixbuf != null) {
             Gdk.cairo_set_source_pixbuf(ctx, visuals.from_pixbuf, visuals.from_pos.x,

@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -13,8 +13,8 @@ public bool confirm_delete_tag(Tag tag) {
     if (count == 0)
         return true;
     string msg = ngettext(
-        "This will remove the tag \"%s\" from one photo.  Continue?",
-        "This will remove the tag \"%s\" from %d photos.  Continue?",
+        "This will remove the tag “%s” from one photo. Continue?",
+        "This will remove the tag “%s” from %d photos. Continue?",
         count).printf(tag.get_user_visible_name(), count);
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
@@ -22,7 +22,7 @@ public bool confirm_delete_tag(Tag tag) {
 }
 
 public bool confirm_delete_saved_search(SavedSearch search) {
-    string msg = _("This will remove the saved search \"%s\".  Continue?")
+    string msg = _("This will remove the saved search “%s”. Continue?")
         .printf(search.get_name());
     
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
@@ -31,9 +31,10 @@ public bool confirm_delete_saved_search(SavedSearch search) {
 
 public bool confirm_warn_developer_changed(int number) {
     Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(AppWindow.get_instance(),
-        Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s",
-        "<span weight=\"bold\" size=\"larger\">%s</span>".printf(ngettext("Switching developers will undo all changes you have made to this photo in Shotwell",
-        "Switching developers will undo all changes you have made to these photos in Shotwell", number)));
+        Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE,
+        "<span weight=\"bold\" size=\"larger\">%s</span>",
+        ngettext("Switching developers will undo all changes you have made to this photo in Shotwell",
+        "Switching developers will undo all changes you have made to these photos in Shotwell", number));
 
     dialog.add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
     dialog.add_buttons(_("_Switch Developer"), Gtk.ResponseType.YES);
@@ -80,15 +81,11 @@ public File? choose_file(string current_file_basename) {
     chooser.set_current_name(current_file_basename);
     chooser.set_local_only(false);
     
-    // The log handler reset should be removed once GTK 3.4 becomes widely available; 
-    // please see https://bugzilla.gnome.org/show_bug.cgi?id=662814 for details.
-    Log.set_handler("Gtk", LogLevelFlags.LEVEL_WARNING, suppress_warnings);
     File file = null;
     if (chooser.run() == Gtk.ResponseType.ACCEPT) {
         file = File.new_for_path(chooser.get_filename());
         current_export_dir = file.get_parent();
     }
-    Log.set_handler("Gtk", LogLevelFlags.LEVEL_WARNING, Log.default_handler);    
     chooser.destroy();
     
     return file;
@@ -127,7 +124,7 @@ public void open_external_editor_error_dialog(Error err, Photo photo) {
     if (err is IOError.PERMISSION_DENIED || err is FileError.PERM) {
          // Yes - display an alternate error message here.
          AppWindow.error_message(          
-            _("Shotwell couldn't create a file for editing this photo because you do not have permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
+            _("Shotwell couldn’t create a file for editing this photo because you do not have permission to write to %s.").printf(photo.get_master_file().get_parent().get_path()));
     } else {
         // No - something else is wrong, display the error message 
         // the system gave us.
@@ -176,17 +173,28 @@ public class ExportDialog : Gtk.Dialog {
     private Gtk.ComboBoxText quality_combo;
     private Gtk.ComboBoxText constraint_combo;
     private Gtk.ComboBoxText format_combo;
-    private Gtk.CheckButton export_metadata;
+    private Gtk.Switch export_metadata;
     private Gee.ArrayList<string> format_options = new Gee.ArrayList<string>();
     private Gtk.Entry pixels_entry;
     private Gtk.Widget ok_button;
     private bool in_insert = false;
     
     public ExportDialog(string title) {
-        Object (use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
         
         this.title = title;
         resizable = false;
+
+        //get information about the export settings out of our config backend
+        Config.Facade config = Config.Facade.get_instance();
+        current_parameters.mode = config.get_export_export_format_mode(); //ExportFormatMode
+        current_parameters.specified_format = config.get_export_photo_file_format(); //PhotoFileFormat
+        current_parameters.quality = config.get_export_quality(); //quality
+        current_parameters.export_metadata = config.get_export_export_metadata(); //export metadata
+        current_constraint = config.get_export_constraint(); //constraint
+        current_scale = config.get_export_scale(); //scale
 
         quality_combo = new Gtk.ComboBoxText();
         int ctr = 0;
@@ -237,9 +245,15 @@ public class ExportDialog : Gtk.Dialog {
         add_label(_("_Pixels:"), 0, 3, pixels_entry);
         add_control(pixels_entry, 1, 3);
         
-        export_metadata = new Gtk.CheckButton.with_label(_("Export metadata"));
+        export_metadata = new Gtk.Switch ();
+        add_label(_("Export _metadata:"), 0, 4, export_metadata);
         add_control(export_metadata, 1, 4);
         export_metadata.active = true;
+        export_metadata.halign = Gtk.Align.START;
+        
+        table.set_row_spacing(6);
+        table.set_column_spacing(12);
+        table.set_border_width(18);
         
         table.set_row_spacing(5);
         table.set_column_spacing(5);
@@ -355,6 +369,15 @@ public class ExportDialog : Gtk.Dialog {
                 if (current_parameters.specified_format == PhotoFileFormat.JFIF)
                     parameters.quality = current_parameters.quality = QUALITY_ARRAY[quality_combo.get_active()];
             }
+
+            //save current settings in config backend for reusing later
+            Config.Facade config = Config.Facade.get_instance();
+            config.set_export_export_format_mode(current_parameters.mode); //ExportFormatMode
+            config.set_export_photo_file_format(current_parameters.specified_format); //PhotoFileFormat
+            config.set_export_quality(current_parameters.quality); //quality
+            config.set_export_export_metadata(current_parameters.export_metadata); //export metadata
+            config.set_export_constraint(current_constraint); //constraint
+            config.set_export_scale(current_scale); //scale
         } else {
             scale = 0;
             constraint = ScaleConstraint.ORIGINAL;
@@ -366,24 +389,24 @@ public class ExportDialog : Gtk.Dialog {
     }
     
     private void add_label(string text, int x, int y, Gtk.Widget? widget = null) {
-        Gtk.Alignment left_aligned = new Gtk.Alignment(1, 0.5f, 0, 0);
-        
         Gtk.Label new_label = new Gtk.Label.with_mnemonic(text);
+        new_label.halign = Gtk.Align.END;
+        new_label.valign = Gtk.Align.CENTER;
         new_label.set_use_underline(true);
         
         if (widget != null)
             new_label.set_mnemonic_widget(widget);
         
-        left_aligned.add(new_label);
-        
-        table.attach(left_aligned, x, y, 1, 1);
+        table.attach(new_label, x, y, 1, 1);
     }
     
     private void add_control(Gtk.Widget widget, int x, int y) {
-        Gtk.Alignment left_aligned = new Gtk.Alignment(0, 0.5f, 1, 0);
-        left_aligned.add(widget);
+        widget.halign = Gtk.Align.FILL;
+        widget.valign = Gtk.Align.CENTER;
+        widget.hexpand = true;
+        widget.vexpand = true;
         
-        table.attach(left_aligned, x, y, 1, 1);
+        table.attach(widget, x, y, 1, 1);
     }
     
     private void on_constraint_changed() {
@@ -471,7 +494,7 @@ public class ExportDialog : Gtk.Dialog {
 
 namespace ImportUI {
 private const int REPORT_FAILURE_COUNT = 4;
-internal const string SAVE_RESULTS_BUTTON_NAME = _("Save Details...");
+internal const string SAVE_RESULTS_BUTTON_NAME = _("Save Details…");
 internal const string SAVE_RESULTS_FILE_CHOOSER_TITLE = _("Save Details");
 internal const int SAVE_RESULTS_RESPONSE_ID = 1024;
 
@@ -588,7 +611,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     // Files Not Imported Because They Weren't Recognized as Photos or Videos
     //
     if (manifest.skipped_files.size > 0) {
-        builder.append(_("Files Not Imported Because They Weren't Recognized as Photos or Videos:")
+        builder.append(_("Files Not Imported Because They Weren’t Recognized as Photos or Videos:")
             + "\n\n");
         
         foreach (BatchImportResult result in manifest.skipped_files) {
@@ -603,7 +626,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     // Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
     //
     if (manifest.skipped_photos.size > 0) {
-        builder.append(_("Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands:")
+        builder.append(_("Photos/Videos Not Imported Because They Weren’t in a Format Shotwell Understands:")
             + "\n\n");
         
         foreach (BatchImportResult result in manifest.skipped_photos) {
@@ -618,11 +641,11 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     // Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
     //
     if (manifest.write_failed.size > 0) {
-        builder.append(_("Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library:")
+        builder.append(_("Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its Library:")
              + "\n\n");
         
         foreach (BatchImportResult result in manifest.write_failed) {
-            current_file_summary = (_("couldn't copy %s\n\tto %s")).printf(result.src_identifier,
+            current_file_summary = (_("couldn’t copy %s\n\tto %s")).printf(result.src_identifier,
             result.dest_identifier) + "\n\t" + _("error message:") + " " +
             result.errmsg + "\n\n";
 
@@ -1076,94 +1099,80 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
     }
 }
 
-public abstract class SetBackgroundDialog {
-    protected Gtk.Dialog dialog;
-    protected Gtk.CheckButton desktop_background_button;
-    protected Gtk.CheckButton screensaver_button;
-    protected Gtk.Button ok_button;
-    // the checkbuttons themselves are initialized to these values
-    protected bool desktop = true;
-    protected bool screensaver = false;
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/set_background_dialog.ui")]
+public class SetBackgroundPhotoDialog : Gtk.Dialog {
+    [GtkChild]
+    private Gtk.CheckButton desktop_background_checkbox;
+    [GtkChild]
+    private Gtk.CheckButton screensaver_checkbox;
 
-    public SetBackgroundDialog(Gtk.Builder builder) {
-        
-        dialog = builder.get_object("dialog1") as Gtk.Dialog;
-        dialog.set_type_hint(Gdk.WindowTypeHint.DIALOG);
-        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
-        dialog.set_transient_for(AppWindow.get_instance());
-        dialog.set_default_response(Gtk.ResponseType.OK);
-        
-        desktop_background_button = builder.get_object("desktop_background_checkbox") as Gtk.CheckButton;
-        desktop_background_button.active = desktop;
-        desktop_background_button.toggled.connect(on_checkbox_clicked);
-        screensaver_button = builder.get_object("screensaver_checkbox") as Gtk.CheckButton;
-        screensaver_button.active = screensaver;
-        screensaver_button.toggled.connect(on_checkbox_clicked);
-        
-        ok_button = builder.get_object("ok_button") as Gtk.Button;
-    }
-    
-    protected void on_checkbox_clicked() {
-        desktop = desktop_background_button.active;
-        screensaver = screensaver_button.active;
-
-        if (!desktop && !screensaver) {
-            ok_button.sensitive = false;
-        } else {
-            ok_button.sensitive = true;
-        }
-    }
-    
-    protected bool execute_base() {
-        dialog.show_all();
-        bool result = dialog.run() == Gtk.ResponseType.OK;
-        dialog.destroy();
-        
-        return result;
-    }
-}
-
-public class SetBackgroundPhotoDialog : SetBackgroundDialog {
-    
     public SetBackgroundPhotoDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_dialog.glade", this);
-        base(builder);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
+        this.set_transient_for (AppWindow.get_instance());
     }
-    
+
+    [GtkCallback]
+    private void on_checkbox_clicked() {
+        set_response_sensitive (Gtk.ResponseType.OK,
+                                desktop_background_checkbox.active ||
+                                screensaver_checkbox.active);
+    }
+
     public bool execute(out bool desktop_background, out bool screensaver) {
-        bool result = execute_base();
-        
-        desktop_background = this.desktop;
-        screensaver = this.screensaver;
-        
+        this.show_all();
+        var result = this.run() == Gtk.ResponseType.OK;
+        this.hide ();
+
+        desktop_background = desktop_background_checkbox.active;
+        screensaver = screensaver_checkbox.active;
+
+        this.destroy();
         return result;
     }
 }
 
-public class SetBackgroundSlideshowDialog : SetBackgroundDialog {
-    private Gtk.Label delay_value_label;
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/set_background_slideshow_dialog.ui")]
+public class SetBackgroundSlideshowDialog : Gtk.Dialog {
+    [GtkChild]
+    private Gtk.CheckButton desktop_background_checkbox;
+    [GtkChild]
+    private Gtk.CheckButton screensaver_checkbox;
+    [GtkChild]
     private Gtk.Scale delay_scale;
+    [GtkChild]
+    private Gtk.Label delay_value_label;
+
     private int delay_value = 0;
-    
+
     public SetBackgroundSlideshowDialog() {
-        Gtk.Builder builder = AppWindow.create_builder("set_background_slideshow_dialog.glade", this);
-        base(builder);
-        
-        delay_value_label = builder.get_object("delay_value_label") as Gtk.Label;
-        
-        delay_scale = builder.get_object("delay_scale") as Gtk.Scale;
-        delay_scale.value_changed.connect(on_delay_scale_value_changed);
-        delay_scale.adjustment.value = 50;
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
+        this.set_transient_for (AppWindow.get_instance());
     }
-    
+
+    public override void constructed () {
+        on_delay_scale_value_changed ();
+    }
+
+    [GtkCallback]
+    private void on_checkbox_clicked() {
+        set_response_sensitive (Gtk.ResponseType.OK,
+                                desktop_background_checkbox.active ||
+                                screensaver_checkbox.active);
+    }
+
+    [GtkCallback]
     private void on_delay_scale_value_changed() {
         double value = delay_scale.adjustment.value;
-        
+
         // f(x)=x^5 allows to have fine-grained values (seconds) to the left
         // and very coarse-grained values (hours) to the right of the slider.
         // We limit maximum value to 1 day and minimum to 5 seconds.
         delay_value = (int) (Math.pow(value, 5) / Math.pow(90, 5) * 60 * 60 * 24 + 5);
-        
+
         // convert to text and remove fractions from values > 1 minute
         string text;
         if (delay_value < 60) {
@@ -1180,20 +1189,24 @@ public class SetBackgroundSlideshowDialog : SetBackgroundDialog {
             text = _("1 day");
             delay_value = 60 * 60 * 24;
         }
-        
+
         delay_value_label.label = text;
     }
-    
+
     public bool execute(out int delay_value, out bool desktop_background, out bool screensaver) {
-        bool result = execute_base();
-        
+        this.show_all();
+        var result = this.run() == Gtk.ResponseType.OK;
+        this.hide ();
+
         delay_value = this.delay_value;
-        desktop_background = this.desktop;
-        screensaver = this.screensaver;
-        
+        desktop_background = desktop_background_checkbox.active;
+        screensaver = screensaver_checkbox.active;
+
+        this.destroy();
         return result;
     }
 }
+
 
 public class TextEntryDialog : Gtk.Dialog {
     public delegate bool OnModifyValidateType(string text);
@@ -1203,10 +1216,11 @@ public class TextEntryDialog : Gtk.Dialog {
     private Gtk.Builder builder;
     private Gtk.Button button1;
     private Gtk.Button button2;
-    private Gtk.ButtonBox action_area_box;
     
     public TextEntryDialog() {
-        Object (use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
     }
     
     public void set_builder(Gtk.Builder builder) {
@@ -1229,9 +1243,6 @@ public class TextEntryDialog : Gtk.Dialog {
         entry.grab_focus();
         entry.changed.connect(on_entry_changed);
         
-        action_area_box = (Gtk.ButtonBox) get_action_area();
-        action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
-        
         button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
         button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
@@ -1243,7 +1254,6 @@ public class TextEntryDialog : Gtk.Dialog {
         }
         
         set_default_response(Gtk.ResponseType.OK);
-        set_has_resize_grip(false);
     }
 
     public string? execute() {
@@ -1276,13 +1286,14 @@ public class MultiTextEntryDialog : Gtk.Dialog {
     private Gtk.Builder builder;
     private Gtk.Button button1;
     private Gtk.Button button2;
-    private Gtk.ButtonBox action_area_box;
     
     public MultiTextEntryDialog() {
-        Object (use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
     }
     
-    public void set_builder(Gtk.Builder builder) {
+   public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
     
@@ -1301,14 +1312,9 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         
         entry.grab_focus();
         
-        action_area_box = (Gtk.ButtonBox) get_action_area();
-        action_area_box.set_layout(Gtk.ButtonBoxStyle.END);
-        
         button1 = (Gtk.Button) add_button(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
         button2 = (Gtk.Button) add_button(Resources.SAVE_LABEL, Gtk.ResponseType.OK);
         set_default_response(Gtk.ResponseType.OK);
-        
-        set_has_resize_grip(true);
     }
         
     public string? execute() {
@@ -1338,7 +1344,7 @@ public class EventRenameDialog : TextEntryDialogMediator {
 public class EditTitleDialog : TextEntryDialogMediator {
     public EditTitleDialog(string? photo_title) {
         // Dialog title
-        base (_("Edit Title"),
+        base (C_("Dialog Title", "Edit Title"),
             _("Title:"), photo_title);
     }
     
@@ -1422,8 +1428,8 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
            
     string headline = (count == 1) ? _("Revert External Edit?") : _("Revert External Edits?");
     string msg = ngettext(
-        "This will destroy all changes made to the external file.  Continue?",
-        "This will destroy all changes made to %d external files.  Continue?",
+        "This will destroy all changes made to the external file. Continue?",
+        "This will destroy all changes made to %d external files. Continue?",
         count).printf(count);
 
     string action = (count == 1) ? _("Re_vert External Edit") : _("Re_vert External Edits");
@@ -1447,8 +1453,8 @@ public bool remove_offline_dialog(Gtk.Window owner, int count) {
         return false;
     
     string msg = ngettext(
-        "This will remove the photo from the library.  Continue?",
-        "This will remove %d photos from the library.  Continue?",
+        "This will remove the photo from the library. Continue?",
+        "This will remove %d photos from the library. Continue?",
         count).printf(count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
@@ -1505,18 +1511,23 @@ public class ProgressDialog : Gtk.Window {
         
         Gtk.Label primary_text_label = new Gtk.Label("");
         primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
-        primary_text_label.set_alignment(0, 0.5f);
+        primary_text_label.xalign = 0.0f;
+        primary_text_label.yalign = 0.5f;
 
         Gtk.Box vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
         vbox.pack_start(primary_text_label, false, false, 0);
         vbox.pack_start(hbox, true, false, 0);
+        vbox.halign = Gtk.Align.CENTER;
+        vbox.valign = Gtk.Align.CENTER;
+        vbox.hexpand = true;
+        vbox.vexpand = true;
+        vbox.margin_start = 12;
+        vbox.margin_end = 12;
+        vbox.margin_top = 12;
+        vbox.margin_bottom = 12;
 
-        Gtk.Alignment alignment = new Gtk.Alignment(0.5f, 0.5f, 1.0f, 1.0f);
-        alignment.set_padding(12, 12, 12, 12);
-        alignment.add(vbox);
-        
-        add(alignment);
-        
+        add(vbox);
+
         time_started = now_ms();
     }
     
@@ -1664,7 +1675,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool contains_video = false, bool only_video = false) {
         assert(source != null);
 
-        Object(use_header_bar: 1);
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object(use_header_bar: use_header ? 1 : 0);
         
         set_modal(true);
         set_resizable(false);
@@ -1728,11 +1741,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         batch_radio_button.toggled.connect(on_time_changed);
 
         if (contains_video) {
-            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
-                _("_Modify original photo file") : _("_Modify original photo files"));
+            var text = ngettext ("_Modify original photo file", "_Modify original photo files",
+                                 photo_count);
+            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(text);
         } else {
-            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic((photo_count == 1) ?
-                _("_Modify original file") : _("_Modify original files"));
+            var text = ngettext ("_Modify original file", "_Modify original files", photo_count);
+            modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(text);
         }
 
         modify_originals_check_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters() &&
@@ -1772,11 +1786,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         hbox.set_border_width(3);
         hbox.pack_start(image_content, true, false, 0);
         hbox.pack_start(time_content, true, false, 0);
+        hbox.halign = Gtk.Align.CENTER;
+        hbox.valign = Gtk.Align.CENTER;
+        hbox.hexpand = false;
+        hbox.vexpand = false;
 
-        Gtk.Alignment hbox_alignment = new Gtk.Alignment(0.5f, 0.5f, 0, 0);
-        hbox_alignment.add(hbox);
-
-        ((Gtk.Box) get_content_area()).pack_start(hbox_alignment, true, false, 0);
+        ((Gtk.Box) get_content_area()).pack_start(hbox, true, false, 0);
 
         notification = new Gtk.Label("");
         notification.set_line_wrap(true);
@@ -1981,7 +1996,9 @@ public abstract class TagsDialog : TextEntryDialogMediator {
 
 public class AddTagsDialog : TagsDialog {
     public AddTagsDialog() {
-        base (Resources.ADD_TAGS_TITLE, _("Tags (separated by commas):"));
+        var title = GLib.dpgettext2 (null, "Dialog Title",
+                Resources.ADD_TAGS_TITLE);
+        base (title, _("Tags (separated by commas):"));
     }
 
     public string[]? execute() {
@@ -2096,12 +2113,14 @@ public class WelcomeDialog : Gtk.Dialog {
         Gtk.Label primary_text = new Gtk.Label("");
         primary_text.set_markup(
             "<span size=\"large\" weight=\"bold\">%s</span>".printf(_("Welcome to Shotwell!")));
-        primary_text.set_alignment(0, 0.5f);
+        primary_text.xalign = 0.0f;
+        primary_text.yalign = 0.5f;
         secondary_text = new Gtk.Label("");
         secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
             _("To get started, import photos in any of these ways:")));
-        secondary_text.set_alignment(0, 0.5f);
-        Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.get_icon(Resources.ICON_APP, 50));
+        secondary_text.xalign = 0.0f;
+        secondary_text.yalign = 0.5f;
+        var image = new Gtk.Image.from_icon_name ("shotwell", Gtk.IconSize.DIALOG);
         
         Gtk.Box header_text = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         header_text.pack_start(primary_text, false, false, 5);
@@ -2121,7 +2140,8 @@ public class WelcomeDialog : Gtk.Dialog {
             _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf(arrow_glyph),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
-        instructions.set_alignment(0, 0.5f);
+        instructions.xalign = 0.0f;
+        instructions.yalign = 0.5f;
         
         import_action_checkbox_packer = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
         
@@ -2138,7 +2158,8 @@ public class WelcomeDialog : Gtk.Dialog {
         
         instruction_header = new Gtk.Label(
             _("You can also import photos in any of these ways:"));
-        instruction_header.set_alignment(0.0f, 0.5f);
+        instruction_header.xalign = 0.0f;
+        instruction_header.yalign = 0.5f;
         instruction_header.set_margin_top(20);
         
         Gtk.Box content = new Gtk.Box(Gtk.Orientation.VERTICAL, 16);
@@ -2147,22 +2168,24 @@ public class WelcomeDialog : Gtk.Dialog {
         content.add(import_content);
         content.pack_start(instructions, false, false, 0);
 
-        hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));
+        hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don’t show this message again"));
         hide_button.set_active(true);
         content.pack_start(hide_button, false, false, 6);
-        
-        Gtk.Alignment alignment = new Gtk.Alignment(0, 0, 0, 0);
-        alignment.set_padding(12, 0, 12, 12);
-        alignment.add(content);
+        content.halign = Gtk.Align.FILL;
+        content.valign = Gtk.Align.FILL;
+        content.hexpand = false;
+        content.vexpand = false;
+        content.margin_top = 12;
+        content.margin_bottom = 0;
+        content.margin_start = 12;
+        content.margin_end = 12;
 
-        ((Gtk.Box) get_content_area()).pack_start(alignment, false, false, 0);
+        ((Gtk.Box) get_content_area()).pack_start(content, false, false, 0);
 
-        set_has_resize_grip(false);
-        
         ok_button.grab_focus();
-        
+
         install_import_content();
-        
+
         import_meta_host.start();
     }
 
@@ -2257,7 +2280,8 @@ public class WelcomeDialog : Gtk.Dialog {
     }
 }
 
-public class PreferencesDialog {
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences_dialog.ui")]
+public class PreferencesDialog : Gtk.Dialog {
     private class PathFormat {
         public PathFormat(string name, string? pattern) {
             this.name = name;
@@ -2269,50 +2293,92 @@ public class PreferencesDialog {
     
     private static PreferencesDialog preferences_dialog;
     
-    private Gtk.Dialog dialog;
-    private Gtk.Builder builder;
+    [GtkChild]
     private Gtk.Adjustment bg_color_adjustment;
+    [GtkChild]
     private Gtk.Scale bg_color_slider;
+    [GtkChild]
     private Gtk.ComboBox photo_editor_combo;
+    [GtkChild]
     private Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
+    [GtkChild]
     private Gtk.FileChooserButton library_dir_button;
+    [GtkChild]
     private Gtk.ComboBoxText dir_pattern_combo;
+    [GtkChild]
     private Gtk.Entry dir_pattern_entry;
+    [GtkChild]
     private Gtk.Label dir_pattern_example;
     private bool allow_closing = false;
     private string? lib_dir = null;
     private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
+    [GtkChild]
     private Gtk.CheckButton lowercase;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+    [GtkChild]
     private Gtk.ComboBoxText default_raw_developer_combo;
 
+    [GtkChild]
+    private Gtk.CheckButton autoimport;
+    [GtkChild]
+    private Gtk.CheckButton write_metadata;
+    [GtkChild]
+    private Gtk.Label pattern_help;
+    [GtkChild]
+    private Gtk.Notebook preferences_notebook;
+
+    [GtkChild]
+    private Gtk.RadioButton transparent_checker_radio;
+    [GtkChild]
+    private Gtk.RadioButton transparent_solid_radio;
+    [GtkChild]
+    private Gtk.ColorButton transparent_solid_color;
+    [GtkChild]
+    private Gtk.RadioButton transparent_none_radio;
+
     private PreferencesDialog() {
-        builder = AppWindow.create_builder();
+        bool use_header;
+        Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+        Object (use_header_bar: use_header ? 1 : 0);
+
+        set_parent_window(AppWindow.get_instance().get_parent_window());
+        set_transient_for(AppWindow.get_instance());
+        delete_event.connect(on_delete);
+        response.connect(on_close);
         
-        dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
-        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
-        dialog.set_transient_for(AppWindow.get_instance());
-        dialog.delete_event.connect(on_delete);
-        dialog.response.connect(on_close);
-        dialog.set_has_resize_grip(false);
-        
-        bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             (Config.Facade.get_instance().get_bg_color().red * 65535.0));
         bg_color_adjustment.value_changed.connect(on_value_changed);
 
-        bg_color_slider = builder.get_object("bg_color_slider") as Gtk.Scale;
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
-        library_dir_button = builder.get_object("library_dir_button") as Gtk.FileChooserButton;
-        
-        photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
-        raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
-        
-        Gtk.Label pattern_help = builder.get_object("pattern_help") as Gtk.Label;
+        transparent_checker_radio.toggled.connect(on_radio_changed);
+        transparent_solid_radio.toggled.connect(on_radio_changed);
+        transparent_none_radio.toggled.connect(on_radio_changed);
+
+        transparent_solid_radio.bind_property("active",
+                                              transparent_solid_color,
+                                              "sensitive");
+
+        Gdk.RGBA color = Gdk.RGBA();
+        color.parse(Config.Facade.get_instance().get_transparent_background_color());
+        (transparent_solid_color as Gtk.ColorChooser).rgba = color;
+        transparent_solid_color.color_set.connect(on_color_changed);
+
+        switch (Config.Facade.get_instance().get_transparent_background_type()) {
+            case "checkered":
+                transparent_checker_radio.active = true;
+            break;
+            case "solid":
+                transparent_solid_radio.active = true;
+            break;
+            default:
+                transparent_none_radio.active = true;
+            break;
+        }
 
         // Ticket #3162 - Move dir pattern blurb into Gnome help. 
         // Because specifying a particular snippet of the help requires 
@@ -2326,16 +2392,11 @@ public class PreferencesDialog {
             pattern_help.set_markup("<a href=\"" + Resources.DIR_PATTERN_URI_SYSWIDE + "\">" + _("(Help)") + "</a>");
         } else {
             // We're being run from the build directory; we'll have to handle clicks to this
-            // link manually ourselves, due to a limitation ghelp: URIs.
+            // link manually ourselves, due to a limitation of help: URIs.
             pattern_help.set_markup("<a href=\"dummy:\">" + _("(Help)") + "</a>");
             pattern_help.activate_link.connect(on_local_pattern_help);
         }
         
-        dir_pattern_combo = new Gtk.ComboBoxText();
-        Gtk.Alignment dir_choser_align = builder.get_object("dir choser") as Gtk.Alignment;
-        dir_choser_align.add(dir_pattern_combo);
-        dir_pattern_entry = builder.get_object("dir_pattern_entry") as Gtk.Entry;
-        dir_pattern_example = builder.get_object("dynamic example") as Gtk.Label;
         add_to_dir_formats(_("Year%sMonth%sDay").printf(Path.DIR_SEPARATOR_S, Path.DIR_SEPARATOR_S), 
             "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d");
         add_to_dir_formats(_("Year%sMonth").printf(Path.DIR_SEPARATOR_S), "%Y" +
@@ -2346,33 +2407,24 @@ public class PreferencesDialog {
         add_to_dir_formats(_("Custom"), null); // Custom must always be last.
         dir_pattern_combo.changed.connect(on_dir_pattern_combo_changed);
         dir_pattern_entry.changed.connect(on_dir_pattern_entry_changed);
-        
-        (builder.get_object("dir_structure_label") as Gtk.Label).set_mnemonic_widget(dir_pattern_combo);
-        
-        lowercase = builder.get_object("lowercase") as Gtk.CheckButton;
+
         lowercase.toggled.connect(on_lowercase_toggled);
-        
-        Gtk.Bin plugin_manifest_container = builder.get_object("plugin-manifest-bin") as Gtk.Bin;
-        plugin_manifest_container.add(plugins_mediator.widget);
-        
+
+        (preferences_notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator.widget);
+
         populate_preference_options();
 
         photo_editor_combo.changed.connect(on_photo_editor_changed);
         raw_editor_combo.changed.connect(on_raw_editor_changed);
         
-        Gtk.CheckButton auto_import_button = builder.get_object("autoimport") as Gtk.CheckButton;
-        auto_import_button.set_active(Config.Facade.get_instance().get_auto_import_from_library());
+        autoimport.set_active(Config.Facade.get_instance().get_auto_import_from_library());
         
-        Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
-        commit_metadata_button.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
+        write_metadata.set_active(Config.Facade.get_instance().get_commit_metadata_to_masters());
         
-        default_raw_developer_combo = builder.get_object("default_raw_developer") as Gtk.ComboBoxText;
         default_raw_developer_combo.append_text(RawDeveloper.CAMERA.get_label());
         default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
-        
-        dialog.map_event.connect(map_event);
     }
     
     public void populate_preference_options() {
@@ -2386,12 +2438,29 @@ public class PreferencesDialog {
         
         lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
     }
-    
+
+    private void on_radio_changed() {
+        var config = Config.Facade.get_instance();
+
+        if (transparent_checker_radio.active) {
+            config.set_transparent_background_type("checkered");
+        } else if (transparent_solid_radio.active) {
+            config.set_transparent_background_type("solid");
+        } else {
+            config.set_transparent_background_type("none");
+        }
+    }
+
+    private void on_color_changed() {
+        var color = (transparent_solid_color as Gtk.ColorChooser).rgba.to_string();
+        Config.Facade.get_instance().set_transparent_background_color(color);
+    }
+
     // Ticket #3162, part II - if we're not yet installed, then we have to manually launch
     // the help viewer and specify the full path to the subsection we want...
     private bool on_local_pattern_help(string ignore) {
         try {
-            Resources.launch_help(AppWindow.get_instance().get_screen(), "?other-files");
+            Resources.launch_help(AppWindow.get_instance().get_screen(), "other-files.page");
         } catch (Error e) {
             message("Unable to launch help: %s", e.message);
         }
@@ -2486,31 +2555,25 @@ public class PreferencesDialog {
         on_dir_pattern_combo_changed();
     }
     
-    public static void show() {
+    public static void show_preferences() {
         if (preferences_dialog == null) 
             preferences_dialog = new PreferencesDialog();
         
         preferences_dialog.populate_preference_options();
-        preferences_dialog.dialog.show_all();
+        preferences_dialog.show_all();
         preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
         // from the menus a second time.
-        preferences_dialog.dialog.present();
+        preferences_dialog.present();
     }
 
     // For items that should only be committed when the dialog is closed, not as soon as the change
     // is made.
     private void commit_on_close() {
         Config.Facade.get_instance().commit_bg_color();
-        
-        Gtk.CheckButton? autoimport = builder.get_object("autoimport") as Gtk.CheckButton;
-        if (autoimport != null)
-            Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
-        
-        Gtk.CheckButton? commit_metadata = builder.get_object("write_metadata") as Gtk.CheckButton;
-        if (commit_metadata != null)
-            Config.Facade.get_instance().set_commit_metadata_to_masters(commit_metadata.active);
+        Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
+        Config.Facade.get_instance().set_commit_metadata_to_masters(write_metadata.active);
        
         if (lib_dir != null)
             AppDirs.set_import_dir(lib_dir);
@@ -2529,14 +2592,14 @@ public class PreferencesDialog {
             return true;
         
         commit_on_close();
-        return dialog.hide_on_delete(); //prevent widgets from getting destroyed
+        return hide_on_delete(); //prevent widgets from getting destroyed
     }
     
     private void on_close() {
         if (!get_allow_closing())
             return;
             
-        dialog.hide();
+        hide();
         commit_on_close();
     }
     
@@ -2593,7 +2656,7 @@ public class PreferencesDialog {
     }
     
     private void set_allow_closing(bool allow) {
-        dialog.set_deletable(allow);
+        set_deletable(allow);
         allow_closing = allow;
     }
     
@@ -2659,13 +2722,15 @@ public class PreferencesDialog {
         lib_dir = library_dir_button.get_filename();
     }
     
-    private bool map_event() {
+    public override bool map_event(Gdk.EventAny event) {
+        var result = base.map_event(event);
         // Set the signal for the lib dir button after the dialog is displayed, 
-        // because the FileChooserButton has a nasty habbit of selecting a
+        // because the FileChooserButton has a nasty habit of selecting a
         // different folder when displayed if the provided path doesn't exist.
         // See ticket #3000 for more info.
         library_dir_button.current_folder_changed.connect(on_current_folder_changed);
-        return true;
+
+        return result;
     }
     
     private void add_to_dir_formats(string name, string? pattern) {
@@ -2714,16 +2779,16 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     
     string? user_message = null;
     if ((!photos.is_empty) && (!videos.is_empty)) {
-        user_message = ngettext("This will remove the photo/video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d photos/videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        user_message = ngettext("This will remove the photo/video from your Shotwell library. Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos/videos from your Shotwell library. Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
              sources.size).printf(sources.size);
     } else if (!videos.is_empty) {
-        user_message = ngettext("This will remove the video from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d videos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        user_message = ngettext("This will remove the video from your Shotwell library. Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d videos from your Shotwell library. Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
              sources.size).printf(sources.size);
     } else {
-        user_message = ngettext("This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
-            "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        user_message = ngettext("This will remove the photo from your Shotwell library. Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
+            "This will remove %d photos from your Shotwell library. Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
              sources.size).printf(sources.size);
     }
     
@@ -2754,8 +2819,8 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     int num_not_removed = not_removed_photos.size + not_removed_videos.size;
     if (delete_backing && num_not_removed > 0) {
         string not_deleted_message = 
-            ngettext("The photo or video cannot be moved to your desktop trash.  Delete this file?",
-                "%d photos/videos cannot be moved to your desktop trash.  Delete these files?",
+            ngettext("The photo or video cannot be moved to your desktop trash. Delete this file?",
+                "%d photos/videos cannot be moved to your desktop trash. Delete these files?",
                 num_not_removed).printf(num_not_removed);
         Gtk.ResponseType result_delete = remove_from_filesystem_dialog(AppWindow.get_instance(), 
             dialog_title, not_deleted_message);

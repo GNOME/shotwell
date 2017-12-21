@@ -1,26 +1,10 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
  */
 
 public delegate int64 Comparator(void *a, void *b);
-
-extern string g_utf8_collate_key_for_filename(string str, ssize_t len = -1);
-
-public int64 file_comparator(void *a, void *b) {
-    string? path_a = ((File *) a)->get_path();
-    string? path_b = ((File *) b)->get_path();
-    
-    // if both are null, treat as equal; if one but not the other, prioritize  the non-null
-    if (path_a == null)
-        return (path_b == null) ? 0 : 1;
-    
-    if (path_b == null)
-        return -1;
-    
-    return strcmp(g_utf8_collate_key_for_filename(path_a), g_utf8_collate_key_for_filename(path_b));
-}
 
 public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Collection<G> {
     private Gee.ArrayList<G> list;

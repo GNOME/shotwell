@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -165,6 +165,7 @@ public class MetadataWriter : Object {
     private bool enabled = false;
     private HashTimedQueue<LibraryPhoto> dirty;
     private Gee.HashMap<LibraryPhoto, CommitJob> pending = new Gee.HashMap<LibraryPhoto, CommitJob>();
+    private Gee.HashSet<CommitJob> pending_cancel = new Gee.HashSet<CommitJob>();
     private Gee.HashSet<string> interested_photo_details = new Gee.HashSet<string>();
     private LibraryPhoto? ignore_photo_alteration = null;
     private uint outstanding_total = 0;
@@ -578,7 +579,10 @@ public class MetadataWriter : Object {
         bool cancelled = false;
         
         if (pending.has_key(photo)) {
-            pending.get(photo).cancel();
+            CommitJob j = (CommitJob) pending.get(photo);
+            pending_cancel.add(j);
+            j.cancel();
+            pending.unset(photo);
             cancelled = true;
         }
         
@@ -610,6 +614,10 @@ public class MetadataWriter : Object {
                 keywords.add(tag.get_name());
         }
         
+        // check if there is already a job for that photo. if yes, cancel it.
+        if (pending.has_key(photo))
+            cancel_job(photo);
+
         CommitJob job = new CommitJob(this, photo, keywords);
         pending.set(photo, job);
         
@@ -683,7 +691,7 @@ public class MetadataWriter : Object {
     }
     
     private void on_update_cancelled(BackgroundJob j) {
-        bool removed = pending.unset(((CommitJob) j).photo);
+        bool removed = pending_cancel.remove((CommitJob) j);
         assert(removed);
         
         count_cancelled_work(1, true);

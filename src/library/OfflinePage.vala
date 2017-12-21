@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -18,7 +18,7 @@ public class OfflinePage : CheckerboardPage {
     private class OfflineSearchViewFilter : DefaultSearchViewFilter {
         public override uint get_criteria() {
             return SearchFilterCriteria.TEXT | SearchFilterCriteria.FLAG | 
-                SearchFilterCriteria.MEDIA | SearchFilterCriteria.RATING;
+                SearchFilterCriteria.MEDIA | SearchFilterCriteria.RATING | SearchFilterCriteria.SAVEDSEARCH;
         }
     }
     
@@ -28,8 +28,8 @@ public class OfflinePage : CheckerboardPage {
     public OfflinePage() {
         base (NAME);
         
-        init_item_context_menu("/OfflineContextMenu");
-        init_toolbar("/OfflineToolbar");
+        init_item_context_menu("OfflineContextMenu");
+        init_toolbar("OfflineToolbar");
         
         tracker = new MediaViewTracker(get_view());
         
@@ -51,27 +51,31 @@ public class OfflinePage : CheckerboardPage {
         
         ui_filenames.add("offline.ui");
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry remove = { "RemoveFromLibrary", Resources.REMOVE_LABEL, TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_remove_from_library };
-        remove.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove.tooltip = Resources.DELETE_FROM_LIBRARY_TOOLTIP;
-        actions += remove;
-        
-        return actions;
+
+    private const GLib.ActionEntry[] entries = {
+        { "RemoveFromLibrary", on_remove_from_library }
+    };
+
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions(map);
+
+        map.add_action_entries(entries, this);
     }
-    
+
+    protected override void remove_actions(GLib.ActionMap map) {
+        base.remove_actions(map);
+        foreach (var entry in entries) {
+            map.remove_action(entry.name);
+        }
+    }
+
     public override Core.ViewTracker? get_view_tracker() {
         return tracker;
     }
     
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("RemoveFromLibrary", selected_count > 0);
-        set_action_important("RemoveFromLibrary", true);
-        
+
         base.update_actions(selected_count, count);
     }
     
@@ -103,7 +107,7 @@ public class OfflinePage : CheckerboardPage {
         
         ProgressDialog progress = null;
         if (sources.size >= 20)
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting..."));
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting…"));
 
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();

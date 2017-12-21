@@ -1,51 +1,227 @@
-<ui>
-    <popup name="CollectionContextMenu">
-        <menuitem name="ContextEnhance" action="Enhance" />
-        <menuitem name="ContextRevert" action="Revert" />
-        <separator />
-        <menuitem name="ContextAddTags" action="AddTagsContextMenu" />
-        <menuitem name="ContextModifyTags" action="ModifyTags" />
-        <placeholder name="ContextTagsPlaceholder" />
-        <separator />
-        <placeholder name="ContextFacesPlaceholder" />
-        <separator />
-        <menuitem name="ContextFlag" action="Flag" />
-        <menu name="Rate" action="Rate">
-            <menuitem name="RateFive" action="RateFive" />
-            <menuitem name="RateFour" action="RateFour" />
-            <menuitem name="RateThree" action="RateThree" />
-            <menuitem name="RateTwo" action="RateTwo" />
-            <menuitem name="RateOne" action="RateOne" />
-            <menuitem name="RateUnrated" action="RateUnrated" />
-            <menuitem name="RateRejected" action="RateRejected" />
-            <separator />
-            <menuitem name="IncreaseRating" action="IncreaseRating" />
-            <menuitem name="DecreaseRating" action="DecreaseRating" />
-        </menu>
-        <menu name="RawDeveloper" action="RawDeveloper">
-            <menuitem name="RawDeveloperShotwell" action="RawDeveloperShotwell" />
-            <menuitem name="RawDeveloperCamera" action="RawDeveloperCamera" />
-        </menu>
-        <separator />
-        <menuitem name="ContextEditTitle" action="EditTitle" />
-        <menuitem name="ContextEditComment" action="EditComment" />
-        <menuitem name="ContextExternalEdit" action="ExternalEdit" />
-        <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
-        <separator />
-        <menuitem name="ContextJumpToEvent" action="CommonJumpToEvent" />
-        <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
-        <menuitem name="ContextSendTo" action="SendToContextMenu" />
-        <separator />
-        <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
-    </popup>
-    
-    <toolbar name="CollectionToolbar">
-        <toolitem name="ToolRotate" action="RotateClockwise" />
-        <toolitem name="ToolEnhance" action="Enhance" />
-        <separator />
-        <toolitem name="ToolPublish" action="Publish" />
-        <separator />
-        <toolitem name="ToolFind" action="CommonDisplaySearchbar" />
-    </toolbar>
-</ui>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.0 -->
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.18"/>
+  <menu id="CollectionContextMenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Enhance</attribute>
+        <attribute name="accel">&lt;Primary&gt;e</attribute>
+        <attribute name="action">win.Enhance</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Re_vert to Original</attribute>
+        <attribute name="action">win.Revert</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Add _Tags…</attribute>
+        <attribute name="accel">&lt;Primary&gt;t</attribute>
+        <attribute name="action">win.AddTags</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Modif_y Tags…</attribute>
+        <attribute name="accel">&lt;Primary&gt;m</attribute>
+        <attribute name="action">win.ModifyTags</attribute>
+      </item>
+      <attribute name="id">ContextTagsPlaceholder</attribute>
+    </section>
+    <section>
+      <attribute name="id">ContextFacesPlaceholder</attribute>
+      <item>
+        <attribute name="label" translatable="yes">Toggle _Flag</attribute>
+        <attribute name="accel">&lt;Primary&gt;g</attribute>
+        <attribute name="action">win.Flag</attribute>
+      </item>
+    </section>
+    <submenu>
+      <attribute name="label" translatable="yes">_Set Rating</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="no">★★★★★</attribute>
+          <attribute name="action">win.RateFive</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="no">★★★★</attribute>
+          <attribute name="action">win.RateFour</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="no">★★★</attribute>
+          <attribute name="action">win.RateThree</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="no">★★</attribute>
+          <attribute name="action">win.RateTwo</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="no">★</attribute>
+          <attribute name="action">win.RateOne</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Unrated</attribute>
+          <attribute name="action">win.RateUnrated</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Rejected</attribute>
+          <attribute name="action">win.RateRejected</attribute>
+        </item>
+      </section>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">_Increase</attribute>
+          <attribute name="action">win.IncreaseRating</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">_Decrease</attribute>
+          <attribute name="action">win.DecreaseRating</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label" translatable="yes">_Developer</attribute>
+      <section>
+        <item>
+          <attribute name="label" translatable="yes">Shotwell</attribute>
+          <attribute name="action">win.RawDeveloper</attribute>
+          <attribute name="target">Shotwell</attribute>
+        </item>
+        <item>
+          <attribute name="label" translatable="yes">Camera</attribute>
+          <attribute name="action">win.RawDeveloper</attribute>
+          <attribute name="target">Camera</attribute>
+        </item>
+      </section>
+    </submenu>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Edit _Title…</attribute>
+        <attribute name="action">win.EditTitle</attribute>
+        <attribute name="accel">F2</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Edit _Comment…</attribute>
+        <attribute name="action">win.EditComment</attribute>
+        <attribute name="accel">F3</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Open With E_xternal Editor</attribute>
+        <attribute name="accel">&lt;Primary&gt;Return</attribute>
+        <attribute name="action">win.ExternalEdit</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Open With RA_W Editor</attribute>
+        <attribute name="action">win.ExternalEditRAW</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">View Eve_nt for Photo</attribute>
+        <attribute name="action">win.CommonJumpToEvent</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Show in File Mana_ger</attribute>
+        <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;m</attribute>
+        <attribute name="action">win.CommonJumpToFile</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Send _To…</attribute>
+        <attribute name="action">win.SendTo</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Move to Trash</attribute>
+        <attribute name="accel">Delete</attribute>
+        <attribute name="action">win.MoveToTrash</attribute>
+      </item>
+    </section>
+  </menu>
+  <object class="GtkToolbar" id="CollectionToolbar">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="toolbar_style">both-horiz</property>
+    <child>
+      <object class="GtkToolButton" id="ToolRotate">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Rotate the photos right (press Ctrl to rotate left)</property>
+        <property name="is_important">True</property>
+        <property name="action_name">win.RotateClockwise</property>
+        <property name="label" translatable="yes">Rotate</property>
+        <property name="use_underline">True</property>
+        <property name="icon_name">object-rotate-right</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolButton" id="ToolEnhance">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Automatically improve the photo’s appearance</property>
+        <property name="is_important">True</property>
+        <property name="action_name">win.Enhance</property>
+        <property name="label" translatable="yes">Enhance</property>
+        <property name="use_underline">True</property>
+        <property name="icon_name">shotwell-auto-enhance</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSeparatorToolItem">
+        <property name="can_focus">False</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">False</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToolButton" id="ToolPublish">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Publish to various websites</property>
+        <property name="is_important">True</property>
+        <property name="action_name">win.Publish</property>
+        <property name="label" translatable="yes">Publish</property>
+        <property name="use_underline">True</property>
+        <property name="icon_name">applications-internet</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSeparatorToolItem">
+        <property name="can_focus">False</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">False</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkToggleToolButton" id="ToolFind">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
+        <property name="is_important">True</property>
+        <property name="action_name">win.CommonDisplaySearchbar</property>
+        <property name="label" translatable="yes">Find</property>
+        <property name="use_underline">True</property>
+        <property name="icon_name">edit-find</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="homogeneous">True</property>
+      </packing>
+    </child>
+  </object>
+</interface>

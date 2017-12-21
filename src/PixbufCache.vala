@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -14,7 +14,7 @@ public class PixbufCache : Object {
     
     public class PixbufCacheBatch : Gee.TreeMultiMap<BackgroundJob.JobPriority, Photo> {
         public PixbufCacheBatch() {
-            base (BackgroundJob.JobPriority.compare_func);
+            base ((GLib.CompareDataFunc<BackgroundJob.JobPriority>)BackgroundJob.JobPriority.compare_func);
         }
     }
     

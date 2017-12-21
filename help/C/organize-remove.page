@@ -12,7 +12,7 @@
 	<title>Removing and deleting photos</title>
 
     <p>You may remove photos from your library and you may additionally delete them entirely from your hard disk.</p>
-<media type="image" src="figures/trash_process.png">Delete process</media>
+<media type="image" src="figures/trash_process.png"><p>Delete process</p></media>
 <p>This diagram shows how a photo, when deleted, is first put into Shotwell's trash. If you delete it from Shotwell's trash, it is put into your computer's trash. If you delete it from your computer's trash the photo is finally and irretrievably deleted from your computer.</p>
 <section id="delete-remove">
 	<title>Removing photos from the library</title>

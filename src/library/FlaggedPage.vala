@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -22,7 +22,7 @@ public class FlaggedPage : CollectionPage {
     private class FlaggedSearchViewFilter : CollectionPage.CollectionSearchViewFilter {
         public override uint get_criteria() {
             return SearchFilterCriteria.TEXT | SearchFilterCriteria.MEDIA | 
-                SearchFilterCriteria.RATING;
+                SearchFilterCriteria.RATING  | SearchFilterCriteria.SAVEDSEARCH;
         }
     }
     

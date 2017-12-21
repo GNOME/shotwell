@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -164,7 +164,7 @@ public class PrintSettings {
 
 /* we define our own measurement enum instead of using the Gtk.Unit enum
    provided by Gtk+ 2.0 because Gtk.Unit doesn't define a CENTIMETERS
-   constant (thout it does define an MM for millimeters). This is
+   constant (though it does define an MM for millimeters). This is
    unfortunate, because in metric countries people like to think about
    paper sizes for printing in CM not MM. so, to avoid having to
    multiply and divide everything by 10 (which is error prone) to convert
@@ -265,23 +265,36 @@ private enum PrintLayout {
     }
 }
 
-public class CustomPrintTab : Gtk.Fixed {
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/printing_widget.ui")]
+public class CustomPrintTab : Gtk.Box {
     private const int INCHES_COMBO_CHOICE = 0;
     private const int CENTIMETERS_COMBO_CHOICE = 1;
 
-    private Gtk.Box custom_image_settings_pane = null;
-    private Gtk.RadioButton standard_size_radio = null;
-    private Gtk.RadioButton custom_size_radio = null;
-    private Gtk.RadioButton image_per_page_radio = null;
-    private Gtk.ComboBox image_per_page_combo = null;
-    private Gtk.ComboBox standard_sizes_combo = null;
-    private Gtk.ComboBoxText units_combo = null;
-    private Gtk.Entry custom_width_entry = null;
-    private Gtk.Entry custom_height_entry = null;
+    [GtkChild]
+    private Gtk.RadioButton standard_size_radio;
+    [GtkChild]
+    private Gtk.RadioButton custom_size_radio;
+    [GtkChild]
+    private Gtk.RadioButton image_per_page_radio;
+    [GtkChild]
+    private Gtk.ComboBoxText image_per_page_combo;
+    [GtkChild]
+    private Gtk.ComboBoxText standard_sizes_combo;
+    [GtkChild]
+    private Gtk.ComboBoxText units_combo;
+    [GtkChild]
+    private Gtk.Entry custom_width_entry;
+    [GtkChild]
+    private Gtk.Entry custom_height_entry;
+    [GtkChild]
     private Gtk.Entry ppi_entry;
-    private Gtk.CheckButton aspect_ratio_check = null;
-    private Gtk.CheckButton title_print_check = null;
-    private Gtk.FontButton title_print_font = null;
+    [GtkChild]
+    private Gtk.CheckButton aspect_ratio_check;
+    [GtkChild]
+    private Gtk.CheckButton title_print_check;
+    [GtkChild]
+    private Gtk.FontButton title_print_font;
+
     private Measurement local_content_width = Measurement(5.0, MeasurementUnit.INCHES);
     private Measurement local_content_height = Measurement(5.0, MeasurementUnit.INCHES);
     private int local_content_ppi;
@@ -290,75 +303,34 @@ public class CustomPrintTab : Gtk.Fixed {
 
     public CustomPrintTab(PrintJob source_job) {
         this.source_job = source_job;
-        Gtk.Builder builder = AppWindow.create_builder();
 
-        // an enclosing box for every widget on this tab...
-        custom_image_settings_pane = builder.get_object("box_ImgSettingsPane") as Gtk.Box;
-
-        standard_size_radio = builder.get_object("radio_UseStandardSize") as Gtk.RadioButton;
         standard_size_radio.clicked.connect(on_radio_group_click);
-        
-        custom_size_radio = builder.get_object("radio_UseCustomSize") as Gtk.RadioButton;
         custom_size_radio.clicked.connect(on_radio_group_click);
-
-        image_per_page_radio = builder.get_object("radio_Autosize") as Gtk.RadioButton;
         image_per_page_radio.clicked.connect(on_radio_group_click);
 
-        image_per_page_combo = builder.get_object("combo_Autosize") as Gtk.ComboBox;
-        Gtk.CellRendererText image_per_page_combo_text_renderer =
-            new Gtk.CellRendererText();
-        image_per_page_combo.pack_start(image_per_page_combo_text_renderer, true);
-        image_per_page_combo.add_attribute(image_per_page_combo_text_renderer,
-            "text", 0);
-        Gtk.ListStore image_per_page_combo_store = new Gtk.ListStore(2, typeof(string),
-            typeof(string));
         foreach (PrintLayout layout in PrintLayout.get_all()) {
-            Gtk.TreeIter iter;
-            image_per_page_combo_store.append(out iter);
-            image_per_page_combo_store.set_value(iter, 0, layout.to_string());
+            image_per_page_combo.append_text(layout.to_string());
         }
-        image_per_page_combo.set_model(image_per_page_combo_store);
 
-        StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
-        standard_sizes_combo = builder.get_object("combo_StdSizes") as Gtk.ComboBox;
-        Gtk.CellRendererText standard_sizes_combo_text_renderer =
-            new Gtk.CellRendererText();
-        standard_sizes_combo.pack_start(standard_sizes_combo_text_renderer, true);
-        standard_sizes_combo.add_attribute(standard_sizes_combo_text_renderer,
-            "text", 0);
+        unowned StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
         standard_sizes_combo.set_row_separator_func(standard_sizes_combo_separator_func);
-        Gtk.ListStore standard_sizes_combo_store = new Gtk.ListStore(1, typeof(string),
-            typeof(string));
         foreach (StandardPrintSize size in standard_sizes) {
-            Gtk.TreeIter iter;
-            standard_sizes_combo_store.append(out iter);
-            standard_sizes_combo_store.set_value(iter, 0, size.name);
+            standard_sizes_combo.append_text(size.name);
         }
-        standard_sizes_combo.set_model(standard_sizes_combo_store);
 
-        custom_width_entry = builder.get_object("entry_CustomWidth") as Gtk.Entry;
+        standard_sizes_combo.set_active(9 * Resources.get_default_measurement_unit());
+
         custom_width_entry.insert_text.connect(on_entry_insert_text);
         custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
 
-        custom_height_entry = builder.get_object("entry_CustomHeight") as Gtk.Entry;
         custom_height_entry.insert_text.connect(on_entry_insert_text);
         custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
 
-        units_combo = builder.get_object("combo_Units") as Gtk.ComboBoxText;
-        units_combo.append_text(_("in."));
-        units_combo.append_text(_("cm"));
-        units_combo.set_active(0);
         units_combo.changed.connect(on_units_combo_changed);
+        units_combo.set_active(Resources.get_default_measurement_unit());
 
-        aspect_ratio_check = builder.get_object("check_MatchAspectRatio") as Gtk.CheckButton;
-        title_print_check = builder.get_object("check_PrintImageTitle") as Gtk.CheckButton;
-        title_print_font = builder.get_object("fntbn_TitleFont") as Gtk.FontButton;
-
-        ppi_entry = builder.get_object("entry_PixelsPerInch") as Gtk.Entry;
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
         ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
-
-        this.add(custom_image_settings_pane);
 
         sync_state_from_job(source_job);
 
@@ -513,7 +485,8 @@ public class CustomPrintTab : Gtk.Fixed {
         if (length == -1)
             length = (int) text.length;
 
-        string decimal_point = Intl.localeconv().decimal_point;
+        unowned string decimal_point = Posix.nl_langinfo (Posix.NLItem.RADIXCHAR);
+
         bool contains_decimal_point = sender.get_text().contains(decimal_point);
 
         string new_text = "";
@@ -612,7 +585,7 @@ public class CustomPrintTab : Gtk.Fixed {
         Value val;
         model.get_value(iter, 0, out val);
 
-        return (val.dup_string() == "-");
+        return (val.get_string() == "-");
     }
 
     private void set_content_layout(ContentLayout content_layout) {
@@ -805,62 +778,65 @@ public class PrintManager {
     private CustomPrintTab custom_tab;
     private ProgressDialog? progress_dialog = null;
     private Cancellable? cancellable = null;
+    private StandardPrintSize[] standard_sizes = null;
     
     private PrintManager() {
         user_page_setup = new Gtk.PageSetup();
         settings = new PrintSettings();
     }
 
-    public StandardPrintSize[] get_standard_sizes() {
-        StandardPrintSize[] result = new StandardPrintSize[0];
+    public unowned StandardPrintSize[] get_standard_sizes() {
+        if (standard_sizes == null) {
+            standard_sizes = new StandardPrintSize[0];
 
-        result += new StandardPrintSize(_("Wallet (2 x 3 in.)"),
-            Measurement(3, MeasurementUnit.INCHES),
-            Measurement(2, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("Notecard (3 x 5 in.)"),
-            Measurement(5, MeasurementUnit.INCHES),
-            Measurement(3, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("4 x 6 in."),
-            Measurement(6, MeasurementUnit.INCHES),
-            Measurement(4, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("5 x 7 in."),
-            Measurement(7, MeasurementUnit.INCHES),
-            Measurement(5, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("8 x 10 in."),
-            Measurement(10, MeasurementUnit.INCHES),
-            Measurement(8, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("11 x 14 in."),
-            Measurement(14, MeasurementUnit.INCHES),
-            Measurement(11, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("16 x 20 in."),
-            Measurement(20, MeasurementUnit.INCHES),
-            Measurement(16, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(("-"),
-            Measurement(0, MeasurementUnit.INCHES),
-            Measurement(0, MeasurementUnit.INCHES));
-        result += new StandardPrintSize(_("Metric Wallet (9 x 13 cm)"),
-            Measurement(13, MeasurementUnit.CENTIMETERS),
-            Measurement(9, MeasurementUnit.CENTIMETERS));
-        result += new StandardPrintSize(_("Postcard (10 x 15 cm)"),
-            Measurement(15, MeasurementUnit.CENTIMETERS),
-            Measurement(10, MeasurementUnit.CENTIMETERS));
-        result += new StandardPrintSize(_("13 x 18 cm"),
-            Measurement(18, MeasurementUnit.CENTIMETERS),
-            Measurement(13, MeasurementUnit.CENTIMETERS));
-        result += new StandardPrintSize(_("18 x 24 cm"),
-            Measurement(24, MeasurementUnit.CENTIMETERS),
-            Measurement(18, MeasurementUnit.CENTIMETERS));
-        result += new StandardPrintSize(_("20 x 30 cm"),
-            Measurement(30, MeasurementUnit.CENTIMETERS),
-            Measurement(20, MeasurementUnit.CENTIMETERS));
-        result += new StandardPrintSize(_("24 x 40 cm"),
-            Measurement(40, MeasurementUnit.CENTIMETERS),
-            Measurement(24, MeasurementUnit.CENTIMETERS));
-        result += new StandardPrintSize(_("30 x 40 cm"),
-            Measurement(40, MeasurementUnit.CENTIMETERS),
-            Measurement(30, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("Wallet (2 × 3 in.)"),
+                    Measurement(3, MeasurementUnit.INCHES),
+                    Measurement(2, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("Notecard (3 × 5 in.)"),
+                    Measurement(5, MeasurementUnit.INCHES),
+                    Measurement(3, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("4 × 6 in."),
+                    Measurement(6, MeasurementUnit.INCHES),
+                    Measurement(4, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("5 × 7 in."),
+                    Measurement(7, MeasurementUnit.INCHES),
+                    Measurement(5, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("8 × 10 in."),
+                    Measurement(10, MeasurementUnit.INCHES),
+                    Measurement(8, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("11 × 14 in."),
+                    Measurement(14, MeasurementUnit.INCHES),
+                    Measurement(11, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("16 × 20 in."),
+                    Measurement(20, MeasurementUnit.INCHES),
+                    Measurement(16, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(("-"),
+                    Measurement(0, MeasurementUnit.INCHES),
+                    Measurement(0, MeasurementUnit.INCHES));
+            standard_sizes += new StandardPrintSize(_("Metric Wallet (9 × 13 cm)"),
+                    Measurement(13, MeasurementUnit.CENTIMETERS),
+                    Measurement(9, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("Postcard (10 × 15 cm)"),
+                    Measurement(15, MeasurementUnit.CENTIMETERS),
+                    Measurement(10, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("13 × 18 cm"),
+                    Measurement(18, MeasurementUnit.CENTIMETERS),
+                    Measurement(13, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("18 × 24 cm"),
+                    Measurement(24, MeasurementUnit.CENTIMETERS),
+                    Measurement(18, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("20 × 30 cm"),
+                    Measurement(30, MeasurementUnit.CENTIMETERS),
+                    Measurement(20, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("24 × 40 cm"),
+                    Measurement(40, MeasurementUnit.CENTIMETERS),
+                    Measurement(24, MeasurementUnit.CENTIMETERS));
+            standard_sizes += new StandardPrintSize(_("30 × 40 cm"),
+                    Measurement(40, MeasurementUnit.CENTIMETERS),
+                    Measurement(30, MeasurementUnit.CENTIMETERS));
+        }
 
-        return result;
+        return standard_sizes;
     }
 
     public static PrintManager get_instance() {
@@ -885,7 +861,7 @@ public class PrintManager {
         AppWindow.get_instance().set_busy_cursor();
         
         cancellable = new Cancellable();
-        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing..."), cancellable);
+        progress_dialog = new ProgressDialog(AppWindow.get_instance(), _("Printing…"), cancellable);
         
         string? err_msg = null;
         try {

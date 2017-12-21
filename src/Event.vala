@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -617,8 +617,10 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         // if the earliest's exposure time was on the day but *before* the boundary hour,
         // step it back a day to the prior day's boundary
-        if (earliest_tm.hour < EVENT_BOUNDARY_HOUR)
+        if (earliest_tm.hour < EVENT_BOUNDARY_HOUR) {
+            debug("Hour before boundary, shifting back one day");
             start_boundary -= TIME_T_DAY;
+        }
         
         time_t end_boundary = (start_boundary + TIME_T_DAY - 1);
         

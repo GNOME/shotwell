@@ -13,7 +13,9 @@ public class RajceService : Object, Spit.Pluggable, Spit.Publishing.Service
     public RajceService(GLib.File resource_directory)
 	{
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set =
+                Resources.load_from_resource(Resources.RESOURCE_PATH + "/" +
+                        ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface)
@@ -35,7 +37,7 @@ public class RajceService : Object, Spit.Pluggable, Spit.Publishing.Service
     public void get_info(ref Spit.PluggableInfo info)
 	{
         info.authors = "rajce.net developers";
-        info.copyright = _("Copyright (C) 2013 rajce.net");
+        info.copyright = _("Copyright © 2013 rajce.net");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
@@ -844,13 +846,13 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
     public AuthenticationPane( RajcePublisher publisher, Mode mode = Mode.INTRO )
 	{
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_authentication_pane.glade");
         try
 		{
             builder = new Gtk.Builder();
-            builder.add_from_file(ui_file.get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH +
+                    "/rajce_authentication_pane.ui");
             builder.connect_signals(null);
-            Gtk.Alignment align = builder.get_object("alignment") as Gtk.Alignment;
+            var content = builder.get_object ("content") as Gtk.Box;
             Gtk.Label message_label = builder.get_object("message_label") as Gtk.Label;
             switch (mode)
 			{
@@ -890,12 +892,13 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
 			label2.set_label(_("_Email address") );
 			label3.set_label(_("_Password") );
 			remember_checkbutton.set_label(_("_Remember") );
-			login_button.set_label(_("Login") );
+			login_button.set_label(_("Log in") );
 			
             username_entry.changed.connect(on_user_changed);
             password_entry.changed.connect(on_password_changed);
             login_button.clicked.connect(on_login_button_clicked);
-            align.reparent(pane_widget);
+            content.parent.remove (content);
+            pane_widget.add (content);
             publisher.get_host().set_dialog_default_widget(login_button);
         }
 		catch (Error e)
@@ -932,10 +935,8 @@ internal class AuthenticationPane : Spit.Publishing.DialogPane, Object
     
     private void update_login_button_sensitivity()
 	{
-        login_button.set_sensitive(
-            !is_string_empty(username_entry.get_text()) &&
-            !is_string_empty(password_entry.get_text())
-        );
+        login_button.set_sensitive(username_entry.text_length > 0 &&
+                                   password_entry.text_length > 0);
     }
     
     public Gtk.Widget get_widget()
@@ -988,11 +989,10 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object
         this.publisher = publisher;
         this.pane_widget = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 		
-        File ui_file = publisher.get_host().get_module_file().get_parent().get_child("rajce_publishing_options_pane.glade");
         try
 		{
 		    this.builder = new Gtk.Builder();
-			builder.add_from_file(ui_file.get_path());
+			builder.add_from_resource (Resources.RESOURCE_PATH + "/rajce_publishing_options_pane.ui");
             builder.connect_signals(null);
 			
 		    pane_widget = (Gtk.Box) builder.get_object("rajce_pane_widget");

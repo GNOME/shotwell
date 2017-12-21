@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -51,7 +51,7 @@ public class JfifFileFormatDriver : PhotoFileFormatDriver {
 
 public class JfifFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = {
-        "jpg", "jpeg", "jpe"
+        "jpg", "jpeg", "jpe", "thm"
     };
 
     private static string[] KNOWN_MIME_TYPES = {
@@ -201,16 +201,25 @@ namespace Jpeg {
     }
     
     public bool is_jpeg(File file) throws Error {
-        FileInputStream fins = file.read(null);
-        
+        var fins = file.read(null);
+        return is_jpeg_stream(fins);
+    }
+
+    public bool is_jpeg_stream(InputStream ins) throws Error {
         Marker marker;
-        int segment_length = read_marker(fins, out marker);
+        int segment_length = read_marker(ins, out marker);
         
         // for now, merely checking for SOI
         return (marker == Marker.SOI) && (segment_length == 0);
     }
 
-    private int read_marker(FileInputStream fins, out Jpeg.Marker marker) throws Error {
+    public bool is_jpeg_bytes(Bytes bytes) throws Error {
+        var mins = new MemoryInputStream.from_bytes(bytes);
+
+        return is_jpeg_stream(mins);
+    }
+
+    private int read_marker(InputStream fins, out Jpeg.Marker marker) throws Error {
         marker = Jpeg.Marker.INVALID;
         
         DataInputStream dins = new DataInputStream(fins);
@@ -226,8 +235,9 @@ namespace Jpeg {
         }
         
         uint16 length = dins.read_uint16();
-        if (length < 2) {
-            debug("Invalid length %Xh at ofs %" + int64.FORMAT + "Xh", length, fins.tell() - 2);
+        if (length < 2 && fins is Seekable) {
+            debug("Invalid length %Xh at ofs %" + int64.FORMAT + "Xh", length,
+                    (fins as Seekable).tell() - 2);
             
             return -1;
         }

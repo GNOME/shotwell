@@ -1,0 +1,78 @@
+plugin_LTLIBRARIES += plugins/shotwell-publishing/shotwell-publishing.la
+
+dist_noinst_DATA += \
+	plugins/shotwell-publishing/facebook.png \
+	plugins/shotwell-publishing/flickr.png \
+	plugins/shotwell-publishing/tumblr.png \
+	plugins/shotwell-publishing/picasa.png \
+	plugins/shotwell-publishing/piwigo.png \
+	plugins/shotwell-publishing/youtube.png \
+	plugins/shotwell-publishing/facebook_publishing_options_pane.ui \
+	plugins/shotwell-publishing/flickr_publishing_options_pane.ui \
+	plugins/shotwell-publishing/picasa_publishing_options_pane.ui \
+	plugins/shotwell-publishing/piwigo_authentication_pane.ui \
+	plugins/shotwell-publishing/piwigo_publishing_options_pane.ui \
+	plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui \
+	plugins/shotwell-publishing/tumblr_publishing_options_pane.ui \
+	plugins/shotwell-publishing/youtube_publishing_options_pane.ui \
+	plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
+
+plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
+	plugins/shotwell-publishing/shotwell-publishing.vala \
+	plugins/shotwell-publishing/FacebookPublishing.vala \
+	plugins/shotwell-publishing/PicasaPublishing.vala \
+	plugins/shotwell-publishing/FlickrPublishing.vala \
+	plugins/shotwell-publishing/TumblrPublishing.vala \
+	plugins/shotwell-publishing/YouTubePublishing.vala \
+	plugins/shotwell-publishing/PiwigoPublishing.vala \
+	plugins/shotwell-plugin-common.vapi \
+	plugins/authenticator/shotwell-authenticator.vapi \
+	vapi/libgdata.vapi
+
+nodist_plugins_shotwell_publishing_shotwell_publishing_la_SOURCES = \
+	plugins/shotwell-publishing/resource.c
+MOSTLYCLEANFILES += plugins/shotwell-publishing/resource.c
+
+PUBLISHING_RESOURCE_FILE := $(abs_top_srcdir)/plugins/shotwell-publishing/org.gnome.Shotwell.Publishing.gresource.xml
+
+PUBLISHING_RESOURCE_DEPS = $(shell $(GLIB_COMPILE_RESOURCES) \
+		--sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing \
+		--generate-dependencies $(PUBLISHING_RESOURCE_FILE))
+
+plugins/shotwell-publishing/resource.c: $(PUBLISHING_RESOURCE_DEPS) $(PUBLISHING_RESOURCE_FILE)
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) \
+		--target=$@ \
+		--sourcedir=$(abs_top_srcdir)/plugins/shotwell-publishing \
+		--generate $(PUBLISHING_RESOURCE_FILE)
+
+plugins_shotwell_publishing_shotwell_publishing_la_VALAFLAGS = \
+	$(COMMON_VALAFLAGS) \
+	@PUBLISHER_VALAFLAGS@ \
+	--pkg gtk+-3.0 \
+	--pkg libsoup-2.4 \
+	--pkg gexiv2 \
+	--pkg gee-0.8 \
+	--pkg json-glib-1.0 \
+	--pkg shotwell-plugin-dev-1.0 \
+	--pkg libxml-2.0 \
+	--pkg webkit2gtk-4.0 \
+	--pkg gcr-3 \
+	--pkg gcr-ui-3 \
+	--vapidir $(abs_top_srcdir)/plugins
+
+plugins_shotwell_publishing_shotwell_publishing_la_CFLAGS = \
+	-DPLUGIN_RESOURCE_PATH='"/org/gnome/Shotwell/Publishing"' \
+	$(PLUGIN_CFLAGS) \
+	$(COMMON_CFLAGS) \
+	-DGCR_API_SUBJECT_TO_CHANGE \
+	$(PUBLISHING_CFLAGS) \
+	-I $(top_srcdir)/plugins \
+	-I $(top_srcdir)/plugins/authenticator
+
+plugins_shotwell_publishing_shotwell_publishing_la_LDFLAGS = \
+	$(SHOTWELL_PLUGIN_LDFLAGS)
+
+plugins_shotwell_publishing_shotwell_publishing_la_LIBADD = \
+	$(PUBLISHING_LIBS) \
+	$(top_builddir)/plugins/common/libshotwell-plugin-common.la \
+	$(top_builddir)/plugins/authenticator/libshotwell-authenticator.la

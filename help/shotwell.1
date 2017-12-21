@@ -1,0 +1,78 @@
+.TH "shotwell" "1"
+
+.SH "NAME"
+shotwell \- Digital photo manager
+
+.SH "SYNOPSIS"
+\fBshotwell \fR[\fIOPTION\fR]... [\fIFILE\fR]
+
+.SH "DESCRIPTION"
+.P
+Shotwell is a digital photo organizer designed for the GNOME desktop environment.  It allows you to 
+import photos from disk or camera, organize them in various ways, view them in full-window or fullscreen mode, and export them to share with others.
+
+.SH "OPTIONS"
+.B \-h, \-\-help
+Show help options
+.RE
+
+.B \-d, \-\-datadir=DIRECTORY
+.RS
+Path to Shotwell's private data
+.RE
+
+.B \-\-no-runtime-monitoring
+.RS
+Do not monitor library directory at runtime for changes
+.RE
+
+.B \-f, \-\-fullscreen
+.RS
+Open the viewer mode in fullscreen. Has no effect in library mode.
+.RE
+
+.B \-d, \-\-datadir=DIRECTORY
+.RS
+Path to Shotwell's private data
+.RE
+
+.B \-\-no-runtime-monitoring
+.RS
+Do not monitor library directory at runtime for changes
+.RE
+
+.B \-\-no-startup-progress
+.RS
+Don't display startup progress meter
+.RE
+
+.B \-V, \-\-version
+.RS
+Show the application's version
+.RE
+
+.B \-\-display=DISPLAY
+.RS
+X display to use
+.RE
+
+.SH "EXAMPLES"
+\fBshotwell
+.RS
+\fROpens Shotwell with the user's library.
+.RE
+
+\fBshotwell \fIFILE
+.RS
+\fROpens an image file for direct editing.  File is not imported into library and unsaved changes are lost on close.
+.RE
+
+.SH "NOTES"
+.P
+Shotwell homepage: https://wiki.gnome.org/Apps/Shotwell
+.P
+Report bugs: https://bugzilla.gnome.org/enter_bug.cgi?product=Shotwell
+
+.SH "AUTHOR"
+.PP
+This manual page was written by Jim Nelson jim@yorba.org and Allison Barlow allison@yorba.org.

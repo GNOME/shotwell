@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -40,7 +40,7 @@ void library_exec(string[] mounts) {
     }
     
     // validate the databases prior to using them
-    message("Verifying database ...");
+    message("Verifying database…");
     string errormsg = null;
     string app_version;
     int schema_version;
@@ -51,24 +51,24 @@ void library_exec(string[] mounts) {
         break;
         
         case Db.VerifyResult.FUTURE_VERSION:
-            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please use the latest version of Shotwell.").printf(
+            errormsg = _("Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please use the latest version of Shotwell.").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION);
         break;
         
         case Db.VerifyResult.UPGRADE_ERROR:
-            errormsg = _("Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s").printf(
+            errormsg = _("Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d). For more information please check the Shotwell Wiki at %s").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
                 Resources.HOME_URL);
         break;
         
         case Db.VerifyResult.NO_UPGRADE_AVAILABLE:
-            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos.").printf(
+            errormsg = _("Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import your photos.").printf(
                 app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
                 AppDirs.get_data_dir().get_path());
         break;
         
         default:
-            errormsg = _("Unknown error attempting to verify Shotwell's database: %s").printf(
+            errormsg = _("Unknown error attempting to verify Shotwell’s database: %s").printf(
                 result.to_string());
         break;
     }
@@ -109,8 +109,7 @@ void library_exec(string[] mounts) {
             progress_dialog.update_display_every(100);
             progress_dialog.set_minimum_on_screen_time_msec(250);
             try {
-                string icon_path = AppDirs.get_resources_dir().get_child("icons").get_child("shotwell.svg").get_path();
-                progress_dialog.icon = new Gdk.Pixbuf.from_file(icon_path);
+                progress_dialog.icon = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/shotwell.svg");
             } catch (Error err) {
                 debug("Warning - could not load application icon for loading window: %s", err.message);
             }
@@ -122,6 +121,8 @@ void library_exec(string[] mounts) {
     
     ThumbnailCache.init();
     Tombstone.init();
+
+    LibraryFiles.select_copy_function();
     
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryPhoto.init");
@@ -234,7 +235,7 @@ public void run_system_pictures_import(ImportManifest? external_exclusion_manife
         return;
 
     Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
-    jobs.add(new FileImportJob(AppDirs.get_import_dir(), false));
+    jobs.add(new FileImportJob(AppDirs.get_import_dir(), false, true));
     
     LibraryWindow library_window = (LibraryWindow) AppWindow.get_instance();
     
@@ -258,7 +259,7 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
     ImportUI.report_manifest(manifest, true);
 }
 
-void editing_exec(string filename) {
+void editing_exec(string filename, bool fullscreen) {
     File initial_file = File.new_for_commandline_arg(filename);
     
     // preconfigure units
@@ -285,9 +286,16 @@ void editing_exec(string filename) {
     direct_window.show_all();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
+
+    if (fullscreen) {
+        var action = direct_window.get_common_action("CommonFullscreen");
+        if (action != null) {
+            action.activate(null);
+        }
+    }
     
     Application.get_instance().start();
-    
+
     DesktopIntegration.terminate();
     
     // terminate units for direct-edit mode
@@ -300,6 +308,7 @@ bool no_startup_progress = false;
 string data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
+bool fullscreen = false;
 
 private OptionEntry[]? entries = null;
 
@@ -308,7 +317,7 @@ public OptionEntry[] get_options() {
         return entries;
     
     OptionEntry datadir = { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
-        _("Path to Shotwell's private data"), _("DIRECTORY") };
+        _("Path to Shotwell’s private data"), _("DIRECTORY") };
     entries += datadir;
     
     OptionEntry no_monitoring = { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
@@ -316,12 +325,16 @@ public OptionEntry[] get_options() {
     entries += no_monitoring;
     
     OptionEntry no_startup = { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-        _("Don't display startup progress meter"), null };
+        _("Don’t display startup progress meter"), null };
     entries += no_startup;
     
     OptionEntry version = { "version", 'V', 0, OptionArg.NONE, &show_version, 
-        _("Show the application's version"), null };
+        _("Show the application’s version"), null };
     entries += version;
+
+    OptionEntry fullscreen = { "fullscreen", 'f', 0, OptionArg.NONE,
+        &fullscreen, _("Start the application in fullscreen mode"), null };
+    entries += fullscreen;
     
     OptionEntry terminator = { null, 0, 0, 0, null, null, null };
     entries += terminator;
@@ -340,13 +353,18 @@ void main(string[] args) {
     // parser is initialized in a thread-safe fashion; please see 
     // http://redmine.yorba.org/issues/4120 for details.
     GExiv2.initialize();
+    GExiv2.log_use_glib_logging();
+
+    // Set GExiv2 log level to DEBUG, filtering will be done through Shotwell
+    // logging mechanisms
+    GExiv2.log_set_level(GExiv2.LogLevel.DEBUG);
 
     // following the GIO programming guidelines at http://developer.gnome.org/gio/2.26/ch03.html,
     // set the GSETTINGS_SCHEMA_DIR environment variable to allow us to load GSettings schemas from 
     // the build directory. this allows us to access local GSettings schemas without having to
     // muck with the user's XDG_... directories, which is seriously frowned upon
     if (AppDirs.get_install_dir() == null) {
-        GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_exec_dir().get_path() +
+        GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_lib_dir().get_path() +
             "/misc", true);
     }
     
@@ -356,7 +374,7 @@ void main(string[] args) {
             Resources.APP_GETTEXT_PACKAGE);
     } catch (Error e) {
         print(e.message + "\n");
-        print(_("Run '%s --help' to see a full list of available command line options.\n"), args[0]);
+        print(_("Run “%s --help” to see a full list of available command line options.\n"), args[0]);
         AppDirs.terminate();
         return;
     }
@@ -402,6 +420,8 @@ void main(string[] args) {
         message("Shotwell %s %s",
             is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
             Resources.APP_VERSION);
+    debug ("Shotwell is running in timezone %s", new
+           DateTime.now_local().get_timezone_abbreviation ());
         
     // Have a filename here?  If so, configure ourselves for direct
     // mode, otherwise, default to library mode.
@@ -436,7 +456,7 @@ void main(string[] args) {
     if (is_string_empty(filename))
         library_exec(mounts);
     else
-        editing_exec(filename);
+        editing_exec(filename, CommandlineOptions.fullscreen);
     
     // terminate mode-inspecific modules
     Resources.terminate();
@@ -450,9 +470,17 @@ void main(string[] args) {
     if (is_string_empty(filename) && !was_already_running) {
         string orig_path = AppDirs.get_data_subdir("data").get_child("photo.db").get_path();
         string backup_path = orig_path + ".bak";
-        string cmdline = "cp " + orig_path + " " + backup_path;
-        Posix.system(cmdline);
-        Posix.system("sync");
+        try {
+            File src = File.new_for_commandline_arg(orig_path);
+            File dest = File.new_for_commandline_arg(backup_path);
+            src.copy(dest,
+                     FileCopyFlags.OVERWRITE |
+                     FileCopyFlags.ALL_METADATA);
+        } catch(Error error) {
+            warning("Failed to create backup file of database: %s",
+                    error.message);
+        }
+        Posix.sync();
     }
 }
 

@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -400,8 +400,8 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     
     public static void count_media(Gee.Collection<MediaSource> media, out int photo_count,
         out int video_count) {
-        Gee.ArrayList<MediaSource> photos = new Gee.ArrayList<MediaSource>();
-        Gee.ArrayList<MediaSource> videos = new Gee.ArrayList<MediaSource>();
+        var photos = new Gee.ArrayList<LibraryPhoto>();
+        var videos = new Gee.ArrayList<Video>();
         
         filter_media(media, photos, videos);
         
@@ -723,6 +723,17 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 // Note: we may get an exception even though the delete succeeded.
                 debug("Exception deleting file %s: %s", file.get_path(), err.message);
             }
+
+            var masterfile = source.get_master_file();
+            if (masterfile != null) {
+                try {
+                    masterfile.delete(null);
+                } catch (Error err) {
+                    if (!(err is IOError.NOT_FOUND)) {
+                        debug("Exception deleting master file %s: %s", masterfile.get_path(), err.message);
+                    }
+                }
+            }
             
             bool deleted = !file.query_exists();
             if (!deleted && null != not_deleted) {
@@ -781,6 +792,7 @@ public class MediaCollectionRegistry {
         LibraryMonitor replacement = new LibraryMonitor(import_dir, true,
             !CommandlineOptions.no_runtime_monitoring);
         LibraryMonitorPool.get_instance().replace(replacement, LIBRARY_MONITOR_START_DELAY_MSEC);
+        LibraryFiles.select_copy_function();
     }
     
     public static MediaCollectionRegistry get_instance() {

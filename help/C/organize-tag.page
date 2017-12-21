@@ -25,27 +25,27 @@
 	</p>
     
     <list>
-		<item><p>Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>.</p></item>
+		<item><p>Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>.</p></item>
 		<item><p>Type <keyseq><key>Ctrl</key><key>T</key></keyseq>.</p></item>
 		<item><p>Drag the selected photos and drop them on the desired tag.</p></item>
     </list>
      
     <p>
 		When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or 
-		<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type 
+		<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type
 		in the names of one or more tags, separated by commas.
 		Once you have created a tag, you can rename it by selecting that 
 		tag in the sidebar and choosing 
-		<guiseq><gui>Tags</gui><gui>Rename Tag "[name]"</gui></guiseq>, 
-		by rightclicking on it and choose <gui>Rename...</gui> or 
+		<guiseq><gui>Tags</gui><gui>Rename Tag "[name]"...</gui></guiseq>,
+		by rightclicking on it and choose <gui>Rename...</gui> or
 		double-click on the tag in the sidebar.
 	</p>
     
     <p>
 		To change which tags are associated with a particular photo, 
 		select that photo, choose 
-		<guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or 
-		right-click on a photo and select <gui>Modify Tags</gui> and 
+		<guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or
+		right-click on a photo and select <gui>Modify Tags...</gui> and
 		edit the comma separated list.
 		To remove a tag from one or more photos, first select that tag 
 		in the sidebar, then select the photos you would like to remove, 
@@ -63,9 +63,9 @@
 
     <p>
 		When you create a tag, it will appear in the sidebar under the 
-		Tags item, which is hidden if there are no tags. Photos can have 
-		multiple tags attached to them, and when you click on the name 
-		of a given tag in the sidebar, you will see all the photos 
+		<gui>Tags</gui> item, which is hidden if there are no tags. Photos
+		can have multiple tags attached to them, and when you click on the
+		name of a given tag in the sidebar, you will see all the photos
 		associated with that tag.
 	</p>
     

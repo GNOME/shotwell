@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -121,7 +121,7 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
                 info = monitor.get_file_info(file);
             
             // Want to be conservative here; only resurrect a tombstone if file is actually detected
-            // as not present, and not some other problem (which may be intermittant)
+            // as not present, and not some other problem (which may be intermittent)
             if (info == null) {
                 try {
                     info = yield file.query_info_async(FileAttribute.STANDARD_NAME,

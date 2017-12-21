@@ -1,0 +1,23 @@
+# --enable-checking needs to come first to not trigger
+#  https://debbugs.gnu.org/cgi/bugreport.cgi?bug=18734
+COMMON_VALAFLAGS = \
+	--enable-checking --target-glib=2.40 --thread --fatal-warnings \
+	--enable-experimental --enable-deprecated \
+	$(FACE_TOOL_VALAFLAGS)
+
+COMMON_CFLAGS = \
+	-I$(top_srcdir)/vapi \
+	-D_PREFIX='"$(prefix)"' \
+	-Wno-incompatible-pointer-types -Wno-discarded-qualifiers \
+	-D_VERSION='"$(VERSION)"' \
+	-DGETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
+	-D_LANG_SUPPORT_DIR='"$(prefix)/share/locale"' \
+	-D_LIBEXECDIR='"$(libexecdir)"' \
+	-D_LIB='"$(libdir)"' \
+	-Wno-incompatible-pointer-types \
+	-Wno-discarded-qualifiers
+
+if IS_GITVERSION
+COMMON_CFLAGS += -D_GIT_VERSION='"@GITVER@"'
+COMMON_VALAFLAGS += --define=_GITVERSION
+endif

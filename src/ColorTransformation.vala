@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -26,9 +26,9 @@ public struct RGBAnalyticPixel {
 
     public RGBAnalyticPixel.from_quantized_components(uchar red_quantized,
         uchar green_quantized, uchar blue_quantized) {
-        this.red = ((float) red_quantized) * INV_255;
-        this.green = ((float) green_quantized) * INV_255;
-        this.blue = ((float) blue_quantized) * INV_255;
+        this.red = rgb_lookup_table[red_quantized];
+        this.green = rgb_lookup_table[green_quantized];
+        this.blue = rgb_lookup_table[blue_quantized];
     }
 
     public RGBAnalyticPixel.from_hsv(HSVAnalyticPixel hsv_pixel) {
@@ -86,118 +86,14 @@ public struct HSVAnalyticPixel {
 
     public HSVAnalyticPixel.from_quantized_components(uchar hue_quantized,
         uchar saturation_quantized, uchar light_value_quantized) {
-        this.hue = ((float) hue_quantized) * INV_255;
-        this.saturation = ((float) saturation_quantized) * INV_255;
-        this.light_value = ((float) light_value_quantized) * INV_255;
+        this.hue = rgb_lookup_table[hue_quantized];
+        this.saturation = rgb_lookup_table[saturation_quantized];
+        this.light_value = rgb_lookup_table[light_value_quantized];
     }
 
-    public HSVAnalyticPixel.from_rgb(RGBAnalyticPixel p) {
-        float max_component = float.max(float.max(p.red, p.green), p.blue);
-        float min_component = float.min(float.min(p.red, p.green), p.blue);
+    public extern HSVAnalyticPixel.from_rgb(RGBAnalyticPixel p);
 
-        light_value = max_component;
-        saturation = (max_component != 0.0f) ? ((max_component - min_component) /
-            max_component) : 0.0f;
-
-        if (saturation == 0.0f) {
-            hue = 0.0f; /* hue is undefined in the zero saturation case */
-        } else {
-            float delta = max_component - min_component;
-            if (p.red == max_component) {
-                hue = (p.green - p.blue) / delta;
-            } else if (p.green == max_component) {
-                hue = 2.0f + ((p.blue - p.red) / delta);
-            } else if (p.blue == max_component) {
-                hue = 4.0f + ((p.red - p.green) / delta);
-            }
-
-            hue *= 60.0f;
-            if (hue < 0.0f)
-                hue += 360.0f;
-
-            hue /= 360.0f; /* normalize hue */
-        }
-
-        hue = hue.clamp(0.0f, 1.0f);
-        saturation = saturation.clamp(0.0f, 1.0f);
-        light_value = light_value.clamp(0.0f, 1.0f);
-    }
-
-    public RGBAnalyticPixel to_rgb() {
-        RGBAnalyticPixel result = RGBAnalyticPixel();
-
-        if (saturation == 0.0f) {
-            result.red = light_value;
-            result.green = light_value;
-            result.blue = light_value;
-        } else {
-            float hue_denorm = hue * 360.0f;
-            if (hue_denorm == 360.0f)
-                hue_denorm = 0.0f;
-
-            float hue_hexant = hue_denorm / 60.0f;
-
-            int hexant_i_part = (int) hue_hexant;
-
-            float hexant_f_part = hue_hexant - ((float) hexant_i_part);
-
-            /* the p, q, and t quantities from section 13.3 of Foley, et. al. */
-            float p = light_value * (1.0f - saturation);
-            float q = light_value * (1.0f - (saturation * hexant_f_part));
-            float t = light_value * (1.0f - (saturation * (1.0f - hexant_f_part)));
-            switch (hexant_i_part) {
-                /* the (r, g, b) components of the output pixel are computed
-                   from the light_value, p, q, and t quantities differently
-                   depending on which "hexant" (1/6 of a full rotation) of the
-                   HSV color cone the hue lies in. For example, if the hue lies
-                   in the yellow hexant, the dominant channels in the output
-                   are red and green, so we map relatively more of the light_value
-                   into these colors than if, say, the hue were to lie in the
-                   cyan hexant. See chapter 13 of Foley, et. al. for more
-                   information. */
-                case 0:
-                    result.red = light_value;
-                    result.green = t;
-                    result.blue = p;
-                break;
-
-                case 1:
-                    result.red = q;
-                    result.green = light_value;
-                    result.blue = p;
-                break;
-
-                case 2:
-                    result.red = p;
-                    result.green = light_value;
-                    result.blue = t;
-                break;
-
-                case 3:
-                    result.red = p;
-                    result.green = q;
-                    result.blue = light_value;
-                break;
-
-                case 4:
-                    result.red = t;
-                    result.green = p;
-                    result.blue = light_value;
-                break;
-
-                case 5:
-                    result.red = light_value;
-                    result.green = p;
-                    result.blue = q;
-                break;
-
-                default:
-                    error("bad color hexant in HSV-to-RGB conversion");
-            }
-        }
-
-        return result;
-    }
+    public extern RGBAnalyticPixel to_rgb();
 
     public bool equals(ref HSVAnalyticPixel rhs) {
         return ((hue == rhs.hue) && (saturation == rhs.saturation) &&
@@ -212,7 +108,8 @@ public struct HSVAnalyticPixel {
 
 public enum CompositionMode {
     NONE,
-    RGB_MATRIX
+    RGB_MATRIX,
+    HSV_LOOKUP
 }
 
 public enum PixelFormat {
@@ -227,7 +124,8 @@ public enum PixelTransformationType {
     TEMPERATURE,
     TINT,
     SATURATION,
-    EXPOSURE
+    EXPOSURE,
+    CONTRAST
 }
 
 public class PixelTransformationBundle {
@@ -263,6 +161,7 @@ public class PixelTransformationBundle {
         set(new TintTransformation(0.0f));
         set(new SaturationTransformation(0.0f));
         set(new ExposureTransformation(0.0f));
+        set(new ContrastTransformation(0.0f));
     }
     
     public void load(KeyValueMap store) {
@@ -278,6 +177,7 @@ public class PixelTransformationBundle {
         set(new TintTransformation(store.get_float("tint", 0.0f)));
         set(new SaturationTransformation(store.get_float("saturation", 0.0f)));
         set(new ExposureTransformation(store.get_float("exposure", 0.0f)));
+        set(new ContrastTransformation(store.get_float("contrast", 0.0f)));
     }
     
     public KeyValueMap save(string group) {
@@ -318,6 +218,11 @@ public class PixelTransformationBundle {
         assert(new_exposure_trans != null);
         store.set_float("exposure", new_exposure_trans.get_parameter());
         
+        ContrastTransformation? new_contrast_trans =
+            (ContrastTransformation) get_transformation(PixelTransformationType.CONTRAST);
+        assert(new_contrast_trans != null);
+        store.set_float("contrast", new_contrast_trans.get_parameter());
+
         return store;
     }
     
@@ -361,16 +266,21 @@ public class PixelTransformationBundle {
 
 public abstract class PixelTransformation {
     private PixelTransformationType type;
+    private PixelFormat preferred_format;
     
-    public PixelTransformation(PixelTransformationType type) {
+    public PixelTransformation(PixelTransformationType type,
+                               PixelFormat preferred_format) {
         this.type = type;
+        this.preferred_format = preferred_format;
     }
     
     public PixelTransformationType get_transformation_type() {
         return type;
     }
     
-    public abstract PixelFormat get_preferred_format();
+    public PixelFormat get_preferred_format() {
+        return this.preferred_format;
+    }
 
     public virtual CompositionMode get_composition_mode() {
         return CompositionMode.NONE;
@@ -410,7 +320,7 @@ public class RGBTransformation : PixelTransformation {
     protected bool identity = true;
     
     public RGBTransformation(PixelTransformationType type) {
-        base(type);
+        base(type, PixelFormat.RGB);
         
         // Can't initialize these in their member declarations because of a valac bug that
         // I've been unable to produce a minimal test case for to report (JN).  May be 
@@ -421,10 +331,6 @@ public class RGBTransformation : PixelTransformation {
         0.0f, 1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f };
-    }
-
-    public override PixelFormat get_preferred_format() {
-        return PixelFormat.RGB;
     }
 
     public override CompositionMode get_composition_mode() {
@@ -550,27 +456,7 @@ public class RGBTransformation : PixelTransformation {
         return (transform_pixel_rgb(p.to_rgb())).to_hsv();
     }
 
-    public override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p) {
-        float red_out = (p.red * matrix_entries[0]) +
-            (p.green * matrix_entries[1]) +
-            (p.blue * matrix_entries[2]) +
-            matrix_entries[3];
-        red_out = red_out.clamp(0.0f, 1.0f);
-
-        float green_out = (p.red * matrix_entries[4]) +
-            (p.green * matrix_entries[5]) +
-            (p.blue * matrix_entries[6]) +
-            matrix_entries[7];
-        green_out = green_out.clamp(0.0f, 1.0f);
-
-        float blue_out = (p.red * matrix_entries[8]) +
-            (p.green * matrix_entries[9]) +
-            (p.blue * matrix_entries[10]) +
-            matrix_entries[11];
-        blue_out = blue_out.clamp(0.0f, 1.0f);
-        
-        return RGBAnalyticPixel.from_components(red_out, green_out, blue_out);
-    }
+    public extern override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p);
 
     public override bool is_identity() {
         return identity;
@@ -588,17 +474,46 @@ public class RGBTransformation : PixelTransformation {
 }
 
 public abstract class HSVTransformation : PixelTransformation {
+    protected float remap_table[256];
+
     public HSVTransformation(PixelTransformationType type) {
-        base(type);
+        base(type, PixelFormat.HSV);
     }
-    
-    public override PixelFormat get_preferred_format() {
-        return PixelFormat.HSV;
+
+    public override CompositionMode get_composition_mode() {
+        return CompositionMode.HSV_LOOKUP;
     }
 
     public override RGBAnalyticPixel transform_pixel_rgb(RGBAnalyticPixel p) {
         return (transform_pixel_hsv(p.to_hsv())).to_rgb();
     }
+
+    public override void compose_with(PixelTransformation other) {
+        if (other.get_composition_mode() != CompositionMode.HSV_LOOKUP) {
+            error("HSVTransformation: compose_with(): wrong");
+        }
+
+        var hsv_trans = (HSVTransformation) other;
+
+        // We can do this because ALL HSV transformations actually only
+        // operate on the light_value
+        for (var i = 0; i < 256; i++) {
+            var idx = (int) (this.remap_table[i] * 255.0f);
+            this.remap_table[i] = hsv_trans.remap_table[idx].clamp (0.0f, 1.0f);
+        }
+    }
+
+    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
+        int remap_index = (int)(pixel.light_value * 255.0f);
+
+        HSVAnalyticPixel result = pixel;
+        result.light_value = remap_table[remap_index];
+
+        result.light_value = result.light_value.clamp(0.0f, 1.0f);
+
+        return result;
+    }
+
 }
 
 public class TintTransformation : RGBTransformation {
@@ -728,12 +643,48 @@ public class ExposureTransformation : RGBTransformation {
     }
 }
 
+public class ContrastTransformation : RGBTransformation {
+    public const float MIN_PARAMETER = -16.0f;
+    public const float MAX_PARAMETER = 16.0f;
+
+    const float MAX_CONTRAST_ADJUSTMENT = 0.5f;  // must be less than 1.0
+
+    float parameter;
+
+    public ContrastTransformation(float client_parameter) {
+        base(PixelTransformationType.CONTRAST);
+
+        parameter = client_parameter.clamp(MIN_PARAMETER, MAX_PARAMETER);
+
+        if (parameter != 0.0f) {
+
+            float contrast_adjustment = (parameter / 16.0f) * MAX_CONTRAST_ADJUSTMENT;
+            float component_coefficient = 1.0f + contrast_adjustment;
+            float component_offset = contrast_adjustment / -2.0f;
+
+            matrix_entries[0] = component_coefficient;
+            matrix_entries[5] = component_coefficient;
+            matrix_entries[10] = component_coefficient;
+
+            matrix_entries[3] = component_offset;
+            matrix_entries[7] = component_offset;
+            matrix_entries[11] = component_offset;
+
+            identity = false;
+        }
+    }
+
+    public float get_parameter() {
+        return parameter;
+    }
+}
+
 public class PixelTransformer {
     private Gee.ArrayList<PixelTransformation> transformations =
         new Gee.ArrayList<PixelTransformation>();
-    private PixelTransformation[] optimized_transformations = null;
-    private int optimized_slots_used = 0;
-    
+    public PixelTransformation[] optimized_transformations = null;
+    public int optimized_slots_used = 0;
+
     public PixelTransformer() {
     }
     
@@ -773,33 +724,7 @@ public class PixelTransformer {
         }
     }
     
-    private RGBAnalyticPixel apply_transformations(RGBAnalyticPixel p) {
-        PixelFormat current_format = PixelFormat.RGB;
-        RGBAnalyticPixel p_rgb = p;
-        HSVAnalyticPixel p_hsv = HSVAnalyticPixel();
-
-        for (int i = 0; i < optimized_slots_used; i++) {
-            PixelTransformation trans = optimized_transformations[i];
-            if (trans.get_preferred_format() == PixelFormat.RGB) {
-                if (current_format == PixelFormat.HSV) {
-                    p_rgb = p_hsv.to_rgb();
-                    current_format = PixelFormat.RGB;
-                }
-                p_rgb = trans.transform_pixel_rgb(p_rgb);
-            } else {
-                if (current_format == PixelFormat.RGB) {
-                    p_hsv = p_rgb.to_hsv();
-                    current_format = PixelFormat.HSV;
-                }
-                p_hsv = trans.transform_pixel_hsv(p_hsv);
-            }
-        }
-
-        if (current_format == PixelFormat.HSV)
-            p_rgb = p_hsv.to_rgb();
-
-        return p_rgb;
-    }
+    private extern RGBAnalyticPixel apply_transformations(RGBAnalyticPixel p);
 
     /* NOTE: this method allows the same transformation to be added multiple
              times. There's nothing wrong with this behavior as of today,
@@ -845,31 +770,52 @@ public class PixelTransformer {
         int dest_num_channels = dest.get_n_channels();
         int dest_rowstride = dest.get_rowstride();
         unowned uchar[] dest_pixels = dest.get_pixels();
-        
-        int cache_pixel_ticker = 0;
 
-        for (int j = 0; j < dest_height; j++) {
-            int row_start_index = j * dest_rowstride;
-            int row_end_index = row_start_index + (dest_width * dest_num_channels);
-            for (int i = row_start_index; i < row_end_index; i += dest_num_channels) {
-                RGBAnalyticPixel pixel = RGBAnalyticPixel.from_components(
-                    fp_pixel_cache[cache_pixel_ticker],
-                    fp_pixel_cache[cache_pixel_ticker + 1],
-                    fp_pixel_cache[cache_pixel_ticker + 2]);
+        var jobs = (int) GLib.get_num_processors() - 1;
 
-                cache_pixel_ticker += 3;
+        uint slice_length = dest_height;
+        if (jobs > 0) {
+            slice_length = (dest_height + (jobs - 1)) / jobs;
+        }
 
-                pixel = apply_transformations(pixel);
+        var threads = new GLib.Thread<void *>[jobs];
 
-                dest_pixels[i] = (uchar) (pixel.red * 255.0f);
-                dest_pixels[i + 1] = (uchar) (pixel.green * 255.0f);
-                dest_pixels[i + 2] = (uchar) (pixel.blue * 255.0f);
-            }
+        unowned float[] cache = fp_pixel_cache;
+        for (var job = 0; job < jobs; job++) {
+            var row = job * slice_length;
+            var slice_height = (row + slice_length).clamp(0, dest_height);
+            threads[job] = new GLib.Thread<void*>("shotwell-worker", () => {
+                uint cache_pixel_ticker = row * dest_width * dest_num_channels;
+                for (uint j = row; j < slice_height; j++) {
+                    uint row_start_index = j * dest_rowstride;
+                    uint row_end_index = row_start_index + (dest_width * dest_num_channels);
+                    for (uint i = row_start_index; i < row_end_index; i += dest_num_channels) {
+                        RGBAnalyticPixel pixel = RGBAnalyticPixel.from_components(
+                                cache[cache_pixel_ticker],
+                                cache[cache_pixel_ticker + 1],
+                                cache[cache_pixel_ticker + 2]);
+
+                        cache_pixel_ticker += 3;
+
+                        pixel = apply_transformations(pixel);
+
+                        dest_pixels[i] = (uchar) (pixel.red * 255.0f);
+                        dest_pixels[i + 1] = (uchar) (pixel.green * 255.0f);
+                        dest_pixels[i + 2] = (uchar) (pixel.blue * 255.0f);
+                    }
+                }
+
+                return null;
+            });
+        }
+
+        foreach (var thread in threads) {
+            thread.join();
         }
     }
 
     public void transform_to_other_pixbuf(Gdk.Pixbuf source, Gdk.Pixbuf dest,
-        Cancellable? cancellable = null) {
+        Cancellable? cancellable = null, int jobs = -1) {
         if (source.width != dest.width)
             error("PixelTransformer: source and destination pixbufs must have the same width");
 
@@ -890,28 +836,50 @@ public class PixelTransformer {
         int rowbytes = n_channels * width;
         unowned uchar[] source_pixels = source.get_pixels();
         unowned uchar[] dest_pixels = dest.get_pixels();
-        for (int j = 0; j < height; j++) {
-            int row_start_index = j * rowstride;
-            int row_end_index = row_start_index + rowbytes;
-            for (int i = row_start_index; i < row_end_index; i += n_channels) {
-                RGBAnalyticPixel current_pixel = RGBAnalyticPixel.from_quantized_components(
-                    source_pixels[i], source_pixels[i + 1], source_pixels[i + 2]);
+        if (jobs == -1) {
+            jobs = (int) GLib.get_num_processors() - 1;
+        }
 
-                current_pixel = apply_transformations(current_pixel);
+        uint slice_length = height;
+        if (jobs > 0) {
+            slice_length = (height + (jobs - 1)) / jobs;
+        }
 
-                dest_pixels[i] = current_pixel.quantized_red();
-                dest_pixels[i + 1] = current_pixel.quantized_green();
-                dest_pixels[i + 2] = current_pixel.quantized_blue();
-            }
+        var threads = new GLib.Thread<void*>[jobs];
 
-            if ((cancellable != null) && (cancellable.is_cancelled())) {
-                return;
-            }
+        for (var job = 0; job < jobs; job++) {
+            var row = job * slice_length;
+            var slice_height = (row + slice_length).clamp(0, height);
+
+            threads[job] = new GLib.Thread<void*>("shotwell-worker", () => {
+                for (var j = row; j < slice_height; j++) {
+                    this.apply_transformation(j, rowstride, rowbytes, n_channels, source_pixels,
+                            dest_pixels);
+
+                    if ((cancellable != null) && (cancellable.is_cancelled())) {
+                        break;
+                    }
+                }
+
+                return null;
+            });
+        }
+
+        foreach (var thread in threads) {
+            thread.join();
         }
     }
+
+    private extern void apply_transformation(uint row,
+                                      int rowstride,
+                                      int rowbytes,
+                                      int n_channels,
+                                      uchar[] source_pixels,
+                                      uchar[] dest_pixels);
+
 }
 
-class RGBHistogram {
+public class RGBHistogram {
     private const uchar MARKED_BACKGROUND = 30;
     private const uchar MARKED_FOREGROUND = 210;
     private const uchar UNMARKED_BACKGROUND = 120;
@@ -1209,7 +1177,6 @@ public class IntensityHistogram {
 }
 
 public class ExpansionTransformation : HSVTransformation {
-    private float[] remap_table = null;
     private const float LOW_DISCARD_MASS = 0.02f;
     private const float HIGH_DISCARD_MASS = 0.02f;
 
@@ -1219,8 +1186,6 @@ public class ExpansionTransformation : HSVTransformation {
     public ExpansionTransformation(IntensityHistogram histogram) {
         base(PixelTransformationType.TONE_EXPANSION);
         
-        remap_table = new float[256];
-
         float LOW_KINK_MASS = LOW_DISCARD_MASS;
         low_kink = 0;
         while (histogram.get_cumulative_probability(low_kink) < LOW_KINK_MASS)
@@ -1271,9 +1236,6 @@ public class ExpansionTransformation : HSVTransformation {
     }
 
     private void build_remap_table() {
-        if (remap_table == null)
-            remap_table = new float[256];
-
         float low_kink_f = ((float) low_kink) / 255.0f;
         float high_kink_f = ((float) high_kink) / 255.0f;
 
@@ -1289,17 +1251,6 @@ public class ExpansionTransformation : HSVTransformation {
         
         for ( ; i < 256; i++)
             remap_table[i] = 1.0f;
-    }
-
-    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
-        int remap_index = (int)(pixel.light_value * 255.0f);
-
-        HSVAnalyticPixel result = pixel;
-        result.light_value = remap_table[remap_index];
-
-        result.light_value = result.light_value.clamp(0.0f, 1.0f);
-
-        return result;
     }
 
     public override string to_string() {
@@ -1330,7 +1281,6 @@ public class ShadowDetailTransformation : HSVTransformation {
     private const float TONAL_WIDTH = 1.0f;
 
     private float intensity = 0.0f;
-    private float[] remap_table = null;
     
     public const float MIN_PARAMETER = 0.0f;
     public const float MAX_PARAMETER = 32.0f;
@@ -1345,18 +1295,11 @@ public class ShadowDetailTransformation : HSVTransformation {
         HermiteGammaApproximationFunction func =
             new HermiteGammaApproximationFunction(TONAL_WIDTH);
         
-        remap_table = new float[256];
         for (int i = 0; i < 256; i++) {
             float x = ((float) i) / 255.0f;
             float weight = func.evaluate(x);
             remap_table[i] = (weight * (x + effect_shift)) + ((1.0f - weight) * x);
         }
-    }
-
-    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
-        HSVAnalyticPixel result = pixel;
-        result.light_value = (remap_table[(int)(pixel.light_value * 255.0f)]).clamp(0.0f, 1.0f);
-        return result;
     }
 
     public override PixelTransformation copy() {
@@ -1404,7 +1347,6 @@ public class HighlightDetailTransformation : HSVTransformation {
     private const float TONAL_WIDTH = 1.0f;
 
     private float intensity = 0.0f;
-    private float[] remap_table = null;
     
     public const float MIN_PARAMETER = -32.0f;
     public const float MAX_PARAMETER = 0.0f;
@@ -1419,18 +1361,11 @@ public class HighlightDetailTransformation : HSVTransformation {
         HermiteGammaApproximationFunction func =
             new HermiteGammaApproximationFunction(TONAL_WIDTH);
         
-        remap_table = new float[256];
         for (int i = 0; i < 256; i++) {
             float x = ((float) i) / 255.0f;
             float weight = func.evaluate(1.0f - x);
             remap_table[i] = (weight * (x - effect_shift)) + ((1.0f - weight) * x);
         }
-    }
-
-    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
-        HSVAnalyticPixel result = pixel;
-        result.light_value = (remap_table[(int)(pixel.light_value * 255.0f)]).clamp(0.0f, 1.0f);
-        return result;
     }
 
     public override PixelTransformation copy() {
@@ -1511,9 +1446,64 @@ public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixb
     adjustments.set(new TemperatureTransformation(0.0f));
     adjustments.set(new TintTransformation(0.0f));
     adjustments.set(new ExposureTransformation(0.0f));
+    adjustments.set(new ContrastTransformation(0.0f));
     adjustments.set(new SaturationTransformation(0.0f));
     
     return adjustments;
 }
 }
 
+public const float rgb_lookup_table[] = {
+      0.0f/255.0f,   1.0f/255.0f,   2.0f/255.0f,   3.0f/255.0f,   4.0f/255.0f,
+      5.0f/255.0f,   6.0f/255.0f,   7.0f/255.0f,   8.0f/255.0f,   9.0f/255.0f,
+     10.0f/255.0f,  11.0f/255.0f,  12.0f/255.0f,  13.0f/255.0f,  14.0f/255.0f,
+     15.0f/255.0f,  16.0f/255.0f,  17.0f/255.0f,  18.0f/255.0f,  19.0f/255.0f,
+     20.0f/255.0f,  21.0f/255.0f,  22.0f/255.0f,  23.0f/255.0f,  24.0f/255.0f,
+     25.0f/255.0f,  26.0f/255.0f,  27.0f/255.0f,  28.0f/255.0f,  29.0f/255.0f,
+     30.0f/255.0f,  31.0f/255.0f,  32.0f/255.0f,  33.0f/255.0f,  34.0f/255.0f,
+     35.0f/255.0f,  36.0f/255.0f,  37.0f/255.0f,  38.0f/255.0f,  39.0f/255.0f,
+     40.0f/255.0f,  41.0f/255.0f,  42.0f/255.0f,  43.0f/255.0f,  44.0f/255.0f,
+     45.0f/255.0f,  46.0f/255.0f,  47.0f/255.0f,  48.0f/255.0f,  49.0f/255.0f,
+     50.0f/255.0f,  51.0f/255.0f,  52.0f/255.0f,  53.0f/255.0f,  54.0f/255.0f,
+     55.0f/255.0f,  56.0f/255.0f,  57.0f/255.0f,  58.0f/255.0f,  59.0f/255.0f,
+     60.0f/255.0f,  61.0f/255.0f,  62.0f/255.0f,  63.0f/255.0f,  64.0f/255.0f,
+     65.0f/255.0f,  66.0f/255.0f,  67.0f/255.0f,  68.0f/255.0f,  69.0f/255.0f,
+     70.0f/255.0f,  71.0f/255.0f,  72.0f/255.0f,  73.0f/255.0f,  74.0f/255.0f,
+     75.0f/255.0f,  76.0f/255.0f,  77.0f/255.0f,  78.0f/255.0f,  79.0f/255.0f,
+     80.0f/255.0f,  81.0f/255.0f,  82.0f/255.0f,  83.0f/255.0f,  84.0f/255.0f,
+     85.0f/255.0f,  86.0f/255.0f,  87.0f/255.0f,  88.0f/255.0f,  89.0f/255.0f,
+     90.0f/255.0f,  91.0f/255.0f,  92.0f/255.0f,  93.0f/255.0f,  94.0f/255.0f,
+     95.0f/255.0f,  96.0f/255.0f,  97.0f/255.0f,  98.0f/255.0f,  99.0f/255.0f,
+    100.0f/255.0f, 101.0f/255.0f, 102.0f/255.0f, 103.0f/255.0f, 104.0f/255.0f,
+    105.0f/255.0f, 106.0f/255.0f, 107.0f/255.0f, 108.0f/255.0f, 109.0f/255.0f,
+    110.0f/255.0f, 111.0f/255.0f, 112.0f/255.0f, 113.0f/255.0f, 114.0f/255.0f,
+    115.0f/255.0f, 116.0f/255.0f, 117.0f/255.0f, 118.0f/255.0f, 119.0f/255.0f,
+    120.0f/255.0f, 121.0f/255.0f, 122.0f/255.0f, 123.0f/255.0f, 124.0f/255.0f,
+    125.0f/255.0f, 126.0f/255.0f, 127.0f/255.0f, 128.0f/255.0f, 129.0f/255.0f,
+    130.0f/255.0f, 131.0f/255.0f, 132.0f/255.0f, 133.0f/255.0f, 134.0f/255.0f,
+    135.0f/255.0f, 136.0f/255.0f, 137.0f/255.0f, 138.0f/255.0f, 139.0f/255.0f,
+    140.0f/255.0f, 141.0f/255.0f, 142.0f/255.0f, 143.0f/255.0f, 144.0f/255.0f,
+    145.0f/255.0f, 146.0f/255.0f, 147.0f/255.0f, 148.0f/255.0f, 149.0f/255.0f,
+    150.0f/255.0f, 151.0f/255.0f, 152.0f/255.0f, 153.0f/255.0f, 154.0f/255.0f,
+    155.0f/255.0f, 156.0f/255.0f, 157.0f/255.0f, 158.0f/255.0f, 159.0f/255.0f,
+    160.0f/255.0f, 161.0f/255.0f, 162.0f/255.0f, 163.0f/255.0f, 164.0f/255.0f,
+    165.0f/255.0f, 166.0f/255.0f, 167.0f/255.0f, 168.0f/255.0f, 169.0f/255.0f,
+    170.0f/255.0f, 171.0f/255.0f, 172.0f/255.0f, 173.0f/255.0f, 174.0f/255.0f,
+    175.0f/255.0f, 176.0f/255.0f, 177.0f/255.0f, 178.0f/255.0f, 179.0f/255.0f,
+    180.0f/255.0f, 181.0f/255.0f, 182.0f/255.0f, 183.0f/255.0f, 184.0f/255.0f,
+    185.0f/255.0f, 186.0f/255.0f, 187.0f/255.0f, 188.0f/255.0f, 189.0f/255.0f,
+    190.0f/255.0f, 191.0f/255.0f, 192.0f/255.0f, 193.0f/255.0f, 194.0f/255.0f,
+    195.0f/255.0f, 196.0f/255.0f, 197.0f/255.0f, 198.0f/255.0f, 199.0f/255.0f,
+    200.0f/255.0f, 201.0f/255.0f, 202.0f/255.0f, 203.0f/255.0f, 204.0f/255.0f,
+    205.0f/255.0f, 206.0f/255.0f, 207.0f/255.0f, 208.0f/255.0f, 209.0f/255.0f,
+    210.0f/255.0f, 211.0f/255.0f, 212.0f/255.0f, 213.0f/255.0f, 214.0f/255.0f,
+    215.0f/255.0f, 216.0f/255.0f, 217.0f/255.0f, 218.0f/255.0f, 219.0f/255.0f,
+    220.0f/255.0f, 221.0f/255.0f, 222.0f/255.0f, 223.0f/255.0f, 224.0f/255.0f,
+    225.0f/255.0f, 226.0f/255.0f, 227.0f/255.0f, 228.0f/255.0f, 229.0f/255.0f,
+    230.0f/255.0f, 231.0f/255.0f, 232.0f/255.0f, 233.0f/255.0f, 234.0f/255.0f,
+    235.0f/255.0f, 236.0f/255.0f, 237.0f/255.0f, 238.0f/255.0f, 239.0f/255.0f,
+    240.0f/255.0f, 241.0f/255.0f, 242.0f/255.0f, 243.0f/255.0f, 244.0f/255.0f,
+    245.0f/255.0f, 246.0f/255.0f, 247.0f/255.0f, 248.0f/255.0f, 249.0f/255.0f,
+    250.0f/255.0f, 251.0f/255.0f, 252.0f/255.0f, 253.0f/255.0f, 254.0f/255.0f,
+    255.0f/255.0f,
+};

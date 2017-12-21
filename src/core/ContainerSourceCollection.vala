@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -18,15 +18,16 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     private Gee.HashSet<ContainerSource> holding_tank = new Gee.HashSet<ContainerSource>();
     
     public virtual signal void container_contents_added(ContainerSource container,
-        Gee.Collection<DataSource> added, bool relinked) {
+        Gee.Collection<DataObject> added, bool relinked) {
     }
     
     public virtual signal void container_contents_removed(ContainerSource container, 
-        Gee.Collection<DataSource> removed, bool unlinked) {
+        Gee.Collection<DataObject> removed, bool unlinked) {
     }
     
     public virtual signal void container_contents_altered(ContainerSource container, 
-        Gee.Collection<DataSource>? added, bool relinked, Gee.Collection<DataSource>? removed,
+        Gee.Collection<DataObject>? added, bool relinked,
+        Gee.Collection<DataObject>? removed,
         bool unlinked) {
     }
     
@@ -55,7 +56,7 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     public virtual void notify_container_contents_added(ContainerSource container, 
-        Gee.Collection<DataSource> added, bool relinked) {
+        Gee.Collection<DataObject> added, bool relinked) {
         // if container is in holding tank, remove it now and relink to collection
         if (holding_tank.contains(container)) {
             bool removed = holding_tank.remove(container);
@@ -68,12 +69,12 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     public virtual void notify_container_contents_removed(ContainerSource container, 
-        Gee.Collection<DataSource> removed, bool unlinked) {
+        Gee.Collection<DataObject> removed, bool unlinked) {
         container_contents_removed(container, removed, unlinked);
     }
     
     public virtual void notify_container_contents_altered(ContainerSource container,
-        Gee.Collection<DataSource>? added, bool relinked, Gee.Collection<DataSource>? removed,
+        Gee.Collection<DataObject>? added, bool relinked, Gee.Collection<DataSource>? removed,
         bool unlinked) {
         container_contents_altered(container, added, relinked, removed, unlinked);
     }

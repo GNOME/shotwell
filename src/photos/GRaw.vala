@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -63,6 +63,12 @@ public enum InterpolationQuality {
     AHD = 3
 }
 
+public enum UseCameraMatrix {
+    IGNORE = 0,
+    EMBEDDED_COLOR_PROFILE = 1,
+    EMBEDDED_COLOR_DATA = 3
+}
+
 public class ProcessedImage {
     private LibRaw.ProcessedImage image;
     private Gdk.Pixbuf pixbuf = null;
@@ -125,7 +131,8 @@ public class ProcessedImage {
         // to be decoded before being useful.  This will throw an error if the format is not
         // supported
         try {
-            pixbuf = new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_data(image.data, null),
+            var bytes = new Bytes.static (image.data);
+            pixbuf = new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_bytes(bytes),
                 null);
         } catch (Error err) {
             throw new Exception.UNSUPPORTED_THUMBNAIL(err.message);
@@ -225,8 +232,8 @@ public class Processor {
         // These fields are set to reasonable defaults by libraw.
         
         // greybox
-        output_params->set_chromatic_aberrations(1.0, 1.0);
-        output_params->set_gamma_curve(GRaw.SRGB_POWER, GRaw.SRGB_SLOPE);
+        LibRaw.OutputParams.set_chromatic_aberrations(output_params, 1.0, 1.0);
+        LibRaw.OutputParams.set_gamma_curve(output_params, GRaw.SRGB_POWER, GRaw.SRGB_SLOPE);
         // user_mul
         // shot_select
         // multi_out
@@ -237,7 +244,7 @@ public class Processor {
         output_params->highlight = GRaw.HighlightMode.CLIP;
         output_params->use_auto_wb = true;
         output_params->use_camera_wb = true;
-        output_params->use_camera_matrix = true;
+        output_params->use_camera_matrix = GRaw.UseCameraMatrix.EMBEDDED_COLOR_PROFILE;
         output_params->output_color = GRaw.Colorspace.SRGB;
         // output_profile
         // camera_profile

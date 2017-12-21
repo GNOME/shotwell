@@ -48,15 +48,15 @@
             </p>
             
             <p>
-                Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</gui></guiseq> or by hitting 
+                Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved Search...</gui></guiseq> or by hitting
                 <keyseq><key>Ctrl</key><key>S</key></keyseq>. The dialog box allows you to enter a name for the
                 search and select whether you want to meet Any, All, or None of the criteria in the following rows.
             </p>
             
             <p>
-                Each row represents a search criterion.  Use the + button to add more rows, and the - button to
-                remove a specific row.  The combo box on the left of each row selects the type of criteria.  
-                Criteria must be entered correctly before the OK button becomes available.
+                Each row represents a search criterion.  Use the <gui>+</gui> button to add more rows, and the
+                <gui>-</gui> button to remove a specific row.  The combo box on the left of each row selects the type
+                of criteria. Criteria must be entered correctly before the <gui>OK</gui> button becomes available.
             </p>
     </section>
 

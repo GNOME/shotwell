@@ -20,9 +20,9 @@
 
   <maintainer>
     <foaf:Person>
-      <foaf:name>Jim Nelson</foaf:name>
-      <foaf:mbox rdf:resource="mailto:jim@yorba.org" />
-      <gnome:userid>jnelson</gnome:userid>
+      <foaf:name>Jens Georg</foaf:name>
+      <foaf:mbox rdf:resource="mailto:mail@jensge.org" />
+      <gnome:userid>jensgeorg</gnome:userid>
     </foaf:Person>
   </maintainer>
 

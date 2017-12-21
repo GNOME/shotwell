@@ -7,11 +7,11 @@
  #if ENABLE_FACES
 
 public abstract class FaceShape : Object {
-    public static const string SHAPE_TYPE = null;
+    public const string SHAPE_TYPE = null;
     
-    protected static const int FACE_WINDOW_MARGIN = 5;
-    protected static const int LABEL_MARGIN = 12;
-    protected static const int LABEL_PADDING = 9;
+    protected const int FACE_WINDOW_MARGIN = 5;
+    protected const int LABEL_MARGIN = 12;
+    protected const int LABEL_PADDING = 9;
     
     public signal void add_me_requested(FaceShape face_shape);
     public signal void delete_me_requested();
@@ -178,10 +178,10 @@ public abstract class FaceShape : Object {
 }
 
 public class FaceRectangle : FaceShape {
-    public new static const string SHAPE_TYPE = "Rectangle";
+    public new const string SHAPE_TYPE = "Rectangle";
     
     private const int FACE_MIN_SIZE = 8;
-    private const int NULL_SIZE = 0;
+    public const int NULL_SIZE = 0;
     
     private Box box;
     private Box? label_box;

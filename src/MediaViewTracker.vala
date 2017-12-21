@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -34,8 +34,7 @@ public class MediaAccumulator : Object, Core.TrackerAccumulator {
                 raw++;
             }
             
-            if (photo.get_master_file_format() != PhotoFileFormat.RAW || 
-                photo.is_raw_developer_available(RawDeveloper.CAMERA)) {
+            if (photo.get_master_file_format() != PhotoFileFormat.RAW) {
                 photos++;
             }
         } else if (source is VideoSource) {
@@ -67,8 +66,7 @@ public class MediaAccumulator : Object, Core.TrackerAccumulator {
                 raw--;
             }
             
-            if (photo.get_master_file_format() != PhotoFileFormat.RAW || 
-                photo.is_raw_developer_available(RawDeveloper.CAMERA)) {
+            if (photo.get_master_file_format() != PhotoFileFormat.RAW) {
                 assert(photos > 0);
                 photos--;
             }
@@ -111,4 +109,3 @@ public class MediaAccumulator : Object, Core.TrackerAccumulator {
         return "%d photos/%d videos/%d raw/%d flagged".printf(photos, videos, raw, flagged);
     }
 }
-

@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -20,7 +20,7 @@ public class Workers {
     private EventSemaphore empty_event = new EventSemaphore();
     private int enqueued = 0;
     
-    public Workers(int max_threads, bool exclusive) {
+    public Workers(uint max_threads, bool exclusive) {
         if (max_threads <= 0 && max_threads != UNLIMITED_THREADS)
             max_threads = 1;
         
@@ -28,22 +28,22 @@ public class Workers {
         empty_event.notify();
         
         try {
-            thread_pool = new ThreadPool<void *>.with_owned_data(thread_start, max_threads, exclusive);
+            thread_pool = new ThreadPool<void *>.with_owned_data(thread_start, (int) max_threads, exclusive);
         } catch (ThreadError err) {
             error("Unable to create thread pool: %s", err.message);
         }
     }
     
-    public static int threads_per_cpu(int per = 1, int max = -1) requires (per > 0) ensures (result > 0) {
-        int count = number_of_processors() * per;
+    public static uint threads_per_cpu(int per = 1, int max = -1) requires (per > 0) ensures (result > 0) {
+        var count = GLib.get_num_processors() * per;
         
         return (max < 0) ? count : count.clamp(0, max);
     }
     
     // This is useful when the intent is for the worker threads to use all the CPUs minus one for
     // the main/UI thread.  (No guarantees, of course.)
-    public static int thread_per_cpu_minus_one() ensures (result > 0) {
-        return (number_of_processors() - 1).clamp(1, int.MAX);
+    public static uint thread_per_cpu_minus_one() ensures (result > 0) {
+        return (GLib.get_num_processors() - 1).clamp(1, int.MAX);
     }
     
     // Enqueues a BackgroundJob for work in a thread context.  BackgroundJob.execute() is called

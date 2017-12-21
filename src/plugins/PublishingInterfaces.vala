@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -82,7 +82,14 @@ public errordomain PublishingError {
      * Indicates that the remote host has rejected the session identifier used by the local
      * client as out-of-date. The local client should acquire a new session identifier.
      */
-    EXPIRED_SESSION
+    EXPIRED_SESSION,
+
+    /**
+     * Indicates that a secure connection to the remote host cannot be
+     * established. This might have various reasons such as expired
+     * certificats, invalid certificates, self-signed certificates...
+     */
+    SSL_FAILED
 }
 
 /** 
@@ -513,10 +520,10 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
  */
 public interface Publishable : GLib.Object {
 
-    public static const string PARAM_STRING_BASENAME    = "basename";
-    public static const string PARAM_STRING_TITLE       = "title";
-    public static const string PARAM_STRING_COMMENT     = "comment";
-    public static const string PARAM_STRING_EVENTCOMMENT= "eventcomment";
+    public const string PARAM_STRING_BASENAME    = "basename";
+    public const string PARAM_STRING_TITLE       = "title";
+    public const string PARAM_STRING_COMMENT     = "comment";
+    public const string PARAM_STRING_EVENTCOMMENT= "eventcomment";
 
     /**
      * Returns a handle to the file on disk to which this publishable's data has been
@@ -599,6 +606,28 @@ public interface Service : Object, Spit.Pluggable {
     protected virtual void reserved5() {}
     protected virtual void reserved6() {}
     protected virtual void reserved7() {}
+}
+
+public interface Authenticator : Object {
+    public signal void authenticated();
+    public signal void authentication_failed();
+
+    public abstract void authenticate();
+    public abstract bool can_logout();
+    public abstract void logout();
+    public abstract void refresh();
+
+    public abstract GLib.HashTable<string, Variant> get_authentication_parameter();
+}
+
+public interface AuthenticatorFactory : Object {
+    // By contract, every AuthenticatorFactory implementation needs to have a
+    // static get_instance() method. Unfortunately this is not expressable in
+    // Vala.
+
+    public abstract Gee.List<string> get_available_authenticators();
+    public abstract Authenticator? create(string provider,
+            Spit.Publishing.PluginHost host);
 }
 
 }

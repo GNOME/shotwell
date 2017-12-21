@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -78,7 +78,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
     }
     
     public void post_error(Error err) {
-        string msg = _("Publishing to %s can't continue because an error occurred:").printf(
+        string msg = _("Publishing to %s can’t continue because an error occurred:").printf(
             active_publisher.get_service().get_pluggable_name());
         msg += GLib.Markup.printf_escaped("\n\n<i>%s</i>\n\n", err.message);
         msg += _("To try publishing to another service, select one from the above menu.");

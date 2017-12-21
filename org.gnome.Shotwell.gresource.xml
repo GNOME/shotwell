@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Shotwell">
+      <!-- UI files -->
+      <file preprocess="xml-stripblanks">ui/collection.ui</file>
+      <file preprocess="xml-stripblanks">ui/direct_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/direct.ui</file>
+      <file preprocess="xml-stripblanks">ui/events_directory.ui</file>
+      <file preprocess="xml-stripblanks">ui/event.ui</file>
+      <file preprocess="xml-stripblanks">ui/faces.ui</file>
+      <file preprocess="xml-stripblanks">ui/fullscreen.ui</file>
+      <file preprocess="xml-stripblanks">ui/import_queue.ui</file>
+      <file preprocess="xml-stripblanks">ui/import.ui</file>
+      <file preprocess="xml-stripblanks">ui/media.ui</file>
+      <file preprocess="xml-stripblanks">ui/offline.ui</file>
+      <file preprocess="xml-stripblanks">ui/photo_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/photo.ui</file>
+      <file preprocess="xml-stripblanks">ui/preferences_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/printing_widget.ui</file>
+      <file preprocess="xml-stripblanks">ui/savedsearch.ui</file>
+      <file preprocess="xml-stripblanks">ui/search_bar.ui</file>
+      <file preprocess="xml-stripblanks">ui/search_sidebar_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/set_background_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/set_background_slideshow_dialog.ui</file>
+      <file compressed="true">ui/shotwell.ui</file>
+      <file preprocess="xml-stripblanks">ui/sidebar_default_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/slideshow_settings.ui</file>
+      <file preprocess="xml-stripblanks">ui/tag_sidebar_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/tags.ui</file>
+      <file preprocess="xml-stripblanks">ui/trash.ui</file>
+      <!-- Icons -->
+      <file>icons/about-aachen.jpg</file>
+      <file>icons/all-rejected.png</file>
+      <file>icons/crop-pivot-reticle.png</file>
+      <file>icons/crop.svg</file>
+      <file>icons/faces-tool.png</file>
+      <file>icons/filter-flagged-disabled.png</file>
+      <file>icons/filter-flagged.png</file>
+      <file>icons/filter-photos-disabled.png</file>
+      <file>icons/filter-photos.png</file>
+      <file>icons/filter-raw-disabled.png</file>
+      <file>icons/filter-raw.png</file>
+      <file>icons/filter-videos-disabled.png</file>
+      <file>icons/filter-videos.png</file>
+      <file>icons/five-star-filter.svg</file>
+      <file>icons/five-stars.svg</file>
+      <file>icons/flag-page.png</file>
+      <file>icons/flag-trinket.png</file>
+      <file>icons/four-star-filter-plus.svg</file>
+      <file>icons/four-stars.svg</file>
+      <file>icons/generic-plugin.png</file>
+      <file>icons/image-adjust.svg</file>
+      <file>icons/import-all.png</file>
+      <file>icons/import.svg</file>
+      <file>icons/make-primary.svg</file>
+      <file>icons/many-faces.png</file>
+      <file>icons/merge.svg</file>
+      <file>icons/multiple-events.png</file>
+      <file>icons/multiple-tags.png</file>
+      <file>icons/no-event.png</file>
+      <file>icons/noninterpretable-video.png</file>
+      <file>icons/one-event.png</file>
+      <file>icons/one-face.png</file>
+      <file>icons/one-star-filter-plus.svg</file>
+      <file>icons/one-star.svg</file>
+      <file>icons/one-tag.png</file>
+      <file>icons/pin-toolbar.svg</file>
+      <file>icons/publish.png</file>
+      <file>icons/redeye.png</file>
+      <file>icons/rejected.svg</file>
+      <file>icons/shotwell-16.png</file>
+      <file>icons/shotwell-auto-enhance.png</file>
+      <file>icons/shotwell.png</file>
+      <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
+      <file>icons/shotwell-street.jpg</file>
+      <file>icons/slideshow-extension-point.png</file>
+      <file>icons/sprocket.png</file>
+      <file>icons/straighten.svg</file>
+      <file>icons/three-star-filter-plus.svg</file>
+      <file>icons/three-stars.svg</file>
+      <file>icons/two-star-filter-plus.svg</file>
+      <file>icons/two-stars.svg</file>
+      <file>icons/videos-page.png</file>
+      <file>icons/zoom-in.png</file>
+      <file>icons/zoom-out.png</file>
+  </gresource>
+</gresources>

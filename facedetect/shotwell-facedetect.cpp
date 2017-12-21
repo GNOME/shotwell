@@ -53,12 +53,12 @@ void detectFaces(Mat &img, CascadeClassifier &cascade, double scale) {
 
 int main(int argc, const char** argv) {
 
-	const String scaleOpt = "--scale=";
+	const std::string scaleOpt = "--scale=";
 	size_t scaleOptLen = scaleOpt.length();
-	const String cascadeOpt = "--cascade=";
+	const std::string cascadeOpt = "--cascade=";
 	size_t cascadeOptLen = cascadeOpt.length();
 
-	String cascadeName, inputName;
+	std::string cascadeName, inputName;
 	double scale = 1;
 
 	for (int i = 1; i < argc; i++) {

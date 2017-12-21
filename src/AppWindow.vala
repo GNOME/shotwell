@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -9,7 +9,8 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_DISMISSAL_SEC = 2;
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
-    private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
+    private Gtk.Overlay overlay = new Gtk.Overlay();
+    private Gtk.Toolbar toolbar = null;
     private Gtk.ToolButton close_button = new Gtk.ToolButton(null, null);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
     private bool is_toolbar_shown = false;
@@ -18,26 +19,19 @@ public class FullscreenWindow : PageWindow {
     private bool switched_to = false;
     private bool is_toolbar_dismissal_enabled;
 
+    private const GLib.ActionEntry[] entries = {
+        { "LeaveFullscreen", on_close }
+    };
+
     public FullscreenWindow(Page page) {
+        base ();
+
         set_current_page(page);
 
-        File ui_file = Resources.get_ui("fullscreen.ui");
+        this.add_action_entries (entries, this);
+        const string[] accels = { "F11", null };
+        Application.set_accels_for_action ("win.LeaveFullscreen", accels);
 
-        try {
-            ui.add_ui_from_file(ui_file.get_path());
-        } catch (Error err) {
-            error("Error loading UI file %s: %s", ui_file.get_path(), err.message);
-        }
-        
-        Gtk.ActionGroup action_group = new Gtk.ActionGroup("FullscreenActionGroup");
-        action_group.add_actions(create_actions(), this);
-        ui.insert_action_group(action_group, 0);
-        ui.ensure_update();
-
-        Gtk.AccelGroup accel_group = ui.get_accel_group();
-        if (accel_group != null)
-            add_accel_group(accel_group);
-        
         set_screen(AppWindow.get_instance().get_screen());
         
         // Needed so fullscreen will occur on correct monitor in multi-monitor setups
@@ -57,10 +51,14 @@ public class FullscreenWindow : PageWindow {
         
         close_button.set_icon_name("view-restore");
         close_button.set_tooltip_text(_("Leave fullscreen"));
-        close_button.clicked.connect(on_close);
+        close_button.set_action_name ("win.LeaveFullscreen");
         
-        Gtk.Toolbar toolbar = page.get_toolbar();
+        toolbar = page.get_toolbar();
         toolbar.set_show_arrow(false);
+        toolbar.valign = Gtk.Align.END;
+        toolbar.halign = Gtk.Align.CENTER;
+        toolbar.expand = false;
+        toolbar.opacity = Resources.TRANSIENT_WINDOW_OPACITY;
 
         if (page is SlideshowPage) {
             // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
@@ -75,14 +73,9 @@ public class FullscreenWindow : PageWindow {
 
         toolbar.insert(close_button, -1);
         
-        // set up toolbar along bottom of screen
-        toolbar_window.set_screen(get_screen());
-        toolbar_window.set_border_width(0);
-        toolbar_window.add(toolbar);
-        
-        toolbar_window.realize.connect(on_toolbar_realized);
-        
-        add(page);
+        add(overlay);
+        overlay.add(page);
+        overlay.add_overlay (toolbar);
 
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
@@ -96,8 +89,21 @@ public class FullscreenWindow : PageWindow {
         // capture motion events to show the toolbar
         add_events(Gdk.EventMask.POINTER_MOTION_MASK);
         
-        // start off with toolbar invoked, as a clue for the user
-        invoke_toolbar();
+        // If toolbar is enabled in "normal" ui OR was pinned in
+        // fullscreen, start off with toolbar invoked, as a clue for the
+        // user. Otherwise leave hidden unless activated by mouse over
+        if (Config.Facade.get_instance().get_display_toolbar() ||
+            !is_toolbar_dismissal_enabled) {
+            invoke_toolbar();
+        } else {
+            hide_toolbar();
+        }
+
+        // Toolbar steals keyboard focus from page, put it back again
+        page.grab_focus ();
+
+        // Do not show menubar in fullscreen
+        set_show_menubar (false);
     }
 
     public void disable_toolbar_dismissal() {
@@ -127,18 +133,6 @@ public class FullscreenWindow : PageWindow {
         
         return result;
     }
-    
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Resources.LEAVE_FULLSCREEN_LABEL,
-            TRANSLATABLE, "F11", TRANSLATABLE, on_close };
-        leave_fullscreen.label = Resources.LEAVE_FULLSCREEN_LABEL;
-        leave_fullscreen.tooltip = Resources.LEAVE_FULLSCREEN_LABEL;
-        actions += leave_fullscreen;
-
-        return actions;
-    }
 
     public override bool key_press_event(Gdk.EventKey event) {
         // check for an escape/abort 
@@ -159,7 +153,6 @@ public class FullscreenWindow : PageWindow {
     private void on_close() {
         Config.Facade.get_instance().set_pin_toolbar_state(is_toolbar_dismissal_enabled);
         hide_toolbar();
-        toolbar_window = null;
         
         AppWindow.get_instance().end_fullscreen();
     }
@@ -213,7 +206,7 @@ public class FullscreenWindow : PageWindow {
         devmgr.get_client_pointer().get_position(null, null, out py);
         
         int wy;
-        toolbar_window.get_window().get_geometry(null, out wy, null, null);
+        toolbar.get_window().get_geometry(null, out wy, null, null);
 
         return (py >= wy);
     }
@@ -232,26 +225,8 @@ public class FullscreenWindow : PageWindow {
         return false;
     }
     
-    private void on_toolbar_realized() {
-        Gtk.Requisition req;
-        toolbar_window.get_preferred_size(null, out req);
-        
-        // place the toolbar in the center of the monitor along the bottom edge
-        Gdk.Rectangle monitor = get_monitor_geometry();
-        int tx = monitor.x + (monitor.width - req.width) / 2;
-        if (tx < 0)
-            tx = 0;
-
-        int ty = monitor.y + monitor.height - req.height;
-        if (ty < 0)
-            ty = 0;
-            
-        toolbar_window.move(tx, ty);
-        toolbar_window.set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
-    }
-
     private void invoke_toolbar() {
-        toolbar_window.show_all();
+        toolbar.show_all();
 
         is_toolbar_shown = true;
         
@@ -260,9 +235,6 @@ public class FullscreenWindow : PageWindow {
     
     private bool on_check_toolbar_dismissal() {
         if (!is_toolbar_shown)
-            return false;
-        
-        if (toolbar_window == null)
             return false;
         
         // if dismissal is disabled, keep open but keep checking
@@ -296,7 +268,7 @@ public class FullscreenWindow : PageWindow {
     }
     
     private void hide_toolbar() {
-        toolbar_window.hide();
+        toolbar.hide();
         is_toolbar_shown = false;
     }
 }
@@ -308,9 +280,7 @@ public class FullscreenWindow : PageWindow {
 // subclass.  A subclass should set current_page to the user-visible Page for it to receive
 // various notifications.  It is the responsibility of the subclass to notify Pages when they're
 // switched to and from, and other aspects of the Page interface.
-public abstract class PageWindow : Gtk.Window {
-    protected Gtk.UIManager ui = new Gtk.UIManager();
-
+public abstract class PageWindow : Gtk.ApplicationWindow {
     private Page current_page = null;
     private int busy_counter = 0;
     
@@ -318,15 +288,12 @@ public abstract class PageWindow : Gtk.Window {
     }
     
     public PageWindow() {
+        Object (application: Application.get_instance().get_system_app ());
+
         // the current page needs to know when modifier keys are pressed
         add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
             | Gdk.EventMask.STRUCTURE_MASK);
-            
-        set_has_resize_grip(false);
-    }
-    
-    public Gtk.UIManager get_ui_manager() {
-        return ui;
+        set_show_menubar (true);
     }
     
     public Page? get_current_page() {
@@ -400,8 +367,10 @@ public abstract class PageWindow : Gtk.Window {
     public void set_busy_cursor() {
         if (busy_counter++ > 0)
             return;
-        
-        get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+
+        var display = get_window ().get_display ();
+        var cursor = new Gdk.Cursor.for_display (display, Gdk.CursorType.WATCH);
+        get_window().set_cursor (cursor);
         spin_event_loop();
     }
     
@@ -413,7 +382,9 @@ public abstract class PageWindow : Gtk.Window {
             return;
         }
         
-        get_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        var display = get_window ().get_display ();
+        var cursor = new Gdk.Cursor.for_display (display, Gdk.CursorType.LEFT_PTR);
+        get_window().set_cursor (cursor);
         spin_event_loop();
     }
     
@@ -435,13 +406,10 @@ public abstract class AppWindow : PageWindow {
     
     // the AppWindow maintains its own UI manager because the first UIManager an action group is
     // added to is the one that claims its accelerators
-    protected Gtk.ActionGroup[] common_action_groups;
     protected bool maximized = false;
     protected Dimensions dimensions;
     protected int pos_x = 0;
     protected int pos_y = 0;
-    
-    private Gtk.ActionGroup common_action_group = new Gtk.ActionGroup("AppWindowGlobalActionGroup");
     
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
@@ -449,14 +417,7 @@ public abstract class AppWindow : PageWindow {
         instance = this;
 
         title = Resources.APP_TITLE;
-        
-        GLib.List<Gdk.Pixbuf> pixbuf_list = new GLib.List<Gdk.Pixbuf>();
-        foreach (string resource in Resources.APP_ICONS)
-            pixbuf_list.append(Resources.get_icon(resource, 0));
-        // Use copy() because set_default_icon_list() actually accepts an owned reference
-        // If we didn't hold the pixbufs in memory, would need to use copy_deep()
-        // See https://mail.gnome.org/archives/vala-list/2014-August/msg00022.html
-        set_default_icon_list(pixbuf_list.copy());
+        set_default_icon_name("shotwell");
 
         // restore previous size and maximization state
         if (this is LibraryWindow) {
@@ -480,18 +441,8 @@ public abstract class AppWindow : PageWindow {
         // UIManager.  In order to activate those accelerators, we need to create a dummy UI string
         // that lists all the common actions.  We build it on-the-fly from the actions associated
         // with each ActionGroup while we're adding the groups to the UIManager.
-        common_action_groups = create_common_action_groups();
-        foreach (Gtk.ActionGroup group in common_action_groups)
-            ui.insert_action_group(group, 0);
-        
-        try {
-            ui.add_ui_from_string(build_dummy_ui_string(common_action_groups), -1);
-        } catch (Error err) {
-            error("Unable to add AppWindow UI: %s", err.message);
-        }
-        
-        ui.ensure_update();
-        add_accel_group(ui.get_accel_group());
+
+        add_actions ();
         
         Gtk.CssProvider provider = new Gtk.CssProvider();
         try {
@@ -501,67 +452,21 @@ public abstract class AppWindow : PageWindow {
             debug("Unable to load custom CSS: %s", err.message);
         }
     }
-    
-    private Gtk.ActionEntry[] create_common_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry quit = { "CommonQuit", Resources.QUIT_LABEL, TRANSLATABLE, "<Ctrl>Q",
-            TRANSLATABLE, on_quit };
-        quit.label = Resources.QUIT_LABEL;
-        actions += quit;
 
-        Gtk.ActionEntry about = { "CommonAbout", Resources.ABOUT_LABEL, TRANSLATABLE, null,
-            TRANSLATABLE, on_about };
-        about.label = Resources.ABOUT_LABEL;
-        actions += about;
+    private const GLib.ActionEntry[] common_actions = {
+        { "CommonAbout", on_about },
+        { "CommonQuit", on_quit },
+        { "CommonFullscreen", on_fullscreen },
+        { "CommonHelpContents", on_help_contents },
+        { "CommonHelpFAQ", on_help_faq },
+        { "CommonHelpReportProblem", on_help_report_problem },
+        { "CommonUndo", on_undo },
+        { "CommonRedo", on_redo },
+        { "CommonJumpToFile", on_jump_to_file },
+        { "CommonSelectAll", on_select_all },
+        { "CommonSelectNone", on_select_none }
+    };
 
-        Gtk.ActionEntry fullscreen = { "CommonFullscreen", Resources.FULLSCREEN_LABEL,
-            TRANSLATABLE, "F11", TRANSLATABLE, on_fullscreen };
-        fullscreen.label = Resources.FULLSCREEN_LABEL;
-        actions += fullscreen;
-
-        Gtk.ActionEntry help_contents = { "CommonHelpContents", Resources.HELP_LABEL,
-            TRANSLATABLE, "F1", TRANSLATABLE, on_help_contents };
-        help_contents.label = _("_Contents");
-        actions += help_contents;
-        
-        Gtk.ActionEntry help_faq = { "CommonHelpFAQ", null, TRANSLATABLE, null, 
-            TRANSLATABLE, on_help_faq };
-        help_faq.label = _("_Frequently Asked Questions");
-        actions += help_faq;
-        
-        Gtk.ActionEntry help_report_problem = { "CommonHelpReportProblem", null, TRANSLATABLE, null, 
-            TRANSLATABLE, on_help_report_problem };
-        help_report_problem.label = _("_Report a Problem...");
-        actions += help_report_problem;
-
-        Gtk.ActionEntry undo = { "CommonUndo", Resources.UNDO_MENU, TRANSLATABLE, "<Ctrl>Z",
-            TRANSLATABLE, on_undo };
-        undo.label = Resources.UNDO_MENU;
-        actions += undo;
-        
-        Gtk.ActionEntry redo = { "CommonRedo", Resources.REDO_MENU, TRANSLATABLE, "<Ctrl><Shift>Z",
-            TRANSLATABLE, on_redo };
-        redo.label = Resources.REDO_MENU;
-        actions += redo;
-
-        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Resources.JUMP_TO_FILE_MENU, TRANSLATABLE, 
-            "<Ctrl><Shift>M", TRANSLATABLE, on_jump_to_file };
-        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
-        actions += jump_to_file;
-        
-        Gtk.ActionEntry select_all = { "CommonSelectAll", Resources.SELECT_ALL_MENU, TRANSLATABLE,
-            "<Ctrl>A", TRANSLATABLE, on_select_all };
-        select_all.label = Resources.SELECT_ALL_MENU;
-        actions += select_all;
-        
-        Gtk.ActionEntry select_none = { "CommonSelectNone", null, null,
-            "<Ctrl><Shift>A", TRANSLATABLE, on_select_none };
-        actions += select_none;
-        
-        return actions;
-    }
-    
     protected abstract void on_fullscreen();
     
     public static bool has_instance() {
@@ -576,11 +481,10 @@ public abstract class AppWindow : PageWindow {
         return fullscreen_window;
     }
 
-    public static Gtk.Builder create_builder(string glade_filename = "shotwell.glade", void *user = null) {
+    public static Gtk.Builder create_builder(string glade_filename = "shotwell.ui", void *user = null) {
         Gtk.Builder builder = new Gtk.Builder();
         try {
-            builder.add_from_file(AppDirs.get_resources_dir().get_child("ui").get_child(
-                glade_filename).get_path());
+            builder.add_from_resource(Resources.get_ui(glade_filename));
         } catch(GLib.Error error) {
             warning("Unable to create Gtk.Builder: %s\n", error.message);
         }
@@ -679,7 +583,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public static void database_error(DatabaseError err) {
-        panic(_("A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n\n%s").printf(
+        panic(_("A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n\n%s").printf(
             err.message));
     }
     
@@ -693,15 +597,17 @@ public abstract class AppWindow : PageWindow {
     public abstract string get_app_role();
 
     protected void on_about() {
+        const string[] artists = { "Aachen logo under public domain license https://www.flickr.com/photos/30784528@N04/10860988196/", null };
         Gtk.show_about_dialog(this,
             "version", Resources.APP_VERSION,
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
             "license", Resources.LICENSE,
-            "website-label", _("Visit the Yorba web site"),
+            "website-label", _("Visit the Shotwell web site"),
             "authors", Resources.AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1),
+            "artists", artists,
             "translator-credits", _("translator-credits"),
             null
         );
@@ -773,22 +679,10 @@ public abstract class AppWindow : PageWindow {
         sys_show_uri(get_window().get_screen(), url);
     }
     
-    protected virtual Gtk.ActionGroup[] create_common_action_groups() {
-        Gtk.ActionGroup[] groups = new Gtk.ActionGroup[0];
-        
-        common_action_group.add_actions(create_common_actions(), this);
-        groups += common_action_group;
-        
-        return groups;
+    protected virtual void add_actions () {
+        this.add_action_entries (AppWindow.common_actions, this);
     }
-    
-    public Gtk.ActionGroup[] get_common_action_groups() {
-        return common_action_groups;
-    }
-    
-    public virtual void replace_common_placeholders(Gtk.UIManager ui) {
-    }
-    
+
     public void go_fullscreen(Page page) {
         // if already fullscreen, use that
         if (fullscreen_window != null) {
@@ -827,34 +721,26 @@ public abstract class AppWindow : PageWindow {
         present();
     }
     
-    public Gtk.Action? get_common_action(string name) {
-        foreach (Gtk.ActionGroup group in common_action_groups) {
-            Gtk.Action? action = group.get_action(name);
-            if (action != null)
-                return action;
-        }
-        
-        warning("No common action found: %s", name);
-        
-        return null;
+    public GLib.Action? get_common_action(string name) {
+        return lookup_action (name);
     }
     
     public void set_common_action_sensitive(string name, bool sensitive) {
-        Gtk.Action? action = get_common_action(name);
+        var action = get_common_action(name) as GLib.SimpleAction;
         if (action != null)
-            action.sensitive = sensitive;
+            action.set_enabled (sensitive);
     }
     
     public void set_common_action_important(string name, bool important) {
-        Gtk.Action? action = get_common_action(name);
+        var action = get_common_action(name) as GLib.SimpleAction;
         if (action != null)
-            action.is_important = important;
+            action.set_enabled (sensitive);
     }
     
     public void set_common_action_visible(string name, bool visible) {
-        Gtk.Action? action = get_common_action(name);
+        var action = get_common_action(name) as GLib.SimpleAction;
         if (action != null)
-            action.visible = visible;
+            action.set_enabled (sensitive);
     }
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
@@ -905,6 +791,51 @@ public abstract class AppWindow : PageWindow {
         if (page != null)
             update_common_actions(page, page.get_view().get_selected_count(), page.get_view().get_count());
     }
+
+    public void update_menu_item_label (string id,
+                                         string new_label) {
+        var bar = this.get_current_page().get_menubar() as GLib.Menu;
+
+        if (bar == null) {
+            return;
+        }
+
+        var items = bar.get_n_items ();
+        for (var i = 0; i< items; i++) {
+            var model = bar.get_item_link (i, GLib.Menu.LINK_SUBMENU);
+            if (bar == null) {
+                continue;
+            }
+
+            var model_items = model.get_n_items ();
+            for (var j = 0; j < model_items; j++) {
+                var subsection = model.get_item_link (j, GLib.Menu.LINK_SECTION);
+
+                if (subsection == null)
+                    continue;
+
+                // Recurse into submenus
+                var sub_items = subsection.get_n_items ();
+                for (var k = 0; k < sub_items; k++) {
+                    var it = subsection.iterate_item_attributes (k);
+                    while (it.next ()) {
+                        if ((it.get_name() == "id" && it.get_value ().get_string () == id) ||
+                            (it.get_name() == "action" && it.get_value().get_string().has_suffix("." + id))) {
+                            var md = subsection as GLib.Menu;
+                            var m = new GLib.MenuItem.from_model (subsection, k);
+                            m.set_label (new_label);
+                            md.remove (k);
+                            md.insert_item (k, m);
+
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     
     public static CommandManager get_command_manager() {
         return command_manager;
@@ -917,19 +848,21 @@ public abstract class AppWindow : PageWindow {
     
     private void decorate_command_manager_action(string name, string prefix,
         string default_explanation, CommandDescription? desc) {
-        Gtk.Action? action = get_common_action(name);
-        if (action == null)
+        var action = get_common_action(name) as GLib.SimpleAction;
+        if (action == null) {
             return;
-        
-        if (desc != null) {
-            action.label = "%s %s".printf(prefix, desc.get_name());
-            action.tooltip = desc.get_explanation();
-            action.sensitive = true;
-        } else {
-            action.label = prefix;
-            action.tooltip = default_explanation;
-            action.sensitive = false;
         }
+
+        string label = prefix;
+
+        if (desc != null) {
+            label += " " + desc.get_name();
+            action.set_enabled(true);
+        } else {
+            label = prefix;
+            action.set_enabled(false);
+        }
+        this.update_menu_item_label(name, label);
     }
     
     public void decorate_undo_action() {

@@ -139,7 +139,8 @@ public class FaceSourceCollection : ContainerSourceCollection {
     }
     
     protected override void notify_container_contents_added(ContainerSource container, 
-        Gee.Collection<DataSource> added, bool relinking) {
+        Gee.Collection<DataObject> added, bool relinking) {
+//        Gee.Collection<DataSource> added, bool relinking) {
         Face face = (Face) container;
         Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) added;
         
@@ -158,7 +159,8 @@ public class FaceSourceCollection : ContainerSourceCollection {
     }
     
     protected override void notify_container_contents_removed(ContainerSource container, 
-        Gee.Collection<DataSource> removed, bool unlinking) {
+        Gee.Collection<DataObject> removed, bool unlinking) {
+//        Gee.Collection<DataSource> removed, bool unlinking) {
         Face face = (Face) container;
         Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) removed;
         

@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -120,8 +120,8 @@ public class Sidebar.RootOnlyBranch : Sidebar.Branch {
 public class Sidebar.Header : Sidebar.Grouping, Sidebar.EmphasizableEntry {
     private bool emphasized;
     
-    public Header(string name, bool emphasized = true) {
-        base(name, null);
+    public Header(string name, string? tooltip = null, bool emphasized = true) {
+        base(name, null, tooltip);
         this.emphasized = emphasized;
     }
     

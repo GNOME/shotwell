@@ -1,6 +1,11 @@
-<ui>
-    <popup name="SidebarTagContextMenu">
-        <menuitem name="NewTag" action="CommonNewTag" />
-    </popup>
-</ui>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="shotwell">
+  <menu id='popup-menu'>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">New _Tag…</attribute>
+        <attribute name="action">sidebar.tag.new</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

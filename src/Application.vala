@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -27,6 +27,10 @@ public class Application {
 
     public bool get_raw_thumbs_fix_required() {
         return fixup_raw_thumbs;
+    }
+
+    public Gtk.Application get_system_app () {
+        return system_app;
     }
 
     private bool running = false;
@@ -91,12 +95,20 @@ public class Application {
         return get_instance().direct;
     }
 
+    public static void set_accels_for_action (string action, string[] accel) {
+        get_instance().system_app.set_accels_for_action (action, accel);
+    }
+
+    public static void set_menubar (GLib.MenuModel? model) {
+        get_instance().system_app.set_menubar (model);
+    }
+
     /**
      * @brief Signal handler for GApplication's 'command-line' signal.
      *
      * The most likely scenario for this to be fired is if the user
      * either tried to run us twice in library mode, or we've just gotten
-     * a camera/removeable-storage mount; in either case, the remote instance
+     * a camera/removable-storage mount; in either case, the remote instance
      * will trigger this and exit, and we'll need to bring the window back up...
      */
     public static void on_activated() {

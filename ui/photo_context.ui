@@ -1,39 +1,147 @@
-<ui>
-    <popup name="PhotoContextMenu">
-        <menuitem name="ContextEnhance" action="Enhance" />
-        <menuitem name="ContextRevert" action="Revert" />
-        <separator />
-        <menuitem name="ContextAddTags" action="AddTagsContextMenu" />
-        <menuitem name="ContextModifyTags" action="ModifyTags" />
-        <placeholder name="ContextTagsPlaceholder" />
-        <separator />
-        <menuitem name="ContextFlag" action="Flag" />
-        <menu name="Rate" action="Rate">
-            <menuitem name="RateFive" action="RateFive" />
-            <menuitem name="RateFour" action="RateFour" />
-            <menuitem name="RateThree" action="RateThree" />
-            <menuitem name="RateTwo" action="RateTwo" />
-            <menuitem name="RateOne" action="RateOne" />
-            <menuitem name="RateUnrated" action="RateUnrated" />
-            <menuitem name="RateRejected" action="RateRejected" />
-            <separator />
-            <menuitem name="IncreaseRating" action="IncreaseRating" />
-            <menuitem name="DecreaseRating" action="DecreaseRating" />
-        </menu>
-        <menu name="RawDeveloper" action="RawDeveloper">
-            <menuitem name="RawDeveloperShotwell" action="RawDeveloperShotwell" />
-            <menuitem name="RawDeveloperCamera" action="RawDeveloperCamera" />
-        </menu>
-        <separator />
-        <menuitem name="ContextEditTitle" action="EditTitle" />
-        <menuitem name="ContextEditComment" action="EditComment" />
-        <menuitem name="ContextExternalEdit" action="ExternalEdit" />
-        <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
-        <separator />
-        <placeholder name="ContextJumpPlaceholder" />
-        <menuitem name="ContextSendTo" action="SendToContextMenu" />
-        <separator />
-        <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
-    </popup>
+<?xml version="1.0"?>
+<interface domain="shotwell">
+  <menu id="PhotoContextMenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Enhance</attribute>
+        <attribute name="accel">&lt;Primary&gt;e</attribute>
+        <attribute name="action">win.Enhance</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Re_vert to Original</attribute>
+        <attribute name="action">win.Revert</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Add Tags…</attribute>
+        <attribute name="accel">&lt;Primary&gt;a</attribute>
+        <attribute name="action">win.AddTags</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Modif_y Tags…</attribute>
+        <attribute name="accel">&lt;Primary&gt;m</attribute>
+        <attribute name="action">win.ModifyTags</attribute>
+      </item>
+      <attribute name="id">ContextTagsPlaceholder</attribute>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Toggle _Flag</attribute>
+        <attribute name="accel">&lt;Primary&gt;g</attribute>
+        <attribute name="action">win.Flag</attribute>
+      </item>
+      <submenu>
+        <attribute name="label" translatable="yes">_Set Rating</attribute>
+        <section>
+          <item>
+            <attribute name="label" translatable="no">★★★★★</attribute>
+            <attribute name="accel">5</attribute>
+            <attribute name="action">win.RateFive</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="no">★★★★</attribute>
+            <attribute name="accel">4</attribute>
+            <attribute name="action">win.RateFour</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="no">★★★</attribute>
+            <attribute name="accel">3</attribute>
+            <attribute name="action">win.RateThree</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="no">★★</attribute>
+            <attribute name="accel">2</attribute>
+            <attribute name="action">win.RateTwo</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="no">★</attribute>
+            <attribute name="accel">1</attribute>
+            <attribute name="action">win.RateOne</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">_Unrated</attribute>
+            <attribute name="accel">0</attribute>
+            <attribute name="action">win.RateUnrated</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">_Rejected</attribute>
+            <attribute name="accel">9</attribute>
+            <attribute name="action">win.RateRejected</attribute>
+          </item>
+        </section>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">_Increase</attribute>
+            <attribute name="accel">greater</attribute>
+            <attribute name="action">win.IncreaseRating</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">_Decrease</attribute>
+            <attribute name="accel">less</attribute>
+            <attribute name="action">win.DecreaseRating</attribute>
+          </item>
+        </section>
+      </submenu>
 
-</ui>
+      <submenu>
+        <attribute name="label" translatable="yes">_Developer</attribute>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">Shotwell</attribute>
+            <attribute name="action">win.RawDeveloper</attribute>
+            <attribute name="target">Shotwell</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Camera</attribute>
+            <attribute name="action">win.RawDeveloper</attribute>
+            <attribute name="target">Camera</attribute>
+          </item>
+        </section>
+      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Edit _Title…</attribute>
+        <attribute name="action">win.EditTitle</attribute>
+        <attribute name="accel">F2</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Edit _Comment…</attribute>
+        <attribute name="action">win.EditComment</attribute>
+        <attribute name="accel">F3</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Open With E_xternal Editor</attribute>
+        <attribute name="accel">&lt;Primary&gt;Return</attribute>
+        <attribute name="action">win.ExternalEdit</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Open With RA_W Editor</attribute>
+        <attribute name="action">win.ExternalEditRAW</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">View Eve_nt for Photo</attribute>
+        <attribute name="action">win.CommonJumpToEvent</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Show in File Mana_ger</attribute>
+        <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;m</attribute>
+        <attribute name="action">win.CommonJumpToFile</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Send T_o…</attribute>
+        <attribute name="action">win.SendTo</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Move to Trash</attribute>
+        <attribute name="accel">Delete</attribute>
+        <attribute name="action">win.MoveToTrash</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

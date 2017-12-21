@@ -1,11 +1,11 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
 // See the note in MediaInterfaces.vala for some thoughts on the theory of expanding Shotwell's
-// features via interfaces rather than class heirarchies.
+// features via interfaces rather than class hierarchies.
 
 // Indexable DataSources provide raw strings that may be searched against (and, in the future,
 // indexed) for free-text search queries.  DataSources implementing Indexable must prepare and

@@ -5,9 +5,9 @@
  */
 
 
-static const string G3_VERSION = "0.1";
+const string G3_VERSION = "0.1";
 
-static const string G3_LICENSE = """
+const string G3_LICENSE = """
 The Gallery3Publishing module is free software; you can redistribute it
 and/or modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either version 2.1
@@ -24,7 +24,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA
 """;
 
-static const string WEBSITE_URL =
+const string WEBSITE_URL =
     "https://github.com/sappjw/shotwell-gallery3";
 
 // This module's Spit.Module
@@ -63,8 +63,8 @@ public class Gallery3Service : Object, Spit.Pluggable,
 
     public Gallery3Service(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_icon_set(
-                resource_directory.get_child(ICON_FILENAME));
+            icon_pixbuf_set = Resources.load_from_resource
+                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface,
@@ -798,7 +798,7 @@ private class GalleryUploadTransaction :
 
 
 public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
-    private const string BAD_FILE_MSG = _("\n\nThe file \"%s\" may not be supported by or may be too large for this instance of Gallery3.");
+    private const string BAD_FILE_MSG = _("\n\nThe file “%s” may not be supported by or may be too large for this instance of Gallery3.");
     private const string BAD_MOVIE_MSG = _("\nNote that Gallery3 only supports the video types that Flowplayer does.");
 
     private weak Spit.Publishing.PluginHost host = null;
@@ -1011,15 +1011,14 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         Gtk.Builder builder = new Gtk.Builder();
 
         try {
-            builder.add_from_file(
-                host.get_module_file().get_parent().get_child(
-                    "gallery3_publishing_options_pane.glade").get_path());
+            builder.add_from_resource(Resources.RESOURCE_PATH +
+                    "/gallery3_publishing_options_pane.ui");
         }
         catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to %s can't continue.")
+                    _("A file required for publishing is unavailable. Publishing to %s can’t continue.")
                         .printf(SERVICE_NAME)
                 )
             );
@@ -1764,15 +1763,14 @@ internal class CredentialsPane : Spit.Publishing.DialogPane, GLib.Object {
         Gtk.Builder builder = new Gtk.Builder();
 
         try {
-            builder.add_from_file(
-                host.get_module_file().get_parent().get_child(
-                    "gallery3_authentication_pane.glade").get_path());
+            builder.add_from_resource (Resources.RESOURCE_PATH +
+                    "/gallery3_authentication_pane.ui");
         }
         catch (Error e) {
             warning("Could not parse UI file! Error: %s.", e.message);
             host.post_error(
                 new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
-                    _("A file required for publishing is unavailable. Publishing to %s can't continue.")
+                    _("A file required for publishing is unavailable. Publishing to %s can’t continue.")
                         .printf(SERVICE_NAME)
                     )
                 );

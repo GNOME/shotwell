@@ -23,7 +23,7 @@
     is also useful because you can operate on all flagged photos as a set.  For example, you can
     select the <gui>Flagged</gui> view and then upload all flagged photos to a publishing service.</p>
     
-    <section>
+    <section id="flag-unflag">
     <title>To flag or unflag a photo</title>
     <p>
     To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> or <gui>Unflag</gui>

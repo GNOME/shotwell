@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  * 
  * This is a Vala-rewrite of GStreamer snapshot example. Adapted from earlier 
  * work from Wim Taymans.
@@ -11,7 +11,7 @@
 // a replacement for totem-video-thumbnailer
 class ShotwellThumbnailer {
     const string caps_string = """video/x-raw,format=RGB,pixel-aspect-ratio=1/1""";
-    
+
     public static int main(string[] args) {
         Gst.Element pipeline, sink;
         string descr;
@@ -19,9 +19,23 @@ class ShotwellThumbnailer {
         uint8[]? pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
-        
+
+        if (Posix.nice (19) < 0) {
+            debug ("Failed to reduce thumbnailer nice level. Continuing anyway");
+        }
+
         Gst.init(ref args);
-        
+
+        var registry = Gst.Registry.@get ();
+        var features = registry.feature_filter ((f) => {
+            return f.get_name ().has_prefix ("vaapi");
+        }, false);
+
+        foreach (var feature in features) {
+            debug ("Removing registry feature %s", feature.get_name ());
+            registry.remove_feature (feature);
+        }
+
         if (args.length != 2) {
             stdout.printf("usage: %s [filename]\n Writes video thumbnail to stdout\n", args[0]);
             return 1;

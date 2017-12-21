@@ -1,4 +1,4 @@
-/* Copyright 2010-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -55,13 +55,8 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         }
         
         if (calc_md5 && detected.metadata != null) {
-            uint8[]? flattened_sans_thumbnail = detected.metadata.flatten_exif(false);
-            if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                detected.exif_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
-            
-            uint8[]? flattened_thumbnail = detected.metadata.flatten_exif_preview();
-            if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
-                detected.thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
+            detected.exif_md5 = detected.metadata.exif_hash();
+            detected.thumbnail_md5 = detected.metadata.thumbnail_hash();
         }
         
         // if no MD5, don't read as much, as the needed info will probably be gleaned

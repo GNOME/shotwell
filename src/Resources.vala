@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -24,13 +24,13 @@ namespace Resources {
     public const string? GIT_VERSION = null;
 #endif
 
-    public const string COPYRIGHT = _("Copyright 2009-2015 Yorba Foundation");
+    public const string COPYRIGHT = _("Copyright 2016 Software Freedom Conservancy Inc.");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string HOME_URL = "https://wiki.gnome.org/Apps/Shotwell";
     public const string FAQ_URL = "https://wiki.gnome.org/Apps/Shotwell/FAQ";
     public const string BUG_DB_URL = "https://wiki.gnome.org/Apps/Shotwell/ReportingABug";
-    public const string DIR_PATTERN_URI_SYSWIDE = "ghelp:shotwell?other-files";
+    public const string DIR_PATTERN_URI_SYSWIDE = "help:shotwell/other-files";
 
     private const string LIB = _LIB;
     private const string LIBEXECDIR = _LIBEXECDIR;
@@ -76,22 +76,22 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST = "image-adjust";
     public const string PIN_TOOLBAR = "shotwell-pin-toolbar";
     public const string MAKE_PRIMARY = "shotwell-make-primary";
-    public const string IMPORT = "shotwell-import";
-    public const string IMPORT_ALL = "shotwell-import-all";
+    public const string IMPORT = "import";
+    public const string IMPORT_ALL = "import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";
+#if ENABLE_FACES
     public const string FACES_TOOL = "faces";
+#endif
+    
     public const string GO_NEXT = "go-next";
     public const string GO_PREVIOUS = "go-previous";
-    public const string ICON_APP = "shotwell.svg";
-    public const string ICON_APP16 = "shotwell-16.svg";
-    public const string ICON_APP24 = "shotwell-24.svg";
+
     
-    public const string APP_ICONS[] = { ICON_APP, ICON_APP16, ICON_APP24 };
-    
-    public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
+    //public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
+    public const string ICON_ABOUT_LOGO = "about-aachen.jpg";
     public const string ICON_GENERIC_PLUGIN = "generic-plugin.png";
     public const string ICON_SLIDESHOW_EXTENSION_POINT = "slideshow-extension-point";
     public const string ICON_RATING_REJECTED = "rejected.svg";
@@ -102,7 +102,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_RATING_FIVE = "five-stars.svg";
     public const string ICON_FILTER_REJECTED_OR_BETTER = "all-rejected.png";
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
-    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-16.svg";
+    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-16.png";
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const string ICON_FILTER_ONE_OR_BETTER = "one-star-filter-plus.svg";
     public const string ICON_FILTER_TWO_OR_BETTER = "two-star-filter-plus.svg";
@@ -119,14 +119,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_NO_EVENT = "no-event";
     public const string ICON_ONE_TAG = "one-tag";
     public const string ICON_TAGS = "multiple-tags";
-    public const string ICON_ONE_FACE = "one-face";
-    public const string ICON_FACES = "many-faces";
     public const string ICON_FOLDER = "folder";
     public const string ICON_FOLDER_DOCUMENTS = "folder-documents";
     public const string ICON_IMPORTING = "go-down";
     public const string ICON_LAST_IMPORT = "document-open-recent";
     public const string ICON_MISSING_FILES = "process-stop";
-    public const string ICON_PHOTOS = "shotwell-16";
+    public const string ICON_PHOTOS = "shotwell";
     public const string ICON_SINGLE_PHOTO = "image-x-generic";
     public const string ICON_FILTER_PHOTOS = "filter-photos";
     public const string ICON_FILTER_PHOTOS_DISABLED = "filter-photos-disabled";
@@ -141,6 +139,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_VIDEOS_PAGE = "videos-page";
     public const string ICON_FLAGGED_PAGE = "flag-page";
     public const string ICON_FLAGGED_TRINKET = "flag-trinket.png";
+#if ENABLE_FACES
+    public const string ICON_ONE_FACE = "one-face";
+	public const string ICON_FACES = "faces-tool";
+#endif
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -191,7 +193,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
-    public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
+    public const string ENHANCE_TOOLTIP = _("Automatically improve the photo’s appearance");
     
     public const string COPY_ADJUSTMENTS_MENU = _("_Copy Color Adjustments");
     public const string COPY_ADJUSTMENTS_LABEL = _("Copy Color Adjustments");
@@ -203,7 +205,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string CROP_MENU = _("_Crop");
     public const string CROP_LABEL = _("Crop");
-    public const string CROP_TOOLTIP = _("Crop the photo's size");
+    public const string CROP_TOOLTIP = _("Crop the photo’s size");
 
     public const string STRAIGHTEN_MENU = _("_Straighten");
     public const string STRAIGHTEN_LABEL = _("Straighten");    
@@ -215,7 +217,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string ADJUST_MENU = _("_Adjust");
     public const string ADJUST_LABEL = _("Adjust");
-    public const string ADJUST_TOOLTIP = _("Adjust the photo's color and tone");
+    public const string ADJUST_TOOLTIP = _("Adjust the photo’s color and tone");
     
     public const string REVERT_MENU = _("Re_vert to Original");
     public const string REVERT_LABEL = _("Revert to Original");
@@ -225,7 +227,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string SET_BACKGROUND_MENU = _("Set as _Desktop Background");
     public const string SET_BACKGROUND_TOOLTIP = _("Set selected image to be the new desktop background");
-    public const string SET_BACKGROUND_SLIDESHOW_MENU = _("Set as _Desktop Slideshow...");
+    public const string SET_BACKGROUND_SLIDESHOW_MENU = _("Set as _Desktop Slideshow…");
     
     public const string UNDO_MENU = _("_Undo");
     public const string UNDO_LABEL = _("Undo");
@@ -233,7 +235,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string REDO_MENU = _("_Redo");
     public const string REDO_LABEL = _("Redo");
     
-    public const string RENAME_EVENT_MENU = _("Re_name Event...");
+    public const string RENAME_EVENT_MENU = _("Re_name Event…");
     public const string RENAME_EVENT_LABEL = _("Rename Event");
     
     public const string MAKE_KEY_PHOTO_MENU = _("Make _Key Photo for Event");
@@ -276,17 +278,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DISPLAY_REJECTED_ONLY_TOOLTIP = _("Show only rejected photos");
     
     public const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("All + _Rejected");
-    public const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Show all photos, including rejected");
-    public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
+    public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = NC_("Tooltip", "Show all photos, including rejected");
     
     public const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
-    // Button label
-    public const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
     // Button tooltip
     public const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
     public const string VIEW_RATINGS_MENU = _("_Ratings");
-    public const string VIEW_RATINGS_TOOLTIP = _("Display each photo's rating");
+    public const string VIEW_RATINGS_TOOLTIP = _("Display each photo’s rating");
 
     public const string FILTER_PHOTOS_MENU = _("_Filter Photos");
     public const string FILTER_PHOTOS_LABEL = _("Filter Photos");
@@ -296,32 +295,32 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DUPLICATE_PHOTO_LABEL = _("Duplicate");
     public const string DUPLICATE_PHOTO_TOOLTIP = _("Make a duplicate of the photo");
 
-    public const string EXPORT_MENU = _("_Export...");
+    public const string EXPORT_MENU = _("_Export…");
     
-    public const string PRINT_MENU = _("_Print...");
+    public const string PRINT_MENU = _("_Print…");
     
-    public const string PUBLISH_MENU = _("Pu_blish...");
+    public const string PUBLISH_MENU = _("Pu_blish…");
     public const string PUBLISH_LABEL = _("Publish");
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 
-    public const string EDIT_TITLE_MENU = _("Edit _Title...");
+    public const string EDIT_TITLE_MENU = _("Edit _Title…");
     // Button label
-    public const string EDIT_TITLE_LABEL = _("Edit Title");
+    public const string EDIT_TITLE_LABEL = NC_("Button Label", "Edit Title");
 
-    public const string EDIT_COMMENT_MENU = _("Edit _Comment...");
+    public const string EDIT_COMMENT_MENU = _("Edit _Comment…");
     // Button label
     public const string EDIT_COMMENT_LABEL = _("Edit Comment");
 
-    public const string EDIT_EVENT_COMMENT_MENU = _("Edit Event _Comment...");
+    public const string EDIT_EVENT_COMMENT_MENU = _("Edit Event _Comment…");
     public const string EDIT_EVENT_COMMENT_LABEL = _("Edit Event Comment");
 
-    public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
+    public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time…");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     
-    public const string ADD_TAGS_MENU = _("Add _Tags...");
-    public const string ADD_TAGS_CONTEXT_MENU = _("_Add Tags...");
+    public const string ADD_TAGS_MENU = _("Add _Tags…");
+    public const string ADD_TAGS_CONTEXT_MENU = _("_Add Tags…");
     // Dialog title
-    public const string ADD_TAGS_TITLE = _("Add Tags");
+    public const string ADD_TAGS_TITLE = NC_("Dialog Title", "Add Tags");
 
     public const string PREFERENCES_MENU = _("_Preferences");
     
@@ -329,16 +328,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string EXTERNAL_EDIT_RAW_MENU = _("Open With RA_W Editor");
     
-    public const string SEND_TO_MENU = _("Send _To...");
-    public const string SEND_TO_CONTEXT_MENU = _("Send T_o...");
+    public const string SEND_TO_MENU = _("Send _To…");
+    public const string SEND_TO_CONTEXT_MENU = _("Send T_o…");
     
-    public const string FIND_MENU = _("_Find...");
+    public const string FIND_MENU = _("_Find…");
     public const string FIND_LABEL = _("Find");
     public const string FIND_TOOLTIP = _("Find an image by typing text that appears in its name or tags");
     
     public const string FLAG_MENU = _("_Flag");
     
     public const string UNFLAG_MENU = _("Un_flag");
+
 
 #if ENABLE_FACES    
     public const string FACES_MENU = _("Faces");
@@ -347,8 +347,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MODIFY_FACES_LABEL = _("Modify Faces");
     public const string DELETE_FACE_TITLE = _("Delete Face");
     public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
-    public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename...");
+    public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename…");
+    public const string FACES_MENU_SECTION = _("FacesMenuPlaceholder");
 #endif
+
 
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
@@ -356,24 +358,24 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public string add_tags_label(string[] names) {
         if (names.length == 1) {
-            return _("Add Tag \"%s\"").printf(HierarchicalTagUtilities.get_basename(names[0]));
+            return _("Add Tag “%s”").printf(HierarchicalTagUtilities.get_basename(names[0]));
         } else if (names.length == 2) {
             // Used when adding two tags to photo(s)
-            return _("Add Tags \"%s\" and \"%s\"").printf(
+            return _("Add Tags “%s” and “%s”").printf(
                 HierarchicalTagUtilities.get_basename(names[0]),
                 HierarchicalTagUtilities.get_basename(names[1]));
         } else {
             // Undo/Redo command name (in Edit menu)
-            return _("Add Tags");
+            return C_("UndoRedo menu entry", "Add Tags");
         }
     }
     
     public string delete_tag_menu(string name) {
-        return _("_Delete Tag \"%s\"").printf(name);
+        return _("_Delete Tag “%s”").printf(name);
     }
     
     public string delete_tag_label(string name) {
-        return _("Delete Tag \"%s\"").printf(name);
+        return _("Delete Tag “%s”").printf(name);
     }
     
     public const string DELETE_TAG_TITLE = _("Delete Tag");
@@ -382,43 +384,48 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string NEW_CHILD_TAG_SIDEBAR_MENU = _("_New");
     
     public string rename_tag_menu(string name) {
-        return _("Re_name Tag \"%s\"...").printf(name);
+        return _("Re_name Tag “%s”…").printf(name);
     }
     
     public string rename_tag_label(string old_name, string new_name) {
-        return _("Rename Tag \"%s\" to \"%s\"").printf(old_name, new_name);
+        return _("Rename Tag “%s” to “%s”").printf(old_name, new_name);
     }
     
-    public const string RENAME_TAG_SIDEBAR_MENU = _("_Rename...");
+    public const string RENAME_TAG_SIDEBAR_MENU = _("_Rename…");
     
-    public const string MODIFY_TAGS_MENU = _("Modif_y Tags...");
+    public const string MODIFY_TAGS_MENU = _("Modif_y Tags…");
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
     
     public string tag_photos_label(string name, int count) {
-        return ((count == 1) ? _("Tag Photo as \"%s\"") : _("Tag Photos as \"%s\"")).printf(name);
+        return ngettext ("Tag Photo as “%s”",
+                         "Tag Photos as “%s”",
+                         count).printf(name);
     }
     
     public string tag_photos_tooltip(string name, int count) {
-        return ((count == 1) ? _("Tag the selected photo as \"%s\"") :
-            _("Tag the selected photos as \"%s\"")).printf(name);
+        return ngettext ("Tag the selected photo as “%s”",
+                         "Tag the selected photos as “%s”",
+                         count).printf(name);
     }
     
     public string untag_photos_menu(string name, int count) {
-        return ((count == 1) ? _("Remove Tag \"%s\" From _Photo") :
-            _("Remove Tag \"%s\" From _Photos")).printf(name);
+        return ngettext ("Remove Tag “%s” From _Photo",
+                         "Remove Tag “%s” From _Photos",
+                         count).printf(name);
     }
     
     public string untag_photos_label(string name, int count) {
-        return ((count == 1) ? _("Remove Tag \"%s\" From Photo") :
-            _("Remove Tag \"%s\" From Photos")).printf(name);
+        return ngettext ("Remove Tag “%s” From Photo",
+                         "Remove Tag “%s” From Photos",
+                         count).printf(name);
     }
     
     public static string rename_tag_exists_message(string name) {
-        return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
+        return _("Unable to rename tag to “%s” because the tag already exists.").printf(name);
     }
     
     public static string rename_search_exists_message(string name) {
-        return _("Unable to rename search to \"%s\" because the search already exists.").printf(name);
+        return _("Unable to rename search to “%s” because the search already exists.").printf(name);
     }
     
     public const string DEFAULT_SAVED_SEARCH_NAME = _("Saved Search");
@@ -426,17 +433,18 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DELETE_SAVED_SEARCH_DIALOG_TITLE = _("Delete Search");
     
     public const string DELETE_SEARCH_MENU = _("_Delete");
-    public const string EDIT_SEARCH_MENU = _("_Edit...");
-    public const string RENAME_SEARCH_MENU = _("Re_name...");
+    public const string EDIT_SEARCH_MENU = _("_Edit…");
+    public const string RENAME_SEARCH_MENU = _("Re_name…");
     
     public string rename_search_label(string old_name, string new_name) {
-        return _("Rename Search \"%s\" to \"%s\"").printf(old_name, new_name);
+        return _("Rename Search “%s” to “%s”").printf(old_name, new_name);
     }
     
     public string delete_search_label(string name) {
-        return _("Delete Search \"%s\"").printf(name);
+        return _("Delete Search “%s”").printf(name);
     }
-    
+
+#if ENABLE_FACES
     public static string rename_face_exists_message(string name) {
         return _("Unable to rename face to \"%s\" because the face already exists.").printf(name);
     }
@@ -466,28 +474,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public string delete_face_label(string name) {
         return _("Delete Face \"%s\"").printf(name);
     }
+#endif
     
-    private unowned string rating_menu(Rating rating) {
-        switch (rating) {
-            case Rating.REJECTED:
-                return RATE_REJECTED_MENU;
-            case Rating.UNRATED:
-                return RATE_UNRATED_MENU;
-            case Rating.ONE:
-                return RATE_ONE_MENU;
-            case Rating.TWO:
-                return RATE_TWO_MENU;
-            case Rating.THREE:
-                return RATE_THREE_MENU;
-            case Rating.FOUR:
-                return RATE_FOUR_MENU;
-            case Rating.FIVE:
-                return RATE_FIVE_MENU;
-            default:
-                return RATE_UNRATED_MENU;
-        }
-    }
-
     private unowned string rating_label(Rating rating) {
         switch (rating) {
             case Rating.REJECTED:
@@ -728,7 +716,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
     
     public const string JUMP_TO_FILE_MENU = _("Show in File Mana_ger");
-    public const string JUMP_TO_FILE_TOOLTIP = _("Open the selected photo's directory in the file manager");
+    public const string JUMP_TO_FILE_TOOLTIP = _("Open the selected photo’s directory in the file manager");
     
     public string jump_to_file_failed(Error err) {
         return _("Unable to open in file manager: %s").printf(err.message);
@@ -741,7 +729,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string SELECT_ALL_MENU = _("Select _All");
     public const string SELECT_ALL_TOOLTIP = _("Select all items");
     
-    private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
     
@@ -751,40 +738,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string START_MULTIDAY_DATE_FORMAT_STRING = null;
     private string END_MULTIDAY_DATE_FORMAT_STRING = null;
     private string START_MULTIMONTH_DATE_FORMAT_STRING = null;
-        
+    private string END_MULTIMONTH_DATE_FORMAT_STRING = null;
+
     public void init () {
+        get_icon_theme_engine();
         // load application-wide stock icons as IconSets
-        factory = new Gtk.IconFactory();
-
-        File icons_dir = AppDirs.get_resources_dir().get_child("icons");
-        add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
-#if ENABLE_FACES
-        add_stock_icon(icons_dir.get_child("faces-tool.png"), FACES_TOOL);
-#endif
-        add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
-        add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
-        add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
-        add_stock_icon(icons_dir.get_child("straighten.svg"), STRAIGHTEN);
-        add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
-        add_stock_icon(icons_dir.get_child("shotwell-auto-enhance.png"), ENHANCE);
-        add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
-        add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FLAGGED_PAGE), ICON_FLAGGED_PAGE);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_VIDEOS_PAGE), ICON_VIDEOS_PAGE);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_SINGLE_PHOTO), ICON_SINGLE_PHOTO);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_CAMERAS), ICON_CAMERAS);
-        
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_FLAGGED), 
-            ICON_FILTER_FLAGGED_DISABLED, dim_pixbuf);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_PHOTOS), 
-            ICON_FILTER_PHOTOS_DISABLED, dim_pixbuf);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_VIDEOS), 
-            ICON_FILTER_VIDEOS_DISABLED, dim_pixbuf);
-        add_stock_icon_from_themed_icon(new GLib.ThemedIcon(ICON_FILTER_RAW), 
-            ICON_FILTER_RAW_DISABLED, dim_pixbuf);
-        
-        factory.add_default();
-
         generate_rating_strings();
     }
     
@@ -821,13 +779,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         /// Locale-specific time format for 12-hour time, i.e. 8:31 PM
         /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        HH_MM_FORMAT_STRING = _("%-I:%M %p");
+        HH_MM_FORMAT_STRING = "%X";
         
         /// Locale-specific time format for 12-hour time with seconds, i.e. 8:31:42 PM
         /// Precede modifier with a dash ("-") to pad with spaces, otherwise will pad with zeroes
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        HH_MM_SS_FORMAT_STRING = _("%-I:%M:%S %p");
-        
+        HH_MM_SS_FORMAT_STRING = Posix.nl_langinfo (Posix.NLItem.T_FMT);
+
         /// Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
         LONG_DATE_FORMAT_STRING = _("%a %b %d, %Y");
@@ -835,18 +793,23 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         /// Locale-specific starting date format for multi-date strings,
         /// i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        START_MULTIDAY_DATE_FORMAT_STRING = _("%a %b %d");
+        START_MULTIDAY_DATE_FORMAT_STRING = C_("MultidayFormat", "%a %b %d");
         
         /// Locale-specific ending date format for multi-date strings,
         /// i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        END_MULTIDAY_DATE_FORMAT_STRING = _("%d, %Y");
+        END_MULTIDAY_DATE_FORMAT_STRING = C_("MultidayFormat", "%d, %Y");
         
         /// Locale-specific calendar date format for multi-month strings,
         /// i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
         /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-        START_MULTIMONTH_DATE_FORMAT_STRING = _("%a %b %d");
-        
+        START_MULTIMONTH_DATE_FORMAT_STRING = C_("MultimonthFormat", "%a %b %d");
+
+        /// Locale-specific calendar date format for multi-month strings,
+        /// i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
+        /// See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
+        END_MULTIMONTH_DATE_FORMAT_STRING = C_("MultimonthFormat", "%a %b %d, %Y");
+
         // ...put everything back like we found it.
         if (old_messages != null) {
             Intl.setlocale(LocaleCategory.MESSAGES, old_messages);
@@ -855,6 +818,40 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (old_language != null) {
             Environment.set_variable("LANGUAGE", old_language, true);
         }
+
+    }
+
+    public enum UnitSystem {
+        IMPERIAL,
+        METRIC,
+        UNKNOWN
+    }
+
+    private string lc_measurement = null;
+    private UnitSystem unit_system = UnitSystem.UNKNOWN;
+    private const string IMPERIAL_COUNTRIES[] = {"unm_US", "es_US", "en_US", "yi_US" };
+
+    public UnitSystem get_default_measurement_unit() {
+        if (unit_system != UnitSystem.UNKNOWN) {
+            return unit_system;
+        }
+
+        lc_measurement = Environment.get_variable("LC_MEASUREMENT");
+        if (lc_measurement == null) {
+            lc_measurement = Intl.get_language_names()[0];
+        }
+
+        var index = lc_measurement.last_index_of_char('.');
+        if (index > 0) {
+            lc_measurement = lc_measurement.substring(0, index);
+        }
+
+        unit_system = UnitSystem.METRIC;
+        if (lc_measurement in IMPERIAL_COUNTRIES) {
+            unit_system = UnitSystem.IMPERIAL;
+        }
+
+        return unit_system;
     }
     
     /**
@@ -910,11 +907,15 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     public string get_end_multimonth_span_format_string() {
-        return get_long_date_format_string();
+        if (END_MULTIMONTH_DATE_FORMAT_STRING == null) {
+            fetch_lc_time_format();
+        }
+
+        return END_MULTIMONTH_DATE_FORMAT_STRING;
     }
 
-    public File get_ui(string filename) {
-        return AppDirs.get_resources_dir().get_child("ui").get_child(filename);
+    public string get_ui(string filename) {
+        return "/org/gnome/Shotwell/ui/%s".printf(filename);
     }
 
     private const string NONINTERPRETABLE_BADGE_FILE = "noninterpretable-video.png";
@@ -923,8 +924,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public Gdk.Pixbuf? get_noninterpretable_badge_pixbuf() {
         if (noninterpretable_badge_pixbuf == null) {
             try {
-                noninterpretable_badge_pixbuf = new Gdk.Pixbuf.from_file(AppDirs.get_resources_dir().get_child(
-                    "icons").get_child(NONINTERPRETABLE_BADGE_FILE).get_path());
+                var path = "/org/gnome/Shotwell/icons/" + NONINTERPRETABLE_BADGE_FILE;
+                noninterpretable_badge_pixbuf = new Gdk.Pixbuf.from_resource(path);
             } catch (Error err) {
                 error("VideoReader can't load noninterpretable badge image: %s", err.message);
             }
@@ -935,7 +936,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public Gtk.IconTheme get_icon_theme_engine() {
         Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
-        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
+        icon_theme.add_resource_path("/org/gnome/Shotwell/icons");
         
         return icon_theme;
     }
@@ -978,59 +979,20 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public Gdk.Pixbuf? load_icon(string name, int scale = DEFAULT_ICON_SCALE) {
-        File icons_dir = AppDirs.get_resources_dir().get_child("icons");
-        
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = new Gdk.Pixbuf.from_file(icons_dir.get_child(name).get_path());
+            var path = "/org/gnome/Shotwell/icons/%s".printf(name);
+            pixbuf = new Gdk.Pixbuf.from_resource(path);
         } catch (Error err) {
             critical("Unable to load icon %s: %s", name, err.message);
         }
 
         if (pixbuf == null)
             return null;
-        
+
         return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
     }
     
-    private void add_stock_icon(File file, string stock_id) {
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            critical("Unable to load stock icon %s: %s", stock_id, err.message);
-        }
-        
-        Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
-        factory.add(stock_id, icon_set);
-    }
-    
-    public delegate void AddStockIconModify(Gdk.Pixbuf pixbuf);
-    
-    private void add_stock_icon_from_themed_icon(GLib.ThemedIcon gicon, string stock_id, 
-        AddStockIconModify? modify = null) {
-        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
-        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
-
-        Gtk.IconInfo? info = icon_theme.lookup_by_gicon(gicon, 
-            Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
-        if (info == null) {
-            debug("unable to load icon for: %s", stock_id);
-            return;
-        }
-        
-        try {
-            Gdk.Pixbuf pix = info.load_icon();
-            if (modify != null) {
-                modify(pix);
-            }
-            Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pix);
-                factory.add(stock_id, icon_set);
-        } catch (Error err) {
-            debug("%s", err.message);
-        }
-    }
-
     // Get the directory where our help files live.  Returns a string
     // describing the help path we want, or, if we're installed system
     // -wide already, returns null.
@@ -1072,7 +1034,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             }
             
             string[] argv = new string[3];
-            argv[0] = "gnome-help";
+            argv[0] = "yelp";
             argv[1] = help_path;
             argv[2] = null;
             
@@ -1087,9 +1049,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         // launch from system-installed help
         if (anchor != null) {
-            sys_show_uri(screen, "ghelp:shotwell" + anchor);
+            sys_show_uri(screen, "help:shotwell" + anchor);
         } else {
-            sys_show_uri(screen, "ghelp:shotwell");
+            sys_show_uri(screen, "help:shotwell");
         }
     }
     
@@ -1131,10 +1093,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     public const string CUSTOM_CSS =
-        """LibraryWindow {
-               -GtkPaned-handle-size: 1;
-            }
-            LibraryWindow .pane-separator {
+         """LibraryWindow .pane-separator {
                background-color: @borders;
             }
             SearchFilterToolbar {

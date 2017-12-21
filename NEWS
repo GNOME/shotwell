@@ -1,3 +1,1028 @@
+Shotwell 0.27.1 - 21 Oct 2017
+  * Properly dist meson files with autotools
+  * Dist apport helper with autotools
+  * Fix checking against unity
+  * Build the graphics-processor binary when building with meson
+  * Hide toolbar in fullscreen when disabled in settings
+  * When clicking ok in import, hide file selector
+  * Properly xml-escape the file names in wallpaper.xml
+  * Do not re-encode JPEG previews
+  * Only create thumbs for RAW imports once
+  * Use APPSTREAM instead of APPDATA
+  * Improve RAW/JPEG pair matching by sorting file list
+  * Fix deprecated "find" icons
+  * Fix help for non-recursive photo import
+  * Fix menu-bar injection
+  * Avoid data corruption when importing from camera
+  * Re-use RAW/JPEG association from camera import
+  * Rename backing photo when importing to lower case
+  * Improve description of mass-storage cameras
+  * Improve top-level tool-tips on navigation tree
+  * More unicode use
+  * When trashing without trash available, also remove RAW file
+  * Fix trimming of EXIF thumbs from Canon cameras
+  * Import Videos even if they use application/x-extension-mp4
+  * Fix missing event pictures when not copying thumbnails
+  * Remove Rajce and Yandex plugin from default build
+  * Remove useless submenu on saved searches
+  * Fix some criticals on context menu actions
+  * Some code clean-ups
+  * Remove locale-dependent keyboard shortcuts
+  * Fix Help to pass yelp-check
+  * Fix crash on removing last photo from import roll
+  * Fix window icon of start-up dialog
+  * Speed-up event creation on import and merge
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717735
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719142
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719186
+ - https://bugzilla.gnome.org/show_bug.cgi?id=741962
+ - https://bugzilla.gnome.org/show_bug.cgi?id=748666
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=773206
+ - https://bugzilla.gnome.org/show_bug.cgi?id=777626
+ - https://bugzilla.gnome.org/show_bug.cgi?id=782753
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783956
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784661
+ - https://bugzilla.gnome.org/show_bug.cgi?id=784883
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785196
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785503
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785711
+ - https://bugzilla.gnome.org/show_bug.cgi?id=785761
+ - https://bugzilla.gnome.org/show_bug.cgi?id=787400
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Jordi Mas <jmas@softcatala.org>
+ - Andre Klapper <a9016009@gmx.de>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Marek Černocký <marek@manet.cz>
+ - Kukuh Syafaat <syafaatkukuh@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Thomas Moschny <thomas.moschny@gmx.de>
+ - Stefan Willinger <stefan.home@aon.at>
+ - stefan <stefan.home@aon.at>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Peter Seiderer <ps.report@gmx.net>
+ - Marcos Lans <marcoslansgarza@gmail.com>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Isaac F. Ferreira Filho <isaacmob@riseup.net>
+ - Gert <gw.fossdev@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Brian Masney <masneyb@onstation.org>
+ - Balázs Úr <urbalazs@gmail.com>
+ - Balázs Meskó <meskobalazs@fedoraproject.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+
+Added/updated translations
+ - ca, courtesy of Carles Ferrando Garcia
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - fi, courtesy of Jir Grönroos
+ - gl, courtesy of marcos
+ - hu, courtesy of Meskó Balázs
+ - id, courtesy of Kukuh Syafaat
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Isaac Ferreira Filho
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+ - sv, courtesy of Anders Jonsson
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
+Shotwell 0.27.0 - 19 Jun 2017
+  * Remove F-Spot import support
+  * Create a commandline utility to test image transformations
+  * Speed up color transformations a bit
+  * Bump GTK+ requirement to 3.18 and remove deprecated functions
+  * Clean-up histogram drawing code
+  * Run thumbnailer with nice 19
+  * Update VAAPI blacklisting for video thumbnailer and new plugin structure
+  * Add configurable image background
+  * Split several dialogs from shotwell.ui file
+  * Move Tumblr to default plugin set
+  * Remove some unnecessary memcpys on import
+  * Add Meson build support
+  * Some more ngettext for plurals
+  * Add --fullscreen/-f option for viewer
+  * Add option to install Ubuntu apport hook
+  * Fix issue when importing to NTFS-backed vboxfs
+  * Fix GSettings schema search path for running out-of-tree
+  * Work around "Camera locked: -53" error on GNOME
+  * Fix issue with missing highlight on dnd actions
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716448
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716499
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716547
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716599
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716708
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716830
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717767
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718809
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718846
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719020
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719031
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719240
+ - https://bugzilla.gnome.org/show_bug.cgi?id=733652
+ - https://bugzilla.gnome.org/show_bug.cgi?id=742563
+ - https://bugzilla.gnome.org/show_bug.cgi?id=752008
+ - https://bugzilla.gnome.org/show_bug.cgi?id=760868
+ - https://bugzilla.gnome.org/show_bug.cgi?id=768938
+ - https://bugzilla.gnome.org/show_bug.cgi?id=773267
+ - https://bugzilla.gnome.org/show_bug.cgi?id=774650
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780811
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781567
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781897
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783250
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - gogo <trebelnik2@gmail.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - ca, courtesy of Jordi Mas
+ - da, courtesy of Alan Mortensen
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - fr, courtesy of Claude Paroz
+ - hr, courtesy of gogo
+ - id, courtesy of Andika Triwidada
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sk, courtesy of Dušan Kazik
+ - sv, courtesy of Anders Jonsson
+ - tr, courtesy of Emin Tufan Çetin
+
+Shotwell 0.26.2 - 1 Jun 2017
+  * Fix issue when minimizing publishing UI on Unity
+  * Fix browsing on GVFS-mounted file systems
+  * Fix missing linebreaks in comments when writing back meta-data
+  * Fix crash when no import plugin is selected
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719240
+ - https://bugzilla.gnome.org/show_bug.cgi?id=733652
+ - https://bugzilla.gnome.org/show_bug.cgi?id=781897
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783250
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - id, courtesy of Andika Triwidada
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
+Shotwell 0.26.1 - 11 Apr 2017
+  * Fix "About" wording
+  * Fix missing Keyboard shortcuts
+  * Viewer: Fix context menu
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780415
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780811
+
+All contributors to this release:
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - de, courtesy of Mario Blättermann
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sv, courtesy of Anders Jonsson
+
+Shotwell 0.26.0 - 20 Mar 2017
+  * Translation updates
+  * Fix build on non-glibc systems
+  * Fix missing optimisation in standard configure call
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779844
+ - https://bugzilla.gnome.org/show_bug.cgi?id=780116
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Josef Andersson <l10nl18nsweja@gmail.com>
+ - gogo <trebelnik2@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - hr, courtesy of gogo
+ - hu, courtesy of Balázs Úr
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - lv, courtesy of Rūdolfs Mazurs
+ - pl, courtesy of Piotr Drąg
+ - sv, courtesy of Josef Andersson
+
+Shotwell 0.25.92 - 13 Mar 2017
+  * Fix navigation issue when deleting image in fullscreen view
+  * Fix toolbox not visible on Mate in fullscreen view
+  * Fix navigation in viewer when saving modified photo
+  * Fix wrong macro in manpage
+  * Clean-up some dependencies
+  * Make it possible to enable/disable individual publishers
+  * Remove obsolete UI file
+  * Move all icons in the resource file
+  * Move ui files into resources
+  * Remove obsolete Glade helpers
+  * Clean-up printing dialog a little
+  * Piwigo: Append .jpg extension to published raw files
+  * Fix keyboard accessibility of CCW rotation
+  * Fix massive memory consumption when importing videos
+  * Fix context menu of viewer
+  * Fix a useless string copy
+  * Use default measurements depending on locale when none are set
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=715501
+ - https://bugzilla.gnome.org/show_bug.cgi?id=729091
+ - https://bugzilla.gnome.org/show_bug.cgi?id=732663
+ - https://bugzilla.gnome.org/show_bug.cgi?id=734816
+ - https://bugzilla.gnome.org/show_bug.cgi?id=775158
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779558
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779844
+ - https://bugzilla.gnome.org/show_bug.cgi?id=779989
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jörg Frings-Fürst <debian@jff-webhosting.net>
+ - Jordi Mas <jmas@softcatala.org>
+ - GNOME Translation Robot <gnome-sysadmin@gnome.org>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - ca, courtesy of Jordi Mas
+ - de, courtesy of Mario Blättermann
+ - gd, courtesy of GunChleoc
+ - hu, courtesy of Gabor Kelemen
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
+Shotwell 0.25.90 - 27 Feb 2017
+  * Remove obsolete option to create new folders on Picasa web albums
+  * Update Google API keys
+  * Fix Youtube upload by porting to libgdata
+  * Use embedded thumbnails in RAW files when default developer is set to
+    Camera
+  * Remove accidental raw development while importing
+  * Fix "Export" menu accidentally being labelled as "Save As"
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717305
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718248
+ - https://bugzilla.gnome.org/show_bug.cgi?id=777910
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+
+Added/updated translations
+ - fi, courtesy of Jiri Grönroos
+ - pl, courtesy of Piotr Drąg
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
+Shotwell 0.25.5 - 31 Feb 2017
+  * Fix setting of gamma value and color matrix in libraw
+  * Extract web publishing authenticators into separate library. That should
+    make it possible to easily support UOA and GOA without patching Shotwell.
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=778174
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Debarshi Ray <debarshir@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - da, courtesy of Alan Mortensen
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sv, courtesy of Anders Jonsson
+
+Shotwell 0.25.4 - 31 Jan 2017
+  * Publishing: Use HTTPS everywhere
+  * Translation updates
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Daniel Korostil <ted.korostiled@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - pl, courtesy of Piotr Drąg
+ - uk, courtesy of Yuri Chornoivan
+
+Shotwell 0.25.3 - 16 Jan 2017
+  * Fix event page context menu
+  * Try to guess character set of string when UTF-8 validation fails
+  * Fix tags context menu
+  * Properly switch menu bar when changing pages
+  * Fix rating
+  * Fix a critical about reparenting a popup menu
+  * Fix sidebar context menu
+  * Fix toolbar in camera import page
+  * Update glade files for all publishers
+  * Flickr: Simplify OAuth parsing by using libsoup
+  * Fix accelerators not coming from menu model
+  * Add <Ctrl>-f as shortcut for search bar
+  * Remove AppMenu, needs more thinking about the design.
+  * Flickr: Use human-readable size of upload quota
+  * Fix leave fullscreen option
+  * Fix upload issues with flickr
+  * Fix several disabled actions when switching away from pages
+  * Fix actions in fullscreen
+  * Fix several typos
+  * Piwigo: Fix title and comments on upload
+  * Improved duplicate detection
+  * Updated translations
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718107
+ - https://bugzilla.gnome.org/show_bug.cgi?id=775196
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776298
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776527
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776589
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776614
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776664
+ - https://bugzilla.gnome.org/show_bug.cgi?id=776839
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marina Prado <mapraro93@hotmail.com>
+ - Richard B. Kreckel <kreckel@ginac.de>
+ - Marek Černocký <marek@manet.cz>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Andreas Brauchli <andreas.brauchli@sensirion.com>
+ - Amos Brocco <amos.brocco@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - da, courtesy of Alan Mortensen
+ - es, courtesy of Daniel Mustieles
+ - ko, courtesy of Kim Boram
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
+Shotwell 0.25.2 - 12 Dec 2016
+  * Fix missing About action
+  * Fix setting of initial action state
+  * Fix missing initialization of several states
+  * Fix sort order not working
+  * Fix a critical on startup
+  * Fix initial sort order
+  * Fix hiding of search toolbar
+  * Fix rating filter menu initially being disabled
+  * Use Gtk.Revealer for bottom toolbar
+  * Fix a copy and paste error in the publishing result
+  * Use Application menu
+  * Do not make errors in git version check cause false identification of git
+    versions
+  * Fix debian scripts
+  * Fix filter actions not being active
+  * Fix initial search bar state not being persisted
+  * Remove deprecated Gtk.IconFactory
+  * Add missing keyboard shortcut for setting the background
+  * Move some dialogs to GtkTemplate, preparing for issues with valac master
+  * Fix context-sensitive label of background menu
+  * Fix context-sensitive label of Undo and Redo menu
+  * Fix context menu on import page
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719279
+ - https://bugzilla.gnome.org/show_bug.cgi?id=774901
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Marina Prado <mapraro93@hotmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - gogo <trebelnik2@gmail.com>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - da, courtesy of Alan Mortensen
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - hr, courtesy of gogo
+ - hu, courtesy of Gabor Kelemen
+ - pl, courtesy of Piotr Drąg
+
+Shotwell 0.25.1 - 21 Nov 2016
+  * Remove deprecated libsoup API
+  * Remove extra box around WebKit authenticator view
+  * Tumblr: Fix compile error with recent vala compiler
+  * Thumbnailer: Fix an issue with accidental closing of file descriptors
+  * Distribute misc.vapi
+  * Use proper ngettext for plurals instead of hard-coded >1
+  * Fix issue with unique index on MD5 and Format
+  * Update Piwigo dialogs
+  * Remove most of the deprecated API calls for GTK+ <= 3.14
+  * Remove some useless warnings generated by Vala
+  * Refactor Plugins to use a common approach to load panes from glade
+  * Piwigo: Simplify category parsing
+  * Remove GtkUIManager and Gtk*Action* from code
+  * Fix a crash when clicking on tool window under Wayland
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767181
+ - https://bugzilla.gnome.org/show_bug.cgi?id=768271
+ - https://bugzilla.gnome.org/show_bug.cgi?id=771788
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772223
+ - https://bugzilla.gnome.org/show_bug.cgi?id=774057
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Marina Prado <mapraro93@hotmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+ - Marek Černocký <marek@manet.cz>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Damian Pietras <bug1@daper.net>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - lv, courtesy of Rūdolfs Mazurs
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+
+Shotwell 0.25.0 - 24 Oct 2016
+  * Add contrast to improvements
+  * Add a log when shifting events
+  * Add a debug output of the current timezone
+  * Fix compilation with recent Vala compiler
+  * Fix focus handling of full-screen viewer
+  * Remove obsolete CSS style property
+  * Support ACDSEE tags
+  * Use unicode characters
+  * Remove deprecated calls
+  * Silence two C warnings that are usually caused by valac
+  * Refactor web authenticator
+  * Spelling fixes
+  * Piwigo: Add option to override SSL certificate handling
+  * Piwigo: Add option to show the SSL certificate
+  * Remove an old GTK+ work-around
+  * Remove deprecated GSettings calls
+  * Persist export dialog settings
+  * Remove deprecated elements from export dialog
+  * Port web plugins to new libsoup API
+  * Fix libraw binding
+  * Piwigo: Fix new album creation
+  * Blacklist vaapi decoder to prevent crashes in video meta data extraction
+  * Hide "Folder" side-bar when empty
+  * Enable SQL debugging through environment variable
+
+Added/Updated requirements:
+  GExiv2 >= 0.10.4
+  GCR-3
+  GLib >= 2.40
+  GTK+ >= 3.14
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716259
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716660
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718586
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719127
+ - https://bugzilla.gnome.org/show_bug.cgi?id=762416
+ - https://bugzilla.gnome.org/show_bug.cgi?id=765149
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767126
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767473
+ - https://bugzilla.gnome.org/show_bug.cgi?id=771969
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772295
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772648
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Josh Freeman <josh@twilightedge.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Benedikt M. Thoma <gnome@thomba.net>
+ - Balázs Meskó <meskobalazs@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+
+Added/updated translations
+ - ca, courtesy of Jordi Mas
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Christian Kirbach
+ - de, courtesy of Mario Blättermann
+ - es, courtesy of Daniel Mustieles
+ - hu, courtesy of Meskó Balázs
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sv, courtesy of Anders Jonsson
+
+Shotwell 0.24.0 - 20 Sep 2016
+  * Fix a memory leak in library mode
+  * Translation updates
+
+All contributors to this release:
+ - Marek Černocký <marek@manet.cz>
+ - Jens Georg <mail@jensge.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Bernd Homuth <dev@hmt.im>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Bernd Homuth
+ - es, courtesy of Daniel Mustieles
+
+Shotwell 0.23.7 - 12 Sep 2016
+  * Language updates
+
+All contributors to this release:
+ - Marek Černocký <marek@manet.cz>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jens Georg <mail@jensge.org>
+ - Boram Kim <boramism@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - hu, courtesy of Balázs Úr
+ - ko, courtesy of Kim Boram
+ - pl, courtesy of Piotr Drąg
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+
+Shotwell 0.23.6 - 29 Aug 2016
+  * Fix locale-dependent times
+  * Use nl_langinfo instead of custom LConv
+  * Fix renaming of tags and saved searches
+  * Improve message shown on empty camera
+  * Make thm a recognized extension for JPEG files
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716533
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718796
+ - https://bugzilla.gnome.org/show_bug.cgi?id=731480
+ - https://bugzilla.gnome.org/show_bug.cgi?id=759246
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+
+Added/updated translations
+ - de, courtesy of Christian Kirbach
+ - hu, courtesy of Balázs Úr
+ - hu, courtesy of Meskó Balázs
+ - lv, courtesy of Rūdolfs Mazurs
+ - pl, courtesy of Piotr Drąg
+
+Shotwell 0.23.5 - 15 Aug 2016
+  * Remove obsolete files
+  * Plugins: Load icons and GtkBuilder files from GResource
+  * Offer a way to hide the bottom toolbar
+  * Fix .desktop file generation
+  * Use Gtk.MessageDialog's printf-style API for strings
+  * Add SQL indexes to PhotoTable
+  * Add Language headers to po files
+  * Update INSTALL file
+  * Really remove reference to external hmac_sha1
+  * Disambiguate strings for time ranges
+  * Implement linked tags
+  * Make it more clear that something failed if SSL conncetion was not
+    possible
+  * Add option to filter by saved search
+  * Explicitly link plugins to their dependencies
+  * Fix typo in GSettings schema
+  * Re-add --disable-extra-plugins configure option
+  * Fix settings migrator and thumbnailer path
+  * Bump debian compat for proper --libexecdir parameter
+
+Bugs fixed in this release:
+ - https://bugs.archlinux.org/task/50129
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717523
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717321
+ - https://bugzilla.gnome.org/show_bug.cgi?id=741962
+ - https://bugzilla.gnome.org/show_bug.cgi?id=742670
+ - https://bugzilla.gnome.org/show_bug.cgi?id=747368
+ - https://bugzilla.gnome.org/show_bug.cgi?id=750902
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767473
+ - https://bugzilla.gnome.org/show_bug.cgi?id=768360
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Yosef Or Boczko <yoseforb@src.gnome.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Landau <daniel@landau.fi>
+ - burningTyger <burningTyger@users.noreply.github.com>
+ - Andreas Brauchli <a.brauchli@elementarea.net>
+
+Added/updated translations
+ - af, courtesy of yorbajim
+ - ast, courtesy of Xuacu Saturio
+ - bg, courtesy of yorbajim
+ - bn, courtesy of yorbajim
+ - bn_IN, courtesy of runa
+ - ca, courtesy of Jordi Mas
+ - de, courtesy of Mario Blättermann
+ - en_GB, courtesy of yorbajim
+ - et, courtesy of yorbajim
+ - gu, courtesy of Ankit Patel
+ - he, courtesy of Yosef Or Boczko
+ - hi, courtesy of Rajesh Ranjan
+ - hr, courtesy of yorbajim
+ - it, courtesy of milo
+ - lv, courtesy of Rūdolfs Mazurs
+ - mk, courtesy of yorbajim
+ - ml, courtesy of Ani Peter
+ - mr, courtesy of sandeeps
+ - nn, courtesy of unhammer
+ - or, courtesy of Manoj Kumar Giri
+ - pa, courtesy of asaini
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sk, courtesy of Dušan Kazik
+ - sl, courtesy of ikriznar
+ - sr@latin, courtesy of Miroslav Nikolić
+ - th, courtesy of yorbajim
+ - zh_HK, courtesy of Cheng-Chia Tseng
+
+Shotwell 0.23.4 - 20 Jul 2016
+  * Plugins: Fix linking error
+
+Shotwell 0.23.3 - 18 Jul 2016
+
+  * libraw: Fix binding of ProcessedImage.data
+  * graw: Prevent needless array duplication
+  * Fix screenshot URLs in appdata
+  * db: Add option to trace SQL statements
+  * Change build system to autotools
+  * Add help, appdata, gsettings and desktop files to translation system
+  * Change way help is built and installed
+  * Always install the manpage
+  * Several translation fixes
+  * Make message more clear that there are no photos matching a filter
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=715578
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717064
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719122
+ - https://bugzilla.gnome.org/show_bug.cgi?id=719200
+ - https://bugzilla.gnome.org/show_bug.cgi?id=730665
+ - https://bugzilla.gnome.org/show_bug.cgi?id=730669
+ - https://bugzilla.gnome.org/show_bug.cgi?id=740873
+ - https://bugzilla.gnome.org/show_bug.cgi?id=741508
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744251
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744254
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744255
+ - https://bugzilla.gnome.org/show_bug.cgi?id=768054
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Tiago Santos <tiagofsantos81@sapo.pt>
+ - Stas Solovey <whats_up@tut.by>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Lorenz Adam Damara <lorenzadam@resolution-consulting.co.id>
+ - Jeremy Bicha <jbicha@ubuntu.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Andreas Brauchli <a.brauchli@elementarea.net>
+
+Added/updated translations
+ - de, courtesy of Christian Kirbach
+ - es, courtesy of Daniel Mustieles
+ - gu, courtesy of Ankit Patel
+ - id, courtesy of Andika Triwidada
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - pt, courtesy of Tiago Santos
+ - ru, courtesy of Stas Solovey
+ - sk, courtesy of Dušan Kazik
+
+Shotwell 0.23.2 - 20 Jun 2016
+
+  * Use yelp-build to generate HTML docs
+  * Remove gphoto-2.4 support
+  * Fix background color drawing (#766864)
+  * Port GtkNotebook to GtkStack (#744289)
+  * Fix missing scroll bars in events (#766864)
+  * Fix URLs in manpage
+  * Clean up external functions
+  * Port librest's internal hmac_sha1 implementation to Vala
+  * Fix multiplication of symbols in plugins
+  * Request "popup" login in Facebook
+  * Update help regarding publishing permissions in Facebook (#766919)
+  * Add source SVG for new app icons
+  * Update logo for help
+  * Remove executable flag on images
+  * Piwigo: Let libsoup parse the cookie
+  * Remove string utility functions in publishing plugins
+  * Remove a libgee work-around, bump to 0.10 minimum version
+  * Make filter toolbar buttons contain text and image
+  * Move commonly used functions into shared library to prevent multiple
+    definition of symbols
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=744289
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766864
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766919
+ - https://bugzilla.gnome.org/show_bug.cgi?id=767042
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Wolfgang Steitz <wsteitz@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Abel 'Akronix' Serrano Juste <akronix5@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Christian Kirbach
+ - es, courtesy of Daniel Mustieles
+ - id, courtesy of Andika Triwidada
+ - pt_BR, courtesy of Enrico Nicoletto
+ - sk, courtesy of Dušan Kazik
+ - sv, courtesy of Anders Jonsson
+
+Added/Updated dependencies
+ - libgee minimal version bumped to 0.10
+
+Shotwell 0.23.1 - 23 May 2016
+-----------------------------
+
+  * Update Facebook application id. Facebook integration works again (#748991)
+  * Remove obsolete VAPIs
+  * Remove custom WEXITSTATUS implementation
+  * Fix an assert in file monitor caused by renaming a file (#759403)
+  * Rename "Yorba website" to "Shotwell website" in About dialog so it
+    actually says what it does.
+  * Change the way how shotwell checks whether it runs uninstalled to allow
+    running with symlinks (#747374)
+  * Copyright was transferred from Yorba to SFC
+  * Do not block closing the viewer if there was an issue loading the photo
+    (#740436)
+  * Remove remaining references to .gnome2 directory (#766339)
+  * Update icons to hires versions and add a symbolic one (#717326)
+  * If we can't find any pixbuf representation of the Photo, push an empty
+    pixmap to force the display of the error message (#766338)
+  * Fix a critical when get_metadata returns null
+  * Remove deprecated calls to gtk_widget_render_icon() (#719188)
+  * Panic out if we cannot open the file in the viewer
+  * Make toolbar use GtkOverlay instead of implementing a custom pop-up to
+    prevent all kinds of issues with overlaying other applications or
+    toolboxes (#756126)
+  * Remove criticals caused by mouse hiding algorithm
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717326
+ - https://bugzilla.gnome.org/show_bug.cgi?id=740436
+ - https://bugzilla.gnome.org/show_bug.cgi?id=747374
+ - https://bugzilla.gnome.org/show_bug.cgi?id=748991
+ - https://bugzilla.gnome.org/show_bug.cgi?id=756126
+ - https://bugzilla.gnome.org/show_bug.cgi?id=759403
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766338
+ - https://bugzilla.gnome.org/show_bug.cgi?id=766339
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Tiago Santos <tiagofsantos81@sapo.pt>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+ - Adam Dingle <adam@medovina.org>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - hu, courtesy of Meskó Balázs
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - pl, courtesy of Piotr Drąg
+ - pt, courtesy of Tiago Santos
+ - pt_BR, courtesy of Rafael Fontenelle
+ - sk, courtesy of Dušan Kazik
+
+Shotwell 0.23.0 - 25 April 2016
+-------------------------------
+
+  * Allow thinner minimum sidebar (#718611)
+  * Check .cache directory for read/write permissions (#737747)
+  * Fix crash during metadata update (#739917)
+  * Fixed Crop Ribbon / Control not visible (#747201)
+  * Port to webkit2gtk-4.0 (#751709)
+  * Have all soup sessions validate TLS certificates
+  * Remove shell magic from Makefile
+  * Remove calls to Posix.system()
+  * Documentation fixes and improvements (#764800)
+  * Fix CSS issue introduced with previous CSS improvements (#747637)
+  * Don't use GtkHeaderBar on dialogs if the gtk-dialogs-use-header setting is
+    not set (#749874)
+  * Use proper umask to create XDG_USER_CACHE and XDG_USER_DATA when they not
+    exist (#765182)
+  * Don't build the plugin twice
+  * Call pkg-config only once, not every compiler call
+  * Fix parallel builds not to build plugins several times over
+  * Fix contradicting license in rejected.svg (#757643)
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=747637
+ - https://bugzilla.gnome.org/show_bug.cgi?id=749874
+ - https://bugzilla.gnome.org/show_bug.cgi?id=751709
+ - https://bugzilla.gnome.org/show_bug.cgi?id=757643
+ - https://bugzilla.gnome.org/show_bug.cgi?id=764800
+ - https://bugzilla.gnome.org/show_bug.cgi?id=765182
+
+All contributors to this release:
+ - Marek Černocký <marek@manet.cz>
+ - Jens Georg <mail@jensge.org>
+ - Wolfgang Steitz <wsteitz@gmail.com>
+ - Wolfgang Steitz <wolfer7@web.de>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Dušan Kazik <prescott66@gmail.com>
+ - Stas Solovey <whats_up@tut.by>
+ - Jim Nelson <jim@yorba.org>
+ - Tim Waugh <twaugh@redhat.com>
+ - Mayela Miranda <mayela0x14@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Trần Ngọc Quân <vnwildman@gmail.com>
+ - Michael Catanzaro <mcatanzaro@igalia.com>
+ - Yosef Or Boczko <yoseforb@src.gnome.org>
+ - Rafael Ferreira <rafael.f.f1@gmail.com>
+ - Kjartan Maraas <kmaraas@gnome.org>
+ - Kim Boram <boramism@gmail.com>
+ - Josef Andersson <josef.andersson@gmail.com>
+ - Felipe Braga <fbobraga@gmail.com>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Brian Masney <masneyb@onstation.org>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Trinh Anh Ngoc <atw1990@gmail.com>
+ - Timo Jyrinki <timo@debian.org>
+ - Samir Ribic <samir.ribic@etf.unsa.ba>
+ - Robert Ancell <robert.ancell@canonical.com>
+ - Pedro Albuquerque <palbuquerque73@gmail.com>
+ - Pau Iranzo <paugnu@gmail.com>
+ - Muhammet Kara <muhammetk@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Maria  Mavridou <mavridou@gmail.com>
+ - Josef Andersson <josef.andersson@fripost.org>
+ - Jiri Grönroos <jiri.gronroos+l10n@iki.fi>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - Iain Lane <iain@orangesquash.org.uk>
+ - Gábor Kelemen <kelemeng@openscope.org>
+ - Eduardo Arnold <eduardoarnoldh@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Cheng-Chia Tseng <>
+ - Changwoo Ryu <cwryu@debian.org>
+ - Cédric Valmary <cvalmary@yahoo.fr>
+ - Boram Kim <boramism@gmail.com>
+ - Balázs Úr <urbalazs@gmail.com>
+ - Balázs Meskó <meskobalazs@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Alexandre Franke <alexandre.franke@gmail.com>
+
+Added/updated translations
+ - bs, courtesy of Samir Ribic
+ - ca, courtesy of Pau Iranzo
+ - cs, courtesy of Marek Černocký
+ - de, courtesy of Mario Blättermann
+ - de, courtesy of Wolfgang Stoeggl
+ - el, courtesy of Tom Tryfonidis
+ - es, courtesy of Daniel Mustieles
+ - fi, courtesy of Jiri Grönroos
+ - fr, courtesy of Claude Paroz
+ - he, courtesy of Yosef Or Boczko
+ - hu, courtesy of Gabor Kelemen
+ - hu, courtesy of Meskó Balázs
+ - kk, courtesy of Baurzhan Muftakhidinov
+ - kn, courtesy of Shankar
+ - ko, courtesy of Kim Boram
+ - lt, courtesy of Aurimas Černius
+ - nb, courtesy of Runar Ingebrigtsen
+ - oc, courtesy of Cédric Valmary (totenoc.eu)
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - pt, courtesy of Pedro Albuquerque
+ - ru, courtesy of Stas Solovey
+ - sk, courtesy of Dušan Kazik
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+ - sv, courtesy of Josef Andersson
+ - tr, courtesy of Muhammet Kara
+ - vi, courtesy of Trần Ngọc Quân
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
+Changed dependencies:
+ - webkit2gtk instead of webkitgtk
+
+Shotwell 0.22.0 - 23 March 2015
+-------------------------------
+
+  * Improved metadata support for Facebook upload (#742163)
+  * Saved search now properly supports text is-set, not-set (#743924, #743923)
+  * Import title, exposure time when available
+  * User interface improvements (#744291, #719284, more)
+  * Sort photos by filename (#717878)
+  * Updated translations
+
+
 Shotwell 0.21.0 - 2 February 2015
 ---------------------------------
 

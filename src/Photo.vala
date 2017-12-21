@@ -1,4 +1,4 @@
-/* Copyright 2009-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution.
@@ -628,12 +628,14 @@ public abstract class Photo : PhotoSource, Dateable {
     // Reads info on a backing photo and adds it.
     // Note: this function was created for importing new photos.  It will not
     // notify of changes to the developments.
-    public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr) throws Error {
+    public void add_backing_photo_for_development(RawDeveloper d, BackingPhotoRow bpr, bool notify = true) throws Error {
         import_developed_backing_photo(row, d, bpr);
         lock (developments) {
             developments.set(d, bpr);
         }
-        notify_altered(new Alteration("image", "developer"));
+
+        if (notify)
+            notify_altered(new Alteration("image", "developer"));
     }
     
     public static void import_developed_backing_photo(PhotoRow row, RawDeveloper d, 
@@ -667,7 +669,7 @@ public abstract class Photo : PhotoSource, Dateable {
     
     // "Develops" a raw photo
     // Not thread-safe.
-    private void develop_photo(RawDeveloper d) {
+    private void develop_photo(RawDeveloper d, bool notify) {
         bool wrote_img_to_disk = false;
         BackingPhotoRow bps = null;
         
@@ -714,7 +716,7 @@ public abstract class Photo : PhotoSource, Dateable {
                     if (wrote_img_to_disk) {
                         try {
                             // Read in backing photo info, add to DB.
-                            add_backing_photo_for_development(d, bps);
+                            add_backing_photo_for_development(d, bps, notify);
                             
                             notify_raw_development_modified();
                         } catch (Error e) {
@@ -743,17 +745,33 @@ public abstract class Photo : PhotoSource, Dateable {
                         return;
                     }
                     
-                    Gdk.Pixbuf? pix = prev.get_pixbuf();
+                    var pix = prev.flatten();
                     if (pix == null) {
                         debug("Could not get preview pixbuf");
                         return;
                     }
-                    
+
                     // Write out file.
                     bps = d.create_backing_row_for_development(row.master.filepath);
-                    PhotoFileWriter writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
-                    writer.write(pix, Jpeg.Quality.HIGH);
-                    
+
+                    // Peek at data. If we really have a JPEG image, just use it,
+                    // otherwise do GdkPixbuf roundtrip
+                    if (Jpeg.is_jpeg_bytes(pix)) {
+                        var outfile = File.new_for_path(bps.filepath);
+                        outfile.replace_contents(pix.get_data(), null,
+                                false, FileCreateFlags.NONE, null);
+                    } else {
+                        var pixbuf = prev.get_pixbuf();
+                        if (pixbuf == null) {
+                            debug("Could not get preview pixbuf");
+                            return;
+                        }
+
+                        var writer = PhotoFileFormat.JFIF.create_writer(bps.filepath);
+                        writer.write(pixbuf, Jpeg.Quality.HIGH);
+                    }
+
+
                     // Remember that we wrote it (see above
                     // case for why this is necessary).
                     wrote_img_to_disk = true;
@@ -768,7 +786,7 @@ public abstract class Photo : PhotoSource, Dateable {
                     if (wrote_img_to_disk) {
                         try {
                             // Read in backing photo info, add to DB.
-                            add_backing_photo_for_development(d, bps);
+                            add_backing_photo_for_development(d, bps, notify);
                             
                             notify_raw_development_modified();
                         } catch (Error e) {
@@ -792,7 +810,7 @@ public abstract class Photo : PhotoSource, Dateable {
     }
     
     // Sets the developer and develops the photo.
-    public void set_raw_developer(RawDeveloper d) {
+    public void set_raw_developer(RawDeveloper d, bool notify = true) {
         if (get_master_file_format() != PhotoFileFormat.RAW)
             return;
         
@@ -812,13 +830,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
             // Perform development, bail out if it doesn't work.
             if (!is_raw_developer_complete(d)) {
-                develop_photo(d);
-                try {
-                    get_prefetched_copy();
-                } catch (Error e) {
-                    // couldn't reload the freshly-developed image, nothing to display
-                    return;
-                }
+                develop_photo(d, notify);
             }
             if (!developments.has_key(d))
                 return; // we tried!
@@ -830,7 +842,14 @@ public abstract class Photo : PhotoSource, Dateable {
             row.developer = d;
             backing_photo_row = developments.get(d);
             readers.developer = backing_photo_row.file_format.create_reader(backing_photo_row.filepath);
-            
+
+            try {
+                get_prefetched_copy();
+            } catch (Error e) {
+                // couldn't reload the freshly-developed image, nothing to display
+                return;
+            }
+
             set_orientation(backing_photo_row.original_orientation);
             
             try {
@@ -854,14 +873,15 @@ public abstract class Photo : PhotoSource, Dateable {
             // and is to be preserved.
         }
         
-        notify_altered(new Alteration("image", "developer"));
+        if (notify)
+            notify_altered(new Alteration("image", "developer"));
         discard_prefetched();
     }
-    
+
     public RawDeveloper get_raw_developer() {
         return row.developer;
     }
-    
+
     // Removes a development from the database, filesystem, etc.
     // Returns true if a development was removed, otherwise false.
     private bool delete_raw_development(RawDeveloper d) {
@@ -1258,6 +1278,7 @@ public abstract class Photo : PhotoSource, Dateable {
         if (params.thumbnails != null) {
             PhotoFileReader reader = params.row.master.file_format.create_reader(
                 params.row.master.filepath);
+            reader.set_role (PhotoFileReader.Role.THUMBNAIL);
             try {
                 ThumbnailCache.generate_for_photo(params.thumbnails, reader, params.row.orientation, 
                     params.row.master.dim);
@@ -2212,7 +2233,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         // Note: *Not* firing altered or metadata_altered signal because link_state is not a
-        // property that's available to users of Photo.  Persisting it as a mechanism for deaing 
+        // property that's available to users of Photo.  Persisting it as a mechanism for dealing
         // with unlink/relink properly.
     }
 
@@ -4079,7 +4100,14 @@ public abstract class Photo : PhotoSource, Dateable {
     private void on_editable_file_changed(File file, File? other_file, FileMonitorEvent event) {
         // This has some expense, but this assertion is important for a lot of sanity reasons.
         lock (readers) {
-            assert(readers.editable != null && file.equal(readers.editable.get_file()));
+            assert(readers.editable != null);
+
+            if (!file.equal(readers.editable.get_file())) {
+                // Ignore. When the export file is created, we receive a
+                // DELETE event for renaming temporary file created by exiv2 when
+                // writing meta-data.
+                return;
+            }
         }
         
         debug("EDITABLE %s: %s", event.to_string(), file.get_path());

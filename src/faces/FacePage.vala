@@ -13,12 +13,18 @@ public class FacePage : CollectionPage {
         base (face.get_name());
         
         this.face = face;
+        //this.row.name
         
         Face.global.items_altered.connect(on_faces_altered);
         face.mirror_sources(get_view(), create_thumbnail);
         
-        init_page_context_menu("/FacesContextMenu");
-    }
+        init_page_context_menu("FacesContextMenu");
+//        init_item_context_menu("CollectionFacesPlaceholder");
+
+/*        GLib.MenuModel menu = get_menubar();
+        GLib.MenuModel? section = null;
+        section = find_extension_point (menu, Resources.FACES_MENU_SECTION);*/
+   }
     
     ~FacePage() {
         get_view().halt_mirroring();
@@ -41,38 +47,52 @@ public class FacePage : CollectionPage {
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
         Config.Facade.get_instance().set_event_photos_sort(sort_order, sort_by);
     }
-    
-    protected override Gtk.ActionEntry[] init_collect_action_entries() {
-        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
+
+    private const GLib.ActionEntry[] entries = {
+        { "DeleteFace", on_delete_face },
+		{ "RenameFace", on_rename_face },
+		{ "RemoveFaceFromPhotos", on_remove_face_from_photos },
+        { "DeleteFaceSidebar", on_delete_face },
+        { "RenameFaceSidebar", on_rename_face }
+    };
+
+    protected override void init_actions(int selected_count, int count) {
+        base.init_actions(selected_count, count);
         
-        Gtk.ActionEntry faces = { "FacesMenu", null, TRANSLATABLE, null, null, null };
-        faces.label = _("F_aces");
-        actions += faces;
-        
-        Gtk.ActionEntry delete_face = { "DeleteFace", null, TRANSLATABLE, null, null, on_delete_face };
-        // label and tooltip are assigned when the menu is displayed
-        actions += delete_face;
-        
-        Gtk.ActionEntry rename_face = { "RenameFace", null, TRANSLATABLE, null, null, on_rename_face };
-        // label and tooltip are assigned when the menu is displayed
-        actions += rename_face;
-        
-        Gtk.ActionEntry remove_face = { "RemoveFaceFromPhotos", null, TRANSLATABLE, null, null, 
-            on_remove_face_from_photos };
-        // label and tooltip are assigned when the menu is displayed
-        actions += remove_face;
-        
-        Gtk.ActionEntry delete_face_sidebar = { "DeleteFaceSidebar", null, Resources.DELETE_FACE_SIDEBAR_MENU, 
-            null, null, on_delete_face };
-        actions += delete_face_sidebar;
-        
-        Gtk.ActionEntry rename_face_sidebar = { "RenameFaceSidebar", null, Resources.RENAME_FACE_SIDEBAR_MENU, 
-            null, null, on_rename_face };
-        actions += rename_face_sidebar;
-        
-        return actions;
+        set_action_sensitive("DeleteFace", true);
+        set_action_sensitive("RenameFace", true);
+        set_action_sensitive("RemoveFaceFromPhotos", true);
     }
-    
+ 
+
+    protected override void add_actions (GLib.ActionMap map) {
+        base.add_actions (map);
+
+        map.add_action_entries (entries, this);
+    }
+
+    protected override InjectionGroup[] init_collect_injection_groups() {
+        InjectionGroup[] groups = base.init_collect_injection_groups();
+        
+        //groups.add_menu_item(_("Face Location"), "FaceLocation");
+       
+        //groups += create_photos_faces_injectables();
+		groups += create_faces_menu_injectables();
+        
+        return groups;
+    }
+
+    private InjectionGroup create_faces_menu_injectables(){
+        InjectionGroup menuFaces = new InjectionGroup("FacesMenuPlaceholder");
+       
+        //menuFaces.add_menu("Faces");
+        menuFaces.add_menu_item("Remove Face \"" + this.face.get_name() + "\" From Photos", "RemoveFaceFromPhotos", "<Primary>r");
+        menuFaces.add_menu_item("Rename Face \"" + this.face.get_name() + "\"…", "RenameFace", "<Primary>e");
+        menuFaces.add_menu_item("Dele_teFace", "DeleteFace", "<Primary>t");
+       
+        return menuFaces;
+    }
+
     private void on_faces_altered(Gee.Map<DataObject, Alteration> map) {
         if (map.has_key(face)) {
             set_page_name(face.get_name());

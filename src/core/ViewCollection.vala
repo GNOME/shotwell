@@ -1,4 +1,4 @@
-/* Copyright 2011-2015 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -646,7 +646,8 @@ public class ViewCollection : DataCollection {
     }
     
     public override void items_altered(Gee.Map<DataObject, Alteration> map) {
-        filter_altered_items(map.keys);
+        // Cast - our DataObjects are DataViews.
+        filter_altered_items((Gee.Collection<DataView>)map.keys);
 
         base.items_altered(map);
     }

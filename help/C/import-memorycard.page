@@ -21,7 +21,7 @@
   <p>The card reader and card should be detected automatically.</p>
  </item>
  <item>
-  <p>Follow the instructions for <link xref="import-file">importing photos from your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From Folder</gui></guiseq>, the memory card should be visible as a folder in the side bar of the file selection window.</p>
+  <p>Follow the instructions for <link xref="import-file">importing photos from your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq>, the memory card should be visible as a folder in the side bar of the file selection window.</p>
  </item>
 </steps>
 
