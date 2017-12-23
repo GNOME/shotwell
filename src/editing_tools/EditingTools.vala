@@ -2185,7 +2185,7 @@ public class RedeyeTool : EditingTool {
 }
 
 public class AdjustTool : EditingTool {
-    private const int SLIDER_WIDTH = 160;
+    private const int SLIDER_WIDTH = 200;
     private const uint SLIDER_DELAY_MSEC = 100;
 
     private class AdjustToolWindow : EditingToolWindow {
@@ -2233,7 +2233,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(exposure_label, 0, 0, 1, 1);
             slider_organizer.attach(exposure_slider, 1, 0, 1, 1);
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
-            exposure_slider.set_draw_value(false);
+            exposure_slider.set_value_pos(Gtk.PositionType.RIGHT);
             exposure_slider.set_margin_end(0);
 
             Gtk.Label contrast_label = new Gtk.Label.with_mnemonic(_("Contrast:"));
@@ -2242,7 +2242,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(contrast_label, 0, 1, 1, 1);
             slider_organizer.attach(contrast_slider, 1, 1, 1, 1);
             contrast_slider.set_size_request(SLIDER_WIDTH, -1);
-            contrast_slider.set_draw_value(false);
+            contrast_slider.set_value_pos(Gtk.PositionType.RIGHT);
             contrast_slider.set_margin_end(0);
 
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
@@ -2251,7 +2251,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(saturation_label, 0, 2, 1, 1);
             slider_organizer.attach(saturation_slider, 1, 2, 1, 1);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
-            saturation_slider.set_draw_value(false);
+            saturation_slider.set_value_pos(Gtk.PositionType.RIGHT);
             saturation_slider.set_margin_end(0);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
@@ -2260,7 +2260,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(tint_label, 0, 3, 1, 1);
             slider_organizer.attach(tint_slider, 1, 3, 1, 1);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
-            tint_slider.set_draw_value(false);
+            tint_slider.set_value_pos(Gtk.PositionType.RIGHT);
             tint_slider.set_margin_end(0);
 
             Gtk.Label temperature_label =
@@ -2270,7 +2270,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(temperature_label, 0, 4, 1, 1);
             slider_organizer.attach(temperature_slider, 1, 4, 1, 1);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
-            temperature_slider.set_draw_value(false);
+            temperature_slider.set_value_pos(Gtk.PositionType.RIGHT);
             temperature_slider.set_margin_end(0);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
@@ -2279,8 +2279,10 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(shadows_label, 0, 5, 1, 1);
             slider_organizer.attach(shadows_slider, 1, 5, 1, 1);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
-            shadows_slider.set_draw_value(false);
-            shadows_slider.set_margin_end(0);
+            shadows_slider.set_value_pos(Gtk.PositionType.RIGHT);
+            // FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
+            // Differently (probably because it only has positive values)
+            shadows_slider.set_margin_end(5);
 
             Gtk.Label highlights_label = new Gtk.Label.with_mnemonic(_("Highlights:"));
             highlights_label.halign = Gtk.Align.START;
@@ -2288,7 +2290,8 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach(highlights_label, 0, 6, 1, 1);
             slider_organizer.attach(highlights_slider, 1, 6, 1, 1);
             highlights_slider.set_size_request(SLIDER_WIDTH, -1);
-            highlights_slider.set_draw_value(false);
+            highlights_slider.set_value_pos(Gtk.PositionType.RIGHT);
+            highlights_slider.set_margin_end(0);
 
             Gtk.Box button_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
             button_layouter.set_homogeneous(true);
@@ -2305,7 +2308,7 @@ public class AdjustTool : EditingTool {
             pane_layouter.add(histogram_manipulator);
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
-            pane_layouter.set_child_packing(histogram_manipulator, true, true, 0, Gtk.PackType.START);
+            pane_layouter.set_child_packing(histogram_manipulator, false, true, 0, Gtk.PackType.START);
 
             add(pane_layouter);
         }
