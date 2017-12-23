@@ -31,6 +31,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private bool is_right_nub_tracking = false;
     private int track_start_x = 0;
     private int track_nub_start_position = 0;
+    private int offset = 0;
 
     public RGBHistogramManipulator( ) {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
@@ -56,8 +57,14 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         button_press_event.connect(on_button_press);
         button_release_event.connect(on_button_release);
         motion_notify_event.connect(on_button_motion);
+
+        this.size_allocate.connect(on_size_allocate);
     }
-    
+
+    private void on_size_allocate(Gtk.Allocation region) {
+        this.offset = (region.width - RGBHistogram.GRAPHIC_WIDTH - NUB_SIZE) / 2;
+    }
+
     private LocationCode hit_test_point(int x, int y) {
         if (y < NUB_V_POSITION)
             return LocationCode.INSENSITIVE_AREA;
@@ -79,20 +86,24 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     }
     
     private bool on_button_press(Gdk.EventButton event_record) {
+        // Adjust mouse position to drawing offset
+        // Easier to modify the event and shit the whole drawing then adjusting the nub drawing code
+        event_record.x -= this.offset;
         LocationCode loc = hit_test_point((int) event_record.x, (int) event_record.y);
+        bool retval = true;
 
         switch (loc) {
             case LocationCode.LEFT_NUB:
                 track_start_x = ((int) event_record.x);
                 track_nub_start_position = left_nub_position;
                 is_left_nub_tracking = true;
-                return true;
+                break;
 
             case LocationCode.RIGHT_NUB:
                 track_start_x = ((int) event_record.x);
                 track_nub_start_position = right_nub_position;
                 is_right_nub_tracking = true;
-                return true;
+                break;
 
             case LocationCode.LEFT_TROUGH:
                 left_nub_position = ((int) event_record.x) - NUB_HALF_WIDTH;
@@ -100,7 +111,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
                 force_update();
                 nub_position_changed();
                 update_nub_extrema();
-                return true;
+                break;
 
             case LocationCode.RIGHT_TROUGH:
                 right_nub_position = ((int) event_record.x) - NUB_HALF_WIDTH;
@@ -108,11 +119,17 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
                 force_update();
                 nub_position_changed();
                 update_nub_extrema();
-                return true;
+                break;
 
             default:
-                return false;
+                retval = false;
+                break;
         }
+
+        // Remove adjustment position to drawing offset
+        event_record.x += this.offset;
+
+        return retval;
     }
     
     private bool on_button_release(Gdk.EventButton event_record) {
@@ -131,6 +148,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         if ((!is_left_nub_tracking) && (!is_right_nub_tracking))
             return false;
     
+        event_record.x -= this.offset;
         if (is_left_nub_tracking) {
             int track_x_delta = ((int) event_record.x) - track_start_x;
             left_nub_position = (track_nub_start_position + track_x_delta);
@@ -142,6 +160,8 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         }
         
         force_update();
+        event_record.x += this.offset;
+
         return true;
     }
 
@@ -197,9 +217,8 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     public override bool draw(Cairo.Context ctx) {
         Gtk.Border padding = get_style_context().get_padding(Gtk.StateFlags.NORMAL);
 
-        
         Gdk.Rectangle area = Gdk.Rectangle();
-        area.x = padding.left;
+        area.x = padding.left + this.offset;
         area.y = padding.top;
         area.width = RGBHistogram.GRAPHIC_WIDTH + padding.right;
         area.height = RGBHistogram.GRAPHIC_HEIGHT + padding.bottom;
