@@ -804,7 +804,7 @@ public abstract class Photo : PhotoSource, Dateable {
             
         // If the embedded preview is too small to be used in the PhotoPage, don't
         // allow EMBEDDED to be chosen.
-        if (!is_raw_developer_available(RawDeveloper.EMBEDDED))
+        if (!is_raw_developer_available(RawDeveloper.EMBEDDED) && d != RawDeveloper.CAMERA)
             d = RawDeveloper.SHOTWELL;
             
         lock (developments) {
