@@ -948,8 +948,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         // Try looking for our 'index.page' in the build directory.
         //
         // TODO: Need to look for internationalized help before falling back on help/C
+        File dir = AppDirs.get_exec_dir();
         
-        File help_dir = AppDirs.get_exec_dir().get_child("help").get_child("C");
+        if (dir.get_path().has_suffix("src")) {
+            dir = dir.get_parent().get_parent();
+        }
+
+        File help_dir = dir.get_child("help").get_child("C");
         File help_index = help_dir.get_child("index.page");
         
         if (help_index.query_exists(null)) {
