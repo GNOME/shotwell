@@ -72,7 +72,6 @@ shotwell_SOURCES = \
 	src/dialogs/SetBackground.vala \
 	src/dialogs/ProgressDialog.vala \
 	src/dialogs/SetBackgroundSlideshow.vala \
-	src/dialogs/MaybeHeaderbarDialog.vala \
 	src/editing_tools/EditingTools.vala \
 	src/editing_tools/RGBHistogramManipulator.vala \
 	src/editing_tools/StraightenTool.vala \
