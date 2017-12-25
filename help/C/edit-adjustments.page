@@ -25,6 +25,10 @@
    <p>Changes the brightness to make it look like the photo was exposed for a longer or shorter time. Use this to correct under- or over-exposed photos.</p>
   </item>
   <item>
+   <title>Contrast</title>
+   <p>Changes the contrast of a photo. Use it to correct flat-looking photos or photos where the difference between bright and dark spots seems to big.</p>
+  </item>
+  <item>
    <title>Saturation</title>
    <p>Changes how vivid colors look. If your photo looks gray and washed out, try increasing the saturation. If colors look too bold, try decreasing it.</p>
   </item>
