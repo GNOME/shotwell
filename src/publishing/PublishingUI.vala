@@ -163,8 +163,11 @@ public class PublishingDialog : Gtk.Dialog {
 
         bool use_header = Resources.use_header_bar() == 1;
         Object(use_header_bar: Resources.use_header_bar());
-        if (use_header)
+        if (use_header) {
             ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
+        } else {
+            get_content_area().set_spacing(6);
+        }
 
         resizable = false;
         modal = true;
