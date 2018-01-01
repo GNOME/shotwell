@@ -5,7 +5,7 @@ i18n.merge_file(input : 'shotwell.appdata.xml.in',
                 po_dir : join_paths('..', 'po'),
                 type : 'xml',
                 install: true,
-                install_dir : join_paths(get_option('datadir'), 'appdata'))
+                install_dir : join_paths(get_option('datadir'), 'metainfo'))
 
 i18n.merge_file(input : 'shotwell.desktop.in',
                 output: 'shotwell.desktop',
