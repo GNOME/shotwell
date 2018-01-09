@@ -1,3 +1,42 @@
+Shotwell 0.27.3 - 9 Jan 2018
+  * Fix upgrading from Shotwell 0.7.2
+  * Make Histogram widget accessible by keyboard
+  * Add F4 as shortcut for the Date/Time dialog
+  * Fix an issue where the date/time picker was out-of-sync with the
+    calendar widget
+  * Refactor shotwell.ui into smaller ui files and make some of the
+    dialogs templated
+  * Rewrite saved search dialog to use GtkListBox
+  * Add a very simple Piwigo server to do offline testing
+  * Add labels to sliders in adjustment tool
+  * Fix issue where Shotwell would fall back to the internal developer
+    if the RAW+JPEG pair did not contain an embedded development in the
+    RAW files
+  * Fix showing the help when running from build folder
+  * Fix issue with linking the plugin interfaces multiple times
+  * Fix install location for appdata
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716431
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717126
+ - https://bugzilla.gnome.org/show_bug.cgi?id=753943
+ - https://bugzilla.gnome.org/show_bug.cgi?id=790185
+ - https://bugzilla.gnome.org/show_bug.cgi?id=790469
+ - https://bugzilla.gnome.org/show_bug.cgi?id=791893
+ - https://bugzilla.gnome.org/show_bug.cgi?id=792058
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Kukuh Syafaat <syafaatkukuh@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - id, courtesy of Kukuh Syafaat
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.27.2 - 11 Dec 2017
   * Use meson for building the debian package
   * Improve the wording for the "Width or Height" scaling constraint
