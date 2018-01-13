@@ -76,7 +76,7 @@ public class Folders.Branch : Sidebar.Branch {
         
         // add the path elements in reverse order up to home directory
         File? parent = file.get_parent();
-        while (parent != null) {
+        while (parent != null && parent.get_path() != null) {
             // don't process paths above the user's home directory
             if (parent.equal(home_dir.get_parent()))
                 break;
