@@ -775,14 +775,15 @@ public abstract class MediaPage : CheckerboardPage {
             restore_point = get_view().get_next(cursor) as CheckerboardItem;
         }
 
+        if ((restore_point != null) && (get_view().contains(restore_point))) {
+            set_cursor(restore_point);
+        }
+
         if (get_view().get_selected_count() > 0) {
             get_command_manager().execute(new TrashUntrashPhotosCommand(
                 (Gee.Collection<MediaSource>) get_view().get_selected_sources(), true));
         }
 
-        if ((restore_point != null) && (get_view().contains(restore_point))) {
-            set_cursor(restore_point);
-        }
     }
 
     protected virtual void on_edit_title() {
