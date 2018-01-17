@@ -117,7 +117,7 @@ msgstr "testimoni d'autenticació"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Testimoni d'autenticació si et connectes a Yandex-Fotki"
+msgstr "Testimoni d'autenticació si et connectes a Yandex-Fotki."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:14
 msgid "Token"
@@ -160,7 +160,7 @@ msgstr "L'URL de Rajce"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:41
 msgid "URL of the Rajce server."
-msgstr "L'URL del servidor de Rajce"
+msgstr "L'URL del servidor de Rajce."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:46
 #: misc/org.yorba.shotwell.gschema.xml:466
@@ -179,7 +179,7 @@ msgstr "testimoni"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:53
 msgid "user token, if remembered."
-msgstr "Si recordaves el testimoni d'usuari"
+msgstr "Si recordaves el testimoni d'usuari."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
 #: misc/org.yorba.shotwell.gschema.xml:542
@@ -508,7 +508,7 @@ msgstr "Fons per les imatges transparents"
 
 #: misc/org.yorba.shotwell.gschema.xml:168
 msgid "The background to use for transparent images."
-msgstr "El fons a utilitzar per imatges transparents"
+msgstr "El fons a utilitzar per imatges transparents."
 
 #: misc/org.yorba.shotwell.gschema.xml:173
 msgid "color for solid transparency background"
@@ -770,7 +770,7 @@ msgstr "Editor extern RAW"
 
 #: misc/org.yorba.shotwell.gschema.xml:326
 msgid "External application used to edit RAW photos."
-msgstr "Aplicació externa utilitzada per a l'edició de fotografies RAW"
+msgstr "Aplicació externa utilitzada per a l'edició de fotografies RAW."
 
 #: misc/org.yorba.shotwell.gschema.xml:364
 #: misc/org.yorba.shotwell.gschema.xml:365
@@ -1120,7 +1120,7 @@ msgstr "últim servei d'importació utilitzat"
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
-"Un codi numèric que representa l'últim servei del que es van importar imatges"
+"Un codi numèric que representa l'últim servei del qual es van importar imatges"
 
 #: misc/org.yorba.shotwell.gschema.xml:640
 msgid "interpreter state cookie"
@@ -2266,7 +2266,7 @@ msgstr "El nom d'usuari i/o la contrasenya no són vàlids. Proveu de nou"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
-msgstr "URL invàlida"
+msgstr "URL invàlid"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
 #: plugins/shotwell-publishing/TumblrPublishing.vala:615
@@ -2515,7 +2515,7 @@ msgstr "No es pot navegar a causa d'un error a la base de dades: %s"
 #: src/AppWindow.vala:636
 #, c-format
 msgid "Unable to display FAQ: %s"
-msgstr "No s'han pogut mostrar les FAQ: %s"
+msgstr "No s'han pogut mostrar les PMF: %s"
 
 #: src/BatchImport.vala:26
 msgid "Success"
@@ -4142,7 +4142,7 @@ msgstr "S'ha produït un error en desar a %s: %s"
 
 #: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
 msgid "Save As"
-msgstr "Desa com"
+msgstr "Anomena i desa"
 
 #. verify this is a directory
 #: src/DirectoryMonitor.vala:891
@@ -5119,7 +5119,7 @@ msgstr "_Reverteix"
 
 #: src/Resources.vala:177
 msgid "Save _As"
-msgstr "Des_a com"
+msgstr "An_omena i desa"
 
 #: src/Resources.vala:178
 msgid "Sort _Ascending"
