@@ -1,13 +1,13 @@
 # Czech translation for shotwell.
 # Copyright (C) 2014 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
-# Marek Černocký <marek@manet.cz>, 2014, 2016, 2017.
+# Marek Černocký <marek@manet.cz>, 2014, 2016, 2017, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2017-10-22 09:29+0000\n"
-"PO-Revision-Date: 2017-10-29 08:36+0100\n"
+"POT-Creation-Date: 2018-01-17 19:38+0000\n"
+"PO-Revision-Date: 2018-01-26 22:00+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -89,11 +89,26 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr "Kontrast"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr ""
+"Mění kontrast fotografie. To můžete využít k opravě fotografií, které mají "
+"malou „hloubku“, nebo u kterých nedobře působí příliš velké rozdíly mezi "
+"světlými a tmavými plochami."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
 msgid "Saturation"
 msgstr "Sytost"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:29
+#: C/edit-adjustments.page:33
 msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
@@ -102,12 +117,12 @@ msgstr ""
 "zkuste zvýšit sytost. Když barvy naopak příliš křičí, zkuste ji snížit."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:32
+#: C/edit-adjustments.page:36
 msgid "Tint"
 msgstr "Odstín"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:33
+#: C/edit-adjustments.page:37
 msgid ""
 "This tints the photo with a color. It's useful for correcting photos taken "
 "with the wrong white balance setting, which typically have an unnatural "
@@ -120,12 +135,12 @@ msgstr ""
 "na „žárovka“ mají modrý nádech."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:36
+#: C/edit-adjustments.page:40
 msgid "Temperature"
 msgstr "Teplota"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:37
+#: C/edit-adjustments.page:41
 msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
@@ -134,12 +149,12 @@ msgstr ""
 "použít například k tomu, aby studené depresivní scény vypadaly více živě."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:40
+#: C/edit-adjustments.page:44
 msgid "Shadows"
 msgstr "Tóny"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:41
+#: C/edit-adjustments.page:45
 msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
@@ -148,12 +163,12 @@ msgstr ""
 "tonou v tmavých stínech."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:44
+#: C/edit-adjustments.page:48
 msgid "Intensity Threshold (sliders on the histogram)"
 msgstr "Práh intenzity (táhla na histogramu)"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:45
+#: C/edit-adjustments.page:49
 msgid ""
 "These sliders change how light the brightest white is and how dark the "
 "darkest black is. Use them to change the contrast of the photo. Photos which "
@@ -2942,36 +2957,32 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-msgid "<link href=\"http://facebook.com\">Facebook</link>"
-msgstr "<link href=\"http://facebook.cz\">Facebook</link>"
+msgid "<link href=\"https://facebook.com\">Facebook</link>"
+msgstr "<link href=\"https://facebook.cz\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-msgid "<link href=\"http://flickr.com\">Flickr</link>"
-msgstr "<link href=\"http://flickr.com\">Flickr</link>"
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
 msgid ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
-"<link href=\"http://picasaweb.google.cz\">Picasa Web Albums</link> a <link "
+"<link href=\"https://picasaweb.google.cz\">Picasa Web Albums</link> a <link "
 "href=\"http://plus.google.com\">Google+</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"http://youtube.cz\">YouTube</link> (jen videa)"
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"https://youtube.cz\">YouTube</link> (jen videa)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-msgid ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
-"popular in Russia (photos only)"
-msgstr ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, fotoserver "
-"populární v Rusku (jen fotografie)"
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (jen videa)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -2989,19 +3000,19 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
 "to enable the plugin for the service you want to publish to. Next, choose, "
 "<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
-"gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>. You "
-"will see a dialog that lets you select a publishing service. You will then "
-"need to log in or create an account."
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
 msgstr ""
 "Když chcete zveřejnit vybrané fotografie ze sbírky, zvolte "
 "<guiseq><gui>Upravit</gui> <gui>Předvolby</gui></guiseq> a klikněte na kartu "
 "<gui>Zásuvné moduly</gui>, abyste povolili zásuvný modul pro službu, kterou "
 "chcete ke zveřejnění použít. Následně zvolte <guiseq><gui>Soubor</gui> "
 "<gui>Zveřejnit</gui></guiseq> nebo zmáčkněte tlačítko <gui>Zveřejnit</gui> "
-"na nástrojové liště nebo použijte klávesovou zkratku <keyseq><key>Ctrl</"
-"key><key>P</key></keyseq>. Uvidíte dialogové okno, ve kterém si můžete "
-"vybrat požadovanou službu. Následně se k ní musíte přihlásit, připadně si "
-"vytvořit účet."
+"na nástrojové liště nebo použijte klávesovou zkratku <keyseq><key>Ctrl</key>"
+"<key>Shift</key><key>P</key></keyseq>. Uvidíte dialogové okno, ve kterém si "
+"můžete vybrat požadovanou službu. Následně se k ní musíte přihlásit, připadně "
+"si vytvořit účet."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
