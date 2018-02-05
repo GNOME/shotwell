@@ -1,3 +1,23 @@
+Shotwell 0.27.4 - 5 Feb 2018
+  * Fix a crash when importing in-place from DAV
+  * Fix a crash when removing the last photo of an event
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=786531
+ - https://bugzilla.gnome.org/show_bug.cgi?id=792498
+
+All contributors to this release:
+ - Jordi Mas <jmas@softcatala.org>
+ - Jens Georg <mail@jensge.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+
+Added/updated translations
+ - ca, courtesy of Carles Ferrando Garcia
+ - cs, courtesy of Marek Černocký
+ - pt_BR, courtesy of Rafael Fontenelle
+
 Shotwell 0.27.3 - 9 Jan 2018
   * Fix upgrading from Shotwell 0.7.2
   * Make Histogram widget accessible by keyboard
