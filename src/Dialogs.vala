@@ -46,6 +46,21 @@ public bool confirm_warn_developer_changed(int number) {
     return response == Gtk.ResponseType.YES;
 }
 
+#if ENABLE_FACES   
+
+public bool confirm_delete_face(Face face) {
+    int count = face.get_sources_count();
+    string msg = ngettext(
+        "This will remove the face \"%s\" from one photo.  Continue?",
+        "This will remove the face \"%s\" from %d photos.  Continue?",
+        count).printf(face.get_name(), count);
+    
+    return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+        Resources.DELETE_FACE_TITLE);
+}
+
+#endif
+
 }
 
 namespace ExportUI {
@@ -132,7 +147,6 @@ public Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
 
     return response;
 }
-
 
 namespace ImportUI {
 private const int REPORT_FAILURE_COUNT = 4;
@@ -643,7 +657,6 @@ public string build_alert_body_text(string? primary_text, string? secondary_text
     return "<span weight=\"Bold\" size=\"larger\">%s</span>\n%s".printf(
         guarded_markup_escape_text(primary_text), secondary_text);
 }
-
 
 public class EventRenameDialog : TextEntryDialogMediator {
     public EventRenameDialog(string? event_name) {

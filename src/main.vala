@@ -99,6 +99,10 @@ void library_exec(string[] mounts) {
             + EventTable.get_instance().get_row_count()
             + TagTable.get_instance().get_row_count()
             + VideoTable.get_instance().get_row_count()
+#if ENABLE_FACES               
+            + FaceTable.get_instance().get_row_count()
+            + FaceLocationTable.get_instance().get_row_count()
+#endif
             + Upgrades.get_instance().get_step_count();
         if (grand_total > 5000) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
@@ -142,6 +146,14 @@ void library_exec(string[] mounts) {
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("Tag.init");
     Tag.init(monitor);
+#if ENABLE_FACES       
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("FaceLocation.init");
+    FaceLocation.init(monitor);
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("Face.init");
+    Face.init(monitor);
+#endif
     
     MetadataWriter.init();
     DesktopIntegration.init();
@@ -207,6 +219,11 @@ void library_exec(string[] mounts) {
     Tombstone.terminate();
     ThumbnailCache.terminate();
     Video.terminate();
+#if ENABLE_FACES       
+    Face.terminate();
+    FaceLocation.terminate();
+#endif
+
     Library.app_terminate();
 }
 
@@ -406,7 +423,6 @@ void main(string[] args) {
         message("Shotwell %s %s",
             is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
             Resources.APP_VERSION);
-
     debug ("Shotwell is running in timezone %s", new
            DateTime.now_local().get_timezone_abbreviation ());
         

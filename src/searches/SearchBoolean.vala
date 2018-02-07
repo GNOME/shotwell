@@ -52,6 +52,9 @@ public abstract class SearchCondition {
         TAG,
         EVENT_NAME,
         FILE_NAME,
+#if ENABLE_FACES   
+        FACE,
+#endif
         MEDIA_TYPE,
         FLAG_STATE,
         MODIFIED_STATE,
@@ -62,7 +65,10 @@ public abstract class SearchCondition {
         
         public static SearchType[] as_array() {
             return { ANY_TEXT, TITLE, TAG, COMMENT, EVENT_NAME, FILE_NAME, 
-                     MEDIA_TYPE, FLAG_STATE, MODIFIED_STATE, RATING, DATE };
+#if ENABLE_FACES   
+            FACE, 
+#endif
+            MEDIA_TYPE, FLAG_STATE, MODIFIED_STATE, RATING, DATE };
         }
         
         // Sorts an array alphabetically by display name.
@@ -92,7 +98,10 @@ public abstract class SearchCondition {
                 
                 case SearchType.FILE_NAME:
                     return "FILE_NAME";
-                    
+#if ENABLE_FACES                   
+                case SearchType.FACE:
+                    return "FACE";
+#endif                
                 case SearchType.MEDIA_TYPE:
                     return "MEDIA_TYPE";
                 
@@ -131,7 +140,10 @@ public abstract class SearchCondition {
             
             else if (str == "FILE_NAME")
                 return SearchType.FILE_NAME;
-
+#if ENABLE_FACES               
+            else if (str == "FACE")
+                return SearchType.FACE;
+#endif            
             else if (str == "MEDIA_TYPE")
                 return SearchType.MEDIA_TYPE;
             
@@ -170,7 +182,10 @@ public abstract class SearchCondition {
                 
                 case SearchType.FILE_NAME:
                     return _("File name");
-
+#if ENABLE_FACES                   
+                case SearchType.FACE:
+                    return _("Face");
+#endif                
                 case SearchType.MEDIA_TYPE:
                     return _("Media type");
                 
@@ -345,6 +360,19 @@ public class SearchConditionText : SearchCondition {
         if (SearchType.ANY_TEXT == search_type || SearchType.FILE_NAME == search_type) {
             ret |= string_match(text, String.remove_diacritics(source.get_basename().down()));
         }
+
+#if ENABLE_FACES
+        if (SearchType.ANY_TEXT == search_type || SearchType.FACE == search_type) {
+            Gee.List<Face>? face_list = Face.global.fetch_for_source(source);
+            if (null != face_list) {
+                foreach (Face face in face_list) {
+                    ret |= string_match(text, face.get_name().down());
+                }
+            } else {
+                ret |= string_match(text, null); // for IS_NOT_SET
+            }
+        }
+#endif
 
         return (context == Context.DOES_NOT_CONTAIN) ? !ret : ret;
     }

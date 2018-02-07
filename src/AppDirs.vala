@@ -258,6 +258,15 @@ class AppDirs {
         return subdir;
     }
     
+#if ENABLE_FACES
+    public static File get_resources_dir() {
+        File? install_dir = get_install_dir();
+        
+        return (install_dir != null) ? install_dir.get_child("share").get_child("shotwell")
+            : get_exec_dir();
+    }
+#endif
+    
     public static File get_lib_dir() {
         File? install_dir = get_install_dir();
 
@@ -319,5 +328,25 @@ class AppDirs {
         }
         return f;
     }
+
+#if ENABLE_FACES
+    public static File get_facedetect_bin() {
+        const string filename = "shotwell-facedetect";
+        File f = AppDirs.get_libexec_dir().get_parent().get_child("facedetect").get_child (filename);
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_child("shotwell").get_child(filename);
+        }
+        return f;
+    }
+    
+    public static File get_haarcascade_file() {
+        File f = File.new_for_path(AppDirs.get_exec_dir().get_parent().get_parent().get_child("facedetect").get_child("facedetect-haarcascade.xml").get_path());
+        if (f.query_exists()) {//testing meson builddir
+            return f;
+        }
+        return get_resources_dir().get_child("facedetect-haarcascade.xml");
+    }
+#endif
+
 }
 

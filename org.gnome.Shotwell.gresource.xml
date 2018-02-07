@@ -7,6 +7,7 @@
       <file preprocess="xml-stripblanks">ui/direct.ui</file>
       <file preprocess="xml-stripblanks">ui/events_directory.ui</file>
       <file preprocess="xml-stripblanks">ui/event.ui</file>
+      <file preprocess="xml-stripblanks">ui/faces.ui</file>
       <file preprocess="xml-stripblanks">ui/fullscreen.ui</file>
       <file preprocess="xml-stripblanks">ui/import_queue.ui</file>
       <file preprocess="xml-stripblanks">ui/import.ui</file>

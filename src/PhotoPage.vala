@@ -396,6 +396,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToggleToolButton adjust_button = null;
     private Gtk.ToggleToolButton straighten_button = null;
+#if ENABLE_FACES
+    private Gtk.ToggleToolButton faces_button = null;
+#endif
     private Gtk.ToolButton enhance_button = null;
     private Gtk.Scale zoom_slider = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);
@@ -488,6 +491,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
         
+#if ENABLE_FACES
+        // faces tool
+        insert_faces_button(toolbar);
+		faces_button = new Gtk.ToggleToolButton();
+		//face_button
+#endif
+
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
@@ -2325,6 +2335,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected void unset_view_collection() {
         parent_view = null;
     }
+    
+    // This method is intentionally empty --its purpose is to allow overriding
+    // it in LibraryPhotoPage, since FacesTool must only be present in
+    // LibraryMode, but it need to be called from constructor of EditingHostPage
+    // to place it correctly in the toolbar.
+    protected virtual void insert_faces_button(Gtk.Toolbar toolbar) {
+        ;
+    }
 }
 
 //
@@ -2339,6 +2357,9 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
+#if ENABLE_FACES
+    private Gtk.ToggleToolButton faces_button = null;
+#endif
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
@@ -3146,5 +3167,25 @@ public class LibraryPhotoPage : EditingHostPage {
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
+
+#if ENABLE_FACES       
+    private void on_faces_toggled() {
+        on_tool_button_toggled(faces_button, EditingTools.FacesTool.factory);
+    }
+    
+    protected void toggle_faces() {
+        faces_button.set_active(!faces_button.get_active());
+    }
+    
+    protected override void insert_faces_button(Gtk.Toolbar toolbar) {
+        faces_button = new Gtk.ToggleToolButton.from_stock(Resources.FACES_TOOL);
+		faces_button.set_icon_name(Resources.ICON_FACES);
+        faces_button.set_label(Resources.FACES_LABEL);
+        faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);
+        faces_button.toggled.connect(on_faces_toggled);
+        faces_button.is_important = true;
+        toolbar.insert(faces_button, -1);
+    }
+#endif
 }
 

@@ -46,6 +46,9 @@ public class LibraryWindow : AppWindow {
         EVENTS,
         IMPORT_ROLL,
         FOLDERS,
+#if ENABLE_FACES   
+        FACES,
+#endif
         TAGS
     }
     
@@ -110,6 +113,9 @@ public class LibraryWindow : AppWindow {
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
     private Folders.Branch folders_branch = new Folders.Branch();
+#if ENABLE_FACES   
+    private Faces.Branch faces_branch = new Faces.Branch();
+#endif
     private Events.Branch events_branch = new Events.Branch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
@@ -165,6 +171,10 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
         sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
+#if ENABLE_FACES   
+        sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
+#endif
+
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
@@ -272,6 +282,148 @@ public class LibraryWindow : AppWindow {
         monitor.auto_import_progress.disconnect(on_library_monitor_auto_import_progress);
     }
 
+/*<<<<<<< HEAD
+        Gtk.ActionEntry preferences = { "CommonPreferences", Resources.PREFERENCES_LABEL, TRANSLATABLE,
+            null, TRANSLATABLE, on_preferences };
+        preferences.label = Resources.PREFERENCES_MENU;
+        actions += preferences;
+        
+        Gtk.ActionEntry empty = { "CommonEmptyTrash", null, TRANSLATABLE, null, null,
+            on_empty_trash };
+        empty.label = _("Empty T_rash");
+        empty.tooltip = _("Delete all photos in the trash");
+        actions += empty;
+        
+        Gtk.ActionEntry jump_to_event = { "CommonJumpToEvent", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_jump_to_event };
+        jump_to_event.label = _("View Eve_nt for Photo");
+        actions += jump_to_event;
+        
+        Gtk.ActionEntry find = { "CommonFind", null, TRANSLATABLE, null, null, on_find };
+        find.label = _("_Find");
+        find.tooltip = _("Find photos and videos by search criteria");
+        actions += find;
+        
+        // add the common action for the FilterPhotos submenu (the submenu contains items from
+        // SearchFilterActions)
+        Gtk.ActionEntry filter_photos = { "CommonFilterPhotos", null, TRANSLATABLE, null, null, null };
+        filter_photos.label = Resources.FILTER_PHOTOS_MENU;
+        actions += filter_photos;
+        
+        Gtk.ActionEntry new_search = { "CommonNewSearch", null, TRANSLATABLE, "<Ctrl>S", null, 
+            on_new_search };
+        new_search.label =  _("Ne_w Saved Search...");
+        actions += new_search;
+
+        // top-level menus
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
+        edit.label = _("_Edit");
+        actions += edit;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, null };
+        photo.label = _("_Photo");
+        actions += photo;
+
+        Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
+        photos.label = _("_Photos");
+        actions += photos;
+
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
+        event.label = _("Even_ts");
+        actions += event;
+
+        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
+        tags.label = _("Ta_gs");
+        actions += tags;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
+        return actions;
+    }
+    
+    private Gtk.ToggleActionEntry[] create_common_toggle_actions() {
+        Gtk.ToggleActionEntry[] actions = new Gtk.ToggleActionEntry[0];
+        
+        Gtk.ToggleActionEntry basic_props = { "CommonDisplayBasicProperties", null,
+            TRANSLATABLE, "<Ctrl><Shift>I", TRANSLATABLE, on_display_basic_properties, false };
+        basic_props.label = _("_Basic Information");
+        basic_props.tooltip = _("Display basic information for the selection");
+        actions += basic_props;
+
+        Gtk.ToggleActionEntry extended_props = { "CommonDisplayExtendedProperties", null,
+            TRANSLATABLE, "<Ctrl><Shift>X", TRANSLATABLE, on_display_extended_properties, false };
+        extended_props.label = _("E_xtended Information");
+        extended_props.tooltip = _("Display extended information for the selection");
+        actions += extended_props;
+        
+        Gtk.ToggleActionEntry searchbar = { "CommonDisplaySearchbar", "edit-find", TRANSLATABLE,
+            "F8", TRANSLATABLE, on_display_searchbar, is_search_toolbar_visible };
+        searchbar.label = _("_Search Bar");
+        searchbar.tooltip = _("Display the search bar");
+        actions += searchbar;
+        
+        Gtk.ToggleActionEntry sidebar = { "CommonDisplaySidebar", null, TRANSLATABLE,
+            "F9", TRANSLATABLE, on_display_sidebar, is_sidebar_visible() };
+        sidebar.label = _("S_idebar");
+        sidebar.tooltip = _("Display the sidebar");
+        actions += sidebar;
+        
+        return actions;
+    }
+    
+    private void add_common_radio_actions(Gtk.ActionGroup group) {
+        Gtk.RadioActionEntry[] actions = new Gtk.RadioActionEntry[0];
+        
+        Gtk.RadioActionEntry ascending = { "CommonSortEventsAscending",
+            Resources.SORT_ASCENDING_LABEL, TRANSLATABLE, null, TRANSLATABLE,
+            SORT_EVENTS_ORDER_ASCENDING };
+        ascending.label = _("_Ascending");
+        ascending.tooltip = _("Sort photos in an ascending order");
+        actions += ascending;
+
+        Gtk.RadioActionEntry descending = { "CommonSortEventsDescending",
+            Resources.SORT_DESCENDING_LABEL, TRANSLATABLE, null, TRANSLATABLE,
+            SORT_EVENTS_ORDER_DESCENDING };
+        descending.label = _("D_escending");
+        descending.tooltip = _("Sort photos in a descending order");
+        actions += descending;
+        
+        group.add_radio_actions(actions, SORT_EVENTS_ORDER_ASCENDING, on_events_sort_changed);
+    }
+    
+    protected override Gtk.ActionGroup[] create_common_action_groups() {
+        Gtk.ActionGroup[] groups = base.create_common_action_groups();
+        
+        common_action_group.add_actions(create_common_actions(), this);
+        common_action_group.add_toggle_actions(create_common_toggle_actions(), this);
+        add_common_radio_actions(common_action_group);
+        
+        Gtk.Action? action = common_action_group.get_action("CommonDisplaySearchbar");
+        if (action != null) {
+            action.short_label = Resources.FIND_LABEL;
+            action.is_important = true;
+        }
+        
+        groups += common_action_group;
+        groups += search_actions.get_action_group();
+        
+        return groups;
+    }
+    
+    public override void replace_common_placeholders(Gtk.UIManager ui) {
+        base.replace_common_placeholders(ui);
+=======*/
     private const GLib.ActionEntry[] common_actions = {
         // Normal actions
         { "CommonFileImport", on_file_import },
@@ -301,6 +453,7 @@ public class LibraryWindow : AppWindow {
         lookup_action ("CommonDisplaySearchbar").change_state (Config.Facade.get_instance().get_display_search_bar());
         lookup_action ("CommonDisplaySidebar").change_state (is_sidebar_visible ());
         lookup_action ("CommonDisplayToolbar").change_state (is_toolbar_visible ());
+//>>>>>>> origin/master
     }
 
     protected override void switched_pages(Page? old_page, Page? new_page) {
@@ -406,7 +559,17 @@ public class LibraryWindow : AppWindow {
         else
             debug("No search entry found for rename");
     }
-
+    
+#if ENABLE_FACES
+    public void rename_face_in_sidebar(Face face) {
+        Faces.SidebarEntry? entry = faces_branch.get_entry_for_face(face);
+        if (entry != null)
+            sidebar_tree.rename_entry_in_place(entry);
+        else
+            assert_not_reached();
+    }
+#endif
+    
     protected override void on_quit() {
         Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 

@@ -76,6 +76,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string IMPORT_ALL = "filter-photos-symbolic";
     public const string ENHANCE = "image-auto-adjust-symbolic";
     public const string PUBLISH = "send-to-symbolic";
+#if ENABLE_FACES
+    public const string FACES_TOOL = "faces";
+#endif
     
     public const string GO_NEXT = "go-next-symbolic";
     public const string GO_PREVIOUS = "go-previous-symbolic";
@@ -103,6 +106,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_SINGLE_PHOTO = "image-x-generic-symbolic";
     public const string ICON_TRASH_EMPTY = "user-trash-symbolic";
     public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
+#if ENABLE_FACES
+    public const string ICON_ONE_FACE = "one-face";
+	public const string ICON_FACES = "faces-tool";
+#endif
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -299,6 +306,19 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string UNFLAG_MENU = _("Un_flag");
 
+
+#if ENABLE_FACES    
+    public const string FACES_MENU = _("Faces");
+    public const string FACES_LABEL = _("Faces");
+    public const string FACES_TOOLTIP = _("Mark faces of people in the photo");
+    public const string MODIFY_FACES_LABEL = _("Modify Faces");
+    public const string DELETE_FACE_TITLE = _("Delete Face");
+    public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
+    public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename…");
+    public const string FACES_MENU_SECTION = _("FacesMenuPlaceholder");
+#endif
+
+
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }
@@ -390,6 +410,38 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public string delete_search_label(string name) {
         return _("Delete Search “%s”").printf(name);
     }
+
+#if ENABLE_FACES
+    public static string rename_face_exists_message(string name) {
+        return _("Unable to rename face to \"%s\" because the face already exists.").printf(name);
+    }
+    
+    public string remove_face_from_photos_menu(string name, int count) {
+        return ((count == 1) ? _("Remove Face \"%s\" From _Photo") :
+            _("Remove Face \"%s\" From _Photos")).printf(name);
+    }
+    
+    public string remove_face_from_photos_label(string name, int count) {
+        return ((count == 1) ? _("Remove Face \"%s\" From Photo") :
+            _("Remove Face \"%s\" From Photos")).printf(name);
+    }
+    
+    public string rename_face_menu(string name) {
+        return _("Re_name Face \"%s\"...").printf(name);
+    }
+    
+    public string rename_face_label(string old_name, string new_name) {
+        return _("Rename Face \"%s\" to \"%s\"").printf(old_name, new_name);
+    }
+    
+    public string delete_face_menu(string name) {
+        return _("_Delete Face \"%s\"").printf(name);
+    }
+    
+    public string delete_face_label(string name) {
+        return _("Delete Face \"%s\"").printf(name);
+    }
+#endif
     
     private unowned string rating_label(Rating rating) {
         switch (rating) {
@@ -984,7 +1036,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (dir.get_path().has_suffix("src")) {
             dir = dir.get_parent().get_parent();
         }
-
+        
         File help_dir = dir.get_child("help").get_child("C");
         File help_index = help_dir.get_child("index.page");
         
