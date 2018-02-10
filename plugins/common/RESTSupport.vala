@@ -137,7 +137,7 @@ public class Argument {
     }
 
     public string to_string () {
-        return "%s=%s".printf (this.key, this.value);
+        return "%s=%s".printf (Uri.escape (this.key), Uri.escape (this.value));
     }
 }
 
