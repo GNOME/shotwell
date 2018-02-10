@@ -20,21 +20,21 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2017-08-26 14:01+0000\n"
-"PO-Revision-Date: 2017-09-07 15:11+0300\n"
-"Last-Translator: Jir Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"POT-Creation-Date: 2018-01-17 19:38+0000\n"
+"PO-Revision-Date: 2018-02-10 19:57+0200\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 #: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
-#: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:346
+#: ui/event.ui:524 ui/media.ui:356 ui/photo_context.ui:91 ui/photo.ui:347
 #: ui/tags.ui:356
 msgid "Shotwell"
 msgstr "Shotwell"
@@ -52,16 +52,28 @@ msgid ""
 "Shotwell’s non-destructive photo editor does not alter your master photos, "
 "making it easy to experiment and correct errors."
 msgstr ""
+"Shotwell on helppokäyttöinen ja nopea sovellus kuvien hallintaan. Sen avulla "
+"voit tuoda kuvasi esimerkiksi kamerasta, kiintolevyltä tai muistitikulta, ja "
+"hallita kuvia useiden eri ominaisuuksien perusteella. Sovellus tarjoaa myös "
+"kuvien perusmuokkaustoiminnot, kuten rajauksen, punasilmäisyyden korjauksen, "
+"värisäätimet ja suoristuksen. Shotwellin kuvamuokkain ei tee "
+"peruuttamattomia muutoksia alkuperäisiin kuviin, joten erilaiset kokeilut "
+"kuvilla ja palaaminen aiempaan tilaan on vaivatonta."
 
 #: misc/shotwell.appdata.xml.in:18
 msgid ""
 "When ready, Shotwell can upload your photos to various web sites, such as "
 "Facebook, Flickr, Picasa (Google Plus), and more."
 msgstr ""
+"Kun kuva on julkaisuvalmis, Shotwell voi lähettää kuvasi useisiin "
+"verkkopalveluihin kuten Facebookiin, Flickriin, Picasaan (Google+) ja moniin "
+"muihin eri palveluihin."
 
 #: misc/shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
+"Shotwell tukee useita kuvamuotoja: JPEG, PNG, TIFF ja monet RAW-"
+"tiedostomuodot."
 
 #: misc/shotwell.appdata.xml.in:52
 msgid "The Shotwell developers"
@@ -123,7 +135,7 @@ msgstr ""
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
 #: misc/org.yorba.shotwell.gschema.xml:498
 msgid "default size"
-msgstr ""
+msgstr "oletuskoko"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:27
 msgid ""
@@ -144,7 +156,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:41
 msgid "URL of the Rajce server."
-msgstr ""
+msgstr "Rajce-palvelimen URL."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:46
 #: misc/org.yorba.shotwell.gschema.xml:466
@@ -238,10 +250,8 @@ msgid "True if the basic properties pane is to be displayed, false otherwise."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:29
-#, fuzzy
-#| msgid "Display extended information for the selection"
 msgid "display extended properties"
-msgstr "Näytä lisätiedot valinnasta"
+msgstr "näytä laajennetut ominaisuudet"
 
 #: misc/org.yorba.shotwell.gschema.xml:30
 msgid ""
@@ -430,7 +440,7 @@ msgstr "sivupalkin sijainti"
 
 #: misc/org.yorba.shotwell.gschema.xml:144
 msgid "The width, in pixels, of the sidebar"
-msgstr ""
+msgstr "Sivupalkin leveys pikseleissä"
 
 #: misc/org.yorba.shotwell.gschema.xml:149
 msgid "photo thumbnail scale"
@@ -460,7 +470,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:167
 msgid "background for transparent images"
-msgstr ""
+msgstr "tausta läpinäkyville kuville"
 
 #: misc/org.yorba.shotwell.gschema.xml:168
 msgid "The background to use for transparent images."
@@ -490,7 +500,7 @@ msgstr "viive"
 
 #: misc/org.yorba.shotwell.gschema.xml:188
 msgid "Delay (in seconds) between photos in the slideshow."
-msgstr ""
+msgstr "Viive (sekunneissa) kuvien välillä diaesityksessä."
 
 #: misc/org.yorba.shotwell.gschema.xml:193
 msgid "transition delay"
@@ -523,7 +533,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:213
 msgid "maximize library window"
-msgstr ""
+msgstr "suurenna kirjastoikkuna"
 
 #: misc/org.yorba.shotwell.gschema.xml:214
 msgid "True if library application is maximized, false otherwise."
@@ -1347,23 +1357,7 @@ msgstr ""
 "aikana.\n"
 "Käynnistä Shotwell uudelleen ja yritä sitten kuvien lähettämistä uudelleen."
 
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:17
-msgid ""
-"Enter the confirmation number which appears after you log into Flickr in "
-"your Web browser."
-msgstr ""
-"Anna Flickriin kirjauduttasi verkkoselaimessasi näkyvä valtuutusnumero."
-
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:37
-msgid "Authorization _Number:"
-msgstr "Valtuutus_numero:"
-
-#: plugins/authenticator/shotwell/flickr_pin_entry_pane.ui:70
-#: src/Dialogs.vala:128
-msgid "Con_tinue"
-msgstr "_Jatka"
-
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:187
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -1371,20 +1365,15 @@ msgid ""
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:364
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:124
 msgid "Preparing for login…"
 msgstr "Valmistaudutaan kirjautumiseen…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:468
-#: plugins/shotwell-publishing/FlickrPublishing.vala:341
-msgid ""
-"A file required for publishing is unavailable. Publishing to Flickr can’t "
-"continue."
-msgstr ""
-"Julkaisuun vaadittava tiedosto ei ole käytettävissä. Julkaisua Flickriin ei "
-"voi jatkaa."
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:193
+msgid "Flickr authorization failed"
+msgstr "Flickr-valtuutus epäonnistui"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:481
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:200
 msgid "Verifying authorization…"
 msgstr "Vahvistetaan valtuutusta…"
 
@@ -1401,7 +1390,7 @@ msgstr ""
 "\n"
 "Jatka julkaisua Google-palveluihin käynnistämällä Shotwell uudelleen."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:31
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
@@ -1409,7 +1398,7 @@ msgid ""
 "have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:35
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
@@ -1423,6 +1412,46 @@ msgstr ""
 "asetettu toimimaan YouTuben kanssa. Useimpien tilien asetukset voi tehdä "
 "kirjautumalla selaimella YouTube-sivustolle ainakin kerran."
 
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+msgid "_Email address"
+msgstr "_Sähköpostiosoite"
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+msgid "_Password"
+msgstr "_Salasana"
+
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+msgid "Log in"
+msgstr "Kirjaudu sisään"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
+msgid "Enter the username and password associated with your Tumblr account."
+msgstr "Anna Tumblr-tilisi käyttäjätunnus ja salasana."
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+msgid "Username and/or password invalid. Please try again"
+msgstr "Käyttäjätunnus ja/tai salasana on virheellinen. Yritä uudelleen"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+msgid "Invalid User Name or Password"
+msgstr "Virheellinen käyttäjätunnus tai salasana"
+
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
+#: plugins/shotwell-publishing/TumblrPublishing.vala:498
+#, c-format
+msgid "Could not load UI: %s"
+msgstr "Käyttöliittymän lataus epäonnistui: %s"
+
 #: plugins/common/Resources.vala:12
 msgid "Visit the Shotwell home page"
 msgstr "Vieraile Shotwellin verkkosivustolla"
@@ -1432,53 +1461,53 @@ msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:202
+#: plugins/common/RESTSupport.vala:217
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ Tämä sivusto esitti identiteetin, joka kuuluu toiselle sivustolle."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:207
+#: plugins/common/RESTSupport.vala:222
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:212
+#: plugins/common/RESTSupport.vala:227
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:217
+#: plugins/common/RESTSupport.vala:232
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:222
+#: plugins/common/RESTSupport.vala:237
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:227
+#: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:232
+#: plugins/common/RESTSupport.vala:247
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
 
-#: plugins/common/RESTSupport.vala:509
-#: plugins/shotwell-publishing/TumblrPublishing.vala:959
+#: plugins/common/RESTSupport.vala:524
+#: plugins/shotwell-publishing/TumblrPublishing.vala:623
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Julkaisemisessa tarvittava väliaikainen tiedosto ei ole saatavilla"
 
@@ -1499,7 +1528,7 @@ msgid "Go _Back"
 msgstr "Takais_in"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#: ui/shotwell.ui:363
+#: ui/shotwell.ui:76
 msgid "_Log in"
 msgstr "_Kirjaudu"
 
@@ -1533,7 +1562,7 @@ msgid "pixels"
 msgstr "pikseliä"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:880
+#: plugins/shotwell-publishing/FlickrPublishing.vala:687
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -1541,8 +1570,8 @@ msgstr "Alkuperäinen koko"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
-msgid "Width or height"
-msgstr "Leveys tai korkeus"
+msgid "Longest edge"
+msgstr ""
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
@@ -1661,30 +1690,10 @@ msgstr "Tunnistamaton käyttäjä"
 msgid " Site Not Found"
 msgstr " Sivustoa ei löytynyt"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:42
-msgid "_Email address"
-msgstr "_Sähköpostiosoite"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:82
-msgid "_Password"
-msgstr "_Salasana"
-
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
 msgid "_Remember"
 msgstr "_Muista"
-
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
-#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
-#: plugins/shotwell-publishing/tumblr_authentication_pane.ui:104
-msgid "Log in"
-msgstr "Kirjaudu sisään"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
@@ -1857,12 +1866,12 @@ msgid "Where would you like to publish the selected photos?"
 msgstr "Minne haluat julkaista valitut kuvat?"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:887
-#: plugins/shotwell-publishing/FlickrPublishing.vala:858
+#: plugins/shotwell-publishing/FlickrPublishing.vala:665
 msgid "Just me"
 msgstr "Vain minulle"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
-#: plugins/shotwell-publishing/FlickrPublishing.vala:854
+#: plugins/shotwell-publishing/FlickrPublishing.vala:661
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
 msgstr "Kaikille"
@@ -1872,7 +1881,15 @@ msgstr "Kaikille"
 msgid "Photo _size:"
 msgstr "Kuvan kok_o:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:800
+#: plugins/shotwell-publishing/FlickrPublishing.vala:340
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
+"continue."
+msgstr ""
+"Julkaisuun vaadittava tiedosto ei ole käytettävissä. Julkaisua Flickriin ei "
+"voi jatkaa."
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:607
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -1881,7 +1898,7 @@ msgstr ""
 "Olet kirjautunut Flickriin käyttäjänä %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:802
+#: plugins/shotwell-publishing/FlickrPublishing.vala:609
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -1890,52 +1907,52 @@ msgstr ""
 "Ilmaisessa Flickr-tilissä on kuukausittainen rajoitus datan lähetykselle.\n"
 "Tässä kuussa voit vielä lähettää %s."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:804
+#: plugins/shotwell-publishing/FlickrPublishing.vala:611
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Flickr Pro -tili sallii kuvien lähettämisen ilman rajoituksia."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:809
+#: plugins/shotwell-publishing/FlickrPublishing.vala:616
 msgid "Photos _visible to:"
 msgstr "Kuvat _näkyvät:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:811
+#: plugins/shotwell-publishing/FlickrPublishing.vala:618
 msgid "Videos _visible to:"
 msgstr "Videot _näkyvät:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:814
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Photos and videos _visible to:"
 msgstr "Kuvat ja videot _näkyvät:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:855
+#: plugins/shotwell-publishing/FlickrPublishing.vala:662
 msgid "Friends & family only"
 msgstr "Vain kavereille ja perheelle"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:856
+#: plugins/shotwell-publishing/FlickrPublishing.vala:663
 msgid "Family only"
 msgstr "Vain perhe"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:857
+#: plugins/shotwell-publishing/FlickrPublishing.vala:664
 msgid "Friends only"
 msgstr "Vain kaverit"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:876
+#: plugins/shotwell-publishing/FlickrPublishing.vala:683
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pikseliä"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:877
+#: plugins/shotwell-publishing/FlickrPublishing.vala:684
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
-#: plugins/shotwell-publishing/TumblrPublishing.vala:106
+#: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pikseliä"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:878
+#: plugins/shotwell-publishing/FlickrPublishing.vala:685
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pikseliä"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:879
+#: plugins/shotwell-publishing/FlickrPublishing.vala:686
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pikseliä"
@@ -2073,7 +2090,8 @@ msgid "Certificate of %s"
 msgstr "Palvelun %s varmenne"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
-#: src/Resources.vala:167 ui/slideshow_settings.ui:49
+#: src/Resources.vala:167 ui/multitextentrydialog.ui:40
+#: ui/slideshow_settings.ui:49
 msgid "_OK"
 msgstr "_OK"
 
@@ -2092,19 +2110,9 @@ msgstr ""
 "Shotwell ei voi yhdistää Piwigo-kuvakirjastoosi. Varmista, että "
 "kirjoittamasi verkko-osoite on oikein"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
-#: plugins/shotwell-publishing/TumblrPublishing.vala:588
-msgid "Username and/or password invalid. Please try again"
-msgstr "Käyttäjätunnus ja/tai salasana on virheellinen. Yritä uudelleen"
-
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 msgid "Invalid URL"
 msgstr "Virheellinen verkko-osoite"
-
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
-#: plugins/shotwell-publishing/TumblrPublishing.vala:615
-msgid "Invalid User Name or Password"
-msgstr "Virheellinen käyttäjätunnus tai salasana"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
 msgid "Admins, Family, Friends, Contacts"
@@ -2142,38 +2150,22 @@ msgstr "Keskeiset julkaisupalvelut"
 msgid "Blogs:"
 msgstr "Blogit:"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:36
+#: plugins/shotwell-publishing/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Tekijänoikeus 2012 BJA Electronics"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:107
+#: plugins/shotwell-publishing/TumblrPublishing.vala:105
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 pikseliä"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:311
-#: plugins/shotwell-publishing/TumblrPublishing.vala:321
-#, c-format
-msgid "“%s” isn’t a valid response to an OAuth authentication request"
-msgstr "“%s” ei ole kelvollinen vastaus OAuth-tunnistautumispyyntöön"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:559
+#: plugins/shotwell-publishing/TumblrPublishing.vala:407
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): käynnistys epäonnistui; tätä julkaisijaa ei voi "
 "käynnistää uudelleen."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:587
-msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Anna Tumblr-tilisi käyttäjätunnus ja salasana."
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:635
-#: plugins/shotwell-publishing/TumblrPublishing.vala:753
-#, c-format
-msgid "Could not load UI: %s"
-msgstr "Käyttöliittymän lataus epäonnistui: %s"
-
-#: plugins/shotwell-publishing/TumblrPublishing.vala:735
+#: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2307,11 +2299,12 @@ msgid "Leave fullscreen"
 msgstr "Poistu koko näytön tilasta"
 
 #: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
-#: src/data_imports/DataImportsUI.vala:303
-#: src/data_imports/DataImportsUI.vala:421 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:1420 src/Dialogs.vala:1443
-#: src/publishing/PublishingUI.vala:303 src/publishing/PublishingUI.vala:527
-#: src/Resources.vala:158 ui/slideshow_settings.ui:35
+#: src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:753 src/Dialogs.vala:776
+#: src/publishing/PublishingUI.vala:305 src/publishing/PublishingUI.vala:529
+#: src/Resources.vala:158 ui/multitextentrydialog.ui:25
+#: ui/slideshow_settings.ui:35 ui/textentrydialog.ui:19
 msgid "_Cancel"
 msgstr "_Peru"
 
@@ -2424,14 +2417,13 @@ msgstr ""
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/media.ui:361
-#: ui/photo_context.ui:96 ui/photo.ui:351 ui/tags.ui:361
+#: ui/photo_context.ui:96 ui/photo.ui:352 ui/tags.ui:361
 msgid "Camera"
 msgstr "Kamera"
 
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
 #: src/camera/CameraTable.vala:351
 #, c-format
-#| msgid "%s (%d%%)"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -2473,7 +2465,7 @@ msgid "No new photos/videos found on camera"
 msgstr "Uusia kuvia tai videoita ei löytynyt kamerasta"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1014
+#: src/camera/ImportPage.vala:1025
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2481,15 +2473,15 @@ msgstr ""
 "Shotwellin on irrotettava kamera tiedostojärjestelmästä, jotta kameraa "
 "voidaan käyttää. Jatketaanko?"
 
-#: src/camera/ImportPage.vala:1020
+#: src/camera/ImportPage.vala:1031
 msgid "_Unmount"
 msgstr "_Irrota"
 
-#: src/camera/ImportPage.vala:1025
+#: src/camera/ImportPage.vala:1036
 msgid "Please unmount the camera."
 msgstr "Irrota kamera."
 
-#: src/camera/ImportPage.vala:1030
+#: src/camera/ImportPage.vala:1041
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2499,11 +2491,11 @@ msgstr ""
 "sitä ei ole lukittu. Sulje muut kameraa käyttävät ohjelmat ja yritä "
 "uudelleen."
 
-#: src/camera/ImportPage.vala:1040
+#: src/camera/ImportPage.vala:1051
 msgid "Please close any other application using the camera."
 msgstr "Sulje muut kameraa käyttävät ohjelmat."
 
-#: src/camera/ImportPage.vala:1045
+#: src/camera/ImportPage.vala:1056
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2512,70 +2504,69 @@ msgstr ""
 "Esikatselukuvien noutaminen kamerasta ei onnistu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1062
+#: src/camera/ImportPage.vala:1073
 msgid "Unmounting…"
 msgstr "Irrotetaan…"
 
-#: src/camera/ImportPage.vala:1155
-#| msgid "Starting import, please wait…"
+#: src/camera/ImportPage.vala:1166
 msgid "Connecting to camera, please wait…"
 msgstr "Yhdistetään kameraan, odota hetki…"
 
-#: src/camera/ImportPage.vala:1187
+#: src/camera/ImportPage.vala:1198
 msgid "Starting import, please wait…"
 msgstr "Käynnistetään tuonti, odota…"
 
-#: src/camera/ImportPage.vala:1193
+#: src/camera/ImportPage.vala:1204
 msgid "Fetching photo information"
 msgstr "Noudetaan kuvan tietoja"
 
-#: src/camera/ImportPage.vala:1552
+#: src/camera/ImportPage.vala:1563
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Noudetaan esikatseluversiota kuvasta %s"
 
-#: src/camera/ImportPage.vala:1660
+#: src/camera/ImportPage.vala:1671
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kameraa ei voitu lukita: %s"
 
-#: src/camera/ImportPage.vala:1745
+#: src/camera/ImportPage.vala:1756
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Poistetaanko tämä kuva kamerasta?"
 msgstr[1] "Poistetaanko nämä %d kuvaa kamerasta?"
 
-#: src/camera/ImportPage.vala:1748
+#: src/camera/ImportPage.vala:1759
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Poistetaanko tämä video kamerasta?"
 msgstr[1] "Poistetaanko nämä %d videota kamerasta?"
 
-#: src/camera/ImportPage.vala:1751
+#: src/camera/ImportPage.vala:1762
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Poistetaanko tämä kuva tai video kamerasta?"
 msgstr[1] "Poistetaanko nämä %d kuvaa tai videota kamerasta?"
 
-#: src/camera/ImportPage.vala:1754
+#: src/camera/ImportPage.vala:1765
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Poistetaanko nämä tiedostot kamerasta?"
 msgstr[1] "Poistetaanko nämä %d tiedostoa kamerasta?"
 
-#: src/camera/ImportPage.vala:1762 src/Dialogs.vala:1387
+#: src/camera/ImportPage.vala:1773 src/Dialogs.vala:720
 msgid "_Keep"
 msgstr "_Säilytä"
 
-#: src/camera/ImportPage.vala:1781
+#: src/camera/ImportPage.vala:1792
 msgid "Removing photos/videos from camera"
 msgstr "Poistetaan kuvia ja videoita kamerasta"
 
-#: src/camera/ImportPage.vala:1785
+#: src/camera/ImportPage.vala:1796
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2654,12 +2645,12 @@ msgid "Adjust Date and Time…"
 msgstr "Muuta päiväystä ja kellonaikaa…"
 
 #: src/CollectionPage.vala:143 src/Resources.vala:320 ui/collection.ui:108
-#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:360
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:361
 msgid "Open With E_xternal Editor"
 msgstr "Avaa ulkoisella _muokkaimella"
 
 #: src/CollectionPage.vala:146 src/Resources.vala:322 ui/collection.ui:113
-#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:365
+#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:366
 msgid "Open With RA_W Editor"
 msgstr "Avaa _RAW-muokkaimessa"
 
@@ -2912,15 +2903,15 @@ msgstr "Tietokantatiedosto:"
 msgid "_Import"
 msgstr "_Tuo"
 
-#: src/data_imports/DataImportsUI.vala:220
+#: src/data_imports/DataImportsUI.vala:219
 msgid "Import From Application"
 msgstr "Tuo sovelluksesta"
 
-#: src/data_imports/DataImportsUI.vala:221
+#: src/data_imports/DataImportsUI.vala:220
 msgid "Import media _from:"
 msgstr "Tuo media _kohteesta:"
 
-#: src/data_imports/DataImportsUI.vala:416 src/publishing/PublishingUI.vala:522
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:524
 msgid "_Close"
 msgstr "_Sulje"
 
@@ -2993,9 +2984,9 @@ msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Tämä poistaa tunnisteen “%s” yhdestä kuvasta. Jatketaanko?"
 msgstr[1] "Tämä poistaa tunnisteen “%s” %d kuvasta. Jatketaanko?"
 
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:1388
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:721
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
-#: src/Resources.vala:659 ui/savedsearch.ui:15 ui/tags.ui:460 ui/trash.ui:63
+#: src/Resources.vala:659 ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63
 #: ui/trash.ui:216 ui/trash.ui:258
 msgid "_Delete"
 msgstr "_Poista"
@@ -3057,63 +3048,35 @@ msgstr ""
 "\n"
 "Jatketaanko vientiä?"
 
-#. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
-#. aren't formats so much as they are operating modes that determine specific formats.
-#. Hereafter we'll refer to these as "special formats."
-#: src/Dialogs.vala:144
-msgid "Unmodified"
-msgstr "Muokkaamaton"
+#: src/Dialogs.vala:128
+msgid "Con_tinue"
+msgstr "_Jatka"
 
-#: src/Dialogs.vala:145
-msgid "Current"
-msgstr "Nykyinen"
-
-#. layout controls
-#: src/Dialogs.vala:221
-msgid "_Format:"
-msgstr "_Muoto:"
-
-#: src/Dialogs.vala:224
-msgid "_Quality:"
-msgstr "_Laatu:"
-
-#: src/Dialogs.vala:227
-msgid "_Scaling constraint:"
-msgstr "_Skaalausrajoite:"
-
-#: src/Dialogs.vala:230
-msgid "_Pixels:"
-msgstr "_Pikselit:"
-
-#: src/Dialogs.vala:234
-msgid "Export _metadata:"
-msgstr "Vie _metatiedot:"
-
-#: src/Dialogs.vala:478
+#: src/Dialogs.vala:139
 msgid "Save Details…"
 msgstr "Tallenna tiedot…"
 
-#: src/Dialogs.vala:479
+#: src/Dialogs.vala:140
 msgid "Save Details"
 msgstr "Tallenna tiedot"
 
-#: src/Dialogs.vala:494
+#: src/Dialogs.vala:155
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(ja %d muuta)\n"
 
-#: src/Dialogs.vala:547
+#: src/Dialogs.vala:208
 msgid "Import Results Report"
 msgstr "Tuontitulosten raportti"
 
-#: src/Dialogs.vala:551
+#: src/Dialogs.vala:212
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Yritettiin tuoda %d tiedosto."
 msgstr[1] "Yritettiin tuoda %d tiedostoa."
 
-#: src/Dialogs.vala:554
+#: src/Dialogs.vala:215
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -3123,30 +3086,30 @@ msgstr[1] "Niistä %d tiedostoa tuotiin onnistuneesti."
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:566
+#: src/Dialogs.vala:227
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Kuvien/videoiden tuomatta jätetyt kaksoiskappaleet:"
 
-#: src/Dialogs.vala:570
+#: src/Dialogs.vala:231
 msgid "duplicates existing media item"
 msgstr ""
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:581
+#: src/Dialogs.vala:242
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Kameravirheiden vuoksi tuomatta jääneet kuvat/videot:"
 
-#: src/Dialogs.vala:584 src/Dialogs.vala:599 src/Dialogs.vala:614
-#: src/Dialogs.vala:630 src/Dialogs.vala:645 src/Dialogs.vala:659
+#: src/Dialogs.vala:245 src/Dialogs.vala:260 src/Dialogs.vala:275
+#: src/Dialogs.vala:291 src/Dialogs.vala:306 src/Dialogs.vala:320
 msgid "error message:"
 msgstr "virheviesti:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:595
+#: src/Dialogs.vala:256
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Tuomatta jääneet tiedostot, koska niitä ei tunnistettu kuviksi tai videoiksi:"
@@ -3154,7 +3117,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:610
+#: src/Dialogs.vala:271
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -3165,7 +3128,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:625
+#: src/Dialogs.vala:286
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
@@ -3173,7 +3136,7 @@ msgstr ""
 "Tuomatta jääneet kuvat ja videot, koska Shotwell ei voinut kopioida niitä "
 "kirjastoonsa:"
 
-#: src/Dialogs.vala:629
+#: src/Dialogs.vala:290
 #, c-format
 msgid ""
 "couldn’t copy %s\n"
@@ -3183,46 +3146,46 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:641
+#: src/Dialogs.vala:302
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Kuvat ja videoita, joita ei tuotu, koska ne ovat rikki:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:656
+#: src/Dialogs.vala:317
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Muiden syiden vuoksi tuomatta jääneet kuvat ja videot:"
 
-#: src/Dialogs.vala:676
+#: src/Dialogs.vala:337
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "Yhtä kuvan kaksoiskappaletta ei tuotu:\n"
 msgstr[1] "%d kuvan kaksoiskappaletta ei tuotu:\n"
 
-#: src/Dialogs.vala:679
+#: src/Dialogs.vala:340
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "Yhtä videon kaksoiskappaletta ei tuotu:\n"
 msgstr[1] "%d videon kaksoiskappaletta ei tuotu:\n"
 
-#: src/Dialogs.vala:682
+#: src/Dialogs.vala:343
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "Yhtä kuvan tai videon kaksoiskappaletta ei tuotu:\n"
 msgstr[1] "%d kuvan tai videon kaksoiskappaletta ei tuotu:\n"
 
-#: src/Dialogs.vala:696
+#: src/Dialogs.vala:357
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] "Yhden kuvan tuonti epäonnistui tiedosto- tai laitevirheen vuoksi:\n"
 msgstr[1] "%d kuvan tuonti epäonnistui tiedosto- tai laitevirheen vuoksi:\n"
 
-#: src/Dialogs.vala:699
+#: src/Dialogs.vala:360
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
@@ -3230,7 +3193,7 @@ msgstr[0] ""
 "Yhden videon tuonti epäonnistui tiedosto- tai laitevirheen vuoksi:\n"
 msgstr[1] "%d videon tuonti epäonnistui tiedosto- tai laitevirheen vuoksi:\n"
 
-#: src/Dialogs.vala:702
+#: src/Dialogs.vala:363
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -3241,7 +3204,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d kuvan tai videon tuonti epäonnistui tiedosto- tai laitevirheen vuoksi:\n"
 
-#: src/Dialogs.vala:705
+#: src/Dialogs.vala:366
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
@@ -3250,7 +3213,7 @@ msgstr[0] ""
 msgstr[1] ""
 "%d tiedoston tuonti epäonnistui tiedosto- tai laitteistovirheen takia:\n"
 
-#: src/Dialogs.vala:719
+#: src/Dialogs.vala:380
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -3264,7 +3227,7 @@ msgstr[1] ""
 "%d:n kuvan tuominen epäonnistui, koska kuvakirjaston kansioon ei ollut "
 "kirjoitusoikeutta:\n"
 
-#: src/Dialogs.vala:722
+#: src/Dialogs.vala:383
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -3278,7 +3241,7 @@ msgstr[1] ""
 "%d:n videon tuominen epäonnistui, koska kuvakirjaston kansioon ei ollut "
 "kirjoitusoikeutta:\n"
 
-#: src/Dialogs.vala:725
+#: src/Dialogs.vala:386
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -3293,7 +3256,7 @@ msgstr[1] ""
 "%d:n kuvan/videon tuominen epäonnistui, koska kuvakirjaston kansioon ei "
 "ollut kirjoitusoikeutta:\n"
 
-#: src/Dialogs.vala:728
+#: src/Dialogs.vala:389
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -3307,56 +3270,56 @@ msgstr[1] ""
 "%d:n tiedoston tuominen epäonnistui, koska kuvakirjaston kansioon ei ollut "
 "kirjoitusoikeutta:\n"
 
-#: src/Dialogs.vala:742
+#: src/Dialogs.vala:403
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "Yhden kuvan tuonti epäonnistui kameravirheen vuoksi:\n"
 msgstr[1] "%d kuvan tuonti epäonnistui kameravirheen vuoksi:\n"
 
-#: src/Dialogs.vala:745
+#: src/Dialogs.vala:406
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "Yhden videon tuonti epäonnistui kameravirheen vuoksi:\n"
 msgstr[1] "%d videon tuonti epäonnistui kameravirheen vuoksi:\n"
 
-#: src/Dialogs.vala:748
+#: src/Dialogs.vala:409
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] "Yhden kuvan tai videon tuonti epäonnistui kameravirheen vuoksi:\n"
 msgstr[1] "%d kuvan tai videon tuonti epäonnistui kameravirheen vuoksi:\n"
 
-#: src/Dialogs.vala:751
+#: src/Dialogs.vala:412
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "1 tiedoston tuonti epäonnistui kameravirheen takia:\n"
 msgstr[1] "%d tiedoston tuonti epäonnistui kameravirheen takia:\n"
 
-#: src/Dialogs.vala:765
+#: src/Dialogs.vala:426
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "1 kuvan tuominen epäonnistui, koska se oli rikki:\n"
 msgstr[1] "%d kuvan tuominen epäonnistui, koska ne olivat rikki:\n"
 
-#: src/Dialogs.vala:768
+#: src/Dialogs.vala:429
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "1 videon tuominen epäonnistui, koska se oli rikki:\n"
 msgstr[1] "%d videon tuominen epäonnistui, koska ne ovat rikki:\n"
 
-#: src/Dialogs.vala:771
+#: src/Dialogs.vala:432
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] "1 kuvan/videon tuominen epäonnistui, koska se on rikki:\n"
 msgstr[1] "%d kuvan/videon tuominen epäonnistui, koska ne ovat rikki:\n"
 
-#: src/Dialogs.vala:774
+#: src/Dialogs.vala:435
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -3367,7 +3330,7 @@ msgstr[1] "%d tiedoston tuominen epäonnistui, koska ne ovat rikki:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:452
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -3376,56 +3339,56 @@ msgstr[1] "Ohitettiin %d kuvaa, joita ei tueta:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:806
+#: src/Dialogs.vala:467
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Ohitettiin yksi tiedosto, joka ei ollut kuva.\n"
 msgstr[1] "Ohitettiin %d tiedostoa, jotka eivät olleet kuvia.\n"
 
-#: src/Dialogs.vala:817
+#: src/Dialogs.vala:478
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "Ohitettiin yksi kuva, koska käyttäjä perui:\n"
 msgstr[1] "Ohitettiin %d kuvaa, koska käyttäjä perui:\n"
 
-#: src/Dialogs.vala:820
+#: src/Dialogs.vala:481
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "Ohitettiin yksi video, koska käyttäjä perui:\n"
 msgstr[1] "Ohitettiin %d videota, koska käyttäjä perui:\n"
 
-#: src/Dialogs.vala:823
+#: src/Dialogs.vala:484
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "Ohitettiin yksi kuva tai video, koska käyttäjä perui:\n"
 msgstr[1] "Ohitettiin %d kuvaa tai videota, koska käyttäjä perui:\n"
 
-#: src/Dialogs.vala:826
+#: src/Dialogs.vala:487
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "1 tiedosto ohitettu käyttäjän peruttua:\n"
 msgstr[1] "%d tiedostoa ohitettu käyttäjän peruttua:\n"
 
-#: src/Dialogs.vala:840
+#: src/Dialogs.vala:501
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "Yhden kuvan tuonti onnistui.\n"
 msgstr[1] "%d kuvan tuonti onnistui.\n"
 
-#: src/Dialogs.vala:843
+#: src/Dialogs.vala:504
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "Yhden videon tuonti onnistui.\n"
 msgstr[1] "%d videon tuonti onnistui.\n"
 
-#: src/Dialogs.vala:846
+#: src/Dialogs.vala:507
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -3434,89 +3397,64 @@ msgstr[1] "%d kuvan tai videon tuonti onnistui.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:862
+#: src/Dialogs.vala:523
 msgid "No photos or videos imported.\n"
 msgstr "Yhtään kuvaa tai videota ei tuotu.\n"
 
-#: src/Dialogs.vala:869 src/Dialogs.vala:888
+#: src/Dialogs.vala:530 src/Dialogs.vala:549
 msgid "Import Complete"
 msgstr "Tuonti on valmis"
 
-#: src/Dialogs.vala:1160
-#, c-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekunti"
-msgstr[1] "%d sekuntia"
-
-#: src/Dialogs.vala:1163
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minuutti"
-msgstr[1] "%d minuuttia"
-
-#: src/Dialogs.vala:1167
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d tunti"
-msgstr[1] "%d tuntia"
-
-#: src/Dialogs.vala:1170
-msgid "1 day"
-msgstr "1 päivä"
-
-#: src/Dialogs.vala:1317 src/Resources.vala:232
+#: src/Dialogs.vala:650 src/Resources.vala:232
 msgid "Rename Event"
 msgstr "Nimeä tapahtuma uudelleen"
 
-#: src/Dialogs.vala:1317
+#: src/Dialogs.vala:650
 msgid "Name:"
 msgstr "Nimi:"
 
 #. Dialog title
-#: src/Dialogs.vala:1328
+#: src/Dialogs.vala:661
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Muokkaa nimeä"
 
-#: src/Dialogs.vala:1329 src/Properties.vala:343
+#: src/Dialogs.vala:662 src/Properties.vala:343
 msgid "Title:"
 msgstr "Nimi:"
 
 #. Dialog title
-#: src/Dialogs.vala:1345 src/Resources.vala:308
+#: src/Dialogs.vala:678 src/Resources.vala:308
 msgid "Edit Event Comment"
 msgstr "Muokkaa tapahtuman kommenttia"
 
-#: src/Dialogs.vala:1346
+#: src/Dialogs.vala:679
 msgid "Edit Photo/Video Comment"
 msgstr "Muokkaa kuvan tai videon kommenttia"
 
-#: src/Dialogs.vala:1347 src/Properties.vala:631
+#: src/Dialogs.vala:680 src/Properties.vala:631
 msgid "Comment:"
 msgstr "Kommentti:"
 
-#: src/Dialogs.vala:1363
+#: src/Dialogs.vala:696
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "_Siirrä tiedosto roskakoriin"
 msgstr[1] "_Siirtä tiedostot roskakoriin"
 
-#: src/Dialogs.vala:1367
+#: src/Dialogs.vala:700
 msgid "_Remove From Library"
 msgstr "Poista k_irjastosta"
 
-#: src/Dialogs.vala:1410
+#: src/Dialogs.vala:743
 msgid "Revert External Edit?"
 msgstr "Kumotaanko ulkoinen muokkaus?"
 
-#: src/Dialogs.vala:1410
+#: src/Dialogs.vala:743
 msgid "Revert External Edits?"
 msgstr "Kumotaanko ulkoiset muokkaukset?"
 
-#: src/Dialogs.vala:1412
+#: src/Dialogs.vala:745
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
@@ -3526,125 +3464,34 @@ msgstr[0] ""
 msgstr[1] ""
 "Tämä tuhoaa kaikki %d ulkoiseen tiedostoon tehdyt muutokset. Haluatko jatkaa?"
 
-#: src/Dialogs.vala:1416
+#: src/Dialogs.vala:749
 msgid "Re_vert External Edit"
 msgstr "_Kumoa ulkoiset muokkaukset"
 
-#: src/Dialogs.vala:1416
+#: src/Dialogs.vala:749
 msgid "Re_vert External Edits"
 msgstr "_Kumoa ulkoiset muokkaukset"
 
-#: src/Dialogs.vala:1437
+#: src/Dialogs.vala:770
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Tämä poistaa kuvan kirjastosta. Jatketaanko?"
 msgstr[1] "Tämä poistaa %d kuvaa kirjastosta. Jatketaanko?"
 
-#: src/Dialogs.vala:1444 src/Resources.vala:174
+#: src/Dialogs.vala:777 src/Resources.vala:174
 msgid "_Remove"
 msgstr "_Poista"
 
-#: src/Dialogs.vala:1445
+#: src/Dialogs.vala:778
 msgid "Remove Photo From Library"
 msgstr "Poista kuvia kirjastosta"
 
-#: src/Dialogs.vala:1445
+#: src/Dialogs.vala:778
 msgid "Remove Photos From Library"
 msgstr "Poista kuvat kirjastosta"
 
-#: src/Dialogs.vala:1543
-#, c-format
-msgid "%d%%"
-msgstr "%d%%"
-
-#: src/Dialogs.vala:1697
-msgid "AM"
-msgstr "AM"
-
-#: src/Dialogs.vala:1698
-msgid "PM"
-msgstr "PM"
-
-#: src/Dialogs.vala:1699
-msgid "24 Hr"
-msgstr "24 h"
-
-#: src/Dialogs.vala:1714
-msgid "_Shift photos/videos by the same amount"
-msgstr "_Siirrä kuvia ja videoita saman verran"
-
-#: src/Dialogs.vala:1719
-msgid "Set _all photos/videos to this time"
-msgstr "_Aseta kaikki kuvat ja videot valittuun aikaan"
-
-#: src/Dialogs.vala:1725
-msgid "_Modify original photo file"
-msgid_plural "_Modify original photo files"
-msgstr[0] "M_uokkaa alkuperäistä kuvatiedostoa"
-msgstr[1] "M_uokkaa alkuperäisiä kuvatiedostoja"
-
-#: src/Dialogs.vala:1729
-msgid "_Modify original file"
-msgid_plural "_Modify original files"
-msgstr[0] "_Muokkaa alkuperäistä tiedostoa"
-msgstr[1] "_Muokkaa alkuperäisiä tiedostoja"
-
-#: src/Dialogs.vala:1817
-msgid "Original: "
-msgstr "Alkuperäinen: "
-
-#: src/Dialogs.vala:1818
-msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%d.%m.%Y, %H.%M.%S"
-
-#: src/Dialogs.vala:1819
-msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d.%m.%Y, %H.%M.%S"
-
-#: src/Dialogs.vala:1908
-#, c-format
-msgid ""
-"Exposure time will be shifted forward by\n"
-"%d %s, %d %s, %d %s, and %d %s."
-msgstr ""
-"Kuvausaikaa siirretään eteenpäin\n"
-"%d %s, %d %s, %d %s, ja %d %s."
-
-#: src/Dialogs.vala:1909
-#, c-format
-msgid ""
-"Exposure time will be shifted backward by\n"
-"%d %s, %d %s, %d %s, and %d %s."
-msgstr ""
-"Kuvausaikaa siirretään taaksepäin\n"
-"%d %s, %d %s, %d %s, ja %d %s."
-
-#: src/Dialogs.vala:1911
-msgid "day"
-msgid_plural "days"
-msgstr[0] "päivä"
-msgstr[1] "päivää"
-
-#: src/Dialogs.vala:1912
-msgid "hour"
-msgid_plural "hours"
-msgstr[0] "tunti"
-msgstr[1] "tuntia"
-
-#: src/Dialogs.vala:1913
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "minuutti"
-msgstr[1] "minuuttia"
-
-#: src/Dialogs.vala:1914
-msgid "second"
-msgid_plural "seconds"
-msgstr[0] "sekunti"
-msgstr[1] "sekuntia"
-
-#: src/Dialogs.vala:1958
+#: src/Dialogs.vala:798
 #, c-format
 msgid ""
 "\n"
@@ -3663,122 +3510,44 @@ msgstr[1] ""
 "\n"
 "ja %d muuta."
 
-#: src/Dialogs.vala:1982 src/Dialogs.vala:2009
+#: src/Dialogs.vala:822 src/Dialogs.vala:849
 msgid "Tags (separated by commas):"
 msgstr "Tunnisteet (pilkulla erotettuna):"
 
-#: src/Dialogs.vala:2089
-msgid "Welcome!"
-msgstr "Tervetuloa!"
-
-#: src/Dialogs.vala:2096
-msgid "Welcome to Shotwell!"
-msgstr "Tervetuloa Shotwelliin!"
-
-#: src/Dialogs.vala:2101
-msgid "To get started, import photos in any of these ways:"
-msgstr "Kuvia voi tuoda millä tahansa näistä tavoista:"
-
-#: src/Dialogs.vala:2121
-#, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Valitse <span weight=\"bold\">Tiedosto %s Tuo kansiosta</span>"
-
-#: src/Dialogs.vala:2122
-msgid "Drag and drop photos onto the Shotwell window"
-msgstr "Vedä ja pudota kuvia Shotwellin ikkunaan"
-
-#: src/Dialogs.vala:2123
-msgid "Connect a camera to your computer and import"
-msgstr "Tuo kuvia tietokoneeseen liitetystä kamerasta"
-
-#: src/Dialogs.vala:2134
-#, c-format
-msgid "_Import photos from your %s folder"
-msgstr "_Tuo kuvia %s-hakemistosta"
-
-#: src/Dialogs.vala:2141
-msgid "You can also import photos in any of these ways:"
-msgstr "Kuvia voi tuoda myös millä tahansa näistä tavoista:"
-
-#: src/Dialogs.vala:2152
-msgid "_Don’t show this message again"
-msgstr "_Älä näytä tätä viestiä uudestaan"
-
-#: src/Dialogs.vala:2189
-#, c-format
-msgid "Import photos from your %s library"
-msgstr "Tuo kuvasi %s-kirjastostasi"
-
-#. We're installed system-wide, so use the system help.
-#. We're being run from the build directory; we'll have to handle clicks to this
-#. link manually ourselves, due to a limitation of help: URIs.
-#: src/Dialogs.vala:2373 src/Dialogs.vala:2377
-msgid "(Help)"
-msgstr "(Ohje)"
-
-#: src/Dialogs.vala:2381
-#, c-format
-msgid "Year%sMonth%sDay"
-msgstr "Vuosi%sKuukausi%sPäivä"
-
-#: src/Dialogs.vala:2383
-#, c-format
-msgid "Year%sMonth"
-msgstr "Vuosi%sKuukausi"
-
-#: src/Dialogs.vala:2385
-#, c-format
-msgid "Year%sMonth-Day"
-msgstr "Vuosi%sKuukausi-Päivä"
-
-#: src/Dialogs.vala:2387
-msgid "Year-Month-Day"
-msgstr "Vuosi-Kuukausi-Päivä"
-
-#: src/Dialogs.vala:2388 src/editing_tools/EditingTools.vala:760
-msgid "Custom"
-msgstr "Oma koko"
-
-#. Invalid pattern.
-#: src/Dialogs.vala:2627
-msgid "Invalid pattern"
-msgstr "Virheellinen kaava"
-
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:2731
+#: src/Dialogs.vala:908
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr ""
 "Shotwell voi kopioida kuvat kirjastokansioon tai tuoda ne ilman kopiointia."
 
-#: src/Dialogs.vala:2736
+#: src/Dialogs.vala:913
 msgid "Co_py Photos"
 msgstr "_Kopioi kuvat"
 
-#: src/Dialogs.vala:2737
+#: src/Dialogs.vala:914
 msgid "_Import in Place"
 msgstr "_Tuo vanhasta sijainnista"
 
-#: src/Dialogs.vala:2738
+#: src/Dialogs.vala:915
 msgid "Import to Library"
 msgstr "Tuo kirjastoon"
 
-#: src/Dialogs.vala:2748 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:925 src/PhotoPage.vala:2874
 msgid "Remove From Library"
 msgstr "Poista kirjastosta"
 
-#: src/Dialogs.vala:2749 src/PhotoPage.vala:2874
+#: src/Dialogs.vala:926 src/PhotoPage.vala:2874
 msgid "Removing Photo From Library"
 msgstr "Poistetaan kuvia kirjastosta"
 
-#: src/Dialogs.vala:2749
+#: src/Dialogs.vala:926
 msgid "Removing Photos From Library"
 msgstr "Poistetaan kuvia kirjastosta"
 
-#: src/Dialogs.vala:2763
+#: src/Dialogs.vala:940
 #, fuzzy, c-format
 #| msgid ""
 #| "This will remove the photo/video from your Shotwell library.  Would you "
@@ -3811,7 +3580,7 @@ msgstr[1] ""
 "\n"
 "Tätä toimintoa ei voi perua."
 
-#: src/Dialogs.vala:2767
+#: src/Dialogs.vala:944
 #, fuzzy, c-format
 #| msgid ""
 #| "This will remove the video from your Shotwell library.  Would you also "
@@ -3844,7 +3613,7 @@ msgstr[1] ""
 "\n"
 "Tätä toimintoa ei voi perua."
 
-#: src/Dialogs.vala:2771
+#: src/Dialogs.vala:948
 #, fuzzy, c-format
 #| msgid ""
 #| "This will remove the photo from your Shotwell library.  Would you also "
@@ -3877,7 +3646,7 @@ msgstr[1] ""
 "\n"
 "Tätä toimintoa ei voi perua."
 
-#: src/Dialogs.vala:2803
+#: src/Dialogs.vala:980
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -3891,7 +3660,7 @@ msgstr[1] ""
 "tiedostot?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:2820
+#: src/Dialogs.vala:997
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -3929,6 +3698,7 @@ msgid "Unable open photo %s. Sorry."
 msgstr "Valitettavsti kuvaa %s ei voi avata."
 
 #: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:176 ui/direct.ui:8
+#: ui/textentrydialog.ui:33
 msgid "_Save"
 msgstr "_Tallenna"
 
@@ -3959,6 +3729,232 @@ msgstr "Tallenna nimellä"
 #, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "Kohdetta %s ei voida seurata, koska se ei ole hakemisto (%s)"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:78
+msgid "AM"
+msgstr "AM"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:79
+msgid "PM"
+msgstr "PM"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:80
+msgid "24 Hr"
+msgstr "24 h"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:95
+msgid "_Shift photos/videos by the same amount"
+msgstr "_Siirrä kuvia ja videoita saman verran"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:100
+msgid "Set _all photos/videos to this time"
+msgstr "_Aseta kaikki kuvat ja videot valittuun aikaan"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:106
+msgid "_Modify original photo file"
+msgid_plural "_Modify original photo files"
+msgstr[0] "M_uokkaa alkuperäistä kuvatiedostoa"
+msgstr[1] "M_uokkaa alkuperäisiä kuvatiedostoja"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:110
+msgid "_Modify original file"
+msgid_plural "_Modify original files"
+msgstr[0] "_Muokkaa alkuperäistä tiedostoa"
+msgstr[1] "_Muokkaa alkuperäisiä tiedostoja"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:213
+msgid "Original: "
+msgstr "Alkuperäinen: "
+
+#: src/dialogs/AdjustDateTimeDialog.vala:214
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d.%m.%Y, %H.%M.%S"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:215
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d.%m.%Y, %H.%M.%S"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:306
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Kuvausaikaa siirretään eteenpäin\n"
+"%d %s, %d %s, %d %s, ja %d %s."
+
+#: src/dialogs/AdjustDateTimeDialog.vala:307
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Kuvausaikaa siirretään taaksepäin\n"
+"%d %s, %d %s, %d %s, ja %d %s."
+
+#: src/dialogs/AdjustDateTimeDialog.vala:309
+msgid "day"
+msgid_plural "days"
+msgstr[0] "päivä"
+msgstr[1] "päivää"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:310
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "tunti"
+msgstr[1] "tuntia"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:311
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minuutti"
+msgstr[1] "minuuttia"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:312
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekunti"
+msgstr[1] "sekuntia"
+
+#. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
+#. aren't formats so much as they are operating modes that determine specific formats.
+#. Hereafter we'll refer to these as "special formats."
+#: src/dialogs/ExportDialog.vala:15
+msgid "Unmodified"
+msgstr "Muokkaamaton"
+
+#: src/dialogs/ExportDialog.vala:16
+msgid "Current"
+msgstr "Nykyinen"
+
+#. layout controls
+#: src/dialogs/ExportDialog.vala:90
+msgid "_Format:"
+msgstr "_Muoto:"
+
+#: src/dialogs/ExportDialog.vala:93
+msgid "_Quality:"
+msgstr "_Laatu:"
+
+#: src/dialogs/ExportDialog.vala:96
+msgid "_Scaling constraint:"
+msgstr "_Skaalausrajoite:"
+
+#: src/dialogs/ExportDialog.vala:99
+msgid "_Pixels:"
+msgstr "_Pikselit:"
+
+#: src/dialogs/ExportDialog.vala:103
+msgid "Export _metadata:"
+msgstr "Vie _metatiedot:"
+
+#. We're installed system-wide, so use the system help.
+#. We're being run from the build directory; we'll have to handle clicks to this
+#. link manually ourselves, due to a limitation of help: URIs.
+#: src/dialogs/Preferences.vala:115 src/dialogs/Preferences.vala:119
+msgid "(Help)"
+msgstr "(Ohje)"
+
+#: src/dialogs/Preferences.vala:123
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "Vuosi%sKuukausi%sPäivä"
+
+#: src/dialogs/Preferences.vala:125
+#, c-format
+msgid "Year%sMonth"
+msgstr "Vuosi%sKuukausi"
+
+#: src/dialogs/Preferences.vala:127
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "Vuosi%sKuukausi-Päivä"
+
+#: src/dialogs/Preferences.vala:129
+msgid "Year-Month-Day"
+msgstr "Vuosi-Kuukausi-Päivä"
+
+#: src/dialogs/Preferences.vala:130 src/editing_tools/EditingTools.vala:760
+msgid "Custom"
+msgstr "Oma koko"
+
+#. Invalid pattern.
+#: src/dialogs/Preferences.vala:369
+msgid "Invalid pattern"
+msgstr "Virheellinen kaava"
+
+#: src/dialogs/ProgressDialog.vala:97
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:49
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d sekunti"
+msgstr[1] "%d sekuntia"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:52
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuutti"
+msgstr[1] "%d minuuttia"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:56
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d tunti"
+msgstr[1] "%d tuntia"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:59
+msgid "1 day"
+msgstr "1 päivä"
+
+#: src/dialogs/WelcomeDialog.vala:35
+msgid "Welcome!"
+msgstr "Tervetuloa!"
+
+#: src/dialogs/WelcomeDialog.vala:42
+msgid "Welcome to Shotwell!"
+msgstr "Tervetuloa Shotwelliin!"
+
+#: src/dialogs/WelcomeDialog.vala:47
+msgid "To get started, import photos in any of these ways:"
+msgstr "Kuvia voi tuoda millä tahansa näistä tavoista:"
+
+#: src/dialogs/WelcomeDialog.vala:67
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr "Valitse <span weight=\"bold\">Tiedosto %s Tuo kansiosta</span>"
+
+#: src/dialogs/WelcomeDialog.vala:68
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Vedä ja pudota kuvia Shotwellin ikkunaan"
+
+#: src/dialogs/WelcomeDialog.vala:69
+msgid "Connect a camera to your computer and import"
+msgstr "Tuo kuvia tietokoneeseen liitetystä kamerasta"
+
+#: src/dialogs/WelcomeDialog.vala:80
+#, c-format
+msgid "_Import photos from your %s folder"
+msgstr "_Tuo kuvia %s-hakemistosta"
+
+#: src/dialogs/WelcomeDialog.vala:87
+msgid "You can also import photos in any of these ways:"
+msgstr "Kuvia voi tuoda myös millä tahansa näistä tavoista:"
+
+#: src/dialogs/WelcomeDialog.vala:98
+msgid "_Don’t show this message again"
+msgstr "_Älä näytä tätä viestiä uudestaan"
+
+#: src/dialogs/WelcomeDialog.vala:135
+#, c-format
+msgid "Import photos from your %s library"
+msgstr "Tuo kuvasi %s-kirjastostasi"
 
 #: src/editing_tools/EditingTools.vala:644
 msgid "Return to current photo dimensions"
@@ -4114,47 +4110,49 @@ msgstr "Lämpötila:"
 msgid "Shadows:"
 msgstr "Varjot:"
 
-#: src/editing_tools/EditingTools.vala:2285
+#. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
+#. Differently (probably because it only has positive values)
+#: src/editing_tools/EditingTools.vala:2287
 msgid "Highlights:"
 msgstr "Korostukset:"
 
-#: src/editing_tools/EditingTools.vala:2341
+#: src/editing_tools/EditingTools.vala:2344
 msgid "Reset Colors"
 msgstr "Palauta alkuperäiset värit"
 
-#: src/editing_tools/EditingTools.vala:2341
+#: src/editing_tools/EditingTools.vala:2344
 msgid "Reset all color adjustments to original"
 msgstr "Palauta kaikkien värisäätöjen alkuperäiset arvot"
 
-#: src/editing_tools/EditingTools.vala:2700
+#: src/editing_tools/EditingTools.vala:2703
 msgid "Temperature"
 msgstr "Lämpötila"
 
-#: src/editing_tools/EditingTools.vala:2712
+#: src/editing_tools/EditingTools.vala:2715
 msgid "Tint"
 msgstr "Värisävy"
 
-#: src/editing_tools/EditingTools.vala:2724
+#: src/editing_tools/EditingTools.vala:2727
 msgid "Contrast"
 msgstr "Kontrasti"
 
-#: src/editing_tools/EditingTools.vala:2738
+#: src/editing_tools/EditingTools.vala:2741
 msgid "Saturation"
 msgstr "Värikylläisyys"
 
-#: src/editing_tools/EditingTools.vala:2751
+#: src/editing_tools/EditingTools.vala:2754
 msgid "Exposure"
 msgstr "Valotus"
 
-#: src/editing_tools/EditingTools.vala:2764
+#: src/editing_tools/EditingTools.vala:2767
 msgid "Shadows"
 msgstr "Varjot"
 
-#: src/editing_tools/EditingTools.vala:2777
+#: src/editing_tools/EditingTools.vala:2780
 msgid "Highlights"
 msgstr "Korostukset"
 
-#: src/editing_tools/EditingTools.vala:2787
+#: src/editing_tools/EditingTools.vala:2790
 msgid "Contrast Expansion"
 msgstr "Kontrastin laajennus"
 
@@ -4167,29 +4165,21 @@ msgstr "Kulma:"
 msgid "_Straighten"
 msgstr "_Suorista"
 
-#: src/events/EventsBranch.vala:25
-msgid "Events"
-msgstr "Tapahtumat"
-
-#: src/events/EventsBranch.vala:25
-msgid "Browse through your events"
-msgstr "Selaa tapahtumia"
-
-#: src/events/EventDirectoryItem.vala:83
+#: src/events/EventDirectoryItem.vala:97
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d kuvaa/videota"
 msgstr[1] "%d kuva/video"
 
-#: src/events/EventDirectoryItem.vala:85 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d video"
 msgstr[1] "%d videota"
 
-#: src/events/EventDirectoryItem.vala:87 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4199,6 +4189,14 @@ msgstr[1] "%d valokuvaa"
 #: src/events/EventPage.vala:128
 msgid "No Event"
 msgstr "Ei tapahtumaa"
+
+#: src/events/EventsBranch.vala:25
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: src/events/EventsBranch.vala:25
+msgid "Browse through your events"
+msgstr "Selaa tapahtumia"
 
 #: src/events/EventsDirectoryPage.vala:149
 msgid "No events"
@@ -4268,21 +4266,8 @@ msgstr "Kansiot"
 msgid "Browse the library’s folder structure"
 msgstr "Selaa kirjaston kansiorakennetta"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
-#: ui/preferences_dialog.ui:512
-msgid "Library"
-msgstr "Kirjasto"
-
-#: src/library/LibraryBranch.vala:30
-msgid "Organize and browse your photos"
-msgstr "Hallitse ja selaa kuviasi"
-
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1083
-msgid "Photos"
-msgstr "Kuvat"
-
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1102
-#: src/SearchFilter.vala:1103
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
+#: src/SearchFilter.vala:1099
 msgid "Flagged"
 msgstr "Merkitty"
 
@@ -4302,6 +4287,19 @@ msgstr "Tuotiin %s"
 #: src/library/LastImportPage.vala:8
 msgid "Last Import"
 msgstr "Edellinen tuonti"
+
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: ui/preferences_dialog.ui:512
+msgid "Library"
+msgstr "Kirjasto"
+
+#: src/library/LibraryBranch.vala:30
+msgid "Organize and browse your photos"
+msgstr "Hallitse ja selaa kuviasi"
+
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
+msgid "Photos"
+msgstr "Kuvat"
 
 #: src/library/LibraryWindow.vala:508
 msgid "Import From Folder"
@@ -4481,7 +4479,7 @@ msgstr ""
 msgid "Adjust the size of the thumbnails"
 msgstr "Säädä pienoiskuvien kokoa"
 
-#: src/MediaPage.vala:503
+#: src/MediaPage.vala:502
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4490,15 +4488,15 @@ msgstr ""
 "Shotwell ei voinut soittaa valittua videota:\n"
 "%s"
 
-#: src/Page.vala:1307
+#: src/Page.vala:1327
 msgid "No photos/videos"
 msgstr "Ei kuvia/videoita"
 
-#: src/Page.vala:1311
+#: src/Page.vala:1331
 msgid "No photos/videos found which match the current filter"
 msgstr "Nykyistä suodatint vstaavia kuvia tai videoita ei löytynyt"
 
-#: src/Page.vala:2624
+#: src/Page.vala:2644
 msgid "Photos cannot be exported to this directory."
 msgstr "Tähän hakemistoon ei voi viedä kuvia."
 
@@ -4730,7 +4728,7 @@ msgstr "Tekijänoikeus:"
 msgid "Software:"
 msgstr "Ohjelmisto:"
 
-#: src/Properties.vala:644
+#: src/Properties.vala:642
 msgid "Extended Information"
 msgstr "Lisätiedot"
 
@@ -4780,37 +4778,37 @@ msgstr "Noudetaan tilin tietoja…"
 msgid "Logging in…"
 msgstr "Kirjaudutaan…"
 
-#: src/publishing/PublishingUI.vala:195
+#: src/publishing/PublishingUI.vala:197
 msgid "Publish Photos"
 msgstr "Julkaise valokuvia"
 
-#: src/publishing/PublishingUI.vala:196
+#: src/publishing/PublishingUI.vala:198
 msgid "Publish photos _to:"
 msgstr "Julkaise valokuvia _palveluun:"
 
-#: src/publishing/PublishingUI.vala:198
+#: src/publishing/PublishingUI.vala:200
 msgid "Publish Videos"
 msgstr "Julkaise videoita"
 
-#: src/publishing/PublishingUI.vala:199
+#: src/publishing/PublishingUI.vala:201
 msgid "Publish videos _to"
 msgstr "Julkaise videoita _palveluun"
 
-#: src/publishing/PublishingUI.vala:201
+#: src/publishing/PublishingUI.vala:203
 msgid "Publish Photos and Videos"
 msgstr "Julkaise kuvia ja videoita"
 
-#: src/publishing/PublishingUI.vala:202
+#: src/publishing/PublishingUI.vala:204
 msgid "Publish photos and videos _to"
 msgstr "Julkaise kuvia ja videoita _palveluun"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:412
+#: src/publishing/PublishingUI.vala:414
 msgid "Unable to publish"
 msgstr "Julkaisu ei onnistunut"
 
-#: src/publishing/PublishingUI.vala:413
+#: src/publishing/PublishingUI.vala:415
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -4851,9 +4849,10 @@ msgstr "Kääntö vaakasuunnassa"
 msgid "Flip Vertically"
 msgstr "Kääntö pystysuunnassa"
 
-#: src/Resources.vala:156 ui/direct.ui:191 ui/events_directory.ui:168
-#: ui/event.ui:438 ui/import_queue.ui:83 ui/import.ui:201 ui/media.ui:421
-#: ui/offline.ui:198 ui/photo.ui:404 ui/tags.ui:440 ui/trash.ui:207
+#: src/Resources.vala:156 ui/direct.ui:192 ui/events_directory.ui:168
+#: ui/event.ui:438 ui/import_queue.ui:83 ui/import.ui:201
+#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:405
+#: ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "_Tietoja"
 
@@ -4876,11 +4875,11 @@ msgstr "_Eteenpäin"
 msgid "Fulls_creen"
 msgstr "_Koko näyttö"
 
-#: src/Resources.vala:163 ui/direct.ui:173 ui/direct.ui:176
+#: src/Resources.vala:163 ui/direct.ui:174 ui/direct.ui:177
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
 #: ui/event.ui:423 ui/import_queue.ui:65 ui/import_queue.ui:68 ui/import.ui:183
 #: ui/import.ui:186 ui/media.ui:403 ui/media.ui:406 ui/offline.ui:180
-#: ui/offline.ui:183 ui/photo.ui:386 ui/photo.ui:389 ui/tags.ui:422
+#: ui/offline.ui:183 ui/photo.ui:387 ui/photo.ui:390 ui/tags.ui:422
 #: ui/tags.ui:425 ui/trash.ui:189 ui/trash.ui:192
 msgid "_Help"
 msgstr "_Ohje"
@@ -5296,7 +5295,7 @@ msgid "Adjust Date and Time"
 msgstr "Muuta päiväystä ja kellonaikaa..."
 
 #: src/Resources.vala:313 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
-#: ui/media.ui:390 ui/photo.ui:374 ui/tags.ui:390
+#: ui/media.ui:390 ui/photo.ui:375 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "Lisää tunn_isteita…"
 
@@ -5388,7 +5387,7 @@ msgid "_Rename…"
 msgstr "Ni_meä uudelleen…"
 
 #: src/Resources.vala:376 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
-#: ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:379 ui/tags.ui:395
+#: ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:380 ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "Muokkaa tu_nnisteita…"
 
@@ -5439,7 +5438,7 @@ msgstr ""
 "jo olemassa."
 
 #. Saved search button
-#: src/Resources.vala:411 src/SearchFilter.vala:1124
+#: src/Resources.vala:411 src/SearchFilter.vala:1120
 msgid "Saved Search"
 msgstr "Tallennettu haku"
 
@@ -5447,11 +5446,11 @@ msgstr "Tallennettu haku"
 msgid "Delete Search"
 msgstr "Poista haku"
 
-#: src/Resources.vala:416 ui/savedsearch.ui:11
+#: src/Resources.vala:416 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "_Muokkaa…"
 
-#: src/Resources.vala:417 ui/savedsearch.ui:7
+#: src/Resources.vala:417 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "_Nimeä uudelleen…"
 
@@ -5605,150 +5604,118 @@ msgstr "%a %d. %b %Y"
 msgid "Slideshow"
 msgstr "Diaesitys"
 
-#: src/searches/SearchesBranch.vala:68
-msgid "Saved Searches"
-msgstr "Tallennetut haut"
-
-#: src/searches/SearchesBranch.vala:68
-msgid "Organize your saved searches"
-msgstr "Hallitse tallennettuja hakujasi"
-
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:162
+#: src/searches/SavedSearchDialog.vala:167
 msgid "contains"
 msgstr "sisältää"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:163
-#: src/searches/SavedSearchDialog.vala:494
+#: src/searches/SavedSearchDialog.vala:168
+#: src/searches/SavedSearchDialog.vala:499
 msgid "is exactly"
 msgstr "on tarkalleen"
 
-#: src/searches/SavedSearchDialog.vala:164
+#: src/searches/SavedSearchDialog.vala:169
 msgid "starts with"
 msgstr "alkaa"
 
-#: src/searches/SavedSearchDialog.vala:165
+#: src/searches/SavedSearchDialog.vala:170
 msgid "ends with"
 msgstr "päättyy"
 
-#: src/searches/SavedSearchDialog.vala:166
+#: src/searches/SavedSearchDialog.vala:171
 msgid "does not contain"
 msgstr "ei sisällä"
 
-#: src/searches/SavedSearchDialog.vala:167
-#: src/searches/SavedSearchDialog.vala:498
+#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:503
 msgid "is not set"
 msgstr "ei ole asetettu"
 
-#: src/searches/SavedSearchDialog.vala:168
+#: src/searches/SavedSearchDialog.vala:173
 msgid "is set"
 msgstr "on asetettu"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:242
-#: src/searches/SavedSearchDialog.vala:373
-#: src/searches/SavedSearchDialog.vala:438
+#: src/searches/SavedSearchDialog.vala:247
+#: src/searches/SavedSearchDialog.vala:378
+#: src/searches/SavedSearchDialog.vala:443
 msgid "is"
 msgstr "on"
 
-#: src/searches/SavedSearchDialog.vala:243
+#: src/searches/SavedSearchDialog.vala:248
 msgid "is not"
 msgstr "ei ole"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:249
+#: src/searches/SavedSearchDialog.vala:254
 msgid "any photo"
 msgstr "mikä tahansa kuva"
 
-#: src/searches/SavedSearchDialog.vala:250
+#: src/searches/SavedSearchDialog.vala:255
 msgid "a raw photo"
 msgstr "raakavalokuva"
 
-#: src/searches/SavedSearchDialog.vala:251
+#: src/searches/SavedSearchDialog.vala:256
 msgid "a video"
 msgstr "video"
 
-#: src/searches/SavedSearchDialog.vala:305
+#: src/searches/SavedSearchDialog.vala:310
 msgid "has"
 msgstr "sisältää"
 
-#: src/searches/SavedSearchDialog.vala:306
+#: src/searches/SavedSearchDialog.vala:311
 msgid "has no"
 msgstr "ei sisällä"
 
-#: src/searches/SavedSearchDialog.vala:311
+#: src/searches/SavedSearchDialog.vala:316
 msgid "modifications"
 msgstr "muokkauksia"
 
-#: src/searches/SavedSearchDialog.vala:312
+#: src/searches/SavedSearchDialog.vala:317
 msgid "internal modifications"
 msgstr "sisäisiä muokkauksia"
 
-#: src/searches/SavedSearchDialog.vala:313
+#: src/searches/SavedSearchDialog.vala:318
 msgid "external modifications"
 msgstr "ulkoisia muokkauksia"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:367
+#: src/searches/SavedSearchDialog.vala:372
 msgid "flagged"
 msgstr "merkitty"
 
-#: src/searches/SavedSearchDialog.vala:368
+#: src/searches/SavedSearchDialog.vala:373
 msgid "not flagged"
 msgstr "ei merkitty"
 
-#: src/searches/SavedSearchDialog.vala:431
+#: src/searches/SavedSearchDialog.vala:436
 msgid "and higher"
 msgstr "ja ylempi"
 
-#: src/searches/SavedSearchDialog.vala:432
+#: src/searches/SavedSearchDialog.vala:437
 msgid "only"
 msgstr "vain"
 
-#: src/searches/SavedSearchDialog.vala:433
+#: src/searches/SavedSearchDialog.vala:438
 msgid "and lower"
 msgstr "ja alempi"
 
-#: src/searches/SavedSearchDialog.vala:495
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is after"
 msgstr "jälkeen"
 
-#: src/searches/SavedSearchDialog.vala:496
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is before"
 msgstr "ennen"
 
-#: src/searches/SavedSearchDialog.vala:497
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is between"
 msgstr "on välillä"
 
-#: src/searches/SavedSearchDialog.vala:510
+#: src/searches/SavedSearchDialog.vala:515
 msgid "and"
 msgstr "ja"
-
-#: src/searches/SavedSearchDialog.vala:691
-msgid "Search"
-msgstr "Etsi"
-
-#: src/searches/SavedSearchDialog.vala:696
-msgid "Cancel"
-msgstr "Peru"
-
-#: src/searches/SavedSearchDialog.vala:697
-msgid "OK"
-msgstr "OK"
-
-#: src/searches/SavedSearchDialog.vala:716
-msgid "any"
-msgstr "mikä tahansa"
-
-#: src/searches/SavedSearchDialog.vala:717
-msgid "all"
-msgstr "kaikki"
-
-#: src/searches/SavedSearchDialog.vala:718
-msgid "none"
-msgstr "ei mikään"
 
 #: src/searches/SearchBoolean.vala:157
 msgid "Any text"
@@ -5786,8 +5753,8 @@ msgstr "Merkinnän tila"
 msgid "Photo state"
 msgstr "Kuvan tila"
 
-#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:831
-#: src/SearchFilter.vala:1114
+#: src/searches/SearchBoolean.vala:184 src/SearchFilter.vala:827
+#: src/SearchFilter.vala:1110
 msgid "Rating"
 msgstr "Arvostelu"
 
@@ -5795,27 +5762,35 @@ msgstr "Arvostelu"
 msgid "Date"
 msgstr "Päivämäärä"
 
-#: src/SearchFilter.vala:815
+#: src/searches/SearchesBranch.vala:68
+msgid "Saved Searches"
+msgstr "Tallennetut haut"
+
+#: src/searches/SearchesBranch.vala:68
+msgid "Organize your saved searches"
+msgstr "Hallitse tallennettuja hakujasi"
+
+#: src/SearchFilter.vala:811
 msgid "★+ Rating"
 msgstr "★+ -arvostelu"
 
-#: src/SearchFilter.vala:818
+#: src/SearchFilter.vala:814
 msgid "★★+ Rating"
 msgstr "★★+ -arvostelu"
 
-#: src/SearchFilter.vala:821
+#: src/SearchFilter.vala:817
 msgid "★★★+ Rating"
 msgstr "★★★+ -arvostelu"
 
-#: src/SearchFilter.vala:824
+#: src/SearchFilter.vala:820
 msgid "★★★★+ Rating"
 msgstr "★★★★+ -arvostelu"
 
-#: src/SearchFilter.vala:828
+#: src/SearchFilter.vala:824
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ -arvostelu"
 
-#: src/SearchFilter.vala:1064
+#: src/SearchFilter.vala:1060
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Virhe ladatessa hakupalkin käyttöliittymää: %s"
@@ -5825,24 +5800,24 @@ msgstr "Virhe ladatessa hakupalkin käyttöliittymää: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1073
+#: src/SearchFilter.vala:1069
 msgid "Close"
 msgstr "Sulje"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1079
+#: src/SearchFilter.vala:1075
 msgid "Type"
 msgstr "Tyyppi"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1082
 msgid "Videos"
 msgstr "Videot"
 
-#: src/SearchFilter.vala:1089
+#: src/SearchFilter.vala:1085
 msgid "RAW Photos"
 msgstr "RAW-kuvat"
 
-#: src/SearchFilter.vala:1125
+#: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
 msgstr "Käytä tallennettua hkua suodattaaksesi kohteita nykyisessä näkymässä"
 
@@ -5922,7 +5897,7 @@ msgid "untitled"
 msgstr "nimetön"
 
 #. multiple videos
-#: src/VideoSupport.vala:520
+#: src/VideoSupport.vala:521
 msgid "Export Videos"
 msgstr "Vie videoita"
 
@@ -5932,7 +5907,7 @@ msgid "Toggle _Flag"
 msgstr "Li_ppu päälle/pois"
 
 #: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/media.ui:353
-#: ui/photo_context.ui:88 ui/photo.ui:343 ui/tags.ui:353
+#: ui/photo_context.ui:88 ui/photo.ui:344 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Kehitin"
 
@@ -5985,15 +5960,15 @@ msgstr "_Seuraava kuva"
 msgid "T_ools"
 msgstr "T_yökalut"
 
-#: ui/direct.ui:181 ui/events_directory.ui:158 ui/event.ui:428
+#: ui/direct.ui:182 ui/events_directory.ui:158 ui/event.ui:428
 #: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
-#: ui/photo.ui:394 ui/tags.ui:430 ui/trash.ui:197
+#: ui/photo.ui:395 ui/tags.ui:430 ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "_Usein kysytyt kysymykset"
 
-#: ui/direct.ui:185 ui/events_directory.ui:162 ui/event.ui:432
+#: ui/direct.ui:186 ui/events_directory.ui:162 ui/event.ui:432
 #: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
-#: ui/photo.ui:398 ui/tags.ui:434 ui/trash.ui:201
+#: ui/photo.ui:399 ui/tags.ui:434 ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "_Ilmoita ongelmasta…"
 
@@ -6082,7 +6057,7 @@ msgid "_Titles"
 msgstr "_Nimet"
 
 #: ui/event.ui:139 ui/event.ui:404 ui/media.ui:139 ui/media.ui:387
-#: ui/photo.ui:371 ui/tags.ui:139 ui/tags.ui:387
+#: ui/photo.ui:372 ui/tags.ui:139 ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "_Tunnisteet"
 
@@ -6207,55 +6182,95 @@ msgstr "Ulkoiset muokkaimet"
 msgid "Plugins"
 msgstr "Liitännäiset"
 
-#: ui/printing_widget.ui:19
+#: ui/preferences_dialog.ui:668
+msgid "Shotwell Preferences"
+msgstr "Shotwellin asetukset"
+
+#: ui/printing_widget.ui:18
 msgid "<b>Printed Image Size</b>"
 msgstr "<b>Tulostetun kuvan koko</b>"
 
-#: ui/printing_widget.ui:36
+#: ui/printing_widget.ui:38
 msgid "Use a _standard size:"
 msgstr "Käytä _standardikokoa:"
 
-#: ui/printing_widget.ui:80
+#: ui/printing_widget.ui:65
 msgid "Use a c_ustom size:"
 msgstr "Käytä _omaa kokoa:"
 
 #. Abbrevation for "inch"
-#: ui/printing_widget.ui:146
+#: ui/printing_widget.ui:128
 msgid "in."
 msgstr "tuumaa"
 
 #. Abbrevation for "centimeters"
-#: ui/printing_widget.ui:147
+#: ui/printing_widget.ui:129
 msgid "cm"
 msgstr "cm"
 
-#: ui/printing_widget.ui:173
+#: ui/printing_widget.ui:146
 msgid "_Match photo aspect ratio"
 msgstr "_Vastaa kuvan kuvasuhdetta"
 
-#: ui/printing_widget.ui:197
+#: ui/printing_widget.ui:161
 msgid "_Autosize:"
 msgstr "_Automaattinen koko:"
 
-#: ui/printing_widget.ui:237
+#: ui/printing_widget.ui:202
 msgid "<b>Titles</b>"
 msgstr "<b>Nimet</b>"
 
-#: ui/printing_widget.ui:254
+#: ui/printing_widget.ui:219
 msgid "Print image _title"
 msgstr "Tulosta kuvan _nimi"
 
-#: ui/printing_widget.ui:297
+#: ui/printing_widget.ui:262
 msgid "<b>Pixel Resolution</b>"
 msgstr "<b>Pikselitarkkuus</b>"
 
-#: ui/printing_widget.ui:317
+#: ui/printing_widget.ui:282
 msgid "_Output photo at:"
 msgstr "_Tulosta kuva muodossa:"
 
-#: ui/printing_widget.ui:351
+#: ui/printing_widget.ui:316
 msgid "pixels per inch"
 msgstr "pikseliä tuumalla"
+
+#: ui/saved_search_dialog.ui:7
+msgid "Search"
+msgstr "Etsi"
+
+#: ui/saved_search_dialog.ui:23
+msgid "Cancel"
+msgstr "Peru"
+
+#: ui/saved_search_dialog.ui:36
+msgid "OK"
+msgstr "OK"
+
+#: ui/saved_search_dialog.ui:74
+msgid "_Name of search:"
+msgstr "_Haun nimi:"
+
+#: ui/saved_search_dialog.ui:132
+msgid "_Match"
+msgstr "_Vastaavuus"
+
+#: ui/saved_search_dialog.ui:149
+msgid "any"
+msgstr "mikä tahansa"
+
+#: ui/saved_search_dialog.ui:150
+msgid "all"
+msgstr "kaikki"
+
+#: ui/saved_search_dialog.ui:151
+msgid "none"
+msgstr "ei mikään"
+
+#: ui/saved_search_dialog.ui:165
+msgid "of the following:"
+msgstr "seuraavista:"
 
 #: ui/set_background_dialog.ui:9
 msgid "Set as Desktop Background"
@@ -6289,22 +6304,6 @@ msgstr "ajan"
 msgid "How long each photo is shown on the desktop background"
 msgstr "Kuinka kauan tiettyä kuvaa näytetään työpöydän taustakuvana"
 
-#: ui/shotwell.ui:22
-msgid "_Name of search:"
-msgstr "_Haun nimi:"
-
-#: ui/shotwell.ui:76
-msgid "_Match"
-msgstr "_Vastaavuus"
-
-#: ui/shotwell.ui:103
-msgid "of the following:"
-msgstr "seuraavista:"
-
-#: ui/shotwell.ui:184
-msgid "label"
-msgstr "nimike"
-
 #: ui/sidebar_default_context.ui:11 ui/tag_sidebar_context.ui:6
 msgid "New _Tag…"
 msgstr "Uusi _tunniste…"
@@ -6329,9 +6328,28 @@ msgstr "N_äytä nimi"
 msgid "seconds"
 msgstr "sekuntia"
 
+#: ui/textentrydialog.ui:66
+msgid "label"
+msgstr "nimike"
+
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Poista kaikki kuvat roskakorista"
+
+#~ msgid ""
+#~ "Enter the confirmation number which appears after you log into Flickr in "
+#~ "your Web browser."
+#~ msgstr ""
+#~ "Anna Flickriin kirjauduttasi verkkoselaimessasi näkyvä valtuutusnumero."
+
+#~ msgid "Authorization _Number:"
+#~ msgstr "Valtuutus_numero:"
+
+#~ msgid "Width or height"
+#~ msgstr "Leveys tai korkeus"
+
+#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
+#~ msgstr "“%s” ei ole kelvollinen vastaus OAuth-tunnistautumispyyntöön"
 
 #~ msgid ""
 #~ "Welcome to the F-Spot library import service.\n"
@@ -6616,9 +6634,6 @@ msgstr "Poista kaikki kuvat roskakorista"
 
 #~ msgid "The selected photos were successfully published."
 #~ msgstr "Valittujen kuvien julkaisu onnistui."
-
-#~ msgid "Shotwell Preferences"
-#~ msgstr "Shotwellin asetukset"
 
 #, fuzzy
 #~| msgid ""
