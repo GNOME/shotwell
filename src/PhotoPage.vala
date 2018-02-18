@@ -1410,7 +1410,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gdk.Pixbuf original;
         try {
             original = get_photo().get_original_orientation().rotate_pixbuf(
-                get_photo().get_prefetched_copy());
+                get_photo().get_master_pixbuf(cache.get_scaling()));
         } catch (Error err) {
             return;
         }
