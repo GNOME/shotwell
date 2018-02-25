@@ -5786,7 +5786,7 @@ msgstr "%a, %b de %d"
 #: src/Resources.vala:759
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a, %d de %b de %Y"
+msgstr "%a, %d %b de %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:115
 msgid "Slideshow"
