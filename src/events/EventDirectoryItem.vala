@@ -146,6 +146,10 @@ class EventDirectoryItem : CheckerboardItem {
     protected override void thumbnail_altered() {
         MediaSource media = event.get_primary_source();
         
+        set_paul_lynde(media);
+    }
+
+    private void set_paul_lynde(MediaSource media) {
         // get new center square
         paul_lynde = get_paul_lynde_rect(media);
         
@@ -158,11 +162,18 @@ class EventDirectoryItem : CheckerboardItem {
         } else {
             clear_image(Dimensions.for_rectangle(paul_lynde));
         }
-        
+
         base.thumbnail_altered();
     }
 
-    protected override void paint_shadow(Cairo.Context ctx, Dimensions dimensions, Gdk.Point origin, 
+    public override void handle_mouse_motion(int x, int y, int height, int width) {
+        int element_index = (int) Math.round( (double) x / width * (event.get_media_count() - 1) );
+        unowned MediaSource media = event.get_media().to_array()[element_index];
+
+        set_paul_lynde(media);
+    }
+
+    protected override void paint_shadow(Cairo.Context ctx, Dimensions dimensions, Gdk.Point origin,
         int radius, float initial_alpha) {       
         Dimensions altered = Dimensions(dimensions.width - 25, dimensions.height - 25);
         base.paint_shadow(ctx, altered, origin, 36, initial_alpha);
