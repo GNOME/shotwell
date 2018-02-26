@@ -340,6 +340,10 @@ public abstract class CheckerboardItem : ThumbnailView {
         return is_cursor;
     }
     
+    public virtual void handle_mouse_motion(int x, int y, int height, int width) {
+
+    }
+
     protected override void notify_membership_changed(DataCollection? collection) {
         bool title_visible = (bool) get_collection_property(PROP_SHOW_TITLES, true);
         bool comment_visible = (bool) get_collection_property(PROP_SHOW_COMMENTS, true);
@@ -1277,6 +1281,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
 
     public bool handle_mouse_motion(CheckerboardItem item, int x, int y, Gdk.ModifierType mask) {
+        int dx = x - item.allocation.x;
+        int dy = y - item.allocation.y;
+
+        item.handle_mouse_motion(dx, dy, item.allocation.height, item.allocation.width);
+
         if (!item.has_tags || is_drag_select_active())
             return false;
         int tag_index = internal_handle_tag_mouse_event(item, x, y);
