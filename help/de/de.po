@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the shotwell package.
 # Christian Kirbach <Christian.Kirbach@gmail.com>, 2015-2016.
 # Benjamin Steinwender <b@stbe.at>, 2015.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2016-2017.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2016-2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.20\n"
-"POT-Creation-Date: 2017-10-22 09:29+0000\n"
-"PO-Revision-Date: 2017-10-24 09:33+0200\n"
+"POT-Creation-Date: 2018-01-17 19:38+0000\n"
+"PO-Revision-Date: 2018-02-27 22:00+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
-"Mario Blättermann <mario.blaettermann@gmail.com>, 2009, 2016\n"
+"Mario Blättermann <mario.blaettermann@gmail.com>, 2009, 2016-2017\n"
 "Benjamin Steinwender <b@stbe.at>, 2014-2015\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2014, 2016, 2017"
 
@@ -96,11 +96,26 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr "Kontrast"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr ""
+"Ändert den Kontrast eines Fotos. Verwenden Sie dies zur Korrektur von flau "
+"aussehenden Fotos oder wenn der Unterschied zwischen hellen und dunklen "
+"Bildbereichen zu groß ist."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
 msgid "Saturation"
 msgstr "Sättigung"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:29
+#: C/edit-adjustments.page:33
 msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
@@ -111,12 +126,12 @@ msgstr ""
 "verringern."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:32
+#: C/edit-adjustments.page:36
 msgid "Tint"
 msgstr "Farbton"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:33
+#: C/edit-adjustments.page:37
 msgid ""
 "This tints the photo with a color. It's useful for correcting photos taken "
 "with the wrong white balance setting, which typically have an unnatural "
@@ -129,12 +144,12 @@ msgstr ""
 "Einstellung »Glühlampenlicht« aufgenommene Fotos einen Blaustich aufweisen."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:36
+#: C/edit-adjustments.page:40
 msgid "Temperature"
 msgstr "Temperatur"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:37
+#: C/edit-adjustments.page:41
 msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
@@ -143,12 +158,12 @@ msgstr ""
 "damit beispielsweise kühle, depressive Szenen lebendiger wirken lassen."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:40
+#: C/edit-adjustments.page:44
 msgid "Shadows"
 msgstr "Schatten"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:41
+#: C/edit-adjustments.page:45
 msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
@@ -157,12 +172,12 @@ msgstr ""
 "hervorheben, die in einem Schattenbereich verdeckt sind."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:44
+#: C/edit-adjustments.page:48
 msgid "Intensity Threshold (sliders on the histogram)"
 msgstr "Schwellwert der Intensität (Schieberegler im Histogramm)"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:45
+#: C/edit-adjustments.page:49
 msgid ""
 "These sliders change how light the brightest white is and how dark the "
 "darkest black is. Use them to change the contrast of the photo. Photos which "
@@ -3026,18 +3041,20 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-msgid "<link href=\"http://facebook.com\">Facebook</link>"
-msgstr "<link href=\"http://facebook.com\">Facebook</link>"
+#| msgid "<link href=\"http://facebook.com\">Facebook</link>"
+msgid "<link href=\"https://facebook.com\">Facebook</link>"
+msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-msgid "<link href=\"http://flickr.com\">Flickr</link>"
-msgstr "<link href=\"http://flickr.com\">Flickr</link>"
+#| msgid "<link href=\"http://flickr.com\">Flickr</link>"
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
 msgid ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
 "<link href=\"https://picasaweb.google.com/home?hl=de\">Picasa Webalben</"
@@ -3045,17 +3062,13 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"http://youtube.com\">YouTube</link> (nur Videos)"
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (nur Videos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-msgid ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
-"popular in Russia (photos only)"
-msgstr ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, eine in Russland "
-"beliebte Fotoseite (nur Fotos)"
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (nur Videos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -3073,9 +3086,9 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
 "to enable the plugin for the service you want to publish to. Next, choose, "
 "<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
-"gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>. You "
-"will see a dialog that lets you select a publishing service. You will then "
-"need to log in or create an account."
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
 msgstr ""
 "Wählen Sie zum Veröffentlichen von gewählten Fotos einer Sammlung "
 "<guiseq><gui>Bearbeiten</gui><gui>Einstellungen</gui></guiseq> und dann den "
@@ -3083,9 +3096,9 @@ msgstr ""
 "Dienst, den Sie verwenden wollen. Wählen Sie anschließend "
 "<guiseq><gui>Datei</gui><gui>Veröffentlichen</gui></guiseq> oder den Knopf "
 "<gui>Veröffentlichen</gui> in der Werkzeugleiste oder tippen Sie "
-"<keyseq><key>Strg</key><key>P</key></keyseq>. Daraufhin erscheint ein "
-"Fenster, in dem Sie den Dienst zur Veröffentlichung wählen. Sie müssen sich "
-"dann beim Dienst anmelden."
+"<keyseq><key>Strg</key><key>Umschalt</key><key>P</key></keyseq>. Daraufhin "
+"erscheint ein Fenster, in dem Sie den Dienst zur Veröffentlichung wählen. "
+"Sie müssen sich dann beim Dienst anmelden."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
