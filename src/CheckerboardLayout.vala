@@ -344,6 +344,14 @@ public abstract class CheckerboardItem : ThumbnailView {
 
     }
 
+    public virtual void handle_mouse_leave() {
+        unbrighten();
+    }
+
+    public virtual void handle_mouse_enter() {
+        brighten();
+    }
+
     protected override void notify_membership_changed(DataCollection? collection) {
         bool title_visible = (bool) get_collection_property(PROP_SHOW_TITLES, true);
         bool comment_visible = (bool) get_collection_property(PROP_SHOW_COMMENTS, true);
@@ -770,6 +778,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         notify_view_altered();
     }
     
+
     public void unbrighten() {
         // "should", "can", "didn't already"
         if (brightened == null || pixbuf == null)
