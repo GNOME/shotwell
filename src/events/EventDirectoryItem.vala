@@ -167,13 +167,13 @@ class EventDirectoryItem : CheckerboardItem {
     }
 
     public override void handle_mouse_leave() {
+        base.handle_mouse_leave();
         set_paul_lynde(event.get_primary_source());
     }
 
     public override void handle_mouse_motion(int x, int y, int height, int width) {
         int element_index = (int) Math.round( (double) x / width * (event.get_media_count() - 1) );
         unowned MediaSource media = event.get_media().to_array()[element_index];
-
         set_paul_lynde(media);
     }
 

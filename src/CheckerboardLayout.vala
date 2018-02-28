@@ -345,7 +345,11 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
 
     public virtual void handle_mouse_leave() {
+        unbrighten();
+    }
 
+    public virtual void handle_mouse_enter() {
+        brighten();
     }
 
     protected override void notify_membership_changed(DataCollection? collection) {
@@ -776,7 +780,6 @@ public abstract class CheckerboardItem : ThumbnailView {
     
 
     public void unbrighten() {
-        handle_mouse_leave();
         // "should", "can", "didn't already"
         if (brightened == null || pixbuf == null)
             return;
