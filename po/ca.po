@@ -152,7 +152,7 @@ msgstr "blog per defecte"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:33
 msgid "The name of the default blog of the user, if any"
-msgstr "El nom del bloc per defecte de l'usuari, si és el cas"
+msgstr "El nom del blog per defecte de l'usuari, si és el cas"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:40
 msgid "Rajce URL"
