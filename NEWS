@@ -1,3 +1,38 @@
+Shotwell 0.27.92 - 6 Mar 2018
+  * Fix log in to Piwigo if password contains &
+  * Fix deleting two photos when pressing Delete
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718742
+ - https://bugzilla.gnome.org/show_bug.cgi?id=793818
+
+All contributors to this release:
+ - Jordi Mas <jmas@softcatala.org>
+ - Jens Georg <mail@jensge.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Tim Sabsch <tim@sabsch.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - gogo <trebelnik2@gmail.com>
+ - GNOME Translation Robot <gnome-sysadmin@gnome.org>
+ - Daniel Korostil <ted.korostiled@gmail.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+
+Added/updated translations
+ - ca, courtesy of Carles Ferrando Garcia
+ - de, courtesy of Mario Blättermann
+ - de, courtesy of Tim Sabsch
+ - es, courtesy of Daniel Mustieles
+ - fi, courtesy of Jiri Grönroos
+ - gd, courtesy of GunChleoc
+ - hr, courtesy of gogo
+ - hu, courtesy of Balázs Úr
+ - sr, courtesy of Мирослав Николић
+ - sr@latin, courtesy of Miroslav Nikolić
+ - uk, courtesy of Yuri Chornoivan
+
 Shotwell 0.27.4 - 5 Feb 2018
   * Fix a crash when importing in-place from DAV
   * Fix a crash when removing the last photo of an event
