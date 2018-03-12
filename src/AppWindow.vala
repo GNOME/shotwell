@@ -597,9 +597,9 @@ public abstract class AppWindow : PageWindow {
     public abstract string get_app_role();
 
     protected void on_about() {
-        const string[] artists = { "Aachen logo under public domain license https://www.flickr.com/photos/30784528@N04/10860988196/", null };
+        const string[] artists = { "Braunschweiger Löwe created by Magnus Manske., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=109735", null };
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION,
+            "version", Resources.APP_VERSION  + " \u2013 \"Braunschweig\"",
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,

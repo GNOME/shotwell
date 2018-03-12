@@ -1,3 +1,13 @@
+Shotwell 0.28.0 - 12 Mar 2018
+  * Translation updates
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - da, courtesy of Alan Mortensen
+
 Shotwell 0.27.92 - 6 Mar 2018
   * Fix log in to Piwigo if password contains &
   * Fix deleting two photos when pressing Delete
