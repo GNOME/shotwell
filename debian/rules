@@ -23,7 +23,7 @@
 override_dh_auto_configure:
 	rm -rf debian/build
 	mkdir debian/build
-	meson debian/build --prefix=/usr -Denable-unity-support=true -Dinstall-apport-hook=true
+	meson debian/build --prefix=/usr -Dunity-support=true -Dinstall-apport-hook=true
 
 override_dh_auto_compile:
 	ninja -C -v debian/build

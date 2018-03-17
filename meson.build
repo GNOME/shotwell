@@ -57,7 +57,7 @@ libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
 
 unity_available = false
-if unity.found() and get_option('enable-unity-support')
+if unity.found() and get_option('unity-support')
   unity_available = true
   add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
 endif
@@ -77,7 +77,7 @@ foreach measure : get_option('measure').split(',')
                        language : 'vala')
 endforeach
 
-if get_option('disable-dupe-detection')
+if not get_option('dupe-detection')
   add_global_arguments(['--define=NO_DUPE_DETECTION'], language : vala)
 endif
 
