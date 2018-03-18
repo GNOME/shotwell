@@ -49,5 +49,4 @@ yelp_media = [
 gnome.yelp('shotwell',
            sources : yelp_pages,
            media : yelp_media,
-           symlink_media : true,
-           languages : [ 'cs', 'de', 'el', 'es', 'hu', 'lv', 'pt_BR', 'sv'])
+           symlink_media : true)

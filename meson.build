@@ -1,5 +1,6 @@
 project('Shotwell', ['vala', 'c'],
         version : '0.29.0',
+        meson_version : '>= 0.43.0',
         default_options : ['buildtype=debugoptimized'])
 
 gnome = import('gnome')
