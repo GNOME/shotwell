@@ -599,7 +599,7 @@ public abstract class AppWindow : PageWindow {
     protected void on_about() {
         const string[] artists = { "Braunschweiger Löwe created by Magnus Manske., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=109735", null };
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION  + " \u2013 \"Braunschweig\"",
+            "version", Resources.APP_VERSION,
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
