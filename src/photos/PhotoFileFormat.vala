@@ -57,12 +57,13 @@ public enum PhotoFileFormat {
     PNG,
     TIFF,
     BMP,
+    GIF,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
-        return { JFIF, RAW, PNG, TIFF, BMP };
+        return { JFIF, RAW, PNG, TIFF, BMP, GIF };
     }
     
     public static PhotoFileFormat[] get_writeable() {
@@ -137,6 +138,9 @@ public enum PhotoFileFormat {
 
             case BMP:
                 return 4;
+
+            case GIF:
+                return 5;
             
             case UNKNOWN:
             default:
@@ -161,6 +165,9 @@ public enum PhotoFileFormat {
 
             case 4:
                 return BMP;
+
+            case 5:
+                return GIF;
                             
             default:
                 return UNKNOWN;
@@ -184,7 +191,9 @@ public enum PhotoFileFormat {
 
             case GPhoto.MIME.BMP:
                 return PhotoFileFormat.BMP;
-            
+
+            // GPhoto does not have GIF
+
             default:
                 // check file extension against those we support
                 return PhotoFileFormat.UNKNOWN;
@@ -205,6 +214,9 @@ public enum PhotoFileFormat {
             
             case "bmp":
                 return PhotoFileFormat.BMP;
+
+            case "gif":
+                return PhotoFileFormat.GIF;
             
             default:
                 return PhotoFileFormat.UNKNOWN;
@@ -233,6 +245,10 @@ public enum PhotoFileFormat {
                 Photos.BmpFileFormatDriver.init();
                 break;
 
+            case GIF:
+                Photos.GifFileFormatDriver.init();
+                break;
+
             default:
                 error("Unsupported file format %s", this.to_string());
         }
@@ -254,6 +270,9 @@ public enum PhotoFileFormat {
             
             case BMP:
                 return Photos.BmpFileFormatDriver.get_instance();
+
+            case GIF:
+                return Photos.GifFileFormatDriver.get_instance();
 
             default:
                 error("Unsupported file format %s", this.to_string());
