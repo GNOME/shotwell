@@ -6,19 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2018-01-17 19:38+0000\n"
-"PO-Revision-Date: 2018-02-27 00:57+0100\n"
+"Report-Msgid-Bugs-To: "
+"https://bugzilla.gnome.org/enter_bug.cgi?product=shotwell&keywords=I18N+L10N&"
+"component=Internationalization\n"
+"POT-Creation-Date: 2018-03-13 00:49+0000\n"
+"PO-Revision-Date: 2018-03-21 22:51+0000\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: \n"
-"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2018-03-21 23:00+0000\n"
+"X-Generator: Launchpad (build 18573)\n"
+"Language: hr\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -61,10 +63,7 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell podržava JPEG, PNG, TIFF, i razne RAW formate datoteka."
 
-#: misc/shotwell.appdata.xml.in:52
-msgid "The Shotwell developers"
-msgstr "Shotwell razvijatelji"
-
+# GNOME Application Class ("Generic Name")
 #: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Upravitelj fotografija"
@@ -76,13 +75,13 @@ msgstr "Organizirajte svoje fotografije"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: misc/shotwell.desktop.in:8
 msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;org"
+"anize;photo;photographs;photos;picture;pictures;photography;print;publish;rot"
+"ate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgstr ""
 "album;kamera;kamere;obreži;uredi;poboljšaj;izvezi;galerija;slika;slike;uvezi;"
-"organiziraj;fotografija;fotografije;slika;slike;ispis;objavi;zakreni;dijeli;"
-"oznake;video snimka;facebook;flickr;picasa;youtube;piwigo;"
+"organiziraj;fotografija;fotografije;slika;slike;ispis;objavi;zakreni;dijeli;o"
+"znake;video snimka;facebook;flickr;picasa;youtube;piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
@@ -93,6 +92,7 @@ msgstr "shotwell"
 msgid "Shotwell Viewer"
 msgstr "Shotwell preglednik"
 
+# GNOME Application Class for Direct Edit Mode
 #: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
 msgstr "Preglednik fotografija"
@@ -236,7 +236,8 @@ msgid "display basic properties"
 msgstr "prikaži osnovna svojstva"
 
 #: misc/org.yorba.shotwell.gschema.xml:24
-msgid "True if the basic properties pane is to be displayed, false otherwise."
+msgid ""
+"True if the basic properties pane is to be displayed, false otherwise."
 msgstr "Ako je odabrano, panel osnovnih svojstava će biti prikazan."
 
 #: misc/org.yorba.shotwell.gschema.xml:29
@@ -269,7 +270,8 @@ msgid "display search bar"
 msgstr "prikaži traku pretrage"
 
 #: misc/org.yorba.shotwell.gschema.xml:48
-msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
+msgid ""
+"True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgstr "Ako je odabrano, alatna traka pretrage/filtra će biti prikazana."
 
 #: misc/org.yorba.shotwell.gschema.xml:53
@@ -361,7 +363,8 @@ msgid "sort library photos ascending"
 msgstr "razvrstaj fotografije u fototeci rastući"
 
 #: misc/org.yorba.shotwell.gschema.xml:96
-msgid "True if library photos should be sorted ascending, false if descending."
+msgid ""
+"True if library photos should be sorted ascending, false if descending."
 msgstr ""
 "Ako je odabrano, fotografije u fototeci bi trebale biti razvrstane rastući, "
 "u suprotnom padajući."
@@ -461,11 +464,11 @@ msgstr "Promjena veličine fotografije minijature, u rasponu od 72 do 360."
 
 #: misc/org.yorba.shotwell.gschema.xml:155
 msgid "pin toolbar state"
-msgstr ""
+msgstr "pričvrščuje stanje alatne trake"
 
 #: misc/org.yorba.shotwell.gschema.xml:156
 msgid "Pin toolbar in fullscreen, or not."
-msgstr ""
+msgstr "Pričvrsti alatnu traku u cjelozaslonskom prikazu, ili ne."
 
 #: misc/org.yorba.shotwell.gschema.xml:161
 msgid "background color"
@@ -477,29 +480,34 @@ msgstr "Siva boja kao boja pozadine."
 
 #: misc/org.yorba.shotwell.gschema.xml:167
 msgid "background for transparent images"
-msgstr ""
+msgstr "pozadina za prozirne slike"
 
 #: misc/org.yorba.shotwell.gschema.xml:168
 msgid "The background to use for transparent images."
-msgstr ""
+msgstr "Pozadina koja će se koristiti za prozirne slike."
 
 #: misc/org.yorba.shotwell.gschema.xml:173
 msgid "color for solid transparency background"
-msgstr ""
+msgstr "boja za pozadinu potpune prozirnosti"
 
 #: misc/org.yorba.shotwell.gschema.xml:174
-msgid "Color to use if background for transparent images is set to solid color"
+msgid ""
+"Color to use if background for transparent images is set to solid color"
 msgstr ""
+"Boja koja će se koristiti ako je pozadina za prozirne slike postavljena na "
+"jednobojno"
 
 #: misc/org.yorba.shotwell.gschema.xml:179
 msgid "Selection state of “hide photos” option"
-msgstr ""
+msgstr "Stanje odabira za “sakrij fotografije” mogućnost"
 
 #: misc/org.yorba.shotwell.gschema.xml:180
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
+"Posljednje korišteno stanje odabira “sakrij fotografije koje su već uvezene” "
+"mogućnosti u stranici uvoza."
 
 #: misc/org.yorba.shotwell.gschema.xml:187
 msgid "delay"
@@ -507,7 +515,7 @@ msgstr "odgoda"
 
 #: misc/org.yorba.shotwell.gschema.xml:188
 msgid "Delay (in seconds) between photos in the slideshow."
-msgstr ""
+msgstr "Odgoda (u sekundama) između fotografija u prezentacijama."
 
 #: misc/org.yorba.shotwell.gschema.xml:193
 msgid "transition delay"
@@ -517,6 +525,7 @@ msgstr "odgoda prijelaza"
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr ""
+"Vrijeme (u sekundama) trajanja prijelaza između fotografija u prezentaciji."
 
 #: misc/org.yorba.shotwell.gschema.xml:199
 msgid "transition effect id"
@@ -527,6 +536,8 @@ msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
 msgstr ""
+"Naziv efekta prijelaza koji će se koristiti između fotografija kada je "
+"pokrenuta prezentacija"
 
 #: misc/org.yorba.shotwell.gschema.xml:205
 msgid "Show title"
@@ -534,7 +545,7 @@ msgstr "Prikaži naziv"
 
 #: misc/org.yorba.shotwell.gschema.xml:206
 msgid "Whether to show the title of a photo during the slideshow"
-msgstr ""
+msgstr "Treba li prikazati naslov fotografije tijekom prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:213
 msgid "maximize library window"
@@ -542,7 +553,7 @@ msgstr "uvećaj prozor fototeke"
 
 #: misc/org.yorba.shotwell.gschema.xml:214
 msgid "True if library application is maximized, false otherwise."
-msgstr ""
+msgstr "Ako je odabrano, biblioteka aplikacije je uvećana."
 
 #: misc/org.yorba.shotwell.gschema.xml:219
 msgid "width of library window"
@@ -550,7 +561,7 @@ msgstr "širina prozora fototeke"
 
 #: misc/org.yorba.shotwell.gschema.xml:220
 msgid "The last recorded width of the library application window."
-msgstr ""
+msgstr "Posljednje spremljena širina biblioteke prozora aplikacije."
 
 #: misc/org.yorba.shotwell.gschema.xml:225
 msgid "height of library window"
@@ -558,41 +569,43 @@ msgstr "visina prozora fototeke"
 
 #: misc/org.yorba.shotwell.gschema.xml:226
 msgid "The last recorded height of the library application window."
-msgstr ""
+msgstr "Posljednje spremljena visina biblioteke prozora aplikacije."
 
 #: misc/org.yorba.shotwell.gschema.xml:231
 msgid "maximize direct-edit window"
-msgstr ""
+msgstr "uvećava izravno uređivanje prozora"
 
 #: misc/org.yorba.shotwell.gschema.xml:232
 msgid "True if direct-edit application is maximized, false otherwise."
-msgstr ""
+msgstr "Ako je odabrano, aplikacija izravnog uređivanja prozora je uvećana."
 
 #: misc/org.yorba.shotwell.gschema.xml:237
 msgid "width of direct-edit window"
-msgstr ""
+msgstr "širina izravnog uređivanja prozora"
 
 #: misc/org.yorba.shotwell.gschema.xml:238
 msgid "The last recorded width of the direct-edit application window."
-msgstr ""
+msgstr "Posljednje spremljena širina izravnog uređivanja prozora aplikacije."
 
 #: misc/org.yorba.shotwell.gschema.xml:243
 msgid "height of direct-edit window"
-msgstr ""
+msgstr "visina izravnog uređivanja prozora"
 
 #: misc/org.yorba.shotwell.gschema.xml:244
 msgid "The last recorded height of the direct-edit application window."
-msgstr ""
+msgstr "Posljednje spremljena visina izravnog uređivanja prozora aplikacije."
 
 #: misc/org.yorba.shotwell.gschema.xml:249
 msgid "sidebar divider position"
-msgstr ""
+msgstr "položaj razdjelnika bočne trake"
 
 #: misc/org.yorba.shotwell.gschema.xml:250
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
 msgstr ""
+"Posljednji spremljeni položaj razdjelnika između bočne trake i prikaza "
+"fototeke prozora aplikacije."
 
 #: misc/org.yorba.shotwell.gschema.xml:257
 msgid "import directory"
@@ -600,7 +613,7 @@ msgstr "uvezi mapu"
 
 #: misc/org.yorba.shotwell.gschema.xml:258
 msgid "Directory in which imported photo files are placed."
-msgstr ""
+msgstr "Direktorij u kojemu su smještene datoteke fotografija."
 
 #: misc/org.yorba.shotwell.gschema.xml:263
 msgid "watch library directory for new files"
@@ -610,6 +623,7 @@ msgstr "nadziri mapu fototeke za nove datoteke"
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr ""
+"Ako je odabrano, datoteke dodane u direktorij fototeke su automatski uvezene."
 
 #: misc/org.yorba.shotwell.gschema.xml:269
 msgid "write metadata to master files"
@@ -620,6 +634,8 @@ msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
 msgstr ""
+"Ako je odabrano, promjene metapodatka (oznake, naslovi, itd.) su zapisane u "
+"glavnu datoteku fotografije."
 
 #: misc/org.yorba.shotwell.gschema.xml:275
 msgid "use lowercase filenames"
@@ -630,26 +646,32 @@ msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr ""
+"Ako je odabrano, Shotwell će pretvoriti sva slova naziva u mala pri uvozu "
+"datoteka fotografije"
 
 #: misc/org.yorba.shotwell.gschema.xml:281
 msgid "directory pattern"
-msgstr ""
+msgstr "uzorak direktorija"
 
 #: misc/org.yorba.shotwell.gschema.xml:282
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
+"Izraz kôdiranja uzorka naziva koji će se koristiti za imenovanje direktorija "
+"fotografija pri uvozu."
 
 #: misc/org.yorba.shotwell.gschema.xml:287
 msgid "directory pattern custom"
-msgstr ""
+msgstr "prilagođeni uzorak direktorija"
 
 #: misc/org.yorba.shotwell.gschema.xml:288
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
+"Izraz kôdiranja uzorka prilagođenog naziva koji će se koristiti za "
+"imenovanje direktorija fotografija pri uvozu."
 
 #: misc/org.yorba.shotwell.gschema.xml:293
 msgid "RAW developer default"
@@ -657,35 +679,41 @@ msgstr "Zadani RAW razvijatelj"
 
 #: misc/org.yorba.shotwell.gschema.xml:294
 msgid "Default option for which RAW developer Shotwell will use."
-msgstr ""
+msgstr "Zadana mogućnost za kojeg će se RAW razvijatelja Shotwell koristiti."
 
 #: misc/org.yorba.shotwell.gschema.xml:301
 msgid "Most-recently-used crop aspect ratio menu choice."
-msgstr ""
+msgstr "Izbornik odabira najčešće nedavno korištenog omjera obrezivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:302
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr ""
+"Brojčani kôd koji predstavlja izbornik odabira nedavno korištenog omjera "
+"obrezivanja kojeg je korisnik odabrao."
 
 #: misc/org.yorba.shotwell.gschema.xml:306
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
-msgstr ""
+msgstr "Najčešće nedavno korišteni brojnik prilagođenog omjera slike."
 
 #: misc/org.yorba.shotwell.gschema.xml:307
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr ""
+"Vrijednost koja nije nulta, pozitivni cijeli broj koji predstavlja širinu "
+"posljednjeg prilagođenog omjera obrezivanja kojeg je korisnik upisao."
 
 #: misc/org.yorba.shotwell.gschema.xml:311
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
-msgstr ""
+msgstr "Najčešće nedavno korišteno nazivnik obrezivanja prilagođenog omjera"
 
 #: misc/org.yorba.shotwell.gschema.xml:312
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
 msgstr ""
+"Vrijednost koja nije nulta, pozitivni cijeli broj koji predstavlja visinu "
+"posljednjeg prilagođenog omjera obrezivanja kojeg je korisnik upisao."
 
 #: misc/org.yorba.shotwell.gschema.xml:319
 msgid "external photo editor"
@@ -693,7 +721,7 @@ msgstr "vanjski uređivač fotografija"
 
 #: misc/org.yorba.shotwell.gschema.xml:320
 msgid "External application used to edit photos."
-msgstr ""
+msgstr "Vanjska aplikacija korištena za uređivanje fotografija."
 
 #: misc/org.yorba.shotwell.gschema.xml:325
 msgid "external raw editor"
@@ -701,12 +729,12 @@ msgstr "vanjski uređivač raw datoteka"
 
 #: misc/org.yorba.shotwell.gschema.xml:326
 msgid "External application used to edit RAW photos."
-msgstr ""
+msgstr "Vanjska aplikacija korištena za uređivanje RAW fotografija."
 
 #: misc/org.yorba.shotwell.gschema.xml:364
 #: misc/org.yorba.shotwell.gschema.xml:365
 msgid "Setting in export dialog: how to trim images"
-msgstr ""
+msgstr "Postavka dijaloga izvoza: kako obrezati slike"
 
 #: misc/org.yorba.shotwell.gschema.xml:370
 msgid "export metadata"
@@ -714,69 +742,72 @@ msgstr "izvoz metapodataka"
 
 #: misc/org.yorba.shotwell.gschema.xml:371
 msgid "Setting in export dialog: option to export metadata"
-msgstr ""
+msgstr "Postavka dijaloga izvoza: mogućnost izvoza metapodataka"
 
 #: misc/org.yorba.shotwell.gschema.xml:376
 msgid "format setting, special value"
-msgstr ""
+msgstr "postavka formata, posebna vrijednost"
 
 #: misc/org.yorba.shotwell.gschema.xml:377
 msgid "Setting in export dialog: format setting, special value"
-msgstr ""
+msgstr "Postavka dijaloga izvoza: postavka formata, posebna vrijednost"
 
 #: misc/org.yorba.shotwell.gschema.xml:382
 msgid "format setting, type value"
-msgstr ""
+msgstr "postavka formata, vrsta vrijednosti"
 
 #: misc/org.yorba.shotwell.gschema.xml:383
 msgid "Setting in export dialog: format setting, type value"
-msgstr ""
+msgstr "Postavka dijaloga izvoza: postavka formata, vrsta vrijednosti"
 
 #: misc/org.yorba.shotwell.gschema.xml:388
 msgid "JPEG quality option"
-msgstr ""
+msgstr "Mogućnost JPEG kvalitete"
 
 #: misc/org.yorba.shotwell.gschema.xml:389
 msgid "Setting in export dialog: jpeg quality option"
-msgstr ""
+msgstr "Postavka dijaloga izvoza: mogućnost JPEG kvalitete"
 
 #: misc/org.yorba.shotwell.gschema.xml:394
 msgid "maximal size of image"
-msgstr ""
+msgstr "najveća veličina slike"
 
 #: misc/org.yorba.shotwell.gschema.xml:395
 msgid "Setting in export dialog: maximal size of image"
-msgstr ""
+msgstr "Postavka dijaloga izvoza: najveća veličina slike"
 
 #: misc/org.yorba.shotwell.gschema.xml:402
 msgid "last used publishing service"
-msgstr ""
+msgstr "posljednja korištena usluga objavljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:403
 #: misc/org.yorba.shotwell.gschema.xml:409
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
+"Brojčani kôd koji predstavlja posljednju uslugu na koju su slike objavljene"
 
 #: misc/org.yorba.shotwell.gschema.xml:408
 msgid "default publishing service"
-msgstr ""
+msgstr "zadana usluga objavljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:422
 msgid "access token"
-msgstr ""
+msgstr "token pristupa"
 
 #: misc/org.yorba.shotwell.gschema.xml:423
 msgid "Facebook OAuth token for the currently logged in session, if any"
 msgstr ""
+"Facebook OAuth token za trenutnu prijavljenu sesiju, ako postoji, if any"
 
 #: misc/org.yorba.shotwell.gschema.xml:428
 msgid "user i.d."
-msgstr ""
+msgstr "ID korisnika"
 
 #: misc/org.yorba.shotwell.gschema.xml:429
 msgid "Facebook user i.d. for the currently logged in user, if any"
 msgstr ""
+"ID Facebook korisnika za trenutno prijavljenog korisnika, ako postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:434
 msgid "user name"
@@ -784,12 +815,12 @@ msgstr "korisničko ime"
 
 #: misc/org.yorba.shotwell.gschema.xml:435
 msgid "The name of the currently logged in Facebook user, if any"
-msgstr ""
+msgstr "Ime trenutno prijavljenog Facebook korisnika, ako postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:440
 #: misc/org.yorba.shotwell.gschema.xml:472
 msgid "default size code"
-msgstr ""
+msgstr "Kôd zadane veličine"
 
 #: misc/org.yorba.shotwell.gschema.xml:441
 msgid ""
@@ -810,8 +841,9 @@ msgid "OAuth Access Phase Token"
 msgstr "OAuth token pristupa"
 
 #: misc/org.yorba.shotwell.gschema.xml:455
-msgid "The authorization token for the currently logged in Flickr user, if any"
-msgstr ""
+msgid ""
+"The authorization token for the currently logged in Flickr user, if any"
+msgstr "Token ovjere za trenutno prijavljenog Flickr korisnika, ako postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:460
 msgid "OAuth Access Phase Token Secret"
@@ -822,10 +854,12 @@ msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr ""
+"Kriptografska tajna koja se koristi za prijavu zahtjeva umjesto ovjere "
+"tokena za trenutno prijavljenog Flickr korisnika, ako postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:467
 msgid "The user name of the currently logged in Flickr user, if any"
-msgstr ""
+msgstr "Korisničko ime trenutno prijavljenog Flickr korisnika, ako postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:473
 msgid ""
@@ -842,6 +876,8 @@ msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr ""
+"Brojčani kôd koji predstavlja zadanu vidljivost za fotografije objavljene na "
+"Flickru"
 
 #: misc/org.yorba.shotwell.gschema.xml:485
 msgid ""
@@ -860,12 +896,16 @@ msgid ""
 "The OAuth token used to refresh the Picasa Web Albums session for the "
 "currently logged in user, if any."
 msgstr ""
+"OAuth token korištena za osvježavanje sesije Picasa web albuma za trenutno "
+"prijavljenog korisnika, ako postoji."
 
 #: misc/org.yorba.shotwell.gschema.xml:499
 msgid ""
 "A numeric code representing the default size for photos uploaded to Picasa "
 "Web Albums"
 msgstr ""
+"Brojčani kôd koji predstavlja zadanu veličinu za fotografije poslane na "
+"Picasa web albume"
 
 #: misc/org.yorba.shotwell.gschema.xml:504
 #: misc/org.yorba.shotwell.gschema.xml:598
@@ -876,6 +916,8 @@ msgstr "posljednji album"
 #: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
+"Naziv posljednjeg albuma na kojemu je korisnik objavio fotografije, ako "
+"postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:511
 msgid ""
@@ -886,7 +928,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:518
 msgid "Piwigo URL"
-msgstr ""
+msgstr "Piwigo URL"
 
 #: misc/org.yorba.shotwell.gschema.xml:519
 msgid "URL of the Piwigo server."
@@ -902,7 +944,7 @@ msgstr "lozinka"
 
 #: misc/org.yorba.shotwell.gschema.xml:531
 msgid "Piwigo password, if logged in."
-msgstr ""
+msgstr "Piwigo lozinka, ako ste prijavljeni."
 
 #: misc/org.yorba.shotwell.gschema.xml:536
 msgid "remember password"
@@ -918,11 +960,11 @@ msgstr "Posljednja odabrana Piwigo kategorija"
 
 #: misc/org.yorba.shotwell.gschema.xml:548
 msgid "last permission level"
-msgstr ""
+msgstr "posljednja razina dozvole"
 
 #: misc/org.yorba.shotwell.gschema.xml:549
 msgid "The last chosen Piwigo permission level."
-msgstr ""
+msgstr "Posljednja odabrana Piwigo razina dozvole"
 
 #: misc/org.yorba.shotwell.gschema.xml:555
 msgid ""
@@ -951,16 +993,20 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr ""
+"Trebaju li slike poslane na Piwigo imati komentar postavljen iz naslova ako "
+"naslov postoji a komentar ne postoji"
 
 #: misc/org.yorba.shotwell.gschema.xml:572
 msgid "do not upload tags when uploading to Piwigo"
-msgstr ""
+msgstr "ne šalji oznake pri slanju na Piwigo"
 
 #: misc/org.yorba.shotwell.gschema.xml:573
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr ""
+"Trebaju li slike poslane na Piwigo ukloniti svoje oznake pri slanju, tada se "
+"oznake neće pojaviti na udaljenom Piwigo poslužitelju."
 
 #: misc/org.yorba.shotwell.gschema.xml:581
 msgid "Gallery3 username"
@@ -991,308 +1037,338 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:610
 msgid "scaling constraint of uploaded picture"
-msgstr ""
+msgstr "ograničenje promjene veličine poslanih slika"
 
 #: misc/org.yorba.shotwell.gschema.xml:611
 msgid "The scaling constraint ID of the picture to be uploaded"
-msgstr ""
+msgstr "ID ograničenja promjene veličine slika koje trebaju poslati"
 
 #: misc/org.yorba.shotwell.gschema.xml:616
 msgid "pixels of the major axis uploaded picture"
-msgstr ""
+msgstr "pikseli glavne osi poslanih slika"
 
 #: misc/org.yorba.shotwell.gschema.xml:617
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr ""
+"Pikseli glavne osi slika koje treba poslati; koristi se samo ako je ID "
+"ograničenja promjene veličine slika odgovarajuća vrijednost"
 
 #: misc/org.yorba.shotwell.gschema.xml:625
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr ""
+"OAuth token korišten za osvježavanje YouTube sesije za trenutno prijavljenog "
+"korisnika, ako postoji."
 
 #: misc/org.yorba.shotwell.gschema.xml:632
 msgid "last used import service"
-msgstr ""
+msgstr "posljedni korištena usluga uvoza"
 
 #: misc/org.yorba.shotwell.gschema.xml:633
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
+"Brojčani kôd koji predstavlja posljednju uslugu iz koje su fotografije "
+"uvezene"
 
 #: misc/org.yorba.shotwell.gschema.xml:640
 msgid "interpreter state cookie"
-msgstr ""
+msgstr "kolačić stanja tumača"
 
 #: misc/org.yorba.shotwell.gschema.xml:641
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr ""
+msgstr "Brojčani kôd koji sprema stanje okruženja GStreamer priključka"
 
 #: misc/org.yorba.shotwell.gschema.xml:648
 msgid "content layout mode"
-msgstr ""
+msgstr "način rasporeda sadržaja"
 
 #: misc/org.yorba.shotwell.gschema.xml:649
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr ""
+"Brojčani kôd koji koji opisuje kako su fotografije postavljene na stranici "
+"tijekom ispisa"
 
 #: misc/org.yorba.shotwell.gschema.xml:654
 msgid "content ppi"
-msgstr ""
+msgstr "ppi sadržaja"
 
 #: misc/org.yorba.shotwell.gschema.xml:655
-msgid "The number of pixels per inch (ppi) sent to the printer during printing"
-msgstr ""
+msgid ""
+"The number of pixels per inch (ppi) sent to the printer during printing"
+msgstr "Broj piksela po inču (ppi) poslanih u pisač tijekom ispisa"
 
 #: misc/org.yorba.shotwell.gschema.xml:660
 msgid "content width"
-msgstr ""
+msgstr "širina sadržaja"
 
 #: misc/org.yorba.shotwell.gschema.xml:661
 msgid "The width of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Širina ispisane emulzije na stranici tijekom ispisa"
 
 #: misc/org.yorba.shotwell.gschema.xml:666
 msgid "content height"
-msgstr ""
+msgstr "visina sadržaja"
 
 #: misc/org.yorba.shotwell.gschema.xml:667
 msgid "The height of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Visina ispisane emulzije na stranici tijekom ispisa"
 
 #: misc/org.yorba.shotwell.gschema.xml:672
 msgid "content units"
-msgstr ""
+msgstr "jedinica sadržaja"
 
 #: misc/org.yorba.shotwell.gschema.xml:673
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
 msgstr ""
+"Brojčani kôd koji predstavlja mjernu jedinicu (inči ili centimetri) "
+"korištenu tijekom ispisa"
 
 #: misc/org.yorba.shotwell.gschema.xml:678
 msgid "images per page code"
-msgstr ""
+msgstr "broj fotografija po stranici"
 
 #: misc/org.yorba.shotwell.gschema.xml:679
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr ""
+"Brojčani kôd koji predstavlja broj fotografija po stranici tijekom ispisa"
 
 #: misc/org.yorba.shotwell.gschema.xml:684
 msgid "size selection"
-msgstr ""
+msgstr "odabir veličine"
 
 #: misc/org.yorba.shotwell.gschema.xml:685
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
+"Sadržaj trenutne veličine ispisa u unaprijed određenom popisu standardnih "
+"veličina"
 
 #: misc/org.yorba.shotwell.gschema.xml:690
 msgid "match aspect ratio"
-msgstr ""
+msgstr "poklapa sa omjerom slike"
 
 #: misc/org.yorba.shotwell.gschema.xml:691
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
+"Određuje treba li se prilagođena veličina ispisa mora poklapati sa omjerom "
+"slike izvorne fotografije"
 
 #: misc/org.yorba.shotwell.gschema.xml:696
 msgid "print titles"
-msgstr ""
+msgstr "ispisuje naslove"
 
 #: misc/org.yorba.shotwell.gschema.xml:697
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
 msgstr ""
+"Ako je odabrano, naslov fotografije će se ispisati kada se fotografija "
+"ispisuje."
 
 #: misc/org.yorba.shotwell.gschema.xml:702
 msgid "titles font"
-msgstr ""
+msgstr "slova naslova"
 
 #: misc/org.yorba.shotwell.gschema.xml:703
 msgid "The name of the font to use for photo titles when they are printed."
-msgstr ""
+msgstr "Naziv slova koja se koriste za naslove fotografija tijekom ispisa."
 
 #: misc/org.yorba.shotwell.gschema.xml:714
 msgid "enable facebook publishing plugin"
-msgstr ""
+msgstr "omogući priključak facebook objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:715
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak Facebook objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:720
 msgid "enable flickr publishing plugin"
-msgstr ""
+msgstr "omogući priključak flickr objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:721
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak Flickr objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:726
 msgid "enable picasa publishing plugin"
-msgstr ""
+msgstr "omogući priključak picasa objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:727
 msgid ""
 "True if the Picasa Web Albums publishing plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak Picasa web albuma objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:732
 msgid "enable youtube publishing plugin"
-msgstr ""
+msgstr "omogući priključak flickr objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:733
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak YouTube objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:738
 msgid "enable piwigo publishing plugin"
-msgstr ""
+msgstr "omogući priključak piwigo objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:739
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak Piwigo objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:744
 msgid "enable yandex publishing plugin"
-msgstr ""
+msgstr "omogući priključak yandex objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:745
-msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr ""
+msgid ""
+"True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
+msgstr "Ako je odabrano, priključak Yandex.Fotki objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:750
 msgid "enable tumblr publishing plugin"
-msgstr ""
+msgstr "omogući priključak tumblr objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak Tumblr objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:756
 msgid "enable rajce publishing plugin"
-msgstr ""
+msgstr "omogući priključak rajce objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:757
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak Rajce objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:762
 msgid "enable gallery3 publishing plugin"
-msgstr ""
+msgstr "omogući priključak gallery3 objvaljivanja"
 
 #: misc/org.yorba.shotwell.gschema.xml:763
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak Gallery3 objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:768
 msgid "enable F-Spot import plugin"
-msgstr ""
+msgstr "omogući priključak F-Spot uvoza"
 
 #: misc/org.yorba.shotwell.gschema.xml:769
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Ako je odabrano, priključak F-Spot objavljivanja je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:774
 msgid "enable slideshow crumble transition"
-msgstr ""
+msgstr "omogućuju raspad prijelaza prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:775
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak raspada prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:780
 msgid "enable slideshow fade transition"
-msgstr ""
+msgstr "omogući izbljeđivanje prijelaza prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:781
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak izbljeđivanja prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:786
 msgid "enable slideshow slide transition"
-msgstr ""
+msgstr "omogući klizanje prijelaza prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:787
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak klizanja prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow clock transition"
-msgstr ""
+msgstr "omogući satni prijelaza prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak satnog prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow circle transition"
-msgstr ""
+msgstr "omogući kružni prijelaza prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak kružnog prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow circles transition"
-msgstr ""
+msgstr "omogućuju kružni prijelaz prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:805
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak kružnih prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:810
 msgid "enable slideshow blinds transition"
-msgstr ""
+msgstr "omogućuju zasjenjeni prijelaz prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:811
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak zasjenjenog prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:816
 msgid "enable slideshow squares transition"
-msgstr ""
+msgstr "omogućuju kvadratni prijelaz prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:817
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak kvadratnog prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:822
 msgid "enable slideshow stripes transition"
-msgstr ""
+msgstr "omogućuju trakasti prijelaz prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:823
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
+"Ako je odabrano, priključak trakastog prijelaza prezentacije je omogućen"
 
 #: misc/org.yorba.shotwell.gschema.xml:828
 msgid "enable slideshow chess transition"
-msgstr ""
+msgstr "omogućuju šahovski prijelaza prezentacije"
 
 #: misc/org.yorba.shotwell.gschema.xml:829
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
 msgstr ""
+"Ako je odabrano, priključak šahovskog prijelaza prezentacije je omogućen"
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
 msgid ""
@@ -1340,7 +1416,7 @@ msgstr "Pripremanje za prijavu…"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:193
 msgid "Flickr authorization failed"
-msgstr ""
+msgstr "Neuspjela Flickr ovjera"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:200
 msgid "Verifying authorization…"
@@ -1449,6 +1525,8 @@ msgstr ""
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
+"⚫ Ova web stranica je predstavila identifikaciju koja pripada drugoj web "
+"stranici."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:222
@@ -1456,18 +1534,23 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
+"⚫ Identifikacija ove web stranice je prestara da bi joj se vjerovalo. "
+"Provjerite datum na svojemu računalu."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:227
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
+"⚫ Identifikacija ove web stranice nije izdana od strane ovjerene "
+"organizacije."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:232
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
+"⚫ Identifikacija ove web stranice se ne može nastaviti. Možda je oštećena."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:237
@@ -1475,6 +1558,8 @@ msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
 msgstr ""
+"⚫ Identifikacija ove web stranice je opozvana od strane ovjerene "
+"organizacije koja ju je izdala."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
@@ -1482,6 +1567,8 @@ msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr ""
+"⚫ Identifikaciji ove web stranice se ne može vjerovati jer koristi vrlo "
+"slabo šifriranje."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:247
@@ -1489,6 +1576,8 @@ msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
+"⚫ Identifikacija ove web stranice je valjana samo za buduće datume. "
+"Provjerite datum na svojemu računalu."
 
 #: plugins/common/RESTSupport.vala:524
 #: plugins/shotwell-publishing/TumblrPublishing.vala:623
@@ -1534,7 +1623,8 @@ msgstr "Novi _album"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
 msgid "_Remove location, tag and camera-identifying data before uploading"
-msgstr "_Ukloni lokaciju, oznaku i podatke identifikacije kamere prije slanja"
+msgstr ""
+"_Ukloni lokaciju, oznaku i podatke identifikacije kamere prije slanja"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
 msgid "Scaling constraint:"
@@ -1549,12 +1639,12 @@ msgstr "pikseli"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: src/Dimensions.vala:17
 msgid "Original size"
-msgstr "Originalna veličina"
+msgstr "Izvorna veličina"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
 msgid "Longest edge"
-msgstr ""
+msgstr "Dulji rub"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
@@ -1806,7 +1896,7 @@ msgstr ""
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:27
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
-msgstr ""
+msgstr "Autorsko pravo 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:61
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
@@ -1886,6 +1976,9 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
 msgstr ""
+"Vaš besplatan Flickr račun ima ograničenje koliko podataka možete poslati "
+"mjesečno.\n"
+"Ovaj mjesec vam je preostalo %s od vaše kvote slanja."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:611
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
@@ -2027,7 +2120,8 @@ msgstr "Veličina fotografije"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
 msgid "_If a title is set and comment unset, use title as comment"
-msgstr "_Ako je naslov postavljen a komentar nije, koristi naslov kao komentar"
+msgstr ""
+"_Ako je naslov postavljen a komentar nije, koristi naslov kao komentar"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
 msgid "_Do no upload tags"
@@ -2048,7 +2142,8 @@ msgid "Creating album %s…"
 msgstr "Stvaranje albuma %s…"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:946
-msgid "An error message occurred when publishing to Piwigo. Please try again."
+msgid ""
+"An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Nastala je greška prilikom prijave na Piwigo. Pokušajte ponovno."
 
 #. %s is the host name that we tried to connect to
@@ -2059,6 +2154,9 @@ msgid ""
 "steal or alter information going to or from this site (for example, private "
 "messages, credit card information, or passwords)."
 msgstr ""
+"Ovo ne izgleda kao stvaran <b>%s</b>. Napadači možda pokušavaju ukrasti ili "
+"promijeniti informacije koje odlaze ili dolaze sa ove stranice (na primjer, "
+"privatne poruke, informacije kreditnih kartica ili lozinke)."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1048
 #, c-format
@@ -2384,7 +2482,7 @@ msgstr "Kamere"
 
 #: src/camera/CameraBranch.vala:85
 msgid "List of all discovered camera devices"
-msgstr "Prikaži sve otkrivene kamere"
+msgstr "Popis otkrivenih uređaja kamere"
 
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
@@ -2411,32 +2509,32 @@ msgstr ""
 "datoteka."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:776
+#: src/camera/ImportPage.vala:798
 msgid "Hide photos already imported"
 msgstr "Sakrij fotografije koje su već uvezene."
 
-#: src/camera/ImportPage.vala:777
+#: src/camera/ImportPage.vala:799
 msgid "Only display photos that have not been imported"
 msgstr "Prikaži samo fotografije koje nisu uvezene."
 
-#: src/camera/ImportPage.vala:816 ui/import.ui:13 ui/import.ui:210
+#: src/camera/ImportPage.vala:838 ui/import.ui:13 ui/import.ui:210
 msgid "Import _Selected"
 msgstr "Uvezi _odabrane"
 
-#: src/camera/ImportPage.vala:826 ui/import.ui:17 ui/import.ui:214
+#: src/camera/ImportPage.vala:848 ui/import.ui:17 ui/import.ui:214
 msgid "Import _All"
 msgstr "Uvezi _sve"
 
-#: src/camera/ImportPage.vala:850
+#: src/camera/ImportPage.vala:872
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "Izgleda da je kamera prazna. Nema fotografija/video snimaka za uvoz"
 
-#: src/camera/ImportPage.vala:854
+#: src/camera/ImportPage.vala:876
 msgid "No new photos/videos found on camera"
 msgstr "Nema pronađenih novih fotografija/video snimaka na kameri"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1025
+#: src/camera/ImportPage.vala:1047
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -2444,15 +2542,15 @@ msgstr ""
 "Shotwell treba odmontirati kameru iz datotečnog sustava kako bi joj mogao "
 "pristupiti. Želite li nastaviti?"
 
-#: src/camera/ImportPage.vala:1031
+#: src/camera/ImportPage.vala:1053
 msgid "_Unmount"
 msgstr "_Odmontiraj"
 
-#: src/camera/ImportPage.vala:1036
+#: src/camera/ImportPage.vala:1058
 msgid "Please unmount the camera."
 msgstr "Odmontirajte kameru."
 
-#: src/camera/ImportPage.vala:1041
+#: src/camera/ImportPage.vala:1063
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -2462,11 +2560,11 @@ msgstr ""
 "ni jedna druga aplikacija ne koristi. Zatvorite druge aplikacije koje bi "
 "mogle koristiti kameru, te nakon toga pokušajte ponovno."
 
-#: src/camera/ImportPage.vala:1051
+#: src/camera/ImportPage.vala:1073
 msgid "Please close any other application using the camera."
 msgstr "Zatvorite druge aplikacije koje bi mogle koristiti kameru."
 
-#: src/camera/ImportPage.vala:1056
+#: src/camera/ImportPage.vala:1078
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -2475,33 +2573,34 @@ msgstr ""
 "Nemoguće preuzeti predpregled s kamere: \n"
 " %s"
 
-#: src/camera/ImportPage.vala:1073
+#: src/camera/ImportPage.vala:1095
 msgid "Unmounting…"
 msgstr "Odmontiravanje…"
 
-#: src/camera/ImportPage.vala:1166
+#: src/camera/ImportPage.vala:1188
 msgid "Connecting to camera, please wait…"
-msgstr "Povezivanje s kamerom, pričekajte…"
+msgstr "Povezivanje s kamerom, malo pričekajte…"
 
-#: src/camera/ImportPage.vala:1198
+#. reset claim_timeout to initial value
+#: src/camera/ImportPage.vala:1223
 msgid "Starting import, please wait…"
 msgstr "Pokretanje uvoza, pričekajte…"
 
-#: src/camera/ImportPage.vala:1204
+#: src/camera/ImportPage.vala:1229
 msgid "Fetching photo information"
 msgstr "Preuzimanje informacija fotografija"
 
-#: src/camera/ImportPage.vala:1563
+#: src/camera/ImportPage.vala:1590
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Preuzimanje predpregleda za %s"
 
-#: src/camera/ImportPage.vala:1671
+#: src/camera/ImportPage.vala:1701
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nemoguće zaključavanje kamere: %s"
 
-#: src/camera/ImportPage.vala:1756
+#: src/camera/ImportPage.vala:1787
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -2509,7 +2608,7 @@ msgstr[0] "Obriši ovu %d fotografiju iz kamere?"
 msgstr[1] "Obriši ove %d fotografije iz kamere?"
 msgstr[2] "Obriši ovih %d fotografija iz kamere?"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1790
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -2517,15 +2616,15 @@ msgstr[0] "Obriši ovu %d video snimku iz kamere?"
 msgstr[1] "Obriši ove %d video snimke iz kamere?"
 msgstr[2] "Obriši ovih %d video snimaka iz kamere?"
 
-#: src/camera/ImportPage.vala:1762
+#: src/camera/ImportPage.vala:1793
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "Obriši ovu %d fotografiju/video snimku iz kamere?"
+msgstr[0] "Obriši ovu %d fotografiju/video snimu iz kamere?"
 msgstr[1] "Obriši ove %d fotografije/video snimke iz kamere?"
 msgstr[2] "Obriši ovih %d fotografija/video snimaka iz kamere?"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1796
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -2533,18 +2632,19 @@ msgstr[0] "Obriši ovu %d datoteku iz kamere?"
 msgstr[1] "Obriši ove %d datoteke iz kamere?"
 msgstr[2] "Obriši ovih %d datoteka iz kamere?"
 
-#: src/camera/ImportPage.vala:1773 src/Dialogs.vala:720
+#: src/camera/ImportPage.vala:1804 src/Dialogs.vala:720
 msgid "_Keep"
 msgstr "_Zadrži"
 
-#: src/camera/ImportPage.vala:1792
+#: src/camera/ImportPage.vala:1823
 msgid "Removing photos/videos from camera"
 msgstr "Uklanjanje fotografija/video snimaka s kamere"
 
-#: src/camera/ImportPage.vala:1796
+#: src/camera/ImportPage.vala:1827
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
-msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgid_plural ""
+"Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
 "Nemoguće brisanje %d fotografije/video snimke iz kamere zbog grešaka."
 msgstr[1] ""
@@ -2735,9 +2835,9 @@ msgstr "Uklanjanje duplikata fotografija"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "Nemoguće udvostručavanje %d fotografije zbog grešaka"
-msgstr[1] "Nemoguće udvostručavanje %d fotografije zbog grešaka"
-msgstr[2] "Nemoguće udvostručavanje %d fotografija zbog grešaka"
+msgstr[0] "Nemoguće napraviti duplikat %d fotografije zbog greške u datoteci"
+msgstr[1] "Nemoguće napraviti duplikat %d fotografije zbog greške u datoteci"
+msgstr[2] "Nemoguće napraviti duplikat %d fotografija zbog greške u datoteci"
 
 #: src/Commands.vala:1195
 msgid "Restoring previous rating"
@@ -2778,7 +2878,7 @@ msgstr "Poništavanje podešavanje datuma i vremena"
 #: src/Commands.vala:1399
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] "Jedna izvorna fotografija se ne može prilagoditi."
+msgstr[0] "Sljedeća izvorna fotografija se ne može prilagoditi."
 msgstr[1] "Sljedeće izvorne fotografije se ne mogu prilagoditi."
 msgstr[2] "Sljedeće izvorne fotografije se ne mogu prilagoditi."
 
@@ -2790,9 +2890,12 @@ msgstr "Greška podešavanje vremena"
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] "Vrijeme prilagodbe se ne može poništiti na sljedećoj fotografiji."
-msgstr[1] "Vrijeme prilagodbe se ne može poništiti na sljedećim fotografijama."
-msgstr[2] "Vrijeme prilagodbe se ne može poništiti na sljedećim fotografijama."
+msgstr[0] ""
+"Podešavanje vremena se ne može poništiti na sljedećoj fotografiji."
+msgstr[1] ""
+"Podešavanje vremena se ne može poništiti na sljedećim fotografijama."
+msgstr[2] ""
+"Podešavanje vremena se ne može poništiti na sljedećim fotografijama."
 
 #: src/Commands.vala:1637 src/Commands.vala:1660
 msgid "Create Tag"
@@ -2865,7 +2968,8 @@ msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "Uvoz iz %s se ne može nastaviti zbog greške:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
-msgid "To try importing from another service, select one from the above menu."
+msgid ""
+"To try importing from another service, select one from the above menu."
 msgstr ""
 "Kako bi pokušali uvesti iz neke druge usluge, odaberite jednu iz gornjeg "
 "izbornika."
@@ -2910,7 +3014,8 @@ msgstr "Uvoz podataka"
 #: src/db/DatabaseTable.vala:37
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "Nemoguće otvoriti/stvoriti bazu podataka fotografije %s: kôd greške %d"
+msgstr ""
+"Nemoguće otvoriti/stvoriti bazu podataka fotografije %s: kôd greške %d"
 
 #: src/db/DatabaseTable.vala:46
 #, c-format
@@ -2964,9 +3069,12 @@ msgstr "Nemoguće pripremanje prezentacije na radnoj površini: %s"
 #, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] "Ovo će ukloniti oznaku “%s” iz %d fotografije. Želite li nastaviti?"
-msgstr[1] "Ovo će ukloniti oznaku “%s” iz %d fotografije. Želite li nastaviti?"
-msgstr[2] "Ovo će ukloniti oznaku “%s” iz %d fotografija. Želite li nastaviti?"
+msgstr[0] ""
+"Ovo će ukloniti oznaku “%s” iz %d fotografije. Želite li nastaviti?"
+msgstr[1] ""
+"Ovo će ukloniti oznaku “%s” iz %d fotografije. Želite li nastaviti?"
+msgstr[2] ""
+"Ovo će ukloniti oznaku “%s” iz %d fotografija. Želite li nastaviti?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:721
 #: src/Resources.vala:159 src/Resources.vala:362 src/Resources.vala:415
@@ -3078,9 +3186,9 @@ msgstr[0] "Od tih datoteka, %d datoteka je uspješno uvezena."
 msgstr[1] "Od tih datoteka, %d datoteke su uspješno uvezene."
 msgstr[2] "Od tih datoteka, %d datoteka je uspješno uvezeno."
 
-#.
+#. 
 #. Duplicates
-#.
+#. 
 #: src/Dialogs.vala:227
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Duplikati fotografija/video snimka nisu uvezeni:"
@@ -3089,9 +3197,9 @@ msgstr "Duplikati fotografija/video snimka nisu uvezeni:"
 msgid "duplicates existing media item"
 msgstr "napravi duplikat postojeće medijske stavke"
 
-#.
+#. 
 #. Files Not Imported Due to Camera Errors
-#.
+#. 
 #: src/Dialogs.vala:242
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Fotografije/Video snimke nisu uvezene zbog greške na kameri:"
@@ -3101,17 +3209,18 @@ msgstr "Fotografije/Video snimke nisu uvezene zbog greške na kameri:"
 msgid "error message:"
 msgstr "poruka greške:"
 
-#.
+#. 
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
-#.
+#. 
 #: src/Dialogs.vala:256
-msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
+msgid ""
+"Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Datoteke nisu uvezene jer nisu prepoznate kao fotografije ili video snimke:"
 
-#.
+#. 
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
-#.
+#. 
 #: src/Dialogs.vala:271
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
@@ -3120,9 +3229,9 @@ msgstr ""
 "Fotografije/Video snimke nisu uvezene jer nisu u formatu koji Shotwell "
 "prepoznaje:"
 
-#.
+#. 
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
-#.
+#. 
 #: src/Dialogs.vala:286
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
@@ -3140,16 +3249,16 @@ msgstr ""
 "Nemoguće je kopirati: %s\n"
 "\tu %s"
 
-#.
+#. 
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
-#.
+#. 
 #: src/Dialogs.vala:302
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Fotografije/Video snimke nisu uvezene zato jer su oštećene:"
 
-#.
+#. 
 #. Photos/Videos Not Imported for Other Reasons
-#.
+#. 
 #: src/Dialogs.vala:317
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Fotografije/Video snimke nisu uvezene zbog drugih razloga:"
@@ -3166,33 +3275,39 @@ msgstr[2] "%d duplikata fotografije nije uvezeno\n"
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "%d duplikat video snimke nije uvezen\n"
-msgstr[1] "%d duplikata video snimke nisu uvezeni\n"
-msgstr[2] "%d duplikata video snimke nije uvezeno\n"
+msgstr[0] "%d duplikat video snimke nije uvezen:\n"
+msgstr[1] "%d duplikata video snimaka nije uvezeno:\n"
+msgstr[2] "%d duplikata video snimaka nije uvezeno:\n"
 
 #: src/Dialogs.vala:343
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "%d duplikat fotografije/video snimke nije uvezen\n"
-msgstr[1] "%d duplikata fotografije/video snimke nije uvezeno\n"
-msgstr[2] "%d duplikata fotografije/video snimke nije uvezeno\n"
+msgstr[0] "%d duplikat fotografije/video snimke nije uvezen:\n"
+msgstr[1] "%d duplikata fotografija/video snimaka nije uvezeno:\n"
+msgstr[2] "%d duplikata fotografija/video snimaka nije uvezeno:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"%d fotografija nije uvezena zbog greške na datoteci ili hardveru:\n"
 msgstr[1] ""
+"%d fotografije nisu uvezene zbog greške na datoteci ili hardveru:\n"
 msgstr[2] ""
+"%d fotografija nije uvezeno zbog greške na datoteci ili hardveru:\n"
 
 #: src/Dialogs.vala:360
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"%d video snimka nije uvezena zbog greške na datoteci ili hardveru:\n"
 msgstr[1] ""
+"%d video snimke nisu uvezene zbog greške na datoteci ili hardveru:\n"
 msgstr[2] ""
+"%d video snimaka nije uvezeno zbog greške na datoteci ili hardveru:\n"
 
 #: src/Dialogs.vala:363
 #, c-format
@@ -3200,16 +3315,22 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"%d fotografija/video snimka nije uvezena zbog greške na datoteci ili "
+"hardveru:\n"
 msgstr[1] ""
+"%d fotografija/video snimke nisu uvezene zbog greške na datoteci ili "
+"hardveru:\n"
 msgstr[2] ""
+"%d fotografija/video snimaka nije uvezeno zbog greške na datoteci ili "
+"hardveru:\n"
 
 #: src/Dialogs.vala:366
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d datoteka nije uvezena zbog greške na datoteci ili hardveru:\n"
+msgstr[1] "%d datoteke nisu uvezene zbog greške na datoteci ili hardveru:\n"
+msgstr[2] "%d datoteka nije uvezeno zbog greške na datoteci ili hardveru:\n"
 
 #: src/Dialogs.vala:380
 #, c-format
@@ -3219,8 +3340,11 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d fotografija nije uvezena zato jer mapa fototeke nije zapisiva:\n"
 msgstr[1] ""
+"%d fotografije nisu uvezene zato jer mapa fototeke nije zapisiva:\n"
 msgstr[2] ""
+"%d fotografija nije uvezeno zato jer mapa fototeke nije zapisiva:\n"
 
 #: src/Dialogs.vala:383
 #, c-format
@@ -3230,8 +3354,11 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d video snimka nije uvezena zato jer mapa fototeke nije zapisiva:\n"
 msgstr[1] ""
+"%d video snimke nisu uvezene zato jer mapa fototeke nije zapisiva:\n"
 msgstr[2] ""
+"%d video snimaka nije uvezeno zato jer mapa fototeke nije zapisiva:\n"
 
 #: src/Dialogs.vala:386
 #, c-format
@@ -3242,8 +3369,14 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"%d fotografija/video snimka nije uvezena zato jer mapa fototeke nije "
+"zapisiva:\n"
 msgstr[1] ""
+"%d fotografije/video snimke nisu uvezene zato jer mapa fototeke nije "
+"zapisiva:\n"
 msgstr[2] ""
+"%d fotografija/video snimaka nije uvezeno zato jer mapa fototeke nije "
+"zapisiva:\n"
 
 #: src/Dialogs.vala:389
 #, c-format
@@ -3252,73 +3385,77 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d datoteka nije uvezena zato jer mapa fototeke nije zapisiva:\n"
+msgstr[1] "%d datoteke nisu uvezene zato jer mapa fototeke nije zapisiva:\n"
+msgstr[2] "%d datoteka nije uvezeno zato jer mapa fototeke nije zapisiva:\n"
 
 #: src/Dialogs.vala:403
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija nije uvezena - greška na kameri:\n"
+msgstr[1] "%d fotografije nisu uvezene - greška na kameri:\n"
+msgstr[2] "%d fotografija nije uvezeno - greška na kameri:\n"
 
 #: src/Dialogs.vala:406
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video snimka nije uvezena zbog greške na kameri:\n"
+msgstr[1] "%d video snimke nisu uvezene zbog greške na kameri:\n"
+msgstr[2] "%d video snimaka nije uvezeno zbog greške na kameri:\n"
 
 #: src/Dialogs.vala:409
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fotografija/video snimka nije uvezena zbog greške na kameri:\n"
+msgstr[1] "%d fotografije/video snimke nisu uvezene zbog greške na kameri:\n"
 msgstr[2] ""
+"%d fotografija/video snimaka nije uvezeno zbog greške na kameri:\n"
 
 #: src/Dialogs.vala:412
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d datoteka nije uvezena zbog greške na kameri:\n"
+msgstr[1] "%d datoteke nisu uvezene zbog greške na kameri:\n"
+msgstr[2] "%d datoteka nije uvezeno zbog greške na kameri:\n"
 
 #: src/Dialogs.vala:426
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija se nije uvezla zato jer je oštećena:\n"
+msgstr[1] "%d fotografije se nisu uvezle zato jer su oštećene:\n"
+msgstr[2] "%d fotografija se nije uvezlo zato jer su oštećene:\n"
 
 #: src/Dialogs.vala:429
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video snimka se nije uvezla zato jer je oštećena:\n"
+msgstr[1] "%d video snimke se nisu uvezle zato jer su oštećene:\n"
+msgstr[2] "%d video snimaka se nije uvezlo zato jer su oštećene:\n"
 
 #: src/Dialogs.vala:432
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] ""
+"%d fotografija/video snimka se nije uvezla zato jer je oštećena:\n"
 msgstr[1] ""
+"%d  fotografije/video snimke se nisu uvezle zato jer su oštećene:\n"
 msgstr[2] ""
+"%d  fotografija/video snimaka se nije uvezlo zato jer su oštećene:\n"
 
 #: src/Dialogs.vala:435
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d datoteka se nije uvezla zato jer je oštećena:\n"
+msgstr[1] "%d datoteke se nisu uvezle zato jer su oštećene:\n"
+msgstr[2] "%d datoteka se nije uvezlo zato jer su oštećene:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -3328,9 +3465,9 @@ msgstr[2] ""
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija preskočena, format nije podržan:\n"
+msgstr[1] "%d fotografije preskočene, format nije podržan:\n"
+msgstr[2] "%d fotografija preskočeno, format nije podržan:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
@@ -3338,65 +3475,68 @@ msgstr[2] ""
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Preskočena %d datoteka koja nije slika.\n"
+msgstr[1] "Preskočene %d datoteke koje nisu slike.\n"
+msgstr[2] "Preskočeno %d datoteka koje nisu slike.\n"
 
 #: src/Dialogs.vala:478
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d preskočena fotografije uslijed korisnikovog prekida.\n"
+msgstr[1] "%d preskočene fotografije uslijed korisnikovog prekida.\n"
+msgstr[2] "%d preskočenih fotografija uslijed korisnikovog prekida.\n"
 
 #: src/Dialogs.vala:481
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video snimka preskočena uslijed korisnikovog prekida.\n"
+msgstr[1] "%d video snimke preskočena uslijed korisnikovog prekida.\n"
+msgstr[2] "%d video snimaka preskočeno uslijed korisnikovog prekida.\n"
 
 #: src/Dialogs.vala:484
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] ""
+"%d fotografija/video snimka preskočena uslijed korisnikovog prekida.\n"
 msgstr[1] ""
+"%d fotografije/video snimke preskočene uslijed korisnikovog prekida.\n"
 msgstr[2] ""
+"%d fotografija/video snimaka preskočeno uslijed korisnikovog prekida.\n"
 
 #: src/Dialogs.vala:487
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d datoteka preskočena uslijed korisnikova prekida:\n"
+msgstr[1] "%d datoteke preskočene uslijed korisnikova prekida:\n"
+msgstr[2] "%d datoteka preskočeno uslijed korisnikova prekida:\n"
 
 #: src/Dialogs.vala:501
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija uspješno uvezena.\n"
+msgstr[1] "%d fotografije uspješno uvezeno.\n"
+msgstr[2] "%d fotografija uspješno uvezenih.\n"
 
 #: src/Dialogs.vala:504
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video snimka uspješno uvezena.\n"
+msgstr[1] "%d video snimke uspješno uvezene.\n"
+msgstr[2] "%d video snimaka uspješno uvezeno\n"
 
 #: src/Dialogs.vala:507
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija/video snimka uspješno uvezena.\n"
+msgstr[1] "%d fotografije/video snimke uspješno uvezene.\n"
+msgstr[2] "%d fotografija/video snimaka uspješno uvezeno.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
@@ -3442,9 +3582,9 @@ msgstr "Komentar:"
 #: src/Dialogs.vala:696
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ukloni i _premjesti u smeće datoteku"
+msgstr[1] "Ukloni i _premjesti u smeće datoteke"
+msgstr[2] "Ukloni i _premjesti u smeće datoteke"
 
 #: src/Dialogs.vala:700
 msgid "_Remove From Library"
@@ -3464,8 +3604,11 @@ msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
+"Ovo će uništiti sve promjene učinjene na %d vanjskoj datoteci. Nastavi?"
 msgstr[1] ""
+"Ovo će uništiti sve promjene učinjene na %d vanjske datoteke. Nastavi?"
 msgstr[2] ""
+"Ovo će uništiti sve promjene učinjene na %d vanjskih datoteka. Nastavi?"
 
 #: src/Dialogs.vala:749
 msgid "Re_vert External Edit"
@@ -3479,9 +3622,9 @@ msgstr "_Poništi vanjske promjene"
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ovo će ukloniti %d fotografiju iz fototeke. Nastavi!"
+msgstr[1] "Ovo će ukloniti %d fotografije iz fototeke. Nastavi!"
+msgstr[2] "Ovo će ukloniti %d fotografija iz fototeke. Nastavi!"
 
 #: src/Dialogs.vala:777 src/Resources.vala:174
 msgid "_Remove"
@@ -3506,8 +3649,17 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
+"\n"
+"\n"
+"I %d preostali."
 msgstr[1] ""
+"\n"
+"\n"
+"I %d preostala."
 msgstr[2] ""
+"\n"
+"\n"
+"I %d preostalih."
 
 #: src/Dialogs.vala:822 src/Dialogs.vala:849
 msgid "Tags (separated by commas):"
@@ -3560,8 +3712,20 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ovo će ukloniti %d fotografiju/video snimku iz vaše Shotwell fototeke. "
+"Želite li isto premjestiti datoteku u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 msgstr[1] ""
+"Ovo će ukloniti %d fotografije/video snimke iz vaše Shotwell fototeke. "
+"Želite li isto premjestiti datoteke u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 msgstr[2] ""
+"Ovo će ukloniti %d fotografija/video snimaka iz vaše Shotwell fototeke. "
+"Želite li isto premjestiti datoteke u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 
 #: src/Dialogs.vala:944
 #, c-format
@@ -3576,8 +3740,20 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ovo će ukloniti %d video snimku iz vaše Shotwell fototeke. Želite li isto "
+"premjestiti datoteku u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 msgstr[1] ""
+"Ovo će ukloniti %d video snimke iz vaše Shotwell fototeke. Želite li isto "
+"premjestiti datoteke u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 msgstr[2] ""
+"Ovo će ukloniti %d video snimaka iz vaše Shotwell fototeke. Želite li isto "
+"premjestiti datoteke u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 
 #: src/Dialogs.vala:948
 #, c-format
@@ -3592,8 +3768,20 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ovo će ukloniti %d fotografiju iz vaše Shotwell fototeke. Želite li isto "
+"premjestiti datoteku u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 msgstr[1] ""
+"Ovo će ukloniti %d fotografije iz vaše Shotwell fototeke. Želite li isto "
+"premjestiti datoteke u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 msgstr[2] ""
+"Ovo će ukloniti %d fotografija iz vaše Shotwell fototeke. Želite li isto "
+"premjestiti datoteke u smeće?\n"
+"\n"
+"Ova radnja se ne može poništiti."
 
 #: src/Dialogs.vala:980
 #, c-format
@@ -3602,17 +3790,23 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
+"%d fotografija ili video snimka se ne može premjestiti u smeće. Obriši ovu "
+"datoteku?"
 msgstr[1] ""
+"%d fotografije ili video snimke se ne mogu premjestiti u smeće. Obriši ove "
+"datoteke?"
 msgstr[2] ""
+"%d fotografija ili video snimaka se ne može premjestiti u smeće. Obriši ove "
+"datoteke?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:997
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija ili video snimka se ne može obrisati."
+msgstr[1] "%d fotografije ili video snimke se ne mogu obrisati."
+msgstr[2] "%d fotografija ili video snimaka se ne može obrisati."
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -3702,25 +3896,37 @@ msgstr "Postavi _sve fotografije/video snimke na ovo vrijeme"
 #: src/dialogs/AdjustDateTimeDialog.vala:106
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "_Promijeni izvornu datoteku fotografije"
+msgstr[1] "_Promijeni izvorne datoteke fotografije"
+msgstr[2] "_Promijeni izvorne datoteke fotografije"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "_Izmjeni orginalnu datototeku"
+msgstr[1] "_Izmjeni orginalne datototeku"
+msgstr[2] "_Izmjeni orginalnih datototeka"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:213
 msgid "Original: "
 msgstr "Orginal: "
 
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
 #: src/dialogs/AdjustDateTimeDialog.vala:214
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d.%m.%Y., %H:%M:%S"
 
+# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
+# U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should
+# translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time
+# format used in your language and region. The format string you enter should
+# conform to POSIX date and time formatting conventions. See the strftime
+# manpage for a list of format specifiers and their meanings.
 #: src/dialogs/AdjustDateTimeDialog.vala:215
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d.%m.%Y., %I:%M:%S %p"
@@ -3746,30 +3952,30 @@ msgstr ""
 #: src/dialogs/AdjustDateTimeDialog.vala:309
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "dan"
+msgstr[1] "dana"
+msgstr[2] "dana"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:310
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "sat"
+msgstr[1] "sata"
+msgstr[2] "sati"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:311
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "minuta"
+msgstr[1] "minute"
+msgstr[2] "minuta"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:312
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "sekunda"
+msgstr[1] "sekunde"
+msgstr[2] "sekundi"
 
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
@@ -3831,7 +4037,7 @@ msgstr "Godina-Mjesec-Dan"
 
 #: src/dialogs/Preferences.vala:130 src/editing_tools/EditingTools.vala:760
 msgid "Custom"
-msgstr "Prilagođeno"
+msgstr "Prilagođena"
 
 #. Invalid pattern.
 #: src/dialogs/Preferences.vala:369
@@ -3947,7 +4153,7 @@ msgstr "Ekran"
 #: src/editing_tools/EditingTools.vala:749
 #: src/editing_tools/EditingTools.vala:759
 msgid "-"
-msgstr ""
+msgstr "."
 
 #: src/editing_tools/EditingTools.vala:737
 msgid "SD Video (4 ∶ 3)"
@@ -4131,25 +4337,25 @@ msgstr "_Ispravi"
 #, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija/video snimka"
+msgstr[1] "%d fotografije/video snimke"
+msgstr[2] "%d fotografija/video snimaka"
 
 #: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d video snimka"
+msgstr[1] "%d video snimke"
+msgstr[2] "%d video snimaka"
 
 #: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d fotografija"
+msgstr[1] "%d fotografije"
+msgstr[2] "%d fotografija"
 
 #: src/events/EventPage.vala:128
 msgid "No Event"
@@ -4161,7 +4367,7 @@ msgstr "Događaji"
 
 #: src/events/EventsBranch.vala:25
 msgid "Browse through your events"
-msgstr ""
+msgstr "Pregledajte svoje događaje"
 
 #: src/events/EventsDirectoryPage.vala:149
 msgid "No events"
@@ -4229,7 +4435,7 @@ msgstr "Mape"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Browse the library’s folder structure"
-msgstr ""
+msgstr "Pregledajte strukturu mapa fototeke"
 
 #: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
 #: src/SearchFilter.vala:1099
@@ -4260,7 +4466,7 @@ msgstr "Fototeka"
 
 #: src/library/LibraryBranch.vala:30
 msgid "Organize and browse your photos"
-msgstr "Organizirajte i pregledavajte svoje fotografije"
+msgstr "Organizirajte i pregledajte svoje fotografije"
 
 #: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1079
 msgid "Photos"
@@ -4272,7 +4478,7 @@ msgstr "Uvozi iz mape"
 
 #: src/library/LibraryWindow.vala:515
 msgid "Recurse Into Subfolders"
-msgstr ""
+msgstr "Vraćaj se u podmape"
 
 #: src/library/LibraryWindow.vala:583 ui/trash.ui:288
 msgid "Empty Trash"
@@ -4286,13 +4492,13 @@ msgstr "Pražnjenje smeća…"
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in <span weight=\"bold\">Edit %s "
+"Preferences</span>.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell je podešen za uvoz fotografija u vašu osobnu mapu.\n"
-"Preporučujemo promjenu ovoga u <span weight=\"bold\">Uredi %s Osobitosti</"
-"span>.\n"
+"Preporučujemo promjenu ovoga u <span weight=\"bold\">Uredi %s "
+"Osobitosti</span>.\n"
 "Želite li nastaviti s uvozom fotografija?"
 
 #: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
@@ -4367,9 +4573,8 @@ msgid ""
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
-"Shotwell nije uspio nadograditi vašu fototeku fotografija s inačice %s "
-"( shema %d) na %s ( shema %d). Za više informacija pogledajte Shotwell Wiki "
-"%s"
+"Shotwell nije uspio nadograditi vašu fototeku fotografija s inačice %s ( "
+"shema %d) na %s ( shema %d). Za više informacija pogledajte Shotwell Wiki %s"
 
 #: src/main.vala:65
 #, c-format
@@ -4414,7 +4619,7 @@ msgstr "Prikaži inačicu aplikacije"
 
 #: src/main.vala:319
 msgid "Start the application in fullscreen mode"
-msgstr ""
+msgstr "Pokreni aplikaciju u cjelozaslonskom prikazu"
 
 #. init GTK (valac has already called g_threads_init())
 #: src/main.vala:356
@@ -4423,7 +4628,8 @@ msgstr "[DATOTEKA]"
 
 #: src/main.vala:360
 #, c-format
-msgid "Run “%s --help” to see a full list of available command line options.\n"
+msgid ""
+"Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Pokrenite '%s --help'  kako bi vidjeli popis svih dostupnih mogućnosti "
 "naredbenog redka.\n"
@@ -4453,6 +4659,8 @@ msgstr "Nema fotografija/video snimaka"
 #: src/Page.vala:1331
 msgid "No photos/videos found which match the current filter"
 msgstr ""
+"Nema pronađenih fotografija/video snimaka koje se poduraju s trenutnim "
+"filtrom."
 
 #: src/Page.vala:2644
 msgid "Photos cannot be exported to this directory."
@@ -4585,9 +4793,9 @@ msgstr "Stavke:"
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d događaj"
+msgstr[1] "%d događaja"
+msgstr[2] "%d događaja"
 
 #. display only one date if start and end are the same
 #: src/Properties.vala:380
@@ -4607,7 +4815,7 @@ msgstr "Od:"
 
 #: src/Properties.vala:388 src/Properties.vala:393
 msgid "To:"
-msgstr ""
+msgstr "Do:"
 
 #: src/Properties.vala:407
 msgid "Duration:"
@@ -4637,7 +4845,7 @@ msgstr "Trenutni razvoj:"
 
 #: src/Properties.vala:595
 msgid "Original dimensions:"
-msgstr "Izvorna razlučivost:"
+msgstr "Izvorne dimenzije:"
 
 #: src/Properties.vala:598
 msgid "Camera make:"
@@ -4715,16 +4923,16 @@ msgstr ""
 #: src/publishing/PublishingUI.vala:104
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Odabrana video snimka je uspješno objavljena."
+msgstr[1] "Odabrane video snimke su uspješno objavljene."
+msgstr[2] "Odabrane video snimke su uspješno objavljene."
 
 #: src/publishing/PublishingUI.vala:109
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Odabrana fotografija je uspješno objavljena."
+msgstr[1] "Odabrane fotografije su uspješno objavljene."
+msgstr[2] "Odabrane fotografije su uspješno objavljene."
 
 #: src/publishing/PublishingUI.vala:115
 msgid "The selected photos/videos were successfully published."
@@ -4791,7 +4999,7 @@ msgstr "Zakreni"
 
 #: src/Resources.vala:142
 msgid "Rotate Right"
-msgstr "Zakreni udesno"
+msgstr "Zakreni desno"
 
 #: src/Resources.vala:143 ui/collection.ui:148
 msgid "Rotate the photos right (press Ctrl to rotate left)"
@@ -4837,7 +5045,7 @@ msgstr "_Naprijed"
 #: src/Resources.vala:162 ui/direct.ui:62 ui/events_directory.ui:125
 #: ui/photo.ui:173
 msgid "Fulls_creen"
-msgstr "Cijelozaslonski prikaz"
+msgstr "Cjelozaslonski _prikaz"
 
 #: src/Resources.vala:163 ui/direct.ui:174 ui/direct.ui:177
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
@@ -4850,7 +5058,7 @@ msgstr "_Pomoć"
 
 #: src/Resources.vala:164
 msgid "Leave _Fullscreen"
-msgstr "Napusti _cijelozaslonski prikaz"
+msgstr "Napusti _cjelozaslonski prikaz"
 
 #: src/Resources.vala:165 src/Resources.vala:364 ui/tags.ui:450
 msgid "_New"
@@ -5362,33 +5570,33 @@ msgstr "Promijeni oznake"
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Označi fotografiju kao “%s”"
+msgstr[1] "Označi fotografije kao “%s”"
+msgstr[2] "Označi fotografije kao “%s”"
 
 #: src/Resources.vala:386
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Označi odabranu fotografiju kao “%s”"
+msgstr[1] "Označi odabrane fotografije kao “%s”"
+msgstr[2] "Označi odabrane fotografije kao “%s”"
 
 #: src/Resources.vala:392
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ukloni oznaku “%s” iz _fotografije"
+msgstr[1] "Ukloni oznaku “%s” iz _fotografija"
+msgstr[2] "Ukloni oznaku “%s” iz _fotografija"
 
 #: src/Resources.vala:398
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ukloni oznaku “%s” iz fotografije"
+msgstr[1] "Ukloni oznaku “%s” iz fotografija"
+msgstr[2] "Ukloni oznaku “%s” iz fotografija"
 
 #: src/Resources.vala:404
 #, c-format
@@ -5782,7 +5990,8 @@ msgstr "RAW fotografije"
 
 #: src/SearchFilter.vala:1121
 msgid "Use a saved search to filter items in the current view"
-msgstr "Koristi spremljene pretrage za filtriranje stavki u trenutnom prikazu"
+msgstr ""
+"Koristi spremljene pretrage za filtriranje stavki u trenutnom prikazu"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -5853,7 +6062,7 @@ msgstr "Oznake"
 
 #: src/tags/TagsBranch.vala:131
 msgid "Organize and browse your photo’s tags"
-msgstr "Organizirajte i pregledavajte svoje oznake fotografija"
+msgstr "Organizirajte i pregledajte oznake svojih fotografija"
 
 #: src/Tag.vala:830
 msgid "untitled"
@@ -6123,11 +6332,11 @@ msgstr "Prozirna pozadina:"
 
 #: ui/preferences_dialog.ui:428
 msgid "Checkered"
-msgstr ""
+msgstr "Kockasta"
 
 #: ui/preferences_dialog.ui:449
 msgid "Solid color"
-msgstr ""
+msgstr "Jednobojno"
 
 #: ui/preferences_dialog.ui:539
 msgid "E_xternal photo editor:"
@@ -6253,7 +6462,7 @@ msgstr "Postavi kao prezentaciju radne površine"
 
 #: ui/set_background_slideshow_dialog.ui:54
 msgid "Generate desktop background slideshow"
-msgstr "Stvori prezentaciju pozadine radne površine"
+msgstr "Generiraj prezentaciju za pozadinu radne površine"
 
 #: ui/set_background_slideshow_dialog.ui:80
 msgid "Show each photo for"
@@ -6300,42 +6509,44 @@ msgstr "naslov"
 msgid "Delete all photos in the trash"
 msgstr "Obriši sve fotografije u smeću"
 
-#~ msgid ""
-#~ "Enter the confirmation number which appears after you log into Flickr in "
-#~ "your Web browser."
-#~ msgstr ""
-#~ "Upiši potvrdni broj koji se pojavi nakon što se prijavite na Flickr putem "
-#~ "vašeg web preglednika."
-
-#~ msgid "Authorization _Number:"
-#~ msgstr "_Broj ovlasti:"
-
 #~ msgid "Width or height"
 #~ msgstr "Širina ili visina"
 
-#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
-#~ msgstr "'%s' nije valjani odgovor na OAuth zahtjev ovjere"
-
-#~ msgid "Export Photos/Videos"
-#~ msgstr "Izvezi fotografije/video snimke"
-
-#~ msgid "Open with E_xternal Editor"
-#~ msgstr "Otvori s v_anjskim uređivačem"
-
-#~ msgid "R_emove from Library"
-#~ msgstr "U_kloni iz fototeke"
+#~ msgid "Core Data Import Services"
+#~ msgstr "Usluge za uvoz ključnih podataka"
 
 #~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select a library to import, either by selecting one of the "
-#~ "existing libraries found by Shotwell or by selecting an alternative F-"
-#~ "Spot database file."
+#~ "Cannot read the selected F-Spot database file: error while reading photos "
+#~ "table"
 #~ msgstr ""
-#~ "Dobrodošli u uslugu za uvoz fototeke iz F-Spota.\n"
-#~ "\n"
-#~ "Odaberite fototeku za uvoz, odabirući jednu od fototeka koju je već "
-#~ "otkrio Shotwell ili odabirući alternativnu datoteku F-Spot baze podataka."
+#~ "Nemoguće pročitati odabranu datoteku F-Spot baze podataka: greška pri "
+#~ "čitanju tablice fotografija"
+
+#~ msgid ""
+#~ "Cannot read the selected F-Spot database file: error while reading tags table"
+#~ msgstr ""
+#~ "Nemoguće pročitati odabranu datoteku F-Spot baze podataka: greška pri "
+#~ "čitanju tablice oznaka"
+
+#~ msgid "Manually select an F-Spot database file to import:"
+#~ msgstr "Ručno odredi uvoz datoteke F-Spot baze podataka:"
+
+#~ msgid ""
+#~ "Cannot open the selected F-Spot database file: this version of the F-Spot "
+#~ "database is not supported by Shotwell"
+#~ msgstr ""
+#~ "Nemoguće otvoriti odabranu datoteku F-Spot baze podataka: ovu inačicu F-Spot "
+#~ "baze podataka Shotwell ne podržava"
+
+#~ msgid ""
+#~ "Cannot open the selected F-Spot database file: the file does not exist or is "
+#~ "not an F-Spot database"
+#~ msgstr ""
+#~ "Nemoguće otvoriti odabranu datoteku F-Spot baze podataka: datoteka ne "
+#~ "postoji ili nije F-Spot baza podataka"
+
+#~ msgid "Preparing to import"
+#~ msgstr "Pripremanje za uvoz"
 
 #~ msgid ""
 #~ "Welcome to the F-Spot library import service.\n"
@@ -6346,37 +6557,19 @@ msgstr "Obriši sve fotografije u smeću"
 #~ "\n"
 #~ "Odaberite datoteku F-Spot baze podataka."
 
-#~ msgid "Manually select an F-Spot database file to import:"
-#~ msgstr "Ručno odredi uvoz datoteke F-Spot baze podataka:"
-
 #~ msgid ""
-#~ "Cannot open the selected F-Spot database file: the file does not exist or "
-#~ "is not an F-Spot database"
+#~ "Welcome to the F-Spot library import service.\n"
+#~ "\n"
+#~ "Please select a library to import, either by selecting one of the existing "
+#~ "libraries found by Shotwell or by selecting an alternative F-Spot database "
+#~ "file."
 #~ msgstr ""
-#~ "Nemoguće otvoriti odabranu datoteku F-Spot baze podataka: datoteka ne "
-#~ "postoji ili nije F-Spot baza podataka"
+#~ "Dobrodošli u uslugu za uvoz fototeke iz F-Spota.\n"
+#~ "\n"
+#~ "Odaberite fototeku za uvoz, odabirući jednu od fototeka koju je već otkrio "
+#~ "Shotwell ili odabirući alternativnu datoteku F-Spot baze podataka."
 
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: this version of the F-Spot "
-#~ "database is not supported by Shotwell"
-#~ msgstr ""
-#~ "Nemoguće otvoriti odabranu datoteku F-Spot baze podataka: ovu inačicu F-"
-#~ "Spot baze podataka Shotwell ne podržava"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading tags "
-#~ "table"
-#~ msgstr ""
-#~ "Nemoguće pročitati odabranu datoteku F-Spot baze podataka: greška pri "
-#~ "čitanju tablice oznaka"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading photos "
-#~ "table"
-#~ msgstr ""
-#~ "Nemoguće pročitati odabranu datoteku F-Spot baze podataka: greška pri "
-#~ "čitanju tablice fotografija"
-
+#, c-format
 #~ msgid ""
 #~ "Shotwell has found %d photos in the F-Spot library and is currently "
 #~ "importing them. Duplicates will be automatically detected and removed.\n"
@@ -6384,17 +6577,41 @@ msgstr "Obriši sve fotografije u smeću"
 #~ "You can close this dialog and start using Shotwell while the import is "
 #~ "taking place in the background."
 #~ msgstr ""
-#~ "Shotwell je pronašao %d fotografija u F-Spot fototeci te ih trenutno "
-#~ "uvozi. Duplikati će se automatski otkriti i ukloniti.\n"
+#~ "Shotwell je pronašao %d fotografija u F-Spot fototeci te ih trenutno uvozi. "
+#~ "Duplikati će se automatski otkriti i ukloniti.\n"
 #~ "\n"
 #~ "Možete zatvoriti ovaj okvir i započeti s korištenjem Shotwell dok se uvoz "
 #~ "obavlja u pozadini."
 
+#, c-format
 #~ msgid "F-Spot library: %s"
 #~ msgstr "F-Spot fototeka: %s"
 
-#~ msgid "Preparing to import"
-#~ msgstr "Pripremanje za uvoz"
+#~ msgid "Authorization _Number:"
+#~ msgstr "_Broj ovlasti:"
 
-#~ msgid "Core Data Import Services"
-#~ msgstr "Usluge za uvoz ključnih podataka"
+#~ msgid ""
+#~ "Enter the confirmation number which appears after you log into Flickr in "
+#~ "your Web browser."
+#~ msgstr ""
+#~ "Upiši potvrdni broj koji se pojavi nakon što se prijavite na Flickr putem "
+#~ "vašeg web preglednika."
+
+#~ msgid "Export Photos/Videos"
+#~ msgstr "Izvezi fotografije/video snimke"
+
+#~ msgid "The Shotwell developers"
+#~ msgstr "Shotwell razvijatelji"
+
+#, c-format
+#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
+#~ msgstr "'%s' nije valjani odgovor na OAuth zahtjev ovjere"
+
+#~ msgid "Open with E_xternal Editor"
+#~ msgstr "Otvori s v_anjskim uređivačem"
+
+#~ msgid "_Import from Folder…"
+#~ msgstr "_Uvezi iz mape..."
+
+#~ msgid "R_emove from Library"
+#~ msgstr "U_kloni iz fototeke"
