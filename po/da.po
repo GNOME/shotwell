@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15.1\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2018-03-03 08:52+0000\n"
+"POT-Creation-Date: 2018-03-21 18:48+0000\n"
 "PO-Revision-Date: 2018-03-08 17:26+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/shotwell/language/"
@@ -6257,7 +6257,7 @@ msgstr "Udvidelsesmoduler"
 
 #: ui/preferences_dialog.ui:668
 msgid "Shotwell Preferences"
-msgstr "Shotwell Præferancer"
+msgstr "Indstillinger for Shotwell"
 
 #: ui/printing_widget.ui:18
 msgid "<b>Printed Image Size</b>"
