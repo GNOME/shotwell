@@ -151,7 +151,7 @@ public class Argument {
     }
 
     public string to_string (bool escape = false) {
-        return "%s=%s%s%s".printf (Uri.escape_string (this.key), escape ? "\"" : "", Uri.escape_string (this.value), escape ? "\"" : "");
+        return "%s=%s%s%s".printf (this.key, escape ? "\"" : "", this.value, escape ? "\"" : "");
     }
 }
 
