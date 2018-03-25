@@ -1,3 +1,20 @@
+Shotwell 0.28.1 - 25 Mar 2018
+  * The paperbag. Unbreak all publishers
+  * Translation updates
+  * Fix a missing symbol error
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=794293
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+ - gogo <trebelnik2@gmail.com>
+
+Added/updated translations
+ - hr, courtesy of gogo
+ - lv, courtesy of Rūdolfs Mazurs
+
 Shotwell 0.28.0 - 12 Mar 2018
   * Translation updates
 
