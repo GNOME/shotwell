@@ -785,7 +785,7 @@ public class PixelTransformer {
             var row = job * slice_length;
             var slice_height = (row + slice_length).clamp(0, dest_height);
             threads[job] = new GLib.Thread<void*>("shotwell-worker", () => {
-                uint cache_pixel_ticker = row * dest_width * dest_num_channels;
+                uint cache_pixel_ticker = row * dest_width * 3;
                 for (uint j = row; j < slice_height; j++) {
                     uint row_start_index = j * dest_rowstride;
                     uint row_end_index = row_start_index + (dest_width * dest_num_channels);
