@@ -886,7 +886,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.items_selected.connect(on_items_selection_changed);
         view.items_unselected.connect(on_items_selection_changed);
         
-        override_background_color(Gtk.StateFlags.NORMAL, Config.Facade.get_instance().get_bg_color());
 
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
 
@@ -1926,7 +1925,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         Gtk.Allocation allocation;
         get_allocation(out allocation);
-        get_style_context().render_background (ctx, 0, 0, allocation.width, allocation.height);
+        var color = Config.Facade.get_instance().get_bg_color();
+        ctx.save();
+        ctx.set_source_rgb(color.red, color.green, color.blue);
+        ctx.rectangle(0, 0, allocation.width, allocation.height);
+        ctx.fill();
+        ctx.restore();
         
         // watch for message mode
         if (message == null) {
@@ -2003,7 +2007,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private void on_colors_changed() {
         invalidate_transparent_background();
-        override_background_color(Gtk.StateFlags.NORMAL, Config.Facade.get_instance().get_bg_color());
+        queue_draw();
         set_colors();
     }
 
