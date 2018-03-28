@@ -75,6 +75,7 @@ src/Page.c
 src/Photo.c
 src/PhotoPage.c
 src/photos/BmpSupport.c
+src/photos/GifSupport.c
 src/photos/JfifSupport.c
 src/photos/PngSupport.c
 src/photos/RawSupport.c
