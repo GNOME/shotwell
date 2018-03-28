@@ -1983,24 +1983,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         Gdk.Rectangle visible_band = Gdk.Rectangle();
         visible_page.intersect(selection_band, out visible_band);
         
+        get_style_context().save();
+        get_style_context().add_class(Gtk.STYLE_CLASS_RUBBERBAND);
         // pixelate selection rectangle interior
         if (visible_band.width > 1 && visible_band.height > 1) {
-            ctx.set_source_rgba(selected_color.red, selected_color.green, selected_color.blue,
-                SELECTION_ALPHA);
-            ctx.rectangle(visible_band.x, visible_band.y, visible_band.width,
-                visible_band.height);
-            ctx.fill();
+            get_style_context().render_background(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
         }
         
         // border
-        // See this for an explanation of the adjustments to the band's dimensions
-        // http://cairographics.org/FAQ/#sharp_lines
-        ctx.set_line_width(1.0);
-        ctx.set_line_cap(Cairo.LineCap.SQUARE);
-        ctx.set_source_rgb(selected_color.red, selected_color.green, selected_color.blue);
-        ctx.rectangle((double) selection_band.x + 0.5, (double) selection_band.y + 0.5,
-            (double) selection_band.width - 1.0, (double) selection_band.height - 1.0);
-        ctx.stroke();
+        get_style_context().render_frame(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
+        get_style_context().restore();
     }
     
     public override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
