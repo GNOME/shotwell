@@ -66,25 +66,24 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 """;
 
-    public const string CLOCKWISE = "object-rotate-right";
-    public const string COUNTERCLOCKWISE = "object-rotate-left";
-    public const string HFLIP = "object-flip-horizontal";
-    public const string VFLIP = "object-flip-vertical";
+    public const string CLOCKWISE = "object-rotate-right-symbolic";
+    public const string COUNTERCLOCKWISE = "object-rotate-left-symbolic";
+    public const string HFLIP = "object-flip-horizontal-symbolic";
+    public const string VFLIP = "object-flip-vertical-symbolic";
     public const string CROP = "shotwell-crop";
     public const string STRAIGHTEN = "shotwell-straighten";
     public const string REDEYE = "shotwell-redeye";
     public const string ADJUST = "image-adjust";
-    public const string PIN_TOOLBAR = "shotwell-pin-toolbar";
     public const string MAKE_PRIMARY = "shotwell-make-primary";
     public const string IMPORT = "import";
     public const string IMPORT_ALL = "import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
-    public const string PUBLISH = "applications-internet";
+    public const string PUBLISH = "web-browser-symbolic";
     public const string MERGE = "shotwell-merge-events";
     
-    public const string GO_NEXT = "go-next";
-    public const string GO_PREVIOUS = "go-previous";
+    public const string GO_NEXT = "go-next-symbolic";
+    public const string GO_PREVIOUS = "go-previous-symbolic";
 
     
     //public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
@@ -111,13 +110,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_NO_EVENT = "no-event";
     public const string ICON_ONE_TAG = "one-tag";
     public const string ICON_TAGS = "multiple-tags";
-    public const string ICON_FOLDER = "folder";
-    public const string ICON_FOLDER_DOCUMENTS = "folder-documents";
-    public const string ICON_IMPORTING = "go-down";
-    public const string ICON_LAST_IMPORT = "document-open-recent";
-    public const string ICON_MISSING_FILES = "process-stop";
-    public const string ICON_PHOTOS = "shotwell";
-    public const string ICON_SINGLE_PHOTO = "image-x-generic";
+    public const string ICON_FOLDER = "folder-symbolic";
+    public const string ICON_FOLDER_DOCUMENTS = "folder-documents-symbolic";
+    public const string ICON_IMPORTING = "go-down-symbolic";
+    public const string ICON_LAST_IMPORT = "document-open-recent-symbolic";
+    public const string ICON_MISSING_FILES = "process-stop-symbolic";
+    public const string ICON_PHOTOS = "shotwell-symbolic";
+    public const string ICON_SINGLE_PHOTO = "image-x-generic-symbolic";
     public const string ICON_FILTER_PHOTOS = "filter-photos";
     public const string ICON_FILTER_PHOTOS_DISABLED = "filter-photos-disabled";
     public const string ICON_FILTER_VIDEOS = "filter-videos";
@@ -126,8 +125,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_FILTER_RAW_DISABLED = "filter-raw-disabled";
     public const string ICON_FILTER_FLAGGED = "filter-flagged";
     public const string ICON_FILTER_FLAGGED_DISABLED = "filter-flagged-disabled";
-    public const string ICON_TRASH_EMPTY = "user-trash";
-    public const string ICON_TRASH_FULL = "user-trash-full";
+    public const string ICON_TRASH_EMPTY = "user-trash-symbolic";
+    public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
     public const string ICON_VIDEOS_PAGE = "videos-page";
     public const string ICON_FLAGGED_PAGE = "flag-page";
     public const string ICON_FLAGGED_TRINKET = "flag-trinket.png";

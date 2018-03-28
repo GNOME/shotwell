@@ -311,7 +311,7 @@
         <property name="action_name">win.CommonDisplaySearchbar</property>
         <property name="label" translatable="yes">Find</property>
         <property name="use_underline">True</property>
-        <property name="icon_name">edit-find</property>
+        <property name="icon_name">edit-find-symbolic</property>
       </object>
       <packing>
         <property name="expand">False</property>

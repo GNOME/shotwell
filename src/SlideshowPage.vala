@@ -132,28 +132,28 @@ class SlideshowPage : SinglePhotoPage {
         
         // add toolbar buttons
         Gtk.ToolButton previous_button = new Gtk.ToolButton(null, _("Back"));
-        previous_button.set_icon_name("go-previous");
+        previous_button.set_icon_name("go-previous-symbolic");
         previous_button.set_tooltip_text(_("Go to the previous photo"));
         previous_button.clicked.connect(on_previous_photo);
         
         toolbar.insert(previous_button, -1);
         
         play_pause_button = new Gtk.ToolButton(null, _("Pause"));
-        play_pause_button.set_icon_name("media-playback-pause");
+        play_pause_button.set_icon_name("media-playback-pause-symbolic");
         play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         play_pause_button.clicked.connect(on_play_pause);
         
         toolbar.insert(play_pause_button, -1);
         
         Gtk.ToolButton next_button = new Gtk.ToolButton(null, _("Next"));
-        next_button.set_icon_name("go-next");
+        next_button.set_icon_name("go-next-symbolic");
         next_button.set_tooltip_text(_("Go to the next photo"));
         next_button.clicked.connect(on_next_photo);
         
         toolbar.insert(next_button, -1);
 
         settings_button = new Gtk.ToolButton(null, null);
-        settings_button.set_icon_name("preferences-system");
+        settings_button.set_icon_name("preferences-system-symbolic");
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked.connect(on_change_settings);
@@ -240,11 +240,11 @@ class SlideshowPage : SinglePhotoPage {
 
     private void on_play_pause() {
         if (playing) {
-            play_pause_button.set_icon_name("media-playback-start");
+            play_pause_button.set_icon_name("media-playback-start-symbolic");
             play_pause_button.set_label(_("Play"));
             play_pause_button.set_tooltip_text(_("Continue the slideshow"));
         } else {
-            play_pause_button.set_icon_name("media-playback-pause");
+            play_pause_button.set_icon_name("media-playback-pause-symbolic");
             play_pause_button.set_label(_("Pause"));
             play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         }

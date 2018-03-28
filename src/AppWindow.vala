@@ -43,13 +43,13 @@ public class FullscreenWindow : PageWindow {
         // restore pin state
         is_toolbar_dismissal_enabled = Config.Facade.get_instance().get_pin_toolbar_state();
         
-        pin_button.set_icon_name("pin-toolbar");
+        pin_button.set_icon_name("view-pin-symbolic");
         pin_button.set_label(_("Pin Toolbar"));
         pin_button.set_tooltip_text(_("Pin the toolbar open"));
         pin_button.set_active(!is_toolbar_dismissal_enabled);
         pin_button.clicked.connect(update_toolbar_dismissal);
         
-        close_button.set_icon_name("view-restore");
+        close_button.set_icon_name("view-restore-symbolic");
         close_button.set_tooltip_text(_("Leave fullscreen"));
         close_button.set_action_name ("win.LeaveFullscreen");
         

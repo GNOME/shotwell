@@ -802,7 +802,7 @@ public class ImportPage : CheckerboardPage {
             
             // Find button
             Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
-            find_button.set_icon_name("edit-find");
+            find_button.set_icon_name("edit-find-symbolic");
             find_button.set_action_name ("win.CommonDisplaySearchbar");
             
             toolbar.insert(find_button, -1);

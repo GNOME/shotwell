@@ -540,13 +540,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
-        prev_button.set_icon_name("go-previous");
+        prev_button.set_icon_name("go-previous-symbolic");
         prev_button.clicked.connect(on_previous_photo);
         toolbar.insert(prev_button, -1);
         
         // next button
         next_button.set_tooltip_text(_("Next photo"));
-        next_button.set_icon_name("go-next");
+        next_button.set_icon_name("go-next-symbolic");
         next_button.clicked.connect(on_next_photo);
         toolbar.insert(next_button, -1);
     }

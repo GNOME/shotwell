@@ -29,7 +29,7 @@ public class ImportQueuePage : SinglePhotoPage {
         
         // Stop button
         Gtk.ToolButton stop_button = new Gtk.ToolButton(null, null);
-        stop_button.set_icon_name("stop");
+        stop_button.set_icon_name("process-stop-symbolic");
         stop_button.set_action_name ("win.Stop");
         
         toolbar.insert(stop_button, -1);

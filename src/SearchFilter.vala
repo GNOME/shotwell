@@ -857,7 +857,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
             button = new Gtk.ToggleButton();
             button.set_always_show_image(true);
 
-            Gtk.Image? image = new Gtk.Image.from_icon_name("edit-find", Gtk.IconSize.SMALL_TOOLBAR);
+            Gtk.Image? image = new Gtk.Image.from_icon_name("edit-find-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             image.set_margin_end(6);
             button.set_image(image);
             button.set_can_focus(false);
