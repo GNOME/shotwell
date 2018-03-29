@@ -1,9 +1,10 @@
-/* Copyright 2011-2012 Yorba Foundation
+/* Copyright 2018 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+#if ENABLE_FACES
 public struct FaceID {
     public const int64 INVALID = -1;
 
@@ -165,3 +166,4 @@ public class FaceTable : DatabaseTable {
         update_text_by_id_2(face_id.id, "name", new_name);
     }
 }
+#endif

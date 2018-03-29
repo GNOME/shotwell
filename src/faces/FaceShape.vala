@@ -1,10 +1,10 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
- 
- #if ENABLE_FACES
+
+#if ENABLE_FACES
 
 public abstract class FaceShape : Object {
     public const string SHAPE_TYPE = null;
@@ -16,7 +16,7 @@ public abstract class FaceShape : Object {
     public signal void add_me_requested(FaceShape face_shape);
     public signal void delete_me_requested();
     
-    protected EditingTools.FacesTool.EditingFaceToolWindow face_window;
+    protected FacesTool.EditingFaceToolWindow face_window;
     protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
@@ -25,7 +25,7 @@ public abstract class FaceShape : Object {
     private bool visible = true;
     private bool known = true;
     
-    private weak EditingTools.FacesTool.FaceWidget face_widget = null;
+    private weak FacesTool.FaceWidget face_widget = null;
     
     public FaceShape(EditingTools.PhotoCanvas canvas) {
         this.canvas = canvas;
@@ -33,7 +33,7 @@ public abstract class FaceShape : Object {
         
         prepare_ctx(this.canvas.get_default_ctx(), this.canvas.get_surface_dim());
         
-        face_window = new EditingTools.FacesTool.EditingFaceToolWindow(this.canvas.get_container());
+        face_window = new FacesTool.EditingFaceToolWindow(this.canvas.get_container());
         face_window.key_pressed.connect(key_press_event);
         
         face_window.show_all();
@@ -55,7 +55,7 @@ public abstract class FaceShape : Object {
     }
     
     public static FaceShape from_serialized(EditingTools.PhotoCanvas canvas, string serialized)
-    throws EditingTools.FaceShapeError {
+    throws FaceShapeError {
         FaceShape face_shape;
         
         string[] args = serialized.split(";");
@@ -91,11 +91,11 @@ public abstract class FaceShape : Object {
         return known;
     }
     
-    public void set_widget(EditingTools.FacesTool.FaceWidget face_widget) {
+    public void set_widget(FacesTool.FaceWidget face_widget) {
         this.face_widget = face_widget;
     }
     
-    public EditingTools.FacesTool.FaceWidget get_widget() {
+    public FacesTool.FaceWidget get_widget() {
         assert(face_widget != null);
         
         return face_widget;
@@ -223,7 +223,7 @@ public class FaceRectangle : FaceShape {
     }
     
     public static new FaceRectangle from_serialized(EditingTools.PhotoCanvas canvas, string[] args)
-        throws EditingTools.FaceShapeError {
+        throws FaceShapeError {
         assert(args[0] == SHAPE_TYPE);
         
         Photo photo = canvas.get_photo();
@@ -266,7 +266,7 @@ public class FaceRectangle : FaceShape {
         half_height = box.get_height() / 2;
         
         if (half_width < FACE_MIN_SIZE || half_height < FACE_MIN_SIZE)
-            throw new EditingTools.FaceShapeError.CANT_CREATE("FaceShape is out of cropped photo area");
+            throw new FaceShapeError.CANT_CREATE("FaceShape is out of cropped photo area");
         
         return new FaceRectangle(canvas, box.left + half_width, box.top + half_height,
             half_width, half_height);

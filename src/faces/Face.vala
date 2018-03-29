@@ -1,8 +1,9 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
+
 #if ENABLE_FACES
 public class FaceSourceCollection : ContainerSourceCollection {
     private Gee.HashMap<string, Face> name_map = new Gee.HashMap<string, Face>
@@ -140,7 +141,6 @@ public class FaceSourceCollection : ContainerSourceCollection {
     
     protected override void notify_container_contents_added(ContainerSource container, 
         Gee.Collection<DataObject> added, bool relinking) {
-//        Gee.Collection<DataSource> added, bool relinking) {
         Face face = (Face) container;
         Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) added;
         
@@ -160,7 +160,6 @@ public class FaceSourceCollection : ContainerSourceCollection {
     
     protected override void notify_container_contents_removed(ContainerSource container, 
         Gee.Collection<DataObject> removed, bool unlinking) {
-//        Gee.Collection<DataSource> removed, bool unlinking) {
         Face face = (Face) container;
         Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) removed;
         

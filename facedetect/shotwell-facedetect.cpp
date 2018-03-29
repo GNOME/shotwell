@@ -1,3 +1,12 @@
+/* Copyright 2016 Software Freedom Conservancy Inc.
+ *
+ * Copyright 2011 Valentín Barros Puertas <valentin(at)sanva(dot)net>
+ * Copyright 2018 Ricardo Fantin da Costa <ricardofantin(at)gmail(dot)com>
+ * 
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution.
+ */
+
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"

@@ -1,9 +1,9 @@
-/* Copyright 2010-2012 Yorba Foundation
+/* Copyright 2016 Software Freedom Conservancy Inc.
  *
  * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution. 
+ * (version 2.1 or later).  See the COPYING file in this distribution.
  */
- 
+
 #if ENABLE_FACES
 
 public class FacePage : CollectionPage {
@@ -13,18 +13,12 @@ public class FacePage : CollectionPage {
         base (face.get_name());
         
         this.face = face;
-        //this.row.name
         
         Face.global.items_altered.connect(on_faces_altered);
         face.mirror_sources(get_view(), create_thumbnail);
         
         init_page_context_menu("FacesContextMenu");
-//        init_item_context_menu("CollectionFacesPlaceholder");
-
-/*        GLib.MenuModel menu = get_menubar();
-        GLib.MenuModel? section = null;
-        section = find_extension_point (menu, Resources.FACES_MENU_SECTION);*/
-   }
+    }
     
     ~FacePage() {
         get_view().halt_mirroring();
@@ -50,8 +44,8 @@ public class FacePage : CollectionPage {
 
     private const GLib.ActionEntry[] entries = {
         { "DeleteFace", on_delete_face },
-		{ "RenameFace", on_rename_face },
-		{ "RemoveFaceFromPhotos", on_remove_face_from_photos },
+        { "RenameFace", on_rename_face },
+        { "RemoveFaceFromPhotos", on_remove_face_from_photos },
         { "DeleteFaceSidebar", on_delete_face },
         { "RenameFaceSidebar", on_rename_face }
     };
@@ -73,23 +67,17 @@ public class FacePage : CollectionPage {
 
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
-        
-        //groups.add_menu_item(_("Face Location"), "FaceLocation");
-       
-        //groups += create_photos_faces_injectables();
-		groups += create_faces_menu_injectables();
-        
+        groups += create_faces_menu_injectables();
         return groups;
     }
 
     private InjectionGroup create_faces_menu_injectables(){
         InjectionGroup menuFaces = new InjectionGroup("FacesMenuPlaceholder");
        
-        //menuFaces.add_menu("Faces");
-        menuFaces.add_menu_item("Remove Face \"" + this.face.get_name() + "\" From Photos", "RemoveFaceFromPhotos", "<Primary>r");
-        menuFaces.add_menu_item("Rename Face \"" + this.face.get_name() + "\"…", "RenameFace", "<Primary>e");
-        menuFaces.add_menu_item("Dele_teFace", "DeleteFace", "<Primary>t");
-       
+        menuFaces.add_menu_item(Resources.remove_face_from_photos_menu(this.face.get_name(), get_view().get_count()), "RemoveFaceFromPhotos", "<Primary>r");
+        menuFaces.add_menu_item(Resources.rename_face_menu(this.face.get_name()), "RenameFace", "<Primary>e");
+        menuFaces.add_menu_item(Resources.delete_face_menu(this.face.get_name()), "DeleteFace", "<Primary>t");
+        
         return menuFaces;
     }
 
@@ -112,7 +100,7 @@ public class FacePage : CollectionPage {
             true);
         
         set_action_details("RemoveFaceFromPhotos", 
-            Resources.remove_face_from_photos_menu(face.get_name(), selected_count),
+            Resources.remove_face_from_photos_menu(face.get_name(), get_view().get_count()),
             null,
             selected_count > 0);
         

@@ -82,7 +82,7 @@ if not get_option('dupe-detection')
   add_global_arguments(['--define=NO_DUPE_DETECTION'], language : vala)
 endif
 
-if get_option('face')
+if get_option('face-detection')
   add_global_arguments(['--define=ENABLE_FACES'], language : 'vala')
   subdir('facedetect')
 endif

@@ -494,8 +494,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if ENABLE_FACES
         // faces tool
         insert_faces_button(toolbar);
-		faces_button = new Gtk.ToggleToolButton();
-		//face_button
+        faces_button = new Gtk.ToggleToolButton();
+        //face_button
 #endif
 
         // separator to force next/prev buttons to right side of toolbar
@@ -3170,7 +3170,7 @@ public class LibraryPhotoPage : EditingHostPage {
 
 #if ENABLE_FACES       
     private void on_faces_toggled() {
-        on_tool_button_toggled(faces_button, EditingTools.FacesTool.factory);
+        on_tool_button_toggled(faces_button, FacesTool.factory);
     }
     
     protected void toggle_faces() {
@@ -3179,7 +3179,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     protected override void insert_faces_button(Gtk.Toolbar toolbar) {
         faces_button = new Gtk.ToggleToolButton.from_stock(Resources.FACES_TOOL);
-		faces_button.set_icon_name(Resources.ICON_FACES);
+        faces_button.set_icon_name(Resources.ICON_FACES);
         faces_button.set_label(Resources.FACES_LABEL);
         faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);
         faces_button.toggled.connect(on_faces_toggled);

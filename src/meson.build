@@ -17,16 +17,17 @@ processor = executable('shotwell-graphics-processor',
                        dependencies: [gio, gdk, gee],
                        link_with: sw_graphics_processor)
 
-face_resources = []
-if get_option('face')
-  face_resources = (['faces/FacesBranch.vala',
+face_sources = []
+if get_option('face-detection')
+  face_sources = (['faces/FacesBranch.vala',
                      'faces/FaceLocation.vala',
                      'faces/FacePage.vala',
                      'faces/FaceShape.vala',
                      'faces/Faces.vala',
                      'faces/Face.vala',
                      'db/FaceLocationTable.vala',
-                     'db/FaceTable.vala'])
+                     'db/FaceTable.vala',
+                     'faces/FacesTool.vala'])
 endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
@@ -237,7 +238,7 @@ executable('shotwell',
             '.unitize/_DataImportsInternals.vala',
             '.unitize/_FoldersInternals.vala',
             '.unitize/_Library_unitize_entry.vala',
-            '.unitize/_Direct_unitize_entry.vala'] + shotwell_resources + face_resources,
+            '.unitize/_Direct_unitize_entry.vala'] + shotwell_resources + face_sources,
            include_directories : vapi_incdir,
            dependencies : shotwell_deps,
            vala_args : ['--pkg', 'libgphoto2',

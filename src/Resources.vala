@@ -108,7 +108,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
 #if ENABLE_FACES
     public const string ICON_ONE_FACE = "one-face";
-	public const string ICON_FACES = "faces-tool";
+    public const string ICON_FACES = "faces-tool";
 #endif
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
