@@ -86,5 +86,6 @@
       <file>icons/videos-page.png</file>
       <file>icons/zoom-in.png</file>
       <file>icons/zoom-out.png</file>
+      <file>misc/org.gnome.Shotwell.css</file>
   </gresource>
 </gresources>

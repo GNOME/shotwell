@@ -28,9 +28,7 @@ private abstract class Properties : Gtk.Grid {
             // makes sense during editing. In this instance we only *show*
             // the content and thus want that the parent's background color
             // is inherited to the TextView
-            Gtk.StyleContext context = info_scroll.get_style_context();
-            view.override_background_color (Gtk.StateFlags.NORMAL,
-                context.get_background_color(Gtk.StateFlags.NORMAL));
+            view.get_style_context().add_class("shotwell-static");
             view.set_wrap_mode(Gtk.WrapMode.WORD);
             view.set_cursor_visible(false);
             view.set_editable(false);
