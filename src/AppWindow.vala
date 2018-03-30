@@ -115,12 +115,8 @@ public class FullscreenWindow : PageWindow {
     }
 
     private Gdk.Rectangle get_monitor_geometry() {
-        Gdk.Rectangle monitor;
-
-        get_screen().get_monitor_geometry(
-            get_screen().get_monitor_at_window(AppWindow.get_instance().get_window()), out monitor);
-
-        return monitor;
+        var monitor = get_display().get_monitor_at_window(AppWindow.get_instance().get_window());
+        return monitor.get_geometry();
     }
     
     public override bool configure_event(Gdk.EventConfigure event) {
