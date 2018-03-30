@@ -36,7 +36,7 @@ if gitver.returncode() == 0
   add_global_arguments(['--define=_GITVERSION'], language : 'vala')
 endif
 
-gtk = dependency('gtk+-3.0', version : '>= 3.18')
+gtk = dependency('gtk+-3.0', version : '>= 3.22')
 gio = dependency('gio-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
 gio_unix = dependency('gio-unix-2.0', version: '>= 2.40')
@@ -45,7 +45,7 @@ webkit = dependency('webkit2gtk-4.0', version: '>= 2.4')
 soup = dependency('libsoup-2.4')
 json_glib = dependency('json-glib-1.0')
 xml = dependency('libxml-2.0')
-gdk = dependency('gdk-3.0', version : '>= 3.18')
+gdk = dependency('gdk-3.0', version : '>= 3.22')
 gdk_pixbuf = dependency('gdk-pixbuf-2.0')
 sqlite = dependency('sqlite3', version : '>= 3.5.9')
 gstreamer = dependency('gstreamer-1.0', version : '>= 1.0')
