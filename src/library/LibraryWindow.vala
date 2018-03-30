@@ -809,9 +809,9 @@ public class LibraryWindow : AppWindow {
     
     private Gdk.DragAction get_drag_action() {
         Gdk.ModifierType mask;
-        
-        get_window().get_device_position(Gdk.Display.get_default().get_device_manager()
-            .get_client_pointer(), null, null, out mask);
+
+        var seat = Gdk.Display.get_default().get_default_seat();
+        get_window().get_device_position(seat.get_pointer(), null, null, out mask);
 
         bool ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         bool alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;

@@ -414,9 +414,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         int x, y;
         Gdk.ModifierType mask;
-        AppWindow.get_instance().get_window().get_device_position(Gdk.Display.get_default().
-            get_device_manager().get_client_pointer(), out x, out y, out mask);
-        
+        var seat = Gdk.Display.get_default().get_default_seat();
+        AppWindow.get_instance().get_window().get_device_position(seat.get_pointer(), out x, out y, out mask);
+
         ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
         shift = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
@@ -675,8 +675,8 @@ public abstract class Page : Gtk.ScrolledWindow {
             return false;
         }
         
-        event_source.get_window().get_device_position(Gdk.Display.get_default().get_device_manager()
-            .get_client_pointer(), out x, out y, out mask);
+        var seat = Gdk.Display.get_default().get_default_seat();
+        event_source.get_window().get_device_position(seat.get_pointer(), out x, out y, out mask);
         
         if (last_down.x < 0 || last_down.y < 0)
             return true;
