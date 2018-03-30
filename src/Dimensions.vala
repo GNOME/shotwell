@@ -315,10 +315,12 @@ public struct Scaling {
         return Scaling(constraint, scale, Dimensions(), scale_up);
     }
     
-    private static Dimensions get_screen_dimensions(Gtk.Window window) {
-        Gdk.Screen screen = window.get_screen();
+    public static Dimensions get_screen_dimensions(Gtk.Window window) {
+        var display = window.get_window().get_display();
+        var monitor = display.get_monitor_at_window(window.get_window());
+        var geom = monitor.get_geometry();
         
-        return Dimensions(screen.get_width(), screen.get_height());
+        return Dimensions(geom.width, geom.height);
     }
     
     private int scale_to_pixels() {

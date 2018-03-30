@@ -786,9 +786,9 @@ public class CropTool : EditingTool {
             result.basis_width = canvas.get_scaled_pixbuf_position().width;
             result.basis_height = canvas.get_scaled_pixbuf_position().height;
         } else if (result.aspect_ratio == SCREEN_ASPECT_RATIO) {
-            Gdk.Screen screen = Gdk.Screen.get_default();
-            result.basis_width = screen.get_width();
-            result.basis_height = screen.get_height();
+            var dim = Scaling.get_screen_dimensions(AppWindow.get_instance());
+            result.basis_width = dim.width;
+            result.basis_height = dim.height;
         }
 
         return result;
@@ -890,14 +890,14 @@ public class CropTool : EditingTool {
     }
 
     private float get_constraint_aspect_ratio() {
-        float result = get_selected_constraint().aspect_ratio;
+        var result = get_selected_constraint().aspect_ratio;
 
         if (result == ORIGINAL_ASPECT_RATIO) {
             result = ((float) canvas.get_scaled_pixbuf_position().width) /
                 ((float) canvas.get_scaled_pixbuf_position().height);
         } else if (result == SCREEN_ASPECT_RATIO) {
-            Gdk.Screen screen = Gdk.Screen.get_default();
-            result = ((float) screen.get_width()) / ((float) screen.get_height());
+            var dim = Scaling.get_screen_dimensions(AppWindow.get_instance());
+            result = ((float) dim.width) / ((float) dim.height);
         } else if (result == CUSTOM_ASPECT_RATIO) {
             result = custom_aspect_ratio;
         }
@@ -914,8 +914,8 @@ public class CropTool : EditingTool {
             Dimensions orig_dim = photo.get_original_dimensions();
             result = ((float) orig_dim.width) / ((float) orig_dim.height);
         } else if (result == SCREEN_ASPECT_RATIO) {
-            Gdk.Screen screen = Gdk.Screen.get_default();
-            result = ((float) screen.get_width()) / ((float) screen.get_height());
+            var dim = Scaling.get_screen_dimensions(AppWindow.get_instance());
+            result = ((float) dim.width) / ((float) dim.height);
         } else if (result == CUSTOM_ASPECT_RATIO) {
             result = custom_aspect_ratio;
         }
