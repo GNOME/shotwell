@@ -183,7 +183,7 @@ public class PreferencesDialog : Gtk.Dialog {
     // the help viewer and specify the full path to the subsection we want...
     private bool on_local_pattern_help(string ignore) {
         try {
-            Resources.launch_help(AppWindow.get_instance().get_screen(), "other-files.page");
+            Resources.launch_help(AppWindow.get_instance(), "other-files.page");
         } catch (Error e) {
             message("Unable to launch help: %s", e.message);
         }

@@ -615,7 +615,7 @@ public abstract class AppWindow : PageWindow {
 
     private void on_help_contents() {
         try {
-            Resources.launch_help(get_screen());
+            Resources.launch_help(this);
         } catch (Error err) {
             error_message(_("Unable to display help: %s").printf(err.message));
         }
@@ -676,7 +676,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_uri(string url) throws Error {
-        sys_show_uri(get_window().get_screen(), url);
+        Gtk.show_uri_on_window(this, url, Gdk.CURRENT_TIME);
     }
     
     protected virtual void add_actions () {

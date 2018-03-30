@@ -975,7 +975,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return null;
     }
 
-    public static void launch_help(Gdk.Screen screen, string? anchor=null) throws Error {
+    public static void launch_help(Gtk.Window window, string? anchor=null) throws Error {
         string? help_path = get_help_path();
         
         if(help_path != null) {
@@ -1001,11 +1001,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
         
         // launch from system-installed help
+        var uri = "help:shotwell";
         if (anchor != null) {
-            sys_show_uri(screen, "help:shotwell" + anchor);
-        } else {
-            sys_show_uri(screen, "help:shotwell");
+            uri += anchor;
         }
+
+        Gtk.show_uri_on_window(window, uri, Gdk.CURRENT_TIME);
     }
     
     public string to_css_color(Gdk.RGBA color) {
