@@ -863,16 +863,13 @@ public class Sidebar.Tree : Gtk.TreeView {
             context_menu.attach_to_widget (this, null);
         }
 
-        if (event != null)
-            context_menu.popup(null, null, null, event.button, event.time);
-        else
-            context_menu.popup(null, null, null, 0, Gtk.get_current_event_time());
-        
+        context_menu.popup_at_pointer(event);
+
         return true;
     }
     
     private bool popup_default_context_menu(Gdk.EventButton event) {
-        default_context_menu.popup(null, null, null, event.button, event.time);
+        default_context_menu.popup_at_pointer(event);
         return true;
     }
     

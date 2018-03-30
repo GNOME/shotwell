@@ -1191,7 +1191,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
     
     // Ticket #3260 part IV - display the context menu on secondary click
     private bool on_context_menu_requested(int x, int y, int button) { 
-        close_menu.popup(null, null, null, button, Gtk.get_current_event_time()); 
+        close_menu.popup_at_pointer(null);
         return false;
     }
     
