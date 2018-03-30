@@ -109,7 +109,6 @@ public class StraightenTool : EditingTool {
         public StraightenToolWindow(Gtk.Window container) {
             base(container);
 
-            angle_slider.set_min_slider_size(MIN_SLIDER_SIZE);
             angle_slider.set_size_request(MIN_SLIDER_SIZE, -1);
             angle_slider.set_value(0.0);
             angle_slider.set_draw_value(false);
