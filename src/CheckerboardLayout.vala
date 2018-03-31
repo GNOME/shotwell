@@ -1906,7 +1906,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         selected_color = Config.Facade.get_instance().get_selected_color(in_focus);
         unselected_color =  Config.Facade.get_instance().get_unselected_color();
         border_color =  Config.Facade.get_instance().get_border_color();
-        bg_color = get_style_context().get_background_color(Gtk.StateFlags.NORMAL);
+        bg_color = Config.Facade.get_instance().get_bg_color();
     }
     
     public override void size_allocate(Gtk.Allocation allocation) {
