@@ -302,6 +302,11 @@ class AppDirs {
             // If we're running installed.
             f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
         }
+
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_parent().get_child("thumbnailer").get_child(filename);
+        }
+
         return f;
     }
 
