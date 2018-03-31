@@ -2216,7 +2216,7 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public Scaling get_canvas_scaling() {
-        return (get_container() is FullscreenWindow) ? Scaling.for_screen(get_container(), scale_up_to_viewport) 
+        return (get_container() is FullscreenWindow) ? Scaling.for_screen(AppWindow.get_instance(), scale_up_to_viewport)
             : Scaling.for_widget(viewport, scale_up_to_viewport);
     }
 
