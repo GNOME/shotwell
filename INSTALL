@@ -4,13 +4,12 @@
 
     To build and install Shotwell, type the following commands:
 
-    $ [ -f configure ] || ./autogen.sh
-    $ ./configure
-    $ make
-    $ Optional: make install
+    $ meson build
+    $ ninja -C build
+    $ Optional: ninja -C build install
 
     * By default, Shotwell will install under /usr/local.  The configure script
-      can customize the prefix directory.  Run ./configure --help for
+      can customize the prefix directory.  Run meson build configure  for
       instructions and other installation options.
 
     * You may need to execute "make install" as root (i.e. sudo make install)
