@@ -1643,8 +1643,8 @@ internal class SessionLoginTransaction : Transaction {
         base.with_endpoint_url(session, url);
 
         add_argument("method", "pwg.session.login");
-        add_argument("username", username);
-        add_argument("password", password);
+        add_argument("username", Uri.escape_string(username));
+        add_argument("password", Uri.escape_string(password));
     }
 
     public SessionLoginTransaction.from_other (Session session, Transaction other) {
