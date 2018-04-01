@@ -61,6 +61,7 @@ src/events/EventsBranch.c
 src/events/EventsDirectoryPage.c
 src/Exporter.c
 src/folders/FoldersBranch.c
+src/import-roll/ImportRollBranch.c
 src/library/FlaggedPage.c
 src/library/ImportQueuePage.c
 src/library/LastImportPage.c

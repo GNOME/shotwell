@@ -80,6 +80,7 @@ src/events/EventsDirectoryPage.vala
 src/Event.vala
 src/Exporter.vala
 src/folders/FoldersBranch.vala
+src/import-roll/ImportRollBranch.vala
 src/library/FlaggedPage.vala
 src/library/ImportQueuePage.vala
 src/library/LastImportPage.vala
