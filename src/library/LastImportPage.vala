@@ -35,6 +35,20 @@ public class LastImportPage : CollectionPage {
         // set up view manager for the last import roll
         on_import_rolls_altered();
     }
+
+    public LastImportPage.for_id(ImportID id) {
+        base(NAME);
+
+        this.last_import_id = id;
+
+        get_view().halt_all_monitoring();
+        get_view().clear();
+
+        foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {
+            get_view().monitor_source_collection(col, new LastImportViewManager(this,
+                last_import_id), last_import_alteration);
+        }
+     }
     
     ~LastImportPage() {
         foreach (MediaSourceCollection col in MediaCollectionRegistry.get_instance().get_all()) {

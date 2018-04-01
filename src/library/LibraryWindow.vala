@@ -44,6 +44,7 @@ public class LibraryWindow : AppWindow {
         CAMERAS,
         SAVED_SEARCH,
         EVENTS,
+        IMPORT_ROLL,
         FOLDERS,
         TAGS
     }
@@ -112,6 +113,7 @@ public class LibraryWindow : AppWindow {
     private Events.Branch events_branch = new Events.Branch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
+    private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
     private bool page_switching_enabled = true;
     
     private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
@@ -166,6 +168,7 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
+        sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
         
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
