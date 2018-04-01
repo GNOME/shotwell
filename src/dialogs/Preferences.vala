@@ -19,10 +19,6 @@ public class PreferencesDialog : Gtk.Dialog {
     private static PreferencesDialog preferences_dialog;
 
     [GtkChild]
-    private Gtk.Adjustment bg_color_adjustment;
-    [GtkChild]
-    private Gtk.Scale bg_color_slider;
-    [GtkChild]
     private Gtk.ComboBox photo_editor_combo;
     [GtkChild]
     private Gtk.ComboBox raw_editor_combo;
@@ -71,12 +67,6 @@ public class PreferencesDialog : Gtk.Dialog {
         set_transient_for(AppWindow.get_instance());
         delete_event.connect(on_delete);
         response.connect(on_close);
-
-        bg_color_adjustment.set_value(bg_color_adjustment.get_upper() -
-            (Config.Facade.get_instance().get_bg_color().red * 65535.0));
-        bg_color_adjustment.value_changed.connect(on_value_changed);
-
-        bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
         transparent_checker_radio.toggled.connect(on_radio_changed);
         transparent_solid_radio.toggled.connect(on_radio_changed);
@@ -294,7 +284,6 @@ public class PreferencesDialog : Gtk.Dialog {
     // For items that should only be committed when the dialog is closed, not as soon as the change
     // is made.
     private void commit_on_close() {
-        Config.Facade.get_instance().commit_bg_color();
         Config.Facade.get_instance().set_auto_import_from_library(autoimport.active);
         Config.Facade.get_instance().set_commit_metadata_to_masters(write_metadata.active);
 
@@ -324,25 +313,6 @@ public class PreferencesDialog : Gtk.Dialog {
 
         hide();
         commit_on_close();
-    }
-
-    private void on_value_changed() {
-        set_background_color((double)(bg_color_adjustment.get_upper() -
-            bg_color_adjustment.get_value()) / 65535.0);
-    }
-
-    private bool on_bg_color_reset(Gdk.EventButton event) {
-        if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS
-            && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) {
-            // Left Mouse Button and CTRL pressed
-            bg_color_slider.set_value(bg_color_adjustment.get_upper() -
-                (parse_color(Config.Facade.DEFAULT_BG_COLOR).red * 65536.0f));
-            on_value_changed();
-
-            return true;
-        }
-
-        return false;
     }
 
     private void on_dir_pattern_combo_changed() {
@@ -385,21 +355,6 @@ public class PreferencesDialog : Gtk.Dialog {
 
     private bool get_allow_closing() {
         return allow_closing;
-    }
-
-    private void set_background_color(double bg_color_value) {
-        Config.Facade.get_instance().set_bg_color(to_grayscale(bg_color_value));
-    }
-
-    private Gdk.RGBA to_grayscale(double color_value) {
-        Gdk.RGBA color = Gdk.RGBA();
-
-        color.red = color_value;
-        color.green = color_value;
-        color.blue = color_value;
-        color.alpha = 1.0;
-
-        return color;
     }
 
     private void on_photo_editor_changed() {

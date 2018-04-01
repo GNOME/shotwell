@@ -587,8 +587,8 @@ public abstract class CheckerboardItem : ThumbnailView {
         return null;
     }
     
-    public void paint(Cairo.Context ctx, Gdk.RGBA bg_color, Gdk.RGBA selected_color,
-        Gdk.RGBA text_color, Gdk.RGBA? border_color) {
+    public void paint(Gtk.StyleContext style_context, Cairo.Context ctx, Gdk.RGBA bg_color, Gdk.RGBA selected_color,
+        Gdk.RGBA? border_color) {
         ctx.save();
         ctx.translate(allocation.x + FRAME_WIDTH,
                       allocation.y + FRAME_WIDTH);
@@ -646,8 +646,6 @@ public abstract class CheckerboardItem : ThumbnailView {
             ctx.restore();
         }
         
-        ctx.set_source_rgba(text_color.red, text_color.green, text_color.blue, text_color.alpha);
-        
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
         int text_y = pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
         if (title != null && title_visible) {
@@ -657,34 +655,32 @@ public abstract class CheckerboardItem : ThumbnailView {
             title.allocation.y = text_y;
             title.allocation.width = pixbuf_dim.width;
             title.allocation.height = title.get_height();
-            
-            ctx.move_to(title.allocation.x, title.allocation.y);
-            Pango.cairo_show_layout(ctx, title.get_pango_layout(pixbuf_dim.width));
-            
+            style_context.render_layout(ctx, title.allocation.x, title.allocation.y,
+                    title.get_pango_layout(pixbuf_dim.width));
+
             text_y += title.get_height() + LABEL_PADDING;
         }
-        
+
         if (comment != null && comment_visible) {
             comment.allocation.x = 0;
             comment.allocation.y = text_y;
             comment.allocation.width = pixbuf_dim.width;
             comment.allocation.height = comment.get_height();
-            
-            ctx.move_to(comment.allocation.x, comment.allocation.y);
-            Pango.cairo_show_layout(ctx, comment.get_pango_layout(pixbuf_dim.width));
-            
+            style_context.render_layout(ctx, comment.allocation.x, comment.allocation.y,
+                    comment.get_pango_layout(pixbuf_dim.width));
+
             text_y += comment.get_height() + LABEL_PADDING;
         }
-        
+
         if (subtitle != null && subtitle_visible) {
             subtitle.allocation.x = 0;
             subtitle.allocation.y = text_y;
             subtitle.allocation.width = pixbuf_dim.width;
             subtitle.allocation.height = subtitle.get_height();
-            
-            ctx.move_to(subtitle.allocation.x, subtitle.allocation.y);
-            Pango.cairo_show_layout(ctx, subtitle.get_pango_layout(pixbuf_dim.width));
-            
+
+            style_context.render_layout(ctx, subtitle.allocation.x, subtitle.allocation.y,
+                    subtitle.get_pango_layout(pixbuf_dim.width));
+
             // increment text_y if more text lines follow
         }
         
@@ -875,6 +871,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private bool reflow_needed = false;
     
     public CheckerboardLayout(ViewCollection view) {
+        this.get_style_context().add_class("content-view");
         this.view = view;
         
         clear_drag_select();
@@ -889,7 +886,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.geometries_altered.connect(on_geometries_altered);
         view.items_selected.connect(on_items_selection_changed);
         view.items_unselected.connect(on_items_selection_changed);
-        
 
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
 
@@ -1907,10 +1903,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
     private void set_colors(bool in_focus = true) {
         // set up selected/unselected colors
-        selected_color = Config.Facade.get_instance().get_selected_color(in_focus);
-        unselected_color =  Config.Facade.get_instance().get_unselected_color();
+        var val = get_style_context().get_property("border-color", Gtk.StateFlags.SELECTED); //Config.Facade.get_instance().get_unselected_color();
+        selected_color = *(Gdk.RGBA*)val.get_boxed();
+        Config.Facade.get_instance().get_selected_color(in_focus);
+        val = get_style_context().get_property("color", Gtk.StateFlags.NORMAL); //Config.Facade.get_instance().get_unselected_color();
+
+        unselected_color = *(Gdk.RGBA*)val.get_boxed();
         border_color =  Config.Facade.get_instance().get_border_color();
-        bg_color = Config.Facade.get_instance().get_bg_color();
     }
     
     public override void size_allocate(Gtk.Allocation allocation) {
@@ -1929,12 +1928,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         Gtk.Allocation allocation;
         get_allocation(out allocation);
-        var color = Config.Facade.get_instance().get_bg_color();
-        ctx.save();
-        ctx.set_source_rgb(color.red, color.green, color.blue);
-        ctx.rectangle(0, 0, allocation.width, allocation.height);
-        ctx.fill();
-        ctx.restore();
+        get_style_context().render_background (ctx, 0, 0, allocation.width, allocation.height);
         
         // watch for message mode
         if (message == null) {
@@ -1947,8 +1941,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(visible_page)) {
-                item.paint(ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
-                    unselected_color, border_color);
+                item.paint(get_style_context(), ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
+                    border_color);
             }
         } else {
             // draw the message in the center of the window
@@ -1964,9 +1958,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             int y = allocation.height - text_height;
             y = (y > 0) ? y / 2 : 0;
             
-            ctx.set_source_rgb(unselected_color.red, unselected_color.green, unselected_color.blue);
-            ctx.move_to(x, y);
-            Pango.cairo_show_layout(ctx, pango_layout);
+            get_style_context().render_layout(ctx, x, y, pango_layout);
         }
         
         bool result = (base.draw != null) ? base.draw(ctx) : true;
@@ -2012,7 +2004,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private void on_colors_changed() {
         invalidate_transparent_background();
         queue_draw();
-        set_colors();
     }
 
     public override bool focus_in_event(Gdk.EventFocus event) {
