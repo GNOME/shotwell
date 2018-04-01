@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=shotwell&keywords=I18N+L10N&component=Internationalization\n"
-"POT-Creation-Date: 2018-03-28 17:55+0000\n"
-"PO-Revision-Date: 2018-03-30 19:28+0200\n"
+"POT-Creation-Date: 2018-04-01 13:07+0000\n"
+"PO-Revision-Date: 2018-04-01 15:15+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1553,7 +1553,7 @@ msgstr "Nie można wczytać interfejsu użytkownika: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Witryna programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:611
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:607
 msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
@@ -2416,7 +2416,7 @@ msgstr "Przypina pasek narzędziowy"
 msgid "Leave fullscreen"
 msgstr "Opuszcza pełny ekran"
 
-#: src/AppWindow.vala:538 src/AppWindow.vala:559 src/AppWindow.vala:576
+#: src/AppWindow.vala:534 src/AppWindow.vala:555 src/AppWindow.vala:572
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:753 src/Dialogs.vala:776
@@ -2426,7 +2426,7 @@ msgstr "Opuszcza pełny ekran"
 msgid "_Cancel"
 msgstr "_Anuluj"
 
-#: src/AppWindow.vala:586
+#: src/AppWindow.vala:582
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2439,21 +2439,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:607
+#: src/AppWindow.vala:603
 msgid "Visit the Shotwell web site"
 msgstr "Witryna programu Shotwell"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:616
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nie można wyświetlić pomocy: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:624
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nie można przejść do bazy danych błędów: %s"
 
-#: src/AppWindow.vala:636
+#: src/AppWindow.vala:632
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nie można wyświetlić dokumentu FAQ: %s"
@@ -2540,7 +2540,7 @@ msgstr "Aparat"
 msgid "%s (%s)"
 msgstr "%s — %s"
 
-#: src/camera/ImportPage.vala:311 src/Properties.vala:230
+#: src/camera/ImportPage.vala:311 src/Properties.vala:228
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -3030,7 +3030,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Plik bazy danych:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:782
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:785
 msgid "_Import"
 msgstr "Zai_mportuj"
 
@@ -3647,7 +3647,7 @@ msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Modyfikacja tytułu"
 
-#: src/Dialogs.vala:662 src/Properties.vala:343
+#: src/Dialogs.vala:662 src/Properties.vala:341
 msgid "Title:"
 msgstr "Tytuł:"
 
@@ -3660,7 +3660,7 @@ msgstr "Modyfikuj komentarz wydarzenia"
 msgid "Edit Photo/Video Comment"
 msgstr "Modyfikuj komentarz zdjęcia/nagrania wideo"
 
-#: src/Dialogs.vala:680 src/Properties.vala:631
+#: src/Dialogs.vala:680 src/Properties.vala:629
 msgid "Comment:"
 msgstr "Komentarz:"
 
@@ -4304,7 +4304,7 @@ msgstr "30×40 cm"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297×420 mm)"
 
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:398
+#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:396
 msgid "Size:"
 msgstr "Rozmiar:"
 
@@ -4322,8 +4322,8 @@ msgid "_Reset"
 msgstr "P_rzywróć"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2230 src/Properties.vala:439
-#: src/Properties.vala:443 src/Properties.vala:450
+#: src/editing_tools/EditingTools.vala:2230 src/Properties.vala:437
+#: src/Properties.vala:441 src/Properties.vala:448
 msgid "Exposure:"
 msgstr "Ekspozycja:"
 
@@ -4410,7 +4410,7 @@ msgstr[0] "%d zdjęcie/nagranie wideo"
 msgstr[1] "%d zdjęcia/nagrania wideo"
 msgstr[2] "%d zdjęć/nagrań wideo"
 
-#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:358
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:356
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
@@ -4418,7 +4418,7 @@ msgstr[0] "%d nagranie wideo"
 msgstr[1] "%d nagrania wideo"
 msgstr[2] "%d nagrań wideo"
 
-#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:356
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:354
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4506,6 +4506,14 @@ msgstr "Katalogi"
 msgid "Browse the library’s folder structure"
 msgstr "Przegląda strukturę katalogów kolekcji"
 
+#: src/import-roll/ImportRollBranch.vala:44
+msgid "Imports"
+msgstr "Zaimportowane"
+
+#: src/import-roll/ImportRollBranch.vala:44
+msgid "Browse the library’s import history"
+msgstr "Przegląda historię importowania do kolekcji"
+
 #: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1098
 #: src/SearchFilter.vala:1099
 msgid "Flagged"
@@ -4541,23 +4549,23 @@ msgstr "Przegląda i organizuje zdjęcia"
 msgid "Photos"
 msgstr "Zdjęcia"
 
-#: src/library/LibraryWindow.vala:508
+#: src/library/LibraryWindow.vala:511
 msgid "Import From Folder"
 msgstr "Importowanie z katalogu"
 
-#: src/library/LibraryWindow.vala:515
+#: src/library/LibraryWindow.vala:518
 msgid "Recurse Into Subfolders"
 msgstr "Także podkatalogi"
 
-#: src/library/LibraryWindow.vala:583 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:586 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Opróżnij kosz"
 
-#: src/library/LibraryWindow.vala:583
+#: src/library/LibraryWindow.vala:586
 msgid "Emptying Trash…"
 msgstr "Opróżnianie kosza…"
 
-#: src/library/LibraryWindow.vala:779
+#: src/library/LibraryWindow.vala:782
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4571,33 +4579,33 @@ msgstr ""
 "Preferencje</span>.\n"
 "Kontynuować importowanie zdjęć?"
 
-#: src/library/LibraryWindow.vala:782 ui/preferences_dialog.ui:142
+#: src/library/LibraryWindow.vala:785 ui/preferences_dialog.ui:142
 msgid "Library Location"
 msgstr "Położenie kolekcji"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:795
+#: src/library/LibraryWindow.vala:798
 msgid "Photos cannot be imported from this directory."
 msgstr "Nie można importować zdjęć z tego katalogu."
 
-#: src/library/LibraryWindow.vala:1075
+#: src/library/LibraryWindow.vala:1078
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1119 src/library/LibraryWindow.vala:1130
+#: src/library/LibraryWindow.vala:1122 src/library/LibraryWindow.vala:1133
 msgid "Updating library…"
 msgstr "Aktualizowanie kolekcji…"
 
-#: src/library/LibraryWindow.vala:1136
+#: src/library/LibraryWindow.vala:1139
 msgid "Preparing to auto-import photos…"
 msgstr "Przygotowywanie do automatycznego zaimportowania zdjęć…"
 
-#: src/library/LibraryWindow.vala:1141
+#: src/library/LibraryWindow.vala:1144
 msgid "Auto-importing photos…"
 msgstr "Automatyczne importowanie zdjęć…"
 
-#: src/library/LibraryWindow.vala:1149
+#: src/library/LibraryWindow.vala:1152
 msgid "Writing metadata to files…"
 msgstr "Zapisywanie metadanych do plików…"
 
@@ -4724,15 +4732,15 @@ msgstr ""
 "Program Shotwell nie może odtworzyć wybranego nagrania wideo:\n"
 "%s"
 
-#: src/Page.vala:1327
+#: src/Page.vala:1324
 msgid "No photos/videos"
 msgstr "Brak zdjęć/nagrań wideo"
 
-#: src/Page.vala:1331
+#: src/Page.vala:1328
 msgid "No photos/videos found which match the current filter"
 msgstr "Nie odnaleziono zdjęć/nagrań wideo pasujących do bieżącego filtra"
 
-#: src/Page.vala:2644
+#: src/Page.vala:2641
 msgid "Photos cannot be exported to this directory."
 msgstr "Nie można eksportować zdjęć do tego katalogu."
 
@@ -4851,19 +4859,19 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/Properties.vala:87
+#: src/Properties.vala:85
 msgid "Today"
 msgstr "Dzisiaj"
 
-#: src/Properties.vala:89
+#: src/Properties.vala:87
 msgid "Yesterday"
 msgstr "Wczoraj"
 
-#: src/Properties.vala:346
+#: src/Properties.vala:344
 msgid "Items:"
 msgstr "Elementy:"
 
-#: src/Properties.vala:349
+#: src/Properties.vala:347
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
@@ -4872,104 +4880,104 @@ msgstr[1] "%d wydarzenia"
 msgstr[2] "%d wydarzeń"
 
 #. display only one date if start and end are the same
-#: src/Properties.vala:380
+#: src/Properties.vala:378
 msgid "Date:"
 msgstr "Data:"
 
 #. display only one time if start and end are the same
-#: src/Properties.vala:384
+#: src/Properties.vala:382
 msgid "Time:"
 msgstr "Czas:"
 
 #. display time range
 #. display date range
-#: src/Properties.vala:387 src/Properties.vala:392
+#: src/Properties.vala:385 src/Properties.vala:390
 msgid "From:"
 msgstr "Od:"
 
-#: src/Properties.vala:388 src/Properties.vala:393
+#: src/Properties.vala:386 src/Properties.vala:391
 msgid "To:"
 msgstr "Do:"
 
-#: src/Properties.vala:407
+#: src/Properties.vala:405
 msgid "Duration:"
 msgstr "Czas trwania:"
 
-#: src/Properties.vala:407
+#: src/Properties.vala:405
 #, c-format
 msgid "%.1f seconds"
 msgstr "%.1f s"
 
-#: src/Properties.vala:411
+#: src/Properties.vala:409
 msgid "Developer:"
 msgstr "Wywoływacz:"
 
 #. nothing special to be done for now for Events
-#: src/Properties.vala:586
+#: src/Properties.vala:584
 msgid "Location:"
 msgstr "Położenie:"
 
-#: src/Properties.vala:589
+#: src/Properties.vala:587
 msgid "File size:"
 msgstr "Rozmiar pliku:"
 
-#: src/Properties.vala:593
+#: src/Properties.vala:591
 msgid "Current Development:"
 msgstr "Bieżący wywoływacz:"
 
-#: src/Properties.vala:595
+#: src/Properties.vala:593
 msgid "Original dimensions:"
 msgstr "Oryginalne wymiary:"
 
-#: src/Properties.vala:598
+#: src/Properties.vala:596
 msgid "Camera make:"
 msgstr "Producent aparatu:"
 
-#: src/Properties.vala:601
+#: src/Properties.vala:599
 msgid "Camera model:"
 msgstr "Model aparatu:"
 
-#: src/Properties.vala:604
+#: src/Properties.vala:602
 msgid "Flash:"
 msgstr "Lampa błyskowa:"
 
-#: src/Properties.vala:606
+#: src/Properties.vala:604
 msgid "Focal length:"
 msgstr "Odległość ogniskowa:"
 
-#: src/Properties.vala:609
+#: src/Properties.vala:607
 msgid "Exposure date:"
 msgstr "Data ekspozycji:"
 
-#: src/Properties.vala:612
+#: src/Properties.vala:610
 msgid "Exposure time:"
 msgstr "Czas ekspozycji:"
 
-#: src/Properties.vala:615
+#: src/Properties.vala:613
 msgid "Exposure bias:"
 msgstr "Wpływ na ekspozycję:"
 
-#: src/Properties.vala:617
+#: src/Properties.vala:615
 msgid "GPS latitude:"
 msgstr "Szerokość geograficzna GPS:"
 
-#: src/Properties.vala:620
+#: src/Properties.vala:618
 msgid "GPS longitude:"
 msgstr "Długość geograficzna GPS:"
 
-#: src/Properties.vala:623
+#: src/Properties.vala:621
 msgid "Artist:"
 msgstr "Artysta:"
 
-#: src/Properties.vala:625
+#: src/Properties.vala:623
 msgid "Copyright:"
 msgstr "Prawa autorskie:"
 
-#: src/Properties.vala:627
+#: src/Properties.vala:625
 msgid "Software:"
 msgstr "Oprogramowanie:"
 
-#: src/Properties.vala:642
+#: src/Properties.vala:640
 msgid "Extended Information"
 msgstr "Rozszerzone informacje"
 
