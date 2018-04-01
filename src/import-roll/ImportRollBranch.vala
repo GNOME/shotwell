@@ -41,6 +41,6 @@ public class ImportRoll.Branch : Sidebar.Branch {
 
 private class ImportRoll.Root : Sidebar.Header {
     public Root() {
-        base (_("Imports"), _("Browse the library's import history"));
+        base (_("Imports"), _("Browse the library’s import history"));
     }
 }
