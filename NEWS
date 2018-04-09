@@ -1,3 +1,15 @@
+Shotwell 0.28.2 - 9 Apr 2018
+  * Fix saved search dialog on Gtk 3.18
+  * Fix crash when editing images with alpha channel
+  * Fix logging in to Piwigo when password contains &
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718742
+ - https://bugzilla.gnome.org/show_bug.cgi?id=794673
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 0.28.1 - 25 Mar 2018
   * The paperbag. Unbreak all publishers
   * Translation updates
