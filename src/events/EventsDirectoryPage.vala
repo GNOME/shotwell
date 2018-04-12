@@ -66,7 +66,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         merge_button.set_action_name("win.Merge");
         merge_button.is_important = true;
         merge_button.set_tooltip_text (Resources.MERGE_TOOLTIP);
-        merge_button.set_icon_name ("merge");
+        merge_button.set_icon_name ("events-merge-symbolic");
         
         toolbar.insert(merge_button, -1);
     }
