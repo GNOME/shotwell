@@ -100,8 +100,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
     public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-16.png";
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
-    public const string ICON_ZOOM_IN = "zoom-in.png";
-    public const string ICON_ZOOM_OUT = "zoom-out.png";
     public const int ICON_ZOOM_SCALE = 16;
 
     public const string ICON_CAMERAS = "camera-photo";

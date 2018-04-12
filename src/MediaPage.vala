@@ -135,8 +135,7 @@ public abstract class MediaPage : CheckerboardPage {
         public ZoomSliderAssembly() {
             Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
 
-            Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(
-                Resources.ICON_ZOOM_OUT, Resources.ICON_ZOOM_SCALE));
+            Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             Gtk.EventBox zoom_out_box = new Gtk.EventBox();
             zoom_out_box.set_above_child(true);
             zoom_out_box.set_visible_window(false);
@@ -159,8 +158,7 @@ public abstract class MediaPage : CheckerboardPage {
 
             zoom_group.pack_start(slider, false, false, 0);
 
-            Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(
-                Resources.ICON_ZOOM_IN, Resources.ICON_ZOOM_SCALE));
+            Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             Gtk.EventBox zoom_in_box = new Gtk.EventBox();
             zoom_in_box.set_above_child(true);
             zoom_in_box.set_visible_window(false);

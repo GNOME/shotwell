@@ -51,6 +51,8 @@
       <file>icons/four-stars.svg</file>
       <file>icons/generic-plugin.png</file>
       <file>icons/image-adjust.svg</file>
+      <file>icons/image-zoom-in-symbolic.svg</file>
+      <file>icons/image-zoom-out-symbolic.svg</file>
       <file>icons/import-all.png</file>
       <file>icons/import.svg</file>
       <file>icons/make-primary.svg</file>
@@ -78,8 +80,6 @@
       <file>icons/three-stars.svg</file>
       <file>icons/two-stars.svg</file>
       <file>icons/videos-page.png</file>
-      <file>icons/zoom-in.png</file>
-      <file>icons/zoom-out.png</file>
       <file>misc/org.gnome.Shotwell.css</file>
   </gresource>
 </gresources>
