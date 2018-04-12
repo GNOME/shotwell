@@ -76,7 +76,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MAKE_PRIMARY = "shotwell-make-primary";
     public const string IMPORT = "import";
     public const string IMPORT_ALL = "import-all";
-    public const string ENHANCE = "shotwell-auto-enhance";
+    public const string ENHANCE = "image-auto-adjust-symbolic";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "send-to-symbolic";
     public const string MERGE = "shotwell-merge-events";

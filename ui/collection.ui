@@ -166,7 +166,7 @@
         <property name="action_name">win.Enhance</property>
         <property name="label" translatable="yes">Enhance</property>
         <property name="use_underline">True</property>
-        <property name="icon_name">shotwell-auto-enhance</property>
+        <property name="icon_name">image-auto-adjust-symbolic</property>
       </object>
       <packing>
         <property name="expand">False</property>

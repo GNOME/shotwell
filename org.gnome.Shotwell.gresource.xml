@@ -50,6 +50,7 @@
       <file>icons/four-stars.svg</file>
       <file>icons/generic-plugin.png</file>
       <file>icons/image-crop-symbolic.svg</file>
+      <file>icons/image-auto-adjust-symbolic.svg</file>
       <file>icons/image-adjust-color-symbolic.svg</file>
       <file>icons/image-zoom-in-symbolic.svg</file>
       <file>icons/image-zoom-out-symbolic.svg</file>
@@ -70,7 +71,6 @@
       <file>icons/redeye.png</file>
       <file>icons/rejected.svg</file>
       <file>icons/shotwell-16.png</file>
-      <file>icons/shotwell-auto-enhance.png</file>
       <file>icons/shotwell.png</file>
       <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
       <file>icons/shotwell-street.jpg</file>
