@@ -446,7 +446,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // crop tool
         crop_button = new Gtk.ToggleToolButton ();
-        crop_button.set_icon_name("crop");
+        crop_button.set_icon_name("image-crop-symbolic");
         crop_button.set_label(Resources.CROP_LABEL);
         crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
         crop_button.toggled.connect(on_crop_toggled);
