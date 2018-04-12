@@ -534,6 +534,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         toolbar.insert(group_wrapper, -1);
 
+        separator = new Gtk.SeparatorToolItem();
+        separator.set_draw(false);
+        toolbar.insert(separator, -1);
+
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
         prev_button.set_icon_name("go-previous");
