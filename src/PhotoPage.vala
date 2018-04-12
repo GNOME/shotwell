@@ -464,7 +464,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // redeye reduction tool
         redeye_button = new Gtk.ToggleToolButton ();
-        redeye_button.set_icon_name("redeye");
+        redeye_button.set_icon_name("stock-eye-symbolic");
         redeye_button.set_label(Resources.RED_EYE_LABEL);
         redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
         redeye_button.toggled.connect(on_redeye_toggled);
