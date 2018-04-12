@@ -79,7 +79,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string IMPORT_ALL = "import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
-    public const string PUBLISH = "web-browser-symbolic";
+    public const string PUBLISH = "send-to-symbolic";
     public const string MERGE = "shotwell-merge-events";
     
     public const string GO_NEXT = "go-next-symbolic";

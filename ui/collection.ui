@@ -191,7 +191,7 @@
         <property name="action_name">win.Publish</property>
         <property name="label" translatable="yes">Publish</property>
         <property name="use_underline">True</property>
-        <property name="icon_name">web-browser-symbolic</property>
+        <property name="icon_name">send-to-symbolic</property>
       </object>
       <packing>
         <property name="expand">False</property>
