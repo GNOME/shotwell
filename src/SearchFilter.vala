@@ -643,7 +643,6 @@ public class SearchFilterToolbar : Gtk.Revealer {
             Gtk.Image? image = null;
             button.set_always_show_image(true);
             image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
-            image.set_margin_end(6);
             button.set_image(image);
         }
 
