@@ -22,7 +22,7 @@ public class Library.FlaggedSidebarEntry : Library.HideablePageEntry, Sidebar.In
     }
     
     public override string? get_sidebar_icon() {
-        return Resources.ICON_FLAGGED_PAGE;
+        return "filter-flagged-symbolic";
     }
     
     protected override Page create_page() {

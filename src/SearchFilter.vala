@@ -754,28 +754,32 @@ public class SearchFilterToolbar : Gtk.Revealer {
         }
 
         private Gtk.Widget get_filter_icon(RatingFilter filter) {
-            string filename = null;
+            Gtk.Widget? icon = null;
 
             switch (filter) {
                 case RatingFilter.REJECTED_OR_HIGHER:
-                    filename = Resources.ICON_FILTER_REJECTED_OR_BETTER;
+                    icon = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+                    var image = new Gtk.Image.from_icon_name ("emblem-photos-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                    image.margin_end = 2;
+                    (icon as Gtk.Box).pack_start(image);
+                    image = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                    (icon as Gtk.Box).pack_start(image);
+                    icon.show_all();
                 break;
                 
                 case RatingFilter.REJECTED_ONLY:
-                    filename = Resources.ICON_RATING_REJECTED;
+                    icon = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
                 break;
                 
                 case RatingFilter.UNRATED_OR_HIGHER:
                 default:
-                    filename = Resources.ICON_FILTER_UNRATED_OR_BETTER;
+                    icon = new Gtk.Image.from_icon_name ("emblem-photos-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
                 break;
             }
-            
-            Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.load_icon(filename,
-                get_filter_icon_size(filter)));
-            image.set_margin_end(6);
 
-            return image;
+            icon.margin_end = 6;
+
+            return icon;
         }
 
         private int get_filter_icon_size(RatingFilter filter) {
@@ -1171,24 +1175,24 @@ public class SearchFilterToolbar : Gtk.Revealer {
         if (has_photos || has_raw)
             // As a user, I would expect, that a raw photo is still a photo.
             // Let's enable the photo button even if there ar only raw photos.
-            toolbtn_photos.set_icon_name(Resources.ICON_FILTER_PHOTOS);
+            toolbtn_photos.set_icon_name("filter-photos-symbolic");
         else
-            toolbtn_photos.set_icon_name(Resources.ICON_FILTER_PHOTOS_DISABLED);
+            toolbtn_photos.set_icon_name("filter-photos-disabled-symbolic");
 
         if (has_videos)
-            toolbtn_videos.set_icon_name(Resources.ICON_FILTER_VIDEOS);
+            toolbtn_videos.set_icon_name("filter-videos-symbolic");
         else
-            toolbtn_videos.set_icon_name(Resources.ICON_FILTER_VIDEOS_DISABLED);
+            toolbtn_videos.set_icon_name("filter-videos-disabled-symbolic");
 
         if (has_raw)
-            toolbtn_raw.set_icon_name(Resources.ICON_FILTER_RAW);
+            toolbtn_raw.set_icon_name("filter-raw-symbolic");
         else
-            toolbtn_raw.set_icon_name(Resources.ICON_FILTER_RAW_DISABLED);
+            toolbtn_raw.set_icon_name("filter-raw-disabled-symbolic");
 
         if (has_flagged)
-            toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED);
+            toolbtn_flag.set_icon_name("filter-flagged-symbolic");
         else
-            toolbtn_flag.set_icon_name(Resources.ICON_FILTER_FLAGGED_DISABLED);
+            toolbtn_flag.set_icon_name("filter-flagged-disabled-symbolic");
     }
     
     // Ticket #3260 part IV - display the context menu on secondary click

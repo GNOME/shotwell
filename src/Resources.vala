@@ -112,14 +112,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_MISSING_FILES = "process-stop-symbolic";
     public const string ICON_PHOTOS = "shotwell-symbolic";
     public const string ICON_SINGLE_PHOTO = "image-x-generic-symbolic";
-    public const string ICON_FILTER_PHOTOS = "filter-photos";
-    public const string ICON_FILTER_PHOTOS_DISABLED = "filter-photos-disabled";
-    public const string ICON_FILTER_VIDEOS = "filter-videos";
-    public const string ICON_FILTER_VIDEOS_DISABLED = "filter-videos-disabled";
-    public const string ICON_FILTER_RAW = "filter-raw";
-    public const string ICON_FILTER_RAW_DISABLED = "filter-raw-disabled";
-    public const string ICON_FILTER_FLAGGED = "filter-flagged";
-    public const string ICON_FILTER_FLAGGED_DISABLED = "filter-flagged-disabled";
     public const string ICON_TRASH_EMPTY = "user-trash-symbolic";
     public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
     public const string ICON_VIDEOS_PAGE = "videos-page";

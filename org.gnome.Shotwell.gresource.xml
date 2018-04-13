@@ -33,18 +33,17 @@
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
       <!-- Icons -->
       <file>icons/about-braunschweig.jpg</file>
-      <file>icons/all-rejected.png</file>
       <file>icons/crop-pivot-reticle.png</file>
       <file>icons/events-merge-symbolic.svg</file>
       <file>icons/faces-tool.png</file>
-      <file>icons/filter-flagged-disabled.png</file>
-      <file>icons/filter-flagged.png</file>
-      <file>icons/filter-photos-disabled.png</file>
-      <file>icons/filter-photos.png</file>
-      <file>icons/filter-raw-disabled.png</file>
-      <file>icons/filter-raw.png</file>
-      <file>icons/filter-videos-disabled.png</file>
-      <file>icons/filter-videos.png</file>
+      <file>icons/filter-flagged-symbolic.svg</file>
+      <file>icons/filter-flagged-disabled-symbolic.svg</file>
+      <file>icons/filter-photos-symbolic.svg</file>
+      <file>icons/filter-photos-disabled-symbolic.svg</file>
+      <file>icons/filter-raw-symbolic.svg</file>
+      <file>icons/filter-raw-disabled-symbolic.svg</file>
+      <file>icons/filter-videos-disabled-symbolic.svg</file>
+      <file>icons/filter-videos-symbolic.svg</file>
       <file>icons/five-stars.svg</file>
       <file>icons/flag-page.png</file>
       <file>icons/flag-trinket.png</file>
