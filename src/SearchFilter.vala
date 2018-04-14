@@ -644,6 +644,9 @@ public class SearchFilterToolbar : Gtk.Revealer {
             button.set_always_show_image(true);
             image = new Gtk.Image.from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR);
             button.set_image(image);
+            if (button.get_label() != "" && button.get_label() != null) {
+                image.margin_end = 6;
+            }
         }
 
         public void set_label(string label) {
