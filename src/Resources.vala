@@ -80,17 +80,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string GO_NEXT = "go-next-symbolic";
     public const string GO_PREVIOUS = "go-previous-symbolic";
 
-    
     //public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
     public const string ICON_ABOUT_LOGO = "about-braunschweig.jpg";
     public const string ICON_GENERIC_PLUGIN = "generic-plugin.png";
     public const string ICON_SLIDESHOW_EXTENSION_POINT = "slideshow-extension-point";
-    public const string ICON_RATING_REJECTED = "rejected.svg";
-    public const string ICON_RATING_ONE = "one-star.svg";
-    public const string ICON_RATING_TWO = "two-stars.svg";
-    public const string ICON_RATING_THREE = "three-stars.svg";
-    public const string ICON_RATING_FOUR = "four-stars.svg";
-    public const string ICON_RATING_FIVE = "five-stars.svg";
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const int ICON_ZOOM_SCALE = 16;
@@ -110,8 +103,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_SINGLE_PHOTO = "image-x-generic-symbolic";
     public const string ICON_TRASH_EMPTY = "user-trash-symbolic";
     public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
-    public const string ICON_FLAGGED_PAGE = "flag-page";
-    public const string ICON_FLAGGED_TRINKET = "flag-trinket.png";
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -497,6 +488,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     private string get_stars(Rating rating) {
         switch (rating) {
+            case Rating.REJECTED:
+                return "\xE2\x9D\x8C";
             case Rating.ONE:
                 return "\xE2\x98\x85";
             case Rating.TWO:
@@ -512,26 +505,88 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
 
-    private Gdk.Pixbuf? get_rating_trinket(Rating rating, int scale) {
-        switch (rating) {
-            case Rating.REJECTED:
-                return Resources.get_icon(Resources.ICON_RATING_REJECTED, scale);
-            // case Rating.UNRATED needs no icon
-            case Rating.ONE:
-                return Resources.get_icon(Resources.ICON_RATING_ONE, scale);
-            case Rating.TWO:
-                return Resources.get_icon(Resources.ICON_RATING_TWO, scale*2);
-            case Rating.THREE:
-                return Resources.get_icon(Resources.ICON_RATING_THREE, scale*3);
-            case Rating.FOUR:
-                return Resources.get_icon(Resources.ICON_RATING_FOUR, scale*4);
-            case Rating.FIVE:
-                return Resources.get_icon(Resources.ICON_RATING_FIVE, scale*5);
-            default:
-                return null;
+    private GLib.HashTable<int?, Gdk.Pixbuf> trinket_cache = null;
+    private Gdk.Pixbuf? get_cached_trinket(int key) {
+        if (trinket_cache == null) {
+            trinket_cache = new GLib.HashTable<int?, Gdk.Pixbuf>(int_hash, int_equal);
+        }
+
+        if (trinket_cache[key] != null) {
+            return trinket_cache[key];
+        }
+
+        return null;
+    }
+
+    public Gdk.Pixbuf? get_flagged_trinket(int scale) {
+        int cache_key = scale << 16;
+        var cached_pixbuf = get_cached_trinket(cache_key);
+
+        if (cached_pixbuf != null)
+            return cached_pixbuf;
+
+        try {
+            var theme = Gtk.IconTheme.get_default();
+            var info = theme.lookup_icon ("filter-flagged-symbolic", (int)(scale * 1.33), Gtk.IconLookupFlags.GENERIC_FALLBACK);
+            var icon = info.load_symbolic({0.8, 0.8, 0.8, 1.0}, null, null, null);
+            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, icon.width, icon.height);
+            var ctx = new Cairo.Context(surface);
+            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
+            ctx.rectangle(0, 0, icon.width, icon.height);
+            ctx.fill();
+            Gdk.cairo_set_source_pixbuf(ctx, icon, 0, 0);
+            ctx.paint();
+
+            trinket_cache[cache_key] = Gdk.pixbuf_get_from_surface(surface, 0, 0, icon.width, icon.height);
+            return trinket_cache[cache_key];
+        } catch (Error err) {
+            critical ("%s", err.message);
+
+            return null;
         }
     }
-    
+
+    private Gdk.Pixbuf? get_rating_trinket(Rating rating, int scale) {
+        if (rating == Rating.UNRATED)
+            return null;
+
+        int rating_key = (rating << 8) + scale;
+
+        var cached_pixbuf = get_cached_trinket(rating_key);
+        if (cached_pixbuf != null)
+            return cached_pixbuf;
+
+        var layout = AppWindow.get_instance().create_pango_layout(get_stars(rating));
+
+        // Adjust style according to scale (depending on whether it is rendered on a Thumbnail or on a full foto)
+        var att = new Pango.AttrList();
+        var a = Pango.attr_scale_new((double)scale/12.0);
+        att.insert(a.copy());
+        layout.set_attributes(att);
+
+        // Render the layout with a slight dark background so it stands out on all kinds of images
+        // FIXME: Cache the result
+        int width, height;
+        layout.get_pixel_size(out width, out height);
+        var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
+        var ctx = new Cairo.Context(surface);
+        ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
+        ctx.rectangle(0,0,width,height);
+        ctx.fill();
+        if (rating == Rating.REJECTED)
+            ctx.set_source_rgba(0.8, 0.0, 0.0, 1.0);
+        else
+            ctx.set_source_rgba(0.8, 0.8, 0.8, 1.0);
+
+        ctx.move_to(0, 0);
+        Pango.cairo_show_layout(ctx, layout);
+
+        cached_pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, width, height);
+        trinket_cache[rating_key] = cached_pixbuf;
+
+        return cached_pixbuf;
+    }
+
     private void generate_rating_strings() {
         string menu_base = "%s";
         string label_base = _("Rate %s");

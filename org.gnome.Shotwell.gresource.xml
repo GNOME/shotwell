@@ -44,10 +44,6 @@
       <file>icons/filter-raw-disabled-symbolic.svg</file>
       <file>icons/filter-videos-disabled-symbolic.svg</file>
       <file>icons/filter-videos-symbolic.svg</file>
-      <file>icons/five-stars.svg</file>
-      <file>icons/flag-page.png</file>
-      <file>icons/flag-trinket.png</file>
-      <file>icons/four-stars.svg</file>
       <file>icons/generic-plugin.png</file>
       <file>icons/image-crop-symbolic.svg</file>
       <file>icons/image-auto-adjust-symbolic.svg</file>
@@ -63,7 +59,6 @@
       <file>icons/noninterpretable-video.png</file>
       <file>icons/one-event.png</file>
       <file>icons/one-face.png</file>
-      <file>icons/one-star.svg</file>
       <file>icons/one-tag.png</file>
       <file>icons/stock-eye-symbolic.svg</file>
       <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
@@ -71,8 +66,6 @@
       <file>icons/slideshow-extension-point.png</file>
       <file>icons/sprocket.png</file>
       <file>icons/straighten.svg</file>
-      <file>icons/three-stars.svg</file>
-      <file>icons/two-stars.svg</file>
       <file>misc/org.gnome.Shotwell.css</file>
   </gresource>
 </gresources>
