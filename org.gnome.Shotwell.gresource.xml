@@ -56,7 +56,6 @@
       <file>icons/image-zoom-out-symbolic.svg</file>
       <file>icons/import-all.png</file>
       <file>icons/import.svg</file>
-      <file>icons/make-primary.svg</file>
       <file>icons/many-faces.png</file>
       <file>icons/multiple-events.png</file>
       <file>icons/multiple-tags.png</file>
@@ -66,11 +65,7 @@
       <file>icons/one-face.png</file>
       <file>icons/one-star.svg</file>
       <file>icons/one-tag.png</file>
-      <file>icons/publish.png</file>
       <file>icons/stock-eye-symbolic.svg</file>
-      <file>icons/rejected.svg</file>
-      <file>icons/shotwell-16.png</file>
-      <file>icons/shotwell.png</file>
       <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
       <file>icons/shotwell-street.jpg</file>
       <file>icons/slideshow-extension-point.png</file>
@@ -78,7 +73,6 @@
       <file>icons/straighten.svg</file>
       <file>icons/three-stars.svg</file>
       <file>icons/two-stars.svg</file>
-      <file>icons/videos-page.png</file>
       <file>misc/org.gnome.Shotwell.css</file>
   </gresource>
 </gresources>

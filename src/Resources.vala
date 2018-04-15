@@ -72,7 +72,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string VFLIP = "object-flip-vertical-symbolic";
     public const string STRAIGHTEN = "shotwell-straighten";
     public const string ADJUST = "image-adjust-color-symbolic";
-    public const string MAKE_PRIMARY = "shotwell-make-primary";
     public const string IMPORT = "import";
     public const string IMPORT_ALL = "import-all";
     public const string ENHANCE = "image-auto-adjust-symbolic";
@@ -93,9 +92,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_RATING_THREE = "three-stars.svg";
     public const string ICON_RATING_FOUR = "four-stars.svg";
     public const string ICON_RATING_FIVE = "five-stars.svg";
-    public const string ICON_FILTER_REJECTED_OR_BETTER = "all-rejected.png";
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
-    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-16.png";
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const int ICON_ZOOM_SCALE = 16;
 
@@ -114,7 +111,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_SINGLE_PHOTO = "image-x-generic-symbolic";
     public const string ICON_TRASH_EMPTY = "user-trash-symbolic";
     public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
-    public const string ICON_VIDEOS_PAGE = "videos-page";
     public const string ICON_FLAGGED_PAGE = "flag-page";
     public const string ICON_FLAGGED_TRINKET = "flag-trinket.png";
 
