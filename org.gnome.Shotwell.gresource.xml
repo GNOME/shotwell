@@ -33,7 +33,7 @@
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
       <!-- Icons -->
       <file>icons/about-braunschweig.jpg</file>
-      <file>icons/crop-pivot-reticle.png</file>
+      <file>icons/crop-pivot-reticle-symbolic.svg</file>
       <file>icons/events-merge-symbolic.svg</file>
       <file>icons/faces-tool.png</file>
       <file>icons/filter-flagged-symbolic.svg</file>
