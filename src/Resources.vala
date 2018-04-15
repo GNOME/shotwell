@@ -82,7 +82,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     //public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
     public const string ICON_ABOUT_LOGO = "about-braunschweig.jpg";
-    public const string ICON_GENERIC_PLUGIN = "generic-plugin.png";
+    public const string ICON_GENERIC_PLUGIN = "application-x-addon-symbolic";
     public const string ICON_SLIDESHOW_EXTENSION_POINT = "slideshow-extension-point";
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 32;
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
