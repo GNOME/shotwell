@@ -35,6 +35,15 @@
       <file preprocess="xml-stripblanks">ui/tags.ui</file>
       <file preprocess="xml-stripblanks">ui/textentrydialog.ui</file>
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
+      <!-- Map icons -->
+      <file>icons/hicolor/scalable/actions/gps-marker-highlighted.svg</file>
+      <file>icons/hicolor/scalable/actions/gps-marker-selected.svg</file>
+      <file>icons/hicolor/scalable/actions/gps-markers-many-highlighted.svg</file>
+      <file>icons/hicolor/scalable/actions/gps-markers-many-selected.svg</file>
+      <file>icons/hicolor/scalable/actions/gps-markers-many.svg</file>
+      <file>icons/hicolor/scalable/actions/gps-marker.svg</file>
+      <file>icons/hicolor/scalable/actions/map-edit-locked.svg</file>
+      <file>icons/hicolor/scalable/actions/map-edit-unlocked.svg</file>
       <!-- Icons -->
       <file>icons/hicolor/scalable/actions/avatar-default-symbolic.svg</file>
       <file>icons/image-missing.png</file>
