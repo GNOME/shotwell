@@ -1004,14 +1004,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         Gtk.show_uri_on_window(window, uri, Gdk.CURRENT_TIME);
     }
     
-    public string to_css_color(Gdk.RGBA color) {
-        int r = (int) (color.red * 255);
-        int g = (int) (color.green * 255);
-        int b = (int) (color.blue * 255);
-        
-        return "rgb(%d, %d, %d)".printf(r, g, b);
-    }
-    
     public const int ALL_DATA = -1;
     
     private static Gee.Map<Gtk.Widget, Gtk.CssProvider> providers = null;
