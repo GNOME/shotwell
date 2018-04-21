@@ -92,8 +92,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_EVENTS = "multiple-events-symbolic";
     public const string ICON_ONE_EVENT = "one-event-symbolic";
     public const string ICON_NO_EVENT = "no-event-symbolic";
-    public const string ICON_ONE_TAG = "one-tag";
-    public const string ICON_TAGS = "multiple-tags";
+    public const string ICON_ONE_TAG = "one-tag-symbolic";
+    public const string ICON_TAGS = "multiple-tags-symbolic";
     public const string ICON_FOLDER = "folder-symbolic";
     public const string ICON_FOLDER_DOCUMENTS = "folder-documents-symbolic";
     public const string ICON_IMPORTING = "go-down-symbolic";

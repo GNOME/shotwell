@@ -53,12 +53,12 @@
       <file>icons/import.svg</file>
       <file>icons/many-faces.png</file>
       <file>icons/multiple-events-symbolic.svg</file>
-      <file>icons/multiple-tags.png</file>
+      <file>icons/multiple-tags-symbolic.svg</file>
       <file>icons/no-event-symbolic.svg</file>
       <file>icons/noninterpretable-video.png</file>
       <file>icons/one-event-symbolic.svg</file>
       <file>icons/one-face.png</file>
-      <file>icons/one-tag.png</file>
+      <file>icons/one-tag-symbolic.svg</file>
       <file>icons/stock-eye-symbolic.svg</file>
       <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
       <file>icons/shotwell-street.jpg</file>
