@@ -455,7 +455,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // straightening tool
         straighten_button = new Gtk.ToggleToolButton ();
-        straighten_button.set_icon_name("straighten");
+        straighten_button.set_icon_name(Resources.STRAIGHTEN);
         straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
         straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
         straighten_button.toggled.connect(on_straighten_toggled);

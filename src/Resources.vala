@@ -70,7 +70,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string COUNTERCLOCKWISE = "object-rotate-left-symbolic";
     public const string HFLIP = "object-flip-horizontal-symbolic";
     public const string VFLIP = "object-flip-vertical-symbolic";
-    public const string STRAIGHTEN = "shotwell-straighten";
+    public const string STRAIGHTEN = "straighten-symbolic";
     public const string ADJUST = "image-adjust-color-symbolic";
     public const string IMPORT = "import";
     public const string IMPORT_ALL = "import-all";
