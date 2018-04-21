@@ -72,8 +72,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string VFLIP = "object-flip-vertical-symbolic";
     public const string STRAIGHTEN = "straighten-symbolic";
     public const string ADJUST = "image-adjust-color-symbolic";
-    public const string IMPORT = "import";
-    public const string IMPORT_ALL = "import-all";
+    public const string IMPORT = "image-x-generic-symbolic";
+    public const string IMPORT_ALL = "filter-photos-symbolic";
     public const string ENHANCE = "image-auto-adjust-symbolic";
     public const string PUBLISH = "send-to-symbolic";
     
