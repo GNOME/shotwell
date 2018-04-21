@@ -30,7 +30,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names = new string[ConfigurableProperty.NUM_PROPERTIES];
 
         schema_names[ConfigurableProperty.AUTO_IMPORT_FROM_LIBRARY] = FILES_PREFS_SCHEMA_NAME;
-        schema_names[ConfigurableProperty.BG_COLOR_NAME] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.GTK_THEME_VARIANT] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = FILES_PREFS_SCHEMA_NAME;
@@ -104,7 +104,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names = new string[ConfigurableProperty.NUM_PROPERTIES];
         
         key_names[ConfigurableProperty.AUTO_IMPORT_FROM_LIBRARY] = "auto-import";
-        key_names[ConfigurableProperty.BG_COLOR_NAME] = "background-color";
+        key_names[ConfigurableProperty.GTK_THEME_VARIANT] = "use-dark-theme";
         key_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_TYPE] = "transparent-background-type";
         key_names[ConfigurableProperty.TRANSPARENT_BACKGROUND_COLOR] = "transparent-background-color";
         key_names[ConfigurableProperty.COMMIT_METADATA_TO_MASTERS] = "commit-metadata";

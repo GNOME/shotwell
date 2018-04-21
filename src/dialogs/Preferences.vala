@@ -19,6 +19,9 @@ public class PreferencesDialog : Gtk.Dialog {
     private static PreferencesDialog preferences_dialog;
 
     [GtkChild]
+    private Gtk.Switch switch_dark;
+
+    [GtkChild]
     private Gtk.ComboBox photo_editor_combo;
     [GtkChild]
     private Gtk.ComboBox raw_editor_combo;
@@ -138,6 +141,8 @@ public class PreferencesDialog : Gtk.Dialog {
         default_raw_developer_combo.append_text(RawDeveloper.SHOTWELL.get_label());
         set_raw_developer_combo(Config.Facade.get_instance().get_default_raw_developer());
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
+        switch_dark.active = Gtk.Settings.get_default().gtk_application_prefer_dark_theme;
+        switch_dark.notify["active"].connect(on_theme_variant_changed);
     }
 
     public void populate_preference_options() {
@@ -150,6 +155,13 @@ public class PreferencesDialog : Gtk.Dialog {
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
 
         lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
+    }
+
+    private void on_theme_variant_changed(GLib.Object o, GLib.ParamSpec ps) {
+        var config = Config.Facade.get_instance();
+        config.set_gtk_theme_variant(switch_dark.active);
+
+        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = switch_dark.active;
     }
 
     private void on_radio_changed() {

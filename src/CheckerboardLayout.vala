@@ -567,7 +567,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
 
     private int get_selection_border_width(int scale) {
-        return ((scale <= ((Thumbnail.MIN_SCALE + Thumbnail.MAX_SCALE) / 3)) ? 2 : 3)
+        return ((scale <= ((Thumbnail.MIN_SCALE + Thumbnail.MAX_SCALE) / 3)) ? 5 : 4)
             + BORDER_WIDTH;
     }
     
@@ -588,7 +588,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     public void paint(Gtk.StyleContext style_context, Cairo.Context ctx, Gdk.RGBA bg_color, Gdk.RGBA selected_color,
-        Gdk.RGBA? border_color) {
+        Gdk.RGBA? border_color, Gdk.RGBA? focus_color) {
         ctx.save();
         ctx.translate(allocation.x + FRAME_WIDTH,
                       allocation.y + FRAME_WIDTH);
@@ -614,8 +614,8 @@ public abstract class CheckerboardItem : ThumbnailView {
         // draw a border for the cursor with the selection width and normal border color
         if (is_cursor) {
             ctx.save();
-            ctx.set_source_rgba(border_color.red, border_color.green, border_color.blue,
-                    border_color.alpha);
+            ctx.set_source_rgba(focus_color.red, focus_color.green, focus_color.blue,
+                    focus_color.alpha);
             paint_border(ctx, pixbuf_dim, pixbuf_origin,
                 get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height)));
             ctx.restore();
@@ -627,15 +627,6 @@ public abstract class CheckerboardItem : ThumbnailView {
             ctx.save();
             paint_border(ctx, pixbuf_dim, pixbuf_origin,
                 get_selection_border_width(int.max(pixbuf_dim.width, pixbuf_dim.height)));
-            ctx.restore();
-        }
-        
-        // draw border
-        if (border_color != null) {
-            ctx.save();
-            ctx.set_source_rgba(border_color.red, border_color.green, border_color.blue,
-                border_color.alpha);
-            paint_border(ctx, pixbuf_dim, pixbuf_origin, BORDER_WIDTH);
             ctx.restore();
         }
         
@@ -851,6 +842,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private string message = null;
     private Gdk.RGBA selected_color;
     private Gdk.RGBA unselected_color;
+    private Gdk.RGBA focus_color;
     private Gdk.RGBA border_color;
     private Gdk.RGBA bg_color;
     private Gdk.Rectangle visible_page = Gdk.Rectangle();
@@ -1903,13 +1895,22 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
     private void set_colors(bool in_focus = true) {
         // set up selected/unselected colors
-        var val = get_style_context().get_property("border-color", Gtk.StateFlags.SELECTED); //Config.Facade.get_instance().get_unselected_color();
-        selected_color = *(Gdk.RGBA*)val.get_boxed();
-        Config.Facade.get_instance().get_selected_color(in_focus);
-        val = get_style_context().get_property("color", Gtk.StateFlags.NORMAL); //Config.Facade.get_instance().get_unselected_color();
+        var ctx = get_style_context();
+        ctx.save();
+        ctx.add_class("view");
+        var val = ctx.get_property("border-color", Gtk.StateFlags.NORMAL);
+        focus_color = *(Gdk.RGBA*)val.get_boxed();
 
+        val = ctx.get_property("border-color", Gtk.StateFlags.FOCUSED);
+        border_color = *(Gdk.RGBA*)val.get_boxed();
+
+        // Checked in GtkIconView - The selection is drawn using render_background
+        val = ctx.get_property("background-color", Gtk.StateFlags.FOCUSED | Gtk.StateFlags.SELECTED);
+        selected_color = *(Gdk.RGBA*)val.get_boxed();
+
+        val = ctx.get_property("color", Gtk.StateFlags.NORMAL);
         unselected_color = *(Gdk.RGBA*)val.get_boxed();
-        border_color =  Config.Facade.get_instance().get_border_color();
+        ctx.restore();
     }
     
     public override void size_allocate(Gtk.Allocation allocation) {
@@ -1942,7 +1943,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(visible_page)) {
                 item.paint(get_style_context(), ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
-                    border_color);
+                    border_color, focus_color);
             }
         } else {
             // draw the message in the center of the window

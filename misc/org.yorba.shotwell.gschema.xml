@@ -156,10 +156,10 @@
         <description>Pin toolbar in fullscreen, or not.</description>
     </key>
     
-    <key name="background-color" type="s">
-        <default>'#444'</default>
-        <summary>background color</summary>
-        <description>A grayscale color for use as the background color.</description>
+    <key name="use-dark-theme" type="b">
+        <default>true</default>
+        <summary>prefer GTK's dark theme</summary>
+        <description>Whether to use the dark theme of GTK for Shotwell or not.</description>
     </key>
 
     <key name="transparent-background-type" type="s">

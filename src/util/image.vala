@@ -4,11 +4,6 @@
  * See the COPYING file in this distribution.
  */
 
-bool is_color_parsable(string spec) {
-    var color = Gdk.RGBA ();
-    return color.parse(spec);
-}
-
 Gdk.RGBA parse_color(string spec) {
     return fetch_color(spec);
 }

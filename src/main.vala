@@ -355,6 +355,9 @@ void main(string[] args) {
     try {
         Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.get_options(),
             Resources.APP_GETTEXT_PACKAGE);
+
+        var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
+        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
     } catch (Error e) {
         print(e.message + "\n");
         print(_("Run “%s --help” to see a full list of available command line options.\n"), args[0]);

@@ -21,7 +21,7 @@ public enum FuzzyPropertyState {
 
 public enum ConfigurableProperty {   
     AUTO_IMPORT_FROM_LIBRARY = 0,
-    BG_COLOR_NAME,
+    GTK_THEME_VARIANT,
     TRANSPARENT_BACKGROUND_TYPE,
     TRANSPARENT_BACKGROUND_COLOR,
     COMMIT_METADATA_TO_MASTERS,
@@ -100,8 +100,8 @@ public enum ConfigurableProperty {
             case AUTO_IMPORT_FROM_LIBRARY:
                 return "AUTO_IMPORT_FROM_LIBRARY";
                 
-            case BG_COLOR_NAME:
-                return "BG_COLOR_NAME";
+            case GTK_THEME_VARIANT:
+                return "GTK_THEME_VARIANT";
 
             case TRANSPARENT_BACKGROUND_TYPE:
                 return "TRANSPARENT_BACKGROUND_TYPE";
@@ -376,7 +376,7 @@ public abstract class ConfigurationFacade : Object {
                 auto_import_from_library_changed();
             break;
             
-            case ConfigurableProperty.BG_COLOR_NAME:
+            case ConfigurableProperty.GTK_THEME_VARIANT:
                 bg_color_name_changed();
             break;
 
@@ -449,21 +449,21 @@ public abstract class ConfigurationFacade : Object {
     }
 
     //
-    // bg color name
+    // GTK theme variant
     //
-    public virtual string get_bg_color_name() {
+    public virtual bool get_gtk_theme_variant() {
         try {
-            return get_engine().get_string_property(ConfigurableProperty.BG_COLOR_NAME);
+            return get_engine().get_bool_property(ConfigurableProperty.GTK_THEME_VARIANT);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
 
-            return "";
+            return true;
         }
     }
     
-    public virtual void set_bg_color_name(string color_name) {
+    public virtual void set_gtk_theme_variant(bool dark) {
         try {
-            get_engine().set_string_property(ConfigurableProperty.BG_COLOR_NAME, color_name);
+            get_engine().set_bool_property(ConfigurableProperty.GTK_THEME_VARIANT, dark);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
             return;
