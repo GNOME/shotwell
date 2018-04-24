@@ -1,3 +1,43 @@
+Shotwell 0.29.0 - 24 Apr 2018
+  * Fix an issue with undefined symbols with certain compilers
+  * Remove autotools supports
+  * Add GIF support (read-only, animations not supported)
+  * Bump GTK requirement to 3.22 and remove deprecated function calls
+  * Change some internal drawing to use GTK+ API instead of using Cairo directly
+  * Add import rolls
+  * Minor visual improvements
+  * Dead code and asset removal
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716284
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717833
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718742
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=783268
+ - https://bugzilla.gnome.org/show_bug.cgi?id=794293
+ - https://bugzilla.gnome.org/show_bug.cgi?id=794456
+ - https://bugzilla.gnome.org/show_bug.cgi?id=794673
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jens Georg <mail+gitkraken@jensge.org>
+ - gogo <trebelnik2@gmail.com>
+ - Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+ - Marek Černocký <marek@manet.cz>
+ - Josef Andersson <l10nl18nsweja@gmail.com>
+ - Boyuan Yang <073plan@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - da, courtesy of Alan Mortensen
+ - hr, courtesy of gogo
+ - lv, courtesy of Rūdolfs Mazurs
+ - pl, courtesy of Piotr Drąg
+ - sv, courtesy of Josef Andersson
+ - zh_CN, courtesy of Boyuan Yang
+
 Shotwell 0.28.0 - 12 Mar 2018
   * Translation updates
 
