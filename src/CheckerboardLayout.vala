@@ -594,10 +594,13 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public void paint(Cairo.Context ctx, Gdk.RGBA bg_color, Gdk.RGBA selected_color,
         Gdk.RGBA text_color, Gdk.RGBA? border_color) {
+        ctx.save();
+        ctx.translate(allocation.x + FRAME_WIDTH,
+                      allocation.y + FRAME_WIDTH);
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
-        pixbuf_origin.x = allocation.x + FRAME_WIDTH + BORDER_WIDTH;
-        pixbuf_origin.y = allocation.y + FRAME_WIDTH + BORDER_WIDTH;
+        pixbuf_origin.x = BORDER_WIDTH;
+        pixbuf_origin.y = BORDER_WIDTH;
         
         ctx.set_line_width(FRAME_WIDTH);
         ctx.set_source_rgba(selected_color.red, selected_color.green, selected_color.blue,
@@ -651,11 +654,11 @@ public abstract class CheckerboardItem : ThumbnailView {
         ctx.set_source_rgba(text_color.red, text_color.green, text_color.blue, text_color.alpha);
         
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
-        int text_y = allocation.y + FRAME_WIDTH + pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
+        int text_y = pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
         if (title != null && title_visible) {
             // get the layout sized so its with is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
-            title.allocation.x = allocation.x + FRAME_WIDTH;
+            title.allocation.x = 0;
             title.allocation.y = text_y;
             title.allocation.width = pixbuf_dim.width;
             title.allocation.height = title.get_height();
@@ -667,7 +670,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
         
         if (comment != null && comment_visible) {
-            comment.allocation.x = allocation.x + FRAME_WIDTH;
+            comment.allocation.x = 0;
             comment.allocation.y = text_y;
             comment.allocation.width = pixbuf_dim.width;
             comment.allocation.height = comment.get_height();
@@ -679,7 +682,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
         
         if (subtitle != null && subtitle_visible) {
-            subtitle.allocation.x = allocation.x + FRAME_WIDTH;
+            subtitle.allocation.x = 0;
             subtitle.allocation.y = text_y;
             subtitle.allocation.width = pixbuf_dim.width;
             subtitle.allocation.height = subtitle.get_height();
@@ -733,6 +736,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             ctx.rectangle(x, y, trinket.get_width(), trinket.get_height());
             ctx.fill();
         }
+        ctx.restore();
     }
     
     protected void set_horizontal_trinket_offset(int horizontal_trinket_offset) {
