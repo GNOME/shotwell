@@ -651,7 +651,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
         int text_y = pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
         if (title != null && title_visible) {
-            // get the layout sized so its with is no more than the pixbuf's
+            // get the layout sized so its width is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
             title.allocation.x = 0;
             title.allocation.y = text_y;
