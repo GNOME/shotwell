@@ -211,7 +211,7 @@ public class FacesTool : EditingTools.EditingTool {
 
                     break;
                 case EditingPhase.DETECTING_FACES_FINISHED:
-                    help_text.set_text(_("If you don't set the name of unknown faces they won't be saved."));
+                    help_text.set_text(_("If you don’t set the name of unknown faces they won’t be saved."));
 
                     break;
                 default:
@@ -337,7 +337,7 @@ public class FacesTool : EditingTools.EditingTool {
                 Process.spawn_sync(null, argv, null, SpawnFlags.STDERR_TO_DEV_NULL, null, out output);
 
             } catch (SpawnError e) {
-                stderr.printf("Error trying to spawn face detection program: %s\n", e.message);
+                critical("Error trying to spawn face detection program: %s\n", e.message);
                 assert_not_reached();
             }
 
@@ -349,7 +349,7 @@ public class FacesTool : EditingTools.EditingTool {
 
                 string[] type_and_serialized = line.split(";");
                 if (type_and_serialized.length != 2) {
-                    stderr.printf("Wrong serialized line in face detection program output.");
+                    critical("Wrong serialized line in face detection program output.");
                     assert_not_reached();
                 }
 
@@ -364,11 +364,11 @@ public class FacesTool : EditingTools.EditingTool {
                         break;
 
                     case "warning":
-                        stderr.printf("%s\n", type_and_serialized[1]);
+                        warning("%s\n", type_and_serialized[1]);
                         break;
 
                     case "error":
-                        stderr.printf("%s\n", type_and_serialized[1]);
+                        critical("%s\n", type_and_serialized[1]);
                         assert_not_reached();
 
                     default:
@@ -380,7 +380,7 @@ public class FacesTool : EditingTools.EditingTool {
         private string parse_serialized_geometry(string serialized_geometry) {
             string[] serialized_geometry_pieces = serialized_geometry.split("&");
             if (serialized_geometry_pieces.length != 4) {
-                stderr.printf("Wrong serialized line in face detection program output.");
+                critical("Wrong serialized line in face detection program output.");
                 assert_not_reached();
             }
 
@@ -392,7 +392,7 @@ public class FacesTool : EditingTools.EditingTool {
 
                 string[] name_and_value = piece.split("=");
                 if (name_and_value.length != 2) {
-                    stderr.printf("Wrong serialized line in face detection program output.");
+                    critical("Wrong serialized line in face detection program output.");
                     assert_not_reached();
                 }
 
@@ -414,7 +414,7 @@ public class FacesTool : EditingTools.EditingTool {
                         break;
 
                     default:
-                        stderr.printf("Wrong serialized line in face detection program output.");
+                        critical("Wrong serialized line in face detection program output.");
                         assert_not_reached();
                 }
             }
