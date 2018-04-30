@@ -1946,20 +1946,47 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                     border_color, focus_color);
             }
         } else {
+            get_style_context().save();
+            get_style_context().add_class("label");
+            get_style_context().add_class("dim-label");
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);
             int text_width, text_height;
+            Pango.AttrList list = new Pango.AttrList();
+            Pango.Attribute size = Pango.attr_scale_new(1.4);
+            list.insert(size.copy());
+            pango_layout.set_attributes(list);
             pango_layout.get_pixel_size(out text_width, out text_height);
-            
+
             get_allocation(out allocation);
-            
+
             int x = allocation.width - text_width;
             x = (x > 0) ? x / 2 : 0;
-            
+
             int y = allocation.height - text_height;
             y = (y > 0) ? y / 2 : 0;
-            
+
+            double opacity = get_style_context().get_property("opacity", get_style_context().get_state()).get_double();
+            if (opacity < 1.0)
+                ctx.push_group();
+
             get_style_context().render_layout(ctx, x, y, pango_layout);
+
+            if (opacity < 1.0) {
+                ctx.pop_group_to_source();
+                ctx.set_operator(Cairo.Operator.OVER);
+                ctx.paint_with_alpha(opacity);
+            }
+
+            try {
+                var icon = Gtk.IconTheme.get_default().load_icon("action-unavailable-symbolic", 128, Gtk.IconLookupFlags.GENERIC_FALLBACK);
+                int pix_x = (allocation.width - icon.width) / 2;
+                int pix_y = y - 20 - icon.height;
+                get_style_context().render_icon(ctx, icon, pix_x, pix_y);
+            } catch (Error err) {
+                critical("Failed to find icon: %s", err.message);
+            }
+            get_style_context().restore();
         }
         
         bool result = (base.draw != null) ? base.draw(ctx) : true;
