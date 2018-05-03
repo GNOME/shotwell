@@ -18,7 +18,7 @@ namespace Resources {
     public const string APP_DIRECT_ROLE = _("Photo Viewer");
     public const string APP_VERSION = _VERSION;
 
-#if _GIT_VERSION
+#if _GITVERSION
     public const string? GIT_VERSION = _GIT_VERSION;
 #else
     public const string? GIT_VERSION = null;
