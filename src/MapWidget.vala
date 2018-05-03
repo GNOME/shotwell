@@ -581,9 +581,33 @@ private class MapWidget : Gtk.Bin {
         marker_group_raster.regroup();
     }
 
+    private Champlain.MapSource create_map_source() {
+        var map_source = new Champlain.MapSourceChain();
+        var file_cache = new Champlain.FileCache.full(10 * 1024 * 1024,
+            AppDirs.get_cache_dir().get_child("tiles").get_path(), new Champlain.ImageRenderer());
+        var memory_cache = new Champlain.MemoryCache.full(10 * 1024 * 1024, new Champlain.ImageRenderer());
+        var error_source = new Champlain.NullTileSource.full(new Champlain.ImageRenderer());
+        var osm = Champlain.MapSourceFactory.dup_default().create(Champlain.MAP_SOURCE_OSM_MAPNIK);
+        var user_agent = "Shotwell/%s libchamplain/%s".printf(_VERSION, Champlain.VERSION_S);
+        if (osm is Champlain.NetworkTileSource) {
+            (osm as Champlain.NetworkTileSource).set_user_agent(user_agent);
+            (osm as Champlain.NetworkTileSource).max_conns = 2;
+        } else if (osm is Champlain.NetworkBboxTileSource) {
+            (osm as Champlain.NetworkBboxTileSource).set_user_agent(user_agent);
+        }
+
+        map_source.push(error_source);
+        map_source.push(osm);
+        map_source.push(file_cache);
+        map_source.push(memory_cache);
+
+        return map_source;
+    }
+
     private void setup_map() {
         map_view = gtk_champlain_widget.get_view();
         map_view.add_layer(marker_layer);
+        map_view.set_map_source(create_map_source());
 
         // add lock/unlock button to top left corner of map
         map_edit_lock_button.content_gravity = Clutter.ContentGravity.TOP_RIGHT;
