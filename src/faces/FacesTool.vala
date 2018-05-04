@@ -317,6 +317,7 @@ public class FacesTool : EditingTools.EditingTool {
         private Gee.Queue<string> faces = null;
         private string image_path;
         private string output;
+        public SpawnError? spawnError;
 
         public FaceDetectionJob(FacesToolWindow owner, string image_path,
             CompletionCallback completion_callback, Cancellable cancellable,
@@ -337,8 +338,9 @@ public class FacesTool : EditingTools.EditingTool {
                 Process.spawn_sync(null, argv, null, SpawnFlags.STDERR_TO_DEV_NULL, null, out output);
 
             } catch (SpawnError e) {
-                critical("Error trying to spawn face detection program: %s\n", e.message);
-                assert_not_reached();
+                spawnError = e;
+                critical(e.message);
+                return;
             }
 
             faces = new Gee.PriorityQueue<string>();
@@ -950,8 +952,13 @@ public class FacesTool : EditingTools.EditingTool {
 
     private void on_faces_detected() {
         face_detection_cancellable.reset();
-
-        pick_faces_from_autodetected();
+        
+        if (face_detection.spawnError != null){
+            string spawnErrorMessage = _("Error trying to spawn face detection program:\n");
+            AppWindow.error_message(spawnErrorMessage + face_detection.spawnError.message + "\n");
+            faces_tool_window.set_editing_phase(EditingPhase.DETECTING_FACES_FINISHED);
+        }else
+            pick_faces_from_autodetected();
     }
 
     private void on_detection_cancelled(BackgroundJob job) {
