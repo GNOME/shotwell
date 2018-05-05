@@ -441,12 +441,8 @@ public abstract class AppWindow : PageWindow {
         add_actions ();
         
         Gtk.CssProvider provider = new Gtk.CssProvider();
-        try {
-            provider.load_from_data(Resources.CUSTOM_CSS, -1);
-            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (Error err) {
-            debug("Unable to load custom CSS: %s", err.message);
-        }
+        provider.load_from_resource("/org/gnome/Shotwell/misc/org.gnome.Shotwell.css");
+        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 
     private const GLib.ActionEntry[] common_actions = {

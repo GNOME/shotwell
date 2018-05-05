@@ -1042,33 +1042,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const int ALL_DATA = -1;
     
-    private static Gee.Map<Gtk.Widget, Gtk.CssProvider> providers = null;
-    
-    public static void style_widget(Gtk.Widget widget, string stylesheet) {
-        if (providers == null)
-            providers = new Gee.HashMap<Gtk.Widget, Gtk.CssProvider>();
-
-        if (providers.has_key(widget))
-            widget.get_style_context().remove_provider(providers.get(widget));
-
-        Gtk.CssProvider styler = new Gtk.CssProvider();
-        
-        try {
-            styler.load_from_data(stylesheet, ALL_DATA);
-        } catch (Error e) {
-            warning("couldn't parse widget stylesheet '%s': %s", stylesheet,
-                e.message);
-            // short-circuit return -- if the stylesheet couldn't be interpreted
-            // then we can't do anything more
-            return;
-        }
-        
-        widget.get_style_context().add_provider(styler,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        providers.set(widget, styler);
-    }
-
     public static int use_header_bar() {
         if (Environment.get_variable("SHOTWELL_USE_HEADERBARS") != null) {
             return 0;
@@ -1079,16 +1052,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
         return use_header ? 1 : 0;
     }
-
-    public const string CUSTOM_CSS =
-         """LibraryWindow .pane-separator {
-               background-color: @borders;
-            }
-            SearchFilterToolbar {
-               border-width: 0 0 1px 0;
-               border-style: solid;
-               border-color: @borders;
-            }""";
 
     public const string ONIMAGE_FONT_COLOR = "#000000";
     public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";

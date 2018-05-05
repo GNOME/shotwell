@@ -362,10 +362,6 @@ void main(string[] args) {
         return;
     }
 
-    var provider = new Gtk.CssProvider();
-    provider.load_from_resource("/org/gnome/Shotwell/misc/org.gnome.Shotwell.css");
-    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-    
     if (CommandlineOptions.show_version) {
         if (Resources.GIT_VERSION != null)
             print("%s %s (%s)\n", Resources.APP_TITLE, Resources.APP_VERSION, Resources.GIT_VERSION);
