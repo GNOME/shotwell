@@ -32,6 +32,7 @@
       <file preprocess="xml-stripblanks">ui/textentrydialog.ui</file>
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
       <!-- Icons -->
+      <file>icons/image-missing.png</file>
       <file>icons/about-braunschweig.jpg</file>
       <file>icons/crop-pivot-reticle-symbolic.svg</file>
       <file>icons/events-merge-symbolic.svg</file>
