@@ -158,8 +158,8 @@
     
     <key name="use-dark-theme" type="b">
         <default>true</default>
-        <summary>prefer GTK's dark theme</summary>
-        <description>Whether to use the dark theme of GTK for Shotwell or not.</description>
+        <summary>prefer GTK+’s dark theme</summary>
+        <description>Whether to use the dark theme of GTK+ for Shotwell or not.</description>
     </key>
 
     <key name="transparent-background-type" type="s">
