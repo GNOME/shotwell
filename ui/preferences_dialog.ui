@@ -336,6 +336,7 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">When viewing images that are transparent, they will be drawn against this background.</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <property name="margin_left">10</property>
