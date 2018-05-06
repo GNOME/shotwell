@@ -12,7 +12,7 @@ private abstract class Properties : Gtk.Grid {
         column_spacing = 6;
     }
 
-    protected void add_line(string label_text, string info_text, bool multi_line = false) {
+    protected void add_line(string label_text, string info_text, bool multi_line = false, string? href = null) {
         Gtk.Label label = new Gtk.Label("");
         Gtk.Widget info;
 
@@ -42,7 +42,12 @@ private abstract class Properties : Gtk.Grid {
             if (!is_string_empty(info_text)) {
                 info_label.set_tooltip_markup(info_text);
             }
-            info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
+
+            if (href == null) {
+                info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
+            } else {
+                info_label.set_markup("<a href=\"%s\">%s</a>".printf(href, info_text));
+            }
             info_label.set_ellipsize(Pango.EllipsizeMode.END);
             info_label.xalign = 0.0f;
             info_label.yalign = 0.5f;
@@ -481,6 +486,7 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
         private string exposure_time;
         private bool is_raw;
         private string? development_path;
+        private const string OSM_LINK_TEMPLATE = "https://www.openstreetmap.org/?mlat=%1$s%2$f&amp;mlon=%3$s%4$f#map=16/%1$s%2$f/%3$s%4$f";
         
         // Event stuff
         // nothing here which is not already shown in the BasicProperties but
@@ -614,12 +620,20 @@ private class ExtendedPropertiesWindow : Gtk.Dialog {
                    exposure_time : NO_VALUE);
                 
                 add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
+
+                string? osm_link = null;
+                if (gps_lat != -1 && gps_lat_ref != "" && gps_long != -1 && gps_long_ref != "") {
+                    var old_locale = Intl.setlocale(LocaleCategory.NUMERIC, "C");
+                    osm_link = OSM_LINK_TEMPLATE.printf(gps_lat_ref == "N" ? "" : "-", gps_lat,
+                                                        gps_long_ref == "E" ? "" : "-", gps_long);
+                    Intl.setlocale(LocaleCategory.NUMERIC, old_locale);
+                }
             
                 add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
-                    gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
+                    gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE, false, osm_link);
             
                 add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" && 
-                    gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
+                    gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE, false, osm_link);
 
                 add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
 
