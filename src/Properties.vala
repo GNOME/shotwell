@@ -39,6 +39,9 @@ private abstract class Properties : Gtk.Grid {
             info = (Gtk.Widget) info_scroll;
         } else {
             Gtk.Label info_label = new Gtk.Label("");
+            if (!is_string_empty(info_text)) {
+                info_label.set_tooltip_markup(info_text);
+            }
             info_label.set_markup(is_string_empty(info_text) ? "" : info_text);
             info_label.set_ellipsize(Pango.EllipsizeMode.END);
             info_label.xalign = 0.0f;
