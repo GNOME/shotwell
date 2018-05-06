@@ -184,6 +184,11 @@ public abstract class CheckerboardItem : ThumbnailView {
             notify_view_altered();
         }
     }
+
+    public void translate_coordinates(ref int x, ref int y) {
+        x -= allocation.x + FRAME_WIDTH;
+        y -= allocation.y + FRAME_WIDTH;
+    }
     
     public void clear_title() {
         if (title == null)
@@ -1271,6 +1276,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         Pango.Layout? layout = item.get_tag_list_layout();
         if (layout == null)
             return -1;
+
+        item.translate_coordinates(ref x, ref y);
+
         Gdk.Rectangle rect = item.get_subtitle_allocation();
         int index, trailing;
         int px = (x - rect.x) * Pango.SCALE;
