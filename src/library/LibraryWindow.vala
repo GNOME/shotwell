@@ -6,6 +6,7 @@
 
 public class LibraryWindow : AppWindow {
     public const int SIDEBAR_MIN_WIDTH = 120;
+    public const int EXTENDED_INFO_MIN_WIDTH = 360;
     
     public static int PAGE_MIN_WIDTH {
         get {
@@ -137,7 +138,8 @@ public class LibraryWindow : AppWindow {
     private bool background_progress_displayed = false;
     
     private BasicProperties basic_properties = new BasicProperties();
-    private ExtendedPropertiesWindow extended_properties;
+    private ExtendedProperties extended_properties = new ExtendedProperties();
+    private Gtk.Revealer extended_properties_revealer = new Gtk.Revealer();
     
     private Gtk.Stack stack = new Gtk.Stack();
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
@@ -169,11 +171,6 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
         sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
-        
-        // create and connect extended properties window
-        extended_properties = new ExtendedPropertiesWindow(this);
-        extended_properties.hide.connect(hide_extended_properties);
-        extended_properties.show.connect(show_extended_properties);
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
@@ -230,9 +227,6 @@ public class LibraryWindow : AppWindow {
         
         unsubscribe_from_basic_information(get_current_page());
 
-        extended_properties.hide.disconnect(hide_extended_properties);
-        extended_properties.show.disconnect(show_extended_properties);
-        
         foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all()) {
             media_sources.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
             media_sources.items_altered.disconnect(on_media_altered);
@@ -689,12 +683,11 @@ public class LibraryWindow : AppWindow {
 
         if (display) {
             extended_properties.update_properties(get_current_page());
-            extended_properties.show_all();
-        } else {
-            extended_properties.hide();
         }
+        extended_properties_revealer.set_reveal_child(display);
 
         action.set_state (value);
+        Config.Facade.get_instance().set_display_extended_properties(display);
     }
     
     private void on_display_searchbar(GLib.SimpleAction action, Variant? value) {
@@ -750,22 +743,6 @@ public class LibraryWindow : AppWindow {
 
     private bool is_toolbar_visible () {
         return Config.Facade.get_instance ().get_display_toolbar ();
-    }
-
-    private void show_extended_properties() {
-        sync_extended_properties(true);
-    }
-
-    private void hide_extended_properties() {
-        sync_extended_properties(false);
-    }
-
-    private void sync_extended_properties(bool show) {
-        var action = this.lookup_action ("CommonDisplayExtendedProperties");
-        action.change_state (show);
-
-        // sync the setting so it will persist
-        Config.Facade.get_instance().set_display_extended_properties(show);
     }
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
@@ -1188,7 +1165,9 @@ public class LibraryWindow : AppWindow {
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_vbox.pack_start(search_toolbar, false, false, 0);
-        right_vbox.pack_start(stack, true, true, 0);
+        var stack_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+        stack_box.pack_start(stack, true, true, 0);
+        right_vbox.pack_start(stack_box, true, true, 0);
         right_vbox.add (toolbar_revealer);
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
@@ -1198,6 +1177,29 @@ public class LibraryWindow : AppWindow {
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);
+        var scrolled = new Gtk.ScrolledWindow(null, null);
+        scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        scrolled.add(extended_properties);
+        extended_properties_revealer.add(scrolled);
+        extended_properties_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_LEFT);
+        extended_properties_revealer.halign = Gtk.Align.END;
+        extended_properties_revealer.valign = Gtk.Align.FILL;
+
+        extended_properties.vexpand = true;
+        extended_properties.set_margin_top (3);
+        extended_properties.set_margin_bottom (3);
+        extended_properties.set_margin_start (3);
+        extended_properties.set_margin_end (3);
+        scrolled.set_size_request(EXTENDED_INFO_MIN_WIDTH, -1);
+
+        stack_box.pack_end(extended_properties_revealer, false, false, 0);
+        extended_properties_revealer.halign = Gtk.Align.END;
+        extended_properties_revealer.hexpand = false;
+        if (Config.Facade.get_instance().get_display_extended_properties()) {
+            extended_properties_revealer.set_reveal_child(true);
+        } else {
+            extended_properties_revealer.set_reveal_child(false);
+        }
 
         layout.pack_end(client_paned, true, true, 0);
         
