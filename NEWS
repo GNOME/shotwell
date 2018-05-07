@@ -1,3 +1,17 @@
+Shotwell 0.28.3 - 7 May 2018
+  * Fix spacings in search toolbar
+  * Fix "Out of memory" issues when scrolling through large collections
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=786702
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+
+Added/updated translations
+ - pl, courtesy of Piotr Drąg
+
 Shotwell 0.28.2 - 9 Apr 2018
   * Fix saved search dialog on Gtk 3.18
   * Fix crash when editing images with alpha channel
