@@ -1,3 +1,36 @@
+Shotweell 0.29.2 - 22 May 2018
+  * Fix "out of memory issue" on HiDPI screens
+  * Replace all icons with their symbolic variant
+  * General icon clean-up
+  * Render CheckerboardLayout with theme colors_changed
+  * Remove possibility for custom background color in library
+  * Enable dark theme by default (can be switched off in settings)
+  * Fix linked tags (broken by out-of-memory fix)
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718212
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=786702
+ - https://bugzilla.gnome.org/show_bug.cgi?id=795719
+ - See https://developer.gnome.org/hig/stable/typography.html
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Marcos Lans <marcoslansgarza@gmail.com>
+ - Joerg C. Frings-Fuerst <bug-reports-extern@jff-webhosting.net>
+ - Jens Georg <mail+gitkraken@jensge.org>
+
+Added/updated translations
+ - cs, courtesy of Marek Černocký
+ - gl, courtesy of marcos
+ - pl, courtesy of Piotr Drąg
+
+Shotwell 0.29.1 - 24 Apr 2018
+ * Fix issue with meson dist tarball generation
+
 Shotwell 0.29.0 - 24 Apr 2018
   * Fix an issue with undefined symbols with certain compilers
   * Remove autotools supports
