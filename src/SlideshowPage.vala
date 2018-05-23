@@ -41,6 +41,8 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.CheckButton show_title_button;
         
         public SettingsDialog() {
+            Object (use_header_bar: Resources.use_header_bar());
+
             double delay = Config.Facade.get_instance().get_slideshow_delay();
 
             set_transient_for(AppWindow.get_fullscreen());
