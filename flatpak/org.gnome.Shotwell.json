@@ -45,83 +45,6 @@
             "config-opts" : ["--disable-introspection", "--disable-docs"]
         },
         {
-            "name": "libudev",
-            "buildsystem": "meson",
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://github.com/systemd/systemd/archive/v238.tar.gz",
-                    "sha256": "bbc8599bab2e3c4273886dfab12464e488ecdaf20b8284949e50f8858de3e022"
-                },
-                {
-                    "type": "patch",
-                    "path": "patches/lower-mount-dependency.patch"
-                }
-            ],
-            "cleanup" : [ "/bin", "/lib/systemd", "/etc", "/usr/bin" ],
-            "config-opts": [
-                "-Drootprefix=/app",
-                "-Dlibcryptsetup=false",
-                "-Dbashcompletiondir=no",
-                "-Dsysconfdir=/app/etc",
-                "-Dsysvinit-path=",
-                "-Dsysvrcnd-path=",
-                "-Drpmmacrosdir=no",
-                "-Dhibernate=false",
-                "-Dtpm=false",
-                "-Dcoredump=false",
-                "-Delfutils=false",
-                "-Dpam=false",
-                "-Daudit=false",
-                "-Dselinux=false",
-                "-Dapparmor=false",
-                "-Dlibidn=false",
-                "-Dlibiptc=false",
-                "-Dsmack=false",
-                "-Dima=false",
-                "-Dbinfmt=false",
-                "-Dquotacheck=false",
-                "-Dtmpfiles=false",
-                "-Drandomseed=false",
-                "-Dbacklight=false",
-                "-Dlogind=false",
-                "-Dmachined=false",
-                "-Dlibcurl=false",
-                "-Dimportd=false",
-                "-Dmicrohttpd=false",
-                "-Dgnutls=false",
-                "-Dhostnamed=false",
-                "-Dtimedated=false",
-                "-Dnetworkd=false",
-                "-Dtimesyncd=false",
-                "-Dlocaled=false",
-                "-Dmyhostname=false",
-                "-Dnss-systemd=false",
-                "-Dresolve=false",
-                "-Dpolkit=false",
-                "-Dacl=false",
-                "-Dgcrypt=false",
-                "-Drfkill=false",
-                "-Dhwdb=false",
-                "-Dman=false",
-                "-Defi=false",
-                "-Dgnuefi=false",
-                "-Dseccomp=false",
-                "-Dsysusers=false"
-            ]
-        },
-        {
-            "name": "gudev",
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/libgudev/232/libgudev-232.tar.xz",
-                    "sha256" : "ee4cb2b9c573cdf354f6ed744f01b111d4b5bed3503ffa956cefff50489c7860"
-                }
-            ],
-            "config-opts" : ["--disable-introspection", "--disable-docs", "--disable-umockdev"]
-        },
-        {
         "name": "exiv2",
         "cleanup": [ "/bin" ],
         "sources": [
@@ -205,6 +128,7 @@
         {
             "name": "shotwell",
             "buildsystem": "meson",
+            "config-opts" : ["-Dudev=false", "-Dinstall-apport-hook=false"],
             "sources" : [
                 {
                     "type": "git",
