@@ -4,5 +4,6 @@ option('extra-plugins', type : 'boolean', value : 'true', description: 'Enable b
 option('trace', type: 'string', value : '', description: 'Enable various trace  options (available: dtors, import, md5, metadata-writer, monitoring, pixbuf-cache, reflow, reflow-items)')
 option('measure', type: 'string', value : '', description : 'Enable various timing measurements(available : enhance, import, pipeline, view-filtering, thumbnail-cache)')
 option('dupe-detection', type: 'boolean', value : 'true', description: 'Disable duplicate checks')
+option('udev', type: 'boolean', value : 'true', description: 'Enable or disable udev support')
 option('install-apport-hook', type : 'boolean', value : 'true', description: 'Enable Ubuntu apport hook')
 option('face-detection', type:'boolean', value:false)

@@ -51,7 +51,7 @@ sqlite = dependency('sqlite3', version : '>= 3.5.9')
 gstreamer = dependency('gstreamer-1.0', version : '>= 1.0')
 gstreamer_pbu = dependency('gstreamer-pbutils-1.0', version : '>= 1.0')
 gphoto2 = dependency('libgphoto2', version : '>= 2.5.0')
-gudev = dependency('gudev-1.0', version : '>= 145')
+gudev = dependency('gudev-1.0', version : '>= 145', required: false)
 gexiv2 = dependency('gexiv2', version: '>= 0.10.4')
 libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
@@ -79,7 +79,11 @@ foreach measure : get_option('measure').split(',')
 endforeach
 
 if not get_option('dupe-detection')
-  add_global_arguments(['--define=NO_DUPE_DETECTION'], language : vala)
+  add_global_arguments(['--define=NO_DUPE_DETECTION'], language : 'vala')
+endif
+
+if get_option('udev') and gudev.found()
+  add_global_arguments(['--define=HAVE_UDEV'], language : 'vala')
 endif
 
 if get_option('face-detection')

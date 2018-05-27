@@ -26,7 +26,9 @@ public class CameraTable {
     
     private static CameraTable instance = null;
     
+#if HAVE_UDEV
     private GUdev.Client client = new GUdev.Client(SUBSYSTEMS);
+#endif
     private OneShotScheduler camera_update_scheduler = null;
     private GPhoto.Context null_context = new GPhoto.Context();
     private GPhoto.CameraAbilitiesList abilities_list;
@@ -43,7 +45,9 @@ public class CameraTable {
             on_update_cameras);
         
         // listen for interesting events on the specified subsystems
+#if HAVE_UDEV
         client.uevent.connect(on_udev_event);
+#endif
         volume_monitor = VolumeMonitor.get();
         volume_monitor.volume_changed.connect(on_volume_changed);
         volume_monitor.volume_added.connect(on_volume_changed);
@@ -108,6 +112,7 @@ public class CameraTable {
         do_op(abilities_list.load(null_context), "load camera abilities list");
     }
     
+#if HAVE_UDEV
     private string[] get_all_usb_cameras() {
         string[] cameras = new string[0];
         
@@ -201,6 +206,7 @@ public class CameraTable {
         
         return false;
     }
+#endif
     
     public static string get_port_uri(string port) {
         return "gphoto2://[%s]/".printf(port);
@@ -212,6 +218,7 @@ public class CameraTable {
             "/dev/bus/usb/%s".printf(port.substring(4).replace(",", "/")) : null;
     }
     
+#if HAVE_UDEV
     private string? get_name_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
             if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
@@ -229,6 +236,7 @@ public class CameraTable {
         }
         return null;
     }
+#endif
 
     private void update_camera_table() throws GPhotoError {
         // need to do this because virtual ports come and go in the USB world (and probably others)
@@ -241,9 +249,11 @@ public class CameraTable {
         do_op(abilities_list.detect(port_info_list, camera_list, null_context), "detect cameras");
         
         Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>();
-        
+
+#if HAVE_UDEV
         // walk the USB chain and find all PTP cameras; this is necessary for usb_esp
         string[] usb_cameras = get_all_usb_cameras();
+#endif
         
         // go through the detected camera list and glean their ports
         for (int ctr = 0; ctr < camera_list.count(); ctr++) {
@@ -255,6 +265,7 @@ public class CameraTable {
             
             debug("Detected %d/%d %s @ %s", ctr + 1, camera_list.count(), name, port);
             
+#if HAVE_UDEV
             // do some USB ESP, skipping ports that cannot be deduced
             if (port.has_prefix("usb:")) {
                 string full_port;
@@ -263,7 +274,7 @@ public class CameraTable {
                 
                 port = full_port;
             }
-
+#endif
             detected_map.set(port, name);
         }
         
@@ -325,6 +336,7 @@ public class CameraTable {
                 continue;
             }
             
+#if HAVE_UDEV
             // Get display name for camera.
             string path = get_port_path(port);
             if (null != path) {
@@ -342,6 +354,7 @@ public class CameraTable {
                     display_name = device.get_property("ID_MODEL");
                 }
             }
+#endif
 
             if (port.has_prefix("disk:")) {
                 try {
@@ -392,6 +405,7 @@ public class CameraTable {
         }
     }
     
+#if HAVE_UDEV
     private void on_udev_event(string action, GUdev.Device device) {
         debug("udev event: %s on %s", action, device.get_name());
         
@@ -399,6 +413,7 @@ public class CameraTable {
         // update to occur when they come in all at once
         camera_update_scheduler.after_timeout(UPDATE_DELAY_MSEC, true);
     }
+#endif
     
     public void on_volume_changed(Volume volume) {
         camera_update_scheduler.after_timeout(UPDATE_DELAY_MSEC, true);
