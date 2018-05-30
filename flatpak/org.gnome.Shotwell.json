@@ -79,7 +79,7 @@
     {
         "name": "gexiv2",
         "cleanup" : ["/tmp"],
-        "config-opts" : ["--with-python2-girdir=/app/tmp", "--with-python3-girdir=/app/tmp"],
+        "config-opts" : ["--without-python2-girdir", "--without-python3-girdir"],
         "build-options" : {
             "env": {
                 "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
