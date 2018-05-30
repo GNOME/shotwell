@@ -130,7 +130,7 @@
         "sources": [
             {
                 "type": "git",
-                "url": "https://git.gnome.org/browse/libgdata"
+                "url": "https://gitlab.gnome.org/GNOME/libgdata"
             }
         ]
     },
@@ -142,7 +142,7 @@
             "sources" : [
                 {
                     "type": "git",
-                    "url" : "https://git.gnome.org/browse/shotwell.git",
+                    "url" : "https://gitlab.gnome.org/GNOME/shotwell",
                     "branch" : "master"
                 }
             ],
