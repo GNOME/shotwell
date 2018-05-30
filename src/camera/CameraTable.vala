@@ -45,8 +45,11 @@ public class CameraTable {
             on_update_cameras);
         
         // listen for interesting events on the specified subsystems
+
 #if HAVE_UDEV
         client.uevent.connect(on_udev_event);
+#else
+        Timeout.add_seconds(10, () => { camera_update_scheduler.after_timeout(UPDATE_DELAY_MSEC, true); return true; });
 #endif
         volume_monitor = VolumeMonitor.get();
         volume_monitor.volume_changed.connect(on_volume_changed);
