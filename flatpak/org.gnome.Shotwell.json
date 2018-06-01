@@ -54,87 +54,80 @@
             ],
             "config-opts" : ["--disable-introspection", "--disable-docs"]
         },
+
         {
-        "name": "exiv2",
-        "cleanup": [ "/bin" ],
-        "sources": [
-            {
-                "type": "archive",
-                "url": "http://exiv2.org/builds/exiv2-0.26-trunk.tar.gz",
-                "sha256": "c75e3c4a0811bf700d92c82319373b7a825a2331c12b8b37d41eb58e4f18eafb"
-            },
-            {
-                "type": "patch",
-                "path": "patches/exiv2-no-builddir.patch"
-            },
-            {
-                "type": "shell",
-                "commands": [
-                    "cp -f /usr/share/automake-1.15/config.sub ./config/",
-                    "cp -f /usr/share/automake-1.15/config.guess ./config/"
-                ]
-            }
-        ]
-    },
-    {
-        "name": "gexiv2",
-        "cleanup" : ["/tmp"],
-        "config-opts" : ["--without-python2-girdir", "--without-python3-girdir"],
-        "build-options" : {
-            "env": {
-                "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
-                "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
-            }
+            "name": "liboauth",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://netix.dl.sourceforge.net/project/liboauth/liboauth-1.0.3.tar.gz",
+                    "sha256": "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f"
+                }
+            ]
         },
-        "sources": [
-            {
-                "type": "git",
-                "url": "https://gitlab.gnome.org/GNOME/gexiv2"
-            }
-        ]
-    },
+        {
+            "name": "libgdata",
+            "config-opts": [ "--disable-always-build-tests",
+                "--disable-introspection",
+                "--disable-Werror",
+                "--disable-static",
+                "--disable-goa" ],
+                "sources": [
+                    {
+                        "type": "archive",
+                        "url": "https://download.gnome.org/sources/libgdata/0.17/libgdata-0.17.9.tar.xz",
+                        "sha256": "85c4f7674c0098ffaf060ae01b6b832cb277b3673d54ace3bdedaad6b127453a"
+                    }
+                ]
+        },
 
-    {
-        "name": "libraw",
-        "config-opts": [ "--disable-examples", "--disable-static" ],
-        "cleanup": [ "/share/doc" ],
-        "sources": [
-            {
-                "type": "archive",
-                "url": "https://www.libraw.org/data/LibRaw-0.18.8.tar.gz",
-                "sha256": "56aca4fd97038923d57d2d17d90aa11d827f1f3d3f1d97e9f5a0d52ff87420e2"
+
+        {
+            "name": "exiv2",
+            "cleanup": [ "/bin" ],
+            "buildsystem": "cmake",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "http://github.com/Exiv2/exiv2",
+                    "branch": "0.26"
+                }
+            ]
+        },
+        {
+            "name": "gexiv2",
+            "cleanup" : ["/tmp"],
+            "config-opts" : ["--without-python2-girdir", "--without-python3-girdir"],
+            "build-options" : {
+                "env": {
+                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
+                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
+                }
             },
-            {
-                "type": "patch",
-                "path": "patches/libraw-pkgconfig.patch"
-            }
-        ]
-    },
-    {
-        "name": "liboauth",
-        "sources": [
-            {
-                "type": "archive",
-                "url": "http://netix.dl.sourceforge.net/project/liboauth/liboauth-1.0.3.tar.gz",
-                "sha256": "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f"
-            }
-        ]
-    },
-    {
-        "name": "libgdata",
-        "config-opts": [ "--disable-always-build-tests",
-                         "--disable-introspection",
-                         "--disable-Werror",
-                         "--disable-static",
-                         "--disable-goa" ],
-        "sources": [
-            {
-                "type": "git",
-                "url": "https://gitlab.gnome.org/GNOME/libgdata"
-            }
-        ]
-    },
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/gexiv2"
+                }
+            ]
+        },
 
+        {
+            "name": "libraw",
+            "config-opts": [ "--disable-examples", "--disable-static" ],
+            "cleanup": [ "/share/doc" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.libraw.org/data/LibRaw-0.18.8.tar.gz",
+                    "sha256": "56aca4fd97038923d57d2d17d90aa11d827f1f3d3f1d97e9f5a0d52ff87420e2"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/libraw-pkgconfig.patch"
+                }
+            ]
+        },
         {
             "name": "shotwell",
             "buildsystem": "meson",
