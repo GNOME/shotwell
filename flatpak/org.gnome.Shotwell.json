@@ -20,6 +20,8 @@
         "--talk-name=org.gtk.vfs"
     ],
 
+    "cleanup" : ["/include", "/lib/pkconfig", "/share/pkgconfig", "/share/gtk-doc", "/share/man", "/share/vala", "/lib/girepository", "*.la", "*.a"],
+
     "modules" : [
         {
             "name": "libgee",
@@ -45,6 +47,7 @@
         },
         {
             "name": "libghoto2",
+            "cleanup" : ["/bin", "/lib/udev", "/share/doc"],
             "sources" : [
                 {
                     "type" : "archive",
@@ -67,6 +70,7 @@
         },
         {
             "name": "libgdata",
+            "cleanup": ["/share/gtk-doc"],
             "config-opts": [ "--disable-always-build-tests",
                 "--disable-introspection",
                 "--disable-Werror",
@@ -96,7 +100,7 @@
         },
         {
             "name": "gexiv2",
-            "cleanup" : ["/tmp"],
+            "cleanup" : ["/lib/girepository-1.0", "/share/gir-1.0"],
             "config-opts" : ["--without-python2-girdir", "--without-python3-girdir"],
             "build-options" : {
                 "env": {
