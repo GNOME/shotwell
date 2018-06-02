@@ -76,10 +76,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string IMPORT_ALL = "filter-photos-symbolic";
     public const string ENHANCE = "image-auto-adjust-symbolic";
     public const string PUBLISH = "send-to-symbolic";
-#if ENABLE_FACES
-    public const string FACES_TOOL = "faces";
-#endif
-    
+    public const string FACES_TOOL = "avatar-default-symbolic";
+
     public const string GO_NEXT = "go-next-symbolic";
     public const string GO_PREVIOUS = "go-previous-symbolic";
 
@@ -106,10 +104,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_SINGLE_PHOTO = "image-x-generic-symbolic";
     public const string ICON_TRASH_EMPTY = "user-trash-symbolic";
     public const string ICON_TRASH_FULL = "user-trash-full-symbolic";
-#if ENABLE_FACES
-    public const string ICON_ONE_FACE = "one-face";
-    public const string ICON_FACES = "faces-tool";
-#endif
+    public const string ICON_ONE_FACE = "avatar-default-symbolic";
+    public const string ICON_FACES = "avatar-default-symbolic";
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -306,8 +302,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string UNFLAG_MENU = _("Un_flag");
 
-
-#if ENABLE_FACES    
     public const string FACES_MENU = _("Faces");
     public const string FACES_LABEL = _("Faces");
     public const string FACES_TOOLTIP = _("Mark faces of people in the photo");
@@ -316,8 +310,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
     public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename…");
     public const string FACES_MENU_SECTION = _("FacesMenuPlaceholder");
-#endif
-
 
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);

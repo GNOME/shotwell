@@ -33,11 +33,11 @@
       <file preprocess="xml-stripblanks">ui/textentrydialog.ui</file>
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
       <!-- Icons -->
+      <file>icons/avatar-default-symbolic.svg</file>
       <file>icons/image-missing.png</file>
       <file>icons/about-braunschweig.jpg</file>
       <file>icons/crop-pivot-reticle-symbolic.svg</file>
       <file>icons/events-merge-symbolic.svg</file>
-      <file>icons/faces-tool.png</file>
       <file>icons/filter-flagged-symbolic.svg</file>
       <file>icons/filter-flagged-disabled-symbolic.svg</file>
       <file>icons/filter-photos-symbolic.svg</file>
@@ -51,13 +51,11 @@
       <file>icons/image-adjust-color-symbolic.svg</file>
       <file>icons/image-zoom-in-symbolic.svg</file>
       <file>icons/image-zoom-out-symbolic.svg</file>
-      <file>icons/many-faces.png</file>
       <file>icons/multiple-events-symbolic.svg</file>
       <file>icons/multiple-tags-symbolic.svg</file>
       <file>icons/no-event-symbolic.svg</file>
       <file>icons/noninterpretable-video.png</file>
       <file>icons/one-event-symbolic.svg</file>
-      <file>icons/one-face.png</file>
       <file>icons/one-tag-symbolic.svg</file>
       <file>icons/stock-eye-symbolic.svg</file>
       <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
