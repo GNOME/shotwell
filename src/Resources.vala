@@ -405,33 +405,33 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
 #if ENABLE_FACES
     public static string rename_face_exists_message(string name) {
-        return _("Unable to rename face to \"%s\" because the face already exists.").printf(name);
+        return _("Unable to rename face to “%s” because the face already exists.").printf(name);
     }
     
     public string remove_face_from_photos_menu(string name, int count) {
-        return ngettext ("Remove Face \"%s\" From _Photo",
-                         "Remove Face \"%s\" From _Photos", count).printf(name);
+        return ngettext ("Remove Face “%s” From _Photo",
+                         "Remove Face “%s” From _Photos", count).printf(name);
     }
     
     public string remove_face_from_photos_label(string name, int count) {
-        return ngettext ("Remove Face \"%s\" From Photo",
-                         "Remove Face \"%s\" From Photos", count).printf(name);
+        return ngettext ("Remove Face “%s” From Photo",
+                         "Remove Face “%s” From Photos", count).printf(name);
     }
     
     public string rename_face_menu(string name) {
-        return _("Re_name Face \"%s\"...").printf(name);
+        return _("Re_name Face “%s”…").printf(name);
     }
     
     public string rename_face_label(string old_name, string new_name) {
-        return _("Rename Face \"%s\" to \"%s\"").printf(old_name, new_name);
+        return _("Rename Face “%s” to “%s”").printf(old_name, new_name);
     }
     
     public string delete_face_menu(string name) {
-        return _("_Delete Face \"%s\"").printf(name);
+        return _("_Delete Face “%s”").printf(name);
     }
     
     public string delete_face_label(string name) {
-        return _("Delete Face \"%s\"").printf(name);
+        return _("Delete Face “%s”").printf(name);
     }
 #endif
     
