@@ -12,8 +12,8 @@
       can customize the prefix directory.  Run meson build configure  for
       instructions and other installation options.
 
-    * You may need to execute "make install" as root (i.e. sudo make install)
-      if installing to system directories.
+    * You may need to execute "ninja -C build install" as root
+      (i.e. sudo ninja -C build install) if installing to system directories.
 
     * If you wish to try Shotwell before installing it, you may execute it
       directly from its build directory.  Note that certain desktop integration
