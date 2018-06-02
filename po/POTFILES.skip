@@ -60,6 +60,8 @@ src/events/EventPage.c
 src/events/EventsBranch.c
 src/events/EventsDirectoryPage.c
 src/Exporter.c
+src/faces/FacesBranch.c
+src/faces/FacesTool.c
 src/folders/FoldersBranch.c
 src/import-roll/ImportRollBranch.c
 src/library/FlaggedPage.c

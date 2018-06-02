@@ -79,6 +79,8 @@ src/events/EventsBranch.vala
 src/events/EventsDirectoryPage.vala
 src/Event.vala
 src/Exporter.vala
+src/faces/FacesBranch.vala
+src/faces/FacesTool.vala
 src/folders/FoldersBranch.vala
 src/import-roll/ImportRollBranch.vala
 src/library/FlaggedPage.vala
@@ -122,6 +124,7 @@ ui/direct_context.ui
 ui/direct.ui
 ui/events_directory.ui
 ui/event.ui
+ui/faces.ui
 ui/import_queue.ui
 ui/import.ui
 ui/manifest_widget.ui
