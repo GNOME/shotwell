@@ -409,13 +409,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public string remove_face_from_photos_menu(string name, int count) {
-        return ((count == 1) ? _("Remove Face \"%s\" From _Photo") :
-            _("Remove Face \"%s\" From _Photos")).printf(name);
+        return ngettext ("Remove Face \"%s\" From _Photo",
+                         "Remove Face \"%s\" From _Photos", count).printf(name);
     }
     
     public string remove_face_from_photos_label(string name, int count) {
-        return ((count == 1) ? _("Remove Face \"%s\" From Photo") :
-            _("Remove Face \"%s\" From Photos")).printf(name);
+        return ngettext ("Remove Face \"%s\" From Photo",
+                         "Remove Face \"%s\" From Photos", count).printf(name);
     }
     
     public string rename_face_menu(string name) {
