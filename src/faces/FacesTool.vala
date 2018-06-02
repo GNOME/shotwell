@@ -45,15 +45,14 @@ public class FacesTool : EditingTools.EditingTool {
         public FaceWidget (FaceShape face_shape) {
             spacing = CONTROL_SPACING;
 
-            edit_button = new Gtk.Button.from_icon_name("gtk-edit", Gtk.IconSize.BUTTON);
+            edit_button = new Gtk.Button.with_label(Resources.EDIT_LABEL);
             edit_button.set_use_underline(true);
-            edit_button.set_label (Resources.EDIT_LABEL);
-            delete_button = new Gtk.Button.from_icon_name("edit-delete", Gtk.IconSize.BUTTON);
+            delete_button = new Gtk.Button.with_label(Resources.DELETE_LABEL);
             delete_button.set_use_underline(true);
-            delete_button.set_label (Resources.DELETE_LABEL);
 
             label = new Gtk.Label(face_shape.get_name());
-            label.set_alignment(0f, 0.5f);
+            label.halign = Gtk.Align.START;
+            label.valign = Gtk.Align.CENTER;
             label.ellipsize = Pango.EllipsizeMode.END;
             label.width_chars = FACE_LABEL_MAX_CHARS;
 
@@ -129,15 +128,14 @@ public class FacesTool : EditingTools.EditingTool {
         public FacesToolWindow(Gtk.Window container) {
             base(container);
             
-            ok_button = new Gtk.Button.from_icon_name("object-select-symbolic", Gtk.IconSize.BUTTON);
+            ok_button = new Gtk.Button.with_label(Resources.OK_LABEL);
             ok_button.set_use_underline(true);
-            ok_button.set_label(Resources.OK_LABEL);
-            cancel_button = new Gtk.Button.from_icon_name("gtk-cancel", Gtk.IconSize.BUTTON);
+
+            cancel_button = new Gtk.Button.with_label(Resources.CANCEL_LABEL);
             cancel_button.set_use_underline(true);
-            cancel_button.set_label(Resources.CANCEL_LABEL);
-            cancel_detection_button = new Gtk.Button.from_icon_name("gtk-cancel", Gtk.IconSize.BUTTON);
+
+            cancel_detection_button = new Gtk.Button.with_label(Resources.CANCEL_LABEL);
             cancel_detection_button.set_use_underline(true);
-            cancel_detection_button.set_label(Resources.CANCEL_LABEL);
 
             detection_button.set_tooltip_text(_("Detect faces on this photo"));
 
