@@ -340,6 +340,7 @@ public class FacesTool : EditingTools.EditingTool {
             } catch (SpawnError e) {
                 spawnError = e;
                 critical(e.message);
+
                 return;
             }
 
@@ -957,7 +958,7 @@ public class FacesTool : EditingTools.EditingTool {
             string spawnErrorMessage = _("Error trying to spawn face detection program:\n");
             AppWindow.error_message(spawnErrorMessage + face_detection.spawnError.message + "\n");
             faces_tool_window.set_editing_phase(EditingPhase.DETECTING_FACES_FINISHED);
-        }else
+        } else
             pick_faces_from_autodetected();
     }
 
