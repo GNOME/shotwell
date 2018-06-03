@@ -309,7 +309,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DELETE_FACE_TITLE = _("Delete Face");
     public const string DELETE_FACE_SIDEBAR_MENU = _("_Delete");
     public const string RENAME_FACE_SIDEBAR_MENU = _("_Rename…");
-    public const string FACES_MENU_SECTION = _("FacesMenuPlaceholder");
+    public const string FACES_MENU_SECTION = "FacesMenuPlaceholder";
 
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);

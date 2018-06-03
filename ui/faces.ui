@@ -454,7 +454,7 @@
   <menu id="CollectionFacesPlaceholder">
     <section>
       <item>
-        <attribute name="label" translatable="yes">ContextRemoveFaceFromPhotos</attribute>
+        <attribute name="label">ContextRemoveFaceFromPhotos</attribute>
         <attribute name="action">win.RemoveFaceFromPhotos</attribute>
       </item>
     </section>
