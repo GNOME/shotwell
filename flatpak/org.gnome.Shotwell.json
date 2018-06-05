@@ -4,6 +4,9 @@
     "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command" : "shotwell",
+    "rename-desktop-file" : "shotwell.desktop",
+    "rename-icon" : "shotwell",
+    "rename-appdata-file" : "shotwell.appdata.xml",
     "finish-args": [
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--filesystem=~/.config/dconf:ro",
