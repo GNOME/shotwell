@@ -1,0 +1,25 @@
+From e9c9b2fe9ee1854b749b4bb976449367b48152ae Mon Sep 17 00:00:00 2001
+From: Jens Georg <mail@jensge.org>
+Date: Tue, 5 Jun 2018 10:55:21 +0200
+Subject: [PATCH] wip: Temporary fix
+
+---
+ po/tr.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/po/tr.po b/po/tr.po
+index f527032..4bbe2b7 100644
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -94,7 +94,7 @@ msgstr ""
+ "albüm;kamera;kameralar;kırp;düzenle;güzelleştir;dışa aktar;galeri;görüntü;"
+ "görüntüler;içe aktar;yerleştir;foto;fotoğraflar;fotolar;resim;resimler;"
+ "fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;facebook;"
+-"flickr;picasa;youtube;piwigo"
++"flickr;picasa;youtube;piwigo;"
+ 
+ #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+ #: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
+-- 
+2.7.4
+
