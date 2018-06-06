@@ -137,6 +137,21 @@
             ]
         },
         {
+            "name": "opencv",
+            "buildsystem": "cmake",
+            "builddir": true,
+            "cleanup" : ["/share/OpenCV/*.cmake", "/share/OpenCV/*.supp"],
+            "config-opts" : ["-DBUILD_TESTS=OFF", "-DBUILD_EXAMPLES=OFF", "-DBUILD_PERF_TESTS=OFF", "-DWITH_FFMPEG=OFF", "-DWITH_GTK=OFF", "-DWITH_GSTREAMER=OFF", "-DBUILD_opencv_apps=OFF"],
+            "sources": [
+                {
+                    "type": "git",
+                    "tag": "3.4.1",
+                    "commit" : "6ffc48769ac60d53c4bd1913eac15117c9b1c9f7",
+                    "url": "https://github.com/opencv/opencv"
+                }
+            ]
+        },
+        {
             "name": "shotwell",
             "buildsystem": "meson",
             "config-opts" : ["-Dudev=false", "-Dinstall-apport-hook=false", "-Dface-detection=true"],
