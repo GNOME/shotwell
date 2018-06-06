@@ -145,10 +145,6 @@
                     "type": "git",
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell",
                     "branch" : "master"
-                },
-                {
-                    "type" : "patch",
-                    "path" : "patches/0001-wip-Temporary-fix.patch"
                 }
             ],
             "post-install": [
