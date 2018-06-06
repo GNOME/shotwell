@@ -7,6 +7,8 @@
     "rename-desktop-file" : "shotwell.desktop",
     "rename-icon" : "shotwell",
     "rename-appdata-file" : "shotwell.appdata.xml",
+    "tags": [ "nightly" ],
+    "desktop-file-name-prefix": "(Nightly) ",
     "finish-args": [
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--filesystem=~/.config/dconf:ro",
