@@ -3,10 +3,44 @@ using Shotwell.Plugins;
 
 namespace Publishing.Authenticator.Shotwell.Google {
     private const string OAUTH_CLIENT_ID = "534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67.apps.googleusercontent.com";
+    private const string REVERSE_CLIENT_ID = "com.googleusercontent.apps.534227538559-hvj2e8bj0vfv2f49r7gvjoq6jibfav67";
     private const string OAUTH_CLIENT_SECRET = "pwpzZ7W1TCcD5uIfYCu8sM7x";
+    private const string OAUTH_CALLBACK_URI = REVERSE_CLIENT_ID + ":/auth-callback";
 
     private class WebAuthenticationPane : Common.WebAuthenticationPane {
         public static bool cache_dirty = false;
+        private string? auth_code = null;
+
+        public signal void error();
+
+        public override void constructed() {
+            base.constructed();
+
+            var ctx = WebKit.WebContext.get_default();
+            ctx.register_uri_scheme(REVERSE_CLIENT_ID, this.on_shotwell_auth_request_cb);
+        }
+
+        public override void on_page_load() {
+            var uri = new Soup.URI(get_view().get_uri());
+            if (uri.scheme == REVERSE_CLIENT_ID && this.auth_code == null) {
+                this.error();
+            }
+
+            if (this.auth_code != null) {
+                this.authorized(this.auth_code);
+            }
+        }
+
+        private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
+            var uri = new Soup.URI(request.get_uri());
+            debug("URI: %s", request.get_uri());
+            var form_data = Soup.Form.decode (uri.query);
+            this.auth_code = form_data.lookup("code");
+
+            var response = "";
+            var mins = new MemoryInputStream.from_data(response.data, null);
+            request.finish(mins, -1, "text/plain");
+        }
 
         public signal void authorized(string auth_code);
 
@@ -16,21 +50,6 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
         public static bool is_cache_dirty() {
             return cache_dirty;
-        }
-
-        public override void on_page_load() {
-            string page_title = get_view ().get_title();
-            if (page_title.index_of("state=connect") > 0) {
-                int auth_code_field_start = page_title.index_of("code=");
-                if (auth_code_field_start < 0)
-                    return;
-
-                string auth_code = page_title.substring(auth_code_field_start + 5); // 5 = "code=".length
-
-                cache_dirty = true;
-
-                authorized(auth_code);
-            }
         }
     }
 
@@ -59,7 +78,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             add_argument("code", auth_code);
             add_argument("client_id", OAUTH_CLIENT_ID);
             add_argument("client_secret", OAUTH_CLIENT_SECRET);
-            add_argument("redirect_uri", "urn:ietf:wg:oauth:2.0:oob");
+            add_argument("redirect_uri", OAUTH_CALLBACK_URI);
             add_argument("grant_type", "authorization_code");
         }
     }
@@ -144,7 +163,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             string user_authorization_url = "https://accounts.google.com/o/oauth2/auth?" +
                 "response_type=code&" +
                 "client_id=" + OAUTH_CLIENT_ID + "&" +
-                "redirect_uri=" + Soup.URI.encode("urn:ietf:wg:oauth:2.0:oob", null) + "&" +
+                "redirect_uri=" + Soup.URI.encode(OAUTH_CALLBACK_URI, null) + "&" +
                 "scope=" + Soup.URI.encode(this.scope, null) + "+" +
                 Soup.URI.encode("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
                 "state=connect&" +
