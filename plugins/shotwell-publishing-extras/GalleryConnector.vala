@@ -65,6 +65,7 @@ public class Gallery3Service : Object, Spit.Pluggable,
         if (icon_pixbuf_set == null)
             icon_pixbuf_set = Resources.load_from_resource
                 (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
+
     }
 
     public int get_pluggable_interface(int min_host_interface,
@@ -798,6 +799,7 @@ private class GalleryUploadTransaction :
 
 
 public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
+    private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Gallery3";
     private const string BAD_FILE_MSG = _("\n\nThe file “%s” may not be supported by or may be too large for this instance of Gallery3.");
     private const string BAD_MOVIE_MSG = _("\nNote that Gallery3 only supports the video types that Flowplayer does.");
 
@@ -808,6 +810,7 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
     private bool running = false;
     private Album[] albums = null;
     private string key = null;
+    private Secret.Schema? schema = null;
 
     private PublishingOptionsPane publishing_options_pane = null;
 
@@ -816,6 +819,9 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.service = service;
         this.host = host;
         this.session = new Session();
+        this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                                        "url", Secret.SchemaAttributeType.STRING,
+                                        "user", Secret.SchemaAttributeType.STRING);
     }
 
     public bool is_running() {
@@ -872,11 +878,34 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
     // Config getters/setters
     // API key
     internal string? get_api_key() {
-        return host.get_config_string("api-key", null);
+        var user = get_gallery_username();
+        var url = get_gallery_url();
+
+        try {
+            return Secret.password_lookup_sync(this.schema, null, "url", url, "user", user);
+        } catch (Error err) {
+            critical ("Failed to get api key for %s@%s: %s", user, url, err.message);
+        }
+
+        return null;
     }
 
-    internal void set_api_key(string key) {
-        host.set_config_string("api-key", key);
+    internal void set_api_key(string? key) {
+        var user = get_gallery_username();
+        var url = get_gallery_url();
+        try {
+            if (key == null | key == "") {
+                Secret.password_clear_sync(this.schema, null, "url", url, "user", user);
+            } else {
+                Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                                           "Shotwell publishing (Gallery3 account %s@%s)".printf(user, url),
+                                           key,
+                                           null,
+                                           "url", url, "user", user);
+            }
+        } catch (Error err) {
+            critical("Failed to store api key for %s@%s: %s", user, url, err.message);
+        }
     }
 
     // URL

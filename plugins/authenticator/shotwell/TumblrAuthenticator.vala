@@ -127,7 +127,7 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
 
     internal class Tumblr : Publishing.Authenticator.Shotwell.OAuth1.Authenticator {
         public Tumblr(Spit.Publishing.PluginHost host) {
-            base(API_KEY, API_SECRET, host);
+            base("Tumblr", API_KEY, API_SECRET, host);
         }
 
         public override void authenticate() {

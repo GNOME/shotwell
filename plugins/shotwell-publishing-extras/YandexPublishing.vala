@@ -296,6 +296,7 @@ private class UploadTransaction: Transaction {
 }
 
 public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
+    private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Yandex";
     private weak Spit.Publishing.PluginHost host = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private weak Spit.Publishing.Service service = null;
@@ -310,6 +311,7 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
     private WebAuthPane web_auth_pane = null;
 
     private Session session;
+    private Secret.Schema? schema = null;
 
     public YandexPublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host) {
         this.service = service;
@@ -317,18 +319,36 @@ public class YandexPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.session = new Session();
         this.album_list = new Gee.HashMap<string, string>();
         this.options = new PublishOptions();
+        this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE);
     }
 
     internal string? get_persistent_auth_token() {
-        return host.get_config_string("auth_token", null);
+        try {
+            return Secret.password_lookup_sync(this.schema, null);
+        } catch (Error err) {
+            critical ("Failed to get api key for yandex: %s", err.message);
+        }
+
+        return null;
     }
     
-    internal void set_persistent_auth_token(string auth_token) {
-        host.set_config_string("auth_token", auth_token);
+    internal void set_persistent_auth_token(string? auth_token) {
+        try {
+            if (auth_token == null | auth_token == "") {
+                Secret.password_clear_sync(this.schema, null);
+            } else {
+                Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                                           "Shotwell publishing (Yandex)",
+                                           auth_token,
+                                           null);
+            }
+        } catch (Error err) {
+            critical("Failed to store api key: %s", err.message);
+        }
     }
 
     internal void invalidate_persistent_session() {
-        host.unset_config_key("auth_token");
+        set_persistent_auth_token(null);
     }
     
     internal bool is_persistent_session_available() {
