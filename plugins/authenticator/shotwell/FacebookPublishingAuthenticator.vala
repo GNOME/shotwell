@@ -158,9 +158,12 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
     }
 
     internal class Facebook : Spit.Publishing.Authenticator, GLib.Object {
+        private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Facebook";
+
         private Spit.Publishing.PluginHost host;
         private Publishing.Authenticator.Shotwell.Facebook.WebAuthenticationPane web_auth_pane = null;
         private GLib.HashTable<string, Variant> params;
+        private Secret.Schema? schema = null;
 
         private const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into Facebook.\n\nIf you don’t yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
@@ -171,6 +174,7 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
         public Facebook(Spit.Publishing.PluginHost host) {
             this.host = host;
             this.params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
+            this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE);
         }
 
         public void authenticate() {
@@ -204,7 +208,11 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
 
         public void invalidate_persistent_session() {
             debug("invalidating saved Facebook session.");
-            set_persistent_access_token("");
+            try {
+                Secret.password_clear_sync(this.schema, null);
+            } catch (Error err) {
+                critical("Failed to remove password for Facebook %s", err.message);
+            }
         }
 
         public void logout() {
@@ -229,11 +237,21 @@ namespace Publishing.Authenticator.Shotwell.Facebook {
         }
 
         private string? get_persistent_access_token() {
-            return host.get_config_string("access_token", null);
+            string? token = null;
+            try {
+                return Secret.password_lookup_sync(this.schema, null);
+            } catch (Error err) {
+                critical("Failed to lookup Facebook token from password store: %s", err.message);
+            }
         }
 
         private void set_persistent_access_token(string access_token) {
-            host.set_config_string("access_token", access_token);
+            try {
+                Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                    "Shotwell publishig (Facebook connector)", access_token, null);
+            } catch (Error err) {
+                critical("Failed to look up password for scope %s: %s", this.scope, err.message);
+            }
         }
 
         private void do_show_service_welcome_pane() {

@@ -15,7 +15,7 @@ shared_module('shotwell-publishing',
               shotwell_publishing_sources + shotwell_publishing_resources,
               dependencies : [gtk, soup, gexiv2, gee, sw_plugin, json_glib,
                               webkit, sw_plugin_common_dep, xml, gdata, gcr,
-                              gcr_ui, authenticator_dep],
+                              gcr_ui, authenticator_dep, secret],
               vala_args : [
                   '--gresources', 'org.gnome.Shotwell.Publishing.gresource.xml'
                   ],

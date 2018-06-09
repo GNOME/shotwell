@@ -56,6 +56,7 @@ gexiv2 = dependency('gexiv2', version: '>= 0.10.4')
 libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
+secret = dependency('libsecret-1', required: true)
 
 unity_available = false
 if unity.found() and get_option('unity-support')
