@@ -124,6 +124,8 @@ internal class PublishingParameters {
 }
 
 public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
+    private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Piwigo";
+
     private Spit.Publishing.Service service;
     private Spit.Publishing.PluginHost host;
     private bool running = false;
@@ -132,6 +134,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     private Category[] categories = null;
     private PublishingParameters parameters = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
+    private Secret.Schema? schema = null;
 
     public PiwigoPublisher(Spit.Publishing.Service service,
         Spit.Publishing.PluginHost host) {
@@ -139,6 +142,9 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.service = service;
         this.host = host;
         session = new Session();
+        this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                                         "url", Secret.SchemaAttributeType.STRING,
+                                         "user", Secret.SchemaAttributeType.STRING);
     }
 
     // Publisher interface implementation
@@ -170,7 +176,9 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             debug("PiwigoPublisher: session is not authenticated.");
             string? persistent_url = get_persistent_url();
             string? persistent_username = get_persistent_username();
-            string? persistent_password = get_persistent_password();
+            string? persistent_password = get_persistent_password(persistent_url, persistent_username);
+
+            // This will only be null if either of the other two was null or the password did not exist
             if (persistent_url != null && persistent_username != null && persistent_password != null)
                 do_network_login(persistent_url, persistent_username,
                     persistent_password, get_remember_password());
@@ -201,12 +209,37 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_config_string("username", username);
     }
     
-    public string? get_persistent_password() {
-        return host.get_config_string("password", null);
+    public string? get_persistent_password(string? url, string? user) {
+        if (url != null && user != null) {
+            try {
+                var pw = Secret.password_lookup_sync(this.schema, null, "url", url, "user", user);
+
+                return pw;
+            } catch (Error err) {
+                critical("Failed to lookup the password for url %s and user %s: %s", url, user, err.message);
+
+                return null;
+            }
+        }
+
+        return null;
     }
     
-    private void set_persistent_password(string? password) {
-        host.set_config_string("password", password);
+    private void set_persistent_password(string? url, string? user, string? password) {
+        try {
+            if (password == null) {
+                // remove
+                Secret.password_clear_sync(this.schema, null, "url", url, "user", user);
+            } else {
+                Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                        "Shotwell publishing (Piwigo account %s@%s)".printf(user, url),
+                        password,
+                        null,
+                        "url", url, "user", user);
+            }
+        } catch (Error err) {
+            critical("Failed to store password for %s@%s: %s", user, url, err.message);
+        }
     }
     
     public bool get_remember_password() {
@@ -309,7 +342,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
             string? persistent_url = get_persistent_url();
             string? persistent_username = get_persistent_username();
-            string? persistent_password = get_persistent_password();
+            string? persistent_password = get_persistent_password(persistent_url, persistent_username);
             if (persistent_url != null && persistent_username != null && persistent_password != null)
                 do_network_login(persistent_url, persistent_username,
                     persistent_password, get_remember_password());
@@ -359,10 +392,11 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.install_login_wait_pane();
         
         set_remember_password(remember_password);
-        if (remember_password)
-            set_persistent_password(password);
-        else
-            set_persistent_password(null);
+        if (remember_password) {
+            set_persistent_password(url, username, password);
+        } else {
+            set_persistent_password(url, username, null);
+        }
 
         SessionLoginTransaction login_trans = new SessionLoginTransaction(
             session, normalise_url(url), username, password);
@@ -1147,7 +1181,7 @@ internal class AuthenticationPane : Shotwell.Plugins.Common.BuilderPane {
             username_entry.set_text(persistent_username);
         }
         password_entry = builder.get_object ("password_entry") as Gtk.Entry;
-        string? persistent_password = publisher.get_persistent_password();
+        string? persistent_password = publisher.get_persistent_password(persistent_url, persistent_username);
         if (persistent_password != null) {
             password_entry.set_text(persistent_password);
         }

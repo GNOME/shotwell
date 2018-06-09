@@ -27,7 +27,8 @@
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.gtk.vfs",
         "--talk-name=org.gtk.vfs.*",
-        "--env=GSETTINGS_BACKEND=dconf"
+        "--env=GSETTINGS_BACKEND=dconf",
+        "--talk-name=org.freedesktop.secrets"
     ],
     "cleanup" : [
         "/include",

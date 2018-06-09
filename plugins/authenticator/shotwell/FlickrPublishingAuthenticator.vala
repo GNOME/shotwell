@@ -90,7 +90,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         private WebAuthenticationPane pane;
 
         public Flickr(Spit.Publishing.PluginHost host) {
-            base(API_KEY, API_SECRET, host);
+            base("Flickr", API_KEY, API_SECRET, host);
         }
 
         public override void authenticate() {
