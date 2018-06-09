@@ -65,6 +65,7 @@ namespace Publishing.Rajce
 
 public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
 {
+    private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Rajce";
     private Spit.Publishing.PluginHost host = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private Spit.Publishing.Service service = null;
@@ -80,6 +81,7 @@ public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
     private Album[] albums = null;
     private PublishingParameters parameters = null;
     private Spit.Publishing.Publisher.MediaType media_type = Spit.Publishing.Publisher.MediaType.NONE;
+    private Secret.Schema schema = null;
 
     public RajcePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host)
 	{
@@ -90,6 +92,9 @@ public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
         
         foreach(Spit.Publishing.Publishable p in host.get_publishables())
             media_type |= p.get_media_type();
+
+        this.schema = new Secret.Schema(PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                                        "user", Secret.SchemaAttributeType.STRING);
     }
     
     private string get_rajce_url()
@@ -140,8 +145,39 @@ public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
     public string? get_url() { return get_rajce_url(); }
     public string? get_username() { return host.get_config_string("username", null); }
     private void set_username(string username) { host.set_config_string("username", username); }
-    public string? get_token() { return host.get_config_string("token", null); }
-    private void set_token(string? token) { host.set_config_string("token", token); }
+    public string? get_token() {
+        var user = get_username();
+        if (user == null)
+            return null;
+
+        try {
+            return Secret.password_lookup_sync(this.schema, null, "user", user);
+        } catch (Error err) {
+            critical("Failed to get token for user %s: %s", user, err.message);
+        }
+
+        return null;
+    }
+
+    private void set_token(string? token) {
+        var user = get_username();
+        if (user == null)
+            return;
+
+        try {
+            if (token == null || token == "") {
+                Secret.password_clear_sync(this.schema, null, "user", user);
+            } else {
+                Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                                           "Shotwell publishing (Rajce user %s)".printf(user),
+                                           token,
+                                           null,
+                                           "user", user);
+            }
+        } catch (Error err) {
+            critical("Failed to store token for user %s: %s", user, err.message);
+        }
+    }
 //    public int get_last_photo_size() { return host.get_config_int("last-photo-size", -1); }
 //    private void set_last_photo_size(int last_photo_size) { host.set_config_int("last-photo-size", last_photo_size); }
     public bool get_remember() { return host.get_config_bool("remember", false); }
