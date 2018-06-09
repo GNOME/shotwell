@@ -11,10 +11,18 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected GLib.HashTable<string, Variant> params;
         protected Publishing.RESTSupport.OAuth1.Session session;
         protected Spit.Publishing.PluginHost host;
+        private Secret.Schema? schema = null;
+        private const string SECRET_TYPE_USERNAME = "username";
+        private const string SECRET_TYPE_AUTH_TOKEN = "auth-token";
+        private const string SECRET_TYPE_AUTH_TOKEN_SECRET = "auth-token-secret";
+        private string service = null;
 
-        protected Authenticator(string api_key, string api_secret, Spit.Publishing.PluginHost host) {
+        protected Authenticator(string service, string api_key, string api_secret, Spit.Publishing.PluginHost host) {
             base();
             this.host = host;
+            this.service = service;
+            this.schema = new Secret.Schema ("org.gnome.Shotwell." + service, Secret.SchemaFlags.NONE,
+                                             "type", Secret.SchemaAttributeType.STRING);
 
             params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
             params.insert("ConsumerKey", api_key);
@@ -43,9 +51,9 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         public abstract void refresh();
 
         public void invalidate_persistent_session() {
-            set_persistent_access_phase_token("");
-            set_persistent_access_phase_token_secret("");
-            set_persistent_access_phase_username("");
+            set_persistent_access_phase_token(null);
+            set_persistent_access_phase_token_secret(null);
+            set_persistent_access_phase_username(null);
         }
         protected bool is_persistent_session_valid() {
             return (get_persistent_access_phase_username() != null &&
@@ -54,27 +62,76 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         }
 
         protected string? get_persistent_access_phase_username() {
-            return host.get_config_string("access_phase_username", null);
+            try {
+                return Secret.password_lookup_sync(this.schema, null, "type", SECRET_TYPE_USERNAME);
+            } catch (Error err) {
+                critical("Failed to lookup username from password store: %s", err.message);
+                return null;
+            }
         }
 
-        protected void set_persistent_access_phase_username(string username) {
-            host.set_config_string("access_phase_username", username);
+        protected void set_persistent_access_phase_username(string? username) {
+            try {
+                if (username == null || username == "") {
+                    Secret.password_clear_sync(this.schema, null,
+                                               "type", SECRET_TYPE_USERNAME);
+                } else {
+                    Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                                               "Shotwell publishing (%s)".printf(this.service),
+                                               username, null, "type", SECRET_TYPE_USERNAME);
+                }
+            } catch (Error err) {
+                critical("Failed to store username in store: %s", err.message);
+            }
         }
 
         protected string? get_persistent_access_phase_token() {
-            return host.get_config_string("access_phase_token", null);
+            try {
+                return Secret.password_lookup_sync(this.schema, null,
+                                                   "type", SECRET_TYPE_AUTH_TOKEN);
+            } catch (Error err) {
+                critical("Failed to lookup auth-token from password store: %s", err.message);
+                return null;
+            }
         }
 
-        protected void set_persistent_access_phase_token(string token) {
-            host.set_config_string("access_phase_token", token);
+        protected void set_persistent_access_phase_token(string? token) {
+            try {
+                if (token == null || token == "") {
+                    Secret.password_clear_sync(this.schema, null,
+                                               "type", SECRET_TYPE_AUTH_TOKEN);
+                } else {
+                    Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                                               "Shotwell publishing (%s)".printf(this.service),
+                                               token, null, "type", SECRET_TYPE_AUTH_TOKEN);
+                }
+            } catch (Error err) {
+                critical("Failed to store auth-token store: %s", err.message);
+            }
         }
 
         protected string? get_persistent_access_phase_token_secret() {
-            return host.get_config_string("access_phase_token_secret", null);
+            try {
+                return Secret.password_lookup_sync(this.schema, null, "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
+            } catch (Error err) {
+                critical("Failed to lookup auth-token-secret from password store: %s", err.message);
+                return null;
+            }
         }
 
-        protected void set_persistent_access_phase_token_secret(string secret) {
-            host.set_config_string("access_phase_token_secret", secret);
+        protected void set_persistent_access_phase_token_secret(string? secret) {
+            try {
+                if (secret == null || secret == "") {
+                    Secret.password_clear_sync(this.schema, null,
+                                               "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
+                } else {
+                    Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
+                                               "Shotwell publishing (%s)".printf(this.service),
+                                               secret, null, "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
+                }
+            } catch (Error err) {
+                critical("Failed to store auth-token-secret store: %s", err.message);
+            }
         }
 
 
