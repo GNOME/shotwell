@@ -99,8 +99,7 @@
                 {
                     "type": "git",
                     "url": "http://github.com/Exiv2/exiv2",
-                    "branch": "0.26",
-                    "commit" : "2b5e6b7510f4c6f1c9efca08efc691292cf5c2c6"
+                    "commit" : "4aa57ad0217dfc509b42c5398602cede11fb8528"
                 }
             ]
         },
