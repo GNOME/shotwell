@@ -314,7 +314,7 @@ public class FacesTool : EditingTools.EditingTool {
     private class FaceDetectionJob : BackgroundJob {
         private Gee.Queue<string> faces = null;
         private string image_path;
-        private string output;
+        //private string output;
         public SpawnError? spawnError;
 
         public FaceDetectionJob(FacesToolWindow owner, string image_path,
@@ -326,7 +326,18 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         public override void execute() {
-            try {
+            Faces.FaceRect[] rects;
+            debug("checking faces");
+            Faces.detect_faces(image_path, AppDirs.get_haarcascade_file().get_path(), 4, out rects);
+            faces = new Gee.PriorityQueue<string>();
+            string serialized = "%s;%s".printf(
+                   FaceRectangle.SHAPE_TYPE,
+                   parse_serialized_geometry("x=%s&y=%s&width=%s&height=%s".printf(
+                        rects[0].x.to_string(), rects[0].y.to_string(), rects[0].width.to_string(), rects[0].height.to_string())));
+            debug("saw face %s", serialized);
+            faces.add(serialized);
+
+            /* try {
                 string[] argv = {
                     AppDirs.get_facedetect_bin().get_path(),
                     "--cascade=" + AppDirs.get_haarcascade_file().get_path(),
@@ -342,7 +353,6 @@ public class FacesTool : EditingTools.EditingTool {
                 return;
             }
 
-            faces = new Gee.PriorityQueue<string>();
             string[] lines = output.split("\n");
             foreach (string line in lines) {
                 if (line.length == 0)
@@ -375,7 +385,7 @@ public class FacesTool : EditingTools.EditingTool {
                     default:
                         assert_not_reached();
                 }
-            }
+            } */
         }
 
         private string parse_serialized_geometry(string serialized_geometry) {
@@ -905,7 +915,6 @@ public class FacesTool : EditingTools.EditingTool {
     private void detect_faces() {
         faces_tool_window.detection_button.set_sensitive(false);
         faces_tool_window.set_editing_phase(EditingPhase.DETECTING_FACES);
-
         workers.enqueue(face_detection);
     }
 

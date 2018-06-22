@@ -17,8 +17,17 @@ processor = executable('shotwell-graphics-processor',
                        dependencies: [gio, gdk, gee],
                        link_with: sw_graphics_processor)
 
+shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
+                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
+                 libraw, libexif, sw_plugin]
+
+shotwell_libs = [sw_graphics_processor]
+
 face_sources = []
+face_obj = ''
+
 if get_option('face-detection')
+  subdir('faces_opencv')
   face_sources = (['faces/FacesBranch.vala',
                      'faces/FaceLocation.vala',
                      'faces/FacePage.vala',
@@ -28,11 +37,10 @@ if get_option('face-detection')
                      'db/FaceLocationTable.vala',
                      'db/FaceTable.vala',
                      'faces/FacesTool.vala'])
+   shotwell_deps += [faces_dep]
+   shotwell_libs += [faces_lib]
 endif
 
-shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                 libraw, libexif, sw_plugin]
 if unity_available
     shotwell_deps += [unity]
 endif
@@ -249,5 +257,5 @@ executable('shotwell',
                         join_paths(meson.source_root(),
                           'org.gnome.Shotwell.gresource.xml')
                        ],
-           link_with: [sw_graphics_processor],
+           link_with: shotwell_libs,
            install : true)

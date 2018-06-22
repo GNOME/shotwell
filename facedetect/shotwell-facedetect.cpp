@@ -32,31 +32,31 @@ void help() {
 }
 
 void detectFaces(Mat &img, CascadeClassifier &cascade, double scale) {
+  UMat uimg, gray;
+  img.copyTo(uimg);
+  cvtColor(uimg, gray, CV_BGR2GRAY);
 
-	Mat gray;
-	cvtColor(img, gray, CV_BGR2GRAY);
+  UMat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
+  Size smallImgSize = smallImg.size();
 
-	Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
-	Size smallImgSize = smallImg.size();
+  resize(gray, smallImg, smallImgSize, 0, 0, INTER_LINEAR);
+  equalizeHist(smallImg, smallImg);
 
-	resize(gray, smallImg, smallImgSize, 0, 0, INTER_LINEAR);
-	equalizeHist(smallImg, smallImg);
+  vector<Rect> faces;
+  cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, Size(30, 30));
 
-	vector<Rect> faces;
-	cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, Size(30, 30));
+  int i = 0;
+  for (vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); r++, i++) {
 
-	int i = 0;
-	for (vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); r++, i++) {
+    printf(
+           "face;x=%f&y=%f&width=%f&height=%f\n",
+           (float) r->x / smallImgSize.width,
+           (float) r->y / smallImgSize.height,
+           (float) r->width / smallImgSize.width,
+           (float) r->height / smallImgSize.height
+           );
 
-		printf(
-			"face;x=%f&y=%f&width=%f&height=%f\n",
-			(float) r->x / smallImgSize.width,
-			(float) r->y / smallImgSize.height,
-			(float) r->width / smallImgSize.width,
-			(float) r->height / smallImgSize.height
-		);
-
-	}
+  }
 
 }
 
