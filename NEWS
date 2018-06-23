@@ -1,4 +1,35 @@
-Shotweell 0.29.2 - 22 May 2018
+Shotwell 0.29.3 - 20 Jun 2018
+  * Fix Slideshow settings dialog
+  * Re-merge faces branch to master
+  * Introduce flatpak infrastructure
+  * Fix OAuth2 token fetching from Google login
+  * Move extended properties into a sidebar
+
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716192
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716704
+ - https://bugzilla.gnome.org/show_bug.cgi?id=772339
+ - https://bugzilla.gnome.org/show_bug.cgi?id=796370
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/10
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/12
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Ricardo Fantin da Costa <ricardofantin@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Yi-Jyun Pan <pan93412@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Claude Paroz <claude@2xlibre.net>
+
+Added/updated translations
+ - fr, courtesy of arverne73
+ - pl, courtesy of Piotr Drąg
+ - pt_BR, courtesy of Rafael Fontenelle
+ - tr, courtesy of Emin Tufan Çetin
+ - zh_TW, courtesy of pan93412
+
+Shotwell 0.29.2 - 22 May 2018
   * Fix "out of memory issue" on HiDPI screens
   * Replace all icons with their symbolic variant
   * General icon clean-up
