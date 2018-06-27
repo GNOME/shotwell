@@ -58,6 +58,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.SIDEBAR_CONTENT] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_CONSTRAINT] = EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  EXPORT_PREFS_SCHEMA_NAME;
@@ -170,6 +171,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] = "raw-developer-default";
         key_names[ConfigurableProperty.SHOW_WELCOME_DIALOG] = "show-welcome-dialog";
         key_names[ConfigurableProperty.SIDEBAR_POSITION] = "sidebar-position";
+        key_names[ConfigurableProperty.SIDEBAR_CONTENT] = "sidebar-content";
         key_names[ConfigurableProperty.SLIDESHOW_DELAY] = "delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_DELAY] = "transition-delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_EFFECT_ID] = "transition-effect-id";
@@ -277,6 +279,22 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_object.set_string(key, value);
     }
     
+    private string[] get_gs_string_list(string schema, string key) throws ConfigurationError {
+        check_key_valid(schema, key);
+
+        Settings schema_object = new Settings(schema);
+
+        return schema_object.get_strv(key);
+    }
+
+    private void set_gs_string_list(string schema, string key, string[] value) throws ConfigurationError {
+        check_key_valid(schema, key);
+
+        Settings schema_object = new Settings(schema);
+
+        schema_object.set_strv(key, value);
+    }
+
     private void reset_gs_to_default(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
 
@@ -363,6 +381,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         property_changed(p);
     }
     
+    public string[] get_string_list_property(ConfigurableProperty p) throws ConfigurationError {
+        return get_gs_string_list(schema_names[p], key_names[p]);
+    }
+
+    public void set_string_list_property(ConfigurableProperty p, string[] val) throws ConfigurationError {
+        set_gs_string_list(schema_names[p], key_names[p], val);
+        property_changed(p);
+    }
+
     public bool get_bool_property(ConfigurableProperty p) throws ConfigurationError {
         return get_gs_bool(schema_names[p], key_names[p]);
     }

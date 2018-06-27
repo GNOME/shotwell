@@ -185,6 +185,13 @@
         <summary>Selection state of “hide photos” option</summary>
         <description>Last used selection state of the “hide photos already imported” option in the import page.</description>
     </key>
+
+    <key name="sidebar-order" type="as">
+      <default>['library', 'cameras', 'saved-searches', 'events', 'import-roll', 'folders', 'faces', 'tags']</default>
+      <summary>Which entries to show in the sidebar</summary>
+      <description>Order of entries in the left sidebar. If an entry is not mentioned, it will not be shown. Note,
+        however, that the main library entry cannot be moved or removed</description>
+    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.preferences.slideshow" path="/org/yorba/shotwell/preferences/slideshow/">

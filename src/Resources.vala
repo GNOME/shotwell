@@ -1180,5 +1180,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string ONIMAGE_FONT_COLOR = "#000000";
     public const string ONIMAGE_FONT_BACKGROUND = "rgba(255,255,255,0.5)";
+
+
+    public static string map_subtree_name(string name) {
+        return name;
+    }
 }
 

@@ -85,6 +85,7 @@ public enum ConfigurableProperty {
     RAW_DEVELOPER_DEFAULT,
     SHOW_WELCOME_DIALOG,
     SIDEBAR_POSITION,
+    SIDEBAR_CONTENT,
     SLIDESHOW_DELAY,
     SLIDESHOW_TRANSITION_DELAY,
     SLIDESHOW_TRANSITION_EFFECT_ID,
@@ -292,6 +293,9 @@ public enum ConfigurableProperty {
                 
             case SIDEBAR_POSITION:
                 return "SIDEBAR_POSITION";
+
+            case SIDEBAR_CONTENT:
+                return "SIDEBAR_CONTENT";
                 
             case SLIDESHOW_DELAY:
                 return "SLIDESHOW_DELAY";
@@ -333,6 +337,9 @@ public interface ConfigurationEngine : GLib.Object {
 
     public abstract string get_string_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_string_property(ConfigurableProperty p, string val) throws ConfigurationError;
+
+    public abstract string[] get_string_list_property(ConfigurableProperty p) throws ConfigurationError;
+    public abstract void set_string_list_property(ConfigurableProperty p, string[] val) throws ConfigurationError;
     
     public abstract bool get_bool_property(ConfigurableProperty p) throws ConfigurationError;
     public abstract void set_bool_property(ConfigurableProperty p, bool val) throws ConfigurationError;
@@ -364,6 +371,7 @@ public abstract class ConfigurationFacade : Object {
     public signal void commit_metadata_to_masters_changed();
     public signal void events_sort_ascending_changed();
     public signal void external_app_changed();
+    public signal void sidebar_content_changed();
     public signal void import_directory_changed();
     
     protected ConfigurationFacade(ConfigurationEngine engine) {
@@ -407,6 +415,10 @@ public abstract class ConfigurationFacade : Object {
             
             case ConfigurableProperty.IMPORT_DIR:
                 import_directory_changed();
+            break;
+
+            case ConfigurableProperty.SIDEBAR_CONTENT:
+                sidebar_content_changed();
             break;
         }
     }
@@ -1687,6 +1699,28 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_sidebar_position(int position) {
         try {
             get_engine().set_int_property(ConfigurableProperty.SIDEBAR_POSITION, position);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // sidebar content
+    //
+    public virtual string[] get_sidebar_content() {
+        try {
+            return get_engine().get_string_list_property(ConfigurableProperty.SIDEBAR_CONTENT);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            string[] config = {"library", "cameras", "saved-searches", "events", "import-roll", "folders", "faces", "tags" };
+            return config;
+        }
+    }
+
+    public virtual void set_sidebar_content(string[] val) {
+        try {
+            get_engine().set_string_list_property(ConfigurableProperty.SIDEBAR_CONTENT, val);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }
