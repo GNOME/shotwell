@@ -5,6 +5,26 @@
  * See the COPYING file in this distribution.
  */
 
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences_dialog_list_row.ui")]
+public class SidebarPreferencesListRow : Gtk.ListBoxRow {
+    [GtkChild]
+    private Gtk.EventBox handle;
+
+    [GtkChild]
+    private Gtk.Label label;
+
+    private const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
+        { "GTK_LIST_BOX_ROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
+    public SidebarPreferencesListRow(string name) {
+        Object();
+        Gtk.drag_source_set (this.handle, Gdk.ModifierType.BUTTON1_MASK, SOURCE_TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, SOURCE_TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        label.set_text (name);
+    }
+}
+
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/preferences_dialog.ui")]
 public class PreferencesDialog : Gtk.Dialog {
     private class PathFormat {
@@ -62,6 +82,8 @@ public class PreferencesDialog : Gtk.Dialog {
     private Gtk.ColorButton transparent_solid_color;
     [GtkChild]
     private Gtk.RadioButton transparent_none_radio;
+    [GtkChild]
+    private Gtk.ListBox sidebar_content;
 
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
@@ -146,6 +168,11 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     public void populate_preference_options() {
+        var content = Config.Facade.get_instance().get_sidebar_content();
+        foreach (var tree in content) {
+            var row = new SidebarPreferencesListRow(Resources.map_subtree_name(tree));
+            sidebar_content.add(row);
+        }
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(),
             Config.Facade.get_instance().get_external_photo_app(), out external_photo_apps);
 
