@@ -19,7 +19,8 @@ public class LibraryWindow : AppWindow {
     private const string[] SUPPORTED_MOUNT_SCHEMES = {
         "gphoto2:",
         "disk:",
-        "file:"
+        "file:",
+        "mtp:"
     };
     
     private const int BACKGROUND_PROGRESS_PULSE_MSEC = 250;
