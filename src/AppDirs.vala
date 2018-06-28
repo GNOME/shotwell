@@ -330,7 +330,6 @@ class AppDirs {
     }
 
 #if ENABLE_FACES
-/*
     public static File get_facedetect_bin() {
         const string filename = "shotwell-facedetect";
         File f = AppDirs.get_libexec_dir().get_parent().get_child("facedetect").get_child (filename);
@@ -339,7 +338,7 @@ class AppDirs {
         }
         return f;
     }
-  */  
+
     public static File get_haarcascade_file() {
         File f = File.new_for_path(AppDirs.get_exec_dir().get_parent().get_parent().get_child("facedetect").get_child("facedetect-haarcascade.xml").get_path());
         if (f.query_exists()) {//testing meson builddir

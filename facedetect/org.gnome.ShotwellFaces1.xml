@@ -48,5 +48,11 @@
       <arg type="d" name="threshold" direction="in" />
       <arg type="a(sd)" name="labels" direction="out" />
     </method>
+
+    <!--
+        Terminate
+    -->
+    <method name="Terminate">
+    </method>
   </interface>
 </node>

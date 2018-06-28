@@ -314,8 +314,7 @@ public class FacesTool : EditingTools.EditingTool {
     private class FaceDetectionJob : BackgroundJob {
         private Gee.Queue<string> faces = null;
         private string image_path;
-        //private string output;
-        public SpawnError? spawnError;
+        public string? spawnError;
 
         public FaceDetectionJob(FacesToolWindow owner, string image_path,
             CompletionCallback completion_callback, Cancellable cancellable,
@@ -326,66 +325,26 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         public override void execute() {
-            Faces.FaceRect[] rects;
-            debug("checking faces");
-            Faces.detect_faces(image_path, AppDirs.get_haarcascade_file().get_path(), 4, out rects);
-            faces = new Gee.PriorityQueue<string>();
-            string serialized = "%s;%s".printf(
-                   FaceRectangle.SHAPE_TYPE,
-                   parse_serialized_geometry("x=%s&y=%s&width=%s&height=%s".printf(
-                        rects[0].x.to_string(), rects[0].y.to_string(), rects[0].width.to_string(), rects[0].height.to_string())));
-            debug("saw face %s", serialized);
-            faces.add(serialized);
-
-            /* try {
-                string[] argv = {
-                    AppDirs.get_facedetect_bin().get_path(),
-                    "--cascade=" + AppDirs.get_haarcascade_file().get_path(),
-                    "--scale=1.2",
-                    image_path
-                };
-                Process.spawn_sync(null, argv, null, SpawnFlags.STDERR_TO_DEV_NULL, null, out output);
-
-            } catch (SpawnError e) {
-                spawnError = e;
-                critical(e.message);
-
+            if (!FaceDetect.connected) {
+                spawnError = "Face detect process not connected!\n";
                 return;
             }
-
-            string[] lines = output.split("\n");
-            foreach (string line in lines) {
-                if (line.length == 0)
-                    continue;
-
-                string[] type_and_serialized = line.split(";");
-                if (type_and_serialized.length != 2) {
-                    critical("Wrong serialized line in face detection program output.");
-                    assert_not_reached();
-                }
-
-                switch (type_and_serialized[0]) {
-                    case "face":
-                        StringBuilder serialized_geometry = new StringBuilder();
-                        serialized_geometry.append(FaceRectangle.SHAPE_TYPE);
-                        serialized_geometry.append(";");
-                        serialized_geometry.append(parse_serialized_geometry(type_and_serialized[1]));
-
-                        faces.add(serialized_geometry.str);
-                        break;
-
-                    case "warning":
-                        warning("%s\n", type_and_serialized[1]);
-                        break;
-
-                    case "error":
-                        critical("%s\n", type_and_serialized[1]);
-                        assert_not_reached();
-
-                    default:
-                        assert_not_reached();
-                }
-            } */
+            FaceRect[] rects;
+            try {
+                rects = FaceDetect.interface.detect_faces(image_path, AppDirs.get_haarcascade_file().get_path(), 1.3);
+            } catch(Error e) {
+                spawnError = "DBus error: " + e.message + "!\n";
+                return;
+            }
+            faces = new Gee.PriorityQueue<string>();
+            for (int i = 0; i < rects.length; i++) {
+                string serialized = "%s;%s".printf(
+                       FaceRectangle.SHAPE_TYPE,
+                       parse_serialized_geometry("x=%s&y=%s&width=%s&height=%s".printf(
+                            rects[i].x.to_string(), rects[i].y.to_string(), rects[i].width.to_string(), rects[i].height.to_string())));
+                debug("saw face %s", serialized);
+                faces.add(serialized);
+            }
         }
 
         private string parse_serialized_geometry(string serialized_geometry) {
@@ -963,7 +922,7 @@ public class FacesTool : EditingTools.EditingTool {
         
         if (face_detection.spawnError != null){
             string spawnErrorMessage = _("Error trying to spawn face detection program:\n");
-            AppWindow.error_message(spawnErrorMessage + face_detection.spawnError.message + "\n");
+            AppWindow.error_message(spawnErrorMessage + face_detection.spawnError + "\n");
             faces_tool_window.set_editing_phase(EditingPhase.DETECTING_FACES_FINISHED);
         } else
             pick_faces_from_autodetected();

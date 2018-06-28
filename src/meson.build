@@ -27,18 +27,16 @@ face_sources = []
 face_obj = ''
 
 if get_option('face-detection')
-  subdir('faces_opencv')
   face_sources = (['faces/FacesBranch.vala',
                      'faces/FaceLocation.vala',
                      'faces/FacePage.vala',
                      'faces/FaceShape.vala',
                      'faces/Faces.vala',
                      'faces/Face.vala',
+                     'faces/FaceDetect.vala',
                      'db/FaceLocationTable.vala',
                      'db/FaceTable.vala',
                      'faces/FacesTool.vala'])
-   shotwell_deps += [faces_dep]
-   shotwell_libs += [faces_lib]
 endif
 
 if unity_available

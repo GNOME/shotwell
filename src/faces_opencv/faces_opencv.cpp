@@ -22,10 +22,12 @@ using namespace cv;
 
 // OpenCV calls in C++
 vector<FaceRect> ocvDetectFaces(Mat &img, CascadeClassifier &cascade, double scale) {
-  Mat gray;
-  cvtColor(img, gray, CV_BGR2GRAY);
+  UMat gray, uimg;
 
-  Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
+  img.copyTo(uimg);
+  cvtColor(uimg, gray, CV_BGR2GRAY);
+
+  UMat smallImg(cvRound(uimg.rows / scale), cvRound(uimg.cols / scale), CV_8UC1);
   Size smallImgSize = smallImg.size();
 
   resize(gray, smallImg, smallImgSize, 0, 0, INTER_LINEAR);

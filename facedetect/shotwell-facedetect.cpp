@@ -29,13 +29,13 @@ static gboolean on_handle_detect_faces(ShotwellFaces1 *object,
     for (vector<FaceRect>::const_iterator r = rects.begin(); r != rects.end(); r++) {
         GVariant *rect = g_variant_new("(dddd)", r->x, r->y, r->width, r->height);
         g_variant_builder_add(builder, "(dddd)", rect);
+        g_debug("Returning %f,%f", r->x, r->y);
     }
     faces = g_variant_new("a(dddd)", builder);
     g_variant_builder_unref (builder);
     // Call return
     shotwell_faces1_complete_detect_faces(object, invocation,
                                           faces);
-    g_free(faces);
     return TRUE;
 }
 
@@ -55,12 +55,21 @@ gboolean on_handle_recognise_face(ShotwellFaces1 *object,
     return TRUE;
 }
 
+gboolean on_handle_terminate(ShotwellFaces1 *object,
+                             GDBusMethodInvocation *invocation) {
+    g_debug("Exiting...");
+    exit(0);
+    return TRUE;
+}
+
 static void on_name_acquired(GDBusConnection *connection,
                              const gchar *name, gpointer user_data) {
     ShotwellFaces1 *interface;
     GError *error;
     interface = shotwell_faces1_skeleton_new();
+    g_debug("Got name %s", name);
     g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), NULL);
+    g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), NULL);
     error = NULL;
     !g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, "/org/gnome/shotwell/faces", &error);
 }

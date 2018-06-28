@@ -346,9 +346,18 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         // add them all at once to the SourceCollection
         global.add_many(faces);
         global.init_add_many_unlinked(unlinked);
+
+#if ENABLE_FACES       
+        // Start the face detection background process
+        // FaceTool talks to it over DBus
+        start_facedetect_process();
+#endif
     }
     
     public static void terminate() {
+        try {
+            FaceDetect.interface.terminate();
+        } catch(Error e) {}
     }
     
     public static int compare_names(void *a, void *b) {
@@ -366,6 +375,26 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
     public static bool equal_name_strings(void *a, void *b) {
         return String.collated_equals(a, b);
     }
+
+#if ENABLE_FACES       
+    private static void start_facedetect_process() {
+        message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
+        // Start the watcher
+        FaceDetect.init();
+        // Start the background process
+        string[] argv = {AppDirs.get_facedetect_bin().get_path()};
+        int child_pid;
+        try {
+            GLib.Process.spawn_async(null, argv, null, GLib.SpawnFlags.SEARCH_PATH | 
+                                     GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out child_pid);
+            message("Spawned facedetect, child pid: %d", (int)child_pid);
+        } catch (Error e) {
+            debug("Error spawning process: %s", e.message);
+            if (child_pid != 0)
+                GLib.Process.close_pid(child_pid);
+        }
+    }
+#endif
     
     // Returns a Face for the name, creating a new empty one if it does not already exist.
     // name should have already been prepared by prep_face_name.
