@@ -17,6 +17,7 @@
         "--filesystem=xdg-run/dconf",
         "--share=ipc",
         "--share=network",
+        "--device=all",
         "--socket=wayland",
         "--socket=x11",
         "--talk-name=ca.desrt.dconf",
@@ -52,7 +53,7 @@
         },
         {
             "name": "libghoto2",
-            "cleanup" : ["/bin", "/lib/udev", "/share/doc"],
+            "cleanup" : ["/lib/udev", "/share/doc"],
             "sources" : [
                 {
                     "type" : "archive",
