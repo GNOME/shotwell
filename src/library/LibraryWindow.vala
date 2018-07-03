@@ -1208,10 +1208,10 @@ public class LibraryWindow : AppWindow {
         extended_properties_revealer.valign = Gtk.Align.FILL;
 
         extended_properties.vexpand = true;
-        extended_properties.set_margin_top (3);
-        extended_properties.set_margin_bottom (3);
-        extended_properties.set_margin_start (3);
-        extended_properties.set_margin_end (3);
+        extended_properties.set_margin_top (9);
+        extended_properties.set_margin_bottom (9);
+        extended_properties.set_margin_start (9);
+        extended_properties.set_margin_end (9);
         scrolled.set_size_request(EXTENDED_INFO_MIN_WIDTH, -1);
 
         stack_box.pack_end(extended_properties_revealer, false, false, 0);

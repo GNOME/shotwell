@@ -8,8 +8,8 @@ private abstract class Properties : Gtk.Grid {
     uint line_count = 0;
 
     public Properties() {
-        row_spacing = 0;
-        column_spacing = 6;
+        row_spacing = 6;
+        column_spacing = 12;
     }
 
     protected void add_line(string label_text, string info_text, bool multi_line = false, string? href = null) {
@@ -65,7 +65,7 @@ private abstract class Properties : Gtk.Grid {
         attach(label, 0, (int) line_count, 1, 1);
 
         if (multi_line) {
-            attach(info, 1, (int) line_count, 1, 2);
+            attach(info, 1, (int) line_count, 1, 3);
         } else {
             attach(info, 1, (int) line_count, 1, 1);
         }
