@@ -34,6 +34,7 @@ private abstract class Properties : Gtk.Grid {
             view.set_cursor_visible(false);
             view.set_editable(false);
             view.buffer.text = is_string_empty(info_text) ? "" : info_text;
+            view.hexpand = true;
             info_scroll.add(view);
             label.halign = Gtk.Align.END;
             label.valign = Gtk.Align.START;
