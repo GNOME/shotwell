@@ -172,7 +172,8 @@ class EventDirectoryItem : CheckerboardItem {
     }
 
     public override void handle_mouse_motion(int x, int y, int height, int width) {
-        int element_index = (int) Math.round( (double) x / width * (event.get_media_count() - 1) );
+        int steppedX = x - (x % 30);
+        int element_index = (int) Math.round( (double) steppedX / width * (event.get_media_count() - 1) );
         unowned MediaSource media = event.get_media().to_array()[element_index];
         set_paul_lynde(media);
     }
