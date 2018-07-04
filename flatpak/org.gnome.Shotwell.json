@@ -54,7 +54,7 @@
         },
         {
             "name": "libghoto2",
-            "cleanup" : ["/lib/udev", "/share/doc"],
+            "cleanup" : ["/bin", "/lib/udev", "/share/doc"],
             "sources" : [
                 {
                     "type" : "archive",
