@@ -23,7 +23,8 @@
         "--talk-name=ca.desrt.dconf",
         "--talk-name=org.freedesktop.FileManager1",
         "--talk-name=org.gnome.SettingsDaemon",
-        "--talk-name=org.gtk.vfs"
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*"
     ],
 
     "cleanup" : ["/include", "/lib/pkconfig", "/share/pkgconfig", "/share/gtk-doc", "/share/man", "/share/vala", "/lib/girepository", "*.la", "*.a"],
