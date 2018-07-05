@@ -138,7 +138,7 @@ public class CameraTable {
     private string? get_icon_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
             if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
-                return volume.get_icon().to_string();
+                return volume.get_symbolic_icon().to_string();
             }
         }
         return null;
@@ -254,7 +254,7 @@ public class CameraTable {
                     var volume = mount.get_volume();
                     // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
                     display_name = _("%s (%s)").printf (name, volume.get_name ());
-                    icon = volume.get_icon().to_string();
+                    icon = volume.get_symbolic_icon().to_string();
 
                 } catch (Error e) { }
             }
