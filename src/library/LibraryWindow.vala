@@ -306,7 +306,6 @@ public class LibraryWindow : AppWindow {
         lookup_action ("CommonDisplaySearchbar").change_state (Config.Facade.get_instance().get_display_search_bar());
         lookup_action ("CommonDisplaySidebar").change_state (is_sidebar_visible ());
         lookup_action ("CommonDisplayToolbar").change_state (is_toolbar_visible ());
-//>>>>>>> origin/master
     }
 
     protected override void switched_pages(Page? old_page, Page? new_page) {
