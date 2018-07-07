@@ -349,6 +349,21 @@ private VerifyResult upgrade_database(int input_version) {
     //
     
     version = 20;
+
+#if ENABLE_FACES
+    //
+    // Version 21:
+    // * Added face pixels column to FaceLocationTable
+    //
+    
+    if (!DatabaseTable.has_column("FaceLocationTable", "pix")) {
+        message("upgrade_database: adding pix column to FaceLocationTable");
+        if (!DatabaseTable.add_column("FaceLocationTable", "pix", "BLOB"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 21;
+#endif
     
     //
     // Finalize the upgrade process

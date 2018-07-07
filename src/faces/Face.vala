@@ -417,7 +417,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         
         return face;
     }
-    
+
     // Utility function to cleanup a face name that comes from user input and prepare it for use
     // in the system and storage in the database.  Returns null if the name is unacceptable.
     public static string? prep_face_name(string name) {

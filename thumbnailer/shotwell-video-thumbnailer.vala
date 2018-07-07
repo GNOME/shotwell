@@ -54,10 +54,10 @@ class ShotwellThumbnailer {
             // Set to PAUSED to make the first frame arrive in the sink.
             ret = pipeline.set_state(Gst.State.PAUSED);
             if (ret == Gst.StateChangeReturn.FAILURE) {
-                stderr.printf("Failed to play the file: couldn't set state\n");
+                debug("Failed to play the file: couldn't set state\n");
                 return 3;
             } else if (ret == Gst.StateChangeReturn.NO_PREROLL) {
-                stderr.printf("Live sources not supported yet.\n");
+                debug("Live sources not supported yet.\n");
                 return 4;
             }
             
@@ -66,13 +66,13 @@ class ShotwellThumbnailer {
             // better way is to run a mainloop and catch errors there.
             ret = pipeline.get_state(null, null, 5 * Gst.SECOND);
             if (ret == Gst.StateChangeReturn.FAILURE) {
-                stderr.printf("Failed to play the file: couldn't get state.\n");
+                debug("Failed to play the file: couldn't get state.\n");
                 return 3;
             }
 
             /* get the duration */
             if (!pipeline.query_duration (Gst.Format.TIME, out duration)) {
-                stderr.printf("Failed to query file for duration\n");
+                debug("Failed to query file for duration\n");
                 return 3;
             }
 
@@ -86,7 +86,7 @@ class ShotwellThumbnailer {
 
             ret = pipeline.get_state(null, null, 5 * Gst.SECOND);
             if (ret == Gst.StateChangeReturn.FAILURE) {
-                stderr.printf("Failed to play the file: couldn't get state.\n");
+                debug("Failed to play the file: couldn't get state.\n");
                 return 3;
             }
 
@@ -100,7 +100,7 @@ class ShotwellThumbnailer {
             pipeline.set_state(Gst.State.NULL);
             
         } catch (Error e) {
-            stderr.printf(e.message);
+            debug(e.message);
             return 2;
         }
         

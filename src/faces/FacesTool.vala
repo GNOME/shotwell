@@ -314,14 +314,16 @@ public class FacesTool : EditingTools.EditingTool {
     private class FaceDetectionJob : BackgroundJob {
         private Gee.Queue<string> faces = null;
         private string image_path;
+        private float scale;
         public string? spawnError;
 
-        public FaceDetectionJob(FacesToolWindow owner, string image_path,
+        public FaceDetectionJob(FacesToolWindow owner, string image_path, float scale,
             CompletionCallback completion_callback, Cancellable cancellable,
             CancellationCallback cancellation_callback) {
             base(owner, completion_callback, cancellable, cancellation_callback);
 
             this.image_path = image_path;
+            this.scale = scale;
         }
 
         public override void execute() {
@@ -331,7 +333,8 @@ public class FacesTool : EditingTools.EditingTool {
             }
             FaceRect[] rects;
             try {
-                rects = FaceDetect.interface.detect_faces(image_path, AppDirs.get_haarcascade_file().get_path(), 1.3);
+                rects = FaceDetect.interface.detect_faces(image_path,
+                                                          AppDirs.get_haarcascade_file().get_path(), scale);
             } catch(Error e) {
                 spawnError = "DBus error: " + e.message + "!\n";
                 return;
@@ -416,6 +419,7 @@ public class FacesTool : EditingTools.EditingTool {
     private Workers workers;
     private FaceShape editing_face_shape = null;
     private FacesToolWindow faces_tool_window = null;
+    private const int FACE_DETECT_MAX_WIDTH = 1200;
 
     private FacesTool() {
         base("FacesTool");
@@ -468,9 +472,12 @@ public class FacesTool : EditingTools.EditingTool {
 
         face_detection_cancellable = new Cancellable();
         workers = new Workers(1, false);
+        Dimensions dimensions = canvas.get_photo().get_dimensions();
+        float scale_factor = (float)dimensions.width / FACE_DETECT_MAX_WIDTH;
         face_detection = new FaceDetectionJob(faces_tool_window,
-            canvas.get_photo().get_file().get_path(), on_faces_detected,
-            face_detection_cancellable, on_detection_cancelled);
+                                              canvas.get_photo().get_file().get_path(), scale_factor,
+                                              on_faces_detected,
+                                              face_detection_cancellable, on_detection_cancelled);
 
         bind_window_handlers();
 
@@ -750,14 +757,23 @@ public class FacesTool : EditingTools.EditingTool {
         if (face_shapes == null)
             return;
 
-        Gee.Map<Face, string> new_faces = new Gee.HashMap<Face, string>();
+        Gee.Map<Face, FaceLocationData?> new_faces = new Gee.HashMap<Face, FaceLocationData?>();
         foreach (FaceShape face_shape in face_shapes.values) {
             if (!face_shape.get_known())
                 continue;
 
             Face new_face = Face.for_name(face_shape.get_name());
-
-            new_faces.set(new_face, face_shape.serialize());
+            uint8[] face_pix;
+            try {
+                face_shape.get_pixbuf().save_to_buffer(out face_pix, "png");
+                message("face pix length %d", face_pix.length);
+            } catch (Error e) {
+                AppWindow.error_message("Cannot get pixbuf for image\n");
+            }
+            FaceLocationData face_data = {
+                face_shape.serialize(), face_pix
+            };
+            new_faces.set(new_face, face_data);
         }
 
         ModifyFacesCommand command = new ModifyFacesCommand(canvas.get_photo(), new_faces);

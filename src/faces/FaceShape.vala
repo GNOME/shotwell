@@ -172,6 +172,7 @@ public abstract class FaceShape : Object {
     public abstract bool cursor_is_over(int x, int y);
     public abstract bool equals(FaceShape face_shape);
     public abstract double get_distance(int x, int y);
+    public abstract Gdk.Pixbuf? get_pixbuf();
     
     protected abstract void paint();
     protected abstract void erase();
@@ -191,6 +192,7 @@ public class FaceRectangle : FaceShape {
     private Cairo.Context thin_white_ctx = null;
     private int last_grab_x = -1;
     private int last_grab_y = -1;
+    private Gdk.Pixbuf? face_pix;
     
     public FaceRectangle(EditingTools.PhotoCanvas canvas, int x, int y,
         int half_width = NULL_SIZE, int half_height = NULL_SIZE) {
@@ -215,6 +217,12 @@ public class FaceRectangle : FaceShape {
         
             box = Box(x - half_width, y - half_height, right, bottom);
         }
+        
+        Gdk.Pixbuf original = canvas.get_scaled_pixbuf();
+        message("pixbuf get %d, %d, %d, %d of %d, %d", box.left, box.top,
+                                box.get_width(), box.get_height(), original.width, original.height);
+        face_pix = new Gdk.Pixbuf.subpixbuf(original, box.left, box.top,
+                                box.get_width(), box.get_height());
     }
     
     ~FaceRectangle() {
@@ -777,6 +785,10 @@ public class FaceRectangle : FaceShape {
         double center_y = box.top + box.get_height() / 2.0;
         
         return Math.sqrt((center_x - x) * (center_x - x) + (center_y - y) * (center_y - y));
+    }
+
+    public override Gdk.Pixbuf? get_pixbuf() {
+        return face_pix;
     }
 }
 
