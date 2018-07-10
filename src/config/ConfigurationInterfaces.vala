@@ -85,6 +85,7 @@ public enum ConfigurableProperty {
     SHOW_WELCOME_DIALOG,
     SIDEBAR_POSITION,
     SIDEBAR_CONTENT,
+    SIDEBAR_CONTENT_ORDER,
     SLIDESHOW_DELAY,
     SLIDESHOW_TRANSITION_DELAY,
     SLIDESHOW_TRANSITION_EFFECT_ID,
@@ -292,6 +293,9 @@ public enum ConfigurableProperty {
 
             case SIDEBAR_CONTENT:
                 return "SIDEBAR_CONTENT";
+
+            case SIDEBAR_CONTENT_ORDER:
+                return "SIDEBAR_CONTENT_ORDER";
                 
             case SLIDESHOW_DELAY:
                 return "SLIDESHOW_DELAY";
@@ -414,6 +418,7 @@ public abstract class ConfigurationFacade : Object {
             break;
 
             case ConfigurableProperty.SIDEBAR_CONTENT:
+            case ConfigurableProperty.SIDEBAR_CONTENT_ORDER:
                 sidebar_content_changed();
             break;
         }
@@ -1698,6 +1703,28 @@ public abstract class ConfigurationFacade : Object {
     public virtual void set_sidebar_content(string[] val) {
         try {
             get_engine().set_string_list_property(ConfigurableProperty.SIDEBAR_CONTENT, val);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+        }
+    }
+
+    //
+    // sidebar content order
+    //
+    public virtual string[] get_sidebar_content_order() {
+        try {
+            return get_engine().get_string_list_property(ConfigurableProperty.SIDEBAR_CONTENT_ORDER);
+        } catch (ConfigurationError err) {
+            on_configuration_error(err);
+
+            string[] config = {"library", "cameras", "saved-searches", "events", "import-roll", "folders", "faces", "tags" };
+            return config;
+        }
+    }
+
+    public virtual void set_sidebar_content_order(string[] val) {
+        try {
+            get_engine().set_string_list_property(ConfigurableProperty.SIDEBAR_CONTENT_ORDER, val);
         } catch (ConfigurationError err) {
             on_configuration_error(err);
         }

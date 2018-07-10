@@ -13,15 +13,73 @@ public class SidebarPreferencesListRow : Gtk.ListBoxRow {
     [GtkChild]
     private Gtk.Label label;
 
+    [GtkChild]
+    private Gtk.CheckButton visibility;
+
+    public bool tree_visibility {
+        set {
+            this.visibility.active = value;
+        }
+
+        get {
+            return this.visibility.active;
+        }
+    }
+
+    public string row_name { get; set; }
+
     private const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
         { "GTK_LIST_BOX_ROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
     public SidebarPreferencesListRow(string name) {
         Object();
+        this.row_name = name;
         Gtk.drag_source_set (this.handle, Gdk.ModifierType.BUTTON1_MASK, SOURCE_TARGET_ENTRIES, Gdk.DragAction.MOVE);
         Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, SOURCE_TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        label.set_text (name);
+        handle.drag_data_get.connect(this.on_drag_data_get);
+        handle.drag_begin.connect(this.on_drag_begin);
+        label.set_text (Resources.map_subtree_name(name));
+        drag_data_received.connect(this.on_drag_data_received);
+    }
+
+    private void on_drag_data_received(Gtk.Widget target, Gdk.DragContext ctx, int x, int y, Gtk.SelectionData data, uint info, uint time) {
+        Gtk.Widget row  = *((Gtk.Widget **) data.get_data());
+        var pos = (target as Gtk.ListBoxRow).get_index();
+
+        var source = row.get_ancestor (typeof (Gtk.ListBoxRow));
+        if (source == target)
+            return;
+
+        source.ref();
+        source.get_parent().remove(source);
+        (target.get_parent() as Gtk.ListBox).insert(source, pos);
+        source.unref();
+    }
+
+    private void on_drag_data_get(Gtk.Widget source, Gdk.DragContext ctx, Gtk.SelectionData data, uint info, uint time) {
+        unowned uint8[] p2;
+        p2 = (uint8[]) &source;
+        p2.length = (int) sizeof(void *);
+
+        data.@set (Gdk.Atom.intern_static_string ("GTK_LIST_BOX_ROW"), 32, p2);
+    }
+
+    private void on_drag_begin(Gtk.Widget widget, Gdk.DragContext ctx) {
+        Gtk.Allocation allocation;
+
+        var row = widget.get_ancestor(typeof(Gtk.ListBoxRow));
+        row.get_allocation(out allocation);
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
+        var cr = new Cairo.Context (surface);
+        row.get_style_context().add_class("drag-icon");
+        row.draw(cr);
+        row.get_style_context().remove_class("drag-icon");
+
+        int x, y;
+        widget.translate_coordinates(row, 0, 0, out x, out y);
+        surface.set_device_offset(-x, -y);
+        Gtk.drag_set_icon_surface(ctx, surface);
     }
 }
 
@@ -168,11 +226,17 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     public void populate_preference_options() {
-        var content = Config.Facade.get_instance().get_sidebar_content();
+        var visibility = Config.Facade.get_instance().get_sidebar_content();
+        var content = Config.Facade.get_instance().get_sidebar_content_order();
+        foreach (var child in sidebar_content.get_children())
+            child.destroy();
+
         foreach (var tree in content) {
-            var row = new SidebarPreferencesListRow(Resources.map_subtree_name(tree));
+            var row = new SidebarPreferencesListRow(tree);
+            row.tree_visibility = tree in visibility;
             sidebar_content.add(row);
         }
+
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(),
             Config.Facade.get_instance().get_external_photo_app(), out external_photo_apps);
 

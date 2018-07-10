@@ -3,14 +3,16 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <template class="SidebarPreferencesListRow" parent="GtkListBoxRow">
-    <property name="width_request">100</property>
-    <property name="height_request">80</property>
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="margin_left">10</property>
+        <property name="margin_right">10</property>
+        <property name="margin_top">4</property>
+        <property name="margin_bottom">4</property>
         <property name="spacing">10</property>
         <child>
           <object class="GtkEventBox" id="handle">
@@ -44,7 +46,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton">
+          <object class="GtkCheckButton" id="visibility">
             <property name="label" translatable="yes">Visible</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
