@@ -59,6 +59,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.EVENT_PHOTOS_SORT_BY] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EVENTS_SORT_ASCENDING] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SIDEBAR_CONTENT] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.SIDEBAR_CONTENT_ORDER] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_CONSTRAINT] = EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_EXPORT_FORMAT_MODE] =  EXPORT_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.EXPORT_EXPORT_METADATA] =  EXPORT_PREFS_SCHEMA_NAME;
@@ -172,6 +173,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.SHOW_WELCOME_DIALOG] = "show-welcome-dialog";
         key_names[ConfigurableProperty.SIDEBAR_POSITION] = "sidebar-position";
         key_names[ConfigurableProperty.SIDEBAR_CONTENT] = "sidebar-content";
+        key_names[ConfigurableProperty.SIDEBAR_CONTENT_ORDER] = "sidebar-content-order";
         key_names[ConfigurableProperty.SLIDESHOW_DELAY] = "delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_DELAY] = "transition-delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_EFFECT_ID] = "transition-effect-id";

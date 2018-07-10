@@ -5,3 +5,8 @@ textview.shotwell-static text {
 label.map-attribution {
     font-size: 66%;
 }
+
+.drag-icon {
+    background: white;
+    border: 1px solid black;
+}

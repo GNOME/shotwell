@@ -186,11 +186,17 @@
         <description>Last used selection state of the “hide photos already imported” option in the import page.</description>
     </key>
 
-    <key name="sidebar-order" type="as">
+    <key name="sidebar-content" type="as">
       <default>['library', 'cameras', 'saved-searches', 'events', 'import-roll', 'folders', 'faces', 'tags']</default>
       <summary>Which entries to show in the sidebar</summary>
-      <description>Order of entries in the left sidebar. If an entry is not mentioned, it will not be shown. Note,
+      <description>Visibility of entries in the left sidebar. If an entry is not mentioned, it will not be shown. Note,
         however, that the main library entry cannot be moved or removed</description>
+    </key>
+
+    <key name="sidebar-content-order" type="as">
+      <default>['library', 'cameras', 'saved-searches', 'events', 'import-roll', 'folders', 'faces', 'tags']</default>
+      <summary>Order of entries in the sidebar</summary>
+      <description>Order of entries in the left sidebar. The visibility of the entries is handled by the key sidebar-content</description>
     </key>
 </schema>
 
