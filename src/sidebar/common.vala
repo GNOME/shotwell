@@ -98,8 +98,8 @@ public abstract class Sidebar.SimplePageEntry : Object, Sidebar.Entry, Sidebar.S
 
 // A simple Sidebar.Branch where the root node is the branch in entirety.
 public class Sidebar.RootOnlyBranch : Sidebar.Branch {
-    public RootOnlyBranch(Sidebar.Entry root) {
-        base (root, Sidebar.Branch.Options.NONE, null_comparator);
+    public RootOnlyBranch(Sidebar.Entry root, string handle) {
+        base (root, handle, Sidebar.Branch.Options.NONE, null_comparator);
     }
     
     private static int null_comparator(Sidebar.Entry a, Sidebar.Entry b) {

@@ -6,9 +6,11 @@
 
 public class Tags.Branch : Sidebar.Branch {
     private Gee.HashMap<Tag, Tags.SidebarEntry> entry_map = new Gee.HashMap<Tag, Tags.SidebarEntry>();
+    internal const string HANDLE = "tags";
     
     public Branch() {
         base (new Tags.Header(),
+            Branch.HANDLE,
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_OPEN_GROUPING,
@@ -128,7 +130,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     private Gtk.Menu? context_menu = null;
     
     public Header() {
-        base (_("Tags"), _("Organize and browse your photo’s tags"));
+        base (Resources.map_subtree_name(Branch.HANDLE), _("Organize and browse your photo’s tags"));
         setup_context_menu();
     }
 

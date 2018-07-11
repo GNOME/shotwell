@@ -1183,7 +1183,20 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
 
     public static string map_subtree_name(string name) {
-        return name;
+        switch (name) {
+            case Events.Branch.HANDLE:  return _("Events");
+            case Camera.Branch.HANDLE:  return _("Cameras");
+#if ENABLE_FACES
+            case Faces.Branch.HANDLE:   return _("Faces");
+#endif
+            case Folders.Branch.HANDLE: return _("Folders");
+            case ImportRoll.Branch.HANDLE: return _("Imports");
+            case Library.Branch.HANDLE: return _("Library");
+            case Searches.Branch.HANDLE: return _("Saved Searches");
+            case Tags.Branch.HANDLE : return _("Tags");
+            default:
+                return name;
+        }
     }
 }
 

@@ -1,8 +1,10 @@
 public class ImportRoll.Branch : Sidebar.Branch {
     private Gee.HashMap<int64?, ImportRoll.SidebarEntry> entries;
 
+    internal const string HANDLE = "import-roll";
+
     public class Branch() {
-        base (new ImportRoll.Root(),
+        base (new ImportRoll.Root(), Branch.HANDLE,
               Sidebar.Branch.Options.HIDE_IF_EMPTY,
               ImportRoll.Branch.comparator);
 
@@ -39,6 +41,6 @@ public class ImportRoll.Branch : Sidebar.Branch {
 
 private class ImportRoll.Root : Sidebar.Header {
     public Root() {
-        base (_("Imports"), _("Browse the library’s import history"));
+        base (Resources.map_subtree_name(Branch.HANDLE), _("Browse the library’s import history"));
     }
 }

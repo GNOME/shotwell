@@ -705,7 +705,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     private void on_branch_children_reordered(Sidebar.Branch branch, Sidebar.Entry entry) {
         Gee.List<Sidebar.Entry>? children = branch.get_children(entry);
-        if (children == null)
+        if (children == null || branch.get_show_branch() == false)
             return;
         
         // This works by moving the entries to the bottom of the tree's list in the order they

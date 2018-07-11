@@ -14,6 +14,8 @@ public class Library.Branch : Sidebar.Branch {
     public Library.OfflineSidebarEntry offline_entry { get; private set; }
     public Library.TrashSidebarEntry trash_entry { get; private set; }
     
+    internal const string HANDLE = "library";
+
     // This lists the order of the library items in the sidebar. To re-order, simply move
     // the item in this list to a new position. These numbers should *not* persist anywhere
     // outside the app.
@@ -27,7 +29,8 @@ public class Library.Branch : Sidebar.Branch {
     }
     
     public Branch() {
-        base(new Sidebar.Header(_("Library"), _("Organize and browse your photos")),
+        base(new Sidebar.Header(Resources.map_subtree_name(Branch.HANDLE), _("Organize and browse your photos")),
+            Branch.HANDLE,
             Sidebar.Branch.Options.STARTUP_OPEN_GROUPING, comparator);
 
         photos_entry = new Library.PhotosEntry();

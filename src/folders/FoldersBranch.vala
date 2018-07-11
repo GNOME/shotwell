@@ -8,9 +8,10 @@ public class Folders.Branch : Sidebar.Branch {
     private Gee.HashMap<File, Folders.SidebarEntry> entries =
         new Gee.HashMap<File, Folders.SidebarEntry>(file_hash, file_equal);
     private File home_dir;
+    internal const string HANDLE = "folders";
     
     public class Branch() {
-        base (new Folders.Root(),
+        base (new Folders.Root(), Branch.HANDLE,
               Sidebar.Branch.Options.STARTUP_OPEN_GROUPING
               | Sidebar.Branch.Options.HIDE_IF_EMPTY,
               comparator);
@@ -141,7 +142,7 @@ public class Folders.Branch : Sidebar.Branch {
 
 private class Folders.Root : Sidebar.Header {
     public Root() {
-        base (_("Folders"), _("Browse the library’s folder structure"));
+        base (Resources.map_subtree_name(Branch.HANDLE), _("Browse the library’s folder structure"));
     }
 }
 

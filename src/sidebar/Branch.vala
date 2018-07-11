@@ -190,6 +190,7 @@ public class Sidebar.Branch : Object {
     private bool shown = true;
     private CompareFunc<Sidebar.Entry> default_comparator;
     private Gee.HashMap<Sidebar.Entry, Node> map = new Gee.HashMap<Sidebar.Entry, Node>();
+    private string handle;
     
     public signal void entry_added(Sidebar.Entry entry);
     
@@ -203,16 +204,17 @@ public class Sidebar.Branch : Object {
     
     public signal void show_branch(bool show);
     
-    public Branch(Sidebar.Entry root, Options options, CompareFunc<Sidebar.Entry> default_comparator,
+    public Branch(Sidebar.Entry root, string handle, Options options, CompareFunc<Sidebar.Entry> default_comparator,
         CompareFunc<Sidebar.Entry>? root_comparator = null) {
         this.default_comparator = default_comparator;
         this.root = new Node(root, null,
             (root_comparator != null) ? root_comparator : default_comparator);
         this.options = options;
+        this.handle = handle;
         
         map.set(root, this.root);
         
-        if (options.is_hide_if_empty())
+        if (options.is_hide_if_empty() || is_disabled_in_config())
             set_show_branch(false);
     }
     
@@ -223,8 +225,12 @@ public class Sidebar.Branch : Object {
     public void set_show_branch(bool shown) {
         if (this.shown == shown)
             return;
-        
-        this.shown = shown;
+
+        if (is_disabled_in_config())
+            this.shown = false;
+        else
+            this.shown = shown;
+
         show_branch(shown);
     }
     
@@ -429,6 +435,10 @@ public class Sidebar.Branch : Object {
     
     private void children_reordered_callback(Node node) {
         children_reordered(node.entry);
+    }
+
+    private bool is_disabled_in_config() {
+        return !(this.handle in Config.Facade.get_instance().get_sidebar_content());
     }
 }
 
