@@ -20,9 +20,11 @@ public class Events.Branch : Sidebar.Branch {
     private Events.UndatedDirectoryEntry undated_entry = new Events.UndatedDirectoryEntry();
     private Events.NoEventEntry no_event_entry = new Events.NoEventEntry();
     private Events.MasterDirectoryEntry all_events_entry = new Events.MasterDirectoryEntry();
+    internal const string HANDLE = "events";
     
     public Branch() {
-        base (new Sidebar.Header(_("Events"), _("Browse through your events")),
+        base (new Sidebar.Header(Resources.map_subtree_name(Branch.HANDLE), _("Browse through your events")),
+            Branch.HANDLE,
             Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
             event_year_comparator);
         

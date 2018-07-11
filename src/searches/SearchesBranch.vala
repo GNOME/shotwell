@@ -7,9 +7,10 @@
 public class Searches.Branch : Sidebar.Branch {
     private Gee.HashMap<SavedSearch, Searches.SidebarEntry> entry_map = 
         new Gee.HashMap<SavedSearch, Searches.SidebarEntry>();
+    internal const string HANDLE = "saved-searches";
     
     public Branch() {
-        base (new Searches.Header(),
+        base (new Searches.Header(), Branch.HANDLE,
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
@@ -65,7 +66,7 @@ public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
     private Gtk.Menu? context_menu = null;
     
     public Header() {
-        base (_("Saved Searches"), _("Organize your saved searches"));
+        base (Resources.map_subtree_name(Branch.HANDLE), _("Organize your saved searches"));
         setup_context_menu();
     }
 

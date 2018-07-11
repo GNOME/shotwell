@@ -10,8 +10,10 @@ public class Camera.Branch : Sidebar.Branch {
     private Gee.HashMap<DiscoveredCamera, Camera.SidebarEntry> camera_map = new Gee.HashMap<
         DiscoveredCamera, Camera.SidebarEntry>();
     
+    internal const string HANDLE = "cameras";
+
     public Branch() {
-        base (new Camera.Header(),
+        base (new Camera.Header(), Branch.HANDLE,
             Sidebar.Branch.Options.HIDE_IF_EMPTY | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD,
             camera_comparator);
         
@@ -82,7 +84,7 @@ public class Camera.Branch : Sidebar.Branch {
 
 public class Camera.Header : Sidebar.Header {
     public Header() {
-        base (_("Cameras"), _("List of all discovered camera devices"));
+        base (Resources.map_subtree_name(Branch.HANDLE), _("List of all discovered camera devices"));
     }
 }
 
