@@ -1,3 +1,20 @@
+Shotwell 0.28.4 - 14 Jul 2018
+  * Fix slideshow settings dialog
+  * Fix Google login sequence
+  * Fix MTP device unmounting
+  * Work-around issue where PTP cameras would not be recognized anymore
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=796370
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/12
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+
+Added/updated translations
+ - tr, courtesy of Emin Tufan Çetin
+
 Shotwell 0.28.3 - 7 May 2018
   * Fix spacings in search toolbar
   * Fix "Out of memory" issues when scrolling through large collections
