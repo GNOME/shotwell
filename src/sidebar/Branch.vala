@@ -214,7 +214,7 @@ public class Sidebar.Branch : Object {
         
         map.set(root, this.root);
         
-        if (options.is_hide_if_empty() || is_disabled_in_config())
+        if (options.is_hide_if_empty())
             set_show_branch(false);
     }
     
