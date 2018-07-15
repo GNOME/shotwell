@@ -162,6 +162,14 @@ public class LibraryWindow : AppWindow {
     //UnityProgressBar: init
     UnityProgressBar uniprobar = UnityProgressBar.get_instance();
 #endif
+
+    private int get_branch_position(string[] list, string key) {
+        for (int i = 0; i < list.length; i++) {
+            if (key == list[i])
+                return i;
+        }
+        return -1;
+    }
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
         base();
@@ -174,18 +182,20 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.destroying_page.connect(on_destroying_page);
         sidebar_tree.entry_selected.connect(on_sidebar_entry_selected);
         sidebar_tree.selected_entry_removed.connect(on_sidebar_selected_entry_removed);
+
+        var order = Config.Facade.get_instance().get_sidebar_content_order();
         
-        sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
-        sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
-        sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
+        sidebar_tree.graft(library_branch, this.get_branch_position (order, Library.Branch.HANDLE));
+        sidebar_tree.graft(tags_branch, this.get_branch_position (order, Tags.Branch.HANDLE));
+        sidebar_tree.graft(folders_branch, this.get_branch_position (order, Folders.Branch.HANDLE));
 #if ENABLE_FACES   
-        sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
+        sidebar_tree.graft(faces_branch, this.get_branch_position (order, Faces.Branch.HANDLE));
 #endif
 
-        sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
-        sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
-        sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
-        sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
+        sidebar_tree.graft(events_branch, this.get_branch_position (order, Events.Branch.HANDLE));
+        sidebar_tree.graft(camera_branch, this.get_branch_position (order, Camera.Branch.HANDLE));
+        sidebar_tree.graft(saved_search_branch, this.get_branch_position (order, Searches.Branch.HANDLE));
+        sidebar_tree.graft(import_roll_branch, this.get_branch_position (order, ImportRoll.Branch.HANDLE));
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
@@ -233,6 +243,33 @@ public class LibraryWindow : AppWindow {
         // by the menu
         const string[] accels = { "<Primary>f", "F8", null };
         Application.set_accels_for_action("win.CommonDisplaySearchbar", accels);
+
+        Config.Facade.get_instance().sidebar_content_changed.connect (() => {
+            sidebar_tree.prune (library_branch);
+            sidebar_tree.prune (tags_branch);
+            sidebar_tree.prune (folders_branch);
+#if ENABLE_FACES
+            sidebar_tree.prune (faces_branch);
+#endif
+            sidebar_tree.prune (events_branch);
+            sidebar_tree.prune (camera_branch);
+            sidebar_tree.prune (saved_search_branch);
+            sidebar_tree.prune (import_roll_branch);
+
+            order = Config.Facade.get_instance().get_sidebar_content_order();
+        
+            sidebar_tree.graft(library_branch, this.get_branch_position (order, Library.Branch.HANDLE));
+            sidebar_tree.graft(tags_branch, this.get_branch_position (order, Tags.Branch.HANDLE));
+            sidebar_tree.graft(folders_branch, this.get_branch_position (order, Folders.Branch.HANDLE));
+    #if ENABLE_FACES   
+            sidebar_tree.graft(faces_branch, this.get_branch_position (order, Faces.Branch.HANDLE));
+    #endif
+
+            sidebar_tree.graft(events_branch, this.get_branch_position (order, Events.Branch.HANDLE));
+            sidebar_tree.graft(camera_branch, this.get_branch_position (order, Camera.Branch.HANDLE));
+            sidebar_tree.graft(saved_search_branch, this.get_branch_position (order, Searches.Branch.HANDLE));
+            sidebar_tree.graft(import_roll_branch, this.get_branch_position (order, ImportRoll.Branch.HANDLE));
+      });
     }
 
     ~LibraryWindow() {

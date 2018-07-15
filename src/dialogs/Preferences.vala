@@ -32,6 +32,8 @@ public class SidebarPreferencesListRow : Gtk.ListBoxRow {
         { "GTK_LIST_BOX_ROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    public signal void moved();
+
     public SidebarPreferencesListRow(string name) {
         Object();
         this.row_name = name;
@@ -56,6 +58,7 @@ public class SidebarPreferencesListRow : Gtk.ListBoxRow {
         source.get_parent().remove(source);
         (target.get_parent() as Gtk.ListBox).insert(source, pos);
         source.unref();
+        this.moved();
     }
 
     private void on_drag_data_get(Gtk.Widget source, Gdk.DragContext ctx, Gtk.SelectionData data, uint info, uint time) {
@@ -225,8 +228,6 @@ public class PreferencesDialog : Gtk.Dialog {
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
         switch_dark.active = Gtk.Settings.get_default().gtk_application_prefer_dark_theme;
         switch_dark.notify["active"].connect(on_theme_variant_changed);
-
-        this.sidebar_content_updated_handler = sidebar_content.add.connect(this.on_update_sidebar_order);
     }
 
     public void populate_preference_options() {
@@ -242,6 +243,7 @@ public class PreferencesDialog : Gtk.Dialog {
             var row = new SidebarPreferencesListRow(tree);
             row.tree_visibility = tree in visibility;
             row.notify["tree-visibility"].connect (this.on_update_sidebar_visibility);
+            row.moved.connect(this.on_update_sidebar_order);
             sidebar_content.add(row);
         }
         if (this.sidebar_content_updated_handler != 0)
@@ -273,7 +275,6 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_update_sidebar_order () {
-        critical ("=> Updating sidebar");
         var config = Config.Facade.get_instance();
         string[] rows = new string[0];
         sidebar_content.foreach ((child) => {
