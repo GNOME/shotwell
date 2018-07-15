@@ -14,7 +14,7 @@ public class SidebarPreferencesListRow : Gtk.ListBoxRow {
     private Gtk.Label label;
 
     [GtkChild]
-    private Gtk.CheckButton visibility;
+    private Gtk.Switch visibility;
 
     public bool tree_visibility {
         set {
@@ -41,6 +41,7 @@ public class SidebarPreferencesListRow : Gtk.ListBoxRow {
         handle.drag_begin.connect(this.on_drag_begin);
         label.set_text (Resources.map_subtree_name(name));
         drag_data_received.connect(this.on_drag_data_received);
+        visibility.bind_property ("active", this, "tree-visibility");
     }
 
     private void on_drag_data_received(Gtk.Widget target, Gdk.DragContext ctx, int x, int y, Gtk.SelectionData data, uint info, uint time) {
@@ -142,6 +143,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private Gtk.RadioButton transparent_none_radio;
     [GtkChild]
     private Gtk.ListBox sidebar_content;
+    private ulong sidebar_content_updated_handler;
 
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
@@ -223,19 +225,27 @@ public class PreferencesDialog : Gtk.Dialog {
         default_raw_developer_combo.changed.connect(on_default_raw_developer_changed);
         switch_dark.active = Gtk.Settings.get_default().gtk_application_prefer_dark_theme;
         switch_dark.notify["active"].connect(on_theme_variant_changed);
+
+        this.sidebar_content_updated_handler = sidebar_content.add.connect(this.on_update_sidebar_order);
     }
 
     public void populate_preference_options() {
         var visibility = Config.Facade.get_instance().get_sidebar_content();
         var content = Config.Facade.get_instance().get_sidebar_content_order();
+        if (this.sidebar_content_updated_handler != 0)
+            SignalHandler.block (sidebar_content, this.sidebar_content_updated_handler);
+
         foreach (var child in sidebar_content.get_children())
             child.destroy();
 
         foreach (var tree in content) {
             var row = new SidebarPreferencesListRow(tree);
             row.tree_visibility = tree in visibility;
+            row.notify["tree-visibility"].connect (this.on_update_sidebar_visibility);
             sidebar_content.add(row);
         }
+        if (this.sidebar_content_updated_handler != 0)
+            SignalHandler.unblock (sidebar_content, this.sidebar_content_updated_handler);
 
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(),
             Config.Facade.get_instance().get_external_photo_app(), out external_photo_apps);
@@ -246,6 +256,32 @@ public class PreferencesDialog : Gtk.Dialog {
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
 
         lowercase.set_active(Config.Facade.get_instance().get_use_lowercase_filenames());
+    }
+
+    private void on_update_sidebar_visibility (GLib.Object o, GLib.ParamSpec ps) {
+        var config = Config.Facade.get_instance();
+        string[] rows = new string[0];
+        sidebar_content.foreach ((child) => {
+            var row = (child as SidebarPreferencesListRow);
+
+            if (row.tree_visibility) {
+                rows += row.row_name;
+            }
+        });
+
+        config.set_sidebar_content(rows);
+    }
+
+    private void on_update_sidebar_order () {
+        critical ("=> Updating sidebar");
+        var config = Config.Facade.get_instance();
+        string[] rows = new string[0];
+        sidebar_content.foreach ((child) => {
+            var row = (child as SidebarPreferencesListRow);
+            rows += row.row_name;
+        });
+
+        config.set_sidebar_content_order(rows);
     }
 
     private void on_theme_variant_changed(GLib.Object o, GLib.ParamSpec ps) {
