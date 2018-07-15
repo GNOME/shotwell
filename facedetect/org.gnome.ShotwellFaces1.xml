@@ -22,31 +22,23 @@
     </method>
 
     <!--
-        TrainFaces
-        @images: List of image files with a face in it
-        @labels: List of labels for each face
-        @model: File name to save model in
+        LoadNet
+        @net: Torch t7 net file
         Returns non-zero on any error
     -->
-    <method name="TrainFaces">
-      <arg type="as" name="images" direction="in" />
-      <arg type="as" name="labels" direction="in" />
-      <arg type="s" name="model" direction="in" />
-      <arg type="y" name="status" direction="out" />
+    <method name="LoadNet">
+      <arg type="s" name="net" direction="in" />
+      <arg type="b" name="ret" direction="out" />
     </method>
 
     <!--
-        RecogniseFace
-        @image: Image of face to recognise
-        @model: File name to read model from
-        @threshold: Probability threshold
-        Returns array of (label, probability) pairs 
+        FaceToVec
+        @image: Image of face to convert
+        Returns 128 element vector
     -->
-    <method name="RecogniseFace">
+    <method name="FaceToVec">
       <arg type="s" name="image" direction="in" />
-      <arg type="s" name="model" direction="in" />
-      <arg type="d" name="threshold" direction="in" />
-      <arg type="a(sd)" name="labels" direction="out" />
+      <arg type="ad" name="vec" direction="out" />
     </method>
 
     <!--
