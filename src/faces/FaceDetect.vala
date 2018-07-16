@@ -35,6 +35,10 @@ public struct FaceRect {
 public interface FaceDetectInterface : Object {
     public abstract FaceRect[] detect_faces(string inputName, string cascadeName, double scale)
         throws IOError, DBusError;
+    public abstract bool load_net(string netFile)
+        throws IOError, DBusError;
+    public abstract bool face_to_vec(string inputName)
+        throws IOError, DBusError;
     public abstract void terminate() throws IOError, DBusError;
 }
 
@@ -43,6 +47,7 @@ public class FaceDetect {
     public const string DBUS_NAME = "org.gnome.shotwell.faces";
     public const string DBUS_PATH = "/org/gnome/shotwell/faces";
     public static bool connected = false;
+    public static string net_file;
     
     public static FaceDetectInterface interface;
 
@@ -51,8 +56,10 @@ public class FaceDetect {
         if (bus_name == DBUS_NAME) {
             try {
                 interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
+                interface.load_net(net_file);
                 connected = true;
             } catch(IOError e) {
+            } catch(DBusError e) {
             }
         }
     }
@@ -62,12 +69,9 @@ public class FaceDetect {
         connected = false;
     }
     
-    public static void init() {
-        //Bus.watch_name(BusType.SYSTEM, DBUS_NAME, BusNameWatcherFlags.NONE, create_interface, interface_gone);
-        try {
-            interface = Bus.get_proxy_sync(BusType.SESSION, DBUS_NAME, DBUS_PATH);
-            connected = true;
-        } catch(IOError e) {
-        }
+    public static void init(string net_file) {
+        FaceDetect.net_file = net_file;
+        Bus.watch_name(BusType.SESSION, DBUS_NAME, BusNameWatcherFlags.NONE,
+                       create_interface, interface_gone);
     }
 }

@@ -354,11 +354,17 @@ private VerifyResult upgrade_database(int input_version) {
     //
     // Version 21:
     // * Added face pixels column to FaceLocationTable
+    // * Added face vector column to FaceTable
     //
     
     if (!DatabaseTable.has_column("FaceLocationTable", "pix")) {
         message("upgrade_database: adding pix column to FaceLocationTable");
         if (!DatabaseTable.add_column("FaceLocationTable", "pix", "BLOB"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    if (!DatabaseTable.has_column("FaceTable", "vec")) {
+        message("upgrade_database: adding vec column to FaceTable");
+        if (!DatabaseTable.add_column("FaceTable", "vec", "TEXT"))
             return VerifyResult.UPGRADE_ERROR;
     }
     
