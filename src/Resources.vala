@@ -562,6 +562,34 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return null;
     }
 
+    public Gdk.Pixbuf? get_video_trinket(int scale) {
+        int cache_key = scale << 18;
+        var cached_pixbuf = get_cached_trinket(cache_key);
+
+        if (cached_pixbuf != null)
+            return cached_pixbuf;
+
+        try {
+            var theme = Gtk.IconTheme.get_default();
+            var info = theme.lookup_icon ("filter-videos-symbolic", (int)(scale * 2), Gtk.IconLookupFlags.GENERIC_FALLBACK);
+            var icon = info.load_symbolic({0.8, 0.8, 0.8, 1.0}, null, null, null);
+            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, icon.width, icon.height);
+            var ctx = new Cairo.Context(surface);
+            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
+            ctx.rectangle(0, 0, icon.width, icon.height);
+            ctx.fill();
+            Gdk.cairo_set_source_pixbuf(ctx, icon, 0, 0);
+            ctx.paint();
+
+            trinket_cache[cache_key] = Gdk.pixbuf_get_from_surface(surface, 0, 0, icon.width, icon.height);
+            return trinket_cache[cache_key];
+        } catch (Error err) {
+            critical ("%s", err.message);
+
+            return null;
+        }
+    }
+
     public Gdk.Pixbuf? get_flagged_trinket(int scale) {
         int cache_key = scale << 16;
         var cached_pixbuf = get_cached_trinket(cache_key);

@@ -61,7 +61,6 @@
       <file preprocess="xml-stripblanks">icons/shotwell.svg</file>
       <file>icons/shotwell-street.jpg</file>
       <file>icons/slideshow-extension-point.png</file>
-      <file>icons/sprocket.png</file>
       <file>icons/straighten-symbolic.svg</file>
       <file>misc/org.gnome.Shotwell.css</file>
   </gresource>

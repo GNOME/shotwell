@@ -272,11 +272,7 @@ class ImportPreview : MediaSourceItem {
         base(source, Dimensions(), source.get_name(), null);
         
         this.duplicated_file = null;
-        
-        // draw sprocket holes as visual indications on video previews
-        if (source is VideoImportSource)
-            set_enable_sprockets(true);
-        
+
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
         try {
@@ -393,6 +389,10 @@ class ImportPreview : MediaSourceItem {
     
     public ImportSource get_import_source() {
         return (ImportSource) get_source();
+    }
+
+    protected override Gdk.Pixbuf? get_top_left_trinket(int scale) {
+        return (get_import_source() is VideoImportSource) ? Resources.get_video_trinket (scale) : null;
     }
 }
 
