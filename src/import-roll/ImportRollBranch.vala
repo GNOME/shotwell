@@ -3,8 +3,7 @@ public class ImportRoll.Branch : Sidebar.Branch {
 
     public class Branch() {
         base (new ImportRoll.Root(),
-              Sidebar.Branch.Options.STARTUP_OPEN_GROUPING
-              | Sidebar.Branch.Options.HIDE_IF_EMPTY,
+              Sidebar.Branch.Options.HIDE_IF_EMPTY,
               ImportRoll.Branch.comparator);
 
         this.entries = new Gee.HashMap<int64?, ImportRoll.SidebarEntry>((Gee.HashDataFunc<int64?>)GLib.int64_hash,
