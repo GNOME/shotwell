@@ -1,3 +1,28 @@
+Shotwell 0.29.4 - 20 Jul 2018
+  * Fix unmounting of MTP devices
+  * Add work-around for PTP devices not showing up anymore
+  * Minor visual fixes for new extended properties view
+  * Make it possible to override plugin search path
+  * Some icon fixes
+  * Add feature to flick through the images of an event
+    by mouse hover
+  * Remove video sprockets
+  * Update libraw in flatpak to 0.18.13
+  * Leave import-roll sidebar closed by default
+  * French translation of shotwell's help
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Carsten Csiky (csicar) <carsten.csiky@gmail.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Yi-Soo An <yisooan@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+
+Added/updated translations
+ - de, courtesy of Mario Blättermann
+ - fr, courtesy of arverne73
+ - fr, courtesy of Claude Paroz
+
 Shotwell 0.29.3 - 20 Jun 2018
   * Fix Slideshow settings dialog
   * Re-merge faces branch to master
