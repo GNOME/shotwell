@@ -2574,6 +2574,26 @@ public class RenameFaceCommand : SimpleProxyableCommand {
     }
 }
 
+public class SetFaceRefCommand : SimpleProxyableCommand {
+    private FaceLocation face_loc;
+    
+    public SetFaceRefCommand(Face face, MediaSource source) {
+        base (face, Resources.set_face_from_photo_label(face.get_name()), face.get_name());
+        Gee.Map<FaceID?, FaceLocation>? face_loc_map = FaceLocation.get_locations_by_photo((Photo)source);
+        face_loc = face_loc_map.get(face.get_face_id());
+    }
+    
+    protected override void execute_on_source(DataSource source) {
+        if (!((Face) source).set_reference(face_loc))
+            AppWindow.error_message(Resources.set_face_from_photo_error());
+    }
+
+    protected override void undo_on_source(DataSource source) {
+        //if (!((Face) source).rename(old_name))
+        //    AppWindow.error_message(Resources.rename_face_exists_message(old_name));
+    }
+}
+
 public class DeleteFaceCommand : SimpleProxyableCommand {
     private Gee.Map<PhotoID?, string> photo_geometry_map = new Gee.HashMap<PhotoID?, string>
         ((Gee.HashDataFunc)FaceLocation.photo_id_hash, (Gee.EqualDataFunc)FaceLocation.photo_ids_equal);

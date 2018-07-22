@@ -29,15 +29,16 @@ public struct FaceRect {
     public double y;
     public double width;
     public double height;
+    public double[] vec;
 }
 
 [DBus (name = "org.gnome.Shotwell.Faces1")]
 public interface FaceDetectInterface : Object {
-    public abstract FaceRect[] detect_faces(string inputName, string cascadeName, double scale)
+    public abstract FaceRect[] detect_faces(string inputName, string cascadeName, double scale, bool infer)
         throws IOError, DBusError;
     public abstract bool load_net(string netFile)
         throws IOError, DBusError;
-    public abstract bool face_to_vec(string inputName)
+    public abstract double[] face_to_vec(string inputName)
         throws IOError, DBusError;
     public abstract void terminate() throws IOError, DBusError;
 }

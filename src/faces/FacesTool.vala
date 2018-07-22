@@ -334,7 +334,7 @@ public class FacesTool : EditingTools.EditingTool {
             FaceRect[] rects;
             try {
                 rects = FaceDetect.interface.detect_faces(image_path,
-                                                          AppDirs.get_haarcascade_file().get_path(), scale);
+                                                          AppDirs.get_haarcascade_file().get_path(), scale, true);
             } catch(Error e) {
                 spawnError = "DBus error: " + e.message + "!\n";
                 return;
@@ -763,15 +763,12 @@ public class FacesTool : EditingTools.EditingTool {
                 continue;
 
             Face new_face = Face.for_name(face_shape.get_name());
-            uint8[] face_pix;
-            try {
-                face_shape.get_pixbuf().save_to_buffer(out face_pix, "png");
-                message("face pix length %d", face_pix.length);
-            } catch (Error e) {
-                AppWindow.error_message("Cannot get pixbuf for image\n");
+            string face_vec_str = "";
+            if (face_vec != null) {
+                foreach (var d in face_vec) { face_vec_str += d.to_string() + ","; }
             }
             FaceLocationData face_data = {
-                face_shape.serialize(), face_pix
+                face_shape.serialize(), face_vec_str
             };
             new_faces.set(new_face, face_data);
         }

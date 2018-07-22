@@ -18,7 +18,8 @@
       <arg type="s" name="image" direction="in" />
       <arg type="s" name="cascade" direction="in" />
       <arg type="d" name="scale" direction="in" />
-      <arg type="a(dddd)" name="faces" direction="out" />
+      <arg type="b" name="infer" direction="in" />
+      <arg type="a(ddddad)" name="faces" direction="out" />
     </method>
 
     <!--

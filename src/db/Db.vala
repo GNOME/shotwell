@@ -357,14 +357,19 @@ private VerifyResult upgrade_database(int input_version) {
     // * Added face vector column to FaceTable
     //
     
-    if (!DatabaseTable.has_column("FaceLocationTable", "pix")) {
-        message("upgrade_database: adding pix column to FaceLocationTable");
-        if (!DatabaseTable.add_column("FaceLocationTable", "pix", "BLOB"))
+    if (!DatabaseTable.has_column("FaceLocationTable", "vec")) {
+        message("upgrade_database: adding vec column to FaceLocationTable");
+        if (!DatabaseTable.add_column("FaceLocationTable", "vec", "TEXT"))
             return VerifyResult.UPGRADE_ERROR;
     }
-    if (!DatabaseTable.has_column("FaceTable", "vec")) {
-        message("upgrade_database: adding vec column to FaceTable");
-        if (!DatabaseTable.add_column("FaceTable", "vec", "TEXT"))
+    if (!DatabaseTable.has_column("FaceLocationTable", "guess")) {
+        message("upgrade_database: adding guess column to FaceLocationTable");
+        if (!DatabaseTable.add_column("FaceLocationTable", "guess", "INTEGER DEFAULT 0"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    if (!DatabaseTable.has_column("FaceTable", "ref")) {
+        message("upgrade_database: adding ref column to FaceTable");
+        if (!DatabaseTable.add_column("FaceTable", "ref", "INTEGER DEFAULT -1"))
             return VerifyResult.UPGRADE_ERROR;
     }
     

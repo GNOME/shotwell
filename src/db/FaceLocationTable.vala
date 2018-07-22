@@ -29,7 +29,7 @@ public class FaceLocationRow {
     public FaceID face_id;
     public PhotoID photo_id;
     public string geometry;
-    public uint8[] pix;
+    public string vec;
 }
 
 public class FaceLocationTable : DatabaseTable {
@@ -46,7 +46,7 @@ public class FaceLocationTable : DatabaseTable {
             + "face_id INTEGER NOT NULL, "
             + "photo_id INTEGER NOT NULL, "
             + "geometry TEXT, "
-            + "pix BLOB"
+            + "vec TEXT"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -62,10 +62,10 @@ public class FaceLocationTable : DatabaseTable {
         return instance;
     }
  
-    public FaceLocationRow add(FaceID face_id, PhotoID photo_id, string geometry, uint8[]? pix = null) throws DatabaseError {
+    public FaceLocationRow add(FaceID face_id, PhotoID photo_id, string geometry, string? vec = null) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO FaceLocationTable (face_id, photo_id, geometry, pix) VALUES (?, ?, ?, ?)",
+            "INSERT INTO FaceLocationTable (face_id, photo_id, geometry, vec) VALUES (?, ?, ?, ?)",
              -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -75,12 +75,7 @@ public class FaceLocationTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_text(3, geometry);
         assert(res == Sqlite.OK);
-        message("face table pix len %d", pix.length);
-        if (pix == null) {
-            res = stmt.bind_blob(4, null, 0);
-        } else {
-            res = stmt.bind_blob(4, pix, pix.length);
-        }
+        res = stmt.bind_text(4, vec);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -92,7 +87,7 @@ public class FaceLocationTable : DatabaseTable {
         row.face_id = face_id;
         row.photo_id = photo_id;
         row.geometry = geometry;
-        row.pix = pix;
+        row.vec = vec;
         
         return row;
     }
@@ -100,7 +95,7 @@ public class FaceLocationTable : DatabaseTable {
     public Gee.List<FaceLocationRow?> get_all_rows() throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "SELECT id, face_id, photo_id, geometry FROM FaceLocationTable",
+            "SELECT id, face_id, photo_id, geometry, vec FROM FaceLocationTable",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -119,6 +114,7 @@ public class FaceLocationTable : DatabaseTable {
             row.face_id = FaceID(stmt.column_int64(1));
             row.photo_id = PhotoID(stmt.column_int64(2));
             row.geometry = stmt.column_text(3);
+            row.vec = stmt.column_text(4);
             
             rows.add(row);
         }
@@ -175,28 +171,6 @@ public class FaceLocationTable : DatabaseTable {
         return stmt.column_text(0);
     }
     
-    public uint8[]? get_face_source_pix(Face face, MediaSource source)
-        throws DatabaseError {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2(
-            "SELECT pix FROM FaceLocationTable WHERE face_id=? AND photo_id=?",
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, face.get_instance_id());
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, ((Photo) source).get_instance_id());
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res == Sqlite.DONE)
-            return null;
-        else if (res != Sqlite.ROW)
-            throw_error("FaceLocationTable.get_face_source_pix", res);
-        
-        return (uint8[])stmt.column_blob(0);
-    }
-    
     public void remove_face_from_source(FaceID face_id, PhotoID photo_id) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
@@ -233,13 +207,13 @@ public class FaceLocationTable : DatabaseTable {
     public void update_face_location_face_data(FaceLocation face_location)
         throws DatabaseError {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE FaceLocationTable SET geometry=?, pix=? WHERE id=?", -1, out stmt);
+        int res = db.prepare_v2("UPDATE FaceLocationTable SET geometry=?, vec=? WHERE id=?", -1, out stmt);
         assert(res == Sqlite.OK);
 
         FaceLocationData face_data = face_location.get_face_data();
         res = stmt.bind_text(1, face_data.geometry);
         assert(res == Sqlite.OK);
-        res = stmt.bind_blob(2, face_data.pixbuf, face_data.pixbuf.length);
+        res = stmt.bind_text(2, face_data.vec);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(3, face_location.get_face_location_id().id);
         assert(res == Sqlite.OK);

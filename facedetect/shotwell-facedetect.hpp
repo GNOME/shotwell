@@ -18,11 +18,13 @@
 
 typedef struct {
     float x, y, width, height;
+    std::vector<double> vec;
 } FaceRect;
 
 // Global variable for DNN to generate vector out of face
 static cv::dnn::Net faceRecogNet;
 
 bool loadNet(cv::String netFile);
-std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale);
+std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer);
+std::vector<double> faceToVecMat(cv::Mat img);
 std::vector<double> faceToVec(cv::String inputName);

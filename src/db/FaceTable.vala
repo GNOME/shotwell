@@ -165,5 +165,20 @@ public class FaceTable : DatabaseTable {
     public void rename(FaceID face_id, string new_name) throws DatabaseError {
         update_text_by_id_2(face_id.id, "name", new_name);
     }
+
+    public void set_reference(FaceID face_id, PhotoID photo_id)
+        throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE FaceTable SET ref=? WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, face_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("FaceTable.set_reference", res);
+    }
 }
 #endif

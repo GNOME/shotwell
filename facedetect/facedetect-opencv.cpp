@@ -1,7 +1,7 @@
 #include "shotwell-facedetect.hpp"
 
 // Detect faces in a photo
-std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale) {
+std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer = false) {
     cv::CascadeClassifier cascade;
 	if (!cascade.load(cascadeName)) {
         std::cout << "error;Could not load classifier cascade. Filename: \"" << cascadeName << "\"" << std::endl;
@@ -35,6 +35,14 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         i.y = (float) r->y / smallImgSize.height;
         i.width = (float) r->width / smallImgSize.width;
         i.height = (float) r->height / smallImgSize.height;
+        if (infer && !faceRecogNet.empty()) {
+            // Get colour image for vector generation
+            cv::Mat colourImg;
+            cv::resize(img, colourImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
+            i.vec = faceToVecMat(colourImg(*r)); // Run vector conversion on the face
+        } else {
+            i.vec.assign(128, 0);
+        }
         scaled.push_back(i);
     }
 
@@ -61,27 +69,32 @@ bool loadNet(cv::String netFile) {
 // Face to vector convertor
 // Adapted from OpenCV example:
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
+std::vector<double> faceToVecMat(cv::Mat img) {
+    std::vector<double> ret;
+    cv::Mat smallImg(96, 96, CV_8UC1);
+    cv::Size smallImgSize = smallImg.size();
+
+    cv::resize(img, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
+    // Generate 128 element face vector using DNN
+    cv::Mat blob = cv::dnn::blobFromImage(smallImg, 1.0 / 255, smallImgSize,
+                                          cv::Scalar(), true, false);
+    faceRecogNet.setInput(blob);
+    cv::Mat vec = faceRecogNet.forward();
+    // Return vector
+    ret.assign((double*)vec.datastart, (double*)vec.dataend);
+    std::cout << "Recognition done! " << ret.back() << std::endl;
+    return ret;
+}
+
 std::vector<double> faceToVec(cv::String inputName) {
     std::vector<double> ret;
     cv::Mat img = imread(inputName, 1);
 	if (img.empty()) {
         std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
+        ret.assign(128, 0);
         return ret;
 	}
-
-    cv::Mat smallImg(96, 96, CV_8UC1);
-    cv::Size smallImgSize = smallImg.size();
-    cv::resize(img, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
-
-    // Generate 128 element face vector using DNN
-    cv::Mat blob = cv::dnn::blobFromImage(smallImg, 1.0 / 255, smallImgSize,
-                                          cv::Scalar(), true, false);
-    faceRecogNet.setInput(blob);
-    std::cout << "Starting recognition on " << inputName << " blob height " <<
-        blob.size().height << " width " << blob.size().width << std::endl;
-    cv::Mat vec = faceRecogNet.forward();
-    std::cout << "Recognition done!" << std::endl;
-    // Return vector
-    ret.assign((double*)vec.datastart, (double*)vec.dataend);
+    ret = faceToVecMat(img);
     return ret;
 }
+

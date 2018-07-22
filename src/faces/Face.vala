@@ -592,6 +592,16 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         
         return true;
     }
+
+    public bool set_reference(FaceLocation face_loc) {
+        try {
+            FaceTable.get_instance().set_reference(row.face_id, face_loc.get_photo_id());
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            return false;
+        }
+        return true;
+    }
     
     public bool contains(MediaSource source) {
         return media_views.has_view_for_source(source);

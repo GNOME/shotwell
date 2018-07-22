@@ -16,19 +16,27 @@ static gboolean on_handle_detect_faces(ShotwellFaces1 *object,
                                        GDBusMethodInvocation *invocation,
                                        const gchar *arg_image,
                                        const gchar *arg_cascade,
-                                       gdouble arg_scale) {
+                                       gdouble arg_scale,
+                                       gboolean arg_infer) {
     GVariantBuilder *builder;
     GVariant *faces;
     std::vector<FaceRect> rects = 
-        detectFaces(arg_image, arg_cascade, arg_scale);
+        detectFaces(arg_image, arg_cascade, arg_scale, arg_infer);
     // Construct return value
-    builder = g_variant_builder_new(G_VARIANT_TYPE ("a(dddd)"));
+    builder = g_variant_builder_new(G_VARIANT_TYPE ("a(ddddad)"));
     for (std::vector<FaceRect>::const_iterator r = rects.begin(); r != rects.end(); r++) {
-        GVariant *rect = g_variant_new("(dddd)", r->x, r->y, r->width, r->height);
-        g_variant_builder_add(builder, "(dddd)", rect);
-        g_debug("Returning %f,%f", r->x, r->y);
+        GVariantBuilder *arr_builder = g_variant_builder_new(G_VARIANT_TYPE ("ad"));
+        for (std::vector<double>::const_iterator v = r->vec.begin(); v != r->vec.end(); v++) {
+            GVariant *d = g_variant_new("d", *v);
+            g_variant_builder_add(arr_builder, "d", d);
+        }
+        GVariant *vec = g_variant_new("ad", arr_builder);
+        g_variant_builder_unref(arr_builder);
+        GVariant *rect = g_variant_new("(dddd@ad)", r->x, r->y, r->width, r->height, vec);
+        g_variant_builder_add(builder, "@(ddddad)", rect);
+        g_debug("Returning %f,%f-%f", r->x, r->y, r->vec.back());
     }
-    faces = g_variant_new("a(dddd)", builder);
+    faces = g_variant_new("a(ddddad)", builder);
     g_variant_builder_unref (builder);
     // Call return
     shotwell_faces1_complete_detect_faces(object, invocation,

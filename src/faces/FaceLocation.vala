@@ -9,7 +9,7 @@
 // Encapsulate geometry and pixels of a Face
 public struct FaceLocationData {
     public string geometry;
-    public uint8[] pixbuf;
+    public string vec;
 }
 
 public class FaceLocation : Object {
@@ -58,7 +58,7 @@ public class FaceLocation : Object {
         try {
             face_location =
                 FaceLocation.add_from_row(
-                    FaceLocationTable.get_instance().add(face_id, photo_id, face_data.geometry, face_data.pixbuf));
+                    FaceLocationTable.get_instance().add(face_id, photo_id, face_data.geometry, face_data.vec));
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
@@ -92,7 +92,7 @@ public class FaceLocation : Object {
         
         FaceLocation face_location =
             new FaceLocation(row.face_location_id, row.face_id, row.photo_id,
-                { row.geometry, row.pix });
+                { row.geometry, row.vec });
         
         Gee.Map<PhotoID?, FaceLocation> photos_map = face_photos_map.get(row.face_id);
         if (photos_map == null) {photos_map = new Gee.HashMap<PhotoID?, FaceLocation>
@@ -213,6 +213,10 @@ public class FaceLocation : Object {
 */
     public FaceLocationData get_face_data() {
         return face_data;
+    }
+
+    public PhotoID get_photo_id() {
+        return photo_id;
     }
     
     private void set_face_data(FaceLocationData face_data) {
