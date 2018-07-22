@@ -379,20 +379,8 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
 #if ENABLE_FACES       
     private static void start_facedetect_process() {
         message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
-        // Start the watcher
+        // Start the watcher, process started via DBus service
         FaceDetect.init(AppDirs.get_openface_dnn_file().get_path());
-        // Start the background process
-        string[] argv = {AppDirs.get_facedetect_bin().get_path()};
-        int child_pid;
-        try {
-            GLib.Process.spawn_async(null, argv, null, GLib.SpawnFlags.SEARCH_PATH | 
-                                     GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out child_pid);
-            message("Spawned facedetect, child pid: %d", (int)child_pid);
-        } catch (Error e) {
-            debug("Error spawning process: %s", e.message);
-            if (child_pid != 0)
-                GLib.Process.close_pid(child_pid);
-        }
     }
 #endif
     

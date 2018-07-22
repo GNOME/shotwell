@@ -48,19 +48,13 @@ public class FaceDetect {
     public const string DBUS_PATH = "/org/gnome/shotwell/faces";
     public static bool connected = false;
     public static string net_file;
+    public const string ERROR_MESSAGE = "Unable to connect to facedetect service";
     
     public static FaceDetectInterface interface;
 
     public static void create_interface(DBusConnection connection, string bus_name, string owner) {
-        message("Dbus name %s available", bus_name);
         if (bus_name == DBUS_NAME) {
-            try {
-                interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
-                interface.load_net(net_file);
-                connected = true;
-            } catch(IOError e) {
-            } catch(DBusError e) {
-            }
+            message("Dbus name %s available", bus_name);
         }
     }
 
@@ -73,5 +67,15 @@ public class FaceDetect {
         FaceDetect.net_file = net_file;
         Bus.watch_name(BusType.SESSION, DBUS_NAME, BusNameWatcherFlags.NONE,
                        create_interface, interface_gone);
+        try {
+            // Service file should automatically run the facedetect binary
+            interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
+            interface.load_net(net_file);
+        } catch(IOError e) {
+            AppWindow.error_message(ERROR_MESSAGE);
+        } catch(DBusError e) {
+            AppWindow.error_message(ERROR_MESSAGE);
+        }
+        connected = true;
     }
 }
