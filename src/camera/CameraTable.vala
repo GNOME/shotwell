@@ -115,102 +115,6 @@ public class CameraTable {
         do_op(abilities_list.load(null_context), "load camera abilities list");
     }
     
-#if HAVE_UDEV
-    private string[] get_all_usb_cameras() {
-        string[] cameras = new string[0];
-        
-        GLib.List<GUdev.Device> device_list = client.query_by_subsystem(null);
-        foreach (GUdev.Device device in device_list) {
-            string device_file = device.get_device_file();
-            if(
-                // only keep devices that have a non-null device file and that
-                // have both the ID_GPHOTO2 and GPHOTO2_DRIVER properties set
-                (device_file != null) &&
-                (device.has_property("ID_GPHOTO2")) &&
-                (device.has_property("GPHOTO2_DRIVER"))
-            ) {
-                int camera_bus, camera_device;
-                // extract the bus and device IDs from the device file string
-                // TODO: is it safe to parse the absolute path or should we be
-                // smarter and use a regex to only pick up the end of the path?
-                if (device_file.scanf("/dev/bus/usb/%d/%d", out camera_bus, out camera_device) < 2) {
-                    critical("get_all_usb_cameras: Failed to scanf device file %s", device_file);
-                    
-                    continue;
-                }
-                string camera = "usb:%.3d,%.3d".printf(camera_bus, camera_device);
-                debug("USB camera detected at %s", camera);
-                cameras += camera;
-            }
-        }
-        
-        return cameras;
-    }
-    
-    // USB (or libusb) is a funny beast; if only one USB device is present (i.e. the camera),
-    // then a single camera is detected at port usb:.  However, if multiple USB devices are
-    // present (including non-cameras), then the first attached camera will be listed twice,
-    // first at usb:, then at usb:xxx,yyy.  If the usb: device is removed, another usb:xxx,yyy
-    // device will lose its full-path name and be referred to as usb: only.
-    //
-    // This function gleans the full port name of a particular port, even if it's the unadorned
-    // "usb:", by using GUdev.
-    private bool usb_esp(int current_camera_count, string[] usb_cameras, string port, 
-        out string full_port) {
-        // sanity
-        assert(current_camera_count > 0);
-        
-        debug("USB ESP: current_camera_count=%d port=%s", current_camera_count, port);
-        
-        full_port = null;
-        
-        // if GPhoto detects one camera, and USB reports one camera, all is swell
-        if (current_camera_count == 1 && usb_cameras.length == 1) {
-            full_port = usb_cameras[0];
-            
-            debug("USB ESP: port=%s full_port=%s", port, full_port);
-            
-            return true;
-        }
-
-        // with more than one camera, skip the mirrored "usb:" port
-        if (port == "usb:") {
-            debug("USB ESP: Skipping %s", port);
-            
-            return false;
-        }
-        
-        // parse out the bus and device ID
-        int bus, device;
-        if (port.scanf("usb:%d,%d", out bus, out device) < 2) {
-            critical("USB ESP: Failed to scanf %s", port);
-            
-            return false;
-        }
-        
-        foreach (string usb_camera in usb_cameras) {
-            int camera_bus, camera_device;
-            if (usb_camera.scanf("usb:%d,%d", out camera_bus, out camera_device) < 2) {
-                critical("USB ESP: Failed to scanf %s", usb_camera);
-                
-                continue;
-            }
-            
-            if ((bus == camera_bus) && (device == camera_device)) {
-                full_port = port;
-                
-                debug("USB ESP: port=%s full_port=%s", port, full_port);
-
-                return true;
-            }
-        }
-        
-        debug("USB ESP: No matching bus/device found for port=%s", port);
-        
-        return false;
-    }
-#endif
-    
     public static string get_port_uri(string port) {
         return "gphoto2://[%s]/".printf(port);
     }
@@ -234,7 +138,7 @@ public class CameraTable {
     private string? get_icon_for_uuid(string uuid) {
         foreach (Volume volume in volume_monitor.get_volumes()) {
             if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
-                return volume.get_icon().to_string();
+                return volume.get_symbolic_icon().to_string();
             }
         }
         return null;
@@ -253,11 +157,6 @@ public class CameraTable {
         
         Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>();
 
-#if HAVE_UDEV
-        // walk the USB chain and find all PTP cameras; this is necessary for usb_esp
-        string[] usb_cameras = get_all_usb_cameras();
-#endif
-        
         // go through the detected camera list and glean their ports
         for (int ctr = 0; ctr < camera_list.count(); ctr++) {
             string name;
@@ -268,16 +167,6 @@ public class CameraTable {
             
             debug("Detected %d/%d %s @ %s", ctr + 1, camera_list.count(), name, port);
             
-#if HAVE_UDEV
-            // do some USB ESP, skipping ports that cannot be deduced
-            if (port.has_prefix("usb:")) {
-                string full_port;
-                if (!usb_esp(camera_list.count(), usb_cameras, port, out full_port))
-                    continue;
-                
-                port = full_port;
-            }
-#endif
             detected_map.set(port, name);
         }
         
@@ -365,7 +254,7 @@ public class CameraTable {
                     var volume = mount.get_volume();
                     // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
                     display_name = _("%s (%s)").printf (name, volume.get_name ());
-                    icon = volume.get_icon().to_string();
+                    icon = volume.get_symbolic_icon().to_string();
 
                 } catch (Error e) { }
             }

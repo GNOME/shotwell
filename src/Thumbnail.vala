@@ -57,8 +57,7 @@ public class Thumbnail : MediaSourceItem {
         Tag.global.items_altered.connect(on_tags_altered);
         
         assert((media is LibraryPhoto) || (media is Video));
-        set_enable_sprockets(media is Video);
-        
+
         original_dim = media.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
@@ -395,5 +394,9 @@ public class Thumbnail : MediaSourceItem {
         
         return (rating != Rating.UNRATED && show_ratings)
             ? Resources.get_rating_trinket(rating, scale) : null;
+    }
+
+    protected override Gdk.Pixbuf? get_top_left_trinket(int scale) {
+        return (media is Video) ? Resources.get_video_trinket (scale) : null;
     }
 }

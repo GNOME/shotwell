@@ -1219,7 +1219,7 @@ public abstract class CheckerboardPage : Page {
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected CheckerboardItem anchor = null;
     protected CheckerboardItem cursor = null;
-    private CheckerboardItem highlighted = null;
+    private CheckerboardItem current_hovered_item = null;
     private bool autoscroll_scheduled = false;
     private CheckerboardItem activated_item = null;
     private Gee.ArrayList<CheckerboardItem> previously_selected = null;
@@ -1443,8 +1443,8 @@ public abstract class CheckerboardPage : Page {
             if (cursor == item)
                 cursor = null;
             
-            if (highlighted == item)
-                highlighted = null;
+            if (current_hovered_item == item)
+                current_hovered_item = null;
         }
     }
 
@@ -1712,13 +1712,13 @@ public abstract class CheckerboardPage : Page {
 
         // if hovering over the last hovered item, or both are null (nothing highlighted and
         // hovering over empty space), do nothing
-        if (item == highlighted)
+        if (item == current_hovered_item)
             return true;
         
         // either something new is highlighted or now hovering over empty space, so dim old item
-        if (highlighted != null) {
-            highlighted.unbrighten();
-            highlighted = null;
+        if (current_hovered_item != null) {
+            current_hovered_item.handle_mouse_leave();
+            current_hovered_item = null;
         }
         
         // if over empty space, done
@@ -1726,8 +1726,8 @@ public abstract class CheckerboardPage : Page {
             return true;
         
         // brighten the new item
-        item.brighten();
-        highlighted = item;
+        current_hovered_item = item;
+        current_hovered_item.handle_mouse_enter();
         
         return true;
     }

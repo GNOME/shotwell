@@ -5,10 +5,6 @@
  */
 
 public class MediaSourceItem : CheckerboardItem {
-    private static Gdk.Pixbuf basis_sprocket_pixbuf = null;
-    private static Gdk.Pixbuf current_sprocket_pixbuf = null;
-
-    private bool enable_sprockets = false;
     private string? natural_collation_key = null;
 
     // preserve the same constructor arguments and semantics as CheckerboardItem so that we're
@@ -16,85 +12,8 @@ public class MediaSourceItem : CheckerboardItem {
     public MediaSourceItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title, 
         string? comment, bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
         base(source, initial_pixbuf_dim, title, comment, marked_up, alignment);
-        if (basis_sprocket_pixbuf == null)
-            basis_sprocket_pixbuf = Resources.load_icon("sprocket.png", 0);
     }
 
-    protected override void paint_image(Cairo.Context ctx, Gdk.Pixbuf pixbuf,
-        Gdk.Point origin) {
-        Dimensions pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
-        // sprocket geometry calculation (and possible adjustment) has to occur before we call
-        // base.paint_image( ) because the base-class method needs the correct trinket horizontal
-        // offset
-        
-        if (!enable_sprockets) {
-            set_horizontal_trinket_offset(0);
-        } else {
-            double reduction_factor = ((double) pixbuf_dim.major_axis()) /
-                ((double) ThumbnailCache.Size.LARGEST);
-            int reduced_size = (int) (reduction_factor * basis_sprocket_pixbuf.width);
-
-            if (current_sprocket_pixbuf == null || reduced_size != current_sprocket_pixbuf.width) {
-                current_sprocket_pixbuf = basis_sprocket_pixbuf.scale_simple(reduced_size,
-                    reduced_size, Gdk.InterpType.HYPER);
-            }
-
-            set_horizontal_trinket_offset(current_sprocket_pixbuf.width);
-        }
-                
-        base.paint_image(ctx, pixbuf, origin);
-
-        if (enable_sprockets) {
-            paint_sprockets(ctx, origin, pixbuf_dim);
-        }
-    }
-
-    protected void paint_one_sprocket(Cairo.Context ctx, Gdk.Point origin) {
-        ctx.save();
-        Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, origin.x, origin.y);
-        ctx.paint();
-        ctx.restore();
-    }
-
-    protected void paint_sprockets(Cairo.Context ctx, Gdk.Point item_origin,
-        Dimensions item_dimensions) {
-        int num_sprockets = item_dimensions.height / current_sprocket_pixbuf.height;
-
-        Gdk.Point left_paint_location = item_origin;
-        Gdk.Point right_paint_location = item_origin;
-        right_paint_location.x += (item_dimensions.width - current_sprocket_pixbuf.width);
-        for (int i = 0; i < num_sprockets; i++) {
-            paint_one_sprocket(ctx, left_paint_location);
-            paint_one_sprocket(ctx, right_paint_location);
-
-            left_paint_location.y += current_sprocket_pixbuf.height;
-            right_paint_location.y += current_sprocket_pixbuf.height;
-        }
-
-        int straggler_pixels = item_dimensions.height % current_sprocket_pixbuf.height;
-        if (straggler_pixels > 0) {
-            ctx.save();
-
-            Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, left_paint_location.x,
-                left_paint_location.y);
-            ctx.rectangle(left_paint_location.x, left_paint_location.y,
-                current_sprocket_pixbuf.get_width(), straggler_pixels);
-            ctx.fill();
-
-            Gdk.cairo_set_source_pixbuf(ctx, current_sprocket_pixbuf, right_paint_location.x,
-                right_paint_location.y);
-            ctx.rectangle(right_paint_location.x, right_paint_location.y,
-                current_sprocket_pixbuf.get_width(), straggler_pixels);
-            ctx.fill();
-
-            ctx.restore();
-        }
-    }
-    
-    public void set_enable_sprockets(bool enable_sprockets) {
-        this.enable_sprockets = enable_sprockets;
-    }
-    
     public new void set_title(string text, bool marked_up = false,
         Pango.Alignment alignment = Pango.Alignment.LEFT) {
         base.set_title(text, marked_up, alignment);

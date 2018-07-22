@@ -272,11 +272,7 @@ class ImportPreview : MediaSourceItem {
         base(source, Dimensions(), source.get_name(), null);
         
         this.duplicated_file = null;
-        
-        // draw sprocket holes as visual indications on video previews
-        if (source is VideoImportSource)
-            set_enable_sprockets(true);
-        
+
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
         try {
@@ -393,6 +389,10 @@ class ImportPreview : MediaSourceItem {
     
     public ImportSource get_import_source() {
         return (ImportSource) get_source();
+    }
+
+    protected override Gdk.Pixbuf? get_top_left_trinket(int scale) {
+        return (get_import_source() is VideoImportSource) ? Resources.get_video_trinket (scale) : null;
     }
 }
 
@@ -812,7 +812,7 @@ public class ImportPage : CheckerboardPage {
             
             // Import selected
             Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
-            import_selected_button.set_icon_name("import");
+            import_selected_button.set_icon_name(Resources.IMPORT);
             import_selected_button.set_label(_("Import _Selected"));
             import_selected_button.is_important = true;
             import_selected_button.use_underline = true;
@@ -822,7 +822,7 @@ public class ImportPage : CheckerboardPage {
             
             // Import all
             Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
-            import_all_button.set_icon_name("import-all");
+            import_all_button.set_icon_name(Resources.IMPORT_ALL);
             import_all_button.set_label(_("Import _All"));
             import_all_button.is_important = true;
             import_all_button.use_underline = true;

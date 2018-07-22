@@ -112,6 +112,10 @@ private Gee.HashSet<string> core_ids;
 
 public void init() throws Error {
     search_dirs = new File[0];
+    unowned string plugin_dir = Environment.get_variable("SHOTWELL_PLUGIN_PATH");
+    if (plugin_dir != null && plugin_dir != "") {
+        search_dirs += File.new_for_commandline_arg(plugin_dir);
+    }
     search_dirs += AppDirs.get_user_plugins_dir();
     search_dirs += AppDirs.get_system_plugins_dir();
     
