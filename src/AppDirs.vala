@@ -211,12 +211,6 @@ class AppDirs {
         return tmp_dir;
     }
 
-    public static string get_temp_filename() {
-        string tmp_dir = get_temp_dir().get_path();
-        assert(tmp_dir != null);
-        return Path.build_filename(tmp_dir, "face_XXXXXX.png");
-    }
-    
     public static File get_data_subdir(string name, string? subname = null) {
         File subdir = get_data_dir().get_child(name);
         if (subname != null)

@@ -80,9 +80,12 @@ std::vector<double> faceToVecMat(cv::Mat img) {
                                           cv::Scalar(), true, false);
     faceRecogNet.setInput(blob);
     cv::Mat vec = faceRecogNet.forward();
+    //std::cout << "mat " << vec << std::endl;
     // Return vector
-    ret.assign((double*)vec.datastart, (double*)vec.dataend);
-    std::cout << "Recognition done! " << ret.back() << std::endl;
+    for (int i = 0; i < vec.rows; ++i)
+        ret.insert(ret.end(), vec.ptr<float>(i), vec.ptr<float>(i) + vec.cols);
+    //std::cout << "vec " << ret.back() << std::endl;
+    //std::cout << "Recognition done! " << vec.cols << "->" << ret.size() << std::endl;
     return ret;
 }
 

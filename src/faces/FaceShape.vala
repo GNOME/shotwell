@@ -20,6 +20,7 @@ public abstract class FaceShape : Object {
     protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
+    protected double[] face_vec;
     
     private bool editable = true;
     private bool visible = true;
@@ -27,7 +28,7 @@ public abstract class FaceShape : Object {
     
     private weak FacesTool.FaceWidget face_widget = null;
     
-    public FaceShape(EditingTools.PhotoCanvas canvas) {
+    public FaceShape(EditingTools.PhotoCanvas canvas, double[] vec) {
         this.canvas = canvas;
         this.canvas.new_surface.connect(prepare_ctx);
         
@@ -40,6 +41,7 @@ public abstract class FaceShape : Object {
         face_window.hide();
         
         this.canvas.get_drawing_window().set_cursor(new Gdk.Cursor(current_cursor_type));
+        this.face_vec = vec;
     }
     
     ~FaceShape() {
@@ -162,7 +164,7 @@ public abstract class FaceShape : Object {
         return true;
     }
     
-    public abstract string serialize();
+    public abstract string serialize(bool geometry_only = false);
     public abstract void update_face_window_position();
     public abstract void prepare_ctx(Cairo.Context ctx, Dimensions dim);
     public abstract void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled);
@@ -172,7 +174,7 @@ public abstract class FaceShape : Object {
     public abstract bool cursor_is_over(int x, int y);
     public abstract bool equals(FaceShape face_shape);
     public abstract double get_distance(int x, int y);
-    public abstract Gdk.Pixbuf? get_pixbuf();
+    public abstract double[] get_face_vec();
     
     protected abstract void paint();
     protected abstract void erase();
@@ -192,11 +194,10 @@ public class FaceRectangle : FaceShape {
     private Cairo.Context thin_white_ctx = null;
     private int last_grab_x = -1;
     private int last_grab_y = -1;
-    private Gdk.Pixbuf? face_pix;
     
     public FaceRectangle(EditingTools.PhotoCanvas canvas, int x, int y,
-        int half_width = NULL_SIZE, int half_height = NULL_SIZE) {
-        base(canvas);
+        int half_width = NULL_SIZE, int half_height = NULL_SIZE, double[] vec = {}) {
+        base(canvas, vec);
         
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
         x -= scaled_pixbuf_pos.x;
@@ -217,12 +218,6 @@ public class FaceRectangle : FaceShape {
         
             box = Box(x - half_width, y - half_height, right, bottom);
         }
-        
-        Gdk.Pixbuf original = canvas.get_scaled_pixbuf();
-        message("pixbuf get %d, %d, %d, %d of %d, %d", box.left, box.top,
-                                box.get_width(), box.get_height(), original.width, original.height);
-        face_pix = new Gdk.Pixbuf.subpixbuf(original, box.left, box.top,
-                                box.get_width(), box.get_height());
     }
     
     ~FaceRectangle() {
@@ -236,7 +231,6 @@ public class FaceRectangle : FaceShape {
         
         Photo photo = canvas.get_photo();
         Dimensions raw_dim = photo.get_raw_dimensions();
-        
         int x = (int) (raw_dim.width * double.parse(args[1]));
         int y = (int) (raw_dim.height * double.parse(args[2]));
         int half_width = (int) (raw_dim.width * double.parse(args[3]));
@@ -275,9 +269,21 @@ public class FaceRectangle : FaceShape {
         
         if (half_width < FACE_MIN_SIZE || half_height < FACE_MIN_SIZE)
             throw new FaceShapeError.CANT_CREATE("FaceShape is out of cropped photo area");
-        
+
+        string[] vec_str;
+        if (args.length == 6)
+            vec_str = args[5].split(",");
+        else
+            vec_str = {};
+        double[] vec = new double[128];
+        for (int i = 0; i < 128; i++) {
+            if (vec_str.length > 0)
+                vec[i] = double.parse(vec_str[i]);
+            else
+                vec[i] = 0;
+        }
         return new FaceRectangle(canvas, box.left + half_width, box.top + half_height,
-            half_width, half_height);
+            half_width, half_height, vec);
     }
     
     public override void update_face_window_position() {
@@ -378,7 +384,7 @@ public class FaceRectangle : FaceShape {
         ctx.restore();
     }
     
-    public override string serialize() {
+    public override string serialize(bool geometry_only = false) {
         if (serialized != null)
             return serialized;
         
@@ -388,10 +394,15 @@ public class FaceRectangle : FaceShape {
         double half_height;
         
         get_geometry(out x, out y, out half_width, out half_height);
-        
-        serialized = "%s;%s;%s;%s;%s".printf(SHAPE_TYPE, x.to_string(),
+        serialized = "%s;%s;%s;%s;%s;".printf(SHAPE_TYPE, x.to_string(),
             y.to_string(), half_width.to_string(), half_height.to_string());
-        
+        if (!geometry_only) {
+            string face_vec_str = "";
+            foreach (var d in face_vec[0:-2])
+                face_vec_str += d.to_string() + ",";
+            face_vec_str += face_vec[-1].to_string();
+            serialized += face_vec_str;
+        }
         return serialized;
     }
     
@@ -435,9 +446,13 @@ public class FaceRectangle : FaceShape {
         half_width = (width_right_end - width_left_end) / 2;
         half_height = (height_bottom_end - height_top_end) / 2;
     }
+
+    public override double[] get_face_vec() {
+        return face_vec;
+    }
     
     public override bool equals(FaceShape face_shape) {
-        return serialize() == face_shape.serialize();
+        return serialize(true) == face_shape.serialize(true);
     }
     
     public override void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
@@ -785,10 +800,6 @@ public class FaceRectangle : FaceShape {
         double center_y = box.top + box.get_height() / 2.0;
         
         return Math.sqrt((center_x - x) * (center_x - x) + (center_y - y) * (center_y - y));
-    }
-
-    public override Gdk.Pixbuf? get_pixbuf() {
-        return face_pix;
     }
 }
 

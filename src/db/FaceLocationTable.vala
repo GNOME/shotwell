@@ -46,7 +46,8 @@ public class FaceLocationTable : DatabaseTable {
             + "face_id INTEGER NOT NULL, "
             + "photo_id INTEGER NOT NULL, "
             + "geometry TEXT, "
-            + "vec TEXT"
+            + "vec TEXT, "
+            + "guess INTEGER DEFAULT 0"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -221,6 +222,47 @@ public class FaceLocationTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             throw_error("FaceLocationTable.update_face_location_serialized_geometry", res);
+    }
+
+    public Gee.List<FaceLocationRow?> get_face_ref_vecs(Gee.List<FaceRow?> face_rows)
+        throws DatabaseError {
+        Sqlite.Statement stmt;
+
+        string[] where_in = {};
+        foreach (var r in face_rows) {
+            if (r != null) where_in += "?";
+        }
+        int res = db.prepare_v2(
+            "SELECT id, face_id, photo_id, geometry, vec FROM FaceLocationTable WHERE photo_id IN (%s)"
+                    .printf(string.joinv(",", where_in)),
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        int c = 1;
+        foreach (var r in face_rows) {
+            if (r != null) { 
+                res = stmt.bind_int64(c, r.ref.id);
+                assert(res == Sqlite.OK);
+            }
+            c++;
+        }
+        
+        Gee.List<FaceLocationRow?> rows = new Gee.ArrayList<FaceLocationRow?>();
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("FaceLocationTable.get_face_ref_vecs", res);
+            
+            FaceLocationRow row = new FaceLocationRow();
+            row.face_location_id = FaceLocationID(stmt.column_int64(0));
+            row.face_id = FaceID(stmt.column_int64(1));
+            row.photo_id = PhotoID(stmt.column_int64(2));
+            row.geometry = stmt.column_text(3);
+            row.vec = stmt.column_text(4);
+            rows.add(row);
+        }
+        return rows;
     }
 }
 

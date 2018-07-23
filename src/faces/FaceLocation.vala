@@ -206,11 +206,11 @@ public class FaceLocation : Object {
     public string get_serialized_geometry() {
         return face_data.geometry;
     }
-/*    
-    private void set_serialized_geometry(string geometry) {
-        this.face_data.geometry = geometry;
+
+    public string get_serialized_vec() {
+        return face_data.vec;
     }
-*/
+
     public FaceLocationData get_face_data() {
         return face_data;
     }

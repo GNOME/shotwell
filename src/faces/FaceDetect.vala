@@ -79,4 +79,15 @@ public class FaceDetect {
         }
         connected = true;
     }
+
+    public static double dot_product(double[] vec1, double[] vec2) {
+        if (vec1.length != vec2.length) {
+            return 0;
+        }
+        double ret = 0;
+        for (var i = 0; i < vec1.length; i++) {
+            ret += vec1[i] * vec2[i];
+        }
+        return ret;
+    }
 }
