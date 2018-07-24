@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2017-03-15 21:36+0000\n"
+"POT-Creation-Date: 2018-06-08 09:37+0000\n"
 "PO-Revision-Date: 2017-03-16 08:13+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
@@ -103,11 +103,23 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
 msgid "Saturation"
 msgstr "Saturación"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:29
+#: C/edit-adjustments.page:33
 msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
@@ -117,12 +129,12 @@ msgstr ""
 "disminuirlos."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:32
+#: C/edit-adjustments.page:36
 msgid "Tint"
 msgstr "Matiz"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:33
+#: C/edit-adjustments.page:37
 msgid ""
 "This tints the photo with a color. It's useful for correcting photos taken "
 "with the wrong white balance setting, which typically have an unnatural "
@@ -136,12 +148,12 @@ msgstr ""
 "una tonalidad azulada."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:36
+#: C/edit-adjustments.page:40
 msgid "Temperature"
 msgstr "Temperatura"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:37
+#: C/edit-adjustments.page:41
 msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
@@ -150,12 +162,12 @@ msgstr ""
 "para hacer que las escenas frías y tristes parezcan más alegres."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:40
+#: C/edit-adjustments.page:44
 msgid "Shadows"
 msgstr "Sombras"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:41
+#: C/edit-adjustments.page:45
 msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
@@ -164,12 +176,12 @@ msgstr ""
 "oscurecido por las sombras, utilice esto para hacerlos más visibles."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:44
+#: C/edit-adjustments.page:48
 msgid "Intensity Threshold (sliders on the histogram)"
 msgstr "Umbral de intensidad (control deslizante en el histograma)"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:45
+#: C/edit-adjustments.page:49
 msgid ""
 "These sliders change how light the brightest white is and how dark the "
 "darkest black is. Use them to change the contrast of the photo. Photos which "
@@ -750,10 +762,15 @@ msgstr "Formatos de foto y vídeo soportados"
 
 #. (itstool) path: page/p
 #: C/formats.page:14
+#, fuzzy
+#| msgid ""
+#| "Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref="
+#| "\"other-raw\">RAW</link> photo files. Shotwell does not yet support other "
+#| "graphics format such as GIF."
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
+"link> photo files. Shotwell does not yet support other graphics format such "
+"as GIF."
 msgstr ""
 "Shotwell soporta archivos JPEG, PNG, TIFF, BMP y <link type =\"guide\" xref="
 "\"other-raw\">RAW</link>. Shotwell todavía no soporta otros formatos "
@@ -777,9 +794,13 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/formats.page:18
+#, fuzzy
+#| msgid ""
+#| "For more information about RAW-format photos in Shotwell, please see the "
+#| "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 "Para obtener más información acerca de las fotos en formato RAW en Shotwell, "
 "consulte la sección <link type=\"guide\" xref=\"other-raw\">RAW</link>."
@@ -913,9 +934,17 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
+#, fuzzy
+#| msgid ""
+#| "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
+#| "gui></guiseq> and select the folder containing the photos you want to "
+#| "import."
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-"gui></guiseq> and select the folder containing the photos you want to import."
+"gui></guiseq> and select the folder containing the photos you want to "
+"import. If you do not want Shotwell to recurse into subfolders while "
+"importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
+"on the bottom of the file dialog."
 msgstr ""
 "Alternativamente, pulse <guiseq><gui>Archivo</gui><gui>Importar desde la "
 "carpeta...</gui></guiseq> y seleccione la carpeta que contiene las fotos que "
@@ -953,57 +982,6 @@ msgid ""
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
-"Una vez finalizada la importación, puede seleccionar <gui>Última "
-"importación</gui> en la barra lateral para ver todas las fotos importadas "
-"correctamente. La lista de Eventos también mostrará nuevas entradas para las "
-"fechas correspondientes a las fotos importadas."
-
-#. (itstool) path: info/desc
-#: C/import-f-spot.page:7
-msgid ""
-"Shotwell can import all your photos and tags from the F-Spot photo manager."
-msgstr ""
-"Shotwell puede importar todas sus fotos y etiquetas desde el gestor de fotos "
-"F-Spot."
-
-#. (itstool) path: page/title
-#: C/import-f-spot.page:12
-msgid "Importing from F-Spot"
-msgstr "Importar desde F-Spot"
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:14
-msgid "To import an existing photo collection from F-Spot:"
-msgstr "Para importar una colección de fotos existente desde F-Spot:"
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:16
-msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
-msgstr ""
-"Seleccione <guiseq><gui>Archivo</gui><gui>Importar desde F-Spot</gui></"
-"guiseq>."
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:17
-msgid ""
-"Now choose either the default F-Spot library or another F-Spot database. If "
-"importing from another F-Spot database, select a directory and file from the "
-"chooser dialog box."
-msgstr ""
-"Ahora elija la biblioteca predeterminada F-Spot u otra base de datos F-Spot. "
-"Si quiere importar desde otra base de datos F-Spot, seleccione una carpeta y "
-"un archivo en el cuadro de diálogo del selector."
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:20
-msgid ""
-"Shotwell will import your photos, together with their tags and other "
-"information. Once the import is complete, you can select <gui>Last Import</"
-"gui> in the sidebar to see all photos successfully imported. The Events list "
-"will also show new entries for the dates corresponding to the imported "
-"photos."
-msgstr ""
-"Shotwell importará sus fotos, junto con sus etiquetas y otra información. "
 "Una vez finalizada la importación, puede seleccionar <gui>Última "
 "importación</gui> en la barra lateral para ver todas las fotos importadas "
 "correctamente. La lista de Eventos también mostrará nuevas entradas para las "
@@ -1081,34 +1059,28 @@ msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: info/title
-#: C/index.page:7
-msgctxt "text"
-msgid "Shotwell"
-msgstr "Shotwell"
-
 #. (itstool) path: credit/name
-#: C/index.page:9
+#: C/index.page:8
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:11
+#: C/index.page:10
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:13
+#: C/index.page:12
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:15
+#: C/index.page:14
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:17
+#: C/index.page:16
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
@@ -1117,7 +1089,7 @@ msgstr "Phil Bull"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
+#: C/index.page:22
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -1127,7 +1099,7 @@ msgstr ""
 "md5='4b333499555b4e496b1a38f7899067f3'"
 
 #. (itstool) path: page/title
-#: C/index.page:23
+#: C/index.page:22
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -1136,32 +1108,32 @@ msgstr ""
 "Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:26
+#: C/index.page:25
 msgid "Importing Photos"
 msgstr "Importar fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:30
+#: C/index.page:29
 msgid "Viewing Photos"
 msgstr "Ver fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:34
+#: C/index.page:33
 msgid "Organizing Photos"
 msgstr "Organizar fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:38
+#: C/index.page:37
 msgid "Editing Photos"
 msgstr "Editar fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:42
+#: C/index.page:41
 msgid "Sharing Photos"
 msgstr "Compartir fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:46
+#: C/index.page:45
 msgid "Other Features"
 msgstr "Otras características"
 
@@ -1527,7 +1499,7 @@ msgstr ""
 "external ref='figures/trash_process.png' "
 "md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
 
-#. (itstool) path: page/media
+#. (itstool) path: media/p
 #: C/organize-remove.page:15
 msgid "Delete process"
 msgstr "Proceso de eliminado"
@@ -2231,10 +2203,15 @@ msgstr "PM"
 
 #. (itstool) path: section/p
 #: C/other-files.page:72
+#, fuzzy
+#| msgid ""
+#| "There are other symbols available; please check the manual for strftime "
+#| "by running the command <cmd>man strftime</cmd> if you need one that isn't "
+#| "listed here."
 msgid ""
-"There are other symbols available; please check the manual for strftime by "
-"running the command <cmd>man strftime</cmd> if you need one that isn't "
-"listed here."
+"There are other symbols available; please check the <link href=\"man:strftime"
+"\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
+"if you need one that isn't listed here."
 msgstr ""
 "Existen otros símbolos disponibles, revise el manual de strftime ejecutando "
 "el comando <cmd>man strftime</cmd> si necesita alguno que no esté listado "
@@ -2814,8 +2791,56 @@ msgstr ""
 "Una restricción de la escala (que significa cómo Shotwell va a decidir "
 "reducir la escala proporcionalmente), y el tamaño de píxel requerido."
 
+#. (itstool) path: item/title
+#: C/share-export.page:40
+msgid "Original size"
+msgstr ""
+
 #. (itstool) path: item/p
-#: C/share-export.page:39
+#: C/share-export.page:40
+msgid "Image will be exported without any scaling applied"
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Longest edge"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Width"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Height"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/share-export.page:46
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -2826,7 +2851,7 @@ msgstr ""
 "etiquetas de geolocalización que nadie debería ver."
 
 #. (itstool) path: page/p
-#: C/share-export.page:42
+#: C/share-export.page:49
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
@@ -2991,18 +3016,26 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-msgid "<link href=\"http://facebook.com\">Facebook</link>"
+#, fuzzy
+#| msgid "<link href=\"http://facebook.com\">Facebook</link>"
+msgid "<link href=\"https://facebook.com\">Facebook</link>"
 msgstr "<link href=\"http://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-msgid "<link href=\"http://flickr.com\">Flickr</link>"
+#, fuzzy
+#| msgid "<link href=\"http://flickr.com\">Flickr</link>"
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
 msgstr "<link href=\"http://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
+#, fuzzy
+#| msgid ""
+#| "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+#| "<link href=\"http://plus.google.com\">Google+</link>"
 msgid ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
 "<link href=\"http://picasaweb.google.com\">Álbumes de Picasa Web</link> y "
@@ -3010,17 +3043,17 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
+#, fuzzy
+#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
 msgstr "<link href=\"http://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-msgid ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
-"popular in Russia (photos only)"
-msgstr ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, una página de "
-"fotos popular en Rusia (sólo fotos)"
+#, fuzzy
+#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
+msgstr "<link href=\"http://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -3033,14 +3066,23 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:26
+#, fuzzy
+#| msgid ""
+#| "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
+#| "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> "
+#| "tab to enable the plugin for the service you want to publish to. Next, "
+#| "choose, <guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the "
+#| "<gui>Publish</gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</"
+#| "key></keyseq>. You will see a dialog that lets you select a publishing "
+#| "service. You will then need to log in or create an account."
 msgid ""
 "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
 "to enable the plugin for the service you want to publish to. Next, choose, "
 "<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
-"gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>. You "
-"will see a dialog that lets you select a publishing service. You will then "
-"need to log in or create an account."
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
 msgstr ""
 "Para publicar las fotos seleccionadas en una colección, elija "
 "<guiseq><gui>Editar</gui><gui>Preferencias</gui></guiseq> y pulse en la "
@@ -3239,12 +3281,12 @@ msgstr ""
 "de su biblioteca."
 
 #. (itstool) path: page/title
-#: C/view-sidebar.page:21
+#: C/view-sidebar.page:20
 msgid "The sidebar"
 msgstr "La barra lateral"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:23
+#: C/view-sidebar.page:22
 msgid ""
 "The sidebar on the left side of the Shotwell window lists various views of "
 "your library. Although you may see the same photo in multiple views, it's "
@@ -3255,7 +3297,7 @@ msgstr ""
 "solo se almacena una en su disco duro"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:25
+#: C/view-sidebar.page:24
 msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
@@ -3265,14 +3307,14 @@ msgstr ""
 "o su disco duro."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:27
+#: C/view-sidebar.page:26
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
 msgstr ""
 "La opción <gui>Marcada</gui> lista todas las fotos que ha marcado "
 "anteriormente."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:29
+#: C/view-sidebar.page:28
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
@@ -3280,7 +3322,7 @@ msgstr ""
 "diferentes criterios."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:31
+#: C/view-sidebar.page:30
 msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
@@ -3289,7 +3331,7 @@ msgstr ""
 "evento es un grupo de fotos que se tomaron aproximadamente al mismo tiempo."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:33
+#: C/view-sidebar.page:32
 msgid ""
 "The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
 "can have multiple tags attached to them. When you click on the name of a tag "
@@ -3299,6 +3341,58 @@ msgstr ""
 "sus fotos. Las fotos pueden tener múltiples etiquetas relacionadas con las "
 "mismas. Cuando posiciona el cursor sobre el nombre de una etiqueta en la "
 "barra lateral, podrá ver todas las fotos asociadas a esa etiqueta."
+
+#~ msgid ""
+#~ "Shotwell can import all your photos and tags from the F-Spot photo "
+#~ "manager."
+#~ msgstr ""
+#~ "Shotwell puede importar todas sus fotos y etiquetas desde el gestor de "
+#~ "fotos F-Spot."
+
+#~ msgid "Importing from F-Spot"
+#~ msgstr "Importar desde F-Spot"
+
+#~ msgid "To import an existing photo collection from F-Spot:"
+#~ msgstr "Para importar una colección de fotos existente desde F-Spot:"
+
+#~ msgid ""
+#~ "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
+#~ msgstr ""
+#~ "Seleccione <guiseq><gui>Archivo</gui><gui>Importar desde F-Spot</gui></"
+#~ "guiseq>."
+
+#~ msgid ""
+#~ "Now choose either the default F-Spot library or another F-Spot database. "
+#~ "If importing from another F-Spot database, select a directory and file "
+#~ "from the chooser dialog box."
+#~ msgstr ""
+#~ "Ahora elija la biblioteca predeterminada F-Spot u otra base de datos F-"
+#~ "Spot. Si quiere importar desde otra base de datos F-Spot, seleccione una "
+#~ "carpeta y un archivo en el cuadro de diálogo del selector."
+
+#~ msgid ""
+#~ "Shotwell will import your photos, together with their tags and other "
+#~ "information. Once the import is complete, you can select <gui>Last "
+#~ "Import</gui> in the sidebar to see all photos successfully imported. The "
+#~ "Events list will also show new entries for the dates corresponding to the "
+#~ "imported photos."
+#~ msgstr ""
+#~ "Shotwell importará sus fotos, junto con sus etiquetas y otra información. "
+#~ "Una vez finalizada la importación, puede seleccionar <gui>Última "
+#~ "importación</gui> en la barra lateral para ver todas las fotos importadas "
+#~ "correctamente. La lista de Eventos también mostrará nuevas entradas para "
+#~ "las fechas correspondientes a las fotos importadas."
+
+#~ msgctxt "text"
+#~ msgid "Shotwell"
+#~ msgstr "Shotwell"
+
+#~ msgid ""
+#~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
+#~ "popular in Russia (photos only)"
+#~ msgstr ""
+#~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, una página de "
+#~ "fotos popular en Rusia (sólo fotos)"
 
 #~ msgid "Facebook"
 #~ msgstr "Facebook"
