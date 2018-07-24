@@ -1,5 +1,8 @@
 #include "shotwell-facedetect.hpp"
 
+#define OPENFACE_RECOG_TORCH_NET "openface.nn4.small2.v1.t7"
+#define RESNET_DETECT_CAFFE_NET "res10_300x300_ssd_iter_140000_fp16.caffemodel"
+
 // Detect faces in a photo
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer = false) {
     cv::CascadeClassifier cascade;
@@ -15,18 +18,26 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 	if (img.empty()) {
         std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
 	}
-    
-    cv::Mat gray;
-    cvtColor(img, gray, CV_BGR2GRAY);
-
-    cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
-    cv::Size smallImgSize = smallImg.size();
-
-    cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
-    cv::equalizeHist(smallImg, smallImg);
 
     std::vector<cv::Rect> faces;
-    cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
+    cv::Size smallImgSize;
+    if (faceDetectNet.empty()) {
+        // Classical face detection
+        cv::Mat gray;
+        cvtColor(img, gray, CV_BGR2GRAY);
+
+        cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
+        smallImgSize = smallImg.size();
+
+        cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
+        cv::equalizeHist(smallImg, smallImg);
+
+        cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
+    } else {
+        // DNN based face detection
+        faces = detectFacesMat(img);
+        smallImgSize = img.size(); // Not using the small image here
+    }
 
     std::vector<FaceRect> scaled;
     for (std::vector<cv::Rect>::const_iterator r = faces.begin(); r != faces.end(); r++) {
@@ -50,20 +61,57 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 }
 
 // Load network into global var
-bool loadNet(cv::String netFile) {
+bool loadNet(cv::String baseDir) {
     try {
-        faceRecogNet = cv::dnn::readNetFromTorch(netFile);
+        faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
+                                                  baseDir + "/" + RESNET_DETECT_CAFFE_NET);
+        faceRecogNet = cv::dnn::readNetFromTorch(baseDir + "/" + OPENFACE_RECOG_TORCH_NET);
     } catch(cv::Exception e) {
         std::cout << "File load failed: " << e.msg << std::endl;
         return false;
     }
-    if (faceRecogNet.empty()) {
-        std::cout << "Loading net " << netFile << " failed!" << std::endl;
+    if (faceRecogNet.empty() || faceDetectNet.empty()) {
+        std::cout << "Loading open-face net failed!" << std::endl;
         return false;
     } else {
-        std::cout << "Loaded " << netFile << std::endl;
         return true;
     }
+}
+
+// Face detector
+// Adapted from OpenCV example:
+// https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
+std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
+    cv::Mat blob = cv::dnn::blobFromImage(img, 1.0, cv::Size(128*8, 96*8),
+                                          cv::Scalar(104, 177, 123, 0), false, false);
+    faceDetectNet.setInput(blob);
+    cv::Mat out = faceDetectNet.forward();
+    std::vector<cv::Rect> faces;
+    // out is a 4D matrix [1 x 1 x n x 7]
+    // n - number of results
+    assert(out.dims == 4);
+    int outIdx[4] = { 0, 0, 0, 0 };
+    for (int i = 0, n = out.size[2]; i < n; i++) {
+        outIdx[2] = i; outIdx[3] = 2;
+        float confidence = out.at<float>(outIdx);
+        outIdx[3]++;
+        float left = out.at<float>(outIdx) * img.cols;
+        outIdx[3]++;
+        float top = out.at<float>(outIdx) * img.rows;
+        outIdx[3]++;
+        float right = out.at<float>(outIdx) * img.cols;
+        outIdx[3]++;
+        float bottom = out.at<float>(outIdx) * img.rows;
+        left = std::min(std::max(0.0f, left), (float)img.cols - 1);
+        right = std::min(std::max(0.0f, right), (float)img.cols - 1);
+        bottom = std::min(std::max(0.0f, bottom), (float)img.rows - 1);
+        top = std::min(std::max(0.0f, top), (float)img.rows - 1);
+        if (confidence > 0.98 && left < right && top < bottom) {
+            cv::Rect rect(left, top, right - left, bottom - top);
+            faces.push_back(rect);
+        }
+    }
+    return faces;
 }
 
 // Face to vector convertor
@@ -80,12 +128,9 @@ std::vector<double> faceToVecMat(cv::Mat img) {
                                           cv::Scalar(), true, false);
     faceRecogNet.setInput(blob);
     cv::Mat vec = faceRecogNet.forward();
-    //std::cout << "mat " << vec << std::endl;
     // Return vector
     for (int i = 0; i < vec.rows; ++i)
         ret.insert(ret.end(), vec.ptr<float>(i), vec.ptr<float>(i) + vec.cols);
-    //std::cout << "vec " << ret.back() << std::endl;
-    //std::cout << "Recognition done! " << vec.cols << "->" << ret.size() << std::endl;
     return ret;
 }
 

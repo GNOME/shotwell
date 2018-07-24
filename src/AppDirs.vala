@@ -347,8 +347,8 @@ class AppDirs {
         return get_resources_dir().get_child("facedetect-haarcascade.xml");
     }
 
-    public static File get_openface_dnn_file() {
-        return get_data_subdir("data").get_child("openface.nn4.small2.v1.t7");
+    public static File get_openface_dnn_dir() {
+        return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
     }
 #endif
 

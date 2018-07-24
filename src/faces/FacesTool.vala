@@ -353,7 +353,6 @@ public class FacesTool : EditingTools.EditingTool {
                 string serialized = "%s;%f;%f;%f;%f;%s".printf(FaceRectangle.SHAPE_TYPE,
                                                                                 rect_x, rect_y, rect_w, rect_h,
                                                                                 face_vec_str);
-                debug("saw face %s", serialized);
                 faces.add(serialized);
             }
         }

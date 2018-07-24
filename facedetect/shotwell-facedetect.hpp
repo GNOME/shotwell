@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <algorithm>
 
 typedef struct {
     float x, y, width, height;
@@ -23,8 +24,10 @@ typedef struct {
 
 // Global variable for DNN to generate vector out of face
 static cv::dnn::Net faceRecogNet;
+static cv::dnn::Net faceDetectNet;
 
 bool loadNet(cv::String netFile);
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer);
+std::vector<cv::Rect> detectFacesMat(cv::Mat img);
 std::vector<double> faceToVecMat(cv::Mat img);
 std::vector<double> faceToVec(cv::String inputName);
