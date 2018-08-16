@@ -1,3 +1,22 @@
+Shotwe.. 0.29.5 - 16 Aug 2018
+  * Add unstable release flatpakref file
+  * Remove use of stderr in thumbnailer
+  * Remove Facebook publishing plugin from list of default
+    plugins
+  * Translation updates
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - NarendraMA <narendra_m_a@yahoo.com>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Daniel Mustieles <daniel.mustieles.contractor@bbva.com>
+
+Added/updated translations
+ - es, courtesy of Daniel Mustieles
+ - fi, courtesy of Jiri Grönroos
+ - tr, courtesy of Emin Tufan Çetin
+
 Shotwell 0.29.4 - 20 Jul 2018
   * Fix unmounting of MTP devices
   * Add work-around for PTP devices not showing up anymore
