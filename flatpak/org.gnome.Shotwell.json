@@ -4,9 +4,6 @@
     "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command" : "shotwell",
-    "rename-desktop-file" : "shotwell.desktop",
-    "rename-icon" : "shotwell",
-    "rename-appdata-file" : "shotwell.appdata.xml",
     "tags": [ "nightly" ],
     "desktop-file-name-prefix": "(Nightly) ",
     "finish-args": [

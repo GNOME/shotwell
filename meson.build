@@ -100,19 +100,10 @@ cairo = dependency('cairo')
 valac = meson.get_compiler('vala')
 posix = valac.find_library('posix')
 
-shotwell_resources = gnome.compile_resources('shotwell-resources',
-        'org.gnome.Shotwell.gresource.xml')
-
+subdir('data')
 subdir('src')
 subdir('plugins')
 subdir('po')
 subdir('help')
-subdir('misc')
 subdir('thumbnailer')
-subdir('settings-migrator')
 subdir('test')
-subdir('app-icons')
-
-if get_option('install-apport-hook')
-  subdir('apport')
-endif
