@@ -26,23 +26,23 @@
   <url type="homepage">https://wiki.gnome.org/Apps/Shotwell</url>
   <screenshots>
     <screenshot type="default">
-      <image>http://shotwell-project.org/appdata/shotwell/harbor.png</image>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/harbor.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>http://shotwell-project.org/appdata/shotwell/import-300x155.png</image>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/import.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>http://shotwell-project.org/appdata/shotwell/organize-300x197.png</image>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/organize.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>http://shotwell-project.org/appdata/shotwell/edit-300x247.png</image>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/edit.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>http://shotwell-project.org/appdata/shotwell/publish-300x213.png</image>
+      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/publish.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
   </screenshots>
@@ -51,7 +51,7 @@
 
   <developer_name>The Shotwell developers</developer_name>
 
-  <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=shotwell</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
 
   <!--GNOME Projects usually have no per-app donation page-->
   <url type="donation">http://www.gnome.org/friends/</url>
