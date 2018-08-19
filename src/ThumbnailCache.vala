@@ -149,7 +149,7 @@ public class ThumbnailCache : Object {
         private void generate_thumbnail() throws Error {
             Photo? photo = source as Photo;
             if (photo != null) {
-                unscaled = photo.get_pixbuf(Scaling.for_best_fit(dim.width, true));
+                unscaled = photo.get_pixbuf(Scaling.for_best_fit(dim.major_axis(), true));
             } else {
                 Video? video = source as Video;
                 if (video != null)
