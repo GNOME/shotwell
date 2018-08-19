@@ -54,10 +54,17 @@ class ShotwellThumbnailer {
             // Set to PAUSED to make the first frame arrive in the sink.
             ret = pipeline.set_state(Gst.State.PAUSED);
             if (ret == Gst.StateChangeReturn.FAILURE) {
+<<<<<<< HEAD
                 debug("Failed to play the file: couldn't set state\n");
                 return 3;
             } else if (ret == Gst.StateChangeReturn.NO_PREROLL) {
                 debug("Live sources not supported yet.\n");
+=======
+                warning("Failed to play the file: couldn't set state\n");
+                return 3;
+            } else if (ret == Gst.StateChangeReturn.NO_PREROLL) {
+                warning("Live sources not supported yet.\n");
+>>>>>>> e132add61d488efcfd0017ca38f62a90730a3ff6
                 return 4;
             }
             
@@ -66,13 +73,21 @@ class ShotwellThumbnailer {
             // better way is to run a mainloop and catch errors there.
             ret = pipeline.get_state(null, null, 5 * Gst.SECOND);
             if (ret == Gst.StateChangeReturn.FAILURE) {
+<<<<<<< HEAD
                 debug("Failed to play the file: couldn't get state.\n");
+=======
+                warning("Failed to play the file: couldn't get state.\n");
+>>>>>>> e132add61d488efcfd0017ca38f62a90730a3ff6
                 return 3;
             }
 
             /* get the duration */
             if (!pipeline.query_duration (Gst.Format.TIME, out duration)) {
+<<<<<<< HEAD
                 debug("Failed to query file for duration\n");
+=======
+                warning("Failed to query file for duration\n");
+>>>>>>> e132add61d488efcfd0017ca38f62a90730a3ff6
                 return 3;
             }
 
@@ -86,7 +101,11 @@ class ShotwellThumbnailer {
 
             ret = pipeline.get_state(null, null, 5 * Gst.SECOND);
             if (ret == Gst.StateChangeReturn.FAILURE) {
+<<<<<<< HEAD
                 debug("Failed to play the file: couldn't get state.\n");
+=======
+                warning("Failed to play the file: couldn't get state.\n");
+>>>>>>> e132add61d488efcfd0017ca38f62a90730a3ff6
                 return 3;
             }
 
@@ -100,7 +119,11 @@ class ShotwellThumbnailer {
             pipeline.set_state(Gst.State.NULL);
             
         } catch (Error e) {
+<<<<<<< HEAD
             debug(e.message);
+=======
+            warning(e.message);
+>>>>>>> e132add61d488efcfd0017ca38f62a90730a3ff6
             return 2;
         }
         

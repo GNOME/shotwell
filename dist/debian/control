@@ -31,7 +31,8 @@ Build-Depends: debhelper (>= 9),
  libgcr-3-dev ( >= 3.18),
  libgdata-dev,
  meson,
- ninja-build
+ ninja-build,
+ gnome-pkg-tools
 Standards-Version: 3.9.8
 Homepage: https://wiki.gnome.org/Apps/Shotwell/
 
