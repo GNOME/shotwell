@@ -25,6 +25,7 @@ public abstract class FaceShape : Object {
     private bool editable = true;
     private bool visible = true;
     private bool known = true;
+    private double guess = 0.0;
     
     private weak FacesTool.FaceWidget face_widget = null;
     
@@ -92,7 +93,15 @@ public abstract class FaceShape : Object {
     public bool get_known() {
         return known;
     }
+
+    public void set_guess(double guess) {
+        this.guess = guess;
+    }
     
+    public double get_guess() {
+        return guess;
+    }
+
     public void set_widget(FacesTool.FaceWidget face_widget) {
         this.face_widget = face_widget;
     }

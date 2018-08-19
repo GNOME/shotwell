@@ -75,7 +75,7 @@ static gboolean on_handle_face_to_vec(ShotwellFaces1 *object,
 static gboolean on_handle_terminate(ShotwellFaces1 *object,
                                     GDBusMethodInvocation *invocation) {
     g_debug("Exiting...");
-    exit(0);
+    shotwell_faces1_complete_terminate(object, invocation);
     return TRUE;
 }
 
@@ -86,19 +86,23 @@ static void on_name_acquired(GDBusConnection *connection,
     interface = shotwell_faces1_skeleton_new();
     g_debug("Got name %s", name);
     g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), NULL);
-    g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), NULL);
+    g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), user_data);
     g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), NULL);
     g_signal_connect(interface, "handle-face-to-vec", G_CALLBACK (on_handle_face_to_vec), NULL);
     error = NULL;
     !g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, "/org/gnome/shotwell/faces", &error);
 }
 
-int main(int argc, char **argv) {
-	GMainLoop *loop;
-	loop = g_main_loop_new (NULL, FALSE);
-	g_bus_own_name(G_BUS_TYPE_SESSION, "org.gnome.shotwell.faces", G_BUS_NAME_OWNER_FLAGS_NONE, NULL,
-                   on_name_acquired, NULL, NULL, NULL);
-	g_main_loop_run (loop);
+static void on_name_lost(GDBusConnection *connection,
+                         const gchar *name, gpointer user_data) {
+    g_main_loop_quit((GMainLoop *)user_data);
+}
 
-	return 0;
+int main(int argc, char **argv) {
+    GMainLoop *loop;
+    loop = g_main_loop_new (NULL, FALSE);
+	g_bus_own_name(G_BUS_TYPE_SESSION, "org.gnome.shotwell.faces", G_BUS_NAME_OWNER_FLAGS_NONE, NULL,
+                   on_name_acquired, on_name_lost, loop, NULL);
+    g_main_loop_run (loop);
+    return 0;
 }

@@ -891,7 +891,9 @@ public class FacesTool : EditingTools.EditingTool {
                 face_shape.set_name("Unknown face #%d".printf(c));
                 face_shape.set_known(false);
             } else {
-                face_shape.set_name(guess.get_name());
+                string name_str;
+                name_str = "%s (%0.2f%%)".printf(guess.get_name(), face_shape.get_guess() * 100);
+                face_shape.set_name(name_str);
                 face_shape.set_known(true);
             }
             add_face(face_shape);
@@ -923,6 +925,7 @@ public class FacesTool : EditingTools.EditingTool {
         Face? face = null;
         if (guess_id != null) {
             face = Face.global.fetch(guess_id);
+            face_shape.set_guess(max_product);
             assert(face != null);
         }
         return face;
