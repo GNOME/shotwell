@@ -101,7 +101,7 @@ static void on_name_lost(GDBusConnection *connection,
 int main(int argc, char **argv) {
     GMainLoop *loop;
     loop = g_main_loop_new (NULL, FALSE);
-	g_bus_own_name(G_BUS_TYPE_SESSION, "org.gnome.shotwell.faces", G_BUS_NAME_OWNER_FLAGS_NONE, NULL,
+	g_bus_own_name(G_BUS_TYPE_SESSION, "org.gnome.Shotwell.Faces1", G_BUS_NAME_OWNER_FLAGS_NONE, NULL,
                    on_name_acquired, on_name_lost, loop, NULL);
     g_main_loop_run (loop);
     return 0;

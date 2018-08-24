@@ -1,3 +1,3 @@
 [D-BUS Service]
-Name=org.gnome.shotwell.faces
+Name=org.gnome.Shotwell.Faces1
 Exec=/home/naren/Code/shotwell/build/facedetect/shotwell-facedetect

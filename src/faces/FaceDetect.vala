@@ -45,7 +45,7 @@ public interface FaceDetectInterface : Object {
 
 // Class to communicate with facedetect process over DBus
 public class FaceDetect {
-    public const string DBUS_NAME = "org.gnome.shotwell.faces";
+    public const string DBUS_NAME = "org.gnome.Shotwell.Faces1";
     public const string DBUS_PATH = "/org/gnome/shotwell/faces";
     public static bool connected = false;
     public static string net_file;
