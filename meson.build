@@ -110,6 +110,7 @@ subdir('help')
 subdir('misc')
 subdir('thumbnailer')
 subdir('settings-migrator')
+subdir('test')
 subdir('app-icons')
 
 if get_option('install-apport-hook')

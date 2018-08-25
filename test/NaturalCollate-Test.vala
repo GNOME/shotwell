@@ -1,5 +1,5 @@
 void add_trailing_numbers_tests () {
-    Test.add_func ("/vala/test", () => {
+    Test.add_func ("/functional/collation/trailing_numbers", () => {
             string a = "100foo";
             string b = "100bar";
             string coll_a = NaturalCollate.collate_key(a);
@@ -24,7 +24,7 @@ void add_trailing_numbers_tests () {
 }
 
 void add_numbers_tail_tests () {
-    Test.add_func ("/vala/test", () => {
+    Test.add_func ("/functional/collation/numbers_tail", () => {
             string a = "aaa00100";
             string b = "aaa02";
             string coll_a = NaturalCollate.collate_key(a);
@@ -36,7 +36,7 @@ void add_numbers_tail_tests () {
 }
 
 void add_dots_tests () {
-    Test.add_func ("/vala/test", () => {
+    Test.add_func ("/functional/collation/dots", () => {
             string sa = "Foo01.jpg";
             string sb = "Foo2.jpg";
             string sc = "Foo3.jpg";
@@ -58,7 +58,7 @@ void add_dots_tests () {
 }
 
 void add_bigger_as_strcmp_tests () {
-    Test.add_func ("/vala/test", () => {
+    Test.add_func ("/functional/collation/bigger_as_strcmp", () => {
             string a = "foo";
             string b = "bar";
             string coll_a = NaturalCollate.collate_key(a);
@@ -86,7 +86,7 @@ void add_bigger_as_strcmp_tests () {
 }
 
 void add_numbers_tests() {
-    Test.add_func ("/vala/test", () => {
+    Test.add_func ("/functional/collation/numbers", () => {
             string a = "0";
             string b = "1";
             string coll_a = NaturalCollate.collate_key(a);
@@ -114,7 +114,7 @@ void add_numbers_tests() {
 }
 
 void add_ignore_leading_zeros_tests () {
-    Test.add_func ("/vala/test", () => {
+    Test.add_func ("/functional/collation/ignore_leading_zeros", () => {
             string a = "bar0000010";
             string b = "bar10";
             string coll_a = NaturalCollate.collate_key(a);
