@@ -22,7 +22,7 @@ void init(string package_name, string[] args, string locale = SYSTEM_LOCALE) {
 
 private string get_langpack_dir_path(string[] args) {
     File local_langpack_dir =
-        File.new_for_path(Environment.find_program_in_path(args[0])).get_parent().get_child(
+        File.new_for_path(Environment.find_program_in_path(args[0])).get_parent().get_parent().get_child(
         "locale-langpack");
 
     return (local_langpack_dir.query_exists(null)) ? local_langpack_dir.get_path() :
