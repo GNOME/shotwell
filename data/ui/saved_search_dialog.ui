@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.0 -->
 <interface domain="shotwell">
   <requires lib="gtk+" version="3.18"/>
   <template class="SavedSearchDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
+    <property name="border_width">0</property>
     <property name="title" translatable="yes">Search</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
@@ -17,6 +18,8 @@
         <child internal-child="action_area">
           <object class="GtkButtonBox">
             <property name="can_focus">False</property>
+            <property name="margin_right">18</property>
+            <property name="margin_bottom">12</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button1">
@@ -57,16 +60,16 @@
           <object class="GtkBox" id="criteria">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">3</property>
+            <property name="border_width">18</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">5</property>
             <child>
               <object class="GtkBox" id="hbox3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_bottom">18</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
-                <property name="spacing">3</property>
+                <property name="spacing">12</property>
                 <child>
                   <object class="GtkLabel" id="Name of search:">
                     <property name="visible">True</property>
@@ -105,26 +108,13 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
-              <object class="GtkSeparator" id="hseparator1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkBox" id="hbox2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_bottom">6</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
-                <property name="spacing">3</property>
+                <property name="spacing">12</property>
                 <child>
                   <object class="GtkLabel" id="Match">
                     <property name="visible">True</property>
@@ -173,46 +163,11 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <object class="GtkButton" id="add_criteria">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">list-add-symbolic</property>
-                        <property name="icon_size">1</property>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="image-button"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="pack_type">end</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSeparator" id="hseparator2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -230,6 +185,33 @@
                       <object class="GtkListBox" id="row_listbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkListBoxRow">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                            <child>
+                              <object class="GtkButton" id="add_criteria">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="valign">start</property>
+                                <property name="relief">none</property>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="icon_name">list-add-symbolic</property>
+                                    <property name="icon_size">1</property>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="image-button"/>
+                                </style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -238,11 +220,8 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">5</property>
+                <property name="position">2</property>
               </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>
@@ -257,5 +236,8 @@
       <action-widget response="-6">button1</action-widget>
       <action-widget response="-5">button2</action-widget>
     </action-widgets>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
   </template>
 </interface>
