@@ -21,15 +21,33 @@ File? get_sys_install_dir(File exec_dir) {
     return null;
 }
 
-string get_nautilus_install_location() {
-    return Environment.find_program_in_path("nautilus");
+[DBus (name = "org.freedesktop.FileManager1")]
+public interface org.freedesktop.FileManager1 : Object {
+    public const string NAME = "org.freedesktop.FileManager1";
+    public const string PATH = "/org/freedesktop/FileManager1";
+
+    public abstract async void show_folders(string[] uris, string startup_id) throws IOError, DBusError;
+    public abstract async void show_items(string[] uris, string startup_id) throws IOError, DBusError;
+    public abstract async void show_item_properties(string[] uris, string startup_id) throws IOError, DBusError;
 }
 
 void sys_show_uri(Gdk.Screen screen, string uri) throws Error {
     Gtk.show_uri(screen, uri, Gdk.CURRENT_TIME);
 }
 
-void show_file_in_nautilus(string filename) throws Error {
-    GLib.Process.spawn_command_line_async(get_nautilus_install_location() + " " + filename);
+async void show_file_in_filemanager(File file) throws Error {
+    try {
+        org.freedesktop.FileManager1? manager = yield Bus.get_proxy (BusType.SESSION,
+                                                                     org.freedesktop.FileManager1.NAME,
+                                                                     org.freedesktop.FileManager1.PATH,
+                                                                     DBusProxyFlags.DO_NOT_LOAD_PROPERTIES |
+                                                                     DBusProxyFlags.DO_NOT_CONNECT_SIGNALS);
+        var id = "%s_%s_%d_%s".printf(Environment.get_prgname(), Environment.get_host_name(),
+                                      Posix.getpid(), TimeVal().to_iso8601());
+        yield manager.show_items({file.get_uri()}, id);
+    } catch (Error e) {
+        warning("Failed to launch file manager using DBus, using fall-back: %s", e.message);
+        sys_show_uri(AppWindow.get_instance().get_screen(), file.get_parent().get_uri());
+    }
 }
 
