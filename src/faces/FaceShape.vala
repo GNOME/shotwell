@@ -201,6 +201,7 @@ public class FaceRectangle : FaceShape {
     private Cairo.Context thin_white_ctx = null;
     private int last_grab_x = -1;
     private int last_grab_y = -1;
+	private Box last_box;
     
     public FaceRectangle(EditingTools.PhotoCanvas canvas, int x, int y,
         int half_width = NULL_SIZE, int half_height = NULL_SIZE, double[] vec = {}) {
@@ -230,6 +231,7 @@ public class FaceRectangle : FaceShape {
         
             box = Box(x - half_width, y - half_height, right, bottom);
         }
+        last_box = box;
     }
     
     ~FaceRectangle() {
@@ -506,162 +508,164 @@ public class FaceRectangle : FaceShape {
         else if (y >= scaled_pos.height)
             y = scaled_pos.height - 1;
         
-        // need to make manipulations outside of box structure, because its methods do sanity
-        // checking
-        int left = box.left;
-        int top = box.top;
-        int right = box.right;
-        int bottom = box.bottom;
-
-        // get extra geometric information needed to enforce constraints
-        int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
-        int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
+        int left, top, right, bottom;
         
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-                left = x;
-            break;
-
-            case BoxLocation.TOP_SIDE:
-                top = y;
-            break;
-
-            case BoxLocation.RIGHT_SIDE:
-                right = x;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-                bottom = y;
-            break;
-
-            case BoxLocation.TOP_LEFT:
-                top = y;
-                left = x;
-            break;
-
-            case BoxLocation.BOTTOM_LEFT:
-                bottom = y;
-                left = x;
-            break;
-
-            case BoxLocation.TOP_RIGHT:
-                top = y;
-                right = x;
-            break;
-
-            case BoxLocation.BOTTOM_RIGHT:
-                bottom = y;
-                right = x;
-            break;
-
-            case BoxLocation.INSIDE:
-                assert(last_grab_x >= 0);
-                assert(last_grab_y >= 0);
-                
-                int delta_x = (x - last_grab_x);
-                int delta_y = (y - last_grab_y);
-                
-                last_grab_x = x;
-                last_grab_y = y;
-
-                int width = right - left + 1;
-                int height = bottom - top + 1;
-                
-                left += delta_x;
-                top += delta_y;
-                right += delta_x;
-                bottom += delta_y;
-                
-                // bound box inside of photo
-                if (left < 0)
-                    left = 0;
-                
-                if (top < 0)
-                    top = 0;
-                
-                if (right >= scaled_pos.width)
-                    right = scaled_pos.width - 1;
-                
-                if (bottom >= scaled_pos.height)
-                    bottom = scaled_pos.height - 1;
-                
-                int adj_width = right - left + 1;
-                int adj_height = bottom - top + 1;
-                
-                // don't let adjustments affect the size of the box
-                if (adj_width != width) {
-                    if (delta_x < 0)
-                        right = left + width - 1;
-                    else left = right - width + 1;
-                }
-                
-                if (adj_height != height) {
-                    if (delta_y < 0)
-                        bottom = top + height - 1;
-                    else top = bottom - height + 1;
-                }
-            break;
+        if (in_manipulation == BoxLocation.INSIDE) {
+            left = box.left;
+            top = box.top;
+            right = box.right;
+            bottom = box.bottom;
             
-            default:
-                // do nothing, not even a repaint
-                return false;
-        }
-
-        // Check if the mouse has gone out of bounds, and if it has, make sure that the
-        // face shape edges stay within the photo bounds.
-        int width = right - left + 1;
-        int height = bottom - top + 1;
+            assert(last_grab_x >= 0);
+            assert(last_grab_y >= 0);
+            
+            int delta_x = (x - last_grab_x);
+            int delta_y = (y - last_grab_y);
+            
+            last_grab_x = x;
+            last_grab_y = y;
+            
+            int width = right - left + 1;
+            int height = bottom - top + 1;
+            
+            left += delta_x;
+            top += delta_y;
+            right += delta_x;
+            bottom += delta_y;
+            
+            // bound box inside of photo
+            if (left < 0)
+                left = 0;
+            
+            if (top < 0)
+                top = 0;
+            
+            if (right >= scaled_pos.width)
+                right = scaled_pos.width - 1;
+            
+            if (bottom >= scaled_pos.height)
+                bottom = scaled_pos.height - 1;
+            
+            int adj_width = right - left + 1;
+            int adj_height = bottom - top + 1;
+            
+            // don't let adjustments affect the size of the box
+            if (adj_width != width) {
+                if (delta_x < 0)
+                    right = left + width - 1;
+                else left = right - width + 1;
+            }
+            
+            if (adj_height != height) {
+                if (delta_y < 0)
+                    bottom = top + height - 1;
+                else top = bottom - height + 1;
+            }
         
-        if (left < 0)
-            left = 0;
-        if (top < 0)
-            top = 0;
-        if (right > photo_right_edge)
-            right = photo_right_edge;
-        if (bottom > photo_bottom_edge)
-            bottom = photo_bottom_edge;
-
-        width = right - left + 1;
-        height = bottom - top + 1;
-
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.BOTTOM_LEFT:
-                if (width < FACE_MIN_SIZE)
-                    left = right - FACE_MIN_SIZE;
-            break;
+        } else {
+            left = last_box.left;
+            top = last_box.top;
+            right = last_box.right;
+            bottom = last_box.bottom;
             
-            case BoxLocation.RIGHT_SIDE:
-            case BoxLocation.TOP_RIGHT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (width < FACE_MIN_SIZE)
-                    right = left + FACE_MIN_SIZE;
-            break;
-
-            default:
-            break;
-        }
-
-        switch (in_manipulation) {
-            case BoxLocation.TOP_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.TOP_RIGHT:
-                if (height < FACE_MIN_SIZE)
-                    top = bottom - FACE_MIN_SIZE;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-            case BoxLocation.BOTTOM_LEFT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (height < FACE_MIN_SIZE)
-                    bottom = top + FACE_MIN_SIZE;
-            break;
+            switch (in_manipulation) {
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.LEFT_SIDE:
+                case BoxLocation.BOTTOM_LEFT:
+                    left = x;
+                break;
+                case BoxLocation.TOP_RIGHT:
+                case BoxLocation.RIGHT_SIDE:
+                case BoxLocation.BOTTOM_RIGHT:
+                    right = x;
+                break;
+                default:
+                break;
+            }
+            switch (in_manipulation) {
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.TOP_SIDE:
+                case BoxLocation.TOP_RIGHT:
+                    top = y;
+                break;
+                case BoxLocation.BOTTOM_LEFT:
+                case BoxLocation.BOTTOM_SIDE:
+                case BoxLocation.BOTTOM_RIGHT:
+                    bottom = y;
+                break;
+                default:
+                break;
+            }
+            if (right < left || left > right) {//swap
+                int swap = right;
+                right = left;
+                left = swap;
+            }
+            if (bottom < top || top > bottom) {//swap
+                int swap = bottom;
+                bottom = top;
+                top = swap;
+            }
+            // need to make sure the rectangle is inside the photo and
+            // 
+            // get extra geometric information needed to enforce constraints
+            int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
+            int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
             
-            default:
-            break;
+            // Check if the mouse has gone out of bounds, and if it has, make sure that the
+            // face shape edges stay within the photo bounds.
+            if (left < 0)
+                left = 0;
+            if (top < 0)
+                top = 0;
+            if (right > photo_right_edge)
+                right = photo_right_edge;
+            if (bottom > photo_bottom_edge)
+                bottom = photo_bottom_edge;
+            
+            int width = right - left + 1;
+            int height = bottom - top + 1;
+            
+            switch (in_manipulation) {
+                case BoxLocation.LEFT_SIDE:
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.BOTTOM_LEFT:
+                    if (width < FACE_MIN_SIZE)
+                        left = right - FACE_MIN_SIZE;
+                break;
+                
+                case BoxLocation.RIGHT_SIDE:
+                case BoxLocation.TOP_RIGHT:
+                case BoxLocation.BOTTOM_RIGHT:
+                    if (width < FACE_MIN_SIZE)
+                        right = left + FACE_MIN_SIZE;
+                break;
+                
+                default:
+                break;
+            }
+            
+            switch (in_manipulation) {
+                case BoxLocation.TOP_SIDE:
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.TOP_RIGHT:
+                    if (height < FACE_MIN_SIZE)
+                        top = bottom - FACE_MIN_SIZE;
+                break;
+                
+                case BoxLocation.BOTTOM_SIDE:
+                case BoxLocation.BOTTOM_LEFT:
+                case BoxLocation.BOTTOM_RIGHT:
+                    if (height < FACE_MIN_SIZE)
+                        bottom = top + FACE_MIN_SIZE;
+                break;
+                 
+                default:
+                break;
+            }
+        
         }
-       
+        
         Box new_box = Box(left, top, right, bottom);
         
         if (!box.equals(new_box)) {
@@ -767,6 +771,7 @@ public class FaceRectangle : FaceShape {
         in_manipulation = offset_scaled_box.approx_location(x, y);
         last_grab_x = x -= scaled_pixbuf_pos.x;
         last_grab_y = y -= scaled_pixbuf_pos.y;
+        last_box = box;
         
         return box.approx_location(x, y) != BoxLocation.OUTSIDE;
     }
