@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015, 2016, 2017 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015, 2016, 2017, 2018 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2017-09-25 16:12+0000\n"
-"PO-Revision-Date: 2017-09-28 22:48+0200\n"
+"POT-Creation-Date: 2018-09-05 07:38+0000\n"
+"PO-Revision-Date: 2018-09-05 22:19+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -92,11 +92,26 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr "Kontrast"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr ""
+"Ändrar kontrasten för en bild. Använd det för att korrigera bilder som ser "
+"platta ut eller bilder där skillnaden mellan ljusa och mörka partier verkar "
+"för stor."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
 msgid "Saturation"
 msgstr "Mättnad"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:29
+#: C/edit-adjustments.page:33
 msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
@@ -105,12 +120,12 @@ msgstr ""
 "prova att öka mättnaden. Om färgerna är för starka, prova att minska den."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:32
+#: C/edit-adjustments.page:36
 msgid "Tint"
 msgstr "Tint"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:33
+#: C/edit-adjustments.page:37
 msgid ""
 "This tints the photo with a color. It's useful for correcting photos taken "
 "with the wrong white balance setting, which typically have an unnatural "
@@ -122,12 +137,12 @@ msgstr ""
 "tagna utomhus med vitbalansen inställd till ”Tungsten” kan ha en blå toning."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:36
+#: C/edit-adjustments.page:40
 msgid "Temperature"
 msgstr "Temperatur"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:37
+#: C/edit-adjustments.page:41
 msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
@@ -136,12 +151,12 @@ msgstr ""
 "att få kalla, deprimerande motiv att se mer levande ut."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:40
+#: C/edit-adjustments.page:44
 msgid "Shadows"
 msgstr "Skuggor"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:41
+#: C/edit-adjustments.page:45
 msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
@@ -150,12 +165,12 @@ msgstr ""
 "detaljer om något döljs av skuggor."
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:44
+#: C/edit-adjustments.page:48
 msgid "Intensity Threshold (sliders on the histogram)"
 msgstr "Intensitettröskelvärde (skjutreglage på histogrammet)"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:45
+#: C/edit-adjustments.page:49
 msgid ""
 "These sliders change how light the brightest white is and how dark the "
 "darkest black is. Use them to change the contrast of the photo. Photos which "
@@ -320,6 +335,48 @@ msgid ""
 msgstr ""
 "Att beskära en bild och använda ”tredelningsregeln” för att förbättra "
 "sammansättningen."
+
+#. (itstool) path: info/desc
+#: C/edit-date-time.page:7
+msgid "Change the date and time of photos if those details are incorrect."
+msgstr "Ändra datum och tid för bilder om de inte stämmer."
+
+#. (itstool) path: page/title
+#: C/edit-date-time.page:12
+msgid "Adjust the date and time of photos"
+msgstr "Justera datum och tid för bilder"
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:14
+msgid ""
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
+msgstr ""
+"För att justera datum och tid för bilder, markera de bilder du vill justera, "
+"välj <guiseq><gui>Bilder</gui><gui>Justera datum och tid…</gui></guiseq> och "
+"markera nytt datum och tid."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:16
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr ""
+"Om du ändrar datum och tid för flera bilder samtidigt kan du välja att ändra "
+"tiden för alla bilder eller ange samma tid för alla bilder samtidigt."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:18
+msgid ""
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
+"undone once you exit Shotwell."
+msgstr ""
+"Som standard ändras datum och tid endast i Shotwell. Du kan också välja att "
+"ändra datum och tid i originalfilen, men det kan inte ångras när du väl har "
+"avslutat Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-enhance.page:7
@@ -634,48 +691,6 @@ msgstr "Dra i skjutreglaget för att uppnå önska grad av uträtning."
 #: C/edit-straighten.page:24
 msgid "Press <gui>Straighten</gui> when finished."
 msgstr "Tryck <gui>Räta ut</gui> när klar."
-
-#. (itstool) path: info/desc
-#: C/edit-date-time.page:7
-msgid "Change the date and time of photos if those details are incorrect."
-msgstr "Ändra datum och tid för bilder om de inte stämmer."
-
-#. (itstool) path: page/title
-#: C/edit-date-time.page:12
-msgid "Adjust the date and time of photos"
-msgstr "Justera datum och tid för bilder"
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:14
-msgid ""
-"To adjust the date and time of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
-"guiseq> and select a new date and time."
-msgstr ""
-"För att justera datum och tid för bilder, markera de bilder du vill justera, "
-"välj <guiseq><gui>Bilder</gui><gui>Justera datum och tid…</gui></guiseq> och "
-"markera nytt datum och tid."
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:16
-msgid ""
-"If you are changing the date and time of multiple photos at once, you can "
-"choose to shift all the photos by the same amount of time or to set all the "
-"photos to the same time."
-msgstr ""
-"Om du ändrar datum och tid för flera bilder samtidigt kan du välja att ändra "
-"tiden för alla bilder eller ange samma tid för alla bilder samtidigt."
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:18
-msgid ""
-"By default, the date and time are only changed inside Shotwell. You can also "
-"choose to modify the date and time in the original file, but this cannot be "
-"undone once you exit Shotwell."
-msgstr ""
-"Som standard ändras datum och tid endast i Shotwell. Du kan också välja att "
-"ändra datum och tid i originalfilen, men det kan inte ångras när du väl har "
-"avslutat Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
@@ -2697,8 +2712,64 @@ msgstr ""
 "En skalningsbegränsning (vilket betyder hur Shotwell bestämmer hur bilderna "
 "ska skalas) och önskad bildpunktsstorlek."
 
+#. (itstool) path: item/title
+#: C/share-export.page:40
+msgid "Original size"
+msgstr "Ursprungsstorlek"
+
 #. (itstool) path: item/p
-#: C/share-export.page:39
+#: C/share-export.page:40
+msgid "Image will be exported without any scaling applied"
+msgstr "Bilden kommer att exporteras utan att någon skalning tillämpas"
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Longest edge"
+msgstr "Längsta kanten"
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr ""
+"Bilden kommer att exporteras med sin längsta kant skalad till "
+"<gui>Bildpunkter</gui> och den andra enligt bildförhållandet"
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Width"
+msgstr "Bredd"
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr ""
+"Bildens bredd kommer att skalas till det angivna antalet bildpunkter och "
+"dess höjd enligt bildförhållandet. Detta är ekvivalent med <gui>Längsta "
+"kanten</gui> för liggande bilder."
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Height"
+msgstr "Höjd"
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr ""
+"Bildens höjd kommer att skalas till det angivna antalet bildpunkter och dess "
+"bredd enligt bildförhållandet. Detta är ekvivalent med <gui>Längsta kanten</"
+"gui> för stående bilder."
+
+#. (itstool) path: item/p
+#: C/share-export.page:46
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -2708,7 +2779,7 @@ msgstr ""
 "din sekretess om du har geoplats-taggar eller taggar ingen bör se."
 
 #. (itstool) path: page/p
-#: C/share-export.page:42
+#: C/share-export.page:49
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
@@ -2868,36 +2939,34 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-msgid "<link href=\"http://facebook.com\">Facebook</link>"
-msgstr "<link href=\"http://facebook.com\">Facebook</link>"
+#| msgid "<link href=\"http://facebook.com\">Facebook</link>"
+msgid "<link href=\"https://facebook.com\">Facebook</link>"
+msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-msgid "<link href=\"http://flickr.com\">Flickr</link>"
-msgstr "<link href=\"http://flickr.com\">Flickr</link>"
+#| msgid "<link href=\"http://flickr.com\">Flickr</link>"
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
 msgid ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> och "
+"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> och "
 "<link href=\"http://plus.google.com\">Google+</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"http://youtube.com\">YouTube</link> (endast video)"
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (endast video)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-msgid ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
-"popular in Russia (photos only)"
-msgstr ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, en populär "
-"webbplats i Ryssland (endast bilder)"
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (endast video)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -2915,18 +2984,18 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
 "to enable the plugin for the service you want to publish to. Next, choose, "
 "<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
-"gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>. You "
-"will see a dialog that lets you select a publishing service. You will then "
-"need to log in or create an account."
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
 msgstr ""
 "För att publicera markerade bilder i en samling, välj <guiseq><gui>Redigera</"
 "gui><gui>Inställningar</gui></guiseq> och klicka på fliken "
 "<gui>Insticksmoduler</gui> för att aktivera insticket för tjänsten du vill "
 "publicera till. Välj sedan <guiseq><gui>Arkiv</gui><gui>Publicera</gui></"
 "guiseq>, tryck verktygsfältsknappen <gui>Publicera</gui> eller använd "
-"<keyseq><key>Ctrl</key><key>P</key></keyseq>. Du får då upp en dialog som "
-"låter dig välja en publiceringstjänst. Du måste sedan logga in eller skapa "
-"ett konto."
+"<keyseq><key>Ctrl</key><key>Skift</key><key>P</key></keyseq>. Du får då upp "
+"en dialog som låter dig välja en publiceringstjänst. Du måste sedan logga in "
+"eller skapa ett konto."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
@@ -3170,6 +3239,13 @@ msgstr ""
 "Mappen <gui>Taggar</gui> listar alla taggar du tilldelat till bilder. Bilder "
 "kan ha flera taggar kopplade till dem. När du klickar på namnet på en tagg i "
 "sidopanelen kommer du att se alla bilder associerade med den taggen."
+
+#~ msgid ""
+#~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
+#~ "popular in Russia (photos only)"
+#~ msgstr ""
+#~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, en populär "
+#~ "webbplats i Ryssland (endast bilder)"
 
 #~ msgctxt "text"
 #~ msgid "Shotwell"
