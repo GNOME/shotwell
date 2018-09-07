@@ -190,6 +190,9 @@ public class Transaction {
 
     private void on_wrote_body_data(Soup.Buffer written_data) {
         bytes_written += (int) written_data.length;
+        while (Gtk.events_pending()) {
+            Gtk.main_iteration();
+        }
         chunk_transmitted(bytes_written, (int) message.request_body.length);
     }
 
