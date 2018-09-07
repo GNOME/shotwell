@@ -864,6 +864,9 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         // TODO: should a message be displayed to the user if num_published is zero?
 
+        if (!is_running())
+            return;
+
         do_show_success_pane();
     }
     
