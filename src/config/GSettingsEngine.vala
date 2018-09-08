@@ -25,6 +25,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
     private string[] schema_names;
     private string[] key_names;
+    private Gee.HashMap<string, Settings> settings_cache = new Gee.HashMap<string, Settings>();
     
     public GSettingsConfigurationEngine() {
         schema_names = new string[ConfigurableProperty.NUM_PROPERTIES];
@@ -176,6 +177,15 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.VIDEO_INTERPRETER_STATE_COOKIE] = "interpreter-state-cookie";
     }
 
+    private Settings get_settings(string schema) {
+        if (!(schema in this.settings_cache)) {
+            critical ("Creating new settings object for schema %s", schema);
+            this.settings_cache[schema] = new Settings(schema);
+        }
+
+        return this.settings_cache[schema];
+    }
+
     private void check_key_valid(string schema, string key) throws ConfigurationError {
         var schema_source = SettingsSchemaSource.get_default ();
         var settings_scheme = schema_source.lookup (schema, true);
@@ -191,7 +201,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private bool get_gs_bool(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         return schema_object.get_boolean(key);
     }
@@ -199,7 +209,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private void set_gs_bool(string schema, string key, bool value) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         schema_object.set_boolean(key, value);
     }
@@ -207,21 +217,21 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private void set_gs_enum (string schema, string key, int value) throws ConfigurationError {
         check_key_valid (schema, key);
 
-        var schema_object = new Settings (schema);
+        var schema_object = get_settings (schema);
         schema_object.set_enum (key, value);
     }
 
     private int get_gs_enum (string schema, string key) throws ConfigurationError {
         check_key_valid (schema, key);
 
-        var schema_object = new Settings (schema);
+        var schema_object = get_settings (schema);
         return schema_object.get_enum (key);
     }
 
     private int get_gs_int(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         return schema_object.get_int(key);
     }
@@ -229,7 +239,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private void set_gs_int(string schema, string key, int value) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         schema_object.set_int(key, value);
     }
@@ -237,7 +247,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private double get_gs_double(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         return schema_object.get_double(key);
     }
@@ -245,7 +255,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private void set_gs_double(string schema, string key, double value) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         schema_object.set_double(key, value);
     }
@@ -253,7 +263,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private string get_gs_string(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         return schema_object.get_string(key);
     }
@@ -261,7 +271,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private void set_gs_string(string schema, string key, string value) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         schema_object.set_string(key, value);
     }
@@ -269,7 +279,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private void reset_gs_to_default(string schema, string key) throws ConfigurationError {
         check_key_valid(schema, key);
 
-        Settings schema_object = new Settings(schema);
+        Settings schema_object = get_settings(schema);
 
         schema_object.reset(key);
     }
