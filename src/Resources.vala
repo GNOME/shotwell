@@ -1008,7 +1008,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         // fetch from cache and if not present, from disk
         Gdk.Pixbuf? pixbuf = icon_cache.get(name);
         if (pixbuf == null) {
-            pixbuf = load_icon(name, 0);
+            pixbuf = load_icon(name, scale);
             if (pixbuf == null)
                 return null;
             
@@ -1030,6 +1030,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public Gdk.Pixbuf? load_icon(string name, int scale = DEFAULT_ICON_SCALE) {
         Gdk.Pixbuf pixbuf = null;
+        try {
+            var theme = Gtk.IconTheme.get_default();
+            var info = theme.lookup_icon(name, scale, Gtk.IconLookupFlags.GENERIC_FALLBACK);
+            pixbuf = info.load_symbolic_for_context(AppWindow.get_instance().get_style_context(), null);
+        } catch (Error err) {
+            debug("Failed to find icon %s in theme, falling back to resources", name);
+        }
+
         try {
             var path = "/org/gnome/Shotwell/icons/%s".printf(name);
             pixbuf = new Gdk.Pixbuf.from_resource(path);
