@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2018-09-05 07:37+0000\n"
-"PO-Revision-Date: 2018-09-05 12:57+0200\n"
+"POT-Creation-Date: 2018-09-10 20:30+0000\n"
+"PO-Revision-Date: 2018-09-10 23:45+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -27,19 +27,1287 @@ msgstr ""
 "X-Generator: Poedit 2.1.1\n"
 "X-Project-Style: gnome\n"
 
-#: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
+msgid "authentication token"
+msgstr "autentiseringstoken"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:7
+msgid "Yandex-Fotki authentication token, if logged in."
+msgstr "Yandex-Fotki-autentiseringstoken om inloggad."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:14
+msgid "Token"
+msgstr "Token"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:15
+msgid "The token to access tumblr"
+msgstr "Token för att komma åt tumblr"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:20
+msgid "Secret token"
+msgstr "Hemlig token"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:21
+msgid "The secret token to sign oauth requests"
+msgstr "Det hemliga token som signerar oauth-begäran"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:26
+#: data/gsettings/org.yorba.shotwell.gschema.xml:498
+msgid "default size"
+msgstr "standardstorlek"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:27
+msgid ""
+"A numeric code representing the default size for photos uploaded to Tumblr"
+msgstr ""
+"En sifferkod representerande standardstorlek för bilder skickade till Tumblr"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:32
+msgid "default blog"
+msgstr "standardblogg"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:33
+msgid "The name of the default blog of the user, if any"
+msgstr "Namnet på standardbloggen för användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:40
+msgid "Rajce URL"
+msgstr "Rajce-URL"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:41
+msgid "URL of the Rajce server."
+msgstr "URL för Rajce-server."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
+#: data/gsettings/org.yorba.shotwell.gschema.xml:466
+#: data/gsettings/org.yorba.shotwell.gschema.xml:524
+#: data/gsettings/org.yorba.shotwell.gschema.xml:580
+msgid "username"
+msgstr "användarnamn"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:47
+msgid "Rajce username, if logged in."
+msgstr "Rajce-användarnamn om inloggad."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:52
+msgid "token"
+msgstr "token"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:53
+msgid "user token, if remembered."
+msgstr "användartoken, om ihågkommen."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:58
+#: data/gsettings/org.yorba.shotwell.gschema.xml:542
+msgid "last category"
+msgstr "senaste kategori"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:59
+msgid "The last selected Rajce category."
+msgstr "Senast valda Rajce-kategori."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:64
+#: data/gsettings/org.yorba.shotwell.gschema.xml:554
+msgid "last photo size"
+msgstr "senaste bildstorlek"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:65
+msgid ""
+"A numeric code representing the last photo size preset used when publishing "
+"to Rajce."
+msgstr ""
+"En sifferkod representerande den senaste förinställningen för bildstorlek "
+"använd vid publicering till Rajce."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:70
+msgid "remember"
+msgstr "kom ihåg"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:71
+msgid "If true, remember last login."
+msgstr "Om true, dölj den senast skapade inloggningen."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:76
+msgid "hide album"
+msgstr "göm album"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:77
+msgid "If true, hide the newly created Rajce album."
+msgstr "Om true, dölj det senast skapade Rajce-albumet."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:82
+msgid "open album in web browser"
+msgstr "öppna album i webbläsare"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:83
+msgid ""
+"If true, open target album in the web browser just after uploading photos"
+msgstr ""
+"Om true, öppna målalbumet i webbläsaren efter att ha skickat upp bilder"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:88
+#: data/gsettings/org.yorba.shotwell.gschema.xml:446
+#: data/gsettings/org.yorba.shotwell.gschema.xml:484
+#: data/gsettings/org.yorba.shotwell.gschema.xml:510
+#: data/gsettings/org.yorba.shotwell.gschema.xml:560
+#: data/gsettings/org.yorba.shotwell.gschema.xml:604
+msgid "remove sensitive info from uploads"
+msgstr "ta bort känslig information från sändningar"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:89
+msgid ""
+"Whether images being uploaded to Rajce should have their metadata removed "
+"first"
+msgstr "Huruvida bilder uppskickade till Rajce ska rensas på metadata först"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:23
+msgid "display basic properties"
+msgstr "visa grundläggande egenskaper"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:24
+msgid "True if the basic properties pane is to be displayed, false otherwise."
+msgstr ""
+"True om panelen för de grundläggande egenskaperna ska visas, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:29
+msgid "display extended properties"
+msgstr "visa utökade egenskaper"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:30
+msgid ""
+"True if the extended properties window is to be displayed, false otherwise."
+msgstr "True om panelen för de utökade egenskaperna ska visas, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:35
+msgid "display sidebar"
+msgstr "visa sidopanelen"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:36
+msgid "True if the sidebar is to be displayed, false otherwise."
+msgstr "True om sidopanelen ska visas, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:41
+msgid "display toolbar"
+msgstr "visa verktygsfältet"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:42
+msgid "True if the bottom toolbar is to be displayed, false otherwise."
+msgstr "True om det nedre verktygsfältet ska visas, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:47
+msgid "display search bar"
+msgstr "visa sökfältet"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:48
+msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
+msgstr "True om sök-/filterverktygsfältet ska visas, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:53
+msgid "display photo titles"
+msgstr "visa bildtitlar"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:54
+msgid ""
+"True if photo titles are to be displayed beneath thumbnails in collection "
+"views, false otherwise."
+msgstr ""
+"True om bildtitlar ska visas under miniatyrbilder i samlingsvyerna, annars "
+"false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:59
+msgid "display photo comments"
+msgstr "visa bildkommentarer"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:60
+msgid ""
+"True if photo comments are to be displayed beneath thumbnails in collection "
+"views, false otherwise."
+msgstr ""
+"True om bildkommentarer ska visas under miniatyrbilder i samlingsvyerna, "
+"annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:65
+msgid "display event comments"
+msgstr "visa händelsekommentarer"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:66
+msgid ""
+"True if event comments are to be displayed beneath thumbnails in event "
+"views, false otherwise."
+msgstr ""
+"True om händelsekommentarer ska visas under miniatyrbilder i samlingsvyerna, "
+"annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:71
+msgid "display photo tags"
+msgstr "visa bildtaggar"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:72
+msgid ""
+"True if photo tags are to be listed beneath thumbnails in collection views, "
+"false otherwise."
+msgstr ""
+"True om bildtaggar ska visas under miniatyrbilder i samlingsvyerna, annars "
+"false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:77
+msgid "display photo ratings"
+msgstr "visa bildbetyg"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:78
+msgid ""
+"True if a photo’s rating should be displayed as overlaid trinket, false "
+"otherwise."
+msgstr "True om ett bildbetyg ska visas som en överlagd fasad, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:83
+msgid "rating filter level"
+msgstr "betygsfilternivå"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:84
+msgid ""
+"Determines how to filter photos based on their ratings. 1: Rejected or "
+"better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
+"or better, 6: Four or better, 7: Five or better."
+msgstr ""
+"Avgör hur bilder filtreras baserat på deras betyg: 1: Avvisad eller bättre, "
+"2: Ej betygsatt eller bättre, 3: Ett eller bättre, 4: Två eller bättre, 5: "
+"Tre eller bättre, 6: Fyra eller bättre, 7: Fem eller bättre."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:89
+msgid "sort events ascending"
+msgstr "sortera händelser stigande"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:90
+msgid "True if events should be sorted ascending, false if descending."
+msgstr "True om händelser ska sorteras stigande, false om fallande."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:95
+msgid "sort library photos ascending"
+msgstr "sortera biblioteksbilder stigande"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:96
+msgid "True if library photos should be sorted ascending, false if descending."
+msgstr "True om biblioteksbilder ska sorteras stigande, false om fallande."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:101
+msgid "sort library photos criteria"
+msgstr "kriterier för att sortera biblioteksbilder"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:102
+msgid ""
+"A numeric code that specifies the sort criteria for photos in library views."
+msgstr ""
+"En sifferkod som specificerar sökkriterier för bilder i biblioteksvyer."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:107
+msgid "sort event photos ascending"
+msgstr "sortera händelsebilder stigande"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:108
+msgid "True if event photos should be sorted ascending, false if descending."
+msgstr "True om händelsebilder ska sorteras stigande, false om fallande."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:113
+msgid "sort event photos criteria"
+msgstr "sortera händelsebilder efter kriterier"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:114
+msgid "Specifies the sort criteria for event photos."
+msgstr "Specificerar sorteringskriterier för händelsebilder."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:119
+msgid "use 24 hour time"
+msgstr "använd 24-timmarstid"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:120
+msgid ""
+"True if should display times with a 24 hour clock, false if times should use "
+"AM/PM notation."
+msgstr ""
+"True om tid ska visas med en 24-timmars klocka, false om den ska visas med "
+"AM/PM-notation."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:125
+msgid "keep relative time between photos"
+msgstr "behåll relativ tid mellan bilder"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:126
+msgid ""
+"True if when adjusting time/date of photos, relative time should be "
+"maintained. False if all photos should be set to the same time."
+msgstr ""
+"True om relativ tid ska bevaras vid justering av tid/datum för bilder. False "
+"om alla bilder sätts till samma tid."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:131
+msgid "modify original photo files"
+msgstr "modifiera filerna för originalbilderna"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:132
+msgid ""
+"True if when adjusting time/date of photos, the original files should be "
+"modified as well. False if changes are made only in the database."
+msgstr ""
+"True om originalfilerna ska ändras vid justering av tid/datum för bilder. "
+"False om ändringar endast ska ske i databasen."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:137
+msgid "show welcome dialog on startup"
+msgstr "visa välkomstdialog vid start"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:138
+msgid ""
+"True if, when on startup, a welcome dialog should be shown. False if it "
+"should not be shown."
+msgstr ""
+"True om en välkomstdialog ska visas vid uppstart. False om den inte ska "
+"visas."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:143
+msgid "sidebar position"
+msgstr "position på sidopanel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:144
+msgid "The width, in pixels, of the sidebar"
+msgstr "Sidopanelens bredd i bildpunkter"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:149
+msgid "photo thumbnail scale"
+msgstr "miniatyrbildsskala"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:150
+msgid "The scale of photo thumbnails, ranging from 72 to 360."
+msgstr "Skalan för miniatyrbilder, i intervallet 72 till 360."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:155
+msgid "pin toolbar state"
+msgstr "verktygsfältets fästtillstånd"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:156
+msgid "Pin toolbar in fullscreen, or not."
+msgstr "Fäst verktygsfält vid helskärm, eller fäst inte."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:161
+msgid "prefer GTK+’s dark theme"
+msgstr "föredra GTK+:s mörka tema"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:162
+msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
+msgstr ""
+"Huruvida det mörka temat för GTK+ ska användas för Shotwell eller inte."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:167
+msgid "background for transparent images"
+msgstr "bakgrund för transparenta bilder"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:168
+msgid "The background to use for transparent images."
+msgstr "Bakgrund att använda för transparenta bilder."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:173
+msgid "color for solid transparency background"
+msgstr "färg för heltäckande transparent bakgrund"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:174
+msgid "Color to use if background for transparent images is set to solid color"
+msgstr ""
+"Färgen att använda om bakgrunden för transparenta bilder är satt till solid "
+"färg"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:179
+msgid "Selection state of “hide photos” option"
+msgstr "Valtillstånd för alternativet ”dölj bilder”"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:180
+msgid ""
+"Last used selection state of the “hide photos already imported” option in "
+"the import page."
+msgstr ""
+"Senast använda tillstånd för ”dölj bilder som redan importerats” på "
+"importsidan."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:187
+msgid "delay"
+msgstr "fördröjning"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:188
+msgid "Delay (in seconds) between photos in the slideshow."
+msgstr "Fördröjning (i sekunder) mellan bilder i bildspelet."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:193
+msgid "transition delay"
+msgstr "övergångsfördröjning"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:194
+msgid ""
+"The time (in seconds) that a transition runs between photos in a slideshow"
+msgstr "Tiden (i sekunder) som en övergång körs mellan bilder i ett bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:199
+msgid "transition effect id"
+msgstr "övergångseffekt-ID"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:200
+msgid ""
+"The name of the transition effect that will be used between photos when "
+"running a slideshow"
+msgstr ""
+"Namnet på övergångseffekten som kommer att användas mellan bilder vid "
+"körning av ett bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:205
+msgid "Show title"
+msgstr "Visa titel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:206
+msgid "Whether to show the title of a photo during the slideshow"
+msgstr "Huruvida titel för en bild ska visas under bildspelet"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:213
+msgid "maximize library window"
+msgstr "maximera biblioteksfönstret"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:214
+msgid "True if library application is maximized, false otherwise."
+msgstr "True om biblioteksprogrammet är maximerat, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:219
+msgid "width of library window"
+msgstr "bredd på biblioteksfönstret"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:220
+msgid "The last recorded width of the library application window."
+msgstr "Den senast lagrade bredden på bibliotekprogrammets fönster."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:225
+msgid "height of library window"
+msgstr "höjden på biblioteksfönstret"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:226
+msgid "The last recorded height of the library application window."
+msgstr "Den senast lagrade höjden på bibliotekprogrammets fönster."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:231
+msgid "maximize direct-edit window"
+msgstr "maximera direktredigeringsfönstret"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:232
+msgid "True if direct-edit application is maximized, false otherwise."
+msgstr "True om direktredigeringsprogrammet är maximerat, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:237
+msgid "width of direct-edit window"
+msgstr "bredd på direktredigeringsfönstret"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:238
+msgid "The last recorded width of the direct-edit application window."
+msgstr "Den senast lagrade bredden på direktredigeringsprogrammets fönster."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:243
+msgid "height of direct-edit window"
+msgstr "höjd på direktredigeringsfönstret"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:244
+msgid "The last recorded height of the direct-edit application window."
+msgstr "Den senast lagrade höjden på direktredigeringsprogrammets fönster."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:249
+msgid "sidebar divider position"
+msgstr "position på sidopanelens avdelare"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:250
+msgid ""
+"The last recorded position of the divider between the sidebar and view in "
+"library application window."
+msgstr ""
+"Den senast lagrade positionen på avdelaren mellan sidopanelen och vyn i "
+"biblioteksprogrammets fönster."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:257
+msgid "import directory"
+msgstr "importkatalog"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:258
+msgid "Directory in which imported photo files are placed."
+msgstr "Katalog i vilken importerade bildfiler placeras."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:263
+msgid "watch library directory for new files"
+msgstr "bevaka bibliotekskatalogen efter nya filer"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:264
+msgid ""
+"If true, files added to the library directory are automatically imported."
+msgstr "Om true importeras filer tillagda i bibliotekskatalogen automatiskt."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:269
+msgid "write metadata to master files"
+msgstr "skriver metadata till huvudfiler"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:270
+msgid ""
+"If true, changes to metadata (tags, titles, etc.) are written to the master "
+"photo file."
+msgstr ""
+"Om true skrivs ändringar i metadata (taggar, titlar och så vidare) till "
+"huvudbildfilen."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:275
+msgid "use lowercase filenames"
+msgstr "använd filnamn i gemener"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:276
+msgid ""
+"If true, Shotwell will convert all filenames to lowercase when importing "
+"photo files"
+msgstr ""
+"Om true kommer Shotwell att konvertera alla filnamn till gemener vid import "
+"av bildfiler"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:281
+msgid "directory pattern"
+msgstr "katalogmönster"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:282
+msgid ""
+"A string encoding a naming pattern that will be used to name photo "
+"directories on import."
+msgstr ""
+"En sträng med namnmönster som kommer att användas för att namnge "
+"bildkataloger vid import."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:287
+msgid "directory pattern custom"
+msgstr "anpassat katalogmönster"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:288
+msgid ""
+"A string encoding a custom naming pattern that will be used to name photo "
+"directories on import."
+msgstr ""
+"En sträng med ett anpassat namnmönster som kommer att användas för att "
+"namnge bildkataloger vid import."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:293
+msgid "RAW developer default"
+msgstr "standard-RAW-framkallare"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:294
+msgid "Default option for which RAW developer Shotwell will use."
+msgstr "Standardalternativ för vilken RAW-framkallare Shotwell ska använda."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:301
+msgid "Most-recently-used crop aspect ratio menu choice."
+msgstr "Menyval för senast använda bildförhållande vid beskärning."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:302
+msgid "A numeric code representing the last crop menu choice the user made."
+msgstr ""
+"En sifferkod representerande det senast använda beskärningsmenyvalet en "
+"användare gjorde."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:306
+msgid "Most-recently-used crop custom aspect ratio’s numerator."
+msgstr "Täljare för senast använda anpassade bildförhållande vid beskärning."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:307
+msgid ""
+"A nonzero, positive integer representing the width part of the last custom "
+"crop ratio the user entered."
+msgstr ""
+"Ett nollskilt, positivt heltal motsvarande bredd-delen för det senast "
+"använda anpassade bildförhållandet för beskärning användaren valde."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:311
+msgid "Most-recently-used crop custom aspect ratio’s denominator."
+msgstr "Nämnare för senast använda anpassade bildförhållande vid beskärning."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:312
+msgid ""
+"A nonzero, positive integer representing the height part of the last custom "
+"crop ratio the user entered."
+msgstr ""
+"Ett nollskilt, positivt heltal motsvarande höjddelen för det senast använda "
+"anpassade bildförhållandet för beskärning användaren valde."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:319
+msgid "external photo editor"
+msgstr "extern bildredigerare"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:320
+msgid "External application used to edit photos."
+msgstr "Externt program att använda för att redigera bilder."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:325
+msgid "external raw editor"
+msgstr "extern RAW-redigerare"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:326
+msgid "External application used to edit RAW photos."
+msgstr "Externt program att använda för att redigera RAW-bilder."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:364
+#: data/gsettings/org.yorba.shotwell.gschema.xml:365
+msgid "Setting in export dialog: how to trim images"
+msgstr "Inställning i exportdialogen: hur bilder justeras"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:370
+msgid "export metadata"
+msgstr "exportera metadata"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:371
+msgid "Setting in export dialog: option to export metadata"
+msgstr "Inställning i exportdialogen: exportalternativ för metadata"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:376
+msgid "format setting, special value"
+msgstr "formatinställning, specialvärde"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:377
+msgid "Setting in export dialog: format setting, special value"
+msgstr "Inställning i exportdialogen: formatinställning, specialvärde"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:382
+msgid "format setting, type value"
+msgstr "formatinställning, typvärde"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:383
+msgid "Setting in export dialog: format setting, type value"
+msgstr "Inställning i exportdialogen: formatinställning, typvärde"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:388
+msgid "JPEG quality option"
+msgstr "Alternativ för JPEG-kvalitet"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:389
+msgid "Setting in export dialog: jpeg quality option"
+msgstr "Inställning i exportdialogen: alternativ för jpeg-kvalitet"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:394
+msgid "maximal size of image"
+msgstr "maximal bildstorlek"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:395
+msgid "Setting in export dialog: maximal size of image"
+msgstr "Inställning i exportdialogen: maximal bildstorlek"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:402
+msgid "last used publishing service"
+msgstr "senast använda publiceringstjänst"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:403
+#: data/gsettings/org.yorba.shotwell.gschema.xml:409
+msgid ""
+"A numeric code representing the last service to which photos were published"
+msgstr ""
+"En sifferkod representerande senaste tjänsten till vilken bilder publicerades"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:408
+msgid "default publishing service"
+msgstr "standardtjänst för publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:422
+msgid "access token"
+msgstr "åtkomsttoken"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:423
+msgid "Facebook OAuth token for the currently logged in session, if any"
+msgstr "Facebook OAuth-token för den inloggade sessionen, om någon"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:428
+msgid "user i.d."
+msgstr "användar-id"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:429
+msgid "Facebook user i.d. for the currently logged in user, if any"
+msgstr "Facebook-användar-id för den inloggade användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:434
+msgid "user name"
+msgstr "användarnamn"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:435
+msgid "The name of the currently logged in Facebook user, if any"
+msgstr "Namnet på den inloggade Facebook-användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:440
+#: data/gsettings/org.yorba.shotwell.gschema.xml:472
+msgid "default size code"
+msgstr "standardstorlekskod"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:441
+msgid ""
+"A numeric code representing the default size for photos published to Facebook"
+msgstr ""
+"En sifferkod representerande standardstorleken för bilder publicerade till "
+"Facebook"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:447
+msgid ""
+"Whether images being uploaded to Facebook should have their metadata removed "
+"first"
+msgstr ""
+"Huruvida bilder som skickas upp till Facebook ska rensas på metadata först"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:454
+msgid "OAuth Access Phase Token"
+msgstr "OAuth-token för åtkomstfas"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:455
+msgid "The authorization token for the currently logged in Flickr user, if any"
+msgstr "Autentiseringstoken för inloggad Flickr-användare, om någon"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:460
+msgid "OAuth Access Phase Token Secret"
+msgstr "OAuth-hemlighet för åtkomstfas"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:461
+msgid ""
+"The cryptographic secret used to sign requests against the authorization "
+"token for the currently logged in Flickr user, if any"
+msgstr ""
+"Den kryptografiska hemligheten använd för att signera begäran mot "
+"auktoriseringstoken för den inloggade Flickr-användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:467
+msgid "The user name of the currently logged in Flickr user, if any"
+msgstr "Användarnamnet för den inloggade Flickr-användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:473
+msgid ""
+"A numeric code representing the default size for photos published to Flickr"
+msgstr ""
+"En sifferkod representerande standardstorleken för bilder publicerade till "
+"Flickr"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:478
+msgid "default visibility"
+msgstr "standardsynlighet"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:479
+msgid ""
+"A numeric code representing the default visibility for photos published to "
+"Flickr"
+msgstr ""
+"En sifferkod representerande standardsynlighet för bilder publicerade till "
+"Flickr"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:485
+msgid ""
+"Whether images being uploaded to Flickr should have their metadata removed "
+"first"
+msgstr "Huruvida bilder uppskickade till Flickr ska rensas på metadata först"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:492
+#: data/gsettings/org.yorba.shotwell.gschema.xml:624
+msgid "refresh token"
+msgstr "uppdatera token"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:493
+msgid ""
+"The OAuth token used to refresh the Picasa Web Albums session for the "
+"currently logged in user, if any."
+msgstr ""
+"OAuth-token använd för att uppdatera Picasa Web Album-sessionen för den "
+"inloggade användaren, om någon."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:499
+msgid ""
+"A numeric code representing the default size for photos uploaded to Picasa "
+"Web Albums"
+msgstr ""
+"En sifferkod representerande standardstorleken för bilder uppskickade till "
+"Picasa Web Albums"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:504
+#: data/gsettings/org.yorba.shotwell.gschema.xml:598
+msgid "last album"
+msgstr "senaste album"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:505
+#: data/gsettings/org.yorba.shotwell.gschema.xml:599
+msgid "The name of the last album the user published photos to, if any"
+msgstr "Namnet på senaste albumet användaren publicerade bilder till, om något"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:511
+msgid ""
+"Whether images being uploaded to Picasa should have their metadata removed "
+"first"
+msgstr "Huruvida bilder uppskickade till Picasa ska rensas på metadata först"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:518
+msgid "Piwigo URL"
+msgstr "Piwigo-URL"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:519
+msgid "URL of the Piwigo server."
+msgstr "URL till Piwigo-servern."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:525
+msgid "Piwigo username, if logged in."
+msgstr "Piwigo-användarnamn om inloggad."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:530
+msgid "password"
+msgstr "lösenord"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:531
+msgid "Piwigo password, if logged in."
+msgstr "Piwigo-lösenord om inloggad."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:536
+msgid "remember password"
+msgstr "kom ihåg lösenord"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:537
+msgid "If true, remember the Piwigo password."
+msgstr "Om true, kom ihåg Piwigo-lösenordet."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:543
+msgid "The last selected Piwigo category."
+msgstr "Senaste valda Piwigo-kategori."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:548
+msgid "last permission level"
+msgstr "senaste rättighetsnivå"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:549
+msgid "The last chosen Piwigo permission level."
+msgstr "Den senast valda Piwigo-rättighetsnivån."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:555
+msgid ""
+"A numeric code representing the last photo size preset used when publishing "
+"to Piwigo."
+msgstr ""
+"En sifferkod representerande den senaste förinställningen för bildstorlek "
+"använd vid publicering till Piwigo."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:561
+msgid ""
+"Whether images being uploaded to Piwigo should have their metadata removed "
+"first"
+msgstr "Huruvida bilder uppskickade till Piwigo ska rensas på metadata först"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:566
+msgid ""
+"if title is set and comment unset, use title as comment for uploads to Piwigo"
+msgstr ""
+"om en titel är angiven men inte kommentaren, använd titeln som kommentar för "
+"sändningar till Piwigo"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:567
+msgid ""
+"Whether images being uploaded to Piwigo should have their comment set from "
+"the title if title is set and comment unset"
+msgstr ""
+"Huruvida bilder uppskickade till Piwigo ska ha sin kommentar satt från "
+"titeln om titel är angivet och kommentar tomt"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:572
+msgid "do not upload tags when uploading to Piwigo"
+msgstr "skicka inte upp taggar vid sändning till Piwigo"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:573
+msgid ""
+"Whether images being uploaded to Piwigo should have their tags removed on "
+"upload, such that these tags will not appear on the remote Piwigo server."
+msgstr ""
+"Huruvida bilder som skickas upp till Piwigo ska rensas på taggar innan, så "
+"att dessa taggar inte uppstår på fjärr-Piwigo-servern."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:581
+msgid "Gallery3 username"
+msgstr "Gallery3-användarnamn"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:586
+msgid "API key"
+msgstr "API-nyckel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:587
+msgid "Gallery3 API key"
+msgstr "Gallery3-API-nyckel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:592
+msgid "URL"
+msgstr "URL"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:593
+msgid "Gallery3 site URL"
+msgstr "Gallery3-webbplats-URL"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:605
+msgid ""
+"Indicates whether images being uploaded to Gallery3 should have their "
+"metadata removed first"
+msgstr "Huruvida bilder uppskickade till Gallery3 ska rensas på metadata först"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:610
+msgid "scaling constraint of uploaded picture"
+msgstr "skalningsbegränsning för den uppskickade bilden"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:611
+msgid "The scaling constraint ID of the picture to be uploaded"
+msgstr "Skalningsbegränsnings-ID för den uppskickade bilden"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:616
+msgid "pixels of the major axis uploaded picture"
+msgstr "bildpunkter för storaxeln på den uppskickade bilden"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:617
+msgid ""
+"The pixels of the major axis of the picture to be uploaded; used only if "
+"scaling-constraint-id is an appropriate value"
+msgstr ""
+"Bildpunkterna för storaxeln för bilden att skickas upp; används endast om "
+"skalningsbegränsnings-id är ett passande värde"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:625
+msgid ""
+"The OAuth token used to refresh the YouTube session for the currently logged "
+"in user, if any."
+msgstr ""
+"OAuth-token använd för att uppdatera YouTube-sessionen för den inloggade "
+"användaren, om någon."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:632
+msgid "last used import service"
+msgstr "senast använda importtjänst"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:633
+msgid ""
+"A numeric code representing the last service from which photos were imported"
+msgstr ""
+"En sifferkod representerande senaste tjänsten till vilken bilder importerades"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:640
+msgid "interpreter state cookie"
+msgstr "kaka för tillståndstolkare"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:641
+msgid ""
+"A numeric code that captures the state of the GStreamer plug-in environment"
+msgstr "En sifferkod som fångar upp tillståndet för GStreamers insticksmiljö"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:648
+msgid "content layout mode"
+msgstr "layoutläge för innehåll"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:649
+msgid ""
+"A numeric code that describes how photos are laid out on the page during "
+"printing"
+msgstr "En sifferkod som beskriver hur bilder läggs ut på sidan vid utskrift"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:654
+msgid "content ppi"
+msgstr "innehålls-ppi"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:655
+msgid "The number of pixels per inch (ppi) sent to the printer during printing"
+msgstr "Antalet bildpunkter per tum (ppi) skickat till skrivaren vid utskrift"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:660
+msgid "content width"
+msgstr "innehållsbredd"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:661
+msgid "The width of the printed emulsion on the page when printing"
+msgstr "Bredden på den utskrivna emulsionen för sidan vid utskrift"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:666
+msgid "content height"
+msgstr "innehållshöjd"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:667
+msgid "The height of the printed emulsion on the page when printing"
+msgstr "Höjden på den utskrivna emulsionen för sidan vid utskrift"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:672
+msgid "content units"
+msgstr "innehållenheter"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:673
+msgid ""
+"A numeric code representing unit of measure (inches or centimeters) used "
+"when printing"
+msgstr ""
+"En sifferkod representerande mätningsenhet (tum eller centimeter) använd vid "
+"utskrift"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:678
+msgid "images per page code"
+msgstr "bilder per sidkod"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:679
+msgid ""
+"A numeric code representing the currently selected images per page mode used "
+"when printing"
+msgstr ""
+"En sifferkod representerande aktuellt valda bilder per sidoläge använt vid "
+"utskrift"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:684
+msgid "size selection"
+msgstr "storleksval"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:685
+msgid ""
+"The index of the current print size in a pre-defined list of standard sizes"
+msgstr ""
+"Indexet för den aktuella utskriftsstorleken i en fördefinierad lista över "
+"standardstorlekar"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:690
+msgid "match aspect ratio"
+msgstr "matcha bildförhållande"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:691
+msgid ""
+"Determines whether custom print sizes must match the aspect ratio of the "
+"original photo"
+msgstr ""
+"Avgör huruvida anpassade utskriftsstorlekar måste matcha bildförhållandet "
+"för originalbilden"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:696
+msgid "print titles"
+msgstr "skriv ut titlar"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:697
+msgid ""
+"True if the title of a photo should be printed when the photo is printed, "
+"false otherwise."
+msgstr ""
+"True om en bildtitel ska skrivas ut när bilden skrivs ut, annars false."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:702
+msgid "titles font"
+msgstr "titeltypsnitt"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:703
+msgid "The name of the font to use for photo titles when they are printed."
+msgstr "Namnet på typsnittet att använda för bildtitlar när de skrivs ut."
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:714
+msgid "enable facebook publishing plugin"
+msgstr "aktivera insticksmodulen för Facebook-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:715
+msgid "True if the Facebook publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Facebook-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:720
+msgid "enable flickr publishing plugin"
+msgstr "aktivera insticksmodulen för Flickr-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:721
+msgid "True if the Flickr publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Flickr-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:726
+msgid "enable picasa publishing plugin"
+msgstr "aktivera insticksmodulen för Picasa-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:727
+msgid ""
+"True if the Picasa Web Albums publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Picasa Web Albums-publicering är aktiverad, "
+"annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:732
+msgid "enable youtube publishing plugin"
+msgstr "aktivera insticksmodulen för YouTube-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:733
+msgid "True if the YouTube publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för YouTube-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:738
+msgid "enable piwigo publishing plugin"
+msgstr "aktivera insticksmodulen för Piwigo-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:739
+msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Piwigo-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:744
+msgid "enable yandex publishing plugin"
+msgstr "aktivera insticksmodulen för Yandex-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:745
+msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Yandex.Fotki-publicering är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:750
+msgid "enable tumblr publishing plugin"
+msgstr "aktivera insticksmodulen för Tumblr-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:751
+msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Tumblr-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:756
+msgid "enable rajce publishing plugin"
+msgstr "aktivera insticksmodulen för Rajce-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:757
+msgid "True if the Rajce publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Rajce-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:762
+msgid "enable gallery3 publishing plugin"
+msgstr "aktivera insticksmodulen för Gallery3-publicering"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:763
+msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen för Gallery3-publicering är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:768
+msgid "enable F-Spot import plugin"
+msgstr "aktivera insticksmodulen för F-Spot-import"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:769
+msgid "True if the F-Spot import plugin is enabled, false otherwise"
+msgstr "True om insticksmodulen för F-Spot-import är aktiverad, annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:774
+msgid "enable slideshow crumble transition"
+msgstr "aktivera söndersmulningsövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:775
+msgid ""
+"True if the Crumble slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Smula sönder för bildspelsövergångar är aktiverad, "
+"annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:780
+msgid "enable slideshow fade transition"
+msgstr "aktivera uttoningsövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:781
+msgid ""
+"True if the Fade slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Tona ut för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:786
+msgid "enable slideshow slide transition"
+msgstr "aktivera glidövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:787
+msgid ""
+"True if the Slide slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Glid för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:792
+msgid "enable slideshow clock transition"
+msgstr "aktivera klockövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:793
+msgid ""
+"True if the Clock slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Klocka för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:798
+msgid "enable slideshow circle transition"
+msgstr "aktivera cirkelövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:799
+msgid ""
+"True if the Circle slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Cirkel för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:804
+msgid "enable slideshow circles transition"
+msgstr "aktivera övergång med cirklar för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:805
+msgid ""
+"True if the Circles slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Cirklar för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:810
+msgid "enable slideshow blinds transition"
+msgstr "aktivera persiennövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:811
+msgid ""
+"True if the Blinds slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Persienner för bildspelsövergångar är aktiverad, "
+"annars false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:816
+msgid "enable slideshow squares transition"
+msgstr "aktivera rutövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:817
+msgid ""
+"True if the Squares slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Rutor för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:822
+msgid "enable slideshow stripes transition"
+msgstr "aktivera randövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:823
+msgid ""
+"True if the Stripes slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"True om insticksmodulen Randig för bildspelsövergångar är aktiverad, annars "
+"false"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:828
+msgid "enable slideshow chess transition"
+msgstr "aktivera schackövergång för bildspel"
+
+#: data/gsettings/org.yorba.shotwell.gschema.xml:829
+msgid ""
+"True if the Chess-Board slideshow transition plugin is enabled, false "
+"otherwise"
+msgstr ""
+"True om insticksmodulen Schackrutig för bildspelsövergångar är aktiverad, "
+"annars false"
+
+#: data/org.gnome.Shotwell.appdata.xml.in:8
+#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
+#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
+#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:347
+#: data/ui/tags.ui:356
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
-#: ui/event.ui:524 ui/faces.ui:356 ui/media.ui:356 ui/photo_context.ui:91
-#: ui/photo.ui:347 ui/tags.ui:356
+#: src/photos/RawSupport.vala:308
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#: misc/shotwell.appdata.xml.in:9
+#: data/org.gnome.Shotwell.appdata.xml.in:9
 msgid "Popular photo manager"
 msgstr "Populär bildhanterare"
 
-#: misc/shotwell.appdata.xml.in:11
+#: data/org.gnome.Shotwell.appdata.xml.in:11
 msgid ""
 "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
 "desktop. It allows you to import photos from your camera or disk, organize "
@@ -56,7 +1324,7 @@ msgstr ""
 "ändrar inte dina huvudbilder och gör det enkelt att experimentera och rätta "
 "fel."
 
-#: misc/shotwell.appdata.xml.in:18
+#: data/org.gnome.Shotwell.appdata.xml.in:18
 msgid ""
 "When ready, Shotwell can upload your photos to various web sites, such as "
 "Facebook, Flickr, Picasa (Google Plus), and more."
@@ -64,24 +1332,24 @@ msgstr ""
 "Shotwell kan, om så önskas, skicka upp dina bilder till olika webbplatser "
 "som Facebook, Flickr, Picasa (Google Plus) och fler."
 
-#: misc/shotwell.appdata.xml.in:22
+#: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell stödjer JPEG, PNG, TIFF och flera varianter av RAW-filformat."
 
-#: misc/shotwell.appdata.xml.in:52
+#: data/org.gnome.Shotwell.appdata.xml.in:52
 msgid "The Shotwell developers"
 msgstr "Shotwells utvecklare"
 
-#: misc/shotwell.desktop.in:5 src/Resources.vala:17
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Bildhanterare"
 
-#: misc/shotwell.desktop.in:6
+#: data/org.gnome.Shotwell.desktop.in:6
 msgid "Organize your photos"
 msgstr "Organisera dina bilder"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: misc/shotwell.desktop.in:8
+#: data/org.gnome.Shotwell.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -92,1283 +1360,937 @@ msgstr ""
 "dela;taggar;video;facebook;flickr;picasa;youtube;piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
-msgid "shotwell"
-msgstr "shotwell"
+#: data/org.gnome.Shotwell.desktop.in:11
+#: data/org.gnome.Shotwell-Viewer.desktop.in:8
+#| msgid "Shotwell"
+msgid "org.gnome.Shotwell"
+msgstr "org.gnome.Shotwell"
 
-#: misc/shotwell-viewer.desktop.in:4
+#: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Shotwell bildvisare"
 
-#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
+#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
 msgstr "Bildvisare"
 
-#: misc/org.yorba.shotwell-extras.gschema.xml:6
-msgid "authentication token"
-msgstr "autentiseringstoken"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:7
-msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Yandex-Fotki-autentiseringstoken om inloggad."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:14
-msgid "Token"
-msgstr "Token"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:15
-msgid "The token to access tumblr"
-msgstr "Token för att komma åt tumblr"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:20
-msgid "Secret token"
-msgstr "Hemlig token"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:21
-msgid "The secret token to sign oauth requests"
-msgstr "Det hemliga token som signerar oauth-begäran"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:26
-#: misc/org.yorba.shotwell.gschema.xml:498
-msgid "default size"
-msgstr "standardstorlek"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:27
-msgid ""
-"A numeric code representing the default size for photos uploaded to Tumblr"
-msgstr ""
-"En sifferkod representerande standardstorlek för bilder skickade till Tumblr"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:32
-msgid "default blog"
-msgstr "standardblogg"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:33
-msgid "The name of the default blog of the user, if any"
-msgstr "Namnet på standardbloggen för användaren, om någon"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:40
-msgid "Rajce URL"
-msgstr "Rajce-URL"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:41
-msgid "URL of the Rajce server."
-msgstr "URL för Rajce-server."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:46
-#: misc/org.yorba.shotwell.gschema.xml:466
-#: misc/org.yorba.shotwell.gschema.xml:524
-#: misc/org.yorba.shotwell.gschema.xml:580
-msgid "username"
-msgstr "användarnamn"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:47
-msgid "Rajce username, if logged in."
-msgstr "Rajce-användarnamn om inloggad."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:52
-msgid "token"
-msgstr "token"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:53
-msgid "user token, if remembered."
-msgstr "användartoken, om ihågkommen."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:58
-#: misc/org.yorba.shotwell.gschema.xml:542
-msgid "last category"
-msgstr "senaste kategori"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:59
-msgid "The last selected Rajce category."
-msgstr "Senast valda Rajce-kategori."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:64
-#: misc/org.yorba.shotwell.gschema.xml:554
-msgid "last photo size"
-msgstr "senaste bildstorlek"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:65
-msgid ""
-"A numeric code representing the last photo size preset used when publishing "
-"to Rajce."
-msgstr ""
-"En sifferkod representerande den senaste förinställningen för bildstorlek "
-"använd vid publicering till Rajce."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:70
-msgid "remember"
-msgstr "kom ihåg"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:71
-msgid "If true, remember last login."
-msgstr "Om true, dölj den senast skapade inloggningen."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:76
-msgid "hide album"
-msgstr "göm album"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:77
-msgid "If true, hide the newly created Rajce album."
-msgstr "Om true, dölj det senast skapade Rajce-albumet."
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:82
-msgid "open album in web browser"
-msgstr "öppna album i webbläsare"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:83
-msgid ""
-"If true, open target album in the web browser just after uploading photos"
-msgstr ""
-"Om true, öppna målalbumet i webbläsaren efter att ha skickat upp bilder"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:88
-#: misc/org.yorba.shotwell.gschema.xml:446
-#: misc/org.yorba.shotwell.gschema.xml:484
-#: misc/org.yorba.shotwell.gschema.xml:510
-#: misc/org.yorba.shotwell.gschema.xml:560
-#: misc/org.yorba.shotwell.gschema.xml:604
-msgid "remove sensitive info from uploads"
-msgstr "ta bort känslig information från sändningar"
-
-#: misc/org.yorba.shotwell-extras.gschema.xml:89
-msgid ""
-"Whether images being uploaded to Rajce should have their metadata removed "
-"first"
-msgstr "Huruvida bilder uppskickade till Rajce ska rensas på metadata först"
-
-#: misc/org.yorba.shotwell.gschema.xml:23
-msgid "display basic properties"
-msgstr "visa grundläggande egenskaper"
-
-#: misc/org.yorba.shotwell.gschema.xml:24
-msgid "True if the basic properties pane is to be displayed, false otherwise."
-msgstr ""
-"True om panelen för de grundläggande egenskaperna ska visas, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:29
-msgid "display extended properties"
-msgstr "visa utökade egenskaper"
-
-#: misc/org.yorba.shotwell.gschema.xml:30
-msgid ""
-"True if the extended properties window is to be displayed, false otherwise."
-msgstr "True om panelen för de utökade egenskaperna ska visas, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:35
-msgid "display sidebar"
-msgstr "visa sidopanelen"
-
-#: misc/org.yorba.shotwell.gschema.xml:36
-msgid "True if the sidebar is to be displayed, false otherwise."
-msgstr "True om sidopanelen ska visas, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:41
-msgid "display toolbar"
-msgstr "visa verktygsfältet"
-
-#: misc/org.yorba.shotwell.gschema.xml:42
-msgid "True if the bottom toolbar is to be displayed, false otherwise."
-msgstr "True om det nedre verktygsfältet ska visas, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:47
-msgid "display search bar"
-msgstr "visa sökfältet"
-
-#: misc/org.yorba.shotwell.gschema.xml:48
-msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
-msgstr "True om sök-/filterverktygsfältet ska visas, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:53
-msgid "display photo titles"
-msgstr "visa bildtitlar"
-
-#: misc/org.yorba.shotwell.gschema.xml:54
-msgid ""
-"True if photo titles are to be displayed beneath thumbnails in collection "
-"views, false otherwise."
-msgstr ""
-"True om bildtitlar ska visas under miniatyrbilder i samlingsvyerna, annars "
-"false."
-
-#: misc/org.yorba.shotwell.gschema.xml:59
-msgid "display photo comments"
-msgstr "visa bildkommentarer"
-
-#: misc/org.yorba.shotwell.gschema.xml:60
-msgid ""
-"True if photo comments are to be displayed beneath thumbnails in collection "
-"views, false otherwise."
-msgstr ""
-"True om bildkommentarer ska visas under miniatyrbilder i samlingsvyerna, "
-"annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:65
-msgid "display event comments"
-msgstr "visa händelsekommentarer"
-
-#: misc/org.yorba.shotwell.gschema.xml:66
-msgid ""
-"True if event comments are to be displayed beneath thumbnails in event "
-"views, false otherwise."
-msgstr ""
-"True om händelsekommentarer ska visas under miniatyrbilder i samlingsvyerna, "
-"annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:71
-msgid "display photo tags"
-msgstr "visa bildtaggar"
-
-#: misc/org.yorba.shotwell.gschema.xml:72
-msgid ""
-"True if photo tags are to be listed beneath thumbnails in collection views, "
-"false otherwise."
-msgstr ""
-"True om bildtaggar ska visas under miniatyrbilder i samlingsvyerna, annars "
-"false."
-
-#: misc/org.yorba.shotwell.gschema.xml:77
-msgid "display photo ratings"
-msgstr "visa bildbetyg"
-
-#: misc/org.yorba.shotwell.gschema.xml:78
-msgid ""
-"True if a photo’s rating should be displayed as overlaid trinket, false "
-"otherwise."
-msgstr "True om ett bildbetyg ska visas som en överlagd fasad, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:83
-msgid "rating filter level"
-msgstr "betygsfilternivå"
-
-#: misc/org.yorba.shotwell.gschema.xml:84
-msgid ""
-"Determines how to filter photos based on their ratings. 1: Rejected or "
-"better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
-"or better, 6: Four or better, 7: Five or better."
-msgstr ""
-"Avgör hur bilder filtreras baserat på deras betyg: 1: Avvisad eller bättre, "
-"2: Ej betygsatt eller bättre, 3: Ett eller bättre, 4: Två eller bättre, 5: "
-"Tre eller bättre, 6: Fyra eller bättre, 7: Fem eller bättre."
-
-#: misc/org.yorba.shotwell.gschema.xml:89
-msgid "sort events ascending"
-msgstr "sortera händelser stigande"
-
-#: misc/org.yorba.shotwell.gschema.xml:90
-msgid "True if events should be sorted ascending, false if descending."
-msgstr "True om händelser ska sorteras stigande, false om fallande."
-
-#: misc/org.yorba.shotwell.gschema.xml:95
-msgid "sort library photos ascending"
-msgstr "sortera biblioteksbilder stigande"
-
-#: misc/org.yorba.shotwell.gschema.xml:96
-msgid "True if library photos should be sorted ascending, false if descending."
-msgstr "True om biblioteksbilder ska sorteras stigande, false om fallande."
-
-#: misc/org.yorba.shotwell.gschema.xml:101
-msgid "sort library photos criteria"
-msgstr "kriterier för att sortera biblioteksbilder"
-
-#: misc/org.yorba.shotwell.gschema.xml:102
-msgid ""
-"A numeric code that specifies the sort criteria for photos in library views."
-msgstr ""
-"En sifferkod som specificerar sökkriterier för bilder i biblioteksvyer."
-
-#: misc/org.yorba.shotwell.gschema.xml:107
-msgid "sort event photos ascending"
-msgstr "sortera händelsebilder stigande"
-
-#: misc/org.yorba.shotwell.gschema.xml:108
-msgid "True if event photos should be sorted ascending, false if descending."
-msgstr "True om händelsebilder ska sorteras stigande, false om fallande."
-
-#: misc/org.yorba.shotwell.gschema.xml:113
-msgid "sort event photos criteria"
-msgstr "sortera händelsebilder efter kriterier"
-
-#: misc/org.yorba.shotwell.gschema.xml:114
-msgid "Specifies the sort criteria for event photos."
-msgstr "Specificerar sorteringskriterier för händelsebilder."
-
-#: misc/org.yorba.shotwell.gschema.xml:119
-msgid "use 24 hour time"
-msgstr "använd 24-timmarstid"
-
-#: misc/org.yorba.shotwell.gschema.xml:120
-msgid ""
-"True if should display times with a 24 hour clock, false if times should use "
-"AM/PM notation."
-msgstr ""
-"True om tid ska visas med en 24-timmars klocka, false om den ska visas med "
-"AM/PM-notation."
-
-#: misc/org.yorba.shotwell.gschema.xml:125
-msgid "keep relative time between photos"
-msgstr "behåll relativ tid mellan bilder"
-
-#: misc/org.yorba.shotwell.gschema.xml:126
-msgid ""
-"True if when adjusting time/date of photos, relative time should be "
-"maintained. False if all photos should be set to the same time."
-msgstr ""
-"True om relativ tid ska bevaras vid justering av tid/datum för bilder. False "
-"om alla bilder sätts till samma tid."
-
-#: misc/org.yorba.shotwell.gschema.xml:131
-msgid "modify original photo files"
-msgstr "modifiera filerna för originalbilderna"
-
-#: misc/org.yorba.shotwell.gschema.xml:132
-msgid ""
-"True if when adjusting time/date of photos, the original files should be "
-"modified as well. False if changes are made only in the database."
-msgstr ""
-"True om originalfilerna ska ändras vid justering av tid/datum för bilder. "
-"False om ändringar endast ska ske i databasen."
-
-#: misc/org.yorba.shotwell.gschema.xml:137
-msgid "show welcome dialog on startup"
-msgstr "visa välkomstdialog vid start"
-
-#: misc/org.yorba.shotwell.gschema.xml:138
-msgid ""
-"True if, when on startup, a welcome dialog should be shown. False if it "
-"should not be shown."
-msgstr ""
-"True om en välkomstdialog ska visas vid uppstart. False om den inte ska "
-"visas."
-
-#: misc/org.yorba.shotwell.gschema.xml:143
-msgid "sidebar position"
-msgstr "position på sidopanel"
-
-#: misc/org.yorba.shotwell.gschema.xml:144
-msgid "The width, in pixels, of the sidebar"
-msgstr "Sidopanelens bredd i bildpunkter"
-
-#: misc/org.yorba.shotwell.gschema.xml:149
-msgid "photo thumbnail scale"
-msgstr "miniatyrbildsskala"
-
-#: misc/org.yorba.shotwell.gschema.xml:150
-msgid "The scale of photo thumbnails, ranging from 72 to 360."
-msgstr "Skalan för miniatyrbilder, i intervallet 72 till 360."
-
-#: misc/org.yorba.shotwell.gschema.xml:155
-msgid "pin toolbar state"
-msgstr "verktygsfältets fästtillstånd"
-
-#: misc/org.yorba.shotwell.gschema.xml:156
-msgid "Pin toolbar in fullscreen, or not."
-msgstr "Fäst verktygsfält vid helskärm, eller fäst inte."
-
-#: misc/org.yorba.shotwell.gschema.xml:161
-msgid "prefer GTK+’s dark theme"
-msgstr "föredra GTK+:s mörka tema"
-
-#: misc/org.yorba.shotwell.gschema.xml:162
-msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
-msgstr ""
-"Huruvida det mörka temat för GTK+ ska användas för Shotwell eller inte."
-
-#: misc/org.yorba.shotwell.gschema.xml:167
-msgid "background for transparent images"
-msgstr "bakgrund för transparenta bilder"
-
-#: misc/org.yorba.shotwell.gschema.xml:168
-msgid "The background to use for transparent images."
-msgstr "Bakgrund att använda för transparenta bilder."
-
-#: misc/org.yorba.shotwell.gschema.xml:173
-msgid "color for solid transparency background"
-msgstr "färg för heltäckande transparent bakgrund"
-
-#: misc/org.yorba.shotwell.gschema.xml:174
-msgid "Color to use if background for transparent images is set to solid color"
-msgstr ""
-"Färgen att använda om bakgrunden för transparenta bilder är satt till solid "
-"färg"
-
-#: misc/org.yorba.shotwell.gschema.xml:179
-msgid "Selection state of “hide photos” option"
-msgstr "Valtillstånd för alternativet ”dölj bilder”"
-
-#: misc/org.yorba.shotwell.gschema.xml:180
-msgid ""
-"Last used selection state of the “hide photos already imported” option in "
-"the import page."
-msgstr ""
-"Senast använda tillstånd för ”dölj bilder som redan importerats” på "
-"importsidan."
-
-#: misc/org.yorba.shotwell.gschema.xml:187
-msgid "delay"
-msgstr "fördröjning"
-
-#: misc/org.yorba.shotwell.gschema.xml:188
-msgid "Delay (in seconds) between photos in the slideshow."
-msgstr "Fördröjning (i sekunder) mellan bilder i bildspelet."
-
-#: misc/org.yorba.shotwell.gschema.xml:193
-msgid "transition delay"
-msgstr "övergångsfördröjning"
-
-#: misc/org.yorba.shotwell.gschema.xml:194
-msgid ""
-"The time (in seconds) that a transition runs between photos in a slideshow"
-msgstr "Tiden (i sekunder) som en övergång körs mellan bilder i ett bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:199
-msgid "transition effect id"
-msgstr "övergångseffekt-ID"
-
-#: misc/org.yorba.shotwell.gschema.xml:200
-msgid ""
-"The name of the transition effect that will be used between photos when "
-"running a slideshow"
-msgstr ""
-"Namnet på övergångseffekten som kommer att användas mellan bilder vid "
-"körning av ett bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:205
-msgid "Show title"
-msgstr "Visa titel"
-
-#: misc/org.yorba.shotwell.gschema.xml:206
-msgid "Whether to show the title of a photo during the slideshow"
-msgstr "Huruvida titel för en bild ska visas under bildspelet"
-
-#: misc/org.yorba.shotwell.gschema.xml:213
-msgid "maximize library window"
-msgstr "maximera biblioteksfönstret"
-
-#: misc/org.yorba.shotwell.gschema.xml:214
-msgid "True if library application is maximized, false otherwise."
-msgstr "True om biblioteksprogrammet är maximerat, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:219
-msgid "width of library window"
-msgstr "bredd på biblioteksfönstret"
-
-#: misc/org.yorba.shotwell.gschema.xml:220
-msgid "The last recorded width of the library application window."
-msgstr "Den senast lagrade bredden på bibliotekprogrammets fönster."
-
-#: misc/org.yorba.shotwell.gschema.xml:225
-msgid "height of library window"
-msgstr "höjden på biblioteksfönstret"
-
-#: misc/org.yorba.shotwell.gschema.xml:226
-msgid "The last recorded height of the library application window."
-msgstr "Den senast lagrade höjden på bibliotekprogrammets fönster."
-
-#: misc/org.yorba.shotwell.gschema.xml:231
-msgid "maximize direct-edit window"
-msgstr "maximera direktredigeringsfönstret"
-
-#: misc/org.yorba.shotwell.gschema.xml:232
-msgid "True if direct-edit application is maximized, false otherwise."
-msgstr "True om direktredigeringsprogrammet är maximerat, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:237
-msgid "width of direct-edit window"
-msgstr "bredd på direktredigeringsfönstret"
-
-#: misc/org.yorba.shotwell.gschema.xml:238
-msgid "The last recorded width of the direct-edit application window."
-msgstr "Den senast lagrade bredden på direktredigeringsprogrammets fönster."
-
-#: misc/org.yorba.shotwell.gschema.xml:243
-msgid "height of direct-edit window"
-msgstr "höjd på direktredigeringsfönstret"
-
-#: misc/org.yorba.shotwell.gschema.xml:244
-msgid "The last recorded height of the direct-edit application window."
-msgstr "Den senast lagrade höjden på direktredigeringsprogrammets fönster."
-
-#: misc/org.yorba.shotwell.gschema.xml:249
-msgid "sidebar divider position"
-msgstr "position på sidopanelens avdelare"
-
-#: misc/org.yorba.shotwell.gschema.xml:250
-msgid ""
-"The last recorded position of the divider between the sidebar and view in "
-"library application window."
-msgstr ""
-"Den senast lagrade positionen på avdelaren mellan sidopanelen och vyn i "
-"biblioteksprogrammets fönster."
-
-#: misc/org.yorba.shotwell.gschema.xml:257
-msgid "import directory"
-msgstr "importkatalog"
-
-#: misc/org.yorba.shotwell.gschema.xml:258
-msgid "Directory in which imported photo files are placed."
-msgstr "Katalog i vilken importerade bildfiler placeras."
-
-#: misc/org.yorba.shotwell.gschema.xml:263
-msgid "watch library directory for new files"
-msgstr "bevaka bibliotekskatalogen efter nya filer"
-
-#: misc/org.yorba.shotwell.gschema.xml:264
-msgid ""
-"If true, files added to the library directory are automatically imported."
-msgstr "Om true importeras filer tillagda i bibliotekskatalogen automatiskt."
-
-#: misc/org.yorba.shotwell.gschema.xml:269
-msgid "write metadata to master files"
-msgstr "skriver metadata till huvudfiler"
-
-#: misc/org.yorba.shotwell.gschema.xml:270
-msgid ""
-"If true, changes to metadata (tags, titles, etc.) are written to the master "
-"photo file."
-msgstr ""
-"Om true skrivs ändringar i metadata (taggar, titlar och så vidare) till "
-"huvudbildfilen."
-
-#: misc/org.yorba.shotwell.gschema.xml:275
-msgid "use lowercase filenames"
-msgstr "använd filnamn i gemener"
-
-#: misc/org.yorba.shotwell.gschema.xml:276
-msgid ""
-"If true, Shotwell will convert all filenames to lowercase when importing "
-"photo files"
-msgstr ""
-"Om true kommer Shotwell att konvertera alla filnamn till gemener vid import "
-"av bildfiler"
-
-#: misc/org.yorba.shotwell.gschema.xml:281
-msgid "directory pattern"
-msgstr "katalogmönster"
-
-#: misc/org.yorba.shotwell.gschema.xml:282
-msgid ""
-"A string encoding a naming pattern that will be used to name photo "
-"directories on import."
-msgstr ""
-"En sträng med namnmönster som kommer att användas för att namnge "
-"bildkataloger vid import."
-
-#: misc/org.yorba.shotwell.gschema.xml:287
-msgid "directory pattern custom"
-msgstr "anpassat katalogmönster"
-
-#: misc/org.yorba.shotwell.gschema.xml:288
-msgid ""
-"A string encoding a custom naming pattern that will be used to name photo "
-"directories on import."
-msgstr ""
-"En sträng med ett anpassat namnmönster som kommer att användas för att "
-"namnge bildkataloger vid import."
-
-#: misc/org.yorba.shotwell.gschema.xml:293
-msgid "RAW developer default"
-msgstr "standard-RAW-framkallare"
-
-#: misc/org.yorba.shotwell.gschema.xml:294
-msgid "Default option for which RAW developer Shotwell will use."
-msgstr "Standardalternativ för vilken RAW-framkallare Shotwell ska använda."
-
-#: misc/org.yorba.shotwell.gschema.xml:301
-msgid "Most-recently-used crop aspect ratio menu choice."
-msgstr "Menyval för senast använda bildförhållande vid beskärning."
-
-#: misc/org.yorba.shotwell.gschema.xml:302
-msgid "A numeric code representing the last crop menu choice the user made."
-msgstr ""
-"En sifferkod representerande det senast använda beskärningsmenyvalet en "
-"användare gjorde."
-
-#: misc/org.yorba.shotwell.gschema.xml:306
-msgid "Most-recently-used crop custom aspect ratio’s numerator."
-msgstr "Täljare för senast använda anpassade bildförhållande vid beskärning."
-
-#: misc/org.yorba.shotwell.gschema.xml:307
-msgid ""
-"A nonzero, positive integer representing the width part of the last custom "
-"crop ratio the user entered."
-msgstr ""
-"Ett nollskilt, positivt heltal motsvarande bredd-delen för det senast "
-"använda anpassade bildförhållandet för beskärning användaren valde."
-
-#: misc/org.yorba.shotwell.gschema.xml:311
-msgid "Most-recently-used crop custom aspect ratio’s denominator."
-msgstr "Nämnare för senast använda anpassade bildförhållande vid beskärning."
-
-#: misc/org.yorba.shotwell.gschema.xml:312
-msgid ""
-"A nonzero, positive integer representing the height part of the last custom "
-"crop ratio the user entered."
-msgstr ""
-"Ett nollskilt, positivt heltal motsvarande höjddelen för det senast använda "
-"anpassade bildförhållandet för beskärning användaren valde."
-
-#: misc/org.yorba.shotwell.gschema.xml:319
-msgid "external photo editor"
-msgstr "extern bildredigerare"
-
-#: misc/org.yorba.shotwell.gschema.xml:320
-msgid "External application used to edit photos."
-msgstr "Externt program att använda för att redigera bilder."
-
-#: misc/org.yorba.shotwell.gschema.xml:325
-msgid "external raw editor"
-msgstr "extern RAW-redigerare"
-
-#: misc/org.yorba.shotwell.gschema.xml:326
-msgid "External application used to edit RAW photos."
-msgstr "Externt program att använda för att redigera RAW-bilder."
-
-#: misc/org.yorba.shotwell.gschema.xml:364
-#: misc/org.yorba.shotwell.gschema.xml:365
-msgid "Setting in export dialog: how to trim images"
-msgstr "Inställning i exportdialogen: hur bilder justeras"
-
-#: misc/org.yorba.shotwell.gschema.xml:370
-msgid "export metadata"
-msgstr "exportera metadata"
-
-#: misc/org.yorba.shotwell.gschema.xml:371
-msgid "Setting in export dialog: option to export metadata"
-msgstr "Inställning i exportdialogen: exportalternativ för metadata"
-
-#: misc/org.yorba.shotwell.gschema.xml:376
-msgid "format setting, special value"
-msgstr "formatinställning, specialvärde"
-
-#: misc/org.yorba.shotwell.gschema.xml:377
-msgid "Setting in export dialog: format setting, special value"
-msgstr "Inställning i exportdialogen: formatinställning, specialvärde"
-
-#: misc/org.yorba.shotwell.gschema.xml:382
-msgid "format setting, type value"
-msgstr "formatinställning, typvärde"
-
-#: misc/org.yorba.shotwell.gschema.xml:383
-msgid "Setting in export dialog: format setting, type value"
-msgstr "Inställning i exportdialogen: formatinställning, typvärde"
-
-#: misc/org.yorba.shotwell.gschema.xml:388
-msgid "JPEG quality option"
-msgstr "Alternativ för JPEG-kvalitet"
-
-#: misc/org.yorba.shotwell.gschema.xml:389
-msgid "Setting in export dialog: jpeg quality option"
-msgstr "Inställning i exportdialogen: alternativ för jpeg-kvalitet"
-
-#: misc/org.yorba.shotwell.gschema.xml:394
-msgid "maximal size of image"
-msgstr "maximal bildstorlek"
-
-#: misc/org.yorba.shotwell.gschema.xml:395
-msgid "Setting in export dialog: maximal size of image"
-msgstr "Inställning i exportdialogen: maximal bildstorlek"
-
-#: misc/org.yorba.shotwell.gschema.xml:402
-msgid "last used publishing service"
-msgstr "senast använda publiceringstjänst"
-
-#: misc/org.yorba.shotwell.gschema.xml:403
-#: misc/org.yorba.shotwell.gschema.xml:409
-msgid ""
-"A numeric code representing the last service to which photos were published"
-msgstr ""
-"En sifferkod representerande senaste tjänsten till vilken bilder publicerades"
-
-#: misc/org.yorba.shotwell.gschema.xml:408
-msgid "default publishing service"
-msgstr "standardtjänst för publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:422
-msgid "access token"
-msgstr "åtkomsttoken"
-
-#: misc/org.yorba.shotwell.gschema.xml:423
-msgid "Facebook OAuth token for the currently logged in session, if any"
-msgstr "Facebook OAuth-token för den inloggade sessionen, om någon"
-
-#: misc/org.yorba.shotwell.gschema.xml:428
-msgid "user i.d."
-msgstr "användar-id"
-
-#: misc/org.yorba.shotwell.gschema.xml:429
-msgid "Facebook user i.d. for the currently logged in user, if any"
-msgstr "Facebook-användar-id för den inloggade användaren, om någon"
-
-#: misc/org.yorba.shotwell.gschema.xml:434
-msgid "user name"
-msgstr "användarnamn"
-
-#: misc/org.yorba.shotwell.gschema.xml:435
-msgid "The name of the currently logged in Facebook user, if any"
-msgstr "Namnet på den inloggade Facebook-användaren, om någon"
-
-#: misc/org.yorba.shotwell.gschema.xml:440
-#: misc/org.yorba.shotwell.gschema.xml:472
-msgid "default size code"
-msgstr "standardstorlekskod"
-
-#: misc/org.yorba.shotwell.gschema.xml:441
-msgid ""
-"A numeric code representing the default size for photos published to Facebook"
-msgstr ""
-"En sifferkod representerande standardstorleken för bilder publicerade till "
-"Facebook"
-
-#: misc/org.yorba.shotwell.gschema.xml:447
-msgid ""
-"Whether images being uploaded to Facebook should have their metadata removed "
-"first"
-msgstr ""
-"Huruvida bilder som skickas upp till Facebook ska rensas på metadata först"
-
-#: misc/org.yorba.shotwell.gschema.xml:454
-msgid "OAuth Access Phase Token"
-msgstr "OAuth-token för åtkomstfas"
-
-#: misc/org.yorba.shotwell.gschema.xml:455
-msgid "The authorization token for the currently logged in Flickr user, if any"
-msgstr "Autentiseringstoken för inloggad Flickr-användare, om någon"
-
-#: misc/org.yorba.shotwell.gschema.xml:460
-msgid "OAuth Access Phase Token Secret"
-msgstr "OAuth-hemlighet för åtkomstfas"
-
-#: misc/org.yorba.shotwell.gschema.xml:461
-msgid ""
-"The cryptographic secret used to sign requests against the authorization "
-"token for the currently logged in Flickr user, if any"
-msgstr ""
-"Den kryptografiska hemligheten använd för att signera begäran mot "
-"auktoriseringstoken för den inloggade Flickr-användaren, om någon"
-
-#: misc/org.yorba.shotwell.gschema.xml:467
-msgid "The user name of the currently logged in Flickr user, if any"
-msgstr "Användarnamnet för den inloggade Flickr-användaren, om någon"
-
-#: misc/org.yorba.shotwell.gschema.xml:473
-msgid ""
-"A numeric code representing the default size for photos published to Flickr"
-msgstr ""
-"En sifferkod representerande standardstorleken för bilder publicerade till "
-"Flickr"
-
-#: misc/org.yorba.shotwell.gschema.xml:478
-msgid "default visibility"
-msgstr "standardsynlighet"
-
-#: misc/org.yorba.shotwell.gschema.xml:479
-msgid ""
-"A numeric code representing the default visibility for photos published to "
-"Flickr"
-msgstr ""
-"En sifferkod representerande standardsynlighet för bilder publicerade till "
-"Flickr"
-
-#: misc/org.yorba.shotwell.gschema.xml:485
-msgid ""
-"Whether images being uploaded to Flickr should have their metadata removed "
-"first"
-msgstr "Huruvida bilder uppskickade till Flickr ska rensas på metadata först"
-
-#: misc/org.yorba.shotwell.gschema.xml:492
-#: misc/org.yorba.shotwell.gschema.xml:624
-msgid "refresh token"
-msgstr "uppdatera token"
-
-#: misc/org.yorba.shotwell.gschema.xml:493
-msgid ""
-"The OAuth token used to refresh the Picasa Web Albums session for the "
-"currently logged in user, if any."
-msgstr ""
-"OAuth-token använd för att uppdatera Picasa Web Album-sessionen för den "
-"inloggade användaren, om någon."
-
-#: misc/org.yorba.shotwell.gschema.xml:499
-msgid ""
-"A numeric code representing the default size for photos uploaded to Picasa "
-"Web Albums"
-msgstr ""
-"En sifferkod representerande standardstorleken för bilder uppskickade till "
-"Picasa Web Albums"
-
-#: misc/org.yorba.shotwell.gschema.xml:504
-#: misc/org.yorba.shotwell.gschema.xml:598
-msgid "last album"
-msgstr "senaste album"
-
-#: misc/org.yorba.shotwell.gschema.xml:505
-#: misc/org.yorba.shotwell.gschema.xml:599
-msgid "The name of the last album the user published photos to, if any"
-msgstr "Namnet på senaste albumet användaren publicerade bilder till, om något"
-
-#: misc/org.yorba.shotwell.gschema.xml:511
-msgid ""
-"Whether images being uploaded to Picasa should have their metadata removed "
-"first"
-msgstr "Huruvida bilder uppskickade till Picasa ska rensas på metadata först"
-
-#: misc/org.yorba.shotwell.gschema.xml:518
-msgid "Piwigo URL"
-msgstr "Piwigo-URL"
-
-#: misc/org.yorba.shotwell.gschema.xml:519
-msgid "URL of the Piwigo server."
-msgstr "URL till Piwigo-servern."
-
-#: misc/org.yorba.shotwell.gschema.xml:525
-msgid "Piwigo username, if logged in."
-msgstr "Piwigo-användarnamn om inloggad."
-
-#: misc/org.yorba.shotwell.gschema.xml:530
-msgid "password"
-msgstr "lösenord"
-
-#: misc/org.yorba.shotwell.gschema.xml:531
-msgid "Piwigo password, if logged in."
-msgstr "Piwigo-lösenord om inloggad."
-
-#: misc/org.yorba.shotwell.gschema.xml:536
-msgid "remember password"
-msgstr "kom ihåg lösenord"
-
-#: misc/org.yorba.shotwell.gschema.xml:537
-msgid "If true, remember the Piwigo password."
-msgstr "Om true, kom ihåg Piwigo-lösenordet."
-
-#: misc/org.yorba.shotwell.gschema.xml:543
-msgid "The last selected Piwigo category."
-msgstr "Senaste valda Piwigo-kategori."
-
-#: misc/org.yorba.shotwell.gschema.xml:548
-msgid "last permission level"
-msgstr "senaste rättighetsnivå"
-
-#: misc/org.yorba.shotwell.gschema.xml:549
-msgid "The last chosen Piwigo permission level."
-msgstr "Den senast valda Piwigo-rättighetsnivån."
-
-#: misc/org.yorba.shotwell.gschema.xml:555
-msgid ""
-"A numeric code representing the last photo size preset used when publishing "
-"to Piwigo."
-msgstr ""
-"En sifferkod representerande den senaste förinställningen för bildstorlek "
-"använd vid publicering till Piwigo."
-
-#: misc/org.yorba.shotwell.gschema.xml:561
-msgid ""
-"Whether images being uploaded to Piwigo should have their metadata removed "
-"first"
-msgstr "Huruvida bilder uppskickade till Piwigo ska rensas på metadata först"
-
-#: misc/org.yorba.shotwell.gschema.xml:566
-msgid ""
-"if title is set and comment unset, use title as comment for uploads to Piwigo"
-msgstr ""
-"om en titel är angiven men inte kommentaren, använd titeln som kommentar för "
-"sändningar till Piwigo"
-
-#: misc/org.yorba.shotwell.gschema.xml:567
-msgid ""
-"Whether images being uploaded to Piwigo should have their comment set from "
-"the title if title is set and comment unset"
-msgstr ""
-"Huruvida bilder uppskickade till Piwigo ska ha sin kommentar satt från "
-"titeln om titel är angivet och kommentar tomt"
-
-#: misc/org.yorba.shotwell.gschema.xml:572
-msgid "do not upload tags when uploading to Piwigo"
-msgstr "skicka inte upp taggar vid sändning till Piwigo"
-
-#: misc/org.yorba.shotwell.gschema.xml:573
-msgid ""
-"Whether images being uploaded to Piwigo should have their tags removed on "
-"upload, such that these tags will not appear on the remote Piwigo server."
-msgstr ""
-"Huruvida bilder som skickas upp till Piwigo ska rensas på taggar innan, så "
-"att dessa taggar inte uppstår på fjärr-Piwigo-servern."
-
-#: misc/org.yorba.shotwell.gschema.xml:581
-msgid "Gallery3 username"
-msgstr "Gallery3-användarnamn"
-
-#: misc/org.yorba.shotwell.gschema.xml:586
-msgid "API key"
-msgstr "API-nyckel"
-
-#: misc/org.yorba.shotwell.gschema.xml:587
-msgid "Gallery3 API key"
-msgstr "Gallery3-API-nyckel"
-
-#: misc/org.yorba.shotwell.gschema.xml:592
-msgid "URL"
-msgstr "URL"
-
-#: misc/org.yorba.shotwell.gschema.xml:593
-msgid "Gallery3 site URL"
-msgstr "Gallery3-webbplats-URL"
-
-#: misc/org.yorba.shotwell.gschema.xml:605
-msgid ""
-"Indicates whether images being uploaded to Gallery3 should have their "
-"metadata removed first"
-msgstr "Huruvida bilder uppskickade till Gallery3 ska rensas på metadata först"
-
-#: misc/org.yorba.shotwell.gschema.xml:610
-msgid "scaling constraint of uploaded picture"
-msgstr "skalningsbegränsning för den uppskickade bilden"
-
-#: misc/org.yorba.shotwell.gschema.xml:611
-msgid "The scaling constraint ID of the picture to be uploaded"
-msgstr "Skalningsbegränsnings-ID för den uppskickade bilden"
-
-#: misc/org.yorba.shotwell.gschema.xml:616
-msgid "pixels of the major axis uploaded picture"
-msgstr "bildpunkter för storaxeln på den uppskickade bilden"
-
-#: misc/org.yorba.shotwell.gschema.xml:617
-msgid ""
-"The pixels of the major axis of the picture to be uploaded; used only if "
-"scaling-constraint-id is an appropriate value"
-msgstr ""
-"Bildpunkterna för storaxeln för bilden att skickas upp; används endast om "
-"skalningsbegränsnings-id är ett passande värde"
-
-#: misc/org.yorba.shotwell.gschema.xml:625
-msgid ""
-"The OAuth token used to refresh the YouTube session for the currently logged "
-"in user, if any."
-msgstr ""
-"OAuth-token använd för att uppdatera YouTube-sessionen för den inloggade "
-"användaren, om någon."
-
-#: misc/org.yorba.shotwell.gschema.xml:632
-msgid "last used import service"
-msgstr "senast använda importtjänst"
-
-#: misc/org.yorba.shotwell.gschema.xml:633
-msgid ""
-"A numeric code representing the last service from which photos were imported"
-msgstr ""
-"En sifferkod representerande senaste tjänsten till vilken bilder importerades"
-
-#: misc/org.yorba.shotwell.gschema.xml:640
-msgid "interpreter state cookie"
-msgstr "kaka för tillståndstolkare"
-
-#: misc/org.yorba.shotwell.gschema.xml:641
-msgid ""
-"A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr "En sifferkod som fångar upp tillståndet för GStreamers insticksmiljö"
-
-#: misc/org.yorba.shotwell.gschema.xml:648
-msgid "content layout mode"
-msgstr "layoutläge för innehåll"
-
-#: misc/org.yorba.shotwell.gschema.xml:649
-msgid ""
-"A numeric code that describes how photos are laid out on the page during "
-"printing"
-msgstr "En sifferkod som beskriver hur bilder läggs ut på sidan vid utskrift"
-
-#: misc/org.yorba.shotwell.gschema.xml:654
-msgid "content ppi"
-msgstr "innehålls-ppi"
-
-#: misc/org.yorba.shotwell.gschema.xml:655
-msgid "The number of pixels per inch (ppi) sent to the printer during printing"
-msgstr "Antalet bildpunkter per tum (ppi) skickat till skrivaren vid utskrift"
-
-#: misc/org.yorba.shotwell.gschema.xml:660
-msgid "content width"
-msgstr "innehållsbredd"
-
-#: misc/org.yorba.shotwell.gschema.xml:661
-msgid "The width of the printed emulsion on the page when printing"
-msgstr "Bredden på den utskrivna emulsionen för sidan vid utskrift"
-
-#: misc/org.yorba.shotwell.gschema.xml:666
-msgid "content height"
-msgstr "innehållshöjd"
-
-#: misc/org.yorba.shotwell.gschema.xml:667
-msgid "The height of the printed emulsion on the page when printing"
-msgstr "Höjden på den utskrivna emulsionen för sidan vid utskrift"
-
-#: misc/org.yorba.shotwell.gschema.xml:672
-msgid "content units"
-msgstr "innehållenheter"
-
-#: misc/org.yorba.shotwell.gschema.xml:673
-msgid ""
-"A numeric code representing unit of measure (inches or centimeters) used "
-"when printing"
-msgstr ""
-"En sifferkod representerande mätningsenhet (tum eller centimeter) använd vid "
-"utskrift"
-
-#: misc/org.yorba.shotwell.gschema.xml:678
-msgid "images per page code"
-msgstr "bilder per sidkod"
-
-#: misc/org.yorba.shotwell.gschema.xml:679
-msgid ""
-"A numeric code representing the currently selected images per page mode used "
-"when printing"
-msgstr ""
-"En sifferkod representerande aktuellt valda bilder per sidoläge använt vid "
-"utskrift"
-
-#: misc/org.yorba.shotwell.gschema.xml:684
-msgid "size selection"
-msgstr "storleksval"
-
-#: misc/org.yorba.shotwell.gschema.xml:685
-msgid ""
-"The index of the current print size in a pre-defined list of standard sizes"
-msgstr ""
-"Indexet för den aktuella utskriftsstorleken i en fördefinierad lista över "
-"standardstorlekar"
-
-#: misc/org.yorba.shotwell.gschema.xml:690
-msgid "match aspect ratio"
-msgstr "matcha bildförhållande"
-
-#: misc/org.yorba.shotwell.gschema.xml:691
-msgid ""
-"Determines whether custom print sizes must match the aspect ratio of the "
-"original photo"
-msgstr ""
-"Avgör huruvida anpassade utskriftsstorlekar måste matcha bildförhållandet "
-"för originalbilden"
-
-#: misc/org.yorba.shotwell.gschema.xml:696
-msgid "print titles"
-msgstr "skriv ut titlar"
-
-#: misc/org.yorba.shotwell.gschema.xml:697
-msgid ""
-"True if the title of a photo should be printed when the photo is printed, "
-"false otherwise."
-msgstr ""
-"True om en bildtitel ska skrivas ut när bilden skrivs ut, annars false."
-
-#: misc/org.yorba.shotwell.gschema.xml:702
-msgid "titles font"
-msgstr "titeltypsnitt"
-
-#: misc/org.yorba.shotwell.gschema.xml:703
-msgid "The name of the font to use for photo titles when they are printed."
-msgstr "Namnet på typsnittet att använda för bildtitlar när de skrivs ut."
-
-#: misc/org.yorba.shotwell.gschema.xml:714
-msgid "enable facebook publishing plugin"
-msgstr "aktivera insticksmodulen för Facebook-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:715
-msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Facebook-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:720
-msgid "enable flickr publishing plugin"
-msgstr "aktivera insticksmodulen för Flickr-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:721
-msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Flickr-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:726
-msgid "enable picasa publishing plugin"
-msgstr "aktivera insticksmodulen för Picasa-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:727
-msgid ""
-"True if the Picasa Web Albums publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Picasa Web Albums-publicering är aktiverad, "
-"annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:732
-msgid "enable youtube publishing plugin"
-msgstr "aktivera insticksmodulen för YouTube-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:733
-msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för YouTube-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:738
-msgid "enable piwigo publishing plugin"
-msgstr "aktivera insticksmodulen för Piwigo-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:739
-msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Piwigo-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:744
-msgid "enable yandex publishing plugin"
-msgstr "aktivera insticksmodulen för Yandex-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:745
-msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Yandex.Fotki-publicering är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:750
-msgid "enable tumblr publishing plugin"
-msgstr "aktivera insticksmodulen för Tumblr-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:751
-msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Tumblr-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:756
-msgid "enable rajce publishing plugin"
-msgstr "aktivera insticksmodulen för Rajce-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:757
-msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Rajce-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:762
-msgid "enable gallery3 publishing plugin"
-msgstr "aktivera insticksmodulen för Gallery3-publicering"
-
-#: misc/org.yorba.shotwell.gschema.xml:763
-msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen för Gallery3-publicering är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:768
-msgid "enable F-Spot import plugin"
-msgstr "aktivera insticksmodulen för F-Spot-import"
-
-#: misc/org.yorba.shotwell.gschema.xml:769
-msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr "True om insticksmodulen för F-Spot-import är aktiverad, annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:774
-msgid "enable slideshow crumble transition"
-msgstr "aktivera söndersmulningsövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:775
-msgid ""
-"True if the Crumble slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Smula sönder för bildspelsövergångar är aktiverad, "
-"annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:780
-msgid "enable slideshow fade transition"
-msgstr "aktivera uttoningsövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:781
-msgid ""
-"True if the Fade slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Tona ut för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:786
-msgid "enable slideshow slide transition"
-msgstr "aktivera glidövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:787
-msgid ""
-"True if the Slide slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Glid för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:792
-msgid "enable slideshow clock transition"
-msgstr "aktivera klockövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:793
-msgid ""
-"True if the Clock slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Klocka för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:798
-msgid "enable slideshow circle transition"
-msgstr "aktivera cirkelövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:799
-msgid ""
-"True if the Circle slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Cirkel för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:804
-msgid "enable slideshow circles transition"
-msgstr "aktivera övergång med cirklar för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:805
-msgid ""
-"True if the Circles slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Cirklar för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:810
-msgid "enable slideshow blinds transition"
-msgstr "aktivera persiennövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:811
-msgid ""
-"True if the Blinds slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Persienner för bildspelsövergångar är aktiverad, "
-"annars false"
-
-#: misc/org.yorba.shotwell.gschema.xml:816
-msgid "enable slideshow squares transition"
-msgstr "aktivera rutövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:817
-msgid ""
-"True if the Squares slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Rutor för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:822
-msgid "enable slideshow stripes transition"
-msgstr "aktivera randövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:823
-msgid ""
-"True if the Stripes slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"True om insticksmodulen Randig för bildspelsövergångar är aktiverad, annars "
-"false"
-
-#: misc/org.yorba.shotwell.gschema.xml:828
-msgid "enable slideshow chess transition"
-msgstr "aktivera schackövergång för bildspel"
-
-#: misc/org.yorba.shotwell.gschema.xml:829
-msgid ""
-"True if the Chess-Board slideshow transition plugin is enabled, false "
-"otherwise"
-msgstr ""
-"True om insticksmodulen Schackrutig för bildspelsövergångar är aktiverad, "
-"annars false"
+#: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:134
+#: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:223
+#: src/CollectionPage.vala:119 src/Resources.vala:157
+msgid "_Enhance"
+msgstr "Förbä_ttra"
+
+#: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:161
+#: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:250
+#: src/CollectionPage.vala:120 src/Resources.vala:185
+msgid "Re_vert to Original"
+msgstr "_Återställ till original"
+
+#: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
+#: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:375
+#: data/ui/tags.ui:390 src/Resources.vala:283
+msgid "Add _Tags…"
+msgstr "Lägg till _taggar…"
+
+#: data/ui/collection.ui:24 data/ui/event.ui:412 data/ui/event.ui:463
+#: data/ui/faces.ui:395 data/ui/media.ui:395 data/ui/photo_context.ui:22
+#: data/ui/photo.ui:380 data/ui/tags.ui:395 src/Resources.vala:355
+msgid "Modif_y Tags…"
+msgstr "_Ändra taggar…"
+
+#: data/ui/collection.ui:33 data/ui/event.ui:281 data/ui/event.ui:472
+#: data/ui/faces.ui:281 data/ui/media.ui:281 data/ui/photo_context.ui:30
+#: data/ui/photo.ui:268 data/ui/tags.ui:281
+msgid "Toggle _Flag"
+msgstr "_Växla flagga"
+
+#: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
+#: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
+#: data/ui/photo.ui:273 data/ui/tags.ui:286 src/Resources.vala:217
+msgid "_Set Rating"
+msgstr "_Betygsätt"
+
+#: data/ui/collection.ui:62 data/ui/event.ui:314 data/ui/event.ui:501
+#: data/ui/faces.ui:314 data/ui/media.ui:314 data/ui/photo_context.ui:63
+#: data/ui/photo.ui:301 data/ui/tags.ui:314 src/Resources.vala:227
+msgid "_Unrated"
+msgstr "_Ej betygsatt"
+
+#: data/ui/collection.ui:66 data/ui/event.ui:319 data/ui/event.ui:505
+#: data/ui/faces.ui:319 data/ui/media.ui:319 data/ui/photo_context.ui:68
+#: data/ui/photo.ui:306 data/ui/tags.ui:319 src/Resources.vala:233
+msgid "_Rejected"
+msgstr "_Avvisad"
+
+#: data/ui/collection.ui:72 data/ui/event.ui:326 data/ui/event.ui:511
+#: data/ui/faces.ui:326 data/ui/media.ui:326 data/ui/photo_context.ui:75
+#: data/ui/photo.ui:313 data/ui/tags.ui:326 src/Resources.vala:221
+msgid "_Increase"
+msgstr "_Höj"
+
+#: data/ui/collection.ui:76 data/ui/event.ui:331 data/ui/event.ui:515
+#: data/ui/faces.ui:331 data/ui/media.ui:331 data/ui/photo_context.ui:80
+#: data/ui/photo.ui:318 data/ui/tags.ui:331 src/Resources.vala:224
+msgid "_Decrease"
+msgstr "_Sänk"
+
+#: data/ui/collection.ui:82 data/ui/event.ui:353 data/ui/event.ui:521
+#: data/ui/faces.ui:353 data/ui/media.ui:353 data/ui/photo_context.ui:88
+#: data/ui/photo.ui:344 data/ui/tags.ui:353
+msgid "_Developer"
+msgstr "_Framkallare"
+
+#: data/ui/collection.ui:90 data/ui/event.ui:361 data/ui/event.ui:529
+#: data/ui/faces.ui:361 data/ui/media.ui:361 data/ui/photo_context.ui:96
+#: data/ui/photo.ui:352 data/ui/tags.ui:361 src/camera/CameraBranch.vala:99
+#: src/camera/ImportPage.vala:711 src/camera/ImportPage.vala:727
+#: src/photos/RawSupport.vala:311
+msgid "Camera"
+msgstr "Kamera"
+
+#: data/ui/collection.ui:98 data/ui/event.ui:340 data/ui/event.ui:537
+#: data/ui/faces.ui:340 data/ui/media.ui:340 data/ui/photo_context.ui:105
+#: data/ui/photo.ui:327 data/ui/tags.ui:340 src/Resources.vala:269
+msgid "Edit _Title…"
+msgstr "_Redigera titel…"
+
+#: data/ui/collection.ui:103 data/ui/events_directory.ui:144
+#: data/ui/events_directory.ui:186 data/ui/event.ui:345 data/ui/event.ui:398
+#: data/ui/event.ui:542 data/ui/faces.ui:345 data/ui/media.ui:345
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:332 data/ui/tags.ui:345
+#: src/Resources.vala:273
+msgid "Edit _Comment…"
+msgstr "Redigera _kommentar…"
+
+#: data/ui/collection.ui:108 data/ui/event.ui:547 data/ui/photo_context.ui:115
+#: data/ui/photo.ui:361 src/CollectionPage.vala:143 src/Resources.vala:290
+msgid "Open With E_xternal Editor"
+msgstr "Öppna med e_xtern redigerare"
+
+#: data/ui/collection.ui:113 data/ui/event.ui:552 data/ui/photo_context.ui:120
+#: data/ui/photo.ui:366 src/CollectionPage.vala:146 src/Resources.vala:292
+msgid "Open With RA_W Editor"
+msgstr "Öppna i RA_W-redigerare"
+
+#: data/ui/collection.ui:119 data/ui/event.ui:387 data/ui/event.ui:558
+#: data/ui/faces.ui:381 data/ui/media.ui:381 data/ui/photo_context.ui:126
+#: data/ui/tags.ui:381
+msgid "View Eve_nt for Photo"
+msgstr "_Visa bildhändelse"
+
+#: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30
+#: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
+#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
+#: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
+#: src/Resources.vala:769
+msgid "Show in File Mana_ger"
+msgstr "Öppna med _filhanteraren"
+
+#: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
+#: data/ui/event.ui:567 data/ui/photo.ui:28 src/CollectionPage.vala:83
+#: src/Resources.vala:294
+msgid "Send _To…"
+msgstr "Skicka t_ill…"
+
+#: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
+#: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
+#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:778
+msgid "_Move to Trash"
+msgstr "_Flytta till papperskorgen"
+
+#: data/ui/collection.ui:148 src/Resources.vala:113
+msgid "Rotate the photos right (press Ctrl to rotate left)"
+msgstr "Rotera bilderna åt höger (tryck Ctrl för att rotera åt vänster)"
+
+#: data/ui/collection.ui:151 src/Resources.vala:111 src/Resources.vala:116
+msgid "Rotate"
+msgstr "Rotera"
+
+#: data/ui/collection.ui:164 src/Resources.vala:159
+msgid "Automatically improve the photo’s appearance"
+msgstr "Förbättra visningen av bilden automatiskt"
+
+#: data/ui/collection.ui:167 src/Resources.vala:158
+msgid "Enhance"
+msgstr "Förbättra"
+
+#: data/ui/collection.ui:189 src/Resources.vala:267
+msgid "Publish to various websites"
+msgstr "Publicera till olika webbplatser"
+
+#: data/ui/collection.ui:192
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:268
+#: src/Resources.vala:266
+msgid "Publish"
+msgstr "Publicera"
+
+#: data/ui/collection.ui:214 data/ui/offline.ui:236 data/ui/trash.ui:309
+#: src/Resources.vala:299
+msgid "Find an image by typing text that appears in its name or tags"
+msgstr ""
+"Sök efter en bild genom att skriva något som finns i dess namn eller taggar"
+
+#: data/ui/collection.ui:217 data/ui/offline.ui:239 data/ui/trash.ui:312
+#: src/Resources.vala:298
+msgid "Find"
+msgstr "Sök"
+
+#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5
+#: data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5
+#: data/ui/media.ui:5 data/ui/offline.ui:5 data/ui/photo.ui:5 data/ui/tags.ui:5
+#: data/ui/trash.ui:5
+msgid "_File"
+msgstr "_Arkiv"
+
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
+#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:146
+msgid "_Save"
+msgstr "_Spara"
+
+#: data/ui/direct.ui:13
+msgid "Save _As…"
+msgstr "_Spara som…"
+
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
+#: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
+#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:48
+#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:142
+msgid "_Quit"
+msgstr "_Avsluta"
+
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
+#: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
+#: data/ui/offline.ui:32 data/ui/photo.ui:55 data/ui/tags.ui:47
+#: data/ui/trash.ui:37 src/Resources.vala:130
+msgid "_Edit"
+msgstr "_Redigera"
+
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
+#: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
+#: data/ui/offline.ui:35 data/ui/photo.ui:58 data/ui/tags.ui:50
+#: data/ui/trash.ui:40 src/Resources.vala:195
+msgid "_Undo"
+msgstr "_Ångra"
+
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
+#: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
+#: data/ui/offline.ui:40 data/ui/photo.ui:63 data/ui/tags.ui:55
+#: data/ui/trash.ui:45 src/Resources.vala:198
+msgid "_Redo"
+msgstr "_Gör om"
+
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99
+#: data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74
+#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:95
+#: data/ui/tags.ui:99 data/ui/trash.ui:87
+msgid "_View"
+msgstr "_Visa"
+
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:125 data/ui/photo.ui:173
+#: src/Resources.vala:132
+msgid "Fulls_creen"
+msgstr "_Helskärm"
+
+#: data/ui/direct.ui:69 data/ui/event.ui:260 data/ui/faces.ui:260
+#: data/ui/media.ui:260 data/ui/photo.ui:144 data/ui/tags.ui:260
+#: src/Resources.vala:154
+msgid "Zoom _In"
+msgstr "_Förstora"
+
+#: data/ui/direct.ui:74 data/ui/event.ui:265 data/ui/faces.ui:265
+#: data/ui/media.ui:265 data/ui/photo.ui:149 data/ui/tags.ui:265
+#: src/Resources.vala:155
+msgid "Zoom _Out"
+msgstr "_Förminska"
+
+#: data/ui/direct.ui:81 data/ui/photo.ui:156
+msgid "Fit to _Page"
+msgstr "_Anpassa till sidan"
+
+#: data/ui/direct.ui:86 data/ui/photo.ui:161
+msgid "Zoom _100%"
+msgstr "_Visa 100%"
+
+#: data/ui/direct.ui:91 data/ui/photo.ui:166
+msgid "Zoom _200%"
+msgstr "_Visa 200%"
+
+#: data/ui/direct.ui:98 data/ui/photo.ui:187
+msgid "_Photo"
+msgstr "_Bild"
+
+#: data/ui/direct.ui:101 data/ui/photo.ui:190
+msgid "_Previous Photo"
+msgstr "_Föregående bild"
+
+#: data/ui/direct.ui:105 data/ui/photo.ui:194
+msgid "_Next Photo"
+msgstr "_Nästa bild"
+
+#: data/ui/direct.ui:111 data/ui/photo.ui:200 src/CollectionPage.vala:110
+#: src/Resources.vala:110
+msgid "Rotate _Right"
+msgstr "Rotera åt _höger"
+
+#: data/ui/direct.ui:116 data/ui/photo.ui:205 src/CollectionPage.vala:113
+#: src/Resources.vala:115
+msgid "Rotate _Left"
+msgstr "Rotera åt _vänster"
+
+#: data/ui/direct.ui:121 data/ui/photo.ui:210 src/CollectionPage.vala:116
+#: src/Resources.vala:120
+msgid "Flip Hori_zontally"
+msgstr "Vänd hor_isontellt"
+
+#: data/ui/direct.ui:125 data/ui/photo.ui:214 src/CollectionPage.vala:117
+#: src/Resources.vala:123
+msgid "Flip Verti_cally"
+msgstr "Vänd verti_kalt"
+
+#: data/ui/direct.ui:131 data/ui/photo.ui:220
+msgid "T_ools"
+msgstr "_Verktyg"
+
+#: data/ui/direct.ui:139 data/ui/photo.ui:228 src/Resources.vala:169
+msgid "_Crop"
+msgstr "_Beskär"
+
+#: data/ui/direct.ui:144 data/ui/photo.ui:233
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:173
+msgid "_Straighten"
+msgstr "_Räta ut"
+
+#: data/ui/direct.ui:149 data/ui/photo.ui:238 src/Resources.vala:177
+msgid "_Red-eye"
+msgstr "_Röda ögon"
+
+#: data/ui/direct.ui:154 data/ui/photo.ui:243 src/Resources.vala:181
+msgid "_Adjust"
+msgstr "_Justera"
+
+#: data/ui/direct.ui:167 data/ui/photo.ui:337 src/Resources.vala:280
+msgid "_Adjust Date and Time…"
+msgstr "_Justera datum och tid…"
+
+#: data/ui/direct.ui:174 data/ui/direct.ui:177 data/ui/events_directory.ui:150
+#: data/ui/events_directory.ui:153 data/ui/event.ui:420 data/ui/event.ui:423
+#: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
+#: data/ui/import_queue.ui:68 data/ui/import.ui:183 data/ui/import.ui:186
+#: data/ui/media.ui:403 data/ui/media.ui:406 data/ui/offline.ui:180
+#: data/ui/offline.ui:183 data/ui/photo.ui:387 data/ui/photo.ui:390
+#: data/ui/tags.ui:422 data/ui/tags.ui:425 data/ui/trash.ui:189
+#: data/ui/trash.ui:192 src/Resources.vala:133
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: data/ui/direct.ui:182 data/ui/events_directory.ui:158 data/ui/event.ui:428
+#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:191
+#: data/ui/media.ui:411 data/ui/offline.ui:188 data/ui/photo.ui:395
+#: data/ui/tags.ui:430 data/ui/trash.ui:197
+msgid "_Frequently Asked Questions"
+msgstr "_Återkommande frågor"
+
+#: data/ui/direct.ui:186 data/ui/events_directory.ui:162 data/ui/event.ui:432
+#: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:195
+#: data/ui/media.ui:415 data/ui/offline.ui:192 data/ui/photo.ui:399
+#: data/ui/tags.ui:434 data/ui/trash.ui:201
+msgid "_Report a Problem…"
+msgstr "_Rapportera ett problem…"
+
+#: data/ui/direct.ui:192 data/ui/events_directory.ui:168 data/ui/event.ui:438
+#: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
+#: data/ui/manifest_widget.ui:35 data/ui/media.ui:421 data/ui/offline.ui:198
+#: data/ui/photo.ui:405 data/ui/tags.ui:440 data/ui/trash.ui:207
+#: src/Resources.vala:126
+msgid "_About"
+msgstr "_Om"
+
+#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
+#: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
+#: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:8
+msgid "_Import From Folder…"
+msgstr "_Importera från mapp…"
+
+#: data/ui/events_directory.ui:13 data/ui/event.ui:13 data/ui/faces.ui:13
+#: data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13
+#: data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13
+#: data/ui/trash.ui:13
+msgid "Import From _Application…"
+msgstr "Importera från _program…"
+
+#: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34
+#: data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34
+#: data/ui/offline.ui:19 data/ui/photo.ui:42 data/ui/tags.ui:34
+#: data/ui/trash.ui:24 data/ui/trash.ui:234 data/ui/trash.ui:242
+msgid "Empty T_rash"
+msgstr "_Töm papperskorgen"
+
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
+#: data/ui/import.ui:55 data/ui/media.ui:62 data/ui/offline.ui:47
+#: data/ui/tags.ui:62 data/ui/trash.ui:52
+msgid "_Find"
+msgstr "_Sök"
+
+#: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66
+#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:70
+#: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
+#: data/ui/tags.ui:66 data/ui/trash.ui:56
+msgid "Ne_w Saved Search…"
+msgstr "_Ny sparad sökning…"
+
+#: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
+#: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:780
+msgid "Select _All"
+msgstr "Markera _alla"
+
+#: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
+#: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
+#: data/ui/photo.ui:89 data/ui/tags.ui:93 data/ui/trash.ui:81
+#: src/Resources.vala:139 src/Resources.vala:288
+msgid "_Preferences"
+msgstr "_Inställningar"
+
+#: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102
+#: data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102
+#: data/ui/offline.ui:81 data/ui/photo.ui:98 data/ui/tags.ui:102
+#: data/ui/trash.ui:90
+msgid "_Basic Information"
+msgstr "_Grundläggande information"
+
+#: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107
+#: data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86
+#: data/ui/photo.ui:103 data/ui/tags.ui:107 data/ui/trash.ui:95
+msgid "E_xtended Information"
+msgstr "_Utökad Information"
+
+#: data/ui/events_directory.ui:84 data/ui/event.ui:112 data/ui/faces.ui:112
+#: data/ui/import.ui:87 data/ui/media.ui:112 data/ui/offline.ui:91
+#: data/ui/tags.ui:112 data/ui/trash.ui:100
+msgid "_Search Bar"
+msgstr "_Sökfält"
+
+#: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117
+#: data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96
+#: data/ui/photo.ui:108 data/ui/tags.ui:117 data/ui/trash.ui:105
+msgid "S_idebar"
+msgstr "S_idofält"
+
+#: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122
+#: data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101
+#: data/ui/photo.ui:113 data/ui/tags.ui:122 data/ui/trash.ui:110
+msgid "T_oolbar"
+msgstr "V_erktygsfält"
+
+#: data/ui/events_directory.ui:101 data/ui/event.ui:134 data/ui/faces.ui:134
+#: data/ui/media.ui:134 data/ui/tags.ui:134
+msgid "_Comments"
+msgstr "_Kommentarer"
+
+#: data/ui/events_directory.ui:108 data/ui/event.ui:243 data/ui/faces.ui:243
+#: data/ui/import_queue.ui:48 data/ui/import.ui:166 data/ui/media.ui:243
+#: data/ui/offline.ui:163 data/ui/photo.ui:127 data/ui/tags.ui:243
+#: data/ui/trash.ui:172
+msgid "Sort _Events"
+msgstr "_Sortera händelser"
+
+#: data/ui/events_directory.ui:111 data/ui/event.ui:231 data/ui/event.ui:246
+#: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
+#: data/ui/import.ui:169 data/ui/media.ui:231 data/ui/media.ui:246
+#: data/ui/offline.ui:166 data/ui/photo.ui:130 data/ui/tags.ui:231
+#: data/ui/tags.ui:246 data/ui/trash.ui:175
+msgid "_Ascending"
+msgstr "_Stigande"
+
+#: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/faces.ui:236
+#: data/ui/import_queue.ui:56 data/ui/media.ui:236 data/ui/offline.ui:171
+#: data/ui/tags.ui:236 data/ui/trash.ui:180
+msgid "D_escending"
+msgstr "_Fallande"
+
+#: data/ui/events_directory.ui:132 data/ui/event.ui:379 data/ui/faces.ui:373
+#: data/ui/media.ui:373 data/ui/tags.ui:373
+msgid "Even_ts"
+msgstr "_Händelser"
+
+#: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
+#: src/Resources.vala:213
+msgid "_Merge Events"
+msgstr "Sa_mmanfoga händelser"
+
+#: data/ui/events_directory.ui:139 data/ui/events_directory.ui:181
+#: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:201
+msgid "Re_name Event…"
+msgstr "Byt namn på händelse…"
+
+#: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
+#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:261
+msgid "_Export…"
+msgstr "_Exportera…"
+
+#: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
+#: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
+#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:776
+msgid "R_emove From Library"
+msgstr "Ta _bort från biblioteket"
+
+#: data/ui/event.ui:129 data/ui/faces.ui:129 data/ui/import.ui:104
+#: data/ui/media.ui:129 data/ui/tags.ui:129
+msgid "_Titles"
+msgstr "_Titlar"
+
+#: data/ui/event.ui:139 data/ui/event.ui:404 data/ui/faces.ui:139
+#: data/ui/faces.ui:387 data/ui/media.ui:139 data/ui/media.ui:387
+#: data/ui/photo.ui:372 data/ui/tags.ui:139 data/ui/tags.ui:387
+msgid "Ta_gs"
+msgstr "Ta_ggar"
+
+#: data/ui/event.ui:144 data/ui/faces.ui:144 data/ui/media.ui:144
+#: data/ui/photo.ui:120 data/ui/tags.ui:144 src/Resources.vala:250
+msgid "_Ratings"
+msgstr "_Betyg"
+
+#: data/ui/event.ui:151 data/ui/faces.ui:151 data/ui/import.ui:111
+#: data/ui/media.ui:151 data/ui/offline.ui:108 data/ui/tags.ui:151
+#: data/ui/trash.ui:117 src/Resources.vala:253
+msgid "_Filter Photos"
+msgstr "_Filtrera bilder"
+
+#: data/ui/event.ui:184 data/ui/faces.ui:184 data/ui/import.ui:144
+#: data/ui/media.ui:184 data/ui/offline.ui:141 data/ui/search_bar.ui:18
+#: data/ui/tags.ui:184 data/ui/trash.ui:150 src/Resources.vala:246
+msgid "_All Photos"
+msgstr "_Alla bilder"
+
+#: data/ui/event.ui:190 data/ui/faces.ui:190 data/ui/import.ui:150
+#: data/ui/media.ui:190 data/ui/offline.ui:147 data/ui/search_bar.ui:12
+#: data/ui/tags.ui:190 data/ui/trash.ui:156 src/Resources.vala:243
+msgid "All + _Rejected"
+msgstr "Alla + _avvisade"
+
+#: data/ui/event.ui:196 data/ui/faces.ui:196 data/ui/import.ui:156
+#: data/ui/media.ui:196 data/ui/offline.ui:153 data/ui/search_bar.ui:6
+#: data/ui/tags.ui:196 data/ui/trash.ui:162 src/Resources.vala:239
+msgid "Rejected _Only"
+msgstr "_Enbart avvisade"
+
+#: data/ui/event.ui:206 data/ui/faces.ui:206 data/ui/media.ui:206
+#: data/ui/tags.ui:206
+msgid "Sort _Photos"
+msgstr "Sortera _bilder"
+
+#: data/ui/event.ui:209 data/ui/faces.ui:209 data/ui/media.ui:209
+#: data/ui/tags.ui:209
+msgid "By _Title"
+msgstr "Efter _titel"
+
+#: data/ui/event.ui:214 data/ui/faces.ui:214 data/ui/media.ui:214
+#: data/ui/tags.ui:214
+msgid "By _Filename"
+msgstr "Efter _filnamn"
+
+#: data/ui/event.ui:219 data/ui/faces.ui:219 data/ui/media.ui:219
+#: data/ui/tags.ui:219
+msgid "By Exposure _Date"
+msgstr "Efter exponerings_ögonblick"
+
+#: data/ui/event.ui:224 data/ui/faces.ui:224 data/ui/media.ui:224
+#: data/ui/tags.ui:224
+msgid "By _Rating"
+msgstr "Efter _betyg"
+
+#: data/ui/event.ui:251 data/ui/faces.ui:251 data/ui/import.ui:174
+#: data/ui/media.ui:251 data/ui/photo.ui:135 data/ui/tags.ui:251
+msgid "_Descending"
+msgstr "_Fallande"
+
+#: data/ui/event.ui:275 data/ui/faces.ui:275 data/ui/media.ui:275
+#: data/ui/tags.ui:275
+msgid "_Photos"
+msgstr "_Bilder"
+
+#: data/ui/event.ui:373 data/ui/event.ui:580 src/Resources.vala:204
+msgid "Make _Key Photo for Event"
+msgstr "Gör till _huvudbild för händelsen"
+
+#: data/ui/event.ui:382 data/ui/faces.ui:376 data/ui/media.ui:376
+#: data/ui/tags.ui:376 src/Resources.vala:207
+msgid "_New Event"
+msgstr "_Ny händelse"
+
+#: data/ui/event.ui:592 src/Resources.vala:277
+msgid "Edit Event _Comment…"
+msgstr "Redigera _händelsekommentar…"
+
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:305
+#: src/Resources.vala:306
+msgid "Faces"
+msgstr "Ansikten"
+
+#: data/ui/faces.ui:465
+msgid "Rename…"
+msgstr "Byt namn…"
+
+#: data/ui/faces.ui:469 src/library/TrashPage.vala:110
+msgid "Delete"
+msgstr "Radera"
+
+#: data/ui/import_queue.ui:8
+msgid "_Stop Import"
+msgstr "_Avbryt importen"
+
+#: data/ui/import.ui:13 data/ui/import.ui:210 src/camera/ImportPage.vala:816
+msgid "Import _Selected"
+msgstr "Importera _markerade"
+
+#: data/ui/import.ui:17 data/ui/import.ui:214 src/camera/ImportPage.vala:826
+msgid "Import _All"
+msgstr "Importera _alla"
+
+#: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
+#: data/ui/textentrydialog.ui:19 src/AppWindow.vala:533 src/AppWindow.vala:554
+#: src/AppWindow.vala:571 src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:766
+#: src/Dialogs.vala:789 src/publishing/PublishingUI.vala:305
+#: src/publishing/PublishingUI.vala:529 src/Resources.vala:128
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: src/Resources.vala:137
+msgid "_OK"
+msgstr "_OK"
+
+#: data/ui/offline.ui:221 src/Resources.vala:764
+msgid "Remove the selected photos from the library"
+msgstr "Ta bort markerade bilder från biblioteket"
+
+#: data/ui/photo_context.ui:17 src/Resources.vala:284
+msgid "_Add Tags…"
+msgstr "_Lägg till taggar…"
+
+#: data/ui/photo_context.ui:135 src/Resources.vala:295
+msgid "Send T_o…"
+msgstr "Skicka t_ill…"
+
+#: data/ui/photo.ui:180 src/CollectionPage.vala:102
+msgid "S_lideshow"
+msgstr "_Bildspel"
+
+#: data/ui/photo.ui:256 src/CollectionPage.vala:122 src/Resources.vala:161
+msgid "_Copy Color Adjustments"
+msgstr "_Kopiera färgjusteringar"
+
+#: data/ui/photo.ui:261 src/CollectionPage.vala:125 src/Resources.vala:165
+msgid "_Paste Color Adjustments"
+msgstr "_Klistra in färgjusteringar"
+
+#: data/ui/preferences_dialog.ui:67
+msgid "Display"
+msgstr "Visning"
+
+#: data/ui/preferences_dialog.ui:86 src/library/LibraryWindow.vala:783
+msgid "Library Location"
+msgstr "Biblioteksplats"
+
+#: data/ui/preferences_dialog.ui:103
+msgid "_Import photos to:"
+msgstr "_Importera bilder till:"
+
+#: data/ui/preferences_dialog.ui:114
+msgid "_Watch library directory for new files"
+msgstr "_Bevaka bibliotekskatalogen efter nya filer"
+
+#: data/ui/preferences_dialog.ui:137
+msgid "Importing"
+msgstr "Import"
+
+#: data/ui/preferences_dialog.ui:154
+msgid "_Directory structure:"
+msgstr "_Katalogstruktur:"
+
+#: data/ui/preferences_dialog.ui:169
+msgid "Example:"
+msgstr "Exempel:"
+
+#: data/ui/preferences_dialog.ui:178
+msgid "R_ename imported files to lowercase"
+msgstr "B_yt namn på importerade filer till enbart gemener"
+
+#: data/ui/preferences_dialog.ui:200
+msgid "Metadata"
+msgstr "Metadata"
+
+#: data/ui/preferences_dialog.ui:213
+msgid "Write tags, titles, and other _metadata to photo files"
+msgstr "Skriv taggar, titlar och annan _metadata till bildfilerna"
+
+#: data/ui/preferences_dialog.ui:235
+msgid "RAW Developer"
+msgstr "RAW-framkallare"
+
+#: data/ui/preferences_dialog.ui:252
+msgid "De_fault:"
+msgstr "_Standard:"
+
+#: data/ui/preferences_dialog.ui:306
+msgid "_Pattern:"
+msgstr "_Mönster:"
+
+#: data/ui/preferences_dialog.ui:339
+msgid ""
+"When viewing images that are transparent, they will be drawn against this "
+"background."
+msgstr "Då transparenta bilder visas kommer de att ritas på denna bakgrund."
+
+#: data/ui/preferences_dialog.ui:343
+msgid "Transparent Background:"
+msgstr "_Transparent bakgrund:"
+
+#: data/ui/preferences_dialog.ui:357
+msgid "Checkered"
+msgstr "Rutig"
+
+#: data/ui/preferences_dialog.ui:378
+msgid "Solid color"
+msgstr "Enfärgad"
+
+#: data/ui/preferences_dialog.ui:414 src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Ingen"
+
+#: data/ui/preferences_dialog.ui:441
+msgid "Use dark theme:"
+msgstr "Använd mörkt tema:"
+
+#: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
+#: src/library/LibraryBranch.vala:130
+msgid "Library"
+msgstr "Bibliotek"
+
+#: data/ui/preferences_dialog.ui:492
+msgid "E_xternal photo editor:"
+msgstr "E_xtern bildredigerare:"
+
+#: data/ui/preferences_dialog.ui:509
+msgid "External _RAW editor:"
+msgstr "Extern _RAW-redigerare:"
+
+#: data/ui/preferences_dialog.ui:570
+msgid "External Editors"
+msgstr "Externa redigerare"
+
+#: data/ui/preferences_dialog.ui:595
+msgid "Plugins"
+msgstr "Insticksmoduler"
+
+#: data/ui/preferences_dialog.ui:621
+msgid "Shotwell Preferences"
+msgstr "Inställningar för Shotwell"
+
+#: data/ui/printing_widget.ui:18
+msgid "<b>Printed Image Size</b>"
+msgstr "<b>Storlek på utskriften</b>"
+
+#: data/ui/printing_widget.ui:38
+msgid "Use a _standard size:"
+msgstr "Använd en _standardstorlek:"
+
+#: data/ui/printing_widget.ui:65
+msgid "Use a c_ustom size:"
+msgstr "Använd en _anpassad storlek:"
+
+#. Abbrevation for "inch"
+#: data/ui/printing_widget.ui:128
+msgid "in."
+msgstr "tum"
+
+#. Abbrevation for "centimeters"
+#: data/ui/printing_widget.ui:129
+msgid "cm"
+msgstr "cm"
+
+#: data/ui/printing_widget.ui:146
+msgid "_Match photo aspect ratio"
+msgstr "_Matcha bildförhållande"
+
+#: data/ui/printing_widget.ui:161
+msgid "_Autosize:"
+msgstr "_Automatisk storlek:"
+
+#: data/ui/printing_widget.ui:202
+msgid "<b>Titles</b>"
+msgstr "<b>Titlar</b>"
+
+#: data/ui/printing_widget.ui:219
+msgid "Print image _title"
+msgstr "Skriv ut bild_titel"
+
+#: data/ui/printing_widget.ui:262
+msgid "<b>Pixel Resolution</b>"
+msgstr "<b>Upplösning</b>"
+
+#: data/ui/printing_widget.ui:282
+msgid "_Output photo at:"
+msgstr "_Skriv ut bild till:"
+
+#: data/ui/printing_widget.ui:316
+msgid "pixels per inch"
+msgstr "pixlar per tum"
+
+#: data/ui/saved_search_dialog.ui:8
+msgid "Search"
+msgstr "Sök"
+
+#: data/ui/saved_search_dialog.ui:26
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: data/ui/saved_search_dialog.ui:39
+msgid "OK"
+msgstr "OK"
+
+#: data/ui/saved_search_dialog.ui:77
+msgid "_Name of search:"
+msgstr "_Namn på sökningen:"
+
+#: data/ui/saved_search_dialog.ui:122
+msgid "_Match"
+msgstr "_Matcha"
+
+#: data/ui/saved_search_dialog.ui:139
+msgid "any"
+msgstr "någon"
+
+#: data/ui/saved_search_dialog.ui:140
+msgid "all"
+msgstr "alla"
+
+#: data/ui/saved_search_dialog.ui:141
+msgid "none"
+msgstr "ingen"
+
+#: data/ui/saved_search_dialog.ui:155
+msgid "of the following:"
+msgstr "följande:"
+
+#: data/ui/savedsearch.ui:6 src/Resources.vala:396
+msgid "Re_name…"
+msgstr "Byt _namn…"
+
+#: data/ui/savedsearch.ui:10 src/Resources.vala:395
+msgid "_Edit…"
+msgstr "_Redigera…"
+
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:460 data/ui/trash.ui:63
+#: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:734
+#: src/Resources.vala:129 src/Resources.vala:310 src/Resources.vala:341
+#: src/Resources.vala:394 src/Resources.vala:762
+msgid "_Delete"
+msgstr "_Radera"
+
+#: data/ui/set_background_dialog.ui:9
+msgid "Set as Desktop Background"
+msgstr "Ange som skrivbordsbakgrund"
+
+#: data/ui/set_background_dialog.ui:69
+#: data/ui/set_background_slideshow_dialog.ui:132
+msgid "Use for Desktop"
+msgstr "Använd för skrivbord"
+
+#: data/ui/set_background_dialog.ui:86
+#: data/ui/set_background_slideshow_dialog.ui:149
+msgid "Use for Lock Screen"
+msgstr "Använd för låsskärm"
+
+#: data/ui/set_background_slideshow_dialog.ui:16
+msgid "Set as Desktop Slideshow"
+msgstr "Ange som skrivbordsbildspel"
+
+#: data/ui/set_background_slideshow_dialog.ui:54
+msgid "Generate desktop background slideshow"
+msgstr "Skapa bildspel för skrivbordsbakgrunden"
+
+#: data/ui/set_background_slideshow_dialog.ui:80
+msgid "Show each photo for"
+msgstr "Visa varje bild i"
+
+#: data/ui/set_background_slideshow_dialog.ui:92
+msgid "period of time"
+msgstr "tidsperiod"
+
+#: data/ui/set_background_slideshow_dialog.ui:114
+msgid "How long each photo is shown on the desktop background"
+msgstr "Hur länge varje bild ska visas på skrivbordsbakgrunden"
+
+#: data/ui/shotwell.ui:76
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
+msgid "_Log in"
+msgstr "_Logga in"
+
+#: data/ui/sidebar_default_context.ui:11 data/ui/tag_sidebar_context.ui:6
+msgid "New _Tag…"
+msgstr "_Ny tagg…"
+
+#: data/ui/slideshow_settings.ui:21 src/SlideshowPage.vala:159
+msgid "Settings"
+msgstr "Inställningar"
+
+#: data/ui/slideshow_settings.ui:98
+msgid "_Delay:"
+msgstr "_Fördröjning:"
+
+#: data/ui/slideshow_settings.ui:112
+msgid "_Transition effect:"
+msgstr "_Övergångseffekt:"
+
+#: data/ui/slideshow_settings.ui:126
+msgid "Transition d_elay:"
+msgstr "_Övergångsfördröjning:"
+
+#: data/ui/slideshow_settings.ui:136
+msgid "Show t_itle"
+msgstr "_Visa titel"
+
+#: data/ui/slideshow_settings.ui:219 data/ui/slideshow_settings.ui:230
+msgid "seconds"
+msgstr "sekunder"
+
+#: data/ui/tags.ui:450 src/Resources.vala:135 src/Resources.vala:343
+msgid "_New"
+msgstr "_Ny"
+
+#: data/ui/tags.ui:456 src/Resources.vala:311 src/Resources.vala:353
+msgid "_Rename…"
+msgstr "_Byt namn…"
+
+#: data/ui/textentrydialog.ui:66
+msgid "label"
+msgstr "etikett"
+
+#: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
+#: src/Resources.vala:766
+msgid "_Restore"
+msgstr "Åt_erställ"
+
+#: data/ui/trash.ui:255 src/Resources.vala:763
+msgid "Remove the selected photos from the trash"
+msgstr "Ta bort markerade bilder från papperskorgen"
+
+#: data/ui/trash.ui:270 src/Resources.vala:767
+msgid "Move the selected photos back into the library"
+msgstr "Flytta tillbaka markerade bilder till biblioteket"
+
+#: data/ui/trash.ui:285
+msgid "Delete all photos in the trash"
+msgstr "Radera alla bilder från papperskorgen"
+
+#: data/ui/trash.ui:288 src/library/LibraryWindow.vala:601
+msgid "Empty Trash"
+msgstr "Töm papperskorgen"
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
 msgid ""
@@ -1485,12 +2407,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Fyll i användarnamn och lösenord för ditt Tumblr-konto."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid "Username and/or password invalid. Please try again"
 msgstr "Användarnamn och/eller lösenord ogiltigt. Var god försök igen"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
 msgid "Invalid User Name or Password"
 msgstr "Ogiltigt användarnamn eller lösenord"
 
@@ -1504,7 +2426,7 @@ msgstr "Kunde inte ladda användargränssnittet: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:606
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -1514,7 +2436,7 @@ msgstr ""
 "Josef Andersson <josef.andersson@fripost.org>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:217
+#: plugins/common/RESTSupport.vala:220
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -1522,7 +2444,7 @@ msgstr ""
 "webbplats."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:222
+#: plugins/common/RESTSupport.vala:225
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -1531,7 +2453,7 @@ msgstr ""
 "Kontrollera datumet i din dators kalender."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:227
+#: plugins/common/RESTSupport.vala:230
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
@@ -1539,7 +2461,7 @@ msgstr ""
 "organisation."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:232
+#: plugins/common/RESTSupport.vala:235
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -1547,7 +2469,7 @@ msgstr ""
 "trasig."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:237
+#: plugins/common/RESTSupport.vala:240
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -1556,7 +2478,7 @@ msgstr ""
 "organisation som utfärdade den."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:245
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -1565,7 +2487,7 @@ msgstr ""
 "en väldigt svag kryptering."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -1573,7 +2495,7 @@ msgstr ""
 "⚫ Den här webbplatsens identifiering är endast giltig för framtida datum. "
 "Kontrollera datumet i din dators kalender."
 
-#: plugins/common/RESTSupport.vala:524
+#: plugins/common/RESTSupport.vala:527
 #: plugins/shotwell-publishing/TumblrPublishing.vala:623
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "En temporärfil som krävs för publicering är inte tillgänglig"
@@ -1593,11 +2515,6 @@ msgstr "_Lösenord:"
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
 msgid "Go _Back"
 msgstr "_Bakåt"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#: ui/shotwell.ui:76
-msgid "_Log in"
-msgstr "_Logga in"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
 msgid "API _Key:"
@@ -1631,7 +2548,7 @@ msgstr "bildpunkter"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprungsstorlek"
@@ -1896,7 +2813,7 @@ msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:61
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1188
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -1940,7 +2857,7 @@ msgstr "Bara jag"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
 msgid "Everyone"
 msgstr "Alla"
 
@@ -2004,24 +2921,24 @@ msgid "Friends only"
 msgstr "Endast vänner"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 bildpunkter"
 
@@ -2072,7 +2989,7 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 bildpunkter)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:614
-#: src/editing_tools/EditingTools.vala:735
+#: src/editing_tools/EditingTools.vala:741
 msgid "Original Size"
 msgstr "Ursprungsstorlek"
 
@@ -2125,22 +3042,17 @@ msgstr "_Skicka inte upp taggar"
 msgid "Logout"
 msgstr "Logga ut"
 
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:268
-#: src/Resources.vala:266 ui/collection.ui:192
-msgid "Publish"
-msgstr "Publicera"
-
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:773
 #, c-format
 msgid "Creating album %s…"
 msgstr "Skapar album %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:946
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:949
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Ett felmeddelande visades vid publiceringen till Piwigo. Försök igen."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1033
 #, c-format
 msgid ""
 "This does not look like the real <b>%s</b>. Attackers might be trying to "
@@ -2151,18 +3063,12 @@ msgstr ""
 "stjäla eller ändra information som passerar till eller från denna webbplats "
 "(till exempel, privata meddelanden, kreditkortsinformation eller lösenord)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1048
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certifikat för %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
-#: src/Resources.vala:137 ui/multitextentrydialog.ui:40
-#: ui/slideshow_settings.ui:52
-msgid "_OK"
-msgstr "_OK"
-
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1079
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2170,30 +3076,30 @@ msgstr ""
 "Skriv in länken till ditt Piwigo-bildbibliotek, samt ditt Piwigo-"
 "användarnamn och -lösenord."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1080
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
 msgstr ""
 "Shotwell kan inte nå ditt Piwigo-bildbibliotek. Kontrollera länkadressen igen"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
 msgid "Invalid URL"
 msgstr "Ogiltig länkadress"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administratörer, familj, vänner, kontakter"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1292
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
 msgid "Admins, Family, Friends"
 msgstr "Administratörer, familj, vänner"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
 msgid "Admins, Family"
 msgstr "Administratörer, familj"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Admins"
 msgstr "Administratörer"
 
@@ -2365,18 +3271,7 @@ msgstr "Fäst verktygsfältet i öppet läge"
 msgid "Leave fullscreen"
 msgstr "Avsluta helskärmsläge"
 
-#: src/AppWindow.vala:530 src/AppWindow.vala:551 src/AppWindow.vala:568
-#: src/data_imports/DataImportsUI.vala:302
-#: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:766
-#: src/Dialogs.vala:789 src/publishing/PublishingUI.vala:305
-#: src/publishing/PublishingUI.vala:529 src/Resources.vala:128
-#: ui/multitextentrydialog.ui:25 ui/slideshow_settings.ui:38
-#: ui/textentrydialog.ui:19
-msgid "_Cancel"
-msgstr "_Avbryt"
-
-#: src/AppWindow.vala:578
+#: src/AppWindow.vala:581
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2389,21 +3284,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:599
+#: src/AppWindow.vala:602
 msgid "Visit the Shotwell web site"
 msgstr "Besök Shotwells webbplats"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:615
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:623
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Det går inte att komma åt feldatabasen: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:631
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -2477,13 +3372,6 @@ msgstr "Kameror"
 msgid "List of all discovered camera devices"
 msgstr "Lista över identifierade kameraenheter"
 
-#: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
-#: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
-#: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/faces.ui:361
-#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:352 ui/tags.ui:361
-msgid "Camera"
-msgstr "Kamera"
-
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
 #: src/camera/CameraTable.vala:256
 #, c-format
@@ -2509,14 +3397,6 @@ msgstr "Dölj bilder som redan importerats"
 #: src/camera/ImportPage.vala:777
 msgid "Only display photos that have not been imported"
 msgstr "Visa enbart bilder som inte har importerats"
-
-#: src/camera/ImportPage.vala:816 ui/import.ui:13 ui/import.ui:210
-msgid "Import _Selected"
-msgstr "Importera _markerade"
-
-#: src/camera/ImportPage.vala:826 ui/import.ui:17 ui/import.ui:214
-msgid "Import _All"
-msgstr "Importera _alla"
 
 #: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
@@ -2642,11 +3522,6 @@ msgstr[1] ""
 msgid "_Print"
 msgstr "Skriv _ut"
 
-#: src/CollectionPage.vala:83 src/Resources.vala:294 ui/collection.ui:128
-#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
-msgid "Send _To…"
-msgstr "Skicka t_ill…"
-
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
 #: src/PhotoPage.vala:2497 src/Resources.vala:191
 msgid "Set as _Desktop Background"
@@ -2660,63 +3535,9 @@ msgstr "_Duplicera"
 msgid "Fullscreen"
 msgstr "Helskärm"
 
-#: src/CollectionPage.vala:102 ui/photo.ui:180
-msgid "S_lideshow"
-msgstr "_Bildspel"
-
-#: src/CollectionPage.vala:110 src/Resources.vala:110 ui/direct.ui:111
-#: ui/photo.ui:200
-msgid "Rotate _Right"
-msgstr "Rotera åt _höger"
-
-#: src/CollectionPage.vala:113 src/Resources.vala:115 ui/direct.ui:116
-#: ui/photo.ui:205
-msgid "Rotate _Left"
-msgstr "Rotera åt _vänster"
-
-#: src/CollectionPage.vala:116 src/Resources.vala:120 ui/direct.ui:121
-#: ui/photo.ui:210
-msgid "Flip Hori_zontally"
-msgstr "Vänd hor_isontellt"
-
-#: src/CollectionPage.vala:117 src/Resources.vala:123 ui/direct.ui:125
-#: ui/photo.ui:214
-msgid "Flip Verti_cally"
-msgstr "Vänd verti_kalt"
-
-#: src/CollectionPage.vala:119 src/Resources.vala:157 ui/collection.ui:8
-#: ui/direct_context.ui:7 ui/direct.ui:134 ui/event.ui:447
-#: ui/photo_context.ui:6 ui/photo.ui:223
-msgid "_Enhance"
-msgstr "Förbä_ttra"
-
-#: src/CollectionPage.vala:120 src/Resources.vala:185 ui/collection.ui:13
-#: ui/direct_context.ui:12 ui/direct.ui:161 ui/event.ui:452
-#: ui/photo_context.ui:11 ui/photo.ui:250
-msgid "Re_vert to Original"
-msgstr "_Återställ till original"
-
-#: src/CollectionPage.vala:122 src/Resources.vala:161 ui/photo.ui:256
-msgid "_Copy Color Adjustments"
-msgstr "_Kopiera färgjusteringar"
-
-#: src/CollectionPage.vala:125 src/Resources.vala:165 ui/photo.ui:261
-msgid "_Paste Color Adjustments"
-msgstr "_Klistra in färgjusteringar"
-
 #: src/CollectionPage.vala:135
 msgid "Adjust Date and Time…"
 msgstr "Justera datum och tid…"
-
-#: src/CollectionPage.vala:143 src/Resources.vala:290 ui/collection.ui:108
-#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:361
-msgid "Open With E_xternal Editor"
-msgstr "Öppna med e_xtern redigerare"
-
-#: src/CollectionPage.vala:146 src/Resources.vala:292 ui/collection.ui:113
-#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:366
-msgid "Open With RA_W Editor"
-msgstr "Öppna i RA_W-redigerare"
 
 #: src/CollectionPage.vala:149 src/Resources.vala:138
 msgid "_Play"
@@ -3041,6 +3862,189 @@ msgstr "Kunde inte exportera bakgrund till %s: %s"
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Kunde inte förbereda skrivbordsbildspel: %s"
 
+#: src/dialogs/AdjustDateTimeDialog.vala:78
+msgid "AM"
+msgstr "AM"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:79
+msgid "PM"
+msgstr "PM"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:80
+msgid "24 Hr"
+msgstr "24 timmar"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:95
+msgid "_Shift photos/videos by the same amount"
+msgstr "_Förskjut bilder/filmer med samma värde"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:100
+msgid "Set _all photos/videos to this time"
+msgstr "Ställ in _alla bilder/filmer till denna tid"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:106
+msgid "_Modify original photo file"
+msgid_plural "_Modify original photo files"
+msgstr[0] "_Modifiera originalbilden"
+msgstr[1] "_Modifiera originalbilderna"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:110
+msgid "_Modify original file"
+msgid_plural "_Modify original files"
+msgstr[0] "Än_dra originalfil"
+msgstr[1] "Än_dra originalfilerna"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:213
+msgid "Original: "
+msgstr "Original: "
+
+#: src/dialogs/AdjustDateTimeDialog.vala:214
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%Y-%m-%d, %H:%M:%S"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:215
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%Y-%m-%d, %H:%M:%S"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:306
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Exponeringsögonblicket kommer att flyttas framåt med\n"
+"%d %s, %d %s, %d %s och %d %s."
+
+#: src/dialogs/AdjustDateTimeDialog.vala:307
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Exponeringsögonblicket kommer att flyttas bakåt med\n"
+"%d %s, %d %s, %d %s och %d %s."
+
+#: src/dialogs/AdjustDateTimeDialog.vala:309
+msgid "day"
+msgid_plural "days"
+msgstr[0] "dag"
+msgstr[1] "dagar"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:310
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "timme"
+msgstr[1] "timmar"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:311
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minut"
+msgstr[1] "minuter"
+
+#: src/dialogs/AdjustDateTimeDialog.vala:312
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekund"
+msgstr[1] "sekunder"
+
+#. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
+#. aren't formats so much as they are operating modes that determine specific formats.
+#. Hereafter we'll refer to these as "special formats."
+#: src/dialogs/ExportDialog.vala:15
+msgid "Unmodified"
+msgstr "Oförändrad"
+
+#: src/dialogs/ExportDialog.vala:16
+msgid "Current"
+msgstr "Aktuellt"
+
+#. layout controls
+#: src/dialogs/ExportDialog.vala:90
+msgid "_Format:"
+msgstr "_Format:"
+
+#: src/dialogs/ExportDialog.vala:93
+msgid "_Quality:"
+msgstr "_Kvalitet:"
+
+#: src/dialogs/ExportDialog.vala:96
+msgid "_Scaling constraint:"
+msgstr "_Skalningsbegränsning:"
+
+#: src/dialogs/ExportDialog.vala:99
+msgid "_Pixels:"
+msgstr "_Bildpunkter:"
+
+#: src/dialogs/ExportDialog.vala:103
+msgid "Export _metadata:"
+msgstr "Exportera _metadata:"
+
+#. We're installed system-wide, so use the system help.
+#. We're being run from the build directory; we'll have to handle clicks to this
+#. link manually ourselves, due to a limitation of help: URIs.
+#: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
+msgid "(Help)"
+msgstr "(Hjälp)"
+
+#: src/dialogs/Preferences.vala:116
+#, c-format
+msgid "Year%sMonth%sDay"
+msgstr "År%sMånad%sDag"
+
+#: src/dialogs/Preferences.vala:118
+#, c-format
+msgid "Year%sMonth"
+msgstr "År%sMånad"
+
+#: src/dialogs/Preferences.vala:120
+#, c-format
+msgid "Year%sMonth-Day"
+msgstr "År%sMånad-Dag"
+
+#: src/dialogs/Preferences.vala:122
+msgid "Year-Month-Day"
+msgstr "År-Månad-Dag"
+
+#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:766
+msgid "Custom"
+msgstr "Anpassad"
+
+#. Invalid pattern.
+#: src/dialogs/Preferences.vala:351
+msgid "Invalid pattern"
+msgstr "Ogiltigt mönster"
+
+#: src/dialogs/ProgressDialog.vala:97
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:49
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d sekund"
+msgstr[1] "%d sekunder"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:52
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuter"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:56
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d timme"
+msgstr[1] "%d timmar"
+
+#: src/dialogs/SetBackgroundSlideshow.vala:59
+msgid "1 day"
+msgstr "Ett dygn"
+
 #: src/Dialogs.vala:16
 #, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
@@ -3049,14 +4053,6 @@ msgstr[0] ""
 "Det här kommer att ta bort taggen ”%s” från bilden. Vill du fortsätta?"
 msgstr[1] ""
 "Det här kommer att ta bort taggen ”%s” från %d bilder. Vill du fortsätta?"
-
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58
-#: src/Dialogs.vala:734 src/Resources.vala:129 src/Resources.vala:310
-#: src/Resources.vala:341 src/Resources.vala:394 src/Resources.vala:762
-#: ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63 ui/trash.ui:216
-#: ui/trash.ui:258
-msgid "_Delete"
-msgstr "_Radera"
 
 #: src/Dialogs.vala:25
 #, c-format
@@ -3735,254 +4731,6 @@ msgid_plural "%d photos/videos cannot be deleted."
 msgstr[0] "Bilden eller filmen kan inte raderas."
 msgstr[1] "%d bilder eller filmer kan inte raderas."
 
-#: src/Dimensions.vala:23
-msgid "Width"
-msgstr "Bredd"
-
-#: src/Dimensions.vala:26
-msgid "Height"
-msgstr "Höjd"
-
-#: src/direct/DirectPhotoPage.vala:99
-#, c-format
-msgid "%s does not exist."
-msgstr "%s finns inte."
-
-#: src/direct/DirectPhotoPage.vala:101
-#, c-format
-msgid "%s is not a file."
-msgstr "%s är inte en fil."
-
-#: src/direct/DirectPhotoPage.vala:103
-#, c-format
-msgid ""
-"%s does not support the file format of\n"
-"%s."
-msgstr ""
-"%s saknar stöd för filformatet för\n"
-"%s."
-
-#: src/direct/DirectPhotoPage.vala:120
-#, c-format
-msgid "Unable open photo %s. Sorry."
-msgstr "Kunde inte öppna bilden %s."
-
-#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:146 ui/direct.ui:8
-#: ui/textentrydialog.ui:33
-msgid "_Save"
-msgstr "_Spara"
-
-#: src/direct/DirectPhotoPage.vala:316
-msgid "_Save a Copy"
-msgstr "_Spara en kopia"
-
-#: src/direct/DirectPhotoPage.vala:319
-#, c-format
-msgid "Lose changes to %s?"
-msgstr "Förkasta ändringarna i %s?"
-
-#: src/direct/DirectPhotoPage.vala:320
-msgid "Close _without Saving"
-msgstr "_Stäng utan att spara"
-
-#: src/direct/DirectPhotoPage.vala:353
-#, c-format
-msgid "Error while saving to %s: %s"
-msgstr "Fel vid sparande till %s: %s"
-
-#: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
-msgid "Save As"
-msgstr "Spara som"
-
-#. verify this is a directory
-#: src/DirectoryMonitor.vala:891
-#, c-format
-msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr "Kunde inte övervaka %s: Det är inte en mapp (%s)"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:78
-msgid "AM"
-msgstr "AM"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:79
-msgid "PM"
-msgstr "PM"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:80
-msgid "24 Hr"
-msgstr "24 timmar"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:95
-msgid "_Shift photos/videos by the same amount"
-msgstr "_Förskjut bilder/filmer med samma värde"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:100
-msgid "Set _all photos/videos to this time"
-msgstr "Ställ in _alla bilder/filmer till denna tid"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:106
-msgid "_Modify original photo file"
-msgid_plural "_Modify original photo files"
-msgstr[0] "_Modifiera originalbilden"
-msgstr[1] "_Modifiera originalbilderna"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:110
-msgid "_Modify original file"
-msgid_plural "_Modify original files"
-msgstr[0] "Än_dra originalfil"
-msgstr[1] "Än_dra originalfilerna"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:213
-msgid "Original: "
-msgstr "Original: "
-
-#: src/dialogs/AdjustDateTimeDialog.vala:214
-msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%Y-%m-%d, %H:%M:%S"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:215
-msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%Y-%m-%d, %H:%M:%S"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:306
-#, c-format
-msgid ""
-"Exposure time will be shifted forward by\n"
-"%d %s, %d %s, %d %s, and %d %s."
-msgstr ""
-"Exponeringsögonblicket kommer att flyttas framåt med\n"
-"%d %s, %d %s, %d %s och %d %s."
-
-#: src/dialogs/AdjustDateTimeDialog.vala:307
-#, c-format
-msgid ""
-"Exposure time will be shifted backward by\n"
-"%d %s, %d %s, %d %s, and %d %s."
-msgstr ""
-"Exponeringsögonblicket kommer att flyttas bakåt med\n"
-"%d %s, %d %s, %d %s och %d %s."
-
-#: src/dialogs/AdjustDateTimeDialog.vala:309
-msgid "day"
-msgid_plural "days"
-msgstr[0] "dag"
-msgstr[1] "dagar"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:310
-msgid "hour"
-msgid_plural "hours"
-msgstr[0] "timme"
-msgstr[1] "timmar"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:311
-msgid "minute"
-msgid_plural "minutes"
-msgstr[0] "minut"
-msgstr[1] "minuter"
-
-#: src/dialogs/AdjustDateTimeDialog.vala:312
-msgid "second"
-msgid_plural "seconds"
-msgstr[0] "sekund"
-msgstr[1] "sekunder"
-
-#. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
-#. aren't formats so much as they are operating modes that determine specific formats.
-#. Hereafter we'll refer to these as "special formats."
-#: src/dialogs/ExportDialog.vala:15
-msgid "Unmodified"
-msgstr "Oförändrad"
-
-#: src/dialogs/ExportDialog.vala:16
-msgid "Current"
-msgstr "Aktuellt"
-
-#. layout controls
-#: src/dialogs/ExportDialog.vala:90
-msgid "_Format:"
-msgstr "_Format:"
-
-#: src/dialogs/ExportDialog.vala:93
-msgid "_Quality:"
-msgstr "_Kvalitet:"
-
-#: src/dialogs/ExportDialog.vala:96
-msgid "_Scaling constraint:"
-msgstr "_Skalningsbegränsning:"
-
-#: src/dialogs/ExportDialog.vala:99
-msgid "_Pixels:"
-msgstr "_Bildpunkter:"
-
-#: src/dialogs/ExportDialog.vala:103
-msgid "Export _metadata:"
-msgstr "Exportera _metadata:"
-
-#. We're installed system-wide, so use the system help.
-#. We're being run from the build directory; we'll have to handle clicks to this
-#. link manually ourselves, due to a limitation of help: URIs.
-#: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
-msgid "(Help)"
-msgstr "(Hjälp)"
-
-#: src/dialogs/Preferences.vala:116
-#, c-format
-msgid "Year%sMonth%sDay"
-msgstr "År%sMånad%sDag"
-
-#: src/dialogs/Preferences.vala:118
-#, c-format
-msgid "Year%sMonth"
-msgstr "År%sMånad"
-
-#: src/dialogs/Preferences.vala:120
-#, c-format
-msgid "Year%sMonth-Day"
-msgstr "År%sMånad-Dag"
-
-#: src/dialogs/Preferences.vala:122
-msgid "Year-Month-Day"
-msgstr "År-Månad-Dag"
-
-#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:760
-msgid "Custom"
-msgstr "Anpassad"
-
-#. Invalid pattern.
-#: src/dialogs/Preferences.vala:351
-msgid "Invalid pattern"
-msgstr "Ogiltigt mönster"
-
-#: src/dialogs/ProgressDialog.vala:97
-#, c-format
-msgid "%d%%"
-msgstr "%d%%"
-
-#: src/dialogs/SetBackgroundSlideshow.vala:49
-#, c-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekund"
-msgstr[1] "%d sekunder"
-
-#: src/dialogs/SetBackgroundSlideshow.vala:52
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minut"
-msgstr[1] "%d minuter"
-
-#: src/dialogs/SetBackgroundSlideshow.vala:56
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d timme"
-msgstr[1] "%d timmar"
-
-#: src/dialogs/SetBackgroundSlideshow.vala:59
-msgid "1 day"
-msgstr "Ett dygn"
-
 #: src/dialogs/WelcomeDialog.vala:35
 msgid "Welcome!"
 msgstr "Välkommen!"
@@ -4026,214 +4774,269 @@ msgstr "Visa _inte detta meddelande igen"
 msgid "Import photos from your %s library"
 msgstr "Importera bilder från ditt %s-bibliotek"
 
-#: src/editing_tools/EditingTools.vala:644
+#: src/Dimensions.vala:23
+msgid "Width"
+msgstr "Bredd"
+
+#: src/Dimensions.vala:26
+msgid "Height"
+msgstr "Höjd"
+
+#: src/direct/DirectPhotoPage.vala:99
+#, c-format
+msgid "%s does not exist."
+msgstr "%s finns inte."
+
+#: src/direct/DirectPhotoPage.vala:101
+#, c-format
+msgid "%s is not a file."
+msgstr "%s är inte en fil."
+
+#: src/direct/DirectPhotoPage.vala:103
+#, c-format
+msgid ""
+"%s does not support the file format of\n"
+"%s."
+msgstr ""
+"%s saknar stöd för filformatet för\n"
+"%s."
+
+#: src/direct/DirectPhotoPage.vala:120
+#, c-format
+msgid "Unable open photo %s. Sorry."
+msgstr "Kunde inte öppna bilden %s."
+
+#: src/direct/DirectPhotoPage.vala:316
+msgid "_Save a Copy"
+msgstr "_Spara en kopia"
+
+#: src/direct/DirectPhotoPage.vala:319
+#, c-format
+msgid "Lose changes to %s?"
+msgstr "Förkasta ändringarna i %s?"
+
+#: src/direct/DirectPhotoPage.vala:320
+msgid "Close _without Saving"
+msgstr "_Stäng utan att spara"
+
+#: src/direct/DirectPhotoPage.vala:353
+#, c-format
+msgid "Error while saving to %s: %s"
+msgstr "Fel vid sparande till %s: %s"
+
+#: src/direct/DirectPhotoPage.vala:383 src/direct/DirectPhotoPage.vala:404
+msgid "Save As"
+msgstr "Spara som"
+
+#. verify this is a directory
+#: src/DirectoryMonitor.vala:891
+#, c-format
+msgid "Unable to monitor %s: Not a directory (%s)"
+msgstr "Kunde inte övervaka %s: Det är inte en mapp (%s)"
+
+#: src/editing_tools/EditingTools.vala:650
 msgid "Return to current photo dimensions"
 msgstr "Återgå till befintliga bilddimensioner"
 
-#: src/editing_tools/EditingTools.vala:647
+#: src/editing_tools/EditingTools.vala:653
 msgid "Set the crop for this photo"
 msgstr "Ställ in beskärningen för den här bilden"
 
-#: src/editing_tools/EditingTools.vala:659
+#: src/editing_tools/EditingTools.vala:665
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "Växla mellan porträtt- och landskapsläge"
 
-#: src/editing_tools/EditingTools.vala:732
+#: src/editing_tools/EditingTools.vala:738
 msgid "Unconstrained"
 msgstr "Obegränsad"
 
-#: src/editing_tools/EditingTools.vala:733
+#: src/editing_tools/EditingTools.vala:739
 msgid "Square"
 msgstr "Kvadrat"
 
-#: src/editing_tools/EditingTools.vala:734
+#: src/editing_tools/EditingTools.vala:740
 msgid "Screen"
 msgstr "Skärm"
 
-#: src/editing_tools/EditingTools.vala:736
-#: src/editing_tools/EditingTools.vala:739
-#: src/editing_tools/EditingTools.vala:749
-#: src/editing_tools/EditingTools.vala:759
+#: src/editing_tools/EditingTools.vala:742
+#: src/editing_tools/EditingTools.vala:745
+#: src/editing_tools/EditingTools.vala:755
+#: src/editing_tools/EditingTools.vala:765
 msgid "-"
 msgstr "-"
 
-#: src/editing_tools/EditingTools.vala:737
+#: src/editing_tools/EditingTools.vala:743
 msgid "SD Video (4 ∶ 3)"
 msgstr "SD-video (4 ∶ 3)"
 
-#: src/editing_tools/EditingTools.vala:738
+#: src/editing_tools/EditingTools.vala:744
 msgid "HD Video (16 ∶ 9)"
 msgstr "HD-video (16 ∶ 9)"
 
-#: src/editing_tools/EditingTools.vala:740 src/Printing.vala:792
+#: src/editing_tools/EditingTools.vala:746 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Plånbokstorlek (2 × 3 tum)"
 
-#: src/editing_tools/EditingTools.vala:741 src/Printing.vala:795
+#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
 msgstr "Anteckningskort (3 × 5 tum)"
 
-#: src/editing_tools/EditingTools.vala:742 src/Printing.vala:798
+#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4 × 6 tum"
 
-#: src/editing_tools/EditingTools.vala:743 src/Printing.vala:801
+#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5 × 7 tum"
 
-#: src/editing_tools/EditingTools.vala:744 src/Printing.vala:804
+#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8 × 10 tum"
 
-#: src/editing_tools/EditingTools.vala:745
+#: src/editing_tools/EditingTools.vala:751
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8,5 × 11 tum)"
 
-#: src/editing_tools/EditingTools.vala:746 src/Printing.vala:807
+#: src/editing_tools/EditingTools.vala:752 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11 × 14 tum"
 
-#: src/editing_tools/EditingTools.vala:747
+#: src/editing_tools/EditingTools.vala:753
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 × 17 tum)"
 
-#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:810
+#: src/editing_tools/EditingTools.vala:754 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16 × 20 tum"
 
-#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:816
+#: src/editing_tools/EditingTools.vala:756 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Plånboksstorlek i centimeter (9 × 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:819
+#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Vykortsstorlek (10 × 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:752 src/Printing.vala:822
+#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
-#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:825
+#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
-#: src/editing_tools/EditingTools.vala:754
+#: src/editing_tools/EditingTools.vala:760
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:828
+#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
-#: src/editing_tools/EditingTools.vala:756 src/Printing.vala:831
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:834
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
-#: src/editing_tools/EditingTools.vala:758
+#: src/editing_tools/EditingTools.vala:764
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
 
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:402
+#: src/editing_tools/EditingTools.vala:1857 src/Properties.vala:402
 msgid "Size:"
 msgstr "Storlek:"
 
-#: src/editing_tools/EditingTools.vala:1873
+#: src/editing_tools/EditingTools.vala:1872
 msgid "Close the red-eye tool"
 msgstr "Stäng röda ögon-verktyget"
 
-#: src/editing_tools/EditingTools.vala:1876
+#: src/editing_tools/EditingTools.vala:1875
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Ta bort eventuella röda ögon i det markerade området"
 
-#: src/editing_tools/EditingTools.vala:2216
+#: src/editing_tools/EditingTools.vala:2209
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "Åt_erställ"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2230 src/Properties.vala:443
+#: src/editing_tools/EditingTools.vala:2223 src/Properties.vala:443
 #: src/Properties.vala:447 src/Properties.vala:454
 msgid "Exposure:"
 msgstr "Exponering:"
 
-#: src/editing_tools/EditingTools.vala:2239
+#: src/editing_tools/EditingTools.vala:2232
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: src/editing_tools/EditingTools.vala:2248
+#: src/editing_tools/EditingTools.vala:2241
 msgid "Saturation:"
 msgstr "Mättnad:"
 
-#: src/editing_tools/EditingTools.vala:2257
+#: src/editing_tools/EditingTools.vala:2250
 msgid "Tint:"
 msgstr "Färgton:"
 
-#: src/editing_tools/EditingTools.vala:2267
+#: src/editing_tools/EditingTools.vala:2260
 msgid "Temperature:"
 msgstr "Färgtemperatur:"
 
-#: src/editing_tools/EditingTools.vala:2276
+#: src/editing_tools/EditingTools.vala:2269
 msgid "Shadows:"
 msgstr "Skuggor:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2287
+#: src/editing_tools/EditingTools.vala:2280
 msgid "Highlights:"
 msgstr "Höjdpunkter:"
 
-#: src/editing_tools/EditingTools.vala:2344
+#: src/editing_tools/EditingTools.vala:2337
 msgid "Reset Colors"
 msgstr "Återställ färger"
 
-#: src/editing_tools/EditingTools.vala:2344
+#: src/editing_tools/EditingTools.vala:2337
 msgid "Reset all color adjustments to original"
 msgstr "Återställ alla färgjusteringar till de ursprungliga värdena"
 
-#: src/editing_tools/EditingTools.vala:2703
+#: src/editing_tools/EditingTools.vala:2696
 msgid "Temperature"
 msgstr "Färgtemperatur"
 
-#: src/editing_tools/EditingTools.vala:2715
+#: src/editing_tools/EditingTools.vala:2708
 msgid "Tint"
 msgstr "Färgton"
 
-#: src/editing_tools/EditingTools.vala:2727
+#: src/editing_tools/EditingTools.vala:2720
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/editing_tools/EditingTools.vala:2741
+#: src/editing_tools/EditingTools.vala:2734
 msgid "Saturation"
 msgstr "Mättnad"
 
-#: src/editing_tools/EditingTools.vala:2754
+#: src/editing_tools/EditingTools.vala:2747
 msgid "Exposure"
 msgstr "Exponering"
 
-#: src/editing_tools/EditingTools.vala:2767
+#: src/editing_tools/EditingTools.vala:2760
 msgid "Shadows"
 msgstr "Skuggor"
 
-#: src/editing_tools/EditingTools.vala:2780
+#: src/editing_tools/EditingTools.vala:2773
 msgid "Highlights"
 msgstr "Höjdpunkter"
 
-#: src/editing_tools/EditingTools.vala:2790
+#: src/editing_tools/EditingTools.vala:2783
 msgid "Contrast Expansion"
 msgstr "Kontrastökning"
 
 #: src/editing_tools/StraightenTool.vala:99
 msgid "Angle:"
 msgstr "Vinkel:"
-
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:173
-#: ui/direct.ui:144 ui/photo.ui:233
-msgid "_Straighten"
-msgstr "_Räta ut"
 
 #: src/events/EventDirectoryItem.vala:97
 #, c-format
@@ -4327,11 +5130,6 @@ msgstr "Ersätt _alla"
 #: src/Exporter.vala:319
 msgid "Export"
 msgstr "Exportera"
-
-#: src/faces/FacesBranch.vala:89 src/Resources.vala:305 src/Resources.vala:306
-#: ui/faces.ui:403
-msgid "Faces"
-msgstr "Ansikten"
 
 #: src/faces/FacesTool.vala:115
 msgid "Detect faces…"
@@ -4429,11 +5227,6 @@ msgstr "Importerade %s"
 msgid "Last Import"
 msgstr "Senaste import"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
-#: ui/preferences_dialog.ui:465
-msgid "Library"
-msgstr "Bibliotek"
-
 #: src/library/LibraryBranch.vala:30
 msgid "Organize and browse your photos"
 msgstr "Organisera och visa dina bilder"
@@ -4449,10 +5242,6 @@ msgstr "Importera från mapp"
 #: src/library/LibraryWindow.vala:533
 msgid "Recurse Into Subfolders"
 msgstr "Gå rekursivt in i undermappar"
-
-#: src/library/LibraryWindow.vala:601 ui/trash.ui:288
-msgid "Empty Trash"
-msgstr "Töm papperskorgen"
 
 #: src/library/LibraryWindow.vala:601
 msgid "Emptying Trash…"
@@ -4470,10 +5259,6 @@ msgstr ""
 "Vi rekommenderar att du ändrar detta i <span weight=\"bold\">Redigera %s-"
 "inställningar</span>.\n"
 "Vill du fortsätta att importera bilder?"
-
-#: src/library/LibraryWindow.vala:783 ui/preferences_dialog.ui:86
-msgid "Library Location"
-msgstr "Biblioteksplats"
 
 #. TODO: Specify which directory/file.
 #: src/library/LibraryWindow.vala:796
@@ -4516,10 +5301,6 @@ msgstr "Papperskorg"
 #: src/library/TrashPage.vala:106
 msgid "Trash is empty"
 msgstr "Papperskorgen är tom"
-
-#: src/library/TrashPage.vala:110 ui/faces.ui:469
-msgid "Delete"
-msgstr "Radera"
 
 #: src/library/TrashPage.vala:111
 msgid "Deleting Photos"
@@ -4961,17 +5742,9 @@ msgstr ""
 msgid "Publishing"
 msgstr "Publicering"
 
-#: src/Resources.vala:111 src/Resources.vala:116 ui/collection.ui:151
-msgid "Rotate"
-msgstr "Rotera"
-
 #: src/Resources.vala:112
 msgid "Rotate Right"
 msgstr "Rotera åt höger"
-
-#: src/Resources.vala:113 ui/collection.ui:148
-msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "Rotera bilderna åt höger (tryck Ctrl för att rotera åt vänster)"
 
 #: src/Resources.vala:117
 msgid "Rotate Left"
@@ -4989,69 +5762,25 @@ msgstr "Vänd horisontellt"
 msgid "Flip Vertically"
 msgstr "Vänd vertikalt"
 
-#: src/Resources.vala:126 ui/direct.ui:192 ui/events_directory.ui:168
-#: ui/event.ui:438 ui/faces.ui:448 ui/import_queue.ui:83 ui/import.ui:201
-#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:405
-#: ui/tags.ui:440 ui/trash.ui:207
-msgid "_About"
-msgstr "_Om"
-
 #: src/Resources.vala:127
 msgid "_Apply"
 msgstr "_Verkställ"
-
-#: src/Resources.vala:130 ui/direct.ui:44 ui/events_directory.ui:32
-#: ui/event.ui:47 ui/faces.ui:47 ui/import.ui:40 ui/media.ui:47
-#: ui/offline.ui:32 ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
-msgid "_Edit"
-msgstr "_Redigera"
 
 #: src/Resources.vala:131
 msgid "_Forward"
 msgstr "_Framåt"
 
-#: src/Resources.vala:132 ui/direct.ui:62 ui/events_directory.ui:125
-#: ui/photo.ui:173
-msgid "Fulls_creen"
-msgstr "_Helskärm"
-
-#: src/Resources.vala:133 ui/direct.ui:174 ui/direct.ui:177
-#: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
-#: ui/event.ui:423 ui/faces.ui:430 ui/faces.ui:433 ui/import_queue.ui:65
-#: ui/import_queue.ui:68 ui/import.ui:183 ui/import.ui:186 ui/media.ui:403
-#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:387
-#: ui/photo.ui:390 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
-#: ui/trash.ui:192
-msgid "_Help"
-msgstr "_Hjälp"
-
 #: src/Resources.vala:134
 msgid "Leave _Fullscreen"
 msgstr "Avsluta _helskärmsläge"
-
-#: src/Resources.vala:135 src/Resources.vala:343 ui/tags.ui:450
-msgid "_New"
-msgstr "_Ny"
 
 #: src/Resources.vala:136
 msgid "_Next"
 msgstr "_Nästa"
 
-#: src/Resources.vala:139 src/Resources.vala:288 ui/events_directory.ui:65
-#: ui/event.ui:93 ui/faces.ui:93 ui/import.ui:68 ui/media.ui:93
-#: ui/offline.ui:72 ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
-msgid "_Preferences"
-msgstr "_Inställningar"
-
 #: src/Resources.vala:140
 msgid "_Previous"
 msgstr "_Föregående"
-
-#: src/Resources.vala:142 ui/direct.ui:37 ui/events_directory.ui:25
-#: ui/event.ui:40 ui/faces.ui:40 ui/import_queue.ui:31 ui/import.ui:33
-#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
-msgid "_Quit"
-msgstr "_Avsluta"
 
 #: src/Resources.vala:143
 msgid "_Refresh"
@@ -5089,24 +5818,6 @@ msgstr "_Normalstorlek"
 msgid "Best _Fit"
 msgstr "_Passa"
 
-#: src/Resources.vala:154 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
-#: ui/media.ui:260 ui/photo.ui:144 ui/tags.ui:260
-msgid "Zoom _In"
-msgstr "_Förstora"
-
-#: src/Resources.vala:155 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
-#: ui/media.ui:265 ui/photo.ui:149 ui/tags.ui:265
-msgid "Zoom _Out"
-msgstr "_Förminska"
-
-#: src/Resources.vala:158 ui/collection.ui:167
-msgid "Enhance"
-msgstr "Förbättra"
-
-#: src/Resources.vala:159 ui/collection.ui:164
-msgid "Automatically improve the photo’s appearance"
-msgstr "Förbättra visningen av bilden automatiskt"
-
 #: src/Resources.vala:162
 msgid "Copy Color Adjustments"
 msgstr "Kopiera färgjusteringar"
@@ -5122,10 +5833,6 @@ msgstr "Klistra in färgjusteringar"
 #: src/Resources.vala:167
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Verkställ kopierade färgjusteringar till de markerade bilderna"
-
-#: src/Resources.vala:169 ui/direct.ui:139 ui/photo.ui:228
-msgid "_Crop"
-msgstr "_Beskär"
 
 #: src/Resources.vala:170
 msgid "Crop"
@@ -5143,10 +5850,6 @@ msgstr "Räta ut"
 msgid "Straighten the photo"
 msgstr "Räta ut bilden"
 
-#: src/Resources.vala:177 ui/direct.ui:149 ui/photo.ui:238
-msgid "_Red-eye"
-msgstr "_Röda ögon"
-
 #: src/Resources.vala:178
 msgid "Red-eye"
 msgstr "Röda ögon"
@@ -5154,10 +5857,6 @@ msgstr "Röda ögon"
 #: src/Resources.vala:179
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Minska eller ta bort röda ögon i bilden"
-
-#: src/Resources.vala:181 ui/direct.ui:154 ui/photo.ui:243
-msgid "_Adjust"
-msgstr "_Justera"
 
 #: src/Resources.vala:182
 msgid "Adjust"
@@ -5187,43 +5886,17 @@ msgstr "Använd bilden som ny skrivbordsbakgrund"
 msgid "Set as _Desktop Slideshow…"
 msgstr "Ange som _skrivbordsbildspel…"
 
-#: src/Resources.vala:195 ui/direct.ui:47 ui/events_directory.ui:35
-#: ui/event.ui:50 ui/faces.ui:50 ui/import.ui:43 ui/media.ui:50
-#: ui/offline.ui:35 ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
-msgid "_Undo"
-msgstr "_Ångra"
-
 #: src/Resources.vala:196
 msgid "Undo"
 msgstr "Ångra"
-
-#: src/Resources.vala:198 ui/direct.ui:52 ui/events_directory.ui:40
-#: ui/event.ui:55 ui/faces.ui:55 ui/import.ui:48 ui/media.ui:55
-#: ui/offline.ui:40 ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
-msgid "_Redo"
-msgstr "_Gör om"
 
 #: src/Resources.vala:199
 msgid "Redo"
 msgstr "Gör om"
 
-#: src/Resources.vala:201 ui/events_directory.ui:139 ui/events_directory.ui:181
-#: ui/event.ui:393 ui/event.ui:588
-msgid "Re_name Event…"
-msgstr "Byt namn på händelse…"
-
-#: src/Resources.vala:204 ui/event.ui:373 ui/event.ui:580
-msgid "Make _Key Photo for Event"
-msgstr "Gör till _huvudbild för händelsen"
-
 #: src/Resources.vala:205
 msgid "Make Key Photo for Event"
 msgstr "Gör till huvudbild för händelsen"
-
-#: src/Resources.vala:207 ui/event.ui:382 ui/faces.ui:376 ui/media.ui:376
-#: ui/tags.ui:376
-msgid "_New Event"
-msgstr "_Ny händelse"
 
 #: src/Resources.vala:208
 msgid "New Event"
@@ -5237,10 +5910,6 @@ msgstr "Flytta bilder"
 msgid "Move photos to an event"
 msgstr "Flytta bilder till en händelse"
 
-#: src/Resources.vala:213 ui/events_directory.ui:135 ui/events_directory.ui:177
-msgid "_Merge Events"
-msgstr "Sa_mmanfoga händelser"
-
 #: src/Resources.vala:214
 msgid "Merge"
 msgstr "Sammanfoga"
@@ -5248,12 +5917,6 @@ msgstr "Sammanfoga"
 #: src/Resources.vala:215
 msgid "Combine events into a single event"
 msgstr "Lägg samman händelser till en enskild händelse"
-
-#: src/Resources.vala:217 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
-#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273
-#: ui/tags.ui:286
-msgid "_Set Rating"
-msgstr "_Betygsätt"
 
 #: src/Resources.vala:218
 msgid "Set Rating"
@@ -5263,31 +5926,13 @@ msgstr "Betygsätt"
 msgid "Change the rating of your photo"
 msgstr "Ändra betyget för din bild"
 
-#: src/Resources.vala:221 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
-#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313
-#: ui/tags.ui:326
-msgid "_Increase"
-msgstr "_Höj"
-
 #: src/Resources.vala:222
 msgid "Increase Rating"
 msgstr "Höj betyg"
 
-#: src/Resources.vala:224 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
-#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318
-#: ui/tags.ui:331
-msgid "_Decrease"
-msgstr "_Sänk"
-
 #: src/Resources.vala:225
 msgid "Decrease Rating"
 msgstr "Sänk betyg"
-
-#: src/Resources.vala:227 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
-#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301
-#: ui/tags.ui:314
-msgid "_Unrated"
-msgstr "_Ej betygsatt"
 
 #: src/Resources.vala:228
 msgid "Unrated"
@@ -5305,12 +5950,6 @@ msgstr "Anger som ej betygsatt"
 msgid "Remove any ratings"
 msgstr "Ta bort eventuella betyg"
 
-#: src/Resources.vala:233 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
-#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306
-#: ui/tags.ui:319
-msgid "_Rejected"
-msgstr "_Avvisad"
-
 #: src/Resources.vala:234
 msgid "Rejected"
 msgstr "Avvisad"
@@ -5327,12 +5966,6 @@ msgstr "Anger som avvisad"
 msgid "Set rating to rejected"
 msgstr "Ange som avvisad"
 
-#: src/Resources.vala:239 ui/event.ui:196 ui/faces.ui:196 ui/import.ui:156
-#: ui/media.ui:196 ui/offline.ui:153 ui/search_bar.ui:6 ui/tags.ui:196
-#: ui/trash.ui:162
-msgid "Rejected _Only"
-msgstr "_Enbart avvisade"
-
 #: src/Resources.vala:240
 msgid "Rejected Only"
 msgstr "Enbart avvisade"
@@ -5341,41 +5974,19 @@ msgstr "Enbart avvisade"
 msgid "Show only rejected photos"
 msgstr "Visa enbart avvisade bilder"
 
-#: src/Resources.vala:243 ui/event.ui:190 ui/faces.ui:190 ui/import.ui:150
-#: ui/media.ui:190 ui/offline.ui:147 ui/search_bar.ui:12 ui/tags.ui:190
-#: ui/trash.ui:156
-msgid "All + _Rejected"
-msgstr "Alla + _avvisade"
-
 #: src/Resources.vala:244
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Visa alla bilder, inklusive avvisade"
-
-#: src/Resources.vala:246 ui/event.ui:184 ui/faces.ui:184 ui/import.ui:144
-#: ui/media.ui:184 ui/offline.ui:141 ui/search_bar.ui:18 ui/tags.ui:184
-#: ui/trash.ui:150
-msgid "_All Photos"
-msgstr "_Alla bilder"
 
 #. Button tooltip
 #: src/Resources.vala:248
 msgid "Show all photos"
 msgstr "Visa alla bilder"
 
-#: src/Resources.vala:250 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
-#: ui/photo.ui:120 ui/tags.ui:144
-msgid "_Ratings"
-msgstr "_Betyg"
-
 #: src/Resources.vala:251
 msgid "Display each photo’s rating"
 msgstr "Visa betyg för varje bild"
-
-#: src/Resources.vala:253 ui/event.ui:151 ui/faces.ui:151 ui/import.ui:111
-#: ui/media.ui:151 ui/offline.ui:108 ui/tags.ui:151 ui/trash.ui:117
-msgid "_Filter Photos"
-msgstr "_Filtrera bilder"
 
 #: src/Resources.vala:254
 msgid "Filter Photos"
@@ -5393,11 +6004,6 @@ msgstr "Duplicera"
 msgid "Make a duplicate of the photo"
 msgstr "Gör en kopia av bilden"
 
-#: src/Resources.vala:261 ui/event.ui:17 ui/faces.ui:17 ui/media.ui:17
-#: ui/photo.ui:17 ui/tags.ui:17
-msgid "_Export…"
-msgstr "_Exportera…"
-
 #: src/Resources.vala:263
 msgid "_Print…"
 msgstr "_Skriv _ut…"
@@ -5406,54 +6012,20 @@ msgstr "_Skriv _ut…"
 msgid "Pu_blish…"
 msgstr "_Publicera…"
 
-#: src/Resources.vala:267 ui/collection.ui:189
-msgid "Publish to various websites"
-msgstr "Publicera till olika webbplatser"
-
-#: src/Resources.vala:269 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
-#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327
-#: ui/tags.ui:340
-msgid "Edit _Title…"
-msgstr "_Redigera titel…"
-
 #. Button label
 #: src/Resources.vala:271
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Redigera titel"
 
-#: src/Resources.vala:273 ui/collection.ui:103 ui/events_directory.ui:144
-#: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
-#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332
-#: ui/tags.ui:345
-msgid "Edit _Comment…"
-msgstr "Redigera _kommentar…"
-
 #. Button label
 #: src/Resources.vala:275
 msgid "Edit Comment"
 msgstr "Redigera kommentar"
 
-#: src/Resources.vala:277 ui/event.ui:592
-msgid "Edit Event _Comment…"
-msgstr "Redigera _händelsekommentar…"
-
-#: src/Resources.vala:280 ui/direct.ui:167 ui/photo.ui:337
-msgid "_Adjust Date and Time…"
-msgstr "_Justera datum och tid…"
-
 #: src/Resources.vala:281
 msgid "Adjust Date and Time"
 msgstr "Justera datum och tid"
-
-#: src/Resources.vala:283 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
-#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:375 ui/tags.ui:390
-msgid "Add _Tags…"
-msgstr "Lägg till _taggar…"
-
-#: src/Resources.vala:284 ui/photo_context.ui:17
-msgid "_Add Tags…"
-msgstr "_Lägg till taggar…"
 
 #. Dialog title
 #: src/Resources.vala:286
@@ -5461,24 +6033,9 @@ msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Lägg till taggar"
 
-#: src/Resources.vala:295 ui/photo_context.ui:135
-msgid "Send T_o…"
-msgstr "Skicka t_ill…"
-
 #: src/Resources.vala:297
 msgid "_Find…"
 msgstr "_Sök…"
-
-#: src/Resources.vala:298 ui/collection.ui:217 ui/offline.ui:239
-#: ui/trash.ui:312
-msgid "Find"
-msgstr "Sök"
-
-#: src/Resources.vala:299 ui/collection.ui:214 ui/offline.ui:236
-#: ui/trash.ui:309
-msgid "Find an image by typing text that appears in its name or tags"
-msgstr ""
-"Sök efter en bild genom att skriva något som finns i dess namn eller taggar"
 
 #: src/Resources.vala:301
 msgid "_Flag"
@@ -5499,10 +6056,6 @@ msgstr "Ändra ansikten"
 #: src/Resources.vala:309
 msgid "Delete Face"
 msgstr "Ta bort ansikte"
-
-#: src/Resources.vala:311 src/Resources.vala:353 ui/tags.ui:456
-msgid "_Rename…"
-msgstr "_Byt namn…"
 
 #: src/Resources.vala:315
 #, c-format
@@ -5549,12 +6102,6 @@ msgstr "B_yt namn på taggen ”%s”…"
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Byt namn på taggen ”%s” till ”%s”"
-
-#: src/Resources.vala:355 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
-#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:380
-#: ui/tags.ui:395
-msgid "Modif_y Tags…"
-msgstr "_Ändra taggar…"
 
 #: src/Resources.vala:356
 msgid "Modify Tags"
@@ -5607,14 +6154,6 @@ msgstr "Sparad sökning"
 #: src/Resources.vala:392
 msgid "Delete Search"
 msgstr "Ta bort sökning"
-
-#: src/Resources.vala:395 ui/savedsearch.ui:10
-msgid "_Edit…"
-msgstr "_Redigera…"
-
-#: src/Resources.vala:396 ui/savedsearch.ui:6
-msgid "Re_name…"
-msgstr "Byt _namn…"
 
 #: src/Resources.vala:399
 #, c-format
@@ -5706,29 +6245,6 @@ msgstr "Visa %s eller högre"
 msgid "Only show photos with a rating of %s or better"
 msgstr "Visa endast bilder med betyget %s eller högre"
 
-#: src/Resources.vala:763 ui/trash.ui:255
-msgid "Remove the selected photos from the trash"
-msgstr "Ta bort markerade bilder från papperskorgen"
-
-#: src/Resources.vala:764 ui/offline.ui:221
-msgid "Remove the selected photos from the library"
-msgstr "Ta bort markerade bilder från biblioteket"
-
-#: src/Resources.vala:766 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
-msgid "_Restore"
-msgstr "Åt_erställ"
-
-#: src/Resources.vala:767 ui/trash.ui:270
-msgid "Move the selected photos back into the library"
-msgstr "Flytta tillbaka markerade bilder till biblioteket"
-
-#: src/Resources.vala:769 ui/collection.ui:123 ui/direct_context.ui:18
-#: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
-#: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
-#: ui/trash.ui:227
-msgid "Show in File Mana_ger"
-msgstr "Öppna med _filhanteraren"
-
 #: src/Resources.vala:770
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Öppna mappen för den markerade bilden i filhanteraren"
@@ -5737,24 +6253,6 @@ msgstr "Öppna mappen för den markerade bilden i filhanteraren"
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Kunde inte öppna i filhanterare: %s"
-
-#: src/Resources.vala:776 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
-#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77
-#: ui/tags.ui:74
-msgid "R_emove From Library"
-msgstr "Ta _bort från biblioteket"
-
-#: src/Resources.vala:778 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
-#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82
-#: ui/tags.ui:79
-msgid "_Move to Trash"
-msgstr "_Flytta till papperskorgen"
-
-#: src/Resources.vala:780 ui/events_directory.ui:58 ui/event.ui:86
-#: ui/faces.ui:86 ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65 ui/tags.ui:86
-#: ui/trash.ui:74
-msgid "Select _All"
-msgstr "Markera _alla"
 
 #: src/Resources.vala:781
 msgid "Select all items"
@@ -6057,10 +6555,6 @@ msgstr "Nästa"
 msgid "Go to the next photo"
 msgstr "Gå till nästa bild"
 
-#: src/SlideshowPage.vala:159 ui/slideshow_settings.ui:21
-msgid "Settings"
-msgstr "Inställningar"
-
 #: src/SlideshowPage.vala:160
 msgid "Change slideshow settings"
 msgstr "Ändra inställningar för bildspel"
@@ -6086,10 +6580,6 @@ msgstr "Bildspelsövergångar"
 msgid "(None)"
 msgstr "(Ingen)"
 
-#: src/slideshow/TransitionEffects.vala:287 ui/preferences_dialog.ui:414
-msgid "None"
-msgstr "Ingen"
-
 #: src/slideshow/TransitionEffects.vala:339
 msgid "Random"
 msgstr "Slumpmässigt"
@@ -6111,451 +6601,8 @@ msgstr "namnlös"
 msgid "Export Videos"
 msgstr "Exportera filmer"
 
-#: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/faces.ui:281
-#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
-msgid "Toggle _Flag"
-msgstr "_Växla flagga"
-
-#: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/faces.ui:353
-#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:344 ui/tags.ui:353
-msgid "_Developer"
-msgstr "_Framkallare"
-
-#: ui/collection.ui:119 ui/event.ui:387 ui/event.ui:558 ui/faces.ui:381
-#: ui/media.ui:381 ui/photo_context.ui:126 ui/tags.ui:381
-msgid "View Eve_nt for Photo"
-msgstr "_Visa bildhändelse"
-
-#: ui/direct.ui:5 ui/events_directory.ui:5 ui/event.ui:5 ui/faces.ui:5
-#: ui/import_queue.ui:5 ui/import.ui:5 ui/media.ui:5 ui/offline.ui:5
-#: ui/photo.ui:5 ui/tags.ui:5 ui/trash.ui:5
-msgid "_File"
-msgstr "_Arkiv"
-
-#: ui/direct.ui:13
-msgid "Save _As…"
-msgstr "_Spara som…"
-
-#: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99 ui/faces.ui:99
-#: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
-msgid "_View"
-msgstr "_Visa"
-
-#: ui/direct.ui:81 ui/photo.ui:156
-msgid "Fit to _Page"
-msgstr "_Anpassa till sidan"
-
-#: ui/direct.ui:86 ui/photo.ui:161
-msgid "Zoom _100%"
-msgstr "_Visa 100%"
-
-#: ui/direct.ui:91 ui/photo.ui:166
-msgid "Zoom _200%"
-msgstr "_Visa 200%"
-
-#: ui/direct.ui:98 ui/photo.ui:187
-msgid "_Photo"
-msgstr "_Bild"
-
-#: ui/direct.ui:101 ui/photo.ui:190
-msgid "_Previous Photo"
-msgstr "_Föregående bild"
-
-#: ui/direct.ui:105 ui/photo.ui:194
-msgid "_Next Photo"
-msgstr "_Nästa bild"
-
-#: ui/direct.ui:131 ui/photo.ui:220
-msgid "T_ools"
-msgstr "_Verktyg"
-
-#: ui/direct.ui:182 ui/events_directory.ui:158 ui/event.ui:428 ui/faces.ui:438
-#: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
-#: ui/photo.ui:395 ui/tags.ui:430 ui/trash.ui:197
-msgid "_Frequently Asked Questions"
-msgstr "_Återkommande frågor"
-
-#: ui/direct.ui:186 ui/events_directory.ui:162 ui/event.ui:432 ui/faces.ui:442
-#: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
-#: ui/photo.ui:399 ui/tags.ui:434 ui/trash.ui:201
-msgid "_Report a Problem…"
-msgstr "_Rapportera ett problem…"
-
-#: ui/events_directory.ui:8 ui/event.ui:8 ui/faces.ui:8 ui/import_queue.ui:14
-#: ui/import.ui:8 ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8
-#: ui/trash.ui:8
-msgid "_Import From Folder…"
-msgstr "_Importera från mapp…"
-
-#: ui/events_directory.ui:13 ui/event.ui:13 ui/faces.ui:13
-#: ui/import_queue.ui:19 ui/import.ui:21 ui/media.ui:13 ui/offline.ui:13
-#: ui/photo.ui:13 ui/tags.ui:13 ui/trash.ui:13
-msgid "Import From _Application…"
-msgstr "Importera från _program…"
-
-#: ui/events_directory.ui:19 ui/event.ui:34 ui/faces.ui:34
-#: ui/import_queue.ui:25 ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19
-#: ui/photo.ui:42 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
-msgid "Empty T_rash"
-msgstr "_Töm papperskorgen"
-
-#: ui/events_directory.ui:47 ui/event.ui:62 ui/faces.ui:62 ui/import.ui:55
-#: ui/media.ui:62 ui/offline.ui:47 ui/tags.ui:62 ui/trash.ui:52
-msgid "_Find"
-msgstr "_Sök"
-
-#: ui/events_directory.ui:51 ui/event.ui:66 ui/faces.ui:66 ui/media.ui:66
-#: ui/offline.ui:51 ui/photo.ui:70 ui/search_sidebar_context.ui:6
-#: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
-msgid "Ne_w Saved Search…"
-msgstr "_Ny sparad sökning…"
-
-#: ui/events_directory.ui:74 ui/event.ui:102 ui/faces.ui:102
-#: ui/import_queue.ui:41 ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81
-#: ui/photo.ui:98 ui/tags.ui:102 ui/trash.ui:90
-msgid "_Basic Information"
-msgstr "_Grundläggande information"
-
-#: ui/events_directory.ui:79 ui/event.ui:107 ui/faces.ui:107 ui/import.ui:82
-#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:103 ui/tags.ui:107
-#: ui/trash.ui:95
-msgid "E_xtended Information"
-msgstr "_Utökad Information"
-
-#: ui/events_directory.ui:84 ui/event.ui:112 ui/faces.ui:112 ui/import.ui:87
-#: ui/media.ui:112 ui/offline.ui:91 ui/tags.ui:112 ui/trash.ui:100
-msgid "_Search Bar"
-msgstr "_Sökfält"
-
-#: ui/events_directory.ui:89 ui/event.ui:117 ui/faces.ui:117 ui/import.ui:92
-#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:108 ui/tags.ui:117
-#: ui/trash.ui:105
-msgid "S_idebar"
-msgstr "S_idofält"
-
-#: ui/events_directory.ui:94 ui/event.ui:122 ui/faces.ui:122 ui/import.ui:97
-#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:113 ui/tags.ui:122
-#: ui/trash.ui:110
-msgid "T_oolbar"
-msgstr "V_erktygsfält"
-
-#: ui/events_directory.ui:101 ui/event.ui:134 ui/faces.ui:134 ui/media.ui:134
-#: ui/tags.ui:134
-msgid "_Comments"
-msgstr "_Kommentarer"
-
-#: ui/events_directory.ui:108 ui/event.ui:243 ui/faces.ui:243
-#: ui/import_queue.ui:48 ui/import.ui:166 ui/media.ui:243 ui/offline.ui:163
-#: ui/photo.ui:127 ui/tags.ui:243 ui/trash.ui:172
-msgid "Sort _Events"
-msgstr "_Sortera händelser"
-
-#: ui/events_directory.ui:111 ui/event.ui:231 ui/event.ui:246 ui/faces.ui:231
-#: ui/faces.ui:246 ui/import_queue.ui:51 ui/import.ui:169 ui/media.ui:231
-#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:130 ui/tags.ui:231
-#: ui/tags.ui:246 ui/trash.ui:175
-msgid "_Ascending"
-msgstr "_Stigande"
-
-#: ui/events_directory.ui:116 ui/event.ui:236 ui/faces.ui:236
-#: ui/import_queue.ui:56 ui/media.ui:236 ui/offline.ui:171 ui/tags.ui:236
-#: ui/trash.ui:180
-msgid "D_escending"
-msgstr "_Fallande"
-
-#: ui/events_directory.ui:132 ui/event.ui:379 ui/faces.ui:373 ui/media.ui:373
-#: ui/tags.ui:373
-msgid "Even_ts"
-msgstr "_Händelser"
-
-#: ui/event.ui:129 ui/faces.ui:129 ui/import.ui:104 ui/media.ui:129
-#: ui/tags.ui:129
-msgid "_Titles"
-msgstr "_Titlar"
-
-#: ui/event.ui:139 ui/event.ui:404 ui/faces.ui:139 ui/faces.ui:387
-#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:372 ui/tags.ui:139
-#: ui/tags.ui:387
-msgid "Ta_gs"
-msgstr "Ta_ggar"
-
-#: ui/event.ui:206 ui/faces.ui:206 ui/media.ui:206 ui/tags.ui:206
-msgid "Sort _Photos"
-msgstr "Sortera _bilder"
-
-#: ui/event.ui:209 ui/faces.ui:209 ui/media.ui:209 ui/tags.ui:209
-msgid "By _Title"
-msgstr "Efter _titel"
-
-#: ui/event.ui:214 ui/faces.ui:214 ui/media.ui:214 ui/tags.ui:214
-msgid "By _Filename"
-msgstr "Efter _filnamn"
-
-#: ui/event.ui:219 ui/faces.ui:219 ui/media.ui:219 ui/tags.ui:219
-msgid "By Exposure _Date"
-msgstr "Efter exponerings_ögonblick"
-
-#: ui/event.ui:224 ui/faces.ui:224 ui/media.ui:224 ui/tags.ui:224
-msgid "By _Rating"
-msgstr "Efter _betyg"
-
-#: ui/event.ui:251 ui/faces.ui:251 ui/import.ui:174 ui/media.ui:251
-#: ui/photo.ui:135 ui/tags.ui:251
-msgid "_Descending"
-msgstr "_Fallande"
-
-#: ui/event.ui:275 ui/faces.ui:275 ui/media.ui:275 ui/tags.ui:275
-msgid "_Photos"
-msgstr "_Bilder"
-
-#: ui/faces.ui:465
-msgid "Rename…"
-msgstr "Byt namn…"
-
-#: ui/import_queue.ui:8
-msgid "_Stop Import"
-msgstr "_Avbryt importen"
-
-#: ui/preferences_dialog.ui:67
-msgid "Display"
-msgstr "Visning"
-
-#: ui/preferences_dialog.ui:103
-msgid "_Import photos to:"
-msgstr "_Importera bilder till:"
-
-#: ui/preferences_dialog.ui:114
-msgid "_Watch library directory for new files"
-msgstr "_Bevaka bibliotekskatalogen efter nya filer"
-
-#: ui/preferences_dialog.ui:137
-msgid "Importing"
-msgstr "Import"
-
-#: ui/preferences_dialog.ui:154
-msgid "_Directory structure:"
-msgstr "_Katalogstruktur:"
-
-#: ui/preferences_dialog.ui:169
-msgid "Example:"
-msgstr "Exempel:"
-
-#: ui/preferences_dialog.ui:178
-msgid "R_ename imported files to lowercase"
-msgstr "B_yt namn på importerade filer till enbart gemener"
-
-#: ui/preferences_dialog.ui:200
-msgid "Metadata"
-msgstr "Metadata"
-
-#: ui/preferences_dialog.ui:213
-msgid "Write tags, titles, and other _metadata to photo files"
-msgstr "Skriv taggar, titlar och annan _metadata till bildfilerna"
-
-#: ui/preferences_dialog.ui:235
-msgid "RAW Developer"
-msgstr "RAW-framkallare"
-
-#: ui/preferences_dialog.ui:252
-msgid "De_fault:"
-msgstr "_Standard:"
-
-#: ui/preferences_dialog.ui:306
-msgid "_Pattern:"
-msgstr "_Mönster:"
-
-#: ui/preferences_dialog.ui:339
-msgid ""
-"When viewing images that are transparent, they will be drawn against this "
-"background."
-msgstr "Då transparenta bilder visas kommer de att ritas på denna bakgrund."
-
-#: ui/preferences_dialog.ui:343
-msgid "Transparent Background:"
-msgstr "_Transparent bakgrund:"
-
-#: ui/preferences_dialog.ui:357
-msgid "Checkered"
-msgstr "Rutig"
-
-#: ui/preferences_dialog.ui:378
-msgid "Solid color"
-msgstr "Enfärgad"
-
-#: ui/preferences_dialog.ui:441
-msgid "Use dark theme:"
-msgstr "Använd mörkt tema:"
-
-#: ui/preferences_dialog.ui:492
-msgid "E_xternal photo editor:"
-msgstr "E_xtern bildredigerare:"
-
-#: ui/preferences_dialog.ui:509
-msgid "External _RAW editor:"
-msgstr "Extern _RAW-redigerare:"
-
-#: ui/preferences_dialog.ui:570
-msgid "External Editors"
-msgstr "Externa redigerare"
-
-#: ui/preferences_dialog.ui:595
-msgid "Plugins"
-msgstr "Insticksmoduler"
-
-#: ui/preferences_dialog.ui:621
-msgid "Shotwell Preferences"
-msgstr "Inställningar för Shotwell"
-
-#: ui/printing_widget.ui:18
-msgid "<b>Printed Image Size</b>"
-msgstr "<b>Storlek på utskriften</b>"
-
-#: ui/printing_widget.ui:38
-msgid "Use a _standard size:"
-msgstr "Använd en _standardstorlek:"
-
-#: ui/printing_widget.ui:65
-msgid "Use a c_ustom size:"
-msgstr "Använd en _anpassad storlek:"
-
-#. Abbrevation for "inch"
-#: ui/printing_widget.ui:128
-msgid "in."
-msgstr "tum"
-
-#. Abbrevation for "centimeters"
-#: ui/printing_widget.ui:129
-msgid "cm"
-msgstr "cm"
-
-#: ui/printing_widget.ui:146
-msgid "_Match photo aspect ratio"
-msgstr "_Matcha bildförhållande"
-
-#: ui/printing_widget.ui:161
-msgid "_Autosize:"
-msgstr "_Automatisk storlek:"
-
-#: ui/printing_widget.ui:202
-msgid "<b>Titles</b>"
-msgstr "<b>Titlar</b>"
-
-#: ui/printing_widget.ui:219
-msgid "Print image _title"
-msgstr "Skriv ut bild_titel"
-
-#: ui/printing_widget.ui:262
-msgid "<b>Pixel Resolution</b>"
-msgstr "<b>Upplösning</b>"
-
-#: ui/printing_widget.ui:282
-msgid "_Output photo at:"
-msgstr "_Skriv ut bild till:"
-
-#: ui/printing_widget.ui:316
-msgid "pixels per inch"
-msgstr "pixlar per tum"
-
-#: ui/saved_search_dialog.ui:7
-msgid "Search"
-msgstr "Sök"
-
-#: ui/saved_search_dialog.ui:23
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: ui/saved_search_dialog.ui:36
-msgid "OK"
-msgstr "OK"
-
-#: ui/saved_search_dialog.ui:74
-msgid "_Name of search:"
-msgstr "_Namn på sökningen:"
-
-#: ui/saved_search_dialog.ui:132
-msgid "_Match"
-msgstr "_Matcha"
-
-#: ui/saved_search_dialog.ui:149
-msgid "any"
-msgstr "någon"
-
-#: ui/saved_search_dialog.ui:150
-msgid "all"
-msgstr "alla"
-
-#: ui/saved_search_dialog.ui:151
-msgid "none"
-msgstr "ingen"
-
-#: ui/saved_search_dialog.ui:165
-msgid "of the following:"
-msgstr "följande:"
-
-#: ui/set_background_dialog.ui:9
-msgid "Set as Desktop Background"
-msgstr "Ange som skrivbordsbakgrund"
-
-#: ui/set_background_dialog.ui:69 ui/set_background_slideshow_dialog.ui:132
-msgid "Use for Desktop"
-msgstr "Använd för skrivbord"
-
-#: ui/set_background_dialog.ui:86 ui/set_background_slideshow_dialog.ui:149
-msgid "Use for Lock Screen"
-msgstr "Använd för låsskärm"
-
-#: ui/set_background_slideshow_dialog.ui:16
-msgid "Set as Desktop Slideshow"
-msgstr "Ange som skrivbordsbildspel"
-
-#: ui/set_background_slideshow_dialog.ui:54
-msgid "Generate desktop background slideshow"
-msgstr "Skapa bildspel för skrivbordsbakgrunden"
-
-#: ui/set_background_slideshow_dialog.ui:80
-msgid "Show each photo for"
-msgstr "Visa varje bild i"
-
-#: ui/set_background_slideshow_dialog.ui:92
-msgid "period of time"
-msgstr "tidsperiod"
-
-#: ui/set_background_slideshow_dialog.ui:114
-msgid "How long each photo is shown on the desktop background"
-msgstr "Hur länge varje bild ska visas på skrivbordsbakgrunden"
-
-#: ui/sidebar_default_context.ui:11 ui/tag_sidebar_context.ui:6
-msgid "New _Tag…"
-msgstr "_Ny tagg…"
-
-#: ui/slideshow_settings.ui:98
-msgid "_Delay:"
-msgstr "_Fördröjning:"
-
-#: ui/slideshow_settings.ui:112
-msgid "_Transition effect:"
-msgstr "_Övergångseffekt:"
-
-#: ui/slideshow_settings.ui:126
-msgid "Transition d_elay:"
-msgstr "_Övergångsfördröjning:"
-
-#: ui/slideshow_settings.ui:136
-msgid "Show t_itle"
-msgstr "_Visa titel"
-
-#: ui/slideshow_settings.ui:219 ui/slideshow_settings.ui:230
-msgid "seconds"
-msgstr "sekunder"
-
-#: ui/textentrydialog.ui:66
-msgid "label"
-msgstr "etikett"
-
-#: ui/trash.ui:285
-msgid "Delete all photos in the trash"
-msgstr "Radera alla bilder från papperskorgen"
+#~ msgid "shotwell"
+#~ msgstr "shotwell"
 
 #~ msgid "background color"
 #~ msgstr "bakgrundsfärg"
