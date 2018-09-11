@@ -151,21 +151,6 @@
                 }
             ]
         },
-
-        {
-            "name": "webp",
-            "buildsystem" : "cmake",
-            "builddir" : true,
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://chromium.googlesource.com/webm/libwebp",
-                    "branch": "1.0.0",
-                    "commit" : "0b271f10c428b59d20a4415247e228f31e0030e4"
-                }
-            ]
-        },
-
         {
             "name": "shotwell",
             "buildsystem": "meson",
