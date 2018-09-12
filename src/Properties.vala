@@ -481,7 +481,7 @@ private class ExtendedProperties : Properties {
     private string exposure_time;
     private bool is_raw;
     private string? development_path;
-    private const string OSM_LINK_TEMPLATE = "https://www.openstreetmap.org/?mlat=%1$s%2$f&amp;mlon=%3$s%4$f#map=16/%1$s%2$f/%3$s%4$f";
+    private const string OSM_LINK_TEMPLATE = "https://www.openstreetmap.org/?mlat=%1$f&amp;mlon=%2$f#map=16/%1$f/%2$f";
 
     public ExtendedProperties() {
         base();
@@ -624,8 +624,7 @@ private class ExtendedProperties : Properties {
             string? osm_link = null;
             if (gps_lat != -1 && gps_lat_ref != "" && gps_long != -1 && gps_long_ref != "") {
                 var old_locale = Intl.setlocale(LocaleCategory.NUMERIC, "C");
-                osm_link = OSM_LINK_TEMPLATE.printf(gps_lat_ref == "N" ? "" : "-", gps_lat,
-                                                    gps_long_ref == "E" ? "" : "-", gps_long);
+                osm_link = OSM_LINK_TEMPLATE.printf(gps_lat, gps_long);
                 Intl.setlocale(LocaleCategory.NUMERIC, old_locale);
             }
 
