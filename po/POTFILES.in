@@ -130,6 +130,7 @@ src/photos/JfifSupport.vala
 src/photos/PngSupport.vala
 src/photos/RawSupport.vala
 src/photos/TiffSupport.vala
+src/photos/WebPSupport.vala
 src/Photo.vala
 src/Printing.vala
 src/Properties.vala
