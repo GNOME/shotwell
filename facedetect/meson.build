@@ -2,13 +2,20 @@ gnome = import('gnome')
 subproject = ('facedetect')
 add_languages('cpp')
 facedetect_dep = dependency('opencv', version : ['>= 2.3.0'], required : true)
+cpp = meson.get_compiler('cpp')
+has_dnn = cpp.has_header('opencv2/dnn.hpp', dependencies: facedetect_dep)
+if has_dnn
+  dnn_define = declare_dependency(compile_args: '-DHAS_OPENCV_DNN')
+else
+  dnn_define = []
+endif
 gio_unix = dependency('gio-unix-2.0', required : true)
 gdbus_src = gnome.gdbus_codegen('dbus-interface',
   sources: 'org.gnome.ShotwellFaces1.xml',
   interface_prefix : 'org.gnome.')
 executable('shotwell-facedetect',
            'shotwell-facedetect.cpp', 'facedetect-opencv.cpp', gdbus_src,
-           dependencies : [facedetect_dep, gio, gio_unix],
+           dependencies : [facedetect_dep, gio, gio_unix, dnn_define],
            install : true,
            include_directories: config_incdir,
            install_dir : join_paths(get_option('libexecdir'), 'shotwell'))

@@ -21,7 +21,14 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
     std::vector<cv::Rect> faces;
     cv::Size smallImgSize;
-    if (faceDetectNet.empty()) {
+    static bool disableDnn;
+
+#ifdef HAS_OPENCV_DNN
+    disableDnn = faceDetectNet.empty();
+#else
+    disableDnn = true;
+#endif
+    if (disableDnn) {
         // Classical face detection
         cv::Mat gray;
         cvtColor(img, gray, CV_BGR2GRAY);
@@ -34,9 +41,11 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
         cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
     } else {
+#ifdef HAS_OPENCV_DNN
         // DNN based face detection
         faces = detectFacesMat(img);
         smallImgSize = img.size(); // Not using the small image here
+#endif
     }
 
     std::vector<FaceRect> scaled;
@@ -46,6 +55,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         i.y = (float) r->y / smallImgSize.height;
         i.width = (float) r->width / smallImgSize.width;
         i.height = (float) r->height / smallImgSize.height;
+#ifdef HAS_OPENCV_DNN
         if (infer && !faceRecogNet.empty()) {
             // Get colour image for vector generation
             cv::Mat colourImg;
@@ -54,6 +64,9 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         } else {
             i.vec.assign(128, 0);
         }
+#else
+        i.vec.assign(128, 0);
+#endif
         scaled.push_back(i);
     }
 
@@ -62,6 +75,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
 // Load network into global var
 bool loadNet(cv::String baseDir) {
+#ifdef HAS_OPENCV_DNN
     try {
         faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
                                                   baseDir + "/" + RESNET_DETECT_CAFFE_NET);
@@ -76,17 +90,21 @@ bool loadNet(cv::String baseDir) {
     } else {
         return true;
     }
+#else
+    return false;
+#endif
 }
 
 // Face detector
 // Adapted from OpenCV example:
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
 std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
+    std::vector<cv::Rect> faces;
+#ifdef HAS_OPENCV_DNN
     cv::Mat blob = cv::dnn::blobFromImage(img, 1.0, cv::Size(128*8, 96*8),
                                           cv::Scalar(104, 177, 123, 0), false, false);
     faceDetectNet.setInput(blob);
     cv::Mat out = faceDetectNet.forward();
-    std::vector<cv::Rect> faces;
     // out is a 4D matrix [1 x 1 x n x 7]
     // n - number of results
     assert(out.dims == 4);
@@ -111,12 +129,14 @@ std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
             faces.push_back(rect);
         }
     }
+#endif // HAS_OPENCV_DNN
     return faces;
 }
 
 // Face to vector convertor
 // Adapted from OpenCV example:
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
+#ifdef HAS_OPENCV_DNN
 std::vector<double> faceToVecMat(cv::Mat img) {
     std::vector<double> ret;
     cv::Mat smallImg(96, 96, CV_8UC1);
@@ -133,6 +153,7 @@ std::vector<double> faceToVecMat(cv::Mat img) {
         ret.insert(ret.end(), vec.ptr<float>(i), vec.ptr<float>(i) + vec.cols);
     return ret;
 }
+#endif
 
 std::vector<double> faceToVec(cv::String inputName) {
     std::vector<double> ret;
@@ -141,8 +162,12 @@ std::vector<double> faceToVec(cv::String inputName) {
         std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
         ret.assign(128, 0);
         return ret;
-	}
+    }
+#ifdef HAS_OPENCV_DNN
     ret = faceToVecMat(img);
+#else
+    ret.assign(128, 0);
+#endif
     return ret;
 }
 
