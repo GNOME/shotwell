@@ -120,7 +120,7 @@ public class FacesTool : EditingTools.EditingTool {
         private EditingPhase editing_phase = EditingPhase.NOT_EDITING;
         private Gtk.Box help_layout = null;
         private Gtk.Box response_layout = null;
-        private Gtk.HSeparator buttons_text_separator = null;
+        private Gtk.Separator buttons_text_separator = null;
         private Gtk.Label help_text = null;
         private Gtk.Box face_widgets_layout = null;
         private Gtk.Box layout = null;
@@ -162,7 +162,7 @@ public class FacesTool : EditingTools.EditingTool {
             layout = new Gtk.Box(Gtk.Orientation.VERTICAL, CONTROL_SPACING);
             layout.pack_start(face_widgets_layout, false);
             layout.pack_start(help_layout, false);
-            layout.pack_start(new Gtk.HSeparator(), false);
+            layout.pack_start(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), false);
             layout.pack_start(response_layout, false);
 
             add(layout);
@@ -253,7 +253,7 @@ public class FacesTool : EditingTools.EditingTool {
             face_widgets_layout.pack_start(event_box, false);
 
             if (buttons_text_separator == null) {
-                buttons_text_separator = new Gtk.HSeparator();
+                buttons_text_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
                 face_widgets_layout.pack_end(buttons_text_separator, false);
             }
 

@@ -413,7 +413,7 @@ public abstract class AppWindow : PageWindow {
         instance = this;
 
         title = Resources.APP_TITLE;
-        set_default_icon_name("shotwell");
+        set_default_icon_name("org.gnome.Shotwell");
 
         // restore previous size and maximization state
         if (this is LibraryWindow) {
@@ -441,8 +441,11 @@ public abstract class AppWindow : PageWindow {
         add_actions ();
         
         Gtk.CssProvider provider = new Gtk.CssProvider();
-        provider.load_from_resource("/org/gnome/Shotwell/misc/org.gnome.Shotwell.css");
+        provider.load_from_resource("/org/gnome/Shotwell/themes/org.gnome.Shotwell.css");
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+        var foo = Gtk.IconTheme.get_default();
+        foo.add_resource_path("/org/gnome/Shotwell/icons/hicolor");
     }
 
     private const GLib.ActionEntry[] common_actions = {
@@ -654,17 +657,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_file_uri(File file) throws Error {
-        string tmp;
-        
-        // if file manager is nautilus then pass the full path to file; otherwise pass
-        // the enclosing directory
-        if(get_nautilus_install_location() != null) {
-            tmp = file.get_uri().replace("'","\\\'");
-            show_file_in_nautilus(tmp);
-        } else {
-            tmp = file.get_parent().get_uri().replace("'","\\\'");
-            show_uri(tmp);
-        }
+        show_file_in_filemanager.begin(file);
     }
     
     public void show_uri(string url) throws Error {

@@ -109,7 +109,7 @@ void library_exec(string[] mounts) {
             progress_dialog.update_display_every(100);
             progress_dialog.set_minimum_on_screen_time_msec(250);
             try {
-                progress_dialog.icon = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/shotwell.svg");
+                progress_dialog.icon = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/hicolor/scalable/org.gnome.Shotwell.svg");
             } catch (Error err) {
                 debug("Warning - could not load application icon for loading window: %s", err.message);
             }
@@ -365,7 +365,7 @@ void main(string[] args) {
     // muck with the user's XDG_... directories, which is seriously frowned upon
     if (AppDirs.get_install_dir() == null) {
         GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_lib_dir().get_path() +
-            "/misc", true);
+            "/data/gsettings", true);
     }
     
     // init GTK (valac has already called g_threads_init())

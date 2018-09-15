@@ -4698,7 +4698,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         Gee.HashMultiMap<Tag, LibraryPhoto> map = new Gee.HashMultiMap<Tag, LibraryPhoto>();
         foreach (MediaSource media in media_sources) {
             LibraryPhoto photo = (LibraryPhoto) media;
-            PhotoMetadata metadata = photo.get_metadata();
+            PhotoMetadata? metadata = photo.get_metadata();
             
             // get an index of all the htags in the application
             HierarchicalTagIndex global_index = HierarchicalTagIndex.get_global_index();
@@ -4709,7 +4709,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             // hierarchical tag information as plain old tags. If a tag name appears as part of
             // a hierarchical path, it needs to be excluded from being processed as a flat tag
             HierarchicalTagIndex? htag_index = null;
-            if (metadata.has_hierarchical_keywords()) {
+            if (metadata != null && metadata.has_hierarchical_keywords()) {
                 htag_index = HierarchicalTagUtilities.process_hierarchical_import_keywords(
                     metadata.get_hierarchical_keywords());
             }
@@ -4732,7 +4732,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                 }
             }
             
-            if (metadata.has_hierarchical_keywords()) {
+            if (metadata != null && metadata.has_hierarchical_keywords()) {
                 foreach (string path in htag_index.get_all_paths()) {
                     string? name = Tag.prep_tag_name(path);
                     if (name != null)

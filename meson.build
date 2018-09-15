@@ -1,5 +1,5 @@
 project('shotwell', ['vala', 'c'],
-        version : '0.29.91',
+        version : '0.31.0',
         meson_version : '>= 0.43.0',
         default_options : ['buildtype=debugoptimized'])
 
@@ -57,6 +57,9 @@ libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
 
+webpdemux = dependency('libwebpdemux')
+webp = dependency('libwebp')
+
 unity_available = false
 if unity.found() and get_option('unity-support')
   unity_available = true
@@ -100,18 +103,10 @@ cairo = dependency('cairo')
 valac = meson.get_compiler('vala')
 posix = valac.find_library('posix')
 
-shotwell_resources = gnome.compile_resources('shotwell-resources',
-        'org.gnome.Shotwell.gresource.xml')
-
+subdir('data')
 subdir('src')
 subdir('plugins')
 subdir('po')
 subdir('help')
-subdir('misc')
 subdir('thumbnailer')
-subdir('settings-migrator')
-subdir('app-icons')
-
-if get_option('install-apport-hook')
-  subdir('apport')
-endif
+subdir('test')

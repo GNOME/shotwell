@@ -433,6 +433,12 @@ public abstract class PhotoCanvas {
         drawing_window.invalidate_rect(rect, false);
     }
 
+    public void set_cursor(Gdk.CursorType cursor_type) {
+        var display = get_drawing_window().get_display();
+        var cursor = new Gdk.Cursor.for_display (display, cursor_type);
+        get_drawing_window().set_cursor(cursor);
+    }
+
     private Cairo.Surface pixbuf_to_surface(Cairo.Context default_ctx, Gdk.Pixbuf pixbuf,
         Gdk.Rectangle pos) {
         Cairo.Surface surface = new Cairo.Surface.similar(default_ctx.get_target(),
@@ -1220,11 +1226,7 @@ public class CropTool : EditingTool {
 
         // make sure the cursor isn't set to a modify indicator
         if (canvas != null) {
-            var drawing_window = canvas.get_drawing_window ();
-            var display = drawing_window.get_display ();
-            var cursor = new Gdk.Cursor.for_display (display,
-                                                     Gdk.CursorType.LEFT_PTR);
-            drawing_window.set_cursor (cursor);
+            canvas.set_cursor (Gdk.CursorType.LEFT_PTR);
         }
 
         crop_surface = null;
@@ -1419,10 +1421,7 @@ public class CropTool : EditingTool {
         }
 
         if (cursor_type != current_cursor_type) {
-            var drawing_window = canvas.get_drawing_window ();
-            var display = drawing_window.get_display ();
-            var cursor = new Gdk.Cursor.for_display (display, cursor_type);
-            drawing_window.set_cursor (cursor);
+            canvas.set_cursor(cursor_type);
             current_cursor_type = cursor_type;
         }
     }
@@ -1893,8 +1892,6 @@ public class RedeyeTool : EditingTool {
     private bool is_reticle_move_in_progress = false;
     private Gdk.Point reticle_move_mouse_start_point;
     private Gdk.Point reticle_move_anchor;
-    private Gdk.Cursor cached_arrow_cursor;
-    private Gdk.Cursor cached_grab_cursor;
     private Gdk.Rectangle old_scaled_pixbuf_position;
     private Gdk.Pixbuf current_pixbuf = null;
 
@@ -2044,10 +2041,6 @@ public class RedeyeTool : EditingTool {
 
         bind_window_handlers();
 
-        var display = canvas.get_drawing_window().get_display();
-        cached_arrow_cursor = new Gdk.Cursor.for_display(display, Gdk.CursorType.LEFT_PTR);
-        cached_grab_cursor = new Gdk.Cursor.for_display(display, Gdk.CursorType.FLEUR);
-
         DataCollection? owner = canvas.get_photo().get_membership();
         if (owner != null)
             owner.items_altered.connect(on_photos_altered);
@@ -2165,9 +2158,9 @@ public class RedeyeTool : EditingTool {
                 RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
             if (coord_in_rectangle(x, y, bounds)) {
-                canvas.get_drawing_window().set_cursor(cached_grab_cursor);
+                canvas.set_cursor(Gdk.CursorType.FLEUR);
             } else {
-                canvas.get_drawing_window().set_cursor(cached_arrow_cursor);
+                canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
             }
         }
     }

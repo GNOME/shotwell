@@ -4,9 +4,6 @@
     "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command" : "shotwell",
-    "rename-desktop-file" : "shotwell.desktop",
-    "rename-icon" : "shotwell",
-    "rename-appdata-file" : "shotwell.appdata.xml",
     "tags": [ "nightly" ],
     "desktop-file-name-prefix": "(Nightly) ",
     "finish-args": [
@@ -100,8 +97,8 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "http://github.com/Exiv2/exiv2",
-                    "commit" : "4aa57ad0217dfc509b42c5398602cede11fb8528"
+                    "url": "https://github.com/Exiv2/exiv2/",
+                    "commit" : "e7ffd83af29187190da7f98dcbca8a4d70e19582"
                 }
             ]
         },
@@ -118,7 +115,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/gexiv2"
+                    "url": "https://gitlab.gnome.org/GNOME/gexiv2.git/"
                 }
             ]
         },

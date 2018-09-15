@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Shotwell">
+      <!-- UI files -->
+      <file preprocess="xml-stripblanks">ui/collection.ui</file>
+      <file preprocess="xml-stripblanks">ui/direct_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/direct.ui</file>
+      <file preprocess="xml-stripblanks">ui/events_directory.ui</file>
+      <file preprocess="xml-stripblanks">ui/event.ui</file>
+      <file preprocess="xml-stripblanks">ui/faces.ui</file>
+      <file preprocess="xml-stripblanks">ui/fullscreen.ui</file>
+      <file preprocess="xml-stripblanks">ui/import_queue.ui</file>
+      <file preprocess="xml-stripblanks">ui/import.ui</file>
+      <file preprocess="xml-stripblanks">ui/media.ui</file>
+      <file preprocess="xml-stripblanks">ui/multitextentrydialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/manifest_widget.ui</file>
+      <file preprocess="xml-stripblanks">ui/offline.ui</file>
+      <file preprocess="xml-stripblanks">ui/photo_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/photo.ui</file>
+      <file preprocess="xml-stripblanks">ui/preferences_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/printing_widget.ui</file>
+      <file preprocess="xml-stripblanks">ui/savedsearch.ui</file>
+      <file preprocess="xml-stripblanks">ui/search_bar.ui</file>
+      <file preprocess="xml-stripblanks">ui/search_sidebar_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/set_background_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/set_background_slideshow_dialog.ui</file>
+      <file compressed="true">ui/shotwell.ui</file>
+      <file preprocess="xml-stripblanks">ui/sidebar_default_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/slideshow_settings.ui</file>
+      <file preprocess="xml-stripblanks">ui/saved_search_dialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/tag_sidebar_context.ui</file>
+      <file preprocess="xml-stripblanks">ui/tags.ui</file>
+      <file preprocess="xml-stripblanks">ui/textentrydialog.ui</file>
+      <file preprocess="xml-stripblanks">ui/trash.ui</file>
+      <!-- Icons -->
+      <file>icons/hicolor/scalable/actions/avatar-default-symbolic.svg</file>
+      <file>icons/image-missing.png</file>
+      <file>icons/hicolor/scalable/actions/crop-pivot-reticle-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/events-merge-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-flagged-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-flagged-disabled-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-photos-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-photos-disabled-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-raw-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-raw-disabled-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-videos-disabled-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/filter-videos-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/image-crop-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/image-auto-adjust-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/image-adjust-color-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/image-zoom-in-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/image-zoom-out-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/multiple-events-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/multiple-tags-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/no-event-symbolic.svg</file>
+      <file>icons/noninterpretable-video.png</file>
+      <file>icons/hicolor/scalable/actions/one-event-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/one-tag-symbolic.svg</file>
+      <file>icons/hicolor/scalable/actions/stock-eye-symbolic.svg</file>
+      <file preprocess="xml-stripblanks">icons/hicolor/scalable/apps/org.gnome.Shotwell.svg</file>
+      <file>icons/shotwell-street.jpg</file>
+      <file>icons/slideshow-extension-point.png</file>
+      <file>icons/hicolor/scalable/actions/straighten-symbolic.svg</file>
+      <file>themes/org.gnome.Shotwell.css</file>
+  </gresource>
+</gresources>

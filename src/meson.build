@@ -39,6 +39,9 @@ if get_option('face-detection')
                      'faces/FacesTool.vala'])
 endif
 
+shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
+                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
+                 libraw, libexif, sw_plugin, webpdemux, webp]
 if unity_available
     shotwell_deps += [unity]
 endif
@@ -82,6 +85,7 @@ executable('shotwell',
             'photos/RawSupport.vala',
             'photos/PngSupport.vala',
             'photos/TiffSupport.vala',
+            'photos/WebPSupport.vala',
             'plugins/Plugins.vala',
             'plugins/StandardHostInterface.vala',
             'plugins/ManifestWidget.vala',
@@ -252,7 +256,7 @@ executable('shotwell',
                         '--pkg', 'libexif',
                         '--pkg', 'misc',
                         '--gresources',
-                        join_paths(meson.source_root(),
+                        join_paths(meson.source_root(), 'data',
                           'org.gnome.Shotwell.gresource.xml')
                        ],
            link_with: shotwell_libs,

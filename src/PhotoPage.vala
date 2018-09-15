@@ -3178,7 +3178,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     protected override void insert_faces_button(Gtk.Toolbar toolbar) {
-        faces_button = new Gtk.ToggleToolButton.from_stock(Resources.FACES_TOOL);
+        faces_button = new Gtk.ToggleToolButton();
         faces_button.set_icon_name(Resources.ICON_FACES);
         faces_button.set_label(Resources.FACES_LABEL);
         faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);

@@ -83,6 +83,7 @@ src/photos/JfifSupport.c
 src/photos/PngSupport.c
 src/photos/RawSupport.c
 src/photos/TiffSupport.c
+src/photos/WebPSupport.c
 src/Printing.c
 src/Properties.c
 src/publishing/Publishing.c

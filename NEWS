@@ -1,3 +1,18 @@
+Shotwell 0.29.92 - 02 Sep 2018
+  * Translation updates and build fixes
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Chris Ladd <caladd@particlestorm.net>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Andre Klapper <a9016009@gmx.de>
+
+Added/updated translations
+ - fr, courtesy of arverne73
+ - id, courtesy of Kukuh Syafaat
+ - zh_TW, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.29.91 - 16 Aug 2018
   * Add unstable release flatpakref file
   * Remove use of stderr in thumbnailer

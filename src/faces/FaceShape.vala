@@ -41,8 +41,8 @@ public abstract class FaceShape : Object {
         face_window.show_all();
         face_window.hide();
         
-        this.canvas.get_drawing_window().set_cursor(new Gdk.Cursor(current_cursor_type));
         this.face_vec = vec;
+        this.canvas.set_cursor(current_cursor_type);
     }
     
     ~FaceShape() {
@@ -54,7 +54,7 @@ public abstract class FaceShape : Object {
         canvas.new_surface.disconnect(prepare_ctx);
         
         // make sure the cursor isn't set to a modify indicator
-        canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
     }
     
     public static FaceShape from_serialized(EditingTools.PhotoCanvas canvas, string serialized)
@@ -120,7 +120,7 @@ public abstract class FaceShape : Object {
             face_window.hide();
         
         // make sure the cursor isn't set to a modify indicator
-        canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
     }
     
     public void show() {
@@ -732,8 +732,7 @@ public class FaceRectangle : FaceShape {
         }
         
         if (cursor_type != current_cursor_type) {
-            Gdk.Cursor cursor = new Gdk.Cursor(cursor_type);
-            canvas.get_drawing_window().set_cursor(cursor);
+            canvas.set_cursor(cursor_type);
             current_cursor_type = cursor_type;
         }
     }

@@ -14,16 +14,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2018-06-03 05:50+0000\n"
-"PO-Revision-Date: 2018-06-13 20:28+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
+"POT-Creation-Date: 2018-08-06 17:03+0000\n"
+"PO-Revision-Date: 2018-08-21 23:44+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -103,27 +103,27 @@ msgstr "相片檢視器"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:6
 msgid "authentication token"
-msgstr "核對驗符"
+msgstr "核對代符"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Yandex-Fotki 身份核對驗符，若已登入的話。"
+msgstr "Yandex-Fotki 身份核對代符，若已登入的話。"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:14
 msgid "Token"
-msgstr "驗符"
+msgstr "代符"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:15
 msgid "The token to access tumblr"
-msgstr "存取 tumblr 的驗符"
+msgstr "存取 tumblr 的代符"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:20
 msgid "Secret token"
-msgstr "祕密驗符"
+msgstr "祕密代符"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:21
 msgid "The secret token to sign oauth requests"
-msgstr "登入 oauth 請求的祕密驗符"
+msgstr "登入 oauth 請求的祕密代符"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
 #: misc/org.yorba.shotwell.gschema.xml:498
@@ -164,11 +164,11 @@ msgstr "Rajce 使用者名稱，若已登入的話。"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:52
 msgid "token"
-msgstr "驗符"
+msgstr "代符"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:53
 msgid "user token, if remembered."
-msgstr "使用者驗符，若已記住的話。"
+msgstr "使用者代符，若已記住的話。"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
 #: misc/org.yorba.shotwell.gschema.xml:542
@@ -1312,7 +1312,7 @@ msgstr "Flickr 授權失敗"
 msgid "Verifying authorization…"
 msgstr "正在驗證授權…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:118
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:137
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1804,7 +1804,7 @@ msgstr "只有我"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
 msgid "Everyone"
-msgstr "每個人"
+msgstr "任何人"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:59
@@ -2334,12 +2334,12 @@ msgid "Camera"
 msgstr "相機"
 
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
-#: src/camera/CameraTable.vala:351
+#: src/camera/CameraTable.vala:256
 #, c-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: src/camera/ImportPage.vala:311 src/Properties.vala:231
+#: src/camera/ImportPage.vala:307 src/Properties.vala:234
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
@@ -2717,15 +2717,15 @@ msgstr "移動「%s」標籤"
 
 #: src/Commands.vala:2346
 msgid "Move Photos to Trash"
-msgstr "將相片移至回收筒"
+msgstr "將相片移至垃圾桶"
 
 #: src/Commands.vala:2346
 msgid "Restore Photos from Trash"
-msgstr "從回收筒還原檔案"
+msgstr "從垃圾桶還原檔案"
 
 #: src/Commands.vala:2347
 msgid "Move the photos to the Shotwell trash"
-msgstr "將相片移至 Shotwell 回收筒"
+msgstr "將相片移至 Shotwell 垃圾桶"
 
 #: src/Commands.vala:2347
 msgid "Restore the photos back to the Shotwell library"
@@ -2733,11 +2733,11 @@ msgstr "將相片還原至 Shotwell 珍藏館"
 
 #: src/Commands.vala:2366
 msgid "Moving Photos to Trash"
-msgstr "正在將相片移至回收筒"
+msgstr "正在將相片移至垃圾桶"
 
 #: src/Commands.vala:2366
 msgid "Restoring Photos From Trash"
-msgstr "正在從回收筒還原相片"
+msgstr "正在從垃圾桶還原相片"
 
 #: src/Commands.vala:2452
 msgid "Flag selected photos"
@@ -2797,7 +2797,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "資料庫檔案："
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:806
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:783
 msgid "_Import"
 msgstr "匯入(_I)"
 
@@ -2878,7 +2878,7 @@ msgstr[0] "這會移除「%s」標籤，共 %d 張相片。要繼續嗎？"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58
 #: src/Dialogs.vala:734 src/Resources.vala:129 src/Resources.vala:310
-#: src/Resources.vala:341 src/Resources.vala:394 src/Resources.vala:734
+#: src/Resources.vala:341 src/Resources.vala:394 src/Resources.vala:762
 #: ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63 ui/trash.ui:216
 #: ui/trash.ui:258
 msgid "_Delete"
@@ -3262,7 +3262,7 @@ msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "編輯標題"
 
-#: src/Dialogs.vala:675 src/Properties.vala:344
+#: src/Dialogs.vala:675 src/Properties.vala:347
 msgid "Title:"
 msgstr "標題："
 
@@ -3275,14 +3275,14 @@ msgstr "編輯事件評註"
 msgid "Edit Photo/Video Comment"
 msgstr "編輯相片/視訊評註"
 
-#: src/Dialogs.vala:693 src/Properties.vala:632
+#: src/Dialogs.vala:693 src/Properties.vala:646
 msgid "Comment:"
 msgstr "評註："
 
 #: src/Dialogs.vala:709
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
-msgstr[0] "移除並將檔案移至回收筒(_T)"
+msgstr[0] "移除並將檔案移至垃圾桶(_T)"
 
 #: src/Dialogs.vala:713
 msgid "_Remove From Library"
@@ -3394,7 +3394,7 @@ msgid_plural ""
 "This action cannot be undone."
 msgstr[0] ""
 "這會從您的 Shotwell 珍藏館移除 %d 份相片/視訊。您是否也想要將這些檔案移至您的"
-"桌面回收筒呢？\n"
+"桌面垃圾桶呢？\n"
 "\n"
 "這個動作無法還原。"
 
@@ -3412,7 +3412,7 @@ msgid_plural ""
 "This action cannot be undone."
 msgstr[0] ""
 "這會從您的 Shotwell 珍藏館移除 %d 份視訊。您是否也想要將這些檔案移至您的桌面"
-"回收筒呢？\n"
+"垃圾桶呢？\n"
 "\n"
 "這個動作無法還原。"
 
@@ -3430,7 +3430,7 @@ msgid_plural ""
 "This action cannot be undone."
 msgstr[0] ""
 "這會從您的 Shotwell 珍藏館移除 %d 張相片。您是否也想要將這些檔案移至您的桌面"
-"回收筒呢？\n"
+"垃圾桶呢？\n"
 "\n"
 "這個動作無法還原。"
 
@@ -3440,7 +3440,7 @@ msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
-msgstr[0] "%d 份相片/視訊無法移至您的桌面回收筒。要刪除這些檔案嗎？"
+msgstr[0] "%d 份相片/視訊無法移至您的桌面垃圾桶。要刪除這些檔案嗎？"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1010
@@ -3842,7 +3842,7 @@ msgstr "30 x 40 公分"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 x 420 公釐)"
 
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:399
+#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:402
 msgid "Size:"
 msgstr "大小："
 
@@ -3860,8 +3860,8 @@ msgid "_Reset"
 msgstr "重設(_R)"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2230 src/Properties.vala:440
-#: src/Properties.vala:444 src/Properties.vala:451
+#: src/editing_tools/EditingTools.vala:2230 src/Properties.vala:443
+#: src/Properties.vala:447 src/Properties.vala:454
 msgid "Exposure:"
 msgstr "曝光："
 
@@ -3946,13 +3946,13 @@ msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d 份相片/視訊"
 
-#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:359
+#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:362
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d 份視訊"
 
-#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:357
+#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:360
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -4041,7 +4041,7 @@ msgstr "偵測臉孔…"
 
 #: src/faces/FacesTool.vala:140
 msgid "Detect faces on this photo"
-msgstr "於此相片上偵測臉孔"
+msgstr "偵測此相片上的臉孔"
 
 #: src/faces/FacesTool.vala:142
 msgid "Cancel face detection"
@@ -4058,7 +4058,7 @@ msgstr "點擊並拖曳以標記臉孔"
 #: src/faces/FacesTool.vala:180
 #, c-format
 msgid "Click to edit face <i>%s</i>"
-msgstr "點擊以編輯臉孔 <i>%s</i>"
+msgstr "點擊以編輯 <i>%s</i> 臉孔"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -4074,7 +4074,7 @@ msgstr "拖曳或修改臉孔的外形或名稱，並按下 Enter"
 
 #: src/faces/FacesTool.vala:201
 msgid "Detecting faces"
-msgstr "偵測臉孔中"
+msgstr "偵測臉孔"
 
 #: src/faces/FacesTool.vala:212
 msgid "If you don’t set the name of unknown faces they won’t be saved."
@@ -4100,11 +4100,11 @@ msgstr "資料夾"
 msgid "Browse the library’s folder structure"
 msgstr "瀏覽珍藏館的資料夾結構"
 
-#: src/import-roll/ImportRollBranch.vala:44
+#: src/import-roll/ImportRollBranch.vala:43
 msgid "Imports"
 msgstr "匯入"
 
-#: src/import-roll/ImportRollBranch.vala:44
+#: src/import-roll/ImportRollBranch.vala:43
 msgid "Browse the library’s import history"
 msgstr "瀏覽珍藏館的匯入紀錄"
 
@@ -4143,23 +4143,23 @@ msgstr "整理並瀏覽您的相片"
 msgid "Photos"
 msgstr "相片"
 
-#: src/library/LibraryWindow.vala:532
+#: src/library/LibraryWindow.vala:526
 msgid "Import From Folder"
 msgstr "從資料夾匯入"
 
-#: src/library/LibraryWindow.vala:539
+#: src/library/LibraryWindow.vala:533
 msgid "Recurse Into Subfolders"
 msgstr "遞迴進入子資料夾"
 
-#: src/library/LibraryWindow.vala:607 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:601 ui/trash.ui:288
 msgid "Empty Trash"
-msgstr "清空回收筒"
+msgstr "清空垃圾桶"
 
-#: src/library/LibraryWindow.vala:607
+#: src/library/LibraryWindow.vala:601
 msgid "Emptying Trash…"
-msgstr "正在清空回收筒…"
+msgstr "正在清空垃圾桶…"
 
-#: src/library/LibraryWindow.vala:803
+#: src/library/LibraryWindow.vala:780
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4171,33 +4171,33 @@ msgstr ""
 "我們建議您在 <span weight=\"bold\">編輯 %s 偏好設定</span> 中更改此設定。\n"
 "您是否想要繼續匯入相片？"
 
-#: src/library/LibraryWindow.vala:806 ui/preferences_dialog.ui:86
+#: src/library/LibraryWindow.vala:783 ui/preferences_dialog.ui:86
 msgid "Library Location"
 msgstr "珍藏館位置"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:819
+#: src/library/LibraryWindow.vala:796
 msgid "Photos cannot be imported from this directory."
 msgstr "相片無法從此目錄匯入。"
 
-#: src/library/LibraryWindow.vala:1099
+#: src/library/LibraryWindow.vala:1076
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1143 src/library/LibraryWindow.vala:1154
+#: src/library/LibraryWindow.vala:1120 src/library/LibraryWindow.vala:1131
 msgid "Updating library…"
 msgstr "正在更新珍藏館…"
 
-#: src/library/LibraryWindow.vala:1160
+#: src/library/LibraryWindow.vala:1137
 msgid "Preparing to auto-import photos…"
 msgstr "正在準備自動匯入相片…"
 
-#: src/library/LibraryWindow.vala:1165
+#: src/library/LibraryWindow.vala:1142
 msgid "Auto-importing photos…"
 msgstr "正在自動匯入相片…"
 
-#: src/library/LibraryWindow.vala:1173
+#: src/library/LibraryWindow.vala:1150
 msgid "Writing metadata to files…"
 msgstr "正在將中介資料寫入檔案中…"
 
@@ -4211,11 +4211,11 @@ msgstr "正在刪除…"
 
 #: src/library/TrashPage.vala:8
 msgid "Trash"
-msgstr "回收筒"
+msgstr "垃圾桶"
 
 #: src/library/TrashPage.vala:106
 msgid "Trash is empty"
-msgstr "空的回收筒"
+msgstr "空的垃圾桶"
 
 #: src/library/TrashPage.vala:110 ui/faces.ui:469
 msgid "Delete"
@@ -4305,11 +4305,11 @@ msgstr "執行「%s --help」來查看可用命令列選項的完整清單。\n"
 msgid "Unable to process monitoring updates: %s"
 msgstr "無法處理監視更新：%s"
 
-#: src/MediaPage.vala:157
+#: src/MediaPage.vala:76
 msgid "Adjust the size of the thumbnails"
 msgstr "調整縮圖大小"
 
-#: src/MediaPage.vala:500
+#: src/MediaPage.vala:419
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -4445,125 +4445,121 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/Properties.vala:88
+#: src/Properties.vala:98
 msgid "Today"
 msgstr "今天"
 
-#: src/Properties.vala:90
+#: src/Properties.vala:100
 msgid "Yesterday"
 msgstr "昨天"
 
-#: src/Properties.vala:347
+#: src/Properties.vala:350
 msgid "Items:"
 msgstr "項目："
 
-#: src/Properties.vala:350
+#: src/Properties.vala:353
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d 個事件"
 
 #. display only one date if start and end are the same
-#: src/Properties.vala:381
+#: src/Properties.vala:384
 msgid "Date:"
 msgstr "日期："
 
 #. display only one time if start and end are the same
-#: src/Properties.vala:385
+#: src/Properties.vala:388
 msgid "Time:"
 msgstr "時間："
 
 #. display time range
 #. display date range
-#: src/Properties.vala:388 src/Properties.vala:393
+#: src/Properties.vala:391 src/Properties.vala:396
 msgid "From:"
 msgstr "從："
 
-#: src/Properties.vala:389 src/Properties.vala:394
+#: src/Properties.vala:392 src/Properties.vala:397
 msgid "To:"
 msgstr "到："
 
-#: src/Properties.vala:408
+#: src/Properties.vala:411
 msgid "Duration:"
 msgstr "時間："
 
-#: src/Properties.vala:408
+#: src/Properties.vala:411
 #, c-format
 msgid "%.1f seconds"
 msgstr "%.1f 秒"
 
-#: src/Properties.vala:412
+#: src/Properties.vala:415
 msgid "Developer:"
 msgstr "顯影器："
 
 #. nothing special to be done for now for Events
-#: src/Properties.vala:587
+#: src/Properties.vala:593
 msgid "Location:"
 msgstr "位置："
 
-#: src/Properties.vala:590
+#: src/Properties.vala:596
 msgid "File size:"
 msgstr "檔案大小："
 
-#: src/Properties.vala:594
+#: src/Properties.vala:600
 msgid "Current Development:"
 msgstr "目前顯影："
 
-#: src/Properties.vala:596
+#: src/Properties.vala:602
 msgid "Original dimensions:"
 msgstr "原始維度："
 
-#: src/Properties.vala:599
+#: src/Properties.vala:605
 msgid "Camera make:"
 msgstr "相機製造商："
 
-#: src/Properties.vala:602
+#: src/Properties.vala:608
 msgid "Camera model:"
 msgstr "相機型號："
 
-#: src/Properties.vala:605
+#: src/Properties.vala:611
 msgid "Flash:"
 msgstr "閃光："
 
-#: src/Properties.vala:607
+#: src/Properties.vala:613
 msgid "Focal length:"
 msgstr "焦距："
 
-#: src/Properties.vala:610
+#: src/Properties.vala:616
 msgid "Exposure date:"
 msgstr "曝光日期："
 
-#: src/Properties.vala:613
+#: src/Properties.vala:619
 msgid "Exposure time:"
 msgstr "曝光時間："
 
-#: src/Properties.vala:616
+#: src/Properties.vala:622
 msgid "Exposure bias:"
 msgstr "曝光補償："
 
-#: src/Properties.vala:618
+#: src/Properties.vala:632
 msgid "GPS latitude:"
 msgstr "GPS 緯度："
 
-#: src/Properties.vala:621
+#: src/Properties.vala:635
 msgid "GPS longitude:"
 msgstr "GPS 經度："
 
-#: src/Properties.vala:624
+#: src/Properties.vala:638
 msgid "Artist:"
 msgstr "藝人："
 
-#: src/Properties.vala:626
+#: src/Properties.vala:640
 msgid "Copyright:"
 msgstr "著作權："
 
-#: src/Properties.vala:628
+#: src/Properties.vala:642
 msgid "Software:"
 msgstr "軟體："
-
-#: src/Properties.vala:643
-msgid "Extended Information"
-msgstr "擴展資訊"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
@@ -5314,13 +5310,13 @@ msgstr "刪除「%s」搜尋"
 #: src/Resources.vala:408
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr "無法重新命名臉孔至「%s」，因為那臉孔已經存在。"
+msgstr "無法重新將臉孔命名為「%s」，因為已經存在該人物。"
 
 #: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
-msgstr[0] "從相片移除「%s」臉孔(_P)"
+msgstr[0] "從相片中移除「%s」臉孔(_P)"
 
 #: src/Resources.vala:417
 #, c-format
@@ -5348,97 +5344,97 @@ msgstr "刪除「%s」臉孔(_D)"
 msgid "Delete Face “%s”"
 msgstr "刪除「%s」臉孔"
 
-#: src/Resources.vala:636
+#: src/Resources.vala:664
 #, c-format
 msgid "Rate %s"
 msgstr "為 %s 評等"
 
-#: src/Resources.vala:637
+#: src/Resources.vala:665
 #, c-format
 msgid "Set rating to %s"
 msgstr "設定評等為 %s"
 
-#: src/Resources.vala:638
+#: src/Resources.vala:666
 #, c-format
 msgid "Setting rating to %s"
 msgstr "正在設定評等為 %s"
 
-#: src/Resources.vala:640
+#: src/Resources.vala:668
 #, c-format
 msgid "Display %s"
 msgstr "顯示 %s"
 
-#: src/Resources.vala:641
+#: src/Resources.vala:669
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "只顯示評等為 %s 的相片"
 
-#: src/Resources.vala:642
+#: src/Resources.vala:670
 #, c-format
 msgid "%s or Better"
 msgstr "%s 或更高"
 
-#: src/Resources.vala:643
+#: src/Resources.vala:671
 #, c-format
 msgid "Display %s or Better"
 msgstr "顯示 %s 或更高"
 
-#: src/Resources.vala:644
+#: src/Resources.vala:672
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "只顯示評等為 %s 或更高的相片"
 
-#: src/Resources.vala:735 ui/trash.ui:255
+#: src/Resources.vala:763 ui/trash.ui:255
 msgid "Remove the selected photos from the trash"
-msgstr "從回收筒移除所選的相片"
+msgstr "從垃圾桶移除所選的相片"
 
-#: src/Resources.vala:736 ui/offline.ui:221
+#: src/Resources.vala:764 ui/offline.ui:221
 msgid "Remove the selected photos from the library"
 msgstr "從珍藏館移除所選的相片"
 
-#: src/Resources.vala:738 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
+#: src/Resources.vala:766 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
 msgid "_Restore"
 msgstr "還原(_R)"
 
-#: src/Resources.vala:739 ui/trash.ui:270
+#: src/Resources.vala:767 ui/trash.ui:270
 msgid "Move the selected photos back into the library"
 msgstr "將所選的相片移回珍藏館"
 
-#: src/Resources.vala:741 ui/collection.ui:123 ui/direct_context.ui:18
+#: src/Resources.vala:769 ui/collection.ui:123 ui/direct_context.ui:18
 #: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
 #: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "以檔案管理員開啟(_G)"
 
-#: src/Resources.vala:742
+#: src/Resources.vala:770
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "在檔案管理員內開啟所選的相片目錄"
 
-#: src/Resources.vala:745
+#: src/Resources.vala:773
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "無法於檔案管理員內開啟：%s"
 
-#: src/Resources.vala:748 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
+#: src/Resources.vala:776 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
 #: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77
 #: ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "從珍藏館移除(_E)"
 
-#: src/Resources.vala:750 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
+#: src/Resources.vala:778 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
 #: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82
 #: ui/tags.ui:79
 msgid "_Move to Trash"
-msgstr "移至回收筒(_M)"
+msgstr "移至垃圾桶(_M)"
 
-#: src/Resources.vala:752 ui/events_directory.ui:58 ui/event.ui:86
+#: src/Resources.vala:780 ui/events_directory.ui:58 ui/event.ui:86
 #: ui/faces.ui:86 ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65 ui/tags.ui:86
 #: ui/trash.ui:74
 msgid "Select _All"
 msgstr "全選(_A)"
 
-#: src/Resources.vala:753
+#: src/Resources.vala:781
 msgid "Select all items"
 msgstr "選取全部項目"
 
@@ -5451,14 +5447,14 @@ msgstr "選取全部項目"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:814
+#: src/Resources.vala:842
 msgid "%a %b %d, %Y"
 msgstr "%Y年%b%d日（%a）"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:819
+#: src/Resources.vala:847
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%Y年%b%d日（%a）"
@@ -5466,7 +5462,7 @@ msgstr "%Y年%b%d日（%a）"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:824
+#: src/Resources.vala:852
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d日"
@@ -5474,7 +5470,7 @@ msgstr "%d日"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:829
+#: src/Resources.vala:857
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%Y年%b%d日（%a）"
@@ -5482,7 +5478,7 @@ msgstr "%Y年%b%d日（%a）"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:834
+#: src/Resources.vala:862
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%b%d日（%a）"
@@ -5879,7 +5875,7 @@ msgstr "從應用程式匯入(_A)…"
 #: ui/import_queue.ui:25 ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19
 #: ui/photo.ui:42 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
 msgid "Empty T_rash"
-msgstr "清空回收筒(_R)"
+msgstr "清空垃圾桶(_R)"
 
 #: ui/events_directory.ui:47 ui/event.ui:62 ui/faces.ui:62 ui/import.ui:55
 #: ui/media.ui:62 ui/offline.ui:47 ui/tags.ui:62 ui/trash.ui:52
@@ -6236,7 +6232,10 @@ msgstr "標籤"
 
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
-msgstr "刪除回收筒中的所有相片"
+msgstr "刪除垃圾桶中的所有相片"
+
+#~ msgid "Extended Information"
+#~ msgstr "擴展資訊"
 
 #~ msgid "background color"
 #~ msgstr "背景色"

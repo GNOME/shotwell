@@ -655,6 +655,7 @@ public class SavedSearchDialog : Gtk.Dialog {
     private bool edit_mode = false;
     private SavedSearch? previous_search = null;
     private bool valid = false;
+    private ulong notify_id = 0;
     
     public SavedSearchDialog() {
         Object (use_header_bar : Resources.use_header_bar());
@@ -703,6 +704,12 @@ public class SavedSearchDialog : Gtk.Dialog {
         add_criteria.clicked.connect(on_add_criteria);
         
         search_title.changed.connect(on_title_changed);
+        if (Resources.use_header_bar() == 1) {
+            var box = search_title.get_parent();
+            box.remove(search_title);
+            box.get_parent().remove(box);
+            (get_header_bar() as Gtk.HeaderBar).set_custom_title (search_title);
+        }
     }
     
     // Displays the dialog.
@@ -711,9 +718,14 @@ public class SavedSearchDialog : Gtk.Dialog {
         destroy();
     }
     
+    double upper;
     // Adds a row of search criteria.
     private void on_add_criteria() {
+        this.upper = row_listbox.get_adjustment().upper;
+        this.notify_id = row_listbox.get_adjustment().notify["upper"].connect(on_scroll);
         add_text_search();
+        // Wait for upper to change. Then scroll to it, disconnect afterwards
+        // Otherwise the ListBox will randomly scroll to the bottom
     }
     
     private void add_text_search() {
@@ -725,11 +737,26 @@ public class SavedSearchDialog : Gtk.Dialog {
     private void add_row(SearchRowContainer row) {
         if (row_list.size == 1)
             row_list.get(0).allow_removal(true);
-        row_listbox.add(row.get_widget());
+        row_listbox.insert(row.get_widget(), row_list.size);
         row_list.add(row);
         row.remove.connect(on_remove_row);
         row.changed.connect(on_row_changed);
         set_valid(row.is_complete());
+
+    }
+
+    private void on_scroll() {
+        var adj = row_listbox.get_adjustment();
+        if (adj.upper < this.upper) {
+            return;
+        }
+
+        if (this.notify_id != 0) {
+            adj.disconnect(this.notify_id);
+            this.notify_id = 0;
+        }
+
+        adj.value = adj.upper;
     }
     
     // Removes a row of search criteria.
