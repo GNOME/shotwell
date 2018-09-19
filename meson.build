@@ -110,3 +110,5 @@ subdir('po')
 subdir('help')
 subdir('thumbnailer')
 subdir('test')
+
+meson.add_install_script('build-aux/meson/postinstall.py')

@@ -161,9 +161,6 @@
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell",
                     "branch" : "master"
                 }
-            ],
-            "post-install": [
-                "glib-compile-schemas /app/share/glib-2.0/schemas/"
             ]
         }
     ]
