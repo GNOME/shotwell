@@ -113,6 +113,7 @@ subdir('settings-migrator')
 subdir('test')
 subdir('app-icons')
 
+meson.add_install_script('build-aux/meson/postinstall.py')
 if get_option('install-apport-hook')
   subdir('apport')
 endif
