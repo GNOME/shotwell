@@ -20,7 +20,8 @@ vapi_incdir = include_directories('vapi')
 shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'builtin')
 
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
-                     ['-include'], ['config.h'], language : 'c')
+                     ['-include'], ['config.h'],
+                     ['-include'], ['version.h'], language : 'c')
 add_global_arguments(['--target-glib=2.40',
                       '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
                         'vapi')),
@@ -28,6 +29,7 @@ add_global_arguments(['--target-glib=2.40',
                       '--enable-experimental',
                       '--enable-deprecated'], language : 'vala')
 
+vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 if get_option('fatal_warnings')
     add_global_arguments(
         [
@@ -37,12 +39,6 @@ if get_option('fatal_warnings')
     )
 endif
 
-gitver = run_command(find_program('git-hash'))
-if gitver.returncode() == 0
-  add_global_arguments(['-D_GIT_VERSION="@0@"'.format(gitver.stdout().strip())],
-    language : 'c')
-  add_global_arguments(['--define=_GITVERSION'], language : 'vala')
-endif
 
 gtk = dependency('gtk+-3.0', version : '>= 3.22')
 gio = dependency('gio-2.0', version: '>= 2.40')

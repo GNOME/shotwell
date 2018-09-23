@@ -383,7 +383,7 @@ void main(string[] args) {
     }
 
     if (CommandlineOptions.show_version) {
-        if (Resources.GIT_VERSION != null)
+        if (Resources.GIT_VERSION != "")
             print("%s %s (%s)\n", Resources.APP_TITLE, Resources.APP_VERSION, Resources.GIT_VERSION);
         else
             print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
@@ -415,7 +415,7 @@ void main(string[] args) {
     
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
 
-    if (Resources.GIT_VERSION != null)
+    if (Resources.GIT_VERSION != "")
         message("Shotwell %s %s (%s)",
             is_string_empty(filename) ? Resources.APP_LIBRARY_ROLE : Resources.APP_DIRECT_ROLE,
             Resources.APP_VERSION, Resources.GIT_VERSION);

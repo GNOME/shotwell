@@ -1,0 +1,3 @@
+#pragma once
+
+#define _GIT_VERSION "@VCS_TAG@"

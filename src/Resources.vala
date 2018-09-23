@@ -18,11 +18,7 @@ namespace Resources {
     public const string APP_DIRECT_ROLE = _("Photo Viewer");
     public const string APP_VERSION = _VERSION;
 
-#if _GITVERSION
     public const string? GIT_VERSION = _GIT_VERSION;
-#else
-    public const string? GIT_VERSION = null;
-#endif
 
     public const string COPYRIGHT = _("Copyright 2016 Software Freedom Conservancy Inc.");
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
