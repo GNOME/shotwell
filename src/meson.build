@@ -32,7 +32,7 @@ endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                 libraw, libexif, sw_plugin, gdk]
+                 libraw, libexif, sw_plugin, gdk, version]
 if unity_available
     shotwell_deps += [unity]
 endif

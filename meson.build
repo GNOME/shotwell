@@ -29,7 +29,8 @@ add_global_arguments(['--target-glib=2.40',
                       '--enable-experimental',
                       '--enable-deprecated'], language : 'vala')
 
-vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
+version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
+version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 if get_option('fatal_warnings')
     add_global_arguments(
         [
