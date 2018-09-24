@@ -30,7 +30,8 @@ add_global_arguments(['--target-glib=2.40',
                       '--enable-experimental',
                       '--enable-deprecated'], language : 'vala')
 
-vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
+version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
+version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
 gtk = dependency('gtk+-3.0', version : '>= 3.22')
 gio = dependency('gio-2.0', version: '>= 2.40')
