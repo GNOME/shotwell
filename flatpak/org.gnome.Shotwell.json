@@ -163,7 +163,7 @@
             "sources" : [
                 {
                     "type": "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/shotwell",
+                    "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
                     "branch" : "master"
                 }
             ]
