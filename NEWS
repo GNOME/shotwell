@@ -1,4 +1,24 @@
-Shotwell 0.30.0 "Celle" - xx Sep 2018
+Shotwell 0.30.1 - 29 Sep 2018
+  * Fix appdata URLs
+  * Fix "Show in file manager" issues with single quotes
+  * Fix cancelling in sharing dialog
+  * Fix progress bar in sharing dialog
+  * Piwigo: Fix issue with empty dialog after cancelling upload
+  * Fix setting the slideshow delay with the spinner
+  * Fix icon fall-back for extensions
+  * Fix a critical when an image does not have any meta-data
+  * Fix GPS coordinate link in extended information for western longitudes
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718676
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/22
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/53
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/56
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
+Shotwell 0.30.0 "Celle" - 10 Sep 2018
   * Translation updates
   * Last-minute fix for random segfaults in GSettings
 
