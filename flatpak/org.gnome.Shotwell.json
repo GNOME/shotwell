@@ -100,6 +100,7 @@
             "name": "exiv2",
             "cleanup": [ "/bin" ],
             "buildsystem": "cmake",
+            "config-opts" : ["-DCMAKE_INSTALL_LIBDIR=lib"],
             "sources": [
                 {
                     "type": "git",
@@ -147,7 +148,7 @@
             "buildsystem": "cmake",
             "builddir": true,
             "cleanup" : ["/share/OpenCV/*.cmake", "/share/OpenCV/*.supp"],
-            "config-opts" : ["-DBUILD_TESTS=OFF", "-DBUILD_EXAMPLES=OFF", "-DBUILD_PERF_TESTS=OFF", "-DWITH_FFMPEG=OFF", "-DWITH_GTK=OFF", "-DWITH_GSTREAMER=OFF", "-DBUILD_opencv_apps=OFF"],
+            "config-opts" : ["-DBUILD_TESTS=OFF", "-DBUILD_EXAMPLES=OFF", "-DBUILD_PERF_TESTS=OFF", "-DWITH_FFMPEG=OFF", "-DWITH_GTK=OFF", "-DWITH_GSTREAMER=OFF", "-DBUILD_opencv_apps=OFF", "-DCMAKE_INSTALL_LIBDIR=lib"],
             "sources": [
                 {
                     "type": "git",
