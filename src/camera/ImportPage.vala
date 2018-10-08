@@ -1493,8 +1493,12 @@ public class ImportPage : CheckerboardPage {
                 return false;
             }
             
-            if (!enumerate_files(fsid, append_path(dir, subdir), import_list))
-                return false;
+            if (subdir.has_prefix(".")) {
+                debug("Skipping hidden sub-folder %s in %s", subdir, dir);
+            } else {
+                if (!enumerate_files(fsid, append_path(dir, subdir), import_list))
+                    return false;
+            }
         }
         
         return true;
