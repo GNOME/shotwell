@@ -218,6 +218,12 @@ public class DirectPhotoPage : EditingHostPage {
             fs.close();
             
             return true;
+        } else {
+            if (get_container() is DirectWindow) {
+                (get_container() as DirectWindow).do_fullscreen();
+
+                return true;
+            }
         }
         
         return base.on_double_click(event);
