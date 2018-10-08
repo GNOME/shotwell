@@ -246,6 +246,7 @@ executable('shotwell',
                         '--pkg', 'libraw',
                         '--pkg', 'libexif',
                         '--pkg', 'misc',
+                        '--pkg', 'version',
                         '--gresources',
                         join_paths(meson.source_root(), 'data',
                           'org.gnome.Shotwell.gresource.xml')
