@@ -10,7 +10,6 @@ extern const string _VERSION;
 extern const string GETTEXT_PACKAGE;
 extern const string _LIB;
 extern const string _LIBEXECDIR;
-extern const string? _GIT_VERSION;
 
 namespace Resources {
     public const string APP_TITLE = "Shotwell";

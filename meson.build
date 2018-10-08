@@ -21,7 +21,7 @@ shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'b
 
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
                      ['-include'], ['config.h'],
-                     ['-include'], ['version.h'], language : 'c')
+                     language : 'c')
 add_global_arguments(['--target-glib=2.40',
                       '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
                         'vapi')),
