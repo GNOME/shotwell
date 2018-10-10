@@ -69,9 +69,8 @@ public File? choose_file(string current_file_basename) {
     string file_chooser_title = VideoReader.is_supported_video_filename(current_file_basename) ?
         _("Export Video") : _("Export Photo");
         
-    Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(file_chooser_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.CANCEL_LABEL, 
-        Gtk.ResponseType.CANCEL, Resources.SAVE_LABEL, Gtk.ResponseType.ACCEPT, null);
+    var chooser = new Gtk.FileChooserNative(file_chooser_title,
+        AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.SAVE_LABEL, Resources.CANCEL_LABEL);
     chooser.set_do_overwrite_confirmation(true);
     chooser.set_current_folder(current_export_dir.get_path());
     chooser.set_current_name(current_file_basename);
@@ -94,9 +93,8 @@ public File? choose_dir(string? user_title = null) {
     if (user_title == null)
         user_title = _("Export Photos");
 
-    Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(user_title,
-        AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Resources.CANCEL_LABEL, 
-        Gtk.ResponseType.CANCEL, Resources.OK_LABEL, Gtk.ResponseType.ACCEPT, null);
+    var chooser = new Gtk.FileChooserNative(user_title,
+        AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
     chooser.set_current_folder(current_export_dir.get_path());
     chooser.set_local_only(false);
     
@@ -578,9 +576,9 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
 }
 
 internal void save_import_results(Gtk.Window? chooser_dialog_parent, string results_log) {
-    Gtk.FileChooserDialog chooser_dialog = new Gtk.FileChooserDialog(
+    var chooser_dialog = new Gtk.FileChooserNative(
         ImportUI.SAVE_RESULTS_FILE_CHOOSER_TITLE, chooser_dialog_parent, Gtk.FileChooserAction.SAVE,
-        Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, Resources.SAVE_AS_LABEL, Gtk.ResponseType.ACCEPT, null);
+        Resources.SAVE_AS_LABEL, Resources.CANCEL_LABEL);
     chooser_dialog.set_do_overwrite_confirmation(true);
     chooser_dialog.set_current_folder(Environment.get_home_dir());
     chooser_dialog.set_current_name("Shotwell Import Log.txt");
