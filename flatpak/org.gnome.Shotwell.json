@@ -192,8 +192,13 @@
                 "-DWITH_FFMPEG=OFF",
                 "-DWITH_GTK=OFF",
                 "-DWITH_GSTREAMER=OFF",
+                "-DWITH_JASPER=OFF",
+                "-DWITH_OPENEXR=OFF",
+                "-DWITH_GDAL=OFF",
+                "-DWITH_GDCM=OFF",
                 "-DBUILD_opencv_apps=OFF",
-                "-DCMAKE_INSTALL_LIBDIR=lib"
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DBUILD_LIST=imgproc,imgcodecs,objdetect,dnn"
             ],
             "sources" : [
                 {
