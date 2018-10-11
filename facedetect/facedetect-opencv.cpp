@@ -80,7 +80,7 @@ bool loadNet(cv::String baseDir) {
         faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
                                                   baseDir + "/" + RESNET_DETECT_CAFFE_NET);
         faceRecogNet = cv::dnn::readNetFromTorch(baseDir + "/" + OPENFACE_RECOG_TORCH_NET);
-    } catch(cv::Exception e) {
+    } catch(cv::Exception &e) {
         std::cout << "File load failed: " << e.msg << std::endl;
         return false;
     }
