@@ -17,10 +17,20 @@ gdbus_src = gnome.gdbus_codegen('dbus-interface',
   sources: 'org.gnome.ShotwellFaces1.xml',
   interface_prefix : 'org.gnome.')
 
+con = configuration_data()
+con.set('libexecdir', join_paths(get_option('prefix'), libexecdir))
+
 if meson.is_subproject()
     config_incdir = include_directories('../..')
 else
     config_incdir = include_directories('.')
+    configure_file(
+        input: 'org.gnome.Shotwell.Faces1.desktop.in',
+        output: 'org.gnome.Shotwell.Faces1.desktop',
+        configuration: con,
+        install: true,
+        install_dir : join_paths(get_option('datadir'), 'applications')
+    )
 endif
 
 executable('shotwell-facedetect',
@@ -31,9 +41,6 @@ executable('shotwell-facedetect',
            install_dir : libexecdir)
 install_data('facedetect-haarcascade.xml',
               install_dir : join_paths(get_option('datadir'), 'shotwell'))
-
-con = configuration_data()
-con.set('libexecdir', join_paths(get_option('prefix'), libexecdir))
 
 configure_file(
     input : 'org.gnome.Shotwell.Faces1.service.in',

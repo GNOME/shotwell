@@ -1,0 +1,76 @@
+{
+    "app-id" : "org.gnome.Shotwell.Faces1",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "3.30",
+    "sdk" : "org.gnome.Sdk",
+    "tags" : [
+        "nightly"
+    ],
+    "desktop-file-name-prefix" : "(Nightly) ",
+    "finish-args" : [
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--filesystem=xdg-download",
+        "--filesystem=xdg-pictures",
+        "--share=ipc",
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkconfig",
+        "/share/pkgconfig",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/vala",
+        "/lib/girepository",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "opencv",
+            "buildsystem" : "cmake",
+            "builddir" : true,
+            "cleanup" : [
+                "/share/OpenCV/*.cmake",
+                "/share/OpenCV/*.supp"
+            ],
+            "config-opts" : [
+                "-DBUILD_TESTS=OFF",
+                "-DBUILD_EXAMPLES=OFF",
+                "-DBUILD_PERF_TESTS=OFF",
+                "-DWITH_FFMPEG=OFF",
+                "-DWITH_GTK=OFF",
+                "-DWITH_GSTREAMER=OFF",
+                "-DWITH_JASPER=OFF",
+                "-DWITH_OPENEXR=OFF",
+                "-DWITH_GDAL=OFF",
+                "-DWITH_GDCM=OFF",
+                "-DBUILD_opencv_apps=OFF",
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DBUILD_LIST=imgproc,imgcodecs,objdetect,dnn"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "tag" : "3.4.1",
+                    "commit" : "6ffc48769ac60d53c4bd1913eac15117c9b1c9f7",
+                    "url" : "https://github.com/opencv/opencv"
+                }
+            ]
+        },
+        {
+            "name" : "shotwell-facedetect",
+            "buildsystem" : "meson",
+            "subdir" : "subprojects/shotwell-facedetect",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "path": "/home/jgeorg/Source/GNOME/shotwell",
+                    "branch" : "enhanced-faces"
+                }
+            ]
+        }
+    ]
+}
