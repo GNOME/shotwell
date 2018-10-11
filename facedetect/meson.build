@@ -9,15 +9,30 @@ if has_dnn
 else
   dnn_define = []
 endif
+
+libexecdir = join_paths(get_option('libexecdir'), 'shotwell')
+
 gio_unix = dependency('gio-unix-2.0', required : true)
 gdbus_src = gnome.gdbus_codegen('dbus-interface',
   sources: 'org.gnome.ShotwellFaces1.xml',
   interface_prefix : 'org.gnome.')
+
 executable('shotwell-facedetect',
            'shotwell-facedetect.cpp', 'facedetect-opencv.cpp', gdbus_src,
            dependencies : [facedetect_dep, gio, gio_unix, dnn_define],
            install : true,
            include_directories: config_incdir,
-           install_dir : join_paths(get_option('libexecdir'), 'shotwell'))
+           install_dir : libexecdir)
 install_data('facedetect-haarcascade.xml',
               install_dir : join_paths(get_option('datadir'), 'shotwell'))
+
+con = configuration_data()
+con.set('libexecdir', join_paths(get_option('prefix'), libexecdir))
+
+configure_file(
+    input : 'org.gnome.Shotwell.Faces1.service.in',
+    output : 'org.gnome.Shotwell.Faces1.service',
+    configuration: con,
+    install: true,
+    install_dir : join_paths(get_option('datadir'), 'dbus-1', 'services')
+    )
