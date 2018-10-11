@@ -14,7 +14,7 @@
 
   <homepage rdf:resource="https://wiki.gnome.org/Apps/Shotwell" />
   <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/shotwell-list" />
-  <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=shotwell" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/shotwell/issues" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <programming-language>Vala</programming-language>
 
