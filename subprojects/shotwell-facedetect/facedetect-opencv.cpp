@@ -1,5 +1,7 @@
 #include "shotwell-facedetect.hpp"
 
+#include <opencv2/imgcodecs.hpp>
+
 #define OPENFACE_RECOG_TORCH_NET "openface.nn4.small2.v1.t7"
 #define RESNET_DETECT_CAFFE_NET "res10_300x300_ssd_iter_140000_fp16.caffemodel"
 

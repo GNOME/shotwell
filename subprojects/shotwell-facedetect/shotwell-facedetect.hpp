@@ -9,7 +9,6 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #ifdef HAS_OPENCV_DNN
 #include <opencv2/dnn.hpp>
