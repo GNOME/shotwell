@@ -73,9 +73,12 @@ static gboolean on_handle_face_to_vec(ShotwellFaces1 *object,
 }
 
 static gboolean on_handle_terminate(ShotwellFaces1 *object,
-                                    GDBusMethodInvocation *invocation) {
+                                    GDBusMethodInvocation *invocation,
+                                    gpointer user_data) {
     g_debug("Exiting...");
     shotwell_faces1_complete_terminate(object, invocation);
+    g_main_loop_quit(reinterpret_cast<GMainLoop *>(user_data));
+
     return TRUE;
 }
 
