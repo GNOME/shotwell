@@ -90,7 +90,7 @@ static void on_name_acquired(GDBusConnection *connection,
     g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), NULL);
     g_signal_connect(interface, "handle-face-to-vec", G_CALLBACK (on_handle_face_to_vec), NULL);
     error = NULL;
-    !g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, "/org/gnome/shotwell/faces", &error);
+    g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, "/org/gnome/shotwell/faces", &error);
 }
 
 static void on_name_lost(GDBusConnection *connection,
