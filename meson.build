@@ -88,7 +88,7 @@ endif
 
 if get_option('face-detection')
   add_global_arguments(['--define=ENABLE_FACES'], language : 'vala')
-  subdir('facedetect')
+  subproject('shotwell-facedetect')
 endif
 
 json_glib = dependency('json-glib-1.0')
