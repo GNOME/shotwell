@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2016 Software Freedom Conservancy Inc. -->
 <component type="desktop">
-  <id>shotwell.desktop</id>
+  <id>org.gnome.Shotwell.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LGPL-2.1+</project_license>
   <translation type="gettext">shotwell</translation>
@@ -24,25 +24,26 @@
     </p>
   </description>
   <url type="homepage">https://wiki.gnome.org/Apps/Shotwell</url>
+  <content_rating type="oars-1.0" />
   <screenshots>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/harbor.png</image>
+        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/harbor.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/import.png</image>
+        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/import.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/organize.png</image>
+        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/organize.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/edit.png</image>
+        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/edit.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
     <screenshot>
-      <image>https://gitlab.gnome.org/GNOME/shotwell/raw/data/appdata/publish.png</image>
+        <image>https://gitlab.gnome.org/GNOME/shotwell/raw/master/data/appdata/publish.png</image>
       <caption><!-- Describe this screenshot in less than ~10 words --></caption>
     </screenshot>
   </screenshots>

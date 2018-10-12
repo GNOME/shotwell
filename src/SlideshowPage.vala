@@ -362,6 +362,7 @@ class SlideshowPage : SinglePhotoPage {
         bool slideshow_playing = playing;
         playing = false;
         hide_toolbar();
+        suspend_cursor_hiding();
         
         if (settings_dialog.run() == Gtk.ResponseType.OK) {
             // sync with the config setting so it will persist
@@ -375,6 +376,7 @@ class SlideshowPage : SinglePhotoPage {
         }
         
         settings_dialog.destroy();
+        restore_cursor_hiding();
         playing = slideshow_playing;
         timer.start();
     }

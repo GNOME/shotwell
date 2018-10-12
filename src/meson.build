@@ -41,7 +41,7 @@ endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                 libraw, libexif, sw_plugin, webpdemux, webp]
+                 libraw, libexif, sw_plugin, webpdemux, webp, version]
 if unity_available
     shotwell_deps += [unity]
 endif
@@ -255,6 +255,7 @@ executable('shotwell',
                         '--pkg', 'libraw',
                         '--pkg', 'libexif',
                         '--pkg', 'misc',
+                        '--pkg', 'version',
                         '--gresources',
                         join_paths(meson.source_root(), 'data',
                           'org.gnome.Shotwell.gresource.xml')

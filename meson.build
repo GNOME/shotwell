@@ -7,12 +7,12 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 conf = configuration_data()
-conf.set('GETTEXT_PACKAGE', '"@0@"'.format(meson.project_name().to_lower()))
-conf.set('_VERSION', '"@0@"'.format(meson.project_version()))
-conf.set('_PREFIX', '"@0@"'.format(get_option('prefix')))
-conf.set('_LANG_SUPPORT_DIR', '"@0@"'.format(join_paths(get_option('prefix'), get_option('localedir'))))
-conf.set('_LIBEXECDIR', '"@0@"'.format(join_paths(get_option('prefix'), get_option('libexecdir'))))
-conf.set('_LIB', '"@0@"'.format(join_paths(get_option('prefix'), get_option('libdir'))))
+conf.set_quoted('GETTEXT_PACKAGE', meson.project_name().to_lower())
+conf.set_quoted('_VERSION', meson.project_version())
+conf.set_quoted('_PREFIX', get_option('prefix'))
+conf.set_quoted('_LANG_SUPPORT_DIR', join_paths(get_option('prefix'), get_option('localedir')))
+conf.set_quoted('_LIBEXECDIR', join_paths(get_option('prefix'), get_option('libexecdir')))
+conf.set_quoted('_LIB', join_paths(get_option('prefix'), get_option('libdir')))
 configure_file(output : 'config.h', configuration: conf)
 
 config_incdir = include_directories('.')
@@ -20,7 +20,8 @@ vapi_incdir = include_directories('vapi')
 shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'builtin')
 
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
-                     ['-include'], ['config.h'], language : 'c')
+                     ['-include'], ['config.h'],
+                     language : 'c')
 add_global_arguments(['--target-glib=2.40',
                       '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
                         'vapi')),
@@ -29,12 +30,8 @@ add_global_arguments(['--target-glib=2.40',
                       '--enable-experimental',
                       '--enable-deprecated'], language : 'vala')
 
-gitver = run_command(find_program('git-hash'))
-if gitver.returncode() == 0
-  add_global_arguments(['-D_GIT_VERSION="@0@"'.format(gitver.stdout().strip())],
-    language : 'c')
-  add_global_arguments(['--define=_GITVERSION'], language : 'vala')
-endif
+version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
+version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
 gtk = dependency('gtk+-3.0', version : '>= 3.22')
 gio = dependency('gio-2.0', version: '>= 2.40')
@@ -110,3 +107,5 @@ subdir('po')
 subdir('help')
 subdir('thumbnailer')
 subdir('test')
+
+meson.add_install_script('build-aux/meson/postinstall.py')

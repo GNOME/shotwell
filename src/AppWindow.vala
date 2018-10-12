@@ -592,9 +592,8 @@ public abstract class AppWindow : PageWindow {
     public abstract string get_app_role();
 
     protected void on_about() {
-        const string[] artists = { "Braunschweiger Löwe created by Magnus Manske., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=109735", null };
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION,
+            "version", Resources.APP_VERSION + (Resources.GIT_VERSION != "" ? " — " + Resources.GIT_VERSION : ""),
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
@@ -602,7 +601,6 @@ public abstract class AppWindow : PageWindow {
             "website-label", _("Visit the Shotwell web site"),
             "authors", Resources.AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1),
-            "artists", artists,
             "translator-credits", _("translator-credits"),
             null
         );

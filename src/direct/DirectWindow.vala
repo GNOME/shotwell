@@ -42,6 +42,11 @@ public class DirectWindow : AppWindow {
             get_display_pathname(file.get_parent()), Resources.APP_TITLE);
     }
     
+    // Expose on_fullscreen publicly so we can call it from the DirectPhotoPage
+    public void do_fullscreen() {
+        on_fullscreen();
+    }
+
     protected override void on_fullscreen() {
         File file = get_direct_page().get_current_file();
         
@@ -72,16 +77,6 @@ public class DirectWindow : AppWindow {
             return true;
         
         return (base.delete_event != null) ? base.delete_event(event) : false;
-    }
-
-    public override bool button_press_event(Gdk.EventButton event) {
-        if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-            on_fullscreen();
-
-            return true;
-        }
-        
-        return false;
     }
 
     public override bool key_press_event(Gdk.EventKey event) {

@@ -523,9 +523,8 @@ public class LibraryWindow : AppWindow {
     }
 
     private void on_file_import() {
-        Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
-            Gtk.FileChooserAction.SELECT_FOLDER, Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL, 
-            Resources.OK_LABEL, Gtk.ResponseType.OK);
+        var import_dialog = new Gtk.FileChooserNative(_("Import From Folder"), null,
+            Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
         import_dialog.set_local_only(false);
         import_dialog.set_select_multiple(true);
         import_dialog.set_current_folder(import_dir);
@@ -536,7 +535,7 @@ public class LibraryWindow : AppWindow {
         
         int response = import_dialog.run();
         
-        if (response == Gtk.ResponseType.OK) {
+        if (response == Gtk.ResponseType.ACCEPT) {
             import_dialog.hide();
             // force file linking if directory is inside current library directory
             Gtk.ResponseType copy_files_response =
