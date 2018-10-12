@@ -1115,15 +1115,19 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     public void stop_cursor_hiding() {
-        if (last_timeout_id != 0)
+        if (last_timeout_id != 0) {
             Source.remove(last_timeout_id);
+            last_timeout_id = 0;
+        }
     }
 
     public void suspend_cursor_hiding() {
         cursor_hide_time_cached = cursor_hide_msec;
 
-        if (last_timeout_id != 0)
+        if (last_timeout_id != 0) {
             Source.remove(last_timeout_id);
+            last_timeout_id = 0;
+        }
 
         cursor_hide_msec = 0;
     }
