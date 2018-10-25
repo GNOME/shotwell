@@ -872,7 +872,7 @@ public class PhotoMetadata : MediaMetadata {
     public static string[] HEIGHT_TAGS = {
         "Exif.Photo.PixelYDimension",
         "Xmp.exif.PixelYDimension",
-        "Xmp.tiff.ImageHeight",
+        "Xmp.tiff.ImageLength",
         "Xmp.exif.PixelYDimension"
     };
     
