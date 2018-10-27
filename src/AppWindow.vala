@@ -367,7 +367,6 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         var display = get_window ().get_display ();
         var cursor = new Gdk.Cursor.for_display (display, Gdk.CursorType.WATCH);
         get_window().set_cursor (cursor);
-        spin_event_loop();
     }
     
     public void set_normal_cursor() {
@@ -381,7 +380,6 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         var display = get_window ().get_display ();
         var cursor = new Gdk.Cursor.for_display (display, Gdk.CursorType.LEFT_PTR);
         get_window().set_cursor (cursor);
-        spin_event_loop();
     }
     
 }
