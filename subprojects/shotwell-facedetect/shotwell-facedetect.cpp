@@ -98,6 +98,11 @@ static void on_name_acquired(GDBusConnection *connection,
 
 static void on_name_lost(GDBusConnection *connection,
                          const gchar *name, gpointer user_data) {
+    if (connection == NULL) {
+        g_debug("Unable to establish connection for name %s", name);
+    } else {
+        g_debug("Connection for name %s disconnected", name);
+    }
     g_main_loop_quit((GMainLoop *)user_data);
 }
 
