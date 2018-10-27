@@ -206,7 +206,12 @@ public class FaceRectangle : FaceShape {
     
     public FaceRectangle(EditingTools.PhotoCanvas canvas, int x, int y,
         int half_width = NULL_SIZE, int half_height = NULL_SIZE, double[] vec = {}) {
-        base(canvas, vec);
+	double[] int_vec;
+	if (vec.length == 0)
+	   int_vec = create_empty_vec();
+	else
+	   int_vec = vec;
+        base(canvas, int_vec);
         
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
         x -= scaled_pixbuf_pos.x;
@@ -232,6 +237,14 @@ public class FaceRectangle : FaceShape {
     ~FaceRectangle() {
         if (!is_editable())
             erase_label();
+    }
+
+    public static double[] create_empty_vec() {
+        double[] empty_vec = new double[128];
+        for (int i = 0; i < 128; i++) {
+            empty_vec[i] = 0;
+	}
+	return empty_vec;
     }
     
     public static new FaceRectangle from_serialized(EditingTools.PhotoCanvas canvas, string[] args)
@@ -286,7 +299,7 @@ public class FaceRectangle : FaceShape {
             vec_str = {};
         double[] vec = new double[128];
         for (int i = 0; i < 128; i++) {
-            if (vec_str.length > 0)
+            if (vec_str.length > i)
                 vec[i] = double.parse(vec_str[i]);
             else
                 vec[i] = 0;
