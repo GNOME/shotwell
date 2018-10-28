@@ -763,7 +763,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return false;
 
         zoom_about_event_cursor_point(event, ZOOM_INCREMENT_SIZE);
-        return false;
+        return true;
     }
     
     protected override bool on_mousewheel_down(Gdk.EventScroll event) {
@@ -771,7 +771,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return false;
         
         zoom_about_event_cursor_point(event, -ZOOM_INCREMENT_SIZE);
-        return false;
+        return true;
     }
 
     protected override void restore_zoom_state() {
