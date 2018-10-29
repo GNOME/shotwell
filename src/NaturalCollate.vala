@@ -20,7 +20,7 @@ private const unichar SUPERDIGIT = ':';
 private const unichar NUM_SENTINEL = 0x2; // glib uses these, so do we
 private const string  COLLATION_SENTINEL = "\x01\x01\x01";
 
-private static int read_number(owned string s, ref int byte_index) {
+private static int read_number(owned string s, ref long byte_index) {
     /*
      * Given a string in the form [numerals]*[everythingelse]*
      * returns the int value of the first block and increments index
@@ -33,7 +33,7 @@ private static int read_number(owned string s, ref int byte_index) {
     while (s.length != 0 && s.get_char(0).isdigit()) {
         number = number*10;
         number += s.get_char(0).digit_value();
-        int second_char = s.index_of_nth_char(1);
+        var second_char = s.index_of_nth_char(1);
         s = s.substring(second_char);
         byte_index += second_char;
     }
@@ -56,7 +56,7 @@ public static string collate_key(owned string str) {
 
     while (!eos) {
         assert(str.validate());
-        int position = 0;
+        long position = 0L;
         while (!(str.get_char(position).to_string() in "0123456789")) {
             // We only care about plain old 0123456789, aping what g_utf8_collate_key_for_filename does
             position++;
@@ -69,7 +69,7 @@ public static string collate_key(owned string str) {
         str = str.substring(position);
 
         eos = (str.length == 0);
-        position = 0;
+        position = 0L;
 
         if (!eos) {
             // We have some numbers to handle in front of us
