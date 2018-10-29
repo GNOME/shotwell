@@ -226,7 +226,11 @@ public string strip_leading_zeroes(string str) {
 public string remove_diacritics(string istring) {
     var builder = new StringBuilder ();
     unichar ch;
+#if VALA_0_44
+    long i = 0L;
+#else
     int i = 0;
+#endif
     while(istring.normalize().get_next_char(ref i, out ch)) {
         switch(ch.type()) {
             case UnicodeType.CONTROL:
