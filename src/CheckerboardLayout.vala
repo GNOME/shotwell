@@ -2025,7 +2025,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     public override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
         CheckerboardItem? item = get_item_at_pixel(x, y);
         
-        return (item != null) ? item.query_tooltip(x, y, tooltip) : false;
+        // Note: X & Y allocations are relative to parents, so we need to query the item's tooltip
+        // relative to its INTERNAL coordinates, otherwise tooltips don't work
+        return (item != null) ? item.query_tooltip(x - item.allocation.x, y - item.allocation.y, tooltip) : false;
     }
     
     private void on_colors_changed() {
