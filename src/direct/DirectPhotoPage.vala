@@ -301,7 +301,7 @@ public class DirectPhotoPage : EditingHostPage {
         base.update_actions(selected_count, count);
     }
     
-    private bool check_ok_to_close_photo(Photo? photo) {
+    private bool check_ok_to_close_photo(Photo? photo, bool notify = true) {
         // Means we failed to load the photo for some reason. Do not block
         // shutdown
         if (photo == null)
@@ -313,7 +313,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (drop_if_dirty) {
             // need to remove transformations, or else they stick around in memory (reappearing
             // if the user opens the file again)
-            photo.remove_all_transformations();
+            photo.remove_all_transformations(notify);
             
             return true;
         }
@@ -326,7 +326,7 @@ public class DirectPhotoPage : EditingHostPage {
             _("Close _without Saving"));
 
         if (response == Gtk.ResponseType.YES)
-            photo.remove_all_transformations();
+            photo.remove_all_transformations(notify);
         else if (response == Gtk.ResponseType.NO) {
             if (is_writeable)
                 save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
@@ -342,7 +342,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     public bool check_quit() {
-        return check_ok_to_close_photo(get_photo());
+        return check_ok_to_close_photo(get_photo(), false);
     }
     
     protected override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
