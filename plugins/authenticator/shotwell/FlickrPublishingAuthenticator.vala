@@ -55,7 +55,8 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         public override void on_page_load() {
             var uri = new Soup.URI(get_view().get_uri());
             if (uri.scheme == "shotwell-auth" && this.auth_code == null) {
-                this.error();
+                var form_data = Soup.Form.decode (uri.query);
+                this.auth_code = form_data.lookup("oauth_verifier");
             }
 
             if (this.auth_code != null) {
