@@ -135,13 +135,14 @@
         },
         {
             "name" : "gexiv2",
+            "buildsystem" : "meson",
             "cleanup" : [
                 "/lib/girepository-1.0",
                 "/share/gir-1.0"
             ],
             "config-opts" : [
-                "--without-python2-girdir",
-                "--without-python3-girdir"
+                "-Dpython2-girdir=no",
+                "-Dpython3-girdir=no"
             ],
             "build-options" : {
                 "env" : {
