@@ -11,7 +11,7 @@ flatpak:
     stage: test
     variables:
         MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
-        RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
+        RUNTIME_REPO: "https://sdk.gnome.org/gnome.flatpakrepo"
         # Replace with your application name, as written in the manifest
         FLATPAK_MODULE: "gnome-photos"
         # Make sure to keep this in sync with the Flatpak manifest, all arguments
