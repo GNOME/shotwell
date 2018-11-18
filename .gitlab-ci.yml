@@ -13,7 +13,7 @@ flatpak:
         MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         # Replace with your application name, as written in the manifest
-        FLATPAK_MODULE: "gnome-photos"
+        FLATPAK_MODULE: "shotwell"
         # Make sure to keep this in sync with the Flatpak manifest, all arguments
         # are passed except the config-args because we build it ourselves
         CONFIGURE_ARGS: "-Dudev=false -Dinstall-apport-hook=false -Dface-detection=true"
