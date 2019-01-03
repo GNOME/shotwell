@@ -183,13 +183,15 @@
         },
         {
             "name" : "opencv",
-            "buildsystem" : "cmake",
+            "buildsystem" : "cmake-ninja",
             "builddir" : true,
             "cleanup" : [
                 "/share/OpenCV/*.cmake",
                 "/share/OpenCV/*.supp"
             ],
             "config-opts" : [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DOPENCV_GENERATE_PKGCONFIG=ON",
                 "-DBUILD_TESTS=OFF",
                 "-DBUILD_EXAMPLES=OFF",
                 "-DBUILD_PERF_TESTS=OFF",
