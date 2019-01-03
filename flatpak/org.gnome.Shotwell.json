@@ -123,13 +123,16 @@
             ],
             "buildsystem" : "cmake",
             "config-opts" : [
-                "-DCMAKE_INSTALL_LIBDIR=lib"
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+                "-DEXIV2_BUILD_SAMPLES=OFF"
             ],
             "sources" : [
                 {
                     "type" : "git",
                     "url" : "https://github.com/Exiv2/exiv2/",
-                    "commit" : "e7ffd83af29187190da7f98dcbca8a4d70e19582"
+                    "commit" : "2b59f5be328ba1972c0c62f4e3cd3b7b46733b5f"
                 }
             ]
         },
@@ -169,8 +172,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.libraw.org/data/LibRaw-0.19.1.tar.gz",
-                    "sha256" : "a21019db16d87accbb8660056365ab09a204475c77c97b86c922bb972ce15ef6"
+                    "url" : "https://www.libraw.org/data/LibRaw-0.19.2.tar.gz",
+                    "sha256" : "400d47969292291d297873a06fb0535ccce70728117463927ddd9452aa849644"
                 },
                 {
                     "type" : "patch",
