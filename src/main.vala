@@ -259,6 +259,28 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
     ImportUI.report_manifest(manifest, true);
 }
 
+void dump_tags (GExiv2.Metadata metadata, string[] tags) throws Error {
+    foreach (string tag in tags) {
+        print("%-64s%s\n",
+            tag,
+            metadata.get_tag_interpreted_string (tag));
+    }
+}
+
+void dump_metadata (string filename) {
+    try {
+        var metadata = new GExiv2.Metadata();
+        var file = File.new_for_commandline_arg(filename);
+        metadata.from_stream (file.read());
+
+        dump_tags(metadata, metadata.get_exif_tags());
+        dump_tags(metadata, metadata.get_iptc_tags());
+        dump_tags(metadata, metadata.get_xmp_tags());
+    } catch (Error err) {
+        stderr.printf("Unable to dump metadata for %s: %s\n", filename, err.message);
+    }
+}
+
 void editing_exec(string filename, bool fullscreen) {
     File initial_file = File.new_for_commandline_arg(filename);
     
@@ -309,39 +331,17 @@ string data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
 bool fullscreen = false;
+bool show_metadata = false;
 
-private OptionEntry[]? entries = null;
-
-public OptionEntry[] get_options() {
-    if (entries != null)
-        return entries;
-    
-    OptionEntry datadir = { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
-        _("Path to Shotwell’s private data"), _("DIRECTORY") };
-    entries += datadir;
-    
-    OptionEntry no_monitoring = { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
-        _("Do not monitor library directory at runtime for changes"), null };
-    entries += no_monitoring;
-    
-    OptionEntry no_startup = { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-        _("Don’t display startup progress meter"), null };
-    entries += no_startup;
-    
-    OptionEntry version = { "version", 'V', 0, OptionArg.NONE, &show_version, 
-        _("Show the application’s version"), null };
-    entries += version;
-
-    OptionEntry fullscreen = { "fullscreen", 'f', 0, OptionArg.NONE,
-        &fullscreen, _("Start the application in fullscreen mode"), null };
-    entries += fullscreen;
-    
-    OptionEntry terminator = { null, 0, 0, 0, null, null, null };
-    entries += terminator;
-    
-    return entries;
-}
-
+const OptionEntry[] entries = {
+    { "datadir", 'd', 0, OptionArg.FILENAME, ref data_dir, N_("Path to Shotwell’s private data"), N_("DIRECTORY") },
+    { "no-runtime-monitoring", 0, 0, OptionArg.NONE, ref no_runtime_monitoring, N_("Do not monitor library directory at runtime changes"), null },
+    { "no-startup-progress", 0, 0, OptionArg.NONE, ref no_startup_progress, N_("Don’t display startup progress meter"), null },
+    { "version", 'V', 0, OptionArg.NONE, ref show_version, N_("Show the application’s version") },
+    { "fullscreen", 'f', 0, OptionArg.NONE, ref fullscreen, N_("Start the application in fullscreen mode"), null },
+    { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the meta-data of the image file"), null },
+    { null, 0, 0, 0, null, null, null }
+};
 }
 
 void main(string[] args) {
@@ -370,7 +370,7 @@ void main(string[] args) {
     
     // init GTK (valac has already called g_threads_init())
     try {
-        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.get_options(),
+        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
             Resources.APP_GETTEXT_PACKAGE);
 
         var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
@@ -392,7 +392,7 @@ void main(string[] args) {
         
         return;
     }
-    
+
     // init debug prior to anything else (except Gtk, which it relies on, and AppDirs, which needs
     // to be set ASAP) ... since we need to know what mode we're in, examine the command-line
     // first
@@ -403,14 +403,20 @@ void main(string[] args) {
     string[] mounts = new string[0];
     string filename = null;
 
-    for (int ctr = 1; ctr < args.length; ctr++) {
-        string arg = args[ctr];
-        
+    foreach (var arg in args[1:args.length]) {
         if (LibraryWindow.is_mount_uri_supported(arg)) {
             mounts += arg;
         } else if (is_string_empty(filename) && !arg.contains("://")) {
             filename = arg;
         }
+    }
+
+    if (CommandlineOptions.show_metadata) {
+        dump_metadata (filename);
+
+        AppDirs.terminate();
+
+        return;
     }
     
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
