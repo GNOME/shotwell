@@ -12,6 +12,7 @@
 # verayin <vera@yorba.org>, 2011
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2014
 # Launchpad Contributions <Unknown>, 2018
+# sicklylife <translation@sicklylife.jp>, 2019
 #
 msgid ""
 msgstr ""
@@ -20,8 +21,8 @@ msgstr ""
 "http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell&keywords=I18N+L10N&c"
 "omponent=Internationalization\n"
 "POT-Creation-Date: 2018-10-09 10:35+0000\n"
-"PO-Revision-Date: 2018-10-09 11:39+0000\n"
-"Last-Translator: Launchpad Contributions <Unknown>\n"
+"PO-Revision-Date: 2019-01-21 01:36+0000\n"
+"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1293,7 +1294,7 @@ msgstr ""
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:200
 msgid "Verifying authorization…"
-msgstr ""
+msgstr "認証の確認中…"
 
 #: plugins/authenticator/shotwell/GoogleAuthenticator.vala:137
 msgid ""
@@ -1577,7 +1578,7 @@ msgstr ""
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
-msgstr "公開するために必要なファイルが利用できません。%s への公開を続行できません。"
+msgstr "公開に必要なファイルが利用できません。%s への公開を続行できません。"
 
 #. populate any widgets whose contents are
 #. programmatically-generated
@@ -1772,7 +1773,7 @@ msgstr "アルバムを作成しています…"
 msgid ""
 "A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
-msgstr "公開するために必要なファイルが利用できません。Facebook への公開を続行できません。"
+msgstr "公開に必要なファイルが利用できません。Facebookへの公開を続行できません。"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:723
 #, c-format
@@ -1807,7 +1808,7 @@ msgstr "写真サイズ(_S):"
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
-msgstr "公開するために必要なファイルが利用できません。Flickr への公開を続行できません。"
+msgstr "公開に必要なファイルが利用できません。Flickrへの公開を続行できません。"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:607
 #, c-format
@@ -1891,7 +1892,7 @@ msgstr "デフォルトのアルバム"
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
-msgstr "公開するために必要なファイルが利用できません。Picasa への公開を続行できません。"
+msgstr "公開に必要なファイルが利用できません。Picasaへの公開を続行できません。"
 
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PicasaPublishing.vala:560
@@ -1934,31 +1935,31 @@ msgstr "ユーザー名(_N)"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
 msgid "Remember Password"
-msgstr ""
+msgstr "パスワードを記憶"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
 msgid "An _existing category"
-msgstr ""
+msgstr "既存のカテゴリ(_E)"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
 msgid "A _new album named"
-msgstr ""
+msgstr "新しいアルバム名(_N)"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
 msgid "within category"
-msgstr ""
+msgstr "カテゴリ内"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
 msgid "Album comment"
-msgstr ""
+msgstr "アルバムコメント"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
 msgid "Photos will be _visible by"
-msgstr ""
+msgstr "写真が表示可能(_V)"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
 msgid "Photo size"
-msgstr ""
+msgstr "写真サイズ"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
 msgid "_If a title is set and comment unset, use title as comment"
@@ -1980,7 +1981,7 @@ msgstr "公開先"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:773
 #, c-format
 msgid "Creating album %s…"
-msgstr ""
+msgstr "アルバム %s を作成しています…"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:949
 msgid ""
@@ -2071,6 +2072,7 @@ msgstr "1280×853ピクセル"
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
+"TumblrPublisher: start( ): 開始できません; このパブリッシャーは開始不能です。"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
@@ -2089,7 +2091,7 @@ msgstr "動画のプライバシー設定(_S):"
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
-msgstr "公開するために必要なファイルが利用できません。YouTube への公開を続行できません。"
+msgstr "公開に必要なファイルが利用できません。YouTubeへの公開を続行できません。"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
@@ -2604,7 +2606,7 @@ msgstr "色変換を元に戻す"
 
 #: src/Commands.vala:1006
 msgid "Creating New Event"
-msgstr "新規イベントの作成"
+msgstr "新しいイベントの作成"
 
 #: src/Commands.vala:1007
 msgid "Removing Event"
@@ -2698,7 +2700,7 @@ msgstr "タグの作成"
 #: src/Commands.vala:1694
 #, c-format
 msgid "Move Tag “%s”"
-msgstr "タグの移動 “%s”"
+msgstr "タグを “%s” に移動"
 
 #: src/Commands.vala:2346
 msgid "Move Photos to Trash"
@@ -2914,7 +2916,7 @@ msgstr "写真のエクスポート"
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
-msgstr "%s への書き込み権限がないため、Shotwellはこの写真を編集するためのファイルを作成できませんでした。"
+msgstr "%s への書き込み権限がないため、Shotwellはこの写真を編集する際にファイルを作成できませんでした。"
 
 #: src/Dialogs.vala:136
 msgid ""
@@ -2996,7 +2998,7 @@ msgstr "エラーメッセージ:"
 #: src/Dialogs.vala:270
 msgid ""
 "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
-msgstr "写真または動画として認識されずインポートされなかったファイル:"
+msgstr "Shotwellが理解できる形式ではなかったため、写真と動画をインポートできませんでした:"
 
 #. 
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
@@ -3014,7 +3016,7 @@ msgstr "Shotwellが対応していないフォーマットのためインポー�
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
-msgstr "Shotwellがライブラリにコピーできなかったためインポートされなかった写真/動画:"
+msgstr "Shotwellがライブラリにコピーできないため、写真/動画をインポートできませんでした:"
 
 #: src/Dialogs.vala:304
 #, c-format
@@ -3022,6 +3024,8 @@ msgid ""
 "couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
+"%s をコピーできません。\n"
+"\tコピー先 %s"
 
 #. 
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
@@ -3292,7 +3296,7 @@ msgstr[0] "%d 個の外部ファイルへの変更を破棄します。続けま
 
 #: src/Dialogs.vala:762
 msgid "Re_vert External Edit"
-msgstr "外部での編集をやめる(_V)"
+msgstr "外部での編集を元に戻す(_V)"
 
 #: src/Dialogs.vala:762
 msgid "Re_vert External Edits"
@@ -4050,7 +4054,7 @@ msgstr "クリックしてフェイス <i>%s</i> を編集します"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
-msgstr "フェイスを追加して名前をつけるにはドラッグをやめてください"
+msgstr "フェイスを追加して名前をつけるにはドラッグをやめてください。"
 
 #: src/faces/FacesTool.vala:193
 msgid "Type a name for this face, then press Enter"
@@ -5289,7 +5293,7 @@ msgstr "検索名の変更 “%s” → “%s”"
 #: src/Resources.vala:402
 #, c-format
 msgid "Delete Search “%s”"
-msgstr "“%s”を削除"
+msgstr "“%s” を削除"
 
 #: src/Resources.vala:407
 #, c-format
@@ -5443,7 +5447,7 @@ msgstr "%Y年%m月%d日 (%a)"
 #: src/Resources.vala:846
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr ""
+msgstr "%m月%d日 (%a)"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -5451,7 +5455,7 @@ msgstr ""
 #: src/Resources.vala:851
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr ""
+msgstr "%d日, %Y年"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -5459,7 +5463,7 @@ msgstr ""
 #: src/Resources.vala:856
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr ""
+msgstr "%m月%d日 (%a)"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -5467,7 +5471,7 @@ msgstr ""
 #: src/Resources.vala:861
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr ""
+msgstr "%m月%d日 (%a), %Y年"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
@@ -6056,7 +6060,7 @@ msgstr "外部のフォトエディター(_X):"
 
 #: ui/preferences_dialog.ui:509
 msgid "External _RAW editor:"
-msgstr "外部の RAW エディター(_R):"
+msgstr "外部のRAWエディター(_R):"
 
 #: ui/preferences_dialog.ui:570
 msgid "External Editors"
