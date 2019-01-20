@@ -11,20 +11,25 @@
 # Tiago <burajirugaijin@yahoo.co.jp>, 2011
 # verayin <vera@yorba.org>, 2011
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2014
+# Launchpad Contributions <Unknown>, 2018
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2018-09-05 07:37+0000\n"
-"PO-Revision-Date: 2018-10-09 00:00+0900\n"
-"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
+"Report-Msgid-Bugs-To: "
+"http://bugzilla.gnome.org/enter_bug.cgi?product=shotwell&keywords=I18N+L10N&c"
+"omponent=Internationalization\n"
+"POT-Creation-Date: 2018-10-09 10:35+0000\n"
+"PO-Revision-Date: 2018-10-09 11:39+0000\n"
+"Last-Translator: Launchpad Contributions <Unknown>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2018-10-11 22:06+0000\n"
+"X-Generator: Launchpad (build 18790)\n"
+"Language: ja\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -35,10 +40,8 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: misc/shotwell.appdata.xml.in:9
-#, fuzzy
-#| msgid "Photo Manager"
 msgid "Popular photo manager"
-msgstr "Shotwell 写真管理ツール"
+msgstr "ポピュラーな写真管理ツール"
 
 #: misc/shotwell.appdata.xml.in:11
 msgid ""
@@ -60,42 +63,35 @@ msgstr ""
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 
-#: misc/shotwell.appdata.xml.in:52
-#, fuzzy
-#| msgid "Set Developer"
-msgid "The Shotwell developers"
-msgstr "現像を設定"
-
 #: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
 msgstr "Shotwell 写真管理ツール"
 
+# GNOME Application Comment
 #: misc/shotwell.desktop.in:6
-#, fuzzy
-#| msgid "any photo"
 msgid "Organize your photos"
-msgstr "いずれかの写真"
+msgstr "写真の整理"
 
+# GNOME Application Keywords
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: misc/shotwell.desktop.in:8
 msgid ""
-"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-"organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;org"
+"anize;photo;photographs;photos;picture;pictures;photography;print;publish;rot"
+"ate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgstr ""
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;org"
+"anize;photo;photographs;photos;picture;pictures;photography;print;publish;rot"
+"ate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
-#, fuzzy
-#| msgid "Shotwell"
 msgid "shotwell"
-msgstr "Shotwell"
+msgstr ""
 
 #: misc/shotwell-viewer.desktop.in:4
-#, fuzzy
-#| msgid "Photo Viewer"
 msgid "Shotwell Viewer"
-msgstr "写真ビューアー"
+msgstr ""
 
 #: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
 msgid "Photo Viewer"
@@ -155,10 +151,8 @@ msgstr ""
 #: misc/org.yorba.shotwell.gschema.xml:466
 #: misc/org.yorba.shotwell.gschema.xml:524
 #: misc/org.yorba.shotwell.gschema.xml:580
-#, fuzzy
-#| msgid "User _name"
 msgid "username"
-msgstr "ユーザー名(_N)"
+msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:47
 msgid "Rajce username, if logged in."
@@ -174,10 +168,8 @@ msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
 #: misc/org.yorba.shotwell.gschema.xml:542
-#, fuzzy
-#| msgid "within category:"
 msgid "last category"
-msgstr "カテゴリ内:"
+msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:59
 msgid "The last selected Rajce category."
@@ -185,10 +177,8 @@ msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:64
 #: misc/org.yorba.shotwell.gschema.xml:554
-#, fuzzy
-#| msgid "Photo size:"
 msgid "last photo size"
-msgstr "写真サイズ:"
+msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:65
 msgid ""
@@ -197,30 +187,24 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:70
-#, fuzzy
-#| msgid "_Remember"
 msgid "remember"
-msgstr "パスワードを記憶(_R)"
+msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:71
 msgid "If true, remember last login."
 msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:76
-#, fuzzy
-#| msgid "_Hide album"
 msgid "hide album"
-msgstr "アルバムを隠す(_H)"
+msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:77
 msgid "If true, hide the newly created Rajce album."
 msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:82
-#, fuzzy
-#| msgid "Open target _album in browser"
 msgid "open album in web browser"
-msgstr "ブラウザーで対象のアルバムを開く(_A)"
+msgstr ""
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:83
 msgid ""
@@ -247,14 +231,13 @@ msgid "display basic properties"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:24
-msgid "True if the basic properties pane is to be displayed, false otherwise."
+msgid ""
+"True if the basic properties pane is to be displayed, false otherwise."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:29
-#, fuzzy
-#| msgid "Display extended information for the selection"
 msgid "display extended properties"
-msgstr "選択した写真の拡張情報を表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:30
 msgid ""
@@ -262,40 +245,33 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:35
-#, fuzzy
-#| msgid "Display the sidebar"
 msgid "display sidebar"
-msgstr "サイドバーを表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:36
 msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:41
-#, fuzzy
-#| msgid "Display the sidebar"
 msgid "display toolbar"
-msgstr "サイドバーを表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:42
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:47
-#, fuzzy
-#| msgid "Display the search bar"
 msgid "display search bar"
-msgstr "検索バーを表示"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:48
-msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
+msgid ""
+"True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:53
-#, fuzzy
-#| msgid "Display each photo's tags"
 msgid "display photo titles"
-msgstr "写真のタグを表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:54
 msgid ""
@@ -304,10 +280,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:59
-#, fuzzy
-#| msgid "Display each photo's tags"
 msgid "display photo comments"
-msgstr "写真のタグを表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:60
 msgid ""
@@ -316,10 +290,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:65
-#, fuzzy
-#| msgid "Edit Event Comment"
 msgid "display event comments"
-msgstr "イベントコメントの編集"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:66
 msgid ""
@@ -328,10 +300,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:71
-#, fuzzy
-#| msgid "Display each photo's tags"
 msgid "display photo tags"
-msgstr "写真のタグを表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:72
 msgid ""
@@ -340,10 +310,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:77
-#, fuzzy
-#| msgid "Display each photo's rating"
 msgid "display photo ratings"
-msgstr "写真の評価を表示します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:78
 msgid ""
@@ -363,23 +331,20 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:89
-#, fuzzy
-#| msgid "No events found"
 msgid "sort events ascending"
-msgstr "イベントが見つかりません"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:90
 msgid "True if events should be sorted ascending, false if descending."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:95
-#, fuzzy
-#| msgid "Sort photos in an ascending order"
 msgid "sort library photos ascending"
-msgstr "写真を昇順で並び替える"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:96
-msgid "True if library photos should be sorted ascending, false if descending."
+msgid ""
+"True if library photos should be sorted ascending, false if descending."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:101
@@ -392,20 +357,16 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:107
-#, fuzzy
-#| msgid "Sort photos in an ascending order"
 msgid "sort event photos ascending"
-msgstr "写真を昇順で並び替える"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:108
 msgid "True if event photos should be sorted ascending, false if descending."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:113
-#, fuzzy
-#| msgid "Sort photos by title"
 msgid "sort event photos criteria"
-msgstr "写真をタイトルで並び替える"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:114
 msgid "Specifies the sort criteria for event photos."
@@ -432,10 +393,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:131
-#, fuzzy
-#| msgid "_Modify original photo files"
 msgid "modify original photo files"
-msgstr "最初の写真ファイルを修正する(_M)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:132
 msgid ""
@@ -454,10 +413,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:143
-#, fuzzy
-#| msgid "Library Location"
 msgid "sidebar position"
-msgstr "ライブラリの場所"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:144
 msgid "The width, in pixels, of the sidebar"
@@ -472,10 +429,8 @@ msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:155
-#, fuzzy
-#| msgid "Pin the toolbar open"
 msgid "pin toolbar state"
-msgstr "ツールバーを開いた状態で固定します"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:156
 msgid "Pin toolbar in fullscreen, or not."
@@ -502,7 +457,8 @@ msgid "color for solid transparency background"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:174
-msgid "Color to use if background for transparent images is set to solid color"
+msgid ""
+"Color to use if background for transparent images is set to solid color"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:179
@@ -516,20 +472,16 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:187
-#, fuzzy
-#| msgid "_Delay:"
 msgid "delay"
-msgstr "間隔(_D):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:188
 msgid "Delay (in seconds) between photos in the slideshow."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:193
-#, fuzzy
-#| msgid "Transition d_elay:"
 msgid "transition delay"
-msgstr "トランジションの間隔(_E):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:194
 msgid ""
@@ -537,10 +489,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:199
-#, fuzzy
-#| msgid "_Transition effect:"
 msgid "transition effect id"
-msgstr "トランジションの効果(_T):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:200
 msgid ""
@@ -549,10 +499,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:205
-#, fuzzy
-#| msgid "Show t_itle"
 msgid "Show title"
-msgstr "タイトルを表示する(_I)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:206
 msgid "Whether to show the title of a photo during the slideshow"
@@ -617,20 +565,16 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:257
-#, fuzzy
-#| msgid "Import to Library"
 msgid "import directory"
-msgstr "ライブラリにインポート"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:258
 msgid "Directory in which imported photo files are placed."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:263
-#, fuzzy
-#| msgid "_Watch library directory for new files"
 msgid "watch library directory for new files"
-msgstr "ライブラリのディレクトリで新規ファイルを監視する(_W)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:264
 msgid ""
@@ -638,10 +582,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:269
-#, fuzzy
-#| msgid "Writing metadata to files..."
 msgid "write metadata to master files"
-msgstr "ファイルにメタデータを書き込んでいます..."
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:270
 msgid ""
@@ -660,10 +602,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:281
-#, fuzzy
-#| msgid "_Directory structure:"
 msgid "directory pattern"
-msgstr "ディレクトリ構造(_D):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:282
 msgid ""
@@ -682,10 +622,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:293
-#, fuzzy
-#| msgid "RAW Developer"
 msgid "RAW developer default"
-msgstr "RAW現像"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:294
 msgid "Default option for which RAW developer Shotwell will use."
@@ -720,20 +658,16 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:319
-#, fuzzy
-#| msgid "E_xternal photo editor:"
 msgid "external photo editor"
-msgstr "外部のフォトエディター(_X):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:320
 msgid "External application used to edit photos."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:325
-#, fuzzy
-#| msgid "External _RAW editor:"
 msgid "external raw editor"
-msgstr "外部のRAWエディター(_R):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:326
 msgid "External application used to edit RAW photos."
@@ -745,10 +679,8 @@ msgid "Setting in export dialog: how to trim images"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:370
-#, fuzzy
-#| msgid "Export metadata"
 msgid "export metadata"
-msgstr "メタデータのエクスポート"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:371
 msgid "Setting in export dialog: option to export metadata"
@@ -787,10 +719,8 @@ msgid "Setting in export dialog: maximal size of image"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:402
-#, fuzzy
-#| msgid "Core Publishing Services"
 msgid "last used publishing service"
-msgstr "メインの公開サービス"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:403
 #: misc/org.yorba.shotwell.gschema.xml:409
@@ -799,16 +729,12 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:408
-#, fuzzy
-#| msgid "Core Publishing Services"
 msgid "default publishing service"
-msgstr "メインの公開サービス"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:422
-#, fuzzy
-#| msgid "Access _type:"
 msgid "access token"
-msgstr "アクセスタイプ(_T):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:423
 msgid "Facebook OAuth token for the currently logged in session, if any"
@@ -823,16 +749,12 @@ msgid "Facebook user i.d. for the currently logged in user, if any"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:434
-#, fuzzy
-#| msgid "User _name"
 msgid "user name"
-msgstr "ユーザー名(_N)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:435
-#, fuzzy
-#| msgid "You are not currently logged into Yandex.Fotki."
 msgid "The name of the currently logged in Facebook user, if any"
-msgstr "現在Yandex.Fotkiにログインしていません。"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:440
 #: misc/org.yorba.shotwell.gschema.xml:472
@@ -855,7 +777,8 @@ msgid "OAuth Access Phase Token"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:455
-msgid "The authorization token for the currently logged in Flickr user, if any"
+msgid ""
+"The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:460
@@ -939,20 +862,16 @@ msgid "Piwigo username, if logged in."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:530
-#, fuzzy
-#| msgid "_Password"
 msgid "password"
-msgstr "パスワード(_P)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:531
 msgid "Piwigo password, if logged in."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:536
-#, fuzzy
-#| msgid "_Remember Password"
 msgid "remember password"
-msgstr "パスワードを記憶(_R)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:537
 msgid "If true, remember the Piwigo password."
@@ -983,13 +902,9 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:566
-#, fuzzy
-#| msgid "_If a title is set and comment unset, use title as comment"
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
-"タイトルが設定され、コメントが設定されていない場合、タイトルをコメントに使用"
-"する(_I)"
 
 #: misc/org.yorba.shotwell.gschema.xml:567
 msgid ""
@@ -1008,32 +923,24 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:581
-#, fuzzy
-#| msgid "Gallery3 publishing module"
 msgid "Gallery3 username"
-msgstr "Gallery3公開モジュール"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:586
-#, fuzzy
-#| msgid "API _Key:"
 msgid "API key"
-msgstr "APIキー(_K):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:587
-#, fuzzy
-#| msgid "_Gallery3 URL:"
 msgid "Gallery3 API key"
-msgstr "Gallery3 URL(_G):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:592
 msgid "URL"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:593
-#, fuzzy
-#| msgid "_Gallery3 URL:"
 msgid "Gallery3 site URL"
-msgstr "Gallery3 URL(_G):"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:605
 msgid ""
@@ -1066,10 +973,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:632
-#, fuzzy
-#| msgid "Core Data Import Services"
 msgid "last used import service"
-msgstr "コアデータインポートサービス"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:633
 msgid ""
@@ -1096,13 +1001,12 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:654
-#, fuzzy
-#| msgid "_Contents"
 msgid "content ppi"
-msgstr "目次(_C)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:655
-msgid "The number of pixels per inch (ppi) sent to the printer during printing"
+msgid ""
+"The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:660
@@ -1114,20 +1018,16 @@ msgid "The width of the printed emulsion on the page when printing"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:666
-#, fuzzy
-#| msgid "Rotate Right"
 msgid "content height"
-msgstr "右回転"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:667
 msgid "The height of the printed emulsion on the page when printing"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:672
-#, fuzzy
-#| msgid "_Contents"
 msgid "content units"
-msgstr "目次(_C)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:673
 msgid ""
@@ -1136,10 +1036,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:678
-#, fuzzy
-#| msgid "2 images per page"
 msgid "images per page code"
-msgstr "ページあたり画像2枚"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:679
 msgid ""
@@ -1157,10 +1055,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:690
-#, fuzzy
-#| msgid "_Match photo aspect ratio"
 msgid "match aspect ratio"
-msgstr "写真のアスペクト比に合わせる(_M)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:691
 msgid ""
@@ -1169,10 +1065,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:696
-#, fuzzy
-#| msgid "Print image _title"
 msgid "print titles"
-msgstr "画像のタイトルを印刷(_T)"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:697
 msgid ""
@@ -1189,10 +1083,8 @@ msgid "The name of the font to use for photo titles when they are printed."
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:714
-#, fuzzy
-#| msgid "Unable to publish"
 msgid "enable facebook publishing plugin"
-msgstr "公開できません"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:715
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
@@ -1216,20 +1108,16 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:732
-#, fuzzy
-#| msgid "Unable to publish"
 msgid "enable youtube publishing plugin"
-msgstr "公開できません"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:733
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:738
-#, fuzzy
-#| msgid "Unable to publish"
 msgid "enable piwigo publishing plugin"
-msgstr "公開できません"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:739
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
@@ -1240,34 +1128,29 @@ msgid "enable yandex publishing plugin"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:745
-msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
+msgid ""
+"True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:750
-#, fuzzy
-#| msgid "Unable to publish"
 msgid "enable tumblr publishing plugin"
-msgstr "公開できません"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:756
-#, fuzzy
-#| msgid "Gallery3 publishing module"
 msgid "enable rajce publishing plugin"
-msgstr "Gallery3公開モジュール"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:757
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:762
-#, fuzzy
-#| msgid "Gallery3 publishing module"
 msgid "enable gallery3 publishing plugin"
-msgstr "Gallery3公開モジュール"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:763
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
@@ -1282,10 +1165,8 @@ msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:774
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow crumble transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:775
 msgid ""
@@ -1293,10 +1174,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:780
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow fade transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:781
 msgid ""
@@ -1304,10 +1183,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:786
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow slide transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:787
 msgid ""
@@ -1315,10 +1192,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:792
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow clock transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:793
 msgid ""
@@ -1326,10 +1201,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:798
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circle transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:799
 msgid ""
@@ -1337,10 +1210,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:804
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circles transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:805
 msgid ""
@@ -1348,10 +1219,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:810
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow blinds transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:811
 msgid ""
@@ -1359,10 +1228,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:816
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow squares transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:817
 msgid ""
@@ -1370,10 +1237,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:822
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow stripes transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:823
 msgid ""
@@ -1381,10 +1246,8 @@ msgid ""
 msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:828
-#, fuzzy
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow chess transition"
-msgstr "メインのスライドショーのトランジション"
+msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:829
 msgid ""
@@ -1393,14 +1256,6 @@ msgid ""
 msgstr ""
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Facebook.\n"
-#| "\n"
-#| "If you don't yet have a Facebook account, you can create one during the "
-#| "login process. During login, Shotwell Connect may ask you for permission "
-#| "to upload photos and publish to your feed. These permissions are required "
-#| "for Shotwell Connect to function."
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
@@ -1409,12 +1264,6 @@ msgid ""
 "upload photos and publish to your feed. These permissions are required for "
 "Shotwell Connect to function."
 msgstr ""
-"現在Facebookにログインしていません。\n"
-"\n"
-"Facebookアカウントを持っていないのであれば、ログイン処理の間にアカウントを作"
-"ることができます。ログイン中に、Shotwell Connectで写真のアップロードの許可や"
-"フィードの公開について確認が行われるでしょう。これらの許可はShotwell Connect"
-"の機能として必要です。"
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
 msgid ""
@@ -1423,45 +1272,28 @@ msgid ""
 "To continue publishing to Facebook, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
-"このShotwellのセッション中に、すでにFacebookへログインとログアウトを行ってい"
-"ます。\n"
-"Facebookへの公開を続けるには、Shotwellを終了して再起動してから、もう一度公開"
-"してみてください。"
+"このShotwellのセッション中に、すでにFacebookへログインとログアウトを行っています。\n"
+"Facebookへの公開を続けるには、Shotwellを終了して再起動してから、もう一度公開してみてください。"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Flickr.\n"
-#| "\n"
-#| "Click Login to log into Flickr in your Web browser.  You will have to "
-#| "authorize Shotwell Connect to link to your Flickr account."
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
 "Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
-"現在Flickrにログインしていません。\n"
-"\n"
-"ログインをクリックして、ウェブブラウザーでFlickrにログインしてください。"
-"Flickrアカウントとリンクさせるには、Shotwell Connectにアクセス権を与える必要"
-"があります。"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:124
-#, fuzzy
-#| msgid "Preparing for login..."
 msgid "Preparing for login…"
-msgstr "ログイン準備中..."
+msgstr "ログインの準備中…"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:193
 msgid "Flickr authorization failed"
 msgstr ""
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:200
-#, fuzzy
-#| msgid "Verifying authorization..."
 msgid "Verifying authorization…"
-msgstr "認証の確認中..."
+msgstr ""
 
 #: plugins/authenticator/shotwell/GoogleAuthenticator.vala:137
 msgid ""
@@ -1471,31 +1303,17 @@ msgid ""
 "To continue publishing to Google services, quit and restart Shotwell, then "
 "try publishing again."
 msgstr ""
-"このShotwellのセッション中に、すでにGoogleサービスへログインとログアウトを"
-"行っています。\n"
+"このShotwellのセッション中に、すでにGoogleサービスへログインとログアウトを行っています。\n"
 "\n"
-"Googleサービスへの公開を続けるには、Shotwellを終了して再起動してからもう一度"
-"公開を試してください。"
+"Googleサービスへの公開を続けるには、Shotwellを終了して再起動してからもう一度公開を試してください。"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Picasa Web Albums.\n"
-#| "\n"
-#| "Click Login to log into Picasa Web Albums in your Web browser. You will "
-#| "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#| "account."
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
 "Click Log in to log into Picasa Web Albums in your Web browser. You will "
 "have to authorize Shotwell Connect to link to your Picasa Web Albums account."
 msgstr ""
-"現在、Picasa Web Albumsにログインしていません。\n"
-"\n"
-"ログインをクリックして、ウェブブラウザーでPicasa Web Albumsにログインしてくだ"
-"さい。Picasa Web Albumsアカウントとリンクさせるには、Shotwell Connectにアクセ"
-"ス権を与える必要があります。"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:35
 msgid ""
@@ -1507,9 +1325,8 @@ msgid ""
 msgstr ""
 "現在YouTubeにログインしていません。\n"
 "\n"
-"続けるには、Googleアカウントにサインアップした上で、YouTubeを利用するための設"
-"定を行う必要があります。少なくとも一度ブラウザーを使って YouTubeのサイトにロ"
-"グインしておけば、ほとんどのアカウントを設定することができます。"
+"続けるには、Googleアカウントにサインアップした上で、YouTubeを利用するための設定を行う必要があります。少なくとも一度ブラウザーを使って "
+"YouTubeのサイトにログインしておけば、ほとんどのアカウントを設定することができます。"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1528,22 +1345,20 @@ msgstr "パスワード(_P)"
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
-#, fuzzy
-#| msgid "Logging in..."
 msgid "Log in"
-msgstr "ログイン中..."
+msgstr "ログイン"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
 msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Tumblrアカウントに関連したユーザー名とパスワードを入力してください。"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1081
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid "Username and/or password invalid. Please try again"
 msgstr "ユーザー名またはパスワードが無効です。もう一度試してください。"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1117
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
 msgid "Invalid User Name or Password"
 msgstr "ユーザー名またはパスワードが無効です"
 
@@ -1564,55 +1379,74 @@ msgstr ""
 "Slackhideo <burajirugaijin@yahoo.co.jp>\n"
 "Yohsuke Ooi <meke@momonga-linux.org>\n"
 "Hajime Taira <htaira@redhat.com>\n"
-"Jiro Matsuzawa <jmatsuzawa@gnome.org>"
+"Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Akira Tanaka https://launchpad.net/~popo1897\n"
+"  Fumihito YOSHIDA https://launchpad.net/~hito\n"
+"  Hajime Mizuno https://launchpad.net/~mizuno-as\n"
+"  Hajime Taira https://launchpad.net/~htaira\n"
+"  Hiroshi Tagawa https://launchpad.net/~kuponuga\n"
+"  Kenichi Ito https://launchpad.net/~ken-i54k\n"
+"  Kentaro Kazuhama https://launchpad.net/~kazken3\n"
+"  Kiyoto James Hashida https://launchpad.net/~khashida\n"
+"  Koichi Akabe https://launchpad.net/~vbkaisetsu\n"
+"  Laura Khalil https://launchpad.net/~loura\n"
+"  OKANO Takayoshi https://launchpad.net/~kano\n"
+"  Robert Ancell https://launchpad.net/~robert-ancell\n"
+"  Shinichirou Yamada https://launchpad.net/~yamada-strong-yamada-nice-64bit\n"
+"  Shushi Kurose https://launchpad.net/~kuromabo\n"
+"  Vera Yin https://launchpad.net/~vera-yorba\n"
+"  brokeasshachi https://launchpad.net/~greasemunkeyparts\n"
+"  slackhideo https://launchpad.net/~burajirugaijin"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:217
+#: plugins/common/RESTSupport.vala:220
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:222
+#: plugins/common/RESTSupport.vala:225
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:227
+#: plugins/common/RESTSupport.vala:230
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:232
+#: plugins/common/RESTSupport.vala:235
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:237
+#: plugins/common/RESTSupport.vala:240
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:242
+#: plugins/common/RESTSupport.vala:245
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
 msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:247
+#: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
 
-#: plugins/common/RESTSupport.vala:524
+#: plugins/common/RESTSupport.vala:527
 #: plugins/shotwell-publishing/TumblrPublishing.vala:623
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "公開するために必要な一時ファイルが利用できません"
@@ -1635,8 +1469,6 @@ msgstr "戻る(_B)"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 #: ui/shotwell.ui:76
-#, fuzzy
-#| msgid "_Login"
 msgid "_Log in"
 msgstr "ログイン(_L)"
 
@@ -1646,7 +1478,7 @@ msgstr "APIキー(_K):"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:180
 msgid "or"
-msgstr ""
+msgstr "または"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:34
 msgid "An _existing album"
@@ -1662,15 +1494,15 @@ msgstr "アップロード前に撮影場所、タグ、カメラの識別情報
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
 msgid "Scaling constraint:"
-msgstr ""
+msgstr "サイズ変更の基準:"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
 msgid "pixels"
-msgstr " ピクセル"
+msgstr "ピクセル"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "オリジナルのサイズ"
@@ -1718,30 +1550,20 @@ msgid ""
 msgstr ""
 "現在Galleryにログインしていません。\n"
 "\n"
-"ログイン処理を完了するには、前もってGallery3アカウントにサインアップしておく"
-"必要があります。"
+"ログイン処理を完了するには、前もってGallery3アカウントにサインアップしておく必要があります。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
 msgid "Shotwell default directory"
 msgstr "Shotwellのデフォルトディレクトリ"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:801
-#, fuzzy, c-format
-#| msgid ""
-#| "\n"
-#| "\n"
-#| "The file \"%s\" may not be supported by or may be too large for this "
-#| "instance of Gallery3."
+#, c-format
 msgid ""
 "\n"
 "\n"
 "The file “%s” may not be supported by or may be too large for this instance "
 "of Gallery3."
 msgstr ""
-"\n"
-"\n"
-"ファイル \"%s\" はGallery3でサポートされていないか、Gallery3にとって大きすぎ"
-"る可能性があります。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
 msgid ""
@@ -1751,16 +1573,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
-#, fuzzy, c-format
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Picasa can't "
-#| "continue."
+#, c-format
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
-msgstr ""
-"公開に必要なファイルが利用できません。Picasaへの公開を続けることができませ"
-"ん。"
+msgstr "公開するために必要なファイルが利用できません。%s への公開を続行できません。"
 
 #. populate any widgets whose contents are
 #. programmatically-generated
@@ -1773,17 +1590,13 @@ msgstr ""
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
-msgstr ""
-"Gallery3サイトのURLと、Gallery3アカウントのユーザー名ならびにパスワード(また"
-"はAPIキー)を入力してください。"
+msgstr "Gallery3サイトのURLと、Gallery3アカウントのユーザー名ならびにパスワード(またはAPIキー)を入力してください。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
 msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
-msgstr ""
-"ユーザー名ならびにパスワードまたはAPIキーが正しくありません。もう一度試すに"
-"は、以下でユーザー名とパスワードを再入力してください。"
+msgstr "ユーザー名ならびにパスワードまたはAPIキーが正しくありません。もう一度試すには、以下でユーザー名とパスワードを再入力してください。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
 msgid ""
@@ -1791,9 +1604,8 @@ msgid ""
 "instance. Please make sure you typed it correctly and it does not have any "
 "trailing components (e.g., index.php)."
 msgstr ""
-"入力したURLはGallery3のメインディレクトリではないようです。入力内容が正しいこ"
-"と、および末尾のコンポーネント(例: index.php)が含まれていないことを確認してく"
-"ださい。"
+"入力したURLはGallery3のメインディレクトリではないようです。入力内容が正しいこと、および末尾のコンポーネント(例: "
+"index.php)が含まれていないことを確認してください。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
 msgid "Unrecognized User"
@@ -1801,7 +1613,7 @@ msgstr "認識できないユーザーです"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
 msgid " Site Not Found"
-msgstr "サイトが見つかりません"
+msgstr " サイトが見つかりません"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
@@ -1829,10 +1641,8 @@ msgid "Open target _album in browser"
 msgstr "ブラウザーで対象のアルバムを開く(_A)"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-#, fuzzy
-#| msgid "Copyright (C) 2013 rajce.net"
 msgid "Copyright © 2013 rajce.net"
-msgstr "Copyright (C) 2013 rajce.net"
+msgstr "Copyright © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
@@ -1938,11 +1748,11 @@ msgstr "アップロード前に撮影場所やカメラ、その他の識別情
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:27
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
-msgstr ""
+msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:61
 #: plugins/shotwell-publishing/PicasaPublishing.vala:58
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1188
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -1955,22 +1765,14 @@ msgid "Large (2048 pixels)"
 msgstr "大 (2048ピクセル)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:314
-#, fuzzy
-#| msgid "Creating album..."
 msgid "Creating album…"
-msgstr "アルバムの作成中..."
+msgstr "アルバムを作成しています…"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:340
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Facebook "
-#| "can't continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Facebook can’t "
 "continue."
-msgstr ""
-"公開に必要なファイルが利用できません。Facebookへの公開を続けることができませ"
-"ん。"
+msgstr "公開するために必要なファイルが利用できません。Facebook への公開を続行できません。"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:723
 #, c-format
@@ -1992,7 +1794,7 @@ msgstr "自分のみ"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1290
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
 msgid "Everyone"
 msgstr "全体"
 
@@ -2002,16 +1804,10 @@ msgid "Photo _size:"
 msgstr "写真サイズ(_S):"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Flickr can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
-msgstr ""
-"公開に必要なファイルが利用できません。Flickrへの公開を続けることができませ"
-"ん。"
+msgstr "公開するために必要なファイルが利用できません。Flickr への公開を続行できません。"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:607
 #, c-format
@@ -2023,22 +1819,15 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:609
-#, fuzzy, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month, you have %d megabytes remaining in your upload quota."
+#, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
 msgstr ""
-"あなたの無料Flickrアカウントは月ごとのアップロード可能なデータに制限がありま"
-"す。\n"
-"今月は、%d メガバイトのアップロードの割り当てが残っています。"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:611
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
-"あなたのFlickr Proアカウントは無制限のアップロード容量が与えられています。"
+msgstr "あなたのFlickr Proアカウントは無制限のアップロード容量が与えられています。"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:616
 msgid "Photos _visible to:"
@@ -2065,34 +1854,26 @@ msgid "Friends only"
 msgstr "友達のみ"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
-#, fuzzy
-#| msgid "500 x 375 pixels"
 msgid "500 × 375 pixels"
-msgstr "500 x 375 ピクセル"
+msgstr "500×375ピクセル"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
-#, fuzzy
-#| msgid "1024 x 768 pixels"
 msgid "1024 × 768 pixels"
-msgstr "1024 x 768 ピクセル"
+msgstr "1024×768ピクセル"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
-#, fuzzy
-#| msgid "2048 x 1536 pixels"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
 msgid "2048 × 1536 pixels"
-msgstr "2048 x 1536 ピクセル"
+msgstr "2048×1536ピクセル"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
-#, fuzzy
-#| msgid "4096 x 3072 pixels"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
 msgid "4096 × 3072 pixels"
-msgstr "4096 x 3072 ピクセル"
+msgstr "4096×3072ピクセル"
 
 #: plugins/shotwell-publishing/picasa_publishing_options_pane.ui:93
 msgid "Photo _size preset:"
@@ -2103,22 +1884,14 @@ msgstr "プリセットの写真サイズ(_S):"
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PicasaPublishing.vala:96
 #: plugins/shotwell-publishing/PicasaPublishing.vala:630
-#, fuzzy
-#| msgid "De_fault:"
 msgid "Default album"
-msgstr "デフォルト(_F):"
+msgstr "デフォルトのアルバム"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:291
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Picasa can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Picasa can’t "
 "continue."
-msgstr ""
-"公開に必要なファイルが利用できません。Picasaへの公開を続けることができませ"
-"ん。"
+msgstr "公開するために必要なファイルが利用できません。Picasa への公開を続行できません。"
 
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PicasaPublishing.vala:560
@@ -2131,28 +1904,20 @@ msgid "Videos will appear in:"
 msgstr "動画の表示先:"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:610
-#, fuzzy
-#| msgid "Small (640 x 480 pixels)"
 msgid "Small (640 × 480 pixels)"
-msgstr "小 (640 x 480 ピクセル)"
+msgstr "小 (640×480ピクセル)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:611
-#, fuzzy
-#| msgid "Medium (1024 x 768 pixels)"
 msgid "Medium (1024 × 768 pixels)"
-msgstr "中 (1024 x 768 ピクセル)"
+msgstr "中 (1024×768ピクセル)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:612
-#, fuzzy
-#| msgid "Recommended (1600 x 1200 pixels)"
 msgid "Recommended (1600 × 1200 pixels)"
-msgstr "推奨 (1600 x 1200 ピクセル)"
+msgstr "推奨 (1600×1200ピクセル)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:613
-#, fuzzy
-#| msgid "Google+ (2048 x 1536 pixels)"
 msgid "Google+ (2048 × 1536 pixels)"
-msgstr "Google+ (2048 x 1536 pixels)"
+msgstr "Google+ (2048×1536ピクセル)"
 
 #: plugins/shotwell-publishing/PicasaPublishing.vala:614
 #: src/editing_tools/EditingTools.vala:735
@@ -2168,52 +1933,36 @@ msgid "User _name"
 msgstr "ユーザー名(_N)"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
-#, fuzzy
-#| msgid "_Remember Password"
 msgid "Remember Password"
-msgstr "パスワードを記憶(_R)"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
-#, fuzzy
-#| msgid "An _existing category:"
 msgid "An _existing category"
-msgstr "既存のカテゴリ(_E):"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
-#, fuzzy
-#| msgid "A _new album named:"
 msgid "A _new album named"
-msgstr "新しいアルバム名(_N):"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
-#, fuzzy
-#| msgid "within category:"
 msgid "within category"
-msgstr "カテゴリ内:"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
-#, fuzzy
-#| msgid "Album comment:"
 msgid "Album comment"
-msgstr "アルバムコメント:"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
-#, fuzzy
-#| msgid "Photos will be _visible by:"
 msgid "Photos will be _visible by"
-msgstr "写真が表示可能(_V):"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
-#, fuzzy
-#| msgid "Photo size:"
 msgid "Photo size"
-msgstr "写真サイズ:"
+msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
 msgid "_If a title is set and comment unset, use title as comment"
-msgstr ""
-"タイトルが設定され、コメントが設定されていない場合、タイトルをコメントに使用"
-"する(_I)"
+msgstr "タイトルが設定され、コメントが設定されていない場合、タイトルをコメントに使用する(_I)"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
 msgid "_Do no upload tags"
@@ -2224,22 +1973,22 @@ msgid "Logout"
 msgstr "ログアウト"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:268
-#: src/Resources.vala:266 ui/collection.ui:192
+#: src/Resources.vala:265 ui/collection.ui:192
 msgid "Publish"
 msgstr "公開先"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:773
-#, fuzzy, c-format
-#| msgid "Creating album %s..."
+#, c-format
 msgid "Creating album %s…"
-msgstr "アルバム %s を作成しています..."
+msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:946
-msgid "An error message occurred when publishing to Piwigo. Please try again."
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:949
+msgid ""
+"An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Piwigoへの公開中にエラーが発生しました。もう一度試してください。"
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1033
 #, c-format
 msgid ""
 "This does not look like the real <b>%s</b>. Attackers might be trying to "
@@ -2247,50 +1996,46 @@ msgid ""
 "messages, credit card information, or passwords)."
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1048
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
 #, c-format
 msgid "Certificate of %s"
 msgstr ""
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
-#: src/Resources.vala:137 ui/multitextentrydialog.ui:40
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: src/Resources.vala:136 ui/multitextentrydialog.ui:40
 #: ui/slideshow_settings.ui:52
 msgid "_OK"
-msgstr ""
+msgstr "OK(_O)"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1079
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
-msgstr ""
-"PiwigoフォトライブラリのURLと、ライブラリのPiwigoアカウントに関連するユーザー"
-"名およびパスワードを入力してください。"
+msgstr "PiwigoフォトライブラリのURLと、ライブラリのPiwigoアカウントに関連するユーザー名およびパスワードを入力してください。"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1080
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
-msgstr ""
-"ShotwellはPiwigoフォトライブラリに接続できません。入力したURLを確認してくださ"
-"い。"
+msgstr "ShotwellはPiwigoフォトライブラリに接続できません。入力したURLを確認してください。"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
 msgid "Invalid URL"
 msgstr "無効なURL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1291
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
 msgid "Admins, Family, Friends, Contacts"
 msgstr "管理者、家族、友達、連絡先"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1292
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
 msgid "Admins, Family, Friends"
 msgstr "管理者、家族、友達"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
 msgid "Admins, Family"
 msgstr "管理者、家族"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Admins"
 msgstr "管理者"
 
@@ -2319,19 +2064,13 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:105
-#, fuzzy
-#| msgid "1280 x 853 pixels"
 msgid "1280 × 853 pixels"
-msgstr "1280 x 853 ピクセル"
+msgstr "1280×853ピクセル"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:407
-#, fuzzy
-#| msgid ""
-#| "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
-"TumblrPublisher: start( ): 開始できません; このパブリッシャーは開始不能です。"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
@@ -2347,16 +2086,10 @@ msgid "Video privacy _setting:"
 msgstr "動画のプライバシー設定(_S):"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
-#, fuzzy
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Youtube "
-#| "can't continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
-msgstr ""
-"公開に必要なファイルが利用できません。 Youtubeへの公開を続けることができませ"
-"ん。"
+msgstr "公開するために必要なファイルが利用できません。YouTube への公開を続行できません。"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
@@ -2404,12 +2137,10 @@ msgid "Core Slideshow Transitions"
 msgstr "メインのスライドショーのトランジション"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:76
-#, fuzzy
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2011-2014 Yorba Foundation"
+msgstr "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
@@ -2454,10 +2185,9 @@ msgid "Could not make directory %s writable"
 msgstr ""
 
 #: src/AppDirs.vala:239
-#, fuzzy, c-format
-#| msgid "Unable to create cache directory %s: %s"
+#, c-format
 msgid "Could not make directory %s writable: %s"
-msgstr "キャッシュディレクトリ %s を作成できません: %s"
+msgstr ""
 
 #: src/AppWindow.vala:47
 msgid "Pin Toolbar"
@@ -2469,42 +2199,34 @@ msgstr "ツールバーを開いた状態で固定します"
 
 #: src/AppWindow.vala:53
 msgid "Leave fullscreen"
-msgstr "全画面表示の解除"
+msgstr "フルスクリーンの解除"
 
 #: src/AppWindow.vala:530 src/AppWindow.vala:551 src/AppWindow.vala:568
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:766
 #: src/Dialogs.vala:789 src/publishing/PublishingUI.vala:305
-#: src/publishing/PublishingUI.vala:529 src/Resources.vala:128
+#: src/publishing/PublishingUI.vala:529 src/Resources.vala:127
 #: ui/multitextentrydialog.ui:25 ui/slideshow_settings.ui:38
 #: ui/textentrydialog.ui:19
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
 #: src/AppWindow.vala:578
-#, fuzzy, c-format
-#| msgid ""
-#| "A fatal error occurred when accessing Shotwell's library.  Shotwell "
-#| "cannot continue.\n"
-#| "\n"
-#| "%s"
+#, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Shotwellのライブラリにアクセスする際に致命的なエラーが発生しました。Shotwell"
-"を続行できません。\n"
+"Shotwellのライブラリにアクセスした際に致命的なエラーが発生しました。Shotwellを続行できません。\n"
 "\n"
 "%s"
 
 #: src/AppWindow.vala:599
-#, fuzzy
-#| msgid "Visit the Shotwell home page"
 msgid "Visit the Shotwell web site"
-msgstr "Shotwellのホームページにアクセスする"
+msgstr "Shotwellのウェブサイトにアクセスする"
 
 #: src/AppWindow.vala:612
 #, c-format
@@ -2588,7 +2310,7 @@ msgstr "カメラ"
 
 #: src/camera/CameraBranch.vala:85
 msgid "List of all discovered camera devices"
-msgstr ""
+msgstr "検出されたすべてのカメラデバイスの一覧"
 
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
@@ -2599,25 +2321,18 @@ msgstr "カメラ"
 
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
 #: src/camera/CameraTable.vala:256
-#, fuzzy, c-format
-#| msgid "%s (%d%%)"
+#, c-format
 msgid "%s (%s)"
-msgstr "%s (%d%%)"
+msgstr ""
 
 #: src/camera/ImportPage.vala:307 src/Properties.vala:234
 msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:466
-#, fuzzy
-#| msgid ""
-#| "Unable to unmount camera.  Try unmounting the camera from the file "
-#| "manager."
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
-msgstr ""
-"カメラをアンマウントできません。ファイルマネージャーからカメラのアンマウント"
-"を試してください。"
+msgstr "カメラをアンマウントできません。ファイルマネージャーからカメラのアンマウントを試行してください。"
 
 #. hide duplicates checkbox
 #: src/camera/ImportPage.vala:776
@@ -2638,26 +2353,18 @@ msgstr "すべてインポート(_A)"
 
 #: src/camera/ImportPage.vala:850
 msgid "The camera seems to be empty. No photos/videos found to import"
-msgstr ""
+msgstr "カメラが空のためインポートする写真/動画はありません"
 
 #: src/camera/ImportPage.vala:854
-#, fuzzy
-#| msgid "No photos/videos found"
 msgid "No new photos/videos found on camera"
-msgstr "写真/動画が見つかりません"
+msgstr "カメラに新しい写真/動画はありません"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:1025
-#, fuzzy
-#| msgid ""
-#| "Shotwell needs to unmount the camera from the filesystem in order to "
-#| "access it.  Continue?"
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
-msgstr ""
-"Shotwell がこのカメラにアクセスするため、ファイルシステムからカメラをアンマウ"
-"ントする必要があります。続けますか?"
+msgstr "Shotwellがカメラにアクセスするために、ファイルシステムからのカメラのアンマウントが必要です。続けますか?"
 
 #: src/camera/ImportPage.vala:1031
 msgid "_Unmount"
@@ -2668,19 +2375,11 @@ msgid "Please unmount the camera."
 msgstr "カメラをアンマウントしてください。"
 
 #: src/camera/ImportPage.vala:1041
-#, fuzzy
-#| msgid ""
-#| "The camera is locked by another application.  Shotwell can only access "
-#| "the camera when it's unlocked.  Please close any other application using "
-#| "the camera and try again."
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
 "camera and try again."
-msgstr ""
-"カメラが他のアプリケーションによってロックされています。Shotwell はカメラが"
-"ロックされていない時のみアクセスできます。カメラを使用している他のすべてのア"
-"プリケーションを閉じてもう一度試してください。"
+msgstr "カメラは他のアプリケーションによってロックされています。Shotwellはカメラがロックされていない場合にのみアクセスすることができます。カメラを使用している他のアプリケーションを終了してから再試行してください。"
 
 #: src/camera/ImportPage.vala:1051
 msgid "Please close any other application using the camera."
@@ -2696,20 +2395,16 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1073
-#, fuzzy
-#| msgid "Unmounting..."
 msgid "Unmounting…"
-msgstr "アンマウント中..."
+msgstr "アンマウントしています…"
 
 #: src/camera/ImportPage.vala:1166
 msgid "Connecting to camera, please wait…"
-msgstr ""
+msgstr "カメラに接続しています、お待ちください…"
 
 #: src/camera/ImportPage.vala:1198
-#, fuzzy
-#| msgid "Starting import, please wait..."
 msgid "Starting import, please wait…"
-msgstr "インポートを開始しますのでお待ちください..."
+msgstr "インポートを開始します、お待ちください…"
 
 #: src/camera/ImportPage.vala:1204
 msgid "Fetching photo information"
@@ -2760,114 +2455,101 @@ msgstr "カメラから写真/動画を削除中"
 #: src/camera/ImportPage.vala:1796
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
-msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgid_plural ""
+"Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] "エラーのためカメラから %d 個の写真/動画を削除できません。"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2487 src/Resources.vala:141
-#, fuzzy
-#| msgid "_Print..."
+#: src/PhotoPage.vala:2487 src/Resources.vala:140
 msgid "_Print"
-msgstr "印刷(_P)..."
+msgstr "印刷(_P)"
 
-#: src/CollectionPage.vala:83 src/Resources.vala:294 ui/collection.ui:128
+#: src/CollectionPage.vala:83 src/Resources.vala:293 ui/collection.ui:128
 #: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
-#, fuzzy
-#| msgid "Send To"
 msgid "Send _To…"
-msgstr "送信する"
+msgstr "送る(_T)…"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2497 src/Resources.vala:191
+#: src/PhotoPage.vala:2497 src/Resources.vala:190
 msgid "Set as _Desktop Background"
 msgstr "デスクトップの背景に設定(_D)"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:257
+#: src/CollectionPage.vala:92 src/Resources.vala:256
 msgid "_Duplicate"
 msgstr "複製(_D)"
 
 #: src/CollectionPage.vala:100
-#, fuzzy
-#| msgid "Fulls_creen"
 msgid "Fullscreen"
-msgstr "フルスクリーン(_C)"
+msgstr "フルスクリーン"
 
 #: src/CollectionPage.vala:102 ui/photo.ui:180
 msgid "S_lideshow"
 msgstr "スライドショー(_L)"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:110 ui/direct.ui:111
+#: src/CollectionPage.vala:110 src/Resources.vala:109 ui/direct.ui:111
 #: ui/photo.ui:200
 msgid "Rotate _Right"
 msgstr "右回転(_R)"
 
-#: src/CollectionPage.vala:113 src/Resources.vala:115 ui/direct.ui:116
+#: src/CollectionPage.vala:113 src/Resources.vala:114 ui/direct.ui:116
 #: ui/photo.ui:205
 msgid "Rotate _Left"
 msgstr "左回転(_L)"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:120 ui/direct.ui:121
+#: src/CollectionPage.vala:116 src/Resources.vala:119 ui/direct.ui:121
 #: ui/photo.ui:210
 msgid "Flip Hori_zontally"
 msgstr "左右反転(_Z)"
 
-#: src/CollectionPage.vala:117 src/Resources.vala:123 ui/direct.ui:125
+#: src/CollectionPage.vala:117 src/Resources.vala:122 ui/direct.ui:125
 #: ui/photo.ui:214
 msgid "Flip Verti_cally"
 msgstr "上下反転(_C)"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:157 ui/collection.ui:8
+#: src/CollectionPage.vala:119 src/Resources.vala:156 ui/collection.ui:8
 #: ui/direct_context.ui:7 ui/direct.ui:134 ui/event.ui:447
 #: ui/photo_context.ui:6 ui/photo.ui:223
 msgid "_Enhance"
 msgstr "強調(_E)"
 
-#: src/CollectionPage.vala:120 src/Resources.vala:185 ui/collection.ui:13
+#: src/CollectionPage.vala:120 src/Resources.vala:184 ui/collection.ui:13
 #: ui/direct_context.ui:12 ui/direct.ui:161 ui/event.ui:452
 #: ui/photo_context.ui:11 ui/photo.ui:250
 msgid "Re_vert to Original"
 msgstr "オリジナルに戻す(_V)"
 
-#: src/CollectionPage.vala:122 src/Resources.vala:161 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:256
 msgid "_Copy Color Adjustments"
 msgstr "色調整をコピーする(_C)"
 
-#: src/CollectionPage.vala:125 src/Resources.vala:165 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:261
 msgid "_Paste Color Adjustments"
 msgstr "色調整を貼り付ける(_P)"
 
 #: src/CollectionPage.vala:135
-#, fuzzy
-#| msgid "Adjust Date and Time"
 msgid "Adjust Date and Time…"
-msgstr "日付と時刻の調整"
+msgstr "日付と時刻の調整…"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:290 ui/collection.ui:108
+#: src/CollectionPage.vala:143 src/Resources.vala:289 ui/collection.ui:108
 #: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:361
 msgid "Open With E_xternal Editor"
 msgstr "外部エディターで開く(_X)"
 
-#: src/CollectionPage.vala:146 src/Resources.vala:292 ui/collection.ui:113
+#: src/CollectionPage.vala:146 src/Resources.vala:291 ui/collection.ui:113
 #: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:366
 msgid "Open With RA_W Editor"
 msgstr "RAWエディターで開く(_W)"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:138
-#, fuzzy
-#| msgid "Play"
+#: src/CollectionPage.vala:149 src/Resources.vala:137
 msgid "_Play"
-msgstr "再生"
+msgstr "再生(_P)"
 
 #: src/CollectionPage.vala:410
-#, fuzzy
-#| msgid "Export Photo/Video"
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "写真/動画のエクスポート"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
-#, fuzzy
-#| msgid "Export Photo"
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "写真のエクスポート"
@@ -3014,10 +2696,9 @@ msgid "Create Tag"
 msgstr "タグの作成"
 
 #: src/Commands.vala:1694
-#, fuzzy, c-format
-#| msgid "Move Tag \"%s\""
+#, c-format
 msgid "Move Tag “%s”"
-msgstr "タグを \"%s\" に移動"
+msgstr "タグの移動 “%s”"
 
 #: src/Commands.vala:2346
 msgid "Move Photos to Trash"
@@ -3076,15 +2757,14 @@ msgstr "%s のデータベース"
 
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
-#, fuzzy, c-format
-#| msgid "Importing from %s can't continue because an error occurred:"
+#, c-format
 msgid "Importing from %s can’t continue because an error occurred:"
-msgstr "エラーが発生したため %s からのインポートを継続できません:"
+msgstr "エラーが発生したため %s からのインポートを続行できません:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
-msgid "To try importing from another service, select one from the above menu."
-msgstr ""
-"他のサービスからインポートするには、上記メニューから１つ選択してください。"
+msgid ""
+"To try importing from another service, select one from the above menu."
+msgstr "他のサービスからインポートするには、上記メニューから１つ選択してください。"
 
 #: src/data_imports/DataImportsUI.vala:10
 msgid ""
@@ -3096,9 +2776,7 @@ msgid ""
 msgstr ""
 "有効なデータインポートプラグインがありません。\n"
 "\n"
-"アプリケーションからのインポートを利用するには、有効なデータインポートプラグ"
-"インが少なくとも一つは必要です。プラグインは、設定ダイアログで有効にできま"
-"す。"
+"アプリケーションからのインポートを利用するには、有効なデータインポートプラグインが少なくとも一つは必要です。プラグインは、設定ダイアログで有効にできます。"
 
 #: src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
@@ -3154,14 +2832,9 @@ msgstr ""
 "%s"
 
 #: src/db/DatabaseTable.vala:92
-#, fuzzy, c-format
-#| msgid ""
-#| "Unable to write to photo database file:\n"
-#| " %s"
+#, c-format
 msgid "Unable to restore photo database %s"
-msgstr ""
-"写真データベースファイルに書き込めませんでした:\n"
-" %s"
+msgstr "写真データベース %s を復元できません"
 
 #: src/DesktopIntegration.vala:121
 #, c-format
@@ -3183,26 +2856,22 @@ msgid "Unable to prepare desktop slideshow: %s"
 msgstr "デスクトップ・スライドショーを準備できません: %s"
 
 #: src/Dialogs.vala:16
-#, fuzzy, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+#, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] "%2$d 個の写真からタグ \"%1$s\" を削除します。続けますか?"
-
+msgstr[0] "タグ “%s” を %d 個の写真から削除します。続けますか?"
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58
-#: src/Dialogs.vala:734 src/Resources.vala:129 src/Resources.vala:310
-#: src/Resources.vala:341 src/Resources.vala:394 src/Resources.vala:762
+#: src/Dialogs.vala:734 src/Resources.vala:128 src/Resources.vala:309
+#: src/Resources.vala:340 src/Resources.vala:393 src/Resources.vala:761
 #: ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63 ui/trash.ui:216
 #: ui/trash.ui:258
 msgid "_Delete"
 msgstr "削除(_D)"
 
 #: src/Dialogs.vala:25
-#, fuzzy, c-format
-#| msgid "This will remove the saved search \"%s\".  Continue?"
+#, c-format
 msgid "This will remove the saved search “%s”. Continue?"
-msgstr "保存された検索 \"%s\" を削除します。続けますか?"
+msgstr "保存された検索 “%s” を削除します。続けますか?"
 
 #: src/Dialogs.vala:36
 msgid ""
@@ -3212,23 +2881,20 @@ msgid_plural ""
 "Switching developers will undo all changes you have made to these photos in "
 "Shotwell"
 msgstr[0] ""
-"one: デベロッパーを切り替えると、Shotwell 内のこの写真に加えた全ての変更は元"
-"に戻ります。\n"
+"one: デベロッパーを切り替えると、Shotwell 内のこの写真に加えた全ての変更は元に戻ります。\n"
 "\n"
-"other: デベロッパーを切り替えると、Shotwell 内のこれらの写真に加えた全ての変"
-"更は元に戻ります。"
+"other: デベロッパーを切り替えると、Shotwell 内のこれらの写真に加えた全ての変更は元に戻ります。"
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
 msgstr "デベロッパーを切り替える(_S)"
 
 #: src/Dialogs.vala:54
-#, fuzzy, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+#, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
-msgstr[0] "%2$d 個の写真からタグ \"%1$s\" を削除します。続けますか?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Dialogs.vala:74
 msgid "Export Video"
@@ -3244,16 +2910,11 @@ msgstr "写真のエクスポート"
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
 #: src/Dialogs.vala:127
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell couldn't create a file for editing this photo because you do not "
-#| "have permission to write to %s."
+#, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
-msgstr ""
-"%s への書き込み権限がないため、Shotwellはこの写真を編集する際にファイルを作成"
-"することができませんでした。"
+msgstr "%s への書き込み権限がないため、Shotwellはこの写真を編集するためのファイルを作成できませんでした。"
 
 #: src/Dialogs.vala:136
 msgid ""
@@ -3278,10 +2939,8 @@ msgid "Con_tinue"
 msgstr "続行(_T)"
 
 #: src/Dialogs.vala:153
-#, fuzzy
-#| msgid "Save Details"
 msgid "Save Details…"
-msgstr "詳細を保存"
+msgstr "詳細を保存…"
 
 #: src/Dialogs.vala:154
 msgid "Save Details"
@@ -3308,9 +2967,9 @@ msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
 msgstr[0] "以下の %d 個のファイルのインポートに成功しました。"
 
-#.
+#. 
 #. Duplicates
-#.
+#. 
 #: src/Dialogs.vala:241
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "重複した写真/動画はインポートされませんでした:"
@@ -3319,9 +2978,9 @@ msgstr "重複した写真/動画はインポートされませんでした:"
 msgid "duplicates existing media item"
 msgstr "重複する既存のメディアアイテム"
 
-#.
+#. 
 #. Files Not Imported Due to Camera Errors
-#.
+#. 
 #: src/Dialogs.vala:256
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "カメラ側のエラーにより写真/動画はインポートされませんでした:"
@@ -3331,69 +2990,49 @@ msgstr "カメラ側のエラーにより写真/動画はインポートされ�
 msgid "error message:"
 msgstr "エラーメッセージ:"
 
-#.
+#. 
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
-#.
+#. 
 #: src/Dialogs.vala:270
-#, fuzzy
-#| msgid ""
-#| "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
-msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
-msgstr ""
-"ファイルが認識できなかったため、写真もしくは動画をインポートできませんでした:"
+msgid ""
+"Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
+msgstr "写真または動画として認識されずインポートされなかったファイル:"
 
-#.
+#. 
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
-#.
+#. 
 #: src/Dialogs.vala:285
-#, fuzzy
-#| msgid ""
-#| "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
-#| "Understands:"
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
-msgstr ""
-"Shotwellが理解できる形式ではなかったため、写真と動画をインポートできませんで"
-"した:"
+msgstr "Shotwellが対応していないフォーマットのためインポートされなかった写真/動画:"
 
-#.
+#. 
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
-#.
+#. 
 #: src/Dialogs.vala:300
-#, fuzzy
-#| msgid ""
-#| "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
-#| "Library:"
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
-msgstr ""
-"Shotwellがライブラリにコピーできないため、写真/動画をインポートできませんでし"
-"た:"
+msgstr "Shotwellがライブラリにコピーできなかったためインポートされなかった写真/動画:"
 
 #: src/Dialogs.vala:304
-#, fuzzy, c-format
-#| msgid ""
-#| "couldn't copy %s\n"
-#| "\tto %s"
+#, c-format
 msgid ""
 "couldn’t copy %s\n"
 "\tto %s"
 msgstr ""
-"%s をコピーできません。\n"
-"\tコピー先 %s"
 
-#.
+#. 
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
-#.
+#. 
 #: src/Dialogs.vala:316
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "ファイルが壊れているため、写真とビデオをインポートできませんでした:"
 
-#.
+#. 
 #. Photos/Videos Not Imported for Other Reasons
-#.
+#. 
 #: src/Dialogs.vala:331
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "他の理由により写真/動画はインポートされませんでした:"
@@ -3420,34 +3059,26 @@ msgstr[0] "%d 個の重複した写真/動画はインポートされません�
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"ファイルまたはハードウェアエラーのため %d 個の写真のインポートに失敗しまし"
-"た:\n"
+msgstr[0] "ファイルまたはハードウェアエラーのため %d 個の写真のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:374
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"ファイルまたはハードウェアエラーのため %d 個の動画のインポートに失敗しまし"
-"た:\n"
+msgstr[0] "ファイルまたはハードウェアエラーのため %d 個の動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:377
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"ファイルまたはハードウェアエラーのため %d 個の写真/動画のインポートに失敗しま"
-"した:\n"
+msgstr[0] "ファイルまたはハードウェアエラーのため %d 個の写真/動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:380
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"ファイルまたはハードウェアのエラーのため %d 個のファイルのインポートに失敗し"
-"ました:\n"
+msgstr[0] "ファイルまたはハードウェアのエラーのため %d 個のファイルのインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:394
 #, c-format
@@ -3456,9 +3087,7 @@ msgid ""
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"写真ライブラリのフォルダーが書き込み可能でないため %d 個の写真のインポートに"
-"失敗しました:\n"
+msgstr[0] "写真ライブラリのフォルダーが書き込み可能でないため %d 個の写真のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:397
 #, c-format
@@ -3467,9 +3096,7 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"写真ライブラリのフォルダーが書き込み可能でないため %d 個の動画のインポートに"
-"失敗しました:\n"
+msgstr[0] "写真ライブラリのフォルダーが書き込み可能でないため %d 個の動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:400
 #, c-format
@@ -3479,9 +3106,7 @@ msgid ""
 msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"写真ライブラリのフォルダーが書き込み可能でないため %d 個の写真/動画のインポー"
-"トに失敗しました:\n"
+msgstr[0] "写真ライブラリのフォルダーが書き込み可能でないため %d 個の写真/動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:403
 #, c-format
@@ -3490,15 +3115,13 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"フォトライブラリフォルダーに書き込めなかったので、%d 個のファイルのインポート"
-"に失敗しました。\n"
+msgstr[0] "フォトライブラリフォルダーに書き込めなかったので、%d 個のファイルのインポートに失敗しました。\n"
 
 #: src/Dialogs.vala:417
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "カメラのエラーによって %d 個の写真のインポートに失敗しました:\n"
+msgstr[0] "カメラのエラーのため %d 個の写真のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:420
 #, c-format
@@ -3528,22 +3151,19 @@ msgstr[0] "ファイルが壊れているため、 %d 個の写真のインポ�
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] ""
-"ファイルが壊れているため、 %d 個のビデオのインポートに失敗しました:\n"
+msgstr[0] "ファイルが壊れているため、 %d 個のビデオのインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:446
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] ""
-"ファイルが壊れているため、 %d 個の写真とビデオのインポートに失敗しました:\n"
+msgstr[0] "ファイルが壊れているため、 %d 個の写真とビデオのインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:449
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] ""
-"ファイルが壊れているため、%d 個のファイルのインポートに失敗しました:\n"
+msgstr[0] "ファイルが壊れているため、%d 個のファイルのインポートに失敗しました:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -3615,7 +3235,7 @@ msgstr "インポートした写真または動画はありません。\n"
 msgid "Import Complete"
 msgstr "インポート完了"
 
-#: src/Dialogs.vala:663 src/Resources.vala:202
+#: src/Dialogs.vala:663 src/Resources.vala:201
 msgid "Rename Event"
 msgstr "イベント名の変更"
 
@@ -3625,8 +3245,6 @@ msgstr "名前:"
 
 #. Dialog title
 #: src/Dialogs.vala:674
-#, fuzzy
-#| msgid "Edit Title"
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "タイトルの編集"
@@ -3636,7 +3254,7 @@ msgid "Title:"
 msgstr "タイトル:"
 
 #. Dialog title
-#: src/Dialogs.vala:691 src/Resources.vala:278
+#: src/Dialogs.vala:691 src/Resources.vala:277
 msgid "Edit Event Comment"
 msgstr "イベントコメントの編集"
 
@@ -3644,7 +3262,7 @@ msgstr "イベントコメントの編集"
 msgid "Edit Photo/Video Comment"
 msgstr "写真/動画コメントの編集"
 
-#: src/Dialogs.vala:693 src/Properties.vala:646
+#: src/Dialogs.vala:693 src/Properties.vala:645
 msgid "Comment:"
 msgstr "コメント"
 
@@ -3666,34 +3284,27 @@ msgid "Revert External Edits?"
 msgstr "外部での編集を元に戻しますか?"
 
 #: src/Dialogs.vala:758
-#, fuzzy, c-format
-#| msgid "This will destroy all changes made to the external file.  Continue?"
-#| msgid_plural ""
-#| "This will destroy all changes made to %d external files.  Continue?"
+#, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
-msgstr[0] ""
-"実行すると %d 個の外部ファイルに対して行ったすべての変更点を破棄します。続け"
-"ますか?"
+msgstr[0] "%d 個の外部ファイルへの変更を破棄します。続けますか?"
 
 #: src/Dialogs.vala:762
 msgid "Re_vert External Edit"
-msgstr "外部での編集を元に戻す(_V)"
+msgstr "外部での編集をやめる(_V)"
 
 #: src/Dialogs.vala:762
 msgid "Re_vert External Edits"
 msgstr "外部での編集を元に戻す(_V)"
 
 #: src/Dialogs.vala:783
-#, fuzzy, c-format
-#| msgid "This will remove the photo from the library.  Continue?"
-#| msgid_plural "This will remove %d photos from the library.  Continue?"
+#, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
-msgstr[0] "実行するとライブラリから %d 個の写真を削除します。続けますか?"
+msgstr[0] "ライブラリから %d 個の写真を削除します。続けますか?"
 
-#: src/Dialogs.vala:790 src/Resources.vala:144
+#: src/Dialogs.vala:790 src/Resources.vala:143
 msgid "_Remove"
 msgstr "削除(_R)"
 
@@ -3730,9 +3341,7 @@ msgstr "タグ (カンマ区切り):"
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
-msgstr ""
-"Shotwell はライブラリフォルダーに写真をコピーしたり、写真をコピーせずにイン"
-"ポートすることもできます。"
+msgstr "Shotwell はライブラリフォルダーに写真をコピーしたり、写真をコピーせずにインポートすることもできます。"
 
 #: src/Dialogs.vala:926
 msgid "Co_py Photos"
@@ -3759,17 +3368,7 @@ msgid "Removing Photos From Library"
 msgstr "ライブラリから写真を削除しています"
 
 #: src/Dialogs.vala:953
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo/video from your Shotwell library.  Would you "
-#| "also like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos/videos from your Shotwell library.  Would you "
-#| "also like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
@@ -3781,23 +3380,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"実行すると Shotwell ライブラリから %d 個の写真/動画を削除します。ファイルをデ"
-"スクトップのゴミ箱にも移動しますか?\n"
+"Shotwellのライブラリから %d 個の写真と動画を削除します。ファイルをデスクトッ"
+"プのゴミ箱に移動しますか?\n"
 "\n"
-"このアクションは元に戻せません。"
+"この操作は元に戻すことができません。"
 
 #: src/Dialogs.vala:957
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the video from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d videos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -3809,23 +3398,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"実行すると Shotwell ライブラリから %d 個の動画を削除します。ファイルをデスク"
-"トップのゴミ箱にも移動しますか?\n"
+"Shotwellのライブラリから %d 個の動画を削除します。ファイルをデスクトップのゴ"
+"ミ箱に移動しますか?\n"
 "\n"
-"このアクションは元に戻せません。"
+"この操作は元に戻すことができません。"
 
 #: src/Dialogs.vala:961
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -3837,26 +3416,19 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"実行すると Shotwell ライブラリから %d 個の写真を削除します。ファイルをデスク"
-"トップのゴミ箱にも移動しますか?\n"
+"Shotwellのライブラリから %d 個の写真を削除します。ファイルをデスクトップのゴ"
+"ミ箱に移動しますか?\n"
 "\n"
-"このアクションは元に戻せません。"
+"この操作は元に戻すことができません。"
 
 #: src/Dialogs.vala:993
-#, fuzzy, c-format
-#| msgid ""
-#| "The photo or video cannot be moved to your desktop trash.  Delete this "
-#| "file?"
-#| msgid_plural ""
-#| "%d photos/videos cannot be moved to your desktop trash.  Delete these "
-#| "files?"
+#, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
-"%d 個の写真/動画をデスクトップのゴミ箱に移動できませんでした。これらのファイ"
-"ルを削除しますか?"
+"%d 個の写真/動画をデスクトップのゴミ箱に移動できません。これらのファイルを削除しますか?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1010
@@ -3893,18 +3465,11 @@ msgstr ""
 "%s"
 
 #: src/direct/DirectPhotoPage.vala:120
-#, fuzzy, c-format
-#| msgid ""
-#| "Unable to print photo:\n"
-#| "\n"
-#| "%s"
+#, c-format
 msgid "Unable open photo %s. Sorry."
-msgstr ""
-"写真を印刷できません:\n"
-"\n"
-"%s"
+msgstr "写真 %s を開けません。申し訳ございません。"
 
-#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:146 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:316 src/Resources.vala:145 ui/direct.ui:8
 #: ui/textentrydialog.ui:33
 msgid "_Save"
 msgstr "保存(_S)"
@@ -3958,15 +3523,11 @@ msgid "Set _all photos/videos to this time"
 msgstr "すべての写真/動画をこの時刻に設定する(_A)"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:106
-#, fuzzy
-#| msgid "_Modify original photo file"
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
-msgstr[0] "最初の写真ファイルを修正する(_M)"
+msgstr[0] "オリジナルの写真ファイルを変更する(_M)"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
-#, fuzzy
-#| msgid "_Modify original file"
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "オリジナルのファイルを変更する(_M)"
@@ -4046,16 +3607,12 @@ msgid "_Scaling constraint:"
 msgstr "サイズ変更の基準(_S):"
 
 #: src/dialogs/ExportDialog.vala:99
-#, fuzzy
-#| msgid " _pixels"
 msgid "_Pixels:"
-msgstr " ピクセル(_P)"
+msgstr "ピクセル(_P):"
 
 #: src/dialogs/ExportDialog.vala:103
-#, fuzzy
-#| msgid "Export metadata"
 msgid "Export _metadata:"
-msgstr "メタデータのエクスポート"
+msgstr "メタデータのエクスポート(_M):"
 
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
@@ -4134,9 +3691,7 @@ msgstr "始めるには、いずれかの方法で写真をインポートして
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
-"<span weight=\\\"bold\\\">ファイル %s をフォルダーからインポート</span> を選"
-"択する"
+msgstr "<span weight=\"bold\">ファイル %s をフォルダーからインポート</span> を選択する"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -4156,10 +3711,8 @@ msgid "You can also import photos in any of these ways:"
 msgstr "いずれかの方法で写真をインポートすることができます:"
 
 #: src/dialogs/WelcomeDialog.vala:98
-#, fuzzy
-#| msgid "_Don't show this message again"
 msgid "_Don’t show this message again"
-msgstr "このメッセージを再び表示しない(_D)"
+msgstr "このメッセージを今後表示しない(_D)"
 
 #: src/dialogs/WelcomeDialog.vala:135
 #, c-format
@@ -4198,124 +3751,84 @@ msgid "-"
 msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:737
-#, fuzzy
-#| msgid "SD Video (4 : 3)"
 msgid "SD Video (4 ∶ 3)"
-msgstr "SD動画サイズ (4:3)"
+msgstr "SD動画 (4 ∶ 3)"
 
 #: src/editing_tools/EditingTools.vala:738
-#, fuzzy
-#| msgid "HD Video (16 : 9)"
 msgid "HD Video (16 ∶ 9)"
-msgstr "HD動画サイズ (16:9)"
+msgstr "HD動画 (16 ∶ 9)"
 
 #: src/editing_tools/EditingTools.vala:740 src/Printing.vala:792
-#, fuzzy
-#| msgid "Wallet (2 x 3 in.)"
 msgid "Wallet (2 × 3 in.)"
-msgstr "ウォレット (2 x 3 インチ)"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:741 src/Printing.vala:795
-#, fuzzy
-#| msgid "Notecard (3 x 5 in.)"
 msgid "Notecard (3 × 5 in.)"
-msgstr "ノートカード (3 x 5 インチ)"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:742 src/Printing.vala:798
-#, fuzzy
-#| msgid "4 x 6 in."
 msgid "4 × 6 in."
-msgstr "4 x 6 インチ"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:743 src/Printing.vala:801
-#, fuzzy
-#| msgid "5 x 7 in."
 msgid "5 × 7 in."
-msgstr "5 x 7 インチ"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:744 src/Printing.vala:804
-#, fuzzy
-#| msgid "8 x 10 in."
 msgid "8 × 10 in."
-msgstr "8 x 10 インチ"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:745
-#, fuzzy
-#| msgid "Letter (8.5 x 11 in.)"
 msgid "Letter (8.5 × 11 in.)"
-msgstr "Letter (8.5 x 11 in.)"
+msgstr "レター (8.5 × 11 in.)"
 
 #: src/editing_tools/EditingTools.vala:746 src/Printing.vala:807
-#, fuzzy
-#| msgid "11 x 14 in."
 msgid "11 × 14 in."
-msgstr "11 x 14 インチ"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:747
-#, fuzzy
-#| msgid "Tabloid (11 x 17 in.)"
 msgid "Tabloid (11 × 17 in.)"
-msgstr "Tabloid (11 x 17 in.)"
+msgstr "タブロイド (11 × 17 in.)"
 
 #: src/editing_tools/EditingTools.vala:748 src/Printing.vala:810
-#, fuzzy
-#| msgid "16 x 20 in."
 msgid "16 × 20 in."
-msgstr "16 x 20 インチ"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:750 src/Printing.vala:816
-#, fuzzy
-#| msgid "Metric Wallet (9 x 13 cm)"
 msgid "Metric Wallet (9 × 13 cm)"
-msgstr "メトリック・ウォレット (9 x 13 cm)"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:751 src/Printing.vala:819
-#, fuzzy
-#| msgid "Postcard (10 x 15 cm)"
 msgid "Postcard (10 × 15 cm)"
-msgstr "ポストカード (10 x 15 cm)"
+msgstr "ポストカード (10 × 15 cm)"
 
 #: src/editing_tools/EditingTools.vala:752 src/Printing.vala:822
-#, fuzzy
-#| msgid "13 x 18 cm"
 msgid "13 × 18 cm"
-msgstr "13 x 18 cm"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:753 src/Printing.vala:825
-#, fuzzy
-#| msgid "18 x 24 cm"
 msgid "18 × 24 cm"
-msgstr "18 x 24 cm"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:754
-#, fuzzy
-#| msgid "A4 (210 x 297 mm)"
 msgid "A4 (210 × 297 mm)"
-msgstr "A4 (210 x 297 mm)"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:755 src/Printing.vala:828
-#, fuzzy
-#| msgid "20 x 30 cm"
 msgid "20 × 30 cm"
-msgstr "20 x 30 cm"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:756 src/Printing.vala:831
-#, fuzzy
-#| msgid "24 x 40 cm"
 msgid "24 × 40 cm"
-msgstr "24 x 40 cm"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:757 src/Printing.vala:834
-#, fuzzy
-#| msgid "30 x 40 cm"
 msgid "30 × 40 cm"
-msgstr "30 x 40 cm"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:758
-#, fuzzy
-#| msgid "A3 (297 x 420 mm)"
 msgid "A3 (297 × 420 mm)"
-msgstr "A3 (297 x 420 mm)"
+msgstr ""
 
 #: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:402
 msgid "Size:"
@@ -4342,7 +3855,7 @@ msgstr "露出:"
 
 #: src/editing_tools/EditingTools.vala:2239
 msgid "Contrast:"
-msgstr ""
+msgstr "コントラスト:"
 
 #: src/editing_tools/EditingTools.vala:2248
 msgid "Saturation:"
@@ -4383,10 +3896,8 @@ msgid "Tint"
 msgstr "色合い"
 
 #: src/editing_tools/EditingTools.vala:2727
-#, fuzzy
-#| msgid "Contrast Expansion"
 msgid "Contrast"
-msgstr "コントラストの拡張"
+msgstr "コントラスト"
 
 #: src/editing_tools/EditingTools.vala:2741
 msgid "Saturation"
@@ -4412,7 +3923,7 @@ msgstr "コントラストの拡張"
 msgid "Angle:"
 msgstr "角度:"
 
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:173
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:172
 #: ui/direct.ui:144 ui/photo.ui:233
 msgid "_Straighten"
 msgstr "傾き補正(_S)"
@@ -4445,7 +3956,7 @@ msgstr "イベント"
 
 #: src/events/EventsBranch.vala:25
 msgid "Browse through your events"
-msgstr ""
+msgstr "イベントの閲覧"
 
 #: src/events/EventsDirectoryPage.vala:149
 msgid "No events"
@@ -4456,10 +3967,8 @@ msgid "No events found"
 msgstr "イベントが見つかりません"
 
 #: src/events/EventsDirectoryPage.vala:226
-#, fuzzy
-#| msgid "Events"
 msgid "All Events"
-msgstr "イベント"
+msgstr "すべてのイベント"
 
 #: src/events/EventsDirectoryPage.vala:240
 msgid "Undated"
@@ -4489,8 +3998,7 @@ msgid "Exporting"
 msgstr "エクスポート中"
 
 #: src/Exporter.vala:317
-#, fuzzy, c-format
-#| msgid "File %s already exists.  Replace?"
+#, c-format
 msgid "File %s already exists. Replace?"
 msgstr "ファイル %s はすでに存在します。置き換えますか?"
 
@@ -4510,20 +4018,18 @@ msgstr "すべて置き換える(_A)"
 msgid "Export"
 msgstr "エクスポート"
 
-#: src/faces/FacesBranch.vala:89 src/Resources.vala:305 src/Resources.vala:306
+#: src/faces/FacesBranch.vala:89 src/Resources.vala:304 src/Resources.vala:305
 #: ui/faces.ui:403
 msgid "Faces"
-msgstr ""
+msgstr "フェイス"
 
 #: src/faces/FacesTool.vala:115
 msgid "Detect faces…"
 msgstr ""
 
 #: src/faces/FacesTool.vala:140
-#, fuzzy
-#| msgid "Set the crop for this photo"
 msgid "Detect faces on this photo"
-msgstr "この写真の切り抜きを設定"
+msgstr ""
 
 #: src/faces/FacesTool.vala:142
 msgid "Cancel face detection"
@@ -4531,34 +4037,32 @@ msgstr ""
 
 #: src/faces/FacesTool.vala:146
 msgid "Close the Faces tool without saving changes"
-msgstr ""
+msgstr "変更点を保存せずにフェイスツールを閉じる"
 
 #: src/faces/FacesTool.vala:153 src/faces/FacesTool.vala:185
 msgid "Click and drag to tag a face"
-msgstr ""
+msgstr "フェイスにタグをつけるにはクリックしてドラッグしてください"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
 msgid "Click to edit face <i>%s</i>"
-msgstr ""
+msgstr "クリックしてフェイス <i>%s</i> を編集します"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
-msgstr ""
+msgstr "フェイスを追加して名前をつけるにはドラッグをやめてください"
 
 #: src/faces/FacesTool.vala:193
 msgid "Type a name for this face, then press Enter"
-msgstr ""
+msgstr "このフェイスの名前を入力してEnterを押してください"
 
 #: src/faces/FacesTool.vala:197
 msgid "Move or modify the face shape or name and press Enter"
-msgstr ""
+msgstr "フェイスの形または名前を移動するか変更してEnterを押してください"
 
 #: src/faces/FacesTool.vala:201
-#, fuzzy
-#| msgid "Settings"
 msgid "Detecting faces"
-msgstr "設定"
+msgstr ""
 
 #: src/faces/FacesTool.vala:212
 msgid "If you don’t set the name of unknown faces they won’t be saved."
@@ -4566,13 +4070,11 @@ msgstr ""
 
 #: src/faces/FacesTool.vala:233
 msgid "Save changes and close the Faces tool"
-msgstr ""
+msgstr "変更点を保存してフェイスツールを閉じる"
 
 #: src/faces/FacesTool.vala:235
-#, fuzzy
-#| msgid "Lose changes to %s?"
 msgid "No changes to save"
-msgstr "%s への変更を破棄しますか?"
+msgstr ""
 
 #: src/faces/FacesTool.vala:956
 msgid "Error trying to spawn face detection program:\n"
@@ -4584,17 +4086,15 @@ msgstr "フォルダー"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Browse the library’s folder structure"
-msgstr ""
+msgstr "ライブラリのフォルダー階層の閲覧"
 
 #: src/import-roll/ImportRollBranch.vala:43
-#, fuzzy
-#| msgid "_Import"
 msgid "Imports"
-msgstr "インポート(_I)"
+msgstr "インポート"
 
 #: src/import-roll/ImportRollBranch.vala:43
 msgid "Browse the library’s import history"
-msgstr ""
+msgstr "ライブラリのインポート履歴の閲覧"
 
 #: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1124
 #: src/SearchFilter.vala:1125
@@ -4602,16 +4102,12 @@ msgid "Flagged"
 msgstr "フラグ付き"
 
 #: src/library/ImportQueuePage.vala:8
-#, fuzzy
-#| msgid "Importing"
 msgid "Importing…"
-msgstr "インポート"
+msgstr "インポート中…"
 
 #: src/library/ImportQueuePage.vala:129
-#, fuzzy
-#| msgid "Preparing to import"
 msgid "Preparing to import…"
-msgstr "インポートの準備中"
+msgstr "インポートの準備中…"
 
 #: src/library/ImportQueuePage.vala:156
 #, c-format
@@ -4628,10 +4124,8 @@ msgid "Library"
 msgstr "ライブラリ"
 
 #: src/library/LibraryBranch.vala:30
-#, fuzzy
-#| msgid "Change the rating of your photo"
 msgid "Organize and browse your photos"
-msgstr "写真の評価を変更"
+msgstr "写真の整理と閲覧"
 
 #: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1105
 msgid "Photos"
@@ -4643,29 +4137,26 @@ msgstr "フォルダーからインポート"
 
 #: src/library/LibraryWindow.vala:533
 msgid "Recurse Into Subfolders"
-msgstr ""
+msgstr "サブフォルダーを再帰"
 
 #: src/library/LibraryWindow.vala:601 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "ゴミ箱を空にする"
 
 #: src/library/LibraryWindow.vala:601
-#, fuzzy
-#| msgid "Emptying Trash..."
 msgid "Emptying Trash…"
-msgstr "ゴミ箱を空にしています..."
+msgstr "ゴミ箱を空にしています…"
 
 #: src/library/LibraryWindow.vala:780
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in <span weight=\"bold\">Edit %s "
+"Preferences</span>.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwellはホームディレクトリに写真をインポートする設定になっています。\n"
-"<span weight=\"bold\">編集 %s 設定</span>でこの設定を変更することをお勧めしま"
-"す。\n"
+"<span weight=\"bold\">編集 %s 設定</span>でこの設定を変更することをお勧めします。\n"
 "写真のインポートを続けますか?"
 
 #: src/library/LibraryWindow.vala:783 ui/preferences_dialog.ui:86
@@ -4683,38 +4174,28 @@ msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
 #: src/library/LibraryWindow.vala:1120 src/library/LibraryWindow.vala:1131
-#, fuzzy
-#| msgid "Updating library..."
 msgid "Updating library…"
-msgstr "ライブラリの更新中..."
+msgstr "ライブラリを更新しています…"
 
 #: src/library/LibraryWindow.vala:1137
-#, fuzzy
-#| msgid "Preparing to auto-import photos..."
 msgid "Preparing to auto-import photos…"
-msgstr "写真の自動インポートを行おうとしています..."
+msgstr "写真の自動インポートの準備中…"
 
 #: src/library/LibraryWindow.vala:1142
-#, fuzzy
-#| msgid "Auto-importing photos..."
 msgid "Auto-importing photos…"
-msgstr "写真の自動インポート..."
+msgstr "写真の自動インポート中…"
 
 #: src/library/LibraryWindow.vala:1150
-#, fuzzy
-#| msgid "Writing metadata to files..."
 msgid "Writing metadata to files…"
-msgstr "ファイルにメタデータを書き込んでいます..."
+msgstr "ファイルにメタデータを書き込んでいます…"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
 msgstr "見つからないファイル"
 
 #: src/library/OfflinePage.vala:110
-#, fuzzy
-#| msgid "Deleting..."
 msgid "Deleting…"
-msgstr "削除中..."
+msgstr "削除しています…"
 
 #: src/library/TrashPage.vala:8
 msgid "Trash"
@@ -4733,66 +4214,40 @@ msgid "Deleting Photos"
 msgstr "写真を削除しています"
 
 #: src/main.vala:54
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please use the latest version of Shotwell."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please use the latest version of Shotwell."
-msgstr ""
-"あなたの写真ライブラリは、このバージョンのShotwellと互換性がありません。ライ"
-"ブラリはShotwell %s (スキーマ %d)で作成されたもののようです。このバージョン"
-"は %s (スキーマ %d)です。最新バージョンのShotwellを利用してください。"
+msgstr "あなたの写真ライブラリは、このバージョンのShotwellと互換性がありません。ライブラリはShotwell %s (スキーマ %d) によって作成されたと思われます。このShotwellのバージョンは %s (スキーマ %d) です。Shotwellの最新バージョンを使用してください。"
 
 #: src/main.vala:59
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell was unable to upgrade your photo library from version %s (schema "
-#| "%d) to %s (schema %d).  For more information please check the Shotwell "
-#| "Wiki at %s"
+#, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
-msgstr ""
-"Shotwell は写真ライブラリのバージョンを %s (スキーマ %d)から %s (スキーマ %d)"
-"にアップグレードすることができません。詳しい情報は %s の Shotwell Wikiを確認"
-"してください。"
+msgstr "Shotwellはあなたの写真ライブラリのバージョンを %s (スキーマ %d) から %s (スキーマ %d) へアップグレードすることができませんでした。詳細はShotwellウィキ(%s)を参照してください。"
 
 #: src/main.vala:65
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please clear your library by deleting %s and re-import your "
-#| "photos."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
-msgstr ""
-"あなたの写真ライブラリは、このバージョンのShotwellと互換性がありません。ライ"
-"ブラリはShotwell %s (スキーマ %d)で作成されたもののようです。このバージョン"
-"は %s (スキーマ %d)です。%s を削除してライブラリを消去した上で、写真を再イン"
-"ポートしてください。"
+msgstr "あなたの写真ライブラリは、このバージョンのShotwellと互換性がありません。ライブラリはShotwell %s (スキーマ %d) によって作成されたと思われます。このShotwellのバージョンは %s (スキーマ %d) です。%s を削除してライブラリを消去し、写真を再インポートしてください。"
 
 #: src/main.vala:71
-#, fuzzy, c-format
-#| msgid "Unknown error attempting to verify Shotwell's database: %s"
+#, c-format
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
-msgstr "Shotwell のデータベースを検査する際に不明なエラーが発生しました: %s"
+msgstr "Shotwellのデータベースを検証しようとした際に不明なエラーが発生しました: %s"
 
 #: src/main.vala:108
 msgid "Loading Shotwell"
 msgstr "Shotwell を読み込み中"
 
 #: src/main.vala:320
-#, fuzzy
-#| msgid "Path to Shotwell's private data"
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwellのプライベートデータのパス"
 
@@ -4805,20 +4260,16 @@ msgid "Do not monitor library directory at runtime for changes"
 msgstr "変更処理実行時にライブラリのディレクトリを監視しない"
 
 #: src/main.vala:328
-#, fuzzy
-#| msgid "Don't display startup progress meter"
 msgid "Don’t display startup progress meter"
-msgstr "起動時のプログレスバーを表示できません。"
+msgstr "起動時に進捗状況を表示しない"
 
 #: src/main.vala:332
-#, fuzzy
-#| msgid "Show the application's version"
 msgid "Show the application’s version"
-msgstr "アプリケーションのバージョンを表示"
+msgstr "アプリケーションのバージョンを表示する"
 
 #: src/main.vala:336
 msgid "Start the application in fullscreen mode"
-msgstr ""
+msgstr "フルスクリーンモードで起動する"
 
 #. init GTK (valac has already called g_threads_init())
 #: src/main.vala:373
@@ -4826,13 +4277,10 @@ msgid "[FILE]"
 msgstr "[ファイル]"
 
 #: src/main.vala:380
-#, fuzzy, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options.\n"
-msgid "Run “%s --help” to see a full list of available command line options.\n"
-msgstr ""
-"利用可能なコマンドラインオプションの一覧を表示するには '%s --help' を実行して"
-"ください。\n"
+#, c-format
+msgid ""
+"Run “%s --help” to see a full list of available command line options.\n"
+msgstr "“%s --help”を実行すると利用可能なすべてのコマンドラインオプションの一覧が表示されます。\n"
 
 #: src/MediaMonitor.vala:400
 #, c-format
@@ -4858,7 +4306,7 @@ msgstr "写真/動画がありません"
 
 #: src/Page.vala:1328
 msgid "No photos/videos found which match the current filter"
-msgstr ""
+msgstr "現在のフィルターに一致する写真/動画はありません"
 
 #: src/Page.vala:2641
 msgid "Photos cannot be exported to this directory."
@@ -4890,7 +4338,7 @@ msgstr "BMP"
 
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: src/photos/JfifSupport.vala:84
 msgid "JPEG"
@@ -4965,10 +4413,8 @@ msgid "Image Settings"
 msgstr "画像の設定"
 
 #: src/Printing.vala:864
-#, fuzzy
-#| msgid "Printing..."
 msgid "Printing…"
-msgstr "印刷しています..."
+msgstr "印刷中…"
 
 #: src/Printing.vala:884 src/Printing.vala:1087
 #, c-format
@@ -5077,23 +4523,23 @@ msgstr "露出時間:"
 msgid "Exposure bias:"
 msgstr "露出補正:"
 
-#: src/Properties.vala:632
+#: src/Properties.vala:631
 msgid "GPS latitude:"
 msgstr "GPS緯度:"
 
-#: src/Properties.vala:635
+#: src/Properties.vala:634
 msgid "GPS longitude:"
 msgstr "GPS経度:"
 
-#: src/Properties.vala:638
+#: src/Properties.vala:637
 msgid "Artist:"
 msgstr "撮影者:"
 
-#: src/Properties.vala:640
+#: src/Properties.vala:639
 msgid "Copyright:"
 msgstr "著作者:"
 
-#: src/Properties.vala:642
+#: src/Properties.vala:641
 msgid "Software:"
 msgstr "ソフトウェア:"
 
@@ -5107,10 +4553,9 @@ msgid "Uploading %d of %d"
 msgstr "アップロード中… %d / %d"
 
 #: src/publishing/PublishingPluginHost.vala:81
-#, fuzzy, c-format
-#| msgid "Publishing to %s can't continue because an error occurred:"
+#, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
-msgstr "エラーが発生したため %s への公開を続けることができません。"
+msgstr "エラーが発生したため %s への公開を続行できません:"
 
 #: src/publishing/PublishingPluginHost.vala:84
 msgid "To try publishing to another service, select one from the above menu."
@@ -5119,15 +4564,11 @@ msgstr "他のサービスへの公開を試すには、上のメニューから
 #. Here, we check whether more than one item is being uploaded, and if so, display
 #. an alternate message.
 #: src/publishing/PublishingUI.vala:104
-#, fuzzy
-#| msgid "The selected video was successfully published."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
 msgstr[0] "選択された動画の公開が完了しました。"
 
 #: src/publishing/PublishingUI.vala:109
-#, fuzzy
-#| msgid "The selected photo was successfully published."
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
 msgstr[0] "選択された写真の公開が完了しました。"
@@ -5137,16 +4578,12 @@ msgid "The selected photos/videos were successfully published."
 msgstr "選択された写真/動画の公開が完了しました。"
 
 #: src/publishing/PublishingUI.vala:127
-#, fuzzy
-#| msgid "Fetching account information..."
 msgid "Fetching account information…"
-msgstr "アカウント情報を取得しています..."
+msgstr "アカウント情報を取得しています…"
 
 #: src/publishing/PublishingUI.vala:133
-#, fuzzy
-#| msgid "Logging in..."
 msgid "Logging in…"
-msgstr "ログイン中..."
+msgstr "ログインしています…"
 
 #: src/publishing/PublishingUI.vala:197
 msgid "Publish Photos"
@@ -5186,71 +4623,68 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
-"一致する公開プラグインが有効になっていないため、Shotwellは選択されたアイテム"
-"を公開できません。これを直すには、<b> 設定 %s 編集</b> を選択して、<b>プラグ"
-"イン</b> タブにあるいずれかの公開プラグインを有効にしてください。"
+"一致する公開プラグインが有効になっていないため、Shotwellは選択されたアイテムを公開できません。これを直すには、<b> 設定 %s 編集</b> "
+"を選択して、<b>プラグイン</b> タブにあるいずれかの公開プラグインを有効にしてください。"
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
 msgstr "公開"
 
-#: src/Resources.vala:111 src/Resources.vala:116 ui/collection.ui:151
+#: src/Resources.vala:110 src/Resources.vala:115 ui/collection.ui:151
 msgid "Rotate"
 msgstr "回転"
 
-#: src/Resources.vala:112
+#: src/Resources.vala:111
 msgid "Rotate Right"
 msgstr "右回転"
 
-#: src/Resources.vala:113 ui/collection.ui:148
+#: src/Resources.vala:112 ui/collection.ui:148
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "写真を右に回転します (Ctrlを押すと左に回転)"
 
-#: src/Resources.vala:117
+#: src/Resources.vala:116
 msgid "Rotate Left"
 msgstr "左回転"
 
-#: src/Resources.vala:118
+#: src/Resources.vala:117
 msgid "Rotate the photos left"
 msgstr "写真を左に回転します"
 
-#: src/Resources.vala:121
+#: src/Resources.vala:120
 msgid "Flip Horizontally"
 msgstr "左右反転"
 
-#: src/Resources.vala:124
+#: src/Resources.vala:123
 msgid "Flip Vertically"
 msgstr "上下反転"
 
-#: src/Resources.vala:126 ui/direct.ui:192 ui/events_directory.ui:168
+#: src/Resources.vala:125 ui/direct.ui:192 ui/events_directory.ui:168
 #: ui/event.ui:438 ui/faces.ui:448 ui/import_queue.ui:83 ui/import.ui:201
 #: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:405
 #: ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "このアプリケーションについて(_A)"
 
-#: src/Resources.vala:127
+#: src/Resources.vala:126
 msgid "_Apply"
-msgstr ""
+msgstr "適用(_A)"
 
-#: src/Resources.vala:130 ui/direct.ui:44 ui/events_directory.ui:32
+#: src/Resources.vala:129 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/faces.ui:47 ui/import.ui:40 ui/media.ui:47
 #: ui/offline.ui:32 ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: src/Resources.vala:131
-#, fuzzy
-#| msgid "_Format:"
+#: src/Resources.vala:130
 msgid "_Forward"
-msgstr "フォーマット(_F):"
+msgstr ""
 
-#: src/Resources.vala:132 ui/direct.ui:62 ui/events_directory.ui:125
+#: src/Resources.vala:131 ui/direct.ui:62 ui/events_directory.ui:125
 #: ui/photo.ui:173
 msgid "Fulls_creen"
 msgstr "フルスクリーン(_C)"
 
-#: src/Resources.vala:133 ui/direct.ui:174 ui/direct.ui:177
+#: src/Resources.vala:132 ui/direct.ui:174 ui/direct.ui:177
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
 #: ui/event.ui:423 ui/faces.ui:430 ui/faces.ui:433 ui/import_queue.ui:65
 #: ui/import_queue.ui:68 ui/import.ui:183 ui/import.ui:186 ui/media.ui:403
@@ -5260,823 +4694,733 @@ msgstr "フルスクリーン(_C)"
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: src/Resources.vala:134
+#: src/Resources.vala:133
 msgid "Leave _Fullscreen"
 msgstr "フルスクリーンの解除(_F)"
 
-#: src/Resources.vala:135 src/Resources.vala:343 ui/tags.ui:450
+#: src/Resources.vala:134 src/Resources.vala:342 ui/tags.ui:450
 msgid "_New"
 msgstr "新規(_N)"
 
-#: src/Resources.vala:136
-#, fuzzy
-#| msgid "Next"
+#: src/Resources.vala:135
 msgid "_Next"
-msgstr "次へ"
+msgstr "次へ(_N)"
 
-#: src/Resources.vala:139 src/Resources.vala:288 ui/events_directory.ui:65
+#: src/Resources.vala:138 src/Resources.vala:287 ui/events_directory.ui:65
 #: ui/event.ui:93 ui/faces.ui:93 ui/import.ui:68 ui/media.ui:93
 #: ui/offline.ui:72 ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "設定(_P)"
 
-#: src/Resources.vala:140
-#, fuzzy
-#| msgid "_Previous Photo"
+#: src/Resources.vala:139
 msgid "_Previous"
-msgstr "前の写真(_P)"
+msgstr "前へ(_P)"
 
-#: src/Resources.vala:142 ui/direct.ui:37 ui/events_directory.ui:25
+#: src/Resources.vala:141 ui/direct.ui:37 ui/events_directory.ui:25
 #: ui/event.ui:40 ui/faces.ui:40 ui/import_queue.ui:31 ui/import.ui:33
 #: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "終了(_Q)"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:142
 msgid "_Refresh"
-msgstr ""
+msgstr "更新(_R)"
 
-#: src/Resources.vala:145
-#, fuzzy
-#| msgid "Reverting"
+#: src/Resources.vala:144
 msgid "_Revert"
-msgstr "取り消す"
+msgstr "元に戻す(_R)"
+
+#: src/Resources.vala:146
+msgid "Save _As"
+msgstr "名前を付けて保存(_A)"
 
 #: src/Resources.vala:147
-#, fuzzy
-#| msgid "Save As"
-msgid "Save _As"
-msgstr "別名で保存"
+msgid "Sort _Ascending"
+msgstr "昇順で並び替え(_A)"
 
 #: src/Resources.vala:148
-#, fuzzy
-#| msgid "_Ascending"
-msgid "Sort _Ascending"
-msgstr "昇順(_A)"
+msgid "Sort _Descending"
+msgstr "降順で並び替え(_D)"
 
 #: src/Resources.vala:149
-#, fuzzy
-#| msgid "D_escending"
-msgid "Sort _Descending"
-msgstr "降順(_E)"
+msgid "_Stop"
+msgstr "停止(_S)"
 
 #: src/Resources.vala:150
-msgid "_Stop"
-msgstr ""
+msgid "_Undelete"
+msgstr "削除の取り消し(_U)"
 
 #: src/Resources.vala:151
-#, fuzzy
-#| msgid "_Delete"
-msgid "_Undelete"
-msgstr "削除(_D)"
+msgid "_Normal Size"
+msgstr "通常の大きさ(_N)"
 
 #: src/Resources.vala:152
-#, fuzzy
-#| msgid "Original Size"
-msgid "_Normal Size"
-msgstr "オリジナルのサイズ"
-
-#: src/Resources.vala:153
 msgid "Best _Fit"
-msgstr ""
+msgstr "フィットさせる(_F)"
 
-#: src/Resources.vala:154 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
+#: src/Resources.vala:153 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
 #: ui/media.ui:260 ui/photo.ui:144 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "拡大(_I)"
 
-#: src/Resources.vala:155 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
+#: src/Resources.vala:154 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
 #: ui/media.ui:265 ui/photo.ui:149 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "縮小(_O)"
 
-#: src/Resources.vala:158 ui/collection.ui:167
+#: src/Resources.vala:157 ui/collection.ui:167
 msgid "Enhance"
 msgstr "強調"
 
-#: src/Resources.vala:159 ui/collection.ui:164
-#, fuzzy
-#| msgid "Automatically improve the photo's appearance"
+#: src/Resources.vala:158 ui/collection.ui:164
 msgid "Automatically improve the photo’s appearance"
-msgstr "自動的に写真の見た目を改善します"
+msgstr "写真の見た目を自動的に改良する"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:161
 msgid "Copy Color Adjustments"
 msgstr "色調整をコピーする"
 
-#: src/Resources.vala:163
+#: src/Resources.vala:162
 msgid "Copy the color adjustments applied to the photo"
 msgstr "色調整をコピーして写真へ適用する"
 
-#: src/Resources.vala:166
+#: src/Resources.vala:165
 msgid "Paste Color Adjustments"
 msgstr "色調整を貼り付ける"
 
-#: src/Resources.vala:167
+#: src/Resources.vala:166
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "色調整をコピーして選択された写真へ適用する"
 
-#: src/Resources.vala:169 ui/direct.ui:139 ui/photo.ui:228
+#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:228
 msgid "_Crop"
 msgstr "切り抜き(_C)"
 
-#: src/Resources.vala:170
+#: src/Resources.vala:169
 msgid "Crop"
 msgstr "切り抜き"
 
-#: src/Resources.vala:171
-#, fuzzy
-#| msgid "Crop the photo's size"
+#: src/Resources.vala:170
 msgid "Crop the photo’s size"
-msgstr "写真サイズを切り抜きます"
+msgstr "切り抜く写真のサイズ"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:173
 msgid "Straighten"
 msgstr "傾き補正"
 
-#: src/Resources.vala:175
+#: src/Resources.vala:174
 msgid "Straighten the photo"
 msgstr "写真の傾きを補正します"
 
-#: src/Resources.vala:177 ui/direct.ui:149 ui/photo.ui:238
+#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:238
 msgid "_Red-eye"
 msgstr "赤目(_R)"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:177
 msgid "Red-eye"
 msgstr "赤目"
 
-#: src/Resources.vala:179
+#: src/Resources.vala:178
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "写真のすべての赤目現象を軽減または除去します"
 
-#: src/Resources.vala:181 ui/direct.ui:154 ui/photo.ui:243
+#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:243
 msgid "_Adjust"
 msgstr "調整(_A)"
 
-#: src/Resources.vala:182
+#: src/Resources.vala:181
 msgid "Adjust"
 msgstr "調整"
 
-#: src/Resources.vala:183
-#, fuzzy
-#| msgid "Adjust the photo's color and tone"
+#: src/Resources.vala:182
 msgid "Adjust the photo’s color and tone"
-msgstr "写真の色とトーンを調整します"
+msgstr "写真の色と色調を調整する"
 
-#: src/Resources.vala:186
+#: src/Resources.vala:185
 msgid "Revert to Original"
 msgstr "オリジナルに戻す"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:187
 msgid "Revert External E_dits"
 msgstr "外部での編集を元に戻す(_D)"
 
-#: src/Resources.vala:189
+#: src/Resources.vala:188
 msgid "Revert to the master photo"
 msgstr "原版の写真に戻す"
 
-#: src/Resources.vala:192
+#: src/Resources.vala:191
 msgid "Set selected image to be the new desktop background"
 msgstr "選択した画像をデスクトップの壁紙として設定します"
 
-#: src/Resources.vala:193
-#, fuzzy
-#| msgid "Set as Desktop Slideshow"
+#: src/Resources.vala:192
 msgid "Set as _Desktop Slideshow…"
-msgstr "デスクトップ・スライドショーに設定"
+msgstr "デスクトップのスライドショーとして設定(_D)…"
 
-#: src/Resources.vala:195 ui/direct.ui:47 ui/events_directory.ui:35
+#: src/Resources.vala:194 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/faces.ui:50 ui/import.ui:43 ui/media.ui:50
 #: ui/offline.ui:35 ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "元に戻す(_U)"
 
-#: src/Resources.vala:196
+#: src/Resources.vala:195
 msgid "Undo"
 msgstr "元に戻す"
 
-#: src/Resources.vala:198 ui/direct.ui:52 ui/events_directory.ui:40
+#: src/Resources.vala:197 ui/direct.ui:52 ui/events_directory.ui:40
 #: ui/event.ui:55 ui/faces.ui:55 ui/import.ui:48 ui/media.ui:55
 #: ui/offline.ui:40 ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "やり直し(_R)"
 
-#: src/Resources.vala:199
+#: src/Resources.vala:198
 msgid "Redo"
 msgstr "やり直し"
 
-#: src/Resources.vala:201 ui/events_directory.ui:139 ui/events_directory.ui:181
+#: src/Resources.vala:200 ui/events_directory.ui:139 ui/events_directory.ui:181
 #: ui/event.ui:393 ui/event.ui:588
-#, fuzzy
-#| msgid "Rename Event"
 msgid "Re_name Event…"
-msgstr "イベント名の変更"
+msgstr "イベント名の変更(_N)…"
 
-#: src/Resources.vala:204 ui/event.ui:373 ui/event.ui:580
+#: src/Resources.vala:203 ui/event.ui:373 ui/event.ui:580
 msgid "Make _Key Photo for Event"
 msgstr "イベントのキー写真に設定(_K)"
 
-#: src/Resources.vala:205
+#: src/Resources.vala:204
 msgid "Make Key Photo for Event"
 msgstr "イベントのキーとなる写真に設定します"
 
-#: src/Resources.vala:207 ui/event.ui:382 ui/faces.ui:376 ui/media.ui:376
+#: src/Resources.vala:206 ui/event.ui:382 ui/faces.ui:376 ui/media.ui:376
 #: ui/tags.ui:376
 msgid "_New Event"
 msgstr "新しいイベント(_N)"
 
-#: src/Resources.vala:208
+#: src/Resources.vala:207
 msgid "New Event"
 msgstr "新しいイベント"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:209
 msgid "Move Photos"
 msgstr "写真を移動"
 
-#: src/Resources.vala:211
+#: src/Resources.vala:210
 msgid "Move photos to an event"
 msgstr "写真をイベントに移動します"
 
-#: src/Resources.vala:213 ui/events_directory.ui:135 ui/events_directory.ui:177
+#: src/Resources.vala:212 ui/events_directory.ui:135 ui/events_directory.ui:177
 msgid "_Merge Events"
 msgstr "イベントをマージ(_M)"
 
-#: src/Resources.vala:214
+#: src/Resources.vala:213
 msgid "Merge"
 msgstr "マージ"
 
-#: src/Resources.vala:215
+#: src/Resources.vala:214
 msgid "Combine events into a single event"
 msgstr "イベントを一つにまとめる"
 
-#: src/Resources.vala:217 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
+#: src/Resources.vala:216 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
 #: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273
 #: ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "評価の設定(_S)"
 
-#: src/Resources.vala:218
+#: src/Resources.vala:217
 msgid "Set Rating"
 msgstr "評価の設定"
 
-#: src/Resources.vala:219
+#: src/Resources.vala:218
 msgid "Change the rating of your photo"
 msgstr "写真の評価を変更"
 
-#: src/Resources.vala:221 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
+#: src/Resources.vala:220 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
 #: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313
 #: ui/tags.ui:326
 msgid "_Increase"
 msgstr "上げる(_I)"
 
-#: src/Resources.vala:222
+#: src/Resources.vala:221
 msgid "Increase Rating"
 msgstr "評価を上げる"
 
-#: src/Resources.vala:224 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
+#: src/Resources.vala:223 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
 #: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318
 #: ui/tags.ui:331
 msgid "_Decrease"
 msgstr "下げる(_D)"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:224
 msgid "Decrease Rating"
 msgstr "評価を下げる"
 
-#: src/Resources.vala:227 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
+#: src/Resources.vala:226 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
 #: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301
 #: ui/tags.ui:314
 msgid "_Unrated"
 msgstr "未評価(_U)"
 
-#: src/Resources.vala:228
+#: src/Resources.vala:227
 msgid "Unrated"
 msgstr "評価なし"
 
-#: src/Resources.vala:229
+#: src/Resources.vala:228
 msgid "Rate Unrated"
 msgstr "未評価にする"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:229
 msgid "Setting as unrated"
 msgstr "未評価として設定"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:230
 msgid "Remove any ratings"
 msgstr "評価を削除する"
 
-#: src/Resources.vala:233 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
+#: src/Resources.vala:232 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
 #: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306
 #: ui/tags.ui:319
 msgid "_Rejected"
 msgstr "対象外(_R)"
 
-#: src/Resources.vala:234
+#: src/Resources.vala:233
 msgid "Rejected"
 msgstr "対象外"
 
-#: src/Resources.vala:235
+#: src/Resources.vala:234
 msgid "Rate Rejected"
 msgstr "対象外に設定"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:235
 msgid "Setting as rejected"
 msgstr "対象外として設定"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:236
 msgid "Set rating to rejected"
 msgstr "対象外に設定します"
 
-#: src/Resources.vala:239 ui/event.ui:196 ui/faces.ui:196 ui/import.ui:156
+#: src/Resources.vala:238 ui/event.ui:196 ui/faces.ui:196 ui/import.ui:156
 #: ui/media.ui:196 ui/offline.ui:153 ui/search_bar.ui:6 ui/tags.ui:196
 #: ui/trash.ui:162
 msgid "Rejected _Only"
 msgstr "対象外のみ(_O)"
 
-#: src/Resources.vala:240
+#: src/Resources.vala:239
 msgid "Rejected Only"
 msgstr "対象外のみ"
 
-#: src/Resources.vala:241
+#: src/Resources.vala:240
 msgid "Show only rejected photos"
 msgstr "対象外の写真のみ表示します"
 
-#: src/Resources.vala:243 ui/event.ui:190 ui/faces.ui:190 ui/import.ui:150
+#: src/Resources.vala:242 ui/event.ui:190 ui/faces.ui:190 ui/import.ui:150
 #: ui/media.ui:190 ui/offline.ui:147 ui/search_bar.ui:12 ui/tags.ui:190
 #: ui/trash.ui:156
 msgid "All + _Rejected"
 msgstr "すべて+対象外(_R)"
 
-#: src/Resources.vala:244
-#, fuzzy
-#| msgid "Show all photos, including rejected"
+#: src/Resources.vala:243
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
-msgstr "評価対象外のものを含め、すべての写真を表示します"
+msgstr "評価対象外のものを含めてすべての写真を表示します"
 
-#: src/Resources.vala:246 ui/event.ui:184 ui/faces.ui:184 ui/import.ui:144
+#: src/Resources.vala:245 ui/event.ui:184 ui/faces.ui:184 ui/import.ui:144
 #: ui/media.ui:184 ui/offline.ui:141 ui/search_bar.ui:18 ui/tags.ui:184
 #: ui/trash.ui:150
 msgid "_All Photos"
 msgstr "すべての写真(_A)"
 
 #. Button tooltip
-#: src/Resources.vala:248
+#: src/Resources.vala:247
 msgid "Show all photos"
 msgstr "すべての写真を表示します"
 
-#: src/Resources.vala:250 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
+#: src/Resources.vala:249 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
 #: ui/photo.ui:120 ui/tags.ui:144
 msgid "_Ratings"
 msgstr "評価(_R)"
 
-#: src/Resources.vala:251
-#, fuzzy
-#| msgid "Display each photo's rating"
+#: src/Resources.vala:250
 msgid "Display each photo’s rating"
-msgstr "写真の評価を表示します"
+msgstr "各写真の評価を表示"
 
-#: src/Resources.vala:253 ui/event.ui:151 ui/faces.ui:151 ui/import.ui:111
+#: src/Resources.vala:252 ui/event.ui:151 ui/faces.ui:151 ui/import.ui:111
 #: ui/media.ui:151 ui/offline.ui:108 ui/tags.ui:151 ui/trash.ui:117
 msgid "_Filter Photos"
 msgstr "写真のフィルタリング(_F)"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:253
 msgid "Filter Photos"
 msgstr "写真のフィルタリング"
 
-#: src/Resources.vala:255
+#: src/Resources.vala:254
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "フィルターによって表示する写真の数を制限します"
 
-#: src/Resources.vala:258
+#: src/Resources.vala:257
 msgid "Duplicate"
 msgstr "複製する"
 
-#: src/Resources.vala:259
+#: src/Resources.vala:258
 msgid "Make a duplicate of the photo"
 msgstr "写真の複製を作成する"
 
-#: src/Resources.vala:261 ui/event.ui:17 ui/faces.ui:17 ui/media.ui:17
+#: src/Resources.vala:260 ui/event.ui:17 ui/faces.ui:17 ui/media.ui:17
 #: ui/photo.ui:17 ui/tags.ui:17
-#, fuzzy
-#| msgid "Export"
 msgid "_Export…"
-msgstr "エクスポート"
+msgstr "エクスポート(_E)…"
 
-#: src/Resources.vala:263
-#, fuzzy
-#| msgid "_Print..."
+#: src/Resources.vala:262
 msgid "_Print…"
-msgstr "印刷(_P)..."
+msgstr "印刷(_P)…"
 
-#: src/Resources.vala:265
-#, fuzzy
-#| msgid "Publish"
+#: src/Resources.vala:264
 msgid "Pu_blish…"
-msgstr "公開先"
+msgstr "公開(_B)…"
 
-#: src/Resources.vala:267 ui/collection.ui:189
+#: src/Resources.vala:266 ui/collection.ui:189
 msgid "Publish to various websites"
 msgstr "色々なウェブサイトに公開します"
 
-#: src/Resources.vala:269 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
+#: src/Resources.vala:268 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
 #: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327
 #: ui/tags.ui:340
-#, fuzzy
-#| msgid "Edit Title"
 msgid "Edit _Title…"
-msgstr "タイトルの編集"
+msgstr "タイトルの編集(_T)…"
 
 #. Button label
-#: src/Resources.vala:271
-#, fuzzy
-#| msgid "Edit Title"
+#: src/Resources.vala:270
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "タイトルの編集"
 
-#: src/Resources.vala:273 ui/collection.ui:103 ui/events_directory.ui:144
+#: src/Resources.vala:272 ui/collection.ui:103 ui/events_directory.ui:144
 #: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
 #: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332
 #: ui/tags.ui:345
-#, fuzzy
-#| msgid "Edit Comment"
 msgid "Edit _Comment…"
-msgstr "コメントの編集"
+msgstr "コメントの編集(_C)…"
 
 #. Button label
-#: src/Resources.vala:275
+#: src/Resources.vala:274
 msgid "Edit Comment"
 msgstr "コメントの編集"
 
-#: src/Resources.vala:277 ui/event.ui:592
-#, fuzzy
-#| msgid "Edit Event Comment"
+#: src/Resources.vala:276 ui/event.ui:592
 msgid "Edit Event _Comment…"
-msgstr "イベントコメントの編集"
+msgstr "イベントのコメントの編集(_C)…"
 
-#: src/Resources.vala:280 ui/direct.ui:167 ui/photo.ui:337
-#, fuzzy
-#| msgid "Adjust Date and Time"
+#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:337
 msgid "_Adjust Date and Time…"
-msgstr "日付と時刻の調整"
+msgstr "日付と時刻の調整(_A)…"
 
-#: src/Resources.vala:281
+#: src/Resources.vala:280
 msgid "Adjust Date and Time"
 msgstr "日付と時刻の調整"
 
-#: src/Resources.vala:283 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
+#: src/Resources.vala:282 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
 #: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:375 ui/tags.ui:390
-#, fuzzy
-#| msgid "Add Tags"
 msgid "Add _Tags…"
-msgstr "タグの追加"
+msgstr "タグの追加(_T)…"
 
-#: src/Resources.vala:284 ui/photo_context.ui:17
-#, fuzzy
-#| msgid "Add Tags"
+#: src/Resources.vala:283 ui/photo_context.ui:17
 msgid "_Add Tags…"
-msgstr "タグの追加"
+msgstr "タグの追加(_A)…"
 
 #. Dialog title
-#: src/Resources.vala:286
-#, fuzzy
-#| msgid "Add Tags"
+#: src/Resources.vala:285
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "タグの追加"
 
-#: src/Resources.vala:295 ui/photo_context.ui:135
-#, fuzzy
-#| msgid "Send To"
+#: src/Resources.vala:294 ui/photo_context.ui:135
 msgid "Send T_o…"
-msgstr "送信する"
+msgstr "送る(_O)…"
 
-#: src/Resources.vala:297
-#, fuzzy
-#| msgid "_Find"
+#: src/Resources.vala:296
 msgid "_Find…"
-msgstr "検索(_F)"
+msgstr "検索(_F)…"
 
-#: src/Resources.vala:298 ui/collection.ui:217 ui/offline.ui:239
+#: src/Resources.vala:297 ui/collection.ui:217 ui/offline.ui:239
 #: ui/trash.ui:312
 msgid "Find"
 msgstr "検索"
 
-#: src/Resources.vala:299 ui/collection.ui:214 ui/offline.ui:236
+#: src/Resources.vala:298 ui/collection.ui:214 ui/offline.ui:236
 #: ui/trash.ui:309
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "名前やタグに表示されているテキストを入力して画像を検索します"
 
-#: src/Resources.vala:301
+#: src/Resources.vala:300
 msgid "_Flag"
 msgstr "フラグを付ける(_F)"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:302
 msgid "Un_flag"
 msgstr "フラグを外す(_F)"
 
-#: src/Resources.vala:307
-#, fuzzy
-#| msgid "Make a duplicate of the photo"
+#: src/Resources.vala:306
 msgid "Mark faces of people in the photo"
-msgstr "写真の複製を作成する"
+msgstr "写真の中の人のフェイスをマーク"
+
+#: src/Resources.vala:307
+msgid "Modify Faces"
+msgstr "フェイスを変更"
 
 #: src/Resources.vala:308
-#, fuzzy
-#| msgid "Modify Tags"
-msgid "Modify Faces"
-msgstr "タグの変更"
-
-#: src/Resources.vala:309
-#, fuzzy
-#| msgid "Delete Tag"
 msgid "Delete Face"
-msgstr "タグの削除"
+msgstr "顔を削除"
 
-#: src/Resources.vala:311 src/Resources.vala:353 ui/tags.ui:456
-#, fuzzy
-#| msgid "_Rename..."
+#: src/Resources.vala:310 src/Resources.vala:352 ui/tags.ui:456
 msgid "_Rename…"
-msgstr "名前を変更(_R)..."
+msgstr "名前の変更(_R)…"
 
-#: src/Resources.vala:315
+#: src/Resources.vala:314
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "エディターを起動できません: %s"
 
-#: src/Resources.vala:320
-#, fuzzy, c-format
-#| msgid "Add Tag \"%s\""
+#: src/Resources.vala:319
+#, c-format
 msgid "Add Tag “%s”"
-msgstr "タグ \"%s\" を追加"
+msgstr "タグ “%s” の追加"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:323
-#, fuzzy, c-format
-#| msgid "Add Tags \"%s\" and \"%s\""
+#: src/Resources.vala:322
+#, c-format
 msgid "Add Tags “%s” and “%s”"
-msgstr "タグ \"%s\" や \"%s\" を追加"
+msgstr "タグ “%s” と “%s” の追加"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:328
-#, fuzzy
-#| msgid "Add Tags"
+#: src/Resources.vala:327
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "タグの追加"
 
-#: src/Resources.vala:333
-#, fuzzy, c-format
-#| msgid "_Delete Tag \"%s\""
+#: src/Resources.vala:332
+#, c-format
 msgid "_Delete Tag “%s”"
-msgstr "タグ \"%s\" を削除(_D)"
+msgstr "タグ “%s” の削除(_D)"
 
-#: src/Resources.vala:337
-#, fuzzy, c-format
-#| msgid "Delete Tag \"%s\""
+#: src/Resources.vala:336
+#, c-format
 msgid "Delete Tag “%s”"
-msgstr "タグ \"%s\" を削除します"
+msgstr "タグ “%s” の削除"
 
-#: src/Resources.vala:340
+#: src/Resources.vala:339
 msgid "Delete Tag"
 msgstr "タグの削除"
 
-#: src/Resources.vala:346
-#, fuzzy, c-format
-#| msgid "Re_name Tag \"%s\"..."
+#: src/Resources.vala:345
+#, c-format
 msgid "Re_name Tag “%s”…"
-msgstr "タグ名 \"%s\" の変更(_N)..."
+msgstr "タグ名の変更(_N) “%s”…"
 
-#: src/Resources.vala:350
-#, fuzzy, c-format
-#| msgid "Rename Tag \"%s\" to \"%s\""
+#: src/Resources.vala:349
+#, c-format
 msgid "Rename Tag “%s” to “%s”"
-msgstr "タグ名 \"%s\" を \"%s\" に変更します"
+msgstr "タグ名の変更 “%s” → “%s”"
 
-#: src/Resources.vala:355 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
+#: src/Resources.vala:354 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
 #: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:380
 #: ui/tags.ui:395
-#, fuzzy
-#| msgid "Modify Tags"
 msgid "Modif_y Tags…"
-msgstr "タグの変更"
+msgstr "タグの変更(_Y)…"
 
-#: src/Resources.vala:356
+#: src/Resources.vala:355
 msgid "Modify Tags"
 msgstr "タグの変更"
 
-#: src/Resources.vala:359
-#, fuzzy, c-format
-#| msgid "Tag Photo as \"%s\""
+#: src/Resources.vala:358
+#, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
-msgstr[0] "写真に \"%s\" というタグを付ける"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/Resources.vala:365
-#, fuzzy, c-format
-#| msgid "Tag the selected photo as \"%s\""
+#: src/Resources.vala:364
+#, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
-msgstr[0] "選択された写真に \"%s\" というタグを付ける"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/Resources.vala:371
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
+#: src/Resources.vala:370
+#, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
-msgstr[0] "写真からタグ \"%s\" を削除(_P)"
+msgstr[0] "タグ “%s” を写真から削除する(_P)"
 
-#: src/Resources.vala:377
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
+#: src/Resources.vala:376
+#, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
-msgstr[0] "写真からタグ \"%s\" を削除します"
+msgstr[0] "タグ “%s” を写真から削除する"
 
-#: src/Resources.vala:383
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#: src/Resources.vala:382
+#, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "すでにタグが存在しているのでタグを \"%s\" に変更できません。"
+msgstr "タグがすでに存在するため、タグ名を “%s” に変更できません。"
 
-#: src/Resources.vala:387
-#, fuzzy, c-format
-#| msgid "Unable to rename search to \"%s\" because the search already exists."
+#: src/Resources.vala:386
+#, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
-msgstr "すでに検索が存在しているのでタグを \"%s\" に変更できません。"
+msgstr "検索がすでに存在するため、検索名を “%s” に変更できません。"
 
 #. Saved search button
-#: src/Resources.vala:390 src/SearchFilter.vala:1146
+#: src/Resources.vala:389 src/SearchFilter.vala:1146
 msgid "Saved Search"
 msgstr "保存された検索"
 
-#: src/Resources.vala:392
+#: src/Resources.vala:391
 msgid "Delete Search"
 msgstr "検索を削除"
 
-#: src/Resources.vala:395 ui/savedsearch.ui:10
-#, fuzzy
-#| msgid "_Edit"
+#: src/Resources.vala:394 ui/savedsearch.ui:10
 msgid "_Edit…"
-msgstr "編集(_E)"
+msgstr "編集(_E)…"
 
-#: src/Resources.vala:396 ui/savedsearch.ui:6
-#, fuzzy
-#| msgid "Re_name..."
+#: src/Resources.vala:395 ui/savedsearch.ui:6
 msgid "Re_name…"
-msgstr "名前を変更(_N)..."
+msgstr "名前の変更(_N)…"
 
-#: src/Resources.vala:399
-#, fuzzy, c-format
-#| msgid "Rename Search \"%s\" to \"%s\""
+#: src/Resources.vala:398
+#, c-format
 msgid "Rename Search “%s” to “%s”"
-msgstr "検索 \"%s\" の名前を \"%s\" に変更"
+msgstr "検索名の変更 “%s” → “%s”"
 
-#: src/Resources.vala:403
-#, fuzzy, c-format
-#| msgid "Delete Search \"%s\""
+#: src/Resources.vala:402
+#, c-format
 msgid "Delete Search “%s”"
-msgstr "検索 \"%s\" を削除"
+msgstr "“%s”を削除"
 
-#: src/Resources.vala:408
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#: src/Resources.vala:407
+#, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr "すでにタグが存在しているのでタグを \"%s\" に変更できません。"
+msgstr ""
 
-#: src/Resources.vala:412
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
+#: src/Resources.vala:411
+#, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
-msgstr[0] "写真からタグ \"%s\" を削除(_P)"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/Resources.vala:417
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
+#: src/Resources.vala:416
+#, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
-msgstr[0] "写真からタグ \"%s\" を削除します"
+msgstr[0] ""
+msgstr[1] ""
 
-#: src/Resources.vala:422
+#: src/Resources.vala:421
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr ""
 
-#: src/Resources.vala:426
-#, fuzzy, c-format
-#| msgid "Rename Search \"%s\" to \"%s\""
+#: src/Resources.vala:425
+#, c-format
 msgid "Rename Face “%s” to “%s”"
-msgstr "検索 \"%s\" の名前を \"%s\" に変更"
+msgstr ""
 
-#: src/Resources.vala:430
-#, fuzzy, c-format
-#| msgid "_Delete Tag \"%s\""
+#: src/Resources.vala:429
+#, c-format
 msgid "_Delete Face “%s”"
-msgstr "タグ \"%s\" を削除(_D)"
+msgstr ""
 
-#: src/Resources.vala:434
-#, fuzzy, c-format
-#| msgid "Delete Search \"%s\""
+#: src/Resources.vala:433
+#, c-format
 msgid "Delete Face “%s”"
-msgstr "検索 \"%s\" を削除"
+msgstr ""
 
-#: src/Resources.vala:664
+#: src/Resources.vala:663
 #, c-format
 msgid "Rate %s"
 msgstr "評価 %s"
 
-#: src/Resources.vala:665
+#: src/Resources.vala:664
 #, c-format
 msgid "Set rating to %s"
 msgstr "評価を %s に設定"
 
-#: src/Resources.vala:666
+#: src/Resources.vala:665
 #, c-format
 msgid "Setting rating to %s"
 msgstr "評価を %s に設定"
 
-#: src/Resources.vala:668
+#: src/Resources.vala:667
 #, c-format
 msgid "Display %s"
 msgstr "%s を表示"
 
-#: src/Resources.vala:669
+#: src/Resources.vala:668
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "評価が %s の写真のみ表示"
 
-#: src/Resources.vala:670
+#: src/Resources.vala:669
 #, c-format
 msgid "%s or Better"
 msgstr "%s 以上"
 
-#: src/Resources.vala:671
+#: src/Resources.vala:670
 #, c-format
 msgid "Display %s or Better"
 msgstr "%s 以上のものを表示します"
 
-#: src/Resources.vala:672
+#: src/Resources.vala:671
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "%s 以上の評価の写真のみ表示します"
 
-#: src/Resources.vala:763 ui/trash.ui:255
+#: src/Resources.vala:762 ui/trash.ui:255
 msgid "Remove the selected photos from the trash"
 msgstr "選択された写真をゴミ箱から削除"
 
-#: src/Resources.vala:764 ui/offline.ui:221
+#: src/Resources.vala:763 ui/offline.ui:221
 msgid "Remove the selected photos from the library"
 msgstr "選択されたファイルをライブラリから削除"
 
-#: src/Resources.vala:766 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
+#: src/Resources.vala:765 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
 msgid "_Restore"
 msgstr "元に戻す(_R)"
 
-#: src/Resources.vala:767 ui/trash.ui:270
+#: src/Resources.vala:766 ui/trash.ui:270
 msgid "Move the selected photos back into the library"
 msgstr "選択された写真をライブラリに戻します"
 
-#: src/Resources.vala:769 ui/collection.ui:123 ui/direct_context.ui:18
+#: src/Resources.vala:768 ui/collection.ui:123 ui/direct_context.ui:18
 #: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
 #: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "ファイルマネージャーで開く(_G)"
 
-#: src/Resources.vala:770
-#, fuzzy
-#| msgid "Open the selected photo's directory in the file manager"
+#: src/Resources.vala:769
 msgid "Open the selected photo’s directory in the file manager"
-msgstr "ファイルマネージャーで選択された写真のディレクトリを開きます"
+msgstr "選択された写真があるディレクトリをファイルマネージャーで開きます"
 
-#: src/Resources.vala:773
+#: src/Resources.vala:772
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "ファイルマネージャーで開けません: %s"
 
-#: src/Resources.vala:776 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
+#: src/Resources.vala:775 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
 #: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77
 #: ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "ライブラリから削除(_E)"
 
-#: src/Resources.vala:778 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
+#: src/Resources.vala:777 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
 #: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82
 #: ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "ゴミ箱へ移動(_M)"
 
-#: src/Resources.vala:780 ui/events_directory.ui:58 ui/event.ui:86
+#: src/Resources.vala:779 ui/events_directory.ui:58 ui/event.ui:86
 #: ui/faces.ui:86 ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65 ui/tags.ui:86
 #: ui/trash.ui:74
 msgid "Select _All"
 msgstr "すべて選択(_A)"
 
-#: src/Resources.vala:781
+#: src/Resources.vala:780
 msgid "Select all items"
 msgstr "すべてのアイテムを選択します"
 
@@ -6089,49 +5433,41 @@ msgstr "すべてのアイテムを選択します"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:842
+#: src/Resources.vala:841
 msgid "%a %b %d, %Y"
 msgstr "%Y年%m月%d日 (%a)"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:847
-#, fuzzy
-#| msgid "%a %b %d"
+#: src/Resources.vala:846
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%m月%d日 (%a)"
+msgstr ""
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:852
-#, fuzzy
-#| msgid "%d, %Y"
+#: src/Resources.vala:851
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr "%d, %Y"
+msgstr ""
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:857
-#, fuzzy
-#| msgid "%a %b %d"
+#: src/Resources.vala:856
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%m月%d日 (%a)"
+msgstr ""
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
-#, fuzzy
-#| msgid "%a %b %d, %Y"
+#: src/Resources.vala:861
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%Y年%m月%d日 (%a)"
+msgstr ""
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
@@ -6166,10 +5502,8 @@ msgid "is not set"
 msgstr "がセットされていない"
 
 #: src/searches/SavedSearchDialog.vala:176
-#, fuzzy
-#| msgid "is not set"
 msgid "is set"
-msgstr "がセットされていない"
+msgstr "がセットされている"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
 #: src/searches/SavedSearchDialog.vala:250
@@ -6278,7 +5612,7 @@ msgstr "ファイル名"
 
 #: src/searches/SearchBoolean.vala:187
 msgid "Face"
-msgstr ""
+msgstr "フェイス"
 
 #: src/searches/SearchBoolean.vala:190
 msgid "Media type"
@@ -6307,19 +5641,15 @@ msgstr "保存された検索"
 
 #: src/searches/SearchesBranch.vala:68
 msgid "Organize your saved searches"
-msgstr ""
+msgstr "保存された検索の整理"
 
 #: src/SearchFilter.vala:837
-#, fuzzy
-#| msgid "Rating"
 msgid "★+ Rating"
-msgstr "評価"
+msgstr ""
 
 #: src/SearchFilter.vala:840
-#, fuzzy
-#| msgid "Rating"
 msgid "★★+ Rating"
-msgstr "評価"
+msgstr ""
 
 #: src/SearchFilter.vala:843
 msgid "★★★+ Rating"
@@ -6334,10 +5664,9 @@ msgid "★★★★★+ Rating"
 msgstr ""
 
 #: src/SearchFilter.vala:1086
-#, fuzzy, c-format
-#| msgid "Error loading UI file %s: %s"
+#, c-format
 msgid "Error loading search bar UI: %s"
-msgstr "UI ファイル %s の読み込みエラー: %s"
+msgstr "検索バーUIを読み込む際にエラーが発生しました: %s"
 
 #. Ticket #3260 - Add a 'close' context menu to
 #. the searchbar.
@@ -6345,10 +5674,8 @@ msgstr "UI ファイル %s の読み込みエラー: %s"
 #. display it yet; we'll connect it to secondary
 #. click later on.
 #: src/SearchFilter.vala:1095
-#, fuzzy
-#| msgid "_Close"
 msgid "Close"
-msgstr "閉じる(_C)"
+msgstr "閉じる"
 
 #. Type label and toggles
 #: src/SearchFilter.vala:1101
@@ -6365,7 +5692,7 @@ msgstr "RAW画像"
 
 #: src/SearchFilter.vala:1147
 msgid "Use a saved search to filter items in the current view"
-msgstr ""
+msgstr "保存された検索を使用して現在表示されているアイテムをフィルタリングします"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -6436,7 +5763,7 @@ msgstr "タグ"
 
 #: src/tags/TagsBranch.vala:131
 msgid "Organize and browse your photo’s tags"
-msgstr ""
+msgstr "写真のタグの整理と閲覧"
 
 #: src/Tag.vala:830
 msgid "untitled"
@@ -6450,7 +5777,7 @@ msgstr "動画のエクスポート"
 #: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/faces.ui:281
 #: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
 msgid "Toggle _Flag"
-msgstr ""
+msgstr "フラグの切り替え(_F)"
 
 #: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/faces.ui:353
 #: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:344 ui/tags.ui:353
@@ -6469,10 +5796,8 @@ msgid "_File"
 msgstr "ファイル(_F)"
 
 #: ui/direct.ui:13
-#, fuzzy
-#| msgid "Save As"
 msgid "Save _As…"
-msgstr "別名で保存"
+msgstr "名前を付けて保存(_A)…"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99 ui/faces.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
@@ -6517,26 +5842,20 @@ msgstr "FAQ(_F)"
 #: ui/direct.ui:186 ui/events_directory.ui:162 ui/event.ui:432 ui/faces.ui:442
 #: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
 #: ui/photo.ui:399 ui/tags.ui:434 ui/trash.ui:201
-#, fuzzy
-#| msgid "_Report a Problem..."
 msgid "_Report a Problem…"
-msgstr "問題を報告する(_R)..."
+msgstr "問題を報告(_R)…"
 
 #: ui/events_directory.ui:8 ui/event.ui:8 ui/faces.ui:8 ui/import_queue.ui:14
 #: ui/import.ui:8 ui/media.ui:8 ui/offline.ui:8 ui/photo.ui:8 ui/tags.ui:8
 #: ui/trash.ui:8
-#, fuzzy
-#| msgid "Import From Folder"
 msgid "_Import From Folder…"
-msgstr "フォルダーからインポート"
+msgstr "フォルダーからインポート(_I)…"
 
 #: ui/events_directory.ui:13 ui/event.ui:13 ui/faces.ui:13
 #: ui/import_queue.ui:19 ui/import.ui:21 ui/media.ui:13 ui/offline.ui:13
 #: ui/photo.ui:13 ui/tags.ui:13 ui/trash.ui:13
-#, fuzzy
-#| msgid "Import From Application"
 msgid "Import From _Application…"
-msgstr "アプリケーションからインポート"
+msgstr "アプリケーションからインポート(_A)…"
 
 #: ui/events_directory.ui:19 ui/event.ui:34 ui/faces.ui:34
 #: ui/import_queue.ui:25 ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19
@@ -6552,10 +5871,8 @@ msgstr "検索(_F)"
 #: ui/events_directory.ui:51 ui/event.ui:66 ui/faces.ui:66 ui/media.ui:66
 #: ui/offline.ui:51 ui/photo.ui:70 ui/search_sidebar_context.ui:6
 #: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
-#, fuzzy
-#| msgid "Ne_w Saved Search..."
 msgid "Ne_w Saved Search…"
-msgstr "新しい保存された検索(_W)..."
+msgstr "新しい保存された検索(_W)…"
 
 #: ui/events_directory.ui:74 ui/event.ui:102 ui/faces.ui:102
 #: ui/import_queue.ui:41 ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81
@@ -6583,10 +5900,8 @@ msgstr "サイドバー(_I)"
 #: ui/events_directory.ui:94 ui/event.ui:122 ui/faces.ui:122 ui/import.ui:97
 #: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:113 ui/tags.ui:122
 #: ui/trash.ui:110
-#, fuzzy
-#| msgid "Pin Toolbar"
 msgid "T_oolbar"
-msgstr "ツールバーを固定"
+msgstr "ツールバー(_O)"
 
 #: ui/events_directory.ui:101 ui/event.ui:134 ui/faces.ui:134 ui/media.ui:134
 #: ui/tags.ui:134
@@ -6637,10 +5952,8 @@ msgid "By _Title"
 msgstr "タイトルで並び替え(_T)"
 
 #: ui/event.ui:214 ui/faces.ui:214 ui/media.ui:214 ui/tags.ui:214
-#, fuzzy
-#| msgid "File name"
 msgid "By _Filename"
-msgstr "ファイル名"
+msgstr "ファイル名で並び替え(_F)"
 
 #: ui/event.ui:219 ui/faces.ui:219 ui/media.ui:219 ui/tags.ui:219
 msgid "By Exposure _Date"
@@ -6652,20 +5965,16 @@ msgstr "評価で並び替え(_R)"
 
 #: ui/event.ui:251 ui/faces.ui:251 ui/import.ui:174 ui/media.ui:251
 #: ui/photo.ui:135 ui/tags.ui:251
-#, fuzzy
-#| msgid "D_escending"
 msgid "_Descending"
-msgstr "降順(_E)"
+msgstr "降順(_D)"
 
 #: ui/event.ui:275 ui/faces.ui:275 ui/media.ui:275 ui/tags.ui:275
 msgid "_Photos"
 msgstr "写真(_P)"
 
 #: ui/faces.ui:465
-#, fuzzy
-#| msgid "_Rename..."
 msgid "Rename…"
-msgstr "名前を変更(_R)..."
+msgstr "名前の変更…"
 
 #: ui/import_queue.ui:8
 msgid "_Stop Import"
@@ -6726,22 +6035,20 @@ msgid ""
 msgstr ""
 
 #: ui/preferences_dialog.ui:343
-#, fuzzy
-#| msgid "_Background:"
 msgid "Transparent Background:"
-msgstr "背景(_B):"
+msgstr "透過背景:"
 
 #: ui/preferences_dialog.ui:357
 msgid "Checkered"
-msgstr ""
+msgstr "チェック"
 
 #: ui/preferences_dialog.ui:378
 msgid "Solid color"
-msgstr ""
+msgstr "単色"
 
 #: ui/preferences_dialog.ui:441
 msgid "Use dark theme:"
-msgstr ""
+msgstr "ダークテーマを使用:"
 
 #: ui/preferences_dialog.ui:492
 msgid "E_xternal photo editor:"
@@ -6749,7 +6056,7 @@ msgstr "外部のフォトエディター(_X):"
 
 #: ui/preferences_dialog.ui:509
 msgid "External _RAW editor:"
-msgstr "外部のRAWエディター(_R):"
+msgstr "外部の RAW エディター(_R):"
 
 #: ui/preferences_dialog.ui:570
 msgid "External Editors"
@@ -6818,14 +6125,12 @@ msgid "Search"
 msgstr "検索"
 
 #: ui/saved_search_dialog.ui:23
-#, fuzzy
-#| msgid "_Cancel"
 msgid "Cancel"
-msgstr "キャンセル(_C)"
+msgstr "キャンセル"
 
 #: ui/saved_search_dialog.ui:36
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ui/saved_search_dialog.ui:74
 msgid "_Name of search:"
@@ -6837,7 +6142,7 @@ msgstr "以下のうち(_M)"
 
 #: ui/saved_search_dialog.ui:149
 msgid "any"
-msgstr "いずれか"
+msgstr "任意"
 
 #: ui/saved_search_dialog.ui:150
 msgid "all"
@@ -6884,10 +6189,8 @@ msgid "How long each photo is shown on the desktop background"
 msgstr "デスクトップの背景に写真を表示する時間です"
 
 #: ui/sidebar_default_context.ui:11 ui/tag_sidebar_context.ui:6
-#, fuzzy
-#| msgid "New _Tag..."
 msgid "New _Tag…"
-msgstr "新規タグ(_T)..."
+msgstr "新しいタグ(_T)…"
 
 #: ui/slideshow_settings.ui:98
 msgid "_Delay:"
@@ -6916,326 +6219,3 @@ msgstr "ラベル"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "ゴミ箱にあるすべての写真を削除します"
-
-#~ msgid "Copyright 2009-2014 Yorba Foundation"
-#~ msgstr "Copyright 2009-2014 Yorba Foundation"
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select a library to import, either by selecting one of the "
-#~ "existing libraries found by Shotwell or by selecting an alternative F-"
-#~ "Spot database file."
-#~ msgstr ""
-#~ "F-Spotライブラリインポートサービスへ、ようこそ！\n"
-#~ "\n"
-#~ "まずはインポートしたいライブラリを選びます。Shotwellによって検出された既存"
-#~ "のライブラリの中、もしくは、その他のF-Spotデータベースファイルを1つ選択し"
-#~ "てください。"
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select an F-Spot database file."
-#~ msgstr ""
-#~ "F-Spotライブラリインポートサービスにようこそ。\n"
-#~ "\n"
-#~ "F-Spotデータベースファイルを選択してください。"
-
-#~ msgid "Manually select an F-Spot database file to import:"
-#~ msgstr "インポートするF-Spotデータベースファイルを手動で選択:"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: the file does not exist or "
-#~ "is not an F-Spot database"
-#~ msgstr ""
-#~ "選択されたF-Spotデータベースファイルが開けません: ファイルが存在しないか、"
-#~ "F-Spotデータベースではありません。"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: this version of the F-Spot "
-#~ "database is not supported by Shotwell"
-#~ msgstr ""
-#~ "選択されたF-Spotデータベースファイルが開けません: このバージョンのF-Spot"
-#~ "データベースファイルはShotwellではサポートしていません。"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading tags "
-#~ "table"
-#~ msgstr ""
-#~ "選択されたF-Spotデータベースファイルが読み込めません: tags テーブルを読み"
-#~ "込み中にエラーが発生"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading photos "
-#~ "table"
-#~ msgstr ""
-#~ "選択されたF-Spotデータベースファイルが読み込めません: photos テーブルを読"
-#~ "み込み中にエラーが発生"
-
-#~ msgid ""
-#~ "Shotwell has found %d photos in the F-Spot library and is currently "
-#~ "importing them. Duplicates will be automatically detected and removed.\n"
-#~ "\n"
-#~ "You can close this dialog and start using Shotwell while the import is "
-#~ "taking place in the background."
-#~ msgstr ""
-#~ "ShotwellはF-Spotライブラリの中から %d 枚の写真を見つけ、そして、インポート"
-#~ "しました。なお、重複している写真は自動検出して削除します。\n"
-#~ "\n"
-#~ "このダイアログを閉じることができます。Shotwellを使用している間にインポート"
-#~ "作業がバックグラウンドで処理されます。"
-
-#~ msgid "F-Spot library: %s"
-#~ msgstr "F-Spotライブラリ: %s"
-
-#~ msgid "A file required for publishing is unavailable. Publishing to "
-#~ msgstr "公開に必要なファイルが利用できません。公開先: "
-
-#~ msgid "Login"
-#~ msgstr "ログイン"
-
-#~ msgid "'%s' isn't a valid response to an OAuth authentication request"
-#~ msgstr "'%s' は、OAuth の認証要求に対して有効な応答ではありません"
-
-#~ msgid "Width or height"
-#~ msgstr "幅または高さ"
-
-#~ msgid "you are logged in rajce as $name"
-#~ msgstr "$name としてrajceにログインしています。"
-
-#~ msgid "Testing connection to Facebook..."
-#~ msgstr "Facebookへの接続テスト中..."
-
-#~ msgid ""
-#~ "You have already logged in and out of Flickr during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Flickr, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "このShotwellのセッション中に、すでにFlickrへログインとログアウトを行ってい"
-#~ "ます。\n"
-#~ "Flickrへの公開を続けるには、Shotwellを終了して再起動してから、もう一度公開"
-#~ "してみてください。"
-
-#~ msgid "Videos will appear in '%s'"
-#~ msgstr "動画は '%s' で表示されます"
-
-#~ msgid ""
-#~ "Enter the confirmation number which appears after you log into Flickr in "
-#~ "your Web browser."
-#~ msgstr ""
-#~ "ウェブブラウザーでFlickrにログインした後に表示された確認番号を入力してくだ"
-#~ "さい。"
-
-#~ msgid "Authorization _Number:"
-#~ msgstr "認証番号(_N):"
-
-#~ msgid "L_ist album in public gallery"
-#~ msgstr "アルバムを公開ギャラリーに追加する(_I)"
-
-#~ msgid "Visit the Yorba web site"
-#~ msgstr "Yorba ウェブサイトにアクセスする"
-
-#~ msgid "Play a slideshow"
-#~ msgstr "スライドショーを開始します"
-
-#~ msgid "Export Photos/Videos"
-#~ msgstr "写真/動画のエクスポート"
-
-#~ msgid "Save Details..."
-#~ msgstr "詳細を保存..."
-
-#~ msgid "_Modify original files"
-#~ msgstr "オリジナルのファイルを変更(_M)"
-
-#~ msgid "Increase the magnification of the thumbnails"
-#~ msgstr "サムネイルの倍率を上げます"
-
-#~ msgid "Decrease the magnification of the thumbnails"
-#~ msgstr "サムネイルの倍率を下げます"
-
-#~ msgid "_Play Video"
-#~ msgstr "動画の再生(_P)"
-
-#~ msgid "Open the selected videos in the system video player"
-#~ msgstr "システムの動画プレイヤーで選択された動画を開きます"
-
-#~ msgid "Display the title of each photo"
-#~ msgstr "写真のタイトルを表示します"
-
-#~ msgid "Display the comment of each photo"
-#~ msgstr "各写真のコメントを表示します"
-
-#~ msgid "Sort photos by exposure date"
-#~ msgstr "写真を撮影日で並び替える"
-
-#~ msgid "Sort photos by rating"
-#~ msgstr "写真を評価で並び替える"
-
-#~ msgid "Sort photos in a descending order"
-#~ msgstr "写真を降順で並び替える"
-
-#~ msgid "Previous Photo"
-#~ msgstr "前の写真"
-
-#~ msgid "Next Photo"
-#~ msgstr "次の写真"
-
-#~ msgid "Increase the magnification of the photo"
-#~ msgstr "写真の倍率を上げます"
-
-#~ msgid "Decrease the magnification of the photo"
-#~ msgstr "写真の倍率を下げます"
-
-#~ msgid "Zoom the photo to fit on the screen"
-#~ msgstr "写真をズームして画面に合わせます"
-
-#~ msgid "Zoom the photo to 100% magnification"
-#~ msgstr "写真の倍率を100%にする"
-
-#~ msgid "Zoom the photo to 200% magnification"
-#~ msgstr "写真の倍率を200%にする"
-
-#~ msgid "Extended Information"
-#~ msgstr "拡張情報"
-
-#~ msgid "Set as _Desktop Slideshow..."
-#~ msgstr "デスクトップ・スライドショーに設定(_D)..."
-
-#~ msgid "Re_name Event..."
-#~ msgstr "イベント名の変更(_N)..."
-
-#~ msgid "_Export..."
-#~ msgstr "エクスポート(_E)..."
-
-#~ msgid "Pu_blish..."
-#~ msgstr "公開(_B)..."
-
-#~ msgid "Edit _Title..."
-#~ msgstr "タイトルを編集(_T)..."
-
-#~ msgid "Edit _Comment..."
-#~ msgstr "コメントの編集(_C)..."
-
-#~ msgid "Edit Event _Comment..."
-#~ msgstr "イベントコメントの編集(_C)..."
-
-#~ msgid "_Adjust Date and Time..."
-#~ msgstr "日付と時刻の調整(_A)..."
-
-#~ msgid "Add _Tags..."
-#~ msgstr "タグの追加(_T)..."
-
-#~ msgid "_Add Tags..."
-#~ msgstr "タグを追加する(_A)..."
-
-#~ msgid "Send _To..."
-#~ msgstr "送信(_T)..."
-
-#~ msgid "Send T_o..."
-#~ msgstr "送信先(_O)..."
-
-#~ msgid "_Find..."
-#~ msgstr "検索(_F)..."
-
-#~ msgid "Modif_y Tags..."
-#~ msgstr "タグの変更(_Y)..."
-
-#~ msgid "Tag Photos as \"%s\""
-#~ msgstr "写真にタグ \"%s\" を付ける"
-
-#~ msgid "Tag the selected photos as \"%s\""
-#~ msgstr "選択された写真にタグ \"%s\" を付ける"
-
-#~ msgid "Remove Tag \"%s\" From _Photos"
-#~ msgstr "写真からタグ \"%s\" を削除(_P)"
-
-#~ msgid "Remove Tag \"%s\" From Photos"
-#~ msgstr "写真からタグ \"%s\" を削除します"
-
-#~ msgid "_Edit..."
-#~ msgstr "編集(_E)..."
-
-#~ msgid "%-I:%M %p"
-#~ msgstr "%p %-I:%M"
-
-#~ msgid "%-I:%M:%S %p"
-#~ msgstr "%p %-I:%M:%S"
-
-#~ msgid "RAW photos"
-#~ msgstr "RAW画像"
-
-#~ msgid "Import the selected photos into your library"
-#~ msgstr "選択した写真をライブラリにインポート"
-
-#~ msgid "Import all the photos into your library"
-#~ msgstr "すべての写真をライブラリにインポート"
-
-#~ msgid "Save photo"
-#~ msgstr "写真を保存"
-
-#~ msgid "Save _As..."
-#~ msgstr "別名で保存(_A)..."
-
-#~ msgid "Save photo with a different name"
-#~ msgstr "写真を別の名前で保存します"
-
-#~ msgid "Print the photo to a printer connected to your computer"
-#~ msgstr "コンピューターに接続されたプリンターに写真を印刷します"
-
-#~ msgid "Display the comment of each event"
-#~ msgstr "各イベントのコメントを表示します"
-
-#~ msgid "Importing..."
-#~ msgstr "インポート中..."
-
-#~ msgid "Stop importing photos"
-#~ msgstr "画像のインポートを停止"
-
-#~ msgid "Preparing to import..."
-#~ msgstr "インポートしようとしています..."
-
-#~ msgid "_Import From Folder..."
-#~ msgstr "フォルダーからインポート(_I)..."
-
-#~ msgid "Import photos from disk to library"
-#~ msgstr "ディスクからライブラリに写真をインポートします"
-
-#~ msgid "Import From _Application..."
-#~ msgstr "アプリケーションからインポート(_A)..."
-
-#~ msgid "Find photos and videos by search criteria"
-#~ msgstr "検索条件で写真とビデオを探す"
-
-#~ msgid "Display basic information for the selection"
-#~ msgstr "選択した写真の基本情報を表示します"
-
-#~ msgid "The selected videos were successfully published."
-#~ msgstr "選択された動画の公開が完了しました。"
-
-#~ msgid "The selected photos were successfully published."
-#~ msgstr "選択された写真の公開が完了しました。"
-
-#~ msgid "white"
-#~ msgstr "白"
-
-#~ msgid "black"
-#~ msgstr "黒"
-
-#~ msgid "Only _Remove"
-#~ msgstr "削除のみ(_R)"
-
-#~ msgid "Shotwell is configured to import photos to your home directory.\n"
-#~ msgstr ""
-#~ "Shotwell はホームディレクトリに写真をインポートするよう設定されていま"
-#~ "す。\n"
-
-#~ msgid ""
-#~ "You are logged into Tumblr as (name).\n"
-#~ "\n"
-#~ "(this label's string is populated and set inside the code, \n"
-#~ "so changes made here will not display)"
-#~ msgstr ""
-#~ "(名前) としてTumblr にログインしています。⏎ ⏎ (このラベルの文字列は充填さ"
-#~ "れて、コード内部に設定されますので、 ⏎ ここで加える変更は表示されません)"
