@@ -335,11 +335,11 @@ bool show_metadata = false;
 
 const OptionEntry[] entries = {
     { "datadir", 'd', 0, OptionArg.FILENAME, ref data_dir, N_("Path to Shotwell’s private data"), N_("DIRECTORY") },
-    { "no-runtime-monitoring", 0, 0, OptionArg.NONE, ref no_runtime_monitoring, N_("Do not monitor library directory at runtime changes"), null },
+    { "no-runtime-monitoring", 0, 0, OptionArg.NONE, ref no_runtime_monitoring, N_("Do not monitor library directory at runtime for changes"), null },
     { "no-startup-progress", 0, 0, OptionArg.NONE, ref no_startup_progress, N_("Don’t display startup progress meter"), null },
     { "version", 'V', 0, OptionArg.NONE, ref show_version, N_("Show the application’s version") },
     { "fullscreen", 'f', 0, OptionArg.NONE, ref fullscreen, N_("Start the application in fullscreen mode"), null },
-    { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the meta-data of the image file"), null },
+    { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the metadata of the image file"), null },
     { null, 0, 0, 0, null, null, null }
 };
 }
