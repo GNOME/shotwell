@@ -17,6 +17,7 @@ namespace Publishing.Authenticator {
             list.add("picasa");
             list.add("youtube");
             list.add("tumblr");
+            list.add("google-photos");
 
             return list;
         }
@@ -35,7 +36,9 @@ namespace Publishing.Authenticator {
                     return new Shotwell.Google.Google("https://gdata.youtube.com/", _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."), host);
                 case "tumblr":
                     return new Shotwell.Tumblr.Tumblr(host);
-                default:
+                case "google-photos":
+                    return new Shotwell.Google.Google("https://www.googleapis.com/auth/photoslibrary", _("You are not currently logged into Google Photos.\n\nYou must have already signed up for a Google account and set it up for use with Google Photos.\n\nYou will have to authorize Shotwell to link to your Google Photos account."), host);
+               default:
                     return null;
             }
         }

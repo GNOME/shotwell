@@ -32,6 +32,10 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
         if (authenicators.contains("picasa")) {
             pluggables += new PicasaService(resource_directory);
         }
+
+        if (authenicators.contains("google-photos")) {
+            pluggables += new Publishing.GooglePhotos.Service(resource_directory);
+        }
 #endif
 
 #if HAVE_FLICKR

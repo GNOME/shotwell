@@ -413,6 +413,7 @@
     <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
     <child name="gallery3" schema="org.yorba.shotwell.sharing.publishing-gallery3" />
     <child name="picasa" schema="org.yorba.shotwell.sharing.picasa" />
+    <child name="org-gnome-shotwell-publishing-photos" schema="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-photos" />
     <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
 </schema>
 
@@ -487,6 +488,32 @@
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.picasa" path="/org/yorba/shotwell/sharing/picasa/">
+    <key name="refresh-token" type="s">
+        <default>""</default>
+        <summary>refresh token</summary>
+        <description>The OAuth token used to refresh the Picasa Web Albums session for the currently logged in user, if any.</description>
+    </key>
+
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size</summary>
+        <description>A numeric code representing the default size for photos uploaded to Picasa Web Albums</description>
+    </key>
+
+    <key name="last-album" type="s">
+        <default>""</default>
+        <summary>last album</summary>
+        <description>The name of the last album the user published photos to, if any</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Picasa should have their metadata removed first</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-photos" path="/org/yorba/shotwell/sharing/org-gnome-shotwell-publishing-photos/">
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
@@ -725,6 +752,12 @@
         <default>true</default>
         <summary>enable picasa publishing plugin</summary>
         <description>True if the Picasa Web Albums publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="org-gnome-shotwell-publishing-photos" type="b">
+        <default>true</default>
+        <summary>enable Google Photos publishing plugin</summary>
+        <description>True if the Google Photos publishing plugin is enabled, false otherwise</description>
     </key>
 
     <key name="publishing-youtube" type="b">
