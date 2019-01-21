@@ -444,6 +444,18 @@ public class Transaction {
     public void add_argument(string name, string value) {
         arguments += new Argument(name, value);
     }
+
+    public void set_argument(string name, string value) {
+        foreach (var arg in arguments) {
+            if (arg.key == name) {
+                arg.value = value;
+
+                return;
+            }
+        }
+
+        add_argument(name, value);
+    }
     
     public string? get_endpoint_url() {
         return (endpoint_url != null) ? endpoint_url : parent_session.get_endpoint_url();
