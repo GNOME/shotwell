@@ -15,6 +15,7 @@ internal class PublishingParameters {
     public const int ORIGINAL_SIZE = -1;
     
     private string? target_album_name;
+    private string? target_album_id;
     private bool album_public;
     private bool strip_metadata;
     private int major_axis_size_pixels;
@@ -26,6 +27,7 @@ internal class PublishingParameters {
     public PublishingParameters() {
         this.user_name = "[unknown]";
         this.target_album_name = null;
+        this.target_album_id = null;
         this.major_axis_size_selection_id = 0;
         this.major_axis_size_pixels = ORIGINAL_SIZE;
         this.album_public = false;
@@ -40,6 +42,10 @@ internal class PublishingParameters {
     
     public void set_target_album_name(string target_album_name) {
         this.target_album_name = target_album_name;
+    }
+
+    public void set_target_album_entry_id(string target_album_id) {
+        this.target_album_id = target_album_id;
     }
     
     public string get_user_name() {
@@ -58,14 +64,14 @@ internal class PublishingParameters {
         this.albums = albums;
     }
 
-    /*
+
     public void set_major_axis_size_pixels(int pixels) {
         this.major_axis_size_pixels = pixels;
     }
-        
+
     public int get_major_axis_size_pixels() {
         return major_axis_size_pixels;
-    } */
+    }
     
     public void set_major_axis_size_selection_id(int selection_id) {
         this.major_axis_size_selection_id = selection_id;
@@ -139,6 +145,7 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
     private Spit.Publishing.Authenticator authenticator;
     private bool running = false;
     private PublishingParameters publishing_parameters;
+    private Spit.Publishing.ProgressCallback progress_reporter;
 
     public Publisher(Spit.Publishing.Service service,
                      Spit.Publishing.PluginHost host) {
@@ -227,12 +234,33 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         debug("ACTION: showing publishing options pane.");
 
         var opts_pane = new PublishingOptionsPane(this.publishing_parameters, this.authenticator.can_logout());
-//        opts_pane.publish.connect(on_publishing_options_publish);
-//        opts_pane.logout.connect(on_publishing_options_logout);
+        opts_pane.publish.connect(on_publishing_options_publish);
+        opts_pane.logout.connect(on_publishing_options_logout);
         get_host().install_dialog_pane(opts_pane);
 
         get_host().set_service_locked(false);
     }
+
+    private void on_publishing_options_logout() {
+        if (!is_running())
+            return;
+
+        debug("EVENT: user clicked 'Logout' in the publishing options pane.");
+
+        do_logout();
+    }
+
+    private void on_publishing_options_publish() {
+        if (!is_running())
+            return;
+
+        debug("EVENT: user clicked 'Publish' in the publishing options pane.");
+
+        save_parameters_to_configuration_system(publishing_parameters);
+
+        do_upload();
+    }
+
 
     protected override void do_logout() {
         debug("ACTION: logging out user.");
@@ -243,6 +271,32 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
             this.authenticator.authenticate();
         }
     }
+
+    private void do_upload() {
+        debug("ACTION: uploading media items to remote server.");
+
+        get_host().set_service_locked(true);
+
+        progress_reporter = get_host().serialize_publishables(
+            publishing_parameters.get_major_axis_size_pixels(),
+            publishing_parameters.get_strip_metadata());
+
+        // Serialization is a long and potentially cancellable operation, so before we use
+        // the publishables, make sure that the publishing interaction is still running. If it
+        // isn't the publishing environment may be partially torn down so do a short-circuit
+        // return
+        if (!is_running())
+            return;
+
+        Spit.Publishing.Publishable[] publishables = get_host().get_publishables();
+        Uploader uploader = new Uploader(get_session(), publishables, publishing_parameters);
+
+        uploader.upload_complete.connect(on_upload_complete);
+        uploader.upload_error.connect(on_upload_error);
+
+        uploader.upload(on_upload_status_updated);
+    }
+
 
     public override bool is_running() {
         return running;

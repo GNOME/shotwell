@@ -413,7 +413,7 @@
     <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
     <child name="gallery3" schema="org.yorba.shotwell.sharing.publishing-gallery3" />
     <child name="picasa" schema="org.yorba.shotwell.sharing.picasa" />
-    <child name="org-gnome-shotwell-publishing-photos" schema="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-photos" />
+    <child name="org-gnome-shotwell-publishing-google-photos" schema="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" />
     <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
 </schema>
 
@@ -513,7 +513,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-photos" path="/org/yorba/shotwell/sharing/org-gnome-shotwell-publishing-photos/">
+<schema id="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" path="/org/yorba/shotwell/sharing/org-gnome-shotwell-publishing-google-photos/">
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
@@ -754,7 +754,7 @@
         <description>True if the Picasa Web Albums publishing plugin is enabled, false otherwise</description>
     </key>
 
-    <key name="org-gnome-shotwell-publishing-photos" type="b">
+    <key name="org-gnome-shotwell-publishing-google-photos" type="b">
         <default>true</default>
         <summary>enable Google Photos publishing plugin</summary>
         <description>True if the Google Photos publishing plugin is enabled, false otherwise</description>

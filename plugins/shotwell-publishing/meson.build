@@ -8,7 +8,8 @@ shotwell_publishing_sources = [
     'PiwigoPublishing.vala',
     'PhotosPublisher.vala',
     'PhotosService.vala',
-    'PhotosPublishingPane.vala'
+    'PhotosPublishingPane.vala',
+    'PhotosUploader.vala'
 ]
 
 shotwell_publishing_resources = gnome.compile_resources('publishing-resource',
