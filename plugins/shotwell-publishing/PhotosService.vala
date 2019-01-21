@@ -1,7 +1,7 @@
 namespace Publishing.GooglePhotos {
 
 public class Service : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "gnome-photos.svg";
+    private const string ICON_FILENAME = "google-photos.svg";
 
     private static Gdk.Pixbuf[] icon_pixbuf_set = null;
 
@@ -17,7 +17,7 @@ public class Service : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
 
     public unowned string get_id() {
-        return "org.gnome.shotwell.publishing.photos";
+        return "org.gnome.shotwell.publishing.google-photos";
     }
 
     public unowned string get_pluggable_name() {

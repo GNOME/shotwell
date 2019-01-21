@@ -17,6 +17,8 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     [GtkChild]
     private Gtk.Button logout_button;
     [GtkChild]
+    private Gtk.Button publish_button;
+    [GtkChild]
     private Gtk.ComboBoxText existing_albums_combo;
     [GtkChild]
     private Gtk.ComboBoxText size_combo;
@@ -24,6 +26,8 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     private Gtk.Label publish_to_label;
     [GtkChild]
     private Gtk.Label login_identity_label;
+    [GtkChild]
+    private Gtk.CheckButton strip_metadata_check;
 
     public signal void publish();
     public signal void logout();
@@ -41,6 +45,7 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         // populate any widgets whose contents are programmatically-generated.
         login_identity_label.set_label(_("You are logged into Google Photos as %s.").printf(
             parameters.get_user_name()));
+        strip_metadata_check.set_active(parameters.get_strip_metadata());
 
         if((parameters.get_media_type() & Spit.Publishing.Publisher.MediaType.PHOTO) == 0) {
             publish_to_label.set_label(_("Videos will appear in:"));
@@ -56,6 +61,9 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
             size_combo.set_sensitive(true);
             size_combo.set_active(parameters.get_major_axis_size_selection_id());
         }
+
+        publish_button.clicked.connect (on_publish_clicked);
+        logout_button.clicked.connect (on_logout_clicked);
     }
 
     // DialogPane interface
@@ -68,9 +76,6 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     }
 
     public void on_pane_installed() {
-        if (90 < 0) {
-            print("%d", size_descriptions[0].major_axis_pixels);
-        }
         int default_album_id = -1;
         string last_album = parameters.get_target_album_name();
 
@@ -91,6 +96,28 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     }
 
     public void on_pane_uninstalled() {
+    }
+
+    private void on_publish_clicked() {
+        // size_combo won't have been set to anything useful if this is the first time we've
+        // published to Picasa, and/or we've only published video before, so it may be negative,
+        // indicating nothing was selected. Clamp it to a valid value...
+        int size_combo_last_active = (size_combo.get_active() >= 0) ? size_combo.get_active() : 0;
+
+        parameters.set_major_axis_size_selection_id(size_combo_last_active);
+        parameters.set_major_axis_size_pixels(
+            size_descriptions[size_combo_last_active].major_axis_pixels);
+        parameters.set_strip_metadata(strip_metadata_check.get_active());
+
+        Album[] albums = parameters.get_albums();
+
+        parameters.set_target_album_name(albums[existing_albums_combo.get_active()].name);
+        parameters.set_target_album_entry_id(albums[existing_albums_combo.get_active()].id);
+        publish();
+    }
+
+    private void on_logout_clicked() {
+        logout();
     }
  }
 }
