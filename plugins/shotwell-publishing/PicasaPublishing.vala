@@ -391,6 +391,7 @@ internal class AlbumDirectoryTransaction :
 
     public AlbumDirectoryTransaction(Publishing.RESTSupport.GoogleSession session) {
         base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
+        this.add_argument("deprecation-extension", "true");
     }
 
     public static string? validate_xml(Publishing.RESTSupport.XmlDocument doc) {
@@ -419,6 +420,7 @@ internal class UploadTransaction :
         this.session = session;
         this.parameters = parameters;
         this.publishable = publishable;
+        this.add_argument("deprecation-extension", "true");
         if (publishable.get_media_type() == Spit.Publishing.Publisher.MediaType.VIDEO) {
             try {
                 var info = this.publishable.get_serialized_file().query_info(FileAttribute.STANDARD_CONTENT_TYPE, FileQueryInfoFlags.NONE);
