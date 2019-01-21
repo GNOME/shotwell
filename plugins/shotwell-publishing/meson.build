@@ -5,7 +5,11 @@ shotwell_publishing_sources = [
     'FlickrPublishing.vala',
     'TumblrPublishing.vala',
     'YouTubePublishing.vala',
-    'PiwigoPublishing.vala']
+    'PiwigoPublishing.vala',
+    'PhotosPublisher.vala',
+    'PhotosService.vala',
+    'PhotosPublishingPane.vala'
+]
 
 shotwell_publishing_resources = gnome.compile_resources('publishing-resource',
         'org.gnome.Shotwell.Publishing.gresource.xml',
@@ -16,9 +20,6 @@ shared_module('shotwell-publishing',
               dependencies : [gtk, soup, gexiv2, gee, sw_plugin, json_glib,
                               webkit, sw_plugin_common_dep, xml, gdata, gcr,
                               gcr_ui, authenticator_dep],
-              vala_args : [
-                  '--gresources', 'org.gnome.Shotwell.Publishing.gresource.xml'
-                  ],
               c_args : ['-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Publishing"',
                         '-DGCR_API_SUBJECT_TO_CHANGE'],
               install: true,
