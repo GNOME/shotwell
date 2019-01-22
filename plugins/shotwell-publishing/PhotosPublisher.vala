@@ -47,6 +47,10 @@ internal class PublishingParameters {
     public void set_target_album_entry_id(string target_album_id) {
         this.target_album_id = target_album_id;
     }
+
+    public string get_target_album_entry_id() {
+        return this.target_album_id;
+    }
     
     public string get_user_name() {
         return user_name;
@@ -98,6 +102,45 @@ internal class PublishingParameters {
     }
 }
 
+private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
+    private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate";
+    private string[] upload_tokens;
+    private string album_id;
+
+    public MediaCreationTransaction(Publishing.RESTSupport.GoogleSession session,
+                                    string[] upload_tokens,
+                                    string album_id) {
+        base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.POST);
+        this.upload_tokens = upload_tokens;
+        this.album_id = album_id;
+    }
+
+    public override void execute () throws Spit.Publishing.PublishingError {
+        var builder = new Json.Builder();
+        builder.begin_object();
+        builder.set_member_name("albumId");
+        builder.add_string_value(this.album_id);
+        builder.set_member_name("newMediaItems");
+        builder.begin_array();
+        foreach (var token in this.upload_tokens) {
+            builder.begin_object();
+            builder.set_member_name("description");
+            builder.add_string_value("[title]");
+            builder.set_member_name("simpleMediaItem");
+            builder.begin_object();
+            builder.set_member_name("uploadToken");
+            builder.add_string_value(token);
+            builder.end_object();
+            builder.end_object();
+        }
+        builder.end_array();
+        builder.end_object();
+        set_custom_payload(Json.to_string (builder.get_root (), false), "application/json");
+
+        base.execute();
+    }
+}
+
 private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
     private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums";
     private Album[] albums = new Album[0];
@@ -120,8 +163,11 @@ private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher
             var response_albums = object.get_member ("albums").get_array();
             response_albums.foreach_element( (a, b, element) => {
                 var album = element.get_object();
+                var is_writable = album.get_string_member("isWritable");
+                if (is_writable != null && is_writable == "false")
                 albums += new Album(album.get_string_member("title"), album.get_string_member("id"));
             });
+
             if (pagination_token_node != null) {
                 this.set_argument ("paginationToken", pagination_token_node.get_string ());
                 Signal.stop_emission_by_name (this, "completed");
@@ -297,6 +343,78 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         uploader.upload(on_upload_status_updated);
     }
 
+    private void on_upload_status_updated(int file_number, double completed_fraction) {
+        if (!is_running())
+            return;
+
+        debug("EVENT: uploader reports upload %.2f percent complete.", 100.0 * completed_fraction);
+
+        assert(progress_reporter != null);
+
+        progress_reporter(file_number, completed_fraction);
+    }
+
+    private void on_upload_complete(Publishing.RESTSupport.BatchUploader uploader,
+        int num_published) {
+        if (!is_running())
+            return;
+
+        debug("EVENT: uploader reports upload complete; %d items published.", num_published);
+
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
+
+        var txn = new MediaCreationTransaction(get_session(), ((Uploader) uploader).upload_tokens,
+            publishing_parameters.get_target_album_entry_id());
+
+        txn.completed.connect(on_media_creation_complete);
+        txn.network_error.connect(on_media_creation_error);
+
+        try {
+            txn.execute();
+        } catch (Spit.Publishing.PublishingError error) {
+            on_media_creation_error(txn, error);
+        }
+    }
+
+    private void on_upload_error(Publishing.RESTSupport.BatchUploader uploader,
+        Spit.Publishing.PublishingError err) {
+        if (!is_running())
+            return;
+
+        debug("EVENT: uploader reports upload error = '%s'.", err.message);
+
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
+
+        get_host().post_error(err);
+    }
+
+    private void on_media_creation_complete(Publishing.RESTSupport.Transaction txn) {
+        txn.completed.disconnect(on_media_creation_complete);
+        txn.network_error.disconnect(on_media_creation_error);
+
+        if (!is_running())
+            return;
+
+        debug("EVENT: Media creation reports success.");
+
+        get_host().set_service_locked(false);
+        get_host().install_success_pane();
+    }
+
+    private void on_media_creation_error(Publishing.RESTSupport.Transaction txn,
+        Spit.Publishing.PublishingError err) {
+        txn.completed.disconnect(on_media_creation_complete);
+        txn.network_error.disconnect(on_media_creation_error);
+
+        if (!is_running())
+            return;
+
+        debug("EVENT: Media creation reports error: %s", err.message);
+
+        get_host().post_error(err);
+    }
 
     public override bool is_running() {
         return running;
