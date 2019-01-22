@@ -498,8 +498,9 @@ public class PhotoMetadata : MediaMetadata {
         return null;
     }
     
-    public void set_string(string tag, string value, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
-        string? prepped = prepare_input_text(value, options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+    public void set_string(string tag, string value, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS,
+                           int length = DEFAULT_USER_TEXT_INPUT_LENGTH) {
+        string? prepped = prepare_input_text(value, options, length);
         if (prepped == null) {
             warning("Not setting tag %s to string %s: invalid UTF-8", tag, value);
             
@@ -988,8 +989,9 @@ public class PhotoMetadata : MediaMetadata {
          * newlines from comments */
         if (!is_string_empty(comment))
             set_all_generic(COMMENT_TAGS, option, (tag) => {
+                // 4095 is coming from acdsee.notes which is limited to that
                 set_string(tag, comment, PREPARE_STRING_OPTIONS &
-                        ~PrepareInputTextOptions.STRIP_CRLF);
+                        ~PrepareInputTextOptions.STRIP_CRLF, 4095);
             });
         else
             remove_tags(COMMENT_TAGS);
