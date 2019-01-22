@@ -141,6 +141,31 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
     }
 }
 
+private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
+    private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums.create";
+    private string title;
+
+    public AlbumCreationTransaction(Publishing.RESTSupport.GoogleSession session,
+                                    string title) {
+        base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.POST);
+        this.title = title;
+    }
+
+    public override void execute () throws Spit.Publishing.PublishingError {
+        var builder = new Json.Builder();
+        builder.begin_object();
+        builder.set_member_name("album");
+        builder.begin_object();
+        builder.set_member_name("title");
+        builder.add_string_value(this.title);
+        builder.end_object();
+        builder.end_object();
+        set_custom_payload(Json.to_string (builder.get_root (), false), "application/json");
+
+        base.execute();
+    }
+}
+
 private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
     private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums";
     private Album[] albums = new Album[0];
@@ -163,9 +188,9 @@ private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher
             var response_albums = object.get_member ("albums").get_array();
             response_albums.foreach_element( (a, b, element) => {
                 var album = element.get_object();
-                var is_writable = album.get_string_member("isWritable");
-                if (is_writable != null && is_writable == "false")
-                albums += new Album(album.get_string_member("title"), album.get_string_member("id"));
+                var is_writable = album.get_member("isWritable");
+                if (is_writable != null && is_writable.get_string() != "false")
+                    albums += new Album(album.get_string_member("title"), album.get_string_member("id"));
             });
 
             if (pagination_token_node != null) {
