@@ -57,6 +57,7 @@ internal class UploadTransaction :
 
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
+    public string[] upload_tokens = new string[0];
 
     public Uploader(Publishing.RESTSupport.GoogleSession session,
         Spit.Publishing.Publishable[] publishables, PublishingParameters parameters) {
@@ -67,8 +68,17 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
     
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
-        return new UploadTransaction((Publishing.RESTSupport.GoogleSession) get_session(),
-            parameters, get_current_publishable());
+        var txn = new UploadTransaction((Publishing.RESTSupport.GoogleSession) get_session(),
+                                         parameters, get_current_publishable());
+        txn.completed.connect(this.on_transaction_completed);
+
+        return txn;
+    }
+
+    private void on_transaction_completed (Publishing.RESTSupport.Transaction txn) {
+        txn.completed.disconnect (on_transaction_completed);
+
+        this.upload_tokens += txn.get_response();
     }
 }
 }
