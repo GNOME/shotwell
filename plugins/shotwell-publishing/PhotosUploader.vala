@@ -24,7 +24,7 @@ internal class UploadTransaction :
         try {
             mapped_file = new MappedFile(publishable.get_serialized_file().get_path(), false);
         } catch (FileError e) {
-            string msg = "Picasa: couldn't read data from %s: %s".printf(
+            string msg = "Google Photos: couldn't read data from %s: %s".printf(
                 publishable.get_serialized_file().get_path(), e.message);
             warning("%s", msg);
             

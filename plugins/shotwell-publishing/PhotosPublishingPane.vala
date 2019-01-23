@@ -115,7 +115,7 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
 
     private void on_publish_clicked() {
         // size_combo won't have been set to anything useful if this is the first time we've
-        // published to Picasa, and/or we've only published video before, so it may be negative,
+        // published to Google Photos, and/or we've only published video before, so it may be negative,
         // indicating nothing was selected. Clamp it to a valid value...
         int size_combo_last_active = (size_combo.get_active() >= 0) ? size_combo.get_active() : 0;
 

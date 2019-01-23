@@ -4,7 +4,7 @@
 
     <info>
         <link type="guide" xref="index#share"/>
-        <desc>Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites.</desc>
+        <desc>Publish photos to Flickr, Google Photos, or other sites.</desc>
         
         <link type="next" xref="share-send" />
     </info>
@@ -17,7 +17,7 @@
     <list>
     <item><p><link href="https://facebook.com">Facebook</link></p></item>
     <item><p><link href="https://flickr.com">Flickr</link></p></item>
-    <item><p><link href="https://picasaweb.google.com">Picasa Web Albums</link> and <link href="http://plus.google.com">Google+</link></p></item>
+    <item><p><link href="https://photos.google.com">Google Photos</link></p></item>
     <item><p><link href="https://youtube.com">YouTube</link> (videos only)</p></item>
     <item><p><link href="https://tumblr.com">Tumblr</link> (videos only)</p></item>
     <item><p>Any site running the <link href="http://piwigo.org">Piwigo</link> photo gallery software (photos only)</p></item>
@@ -33,7 +33,5 @@
 </p>
     <note style="advanced"><p>You will be only able to publish images with at most the permission you granted to the Shotwell Facebook application</p></note>
     
-    <p>Similarly, publishing to Flickr requires you to log in and permit Shotwell Connect to access your account.</p>
-    
-    <p>If you have a Google account, but have not yet used Picasa Web Albums, you will need to log in to Picasa using a browser once before you can publish to this service.</p>
+    <p>Similarly, publishing to Flickr, YouTube or Google Photos requires you to log in and permit Shotwell Connect to access your account.</p>
 </page>

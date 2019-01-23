@@ -26,9 +26,6 @@ public class StandardHostInterface : Object, Spit.HostInterface {
             case "org.yorba.shotwell.publishing.facebook":
                 return "facebook";
             
-            case "org.yorba.shotwell.publishing.picasa":
-                return "picasa";
-            
             case "org.yorba.shotwell.publishing.flickr":
                 return "flickr";
                 
