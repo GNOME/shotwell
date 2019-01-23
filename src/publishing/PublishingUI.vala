@@ -527,6 +527,7 @@ public class PublishingDialog : Gtk.Dialog {
 
     public void set_cancel_button_mode() {
         close_cancel_button.set_label(_("_Cancel"));
+        set_default(null);
     }
 
     public void lock_service() {
