@@ -393,11 +393,13 @@ public class PublishingDialog : Gtk.Dialog {
 
     public void set_close_button_mode() {
         close_cancel_button.set_label(_("_Close"));
+        close_cancel_button.set_can_default(true);
         set_default(close_cancel_button);
     }
 
     public void set_cancel_button_mode() {
         close_cancel_button.set_label(_("_Cancel"));
+        close_cancel_button.set_can_default(false);
     }
 
     public void lock_service() {
