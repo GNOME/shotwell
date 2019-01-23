@@ -168,6 +168,7 @@ public class PublishingDialog : Gtk.Dialog {
         
         if (use_header) {
             close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
+            close_cancel_button.set_can_default(true);
 
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
             ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
@@ -393,13 +394,12 @@ public class PublishingDialog : Gtk.Dialog {
 
     public void set_close_button_mode() {
         close_cancel_button.set_label(_("_Close"));
-        close_cancel_button.set_can_default(true);
         set_default(close_cancel_button);
     }
 
     public void set_cancel_button_mode() {
         close_cancel_button.set_label(_("_Cancel"));
-        close_cancel_button.set_can_default(false);
+        set_default(null);
     }
 
     public void lock_service() {
