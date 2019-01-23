@@ -5,6 +5,8 @@
   <template class="PublishingGooglePhotosPublishingOptionsPane" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="margin_start">12</property>
+    <property name="margin_end">12</property>
     <property name="orientation">vertical</property>
     <property name="spacing">1</property>
     <child>
@@ -14,10 +16,10 @@
       <object class="GtkLabel" id="login_identity_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="halign">start</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">32</property>
-        <property name="label">'you are logged in as $name'
-(populated in the application code)</property>
+        <property name="label">'you are logged in as $name' (populated in the application code)</property>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -34,7 +36,17 @@
         <property name="margin_end">32</property>
         <property name="orientation">vertical</property>
         <child>
-          <placeholder/>
+          <object class="GtkLabel" id="publish_to_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label">$mediatype will appear in (populated in code)</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <object class="GtkGrid" id="album_choice_area_grid">
@@ -42,7 +54,8 @@
             <property name="can_focus">False</property>
             <property name="margin_start">24</property>
             <property name="margin_end">24</property>
-            <property name="row_spacing">8</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">12</property>
             <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkComboBoxText" id="existing_albums_combo">
@@ -68,17 +81,43 @@
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
+                <property name="top_attach">3</property>
                 <property name="width">2</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="publish_to_label">
+              <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="label">$mediatype will appear in
-(populated in code)</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Photo _size preset</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">size_combo</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="size_combo">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="existing_album_radio">
+                <property name="label" translatable="yes">An existing album</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">end</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -86,13 +125,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label1">
+              <object class="GtkRadioButton" id="new_album_radio">
+                <property name="label" translatable="yes">A new album named</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">Photo _size preset:</property>
-                <property name="use_underline">True</property>
-                <property name="mnemonic_widget">size_combo</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="halign">end</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">existing_album_radio</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -100,9 +141,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="size_combo">
+              <object class="GtkEntry" id="new_album_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -128,15 +169,10 @@
       <placeholder/>
     </child>
     <child>
-      <object class="GtkBox" id="button_area_box">
+      <object class="GtkButtonBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_start">112</property>
-        <property name="margin_end">112</property>
-        <property name="margin_top">48</property>
-        <property name="margin_bottom">24</property>
-        <property name="spacing">128</property>
-        <property name="homogeneous">True</property>
+        <property name="layout_style">spread</property>
         <child>
           <object class="GtkButton" id="logout_button">
             <property name="label" translatable="yes">_Logout</property>
@@ -173,4 +209,10 @@
       </packing>
     </child>
   </template>
+  <object class="GtkSizeGroup">
+    <widgets>
+      <widget name="existing_album_radio"/>
+      <widget name="new_album_radio"/>
+    </widgets>
+  </object>
 </interface>
