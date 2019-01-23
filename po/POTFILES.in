@@ -26,8 +26,11 @@ plugins/shotwell-publishing/facebook_publishing_options_pane.ui
 plugins/shotwell-publishing/FacebookPublishing.vala
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
-plugins/shotwell-publishing/picasa_publishing_options_pane.ui
-plugins/shotwell-publishing/PicasaPublishing.vala
+plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
+plugins/shotwell-publishing/PhotosPublisher.vala
+plugins/shotwell-publishing/PhotosPublishingPane.vala
+plugins/shotwell-publishing/PhotosService.vala
+plugins/shotwell-publishing/PhotosUploader.vala
 plugins/shotwell-publishing/piwigo_authentication_pane.ui
 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
