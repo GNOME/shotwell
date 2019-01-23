@@ -89,6 +89,8 @@ src/Properties.c
 src/publishing/Publishing.c
 src/publishing/PublishingPluginHost.c
 src/publishing/PublishingUI.c
+src/publishing/StaticMessagePaneWidget.c
+src/publishing/SuccessPaneWidget.c
 src/Resources.c
 src/Screensaver.c
 src/searches/SavedSearchDialog.c
