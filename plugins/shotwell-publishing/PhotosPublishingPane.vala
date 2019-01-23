@@ -19,6 +19,8 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     [GtkChild]
     private Gtk.Button publish_button;
     [GtkChild]
+    private Gtk.RadioButton existing_album_radio;
+    [GtkChild]
     private Gtk.ComboBoxText existing_albums_combo;
     [GtkChild]
     private Gtk.ComboBoxText size_combo;
@@ -28,6 +30,10 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     private Gtk.Label login_identity_label;
     [GtkChild]
     private Gtk.CheckButton strip_metadata_check;
+    [GtkChild]
+    private Gtk.RadioButton new_album_radio;
+    [GtkChild]
+    private Gtk.Entry new_album_entry;
 
     public signal void publish();
     public signal void logout();
@@ -62,6 +68,9 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
             size_combo.set_active(parameters.get_major_axis_size_selection_id());
         }
 
+        existing_album_radio.bind_property("active", existing_albums_combo, "sensitive", GLib.Binding.SYNC_CREATE);
+        new_album_radio.bind_property("active", new_album_entry, "sensitive", GLib.Binding.SYNC_CREATE);
+
         publish_button.clicked.connect (on_publish_clicked);
         logout_button.clicked.connect (on_logout_clicked);
     }
@@ -92,6 +101,12 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
 
         if (default_album_id >= 0) {
             existing_albums_combo.set_active(default_album_id);
+            existing_album_radio.set_active(true);
+        }
+
+        if (albums.length == 0) {
+            existing_album_radio.set_sensitive(false);
+            new_album_radio.set_active(true);
         }
     }
 
@@ -111,8 +126,13 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
 
         Album[] albums = parameters.get_albums();
 
-        parameters.set_target_album_name(albums[existing_albums_combo.get_active()].name);
-        parameters.set_target_album_entry_id(albums[existing_albums_combo.get_active()].id);
+        if (new_album_radio.get_active()) {
+            parameters.set_target_album_name(new_album_entry.get_text());
+        } else {
+            parameters.set_target_album_name(albums[existing_albums_combo.get_active()].name);
+            parameters.set_target_album_entry_id(albums[existing_albums_combo.get_active()].id);
+        }
+
         publish();
     }
 

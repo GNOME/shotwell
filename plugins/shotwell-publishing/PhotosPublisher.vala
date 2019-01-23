@@ -142,7 +142,7 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
 }
 
 private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums.create";
+    private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums";
     private string title;
 
     public AlbumCreationTransaction(Publishing.RESTSupport.GoogleSession session,
@@ -188,8 +188,8 @@ private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher
             var response_albums = object.get_member ("albums").get_array();
             response_albums.foreach_element( (a, b, element) => {
                 var album = element.get_object();
-                var is_writable = album.get_member("isWritable");
-                if (is_writable != null && is_writable.get_string() != "false")
+                var is_writable = album.get_member("isWriteable");
+                if (is_writable != null && is_writable.get_boolean())
                     albums += new Album(album.get_string_member("title"), album.get_string_member("id"));
             });
 
@@ -329,8 +329,68 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
 
         save_parameters_to_configuration_system(publishing_parameters);
 
-        do_upload();
+        if (publishing_parameters.get_target_album_entry_id () != null) {
+            do_upload();
+        } else {
+            do_create_album();
+        }
     }
+
+    private void do_create_album() {
+        debug("ACTION: Creating album");
+        assert(publishing_parameters.get_target_album_entry_id () == null);
+
+        get_host().set_service_locked(true);
+
+        var txn = new AlbumCreationTransaction(get_session(), publishing_parameters.get_target_album_name());
+        txn.completed.connect(on_album_create_complete);
+        txn.network_error.connect(on_album_create_error);
+
+        try {
+            txn.execute();
+        } catch (Spit.Publishing.PublishingError error) {
+            on_album_create_error(txn, error);
+        }
+    }
+
+    private void on_album_create_complete(Publishing.RESTSupport.Transaction txn) {
+        txn.completed.disconnect(on_album_create_complete);
+        txn.network_error.disconnect(on_album_create_error);
+
+        if (!is_running())
+            return;
+
+        debug("EVENT: finished creating album information: %s", txn.get_response());
+
+        try {
+            var node = Json.from_string(txn.get_response());
+            var object = node.get_object();
+            publishing_parameters.set_target_album_entry_id (object.get_string_member ("id"));
+
+            do_upload();
+        } catch (Error error) {
+        }
+    }
+
+    private void on_album_create_error(Publishing.RESTSupport.Transaction txn,
+                                              Spit.Publishing.PublishingError error) {
+        txn.completed.disconnect(on_initial_album_fetch_complete);
+        txn.network_error.disconnect(on_initial_album_fetch_error);
+
+        if (!is_running())
+            return;
+
+        debug("EVENT: creating album failed; response = '%s'.",
+              txn.get_response());
+
+        if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
+            do_logout();
+        } else {
+            // If we get any other kind of error, we can't recover, so just post it to the user
+            get_host().post_error(error);
+        }
+    }
+
 
 
     protected override void do_logout() {

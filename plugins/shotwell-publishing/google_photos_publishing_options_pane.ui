@@ -5,8 +5,10 @@
   <template class="PublishingGooglePhotosPublishingOptionsPane" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="margin_start">12</property>
-    <property name="margin_end">12</property>
+    <property name="margin_start">18</property>
+    <property name="margin_end">18</property>
+    <property name="margin_top">18</property>
+    <property name="margin_bottom">18</property>
     <property name="orientation">vertical</property>
     <property name="spacing">1</property>
     <child>
@@ -61,6 +63,7 @@
               <object class="GtkComboBoxText" id="existing_albums_combo">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -141,7 +144,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="new_album_label">
+              <object class="GtkEntry" id="new_album_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
               </object>
