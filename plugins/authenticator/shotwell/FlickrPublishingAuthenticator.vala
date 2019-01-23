@@ -15,6 +15,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
     internal const string SERVICE_WELCOME_MESSAGE =
         _("You are not currently logged into Flickr.\n\nClick Log in to log into Flickr in your Web browser. You will have to authorize Shotwell Connect to link to your Flickr account.");
+    internal const string SERVICE_DISCLAIMER = "<b>This product uses the Flickr API but is not endorsed or certified by SmugMug, Inc.</b>";
 
     internal class AuthenticationRequestTransaction : Publishing.RESTSupport.OAuth1.Transaction {
         public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session) {
@@ -109,7 +110,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             debug("ACTION: installing login welcome pane");
 
             host.set_service_locked(false);
-            host.install_welcome_pane(SERVICE_WELCOME_MESSAGE, on_welcome_pane_login_clicked);
+            host.install_welcome_pane("%s\n\n%s".printf(SERVICE_WELCOME_MESSAGE, SERVICE_DISCLAIMER), on_welcome_pane_login_clicked);
         }
 
         private void on_welcome_pane_login_clicked() {
