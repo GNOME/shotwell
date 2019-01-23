@@ -24,7 +24,9 @@
       <file preprocess="xml-stripblanks">ui/search_sidebar_context.ui</file>
       <file preprocess="xml-stripblanks">ui/set_background_dialog.ui</file>
       <file preprocess="xml-stripblanks">ui/set_background_slideshow_dialog.ui</file>
-      <file compressed="true">ui/shotwell.ui</file>
+      <file preprocess="xml-stripblanks">ui/login_welcome_pane_widget.ui</file>
+      <file preprocess="xml-stripblanks">ui/progress_pane_widget.ui</file>
+      <file preprocess="xml-stripblanks">ui/static_message_pane_widget.ui</file>
       <file preprocess="xml-stripblanks">ui/sidebar_default_context.ui</file>
       <file preprocess="xml-stripblanks">ui/slideshow_settings.ui</file>
       <file preprocess="xml-stripblanks">ui/saved_search_dialog.ui</file>

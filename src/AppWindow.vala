@@ -474,19 +474,6 @@ public abstract class AppWindow : PageWindow {
         return fullscreen_window;
     }
 
-    public static Gtk.Builder create_builder(string glade_filename = "shotwell.ui", void *user = null) {
-        Gtk.Builder builder = new Gtk.Builder();
-        try {
-            builder.add_from_resource(Resources.get_ui(glade_filename));
-        } catch(GLib.Error error) {
-            warning("Unable to create Gtk.Builder: %s\n", error.message);
-        }
-        
-        builder.connect_signals(user);
-        
-        return builder;
-    }
-    
     public static void error_message(string message, Gtk.Window? parent = null) {
         error_message_with_title(Resources.APP_TITLE, message, parent);
     }
