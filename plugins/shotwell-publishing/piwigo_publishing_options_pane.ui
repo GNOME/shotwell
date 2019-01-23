@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.0 -->
 <interface domain="shotwell">
   <requires lib="gtk+" version="3.14"/>
   <object class="GtkWindow" id="publishing_options_pane">
@@ -8,8 +8,8 @@
       <object class="GtkBox" id="content">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">10</property>
-        <property name="margin_right">10</property>
+        <property name="margin_start">10</property>
+        <property name="margin_end">10</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
@@ -284,6 +284,9 @@
           </packing>
         </child>
       </object>
+    </child>
+    <child type="titlebar">
+      <placeholder/>
     </child>
   </object>
 </interface>
