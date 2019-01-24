@@ -42,7 +42,7 @@ public Gdk.Pixbuf[]? load_icon_set(GLib.File? icon_file) {
     try {
         icon = new Gdk.Pixbuf.from_file(icon_file.get_path());
     } catch (Error err) {
-        warning("couldn't load icon set from %s.", icon_file.get_path());
+        warning("couldn't load icon set from %s: %s", icon_file.get_path(), err.message);
     }
     
     if (icon != null) {
@@ -57,9 +57,10 @@ public Gdk.Pixbuf[]? load_icon_set(GLib.File? icon_file) {
 public Gdk.Pixbuf[]? load_from_resource (string resource_path) {
     Gdk.Pixbuf? icon = null;
     try {
-        icon = new Gdk.Pixbuf.from_resource (resource_path);
+        debug ("Loading icon from %s", resource_path);
+        icon = new Gdk.Pixbuf.from_resource_at_scale (resource_path, 24, 24, true);
     } catch (Error error) {
-        warning ("Couldn't load icon set from %s", resource_path);
+        warning ("Couldn't load icon set from %s: %s", resource_path, error.message);
     }
 
     if (icon != null) {
