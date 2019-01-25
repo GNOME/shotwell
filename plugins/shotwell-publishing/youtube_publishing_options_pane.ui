@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <!-- interface-requires gtk+ 3.0 -->
+<!-- Generated with glade 3.22.0 -->
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.22"/>
   <object class="GtkBox" id="youtube_pane_widget">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -41,18 +42,17 @@
       <object class="GtkBox" id="box1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">40</property>
-        <property name="margin_right">40</property>
+        <property name="margin_start">40</property>
+        <property name="margin_end">40</property>
         <property name="margin_top">16</property>
+        <property name="spacing">6</property>
         <property name="homogeneous">True</property>
         <child>
           <object class="GtkLabel" id="privacy_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">16</property>
-            <property name="margin_right">16</property>
-            <property name="xpad">10</property>
-            <property name="label" translatable="yes">Video privacy _setting:</property>
+            <property name="halign">end</property>
+            <property name="label" translatable="yes">Video privacy _setting</property>
             <property name="use_underline">True</property>
           </object>
           <packing>
@@ -65,10 +65,6 @@
           <object class="GtkComboBoxText" id="privacy_combo">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">16</property>
-            <property name="margin_right">32</property>
-            <property name="entry_text_column">0</property>
-            <property name="id_column">1</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -88,8 +84,8 @@
       <object class="GtkBox" id="button_area_box">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">112</property>
-        <property name="margin_right">112</property>
+        <property name="margin_start">112</property>
+        <property name="margin_end">112</property>
         <property name="margin_top">48</property>
         <property name="margin_bottom">24</property>
         <property name="spacing">128</property>
@@ -101,7 +97,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
           </object>
           <packing>
@@ -117,7 +112,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="use_action_appearance">False</property>
             <property name="use_underline">True</property>
           </object>
           <packing>

@@ -6,134 +6,6 @@
 
 namespace PublishingUI {
 
-public class ConcreteDialogPane : Spit.Publishing.DialogPane, GLib.Object {
-    protected Gtk.Box pane_widget = null;
-    protected Gtk.Builder builder = null;
-
-    public ConcreteDialogPane() {
-        builder = AppWindow.create_builder();
-    }
-
-    public Gtk.Widget get_widget() {
-        return pane_widget;
-    }
-
-    public Spit.Publishing.DialogPane.GeometryOptions get_preferred_geometry() {
-        return Spit.Publishing.DialogPane.GeometryOptions.NONE;
-    }
-
-    public void on_pane_installed() {
-    }
-
-    public void on_pane_uninstalled() {
-    }
-}
-
-public class StaticMessagePane : ConcreteDialogPane {
-    private Gtk.Label msg_label = null;
-
-    public StaticMessagePane(string message_string, bool enable_markup = false) {
-        base();
-        msg_label = builder.get_object("static_msg_label") as Gtk.Label;
-        pane_widget = builder.get_object("static_msg_pane_widget") as Gtk.Box;
-
-        if (enable_markup) {
-            msg_label.set_markup(message_string);
-            msg_label.set_line_wrap(true);
-            msg_label.set_use_markup(true);
-        } else {
-            msg_label.set_label(message_string);
-        }
-    }
-}
-
-public class LoginWelcomePane : ConcreteDialogPane {
-    private Gtk.Button login_button = null;
-    private Gtk.Label not_logged_in_label = null;
-
-    public signal void login_requested();
-
-    public LoginWelcomePane(string service_welcome_message) {
-        base();
-        pane_widget = builder.get_object("welcome_pane_widget") as Gtk.Box;
-        login_button = builder.get_object("login_button") as Gtk.Button;
-        not_logged_in_label = builder.get_object("not_logged_in_label") as Gtk.Label;
-
-        login_button.clicked.connect(on_login_clicked);
-        not_logged_in_label.set_use_markup(true);
-        not_logged_in_label.set_markup(service_welcome_message);
-    }
-
-    private void on_login_clicked() {
-        login_requested();
-    }
-}
-
-public class ProgressPane : ConcreteDialogPane {
-    private Gtk.ProgressBar progress_bar = null;
-
-    public ProgressPane() {
-        base();
-        pane_widget = (Gtk.Box) builder.get_object("progress_pane_widget");
-        progress_bar = (Gtk.ProgressBar) builder.get_object("publishing_progress_bar");
-    }
-
-    public void set_text(string text) {
-        progress_bar.set_text(text);
-    }
-
-    public void set_progress(double progress) {
-        progress_bar.set_fraction(progress);
-    }
-
-    public void set_status(string status_text, double progress) {
-        if (status_text != progress_bar.get_text())
-            progress_bar.set_text(status_text);
-
-        set_progress(progress);
-    }
-}
-
-public class SuccessPane : StaticMessagePane {
-    public SuccessPane(Spit.Publishing.Publisher.MediaType published_media, int num_uploaded = 1) {
-        string? message_string = null;
-
-        // Here, we check whether more than one item is being uploaded, and if so, display
-        // an alternate message.
-        if (published_media == Spit.Publishing.Publisher.MediaType.VIDEO) {
-            message_string = ngettext ("The selected video was successfully published.",
-                                       "The selected videos were successfully published.",
-                                       num_uploaded);
-        }
-        else if (published_media == Spit.Publishing.Publisher.MediaType.PHOTO) {
-            message_string = ngettext ("The selected photo was successfully published.",
-                                       "The selected photos were successfully published.",
-                                       num_uploaded);
-        }
-        else if (published_media == (Spit.Publishing.Publisher.MediaType.PHOTO
-                                     | Spit.Publishing.Publisher.MediaType.VIDEO)) {
-            message_string = _("The selected photos/videos were successfully published.");
-        }
-        else {
-            assert_not_reached ();
-        }
-
-        base(message_string);
-    }
-}
-
-public class AccountFetchWaitPane : StaticMessagePane {
-    public AccountFetchWaitPane() {
-        base(_("Fetching account information…"));
-    }
-}
-
-public class LoginWaitPane : StaticMessagePane {
-    public LoginWaitPane() {
-        base(_("Logging in…"));
-    }
-}
-
 public class PublishingDialog : Gtk.Dialog {
     private const int LARGE_WINDOW_WIDTH = 860;
     private const int LARGE_WINDOW_HEIGHT = 688;
@@ -527,6 +399,7 @@ public class PublishingDialog : Gtk.Dialog {
 
     public void set_cancel_button_mode() {
         close_cancel_button.set_label(_("_Cancel"));
+        set_default(null);
     }
 
     public void lock_service() {

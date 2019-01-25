@@ -190,7 +190,3 @@ public bool null_progress_monitor(uint64 count, uint64 total) {
     return true;
 }
 
-
-double degrees_to_radians(double theta) {
-    return (theta * (GLib.Math.PI / 180.0));
-}

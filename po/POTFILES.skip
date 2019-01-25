@@ -14,10 +14,13 @@ plugins/shotwell-publishing-extras/YandexPublishing.c
 plugins/shotwell-publishing/FacebookPublishing.c
 plugins/shotwell-publishing/FlickrPublishing.c
 plugins/shotwell-publishing/PicasaPublishing.c
-plugins/shotwell-publishing/PiwigoPublishing.c
 plugins/shotwell-publishing/shotwell-publishing.c
 plugins/shotwell-publishing/TumblrPublishing.c
 plugins/shotwell-publishing/YouTubePublishing.c
+plugins/shotwell-publishing/PhotosPublisher.c
+plugins/shotwell-publishing/PhotosPublishingPane.c
+plugins/shotwell-publishing/PhotosService.c
+plugins/shotwell-publishing/PhotosUploader.c
 plugins/shotwell-transitions/BlindsEffect.c
 plugins/shotwell-transitions/ChessEffect.c
 plugins/shotwell-transitions/CircleEffect.c
@@ -89,6 +92,8 @@ src/Properties.c
 src/publishing/Publishing.c
 src/publishing/PublishingPluginHost.c
 src/publishing/PublishingUI.c
+src/publishing/StaticMessagePaneWidget.c
+src/publishing/SuccessPaneWidget.c
 src/Resources.c
 src/Screensaver.c
 src/searches/SavedSearchDialog.c

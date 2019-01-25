@@ -429,7 +429,7 @@ public abstract class Photo : PhotoSource, Dateable {
                 
                 // need to remove all transformations as they're keyed to the editable's
                 // coordinate system
-                internal_remove_all_transformations(false);
+                remove_all_transformations(false);
             }
         }
         
@@ -1519,7 +1519,7 @@ public abstract class Photo : PhotoSource, Dateable {
             row.master = original_master;
             row.master.copy_from(reimport_state.row.master);
             if (!reimport_state.metadata_only)
-                internal_remove_all_transformations(false);
+                remove_all_transformations(false);
         }
         
         if (reimport_state.metadata != null)
@@ -1596,7 +1596,7 @@ public abstract class Photo : PhotoSource, Dateable {
             lock (row) {
                 editable = reimport_state.backing_state;
                 set_orientation(reimport_state.backing_state.original_orientation);
-                internal_remove_all_transformations(false);
+                remove_all_transformations(false);
             }
         } else {
             set_orientation(reimport_state.backing_state.original_orientation);
@@ -2820,11 +2820,7 @@ public abstract class Photo : PhotoSource, Dateable {
         return committed;
     }
     
-    public void remove_all_transformations() {
-        internal_remove_all_transformations(true);
-    }
-    
-    private void internal_remove_all_transformations(bool notify) {
+    public void remove_all_transformations(bool notify = true) {
         bool is_altered = false;
         lock (row) {
             is_altered = PhotoTable.get_instance().remove_all_transformations(row.photo_id);
@@ -3907,7 +3903,7 @@ public abstract class Photo : PhotoSource, Dateable {
         // transformations are in the master's coordinate system, not the editable's ... don't 
         // notify photo is altered *yet* because update_editable will notify, and want to avoid 
         // stacking them up
-        internal_remove_all_transformations(false);
+        remove_all_transformations(false);
         update_editable(false, file_format.create_reader(file.get_path()));
     }
     
@@ -4077,7 +4073,7 @@ public abstract class Photo : PhotoSource, Dateable {
         }
         
         if (remove_transformations)
-            internal_remove_all_transformations(false);
+            remove_all_transformations(false);
         
         if (has_editable) {
             notify_baseline_replaced();

@@ -148,7 +148,7 @@ public abstract class SearchViewFilter : ViewFilter {
     }
     
     public void set_search_filter(string? text) {
-        search_filter = !is_string_empty(text) ? text.down() : null;
+        search_filter = !is_string_empty(text) ? String.remove_diacritics(text.down()) : null;
         search_filter_words = search_filter != null ? search_filter.split(" ") : null;
     }
     

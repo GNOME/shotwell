@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.0 -->
 <interface domain="shotwell">
   <requires lib="gtk+" version="3.14"/>
   <object class="GtkBox" id="tumblr_pane">
@@ -35,15 +35,16 @@ so changes made here will not display)</property>
             <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="row_spacing">8</property>
-            <property name="column_spacing">24</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">12</property>
             <child>
               <object class="GtkLabel" id="blog_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Blogs:</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Blogs</property>
                 <property name="use_underline">True</property>
-                <property name="justify">right</property>
+                <property name="justify">center</property>
                 <property name="mnemonic_widget">blog_combo</property>
               </object>
               <packing>
@@ -56,7 +57,7 @@ so changes made here will not display)</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">Photo _size:</property>
+                <property name="label" translatable="yes">Photo _size</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">size_combo</property>
               </object>

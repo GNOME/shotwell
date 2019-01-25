@@ -45,6 +45,9 @@ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
 if unity_available
     shotwell_deps += [unity]
 endif
+
+subdir('publishing')
+
 executable('shotwell',
            ['unit/Unit.vala',
             'util/Util.vala',
@@ -250,7 +253,10 @@ executable('shotwell',
             '.unitize/_Library_unitize_entry.vala',
             '.unitize/_Direct_unitize_entry.vala'] + shotwell_resources + face_sources,
            include_directories : vapi_incdir,
-           dependencies : shotwell_deps,
+           dependencies : [
+               shotwell_deps,
+               sw_publishing_gui
+           ],
            vala_args : ['--pkg', 'libgphoto2',
                         '--pkg', 'libraw',
                         '--pkg', 'libexif',
@@ -260,5 +266,7 @@ executable('shotwell',
                         join_paths(meson.source_root(), 'data',
                           'org.gnome.Shotwell.gresource.xml')
                        ],
-           link_with: shotwell_libs,
+           link_with: [
+               sw_graphics_processor
+           ],
            install : true)

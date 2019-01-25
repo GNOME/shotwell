@@ -276,8 +276,8 @@ public class PhotoMetadata : MediaMetadata {
         exiv2 = new GExiv2.Metadata();
         exif = null;
         
-        exiv2.open_buf(buffer, length);
-        exif = Exif.Data.new_from_data(buffer, length);
+        exiv2.open_buf(buffer[0:length]);
+        exif = Exif.Data.new_from_data(buffer[0:length]);
         source_name = "<memory buffer %d bytes>".printf(length);
     }
     
@@ -285,8 +285,8 @@ public class PhotoMetadata : MediaMetadata {
         exiv2 = new GExiv2.Metadata();
         exif = null;
         
-        exiv2.from_app1_segment(buffer.get_data(), (long) buffer.get_size());
-        exif = Exif.Data.new_from_data(buffer.get_data(), buffer.get_size());
+        exiv2.from_app1_segment(buffer.get_data());
+        exif = Exif.Data.new_from_data(buffer.get_data());
         source_name = "<app1 segment %zu bytes>".printf(buffer.get_size());
     }
     
@@ -498,8 +498,9 @@ public class PhotoMetadata : MediaMetadata {
         return null;
     }
     
-    public void set_string(string tag, string value, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
-        string? prepped = prepare_input_text(value, options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+    public void set_string(string tag, string value, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS,
+                           int length = DEFAULT_USER_TEXT_INPUT_LENGTH) {
+        string? prepped = prepare_input_text(value, options, length);
         if (prepped == null) {
             warning("Not setting tag %s to string %s: invalid UTF-8", tag, value);
             
@@ -872,7 +873,7 @@ public class PhotoMetadata : MediaMetadata {
     public static string[] HEIGHT_TAGS = {
         "Exif.Photo.PixelYDimension",
         "Xmp.exif.PixelYDimension",
-        "Xmp.tiff.ImageHeight",
+        "Xmp.tiff.ImageLength",
         "Xmp.exif.PixelYDimension"
     };
     
@@ -988,8 +989,9 @@ public class PhotoMetadata : MediaMetadata {
          * newlines from comments */
         if (!is_string_empty(comment))
             set_all_generic(COMMENT_TAGS, option, (tag) => {
+                // 4095 is coming from acdsee.notes which is limited to that
                 set_string(tag, comment, PREPARE_STRING_OPTIONS &
-                        ~PrepareInputTextOptions.STRIP_CRLF);
+                        ~PrepareInputTextOptions.STRIP_CRLF, 4095);
             });
         else
             remove_tags(COMMENT_TAGS);

@@ -613,12 +613,12 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         upload_info_label.set_label(upload_label_text);
 
-        string visibility_label_text = _("Photos _visible to:");
+        string visibility_label_text = _("Photos _visible to");
         if ((media_type == Spit.Publishing.Publisher.MediaType.VIDEO)) {
-            visibility_label_text = _("Videos _visible to:");
+            visibility_label_text = _("Videos _visible to");
         } else if ((media_type == (Spit.Publishing.Publisher.MediaType.PHOTO |
                                    Spit.Publishing.Publisher.MediaType.VIDEO))) {
-            visibility_label_text = _("Photos and videos _visible to:");
+            visibility_label_text = _("Photos and videos _visible to");
         }
         
         visibility_label.set_label(visibility_label_text);

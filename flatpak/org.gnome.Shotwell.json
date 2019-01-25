@@ -1,7 +1,7 @@
 {
     "app-id" : "org.gnome.Shotwell",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "3.30",
+    "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
     "command" : "shotwell",
     "tags" : [
@@ -74,8 +74,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://datapacket.dl.sourceforge.net/project/gphoto/libgphoto/2.5.19/libgphoto2-2.5.19.tar.bz2",
-                    "sha256" : "62523e52e3b8542301e072635b518387f2bd0948347775cf10cb2da9a6612c63"
+                    "url" : "https://datapacket.dl.sourceforge.net/project/gphoto/libgphoto/2.5.22/libgphoto2-2.5.22.tar.bz2",
+                    "sha256" : "15d7327aa9a986af1e1dbfd8f15ba81352b67450d30e44562ce768ff9435ce58"
                 }
             ],
             "config-opts" : [
@@ -123,25 +123,29 @@
             ],
             "buildsystem" : "cmake",
             "config-opts" : [
-                "-DCMAKE_INSTALL_LIBDIR=lib"
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+                "-DEXIV2_BUILD_SAMPLES=OFF"
             ],
             "sources" : [
                 {
                     "type" : "git",
                     "url" : "https://github.com/Exiv2/exiv2/",
-                    "commit" : "e7ffd83af29187190da7f98dcbca8a4d70e19582"
+                    "commit" : "2b59f5be328ba1972c0c62f4e3cd3b7b46733b5f"
                 }
             ]
         },
         {
             "name" : "gexiv2",
+            "buildsystem" : "meson",
             "cleanup" : [
                 "/lib/girepository-1.0",
                 "/share/gir-1.0"
             ],
             "config-opts" : [
-                "--without-python2-girdir",
-                "--without-python3-girdir"
+                "-Dpython2_girdir=no",
+                "-Dpython3_girdir=no"
             ],
             "build-options" : {
                 "env" : {
@@ -168,8 +172,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://www.libraw.org/data/LibRaw-0.19.0.tar.gz",
-                    "sha256" : "e83f51e83b19f9ba6b8bd144475fc12edf2d7b3b930d8d280bdebd8a8f3ed259"
+                    "url" : "https://www.libraw.org/data/LibRaw-0.19.2.tar.gz",
+                    "sha256" : "400d47969292291d297873a06fb0535ccce70728117463927ddd9452aa849644"
                 },
                 {
                     "type" : "patch",
@@ -179,13 +183,15 @@
         },
         {
             "name" : "opencv",
-            "buildsystem" : "cmake",
+            "buildsystem" : "cmake-ninja",
             "builddir" : true,
             "cleanup" : [
                 "/share/OpenCV/*.cmake",
                 "/share/OpenCV/*.supp"
             ],
             "config-opts" : [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DOPENCV_GENERATE_PKGCONFIG=ON",
                 "-DBUILD_TESTS=OFF",
                 "-DBUILD_EXAMPLES=OFF",
                 "-DBUILD_PERF_TESTS=OFF",

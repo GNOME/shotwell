@@ -422,3 +422,6 @@ Box clamp_inside_rotated_image(Box src, int img_w, int img_h, double angle_deg,
                                src.right + right_offset, src.bottom + bottom_offset);
 }
 
+double degrees_to_radians(double theta) {
+    return (theta * (GLib.Math.PI / 180.0));
+}

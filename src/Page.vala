@@ -1032,16 +1032,16 @@ public abstract class Page : Gtk.ScrolledWindow {
                     double dx, dy;
                     event.get_scroll_deltas(out dx, out dy);
 
-                    if (dy < 0)
+                    if (dy <= -1.0)
                         return on_mousewheel_up(event);
-                    else if (dy > 0)
+                    else if (dy >= 1.0)
                         return on_mousewheel_down(event);
-                    else if (dx < 0)
+                    else if (dx <= -1.0)
                         return on_mousewheel_left(event);
-                    else if (dx > 0)
+                    else if (dx >= 1.0)
                         return on_mousewheel_right(event);
                     else
-                        return false;
+                        return true;
                 }
            
             default:

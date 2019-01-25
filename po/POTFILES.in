@@ -13,6 +13,7 @@ data/ui/event.ui
 data/ui/faces.ui
 data/ui/import_queue.ui
 data/ui/import.ui
+data/ui/login_welcome_pane_widget.ui
 data/ui/manifest_widget.ui
 data/ui/media.ui
 data/ui/multitextentrydialog.ui
@@ -27,7 +28,6 @@ data/ui/search_bar.ui
 data/ui/search_sidebar_context.ui
 data/ui/set_background_dialog.ui
 data/ui/set_background_slideshow_dialog.ui
-data/ui/shotwell.ui
 data/ui/sidebar_default_context.ui
 data/ui/slideshow_settings.ui
 data/ui/tag_sidebar_context.ui
@@ -55,8 +55,11 @@ plugins/shotwell-publishing/facebook_publishing_options_pane.ui
 plugins/shotwell-publishing/FacebookPublishing.vala
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
-plugins/shotwell-publishing/picasa_publishing_options_pane.ui
-plugins/shotwell-publishing/PicasaPublishing.vala
+plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
+plugins/shotwell-publishing/PhotosPublisher.vala
+plugins/shotwell-publishing/PhotosPublishingPane.vala
+plugins/shotwell-publishing/PhotosService.vala
+plugins/shotwell-publishing/PhotosUploader.vala
 plugins/shotwell-publishing/piwigo_authentication_pane.ui
 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
@@ -137,6 +140,8 @@ src/Properties.vala
 src/publishing/PublishingPluginHost.vala
 src/publishing/PublishingUI.vala
 src/publishing/Publishing.vala
+src/publishing/StaticMessagePaneWidget.vala
+src/publishing/SuccessPaneWidget.vala
 src/Resources.vala
 src/Screensaver.vala
 src/searches/SavedSearchDialog.vala

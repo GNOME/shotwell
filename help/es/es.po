@@ -11,13 +11,13 @@
 # 
 # 
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016, 2017.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016, 2017, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2018-06-25 16:43+0000\n"
-"PO-Revision-Date: 2017-03-16 08:13+0100\n"
+"POT-Creation-Date: 2018-09-05 20:34+0000\n"
+"PO-Revision-Date: 2018-11-30 10:10+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -25,14 +25,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
+"Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2018\n"
 "Marina Prado <mapraro93@hotmail.com>, 2016\n"
-"Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2016\n"
 "Dámaris Letelier <dam.letelier@gmail.com>, 2014"
 
 #. (itstool) path: info/desc
@@ -104,7 +104,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
 msgid "Contrast"
-msgstr ""
+msgstr "Contraste"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:29
@@ -112,6 +112,8 @@ msgid ""
 "Changes the contrast of a photo. Use it to correct flat-looking photos or "
 "photos where the difference between bright and dark spots seems to big."
 msgstr ""
+"Cambia el contraste de una foto. Úselo para corregir fotos con color pobre o "
+"aquellas en las que la diferencia entre brillo y oscuridad es muy grande."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:32
@@ -762,7 +764,6 @@ msgstr "Formatos de foto y vídeo soportados"
 
 #. (itstool) path: page/p
 #: C/formats.page:14
-#, fuzzy
 #| msgid ""
 #| "Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref="
 #| "\"other-raw\">RAW</link> photo files. Shotwell does not yet support other "
@@ -772,9 +773,9 @@ msgid ""
 "link> photo files. Shotwell does not yet support other graphics format such "
 "as GIF."
 msgstr ""
-"Shotwell soporta archivos JPEG, PNG, TIFF, BMP y <link type =\"guide\" xref="
-"\"other-raw\">RAW</link>. Shotwell todavía no soporta otros formatos "
-"gráficos como GIF."
+"Shotwell soporta archivos JPEG, PNG, TIFF, BMP y <link xref=\"other-raw"
+"\">RAW</link> section.. Shotwell todavía no soporta otros formatos gráficos "
+"como GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -794,7 +795,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/formats.page:18
-#, fuzzy
 #| msgid ""
 #| "For more information about RAW-format photos in Shotwell, please see the "
 #| "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
@@ -803,7 +803,7 @@ msgid ""
 "<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 "Para obtener más información acerca de las fotos en formato RAW en Shotwell, "
-"consulte la sección <link type=\"guide\" xref=\"other-raw\">RAW</link>."
+"consulte la sección <link xref=\"other-raw\">RAW</link> section."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -2203,7 +2203,6 @@ msgstr "PM"
 
 #. (itstool) path: section/p
 #: C/other-files.page:72
-#, fuzzy
 #| msgid ""
 #| "There are other symbols available; please check the manual for strftime "
 #| "by running the command <cmd>man strftime</cmd> if you need one that isn't "
@@ -2213,9 +2212,9 @@ msgid ""
 "\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
 "if you need one that isn't listed here."
 msgstr ""
-"Existen otros símbolos disponibles, revise el manual de strftime ejecutando "
-"el comando <cmd>man strftime</cmd> si necesita alguno que no esté listado "
-"aquí."
+"Existen otros símbolos disponibles, revise el <link href=\"man:strftime"
+"\">manual de strftime</link> ejecutando el comando <cmd>man strftime</cmd> "
+"si necesita alguno que no esté listado aquí."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -2794,7 +2793,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/share-export.page:40
 msgid "Original size"
-msgstr ""
+msgstr "Tamaño original"
 
 #. (itstool) path: item/p
 #: C/share-export.page:40
@@ -2804,7 +2803,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/share-export.page:41
 msgid "Longest edge"
-msgstr ""
+msgstr "Borde más largo"
 
 #. (itstool) path: item/p
 #: C/share-export.page:41
@@ -2816,7 +2815,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/share-export.page:42
 msgid "Width"
-msgstr ""
+msgstr "Anchura"
 
 #. (itstool) path: item/p
 #: C/share-export.page:42
@@ -2829,7 +2828,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/share-export.page:43
 msgid "Height"
-msgstr ""
+msgstr "Altura"
 
 #. (itstool) path: item/p
 #: C/share-export.page:43
@@ -3016,21 +3015,18 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#, fuzzy
 #| msgid "<link href=\"http://facebook.com\">Facebook</link>"
 msgid "<link href=\"https://facebook.com\">Facebook</link>"
-msgstr "<link href=\"http://facebook.com\">Facebook</link>"
+msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#, fuzzy
 #| msgid "<link href=\"http://flickr.com\">Flickr</link>"
 msgid "<link href=\"https://flickr.com\">Flickr</link>"
-msgstr "<link href=\"http://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-#, fuzzy
 #| msgid ""
 #| "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
 #| "<link href=\"http://plus.google.com\">Google+</link>"
@@ -3038,22 +3034,20 @@ msgid ""
 "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
 "<link href=\"http://plus.google.com\">Google+</link>"
 msgstr ""
-"<link href=\"http://picasaweb.google.com\">Álbumes de Picasa Web</link> y "
+"<link href=\"https://picasaweb.google.com\">Álbumes de Picasa Web</link> y "
 "<link href=\"http://plus.google.com\">Google+</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-#, fuzzy
 #| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"http://youtube.com\">YouTube</link> (sólo vídeos)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-#, fuzzy
 #| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
-msgstr "<link href=\"http://youtube.com\">YouTube</link> (sólo vídeos)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
