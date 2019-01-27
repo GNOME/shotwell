@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015, 2016, 2017, 2018 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015, 2016, 2017, 2018, 2019 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2018-09-05 07:38+0000\n"
-"PO-Revision-Date: 2018-09-05 22:19+0200\n"
+"POT-Creation-Date: 2019-01-24 22:31+0000\n"
+"PO-Revision-Date: 2019-01-26 15:42+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -2916,10 +2916,8 @@ msgstr "Tiden för övergångseffekter: 0,1 - 1,0 sekunder"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
-msgstr ""
-"Publicera bilden till Facebook, Flickr, Picasa Web Albums eller andra "
-"webbplatser."
+msgid "Publish photos to Flickr, Google Photos, or other sites."
+msgstr "Publicera bilder till Flickr, Google Foto eller andra webbplatser."
 
 #. (itstool) path: page/title
 #: C/share-upload.page:12
@@ -2939,24 +2937,19 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#| msgid "<link href=\"http://facebook.com\">Facebook</link>"
 msgid "<link href=\"https://facebook.com\">Facebook</link>"
 msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#| msgid "<link href=\"http://flickr.com\">Flickr</link>"
 msgid "<link href=\"https://flickr.com\">Flickr</link>"
 msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-msgid ""
-"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
-"<link href=\"http://plus.google.com\">Google+</link>"
-msgstr ""
-"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> och "
-"<link href=\"http://plus.google.com\">Google+</link>"
+#| msgid "<link href=\"https://facebook.com\">Facebook</link>"
+msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
+msgstr "<link href=\"https://photos.google.com\">Google Foto</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
@@ -3020,22 +3013,11 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/share-upload.page:36
 msgid ""
-"Similarly, publishing to Flickr requires you to log in and permit Shotwell "
-"Connect to access your account."
+"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
+"log in and permit Shotwell Connect to access your account."
 msgstr ""
-"På liknande sätt kräver Flickr att du loggar in och tillåter Shotwell "
-"Connect att komma åt ditt konto."
-
-#. (itstool) path: page/p
-#: C/share-upload.page:38
-msgid ""
-"If you have a Google account, but have not yet used Picasa Web Albums, you "
-"will need to log in to Picasa using a browser once before you can publish to "
-"this service."
-msgstr ""
-"Om du har ett Google-konto, men ännu inte använt Picasa Web Albums behöver "
-"du logga in till Picasa med en webbläsare en gång innan du kan publicera "
-"till tjänsten."
+"På liknande sätt kräver Flickr, YouTube eller Google Foto att du loggar in "
+"och tillåter Shotwell Connect att komma åt ditt konto."
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -3239,6 +3221,22 @@ msgstr ""
 "Mappen <gui>Taggar</gui> listar alla taggar du tilldelat till bilder. Bilder "
 "kan ha flera taggar kopplade till dem. När du klickar på namnet på en tagg i "
 "sidopanelen kommer du att se alla bilder associerade med den taggen."
+
+#~ msgid ""
+#~ "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
+#~ "<link href=\"http://plus.google.com\">Google+</link>"
+#~ msgstr ""
+#~ "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> och "
+#~ "<link href=\"http://plus.google.com\">Google+</link>"
+
+#~ msgid ""
+#~ "If you have a Google account, but have not yet used Picasa Web Albums, "
+#~ "you will need to log in to Picasa using a browser once before you can "
+#~ "publish to this service."
+#~ msgstr ""
+#~ "Om du har ett Google-konto, men ännu inte använt Picasa Web Albums "
+#~ "behöver du logga in till Picasa med en webbläsare en gång innan du kan "
+#~ "publicera till tjänsten."
 
 #~ msgid ""
 #~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
