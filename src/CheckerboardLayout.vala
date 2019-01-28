@@ -39,7 +39,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gee.HashSet<CheckerboardItem> exposed_items = new Gee.HashSet<CheckerboardItem>();
     private Gtk.Adjustment hadjustment = null;
     private Gtk.Adjustment vadjustment = null;
-    private string message = null;
     private Gdk.RGBA selected_color;
     private Gdk.RGBA unselected_color;
     private Gdk.RGBA focus_color;
@@ -145,23 +144,18 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         Gtk.Allocation parent_allocation;
         parent.get_allocation(out parent_allocation);
         
-        if (message == null) {
-            // set the layout's new size to be the same as the parent's width but maintain 
-            // it's own height
+        // set the layout's new size to be the same as the parent's width but maintain
+        // it's own height
 #if TRACE_REFLOW
-            debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
-                size_allocate_due_to_reflow.to_string(), parent_allocation.width, req.height);
+        debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
+              size_allocate_due_to_reflow.to_string(), parent_allocation.width, req.height);
 #endif
-            // But if the current height is 0, don't request a size yet. Delay
-            // it to do_reflow (bgo#766864)
-            if (req.height != 0) {
-                set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
-            }
-        } else {
-            // set the layout's width and height to always match the parent's
-            set_size_request(parent_allocation.width, parent_allocation.height);
+        // But if the current height is 0, don't request a size yet. Delay
+        // it to do_reflow (bgo#766864)
+        if (req.height != 0) {
+            set_size_request(parent_allocation.width - SCROLLBAR_PLACEHOLDER_WIDTH, req.height);
         }
-        
+
         // possible for this widget's size_allocate not to be called, so need to update the page
         // rect here
         viewport_resized();
@@ -252,8 +246,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private void on_contents_altered(Gee.Iterable<DataObject>? added, 
         Gee.Iterable<DataObject>? removed) {
-        if (added != null)
-            message = null;
         
         if (removed != null) {
             foreach (DataObject object in removed)
@@ -324,31 +316,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
-    public void set_message(string? text) {
-        if (text == message)
-            return;
-        
-        message = text;
-        
-        if (text != null) {
-            // message is being set, change size to match parent's; if no parent, then the size 
-            // will be set later when added to the parent
-            if (parent != null) {
-                Gtk.Allocation parent_allocation;
-                parent.get_allocation(out parent_allocation);
-                
-                set_size_request(parent_allocation.width, parent_allocation.height);
-            }
-        } else {
-            // message is being cleared, layout all the items again
-            need_reflow("set_message");
-        }
-    }
-    
-    public void unset_message() {
-        set_message(null);
-    }
-    
     private void update_visible_page() {
         if (hadjustment != null && vadjustment != null)
             visible_page = get_adjustment_page(hadjustment, vadjustment);
@@ -367,7 +334,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     public CheckerboardItem? get_item_at_pixel(double xd, double yd) {
-        if (message != null || item_rows == null)
+        if (item_rows == null)
             return null;
             
         int x = (int) xd;
@@ -741,10 +708,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private void reflow(string caller) {
         reflow_needed = false;
-        
-        // if set in message mode, nothing to do here
-        if (message != null)
-            return;
         
         Gtk.Allocation allocation;
         get_allocation(out allocation);
@@ -1139,35 +1102,17 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         get_allocation(out allocation);
         get_style_context().render_background (ctx, 0, 0, allocation.width, allocation.height);
         
-        // watch for message mode
-        if (message == null) {
 #if TRACE_REFLOW
-            debug("draw %s: %s", page_name, rectangle_to_string(visible_page));
+        debug("draw %s: %s", page_name, rectangle_to_string(visible_page));
 #endif
-            
-            if (exposure_dirty)
-                expose_items("draw");
-            
-            // have all items in the exposed area paint themselves
-            foreach (CheckerboardItem item in intersection(visible_page)) {
-                item.paint(get_style_context(), ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
-                    border_color, focus_color);
-            }
-        } else {
-            // draw the message in the center of the window
-            Pango.Layout pango_layout = create_pango_layout(message);
-            int text_width, text_height;
-            pango_layout.get_pixel_size(out text_width, out text_height);
-            
-            get_allocation(out allocation);
-            
-            int x = allocation.width - text_width;
-            x = (x > 0) ? x / 2 : 0;
-            
-            int y = allocation.height - text_height;
-            y = (y > 0) ? y / 2 : 0;
-            
-            get_style_context().render_layout(ctx, x, y, pango_layout);
+
+        if (exposure_dirty)
+            expose_items("draw");
+
+        // have all items in the exposed area paint themselves
+        foreach (CheckerboardItem item in intersection(visible_page)) {
+            item.paint(get_style_context(), ctx, bg_color, item.is_selected() ? selected_color : unselected_color,
+                border_color, focus_color);
         }
         
         bool result = (base.draw != null) ? base.draw(ctx) : true;

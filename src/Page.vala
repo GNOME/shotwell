@@ -1213,11 +1213,26 @@ public abstract class Page : Gtk.ScrolledWindow {
 
 }
 
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/message_pane.ui")]
+private class PageMessagePane : Gtk.Box {
+    [GtkChild]
+    public Gtk.Label label;
+
+    [GtkChild]
+    public Gtk.Image icon_image;
+
+    public PageMessagePane() {
+        Object();
+    }
+}
+
 public abstract class CheckerboardPage : Page {
     private const int AUTOSCROLL_PIXELS = 50;
     private const int AUTOSCROLL_TICKS_MSEC = 50;
     
     private CheckerboardLayout layout;
+    private Gtk.Stack stack;
+    private PageMessagePane message_pane;
     private string item_context_menu_path = null;
     private string page_context_menu_path = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
@@ -1249,9 +1264,15 @@ public abstract class CheckerboardPage : Page {
 
     public CheckerboardPage(string page_name) {
         base (page_name);
+
+        stack = new Gtk.Stack();
+        message_pane = new PageMessagePane();
         
         layout = new CheckerboardLayout(get_view());
         layout.set_name(page_name);
+        stack.add_named (layout, "layout");
+        stack.add_named (message_pane, "message");
+        stack.set_visible_child(layout);
         
         set_event_source(layout);
 
@@ -1261,7 +1282,7 @@ public abstract class CheckerboardPage : Page {
         viewport.set_border_width(0);
         viewport.set_shadow_type(Gtk.ShadowType.NONE);
         
-        viewport.add(layout);
+        viewport.add(stack);
         
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
         // run first ... otherwise, the thumbnails draw late
@@ -1322,6 +1343,10 @@ public abstract class CheckerboardPage : Page {
     
     protected override bool on_context_keypress() {
         return popup_context_menu(get_context_menu());
+    }
+
+    protected virtual string get_view_empty_icon() {
+        return "image-x-generic-symbolic";
     }
     
     protected virtual string get_view_empty_message() {
@@ -1416,15 +1441,13 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void set_page_message(string message) {
-        layout.set_message(message);
-        if (is_in_view())
-            layout.queue_draw();
+        message_pane.label.label = message;
+        message_pane.icon_image.icon_name  = get_view_empty_icon();
+        stack.set_visible_child_name ("message");
     }
     
     public void unset_page_message() {
-        layout.unset_message();
-        if (is_in_view())
-            layout.queue_draw();
+        stack.set_visible_child (layout);
     }
     
     public override void set_page_name(string name) {

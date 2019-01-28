@@ -105,6 +105,10 @@ public class TrashPage : CheckerboardPage {
     protected override string get_view_empty_message() {
         return _("Trash is empty");
     }
+
+    protected override string get_view_empty_icon() {
+        return "user-trash-symbolic";
+    }
     
     private void on_delete() {
         remove_from_app((Gee.Collection<MediaSource>) get_view().get_selected_sources(), _("Delete"), 
