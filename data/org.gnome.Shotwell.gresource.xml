@@ -12,6 +12,7 @@
       <file preprocess="xml-stripblanks">ui/import_queue.ui</file>
       <file preprocess="xml-stripblanks">ui/import.ui</file>
       <file preprocess="xml-stripblanks">ui/media.ui</file>
+      <file preprocess="xml-stripblanks">ui/message_pane.ui</file>
       <file preprocess="xml-stripblanks">ui/multitextentrydialog.ui</file>
       <file preprocess="xml-stripblanks">ui/manifest_widget.ui</file>
       <file preprocess="xml-stripblanks">ui/offline.ui</file>
