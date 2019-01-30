@@ -2,7 +2,6 @@
 <gresources>
   <gresource prefix="/org/gnome/Shotwell/Publishing">
       <file>facebook.png</file>
-      <file>flickr.png</file>
       <file>piwigo.png</file>
       <file>youtube.png</file>
       <file>tumblr.png</file>
