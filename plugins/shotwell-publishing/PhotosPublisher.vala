@@ -195,6 +195,10 @@ private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher
             debug(this.get_response());
             var json = Json.from_string (this.get_response());
             var object = json.get_object ();
+            if (!object.has_member ("albums")) {
+                return;
+            }
+
             var pagination_token_node = object.get_member ("nextPageToken");
             var response_albums = object.get_member ("albums").get_array();
             response_albums.foreach_element( (a, b, element) => {
