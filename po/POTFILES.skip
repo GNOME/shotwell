@@ -1,6 +1,5 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-plugins/authenticator/shotwell/FacebookPublishingAuthenticator.c
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.c
 plugins/authenticator/shotwell/GoogleAuthenticator.c
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.c
@@ -11,7 +10,6 @@ plugins/shotwell-publishing-extras/GalleryConnector.c
 plugins/shotwell-publishing-extras/RajcePublishing.c
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.c
 plugins/shotwell-publishing-extras/YandexPublishing.c
-plugins/shotwell-publishing/FacebookPublishing.c
 plugins/shotwell-publishing/FlickrPublishing.c
 plugins/shotwell-publishing/PhotosPublisher.c
 plugins/shotwell-publishing/PhotosPublishingPane.c

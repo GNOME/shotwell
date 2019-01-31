@@ -34,7 +34,6 @@ data/ui/tag_sidebar_context.ui
 data/ui/tags.ui
 data/ui/textentrydialog.ui
 data/ui/trash.ui
-plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala
 plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala
 plugins/authenticator/shotwell/GoogleAuthenticator.vala
 plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala
@@ -51,8 +50,6 @@ plugins/shotwell-publishing-extras/RajcePublishing.vala
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala
 plugins/shotwell-publishing-extras/YandexPublishing.vala
 plugins/shotwell-publishing-extras/yandex_publish_model.ui
-plugins/shotwell-publishing/facebook_publishing_options_pane.ui
-plugins/shotwell-publishing/FacebookPublishing.vala
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
