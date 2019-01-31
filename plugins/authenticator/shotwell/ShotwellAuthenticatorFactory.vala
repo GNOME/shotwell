@@ -26,8 +26,6 @@ namespace Publishing.Authenticator {
             switch (provider) {
                 case "flickr":
                     return new Shotwell.Flickr.Flickr(host);
-                case "facebook":
-                    return new Shotwell.Facebook.Facebook(host);
                 case "youtube":
                     return new Shotwell.Google.Google("https://gdata.youtube.com/", _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."), host);
                 case "tumblr":

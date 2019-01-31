@@ -9,7 +9,7 @@
  *
  * The Shotwell Pluggable Publishing API allows you to write plugins that upload
  * photos and videos to web services. The Shotwell distribution includes publishing
- * support for four core services: Facebook, Flickr, Picasa Web Albums, and YouTube.
+ * support for three core services: Flickr, Google Photos, and YouTube.
  * To enable Shotwell to connect to additional services, developers like you write
  * publishing plugins, dynamically-loadable shared objects that are linked into the
  * Shotwell process at runtime. Publishing plugins are just one of several kinds of

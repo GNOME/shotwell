@@ -1,6 +1,5 @@
 shotwell_publishing_sources = [
     'shotwell-publishing.vala',
-    'FacebookPublishing.vala',
     'FlickrPublishing.vala',
     'TumblrPublishing.vala',
     'YouTubePublishing.vala',

@@ -22,12 +22,6 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
         debug("Looking for resources in %s", resource_directory.get_path());
         debug("Found %d authenicators", authenicators.size);
 
-#if HAVE_FACEBOOK
-        if (authenicators.contains("facebook")) {
-            pluggables += new FacebookService(resource_directory);
-        }
-#endif
-
 #if HAVE_GOOGLEPHOTOS
         if (authenicators.contains("google-photos")) {
             pluggables += new Publishing.GooglePhotos.Service(resource_directory);
