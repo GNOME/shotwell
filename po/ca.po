@@ -171,7 +171,7 @@ msgstr "nom d'usuari"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:47
 msgid "Rajce username, if logged in."
-msgstr "Si estàs connectat amb nom d'usuari de Rajce"
+msgstr "Si estàs connectat amb nom d'usuari de Rajce."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:52
 msgid "token"
@@ -2617,7 +2617,7 @@ msgstr ""
 
 #: src/camera/ImportPage.vala:854
 msgid "No new photos/videos found on camera"
-msgstr "No s'ha trobat fotografies o vídeos nous a la càmera."
+msgstr "No s'han trobat fotografies o vídeos nous a la càmera."
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:1025
@@ -3337,7 +3337,7 @@ msgstr "Fotos/Vídeos que no s'ha importat per altres raons:"
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "No s'ha importat una fotografia duplicada:\n"
-msgstr[1] "No s'ha importat unes fotografies %d duplicades:\n"
+msgstr[1] "No s'han importat %d fotografies duplicades:\n"
 
 #: src/Dialogs.vala:340
 #, c-format
@@ -3351,7 +3351,7 @@ msgstr[1] "No s'ha importat uns vídeos %d duplicats:\n"
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "No s'ha importat una fotografia/vídeo duplicat:\n"
-msgstr[1] "No s'ha importat unes fotografies/vídeos %d duplicats:\n"
+msgstr[1] "No s'han importat %d fotografies/vídeos duplicats:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
@@ -3361,7 +3361,7 @@ msgstr[0] ""
 "Ha fallat la importació d'una fotografia a causa d'un error de fitxer o de "
 "maquinari:\n"
 msgstr[1] ""
-"Ha fallat la importació d'unes fotografies %d a causa d'un error de fitxer o "
+"Ha fallat la importació de %d fotografies a causa d'un error de fitxer o "
 "de maquinari:\n"
 
 #: src/Dialogs.vala:360
@@ -3384,7 +3384,7 @@ msgstr[0] ""
 "Ha fallat la importació d'una fotografia/vídeo a causa d'un error de fitxer "
 "o de maquinari:\n"
 msgstr[1] ""
-"Ha fallat la importació d'unes fotografies/vídeos %d a causa d'un error de "
+"Ha fallat la importació de %d fotografies/vídeos a causa d'un error de "
 "fitxer o de maquinari:\n"
 
 #: src/Dialogs.vala:366
@@ -3409,7 +3409,7 @@ msgstr[0] ""
 "Ha fallat la importació d'una fotografia perquè no es pot escriure a la "
 "carpeta de la biblioteca de fotografies:\n"
 msgstr[1] ""
-"Ha fallat la importació d'unes fotografies %d perquè no es pot escriure a la "
+"Ha fallat la importació de %d fotografies perquè no es pot escriure a la "
 "carpeta de la biblioteca de fotografies:\n"
 
 #: src/Dialogs.vala:383
@@ -3438,7 +3438,7 @@ msgstr[0] ""
 "Ha fallat la importació d'una fotografia/vídeo perquè no es pot escriure a "
 "la carpeta de la biblioteca de fotografies:\n"
 msgstr[1] ""
-"Ha fallat la importació de unes fotografies/vídeos %d perquè no es pot "
+"Ha fallat la importació de %d fotografies/vídeos perquè no es pot "
 "escriure a la carpeta de la biblioteca de fotografies:\n"
 
 #: src/Dialogs.vala:389
@@ -3462,7 +3462,7 @@ msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] ""
 "Ha fallat la importació d'una fotografia a causa d'un error de la càmera:\n"
 msgstr[1] ""
-"Ha fallat la importació d'unes fotografies %d a causa d'un error de la "
+"Ha fallat la importació de %d fotografies a causa d'un error de la "
 "càmera:\n"
 
 #: src/Dialogs.vala:406
@@ -3482,7 +3482,7 @@ msgstr[0] ""
 "Ha fallat la importació d'una fotografia/vídeo a causa d'un error de la "
 "càmera:\n"
 msgstr[1] ""
-"Ha fallat la importació d'unes fotografies/vídeos %d a causa d'un error de "
+"Ha fallat la importació de %d fotografies/vídeos a causa d'un error de "
 "la càmera:\n"
 
 #: src/Dialogs.vala:412
@@ -3501,7 +3501,7 @@ msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] ""
 "No s'ha pogut importar una fotografia perquè el fitxer està danyat:\n"
 msgstr[1] ""
-"No s'ha pogut importar unes fotografies %d perquè els fitxers estan "
+"No s'han pogut importar %d fotografies perquè els fitxers estan "
 "danyats:\n"
 
 #: src/Dialogs.vala:429
@@ -3519,7 +3519,7 @@ msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] ""
 "No s'ha pogut importar un foto/vídeo perquè el fitxer està danyat:\n"
 msgstr[1] ""
-"No s'ha pogut importar unes fotografies/vídeos %d perquè els fitxers estan "
+"No s'han pogut importar %d fotografies/vídeos perquè els fitxers estan "
 "danyats:\n"
 
 #: src/Dialogs.vala:435
@@ -3598,7 +3598,7 @@ msgstr[1] "S'han importat %d vídeos correctament.\n"
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
 msgstr[0] "S'ha importat una fotografia/vídeo correctament.\n"
-msgstr[1] "S'ha importat unes fotografies/vídeos %d correctament.\n"
+msgstr[1] "S'han importat %d fotografies/vídeos correctament.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
@@ -4370,7 +4370,7 @@ msgstr[1] "%d fotografies"
 
 #: src/events/EventPage.vala:128
 msgid "No Event"
-msgstr "Cap esdeveniment"
+msgstr "Sense esdeveniment"
 
 #: src/events/EventsBranch.vala:25
 msgid "Events"
@@ -4675,7 +4675,7 @@ msgstr "Cap fotografia/vídeo"
 
 #: src/Page.vala:1331
 msgid "No photos/videos found which match the current filter"
-msgstr "No s'ha trobat fotos o vídeos que coincideixin amb el filtre actual"
+msgstr "No s'han trobat fotos o vídeos que coincideixin amb el filtre actual"
 
 #: src/Page.vala:2644
 msgid "Photos cannot be exported to this directory."
