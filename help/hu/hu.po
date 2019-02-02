@@ -1,16 +1,16 @@
 # Hungarian translation for shotwell help.
-# Copyright (C) 2014-2016 Free Software Foundation, Inc.
+# Copyright (C) 2014, 2015, 2016, 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2014, 2015.
-# Balázs Úr <urbalazs at gmail dot com>, 2015, 2016.
+# Balázs Úr <urbalazs at gmail dot com>, 2015, 2016, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2016-08-18 20:06+0000\n"
-"PO-Revision-Date: 2016-08-20 13:43+0200\n"
+"POT-Creation-Date: 2019-01-27 16:39+0000\n"
+"PO-Revision-Date: 2019-02-02 17:52+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
-"Language-Team: Hungarian <openscope@googlegroups.com>\n"
+"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,6 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
-#| msgid "translator-credits"
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
@@ -80,23 +79,35 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr "Kontraszt"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
 msgid "Saturation"
 msgstr "Telítettség"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:29
+#: C/edit-adjustments.page:33
 msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:32
+#: C/edit-adjustments.page:36
 msgid "Tint"
 msgstr "Árnyalat"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:33
+#: C/edit-adjustments.page:37
 msgid ""
 "This tints the photo with a color. It's useful for correcting photos taken "
 "with the wrong white balance setting, which typically have an unnatural "
@@ -105,55 +116,41 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:36
+#: C/edit-adjustments.page:40
 msgid "Temperature"
 msgstr "Hőmérséklet"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:37
+#: C/edit-adjustments.page:41
 msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:40
+#: C/edit-adjustments.page:44
 msgid "Shadows"
 msgstr "Árnyékok"
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:41
+#: C/edit-adjustments.page:45
 msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/edit-adjustments.page:44
+#: C/edit-adjustments.page:48
 msgid "Intensity Threshold (sliders on the histogram)"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/edit-adjustments.page:45
+#: C/edit-adjustments.page:49
 msgid ""
 "These sliders change how light the brightest white is and how dark the "
 "darkest black is. Use them to change the contrast of the photo. Photos which "
 "look washed out should particularly benefit from changing these settings."
 msgstr ""
-
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/edit-crop.page:42
-#| msgid ""
-#| "@@image: 'figures/crop_thirds.jpg'; md5=4cf0a026bb812c7eab0c9db8210a9524"
-msgctxt "_"
-msgid ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-msgstr ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
 
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
@@ -257,11 +254,57 @@ msgid ""
 "a more visually appealing image."
 msgstr ""
 
+#. (itstool) path: section/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+msgctxt "_"
+msgid ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+msgstr ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
 msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
+msgstr ""
+
+#. (itstool) path: info/desc
+#: C/edit-date-time.page:7
+msgid "Change the date and time of photos if those details are incorrect."
+msgstr ""
+
+#. (itstool) path: page/title
+#: C/edit-date-time.page:12
+msgid "Adjust the date and time of photos"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:14
+msgid ""
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:16
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:18
+msgid ""
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
+"undone once you exit Shotwell."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -512,44 +555,6 @@ msgid "Press <gui>Straighten</gui> when finished."
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/edit-date-time.page:7
-msgid "Change the date and time of photos if those details are incorrect."
-msgstr ""
-
-#. (itstool) path: page/title
-#: C/edit-date-time.page:12
-msgid "Adjust the date and time of photos"
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:14
-#| msgid ""
-#| "To change a photo's title, select the photo and click "
-#| "<guiseq><gui>Photos</gui><gui>Edit Title</gui></guiseq>, or press "
-#| "<key>F2</key>."
-msgid ""
-"To adjust the date and time of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
-"guiseq> and select a new date and time."
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:16
-msgid ""
-"If you are changing the date and time of multiple photos at once, you can "
-"choose to shift all the photos by the same amount of time or to set all the "
-"photos to the same time."
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:18
-msgid ""
-"By default, the date and time are only changed inside Shotwell. You can also "
-"choose to modify the date and time in the original file, but this cannot be "
-"undone once you exit Shotwell."
-msgstr ""
-
-#. (itstool) path: info/desc
 #: C/edit-undo.page:7
 msgid "Return a photo to its original, unedited form."
 msgstr ""
@@ -589,9 +594,9 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref=\"other-"
-"raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
-"format such as GIF."
+"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
+"link> photo files. Shotwell does not yet support other graphics format such "
+"as GIF."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -608,7 +613,7 @@ msgstr ""
 #: C/formats.page:18
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
-"<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -715,7 +720,10 @@ msgstr ""
 #: C/import-file.page:16
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-"gui></guiseq> and select the folder containing the photos you want to import."
+"gui></guiseq> and select the folder containing the photos you want to "
+"import. If you do not want Shotwell to recurse into subfolders while "
+"importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
+"on the bottom of the file dialog."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -741,45 +749,6 @@ msgid ""
 "Once the import is complete, you can select <gui>Last Import</gui> in the "
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
-msgstr ""
-
-#. (itstool) path: info/desc
-#: C/import-f-spot.page:7
-msgid ""
-"Shotwell can import all your photos and tags from the F-Spot photo manager."
-msgstr ""
-
-#. (itstool) path: page/title
-#: C/import-f-spot.page:12
-msgid "Importing from F-Spot"
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:14
-msgid "To import an existing photo collection from F-Spot:"
-msgstr ""
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:16
-msgid "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
-msgstr ""
-
-#. (itstool) path: item/p
-#: C/import-f-spot.page:17
-msgid ""
-"Now choose either the default F-Spot library or another F-Spot database. If "
-"importing from another F-Spot database, select a directory and file from the "
-"chooser dialog box."
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/import-f-spot.page:20
-msgid ""
-"Shotwell will import your photos, together with their tags and other "
-"information. Once the import is complete, you can select <gui>Last Import</"
-"gui> in the sidebar to see all photos successfully imported. The Events list "
-"will also show new entries for the dates corresponding to the imported "
-"photos."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -835,12 +804,43 @@ msgid ""
 "though."
 msgstr ""
 
-#. (itstool) path: media
+#. (itstool) path: info/title
+#: C/index.page:6
+msgctxt "link"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:8
+msgid "Jim Nelson"
+msgstr "Jim Nelson"
+
+#. (itstool) path: credit/name
+#: C/index.page:10
+msgid "Allison Barlow"
+msgstr "Allison Barlow"
+
+#. (itstool) path: credit/name
+#: C/index.page:12
+msgid "Robert Ancell"
+msgstr "Robert Ancell"
+
+#. (itstool) path: credit/name
+#: C/index.page:14
+msgid "Peter Smith"
+msgstr "Peter Smith"
+
+#. (itstool) path: credit/name
+#: C/index.page:16
+msgid "Phil Bull"
+msgstr "Phil Bull"
+
+#. (itstool) path: title/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:23
+#: C/index.page:22
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -849,47 +849,8 @@ msgstr ""
 "external ref='figures/shotwell_logo.png' "
 "md5='4b333499555b4e496b1a38f7899067f3'"
 
-#. (itstool) path: info/title
-#: C/index.page:6
-#| msgid "Shotwell"
-msgctxt "link"
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#. (itstool) path: info/title
-#: C/index.page:7
-#| msgid "Shotwell"
-msgctxt "text"
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#. (itstool) path: credit/name
-#: C/index.page:9
-msgid "Jim Nelson"
-msgstr "Jim Nelson"
-
-#. (itstool) path: credit/name
-#: C/index.page:11
-msgid "Allison Barlow"
-msgstr "Allison Barlow"
-
-#. (itstool) path: credit/name
-#: C/index.page:13
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#. (itstool) path: credit/name
-#: C/index.page:15
-msgid "Peter Smith"
-msgstr "Peter Smith"
-
-#. (itstool) path: credit/name
-#: C/index.page:17
-msgid "Phil Bull"
-msgstr "Phil Bull"
-
 #. (itstool) path: page/title
-#: C/index.page:23
+#: C/index.page:22
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -898,32 +859,32 @@ msgstr ""
 "fényképkezelő"
 
 #. (itstool) path: section/title
-#: C/index.page:26
+#: C/index.page:25
 msgid "Importing Photos"
 msgstr "Fényképek importálása"
 
 #. (itstool) path: section/title
-#: C/index.page:30
+#: C/index.page:29
 msgid "Viewing Photos"
 msgstr "Fényképek megjelenítése"
 
 #. (itstool) path: section/title
-#: C/index.page:34
+#: C/index.page:33
 msgid "Organizing Photos"
 msgstr "Fényképek rendszerezése"
 
 #. (itstool) path: section/title
-#: C/index.page:38
+#: C/index.page:37
 msgid "Editing Photos"
 msgstr "Fényképek szerkesztése"
 
 #. (itstool) path: section/title
-#: C/index.page:42
+#: C/index.page:41
 msgid "Sharing Photos"
 msgstr "Fényképek megosztása"
 
 #. (itstool) path: section/title
-#: C/index.page:46
+#: C/index.page:45
 msgid "Other Features"
 msgstr "Más funkciók"
 
@@ -1172,22 +1133,6 @@ msgid ""
 "<key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
 
-#. (itstool) path: media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/organize-remove.page:15
-#| msgid ""
-#| "@@image: 'figures/trash_process.png'; md5=ed596bda34c2f4a79a310fbc8bb51fd2"
-msgctxt "_"
-msgid ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
 msgid ""
@@ -1207,6 +1152,20 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+
+#. (itstool) path: media/p
 #: C/organize-remove.page:15
 msgid "Delete process"
 msgstr ""
@@ -1426,12 +1385,6 @@ msgstr ""
 
 #. (itstool) path: section/p
 #: C/organize-search.page:50
-#| msgid ""
-#| "Create a new saved search with <guiseq><gui>Edit</gui><gui>New Search</"
-#| "gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></keyseq>. "
-#| "The dialog box allows you to enter a name for the search and select "
-#| "whether you want to meet Any, All, or None of the criteria in the "
-#| "following rows."
 msgid ""
 "Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
 "Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
@@ -1439,9 +1392,9 @@ msgid ""
 "whether you want to meet Any, All, or None of the criteria in the following "
 "rows."
 msgstr ""
-"Új mentett keresés a <guiseq><gui>Szerkesztés</gui><gui>Új mentett keresés…<"
-"/gui></guiseq> menüponttal, vagy a <keyseq><key>Ctrl</key><key>S</key><"
-"/keyseq> lenyomásával hozható létre. Az ablak lehetővé teszi a keresés "
+"Új mentett keresés a <guiseq><gui>Szerkesztés</gui><gui>Új mentett keresés…</"
+"gui></guiseq> menüponttal, vagy a <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq> lenyomásával hozható létre. Az ablak lehetővé teszi a keresés "
 "nevének megadását, és annak kiválasztását, hogy a következő sorban lévő "
 "bármely, az összes vagy egyik keresési feltételre se illeszkedjen."
 
@@ -1484,7 +1437,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:28
-#| msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>."
 msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
 msgstr ""
 "Válassza a <guiseq><gui>Címkék</gui><gui>Címkék hozzáadása…</gui></guiseq> "
@@ -1504,14 +1456,6 @@ msgstr "Fogja meg a kijelölt fényképeket, és ejtse azokat a kívánt címké
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:33
-#| msgid ""
-#| "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-#| "<guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the "
-#| "names of one or more tags, separated by commas. Once you have created a "
-#| "tag, you can rename it by selecting that tag in the sidebar and choosing "
-#| "<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"</gui></guiseq>, by "
-#| "rightclicking on it and choose <gui>Rename...</gui> or double-click on "
-#| "the tag in the sidebar."
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
 "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
@@ -1521,25 +1465,17 @@ msgid ""
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
-"Ha a <keyseq><key>Ctrl</key><key>T</key></keyseq> billentyűket vagy a <guiseq>"
-"<gui>Címkék</gui><gui>Címkék hozzáadása…</gui></guiseq> menüpontot használja, "
-"akkor vesszővel elválasztva beírhat több címkenevet is. Ha létrehozott egy "
-"címkét, akkor átnevezheti azt az oldalsávon való kiválasztással, és a <guiseq>"
-"<gui>Címkék</gui><gui>„[név]” címke átnevezése…</gui></guiseq> menüpont "
-"választásával, ha a jobb egérgombbal kattint rá, és az <gui>Átnevezés…</gui> "
-"menüpontot választja, vagy duplán kattint a címkére az oldalsávon."
+"Ha a <keyseq><key>Ctrl</key><key>T</key></keyseq> billentyűket vagy a "
+"<guiseq><gui>Címkék</gui><gui>Címkék hozzáadása…</gui></guiseq> menüpontot "
+"használja, akkor vesszővel elválasztva beírhat több címkenevet is. Ha "
+"létrehozott egy címkét, akkor átnevezheti azt az oldalsávon való "
+"kiválasztással, és a <guiseq><gui>Címkék</gui><gui>„[név]” címke átnevezése…"
+"</gui></guiseq> menüpont választásával, ha a jobb egérgombbal kattint rá, és "
+"az <gui>Átnevezés…</gui> menüpontot választja, vagy duplán kattint a címkére "
+"az oldalsávon."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:44
-#| msgid ""
-#| "To change which tags are associated with a particular photo, select that "
-#| "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> or "
-#| "right-click on a photo and select <gui>Modify Tags</gui> and edit the "
-#| "comma separated list. To remove a tag from one or more photos, first "
-#| "select that tag in the sidebar, then select the photos you would like to "
-#| "remove, and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from "
-#| "Photos</gui></guiseq> or right-click on the photos an select <gui>Remove "
-#| "Tag \"[name]\" from Photos</gui>."
 msgid ""
 "To change which tags are associated with a particular photo, select that "
 "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
@@ -1551,16 +1487,16 @@ msgid ""
 "\"[name]\" from Photos</gui>."
 msgstr ""
 "Annak módosításához, hogy mely címkék legyenek hozzárendelve egy adott "
-"fényképhez, jelölje ki a fényképet, válassza a <guiseq><gui>Címkék</gui><gui>"
-"Címkék módosítása…</gui></guiseq> menüpontot, vagy kattintson a jobb "
-"egérgombbal egy fényképre, és válassza a <gui>Címkék módosítása…</gui> "
+"fényképhez, jelölje ki a fényképet, válassza a <guiseq><gui>Címkék</"
+"gui><gui>Címkék módosítása…</gui></guiseq> menüpontot, vagy kattintson a "
+"jobb egérgombbal egy fényképre, és válassza a <gui>Címkék módosítása…</gui> "
 "lehetőséget, majd szerkessze a vesszővel elválasztott listát. Egy címke "
 "fényképekről eltávolításához először jelölje ki az adott címkét az "
 "oldalsávon, majd jelölje ki azokat a fényképeket, amelyekről el szeretné "
 "távolítani, és válassza a <guiseq><gui>Címkék</gui><gui>„[név]” címke "
-"eltávolítása a fényképekről</gui></guiseq> menüpontot, vagy kattintson a jobb "
-"egérgombbal a fényképekre, és válassza a <gui>„[név]” címke eltávolítása a "
-"fényképekről</gui> menüpontot."
+"eltávolítása a fényképekről</gui></guiseq> menüpontot, vagy kattintson a "
+"jobb egérgombbal a fényképekre, és válassza a <gui>„[név]” címke "
+"eltávolítása a fényképekről</gui> menüpontot."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -1576,22 +1512,17 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:64
-#| msgid ""
-#| "When you create a tag, it will appear in the sidebar under the Tags item, "
-#| "which is hidden if there are no tags. Photos can have multiple tags "
-#| "attached to them, and when you click on the name of a given tag in the "
-#| "sidebar, you will see all the photos associated with that tag."
 msgid ""
 "When you create a tag, it will appear in the sidebar under the <gui>Tags</"
 "gui> item, which is hidden if there are no tags. Photos can have multiple "
 "tags attached to them, and when you click on the name of a given tag in the "
 "sidebar, you will see all the photos associated with that tag."
 msgstr ""
-"Ha létrehoz egy címkét, akkor az meg fog jelenni az oldalsávon a <gui>Címkék<"
-"/gui> elem alatt, amely nem látható, ha nincsenek címkék. A fényképekhez több "
-"címkét is lehet csatolni, és amikor rákattint az oldalsávon egy adott címke "
-"nevére, akkor látni fogja az összes fényképet, amely ahhoz a címkéhez van "
-"rendelve."
+"Ha létrehoz egy címkét, akkor az meg fog jelenni az oldalsávon a "
+"<gui>Címkék</gui> elem alatt, amely nem látható, ha nincsenek címkék. A "
+"fényképekhez több címkét is lehet csatolni, és amikor rákattint az "
+"oldalsávon egy adott címke nevére, akkor látni fogja az összes fényképet, "
+"amely ahhoz a címkéhez van rendelve."
 
 #. (itstool) path: section/title
 #: C/organize-tag.page:73
@@ -1653,17 +1584,13 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/organize-title.page:17
-#| msgid ""
-#| "To change a photo's title, select the photo and click "
-#| "<guiseq><gui>Photos</gui><gui>Edit Title</gui></guiseq>, or press "
-#| "<key>F2</key>."
 msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
 "gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
-"Egy fénykép címének módosításához válassza ki a fényképet, és válassza a <"
-"guiseq><gui>Fényképek</gui><gui>Cím szerkesztése…</gui></guiseq> menüpontot, "
-"vagy nyomja meg az <key>F2</key> billentyűt."
+"Egy fénykép címének módosításához válassza ki a fényképet, és válassza a "
+"<guiseq><gui>Fényképek</gui><gui>Cím szerkesztése…</gui></guiseq> "
+"menüpontot, vagy nyomja meg az <key>F2</key> billentyűt."
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
@@ -1712,13 +1639,11 @@ msgstr "<em>Szimbólum</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#| msgid "Meaning"
 msgid "<em>Meaning</em>"
 msgstr "<em>Jelentés</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#| msgid "Example"
 msgid "<em>Example</em>"
 msgstr "<em>Példa</em>"
 
@@ -1920,13 +1845,13 @@ msgstr "DU"
 #. (itstool) path: section/p
 #: C/other-files.page:72
 msgid ""
-"There are other symbols available; please check the manual for strftime by "
-"running the command <cmd>man strftime</cmd> if you need one that isn't "
-"listed here."
+"There are other symbols available; please check the <link href=\"man:strftime"
+"\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
+"if you need one that isn't listed here."
 msgstr ""
-"További szimbólumok érhetők el. Nézze meg az strftime kézikönyvét a <cmd>man "
-"strftime</cmd> parancsot lefuttatva, ha olyanra van szüksége, amely nincs "
-"itt felsorolva."
+"További szimbólumok érhetők el. Nézze meg az <link href=\"man:strftime\">"
+"strftime kézikönyvét</link> a <cmd>man strftime</cmd> parancsot lefuttatva, "
+"ha olyanra van szüksége, amely nincs itt felsorolva."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -2346,12 +2271,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-export.page:18
-#| msgid ""
-#| "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
-#| "gui><gui>Export</gui></guiseq> command or press <keyseq><key>Shift</"
-#| "key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while "
-#| "letting you fine-tune the size and dimensions of your photo files. A "
-#| "window will appear allowing you to make several choices:"
 msgid ""
 "Alternatively, select a set of photos and choose the <guiseq><gui>File</"
 "gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
@@ -2421,8 +2340,56 @@ msgstr ""
 "Méretezési megszorítás (azaz a Shotwell eldönti, hogy a fényképeket le kell-"
 "e méretezni), és a kívánt képpontméret."
 
+#. (itstool) path: item/title
+#: C/share-export.page:40
+msgid "Original size"
+msgstr "Eredeti méret"
+
 #. (itstool) path: item/p
-#: C/share-export.page:39
+#: C/share-export.page:40
+msgid "Image will be exported without any scaling applied"
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Longest edge"
+msgstr "Leghosszabb él"
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Width"
+msgstr "Szélesség"
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr ""
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Height"
+msgstr "Magasság"
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/share-export.page:46
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
@@ -2430,7 +2397,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/share-export.page:42
+#: C/share-export.page:49
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
@@ -2438,10 +2405,6 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/share-print.page:7
-#| msgid ""
-#| "Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing "
-#| "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> "
-#| "dialog."
 msgid ""
 "Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
@@ -2457,9 +2420,6 @@ msgstr "Nyomtatás"
 
 #. (itstool) path: page/p
 #: C/share-print.page:14
-#| msgid ""
-#| "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</"
-#| "gui></guiseq>."
 msgid ""
 "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
 "gui></guiseq>."
@@ -2469,12 +2429,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-print.page:16
-#| msgid ""
-#| "Shotwell can also print multiple images in one page; to do this, select "
-#| "multiple images, choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>, "
-#| "and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
-#| "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-"
-#| "page options under <gui>Autosize</gui>."
 msgid ""
 "Shotwell can also print multiple images in one page; to do this, select "
 "multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
@@ -2581,10 +2535,9 @@ msgstr "Az egyes átmeneti effektusok hossza: 0,1 - 1,0 másodperc"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
+msgid "Publish photos to Flickr, Google Photos, or other sites."
 msgstr ""
-"Tegye közzé fényképeit a Facebook, Flickr, Picasa Webalbumok vagy más "
-"oldalakon"
+"Tegye közzé fényképeit a Flickr, a Google Fényképek vagy más oldalakon."
 
 #. (itstool) path: page/title
 #: C/share-upload.page:12
@@ -2604,38 +2557,28 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgid "<link href=\"http://facebook.com\">Facebook</link>"
-msgstr "<link href=\"http://facebook.com\">Facebook</link>"
+msgid "<link href=\"https://facebook.com\">Facebook</link>"
+msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgid "<link href=\"http://flickr.com\">Flickr</link>"
-msgstr "<link href=\"http://flickr.com\">Flickr</link>"
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-msgid ""
-"<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
-"<link href=\"http://plus.google.com\">Google+</link>"
-msgstr ""
-"<link href=\"http://picasaweb.google.com\">Picasa Webalbumok</link> és <link "
-"href=\"http://plus.google.com\">Google+</link>"
+msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
+msgstr "<link href=\"https://photos.google.com\">Google Fényképek</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"http://youtube.com\">YouTube</link> (csak videók)"
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (csak videók)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-msgid ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
-"popular in Russia (photos only)"
-msgstr ""
-"<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, egy "
-"Oroszországban népszerű fénykép-megosztó oldal (csak fényképek)"
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (csak videók)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -2653,27 +2596,22 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
 "to enable the plugin for the service you want to publish to. Next, choose, "
 "<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
-"gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</key></keyseq>. You "
-"will see a dialog that lets you select a publishing service. You will then "
-"need to log in or create an account."
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
 msgstr ""
-"Egy gyűjtemény kiválasztott fényképeinek közzétételéhez válassza a "
-"<guiseq><gui>Szerkesztés</gui><gui>Beállítások</gui></guiseq> menüpontot, és "
+"Egy gyűjtemény kiválasztott fényképeinek közzétételéhez válassza a <guiseq><"
+"gui>Szerkesztés</gui><gui>Beállítások</gui></guiseq> menüpontot, és "
 "kattintson a <gui>Bővítmények</gui> lapra azon szolgáltatás bővítményének "
 "bekapcsolásához, amelyen közzé szeretné tenni a fényképeket. Ezután válassza "
 "a <guiseq><gui>Fájl</gui><gui>Közzététel</gui></guiseq> menüpontot, nyomja "
-"meg a <gui>Közzététel</gui> eszköztárgombot, vagy használja a "
-"<keyseq><key>Ctrl</key><key>P</key></keyseq> kombinációt. A megjelenő "
+"meg a <gui>Közzététel</gui> eszköztárgombot, vagy használja a <keyseq><key>"
+"Ctrl</key><key>Shift</key><key>P</key></keyseq> kombinációt. A megjelenő "
 "ablakban kiválaszthat egy közzétételi szolgáltatást. Ezután be kell "
 "jelentkeznie vagy létre kell hoznia egy fiókot."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
-#| msgid ""
-#| "Publishing to Facebook requires you to grant certain permissions to the "
-#| "Shotwell Connect Facebook application. You only need to grant these "
-#| "permissions once, when you first associate Shotwell Connect with your "
-#| "Facebook account."
 msgid ""
 "Publishing to Facebook requires you to grant certain permissions to the "
 "Shotwell Facebook application. You only need to grant these permissions "
@@ -2693,22 +2631,12 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/share-upload.page:36
 msgid ""
-"Similarly, publishing to Flickr requires you to log in and permit Shotwell "
-"Connect to access your account."
+"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
+"log in and permit Shotwell Connect to access your account."
 msgstr ""
-"Ehhez hasonlóan a Flickr-en való közzétételhez is be kell jelentkeznie, és "
-"engedélyeznie kell a Shotwell Connectnek a fiók elérését."
-
-#. (itstool) path: page/p
-#: C/share-upload.page:38
-msgid ""
-"If you have a Google account, but have not yet used Picasa Web Albums, you "
-"will need to log in to Picasa using a browser once before you can publish to "
-"this service."
-msgstr ""
-"Ha van Google fiókja, de még nem használta a Picasa Webalbumokat, akkor "
-"egyszer be kell jelentkeznie a Picasaba egy böngészőből mielőtt közzétehetne "
-"képeket ezen a szolgáltatáson."
+"Ehhez hasonlóan a Flickr-en, YouTube-on vagy a Google Fényképeken való "
+"közzétételhez is be kell jelentkeznie, és engedélyeznie kell a Shotwell "
+"Connectnek a fiók elérését."
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -2857,12 +2785,12 @@ msgstr ""
 "fel."
 
 #. (itstool) path: page/title
-#: C/view-sidebar.page:21
+#: C/view-sidebar.page:20
 msgid "The sidebar"
 msgstr "Az oldalsáv"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:23
+#: C/view-sidebar.page:22
 msgid ""
 "The sidebar on the left side of the Shotwell window lists various views of "
 "your library. Although you may see the same photo in multiple views, it's "
@@ -2873,7 +2801,7 @@ msgstr ""
 "egyszer van tárolva."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:25
+#: C/view-sidebar.page:24
 msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
@@ -2883,12 +2811,12 @@ msgstr ""
 "memóriakártyáról vagy a merevlemezről importálta azokat."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:27
+#: C/view-sidebar.page:26
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
 msgstr "A <gui>Megjelölt</gui> a korábban megjelölt fényképeket sorolja fel."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:29
+#: C/view-sidebar.page:28
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
@@ -2896,7 +2824,7 @@ msgstr ""
 "szempont szerint."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:31
+#: C/view-sidebar.page:30
 msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
@@ -2905,7 +2833,7 @@ msgstr ""
 "esemény a nagyjából egy időben készített fényképek csoportja."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:33
+#: C/view-sidebar.page:32
 msgid ""
 "The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
 "can have multiple tags attached to them. When you click on the name of a tag "
