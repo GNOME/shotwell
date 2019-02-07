@@ -1,3 +1,47 @@
+Shotwell 0.30.2 - 07 Feb 2019
+  * Fix maximize on Wayland when double-clicking on title-bar
+  * Do not hide the cursor when showing the slideshow settings dialog
+  * Fix compatibility with recent vala compilers
+  * Fix crash when dismissing file modifications on close
+  * Fix issues with google and flickr not being able to log in
+  * Replace picasaweb publishing with Google Photos publishing
+  * Comply with Flick API TOS
+
+Bugs fixed in this release:
+ - https://bugs.launchpad.net/ubuntu/+source/shotwell/+bug/1723973
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/101
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/26
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/67
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/80
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/97
+ - https://retrace.fedoraproject.org/faf/reports/2020125/
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/12
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Ryuta Fujii <translation@sicklylife.jp>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Daniel Mustieles <daniel.mustieles.contractor@bbva.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations:
+ - es.po, courtesy of Daniel Mustieles
+ - hu.po, courtesy of Balázs Úr
+ - sv.po, courtesy of Anders Jonsson
+ - es.po, courtesy of Daniel Mustieles
+ - fr.po, courtesy of Claude Paroz
+ - hu.po, courtesy of Balázs Úr
+ - ja.po, courtesy of sicklylife
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - sv.po, courtesy of Anders Jonsson
+
 Shotwell 0.30.1 - 29 Sep 2018
   * Fix appdata URLs
   * Fix "Show in file manager" issues with single quotes
