@@ -69,6 +69,16 @@ public class Application {
         system_app.startup.connect(on_activated);
     }
 
+    public static int get_scale() {
+        var instance = get_instance().system_app;
+        unowned GLib.List<Gtk.Window> windows = instance.get_windows();
+
+        if (windows == null)
+            return 1;
+
+        return windows.data.get_scale_factor();
+    }
+
     /**
      * @brief This is a helper for library mode that should only be
      * called if we've gotten a camera mount and are _not_ the primary

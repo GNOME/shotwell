@@ -33,7 +33,8 @@ public class ThumbnailCache : Object {
     // so be careful before changing any of these values (and especially careful before arbitrarily
     // manipulating a Size enum)
     public enum Size {
-        LARGEST = 360,
+        LARGEST = 512,
+        LARGE = 512,
         BIG = 360,
         MEDIUM = 128,
         SMALLEST = 128;
@@ -47,11 +48,19 @@ public class ThumbnailCache : Object {
         }
         
         public static Size get_best_size(int scale) {
-            return scale <= MEDIUM.get_scale() ? MEDIUM : BIG;
+            var real_scale = Application.get_scale() * scale;
+            critical("=> real_scale %d, scale: %d", real_scale, scale);
+
+            if (real_scale <= MEDIUM.get_scale())
+                return MEDIUM;
+            if (real_scale <= BIG.get_scale())
+                return BIG;
+
+            return LARGE;
         }
     }
     
-    private static Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
+    private static Size[] ALL_SIZES = { Size.LARGE, Size.BIG, Size.MEDIUM };
     
     public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, Gdk.Pixbuf? unscaled, Dimensions dim,
         Gdk.InterpType interp, Error? err);
@@ -167,9 +176,11 @@ public class ThumbnailCache : Object {
     
     public const ulong MAX_BIG_CACHED_BYTES = 40 * 1024 * 1024;
     public const ulong MAX_MEDIUM_CACHED_BYTES = 30 * 1024 * 1024;
+    public const ulong MAX_LARGE_CACHED_BYTES = 15 * 1024 * 1024;
 
     private static ThumbnailCache big = null;
     private static ThumbnailCache medium = null;
+    private static ThumbnailCache large = null;
     
     private static OneShotScheduler debug_scheduler = null;
     private static int cycle_fetched_thumbnails = 0;
@@ -203,6 +214,7 @@ public class ThumbnailCache : Object {
         
         big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
         medium = new ThumbnailCache(Size.MEDIUM, MAX_MEDIUM_CACHED_BYTES);
+        large = new ThumbnailCache(Size.LARGE, MAX_LARGE_CACHED_BYTES);
     }
     
     public static void terminate() {
@@ -213,27 +225,34 @@ public class ThumbnailCache : Object {
         debug("import from source: %s", source.to_string());
         big._import_from_source(source, force);
         medium._import_from_source(source, force);
+        large._import_from_source(source, force);
     }
     
     public static void import_thumbnails(ThumbnailSource source, Thumbnails thumbnails,
         bool force = false) throws Error {
         big._import_thumbnail(source, thumbnails.get(Size.BIG), force);
         medium._import_thumbnail(source, thumbnails.get(Size.MEDIUM), force);
+        large._import_thumbnail(source, thumbnails.get(Size.LARGE), force);
     }
     
     public static void duplicate(ThumbnailSource src_source, ThumbnailSource dest_source) {
         big._duplicate(src_source, dest_source);
         medium._duplicate(src_source, dest_source);
+        large._duplicate(src_source, dest_source);
     }
     
     public static void remove(ThumbnailSource source) {
         big._remove(source);
         medium._remove(source);
+        large._remove(source);
     }
     
     private static ThumbnailCache get_best_cache(int scale) {
         Size size = Size.get_best_size(scale);
-        if (size == Size.BIG) {
+        critical ("Got thumbnail size: %s", size.to_string());
+        if (size == Size.LARGE) {
+            return large;
+        } else if (size == Size.BIG) {
             return big;
         } else {
             assert(size == Size.MEDIUM);
@@ -244,6 +263,9 @@ public class ThumbnailCache : Object {
     
     private static ThumbnailCache get_cache_for(Size size) {
         switch (size) {
+            case Size.LARGE:
+                return large;
+
             case Size.BIG:
                 return big;
             
@@ -420,6 +442,7 @@ public class ThumbnailCache : Object {
         // we'll just create it and leave this.err as null if creation works.
         if (job.replace && job.unscaled != null) {
             try {
+                critical ("Will replace with %d", job.cache.size);
                 replace(job.source, job.cache.size, job.unscaled);
             } catch (Error err) {
                 job.err = err;
@@ -457,6 +480,7 @@ public class ThumbnailCache : Object {
         }
 
         LibraryPhoto photo = (LibraryPhoto) source;
+        critical("-> Import from source");
         save_thumbnail(file, photo.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true)), source);
         
         // See note in _import_with_pixbuf for reason why this is not maintained in in-memory
@@ -478,6 +502,7 @@ public class ThumbnailCache : Object {
             _remove(source);
         }
         
+        critical("-> Import thumbnail");
         save_thumbnail(get_source_cached_file(source), scaled, source);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
@@ -509,6 +534,7 @@ public class ThumbnailCache : Object {
         Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
         
         // save scaled image to disk
+        critical("-> _replace");
         save_thumbnail(file, scaled, source);
         
         // Store in in-memory cache; a _replace() probably represents a user-initiated
