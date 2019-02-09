@@ -213,7 +213,7 @@ private class WebpReader : PhotoFileReader {
 
 private class WebpMetadataWriter : PhotoFileMetadataWriter {
     public WebpMetadataWriter(string filepath) {
-        base (filepath, PhotoFileFormat.TIFF);
+        base (filepath, PhotoFileFormat.WEBP);
     }
 
     public override void write_metadata(PhotoMetadata metadata) throws Error {
