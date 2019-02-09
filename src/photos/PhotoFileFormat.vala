@@ -5,7 +5,8 @@
  */
 
 public errordomain PhotoFormatError {
-    READ_ONLY
+    READ_ONLY,
+    DECODE_ERROR
 }
 
 //
@@ -59,12 +60,13 @@ public enum PhotoFileFormat {
     BMP,
     GIF,
     WEBP,
+    HEIC,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
-        return { JFIF, RAW, PNG, TIFF, BMP, GIF, WEBP };
+        return { JFIF, RAW, PNG, TIFF, BMP, GIF, WEBP, HEIC };
     }
     
     public static PhotoFileFormat[] get_writeable() {
@@ -146,6 +148,9 @@ public enum PhotoFileFormat {
             case WEBP:
                 return 6;
 
+            case HEIC:
+                return 7;
+
             case UNKNOWN:
             default:
                 return -1;
@@ -175,6 +180,9 @@ public enum PhotoFileFormat {
                             
             case 6:
                 return WEBP;
+
+            case 7:
+                return HEIC;
 
             default:
                 return UNKNOWN;
@@ -260,6 +268,10 @@ public enum PhotoFileFormat {
                 Photos.WebpFileFormatDriver.init();
                 break;
 
+            case HEIC:
+                Photos.HeicFileFormatDriver.init();
+                break;
+
             default:
                 error("Unsupported file format %s", this.to_string());
         }
@@ -287,6 +299,9 @@ public enum PhotoFileFormat {
 
             case WEBP:
                 return Photos.WebpFileFormatDriver.get_instance();
+
+            case HEIC:
+                return Photos.HeicFileFormatDriver.get_instance();
 
             default:
                 error("Unsupported file format %s", this.to_string());
