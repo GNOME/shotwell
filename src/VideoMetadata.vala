@@ -170,7 +170,7 @@ private class QuickTimeMetadataLoader {
     }
 }
 
-private class QuickTimeAtom {
+public class QuickTimeAtom {
     private GLib.File file = null;
     private string section_name = "";
     private uint64 section_size = 0;
@@ -186,6 +186,14 @@ private class QuickTimeAtom {
         this.input = input;
         this.parent = parent;
     }
+
+    public QuickTimeAtom.from_stream(GLib.InputStream input_stream) throws GLib.Error {
+        input = new GLib.DataInputStream(input_stream);
+        input.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
+        section_size = 0;
+        section_offset = 0;
+        section_name = "";
+    }
     
     public void open_file() throws GLib.Error {
         close_file();
@@ -195,7 +203,7 @@ private class QuickTimeAtom {
         section_offset = 0;
         section_name = "";
     }
-    
+
     public void close_file() throws GLib.Error {
         if (null != input) {
             input.close();

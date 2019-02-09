@@ -38,7 +38,8 @@ endif
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version,
-                 clutter, clutter_gtk, champlain, champlain_gtk]
+                 clutter, clutter_gtk, champlain, champlain_gtk,
+                 heif]
 
 if unity_available
     shotwell_deps += [unity]
@@ -91,6 +92,7 @@ executable('shotwell',
             'photos/PngSupport.vala',
             'photos/TiffSupport.vala',
             'photos/WebPSupport.vala',
+            'photos/HeicSupport.vala',
             'plugins/Plugins.vala',
             'plugins/StandardHostInterface.vala',
             'plugins/ManifestWidget.vala',
