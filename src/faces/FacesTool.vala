@@ -314,117 +314,47 @@ public class FacesTool : EditingTools.EditingTool {
     private class FaceDetectionJob : BackgroundJob {
         private Gee.Queue<string> faces = null;
         private string image_path;
-        private string output;
-        public SpawnError? spawnError;
+        private float scale;
+        public string? spawnError;
 
-        public FaceDetectionJob(FacesToolWindow owner, string image_path,
+        public FaceDetectionJob(FacesToolWindow owner, string image_path, float scale,
             CompletionCallback completion_callback, Cancellable cancellable,
             CancellationCallback cancellation_callback) {
             base(owner, completion_callback, cancellable, cancellation_callback);
 
             this.image_path = image_path;
+            this.scale = scale;
         }
 
         public override void execute() {
-            try {
-                string[] argv = {
-                    AppDirs.get_facedetect_bin().get_path(),
-                    "--cascade=" + AppDirs.get_haarcascade_file().get_path(),
-                    "--scale=1.2",
-                    image_path
-                };
-                Process.spawn_sync(null, argv, null, SpawnFlags.STDERR_TO_DEV_NULL, null, out output);
-
-            } catch (SpawnError e) {
-                spawnError = e;
-                critical(e.message);
-
+            if (!FaceDetect.connected) {
+                spawnError = "Face detect process not connected!\n";
                 return;
             }
-
+            FaceRect[] rects;
+            try {
+                rects = FaceDetect.interface.detect_faces(image_path,
+                                                          AppDirs.get_haarcascade_file().get_path(), scale, true);
+            } catch(Error e) {
+                spawnError = "DBus error: " + e.message + "!\n";
+                return;
+            }
             faces = new Gee.PriorityQueue<string>();
-            string[] lines = output.split("\n");
-            foreach (string line in lines) {
-                if (line.length == 0)
-                    continue;
-
-                string[] type_and_serialized = line.split(";");
-                if (type_and_serialized.length != 2) {
-                    critical("Wrong serialized line in face detection program output.");
-                    assert_not_reached();
+            for (int i = 0; i < rects.length; i++) {
+                double rect_x, rect_y, rect_w, rect_h;
+                string face_vec_str = "";
+                rect_w = rects[i].width / 2;
+                rect_h = rects[i].height / 2;
+                rect_x = rects[i].x + rect_w;
+                rect_y = rects[i].y + rect_h;
+                if (rects[i].vec != null) {
+                    foreach (var d in rects[i].vec) { face_vec_str += d.to_string() + ","; }
                 }
-
-                switch (type_and_serialized[0]) {
-                    case "face":
-                        StringBuilder serialized_geometry = new StringBuilder();
-                        serialized_geometry.append(FaceRectangle.SHAPE_TYPE);
-                        serialized_geometry.append(";");
-                        serialized_geometry.append(parse_serialized_geometry(type_and_serialized[1]));
-
-                        faces.add(serialized_geometry.str);
-                        break;
-
-                    case "warning":
-                        warning("%s\n", type_and_serialized[1]);
-                        break;
-
-                    case "error":
-                        critical("%s\n", type_and_serialized[1]);
-                        assert_not_reached();
-
-                    default:
-                        assert_not_reached();
-                }
+                string serialized = "%s;%f;%f;%f;%f;%s".printf(FaceRectangle.SHAPE_TYPE,
+                                                                                rect_x, rect_y, rect_w, rect_h,
+                                                                                face_vec_str);
+                faces.add(serialized);
             }
-        }
-
-        private string parse_serialized_geometry(string serialized_geometry) {
-            string[] serialized_geometry_pieces = serialized_geometry.split("&");
-            if (serialized_geometry_pieces.length != 4) {
-                critical("Wrong serialized line in face detection program output.");
-                assert_not_reached();
-            }
-
-            double x = 0;
-            double y = 0;
-            double width = 0;
-            double height = 0;
-            foreach (string piece in serialized_geometry_pieces) {
-
-                string[] name_and_value = piece.split("=");
-                if (name_and_value.length != 2) {
-                    critical("Wrong serialized line in face detection program output.");
-                    assert_not_reached();
-                }
-
-                switch (name_and_value[0]) {
-                    case "x":
-                        x = name_and_value[1].to_double();
-                        break;
-
-                    case "y":
-                        y = name_and_value[1].to_double();
-                        break;
-
-                    case "width":
-                        width = name_and_value[1].to_double();
-                        break;
-
-                    case "height":
-                        height = name_and_value[1].to_double();
-                        break;
-
-                    default:
-                        critical("Wrong serialized line in face detection program output.");
-                        assert_not_reached();
-                }
-            }
-
-            double half_width = width / 2;
-            double half_height = height / 2;
-
-            return "%s;%s;%s;%s".printf((x + half_width).to_string(), (y + half_height).to_string(),
-                half_width.to_string(), half_height.to_string());
         }
 
         public string? get_next() {
@@ -447,6 +377,7 @@ public class FacesTool : EditingTools.EditingTool {
     private Workers workers;
     private FaceShape editing_face_shape = null;
     private FacesToolWindow faces_tool_window = null;
+    private const int FACE_DETECT_MAX_WIDTH = 1200;
 
     private FacesTool() {
         base("FacesTool");
@@ -478,8 +409,10 @@ public class FacesTool : EditingTools.EditingTool {
             foreach (Gee.Map.Entry<FaceID?, FaceLocation> entry in face_locations.entries) {
                 FaceShape new_face_shape;
                 string serialized_geometry = entry.value.get_serialized_geometry();
+                string serialized_vec = entry.value.get_serialized_vec();
+                string face_shape_str = serialized_geometry + ";" + serialized_vec;
                 try {
-                    new_face_shape = FaceShape.from_serialized(canvas, serialized_geometry);
+                    new_face_shape = FaceShape.from_serialized(canvas, face_shape_str);
                 } catch (FaceShapeError e) {
                     if (e is FaceShapeError.CANT_CREATE)
                         continue;
@@ -499,9 +432,12 @@ public class FacesTool : EditingTools.EditingTool {
 
         face_detection_cancellable = new Cancellable();
         workers = new Workers(1, false);
+        Dimensions dimensions = canvas.get_photo().get_dimensions();
+        float scale_factor = (float)dimensions.width / FACE_DETECT_MAX_WIDTH;
         face_detection = new FaceDetectionJob(faces_tool_window,
-            canvas.get_photo().get_file().get_path(), on_faces_detected,
-            face_detection_cancellable, on_detection_cancelled);
+                                              canvas.get_photo().get_file().get_path(), scale_factor,
+                                              on_faces_detected,
+                                              face_detection_cancellable, on_detection_cancelled);
 
         bind_window_handlers();
 
@@ -781,14 +717,21 @@ public class FacesTool : EditingTools.EditingTool {
         if (face_shapes == null)
             return;
 
-        Gee.Map<Face, string> new_faces = new Gee.HashMap<Face, string>();
+        Gee.Map<Face, FaceLocationData?> new_faces = new Gee.HashMap<Face, FaceLocationData?>();
         foreach (FaceShape face_shape in face_shapes.values) {
             if (!face_shape.get_known())
                 continue;
 
             Face new_face = Face.for_name(face_shape.get_name());
-
-            new_faces.set(new_face, face_shape.serialize());
+            string[] face_string = face_shape.serialize().split(";");
+            string face_vec_str, face_geometry;
+            face_geometry = string.joinv(";", face_string[0:5]);
+            face_vec_str = face_string[5];
+            FaceLocationData face_data =
+                {
+                 face_geometry, face_vec_str
+                };
+            new_faces.set(new_face, face_data);
         }
 
         ModifyFacesCommand command = new ModifyFacesCommand(canvas.get_photo(), new_faces);
@@ -905,7 +848,6 @@ public class FacesTool : EditingTools.EditingTool {
     private void detect_faces() {
         faces_tool_window.detection_button.set_sensitive(false);
         faces_tool_window.set_editing_phase(EditingPhase.DETECTING_FACES);
-
         workers.enqueue(face_detection);
     }
 
@@ -942,19 +884,59 @@ public class FacesTool : EditingTools.EditingTool {
                 continue;
 
             c++;
+            // Reference faces to match with
+            Face? guess = get_face_match(face_shape, 0.7);
 
-            face_shape.set_name("Unknown face #%d".printf(c));
-            face_shape.set_known(false);
+            if (guess == null) {
+                face_shape.set_name("Unknown face #%d".printf(c));
+                face_shape.set_known(false);
+            } else {
+                string name_str;
+                name_str = "%s (%0.2f%%)".printf(guess.get_name(), face_shape.get_guess() * 100);
+                face_shape.set_name(name_str);
+                face_shape.set_known(true);
+            }
             add_face(face_shape);
         }
     }
 
+    private Face? get_face_match(FaceShape face_shape, double threshold) {
+        Gee.List<FaceLocationRow?> face_vecs;
+        try {
+            Gee.List<FaceRow?> face_rows = FaceTable.get_instance().get_ref_rows();
+            face_vecs = FaceLocationTable.get_instance().get_face_ref_vecs(face_rows);
+        } catch(DatabaseError err) {
+            warning("Cannot get reference faces from DB");
+            return null;
+        }
+        FaceID? guess_id = null;
+        double max_product = threshold;
+        foreach (var row in face_vecs) {
+            string[] vec_str = row.vec.split(",");
+            double[] vec = {};
+            foreach (var d in vec_str) vec += double.parse(d);
+            double product = FaceDetect.dot_product(face_shape.get_face_vec(), vec[0:128]);
+            if (product > max_product) {
+                max_product = product;
+                guess_id = row.face_id;
+            }
+        }
+
+        Face? face = null;
+        if (guess_id != null) {
+            face = Face.global.fetch(guess_id);
+            face_shape.set_guess(max_product);
+            assert(face != null);
+        }
+        return face;
+    }
+    
     private void on_faces_detected() {
         face_detection_cancellable.reset();
         
         if (face_detection.spawnError != null){
             string spawnErrorMessage = _("Error trying to spawn face detection program:\n");
-            AppWindow.error_message(spawnErrorMessage + face_detection.spawnError.message + "\n");
+            AppWindow.error_message(spawnErrorMessage + face_detection.spawnError + "\n");
             faces_tool_window.set_editing_phase(EditingPhase.DETECTING_FACES_FINISHED);
         } else
             pick_faces_from_autodetected();

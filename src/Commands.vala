@@ -2542,7 +2542,8 @@ public class RemoveFacesFromPhotosCommand : SimpleProxyableCommand {
         
         face.attach_many(map_source_geometry.keys);
         foreach (Gee.Map.Entry<MediaSource, string> entry in map_source_geometry.entries)
-            FaceLocation.create(face.get_face_id(), ((Photo) entry.key).get_photo_id(), entry.value);
+            FaceLocation.create(face.get_face_id(), ((Photo) entry.key).get_photo_id(),
+                                                    { entry.value, null });
     }
     
     private void on_source_destroyed(DataSource source) {
@@ -2570,6 +2571,26 @@ public class RenameFaceCommand : SimpleProxyableCommand {
     protected override void undo_on_source(DataSource source) {
         if (!((Face) source).rename(old_name))
             AppWindow.error_message(Resources.rename_face_exists_message(old_name));
+    }
+}
+
+public class SetFaceRefCommand : SimpleProxyableCommand {
+    private FaceLocation face_loc;
+    
+    public SetFaceRefCommand(Face face, MediaSource source) {
+        base (face, Resources.set_face_from_photo_label(face.get_name()), face.get_name());
+        Gee.Map<FaceID?, FaceLocation>? face_loc_map = FaceLocation.get_locations_by_photo((Photo)source);
+        face_loc = face_loc_map.get(face.get_face_id());
+    }
+    
+    protected override void execute_on_source(DataSource source) {
+        if (!((Face) source).set_reference(face_loc))
+            AppWindow.error_message(Resources.set_face_from_photo_error());
+    }
+
+    protected override void undo_on_source(DataSource source) {
+        //if (!((Face) source).rename(old_name))
+        //    AppWindow.error_message(Resources.rename_face_exists_message(old_name));
     }
 }
 
@@ -2608,7 +2629,8 @@ public class DeleteFaceCommand : SimpleProxyableCommand {
                 Face face = (Face) source;
                 
                 face.attach(photo);
-                FaceLocation.create(face.get_face_id(), entry.key, entry.value);
+                FaceLocation.create(face.get_face_id(), entry.key,
+                                                        { entry.value, null });
             }
         }
     }
@@ -2618,10 +2640,10 @@ public class ModifyFacesCommand : SingleDataSourceCommand {
     private MediaSource media;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();
     private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
-    private Gee.Map<SourceProxy, string> to_update = new Gee.HashMap<SourceProxy, string>();
-    private Gee.Map<SourceProxy, string> geometries = new Gee.HashMap<SourceProxy, string>();
+    private Gee.Map<SourceProxy, FaceLocationData?> to_update = new Gee.HashMap<SourceProxy, FaceLocationData?>();
+    private Gee.Map<SourceProxy, FaceLocationData?> geometries = new Gee.HashMap<SourceProxy, FaceLocationData?>();
     
-    public ModifyFacesCommand(MediaSource media, Gee.Map<Face, string> new_face_list) {
+    public ModifyFacesCommand(MediaSource media, Gee.Map<Face, FaceLocationData?> new_face_list) {
         base (media, Resources.MODIFY_FACES_LABEL, "");
         
         this.media = media;
@@ -2640,13 +2662,13 @@ public class ModifyFacesCommand : SingleDataSourceCommand {
                         FaceLocation.get_face_location(face.get_face_id(), ((Photo) media).get_photo_id());
                     assert(face_location != null);
                     
-                    geometries.set(proxy, face_location.get_serialized_geometry());
+                    geometries.set(proxy, face_location.get_face_data());
                 }
             }
         }
         
         // Add any face that's in the new list but not the original
-        foreach (Gee.Map.Entry<Face, string> entry in new_face_list.entries) {
+        foreach (Gee.Map.Entry<Face, FaceLocationData?> entry in new_face_list.entries) {
             if (original_faces == null || !original_faces.contains(entry.key)) {
                 SourceProxy proxy = entry.key.get_proxy();
                 
@@ -2662,13 +2684,13 @@ public class ModifyFacesCommand : SingleDataSourceCommand {
                 assert(face_location != null);
                 
                 string old_geometry = face_location.get_serialized_geometry();
-                if (old_geometry != entry.value) {
+                if (old_geometry != entry.value.geometry) {
                     SourceProxy proxy = entry.key.get_proxy();
                     
                     to_update.set(proxy, entry.value);
                     proxy.broken.connect(on_proxy_broken);
                     
-                    geometries.set(proxy, old_geometry);
+                    geometries.set(proxy, face_location.get_face_data());
                 }
             }
         }
@@ -2695,7 +2717,7 @@ public class ModifyFacesCommand : SingleDataSourceCommand {
         foreach (SourceProxy proxy in to_remove)
             ((Face) proxy.get_source()).detach(media);
         
-        foreach (Gee.Map.Entry<SourceProxy, string> entry in to_update.entries) {
+        foreach (Gee.Map.Entry<SourceProxy, FaceLocationData?> entry in to_update.entries) {
             Face face = (Face) entry.key.get_source();
             FaceLocation.create(face.get_face_id(), ((Photo) media).get_photo_id(), entry.value);
         }

@@ -5222,7 +5222,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
                 if (location != null) {
                     face.attach(dupe);
                     FaceLocation.create(face.get_face_id(), dupe.get_photo_id(), 
-                        location.get_serialized_geometry());
+                        location.get_face_data());
                 }
              }
         }

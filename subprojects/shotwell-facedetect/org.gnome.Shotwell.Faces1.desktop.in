@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Name=Shotwell Face detection
+Comment=Shotwell face detection and recognition backend
+NoDisplay=true
+Type=Application
+Exec=@libexecdir@/shotwell-facedetect

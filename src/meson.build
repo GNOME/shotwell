@@ -17,7 +17,15 @@ processor = executable('shotwell-graphics-processor',
                        dependencies: [gio, gdk, gee],
                        link_with: sw_graphics_processor)
 
+shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
+                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
+                 libraw, libexif, sw_plugin]
+
+shotwell_libs = [sw_graphics_processor]
+
 face_sources = []
+face_obj = ''
+
 if get_option('face-detection')
   face_sources = (['faces/FacesBranch.vala',
                      'faces/FaceLocation.vala',
@@ -25,6 +33,7 @@ if get_option('face-detection')
                      'faces/FaceShape.vala',
                      'faces/Faces.vala',
                      'faces/Face.vala',
+                     'faces/FaceDetect.vala',
                      'db/FaceLocationTable.vala',
                      'db/FaceTable.vala',
                      'faces/FacesTool.vala'])

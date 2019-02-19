@@ -46,6 +46,7 @@ public class FacePage : CollectionPage {
         { "DeleteFace", on_delete_face },
         { "RenameFace", on_rename_face },
         { "RemoveFaceFromPhotos", on_remove_face_from_photos },
+        { "SetFaceRefFromPhoto", on_set_face_ref },
         { "DeleteFaceSidebar", on_delete_face },
         { "RenameFaceSidebar", on_rename_face }
     };
@@ -76,6 +77,7 @@ public class FacePage : CollectionPage {
        
         menuFaces.add_menu_item(Resources.remove_face_from_photos_menu(this.face.get_name(), get_view().get_count()), "RemoveFaceFromPhotos", "<Primary>r");
         menuFaces.add_menu_item(Resources.rename_face_menu(this.face.get_name()), "RenameFace", "<Primary>e");
+        menuFaces.add_menu_item(Resources.set_face_from_photo_menu(this.face.get_name()), "SetFaceRefFromPhoto", "");
         menuFaces.add_menu_item(Resources.delete_face_menu(this.face.get_name()), "DeleteFace", "<Primary>t");
         
         return menuFaces;
@@ -104,6 +106,11 @@ public class FacePage : CollectionPage {
             null,
             selected_count > 0);
         
+        set_action_details("SetFaceRefFromPhoto",
+            Resources.set_face_from_photo_menu(face.get_name()),
+            null,
+            selected_count == 1);
+            
         base.update_actions(selected_count, count);
     }
     
@@ -120,6 +127,13 @@ public class FacePage : CollectionPage {
         if (get_view().get_selected_count() > 0) {
             get_command_manager().execute(new RemoveFacesFromPhotosCommand(face, 
                 (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
+        }
+    }
+
+    private void on_set_face_ref() {
+        if (get_view().get_selected_count() == 1) {
+            get_command_manager().execute(new SetFaceRefCommand(face,
+                            (MediaSource) get_view().get_selected_at(0).get_source()));
         }
     }
 }

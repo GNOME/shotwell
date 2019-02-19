@@ -210,7 +210,7 @@ class AppDirs {
         
         return tmp_dir;
     }
-    
+
     public static File get_data_subdir(string name, string? subname = null) {
         File subdir = get_data_dir().get_child(name);
         if (subname != null)
@@ -338,13 +338,17 @@ class AppDirs {
         }
         return f;
     }
-    
+
     public static File get_haarcascade_file() {
         File f = File.new_for_path(AppDirs.get_exec_dir().get_parent().get_parent().get_child("facedetect").get_child("facedetect-haarcascade.xml").get_path());
         if (f.query_exists()) {//testing meson builddir
             return f;
         }
         return get_resources_dir().get_child("facedetect-haarcascade.xml");
+    }
+
+    public static File get_openface_dnn_dir() {
+        return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
     }
 #endif
 

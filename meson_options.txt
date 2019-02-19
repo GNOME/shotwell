@@ -7,3 +7,4 @@ option('dupe-detection', type: 'boolean', value : 'true', description: 'Disable 
 option('udev', type: 'boolean', value : 'true', description: 'Enable or disable udev support')
 option('install-apport-hook', type : 'boolean', value : 'true', description: 'Enable Ubuntu apport hook')
 option('face-detection', type:'boolean', value:false)
+option('face-detection-helper', type : 'boolean', value : 'true', description : 'If face-detection is enabled, build the external helper tool')

@@ -566,7 +566,7 @@ public abstract class AppWindow : PageWindow {
         panic(_("A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n\n%s").printf(
             err.message));
     }
-    
+
     public static void panic(string msg) {
         critical(msg);
         error_message(msg);

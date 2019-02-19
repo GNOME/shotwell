@@ -6,6 +6,12 @@
 
 #if ENABLE_FACES
 
+// Encapsulate geometry and pixels of a Face
+public struct FaceLocationData {
+    public string geometry;
+    public string vec;
+}
+
 public class FaceLocation : Object {
     
     private static Gee.Map<FaceID?, Gee.Map<PhotoID?, FaceLocation>> face_photos_map;
@@ -14,17 +20,17 @@ public class FaceLocation : Object {
     private FaceLocationID face_location_id;
     private FaceID face_id;
     private PhotoID photo_id;
-    private string geometry;
-    
+    private FaceLocationData face_data;
+
     private FaceLocation(FaceLocationID face_location_id, FaceID face_id, PhotoID photo_id,
-    string geometry) {
+            FaceLocationData face_data) {
         this.face_location_id = face_location_id;
         this.face_id = face_id;
         this.photo_id = photo_id;
-        this.geometry = geometry;
+        this.face_data = face_data;
     }
     
-    public static FaceLocation create(FaceID face_id, PhotoID photo_id, string geometry) {
+    public static FaceLocation create(FaceID face_id, PhotoID photo_id, FaceLocationData face_data) {
         FaceLocation face_location = null;
         
         // Test if that FaceLocation already exists (that face in that photo) ...
@@ -35,12 +41,11 @@ public class FaceLocation : Object {
             
             face_location = faces_map.get(face_id);
             
-            if (face_location.get_serialized_geometry() != geometry) {
-                face_location.set_serialized_geometry(geometry);
+            if (face_location.get_serialized_geometry() != face_data.geometry) {
+                face_location.set_face_data(face_data);
                 
                 try {
-                    FaceLocationTable.get_instance().update_face_location_serialized_geometry(
-                        face_location);
+                    FaceLocationTable.get_instance().update_face_location_face_data(face_location);
                 } catch (DatabaseError err) {
                     AppWindow.database_error(err);
                 }
@@ -53,7 +58,7 @@ public class FaceLocation : Object {
         try {
             face_location =
                 FaceLocation.add_from_row(
-                    FaceLocationTable.get_instance().add(face_id, photo_id, geometry));
+                    FaceLocationTable.get_instance().add(face_id, photo_id, face_data.geometry, face_data.vec));
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
@@ -86,7 +91,8 @@ public class FaceLocation : Object {
     public static FaceLocation add_from_row(FaceLocationRow row) {
         
         FaceLocation face_location =
-            new FaceLocation(row.face_location_id, row.face_id, row.photo_id, row.geometry);
+            new FaceLocation(row.face_location_id, row.face_id, row.photo_id,
+                { row.geometry, row.vec });
         
         Gee.Map<PhotoID?, FaceLocation> photos_map = face_photos_map.get(row.face_id);
         if (photos_map == null) {photos_map = new Gee.HashMap<PhotoID?, FaceLocation>
@@ -198,11 +204,23 @@ public class FaceLocation : Object {
     }
     
     public string get_serialized_geometry() {
-        return geometry;
+        return face_data.geometry;
+    }
+
+    public string get_serialized_vec() {
+        return face_data.vec;
+    }
+
+    public FaceLocationData get_face_data() {
+        return face_data;
+    }
+
+    public PhotoID get_photo_id() {
+        return photo_id;
     }
     
-    private void set_serialized_geometry(string geometry) {
-        this.geometry = geometry;
+    private void set_face_data(FaceLocationData face_data) {
+        this.face_data = face_data;
     }
 }
 
