@@ -27,6 +27,8 @@ public class FaceRow {
     public FaceID face_id;
     public string name;
     public time_t time_created;
+    public PhotoID ref;
+    public string vec;
 }
 
 public class FaceTable : DatabaseTable {
@@ -41,7 +43,8 @@ public class FaceTable : DatabaseTable {
             + "("
             + "id INTEGER NOT NULL PRIMARY KEY, "
             + "name TEXT NOT NULL, "
-            + "time_created TIMESTAMP"
+            + "time_created TIMESTAMP, "
+            + "ref INTEGER DEFAULT -1"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -164,6 +167,49 @@ public class FaceTable : DatabaseTable {
     
     public void rename(FaceID face_id, string new_name) throws DatabaseError {
         update_text_by_id_2(face_id.id, "name", new_name);
+    }
+
+    public void set_reference(FaceID face_id, PhotoID photo_id)
+        throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE FaceTable SET ref=? WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, face_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("FaceTable.set_reference", res);
+    }
+
+    public Gee.List<FaceRow?> get_ref_rows() throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id, name, time_created, ref FROM FaceTable WHERE ref != -1", -1,
+            out stmt);
+        assert(res == Sqlite.OK);
+        
+        Gee.List<FaceRow?> rows = new Gee.ArrayList<FaceRow?>();
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("FaceTable.get_all_rows", res);
+            
+            // res == Sqlite.ROW
+            FaceRow row = new FaceRow();
+            row.face_id = FaceID(stmt.column_int64(0));
+            row.name = stmt.column_text(1);
+            row.time_created = (time_t) stmt.column_int64(2);
+            row.ref = PhotoID(stmt.column_int64(3));
+            
+            rows.add(row);
+        }
+        
+        return rows;
     }
 }
 #endif

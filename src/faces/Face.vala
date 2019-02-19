@@ -346,9 +346,18 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         // add them all at once to the SourceCollection
         global.add_many(faces);
         global.init_add_many_unlinked(unlinked);
+
+#if ENABLE_FACES       
+        // Start the face detection background process
+        // FaceTool talks to it over DBus
+        start_facedetect_process();
+#endif
     }
     
     public static void terminate() {
+        try {
+            FaceDetect.interface.terminate();
+        } catch(Error e) {}
     }
     
     public static int compare_names(void *a, void *b) {
@@ -366,6 +375,14 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
     public static bool equal_name_strings(void *a, void *b) {
         return String.collated_equals(a, b);
     }
+
+#if ENABLE_FACES       
+    private static void start_facedetect_process() {
+        message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
+        // Start the watcher, process started via DBus service
+        FaceDetect.init(AppDirs.get_openface_dnn_dir().get_path());
+    }
+#endif
     
     // Returns a Face for the name, creating a new empty one if it does not already exist.
     // name should have already been prepared by prep_face_name.
@@ -388,7 +405,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         
         return face;
     }
-    
+
     // Utility function to cleanup a face name that comes from user input and prepare it for use
     // in the system and storage in the database.  Returns null if the name is unacceptable.
     public static string? prep_face_name(string name) {
@@ -573,6 +590,16 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         
         notify_altered(new Alteration.from_list("metadata:name, indexable:keywords"));
         
+        return true;
+    }
+
+    public bool set_reference(FaceLocation face_loc) {
+        try {
+            FaceTable.get_instance().set_reference(row.face_id, face_loc.get_photo_id());
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            return false;
+        }
         return true;
     }
     

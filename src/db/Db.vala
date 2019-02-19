@@ -349,6 +349,32 @@ private VerifyResult upgrade_database(int input_version) {
     //
     
     version = 20;
+
+#if ENABLE_FACES
+    //
+    // Version 21:
+    // * Added face pixels column to FaceLocationTable
+    // * Added face vector column to FaceTable
+    //
+    
+    if (!DatabaseTable.has_column("FaceLocationTable", "vec")) {
+        message("upgrade_database: adding vec column to FaceLocationTable");
+        if (!DatabaseTable.add_column("FaceLocationTable", "vec", "TEXT"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    if (!DatabaseTable.has_column("FaceLocationTable", "guess")) {
+        message("upgrade_database: adding guess column to FaceLocationTable");
+        if (!DatabaseTable.add_column("FaceLocationTable", "guess", "INTEGER DEFAULT 0"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    if (!DatabaseTable.has_column("FaceTable", "ref")) {
+        message("upgrade_database: adding ref column to FaceTable");
+        if (!DatabaseTable.add_column("FaceTable", "ref", "INTEGER DEFAULT -1"))
+            return VerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 21;
+#endif
     
     //
     // Finalize the upgrade process

@@ -411,6 +411,18 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return ngettext ("Remove Face “%s” From Photo",
                          "Remove Face “%s” From Photos", count).printf(name);
     }
+
+    public string set_face_from_photo_menu(string name) {
+        return _("_Train Face “%s” From Photo").printf(name);
+    }
+    
+    public string set_face_from_photo_label(string name) {
+        return _("_Train Face “%s” From Photo").printf(name);
+    }
+
+    public static string set_face_from_photo_error() {
+        return "Unable to set face as reference";
+    }
     
     public string rename_face_menu(string name) {
         return _("Re_name Face “%s”…").printf(name);

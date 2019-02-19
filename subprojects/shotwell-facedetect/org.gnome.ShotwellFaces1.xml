@@ -1,0 +1,51 @@
+<!DOCTYPE node PUBLIC
+'-//freedesktop//DTD D-BUS Object Introspection 1.0//EN'
+'http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd'>
+<node>
+  <!--
+      org.gnome.Shotwell.Faces1:
+      @short_description: Face detection/recognition
+  -->
+  <interface name="org.gnome.Shotwell.Faces1">
+    <!--
+        DetectFaces
+        @image: Image file to run face detection on
+        @cascade: Cascade XML file
+        @scale: Scaling to apply on image
+        Returns an array of face bounding boxes (x,y,w,h) in dimensionless units
+    -->
+    <method name="DetectFaces">
+      <arg type="s" name="image" direction="in" />
+      <arg type="s" name="cascade" direction="in" />
+      <arg type="d" name="scale" direction="in" />
+      <arg type="b" name="infer" direction="in" />
+      <arg type="a(ddddad)" name="faces" direction="out" />
+    </method>
+
+    <!--
+        LoadNet
+        @net: Torch t7 net file
+        Returns non-zero on any error
+    -->
+    <method name="LoadNet">
+      <arg type="s" name="net" direction="in" />
+      <arg type="b" name="ret" direction="out" />
+    </method>
+
+    <!--
+        FaceToVec
+        @image: Image of face to convert
+        Returns 128 element vector
+    -->
+    <method name="FaceToVec">
+      <arg type="s" name="image" direction="in" />
+      <arg type="ad" name="vec" direction="out" />
+    </method>
+
+    <!--
+        Terminate
+    -->
+    <method name="Terminate">
+    </method>
+  </interface>
+</node>

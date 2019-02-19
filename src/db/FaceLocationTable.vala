@@ -29,6 +29,7 @@ public class FaceLocationRow {
     public FaceID face_id;
     public PhotoID photo_id;
     public string geometry;
+    public string vec;
 }
 
 public class FaceLocationTable : DatabaseTable {
@@ -44,7 +45,9 @@ public class FaceLocationTable : DatabaseTable {
             + "id INTEGER NOT NULL PRIMARY KEY, "
             + "face_id INTEGER NOT NULL, "
             + "photo_id INTEGER NOT NULL, "
-            + "geometry TEXT"
+            + "geometry TEXT, "
+            + "vec TEXT, "
+            + "guess INTEGER DEFAULT 0"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -60,10 +63,10 @@ public class FaceLocationTable : DatabaseTable {
         return instance;
     }
  
-    public FaceLocationRow add(FaceID face_id, PhotoID photo_id, string geometry) throws DatabaseError {
+    public FaceLocationRow add(FaceID face_id, PhotoID photo_id, string geometry, string? vec = null) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO FaceLocationTable (face_id, photo_id, geometry) VALUES (?, ?, ?)",
+            "INSERT INTO FaceLocationTable (face_id, photo_id, geometry, vec) VALUES (?, ?, ?, ?)",
              -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -72,6 +75,9 @@ public class FaceLocationTable : DatabaseTable {
         res = stmt.bind_int64(2, photo_id.id);
         assert(res == Sqlite.OK);
         res = stmt.bind_text(3, geometry);
+        assert(res == Sqlite.OK);
+	if (vec == null) vec = "";
+        res = stmt.bind_text(4, vec);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -83,6 +89,7 @@ public class FaceLocationTable : DatabaseTable {
         row.face_id = face_id;
         row.photo_id = photo_id;
         row.geometry = geometry;
+        row.vec = vec;
         
         return row;
     }
@@ -90,7 +97,7 @@ public class FaceLocationTable : DatabaseTable {
     public Gee.List<FaceLocationRow?> get_all_rows() throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "SELECT id, face_id, photo_id, geometry FROM FaceLocationTable",
+            "SELECT id, face_id, photo_id, geometry, vec FROM FaceLocationTable",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -109,6 +116,7 @@ public class FaceLocationTable : DatabaseTable {
             row.face_id = FaceID(stmt.column_int64(1));
             row.photo_id = PhotoID(stmt.column_int64(2));
             row.geometry = stmt.column_text(3);
+            row.vec = stmt.column_text(4);
             
             rows.add(row);
         }
@@ -196,6 +204,66 @@ public class FaceLocationTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             throw_error("FaceLocationTable.update_face_location_serialized_geometry", res);
+    }
+
+    public void update_face_location_face_data(FaceLocation face_location)
+        throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE FaceLocationTable SET geometry=?, vec=? WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+
+        FaceLocationData face_data = face_location.get_face_data();
+        res = stmt.bind_text(1, face_data.geometry);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(2, face_data.vec);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(3, face_location.get_face_location_id().id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("FaceLocationTable.update_face_location_serialized_geometry", res);
+    }
+
+    public Gee.List<FaceLocationRow?> get_face_ref_vecs(Gee.List<FaceRow?> face_rows)
+        throws DatabaseError {
+        Sqlite.Statement stmt;
+
+        string[] where_in = {};
+        foreach (var r in face_rows) {
+            if (r != null) where_in += "?";
+        }
+        int res = db.prepare_v2(
+            "SELECT id, face_id, photo_id, geometry, vec FROM FaceLocationTable WHERE photo_id IN (%s)"
+                    .printf(string.joinv(",", where_in)),
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        int c = 1;
+        foreach (var r in face_rows) {
+            if (r != null) { 
+                res = stmt.bind_int64(c, r.ref.id);
+                assert(res == Sqlite.OK);
+            }
+            c++;
+        }
+        
+        Gee.List<FaceLocationRow?> rows = new Gee.ArrayList<FaceLocationRow?>();
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("FaceLocationTable.get_face_ref_vecs", res);
+            
+            FaceLocationRow row = new FaceLocationRow();
+            row.face_location_id = FaceLocationID(stmt.column_int64(0));
+            row.face_id = FaceID(stmt.column_int64(1));
+            row.photo_id = PhotoID(stmt.column_int64(2));
+            row.geometry = stmt.column_text(3);
+            row.vec = stmt.column_text(4);
+            rows.add(row);
+        }
+        return rows;
     }
 }
 
