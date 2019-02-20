@@ -1442,7 +1442,13 @@ public abstract class CheckerboardPage : Page {
     
     public void set_page_message(string message) {
         message_pane.label.label = message;
-        message_pane.icon_image.icon_name  = get_view_empty_icon();
+        try {
+            message_pane.icon_image.icon_name = null;
+            message_pane.icon_image.gicon = Icon.new_for_string (get_view_empty_icon());
+        } catch (Error error) {
+            message_pane.icon_image.gicon = null;
+            message_pane.icon_image.icon_name = "image-x-generic-symbolic";
+        }
         stack.set_visible_child_name ("message");
     }
     

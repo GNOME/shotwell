@@ -846,6 +846,10 @@ public class ImportPage : CheckerboardPage {
         return tracker;
     }
 
+    protected override string get_view_empty_icon() {
+        return this.icon;
+    }
+
     protected override string get_view_empty_message() {
         return _("The camera seems to be empty. No photos/videos found to import");
     }
