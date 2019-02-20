@@ -83,7 +83,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 16;
     public const int ICON_ZOOM_SCALE = 16;
 
-    public const string ICON_CAMERAS = "camera-photo";
+    public const string ICON_CAMERAS = "camera-photo-symbolic";
     public const string ICON_EVENTS = "multiple-events-symbolic";
     public const string ICON_ONE_EVENT = "one-event-symbolic";
     public const string ICON_NO_EVENT = "no-event-symbolic";
