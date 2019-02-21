@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-01-28 22:38+0000\n"
-"PO-Revision-Date: 2019-01-30 18:02+0100\n"
+"POT-Creation-Date: 2019-02-20 22:34+0000\n"
+"PO-Revision-Date: 2019-02-21 18:08+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -404,11 +404,11 @@ msgstr "Przypinanie paska narzędziowego na pełnym ekranie."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:161
 msgid "prefer GTK+’s dark theme"
-msgstr "preferowanie ciemnego motywu biblioteki GTK+"
+msgstr "preferowanie ciemnego motywu biblioteki GTK"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:162
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
-msgstr "Czy używać ciemnego motywu biblioteki GTK+ dla programu Shotwell."
+msgstr "Czy używać ciemnego motywu biblioteki GTK dla programu Shotwell."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:167
 msgid "background for transparent images"
@@ -1521,7 +1521,7 @@ msgstr "Wyświetl wydarze_nie dla zdjęcia"
 #: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
-#: src/Resources.vala:763
+#: src/Resources.vala:775
 msgid "Show in File Mana_ger"
 msgstr "Wyświetl w mene_dżerze plików"
 
@@ -1533,7 +1533,7 @@ msgstr "Wyślij _do…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:772
+#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:784
 msgid "_Move to Trash"
 msgstr "Przenieś do _kosza"
 
@@ -1780,7 +1780,7 @@ msgstr "No_we zapisane wyszukiwanie…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:774
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:786
 msgid "Select _All"
 msgstr "Z_aznacz wszystkie"
 
@@ -1870,7 +1870,7 @@ msgstr "Wy_eksportuj…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
-#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:770
+#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:782
 msgid "R_emove From Library"
 msgstr "_Usuń z kolekcji"
 
@@ -1971,7 +1971,7 @@ msgstr "Twarze"
 msgid "Rename…"
 msgstr "Zmień nazwę…"
 
-#: data/ui/faces.ui:469 src/library/TrashPage.vala:110
+#: data/ui/faces.ui:469 src/library/TrashPage.vala:114
 msgid "Delete"
 msgstr "Usuń"
 
@@ -2008,7 +2008,7 @@ msgstr "_Anuluj"
 msgid "_OK"
 msgstr "_OK"
 
-#: data/ui/offline.ui:221 src/Resources.vala:758
+#: data/ui/offline.ui:221 src/Resources.vala:770
 msgid "Remove the selected photos from the library"
 msgstr "Usuwa wybrane zdjęcia z kolekcji"
 
@@ -2233,7 +2233,7 @@ msgstr "_Modyfikuj…"
 #: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
 #: src/Resources.vala:123 src/Resources.vala:304 src/Resources.vala:335
-#: src/Resources.vala:388 src/Resources.vala:756
+#: src/Resources.vala:388 src/Resources.vala:768
 msgid "_Delete"
 msgstr "_Usuń"
 
@@ -2312,15 +2312,15 @@ msgid "label"
 msgstr "etykieta"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
-#: src/Resources.vala:760
+#: src/Resources.vala:772
 msgid "_Restore"
 msgstr "P_rzywróć"
 
-#: data/ui/trash.ui:255 src/Resources.vala:757
+#: data/ui/trash.ui:255 src/Resources.vala:769
 msgid "Remove the selected photos from the trash"
 msgstr "Usuwa wybrane zdjęcia z kosza"
 
-#: data/ui/trash.ui:270 src/Resources.vala:761
+#: data/ui/trash.ui:270 src/Resources.vala:773
 msgid "Move the selected photos back into the library"
 msgstr "Przenosi wybrane zdjęcia z powrotem do kolekcji"
 
@@ -2331,35 +2331,6 @@ msgstr "Usuwa wszystkie zdjęcia z kosza"
 #: data/ui/trash.ui:288 src/library/LibraryWindow.vala:600
 msgid "Empty Trash"
 msgstr "Opróżnij kosz"
-
-#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
-msgid ""
-"You are not currently logged into Facebook.\n"
-"\n"
-"If you don’t yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
-msgstr ""
-"Nie zalogowano w serwisie Facebook.\n"
-"\n"
-"Jeśli użytkownik nie ma jeszcze konta w serwisie Facebook, można je utworzyć "
-"podczas procesu logowania. Podczas logowania Shotwell Connect może zapytać "
-"o pozwolenie na wysyłanie zdjęć i publikowanie ich w kanale użytkownika. To "
-"pozwolenie jest wymagane, aby Shotwell Connect mogło działać."
-
-#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
-msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
-msgstr ""
-"Już zalogowano się i wylogowano z serwisu Facebook podczas tej sesji "
-"programu Shotwell.\n"
-"Aby kontynuować publikowanie do serwisu Facebook, należy zakończyć "
-"i ponownie uruchomić program Shotwell, a następnie ponownie spróbować "
-"publikacji."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
@@ -2400,7 +2371,7 @@ msgstr ""
 "Aby kontynuować publikowanie do serwisów Google, należy zakończyć i ponownie "
 "uruchomić program Shotwell, a następnie ponownie spróbować publikacji."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
@@ -2415,7 +2386,7 @@ msgstr ""
 "skonfigurować za pomocą przeglądarki WWW przez zalogowanie się do serwisu "
 "YouTube co najmniej raz."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
@@ -2607,7 +2578,6 @@ msgstr "Najdłuższa krawędź"
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
@@ -2619,7 +2589,6 @@ msgstr "_Wyloguj"
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
@@ -2799,7 +2768,6 @@ msgid "Public"
 msgstr "Publiczne"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:15
-#: plugins/shotwell-publishing/FacebookPublishing.vala:888
 msgid "Friends"
 msgstr "Przyjaciele"
 
@@ -2824,24 +2792,11 @@ msgstr "Wyłączenie _komentarzy"
 msgid "_Forbid downloading original photo"
 msgstr "_Zakazanie pobierania oryginalnego zdjęcia"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:42
-msgid "Publish to an e_xisting album:"
-msgstr "Opublikowanie do i_stniejącego albumu:"
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
+msgid "Photo _size"
+msgstr "_Rozmiar zdjęcia"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:58
-msgid "Create a _new album named:"
-msgstr "Utworzenie _nowego albumu o nazwie:"
-
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:100
-#: plugins/shotwell-publishing/FacebookPublishing.vala:725
-msgid "Upload _size:"
-msgstr "_Rozmiar wysyłania:"
-
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:125
-msgid "Videos and new photo albums _visible to:"
-msgstr "Nagrania wideo i nowe albumy zdjęć _widoczne dla:"
-
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:155
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
@@ -2851,67 +2806,11 @@ msgstr ""
 "_Usunięcie położenia, aparatu i innych informacji identyfikacyjnych przed "
 "wysłaniem"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:33
 #: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright 2016 Software Freedom Conservancy Inc."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:61
-#: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
-msgid "Shotwell Connect"
-msgstr "Połączenie programu Shotwell"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:81
-msgid "Standard (720 pixels)"
-msgstr "Standardowe (720 pikseli)"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:84
-msgid "Large (2048 pixels)"
-msgstr "Duże (2048 pikseli)"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:314
-msgid "Creating album…"
-msgstr "Tworzenie albumu…"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:340
-msgid ""
-"A file required for publishing is unavailable. Publishing to Facebook can’t "
-"continue."
-msgstr ""
-"Plik wymagany do publikowania jest niedostępny. Nie można kontynuować "
-"publikowania do serwisu Facebook."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:723
-#, c-format
-msgid ""
-"You are logged into Facebook as %s.\n"
-"\n"
-msgstr ""
-"Zalogowano w serwisie Facebook jako użytkownik %s.\n"
-"\n"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:724
-msgid "Where would you like to publish the selected photos?"
-msgstr "Gdzie opublikować wybrane zdjęcia?"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:887
-#: plugins/shotwell-publishing/FlickrPublishing.vala:665
-msgid "Just me"
-msgstr "Tylko dla mnie"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:889
-#: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
-msgid "Everyone"
-msgstr "Wszystkich"
-
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
-msgid "Photo _size"
-msgstr "_Rozmiar zdjęcia"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
 msgid ""
@@ -2956,6 +2855,11 @@ msgstr "Nagrania wideo _widoczne dla"
 msgid "Photos and videos _visible to"
 msgstr "Zdjęcia i nagrania wideo _widoczne dla"
 
+#: plugins/shotwell-publishing/FlickrPublishing.vala:661
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+msgid "Everyone"
+msgstr "Wszystkich"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:662
 msgid "Friends & family only"
 msgstr "Tylko przyjaciół i rodziny"
@@ -2967,6 +2871,10 @@ msgstr "Tylko rodzina"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:664
 msgid "Friends only"
 msgstr "Tylko przyjaciele"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:665
+msgid "Just me"
+msgstr "Tylko dla mnie"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
@@ -3010,6 +2918,11 @@ msgstr "Istniejący album"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
 msgid "A new album named"
 msgstr "Nowy album o nazwie"
+
+#: plugins/shotwell-publishing/PhotosPublisher.vala:9
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+msgid "Shotwell Connect"
+msgstr "Połączenie programu Shotwell"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -3178,7 +3091,7 @@ msgstr "Wyświetl certyfikat…"
 msgid "I understand, please _proceed."
 msgstr "_Rozumiem, proszę kontynuować."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:59
+#: plugins/shotwell-publishing/shotwell-publishing.vala:53
 msgid "Core Publishing Services"
 msgstr "Główne usługi publikowania"
 
@@ -3461,18 +3374,18 @@ msgstr "Ukrywa już zaimportowane zdjęcia"
 msgid "Only display photos that have not been imported"
 msgstr "Wyświetla tylko zdjęcia, które nie zostały jeszcze zaimportowane"
 
-#: src/camera/ImportPage.vala:850
+#: src/camera/ImportPage.vala:854
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Aparat jest pusty. Nie odnaleziono żadnych zdjęć/nagrań wideo do "
 "zaimportowania"
 
-#: src/camera/ImportPage.vala:854
+#: src/camera/ImportPage.vala:858
 msgid "No new photos/videos found on camera"
 msgstr "Nie odnaleziono nowych zdjęć/nagrań wideo w aparacie"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:1025
+#: src/camera/ImportPage.vala:1029
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3480,15 +3393,15 @@ msgstr ""
 "Program Shotwell musi odmontować aparat z systemu plików, aby uzyskać do "
 "niego dostęp. Kontynuować?"
 
-#: src/camera/ImportPage.vala:1031
+#: src/camera/ImportPage.vala:1035
 msgid "_Unmount"
 msgstr "Odmont_uj"
 
-#: src/camera/ImportPage.vala:1036
+#: src/camera/ImportPage.vala:1040
 msgid "Please unmount the camera."
 msgstr "Proszę odmontować aparat."
 
-#: src/camera/ImportPage.vala:1041
+#: src/camera/ImportPage.vala:1045
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3498,11 +3411,11 @@ msgstr ""
 "dostęp do aparatu tylko wtedy, kiedy nie jest zablokowany. Proszę zamknąć "
 "wszystkie pozostałe programy używające aparatu i spróbować ponownie."
 
-#: src/camera/ImportPage.vala:1051
+#: src/camera/ImportPage.vala:1055
 msgid "Please close any other application using the camera."
 msgstr "Proszę zamknąć inne programy używające aparatu."
 
-#: src/camera/ImportPage.vala:1056
+#: src/camera/ImportPage.vala:1060
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3511,33 +3424,33 @@ msgstr ""
 "Nie można pobrać podglądu z aparatu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1073
+#: src/camera/ImportPage.vala:1077
 msgid "Unmounting…"
 msgstr "Odmontowywanie…"
 
-#: src/camera/ImportPage.vala:1166
+#: src/camera/ImportPage.vala:1170
 msgid "Connecting to camera, please wait…"
 msgstr "Łączenie z aparatem, proszę czekać…"
 
-#: src/camera/ImportPage.vala:1198
+#: src/camera/ImportPage.vala:1202
 msgid "Starting import, please wait…"
 msgstr "Rozpoczynanie importowania, proszę czekać…"
 
-#: src/camera/ImportPage.vala:1204
+#: src/camera/ImportPage.vala:1208
 msgid "Fetching photo information"
 msgstr "Pobieranie informacji o zdjęciach"
 
-#: src/camera/ImportPage.vala:1567
+#: src/camera/ImportPage.vala:1571
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Pobieranie podglądu dla %s"
 
-#: src/camera/ImportPage.vala:1675
+#: src/camera/ImportPage.vala:1679
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie można zablokować aparatu: %s"
 
-#: src/camera/ImportPage.vala:1760
+#: src/camera/ImportPage.vala:1764
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3545,7 +3458,7 @@ msgstr[0] "Usunąć to zdjęcie z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć z aparatu?"
 
-#: src/camera/ImportPage.vala:1763
+#: src/camera/ImportPage.vala:1767
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3553,7 +3466,7 @@ msgstr[0] "Usunąć to nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1766
+#: src/camera/ImportPage.vala:1770
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3561,7 +3474,7 @@ msgstr[0] "Usunąć to zdjęcie/nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia/nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć/nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1769
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3569,15 +3482,15 @@ msgstr[0] "Usunąć te pliki z aparatu?"
 msgstr[1] "Usunąć %d pliki z aparatu?"
 msgstr[2] "Usunąć %d plików z aparatu?"
 
-#: src/camera/ImportPage.vala:1777 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1781 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Zatrzymaj"
 
-#: src/camera/ImportPage.vala:1796
+#: src/camera/ImportPage.vala:1800
 msgid "Removing photos/videos from camera"
 msgstr "Usuwanie zdjęć/nagrań wideo z aparatu"
 
-#: src/camera/ImportPage.vala:1800
+#: src/camera/ImportPage.vala:1804
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3884,12 +3797,12 @@ msgstr "Zam_knij"
 msgid "Data Imports"
 msgstr "Importowanie danych"
 
-#: src/db/DatabaseTable.vala:37
+#: src/db/DatabaseTable.vala:41
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "Nie można otworzyć/utworzyć bazy danych zdjęć %s: kod błędu: %d"
 
-#: src/db/DatabaseTable.vala:46
+#: src/db/DatabaseTable.vala:50
 #, c-format
 msgid ""
 "Unable to write to photo database file:\n"
@@ -3898,7 +3811,7 @@ msgstr ""
 "Nie można zapisać do pliku bazy danych zdjęć:\n"
 " %s"
 
-#: src/db/DatabaseTable.vala:48
+#: src/db/DatabaseTable.vala:52
 #, c-format
 msgid ""
 "Error accessing database file:\n"
@@ -3913,7 +3826,7 @@ msgstr ""
 "Błąd: \n"
 "%s"
 
-#: src/db/DatabaseTable.vala:92
+#: src/db/DatabaseTable.vala:96
 #, c-format
 msgid "Unable to restore photo database %s"
 msgstr "Nie można przywrócić bazy danych zdjęć %s"
@@ -5378,7 +5291,7 @@ msgstr "Zapisuje zmiany i zamyka narzędzie wykrywania twarzy"
 msgid "No changes to save"
 msgstr "Brak zmian do zapisania"
 
-#: src/faces/FacesTool.vala:956
+#: src/faces/FacesTool.vala:938
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Błąd podczas wywoływania programu do wykrywania twarzy:\n"
 
@@ -5496,7 +5409,7 @@ msgstr "Kosz"
 msgid "Trash is empty"
 msgstr "Kosz jest pusty"
 
-#: src/library/TrashPage.vala:111
+#: src/library/TrashPage.vala:115
 msgid "Deleting Photos"
 msgstr "Usuwanie zdjęć"
 
@@ -5603,15 +5516,15 @@ msgstr ""
 "Program Shotwell nie może odtworzyć wybranego nagrania wideo:\n"
 "%s"
 
-#: src/Page.vala:1328
+#: src/Page.vala:1353
 msgid "No photos/videos"
 msgstr "Brak zdjęć/nagrań wideo"
 
-#: src/Page.vala:1332
+#: src/Page.vala:1357
 msgid "No photos/videos found which match the current filter"
 msgstr "Nie odnaleziono zdjęć/nagrań wideo pasujących do bieżącego filtra"
 
-#: src/Page.vala:2645
+#: src/Page.vala:2674
 msgid "Photos cannot be exported to this directory."
 msgstr "Nie można eksportować zdjęć do tego katalogu."
 
@@ -5915,7 +5828,7 @@ msgstr ""
 "<b>Modyfikacja preferencji programu %s </b> i włączyć jedną lub więcej "
 "wtyczek publikowania w karcie <b>Wtyczki</b>."
 
-#: src/publishing/Publishing.vala:16
+#: src/publishing/Publishing.vala:15
 msgid "Publishing"
 msgstr "Publikowanie"
 
@@ -6398,76 +6311,81 @@ msgstr[0] "Usuń twarz „%s” ze zdjęcia"
 msgstr[1] "Usuń twarz „%s” ze zdjęć"
 msgstr[2] "Usuń twarz „%s” ze zdjęć"
 
-#: src/Resources.vala:416
+#: src/Resources.vala:416 src/Resources.vala:420
+#, c-format
+msgid "_Train Face “%s” From Photo"
+msgstr "_Naucz twarz „%s” ze zdjęcia"
+
+#: src/Resources.vala:428
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Zmień _nazwę twarzy „%s”…"
 
-#: src/Resources.vala:420
+#: src/Resources.vala:432
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Zmień nazwę twarzy „%s” na „%s”"
 
-#: src/Resources.vala:424
+#: src/Resources.vala:436
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Usuń twarz „%s”"
 
-#: src/Resources.vala:428
+#: src/Resources.vala:440
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Usuń twarz „%s”"
 
-#: src/Resources.vala:658
+#: src/Resources.vala:670
 #, c-format
 msgid "Rate %s"
 msgstr "Ocena %s"
 
-#: src/Resources.vala:659
+#: src/Resources.vala:671
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ustaw ocenę na %s"
 
-#: src/Resources.vala:660
+#: src/Resources.vala:672
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Ustawianie oceny na %s"
 
-#: src/Resources.vala:662
+#: src/Resources.vala:674
 #, c-format
 msgid "Display %s"
 msgstr "Wyświetlanie %s"
 
-#: src/Resources.vala:663
+#: src/Resources.vala:675
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Wyświetla tylko z oceną %s"
 
-#: src/Resources.vala:664
+#: src/Resources.vala:676
 #, c-format
 msgid "%s or Better"
 msgstr "%s lub lepszą"
 
-#: src/Resources.vala:665
+#: src/Resources.vala:677
 #, c-format
 msgid "Display %s or Better"
 msgstr "Wyświetlanie %s lub lepszych"
 
-#: src/Resources.vala:666
+#: src/Resources.vala:678
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Wyświetla tylko zdjęcia z oceną %s lub lepszą"
 
-#: src/Resources.vala:764
+#: src/Resources.vala:776
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Otwiera wybrany katalog zdjęć w menedżerze plików"
 
-#: src/Resources.vala:767
+#: src/Resources.vala:779
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nie można otworzyć w menedżerze plików: %s"
 
-#: src/Resources.vala:775
+#: src/Resources.vala:787
 msgid "Select all items"
 msgstr "Zaznacza wszystkie elementy"
 
@@ -6480,14 +6398,14 @@ msgstr "Zaznacza wszystkie elementy"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:836
+#: src/Resources.vala:848
 msgid "%a %b %d, %Y"
 msgstr "%a, %-d %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:841
+#: src/Resources.vala:853
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %-d %b"
@@ -6495,7 +6413,7 @@ msgstr "%a, %-d %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:846
+#: src/Resources.vala:858
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%-d, %Y"
@@ -6503,7 +6421,7 @@ msgstr "%-d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:851
+#: src/Resources.vala:863
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %-d %b"
@@ -6511,7 +6429,7 @@ msgstr "%a, %-d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:868
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %-d %b %Y"
