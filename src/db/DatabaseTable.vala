@@ -21,17 +21,12 @@ public abstract class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 21;
-#if ENABLE_FACES
-    public const int SCHEMA_VERSION = 21;
-#else
-    public const int SCHEMA_VERSION = 20;
-#endif
-    
+    public const int SCHEMA_VERSION = 22;
+
     protected static Sqlite.Database db;
-    
+
     private static int in_transaction = 0;
-    
+
     public string table_name = null;
 
     private static void prepare_db(string filename) {

@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES   
-
 public struct FaceLocationID {
     public const int64 INVALID = -1;
 
@@ -266,5 +264,3 @@ public class FaceLocationTable : DatabaseTable {
         return rows;
     }
 }
-
-#endif

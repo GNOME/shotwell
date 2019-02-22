@@ -350,13 +350,30 @@ private VerifyResult upgrade_database(int input_version) {
     
     version = 20;
 
-#if ENABLE_FACES
+    
     //
     // Version 21:
+    // * Add has_gps, gps_lat and gps_lon columns to PhotoTable
+
+    if (!DatabaseTable.ensure_column("PhotoTable", "has_gps", "INTEGER DEFAULT -1",
+        "upgrade_database: adding gps_lat column to PhotoTable")
+        || !DatabaseTable.ensure_column("PhotoTable", "gps_lat", "REAL",
+        "upgrade_database: adding gps_lat column to PhotoTable")
+        || !DatabaseTable.ensure_column("PhotoTable", "gps_lon", "REAL",
+        "upgrade_database: adding gps_lon column to PhotoTable")) {
+        return VerifyResult.UPGRADE_ERROR;
+    }
+
+    version = 21;
+
+    //
+    // Version 22:
+    // * Create face detection tables even if feasture is not enabled
     // * Added face pixels column to FaceLocationTable
     // * Added face vector column to FaceTable
     //
-    
+    FaceTable.get_instance();
+    FaceLocationTable.get_instance();
     if (!DatabaseTable.has_column("FaceLocationTable", "vec")) {
         message("upgrade_database: adding vec column to FaceLocationTable");
         if (!DatabaseTable.add_column("FaceLocationTable", "vec", "TEXT"))
@@ -373,23 +390,8 @@ private VerifyResult upgrade_database(int input_version) {
             return VerifyResult.UPGRADE_ERROR;
     }
     
-    version = 21;
-#endif
-    
-    //
-    // Version 21:
-    // * Add has_gps, gps_lat and gps_lon columns to PhotoTable
+    version = 22;
 
-    if (!DatabaseTable.ensure_column("PhotoTable", "has_gps", "INTEGER DEFAULT -1",
-        "upgrade_database: adding gps_lat column to PhotoTable")
-        || !DatabaseTable.ensure_column("PhotoTable", "gps_lat", "REAL",
-        "upgrade_database: adding gps_lat column to PhotoTable")
-        || !DatabaseTable.ensure_column("PhotoTable", "gps_lon", "REAL",
-        "upgrade_database: adding gps_lon column to PhotoTable")) {
-        return VerifyResult.UPGRADE_ERROR;
-    }
-
-    version = 21;
     //
     // Finalize the upgrade process
     //

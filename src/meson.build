@@ -28,14 +28,10 @@ face_obj = ''
 
 if get_option('face-detection')
   face_sources = (['faces/FacesBranch.vala',
-                     'faces/FaceLocation.vala',
                      'faces/FacePage.vala',
                      'faces/FaceShape.vala',
-                     'faces/Faces.vala',
-                     'faces/Face.vala',
                      'faces/FaceDetect.vala',
-                     'db/FaceLocationTable.vala',
-                     'db/FaceTable.vala',
+                     'faces/Faces.vala',
                      'faces/FacesTool.vala'])
 endif
 
@@ -67,6 +63,8 @@ executable('shotwell',
             'db/DatabaseTable.vala',
             'db/PhotoTable.vala',
             'db/EventTable.vala',
+            'db/FaceLocationTable.vala',
+            'db/FaceTable.vala',
             'db/TagTable.vala',
             'db/TombstoneTable.vala',
             'db/VideoTable.vala',
@@ -75,6 +73,8 @@ executable('shotwell',
             'editing_tools/EditingTools.vala',
             'editing_tools/RGBHistogramManipulator.vala',
             'editing_tools/StraightenTool.vala',
+            'faces/Face.vala',
+            'faces/FaceLocation.vala',
             'slideshow/Slideshow.vala',
             'slideshow/TransitionEffects.vala',
             'photos/Photos.vala',

@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES
-
 // Encapsulate geometry and pixels of a Face
 public struct FaceLocationData {
     public string geometry;
@@ -224,4 +222,3 @@ public class FaceLocation : Object {
     }
 }
 
-#endif
