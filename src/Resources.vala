@@ -1051,11 +1051,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             debug("Failed to find icon %s in theme, falling back to resources", name);
         }
 
-        try {
-            var path = "/org/gnome/Shotwell/icons/%s".printf(name);
-            pixbuf = new Gdk.Pixbuf.from_resource(path);
-        } catch (Error err) {
-            critical("Unable to load icon %s: %s", name, err.message);
+        if (pixbuf == null) {
+            try {
+                var path = "/org/gnome/Shotwell/icons/%s".printf(name);
+                pixbuf = new Gdk.Pixbuf.from_resource(path);
+            } catch (Error err) {
+                critical("Unable to load icon %s: %s", name, err.message);
+            }
         }
 
         if (pixbuf == null)
