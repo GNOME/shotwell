@@ -70,6 +70,8 @@ public class ACDSeeKeywordTransformer : KeywordTransformer {
     }
 
     public override Gee.List<string> transform (string input) throws Error {
+        this.stack.clear();
+        this.result.clear();
         var ctx = new MarkupParseContext (this.parser, 0, this, null);
 
         ctx.parse (input, input.length);
