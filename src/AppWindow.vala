@@ -439,13 +439,6 @@ public abstract class AppWindow : PageWindow {
         // with each ActionGroup while we're adding the groups to the UIManager.
 
         add_actions ();
-        
-        Gtk.CssProvider provider = new Gtk.CssProvider();
-        provider.load_from_resource("/org/gnome/Shotwell/themes/org.gnome.Shotwell.css");
-        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        var foo = Gtk.IconTheme.get_default();
-        foo.add_resource_path("/org/gnome/Shotwell/icons/hicolor");
     }
 
     private const GLib.ActionEntry[] common_actions = {

@@ -148,7 +148,7 @@ private class ManifestListView : Gtk.TreeView {
         set_grid_lines(Gtk.TreeViewGridLines.NONE);
         get_selection().set_mode(Gtk.SelectionMode.BROWSE);
         
-        Gtk.IconTheme icon_theme = Resources.get_icon_theme_engine();
+        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
         
         // create a list of plugins (sorted by name) that are separated by extension points (sorted
         // by name)

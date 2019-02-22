@@ -798,7 +798,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string END_MULTIMONTH_DATE_FORMAT_STRING = null;
 
     public void init () {
-        get_icon_theme_engine();
+        init_icon_theme_engine();
+        init_css_provider();
         // load application-wide stock icons as IconSets
         generate_rating_strings();
     }
@@ -990,12 +991,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         return noninterpretable_badge_pixbuf;
     }
+
+    private void init_css_provider() {
+        Gtk.CssProvider provider = new Gtk.CssProvider();
+        provider.load_from_resource("/org/gnome/Shotwell/themes/org.gnome.Shotwell.css");
+        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
     
-    public Gtk.IconTheme get_icon_theme_engine() {
+    private void init_icon_theme_engine() {
         Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons");
-        
-        return icon_theme;
+        icon_theme.add_resource_path("/org/gnome/Shotwell/icons/hicolor");
     }
     
     // This method returns a reference to a cached pixbuf that may be shared throughout the system.
