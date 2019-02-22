@@ -8,6 +8,8 @@ public class DirectWindow : AppWindow {
     private DirectPhotoPage direct_photo_page;
     
     public DirectWindow(File file) {
+	base();
+
         direct_photo_page = new DirectPhotoPage(file);
         direct_photo_page.get_view().items_altered.connect(on_photo_changed);
         direct_photo_page.get_view().items_state_changed.connect(on_photo_changed);
