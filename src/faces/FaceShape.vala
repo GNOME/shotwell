@@ -31,6 +31,10 @@ public abstract class FaceShape : Object {
     //it is also used to reset popover entry text when cancel button is pressed
     private string initial_name;
     
+    //face name to show in face rectangle label
+    //it is also used to reset popover entry text when cancel button is pressed
+    private string initial_name;
+    
     private weak FacesTool.FaceWidget face_widget = null;
     
     protected FaceShape(EditingTools.PhotoCanvas canvas, double[] vec) {
