@@ -406,6 +406,8 @@ public abstract class AppWindow : PageWindow {
     protected int pos_y = 0;
     
     public AppWindow() {
+        base();
+
         // although there are multiple AppWindow types, only one may exist per-process
         assert(instance == null);
         instance = this;

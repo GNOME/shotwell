@@ -162,6 +162,8 @@ public class LibraryWindow : AppWindow {
 #endif
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
+        base();
+
         // prep sidebar and add roots
         sidebar_tree = new Sidebar.Tree(DND_TARGET_ENTRIES, Gdk.DragAction.ASK,
             external_drop_handler);
