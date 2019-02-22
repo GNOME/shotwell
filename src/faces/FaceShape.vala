@@ -14,7 +14,7 @@ public abstract class FaceShape : Object {
     public signal void add_me_requested(FaceShape face_shape);
     public signal void delete_me_requested();
     
-    protected FacesTool.EditingFaceToolWindow face_window;
+    protected FacesTool.EditingFacePopover face_window;
     protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
@@ -25,6 +25,10 @@ public abstract class FaceShape : Object {
     private bool known = true;
     private double guess = 0.0;
     
+    //face name to show in face rectangle label
+    //it is also used to reset popover entry text when cancel button is pressed
+    private string initial_name;
+    
     private weak FacesTool.FaceWidget face_widget = null;
     
     protected FaceShape(EditingTools.PhotoCanvas canvas, double[] vec) {
@@ -33,11 +37,10 @@ public abstract class FaceShape : Object {
         
         prepare_ctx(this.canvas.get_default_ctx(), this.canvas.get_surface_dim());
         
-        face_window = new FacesTool.EditingFaceToolWindow(this.canvas.get_container());
-        face_window.key_pressed.connect(key_press_event);
-        
-        face_window.show_all();
-        face_window.hide();
+        face_window = new FacesTool.EditingFacePopover(AppWindow.get_instance().get_current_page());
+        face_window.entry.activate.connect(popover_ok_button_pressed);
+        face_window.ok_button.clicked.connect(popover_ok_button_pressed);
+        face_window.cancel_button.clicked.connect(popover_cancel_button_pressed);
         
         this.face_vec = vec;
         this.canvas.set_cursor(current_cursor_type);
@@ -47,7 +50,7 @@ public abstract class FaceShape : Object {
         if (visible)
             erase();
         
-        face_window.destroy();
+        face_window.popover.destroy();
         
         canvas.new_surface.disconnect(prepare_ctx);
         
@@ -75,10 +78,21 @@ public abstract class FaceShape : Object {
     }
     
     public void set_name(string face_name) {
+        initial_name = face_name;
+        face_window.entry.set_text(face_name);
+    }
+
+    public void set_entry_name(string face_name) {
         face_window.entry.set_text(face_name);
     }
     
     public string? get_name() {
+        string face_name = initial_name;
+        
+        return face_name == "" ? null : face_name;
+    }
+
+    public string? get_entry_name() {
         string face_name = face_window.entry.get_text();
         
         return face_name == "" ? null : face_name;
@@ -115,7 +129,7 @@ public abstract class FaceShape : Object {
         erase();
         
         if (editable)
-            face_window.hide();
+            face_window.popover.set_visible(false);
         
         // make sure the cursor isn't set to a modify indicator
         canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
@@ -127,8 +141,8 @@ public abstract class FaceShape : Object {
         
         if (editable) {
             update_face_window_position();
-            face_window.show();
-            face_window.present();
+            face_window.popover.set_visible(true);
+            face_window.popover.popup();
             
             if (!known)
                 face_window.entry.select_region(0, -1);
@@ -169,6 +183,15 @@ public abstract class FaceShape : Object {
         }
         
         return true;
+    }
+
+    public void popover_ok_button_pressed() {
+        add_me_requested(this);
+    }
+
+    public void popover_cancel_button_pressed() {
+        delete_me_requested();
+
     }
     
     public abstract string serialize(bool geometry_only = false);
@@ -310,7 +333,6 @@ public class FaceRectangle : FaceShape {
     
     public override void update_face_window_position() {
         AppWindow appWindow = AppWindow.get_instance();
-        Gtk.Allocation face_window_alloc;
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
         int x = 0;
         int y = 0;
@@ -318,13 +340,13 @@ public class FaceRectangle : FaceShape {
         if (canvas.get_container() == appWindow) {
             appWindow.get_current_page().get_window().get_origin(out x, out y);
         } else assert(canvas.get_container() is FullscreenWindow);
-        
-        face_window.get_allocation(out face_window_alloc);
-        
-        x += scaled_pixbuf_pos.x + box.left + ((box.get_width() - face_window_alloc.width) >> 1);
-        y += scaled_pixbuf_pos.y + box.bottom + FACE_WINDOW_MARGIN;
-        
-        face_window.move(x, y);
+
+        Gdk.Rectangle rect = Gdk.Rectangle();
+        rect.x = box.left + scaled_pixbuf_pos.x;
+        rect.y = box.bottom - box.get_height() + scaled_pixbuf_pos.y;
+        rect.width = box.get_width();
+        rect.height = box.get_height();
+        face_window.popover.set_pointing_to(rect);
     }
     
     protected override void paint() {
@@ -784,8 +806,7 @@ public class FaceRectangle : FaceShape {
         }
         
         if (is_editable()) {
-            face_window.show();
-            face_window.present();
+            face_window.popover.set_visible(true);
         }
         
         // nothing to do if released outside of the face box
