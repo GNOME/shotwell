@@ -288,26 +288,35 @@ public class FacesTool : EditingTools.EditingTool {
         }
     }
 
-    public class EditingFaceToolWindow : EditingTools.EditingToolWindow {
-        public signal bool key_pressed(Gdk.EventKey event);
-
+    public class EditingFacePopover{
+        public Gtk.Popover popover;
         public Gtk.Entry entry;
+        public Gtk.Button ok_button;
+        public Gtk.Button cancel_button;
 
-        private Gtk.Box layout = null;
-
-        public EditingFaceToolWindow(Gtk.Window container) {
-            base(container);
-
+        public EditingFacePopover(Page? window){
             entry = new Gtk.Entry();
+            ok_button = new Gtk.Button.with_label(Resources.OK_LABEL);
+            ok_button.set_use_underline(true);
+            cancel_button = new Gtk.Button.with_label(Resources.CANCEL_LABEL);
+            cancel_button.set_use_underline(true);
 
-            layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
-            layout.add(entry);
-
-            add(layout);
-        }
-
-        public override bool key_press_event(Gdk.EventKey event) {
-            return key_pressed(event) || base.key_press_event(event);
+            Gtk.Box layoutH;
+            Gtk.Box layoutV;
+            layoutV = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            layoutV.set_border_width(5);
+            layoutH = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            layoutH.set_homogeneous(true);
+            layoutV.add(entry);
+            layoutV.add(layoutH);
+            layoutH.add(ok_button);
+            layoutH.add(cancel_button);
+            layoutV.set_can_default (true);
+            popover = new Gtk.Popover(window);
+            popover.add(layoutV);
+            popover.set_position(Gtk.PositionType.BOTTOM);
+            popover.show_all();
+            popover.hide();
         }
     }
 
@@ -369,7 +378,7 @@ public class FacesTool : EditingTools.EditingTool {
         }
     }
 
-    private Cairo.Surface image_surface = null;
+    public Cairo.Surface image_surface = null;
     private Gee.HashMap<string, FaceShape> face_shapes;
     private Gee.HashMap<string, string> original_face_locations;
     private Cancellable face_detection_cancellable;
@@ -695,6 +704,7 @@ public class FacesTool : EditingTools.EditingTool {
             editing_face_shape.set_editable(false);
 
             editing_face_shape.get_widget().deactivate_label();
+            editing_face_shape.set_entry_name(editing_face_shape.get_name());
         }
 
         editing_face_shape = null;
@@ -744,6 +754,7 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     private void add_face(FaceShape face_shape) {
+        face_shape.set_name(face_shape.get_entry_name());
         string? prepared_face_name = Face.prep_face_name(face_shape.get_name());
 
         if (prepared_face_name != null) {
