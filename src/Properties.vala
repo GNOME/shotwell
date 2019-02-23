@@ -9,10 +9,10 @@ private abstract class Properties : Gtk.Box {
     protected uint line_count = 0;
 
     public Properties() {
+        Object(orientation: Gtk.Orientation.VERTICAL, homogeneous : false);
+
         grid.row_spacing = 6;
         grid.column_spacing = 12;
-        set_homogeneous(false);
-        set_orientation(Gtk.Orientation.VERTICAL);
         pack_start(grid, false, false, 0);
     }
 
@@ -178,8 +178,10 @@ private class BasicProperties : Properties {
     private MapWidget map_widget;
 
     public BasicProperties() {
+        base();
+
         map_widget = MapWidget.get_instance();
-        pack_start(map_widget, true, true, 0);
+        pack_end(map_widget, true, true, 0);
     }
 
     protected override void clear_properties() {
