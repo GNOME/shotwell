@@ -83,6 +83,7 @@ src/BatchImport.vala
 src/camera/CameraBranch.vala
 src/camera/CameraTable.vala
 src/camera/ImportPage.vala
+src/CheckerboardPage.vala
 src/CollectionPage.vala
 src/Commands.vala
 src/data_imports/DataImportsPluginHost.vala
@@ -100,6 +101,7 @@ src/dialogs/WelcomeDialog.vala
 src/Dimensions.vala
 src/direct/DirectPhotoPage.vala
 src/DirectoryMonitor.vala
+src/DragAndDropHandler.vala
 src/editing_tools/EditingTools.vala
 src/editing_tools/StraightenTool.vala
 src/events/EventDirectoryItem.vala
@@ -123,6 +125,7 @@ src/main.vala
 src/MediaMonitor.vala
 src/MediaPage.vala
 src/Page.vala
+src/PageMessagePane.vala
 src/PhotoPage.vala
 src/photos/BmpSupport.vala
 src/photos/GifSupport.vala
@@ -145,6 +148,7 @@ src/searches/SavedSearchDialog.vala
 src/searches/SearchBoolean.vala
 src/searches/SearchesBranch.vala
 src/SearchFilter.vala
+src/SinglePhotoPage.vala
 src/SlideshowPage.vala
 src/slideshow/Slideshow.vala
 src/slideshow/TransitionEffects.vala

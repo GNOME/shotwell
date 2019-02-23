@@ -36,6 +36,7 @@ src/BatchImport.c
 src/camera/CameraBranch.c
 src/camera/CameraTable.c
 src/camera/ImportPage.c
+src/CheckerboardPage.c
 src/CollectionPage.c
 src/Commands.c
 src/data_imports/DataImports.c
@@ -53,6 +54,7 @@ src/Dialogs.c
 src/Dimensions.c
 src/direct/DirectPhotoPage.c
 src/DirectoryMonitor.c
+src/DragAndDropHandler.c
 src/editing_tools/EditingTools.c
 src/editing_tools/StraightenTool.c
 src/Event.c
@@ -76,6 +78,7 @@ src/main.c
 src/MediaMonitor.c
 src/MediaPage.c
 src/Page.c
+src/PageMessagePane.c
 src/Photo.c
 src/PhotoPage.c
 src/photos/BmpSupport.c
@@ -98,6 +101,7 @@ src/searches/SavedSearchDialog.c
 src/searches/SearchBoolean.c
 src/searches/SearchesBranch.c
 src/SearchFilter.c
+src/SinglePhotoPage.c
 src/SlideshowPage.c
 src/slideshow/Slideshow.c
 src/slideshow/TransitionEffects.c
