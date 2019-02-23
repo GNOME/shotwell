@@ -307,6 +307,7 @@ private class MarkerGroupRaster : Object {
 }
 
 private class MapWidget : Gtk.Bin {
+    private const string MAPBOX_API_TOKEN = "pk.eyJ1IjoiamVuc2dlb3JnIiwiYSI6ImNqZ3FtYmhrMTBkOW8yeHBlNG8xN3hlNTAifQ.ek7i8UHeNIlkKi10fhgFgg";
     private const uint DEFAULT_ZOOM_LEVEL = 8;
 
     private static MapWidget instance = null;
@@ -584,30 +585,51 @@ private class MapWidget : Gtk.Bin {
     private Champlain.MapSource create_map_source() {
         var map_source = new Champlain.MapSourceChain();
         var file_cache = new Champlain.FileCache.full(10 * 1024 * 1024,
-            AppDirs.get_cache_dir().get_child("tiles").get_path(), new Champlain.ImageRenderer());
+            AppDirs.get_cache_dir().get_child("tiles").get_child("mapbox-outdoors").get_path(),
+            new Champlain.ImageRenderer());
         var memory_cache = new Champlain.MemoryCache.full(10 * 1024 * 1024, new Champlain.ImageRenderer());
         var error_source = new Champlain.NullTileSource.full(new Champlain.ImageRenderer());
-        var osm = Champlain.MapSourceFactory.dup_default().create(Champlain.MAP_SOURCE_OSM_MAPNIK);
+
+        var tile_source = new Champlain.NetworkTileSource.full("mapbox-outdoors",
+                                                               "Mapbox outdoors tiles",
+                                                               "",
+                                                               "",
+                                                               0,
+                                                               19,
+                                                               256,
+                                                               Champlain.MapProjection.MERCATOR,
+                                                               "https://a.tiles.mapbox.com/v4/mapbox.outdoors/#Z#/#X#/#Y#.png?access_token=" +
+                                                               MAPBOX_API_TOKEN,
+                                                               new Champlain.ImageRenderer());
+
         var user_agent = "Shotwell/%s libchamplain/%s".printf(_VERSION, Champlain.VERSION_S);
-        if (osm is Champlain.NetworkTileSource) {
-            (osm as Champlain.NetworkTileSource).set_user_agent(user_agent);
-            (osm as Champlain.NetworkTileSource).max_conns = 2;
-        } else if (osm is Champlain.NetworkBboxTileSource) {
-            (osm as Champlain.NetworkBboxTileSource).set_user_agent(user_agent);
-        }
+        tile_source.set_user_agent(user_agent);
+        tile_source.max_conns = 2;
 
         map_source.push(error_source);
-        map_source.push(osm);
+        map_source.push(tile_source);
         map_source.push(file_cache);
         map_source.push(memory_cache);
 
         return map_source;
     }
 
+    private Clutter.Actor create_attribution_actor() {
+        const string IMPROVE_TEXT = N_("Improve this map");
+        var label = new Gtk.Label(null);
+        label.set_markup("<a href=\"https://www.mapbox.com/about/maps/\">© Mapbox</a> <a href=\"https://openstreetmap.org/about/\">© OpenStreetMap</a> <a href=\"https://www.mapbox.com/map-feedback/\">%s</a>".printf(IMPROVE_TEXT));
+        label.get_style_context().add_class("map-attribution");
+
+        return new GtkClutter.Actor.with_contents(label);
+    }
+
     private void setup_map() {
         map_view = gtk_champlain_widget.get_view();
         map_view.add_layer(marker_layer);
         map_view.set_map_source(create_map_source());
+
+        var map_attribution_text = create_attribution_actor();
+        map_attribution_text.content_gravity = Clutter.ContentGravity.BOTTOM_RIGHT;
 
         // add lock/unlock button to top left corner of map
         map_edit_lock_button.content_gravity = Clutter.ContentGravity.TOP_RIGHT;
@@ -621,6 +643,7 @@ private class MapWidget : Gtk.Bin {
             return true;
         });
         map_view.bin_layout_add(map_edit_lock_button, Clutter.BinAlignment.END, Clutter.BinAlignment.START);
+        map_view.bin_layout_add(map_attribution_text, Clutter.BinAlignment.END, Clutter.BinAlignment.END);
         gtk_champlain_widget.has_tooltip = true;
         gtk_champlain_widget.query_tooltip.connect((x, y, keyboard_tooltip, tooltip) => {
             Gdk.Rectangle lock_rect = {
