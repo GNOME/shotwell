@@ -509,25 +509,8 @@ private class MapWidget : Gtk.Bin {
 
             CheckerboardItem item = m.view as CheckerboardItem;
 
-            if (!did_adjust_view) {
-                // if first item is in any way out of view, scroll to it
-                Gtk.Adjustment vadj = page.get_vadjustment();
-
-                if (!(get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
-                      && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))) {
-
-                    // scroll to see the new item
-                    int top = 0;
-                    if (item.allocation.y < vadj.get_value()) {
-                        top = item.allocation.y;
-                        top -= CheckerboardLayout.ROW_GUTTER_PADDING / 2;
-                    } else {
-                        top = item.allocation.y + item.allocation.height - (int) vadj.get_page_size();
-                        top += CheckerboardLayout.ROW_GUTTER_PADDING / 2;
-                    }
-
-                    vadj.set_value(top);
-                }
+            if (!did_adjust_view && page is CheckerboardPage) {
+                (page as CheckerboardPage).scroll_to_item(item);
                 did_adjust_view = true;
             }
             item.brighten();
