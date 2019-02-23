@@ -216,6 +216,20 @@
             ]
         },
         {
+            "name" : "libchamplain",
+            "config-opts" : [
+                "--enable-vala"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "tag" : "LIBCHAMPLAIN_0_12_18",
+                    "commit" : "3abc28430124256660a7321da1fa6571f2975ad7",
+                    "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git"
+                }
+            ]
+        },
+        {
             "name" : "shotwell",
             "buildsystem" : "meson",
             "config-opts" : [
