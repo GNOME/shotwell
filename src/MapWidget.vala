@@ -107,8 +107,8 @@ private class DataViewPositionMarker : PositionMarker {
 }
 
 private class MarkerGroup : PositionMarker {
-    private Gee.Collection<DataViewPositionMarker> _data_view_position_markers =
-        new Gee.LinkedList<DataViewPositionMarker>();
+    private Gee.Collection<weak DataViewPositionMarker> _data_view_position_markers =
+        new Gee.LinkedList<weak DataViewPositionMarker>();
     private Gee.Collection<PositionMarker> _position_markers = new Gee.LinkedList<PositionMarker>();
     private Champlain.BoundingBox bbox = new Champlain.BoundingBox();
 
