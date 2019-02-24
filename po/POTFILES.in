@@ -122,6 +122,7 @@ src/library/LibraryWindow.vala
 src/library/OfflinePage.vala
 src/library/TrashPage.vala
 src/main.vala
+src/MapWidget.vala
 src/MediaMonitor.vala
 src/MediaPage.vala
 src/Page.vala

@@ -75,6 +75,7 @@ src/library/LibraryWindow.c
 src/library/OfflinePage.c
 src/library/TrashPage.c
 src/main.c
+src/MapWidget.c
 src/MediaMonitor.c
 src/MediaPage.c
 src/Page.c
