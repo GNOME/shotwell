@@ -5,13 +5,12 @@
 #
 #
 # Translators:
-# Aputsiaĸ Niels Janussen <aj@isit.gl>, 2011
-# Aputsiaĸ Niels Janussen <aj@isit.gl>, 2012
-#   <johanneswilm@gmail.com>, 2011
-# johanneswilm <johanneswilm@gmail.com>, 2011
-# Kris Thomsen <lakristho@gmail.com>, 2011
-# verayin <vera@yorba.org>, 2011
+# Aputsiaĸ Niels Janussen <aj@isit.gl>, 2011-2012.
+# johanneswilm <johanneswilm@gmail.com>, 2011.
+# Kris Thomsen <lakristho@gmail.com>, 2011.
+# verayin <vera@yorba.org>, 2011.
 # Alan Mortensen <alanmortensen.am@gmail.com>, 2016-18.
+# scootergrisen, 2019.
 #
 # Konventioner:
 # slideshow -> slideshow (accepteret af RO; MicroSoft har forladt diasshow; dias relaterer sig til lysbilleder)
@@ -19,20 +18,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.15.1\n"
+"Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-01-24 22:30+0000\n"
-"PO-Revision-Date: 2019-01-26 16:06+0100\n"
-"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/shotwell/language/"
-"da/)\n"
+"POT-Creation-Date: 2019-02-08 21:55+0000\n"
+"PO-Revision-Date: 2019-02-19 00:00+0200\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-04-09 13:12+0000\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -365,8 +361,8 @@ msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database."
 msgstr ""
-"Sand hvis de oprindelige filer også skal ændres, når billeders klokkeslæt/"
-"dato ændres; falsk hvis ændringer kun sker i databasen."
+"Sand hvis de oprindelige filer også skal ændres, når billeders "
+"klokkeslæt/dato ændres; falsk hvis ændringer kun sker i databasen."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:137
 msgid "show welcome dialog on startup"
@@ -578,7 +574,7 @@ msgid ""
 "photo files"
 msgstr ""
 "Hvis sand vil Shotwell ændre alle filnavne til små bogstaver, når billeder "
-"importeres."
+"importeres"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:281
 msgid "directory pattern"
@@ -831,7 +827,6 @@ msgstr ""
 "Fotos-session, hvis nogen."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:499
-#, fuzzy
 #| msgid ""
 #| "A numeric code representing the default size for photos uploaded to "
 #| "Picasa Web Albums"
@@ -840,7 +835,7 @@ msgid ""
 "Photos Albums"
 msgstr ""
 "En numerisk kode som repræsenterer standardstørrelsen på billeder, der "
-"overføres til Picasa Webalbums"
+"overføres til Google Fotos-album"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:504
 #: data/gsettings/org.yorba.shotwell.gschema.xml:598
@@ -853,7 +848,6 @@ msgid "The name of the last album the user published photos to, if any"
 msgstr "Navnet på det sidste album som brugeren udgav billeder til, hvis noget"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:511
-#, fuzzy
 #| msgid ""
 #| "Whether images being uploaded to Facebook should have their metadata "
 #| "removed first"
@@ -861,7 +855,7 @@ msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
 msgstr ""
-"Om billeder, der overføres til Facebook, først skal have fjernet deres "
+"Om billeder, der overføres til Google Fotos, først skal have fjernet deres "
 "metadata"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:518
@@ -1043,7 +1037,7 @@ msgstr "indholds-ppi"
 #: data/gsettings/org.yorba.shotwell.gschema.xml:655
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr ""
-"Antallet af billedpunkter pr. tomme (ppi) som sendes til printeren under "
+"Antallet af billedpunkter pr. inch (ppi) som sendes til printeren under "
 "udskrivning"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:660
@@ -1072,7 +1066,7 @@ msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
 msgstr ""
-"En numerisk kode som repræsenterer måleenheder (tommer eller centimeter) "
+"En numerisk kode som repræsenterer måleenheder (inches eller centimeter) "
 "brugt til udskrivning"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:678
@@ -1151,18 +1145,16 @@ msgstr ""
 "falsk"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:726
-#, fuzzy
 #| msgid "enable facebook publishing plugin"
 msgid "enable Google Photos publishing plugin"
-msgstr "aktivér udvidelsesmodul til udgivelse på facebook"
+msgstr "aktivér udvidelsesmodul til udgivelse på Google Fotos"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:727
-#, fuzzy
 #| msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
-"Sand hvis udvidelsesmodulet til udgivelse på Gallery3 skal aktiveres, ellers "
-"falsk"
+"Sand hvis udvidelsesmodulet til udgivelse på Google Fotos skal aktiveres, "
+"ellers falsk"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:732
 msgid "enable youtube publishing plugin"
@@ -1250,8 +1242,7 @@ msgstr "aktivér falme-overgang i slideshow"
 #: data/gsettings/org.yorba.shotwell.gschema.xml:781
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Sand hvis slideshowudvidelsesmodulet Falme skal aktiveres, ellers falsk"
+msgstr "Sand hvis slideshowudvidelsesmodulet Falme skal aktiveres, ellers falsk"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:786
 msgid "enable slideshow slide transition"
@@ -1260,8 +1251,7 @@ msgstr "aktivér glide-overgang i slideshow"
 #: data/gsettings/org.yorba.shotwell.gschema.xml:787
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
-msgstr ""
-"Sand hvis slideshowudvidelsesmodulet Glide skal aktiveres, ellers falsk"
+msgstr "Sand hvis slideshowudvidelsesmodulet Glide skal aktiveres, ellers falsk"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow clock transition"
@@ -1359,13 +1349,12 @@ msgstr ""
 "Shotwell er et hurtigt og brugervenligt program til organisering af dine "
 "billeder. Det er designet til GNOME-skrivebordet. Du kan importere billeder "
 "fra kamera eller disk og organisere dem efter dato, emne eller bedømmelse. "
-"Det indeholder også grundlæggende værktøjer til billedredigering så som "
+"Det indeholder også grundlæggende værktøjer til billedredigering såsom "
 "beskæring, fjernelse af røde øjne, farvejustering og udjævning. Shotwell "
 "ødelægger ikke det oprindelige billede, hvilket gør det nemt at "
 "eksperimentere og rette fejl."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
-#, fuzzy
 #| msgid ""
 #| "When ready, Shotwell can upload your photos to various web sites, such as "
 #| "Facebook, Flickr, Picasa (Google Plus), and more."
@@ -1374,7 +1363,7 @@ msgid ""
 "Facebook, Flickr, Google Photos, and more."
 msgstr ""
 "Når du er klar, kan Shotwell overføre dine billeder til forskellige "
-"websteder så som Facebook, Flickr, Picasa (Google Plus) med flere."
+"websteder såsom Facebook, Flickr, Google Fotos med flere."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -1399,10 +1388,10 @@ msgid ""
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
 "rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"album;kamera;kameraer;beskær;redigér;rediger;forbedr;eksport;galleri;billede;"
-"billeder;import;organisér;organiser;foto;fotografier;fotografi;udskriv;udgiv;"
-"roter;rotér;del;mærker;video;facebook;flickr;picasa;youtube;piwigo;print;"
-"publicér;"
+"album;kamera;kameraer;beskær;redigér;rediger;forbedr;eksport;galleri;billede"
+";billeder;import;organisér;organiser;foto;fotografier;fotografi;udskriv;udgi"
+"v;roter;rotér;del;mærker;video;facebook;flickr;picasa;youtube;piwigo;print;p"
+"ublicér;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/org.gnome.Shotwell.desktop.in:11
@@ -1714,7 +1703,7 @@ msgstr "_Justér"
 
 #: data/ui/direct.ui:167 data/ui/photo.ui:337 src/Resources.vala:274
 msgid "_Adjust Date and Time…"
-msgstr "_Justér dato og tid …"
+msgstr "_Justér dato og klokkeslæt …"
 
 #: data/ui/direct.ui:174 data/ui/direct.ui:177 data/ui/events_directory.ui:150
 #: data/ui/events_directory.ui:153 data/ui/event.ui:420 data/ui/event.ui:423
@@ -1975,7 +1964,7 @@ msgstr "Ansigter"
 msgid "Rename…"
 msgstr "Omdøb …"
 
-#: data/ui/faces.ui:469 src/library/TrashPage.vala:110
+#: data/ui/faces.ui:469 src/library/TrashPage.vala:114
 msgid "Delete"
 msgstr "Slet"
 
@@ -2187,7 +2176,7 @@ msgstr "_Send billede til:"
 
 #: data/ui/printing_widget.ui:316
 msgid "pixels per inch"
-msgstr "billedpunkter per tomme"
+msgstr "billedpunkter pr. inch"
 
 #: data/ui/saved_search_dialog.ui:8
 msgid "Search"
@@ -2336,33 +2325,6 @@ msgstr "Slet alle billeder i papirkurven"
 msgid "Empty Trash"
 msgstr "Tøm papirkurven"
 
-#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
-msgid ""
-"You are not currently logged into Facebook.\n"
-"\n"
-"If you don’t yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
-msgstr ""
-"Du er i øjeblikket ikke logget ind på Facebook.\n"
-"\n"
-"Hvis du endnu ikke har en Facebook-konto, kan du oprette en under "
-"loginprocessen. Under login kan det være, at Shotwell Connect spørger dig om "
-"tilladelse til at overføre billeder og udgive i din nyhedskilde. Disse "
-"rettigheder er nødvendige for at Shotwell Connect skal kunne fungere."
-
-#: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
-msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
-msgstr ""
-"Du har allerede logget dig ind og ud af Facebook i denne Shotwellsession.\n"
-"For at udgive på Facebook igen så afslut og genstart Shotwell, forsøg så "
-"udgivelse igen."
-
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
 "You are not currently logged into Flickr.\n"
@@ -2370,7 +2332,7 @@ msgid ""
 "Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
-"Du er ikke logget på Flickr i øjeblikket.\n"
+"Du er ikke logget ind på Flickr.\n"
 "\n"
 "Klik Log ind for at logge ind i din webbrowser. Du vil skulle godkende "
 "Shotwell Connect for at linke til din Flickr-konto."
@@ -2401,7 +2363,7 @@ msgstr ""
 "Afslut og start Shotwell på ny for at fortsætte med at udgive til Google-"
 "tjenester."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
 "You are not currently logged into YouTube.\n"
 "\n"
@@ -2409,14 +2371,13 @@ msgid ""
 "with YouTube to continue. You can set up most accounts by using your browser "
 "to log into the YouTube site at least once."
 msgstr ""
-"Du er ikke logget ind på YouTube. \n"
+"Du er ikke logget ind på YouTube.\n"
 "\n"
-"Du skal allerede have åbnet en Google-konto og sat den op til brug med "
+"Du skal på forhånd have oprettet en Google-konto og sat den op til brug med "
 "YouTube for at kunne fortsætte. Du kan sætte de fleste konti op ved at logge "
 "ind på YouTube-webstedet mindst en gang med din browser."
 
-#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
-#, fuzzy
+#: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 #| msgid ""
 #| "You are not currently logged into YouTube.\n"
 #| "\n"
@@ -2431,17 +2392,18 @@ msgid ""
 "\n"
 "You will have to authorize Shotwell to link to your Google Photos account."
 msgstr ""
-"Du er ikke logget ind på YouTube. \n"
+"Du er ikke logget ind på Google Fotos.\n"
 "\n"
-"Du skal allerede have åbnet en Google-konto og sat den op til brug med "
-"YouTube for at kunne fortsætte. Du kan sætte de fleste konti op ved at logge "
-"ind på YouTube-webstedet mindst en gang med din browser."
+"Du skal på forhånd have oprettet en Google-konto og sat den op til "
+"brug med Google Fotos.\n"
+"\n"
+"Du vil skulle godkende Shotwell for at linke til din Google Fotos-konto."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
 msgid "_Email address"
-msgstr "_E-mail-adresse"
+msgstr "_E-mailadresse"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
@@ -2496,8 +2458,7 @@ msgstr ""
 #: plugins/common/RESTSupport.vala:220
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
-msgstr ""
-"⚫ Dette websted fremviste identifikation som tilhører et andet websted."
+msgstr "⚫ Dette websted fremviste identifikation som tilhører et andet websted."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:225
@@ -2552,8 +2513,7 @@ msgstr ""
 #: plugins/common/RESTSupport.vala:539
 #: plugins/shotwell-publishing/TumblrPublishing.vala:623
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
-"En midlertidig fil, som er nødvendig for udgivelse, er ikke tilgængelig"
+msgstr "En midlertidig fil, som er nødvendig for udgivelse, er ikke tilgængelig"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
 msgid "_Gallery3 URL:"
@@ -2617,7 +2577,6 @@ msgstr "Længste kant"
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:177
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
@@ -2629,7 +2588,6 @@ msgstr "_Log ud"
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:192
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
@@ -2649,7 +2607,7 @@ msgid ""
 "You must have already signed up for a Gallery3 account to complete the login "
 "process."
 msgstr ""
-"Du er ikke logget ind på dit Gallery. \n"
+"Du er ikke logget ind på dit Gallery.\n"
 "\n"
 "Du skal på forhånd have oprettet en Gallery3-konto for at kunne fuldføre "
 "login-processen."
@@ -2757,7 +2715,7 @@ msgstr "Åbn mål_album i browser"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
 msgid "Copyright © 2013 rajce.net"
-msgstr "Copyright © 2013 rajce.net"
+msgstr "Ophavsret © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
@@ -2793,7 +2751,7 @@ msgstr "Shotwells ekstra udgivelsestjenester"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
 msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+msgstr "Ophavsret 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
@@ -2801,14 +2759,13 @@ msgstr "Besøg Yandex.Fotki-webstedet"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
 msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Du er ikke logget ind til Yandex.Fotki."
+msgstr "Du er ikke logget ind på Yandex.Fotki."
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:12
 msgid "Public"
 msgstr "Offentlig"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:15
-#: plugins/shotwell-publishing/FacebookPublishing.vala:888
 msgid "Friends"
 msgstr "Venner"
 
@@ -2833,24 +2790,12 @@ msgstr "Deaktivér _kommentarer"
 msgid "_Forbid downloading original photo"
 msgstr "_Forbyd at oprindeligt billede kan hentes"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:42
-msgid "Publish to an e_xisting album:"
-msgstr "Udgiv til et eks_isterende album:"
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
+#| msgid "Photo _size:"
+msgid "Photo _size"
+msgstr "_Billedstørrelse"
 
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:58
-msgid "Create a _new album named:"
-msgstr "Opret et _nyt album med navnet:"
-
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:100
-#: plugins/shotwell-publishing/FacebookPublishing.vala:725
-msgid "Upload _size:"
-msgstr "Overførsels_størrelse:"
-
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:125
-msgid "Videos and new photo albums _visible to:"
-msgstr "Videoer og nye fotoalbum _synlige for:"
-
-#: plugins/shotwell-publishing/facebook_publishing_options_pane.ui:155
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
@@ -2859,69 +2804,11 @@ msgid ""
 msgstr ""
 "_Fjern sted, kamera og anden identificerende information før overførsel"
 
-#: plugins/shotwell-publishing/FacebookPublishing.vala:33
 #: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
-msgstr "Copyright 2016 Software Freedom Conservancy Inc."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:61
-#: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
-msgid "Shotwell Connect"
-msgstr "Shotwell Connect"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:81
-msgid "Standard (720 pixels)"
-msgstr "Standard (720 billedpunkter)"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:84
-msgid "Large (2048 pixels)"
-msgstr "Stor (2048 billedpunkter)"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:314
-msgid "Creating album…"
-msgstr "Opretter album …"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:340
-msgid ""
-"A file required for publishing is unavailable. Publishing to Facebook can’t "
-"continue."
-msgstr ""
-"En fil, som kræves for at udgive, mangler. Udgivelse til Facebook kan ikke "
-"fortsætte."
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:723
-#, c-format
-msgid ""
-"You are logged into Facebook as %s.\n"
-"\n"
-msgstr ""
-"Du er logget ind på Facebook som %s.\n"
-"\n"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:724
-msgid "Where would you like to publish the selected photos?"
-msgstr "Hvor vil du gerne udgive de valgte billeder?"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:887
-#: plugins/shotwell-publishing/FlickrPublishing.vala:665
-msgid "Just me"
-msgstr "Kun mig"
-
-#: plugins/shotwell-publishing/FacebookPublishing.vala:889
-#: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
-msgid "Everyone"
-msgstr "Alle"
-
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
-#, fuzzy
-#| msgid "Photo _size:"
-msgid "Photo _size"
-msgstr "_Billedstørrelse:"
+msgstr "Ophavsret 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
 msgid ""
@@ -2955,22 +2842,24 @@ msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Din Flickr Pro-konto giver dig ubegrænset overførsel."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:616
-#, fuzzy
 #| msgid "Photos _visible to:"
 msgid "Photos _visible to"
-msgstr "Billeder _synlige for:"
+msgstr "Billeder _synlige for"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:618
-#, fuzzy
 #| msgid "Videos _visible to:"
 msgid "Videos _visible to"
-msgstr "Videoer _synlige for:"
+msgstr "Videoer _synlige for"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
-#, fuzzy
 #| msgid "Photos and videos _visible to:"
 msgid "Photos and videos _visible to"
-msgstr "Billeder og videoer _synlige for:"
+msgstr "Billeder og videoer _synlige for"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:661
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+msgid "Everyone"
+msgstr "Alle"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:662
 msgid "Friends & family only"
@@ -2983,6 +2872,10 @@ msgstr "Kun familie"
 #: plugins/shotwell-publishing/FlickrPublishing.vala:664
 msgid "Friends only"
 msgstr "Kun venner"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:665
+msgid "Just me"
+msgstr "Kun mig"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
@@ -3012,24 +2905,28 @@ msgid ""
 "list might be empty despite the fact that you already have albums in your "
 "Google Photos account"
 msgstr ""
+"Shotwell kan kun udgive i album som den selv har oprettet, så listen kan "
+"være tom selvom du allerede har album i din Google Fotos-konto"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
-#, fuzzy
 #| msgid "Photo _size preset:"
 msgid "Photo _size preset"
-msgstr "_Standardstørrelse på billede:"
+msgstr "_Standardstørrelse på billede"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
-#, fuzzy
 #| msgid "An _existing album"
 msgid "An existing album"
-msgstr "Et _eksisterende album"
+msgstr "Et eksisterende album"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
-#, fuzzy
 #| msgid "A _new album named"
 msgid "A new album named"
-msgstr "Et _nyt album med navnet"
+msgstr "Et nyt album med navnet"
+
+#: plugins/shotwell-publishing/PhotosPublisher.vala:9
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+msgid "Shotwell Connect"
+msgstr "Shotwell Connect"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -3054,10 +2951,10 @@ msgstr "Oprindelig størrelse"
 
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:59
-#, fuzzy, c-format
+#, c-format
 #| msgid "You are logged into YouTube as %s."
 msgid "You are logged into Google Photos as %s."
-msgstr "Du er logget ind på YouTube som %s."
+msgstr "Du er logget ind på Google Fotos som %s."
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:64
 msgid "Videos will appear in:"
@@ -3071,7 +2968,7 @@ msgstr "Standardalbum"
 
 #: plugins/shotwell-publishing/PhotosService.vala:36
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
-msgstr ""
+msgstr "Ophavsret 2019 Jens Georg <mail@jensge.org>"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:44
 msgid "_URL of your Piwigo photo library"
@@ -3142,8 +3039,8 @@ msgid ""
 "messages, credit card information, or passwords)."
 msgstr ""
 "Dette ligner ikke den rigtige <b>%s</b>. Angribere forsøger måske at stjæle "
-"eller ændre informationer, der går til eller kommer fra dette websted (f."
-"eks. private beskeder, kreditkortoplysninger eller adgangskoder)."
+"eller ændre informationer, der går til eller kommer fra dette websted "
+"(f.eks. private beskeder, kreditkortoplysninger eller adgangskoder)."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
 #, c-format
@@ -3198,15 +3095,14 @@ msgstr "Vis certifikatet …"
 msgid "I understand, please _proceed."
 msgstr "Jeg er indforstået, fortsæt _venligst."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:59
+#: plugins/shotwell-publishing/shotwell-publishing.vala:53
 msgid "Core Publishing Services"
 msgstr "Kernetjenester til udgivelse"
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
-#, fuzzy
 #| msgid "Blogs:"
 msgid "Blogs"
-msgstr "Blogs:"
+msgstr "Blogs"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
@@ -3233,10 +3129,9 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
-#, fuzzy
 #| msgid "Video privacy _setting:"
 msgid "Video privacy _setting"
-msgstr "Video-ind_stilinger for privatliv:"
+msgstr "Privatlivsind_stilling for video"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
 msgid ""
@@ -3385,7 +3280,7 @@ msgstr "Kan ikke vise hjælp: %s"
 #: src/AppWindow.vala:606
 #, c-format
 msgid "Unable to navigate to bug database: %s"
-msgstr "Kan ikke navigere til fejldatase: %s"
+msgstr "Kan ikke navigere til fejldatabase: %s"
 
 #: src/AppWindow.vala:614
 #, c-format
@@ -3625,7 +3520,7 @@ msgstr "Fuldskærm"
 
 #: src/CollectionPage.vala:135
 msgid "Adjust Date and Time…"
-msgstr "Justér dato og tid …"
+msgstr "Justér dato og klokkeslæt …"
 
 #: src/CollectionPage.vala:149 src/Resources.vala:132
 msgid "_Play"
@@ -3760,11 +3655,11 @@ msgstr "Oprindeligt billede kunne ikke justeres."
 
 #: src/Commands.vala:1367
 msgid "Adjusting Date and Time"
-msgstr "Justerer dato og tid"
+msgstr "Justerer dato og klokkeslæt"
 
 #: src/Commands.vala:1367
 msgid "Undoing Date and Time Adjustment"
-msgstr "Fjerner justering af dato og tid"
+msgstr "Fjerner justering af dato og klokkeslæt"
 
 #: src/Commands.vala:1398
 msgid "One original photo could not be adjusted."
@@ -3921,7 +3816,7 @@ msgid ""
 "%s"
 msgstr ""
 "Fejl med at få tilgang til databasefil:\n"
-"%s \n"
+" %s\n"
 "\n"
 "Fejl var:\n"
 "%s"
@@ -4062,7 +3957,7 @@ msgstr "_Skaleringsbegrænsning:"
 
 #: src/dialogs/ExportDialog.vala:99
 msgid "_Pixels:"
-msgstr " _Billedpunkter:"
+msgstr "_Billedpunkter:"
 
 #: src/dialogs/ExportDialog.vala:103
 msgid "Export _metadata:"
@@ -4347,10 +4242,8 @@ msgstr[1] "%d dubletbilleder/-videoer blev ikke importeret:\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"1 billede kunne ikke importeres på grund af en fil- eller hardwarefejl.\n"
-msgstr[1] ""
-"%d billeder kunne ikke importeres på grund af en fil- eller hardwarefejl.\n"
+msgstr[0] "1 billede kunne ikke importeres på grund af en fil- eller hardwarefejl:\n"
+msgstr[1] "%d billeder kunne ikke importeres på grund af en fil- eller hardwarefejl:\n"
 
 #: src/Dialogs.vala:372
 #, c-format
@@ -4364,10 +4257,8 @@ msgstr[1] "%d videoer kunne ikke importeres pga. en fil- eller hardwarefejl:\n"
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"1 billede/video kunne ikke importeres pga. en fil- eller hardwarefejl:\n"
-msgstr[1] ""
-"%d billeder/videoer kunne ikke importeres pga. en fil- eller hardwarefejl:\n"
+msgstr[0] "1 billede/video kunne ikke importeres pga. en fil- eller hardwarefejl:\n"
+msgstr[1] "%d billeder/videoer kunne ikke importeres pga. en fil- eller hardwarefejl:\n"
 
 #: src/Dialogs.vala:378
 #, c-format
@@ -4383,10 +4274,8 @@ msgid ""
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"1 billede kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
-msgstr[1] ""
-"%d billeder kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
+msgstr[0] "1 billede kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
+msgstr[1] "%d billeder kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
 
 #: src/Dialogs.vala:395
 #, c-format
@@ -4395,10 +4284,8 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"1 video kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
-msgstr[1] ""
-"%d videoer kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
+msgstr[0] "1 video kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
+msgstr[1] "%d videoer kunne ikke importeres, da billedmappen er skrivebeskyttet:\n"
 
 #: src/Dialogs.vala:398
 #, c-format
@@ -4408,12 +4295,8 @@ msgid ""
 msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"1 billede/video kunne ikke importeres, da fotomappen er skrivebeskyttet:\n"
-"\n"
-msgstr[1] ""
-"%d billeder/videoer kunne ikke importeres, da fotomappen er "
-"skrivebeskyttet:\n"
+msgstr[0] "1 billede/video kunne ikke importeres, da fotomappen er skrivebeskyttet:\n"
+msgstr[1] "%d billeder/videoer kunne ikke importeres, da fotomappen er skrivebeskyttet:\n"
 
 #: src/Dialogs.vala:401
 #, c-format
@@ -4422,13 +4305,10 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"1 fil kunne ikke importeres, fordi der ikke kunne skrives til "
+msgstr[0] "1 fil kunne ikke importeres, fordi der ikke kunne skrives til "
 "billedbiblioteksmappen:\n"
-msgstr[1] ""
-"%d filer kunne ikke importeres, fordi der ikke kunne skrives til "
+msgstr[1] "%d filer kunne ikke importeres, fordi der ikke kunne skrives til "
 "billedbiblioteksmappen:\n"
-"\n"
 
 #: src/Dialogs.vala:415
 #, c-format
@@ -4469,24 +4349,22 @@ msgstr[1] "%d billeder blev ikke importeret, fordi de var beskadiget:\n"
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] "1 video blev ikke importeret, fordi den var beskadiget:\n"
-msgstr[1] "%d videoer blev ikke importeret, fordi de var beskadiget:\n"
+msgstr[0] "1 video kunne ikke importeres, fordi den var beskadiget:\n"
+msgstr[1] "%d videoer kunne ikke importeres, fordi de var beskadiget:\n"
 
 #: src/Dialogs.vala:444
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] ""
-"1 billede/video blev ikke importeret, fordi det/den var beskadiget:\n"
-msgstr[1] ""
-"%d billeder/videoer blev ikke importeret, fordi de var beskadiget:\n"
+msgstr[0] "1 billede/video blev ikke importeret, fordi det/den var beskadiget:\n"
+msgstr[1] "%d billeder/videoer blev ikke importeret, fordi de var beskadiget:\n"
 
 #: src/Dialogs.vala:447
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] "1 fil blev ikke importeret, fordi den var beskadiget:\n"
-msgstr[1] "%d filer blev ikke importeret, fordi de var beskadiget:\n"
+msgstr[0] "1 fil kunne ikke importeres, fordi den var beskadiget:\n"
+msgstr[1] "%d filer kunne ikke importeres, fordi de var beskadiget:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -4533,10 +4411,8 @@ msgstr[1] "%d billeder/videoer udeladt, fordi brugeren afbrød:\n"
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] "%d filer udeladt, fordi brugeren afbrød:\n"
-msgstr[1] ""
-"%d filer udeladt, fordi brugeren afbrød:\n"
-"\n"
+msgstr[0] "1 fil udeladt, fordi brugeren afbrød:\n"
+msgstr[1] "%d filer udeladt, fordi brugeren afbrød:\n"
 
 #: src/Dialogs.vala:513
 #, c-format
@@ -4723,13 +4599,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Dette vil fjerne billedet/videoen fra dit Shotwell-bibliotek.  Vil du også "
+"Dette vil fjerne billedet/videoen fra dit Shotwell-bibliotek. Vil du også "
 "flytte filen til papirkurven?\n"
 "\n"
 "Denne handling kan ikke fortrydes."
 msgstr[1] ""
-"Dette vil fjerne %d billeder/videoer fra dit Shotwell-bibliotek.  Vil du "
-"også flytte filerne til papirkurven?\n"
+"Dette vil fjerne %d billeder/videoer fra dit Shotwell-bibliotek. Vil du også "
+"flytte filerne til papirkurven?\n"
 "\n"
 "Denne handling kan ikke fortrydes."
 
@@ -4746,12 +4622,12 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Dette vil fjerne videoen fra dit Shotwell-bibliotek.  Vil du også flytte "
+"Dette vil fjerne videoen fra dit Shotwell-bibliotek. Vil du også flytte "
 "filen til papirkurven?\n"
 "\n"
 "Denne handling kan ikke fortrydes."
 msgstr[1] ""
-"Dette vil fjerne %d videoer fra dit Shotwell-bibliotek.  Vil du også flytte "
+"Dette vil fjerne %d videoer fra dit Shotwell-bibliotek. Vil du også flytte "
 "filerne til papirkurven?\n"
 "\n"
 "Denne handling kan ikke fortrydes."
@@ -4769,12 +4645,12 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Dette vil fjerne billedet fra dit Shotwell-bibliotek.  Vil du også flytte "
+"Dette vil fjerne billedet fra dit Shotwell-bibliotek. Vil du også flytte "
 "filen til papirkurven?\n"
 "\n"
 "Denne handling kan ikke fortrydes."
 msgstr[1] ""
-"Dette vil fjerne %d billeder fra dit Shotwell-bibliotek.  Vil du også flytte "
+"Dette vil fjerne %d billeder fra dit Shotwell-bibliotek. Vil du også flytte "
 "filerne til papirkurven?\n"
 "\n"
 "Denne handling kan ikke fortrydes."
@@ -4786,8 +4662,7 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] "Billedet/videoen kan ikke flyttes til papirkurven. Slet filen?"
-msgstr[1] ""
-"%d billeder/videoer kan ikke flyttes til papirkurven. Slet disse filer?"
+msgstr[1] "%d billeder/videoer kan ikke flyttes til papirkurven. Slet disse filer?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1008
@@ -4961,7 +4836,7 @@ msgstr "8 × 10 in."
 
 #: src/editing_tools/EditingTools.vala:751
 msgid "Letter (8.5 × 11 in.)"
-msgstr "Letter (8.5 × 11 in.)"
+msgstr "Brev (8,5 × 11 in.)"
 
 #: src/editing_tools/EditingTools.vala:752 src/Printing.vala:807
 msgid "11 × 14 in."
@@ -5369,7 +5244,7 @@ msgstr "Papirkurv"
 msgid "Trash is empty"
 msgstr "Papirkurven er tom"
 
-#: src/library/TrashPage.vala:111
+#: src/library/TrashPage.vala:115
 msgid "Deleting Photos"
 msgstr "Sletter billeder"
 
@@ -5441,10 +5316,9 @@ msgid "Start the application in fullscreen mode"
 msgstr "Start programmet i fuldskærmstilstand"
 
 #: src/main.vala:342
-#, fuzzy
 #| msgid "write metadata to master files"
 msgid "Print the metadata of the image file"
-msgstr "skriv metadata til oprindelige filer"
+msgstr "Udskriv metadata på billedfilen"
 
 #. init GTK (valac has already called g_threads_init())
 #: src/main.vala:373
@@ -5476,16 +5350,17 @@ msgstr ""
 "Shotwell kunne ikke afspille den valgte video:\n"
 "%s"
 
-#: src/Page.vala:1328
+#: src/Page.vala:1353
 msgid "No photos/videos"
 msgstr "Ingen billeder/videoer"
 
-#: src/Page.vala:1332
+#: src/Page.vala:1357
 msgid "No photos/videos found which match the current filter"
 msgstr ""
-"Der blev ikke fundet nogen billeder/videoer, som matcher det nuværende filter"
+"Der blev ikke fundet nogen billeder/videoer, som matcher det nuværende "
+"filter"
 
-#: src/Page.vala:2645
+#: src/Page.vala:2668
 msgid "Photos cannot be exported to this directory."
 msgstr "Billeder kan ikke eksporteres til denne mappe."
 
@@ -5635,7 +5510,7 @@ msgstr "Dato:"
 #. display only one time if start and end are the same
 #: src/Properties.vala:388
 msgid "Time:"
-msgstr "Tid:"
+msgstr "Klokkeslæt:"
 
 #. display time range
 #. display date range
@@ -5788,7 +5663,7 @@ msgstr ""
 "Indstillinger</b> og aktivér én eller flere af udgivelsesmodulerne i fanen "
 "<b>Udvidelsesmoduler</b>."
 
-#: src/publishing/Publishing.vala:16
+#: src/publishing/Publishing.vala:15
 msgid "Publishing"
 msgstr "Udgiver"
 
@@ -6101,7 +5976,7 @@ msgstr "Redigér kommentar"
 
 #: src/Resources.vala:275
 msgid "Adjust Date and Time"
-msgstr "Justér dato og tid"
+msgstr "Justér dato og klokkeslæt"
 
 #. Dialog title
 #: src/Resources.vala:280
@@ -6675,6 +6550,12 @@ msgstr "unavngivet"
 msgid "Export Videos"
 msgstr "Eksportér videoer"
 
+#~ msgid "background color"
+#~ msgstr "baggrundsfarve"
+
+#~ msgid "A grayscale color for use as the background color."
+#~ msgstr "Gråskalafarve til brug som baggrundsfarve."
+
 #~ msgid ""
 #~ "The OAuth token used to refresh the Picasa Web Albums session for the "
 #~ "currently logged in user, if any."
@@ -6721,15 +6602,6 @@ msgstr "Eksportér videoer"
 
 #~ msgid "You are logged into Picasa Web Albums as %s."
 #~ msgstr "Du er logget på Picasa Webalbums som %s."
-
-#~ msgid "shotwell"
-#~ msgstr "shotwell"
-
-#~ msgid "background color"
-#~ msgstr "baggrundsfarve"
-
-#~ msgid "A grayscale color for use as the background color."
-#~ msgstr "Gråskalafarve til brug som baggrundsfarve."
 
 #~ msgid "Extended Information"
 #~ msgstr "Udvidet information"
