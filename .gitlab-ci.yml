@@ -7,11 +7,11 @@ variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
 flatpak:
-    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
+    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:3.30
     stage: test
     variables:
         MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
-        RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
+        RUNTIME_REPO: "https://sdk.gnome.org/gnome.flatpakrepo"
         # Replace with your application name, as written in the manifest
         FLATPAK_MODULE: "shotwell"
         # Make sure to keep this in sync with the Flatpak manifest, all arguments
