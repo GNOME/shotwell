@@ -1,7 +1,7 @@
 {
     "app-id" : "org.gnome.Shotwell",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
+    "runtime-version" : "3.30",
     "sdk" : "org.gnome.Sdk",
     "command" : "shotwell",
     "tags" : [
@@ -17,6 +17,7 @@
         "--share=ipc",
         "--share=network",
         "--device=all",
+        "--device=dri",
         "--socket=wayland",
         "--socket=x11",
         "--talk-name=ca.desrt.dconf",
