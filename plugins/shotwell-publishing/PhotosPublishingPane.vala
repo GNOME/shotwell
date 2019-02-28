@@ -75,8 +75,8 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
             size_combo.set_active(parameters.get_major_axis_size_selection_id());
         }
 
-        existing_album_radio.bind_property("active", existing_albums_combo, "sensitive", GLib.Binding.SYNC_CREATE);
-        new_album_radio.bind_property("active", new_album_entry, "sensitive", GLib.Binding.SYNC_CREATE);
+        existing_album_radio.bind_property("active", existing_albums_combo, "sensitive", GLib.BindingFlags.SYNC_CREATE);
+        new_album_radio.bind_property("active", new_album_entry, "sensitive", GLib.BindingFlags.SYNC_CREATE);
 
         publish_button.clicked.connect (on_publish_clicked);
         logout_button.clicked.connect (on_logout_clicked);
