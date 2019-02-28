@@ -96,11 +96,11 @@ public class ACDSeeKeywordTransformer : KeywordTransformer {
             return;
         }
 
-        Workaround.markup_collect_attributes (name,
-                                              attribute_names,
-                                              attribute_values,
-                                              Markup.CollectType.BOOLEAN,
-                                              "Assigned", out assigned);
+        Markup.collect_attributes (name,
+                                   attribute_names,
+                                   attribute_values,
+                                   Markup.CollectType.BOOLEAN,
+                                   "Assigned", out assigned);
     }
 
     private void on_end (MarkupParseContext ctx, string name)
