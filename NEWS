@@ -1,3 +1,87 @@
+Shotwell 0.30.2 - 07 Feb 2019
+  * Fix maximize on Wayland when double-clicking on title-bar
+  * Do not hide the cursor when showing the slideshow settings dialog
+  * Fix compatibility with recent vala compilers
+  * Fix crash when dismissing file modifications on close
+  * Fix issues with google and flickr not being able to log in
+  * Replace picasaweb publishing with Google Photos publishing
+  * Comply with Flick API TOS
+
+Bugs fixed in this release:
+ - https://bugs.launchpad.net/ubuntu/+source/shotwell/+bug/1723973
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/101
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/26
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/67
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/80
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/97
+ - https://retrace.fedoraproject.org/faf/reports/2020125/
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/12
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Ryuta Fujii <translation@sicklylife.jp>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Daniel Mustieles <daniel.mustieles.contractor@bbva.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations:
+ - es.po, courtesy of Daniel Mustieles
+ - hu.po, courtesy of Balázs Úr
+ - sv.po, courtesy of Anders Jonsson
+ - es.po, courtesy of Daniel Mustieles
+ - fr.po, courtesy of Claude Paroz
+ - hu.po, courtesy of Balázs Úr
+ - ja.po, courtesy of sicklylife
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - sv.po, courtesy of Anders Jonsson
+
+Shotwell 0.30.1 - 29 Sep 2018
+  * Fix appdata URLs
+  * Fix "Show in file manager" issues with single quotes
+  * Fix cancelling in sharing dialog
+  * Fix progress bar in sharing dialog
+  * Piwigo: Fix issue with empty dialog after cancelling upload
+  * Fix setting the slideshow delay with the spinner
+  * Fix icon fall-back for extensions
+  * Fix a critical when an image does not have any meta-data
+  * Fix GPS coordinate link in extended information for western longitudes
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718676
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/22
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/53
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/56
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
+Shotwell 0.30.0 "Celle" - 10 Sep 2018
+  * Translation updates
+  * Last-minute fix for random segfaults in GSettings
+
+Bugs fixed in this release:
+  https://gitlab.gnome.org/GNOME/shotwell/issues/34
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>
+ - gogo <trebelnik2@gmail.com>
+ - Balázs Meskó <meskobalazs@fedoraproject.org>
+
+Added/updated translations
+ - hr, courtesy of gogo
+ - hu, courtesy of Meskó Balázs
+ - lv, courtesy of Rūdolfs Mazurs
+ - sv, courtesy of Anders Jonsson
+
 Shotwell 0.29.92 - 02 Sep 2018
   * Translation updates and build fixes
 
