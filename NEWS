@@ -1,3 +1,138 @@
+Shotwell 0.31.0 - 27 Mar 2019
+  * Reorganize source tree
+  * Visually clean-up saved search editing dialog
+  * Use org.freedesktop.FileManager1 instead of calling nautilus directly.
+  * Fix some deprecated calls in faces code
+  * Fix icon fall-back
+  * Add support for reading WEBP
+  * Some appdata fixes
+  * Skip hidden folders such as .thumbnails
+  * Fix missing icons in sidebar
+  * Use Gtk.FileChooserNative for nicer portal integration
+  * flatpak: several updates of dependencies
+  * flatpak: strip-down OpenCV
+  * Fix another "unknown source-id" warning
+  * Stop spinning the event loop when changing window cursors
+  * Several fixes to scroll events
+  * Fix tooltips on overview pages
+  * Fix issue with ImageHeight and ImageWidth mix-up
+  * Strip diacritics from events and tags for better searching
+  * Support gexiv2 0.12
+  * Add -p/--show-metadata option to Shotwell for dumping meta-data
+  * Increase comment limit to 4k chars
+  * Fix deprecations in Piwigo builder files
+  * Do not make Cancel the default action in the authenication panel
+  * Clean-up in several places in the publishers
+  * Split-up some of the publishing panel code and move to GtkBuilder
+  * Simplify the login landing page for publishing
+  * Remove non-functional Facebook publisher code
+  * Split-up CheckerBoardLayout.vala file
+  * Use nicer messages on empty filters etc.
+  * Merge face recognition code
+  * Fix fall-back icon for cameras
+  * Fix CSS and icon theme initialization code
+  * Fix an issue with chaining up the constructors for the main window classes
+  * Fix issue with ACDSEE tags parser attaching all known tags to all imported
+    images
+  * Mege Map support
+  * Use my mapbox API token for map support
+  * Minor refactor of Page.vala eliminating duplicated code
+  * Drop conditionals for old Vala
+  * Several fixes with recent Vala versions
+  * Page.vala code split-up
+  * Various typo fixes
+  * Fix issue with artist containing an email address
+  * Add optional private DBus communication for faces recognition binary
+
+Bugs fixed in this release:
+ - https://bugs.launchpad.net/ubuntu/+source/shotwell/+bug/1723973
+ - https://bugzilla.gnome.org/show_bug.cgi?id=717880
+ - https://bugzilla.gnome.org/show_bug.cgi?id=718676
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/101
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/11
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/112
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/22
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/26
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/34
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/53
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/58
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/60
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/60
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/67
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/73
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/75
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/80
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/89
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/94
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/97
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/97
+ - https://retrace.fedoraproject.org/faf/reports/2020125/
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/19
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/11
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/17
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/16
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/15
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/12
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/8
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Andreas Brauchli <a.brauchli@elementarea.net>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Jordi Mas <jmas@softcatala.org>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+ - Ryuta Fujii <translation@sicklylife.jp>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - gogo <trebelnik2@gmail.com>
+ - Christian Kirbach <christian.kirbach@googlemail.com>
+ - Timo Jyrinki <timo.jyrinki@iki.fi>
+ - Daniel Korostil <ted.korostiled@gmail.com>
+ - Sabri Ünal <libreajans@gmail.com>
+ - Daniel Mustieles <daniel.mustieles.contractor@bbva.com>
+ - Ask Hjorth Larsen <asklarsen@gmail.com>
+ - NMA <narendra_m_a@yahoo.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Daniel Köb <daniel.koeb@peony.at>
+ - IBBoard <dev@ibboard.co.uk>
+ - Yi-Jyun Pan <pan93412@gmail.com>
+ - Moritz <mo@oclab.net>
+ - Rodrigo Lledó <rodhos92@gmail.com>
+ - Mario Blättermann <mario.blaettermann@gmail.com>
+ - Marek Cernocky <marek_cernocky@conel.cz>
+ - Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>
+ - Balázs Meskó <meskobalazs@fedoraproject.org>
+
+Added/updated translations:
+ - es.po, courtesy of Daniel Mustieles
+ - hu.po, courtesy of Balázs Úr
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - sv.po, courtesy of Anders Jonsson
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - cs.po, courtesy of Marek Černocký
+ - da.po, courtesy of Alan Mortensen
+ - de.po, courtesy of Mario Blättermann
+ - es.po, courtesy of Daniel Mustieles
+ - fi.po, courtesy of Jiri Grönroos
+ - fr.po, courtesy of Claude Paroz
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Kukuh Syafaat
+ - ja.po, courtesy of sicklylife
+ - lv.po, courtesy of Rūdolfs Mazurs
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Emin Tufan Çetin
+ - uk.po, courtesy of Yuri Chornoivan
+ - zh_TW.po, courtesy of pan93412
+
 Shotwell 0.30.2 - 07 Feb 2019
   * Fix maximize on Wayland when double-clicking on title-bar
   * Do not hide the cursor when showing the slideshow settings dialog
@@ -5,7 +140,7 @@ Shotwell 0.30.2 - 07 Feb 2019
   * Fix crash when dismissing file modifications on close
   * Fix issues with google and flickr not being able to log in
   * Replace picasaweb publishing with Google Photos publishing
-  * Comply with Flick API TOS
+  * Comply with Flickr API TOS
 
 Bugs fixed in this release:
  - https://bugs.launchpad.net/ubuntu/+source/shotwell/+bug/1723973
