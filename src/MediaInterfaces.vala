@@ -51,9 +51,6 @@
 public abstract class TransactionController {
     private int count = 0;
     
-    public TransactionController() {
-    }
-    
     ~TransactionController() {
         lock (count) {
             assert(count == 0);

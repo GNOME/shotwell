@@ -161,7 +161,7 @@ public abstract class MediaPage : CheckerboardPage {
     private DragAndDropHandler dnd_handler = null;
     private MediaViewTracker tracker;
     
-    public MediaPage(string page_name) {
+    protected MediaPage(string page_name) {
         base (page_name);
         
         tracker = new MediaViewTracker(get_view());

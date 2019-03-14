@@ -56,7 +56,7 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
 
     private static Gdk.Pixbuf[] icon_pixbuf_set = null;
     
-    public ShotwellTransitionDescriptor(GLib.File resource_directory) {
+    protected ShotwellTransitionDescriptor(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
             icon_pixbuf_set =
                 Resources.load_from_resource(Resources.RESOURCE_PATH + "/" + ICON_FILENAME);

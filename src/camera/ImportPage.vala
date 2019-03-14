@@ -25,7 +25,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
     private Gdk.Pixbuf? preview = null;
     private string? indexable_keywords = null;
     
-    public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder,
+    protected ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder,
         string filename, ulong file_size, time_t modification_time) {
         this.camera_name = camera_name;
         this.camera = camera;

@@ -610,7 +610,7 @@ internal void save_import_results(Gtk.Window? chooser_dialog_parent, string resu
 public abstract class TextEntryDialogMediator {
     private TextEntryDialog dialog;
     
-    public TextEntryDialogMediator(string title, string label, string? initial_text = null,
+    protected TextEntryDialogMediator(string title, string label, string? initial_text = null,
         Gee.Collection<string>? completion_list = null, string? completion_delimiter = null) {
         dialog = new TextEntryDialog();
         dialog.setup(on_modify_validate, title, label, initial_text, completion_list, completion_delimiter);
@@ -628,7 +628,7 @@ public abstract class TextEntryDialogMediator {
 public abstract class MultiTextEntryDialogMediator {
     private MultiTextEntryDialog dialog;
     
-    public MultiTextEntryDialogMediator(string title, string label, string? initial_text = null) {
+    protected MultiTextEntryDialogMediator(string title, string label, string? initial_text = null) {
         dialog = new MultiTextEntryDialog();
         dialog.setup(on_modify_validate, title, label, initial_text);
     }
@@ -820,7 +820,7 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
 }
 
 public abstract class TagsDialog : TextEntryDialogMediator {
-    public TagsDialog(string title, string label, string? initial_text = null) {
+    protected TagsDialog(string title, string label, string? initial_text = null) {
         base (title, label, initial_text, HierarchicalTagIndex.get_global_index().get_all_tags(),
             ",");
     }
