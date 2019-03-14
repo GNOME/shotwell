@@ -36,7 +36,7 @@ public abstract class SinglePhotoPage : Page {
     private bool has_saved_zoom_state = false;
     private uint32 last_nav_key = 0;
 
-    public SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
+    protected SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
 
         this.scale_up_to_viewport = scale_up_to_viewport;

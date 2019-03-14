@@ -268,8 +268,8 @@ public abstract class PixelTransformation {
     private PixelTransformationType type;
     private PixelFormat preferred_format;
     
-    public PixelTransformation(PixelTransformationType type,
-                               PixelFormat preferred_format) {
+    protected PixelTransformation(PixelTransformationType type,
+                                  PixelFormat preferred_format) {
         this.type = type;
         this.preferred_format = preferred_format;
     }
@@ -476,7 +476,7 @@ public class RGBTransformation : PixelTransformation {
 public abstract class HSVTransformation : PixelTransformation {
     protected float remap_table[256];
 
-    public HSVTransformation(PixelTransformationType type) {
+    protected HSVTransformation(PixelTransformationType type) {
         base(type, PixelFormat.HSV);
     }
 

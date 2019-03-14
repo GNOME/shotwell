@@ -121,9 +121,6 @@ public abstract class Library.HideablePageEntry : Sidebar.SimplePageEntry {
             visibility_changed(value);
         }
     }
-
-    public HideablePageEntry() {
-    }
 }
 
 public class Library.MainPage : CollectionPage {

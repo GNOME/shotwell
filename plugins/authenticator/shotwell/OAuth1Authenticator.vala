@@ -12,7 +12,7 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected Publishing.RESTSupport.OAuth1.Session session;
         protected Spit.Publishing.PluginHost host;
 
-        public Authenticator(string api_key, string api_secret, Spit.Publishing.PluginHost host) {
+        protected Authenticator(string api_key, string api_secret, Spit.Publishing.PluginHost host) {
             base();
             this.host = host;
 
