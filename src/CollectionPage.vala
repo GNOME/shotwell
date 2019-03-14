@@ -29,7 +29,7 @@ public abstract class CollectionPage : MediaPage {
     private ExporterUI exporter = null;
     private CollectionSearchViewFilter search_filter = new CollectionSearchViewFilter();
     
-    public CollectionPage(string page_name) {
+    protected CollectionPage(string page_name) {
         base (page_name);
         
         get_view().items_altered.connect(on_photos_altered);

@@ -41,7 +41,7 @@ public abstract class CheckerboardPage : Page {
         public bool super_pressed;
     }
 
-    public CheckerboardPage(string page_name) {
+    protected CheckerboardPage(string page_name) {
         base (page_name);
 
         stack = new Gtk.Stack();

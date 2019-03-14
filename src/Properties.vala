@@ -8,7 +8,7 @@ private abstract class Properties : Gtk.Box {
     protected Gtk.Grid grid = new Gtk.Grid();
     protected uint line_count = 0;
 
-    public Properties() {
+    protected Properties() {
         Object(orientation: Gtk.Orientation.VERTICAL, homogeneous : false);
 
         grid.row_spacing = 6;

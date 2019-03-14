@@ -69,9 +69,6 @@ public abstract class PhotoTransformationState : Object {
         is_broke = true;
     }
     
-    protected PhotoTransformationState() {
-    }
-    
     public bool is_broken() {
         return is_broke;
     }

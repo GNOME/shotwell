@@ -29,7 +29,7 @@ public abstract class Command : Object, CommandDescription {
     private string explanation;
     private weak CommandManager manager = null;
     
-    public Command(string name, string explanation) {
+    protected Command(string name, string explanation) {
         this.name = name;
         this.explanation = explanation;
     }

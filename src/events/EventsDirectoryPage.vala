@@ -42,7 +42,7 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
     
     private EventsDirectorySearchViewFilter search_filter = new EventsDirectorySearchViewFilter();
 
-    public EventsDirectoryPage(string page_name, ViewManager view_manager,
+    protected EventsDirectoryPage(string page_name, ViewManager view_manager,
         Gee.Collection<Event>? initial_events) {
         base (page_name);
         

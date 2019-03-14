@@ -39,7 +39,7 @@ public abstract class PhotoFileSniffer {
     protected Options options;
     protected bool calc_md5;
     
-    public PhotoFileSniffer(File file, Options options) {
+    protected PhotoFileSniffer(File file, Options options) {
         this.file = file;
         this.options = options;
         

@@ -164,7 +164,7 @@ public abstract class PhotoPreview {
     private string mime_type;
     private string extension;
     
-    public PhotoPreview(string name, Dimensions dimensions, uint32 size, string mime_type, string extension) {
+    protected PhotoPreview(string name, Dimensions dimensions, uint32 size, string mime_type, string extension) {
         this.name = name;
         this.dimensions = dimensions;
         this.size = size;
