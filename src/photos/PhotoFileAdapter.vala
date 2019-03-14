@@ -22,7 +22,7 @@ public abstract class PhotoFileAdapter {
     private PhotoFileFormat file_format;
     private File file = null;
     
-    public PhotoFileAdapter(string filepath, PhotoFileFormat file_format) {
+    protected PhotoFileAdapter(string filepath, PhotoFileFormat file_format) {
         this.filepath = filepath;
         this.file_format = file_format;
     }

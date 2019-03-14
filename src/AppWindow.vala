@@ -283,7 +283,7 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
     protected virtual void switched_pages(Page? old_page, Page? new_page) {
     }
     
-    public PageWindow() {
+    protected PageWindow() {
         Object (application: Application.get_instance().get_system_app ());
 
         // the current page needs to know when modifier keys are pressed
@@ -407,7 +407,7 @@ public abstract class AppWindow : PageWindow {
     protected int pos_x = 0;
     protected int pos_y = 0;
     
-    public AppWindow() {
+    protected AppWindow() {
         base();
 
         // although there are multiple AppWindow types, only one may exist per-process

@@ -35,7 +35,7 @@ public abstract class DataObject : Object {
     
     // NOTE: Supplying an object ID should *only* be used when reconstituting the object (generally
     // only done by DataSources).
-    public DataObject(int64 object_id = INVALID_OBJECT_ID) {
+    protected DataObject(int64 object_id = INVALID_OBJECT_ID) {
         this.object_id = (object_id == INVALID_OBJECT_ID) ? object_id_generator++ : object_id;
     }
     

@@ -31,7 +31,7 @@ public abstract class Session {
     public signal void authenticated();
     public signal void authentication_failed(Spit.Publishing.PublishingError err);
 
-    public Session(string? endpoint_url = null) {
+    protected Session(string? endpoint_url = null) {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.Session ();
         this.soup_session.ssl_use_system_ca_file = true;
@@ -685,7 +685,7 @@ public abstract class BatchUploader {
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(Spit.Publishing.PublishingError err);
 
-    public BatchUploader(Session session, Spit.Publishing.Publishable[] publishables) {
+    protected BatchUploader(Session session, Spit.Publishing.Publishable[] publishables) {
         this.publishables = publishables;
         this.session = session;
     }

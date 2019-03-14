@@ -60,7 +60,7 @@ public abstract class DataSource : DataObject {
     public virtual signal void destroyed() {
     }
     
-    public DataSource(int64 object_id = INVALID_OBJECT_ID) {
+    protected DataSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
     
@@ -568,7 +568,7 @@ public abstract class SourceProxy {
     public virtual signal void broken() {
     }
     
-    public SourceProxy(DataSource source) {
+    protected SourceProxy(DataSource source) {
         object_id = source.get_object_id();
         source_string = source.to_string();
         
