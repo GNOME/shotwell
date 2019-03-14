@@ -176,10 +176,8 @@ public class FacesTool : EditingTools.EditingTool {
             switch (phase) {
                 case EditingPhase.CLICK_TO_EDIT:
                     assert(face_shape != null);
-                    face_shape_name = g_strdup_printf ("<i>%s</i>", face_shape.get_name());
                     help_text.set_markup(Markup.printf_escaped(_("Click to edit face %s"),
-                        face_shape_name));
-                    g_free (face_shape_name);
+                        "<i>%s</i>".printf(face_shape.get_name()));
 
                     break;
                 case EditingPhase.NOT_EDITING:

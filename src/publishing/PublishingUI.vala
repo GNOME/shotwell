@@ -283,15 +283,11 @@ public class PublishingDialog : Gtk.Dialog {
         if (avail_services.length == 0) {
             // There are no enabled publishing services that accept this media type,
             // warn the user.
-            string_plugin = g_strdup_printf ("<b>%s</b>", _("Plugins"));
-            string_preference = g_strdup_printf ("<b>%s</b>", _("Edit %s Preferences").printf("▸"));
-            string_message = _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose %s and enable one or more of the publishing plugins on the %s tab.", string_preference, string_plugin);
             
             AppWindow.error_message_with_title(_("Unable to publish"),
-                string_message, null, false);
+                _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose %s and enable one or more of the publishing plugins on the %s tab.").printf("<b>Edit ▸ Preferences</b>", "<b>Plugins</b>"),
+                null, false);
 
-            g_free (string_plugin);
-            g_free (string_preference);
             return;
         }
         
