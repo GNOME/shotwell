@@ -232,7 +232,7 @@ public class VideoReader {
         debug("Thumbnailer timer called");
         if (thumbnailer_pid != 0) {
             debug("Killing thumbnailer process: %d", thumbnailer_pid);
-            Posix.kill(thumbnailer_pid, Posix.SIGKILL);
+            Posix.kill(thumbnailer_pid, Posix.Signal.KILL);
         }
         return false; // Don't call again.
     }

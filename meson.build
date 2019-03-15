@@ -22,13 +22,16 @@ shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'b
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
                      ['-include'], ['config.h'],
                      language : 'c')
-add_global_arguments(['--target-glib=2.40',
-                      '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
-                        'vapi')),
-                      '--enable-checking',
-                      '--fatal-warnings',
-                      '--enable-experimental',
-                      '--enable-deprecated'], language : 'vala')
+add_global_arguments(
+    [
+        '--target-glib=2.40',
+        '--vapidir=@0@'.format(join_paths(meson.current_source_dir(), 'vapi')),
+        '--enable-checking',
+        '--fatal-warnings',
+        '--enable-experimental',
+    ],
+    language : 'vala'
+)
 
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
