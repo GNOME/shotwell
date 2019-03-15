@@ -285,7 +285,7 @@ public class DataImportsDialog : Gtk.Dialog {
             }
         }
         
-        // Intall the central area in all cases
+        // Install the central area in all cases
         central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
         

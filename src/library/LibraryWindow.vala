@@ -144,7 +144,7 @@ public class LibraryWindow : AppWindow {
     private Gtk.ProgressBar background_progress_bar = new Gtk.ProgressBar();
     private bool background_progress_displayed = false;
     
-    // Instantiate later in constructor becase the map support loads its icons in there and we need
+    // Instantiate later in constructor because the map support loads its icons in there and we need
     // to have the global app instance available for that
     private BasicProperties basic_properties;
     private ExtendedProperties extended_properties = new ExtendedProperties();
@@ -292,7 +292,7 @@ public class LibraryWindow : AppWindow {
         { "CommonFind", on_find },
         { "CommonNewSearch", on_new_search },
 
-        // Toogle actions
+        // Toggle actions
         { "CommonDisplayBasicProperties", on_action_toggle, null, "false", on_display_basic_properties },
         { "CommonDisplayExtendedProperties", on_action_toggle, null, "false", on_display_extended_properties },
 
