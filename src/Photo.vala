@@ -832,7 +832,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             if (!developments.has_key(d))
                 return; // we tried!
             
-            // Disgard changes.
+            // Discard changes.
             revert_to_master(false);
             
             // Switch master to the new photo.

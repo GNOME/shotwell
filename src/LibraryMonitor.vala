@@ -996,7 +996,7 @@ public class LibraryMonitor : DirectoryMonitor {
         }
         
         if (!known) {
-            // ressurrect tombstone if deleted
+            // ressurect tombstone if deleted
             Tombstone? tombstone = Tombstone.global.locate(file);
             if (tombstone != null) {
                 debug("Resurrecting tombstoned file %s", file.get_path());

@@ -559,7 +559,7 @@ public class DataCollection {
         if (!properties.unset(name))
             return;
         
-        // only notify if the propery was unset (that is, was set to begin with)
+        // only notify if the property was unset (that is, was set to begin with)
         notify_property_cleared(name);
             
         // notify all items
