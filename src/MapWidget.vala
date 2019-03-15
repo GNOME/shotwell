@@ -615,10 +615,19 @@ private class MapWidget : Gtk.Bin {
 
         var map_attribution_text = create_attribution_actor();
         map_attribution_text.content_gravity = Clutter.ContentGravity.BOTTOM_RIGHT;
+        map_attribution_text.set_x_align(Clutter.ActorAlign.END);
+        map_attribution_text.set_x_expand(true);
+        map_attribution_text.set_y_align(Clutter.ActorAlign.END);
+        map_attribution_text.set_y_expand(true);
 
         // add lock/unlock button to top left corner of map
         map_edit_lock_button.content_gravity = Clutter.ContentGravity.TOP_RIGHT;
         map_edit_lock_button.reactive = true;
+        map_edit_lock_button.set_x_align(Clutter.ActorAlign.END);
+        map_edit_lock_button.set_x_expand(true);
+        map_edit_lock_button.set_y_align(Clutter.ActorAlign.START);
+        map_edit_lock_button.set_y_expand(true);
+
         map_edit_lock_button.button_release_event.connect((a, e) => {
             if (e.button != 1 /* CLUTTER_BUTTON_PRIMARY */)
                 return false;
@@ -627,8 +636,9 @@ private class MapWidget : Gtk.Bin {
                 map_edit_locked_image : map_edit_unlocked_image);
             return true;
         });
-        map_view.bin_layout_add(map_edit_lock_button, Clutter.BinAlignment.END, Clutter.BinAlignment.START);
-        map_view.bin_layout_add(map_attribution_text, Clutter.BinAlignment.END, Clutter.BinAlignment.END);
+        map_view.add_child(map_edit_lock_button);
+        map_view.add_child(map_attribution_text);
+
         gtk_champlain_widget.has_tooltip = true;
         gtk_champlain_widget.query_tooltip.connect((x, y, keyboard_tooltip, tooltip) => {
             Gdk.Rectangle lock_rect = {
@@ -647,7 +657,11 @@ private class MapWidget : Gtk.Bin {
         // add scale to bottom left corner of the map
         map_scale.content_gravity = Clutter.ContentGravity.BOTTOM_LEFT;
         map_scale.connect_view(map_view);
-        map_view.bin_layout_add(map_scale, Clutter.BinAlignment.START, Clutter.BinAlignment.END);
+        map_scale.set_x_align(Clutter.ActorAlign.START);
+        map_scale.set_x_expand(true);
+        map_scale.set_y_align(Clutter.ActorAlign.END);
+        map_scale.set_y_expand(true);
+        map_view.add_child(map_scale);
 
         map_view.set_zoom_on_double_click(false);
         map_view.notify.connect((o, p) => {

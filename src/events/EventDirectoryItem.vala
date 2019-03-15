@@ -60,7 +60,7 @@ class EventDirectoryItem : CheckerboardItem {
             pixbuf = media.get_preview_pixbuf(squared_scaling);
         } catch (Error error) {
             ThumbnailCache.fetch_async_scaled(media, ThumbnailCache.Size.BIG,
-                                             new Dimensions(ThumbnailCache.Size.BIG, ThumbnailCache.Size.BIG),
+                                              Dimensions(ThumbnailCache.Size.BIG, ThumbnailCache.Size.BIG),
                                              ThumbnailCache.DEFAULT_INTERP, () => {});
             if (media is LibraryPhoto) {
                 LibraryPhoto photo = (LibraryPhoto) media;

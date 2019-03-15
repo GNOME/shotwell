@@ -48,7 +48,8 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         // bind the binary image data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.TEMPORARY, photo_data);
+        // FIXME: Passing no free function here only works because we are sync
+        Soup.Buffer bindable_data = new Soup.Buffer.with_owner(photo_data, mapped_file, null);
 
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up

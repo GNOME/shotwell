@@ -6,8 +6,7 @@ public class ImportRoll.Branch : Sidebar.Branch {
               Sidebar.Branch.Options.HIDE_IF_EMPTY,
               ImportRoll.Branch.comparator);
 
-        this.entries = new Gee.HashMap<int64?, ImportRoll.SidebarEntry>((Gee.HashDataFunc<int64?>)GLib.int64_hash,
-        (Gee.EqualDataFunc<int64?>)GLib.int64_equal);
+        this.entries = new Gee.HashMap<int64?, ImportRoll.SidebarEntry>(int64_hash, int64_equal);
 
         foreach (var source in MediaCollectionRegistry.get_instance().get_all()) {
             on_import_rolls_altered(source);

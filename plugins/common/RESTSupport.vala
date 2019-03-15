@@ -264,21 +264,21 @@ public class Transaction {
 
     protected void check_response(Soup.Message message) throws Spit.Publishing.PublishingError {
         switch (message.status_code) {
-            case Soup.KnownStatusCode.OK:
-            case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
+            case Soup.Status.OK:
+            case Soup.Status.CREATED: // HTTP code 201 (CREATED) signals that a new
                                                // resource was created in response to a PUT or POST
             break;
             
-            case Soup.KnownStatusCode.CANT_RESOLVE:
-            case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
+            case Soup.Status.CANT_RESOLVE:
+            case Soup.Status.CANT_RESOLVE_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)",
                     get_endpoint_url(), message.status_code);
             
-            case Soup.KnownStatusCode.CANT_CONNECT:
-            case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
+            case Soup.Status.CANT_CONNECT:
+            case Soup.Status.CANT_CONNECT_PROXY:
                 throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)",
                     get_endpoint_url(), message.status_code);
-            case Soup.KnownStatusCode.SSL_FAILED:
+            case Soup.Status.SSL_FAILED:
                 throw new Spit.Publishing.PublishingError.SSL_FAILED ("Unable to connect to %s: Secure connection failed",
                     get_endpoint_url ());
             
@@ -541,7 +541,7 @@ public class UploadTransaction : Transaction {
 
         int payload_part_num = message_parts.get_length();
 
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, payload.data[0:payload_length]);
+        var bindable_data = new Soup.Buffer.take(payload.data[0:payload_length]);
         message_parts.append_form_file("", publishable.get_serialized_file().get_path(), mime_type,
             bindable_data);
 
