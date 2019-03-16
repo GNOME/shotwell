@@ -27,11 +27,19 @@ add_global_arguments(
         '--target-glib=2.40',
         '--vapidir=@0@'.format(join_paths(meson.current_source_dir(), 'vapi')),
         '--enable-checking',
-        '--fatal-warnings',
         '--enable-experimental',
     ],
     language : 'vala'
 )
+
+if get_option('fatal_warnings')
+    add_global_arguments(
+        [
+            '--fatal-warnings'
+        ],
+        language : 'vala'
+    )
+endif
 
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
