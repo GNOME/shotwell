@@ -25,9 +25,17 @@ add_global_arguments(['--target-glib=2.40',
                       '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
                         'vapi')),
                       '--enable-checking',
-                      '--fatal-warnings',
                       '--enable-experimental',
                       '--enable-deprecated'], language : 'vala')
+
+if get_option('fatal_warnings')
+    add_global_arguments(
+        [
+            '--fatal-warnings'
+        ],
+        language : 'vala'
+    )
+endif
 
 gitver = run_command(find_program('git-hash'))
 if gitver.returncode() == 0
