@@ -8,4 +8,5 @@ option('udev', type: 'boolean', value : 'true', description: 'Enable or disable 
 option('install-apport-hook', type : 'boolean', value : 'true', description: 'Enable Ubuntu apport hook')
 option('face-detection', type:'boolean', value:false, description: 'Enable face detection and recognition features')
 option('face-detection-helper', type : 'boolean', value : 'true', description : 'If face-detection is enabled, build the external helper tool')
+option('face_detection_helper_bus', type:'combo', choices: ['private', 'session'], value : 'session', description: 'Which DBus bus to use for external helper tool')
 option('fatal_warnings', type:'boolean', value:false)

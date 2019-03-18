@@ -33,7 +33,7 @@ public struct FaceRect {
 }
 
 [DBus (name = "org.gnome.Shotwell.Faces1")]
-public interface FaceDetectInterface : Object {
+public interface FaceDetectInterface : DBusProxy {
     public abstract FaceRect[] detect_faces(string inputName, string cascadeName, double scale, bool infer)
         throws IOError, DBusError;
     public abstract bool load_net(string netFile)
@@ -53,6 +53,11 @@ public class FaceDetect {
     
     public static FaceDetectInterface interface;
 
+#if FACEDETECT_BUS_PRIVATE
+    private static GLib.DBusServer dbus_server;
+    private static Subprocess process;
+#endif
+
     public static void create_interface(DBusConnection connection, string bus_name, string owner) {
         if (bus_name == DBUS_NAME) {
             message("Dbus name %s available", bus_name);
@@ -63,9 +68,67 @@ public class FaceDetect {
         message("Dbus name %s gone", bus_name);
         connected = false;
     }
+
+    private static bool on_new_connection(DBusServer server, DBusConnection connection) {
+        try {
+            interface = connection.get_proxy_sync(null, DBUS_PATH,
+                                                  DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
+                                                  | DBusProxyFlags.DO_NOT_CONNECT_SIGNALS,
+                                                  null);
+            Idle.add(() => {
+                try {
+                    if (interface.load_net(net_file))
+                        connected = true;
+                    else {
+                        AppWindow.error_message(ERROR_MESSAGE);
+                    }
+                } catch (Error error) {
+                    critical("Failed to call load_net: %s", error.message);
+                    AppWindow.error_message(ERROR_MESSAGE);
+                }
+                return false;
+            });
+
+            return true;
+        } catch (Error error) {
+            critical("Failed to create interface for face detect: %s", error.message);
+            AppWindow.error_message(ERROR_MESSAGE);
+
+            return false;
+        }
+    }
     
     public static void init(string net_file) {
         FaceDetect.net_file = net_file;
+#if FACEDETECT_BUS_PRIVATE
+        var address = "unix:tmpdir=%s".printf(Environment.get_tmp_dir());
+        var observer = new DBusAuthObserver();
+        observer.authorize_authenticated_peer.connect((stream, credentials) => {
+            debug("Observer trying to authorize for %s", credentials.to_string());
+            if (credentials == null)
+                return false;
+
+            try {
+                if (!credentials.is_same_user(new Credentials()))
+                    return false;
+                return true;
+            } catch (Error error) {
+                return false;
+            }
+        });
+
+        try {
+            dbus_server = new GLib.DBusServer.sync(address, DBusServerFlags.NONE, DBus.generate_guid(), observer, null);
+            dbus_server.new_connection.connect(on_new_connection);
+            dbus_server.start();
+            process = new Subprocess(SubprocessFlags.NONE, AppDirs.get_facedetect_bin().get_path(),
+            "--address=" + dbus_server.get_client_address());
+
+        } catch (Error error) {
+            warning("Failed to create private DBus server: %s", error.message);
+            AppWindow.error_message(ERROR_MESSAGE);
+        }
+#else
         Bus.watch_name(BusType.SESSION, DBUS_NAME, BusNameWatcherFlags.NONE,
                        create_interface, interface_gone);
         try {
@@ -78,16 +141,7 @@ public class FaceDetect {
             AppWindow.error_message(ERROR_MESSAGE);
         }
         connected = true;
+#endif
     }
 
-    public static double dot_product(double[] vec1, double[] vec2) {
-        if (vec1.length != vec2.length) {
-            return 0;
-        }
-        double ret = 0;
-        for (var i = 0; i < vec1.length; i++) {
-            ret += vec1[i] * vec2[i];
-        }
-        return ret;
-    }
 }
