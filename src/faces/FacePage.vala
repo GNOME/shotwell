@@ -77,7 +77,7 @@ public class FacePage : CollectionPage {
        
         menuFaces.add_menu_item(Resources.remove_face_from_photos_menu(this.face.get_name(), get_view().get_count()), "RemoveFaceFromPhotos", "<Primary>r");
         menuFaces.add_menu_item(Resources.rename_face_menu(this.face.get_name()), "RenameFace", "<Primary>e");
-        menuFaces.add_menu_item(Resources.set_face_from_photo_menu(this.face.get_name()), "SetFaceRefFromPhoto", "");
+        menuFaces.add_menu_item(Resources.set_face_from_photo_menu(this.face.get_name()), "SetFaceRefFromPhoto", null);
         menuFaces.add_menu_item(Resources.delete_face_menu(this.face.get_name()), "DeleteFace", "<Primary>t");
         
         return menuFaces;
