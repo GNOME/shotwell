@@ -349,6 +349,10 @@ class AppDirs {
     }
 
     public static File get_openface_dnn_dir() {
+        var f = File.new_for_path("/app/extra");
+        if (f.query_exists)
+            return f;
+
         return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
     }
 #endif
