@@ -103,6 +103,11 @@ endif
 
 if get_option('face-detection')
   add_global_arguments(['--define=ENABLE_FACES'], language : 'vala')
+
+  if get_option('face_detection_helper_bus') == 'private'
+      add_global_arguments(['--define=FACEDETECT_BUS_PRIVATE'], language : 'vala')
+  endif
+
   if get_option('face-detection-helper')
       subproject('shotwell-facedetect')
   endif

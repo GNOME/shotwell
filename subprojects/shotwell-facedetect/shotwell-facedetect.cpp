@@ -11,6 +11,9 @@
 #include "shotwell-facedetect.hpp"
 #include "dbus-interface.h"
 
+const char* FACEDETECT_INTERFACE_NAME = "org.gnome.Shotwell.Faces1";
+const char* FACEDETECT_PATH = "/org/gnome/shotwell/faces";
+
 // DBus binding functions
 static gboolean on_handle_detect_faces(ShotwellFaces1 *object,
                                        GDBusMethodInvocation *invocation,
@@ -84,21 +87,25 @@ static gboolean on_handle_terminate(ShotwellFaces1 *object,
 
 static void on_name_acquired(GDBusConnection *connection,
                              const gchar *name, gpointer user_data) {
-    ShotwellFaces1 *interface;
-    GError *error;
-    interface = shotwell_faces1_skeleton_new();
     g_debug("Got name %s", name);
-    g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), NULL);
+
+    ShotwellFaces1 *interface = shotwell_faces1_skeleton_new();
+    g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), nullptr);
     g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), user_data);
-    g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), NULL);
-    g_signal_connect(interface, "handle-face-to-vec", G_CALLBACK (on_handle_face_to_vec), NULL);
-    error = NULL;
-    g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, "/org/gnome/shotwell/faces", &error);
+    g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), nullptr);
+    g_signal_connect(interface, "handle-face-to-vec", G_CALLBACK (on_handle_face_to_vec), nullptr);
+
+    GError *error = nullptr;
+    g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, FACEDETECT_PATH, &error);
+    if (error != nullptr) {
+        g_print("Failed to export interface: %s", error->message);
+        g_clear_error(&error);
+    }
 }
 
 static void on_name_lost(GDBusConnection *connection,
                          const gchar *name, gpointer user_data) {
-    if (connection == NULL) {
+    if (connection == nullptr) {
         g_debug("Unable to establish connection for name %s", name);
     } else {
         g_debug("Connection for name %s disconnected", name);
@@ -106,11 +113,90 @@ static void on_name_lost(GDBusConnection *connection,
     g_main_loop_quit((GMainLoop *)user_data);
 }
 
+static char* address = nullptr;
+
+static GOptionEntry entries[] = {
+    { "address", 'a', 0, G_OPTION_ARG_STRING, &address, "Use private DBus ADDRESS instead of session", "ADDRESS" },
+    { nullptr }
+};
+
+static gboolean
+on_authorize_authenticated_peer (GIOStream *iostream,
+                                 GCredentials *credentials,
+                                 gpointer user_data)
+{
+    GCredentials *own_credentials = nullptr;
+    gboolean ret_val = FALSE;
+
+    g_debug("Authorizing peer with credentials %s\n", g_credentials_to_string (credentials));
+
+    if (credentials == nullptr)
+        goto out;
+
+    own_credentials = g_credentials_new ();
+
+    {
+        GError* error = nullptr;
+
+        if (!g_credentials_is_same_user (credentials, own_credentials, &error))
+        {
+            g_warning ("Unable to authorize peer: %s", error->message);
+            g_clear_error (&error);
+
+            goto out;
+        }
+    }
+
+    ret_val = TRUE;
+
+out:
+    g_clear_object (&own_credentials);
+
+    return ret_val;
+}
+
 int main(int argc, char **argv) {
     GMainLoop *loop;
-    loop = g_main_loop_new (NULL, FALSE);
-	g_bus_own_name(G_BUS_TYPE_SESSION, "org.gnome.Shotwell.Faces1", G_BUS_NAME_OWNER_FLAGS_NONE, NULL,
-                   on_name_acquired, on_name_lost, loop, NULL);
+    GError *error = nullptr;
+    GOptionContext *context;
+
+    context = g_option_context_new ("- Shotwell face detection helper service");
+    g_option_context_add_main_entries (context, entries, "shotwell");
+    if (!g_option_context_parse (context, &argc, &argv, &error)) {
+        g_print ("Failed to parse options: %s\n", error->message);
+        exit(1);
+    }
+
+    loop = g_main_loop_new (nullptr, FALSE);
+
+
+    // We are running on the sesion bus
+    if (address == nullptr) {
+        g_debug("Starting %s on G_BUS_TYPE_SESSION", argv[0]);
+        g_bus_own_name(G_BUS_TYPE_SESSION, FACEDETECT_INTERFACE_NAME, G_BUS_NAME_OWNER_FLAGS_NONE,
+                nullptr, on_name_acquired, on_name_lost, loop, nullptr);
+
+    } else {
+        g_debug("Starting %s on %s", argv[0], address);
+        GDBusAuthObserver *observer = g_dbus_auth_observer_new ();
+        g_signal_connect (G_OBJECT (observer), "authorize-authenticated-peer",
+                G_CALLBACK (on_authorize_authenticated_peer), nullptr);
+
+        GDBusConnection *connection = g_dbus_connection_new_for_address_sync (address,
+                                                             G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT,
+                                                             observer,
+                                                             nullptr,
+                                                             &error);
+        if (connection != nullptr)
+            on_name_acquired(connection, FACEDETECT_INTERFACE_NAME, loop);
+    }
+
+    if (error != nullptr) {
+        g_error("Failed to get connection on %s bus: %s",
+                address == nullptr ? "session" : "private",
+                error->message);
+    }
+
     g_main_loop_run (loop);
     return 0;
 }
