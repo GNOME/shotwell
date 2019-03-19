@@ -16,7 +16,7 @@ flatpak:
         FLATPAK_MODULE: "shotwell"
         # Make sure to keep this in sync with the Flatpak manifest, all arguments
         # are passed except the config-args because we build it ourselves
-        CONFIGURE_ARGS: "-Dudev=false -Dinstall-apport-hook=false -Dface-detection=true"
+        CONFIGURE_ARGS: "-Dudev=false -Dinstall-apport-hook=false -Dface-detection=true -Dface_detection_helper_bus=private"
         DBUS_ID: "org.gnome.Shotwell"
 
     script:
