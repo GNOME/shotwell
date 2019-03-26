@@ -421,10 +421,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     public string set_face_from_photo_menu(string name) {
+        /* Translators: This means to teach the face to the face recognition system */
         return _("_Train Face “%s” From Photo").printf(name);
     }
     
     public string set_face_from_photo_label(string name) {
+        /* Translators: This means to teach the face to the face recognition system */
         return _("_Train Face “%s” From Photo").printf(name);
     }
 
