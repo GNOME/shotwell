@@ -1439,7 +1439,7 @@ msgstr "Afegeix e_tiquetes…"
 #: data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22
 #: data/ui/photo.ui:385 data/ui/tags.ui:400 src/Resources.vala:357
 msgid "Modif_y Tags…"
-msgstr "Modifica les etiquetes…"
+msgstr "_Modifica les etiquetes…"
 
 #: data/ui/collection.ui:33 data/ui/event.ui:286 data/ui/event.ui:477
 #: data/ui/faces.ui:281 data/ui/media.ui:286 data/ui/photo_context.ui:30
