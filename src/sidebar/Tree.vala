@@ -97,7 +97,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.set_expand(true);
         Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
-        icon_renderer.follow_state = true;
         text_column.pack_start (icon_renderer, false);
         text_column.add_attribute(icon_renderer, "gicon", Columns.ICON);
         text_column.set_cell_data_func(icon_renderer, icon_renderer_function);

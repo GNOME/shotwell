@@ -29,7 +29,7 @@ public abstract class FaceShape : Object {
     
     private weak FacesTool.FaceWidget face_widget = null;
     
-    public FaceShape(EditingTools.PhotoCanvas canvas, double[] vec) {
+    protected FaceShape(EditingTools.PhotoCanvas canvas, double[] vec) {
         this.canvas = canvas;
         this.canvas.new_surface.connect(prepare_ctx);
         

@@ -8,7 +8,7 @@ private abstract class Properties : Gtk.Box {
     protected Gtk.Grid grid = new Gtk.Grid();
     protected uint line_count = 0;
 
-    public Properties() {
+    protected Properties() {
         Object(orientation: Gtk.Orientation.VERTICAL, homogeneous : false);
 
         grid.row_spacing = 6;
@@ -645,7 +645,7 @@ private class ExtendedProperties : Properties {
             add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" &&
                 gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE, false, osm_link);
 
-            add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
+            add_line(_("Artist:"), (artist != "" && artist != null) ? Markup.escape_text(artist) : NO_VALUE);
 
             add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
 

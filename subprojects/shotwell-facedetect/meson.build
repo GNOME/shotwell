@@ -1,4 +1,4 @@
-project('shotwell-facedetect', ['c', 'cpp'])
+project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++14'])
 gnome = import('gnome')
 facedetect_dep = dependency('opencv', version : ['>= 2.3.0'], required : true)
 cpp = meson.get_compiler('cpp')

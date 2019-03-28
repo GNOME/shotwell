@@ -62,7 +62,7 @@ private interface UpgradeTask : Object{
 
 // Deletes the mimics folder, if it still exists.
 // Note: for the step count to be consistent, files cannot be written
-// to the mimcs folder for the duration of this task.
+// to the mimics folder for the duration of this task.
 private class MimicsRemovalTask : Object, UpgradeTask {
     // Mimics folder (to be deleted, if present)
     private File mimic_dir = AppDirs.get_data_dir().get_child("mimics");

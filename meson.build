@@ -22,13 +22,24 @@ shotwell_plugin_dir = join_paths(get_option('libdir'), 'shotwell', 'plugins', 'b
 add_global_arguments(['-DHAVE_CONFIG_H=1'],
                      ['-include'], ['config.h'],
                      language : 'c')
-add_global_arguments(['--target-glib=2.40',
-                      '--vapidir=@0@'.format(join_paths(meson.current_source_dir(),
-                        'vapi')),
-                      '--enable-checking',
-                      '--fatal-warnings',
-                      '--enable-experimental',
-                      '--enable-deprecated'], language : 'vala')
+add_global_arguments(
+    [
+        '--target-glib=2.40',
+        '--vapidir=@0@'.format(join_paths(meson.current_source_dir(), 'vapi')),
+        '--enable-checking',
+        '--enable-experimental',
+    ],
+    language : 'vala'
+)
+
+if get_option('fatal_warnings')
+    add_global_arguments(
+        [
+            '--fatal-warnings'
+        ],
+        language : 'vala'
+    )
+endif
 
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
@@ -92,6 +103,11 @@ endif
 
 if get_option('face-detection')
   add_global_arguments(['--define=ENABLE_FACES'], language : 'vala')
+
+  if get_option('face_detection_helper_bus') == 'private'
+      add_global_arguments(['--define=FACEDETECT_BUS_PRIVATE'], language : 'vala')
+  endif
+
   if get_option('face-detection-helper')
       subproject('shotwell-facedetect')
   endif

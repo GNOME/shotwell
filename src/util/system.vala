@@ -6,7 +6,7 @@
 
 // Return the directory in which Shotwell is installed, or null if uninstalled.
 File? get_sys_install_dir(File exec_dir) {
-    // Assume that if the ui folder lives next to the binary, we runn in-tree
+    // Assume that if the ui folder lives next to the binary, we run in-tree
     File child = exec_dir.get_child("ui");
 
     if (!FileUtils.test(child.get_path(), FileTest.IS_DIR | FileTest.EXISTS)) {

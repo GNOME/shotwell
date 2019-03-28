@@ -69,9 +69,6 @@ public abstract class PhotoTransformationState : Object {
         is_broke = true;
     }
     
-    protected PhotoTransformationState() {
-    }
-    
     public bool is_broken() {
         return is_broke;
     }
@@ -835,7 +832,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             if (!developments.has_key(d))
                 return; // we tried!
             
-            // Disgard changes.
+            // Discard changes.
             revert_to_master(false);
             
             // Switch master to the new photo.

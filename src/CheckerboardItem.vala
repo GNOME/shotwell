@@ -47,7 +47,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     private int row = -1;
     private int horizontal_trinket_offset = 0;
     
-    public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title, string? comment,
+    protected CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title, string? comment,
         bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
         base(source);
         

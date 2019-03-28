@@ -1194,7 +1194,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         bool has_flagged) {
         if (has_photos || has_raw)
             // As a user, I would expect, that a raw photo is still a photo.
-            // Let's enable the photo button even if there ar only raw photos.
+            // Let's enable the photo button even if there are only raw photos.
             toolbtn_photos.set_icon_name("filter-photos-symbolic");
         else
             toolbtn_photos.set_icon_name("filter-photos-disabled-symbolic");

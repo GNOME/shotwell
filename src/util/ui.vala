@@ -60,7 +60,7 @@ public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vad
 }
 
 // Verifies that only the mask bits are set in the modifier field, disregarding mouse and 
-// key modifers that are not normally of concern (i.e. Num Lock, Caps Lock, etc.).  Mask can be
+// key modifiers that are not normally of concern (i.e. Num Lock, Caps Lock, etc.).  Mask can be
 // one or more bits set, but should only consist of these values:
 // * Gdk.ModifierType.SHIFT_MASK
 // * Gdk.ModifierType.CONTROL_MASK

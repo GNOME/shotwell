@@ -787,7 +787,7 @@ public class FacesTool : EditingTools.EditingTool {
     private void delete_face(string face_name) {
         face_shapes.unset(face_name);
 
-        // It is posible to have two visible faces at the same time, this happens
+        // It is possible to have two visible faces at the same time, this happens
         // if you are editing one face and you move the pointer around the
         // FaceWidgets area in FacesToolWindow. And you can delete one of that
         // faces, so the other visible face must be repainted.
@@ -899,6 +899,18 @@ public class FacesTool : EditingTools.EditingTool {
         }
     }
 
+    private double dot_product(double[] vec1, double[] vec2) {
+        if (vec1.length != vec2.length) {
+            return 0;
+        }
+
+        double ret = 0;
+        for (var i = 0; i < vec1.length; i++) {
+            ret += vec1[i] * vec2[i];
+        }
+        return ret;
+    }
+
     private Face? get_face_match(FaceShape face_shape, double threshold) {
         Gee.List<FaceLocationRow?> face_vecs;
         try {
@@ -914,7 +926,7 @@ public class FacesTool : EditingTools.EditingTool {
             string[] vec_str = row.vec.split(",");
             double[] vec = {};
             foreach (var d in vec_str) vec += double.parse(d);
-            double product = FaceDetect.dot_product(face_shape.get_face_vec(), vec[0:128]);
+            double product = dot_product(face_shape.get_face_vec(), vec[0:128]);
             if (product > max_product) {
                 max_product = product;
                 guess_id = row.face_id;
