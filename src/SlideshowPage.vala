@@ -340,6 +340,12 @@ class SlideshowPage : SinglePhotoPage {
     public override bool key_press_event(Gdk.EventKey event) {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
+            // Block activating the toolbar on key down
+            // FIXME: Why is SinglePhotoPage not a PhotoPage which already does this?
+            case "Down":
+            case "KP_Down":
+                ;
+            break;
             case "space":
                 on_play_pause();
             break;
