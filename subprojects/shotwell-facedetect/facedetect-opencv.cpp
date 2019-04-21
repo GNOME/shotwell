@@ -93,7 +93,7 @@ bool loadNet(cv::String baseDir) {
         return true;
     }
 #else
-    return false;
+    return true;
 #endif
 }
 
