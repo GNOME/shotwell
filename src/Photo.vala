@@ -5381,7 +5381,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         
         PhotoMetadata? metadata = get_metadata();
         if (metadata == null)
-            return tags != null || tags.size > 0 || get_rating() != Rating.UNRATED;
+            return tags != null || tags.size > 0 || get_rating() != Rating.UNRATED || get_gps_coords().has_gps != 0;
         
         if (get_rating() != metadata.get_rating())
             return true;
