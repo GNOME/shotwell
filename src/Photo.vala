@@ -5385,6 +5385,10 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
         
         if (get_rating() != metadata.get_rating())
             return true;
+
+        var old_coords = metadata.get_gps_coords();
+        if (!get_gps_coords().equals(ref old_coords))
+            return true;
         
         Gee.Set<string>? keywords = metadata.get_keywords();
         int tags_count = (tags != null) ? tags.size : 0;
@@ -5415,6 +5419,7 @@ public class LibraryPhoto : Photo, Flaggable, Monitorable {
             metadata.set_keywords(null);
         
         metadata.set_rating(get_rating());
+        metadata.set_gps_coords(get_gps_coords());
     }
     
     protected override void apply_user_metadata_for_reimport(PhotoMetadata metadata) {
