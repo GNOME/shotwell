@@ -1,3 +1,29 @@
+Shotwell 0.30.3 - 24 Apr 2019
+  * Fix building against GExiv2 0.12 and later
+  * Fix camera fall-back icon
+  * Fix icon resource fall-backs
+  * Fix issue with ACDSEE hierarchical tags
+  * Fix compile issue with recent vala
+  * Fix focus issue in slideshow
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/106
+ - https://gitlab.gnome.org/GNOME/shotwell/122
+ - https://gitlab.gnome.org/GNOME/shotwell/75
+ - https://gitlab.gnome.org/GNOME/shotwell/89
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Timo Jyrinki <timo.jyrinki@iki.fi>
+ - Bernd Homuth <dev@hmt.im>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+
+Added/updated translations:
+ - de.po, courtesy of Bernd Homuth
+ - es.po, courtesy of Daniel Mustieles
+ - fi.po, courtesy of Jiri Grönroos
+
 Shotwell 0.30.2 - 07 Feb 2019
   * Fix maximize on Wayland when double-clicking on title-bar
   * Do not hide the cursor when showing the slideshow settings dialog
