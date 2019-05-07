@@ -46,6 +46,7 @@ endif
 
 subdir('metadata')
 subdir('publishing')
+subdir('video-support')
 
 executable(
     'shotwell',
@@ -214,7 +215,6 @@ executable(
         'Exporter.vala',
         'DirectoryMonitor.vala',
         'LibraryMonitor.vala',
-        'VideoSupport.vala',
         'Tombstone.vala',
         'MetadataWriter.vala',
         'Application.vala',
@@ -223,7 +223,6 @@ executable(
         'MediaDataRepresentation.vala',
         'DesktopIntegration.vala',
         'MediaInterfaces.vala',
-        'VideoMetadata.vala',
         'MediaMonitor.vala',
         'PhotoMonitor.vala',
         'VideoMonitor.vala',
@@ -267,13 +266,15 @@ executable(
         'video-support/VideoReader.vala',
         'video-support/VideoImportParams.vala',
         'video-support/Video.vala',
-        'video-support/VideoSourceCollection.vala'
+        'video-support/VideoSourceCollection.vala',
+        'video-support/VideoMetadata.vala'
     ] + shotwell_resources + face_sources,
     include_directories : vapi_incdir,
     dependencies : [
         shotwell_deps,
-        sw_publishing_gui
-        metadata
+        sw_publishing_gui,
+        metadata,
+        metadata_handling
     ],
     vala_args : [
         '--pkg', 'libgphoto2',
