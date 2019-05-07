@@ -44,6 +44,7 @@ if unity_available
     shotwell_deps += [unity]
 endif
 
+subdir('metadata')
 subdir('publishing')
 
 executable(
@@ -222,7 +223,6 @@ executable(
         'MediaDataRepresentation.vala',
         'DesktopIntegration.vala',
         'MediaInterfaces.vala',
-        'MediaMetadata.vala',
         'VideoMetadata.vala',
         'MediaMonitor.vala',
         'PhotoMonitor.vala',
@@ -273,6 +273,7 @@ executable(
     dependencies : [
         shotwell_deps,
         sw_publishing_gui
+        metadata
     ],
     vala_args : [
         '--pkg', 'libgphoto2',
