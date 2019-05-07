@@ -40,6 +40,7 @@ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  libraw, libexif, sw_plugin, webpdemux, webp, version,
                  clutter, clutter_gtk, champlain, champlain_gtk]
 
+subdir('metadata')
 subdir('publishing')
 
 executable(
@@ -220,7 +221,6 @@ executable(
         'MediaDataRepresentation.vala',
         'DesktopIntegration.vala',
         'MediaInterfaces.vala',
-        'MediaMetadata.vala',
         'VideoMetadata.vala',
         'MediaMonitor.vala',
         'PhotoMonitor.vala',
@@ -271,6 +271,7 @@ executable(
     dependencies : [
         shotwell_deps,
         sw_publishing_gui
+        metadata
     ],
     vala_args : [
         '--pkg', 'libgphoto2',
