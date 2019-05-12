@@ -268,6 +268,7 @@ executable(
         'video-support/Video.vala',
         'video-support/VideoSourceCollection.vala',
         'video-support/VideoMetadata.vala',
+        'video-support/VideoMetadataInterface.vala',
         'ExternalHelper.vala'
     ] + shotwell_resources + face_sources,
     include_directories : vapi_incdir,
