@@ -12,6 +12,20 @@ public errordomain VideoError {
                    // malformed data, etc.)
 }
 
+internal class VideoMetadataReader : ExternalProxy<VideoMetadataReaderInterface>, VideoMetadataReaderInterface {
+    public VideoMetadataReader() throws Error {
+        Object(dbus_path : "/org/gnome/Shotwell/VideoMetadata1", remote_helper_path : AppDirs.get_metadata_helper().get_path());
+        init();
+    }
+
+    public async uint64 get_duration(string uri) throws Error {
+        print("Getting the duration of %s: \n", uri);
+        var r = yield get_remote();
+
+        return yield r.get_duration(uri);
+    }
+}
+
 public class VideoReader {
     private const double UNKNOWN_CLIP_DURATION = -1.0;
     private const uint THUMBNAILER_TIMEOUT = 10000; // In milliseconds.
@@ -28,6 +42,8 @@ public class VideoReader {
     public VideoReader(File file) {
         this.file = file;
      }
+
+    private static VideoMetadataReader reader;
     
     public static bool is_supported_video_file(File file) {
         var mime_type = ContentType.guess(file.get_basename(), new uchar[0], null);
@@ -179,24 +195,28 @@ public class VideoReader {
         if (!does_file_exist())
             throw new VideoError.FILE("video file '%s' does not exist or is inaccessible".printf(
                 file.get_path()));
+
+        if (VideoReader.reader == null) {
+            try {
+                VideoReader.reader = new VideoMetadataReader();
+            } catch (Error error) {
+                critical("Failed to create Videometadataeader: %s", error.message);
+            }
+        }
         
         try {
-            Gst.PbUtils.Discoverer d = new Gst.PbUtils.Discoverer((Gst.ClockTime) (Gst.SECOND * 5));
-            Gst.PbUtils.DiscovererInfo info = d.discover_uri(file.get_uri());
-            
-            clip_duration = ((double) info.get_duration()) / 1000000000.0;
-            
-            // Get creation time.
-            // TODO: Note that TAG_DATE can be changed to TAG_DATE_TIME in the future
-            // (and the corresponding output struct) in order to implement #2836.
-            Date? video_date = null;
-            if (info.get_tags() != null && info.get_tags().get_date(Gst.Tags.DATE, out video_date)) {
-                // possible for get_date() to return true and a null Date
-                if (video_date != null) {
-                    timestamp = new DateTime.local(video_date.get_year(), video_date.get_month(),
-                        video_date.get_day(), 0, 0, 0);
-                }
-            }
+            var context = new MainContext();
+            context.push_thread_default();
+            var loop = new MainLoop(context, false);
+            AsyncResult result = null;
+
+            reader.get_duration.begin(file.get_uri(), (obj, res) => {
+                result = res;
+                loop.quit();
+            });
+            loop.run();
+            clip_duration = ((double) reader.get_duration.end(result)) / 1000000000.0;
+            context.pop_thread_default();
         } catch (Error e) {
             debug("Video read error: %s", e.message);
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip information: %s"

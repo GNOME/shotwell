@@ -1,3 +1,7 @@
+public errordomain LaunchError {
+    FAILED
+}
+
 /*
  * - Proxies interface access
  */
@@ -6,6 +10,7 @@ public class ExternalProxy<G> : Object, Initable {
     private DBusServer server;
     private Subprocess remote_process;
     private SourceFunc saved_get_remote_callback;
+    private uint startup_timeout;
 
     public string dbus_path { get; construct set; }
     public string remote_helper_path { get; construct set; }
@@ -58,10 +63,14 @@ public class ExternalProxy<G> : Object, Initable {
 
     private bool on_new_connection(DBusServer server, DBusConnection connection) {
         bool retval = true;
+        Source.remove(startup_timeout);
+        startup_timeout = 0;
+
         try {
             remote = connection.get_proxy_sync(null, dbus_path, DBusProxyFlags.DO_NOT_LOAD_PROPERTIES |
                                                DBusProxyFlags.DO_NOT_CONNECT_SIGNALS,
                                                null);
+            print("==============> got remote!\n");
         } catch (Error error) {
             critical("Failed to create DBus proxy: %s", error.message);
             retval = false;
@@ -78,9 +87,20 @@ public class ExternalProxy<G> : Object, Initable {
         if (remote_process == null) {
             remote_process = new Subprocess(SubprocessFlags.NONE, remote_helper_path, "--address=" + server.get_client_address());
             remote_process.wait_async.begin(null, on_process_exited);
+            startup_timeout = Timeout.add_seconds(2, () => {
+                startup_timeout = 0;
+                saved_get_remote_callback();
+                critical("=====> Timeout");
+
+                return false;
+            });
         }
 
         yield;
+
+        if (remote_process == null) {
+            throw new LaunchError.FAILED("Failed to launch subprocess...");
+        }
     }
 
     private void on_process_exited(Object? source, AsyncResult res) {
