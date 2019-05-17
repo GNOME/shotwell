@@ -436,8 +436,6 @@ namespace GData {
 		public void set_user_defined_field (string name, string? value);
 		public string billing_information { get; set; }
 		[NoAccessorMethod]
-		public GLib.Date birthday { get; set; }
-		[NoAccessorMethod]
 		public bool birthday_has_year { get; set; }
 		[NoAccessorMethod]
 		public bool deleted { get; }
@@ -1328,9 +1326,9 @@ namespace GData {
 		[CCode (has_construct_function = false)]
 		protected Parsable ();
 		[CCode (has_construct_function = false)]
-		public Parsable.from_json (GLib.Type parsable_type, string json, int length) throws GLib.Error;
+		protected Parsable.from_json (GLib.Type parsable_type, string json, int length) throws GLib.Error;
 		[CCode (has_construct_function = false)]
-		public Parsable.from_xml (GLib.Type parsable_type, string xml, int length) throws GLib.Error;
+		protected Parsable.from_xml (GLib.Type parsable_type, string xml, int length) throws GLib.Error;
 		[NoWrapper]
 		public virtual void get_json (Json.Builder builder);
 		[CCode (cname = "gdata_parsable_get_json")]
