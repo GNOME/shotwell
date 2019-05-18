@@ -10,8 +10,8 @@ public class QuickTimeMetadataLoader {
         this.file = file;
     }
 
-    public MetadataDateTime? get_creation_date_time() {
-        return new MetadataDateTime((time_t) get_creation_date_time_for_quicktime());
+    public string get_creation_date_time() {
+        return get_creation_date_time_for_quicktime().to_string();
     }
 
     public string? get_title() {

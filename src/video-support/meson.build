@@ -1,7 +1,12 @@
 executable(
     'shotwell-video-metadata-handler',
     [
-        'VideoMetadataReaderProcess.vala'
+        'VideoMetadataReaderProcess.vala',
+        'QuicktimeMetdataLoader.vala',
+        'AVIMetadataLoader.vala',
+        'AVIChunk.vala',
+        'QuickTimeAtom.vala',
+        'util.vala'
     ],
     dependencies : [
         gio,

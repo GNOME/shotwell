@@ -2,10 +2,11 @@ using Gst;
 using Gst.PbUtils;
 
 static string address;
+static string uri;
 static MainLoop loop;
 
 const OptionEntry[] options = {
-    { "address", 'a', 0, OptionArg.STRING, ref address, "Address of private bus", "ADDRESS" },
+    { "address", 'a', 0, OptionArg.STRING, ref address, "ADDRESS of private bus", "ADDRESS" },
     { null }
 };
 
@@ -62,6 +63,38 @@ internal class MetadataReader : GLib.Object {
         return info.get_duration();
     }
 
+    public async string[] read_metadata(string uri) throws Error {
+        string[] return_values = { null, null, null, null };
+        var file = File.new_for_uri(uri);
+        var path = file.get_path();
+
+        if (path != null) {
+            uri = Filename.to_uri(path);
+        }
+
+        var quicktime = new QuickTimeMetadataLoader(File.new_for_uri(uri));
+        if (quicktime.is_supported()) {
+            return_values[0] = quicktime.get_creation_date_time().to_string();
+            return_values[1] = quicktime.get_title();
+            Idle.add(() => { read_metadata.callback(); return false; });
+            yield;
+            return return_values;
+        }
+
+        var avi = new AVIMetadataLoader(File.new_for_uri(uri));
+        if (avi.is_supported()) {
+            return_values[0] = avi.get_creation_date_time().to_string();
+            return_values[1] = avi.get_title();
+            Idle.add(() => { read_metadata.callback(); return false; });
+            yield;
+            return return_values;
+        }
+
+        Idle.add(() => { read_metadata.callback(); return false; });
+        yield;
+        throw new IOError.NOT_SUPPORTED("File %s is not a supported video format", file.get_path());
+    }
+
     private void setup_reader() throws Error {
         discoverer = new Gst.PbUtils.Discoverer (Gst.SECOND * 5);
         discoverer.start();
@@ -99,11 +132,17 @@ int main(string[] args) {
     try {
         option_context.parse (ref args);
 
-        var observer = new DBusAuthObserver();
-        observer.authorize_authenticated_peer.connect(on_authorize_peer);
-        var connection = new DBusConnection.for_address_sync(address, DBusConnectionFlags.AUTHENTICATION_CLIENT,
-                                                         observer, null);
-        connection.register_object ("/org/gnome/Shotwell/VideoMetadata1", new MetadataReader());
+        if (address == null && uri == null) {
+            error("Must either provide --uri or --address");
+        }
+
+        if (address != null) {
+            var observer = new DBusAuthObserver();
+            observer.authorize_authenticated_peer.connect(on_authorize_peer);
+            var connection = new DBusConnection.for_address_sync(address, DBusConnectionFlags.AUTHENTICATION_CLIENT,
+                    observer, null);
+            connection.register_object ("/org/gnome/Shotwell/VideoMetadata1", new MetadataReader());
+        }
 
         loop = new MainLoop(null, false);
         loop.run();

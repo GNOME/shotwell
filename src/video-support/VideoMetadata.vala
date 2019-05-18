@@ -17,23 +17,23 @@ public class VideoMetadata : MediaMetadata {
     }
 
     public override void read_from_file(File file) throws Error {
-        QuickTimeMetadataLoader quicktime = new QuickTimeMetadataLoader(file);
-        if (quicktime.is_supported()) {
-            timestamp = quicktime.get_creation_date_time();
-            title = quicktime.get_title();
-	        // TODO: is there an quicktime.get_comment ??
-            comment = null;
-            return;
-        }
-        AVIMetadataLoader avi = new AVIMetadataLoader(file);
-        if (avi.is_supported()) {
-            timestamp = avi.get_creation_date_time();
-            title = avi.get_title();
-            comment = null;
-            return;
-        }
+        var reader = VideoMetadataReader.get_instance();
 
-        throw new IOError.NOT_SUPPORTED("File %s is not a supported video format", file.get_path());
+        var context = new MainContext();
+        context.push_thread_default();
+        var loop = new MainLoop(context, false);
+        AsyncResult result = null;
+
+        reader.read_metadata.begin(file.get_uri(), (obj, res) => {
+                result = res;
+                loop.quit();
+        });
+        loop.run();
+        var values = reader.read_metadata.end(result);
+        context.pop_thread_default();
+        timestamp = new MetadataDateTime((time_t) ulong.parse(values[0]));
+        title = values[1];
+        comment = values[2];
     }
 
     public override MetadataDateTime? get_creation_date_time() {

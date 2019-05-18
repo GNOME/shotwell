@@ -13,16 +13,35 @@ public errordomain VideoError {
 }
 
 internal class VideoMetadataReader : ExternalProxy<VideoMetadataReaderInterface>, VideoMetadataReaderInterface {
-    public VideoMetadataReader() throws Error {
+    private static VideoMetadataReader instance;
+
+    public static VideoMetadataReader get_instance() {
+        if (instance == null) {
+            try {
+                instance = new VideoMetadataReader();
+            } catch (Error error) {
+                critical ("Failed to create VideoMetadataReader: %s", error.message);
+            }
+        }
+
+        return instance;
+    }
+
+    protected VideoMetadataReader() throws Error {
         Object(dbus_path : "/org/gnome/Shotwell/VideoMetadata1", remote_helper_path : AppDirs.get_metadata_helper().get_path());
         init();
     }
 
     public async uint64 get_duration(string uri) throws Error {
-        print("Getting the duration of %s: \n", uri);
         var r = yield get_remote();
 
         return yield r.get_duration(uri);
+    }
+
+    public async string[] read_metadata(string uri) throws Error {
+        var r = yield get_remote();
+
+        return yield r.read_metadata(uri);
     }
 }
 
@@ -42,8 +61,6 @@ public class VideoReader {
     public VideoReader(File file) {
         this.file = file;
      }
-
-    private static VideoMetadataReader reader;
 
     public static bool is_supported_video_file(File file) {
         var mime_type = ContentType.guess(file.get_basename(), new uchar[0], null);
@@ -196,14 +213,7 @@ public class VideoReader {
             throw new VideoError.FILE("video file '%s' does not exist or is inaccessible".printf(
                 file.get_path()));
 
-        if (VideoReader.reader == null) {
-            try {
-                VideoReader.reader = new VideoMetadataReader();
-            } catch (Error error) {
-                critical("Failed to create Videometadataeader: %s", error.message);
-            }
-        }
-
+        var reader = VideoMetadataReader.get_instance();
         try {
             var context = new MainContext();
             context.push_thread_default();
