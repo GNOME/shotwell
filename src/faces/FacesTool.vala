@@ -304,8 +304,10 @@ public class FacesTool : EditingTools.EditingTool {
             Gtk.Box layoutV;
             layoutV = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             layoutV.set_border_width(5);
+            layoutV.set_spacing(CONTROL_SPACING);
             layoutH = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             layoutH.set_homogeneous(true);
+            layoutH.set_spacing(CONTROL_SPACING);
             layoutV.add(entry);
             layoutV.add(layoutH);
             layoutH.add(ok_button);
