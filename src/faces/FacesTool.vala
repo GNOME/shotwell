@@ -28,7 +28,6 @@ public class FacesTool : EditingTools.EditingTool {
 
         public signal void face_hidden();
 
-        public Gtk.Button edit_button;
         public Gtk.Button delete_button;
         public Gtk.Label label;
 
@@ -44,9 +43,7 @@ public class FacesTool : EditingTools.EditingTool {
         public FaceWidget (FaceShape face_shape) {
             spacing = CONTROL_SPACING;
 
-            edit_button = new Gtk.Button.with_label(Resources.EDIT_LABEL);
-            edit_button.set_use_underline(true);
-            delete_button = new Gtk.Button.with_label(Resources.DELETE_LABEL);
+            delete_button = new Gtk.Button.from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON);
             delete_button.set_use_underline(true);
 
             label = new Gtk.Label(face_shape.get_name());
@@ -56,7 +53,6 @@ public class FacesTool : EditingTools.EditingTool {
             label.width_chars = FACE_LABEL_MAX_CHARS;
 
             pack_start(label, true);
-            pack_start(edit_button, false);
             pack_start(delete_button, false);
 
             this.face_shape = face_shape;
@@ -96,6 +92,20 @@ public class FacesTool : EditingTools.EditingTool {
             return true;
         }
 
+        public bool edit_face() {
+            FaceWidget face_widget = (FaceWidget) label.get_parent();
+            Gtk.EventBox event_box = (Gtk.EventBox) face_widget.get_parent();
+            Gtk.ListBoxRow list_row = (Gtk.ListBoxRow) event_box.get_parent();
+            Gtk.ListBox list = (Gtk.ListBox) list_row.get_parent();
+            Gtk.Box layout = (Gtk.Box) list.get_parent();
+            Gtk.Frame frame = (Gtk.Frame) layout.get_parent();
+            Gtk.Frame frame_outside = (Gtk.Frame) frame.get_parent();
+            FacesToolWindow faces_window = (FacesToolWindow) frame_outside.get_parent();
+            faces_window.face_edit_requested(label.get_text());
+
+            return true;
+        }
+
         public void activate_label() {
             label.set_attributes(attrs_bold);
         }
@@ -119,9 +129,8 @@ public class FacesTool : EditingTools.EditingTool {
         private EditingPhase editing_phase = EditingPhase.NOT_EDITING;
         private Gtk.Box help_layout = null;
         private Gtk.Box response_layout = null;
-        private Gtk.Separator buttons_text_separator = null;
         private Gtk.Label help_text = null;
-        private Gtk.Box face_widgets_layout = null;
+        private Gtk.ListBox face_widgets_layout = null;
         private Gtk.Box layout = null;
 
         public FacesToolWindow(Gtk.Window container) {
@@ -147,13 +156,15 @@ public class FacesTool : EditingTools.EditingTool {
 
             ok_button.set_image_position(Gtk.PositionType.LEFT);
 
-            face_widgets_layout = new Gtk.Box(Gtk.Orientation.VERTICAL, CONTROL_SPACING);
+            face_widgets_layout = new Gtk.ListBox();
+            face_widgets_layout.set_selection_mode(Gtk.SelectionMode.NONE);
 
             help_text = new Gtk.Label(_("Click and drag to tag a face"));
             help_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
             help_layout.pack_start(help_text, true);
 
             response_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            response_layout.set_homogeneous(true);
             #if ENABLE_FACE_DETECTION
             response_layout.add(detection_button);
             #endif
@@ -242,7 +253,6 @@ public class FacesTool : EditingTools.EditingTool {
             FaceWidget face_widget = new FaceWidget(face_shape);
 
             face_widget.face_hidden.connect(on_face_hidden);
-            face_widget.edit_button.clicked.connect(edit_face);
             face_widget.delete_button.clicked.connect(delete_face);
 
             Gtk.EventBox event_box = new Gtk.EventBox();
@@ -250,21 +260,11 @@ public class FacesTool : EditingTools.EditingTool {
             event_box.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
             event_box.enter_notify_event.connect(face_widget.on_enter_notify_event);
             event_box.leave_notify_event.connect(face_widget.on_leave_notify_event);
+            event_box.button_press_event.connect(face_widget.edit_face);
 
-            face_widgets_layout.pack_start(event_box, false);
-
-            if (buttons_text_separator == null) {
-                buttons_text_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
-                face_widgets_layout.pack_end(buttons_text_separator, false);
-            }
+            face_widgets_layout.insert(event_box, -1);
 
             face_widgets_layout.show_all();
-        }
-
-        private void edit_face(Gtk.Button button) {
-            FaceWidget widget = (FaceWidget) button.get_parent();
-
-            face_edit_requested(widget.label.get_text());
         }
 
         private void delete_face(Gtk.Button button) {
@@ -272,12 +272,11 @@ public class FacesTool : EditingTools.EditingTool {
 
             face_delete_requested(widget.label.get_text());
 
-            widget.get_parent().destroy();
-
-            if (face_widgets_layout.get_children().length() == 1) {
-                buttons_text_separator.destroy();
-                buttons_text_separator = null;
-            }
+            Gtk.EventBox event = (Gtk.EventBox) widget.get_parent();
+            Gtk.ListBoxRow row = (Gtk.ListBoxRow) event.get_parent();
+            face_widgets_layout.remove(row);
+            face_widgets_layout.remove(widget);
+            row.destroy();
         }
 
         private void on_face_hidden() {
@@ -306,8 +305,10 @@ public class FacesTool : EditingTools.EditingTool {
             Gtk.Box layoutV;
             layoutV = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             layoutV.set_border_width(5);
+            layoutV.set_spacing(CONTROL_SPACING);
             layoutH = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             layoutH.set_homogeneous(true);
+            layoutH.set_spacing(CONTROL_SPACING);
             layoutV.add(entry);
             layoutV.add(layoutH);
             layoutH.add(ok_button);
