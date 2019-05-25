@@ -105,11 +105,11 @@ public class PreferencesDialog : Gtk.Dialog {
 
         if (help_path == null) {
             // We're installed system-wide, so use the system help.
-            pattern_help.set_markup("<a href=\"" + Resources.DIR_PATTERN_URI_SYSWIDE + "\">" + _("(Help)") + "</a>");
+	    pattern_help.set_markup("<a href=\"%s\">%s</a>".printf(Resources.DIR_PATTERN_URI_SYSWIDE,  _("(Help)"));
         } else {
             // We're being run from the build directory; we'll have to handle clicks to this
             // link manually ourselves, due to a limitation of help: URIs.
-            pattern_help.set_markup("<a href=\"dummy:\">" + _("(Help)") + "</a>");
+	    pattern_help.set_markup("<a href=\"dummy:\">%s</a>".printf(_("(Help)"));
             pattern_help.activate_link.connect(on_local_pattern_help);
         }
 
