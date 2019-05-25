@@ -177,7 +177,7 @@ public class FacesTool : EditingTools.EditingTool {
                 case EditingPhase.CLICK_TO_EDIT:
                     assert(face_shape != null);
 
-                    help_text.set_markup(Markup.printf_escaped(_("Click to edit face <i>%s</i>"),
+                    help_text.set_markup(Markup.printf_escaped(_("Click to edit face %s"),
                         face_shape.get_name()));
 
                     break;
