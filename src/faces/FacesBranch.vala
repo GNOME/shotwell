@@ -8,9 +8,11 @@
 
 public class Faces.Branch : Sidebar.Branch {
     private Gee.HashMap<Face, Faces.SidebarEntry> entry_map = new Gee.HashMap<Face, Faces.SidebarEntry>();
+    internal const string HANDLE = "faces";
     
     public Branch() {
         base (new Faces.Grouping(),
+            Branch.HANDLE,
             Sidebar.Branch.Options.HIDE_IF_EMPTY
                 | Sidebar.Branch.Options.AUTO_OPEN_ON_NEW_CHILD
                 | Sidebar.Branch.Options.STARTUP_EXPAND_TO_FIRST_CHILD,
