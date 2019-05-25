@@ -799,7 +799,7 @@ public class LibraryWindow : AppWindow {
         if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
             Gtk.ResponseType response = AppWindow.affirm_cancel_question(
                 _("Shotwell is configured to import photos to your home directory.\n" + 
-                "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</span>.\n" + 
+                "We recommend changing this in Edit %s Preferences.\n" + 
                 "Do you want to continue importing photos?").printf("▸"),
                 _("_Import"), _("Library Location"), AppWindow.get_instance());
             

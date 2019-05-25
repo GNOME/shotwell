@@ -284,7 +284,7 @@ public class PublishingDialog : Gtk.Dialog {
             // There are no enabled publishing services that accept this media type,
             // warn the user.
             AppWindow.error_message_with_title(_("Unable to publish"),
-                _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose <b>Edit %s Preferences</b> and enable one or more of the publishing plugins on the <b>Plugins</b> tab.").printf("▸"),
+                _("Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the <b>Plugins</b> tab.").printf("▸"),
                 null, false);
 
             return;
