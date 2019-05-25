@@ -1047,6 +1047,9 @@ public class LibraryWindow : AppWindow {
     }
     
     private void remove_from_stack(Page page) {
+        if (stack.get_children().find(page) == null)
+            return;
+
         stack.remove(page);
         
         // need to show_all() after pages are added and removed
@@ -1417,7 +1420,7 @@ public class LibraryWindow : AppWindow {
         remove_from_stack(page);
         
         bool removed = page_map.unset(page);
-        assert(removed);
+        //assert(removed);
     }
     
     private void on_sidebar_entry_selected(Sidebar.SelectableEntry selectable) {
