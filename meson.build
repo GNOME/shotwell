@@ -72,13 +72,22 @@ clutter_gtk = dependency('clutter-gtk-1.0')
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
 
-heif = dependency('libheif')
 
 unity_available = false
 if unity.found() and get_option('unity-support')
   unity_available = true
   add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
 endif
+
+foreach image_format: get_option('additional_image_formats')
+    if image_format == 'heif'
+        heif = dependency('libheif')
+    endif
+    add_global_arguments(
+        ['--define=HAVE_@0@'.format(image_format.to_upper())],
+        language : 'vala'
+    )
+endforeach
 
 foreach publisher : get_option('publishers').split(',')
   add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],
