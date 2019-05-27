@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-02-24 16:07+0000\n"
-"PO-Revision-Date: 2019-02-24 17:35+0100\n"
+"POT-Creation-Date: 2019-05-25 16:58+0000\n"
+"PO-Revision-Date: 2019-05-27 18:45+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1407,12 +1407,6 @@ msgstr ""
 "tagowanie;filmy;wideo;filmiki;facebook;fejsbuk;flickr;picasa;youtube;jutube;"
 "piwigo;"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.Shotwell.desktop.in:11
-#: data/org.gnome.Shotwell-Viewer.desktop.in:8
-msgid "org.gnome.Shotwell"
-msgstr "org.gnome.Shotwell"
-
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Przeglądarka Shotwell"
@@ -1529,7 +1523,7 @@ msgstr "Wyświetl wydarze_nie dla zdjęcia"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:783
+#: src/Resources.vala:785
 msgid "Show in File Mana_ger"
 msgstr "Wyświetl w mene_dżerze plików"
 
@@ -1541,7 +1535,7 @@ msgstr "Wyślij _do…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:792
+#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:794
 msgid "_Move to Trash"
 msgstr "Przenieś do _kosza"
 
@@ -1788,7 +1782,7 @@ msgstr "No_we zapisane wyszukiwanie…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:794
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
 msgid "Select _All"
 msgstr "Z_aznacz wszystkie"
 
@@ -1884,7 +1878,7 @@ msgstr "Wy_eksportuj…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:790
+#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:792
 msgid "R_emove From Library"
 msgstr "_Usuń z kolekcji"
 
@@ -2022,7 +2016,7 @@ msgstr "_Anuluj"
 msgid "_OK"
 msgstr "_OK"
 
-#: data/ui/offline.ui:226 src/Resources.vala:778
+#: data/ui/offline.ui:226 src/Resources.vala:780
 msgid "Remove the selected photos from the library"
 msgstr "Usuwa wybrane zdjęcia z kolekcji"
 
@@ -2125,7 +2119,7 @@ msgid "Use dark theme:"
 msgstr "Ciemny motyw:"
 
 #: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Kolekcja"
 
@@ -2247,7 +2241,7 @@ msgstr "_Modyfikuj…"
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
 #: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:776
+#: src/Resources.vala:396 src/Resources.vala:778
 msgid "_Delete"
 msgstr "_Usuń"
 
@@ -2326,15 +2320,15 @@ msgid "label"
 msgstr "etykieta"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:780
+#: src/Resources.vala:782
 msgid "_Restore"
 msgstr "P_rzywróć"
 
-#: data/ui/trash.ui:260 src/Resources.vala:777
+#: data/ui/trash.ui:260 src/Resources.vala:779
 msgid "Remove the selected photos from the trash"
 msgstr "Usuwa wybrane zdjęcia z kosza"
 
-#: data/ui/trash.ui:275 src/Resources.vala:781
+#: data/ui/trash.ui:275 src/Resources.vala:783
 msgid "Move the selected photos back into the library"
 msgstr "Przenosi wybrane zdjęcia z powrotem do kolekcji"
 
@@ -4869,8 +4863,8 @@ msgstr ""
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Wybranie <span weight=\"bold\">Plik %s Zaimportuj z katalogu</span>"
+msgid "Choose File %s Import From Folder"
+msgstr "Wybranie Plik %s Zaimportuj z katalogu"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5284,8 +5278,8 @@ msgstr "Kliknięcie i przeciągnięcie oznaczy twarz"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-msgid "Click to edit face <i>%s</i>"
-msgstr "Kliknięcie zmodyfikuje twarz <i>%s</i>"
+msgid "Click to edit face “%s”"
+msgstr "Kliknięcie zmodyfikuje twarz „%s”"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -5317,7 +5311,7 @@ msgstr "Zapisuje zmiany i zamyka narzędzie wykrywania twarzy"
 msgid "No changes to save"
 msgstr "Brak zmian do zapisania"
 
-#: src/faces/FacesTool.vala:938
+#: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Błąd podczas wywoływania programu do wykrywania twarzy:\n"
 
@@ -5329,11 +5323,11 @@ msgstr "Katalogi"
 msgid "Browse the library’s folder structure"
 msgstr "Przegląda strukturę katalogów kolekcji"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Imports"
 msgstr "Zaimportowane"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Browse the library’s import history"
 msgstr "Przegląda historię importowania do kolekcji"
 
@@ -5383,14 +5377,12 @@ msgstr "Opróżnianie kosza…"
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Program Shotwell został skonfigurowany, aby importować zdjęcia do katalogu "
 "domowego.\n"
-"Zalecana jest zmiana tego ustawienia w <span weight=\"bold\">Edycja %s "
-"Preferencje</span>.\n"
+"Zalecana jest zmiana tego ustawienia w Edycja %s Preferencje.\n"
 "Kontynuować importowanie zdjęć?"
 
 #. TODO: Specify which directory/file.
@@ -5528,7 +5520,7 @@ msgstr ""
 msgid "Improve this map"
 msgstr "Pomóż ulepszać tę mapę"
 
-#: src/MapWidget.vala:643
+#: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
 msgstr ""
 "Przeciągnięcie obrazu na mapę zablokuje lub odblokuje ją do geotagowania"
@@ -5619,7 +5611,7 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3807
+#: src/Photo.vala:3804
 msgid "modified"
 msgstr "zmodyfikowany"
 
@@ -5842,14 +5834,14 @@ msgstr "Nie można opublikować"
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
-"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-"Preferences</b> and enable one or more of the publishing plugins on the "
+"compatible publishing plugin enabled. To correct this, choose Edit %s "
+"Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
 "Program Shotwell nie może opublikować wybranych elementów, ponieważ nie "
-"włączono zgodnej wtyczki publikowania. Aby to naprawić, należy wybrać "
-"<b>Modyfikacja preferencji programu %s </b> i włączyć jedną lub więcej "
-"wtyczek publikowania w karcie <b>Wtyczki</b>."
+"włączono zgodnej wtyczki publikowania. Aby to naprawić, należy wybrać Edycja "
+"%s Preferencje i włączyć jedną lub więcej wtyczek publikowania w karcie "
+"<b>Wtyczki</b>."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6334,81 +6326,82 @@ msgstr[0] "Usuń twarz „%s” ze zdjęcia"
 msgstr[1] "Usuń twarz „%s” ze zdjęć"
 msgstr[2] "Usuń twarz „%s” ze zdjęć"
 
-#: src/Resources.vala:424 src/Resources.vala:428
+#. Translators: This means to teach the face to the face recognition system
+#: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "_Naucz twarz „%s” ze zdjęcia"
 
-#: src/Resources.vala:436
+#: src/Resources.vala:438
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Zmień _nazwę twarzy „%s”…"
 
-#: src/Resources.vala:440
+#: src/Resources.vala:442
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Zmień nazwę twarzy „%s” na „%s”"
 
-#: src/Resources.vala:444
+#: src/Resources.vala:446
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Usuń twarz „%s”"
 
-#: src/Resources.vala:448
+#: src/Resources.vala:450
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Usuń twarz „%s”"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:680
 #, c-format
 msgid "Rate %s"
 msgstr "Ocena %s"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:681
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ustaw ocenę na %s"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:682
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Ustawianie oceny na %s"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:684
 #, c-format
 msgid "Display %s"
 msgstr "Wyświetlanie %s"
 
-#: src/Resources.vala:683
+#: src/Resources.vala:685
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Wyświetla tylko z oceną %s"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:686
 #, c-format
 msgid "%s or Better"
 msgstr "%s lub lepszą"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:687
 #, c-format
 msgid "Display %s or Better"
 msgstr "Wyświetlanie %s lub lepszych"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:688
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Wyświetla tylko zdjęcia z oceną %s lub lepszą"
 
-#: src/Resources.vala:784
+#: src/Resources.vala:786
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Otwiera wybrany katalog zdjęć w menedżerze plików"
 
-#: src/Resources.vala:787
+#: src/Resources.vala:789
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nie można otworzyć w menedżerze plików: %s"
 
-#: src/Resources.vala:795
+#: src/Resources.vala:797
 msgid "Select all items"
 msgstr "Zaznacza wszystkie elementy"
 
@@ -6421,14 +6414,14 @@ msgstr "Zaznacza wszystkie elementy"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:857
+#: src/Resources.vala:859
 msgid "%a %b %d, %Y"
 msgstr "%a, %-d %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %-d %b"
@@ -6436,7 +6429,7 @@ msgstr "%a, %-d %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:869
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%-d, %Y"
@@ -6444,7 +6437,7 @@ msgstr "%-d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:872
+#: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %-d %b"
@@ -6452,7 +6445,7 @@ msgstr "%a, %-d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:877
+#: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %-d %b %Y"
@@ -6751,6 +6744,6 @@ msgid "untitled"
 msgstr "bez nazwy"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Eksport nagrań wideo"
