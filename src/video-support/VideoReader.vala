@@ -35,7 +35,13 @@ internal class VideoMetadataReader : ExternalProxy<VideoMetadataReaderInterface>
     public async uint64 get_duration(string uri) throws Error {
         var r = yield get_remote();
 
-        return yield r.get_duration(uri);
+        debug ("Got remote!");
+
+        var d = yield r.get_duration(uri);
+
+        debug ("Got duration");
+
+        return d;
     }
 
     public async string[] read_metadata(string uri) throws Error {
@@ -214,23 +220,25 @@ public class VideoReader {
                 file.get_path()));
 
         var reader = VideoMetadataReader.get_instance();
+        var context = new MainContext();
         try {
-            var context = new MainContext();
-            context.push_thread_default();
-            var loop = new MainLoop(context, false);
             AsyncResult result = null;
 
+            var loop = new MainLoop(context, false);
             reader.get_duration.begin(file.get_uri(), (obj, res) => {
+                critical ("=> Got reader callback!");
                 result = res;
                 loop.quit();
             });
+            context.push_thread_default();
             loop.run();
             clip_duration = ((double) reader.get_duration.end(result)) / 1000000000.0;
-            context.pop_thread_default();
         } catch (Error e) {
             debug("Video read error: %s", e.message);
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip information: %s"
                 .printf(e.message));
+        } finally {
+            context.pop_thread_default();
         }
     }
 

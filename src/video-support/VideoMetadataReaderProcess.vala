@@ -51,14 +51,16 @@ internal class MetadataReader : GLib.Object {
 
             var result = info.get_result ();
             if (result == Gst.PbUtils.DiscovererResult.TIMEOUT) {
-                debug ("Extraction timed out on %s", file.get_uri ());
+                critical ("Extraction timed out on %s", file.get_uri ());
             } else if (result == Gst.PbUtils.DiscovererResult.MISSING_PLUGINS) {
-                debug ("Plugins are missing for extraction of file %s",
+                critical ("Plugins are missing for extraction of file %s",
                        file.get_uri ());
             }
 
             throw error;
         }
+
+        print ("Before return!");
 
         return info.get_duration();
     }
@@ -106,19 +108,22 @@ internal class MetadataReader : GLib.Object {
 }
 
 private bool on_authorize_peer(DBusAuthObserver observer, IOStream stream, Credentials? credentials) {
-    debug("Observer trying to authorize for %s", credentials.to_string());
+    critical("helper: Observer trying to authorize for %s", credentials.to_string());
 
     if (credentials == null) {
+        critical ("Invalid credentials");
         return false;
     }
 
     try {
         if (!credentials.is_same_user(new Credentials())) {
+        critical ("different user");
             return false;
         }
 
         return true;
     } catch (Error error) {
+        critical ("Error %s", error.message);
         return false;
     }
 }
@@ -137,11 +142,15 @@ int main(string[] args) {
         }
 
         if (address != null) {
+            critical("=> Creating new connection");
             var observer = new DBusAuthObserver();
             observer.authorize_authenticated_peer.connect(on_authorize_peer);
-            var connection = new DBusConnection.for_address_sync(address, DBusConnectionFlags.AUTHENTICATION_CLIENT,
+            var connection = new DBusConnection.for_address_sync(address, DBusConnectionFlags.NONE, //AUTHENTICATION_CLIENT,
                     observer, null);
+
+            critical("=> Registering object");
             connection.register_object ("/org/gnome/Shotwell/VideoMetadata1", new MetadataReader());
+
         }
 
         loop = new MainLoop(null, false);

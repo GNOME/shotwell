@@ -87,7 +87,7 @@ public class ExternalProxy<G> : Object, Initable {
         if (remote_process == null) {
             remote_process = new Subprocess(SubprocessFlags.NONE, remote_helper_path, "--address=" + server.get_client_address());
             remote_process.wait_async.begin(null, on_process_exited);
-            startup_timeout = Timeout.add_seconds(2, () => {
+            startup_timeout = Timeout.add_seconds(10, () => {
                 startup_timeout = 0;
                 saved_get_remote_callback();
                 critical("=====> Timeout");
