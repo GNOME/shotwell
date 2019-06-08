@@ -327,11 +327,12 @@ void editing_exec(string filename, bool fullscreen) {
 namespace CommandlineOptions {
 
 bool no_startup_progress = false;
-string data_dir = null;
+string? data_dir = null;
 bool show_version = false;
 bool no_runtime_monitoring = false;
 bool fullscreen = false;
 bool show_metadata = false;
+string? profile = null;
 
 const OptionEntry[] entries = {
     { "datadir", 'd', 0, OptionArg.FILENAME, ref data_dir, N_("Path to Shotwell’s private data"), N_("DIRECTORY") },
@@ -340,6 +341,7 @@ const OptionEntry[] entries = {
     { "version", 'V', 0, OptionArg.NONE, ref show_version, N_("Show the application’s version") },
     { "fullscreen", 'f', 0, OptionArg.NONE, ref fullscreen, N_("Start the application in fullscreen mode"), null },
     { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the metadata of the image file"), null },
+    { "profile", 'i', 0, OptionArg.STRING, ref profile, N_("Name for a custom profile"), N_("PROFILE") },
     { null, 0, 0, 0, null, null, null }
 };
 }
@@ -367,20 +369,29 @@ void main(string[] args) {
         GLib.Environment.set_variable("GSETTINGS_SCHEMA_DIR", AppDirs.get_lib_dir().get_path() +
             "/data/gsettings", true);
     }
-    
+
     // init GTK (valac has already called g_threads_init())
     try {
         GtkClutter.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
             Resources.APP_GETTEXT_PACKAGE);
 
-        var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
-        Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
     } catch (Error e) {
         print(e.message + "\n");
         print(_("Run “%s --help” to see a full list of available command line options.\n"), args[0]);
         AppDirs.terminate();
         return;
     }
+
+    // Setup profile manager
+    if (CommandlineOptions.profile != null) {
+        var manager = Shotwell.ProfileManager.get_instance();
+        manager.set_profile(CommandlineOptions.profile);
+        CommandlineOptions.data_dir = manager.derive_data_dir(CommandlineOptions.data_dir);
+    }
+
+    // Need to set this before anything else, but _after_ setting the profile
+    var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
+    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
 
     if (CommandlineOptions.show_version) {
         if (Resources.GIT_VERSION != "")
