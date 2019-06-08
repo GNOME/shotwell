@@ -28,7 +28,7 @@ public class Facade : ConfigurationFacade {
     public signal void colors_changed();
 
     private Facade() {
-        base(new GSettingsConfigurationEngine());
+        base(new GSettingsConfigurationEngine(Shotwell.ProfileManager.get_instance().id()));
 
         transparent_background_type_changed.connect(on_color_name_changed);
         transparent_background_color_changed.connect(on_color_name_changed);
