@@ -24,11 +24,12 @@ public class Facade : ConfigurationFacade {
 
 
     private static Facade instance = null;
+    public static string profile = null;
 
     public signal void colors_changed();
 
     private Facade() {
-        base(new GSettingsConfigurationEngine());
+        base(new GSettingsConfigurationEngine(Facade.profile));
 
         transparent_background_type_changed.connect(on_color_name_changed);
         transparent_background_color_changed.connect(on_color_name_changed);

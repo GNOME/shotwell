@@ -26,8 +26,11 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private string[] schema_names;
     private string[] key_names;
     private Gee.HashMap<string, Settings> settings_cache = new Gee.HashMap<string, Settings>();
-    
-    public GSettingsConfigurationEngine() {
+
+    private string profile = "";
+
+    public GSettingsConfigurationEngine(string? profile) {
+        this.profile = profile == null ? "" : profile;
         schema_names = new string[ConfigurableProperty.NUM_PROPERTIES];
 
         schema_names[ConfigurableProperty.AUTO_IMPORT_FROM_LIBRARY] = FILES_PREFS_SCHEMA_NAME;
@@ -181,7 +184,14 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
     private Settings get_settings(string schema) {
         if (!this.settings_cache.has_key(schema)) {
-            this.settings_cache[schema] = new Settings(schema);
+            if (schema.has_prefix (ROOT_SCHEMA_NAME)) {
+                var path = schema.replace(ROOT_SCHEMA_NAME, "");
+                path = "/org/yorba/shotwell/%s%s/".printf(profile == null ? "" : profile, path.replace(".", "/"));
+                path = path.replace("//", "/");
+                this.settings_cache[schema] = new Settings.with_path (schema, path);
+            } else {
+                this.settings_cache[schema] = new Settings(schema);
+            }
         }
 
         return this.settings_cache[schema];
