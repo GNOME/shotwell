@@ -60,7 +60,7 @@
 public class DirectoryMonitor : Object {
     public const int DEFAULT_PRIORITY = Priority.LOW;
     public const FileQueryInfoFlags DIR_INFO_FLAGS = FileQueryInfoFlags.NONE;
-    public const FileQueryInfoFlags FILE_INFO_FLAGS = FileQueryInfoFlags.NOFOLLOW_SYMLINKS;
+    public const FileQueryInfoFlags FILE_INFO_FLAGS = FileQueryInfoFlags.NONE;
     
     // when using UNKNOWN_FILE_FLAGS, check if the resulting FileInfo's symlink status matches
     // symlink support for files and directories by calling is_file_symlink_supported().
