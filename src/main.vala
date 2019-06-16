@@ -333,6 +333,7 @@ bool no_runtime_monitoring = false;
 bool fullscreen = false;
 bool show_metadata = false;
 string? profile = null;
+bool list_profiles = false;
 
 const OptionEntry[] entries = {
     { "datadir", 'd', 0, OptionArg.FILENAME, ref data_dir, N_("Path to Shotwell’s private data"), N_("DIRECTORY") },
@@ -342,6 +343,7 @@ const OptionEntry[] entries = {
     { "fullscreen", 'f', 0, OptionArg.NONE, ref fullscreen, N_("Start the application in fullscreen mode"), null },
     { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the metadata of the image file"), null },
     { "profile", 'i', 0, OptionArg.STRING, ref profile, N_("Name for a custom profile"), N_("PROFILE") },
+    { "list-profiles", 'l', 0, OptionArg.NONE, ref list_profiles, N_("Show available profiles"), null },
     { null, 0, 0, 0, null, null, null }
 };
 }
@@ -401,6 +403,15 @@ void main(string[] args) {
 
         AppDirs.terminate();
         
+        return;
+    }
+
+    if (CommandlineOptions.list_profiles) {
+        var manager  = Shotwell.ProfileManager.get_instance();
+        manager.print_profiles();
+
+        AppDirs.terminate();
+
         return;
     }
 

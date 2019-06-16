@@ -95,5 +95,25 @@ namespace Shotwell {
                 assert_not_reached();
             }
         }
+
+        public void print_profiles() {
+            print("Available profiles:\n");
+            print("-------------------\n");
+            try {
+                foreach (var group in profiles.get_groups()) {
+                    print("Profile name: %s\n", profiles.get_value(group, "Name"));
+                    var id = profiles.get_value(group, "Id");
+                    print("Profile Id: %s\n", id);
+                    if ("DataDir" in profiles.get_keys(group)) {
+                        print("Data dir: %s\n", profiles.get_value(group, "DataDir"));
+                    } else {
+                        print("Data dir: %s\n", Path.build_filename(Environment.get_user_data_dir(), "profiles", id));
+                    }
+                    print("\n");
+                }
+            } catch (Error error) {
+                print("Failed to print profiles: %s", error.message);
+            }
+        }
     }
 }
