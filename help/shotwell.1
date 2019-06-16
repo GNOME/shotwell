@@ -46,6 +46,21 @@ Show the application's version
 X display to use
 .RE
 
+.B \-p, \-\-show-metadata
+.RS
+Dump all Exif, IPTC and XMP metadata of \f1FILE\fR
+.RE
+
+.B \-i, \-\-profile=PROFILE
+.RS
+Start shotwell with a different profile. A profile consists of a set of settings and a new private data dir. The data dir can be overriden by secifying \-\-datadir as well.
+.RE
+
+.B \-l, \-\-list-profiles
+.RS
+Show the available profiles
+.RE
+
 .SH "EXAMPLES"
 \fBshotwell
 .RS
@@ -57,11 +72,16 @@ X display to use
 \fROpens an image file for direct editing.  File is not imported into library and unsaved changes are lost on close.
 .RE
 
+\fBshotwell \-\-profile="Development environment"
+.RS
+\fROpens shotwell using the profile named "Development environment".
+.RE
+
 .SH "NOTES"
 .P
 Shotwell homepage: https://wiki.gnome.org/Apps/Shotwell
 .P
-Report bugs: https://bugzilla.gnome.org/enter_bug.cgi?product=Shotwell
+Report bugs: https://gitlab.gnome.org/GNOME/shotwell/issues
 
 .SH "AUTHOR"
 .PP
