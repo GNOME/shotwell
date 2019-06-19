@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-02-24 16:07+0000\n"
-"PO-Revision-Date: 2019-02-26 09:14+0100\n"
+"POT-Creation-Date: 2019-06-16 11:41+0000\n"
+"PO-Revision-Date: 2019-06-19 12:21+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.31.90\n"
+"X-Generator: Gtranslator 3.32.0\n"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -214,12 +214,10 @@ msgstr ""
 "caso."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:47
-#| msgid "display sidebar"
 msgid "display map widget"
 msgstr "mostrar widget de mapa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:48
-#| msgid "True if the sidebar is to be displayed, false otherwise."
 msgid "True if the map widget is to be displayed, false otherwise."
 msgstr "Cierto si se debe mostrar el widget de mapa, falso en otro caso."
 
@@ -1455,13 +1453,6 @@ msgstr ""
 "publicar;rotar;compartir;etiquetas;vídeo;facebook;flickr;picasa;youtube;"
 "piwigo;"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.Shotwell.desktop.in:11
-#: data/org.gnome.Shotwell-Viewer.desktop.in:8
-#| msgid "Shotwell"
-msgid "org.gnome.Shotwell"
-msgstr "org.gnome.Shotwell"
-
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Visor de fotos Shotwell"
@@ -1578,7 +1569,7 @@ msgstr "Ver eve_nto para la foto"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:783
+#: src/Resources.vala:785
 msgid "Show in File Mana_ger"
 msgstr "Mostrar en ge_stor de archivos"
 
@@ -1590,7 +1581,7 @@ msgstr "En_viar a…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:792
+#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:794
 msgid "_Move to Trash"
 msgstr "_Mover a la papelera"
 
@@ -1836,7 +1827,7 @@ msgstr "_Búsqueda guardada nueva…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:794
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
 msgid "Select _All"
 msgstr "Seleccionar _todo"
 
@@ -1932,7 +1923,7 @@ msgstr "_Exportar…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:790
+#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:792
 msgid "R_emove From Library"
 msgstr "_Quitar de la colección"
 
@@ -2065,12 +2056,12 @@ msgid "_Cancel"
 msgstr "_Cancelar"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_Aceptar"
 
-#: data/ui/offline.ui:226 src/Resources.vala:778
+#: data/ui/offline.ui:226 src/Resources.vala:780
 msgid "Remove the selected photos from the library"
 msgstr "Quitar las fotos seleccionadas de la colección"
 
@@ -2174,7 +2165,7 @@ msgid "Use dark theme:"
 msgstr "Usar el tema oscuro:"
 
 #: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Colección"
 
@@ -2296,7 +2287,7 @@ msgstr "_Editar…"
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
 #: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:776
+#: src/Resources.vala:396 src/Resources.vala:778
 msgid "_Delete"
 msgstr "_Eliminar"
 
@@ -2375,15 +2366,15 @@ msgid "label"
 msgstr "etiqueta"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:780
+#: src/Resources.vala:782
 msgid "_Restore"
 msgstr "_Restaurar"
 
-#: data/ui/trash.ui:260 src/Resources.vala:777
+#: data/ui/trash.ui:260 src/Resources.vala:779
 msgid "Remove the selected photos from the trash"
 msgstr "Quitar las fotos seleccionadas de la papelera"
 
-#: data/ui/trash.ui:275 src/Resources.vala:781
+#: data/ui/trash.ui:275 src/Resources.vala:783
 msgid "Move the selected photos back into the library"
 msgstr "Mover las fotos seleccionadas de vuelta a la colección"
 
@@ -2490,12 +2481,12 @@ msgstr ""
 "Escriba el nombre de usuario y contraseña asociados con su cuenta de Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid "Username and/or password invalid. Please try again"
 msgstr "Usuario y/o contraseña no válidos. Inténtelo de nuevo"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1124
 msgid "Invalid User Name or Password"
 msgstr "Nombre de usuario o contraseña no válidos"
 
@@ -2630,7 +2621,7 @@ msgstr "píxeles"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Tamaño original"
@@ -2860,7 +2851,6 @@ msgstr "_No permitir la descarga de la foto original"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
-#| msgid "Photo _size:"
 msgid "Photo _size"
 msgstr "_Tamaño de la foto"
 
@@ -2909,22 +2899,19 @@ msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Su cuenta de Flickr Pro le permite subidas ilimitadas."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:616
-#| msgid "Photos _visible to:"
 msgid "Photos _visible to"
 msgstr "Fotos _visibles para"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:618
-#| msgid "Videos _visible to:"
 msgid "Videos _visible to"
 msgstr "Vídeos _visibles para"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
-#| msgid "Photos and videos _visible to:"
 msgid "Photos and videos _visible to"
 msgstr "Fotos y vídeos _visibles para"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Everyone"
 msgstr "Todos"
 
@@ -2945,24 +2932,24 @@ msgid "Just me"
 msgstr "Solo yo"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 píxeles"
 
@@ -2989,7 +2976,7 @@ msgid "A new album named"
 msgstr "Un álbum nuevo llamado"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1195
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -3105,12 +3092,12 @@ msgstr ""
 "robar o alterar la información que entra o sale de este sitio (por ejemplo, "
 "mensajes privados, información de tarjetas de crédito o contraseñas)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certificado de %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3118,7 +3105,7 @@ msgstr ""
 "Escriba el URL de su colección fotográfica de Piwigo, así como el nombre de "
 "usuario y contraseña asociados a esa colección."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3126,23 +3113,23 @@ msgstr ""
 "Shotwell no puede contactar su colección de fotos de Piwigo. Compruebe la "
 "URL que ha introducido"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1119
 msgid "Invalid URL"
 msgstr "URL no válida"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administradores, Familia, Amigos, Contactos"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends"
 msgstr "Administradores, Familia, Amigos"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family"
 msgstr "Administradores, Familia"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins"
 msgstr "Administradores"
 
@@ -3163,7 +3150,6 @@ msgid "Core Publishing Services"
 msgstr "Servicios de publicación"
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
-#| msgid "Blogs:"
 msgid "Blogs"
 msgstr "Blogs"
 
@@ -3192,7 +3178,6 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
-#| msgid "Video privacy _setting:"
 msgid "Video privacy _setting"
 msgstr "Co_nfiguración de privacidad de vídeos"
 
@@ -4785,8 +4770,9 @@ msgstr "Para comenzar, importe fotos de cualquiera de las siguientes formas:"
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Elija <span weight=\"bold\">Archivo %s Importar desde carpeta</span>"
+#| msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgid "Choose File %s Import From Folder"
+msgstr "Elija Archivo %s Importar desde carpeta"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5198,8 +5184,9 @@ msgstr "Pulse ya arrastre para etiquetar una cara"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-msgid "Click to edit face <i>%s</i>"
-msgstr "Pulse para editar la cara <i>%s</i>"
+#| msgid "Click to edit face <i>%s</i>"
+msgid "Click to edit face “%s”"
+msgstr "Pulse para editar la cara «%s»"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -5229,7 +5216,7 @@ msgstr "Guardar los cambios y cerrar la herramienta de Caras"
 msgid "No changes to save"
 msgstr "No hay cambios que guardar"
 
-#: src/faces/FacesTool.vala:938
+#: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Error al intentar lanzar el programa de detección de caras:\n"
 
@@ -5241,11 +5228,11 @@ msgstr "Carpetas"
 msgid "Browse the library’s folder structure"
 msgstr "Explorar la estructura de carpetas de la biblioteca"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Imports"
 msgstr "Importaciones"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Browse the library’s import history"
 msgstr "Explorar el histórico de importación de la biblioteca"
 
@@ -5293,15 +5280,18 @@ msgstr "Vaciando la papelera…"
 
 #: src/library/LibraryWindow.vala:801
 #, c-format
+#| msgid ""
+#| "Shotwell is configured to import photos to your home directory.\n"
+#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
+#| "span>.\n"
+#| "Do you want to continue importing photos?"
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell esta´configurado para importar fotos a su carpeta personal.\n"
-"Se recomienda cambiar esto en <span weight=\"bold\">Editar %s Preferencias</"
-"span>.\n"
+"Se recomienda cambiar esto en Editar %s Preferencias.\n"
 "¿Quiere seguir importando fotos?"
 
 #. TODO: Specify which directory/file.
@@ -5395,43 +5385,56 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr "Cargando Shotwell"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "Path to Shotwell’s private data"
 msgstr "Ruta a los datos privados de Shotwell"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "DIRECTORY"
 msgstr "DIRECTORIO"
 
-#: src/main.vala:338
+#: src/main.vala:340
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 "No monitorear el directorio de la colección en tiempo de ejecución para "
 "buscar cambios"
 
-#: src/main.vala:339
+#: src/main.vala:341
 msgid "Don’t display startup progress meter"
 msgstr "No mostrar medidor de progreso de inicio"
 
-#: src/main.vala:340
+#: src/main.vala:342
 msgid "Show the application’s version"
 msgstr "Mostrar la versión de la aplicación"
 
-#: src/main.vala:341
+#: src/main.vala:343
 msgid "Start the application in fullscreen mode"
 msgstr "Iniciar la aplicación en modo de pantalla completa"
 
-#: src/main.vala:342
-#| msgid "write metadata to master files"
+#: src/main.vala:344
 msgid "Print the metadata of the image file"
 msgstr "Mostrar los metadatos del archivo de imagen"
 
+#: src/main.vala:345
+msgid "Name for a custom profile"
+msgstr "Nokbre para un perfil personalizado"
+
+#: src/main.vala:345
+#| msgid "[FILE]"
+msgid "PROFILE"
+msgstr "PERFIL"
+
+#: src/main.vala:346
+#| msgid "Show all photos"
+msgid "Show available profiles"
+msgstr "Mostrar los perfiles disponibles"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:373
+#: src/main.vala:377
 msgid "[FILE]"
 msgstr "[ARCHIVO]"
 
-#: src/main.vala:380
+#: src/main.vala:382
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -5442,7 +5445,7 @@ msgstr ""
 msgid "Improve this map"
 msgstr "Mejorar este mapa"
 
-#: src/MapWidget.vala:643
+#: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
 msgstr ""
 "Bloquee o desbloquee un mapa para etiquetarlo arrastrando imágenes sobre él"
@@ -5533,7 +5536,7 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3807
+#: src/Photo.vala:3804
 msgid "modified"
 msgstr "modificada"
 
@@ -5752,16 +5755,21 @@ msgstr "No se pudo publicar"
 
 #: src/publishing/PublishingUI.vala:287
 #, c-format
+#| msgid ""
+#| "Shotwell cannot publish the selected items because you do not have a "
+#| "compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
+#| "Preferences</b> and enable one or more of the publishing plugins on the "
+#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
-"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-"Preferences</b> and enable one or more of the publishing plugins on the "
+"compatible publishing plugin enabled. To correct this, choose Edit %s "
+"Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
 "Shotwell no puede publicar el elemento seleccionado porque no tiene activado "
-"un complemento compatible. Para corregir esto, vaya a <b>Editar %s "
-"Preferencias</b> y active uno o más complementos de publicación en la "
-"pestaña <b>Complementos</b>."
+"un complemento compatible. Para corregir esto, vaya a Editar %s Preferencias "
+"y active uno o más complementos de publicación en la pestaña "
+"<b>Complementos</b>."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6234,83 +6242,82 @@ msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Quitar la cara «%s» de las fotos"
 msgstr[1] "Quitar la cara «%s» de las fotos"
 
-#: src/Resources.vala:424 src/Resources.vala:428
+#. Translators: This means to teach the face to the face recognition system
+#: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
-#| msgid "Remove Face “%s” From Photo"
-#| msgid_plural "Remove Face “%s” From Photos"
 msgid "_Train Face “%s” From Photo"
 msgstr "_Quitar la cara «%s» de las fotos"
 
-#: src/Resources.vala:436
+#: src/Resources.vala:438
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Re_nombrar cara «%s»…"
 
-#: src/Resources.vala:440
+#: src/Resources.vala:442
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Renombrar la cara «%s» a «%s»"
 
-#: src/Resources.vala:444
+#: src/Resources.vala:446
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Eliminar cara «%s»"
 
-#: src/Resources.vala:448
+#: src/Resources.vala:450
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Eliminar cara «%s»"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:680
 #, c-format
 msgid "Rate %s"
 msgstr "Puntuar %s"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:681
 #, c-format
 msgid "Set rating to %s"
 msgstr "Establecer puntuación para %s"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:682
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Estableciendo la puntuación de %s"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:684
 #, c-format
 msgid "Display %s"
 msgstr "Mostrar %s"
 
-#: src/Resources.vala:683
+#: src/Resources.vala:685
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Solo mostrar fotos con puntuación %s"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:686
 #, c-format
 msgid "%s or Better"
 msgstr "%s o mayor"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:687
 #, c-format
 msgid "Display %s or Better"
 msgstr "Mostrar %s o mayor"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:688
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Solo mostrar fotos con puntuación %s o mayor"
 
-#: src/Resources.vala:784
+#: src/Resources.vala:786
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Abrir el directorio de la foto seleccionada en el gestor de archivos"
 
-#: src/Resources.vala:787
+#: src/Resources.vala:789
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "No se puede abrir el gestor de archivos: %s"
 
-#: src/Resources.vala:795
+#: src/Resources.vala:797
 msgid "Select all items"
 msgstr "Seleccionar todos los elementos"
 
@@ -6323,14 +6330,14 @@ msgstr "Seleccionar todos los elementos"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:857
+#: src/Resources.vala:859
 msgid "%a %b %d, %Y"
 msgstr "%a %d de %b de %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %d de %b"
@@ -6338,7 +6345,7 @@ msgstr "%a, %d de %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:869
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6346,7 +6353,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:872
+#: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %d de %b"
@@ -6354,7 +6361,7 @@ msgstr "%a, %d de %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:877
+#: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d de %b de %Y"
@@ -6653,9 +6660,13 @@ msgid "untitled"
 msgstr "sin título"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Exportar vídeos"
+
+#~| msgid "Shotwell"
+#~ msgid "org.gnome.Shotwell"
+#~ msgstr "org.gnome.Shotwell"
 
 #~ msgid "shotwell"
 #~ msgstr "shotwell"
