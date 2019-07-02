@@ -89,9 +89,10 @@ public class ExternalProxy<G> : Object, Initable {
             remote_process.wait_async.begin(null, on_process_exited);
             startup_timeout = Timeout.add_seconds(10, () => {
                 startup_timeout = 0;
-                saved_get_remote_callback();
+                remote_process = null;
                 critical("=====> Timeout");
 
+                saved_get_remote_callback();
                 return false;
             });
         }
