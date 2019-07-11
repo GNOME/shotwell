@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-04-25 07:47+0000\n"
-"PO-Revision-Date: 2019-05-22 13:41+0700\n"
+"POT-Creation-Date: 2019-06-16 11:41+0000\n"
+"PO-Revision-Date: 2019-07-11 15:38+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -79,7 +79,7 @@ msgstr "Rajce URL"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:41
 msgid "URL of the Rajce server."
-msgstr "URL dari server Rajce."
+msgstr "URL dari peladen Rajce."
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
 #: data/gsettings/org.yorba.shotwell.gschema.xml:472
@@ -868,7 +868,7 @@ msgstr "URL Piwigo"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:525
 msgid "URL of the Piwigo server."
-msgstr "URL dari server Piwigo."
+msgstr "URL dari peladen Piwigo."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:531
 msgid "Piwigo username, if logged in."
@@ -943,7 +943,7 @@ msgid ""
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr ""
 "Apakah citra yang sedang diunggah ke Piwigo mesti dihapus terlebih dahulu "
-"tagnya, sehingga tag-tag ini tidak akan muncul pada server Piwigo."
+"tagnya, sehingga tag-tag ini tidak akan muncul pada peladen Piwigo."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:587
 msgid "Gallery3 username"
@@ -1975,7 +1975,7 @@ msgid "_Cancel"
 msgstr "_Batal"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_OK"
@@ -2400,12 +2400,12 @@ msgstr ""
 "anda."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid "Username and/or password invalid. Please try again"
 msgstr "Nama pengguna dan/atau kata sandi tak valid. Harap coba lagi"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1124
 msgid "Invalid User Name or Password"
 msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
 
@@ -2541,7 +2541,7 @@ msgstr "piksel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ukuran asal"
@@ -2832,7 +2832,7 @@ msgid "Photos and videos _visible to"
 msgstr "Foto dan video ini dapat _dilihat oleh"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Everyone"
 msgstr "Semua orang"
 
@@ -2853,24 +2853,24 @@ msgid "Just me"
 msgstr "Saya sendiri saja"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 x 375 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 x 768 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 msgid "2048 × 1536 pixels"
 msgstr "2048 x 1536 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "4096 × 3072 pixels"
 msgstr "4096 x 3072 piksel"
 
@@ -2897,7 +2897,7 @@ msgid "A new album named"
 msgstr "Album baru dinamai"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1195
 msgid "Shotwell Connect"
 msgstr "Kiriman dari Shotwell"
 
@@ -3012,12 +3012,12 @@ msgstr ""
 "mencuri atau mengubah informasi menuju atau berasal dari situs ini (sebagai "
 "contoh, pesan pribadi, informasi kartu kredit, atau kata sandi)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #, c-format
 msgid "Certificate of %s"
 msgstr "Sertifikat dari %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3025,7 +3025,7 @@ msgstr ""
 "Masukkan URL pustaka foto Piwigo mu beserta username dan password akun "
 "Piwigo untuk pustaka tersebut."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3033,23 +3033,23 @@ msgstr ""
 "Shotwell tidak bisa menghubungi pustaka foto Piwigo. Harap periksa kembali "
 "URL yang kamu masukkan"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1119
 msgid "Invalid URL"
 msgstr "URL tidak sah"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Admin, Keluarga, Teman, Kontak"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends"
 msgstr "Admin, Keluarga, Teman"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family"
 msgstr "Admin, Keluarga"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins"
 msgstr "Admin"
 
@@ -4693,8 +4693,8 @@ msgstr "Silakan memulai dengan mengimpor foto melalui cara berikut:"
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Pilih <span weight=\"bold\">Berkas %s Impor Dari Folder</span>"
+msgid "Choose File %s Import From Folder"
+msgstr "Pilih Berkas %s Impor Dari Folder"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5105,8 +5105,8 @@ msgstr "Klik dan seret untuk menandai wajah"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-msgid "Click to edit face <i>%s</i>"
-msgstr "Klik untuk menyunting wajah <i>%s</i>"
+msgid "Click to edit face “%s”"
+msgstr "Klik untuk menyunting wajah \"%s\""
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -5204,13 +5204,11 @@ msgstr "Mengosongkan Tong Sampah…"
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell dikonfigurasi untuk mengimpor foto ke direktori rumah Anda.\n"
-"Kami sarankan untuk mengubah ini dalam <span weight=\"bold\">Sunting "
-"Preferensi %s</span>.\n"
+"Kami sarankan untuk mengubah ini dalam Sunting Preferensi %s.\n"
 "Apakah Anda ingin melanjutkan mengimpor foto?"
 
 #. TODO: Specify which directory/file.
@@ -5303,40 +5301,52 @@ msgstr "Kesalahan tak dikenal saat mencoba verifikasi basis data Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Menjalankan Shotwell"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "Path to Shotwell’s private data"
 msgstr "Path ke data privat Shotwell"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
-#: src/main.vala:338
+#: src/main.vala:340
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Jangan pantau perubahan direktori pustaka saat runtime"
 
-#: src/main.vala:339
+#: src/main.vala:341
 msgid "Don’t display startup progress meter"
 msgstr "Jangan tampilkan meter kemajuan awal mula"
 
-#: src/main.vala:340
+#: src/main.vala:342
 msgid "Show the application’s version"
 msgstr "Tampilkan versi aplikasi"
 
-#: src/main.vala:341
+#: src/main.vala:343
 msgid "Start the application in fullscreen mode"
 msgstr "Mulai aplikasi dalam mode layar penuh"
 
-#: src/main.vala:342
+#: src/main.vala:344
 msgid "Print the metadata of the image file"
 msgstr "Cetak metadata dari berkas gambar"
 
+#: src/main.vala:345
+msgid "Name for a custom profile"
+msgstr "Nama untuk profil khusus"
+
+#: src/main.vala:345
+msgid "PROFILE"
+msgstr "PROFIL"
+
+#: src/main.vala:346
+msgid "Show available profiles"
+msgstr "Tampilkan profil yang tersedia"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:373
+#: src/main.vala:377
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:380
+#: src/main.vala:382
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -5659,14 +5669,14 @@ msgstr "Tidak dapat mengirim"
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
-"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-"Preferences</b> and enable one or more of the publishing plugins on the "
+"compatible publishing plugin enabled. To correct this, choose Edit %s "
+"Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
 "Shotwell tak bisa mempublikasikan butir yang dipilih karena Anda tak "
 "memiliki pengaya publikasi kompatibel yang difungsikan. Untuk memperbaiki "
-"hal ini, pilih <b>Sunting Preferensi %s</b> dan fungsikan satu atau lebih "
-"pengaya publikasi pada tab <b>Pengaya</b>."
+"hal ini, pilih Sunting Preferensi %s dan fungsikan satu atau lebih pengaya "
+"publikasi pada tab <b>Pengaya</b>."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
