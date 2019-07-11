@@ -66,6 +66,8 @@ public class ExternalProxy<G> : Object, Initable {
         Source.remove(startup_timeout);
         startup_timeout = 0;
 
+        debug ("Got new connection, trying to get object for path %s", dbus_path);
+
         try {
             remote = connection.get_proxy_sync(null, dbus_path, DBusProxyFlags.DO_NOT_LOAD_PROPERTIES |
                                                DBusProxyFlags.DO_NOT_CONNECT_SIGNALS,
