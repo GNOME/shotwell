@@ -1029,8 +1029,9 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         base.constructed ();
 
         var label = this.get_builder ().get_object ("main_text") as Gtk.Label;
+        var bold_host = "<b>%s</b".printf(host);
         // %s is the host name that we tried to connect to
-        label.set_text (_("This does not look like the real <b>%s</b>. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf (host));
+        label.set_text (_("This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf(bold_host));
         label.use_markup = true;
 
         label = this.get_builder ().get_object ("ssl_errors") as Gtk.Label;
