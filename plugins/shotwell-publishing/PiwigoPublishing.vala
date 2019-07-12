@@ -1042,7 +1042,10 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
             info.clicked.connect (() => {
                 var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
                 var widget = new Gcr.CertificateWidget (simple_cert);
-                if (Resources.use_header_bar () == 1) {
+                bool use_header = true;
+                Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
+                var flags = (Gtk.DialogFlags) 0;
+                if (use_header) {
                     flags |= Gtk.DialogFlags.USE_HEADER_BAR;
                 }
 
