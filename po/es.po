@@ -29,16 +29,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-06-16 11:41+0000\n"
-"PO-Revision-Date: 2019-06-19 12:21+0200\n"
+"POT-Creation-Date: 2019-07-23 18:57+0000\n"
+"PO-Revision-Date: 2019-07-25 11:55+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.0\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -2056,7 +2056,7 @@ msgid "_Cancel"
 msgstr "_Cancelar"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_Aceptar"
@@ -2481,12 +2481,12 @@ msgstr ""
 "Escriba el nombre de usuario y contraseña asociados con su cuenta de Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1089
 msgid "Username and/or password invalid. Please try again"
 msgstr "Usuario y/o contraseña no válidos. Inténtelo de nuevo"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1124
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1125
 msgid "Invalid User Name or Password"
 msgstr "Nombre de usuario o contraseña no válidos"
 
@@ -2621,7 +2621,7 @@ msgstr "píxeles"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Tamaño original"
@@ -2911,7 +2911,7 @@ msgid "Photos and videos _visible to"
 msgstr "Fotos y vídeos _visibles para"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Everyone"
 msgstr "Todos"
 
@@ -2932,24 +2932,24 @@ msgid "Just me"
 msgstr "Solo yo"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 píxeles"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 píxeles"
 
@@ -2976,7 +2976,7 @@ msgid "A new album named"
 msgstr "Un álbum nuevo llamado"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1195
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1196
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -3081,23 +3081,27 @@ msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Ocurrió un error al publicar en Piwigo. Inténtelo de nuevo."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1033
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1034
 #, c-format
+#| msgid ""
+#| "This does not look like the real <b>%s</b>. Attackers might be trying to "
+#| "steal or alter information going to or from this site (for example, "
+#| "private messages, credit card information, or passwords)."
 msgid ""
-"This does not look like the real <b>%s</b>. Attackers might be trying to "
-"steal or alter information going to or from this site (for example, private "
-"messages, credit card information, or passwords)."
+"This does not look like the real %s. Attackers might be trying to steal or "
+"alter information going to or from this site (for example, private messages, "
+"credit card information, or passwords)."
 msgstr ""
-"Esto no parece el <b>%s</b> real. Los atacantes pueden estar tratando de "
-"robar o alterar la información que entra o sale de este sitio (por ejemplo, "
-"mensajes privados, información de tarjetas de crédito o contraseñas)."
+"Esto no parece el %s real. Los atacantes pueden estar tratando de robar o "
+"alterar la información que entra o sale de este sitio (por ejemplo, mensajes "
+"privados, información de tarjetas de crédito o contraseñas)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1053
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certificado de %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3105,7 +3109,7 @@ msgstr ""
 "Escriba el URL de su colección fotográfica de Piwigo, así como el nombre de "
 "usuario y contraseña asociados a esa colección."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3113,23 +3117,23 @@ msgstr ""
 "Shotwell no puede contactar su colección de fotos de Piwigo. Compruebe la "
 "URL que ha introducido"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1119
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
 msgid "Invalid URL"
 msgstr "URL no válida"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administradores, Familia, Amigos, Contactos"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family, Friends"
 msgstr "Administradores, Familia, Amigos"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins, Family"
 msgstr "Administradores, Familia"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins"
 msgstr "Administradores"
 
@@ -4770,7 +4774,6 @@ msgstr "Para comenzar, importe fotos de cualquiera de las siguientes formas:"
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
-#| msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgid "Choose File %s Import From Folder"
 msgstr "Elija Archivo %s Importar desde carpeta"
 
@@ -5184,7 +5187,6 @@ msgstr "Pulse ya arrastre para etiquetar una cara"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-#| msgid "Click to edit face <i>%s</i>"
 msgid "Click to edit face “%s”"
 msgstr "Pulse para editar la cara «%s»"
 
@@ -5280,11 +5282,6 @@ msgstr "Vaciando la papelera…"
 
 #: src/library/LibraryWindow.vala:801
 #, c-format
-#| msgid ""
-#| "Shotwell is configured to import photos to your home directory.\n"
-#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-#| "span>.\n"
-#| "Do you want to continue importing photos?"
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
@@ -5420,12 +5417,10 @@ msgid "Name for a custom profile"
 msgstr "Nokbre para un perfil personalizado"
 
 #: src/main.vala:345
-#| msgid "[FILE]"
 msgid "PROFILE"
 msgstr "PERFIL"
 
 #: src/main.vala:346
-#| msgid "Show all photos"
 msgid "Show available profiles"
 msgstr "Mostrar los perfiles disponibles"
 
@@ -5755,11 +5750,6 @@ msgstr "No se pudo publicar"
 
 #: src/publishing/PublishingUI.vala:287
 #, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a "
-#| "compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-#| "Preferences</b> and enable one or more of the publishing plugins on the "
-#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
