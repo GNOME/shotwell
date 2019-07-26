@@ -11,27 +11,27 @@
 # 
 # 
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014, 2016, 2017, 2018.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2014-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2018-09-05 20:34+0000\n"
-"PO-Revision-Date: 2018-11-30 10:10+0100\n"
+"POT-Creation-Date: 2019-01-27 16:39+0000\n"
+"PO-Revision-Date: 2019-07-26 09:15+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
-"Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2018\n"
+"Daniel Mustieles <daniel.mustieles@gmail.com>, 2014 - 2019\n"
 "Marina Prado <mapraro93@hotmail.com>, 2016\n"
 "Dámaris Letelier <dam.letelier@gmail.com>, 2014"
 
@@ -764,10 +764,6 @@ msgstr "Formatos de foto y vídeo soportados"
 
 #. (itstool) path: page/p
 #: C/formats.page:14
-#| msgid ""
-#| "Shotwell supports JPEG, PNG, TIFF, BMP and <link type=\"guide\" xref="
-#| "\"other-raw\">RAW</link> photo files. Shotwell does not yet support other "
-#| "graphics format such as GIF."
 msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
 "link> photo files. Shotwell does not yet support other graphics format such "
@@ -795,9 +791,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/formats.page:18
-#| msgid ""
-#| "For more information about RAW-format photos in Shotwell, please see the "
-#| "<link type=\"guide\" xref=\"other-raw\">RAW</link> section."
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link xref=\"other-raw\">RAW</link> section."
@@ -934,7 +927,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
-#, fuzzy
 #| msgid ""
 #| "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 #| "gui></guiseq> and select the folder containing the photos you want to "
@@ -948,7 +940,9 @@ msgid ""
 msgstr ""
 "Alternativamente, pulse <guiseq><gui>Archivo</gui><gui>Importar desde la "
 "carpeta...</gui></guiseq> y seleccione la carpeta que contiene las fotos que "
-"quiere importar."
+"quiere importar. Si no quiere que Shotwell recorra las subcarpetas al "
+"importar puede desmarcar la casilla <gui>Entrar en subcarpetas</gui> en la "
+"parte inferior del diálogo."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -2203,10 +2197,6 @@ msgstr "PM"
 
 #. (itstool) path: section/p
 #: C/other-files.page:72
-#| msgid ""
-#| "There are other symbols available; please check the manual for strftime "
-#| "by running the command <cmd>man strftime</cmd> if you need one that isn't "
-#| "listed here."
 msgid ""
 "There are other symbols available; please check the <link href=\"man:strftime"
 "\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
@@ -2798,7 +2788,7 @@ msgstr "Tamaño original"
 #. (itstool) path: item/p
 #: C/share-export.page:40
 msgid "Image will be exported without any scaling applied"
-msgstr ""
+msgstr "Las imágenes se exportarán sin aplicar ningún escalado"
 
 #. (itstool) path: item/title
 #: C/share-export.page:41
@@ -2811,6 +2801,8 @@ msgid ""
 "Image will be exported by having its longest edge scaled to <gui>Pixels</"
 "gui> and the other according to the aspect ratio"
 msgstr ""
+"La imagen se exportará teniendo su borde más largo escalado a <gui>Píxeles</"
+"gui> y el otro respetando la relación de aspecto"
 
 #. (itstool) path: item/title
 #: C/share-export.page:42
@@ -2824,6 +2816,9 @@ msgid ""
 "height according to the aspect ratio. This is equivalent to <gui>Longest "
 "Edge</gui> for landscape pictures."
 msgstr ""
+"La anchura de la imagen tendrá su anchura escalada al tamaño de píxel dado y "
+"su altura respetando la relación de aspecto. Esto es equivalente a "
+"<gui>Borde más largo</gui> en imágenes apaisadas."
 
 #. (itstool) path: item/title
 #: C/share-export.page:43
@@ -2837,6 +2832,9 @@ msgid ""
 "width according to the aspect ratio. This is equivalent to <gui>Longest "
 "Edge</gui> for portrait pictures."
 msgstr ""
+"La altura de la imagen tendrá su anchura escalada al tamaño de píxel dado y "
+"su anchura respetando la relación de aspecto. Esto es equivalente a "
+"<gui>Borde más largo</gui> en imágenes verticales."
 
 #. (itstool) path: item/p
 #: C/share-export.page:46
@@ -2993,9 +2991,10 @@ msgstr "El tiempo para cada efecto de transición: 0.1 - 1.0 segundos"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
-msgstr ""
-"Publica fotos en Facebook, Flickr, álbumes web de Picasa o en otros sitios."
+#| msgid ""
+#| "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
+msgid "Publish photos to Flickr, Google Photos, or other sites."
+msgstr "Publicar fotos en Flickr, Google Photos o en otros sitios."
 
 #. (itstool) path: page/title
 #: C/share-upload.page:12
@@ -3015,37 +3014,27 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-#| msgid "<link href=\"http://facebook.com\">Facebook</link>"
 msgid "<link href=\"https://facebook.com\">Facebook</link>"
 msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:19
-#| msgid "<link href=\"http://flickr.com\">Flickr</link>"
 msgid "<link href=\"https://flickr.com\">Flickr</link>"
 msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-#| msgid ""
-#| "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
-#| "<link href=\"http://plus.google.com\">Google+</link>"
-msgid ""
-"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
-"<link href=\"http://plus.google.com\">Google+</link>"
-msgstr ""
-"<link href=\"https://picasaweb.google.com\">Álbumes de Picasa Web</link> y "
-"<link href=\"http://plus.google.com\">Google+</link>"
+#| msgid "<link href=\"https://facebook.com\">Facebook</link>"
+msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
+msgstr "<link href=\"https://photos.google.com\">Google Photos</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
 msgstr "<link href=\"https://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-#| msgid "<link href=\"http://youtube.com\">YouTube</link> (videos only)"
 msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
 msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (sólo vídeos)"
 
@@ -3060,7 +3049,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:26
-#, fuzzy
 #| msgid ""
 #| "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
 #| "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> "
@@ -3083,9 +3071,9 @@ msgstr ""
 "pestaña <gui>Complementos</gui> para activar el complemento del servicio en "
 "el que quiere publicar. A continuación, elija <guiseq><gui>Archivo</"
 "gui><gui>Publicar</gui></guiseq>, pulse el botón <gui>Publicar</gui> en la "
-"barra de herramientas o pulse <keyseq><key>Ctrl</key><key>P</key></keyseq>. "
-"Verá un diálogo que le permite elegir el servicio de publicación. Necesitará "
-"iniciar sesión o crear una cuenta."
+"barra de herramientas o pulse <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. Verá un diálogo que le permite elegir el servicio de "
+"publicación. Necesitará iniciar sesión o crear una cuenta."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
@@ -3109,23 +3097,15 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:36
+#| msgid ""
+#| "Similarly, publishing to Flickr requires you to log in and permit "
+#| "Shotwell Connect to access your account."
 msgid ""
-"Similarly, publishing to Flickr requires you to log in and permit Shotwell "
-"Connect to access your account."
+"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
+"log in and permit Shotwell Connect to access your account."
 msgstr ""
-"Del mismo modo, publicar en Flickr requiere que inicie sesión y permita que "
-"Shotwell Connect acceda a su cuenta."
-
-#. (itstool) path: page/p
-#: C/share-upload.page:38
-msgid ""
-"If you have a Google account, but have not yet used Picasa Web Albums, you "
-"will need to log in to Picasa using a browser once before you can publish to "
-"this service."
-msgstr ""
-"Si tiene una cuenta de Google, pero nunca ha usado los álbumes web de "
-"Picasa, necesitará iniciar sesión en Picasa usando un navegador antes de "
-"poder publicar algo en este servicio."
+"Del mismo modo, publicar en Flickr, YouTube or Google Photos requiere que "
+"inicie sesión y permita que Shotwell Connect acceda a su cuenta."
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -3335,6 +3315,25 @@ msgstr ""
 "sus fotos. Las fotos pueden tener múltiples etiquetas relacionadas con las "
 "mismas. Cuando posiciona el cursor sobre el nombre de una etiqueta en la "
 "barra lateral, podrá ver todas las fotos asociadas a esa etiqueta."
+
+#~| msgid ""
+#~| "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
+#~| "<link href=\"http://plus.google.com\">Google+</link>"
+#~ msgid ""
+#~ "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
+#~ "<link href=\"http://plus.google.com\">Google+</link>"
+#~ msgstr ""
+#~ "<link href=\"https://picasaweb.google.com\">Álbumes de Picasa Web</link> "
+#~ "y <link href=\"http://plus.google.com\">Google+</link>"
+
+#~ msgid ""
+#~ "If you have a Google account, but have not yet used Picasa Web Albums, "
+#~ "you will need to log in to Picasa using a browser once before you can "
+#~ "publish to this service."
+#~ msgstr ""
+#~ "Si tiene una cuenta de Google, pero nunca ha usado los álbumes web de "
+#~ "Picasa, necesitará iniciar sesión en Picasa usando un navegador antes de "
+#~ "poder publicar algo en este servicio."
 
 #~ msgid ""
 #~ "Shotwell can import all your photos and tags from the F-Spot photo "
