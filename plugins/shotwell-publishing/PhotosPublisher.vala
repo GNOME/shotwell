@@ -203,9 +203,10 @@ private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher
             var response_albums = object.get_member ("albums").get_array();
             response_albums.foreach_element( (a, b, element) => {
                 var album = element.get_object();
+                var title = album.get_member("title");
                 var is_writable = album.get_member("isWriteable");
-                if (is_writable != null && is_writable.get_boolean())
-                    albums += new Album(album.get_string_member("title"), album.get_string_member("id"));
+                if (title != null && is_writable != null && is_writable.get_boolean())
+                    albums += new Album(title.get_string(), album.get_string_member("id"));
             });
 
             if (pagination_token_node != null) {
