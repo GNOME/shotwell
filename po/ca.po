@@ -470,7 +470,7 @@ msgstr "Retard (en segons) entre imatges a la presentació."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:199
 msgid "transition delay"
-msgstr "retard de transició:"
+msgstr "retard de transició"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:200
 msgid ""
@@ -481,7 +481,7 @@ msgstr ""
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:205
 msgid "transition effect id"
-msgstr "identificació d'efecte de transició:"
+msgstr "identificador d'efecte de transició"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:206
 msgid ""
@@ -589,7 +589,7 @@ msgstr ""
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:275
 msgid "write metadata to master files"
-msgstr "s'estan escrivint les metadades als fitxers mestres..."
+msgstr "s'estan escrivint les metadades als fitxers mestres"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:276
 msgid ""
@@ -889,7 +889,7 @@ msgstr "últim àlbum"
 #: data/gsettings/org.yorba.shotwell.gschema.xml:605
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
-"El nom del últim àlbum de fotografies que l'usuari publica per, si escau"
+"El nom de l'últim àlbum de fotografies que l'usuari publica per, si escau"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:517
 msgid ""
@@ -989,11 +989,11 @@ msgstr "nom d'usuari de Gallery3"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:592
 msgid "API key"
-msgstr "clau d'API:"
+msgstr "clau d'API"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:593
 msgid "Gallery3 API key"
-msgstr "Clau d'API de Gallery3:"
+msgstr "Clau d'API de Gallery3"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:598
 msgid "URL"
@@ -2606,7 +2606,7 @@ msgstr "Un àlbum _nou"
 msgid "_Remove location, tag and camera-identifying data before uploading"
 msgstr ""
 "Sup_rimeix les dades d'ubicació, d'etiquetes i d'identificació de la càmera "
-"abans de la càrrega."
+"abans de la càrrega"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
 msgid "Scaling constraint:"
@@ -3430,7 +3430,7 @@ msgstr "Mostra només les fotografies que no s'hagin importat"
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Sembla que la càmera està buida. No s'han trobat fotografies o vídeos per "
-"importar."
+"importar"
 
 #: src/camera/ImportPage.vala:858
 msgid "No new photos/videos found on camera"
@@ -5208,7 +5208,7 @@ msgstr "Detecta les cares d'aquesta fotografia"
 
 #: src/faces/FacesTool.vala:142
 msgid "Cancel face detection"
-msgstr "Cancel·la la detecció e cares"
+msgstr "Cancel·la la detecció de cares"
 
 #: src/faces/FacesTool.vala:146
 msgid "Close the Faces tool without saving changes"
@@ -6369,7 +6369,8 @@ msgstr "Selecciona tots els elements"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:859
 msgid "%a %b %d, %Y"
-msgstr "%a %b %-d %Y"
+msgstr "%a %-d de %b de %Y"
+
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -6377,7 +6378,7 @@ msgstr "%a %b %-d %Y"
 #: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a %b %-d"
+msgstr "%a %-d de %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -6393,7 +6394,7 @@ msgstr "%d de %Y"
 #: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%a, %b de %-d"
+msgstr "%a, %-d de %b"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -6401,7 +6402,7 @@ msgstr "%a, %b de %-d"
 #: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a, %-d %b de %Y"
+msgstr "%a %-d de %b de %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
