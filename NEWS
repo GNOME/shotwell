@@ -1,3 +1,30 @@
+Shotwell 0.30.5 - 14 Aug 2019
+  * Update appdata release information
+  * Fix crash in Piwigo if system certificate store is empty
+  * Fix crash in Google Photos if album has no title
+  * Fix crash in Google Photos and Flickr if the OAuth flow fails in WebKit
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/134
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/149
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/158
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Stas Solovey <whats_up@tut.by>
+ - Serdar Sağlam <teknomobil@msn.com>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+
+Added/updated translations:
+ - es.po, courtesy of Daniel Mustieles
+ - id.po, courtesy of Kukuh Syafaat
+ - ru.po, courtesy of Stas Solovey
+ - tr.po, courtesy of Serdar Sağlam
+
+Shotwell 0.30.4 - 24 Apr 2019
+  * Re-release of 0.30.3 with proper version number
+
 Shotwell 0.30.3 - 24 Apr 2019
   * Fix building against GExiv2 0.12 and later
   * Fix camera fall-back icon
