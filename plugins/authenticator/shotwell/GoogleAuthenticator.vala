@@ -21,6 +21,12 @@ namespace Publishing.Authenticator.Shotwell.Google {
         }
 
         public override void on_page_load() {
+            if (this.load_error != null) {
+                this.error ();
+
+                return;
+            }
+
             var uri = new Soup.URI(get_view().get_uri());
             if (uri.scheme == REVERSE_CLIENT_ID && this.auth_code == null) {
                 var form_data = Soup.Form.decode (uri.query);
@@ -173,6 +179,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             web_auth_pane = new WebAuthenticationPane(user_authorization_url);
             web_auth_pane.authorized.connect(on_web_auth_pane_authorized);
+            web_auth_pane.error.connect(on_web_auth_pane_error);
 
             host.install_dialog_pane(web_auth_pane);
         }
@@ -183,6 +190,10 @@ namespace Publishing.Authenticator.Shotwell.Google {
             debug("EVENT: user authorized scope %s with auth_code %s", scope, auth_code);
 
             do_get_access_tokens(auth_code);
+        }
+
+        private void on_web_auth_pane_error() {
+            host.post_error(web_auth_pane.load_error);
         }
 
         private void do_get_access_tokens(string auth_code) {

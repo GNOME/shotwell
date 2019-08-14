@@ -12,6 +12,7 @@ namespace Shotwell.Plugins.Common {
         }
 
         public string login_uri { owned get; construct; }
+        public Error load_error { get; private set; default = null; }
 
         private WebKit.WebView webview;
 
@@ -22,6 +23,7 @@ namespace Shotwell.Plugins.Common {
             this.webview.get_settings ().enable_plugins = false;
 
             this.webview.load_changed.connect (this.on_page_load_changed);
+            this.webview.load_failed.connect (this.on_page_load_failed);
             this.webview.context_menu.connect ( () => { return false; });
         }
 
@@ -29,9 +31,22 @@ namespace Shotwell.Plugins.Common {
 
         protected void set_cursor (Gdk.CursorType type) {
             var window = webview.get_window ();
+            if (window == null)
+                return;
+
             var display = window.get_display ();
+            if (display == null)
+                return;
+
             var cursor = new Gdk.Cursor.for_display (display, type);
             window.set_cursor (cursor);
+        }
+
+        private bool on_page_load_failed (WebKit.LoadEvent load_event, string uri, Error error) {
+            critical ("Failed to load uri %s: %s", uri, error.message);
+            this.load_error = error;
+
+            return false;
         }
 
         private void on_page_load_changed (WebKit.LoadEvent load_event) {

@@ -54,6 +54,12 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         }
 
         public override void on_page_load() {
+            if (this.load_error != null) {
+                this.error();
+
+                return;
+            }
+
             var uri = new Soup.URI(get_view().get_uri());
             if (uri.scheme == "shotwell-auth" && this.auth_code == null) {
                 var form_data = Soup.Form.decode (uri.query);
@@ -77,6 +83,8 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
     }
 
     internal class Flickr : Publishing.Authenticator.Shotwell.OAuth1.Authenticator {
+        private WebAuthenticationPane pane;
+
         public Flickr(Spit.Publishing.PluginHost host) {
             base(API_KEY, API_SECRET, host);
         }
@@ -185,13 +193,17 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         }
 
         private void do_web_authentication(string token) {
-            var pane = new WebAuthenticationPane(token);
+            pane = new WebAuthenticationPane(token);
             host.install_dialog_pane(pane);
             pane.authorized.connect(this.do_verify_pin);
             pane.error.connect(this.on_web_login_error);
         }
 
         private void on_web_login_error() {
+            if (pane.load_error != null) {
+                host.post_error(pane.load_error);
+                return;
+            }
             host.post_error(new Spit.Publishing.PublishingError.PROTOCOL_ERROR(_("Flickr authorization failed")));
         }
 
