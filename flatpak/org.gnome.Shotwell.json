@@ -11,6 +11,8 @@
     "finish-args" : [
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--filesystem=~/.config/dconf:ro",
+        "--filesystem=/media",
+        "--filesystem=/run/media",
         "--filesystem=xdg-download",
         "--filesystem=xdg-pictures",
         "--filesystem=xdg-run/dconf",
