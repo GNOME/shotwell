@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-07-26 13:51+0000\n"
-"PO-Revision-Date: 2019-07-28 12:55+0200\n"
+"POT-Creation-Date: 2019-08-18 08:24+0000\n"
+"PO-Revision-Date: 2019-08-18 20:58+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -1426,7 +1426,7 @@ msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:53
 msgid "The Shotwell developers"
-msgstr "Desenvolupadors del Shotwell"
+msgstr "Equip de desenvolupament del Shotwell"
 
 #: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:16
 msgid "Photo Manager"
@@ -2396,19 +2396,19 @@ msgstr ""
 "Feu clic a connecta per connectar-vos al Flickr en el navegador web.  Haureu "
 "d'autoritzar al Shotwell Connect per enllaçar al vostre compte del Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:126
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:134
 msgid "Preparing for login…"
 msgstr "Preparant-se per connectar..."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:195
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:207
 msgid "Flickr authorization failed"
 msgstr "Ha fallat l'autorització de Flickr "
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:202
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:214
 msgid "Verifying authorization…"
 msgstr " Verificant l'autorització..."
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -3931,8 +3931,8 @@ msgstr "Est_ableix totes les fotografies/vídeos a aquesta hora"
 #: src/dialogs/AdjustDateTimeDialog.vala:106
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
-msgstr[0] "_Modifica el fitxers de les imatges originals"
-msgstr[1] "_Modifica el fitxer de la imatge original"
+msgstr[0] "_Modifica el fitxer de la fotografia original"
+msgstr[1] "_Modifica els fitxers de les fotografies originals"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original file"
@@ -4465,7 +4465,7 @@ msgstr[1] ""
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] ""
-"No s'ha pogut importar un foto/vídeo perquè el fitxer està danyat:\n"
+"No s'ha pogut importar una foto/vídeo perquè el fitxer està danyat:\n"
 msgstr[1] ""
 "No s'han pogut importar %d fotografies/vídeos perquè els fitxers estan "
 "danyats:\n"
@@ -4806,8 +4806,9 @@ msgstr ""
 "Per començar, importeu fotografies de qualsevol de les següents formes:"
 
 #: src/dialogs/WelcomeDialog.vala:67
+#, c-format
 msgid "Choose File %s Import From Folder"
-msgstr "Trieu el fitxer a importar des d'una carpeta"
+msgstr "Trieu el fitxer %s a importar des d'una carpeta"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5255,6 +5256,8 @@ msgstr "No hi ha canvis a desar"
 #: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
 msgstr ""
+"S'ha produït un error en intentar llançar el programa de reconeixement "
+"facial:\n"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Folders"
@@ -5317,11 +5320,6 @@ msgstr "S'està buidant la paperera…"
 
 #: src/library/LibraryWindow.vala:801
 #, c-format
-#| msgid ""
-#| "Shotwell is configured to import photos to your home directory.\n"
-#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-#| "span>.\n"
-#| "Do you want to continue importing photos?"
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
@@ -5790,7 +5788,6 @@ msgstr "No s'ha pogut publicar"
 
 #: src/publishing/PublishingUI.vala:287
 #, c-format
-#| msgid ""
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
@@ -6369,8 +6366,7 @@ msgstr "Selecciona tots els elements"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:859
 msgid "%a %b %d, %Y"
-msgstr "%a %-d de %b de %Y"
-
+msgstr "%a %-d %b de %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -6378,7 +6374,7 @@ msgstr "%a %-d de %b de %Y"
 #: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a %-d de %b"
+msgstr "%a %-d %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -6394,7 +6390,7 @@ msgstr "%d de %Y"
 #: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%a, %-d de %b"
+msgstr "%a, %-d %b"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -6402,7 +6398,7 @@ msgstr "%a, %-d de %b"
 #: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a %-d de %b de %Y"
+msgstr "%a %-d %b de %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
