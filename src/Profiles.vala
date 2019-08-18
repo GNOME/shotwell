@@ -81,7 +81,7 @@ namespace Shotwell {
                 return data_dir;
             }
 
-            return Path.build_filename(Environment.get_user_data_dir(), "profiles", id());
+            return Path.build_filename(Environment.get_user_data_dir(), "shotwell", "profiles", id());
         }
 
         public string id() {
