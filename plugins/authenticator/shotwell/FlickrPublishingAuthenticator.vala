@@ -51,6 +51,10 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
             var ctx = WebKit.WebContext.get_default();
             ctx.register_uri_scheme("shotwell-auth", this.on_shotwell_auth_request_cb);
+
+            var mgr = ctx.get_security_manager();
+            mgr.register_uri_scheme_as_secure("shotwell-auth");
+            mgr.register_uri_scheme_as_cors_enabled("shotwell-auth");
         }
 
         public override void on_page_load() {

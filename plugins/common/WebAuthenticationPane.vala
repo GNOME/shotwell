@@ -43,6 +43,11 @@ namespace Shotwell.Plugins.Common {
         }
 
         private bool on_page_load_failed (WebKit.LoadEvent load_event, string uri, Error error) {
+            // OAuth call-back scheme. Produces a load error because it is not HTTP(S)
+            // Do not set the load_error, but continue the error handling
+            if (uri.has_prefix ("shotwell-auth://"))
+                return false;
+
             critical ("Failed to load uri %s: %s", uri, error.message);
             this.load_error = error;
 
