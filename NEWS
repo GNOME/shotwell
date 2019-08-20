@@ -1,3 +1,6 @@
+Shotwell 0.30.7 - 20 Aug 2019
+  * Fix compatibility with Vala 0.46
+
 Shotwell 0.30.6 - 20 Aug 2019
   * Fix issue with Flickr authentication introduced in 0.30.5
 
