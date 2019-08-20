@@ -36,7 +36,7 @@ public abstract class MediaSource : ThumbnailSource, Indexable {
     private Event? event = null;
     private string? indexable_keywords = null;
     
-    public MediaSource(int64 object_id = INVALID_OBJECT_ID) {
+    protected MediaSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
     
@@ -381,7 +381,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     public virtual signal void flagged_contents_altered() {
     }
     
-    public MediaSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
+    protected MediaSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
         base(name, source_key_func);
         
         trashcan = create_trashcan();

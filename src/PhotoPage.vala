@@ -417,7 +417,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ZoomBuffer? zoom_buffer = null;
     private Gee.HashMap<string, int> last_locations = new Gee.HashMap<string, int>();
     
-    public EditingHostPage(SourceCollection sources, string name) {
+    protected EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
         
         this.sources = sources;

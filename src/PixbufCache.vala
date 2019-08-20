@@ -25,7 +25,7 @@ public class PixbufCache : Object {
         public Gdk.Pixbuf pixbuf = null;
         public Error err = null;
         
-        public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
+        protected FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
             base(owner, callback, new Cancellable(), null, new Semaphore());
             

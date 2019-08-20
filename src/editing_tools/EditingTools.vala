@@ -31,7 +31,7 @@ public abstract class EditingToolWindow : Gtk.Window {
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
     private bool user_moved = false;
 
-    public EditingToolWindow(Gtk.Window container) {
+    protected EditingToolWindow(Gtk.Window container) {
         set_decorated(false);
         set_transient_for(container);
 
@@ -110,7 +110,7 @@ public abstract class PhotoCanvas {
     private Gdk.Pixbuf scaled_pixbuf;
     private Gdk.Rectangle scaled_position;
 
-    public PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, Photo photo,
+    protected PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, Photo photo,
         Cairo.Context default_ctx, Dimensions surface_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
         this.container = container;
         this.drawing_window = drawing_window;
@@ -465,7 +465,7 @@ public abstract class EditingTool {
 
     public signal void aborted();
 
-    public EditingTool(string name) {
+    protected EditingTool(string name) {
         this.name = name;
     }
 
@@ -2317,7 +2317,7 @@ public class AdjustTool : EditingTool {
     private abstract class AdjustToolCommand : Command {
         protected weak AdjustTool owner;
 
-        public AdjustToolCommand(AdjustTool owner, string name, string explanation) {
+        protected AdjustToolCommand(AdjustTool owner, string name, string explanation) {
             base (name, explanation);
 
             this.owner = owner;
