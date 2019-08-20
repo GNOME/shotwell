@@ -12,7 +12,7 @@ public abstract class ThumbnailSource : DataSource {
     public virtual signal void thumbnail_altered() {
     }
     
-    public ThumbnailSource(int64 object_id = INVALID_OBJECT_ID) {
+    protected ThumbnailSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
     
@@ -51,7 +51,7 @@ public abstract class ThumbnailSource : DataSource {
 }
 
 public abstract class PhotoSource : MediaSource {
-    public PhotoSource(int64 object_id = INVALID_OBJECT_ID) {
+    protected PhotoSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
 
@@ -68,7 +68,7 @@ public abstract class VideoSource : MediaSource {
 //
 
 public abstract class EventSource : ThumbnailSource {
-    public EventSource(int64 object_id = INVALID_OBJECT_ID) {
+    protected EventSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
     

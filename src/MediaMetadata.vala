@@ -5,9 +5,6 @@
  */
 
 public abstract class MediaMetadata {
-    public MediaMetadata() {
-    }
-    
     public abstract void read_from_file(File file) throws Error;
     
     public abstract MetadataDateTime? get_creation_date_time();

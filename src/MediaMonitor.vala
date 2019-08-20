@@ -115,7 +115,7 @@ public abstract class MediaMonitor : Object {
         MonitorableUpdates>();
     private uint pending_updates_timer_id = 0;
     
-    public MediaMonitor(MediaSourceCollection sources, Cancellable cancellable) {
+    protected MediaMonitor(MediaSourceCollection sources, Cancellable cancellable) {
         this.sources = sources;
         this.cancellable = cancellable;
         

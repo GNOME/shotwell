@@ -17,7 +17,7 @@ public abstract class DatabaseSourceCollection : SourceCollection {
     private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash, 
         int64_equal);
         
-    public DatabaseSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
+    protected DatabaseSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
         base (name);
         
         this.source_key_func = source_key_func;
