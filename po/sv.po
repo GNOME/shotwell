@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-03-06 18:56+0000\n"
-"PO-Revision-Date: 2019-03-13 23:24+0100\n"
+"POT-Creation-Date: 2019-08-18 08:24+0000\n"
+"PO-Revision-Date: 2019-08-22 18:13+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
@@ -1367,12 +1367,6 @@ msgstr ""
 "importera;organisera;bild;foto;bilder;fotografier;skriv ut;publicera;rotera;"
 "dela;taggar;video;facebook;flickr;picasa;youtube;piwigo;"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.Shotwell.desktop.in:11
-#: data/org.gnome.Shotwell-Viewer.desktop.in:8
-msgid "org.gnome.Shotwell"
-msgstr "org.gnome.Shotwell"
-
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Shotwell bildvisare"
@@ -1489,7 +1483,7 @@ msgstr "_Visa bildhändelse"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:783
+#: src/Resources.vala:785
 msgid "Show in File Mana_ger"
 msgstr "Öppna med _filhanteraren"
 
@@ -1501,7 +1495,7 @@ msgstr "Skicka t_ill…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:792
+#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:794
 msgid "_Move to Trash"
 msgstr "_Flytta till papperskorgen"
 
@@ -1747,7 +1741,7 @@ msgstr "_Ny sparad sökning…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:794
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
 msgid "Select _All"
 msgstr "Markera _alla"
 
@@ -1843,7 +1837,7 @@ msgstr "_Exportera…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:790
+#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:792
 msgid "R_emove From Library"
 msgstr "Ta _bort från biblioteket"
 
@@ -1976,12 +1970,12 @@ msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_OK"
 
-#: data/ui/offline.ui:226 src/Resources.vala:778
+#: data/ui/offline.ui:226 src/Resources.vala:780
 msgid "Remove the selected photos from the library"
 msgstr "Ta bort markerade bilder från biblioteket"
 
@@ -2084,7 +2078,7 @@ msgid "Use dark theme:"
 msgstr "Använd mörkt tema:"
 
 #: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Bibliotek"
 
@@ -2206,7 +2200,7 @@ msgstr "_Redigera…"
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
 #: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:776
+#: src/Resources.vala:396 src/Resources.vala:778
 msgid "_Delete"
 msgstr "_Radera"
 
@@ -2285,15 +2279,15 @@ msgid "label"
 msgstr "etikett"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:780
+#: src/Resources.vala:782
 msgid "_Restore"
 msgstr "Åt_erställ"
 
-#: data/ui/trash.ui:260 src/Resources.vala:777
+#: data/ui/trash.ui:260 src/Resources.vala:779
 msgid "Remove the selected photos from the trash"
 msgstr "Ta bort markerade bilder från papperskorgen"
 
-#: data/ui/trash.ui:275 src/Resources.vala:781
+#: data/ui/trash.ui:275 src/Resources.vala:783
 msgid "Move the selected photos back into the library"
 msgstr "Flytta tillbaka markerade bilder till biblioteket"
 
@@ -2317,19 +2311,19 @@ msgstr ""
 "Klicka på Logga in för att logga in på Flickr med din webbläsare. Du måste "
 "specifikt godkänna att Shotwell Connect kan länka till ditt Flickr-konto."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:126
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:134
 msgid "Preparing for login…"
 msgstr "Förbereder inloggning…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:195
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:207
 msgid "Flickr authorization failed"
 msgstr "Misslyckades med Flickr-auktorisering"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:202
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:214
 msgid "Verifying authorization…"
 msgstr "Verifierar behörighet…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -2397,12 +2391,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Fyll i användarnamn och lösenord för ditt Tumblr-konto."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1089
 msgid "Username and/or password invalid. Please try again"
 msgstr "Användarnamn och/eller lösenord ogiltigt. Var god försök igen"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1125
 msgid "Invalid User Name or Password"
 msgstr "Ogiltigt användarnamn eller lösenord"
 
@@ -2423,7 +2417,8 @@ msgstr ""
 "Olof Nord <olof_nord_@hotmail.com>\n"
 "Alexander Styre <lessneurope@yandex.com>\n"
 "Joachim Johansson <joachim.j@gmail.com>\n"
-"Josef Andersson <josef.andersson@fripost.org>"
+"Josef Andersson <josef.andersson@fripost.org>\n"
+"Anders Jonsson <anders.jonsson@norsjovallen.se>"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:220
@@ -2538,7 +2533,7 @@ msgstr "bildpunkter"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprungsstorlek"
@@ -2826,7 +2821,7 @@ msgid "Photos and videos _visible to"
 msgstr "Bilder och filmer _visas för"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Everyone"
 msgstr "Alla"
 
@@ -2847,24 +2842,24 @@ msgid "Just me"
 msgstr "Bara jag"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 bildpunkter"
 
@@ -2890,7 +2885,7 @@ msgid "A new album named"
 msgstr "Ett nytt album med namnet"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1196
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -2994,23 +2989,23 @@ msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Ett felmeddelande visades vid publiceringen till Piwigo. Försök igen."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1033
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1034
 #, c-format
 msgid ""
-"This does not look like the real <b>%s</b>. Attackers might be trying to "
-"steal or alter information going to or from this site (for example, private "
-"messages, credit card information, or passwords)."
+"This does not look like the real %s. Attackers might be trying to steal or "
+"alter information going to or from this site (for example, private messages, "
+"credit card information, or passwords)."
 msgstr ""
-"Det här ser inte ut som det äkta <b>%s</b>. En anfallare kanske försöker att "
-"stjäla eller ändra information som passerar till eller från denna webbplats "
-"(till exempel, privata meddelanden, kreditkortsinformation eller lösenord)."
+"Det här ser inte ut som det äkta %s. En anfallare kanske försöker att stjäla "
+"eller ändra information som passerar till eller från denna webbplats (till "
+"exempel, privata meddelanden, kreditkortsinformation eller lösenord)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1053
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certifikat för %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3018,30 +3013,30 @@ msgstr ""
 "Skriv in länken till ditt Piwigo-bildbibliotek, samt ditt Piwigo-"
 "användarnamn och -lösenord."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
 msgstr ""
 "Shotwell kan inte nå ditt Piwigo-bildbibliotek. Kontrollera länkadressen igen"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
 msgid "Invalid URL"
 msgstr "Ogiltig länkadress"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administratörer, familj, vänner, kontakter"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family, Friends"
 msgstr "Administratörer, familj, vänner"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins, Family"
 msgstr "Administratörer, familj"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins"
 msgstr "Administratörer"
 
@@ -4695,8 +4690,8 @@ msgstr "Importera bilder på något av dessa sätt för att komma igång:"
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Välj <span weight=\"bold\">Arkiv %s Importera från mapp</span>"
+msgid "Choose File %s Import From Folder"
+msgstr "Välj Arkiv %s Importera från mapp"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5107,8 +5102,8 @@ msgstr "Klicka och dra för att tagga ett ansikte"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-msgid "Click to edit face <i>%s</i>"
-msgstr "Klicka för att redigera ansiktet <i>%s</i>"
+msgid "Click to edit face “%s”"
+msgstr "Klicka för att redigera ansiktet ”%s”"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -5139,7 +5134,7 @@ msgstr "Spara ändringar och stäng verktyget Ansikten"
 msgid "No changes to save"
 msgstr "Inga ändringar att spara"
 
-#: src/faces/FacesTool.vala:938
+#: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Fel vid försök att starta program för ansiktsupptäckt:\n"
 
@@ -5151,11 +5146,11 @@ msgstr "Mappar"
 msgid "Browse the library’s folder structure"
 msgstr "Bläddra genom bibliotekets mappstruktur"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Imports"
 msgstr "Importer"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Browse the library’s import history"
 msgstr "Bläddra genom bibliotekets importhistorik"
 
@@ -5205,13 +5200,11 @@ msgstr "Tömmer papperskorgen…"
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell är konfigurerat för att importera bilder till din hemkatalog.\n"
-"Vi rekommenderar att du ändrar detta i <span weight=\"bold\">Redigera %s-"
-"inställningar</span>.\n"
+"Vi rekommenderar att du ändrar detta i Redigera %s Inställningar.\n"
 "Vill du fortsätta att importera bilder?"
 
 #. TODO: Specify which directory/file.
@@ -5304,40 +5297,52 @@ msgstr "Okänt fel vid försök att verifiera Shotwells databas: %s"
 msgid "Loading Shotwell"
 msgstr "Läser in Shotwell"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "Path to Shotwell’s private data"
 msgstr "Sökväg till Shotwells privata data"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "DIRECTORY"
 msgstr "KATALOG"
 
-#: src/main.vala:338
+#: src/main.vala:340
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Sök inte efter ändringar i biblioteket medan programmet används"
 
-#: src/main.vala:339
+#: src/main.vala:341
 msgid "Don’t display startup progress meter"
 msgstr "Visa inte hur uppstarten framskrider"
 
-#: src/main.vala:340
+#: src/main.vala:342
 msgid "Show the application’s version"
 msgstr "Visa programversion"
 
-#: src/main.vala:341
+#: src/main.vala:343
 msgid "Start the application in fullscreen mode"
 msgstr "Starta programmet i helskärmsläge"
 
-#: src/main.vala:342
+#: src/main.vala:344
 msgid "Print the metadata of the image file"
 msgstr "Skriv ut metadata för bildfilen"
 
+#: src/main.vala:345
+msgid "Name for a custom profile"
+msgstr "Namn för en anpassad profil"
+
+#: src/main.vala:345
+msgid "PROFILE"
+msgstr "PROFIL"
+
+#: src/main.vala:346
+msgid "Show available profiles"
+msgstr "Visa tillgängliga profiler"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:373
+#: src/main.vala:377
 msgid "[FILE]"
 msgstr "[FIL]"
 
-#: src/main.vala:380
+#: src/main.vala:382
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -5348,7 +5353,7 @@ msgstr ""
 msgid "Improve this map"
 msgstr "Förbättra denna karta"
 
-#: src/MapWidget.vala:643
+#: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
 msgstr ""
 "Lås eller lås upp karta för geotaggning genom att dra bilder till kartan"
@@ -5439,7 +5444,7 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3807
+#: src/Photo.vala:3804
 msgid "modified"
 msgstr "ändrad"
 
@@ -5662,13 +5667,13 @@ msgstr "Kunde inte publicera"
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
-"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-"Preferences</b> and enable one or more of the publishing plugins on the "
+"compatible publishing plugin enabled. To correct this, choose Edit %s "
+"Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
 "Shotwell kan inte publicera de markerade objekten därför att du inte har "
-"aktiverat en kompatibel insticksmodul för publicering. Välj <b>Redigera %s "
-"Inställningar</b> och aktivera en eller flera av de insticksmoduler för "
+"aktiverat en kompatibel insticksmodul för publicering. Välj Redigera %s "
+"Inställningar och aktivera en eller flera av de insticksmoduler för "
 "publicering som finns under fliken <b>Insticksmoduler</b>."
 
 #: src/publishing/Publishing.vala:15
@@ -6144,81 +6149,82 @@ msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Ta bort ansiktet ”%s” från bilden"
 msgstr[1] "Ta bort ansiktet ”%s” från bilderna"
 
-#: src/Resources.vala:424 src/Resources.vala:428
+#. Translators: This means to teach the face to the face recognition system
+#: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "_Träna ansikte ”%s” från bild"
 
-#: src/Resources.vala:436
+#: src/Resources.vala:438
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "B_yt namn på ansiktet ”%s”…"
 
-#: src/Resources.vala:440
+#: src/Resources.vala:442
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Byt namn på ansiktet ”%s” till ”%s”"
 
-#: src/Resources.vala:444
+#: src/Resources.vala:446
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Ta bort ansiktet ”%s”"
 
-#: src/Resources.vala:448
+#: src/Resources.vala:450
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Ta bort ansiktet ”%s”"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:680
 #, c-format
 msgid "Rate %s"
 msgstr "Betyg %s"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:681
 #, c-format
 msgid "Set rating to %s"
 msgstr "Sätt betyget %s"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:682
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Sätt betyget till %s"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:684
 #, c-format
 msgid "Display %s"
 msgstr "Visa %s"
 
-#: src/Resources.vala:683
+#: src/Resources.vala:685
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Visa endast bilder med betyget %s"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:686
 #, c-format
 msgid "%s or Better"
 msgstr "%s eller högre"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:687
 #, c-format
 msgid "Display %s or Better"
 msgstr "Visa %s eller högre"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:688
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Visa endast bilder med betyget %s eller högre"
 
-#: src/Resources.vala:784
+#: src/Resources.vala:786
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Öppna mappen för den markerade bilden i filhanteraren"
 
-#: src/Resources.vala:787
+#: src/Resources.vala:789
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Kunde inte öppna i filhanterare: %s"
 
-#: src/Resources.vala:795
+#: src/Resources.vala:797
 msgid "Select all items"
 msgstr "Markera alla objekt"
 
@@ -6231,7 +6237,7 @@ msgstr "Markera alla objekt"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:857
+#: src/Resources.vala:859
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
 
@@ -6239,7 +6245,7 @@ msgstr "%a %d %b, %Y"
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6247,7 +6253,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:869
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6255,7 +6261,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:872
+#: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %d %b"
@@ -6263,7 +6269,7 @@ msgstr "%a %d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:877
+#: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
@@ -6561,9 +6567,12 @@ msgid "untitled"
 msgstr "namnlös"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Exportera filmer"
+
+#~ msgid "org.gnome.Shotwell"
+#~ msgstr "org.gnome.Shotwell"
 
 #~ msgid ""
 #~ "You are not currently logged into Facebook.\n"
