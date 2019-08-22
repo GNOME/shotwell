@@ -57,14 +57,18 @@ private class ShotwellPublishingGallery3 : Object, Spit.Module {
 // The Pluggable
 public class Gallery3Service : Object, Spit.Pluggable,
         Spit.Publishing.Service {
+    private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Gallery3";
     private const string ICON_FILENAME = "gallery3.png";
 
     private static Gdk.Pixbuf[] icon_pixbuf_set = null;
+
+    private Secret.Schema? schema = null;
 
     public Gallery3Service(GLib.File resource_directory) {
         if (icon_pixbuf_set == null)
             icon_pixbuf_set = Resources.load_from_resource
                 (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
+
     }
 
     public int get_pluggable_interface(int min_host_interface,

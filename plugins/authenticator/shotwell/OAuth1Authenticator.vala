@@ -73,8 +73,7 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected void set_persistent_access_phase_username(string? username) {
             try {
                 if (username == null || username == "") {
-                    Secret.password_clear_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                                               "Shotwell publishing (%s)".printf(this.service),
+                    Secret.password_clear_sync(this.schema, null,
                                                "type", SECRET_TYPE_USERNAME);
                 } else {
                     Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
@@ -88,7 +87,8 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
 
         protected string? get_persistent_access_phase_token() {
             try {
-                return Secret.password_lookup_sync(this.schema, null, "type", SECRET_TYPE_AUTH_TOKEN);
+                return Secret.password_lookup_sync(this.schema, null,
+                                                   "type", SECRET_TYPE_AUTH_TOKEN);
             } catch (Error err) {
                 critical("Failed to lookup auth-token from password store: %s", err.message);
                 return null;
@@ -98,8 +98,7 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected void set_persistent_access_phase_token(string? token) {
             try {
                 if (token == null || token == "") {
-                    Secret.password_clear_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                                               "Shotwell publishing (%s").printf(this.service),
+                    Secret.password_clear_sync(this.schema, null,
                                                "type", SECRET_TYPE_AUTH_TOKEN);
                 } else {
                     Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
@@ -122,9 +121,8 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
 
         protected void set_persistent_access_phase_token_secret(string? secret) {
             try {
-                if (secrent == null || secret == "") {
-                    Secret.password_clear_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                                               "Shotwell publishing (%s").printf(this.service),
+                if (secret == null || secret == "") {
+                    Secret.password_clear_sync(this.schema, null,
                                                "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
                 } else {
                     Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
