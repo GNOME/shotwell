@@ -1183,9 +1183,11 @@ public class PhotoMetadata : MediaMetadata {
     }
 
     public void set_gps_coords(GpsCoords gps_coords) {
-        if (gps_coords.has_gps > 0)
-            exiv2.set_gps_info(gps_coords.longitude, gps_coords.latitude, 0.0);
-        else
+        if (gps_coords.has_gps > 0) {
+            var altitude = 0.0;
+            exiv2.get_gps_altitude(out altitude);
+            exiv2.set_gps_info(gps_coords.longitude, gps_coords.latitude, altitude);
+        } else
             exiv2.delete_gps_info();
     }
 
