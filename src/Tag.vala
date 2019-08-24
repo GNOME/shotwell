@@ -552,11 +552,13 @@ public class Tag : DataSource, ContainerSource, Proxyable, Indexable {
     // path should have already been prepared by prep_tag_name.
     public static Tag for_path(string name) {
         Tag? tag = global.fetch_by_name(name, true);
-        if (tag == null)
+        if (tag == null) {
             tag = global.restore_tag_from_holding_tank(name);
+        }
         
-        if (tag != null)
+        if (tag != null) {
             return tag;
+        }
         
         // create a new Tag for this name
         try {
