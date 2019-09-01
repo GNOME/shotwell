@@ -38,8 +38,8 @@ Homepage: https://wiki.gnome.org/Apps/Shotwell/
 
 Package: shotwell
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, librsvg2-common, dbus-x11, dconf-tools
-Recommends: desktop-file-utils
+Depends: ${shlibs:Depends}, ${misc:Depends}, librsvg2-common, dbus-x11
+Recommends: desktop-file-utils, dconf-cli, dconf-gui
 Conflicts: shotwell-common
 Replaces: shotwell-common
 Description: Digital photo manager
