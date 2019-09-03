@@ -3,23 +3,23 @@
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 # Translators:
-# Shushi Kurose <md81bird@hitaki.net>, 2011-2014
-# Hajime Taira <htaira@redhat.com>, 2012-2014
-# kano <kano@na.rim.or.jp>, 2012
-# Kiyoto Hashida <khashida@redhat.com>, 2012
-# lsbeeler <lucas@yorba.org>, 2011
-# Tiago <burajirugaijin@yahoo.co.jp>, 2011
-# verayin <vera@yorba.org>, 2011
-# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2014
-# Launchpad Contributions <Unknown>, 2018
-# sicklylife <translation@sicklylife.jp>, 2019
+# lsbeeler <lucas@yorba.org>, 2011.
+# Tiago <burajirugaijin@yahoo.co.jp>, 2011.
+# verayin <vera@yorba.org>, 2011.
+# Shushi Kurose <md81bird@hitaki.net>, 2011-2014.
+# kano <kano@na.rim.or.jp>, 2012.
+# Kiyoto Hashida <khashida@redhat.com>, 2012.
+# Hajime Taira <htaira@redhat.com>, 2012-2014.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2014.
+# Launchpad Contributions <Unknown>, 2018.
+# sicklylife <translation@sicklylife.jp>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2019-04-06 09:51+0000\n"
-"PO-Revision-Date: 2019-01-21 01:36+0000\n"
+"PO-Revision-Date: 2019-09-03 21:17+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -27,8 +27,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2018-10-11 22:06+0000\n"
-"X-Generator: Launchpad (build 18790)\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -63,10 +61,8 @@ msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr ""
 
 #: misc/shotwell.appdata.xml.in:53
-#, fuzzy
-#| msgid "Set Developer"
 msgid "The Shotwell developers"
-msgstr "現像を設定"
+msgstr ""
 
 #: misc/shotwell.desktop.in:5 src/Resources.vala:17
 msgid "Photo Manager"
@@ -1318,13 +1314,6 @@ msgstr ""
 "グインしておけば、ほとんどのアカウントを設定することができます。"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into YouTube.\n"
-#| "\n"
-#| "You must have already signed up for a Google account and set it up for "
-#| "use with YouTube to continue. You can set up most accounts by using your "
-#| "browser to log into the YouTube site at least once."
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
@@ -1333,11 +1322,12 @@ msgid ""
 "\n"
 "You will have to authorize Shotwell to link to your Google Photos account."
 msgstr ""
-"現在YouTubeにログインしていません。\n"
+"現在Googleフォトにログインしていません。\n"
 "\n"
-"続けるには、Googleアカウントにサインアップした上で、YouTubeを利用するための設"
-"定を行う必要があります。少なくとも一度ブラウザーを使って YouTubeのサイトにロ"
-"グインしておけば、ほとんどのアカウントを設定することができます。"
+"Googleアカウントにサインアップした上で、Googleフォトを利用するための設定を行う"
+"必要があります。\n"
+"\n"
+"ShotwellがGoogleフォトアカウントに接続することを許可してください。"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1386,11 +1376,17 @@ msgstr "Shotwellのホームページにアクセスする"
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:605
 msgid "translator-credits"
 msgstr ""
-"Shushi Kurose <md81bird@hitaki.net>\n"
-"Slackhideo <burajirugaijin@yahoo.co.jp>\n"
-"Yohsuke Ooi <meke@momonga-linux.org>\n"
 "Hajime Taira <htaira@redhat.com>\n"
 "Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"kano <kano@na.rim.or.jp>\n"
+"Kiyoto Hashida <khashida@redhat.com>\n"
+"lsbeeler <lucas@yorba.org>\n"
+"Shushi Kurose <md81bird@hitaki.net>\n"
+"sicklylife <translation@sicklylife.jp>\n"
+"Slackhideo <burajirugaijin@yahoo.co.jp>\n"
+"Tiago <burajirugaijin@yahoo.co.jp>\n"
+"verayin <vera@yorba.org>\n"
+"Yohsuke Ooi <meke@momonga-linux.org>\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Akira Tanaka https://launchpad.net/~popo1897\n"
@@ -1521,7 +1517,7 @@ msgstr "オリジナルのサイズ"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
 msgid "Longest edge"
-msgstr ""
+msgstr "数値の大きい方"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
@@ -1901,22 +1897,16 @@ msgid ""
 msgstr ""
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
-#, fuzzy
-#| msgid "Photo _size preset:"
 msgid "Photo _size preset"
-msgstr "プリセットの写真サイズ(_S):"
+msgstr "プリセットの写真サイズ(_S)"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
-#, fuzzy
-#| msgid "An _existing album"
 msgid "An existing album"
-msgstr "既存のアルバム(_E)"
+msgstr "既存のアルバム"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
-#, fuzzy
-#| msgid "A _new album named"
 msgid "A new album named"
-msgstr "新しいアルバム名(_N)"
+msgstr "新しいアルバム名"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
 msgid "Small (640 × 480 pixels)"
@@ -1941,10 +1931,9 @@ msgstr "オリジナルのサイズ"
 
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:59
-#, fuzzy, c-format
-#| msgid "You are logged into YouTube as %s."
+#, c-format
 msgid "You are logged into Google Photos as %s."
-msgstr "%s としてYouTubeにログインしています。"
+msgstr "%s としてGoogleフォトにログインしています。"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:64
 msgid "Videos will appear in:"
@@ -1958,7 +1947,7 @@ msgstr "デフォルトのアルバム"
 
 #: plugins/shotwell-publishing/PhotosService.vala:36
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
-msgstr ""
+msgstr "Copyright 2019 Jens Georg <mail@jensge.org>"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:44
 msgid "_URL of your Piwigo photo library"
@@ -2369,7 +2358,7 @@ msgstr "カメラ"
 #: src/camera/CameraTable.vala:256
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: src/camera/ImportPage.vala:307 src/Properties.vala:234
 msgid "RAW+JPEG"
@@ -3841,11 +3830,11 @@ msgstr "-"
 
 #: src/editing_tools/EditingTools.vala:737
 msgid "SD Video (4 ∶ 3)"
-msgstr "SD動画 (4 ∶ 3)"
+msgstr "SD動画 (4 : 3)"
 
 #: src/editing_tools/EditingTools.vala:738
 msgid "HD Video (16 ∶ 9)"
-msgstr "HD動画 (16 ∶ 9)"
+msgstr "HD動画 (16 : 9)"
 
 #: src/editing_tools/EditingTools.vala:740 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
@@ -5350,13 +5339,13 @@ msgstr[1] ""
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
-msgstr[0] "タグ “%s” を写真から削除する(_P)"
+msgstr[0] "タグ “%s” を写真から削除(_P)"
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
-msgstr[0] "タグ “%s” を写真から削除する"
+msgstr[0] "タグ “%s” を写真から削除"
 
 #: src/Resources.vala:382
 #, c-format
@@ -5749,23 +5738,23 @@ msgstr "保存された検索の整理"
 
 #: src/SearchFilter.vala:837
 msgid "★+ Rating"
-msgstr ""
+msgstr "★+評価"
 
 #: src/SearchFilter.vala:840
 msgid "★★+ Rating"
-msgstr ""
+msgstr "★★+評価"
 
 #: src/SearchFilter.vala:843
 msgid "★★★+ Rating"
-msgstr ""
+msgstr "★★★+評価"
 
 #: src/SearchFilter.vala:846
 msgid "★★★★+ Rating"
-msgstr ""
+msgstr "★★★★+評価"
 
 #: src/SearchFilter.vala:850
 msgid "★★★★★+ Rating"
-msgstr ""
+msgstr "★★★★★+評価"
 
 #: src/SearchFilter.vala:1086
 #, c-format
