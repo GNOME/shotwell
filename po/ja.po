@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2019-09-03 12:28+0000\n"
-"PO-Revision-Date: 2019-09-03 21:17+0900\n"
+"PO-Revision-Date: 2019-09-03 21:40+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -2635,10 +2635,8 @@ msgstr "オリジナル写真のダウンロード禁止(_F)"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
-#, fuzzy
-#| msgid "Photo _size:"
 msgid "Photo _size"
-msgstr "写真サイズ(_S):"
+msgstr "写真サイズ(_S)"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
@@ -2681,22 +2679,16 @@ msgstr ""
 "あなたのFlickr Proアカウントは無制限のアップロード容量が与えられています。"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:616
-#, fuzzy
-#| msgid "Photos _visible to:"
 msgid "Photos _visible to"
-msgstr "写真を公開する範囲(_V):"
+msgstr "写真を公開する範囲(_V)"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:618
-#, fuzzy
-#| msgid "Videos _visible to:"
 msgid "Videos _visible to"
-msgstr "動画を公開する範囲(_V):"
+msgstr "動画を公開する範囲(_V)"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
-#, fuzzy
-#| msgid "Photos and videos _visible to:"
 msgid "Photos and videos _visible to"
-msgstr "写真と動画を公開する範囲(_V):"
+msgstr "写真と動画を公開する範囲(_V)"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
@@ -2932,10 +2924,8 @@ msgid "Core Publishing Services"
 msgstr "メインの公開サービス"
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
-#, fuzzy
-#| msgid "Blogs:"
 msgid "Blogs"
-msgstr "ブログ:"
+msgstr "ブログ"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:35
 msgid "Copyright 2012 BJA Electronics"
@@ -2961,10 +2951,8 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
-#, fuzzy
-#| msgid "Video privacy _setting:"
 msgid "Video privacy _setting"
-msgstr "動画のプライバシー設定(_S):"
+msgstr "動画のプライバシー設定(_S)"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
 msgid ""
@@ -4465,12 +4453,9 @@ msgid "To get started, import photos in any of these ways:"
 msgstr "始めるには、いずれかの方法で写真をインポートしてください:"
 
 #: src/dialogs/WelcomeDialog.vala:67
-#, fuzzy, c-format
-#| msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+#, c-format
 msgid "Choose File %s Import From Folder"
-msgstr ""
-"<span weight=\"bold\">ファイル %s をフォルダーからインポート</span> を選択す"
-"る"
+msgstr "ファイル %s フォルダーからインポート を選択する"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -4877,10 +4862,9 @@ msgid "Click and drag to tag a face"
 msgstr "フェイスにタグをつけるにはクリックしてドラッグしてください"
 
 #: src/faces/FacesTool.vala:180
-#, fuzzy, c-format
-#| msgid "Click to edit face <i>%s</i>"
+#, c-format
 msgid "Click to edit face “%s”"
-msgstr "クリックしてフェイス <i>%s</i> を編集します"
+msgstr "クリックしてフェイス “%s” を編集します"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -4973,20 +4957,14 @@ msgid "Emptying Trash…"
 msgstr "ゴミ箱を空にしています…"
 
 #: src/library/LibraryWindow.vala:801
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell is configured to import photos to your home directory.\n"
-#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-#| "span>.\n"
-#| "Do you want to continue importing photos?"
+#, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwellはホームディレクトリに写真をインポートする設定になっています。\n"
-"<span weight=\"bold\">編集 %s 設定</span>でこの設定を変更することをお勧めしま"
-"す。\n"
+"編集 %s 設定 でこの設定を変更することをお勧めします。\n"
 "写真のインポートを続けますか?"
 
 #. TODO: Specify which directory/file.
@@ -5114,16 +5092,12 @@ msgid "Name for a custom profile"
 msgstr ""
 
 #: src/main.vala:345
-#, fuzzy
-#| msgid "[FILE]"
 msgid "PROFILE"
-msgstr "[ファイル]"
+msgstr ""
 
 #: src/main.vala:346
-#, fuzzy
-#| msgid "Show all photos"
 msgid "Show available profiles"
-msgstr "すべての写真を表示します"
+msgstr ""
 
 #. init GTK (valac has already called g_threads_init())
 #: src/main.vala:377
@@ -5229,7 +5203,7 @@ msgstr "TIFF"
 
 #: src/photos/WebPSupport.vala:86
 msgid "WebP"
-msgstr ""
+msgstr "WebP"
 
 #: src/Photo.vala:3804
 msgid "modified"
@@ -5447,12 +5421,7 @@ msgid "Unable to publish"
 msgstr "公開できません"
 
 #: src/publishing/PublishingUI.vala:287
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a "
-#| "compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-#| "Preferences</b> and enable one or more of the publishing plugins on the "
-#| "<b>Plugins</b> tab."
+#, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
@@ -5460,8 +5429,8 @@ msgid ""
 "<b>Plugins</b> tab."
 msgstr ""
 "一致する公開プラグインが有効になっていないため、Shotwellは選択されたアイテム"
-"を公開できません。これを直すには、<b> 設定 %s 編集</b> を選択して、<b>プラグ"
-"イン</b> タブにあるいずれかの公開プラグインを有効にしてください。"
+"を公開できません。これを直すには、設定 %s 編集 を選択して、プラグイン タブに"
+"あるいずれかの公開プラグインを有効にしてください。"
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -5932,11 +5901,9 @@ msgstr[1] ""
 
 #. Translators: This means to teach the face to the face recognition system
 #: src/Resources.vala:425 src/Resources.vala:430
-#, fuzzy, c-format
-#| msgid "Remove Tag “%s” From Photo"
-#| msgid_plural "Remove Tag “%s” From Photos"
+#, c-format
 msgid "_Train Face “%s” From Photo"
-msgstr "タグ “%s” を写真から削除"
+msgstr ""
 
 #: src/Resources.vala:438
 #, c-format
