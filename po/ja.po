@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-09-03 12:28+0000\n"
+"POT-Creation-Date: 2019-09-03 12:52+0000\n"
 "PO-Revision-Date: 2019-09-03 21:40+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
@@ -2423,7 +2423,7 @@ msgstr "オリジナルのサイズ"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
 #: src/Dimensions.vala:20
 msgid "Longest edge"
-msgstr "数値の大きい方"
+msgstr "長辺"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
