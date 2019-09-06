@@ -5,14 +5,22 @@
 	<info>
 		<title type="link">Shotwell</title>
 		<credit type="author">
-		    <name>Jim Nelson</name>
-		    <email>jim@yorba.org</email>
-		    <name>Allison Barlow</name>
-		    <email>allison@yorba.org</email>
+			<name>Jim Nelson</name>
+			<email>jim@yorba.org</email>
+		</credit>
+		<credit type="author">
+			<name>Allison Barlow</name>
+			<email>allison@yorba.org</email>
+		</credit>
+		<credit type="author">
 			<name>Robert Ancell</name>
 			<email>robert.ancell@canonical.com</email>
+		</credit>
+		<credit type="author">
 			<name>Peter Smith</name>
 			<email>pdo.smith@gmail.com</email>
+		</credit>
+		<credit type="author">
 			<name>Phil Bull</name>
 			<email>philbull@gmail.com</email>
 		</credit>
