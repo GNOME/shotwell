@@ -15,7 +15,7 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">_Add Tags…</attribute>
-        <attribute name="accel">&lt;Primary&gt;a</attribute>
+        <attribute name="accel">&lt;Primary&gt;t</attribute>
         <attribute name="action">win.AddTags</attribute>
       </item>
       <item>
