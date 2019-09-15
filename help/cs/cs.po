@@ -1,13 +1,13 @@
 # Czech translation for shotwell.
 # Copyright (C) 2014 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
-# Marek Černocký <marek@manet.cz>, 2014, 2016, 2017, 2018.
+# Marek Černocký <marek@manet.cz>, 2014, 2016, 2017, 2018, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2018-01-17 19:38+0000\n"
-"PO-Revision-Date: 2018-01-26 22:00+0100\n"
+"Project-Id-Version: shotwell\n"
+"POT-Creation-Date: 2019-02-23 19:02+0000\n"
+"PO-Revision-Date: 2019-09-15 08:27+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -332,6 +332,49 @@ msgstr ""
 "kompozici."
 
 #. (itstool) path: info/desc
+#: C/edit-date-time.page:7
+msgid "Change the date and time of photos if those details are incorrect."
+msgstr "Jak změnit datum a čas fotografií, když je tento údaj špatně."
+
+#. (itstool) path: page/title
+#: C/edit-date-time.page:12
+msgid "Adjust the date and time of photos"
+msgstr "Úprava data a času fotografií"
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:14
+msgid ""
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
+msgstr ""
+"Když chcete upravit čas a datum fotografie, vyberte ji a zvolte "
+"<guiseq><gui>Fotografie</gui> <gui>Nastavit datum a čas…</gui></guiseq> a "
+"vyberte nové datum a čas."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:16
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr ""
+"Pokud měníte datum a čas u více fotografií naráz, můžete si zvolit stejný "
+"posun času u všech fotografií vůči stávajícímu nebo u všech nastavit ten "
+"samý čas."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:18
+msgid ""
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
+"undone once you exit Shotwell."
+msgstr ""
+"Standardně se mění datum a čas jen v rámci aplikace Shotwell. Můžete zadat, "
+"aby se změnily i v originálním souboru, ale po ukončení aplikace Shotwell to "
+"již není možné vrátit zpět."
+
+#. (itstool) path: info/desc
 #: C/edit-enhance.page:7
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
@@ -643,49 +686,6 @@ msgstr "Posuňte táhlo tak, abyste dosáhli požadovaného narovnání."
 #: C/edit-straighten.page:24
 msgid "Press <gui>Straighten</gui> when finished."
 msgstr "Až máte fotografii narovnanou, zmáčkněte <gui>Vyrovnat</gui>."
-
-#. (itstool) path: info/desc
-#: C/edit-date-time.page:7
-msgid "Change the date and time of photos if those details are incorrect."
-msgstr "Jak změnit datum a čas fotografií, když je tento údaj špatně."
-
-#. (itstool) path: page/title
-#: C/edit-date-time.page:12
-msgid "Adjust the date and time of photos"
-msgstr "Úprava data a času fotografií"
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:14
-msgid ""
-"To adjust the date and time of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
-"guiseq> and select a new date and time."
-msgstr ""
-"Když chcete upravit čas a datum fotografie, vyberte ji a zvolte "
-"<guiseq><gui>Fotografie</gui> <gui>Nastavit datum a čas…</gui></guiseq> a "
-"vyberte nové datum a čas."
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:16
-msgid ""
-"If you are changing the date and time of multiple photos at once, you can "
-"choose to shift all the photos by the same amount of time or to set all the "
-"photos to the same time."
-msgstr ""
-"Pokud měníte datum a čas u více fotografií naráz, můžete si zvolit stejný "
-"posun času u všech fotografií vůči stávajícímu nebo u všech nastavit ten "
-"samý čas."
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:18
-msgid ""
-"By default, the date and time are only changed inside Shotwell. You can also "
-"choose to modify the date and time in the original file, but this cannot be "
-"undone once you exit Shotwell."
-msgstr ""
-"Standardně se mění datum a čas jen v rámci aplikace Shotwell. Můžete zadat, "
-"aby se změnily i v originálním souboru, ale po ukončení aplikace Shotwell to "
-"již není možné vrátit zpět."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
@@ -2934,10 +2934,8 @@ msgstr "Dobu trvání přechodového efektu: 0,1 až 1,0 vteřiny"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-msgid "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
-msgstr ""
-"Jak fotografie zveřejnit na Facebook, Flickr, Picasa Web Albums a jiné "
-"servery."
+msgid "Publish photos to Flickr, Google Photos, or other sites."
+msgstr "Jak fotografie zveřejnit na Flickr, Google Photos a další servery."
 
 #. (itstool) path: page/title
 #: C/share-upload.page:12
@@ -2967,12 +2965,8 @@ msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-msgid ""
-"<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
-"<link href=\"http://plus.google.com\">Google+</link>"
-msgstr ""
-"<link href=\"https://picasaweb.google.cz\">Picasa Web Albums</link> a <link "
-"href=\"http://plus.google.com\">Google+</link>"
+msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
+msgstr "<link href=\"https://photos.google.com\">Google Photos</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
@@ -3009,10 +3003,10 @@ msgstr ""
 "<gui>Zásuvné moduly</gui>, abyste povolili zásuvný modul pro službu, kterou "
 "chcete ke zveřejnění použít. Následně zvolte <guiseq><gui>Soubor</gui> "
 "<gui>Zveřejnit</gui></guiseq> nebo zmáčkněte tlačítko <gui>Zveřejnit</gui> "
-"na nástrojové liště nebo použijte klávesovou zkratku <keyseq><key>Ctrl</key>"
-"<key>Shift</key><key>P</key></keyseq>. Uvidíte dialogové okno, ve kterém si "
-"můžete vybrat požadovanou službu. Následně se k ní musíte přihlásit, připadně "
-"si vytvořit účet."
+"na nástrojové liště nebo použijte klávesovou zkratku <keyseq><key>Ctrl</"
+"key><key>Shift</key><key>P</key></keyseq>. Uvidíte dialogové okno, ve kterém "
+"si můžete vybrat požadovanou službu. Následně se k ní musíte přihlásit, "
+"připadně si vytvořit účet."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:31
@@ -3037,22 +3031,11 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/share-upload.page:36
 msgid ""
-"Similarly, publishing to Flickr requires you to log in and permit Shotwell "
-"Connect to access your account."
+"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
+"log in and permit Shotwell Connect to access your account."
 msgstr ""
-"Podobně zveřejnění na Flickru vyžaduje přihlášení a oprávnění aplikaci "
-"Shotwell Connect k přístupu k vašemu účtu."
-
-#. (itstool) path: page/p
-#: C/share-upload.page:38
-msgid ""
-"If you have a Google account, but have not yet used Picasa Web Albums, you "
-"will need to log in to Picasa using a browser once before you can publish to "
-"this service."
-msgstr ""
-"Pokud máte účet Google, ale zatím jste nepoužili Picasa Web Albums, musíte "
-"se jednou pomocí prolížeče přihlásit ke službě Picasa, abyste na ní mohli "
-"zveřejňovat."
+"Podobně, zveřejnění na Flickr, YouTube nebo Google Photos vyžaduje přihlášení "
+"a udělení oprávnění aplikaci Shotwell Connect k přístupu k vašemu účtu."
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -3179,6 +3162,23 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
+msgid ""
+"The map pane appears at the bottom of the sidebar as part of the Basic "
+"Information pane, and displays an overview map the photos you've selected. "
+"If no photos are selected, it displays an overview of the entire collection. "
+"You can toggle the display of this pane using the <guiseq><gui>View</"
+"gui><gui>Map Overview</gui></guiseq> command. Note that the map will only show "
+"when the Basic Information pane is displayed."
+msgstr ""
+"Panel s mapou se objevuje ve spodní části postranního panelu jako součást "
+"Základních informací a zobrazuje k vybraným fotografiím přehled na mapě. "
+"Pokud není vybrána žádná fotografie, zobrazuje přehled k celé sbírce. Jestli "
+"má být mapa zobrazena, můžete přepínat příkazem <guiseq><gui>Zobrazit</gui>"
+"<gui>Přehled na mapě</gui></guiseq>. Mapa se zobrazí ale jen v případě, že je "
+"zapnuté zobrazení Základních informací."
+
+#. (itstool) path: page/p
+#: C/view-information.page:18
 msgid ""
 "The floating Extended Information window displays more information about the "
 "selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
