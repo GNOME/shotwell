@@ -1,8 +1,9 @@
-# po/shotwell-core/shotwell.pot
-# PO message string template file for Shotwell Core Components
+# Turkish translation for Shotwell
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
+# Copyright (C) 2017-2019 Shotwell'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Shotwell package.
 #
 # Translators:
 # Ferhat Tunctan <ferhattnctn66@gmail.com>, 2012
@@ -18,16 +19,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-02-24 18:39+0000\n"
-"PO-Revision-Date: 2019-03-06 21:54+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2019-09-06 09:45+0000\n"
+"PO-Revision-Date: 2019-09-07 15:32+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 3.30.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-POOTLE-MTIME: 1427298590.000000\n"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
@@ -411,12 +412,11 @@ msgstr "Tam ekranda araç çubuğunu sabitle ya da sabitleme."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:167
 msgid "prefer GTK+’s dark theme"
-msgstr "GTK+ʼnın karanlık gövdesini yeğle"
+msgstr "GTKʼnın karanlık temasını yeğle"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:168
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
-msgstr ""
-"Shotwell için GTK+ʼnın karanlık gövdesinin kullanılıp kullanılmayacağı."
+msgstr "Shotwell için GTKnın karanlık temasının kullanılıp kullanılmayacağı."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:173
 msgid "background for transparent images"
@@ -1374,12 +1374,6 @@ msgstr ""
 "fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;facebook;"
 "flickr;picasa;youtube;piwigo;"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.Shotwell.desktop.in:11
-#: data/org.gnome.Shotwell-Viewer.desktop.in:8
-msgid "org.gnome.Shotwell"
-msgstr "org.gnome.Shotwell"
-
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
 msgstr "Shotwell Görüntüleyici"
@@ -1496,7 +1490,7 @@ msgstr "Resmin Etki_nliğine Bak"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:783
+#: src/Resources.vala:785
 msgid "Show in File Mana_ger"
 msgstr "Dosya Yö_neticisinde Göster"
 
@@ -1508,7 +1502,7 @@ msgstr "_Gönder…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:792
+#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:794
 msgid "_Move to Trash"
 msgstr "_Çöpe Taşı"
 
@@ -1753,7 +1747,7 @@ msgstr "Ye_ni Kaydedilmiş Arama…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:794
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
 msgid "Select _All"
 msgstr "_Tümünü Seç"
 
@@ -1849,7 +1843,7 @@ msgstr "_Dışa Aktar…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:790
+#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:792
 msgid "R_emove From Library"
 msgstr "Kitaplıktan K_aldır"
 
@@ -1982,12 +1976,12 @@ msgid "_Cancel"
 msgstr "İ_ptal"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_Tamam"
 
-#: data/ui/offline.ui:226 src/Resources.vala:778
+#: data/ui/offline.ui:226 src/Resources.vala:780
 msgid "Remove the selected photos from the library"
 msgstr "Seçili fotoğrafları kitaplıktan çıkar"
 
@@ -2087,10 +2081,10 @@ msgstr "Hiçbiri"
 
 #: data/ui/preferences_dialog.ui:441
 msgid "Use dark theme:"
-msgstr "Karanlık gövde kullan:"
+msgstr "Karanlık tema kullan:"
 
 #: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
-#: src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Kitaplık"
 
@@ -2212,7 +2206,7 @@ msgstr "_Düzenle…"
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
 #: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:776
+#: src/Resources.vala:396 src/Resources.vala:778
 msgid "_Delete"
 msgstr "_Sil"
 
@@ -2291,15 +2285,15 @@ msgid "label"
 msgstr "etiket"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:780
+#: src/Resources.vala:782
 msgid "_Restore"
 msgstr "_Geri Getir"
 
-#: data/ui/trash.ui:260 src/Resources.vala:777
+#: data/ui/trash.ui:260 src/Resources.vala:779
 msgid "Remove the selected photos from the trash"
 msgstr "Seçili fotoğrafları çöp kutusundan geri getir"
 
-#: data/ui/trash.ui:275 src/Resources.vala:781
+#: data/ui/trash.ui:275 src/Resources.vala:783
 msgid "Move the selected photos back into the library"
 msgstr "Seçili fotoğrafları kitaplığa geri taşı"
 
@@ -2323,19 +2317,19 @@ msgstr ""
 "Flickr’a giriş yapmak için web tarayıcınızda Oturum Aç’a tıklayın. Flickr "
 "hesabınıza Shotwell Connect’i bağlamak için yetki vermeniz gerekiyor."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:126
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
 msgstr "Giriş için hazırlanıyor…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:195
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
 msgstr "Flick yetkilendirmesi başarısız"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:202
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
 msgstr "Yetkilendirme doğrulanıyor…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -2406,12 +2400,12 @@ msgstr ""
 "Lütfen Tumblr hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1089
 msgid "Username and/or password invalid. Please try again"
 msgstr "Kullanıcı adı ve/veya parola geçersiz. Lütfen yeniden deneyin"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1125
 msgid "Invalid User Name or Password"
 msgstr "Geçersiz Kullanıcı Adı veya Parola"
 
@@ -2538,7 +2532,7 @@ msgstr "piksel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Özgün boyut"
@@ -2826,7 +2820,7 @@ msgid "Photos and videos _visible to"
 msgstr "Fotoğraflar ve videolar _şunlara görülebilir"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Everyone"
 msgstr "Herkes"
 
@@ -2847,24 +2841,24 @@ msgid "Just me"
 msgstr "Yalnızca ben"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 benek"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 benek"
 
@@ -2891,7 +2885,7 @@ msgid "A new album named"
 msgstr "Şu adda yeni albüm"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1196
 msgid "Shotwell Connect"
 msgstr "Shotwell Bağlantısı"
 
@@ -2998,23 +2992,23 @@ msgstr ""
 "deneyin."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1033
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1034
 #, c-format
 msgid ""
-"This does not look like the real <b>%s</b>. Attackers might be trying to "
-"steal or alter information going to or from this site (for example, private "
-"messages, credit card information, or passwords)."
+"This does not look like the real %s. Attackers might be trying to steal or "
+"alter information going to or from this site (for example, private messages, "
+"credit card information, or passwords)."
 msgstr ""
-"Bu gerçek <b>%s</b> gibi görünmüyor. Saldırganlar bu siteye giden veya gelen "
+"Bu gerçek %s gibi görünmüyor. Saldırganlar bu siteye giden veya gelen "
 "bilgiyi (örneğin; özel iletiler, kredi kartı bilgisi veya parolalar gibi) "
 "çalmak veya başkalaştırmak istiyor olabilir."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1053
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s’in sertifikası"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3022,7 +3016,7 @@ msgstr ""
 "Piwigo fotoğraf kitaplığınızın URL’sinin yanı sıra bu kitaplık için Piwigo "
 "hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3030,23 +3024,23 @@ msgstr ""
 "Shotwell Piwigo fotoğraf kitaplığınızla bağlantı kuramıyor. Lüften "
 "girdiğiniz URL’yi denetleyin"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
 msgid "Invalid URL"
 msgstr "Geçersiz URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Yöneticiler, Aile, Arkadaşlar, Bağlantılar"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family, Friends"
 msgstr "Yöneticiler, Aile, Arkadaşlar"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins, Family"
 msgstr "Yöneticiler, Aile"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins"
 msgstr "Yöneticiler"
 
@@ -4594,8 +4588,8 @@ msgstr ""
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
-msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "<span weight=\"bold\">Dosya %s Dizinden İçeri Aktar</span>ı seçerek"
+msgid "Choose File %s Import From Folder"
+msgstr "Dosya %s Dizinden İçeri Aktar’ı seçerek"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5004,8 +4998,8 @@ msgstr "Yüz etiketlemek için tıklayın ve sürükleyin"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-msgid "Click to edit face <i>%s</i>"
-msgstr "<i>%s</i> yüzünü düzenlemek için tıklayın"
+msgid "Click to edit face “%s”"
+msgstr "“%s” yüzünü düzenlemek için tıklayın"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -5035,7 +5029,7 @@ msgstr "Değişiklikleri kaydet ve Yüzler aracını kapat"
 msgid "No changes to save"
 msgstr "Kaydedilecek değişiklik yok"
 
-#: src/faces/FacesTool.vala:938
+#: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Yüz tanıma programı yaratılmaya çalışırken hata:\n"
 
@@ -5047,11 +5041,11 @@ msgstr "Klasörler"
 msgid "Browse the library’s folder structure"
 msgstr "Kitaplığın klasör yapısına göz at"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Imports"
 msgstr "İçe Aktarımlar"
 
-#: src/import-roll/ImportRollBranch.vala:43
+#: src/import-roll/ImportRollBranch.vala:42
 msgid "Browse the library’s import history"
 msgstr "Kitaplığın içe aktarma geçmişine göz at"
 
@@ -5101,13 +5095,11 @@ msgstr "Çöp Kutusu boşaltılıyor…"
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
-"We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-"span>.\n"
+"We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
 "Shotwell fotoğrafları ev dizininize kopyalamak üzere yapılandırılmıştır.\n"
-"Bunu <span weight=\"bold\">%s Tercihlerini Düzenle</span> içinden "
-"değiştirmenizi tavsiye\n"
+"Bunu Düzenle - Tercihler - %s Tercihleri sayfasından değiştirmenizi tavsiye\n"
 "ederiz. Fotoğrafları içe aktarmaya devam etmek istiyor musunuz?"
 
 #. TODO: Specify which directory/file.
@@ -5199,40 +5191,52 @@ msgstr "Shotwell veri tabanını doğrulama denenirken bilinmeyen hata: %s"
 msgid "Loading Shotwell"
 msgstr "Shotwell Yükleniyor"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell’in gizli veri yolu"
 
-#: src/main.vala:337
+#: src/main.vala:339
 msgid "DIRECTORY"
 msgstr "DİZİN"
 
-#: src/main.vala:338
+#: src/main.vala:340
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Kitaplık dizinini çalışırken değişiklikler için izleme"
 
-#: src/main.vala:339
+#: src/main.vala:341
 msgid "Don’t display startup progress meter"
 msgstr "Başlangıç ilerleme metresini gösterme"
 
-#: src/main.vala:340
+#: src/main.vala:342
 msgid "Show the application’s version"
 msgstr "Uygulama sürümünü göster"
 
-#: src/main.vala:341
+#: src/main.vala:343
 msgid "Start the application in fullscreen mode"
 msgstr "Uygulamayı tam ekran kipinde başlat"
 
-#: src/main.vala:342
+#: src/main.vala:344
 msgid "Print the metadata of the image file"
 msgstr "Resim dosyasının üstverisini yazdır"
 
+#: src/main.vala:345
+msgid "Name for a custom profile"
+msgstr "Özel profil adı"
+
+#: src/main.vala:345
+msgid "PROFILE"
+msgstr "PROFIL"
+
+#: src/main.vala:346
+msgid "Show available profiles"
+msgstr "Kullanılabilir profilleri gister"
+
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:373
+#: src/main.vala:377
 msgid "[FILE]"
 msgstr "[DOSYA]"
 
-#: src/main.vala:380
+#: src/main.vala:382
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -5243,7 +5247,7 @@ msgstr ""
 msgid "Improve this map"
 msgstr "Bu haritayı geliştir"
 
-#: src/MapWidget.vala:643
+#: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
 msgstr ""
 "Resimleri haritaya sürükleyerek coğrafi etiketleme için haritayı kilitleyin "
@@ -5333,7 +5337,7 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/Photo.vala:3807
+#: src/Photo.vala:3804
 msgid "modified"
 msgstr "değiştirilmiş"
 
@@ -5554,14 +5558,14 @@ msgstr "Yayımlanamıyor"
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
-"compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-"Preferences</b> and enable one or more of the publishing plugins on the "
+"compatible publishing plugin enabled. To correct this, choose Edit %s "
+"Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
 "Shotwell seçili ögeleri yayımlayamaz çünkü uyumlu bir yayımlama eklentiniz "
-"etkinleştirilmemiş. Bunu düzeltmek için, <b> Düzenle %s Tercihler</b>’i "
-"seçin ve <b>Eklentiler</b> sekmesinden bir veya daha çok yayımlama "
-"eklentisini etkinleştirin."
+"etkinleştirilmemiş. Bunu düzeltmek için, Düzenle - Tercihler - %s Tercihleri "
+"- <b>Eklentiler</b> sekmesinden bir veya daha çok yayımlama eklentisini "
+"etkinleştirin."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6026,83 +6030,82 @@ msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "“%s” Yüzünü Fotoğraftan Kaldır"
 
-#: src/Resources.vala:424 src/Resources.vala:428
+#. Translators: This means to teach the face to the face recognition system
+#: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
-#| msgid "Remove Face “%s” From Photo"
-#| msgid_plural "Remove Face “%s” From Photos"
 msgid "_Train Face “%s” From Photo"
 msgstr "“%s” Yüzünü Fotoğraftan _Öğren"
 
-#: src/Resources.vala:436
+#: src/Resources.vala:438
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "“%s” Yüzünü Yeniden _Adlandır…"
 
-#: src/Resources.vala:440
+#: src/Resources.vala:442
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "“%s” Yüzünü “%s” Olarak Yeniden Adlandır"
 
-#: src/Resources.vala:444
+#: src/Resources.vala:446
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "“%s” Yüzünü _Sil"
 
-#: src/Resources.vala:448
+#: src/Resources.vala:450
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "“%s” Yüzünü Sil"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:680
 #, c-format
 msgid "Rate %s"
 msgstr "%sʼi Puanla"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:681
 #, c-format
 msgid "Set rating to %s"
 msgstr "Puanı %s olarak ayarla"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:682
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Puan %s olarak ayarlanıyor"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:684
 #, c-format
 msgid "Display %s"
 msgstr "%sʼi Göster"
 
-#: src/Resources.vala:683
+#: src/Resources.vala:685
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Puanı yalnızca %s olan fotoğrafları göster"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:686
 #, c-format
 msgid "%s or Better"
 msgstr "%s veya Daha İyisi"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:687
 #, c-format
 msgid "Display %s or Better"
 msgstr "%s veya Daha İyisini Göster"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:688
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Puanı yalnızca %s veya daha iyisi olan fotoğrafları göster"
 
-#: src/Resources.vala:784
+#: src/Resources.vala:786
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Seçili fotoğrafın ait olduğu dizini dosya yöneticisinde aç"
 
-#: src/Resources.vala:787
+#: src/Resources.vala:789
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Dosya yöneticisinde açılamıyor: %s"
 
-#: src/Resources.vala:795
+#: src/Resources.vala:797
 msgid "Select all items"
 msgstr "Tüm ögeleri seç"
 
@@ -6115,14 +6118,14 @@ msgstr "Tüm ögeleri seç"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:857
+#: src/Resources.vala:859
 msgid "%a %b %d, %Y"
 msgstr "%d %b %Y %a"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%d %b %a"
@@ -6130,7 +6133,7 @@ msgstr "%d %b %a"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:869
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6138,7 +6141,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:872
+#: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%d %b %a"
@@ -6146,7 +6149,7 @@ msgstr "%d %b %a"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:877
+#: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%d %b %Y %a"
@@ -6444,9 +6447,12 @@ msgid "untitled"
 msgstr "başlıksız"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
+
+#~ msgid "org.gnome.Shotwell"
+#~ msgstr "org.gnome.Shotwell"
 
 #~ msgid ""
 #~ "The OAuth token used to refresh the Picasa Web Albums session for the "
