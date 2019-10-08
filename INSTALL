@@ -1,12 +1,20 @@
-
     Shotwell Installation
     ---------------------
 
     To build and install Shotwell, type the following commands:
 
-    $ meson build
-    $ ninja -C build
-    $ Optional: ninja -C build install
+    $ 1. meson build
+    $ 2. ninja -C build
+    $ 3. Optional: ninja -C build install
+    
+    about 1. you may need to run
+      'sudo pacman -S  meson cmake libchamplain'
+    to install the required dependencies
+    
+    about 3. may need to run
+      'sudo pacman -S itstool'
+
+
 
     * By default, Shotwell will install under /usr/local.  The configure script
       can customize the prefix directory.  Run meson build configure  for
