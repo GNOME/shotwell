@@ -9,7 +9,11 @@
     
     about 1. you may need to run
       'sudo pacman -S  meson cmake libchamplain'
-    to install the required dependencies  
+    to install the required dependencies
+    
+    about 3. may need to run
+      'sudo pacman -S itstool'
+
 
 
     * By default, Shotwell will install under /usr/local.  The configure script
