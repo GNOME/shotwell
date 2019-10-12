@@ -12,6 +12,7 @@ yelp_pages = [
     'edit-straighten.page',
     'edit-undo.page',
     'formats.page',
+    'google-policy.page',
     'import-camera.page',
     'import-file.page',
     'import-memorycard.page',
