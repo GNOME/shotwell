@@ -78,7 +78,7 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://datapacket.dl.sourceforge.net/project/gphoto/libgphoto/2.5.23/libgphoto2-2.5.23.tar.bz2",
+                    "url" : "https://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.23/libgphoto2-2.5.23.tar.bz2",
                     "sha256" : "d8af23364aa40fd8607f7e073df74e7ace05582f4ba13f1724d12d3c97e8852d"
                 }
             ],
@@ -95,7 +95,7 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "http://netix.dl.sourceforge.net/project/liboauth/liboauth-1.0.3.tar.gz",
+                    "url" : "http://downloads.sourceforge.net/project/liboauth/liboauth-1.0.3.tar.gz",
                     "sha256" : "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f"
                 }
             ]
