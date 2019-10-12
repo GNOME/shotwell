@@ -666,7 +666,7 @@ msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr ""
-"Un nombre sencer positiu diferent de zero que representa la part ample de "
+"Un nombre sencer positiu diferent de zero que representa la part ampla de "
 "l'última proporció del cultiu personalitzat que l'usuari va introduir."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:317
@@ -747,7 +747,7 @@ msgstr "Configuració de diàleg d'exportació: mida màxima de la imatge"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:408
 msgid "last used publishing service"
-msgstr "últim servei de publicació utilitzats"
+msgstr "últim servei de publicació utilitzat"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:409
 #: data/gsettings/org.yorba.shotwell.gschema.xml:415
@@ -1160,12 +1160,12 @@ msgstr ""
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:708
 msgid "titles font"
-msgstr "títols de la font"
+msgstr "tipus de lletra dels títols"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:709
 msgid "The name of the font to use for photo titles when they are printed."
 msgstr ""
-"El nom de la font que s'utilitza per als títols de les imatges quan "
+"El nom del tipus de lletra que s'utilitza per als títols de les imatges quan "
 "s'imprimeixen."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:720
@@ -1820,7 +1820,7 @@ msgstr "_Cerca"
 #: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
 #: data/ui/tags.ui:66 data/ui/trash.ui:56
 msgid "Ne_w Saved Search…"
-msgstr "_Nova cerca desada…"
+msgstr "_Cerca nova desada…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
@@ -2471,7 +2471,7 @@ msgstr "_Contrasenya"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
-msgstr "inici de sessió"
+msgstr "Inici de sessió"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
 msgid "Enter the username and password associated with your Tumblr account."
@@ -5396,7 +5396,7 @@ msgid ""
 msgstr ""
 "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la "
 "versió %s (schema %d) a la %s (schema %d). Per obtenir més informació "
-"comproveu el Wiki del Shotwell a %s."
+"comproveu el Wiki del Shotwell a %s"
 
 #: src/main.vala:65
 #, c-format
