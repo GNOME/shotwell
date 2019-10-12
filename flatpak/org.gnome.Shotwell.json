@@ -214,14 +214,17 @@
         },
         {
             "name" : "libchamplain",
+            "buildsystem" : "meson",
             "config-opts" : [
-                "--enable-vala"
+                "-Dvapi=true",
+                "-Dintrospection=true",
+                "-Dwidgetry=true"
             ],
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "LIBCHAMPLAIN_0_12_18",
-                    "commit" : "3abc28430124256660a7321da1fa6571f2975ad7",
+                    "tag" : "LIBCHAMPLAIN_0_12_19",
+                    "commit" : "37493068c81f28773a910ab3a781fe83fd8fb6f3",
                     "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git"
                 }
             ]
