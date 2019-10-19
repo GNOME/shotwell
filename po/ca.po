@@ -350,7 +350,7 @@ msgstr ""
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:125
 msgid "use 24 hour time"
-msgstr "utilitza temps de vint-i-quatre hores "
+msgstr "utilitza temps de vint-i-quatre hores"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:126
 msgid ""
@@ -2402,7 +2402,7 @@ msgstr "Preparant-se per connectar..."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:207
 msgid "Flickr authorization failed"
-msgstr "Ha fallat l'autorització de Flickr "
+msgstr "Ha fallat l'autorització de Flickr"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:214
 msgid "Verifying authorization…"
@@ -3746,7 +3746,7 @@ msgstr "Crea una etiqueta"
 #: src/Commands.vala:1694
 #, c-format
 msgid "Move Tag “%s”"
-msgstr "Mou l'etiqueta «%s» "
+msgstr "Mou l'etiqueta «%s»"
 
 #: src/Commands.vala:2346
 msgid "Move Photos to Trash"
@@ -5243,7 +5243,7 @@ msgstr "Detecció de cares"
 #: src/faces/FacesTool.vala:212
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr ""
-"Si no establiu el nom de les cares desconegudes aquestes no es desaran. "
+"Si no establiu el nom de les cares desconegudes aquestes no es desaran."
 
 #: src/faces/FacesTool.vala:233
 msgid "Save changes and close the Faces tool"
