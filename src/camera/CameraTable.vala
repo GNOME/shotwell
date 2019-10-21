@@ -252,9 +252,15 @@ public class CameraTable {
                 try {
                     var mount = File.new_for_path (port.substring(5)).find_enclosing_mount();
                     var volume = mount.get_volume();
-                    // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
-                    display_name = _("%s (%s)").printf (name, volume.get_name ());
-                    icon = volume.get_symbolic_icon().to_string();
+                    if (volume != null) {
+                        // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+                        display_name = _("%s (%s)").printf (name, volume.get_name ());
+                        icon = volume.get_symbolic_icon().to_string();
+                    } else {
+                        // Translators: First %s is the name of camera as gotten from GPhoto, second is the GMount name, e.g. Mass storage camera (510MB volume)
+                        display_name = _("%s (%s)").printf (name, mount.get_name ());
+                        icon = mount.get_symbolic_icon().to_string();
+                    }
 
                 } catch (Error e) { }
             }
