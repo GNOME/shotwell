@@ -130,7 +130,6 @@ public class JfifSniffer : GdkSniffer {
         var length = Jpeg.read_marker_2(dins, out marker);
 
         if (marker != Jpeg.Marker.SOI) {
-            is_corrupted = true;
             return null;
         }
 
