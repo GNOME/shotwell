@@ -103,17 +103,68 @@ public class JfifSniffer : GdkSniffer {
     }
     
     public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
+        is_corrupted = false;
+        if (!calc_md5) {
+            return fast_sniff (out is_corrupted);
+        } else {
+            if (!Jpeg.is_jpeg(file)) {
+                return null;
+            }
+
+            return base.sniff (out is_corrupted);
+
+        }
+    }
+
+    private DetectedPhotoInformation? fast_sniff(out bool is_corrupted) throws Error {
+        var detected = new DetectedPhotoInformation();
+
         // Rely on GdkSniffer to detect corruption
         is_corrupted = false;
-        
-        if (!Jpeg.is_jpeg(file))
+
+        var fins = file.read(null);
+        var dins = new DataInputStream(fins);
+        dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
+
+        var marker = Jpeg.Marker.INVALID;
+        var length = Jpeg.read_marker_2(dins, out marker);
+
+        if (marker != Jpeg.Marker.SOI) {
+            is_corrupted = true;
             return null;
-        
-        DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
-        if (detected == null)
-            return null;
-        
+        }
+
+        length = Jpeg.read_marker_2(dins, out marker);
+        while (marker != Jpeg.Marker.SOF && length > 0) {
+            (dins as Seekable).seek(length, SeekType.CUR, null);
+            length = Jpeg.read_marker_2(dins, out marker);
+        }
+
+        if (marker == SOF) {
+            if (length < 6) {
+                is_corrupted = true;
+                return null;
+            }
+
+            // Skip precision
+            dins.read_byte();
+
+            // Next two 16 bytes are image dimensions
+            uint16 height = dins.read_uint16();
+            uint16 width = dins.read_uint16();
+
+            detected.image_dim = Dimensions(width, height);
+            detected.colorspace = Gdk.Colorspace.RGB;
+            detected.channels = 3;
+            detected.bits_per_channel = 8;
+            detected.format_name = "jpeg";
+            detected.file_format = PhotoFileFormat.from_pixbuf_name(detected.format_name);
+        } else {
+            is_corrupted = true;
+        }
+
         return (detected.file_format == PhotoFileFormat.JFIF) ? detected : null;
+
     }
 }
 
@@ -152,6 +203,7 @@ namespace Jpeg {
         
         SOI = 0xD8,
         EOI = 0xD9,
+        SOF = 0xC0,
         
         APP0 = 0xE0,
         APP1 = 0xE1;
@@ -219,31 +271,35 @@ namespace Jpeg {
         return is_jpeg_stream(mins);
     }
 
-    private int read_marker(InputStream fins, out Jpeg.Marker marker) throws Error {
+    private int32 read_marker_2(DataInputStream dins, out Jpeg.Marker marker) throws Error {
         marker = Jpeg.Marker.INVALID;
-        
-        DataInputStream dins = new DataInputStream(fins);
-        dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
-        
+
         if (dins.read_byte() != Jpeg.MARKER_PREFIX)
             return -1;
         
         marker = (Jpeg.Marker) dins.read_byte();
         if ((marker == Jpeg.Marker.SOI) || (marker == Jpeg.Marker.EOI)) {
             // no length
-            return 0;
+            return -1;
         }
         
         uint16 length = dins.read_uint16();
-        if (length < 2 && fins is Seekable) {
+        if (length < 2 && dins is Seekable) {
             debug("Invalid length %Xh at ofs %" + int64.FORMAT + "Xh", length,
-                    (fins as Seekable).tell() - 2);
+                    (dins as Seekable).tell() - 2);
             
             return -1;
         }
         
         // account for two length bytes already read
         return length - 2;
+    }
+
+    private int read_marker(InputStream fins, out Jpeg.Marker marker) throws Error {
+        DataInputStream dins = new DataInputStream(fins);
+        dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
+
+        return read_marker_2(dins, out marker);
     }
 }
 
