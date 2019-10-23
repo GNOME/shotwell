@@ -117,6 +117,7 @@ public class JfifSniffer : GdkSniffer {
     }
 
     private DetectedPhotoInformation? fast_sniff(out bool is_corrupted) throws Error {
+        is_corrupted = false;
         var detected = new DetectedPhotoInformation();
 
         detected.metadata = new PhotoMetadata();
