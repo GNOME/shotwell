@@ -111,8 +111,13 @@ public class JfifSniffer : GdkSniffer {
                 return null;
             }
 
-            return base.sniff (out is_corrupted);
+            // Rely on GdkSniffer to detect corruption
 
+            DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
+            if (detected == null)
+                return null;
+
+            return (detected.file_format == PhotoFileFormat.JFIF) ? detected : null;
         }
     }
 
@@ -168,8 +173,7 @@ public class JfifSniffer : GdkSniffer {
             is_corrupted = true;
         }
 
-        return (detected.file_format == PhotoFileFormat.JFIF) ? detected : null;
-
+        return detected;
     }
 }
 
