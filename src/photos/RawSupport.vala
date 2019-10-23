@@ -174,7 +174,6 @@ public class RawSniffer : PhotoFileSniffer {
         
         try {
             processor.open_file(file.get_path());
-            processor.unpack();
             processor.adjust_sizes_info_only();
         } catch (GRaw.Exception exception) {
             if (exception is GRaw.Exception.UNSUPPORTED_FILE)
@@ -195,7 +194,7 @@ public class RawSniffer : PhotoFileSniffer {
             // ignored
         }
         
-        if (detected.metadata != null) {
+        if (calc_md5 && detected.metadata != null) {
             detected.exif_md5 = detected.metadata.exif_hash();
             detected.thumbnail_md5 = detected.metadata.thumbnail_hash();
         }
