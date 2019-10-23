@@ -119,8 +119,13 @@ public class JfifSniffer : GdkSniffer {
     private DetectedPhotoInformation? fast_sniff(out bool is_corrupted) throws Error {
         var detected = new DetectedPhotoInformation();
 
-        // Rely on GdkSniffer to detect corruption
-        is_corrupted = false;
+        detected.metadata = new PhotoMetadata();
+        try {
+            detected.metadata.read_from_file(file);
+        } catch (Error err) {
+            // no metadata detected
+            detected.metadata = null;
+        }
 
         var fins = file.read(null);
         var dins = new DataInputStream(fins);
