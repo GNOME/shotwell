@@ -285,7 +285,7 @@ namespace Jpeg {
         marker = (Jpeg.Marker) dins.read_byte();
         if ((marker == Jpeg.Marker.SOI) || (marker == Jpeg.Marker.EOI)) {
             // no length
-            return -1;
+            return 0;
         }
         
         uint16 length = dins.read_uint16();
