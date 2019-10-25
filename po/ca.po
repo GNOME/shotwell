@@ -2996,7 +2996,7 @@ msgstr "Google+ (2048 x 1536 píxels)"
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
 #: src/editing_tools/EditingTools.vala:741
 msgid "Original Size"
-msgstr "Mida Original"
+msgstr "Mida original"
 
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:59
@@ -3141,7 +3141,7 @@ msgstr "Mostra el certificat..."
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
 msgid "I understand, please _proceed."
-msgstr "Entenc, si us plau _procedeixi."
+msgstr "Entenc, si us plau _procedeix."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:53
 msgid "Core Publishing Services"
