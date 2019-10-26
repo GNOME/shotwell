@@ -78,17 +78,17 @@ if unity.found() and get_option('unity-support')
   add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
 endif
 
-foreach publisher : get_option('publishers').split(',')
+foreach publisher : get_option('publishers')
   add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],
                        language : 'vala')
 endforeach
 
-foreach trace : get_option('trace').split(',')
+foreach trace : get_option('trace')
   add_global_arguments(['--define=TRACE_@0@'.format(trace.to_upper().underscorify())],
                        language : 'vala')
 endforeach
 
-foreach measure : get_option('measure').split(',')
+foreach measure : get_option('measure')
   add_global_arguments(['--define=MEASURE_@0@'.format(trace.to_upper().underscorify())],
                        language : 'vala')
 endforeach
