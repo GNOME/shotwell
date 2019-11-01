@@ -12,8 +12,8 @@
 msgid ""
 msgstr "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-09-25 18:02+0000\n"
-"PO-Revision-Date: 2019-10-06 10:00+0100\n"
+"POT-Creation-Date: 2019-10-08 14:17+0000\n"
+"PO-Revision-Date: 2019-11-01 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -399,7 +399,7 @@ msgstr "“Ezkutatu argazkiak” aukeraren hautapen-egoera"
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
-msgstr ""
+msgstr "Inportazioen orriaren “Ezkutatu jadanik inportatu diren argazkiak” aukeran erabilitako azken hautatze-egoera"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:193
 msgid "delay"
@@ -565,27 +565,27 @@ msgstr "Argazkiak mozteko azkena erabilitako aspektu-erlazioen menuaren aukera."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:308
 msgid "A numeric code representing the last crop menu choice the user made."
-msgstr ""
+msgstr "Erabiltzaileak erabili duen mozte-menuaren azken aukera ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:312
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
-msgstr ""
+msgstr "Oraintsuen erabilitako mozketaren aspektu-erlazio pertsonalizatuaren zenbakitzailea."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:313
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
-msgstr ""
+msgstr "Erabiltzaileak sartu duen azken mozte-erlazio pertsonalizatuaren zabalera ordezkatzen duen zenbaki osoa, zero ez dena."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
-msgstr ""
+msgstr "Oraintsuen erabilitako mozketaren aspektu-erlazio pertsonalizatuaren izendatzailea."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:318
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
-msgstr ""
+msgstr "Erabiltzaileak sartu duen azken mozte-erlazio pertsonalizatuaren altuera ordezkatzen duen zenbaki osoa, zero ez dena."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:325
 msgid "external photo editor"
@@ -704,7 +704,7 @@ msgstr "Facebook-era igotzen diren argazkien metadatuak kenduko diren ala ez"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:460
 msgid "OAuth Access Phase Token"
-msgstr ""
+msgstr "OAuth Access Phase tokena"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:461
 msgid "The authorization token for the currently logged in Flickr user, if any"
@@ -712,22 +712,22 @@ msgstr "Flickr-en saioa hasita duen erabiltzailearen baimen-tokena, halakorik ba
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:466
 msgid "OAuth Access Phase Token Secret"
-msgstr ""
+msgstr "OAuth Access Phase tokenaren sekretua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:467
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
-msgstr ""
+msgstr "Flickr-en saioa hasita duen erabiltzailearen, halakorik badago, baimen-tokenaren aurka eskariak sinatzeko erabili den sekretu kriptografikoa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:473
 msgid "The user name of the currently logged in Flickr user, if any"
-msgstr ""
+msgstr "Saioa hasita daukan Flikr-eko erabiltzailearen izena, halakorik badago"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:479
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
-msgstr ""
+msgstr "Flickr-en argitaratuko diren argazkien tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:484
 msgid "default visibility"
@@ -737,13 +737,13 @@ msgstr "ikusgaitasun lehenetsia"
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
-msgstr ""
+msgstr "Flickr-en argitaratuko diren argazkien ikusgaitasun lehenetsia ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:491
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
-msgstr ""
+msgstr "Flickr-era igotzen diren argazkien metadatuak kenduko diren ala ez"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:498
 #: data/gsettings/org.yorba.shotwell.gschema.xml:630
@@ -754,13 +754,13 @@ msgstr "freskatu tokena"
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any."
-msgstr ""
+msgstr "Unean Google Photos-en saioa hasita duen erabiltzailearen saioa, halakorik badago, freskatzeko erabilitako OAuth tokena."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:505
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
-msgstr ""
+msgstr "Google Photos albumetara igotako argazkien tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:510
 #: data/gsettings/org.yorba.shotwell.gschema.xml:604
@@ -770,13 +770,13 @@ msgstr "azken albuma"
 #: data/gsettings/org.yorba.shotwell.gschema.xml:511
 #: data/gsettings/org.yorba.shotwell.gschema.xml:605
 msgid "The name of the last album the user published photos to, if any"
-msgstr ""
+msgstr "Erabiltzaileak argazkiak argitaratzeko erabili zuen azken albumaren izena, halakorik badago"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:517
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
-msgstr ""
+msgstr "Google Photos-era igotzen diren argazkien metadatuak kenduko diren ala ez"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:524
 msgid "Piwigo URL"
@@ -822,24 +822,24 @@ msgstr "Aukeratutako azken Piwigo baimen-maila."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
-msgstr ""
+msgstr "Piwigo sarean argitaratzean argazkietarako erabilitako azken tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:567
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
-msgstr ""
+msgstr "Piwigo-ra igotzen diren argazkien metadatuak kenduko diren ala ez"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:572
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
-msgstr ""
+msgstr "Izenburua ezartzen bada eta iruzkina kentzen bada, erabili izenburua iruzkin gisa Piwigo-ra argazkiak igotzeko"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:573
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
-msgstr ""
+msgstr "Piwigo-ra igotzen diren argazkiei iruzkina titulutik abiatuta ezarriko zaien, titulua ezarrita badago eta iruzkina ez"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:578
 msgid "do not upload tags when uploading to Piwigo"
@@ -849,7 +849,7 @@ msgstr "ez igo etiketak Piwigo-ra igotzean"
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
-msgstr ""
+msgstr "Piwigo-ra igotzen diren irudien etiketak kenduko diren ala ez, etiketa horiek Piwigo zerbitzariak ager ez daitezen"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:587
 msgid "Gallery3 username"
@@ -875,67 +875,67 @@ msgstr "Gallery3 guneran URLa"
 msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
-msgstr ""
+msgstr "Gallery3-ra igotzen diren argazkien metadatuak kenduko diren ala ez adierazten du"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:616
 msgid "scaling constraint of uploaded picture"
-msgstr ""
+msgstr "igotako argazkiaren eskala-murriztapena"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:617
 msgid "The scaling constraint ID of the picture to be uploaded"
-msgstr ""
+msgstr "Igoko den argazkiaren eskala-murriztapenaren IDa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:622
 msgid "pixels of the major axis uploaded picture"
-msgstr ""
+msgstr "igotako argazkiaren ardatz nagusiaren pixelak"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:623
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
-msgstr ""
+msgstr "Igotako argazkiaren ardatz nagusiaren pixelak; eskala-murriztapenaren IDa balio egokia bada soilik erabiliko da"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:631
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
-msgstr ""
+msgstr "Unean YouTube-n saioa hasita duen erabiltzailearen saioa, halakorik badago, freskatzeko erabilitako OAuth tokena."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:638
 msgid "last used import service"
-msgstr ""
+msgstr "erabilitako azken inportazio-zerbitzua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:639
 msgid ""
 "A numeric code representing the last service from which photos were imported"
-msgstr ""
+msgstr "Argazkiak inportatzeko erabili den azken zerbitzua ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:646
 msgid "interpreter state cookie"
-msgstr ""
+msgstr "Interpretatzailearen egoeraren cookie-a"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:647
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr ""
+msgstr "GStreamer plugin-ingurunearen egoera kapturatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:654
 msgid "content layout mode"
-msgstr ""
+msgstr "eduki-diseinuaren modua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:655
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
-msgstr ""
+msgstr "Inprimatzean, argazkiak orrian nola kokatzen diren deskribatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:660
 msgid "content ppi"
-msgstr ""
+msgstr "edukiaren ppl-ak"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:661
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
-msgstr ""
+msgstr "Inprimagailura inprimatzean bidalitako ppl-ak (pixelak hazbeteko)"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:666
 msgid "content width"
@@ -943,7 +943,7 @@ msgstr "edukiaren zabalera"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:667
 msgid "The width of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Inprimatzean, orrialdean inprimatutako emultsioaren zabalera"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:672
 msgid "content height"
@@ -951,7 +951,7 @@ msgstr "edukiaren altuera"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:673
 msgid "The height of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Inprimatzean, orrialdean inprimatutako emultsioaren altuera"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:678
 msgid "content units"
@@ -961,17 +961,17 @@ msgstr "edukiaren unitateak"
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
-msgstr ""
+msgstr "Inprimatzean erabilitako neurketa-unitatea (hazbeteak edo zentimetroak) ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:684
 msgid "images per page code"
-msgstr ""
+msgstr "Irudiak orrialde-kodeko"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:685
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
-msgstr ""
+msgstr "Inprimatzean erabilitako 'Irudiak orrialdeko' balioa ordezkatzen duen zenbakizko kodea"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:690
 msgid "size selection"
@@ -980,17 +980,17 @@ msgstr "tamaina-hautapena"
 #: data/gsettings/org.yorba.shotwell.gschema.xml:691
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
-msgstr ""
+msgstr "Uneko inprimatze-tamainaren indizea tamaina estandarren zerrenda aurredefinitu batean"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:696
 msgid "match aspect ratio"
-msgstr ""
+msgstr "egin bat aspektu-erlazioarekin"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:697
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
-msgstr ""
+msgstr "Inprimatze-tamaina pertsonalizatuak jatorrizko argazkiaren aspektu-erlazioarekin bat egin behar duten ala ez zehazten du"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:702
 msgid "print titles"
@@ -1000,7 +1000,7 @@ msgstr "inprimatu tituluak"
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
-msgstr ""
+msgstr "Egia argazki baten titulua inprimatzeko argazkia inprimatzean, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:708
 msgid "titles font"
@@ -1008,7 +1008,7 @@ msgstr "tituluen letra-tipoa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:709
 msgid "The name of the font to use for photo titles when they are printed."
-msgstr ""
+msgstr "Argazki-tituluetan erabilitako letra-tipoaren izena, haiek inprimatzen direnean."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:720
 msgid "enable facebook publishing plugin"
@@ -1016,7 +1016,7 @@ msgstr "gaitu facebook-en argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:721
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Facebook-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:726
 msgid "enable flickr publishing plugin"
@@ -1024,7 +1024,7 @@ msgstr "gaitu flickr-en argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:727
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Flickr-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:732
 msgid "enable Google Photos publishing plugin"
@@ -1032,7 +1032,7 @@ msgstr "gaitu google photos-en argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:733
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Google Photos-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:738
 msgid "enable youtube publishing plugin"
@@ -1040,7 +1040,7 @@ msgstr "gaitu youtube-n argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:739
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia YouTube-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:744
 msgid "enable piwigo publishing plugin"
@@ -1048,7 +1048,7 @@ msgstr "gaitu piwigo-n argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:745
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Piwigo-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:750
 msgid "enable yandex publishing plugin"
@@ -1056,7 +1056,7 @@ msgstr "gaitu yandex-en argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Yandex.Fotki-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:756
 msgid "enable tumblr publishing plugin"
@@ -1064,7 +1064,7 @@ msgstr "gaitu tumblr-en argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:757
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Tumblr-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:762
 msgid "enable rajce publishing plugin"
@@ -1072,7 +1072,7 @@ msgstr "gaitu rajce-n argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:763
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Rajce-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:768
 msgid "enable gallery3 publishing plugin"
@@ -1080,7 +1080,7 @@ msgstr "gaitu gallery3-n argitaratzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:769
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia Gallery3-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:774
 msgid "enable F-Spot import plugin"
@@ -1088,98 +1088,98 @@ msgstr "gaitu F-Spot aplikaziotik inportatzeko plugina"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:775
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia F-Spot-etik inportatzeko plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:780
 msgid "enable slideshow crumble transition"
-msgstr ""
+msgstr "gaitu birrindu diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:781
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia birrintzearen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:786
 msgid "enable slideshow fade transition"
-msgstr ""
+msgstr "gaitu iraungi diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:787
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia iraungitzearen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow slide transition"
-msgstr ""
+msgstr "gaitu irristatu diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:793
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia irristatzearen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow clock transition"
-msgstr ""
+msgstr "gaitu erlojua diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:799
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia erlojuaren diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow circle transition"
-msgstr ""
+msgstr "gaitu zirkulua diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:805
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia zirkuluaren diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:810
 msgid "enable slideshow circles transition"
-msgstr ""
+msgstr "gaitu zirkuluak diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:811
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia zirkuluen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:816
 msgid "enable slideshow blinds transition"
-msgstr ""
+msgstr "gaitu pertsianak diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:817
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia pertsianen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:822
 msgid "enable slideshow squares transition"
-msgstr ""
+msgstr "gaitu laukiak diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:823
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia laukien diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:828
 msgid "enable slideshow stripes transition"
-msgstr ""
+msgstr "gaitu marrak diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:829
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
-msgstr ""
+msgstr "Egia marren diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:834
 msgid "enable slideshow chess transition"
-msgstr ""
+msgstr "gaitu xake-taula diapositiba-trantsizioa"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:835
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
-msgstr ""
+msgstr "Egia xake-taularen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
@@ -1203,7 +1203,7 @@ msgid ""
 "editing, like crop, red-eye correction, color adjustments, and straighten. "
 "Shotwell’s non-destructive photo editor does not alter your master photos, "
 "making it easy to experiment and correct errors."
-msgstr ""
+msgstr "Shotwell erraz erabiltzen den argazki-antolatzaile azkarra da, GNOME mahaigainerako diseinatu dena. Argazkiak kameratik edo diskotik inportatzen ditu, dataren eta gaiaren arabera antolatzen ditu eta puntuazioen bidez ere ordenatzen ditu. Argazkien oinarrizko edizioa eskaintzen du: mozketa, begi gorrien zuzenketa, koloreen doikuntzak eta argazkia zuzentzea. Shotwell-en argazki-editorea ez da suntsikorra eta ez ditu zure jatorrizko argazkiak aldatzen eta, hortaz, erraza da aldaketa desberdinak probatzea eta erroreak zuzentzea."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
 msgid ""
@@ -1556,7 +1556,7 @@ msgstr "_Laguntza"
 #: data/ui/media.ui:416 data/ui/offline.ui:193 data/ui/photo.ui:400
 #: data/ui/tags.ui:435 data/ui/trash.ui:202
 msgid "_Frequently Asked Questions"
-msgstr "_Maiz egiten diren galderak"
+msgstr "_Ohiko galderak"
 
 #: data/ui/direct.ui:186 data/ui/events_directory.ui:167 data/ui/event.ui:437
 #: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:200
@@ -2172,7 +2172,9 @@ msgid ""
 "\n"
 "Click Log in to log into Flickr in your Web browser. You will have to "
 "authorize Shotwell Connect to link to your Flickr account."
-msgstr ""
+msgstr "Flickr-en saioa hasi gabe zaude.\n"
+"\n"
+"Joan zure web nabigatzailera eta sakatu 'Hasi saioa' Flickr-en. Shotwell Connect aplikazioari baimena eman beharko diozu zure Flickr kontuarekin esteka sor dezan."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
@@ -2216,7 +2218,11 @@ msgid ""
 "with Google Photos.\n"
 "\n"
 "You will have to authorize Shotwell to link to your Google Photos account."
-msgstr ""
+msgstr "Google Photos-en saioa hasi gabe zaude.\n"
+"\n"
+"Google-n kontu bat eduki behar duzu eta hura zure Google Photos kontua erabiltzeko konfiguratuta eduki behar duzu.\n"
+"\n"
+"Shotwell-i baimena eman behar diozu zure Google Photos kontuarekin esteka sor dezan."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -2270,47 +2276,47 @@ msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
 #: plugins/common/RESTSupport.vala:220
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
-msgstr ""
+msgstr "⚫ Webgune honek beste webgune batena den identifikazioa aurkeztu du."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:225
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
-msgstr ""
+msgstr "⚫ Webgune honen identifikazioa zaharregia da fidagarria izateko. Egiaztatu data zure ordenagailuaren egutegian."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:230
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
-msgstr ""
+msgstr "⚫ Webgune honen identifikazioa ez da erakunde fidagarri batek igorritakoa."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:235
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
-msgstr ""
+msgstr "⚫ Ezin izan da webgune honen identifikazioa prozesatu. Hondatuta egon daiteke."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:240
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
-msgstr ""
+msgstr "⚫ Webgune honen identifikazioa igorri zuen erakunde fidagarriak errebokatu egin du."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:245
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
-msgstr ""
+msgstr "⚫ Ezin da webgune honen identifikazioan fidatu, zifratze oso ahula darabilelako."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:250
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
-msgstr ""
+msgstr "⚫ Webgune honen identifikazioa etorkizuneko datentzako bakarrik da baliozkoa. Egiaztatu data zure ordenagailuaren egutegian."
 
 #: plugins/common/RESTSupport.vala:539
 #: plugins/shotwell-publishing/TumblrPublishing.vala:623
@@ -2578,7 +2584,7 @@ msgstr "_Debekatu jatorrizko argazkia deskargatzea"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
 msgid "Photo _size"
-msgstr ""
+msgstr "Argazki-_tamaina"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
@@ -2612,7 +2618,8 @@ msgstr "Flickr-en saioa hasita daukazu %s erabiltzaile-izenarekin.\n"
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month you have %s remaining in your upload quota."
-msgstr ""
+msgstr "Zure doaneko Flickr kontuak mugatu egiten du zenbat datu igo ditzakezun hileko.\n"
+"Hilabete honetan %s geratzen zaizkizu zure igotze-kuotan."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:611
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
@@ -2620,15 +2627,15 @@ msgstr "Zure Flickr-eko Pro kontuarekin mugarik gabe igo ditzakezu datuak."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:616
 msgid "Photos _visible to"
-msgstr ""
+msgstr "Argazkiak _ikusgai honakoentzat:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:618
 msgid "Videos _visible to"
-msgstr ""
+msgstr "Bideoak _ikusgai honakoentzat:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Photos and videos _visible to"
-msgstr ""
+msgstr "Argazkiak eta bideoak _ikusgai honakoentzat:"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
@@ -2678,11 +2685,11 @@ msgid ""
 "Shotwell can only publish into albums that it created by itself, so this "
 "list might be empty despite the fact that you already have albums in your "
 "Google Photos account"
-msgstr ""
+msgstr "Shotwell-ek berak sortutako albumetan soilik argitara ditzake argazkiak, beraz, zerrenda hau hutsik egon daiteke zuk zure Google Photos kontuan lehendik albumak eduki arren"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "Photo _size preset"
-msgstr ""
+msgstr "Argazki-_tamainaren aurrezarpena"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
 msgid "An existing album"
@@ -2768,7 +2775,7 @@ msgstr "Albumaren iruzkina"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
 msgid "Photos will be _visible by"
-msgstr ""
+msgstr "Argazkiak _ikusgai honen bidez:"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
 msgid "Photo size"
@@ -2802,12 +2809,12 @@ msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
 "alter information going to or from this site (for example, private messages, "
 "credit card information, or passwords)."
-msgstr ""
+msgstr "Honek ez dirudi benetako %s. Erasotzaileek webgune honetatik edo honetara doan informazioa (adibidez, mezu pribatuak, kreditu-txartelen informazioa edo pasahitzak) lapurtzen edo aldatzen saia daitezke."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1053
 #, c-format
 msgid "Certificate of %s"
-msgstr ""
+msgstr "%s(r)en ziurtagiria"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
@@ -4389,7 +4396,7 @@ msgstr "Hasteko, inportatu argazkiak honela:"
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
 msgid "Choose File %s Import From Folder"
-msgstr ""
+msgstr "Hautatu 'Fitxategia %s Inportatu karpetatik'"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -4803,7 +4810,7 @@ msgstr "Egin klik “%s” aurpegia editatzeko"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
-msgstr ""
+msgstr "Gelditu arrastatzeko zure aurpegia gehitu eta hari izena emateko."
 
 #: src/faces/FacesTool.vala:193
 msgid "Type a name for this face, then press Enter"
@@ -4897,7 +4904,9 @@ msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
-msgstr ""
+msgstr "Shotwell argazkiak zure karpeta nagusira inportatzeko konfiguratuta dago.\n"
+"'Editatu %s Hobespenak' menuan aldatzea gomendatzen dizugu.\n"
+"Argazkiak inportatzen jarraitzea nahi duzu?"
 
 #. TODO: Specify which directory/file.
 #: src/library/LibraryWindow.vala:817
@@ -5035,7 +5044,7 @@ msgstr "Hobetu mapa hau"
 
 #: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
-msgstr ""
+msgstr "Blokeatu edo desblokeatu geoetiketak ezartzeko mapa argazkiak mapara arrastatuta"
 
 #: src/MediaMonitor.vala:400
 #, c-format
@@ -5255,7 +5264,7 @@ msgstr "Flasha:"
 
 #: src/Properties.vala:624
 msgid "Focal length:"
-msgstr "Foku-distanzia:"
+msgstr "Foku-distantzia:"
 
 #: src/Properties.vala:627
 msgid "Exposure date:"
@@ -5344,7 +5353,7 @@ msgid ""
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
 "Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
-msgstr ""
+msgstr "Shotwell-ek ezin ditu hautatutako elementuak argitaratu ez daukazulako gaituta bateragarririk den pluginik. Hau zuzentzeko, hautatu “Editatu %s Hobespenak” eta gaitu 'Plugina' fitxan dagoen argitaratze-pluginetako bat edo gehiago."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -5735,7 +5744,7 @@ msgstr "Aldatu “%s” etiketaren _izena…"
 #: src/Resources.vala:352
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
-msgstr ""
+msgstr "Aldatu “%s” etiketaren izena eta ezarri “%s”"
 
 #: src/Resources.vala:358
 msgid "Modify Tags"
@@ -5791,7 +5800,7 @@ msgstr "Ezabatu bilaketa"
 #: src/Resources.vala:401
 #, c-format
 msgid "Rename Search “%s” to “%s”"
-msgstr ""
+msgstr "Aldatu “%s” bilaketaren izena eta ezarri “%s”"
 
 #: src/Resources.vala:405
 #, c-format
@@ -5801,7 +5810,7 @@ msgstr "Ezabatu “%s” bilaketa"
 #: src/Resources.vala:410
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr ""
+msgstr "Ezin izan da aurpegiaren izena aldatu eta “%s” jarri, aurpegi hori jadanik existitzen delako."
 
 #: src/Resources.vala:414
 #, c-format
@@ -5821,17 +5830,17 @@ msgstr[1] "Kendu “%s” etiketa argazkitik"
 #: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
 msgid "_Train Face “%s” From Photo"
-msgstr ""
+msgstr "En_trenatu “%s” aurpegia argazkitik"
 
 #: src/Resources.vala:438
 #, c-format
 msgid "Re_name Face “%s”…"
-msgstr ""
+msgstr "Aldatu “%s” aurpegiaren _izena…"
 
 #: src/Resources.vala:442
 #, c-format
 msgid "Rename Face “%s” to “%s”"
-msgstr ""
+msgstr "Aldatu “%s” aurpegiaren izena eta ezarri “%s”"
 
 #: src/Resources.vala:446
 #, c-format
@@ -6138,7 +6147,7 @@ msgstr "★★★★★+ balorazioa"
 #: src/SearchFilter.vala:1086
 #, c-format
 msgid "Error loading search bar UI: %s"
-msgstr ""
+msgstr "Errorea bilaketa-barraren interfaze grafikoa kargatzean: %s"
 
 #. Ticket #3260 - Add a 'close' context menu to
 #. the searchbar.
@@ -6164,7 +6173,7 @@ msgstr "RAW argazkiak"
 
 #: src/SearchFilter.vala:1147
 msgid "Use a saved search to filter items in the current view"
-msgstr ""
+msgstr "Erabili gordetako bilaketa bat uneko ikuspegiko elementuak iragazteko"
 
 #. Set up toolbar
 #. add toolbar buttons
