@@ -273,7 +273,7 @@ msgstr ""
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:83
 msgid "display photo ratings"
-msgstr "mostra la qualificació de la fotografia"
+msgstr "mostra la puntuació de la fotografia"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:84
 msgid ""
@@ -293,7 +293,7 @@ msgid ""
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
 "or better, 6: Four or better, 7: Five or better."
 msgstr ""
-"Determina com filtrar les fotografies segons la seva classificació. 1: "
+"Determina com filtrar les fotografies segons la seva puntuació. 1: "
 "Rebutjat o millor, 2: Sense valoració o millor, 3: Un o millor, 4: Dos o "
 "millor, 5: Tres o millor, 6: Quatre o millor, 7: Cinc o millor."
 
@@ -1404,7 +1404,7 @@ msgid ""
 msgstr ""
 "Shotwell és un ràpid organitzador de fotografies fàcil d'usar, dissenyat per "
 "a l'escriptori GNOME. Es poden importar imatges des de la seva càmera o "
-"disc, organitzar-les per data i tema, fins i tot qualificar-les. També "
+"disc, organitzar-les per data i tema, fins i tot puntuar-les. També "
 "ofereix funcions bàsiques d'edició, com retallar, correcció d'ulls vermells, "
 "ajustaments de color, i redreçar. L'editor de fotografies Shotwell no "
 "destrueix ni altera les seves imatges mestres, per tant,  és fàcil "
