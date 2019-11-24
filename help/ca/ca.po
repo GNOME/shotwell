@@ -1,13 +1,13 @@
 # Translators:
 # Assumpta, 2019
-# Jaume Jorba. Correu particular <jaume.jorba@gmail.com>, 2019
-# 
+# Jaume Jorba <jaume.jorba@gmail.com>, 2019
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-08-18 19:15+0000\n"
 "PO-Revision-Date: 2019-08-18 19:20+0000\n"
-"Last-Translator: Jaume Jorba. Correu particular <jaume.jorba@gmail.com>, 2019\n"
+"Last-Translator: Jaume Jorba <jaume.jorba@gmail.com>, 2019\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,12 +18,12 @@ msgstr ""
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr "Jaume Jorba <jaume.jorba@gmail.com>"
 
 #. (itstool) path: info/desc
 #: C/edit-adjustments.page:7
 msgid "Change the exposure, saturation, tint, and shadows of a photo."
-msgstr "Canviar l'exposició, saturació, tint, i ombres d'una fotografia"
+msgstr "Canviar l'exposició, saturació, tint, i ombres d'una fotografia."
 
 #. (itstool) path: page/title
 #: C/edit-adjustments.page:12
@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "Quan els colors i el contrast de la fotografia siguin del vostre gust, "
 "premeu <gui>D'acord</gui> per desar els canvis. <gui>Restaura</gui> torna la"
-" imatge a l'estat inicial. <gui>Cancelar</gui> descarta qualsevol canvi que "
+" imatge a l'estat inicial. <gui>Cancel·la</gui> descarta qualsevol canvi que "
 "s'hagi fet."
 
 #. (itstool) path: section/title
@@ -199,7 +199,7 @@ msgid ""
 msgstr ""
 "Per reduir l'àrea d'una foto i fer que l'atenció de l'espectador se centri "
 "en una part petita, feu servir l'eina d'escapçar. L'eina d'escapçar només "
-"està disponible en els modes de finestra completa o de pantalla completa. "
+"està disponible en els modes de finestra completa o de pantalla completa."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:19
@@ -245,7 +245,7 @@ msgid ""
 msgstr ""
 "També podeu restringir la capsa d'escapçament a una de les diverses mides "
 "comunes. Trieu una mida que us vagi bé a la llista desplegable. Si premeu el"
-" boto de capgirar del costat, l'orientació de la restricció canviarà "
+" botó de capgirar del costat, l'orientació de la restricció canviarà "
 "(d'apaïsat a retrat)."
 
 #. (itstool) path: item/p
@@ -255,7 +255,7 @@ msgid ""
 "<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
 "Quan us agradi el contorn de l'escapçament, apliqueu-lo prement el "
-"botó<gui>Escapça</gui>. Shotwell mostrarà la foto escapçada."
+"botó <gui>Escapça</gui>. Shotwell mostrarà la foto escapçada."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:32
@@ -272,7 +272,7 @@ msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
-"Si premeu<gui>Cancelar</gui> en comptes d'<gui>Aplicar</gui>, Shotwell "
+"Si premeu <gui>Cancel·la</gui> en comptes d'<gui>Aplica</gui>, Shotwell "
 "tornarà a les dimensions anteriors al retallat de la foto."
 
 #. (itstool) path: section/title
@@ -357,7 +357,7 @@ msgid ""
 msgstr ""
 "Per ajustar la data i l'hora de les fotos, seleccioneu les fotos que vulgueu"
 " ajustar, trieu <guiseq><gui>Fotos</gui><gui>Ajusta data i "
-"hora...</gui></guiseq>i seleccioneu una altra data i una altra hora."
+"hora...</gui></guiseq> i seleccioneu una altra data i una altra hora."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:16
@@ -386,7 +386,7 @@ msgstr ""
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
-"Deixeu que Shotwell millori la billantor i el contrast d'una foto "
+"Deixeu que Shotwell millori la brillantor i el contrast d'una foto "
 "automàticament."
 
 #. (itstool) path: page/title
@@ -432,7 +432,7 @@ msgstr ""
 "editors externs predeterminats per a l'edició de fotos i RAW, "
 "respectivament. Si aquests programes no estan instal·lats, heu de "
 "seleccionar els vostres editors preferits triant "
-"<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq>i seleccionant els "
+"<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq> i seleccionant els "
 "editors dels menús desplegables de les aplicacions instal·lades."
 
 #. (itstool) path: page/p
@@ -552,7 +552,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/edit-redeye.page:12
 msgid "Removing red-eye"
-msgstr "S'estan suprimint els ulls vermells"
+msgstr "Suprimir els ulls vermells"
 
 #. (itstool) path: page/p
 #: C/edit-redeye.page:14
@@ -599,7 +599,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/edit-rotate.page:12
 msgid "Rotate or flip a photo"
-msgstr "Gireu o capgireu una foto"
+msgstr "Girar o capgirar una foto"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:14
@@ -631,8 +631,8 @@ msgid ""
 "rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or"
 " <key>[</key>"
 msgstr ""
-"gir cap l'esquerra: "
-"<keyseq><key>Maj</key><key>Ctrl</key><key>R</key></keyseq> o<key> [</key>"
+"gir cap a l'esquerra: "
+"<keyseq><key>Maj</key><key>Ctrl</key><key>R</key></keyseq> o <key>[</key>"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:19
@@ -640,7 +640,7 @@ msgid ""
 "rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
 msgstr ""
 "gir cap a la dreta: "
-"<keyseq><key>Ctrl</key><key>R</key></keyseq>o<key>]</key>"
+"<keyseq><key>Ctrl</key><key>R</key></keyseq> o <key>]</key>"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:21
@@ -664,7 +664,7 @@ msgstr "Si seleccioneu més d'una imatge, les podeu girar totes alhora."
 #. (itstool) path: info/desc
 #: C/edit-straighten.page:7
 msgid "Straighten a photo so that its horizon appears level."
-msgstr "Redreçar una foto perquè l'horitzó quedin anivellat."
+msgstr "Redreçar una foto perquè l'horitzó quedi anivellat."
 
 #. (itstool) path: page/title
 #: C/edit-straighten.page:12
@@ -688,7 +688,7 @@ msgid ""
 "Alternatively, use the keyboard shortcut "
 "<keyseq><key>Ctrl</key><key>A</key></keyseq>."
 msgstr ""
-"Feu clic a <gui>Redreçar</gui>per fer aparèixer la barra de redreçar. "
+"Feu clic a <gui>Redreça</gui> per fer aparèixer la barra de redreçar. "
 "Alternativament utilitzeu la drecera "
 "<keyseq><key>Ctrl</key><key>A</key></keyseq>."
 
@@ -700,7 +700,7 @@ msgstr "Arrossegueu la barra per aconseguir el grau de redreçament."
 #. (itstool) path: item/p
 #: C/edit-straighten.page:24
 msgid "Press <gui>Straighten</gui> when finished."
-msgstr "Premeu <gui>Redreçar</gui> quan acabeu."
+msgstr "Premeu <gui>Redreça</gui> quan acabeu."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
@@ -729,7 +729,7 @@ msgid ""
 "exception is that time and date adjustments will not be reverted."
 msgstr ""
 "Per desfer completament tots els canvis que heu fet a una foto, feu clic a "
-"<guiseq><gui>Fotografies</gui><gui>Tornar a l'original</gui></guiseq>. "
+"<guiseq><gui>Fotografies</gui><gui>Torna a l'original</gui></guiseq>. "
 "L’única excepció són els ajustos d'hora i data."
 
 #. (itstool) path: info/desc
@@ -753,8 +753,8 @@ msgid ""
 "raw\">RAW</link> photo files. Shotwell does not yet support other graphics "
 "format such as GIF."
 msgstr ""
-"Shotwell suporta fitxers de fotografia JPEG, PNG, TIFF, BMP i RAW. Encara no"
-" suporta altres formats gràfics com és el GIF.."
+"Shotwell suporta fitxers de fotografia JPEG, PNG, TIFF, BMP i <link xref=\"other-raw\">RAW</link>. Encara no"
+" suporta altres formats gràfics com és el GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -819,7 +819,7 @@ msgstr ""
 "Shotwell admet tant fotos com vídeos, però per simplicitat, aquesta "
 "documentació utilitza majoritàriament el terme \"fotografies\". Tanmateix, "
 "moltes operacions a Shotwell s'apliquen a fotografies i vídeos. En "
-"particular, esdeveniments, marcatge, classificació, etiquetatge i "
+"particular, esdeveniments, marcatge, puntuació, etiquetatge i "
 "publicació."
 
 #. (itstool) path: info/desc
@@ -835,7 +835,7 @@ msgstr "Importar dades des d'una càmera"
 #. (itstool) path: page/p
 #: C/import-camera.page:14
 msgid "To import photos from a digital camera:"
-msgstr "Per importar fotografies d'una càmera digital"
+msgstr "Per importar fotografies d'una càmera digital:"
 
 #. (itstool) path: item/p
 #: C/import-camera.page:18
@@ -896,7 +896,7 @@ msgstr "Importeu fotos que ja tingueu desades a l'ordinador."
 #. (itstool) path: page/title
 #: C/import-file.page:12
 msgid "Importing from your hard disk"
-msgstr "Importeu des del vostre disc dur"
+msgstr "Importar des del vostre disc dur"
 
 #. (itstool) path: page/p
 #: C/import-file.page:14
@@ -967,7 +967,7 @@ msgstr "Importar fotos des d'una de targeta de memòria d'una càmera digital."
 #. (itstool) path: page/title
 #: C/import-memorycard.page:12
 msgid "Importing from a memory card"
-msgstr "Importeu des de la vostra targeta de memòria"
+msgstr "Importar des de la vostra targeta de memòria"
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:14
@@ -988,7 +988,7 @@ msgstr ""
 msgid "The card reader and card should be detected automatically."
 msgstr ""
 "L'ordinador hauria de detectar el lector de targetes i la targeta "
-"automàticament. "
+"automàticament."
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:24
@@ -1084,7 +1084,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/index.page:25
 msgid "Importing Photos"
-msgstr "Importa fotografies"
+msgstr "Importar fotografies"
 
 #. (itstool) path: section/title
 #: C/index.page:29
@@ -1094,12 +1094,12 @@ msgstr "Veure fotografies"
 #. (itstool) path: section/title
 #: C/index.page:33
 msgid "Organizing Photos"
-msgstr "Organitza fotografies"
+msgstr "Organitzar fotografies"
 
 #. (itstool) path: section/title
 #: C/index.page:37
 msgid "Editing Photos"
-msgstr "Edita fotografies"
+msgstr "Editar fotografies"
 
 #. (itstool) path: section/title
 #: C/index.page:41
@@ -1162,12 +1162,12 @@ msgstr ""
 "ubicar automàticament en cap esdeveniment. En aquest cas, la foto es "
 "mostrarà a la vista <gui>Cap esdeveniment</gui> accessible des de la barra "
 "lateral. Tanmateix, podreu desplaçar la foto fins a qualsevol esdeveniment "
-"tal com es descriu a continuació"
+"tal com es descriu a continuació."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:25
 msgid "Renaming events"
-msgstr "Canvia el nom dels esdeveniments"
+msgstr "Canviar el nom dels esdeveniments"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:27
@@ -1179,10 +1179,10 @@ msgid ""
 msgstr ""
 "Per donar nom a un esdeveniment en lloc de fer-ne referència a la data, "
 "seleccioneu l'esdeveniment, feu clic a "
-"<guiseq><gui>Esdeveniments</gui><gui>Canviar el nom de "
-"l¡esdeveniment...</gui></guiseq> i introduir el nom nou. Una altra manera de"
-" canviar el nom d'un esdeveniment és fer doble clic al seu nom a la barra "
-"lateral; escriure un nou nom i, a continuació, prémer <key>Entrar</key>."
+"<guiseq><gui>Esdeveniments</gui><gui>Canvia el nom a "
+"l'esdeveniment...</gui></guiseq> i introduir el nom nou. Una altra manera de"
+" canviar el nom a un esdeveniment és fer doble clic al seu nom a la barra "
+"lateral; escriure un nou nom i, a continuació, prémer <key>Retorn</key>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
@@ -1199,7 +1199,7 @@ msgstr ""
 "Encara que inicialment les fotos s'agrupin en esdeveniments segons la data, "
 "podeu desplaçar les fotos d'un esdeveniment a l'altre. Per fer-ho, "
 "arrossegueu qualsevol foto cap a la barra lateral i deixeu-la anar en un "
-"esdeveniment. "
+"esdeveniment."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
@@ -1252,7 +1252,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/organize-event.page:51
 msgid "Change the photo used to represent each event"
-msgstr "Canvieu la foto utilitzada per representar cada esdeveniment"
+msgstr "Canviar la foto utilitzada per representar cada esdeveniment"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:53
@@ -1260,7 +1260,7 @@ msgid ""
 "If you select the <gui>Events</gui> item in the sidebar, you'll see a single"
 " photo which represents each event. This is called the key photo."
 msgstr ""
-"Si seleccioneu l'element <gui>Esdevenimens</gui> de la barra lateral, veureu"
+"Si seleccioneu l'element <gui>Esdeveniments</gui> de la barra lateral, veureu"
 " una sola foto que representa cada esdeveniment. S'anomena la foto clau."
 
 #. (itstool) path: section/p
@@ -1285,7 +1285,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/organize-flag.page:12
 msgid "Flagging photos"
-msgstr "Assenyala fotografies"
+msgstr "Marcar fotografies"
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:14
@@ -1295,8 +1295,6 @@ msgid ""
 "<gui>Flagged</gui> item in the sidebar to see all photos which have been "
 "flagged."
 msgstr ""
-"Shotwell us deixa <em>assenyalar</em> les fotos. Quan una foto està "
-"assenyalada, apareix una petita icona d'una bandera a l "
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:18
@@ -1324,7 +1322,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
 msgid "To flag or unflag a photo"
-msgstr "Per assenyalar, desassenyalar una fotografia"
+msgstr "Per marcar o desmarcar una fotografia"
 
 #. (itstool) path: section/p
 #: C/organize-flag.page:28
@@ -1334,7 +1332,7 @@ msgid ""
 "<keyseq><key>Ctrl</key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
 "Per marcar o desmarcar una foto, feu clic amb el botó dret a la fotografia i"
-" trieu<gui>Senyalar</gui> o <gui>Assenyalar</gui> Des del menú de "
+" trieu <gui>Marca</gui> o <gui>Desmarca</gui> des del menú "
 "contextual. O utilitzeu <keyseq><key>Ctrl</key><key>G</key></keyseq>, o "
 "<key>/</key> tecles de drecera."
 
@@ -1344,13 +1342,13 @@ msgid ""
 "Give photos a rating between 1 and 5 stars. You can reject bad photos, "
 "hiding them from view."
 msgstr ""
-"Valoreu entre 1 i 5 estrelles les fotografirs. Podeu rebutjar les dolentes, "
+"Valoreu entre 1 i 5 estrelles les fotografies. Podeu rebutjar les dolentes, "
 "amagant-les de la vista."
 
 #. (itstool) path: page/title
 #: C/organize-rating.page:12
 msgid "Ratings"
-msgstr "Valoracions"
+msgstr "Puntuacions"
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:13
@@ -1358,7 +1356,7 @@ msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate"
 " it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
-"Podeu assignar a cada fotografia una qualificació d'1-5 estrelles o, "
+"Podeu assignar a cada fotografia una puntuació d'1-5 estrelles o, "
 "alternativament, qualificar-la com a rebutjada, en aquest cas Shotwell per "
 "defecte oculta la foto."
 
@@ -1376,8 +1374,8 @@ msgid ""
 "<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
 msgstr ""
 "Seleccioneu la(es) fotografia(es), a continuació, trieu una qualificació des"
-" del nivell superior "
-"<guiseq><gui>Fotografies</gui><gui>Valorar</gui></guiseq> menú."
+" del menú del nivell superior "
+"<guiseq><gui>Fotografies</gui><gui>Estableix la puntuació</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:19
@@ -1386,7 +1384,7 @@ msgid ""
 "context menu."
 msgstr ""
 "Feu clic amb el botó dret a la fotografia(es) i, a continuació, trieu una "
-"qualificació al menú contextual de Valoració."
+"puntuació al menú contextual Estableix la puntuació."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:20
@@ -1399,7 +1397,7 @@ msgstr ""
 "Seleccioneu les fotos, després premeu qualsevol de les dreceres de teclat "
 "següents:<key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> o "
 "<key>5</key> per assignar una qualificació. O premeu <key>9</key> per marcar"
-" les fotos com a rebujades o <key>0</key> per suprimir les qualificacions."
+" les fotos com a rebutjades o <key>0</key> per suprimir les puntuacions."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:23
@@ -1415,7 +1413,7 @@ msgstr ""
 "definir un filtre de valoració diferent amb el menú "
 "<guiseq><gui>Vista</gui><gui>Filtra les fotos</gui></guiseq>; per exemple, "
 "es poden mostrar totes les fotos, fins i tot les marcades com a rebutjades. "
-"La icona de Shotwell de la barra d'eines mostra el filtre de valoració "
+"La icona de Shotwell de la barra d'eines mostra el filtre de puntuacions "
 "actual i també es pot utilitzar per definir el filtre."
 
 #. (itstool) path: page/p
@@ -1437,9 +1435,9 @@ msgid ""
 "Rating</gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts"
 " <key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
-"Podeu incrementar o decrementar la valoració d'una fotografia utilitzant la "
-"comanda <guiseq><gui>Valorar</gui><gui>Incrementar</gui></guiseq> i "
-"<guiseq><gui>Valorar</gui><gui>Decrementar</gui></guiseq> o utilitzant les "
+"Podeu incrementar o reduir la puntuació d'una fotografia utilitzant la "
+"comanda <guiseq><gui>Estableix la puntuació</gui><gui>Incrementa</gui></guiseq> i "
+"<guiseq><gui>Estableix la puntuació</gui><gui>Redueix</gui></guiseq> o utilitzant les "
 "dreceres de teclat <key>&lt;</key> i <key>&gt;</key>."
 
 #. (itstool) path: info/desc
@@ -1492,12 +1490,12 @@ msgid ""
 msgstr ""
 "Aquest diagrama mostra com una foto, quan se suprimeix, primerament es fica "
 "a la paperera de l'ordinador. Si la suprimiu de la paperera, la foto "
-"s'esborran definitivament de l'ordinador i no es pot recuperar."
+"s'esborra definitivament de l'ordinador i no es pot recuperar."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:18
 msgid "Removing photos from the library"
-msgstr "Eliminant fotografies de la llibreria"
+msgstr "Eliminar fotografies de la biblioteca"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:19
@@ -1521,7 +1519,7 @@ msgid ""
 msgstr ""
 "Si voleu suprimir fotos de Shotwell sense haver-les de passar per la "
 "paperera, simplement seleccioneu les fotos que vulgueu suprimir i trieu "
-"<guiseq><gui>Edita</gui>Suprimeix de la biblioteca<gui></guiseq>. Els "
+"<guiseq><gui>Edita</gui><gui>Suprimeix de la biblioteca</gui></guiseq>. Els "
 "fitxers de les fotos romandran al seu lloc al disc."
 
 #. (itstool) path: section/title
@@ -1616,7 +1614,7 @@ msgstr "Cancel·la"
 #. (itstool) path: item/p
 #: C/organize-remove.page:41
 msgid "Do nothing."
-msgstr "No facis res"
+msgstr "No facis res."
 
 #. (itstool) path: info/desc
 #: C/organize-search.page:7
@@ -1627,7 +1625,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/organize-search.page:12
 msgid "Searching"
-msgstr "Cercant"
+msgstr "Cercar"
 
 #. (itstool) path: page/p
 #: C/organize-search.page:14
@@ -1657,8 +1655,8 @@ msgid ""
 "the search bar. From this bar, you can find, show and hide photos and videos"
 " based on title, tag, rating or other options."
 msgstr ""
-"La casella de selecció de <guiseq><gui>Vista</gui>Barra de "
-"cerca<gui></guiseq> commuta la visualització de la barra de cerca. També "
+"La casella de selecció de <guiseq><gui>Vista</gui><gui>Barra de "
+"cerca</gui></guiseq> commuta la visualització de la barra de cerca. També "
 "podeu tocar <keyseq><key>Ctrl</key><key>F</key></keyseq> o <key>F8</key> per"
 " activar la barra de cerca. Des d'aquesta barra, podeu trobar, mostrar i "
 "amagar fotos i vídeos segons el títol, l'etiqueta, la puntuació o altres "
@@ -1766,7 +1764,7 @@ msgstr ""
 #: C/organize-tag.page:28
 msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
 msgstr ""
-"Trieu <guiseq><gui>Etiquetes</gui><gui>Afegir Etiquetes...</gui></guiseq>."
+"Trieu <guiseq><gui>Etiquetes</gui><gui>Afegeix etiquetes...</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:29
@@ -1792,11 +1790,11 @@ msgid ""
 "tag in the sidebar."
 msgstr ""
 "Quan utilitzeu <keyseq><key>Ctrl</key><key>T</key></keyseq> o "
-"<guiseq><gui>Etiquetes</gui><gui>Afegir Etiquetes...</gui></guiseq> podeu "
+"<guiseq><gui>Etiquetes</gui><gui>Afegeix etiquetes...</gui></guiseq> podeu "
 "escriure els noms d'una o més etiquetes, separats per comes. Un cop hàgiu "
 "creat una etiqueta, podeu canviar-la de nom si la seleccioneu a la barra "
-"lateral i seleccioneu <guiseq><gui>Etiquetes</gui><gui>Canviar Etiqueta "
-"\"[nom]\"...</gui></guiseq>, feu clic dret sobre ella i trieu <gui>Canviar "
+"lateral i seleccioneu <guiseq><gui>Etiquetes</gui><gui>Canvia el nom de l'etiqueta "
+"\"[nom]\"...</gui></guiseq>, feu clic dret sobre ella i trieu <gui>Canvia "
 "de nom...</gui> o feu doble clic a l'etiqueta de la barra lateral."
 
 #. (itstool) path: page/p
@@ -1812,14 +1810,14 @@ msgid ""
 " \"[name]\" from Photos</gui>."
 msgstr ""
 "Per canviar les etiquetes associades a una fotografia determinada, "
-"seleccioneu, <gui>Etiquetes</gui><gui>Modificar Etiquetes...</gui></guiseq> "
-"o feu-li clic amb el botó dret a sobre i seleccioneu <gui>Modificar "
-"Etiquetes...</gui> i editeu la llista separada per comes. Per eliminar una "
+"trieu la foto, i seleccioneu <guiseq><gui>Etiquetes</gui><gui>Modifica les etiquetes...</gui></guiseq> "
+"o feu-li clic amb el botó dret a sobre i seleccioneu <gui>Modifica les  "
+"etiquetes...</gui> i editeu la llista separada per comes. Per eliminar una "
 "etiqueta d'una o més fotografies, seleccioneu primer aquesta etiqueta a la "
 "barra lateral i, a continuació, seleccioneu les fotografies que voleu "
-"eliminar, i trieu <guiseq><gui>Etiquetes</gui><gui>Elimineu l'etiqueta "
+"eliminar, i trieu <guiseq><gui>Etiquetes</gui><gui>Suprimeix l'etiqueta "
 "\"[nom]\" de les fotografies</gui></guiseq> o feu-li clic amb el botó dret i"
-" seleccioneu<gui>Eliminar etiqueta \"[nom]\"</gui>de les fotografies."
+" seleccioneu <gui>Suprimeix etiqueta \"[nom]\"</gui> de les fotografies."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -1829,7 +1827,7 @@ msgid ""
 "right-click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
 "Per suprimir tota una etiqueta, seleccioneu aquesta etiqueta a la barra "
-"lateral i escolliu<guiseq><gui>Etiquetes</gui><gui>Esborrar l'etiqueta "
+"lateral i escolliu<guiseq><gui>Etiquetes</gui><gui>Suprimeix l'etiqueta "
 "\"[nom]\"</gui></guiseq> o fent-li clic amb el botó dret i seleccionant "
 "<gui>Esborrar etiqueta \"[nom]\"</gui>."
 
@@ -1862,7 +1860,7 @@ msgstr ""
 "Shotwell també admet jerarquitzar les etiquetes. Podeu reorganitzar les "
 "vostres etiquetes arrossegant-les i deixant-les en una altra. Per crear un "
 "una subetiqueta nova feu clic amb el botó dret sobre una etiqueta i "
-"seleccioneu<gui>Nova</gui>."
+"seleccioneu <gui>Nova</gui>."
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:81
@@ -1914,7 +1912,7 @@ msgid ""
 "<key>F2</key>."
 msgstr ""
 "Per canviar el títol d'una fotografia, seleccioneu la fotografia i feu clic "
-"a <guiseq><gui>Fotografies</gui><gui>Editar Títol...</gui></guiseq>, o "
+"a <guiseq><gui>Fotografies</gui><gui>Edita el títol...</gui></guiseq>, o "
 "premeu <key>F2</key>."
 
 #. (itstool) path: info/desc
@@ -1943,7 +1941,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/other-files.page:21
 msgid "Using a custom directory pattern"
-msgstr "Utilitzant un patró de directori personalitzat"
+msgstr "Utilitzar un patró de directori personalitzat"
 
 #. (itstool) path: section/p
 #: C/other-files.page:22
@@ -2114,7 +2112,7 @@ msgstr "%I"
 #. (itstool) path: td/p
 #: C/other-files.page:63
 msgid "Hour: 12 hour format"
-msgstr "Hores: format 12 hores"
+msgstr "Hora: format 12 hores"
 
 #. (itstool) path: td/p
 #: C/other-files.page:63
@@ -2195,7 +2193,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/other-files.page:79
 msgid "Automatically importing photos"
-msgstr "Importeu fotografies automàticament"
+msgstr "Importar fotografies automàticament"
 
 #. (itstool) path: section/p
 #: C/other-files.page:81
@@ -2232,7 +2230,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/other-files.page:95
 msgid "Automatically renaming imported photos to lowercase"
-msgstr "Reanomeneu automàticament les fotografies importades a minúscules"
+msgstr "Canviar el nom automàticament de les fotografies importades a minúscules"
 
 #. (itstool) path: section/p
 #: C/other-files.page:97
@@ -2287,12 +2285,12 @@ msgstr "títols"
 #. (itstool) path: item/p
 #: C/other-files.page:119
 msgid "tags"
-msgstr "Etiquetes"
+msgstr "etiquetes"
 
 #. (itstool) path: item/p
 #: C/other-files.page:120
 msgid "ratings"
-msgstr "valoracions"
+msgstr "puntuacions"
 
 #. (itstool) path: item/p
 #: C/other-files.page:121
@@ -2380,7 +2378,7 @@ msgid ""
 msgstr ""
 "Si ja no voleu que els fitxers que falten formin part de la col·lecció de "
 "Shotwell (potser perquè els heu suprimit), aneu a la vista Fitxers que "
-"falten, seleccioneu les fotografies i feu clic a <gui>Elimina de la "
+"falten, seleccioneu les fotografies i feu clic a <gui>Suprimeix de la "
 "biblioteca.</gui>."
 
 #. (itstool) path: page/p
@@ -2395,7 +2393,7 @@ msgid ""
 msgstr ""
 "Si teniu fotografies en un disc extraïble, com ara un CD o unitat flash USB,"
 " i aleshores les <link xref=\"index#import\">importeu</link> a Shotwell "
-"<em>sense</em>copiar les fotografies al vostre ordinador, aquestes es "
+"<em>sense</em> copiar les fotografies al vostre ordinador, aquestes es "
 "mostraran com a fitxers que falten si desconnecteu el disc extraïble. "
 "Consulteu <link xref=\"import-file\"/> per aprendre a copiar fitxers dels "
 "discs extraïbles al vostre ordinador."
@@ -2408,7 +2406,7 @@ msgid ""
 "Events and Tags views."
 msgstr ""
 "Si un fitxer de fotografies torna a estar disponible disponible, Shotwell ho"
-" notarà la propera vegada que s'iniciï. Aquestes tornaran a aparèixer a la "
+" notarà la propera vegada que s'iniciï. Les fotografies tornaran a aparèixer a la "
 "vista de fotografies, esdeveniments i etiquetes."
 
 #. (itstool) path: info/desc
@@ -2423,7 +2421,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
 msgid "Multiple libraries"
-msgstr "Múltiples llibraries"
+msgstr "Múltiples biblioteques"
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:14
@@ -2508,13 +2506,13 @@ msgid ""
 "href=\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins\">http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins</link>"
 msgstr ""
 "Podeu trobar la documentació completa sobre com es poden desenvolupar nous "
-"complements a l'adreça web<link "
+"complements a l'adreça web <link "
 "href=\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins\">http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins</link>"
 
 #. (itstool) path: info/desc
 #: C/raw.page:7
 msgid "More about RAW support in Shotwell."
-msgstr "Més sobre el suport RAW a Shotwell"
+msgstr "Més sobre el suport RAW a Shotwell."
 
 #. (itstool) path: page/title
 #: C/raw.page:12
@@ -2546,7 +2544,7 @@ msgstr ""
 "Atès que les fotografies RAW normalment no es poden visualitzar directament,"
 " sinó que primer s'han de desenvolupar, és a dir, s'ha d'interpretar i "
 "llegir informació addicional per mostrar-les, la majoria de càmeres "
-"incrustaràn un JPEG dins d'un fitxer en format RAW, o produiràn un JPEG al "
+"incrustaran un JPEG dins d'un fitxer en format RAW, o produiran un JPEG al "
 "costat del fitxer RAW. en el moment en què es fa la captura de pantalla. "
 "Aquest darrer document es coneix amb el nom d'aquest document RAW + JPEG. Si"
 " importeu una parella RAW + JPEG, Shotwell els mantindrà vinculats i els "
@@ -2561,7 +2559,7 @@ msgid ""
 msgstr ""
 "Quan importeu un fitxer RAW, podeu optar per utilitzar el JPEG desenvolupat "
 "internament de la càmera o el de Shotwell, seleccionant "
-"<guiseq><gui>Fotografies</gui>al menú <gui>Desenvolupador</gui></guiseq>."
+"<guiseq><gui>Fotografies</gui> al menú <gui>Desenvolupador</gui></guiseq>."
 
 #. (itstool) path: note/p
 #: C/raw.page:33
@@ -2597,7 +2595,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/running.page:14
 msgid "Running Shotwell"
-msgstr "Executa Shotwell"
+msgstr "Executar Shotwell"
 
 #. (itstool) path: page/p
 #: C/running.page:16
@@ -2622,7 +2620,7 @@ msgstr ""
 "Shotwell també es pot executar automàticament quan es connecta una càmera a "
 "l'ordinador. Per comprovar que el sistema estigui configurat per executar "
 "Shotwell quan es detecta una càmera, aneu a "
-"<guiseq><gui>Editar</gui><gui>Preferències</gui></guiseq> a qualsevol "
+"<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq> a qualsevol "
 "finestra de Nautilus (explorador de fitxers) i trieu la pestanya "
 "<gui>Media</gui>.  Veureu un quadre desplegable titulat "
 "<gui>Fotografies:</gui> que us permetrà triar Shotwell com a aplicació per a"
@@ -2657,7 +2655,7 @@ msgid ""
 "choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
 "Per definir una fotografia com a fons de l'escriptori, seleccioneu-la i "
-"escolliu <guiseq><gui>Fitxer</gui><gui>Establir com a fons "
+"escolliu <guiseq><gui>Fitxer</gui><gui>Estableix com a fons "
 "d'escriptori</gui></guiseq>."
 
 #. (itstool) path: page/p
@@ -2672,7 +2670,7 @@ msgid ""
 msgstr ""
 "També podeu configurar el vostre fons d'escriptori com a presentació de "
 "diapositives. Per fer-ho, seleccioneu les fotografies de la presentació de "
-"diapositives i trieu<guiseq><gui>Fitxer</gui><gui>Establir com a fons "
+"diapositives i trieu <guiseq><gui>Fitxer</gui><gui>Estableix com a fons "
 "d'escriptori de diapositives...</gui></guiseq>. Shotwell us demanarà un "
 "retard per a la presentació, que pot tenir qualsevol interval de durada fins"
 " a un màxim d'un dia. La presentació de diapositives de fons continuarà fins"
@@ -2791,7 +2789,7 @@ msgid ""
 "<gui>Pixels</gui> and the other according to the aspect ratio"
 msgstr ""
 "La imatge s'exportarà tenint el seu extrem més llarg escalat "
-"a <gui>Píxels</gui> i l'altra segons el ràtio d'aspecte"
+"a <gui>Píxels</gui> i l'altra segons la ràtio d'aspecte"
 
 #. (itstool) path: item/title
 #: C/share-export.page:42
@@ -2852,14 +2850,14 @@ msgid ""
 " options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> "
 "dialog."
 msgstr ""
-"Feu clic a <guiseq><gui>Fitxer</gui><gui>Imprimir...</gui></guiseq>. Per més"
-" opcions d'impressió, seleccioneu la pestanya <gui>Configurar pàgina</gui>al"
-" diàleg <gui>Imprimir</gui>."
+"Feu clic a <guiseq><gui>Fitxer</gui><gui>Imprimeix...</gui></guiseq>. Per més"
+" opcions d'impressió, seleccioneu la pestanya <gui>Configurar pàgina</gui> al"
+" diàleg <gui>Imprimeix</gui>."
 
 #. (itstool) path: page/title
 #: C/share-print.page:12
 msgid "Printing"
-msgstr "S'està imprimint"
+msgstr "Imprimir"
 
 #. (itstool) path: page/p
 #: C/share-print.page:14
@@ -2907,7 +2905,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/share-send.page:12
 msgid "Sending photos"
-msgstr "Envieu fotografies"
+msgstr "Enviar fotografies"
 
 #. (itstool) path: page/p
 #: C/share-send.page:14
@@ -2915,7 +2913,7 @@ msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email, instant messaging or in other ways."
 msgstr ""
-"Shotwell pot enviar fotografies utilitzant l'eina de lescriptori del GNOME "
+"Shotwell pot enviar fotografies utilitzant l'eina de l'escriptori del GNOME "
 "Enviar al mecanisme, que us permet enviar fotografies per correu electrònic,"
 " missatgeria instantània o d'alguna altra manera."
 
@@ -2940,7 +2938,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/share-slideshow.page:7
 msgid "Watch a slideshow of your photos."
-msgstr "Veure una presentacions de diapositives de les vostres fotografies."
+msgstr "Veure una presentació de diapositives de les vostres fotografies."
 
 #. (itstool) path: page/title
 #: C/share-slideshow.page:12
@@ -3050,7 +3048,7 @@ msgid ""
 " in or create an account."
 msgstr ""
 "Per publicar fotografies seleccionades en una col·lecció, trieu "
-"<guiseq><gui>Editar</gui><gui>Preferències</gui></guiseq> i feu clic a la "
+"<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq> i feu clic a la "
 "pestanya <gui>Extensions</gui> per habilitar el complement per al servei que"
 " voleu publicar. Aleshores trieu "
 "<guiseq><gui>Fitxer</gui><gui>Publcar</gui></guiseq>, premeu el botó de la "
@@ -3095,7 +3093,7 @@ msgid ""
 "Learn about different ways of viewing your photos: in a grid, filling the "
 "main window, or filling the whole screen."
 msgstr ""
-"Apreneu sobre diferents maneres de visualitzar les vostres fotografiess: en "
+"Apreneu sobre diferents maneres de visualitzar les vostres fotografies: en "
 "una graella, omplint la finestra principal, o omplint tota la pantalla."
 
 #. (itstool) path: page/title
@@ -3198,7 +3196,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/view-information.page:12
 msgid "Basic and extended information"
-msgstr "Informació bàsica i extesa"
+msgstr "Informació bàsica i estesa"
 
 #. (itstool) path: page/p
 #: C/view-information.page:14
@@ -3280,7 +3278,7 @@ msgid ""
 " they are imported from F-Spot, your camera, a memory card or the hard disk."
 msgstr ""
 "La visualització <gui>Darreres importacions</gui> mostra les darreres "
-"fotografies importades sense importar si venen de F-Spot, de la vostra "
+"fotografies importades sense importar si vénen de F-Spot, de la vostra "
 "càmera, d'una targeta de memòria o d'un disc dur."
 
 #. (itstool) path: page/p
