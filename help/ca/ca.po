@@ -42,7 +42,7 @@ msgstr ""
 "El botó ajustar <gui>Ajusta</gui> obre una finestra flotant amb un "
 "histograma i barres de desplaçament per ajustar l'exposició de la "
 "fotografia, la saturació, el tint, la temperatura, i les ombres. "
-"L’histograma també té barres de desplaçament per reduir els llindars "
+"L'histograma també té barres de desplaçament per reduir els llindars "
 "d'intensitat superior i inferior de la fotografia, ampliant el contrast del "
 "rang mitjà."
 
@@ -719,7 +719,7 @@ msgid ""
 "alterations you make to a photograph."
 msgstr ""
 "Com que Shotwell és un editor de fotos no destructiu, podeu desfer qualsevol"
-" canvi que hagueu fet a una fotografia."
+" canvi que hàgiu fet a una fotografia."
 
 #. (itstool) path: page/p
 #: C/edit-undo.page:20
@@ -730,7 +730,7 @@ msgid ""
 msgstr ""
 "Per desfer completament tots els canvis que heu fet a una foto, feu clic a "
 "<guiseq><gui>Fotografies</gui><gui>Torna a l'original</gui></guiseq>. "
-"L’única excepció són els ajustos d'hora i data."
+"L'única excepció són els ajustos d'hora i data."
 
 #. (itstool) path: info/desc
 #: C/formats.page:7
@@ -1316,7 +1316,7 @@ msgid ""
 msgstr ""
 "El marcatge també és útil perquè podeu operar amb totes les fotografies "
 "marcades com a conjunt. Per exemple, podeu seleccionar la vista "
-"<gui>Marcat</gui>i, a continuació, penjar totes les fotografies marcades a "
+"<gui>Marcat</gui> i, a continuació, penjar totes les fotografies marcades a "
 "un servei de publicació."
 
 #. (itstool) path: section/title
@@ -1445,7 +1445,7 @@ msgstr ""
 msgid ""
 "Remove photos from the library, or delete them from your computer entirely."
 msgstr ""
-"Eliminar fotografies de la llibreria, o eliminar totalment de l'ordinador."
+"Eliminar fotografies de la biblioteca, o eliminar totalment de l'ordinador."
 
 #. (itstool) path: page/title
 #: C/organize-remove.page:12
@@ -1506,7 +1506,7 @@ msgid ""
 msgstr ""
 "Seleccioneu les fotos que vulgueu suprimir i trieu "
 "<guiseq><gui>Edita</gui><gui>Mou a la paperera</gui></guiseq> (també podeu "
-"prémer la tecla <key>Suprimeix</key>). Les fotos es mouran de la biblioteca "
+"prémer la tecla <key>Supr</key>). Les fotos es mouran de la biblioteca "
 "a la paperera de Shotwell."
 
 #. (itstool) path: section/p
@@ -1604,7 +1604,7 @@ msgstr "Fitxer escombraries"
 #. (itstool) path: item/p
 #: C/organize-remove.page:40
 msgid "Remove photos from the library and delete them from the computer."
-msgstr "Elimina les fotografies de la llibreria i esborra-les de l'ordinador."
+msgstr "Elimina les fotografies de la biblioteca i esborra-les de l'ordinador."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:41
@@ -1827,9 +1827,9 @@ msgid ""
 "right-click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
 "Per suprimir tota una etiqueta, seleccioneu aquesta etiqueta a la barra "
-"lateral i escolliu<guiseq><gui>Etiquetes</gui><gui>Suprimeix l'etiqueta "
+"lateral i escolliu <guiseq><gui>Etiquetes</gui><gui>Suprimeix l'etiqueta "
 "\"[nom]\"</gui></guiseq> o fent-li clic amb el botó dret i seleccionant "
-"<gui>Esborrar etiqueta \"[nom]\"</gui>."
+"<gui>Suprimeix l'etiqueta \"[nom]\"</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:64
@@ -2245,7 +2245,7 @@ msgstr ""
 "importades en minúscules. Per activar-ho, trieu "
 "<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq>, i a la finestra "
 "<gui>Preferències</gui>, marqueu la casella <gui>Canvia els noms de fitxers"
-" importats a minúscules.</gui>."
+" importats a minúscules</gui>."
 
 #. (itstool) path: section/title
 #: C/other-files.page:107
@@ -2309,8 +2309,8 @@ msgid ""
 "format. Note that Shotwell can write only to photo files in JPEG, PNG and "
 "TIFF format, not to BMP photos, RAW photos or to video files."
 msgstr ""
-"Shotwell emmagatzema aquesta aquesta informació en els fitxers de "
-"fotografies en format EXIF, IPTC i/o XMP. Fixeu-vos que Shotwell tans sols "
+"Shotwell emmagatzema aquesta informació en els fitxers de "
+"fotografies en format EXIF, IPTC i/o XMP. Fixeu-vos que Shotwell tan sols "
 "pot escriure a fitxers en format JPEG, PNG i TIFF, no en BMP, RAW o fitxers "
 "de vídeo."
 
@@ -2379,7 +2379,7 @@ msgstr ""
 "Si ja no voleu que els fitxers que falten formin part de la col·lecció de "
 "Shotwell (potser perquè els heu suprimit), aneu a la vista Fitxers que "
 "falten, seleccioneu les fotografies i feu clic a <gui>Suprimeix de la "
-"biblioteca.</gui>."
+"biblioteca</gui>."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:18
@@ -2405,7 +2405,7 @@ msgid ""
 " the next time it starts. The photos will once again appear in the Photos, "
 "Events and Tags views."
 msgstr ""
-"Si un fitxer de fotografies torna a estar disponible disponible, Shotwell ho"
+"Si un fitxer de fotografies torna a estar disponible, Shotwell ho"
 " notarà la propera vegada que s'iniciï. Les fotografies tornaran a aparèixer a la "
 "vista de fotografies, esdeveniments i etiquetes."
 
@@ -2622,7 +2622,7 @@ msgstr ""
 "Shotwell quan es detecta una càmera, aneu a "
 "<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq> a qualsevol "
 "finestra de Nautilus (explorador de fitxers) i trieu la pestanya "
-"<gui>Media</gui>.  Veureu un quadre desplegable titulat "
+"<gui>Mèdia</gui>. Veureu un quadre desplegable titulat "
 "<gui>Fotografies:</gui> que us permetrà triar Shotwell com a aplicació per a"
 " la gestió de fotografies."
 
@@ -2710,7 +2710,7 @@ msgid ""
 "files. A window will appear allowing you to make several choices:"
 msgstr ""
 "Opcionalment, seleccioneu un conjunt de fotografies i trieu la comanda "
-"<guiseq><gui>Fitxer</gui><gui>Exportar...</gui></guiseq> o premeu "
+"<guiseq><gui>Fitxer</gui><gui>Exporta...</gui></guiseq> o premeu "
 "<keyseq><key>Màj.</key><key>Ctrl</key><key>E</key></keyseq>, que exporta "
 "fotografies alhora que permet ajustar la mida i les dimensions dels fitxers "
 "fotogràfics. Apareixerà una finestra que us permetrà triar diverses opcions:"
@@ -2830,7 +2830,7 @@ msgid ""
 "This can help to save your privacy if you have geolocation tags or tags "
 "which shouldn't be seen by anyone."
 msgstr ""
-"L’opció si voleu exportar etiquetes o valoracions com metadades. Això pot "
+"L'opció si voleu exportar etiquetes o valoracions com metadades. Això pot "
 "ajudar-vos a preservar la vostra privadesa si teniu etiquetes o etiquetes de"
 " geolocalització que ningú no hauria de veure."
 
@@ -2866,7 +2866,7 @@ msgid ""
 "<guiseq><gui>File</gui><gui>Print...</gui></guiseq>."
 msgstr ""
 "Per imprimir una fotografia, seleccioneu-la i trieu "
-"<guiseq><gui>Fitxer</gui><gui>Imprimir...</gui></guiseq>."
+"<guiseq><gui>Fitxer</gui><gui>Imprimeix...</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:16
@@ -2879,8 +2879,8 @@ msgid ""
 msgstr ""
 "Shotwell pot imprimir múltiples imatges en una pàgina;per fer-ho, "
 "seleccioneu múltiples imatges, trieu "
-"<guiseq><gui>Fitxer</gui><gui>Imprimir...</gui></guiseq>, i al diàleg "
-"<gui>Imprimir</gui>, trieu la pestanya <gui>Configuració de la imatge</gui>."
+"<guiseq><gui>Fitxer</gui><gui>Imprimeix...</gui></guiseq>, i al diàleg "
+"<gui>Imprimeix</gui>, trieu la pestanya <gui>Configuració de la imatge</gui>."
 " A <gui>Configuració de la imatge</gui>, trieu una de les multiple-image-"
 "per-page opcions a <gui>Mida automàtica</gui>."
 
@@ -2893,7 +2893,7 @@ msgid ""
 msgstr ""
 "Si voleu definir opcions de format, mida del paper i opcions d'orientació, "
 "trieu la pestanya <gui>Configuració de la pàgina</gui> al diàleg "
-"<gui>Imprimir</gui> abans d'imprimir."
+"<gui>Imprimeix</gui> abans d'imprimir."
 
 #. (itstool) path: info/desc
 #: C/share-send.page:7
@@ -2928,9 +2928,9 @@ msgid ""
 "You can optionally choose to send the files in a compressed format."
 msgstr ""
 "Per enviar fotografies, seleccioneu-les a Shotwell i trieu "
-"<guiseq><gui>Fitxer</gui><gui>Enviar a...</gui></guiseq>, o feu clic amb el "
-"botó dret de la fotografia i trieu <gui>Enviar a...</gui> des del menú "
-"contextual. Apareixerà el diàleg <gui>Enviar a</gui> que us permetrà triar "
+"<guiseq><gui>Fitxer</gui><gui>Envia a...</gui></guiseq>, o feu clic amb el "
+"botó dret de la fotografia i trieu <gui>Envia a...</gui> des del menú "
+"contextual. Apareixerà el diàleg <gui>Envia a</gui> que us permetrà triar "
 "un mecanisme per enviar els fitxers (com ara correu electrònic o missatgeria"
 " instantània) i seleccionar una destinació. Opcionalment, podeu triar enviar"
 " els fitxers en un format comprimit."
@@ -2967,7 +2967,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/share-slideshow.page:19
 msgid "The duration how long an image should be shown: 1 - 30 seconds"
-msgstr "Temps durant el qual una imatge es visualitzarà: 1 - 30 segons."
+msgstr "Temps durant el qual una imatge es visualitzarà: 1 - 30 segons"
 
 #. (itstool) path: item/p
 #: C/share-slideshow.page:20
@@ -2977,7 +2977,7 @@ msgstr "Podeu seleccionar diferents efectes de transició."
 #. (itstool) path: item/p
 #: C/share-slideshow.page:21
 msgid "The time for each transition effect: 0.1 - 1.0 seconds"
-msgstr "Temps per cada efecte de transició: 0.1 - 1.0 segons."
+msgstr "Temps per cada efecte de transició: 0.1 - 1.0 segons"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
@@ -3032,7 +3032,7 @@ msgid ""
 "gallery software (photos only)"
 msgstr ""
 "Qualsevol lloc que utilitzi el programari de galeria de fotos (només "
-"fotos)<link href=\"http://piwigo.org\">Piwigo</link> "
+"fotos)<link href=\"http://piwigo.org\">Piwigo</link>"
 
 #. (itstool) path: page/p
 #: C/share-upload.page:26
@@ -3051,9 +3051,9 @@ msgstr ""
 "<guiseq><gui>Edita</gui><gui>Preferències</gui></guiseq> i feu clic a la "
 "pestanya <gui>Extensions</gui> per habilitar el complement per al servei que"
 " voleu publicar. Aleshores trieu "
-"<guiseq><gui>Fitxer</gui><gui>Publcar</gui></guiseq>, premeu el botó de la "
-"barra d'eines <gui>Publicar</gui> o utilitzeu "
-"<keyseq><key>Ctrl</key><key>Màj</key><key>P</key></keyseq>. Veureu un diàleg"
+"<guiseq><gui>Fitxer</gui><gui>Publica</gui></guiseq>, premeu el botó de la "
+"barra d'eines <gui>Publica</gui> o utilitzeu "
+"<keyseq><key>Ctrl</key><key>Maj</key><key>P</key></keyseq>. Veureu un diàleg"
 " que us permetrà seleccionar un servei de publicació. Aleshores, haureu "
 "d'iniciar la sessió o crear un compte."
 
@@ -3115,7 +3115,7 @@ msgstr ""
 " la part inferior dreta hi ha un control lliscant que ajusta la mida de "
 "visualització de les miniatures. També podeu ajustar la mida de la miniatura"
 " utilitzant les tecles més i menys (<key>+</key> i <key>-</key>) o prement "
-"<key>Ctrl</key> mentre es mou la roda de desplaçament del ratolí"
+"<key>Ctrl</key> mentre es mou la roda de desplaçament del ratolí."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:16
@@ -3128,7 +3128,7 @@ msgstr ""
 "Podeu veure una fotografia a pantalla completa fent doble clic sobre ella. "
 "Des d'allà, podeu passar a altres fotografies de la col·lecció amb els "
 "botons Enrere i Endavant. Per tornar a la col·lecció, feu doble clic sobre "
-"la fotografia o premeu<key>Esc</key>."
+"la fotografia o premeu <key>Esc</key>."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:18
@@ -3145,10 +3145,10 @@ msgstr ""
 "barra d'eines controla el zoom. Podeu desplaçar-vos agafant i arrossegant "
 "qualsevol lloc de la fotografia. També podeu fer zoom amb la roda de "
 "desplaçament o prement les dreceres de teclat "
-"següents:<keyseq><key>Ctrl</key>0</keyseq>per a la imatge en pantalla "
-"completa, <keyseq><key>Ctrl</key>1</keyseq> per al 100% (1 pixel de la "
+"següents: <keyseq><key>Ctrl</key>0</keyseq> per a la imatge en pantalla "
+"completa, <keyseq><key>Ctrl</key>1</keyseq> per al 100% (1 píxel de la "
 "fotografia= 1 pixel) de la pantalla, i <keyseq><key>Ctrl</key>2</keyseq> per"
-" 200% (1 pixel de la fotografia = 2x2 píxels) de pantalla."
+" 200% (1 píxel de la fotografia = 2x2 píxels) de pantalla."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:20
@@ -3164,7 +3164,7 @@ msgstr ""
 " <guiseq><gui>Vista</gui><gui>Pantalla completa</gui></guiseq> o premeu "
 "<key>F11</key>. Per veure la barra d'eines a pantalla completa, desplaça el "
 "ratolí a la part inferior de la pantalla. La barra d'eines ofereix botons "
-"per moure’s per la col·lecció, per fixar la barra d'eines a sota (de manera "
+"per moure's per la col·lecció, per fixar la barra d'eines a sota (de manera "
 "que no s'amaga quan s'allunya el ratolí) i per abandonar la vista a pantalla"
 " completa."
 
@@ -3208,7 +3208,7 @@ msgid ""
 "Information</gui></guiseq> command."
 msgstr ""
 "El panell Informació bàsica apareix a la part inferior de la barra lateral i"
-" mostra un breu resum de les fotografies que hagueu seleccionat. Si no s'ha "
+" mostra un breu resum de les fotografies que hàgiu seleccionat. Si no s'ha "
 "seleccionat cap fotografia, es mostra un resum de tota la col·lecció. Podeu "
 "commutar la visualització d'aquest panell mitjançant la comanda "
 "<guiseq><gui>Vista</gui><gui>Informació bàsica</gui></guiseq> ."
@@ -3243,7 +3243,7 @@ msgstr ""
 "La finestra flotant d'Informació ampliada, mostra més informació sobre la "
 "fotografia seleccionada. La comanda <guiseq><gui>Vista</gui><gui>Informació "
 "ampliada</gui></guiseq> o "
-"<keyseq><key>Ctrl</key><key>Màj.</key><key>X</key></keyseq> commuta la "
+"<keyseq><key>Ctrl</key><key>Maj</key><key>X</key></keyseq> commuta la "
 "visualització d'aquesta finestra."
 
 #. (itstool) path: info/desc
