@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2019-01-27 16:39+0000\n"
-"PO-Revision-Date: 2019-07-26 09:15+0200\n"
+"POT-Creation-Date: 2019-11-17 00:07+0000\n"
+"PO-Revision-Date: 2019-12-11 10:10+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Gtranslator 3.34.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -840,6 +840,77 @@ msgstr ""
 "particular, los eventos, los marcados, las clasificaciones, los etiquetados "
 "y los trabajos publicados funcionan tanto para fotos como para vídeos."
 
+#. (itstool) path: page/title
+#: C/google-policy.page:7
+msgid "Shotwell's privacy policy for Google Services"
+msgstr "Política de privacidad de Shotwell para los servicios de Google"
+
+#. (itstool) path: section/title
+#: C/google-policy.page:9
+msgid "Information Shotwell Stores and Transmits About You"
+msgstr "Información sobre el usuario que Shotwell almacena y transmite"
+
+#. (itstool) path: section/p
+#: C/google-policy.page:10
+msgid ""
+"The Shotwell Connect application and its data store reside locally on your "
+"personal computer. During the course of its operation, Shotwell Connect may "
+"store an authentication token that it receives from YouTube and Google "
+"Photos on your computer. This authentication token is simply a session-"
+"identifying sequence of letters and numbers. It contains no password, user "
+"name, or other personal information. At no time does Shotwell Connect "
+"transmit any information to the GNOME foundation, the Software Freedom "
+"Convervancy or any of the developers of the Shotwell Connect Application for "
+"Google services."
+msgstr ""
+"La aplicación Shotwell Connect y sus datos se guardan en su equipo local. "
+"Durante el curso de esta operación, Shotwell Connect puede almacenar en su "
+"equipo un testigo de autenticación que recibe de Youtube y Fotos de Google. "
+"Este testigo es sencillamente un secuencia de letras y números que "
+"identifican su sesión. No contiene su nombre de usuario ni su contraseña ni "
+"ningún otro tipo de información personal. En ningún momento Shotwell Connect "
+"transmite información a la Fundación GNOME, la Software Freedom Convervancy "
+"ni a los desarrolladores de la aplicación Shotwell Connect para servicios de "
+"Google."
+
+#. (itstool) path: section/title
+#: C/google-policy.page:14
+msgid "Permissions you grant Shotwell for YouTube"
+msgstr "Permisos que otorga a Shotwell para Youtube"
+
+#. (itstool) path: section/p
+#: C/google-policy.page:15
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application permission to "
+"publish videos to your YouTube channel. Other than uploading videos, "
+"Shotwell does not insert, modify or remove any information from your YouTube "
+"account and channel."
+msgstr ""
+"Al usar Shotwell concede permisos a la aplicación Shotwell Connect para "
+"publicar vídeos en su canal de Youtube. Aparte de subir vídeos, Shotwell no "
+"inserta, modifica ni elimina información de su cuenta o canal de Youtube."
+
+#. (itstool) path: section/title
+#: C/google-policy.page:19
+msgid "Permissions You Grant Shotwell for Google Photos"
+msgstr "Permisos que otorga a Shotwell para Fotos de Google"
+
+#. (itstool) path: section/p
+#: C/google-policy.page:20
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application to publish "
+"photos on your Google Photos account. It will download the list of available "
+"albums to allow you to chose an existing album to upload to, it can create "
+"albums on your behalf. Other than creating albums and uploading photos, "
+"Shotwell does no modification whatsoever to the existing data on Google "
+"Photos"
+msgstr ""
+"Al usar Shotwell concede permisos a la aplicación Shotwell Connect para "
+"publicar fotos en su cuenta de Fotos de Google. Descargará la lista de "
+"álbumes disponibles para permitirle elegir a qué álbum subir y también puede "
+"crear álbumes en su nombre. Aparte de crear álbumes o subir fotos, Shotwell "
+"no realiza ninguna modificación en sus datos de Fotos de Google."
+
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
 msgid "Copy photos from a digital camera."
@@ -927,10 +998,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
-#| msgid ""
-#| "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-#| "gui></guiseq> and select the folder containing the photos you want to "
-#| "import."
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 "gui></guiseq> and select the folder containing the photos you want to "
@@ -1059,22 +1126,22 @@ msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:10
+#: C/index.page:12
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:12
+#: C/index.page:16
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:14
+#: C/index.page:20
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:16
+#: C/index.page:24
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
@@ -1083,7 +1150,7 @@ msgstr "Phil Bull"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:22
+#: C/index.page:30
 msgctxt "_"
 msgid ""
 "external ref='figures/shotwell_logo.png' "
@@ -1093,7 +1160,7 @@ msgstr ""
 "md5='4b333499555b4e496b1a38f7899067f3'"
 
 #. (itstool) path: page/title
-#: C/index.page:22
+#: C/index.page:30
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
@@ -1102,32 +1169,32 @@ msgstr ""
 "Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:25
+#: C/index.page:33
 msgid "Importing Photos"
 msgstr "Importar fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:29
+#: C/index.page:37
 msgid "Viewing Photos"
 msgstr "Ver fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:33
+#: C/index.page:41
 msgid "Organizing Photos"
 msgstr "Organizar fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:37
+#: C/index.page:45
 msgid "Editing Photos"
 msgstr "Editar fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:41
+#: C/index.page:49
 msgid "Sharing Photos"
 msgstr "Compartir fotos"
 
 #. (itstool) path: section/title
-#: C/index.page:45
+#: C/index.page:53
 msgid "Other Features"
 msgstr "Otras características"
 
@@ -2991,8 +3058,6 @@ msgstr "El tiempo para cada efecto de transición: 0.1 - 1.0 segundos"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-#| msgid ""
-#| "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
 msgid "Publish photos to Flickr, Google Photos, or other sites."
 msgstr "Publicar fotos en Flickr, Google Photos o en otros sitios."
 
@@ -3014,32 +3079,27 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
-msgid "<link href=\"https://facebook.com\">Facebook</link>"
-msgstr "<link href=\"https://facebook.com\">Facebook</link>"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:19
 msgid "<link href=\"https://flickr.com\">Flickr</link>"
 msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
-#: C/share-upload.page:20
-#| msgid "<link href=\"https://facebook.com\">Facebook</link>"
+#: C/share-upload.page:19
 msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
 msgstr "<link href=\"https://photos.google.com\">Google Photos</link>"
 
 #. (itstool) path: item/p
-#: C/share-upload.page:21
+#: C/share-upload.page:20
 msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
 msgstr "<link href=\"https://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
-#: C/share-upload.page:22
-msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
-msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (sólo vídeos)"
+#: C/share-upload.page:21
+#| msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (Photos only)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (sólo fotos)"
 
 #. (itstool) path: item/p
-#: C/share-upload.page:23
+#: C/share-upload.page:22
 msgid ""
 "Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
 "gallery software (photos only)"
@@ -3048,15 +3108,7 @@ msgstr ""
 "\"http://piwigo.org\">Piwigo</link> (sólo fotos)"
 
 #. (itstool) path: page/p
-#: C/share-upload.page:26
-#| msgid ""
-#| "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
-#| "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> "
-#| "tab to enable the plugin for the service you want to publish to. Next, "
-#| "choose, <guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the "
-#| "<gui>Publish</gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</"
-#| "key></keyseq>. You will see a dialog that lets you select a publishing "
-#| "service. You will then need to log in or create an account."
+#: C/share-upload.page:25
 msgid ""
 "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
@@ -3076,7 +3128,7 @@ msgstr ""
 "publicación. Necesitará iniciar sesión o crear una cuenta."
 
 #. (itstool) path: page/p
-#: C/share-upload.page:31
+#: C/share-upload.page:30
 msgid ""
 "Publishing to Facebook requires you to grant certain permissions to the "
 "Shotwell Facebook application. You only need to grant these permissions "
@@ -3087,7 +3139,7 @@ msgstr ""
 "la primera vez que asocie Shotwell con su cuenta de Facebook."
 
 #. (itstool) path: note/p
-#: C/share-upload.page:34
+#: C/share-upload.page:33
 msgid ""
 "You will be only able to publish images with at most the permission you "
 "granted to the Shotwell Facebook application"
@@ -3096,10 +3148,7 @@ msgstr ""
 "Facebook de Shotwell"
 
 #. (itstool) path: page/p
-#: C/share-upload.page:36
-#| msgid ""
-#| "Similarly, publishing to Flickr requires you to log in and permit "
-#| "Shotwell Connect to access your account."
+#: C/share-upload.page:35
 msgid ""
 "Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
 "log in and permit Shotwell Connect to access your account."
@@ -3235,6 +3284,30 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
+#| msgid ""
+#| "The Basic Information pane appears at the bottom of the sidebar, and "
+#| "displays a brief summary of the photos you've selected. If no photos are "
+#| "selected, it displays a summary of the entire collection. You can toggle "
+#| "the display of this pane using the <guiseq><gui>View</gui><gui>Basic "
+#| "Information</gui></guiseq> command."
+msgid ""
+"The map pane appears at the bottom of the sidebar as part of the Basic "
+"Information pane, and displays an overview map the photos you've selected. "
+"If no photos are selected, it displays an overview of the entire collection. "
+"You can toggle the display of this pane using the <guiseq><gui>View</"
+"gui><gui>Map Overview</gui></guiseq> command. Note that the map will only "
+"show when the Basic Information pane is displayed."
+msgstr ""
+"El panel del mada básica aparece en la parte inferior de la barra lateral "
+"como parte de información básica, y muestra un resumen en forma de mapa de "
+"las fotos que ha seleccionado. Si no se ha seleccionado ninguna foto, "
+"muestra un resumen de la colección completa. Puede cambiar la visibilidad de "
+"este panel usando el comando <guiseq><gui>Ver</gui><gui>Vista de mapa</gui></"
+"guiseq>. Tenga en cuenta que el mapa sólo se mostrará cuando se muestre el "
+"panel de información básica."
+
+#. (itstool) path: page/p
+#: C/view-information.page:18
 msgid ""
 "The floating Extended Information window displays more information about the "
 "selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
@@ -3315,6 +3388,9 @@ msgstr ""
 "sus fotos. Las fotos pueden tener múltiples etiquetas relacionadas con las "
 "mismas. Cuando posiciona el cursor sobre el nombre de una etiqueta en la "
 "barra lateral, podrá ver todas las fotos asociadas a esa etiqueta."
+
+#~ msgid "<link href=\"https://facebook.com\">Facebook</link>"
+#~ msgstr "<link href=\"https://facebook.com\">Facebook</link>"
 
 #~| msgid ""
 #~| "<link href=\"http://picasaweb.google.com\">Picasa Web Albums</link> and "
