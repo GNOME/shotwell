@@ -117,6 +117,7 @@ internal class PublishingParameters {
     public SizeEntry photo_size = null;
     public bool title_as_comment = false;
     public bool no_upload_tags = false;
+    public bool no_upload_ratings = false;
 
     public PublishingParameters() {
     }
@@ -256,6 +257,14 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_config_bool("last-no-upload-tags", no_upload_tags);
     }
     
+    private bool get_last_no_upload_ratings() {
+        return host.get_config_bool("last-no-upload-ratings", false);
+    }
+
+    private void set_last_no_upload_ratings(bool no_upload_ratings) {
+        host.set_config_bool("last-no-upload-ratings", no_upload_ratings);
+    }
+
     private bool get_metadata_removal_choice() {
         return host.get_config_bool("strip_metadata", false);
     }
@@ -678,7 +687,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         host.set_service_locked(false);
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(
             this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size(),
-            get_last_title_as_comment(), get_last_no_upload_tags(), get_metadata_removal_choice());
+            get_last_title_as_comment(), get_last_no_upload_tags(), get_last_no_upload_ratings(), get_metadata_removal_choice());
         opts_pane.logout.connect(on_publishing_options_pane_logout_clicked);
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
         host.install_dialog_pane(opts_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
@@ -842,6 +851,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         set_last_photo_size(parameters.photo_size.id);
         set_last_title_as_comment(parameters.title_as_comment);
         set_last_no_upload_tags(parameters.no_upload_tags);
+        set_last_no_upload_ratings(parameters.no_upload_ratings);
         set_metadata_removal_choice(strip_metadata);
 
         progress_reporter = host.serialize_publishables(parameters.photo_size.id, this.strip_metadata);
@@ -1206,6 +1216,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
     private Gtk.CheckButton strip_metadata_check = null;
     private Gtk.CheckButton title_as_comment_check = null;
     private Gtk.CheckButton no_upload_tags_check = null;
+    private Gtk.CheckButton no_upload_ratings_check = null;
     private Gtk.Button logout_button;
     private Gtk.Button publish_button;
     private Gtk.TextView album_comment;
@@ -1219,6 +1230,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
     public int last_photo_size { private get; construct; }
     public bool last_title_as_comment { private get; construct; }
     public bool last_no_upload_tags { private get; construct; }
+    public bool last_no_upload_ratings { private get; construct; }
     public bool strip_metadata_enabled { private get; construct; }
     public Gee.List<Category> existing_categories { private get; construct; }
     public string default_comment { private get; construct; }
@@ -1233,6 +1245,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
                                  int last_photo_size,
                                  bool last_title_as_comment,
                                  bool last_no_upload_tags,
+                                 bool last_no_upload_ratings,
                                  bool strip_metadata_enabled) {
         Object (resource_path : Resources.RESOURCE_PATH +
                                 "/piwigo_publishing_options_pane.ui",
@@ -1243,6 +1256,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
                 last_photo_size : last_photo_size,
                 last_title_as_comment : last_title_as_comment,
                 last_no_upload_tags : last_no_upload_tags,
+                last_no_upload_ratings : last_no_upload_ratings,
                 strip_metadata_enabled : strip_metadata_enabled,
                 existing_categories : new Gee.ArrayList<Category>.wrap (categories,
                                                           Category.equal),
@@ -1275,6 +1289,9 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
 
         no_upload_tags_check = builder.get_object("no_upload_tags_check") as Gtk.CheckButton;
         no_upload_tags_check.set_active(last_no_upload_tags);
+
+        no_upload_ratings_check = builder.get_object("no_upload_ratings_check") as Gtk.CheckButton;
+        no_upload_ratings_check.set_active(last_no_upload_ratings);
 
         logout_button = builder.get_object("logout_button") as Gtk.Button;
         logout_button.clicked.connect(on_logout_button_clicked);
@@ -1326,6 +1343,7 @@ internal class PublishingOptionsPane : Shotwell.Plugins.Common.BuilderPane {
         params.photo_size = photo_sizes[size_combo.get_active()];
         params.title_as_comment = title_as_comment_check.get_active();
         params.no_upload_tags = no_upload_tags_check.get_active();
+        params.no_upload_ratings = no_upload_ratings_check.get_active();
         if (create_new_radio.get_active()) {
             string uploadcomment = album_comment.buffer.text.strip();
             int a = within_existing_combo.get_active();
@@ -1721,12 +1739,14 @@ private class CategoriesAddTransaction : Transaction {
 
 private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
     private PublishingParameters parameters = null;
+    private Session session = null;
 
     public ImagesAddTransaction(Session session, PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
         base.with_endpoint_url(session, publishable, session.get_pwg_url());
         if (session.is_authenticated()) {
             add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
         }
+        this.session = session;
         this.parameters = parameters;
 
         string[] keywords = publishable.get_publishing_keywords();
@@ -1790,8 +1810,40 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
         disposition_table.insert("name", "image");
 
         set_binary_disposition_table(disposition_table);
+        base.completed.connect(on_completed);
+    }
+
+    private void on_completed() {
+        try{
+            Publishing.RESTSupport.XmlDocument resp_doc = Publishing.RESTSupport.XmlDocument.parse_string(
+                base.get_response(), Transaction.validate_xml);
+            Xml.Node* image_node = resp_doc.get_named_child(resp_doc.get_root_node(), "image_id");
+            string image_id = image_node->get_content();
+
+            if (!parameters.no_upload_ratings)
+                new ImagesAddRating(session, publishable, image_id);
+        } catch(Spit.Publishing.PublishingError err) {
+            debug("Response parse error");
+        }
+    }
+}
+
+private class ImagesAddRating : Publishing.RESTSupport.UploadTransaction {
+    public ImagesAddRating(Session session, Spit.Publishing.Publishable publishable, string image_id) {
+        base.with_endpoint_url(session, publishable, session.get_pwg_url());
+        if (session.is_authenticated()) {
+            add_header("Cookie", "pwg_id=".concat(session.get_pwg_id()));
+        }
+        add_argument("method", "pwg.images.rate");
+        add_argument("image_id", image_id);
+        add_argument("rate", publishable.get_rating().to_string());
+
+        try {
+            base.execute();
+        } catch (Spit.Publishing.PublishingError err) {
+            debug("Rating upload error");
+        }
     }
 }
 
 } // namespace
-
