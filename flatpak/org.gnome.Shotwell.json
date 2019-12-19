@@ -262,8 +262,8 @@
                     "type" : "extra-data",
                     "filename" : "deploy.prototxt",
                     "url" : "https://raw.githubusercontent.com/opencv/opencv/master/samples/dnn/face_detector/deploy.prototxt",
-                    "sha256" : "f62621cac923d6f37bd669298c428bb7ee72233b5f8c3389bb893e35ebbcf795",
-                    "size" : 28092
+                    "sha256" : "dcd661dc48fc9de0a341db1f666a2164ea63a67265c7f779bc12d6b3f2fa67e9",
+                    "size" : 28104
                 }
 
             ]
