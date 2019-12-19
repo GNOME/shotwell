@@ -121,7 +121,13 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         var picker = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
         var combo = new Gtk.ComboBoxText();
         for (int i = 0; i < 12; i++){
-            combo.append_text(Time.gm((i * 2764800)).format("%B"));
+            var dt = new DateTime.from_unix_utc(i * 2764800);
+            var month_string = dt.format("%OB");
+            if (month_string.str("%OB") != null) {
+                month_string = dt.format("%B");
+            }
+
+            combo.append_text(month_string);
         }
         picker.pack_start(combo, false, false, 0);
         // Limits taken from GtkCalendar
