@@ -123,7 +123,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         for (int i = 0; i < 12; i++){
             var dt = new DateTime.from_unix_utc(i * 2764800);
             var month_string = dt.format("%OB");
-            if (month_string.str("%OB") != null) {
+            if (month_string.index_of("%OB") != -1) {
                 month_string = dt.format("%B");
             }
 
