@@ -233,7 +233,7 @@ namespace Publishing.Tumblr {
                 foreach (var blognode in root_object.get_object_member("response").get_object_member("user").get_array_member("blogs").get_elements ()) {
                     var blog = blognode.get_object ();
                     string name = blog.get_string_member ("name");
-                    string url = blog.get_string_member ("url").replace("http://","").replace("/","");
+                    string url = blog.get_string_member ("url").replace("http://","").replace("https://", "").replace("/","");
                     debug("Got blog name: %s and url: %s", name, url);
                     this.blogs += new BlogEntry(name,url);
                 }
