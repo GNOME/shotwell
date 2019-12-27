@@ -30,7 +30,9 @@ public class FacesTool : EditingTools.EditingTool {
         public signal void face_hidden();
 
         public Gtk.Button delete_button;
+        public Gtk.Button ok_button;
         public Gtk.Label label;
+        public Gtk.Entry name_entry;
 
         public weak FaceShape face_shape;
 
@@ -52,6 +54,11 @@ public class FacesTool : EditingTools.EditingTool {
             label.valign = Gtk.Align.CENTER;
             label.ellipsize = Pango.EllipsizeMode.END;
             label.width_chars = FACE_LABEL_MAX_CHARS;
+
+            name_entry = new Gtk.Entry();
+
+            ok_button = new Gtk.Button.with_label(Resources.OK_LABEL);
+            ok_button.set_use_underline(true);
 
             pack_start(label, true);
             pack_start(delete_button, false);
@@ -93,18 +100,45 @@ public class FacesTool : EditingTools.EditingTool {
             return true;
         }
 
-        public bool edit_face() {
-            FaceWidget face_widget = (FaceWidget) label.get_parent();
-            Gtk.EventBox event_box = (Gtk.EventBox) face_widget.get_parent();
-            Gtk.ListBoxRow list_row = (Gtk.ListBoxRow) event_box.get_parent();
-            Gtk.ListBox list = (Gtk.ListBox) list_row.get_parent();
-            Gtk.Box layout = (Gtk.Box) list.get_parent();
-            Gtk.Frame frame = (Gtk.Frame) layout.get_parent();
-            Gtk.Frame frame_outside = (Gtk.Frame) frame.get_parent();
-            FacesToolWindow faces_window = (FacesToolWindow) frame_outside.get_parent();
-            faces_window.face_edit_requested(label.get_text());
+        public bool edit_name() {
+            remove(label);
+            remove(delete_button);
+            pack_start(name_entry, true);
+            pack_start(ok_button);
+            pack_start(delete_button);
+            name_entry.set_visible(true);
+            name_entry.set_text(face_shape.get_name());
+            name_entry.grab_focus();
+            ok_button.set_visible(true);
+            delete_button.set_visible(true);
 
             return true;
+        }
+
+        public void set_default_view() {
+            if (ok_button.get_parent() != null) {
+                remove(name_entry);
+                remove(ok_button);
+                remove(delete_button);
+                pack_start(label, true);
+                pack_start(delete_button, false);
+            }
+        }
+
+        public FaceShape? update_ui_is_face_new() {
+            //update user interface
+            set_default_view();
+
+            //need to update any FaceShape?
+            if (name_entry.get_text() != label.get_text()) {
+                string new_name = name_entry.get_text();
+                label.set_text(new_name);
+                face_shape.set_name(new_name);
+                face_shape.add_me_requested(face_shape);
+                return face_shape;
+            } else {
+                return null; //do not need update
+            }
         }
 
         public void activate_label() {
@@ -119,6 +153,7 @@ public class FacesTool : EditingTools.EditingTool {
     private class FacesToolWindow : EditingTools.EditingToolWindow {
         public signal void face_hidden();
         public signal void face_edit_requested(string face_name);
+        public signal void face_shape_edit_requested(FaceShape face_shape, bool creating = false);
         public signal void face_delete_requested(string face_name);
         public signal void detection_canceled();
 
@@ -259,7 +294,8 @@ public class FacesTool : EditingTools.EditingTool {
             event_box.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
             event_box.enter_notify_event.connect(face_widget.on_enter_notify_event);
             event_box.leave_notify_event.connect(face_widget.on_leave_notify_event);
-            event_box.button_press_event.connect(face_widget.edit_face);
+            event_box.button_press_event.connect(face_widget.edit_name);
+            face_widget.ok_button.clicked.connect(on_face_widget_ok_button_pressed);
 
             face_widgets_layout.insert(event_box, -1);
 
@@ -284,6 +320,15 @@ public class FacesTool : EditingTools.EditingTool {
 
         private void on_cancel_detection() {
             detection_canceled();
+        }
+
+        private void on_face_widget_ok_button_pressed(Gtk.Button button) {
+            FaceWidget widget = (FaceWidget) button.get_parent();
+            FaceShape face_shape = widget.update_ui_is_face_new();
+            if (face_shape != null) {
+                face_shape_edit_requested(face_shape);
+                ok_button_set_sensitive(true);
+            }
         }
     }
 
@@ -485,6 +530,7 @@ public class FacesTool : EditingTools.EditingTool {
         faces_tool_window.detection_button.clicked.connect(detect_faces);
         faces_tool_window.face_hidden.connect(on_face_hidden);
         faces_tool_window.face_edit_requested.connect(edit_face);
+        faces_tool_window.face_shape_edit_requested.connect(edit_face_shape);
         faces_tool_window.face_delete_requested.connect(delete_face);
         faces_tool_window.detection_canceled.connect(cancel_face_detection);
     }
@@ -496,6 +542,7 @@ public class FacesTool : EditingTools.EditingTool {
         faces_tool_window.detection_button.clicked.disconnect(detect_faces);
         faces_tool_window.face_hidden.disconnect(on_face_hidden);
         faces_tool_window.face_edit_requested.disconnect(edit_face);
+        faces_tool_window.face_shape_edit_requested.disconnect(edit_face_shape);
         faces_tool_window.face_delete_requested.disconnect(delete_face);
         faces_tool_window.detection_canceled.disconnect(cancel_face_detection);
     }
