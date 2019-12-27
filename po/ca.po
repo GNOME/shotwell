@@ -164,8 +164,7 @@ msgid ""
 "Whether images being uploaded to Rajce should have their metadata removed "
 "first"
 msgstr ""
-"Abans de carregar les imatges a Rajce hauria d'haver suprimit les seves "
-"metadades primer"
+"Si s'han de suprimir les metadades abans de pujar les imatges a Rajce"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:23
 msgid "display basic properties"
@@ -652,14 +651,12 @@ msgstr ""
 #: data/gsettings/org.yorba.shotwell.gschema.xml:308
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr ""
-"Un codi numèric que representa l'última opció del menú del cultiu que "
+"Un codi numèric que representa l'última opció del menú d'escapçament que "
 "realitza de l'usuari."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:312
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
-msgstr ""
-"Més recentment utilitzat de l'escapçament personalitzat de l'aspecte "
-"enumerat."
+msgstr "Numerador de relació d'aspecte utilitzat més recentment en l'escapçament personalitzat."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:313
 msgid ""
@@ -667,7 +664,7 @@ msgid ""
 "crop ratio the user entered."
 msgstr ""
 "Un nombre sencer positiu diferent de zero que representa la part ampla de "
-"l'última proporció del cultiu personalitzat que l'usuari va introduir."
+"l'última proporció de l'escapçament personalitzat que l'usuari va introduir."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
@@ -681,7 +678,7 @@ msgid ""
 "crop ratio the user entered."
 msgstr ""
 "Un nombre sencer positiu diferent de zero, que representa la part de "
-"l'alçada de l'última proporció del cultiu personalitzat que l'usuari va "
+"l'alçada de l'última proporció de l'escapçament personalitzat que l'usuari va "
 "introduir."
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:325
@@ -803,8 +800,7 @@ msgid ""
 "Whether images being uploaded to Facebook should have their metadata removed "
 "first"
 msgstr ""
-"Si les imatges que es carreguen a Facebook han de tenir les seves metadades "
-"eliminades primer"
+"Si s'han de suprimir les metadades abans de pujar les imatges a Facebook"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:460
 msgid "OAuth Access Phase Token"
@@ -856,8 +852,7 @@ msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
-"Si les imatges que es carreguen a Flickr han de tenir les seves metadades "
-"eliminades primer"
+"Si s'han de suprimir les metadades abans de pujar les imatges a Flickr"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:498
 #: data/gsettings/org.yorba.shotwell.gschema.xml:630
@@ -896,8 +891,7 @@ msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
 msgstr ""
-"Si les imatges que es carreguen a Google Photos han de tenir les seves "
-"metadades eliminades primer"
+"Si s'han de suprimir les metadades abans de pujar les imatges a Google Photos"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:524
 msgid "Piwigo URL"
@@ -952,8 +946,7 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
-"Si les imatges que es carreguen a Piwigo han de tenir les seves metadades "
-"eliminades primer"
+"Si s'han de suprimir les metadades abans de pujar les imatges a Piwigo"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:572
 msgid ""
@@ -1008,8 +1001,7 @@ msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
 msgstr ""
-"Indica si les imatges que es carreguen a Gallery3 han de tenir les seves "
-"metadades eliminades primer"
+"Si s'han de suprimir les metadades abans de pujar les imatges a Gallery3"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:616
 msgid "scaling constraint of uploaded picture"
@@ -1443,7 +1435,7 @@ msgid ""
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
 "rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"àlbum;càmera;càmeres;cultiu;edició;millorar;exportació;galeria;imatge;"
+"àlbum;càmera;càmeres;escapçament;edició;millorar;exportació;galeria;imatge;"
 "imatges;importar;organitzar;foto;fotògrafs;fotos;imatge;imatges;fotografia;"
 "impressió;publicar;girar;compartir;etiquetes;vídeo;facebook;flickr;picasa;"
 "youtube;Piwigo;"
@@ -3716,7 +3708,7 @@ msgstr "S'està ajustant la Data i l'Hora"
 
 #: src/Commands.vala:1367
 msgid "Undoing Date and Time Adjustment"
-msgstr "S'està desfent l'Ajustament de la Data i l'Hora"
+msgstr "S'està desfent l'ajustament de la data i l'hora"
 
 #: src/Commands.vala:1398
 msgid "One original photo could not be adjusted."
@@ -3726,7 +3718,7 @@ msgstr[1] "Les fotografies originals no s'han pogut ajustar."
 
 #: src/Commands.vala:1400 src/Commands.vala:1424
 msgid "Time Adjustment Error"
-msgstr "S'ha produït un Error en Ajustar l'Hora"
+msgstr "S'ha produït un error en ajustar l'hora"
 
 #: src/Commands.vala:1422
 msgid "Time adjustments could not be undone on the following photo file."
@@ -5686,7 +5678,7 @@ msgstr "Desenvolupament actual:"
 
 #: src/Properties.vala:613
 msgid "Original dimensions:"
-msgstr "Mida original:"
+msgstr "Mides originals:"
 
 #: src/Properties.vala:616
 msgid "Camera make:"
