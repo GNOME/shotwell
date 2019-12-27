@@ -132,8 +132,7 @@ msgstr ""
 "Aquesta opció ajusta el to de la foto. És útil per corregir fotos fetes amb "
 "una configuració de balanç de blancs incorrecta, que solen tenir un dominant"
 " de color poc natural. Per exemple, les fotos fetes a l'exterior amb el "
-"balanç de blancs establert en \"Tungstè\" poden tenir un dominant de color "
-"blau."
+"balanç de blancs establert a «tungstè» poden tenir una tonalitat blava."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:40
@@ -146,7 +145,7 @@ msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
-"Canvia la \"calidesa\" o la \"frescor\" de la foto. Feu-ho servir perquè les"
+"Canvia la «calidesa» o la «frescor» de la foto. Feu-ho servir perquè les"
 " escenes fredes i depriments semblin més animades, per exemple."
 
 #. (itstool) path: item/title
@@ -817,7 +816,7 @@ msgid ""
 "videos."
 msgstr ""
 "Shotwell admet tant fotos com vídeos, però per simplicitat, aquesta "
-"documentació utilitza majoritàriament el terme \"fotografies\". Tanmateix, "
+"documentació utilitza majoritàriament el terme «fotografies». Tanmateix, "
 "moltes operacions a Shotwell s'apliquen a fotografies i vídeos. En "
 "particular, esdeveniments, marcatge, puntuació, etiquetatge i "
 "publicació."
@@ -1740,7 +1739,7 @@ msgstr "Organitzar les fotografies etiquetant-les."
 #. (itstool) path: page/title
 #: C/organize-tag.page:14
 msgid "Tagging photos"
-msgstr "Fer tocs a les fotografies"
+msgstr "Etiquetar fotografies"
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:16
@@ -2711,7 +2710,7 @@ msgid ""
 msgstr ""
 "Opcionalment, seleccioneu un conjunt de fotografies i trieu la comanda "
 "<guiseq><gui>Fitxer</gui><gui>Exporta...</gui></guiseq> o premeu "
-"<keyseq><key>Màj.</key><key>Ctrl</key><key>E</key></keyseq>, que exporta "
+"<keyseq><key>Maj</key><key>Ctrl</key><key>E</key></keyseq>, que exporta "
 "fotografies alhora que permet ajustar la mida i les dimensions dels fitxers "
 "fotogràfics. Apareixerà una finestra que us permetrà triar diverses opcions:"
 
@@ -2851,7 +2850,7 @@ msgid ""
 "dialog."
 msgstr ""
 "Feu clic a <guiseq><gui>Fitxer</gui><gui>Imprimeix...</gui></guiseq>. Per més"
-" opcions d'impressió, seleccioneu la pestanya <gui>Configurar pàgina</gui> al"
+" opcions d'impressió, seleccioneu la pestanya <gui>Configuració de la pàgina</gui> al"
 " diàleg <gui>Imprimeix</gui>."
 
 #. (itstool) path: page/title
@@ -3147,7 +3146,7 @@ msgstr ""
 "desplaçament o prement les dreceres de teclat "
 "següents: <keyseq><key>Ctrl</key>0</keyseq> per a la imatge en pantalla "
 "completa, <keyseq><key>Ctrl</key>1</keyseq> per al 100% (1 píxel de la "
-"fotografia= 1 pixel) de la pantalla, i <keyseq><key>Ctrl</key>2</keyseq> per"
+"fotografia = 1 píxel) de la pantalla, i <keyseq><key>Ctrl</key>2</keyseq> per"
 " 200% (1 píxel de la fotografia = 2x2 píxels) de pantalla."
 
 #. (itstool) path: page/p
