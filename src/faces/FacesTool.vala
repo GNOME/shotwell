@@ -28,11 +28,13 @@ public class FacesTool : EditingTools.EditingTool {
         private static Pango.AttrList attrs_normal;
 
         public signal void face_hidden();
+        public signal void face_tool_window_default_view();
 
-        public Gtk.Button delete_button;
-        public Gtk.Button ok_button;
         public Gtk.Label label;
+        public Gtk.Button delete_button;
         public Gtk.Entry name_entry;
+        public Gtk.Button ok_button;
+        public Gtk.Button cancel_button;
 
         public weak FaceShape face_shape;
 
@@ -46,7 +48,7 @@ public class FacesTool : EditingTools.EditingTool {
         public FaceWidget (FaceShape face_shape) {
             spacing = CONTROL_SPACING;
 
-            delete_button = new Gtk.Button.from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON);
+            delete_button = new Gtk.Button.from_icon_name("user-trash", Gtk.IconSize.BUTTON);
             delete_button.set_use_underline(true);
 
             label = new Gtk.Label(face_shape.get_name());
@@ -57,14 +59,19 @@ public class FacesTool : EditingTools.EditingTool {
 
             name_entry = new Gtk.Entry();
 
-            ok_button = new Gtk.Button.with_label(Resources.OK_LABEL);
+            ok_button = new Gtk.Button.from_icon_name("emblem-default", Gtk.IconSize.BUTTON);
             ok_button.set_use_underline(true);
+
+            cancel_button = new Gtk.Button.from_icon_name("edit-undo", Gtk.IconSize.BUTTON);
+            cancel_button.set_use_underline(true);
+            cancel_button.clicked.connect(set_default_view);
 
             pack_start(label, true);
             pack_start(delete_button, false);
 
             this.face_shape = face_shape;
             face_shape.set_widget(this);
+
         }
 
         public bool on_enter_notify_event() {
@@ -101,25 +108,28 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         public bool edit_name() {
+            set_default_view();
+            face_tool_window_default_view();
             remove(label);
             remove(delete_button);
             pack_start(name_entry, true);
-            pack_start(ok_button);
-            pack_start(delete_button);
+            pack_start(ok_button, false);
+            pack_start(cancel_button, false);
             name_entry.set_visible(true);
             name_entry.set_text(face_shape.get_name());
             name_entry.grab_focus();
             ok_button.set_visible(true);
-            delete_button.set_visible(true);
+            cancel_button.set_visible(true);
 
             return true;
         }
 
         public void set_default_view() {
-            if (ok_button.get_parent() != null) {
+            if (name_entry.get_visible() == true) {
                 remove(name_entry);
+                name_entry.set_visible(false);
                 remove(ok_button);
-                remove(delete_button);
+                remove(cancel_button);
                 pack_start(label, true);
                 pack_start(delete_button, false);
             }
@@ -296,6 +306,7 @@ public class FacesTool : EditingTools.EditingTool {
             event_box.leave_notify_event.connect(face_widget.on_leave_notify_event);
             event_box.button_press_event.connect(face_widget.edit_name);
             face_widget.ok_button.clicked.connect(on_face_widget_ok_button_pressed);
+            face_widget.face_tool_window_default_view.connect(all_face_widgets_default_view);
 
             face_widgets_layout.insert(event_box, -1);
 
@@ -328,6 +339,15 @@ public class FacesTool : EditingTools.EditingTool {
             if (face_shape != null) {
                 face_shape_edit_requested(face_shape);
                 ok_button_set_sensitive(true);
+            }
+        }
+
+        private void all_face_widgets_default_view() {
+            List<unowned Gtk.ListBoxRow> rows = (List<unowned Gtk.ListBoxRow>) face_widgets_layout.get_children();
+            foreach (Gtk.ListBoxRow list_row in rows) {
+                Gtk.EventBox event_box = (Gtk.EventBox) list_row.get_child();
+                FaceWidget face_widget = (FaceWidget) event_box.get_child();
+                face_widget.set_default_view();
             }
         }
     }
