@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2019-11-17 00:07+0000\n"
+"POT-Creation-Date: 2019-12-27 18:06+0000\n"
 "PO-Revision-Date: 2019-12-11 10:10+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
@@ -2475,7 +2475,7 @@ msgstr ""
 "Si tiene fotos en un disco externo, como un CD o un pendrive USB y las <link "
 "xref=\"index#import\">importa</link> en Shotwell <em>sin</em> copiarlas al "
 "equipo, se mostrarán como archivos ausentes cuando desconecte el disco "
-"extraíble. Consulte la <link xref=\"import-file\"/> para aprender cómo "
+"extraíble. Consulte la sección <link xref=\"import-file\"/> para aprender cómo "
 "copiar archivos desde discos extraíbles a su equipo."
 
 #. (itstool) path: page/p
@@ -3094,7 +3094,6 @@ msgstr "<link href=\"https://youtube.com\">YouTube</link> (sólo vídeos)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-#| msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
 msgid "<link href=\"https://tumblr.com\">Tumblr</link> (Photos only)"
 msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (sólo fotos)"
 
@@ -3284,12 +3283,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
-#| msgid ""
-#| "The Basic Information pane appears at the bottom of the sidebar, and "
-#| "displays a brief summary of the photos you've selected. If no photos are "
-#| "selected, it displays a summary of the entire collection. You can toggle "
-#| "the display of this pane using the <guiseq><gui>View</gui><gui>Basic "
-#| "Information</gui></guiseq> command."
 msgid ""
 "The map pane appears at the bottom of the sidebar as part of the Basic "
 "Information pane, and displays an overview map the photos you've selected. "
