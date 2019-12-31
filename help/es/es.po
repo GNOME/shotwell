@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2019-01-27 16:39+0000\n"
-"PO-Revision-Date: 2019-07-26 09:15+0200\n"
+"POT-Creation-Date: 2019-12-23 18:44+0000\n"
+"PO-Revision-Date: 2019-12-31 10:09+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Gtranslator 3.34.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -927,10 +927,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
-#| msgid ""
-#| "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-#| "gui></guiseq> and select the folder containing the photos you want to "
-#| "import."
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 "gui></guiseq> and select the folder containing the photos you want to "
@@ -2408,8 +2404,8 @@ msgstr ""
 "Si tiene fotos en un disco externo, como un CD o un pendrive USB y las <link "
 "xref=\"index#import\">importa</link> en Shotwell <em>sin</em> copiarlas al "
 "equipo, se mostrarán como archivos ausentes cuando desconecte el disco "
-"extraíble. Consulte la <link xref=\"import-file\"/> para aprender cómo "
-"copiar archivos desde discos extraíbles a su equipo."
+"extraíble. Consulte la sección <link xref=\"import-file\"/> para aprender "
+"cómo copiar archivos desde discos extraíbles a su equipo."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:20
@@ -2991,8 +2987,6 @@ msgstr "El tiempo para cada efecto de transición: 0.1 - 1.0 segundos"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-#| msgid ""
-#| "Publish photos to Facebook, Flickr, Picasa Web Albums, or other sites."
 msgid "Publish photos to Flickr, Google Photos, or other sites."
 msgstr "Publicar fotos en Flickr, Google Photos o en otros sitios."
 
@@ -3024,7 +3018,6 @@ msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-#| msgid "<link href=\"https://facebook.com\">Facebook</link>"
 msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
 msgstr "<link href=\"https://photos.google.com\">Google Photos</link>"
 
@@ -3049,14 +3042,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:26
-#| msgid ""
-#| "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
-#| "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> "
-#| "tab to enable the plugin for the service you want to publish to. Next, "
-#| "choose, <guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the "
-#| "<gui>Publish</gui> toolbar button or use <keyseq><key>Ctrl</key><key>P</"
-#| "key></keyseq>. You will see a dialog that lets you select a publishing "
-#| "service. You will then need to log in or create an account."
 msgid ""
 "To publish selected photos in a collection, choose <guiseq><gui>Edit</"
 "gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
@@ -3097,9 +3082,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:36
-#| msgid ""
-#| "Similarly, publishing to Flickr requires you to log in and permit "
-#| "Shotwell Connect to access your account."
 msgid ""
 "Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
 "log in and permit Shotwell Connect to access your account."
