@@ -13,7 +13,7 @@ class ShotwellThumbnailer {
     const string caps_string = """video/x-raw,format=RGB,pixel-aspect-ratio=1/1""";
 
     public static int main(string[] args) {
-        Gst.Element pipeline, sink;
+        dynamic Gst.Element pipeline, sink;
         string descr;
         Gdk.Pixbuf pixbuf;
         uint8[]? pngdata;
@@ -41,15 +41,14 @@ class ShotwellThumbnailer {
             return 1;
         }
         
-        descr = "filesrc location=\"%s\" ! decodebin ! videoconvert ! videoscale ! ".printf(args[1]) +
-            "%s ! gdkpixbufsink name=sink".printf(caps_string);
+        descr = "playbin uri=\"%s\" audio-sink=fakesink video-sink=\"gdkpixbufsink name=sink\"".printf(File.new_for_commandline_arg(args[1]).get_uri());
         
         try {
             // Create new pipeline.
             pipeline = Gst.parse_launch(descr);
             
             // Get sink.
-            sink = ((Gst.Bin) pipeline).get_by_name("sink");
+            sink = pipeline.video_sink;
             
             // Set to PAUSED to make the first frame arrive in the sink.
             ret = pipeline.set_state(Gst.State.PAUSED);
@@ -92,7 +91,36 @@ class ShotwellThumbnailer {
 
             sink.get ("last-pixbuf", out pixbuf);
 
+            Gst.TagList tags;
+            Signal.emit_by_name(pipeline, "get-video-tags", 0, out tags);
+            var direction = Gdk.PixbufRotation.NONE;
+            if (tags != null) {
+                string orientation = null;
+                if (tags.get_string_index (Gst.Tags.IMAGE_ORIENTATION, 0, out orientation)) {
+                    if (orientation != null) {
+                        switch (orientation) {
+                            case "rotate-90":
+                                direction = Gdk.PixbufRotation.CLOCKWISE;
+                                break;
+                            case "rotate-180":
+                                direction = Gdk.PixbufRotation.UPSIDEDOWN;
+                                break;
+                            case "rotate-270":
+                                direction = Gdk.PixbufRotation.COUNTERCLOCKWISE;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            stderr.printf("Oritentation: %s\n", direction.to_string());
+
             // Save the pixbuf.
+            if (direction != Gdk.PixbufRotation.NONE) {
+                pixbuf = pixbuf.rotate_simple(direction);
+            }
             pixbuf.save_to_buffer(out pngdata, "png");
             stdout.write(pngdata);
 
