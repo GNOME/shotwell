@@ -1,3 +1,26 @@
+Shotwell 0.30.8 - 03 Jan 2020
+  * Fix keyboard shortcut for adding tags
+  * Fix Tumblr publishing
+  * Fix month name translation in date/time chooser
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/166
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/196
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Asier Sarasua Garmendia <asier.sarasua@gmail.com>
+ - Ryuta Fujii <translation@sicklylife.jp>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+
+Added/updated translations:
+ - cs.po, courtesy of Marek Černocký
+ - es.po, courtesy of Daniel Mustieles
+ - cs.po, courtesy of Marek Černocký
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - ja.po, courtesy of sicklylife
+
 Shotwell 0.30.7 - 20 Aug 2019
   * Fix compatibility with Vala 0.46
 
