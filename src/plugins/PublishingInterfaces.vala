@@ -565,6 +565,11 @@ public interface Publishable : GLib.Object {
      */
     public abstract GLib.DateTime get_exposure_date_time();
     
+    /**
+     * Returns the rating on the file.
+     */
+    public abstract uint get_rating();
+
     //
     // For future expansion.
     //
