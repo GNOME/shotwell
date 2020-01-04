@@ -104,7 +104,7 @@ public class Camera.SidebarEntry : Sidebar.SimplePageEntry {
     }
     
     protected override Page create_page() {
-        return new ImportPage(camera, camera.gcamera, uri, get_sidebar_name(), get_sidebar_icon());
+        return new ImportPage(camera);
     }
     
     public string get_uri() {

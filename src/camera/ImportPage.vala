@@ -27,7 +27,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
     
     protected ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder,
         string filename, ulong file_size, time_t modification_time) {
-        this.camera_name = camera_name;
+        this.camera_name =camera_name;
         this.camera = camera;
         this.fsid = fsid;
         this.folder = folder;
@@ -682,17 +682,13 @@ public class ImportPage : CheckerboardPage {
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.CheckButton hide_imported;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
-    private GPhoto.Camera camera;
     private DiscoveredCamera dcamera;
-    private string uri;
     private bool busy = false;
     private bool refreshed = false;
     private GPhoto.Result refresh_result = GPhoto.Result.OK;
     private string refresh_error = null;
-    private string camera_name;
     private VolumeMonitor volume_monitor = null;
     private ImportPage? local_ref = null;
-    private string? icon;
     private ImportPageSearchViewFilter search_filter = new ImportPageSearchViewFilter();
     private HideImportedViewFilter hide_imported_filter = new HideImportedViewFilter();
     private CameraViewTracker tracker;
@@ -708,19 +704,15 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    public ImportPage(DiscoveredCamera dcamera, GPhoto.Camera camera, string uri, string? display_name = null, string? icon = null) {
+    public ImportPage(DiscoveredCamera dcamera) {
         base(_("Camera"));
         this.dcamera = dcamera;
-        this.camera = camera;
-        this.uri = uri;
-        this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(uri));
-        this.icon = icon;
-        this.camera_name= display_name;
+        this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(dcamera.uri));
         
         tracker = new CameraViewTracker(get_view());
         
-        camera_label.set_text(camera_name);
-        set_page_name(camera_name);
+        camera_label.set_text(dcamera.display_name);
+        set_page_name(dcamera.display_name);
         
         // Mount.unmounted signal is *only* fired when a VolumeMonitor has been instantiated.
         this.volume_monitor = VolumeMonitor.get();
@@ -839,7 +831,7 @@ public class ImportPage : CheckerboardPage {
     }
 
     protected override string get_view_empty_icon() {
-        return this.icon;
+        return this.dcamera.icon;
     }
 
     protected override string get_view_empty_message() {
@@ -892,11 +884,11 @@ public class ImportPage : CheckerboardPage {
     }
 
     public GPhoto.Camera get_camera() {
-        return camera;
+        return dcamera.gcamera;
     }
     
     public string get_uri() {
-        return uri;
+        return dcamera.uri;
     }
     
     public bool is_busy() {
@@ -994,7 +986,7 @@ public class ImportPage : CheckerboardPage {
                 }
                 
                 // if locked because it's mounted, offer to unmount
-                debug("Checking if %s is mounted…", uri);
+                debug("Checking if %s is mounted…", dcamera.uri);
 
                 var mount = dcamera.get_mount();
                 
@@ -1106,7 +1098,7 @@ public class ImportPage : CheckerboardPage {
      * @param search_target The name of the directory to look for.
      */
     private bool check_directory_exists(int fsid, string dir, string search_target) {
-        string? fulldir = get_fulldir(camera, camera_name, fsid, dir);
+        string? fulldir = get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
         GPhoto.Result result;
         GPhoto.CameraList folders;
 
@@ -1116,7 +1108,7 @@ public class ImportPage : CheckerboardPage {
             return false;
         }
 
-        result = camera.list_folders(fulldir, folders, spin_idle_context.context);
+        result = dcamera.gcamera.list_folders(fulldir, folders, spin_idle_context.context);
         if (result != GPhoto.Result.OK) {
             // fetching the list failed - can't determine whether specified dir is present
             return false;
@@ -1145,7 +1137,7 @@ public class ImportPage : CheckerboardPage {
         update_status(busy, false);
         
         refresh_error = null;
-        refresh_result = camera.init(spin_idle_context.context);
+        refresh_result = dcamera.gcamera.init(spin_idle_context.context);
 
         // If we fail to claim the device, we might have run into a conflict
         // with gvfs-gphoto2-volume-monitor. Back off, try again after
@@ -1188,7 +1180,7 @@ public class ImportPage : CheckerboardPage {
         
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
-        refresh_result = camera.get_storageinfo(&sifs, out count, spin_idle_context.context);
+        refresh_result = dcamera.gcamera.get_storageinfo(&sifs, out count, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             for (int fsid = 0; fsid < count; fsid++) {
                 // Check well-known video and image paths first to prevent accidental
@@ -1277,7 +1269,7 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_text("");
         progress_bar.set_fraction(0.0);
         
-        GPhoto.Result res = camera.exit(spin_idle_context.context);
+        GPhoto.Result res = dcamera.gcamera.exit(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             warning("Unable to unlock camera: %s", res.to_full_string());
@@ -1360,7 +1352,7 @@ public class ImportPage : CheckerboardPage {
     }
 
     private bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportSource> import_list) {
-        string? fulldir = get_fulldir(camera, camera_name, fsid, dir);
+        string? fulldir = get_fulldir(dcamera.gcamera, dcamera.display_name, fsid, dir);
         if (fulldir == null) {
             warning("Skipping enumerating %s: invalid folder name", dir);
             
@@ -1375,7 +1367,7 @@ public class ImportPage : CheckerboardPage {
             return false;
         }
         
-        refresh_result = camera.list_files(fulldir, files, spin_idle_context.context);
+        refresh_result = dcamera.gcamera.list_files(fulldir, files, spin_idle_context.context);
         if (refresh_result != GPhoto.Result.OK) {
             warning("Unable to list files in %s: %s", fulldir, refresh_result.to_full_string());
             
@@ -1398,7 +1390,7 @@ public class ImportPage : CheckerboardPage {
             
             try {
                 GPhoto.CameraFileInfo info;
-                if (!GPhoto.get_info(spin_idle_context.context, camera, fulldir, filename, out info)) {
+                if (!GPhoto.get_info(spin_idle_context.context, dcamera.gcamera, fulldir, filename, out info)) {
                     warning("Skipping import of %s/%s: name too long", fulldir, filename);
                     
                     continue;
@@ -1412,7 +1404,7 @@ public class ImportPage : CheckerboardPage {
                 }
                 
                 if (VideoReader.is_supported_video_filename(filename)) {
-                    VideoImportSource video_source = new VideoImportSource(camera_name, camera,
+                    VideoImportSource video_source = new VideoImportSource(dcamera.display_name, dcamera.gcamera,
                         fsid, dir, filename, info.file.size, info.file.mtime);
                     import_list.add(video_source);
                 } else {
@@ -1427,7 +1419,7 @@ public class ImportPage : CheckerboardPage {
                             continue;
                         }
                     }
-                    import_list.add(new PhotoImportSource(camera_name, camera, fsid, dir, filename,
+                    import_list.add(new PhotoImportSource(dcamera.display_name, dcamera.gcamera, fsid, dir, filename,
                         info.file.size, info.file.mtime, file_format));
                 }
                 
@@ -1452,7 +1444,7 @@ public class ImportPage : CheckerboardPage {
             return false;
         }
         
-        refresh_result = camera.list_folders(fulldir, folders, spin_idle_context.context);
+        refresh_result = dcamera.gcamera.list_folders(fulldir, folders, spin_idle_context.context);
         if (refresh_result != GPhoto.Result.OK) {
             warning("Unable to list folders in %s: %s", fulldir, refresh_result.to_full_string());
             
@@ -1552,7 +1544,7 @@ public class ImportPage : CheckerboardPage {
             PhotoMetadata? metadata = null;
             if (!VideoReader.is_supported_video_filename(filename)) {
                 try {
-                    metadata = GPhoto.load_metadata(spin_idle_context.context, camera, fulldir,
+                    metadata = GPhoto.load_metadata(spin_idle_context.context, dcamera.gcamera, fulldir,
                         filename);
                 } catch (Error err) {
                     warning("Unable to fetch metadata for %s/%s: %s", fulldir, filename,
@@ -1581,7 +1573,7 @@ public class ImportPage : CheckerboardPage {
                     preview_fulldir = associated.get_fulldir();
                     preview_filename = associated.get_filename();
                 }
-                preview = GPhoto.load_preview(spin_idle_context.context, camera, preview_fulldir,
+                preview = GPhoto.load_preview(spin_idle_context.context, dcamera.gcamera, preview_fulldir,
                     preview_filename, out preview_md5);
             } catch (Error err) {
                 // only issue the warning message if we're not reading a video. GPhoto is capable
@@ -1608,7 +1600,7 @@ public class ImportPage : CheckerboardPage {
             if (associated != null) {
                 try {
                     PhotoMetadata? associated_metadata = GPhoto.load_metadata(spin_idle_context.context, 
-                        camera, associated.get_fulldir(), associated.get_filename());
+                        dcamera.gcamera, associated.get_fulldir(), associated.get_filename());
                     associated.update(preview, preview_md5, associated_metadata, null);
                 } catch (Error err) {
                     warning("Unable to fetch metadata for %s/%s: %s",  associated.get_fulldir(),
@@ -1648,7 +1640,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import(Gee.Iterable<DataObject> items) {
-        GPhoto.Result res = camera.init(spin_idle_context.context);
+        GPhoto.Result res = dcamera.gcamera.init(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             AppWindow.error_message(_("Unable to lock camera: %s").printf(res.to_full_string()));
             
@@ -1689,14 +1681,14 @@ public class ImportPage : CheckerboardPage {
             jobs.add(import_job);
         }
         
-        debug("Importing %d files from %s", jobs.size, camera_name);
+        debug("Importing %d files from %s", jobs.size, dcamera.display_name);
         
         if (jobs.size > 0) {
             // see import_reporter() to see why this is held during the duration of the import
             assert(local_ref == null);
             local_ref = this;
             
-            BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter,
+            BatchImport batch_import = new BatchImport(jobs, dcamera.display_name, import_reporter,
                 null, already_imported);
             batch_import.import_job_failed.connect(on_import_job_failed);
             batch_import.import_complete.connect(close_import);
@@ -1788,7 +1780,7 @@ public class ImportPage : CheckerboardPage {
     }
 
     private void close_import() {
-        GPhoto.Result res = camera.exit(spin_idle_context.context);
+        GPhoto.Result res = dcamera.gcamera.exit(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s", res.to_full_string());
