@@ -9,12 +9,77 @@ public class DiscoveredCamera {
     public string uri;
     public string display_name;
     public string? icon;
-    
-    public DiscoveredCamera(GPhoto.Camera gcamera, string uri, string display_name, string? icon) {
-        this.gcamera = gcamera;
-        this.uri = uri;
-        this.display_name = display_name;
-        this.icon = icon;
+
+    private string port;
+    private string camera_name;
+
+    public DiscoveredCamera(string name, string port, GPhoto.PortInfo port_info, GPhoto.CameraAbilities camera_abilities) throws Error {
+        this.port = port;
+        this.camera_name = name;
+        this.uri = "gphoto2://[%s]".printf(port);
+
+        var res = GPhoto.Camera.create(out this.gcamera);
+
+        if (res != GPhoto.Result.OK) {
+            throw new GPhotoError.LIBRARY("[%d] Unable to create camera object for %s: %s",
+                (int) res, name, res.as_string());
+        }
+
+        res = gcamera.set_abilities(camera_abilities);
+        if (res != GPhoto.Result.OK) {
+            throw new GPhotoError.LIBRARY("[%d] Unable to set camera abilities for %s: %s",
+                (int) res, name, res.as_string());
+        }
+
+        res = gcamera.set_port_info(port_info);
+        if (res != GPhoto.Result.OK) {
+            throw new GPhotoError.LIBRARY("[%d] Unable to set port infor for %s: %s",
+                (int) res, name, res.as_string());
+        }
+
+        var path = CameraTable.get_port_path(port);
+        if (path != null) {
+            var monitor = VolumeMonitor.get();
+            foreach (var volume in monitor.get_volumes()) {
+                if (volume.get_identifier(VolumeIdentifier.UNIX_DEVICE) == path) {
+                    this.display_name = volume.get_name();
+                    this.icon = volume.get_symbolic_icon().to_string();
+                }
+            }
+
+#if HAVE_UDEV
+            var client = new GUdev.Client(null);
+            var device = client.query_by_device_file(path);
+            if (display_name == null) {
+                display_name = device.get_sysfs_attr("product");
+            }
+
+            if (display_name == null) {
+                display_name = device.get_property("ID_MODEL");
+            }
+#endif
+        }
+
+        if (port.has_prefix("disk:")) {
+            try {
+                var mount = File.new_for_path (port.substring(5)).find_enclosing_mount();
+                var volume = mount.get_volume();
+                if (volume != null) {
+                    // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
+                    display_name = _("%s (%s)").printf (name, volume.get_name ());
+                    icon = volume.get_symbolic_icon().to_string();
+                } else {
+                    // Translators: First %s is the name of camera as gotten from GPhoto, second is the GMount name, e.g. Mass storage camera (510MB volume)
+                    display_name = _("%s (%s)").printf (name, mount.get_name ());
+                    icon = mount.get_symbolic_icon().to_string();
+                }
+
+            } catch (Error e) { }
+        }
+
+        if (display_name == null) {
+            this.display_name = camera_name;
+        }
     }
 }
 
@@ -125,26 +190,6 @@ public class CameraTable {
             "/dev/bus/usb/%s".printf(port.substring(4).replace(",", "/")) : null;
     }
     
-#if HAVE_UDEV
-    private string? get_name_for_uuid(string uuid) {
-        foreach (Volume volume in volume_monitor.get_volumes()) {
-            if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
-                return volume.get_name();
-            }
-        }
-        return null;
-    }
-    
-    private string? get_icon_for_uuid(string uuid) {
-        foreach (Volume volume in volume_monitor.get_volumes()) {
-            if (volume.get_identifier(VolumeIdentifier.UUID) == uuid) {
-                return volume.get_symbolic_icon().to_string();
-            }
-        }
-        return null;
-    }
-#endif
-
     private void update_camera_table() throws GPhotoError {
         // need to do this because virtual ports come and go in the USB world (and probably others)
         GPhoto.PortInfoList port_info_list;
@@ -217,8 +262,6 @@ public class CameraTable {
         // add cameras which were not present before
         foreach (string port in detected_map.keys) {
             string name = detected_map.get(port);
-            string display_name = null;
-            string? icon = null;
             string uri = get_port_uri(port);
 
             if (camera_map.has_key(uri)) {
@@ -227,47 +270,7 @@ public class CameraTable {
                 
                 continue;
             }
-            
-#if HAVE_UDEV
-            // Get display name for camera.
-            string path = get_port_path(port);
-            if (null != path) {
-                GUdev.Device device = client.query_by_device_file(path);
-                string serial = device.get_property("ID_SERIAL_SHORT");
-                if (null != serial) {
-                    // Try to get the name and icon.
-                    display_name = get_name_for_uuid(serial);
-                    icon = get_icon_for_uuid(serial);
-                }
-                if (null == display_name) {
-                    display_name = device.get_sysfs_attr("product");
-                } 
-                if (null == display_name) {
-                    display_name = device.get_property("ID_MODEL");
-                }
-            }
-#endif
 
-            if (port.has_prefix("disk:")) {
-                try {
-                    var mount = File.new_for_path (port.substring(5)).find_enclosing_mount();
-                    var volume = mount.get_volume();
-                    if (volume != null) {
-                        // Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
-                        display_name = _("%s (%s)").printf (name, volume.get_name ());
-                        icon = volume.get_symbolic_icon().to_string();
-                    } else {
-                        // Translators: First %s is the name of camera as gotten from GPhoto, second is the GMount name, e.g. Mass storage camera (510MB volume)
-                        display_name = _("%s (%s)").printf (name, mount.get_name ());
-                        icon = mount.get_symbolic_icon().to_string();
-                    }
-
-                } catch (Error e) { }
-            }
-            if (null == display_name) {
-                // Default to GPhoto detected name.
-                display_name = name;
-            }
             int index = port_info_list.lookup_path(port);
             if (index < 0)
                 do_op((GPhoto.Result) index, "lookup port %s".printf(port));
@@ -289,14 +292,9 @@ public class CameraTable {
             do_op(abilities_list.get_abilities(index, out camera_abilities), 
                 "lookup camera abilities for %s".printf(name));
                 
-            GPhoto.Camera gcamera;
-            do_op(GPhoto.Camera.create(out gcamera), "create camera object for %s".printf(name));
-            do_op(gcamera.set_abilities(camera_abilities), "set camera abilities for %s".printf(name));
-            do_op(gcamera.set_port_info(port_info), "set port info for %s on %s".printf(name, port));
-            
             debug("Adding to camera table: %s @ %s", name, port);
             
-            DiscoveredCamera camera = new DiscoveredCamera(gcamera, uri, display_name, icon);
+            var camera = new DiscoveredCamera(name, port, port_info, camera_abilities);
             camera_map.set(uri, camera);
             
             camera_added(camera);

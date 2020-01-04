@@ -713,20 +713,10 @@ public class ImportPage : CheckerboardPage {
         this.uri = uri;
         this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(uri));
         this.icon = icon;
+        this.camera_name= display_name;
         
         tracker = new CameraViewTracker(get_view());
         
-        // Get camera name.
-        if (null != display_name) {
-            camera_name = display_name;
-        } else {
-            GPhoto.CameraAbilities abilities;
-            GPhoto.Result res = camera.get_abilities(out abilities);
-            if (res != GPhoto.Result.OK) {
-                debug("Unable to get camera abilities: %s", res.to_full_string());
-                camera_name = _("Camera");
-            }
-        }
         camera_label.set_text(camera_name);
         set_page_name(camera_name);
         
