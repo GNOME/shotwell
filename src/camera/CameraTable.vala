@@ -12,11 +12,16 @@ public class DiscoveredCamera {
 
     private string port;
     private string camera_name;
+    private string[] mount_uris;
 
-    public DiscoveredCamera(string name, string port, GPhoto.PortInfo port_info, GPhoto.CameraAbilities camera_abilities) throws Error {
+    public DiscoveredCamera(string name, string port, GPhoto.PortInfo port_info, GPhoto.CameraAbilities camera_abilities) throws GPhotoError {
         this.port = port;
         this.camera_name = name;
         this.uri = "gphoto2://[%s]".printf(port);
+
+        this.mount_uris = new string[0];
+        this.mount_uris += this.uri;
+        this.mount_uris += "mtp://[%s]".printf(port);
 
         var res = GPhoto.Camera.create(out this.gcamera);
 
@@ -50,6 +55,14 @@ public class DiscoveredCamera {
 #if HAVE_UDEV
             var client = new GUdev.Client(null);
             var device = client.query_by_device_file(path);
+
+
+            // Create alternative uris (used for unmount)
+            var serial = device.get_property("ID_SERIAL");
+            this.mount_uris += "gphoto2://%s".printf(serial);
+            this.mount_uris += "mtp://%s".printf(serial);
+
+            // Look-up alternative display names
             if (display_name == null) {
                 display_name = device.get_sysfs_attr("product");
             }
@@ -80,6 +93,19 @@ public class DiscoveredCamera {
         if (display_name == null) {
             this.display_name = camera_name;
         }
+    }
+
+    public Mount? get_mount() {
+        foreach (var uri in this.mount_uris) {
+            var f = File.new_for_uri(uri);
+            try {
+                var mount = f.find_enclosing_mount(null);
+                if (mount != null)
+                    return mount;
+            } catch (Error error) {}
+        }
+
+        return null;
     }
 }
 

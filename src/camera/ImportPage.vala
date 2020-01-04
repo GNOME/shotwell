@@ -683,6 +683,7 @@ public class ImportPage : CheckerboardPage {
     private Gtk.CheckButton hide_imported;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private GPhoto.Camera camera;
+    private DiscoveredCamera dcamera;
     private string uri;
     private bool busy = false;
     private bool refreshed = false;
@@ -707,8 +708,9 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    public ImportPage(GPhoto.Camera camera, string uri, string? display_name = null, string? icon = null) {
+    public ImportPage(DiscoveredCamera dcamera, GPhoto.Camera camera, string uri, string? display_name = null, string? icon = null) {
         base(_("Camera"));
+        this.dcamera = dcamera;
         this.camera = camera;
         this.uri = uri;
         this.import_sources = new ImportSourceCollection("ImportSources for %s".printf(uri));
@@ -994,25 +996,7 @@ public class ImportPage : CheckerboardPage {
                 // if locked because it's mounted, offer to unmount
                 debug("Checking if %s is mounted…", uri);
 
-                File uri = File.new_for_uri(uri);
-
-                Mount mount = null;
-                try {
-                    mount = uri.find_enclosing_mount(null);
-                } catch (Error err) {
-                    // error means not mounted
-                }
-
-                // Could not find mount for gphoto2://, re-try with mtp://
-                // It seems some devices are mounted using MTP and not gphoto2 daemon
-                if (mount == null && this.uri.has_prefix("gphoto2")) {
-                    uri = File.new_for_uri("mtp" + this.uri.substring(7));
-                    try {
-                        mount = uri.find_enclosing_mount(null);
-                    } catch (Error err) {
-                        // error means not mounted
-                    }
-                }
+                var mount = dcamera.get_mount();
                 
                 if (mount != null) {
                     // it's mounted, offer to unmount for the user

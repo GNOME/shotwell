@@ -978,15 +978,9 @@ public class LibraryWindow : AppWindow {
             return;
         
         ImportPage page = (ImportPage) entry.get_page();
-        File uri_file = File.new_for_uri(camera.uri);
         
         // find the VFS mount point
-        Mount mount = null;
-        try {
-            mount = uri_file.find_enclosing_mount(null);
-        } catch (Error err) {
-            // error means not mounted
-        }
+        var mount = camera.get_mount();
         
         // don't unmount mass storage cameras, as they are then unavailable to gPhoto
         if (mount != null && !camera.uri.has_prefix("file://")) {
