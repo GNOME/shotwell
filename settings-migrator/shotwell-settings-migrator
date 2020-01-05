@@ -1,0 +1,33 @@
+#!/bin/sh
+
+################################################################################
+#
+# Copyright 2016 Software Freedom Conservancy Inc.
+#
+# This software is licensed under the GNU LGPL (version 2.1 or later).
+# See the COPYING file in this distribution.
+#
+# Helper script to copy settings data from /apps/shotwell/ to
+#   /org/yorba/shotwell/
+#
+# NOTE: this should only be run ONCE as part of the upgrade process; otherwise,
+#   any stale data in the old location may be inadvertently copied over again,
+#   overwriting newer data.
+#
+################################################################################
+
+sec_since_epoch=`date +%s`
+temp_file_path_prefix=/tmp/shotwell-migrate-settings-path-
+temp_file_path=$temp_file_path_prefix$sec_since_epoch
+
+# Copy from deprecated path...
+dconf dump /apps/shotwell/ > $temp_file_path
+
+# ...and into officially-blessed one.
+dconf load /org/yorba/shotwell/ < $temp_file_path
+
+# Clean out the stale paths...
+dconf reset -f /apps/shotwell/
+
+# temp file not needed anymore, zap it.
+rm -f $temp_file_path
