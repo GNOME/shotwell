@@ -1,6 +1,6 @@
 <schemalist gettext-domain="shotwell">
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki">
+<schema id="org.gnome.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki">
     <key name="auth-token" type="s">
         <default>""</default>
         <summary>authentication token</summary>
@@ -8,7 +8,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-tumblr">
+<schema id="org.gnome.shotwell.sharing.org-yorba-shotwell-publishing-tumblr">
     <key name="access-phase-token" type="s">
         <default>""</default>
         <summary>OAuth Access Phase Token</summary>
@@ -40,7 +40,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-rajce">
+<schema id="org.gnome.shotwell.sharing.org-yorba-shotwell-publishing-rajce">
     <key name="url" type="s">
         <default>"http://rajce.net/"</default>
         <summary>Rajce URL</summary>
