@@ -26,7 +26,7 @@ public class RajceService : Object, Spit.Pluggable, Spit.Publishing.Service
     
     public unowned string get_id()
 	{
-        return "org.yorba.shotwell.publishing.rajce";
+        return "org.gnome.shotwell.publishing.rajce";
     }
     
     public unowned string get_pluggable_name()

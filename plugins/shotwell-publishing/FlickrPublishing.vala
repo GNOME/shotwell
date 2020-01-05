@@ -21,7 +21,7 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
     
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.flickr";
+        return "org.gnome.shotwell.publishing.flickr";
     }
     
     public unowned string get_pluggable_name() {

@@ -13,7 +13,7 @@ private class CirclesEffectDescriptor : ShotwellTransitionDescriptor {
     }
 
     public override unowned string get_id() {
-        return "org.yorba.shotwell.transitions.circles";
+        return "org.gnome.shotwell.transitions.circles";
     }
 
     public override unowned string get_pluggable_name() {

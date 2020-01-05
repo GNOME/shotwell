@@ -1,23 +1,23 @@
 <schemalist gettext-domain="shotwell">
 
-  <schema id="org.yorba.shotwell" path="/org/yorba/shotwell/">
-    <child name="preferences" schema="org.yorba.shotwell.preferences" />
-    <child name="sharing" schema="org.yorba.shotwell.sharing" />
-    <child name="video" schema="org.yorba.shotwell.video" />
-    <child name="printing" schema="org.yorba.shotwell.printing" />
-    <child name="plugins" schema="org.yorba.shotwell.plugins" />
+  <schema id="org.gnome.shotwell" path="/org/gnome/shotwell/">
+    <child name="preferences" schema="org.gnome.shotwell.preferences" />
+    <child name="sharing" schema="org.gnome.shotwell.sharing" />
+    <child name="video" schema="org.gnome.shotwell.video" />
+    <child name="printing" schema="org.gnome.shotwell.printing" />
+    <child name="plugins" schema="org.gnome.shotwell.plugins" />
 </schema>
 
-<schema id="org.yorba.shotwell.preferences" path="/org/yorba/shotwell/preferences/">
-    <child name="ui" schema="org.yorba.shotwell.preferences.ui" />
-    <child name="slideshow" schema="org.yorba.shotwell.preferences.slideshow" />
-    <child name="window" schema="org.yorba.shotwell.preferences.window" />
-    <child name="files" schema="org.yorba.shotwell.preferences.files" />
-    <child name="editing" schema="org.yorba.shotwell.preferences.editing" />
-    <child name="export" schema="org.yorba.shotwell.preferences.export" />
+<schema id="org.gnome.shotwell.preferences" path="/org/gnome/shotwell/preferences/">
+    <child name="ui" schema="org.gnome.shotwell.preferences.ui" />
+    <child name="slideshow" schema="org.gnome.shotwell.preferences.slideshow" />
+    <child name="window" schema="org.gnome.shotwell.preferences.window" />
+    <child name="files" schema="org.gnome.shotwell.preferences.files" />
+    <child name="editing" schema="org.gnome.shotwell.preferences.editing" />
+    <child name="export" schema="org.gnome.shotwell.preferences.export" />
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.ui">
+<schema id="org.gnome.shotwell.preferences.ui">
     <key name="display-basic-properties" type="b">
         <default>true</default>
         <summary>display basic properties</summary>
@@ -187,7 +187,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.slideshow">
+<schema id="org.gnome.shotwell.preferences.slideshow">
     <key name="delay" type="d">
         <default>3.0</default>
         <summary>delay</summary>
@@ -213,7 +213,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.window">
+<schema id="org.gnome.shotwell.preferences.window">
     <key name="library-maximize" type="b">
         <default>false</default>
         <summary>maximize library window</summary>
@@ -257,7 +257,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.files">
+<schema id="org.gnome.shotwell.preferences.files">
     <key name="import-dir" type="s">
         <default>""</default>
         <summary>import directory</summary>
@@ -301,7 +301,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.crop-settings">
+<schema id="org.gnome.shotwell.crop-settings">
     <key name="last-crop-menu-choice" type="i">
         <default>1</default>
         <summary>Most-recently-used crop aspect ratio menu choice.</summary>
@@ -319,7 +319,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.preferences.editing">
+<schema id="org.gnome.shotwell.preferences.editing">
     <key name="external-photo-editor" type="s">
         <default>""</default>
         <summary>external photo editor</summary>
@@ -333,7 +333,7 @@
     </key>
 </schema>
 
-<enum id="org.yorba.shotwell.ScaleConstraint">
+<enum id="org.gnome.shotwell.ScaleConstraint">
     <value value="0" nick="ORIGINAL" />
     <value value="1" nick="DIMENSIONS" />
     <value value="2" nick="WIDTH" />
@@ -341,14 +341,14 @@
     <value value="4" nick="FILL_VIEWPORT" />
 </enum>
 
-<enum id="org.yorba.shotwell.ExportFormatMode">
+<enum id="org.gnome.shotwell.ExportFormatMode">
     <value value="0" nick="UNMODIFIED" />
     <value value="1" nick="CURRENT" />
     <value value="2" nick="SPECIFIED" />
     <value value="3" nick="LAST" />
 </enum>
 
-<enum id="org.yorba.shotwell.PhotoFileFormat">
+<enum id="org.gnome.shotwell.PhotoFileFormat">
     <value value="0" nick="JFIF" />
     <value value="1" nick="RAW" />
     <value value="2" nick="PNG" />
@@ -357,15 +357,15 @@
     <value value="5" nick="UNKNOWN" />
 </enum>
 
-<enum id="org.yorba.shotwell.JpegQuality">
+<enum id="org.gnome.shotwell.JpegQuality">
     <value value="50" nick="LOW" />
     <value value="75" nick="MEDIUM" />
     <value value="90" nick="HIGH" />
     <value value="100" nick="MAXIMUM" />
 </enum>
 
-<schema id="org.yorba.shotwell.preferences.export">
-    <key name="constraint" enum="org.yorba.shotwell.ScaleConstraint">
+<schema id="org.gnome.shotwell.preferences.export">
+    <key name="constraint" enum="org.gnome.shotwell.ScaleConstraint">
         <default>'ORIGINAL'</default>
         <summary>Setting in export dialog: how to trim images</summary>
         <description>Setting in export dialog: how to trim images</description>
@@ -377,19 +377,19 @@
         <description>Setting in export dialog: option to export metadata</description>
     </key>
 
-    <key name="export-format-mode" enum="org.yorba.shotwell.ExportFormatMode">
+    <key name="export-format-mode" enum="org.gnome.shotwell.ExportFormatMode">
         <default>'CURRENT'</default>
         <summary>format setting, special value</summary>
         <description>Setting in export dialog: format setting, special value</description>
     </key>
 
-    <key name="photo-file-format" enum="org.yorba.shotwell.PhotoFileFormat">
+    <key name="photo-file-format" enum="org.gnome.shotwell.PhotoFileFormat">
         <default>'JFIF'</default>
         <summary>format setting, type value</summary>
         <description>Setting in export dialog: format setting, type value</description>
     </key>
 
-    <key name="quality" enum="org.yorba.shotwell.JpegQuality">
+    <key name="quality" enum="org.gnome.shotwell.JpegQuality">
         <default>'HIGH'</default>
         <summary>JPEG quality option</summary>
         <description>Setting in export dialog: jpeg quality option</description>
@@ -402,7 +402,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing">
+<schema id="org.gnome.shotwell.sharing">
     <key name="last-used-service" type="s">
         <default>""</default>
         <summary>last used publishing service</summary>
@@ -415,13 +415,13 @@
         <description>A numeric code representing the last service to which photos were published</description>
     </key>
 
-    <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
-    <child name="gallery3" schema="org.yorba.shotwell.sharing.publishing-gallery3" />
-    <child name="org-gnome-shotwell-publishing-google-photos" schema="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" />
-    <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
+    <child name="flickr" schema="org.gnome.shotwell.sharing.flickr" />
+    <child name="gallery3" schema="org.gnome.shotwell.sharing.publishing-gallery3" />
+    <child name="org-gnome-shotwell-publishing-google-photos" schema="org.gnome.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" />
+    <child name="youtube" schema="org.gnome.shotwell.sharing.youtube" />
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.flickr">
+<schema id="org.gnome.shotwell.sharing.flickr">
     <key name="access-phase-token" type="s">
         <default>""</default>
         <summary>OAuth Access Phase Token</summary>
@@ -459,7 +459,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos">
+<schema id="org.gnome.shotwell.sharing.org-gnome-shotwell-publishing-google-photos">
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
@@ -485,7 +485,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo">
+<schema id="org.gnome.shotwell.sharing.org-yorba-shotwell-publishing-piwigo">
     <key name="url" type="s">
         <default>""</default>
         <summary>Piwigo URL</summary>
@@ -553,7 +553,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.publishing-gallery3">
+<schema id="org.gnome.shotwell.sharing.publishing-gallery3">
     <key name="username" type="s">
         <default>""</default>
         <summary>username</summary>
@@ -597,7 +597,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.sharing.youtube">
+<schema id="org.gnome.shotwell.sharing.youtube">
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
@@ -605,7 +605,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.dataimports">
+<schema id="org.gnome.shotwell.dataimports">
     <key name="last-used-dataimports-service" type="s">
         <default>""</default>
         <summary>last used import service</summary>
@@ -613,7 +613,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.video">
+<schema id="org.gnome.shotwell.video">
     <key name="interpreter-state-cookie" type="i">
         <default>-1</default>
         <summary>interpreter state cookie</summary>
@@ -621,7 +621,7 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.printing">
+<schema id="org.gnome.shotwell.printing">
     <key name="content-layout" type="i">
         <default>3</default>
         <summary>content layout mode</summary>
@@ -683,11 +683,11 @@
     </key>
 </schema>
 
-<schema id="org.yorba.shotwell.plugins" path="/org/yorba/shotwell/plugins/" >
-    <child name="enable-state" schema="org.yorba.shotwell.plugins.enable-state" />
+<schema id="org.gnome.shotwell.plugins" path="/org/gnome/shotwell/plugins/" >
+    <child name="enable-state" schema="org.gnome.shotwell.plugins.enable-state" />
 </schema>
 
-<schema id="org.yorba.shotwell.plugins.enable-state">
+<schema id="org.gnome.shotwell.plugins.enable-state">
     <key name="publishing-facebook" type="b">
         <default>true</default>
         <summary>enable facebook publishing plugin</summary>

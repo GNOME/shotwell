@@ -273,7 +273,7 @@ public class TransitionClock {
 }
 
 public class NullTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions.Descriptor {
-    public const string EFFECT_ID = "org.yorba.shotwell.transitions.null";
+    public const string EFFECT_ID = "org.gnome.shotwell.transitions.null";
     
     public int get_pluggable_interface(int min_host_version, int max_host_version) {
         return Spit.Transitions.CURRENT_INTERFACE;
@@ -325,7 +325,7 @@ public class NullEffect : Object, Spit.Transitions.Effect {
     }
 }
 public class RandomEffectDescriptor : Object, Spit.Pluggable, Spit.Transitions.Descriptor {
-    public const string EFFECT_ID = "org.yorba.shotwell.transitions.random";
+    public const string EFFECT_ID = "org.gnome.shotwell.transitions.random";
 
     public int get_pluggable_interface(int min_host_version, int max_host_version) {
         return Spit.Transitions.CURRENT_INTERFACE;

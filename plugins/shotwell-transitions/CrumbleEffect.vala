@@ -13,7 +13,7 @@ private class CrumbleEffectDescriptor : ShotwellTransitionDescriptor {
     }
 
     public override unowned string get_id() {
-        return "org.yorba.shotwell.transitions.crumble";
+        return "org.gnome.shotwell.transitions.crumble";
     }
     
     public override unowned string get_pluggable_name() {

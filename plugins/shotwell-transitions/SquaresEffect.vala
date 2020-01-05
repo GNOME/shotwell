@@ -13,7 +13,7 @@ private class SquaresEffectDescriptor : ShotwellTransitionDescriptor {
     }
 
     public override unowned string get_id() {
-        return "org.yorba.shotwell.transitions.squares";
+        return "org.gnome.shotwell.transitions.squares";
     }
 
     public override unowned string get_pluggable_name() {
