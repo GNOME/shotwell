@@ -10,7 +10,7 @@ public class YandexService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
     
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.yandex-fotki";
+        return "org.gnome.shotwell.publishing.yandex-fotki";
     }
     
     public unowned string get_pluggable_name() {

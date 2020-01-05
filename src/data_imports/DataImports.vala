@@ -17,7 +17,7 @@ namespace DataImports {
 
 public void init() throws Error {
     string[] core_ids = new string[0];
-    core_ids += "org.yorba.shotwell.dataimports.fspot";
+    core_ids += "org.gnome.shotwell.dataimports.fspot";
     
     Plugins.register_extension_point(typeof(Spit.DataImports.Service), _("Data Imports"),
         Resources.IMPORT, core_ids);

@@ -13,7 +13,7 @@ private class ChessEffectDescriptor : ShotwellTransitionDescriptor {
     }
 
     public override unowned string get_id() {
-        return "org.yorba.shotwell.transitions.chess";
+        return "org.gnome.shotwell.transitions.chess";
     }
 
     public override unowned string get_pluggable_name() {

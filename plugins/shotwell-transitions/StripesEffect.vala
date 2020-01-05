@@ -13,7 +13,7 @@ private class StripesEffectDescriptor : ShotwellTransitionDescriptor {
     }
 
     public override unowned string get_id() {
-        return "org.yorba.shotwell.transitions.stripes";
+        return "org.gnome.shotwell.transitions.stripes";
     }
 
     public override unowned string get_pluggable_name() {

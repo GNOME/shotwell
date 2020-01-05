@@ -23,10 +23,10 @@ public class StandardHostInterface : Object, Spit.HostInterface {
         // special case: legacy plugins (Web publishers moved into SPIT) have special names
         // new plugins will use their full ID
         switch (id) {
-            case "org.yorba.shotwell.publishing.flickr":
+            case "org.gnome.shotwell.publishing.flickr":
                 return "flickr";
                 
-            case "org.yorba.shotwell.publishing.youtube":
+            case "org.gnome.shotwell.publishing.youtube":
                 return "youtube";
 
             default:

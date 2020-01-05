@@ -316,16 +316,43 @@ class AppDirs {
             f = AppDirs.get_libexec_dir().get_parent().get_child("thumbnailer").get_child(filename);
         }
 
+        warning("==============> %s", f.get_path());
+
         return f;
     }
 
     public static File get_settings_migrator_bin() {
         const string filename = "shotwell-settings-migrator";
-        File f = AppDirs.get_libexec_dir().get_child ("settings-migrator").get_child (filename);
+        File f = AppDirs.get_libexec_dir().get_child("settings-migrator").get_child (filename);
         if (!f.query_exists()) {
             // If we're running installed.
             f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
         }
+
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_parent().get_child("settings-migrator").get_child(filename);
+        }
+
+        return f;
+    }
+
+    public static File get_settings_migrator_v2_bin() {
+        const string filename = "shotwell-settings-migrator-v2";
+        File f = AppDirs.get_libexec_dir().get_child("settings-migrator").get_child (filename);
+        if (!f.query_exists()) {
+            // If we're running installed.
+            f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
+        }
+
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_parent().get_child("settings-migrator").get_child(filename);
+        }
+
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_parent().get_parent().get_child("settings-migrator").get_child(filename);
+        }
+
+
         return f;
     }
 
