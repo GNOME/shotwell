@@ -82,6 +82,7 @@ src/AppWindow.vala
 src/BatchImport.vala
 src/camera/CameraBranch.vala
 src/camera/CameraTable.vala
+src/camera/DiscoveredCamera.vala
 src/camera/ImportPage.vala
 src/CheckerboardPage.vala
 src/CollectionPage.vala

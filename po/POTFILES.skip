@@ -35,6 +35,7 @@ src/AppWindow.c
 src/BatchImport.c
 src/camera/CameraBranch.c
 src/camera/CameraTable.c
+src/camera/DiscoveredCamera.c
 src/camera/ImportPage.c
 src/CheckerboardPage.c
 src/CollectionPage.c
