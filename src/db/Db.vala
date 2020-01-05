@@ -396,6 +396,14 @@ private VerifyResult upgrade_database(int input_version) {
     // Finalize the upgrade process
     //
 
+    if (input_version < 23) {
+        // Run the settings migrator to copy settings data from /org/yorba/shotwell to /org/gnome/shotwell
+        GSettingsConfigurationEngine.run_gsettings_migrator_v2();
+    }
+    
+    version = 23;
+
+
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     

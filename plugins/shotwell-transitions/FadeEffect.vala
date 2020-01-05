@@ -13,7 +13,7 @@ private class FadeEffectDescriptor : ShotwellTransitionDescriptor {
     }
 
     public override unowned string get_id() {
-        return "org.yorba.shotwell.transitions.fade";
+        return "org.gnome.shotwell.transitions.fade";
     }
     
     public override unowned string get_pluggable_name() {

@@ -58,7 +58,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
     }
     
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.core_services";
+        return "org.gnome.shotwell.publishing.core_services";
     }
     
     public unowned Spit.Pluggable[]? get_pluggables() {

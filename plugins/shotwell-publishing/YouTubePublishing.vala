@@ -21,7 +21,7 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
 
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.youtube";
+        return "org.gnome.shotwell.publishing.youtube";
     }
 
     public unowned string get_pluggable_name() {

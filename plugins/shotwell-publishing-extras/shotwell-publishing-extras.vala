@@ -32,7 +32,7 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
     }
     
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.extras";
+        return "org.gnome.shotwell.publishing.extras";
     }
     
     public unowned Spit.Pluggable[]? get_pluggables() {

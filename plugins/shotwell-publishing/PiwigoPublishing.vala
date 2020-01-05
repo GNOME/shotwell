@@ -21,7 +21,7 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
     
     public unowned string get_id() {
-        return "org.yorba.shotwell.publishing.piwigo";
+        return "org.gnome.shotwell.publishing.piwigo";
     }
     
     public unowned string get_pluggable_name() {

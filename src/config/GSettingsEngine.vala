@@ -5,7 +5,7 @@
  */
 
 public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
-    private const string ROOT_SCHEMA_NAME = "org.yorba.shotwell";
+    private const string ROOT_SCHEMA_NAME = "org.gnome.shotwell";
     private const string PREFS_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".preferences";
     private const string UI_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".ui";
     private const string SLIDESHOW_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".slideshow";
@@ -186,7 +186,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         if (!this.settings_cache.has_key(schema)) {
             if (schema.has_prefix (ROOT_SCHEMA_NAME)) {
                 var path = schema.replace(ROOT_SCHEMA_NAME, "");
-                path = "/org/yorba/shotwell/%s%s/".printf(profile == null ? "" : "profiles/" + profile, path.replace(".", "/"));
+                path = "/org/gnome/shotwell/%s%s/".printf(profile == null ? "" : "profiles/" + profile, path.replace(".", "/"));
                 path = path.replace("//", "/");
                 this.settings_cache[schema] = new Settings.with_path (schema, path);
             } else {
@@ -307,7 +307,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         if (cleaned_id == null)
             cleaned_id = "default";
 
-        cleaned_id = cleaned_id.replace("org.yorba.shotwell.", "");
+        cleaned_id = cleaned_id.replace("org.gnome.shotwell.", "");
         cleaned_id = cleaned_id.replace(".", "-");
         
         return cleaned_id;
@@ -319,7 +319,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
             cleaned_id = "default";
         cleaned_id = cleaned_id.replace(".", "-");
         
-        return "org.yorba.shotwell.%s.%s".printf(domain, cleaned_id);
+        return "org.gnome.shotwell.%s.%s".printf(domain, cleaned_id);
     }
     
     private static string make_gsettings_key(string gconf_key) {
@@ -520,5 +520,20 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
             message("Error running shotwell-settings-migrator: %s", err.message);
         }
     }
+
+    /*! @brief Migrates settings data over from old-style /org/yorba/ paths to /org/gnome/ ones.
+     *  Should only be called ONCE, during DB upgrading; otherwise, stale data may be copied
+     *  over newer data by accident.
+     */
+    public static void run_gsettings_migrator_v2() {
+        string cmd_line = "sh " + AppDirs.get_settings_migrator_v2_bin().get_path();
+
+        try {
+            Process.spawn_command_line_sync(cmd_line);
+        } catch (Error err) {
+            message("Error running shotwell-settings-migrator: %s", err.message);
+        }
+    }
+
 
 }
