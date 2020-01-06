@@ -72,6 +72,10 @@ void library_exec(string[] mounts) {
                 result.to_string());
         break;
     }
+
+    // Need to set this before anything else, but _after_ setting the profile
+    var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
+    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
     
     if (errormsg != null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
@@ -287,7 +291,11 @@ void editing_exec(string filename, bool fullscreen) {
     // preconfigure units
     Direct.preconfigure(initial_file);
     Db.preconfigure(null);
-    
+
+    // Need to set this before anything else, but _after_ setting the profile
+    var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
+    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
+
     // initialize units for direct-edit mode
     try {
         Direct.app_init();
@@ -390,10 +398,6 @@ void main(string[] args) {
         manager.set_profile(CommandlineOptions.profile);
         CommandlineOptions.data_dir = manager.derive_data_dir(CommandlineOptions.data_dir);
     }
-
-    // Need to set this before anything else, but _after_ setting the profile
-    var use_dark = Config.Facade.get_instance().get_gtk_theme_variant();
-    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = use_dark;
 
     if (CommandlineOptions.show_version) {
         if (Resources.GIT_VERSION != "")
