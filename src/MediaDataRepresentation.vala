@@ -794,7 +794,6 @@ public class MediaCollectionRegistry {
         LibraryMonitor replacement = new LibraryMonitor(import_dir, true,
             !CommandlineOptions.no_runtime_monitoring);
         LibraryMonitorPool.get_instance().replace(replacement, LIBRARY_MONITOR_START_DELAY_MSEC);
-        LibraryFiles.select_copy_function();
     }
     
     public static MediaCollectionRegistry get_instance() {
