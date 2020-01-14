@@ -19,6 +19,7 @@ class ShotwellThumbnailer {
         uint8[]? pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
+        var out = FileStream.fdopen(Posix.dup(stdout.fileno()), "wb");
 
         if (Posix.nice (19) < 0) {
             debug ("Failed to reduce thumbnailer nice level. Continuing anyway");
@@ -115,14 +116,12 @@ class ShotwellThumbnailer {
                 }
             }
 
-            stderr.printf("Oritentation: %s\n", direction.to_string());
-
             // Save the pixbuf.
             if (direction != Gdk.PixbufRotation.NONE) {
                 pixbuf = pixbuf.rotate_simple(direction);
             }
             pixbuf.save_to_buffer(out pngdata, "png");
-            stdout.write(pngdata);
+            out.write(pngdata);
 
             // cleanup and exit.
             pipeline.set_state(Gst.State.NULL);
