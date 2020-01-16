@@ -93,7 +93,7 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
                     self.send_response(200)
                     self.send_header('Set-Cookie', 'pwg_id="12345"')
                     self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"></piwigo>')
+                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><image_id>2387</image_id></piwigo>')
                     return
             except:
                 self.log_error('Unknown method {0}'.format(postvars[b'method']))
