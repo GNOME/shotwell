@@ -36,6 +36,7 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
         self.log_message("Content-Type = " + ctype)
         if ctype == 'multipart/form-data':
             pdict['boundary'] = bytes(pdict['boundary'], 'utf-8')
+            pdict['CONTENT-LENGTH'] = self.headers['Content-Length']
             postvars = cgi.parse_multipart(self.rfile, pdict)
         elif ctype == 'application/x-www-form-urlencoded':
             length = int(self.headers['content-length'])
