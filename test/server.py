@@ -50,40 +50,46 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
         except:
             method = postvars['method'][0]
 
+        # Make sure we have a utf8 string
+        try:
+            method = method.decode()
+        except:
+            pass
+
         self.log_message("Received method call for " + str(method))
         time.sleep(1)
 
         if self.path == '/ws.php':
             try:
 
-                if method == b'pwg.session.login':
+                if method == 'pwg.session.login':
                     self.send_response(200)
                     self.send_header('Content-type', 'text/xml')
                     self.send_header('Set-Cookie', 'pwg_id="12345"')
                     self.end_headers()
                     self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"></piwigo>')
                     return
-                elif method == b'pwg.session.getStatus':
+                elif method == 'pwg.session.getStatus':
                     self.send_response(200)
                     self.send_header('Content-type', 'text/xml')
                     self.send_header('Set-Cookie', 'pwg_id="12345"')
                     self.end_headers()
                     self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><username>test</username></piwigo>')
                     return
-                elif method == b'pwg.categories.getList':
+                elif method == 'pwg.categories.getList':
                     self.send_response(200)
                     self.send_header('Content-type', 'text/xml')
                     self.send_header('Set-Cookie', 'pwg_id="12345"')
                     self.end_headers()
                     self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><categories></categories></piwigo>')
                     return
-                elif method == b'pwg.categories.add':
+                elif method == 'pwg.categories.add':
                     self.send_response(200)
                     self.send_header('Set-Cookie', 'pwg_id="12345"')
                     self.end_headers()
                     self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><id>765</id></piwigo>')
                     return
-                elif method == b'pwg.images.addSimple':
+                elif method == 'pwg.images.addSimple':
                     self.send_response(200)
                     self.send_header('Set-Cookie', 'pwg_id="12345"')
                     self.end_headers()
