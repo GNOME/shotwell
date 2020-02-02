@@ -44,9 +44,7 @@ public struct ImportID {
     }
     
     public static ImportID generate() {
-        TimeVal timestamp = TimeVal();
-        timestamp.get_current_time();
-        int64 id = timestamp.tv_sec;
+        int64 id = GLib.get_real_time () / Util.USEC_PER_SEC;
         
         return ImportID(id);
     }

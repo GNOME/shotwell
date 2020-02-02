@@ -39,7 +39,8 @@ async void show_file_in_filemanager(File file) throws Error {
                                                                      DBusProxyFlags.DO_NOT_LOAD_PROPERTIES |
                                                                      DBusProxyFlags.DO_NOT_CONNECT_SIGNALS);
         var id = "%s_%s_%d_%s".printf(Environment.get_prgname(), Environment.get_host_name(),
-                                      Posix.getpid(), TimeVal().to_iso8601());
+                                      Posix.getpid(),
+                                      GLib.get_monotonic_time().to_string());
         yield manager.show_items({file.get_uri()}, id);
     } catch (Error e) {
         warning("Failed to launch file manager using DBus, using fall-back: %s", e.message);

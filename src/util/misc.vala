@@ -54,18 +54,12 @@ public bool int_value_equals(Value a, Value b) {
     return (int) a == (int) b;
 }
 
-public ulong timeval_to_ms(TimeVal time_val) {
-    return (((ulong) time_val.tv_sec) * 1000) + (((ulong) time_val.tv_usec) / 1000);
-}
-
 public ulong now_ms() {
-    return timeval_to_ms(TimeVal());
+    return (ulong) (GLib.get_real_time() / 1000);
 }
 
 public ulong now_sec() {
-    TimeVal time_val = TimeVal();
-    
-    return time_val.tv_sec;
+    return (ulong) (GLib.get_real_time() / Util.USEC_PER_SEC);
 }
 
 public inline time_t now_time_t() {

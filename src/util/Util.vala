@@ -8,6 +8,8 @@ namespace Util {
     // Use these file attributes when loading file information for a complete FileInfo objects
     public const string FILE_ATTRIBUTES = "standard::*,time::*,id::file,id::filesystem,etag::value";
 
+    public const int64 USEC_PER_SEC = 1000000;
+
     public void init() throws Error {
     }
     
