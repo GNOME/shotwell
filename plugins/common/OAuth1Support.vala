@@ -112,7 +112,7 @@ namespace Publishing.RESTSupport.OAuth1 {
 
         public string get_oauth_nonce() {
             return Checksum.compute_for_string(ChecksumType.MD5,
-                                               GLib.get_monotonic_time().to_string());
+                                               GLib.get_real_time().to_string());
         }
 
         public string get_oauth_timestamp() {
