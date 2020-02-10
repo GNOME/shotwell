@@ -104,11 +104,10 @@ namespace Debug {
     }
     
     private void log(FileStream stream, string prefix, string message) {
-        time_t now = time_t();
         stream.printf("%s %d %s [%s] %s\n",
             log_app_version_prefix,
             Posix.getpid(),
-            Time.local(now).to_string(),
+            new DateTime.now_local().format("%F %T"),
             prefix,
             message
         );
