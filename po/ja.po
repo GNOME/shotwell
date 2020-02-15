@@ -12,14 +12,14 @@
 # Hajime Taira <htaira@redhat.com>, 2012-2014.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2014.
 # Launchpad Contributions <Unknown>, 2018.
-# sicklylife <translation@sicklylife.jp>, 2019.
+# sicklylife <translation@sicklylife.jp>, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2020-01-29 09:53+0000\n"
-"PO-Revision-Date: 2019-09-03 21:40+0900\n"
+"PO-Revision-Date: 2020-02-15 23:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -2199,7 +2199,7 @@ msgstr "ログインの準備中…"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
-msgstr ""
+msgstr "Flickrの認証に失敗しました"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
@@ -2854,10 +2854,8 @@ msgid "_Do no upload tags"
 msgstr "タグをアップロードしない(_D)"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
-#, fuzzy
-#| msgid "_Do no upload tags"
 msgid "_Do not upload ratings"
-msgstr "タグをアップロードしない(_D)"
+msgstr "評価をアップロードしない(_D)"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:271
 msgid "Logout"
@@ -5101,11 +5099,11 @@ msgstr "フルスクリーンモードで起動する"
 
 #: src/main.vala:344
 msgid "Print the metadata of the image file"
-msgstr ""
+msgstr "画像ファイルのメタデータを表示する"
 
 #: src/main.vala:345
 msgid "Name for a custom profile"
-msgstr ""
+msgstr "カスタムプロファイル名"
 
 #: src/main.vala:345
 msgid "PROFILE"
@@ -5113,7 +5111,7 @@ msgstr ""
 
 #: src/main.vala:346
 msgid "Show available profiles"
-msgstr ""
+msgstr "利用可能なプロファイルを表示する"
 
 #. init GTK (valac has already called g_threads_init())
 #: src/main.vala:377
@@ -5502,7 +5500,7 @@ msgstr "適用(_A)"
 
 #: src/Resources.vala:133
 msgid "_Forward"
-msgstr ""
+msgstr "進む(_F)"
 
 #: src/Resources.vala:136
 msgid "Leave _Fullscreen"
