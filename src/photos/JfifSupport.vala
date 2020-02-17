@@ -145,12 +145,12 @@ public class JfifSniffer : GdkSniffer {
         }
 
         length = Jpeg.read_marker_2(dins, out marker);
-        while (marker != Jpeg.Marker.SOF && length > 0) {
+        while (!marker.is_sof() && length > 0) {
             (dins as Seekable).seek(length, SeekType.CUR, null);
             length = Jpeg.read_marker_2(dins, out marker);
         }
 
-        if (marker == SOF) {
+        if (marker.is_sof()) {
             if (length < 6) {
                 is_corrupted = true;
                 return null;
@@ -212,13 +212,22 @@ namespace Jpeg {
         
         SOI = 0xD8,
         EOI = 0xD9,
-        SOF = 0xC0,
         
         APP0 = 0xE0,
         APP1 = 0xE1;
         
         public uint8 get_byte() {
             return (uint8) this;
+        }
+
+        public bool is_sof() {
+            // FFCn is SOF unless n is a multiple of 4 > 0 (FFC4, FFC8, FFCC)
+            if ((this & 0xC0) != 0xC0) {
+                return false;
+            }
+
+            var variant = this & 0x0F;
+            return variant == 0 || variant % 4 != 0;
         }
     }
     
