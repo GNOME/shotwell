@@ -7,6 +7,8 @@ variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
 flatpak:
+    tags:
+        - flatpak
     image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:3.34
     stage: test
     variables:
@@ -20,14 +22,14 @@ flatpak:
         DBUS_ID: "org.gnome.Shotwell"
 
     script:
-        - flatpak-builder --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
+        - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} app ${MANIFEST_PATH}
 
         # Make sure to keep this in sync with the Flatpak manifest, all arguments
         # are passed except the config-args because we build it ourselves
         - flatpak build app meson --prefix=/app ${CONFIGURE_ARGS} _build
         - flatpak build app ninja -C _build install
 
-        - flatpak-builder --finish-only --repo=repo app ${MANIFEST_PATH}
+        - flatpak-builder --user --disable-rofiles-fuse --finish-only --repo=repo app ${MANIFEST_PATH}
 
         # Run automatic tests inside the Flatpak env
         #- xvfb-run -a -s "-screen 0 1024x768x24" flatpak build app ninja -C _build test
