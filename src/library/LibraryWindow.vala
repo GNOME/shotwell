@@ -24,18 +24,10 @@ public class LibraryWindow : AppWindow {
         "mtp:"
     };
     
-    private const int BACKGROUND_PROGRESS_PULSE_MSEC = 250;
 
     // If we're not operating on at least this many files, don't display the progress
     // bar at all; otherwise, it'll go by too quickly, giving the appearance of a glitch.
-    const int MIN_PROGRESS_BAR_FILES = 20;
-    
-    // these values reflect the priority various background operations have when reporting
-    // progress to the LibraryWindow progress bar ... higher values give priority to those reports
-    private const int STARTUP_SCAN_PROGRESS_PRIORITY =      35;
-    private const int REALTIME_UPDATE_PROGRESS_PRIORITY =   40;
-    private const int REALTIME_IMPORT_PROGRESS_PRIORITY =   50;
-    private const int METADATA_WRITER_PROGRESS_PRIORITY =   30;
+    const int MIN_PROGRESS_BAR_FILES = 1;
     
     // This lists the order of the toplevel items in the sidebar.  New toplevel items should be
     // added here in the position they should appear in the sidebar.  To re-order, simply move
@@ -140,9 +132,8 @@ public class LibraryWindow : AppWindow {
     private SearchFilterToolbar search_toolbar;
     
     private Gtk.Box top_section = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-    private Gtk.Frame background_progress_frame = new Gtk.Frame(null);
-    private Gtk.ProgressBar background_progress_bar = new Gtk.ProgressBar();
-    private bool background_progress_displayed = false;
+    private Gtk.Revealer background_progress_frame = new Gtk.Revealer();
+    private BackgroundProgressBar background_progress_bar = new BackgroundProgressBar();
     
     // Instantiate later in constructor because the map support loads its icons in there and we need
     // to have the global app instance available for that
@@ -154,14 +145,6 @@ public class LibraryWindow : AppWindow {
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Box right_vbox;
     private Gtk.Revealer toolbar_revealer = new Gtk.Revealer ();
-    
-    private int current_progress_priority = 0;
-    private uint background_progress_pulse_id = 0;
-    
-#if UNITY_SUPPORT
-    //UnityProgressBar: init
-    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
-#endif
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
         base();
@@ -189,7 +172,7 @@ public class LibraryWindow : AppWindow {
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
-        
+
         // setup search bar and add its accelerators to the window
         search_toolbar = new SearchFilterToolbar(search_actions);
 
@@ -227,8 +210,6 @@ public class LibraryWindow : AppWindow {
         
         CameraTable.get_instance().camera_added.connect(on_camera_added);
         
-        background_progress_bar.set_show_text(true);
-
         // Need to re-install F8 here as it will overwrite the binding created
         // by the menu
         const string[] accels = { "<Primary>f", "F8", null };
@@ -1035,135 +1016,40 @@ public class LibraryWindow : AppWindow {
         
         sort_events_action.change_state (event_sort_val);
     }
-    
-    private void start_pulse_background_progress_bar(string label, int priority) {
-        if (priority < current_progress_priority)
-            return;
-        
-        stop_pulse_background_progress_bar(priority, false);
-        
-        current_progress_priority = priority;
-        
-        background_progress_bar.set_text(label);
-        background_progress_bar.pulse();
-        show_background_progress_bar();
-        
-        background_progress_pulse_id = Timeout.add(BACKGROUND_PROGRESS_PULSE_MSEC,
-            on_pulse_background_progress_bar);
-    }
-    
-    private bool on_pulse_background_progress_bar() {
-        background_progress_bar.pulse();
-        
-        return true;
-    }
-    
-    private void stop_pulse_background_progress_bar(int priority, bool clear) {
-        if (priority < current_progress_priority)
-            return;
-        
-        if (background_progress_pulse_id != 0) {
-            Source.remove(background_progress_pulse_id);
-            background_progress_pulse_id = 0;
-        }
-        
-        if (clear)
-            clear_background_progress_bar(priority);
-    }
-    
-    private void update_background_progress_bar(string label, int priority, double count,
-        double total) {
-        if (priority < current_progress_priority)
-            return;
-        
-        stop_pulse_background_progress_bar(priority, false);
-        
-        if (count <= 0.0 || total <= 0.0 || count >= total) {
-            clear_background_progress_bar(priority);
-            
-            return;
-        }
-        
-        current_progress_priority = priority;
-        
-        double fraction = count / total;
-        background_progress_bar.set_fraction(fraction);
-        background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
-        show_background_progress_bar();
-        
-#if UNITY_SUPPORT
-        //UnityProgressBar: try to draw & set progress
-        uniprobar.set_visible(true);
-        uniprobar.set_progress(fraction);
-#endif
-    }
-    
-    private void clear_background_progress_bar(int priority) {
-        if (priority < current_progress_priority)
-            return;
-        
-        stop_pulse_background_progress_bar(priority, false);
-        
-        current_progress_priority = 0;
-        
-        background_progress_bar.set_fraction(0.0);
-        background_progress_bar.set_text("");
-        hide_background_progress_bar();
-        
-#if UNITY_SUPPORT
-        //UnityProgressBar: reset
-        uniprobar.reset();
-#endif
-    }
-    
-    private void show_background_progress_bar() {
-        if (!background_progress_displayed) {
-            top_section.pack_end(background_progress_frame, false, false, 0);
-            background_progress_frame.show_all();
-            background_progress_displayed = true;
-        }
-    }
-    
-    private void hide_background_progress_bar() {
-        if (background_progress_displayed) {
-            top_section.remove(background_progress_frame);
-            background_progress_displayed = false;
-        }
-    }
-    
+
     private void on_library_monitor_discovery_started() {
-        start_pulse_background_progress_bar(_("Updating library…"), STARTUP_SCAN_PROGRESS_PRIORITY);
+        background_progress_bar.start(_("Updating library…"), BackgroundProgressBar.Priority.STARTUP_SCAN);
     }
     
     private void on_library_monitor_discovery_completed() {
-        stop_pulse_background_progress_bar(STARTUP_SCAN_PROGRESS_PRIORITY, true);
+        background_progress_bar.stop(BackgroundProgressBar.Priority.STARTUP_SCAN, true);
     }
     
     private void on_library_monitor_auto_update_progress(int completed_files, int total_files) {
         if (total_files < MIN_PROGRESS_BAR_FILES)
-            clear_background_progress_bar(REALTIME_UPDATE_PROGRESS_PRIORITY);
+            background_progress_bar.clear(BackgroundProgressBar.Priority.REALTIME_UPDATE);
         else {
-            update_background_progress_bar(_("Updating library…"), REALTIME_UPDATE_PROGRESS_PRIORITY,
+            background_progress_bar.update(_("Updating library…"), BackgroundProgressBar.Priority.REALTIME_UPDATE,
                 completed_files, total_files);
         }
     }
     
     private void on_library_monitor_auto_import_preparing() {
-        start_pulse_background_progress_bar(_("Preparing to auto-import photos…"),
-            REALTIME_IMPORT_PROGRESS_PRIORITY);
+        background_progress_bar.start(_("Preparing to auto-import photos…"),
+            BackgroundProgressBar.Priority.REALTIME_UPDATE);
     }
     
     private void on_library_monitor_auto_import_progress(uint64 completed_bytes, uint64 total_bytes) {
-        update_background_progress_bar(_("Auto-importing photos…"),
-            REALTIME_IMPORT_PROGRESS_PRIORITY, completed_bytes, total_bytes);
+        background_progress_bar.update(_("Auto-importing photos…"),
+            BackgroundProgressBar.Priority.REALTIME_UPDATE, completed_bytes, total_bytes);
     }
     
     private void on_metadata_writer_progress(uint completed, uint total) {
         if (total < MIN_PROGRESS_BAR_FILES)
-            clear_background_progress_bar(METADATA_WRITER_PROGRESS_PRIORITY);
+            background_progress_bar.clear(BackgroundProgressBar.Priority.METADATA_WRITER);
         else {
-            update_background_progress_bar(_("Writing metadata to files…"),
-                METADATA_WRITER_PROGRESS_PRIORITY, completed, total);
+            background_progress_bar.update(_("Writing metadata to files…"),
+                BackgroundProgressBar.Priority.METADATA_WRITER, completed, total);
         }
     }
     
@@ -1176,7 +1062,12 @@ public class LibraryWindow : AppWindow {
         
         background_progress_frame.set_border_width(2);
         background_progress_frame.add(background_progress_bar);
-        background_progress_frame.get_style_context().remove_class("frame");
+        background_progress_frame.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP);
+        background_progress_frame.halign = Gtk.Align.FILL;
+        background_progress_frame.valign = Gtk.Align.END;
+        background_progress_frame.vexpand = false;
+        background_progress_frame.hexpand = true;
+        background_progress_bar.bind_property("should-be-visible", background_progress_frame, "reveal-child", GLib.BindingFlags.DEFAULT);
 
         // pad the bottom frame (properties)
         basic_properties.halign = Gtk.Align.FILL;
@@ -1194,6 +1085,7 @@ public class LibraryWindow : AppWindow {
         // "attach" the progress bar to the sidebar tree, so the movable ridge is to resize the
         // top two and the basic information pane
         top_section.pack_start(scrolled_sidebar, true, true, 0);
+        top_section.pack_end(background_progress_frame, false, false, 0);
 
         sidebar_paned.pack1(top_section, true, false);
         sidebar_paned.pack2(bottom_frame, false, false);
