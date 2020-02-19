@@ -87,7 +87,7 @@ public abstract class EditingToolWindow : Gtk.Window {
     }
 
     public override void realize() {
-        (this as Gtk.Widget).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
+        set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();
     }

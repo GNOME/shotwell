@@ -34,7 +34,7 @@ public class ConcreteDialogPane : Spit.DataImports.DialogPane, GLib.Object {
 public class StaticMessagePane : ConcreteDialogPane {
     public StaticMessagePane(string message_string) {
         Gtk.Label message_label = new Gtk.Label(message_string);
-        (get_widget() as Gtk.Box).pack_start(message_label, true, true, 0);
+        ((Gtk.Box) get_widget()).pack_start(message_label, true, true, 0);
     }
     
     public StaticMessagePane.with_pango(string msg) {
@@ -42,7 +42,7 @@ public class StaticMessagePane : ConcreteDialogPane {
         label.set_markup(msg);
         label.set_line_wrap(true);
         
-        (get_widget() as Gtk.Box).pack_start(label, true, true, 0);
+        ((Gtk.Box) get_widget()).pack_start(label, true, true, 0);
     }
 }
 
@@ -123,7 +123,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         button_box.add(import_button);
         content_box.pack_end(button_box, true, false, 6);
         
-        (get_widget() as Gtk.Box).pack_start(content_box, true, true, 0);
+        ((Gtk.Box) get_widget()).pack_start(content_box, true, true, 0);
         
         set_import_button_sensitivity();
     }
@@ -177,7 +177,7 @@ public class ProgressPane : ConcreteDialogPane {
         progress_label = new Gtk.Label("");
         content_box.pack_start(progress_label, false, true, 6);
         
-        (get_widget() as Gtk.Container).add(content_box);
+        ((Gtk.Container) get_widget()).add(content_box);
     }
     
     public void update_progress(double progress, string? progress_message) {

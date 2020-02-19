@@ -683,7 +683,7 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private void set_print_titles_font(string fontname) {
-        (title_print_font as Gtk.FontChooser).set_font(fontname);
+        ((Gtk.FontChooser) title_print_font).set_font(fontname);
     }
 
 
@@ -696,7 +696,7 @@ public class CustomPrintTab : Gtk.Box {
     }
 
     private string get_print_titles_font() {
-        return (title_print_font as Gtk.FontChooser).get_font();
+        return ((Gtk.FontChooser) title_print_font).get_font();
     }
 
     public PrintJob get_source_job() {

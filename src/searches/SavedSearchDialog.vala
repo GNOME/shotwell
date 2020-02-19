@@ -708,7 +708,7 @@ public class SavedSearchDialog : Gtk.Dialog {
             var box = search_title.get_parent();
             box.remove(search_title);
             box.get_parent().remove(box);
-            (get_header_bar() as Gtk.HeaderBar).set_custom_title (search_title);
+            ((Gtk.HeaderBar) get_header_bar()).set_custom_title(search_title);
         }
     }
     

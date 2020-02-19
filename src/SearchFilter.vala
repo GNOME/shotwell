@@ -778,12 +778,13 @@ public class SearchFilterToolbar : Gtk.Revealer {
 
             switch (filter) {
                 case RatingFilter.REJECTED_OR_HIGHER:
-                    icon = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+                    var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
                     var image = new Gtk.Image.from_icon_name ("emblem-photos-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
                     image.margin_end = 2;
-                    (icon as Gtk.Box).pack_start(image);
+                    box.pack_start(image);
                     image = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-                    (icon as Gtk.Box).pack_start(image);
+                    box.pack_start(image);
+                    icon = box;
                     icon.show_all();
                 break;
                 
@@ -1018,7 +1019,8 @@ public class SearchFilterToolbar : Gtk.Revealer {
         }
 
         private SavedSearch get_search(Gtk.ListBoxRow row) {
-            DataButton button = (row.get_children().first().data as Gtk.Box).get_children().last().data as DataButton;
+            var box = (Gtk.Box) row.get_children().first().data;
+            DataButton button = box.get_children().last().data as DataButton;
             return button.search;
         }
 

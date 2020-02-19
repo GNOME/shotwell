@@ -81,7 +81,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         Gdk.RGBA color = Gdk.RGBA();
         color.parse(Config.Facade.get_instance().get_transparent_background_color());
-        (transparent_solid_color as Gtk.ColorChooser).rgba = color;
+        ((Gtk.ColorChooser) transparent_solid_color).rgba = color;
         transparent_solid_color.color_set.connect(on_color_changed);
 
         switch (Config.Facade.get_instance().get_transparent_background_type()) {
@@ -126,7 +126,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        (preferences_notebook.get_nth_page (2) as Gtk.Container).add (plugins_mediator);
+        ((Gtk.Container) preferences_notebook.get_nth_page (2)).add (plugins_mediator);
 
         populate_preference_options();
 
@@ -177,7 +177,7 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_color_changed() {
-        var color = (transparent_solid_color as Gtk.ColorChooser).rgba.to_string();
+        var color = ((Gtk.ColorChooser) transparent_solid_color).rgba.to_string();
         Config.Facade.get_instance().set_transparent_background_color(color);
     }
 

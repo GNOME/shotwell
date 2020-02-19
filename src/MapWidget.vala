@@ -510,7 +510,7 @@ private class MapWidget : Gtk.Bin {
             CheckerboardItem item = m.view as CheckerboardItem;
 
             if (!did_adjust_view && page is CheckerboardPage) {
-                (page as CheckerboardPage).scroll_to_item(item);
+                ((CheckerboardPage) page).scroll_to_item(item);
                 did_adjust_view = true;
             }
             item.brighten();

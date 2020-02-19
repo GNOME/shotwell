@@ -136,6 +136,7 @@ public class JfifSniffer : GdkSniffer {
         var fins = file.read(null);
         var dins = new DataInputStream(fins);
         dins.set_byte_order(DataStreamByteOrder.BIG_ENDIAN);
+        var seekable = (Seekable) dins;
 
         var marker = Jpeg.Marker.INVALID;
         var length = Jpeg.read_marker_2(dins, out marker);
@@ -146,7 +147,7 @@ public class JfifSniffer : GdkSniffer {
 
         length = Jpeg.read_marker_2(dins, out marker);
         while (!marker.is_sof() && length > 0) {
-            (dins as Seekable).seek(length, SeekType.CUR, null);
+            seekable.seek(length, SeekType.CUR, null);
             length = Jpeg.read_marker_2(dins, out marker);
         }
 
@@ -302,9 +303,10 @@ namespace Jpeg {
         }
         
         uint16 length = dins.read_uint16();
-        if (length < 2 && dins is Seekable) {
+        var seekable = dins as Seekable;
+        if (length < 2 && dins != null) {
             debug("Invalid length %Xh at ofs %" + int64.FORMAT + "Xh", length,
-                    (dins as Seekable).tell() - 2);
+                    seekable.tell() - 2);
             
             return -1;
         }

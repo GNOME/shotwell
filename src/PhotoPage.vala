@@ -2464,7 +2464,7 @@ public class LibraryPhotoPage : EditingHostPage {
         base.add_actions (map);
 
         map.add_action_entries (entries, this);
-        (get_action ("ViewRatings") as GLib.SimpleAction).change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
+        ((GLib.SimpleAction) get_action ("ViewRatings")).change_state (Config.Facade.get_instance ().get_display_photo_ratings ());
         var d = Config.Facade.get_instance().get_default_raw_developer();
         var action = new GLib.SimpleAction.stateful("RawDeveloper",
                 GLib.VariantType.STRING, d == RawDeveloper.SHOTWELL ? "Shotwell" : "Camera");

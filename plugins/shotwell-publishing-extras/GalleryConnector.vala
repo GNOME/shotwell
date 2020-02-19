@@ -1173,7 +1173,7 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (session.is_authenticated())
             return;
 
-        key = (txn as KeyFetchTransaction).get_key();
+        key = ((KeyFetchTransaction)txn).get_key();
 
         if (key == null) error("key doesn\'t exist");
         else {
@@ -1242,7 +1242,7 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("EVENT: retrieving all album URLs.");
 
         string [] album_urls =
-            (txn as GetAlbumURLsTransaction).get_album_urls();
+            ((GetAlbumURLsTransaction)txn).get_album_urls();
 
         if (null == album_urls) {
 
@@ -1308,9 +1308,10 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         debug("EVENT: user is attempting to populate the album list.");
 
+        var get_albums_txn = (GetAlbumsTransaction)txn;
+
         try {
-            new_albums =
-                (txn as GetAlbumsTransaction).get_albums();
+            new_albums = get_albums_txn.get_albums();
         } catch (Spit.Publishing.PublishingError err) {
             on_album_fetch_error(txn, err);
         }
@@ -1319,10 +1320,9 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         for (int i = 0; i <= new_albums.length - 1; i++)
             albums += new_albums[i];
 
-        if ((txn as GetAlbumsTransaction).more_urls) {
-
-            do_fetch_albums((txn as GetAlbumsTransaction).album_urls,
-                (txn as GetAlbumsTransaction).urls_sent);
+        if (get_albums_txn.more_urls) {
+            do_fetch_albums(get_albums_txn.album_urls,
+                            get_albums_txn.urls_sent);
 
         }
         else {
@@ -1383,10 +1383,10 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!session.is_authenticated())
             return;
 
-        PublishingParameters new_params =
-            (txn as GalleryAlbumCreateTransaction).parameters;
-        new_params.album_path =
-            (txn as GalleryAlbumCreateTransaction).get_new_album_path();
+        var create_transaction = (GalleryAlbumCreateTransaction) txn;
+
+        PublishingParameters new_params = create_transaction.parameters;
+        new_params.album_path = create_transaction.get_new_album_path();
 
         debug("EVENT: user has created an album at \"%s\".",
             new_params.album_path);

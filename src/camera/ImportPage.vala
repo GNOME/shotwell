@@ -503,8 +503,9 @@ public class ImportPage : CheckerboardPage {
             assert(fulldir != null);
             filename = import_file.get_filename();
             filesize = import_file.get_filesize();
-            metadata = (import_file is PhotoImportSource) ?
-                (import_file as PhotoImportSource).get_metadata() : null;
+            var photo_import_source = import_file as PhotoImportSource;
+            metadata = (photo_import_source != null) ?
+                photo_import_source.get_metadata() : null;
             exposure_time = import_file.get_exposure_time();
         }
         
@@ -1590,12 +1591,13 @@ public class ImportPage : CheckerboardPage {
             debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);
 #endif
 
-            if (import_source is VideoImportSource)
-                (import_source as VideoImportSource).update(preview);
+            var video_import_source = import_source as VideoImportSource;
+            if (video_import_source != null)
+                video_import_source.update(preview);
 
-            if (import_source is PhotoImportSource)
-                (import_source as PhotoImportSource).update(preview, preview_md5, metadata,
-                    exif_only_md5);
+            var photo_import_source = import_source as PhotoImportSource;
+            if (photo_import_source != null)
+                photo_import_source.update(preview, preview_md5, metadata, exif_only_md5);
             
             if (associated != null) {
                 try {
