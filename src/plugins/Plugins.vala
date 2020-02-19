@@ -39,8 +39,12 @@ private class ModuleRep {
     
     private ModuleRep(File file) {
         this.file = file;
-        
+
+#if VALA_0_46
+        module = Module.open(file.get_path(), ModuleFlags.LAZY);
+#else
         module = Module.open(file.get_path(), ModuleFlags.BIND_LAZY);
+#endif
     }
     
     ~ModuleRep() {
