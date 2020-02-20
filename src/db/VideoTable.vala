@@ -60,43 +60,35 @@ public class VideoTable : DatabaseTable {
     private static VideoTable instance = null;
     
     private VideoTable() {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS VideoTable ("
-            + "id INTEGER PRIMARY KEY, "
-            + "filename TEXT UNIQUE NOT NULL, "
-            + "width INTEGER, "
-            + "height INTEGER, "
-            + "clip_duration REAL, "
-            + "is_interpretable INTEGER, "
-            + "filesize INTEGER, "
-            + "timestamp INTEGER, "
-            + "exposure_time INTEGER, "
-            + "import_id INTEGER, "
-            + "event_id INTEGER, "
-            + "md5 TEXT, "
-            + "time_created INTEGER, "
-            + "rating INTEGER DEFAULT 0, "
-            + "title TEXT, "
-            + "backlinks TEXT, "
-            + "time_reimported INTEGER, "
-            + "flags INTEGER DEFAULT 0, "
-	        + "comment TEXT "
-            + ")", -1, out stmt);
-        assert(res == Sqlite.OK);
+        try {
+            db.begin();
+            db.exec("CREATE TABLE IF NOT EXISTS VideoTable ("
+                    + "id INTEGER PRIMARY KEY, "
+                    + "filename TEXT UNIQUE NOT NULL, "
+                    + "width INTEGER, "
+                    + "height INTEGER, "
+                    + "clip_duration REAL, "
+                    + "is_interpretable INTEGER, "
+                    + "filesize INTEGER, "
+                    + "timestamp INTEGER, "
+                    + "exposure_time INTEGER, "
+                    + "import_id INTEGER, "
+                    + "event_id INTEGER, "
+                    + "md5 TEXT, "
+                    + "time_created INTEGER, "
+                    + "rating INTEGER DEFAULT 0, "
+                    + "title TEXT, "
+                    + "backlinks TEXT, "
+                    + "time_reimported INTEGER, "
+                    + "flags INTEGER DEFAULT 0, "
+                    + "comment TEXT "
+                    + ")");
 
-        res = stmt.step();
-        if (res != Sqlite.DONE)
-            fatal("VideoTable constructor", res);
-        
-        // index on event_id
-        Sqlite.Statement stmt2;
-        int res2 = db.prepare_v2("CREATE INDEX IF NOT EXISTS VideoEventIDIndex ON VideoTable (event_id)",
-            -1, out stmt2);
-        assert(res2 == Sqlite.OK);
-
-        res2 = stmt2.step();
-        if (res2 != Sqlite.DONE)
-            fatal("VideoTable constructor", res2);
+            db.exec("CREATE INDEX IF NOT EXISTS VideoEventIDIndex ON VideoTable (event_id)");
+            db.commit();
+        } catch (Rygel.Database.DatabaseError err) {
+            error("VideoTable: %s", err.message);
+        }
 
         set_table_name("VideoTable");
     }
@@ -111,14 +103,15 @@ public class VideoTable : DatabaseTable {
     // VideoRow.video_id, event_id, time_created are ignored on input. All fields are set on exit
     // with values stored in the database.
     public VideoID add(VideoRow video_row) throws DatabaseError {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2(
+        db.exec(
             "INSERT INTO VideoTable (filename, width, height, clip_duration, is_interpretable, "
             + "filesize, timestamp, exposure_time, import_id, event_id, md5, time_created, title, comment) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            -1, out stmt);
-        assert(res == Sqlite.OK);
+            { (GLib.Value)video_row.filepath,
+              (GLib.Value) video_row.width,
+              (GLib.Value) video_row.height});
         
+        #if 0
         ulong time_created = now_sec();
         
         res = stmt.bind_text(1, video_row.filepath);
@@ -161,36 +154,39 @@ public class VideoTable : DatabaseTable {
         video_row.event_id = EventID();
         video_row.time_created = (time_t) time_created;
         video_row.flags = 0;
-        
+       #endif 
         return video_row.video_id;
     }
     
     public bool drop_event(EventID event_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE VideoTable SET event_id = ? WHERE event_id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, EventID.INVALID);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, event_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            fatal("VideoTable.drop_event", res);
-            
-            return false;
+        try {
+            db.exec("UPDATE VideoTable SET event_id = ? WHERE event_id = ?",
+                    {(GLib.Value) EventID.INVALID, (GLib.Value) event_id.id });
+
+            return true;
+        } catch (Rygel.Database.DatabaseError err) {
+            error("VideoTable.drop_event: %s", err.message);
         }
-        
-        return true;
+
+        return false;
     }
 
     public VideoRow? get_row(VideoID video_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2(
+        try {
+            var cursor = db.exec_cursor(
             "SELECT filename, width, height, clip_duration, is_interpretable, filesize, timestamp, "
             + "exposure_time, import_id, event_id, md5, time_created, rating, title, backlinks, "
-            + "time_reimported, flags, comment FROM VideoTable WHERE id=?", 
+            + "time_reimported, flags, comment FROM VideoTable WHERE id=?",
+            {(GLib.Value) video_id.id});
+            var column = 0;
+            VideoRow = new VideoRow();
+            row.video_id = cursor.next();
+        } catch (Rygel.Database.DatabaseError err) {
+            return null;
+        }
+
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2, 
             -1, out stmt);
         assert(res == Sqlite.OK);
         

@@ -23,60 +23,44 @@ public abstract class DatabaseTable {
      ***/
     public const int SCHEMA_VERSION = 22;
 
-    protected static Sqlite.Database db;
+    protected static Rygel.Database.Database db;
 
     private static int in_transaction = 0;
 
     public string table_name = null;
 
     private static void prepare_db(string filename) {
-        // Open DB.
-        int res = Sqlite.Database.open_v2(filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, 
-            null);
-        if (res != Sqlite.OK)
-            AppWindow.panic(_("Unable to open/create photo database %s: error code %d").printf(filename,
-                res));
-        
-        // Check if we have write access to database.
-        if (filename != Db.IN_MEMORY_NAME) {
-            try {
-                File file_db = File.new_for_path(filename);
-                FileInfo info = file_db.query_info(FileAttribute.ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
-                if (!info.get_attribute_boolean(FileAttribute.ACCESS_CAN_WRITE))
-                    AppWindow.panic(_("Unable to write to photo database file:\n %s").printf(filename));
-            } catch (Error e) {
-                AppWindow.panic(_("Error accessing database file:\n %s\n\nError was: \n%s").printf(filename,
-                    e.message));
+        try {
+            db = new Rygel.Database.Database(filename, Rygel.Database.Flavor.FOREIGN);
+            // Check if we have write access to database.
+            if (filename != Db.IN_MEMORY_NAME) {
+                try {
+                    File file_db = File.new_for_path(filename);
+                    FileInfo info = file_db.query_info(FileAttribute.ACCESS_CAN_WRITE, FileQueryInfoFlags.NONE);
+                    if (!info.get_attribute_boolean(FileAttribute.ACCESS_CAN_WRITE))
+                        AppWindow.panic(_("Unable to write to photo database file:\n %s").printf(filename));
+                } catch (Error e) {
+                    AppWindow.panic(_("Error accessing database file:\n %s\n\nError was: \n%s").printf(filename,
+                                e.message));
+                }
             }
+        } catch (Rygel.Database.DatabaseError err) {
+            AppWindow.panic(_("Unable to open/create photo database %s: error code %s").printf(filename, err.message));
         }
-
-        unowned string? sql_debug = Environment.get_variable
-                                                         ("SHOTWELL_SQL_DEBUG");
-
-        if (sql_debug != null && sql_debug != "") {
-            db.trace (on_trace);
-        }
-    }
-
-    public static void on_trace (string message) {
-        debug ("SQLITE: %s", message);
     }
 
     public static void init(string filename) {
         // Open DB.
         prepare_db(filename);
-        
-        // Try a query to make sure DB is intact; if not, try to use the backup
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS VersionTable ("
-            + "id INTEGER PRIMARY KEY, "
-            + "schema_version INTEGER, "
-            + "app_version TEXT, "
-            + "user_data TEXT NULL"
-            + ")", -1, out stmt);
 
-        // Query on db failed, copy over backup and open it
-        if(res != Sqlite.OK) {
+        try {
+            db.exec("CREATE TABLE IF NOT EXISTS VersionTable ("
+                    + "id INTEGER PRIMARY KEY, "
+                    + "schema_version INTEGER, "
+                    + "app_version TEXT, "
+                    + "user_data TEXT NULL"
+                    + ")");
+        } catch (Rygel.Database.DatabaseError err) {
             db = null;
             
             string backup_path = filename + ".bak";
@@ -92,12 +76,6 @@ public abstract class DatabaseTable {
                 AppWindow.panic(_("Unable to restore photo database %s").printf(error.message));
             }
         }
-
-        // disable synchronized commits for performance reasons ... this is not vital, hence we
-        // don't error out if this fails
-        res = db.exec("PRAGMA synchronous=OFF");
-        if (res != Sqlite.OK)
-            warning("Unable to disable synchronous mode", res);
     }
     
     public static void terminate() {
@@ -119,6 +97,7 @@ public abstract class DatabaseTable {
         this.table_name = table_name;
     }
     
+    #if 0
     // This method will throw an error on an SQLite return code unless it's OK, DONE, or ROW, which
     // are considered normal results.
     protected static void throw_error(string method, int res) throws DatabaseError {
@@ -168,20 +147,14 @@ public abstract class DatabaseTable {
                 throw new DatabaseError.ERROR(msg);
         }
     }
+    #endif
     
     protected bool exists_by_id(int64 id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id FROM %s WHERE id=?".printf(table_name), -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW && res != Sqlite.DONE)
+        try {
+            return db.query_value("SELECT count(1) FROM %s where id=?", {(Value)id}) != 0;
+        } catch (Rygel.Database.DatabaseError err) {
             fatal("exists_by_id [%s] %s".printf(id.to_string(), table_name), res);
-        
-        return (res == Sqlite.ROW);
+        }
     }
     
     protected bool select_by_id(int64 id, string columns, out Sqlite.Statement stmt) {
