@@ -85,12 +85,12 @@ public abstract class DatabaseTable {
     
     // XXX: errmsg() is global, and so this will not be accurate in a threaded situation
     protected static void fatal(string op, int res) {
-        error("%s: [%d] %s", op, res, db.errmsg());
+        //error("%s: [%d] %s", op, res, db.errmsg());
     }
     
     // XXX: errmsg() is global, and so this will not be accurate in a threaded situation
     protected static void warning(string op, int res) {
-        GLib.warning("%s: [%d] %s", op, res, db.errmsg());
+        //GLib.warning("%s: [%d] %s", op, res, db.errmsg());
     }
     
     protected void set_table_name(string table_name) {
@@ -175,7 +175,9 @@ public abstract class DatabaseTable {
     
     // Caller needs to bind value #1 before calling execute_update_by_id()
     private void prepare_update_by_id(int64 id, string column, out Sqlite.Statement stmt) {
-        string sql = "UPDATE %s SET %s=? WHERE id=?".printf(table_name, column);
+        try {
+            string sql = "UPDATE %s SET %s=? WHERE id=?".printf(table_name, column);
+            db.exec (sql, {(Value) id
         
         int res = db.prepare_v2(sql, -1, out stmt);
         assert(res == Sqlite.OK);

@@ -133,12 +133,12 @@ public class Rygel.Database.Cursor : Object {
      *
      * @return a pointer to the current row
      */
-    public Statement* next () throws DatabaseError {
+    public Row next () throws DatabaseError {
         this.has_next ();
         this.throw_if_code_is_error (this.current_state);
         this.dirty = true;
 
-        return this.statement;
+        return new Row (this.statement);
     }
 
     // convenience functions for "foreach"
@@ -163,7 +163,7 @@ public class Rygel.Database.Cursor : Object {
             return this.cursor.has_next ();
         }
 
-        public unowned Statement @get () throws DatabaseError {
+        public Row @get () throws DatabaseError {
             return this.cursor.next ();
         }
     }

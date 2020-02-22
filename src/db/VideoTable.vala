@@ -102,7 +102,7 @@ public class VideoTable : DatabaseTable {
        
     // VideoRow.video_id, event_id, time_created are ignored on input. All fields are set on exit
     // with values stored in the database.
-    public VideoID add(VideoRow video_row) throws DatabaseError {
+    public VideoID add(VideoRow video_row) throws Rygel.Database.DatabaseError {
         db.exec(
             "INSERT INTO VideoTable (filename, width, height, clip_duration, is_interpretable, "
             + "filesize, timestamp, exposure_time, import_id, event_id, md5, time_created, title, comment) "
@@ -171,91 +171,63 @@ public class VideoTable : DatabaseTable {
         return false;
     }
 
+    private VideoRow? row_from_db (Rygel.Database.Row row) throws Rygel.Database.DatabaseError {
+        VideoRow video_row = new VideoRow();
+        video_row.video_id.id = row.at<int64> (0);
+        video_row.filepath = row.at<string> (1);
+        video_row.width = row.at<int> (2);
+        video_row.height = row.at<int> (3);
+        video_row.clip_duration = row.at<double> (4);
+        video_row.is_interpretable = row.at<bool> (5);
+        video_row.filesize = row.at<int64> (6);
+        video_row.timestamp = (time_t) row.at<int64> (7);
+        video_row.exposure_time = (time_t) row.at<int64> (8);
+        video_row.import_id.id = row.at<int64> (9);
+        video_row.event_id.id = row.at<int64> (10);
+        video_row.md5 = row.at<string> (11);
+        video_row.time_created = (time_t) row.at<int64> (12);
+        video_row.rating = Rating.unserialize(row.at<int> (13));
+        video_row.title = row.at<string> (14);
+        video_row.backlinks = row.at<string> (15);
+        video_row.time_reimported = (time_t) row.at<int64>( 16);
+        video_row.flags = row.at<int64> (17);
+        video_row.comment = row.at<string> (18);
+
+        return video_row;
+    }
+
     public VideoRow? get_row(VideoID video_id) {
         try {
             var cursor = db.exec_cursor(
-            "SELECT filename, width, height, clip_duration, is_interpretable, filesize, timestamp, "
+            "SELECT id, filename, width, height, clip_duration, is_interpretable, filesize, timestamp, "
             + "exposure_time, import_id, event_id, md5, time_created, rating, title, backlinks, "
             + "time_reimported, flags, comment FROM VideoTable WHERE id=?",
             {(GLib.Value) video_id.id});
-            var column = 0;
-            VideoRow = new VideoRow();
-            row.video_id = cursor.next();
+            var video_row  = row_from_db (cursor.next());
+            video_row.video_id = video_id;
+
+            return video_row;
         } catch (Rygel.Database.DatabaseError err) {
             return null;
         }
-
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2, 
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, video_id.id);
-        assert(res == Sqlite.OK);
-        
-        if (stmt.step() != Sqlite.ROW)
-            return null;
-        
-        VideoRow row = new VideoRow();
-        row.video_id = video_id;
-        row.filepath = stmt.column_text(0);
-        row.width = stmt.column_int(1);
-        row.height = stmt.column_int(2);
-        row.clip_duration = stmt.column_double(3);
-        row.is_interpretable = (stmt.column_int(4) == 1);
-        row.filesize = stmt.column_int64(5);
-        row.timestamp = (time_t) stmt.column_int64(6);
-        row.exposure_time = (time_t) stmt.column_int64(7);
-        row.import_id.id = stmt.column_int64(8);
-        row.event_id.id = stmt.column_int64(9);
-        row.md5 = stmt.column_text(10);
-        row.time_created = (time_t) stmt.column_int64(11);
-        row.rating = Rating.unserialize(stmt.column_int(12));
-        row.title = stmt.column_text(13);
-        row.backlinks = stmt.column_text(14);
-        row.time_reimported = (time_t) stmt.column_int64(15);
-        row.flags = stmt.column_int64(16);
-        row.comment = stmt.column_text(17);
-        
-        return row;
     }
     
     public Gee.ArrayList<VideoRow?> get_all() {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2(
+        var all = new Gee.ArrayList<VideoRow?>();
+
+        try {
+            var cursor = db.exec_cursor(
             "SELECT id, filename, width, height, clip_duration, is_interpretable, filesize, "
             + "timestamp, exposure_time, import_id, event_id, md5, time_created, rating, title, "
-            + "backlinks, time_reimported, flags, comment FROM VideoTable", 
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        Gee.ArrayList<VideoRow?> all = new Gee.ArrayList<VideoRow?>();
-        
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            VideoRow row = new VideoRow();
-            row.video_id.id = stmt.column_int64(0);
-            row.filepath = stmt.column_text(1);
-            row.width = stmt.column_int(2);
-            row.height = stmt.column_int(3);
-            row.clip_duration = stmt.column_double(4);
-            row.is_interpretable = (stmt.column_int(5) == 1);
-            row.filesize = stmt.column_int64(6);
-            row.timestamp = (time_t) stmt.column_int64(7);
-            row.exposure_time = (time_t) stmt.column_int64(8);
-            row.import_id.id = stmt.column_int64(9);
-            row.event_id.id = stmt.column_int64(10);
-            row.md5 = stmt.column_text(11);
-            row.time_created = (time_t) stmt.column_int64(12);
-            row.rating = Rating.unserialize(stmt.column_int(13));
-            row.title = stmt.column_text(14);
-            row.backlinks = stmt.column_text(15);
-            row.time_reimported = (time_t) stmt.column_int64(16);
-            row.flags = stmt.column_int64(17);
-            row.comment = stmt.column_text(18);
-            
-            all.add(row);
+            + "backlinks, time_reimported, flags, comment FROM VideoTable");
+
+            foreach (var row in cursor) {
+                all.add (row_from_db (row));
+            }
+        } catch (Rygel.Database.DatabaseError err) {
+            GLib.warning ("Error querying database for video rows: %s", err.message);
         }
-        
+
         return all;
     }
     

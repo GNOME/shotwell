@@ -25,11 +25,12 @@ using Sqlite;
 namespace Rygel.Database {
 
     public errordomain DatabaseError {
-        SQLITE_ERROR, /// Error code translated from SQLite
-        OPEN,         /// Error while opening database file
-        PREPARE,      /// Error while preparing a statement
-        BIND,         /// Error while binding values to a statement
-        STEP          /// Error while running through a result set
+        SQLITE_ERROR,  /// Error code translated from SQLite
+        OPEN,          /// Error while opening database file
+        PREPARE,       /// Error while preparing a statement
+        BIND,          /// Error while binding values to a statement
+        STEP,          /// Error while running through a result set
+        OUT_OF_RANGE   /// Range error while iterating through columns
     }
 
     public enum Flavor {
@@ -269,8 +270,8 @@ public class Rygel.Database.Database : Object, Initable {
                              GLib.Value[]? args = null)
                              throws DatabaseError {
         var cursor = this.exec_cursor (sql, args);
-        var statement = cursor.next ();
-        return statement->column_int (0);
+        var row = cursor.next ();
+        return row.at<int> (0);
     }
 
     /**
