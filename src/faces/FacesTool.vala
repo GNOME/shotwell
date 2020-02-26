@@ -74,15 +74,23 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         public bool on_enter_notify_event() {
+            // if is editing name
+            if (name_entry.get_visible() == true)
+                return true;
+
+            // if is editing name in popover
+
+            // if not edit name, just bold text and show rectangle
             activate_label();
 
-            if (face_shape.is_editable())
-                return false;
+            // [TODO] this return false can change a lot
+//            if (face_shape.is_editable())
+//                return false;
 
             // This check is necessary to avoid painting the face twice --see
             // note in on_leave_notify_event.
-            if (!face_shape.is_visible())
-                face_shape.show();
+//            if (!face_shape.is_visible())
+//                face_shape.show();
 
             return true;
         }
@@ -93,7 +101,8 @@ public class FacesTool : EditingTools.EditingTool {
             // belongs to a widget that is a child of the widget that throws this
             // signal. So, this check is necessary to avoid "deactivation" of
             // the label if the pointer enters one of the buttons in this FaceWidget.
-            if (!is_pointer_over(get_window())) {
+            face_shape.set_view_state(FaceShape.ViewState.HIDE);
+/*            if (!is_pointer_over(get_window())) {
                 deactivate_label();
 
                 if (face_shape.is_editable())
@@ -101,7 +110,7 @@ public class FacesTool : EditingTools.EditingTool {
 
                 face_shape.hide();
                 face_hidden();
-            }
+            }*/
 
             return true;
         }
@@ -132,6 +141,7 @@ public class FacesTool : EditingTools.EditingTool {
                 pack_start(label, true);
                 pack_start(delete_button, false);
             }
+            face_shape.set_view_state(FaceShape.ViewState.HIDE);
         }
 
         public FaceShape? update_ui_is_face_new() {
@@ -344,6 +354,7 @@ public class FacesTool : EditingTools.EditingTool {
         }
 
         private void all_face_widgets_default_view() {
+            set_editing_phase(EditingPhase.NOT_EDITING);
             List<unowned Gtk.ListBoxRow> rows = (List<unowned Gtk.ListBoxRow>) face_widgets_layout.get_children();
             foreach (Gtk.ListBoxRow list_row in rows) {
                 Gtk.EventBox event_box = (Gtk.EventBox) list_row.get_child();
@@ -384,6 +395,7 @@ public class FacesTool : EditingTools.EditingTool {
             popover.set_position(Gtk.PositionType.BOTTOM);
             popover.show_all();
             popover.hide();
+            popover.set_modal(false);
         }
     }
 
@@ -602,14 +614,25 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     public override void on_left_click(int x, int y) {
-        if (editing_face_shape != null && editing_face_shape.on_left_click(x, y))
-            return;
+        // current face_shape is been manipulated?
+        if (editing_face_shape != null) {
+            if (!editing_face_shape.cursor_is_over(x, y)) {
+                editing_face_shape.set_view_state(FaceShape.ViewState.HIDE);
+            } else {
+                //[TODO] editing_face_shape should "return void", single responsibility principle
+                // it stores the initial draging position
+                editing_face_shape.on_left_click(x, y);
+                faces_tool_window.set_editing_phase(EditingPhase.EDITING);
+                return;
+            }
+        }
 
+        // check if clicked over other face_shape
         foreach (FaceShape face_shape in face_shapes.values) {
-            if (face_shape.is_visible() && face_shape.cursor_is_over(x, y)) {
+            if (face_shape.cursor_is_over(x, y)) {
                 edit_face_shape(face_shape);
-                face_shape.set_editable(true);
-
+                face_shape.set_view_state(FaceShape.ViewState.CONTOUR_AND_POPOVER);
+                faces_tool_window.set_editing_phase(EditingPhase.EDITING);
                 return;
             }
         }
@@ -621,12 +644,18 @@ public class FacesTool : EditingTools.EditingTool {
         if (editing_face_shape != null) {
             editing_face_shape.on_left_released(x, y);
 
-            if (faces_tool_window.get_editing_phase() == EditingPhase.CREATING_DRAGGING)
+            if (faces_tool_window.get_editing_phase() == EditingPhase.CREATING_DRAGGING) {
                 faces_tool_window.set_editing_phase(EditingPhase.CREATING_EDITING);
+                editing_face_shape.set_known(false);
+                face_shapes.set(editing_face_shape.get_name(), editing_face_shape);
+                faces_tool_window.add_face(editing_face_shape);
+                editing_face_shape.set_view_state(CONTOUR_AND_POPOVER);
+            }
         }
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        // is not dragging?
         if (editing_face_shape == null) {
             FaceShape to_show = null;
             double distance = 0;
@@ -643,8 +672,16 @@ public class FacesTool : EditingTools.EditingTool {
                 // Also, we paint the FaceShape whose center is closer
                 // to the pointer.
                 if (cursor_is_over) {
-                    face_shape.hide();
-                    face_shape.get_widget().deactivate_label();
+                    switch (face_shape.get_view_state()) {
+                        case FaceShape.ViewState.HIDE:
+                        case FaceShape.ViewState.CONTOUR:
+                            face_shape.set_view_state(FaceShape.ViewState.CONTOUR_AND_LABEL);
+                            break;
+                        case FaceShape.ViewState.CONTOUR_AND_LABEL:
+                        case FaceShape.ViewState.CONTOUR_AND_POPOVER:
+                            // do nothing ? [TODO] see better
+                            break;
+                    }
 
                     if (to_show == null) {
                         to_show = face_shape;
@@ -657,20 +694,15 @@ public class FacesTool : EditingTools.EditingTool {
                             distance = new_distance;
                         }
                     }
-                } else if (!cursor_is_over && face_shape.is_visible()) {
-                    face_shape.hide();
-                    face_shape.get_widget().deactivate_label();
+                } else if (!cursor_is_over && face_shape.get_view_state() != FaceShape.ViewState.HIDE) {
+                    face_shape.set_view_state(FaceShape.ViewState.HIDE);
                 }
             }
 
-            if (to_show == null) {
+            if (to_show == null)
                 faces_tool_window.set_editing_phase(EditingPhase.NOT_EDITING);
-            } else {
+            else
                 faces_tool_window.set_editing_phase(EditingPhase.CLICK_TO_EDIT, to_show);
-
-                to_show.show();
-                to_show.get_widget().activate_label();
-            }
         } else editing_face_shape.on_motion(x, y, mask);
     }
 
@@ -684,13 +716,9 @@ public class FacesTool : EditingTools.EditingTool {
             return base.on_leave_notify_event();
 
         foreach (FaceShape face_shape in face_shapes.values) {
-            if (face_shape.is_editable())
-                return base.on_leave_notify_event();
-
-            if (face_shape.is_visible()) {
+            if (face_shape.get_view_state() != FaceShape.ViewState.HIDE) {
                 face_shape.hide();
                 face_shape.get_widget().deactivate_label();
-
                 break;
             }
         }
@@ -738,7 +766,7 @@ public class FacesTool : EditingTools.EditingTool {
             // created faces being edited, and if that is the case it
             // will not be destroyed.
             editing_face_shape.hide();
-            editing_face_shape.set_editable(false);
+            //editing_face_shape.set_editable(false);
 
             // This is to allow the user to edit a FaceShape's shape
             // without pressing the Enter button.
@@ -769,11 +797,7 @@ public class FacesTool : EditingTools.EditingTool {
         // created faces being edited, and if that is the case it
         // will not be destroyed.
         if (editing_face_shape in face_shapes.values) {
-            editing_face_shape.hide();
-            editing_face_shape.set_editable(false);
-
-            editing_face_shape.get_widget().deactivate_label();
-            editing_face_shape.set_entry_name(editing_face_shape.get_name());
+            editing_face_shape.set_view_state(FaceShape.ViewState.HIDE);
         }
 
         editing_face_shape = null;
@@ -784,9 +808,8 @@ public class FacesTool : EditingTools.EditingTool {
 
     private void hide_visible_face() {
         foreach (FaceShape face_shape in face_shapes.values) {
-            if (face_shape.is_visible()) {
+            if (face_shape.get_view_state() != FaceShape.ViewState.HIDE) {
                 face_shape.hide();
-
                 break;
             }
         }
@@ -850,7 +873,7 @@ public class FacesTool : EditingTools.EditingTool {
             } else return;
 
             face_shape.hide();
-            face_shape.set_editable(false);
+//            face_shape.set_editable(false);
 
             set_ok_button_sensitivity();
             release_face_shape();
@@ -861,7 +884,7 @@ public class FacesTool : EditingTools.EditingTool {
         FaceShape face_shape = face_shapes.get(face_name);
         assert(face_shape != null);
 
-        face_shape.set_editable(true);
+        face_shape.set_view_state(FaceShape.ViewState.CONTOUR_AND_POPOVER);
         edit_face_shape(face_shape);
     }
 
@@ -873,7 +896,7 @@ public class FacesTool : EditingTools.EditingTool {
         // FaceWidgets area in FacesToolWindow. And you can delete one of that
         // faces, so the other visible face must be repainted.
         foreach (FaceShape face_shape in face_shapes.values) {
-            if (face_shape.is_visible()) {
+            if (face_shape.get_view_state() != FaceShape.ViewState.HIDE) {
                 face_shape.hide();
                 face_shape.show();
 
