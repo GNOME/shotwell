@@ -17,12 +17,19 @@ public abstract class FaceShape : Object {
     public signal void delete_me_requested();
     
     protected FacesTool.EditingFacePopover face_window;
-    protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
+    protected Gdk.CursorType current_cursor_type = Gdk.CursorType.LEFT_PTR;
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
-    
-    private bool editable = true;
-    private bool visible = true;
+
+    public enum ViewState{
+        HIDE,
+        CONTOUR,
+        CONTOUR_AND_LABEL,
+        CONTOUR_AND_POPOVER
+    }
+
+    protected ViewState view_state = ViewState.HIDE;
+
     private bool known = true;
     
     //face name to show in face rectangle label
@@ -46,7 +53,7 @@ public abstract class FaceShape : Object {
     }
     
     ~FaceShape() {
-        if (visible)
+        if (view_state != ViewState.HIDE)
             erase();
         
         face_window.popover.destroy();
@@ -116,50 +123,69 @@ public abstract class FaceShape : Object {
     }
     
     public void hide() {
-        visible = false;
-        erase();
-        
-        if (editable)
-            face_window.popover.set_visible(false);
-        
-        // make sure the cursor isn't set to a modify indicator
-        canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        this.set_view_state(ViewState.HIDE);
     }
     
     public void show() {
-        visible = true;
-        paint();
-        
-        if (editable) {
+        if (!known)
+            face_window.entry.select_region(0, -1);
+
+        if (view_state == ViewState.CONTOUR_AND_POPOVER) {
+            //[TODO] see better
             update_face_window_position();
             face_window.popover.set_visible(true);
             face_window.popover.popup();
-            
-            if (!known)
-                face_window.entry.select_region(0, -1);
+        } else if (view_state != ViewState.HIDE) {
+            view_state = ViewState.CONTOUR;
         }
+
+        paint();
     }
-    
-    public bool is_visible() {
-        return visible;
+
+    public ViewState get_view_state() {
+        return view_state;
     }
-    
-    public bool is_editable() {
-        return editable;
-    }
-    
-    public void set_editable(bool editable) {
-        if (visible && editable != is_editable()) {
-            hide();
-            this.editable = editable;
-            show();
-            
+
+    public void set_view_state(ViewState view_state) {
+        // need to remove last state element and after draw new one (s)
+
+        // remove elements of previous state
+        if (this.view_state == view_state) {
+            // do not need to repaint
+            // probably staying in HIDE
             return;
         }
+
+        if (this.view_state == ViewState.CONTOUR_AND_LABEL) {
+            // remove label
+        }else if (this.view_state == ViewState.CONTOUR_AND_POPOVER) {
+            // remove popover
+            face_window.popover.set_visible(false);
+            set_entry_name(get_name());
+        }
+
+        if (view_state == ViewState.HIDE) {
+            // remove contour
+            get_widget().deactivate_label();
+            erase();
+        } else if (view_state == ViewState.CONTOUR_AND_LABEL) {
+            // [TODO] draw label in image
+            get_widget().activate_label();
+            this.view_state = view_state;
+            paint();
+            return;
+        } else if (view_state == ViewState.CONTOUR_AND_POPOVER) {
+            // pop popover
+            face_widget.face_tool_window_default_view();
+            update_face_window_position();
+            face_window.popover.set_visible(true);
+            face_window.popover.popup();
+            get_widget().activate_label();
+        }
         
-        this.editable = editable;
+        this.view_state = view_state;
     }
-    
+
     public bool key_press_event(Gdk.EventKey event) {
         switch (Gdk.keyval_name(event.keyval)) {
             case "Escape":
@@ -182,7 +208,6 @@ public abstract class FaceShape : Object {
 
     public void popover_cancel_button_pressed() {
         delete_me_requested();
-
     }
     
     public abstract string serialize();
@@ -243,10 +268,10 @@ public class FaceRectangle : FaceShape {
     }
     
     ~FaceRectangle() {
-        if (!is_editable())
+        if (label_box != null)
             erase_label();
     }
-    
+
     public static new FaceRectangle from_serialized(EditingTools.PhotoCanvas canvas, string[] args)
         throws FaceShapeError {
         assert(args[0] == SHAPE_TYPE);
@@ -322,8 +347,9 @@ public class FaceRectangle : FaceShape {
         
         canvas.invalidate_area(box);
         
-        if (!is_editable())
+        if (view_state == ViewState.CONTOUR_AND_LABEL) {
             paint_label();
+        }
     }
     
     protected override void erase() {
@@ -332,8 +358,8 @@ public class FaceRectangle : FaceShape {
         canvas.erase_box(box.get_reduced(2));
         
         canvas.invalidate_area(box);
-        
-        if (!is_editable())
+
+        if (label_box != null)
             erase_label();
     }
     
@@ -368,9 +394,8 @@ public class FaceRectangle : FaceShape {
     }
     
     private void erase_label() {
-        if (label_box == null)
-            return;
-        
+        assert(label_box != null);
+
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
         int x = scaled_pixbuf_pos.x + label_box.left;
         int y = scaled_pixbuf_pos.y + label_box.top;
@@ -657,7 +682,7 @@ public class FaceRectangle : FaceShape {
             paint();
         }
         
-        if (is_editable())
+        if (view_state == ViewState.CONTOUR_AND_POPOVER)
             update_face_window_position();
         
         serialized = null;
@@ -763,9 +788,8 @@ public class FaceRectangle : FaceShape {
             return;
         }
         
-        if (is_editable()) {
+        if (view_state == ViewState.CONTOUR_AND_POPOVER)
             face_window.popover.set_visible(true);
-        }
         
         // nothing to do if released outside of the face box
         if (in_manipulation == BoxLocation.OUTSIDE)
