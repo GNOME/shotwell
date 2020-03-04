@@ -1,3 +1,100 @@
+Shotwell 0.31.1 - 4 Mar 2020
+  * Fix an issue when pressing the down key in a slideshow
+  * Face recognition: Properly fall back to face detection when there is no DNN
+    file
+  * GPS: Export GPS meta-data
+  * GPS: Changed GPS will trigger meta-data export
+  * Piwigo: Fix crash when the certificate information is broken
+  * Add profiles
+  * Fix an issue with git annex due to not properly recognizing symlinks
+  * Doc: Update the manpage
+  * Google Photos: Do not crash if title is missing
+  * Authenticator: Do not crash if service connection fails
+  * Doc: Various syntax fixes in help files
+  * Fix Camera detection and unmounting
+  * Speed up browsing directories of large files
+  * Fix localization of month in the DateTime dialog
+  * Tumblr: Fix upload
+  * Respect rotation information of videos
+  * Piwigo: Enable uploading of rating
+  * Port thumbnailer spawning to GLib.Subprocess
+  * Remove a couple of deprecated TimeVal uses
+  * Fix a couple of "potential null access" warnings during compilation
+  * Some code clean-ups
+
+Bugs fixed in this release:
+ - https://bugzilla.gnome.org/show_bug.cgi?id=716418
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/122
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/134
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/149
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/158
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/166
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/19
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/196
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/202
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/211
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/38
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/80
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/31
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/22
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/20
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Jordi Mas <jmas@softcatala.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Goran Vidović <trebelnik2@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Ryuta Fujii <translation@sicklylife.jp>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Asier Sarasua Garmendia <asier.sarasua@gmail.com>
+ - Sabri Ünal <libreajans@gmail.com>
+ - sicklylife <translation@sicklylife.jp>
+ - Daniel Korostil <ted.korostiled@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Marek Černocký <marek@manet.cz>
+ - David Welch <techy121592@gmail.com>
+ - Andre Klapper <a9016009@gmx.de>
+ - Hyunsu Shin <sephiron@hanmail.net>
+ - Bruce Cowan <bruce@bcowan.me.uk>
+ - Joseph Bylund <joseph.bylund+github@gmail.com>
+ - Suen Chun Hui <23443533+suenchunhui@users.noreply.github.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Andre Klapper <aklapper@wikimedia.org>
+ - Jiri Grönroos <jiri.gronroos@iki.fi>
+ - Jor Teron <jor.teron@gmail.com>
+ - Stas Solovey <whats_up@tut.by>
+ - Tim Sabsch <tim@sabsch.com>
+
+Added/updated translations:
+ - ca.po, courtesy of Jaume Jorba
+ - cs.po, courtesy of Marek Černocký
+ - es.po, courtesy of Daniel Mustieles
+ - as.po, courtesy of Nilamdyuti Goswami
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - cs.po, courtesy of Marek Černocký
+ - de.po, courtesy of Tim Sabsch
+ - en_GB.po, courtesy of Bruce Cowan
+ - es.po, courtesy of Daniel Mustieles
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - fi.po, courtesy of Jiri Grönroos
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Kukuh Syafaat
+ - ja.po, courtesy of sicklylife
+ - ko.po, courtesy of Shin Hyunsu
+ - mjw.po, courtesy of Jor Teron
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - ru.po, courtesy of Stas Solovey
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Sabri Ünal
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.31.0 - 27 Mar 2019
   * Reorganize source tree
   * Visually clean-up saved search editing dialog
