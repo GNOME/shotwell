@@ -415,43 +415,10 @@
         <description>A numeric code representing the last service to which photos were published</description>
     </key>
 
-    <child name="facebook" schema="org.yorba.shotwell.sharing.facebook" />
     <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
     <child name="gallery3" schema="org.yorba.shotwell.sharing.publishing-gallery3" />
     <child name="org-gnome-shotwell-publishing-google-photos" schema="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" />
     <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
-</schema>
-
-<schema id="org.yorba.shotwell.sharing.facebook">
-    <key name="access-token" type="s">
-        <default>""</default>
-        <summary>access token</summary>
-        <description>Facebook OAuth token for the currently logged in session, if any</description>
-    </key>
-
-    <key name="uid" type="s">
-        <default>""</default>
-        <summary>user i.d.</summary>
-        <description>Facebook user i.d. for the currently logged in user, if any</description>
-    </key>
-
-    <key name="user-name" type="s">
-        <default>""</default>
-        <summary>user name</summary>
-        <description>The name of the currently logged in Facebook user, if any</description>
-    </key>
-
-    <key name="default-size" type="i">
-        <default>0</default>
-        <summary>default size code</summary>
-        <description>A numeric code representing the default size for photos published to Facebook</description>
-    </key>
-
-    <key name="strip-metadata" type="b">
-        <default>false</default>
-        <summary>remove sensitive info from uploads</summary>
-        <description>Whether images being uploaded to Facebook should have their metadata removed first</description>
-    </key>
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.flickr">
