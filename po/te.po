@@ -1943,7 +1943,7 @@ msgstr "ఇపుడు ప్రారంభించుటకు, కింద
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr ""
-"ఎన్నుకోండి <span weight=\\\"bold\\\">ఫైల్ %s సంచయం నుండి దిగుమతిచేయి</span>"
+"ఎన్నుకోండి <span weight=\"bold\">ఫైల్ %s సంచయం నుండి దిగుమతిచేయి</span>"
 
 #: ../src/Dialogs.vala:2045
 msgid "Drag and drop photos onto the Shotwell window"
