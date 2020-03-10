@@ -581,9 +581,9 @@ private class MapWidget : Gtk.Bin {
                                                                "",
                                                                0,
                                                                19,
-                                                               256,
+                                                               512,
                                                                Champlain.MapProjection.MERCATOR,
-                                                               "https://a.tiles.mapbox.com/v4/mapbox.outdoors/#Z#/#X#/#Y#.png?access_token=" +
+                                                               "https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/#Z#/#X#/#Y#?access_token=" +
                                                                MAPBOX_API_TOKEN,
                                                                new Champlain.ImageRenderer());
 
