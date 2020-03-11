@@ -34,6 +34,7 @@ public abstract class Session {
     protected Session(string? endpoint_url = null) {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.Session ();
+        soup_session.add_feature (new Soup.Logger (Soup.LoggerLogLevel.BODY, -1));
         this.soup_session.ssl_use_system_ca_file = true;
     }
     
