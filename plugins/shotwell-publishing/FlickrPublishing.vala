@@ -84,6 +84,7 @@ internal class PublishingParameters {
     public int photo_major_axis_size;
     public string username;
     public VisibilitySpecification visibility_specification;
+    public bool strip_metadata;
 
     public PublishingParameters() {
     }
@@ -506,13 +507,25 @@ private class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransactio
 
     public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session, PublishingParameters parameters,
         Spit.Publishing.Publishable publishable) {
-        base(session, publishable, "https://api.flickr.com/services/upload");
+        base(session, publishable, "https://up.flickr.com/services/upload");
 
         this.parameters = parameters;
 
         add_argument("is_public", ("%d".printf(parameters.visibility_specification.everyone_level)));
         add_argument("is_friend", ("%d".printf(parameters.visibility_specification.friends_level)));
         add_argument("is_family", ("%d".printf(parameters.visibility_specification.family_level)));
+
+        if (!parameters.strip_metadata) {
+            var title = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_TITLE);
+            if (title != null && title != "") {
+                add_argument("title", title);
+            }
+
+            var comment = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_COMMENT);
+            if (comment != null && comment != "") {
+                add_argument("description", comment);
+            }
+        }
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
@@ -646,6 +659,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 
     private void on_publish_clicked() {
+        parameters.strip_metadata = strip_metadata_check.get_active();
         parameters.visibility_specification =
             visibilities[visibility_combo.get_active()].specification;
 
