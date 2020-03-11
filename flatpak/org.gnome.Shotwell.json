@@ -46,8 +46,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/libgee/0.20/libgee-0.20.2.tar.xz",
-                    "sha256" : "9e035c4b755f46bfae70ba81cdcf8328b03f554373cec8c816e8b5680f85353c"
+                    "url" : "https://download.gnome.org/sources/libgee/0.20/libgee-0.20.3.tar.xz",
+                    "sha256" : "d0b5edefc88cbca5f1709d19fa62aef490922c6577a14ac4e7b085507911a5de"
                 }
             ],
             "config-opts" : [
@@ -78,9 +78,9 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.23/libgphoto2-2.5.23.tar.bz2/download",
-                    "sha256" : "d8af23364aa40fd8607f7e073df74e7ace05582f4ba13f1724d12d3c97e8852d",
-                    "dest-filename" : "libgphoto2-2.5.23.tar.bz2"
+                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.24/libgphoto2-2.5.24.tar.bz2/download",
+                    "sha256" : "fd3c578769f0fa389c1e68120f224bd98477aa3d82d16b82746c1266c0d4fb31",
+                    "dest-filename" : "libgphoto2-2.5.24.tar.bz2"
                 }
             ],
             "config-opts" : [
@@ -110,8 +110,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                        "url": "https://download.gnome.org/sources/libgdata/0.17/libgdata-0.17.11.tar.xz",
-                        "sha256": "6b9917122e4def6e6f78bcb660e49e146540832e296abcb5cde99829a04ea986"
+                        "url": "https://download.gnome.org/sources/libgdata/0.17/libgdata-0.17.12.tar.xz",
+                        "sha256": "a0fd6f8820e8bae019c1f6ffab5af7fcd6d7f147915bb968b56df3ad61b42318"
                 }
             ]
         },
@@ -131,7 +131,8 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/Exiv2/exiv2/",
-                    "commit" : "70f9405fafbe19c7bab94b36a1267c4332dc8a8a"
+                    "branch" : "0.27-maintenance",
+                    "commit" : "5360d82c4a64df8d6af21aa212ebe270e13eceb3"
                 }
             ]
         },
@@ -208,8 +209,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "3.4.8",
-                    "commit" : "6bdb9ca725de52ada2b452699fbbd39d8ef41188",
+                    "tag" : "3.4.9",
+                    "commit" : "64e6cf9fe50ef25d317d3529a42d4862b93f002a",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
@@ -225,8 +226,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "LIBCHAMPLAIN_0_12_19",
-                    "commit" : "37493068c81f28773a910ab3a781fe83fd8fb6f3",
+                    "tag" : "LIBCHAMPLAIN_0_12_20",
+                    "commit" : "145e417f32e507b63c21ad4e915b808a6174099e",
                     "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git"
                 }
             ]
