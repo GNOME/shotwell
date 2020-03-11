@@ -124,11 +124,11 @@ public class Argument {
         this.value = value;
     }
 
-    public static string serialize_list(Argument[] args, bool escape = false, string? separator = "&") {
+    public static string serialize_list(Argument[] args, bool encode = true, bool escape = false, string? separator = "&") {
         var builder = new StringBuilder("");
 
         foreach (var arg in args) {
-            builder.append(arg.to_string(escape));
+            builder.append(arg.to_string(escape, encode));
             builder.append(separator);
         }
 
@@ -151,8 +151,10 @@ public class Argument {
         return sorted_args.to_array();
     }
 
-    public string to_string (bool escape = false) {
-        return "%s=%s%s%s".printf (this.key, escape ? "\"" : "", this.value, escape ? "\"" : "");
+    public string to_string (bool escape = false, bool encode = false) {
+        return "%s=%s%s%s".printf (this.key, escape ? "\"" : "",
+            encode ? Soup.URI.encode(this.value, OAuth1.ENCODE_RFC_3986_EXTRA) : this.value,
+            escape ? "\"" : "");
     }
 }
 
