@@ -209,7 +209,7 @@ namespace Publishing.RESTSupport.OAuth1 {
         }
 
         public string get_authorization_header_string() {
-            return "OAuth " + Argument.serialize_list(auth_header_fields, true, ", ");
+            return "OAuth " + Argument.serialize_list(auth_header_fields, false, true, ", ");
         }
 
         public void authorize() {
