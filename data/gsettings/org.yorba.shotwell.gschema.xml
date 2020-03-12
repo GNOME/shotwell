@@ -581,7 +581,7 @@
     <key name="strip-metadata" type="b">
         <default>false</default>
         <summary>remove sensitive info from uploads</summary>
-        <description>Indicates whether images being uploaded to Gallery3 should have their metadata removed first</description>
+        <description>Whether images being uploaded to Gallery3 should have their metadata removed first</description>
     </key>
 
     <key name="scaling-constraint-id" type="i">
