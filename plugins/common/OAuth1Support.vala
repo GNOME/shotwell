@@ -62,7 +62,7 @@ namespace Publishing.RESTSupport.OAuth1 {
             Publishing.RESTSupport.Argument[] sorted_args =
                 Publishing.RESTSupport.Argument.sort(base_string_arguments);
 
-            var arguments_string = Argument.serialize_list(sorted_args);
+            var arguments_string = Argument.serialize_for_sbs(sorted_args);
 
             string? signing_key = null;
             if (access_phase_token_secret != null) {
