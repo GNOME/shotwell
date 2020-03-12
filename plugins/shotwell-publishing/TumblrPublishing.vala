@@ -606,13 +606,13 @@ namespace Publishing.Tumblr {
 
                 this.authorize();
 
-                Publishing.RESTSupport.Argument[] request_arguments = get_arguments();
-                assert(request_arguments.length > 0);
+                var form = new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
+                foreach (var arg in get_arguments()) {
+                    form.insert(arg.key, arg.value);
+                }
+                assert(form.size() > 0);
 
-                var request_data = Publishing.RESTSupport.Argument.serialize_list(request_arguments, true, false, "&");
-
-                Soup.Message outbound_message = new Soup.Message( "POST", get_endpoint_url());
-                outbound_message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY, request_data.data);
+                var outbound_message = Soup.Form.request_new_from_hash ("POST", get_endpoint_url(), form);
 
                 // TODO: there must be a better way to iterate over a map
                 Gee.MapIterator<string, string> i = base.message_headers.map_iterator();
