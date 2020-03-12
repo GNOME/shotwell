@@ -9,16 +9,22 @@
 </schema>
 
 <schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-tumblr">
-    <key name="token" type="s">
+    <key name="access-phase-token" type="s">
         <default>""</default>
-        <summary>Token</summary>
-        <description>The token to access tumblr</description>
+        <summary>OAuth Access Phase Token</summary>
+        <description>The authorization token for the currently logged in Tumblr user, if any</description>
     </key>
 
-    <key name="token-secret" type="s">
+    <key name="access-phase-token-secret" type="s">
         <default>""</default>
-        <summary>Secret token</summary>
-        <description>The secret token to sign oauth requests</description>
+        <summary>OAuth Access Phase Token Secret</summary>
+        <description>The cryptographic secret used to sign requests against the authorization token for the currently logged in Tumblr user, if any</description>
+    </key>
+
+    <key name="access-phase-username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>The user name of the currently logged in Flickr user, if any</description>
     </key>
 
     <key name="default-size" type="i">
