@@ -575,22 +575,6 @@ namespace Publishing.Tumblr {
 
         internal class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransaction {
             //Workaround for Soup.URI.encode() to support binary data (i.e. string with \0)
-            private string encode( uint8[] data ){
-                var s = new StringBuilder();
-                char[] bytes = new char[2];
-                bytes[1] = 0;
-                foreach( var byte in data )
-                {
-                    if(byte == 0) {
-                        s.append( "%00" );
-                    } else {
-                        bytes[0] = (char)byte;
-                        s.append( Soup.URI.encode((string) bytes, ENCODE_RFC_3986_EXTRA) );
-                    }
-                }
-                return s.str;
-            }
-
 
             public UploadTransaction(Publishing.RESTSupport.OAuth1.Session session,Spit.Publishing.Publishable publishable, string blog_url)  {
                 debug("Init upload transaction");
@@ -605,18 +589,14 @@ namespace Publishing.Tumblr {
                     FileUtils.get_contents(base.publishable.get_serialized_file().get_path(), out payload,
                             out payload_length);
 
-                    string reqdata = this.encode(payload.data[0:payload_length]);
-
-
-
-                    add_argument("data[0]", reqdata);
+                    add_argument("data64", Base64.encode(payload.data[0:payload_length]));
                     add_argument("type", "photo");
                     string[] keywords = base.publishable.get_publishing_keywords();
                     string tags = "";
                     if (keywords != null) {
                         tags = string.joinv (",", keywords);
                     }
-                    add_argument("tags", Soup.URI.encode(tags, ENCODE_RFC_3986_EXTRA));
+                    add_argument("tags", tags);
 
                 } catch (FileError e) {
                     throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
@@ -629,7 +609,7 @@ namespace Publishing.Tumblr {
                 Publishing.RESTSupport.Argument[] request_arguments = get_arguments();
                 assert(request_arguments.length > 0);
 
-                var request_data = Publishing.RESTSupport.Argument.serialize_list(request_arguments);
+                var request_data = Publishing.RESTSupport.Argument.serialize_list(request_arguments, true, false, "&");
 
                 Soup.Message outbound_message = new Soup.Message( "POST", get_endpoint_url());
                 outbound_message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY, request_data.data);

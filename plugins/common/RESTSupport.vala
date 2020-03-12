@@ -126,7 +126,15 @@ public class Argument {
         this.value = value;
     }
 
-    public static string serialize_list(Argument[] args, bool encode = true, bool escape = false, string? separator = "&") {
+    public static string serialize_for_sbs(Argument[] args) {
+        return Argument.serialize_list(args, true, false, "&");
+    }
+
+    public static string serialize_for_authorization_header(Argument[] args) {
+        return Argument.serialize_list(args, false, true, ", ");
+    }
+
+    public static string serialize_list(Argument[] args, bool encode, bool escape, string? separator) {
         var builder = new StringBuilder("");
 
         foreach (var arg in args) {
