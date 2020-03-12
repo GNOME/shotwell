@@ -255,7 +255,7 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
                             "least one of these is absent"));
                 this.authentication_failed();
             } else {
-                session.set_access_phase_credentials(token, token_secret, "");
+                session.set_access_phase_credentials(token, token_secret, "unused");
             }
         }
     }
