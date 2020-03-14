@@ -80,7 +80,8 @@ internal class VisibilitySpecification {
 // not a struct because we want reference semantics
 internal class PublishingParameters {
     public UserKind user_kind;
-    public int64 quota_free_bytes;
+    public int64 max_images_count;
+    public uint64 uploaded_images_count;
     public int photo_major_axis_size;
     public string username;
     public VisibilitySpecification visibility_specification;
@@ -275,9 +276,8 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
             string is_pro_str = response_doc.get_property_value(user_node, "ispro");
 
-            Xml.Node* bandwidth_node = response_doc.get_named_child(user_node, "bandwidth");
-
-            string remaining_kb_str = response_doc.get_property_value(bandwidth_node, "remainingkb");
+            string max_images_str = response_doc.get_property_value(user_node, "upload_limit");
+            string uploaded_images_str = response_doc.get_property_value(user_node, "upload_count");
 
             UserKind user_kind;
             if (is_pro_str == "0")
@@ -287,10 +287,9 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             else
                 throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
                     "Unable to determine if user has free or pro account");
-            
-            var quota_bytes_left = int64.parse(remaining_kb_str) * 1024;
 
-            parameters.quota_free_bytes = quota_bytes_left;
+            parameters.max_images_count = int64.parse(max_images_str);
+            parameters.uploaded_images_count = int64.parse(uploaded_images_str);
             parameters.user_kind = user_kind;
 
         } catch (Spit.Publishing.PublishingError err) {
@@ -606,9 +605,9 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
 
         string upload_label_text = _("You are logged into Flickr as %s.\n\n").printf(parameters.username);
         if (parameters.user_kind == UserKind.FREE) {
-            upload_label_text += _("Your free Flickr account limits how much data you can upload per month.\nThis month you have %s remaining in your upload quota.").printf(GLib.format_size(parameters.quota_free_bytes, FormatSizeFlags.LONG_FORMAT | FormatSizeFlags.IEC_UNITS));
+            upload_label_text += _("Your free Flickr account limits how many photos you can upload to the service.\nYou have uploaded %llu out of your %lld file limit.").printf(parameters.uploaded_images_count, parameters.max_images_count);
         } else {
-            upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
+            upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %llu files").printf(parameters.uploaded_images_count);
         }
 
         upload_info_label.set_label(upload_label_text);
