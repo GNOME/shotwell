@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-03-12 18:49+0000\n"
-"PO-Revision-Date: 2020-03-13 10:21+0100\n"
+"POT-Creation-Date: 2020-03-14 06:55+0000\n"
+"PO-Revision-Date: 2020-03-14 13:03+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -37,82 +37,94 @@ msgid "Yandex-Fotki authentication token, if logged in."
 msgstr "Yandex-Fotki-autentiseringstoken om inloggad."
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:14
-msgid "Token"
-msgstr "Token"
+#: data/gsettings/org.yorba.shotwell.gschema.xml:427
+msgid "OAuth Access Phase Token"
+msgstr "OAuth-token för åtkomstfas"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:15
-msgid "The token to access tumblr"
-msgstr "Token för att komma åt tumblr"
+msgid "The authorization token for the currently logged in Tumblr user, if any"
+msgstr "Autentiseringstoken för inloggad Tumblr-användare, om någon"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:20
-msgid "Secret token"
-msgstr "Hemlig token"
+#: data/gsettings/org.yorba.shotwell.gschema.xml:433
+msgid "OAuth Access Phase Token Secret"
+msgstr "OAuth-hemlighet för åtkomstfas"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:21
-msgid "The secret token to sign oauth requests"
-msgstr "Det hemliga token som signerar oauth-begäran"
+msgid ""
+"The cryptographic secret used to sign requests against the authorization "
+"token for the currently logged in Tumblr user, if any"
+msgstr ""
+"Den kryptografiska hemligheten använd för att signera begäran mot "
+"auktoriseringstoken för den inloggade Tumblr-användaren, om någon"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:26
-#: data/gsettings/org.yorba.shotwell.gschema.xml:471
-msgid "default size"
-msgstr "standardstorlek"
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:27
-msgid ""
-"A numeric code representing the default size for photos uploaded to Tumblr"
-msgstr ""
-"En sifferkod representerande standardstorlek för bilder skickade till Tumblr"
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:32
-msgid "default blog"
-msgstr "standardblogg"
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:33
-msgid "The name of the default blog of the user, if any"
-msgstr "Namnet på standardbloggen för användaren, om någon"
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:40
-msgid "Rajce URL"
-msgstr "Rajce-URL"
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:41
-msgid "URL of the Rajce server."
-msgstr "URL för Rajce-server."
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:52
 #: data/gsettings/org.yorba.shotwell.gschema.xml:439
 #: data/gsettings/org.yorba.shotwell.gschema.xml:497
 #: data/gsettings/org.yorba.shotwell.gschema.xml:559
 msgid "username"
 msgstr "användarnamn"
 
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:27
+#: data/gsettings/org.yorba.shotwell.gschema.xml:440
+msgid "The user name of the currently logged in Flickr user, if any"
+msgstr "Användarnamnet för den inloggade Flickr-användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:32
+#: data/gsettings/org.yorba.shotwell.gschema.xml:471
+msgid "default size"
+msgstr "standardstorlek"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:33
+msgid ""
+"A numeric code representing the default size for photos uploaded to Tumblr"
+msgstr ""
+"En sifferkod representerande standardstorlek för bilder skickade till Tumblr"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:38
+msgid "default blog"
+msgstr "standardblogg"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:39
+msgid "The name of the default blog of the user, if any"
+msgstr "Namnet på standardbloggen för användaren, om någon"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
+msgid "Rajce URL"
+msgstr "Rajce-URL"
+
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:47
+msgid "URL of the Rajce server."
+msgstr "URL för Rajce-server."
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:53
 msgid "Rajce username, if logged in."
 msgstr "Rajce-användarnamn om inloggad."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:52
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:58
 msgid "token"
 msgstr "token"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:53
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:59
 msgid "user token, if remembered."
 msgstr "användartoken, om ihågkommen."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:58
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:64
 #: data/gsettings/org.yorba.shotwell.gschema.xml:515
 msgid "last category"
 msgstr "senaste kategori"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:59
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:65
 msgid "The last selected Rajce category."
 msgstr "Senast valda Rajce-kategori."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:64
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:70
 #: data/gsettings/org.yorba.shotwell.gschema.xml:527
 msgid "last photo size"
 msgstr "senaste bildstorlek"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:65
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:71
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Rajce."
@@ -120,33 +132,33 @@ msgstr ""
 "En sifferkod representerande den senaste förinställningen för bildstorlek "
 "använd vid publicering till Rajce."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:70
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:76
 msgid "remember"
 msgstr "kom ihåg"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:71
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:77
 msgid "If true, remember last login."
 msgstr "Om true, dölj den senast skapade inloggningen."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:76
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:82
 msgid "hide album"
 msgstr "göm album"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:77
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:83
 msgid "If true, hide the newly created Rajce album."
 msgstr "Om true, dölj det senast skapade Rajce-albumet."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:82
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:88
 msgid "open album in web browser"
 msgstr "öppna album i webbläsare"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:83
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:89
 msgid ""
 "If true, open target album in the web browser just after uploading photos"
 msgstr ""
 "Om true, öppna målalbumet i webbläsaren efter att ha skickat upp bilder"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:88
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:94
 #: data/gsettings/org.yorba.shotwell.gschema.xml:457
 #: data/gsettings/org.yorba.shotwell.gschema.xml:483
 #: data/gsettings/org.yorba.shotwell.gschema.xml:533
@@ -154,7 +166,7 @@ msgstr ""
 msgid "remove sensitive info from uploads"
 msgstr "ta bort känslig information från sändningar"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:89
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:95
 msgid ""
 "Whether images being uploaded to Rajce should have their metadata removed "
 "first"
@@ -715,17 +727,9 @@ msgstr ""
 msgid "default publishing service"
 msgstr "standardtjänst för publicering"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:427
-msgid "OAuth Access Phase Token"
-msgstr "OAuth-token för åtkomstfas"
-
 #: data/gsettings/org.yorba.shotwell.gschema.xml:428
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Autentiseringstoken för inloggad Flickr-användare, om någon"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:433
-msgid "OAuth Access Phase Token Secret"
-msgstr "OAuth-hemlighet för åtkomstfas"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:434
 msgid ""
@@ -734,10 +738,6 @@ msgid ""
 msgstr ""
 "Den kryptografiska hemligheten använd för att signera begäran mot "
 "auktoriseringstoken för den inloggade Flickr-användaren, om någon"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:440
-msgid "The user name of the currently logged in Flickr user, if any"
-msgstr "Användarnamnet för den inloggade Flickr-användaren, om någon"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:445
 msgid "default size code"
@@ -1937,7 +1937,7 @@ msgstr "_Logga in"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
 #: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:130
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:130
 msgid "_Cancel"
 msgstr "_Avbryt"
 
@@ -2393,7 +2393,7 @@ msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:220
+#: plugins/common/RESTSupport.vala:233
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -2401,7 +2401,7 @@ msgstr ""
 "webbplats."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:225
+#: plugins/common/RESTSupport.vala:238
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2410,7 +2410,7 @@ msgstr ""
 "Kontrollera datumet i din dators kalender."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:230
+#: plugins/common/RESTSupport.vala:243
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
@@ -2418,7 +2418,7 @@ msgstr ""
 "organisation."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:235
+#: plugins/common/RESTSupport.vala:248
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2426,7 +2426,7 @@ msgstr ""
 "trasig."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:240
+#: plugins/common/RESTSupport.vala:253
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -2435,7 +2435,7 @@ msgstr ""
 "organisation som utfärdade den."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:245
+#: plugins/common/RESTSupport.vala:258
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2444,7 +2444,7 @@ msgstr ""
 "en väldigt svag kryptering."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:250
+#: plugins/common/RESTSupport.vala:263
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2452,8 +2452,8 @@ msgstr ""
 "⚫ Den här webbplatsens identifiering är endast giltig för framtida datum. "
 "Kontrollera datumet i din dators kalender."
 
-#: plugins/common/RESTSupport.vala:539
-#: plugins/shotwell-publishing/TumblrPublishing.vala:623
+#: plugins/common/RESTSupport.vala:552
+#: plugins/shotwell-publishing/TumblrPublishing.vala:603
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "En temporärfil som krävs för publicering är inte tillgänglig"
 
@@ -2504,7 +2504,7 @@ msgid "pixels"
 msgstr "bildpunkter"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:687
+#: plugins/shotwell-publishing/FlickrPublishing.vala:700
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1331
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -2758,7 +2758,7 @@ msgstr ""
 "En fil som krävs för publiceringen saknas. Därför kan publiceringen till "
 "Flickr inte fortsätta."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:607
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2767,70 +2767,76 @@ msgstr ""
 "Du är inloggad på Flickr som %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:609
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 #, c-format
 msgid ""
-"Your free Flickr account limits how much data you can upload per month.\n"
-"This month you have %s remaining in your upload quota."
+"Your free Flickr account limits how many photos you can upload to the "
+"service.\n"
+"You have uploaded %llu out of your %lld file limit."
 msgstr ""
-"Ditt gratiskonto på Flickr begränsar hur mycket data som du kan skicka\n"
-"upp per månad. Denna månad har du %s kvar att skicka upp."
+"Ditt gratiskonto på Flickr begränsar hur många bilder som du kan skicka\n"
+"till tjänsten. Du har skickat %llu filer av din filgräns på %lld."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:611
-msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr "Ditt Flickr Pro-konto låter dig skicka upp obegränsat med data."
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
+#, c-format
+msgid ""
+"Your Flickr Pro account entitles you to unlimited uploads. You have "
+"currently uploaded %llu files"
+msgstr ""
+"Ditt Flickr Pro-konto låter dig skicka upp obegränsat med data. Du har för "
+"närvarande skickat upp %llu filer"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:616
+#: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
 msgstr "Bilderna _visas för"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:618
+#: plugins/shotwell-publishing/FlickrPublishing.vala:630
 msgid "Videos _visible to"
 msgstr "Filmerna _visas för"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:621
+#: plugins/shotwell-publishing/FlickrPublishing.vala:633
 msgid "Photos and videos _visible to"
 msgstr "Bilder och filmer _visas för"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:661
+#: plugins/shotwell-publishing/FlickrPublishing.vala:674
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "Everyone"
 msgstr "Alla"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:662
+#: plugins/shotwell-publishing/FlickrPublishing.vala:675
 msgid "Friends & family only"
 msgstr "Endast vänner och familj"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:663
+#: plugins/shotwell-publishing/FlickrPublishing.vala:676
 msgid "Family only"
 msgstr "Endast familj"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:664
+#: plugins/shotwell-publishing/FlickrPublishing.vala:677
 msgid "Friends only"
 msgstr "Endast vänner"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:665
+#: plugins/shotwell-publishing/FlickrPublishing.vala:678
 msgid "Just me"
 msgstr "Bara jag"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:683
+#: plugins/shotwell-publishing/FlickrPublishing.vala:696
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 bildpunkter"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:684
+#: plugins/shotwell-publishing/FlickrPublishing.vala:697
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 bildpunkter"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:685
+#: plugins/shotwell-publishing/FlickrPublishing.vala:698
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 bildpunkter"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:686
+#: plugins/shotwell-publishing/FlickrPublishing.vala:699
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1330
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 bildpunkter"
@@ -3723,7 +3729,7 @@ msgstr "Importera från program"
 msgid "Import media _from:"
 msgstr "Importera mediafiler från:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:396
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
 msgid "_Close"
 msgstr "S_täng"
 
@@ -5631,11 +5637,11 @@ msgstr "Publicera bilder och filmer _till"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:286
+#: src/publishing/PublishingUI.vala:288
 msgid "Unable to publish"
 msgstr "Kunde inte publicera"
 
-#: src/publishing/PublishingUI.vala:287
+#: src/publishing/PublishingUI.vala:289
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -6542,6 +6548,18 @@ msgstr "namnlös"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "Exportera filmer"
+
+#~ msgid "Token"
+#~ msgstr "Token"
+
+#~ msgid "The token to access tumblr"
+#~ msgstr "Token för att komma åt tumblr"
+
+#~ msgid "Secret token"
+#~ msgstr "Hemlig token"
+
+#~ msgid "The secret token to sign oauth requests"
+#~ msgstr "Det hemliga token som signerar oauth-begäran"
 
 #~ msgid "access token"
 #~ msgstr "åtkomsttoken"
