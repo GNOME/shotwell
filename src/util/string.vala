@@ -145,7 +145,7 @@ public string? prepare_input_text(string? text, PrepareInputTextOptions options,
     // Using composed form rather than GLib's default (decomposed) as NFC is the preferred form in
     // Linux and WWW.  More importantly, Pango seems to have serious problems displaying decomposed
     // forms of Korean language glyphs (and perhaps others).  See:
-    // http://trac.yorba.org/ticket/2952
+    // https://bugzilla.gnome.org/show_bug.cgi?id=716914
     if ((options & PrepareInputTextOptions.NORMALIZE) != 0)
         prepped = prepped.normalize(-1, NormalizeMode.NFC);
     
@@ -255,7 +255,7 @@ public string to_hex_string(string str) {
 
 // A note on the collated_* and precollated_* methods:
 //
-// A bug report (http://trac.yorba.org/ticket/3152) indicated that two different Hirigana characters
+// A bug report (https://bugzilla.gnome.org/show_bug.cgi?id=717135) indicated that two different Hirigana characters
 // as Tag names would trigger an assertion.  Investigation showed that the characters' collation
 // keys computed as equal when the locale was set to anything but the default locale (C) or
 // Japanese.  A related bug was that another hash table was using str_equal, which does not use

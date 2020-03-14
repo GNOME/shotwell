@@ -462,7 +462,7 @@ public class PhotoMetadata : MediaMetadata {
     // NOTE: get_tag_multiple() in gexiv2 currently does not work with EXIF tags (as EXIF can 
     // never return a list of strings).  It will quietly return NULL if attempted.  Until fixed
     // (there or here), don't use this function to access EXIF.  See:
-    // http://trac.yorba.org/ticket/2966
+    // https://gitlab.gnome.org/GNOME/gexiv2/issues/10
     public Gee.List<string>? get_string_multiple(string tag) {
         string[] values = exiv2.get_tag_multiple(tag);
         if (values == null || values.length == 0)
@@ -489,7 +489,7 @@ public class PhotoMetadata : MediaMetadata {
     // NOTE: get_tag_multiple() in gexiv2 currently does not work with EXIF tags (as EXIF can 
     // never return a list of strings).  It will quietly return NULL if attempted.  Until fixed
     // (there or here), don't use this function to access EXIF.  See:
-    // http://trac.yorba.org/ticket/2966
+    // https://gitlab.gnome.org/GNOME/gexiv2/issues/10
     public Gee.List<string>? get_first_string_multiple(string[] tags) {
         foreach (string tag in tags) {
             Gee.List<string>? values = get_string_multiple(tag);
@@ -556,9 +556,9 @@ public class PhotoMetadata : MediaMetadata {
             return;
 
         // append a null pointer to the end of the string array -- this is a necessary
-        // workaround for http://trac.yorba.org/ticket/3264. See also
-        // http://trac.yorba.org/ticket/3257, which describes the user-visible behavior
-        // seen in the Flickr Connector as a result of the former bug.
+        // workaround for https://bugzilla.gnome.org/show_bug.cgi?id=712479. See also
+        // https://bugzilla.gnome.org/show_bug.cgi?id=717438, which describes the
+        // user-visible behavior seen in the Flickr Connector as a result of the former bug.
         values += null;
         
         if (!exiv2.set_tag_multiple(tag, values))
@@ -917,7 +917,7 @@ public class PhotoMetadata : MediaMetadata {
     // (sometimes) appropriate tag for the description.  And there's general confusion about
     // whether Exif.Image.ImageDescription is a description (which is what the tag name
     // suggests) or a title (which is what the specification states).
-    // See: http://trac.yorba.org/wiki/PhotoTags
+    // See: https://wiki.gnome.org/Apps/Shotwell/PhotoTags
     //
     // Hence, the following logic tries to do the right thing in most of these cases.  If
     // the iPhoto title tag is detected, it and the iPhoto description tag are used.  Otherwise,
@@ -1338,7 +1338,7 @@ public class PhotoMetadata : MediaMetadata {
     // Other photo managers, notably F-Spot, take hints from Urgency fields about what the rating
     // of an imported photo should be, and we have decided to do as well. Xmp.xmp.Rating is the only 
     // field we've seen photo manages export ratings to, while Urgency fields seem to have a fundamentally
-    // different meaning. See http://trac.yorba.org/wiki/PhotoTags#Rating for more information.
+    // different meaning. See https://wiki.gnome.org/Apps/Shotwell/PhotoTags#Rating for more information.
     public void set_rating(Rating rating) {
         int int_rating = rating.serialize();
         set_string("Xmp.xmp.Rating", int_rating.to_string());

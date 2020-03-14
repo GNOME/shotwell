@@ -93,7 +93,7 @@ namespace GPhoto {
     }
 
     // For CameraFileInfoFile, CameraFileInfoPreview, and CameraStorageInformation.  See:
-    // http://redmine.yorba.org/issues/1851
+    // https://bugzilla.gnome.org/show_bug.cgi?id=716252
     // https://bugzilla.redhat.com/show_bug.cgi?id=585676
     // https://sourceforge.net/tracker/?func=detail&aid=3000198&group_id=8874&atid=108874
     public const int MAX_FILENAME_LENGTH = 63;
@@ -133,7 +133,7 @@ namespace GPhoto {
 
     // Libgphoto will in some instances refuse to get metadata from a camera, but the camera is accessible as a
     // filesystem.  In these cases shotwell can access the file directly. See:
-    // http://redmine.yorba.org/issues/2959
+    // https://bugzilla.gnome.org/show_bug.cgi?id=716915
     public PhotoMetadata? get_fallback_metadata(Camera camera, Context context, string folder, string filename) {
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;

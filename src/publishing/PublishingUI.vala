@@ -245,15 +245,17 @@ public class PublishingDialog : Gtk.Dialog {
         return filtered_services;
     }
 
-    // Because of this bug: http://trac.yorba.org/ticket/3623, we use some extreme measures. The
-    // bug occurs because, in some cases, when publishing is started asynchronous network 
-    // transactions are performed. The mechanism inside libsoup that we use to perform asynchronous
-    // network transactions isn't based on threads but is instead based on the GLib event loop. So
-    // whenever we run a network transaction, the GLib event loop gets spun. One consequence of
-    // this is that PublishingDialog.go( ) can be called multiple times. Note that since events
-    // are processed sequentially, PublishingDialog.go( ) is never called re-entrantly. It just
-    // gets called twice back-to-back in quick succession. So use a timer to do a short circuit
-    // return if this call to go( ) follows immediately on the heels of another call to go( ).
+    // Because of this bug: https://bugzilla.gnome.org/show_bug.cgi?id=717505, we use some
+    // extreme measures. The bug occurs because, in some cases, when publishing is started
+    // asynchronous network transactions are performed. The mechanism inside libsoup that we
+    // use to perform asynchronous network transactions isn't based on threads but is instead
+    // based on the GLib event loop. So whenever we run a network transaction, the GLib event
+    // loop gets spun. One consequence of this is that PublishingDialog.go( ) can be called
+    // multiple times. Note that since events are processed sequentially, PublishingDialog.go()
+    // is never called re-entrantly. It just gets called twice back-to-back in quick
+    // succession. So use a timer to do a short circuit return if this call to go( ) follows
+    // immediately on the heels of another call to go( )
+    // FIXME: Port publising to async libsoup, then there is no nested main loop anymore.
     private static Timer since_last_start = null;
     private static bool elapsed_is_valid = false;
     public static void go(Gee.Collection<MediaSource> to_publish) {

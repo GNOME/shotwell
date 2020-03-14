@@ -391,7 +391,7 @@ public class PhotoTable : DatabaseTable {
     // the DB as a zero due to Vala 0.14 breaking the way it handled
     // objects passed as 'ref' arguments to methods. 
     // 
-    // For further details, please see http://redmine.yorba.org/issues/4354 and 
+    // For further details, please see https://bugzilla.gnome.org/show_bug.cgi?id=718194 and
     // https://bugzilla.gnome.org/show_bug.cgi?id=663818 .
     private void validate_orientation(PhotoRow row) {
         if ((row.orientation < Orientation.MIN) ||

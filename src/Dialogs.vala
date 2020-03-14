@@ -5,7 +5,7 @@
  */
 
 // namespace for future migration of AppWindow alert and other question dialogs into single
-// place: http://trac.yorba.org/ticket/3452
+// place: https://bugzilla.gnome.org/show_bug.cgi?id=717659
 namespace Dialogs {
 
 public bool confirm_delete_tag(Tag tag) {

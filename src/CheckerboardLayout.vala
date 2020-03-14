@@ -18,7 +18,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     // The number of pixels that the scrollbars of Gtk.ScrolledWindows allocate for themselves
     // before their final size is computed. This must be taken into account when computing
     // the width of this widget. This value was 0 in Gtk+ 2.x but is 1 in Gtk+ 3.x. See
-    // ticket #3870 (http://redmine.yorba.org/issues/3870) for more information
+    // ticket #3870 (https://bugzilla.gnome.org/show_bug.cgi?id=717754) for more information
     private const int SCROLLBAR_PLACEHOLDER_WIDTH = 1;
     
     private class LayoutRow {

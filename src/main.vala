@@ -355,7 +355,7 @@ void main(string[] args) {
 
     // This has to be done before the AppWindow is created in order to ensure the XMP
     // parser is initialized in a thread-safe fashion; please see 
-    // http://redmine.yorba.org/issues/4120 for details.
+    // https://bugzilla.gnome.org/show_bug.cgi?id=717931 for details.
     GExiv2.initialize();
     GExiv2.log_use_glib_logging();
 

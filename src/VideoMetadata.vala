@@ -162,7 +162,7 @@ private class QuickTimeMetadataLoader {
         // QuickTime movie with a negative timestamp, we can be pretty sure it isn't a valid
         // QuickTime movie that was shot before 1904 but is instead a non-compliant 3GP video
         // file. If we detect such a video, we correct its time. See this Redmine ticket
-        // (http://redmine.yorba.org/issues/3314) for more information.
+        // (https://bugzilla.gnome.org/show_bug.cgi?id=717384) for more information.
         if (timestamp < 0)
             timestamp += QUICKTIME_EPOCH_ADJUSTMENT;
         

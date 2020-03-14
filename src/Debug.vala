@@ -33,7 +33,7 @@ namespace Debug {
         
         string log_file_error_msg = null;
         
-        // logging to disk is currently off for viewer more; see http://trac.yorba.org/ticket/2078
+        // logging to disk is currently off for viewer more; see https://bugzilla.gnome.org/show_bug.cgi?id=716474
         File? log_file = (log_app_version_prefix == LIBRARY_PREFIX) ? AppDirs.get_log_file() : null;
         if(log_file != null) {
             File log_dir = log_file.get_parent();
