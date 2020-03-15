@@ -54,8 +54,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "3.4.8",
-                    "commit" : "6bdb9ca725de52ada2b452699fbbd39d8ef41188",
+                    "tag" : "4.2.0",
+                    "commit" : "bda89a6469aa79ecd8713967916bd754bff1d931",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
