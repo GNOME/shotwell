@@ -33,15 +33,14 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
     if (disableDnn) {
         // Classical face detection
         cv::Mat gray;
-        cvtColor(img, gray, CV_BGR2GRAY);
+        cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 
         cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
         smallImgSize = smallImg.size();
 
         cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
         cv::equalizeHist(smallImg, smallImg);
-
-        cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
+        cascade.detectMultiScale(smallImg, faces, 1.1, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
     } else {
 #ifdef HAS_OPENCV_DNN
         // DNN based face detection
@@ -159,7 +158,7 @@ std::vector<double> faceToVecMat(cv::Mat img) {
 
 std::vector<double> faceToVec(cv::String inputName) {
     std::vector<double> ret;
-    cv::Mat img = imread(inputName, 1);
+    cv::Mat img = cv::imread(inputName, 1);
 	if (img.empty()) {
         std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
         ret.assign(128, 0);

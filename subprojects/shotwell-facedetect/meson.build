@@ -1,6 +1,9 @@
 project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++14'])
 gnome = import('gnome')
-facedetect_dep = dependency('opencv', version : ['>= 2.3.0'], required : true)
+facedetect_dep = dependency('opencv4', version : ['>= 4.0.0'], required : false)
+if not facedetect_dep.found()
+    facedetect_dep = dependency('opencv', version : ['>= 3.4.0'], required : true)
+endif
 cpp = meson.get_compiler('cpp')
 has_dnn = cpp.has_header('opencv2/dnn.hpp', dependencies: facedetect_dep)
 if has_dnn
