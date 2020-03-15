@@ -5,18 +5,6 @@
 #define OPENFACE_RECOG_TORCH_NET "openface.nn4.small2.v1.t7"
 #define RESNET_DETECT_CAFFE_NET "res10_300x300_ssd_iter_140000_fp16.caffemodel"
 
-#ifndef HAVE_OPENCV_4
-namespace cv {
-    enum {
-        COLOR_BGR2GRAY = CV_BGR2GRAY;
-    };
-
-    enum {
-        CASCADE_SCALE_IMAGE = CV_HAAR_SCALE_IMAGE;
-    };
-}
-#endif
-
 // Detect faces in a photo
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer = false) {
     cv::CascadeClassifier cascade;
@@ -37,7 +25,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
     cv::Size smallImgSize;
     static bool disableDnn;
 
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
     disableDnn = faceDetectNet.empty();
 #else
     disableDnn = true;
@@ -45,17 +33,17 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
     if (disableDnn) {
         // Classical face detection
         cv::Mat gray;
-        cvtColor(img, gray, cv::COLOR_BGR2GRAY);
+        cvtColor(img, gray, CV_BGR2GRAY);
 
         cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
         smallImgSize = smallImg.size();
 
         cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
         cv::equalizeHist(smallImg, smallImg);
-        cascade.detectMultiScale(smallImg, faces, 1.1, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
 
+        cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
     } else {
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
         // DNN based face detection
         faces = detectFacesMat(img);
         smallImgSize = img.size(); // Not using the small image here
@@ -69,7 +57,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         i.y = (float) r->y / smallImgSize.height;
         i.width = (float) r->width / smallImgSize.width;
         i.height = (float) r->height / smallImgSize.height;
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
         if (infer && !faceRecogNet.empty()) {
             // Get colour image for vector generation
             cv::Mat colourImg;
@@ -89,7 +77,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
 // Load network into global var
 bool loadNet(cv::String baseDir) {
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
     try {
         faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
                                                   baseDir + "/" + RESNET_DETECT_CAFFE_NET);
@@ -114,7 +102,7 @@ bool loadNet(cv::String baseDir) {
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
 std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
     std::vector<cv::Rect> faces;
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
     cv::Mat blob = cv::dnn::blobFromImage(img, 1.0, cv::Size(128*8, 96*8),
                                           cv::Scalar(104, 177, 123, 0), false, false);
     faceDetectNet.setInput(blob);
@@ -150,7 +138,7 @@ std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
 // Face to vector convertor
 // Adapted from OpenCV example:
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
 std::vector<double> faceToVecMat(cv::Mat img) {
     std::vector<double> ret;
     cv::Mat smallImg(96, 96, CV_8UC1);
@@ -171,13 +159,13 @@ std::vector<double> faceToVecMat(cv::Mat img) {
 
 std::vector<double> faceToVec(cv::String inputName) {
     std::vector<double> ret;
-    cv::Mat img = cv::imread(inputName, 1);
+    cv::Mat img = imread(inputName, 1);
 	if (img.empty()) {
         std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
         ret.assign(128, 0);
         return ret;
     }
-#ifdef HAVE_OPENCV_DNN_HPP
+#ifdef HAS_OPENCV_DNN
     ret = faceToVecMat(img);
 #else
     ret.assign(128, 0);

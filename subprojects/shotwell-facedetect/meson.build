@@ -1,20 +1,12 @@
 project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++14'])
 gnome = import('gnome')
-opencv = dependency('opencv4', version : ['>= 4.0.0'], required : false)
-if opencv.found()
-    add_global_arguments(['-DHAVE_OPENCV_4'], language: 'cpp')
-else
-    opencv = dependency('opencv', version: ['>= 2.3.0'], required : true)
-endif
-
+facedetect_dep = dependency('opencv', version : ['>= 2.3.0'], required : true)
 cpp = meson.get_compiler('cpp')
-has_dnn = cpp.has_header('opencv2/dnn.hpp', dependencies: opencv)
-if opencv.found()
-    add_global_arguments(['-DHAVE_OPENCV_4'], language: 'cpp')
-endif
-
+has_dnn = cpp.has_header('opencv2/dnn.hpp', dependencies: facedetect_dep)
 if has_dnn
-    add_global_arguments(['-DHAVE_OPENCV2_DNN_HPP'], language: 'cpp')
+  dnn_define = declare_dependency(compile_args: '-DHAS_OPENCV_DNN')
+else
+  dnn_define = []
 endif
 
 libexecdir = join_paths(get_option('libexecdir'), 'shotwell')
@@ -43,7 +35,7 @@ endif
 
 executable('shotwell-facedetect',
            'shotwell-facedetect.cpp', 'facedetect-opencv.cpp', gdbus_src,
-           dependencies : [opencv, gio, gio_unix],
+           dependencies : [facedetect_dep, gio, gio_unix, dnn_define],
            install : true,
            include_directories: config_incdir,
            install_dir : libexecdir)
