@@ -115,6 +115,7 @@ src/faces/FacesBranch.vala
 src/faces/FacesTool.vala
 src/folders/FoldersBranch.vala
 src/import-roll/ImportRollBranch.vala
+src/library/BackgroundProgressBar.vala
 src/library/FlaggedPage.vala
 src/library/ImportQueuePage.vala
 src/library/LastImportPage.vala

@@ -68,6 +68,7 @@ src/faces/FacesBranch.c
 src/faces/FacesTool.c
 src/folders/FoldersBranch.c
 src/import-roll/ImportRollBranch.c
+src/library/BackgroundProgressBar.c
 src/library/FlaggedPage.c
 src/library/ImportQueuePage.c
 src/library/LastImportPage.c
