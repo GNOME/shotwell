@@ -620,7 +620,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         if (parameters.user_kind == UserKind.FREE) {
             upload_label_text += _("Your free Flickr account limits how many photos you can upload to the service.\nYou have uploaded %llu out of your %lld file limit.").printf(parameters.uploaded_images_count, parameters.max_images_count);
         } else {
-            upload_label_text += ngettext("Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %llu file", "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %llu files", parameters.uploaded_images_count).printf(parameters.uploaded_images_count);
+            upload_label_text += ngettext("Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded a file", "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %d files", (int) parameters.uploaded_images_count).printf((int) parameters.uploaded_images_count);
         }
 
         upload_info_label.set_label(upload_label_text);
