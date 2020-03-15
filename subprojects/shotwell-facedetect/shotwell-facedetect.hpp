@@ -10,7 +10,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#ifdef HAS_OPENCV_DNN
+#ifdef HAVE_OPENCV_DNN_HPP
 #include <opencv2/dnn.hpp>
 #endif
 
@@ -24,7 +24,7 @@ typedef struct {
 } FaceRect;
 
 // Global variable for DNN to generate vector out of face
-#ifdef HAS_OPENCV_DNN
+#ifdef HAVE_OPENCV_DNN_HPP
 static cv::dnn::Net faceRecogNet;
 static cv::dnn::Net faceDetectNet;
 #endif
