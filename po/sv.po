@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-03-14 06:55+0000\n"
-"PO-Revision-Date: 2020-03-14 13:03+0100\n"
+"POT-Creation-Date: 2020-03-15 13:38+0000\n"
+"PO-Revision-Date: 2020-03-16 20:57+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -2781,10 +2781,16 @@ msgstr ""
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
-"currently uploaded %llu files"
-msgstr ""
+"currently uploaded a file"
+msgid_plural ""
+"Your Flickr Pro account entitles you to unlimited uploads. You have "
+"currently uploaded %d files"
+msgstr[0] ""
 "Ditt Flickr Pro-konto låter dig skicka upp obegränsat med data. Du har för "
-"närvarande skickat upp %llu filer"
+"närvarande skickat upp en fil"
+msgstr[1] ""
+"Ditt Flickr Pro-konto låter dig skicka upp obegränsat med data. Du har för "
+"närvarande skickat upp %d filer"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -5137,6 +5143,11 @@ msgstr "Importer"
 msgid "Browse the library’s import history"
 msgstr "Bläddra genom bibliotekets importhistorik"
 
+#: src/library/BackgroundProgressBar.vala:74
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
 #: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1126
 #: src/SearchFilter.vala:1127
 msgid "Flagged"
@@ -6597,9 +6608,6 @@ msgstr "Exportera filmer"
 #~ "metadata removed first"
 #~ msgstr ""
 #~ "Huruvida bilder uppskickade till Gallery3 ska rensas på metadata först"
-
-#~ msgid "%s (%d%%)"
-#~ msgstr "%s (%d%%)"
 
 #~ msgid "org.gnome.Shotwell"
 #~ msgstr "org.gnome.Shotwell"
