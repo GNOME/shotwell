@@ -332,7 +332,6 @@ public class FacesTool : EditingTools.EditingTool {
             Gtk.EventBox event = (Gtk.EventBox) widget.get_parent();
             Gtk.ListBoxRow row = (Gtk.ListBoxRow) event.get_parent();
             face_widgets_layout.remove(row);
-            face_widgets_layout.remove(widget);
             row.destroy();
         }
 
