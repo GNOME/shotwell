@@ -13,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-01-05 17:06+0000\n"
-"PO-Revision-Date: 2020-01-28 21:13+0200\n"
+"POT-Creation-Date: 2020-03-15 13:38+0000\n"
+"PO-Revision-Date: 2020-03-25 09:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,83 +34,101 @@ msgid "Yandex-Fotki authentication token, if logged in."
 msgstr "Ключ розпізнавання на Яндекс-Фоткі, якщо здійснено вхід до системи."
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:14
-msgid "Token"
-msgstr "Ключ"
+#: data/gsettings/org.yorba.shotwell.gschema.xml:427
+msgid "OAuth Access Phase Token"
+msgstr "Ключ фази доступу OAuth"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:15
-msgid "The token to access tumblr"
-msgstr "Ключ для доступу до tumblr"
+#| msgid ""
+#| "The authorization token for the currently logged in Flickr user, if any"
+msgid "The authorization token for the currently logged in Tumblr user, if any"
+msgstr ""
+"Ключ уповноваження для поточного сеансу у системі Tumblr, якщо такий існує"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:20
-msgid "Secret token"
-msgstr "Закритий ключ"
+#: data/gsettings/org.yorba.shotwell.gschema.xml:433
+msgid "OAuth Access Phase Token Secret"
+msgstr "Пароль до ключа фази доступу OAuth"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:21
-msgid "The secret token to sign oauth requests"
-msgstr "Закритий ключ для підписування запитів oauth"
+#| msgid ""
+#| "The cryptographic secret used to sign requests against the authorization "
+#| "token for the currently logged in Flickr user, if any"
+msgid ""
+"The cryptographic secret used to sign requests against the authorization "
+"token for the currently logged in Tumblr user, if any"
+msgstr ""
+"Криптографічний пароль, що використовується для підписування запитів щодо "
+"ключа уповноваження для поточного сеансу у системі Tumblr, якщо такий існує"
 
 #: data/gsettings/org.yorba.shotwell-extras.gschema.xml:26
-#: data/gsettings/org.yorba.shotwell.gschema.xml:504
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:52
+#: data/gsettings/org.yorba.shotwell.gschema.xml:439
+#: data/gsettings/org.yorba.shotwell.gschema.xml:497
+#: data/gsettings/org.yorba.shotwell.gschema.xml:559
+msgid "username"
+msgstr "користувач"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:27
+#: data/gsettings/org.yorba.shotwell.gschema.xml:440
+msgid "The user name of the currently logged in Flickr user, if any"
+msgstr "Поточне ім’я користувача у системі Flickr, якщо є"
+
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:32
+#: data/gsettings/org.yorba.shotwell.gschema.xml:471
 msgid "default size"
 msgstr "типовий розмір"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:27
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:33
 msgid ""
 "A numeric code representing the default size for photos uploaded to Tumblr"
 msgstr ""
 "Числовий код, що відповідає типовому розміру фотографій, які вивантажуються "
 "на Tumblr"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:32
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:38
 msgid "default blog"
 msgstr "типовий блог"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:33
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:39
 msgid "The name of the default blog of the user, if any"
 msgstr "Назва типового блогу користувача, якщо такий існує"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:40
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
 msgid "Rajce URL"
 msgstr "Адреса Rajce"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:41
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:47
 msgid "URL of the Rajce server."
 msgstr "Адреса сервера Rajce."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
-#: data/gsettings/org.yorba.shotwell.gschema.xml:472
-#: data/gsettings/org.yorba.shotwell.gschema.xml:530
-#: data/gsettings/org.yorba.shotwell.gschema.xml:592
-msgid "username"
-msgstr "користувач"
-
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:47
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:53
 msgid "Rajce username, if logged in."
 msgstr "Ім’я користувача Rajce, якщо здійснено вхід."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:52
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:58
 msgid "token"
 msgstr "ключ"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:53
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:59
 msgid "user token, if remembered."
 msgstr "ключ користувача, якщо його слід пам’ятати."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:58
-#: data/gsettings/org.yorba.shotwell.gschema.xml:548
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:64
+#: data/gsettings/org.yorba.shotwell.gschema.xml:515
 msgid "last category"
 msgstr "остання категорія"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:59
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:65
 msgid "The last selected Rajce category."
 msgstr "Остання вибрана категорія Rajce."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:64
-#: data/gsettings/org.yorba.shotwell.gschema.xml:560
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:70
+#: data/gsettings/org.yorba.shotwell.gschema.xml:527
 msgid "last photo size"
 msgstr "останній розмір фотографії"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:65
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:71
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Rajce."
@@ -118,43 +136,42 @@ msgstr ""
 "Числовий код, який відповідає останньому вибраному шаблону розміру "
 "фотографій, що використовується для оприлюднення на Rajce."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:70
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:76
 msgid "remember"
 msgstr "запам’ятати"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:71
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:77
 msgid "If true, remember last login."
 msgstr "Якщо true, запам’ятовувати останнє ім’я користувача."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:76
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:82
 msgid "hide album"
 msgstr "приховування альбому"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:77
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:83
 msgid "If true, hide the newly created Rajce album."
 msgstr "Якщо true, приховати новостворений альбом Rajce."
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:82
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:88
 msgid "open album in web browser"
 msgstr "відкривати альбом у програмі для перегляду інтернету"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:83
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:89
 msgid ""
 "If true, open target album in the web browser just after uploading photos"
 msgstr ""
 "Якщо true, відкривати альбом призначення у програмі для перегляду інтернету "
 "одразу після вивантаження фотографій"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:88
-#: data/gsettings/org.yorba.shotwell.gschema.xml:452
-#: data/gsettings/org.yorba.shotwell.gschema.xml:490
-#: data/gsettings/org.yorba.shotwell.gschema.xml:516
-#: data/gsettings/org.yorba.shotwell.gschema.xml:566
-#: data/gsettings/org.yorba.shotwell.gschema.xml:616
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:94
+#: data/gsettings/org.yorba.shotwell.gschema.xml:457
+#: data/gsettings/org.yorba.shotwell.gschema.xml:483
+#: data/gsettings/org.yorba.shotwell.gschema.xml:533
+#: data/gsettings/org.yorba.shotwell.gschema.xml:583
 msgid "remove sensitive info from uploads"
 msgstr "вилучати конфіденційні дані з вивантаженого"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:89
+#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:95
 msgid ""
 "Whether images being uploaded to Rajce should have their metadata removed "
 "first"
@@ -747,65 +764,11 @@ msgid "default publishing service"
 msgstr "типова служба оприлюднення"
 
 #: data/gsettings/org.yorba.shotwell.gschema.xml:428
-msgid "access token"
-msgstr "ключ доступу"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:429
-msgid "Facebook OAuth token for the currently logged in session, if any"
-msgstr "Ключ OAuth Facebook для поточного сеансу у системі, якщо такий існує"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:434
-msgid "user i.d."
-msgstr "ідентифікатор користувача"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:435
-msgid "Facebook user i.d. for the currently logged in user, if any"
-msgstr ""
-"Ідентифікатор користувача Facebook для поточного сеансу у системі, якщо "
-"такий існує"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:440
-msgid "user name"
-msgstr "ім’я користувача"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:441
-msgid "The name of the currently logged in Facebook user, if any"
-msgstr "Поточне ім’я у системі Facebook, якщо є"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:446
-#: data/gsettings/org.yorba.shotwell.gschema.xml:478
-msgid "default size code"
-msgstr "код типового розміру"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:447
-msgid ""
-"A numeric code representing the default size for photos published to Facebook"
-msgstr ""
-"Числовий код, що відповідає типовому розміру фотографій, які оприлюднюються "
-"на Facebook"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:453
-msgid ""
-"Whether images being uploaded to Facebook should have their metadata removed "
-"first"
-msgstr ""
-"Визначає, чи слід вилучати метадані фотографій перед вивантаженням на "
-"Facebook"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:460
-msgid "OAuth Access Phase Token"
-msgstr "Ключ фази доступу OAuth"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:461
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 "Ключ уповноваження для поточного сеансу у системі Flickr, якщо такий існує"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:466
-msgid "OAuth Access Phase Token Secret"
-msgstr "Пароль до ключа фази доступу OAuth"
-
-#: data/gsettings/org.yorba.shotwell.gschema.xml:467
+#: data/gsettings/org.yorba.shotwell.gschema.xml:434
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -813,22 +776,22 @@ msgstr ""
 "Криптографічний пароль, що використовується для підписування запитів щодо "
 "ключа уповноваження для поточного сеансу у системі Flickr, якщо такий існує"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:473
-msgid "The user name of the currently logged in Flickr user, if any"
-msgstr "Поточне ім’я користувача у системі Flickr, якщо є"
+#: data/gsettings/org.yorba.shotwell.gschema.xml:445
+msgid "default size code"
+msgstr "код типового розміру"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:479
+#: data/gsettings/org.yorba.shotwell.gschema.xml:446
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Числовий код, що відповідає типовому розміру фотографій, які оприлюднюються "
 "на Flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:484
+#: data/gsettings/org.yorba.shotwell.gschema.xml:451
 msgid "default visibility"
 msgstr "типова видимість"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:485
+#: data/gsettings/org.yorba.shotwell.gschema.xml:452
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -836,19 +799,19 @@ msgstr ""
 "Числовий код, що відповідає типовому стану видимості фотографій, які "
 "оприлюднюються на Flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:491
+#: data/gsettings/org.yorba.shotwell.gschema.xml:458
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:498
-#: data/gsettings/org.yorba.shotwell.gschema.xml:636
+#: data/gsettings/org.yorba.shotwell.gschema.xml:465
+#: data/gsettings/org.yorba.shotwell.gschema.xml:603
 msgid "refresh token"
 msgstr "ключ освіження"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:499
+#: data/gsettings/org.yorba.shotwell.gschema.xml:466
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any."
@@ -856,7 +819,7 @@ msgstr ""
 "Ключ OAuth, який використовується для оновлення сеансу Google Фото для "
 "поточного користувача у системі, якщо такий є."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:505
+#: data/gsettings/org.yorba.shotwell.gschema.xml:472
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -864,19 +827,19 @@ msgstr ""
 "Числовий код, що відповідає типовому розміру фотографій, які вивантажуються "
 "на Google Фото"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:510
-#: data/gsettings/org.yorba.shotwell.gschema.xml:610
+#: data/gsettings/org.yorba.shotwell.gschema.xml:477
+#: data/gsettings/org.yorba.shotwell.gschema.xml:577
 msgid "last album"
 msgstr "останній альбом"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:511
-#: data/gsettings/org.yorba.shotwell.gschema.xml:611
+#: data/gsettings/org.yorba.shotwell.gschema.xml:478
+#: data/gsettings/org.yorba.shotwell.gschema.xml:578
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
 "Назва останнього альбому, у якому користувач оприлюднював фотографії, якщо "
 "такий є"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:517
+#: data/gsettings/org.yorba.shotwell.gschema.xml:484
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -884,47 +847,47 @@ msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Google "
 "Фото"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:524
+#: data/gsettings/org.yorba.shotwell.gschema.xml:491
 msgid "Piwigo URL"
 msgstr "адреса Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:525
+#: data/gsettings/org.yorba.shotwell.gschema.xml:492
 msgid "URL of the Piwigo server."
 msgstr "Адреса сервера Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:531
+#: data/gsettings/org.yorba.shotwell.gschema.xml:498
 msgid "Piwigo username, if logged in."
 msgstr "Ім’я користувача Piwigo, якщо здійснено вхід."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:536
+#: data/gsettings/org.yorba.shotwell.gschema.xml:503
 msgid "password"
 msgstr "пароль"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:537
+#: data/gsettings/org.yorba.shotwell.gschema.xml:504
 msgid "Piwigo password, if logged in."
 msgstr "Пароль до Piwigo, якщо здійснено вхід до системи."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:542
+#: data/gsettings/org.yorba.shotwell.gschema.xml:509
 msgid "remember password"
 msgstr "запам’ятати пароль"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:543
+#: data/gsettings/org.yorba.shotwell.gschema.xml:510
 msgid "If true, remember the Piwigo password."
 msgstr "Якщо true, пам’ятати пароль до Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:549
+#: data/gsettings/org.yorba.shotwell.gschema.xml:516
 msgid "The last selected Piwigo category."
 msgstr "Остання вибрана категорія на Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:554
+#: data/gsettings/org.yorba.shotwell.gschema.xml:521
 msgid "last permission level"
 msgstr "останній рівень доступу"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:555
+#: data/gsettings/org.yorba.shotwell.gschema.xml:522
 msgid "The last chosen Piwigo permission level."
 msgstr "Останній вибраний рівень доступу на Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:561
+#: data/gsettings/org.yorba.shotwell.gschema.xml:528
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
@@ -932,21 +895,21 @@ msgstr ""
 "Числовий код, який відповідає останньому вибраному шаблону розміру "
 "фотографій, що використовується для оприлюднення на Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:567
+#: data/gsettings/org.yorba.shotwell.gschema.xml:534
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
 "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:572
+#: data/gsettings/org.yorba.shotwell.gschema.xml:539
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "якщо вказано заголовок і не вказано коментаря, використовувати заголовок як "
 "коментар для вивантажень на Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:573
+#: data/gsettings/org.yorba.shotwell.gschema.xml:540
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -955,11 +918,11 @@ msgstr ""
 "Piwigo, на основі заголовка зображення, якщо заголовок встановлено, а "
 "коментар — ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:578
+#: data/gsettings/org.yorba.shotwell.gschema.xml:545
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "не вивантажувати мітки під час вивантаження на Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:579
+#: data/gsettings/org.yorba.shotwell.gschema.xml:546
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
@@ -967,15 +930,11 @@ msgstr ""
 "Визначає, чи слід вилучати мітки фотографій перед вивантаженням на Piwigo, "
 "так, щоб їх не можна було бачити на віддаленому сервері Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:584
-#| msgid "do not upload tags when uploading to Piwigo"
+#: data/gsettings/org.yorba.shotwell.gschema.xml:551
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "не вивантажувати оцінки під час вивантаження на Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:585
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their tags removed on "
-#| "upload, such that these tags will not appear on the remote Piwigo server."
+#: data/gsettings/org.yorba.shotwell.gschema.xml:552
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server."
@@ -983,47 +942,49 @@ msgstr ""
 "Визначає, чи слід вилучати оцінки фотографій перед вивантаженням на Piwigo, "
 "так, щоб їх не можна було бачити на віддаленому сервері Piwigo."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:593
+#: data/gsettings/org.yorba.shotwell.gschema.xml:560
 msgid "Gallery3 username"
 msgstr "ім’я користувача Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:598
+#: data/gsettings/org.yorba.shotwell.gschema.xml:565
 msgid "API key"
 msgstr "ключ API"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:599
+#: data/gsettings/org.yorba.shotwell.gschema.xml:566
 msgid "Gallery3 API key"
 msgstr "Ключ до програмного інтерфейсу Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:604
+#: data/gsettings/org.yorba.shotwell.gschema.xml:571
 msgid "URL"
 msgstr "Адреса"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:605
+#: data/gsettings/org.yorba.shotwell.gschema.xml:572
 msgid "Gallery3 site URL"
 msgstr "Адреса сайта Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:617
+#: data/gsettings/org.yorba.shotwell.gschema.xml:584
+#| msgid ""
+#| "Whether images being uploaded to Rajce should have their metadata removed "
+#| "first"
 msgid ""
-"Indicates whether images being uploaded to Gallery3 should have their "
-"metadata removed first"
+"Whether images being uploaded to Gallery3 should have their metadata removed "
+"first"
 msgstr ""
-"Визначає, чи слід вилучати метадані фотографій перед вивантаженням на "
-"Gallery3"
+"Визначає, чи слід вилучати метадані фотографій перед вивантаженням на Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:622
+#: data/gsettings/org.yorba.shotwell.gschema.xml:589
 msgid "scaling constraint of uploaded picture"
 msgstr "обмеження масштабування вивантажуваного зображення"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:623
+#: data/gsettings/org.yorba.shotwell.gschema.xml:590
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "Ідентифікатор обмеження розмірів для зображень, які вивантажують"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:628
+#: data/gsettings/org.yorba.shotwell.gschema.xml:595
 msgid "pixels of the major axis uploaded picture"
 msgstr "пікселі за великою віссю вивантажуваного зображення"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:629
+#: data/gsettings/org.yorba.shotwell.gschema.xml:596
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -1032,7 +993,7 @@ msgstr ""
 "використовується, лише якщо ідентифікатор обмежень масштабування має "
 "неприйнятне значення"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:637
+#: data/gsettings/org.yorba.shotwell.gschema.xml:604
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
@@ -1040,30 +1001,30 @@ msgstr ""
 "Ключ OAuth, який використовується для оновлення сеансу YouTube для поточного "
 "користувача у системі, якщо такий є."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:644
+#: data/gsettings/org.yorba.shotwell.gschema.xml:611
 msgid "last used import service"
 msgstr "остання використана служба імпортування"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:645
+#: data/gsettings/org.yorba.shotwell.gschema.xml:612
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Числовий код, що відповідає останній службі, з якої імпортувалися фотографії"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:652
+#: data/gsettings/org.yorba.shotwell.gschema.xml:619
 msgid "interpreter state cookie"
 msgstr "кука стану інтерпретатора"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:653
+#: data/gsettings/org.yorba.shotwell.gschema.xml:620
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
 msgstr "Числовий код, який зберігає стан середовища додатків GStreamer"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:660
+#: data/gsettings/org.yorba.shotwell.gschema.xml:627
 msgid "content layout mode"
 msgstr "режим компонування вмісту"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:661
+#: data/gsettings/org.yorba.shotwell.gschema.xml:628
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -1071,37 +1032,37 @@ msgstr ""
 "Числовий код, який описує, як слід розташовувати фотографії на сторінці під "
 "час друку"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:666
+#: data/gsettings/org.yorba.shotwell.gschema.xml:633
 msgid "content ppi"
 msgstr "ppi даних"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:667
+#: data/gsettings/org.yorba.shotwell.gschema.xml:634
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr ""
 "Кількість пікселів на дюйм (ppi) у даних, які буде надіслано на принтер під "
 "час друку"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:672
+#: data/gsettings/org.yorba.shotwell.gschema.xml:639
 msgid "content width"
 msgstr "ширина вмісту"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:673
+#: data/gsettings/org.yorba.shotwell.gschema.xml:640
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Ширина зони друку на сторінці"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:678
+#: data/gsettings/org.yorba.shotwell.gschema.xml:645
 msgid "content height"
 msgstr "висота вмісту"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:679
+#: data/gsettings/org.yorba.shotwell.gschema.xml:646
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Висота зони друку на сторінці"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:684
+#: data/gsettings/org.yorba.shotwell.gschema.xml:651
 msgid "content units"
 msgstr "одиниці вмісту"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:685
+#: data/gsettings/org.yorba.shotwell.gschema.xml:652
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -1109,11 +1070,11 @@ msgstr ""
 "Числовий код, який відповідає одиниці виміру (дюймам або сантиметрам), яку "
 "буде використано під час друку"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:690
+#: data/gsettings/org.yorba.shotwell.gschema.xml:657
 msgid "images per page code"
 msgstr "код кількості зображень на сторінку"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:691
+#: data/gsettings/org.yorba.shotwell.gschema.xml:658
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -1121,22 +1082,22 @@ msgstr ""
 "Числовий код поточного вибраного режиму кількості фотографій на аркуші під "
 "час друку"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:696
+#: data/gsettings/org.yorba.shotwell.gschema.xml:663
 msgid "size selection"
 msgstr "вибір розміру"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:697
+#: data/gsettings/org.yorba.shotwell.gschema.xml:664
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Індекс поточного розміру для друку у попередньо визначеному списку "
 "стандартних розмірів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:702
+#: data/gsettings/org.yorba.shotwell.gschema.xml:669
 msgid "match aspect ratio"
 msgstr "відповідність пропорцій"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:703
+#: data/gsettings/org.yorba.shotwell.gschema.xml:670
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1144,212 +1105,212 @@ msgstr ""
 "Визначає, чи мають нетипові розміри друку відповідати пропорціям початкової "
 "фотографії"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:708
+#: data/gsettings/org.yorba.shotwell.gschema.xml:675
 msgid "print titles"
 msgstr "друк заголовків"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:709
+#: data/gsettings/org.yorba.shotwell.gschema.xml:676
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
 msgstr ""
 "True, якщо слід друкувати заголовок разом із фотографією; false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:714
+#: data/gsettings/org.yorba.shotwell.gschema.xml:681
 msgid "titles font"
 msgstr "шрифт заголовків"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:715
+#: data/gsettings/org.yorba.shotwell.gschema.xml:682
 msgid "The name of the font to use for photo titles when they are printed."
 msgstr ""
 "Назва шрифту, яким слід скористатися для заголовків фотографій під час друку."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:726
+#: data/gsettings/org.yorba.shotwell.gschema.xml:693
 msgid "enable facebook publishing plugin"
 msgstr "увімкнути додаток оприлюднення на facebook"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:727
+#: data/gsettings/org.yorba.shotwell.gschema.xml:694
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Facebook увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:732
+#: data/gsettings/org.yorba.shotwell.gschema.xml:699
 msgid "enable flickr publishing plugin"
 msgstr "увімкнути додаток оприлюднення на flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:733
+#: data/gsettings/org.yorba.shotwell.gschema.xml:700
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Flickr увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:738
+#: data/gsettings/org.yorba.shotwell.gschema.xml:705
 msgid "enable Google Photos publishing plugin"
 msgstr "увімкнути додаток оприлюднення на Google Фото"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:739
+#: data/gsettings/org.yorba.shotwell.gschema.xml:706
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо додаток оприлюднення на Google Фото увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:744
+#: data/gsettings/org.yorba.shotwell.gschema.xml:711
 msgid "enable youtube publishing plugin"
 msgstr "увімкнути додаток оприлюднення на youtube"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:745
+#: data/gsettings/org.yorba.shotwell.gschema.xml:712
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на YouTube увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:750
+#: data/gsettings/org.yorba.shotwell.gschema.xml:717
 msgid "enable piwigo publishing plugin"
 msgstr "увімкнути додаток оприлюднення на piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:751
+#: data/gsettings/org.yorba.shotwell.gschema.xml:718
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Piwigo увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:756
+#: data/gsettings/org.yorba.shotwell.gschema.xml:723
 msgid "enable yandex publishing plugin"
 msgstr "увімкнути додаток оприлюднення на Яндекс"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:757
+#: data/gsettings/org.yorba.shotwell.gschema.xml:724
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо додаток оприлюднення на Яндекс.Фоткі увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:762
+#: data/gsettings/org.yorba.shotwell.gschema.xml:729
 msgid "enable tumblr publishing plugin"
 msgstr "увімкнути додаток оприлюднення на tumblr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:763
+#: data/gsettings/org.yorba.shotwell.gschema.xml:730
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Tumblr увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:768
+#: data/gsettings/org.yorba.shotwell.gschema.xml:735
 msgid "enable rajce publishing plugin"
 msgstr "увімкнути додаток оприлюднення на rajce"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:769
+#: data/gsettings/org.yorba.shotwell.gschema.xml:736
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Rajce увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:774
+#: data/gsettings/org.yorba.shotwell.gschema.xml:741
 msgid "enable gallery3 publishing plugin"
 msgstr "увімкнути додаток оприлюднення на gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:775
+#: data/gsettings/org.yorba.shotwell.gschema.xml:742
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Gallery3 увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:780
+#: data/gsettings/org.yorba.shotwell.gschema.xml:747
 msgid "enable F-Spot import plugin"
 msgstr "увімкнути додаток імпортування з F-Spot"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:781
+#: data/gsettings/org.yorba.shotwell.gschema.xml:748
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "True, якщо додаток імпортування з F-Spot увімкнено; false, якщо ні"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:786
+#: data/gsettings/org.yorba.shotwell.gschema.xml:753
 msgid "enable slideshow crumble transition"
 msgstr "увімкнути перехід з розпадом у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:787
+#: data/gsettings/org.yorba.shotwell.gschema.xml:754
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом розпаду у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:792
+#: data/gsettings/org.yorba.shotwell.gschema.xml:759
 msgid "enable slideshow fade transition"
 msgstr "увімкнути перехід зі згасанням у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:793
+#: data/gsettings/org.yorba.shotwell.gschema.xml:760
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом згасання у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:798
+#: data/gsettings/org.yorba.shotwell.gschema.xml:765
 msgid "enable slideshow slide transition"
 msgstr "увімкнути перехід з ковзанням у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:799
+#: data/gsettings/org.yorba.shotwell.gschema.xml:766
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом ковзання у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:804
+#: data/gsettings/org.yorba.shotwell.gschema.xml:771
 msgid "enable slideshow clock transition"
 msgstr "увімкнути перехід з ефектом годинника у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:805
+#: data/gsettings/org.yorba.shotwell.gschema.xml:772
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом стрілки годинника у "
 "перегляді слайдів; false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:810
+#: data/gsettings/org.yorba.shotwell.gschema.xml:777
 msgid "enable slideshow circle transition"
 msgstr "увімкнути перехід з колами у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:811
+#: data/gsettings/org.yorba.shotwell.gschema.xml:778
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом кола у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:816
+#: data/gsettings/org.yorba.shotwell.gschema.xml:783
 msgid "enable slideshow circles transition"
 msgstr "увімкнути перехід з колами у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:817
+#: data/gsettings/org.yorba.shotwell.gschema.xml:784
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом кіл у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:822
+#: data/gsettings/org.yorba.shotwell.gschema.xml:789
 msgid "enable slideshow blinds transition"
 msgstr "увімкнути перехід з завісами у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:823
+#: data/gsettings/org.yorba.shotwell.gschema.xml:790
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом жалюзі у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:828
+#: data/gsettings/org.yorba.shotwell.gschema.xml:795
 msgid "enable slideshow squares transition"
 msgstr "увімкнути перехід із квадратами у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:829
+#: data/gsettings/org.yorba.shotwell.gschema.xml:796
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом квадратів у перегляді "
 "слайдів; false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:834
+#: data/gsettings/org.yorba.shotwell.gschema.xml:801
 msgid "enable slideshow stripes transition"
 msgstr "увімкнути перехід зі смугами у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:835
+#: data/gsettings/org.yorba.shotwell.gschema.xml:802
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо увімкнено додаток переходу із ефектом смуг у перегляді слайдів; "
 "false, якщо ні."
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:840
+#: data/gsettings/org.yorba.shotwell.gschema.xml:807
 msgid "enable slideshow chess transition"
 msgstr "увімкнути перехід з шахівницею у показі слайдів"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:841
+#: data/gsettings/org.yorba.shotwell.gschema.xml:808
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1509,7 +1470,7 @@ msgstr "П_роявник"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:357 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:708 src/photos/RawSupport.vala:310
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:310
 msgid "Camera"
 msgstr "Фотоапарат"
 
@@ -1607,7 +1568,7 @@ msgid "_File"
 msgstr "_Файл"
 
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:322 src/Resources.vala:148
+#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:148
 msgid "_Save"
 msgstr "З_берегти"
 
@@ -2009,11 +1970,11 @@ msgstr "Вилучити"
 msgid "_Stop Import"
 msgstr "П_рипинити імпортування"
 
-#: data/ui/import.ui:13 data/ui/import.ui:215 src/camera/ImportPage.vala:800
+#: data/ui/import.ui:13 data/ui/import.ui:215 src/camera/ImportPage.vala:801
 msgid "Import _Selected"
 msgstr "Імпортувати _позначені"
 
-#: data/ui/import.ui:17 data/ui/import.ui:219 src/camera/ImportPage.vala:810
+#: data/ui/import.ui:17 data/ui/import.ui:219 src/camera/ImportPage.vala:811
 msgid "Import _All"
 msgstr "Імпортувати _всі"
 
@@ -2028,7 +1989,7 @@ msgstr "_Увійти"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
 #: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:401 src/Resources.vala:130
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:130
 msgid "_Cancel"
 msgstr "_Скасувати"
 
@@ -2066,7 +2027,7 @@ msgstr "_Вставити коригування кольорів"
 msgid "Display"
 msgstr "Показ"
 
-#: data/ui/preferences_dialog.ui:86 src/library/LibraryWindow.vala:804
+#: data/ui/preferences_dialog.ui:86 src/library/LibraryWindow.vala:785
 msgid "Library Location"
 msgstr "Розташування бібліотеки"
 
@@ -2360,7 +2321,7 @@ msgstr "Пересунути позначені фотографії назад 
 msgid "Delete all photos in the trash"
 msgstr "Вилучити всі фотографії до смітника"
 
-#: data/ui/trash.ui:293 src/library/LibraryWindow.vala:607
+#: data/ui/trash.ui:293 src/library/LibraryWindow.vala:588
 msgid "Empty Trash"
 msgstr "Спорожнити смітник"
 
@@ -2488,14 +2449,14 @@ msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:220
+#: plugins/common/RESTSupport.vala:233
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 "⚫ Цим сайтом надано дані щодо розпізнавання, які належать іншому сайту."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:225
+#: plugins/common/RESTSupport.vala:238
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2504,13 +2465,13 @@ msgstr ""
 "Перевірте, чи правильно вказано дату на календарі вашого комп’ютера."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:230
+#: plugins/common/RESTSupport.vala:243
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr "⚫ Дані розпізнавання цього сайта не було видано надійною організацією."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:235
+#: plugins/common/RESTSupport.vala:248
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2518,7 +2479,7 @@ msgstr ""
 "пошкоджено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:240
+#: plugins/common/RESTSupport.vala:253
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -2527,7 +2488,7 @@ msgstr ""
 "їх було випущено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:245
+#: plugins/common/RESTSupport.vala:258
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2536,7 +2497,7 @@ msgstr ""
 "використовується дуже слабкий спосіб шифрування."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:250
+#: plugins/common/RESTSupport.vala:263
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2544,8 +2505,8 @@ msgstr ""
 "⚫ Дані розпізнавання сайта набудуть чинності лише у майбутньому. Перевірте, "
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
-#: plugins/common/RESTSupport.vala:539
-#: plugins/shotwell-publishing/TumblrPublishing.vala:623
+#: plugins/common/RESTSupport.vala:552
+#: plugins/shotwell-publishing/TumblrPublishing.vala:603
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Тимчасовий файл, потрібний для оприлюднення, недоступний"
 
@@ -2596,7 +2557,7 @@ msgid "pixels"
 msgstr "пікселів"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:687
+#: plugins/shotwell-publishing/FlickrPublishing.vala:700
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1331
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -2859,7 +2820,7 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Flickr неможливе."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:607
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2868,73 +2829,93 @@ msgstr ""
 "Ви увійшли до облікового запису %s на Flickr.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:609
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 #, c-format
+#| msgid ""
+#| "Your free Flickr account limits how much data you can upload per month.\n"
+#| "This month you have %s remaining in your upload quota."
 msgid ""
-"Your free Flickr account limits how much data you can upload per month.\n"
-"This month you have %s remaining in your upload quota."
+"Your free Flickr account limits how many photos you can upload to the "
+"service.\n"
+"You have uploaded %llu out of your %lld file limit."
 msgstr ""
 "У вашому безкоштовному обліковому записі Flickr передбачено обмеження на "
-"об’єм даних, які ви можете вивантажувати протягом місяця.\n"
-"Цього місяця від вашої квоти залишилося %s."
+"кількість фотографій, які ви можете вивантажувати.\n"
+"Вами вивантажено %llu (обмеження складає — %lld)."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:611
-msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
+#, c-format
+#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
+msgid ""
+"Your Flickr Pro account entitles you to unlimited uploads. You have "
+"currently uploaded a file"
+msgid_plural ""
+"Your Flickr Pro account entitles you to unlimited uploads. You have "
+"currently uploaded %d files"
+msgstr[0] ""
 "За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
-"довільний об’єм даних."
+"довільний об’єм даних. Зараз ви вивантажили %d файл."
+msgstr[1] ""
+"За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
+"довільний об’єм даних. Зараз ви вивантажили %d файла."
+msgstr[2] ""
+"За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
+"довільний об’єм даних. Зараз ви вивантажили %d файлів."
+msgstr[3] ""
+"За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
+"довільний об’єм даних. Зараз ви вивантажили один файл."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:616
+#: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
 msgstr "Фотографії зможе _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:618
+#: plugins/shotwell-publishing/FlickrPublishing.vala:630
 msgid "Videos _visible to"
 msgstr "Відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:621
+#: plugins/shotwell-publishing/FlickrPublishing.vala:633
 msgid "Photos and videos _visible to"
 msgstr "Фотографії і відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:661
+#: plugins/shotwell-publishing/FlickrPublishing.vala:674
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "Everyone"
 msgstr "Будь-хто"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:662
+#: plugins/shotwell-publishing/FlickrPublishing.vala:675
 msgid "Friends & family only"
 msgstr "Лише друзі і родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:663
+#: plugins/shotwell-publishing/FlickrPublishing.vala:676
 msgid "Family only"
 msgstr "Лише родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:664
+#: plugins/shotwell-publishing/FlickrPublishing.vala:677
 msgid "Friends only"
 msgstr "Лише друзі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:665
+#: plugins/shotwell-publishing/FlickrPublishing.vala:678
 msgid "Just me"
 msgstr "Лише я"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:683
+#: plugins/shotwell-publishing/FlickrPublishing.vala:696
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:684
+#: plugins/shotwell-publishing/FlickrPublishing.vala:697
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:685
+#: plugins/shotwell-publishing/FlickrPublishing.vala:698
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:686
+#: plugins/shotwell-publishing/FlickrPublishing.vala:699
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1330
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 пікселів"
@@ -2983,7 +2964,7 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 ⨯ 1536 пікселів)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
-#: src/editing_tools/EditingTools.vala:741
+#: src/editing_tools/EditingTools.vala:742
 msgid "Original Size"
 msgstr "Початковий розмір"
 
@@ -3054,7 +3035,6 @@ msgid "_Do no upload tags"
 msgstr "_Не вивантажувати мітки"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
-#| msgid "_Do no upload tags"
 msgid "_Do not upload ratings"
 msgstr "_Не вивантажувати оцінки"
 
@@ -3076,19 +3056,14 @@ msgstr ""
 #. %s is the host name that we tried to connect to
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1044
 #, c-format
-#| msgid ""
-#| "This does not look like the real <b>%s</b>. Attackers might be trying to "
-#| "steal or alter information going to or from this site (for example, "
-#| "private messages, credit card information, or passwords)."
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
 "alter information going to or from this site (for example, private messages, "
 "credit card information, or passwords)."
 msgstr ""
-"Здається, це не %s. Зловмисники можуть спробувати викрасти або "
-"замінити інформацію, яка надходить до цього сайта або з нього (це "
-"стосується, наприклад, особистих повідомлень, даних щодо кредитних карток "
-"або паролів)."
+"Здається, це не %s. Зловмисники можуть спробувати викрасти або замінити "
+"інформацію, яка надходить до цього сайта або з нього (це стосується, "
+"наприклад, особистих повідомлень, даних щодо кредитних карток або паролів)."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1063
 #, c-format
@@ -3418,26 +3393,26 @@ msgstr ""
 "фотоапарат за допомогою менеджера файлів."
 
 #. hide duplicates checkbox
-#: src/camera/ImportPage.vala:760
+#: src/camera/ImportPage.vala:761
 msgid "Hide photos already imported"
 msgstr "Ховати фотографії, які вже імпортовано"
 
-#: src/camera/ImportPage.vala:761
+#: src/camera/ImportPage.vala:762
 msgid "Only display photos that have not been imported"
 msgstr "Показувати лише фотографії, які ще не було імпортовано"
 
-#: src/camera/ImportPage.vala:838
+#: src/camera/ImportPage.vala:839
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Здається, носій на фотоапараті порожній. Не виявлено фотографій або відео "
 "для імпортування."
 
-#: src/camera/ImportPage.vala:842
+#: src/camera/ImportPage.vala:843
 msgid "No new photos/videos found on camera"
 msgstr "На фотоапараті не виявлено нових фотографій або відео"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:995
+#: src/camera/ImportPage.vala:996
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3445,15 +3420,15 @@ msgstr ""
 "Shotwell потрібно демонтувати пристрій фотоапарата з файлової системи, щоб "
 "отримати до нього доступ. Продовжити?"
 
-#: src/camera/ImportPage.vala:1001
+#: src/camera/ImportPage.vala:1002
 msgid "_Unmount"
 msgstr "_Демонтувати"
 
-#: src/camera/ImportPage.vala:1006
+#: src/camera/ImportPage.vala:1007
 msgid "Please unmount the camera."
 msgstr "Будь ласка, демонтуйте пристрій фотоапарата."
 
-#: src/camera/ImportPage.vala:1011
+#: src/camera/ImportPage.vala:1012
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3464,13 +3439,13 @@ msgstr ""
 "завершіть роботу будь-яких інших програм, які працюють з фотоапаратом, і "
 "повторіть спробу."
 
-#: src/camera/ImportPage.vala:1021
+#: src/camera/ImportPage.vala:1022
 msgid "Please close any other application using the camera."
 msgstr ""
 "Будь ласка, завершіть роботу будь-яких сторонніх програми, які працюють з "
 "фотоапаратом."
 
-#: src/camera/ImportPage.vala:1026
+#: src/camera/ImportPage.vala:1027
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3479,33 +3454,33 @@ msgstr ""
 "Не вдалося отримати дані мініатюр з фотоапарата:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1043
+#: src/camera/ImportPage.vala:1044
 msgid "Unmounting…"
 msgstr "Демонтування…"
 
-#: src/camera/ImportPage.vala:1136
+#: src/camera/ImportPage.vala:1137
 msgid "Connecting to camera, please wait…"
 msgstr "Встановлюємо з'єднання із фотоапаратом, зачекайте…"
 
-#: src/camera/ImportPage.vala:1168
+#: src/camera/ImportPage.vala:1169
 msgid "Starting import, please wait…"
 msgstr "Розпочинаємо імпортування, зачекайте…"
 
-#: src/camera/ImportPage.vala:1174
+#: src/camera/ImportPage.vala:1175
 msgid "Fetching photo information"
 msgstr "Отримання даних щодо фотографій"
 
-#: src/camera/ImportPage.vala:1537
+#: src/camera/ImportPage.vala:1538
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Отримання мініатюри %s"
 
-#: src/camera/ImportPage.vala:1645
+#: src/camera/ImportPage.vala:1647
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Не вдалося заблокувати пристрій фотоапарата: %s"
 
-#: src/camera/ImportPage.vala:1730
+#: src/camera/ImportPage.vala:1732
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3514,7 +3489,7 @@ msgstr[1] "Вилучити %d фотографії з фотоапарата?"
 msgstr[2] "Вилучити %d фотографій з фотоапарата?"
 msgstr[3] "Вилучити %d фотографію з фотоапарата?"
 
-#: src/camera/ImportPage.vala:1733
+#: src/camera/ImportPage.vala:1735
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3523,7 +3498,7 @@ msgstr[1] "Вилучити %d відео з фотоапарата?"
 msgstr[2] "Вилучити %d відео з фотоапарата?"
 msgstr[3] "Вилучити %d відео з фотоапарата?"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1738
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3532,7 +3507,7 @@ msgstr[1] "Вилучити %d фотографії або відео з фот�
 msgstr[2] "Вилучити %d фотографій або відео з фотоапарата?"
 msgstr[3] "Вилучити %d фотографію або відео з фотоапарата?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1741
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3541,15 +3516,15 @@ msgstr[1] "Вилучити ці %d файли з фотоапарата?"
 msgstr[2] "Вилучити ці %d файлів з фотоапарата?"
 msgstr[3] "Вилучити ці %d файл з фотоапарата?"
 
-#: src/camera/ImportPage.vala:1747 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1749 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Не вилучати"
 
-#: src/camera/ImportPage.vala:1766
+#: src/camera/ImportPage.vala:1768
 msgid "Removing photos/videos from camera"
 msgstr "Вилучення фотографій або відео з фотоапарата"
 
-#: src/camera/ImportPage.vala:1770
+#: src/camera/ImportPage.vala:1772
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3862,7 +3837,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Файл бази даних:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:804
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:785
 msgid "_Import"
 msgstr "_Імпортувати"
 
@@ -3874,7 +3849,7 @@ msgstr "Імпортування з програми"
 msgid "Import media _from:"
 msgstr "Імпортувати дані _з:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:396
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
 msgid "_Close"
 msgstr "За_крити"
 
@@ -4092,7 +4067,7 @@ msgstr "Рік%sМісяць-День"
 msgid "Year-Month-Day"
 msgstr "Рік-Місяць-День"
 
-#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:766
+#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:767
 msgid "Custom"
 msgstr "Нетиповий"
 
@@ -5091,25 +5066,25 @@ msgstr ""
 msgid "Unable open photo %s. Sorry."
 msgstr "Не вдалося відкрити фотографію %s. Вибачте."
 
-#: src/direct/DirectPhotoPage.vala:322
+#: src/direct/DirectPhotoPage.vala:323
 msgid "_Save a Copy"
 msgstr "_Зберегти копію"
 
-#: src/direct/DirectPhotoPage.vala:325
+#: src/direct/DirectPhotoPage.vala:326
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Відкинути зміни до %s?"
 
-#: src/direct/DirectPhotoPage.vala:326
+#: src/direct/DirectPhotoPage.vala:327
 msgid "Close _without Saving"
 msgstr "_Не зберігати"
 
-#: src/direct/DirectPhotoPage.vala:359
+#: src/direct/DirectPhotoPage.vala:360
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Помилка під час спроби збереження до %s: %s"
 
-#: src/direct/DirectPhotoPage.vala:389 src/direct/DirectPhotoPage.vala:410
+#: src/direct/DirectPhotoPage.vala:390 src/direct/DirectPhotoPage.vala:411
 msgid "Save As"
 msgstr "Зберегти як"
 
@@ -5123,204 +5098,204 @@ msgstr "Неможливо стежити за %s: це не каталог (%s)
 msgid "Photos cannot be exported to this directory."
 msgstr "Експорт фотографій до цього каталогу неможливий."
 
-#: src/editing_tools/EditingTools.vala:650
+#: src/editing_tools/EditingTools.vala:651
 msgid "Return to current photo dimensions"
 msgstr "Повернутися до поточних розмірів фотографії"
 
-#: src/editing_tools/EditingTools.vala:653
+#: src/editing_tools/EditingTools.vala:654
 msgid "Set the crop for this photo"
 msgstr "Встановити параметри обрізання цієї фотографії"
 
-#: src/editing_tools/EditingTools.vala:665
+#: src/editing_tools/EditingTools.vala:666
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr ""
 "Перемикач прямокутника обрізання між книжковою та альбомною орієнтацією"
 
-#: src/editing_tools/EditingTools.vala:738
+#: src/editing_tools/EditingTools.vala:739
 msgid "Unconstrained"
 msgstr "Без обмеження"
 
-#: src/editing_tools/EditingTools.vala:739
+#: src/editing_tools/EditingTools.vala:740
 msgid "Square"
 msgstr "Квадрат"
 
-#: src/editing_tools/EditingTools.vala:740
+#: src/editing_tools/EditingTools.vala:741
 msgid "Screen"
 msgstr "Екран"
 
-#: src/editing_tools/EditingTools.vala:742
-#: src/editing_tools/EditingTools.vala:745
-#: src/editing_tools/EditingTools.vala:755
-#: src/editing_tools/EditingTools.vala:765
+#: src/editing_tools/EditingTools.vala:743
+#: src/editing_tools/EditingTools.vala:746
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
 msgid "-"
 msgstr "-"
 
-#: src/editing_tools/EditingTools.vala:743
+#: src/editing_tools/EditingTools.vala:744
 msgid "SD Video (4 ∶ 3)"
 msgstr "Стандартне відео (4 : 3)"
 
-#: src/editing_tools/EditingTools.vala:744
+#: src/editing_tools/EditingTools.vala:745
 msgid "HD Video (16 ∶ 9)"
 msgstr "Відео високої роздільності (16 : 9)"
 
-#: src/editing_tools/EditingTools.vala:746 src/Printing.vala:792
+#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Записник (2 ⨯ 3 дюйми)"
 
-#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:795
+#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
 msgstr "Картка (3 ⨯ 5 дюймів)"
 
-#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:798
+#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4 × 6 дюймів"
 
-#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:801
+#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5 × 7 дюймів"
 
-#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:804
+#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8 × 10 дюймів"
 
-#: src/editing_tools/EditingTools.vala:751
+#: src/editing_tools/EditingTools.vala:752
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Лист (8,5 ⨯ 11 дюймів)"
 
-#: src/editing_tools/EditingTools.vala:752 src/Printing.vala:807
+#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11 × 14 дюймів"
 
-#: src/editing_tools/EditingTools.vala:753
+#: src/editing_tools/EditingTools.vala:754
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Таблоїд (11 ⨯ 17 дюймів)"
 
-#: src/editing_tools/EditingTools.vala:754 src/Printing.vala:810
+#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16 × 20 дюймів"
 
-#: src/editing_tools/EditingTools.vala:756 src/Printing.vala:816
+#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Записник (9 ⨯ 13 см)"
 
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:819
+#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Листівка (10 ⨯ 15 см)"
 
-#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:822
+#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13 × 18 см"
 
-#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:825
+#: src/editing_tools/EditingTools.vala:760 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18 × 24 см"
 
-#: src/editing_tools/EditingTools.vala:760
+#: src/editing_tools/EditingTools.vala:761
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 мм)"
 
-#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:828
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20 × 30 см"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:831
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24 × 40 см"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:834
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30 × 40 см"
 
-#: src/editing_tools/EditingTools.vala:764
+#: src/editing_tools/EditingTools.vala:765
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 ⨯ 420 мм)"
 
-#: src/editing_tools/EditingTools.vala:1857 src/Properties.vala:411
+#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:411
 msgid "Size:"
 msgstr "Розмір:"
 
-#: src/editing_tools/EditingTools.vala:1872
+#: src/editing_tools/EditingTools.vala:1873
 msgid "Close the red-eye tool"
 msgstr "Закрити вікно інструменту усування ефекту «червоних очей»"
 
-#: src/editing_tools/EditingTools.vala:1875
+#: src/editing_tools/EditingTools.vala:1876
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Вилучити будь-які наслідки ефекту «червоних очей» у позначеній області"
 
-#: src/editing_tools/EditingTools.vala:2209
+#: src/editing_tools/EditingTools.vala:2210
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "Від_новити"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2223 src/Properties.vala:452
+#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:452
 #: src/Properties.vala:456 src/Properties.vala:463
 msgid "Exposure:"
 msgstr "Експозиція:"
 
-#: src/editing_tools/EditingTools.vala:2232
+#: src/editing_tools/EditingTools.vala:2233
 msgid "Contrast:"
 msgstr "Контрастність:"
 
-#: src/editing_tools/EditingTools.vala:2241
+#: src/editing_tools/EditingTools.vala:2242
 msgid "Saturation:"
 msgstr "Насиченість:"
 
-#: src/editing_tools/EditingTools.vala:2250
+#: src/editing_tools/EditingTools.vala:2251
 msgid "Tint:"
 msgstr "Відтінок:"
 
-#: src/editing_tools/EditingTools.vala:2260
+#: src/editing_tools/EditingTools.vala:2261
 msgid "Temperature:"
 msgstr "Температура:"
 
-#: src/editing_tools/EditingTools.vala:2269
+#: src/editing_tools/EditingTools.vala:2270
 msgid "Shadows:"
 msgstr "Тіні:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2280
+#: src/editing_tools/EditingTools.vala:2281
 msgid "Highlights:"
 msgstr "Підсвічування:"
 
-#: src/editing_tools/EditingTools.vala:2337
+#: src/editing_tools/EditingTools.vala:2338
 msgid "Reset Colors"
 msgstr "Відновити кольори"
 
-#: src/editing_tools/EditingTools.vala:2337
+#: src/editing_tools/EditingTools.vala:2338
 msgid "Reset all color adjustments to original"
 msgstr "Скасувати будь-які зміни кольорів і повернутися до початкових значень"
 
-#: src/editing_tools/EditingTools.vala:2696
+#: src/editing_tools/EditingTools.vala:2697
 msgid "Temperature"
 msgstr "Температура"
 
-#: src/editing_tools/EditingTools.vala:2708
+#: src/editing_tools/EditingTools.vala:2709
 msgid "Tint"
 msgstr "Затінення"
 
-#: src/editing_tools/EditingTools.vala:2720
+#: src/editing_tools/EditingTools.vala:2721
 msgid "Contrast"
 msgstr "Контрастність"
 
-#: src/editing_tools/EditingTools.vala:2734
+#: src/editing_tools/EditingTools.vala:2735
 msgid "Saturation"
 msgstr "Насиченість"
 
-#: src/editing_tools/EditingTools.vala:2747
+#: src/editing_tools/EditingTools.vala:2748
 msgid "Exposure"
 msgstr "Експозиція"
 
-#: src/editing_tools/EditingTools.vala:2760
+#: src/editing_tools/EditingTools.vala:2761
 msgid "Shadows"
 msgstr "Тіні"
 
-#: src/editing_tools/EditingTools.vala:2773
+#: src/editing_tools/EditingTools.vala:2774
 msgid "Highlights"
 msgstr "Підсвічування"
 
-#: src/editing_tools/EditingTools.vala:2783
+#: src/editing_tools/EditingTools.vala:2784
 msgid "Contrast Expansion"
 msgstr "Розширення контрастності"
 
@@ -5501,8 +5476,13 @@ msgstr "Імпорт"
 msgid "Browse the library’s import history"
 msgstr "Навігація журналом імпортування бібліотеки"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1124
-#: src/SearchFilter.vala:1125
+#: src/library/BackgroundProgressBar.vala:74
+#, c-format
+msgid "%s (%d%%)"
+msgstr "%s (%d%%)"
+
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1126
+#: src/SearchFilter.vala:1127
 msgid "Flagged"
 msgstr "Позначені"
 
@@ -5527,23 +5507,23 @@ msgstr "Попереднє імпортування"
 msgid "Organize and browse your photos"
 msgstr "Впорядкуйте ваші фотографії і переглядайте їх"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1105
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1107
 msgid "Photos"
 msgstr "Фотографії"
 
-#: src/library/LibraryWindow.vala:533
+#: src/library/LibraryWindow.vala:514
 msgid "Import From Folder"
 msgstr "Імпортувати з теки"
 
-#: src/library/LibraryWindow.vala:539
+#: src/library/LibraryWindow.vala:520
 msgid "Recurse Into Subfolders"
 msgstr "Рекурсивно у підтеках"
 
-#: src/library/LibraryWindow.vala:607
+#: src/library/LibraryWindow.vala:588
 msgid "Emptying Trash…"
 msgstr "Спорожнення смітника…"
 
-#: src/library/LibraryWindow.vala:801
+#: src/library/LibraryWindow.vala:782
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -5557,28 +5537,23 @@ msgstr ""
 "Хочете продовжити імпортування фотографій?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:817
+#: src/library/LibraryWindow.vala:798
 msgid "Photos cannot be imported from this directory."
 msgstr "Імпорт фотографій з цього каталогу неможливий."
 
-#: src/library/LibraryWindow.vala:1091
-#, c-format
-msgid "%s (%d%%)"
-msgstr "%s (%d%%)"
-
-#: src/library/LibraryWindow.vala:1135 src/library/LibraryWindow.vala:1146
+#: src/library/LibraryWindow.vala:1021 src/library/LibraryWindow.vala:1032
 msgid "Updating library…"
 msgstr "Оновлення бібліотеки…"
 
-#: src/library/LibraryWindow.vala:1152
+#: src/library/LibraryWindow.vala:1038
 msgid "Preparing to auto-import photos…"
 msgstr "Приготування до автоматичного імпортування фотографій…"
 
-#: src/library/LibraryWindow.vala:1157
+#: src/library/LibraryWindow.vala:1043
 msgid "Auto-importing photos…"
 msgstr "Автоматичне імпортування фотографій…"
 
-#: src/library/LibraryWindow.vala:1165
+#: src/library/LibraryWindow.vala:1051
 msgid "Writing metadata to files…"
 msgstr "Запис метаданих до файлів…"
 
@@ -5679,12 +5654,10 @@ msgid "Name for a custom profile"
 msgstr "Назва нетипового профілю"
 
 #: src/main.vala:345
-#| msgid "[FILE]"
 msgid "PROFILE"
 msgstr "ПРОФІЛЬ"
 
 #: src/main.vala:346
-#| msgid "Show all photos"
 msgid "Show available profiles"
 msgstr "Показати доступні профілі"
 
@@ -5760,22 +5733,22 @@ msgstr "GIF"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/photos/JfifSupport.vala:246
+#: src/photos/JfifSupport.vala:256
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Низька (%d%%)"
 
-#: src/photos/JfifSupport.vala:249
+#: src/photos/JfifSupport.vala:259
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Середня (%d%%)"
 
-#: src/photos/JfifSupport.vala:252
+#: src/photos/JfifSupport.vala:262
 #, c-format
 msgid "High (%d%%)"
 msgstr "Висока (%d%%)"
 
-#: src/photos/JfifSupport.vala:255
+#: src/photos/JfifSupport.vala:265
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Максимальна (%d%%)"
@@ -6012,11 +5985,11 @@ msgstr "Оприлюднити фотографії і відео _на:"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:286
+#: src/publishing/PublishingUI.vala:288
 msgid "Unable to publish"
 msgstr "Не вдалося оприлюднити"
 
-#: src/publishing/PublishingUI.vala:287
+#: src/publishing/PublishingUI.vala:289
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -6480,7 +6453,7 @@ msgstr ""
 "існує."
 
 #. Saved search button
-#: src/Resources.vala:392 src/SearchFilter.vala:1146
+#: src/Resources.vala:392 src/SearchFilter.vala:1148
 msgid "Saved Search"
 msgstr "Збережений пошук"
 
@@ -6804,8 +6777,8 @@ msgstr "Стан позначення"
 msgid "Photo state"
 msgstr "Стан фотографії"
 
-#: src/searches/SearchBoolean.vala:199 src/SearchFilter.vala:853
-#: src/SearchFilter.vala:1136
+#: src/searches/SearchBoolean.vala:199 src/SearchFilter.vala:854
+#: src/SearchFilter.vala:1138
 msgid "Rating"
 msgstr "Оцінка"
 
@@ -6821,27 +6794,27 @@ msgstr "Збережені пошуки"
 msgid "Organize your saved searches"
 msgstr "Впорядкуйте ваші збережені пошуки"
 
-#: src/SearchFilter.vala:837
+#: src/SearchFilter.vala:838
 msgid "★+ Rating"
 msgstr "Оцінка ★+"
 
-#: src/SearchFilter.vala:840
+#: src/SearchFilter.vala:841
 msgid "★★+ Rating"
 msgstr "Оцінка ★★+"
 
-#: src/SearchFilter.vala:843
+#: src/SearchFilter.vala:844
 msgid "★★★+ Rating"
 msgstr "Оцінка ★★★+"
 
-#: src/SearchFilter.vala:846
+#: src/SearchFilter.vala:847
 msgid "★★★★+ Rating"
 msgstr "Оцінка ★★★★+"
 
-#: src/SearchFilter.vala:850
+#: src/SearchFilter.vala:851
 msgid "★★★★★+ Rating"
 msgstr "Оцінка ★★★★★+"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1088
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Помилка під час спроби завантажити інтерфейс панелі пошуку: %s"
@@ -6851,24 +6824,24 @@ msgstr "Помилка під час спроби завантажити інт�
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1095
+#: src/SearchFilter.vala:1097
 msgid "Close"
 msgstr "Закрити"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1101
+#: src/SearchFilter.vala:1103
 msgid "Type"
 msgstr "Тип"
 
-#: src/SearchFilter.vala:1108
+#: src/SearchFilter.vala:1110
 msgid "Videos"
 msgstr "Відео"
 
-#: src/SearchFilter.vala:1111
+#: src/SearchFilter.vala:1113
 msgid "RAW Photos"
 msgstr "Цифрові негативи"
 
-#: src/SearchFilter.vala:1147
+#: src/SearchFilter.vala:1149
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
 "Використати збережений пошук для фільтрування записів у поточній області "
@@ -6942,509 +6915,6 @@ msgid "untitled"
 msgstr "без назви"
 
 #. multiple videos
-#: src/VideoSupport.vala:525
+#: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "Експорт відео"
-
-#~| msgid "Shotwell"
-#~ msgid "org.gnome.Shotwell"
-#~ msgstr "org.gnome.Shotwell"
-
-#~ msgid "shotwell"
-#~ msgstr "shotwell"
-
-#~ msgid "background color"
-#~ msgstr "колір тла"
-
-#~ msgid "A grayscale color for use as the background color."
-#~ msgstr ""
-#~ "Визначає тон сірого кольору, який слід використовувати як колір тла."
-
-#~ msgid ""
-#~ "The OAuth token used to refresh the Picasa Web Albums session for the "
-#~ "currently logged in user, if any."
-#~ msgstr ""
-#~ "Ключ OAuth, який використовується для оновлення сеансу Альбомів Picasa "
-#~ "для поточного користувача у системі, якщо такий є."
-
-#~ msgid ""
-#~ "Whether images being uploaded to Picasa should have their metadata "
-#~ "removed first"
-#~ msgstr ""
-#~ "Визначає, чи слід вилучати метадані фотографій перед вивантаженням на "
-#~ "Picasa"
-
-#~ msgid "enable picasa publishing plugin"
-#~ msgstr "увімкнути додаток оприлюднення на picasa"
-
-#~ msgid ""
-#~ "True if the Picasa Web Albums publishing plugin is enabled, false "
-#~ "otherwise"
-#~ msgstr ""
-#~ "True, якщо додаток оприлюднення у Альбомах Picasa увімкнено; false, якщо "
-#~ "ні"
-
-#~ msgid ""
-#~ "You are not currently logged into Facebook.\n"
-#~ "\n"
-#~ "If you don’t yet have a Facebook account, you can create one during the "
-#~ "login process. During login, Shotwell Connect may ask you for permission "
-#~ "to upload photos and publish to your feed. These permissions are required "
-#~ "for Shotwell Connect to function."
-#~ msgstr ""
-#~ "Ви ще не увійшли до системи Facebook.\n"
-#~ "\n"
-#~ "Якщо у вас ще немає облікового запису Facebook, ви можете створити таких "
-#~ "запис під час виконання процедури з входу до системи. Під час входу до "
-#~ "системи Shotwell може попросити у вас дозволу на вивантаження фотографій "
-#~ "та їх оприлюднення за допомогою подачі. Ці дозволи потрібні для "
-#~ "нормальної роботи Shotwell."
-
-#~ msgid ""
-#~ "You have already logged in and out of Facebook during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Facebook, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "Ви вже входили і виходили з системи Facebook протягом цього сеансу роботи "
-#~ "у Shotwell.\n"
-#~ "Щоб продовжити оприлюднення фотографій на Facebook, завершіть роботу "
-#~ "Shotwell і запустіть програму знову, а потім повторіть спробу "
-#~ "оприлюднення."
-
-#~ msgid ""
-#~ "You are not currently logged into Picasa Web Albums.\n"
-#~ "\n"
-#~ "Click Log in to log into Picasa Web Albums in your Web browser. You will "
-#~ "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#~ "account."
-#~ msgstr ""
-#~ "Ви не увійшли до служби вебальбомів Picasa\n"
-#~ "\n"
-#~ "Натисніть кнопку входу (Login) у вашій програмі для перегляду інтернету, "
-#~ "щоб увійти до служби вебальбомів Picasa. Вам слід уповноважити інструмент "
-#~ "Shotwell Connect, щоб встановити зв’язок програми з вашим обліковим "
-#~ "записом вебальбомів Picasa."
-
-#~ msgid "Publish to an e_xisting album:"
-#~ msgstr "Оприлюднити у іс_нуючому альбомі:"
-
-#~ msgid "Create a _new album named:"
-#~ msgstr "Створити _альбом з назвою:"
-
-#~ msgid "Upload _size:"
-#~ msgstr "_Розміри вивантаженого:"
-
-#~ msgid "Videos and new photo albums _visible to:"
-#~ msgstr "Відео і нові фотоальбоми зможуть _бачити:"
-
-#~ msgid "Standard (720 pixels)"
-#~ msgstr "Стандартний (720 пікселів)"
-
-#~ msgid "Large (2048 pixels)"
-#~ msgstr "Велика (2048 пікселів)"
-
-#~ msgid "Creating album…"
-#~ msgstr "Створення альбому…"
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Facebook "
-#~ "can’t continue."
-#~ msgstr ""
-#~ "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
-#~ "оприлюднення на Facebook неможливе."
-
-#~ msgid ""
-#~ "You are logged into Facebook as %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ви увійшли до облікового запису %s на Facebook.\n"
-#~ "\n"
-
-#~ msgid "Where would you like to publish the selected photos?"
-#~ msgstr "Де ви бажаєте оприлюднити позначені фотографії?"
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Picasa can’t "
-#~ "continue."
-#~ msgstr ""
-#~ "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
-#~ "оприлюднення на Picasa неможливе."
-
-#~ msgid "You are logged into Picasa Web Albums as %s."
-#~ msgstr "Ви увійшли до облікового запису %s вебальбомів Picasa."
-
-#~ msgid "Extended Information"
-#~ msgstr "Додаткові відомості"
-
-#~ msgid "white"
-#~ msgstr "білий"
-
-#~ msgid "black"
-#~ msgstr "чорний"
-
-#~ msgid "_Background:"
-#~ msgstr "_Тло:"
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select a library to import, either by selecting one of the "
-#~ "existing libraries found by Shotwell or by selecting an alternative F-"
-#~ "Spot database file."
-#~ msgstr ""
-#~ "Ласкаво просимо до служби імпортування бібліотеки F-Spot.\n"
-#~ "\n"
-#~ "Будь ласка, виберіть бібліотеку для імпортування. Можна скористатися "
-#~ "однією з вже створених бібліотек, виявлених Shotwell, або вибрати інший "
-#~ "файл бази даних F-Spot."
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select an F-Spot database file."
-#~ msgstr ""
-#~ "Ласкаво просимо до служби імпортування бібліотеки F-Spot.\n"
-#~ "\n"
-#~ "Будь ласка, виберіть файл бази даних F-Spot."
-
-#~ msgid "Manually select an F-Spot database file to import:"
-#~ msgstr "Виберіть файл бази даних F-Spot для імпортування вручну:"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: the file does not exist or "
-#~ "is not an F-Spot database"
-#~ msgstr ""
-#~ "Не вдалося виконати читання вибраного файла бази даних F-Spot: файла не "
-#~ "існує або вказаний файл не є файлом бази даних F-Spot"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: this version of the F-Spot "
-#~ "database is not supported by Shotwell"
-#~ msgstr ""
-#~ "Не вдалося виконати читання вибраного файла бази даних F-Spot: підтримки "
-#~ "цієї версії бази даних F-Spot у Shotwell не передбачено"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading tags "
-#~ "table"
-#~ msgstr ""
-#~ "Не вдалося виконати читання вибраного файла бази даних F-Spot: помилка "
-#~ "під час читання таблиці міток"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading photos "
-#~ "table"
-#~ msgstr ""
-#~ "Не вдалося виконати читання вибраного файла бази даних F-Spot: помилка "
-#~ "під час читання таблиці фотографій"
-
-#~ msgid ""
-#~ "Shotwell has found %d photos in the F-Spot library and is currently "
-#~ "importing them. Duplicates will be automatically detected and removed.\n"
-#~ "\n"
-#~ "You can close this dialog and start using Shotwell while the import is "
-#~ "taking place in the background."
-#~ msgstr ""
-#~ "У бібліотеці F-Spot було виявлено %d фотографій. Зараз виконується "
-#~ "імпортування цих фотографій. Під час імпортування буде автоматично "
-#~ "виявлено і вилучено дублікати.\n"
-#~ "\n"
-#~ "Ви можете закрити це діалогове вікно і продовжити користування Shotwell. "
-#~ "Імпортування відбуватиметься у фоновому режимі."
-
-#~ msgid "F-Spot library: %s"
-#~ msgstr "Бібліотека F-Spot: %s"
-
-#~ msgid "Preparing to import"
-#~ msgstr "Готуємося до імпортування"
-
-#~ msgid "Core Data Import Services"
-#~ msgstr "Служби імпортування основних даних"
-
-#~ msgid "Width or height"
-#~ msgstr "Ширина або висота"
-
-#~| msgid "'%s' isn't a valid response to an OAuth authentication request"
-#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
-#~ msgstr "«%s» не є коректною відповіддю на запит щодо розпізнавання OAuth"
-
-#~| msgid "Testing connection to Facebook..."
-#~ msgid "Testing connection to Facebook…"
-#~ msgstr "Перевірка з’єднання з Facebook…"
-
-#~ msgid ""
-#~ "Enter the confirmation number which appears after you log into Flickr in "
-#~ "your Web browser."
-#~ msgstr ""
-#~ "Введіть число підтвердження, яке було показано після входу до служби "
-#~ "Flickr за допомогою вашої програми для перегляду інтернету."
-
-#~ msgid "Authorization _Number:"
-#~ msgstr "_Число розпізнавання:"
-
-#~ msgid ""
-#~ "You have already logged in and out of Flickr during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Flickr, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "Ви вже входили і виходили з системи Flickr протягом цього сеансу роботи у "
-#~ "Shotwell.\n"
-#~ "Щоб продовжити оприлюднення фотографій на Flickr, завершіть роботу "
-#~ "Shotwell і запустіть програму знову, а потім повторіть спробу "
-#~ "оприлюднення."
-
-#~ msgid "L_ist album in public gallery"
-#~ msgstr "По_казувати альбом у відкритій галереї"
-
-#~| msgid "Videos will appear in '%s'"
-#~ msgid "Videos will appear in “%s”"
-#~ msgstr "Відео з’являться у «%s»"
-
-#~ msgid "Export Photos/Videos"
-#~ msgstr "Експортувати фотографії/відео"
-
-#~| msgid "Open With E_xternal Editor"
-#~ msgid "Open with E_xternal Editor"
-#~ msgstr "Відкрити за допомогою з_овнішнього редактора"
-
-#~| msgid "R_emove From Library"
-#~ msgid "R_emove from Library"
-#~ msgstr "Ви_лучити з бібліотеки"
-
-#~| msgid "Copyright 2009-2013 Yorba Foundation"
-#~ msgid "Copyright 2009-2014 Yorba Foundation"
-#~ msgstr "© Yorba Foundation, 2009–2014"
-
-#~ msgid "Login"
-#~ msgstr "Увійти"
-
-#~ msgid "Play a slideshow"
-#~ msgstr "Почати показ слайдів"
-
-#~ msgid "Save Details..."
-#~ msgstr "Зберегти параметри…"
-
-#~ msgid "Only _Remove"
-#~ msgstr "Лише ви_лучити"
-
-#~ msgid "_Modify original files"
-#~ msgstr "З_мінити початкові файли"
-
-#~ msgid "Increase the magnification of the thumbnails"
-#~ msgstr "Збільшити розміри мініатюр"
-
-#~ msgid "Decrease the magnification of the thumbnails"
-#~ msgstr "Зменшити розміри мініатюр"
-
-#~ msgid "_Play Video"
-#~ msgstr "Від_творити відео"
-
-#~ msgid "Open the selected videos in the system video player"
-#~ msgstr "Відкрити позначені відео у відеопрогравачі системи"
-
-#~ msgid "Display the title of each photo"
-#~ msgstr "Показувати заголовки всіх фотографій"
-
-#~ msgid "Display the comment of each photo"
-#~ msgstr "Показувати коментар до кожної фотографії"
-
-#~ msgid "Sort photos by exposure date"
-#~ msgstr "Впорядкувати фотографії за датою знімання"
-
-#~ msgid "Sort photos by rating"
-#~ msgstr "Впорядкувати фотографії за оцінкою"
-
-#~ msgid "Sort photos in a descending order"
-#~ msgstr "Впорядкувати фотографії за спаданням значення критерію"
-
-#~ msgid "Previous Photo"
-#~ msgstr "Попередня фотографія"
-
-#~ msgid "Next Photo"
-#~ msgstr "Наступна фотографія"
-
-#~ msgid "Increase the magnification of the photo"
-#~ msgstr "Збільшити масштаб показу фотографії"
-
-#~ msgid "Decrease the magnification of the photo"
-#~ msgstr "Зменшити масштаб показу фотографії"
-
-#~ msgid "Zoom the photo to fit on the screen"
-#~ msgstr "Змінити масштаб фотографії на максимальний відповідний вікну"
-
-#~ msgid "Zoom the photo to 100% magnification"
-#~ msgstr "Змінити масштаб фотографії до початкового"
-
-#~ msgid "Zoom the photo to 200% magnification"
-#~ msgstr "Змінити масштаб фотографії до подвійного"
-
-#~ msgid "Set as _Desktop Slideshow..."
-#~ msgstr "Зробити _показом слайдів стільниці…"
-
-#~ msgid "Re_name Event..."
-#~ msgstr "Пере_йменувати подію…"
-
-#~ msgid "_Export..."
-#~ msgstr "_Експортувати…"
-
-#~ msgid "Pu_blish..."
-#~ msgstr "О_прилюднити…"
-
-#~ msgid "Edit _Title..."
-#~ msgstr "Змінити _назву…"
-
-#~ msgid "Edit _Comment..."
-#~ msgstr "Змінити _коментар…"
-
-#~ msgid "Edit Event _Comment..."
-#~ msgstr "Змінити _коментар до події…"
-
-#~ msgid "_Adjust Date and Time..."
-#~ msgstr "С_коригувати дату і час…"
-
-#~ msgid "Add _Tags..."
-#~ msgstr "Додати _мітки…"
-
-#~ msgid "_Add Tags..."
-#~ msgstr "_Додати мітки…"
-
-#~ msgid "Send _To..."
-#~ msgstr "_Надіслати…"
-
-#~ msgid "Send T_o..."
-#~ msgstr "Над_іслати…"
-
-#~ msgid "_Find..."
-#~ msgstr "З_найти…"
-
-#~ msgid "Modif_y Tags..."
-#~ msgstr "З_мінити мітки…"
-
-#~ msgid "Tag Photos as \"%s\""
-#~ msgstr "Додати до фотографій мітку «%s»"
-
-#~ msgid "Tag the selected photos as \"%s\""
-#~ msgstr "Додати до позначених фотографій мітку «%s»"
-
-#~ msgid "Remove Tag \"%s\" From _Photos"
-#~ msgstr "Вилучити мітку «%s» з _фотографій"
-
-#~ msgid "Remove Tag \"%s\" From Photos"
-#~ msgstr "Вилучення мітки «%s» з фотографій"
-
-#~ msgid "_Edit..."
-#~ msgstr "З_мінити…"
-
-#~ msgid "%-I:%M %p"
-#~ msgstr "%H:%M"
-
-#~ msgid "%-I:%M:%S %p"
-#~ msgstr "%H:%M:%S"
-
-#~ msgid "RAW photos"
-#~ msgstr "Цифрові негативи"
-
-#~ msgid "Import the selected photos into your library"
-#~ msgstr "Пересунути позначені фотографії до вашої бібліотеки"
-
-#~ msgid "Import all the photos into your library"
-#~ msgstr "Імпортувати всі фотографії до вашої бібліотеки"
-
-#~ msgid "Save photo"
-#~ msgstr "Зберегти фотографію"
-
-#~ msgid "Save _As..."
-#~ msgstr "Зберегти _як…"
-
-#~ msgid "Save photo with a different name"
-#~ msgstr "Зберегти фотографію зі зміною назви"
-
-#~ msgid "Print the photo to a printer connected to your computer"
-#~ msgstr "Надрукувати фотографію на принтері, з’єднаному з вашим комп’ютером"
-
-#~ msgid "Display the comment of each event"
-#~ msgstr "Показувати коментар до кожного запису події"
-
-#~ msgid "Importing..."
-#~ msgstr "Імпортування…"
-
-#~ msgid "Stop importing photos"
-#~ msgstr "Припинити імпортування фотографій"
-
-#~ msgid "Preparing to import..."
-#~ msgstr "Приготування до імпортування…"
-
-#~ msgid "_Import From Folder..."
-#~ msgstr "_Імпортувати з теки…"
-
-#~ msgid "Import photos from disk to library"
-#~ msgstr "Імпортувати фотографії з диска до бібліотеки"
-
-#~ msgid "Import From _Application..."
-#~ msgstr "Імпортувати з _програми…"
-
-#~ msgid "Find photos and videos by search criteria"
-#~ msgstr "Знайти фотографії та відео за критеріями пошуку"
-
-#~ msgid "Display basic information for the selection"
-#~ msgstr "Показати основні відомості щодо позначених об’єктів"
-
-#~ msgid "The selected videos were successfully published."
-#~ msgstr "Позначені відео було успішно оприлюднено."
-
-#~ msgid "The selected photos were successfully published."
-#~ msgstr "Позначені фотографії було успішно оприлюднено."
-
-#~ msgid ""
-#~ "You are logged into Tumblr as (name).\n"
-#~ "\n"
-#~ "(this label's string is populated and set inside the code, \n"
-#~ "so changes made here will not display)"
-#~ msgstr ""
-#~ "Ви увійшли до системи Tumblr від імені (name).\n"
-#~ "\n"
-#~ "(цей рядок мітки заповнюватиметься і встановлюватиметься у коді, \n"
-#~ "отже внесені тут зміни показано не буде)"
-
-#~ msgid ""
-#~ " (text depends on fb username and is modified in the app - \n"
-#~ "anything put into this field won't display)"
-#~ msgstr ""
-#~ " (текст залежить від імені користувача fb username і змінюється у "
-#~ "програмі — \n"
-#~ "все, введене у цьому полі, не буде показано)"
-
-#~ msgid ""
-#~ "You are logged into Flickr as (name).\n"
-#~ "\n"
-#~ "(this label's string is populated and set inside the code, \n"
-#~ "so changes made here will not display)"
-#~ msgstr ""
-#~ "Ви увійшли до системи Flickr від імені (name).\n"
-#~ "\n"
-#~ "(цей рядок мітки заповнюватиметься і встановлюватиметься у коді, \n"
-#~ "отже внесені тут зміни показано не буде)"
-
-#~ msgid "_visibility label (populated in the code)"
-#~ msgstr "мітка _видимості (заповнено у коді)"
-
-#~ msgid ""
-#~ "'you are logged in as $name'\n"
-#~ "(populated in the application code)"
-#~ msgstr ""
-#~ "«ви увійшли як $name»\n"
-#~ "(заповнено у коді програми)"
-
-#~ msgid ""
-#~ "$mediatype will appear in\n"
-#~ "(populated in code)"
-#~ msgstr ""
-#~ "$mediatype буде показано у\n"
-#~ "(заповнюється у коді)"
-
-#~ msgid "Shotwell is configured to import photos to your home directory.\n"
-#~ msgstr ""
-#~ "Shotwell налаштовано на імпортування фотографій до вашого домашнього "
-#~ "каталогу.\n"
