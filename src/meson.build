@@ -17,10 +17,6 @@ processor = executable('shotwell-graphics-processor',
                        dependencies: [gio, gdk, gee],
                        link_with: sw_graphics_processor)
 
-shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                 libraw, libexif, sw_plugin]
-
 shotwell_libs = [sw_graphics_processor]
 
 face_sources = []
@@ -38,7 +34,7 @@ endif
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version,
-                 clutter, clutter_gtk, champlain, champlain_gtk]
+                 clutter, clutter_gtk, champlain, champlain_gtk, dazzle]
 
 if unity_available
     shotwell_deps += [unity]

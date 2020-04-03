@@ -72,6 +72,8 @@ clutter_gtk = dependency('clutter-gtk-1.0')
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
 
+dazzle = dependency('libdazzle-1.0')
+
 unity_available = false
 if unity.found() and get_option('unity-support')
   unity_available = true
