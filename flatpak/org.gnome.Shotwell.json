@@ -218,6 +218,17 @@
             ]
         },
         {
+            "name": "libdazzle",
+            "buildsystem": "meson",
+            "config-opts": [ "-Dwith_introspection=false" ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libdazzle.git"
+                }
+            ]
+        },
+        {
             "name" : "shotwell",
             "buildsystem" : "meson",
             "config-opts" : [
