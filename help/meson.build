@@ -1,5 +1,7 @@
 install_man('shotwell.1')
 
+find_program('itstool', required: true)
+
 yelp_pages = [
     'edit-adjustments.page',
     'edit-crop.page',
