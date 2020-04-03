@@ -142,7 +142,6 @@ public class LibraryWindow : AppWindow {
     
     private Gtk.Stack stack = new Gtk.Stack();
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-    private Gtk.Box right_vbox;
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
         base();
@@ -1089,15 +1088,12 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.pack2(bottom_frame, false, false);
         sidebar_paned.set_position(1000);
         
-        right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         ((Gtk.Container)client_paned.get_top_edge()).add(search_toolbar);
-        var stack_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-        stack_box.pack_start(stack, true, true, 0);
-        right_vbox.pack_start(stack_box, true, true, 0);
-        
         ((Gtk.Container)client_paned.get_left_edge()).add(sidebar_paned);
+
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
-        client_paned.add(right_vbox);
+        client_paned.add(stack);
+
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);
         var scrolled = new Gtk.ScrolledWindow(null, null);
