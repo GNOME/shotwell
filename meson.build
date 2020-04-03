@@ -72,6 +72,7 @@ clutter_gtk = dependency('clutter-gtk-1.0')
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
 
+dazzle = dependency('libdazzle-1.0')
 if unity.found() and get_option('unity_support')
   add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
 endif
