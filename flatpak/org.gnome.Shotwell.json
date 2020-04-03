@@ -220,7 +220,7 @@
         {
             "name": "libdazzle",
             "buildsystem": "meson",
-            "config-opts": [ "-Dwith_introspection=false" ],
+            "config-opts": [ "-Dwith_introspection=true", "-Dwith_vapi=true" ],
             "sources": [
                 {
                     "type": "git",
