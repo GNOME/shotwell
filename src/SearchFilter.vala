@@ -619,7 +619,7 @@ public class SearchFilterActions {
     }
 }
 
-public class SearchFilterToolbar : Gtk.Revealer {
+public class SearchFilterToolbar : Gtk.Box {
     private Gtk.Toolbar toolbar;
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
