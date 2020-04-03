@@ -96,7 +96,7 @@ public class LibraryWindow : AppWindow {
     private bool import_recursive = true;
 
     private Gtk.Paned sidebar_paned = new Gtk.Paned(Gtk.Orientation.VERTICAL);
-    private Gtk.Paned client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
+    private Dazzle.DockBin client_paned = new Dazzle.DockBin();
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
     
     private OneShotScheduler properties_scheduler = null;
@@ -139,12 +139,10 @@ public class LibraryWindow : AppWindow {
     // to have the global app instance available for that
     private BasicProperties basic_properties;
     private ExtendedProperties extended_properties = new ExtendedProperties();
-    private Gtk.Revealer extended_properties_revealer = new Gtk.Revealer();
     
     private Gtk.Stack stack = new Gtk.Stack();
     private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Box right_vbox;
-    private Gtk.Revealer toolbar_revealer = new Gtk.Revealer ();
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
         base();
@@ -413,7 +411,7 @@ public class LibraryWindow : AppWindow {
     protected override void on_quit() {
         Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 
-        Config.Facade.get_instance().set_sidebar_position(client_paned.position);
+        //Config.Facade.get_instance().set_sidebar_position(client_paned.position);
 
         base.on_quit();
     }
@@ -692,7 +690,7 @@ public class LibraryWindow : AppWindow {
         if (display) {
             extended_properties.update_properties(get_current_page());
         }
-        extended_properties_revealer.set_reveal_child(display);
+        client_paned.right_visible = display;
 
         action.set_state (value);
         Config.Facade.get_instance().set_display_extended_properties(display);
@@ -723,7 +721,7 @@ public class LibraryWindow : AppWindow {
     }
 
     private void set_sidebar_visible(bool visible) {
-        sidebar_paned.set_visible(visible);
+        client_paned.left_visible = visible;
         Config.Facade.get_instance().set_display_sidebar(visible);
     }
     
@@ -744,7 +742,7 @@ public class LibraryWindow : AppWindow {
 
         var toolbar = get_current_page ().get_toolbar ();
         if (toolbar != null) {
-            this.toolbar_revealer.set_reveal_child (visible);
+            client_paned.bottom_visible = visible;
         }
         Config.Facade.get_instance().set_display_toolbar (visible);
     }
@@ -1092,26 +1090,20 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.set_position(1000);
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        right_vbox.pack_start(search_toolbar, false, false, 0);
+        ((Gtk.Container)client_paned.get_top_edge()).add(search_toolbar);
         var stack_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         stack_box.pack_start(stack, true, true, 0);
         right_vbox.pack_start(stack_box, true, true, 0);
-        right_vbox.add (toolbar_revealer);
         
-        client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
-        client_paned.pack1(sidebar_paned, false, false);
+        ((Gtk.Container)client_paned.get_left_edge()).add(sidebar_paned);
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
-        client_paned.pack2(right_vbox, true, false);
-        client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
+        client_paned.add(right_vbox);
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);
         var scrolled = new Gtk.ScrolledWindow(null, null);
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         scrolled.add(extended_properties);
-        extended_properties_revealer.add(scrolled);
-        extended_properties_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_LEFT);
-        extended_properties_revealer.halign = Gtk.Align.END;
-        extended_properties_revealer.valign = Gtk.Align.FILL;
+        ((Gtk.Container)client_paned.get_right_edge()).add(scrolled);
 
         extended_properties.vexpand = true;
         extended_properties.set_margin_top (9);
@@ -1120,14 +1112,7 @@ public class LibraryWindow : AppWindow {
         extended_properties.set_margin_end (9);
         scrolled.set_size_request(EXTENDED_INFO_MIN_WIDTH, -1);
 
-        stack_box.pack_end(extended_properties_revealer, false, false, 0);
-        extended_properties_revealer.halign = Gtk.Align.END;
-        extended_properties_revealer.hexpand = false;
-        if (Config.Facade.get_instance().get_display_extended_properties()) {
-            extended_properties_revealer.set_reveal_child(true);
-        } else {
-            extended_properties_revealer.set_reveal_child(false);
-        }
+        client_paned.right_visible = Config.Facade.get_instance().get_display_extended_properties();
 
         layout.pack_end(client_paned, true, true, 0);
         
@@ -1159,8 +1144,11 @@ public class LibraryWindow : AppWindow {
             Application.set_menubar (null);
 
             Gtk.Toolbar toolbar = current_page.get_toolbar();
-            if (toolbar != null)
-                toolbar_revealer.remove(toolbar);
+            if (toolbar != null) {
+                // There is an intermediate child inside between the edge and the toolbar
+                var children = ((Gtk.Container)client_paned.get_bottom_edge()).get_children();
+                ((Gtk.Container)children.data).remove(toolbar);
+            }
 
             current_page.switching_from();
             
@@ -1221,9 +1209,9 @@ public class LibraryWindow : AppWindow {
         
         Gtk.Toolbar toolbar = page.get_toolbar();
         if (toolbar != null) {
-            toolbar_revealer.add(toolbar);
+            ((Gtk.Container)client_paned.get_bottom_edge()).add(toolbar);
             toolbar.show_all();
-            toolbar_revealer.set_reveal_child (this.is_toolbar_visible ());
+            client_paned.bottom_visible = this.is_toolbar_visible();
         }
 
         page.ready();
