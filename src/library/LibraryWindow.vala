@@ -141,7 +141,6 @@ public class LibraryWindow : AppWindow {
     private ExtendedProperties extended_properties = new ExtendedProperties();
     
     private Gtk.Stack stack = new Gtk.Stack();
-    private Gtk.Box layout = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     
     public LibraryWindow(ProgressMonitor progress_monitor) {
         base();
@@ -1110,9 +1109,7 @@ public class LibraryWindow : AppWindow {
 
         client_paned.right_visible = Config.Facade.get_instance().get_display_extended_properties();
 
-        layout.pack_end(client_paned, true, true, 0);
-        
-        add(layout);
+        add(client_paned);
 
         switch_to_page(start_page);
         start_page.grab_focus();
