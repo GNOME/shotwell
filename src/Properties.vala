@@ -497,6 +497,11 @@ private class ExtendedProperties : Properties {
     public ExtendedProperties() {
         base();
         grid.row_spacing = 6;
+        vexpand = true;
+        set_margin_top(9);
+        set_margin_bottom(9);
+        set_margin_start(9);
+        set_margin_end(9);
     }
 
     // Event stuff

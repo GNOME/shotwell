@@ -150,6 +150,12 @@
         <description>The width, in pixels, of the sidebar</description>
     </key>
 
+    <key name="extended-properties-position" type="i">
+        <default>360</default>
+        <summary>extended properties positions</summary>
+        <description>The width, in pixels of the extended properties sidebar.</description>
+    </key>
+
     <key name="photo-thumbnail-scale" type="i">
         <default>128</default>
         <summary>photo thumbnail scale</summary>
