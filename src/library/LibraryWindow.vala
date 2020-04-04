@@ -409,7 +409,9 @@ public class LibraryWindow : AppWindow {
     protected override void on_quit() {
         Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 
-        //Config.Facade.get_instance().set_sidebar_position(client_paned.position);
+        var sidebar = (Dazzle.DockRevealer) client_paned.get_left_edge();
+
+        Config.Facade.get_instance().set_sidebar_position(sidebar.position);
 
         base.on_quit();
     }
@@ -1086,12 +1088,16 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.pack1(top_section, true, false);
         sidebar_paned.pack2(bottom_frame, false, false);
         sidebar_paned.set_position(1000);
+
+        var left_pane = client_paned.get_left_edge();
         
         ((Gtk.Container)client_paned.get_top_edge()).add(search_toolbar);
         search_toolbar.hexpand = true;
-        ((Gtk.Container)client_paned.get_left_edge()).add(sidebar_paned);
+        ((Gtk.Container)left_pane).add(sidebar_paned);
 
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
+        var position = Config.Facade.get_instance().get_sidebar_position();
+        ((Dazzle.DockRevealer)left_pane).set_position(position);
         client_paned.add(stack);
 
         // TODO: Calc according to layout's size, to give sidebar a maximum width
