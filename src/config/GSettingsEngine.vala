@@ -98,6 +98,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] = FILES_PREFS_SCHEMA_NAME;;
         schema_names[ConfigurableProperty.SHOW_WELCOME_DIALOG] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SIDEBAR_POSITION] = UI_PREFS_SCHEMA_NAME;
+        schema_names[ConfigurableProperty.EXTENDED_PROPERTIES_POSITION] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SLIDESHOW_DELAY] = SLIDESHOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SLIDESHOW_TRANSITION_DELAY] = SLIDESHOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.SLIDESHOW_TRANSITION_EFFECT_ID] = SLIDESHOW_PREFS_SCHEMA_NAME;
@@ -173,6 +174,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.RAW_DEVELOPER_DEFAULT] = "raw-developer-default";
         key_names[ConfigurableProperty.SHOW_WELCOME_DIALOG] = "show-welcome-dialog";
         key_names[ConfigurableProperty.SIDEBAR_POSITION] = "sidebar-position";
+        key_names[ConfigurableProperty.EXTENDED_PROPERTIES_POSITION] = "extended-properties-position";
         key_names[ConfigurableProperty.SLIDESHOW_DELAY] = "delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_DELAY] = "transition-delay";
         key_names[ConfigurableProperty.SLIDESHOW_TRANSITION_EFFECT_ID] = "transition-effect-id";

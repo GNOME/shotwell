@@ -410,8 +410,10 @@ public class LibraryWindow : AppWindow {
         Config.Facade.get_instance().set_library_window_state(maximized, dimensions);
 
         var sidebar = (Dazzle.DockRevealer) client_paned.get_left_edge();
-
         Config.Facade.get_instance().set_sidebar_position(sidebar.position);
+
+        sidebar = (Dazzle.DockRevealer) client_paned.get_right_edge();
+        Config.Facade.get_instance().set_extended_properties_position(sidebar.position);
 
         base.on_quit();
     }
@@ -1089,31 +1091,32 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.pack2(bottom_frame, false, false);
         sidebar_paned.set_position(1000);
 
-        var left_pane = client_paned.get_left_edge();
-        
         ((Gtk.Container)client_paned.get_top_edge()).add(search_toolbar);
         search_toolbar.hexpand = true;
-        ((Gtk.Container)left_pane).add(sidebar_paned);
+
+        var left_pane = (Dazzle.DockRevealer) client_paned.get_left_edge();
+        left_pane.add(sidebar_paned);
 
         sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         var position = Config.Facade.get_instance().get_sidebar_position();
-        ((Dazzle.DockRevealer)left_pane).set_position(position);
+        left_pane.set_position(position);
+
+        // Center widget
         client_paned.add(stack);
 
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         stack.set_size_request(PAGE_MIN_WIDTH, -1);
+
+        // Right pane - Extended Properties
         var scrolled = new Gtk.ScrolledWindow(null, null);
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         scrolled.add(extended_properties);
-        ((Gtk.Container)client_paned.get_right_edge()).add(scrolled);
-
-        extended_properties.vexpand = true;
-        extended_properties.set_margin_top (9);
-        extended_properties.set_margin_bottom (9);
-        extended_properties.set_margin_start (9);
-        extended_properties.set_margin_end (9);
         scrolled.set_size_request(EXTENDED_INFO_MIN_WIDTH, -1);
 
+        var right_edge = (Dazzle.DockRevealer) client_paned.get_right_edge();
+        right_edge.add(scrolled);
+        position = Config.Facade.get_instance().get_extended_properties_position();
+        right_edge.set_position(position);
         client_paned.right_visible = Config.Facade.get_instance().get_display_extended_properties();
 
         add(client_paned);
