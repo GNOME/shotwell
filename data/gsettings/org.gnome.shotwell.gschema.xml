@@ -21,127 +21,127 @@
     <key name="display-basic-properties" type="b">
         <default>true</default>
         <summary>display basic properties</summary>
-        <description>True if the basic properties pane is to be displayed, false otherwise.</description>
+        <description>True if the basic properties pane is to be displayed, false otherwise</description>
     </key>
 
     <key name="display-extended-properties" type="b">
         <default>false</default>
         <summary>display extended properties</summary>
-        <description>True if the extended properties window is to be displayed, false otherwise.</description>
+        <description>True if the extended properties window is to be displayed, false otherwise</description>
     </key>
 
     <key name="display-sidebar" type="b">
         <default>true</default>
         <summary>display sidebar</summary>
-        <description>True if the sidebar is to be displayed, false otherwise.</description>
+        <description>True if the sidebar is to be displayed, false otherwise</description>
     </key>
 
     <key name="display-toolbar" type="b">
         <default>true</default>
         <summary>display toolbar</summary>
-        <description>True if the bottom toolbar is to be displayed, false otherwise.</description>
+        <description>True if the bottom toolbar is to be displayed, false otherwise</description>
     </key>
 
     <key name="display-map-widget" type="b">
         <default>true</default>
         <summary>display map widget</summary>
-        <description>True if the map widget is to be displayed, false otherwise.</description>
+        <description>True if the map widget is to be displayed, false otherwise</description>
     </key>
 
     <key name="display-search-bar" type="b">
         <default>false</default>
         <summary>display search bar</summary>
-        <description>True if the Search/Filter Toolbar is to be displayed, false otherwise.</description>
+        <description>True if the Search/Filter Toolbar is to be displayed, false otherwise</description>
     </key>
 
     <key name="display-photo-titles" type="b">
         <default>false</default>
         <summary>display photo titles</summary>
-        <description>True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise.</description>
+        <description>True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise</description>
     </key>
 
     <key name="display-photo-comments" type="b">
         <default>false</default>
         <summary>display photo comments</summary>
-        <description>True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise.</description>
+        <description>True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise</description>
     </key>
 
     <key name="display-event-comments" type="b">
         <default>false</default>
         <summary>display event comments</summary>
-        <description>True if event comments are to be displayed beneath thumbnails in event views, false otherwise.</description>
+        <description>True if event comments are to be displayed beneath thumbnails in event views, false otherwise</description>
     </key>
 
     <key name="display-photo-tags" type="b">
         <default>true</default>
         <summary>display photo tags</summary>
-        <description>True if photo tags are to be listed beneath thumbnails in collection views, false otherwise.</description>
+        <description>True if photo tags are to be listed beneath thumbnails in collection views, false otherwise</description>
     </key>
 
     <key name="display-photo-ratings" type="b">
         <default>true</default>
         <summary>display photo ratings</summary>
-        <description>True if a photo’s rating should be displayed as overlaid trinket, false otherwise.</description>
+        <description>True if a photo’s rating should be displayed as overlaid trinket, false otherwise</description>
     </key>
 
     <key name="photo-rating-filter" type="i">
         <default>0</default>
         <summary>rating filter level</summary>
-        <description>Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better.</description>
+        <description>Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better</description>
     </key>
 
     <key name="events-sort-ascending" type="b">
         <default>false</default>
         <summary>sort events ascending</summary>
-        <description>True if events should be sorted ascending, false if descending.</description>
+        <description>True if events should be sorted ascending, false if descending</description>
     </key>
 
     <key name="library-photos-sort-ascending" type="b">
         <default>false</default>
         <summary>sort library photos ascending</summary>
-        <description>True if library photos should be sorted ascending, false if descending.</description>
+        <description>True if library photos should be sorted ascending, false if descending</description>
     </key>
 
     <key name="library-photos-sort-by" type="i">
         <default>2</default>
         <summary>sort library photos criteria</summary>
-        <description>A numeric code that specifies the sort criteria for photos in library views.</description>
+        <description>A numeric code that specifies the sort criteria for photos in library views</description>
     </key>
 
     <key name="event-photos-sort-ascending" type="b">
         <default>true</default>
         <summary>sort event photos ascending</summary>
-        <description>True if event photos should be sorted ascending, false if descending.</description>
+        <description>True if event photos should be sorted ascending, false if descending</description>
     </key>
 
     <key name="event-photos-sort-by" type="i">
         <default>2</default>
         <summary>sort event photos criteria</summary>
-        <description>Specifies the sort criteria for event photos.</description>
+        <description>Specifies the sort criteria for event photos</description>
     </key>
 
     <key name="use-24-hour-time" type="b">
         <default>false</default>
         <summary>use 24 hour time</summary>
-        <description>True if should display times with a 24 hour clock, false if times should use AM/PM notation.</description>
+        <description>True if should display times with a 24 hour clock, false if times should use AM/PM notation</description>
     </key>
 
     <key name="keep-relativity" type="b">
         <default>true</default>
         <summary>keep relative time between photos</summary>
-        <description>True if when adjusting time/date of photos, relative time should be maintained.  False if all photos should be set to the same time.</description>
+        <description>True if when adjusting time/date of photos, relative time should be maintained.  False if all photos should be set to the same time</description>
     </key>
 
     <key name="modify-originals" type="b">
         <default>false</default>
         <summary>modify original photo files</summary>
-        <description>True if when adjusting time/date of photos, the original files should be modified as well.  False if changes are made only in the database.</description>
+        <description>True if when adjusting time/date of photos, the original files should be modified as well.  False if changes are made only in the database</description>
     </key>
 
     <key name="show-welcome-dialog" type="b">
         <default>true</default>
         <summary>show welcome dialog on startup</summary>
-        <description>True if, when on startup, a welcome dialog should be shown.  False if it should not be shown.</description>
+        <description>True if, when on startup, a welcome dialog should be shown.  False if it should not be shown</description>
     </key>
 
     <key name="sidebar-position" type="i">
@@ -153,25 +153,25 @@
     <key name="photo-thumbnail-scale" type="i">
         <default>128</default>
         <summary>photo thumbnail scale</summary>
-        <description>The scale of photo thumbnails, ranging from 72 to 360.</description>
+        <description>The scale of photo thumbnails, ranging from 72 to 360</description>
     </key>
 
     <key name="pin-toolbar-state" type="b">
         <default>false</default>
         <summary>pin toolbar state</summary>
-        <description>Pin toolbar in fullscreen, or not.</description>
+        <description>Pin toolbar in fullscreen, or not</description>
     </key>
 
     <key name="use-dark-theme" type="b">
         <default>true</default>
         <summary>prefer GTK+’s dark theme</summary>
-        <description>Whether to use the dark theme of GTK+ for Shotwell or not.</description>
+        <description>Whether to use the dark theme of GTK+ for Shotwell or not</description>
     </key>
 
     <key name="transparent-background-type" type="s">
         <default>'checkered'</default>
         <summary>background for transparent images</summary>
-        <description>The background to use for transparent images.</description>
+        <description>The background to use for transparent images</description>
     </key>
 
     <key name="transparent-background-color" type="s">
@@ -183,7 +183,7 @@
     <key name="hide-photos-already-imported" type="b">
         <default>false</default>
         <summary>Selection state of “hide photos” option</summary>
-        <description>Last used selection state of the “hide photos already imported” option in the import page.</description>
+        <description>Last used selection state of the “hide photos already imported” option in the import page</description>
     </key>
 </schema>
 
@@ -191,7 +191,7 @@
     <key name="delay" type="d">
         <default>3.0</default>
         <summary>delay</summary>
-        <description>Delay (in seconds) between photos in the slideshow.</description>
+        <description>Delay (in seconds) between photos in the slideshow</description>
     </key>
 
     <key name="transition-delay" type="d">
@@ -217,43 +217,43 @@
     <key name="library-maximize" type="b">
         <default>false</default>
         <summary>maximize library window</summary>
-        <description>True if library application is maximized, false otherwise.</description>
+        <description>True if library application is maximized, false otherwise</description>
     </key>
 
     <key name="library-width" type="i">
         <default>1024</default>
         <summary>width of library window</summary>
-        <description>The last recorded width of the library application window.</description>
+        <description>The last recorded width of the library application window</description>
     </key>
 
     <key name="library-height" type="i">
         <default>768</default>
         <summary>height of library window</summary>
-        <description>The last recorded height of the library application window.</description>
+        <description>The last recorded height of the library application window</description>
     </key>
 
     <key name="direct-maximize" type="b">
         <default>false</default>
         <summary>maximize direct-edit window</summary>
-        <description>True if direct-edit application is maximized, false otherwise.</description>
+        <description>True if direct-edit application is maximized, false otherwise</description>
     </key>
 
     <key name="direct-width" type="i">
         <default>1024</default>
         <summary>width of direct-edit window</summary>
-        <description>The last recorded width of the direct-edit application window.</description>
+        <description>The last recorded width of the direct-edit application window</description>
     </key>
 
     <key name="direct-height" type="i">
         <default>768</default>
         <summary>height of direct-edit window</summary>
-        <description>The last recorded height of the direct-edit application window.</description>
+        <description>The last recorded height of the direct-edit application window</description>
     </key>
 
     <key name="sidebar-position" type="i">
         <default>180</default>
         <summary>sidebar divider position</summary>
-        <description>The last recorded position of the divider between the sidebar and view in library application window.</description>
+        <description>The last recorded position of the divider between the sidebar and view in library application window</description>
     </key>
 </schema>
 
@@ -261,19 +261,19 @@
     <key name="import-dir" type="s">
         <default>""</default>
         <summary>import directory</summary>
-        <description>Directory in which imported photo files are placed.</description>
+        <description>Directory in which imported photo files are placed</description>
     </key>
 
     <key name="auto-import" type="b">
         <default>false</default>
         <summary>watch library directory for new files</summary>
-        <description>If true, files added to the library directory are automatically imported.</description>
+        <description>If true, files added to the library directory are automatically imported</description>
     </key>
 
     <key name="commit-metadata" type="b">
         <default>false</default>
         <summary>write metadata to master files</summary>
-        <description>If true, changes to metadata (tags, titles, etc.) are written to the master photo file.</description>
+        <description>If true, changes to metadata (tags, titles, etc.) are written to the master photo file</description>
     </key>
 
     <key name="use-lowercase-filenames" type="b">
@@ -285,37 +285,37 @@
     <key name="directory-pattern" type="s">
         <default>""</default>
         <summary>directory pattern</summary>
-        <description>A string encoding a naming pattern that will be used to name photo directories on import.</description>
+        <description>A string encoding a naming pattern that will be used to name photo directories on import</description>
     </key>
 
     <key name="directory-pattern-custom" type="s">
         <default>""</default>
         <summary>directory pattern custom</summary>
-        <description>A string encoding a custom naming pattern that will be used to name photo directories on import.</description>
+        <description>A string encoding a custom naming pattern that will be used to name photo directories on import</description>
     </key>
 
     <key name="raw-developer-default" type="s">
         <default>'CAMERA'</default>
         <summary>RAW developer default</summary>
-        <description>Default option for which RAW developer Shotwell will use.</description>
+        <description>Default option for which RAW developer Shotwell will use</description>
     </key>
 </schema>
 
 <schema id="org.gnome.shotwell.crop-settings">
     <key name="last-crop-menu-choice" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop aspect ratio menu choice.</summary>
-        <description>A numeric code representing the last crop menu choice the user made.</description>
+        <summary>Most-recently-used crop aspect ratio menu choice</summary>
+        <description>A numeric code representing the last crop menu choice the user made</description>
     </key>
     <key name="last-crop-width" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop custom aspect ratio’s numerator.</summary>
-        <description>A nonzero, positive integer representing the width part of the last custom crop ratio the user entered.</description>
+        <summary>Most-recently-used crop custom aspect ratio’s numerator</summary>
+        <description>A nonzero, positive integer representing the width part of the last custom crop ratio the user entered</description>
     </key>
     <key name="last-crop-height" type="i">
         <default>1</default>
-        <summary>Most-recently-used crop custom aspect ratio’s denominator.</summary>
-        <description>A nonzero, positive integer representing the height part of the last custom crop ratio the user entered.</description>
+        <summary>Most-recently-used crop custom aspect ratio’s denominator</summary>
+        <description>A nonzero, positive integer representing the height part of the last custom crop ratio the user entered</description>
     </key>
 </schema>
 
@@ -323,13 +323,13 @@
     <key name="external-photo-editor" type="s">
         <default>""</default>
         <summary>external photo editor</summary>
-        <description>External application used to edit photos.</description>
+        <description>External application used to edit photos</description>
     </key>
 
     <key name="external-raw-editor" type="s">
         <default>""</default>
         <summary>external raw editor</summary>
-        <description>External application used to edit RAW photos.</description>
+        <description>External application used to edit RAW photos</description>
     </key>
 </schema>
 
@@ -463,7 +463,7 @@
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
-        <description>The OAuth token used to refresh the Google Photos session for the currently logged in user, if any.</description>
+        <description>The OAuth token used to refresh the Google Photos session for the currently logged in user, if any</description>
     </key>
 
     <key name="default-size" type="i">
@@ -489,43 +489,43 @@
     <key name="url" type="s">
         <default>""</default>
         <summary>Piwigo URL</summary>
-        <description>URL of the Piwigo server.</description>
+        <description>URL of the Piwigo server</description>
     </key>
 
     <key name="username" type="s">
         <default>""</default>
         <summary>username</summary>
-        <description>Piwigo username, if logged in.</description>
+        <description>Piwigo username, if logged in</description>
     </key>
 
     <key name="password" type="s">
         <default>""</default>
         <summary>password</summary>
-        <description>Piwigo password, if logged in.</description>
+        <description>Piwigo password, if logged in</description>
     </key>
 
     <key name="remember-password" type="b">
         <default>false</default>
         <summary>remember password</summary>
-        <description>If true, remember the Piwigo password.</description>
+        <description>If true, remember the Piwigo password</description>
     </key>
 
     <key name="last-category" type="i">
         <default>-1</default>
         <summary>last category</summary>
-        <description>The last selected Piwigo category.</description>
+        <description>The last selected Piwigo category</description>
     </key>
 
     <key name="last-permission-level" type="i">
         <default>-1</default>
         <summary>last permission level</summary>
-        <description>The last chosen Piwigo permission level.</description>
+        <description>The last chosen Piwigo permission level</description>
     </key>
 
     <key name="last-photo-size" type="i">
         <default>-1</default>
         <summary>last photo size</summary>
-        <description>A numeric code representing the last photo size preset used when publishing to Piwigo.</description>
+        <description>A numeric code representing the last photo size preset used when publishing to Piwigo</description>
     </key>
 
     <key name="strip-metadata" type="b">
@@ -543,13 +543,13 @@
     <key name="last-no-upload-tags" type="b">
         <default>false</default>
         <summary>do not upload tags when uploading to Piwigo</summary>
-        <description>Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server.</description>
+        <description>Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server</description>
     </key>
 
     <key name="last-no-upload-ratings" type="b">
         <default>false</default>
         <summary>do not upload ratings when uploading to Piwigo</summary>
-        <description>Whether images being uploaded to Piwigo should have their ratings uploaded, such that these ratings will not appear on the remote Piwigo server.</description>
+        <description>Whether images being uploaded to Piwigo should have their ratings uploaded, such that these ratings will not appear on the remote Piwigo server</description>
     </key>
 </schema>
 
@@ -601,7 +601,7 @@
     <key name="refresh-token" type="s">
         <default>""</default>
         <summary>refresh token</summary>
-        <description>The OAuth token used to refresh the YouTube session for the currently logged in user, if any.</description>
+        <description>The OAuth token used to refresh the YouTube session for the currently logged in user, if any</description>
     </key>
 </schema>
 
@@ -673,13 +673,13 @@
     <key name="print-titles" type="b">
         <default>false</default>
         <summary>print titles</summary>
-        <description>True if the title of a photo should be printed when the photo is printed, false otherwise.</description>
+        <description>True if the title of a photo should be printed when the photo is printed, false otherwise</description>
     </key>
 
     <key name="titles-font" type="s">
         <default>"Sans Bold 12"</default>
         <summary>titles font</summary>
-        <description>The name of the font to use for photo titles when they are printed.</description>
+        <description>The name of the font to use for photo titles when they are printed</description>
     </key>
 </schema>
 
