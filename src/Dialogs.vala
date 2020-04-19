@@ -934,7 +934,7 @@ public Gtk.ResponseType copy_files_dialog() {
 
 public void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
     remove_from_app(photos, _("Remove From Library"),
-        (photos.size == 1) ? _("Removing Photo From Library") : _("Removing Photos From Library"));
+        ngettext("Removing Photo From Library", "Removing Photos From Library", photos.size));
 }
 
 public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
