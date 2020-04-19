@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-04-12 08:28+0000\n"
-"PO-Revision-Date: 2020-04-12 10:42+0200\n"
+"POT-Creation-Date: 2020-04-19 07:11+0000\n"
+"PO-Revision-Date: 2020-04-19 10:32+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -4721,13 +4721,12 @@ msgstr "Import do kolekcji"
 msgid "Remove From Library"
 msgstr "Usuń z kolekcji"
 
-#: src/Dialogs.vala:937 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:937 src/PhotoPage.vala:289
 msgid "Removing Photo From Library"
-msgstr "Usuwanie zdjęcia z kolekcji"
-
-#: src/Dialogs.vala:937
-msgid "Removing Photos From Library"
-msgstr "Usuwanie zdjęć z kolekcji"
+msgid_plural "Removing Photos From Library"
+msgstr[0] "Usuwanie zdjęcia z kolekcji"
+msgstr[1] "Usuwanie zdjęć z kolekcji"
+msgstr[2] "Usuwanie zdjęć z kolekcji"
 
 #: src/Dialogs.vala:951
 #, c-format
