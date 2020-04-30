@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-04-12 08:28+0000\n"
-"PO-Revision-Date: 2020-04-14 12:59+0200\n"
+"POT-Creation-Date: 2020-04-19 07:11+0000\n"
+"PO-Revision-Date: 2020-04-30 12:47+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -45,7 +45,6 @@ msgid "authentication token"
 msgstr "testigo de autenticación"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
-#| msgid "Yandex-Fotki authentication token, if logged in."
 msgid "Yandex-Fotki authentication token, if logged in"
 msgstr "Testigo de autenticación en Yandex-Fotki, si ha iniciado sesión"
 
@@ -113,12 +112,10 @@ msgid "Rajce URL"
 msgstr "URL de Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
-#| msgid "URL of the Rajce server."
 msgid "URL of the Rajce server"
 msgstr "URL del servidor Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
-#| msgid "Rajce username, if logged in."
 msgid "Rajce username, if logged in"
 msgstr "Nombre de usuario de Rajce, si ha iniciado sesión"
 
@@ -127,7 +124,6 @@ msgid "token"
 msgstr "testigo"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:59
-#| msgid "user token, if remembered."
 msgid "user token, if remembered"
 msgstr "testigo de usuario, si se recuerda"
 
@@ -137,7 +133,6 @@ msgid "last category"
 msgstr "última categoría"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:65
-#| msgid "The last selected Rajce category."
 msgid "The last selected Rajce category"
 msgstr "La última categoría de Rajce seleccionada"
 
@@ -147,9 +142,6 @@ msgid "last photo size"
 msgstr "último tamaño de foto"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
-#| msgid ""
-#| "A numeric code representing the last photo size preset used when "
-#| "publishing to Rajce."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Rajce"
@@ -162,7 +154,6 @@ msgid "remember"
 msgstr "recordar"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
-#| msgid "If true, remember last login."
 msgid "If true, remember last login"
 msgstr "Si es cierto, recordar el último inicio de sesión"
 
@@ -171,7 +162,6 @@ msgid "hide album"
 msgstr "ocultar álbum"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
-#| msgid "If true, hide the newly created Rajce album."
 msgid "If true, hide the newly created Rajce album"
 msgstr "Si es cierto, ocultar el nuevo álbum creado en Rajce"
 
@@ -206,8 +196,6 @@ msgid "display basic properties"
 msgstr "mostrar propiedades básicas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
-#| msgid ""
-#| "True if the basic properties pane is to be displayed, false otherwise."
 msgid "True if the basic properties pane is to be displayed, false otherwise"
 msgstr ""
 "Cierto si se muestra el panel de propiedades básicas, falso en otro caso"
@@ -217,9 +205,6 @@ msgid "display extended properties"
 msgstr "mostrar propiedades extendidas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:30
-#| msgid ""
-#| "True if the extended properties window is to be displayed, false "
-#| "otherwise."
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise"
 msgstr ""
@@ -230,7 +215,6 @@ msgid "display sidebar"
 msgstr "mostrar barra lateral"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:36
-#| msgid "True if the sidebar is to be displayed, false otherwise."
 msgid "True if the sidebar is to be displayed, false otherwise"
 msgstr "Cierto si se debe mostrar la barra lateral, falso en otro caso"
 
@@ -239,7 +223,6 @@ msgid "display toolbar"
 msgstr "mostrar barra de herramientas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:42
-#| msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
 msgstr ""
 "Cierto si se debe mostrar la barra de herramientas inferior, falso en otro "
@@ -250,7 +233,6 @@ msgid "display map widget"
 msgstr "mostrar widget de mapa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:48
-#| msgid "True if the map widget is to be displayed, false otherwise."
 msgid "True if the map widget is to be displayed, false otherwise"
 msgstr "Cierto si se debe mostrar el widget de mapa, falso en otro caso"
 
@@ -259,8 +241,6 @@ msgid "display search bar"
 msgstr "mostrar barra de búsqueda"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:54
-#| msgid ""
-#| "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
 msgstr ""
 "Cierto si se muestra la barra de herramientas de buscar/filtrar, falso en "
@@ -271,9 +251,6 @@ msgid "display photo titles"
 msgstr "mostrar títulos de las fotos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:60
-#| msgid ""
-#| "True if photo titles are to be displayed beneath thumbnails in collection "
-#| "views, false otherwise."
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -286,9 +263,6 @@ msgid "display photo comments"
 msgstr "mostrar comentarios de las fotos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:66
-#| msgid ""
-#| "True if photo comments are to be displayed beneath thumbnails in "
-#| "collection views, false otherwise."
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -301,9 +275,6 @@ msgid "display event comments"
 msgstr "mostrar comentarios del evento"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:72
-#| msgid ""
-#| "True if event comments are to be displayed beneath thumbnails in event "
-#| "views, false otherwise."
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise"
@@ -316,9 +287,6 @@ msgid "display photo tags"
 msgstr "mostrar etiquetas de las fotos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:78
-#| msgid ""
-#| "True if photo tags are to be listed beneath thumbnails in collection "
-#| "views, false otherwise."
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise"
@@ -331,9 +299,6 @@ msgid "display photo ratings"
 msgstr "mostrar puntuación de las fotos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:84
-#| msgid ""
-#| "True if a photo’s rating should be displayed as overlaid trinket, false "
-#| "otherwise."
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise"
@@ -345,10 +310,6 @@ msgid "rating filter level"
 msgstr "nivel de filtrado de puntuación"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:90
-#| msgid ""
-#| "Determines how to filter photos based on their ratings. 1: Rejected or "
-#| "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: "
-#| "Three or better, 6: Four or better, 7: Five or better."
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
@@ -363,7 +324,6 @@ msgid "sort events ascending"
 msgstr "ordenar eventos ascendentemente"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:96
-#| msgid "True if events should be sorted ascending, false if descending."
 msgid "True if events should be sorted ascending, false if descending"
 msgstr ""
 "Cierto si se deben clasificar los eventos ascendentemente, falso si "
@@ -374,8 +334,6 @@ msgid "sort library photos ascending"
 msgstr "ordenar fotos de la biblioteca ascendentemente"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:102
-#| msgid ""
-#| "True if library photos should be sorted ascending, false if descending."
 msgid "True if library photos should be sorted ascending, false if descending"
 msgstr ""
 "Cierto si se debe clasificar la biblioteca de fotos ascendentemente, falso "
@@ -386,9 +344,6 @@ msgid "sort library photos criteria"
 msgstr "criterio de ordenación de fotos en la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:108
-#| msgid ""
-#| "A numeric code that specifies the sort criteria for photos in library "
-#| "views."
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views"
 msgstr ""
@@ -400,8 +355,6 @@ msgid "sort event photos ascending"
 msgstr "ordenar fotos de eventos ascendentemente"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:114
-#| msgid ""
-#| "True if event photos should be sorted ascending, false if descending."
 msgid "True if event photos should be sorted ascending, false if descending"
 msgstr ""
 "Cierto si se deben ordenar las fotos de eventos ascendentemente, falso si es "
@@ -412,7 +365,6 @@ msgid "sort event photos criteria"
 msgstr "criterio de ordenación de las fotos de eventos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:120
-#| msgid "Specifies the sort criteria for event photos."
 msgid "Specifies the sort criteria for event photos"
 msgstr "Especifica el criterio de ordenación de las fotos de eventos"
 
@@ -421,9 +373,6 @@ msgid "use 24 hour time"
 msgstr "usar formato de 24 horas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:126
-#| msgid ""
-#| "True if should display times with a 24 hour clock, false if times should "
-#| "use AM/PM notation."
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation"
@@ -436,9 +385,6 @@ msgid "keep relative time between photos"
 msgstr "mantener el tiempo relativo entre fotos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:132
-#| msgid ""
-#| "True if when adjusting time/date of photos, relative time should be "
-#| "maintained. False if all photos should be set to the same time."
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time"
@@ -451,9 +397,6 @@ msgid "modify original photo files"
 msgstr "modificar archivos de fotos originales"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:138
-#| msgid ""
-#| "True if when adjusting time/date of photos, the original files should be "
-#| "modified as well. False if changes are made only in the database."
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database"
@@ -467,9 +410,6 @@ msgid "show welcome dialog on startup"
 msgstr "mostrar diálogo de bienvenida al inicio"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
-#| msgid ""
-#| "True if, when on startup, a welcome dialog should be shown. False if it "
-#| "should not be shown."
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown"
@@ -490,7 +430,6 @@ msgid "photo thumbnail scale"
 msgstr "escala de la miniatura de la foto"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:156
-#| msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgid "The scale of photo thumbnails, ranging from 72 to 360"
 msgstr "La escala de las miniaturas de las fotos, en un rango de 72 a 360"
 
@@ -499,7 +438,6 @@ msgid "pin toolbar state"
 msgstr "estado de anclaje de la barra de herramientas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:162
-#| msgid "Pin toolbar in fullscreen, or not."
 msgid "Pin toolbar in fullscreen, or not"
 msgstr "Anclar o no la barra de herramientas en modo a pantalla completa"
 
@@ -508,7 +446,6 @@ msgid "prefer GTK+’s dark theme"
 msgstr "preferir el tema oscuro de GTK+"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:168
-#| msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not"
 msgstr "Indica si se debe usar o no el tema oscuro de GTK+ para Shotwell"
 
@@ -517,7 +454,6 @@ msgid "background for transparent images"
 msgstr "fondo para imágenes transparentes"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:174
-#| msgid "The background to use for transparent images."
 msgid "The background to use for transparent images"
 msgstr "El fondo que usar para imágenes transparentes"
 
@@ -535,9 +471,6 @@ msgid "Selection state of “hide photos” option"
 msgstr "Estado de la selección de la opción «ocultar fotos»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:186
-#| msgid ""
-#| "Last used selection state of the “hide photos already imported” option in "
-#| "the import page."
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page"
@@ -550,7 +483,6 @@ msgid "delay"
 msgstr "retardo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:194
-#| msgid "Delay (in seconds) between photos in the slideshow."
 msgid "Delay (in seconds) between photos in the slideshow"
 msgstr "Retardo (en segundos) entre fotos en la presentación de diapositivas"
 
@@ -592,7 +524,6 @@ msgid "maximize library window"
 msgstr "maximizar ventana de biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:220
-#| msgid "True if library application is maximized, false otherwise."
 msgid "True if library application is maximized, false otherwise"
 msgstr ""
 "Cierto si la aplicación de biblioteca está maximizada, falso en otro caso"
@@ -602,7 +533,6 @@ msgid "width of library window"
 msgstr "anchura de la ventana de biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:226
-#| msgid "The last recorded width of the library application window."
 msgid "The last recorded width of the library application window"
 msgstr ""
 "La última anchura guardada de la ventana de la aplicación de biblioteca"
@@ -612,7 +542,6 @@ msgid "height of library window"
 msgstr "altura de la ventana de biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:232
-#| msgid "The last recorded height of the library application window."
 msgid "The last recorded height of the library application window"
 msgstr "La última altura guardada de la ventana de la aplicación de biblioteca"
 
@@ -621,7 +550,6 @@ msgid "maximize direct-edit window"
 msgstr "maximizar ventana de edición directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:238
-#| msgid "True if direct-edit application is maximized, false otherwise."
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr ""
 "Cierto si la ventana de edición directa está maximizada, falso en otro caso"
@@ -631,7 +559,6 @@ msgid "width of direct-edit window"
 msgstr "anchura de la ventana de edición directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:244
-#| msgid "The last recorded width of the direct-edit application window."
 msgid "The last recorded width of the direct-edit application window"
 msgstr "La última anchura guardada de la ventana de edición directa"
 
@@ -640,7 +567,6 @@ msgid "height of direct-edit window"
 msgstr "altura de la ventana de edición directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:250
-#| msgid "The last recorded height of the direct-edit application window."
 msgid "The last recorded height of the direct-edit application window"
 msgstr "La última altura guardada de la ventana de edición directa"
 
@@ -649,9 +575,6 @@ msgid "sidebar divider position"
 msgstr "posición del divisor de la barra lateral"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:256
-#| msgid ""
-#| "The last recorded position of the divider between the sidebar and view in "
-#| "library application window."
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
@@ -664,7 +587,6 @@ msgid "import directory"
 msgstr "importar carpeta"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:264
-#| msgid "Directory in which imported photo files are placed."
 msgid "Directory in which imported photo files are placed"
 msgstr "Carpeta en la que se guardan los archivos de fotos importadas"
 
@@ -673,8 +595,6 @@ msgid "watch library directory for new files"
 msgstr "vigilar carpeta de biblioteca en busca de archivos nuevos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:270
-#| msgid ""
-#| "If true, files added to the library directory are automatically imported."
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
@@ -686,9 +606,6 @@ msgid "write metadata to master files"
 msgstr "escribir metadatos en archivos maestros"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:276
-#| msgid ""
-#| "If true, changes to metadata (tags, titles, etc.) are written to the "
-#| "master photo file."
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
@@ -713,9 +630,6 @@ msgid "directory pattern"
 msgstr "patrón de carpetas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:288
-#| msgid ""
-#| "A string encoding a naming pattern that will be used to name photo "
-#| "directories on import."
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
@@ -728,9 +642,6 @@ msgid "directory pattern custom"
 msgstr "Patrón de carpetas personalizadas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:294
-#| msgid ""
-#| "A string encoding a custom naming pattern that will be used to name photo "
-#| "directories on import."
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
@@ -743,33 +654,26 @@ msgid "RAW developer default"
 msgstr "desarrollador RAW predeterminado"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
-#| msgid "Default option for which RAW developer Shotwell will use."
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr "Opción predeterminada que utilizará el desarrollador RAW Shotwell"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:307
-#| msgid "Most-recently-used crop aspect ratio menu choice."
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "Elección más reciente del menú de relación de aspecto del recorte"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:308
-#| msgid "A numeric code representing the last crop menu choice the user made."
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "Un código numérico que representa la última elección del menú de recortar "
 "que hizo el usuario"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:312
-#| msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr ""
 "Numerador utilizado más recientemente de relación de aspecto del recorte "
 "personalizado"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:313
-#| msgid ""
-#| "A nonzero, positive integer representing the width part of the last "
-#| "custom crop ratio the user entered."
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
@@ -778,16 +682,12 @@ msgstr ""
 "relación del recorte personalizado que el usuario introdujo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:317
-#| msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr ""
 "Denominador utilizado más recientemente de relación de aspecto del recorte "
 "personalizado"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:318
-#| msgid ""
-#| "A nonzero, positive integer representing the height part of the last "
-#| "custom crop ratio the user entered."
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
@@ -800,7 +700,6 @@ msgid "external photo editor"
 msgstr "editor de fotos externo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:326
-#| msgid "External application used to edit photos."
 msgid "External application used to edit photos"
 msgstr "Aplicación externa usada para editar fotos"
 
@@ -809,7 +708,6 @@ msgid "external raw editor"
 msgstr "editor RAW externo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:332
-#| msgid "External application used to edit RAW photos."
 msgid "External application used to edit RAW photos"
 msgstr "Aplicación externa usada para editar fotos RAW"
 
@@ -935,9 +833,6 @@ msgid "refresh token"
 msgstr "actualizar testigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
-#| msgid ""
-#| "The OAuth token used to refresh the Google Photos session for the "
-#| "currently logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -977,12 +872,10 @@ msgid "Piwigo URL"
 msgstr "URL de Pigwio"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:492
-#| msgid "URL of the Piwigo server."
 msgid "URL of the Piwigo server"
 msgstr "URL del servidor Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:498
-#| msgid "Piwigo username, if logged in."
 msgid "Piwigo username, if logged in"
 msgstr "Nombre de usuario de Piwigo, si ha iniciado sesión"
 
@@ -991,7 +884,6 @@ msgid "password"
 msgstr "contraseña"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:504
-#| msgid "Piwigo password, if logged in."
 msgid "Piwigo password, if logged in"
 msgstr "Contraseña de Piwigo, si ha iniciado sesión"
 
@@ -1000,12 +892,10 @@ msgid "remember password"
 msgstr "recortar contraseña"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:510
-#| msgid "If true, remember the Piwigo password."
 msgid "If true, remember the Piwigo password"
 msgstr "Si es cierto, recordar la contraseña de Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:516
-#| msgid "The last selected Piwigo category."
 msgid "The last selected Piwigo category"
 msgstr "La última categoría de Piwigo seleccionada"
 
@@ -1014,14 +904,10 @@ msgid "last permission level"
 msgstr "último nivel de permisos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:522
-#| msgid "The last chosen Piwigo permission level."
 msgid "The last chosen Piwigo permission level"
 msgstr "El último nivel de privilegios elegido el Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:528
-#| msgid ""
-#| "A numeric code representing the last photo size preset used when "
-#| "publishing to Piwigo."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -1057,9 +943,6 @@ msgid "do not upload tags when uploading to Piwigo"
 msgstr "no subir etiquetas al subir a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:546
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their tags removed on "
-#| "upload, such that these tags will not appear on the remote Piwigo server."
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -1072,10 +955,6 @@ msgid "do not upload ratings when uploading to Piwigo"
 msgstr "no subir puntuaciones al subir a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their ratings "
-#| "uploaded, such that these ratings will not appear on the remote Piwigo "
-#| "server."
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -1132,9 +1011,6 @@ msgstr ""
 "de la restricción de escala tiene un valor adecuado"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
-#| msgid ""
-#| "The OAuth token used to refresh the YouTube session for the currently "
-#| "logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -1253,9 +1129,6 @@ msgid "print titles"
 msgstr "imprimir títulos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:676
-#| msgid ""
-#| "True if the title of a photo should be printed when the photo is printed, "
-#| "false otherwise."
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
@@ -1268,7 +1141,6 @@ msgid "titles font"
 msgstr "tipografía de los títulos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:682
-#| msgid "The name of the font to use for photo titles when they are printed."
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "El nombre de la tipografía que usar cuando se imprimen los títulos"
 
@@ -4771,12 +4643,11 @@ msgid "Remove From Library"
 msgstr "Quitar de la colección"
 
 #: src/Dialogs.vala:937 src/PhotoPage.vala:2897
+#| msgid "Removing Photo From Library"
 msgid "Removing Photo From Library"
-msgstr "Quitando la foto de la colección"
-
-#: src/Dialogs.vala:937
-msgid "Removing Photos From Library"
-msgstr "Quitando fotos de la colección"
+msgid_plural "Removing Photos From Library"
+msgstr[0] "Quitando foto de la colección"
+msgstr[1] "Quitando fotos de la colección"
 
 #: src/Dialogs.vala:951
 #, c-format
@@ -6761,6 +6632,9 @@ msgstr "sin título"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "Exportar vídeos"
+
+#~ msgid "Removing Photos From Library"
+#~ msgstr "Quitando fotos de la colección"
 
 #~ msgid "Token"
 #~ msgstr "Testigo"
