@@ -99,7 +99,7 @@ internal class YouTubeAuthorizer : GData.Authorizer, Object {
     }
 
     public bool is_authorized_for_domain(GData.AuthorizationDomain domain) {
-        return true;
+        return domain.scope.has_suffix ("auth/youtube");
     }
 
     public void process_request(GData.AuthorizationDomain? domain,
