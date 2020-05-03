@@ -27,6 +27,7 @@ yelp_pages = [
     'other-missing.page',
     'other-multiple.page',
     'other-plugins.page',
+    'privacy-policy.page',
     'raw.page',
     'running.page',
     'share-background.page',
