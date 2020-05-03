@@ -1,3 +1,14 @@
+Shotwell 0.30.9 - 03 May 2020
+ * Fix YouTube OAuth scope
+ * Translation updates
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+
+Added/updated translations:
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.30.8 - 03 Jan 2020
   * Fix keyboard shortcut for adding tags
   * Fix Tumblr publishing
