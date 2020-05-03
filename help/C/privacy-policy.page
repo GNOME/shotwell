@@ -1,6 +1,6 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="topic"
-      id="google-privacy">
+      id="privacy-policy">
   <info>
     <link type="guide" xref="share-upload" />
   </info>
@@ -17,7 +17,7 @@
       </p>
     </section>
     <section id="google-photos-permissions">
-      <title>Permissions You Grant Shotwell for Google Photos</title>
+      <title>Permissions you Grant Shotwell for Google Photos</title>
       <p>By using Shotwell, you grant the Shotwell Connect application to publish photos on your Google Photos account. It will download the list of available albums to allow you to chose an existing album to upload to, it can create albums on your behalf. Other than creating albums and uploading photos, Shotwell does no modification whatsoever to the existing data on Google Photos
       </p>
     </section>
@@ -29,7 +29,7 @@
       </p>
     </section>
     <section id="flickr-permissions">
-    <title>Permissions you grat Shotwell for Flickr</title>
+    <title>Permissions you grant Shotwell for Flickr</title>
     <p>By using Shotwell, you grant the Shotwell Connect application acces to publish photos to your Flickr account. It will download the list of available albums to allow you to chose an existing album to upload to. It can also create new albums on your behalf. Other than creating albums and uploading photos, Shotwell does not modification whatsoever to the existing data on your Flickr account.</p>
     </section>
   </section>
