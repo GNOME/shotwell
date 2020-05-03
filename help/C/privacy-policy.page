@@ -23,6 +23,7 @@
     </section>
   </section>
   <section id="flickr"><title>Flickr</title>
+  <section id="flickr-information-storage">
       <title>Information Shotwell Stores and Transmits About You</title>
       <p>The Shotwell Connect application and its data store reside locally on your personal computer. During the course of its operation, Shotwell Connect may store an authentication token that it receives from Flickr on your computer. This authentication token is simply a session-identifying sequence of letters and numbers. It contains no password, user name, or other personal information. At no time does Shotwell Connect transmit any information to the GNOME foundation, the Software Freedom Convervancy or any of the developers of the Shotwell Connect Application for Flickr.
       </p>
