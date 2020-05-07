@@ -485,7 +485,7 @@
     </key>
 </schema>
 
-<schema id="org.gnome.shotwell.sharing.org-yorba-shotwell-publishing-piwigo">
+<schema id="org.gnome.shotwell.sharing.org-gnome-shotwell-publishing-piwigo">
     <key name="url" type="s">
         <default>""</default>
         <summary>Piwigo URL</summary>
@@ -700,7 +700,7 @@
         <description>True if the Flickr publishing plugin is enabled, false otherwise</description>
     </key>
 
-    <key name="org-gnome-shotwell-publishing-google-photos" type="b">
+    <key name="publishing-google-photos" type="b">
         <default>true</default>
         <summary>enable Google Photos publishing plugin</summary>
         <description>True if the Google Photos publishing plugin is enabled, false otherwise</description>
