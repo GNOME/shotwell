@@ -25,6 +25,24 @@ namespace Shotwell.Plugins.Common {
             this.webview.load_changed.connect (this.on_page_load_changed);
             this.webview.load_failed.connect (this.on_page_load_failed);
             this.webview.context_menu.connect ( () => { return false; });
+            this.webview.decide_policy.connect (this.on_decide_policy);
+        }
+
+        private bool on_decide_policy(WebKit.PolicyDecision decision, WebKit.PolicyDecisionType type) {
+            switch (type) {
+                case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION: {
+                    var navigation = (WebKit.NavigationPolicyDecision) decision;
+                    var action = navigation.get_navigation_action();
+                    var uri = action.get_request().uri;
+                    decision.ignore();
+                    AppInfo.launch_default_for_uri_async.begin(uri, null);
+                    return true;
+                }
+                default:
+                    break;
+            }
+
+            return false;
         }
 
         public abstract void on_page_load ();
