@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interface>
-  <!-- interface-requires gtk+ 3.0 -->
+<!-- Generated with glade 3.22.2 -->
+<interface domain="shotwell">
+  <requires lib="gtk+" version="3.22"/>
   <object class="GtkBox" id="youtube_pane_widget">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -19,22 +20,7 @@
         <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="padding">4</property>
-        <property name="position">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="publish_to_label">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_top">8</property>
-        <property name="margin_bottom">64</property>
-        <property name="label" comments="This string does not require translation and may be safely skipped.">videos will appear in
-(populated in the application code.)</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">2</property>
+        <property name="position">0</property>
       </packing>
     </child>
     <child>
@@ -81,7 +67,7 @@
         <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="padding">4</property>
-        <property name="position">3</property>
+        <property name="position">1</property>
       </packing>
     </child>
     <child>
@@ -97,7 +83,6 @@
         <child>
           <object class="GtkButton" id="logout_button">
             <property name="label" translatable="yes">_Logout</property>
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -113,7 +98,6 @@
         <child>
           <object class="GtkButton" id="publish_button">
             <property name="label" translatable="yes">_Publish</property>
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -130,7 +114,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">4</property>
+        <property name="position">2</property>
       </packing>
     </child>
   </object>
