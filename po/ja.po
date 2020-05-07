@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2020-05-02 06:44+0000\n"
-"PO-Revision-Date: 2020-02-15 23:00+0900\n"
+"PO-Revision-Date: 2020-05-07 21:15+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -606,10 +606,8 @@ msgid "external photo editor"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:326
-#, fuzzy
-#| msgid "E_xternal photo editor:"
 msgid "External application used to edit photos"
-msgstr "外部のフォトエディター(_X):"
+msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:331
 msgid "external raw editor"
@@ -2647,8 +2645,7 @@ msgid ""
 msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:623
-#, fuzzy, c-format
-#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
+#, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded a file"
@@ -2656,7 +2653,7 @@ msgid_plural ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded %d files"
 msgstr[0] ""
-"あなたのFlickr Proアカウントは無制限のアップロード容量が与えられています。"
+
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -2893,15 +2890,15 @@ msgstr "管理者"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
 msgid "This connection is not secure"
-msgstr ""
+msgstr "この接続は安全ではありません"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
 msgid "Show the certificate…"
-msgstr ""
+msgstr "証明書を表示…"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
 msgid "I understand, please _proceed."
-msgstr ""
+msgstr "続行(_P)"
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:53
 msgid "Core Publishing Services"
@@ -3038,12 +3035,12 @@ msgstr "データサブディレクトリ %s を作成できません: %s"
 #: src/AppDirs.vala:236
 #, c-format
 msgid "Could not make directory %s writable"
-msgstr ""
+msgstr "ディレクトリ %s を書き込み可能にできませんでした"
 
 #: src/AppDirs.vala:239
 #, c-format
 msgid "Could not make directory %s writable: %s"
-msgstr ""
+msgstr "ディレクトリ %s を書き込み可能にできませんでした: %s"
 
 #: src/AppWindow.vala:47
 msgid "Pin Toolbar"
@@ -4347,8 +4344,6 @@ msgid "Remove From Library"
 msgstr "ライブラリから削除"
 
 #: src/Dialogs.vala:937 src/PhotoPage.vala:2897
-#, fuzzy
-#| msgid "Removing Photo From Library"
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "ライブラリから写真を削除しています"
