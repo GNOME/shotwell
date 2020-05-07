@@ -47,7 +47,7 @@ internal class PublishingParameters {
         return target_album_name;
     }
 
-    public void set_target_album_name(string target_album_name) {
+    public void set_target_album_name(string? target_album_name) {
         this.target_album_name = target_album_name;
     }
 
