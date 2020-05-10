@@ -8,18 +8,33 @@
   <section id="google"><title>Google</title>
     <section id="google-information-storage">
       <title>Information Shotwell Stores and Transmits About You</title>
-      <p>The Shotwell Connect application and its data store reside locally on your personal computer. During the course of its operation, Shotwell Connect may store an authentication token that it receives from YouTube and Google Photos on your computer. This authentication token is simply a session-identifying sequence of letters and numbers. It contains no password, user name, or other personal information. At no time does Shotwell Connect transmit any information to the GNOME foundation, the Software Freedom Convervancy or any of the developers of the Shotwell Connect Application for Google services.
+      <p>The Shotwell Connect application and its data store reside locally on your personal computer.</p>
+      <p>During the course of its operation, Shotwell Connect may store an authentication token that it receives from YouTube and Google Photos on your computer. This authentication token is simply a session-identifying sequence of letters and numbers. It contains no password, user name, or other personal information.</p>
+      <p>At no time does Shotwell Connect transmit any information to the GNOME foundation, the Software Freedom Convervancy or any of the developers of the Shotwell Connect Application for Google services.
       </p>
+      <p>For Google's own privacy policy, please refer to <link href="https://policies.google.com/privacy">https://policies.google.com/privacy</link></p>
+    </section>
+    <section id="google-youtube">
+    <title>YouTube</title>
+    <p>Shotwell uses the YouTube API services <link href="https://developers.google.com/youtube">https://developers.google.com/youtube</link> for accessing your YouTube channel and upload the videos.</p>
+    <section id="google-youtube-terms">
+      <title>YouTube terms and permissions</title>
+      <p>By using Shotwell to access YouTube, you agree to be bound to the YouTube Terms of Service as available at <link href="https://www.youtube.com/t/terms">https://www.youtube.com/t/terms</link></p>
     </section>
     <section id="google-youtube-permissions">
       <title>Permissions you grant Shotwell for YouTube</title>
       <p>By using Shotwell, you grant the Shotwell Connect application permission to publish videos to your YouTube channel. Other than uploading videos, Shotwell does not insert, modify or remove any information from your YouTube account and channel.
       </p>
     </section>
-    <section id="google-photos-permissions">
-      <title>Permissions you Grant Shotwell for Google Photos</title>
-      <p>By using Shotwell, you grant the Shotwell Connect application to publish photos on your Google Photos account. It will download the list of available albums to allow you to chose an existing album to upload to, it can create albums on your behalf. Other than creating albums and uploading photos, Shotwell does no modification whatsoever to the existing data on Google Photos
-      </p>
+    </section>
+    <section id="google-photos">
+      <title>Google Photos</title>
+      <p>Shotwell uses the Google Photos API services <link href="https://developers.google.com/photos/">https://developers.google.com/photos/</link> for all interaction with your Google Photos data</p>
+      <section id="google-photos-permissions">
+        <title>Permissions you Grant Shotwell for Google Photos</title>
+        <p>By using Shotwell, you grant the Shotwell Connect application to publish photos on your Google Photos account. It will download the list of available albums to allow you to chose an existing album to upload to, it can create albums on your behalf. Other than creating albums and uploading photos, Shotwell does no modification whatsoever to the existing data on Google Photos
+        </p>
+      </section>
     </section>
   </section>
   <section id="flickr"><title>Flickr</title>
