@@ -8,16 +8,26 @@ using Spit.Publishing;
 namespace Shotwell.Plugins.Common {
     public abstract class WebAuthenticationPane : Spit.Publishing.DialogPane, Object {
         public DialogPane.GeometryOptions preferred_geometry {
-            get; construct; default = DialogPane.GeometryOptions.NONE;
+            get; construct; default = DialogPane.GeometryOptions.COLOSSAL_SIZE;
         }
 
         public string login_uri { owned get; construct; }
         public Error load_error { get; private set; default = null; }
 
         private WebKit.WebView webview;
+        private Gtk.Widget widget;
+        private Gtk.Entry entry;
 
         public override void constructed () {
             base.constructed ();
+
+            var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 4);
+            this.widget = box;
+            this.entry = new Gtk.Entry();
+            this.entry.editable = false;
+            this.entry.get_style_context().add_class("flat");
+            this.entry.get_style_context().add_class("read-only");
+            box.pack_start (entry, false, false, 6);
 
             this.webview = new WebKit.WebView ();
             this.webview.get_settings ().enable_plugins = false;
@@ -26,6 +36,8 @@ namespace Shotwell.Plugins.Common {
             this.webview.load_failed.connect (this.on_page_load_failed);
             this.webview.context_menu.connect ( () => { return false; });
             this.webview.decide_policy.connect (this.on_decide_policy);
+            this.webview.bind_property("uri", this.entry, "text", GLib.BindingFlags.DEFAULT);
+            box.pack_end (this.webview);
         }
 
         private bool on_decide_policy(WebKit.PolicyDecision decision, WebKit.PolicyDecisionType type) {
@@ -96,7 +108,7 @@ namespace Shotwell.Plugins.Common {
         }
 
         public Gtk.Widget get_widget() {
-            return this.webview;
+            return this.widget;
         }
 
         public void on_pane_installed () {
