@@ -42,6 +42,40 @@
     ],
     "modules" : [
         {
+            "name" : "opencv",
+            "buildsystem" : "cmake-ninja",
+            "builddir" : true,
+            "cleanup" : [
+                "/share/OpenCV/*.cmake",
+                "/share/OpenCV/*.supp"
+            ],
+            "config-opts" : [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DOPENCV_GENERATE_PKGCONFIG=ON",
+                "-DBUILD_TESTS=OFF",
+                "-DBUILD_EXAMPLES=OFF",
+                "-DBUILD_PERF_TESTS=OFF",
+                "-DWITH_FFMPEG=OFF",
+                "-DWITH_GTK=OFF",
+                "-DWITH_GSTREAMER=OFF",
+                "-DWITH_JASPER=OFF",
+                "-DWITH_OPENEXR=OFF",
+                "-DWITH_GDAL=OFF",
+                "-DWITH_GDCM=OFF",
+                "-DBUILD_opencv_apps=OFF",
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DBUILD_LIST=imgproc,imgcodecs,objdetect,dnn"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "tag" : "4.3.0",
+                    "commit" : "01b2c5a77ca6dbef3baef24ebc0a5984579231d9",
+                    "url" : "https://github.com/opencv/opencv"
+                }
+            ]
+        },
+        {
             "name" : "libusb",
             "sources" : [
                 {
@@ -102,6 +136,44 @@
             ]
         },
         {
+            "name" : "libraw",
+            "config-opts" : [
+                "--disable-examples",
+                "--disable-static"
+            ],
+            "cleanup" : [
+                "/share/doc"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://www.libraw.org/data/LibRaw-0.19.5.tar.gz",
+                    "sha256" : "40a262d7cc71702711a0faec106118ee004f86c86cc228281d12d16da03e02f5"
+                },
+                {
+                    "type" : "patch",
+                    "path" : "patches/libraw-pkgconfig.patch"
+                }
+            ]
+        },
+        {
+            "name" : "libchamplain",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dvapi=true",
+                "-Dintrospection=true",
+                "-Dwidgetry=true"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "tag" : "LIBCHAMPLAIN_0_12_20",
+                    "commit" : "145e417f32e507b63c21ad4e915b808a6174099e",
+                    "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git"
+                }
+            ]
+        },
+        {
             "name" : "exiv2",
             "cleanup" : [
                 "/bin"
@@ -143,78 +215,6 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/gexiv2.git/"
-                }
-            ]
-        },
-        {
-            "name" : "libraw",
-            "config-opts" : [
-                "--disable-examples",
-                "--disable-static"
-            ],
-            "cleanup" : [
-                "/share/doc"
-            ],
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://www.libraw.org/data/LibRaw-0.19.5.tar.gz",
-                    "sha256" : "40a262d7cc71702711a0faec106118ee004f86c86cc228281d12d16da03e02f5"
-                },
-                {
-                    "type" : "patch",
-                    "path" : "patches/libraw-pkgconfig.patch"
-                }
-            ]
-        },
-        {
-            "name" : "opencv",
-            "buildsystem" : "cmake-ninja",
-            "builddir" : true,
-            "cleanup" : [
-                "/share/OpenCV/*.cmake",
-                "/share/OpenCV/*.supp"
-            ],
-            "config-opts" : [
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DOPENCV_GENERATE_PKGCONFIG=ON",
-                "-DBUILD_TESTS=OFF",
-                "-DBUILD_EXAMPLES=OFF",
-                "-DBUILD_PERF_TESTS=OFF",
-                "-DWITH_FFMPEG=OFF",
-                "-DWITH_GTK=OFF",
-                "-DWITH_GSTREAMER=OFF",
-                "-DWITH_JASPER=OFF",
-                "-DWITH_OPENEXR=OFF",
-                "-DWITH_GDAL=OFF",
-                "-DWITH_GDCM=OFF",
-                "-DBUILD_opencv_apps=OFF",
-                "-DCMAKE_INSTALL_LIBDIR=lib",
-                "-DBUILD_LIST=imgproc,imgcodecs,objdetect,dnn"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "tag" : "4.3.0",
-                    "commit" : "01b2c5a77ca6dbef3baef24ebc0a5984579231d9",
-                    "url" : "https://github.com/opencv/opencv"
-                }
-            ]
-        },
-        {
-            "name" : "libchamplain",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dvapi=true",
-                "-Dintrospection=true",
-                "-Dwidgetry=true"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "tag" : "LIBCHAMPLAIN_0_12_20",
-                    "commit" : "145e417f32e507b63c21ad4e915b808a6174099e",
-                    "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git"
                 }
             ]
         },
