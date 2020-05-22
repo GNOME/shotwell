@@ -1,3 +1,63 @@
+Shotwell 0.31.2 - 22 May 2020
+  * Documentation updates and clean-up
+  * Drop obsolete settings
+  * Add WEBP and GIF to viewer's desktop file
+  * Use new mapbox tiles for the map view
+  * Flickr: Upload description and title
+  * General OAuth1 clean-up and simplifications
+  * Flickr: Show the new quotas (images uploaded)
+  * Make face detection and recognition compatible with OpenCV 4
+  * Fix shortcuts for previous/next photo in menus
+  * Migrate GSettings from org.yorba to org.gnome
+  * Fix initialization of the theme being too late
+  * Bring some consistency into the settings summaries and descriptions
+  * Google Photos: Fix a critical when target album is not available
+  * YouTube: Remove an obsolete label from the publishing dialog
+  * Authenticator: Make links in the shown web page open in external browser
+  * Google Photos/YouTube: Update explanatory texts before log in.
+  * Flickr: Fix the log in
+  * Many translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/157
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/193
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/212
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/216
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/217
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/221
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/223
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/226
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/242
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/33
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - sicklylife <translation@sicklylife.jp>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Andre Klapper <a9016009@gmx.de>
+ - Justin van Steijn <jvs@fsfe.org>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - scootergrisen <scootergrisen@gmail.com>
+
+Added/updated translations:
+ - es.po, courtesy of Daniel Mustieles
+ - id.po, courtesy of Kukuh Syafaat
+ - ja.po, courtesy of sicklylife
+ - nl.po, courtesy of Justin van Steijn
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - sv.po, courtesy of Anders Jonsson
+ - te.po, courtesy of Krishnababu Krothapalli
+ - uk.po, courtesy of Yuri Chornoivan
+ - zh_TW.po, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.31.1 - 4 Mar 2020
   * Fix an issue when pressing the down key in a slideshow
   * Face recognition: Properly fall back to face detection when there is no DNN
