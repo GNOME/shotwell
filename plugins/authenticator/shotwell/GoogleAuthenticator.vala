@@ -371,6 +371,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             host.set_config_string("refresh_token", session.refresh_token);
 
             this.authenticated();
+            web_auth_pane.clear();
         }
 
 
@@ -387,7 +388,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             try {
                 txn.execute();
             } catch (Spit.Publishing.PublishingError err) {
-                    host.post_error(err);
+                host.post_error(err);
             }
         }
 
@@ -420,6 +421,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 Idle.add (() => { this.authenticate(); return false; });
             }
 
+            web_auth_pane.clear();
             host.post_error(err);
         }
 
