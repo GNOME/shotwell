@@ -1,3 +1,9 @@
+Shotwell 0.30.10 - 22 May 2020
+ * Modify web publishing authentication to comply with Google's requirements
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 0.30.9 - 03 May 2020
  * Fix YouTube OAuth scope
  * Translation updates
