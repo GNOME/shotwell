@@ -58,7 +58,7 @@ public Gdk.Pixbuf[]? load_from_resource (string resource_path) {
     Gdk.Pixbuf? icon = null;
     try {
         debug ("Loading icon from %s", resource_path);
-        icon = new Gdk.Pixbuf.from_resource_at_scale (resource_path, 24, 24, true);
+        icon = new Gdk.Pixbuf.from_resource_at_scale (resource_path, -1, 24, true);
     } catch (Error error) {
         warning ("Couldn't load icon set from %s: %s", resource_path, error.message);
     }
