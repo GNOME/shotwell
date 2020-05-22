@@ -21,7 +21,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         public AuthenticationRequestTransaction(Publishing.RESTSupport.OAuth1.Session session) {
             base.with_uri(session, "https://www.flickr.com/services/oauth/request_token",
                     Publishing.RESTSupport.HttpMethod.GET);
-            add_argument("oauth_callback", "shotwell-auth%3A%2F%2Flocal-callback");
+            add_argument("oauth_callback", "shotwell-auth://local-callback");
         }
     }
 
@@ -31,7 +31,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
                     Publishing.RESTSupport.HttpMethod.GET);
             add_argument("oauth_verifier", user_verifier);
             add_argument("oauth_token", session.get_request_phase_token());
-            add_argument("oauth_callback", "shotwell-auth%3A%2F%2Flocal-callback");
+            add_argument("oauth_callback", "shotwell-auth://local-callback");
         }
     }
 
