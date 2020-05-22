@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-03-14 23:14+0000\n"
-"PO-Revision-Date: 2020-03-29 13:53+0300\n"
+"POT-Creation-Date: 2020-05-22 10:46+0000\n"
+"PO-Revision-Date: 2020-05-22 13:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.03.70\n"
+"X-Generator: Lokalize 20.07.70\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -57,9 +57,6 @@ msgstr ""
 "та виправлення помилок."
 
 #: misc/shotwell.appdata.xml.in:18
-#| msgid ""
-#| "When ready, Shotwell can upload your photos to various web sites, such as "
-#| "Facebook, Flickr, Picasa (Google Plus), and more."
 msgid ""
 "When ready, Shotwell can upload your photos to various web sites, such as "
 "Facebook, Flickr, Google Photos, and more."
@@ -925,9 +922,6 @@ msgid "refresh token"
 msgstr "ключ освіження"
 
 #: misc/org.yorba.shotwell.gschema.xml:493
-#| msgid ""
-#| "The OAuth token used to refresh the YouTube session for the currently "
-#| "logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any."
@@ -936,9 +930,6 @@ msgstr ""
 "поточного користувача у системі, якщо такий є."
 
 #: misc/org.yorba.shotwell.gschema.xml:499
-#| msgid ""
-#| "A numeric code representing the default size for photos uploaded to "
-#| "Picasa Web Albums"
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -959,9 +950,6 @@ msgstr ""
 "такий є"
 
 #: misc/org.yorba.shotwell.gschema.xml:511
-#| msgid ""
-#| "Whether images being uploaded to Facebook should have their metadata "
-#| "removed first"
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -1250,12 +1238,10 @@ msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "True, якщо додаток оприлюднення на Flickr увімкнено; false, якщо ні"
 
 #: misc/org.yorba.shotwell.gschema.xml:726
-#| msgid "enable facebook publishing plugin"
 msgid "enable Google Photos publishing plugin"
 msgstr "увімкнути додаток оприлюднення на Google Фото"
 
 #: misc/org.yorba.shotwell.gschema.xml:727
-#| msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо додаток оприлюднення на Google Фото увімкнено; false, якщо ні"
@@ -1502,37 +1488,80 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Ви ще не увійшли до системи веб-альбомів YouTube.\n"
+"to log into the YouTube site at least once.\n"
 "\n"
-"Щоб продовжити процес вивантаження вам слід мати зареєстрований і "
-"налаштований на використання YouTube обліковий запис Google. Для "
-"налаштування більшості облікових записів достатньо скористатися ними "
-"принаймні один раз для входу до системи YouTube."
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
+msgstr ""
+"Ви не увійшли до облікового запису YouTube.\n"
+"\n"
+"Вам слід зареєструвати обліковий запис Google і налаштувати його, щоб"
+" продовжити користуватися YouTube. Ви можете налаштувати більшість облікових"
+" записів, увійшовши до облікового запису на сайті YouTube принаймні один"
+" раз.\n"
+"\n"
+"Shotwell використовує служби програмних інтерфейсів YouTube <a"
+" href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> для доступу до вашого"
+" каналу YouTube та вивантаження відео. Користуючись Shotwell для доступу до"
+" YouTube, ви погоджуєтеся із умовами надання послуг YouTube, які викладено на"
+" сторінці <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Правила конфіденційності Shotwell, які стосуються даних, пов'язаних із вашим"
+" обліковим записом Google загалом та YouTube зокрема, наведено на нашій <a"
+" href="
+"\"help:shotwell/privacy-policy\">сторінці правил конфіденційності щодо"
+" інтернет-служб</a>\n"
+"\n"
+"Щоб ознайомитися із власними правилами конфіденційності Google, будь ласка,"
+" зверніться до сторінки <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
-#| msgid ""
-#| "You are not currently logged into YouTube.\n"
-#| "\n"
-#| "You must have already signed up for a Google account and set it up for "
-#| "use with YouTube to continue. You can set up most accounts by using your "
-#| "browser to log into the YouTube site at least once."
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data.You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
+"Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
-"Ви ще не увійшли до системи альбомів Google Фото.\n"
+"Ви не увійшли до облікового запису Google Фото.\n"
 "\n"
-"Щоб продовжити процес вивантаження вам слід мати зареєстрований і "
-"налаштований на використання Google Фото обліковий запис Google.\n"
+"Вам слід зареєструвати обліковий запис Google і налаштувати його, щоб"
+" продовжити користуватися Google Фото. Shotwell використовує служби"
+" програмних інтерфейсів Google Фото <a href=\"https://developers.google.com/ph"
+"otos/\">https://developers.google.com/photos/</a> для обміну даними з Google"
+" Фото. Вам слід надати Shotwell доступ до вашої бібліотеки Google Фото.\n"
 "\n"
-"Вам слід уповноважити Shotwell на використання вашого облікового запису "
-"Google Фото."
+"Правила конфіденційності Shotwell, які стосуються даних, пов'язаних із вашим"
+" обліковим записом Google загалом та Google Фото зокрема, наведено на нашій <"
+"a href="
+"\"help:shotwell/privacy-policy\">сторінці правил конфіденційності щодо"
+" інтернет-служб</a>. Щоб ознайомитися із власними правилами конфіденційності"
+" Google, будь ласка, зверніться до сторінки <a"
+" href=\"https://policies.google.com/privacy\""
+">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1719,7 +1748,7 @@ msgstr "Найдовший край"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:85
 msgid "_Logout"
 msgstr "Ви_йти з системи"
 
@@ -1731,7 +1760,7 @@ msgstr "Ви_йти з системи"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "_Оприлюднити"
@@ -2117,17 +2146,14 @@ msgstr ""
 "створені на Google Фото альбоми."
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
-#| msgid "Photo _size preset:"
 msgid "Photo _size preset"
 msgstr "Шаблон _розміру фотографій"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
-#| msgid "An _existing album"
 msgid "An existing album"
 msgstr "Наявному альбомі"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
-#| msgid "A _new album named"
 msgid "A new album named"
 msgstr "Новому альбомі з назвою"
 
@@ -2155,7 +2181,6 @@ msgstr "Початковий розмір"
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:59
 #, c-format
-#| msgid "You are logged into YouTube as %s."
 msgid "You are logged into Google Photos as %s."
 msgstr "Ви увійшли до облікового запису %s на Google Фото."
 
@@ -2344,7 +2369,7 @@ msgstr ""
 "Ви увійшли до системи Tumblr від імені %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:41
 msgid "Video privacy _setting:"
 msgstr "_Конфіденційність відео:"
 
@@ -3227,8 +3252,6 @@ msgstr "П_еремкнути обробник"
 
 #: src/Dialogs.vala:54
 #, c-format
-#| msgid "This will remove the tag “%s” from one photo. Continue?"
-#| msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] "Буде вилучено обличчя «%s» з %d фотографії. Продовжувати?"
@@ -4697,7 +4720,6 @@ msgid "Detect faces…"
 msgstr "Виявляти обличчя…"
 
 #: src/faces/FacesTool.vala:140
-#| msgid "Set the crop for this photo"
 msgid "Detect faces on this photo"
 msgstr "Виявити обличчя на цій фотографії"
 
@@ -4731,7 +4753,6 @@ msgid "Move or modify the face shape or name and press Enter"
 msgstr "Пересуньте або змініть форму обличчя або ім'я і натисніть Enter"
 
 #: src/faces/FacesTool.vala:201
-#| msgid "Settings"
 msgid "Detecting faces"
 msgstr "Виявляємо обличчя"
 
@@ -4745,7 +4766,6 @@ msgid "Save changes and close the Faces tool"
 msgstr "Зберегти зміни і закрити вікно засобу «Обличчя»"
 
 #: src/faces/FacesTool.vala:235
-#| msgid "Lose changes to %s?"
 msgid "No changes to save"
 msgstr "Немає змін для збереження"
 
@@ -4762,12 +4782,10 @@ msgid "Browse the library’s folder structure"
 msgstr "Навігація структурою тек бібліотеки"
 
 #: src/import-roll/ImportRollBranch.vala:43
-#| msgid "_Import"
 msgid "Imports"
 msgstr "Імпорт"
 
 #: src/import-roll/ImportRollBranch.vala:43
-#| msgid "Browse the library’s folder structure"
 msgid "Browse the library’s import history"
 msgstr "Навігація журналом імпортування бібліотеки"
 
@@ -5861,17 +5879,14 @@ msgid "Un_flag"
 msgstr "Зн_яти позначення"
 
 #: src/Resources.vala:306
-#| msgid "Make a duplicate of the photo"
 msgid "Mark faces of people in the photo"
 msgstr "Позначити обличчя людей на фотографії"
 
 #: src/Resources.vala:307
-#| msgid "Modify Tags"
 msgid "Modify Faces"
 msgstr "Змінити обличчя"
 
 #: src/Resources.vala:308
-#| msgid "Delete Tag"
 msgid "Delete Face"
 msgstr "Вилучити обличчя"
 
@@ -6014,7 +6029,6 @@ msgstr "Вилучити пошук «%s»"
 
 #: src/Resources.vala:407
 #, c-format
-#| msgid "Unable to rename tag to “%s” because the tag already exists."
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 "Не вдалося перейменувати обличчя на «%s», оскільки обличчя з такою назвою "
@@ -6022,8 +6036,6 @@ msgstr ""
 
 #: src/Resources.vala:411
 #, c-format
-#| msgid "Remove Tag “%s” From _Photo"
-#| msgid_plural "Remove Tag “%s” From _Photos"
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Вилучити обличчя «%s» з _фотографій"
@@ -6033,8 +6045,6 @@ msgstr[3] "Вилучити обличчя «%s» з _фотографії"
 
 #: src/Resources.vala:416
 #, c-format
-#| msgid "Remove Tag “%s” From Photo"
-#| msgid_plural "Remove Tag “%s” From Photos"
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Вилучення обличчя «%s» з фотографій"
@@ -6044,25 +6054,21 @@ msgstr[3] "Вилучення обличчя «%s» з фотографії"
 
 #: src/Resources.vala:421
 #, c-format
-#| msgid "Re_name Tag “%s”…"
 msgid "Re_name Face “%s”…"
 msgstr "Пере_йменувати обличчя «%s»…"
 
 #: src/Resources.vala:425
 #, c-format
-#| msgid "Rename Tag “%s” to “%s”"
 msgid "Rename Face “%s” to “%s”"
 msgstr "Перейменувати обличчя «%s» на «%s»"
 
 #: src/Resources.vala:429
 #, c-format
-#| msgid "_Delete Tag “%s”"
 msgid "_Delete Face “%s”"
 msgstr "Ви_лучити обличчя «%s»"
 
 #: src/Resources.vala:433
 #, c-format
-#| msgid "Delete Tag “%s”"
 msgid "Delete Face “%s”"
 msgstr "Вилучити обличчя «%s»"
 
@@ -6711,7 +6717,6 @@ msgid "_Photos"
 msgstr "_Фотографії"
 
 #: ui/faces.ui:465
-#| msgid "_Rename…"
 msgid "Rename…"
 msgstr "Перейменувати…"
 
@@ -6960,6 +6965,42 @@ msgstr "мітка"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Вилучити всі фотографії до смітника"
+
+#~ msgid ""
+#~ "You are not currently logged into YouTube.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with YouTube to continue. You can set up most accounts by using your "
+#~ "browser to log into the YouTube site at least once."
+#~ msgstr ""
+#~ "Ви ще не увійшли до системи веб-альбомів YouTube.\n"
+#~ "\n"
+#~ "Щоб продовжити процес вивантаження вам слід мати зареєстрований і "
+#~ "налаштований на використання YouTube обліковий запис Google. Для "
+#~ "налаштування більшості облікових записів достатньо скористатися ними "
+#~ "принаймні один раз для входу до системи YouTube."
+
+#~| msgid ""
+#~| "You are not currently logged into YouTube.\n"
+#~| "\n"
+#~| "You must have already signed up for a Google account and set it up for "
+#~| "use with YouTube to continue. You can set up most accounts by using your "
+#~| "browser to log into the YouTube site at least once."
+#~ msgid ""
+#~ "You are not currently logged into Google Photos.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with Google Photos.\n"
+#~ "\n"
+#~ "You will have to authorize Shotwell to link to your Google Photos account."
+#~ msgstr ""
+#~ "Ви ще не увійшли до системи альбомів Google Фото.\n"
+#~ "\n"
+#~ "Щоб продовжити процес вивантаження вам слід мати зареєстрований і "
+#~ "налаштований на використання Google Фото обліковий запис Google.\n"
+#~ "\n"
+#~ "Вам слід уповноважити Shotwell на використання вашого облікового запису "
+#~ "Google Фото."
 
 #~ msgid "shotwell"
 #~ msgstr "shotwell"
