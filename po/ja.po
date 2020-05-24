@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-05-02 06:44+0000\n"
+"POT-Creation-Date: 2020-05-24 10:57+0000\n"
 "PO-Revision-Date: 2020-05-07 21:15+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
@@ -2186,29 +2186,39 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"現在YouTubeにログインしていません。\n"
+"to log into the YouTube site at least once.\n"
 "\n"
-"続けるには、Googleアカウントにサインアップした上で、YouTubeを利用するための設"
-"定を行う必要があります。少なくとも一度ブラウザーを使って YouTubeのサイトにロ"
-"グインしておけば、ほとんどのアカウントを設定することができます。"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
+msgstr ""
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data. You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
-"現在Googleフォトにログインしていません。\n"
-"\n"
-"Googleアカウントにサインアップした上で、Googleフォトを利用するための設定を行"
-"う必要があります。\n"
-"\n"
-"ShotwellがGoogleフォトアカウントに接続することを許可してください。"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -2402,7 +2412,7 @@ msgstr "長辺"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:95
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
 msgid "_Logout"
 msgstr "ログアウト(_L)"
 
@@ -2413,7 +2423,7 @@ msgstr "ログアウト(_L)"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:110
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "公開(_P)"
@@ -2653,7 +2663,6 @@ msgid_plural ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded %d files"
 msgstr[0] ""
-
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -2931,7 +2940,7 @@ msgstr ""
 "%s としてTumblrにログインしています。\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
 msgstr "動画のプライバシー設定(_S)"
 
@@ -6299,6 +6308,34 @@ msgstr "タイトルなし"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "動画のエクスポート"
+
+#~ msgid ""
+#~ "You are not currently logged into YouTube.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with YouTube to continue. You can set up most accounts by using your "
+#~ "browser to log into the YouTube site at least once."
+#~ msgstr ""
+#~ "現在YouTubeにログインしていません。\n"
+#~ "\n"
+#~ "続けるには、Googleアカウントにサインアップした上で、YouTubeを利用するため"
+#~ "の設定を行う必要があります。少なくとも一度ブラウザーを使って YouTubeのサイ"
+#~ "トにログインしておけば、ほとんどのアカウントを設定することができます。"
+
+#~ msgid ""
+#~ "You are not currently logged into Google Photos.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with Google Photos.\n"
+#~ "\n"
+#~ "You will have to authorize Shotwell to link to your Google Photos account."
+#~ msgstr ""
+#~ "現在Googleフォトにログインしていません。\n"
+#~ "\n"
+#~ "Googleアカウントにサインアップした上で、Googleフォトを利用するための設定を"
+#~ "行う必要があります。\n"
+#~ "\n"
+#~ "ShotwellがGoogleフォトアカウントに接続することを許可してください。"
 
 #~ msgid "Removing Photos From Library"
 #~ msgstr "ライブラリから写真を削除しています"
