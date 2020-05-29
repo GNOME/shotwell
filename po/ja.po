@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-05-23 06:28+0000\n"
-"PO-Revision-Date: 2020-05-28 19:00+0900\n"
+"POT-Creation-Date: 2020-05-28 10:13+0000\n"
+"PO-Revision-Date: 2020-05-30 00:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -83,10 +83,10 @@ msgid ""
 msgstr ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;アルバム;カメラ"
-";切り抜き;トリミング;編集;強調;エクスポート;出力;ギャラリー;画像;イメージ;イ"
-"ンポート;入力;オーガナイズ;調達;写真;静止画;フォトグラフ;印刷;出版;回転;共有;"
-"シェア;タグ;ビデオ;映像;動画;フェイスブック;"
+"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;アルバム;カメ"
+"ラ;切り抜き;トリミング;編集;強調;エクスポート;出力;ギャラリー;画像;イメージ;"
+"インポート;入力;オーガナイズ;調達;写真;静止画;フォトグラフ;印刷;出版;回転;共"
+"有;シェア;タグ;ビデオ;映像;動画;フェイスブック;"
 
 #: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -128,8 +128,7 @@ msgstr "デフォルトのサイズ"
 #: misc/org.yorba.shotwell-extras.gschema.xml:27
 msgid ""
 "A numeric code representing the default size for photos uploaded to Tumblr"
-msgstr ""
-"Tumblr にアップロードする写真のデフォルトのサイズを示す数値コード"
+msgstr "Tumblr にアップロードする写真のデフォルトのサイズを示す数値コード"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:32
 msgid "default blog"
@@ -226,8 +225,7 @@ msgstr "アップロード対象から機密情報を削除する"
 msgid ""
 "Whether images being uploaded to Rajce should have their metadata removed "
 "first"
-msgstr ""
-"Rajce にアップロードする画像のメタデータを事前に削除するかどうか"
+msgstr "Rajce にアップロードする画像のメタデータを事前に削除するかどうか"
 
 #: misc/org.yorba.shotwell.gschema.xml:23
 msgid "display basic properties"
@@ -235,8 +233,7 @@ msgstr "基本プロパティを表示する"
 
 #: misc/org.yorba.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise."
-msgstr ""
-"ペインに基本プロパティを表示する場合は true、表示しない場合は false。"
+msgstr "ペインに基本プロパティを表示する場合は true、表示しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:29
 msgid "display extended properties"
@@ -254,8 +251,7 @@ msgstr "サイドバーを表示する"
 
 #: misc/org.yorba.shotwell.gschema.xml:36
 msgid "True if the sidebar is to be displayed, false otherwise."
-msgstr ""
-"サイドバーを表示する場合は true、表示しない場合は false。"
+msgstr "サイドバーを表示する場合は true、表示しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:41
 msgid "display toolbar"
@@ -263,8 +259,7 @@ msgstr "ツールバーを表示する"
 
 #: misc/org.yorba.shotwell.gschema.xml:42
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
-msgstr ""
-"下部にツールバーを表示する場合は true、表示しない場合は false。"
+msgstr "下部にツールバーを表示する場合は true、表示しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:47
 msgid "display search bar"
@@ -284,8 +279,8 @@ msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
 msgstr ""
-"写真のタイトルをコレクションビューのサムネイルの下に表示する場合は true、"
-"表示しない場合は false。"
+"写真のタイトルをコレクションビューのサムネイルの下に表示する場合は true、表示"
+"しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:59
 msgid "display photo comments"
@@ -296,8 +291,8 @@ msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
 msgstr ""
-"写真のコメントをコレクションビューのサムネイルの下に表示する場合は true、"
-"表示しない場合は false。"
+"写真のコメントをコレクションビューのサムネイルの下に表示する場合は true、表示"
+"しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:65
 msgid "display event comments"
@@ -308,8 +303,8 @@ msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise."
 msgstr ""
-"イベントのコメントをイベントビューのサムネイルの下に表示する場合は true、"
-"表示しない場合は false。"
+"イベントのコメントをイベントビューのサムネイルの下に表示する場合は true、表示"
+"しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:71
 msgid "display photo tags"
@@ -320,8 +315,8 @@ msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise."
 msgstr ""
-"写真のタグをコレクションビューのサムネイルの下に一覧表示する場合は true、"
-"表示しない場合は false。"
+"写真のタグをコレクションビューのサムネイルの下に一覧表示する場合は true、表示"
+"しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:77
 msgid "display photo ratings"
@@ -331,8 +326,7 @@ msgstr "写真の評価を表示する"
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise."
-msgstr ""
-"写真の評価をオーバーレイ表示する場合は true、表示しない場合は false。"
+msgstr "写真の評価をオーバーレイ表示する場合は true、表示しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:83
 msgid "rating filter level"
@@ -351,8 +345,7 @@ msgstr "イベントを昇順に並べ替え"
 
 #: misc/org.yorba.shotwell.gschema.xml:90
 msgid "True if events should be sorted ascending, false if descending."
-msgstr ""
-"イベントを昇順に並べ替える場合は true、降順にする場合は false。"
+msgstr "イベントを昇順に並べ替える場合は true、降順にする場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:95
 msgid "sort library photos ascending"
@@ -378,8 +371,7 @@ msgstr "イベントの写真を昇順に並べ替え"
 
 #: misc/org.yorba.shotwell.gschema.xml:108
 msgid "True if event photos should be sorted ascending, false if descending."
-msgstr ""
-"イベントの写真を昇順に並べ替える場合は true、降順にする場合は false。"
+msgstr "イベントの写真を昇順に並べ替える場合は true、降順にする場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:113
 msgid "sort event photos criteria"
@@ -419,8 +411,8 @@ msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database."
 msgstr ""
-"写真の日時を調整するときにオリジナルのファイルに変更を加える場合は true、"
-"データベースにのみ変更を加える場合は false。"
+"写真の日時を調整するときにオリジナルのファイルに変更を加える場合は true、デー"
+"タベースにのみ変更を加える場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:137
 msgid "show welcome dialog on startup"
@@ -431,8 +423,8 @@ msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown."
 msgstr ""
-"起動時にウェルカムダイアログを表示したい場合は true、表示したくない場合"
-"は false。"
+"起動時にウェルカムダイアログを表示したい場合は true、表示したくない場合は "
+"false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:143
 msgid "sidebar position"
@@ -491,7 +483,8 @@ msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr ""
-"インポートページの“すでにインポートした写真を隠す”オプションの最後の選択状態。"
+"インポートページの“すでにインポートした写真を隠す”オプションの最後の選択状"
+"態。"
 
 #: misc/org.yorba.shotwell.gschema.xml:187
 msgid "delay"
@@ -519,7 +512,8 @@ msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
 msgstr ""
-"スライドショー実行中の写真切り替え時に使用されるトランジションエフェクトの名前"
+"スライドショー実行中の写真切り替え時に使用されるトランジションエフェクトの名"
+"前"
 
 #: misc/org.yorba.shotwell.gschema.xml:205
 msgid "Show title"
@@ -605,8 +599,8 @@ msgstr "ライブラリディレクトリの新しいファイルを監視する
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr ""
-"true にすると、ライブラリディレクトリに追加されたファイルを自動的にイン"
-"ポートします。"
+"true にすると、ライブラリディレクトリに追加されたファイルを自動的にインポート"
+"します。"
 
 #: misc/org.yorba.shotwell.gschema.xml:269
 msgid "write metadata to master files"
@@ -617,8 +611,8 @@ msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
 msgstr ""
-"true にすると、メタデータへの変更 (タグやタイトルなど) をマスターの写真ファ"
-"イルに書き込みます。"
+"true にすると、メタデータへの変更 (タグやタイトルなど) をマスターの写真ファイ"
+"ルに書き込みます。"
 
 #: misc/org.yorba.shotwell.gschema.xml:275
 msgid "use lowercase filenames"
@@ -629,8 +623,8 @@ msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr ""
-"true にすると、Shotwell は写真ファイルをインポートするときにファイル名を"
-"すべて小文字に変換します"
+"true にすると、Shotwell は写真ファイルをインポートするときにファイル名をすべ"
+"て小文字に変換します"
 
 #: misc/org.yorba.shotwell.gschema.xml:281
 msgid "directory pattern"
@@ -641,8 +635,8 @@ msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
-"インポート時に写真ディレクトリ名に使用される名前付けパターンのエン"
-"コード文字列。"
+"インポート時に写真ディレクトリ名に使用される名前付けパターンのエンコード文字"
+"列。"
 
 #: misc/org.yorba.shotwell.gschema.xml:287
 msgid "directory pattern custom"
@@ -653,8 +647,8 @@ msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
 msgstr ""
-"インポート時に写真ディレクトリ名に使用される名前付けパターンのエン"
-"コード文字列 (カスタム設定)。"
+"インポート時に写真ディレクトリ名に使用される名前付けパターンのエンコード文字"
+"列 (カスタム設定)。"
 
 #: misc/org.yorba.shotwell.gschema.xml:293
 msgid "RAW developer default"
@@ -670,8 +664,7 @@ msgstr "最近使用した切り抜きアスペクト比メニューの選択。
 
 #: misc/org.yorba.shotwell.gschema.xml:302
 msgid "A numeric code representing the last crop menu choice the user made."
-msgstr ""
-"ユーザーが最近選択した切り抜きメニューを示す数値コード。"
+msgstr "ユーザーが最近選択した切り抜きメニューを示す数値コード。"
 
 #: misc/org.yorba.shotwell.gschema.xml:306
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
@@ -869,7 +862,8 @@ msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
 msgstr ""
-"Google フォトのアルバムにアップロードする写真のデフォルトのサイズを示す数値コード"
+"Google フォトのアルバムにアップロードする写真のデフォルトのサイズを示す数値"
+"コード"
 
 #: misc/org.yorba.shotwell.gschema.xml:504
 #: misc/org.yorba.shotwell.gschema.xml:598
@@ -953,8 +947,8 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr ""
-"Piwigo にアップロードする画像にタイトルがありコメントがない場合、タイトルを"
-"コメントに設定するかどうか"
+"Piwigo にアップロードする画像にタイトルがありコメントがない場合、タイトルをコ"
+"メントに設定するかどうか"
 
 #: misc/org.yorba.shotwell.gschema.xml:572
 msgid "do not upload tags when uploading to Piwigo"
@@ -965,8 +959,8 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr ""
-"リモートの Piwigo サーバー上にタグが表示されないよう、Piwigo にアップロー"
-"ドする画像のタグをアップロード時に削除するかどうか。"
+"リモートの Piwigo サーバー上にタグが表示されないよう、Piwigo にアップロードす"
+"る画像のタグをアップロード時に削除するかどうか。"
 
 #: misc/org.yorba.shotwell.gschema.xml:581
 msgid "Gallery3 username"
@@ -1133,8 +1127,7 @@ msgstr "Facebook 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:715
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr ""
-"Facebook 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Facebook 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:720
 msgid "enable flickr publishing plugin"
@@ -1142,8 +1135,7 @@ msgstr "Flickr 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:721
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr ""
-"Flickr 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Flickr 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:726
 msgid "enable Google Photos publishing plugin"
@@ -1151,8 +1143,7 @@ msgstr "Google フォト公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:727
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
-msgstr ""
-"Google フォト公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Google フォト公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:732
 msgid "enable youtube publishing plugin"
@@ -1160,8 +1151,7 @@ msgstr "Youtube 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:733
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr ""
-"YouTube 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "YouTube 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:738
 msgid "enable piwigo publishing plugin"
@@ -1169,8 +1159,7 @@ msgstr "Piwigo 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:739
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr ""
-"Piwigo 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Piwigo 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:744
 msgid "enable yandex publishing plugin"
@@ -1178,8 +1167,7 @@ msgstr "Yandex 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:745
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr ""
-"Yandex.Fotki 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Yandex.Fotki 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:750
 msgid "enable tumblr publishing plugin"
@@ -1187,8 +1175,7 @@ msgstr "Tumblr 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:751
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr ""
-"Tumblr 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Tumblr 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:756
 msgid "enable rajce publishing plugin"
@@ -1196,8 +1183,7 @@ msgstr "Rajce 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:757
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr ""
-"Rajce 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Rajce 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:762
 msgid "enable gallery3 publishing plugin"
@@ -1205,8 +1191,7 @@ msgstr "Gallery3 公開プラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:763
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr ""
-"Gallery3 公開プラグインを有効にする場合は true、しない場合は false"
+msgstr "Gallery3 公開プラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:768
 msgid "enable F-Spot import plugin"
@@ -1214,8 +1199,7 @@ msgstr "F-Spot インポートプラグインを有効にする"
 
 #: misc/org.yorba.shotwell.gschema.xml:769
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr ""
-"F-Spot インポートプラグインを有効にする場合は true、しない場合は false"
+msgstr "F-Spot インポートプラグインを有効にする場合は true、しない場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:774
 msgid "enable slideshow crumble transition"
@@ -1225,8 +1209,8 @@ msgstr "スライドショーの崩壊トランジションを有効にする"
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"崩壊スライドショートランジションプラグインを有効にする場合は true、しない場"
-"合は false"
+"崩壊スライドショートランジションプラグインを有効にする場合は true、しない場合"
+"は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:780
 msgid "enable slideshow fade transition"
@@ -1236,8 +1220,8 @@ msgstr "スライドショーのフェードトランジションを有効にす
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"フェードスライドショートランジションプラグインを有効にする場合は true、し"
-"ない場合は false"
+"フェードスライドショートランジションプラグインを有効にする場合は true、しない"
+"場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:786
 msgid "enable slideshow slide transition"
@@ -1247,8 +1231,8 @@ msgstr "スライドショーのスライドトランジションを有効にす
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"スライドスライドショートランジションプラグインを有効にする場合は true、し"
-"ない場合は false"
+"スライドスライドショートランジションプラグインを有効にする場合は true、しない"
+"場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:792
 msgid "enable slideshow clock transition"
@@ -1258,8 +1242,8 @@ msgstr "スライドショーのクロックトランジションを有効にす
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"クロックスライドショートランジションプラグインを有効にする場合は true、し"
-"ない場合は false"
+"クロックスライドショートランジションプラグインを有効にする場合は true、しない"
+"場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:798
 msgid "enable slideshow circle transition"
@@ -1269,8 +1253,8 @@ msgstr "スライドショーのサークルトランジションを有効にす
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"サークルスライドショートランジションプラグインを有効にする場合は true、し"
-"ない場合は false"
+"サークルスライドショートランジションプラグインを有効にする場合は true、しない"
+"場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:804
 msgid "enable slideshow circles transition"
@@ -1280,8 +1264,8 @@ msgstr "スライドショーの円形トランジションを有効にする"
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"円形スライドショートランジションプラグインを有効にする場合は true、しない"
-"場合は false"
+"円形スライドショートランジションプラグインを有効にする場合は true、しない場合"
+"は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:810
 msgid "enable slideshow blinds transition"
@@ -1291,8 +1275,8 @@ msgstr "スライドショーのブラインドトランジションを有効に
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"ブラインドスライドショートランジションプラグインを有効にする場合は true、"
-"しない場合は false"
+"ブラインドスライドショートランジションプラグインを有効にする場合は true、しな"
+"い場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:816
 msgid "enable slideshow squares transition"
@@ -1302,8 +1286,8 @@ msgstr "スライドショーの正方形トランジションを有効にする
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"正方形スライドショートランジションプラグインを有効にする場合は true、しない"
-"場合は false"
+"正方形スライドショートランジションプラグインを有効にする場合は true、しない場"
+"合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:822
 msgid "enable slideshow stripes transition"
@@ -1313,8 +1297,8 @@ msgstr "スライドショーのストライプトランジションを有効に
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"ストライプスライドショートランジションプラグインを有効にする場合は true、し"
-"ない場合は false"
+"ストライプスライドショートランジションプラグインを有効にする場合は true、しな"
+"い場合は false"
 
 #: misc/org.yorba.shotwell.gschema.xml:828
 msgid "enable slideshow chess transition"
@@ -1325,8 +1309,8 @@ msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
 msgstr ""
-"チェスボードスライドショートランジションプラグインを有効にする場合は true、"
-"しない場合は false"
+"チェスボードスライドショートランジションプラグインを有効にする場合は true、し"
+"ない場合は false"
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:166
 msgid ""
@@ -1339,10 +1323,10 @@ msgid ""
 msgstr ""
 "現在 Facebook にログインしていません。\n"
 "\n"
-"まだ Facebook のアカウントを持っていない場合、ログイン作業中に作成するこ"
-"とができます。ログイン中に“Shotwell 接続”が写真をアップロードしてフィー"
-"ドに公開する許可を求めてくる可能性があります。これらの権限は“Shotwell 接"
-"続”が機能するために必要です。"
+"まだ Facebook のアカウントを持っていない場合、ログイン作業中に作成することが"
+"できます。ログイン中に“Shotwell 接続”が写真をアップロードしてフィードに公開す"
+"る許可を求めてくる可能性があります。これらの権限は“Shotwell 接続”が機能するた"
+"めに必要です。"
 
 #: plugins/authenticator/shotwell/FacebookPublishingAuthenticator.vala:168
 msgid ""
@@ -1351,10 +1335,10 @@ msgid ""
 "To continue publishing to Facebook, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
-"この Shotwell のセッション中に、すでに Facebook へログインとログアウトを行ってい"
-"ます。\n"
-"Facebook への公開を続けるには、Shotwell を終了して再起動してから、もう一度公開"
-"してみてください。"
+"この Shotwell のセッション中に、すでに Facebook へログインとログアウトを行っ"
+"ています。\n"
+"Facebook への公開を続けるには、Shotwell を終了して再起動してから、もう一度公"
+"開してみてください。"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
 msgid ""
@@ -1365,9 +1349,9 @@ msgid ""
 msgstr ""
 "現在 Flickr にログインしていません。\n"
 "\n"
-"ログインをクリックしてウェブブラウザーで Flickr にログインしてください。"
-"“Shotwell 接続”が Flickr のアカウントにリンクすることを許可する必要があ"
-"ります。"
+"ログインをクリックしてウェブブラウザーで Flickr にログインしてくださ"
+"い。“Shotwell 接続”が Flickr のアカウントにリンクすることを許可する必要があり"
+"ます。"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
@@ -1389,11 +1373,11 @@ msgid ""
 "To continue publishing to Google services, quit and restart Shotwell, then "
 "try publishing again."
 msgstr ""
-"この Shotwell のセッション中に、すでに Google のサービスへログインとログア"
-"ウトを行っています。\n"
+"この Shotwell のセッション中に、すでに Google のサービスへログインとログアウ"
+"トを行っています。\n"
 "\n"
-"Google のサービスへの公開を続けるには、Shotwell を終了して再起動してからも"
-"う一度公開を試してください。"
+"Google のサービスへの公開を続けるには、Shotwell を終了して再起動してからもう"
+"一度公開を試してください。"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:32
 msgid ""
@@ -1419,22 +1403,22 @@ msgid ""
 msgstr ""
 "現在 YouTube にログインしていません。\n"
 "\n"
-"続けるには Google アカウントにサインアップしている状態で YouTube の使用を"
-"セットアップする必要があります。大抵の場合、ブラウザーを使用して YouTube "
-"に一度ログインすればセットアップできます。\n"
+"続けるには Google アカウントにサインアップしている状態で YouTube の使用をセッ"
+"トアップする必要があります。大抵の場合、ブラウザーを使用して YouTube に一度ロ"
+"グインすればセットアップできます。\n"
 "\n"
 "Shotwell は YouTube のチャンネルへのアクセスと動画のアップロードに YouTube "
 "の API サービス (<a href=\"https://developers.google.com/youtube\">https://"
-"developers.google.com/youtube</a>) を使用します。Shotwell で YouTube にアク"
-"セスすると YouTube の利用規約 (<a href=\"https://www.youtube.com/t/terms\">"
-"https://www.youtube.com/t/terms</a>) に同意したとみなされます。\n"
+"developers.google.com/youtube</a>) を使用します。Shotwell で YouTube にアクセ"
+"スすると YouTube の利用規約 (<a href=\"https://www.youtube.com/t/terms"
+"\">https://www.youtube.com/t/terms</a>) に同意したとみなされます。\n"
 "\n"
-"一般的な Google アカウント、特に YouTube 絡みのデータの使用に関する "
-"Shotwell のプライバシーポリシーは、<a href=\"help:shotwell/privacy-policy\">"
-"オンラインサービスプライバシーポリシー</a>で確認できます。\n"
+"Google アカウント関係、特に YouTube 絡みのデータの使用に関する Shotwell のプ"
+"ライバシーポリシーは、<a href=\"help:shotwell/privacy-policy\">オンラインサー"
+"ビスプライバシーポリシー</a>で確認できます。\n"
 "\n"
-"Google のプライバシーポリシーは <a href=\"https://policies.google.com/"
-"privacy\">https://policies.google.com/privacy</a> を参照してください。"
+"Google のプライバシーポリシーは <a href=\"https://policies.google.com/privacy"
+"\">https://policies.google.com/privacy</a> を参照してください。"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
 msgid ""
@@ -1454,18 +1438,18 @@ msgid ""
 msgstr ""
 "現在 Google フォトにログインしていません。\n"
 "\n"
-"Google アカウントにサインアップしている状態で Google フォトの使用をセットア"
-"ップする必要があります。Shotwell はすべての Google フォトとのデータのやり取"
-"りに、Google Photos API サービス (<a href=\"https://developers.google.com/"
+"Google アカウントにサインアップしている状態で Google フォトの使用をセットアッ"
+"プする必要があります。Shotwell はすべての Google フォトとのデータのやり取り"
+"に、Google Photos API サービス (<a href=\"https://developers.google.com/"
 "photos/\">https://developers.google.com/photos/</a>) を使用します。Shotwell "
 "が Google フォトライブラリにアクセスすることを許可する必要があります。\n"
 "\n"
-"一般的な Google アカウント、特に Google フォト絡みのデータの使用に関する "
-"Shotwell のプライバシーポリシーは、<a href=\"help:shotwell/privacy-policy\">"
-"オンラインサービスプライバシーポリシー</a>で確認できます。\n"
+"Google アカウント関係、特に Google フォト絡みのデータの使用に関する Shotwell "
+"のプライバシーポリシーは、<a href=\"help:shotwell/privacy-policy\">オンライン"
+"サービスプライバシーポリシー</a>で確認できます。\n"
 "\n"
-"Google のプライバシーポリシーは <a href=\"https://policies.google.com/"
-"privacy\">https://policies.google.com/privacy</a> を参照してください。"
+"Google のプライバシーポリシーは <a href=\"https://policies.google.com/privacy"
+"\">https://policies.google.com/privacy</a> を参照してください。"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1712,7 +1696,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"“%s”はサポートしていないファイルであるか、サイズが大きすぎる可能性があります。"
+"“%s”はサポートしていないファイルであるか、サイズが大きすぎる可能性がありま"
+"す。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
 msgid ""
@@ -1720,8 +1705,8 @@ msgid ""
 "Note that Gallery3 only supports the video types that Flowplayer does."
 msgstr ""
 "\n"
-"Gallery3 は Flowplayer がサポートしている動画形式のみを扱える点に注意してくださ"
-"い。"
+"Gallery3 は Flowplayer がサポートしている動画形式のみを扱える点に注意してくだ"
+"さい。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
@@ -1751,8 +1736,8 @@ msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
 msgstr ""
-"ユーザー名ならびにパスワードまたは API キーが正しくありません。もう一度試す"
-"には、以下にユーザー名とパスワードを再入力してください。"
+"ユーザー名ならびにパスワードまたは API キーが正しくありません。もう一度試すに"
+"は、以下にユーザー名とパスワードを再入力してください。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
 msgid ""
@@ -1760,9 +1745,9 @@ msgid ""
 "instance. Please make sure you typed it correctly and it does not have any "
 "trailing components (e.g., index.php)."
 msgstr ""
-"入力した URL は Gallery3 のメインディレクトリではないようです。入力内容が正"
-"しいこと、および末尾のコンポーネント (例: index.php) が含まれていないことを"
-"確認してください。"
+"入力した URL は Gallery3 のメインディレクトリではないようです。入力内容が正し"
+"いこと、および末尾のコンポーネント (例: index.php) が含まれていないことを確認"
+"してください。"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
 msgid "Unrecognized User"
@@ -1803,7 +1788,8 @@ msgstr "Copyright © 2013 rajce.net"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
 msgid "An error message occurred when publishing to Rajce. Please try again."
-msgstr "Rajce への公開中にエラーメッセージがありました。もう一度試してください。"
+msgstr ""
+"Rajce への公開中にエラーメッセージがありました。もう一度試してください。"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:833
 msgid "Enter email and password associated with your Rajce account."
@@ -1964,7 +1950,8 @@ msgstr "写真サイズ(_S):"
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
-msgstr "公開に必要なファイルが利用できません。Flickr への公開を続行できません。"
+msgstr ""
+"公開に必要なファイルが利用できません。Flickr への公開を続行できません。"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:607
 #, c-format
@@ -2043,8 +2030,7 @@ msgid ""
 "Google Photos account"
 msgstr ""
 "Shotwell は Shotwell 自身が作成したアルバムにのみ公開できるため、すでに "
-"Google フォトのアカウントがある場合でも、このリストは空になる可能性があり"
-"ます"
+"Google フォトのアカウントがある場合でも、このリストは空になる可能性があります"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "Photo _size preset"
@@ -2191,8 +2177,8 @@ msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
 msgstr ""
-"Piwigo フォトライブラリの URL と、ライブラリの Piwigo アカウントに関連するユ"
-"ーザー名およびパスワードを入力してください。"
+"Piwigo フォトライブラリの URL と、ライブラリの Piwigo アカウントに関連する"
+"ユーザー名およびパスワードを入力してください。"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
@@ -2555,8 +2541,8 @@ msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
 msgstr ""
-"Shotwell がカメラにアクセスするには、ファイルシステムからカメラをアンマウン"
-"トする必要があります。続けますか?"
+"Shotwell がカメラにアクセスするには、ファイルシステムからカメラをアンマウント"
+"する必要があります。続けますか?"
 
 #: src/camera/ImportPage.vala:1031
 msgid "_Unmount"
@@ -3068,7 +3054,7 @@ msgstr "削除(_D)"
 #: src/Dialogs.vala:25
 #, c-format
 msgid "This will remove the saved search “%s”. Continue?"
-msgstr "保存された検索“%s”を削除します。続けますか?"
+msgstr "名前付き検索“%s”を削除します。続けますか?"
 
 #: src/Dialogs.vala:36
 msgid ""
@@ -3078,8 +3064,8 @@ msgid_plural ""
 "Switching developers will undo all changes you have made to these photos in "
 "Shotwell"
 msgstr[0] ""
-"デベロッパーを切り替えると、Shotwell 内のこの写真に加えたすべての変更は元に"
-"戻ります"
+"デベロッパーを切り替えると、Shotwell 内のこの写真に加えたすべての変更は元に戻"
+"ります"
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -3110,8 +3096,8 @@ msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
-"%s への書き込み権限がないため、この写真を編集するためのファイルを Shotwell "
-"が作成できませんでした。"
+"%s への書き込み権限がないため、この写真を編集するためのファイルを Shotwell が"
+"作成できませんでした。"
 
 #: src/Dialogs.vala:136
 msgid ""
@@ -3212,8 +3198,8 @@ msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr ""
-"Shotwell が写真/動画をライブラリにコピーできなかったため、インポートしませ"
-"んでした:"
+"Shotwell が写真/動画をライブラリにコピーできなかったため、インポートしません"
+"でした:"
 
 #: src/Dialogs.vala:304
 #, c-format
@@ -3261,16 +3247,16 @@ msgstr[0] "%d 個の重複した写真/動画はインポートしませんで�
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"ファイルエラーまたはハードウェアエラーにより %d 個の写真のインポートに失敗"
-"しました:\n"
+"ファイルエラーまたはハードウェアエラーにより %d 個の写真のインポートに失敗し"
+"ました:\n"
 
 #: src/Dialogs.vala:374
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"ファイルエラーまたはハードウェアエラーにより %d 個の動画のインポートに失敗"
-"しました:\n"
+"ファイルエラーまたはハードウェアエラーにより %d 個の動画のインポートに失敗し"
+"ました:\n"
 
 #: src/Dialogs.vala:377
 #, c-format
@@ -3278,16 +3264,16 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"ファイルエラーまたはハードウェアエラーにより %d 個の写真/動画のインポート"
-"に失敗しました:\n"
+"ファイルエラーまたはハードウェアエラーにより %d 個の写真/動画のインポートに失"
+"敗しました:\n"
 
 #: src/Dialogs.vala:380
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"ファイルエラーまたはハードウェアエラーにより %d 個のファイルのインポートに"
-"失敗しました:\n"
+"ファイルエラーまたはハードウェアエラーにより %d 個のファイルのインポートに失"
+"敗しました:\n"
 
 #: src/Dialogs.vala:394
 #, c-format
@@ -3297,8 +3283,8 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"写真ライブラリフォルダーが書き込み可能でないため %d 個の写真のインポートに"
-"失敗しました:\n"
+"写真ライブラリフォルダーが書き込み可能でないため %d 個の写真のインポートに失"
+"敗しました:\n"
 
 #: src/Dialogs.vala:397
 #, c-format
@@ -3308,8 +3294,8 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"写真ライブラリフォルダーが書き込み可能でないため %d 個の動画のインポートに"
-"失敗しました:\n"
+"写真ライブラリフォルダーが書き込み可能でないため %d 個の動画のインポートに失"
+"敗しました:\n"
 
 #: src/Dialogs.vala:400
 #, c-format
@@ -3320,8 +3306,8 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"写真ライブラリフォルダーが書き込み可能でないため %d 個の写真/動画のインポー"
-"トに失敗しました:\n"
+"写真ライブラリフォルダーが書き込み可能でないため %d 個の写真/動画のインポート"
+"に失敗しました:\n"
 
 #: src/Dialogs.vala:403
 #, c-format
@@ -3331,8 +3317,8 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"写真ライブラリフォルダーに書き込めなかったため %d 個のファイルのインポート"
-"に失敗しました:\n"
+"写真ライブラリフォルダーに書き込めなかったため %d 個のファイルのインポートに"
+"失敗しました:\n"
 
 #: src/Dialogs.vala:417
 #, c-format
@@ -3368,8 +3354,7 @@ msgstr[0] "ファイルが壊れているため %d 個の写真のインポー�
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] ""
-"ファイルが壊れているため %d 個の動画のインポートに失敗しました:\n"
+msgstr[0] "ファイルが壊れているため %d 個の動画のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:446
 #, c-format
@@ -3562,8 +3547,8 @@ msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr ""
-"Shotwell はライブラリフォルダーに写真をコピーできます。また、写真をコピーせ"
-"ずにインポートすることもできます。"
+"Shotwell はライブラリフォルダーに写真をコピーできます。また、写真をコピーせず"
+"にインポートすることもできます。"
 
 #: src/Dialogs.vala:926
 msgid "Co_py Photos"
@@ -3915,8 +3900,7 @@ msgstr "始めるには、いずれかの方法で写真をインポートして
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr ""
-"<span weight=\"bold\">ファイル %s フォルダーからインポート</span> を選択す"
-"る"
+"<span weight=\"bold\">ファイル %s フォルダーからインポート</span> を選択する"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -4446,10 +4430,10 @@ msgid ""
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please use the latest version of Shotwell."
 msgstr ""
-"あなたの写真ライブラリは、このバージョンの Shotwell と互換性がありません。"
-"ライブラリは Shotwell %s (スキーマ %d) によって作成されたと思われます。こ"
-"の Shotwell のバージョンは %s (スキーマ %d) です。Shotwell の最新バージョ"
-"ンを使用してください。"
+"あなたの写真ライブラリは、このバージョンの Shotwell と互換性がありません。ラ"
+"イブラリは Shotwell %s (スキーマ %d) によって作成されたと思われます。この "
+"Shotwell のバージョンは %s (スキーマ %d) です。Shotwell の最新バージョンを使"
+"用してください。"
 
 #: src/main.vala:59
 #, c-format
@@ -4458,9 +4442,9 @@ msgid ""
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
-"Shotwell はあなたの写真ライブラリのバージョンを %s (スキーマ %d) から %s ("
-"スキーマ %d) にアップグレードすることができませんでした。詳細は Shotwell "
-"ウィキ (%s) を参照してください。"
+"Shotwell はあなたの写真ライブラリのバージョンを %s (スキーマ %d) から %s (ス"
+"キーマ %d) にアップグレードすることができませんでした。詳細は Shotwell ウィ"
+"キ (%s) を参照してください。"
 
 #: src/main.vala:65
 #, c-format
@@ -4470,16 +4454,15 @@ msgid ""
 "(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
-"あなたの写真ライブラリは、このバージョンの Shotwell と互換性がありません。"
-"ライブラリは Shotwell %s (スキーマ %d) によって作成されたと思われます。こ"
-"の Shotwell のバージョンは %s (スキーマ %d) です。%s を削除してライブラリ"
-"を消去し、写真を再インポートしてください。"
+"あなたの写真ライブラリは、このバージョンの Shotwell と互換性がありません。ラ"
+"イブラリは Shotwell %s (スキーマ %d) によって作成されたと思われます。この "
+"Shotwell のバージョンは %s (スキーマ %d) です。%s を削除してライブラリを消去"
+"し、写真を再インポートしてください。"
 
 #: src/main.vala:71
 #, c-format
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
-msgstr ""
-"Shotwell のデータベースの検証中に不明なエラーが発生しました: %s"
+msgstr "Shotwell のデータベースの検証中に不明なエラーが発生しました: %s"
 
 #: src/main.vala:108
 msgid "Loading Shotwell"
@@ -4862,10 +4845,9 @@ msgid ""
 "Preferences</b> and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
-"互換性のある公開プラグインが有効になっていないため、Shotwell は選択された"
-"アイテムを公開できません。これを直すには、<b> 設定 %s 編集</b> を選択して"
-"、<b>プラグイン</b> タブにあるいずれかの公開プラグインを有効にしてくださ"
-"い。"
+"互換性のある公開プラグインが有効になっていないため、Shotwell は選択されたアイ"
+"テムを公開できません。これを直すには、<b> 設定 %s 編集</b> を選択して、<b>プ"
+"ラグイン</b> タブにあるいずれかの公開プラグインを有効にしてください。"
 
 #: src/publishing/Publishing.vala:16
 msgid "Publishing"
@@ -5506,7 +5488,7 @@ msgstr "検索がすでに存在するため、検索名を“%s”に変更で�
 #. Saved search button
 #: src/Resources.vala:389 src/SearchFilter.vala:1146
 msgid "Saved Search"
-msgstr "保存された検索"
+msgstr "名前付き検索"
 
 #: src/Resources.vala:391
 msgid "Delete Search"
@@ -5533,7 +5515,7 @@ msgstr "検索“%s”を削除"
 #: src/Resources.vala:407
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr "顔がすでに存在するため、顔の名を“%s”に変更できません。"
+msgstr "顔がすでに存在するため、顔の名前を“%s”に変更できません。"
 
 #: src/Resources.vala:411
 #, c-format
@@ -5874,11 +5856,11 @@ msgstr "日付"
 
 #: src/searches/SearchesBranch.vala:68
 msgid "Saved Searches"
-msgstr "保存された検索"
+msgstr "名前付き検索"
 
 #: src/searches/SearchesBranch.vala:68
 msgid "Organize your saved searches"
-msgstr "保存された検索の整理"
+msgstr "名前付き検索の整理"
 
 #: src/SearchFilter.vala:837
 msgid "★+ Rating"
@@ -5929,8 +5911,7 @@ msgstr "RAW 画像"
 
 #: src/SearchFilter.vala:1147
 msgid "Use a saved search to filter items in the current view"
-msgstr ""
-"保存された検索を使用して現在表示されているアイテムをフィルタリングします"
+msgstr "名前付き検索を使用して現在表示されているアイテムをフィルタリングします"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -6110,7 +6091,7 @@ msgstr "検索(_F)"
 #: ui/offline.ui:51 ui/photo.ui:70 ui/search_sidebar_context.ui:6
 #: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
 msgid "Ne_w Saved Search…"
-msgstr "新しい保存された検索(_W)…"
+msgstr "新しい名前付き検索(_W)…"
 
 #: ui/events_directory.ui:74 ui/event.ui:102 ui/faces.ui:102
 #: ui/import_queue.ui:41 ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81
