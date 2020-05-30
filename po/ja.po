@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-05-28 19:40+0000\n"
-"PO-Revision-Date: 2020-05-30 00:00+0900\n"
+"POT-Creation-Date: 2020-05-29 16:20+0000\n"
+"PO-Revision-Date: 2020-05-30 18:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -34,7 +34,7 @@ msgstr "認証トークン"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in"
-msgstr "Yandex-Fotki の認証トークン (ログインしている場合)"
+msgstr "Yandex-Fotki の認証トークン (ログインした場合)"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14
 #: data/gsettings/org.gnome.shotwell.gschema.xml:427
@@ -97,7 +97,7 @@ msgstr "Rajce のサーバーの URL"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
 msgid "Rajce username, if logged in"
-msgstr "Rajce のユーザー名 (ログインしている場合)"
+msgstr "Rajce のユーザー名 (ログインした場合)"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:58
 msgid "token"
@@ -447,7 +447,7 @@ msgstr "トランジションの遅延"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:200
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
-msgstr ""
+msgstr "スライドショーでの写真間のトランジション実行間隔 (秒単位)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:205
 msgid "transition effect id"
@@ -746,13 +746,15 @@ msgstr "Flickr にアップロードする画像のメタデータを事前に�
 #: data/gsettings/org.gnome.shotwell.gschema.xml:465
 #: data/gsettings/org.gnome.shotwell.gschema.xml:603
 msgid "refresh token"
-msgstr ""
+msgstr "更新トークン"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
 msgstr ""
+"現在 Google フォトにログインしているユーザーのセッションの更新に使用する "
+"OAuth トークン (ある場合)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:472
 msgid ""
@@ -789,7 +791,7 @@ msgstr "Piwigo のサーバーの URL"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:498
 msgid "Piwigo username, if logged in"
-msgstr "Piwigo のユーザー名 (ログインしている場合)"
+msgstr "Piwigo のユーザー名 (ログインした場合)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "password"
@@ -797,7 +799,7 @@ msgstr "パスワード"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:504
 msgid "Piwigo password, if logged in"
-msgstr "Piwigo のパスワード (ログインしている場合)"
+msgstr "Piwigo のパスワード (ログインした場合)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "remember password"
@@ -918,6 +920,8 @@ msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
 msgstr ""
+"現在 YouTube にログインしているユーザーのセッションの更新に使用する OAuth ト"
+"ークン (ある場合)"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:611
 msgid "last used import service"
@@ -973,13 +977,13 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:651
 msgid "content units"
-msgstr ""
+msgstr "内容の単位"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:652
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
-msgstr ""
+msgstr "印刷時に使用する単位 (インチまたはセンチメートル) を示す数値コード"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:657
 msgid "images per page code"
@@ -993,7 +997,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:663
 msgid "size selection"
-msgstr ""
+msgstr "サイズの選択"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:664
 msgid ""
@@ -1002,31 +1006,34 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:669
 msgid "match aspect ratio"
-msgstr ""
+msgstr "アスペクト比の一致"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:670
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
+"カスタム印刷サイズがオリジナルの写真のアスペクト比と一致する必要があるか"
+"どうかを指定します"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:675
 msgid "print titles"
-msgstr ""
+msgstr "タイトルを印刷する"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:676
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr ""
+"写真を印刷するときにタイトルも印刷する場合は true、しない場合は false"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:681
 msgid "titles font"
-msgstr ""
+msgstr "タイトルのフォント"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:682
 msgid "The name of the font to use for photo titles when they are printed"
-msgstr ""
+msgstr "写真のタイトルを印刷するときに使用するフォント名"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:693
 msgid "enable facebook publishing plugin"
@@ -2274,9 +2281,9 @@ msgid ""
 msgstr ""
 "現在 YouTube にログインしていません。\n"
 "\n"
-"続けるには Google アカウントにサインアップしている状態で YouTube の使用をセッ"
-"トアップする必要があります。大抵の場合、ブラウザーを使用して YouTube に一度ロ"
-"グインすればセットアップできます。\n"
+"続けるには、Google アカウントにサインアップした上で、YouTube を利用するための"
+"設定を行う必要があります。少なくとも一度ブラウザーを使用して YouTube にログイ"
+"ンしておけば、ほとんどのアカウントを設定することができます。\n"
 "\n"
 "Shotwell は YouTube のチャンネルへのアクセスと動画のアップロードに YouTube "
 "の API サービス (<a href=\"https://developers.google.com/youtube\">https://"
@@ -2309,11 +2316,11 @@ msgid ""
 msgstr ""
 "現在 Google フォトにログインしていません。\n"
 "\n"
-"Google アカウントにサインアップしている状態で Google フォトの使用をセットアッ"
-"プする必要があります。Shotwell はすべての Google フォトとのデータのやり取り"
-"に、Google Photos API サービス (<a href=\"https://developers.google.com/"
-"photos/\">https://developers.google.com/photos/</a>) を使用します。Shotwell "
-"が Google フォトライブラリにアクセスすることを許可する必要があります。\n"
+"Google アカウントにサインアップした上で、YouTube を利用するための設定を行う必"
+"要があります。Shotwell はすべての Google フォトとのデータのやり取りに、Google"
+" Photos API サービス (<a href=\"https://developers.google.com/photos/\">"
+"https://developers.google.com/photos/</a>) を使用します。Shotwell が Google "
+"フォトライブラリにアクセスすることを許可する必要があります。\n"
 "\n"
 "Google アカウント関係、特に Google フォト絡みのデータの使用に関する Shotwell "
 "のプライバシーポリシーは、<a href=\"help:shotwell/privacy-policy\">オンライン"
