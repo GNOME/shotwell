@@ -18,40 +18,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-04-03 18:17+0000\n"
-"PO-Revision-Date: 2020-04-06 20:34+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2020-05-30 10:35+0000\n"
+"PO-Revision-Date: 2020-05-30 21:19+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:6
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 msgid "authentication token"
 msgstr "token autentikasi"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:7
-msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Token autentikasi Yandex-Fotki, bila masuk."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
+msgid "Yandex-Fotki authentication token, if logged in"
+msgstr "Token autentikasi Yandex-Fotki, bila masuk"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:14
-#: data/gsettings/org.yorba.shotwell.gschema.xml:427
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14
+#: data/gsettings/org.gnome.shotwell.gschema.xml:427
 msgid "OAuth Access Phase Token"
 msgstr "Token Fasa Akses OAuth"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:15
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
 msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "Token autorisasi untuk pengguna Tumblr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:20
-#: data/gsettings/org.yorba.shotwell.gschema.xml:433
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:20
+#: data/gsettings/org.gnome.shotwell.gschema.xml:433
 msgid "OAuth Access Phase Token Secret"
 msgstr "Rahasia Token Fasa Akses OAuth"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:21
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:21
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Tumblr user, if any"
@@ -59,117 +59,117 @@ msgstr ""
 "Rahasia kriptografis yang dipakai untuk menandatangani permintaan atas token "
 "autorisasi bagi pengguna Tumblr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:26
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:52
-#: data/gsettings/org.yorba.shotwell.gschema.xml:439
-#: data/gsettings/org.yorba.shotwell.gschema.xml:497
-#: data/gsettings/org.yorba.shotwell.gschema.xml:559
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:26
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:52
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
+#: data/gsettings/org.gnome.shotwell.gschema.xml:497
+#: data/gsettings/org.gnome.shotwell.gschema.xml:559
 msgid "username"
 msgstr "nama pengguna"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:27
-#: data/gsettings/org.yorba.shotwell.gschema.xml:440
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:27
+#: data/gsettings/org.gnome.shotwell.gschema.xml:440
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Nama pengguna dari pengguna Flickr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:32
-#: data/gsettings/org.yorba.shotwell.gschema.xml:471
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:32
+#: data/gsettings/org.gnome.shotwell.gschema.xml:471
 msgid "default size"
 msgstr "ukuran bawaan"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:33
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:33
 msgid ""
 "A numeric code representing the default size for photos uploaded to Tumblr"
 msgstr ""
 "Code numerik yang merepresentasikan ukuran bawaan untuk foto yang diunggah "
 "ke Tumblr"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:38
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:38
 msgid "default blog"
 msgstr "blog baku"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:39
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:39
 msgid "The name of the default blog of the user, if any"
 msgstr "Nama blog baku pengguna, bila ada"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:46
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:46
 msgid "Rajce URL"
 msgstr "Rajce URL"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:47
-msgid "URL of the Rajce server."
-msgstr "URL dari peladen Rajce."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
+msgid "URL of the Rajce server"
+msgstr "URL dari peladen Rajce"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:53
-msgid "Rajce username, if logged in."
-msgstr "Nama pengguna Rajce, bila masuk."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
+msgid "Rajce username, if logged in"
+msgstr "Nama pengguna Rajce, bila masuk"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:58
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:58
 msgid "token"
 msgstr "token"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:59
-msgid "user token, if remembered."
-msgstr "token pengguna, jika ingat."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:59
+msgid "user token, if remembered"
+msgstr "token pengguna, jika ingat"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:64
-#: data/gsettings/org.yorba.shotwell.gschema.xml:515
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:64
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "last category"
 msgstr "kategori terakhir"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:65
-msgid "The last selected Rajce category."
-msgstr "Kategori Racje yang terakhir dipilih."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:65
+msgid "The last selected Rajce category"
+msgstr "Kategori Racje yang terakhir dipilih"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:70
-#: data/gsettings/org.yorba.shotwell.gschema.xml:527
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:70
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "last photo size"
 msgstr "ukuran foto terakhir"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:71
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
-"to Rajce."
+"to Rajce"
 msgstr ""
 "Kode numerik yang mewakili pratat ukuran foto terakhir yang dipakai ketika "
-"mempublikasikan ke Rajce."
+"mempublikasikan ke Rajce"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:76
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:76
 msgid "remember"
 msgstr "ingat"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:77
-msgid "If true, remember last login."
-msgstr "Jika bernilai true, maka akan mengingat terakhir kali masuk."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
+msgid "If true, remember last login"
+msgstr "Jika bernilai true, maka akan mengingat terakhir kali masuk"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:82
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:82
 msgid "hide album"
 msgstr "sembunyikan album"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:83
-msgid "If true, hide the newly created Rajce album."
-msgstr "Bila bernilai true, menyembunyikan album Rajce yang baru dibuat."
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
+msgid "If true, hide the newly created Rajce album"
+msgstr "Bila bernilai true, menyembunyikan album Rajce yang baru dibuat"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:88
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
 msgid "open album in web browser"
 msgstr "buka album dalam peramban web"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:89
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:89
 msgid ""
 "If true, open target album in the web browser just after uploading photos"
 msgstr ""
 "Jika bernilai true, maka buka album target dalam peramban hanya setelah "
 "mengunggah foto"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:94
-#: data/gsettings/org.yorba.shotwell.gschema.xml:457
-#: data/gsettings/org.yorba.shotwell.gschema.xml:483
-#: data/gsettings/org.yorba.shotwell.gschema.xml:533
-#: data/gsettings/org.yorba.shotwell.gschema.xml:583
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "remove sensitive info from uploads"
 msgstr "hilangkan informasi senitif dari unggahan"
 
-#: data/gsettings/org.yorba.shotwell-extras.gschema.xml:95
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:95
 msgid ""
 "Whether images being uploaded to Rajce should have their metadata removed "
 "first"
@@ -177,308 +177,308 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Rajce mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:23
+#: data/gsettings/org.gnome.shotwell.gschema.xml:23
 msgid "display basic properties"
 msgstr "tampilkan properti dasar"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:24
-msgid "True if the basic properties pane is to be displayed, false otherwise."
-msgstr "True bila panel properti dasar akan ditampilkan, false bila tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:24
+msgid "True if the basic properties pane is to be displayed, false otherwise"
+msgstr "True bila panel properti dasar akan ditampilkan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:29
+#: data/gsettings/org.gnome.shotwell.gschema.xml:29
 msgid "display extended properties"
 msgstr "tampilkan properti perluasan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:30
+#: data/gsettings/org.gnome.shotwell.gschema.xml:30
 msgid ""
-"True if the extended properties window is to be displayed, false otherwise."
+"True if the extended properties window is to be displayed, false otherwise"
 msgstr ""
-"True bila jendela properti perluasan akan ditampilkan, false juga tidak."
+"True bila jendela properti perluasan akan ditampilkan, false juga tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:35
+#: data/gsettings/org.gnome.shotwell.gschema.xml:35
 msgid "display sidebar"
 msgstr "tampilkan bilah sisi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:36
-msgid "True if the sidebar is to be displayed, false otherwise."
-msgstr "True bila bilah sisi akan ditampilkan, false bila tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:36
+msgid "True if the sidebar is to be displayed, false otherwise"
+msgstr "True bila bilah sisi akan ditampilkan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:41
+#: data/gsettings/org.gnome.shotwell.gschema.xml:41
 msgid "display toolbar"
 msgstr "tampilkan bilah alat"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:42
-msgid "True if the bottom toolbar is to be displayed, false otherwise."
-msgstr "True bila bilah alat di dasar akan ditampilkan, false bila tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:42
+msgid "True if the bottom toolbar is to be displayed, false otherwise"
+msgstr "True bila bilah alat di dasar akan ditampilkan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:47
+#: data/gsettings/org.gnome.shotwell.gschema.xml:47
 msgid "display map widget"
 msgstr "tampilkan widget peta"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:48
-msgid "True if the map widget is to be displayed, false otherwise."
-msgstr "True bila widget peta akan ditampilkan, false bila tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:48
+msgid "True if the map widget is to be displayed, false otherwise"
+msgstr "True bila widget peta akan ditampilkan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:53
+#: data/gsettings/org.gnome.shotwell.gschema.xml:53
 msgid "display search bar"
 msgstr "tampilkan bilah pencarian"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:54
-msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
-msgstr "True bila Bilah Alat Cari/Saring akan ditampilkan, false bila tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:54
+msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
+msgstr "True bila Bilah Alat Cari/Saring akan ditampilkan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:59
+#: data/gsettings/org.gnome.shotwell.gschema.xml:59
 msgid "display photo titles"
 msgstr "tampilkan judul foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:60
+#: data/gsettings/org.gnome.shotwell.gschema.xml:60
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
-"views, false otherwise."
+"views, false otherwise"
 msgstr ""
 "True bila judul foto akan ditampilkan di bawah gambar mini dalam tilikan "
-"koleksi, false bila tidak."
+"koleksi, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:65
+#: data/gsettings/org.gnome.shotwell.gschema.xml:65
 msgid "display photo comments"
 msgstr "tampilkan komentar foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:66
+#: data/gsettings/org.gnome.shotwell.gschema.xml:66
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
-"views, false otherwise."
+"views, false otherwise"
 msgstr ""
 "True bila komentar foto akan ditampilkan di bawah gambar mini dalam tilikan "
-"koleksi, false bila tidak."
+"koleksi, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:71
+#: data/gsettings/org.gnome.shotwell.gschema.xml:71
 msgid "display event comments"
 msgstr "tampilkan komentar kejadian"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:72
+#: data/gsettings/org.gnome.shotwell.gschema.xml:72
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
-"views, false otherwise."
+"views, false otherwise"
 msgstr ""
 "True bila komentar kejadian akan ditampilkan di bawah gambar mini dalam "
-"tilikan kejadian, false bila tidak."
+"tilikan kejadian, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:77
+#: data/gsettings/org.gnome.shotwell.gschema.xml:77
 msgid "display photo tags"
 msgstr "tampilkan tag foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:78
+#: data/gsettings/org.gnome.shotwell.gschema.xml:78
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
-"false otherwise."
+"false otherwise"
 msgstr ""
 "True bila tag foto akan ditampilkan daftarnya di bawah gambar mini dalam "
-"tilikan koleksi, false bila tidak."
+"tilikan koleksi, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:83
+#: data/gsettings/org.gnome.shotwell.gschema.xml:83
 msgid "display photo ratings"
 msgstr "tampilkan peringkat foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:84
+#: data/gsettings/org.gnome.shotwell.gschema.xml:84
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
-"otherwise."
+"otherwise"
 msgstr ""
 "True bila peringkat foto mesti ditampilkan sebagai trinket yang dilapiskan, "
-"false bila tidak."
+"false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:89
+#: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid "rating filter level"
 msgstr "tingkat penyaring peringkat"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:90
+#: data/gsettings/org.gnome.shotwell.gschema.xml:90
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
-"or better, 6: Four or better, 7: Five or better."
+"or better, 6: Four or better, 7: Five or better"
 msgstr ""
 "Menentukan bagaimana menyaring foto berdasarkan peringkat mereka. 1: Ditolak "
 "atau lebih baik, 2: Tidak diperingkat atau lebih baik, 3: Satu atau lebih, "
 "4: Dua atau lebih, 5: Tiga atau lebih, 6: Empat atau lebih, 7: Lima atau "
-"lebih."
+"lebih"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:95
+#: data/gsettings/org.gnome.shotwell.gschema.xml:95
 msgid "sort events ascending"
 msgstr "urutkan kejadian secara menaik"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:96
-msgid "True if events should be sorted ascending, false if descending."
-msgstr "True bila kejadian mesti diurut naik, false bila turun."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:96
+msgid "True if events should be sorted ascending, false if descending"
+msgstr "True bila kejadian mesti diurut naik, false bila turun"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:101
+#: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "sort library photos ascending"
 msgstr "urutkan pustaka foto dengan urut naik"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:102
-msgid "True if library photos should be sorted ascending, false if descending."
-msgstr "True bila pustaka foto mesti diurut naik, false bila turun."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:102
+msgid "True if library photos should be sorted ascending, false if descending"
+msgstr "True bila pustaka foto mesti diurut naik, false bila turun"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:107
+#: data/gsettings/org.gnome.shotwell.gschema.xml:107
 msgid "sort library photos criteria"
 msgstr "kriteria pengurutan pustaka foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:108
+#: data/gsettings/org.gnome.shotwell.gschema.xml:108
 msgid ""
-"A numeric code that specifies the sort criteria for photos in library views."
+"A numeric code that specifies the sort criteria for photos in library views"
 msgstr ""
 "Kode numerik yang menyatakan kriteria pengurutan untuk foto dalam tilikan "
-"pustaka."
+"pustaka"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:113
+#: data/gsettings/org.gnome.shotwell.gschema.xml:113
 msgid "sort event photos ascending"
 msgstr "urutkan foto kejadian dengan urut naik"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:114
-msgid "True if event photos should be sorted ascending, false if descending."
-msgstr "True bila foto kejadian mesti diurut naik, false bila turun."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:114
+msgid "True if event photos should be sorted ascending, false if descending"
+msgstr "True bila foto kejadian mesti diurut naik, false bila turun"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:119
+#: data/gsettings/org.gnome.shotwell.gschema.xml:119
 msgid "sort event photos criteria"
 msgstr "kriteria pengurutan foto kejadian"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:120
-msgid "Specifies the sort criteria for event photos."
-msgstr "Menyatakan kriteria pengurutan untuk foto kejadian."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:120
+msgid "Specifies the sort criteria for event photos"
+msgstr "Menyatakan kriteria pengurutan untuk foto kejadian"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:125
+#: data/gsettings/org.gnome.shotwell.gschema.xml:125
 msgid "use 24 hour time"
 msgstr "gunakan waktu 24 jam"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:126
+#: data/gsettings/org.gnome.shotwell.gschema.xml:126
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
-"AM/PM notation."
+"AM/PM notation"
 msgstr ""
 "True bila mesti menampilkan waktu dalam bentuk 24 jam, false bila waktu "
-"mesti memakai notasi AM/PM."
+"mesti memakai notasi AM/PM"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:131
+#: data/gsettings/org.gnome.shotwell.gschema.xml:131
 msgid "keep relative time between photos"
 msgstr "pertahankan waktu relatif antar foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:132
+#: data/gsettings/org.gnome.shotwell.gschema.xml:132
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
-"maintained. False if all photos should be set to the same time."
+"maintained. False if all photos should be set to the same time"
 msgstr ""
 "True bila ketika menyetel waktu/tanggal foto, waktu relatif mesti "
-"dipertahankan. False bila semua foto mesti ditata ke waktu yang sama."
+"dipertahankan. False bila semua foto mesti ditata ke waktu yang sama"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:137
+#: data/gsettings/org.gnome.shotwell.gschema.xml:137
 msgid "modify original photo files"
 msgstr "modifikasi berkas asli foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:138
+#: data/gsettings/org.gnome.shotwell.gschema.xml:138
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
-"modified as well. False if changes are made only in the database."
+"modified as well. False if changes are made only in the database"
 msgstr ""
 "True bila ketika menyetel waktu/tanggal foto, berkas asli mesti diubah juga. "
-"False bila perubahan hanya dibuat di dalam basis data."
+"False bila perubahan hanya dibuat di dalam basis data"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:143
+#: data/gsettings/org.gnome.shotwell.gschema.xml:143
 msgid "show welcome dialog on startup"
 msgstr "tampilkan dialog selamat datang saat memulai"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:144
+#: data/gsettings/org.gnome.shotwell.gschema.xml:144
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
-"should not be shown."
+"should not be shown"
 msgstr ""
 "True bila, ketika awal mula, sebuah dialog selamat datang mesti ditampilkan. "
-"False bila itu tidak perlu ditampilkan."
+"False bila itu tidak perlu ditampilkan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:149
+#: data/gsettings/org.gnome.shotwell.gschema.xml:149
 msgid "sidebar position"
 msgstr "posisi bilah sisi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:150
+#: data/gsettings/org.gnome.shotwell.gschema.xml:150
 msgid "The width, in pixels, of the sidebar"
 msgstr "Lebar, dalam piksel, dari bilah sisi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:155
+#: data/gsettings/org.gnome.shotwell.gschema.xml:155
 msgid "photo thumbnail scale"
 msgstr "skala gambar mini foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:156
-msgid "The scale of photo thumbnails, ranging from 72 to 360."
-msgstr "Skala dari gambar mini foto, mulai dari 72 sampai 360."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:156
+msgid "The scale of photo thumbnails, ranging from 72 to 360"
+msgstr "Skala dari gambar mini foto, mulai dari 72 sampai 360"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:161
+#: data/gsettings/org.gnome.shotwell.gschema.xml:161
 msgid "pin toolbar state"
 msgstr "sematkan batang alat"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:162
-msgid "Pin toolbar in fullscreen, or not."
-msgstr "Sematkan atau tidak bilah alat pada mode layar penuh."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:162
+msgid "Pin toolbar in fullscreen, or not"
+msgstr "Sematkan atau tidak bilah alat pada mode layar penuh"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:167
+#: data/gsettings/org.gnome.shotwell.gschema.xml:167
 msgid "prefer GTK+’s dark theme"
 msgstr "lebih memilih tema gelap GTK+"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:168
-msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
-msgstr "Apakah akan menggunakan tema gelap GTK+ untuk Shotwell atau tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:168
+msgid "Whether to use the dark theme of GTK+ for Shotwell or not"
+msgstr "Apakah akan menggunakan tema gelap GTK+ untuk Shotwell atau tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:173
+#: data/gsettings/org.gnome.shotwell.gschema.xml:173
 msgid "background for transparent images"
 msgstr "latar belakang untuk citra transparan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:174
-msgid "The background to use for transparent images."
-msgstr "Latar belakang yang akan dipakai bagi citra-citra transparan."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:174
+msgid "The background to use for transparent images"
+msgstr "Latar belakang yang akan dipakai bagi citra-citra transparan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:179
+#: data/gsettings/org.gnome.shotwell.gschema.xml:179
 msgid "color for solid transparency background"
 msgstr "warna untuk latar belakang transparan rata"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:180
+#: data/gsettings/org.gnome.shotwell.gschema.xml:180
 msgid "Color to use if background for transparent images is set to solid color"
 msgstr ""
 "Warna yang akan dipakai bila latar belakang untuk citra-citra transparan "
 "ditata ke warna rata"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:185
+#: data/gsettings/org.gnome.shotwell.gschema.xml:185
 msgid "Selection state of “hide photos” option"
 msgstr "Keadaan pemilihan dari opsi \"sembunyikan foto\""
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:186
+#: data/gsettings/org.gnome.shotwell.gschema.xml:186
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
-"the import page."
+"the import page"
 msgstr ""
 "Keadaan pemilihan yang terakhir dipakai dari opsi \"sembunyikan foto yang "
-"telah diimpor\" dalam halaman impor."
+"telah diimpor\" dalam halaman impor"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:193
+#: data/gsettings/org.gnome.shotwell.gschema.xml:193
 msgid "delay"
 msgstr "tundaan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:194
-msgid "Delay (in seconds) between photos in the slideshow."
-msgstr "Penundaan (dalam detik) antar foto pada pertunjukan salindia."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:194
+msgid "Delay (in seconds) between photos in the slideshow"
+msgstr "Penundaan (dalam detik) antar foto pada pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:199
+#: data/gsettings/org.gnome.shotwell.gschema.xml:199
 msgid "transition delay"
 msgstr "tundaan transisi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:200
+#: data/gsettings/org.gnome.shotwell.gschema.xml:200
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr ""
 "Waktu (dalam detik) transisi yang berjalan antar foto pada pertunjukan "
 "salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:205
+#: data/gsettings/org.gnome.shotwell.gschema.xml:205
 msgid "transition effect id"
 msgstr "id efek transisi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:206
+#: data/gsettings/org.gnome.shotwell.gschema.xml:206
 msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
@@ -486,110 +486,110 @@ msgstr ""
 "Nama efek transisi yang akan digunakan ketika menjalankan pertunjukan "
 "salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:211
+#: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Show title"
 msgstr "Tampilkan judul"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:212
+#: data/gsettings/org.gnome.shotwell.gschema.xml:212
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr "Apakah tampilkan judul dari foto pada saat pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:219
+#: data/gsettings/org.gnome.shotwell.gschema.xml:219
 msgid "maximize library window"
 msgstr "maksimumkan jendela pustaka"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:220
-msgid "True if library application is maximized, false otherwise."
-msgstr "True jika pustaka aplikasi dimaksimalkan, false jika sebaliknya."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:220
+msgid "True if library application is maximized, false otherwise"
+msgstr "True jika pustaka aplikasi dimaksimalkan, false jika sebaliknya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:225
+#: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "width of library window"
 msgstr "lebar dari jendela pustaka"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:226
-msgid "The last recorded width of the library application window."
-msgstr "Lebar yang tersimpan dari jendela pustaka aplikasi sebelumnya."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:226
+msgid "The last recorded width of the library application window"
+msgstr "Lebar yang tersimpan dari jendela pustaka aplikasi sebelumnya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:231
+#: data/gsettings/org.gnome.shotwell.gschema.xml:231
 msgid "height of library window"
 msgstr "tinggi dari jendela pustaka"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:232
-msgid "The last recorded height of the library application window."
-msgstr "Tinggi yang tersimpan dari jendela pustaka aplikasi sebelumnya."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:232
+msgid "The last recorded height of the library application window"
+msgstr "Tinggi yang tersimpan dari jendela pustaka aplikasi sebelumnya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:237
+#: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "maximize direct-edit window"
 msgstr "maksimalkan jendela sunting-langsung"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:238
-msgid "True if direct-edit application is maximized, false otherwise."
-msgstr "True bila aplikasi sunting-langsung dimaksimalkan, false bila tidak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:238
+msgid "True if direct-edit application is maximized, false otherwise"
+msgstr "True bila aplikasi sunting-langsung dimaksimalkan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:243
+#: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "width of direct-edit window"
 msgstr "lebar jendela sunting-langsung"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:244
-msgid "The last recorded width of the direct-edit application window."
-msgstr "Lebar yang terakhir terrekam dari jendela aplikasi sunting-langsung."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:244
+msgid "The last recorded width of the direct-edit application window"
+msgstr "Lebar yang terakhir terrekam dari jendela aplikasi sunting-langsung"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:249
+#: data/gsettings/org.gnome.shotwell.gschema.xml:249
 msgid "height of direct-edit window"
 msgstr "tinggi dari jendela sunting-langsung"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:250
-msgid "The last recorded height of the direct-edit application window."
-msgstr "Tinggi yang terakhir terrekam dari jendela aplikasi sunting-langsung."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:250
+msgid "The last recorded height of the direct-edit application window"
+msgstr "Tinggi yang terakhir terrekam dari jendela aplikasi sunting-langsung"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:255
+#: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid "sidebar divider position"
 msgstr "posisi pemisah bilah sisi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:256
+#: data/gsettings/org.gnome.shotwell.gschema.xml:256
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
-"library application window."
+"library application window"
 msgstr ""
 "Posisi yang terakhir terrekam dari pemisah antara bilah sisi dan tilikan "
-"dalam jendela aplikasi pustaka."
+"dalam jendela aplikasi pustaka"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:263
+#: data/gsettings/org.gnome.shotwell.gschema.xml:263
 msgid "import directory"
 msgstr "direktori impor"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:264
-msgid "Directory in which imported photo files are placed."
-msgstr "Direktori tempat meletakkan berkas foto yang diimpor."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:264
+msgid "Directory in which imported photo files are placed"
+msgstr "Direktori tempat meletakkan berkas foto yang diimpor"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:269
+#: data/gsettings/org.gnome.shotwell.gschema.xml:269
 msgid "watch library directory for new files"
 msgstr "pantau berkas baru di direktori pustaka"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:270
+#: data/gsettings/org.gnome.shotwell.gschema.xml:270
 msgid ""
-"If true, files added to the library directory are automatically imported."
+"If true, files added to the library directory are automatically imported"
 msgstr ""
 "Bila true, berkas yang ditambahkan ke direktori pustaka secara otomatis "
-"diimpor."
+"diimpor"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:275
+#: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid "write metadata to master files"
 msgstr "menulis metadata ke berkas"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:276
+#: data/gsettings/org.gnome.shotwell.gschema.xml:276
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
-"photo file."
+"photo file"
 msgstr ""
 "Bila true, perubahan ke metadata (tag, judul, dsb.) ditulis ke berkas foto "
-"induk."
+"induk"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:281
+#: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid "use lowercase filenames"
 msgstr "gunakan huruf kecil untuk nama berkas"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:282
+#: data/gsettings/org.gnome.shotwell.gschema.xml:282
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
@@ -597,154 +597,154 @@ msgstr ""
 "Jika bernilai benar, Shotwell akan mengubah semua nama berkas menjadi huruf "
 "kecil ketika mengimpor berkas foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:287
+#: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid "directory pattern"
 msgstr "pola direktori"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:288
+#: data/gsettings/org.gnome.shotwell.gschema.xml:288
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
-"directories on import."
+"directories on import"
 msgstr ""
 "Kalimat yang mengkodekan pola penamaan yang akan dipakai untuk menamai "
-"direktori foto saat impor."
+"direktori foto saat impor"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:293
+#: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid "directory pattern custom"
 msgstr "pola direktori ubahan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:294
+#: data/gsettings/org.gnome.shotwell.gschema.xml:294
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
-"directories on import."
+"directories on import"
 msgstr ""
 "Kalimat yang mengkodekan pola penamaan ubahan yang akan dipakai untuk "
-"menamai direktori foto saat impor."
+"menamai direktori foto saat impor"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:299
+#: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "RAW developer default"
 msgstr "Baku pengembang RAW"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:300
-msgid "Default option for which RAW developer Shotwell will use."
-msgstr "Opsi baku yang akan dipakai oleh Shotwell bagi pengembang RAW."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:300
+msgid "Default option for which RAW developer Shotwell will use"
+msgstr "Opsi baku yang akan dipakai oleh Shotwell bagi pengembang RAW"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:307
-msgid "Most-recently-used crop aspect ratio menu choice."
-msgstr "Pilihan menu rasio aspek pangkas yang terakhir dipakai."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:307
+msgid "Most-recently-used crop aspect ratio menu choice"
+msgstr "Pilihan menu rasio aspek pangkas yang terakhir dipakai"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:308
-msgid "A numeric code representing the last crop menu choice the user made."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:308
+msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "Kode numerik yang mewakili pilihan menu pangkas yang terakhir diambil oleh "
-"pengguna."
+"pengguna"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:312
-msgid "Most-recently-used crop custom aspect ratio’s numerator."
-msgstr "Numerator rasio aspek ubahan pemangkasan yang terakhir dipakai."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:312
+msgid "Most-recently-used crop custom aspect ratio’s numerator"
+msgstr "Numerator rasio aspek ubahan pemangkasan yang terakhir dipakai"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:313
+#: data/gsettings/org.gnome.shotwell.gschema.xml:313
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
-"crop ratio the user entered."
+"crop ratio the user entered"
 msgstr ""
 "Suatu bilangan bulat positif yang mewakili bagian lebar dari rasio pangkas "
-"ubahan yang terakhir dimasukkan oleh pengguna."
+"ubahan yang terakhir dimasukkan oleh pengguna"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:317
-msgid "Most-recently-used crop custom aspect ratio’s denominator."
-msgstr "Denominator rasio aspek ubahan pemangkasan yang terakhir dipakai."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:317
+msgid "Most-recently-used crop custom aspect ratio’s denominator"
+msgstr "Denominator rasio aspek ubahan pemangkasan yang terakhir dipakai"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:318
+#: data/gsettings/org.gnome.shotwell.gschema.xml:318
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
-"crop ratio the user entered."
+"crop ratio the user entered"
 msgstr ""
 "Suatu bilangan bulat positif yang mewakili bagian tinggi dari rasio pangkas "
-"ubahan yang terakhir dimasukkan oleh pengguna."
+"ubahan yang terakhir dimasukkan oleh pengguna"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:325
+#: data/gsettings/org.gnome.shotwell.gschema.xml:325
 msgid "external photo editor"
 msgstr "penyunting foto eksternal"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:326
-msgid "External application used to edit photos."
-msgstr "Aplikasi ekternal untuk menyunting foto."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:326
+msgid "External application used to edit photos"
+msgstr "Aplikasi ekternal untuk menyunting foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:331
+#: data/gsettings/org.gnome.shotwell.gschema.xml:331
 msgid "external raw editor"
 msgstr "penyunting raw eksternal"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:332
-msgid "External application used to edit RAW photos."
-msgstr "Aplikasi eksternal untuk menyunting foto RAW."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:332
+msgid "External application used to edit RAW photos"
+msgstr "Aplikasi eksternal untuk menyunting foto RAW"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:370
-#: data/gsettings/org.yorba.shotwell.gschema.xml:371
+#: data/gsettings/org.gnome.shotwell.gschema.xml:370
+#: data/gsettings/org.gnome.shotwell.gschema.xml:371
 msgid "Setting in export dialog: how to trim images"
 msgstr "Pengaturan dalam dialog ekspor: bagaimana memangkas citra"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:376
+#: data/gsettings/org.gnome.shotwell.gschema.xml:376
 msgid "export metadata"
 msgstr "ekspor metadata"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:377
+#: data/gsettings/org.gnome.shotwell.gschema.xml:377
 msgid "Setting in export dialog: option to export metadata"
 msgstr "Pengaturan dalam dialog ekspor: opsi untuk mengekspor metadata"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:382
+#: data/gsettings/org.gnome.shotwell.gschema.xml:382
 msgid "format setting, special value"
 msgstr "pengaturan format, nilai khusus"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:383
+#: data/gsettings/org.gnome.shotwell.gschema.xml:383
 msgid "Setting in export dialog: format setting, special value"
 msgstr "Pengaturan dalam dialog ekspor: pengaturan format, nilai khusus"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:388
+#: data/gsettings/org.gnome.shotwell.gschema.xml:388
 msgid "format setting, type value"
 msgstr "pengaturan format, nilai tipe"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:389
+#: data/gsettings/org.gnome.shotwell.gschema.xml:389
 msgid "Setting in export dialog: format setting, type value"
 msgstr "Pengaturan dalam dialog ekspor: pengaturan format, nilai tipe"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:394
+#: data/gsettings/org.gnome.shotwell.gschema.xml:394
 msgid "JPEG quality option"
 msgstr "Opsi kualitas JPEG"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:395
+#: data/gsettings/org.gnome.shotwell.gschema.xml:395
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "Pengaturan dalam dialog ekspor: opsi kualitas jpeg"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:400
+#: data/gsettings/org.gnome.shotwell.gschema.xml:400
 msgid "maximal size of image"
 msgstr "ukuran maksimum citra"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:401
+#: data/gsettings/org.gnome.shotwell.gschema.xml:401
 msgid "Setting in export dialog: maximal size of image"
 msgstr "Pengaturan dalam dialog ekspor: ukuran maksimum citra"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:408
+#: data/gsettings/org.gnome.shotwell.gschema.xml:408
 msgid "last used publishing service"
 msgstr "layanan penerbitan yang terakhir digunakan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:409
-#: data/gsettings/org.yorba.shotwell.gschema.xml:415
+#: data/gsettings/org.gnome.shotwell.gschema.xml:409
+#: data/gsettings/org.gnome.shotwell.gschema.xml:415
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr ""
 "Suatu kode numerik yang mewakili layanan yang terakhir dipakai untuk "
 "mempublikasikan foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:414
+#: data/gsettings/org.gnome.shotwell.gschema.xml:414
 msgid "default publishing service"
 msgstr "layanan penerbitan bawaan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:428
+#: data/gsettings/org.gnome.shotwell.gschema.xml:428
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Token autorisasi untuk pengguna Flickr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:434
+#: data/gsettings/org.gnome.shotwell.gschema.xml:434
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -752,21 +752,21 @@ msgstr ""
 "Rahasia kriptografis yang dipakai untuk menandatangani permintaan atas token "
 "autorisasi bagi pengguna Flickr yang sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:445
+#: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid "default size code"
 msgstr "kode ukuran baku"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:446
+#: data/gsettings/org.gnome.shotwell.gschema.xml:446
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Kode numerik yang mewakili ukuran foto baku yang dipublikasikan ke Flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:451
+#: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid "default visibility"
 msgstr "visibilitas bawaan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:452
+#: data/gsettings/org.gnome.shotwell.gschema.xml:452
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -774,7 +774,7 @@ msgstr ""
 "Kode numerik yang mewakili kenampakan baku bagi foto yang dipublikasikan ke "
 "Flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:458
+#: data/gsettings/org.gnome.shotwell.gschema.xml:458
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
@@ -782,20 +782,20 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Flickr mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:465
-#: data/gsettings/org.yorba.shotwell.gschema.xml:603
+#: data/gsettings/org.gnome.shotwell.gschema.xml:465
+#: data/gsettings/org.gnome.shotwell.gschema.xml:603
 msgid "refresh token"
 msgstr "segarkan token"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:466
+#: data/gsettings/org.gnome.shotwell.gschema.xml:466
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
-"logged in user, if any."
+"logged in user, if any"
 msgstr ""
 "Token OAuth yang dipakai untuk menyegarkan sesi Google Photos bagi pengguna "
-"yang sedang masuk, bila ada."
+"yang sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:472
+#: data/gsettings/org.gnome.shotwell.gschema.xml:472
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -803,17 +803,17 @@ msgstr ""
 "Kode numerik yang mewakili ukuran foto baku yang diunggah ke Album Google "
 "Photos"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:477
-#: data/gsettings/org.yorba.shotwell.gschema.xml:577
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "last album"
 msgstr "album terakhir"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:478
-#: data/gsettings/org.yorba.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:478
+#: data/gsettings/org.gnome.shotwell.gschema.xml:578
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Nama dari album terakhir tempat pengguna mempublikasi foto, bila ada"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:484
+#: data/gsettings/org.gnome.shotwell.gschema.xml:484
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -821,55 +821,55 @@ msgstr ""
 "Apakah citra yang diunggah ke Google Photos mesti dihapus terlebih dahulu "
 "metadatanya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:491
+#: data/gsettings/org.gnome.shotwell.gschema.xml:491
 msgid "Piwigo URL"
 msgstr "URL Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:492
-msgid "URL of the Piwigo server."
-msgstr "URL dari peladen Piwigo."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:492
+msgid "URL of the Piwigo server"
+msgstr "URL dari peladen Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:498
-msgid "Piwigo username, if logged in."
-msgstr "Nama pengguna Piwigo, bila masuk."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:498
+msgid "Piwigo username, if logged in"
+msgstr "Nama pengguna Piwigo, bila masuk"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:503
+#: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "password"
 msgstr "kata sandi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:504
-msgid "Piwigo password, if logged in."
-msgstr "Kata sandi Piwigo, bila masuk."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:504
+msgid "Piwigo password, if logged in"
+msgstr "Kata sandi Piwigo, bila masuk"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:509
+#: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "remember password"
 msgstr "ingat Sandi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:510
-msgid "If true, remember the Piwigo password."
-msgstr "Jika bernilai true, maka akan mengingat kata sandi Piwigo."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:510
+msgid "If true, remember the Piwigo password"
+msgstr "Jika bernilai true, maka akan mengingat kata sandi Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:516
-msgid "The last selected Piwigo category."
-msgstr "Kategori Piwigio yang terakhir dipilih."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:516
+msgid "The last selected Piwigo category"
+msgstr "Kategori Piwigio yang terakhir dipilih"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:521
+#: data/gsettings/org.gnome.shotwell.gschema.xml:521
 msgid "last permission level"
 msgstr "tingkatan hak akses yang terakhir digunakan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:522
-msgid "The last chosen Piwigo permission level."
-msgstr "Tingkatan hak akses Piwigio yang terakhir dipilih."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:522
+msgid "The last chosen Piwigo permission level"
+msgstr "Tingkatan hak akses Piwigio yang terakhir dipilih"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:528
+#: data/gsettings/org.gnome.shotwell.gschema.xml:528
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
-"to Piwigo."
+"to Piwigo"
 msgstr ""
 "Kode numerik yang mewakili pratata ukuran foto terakhir yang dipakai ketika "
-"mempublikasikan ke Piwigo."
+"mempublikasikan ke Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:534
+#: data/gsettings/org.gnome.shotwell.gschema.xml:534
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
@@ -877,14 +877,14 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Piwigo mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:539
+#: data/gsettings/org.gnome.shotwell.gschema.xml:539
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "bila judul diatur dan komentar kosong, pakai judul sebagai komentar untuk "
 "diunggah ke Piwigio"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:540
+#: data/gsettings/org.gnome.shotwell.gschema.xml:540
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -892,51 +892,51 @@ msgstr ""
 "Apakah citra yang sedang diunggap ke Piwigo komentarnya mesti disalin dari "
 "judul bila judul terisi dan komentar kosong"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:545
+#: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "jangan unggah tanda ketika mengunggah ke Piwigio"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:546
+#: data/gsettings/org.gnome.shotwell.gschema.xml:546
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
-"upload, such that these tags will not appear on the remote Piwigo server."
+"upload, such that these tags will not appear on the remote Piwigo server"
 msgstr ""
 "Apakah citra yang sedang diunggah ke Piwigo mesti dihapus terlebih dahulu "
-"tagnya, sehingga tag-tag ini tidak akan muncul pada peladen Piwigo."
+"tagnya, sehingga tag-tag ini tidak akan muncul pada peladen Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:551
+#: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "jangan unggah peringkat ketika mengunggah ke Piwigio"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:552
+#: data/gsettings/org.gnome.shotwell.gschema.xml:552
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
-"such that these ratings will not appear on the remote Piwigo server."
+"such that these ratings will not appear on the remote Piwigo server"
 msgstr ""
 "Apakah citra yang sedang diunggah ke Piwigo mesti dihapus terlebih dahulu "
-"ratingnya, sehingga rating ini tidak akan muncul pada peladen Piwigo."
+"ratingnya, sehingga rating ini tidak akan muncul pada peladen Piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:560
+#: data/gsettings/org.gnome.shotwell.gschema.xml:560
 msgid "Gallery3 username"
 msgstr "Nama pengguna Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:565
+#: data/gsettings/org.gnome.shotwell.gschema.xml:565
 msgid "API key"
 msgstr "Kunci API"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:566
+#: data/gsettings/org.gnome.shotwell.gschema.xml:566
 msgid "Gallery3 API key"
 msgstr "Kunci API Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:571
+#: data/gsettings/org.gnome.shotwell.gschema.xml:571
 msgid "URL"
 msgstr "URL"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:572
+#: data/gsettings/org.gnome.shotwell.gschema.xml:572
 msgid "Gallery3 site URL"
 msgstr "URL situs Gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:584
+#: data/gsettings/org.gnome.shotwell.gschema.xml:584
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -944,19 +944,19 @@ msgstr ""
 "Apakah gambar yang sedang diunggah ke Gallery3 mesti terlebih dahulu dihapus "
 "metadatanya"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:589
+#: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid "scaling constraint of uploaded picture"
 msgstr "kendala pengaturan skala dari gambar yang diunggah"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:590
+#: data/gsettings/org.gnome.shotwell.gschema.xml:590
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "ID kendala pengaturan skala dari gambar yang diunggah"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:595
+#: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid "pixels of the major axis uploaded picture"
 msgstr "piksel sumbu mayor dari gambar yang diunggah"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:596
+#: data/gsettings/org.gnome.shotwell.gschema.xml:596
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -964,39 +964,39 @@ msgstr ""
 "Piksel dari sumbu mayor gambar yang akan diunggah; hanya dipakai bila "
 "scaling-constraint-id adalah nilai yang sesuai"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:604
+#: data/gsettings/org.gnome.shotwell.gschema.xml:604
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
-"in user, if any."
+"in user, if any"
 msgstr ""
 "Token OAuth yang dipakai untuk menyegarkan sesi YouTube bagi pengguna yang "
-"sedang masuk, bila ada."
+"sedang masuk, bila ada"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:611
+#: data/gsettings/org.gnome.shotwell.gschema.xml:611
 msgid "last used import service"
 msgstr "layanan impor yang terakhir digunakan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:612
+#: data/gsettings/org.gnome.shotwell.gschema.xml:612
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Suatu kode numerik yang mewakili layanan yang terakhir dipakai sebagai "
 "sumber impor foto"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:619
+#: data/gsettings/org.gnome.shotwell.gschema.xml:619
 msgid "interpreter state cookie"
 msgstr "cookie keadaan interpreter"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:620
+#: data/gsettings/org.gnome.shotwell.gschema.xml:620
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
 msgstr "Kode numerik yang menangkap keadaan dari lingkungan pengaya GStreamer"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:627
+#: data/gsettings/org.gnome.shotwell.gschema.xml:627
 msgid "content layout mode"
 msgstr "mode tata letak isi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:628
+#: data/gsettings/org.gnome.shotwell.gschema.xml:628
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -1004,35 +1004,35 @@ msgstr ""
 "Kode numerik yang menjelaskan bagaimana foto disusun pada halaman saat "
 "pencetakan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:633
+#: data/gsettings/org.gnome.shotwell.gschema.xml:633
 msgid "content ppi"
 msgstr "ppi isi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:634
+#: data/gsettings/org.gnome.shotwell.gschema.xml:634
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Angka piksel per inci (ppi) yang dikirim ke pencetak selama pencetakan"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:639
+#: data/gsettings/org.gnome.shotwell.gschema.xml:639
 msgid "content width"
 msgstr "lebar konten"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:640
+#: data/gsettings/org.gnome.shotwell.gschema.xml:640
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Lebar dari emulsi yang dicetak pada halaman ketika mencetak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:645
+#: data/gsettings/org.gnome.shotwell.gschema.xml:645
 msgid "content height"
 msgstr "tinggi konten"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:646
+#: data/gsettings/org.gnome.shotwell.gschema.xml:646
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Tinggi dari emulsi yang dicetak pada halaman ketika mencetak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:651
+#: data/gsettings/org.gnome.shotwell.gschema.xml:651
 msgid "content units"
 msgstr "satuan isi"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:652
+#: data/gsettings/org.gnome.shotwell.gschema.xml:652
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -1040,11 +1040,11 @@ msgstr ""
 "Kode numerik yang mewakili satuan pengukuran (inci atau sentimeter) yang "
 "dipakai ketika mencetak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:657
+#: data/gsettings/org.gnome.shotwell.gschema.xml:657
 msgid "images per page code"
 msgstr "gambar per kode halaman"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:658
+#: data/gsettings/org.gnome.shotwell.gschema.xml:658
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
@@ -1052,22 +1052,22 @@ msgstr ""
 "Kode numerik yang mewakili mode cacah citra per halaman yang kini dipakai "
 "ketika mencetak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:663
+#: data/gsettings/org.gnome.shotwell.gschema.xml:663
 msgid "size selection"
 msgstr "pemilihan ukuran"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:664
+#: data/gsettings/org.gnome.shotwell.gschema.xml:664
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Indeks dari ukuran cetak saat ini dalam daftar terpradefinisi dari ukuran-"
 "ukuran standar"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:669
+#: data/gsettings/org.gnome.shotwell.gschema.xml:669
 msgid "match aspect ratio"
 msgstr "cocok rasio aspek"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:670
+#: data/gsettings/org.gnome.shotwell.gschema.xml:670
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1075,201 +1075,201 @@ msgstr ""
 "Menentukan apakah ukuran cetak ubahan mesti cocok dengan rasio aspek dari "
 "foto asli"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:675
+#: data/gsettings/org.gnome.shotwell.gschema.xml:675
 msgid "print titles"
 msgstr "cetak judul"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:676
+#: data/gsettings/org.gnome.shotwell.gschema.xml:676
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
-"false otherwise."
+"false otherwise"
 msgstr ""
-"True bila judul foto mesti dicetak ketika foto dicetak, false bila tidak."
+"True bila judul foto mesti dicetak ketika foto dicetak, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:681
+#: data/gsettings/org.gnome.shotwell.gschema.xml:681
 msgid "titles font"
 msgstr "fonta judul"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:682
-msgid "The name of the font to use for photo titles when they are printed."
-msgstr "Nama fonta yang dipakai untuk judul foto ketika mereka dicetak."
+#: data/gsettings/org.gnome.shotwell.gschema.xml:682
+msgid "The name of the font to use for photo titles when they are printed"
+msgstr "Nama fonta yang dipakai untuk judul foto ketika mereka dicetak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:693
+#: data/gsettings/org.gnome.shotwell.gschema.xml:693
 msgid "enable facebook publishing plugin"
 msgstr "aktifkan pengaya penerbitan facebook"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:694
+#: data/gsettings/org.gnome.shotwell.gschema.xml:694
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Facebook difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:699
+#: data/gsettings/org.gnome.shotwell.gschema.xml:699
 msgid "enable flickr publishing plugin"
 msgstr "aktifkan pengaya penerbitan flickr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:700
+#: data/gsettings/org.gnome.shotwell.gschema.xml:700
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Flickr difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:705
+#: data/gsettings/org.gnome.shotwell.gschema.xml:705
 msgid "enable Google Photos publishing plugin"
 msgstr "aktifkan pengaya penerbitan Google Photos"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:706
+#: data/gsettings/org.gnome.shotwell.gschema.xml:706
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya publikasi Google Photos difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:711
+#: data/gsettings/org.gnome.shotwell.gschema.xml:711
 msgid "enable youtube publishing plugin"
 msgstr "aktifkan pengaya penerbitan youtube"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:712
+#: data/gsettings/org.gnome.shotwell.gschema.xml:712
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi YouTube difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:717
+#: data/gsettings/org.gnome.shotwell.gschema.xml:717
 msgid "enable piwigo publishing plugin"
 msgstr "aktifkan pengaya penerbitan piwigo"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:718
+#: data/gsettings/org.gnome.shotwell.gschema.xml:718
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Piwigo difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:723
+#: data/gsettings/org.gnome.shotwell.gschema.xml:723
 msgid "enable yandex publishing plugin"
 msgstr "aktifkan pengaya penerbitan yandex"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:724
+#: data/gsettings/org.gnome.shotwell.gschema.xml:724
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Yandex.Fotki difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:729
+#: data/gsettings/org.gnome.shotwell.gschema.xml:729
 msgid "enable tumblr publishing plugin"
 msgstr "aktifkan pengaya penerbitan tumblr"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:730
+#: data/gsettings/org.gnome.shotwell.gschema.xml:730
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Tumblr difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:735
+#: data/gsettings/org.gnome.shotwell.gschema.xml:735
 msgid "enable rajce publishing plugin"
 msgstr "aktifkan pengaya penerbitan rajce"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:736
+#: data/gsettings/org.gnome.shotwell.gschema.xml:736
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Rajce difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:741
+#: data/gsettings/org.gnome.shotwell.gschema.xml:741
 msgid "enable gallery3 publishing plugin"
 msgstr "aktifkan pengaya penerbitan gallery3"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:742
+#: data/gsettings/org.gnome.shotwell.gschema.xml:742
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "True bila pengaya publikasi Gallery3 difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:747
+#: data/gsettings/org.gnome.shotwell.gschema.xml:747
 msgid "enable F-Spot import plugin"
 msgstr "aktifkan pengaya impor F-Spot"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:748
+#: data/gsettings/org.gnome.shotwell.gschema.xml:748
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "True bila pengaya impor F-Spot difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:753
+#: data/gsettings/org.gnome.shotwell.gschema.xml:753
 msgid "enable slideshow crumble transition"
 msgstr "aktifkan transisi rontok pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:754
+#: data/gsettings/org.gnome.shotwell.gschema.xml:754
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Rontok difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:759
+#: data/gsettings/org.gnome.shotwell.gschema.xml:759
 msgid "enable slideshow fade transition"
 msgstr "aktifkan transisi memudar pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:760
+#: data/gsettings/org.gnome.shotwell.gschema.xml:760
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Memudar difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:765
+#: data/gsettings/org.gnome.shotwell.gschema.xml:765
 msgid "enable slideshow slide transition"
 msgstr "aktifkan transisi geser pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:766
+#: data/gsettings/org.gnome.shotwell.gschema.xml:766
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Geser difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:771
+#: data/gsettings/org.gnome.shotwell.gschema.xml:771
 msgid "enable slideshow clock transition"
 msgstr "aktifkan transisi jam pada pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:772
+#: data/gsettings/org.gnome.shotwell.gschema.xml:772
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "True bila pengaya transisi salindia Jam difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:777
+#: data/gsettings/org.gnome.shotwell.gschema.xml:777
 msgid "enable slideshow circle transition"
 msgstr "aktifkan transisi lingkaran pada pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:778
+#: data/gsettings/org.gnome.shotwell.gschema.xml:778
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Lingkaran difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:783
+#: data/gsettings/org.gnome.shotwell.gschema.xml:783
 msgid "enable slideshow circles transition"
 msgstr "aktifkan transisi lingkaran pertunjukan salindia"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:784
+#: data/gsettings/org.gnome.shotwell.gschema.xml:784
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Lingkaran difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:789
+#: data/gsettings/org.gnome.shotwell.gschema.xml:789
 msgid "enable slideshow blinds transition"
 msgstr "aktifkan transisi tirai jajar pada tampilan slide"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:790
+#: data/gsettings/org.gnome.shotwell.gschema.xml:790
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Tirai Jajar difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:795
+#: data/gsettings/org.gnome.shotwell.gschema.xml:795
 msgid "enable slideshow squares transition"
 msgstr "aktifkan transisi bujur sangkar pada tampilan slide"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:796
+#: data/gsettings/org.gnome.shotwell.gschema.xml:796
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Bujur Sangkar difungsikan, false bila "
 "tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:801
+#: data/gsettings/org.gnome.shotwell.gschema.xml:801
 msgid "enable slideshow stripes transition"
 msgstr "aktifkan transisi bergaris pada tampilan slide"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:802
+#: data/gsettings/org.gnome.shotwell.gschema.xml:802
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "True bila pengaya transisi salindia Garis-garis difungsikan, false bila tidak"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:807
+#: data/gsettings/org.gnome.shotwell.gschema.xml:807
 msgid "enable slideshow chess transition"
 msgstr "aktifkan transisi papan catur pada tampilan slide"
 
-#: data/gsettings/org.yorba.shotwell.gschema.xml:808
+#: data/gsettings/org.gnome.shotwell.gschema.xml:808
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -2320,28 +2320,73 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Anda tidak terhubung ke YouTube.\n"
+"to log into the YouTube site at least once.\n"
 "\n"
-"Anda harus memiliki akun Google/YouTube untuk melanjutkan."
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
+msgstr ""
+"Saat ini Anda tidak masuk ke YouTube.\n"
+"\n"
+"Anda harus sudah mendaftar akun Google dan mengaturnya untuk digunakan "
+"dengan YouTube untuk melanjutkan. Anda dapat menyiapkan sebagian besar akun "
+"menggunakan peramban untuk masuk ke situs YouTube setidaknya satu kali.\n"
+"\n"
+"Shotwell menggunakan layanan API YouTube <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> untuk mengakses "
+"saluran YouTube Anda dan mengunggah video. Dengan menggunakan Shotwell untuk "
+"mengakses YouTube, Anda setuju untuk terikat pada persyaratan layanan "
+"YouTube sebagaimana tersedia di <a href=\"https://www.youtube.com/t/terms"
+"\">https://www.youtube.com/t/terms</a>\n"
+"\n"
+"Kebijakan privasi Shotwell mengenai penggunaan data yang terkait dengan akun "
+"Google Anda secara umum dan YouTube pada khususnya dapat ditemukan di <a "
+"href=\"help:shotwell/privacy-policy\"> kebijakan privasi layanan daring</a> "
+"kami\n"
+"\n"
+"Untuk kebijakan privasi Google sendiri, silakan merujuk ke <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data. You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. "
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
-"Anda belum masuk ke Google Photos.\n"
+"Saat ini Anda tidak masuk ke Google foto.\n"
 "\n"
-"Anda harus sudah mendaftar untuk akun Google dan mengaturnya untuk digunakan "
-"dengan Google Photos.\n"
+"Anda harus sudah mendaftar ke akun Google dan mengaturnya untuk digunakan "
+"dengan Google foto. Shotwell menggunakan layanan Google Photos API <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> untuk semua interaksi dengan data Google Photos Anda. Anda harus "
+"memberikan akses Shotwell ke pustaka Google Photos.\n"
 "\n"
-"Anda harus mengautorisasi Shotwell untuk menautkan ke akun Google Photos "
-"Anda."
+"Kebijakan privasi Shotwell mengenai penggunaan data yang terkait dengan akun "
+"Google Anda secara umum dan Google Photos secara khusus dapat ditemukan di "
+"<a href=\"help:shotwell/privacy-policy\">kebijakan privasi layanan daring</"
+"a>kami. Untuk Kebijakan Privasi Google sendiri, silakan merujuk ke <a href="
+"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
+"a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -2400,7 +2445,7 @@ msgstr ""
 "Malsasa <teknoloid@gmail.com>, 2012\n"
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
-"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019.\n"
+"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019, 2020.\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2020."
 
 #. Possible error message when a site presents a bad certificate.
@@ -2528,7 +2573,7 @@ msgstr "Tepi terpanjang"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:95
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
 msgid "_Logout"
 msgstr "_Keluar"
 
@@ -2539,7 +2584,7 @@ msgstr "_Keluar"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:110
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "_Terbitkan"
@@ -3083,7 +3128,7 @@ msgstr ""
 "Anda belum masuk ke Tumblr sebagai %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
 msgstr "Pengaturan priva_si video"
 
@@ -4570,11 +4615,9 @@ msgstr "Hapus Dari Album"
 
 #: src/Dialogs.vala:937 src/PhotoPage.vala:2897
 msgid "Removing Photo From Library"
-msgstr "Hapus Foto dari Album"
-
-#: src/Dialogs.vala:937
-msgid "Removing Photos From Library"
-msgstr "Hapus Foto Dari Album"
+msgid_plural "Removing Photos From Library"
+msgstr[0] "Menghapus Foto Dari Album"
+msgstr[1] "Menghapus Foto-foto Dari Album"
 
 #: src/Dialogs.vala:951
 #, c-format
@@ -5284,56 +5327,56 @@ msgstr ""
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Kesalahan tak dikenal saat mencoba verifikasi basis data Shotwell: %s"
 
-#: src/main.vala:108
+#: src/main.vala:112
 msgid "Loading Shotwell"
 msgstr "Menjalankan Shotwell"
 
-#: src/main.vala:339
+#: src/main.vala:347
 msgid "Path to Shotwell’s private data"
 msgstr "Path ke data privat Shotwell"
 
-#: src/main.vala:339
+#: src/main.vala:347
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
-#: src/main.vala:340
+#: src/main.vala:348
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Jangan pantau perubahan direktori pustaka saat runtime"
 
-#: src/main.vala:341
+#: src/main.vala:349
 msgid "Don’t display startup progress meter"
 msgstr "Jangan tampilkan meter kemajuan awal mula"
 
-#: src/main.vala:342
+#: src/main.vala:350
 msgid "Show the application’s version"
 msgstr "Tampilkan versi aplikasi"
 
-#: src/main.vala:343
+#: src/main.vala:351
 msgid "Start the application in fullscreen mode"
 msgstr "Mulai aplikasi dalam mode layar penuh"
 
-#: src/main.vala:344
+#: src/main.vala:352
 msgid "Print the metadata of the image file"
 msgstr "Cetak metadata dari berkas gambar"
 
-#: src/main.vala:345
+#: src/main.vala:353
 msgid "Name for a custom profile"
 msgstr "Nama untuk profil khusus"
 
-#: src/main.vala:345
+#: src/main.vala:353
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:346
+#: src/main.vala:354
 msgid "Show available profiles"
 msgstr "Tampilkan profil yang tersedia"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:377
+#: src/main.vala:385
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:382
+#: src/main.vala:390
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
@@ -6559,54 +6602,3 @@ msgstr "tanpa judul"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "Ekspor Video"
-
-#~ msgid "Token"
-#~ msgstr "Token"
-
-#~ msgid "The token to access tumblr"
-#~ msgstr "Token untuk mengakses tumblr"
-
-#~ msgid "Secret token"
-#~ msgstr "Token rahasia"
-
-#~ msgid "The secret token to sign oauth requests"
-#~ msgstr "Token rahasia untuk menandatangani permintaan oauth"
-
-#~ msgid "access token"
-#~ msgstr "token akses"
-
-#~ msgid "Facebook OAuth token for the currently logged in session, if any"
-#~ msgstr "Token OAuth Facebook untuk sesi masuk saat ini, bila ada"
-
-#~ msgid "user i.d."
-#~ msgstr "i.d. pengguna"
-
-#~ msgid "Facebook user i.d. for the currently logged in user, if any"
-#~ msgstr "ID pengguna Facebook yang sedang dipakai masuk, bila ada"
-
-#~ msgid "user name"
-#~ msgstr "nama pengguna"
-
-#~ msgid "The name of the currently logged in Facebook user, if any"
-#~ msgstr "Nama pengguna Facebook yang sedang dipakai masuk, bila ada"
-
-#~ msgid ""
-#~ "A numeric code representing the default size for photos published to "
-#~ "Facebook"
-#~ msgstr ""
-#~ "Kode numerik yang mewakili ukuran baku bagi foto yang dipublikasikan ke "
-#~ "Facebook"
-
-#~ msgid ""
-#~ "Whether images being uploaded to Facebook should have their metadata "
-#~ "removed first"
-#~ msgstr ""
-#~ "Apakah citra yang diunggah ke Facebook mesti dihapus terlebih dahulu "
-#~ "metadatanya"
-
-#~ msgid ""
-#~ "Indicates whether images being uploaded to Gallery3 should have their "
-#~ "metadata removed first"
-#~ msgstr ""
-#~ "Apakah citra yang diunggah ke Gallery3 mesti dihapus terlebih dahulu "
-#~ "metadatanya"
