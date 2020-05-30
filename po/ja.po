@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-05-28 10:13+0000\n"
-"PO-Revision-Date: 2020-05-30 00:00+0900\n"
+"POT-Creation-Date: 2020-05-29 16:19+0000\n"
+"PO-Revision-Date: 2020-05-30 18:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -102,7 +102,7 @@ msgstr "認証トークン"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Yandex-Fotki の認証トークン (ログインしている場合)。"
+msgstr "Yandex-Fotki の認証トークン (ログインした場合)。"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:14
 msgid "Token"
@@ -110,7 +110,7 @@ msgstr "トークン"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:15
 msgid "The token to access tumblr"
-msgstr ""
+msgstr "Tumblr にアクセスするためのトークン"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:20
 msgid "Secret token"
@@ -155,7 +155,7 @@ msgstr "ユーザー名"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:47
 msgid "Rajce username, if logged in."
-msgstr "Rajce のユーザー名 (ログインしている場合)。"
+msgstr "Rajce のユーザー名 (ログインした場合)。"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:52
 msgid "token"
@@ -501,7 +501,7 @@ msgstr "トランジションの遅延"
 #: misc/org.yorba.shotwell.gschema.xml:194
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
-msgstr ""
+msgstr "スライドショーでの写真間のトランジション実行間隔 (秒単位)"
 
 #: misc/org.yorba.shotwell.gschema.xml:199
 msgid "transition effect id"
@@ -849,13 +849,15 @@ msgstr "Flickr にアップロードする画像のメタデータを事前に�
 #: misc/org.yorba.shotwell.gschema.xml:492
 #: misc/org.yorba.shotwell.gschema.xml:624
 msgid "refresh token"
-msgstr ""
+msgstr "更新トークン"
 
 #: misc/org.yorba.shotwell.gschema.xml:493
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any."
 msgstr ""
+"現在 Google フォトにログインしているユーザーのセッションの更新に使用する "
+"OAuth トークン (ある場合)。"
 
 #: misc/org.yorba.shotwell.gschema.xml:499
 msgid ""
@@ -892,7 +894,7 @@ msgstr "Piwigo のサーバーの URL。"
 
 #: misc/org.yorba.shotwell.gschema.xml:525
 msgid "Piwigo username, if logged in."
-msgstr "Piwigo のユーザー名 (ログインしている場合)。"
+msgstr "Piwigo のユーザー名 (ログインした場合)。"
 
 #: misc/org.yorba.shotwell.gschema.xml:530
 msgid "password"
@@ -900,7 +902,7 @@ msgstr "パスワード"
 
 #: misc/org.yorba.shotwell.gschema.xml:531
 msgid "Piwigo password, if logged in."
-msgstr "Piwigo のパスワード (ログインしている場合)。"
+msgstr "Piwigo のパスワード (ログインした場合)。"
 
 #: misc/org.yorba.shotwell.gschema.xml:536
 msgid "remember password"
@@ -987,6 +989,8 @@ msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
 msgstr ""
+"Gallery3 にアップロードする画像のメタデータを事前に削除するかどうかを"
+"示します"
 
 #: misc/org.yorba.shotwell.gschema.xml:610
 msgid "scaling constraint of uploaded picture"
@@ -1011,6 +1015,8 @@ msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr ""
+"現在 YouTube にログインしているユーザーのセッションの更新に使用する OAuth ト"
+"ークン (ある場合)。"
 
 #: misc/org.yorba.shotwell.gschema.xml:632
 msgid "last used import service"
@@ -1066,13 +1072,13 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:672
 msgid "content units"
-msgstr ""
+msgstr "内容の単位"
 
 #: misc/org.yorba.shotwell.gschema.xml:673
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
-msgstr ""
+msgstr "印刷時に使用する単位 (インチまたはセンチメートル) を示す数値コード"
 
 #: misc/org.yorba.shotwell.gschema.xml:678
 msgid "images per page code"
@@ -1086,7 +1092,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:684
 msgid "size selection"
-msgstr ""
+msgstr "サイズの選択"
 
 #: misc/org.yorba.shotwell.gschema.xml:685
 msgid ""
@@ -1095,31 +1101,34 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:690
 msgid "match aspect ratio"
-msgstr ""
+msgstr "アスペクト比の一致"
 
 #: misc/org.yorba.shotwell.gschema.xml:691
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
+"カスタム印刷サイズがオリジナルの写真のアスペクト比と一致する必要があるか"
+"どうかを指定します"
 
 #: misc/org.yorba.shotwell.gschema.xml:696
 msgid "print titles"
-msgstr ""
+msgstr "タイトルを印刷する"
 
 #: misc/org.yorba.shotwell.gschema.xml:697
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
 msgstr ""
+"写真を印刷するときにタイトルも印刷する場合は true、しない場合は false。"
 
 #: misc/org.yorba.shotwell.gschema.xml:702
 msgid "titles font"
-msgstr ""
+msgstr "タイトルのフォント"
 
 #: misc/org.yorba.shotwell.gschema.xml:703
 msgid "The name of the font to use for photo titles when they are printed."
-msgstr ""
+msgstr "写真のタイトルを印刷するときに使用するフォント名"
 
 #: misc/org.yorba.shotwell.gschema.xml:714
 msgid "enable facebook publishing plugin"
@@ -1403,9 +1412,9 @@ msgid ""
 msgstr ""
 "現在 YouTube にログインしていません。\n"
 "\n"
-"続けるには Google アカウントにサインアップしている状態で YouTube の使用をセッ"
-"トアップする必要があります。大抵の場合、ブラウザーを使用して YouTube に一度ロ"
-"グインすればセットアップできます。\n"
+"続けるには、Google アカウントにサインアップした上で、YouTube を利用するための"
+"設定を行う必要があります。少なくとも一度ブラウザーを使用して YouTube にログイ"
+"ンしておけば、ほとんどのアカウントを設定することができます。\n"
 "\n"
 "Shotwell は YouTube のチャンネルへのアクセスと動画のアップロードに YouTube "
 "の API サービス (<a href=\"https://developers.google.com/youtube\">https://"
@@ -1438,11 +1447,11 @@ msgid ""
 msgstr ""
 "現在 Google フォトにログインしていません。\n"
 "\n"
-"Google アカウントにサインアップしている状態で Google フォトの使用をセットアッ"
-"プする必要があります。Shotwell はすべての Google フォトとのデータのやり取り"
-"に、Google Photos API サービス (<a href=\"https://developers.google.com/"
-"photos/\">https://developers.google.com/photos/</a>) を使用します。Shotwell "
-"が Google フォトライブラリにアクセスすることを許可する必要があります。\n"
+"Google アカウントにサインアップした上で、YouTube を利用するための設定を行う必"
+"要があります。Shotwell はすべての Google フォトとのデータのやり取りに、Google"
+" Photos API サービス (<a href=\"https://developers.google.com/photos/\">"
+"https://developers.google.com/photos/</a>) を使用します。Shotwell が Google "
+"フォトライブラリにアクセスすることを許可する必要があります。\n"
 "\n"
 "Google アカウント関係、特に Google フォト絡みのデータの使用に関する Shotwell "
 "のプライバシーポリシーは、<a href=\"help:shotwell/privacy-policy\">オンライン"
@@ -1900,11 +1909,11 @@ msgstr "Shotwell 接続"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:81
 msgid "Standard (720 pixels)"
-msgstr "標準 (720ピクセル)"
+msgstr "標準 (720 ピクセル)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:84
 msgid "Large (2048 pixels)"
-msgstr "大 (2048ピクセル)"
+msgstr "大 (2048 ピクセル)"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:314
 msgid "Creating album…"
@@ -1923,7 +1932,7 @@ msgid ""
 "You are logged into Facebook as %s.\n"
 "\n"
 msgstr ""
-"%s として Facebook にログインしています。\n"
+"%s で Facebook にログインしています。\n"
 "\n"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:724
@@ -6446,11 +6455,12 @@ msgstr "ゴミ箱にあるすべての写真を削除します"
 #~ "use with YouTube to continue. You can set up most accounts by using your "
 #~ "browser to log into the YouTube site at least once."
 #~ msgstr ""
-#~ "現在YouTubeにログインしていません。\n"
+#~ "現在 YouTube にログインしていません。\n"
 #~ "\n"
-#~ "続けるには、Googleアカウントにサインアップした上で、YouTubeを利用するため"
-#~ "の設定を行う必要があります。少なくとも一度ブラウザーを使って YouTubeのサイ"
-#~ "トにログインしておけば、ほとんどのアカウントを設定することができます。"
+#~ "続けるには、Google アカウントにサインアップした上で、YouTube を利用するた"
+#~ "めの設定を行う必要があります。少なくとも一度ブラウザーを使用して YouTube "
+#~ "のサイトにログインしておけば、ほとんどのアカウントを設定することができま"
+#~ "す。"
 
 #~ msgid ""
 #~ "You are not currently logged into Google Photos.\n"
@@ -6460,18 +6470,18 @@ msgstr "ゴミ箱にあるすべての写真を削除します"
 #~ "\n"
 #~ "You will have to authorize Shotwell to link to your Google Photos account."
 #~ msgstr ""
-#~ "現在Googleフォトにログインしていません。\n"
+#~ "現在 Google フォトにログインしていません。\n"
 #~ "\n"
-#~ "Googleアカウントにサインアップした上で、Googleフォトを利用するための設定を"
-#~ "行う必要があります。\n"
+#~ "Google アカウントにサインアップした上で、Google フォトを利用するための設定"
+#~ "を行う必要があります。\n"
 #~ "\n"
-#~ "ShotwellがGoogleフォトアカウントに接続することを許可してください。"
+#~ "Shotwell が Google フォトアカウントに接続することを許可してください。"
 
 #~ msgid ""
 #~ "A file required for publishing is unavailable. Publishing to Picasa can’t "
 #~ "continue."
 #~ msgstr ""
-#~ "公開に必要なファイルが利用できません。Picasaへの公開を続行できません。"
+#~ "公開に必要なファイルが利用できません。Picasa への公開を続行できません。"
 
 #~ msgid "You are logged into Picasa Web Albums as %s."
-#~ msgstr "%s としてPicasa Web Albumにログインしています。"
+#~ msgstr "%s で Picasa Web Album にログインしています。"
