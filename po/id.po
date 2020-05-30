@@ -16,18 +16,18 @@
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2018. 2019
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell master\n"
+"Project-Id-Version: shotwell 0.30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-05-31 17:44+0000\n"
-"PO-Revision-Date: 2019-07-11 15:33+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2020-05-30 10:35+0000\n"
+"PO-Revision-Date: 2020-05-30 21:10+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.3\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -1410,19 +1410,19 @@ msgstr ""
 "Klik Masuk untuk masuk ke Flickr pada peramban Web Anda. Anda mesti memberi "
 "izin Shotwell Connect untuk menyambungkan ke akun Flickr Anda."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:126
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
 msgstr "Mempersiapkan log masuk…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:195
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
 msgstr "Autorisasi Flickr gagal"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:202
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
 msgstr "Memverifikasi otorisasi…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1442,27 +1442,73 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Anda tidak terhubung ke YouTube.\n"
+"to log into the YouTube site at least once.\n"
 "\n"
-"Anda harus memiliki akun Google/YouTube untuk melanjutkan."
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
+msgstr ""
+"Saat ini Anda tidak masuk ke YouTube.\n"
+"\n"
+"Anda harus sudah mendaftar akun Google dan mengaturnya untuk digunakan "
+"dengan YouTube untuk melanjutkan. Anda dapat menyiapkan sebagian besar akun "
+"menggunakan peramban untuk masuk ke situs YouTube setidaknya satu kali.\n"
+"\n"
+"Shotwell menggunakan layanan API YouTube <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> untuk mengakses "
+"saluran YouTube Anda dan mengunggah video. Dengan menggunakan Shotwell untuk "
+"mengakses YouTube, Anda setuju untuk terikat pada persyaratan layanan "
+"YouTube sebagaimana tersedia di <a href=\"https://www.youtube.com/t/terms"
+"\">https://www.youtube.com/t/terms</a>\n"
+"\n"
+"Kebijakan privasi Shotwell mengenai penggunaan data yang terkait dengan akun "
+"Google Anda secara umum dan YouTube pada khususnya dapat ditemukan di <a "
+"href=\"help:shotwell/privacy-policy\"> kebijakan privasi layanan daring</a> "
+"kami\n"
+"\n"
+"Untuk kebijakan privasi Google sendiri, silakan merujuk ke <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data.You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
+"Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
-"Anda belum masuk ke Foto Google.\n"
+"Saat ini Anda tidak masuk ke Google Photos.\n"
 "\n"
-"Anda harus sudah mendaftar untuk akun Google dan mengaturnya untuk digunakan "
-"dengan Google Foto.\n"
+"Anda harus sudah mendaftar ke akun Google dan mengaturnya untuk digunakan "
+"dengan Google Photos. Shotwell menggunakan layanan API Google Photos <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> untuk semua interaksi dengan data Google Photos Anda. Anda harus "
+"memberikan akses Shotwell ke pustaka Google Photos Anda.\n"
 "\n"
-"Anda harus mengotorisasi Shotwell untuk menautkan ke akun Google Foto Anda."
+"Kebijakan privasi Shotwell mengenai penggunaan data yang terkait dengan akun "
+"Google Anda secara umum dan Google Photos secara khusus dapat ditemukan "
+"dalam <a href=\"help:shotwell/privacy-policy\">kebijakan privasi layanan "
+"daring</a> kami. Kebijakan privasi untuk Google sendiri, silakan merujuk ke "
+"<a href=\"https://policies.google.com/privacy\">https://policies.google.com/"
+"privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1521,7 +1567,7 @@ msgstr ""
 "Malsasa <teknoloid@gmail.com>, 2012\n"
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
-"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017.\n"
+"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2020.\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2018, 2019."
 
 #. Possible error message when a site presents a bad certificate.
@@ -1655,7 +1701,7 @@ msgstr "Tepi terpanjang"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:85
 msgid "_Logout"
 msgstr "_Keluar"
 
@@ -1667,7 +1713,7 @@ msgstr "_Keluar"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "_Terbitkan"
@@ -2262,7 +2308,7 @@ msgstr ""
 "Anda belum masuk ke Tumblr sebagai %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:41
 msgid "Video privacy _setting:"
 msgstr "Pengaturan priva_si video:"
 
@@ -2617,25 +2663,29 @@ msgstr "Kamera tidak dapat dikunci: %s"
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] "Hapus %d foto ini dari kamera?"
+msgstr[0] "Hapus foto ini dari kamera?"
+msgstr[1] "Hapus %d foto ini dari kamera?"
 
 #: src/camera/ImportPage.vala:1759
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] "Hapus %d video ini dari kamera?"
+msgstr[0] "Hapus video ini dari kamera?"
+msgstr[1] "Hapus %d video ini dari kamera?"
 
 #: src/camera/ImportPage.vala:1762
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "Hapus %d foto/video ini dari kamera?"
+msgstr[0] "Hapus foto/video ini dari kamera?"
+msgstr[1] "Hapus %d foto/video ini dari kamera?"
 
 #: src/camera/ImportPage.vala:1765
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] "Hapus %d berkas ini dari kamera?"
+msgstr[0] "Hapus berkas ini dari kamera?"
+msgstr[1] "Hapus %d berkas ini dari kamera?"
 
 #: src/camera/ImportPage.vala:1773 src/Dialogs.vala:733
 msgid "_Keep"
@@ -2650,6 +2700,8 @@ msgstr "Menghapus foto/video dari kamera"
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
+"Tidak dapat menghapus %d foto/video dari kamera karena adanya kesalahan."
+msgstr[1] ""
 "Tidak dapat menghapus %d foto/video dari kamera karena adanya kesalahan."
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
@@ -2741,11 +2793,13 @@ msgstr "_Putar"
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Ekspor Foto/Video"
+msgstr[1] ""
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Ekspor Foto"
+msgstr[1] ""
 
 #: src/CollectionPage.vala:499 src/CollectionPage.vala:515
 msgid "Rotating"
@@ -2831,7 +2885,9 @@ msgstr "Hapus foto ganda"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "Ada %d foto yang tidak dapat digandakan karena ada kesalahan teknis"
+msgstr[0] ""
+"Ada satu foto yang tidak dapat digandakan karena ada kesalahan berkas"
+msgstr[1] "Ada %d foto yang tidak dapat digandakan karena ada kesalahan berkas"
 
 #: src/Commands.vala:1194
 msgid "Restoring previous rating"
@@ -2873,6 +2929,7 @@ msgstr "Batalkan Pengaturan Tanggal dan Jam"
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Foto asli ini tidak dapat diatur."
+msgstr[1] ""
 
 #: src/Commands.vala:1400 src/Commands.vala:1424
 msgid "Time Adjustment Error"
@@ -2884,6 +2941,7 @@ msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 "Penyesuaian jam tidak dapat dikembalikan pada berkas-berkas foto berikut."
+msgstr[1] ""
 
 #: src/Commands.vala:1636 src/Commands.vala:1659
 msgid "Create Tag"
@@ -3053,7 +3111,8 @@ msgstr "Gagal menyiapkan salindia destop: %s"
 #, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] "Ini akan menghapus tag \"%s\" dari %d foto. Teruskan?"
+msgstr[0] "Ini akan menghapus tag \"%s\" dari satu foto. Teruskan?"
+msgstr[1] "Ini akan menghapus tag \"%s\" dari %d foto. Teruskan?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58
 #: src/Dialogs.vala:734 src/Resources.vala:128 src/Resources.vala:309
@@ -3078,6 +3137,7 @@ msgid_plural ""
 msgstr[0] ""
 "Mengganti pengembang akan membatalkan perubahan yang kamu buat ke foto ini "
 "di Shotwell"
+msgstr[1] ""
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -3087,7 +3147,8 @@ msgstr "_Ganti Pengembang"
 #, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
-msgstr[0] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
+msgstr[0] "Ini akan menghapus wajah \"%s\" dari satu foto. Teruskan?"
+msgstr[1] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
 
 #: src/Dialogs.vala:74
 msgid "Export Video"
@@ -3155,12 +3216,14 @@ msgstr "Impor Laporan Hasil"
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Mencoba mengimpor %d berkas."
+msgstr[1] "Mencoba mengimpor %d berkas."
 
 #: src/Dialogs.vala:229
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
 msgstr[0] "Dari sekian banyak, %d berkas sukses diimpor."
+msgstr[1] "Dari sekian banyak, %d berkas sukses diimpor."
 
 #.
 #. Duplicates
@@ -3242,35 +3305,40 @@ msgstr "Foto Video Yang Tak Diimpor Karena Alasan Lain:"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "%d foto duplikat tidak diimpor:\n"
+msgstr[0] "1 foto duplikat tidak diimpor:\n"
+msgstr[1] "%d foto duplikat tidak diimpor:\n"
 
 #: src/Dialogs.vala:354
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "%d video duplikat tidak diimpor:\n"
+msgstr[0] "1 video duplikat tidak diimpor:\n"
+msgstr[1] "%d video duplikat tidak diimpor:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "%d foto/video duplikat tidak diimpor:\n"
+msgstr[0] "1 foto/video duplikat tidak diimpor:\n"
+msgstr[1] "%d foto/video duplikat tidak diimpor:\n"
 
 #: src/Dialogs.vala:371
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Ada %d foto gagal diimpor karena kesalahan pada berkas atau perangkat "
-"keras:\n"
+"1 foto gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
+msgstr[1] ""
+"%d foto gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
 
 #: src/Dialogs.vala:374
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Ada %d video gagal diimpor karena kesalahan pada berkas atau perangkat "
-"keras:\n"
+"1 video gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
+msgstr[1] ""
+"%d video gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
 
 #: src/Dialogs.vala:377
 #, c-format
@@ -3278,6 +3346,9 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"1 foto/video gagal diimpor karena kesalahan pada berkas atau perangkat "
+"keras:\n"
+msgstr[1] ""
 "Ada %d foto/video gagal diimpor karena kesalahan pada berkas atau perangkat "
 "keras:\n"
 
@@ -3286,6 +3357,8 @@ msgstr[0] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
+"1 berkas gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
+msgstr[1] ""
 "Ada %d berkas gagal diimpor karena kesalahan pada berkas atau perangkat "
 "keras:\n"
 
@@ -3297,6 +3370,8 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 foto tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
+msgstr[1] ""
 "%d foto tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
 
 #: src/Dialogs.vala:397
@@ -3307,6 +3382,8 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 video tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
+msgstr[1] ""
 "%d video tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
 
 #: src/Dialogs.vala:400
@@ -3318,6 +3395,9 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 foto/video tidak dapat diimpor karena folder album foto tidak dapat "
+"ditulisi:\n"
+msgstr[1] ""
 "%d foto/video tidak dapat diimpor karena folder album foto tidak dapat "
 "ditulisi:\n"
 
@@ -3329,6 +3409,8 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
+"1 berkas tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
+msgstr[1] ""
 "%d berkas tidak dapat diimpor karena folder album foto tidak dapat "
 "ditulisi:\n"
 
@@ -3336,49 +3418,57 @@ msgstr[0] ""
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "Ada %d foto gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "1 foto gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[1] "%d foto gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:420
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "%d video gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "1 video gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[1] "%d video gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:423
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "%d foto/video gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "1 foto/video gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[1] "%d foto/video gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:426
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] "%d berkas gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "1 berkas gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[1] "%d berkas gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:440
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] "%d foto gagal diimpor karena rusak:\n"
+msgstr[0] "1 foto gagal diimpor karena rusak:\n"
+msgstr[1] "%d foto gagal diimpor karena rusak:\n"
 
 #: src/Dialogs.vala:443
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] "%d video gagal diimpor karena rusak:\n"
+msgstr[0] "1 video gagal diimpor karena rusak:\n"
+msgstr[1] "%d video gagal diimpor karena rusak:\n"
 
 #: src/Dialogs.vala:446
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "%d foto/video gagal diimpor karena rusak:\n"
+msgstr[0] "1 foto/video gagal diimpor karena rusak:\n"
+msgstr[1] "%d foto/video gagal diimpor karena rusak:\n"
 
 #: src/Dialogs.vala:449
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] "%d berkas gagal diimpor karena rusak:\n"
+msgstr[0] "1 berkas gagal diimpor karena rusak:\n"
+msgstr[1] "%d berkas gagal diimpor karena rusak:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -3388,7 +3478,8 @@ msgstr[0] "%d berkas gagal diimpor karena rusak:\n"
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "Ada %d foto yang tidak dapat dibuka:\n"
+msgstr[0] "1 foto yang tidak dapat dibuka:\n"
+msgstr[1] "%d foto yang tidak dapat dibuka:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
@@ -3396,49 +3487,57 @@ msgstr[0] "Ada %d foto yang tidak dapat dibuka:\n"
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "Ada %d berkas yang bukan berupa foto.\n"
+msgstr[0] "1 berkas bukan foto dilewati.\n"
+msgstr[1] "%d berkas bukan foto dilewati.\n"
 
 #: src/Dialogs.vala:492
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "Ada %d foto yang tidak masuk karena Anda batalkan:\n"
+msgstr[0] "1 foto dilewati karena pengguna membatalkan:\n"
+msgstr[1] "%d foto dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:495
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "Ada %d video yang tidak masuk karena Anda batalkan:\n"
+msgstr[0] "1 video dilewati karena pengguna membatalkan:\n"
+msgstr[1] "%d video dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:498
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "Ada %d foto/video yang tidak masuk karena Anda batalkan:\n"
+msgstr[0] "1 foto/video dilewati karena pengguna membatalkan:\n"
+msgstr[1] "%d foto/video dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:501
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] "Ada %d berkas yang tidak masuk karena Anda batalkan:\n"
+msgstr[0] "1 berkas dilewati karena pengguna membatalkan:\n"
+msgstr[1] "%d berkas dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:515
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "%d foto telah berhasil diimpor.\n"
+msgstr[0] "1 foto telah berhasil diimpor.\n"
+msgstr[1] "%d foto telah berhasil diimpor.\n"
 
 #: src/Dialogs.vala:518
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "%d video telah berhasil diimpor.\n"
+msgstr[0] "1 video telah berhasil diimpor.\n"
+msgstr[1] "%d video telah berhasil diimpor.\n"
 
 #: src/Dialogs.vala:521
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "%d foto/video telah berhasil diimpor.\n"
+msgstr[0] "1 foto/video telah berhasil diimpor.\n"
+msgstr[1] "%d foto/video telah berhasil diimpor.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
@@ -3485,6 +3584,7 @@ msgstr "Komentar:"
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Hapus dan _Buang Berkas"
+msgstr[1] ""
 
 #: src/Dialogs.vala:713
 msgid "_Remove From Library"
@@ -3504,6 +3604,9 @@ msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
+"Ini akan menghancurkan semua perubahan yang telah dibuat pada berkas "
+"eksternal. Lanjutan?"
+msgstr[1] ""
 "Ini akan menghancurkan semua perubahan yang telah dibuat pada %d berkas "
 "eksternal. Lanjutan?"
 
@@ -3519,7 +3622,8 @@ msgstr "_Batalkan Penyuntingan Eksternal"
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
-msgstr[0] "Ini akan menghapus %d foto dari pustaka. Lanjutkan?"
+msgstr[0] "Ini akan menghapus foto dari pustaka. Lanjutkan?"
+msgstr[1] "Ini akan menghapus %d foto dari pustaka. Lanjutkan?"
 
 #: src/Dialogs.vala:790 src/Resources.vala:143
 msgid "_Remove"
@@ -3544,6 +3648,10 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
+"\n"
+"\n"
+"Dan %d lainnya."
+msgstr[1] ""
 "\n"
 "\n"
 "Dan %d lainnya."
@@ -3599,10 +3707,15 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ini akan menghapus foto/video dari pustaka Shotwell Anda. Apakah Anda juga "
+"hendak memindahkan berkas tersebut ke tong sampah desktop?\n"
+"\n"
+"Aksi ini tidak dapat dibatalkan."
+msgstr[1] ""
 "Ini akan menghapus %d foto/video dari pustaka Shotwell Anda. Apakah Anda "
 "juga hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
 "\n"
-"Aksi ini tidak dapat dikembalikan ke semula."
+"Aksi ini tidak dapat dibatalkan."
 
 #: src/Dialogs.vala:957
 #, c-format
@@ -3617,10 +3730,15 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ini akan menghapus video dari pustaka Shotwell Anda. Apakah Anda juga hendak "
+"memindahkan berkas tersebut ke tong sampah desktop?\n"
+"\n"
+"Aksi ini tidak dapat dibatalkan."
+msgstr[1] ""
 "Ini akan menghapus %d video dari pustaka Shotwell Anda. Apakah Anda juga "
 "hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
 "\n"
-"Aksi ini tidak dapat dikembalikan ke semula."
+"Aksi ini tidak dapat dibatalkan."
 
 #: src/Dialogs.vala:961
 #, c-format
@@ -3635,10 +3753,15 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ini akan menghapus foto dari pustaka Shotwell Anda. Apakah Anda juga hendak "
+"memindahkan berkas tersebut ke tong sampah desktop?\n"
+"\n"
+"Aksi ini tidak dapat dibatalkan."
+msgstr[1] ""
 "Ini akan menghapus %d foto dari pustaka Shotwell Anda. Apakah Anda juga "
 "hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
 "\n"
-"Aksi ini tidak dapat dikembalikan ke semula."
+"Aksi ini tidak dapat dibatalkan."
 
 #: src/Dialogs.vala:993
 #, c-format
@@ -3647,15 +3770,19 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
+"Foto/video tidak dapat dipindahkan ke tong sampah desktop Anda. Hapus berkas "
+"ini?"
+msgstr[1] ""
 "%d foto/video tidak dapat dipindahkan ke tong sampah desktop Anda. Hapus "
-"berkas ini?"
+"berkas-berkas ini?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1010
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] "%d foto/video tidak dapat dihapus."
+msgstr[0] "Foto/video tidak dapat dihapus."
+msgstr[1] "%d foto/video tidak dapat dihapus."
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -3746,25 +3873,27 @@ msgstr "Atur semu_a foto/video ke waktu ini"
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Modifikasi berkas asli foto"
+msgstr[1] ""
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Modifikasi berkas asli"
+msgstr[1] ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:213
+#: src/dialogs/AdjustDateTimeDialog.vala:219
 msgid "Original: "
 msgstr "Asli: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:214
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d/%m/%Y, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:215
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d/%m/%Y, %I:%M:%S %p"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:312
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3773,7 +3902,7 @@ msgstr ""
 "Tanggal pengambilan gambar akan dimajukan\n"
 "%d %s, %d %s, %d %s, dan %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:307
+#: src/dialogs/AdjustDateTimeDialog.vala:313
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3782,25 +3911,29 @@ msgstr ""
 "Tanggal pengambilan gambar akan dimundurkan\n"
 "%d %s, %d %s, %d %s, dan %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:315
 msgid "day"
 msgid_plural "days"
 msgstr[0] "hari"
+msgstr[1] ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:316
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "jam"
+msgstr[1] ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:317
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "menit"
+msgstr[1] ""
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:318
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "detik"
+msgstr[1] ""
 
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
@@ -3879,18 +4012,21 @@ msgstr "%d%%"
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d detik"
+msgstr[1] "%d detik"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:52
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d menit"
+msgstr[1] "%d menit"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:56
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d jam"
+msgstr[1] "%d jam"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:59
 msgid "1 day"
@@ -4153,18 +4289,21 @@ msgstr "_Luruskan"
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d Foto/Video"
+msgstr[1] "%d Foto/Video"
 
 #: src/events/EventDirectoryItem.vala:99 src/Properties.vala:362
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d Video"
+msgstr[1] "%d Video"
 
 #: src/events/EventDirectoryItem.vala:101 src/Properties.vala:360
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d Foto"
+msgstr[1] "%d Foto"
 
 #: src/events/EventPage.vala:128
 msgid "No Event"
@@ -4340,7 +4479,7 @@ msgstr "%s diimpor"
 msgid "Last Import"
 msgstr "Impor terakhir"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:127
 #: ui/preferences_dialog.ui:465
 msgid "Library"
 msgstr "Album"
@@ -4610,7 +4749,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3770
+#: src/Photo.vala:3767
 msgid "modified"
 msgstr "berubah"
 
@@ -4677,7 +4816,8 @@ msgstr "Jumlah Foto:"
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
-msgstr[0] "%d Rangkaian"
+msgstr[0] "%d Kejadian"
+msgstr[1] "%d Kejadian"
 
 #. display only one date if start and end are the same
 #: src/Properties.vala:384
@@ -4801,11 +4941,13 @@ msgstr "Pilih dari menu untuk menggunakan layanan lain."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
 msgstr[0] "Video yang dipilih telah berhasil dipublikasikan."
+msgstr[1] ""
 
 #: src/publishing/PublishingUI.vala:109
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
 msgstr[0] "Foto yang dipilih telah berhasil dipublikasikan."
+msgstr[1] ""
 
 #: src/publishing/PublishingUI.vala:115
 msgid "The selected photos/videos were successfully published."
@@ -5469,24 +5611,28 @@ msgstr "Ubah Tag"
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Tag Foto sebagai \"%s\""
+msgstr[1] "Tag Foto sebagai \"%s\""
 
 #: src/Resources.vala:364
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Tag foto terpilih sebagai \"%s\""
+msgstr[1] "Tag foto terpilih sebagai \"%s\""
 
 #: src/Resources.vala:370
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Hapus Tag \"%s\" Dari _Foto"
+msgstr[1] "Hapus Tag \"%s\" Dari _Foto"
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Hapus Tag \"%s\" Dari Foto"
+msgstr[1] "Hapus Tag \"%s\" Dari Foto"
 
 #: src/Resources.vala:382
 #, c-format
@@ -5536,12 +5682,14 @@ msgstr ""
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Hapus Wajah \"%s\" Dari _Foto"
+msgstr[1] "Hapus Wajah \"%s\" Dari _Foto"
 
 #: src/Resources.vala:416
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Hapus Wajah \"%s\" Dari Foto"
+msgstr[1] "Hapus Wajah \"%s\" Dari Foto"
 
 #: src/Resources.vala:421
 #, c-format
@@ -6005,7 +6153,7 @@ msgid "untitled"
 msgstr "tanpa judul"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Ekspor Video"
 
@@ -6456,86 +6604,3 @@ msgstr "label"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Hapus semua foto yang pernah dibuang"
-
-#~ msgid "shotwell"
-#~ msgstr "shotwell"
-
-#~ msgid ""
-#~ "The OAuth token used to refresh the Picasa Web Albums session for the "
-#~ "currently logged in user, if any."
-#~ msgstr ""
-#~ "Token OAuth yang dipakai untuk menyegarkan sesi Album Web Picasa bagi "
-#~ "pengguna yang sedang log masuk, bila ada."
-
-#~ msgid ""
-#~ "Whether images being uploaded to Picasa should have their metadata "
-#~ "removed first"
-#~ msgstr ""
-#~ "Apakah gambar yang sedang diunggah ke Picasa mesti terlebih dahulu "
-#~ "dihapus metadatanya"
-
-#~ msgid "enable picasa publishing plugin"
-#~ msgstr "aktifkan plugin penerbitan picasa"
-
-#~ msgid ""
-#~ "True if the Picasa Web Albums publishing plugin is enabled, false "
-#~ "otherwise"
-#~ msgstr ""
-#~ "True bila pengaya publikasi Album Web Picasa difungsikan, false bila tidak"
-
-#~ msgid ""
-#~ "You are not currently logged into Picasa Web Albums.\n"
-#~ "\n"
-#~ "Click Log in to log into Picasa Web Albums in your Web browser. You will "
-#~ "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#~ "account."
-#~ msgstr ""
-#~ "Kamu tidak sedang log masuk ke Album Web Picasa.\n"
-#~ "\n"
-#~ "Klik Log Masuk untuk masuk ke Album Web Picasa lewat peramban Web Anda. "
-#~ "Anda perlu memberi wewenang Shotwell Connect menyambung ke akun Album Web "
-#~ "Picasa Anda."
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Picasa can’t "
-#~ "continue."
-#~ msgstr ""
-#~ "Berkas penting untuk penerbitan tidak tersedia. Penerbitan ke Picasa tak "
-#~ "bisa dilanjutkan."
-
-#~ msgid "You are logged into Picasa Web Albums as %s."
-#~ msgstr "Anda sudah masuk ke Album Web Picasa atas nama %s."
-
-#~ msgid "background color"
-#~ msgstr "warna latar belakang"
-
-#~ msgid "A grayscale color for use as the background color."
-#~ msgstr "Warna hitam-putih digunakan sebagai warna latar belakang."
-
-#~ msgid "Extended Information"
-#~ msgstr "Informasi Lanjutan"
-
-#~ msgid "white"
-#~ msgstr "putih"
-
-#~ msgid "black"
-#~ msgstr "hitam"
-
-#~ msgid "_Background:"
-#~ msgstr "Latar _Belakang:"
-
-#~ msgid ""
-#~ "Enter the confirmation number which appears after you log into Flickr in "
-#~ "your Web browser."
-#~ msgstr ""
-#~ "Masukkan nomor konfirmasi yang muncul setelah Anda log masuk ke Flickr "
-#~ "dalam peramban Web Anda."
-
-#~ msgid "Authorization _Number:"
-#~ msgstr "_Nomor Otorisasi:"
-
-#~ msgid "Width or height"
-#~ msgstr "Lebar atau tinggi"
-
-#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
-#~ msgstr "\"%s\" bukan jawaban yang valid ke permintaan otentikasi OAuth"
