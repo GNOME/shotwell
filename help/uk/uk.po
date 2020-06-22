@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "POT-Creation-Date: 2020-06-09 15:22+0000\n"
-"PO-Revision-Date: 2020-06-21 10:43+0300\n"
+"PO-Revision-Date: 2020-06-21 20:14+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,12 @@ msgstr "Юрій Чорноіван <yurchor@ukr.net>, 2020"
 #: C/share-export.page:7
 msgid "Copy photos out of Shotwell so you can put them somewhere else."
 msgstr ""
+"Копіювання фотографій з Shotwell, щоб їх можна було перемістити в інше місце."
 
 #. (itstool) path: page/title
 #: C/share-export.page:12
 msgid "Exporting photos"
-msgstr ""
+msgstr "Експортування фотографій"
 
 #. (itstool) path: page/p
 #: C/share-export.page:14
@@ -40,6 +41,10 @@ msgid ""
 "Shotwell onto a file manager window or your desktop. The new files will be "
 "full-sized copies of the photos in your library."
 msgstr ""
+"Щоб експортувати фотографії з Shotwell перетягуванням зі скиданням,"
+" перетягніть фотографі з вікна Shotwell до вікна програми для керування"
+" файлами або на стільницю. Нові файли будуть повнорозмірними копіями"
+" фотографій з вашої бібліотеки."
 
 #. (itstool) path: page/p
 #: C/share-export.page:18
@@ -50,11 +55,18 @@ msgid ""
 "you fine-tune the size and dimensions of your photo files. A window will "
 "appear allowing you to make several choices:"
 msgstr ""
+"Крім того, ви можете позначити набір фотографій і вибрати пункт меню <guiseq"
+"><gui>Файл</gui><gui>Експортувати...</gui></guiseq> або натиснути комбінацію"
+" клавіш <keyseq><key>Shift</"
+"key><key>Ctrl</key><key>E</key></keyseq>. У відповідь фотографії буде"
+" експортовано із можливістю коригування розміру і розмірностей ваших файлів"
+" фотографій. Програма покаже вікно, за допомогою якого ви зможете визначити"
+" декілька параметрів:"
 
 #. (itstool) path: item/p
 #: C/share-export.page:24
 msgid "A format for export."
-msgstr ""
+msgstr "Формат для експортування."
 
 #. (itstool) path: item/p
 #: C/share-export.page:27
@@ -63,6 +75,9 @@ msgid ""
 "without any edits made in Shotwell. RAW photos will be exported in their "
 "original RAW format."
 msgstr ""
+"Виберіть <gui>Без змін</gui>, щоб експортувати фотографії у початковому"
+" форматі без редагування у Shotwell. Цифрові негативи (RAW) буде експортовано"
+" у початковому форматі RAW."
 
 #. (itstool) path: item/p
 #: C/share-export.page:29
@@ -71,6 +86,10 @@ msgid ""
 "RAW photos will be exported in JPEG format if you have edited them in "
 "Shotwell, and otherwise in their original RAW format."
 msgstr ""
+"Виберіть <gui>Поточний</gui>, щоб експортувати фотографії разом із змінами,"
+" які було внесено у Shotwell. Цифрові негативи (RAW) буде експортовано у"
+" форматі JPEG, якщо ви їх редагували у"
+"Shotwell, і у початковому форматі, якщо редагування не виконувалося."
 
 #. (itstool) path: item/p
 #: C/share-export.page:31
@@ -79,11 +98,16 @@ msgid ""
 "used for exporting. Any edits made in Shotwell will be included, and "
 "Shotwell will convert photos to the destination format."
 msgstr ""
+"Крім того, ви можете вибрати певний формат зображень (JPEG, PNG, TIFF, BMP),"
+" який буде використано для експортування. Будь-які зміни, які було внесено у"
+" Shotwell, буде включено до експортованих зображень, і Shotwell перетворить"
+" фотографії до формату призначення."
 
 #. (itstool) path: item/p
 #: C/share-export.page:37
 msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
 msgstr ""
+"Якість зображень для експортування (низька, середня, висока або максимальна)."
 
 #. (itstool) path: item/p
 #: C/share-export.page:38
@@ -91,6 +115,8 @@ msgid ""
 "A scaling constraint (which means how Shotwell will decide to scale the "
 "photos down), and the desired pixel size."
 msgstr ""
+"Обмеження на масштабування (це визначає спосіб визначення у Shotwell потреби"
+" у зменшенні масштабу) та бажаний розмір у пікселях."
 
 #. (itstool) path: item/title
 #: C/share-export.page:40
@@ -100,7 +126,7 @@ msgstr "Початковий розмір"
 #. (itstool) path: item/p
 #: C/share-export.page:40
 msgid "Image will be exported without any scaling applied"
-msgstr ""
+msgstr "Зображення буде експортовано без застосування масштабування"
 
 #. (itstool) path: item/title
 #: C/share-export.page:41
@@ -113,6 +139,9 @@ msgid ""
 "Image will be exported by having its longest edge scaled to <gui>Pixels</"
 "gui> and the other according to the aspect ratio"
 msgstr ""
+"Зображення буде експортовано так, щоб найдовший край зображення було"
+" масштабовано до значення <gui>Пікселі</gui>, а інший — до значення,"
+" відповідно до співвідношення розмірів"
 
 #. (itstool) path: item/title
 #: C/share-export.page:42
@@ -126,6 +155,10 @@ msgid ""
 "height according to the aspect ratio. This is equivalent to <gui>Longest "
 "Edge</gui> for landscape pictures."
 msgstr ""
+"Буде виконано масштабування ширини зображення до вказаного розміру у"
+" пікселях, а висоту буде визначено за співвідношенням розмірів кадру."
+" Еквівалентне до <gui>Найдовший край</gui> для зображень із альбомною"
+" орієнтацією."
 
 #. (itstool) path: item/title
 #: C/share-export.page:43
@@ -139,6 +172,10 @@ msgid ""
 "width according to the aspect ratio. This is equivalent to <gui>Longest "
 "Edge</gui> for portrait pictures."
 msgstr ""
+"Буде виконано масштабування висоти зображення до вказаного розміру у"
+" пікселях, а ширину буде визначено за співвідношенням розмірів кадру."
+" Еквівалентне до <gui>Найдовший край</gui> для зображень із книжковою"
+" орієнтацією."
 
 #. (itstool) path: item/p
 #: C/share-export.page:46
@@ -147,6 +184,10 @@ msgid ""
 "This can help to save your privacy if you have geolocation tags or tags "
 "which shouldn't be seen by anyone."
 msgstr ""
+"За допомогою цього пункту ви можете вказати, чи слід експортувати метадані,"
+" зокрема мітки або оцінки. Усування метаданих може захистити ваші"
+" конфіденційні дані, якщо ви не хочете, щоб сторонні особи бачили мітки"
+" геопозиціювання або якісь інші встановлені вами мітки."
 
 #. (itstool) path: page/p
 #: C/share-export.page:49
@@ -154,11 +195,13 @@ msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
 msgstr ""
+"Якщо цей пункт буде позначено, Shotwell записуватиме мітки, заголовки та інші"
+" метадані до нових файлів."
 
 #. (itstool) path: info/desc
 #: C/organize-title.page:7
 msgid "Give titles to your photos."
-msgstr ""
+msgstr "Надання заголовків вашим фотографіям."
 
 #. (itstool) path: page/title
 #: C/organize-title.page:12
@@ -172,6 +215,9 @@ msgid ""
 "display of titles beneath each photo. By default, a photo's title is its "
 "filename."
 msgstr ""
+"Перемикати показ заголовків під кожною фотографією можна за допомогою пункту"
+" меню <guiseq><gui>Перегляд</gui><gui>Заголовки</gui></guiseq>. Типово,"
+" заголовком фотографії є назва відповідного файла."
 
 #. (itstool) path: page/p
 #: C/organize-title.page:17
@@ -179,6 +225,9 @@ msgid ""
 "To change a photo's title, select the photo and click <guiseq><gui>Photos</"
 "gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
+"Щоб змінити заголовок фотографії, позначте фотографію і скористайтеся пунктом"
+" меню <guiseq><gui>Фотографії</gui><gui>Змінити заголовок...</gui></guiseq>"
+" або натисніть клавішу <key>F2</key>."
 
 #. (itstool) path: info/desc
 #: C/edit-nondestructive.page:7
@@ -186,11 +235,13 @@ msgid ""
 "Shotwell is a non-destructive photo editor - it does not modify your "
 "original photos."
 msgstr ""
+"Shotwell є неруйнівним редактором фотографій — він не змінює початкові дані"
+" фотографій."
 
 #. (itstool) path: page/title
 #: C/edit-nondestructive.page:12
 msgid "What happens to the original when I edit a photo?"
-msgstr ""
+msgstr "Що відбувається з оригіналом, коли ви редагуєте фотографію?"
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:14
@@ -201,6 +252,12 @@ msgid ""
 "database and applies them on the fly as necessary. This means you can undo "
 "any alterations you make to a photograph."
 msgstr ""
+"Shotwell є неруйнівним редактором фотографій. Програма не вносить змін до"
+" початкових файлів фотографій. Тобто, якщо ви обрізаєте фотографію або"
+" коригуєте її кольори, файл фотографії на диску лишається незмінним. Shotwell"
+" зберігає редагування у базі даних і застосовує їх «на льоту», якщо це"
+" потрібно. Це означає, що ви можете скасувати усі зміни, які було внесено до"
+" фотографії."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:16 C/edit-undo.page:18
@@ -209,6 +266,9 @@ msgid ""
 "the <key>Shift</key> key. The original photo will be displayed as long as "
 "you hold the key down."
 msgstr ""
+"Якщо ви хочете побачити вашу фотографію до внесення вами змін, натисніть"
+" клавішу <key>Shift</key>. Початкову фотографію буде показано, доки ви"
+" утримуватиме клавішу натиснутою."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:18
@@ -217,11 +277,14 @@ msgid ""
 "to photo files. For more information, see the section <link xref=\"other-"
 "files\">Photo files</link>."
 msgstr ""
+"Зауважте, що, якщо ви захочете, Shotwell може записувати метадані (зокрема"
+" мітки і заголовки) до файлів фотографій. Щоб дізнатися більше, перегляньте"
+" розділ <link xref=\"other-files\">Файли фотографій</link>."
 
 #. (itstool) path: info/desc
 #: C/organize-search.page:7
 msgid "Find photos and videos in your collection by a variety of criteria."
-msgstr ""
+msgstr "Пошук фотографій і відео у вашій збірці за набором критеріїв."
 
 #. (itstool) path: page/title
 #: C/organize-search.page:12
@@ -236,6 +299,12 @@ msgid ""
 "for certain criteria. Saved Searches feature more complex search criteria "
 "and persist in the sidebar between sessions."
 msgstr ""
+"Існує два способи пошуку у Shotwell: панель інструментів фільтрування і"
+" збережений пошук. За допомогою панелі пошуку ви можете швидко шукати дані на"
+" поточній панелі перегляду за певними критеріями. Функціональна можливість"
+" збереженого пошуку надає змогу встановлювати складніші критерії пошуку."
+" Доступ до цієї можливості реалізується за допомогою бічної панелі і списку"
+" сеансів."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:21
@@ -251,6 +320,12 @@ msgid ""
 "this bar, you can find, show and hide photos and videos based on title, tag, "
 "rating or other options."
 msgstr ""
+"Пункт меню <guiseq><gui>Перегляд</gui><gui>Панель пошуку</gui></guiseq> надає"
+" змогу вмикати і вимикати показ панелі пошуку. Крім того, для відкриття"
+" панелі пошуку ви можете скористатися комбінацією клавіш <keyseq><key>Ctrl<"
+"/key><key>F</key></keyseq> або клавішею <key>F8</key>. За допомогою панелі"
+" пошуку ви можете шукати, наказувати програмі показувати або приховувати"
+" фотографії на основі заголовка, мітки, оцінки та інших параметрів."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:29
@@ -263,6 +338,14 @@ msgid ""
 "flagged, their current number of stars, and whether the items shown are "
 "images, videos, or raw camera files, respectively."
 msgstr ""
+"Щоб розпочати пошук введіть критерій пошуку у поле для введення тексту або"
+" натисніть кнопку <gui>Позначені</gui>, <gui>Оцінка</gui> або <gui>Тип</gui>."
+" Відповідники критерію пошуку буде виявлено за назвами міток, заголовками"
+" фотографій або відео та початковими назвами фотографій. За допомогою кнопок"
+" <gui>Позначені</gui>, <gui>Оцінка</gui> та <gui>Тип</gui> ви можете"
+" фільтрувати вашу збірку за тим, чи було позначено фотографії, за поточною"
+" кількістю зірок оцінки або тим, які записи — зображення, відео чи цифрові"
+" негативи — буде показано, відповідно."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:38
@@ -270,6 +353,8 @@ msgid ""
 "Disabling the search bar or exiting Shotwell automatically resets the search "
 "bar."
 msgstr ""
+"Вимикання панелі пошуку або вихід з Shotwell автоматично скидає панель пошуку"
+" до початкового стану."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:44
@@ -282,6 +367,9 @@ msgid ""
 "A saved search persists across Shotwell sessions, and is updated as photos "
 "and videos are added and removed from your Shotwell library."
 msgstr ""
+"Збережений пошук залишається незмінним між сеансами Shotwell. Його результати"
+" оновлюються із додаванням або вилученням фотографій і відео у вашій"
+" бібліотеці Shotwell."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:50
@@ -292,6 +380,12 @@ msgid ""
 "whether you want to meet Any, All, or None of the criteria in the following "
 "rows."
 msgstr ""
+"Створит збережений пошук можна за допомогою пункту меню <guiseq><gui>Зміни<"
+"/gui><gui>Створити збережений пошук...</gui></guiseq> або натискання"
+" комбінації клавіш <keyseq><key>Ctrl</key><key>S</key></keyseq>. У"
+" діалоговому вікні, яке буде показано, можна ввести назву пошуку і вибрати,"
+" «Будь-якому», «Усім» чи «Жодному» критерію має відповідати результат пошуку"
+" за наступними рядками критеріїв."
 
 #. (itstool) path: section/p
 #: C/organize-search.page:56
@@ -301,16 +395,21 @@ msgid ""
 "box on the left of each row selects the type of criteria. Criteria must be "
 "entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
+"Кожен рядок — окремий критерій пошуку. Скористайтеся кнопкою <gui>+</gui> для"
+" додавання рядків і кнопкою <gui>-</gui> для вилучення поточного рядка. У"
+" спадному списку, розташованому ліворуч, кожен рядок вибирає тип критерію."
+" Перш ніж стане доступною кнопка <gui>Гаразд</gui>, усі критерії має бути"
+" введено належним чином."
 
 #. (itstool) path: info/desc
 #: C/edit-date-time.page:7
 msgid "Change the date and time of photos if those details are incorrect."
-msgstr ""
+msgstr "Зміна дати і часу фотографій, якщо ці дані визначено із помилками."
 
 #. (itstool) path: page/title
 #: C/edit-date-time.page:12
 msgid "Adjust the date and time of photos"
-msgstr ""
+msgstr "Коригування дати і часу фотографій"
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:14
@@ -319,6 +418,9 @@ msgid ""
 "adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
 "guiseq> and select a new date and time."
 msgstr ""
+"Щоб скоригувати дату і час фотографій, позначте фотографії, для яких слід"
+" виконати коригування, виберіть пункт меню <guiseq><gui>Фотографії</gui><gui"
+">Скоригувати дату і час...</gui></guiseq> і виберіть нову дату і час."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:16
@@ -327,6 +429,9 @@ msgid ""
 "choose to shift all the photos by the same amount of time or to set all the "
 "photos to the same time."
 msgstr ""
+"Якщо ви одночасно змінюєте дату і час для декількох фотографій, ви можете"
+" вибрати зсув часу для усіх фотографій на однакове число або встановити для"
+" усіх фотографій однаковий час."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:18
@@ -335,17 +440,21 @@ msgid ""
 "choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
+"Типово, дані щодо дати і часу змінюються лише у Shotwell. Ви можете наказати"
+" програмі змінити дату і час у початковому файлі, але такі зміни вже не можна"
+" буде скасувати після виходу з Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-redeye.page:7
 msgid ""
 "Correct photos where people have red eyes because of the camera's flash."
 msgstr ""
+"Виправлення фотографій, де люди мають «червоні очі» через спалах фотокамери."
 
 #. (itstool) path: page/title
 #: C/edit-redeye.page:12
 msgid "Removing red-eye"
-msgstr ""
+msgstr "Усування ефекту «червоних очей»"
 
 #. (itstool) path: page/p
 #: C/edit-redeye.page:14
@@ -353,11 +462,14 @@ msgid ""
 "Red-eye occurs when the camera's flash reflects off the pupil of someone's "
 "eye. To eliminate this in a photo, use the Red-eye tool."
 msgstr ""
+"Ефект «червоних очей» виникає, коли спалах фотокамери відбивається від дна"
+" зіниці ока. Щоб усунути цей ефект з фотографії, ви можете скористатися"
+" засобом усування ефекту «червоних очей»."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:17
 msgid "Click <gui>Red-eye</gui>. A circle will appear on the photo."
-msgstr ""
+msgstr "Натисніть <gui>Червоні очі</gui>. На фотографії з'явиться коло."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:20
@@ -365,6 +477,8 @@ msgid ""
 "Drag the circle over the affected pupil, adjust its size with the slider "
 "control, and press <gui>Apply</gui>. The redness will be removed."
 msgstr ""
+"Перетягніть коло на зіницю, скоригуйте його розмір за допомогою повзунка і"
+" натисніть кнопку <gui>Застосувати</gui>. Червону область має бути усунено."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:23
@@ -372,6 +486,8 @@ msgid ""
 "Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
 "when finished."
 msgstr ""
+"Повторіть цю процедуру для усіх червоних зіниць на фотографії. Натисніть"
+" кнопку <gui>Закрити</gui>, коли процес буде завершено."
 
 #. (itstool) path: info/desc
 #: C/edit-rotate.page:7
@@ -379,11 +495,13 @@ msgid ""
 "Click the <gui>Rotate</gui> button, or choose one of the commands in the "
 "<gui>Photo</gui> menu."
 msgstr ""
+"Натисніть кнопку <gui>Обертати</gui> або виберіть одну з відповідних команд у"
+" меню <gui>Фотографія</gui>."
 
 #. (itstool) path: page/title
 #: C/edit-rotate.page:12
 msgid "Rotate or flip a photo"
-msgstr ""
+msgstr "Обертання або віддзеркалення фотографії"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:14
@@ -392,6 +510,10 @@ msgid ""
 "with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
 "make a mirror image of any photo."
 msgstr ""
+"Ви можете обертати фотографії ліворуч і праворуч (за годинниковою стрілкою і"
+" проти годинникової стрілки) за допомогою кнопки <gui>Обертати</gui> на"
+" панелі інструментів більшості режимів перегляду. Ви також можете"
+" віддзеркалити зображення на будь-якій фотографії."
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:16
@@ -401,6 +523,11 @@ msgid ""
 "commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
 "the following keyboard shortcuts:"
 msgstr ""
+"Щоб виконати обертання праворуч, натисніть кнопку <gui>Обертати</gui>. Щоб"
+" виконати обертання ліворуч, натисніть і утримуйте клавішу <key>Ctrl</key>, а"
+" потім натисніть ту саму кнопку. Доступ до обох варіантів обертання можна"
+" також отримати за допомогою меню <gui>Фотографії</gui>. Крім того, ви можете"
+" скористатися таким клавіатурними скороченнями:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
@@ -408,12 +535,17 @@ msgid ""
 "rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
 "<key>[</key>"
 msgstr ""
+"обертати ліворуч: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq"
+"> або "
+"<key>[</key>"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:19
 msgid ""
 "rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
 msgstr ""
+"обертати праворуч: <keyseq><key>Ctrl</key><key>R</key></keyseq> або <key>]<"
+"/key>"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:21
@@ -422,6 +554,10 @@ msgid ""
 "command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
 "<gui>Flip Vertically</gui> command in the same menu."
 msgstr ""
+"Щоб створити віддзеркалене зображення фотографії, скористайтеся пунктом <gui"
+">Віддзеркалити горизонтально</gui> з меню <gui>Фотографії</gui>. Щоб"
+" віддзеркалити зображення вертикально, скористайтеся пунктом <gui"
+">Віддзеркалити вертикально</gui> з того самого меню."
 
 #. (itstool) path: note/p
 #: C/edit-rotate.page:24
@@ -429,6 +565,8 @@ msgid ""
 "If you select more than one image, you can rotate all of them at the same "
 "time."
 msgstr ""
+"Якщо вами буде позначено декілька зображень, ви зможете обертати їх усі"
+" одночасно."
 
 #. (itstool) path: info/desc
 #: C/view-information.page:7
@@ -436,6 +574,8 @@ msgid ""
 "View more detailed information about photos, like the exposure mode used by "
 "the camera."
 msgstr ""
+"Перегляд докладних відомостей щодо фотографій, зокрема режиму експонування,"
+" який було використано під час знімання."
 
 #. (itstool) path: page/title
 #: C/view-information.page:12
@@ -451,6 +591,11 @@ msgid ""
 "display of this pane using the <guiseq><gui>View</gui><gui>Basic "
 "Information</gui></guiseq> command."
 msgstr ""
+"Панель основних відомостей буде показано у нижній частині бічної панелі. На"
+" цій панелі буде показано коротке резюме щодо позначених фотографій. Якщо не"
+" позначено жодної фотографії, на панелі буде показано резюме щодо усієї"
+" збірки. Ви можете увімкнути або вимкнути показ цієї панелі за допомогою"
+" пункту меню <guiseq><gui>Перегляд</gui><gui>Основні відомості</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
@@ -462,6 +607,13 @@ msgid ""
 "gui><gui>Map Overview</gui></guiseq> command. Note that the map will only "
 "show when the Basic Information pane is displayed."
 msgstr ""
+"Панель мапи (карти) буде показано у нижній частині бічної панелі як частину"
+" панелі основних відомостей. На ній буде показано оглядову мапу позначених"
+" вами фотографій. Якщо не позначено жодної фотографії, на ній буде показано"
+" огляд усієї збірки. Ви можете вмикати або вимикати показ цієї панелі за"
+" допомогою пункту меню <guiseq><gui>Перегляд</"
+"gui><gui>Огляд карти</gui></guiseq>. Зауважте, що мапу буде показано, лише"
+" якщо показано панель основних відомостей."
 
 #. (itstool) path: page/p
 #: C/view-information.page:18
@@ -478,6 +630,8 @@ msgid ""
 "Group photos together that were taken at the same time. Learn how to rename, "
 "merge, and sort events."
 msgstr ""
+"Групування фотографій, які було зроблено у той самий період часу. Дізнайтеся"
+" про те, які перейменовувати, об'єднувати та упорядковувати записи подій."
 
 #. (itstool) path: page/title
 #: C/organize-event.page:12
@@ -1040,7 +1194,7 @@ msgstr ""
 #. (itstool) path: page/title
 #: C/formats.page:12
 msgid "Supported photo and video formats"
-msgstr ""
+msgstr "Підтримувані формати фотографій та відео"
 
 #. (itstool) path: page/p
 #: C/formats.page:14
@@ -1077,7 +1231,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/formats.page:25
 msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr ""
+msgstr "Формати контейнерів: Ogg, QuickTime, MP4, AVI."
 
 #. (itstool) path: item/p
 #: C/formats.page:26
