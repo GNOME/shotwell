@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "POT-Creation-Date: 2020-06-09 15:22+0000\n"
-"PO-Revision-Date: 2020-06-21 20:14+0300\n"
+"PO-Revision-Date: 2020-06-23 09:38+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -623,6 +623,11 @@ msgid ""
 "guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
 "keyseq> toggles the display of this window."
 msgstr ""
+"У рухомому вікні розширених відомостей буде показано додаткові відомості щодо"
+" позначеної фотографії. Увімкнути або вимкнути показ цього вікна можна за"
+" допомогою вибору пункту меню <guiseq><gui>Перегляд</gui><gui>Додаткові"
+" відомості</gui></guiseq> або комбінації клавіш <keyseq><key>Ctrl</key><key"
+">Shift</key><key>X</key></keyseq>."
 
 #. (itstool) path: info/desc
 #: C/organize-event.page:7
@@ -645,6 +650,9 @@ msgid ""
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
+"Подія — група фотографій, які було знято приблизно у той самий час. Під час"
+" імпортування фотографій Shotwell визначає, коли було створено кожну з"
+" фотографій. Далі, програма групує фотографії за подіями."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:16
@@ -654,6 +662,11 @@ msgid ""
 "be displayed in the main window. Double-click an event to see all the photos "
 "that were taken around that time."
 msgstr ""
+"Виберіть пункт <gui>Події</gui> на бічній панелі, щоб переглянути ваші"
+" фотографії упорядкованими за датою. Якщо ви виберете місяць або рік на"
+" бічній панелі, програма покаже список подій у головному вікні. Двічі"
+" клацніть на пункті події, щоб переглянути усі фотографії, які було зроблено"
+" у відповідний період часу."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:18
@@ -663,6 +676,11 @@ msgid ""
 "the <gui>No Event</gui> view accessible from the sidebar. You can still move "
 "the photo to any event you like as described below."
 msgstr ""
+"Якщо до файла фотографії не вбудовано дані щодо дати і часу створення,"
+" Shotwell не зможе автоматично пов'язати фотографію із жодною з подій. У"
+" цьому випадку фотографію буде показано у групі <gui>Без події</gui> на"
+" бічній панелі. Після цього ви можете пересунути фотографію до будь-якого"
+" запису події у спосіб, який описано нижче."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:25
@@ -677,6 +695,11 @@ msgid ""
 "and enter a new name. Another way of renaming an event is to double-click "
 "its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
+"Щоб надати запису події назву замість типового запису дати, позначте пункт"
+" події, виберіть пункт меню <guiseq><gui>Події</gui><gui>Перейменувати"
+" подію...</gui></guiseq> і введіть нову назву. Іншим способом перейменування"
+" події є подвійне клацання на пункті назви події на бічній панелі, введення"
+" нової назви і натискання клавіші <key>Enter</key>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
@@ -690,6 +713,9 @@ msgid ""
 "move photos between events. To do this, drag any photo to the sidebar and "
 "drop it on an event."
 msgstr ""
+"Хоча події від початку згруповано за датами, ви можете пересувати фотографії"
+" між подіями. Для цього перетягніть пункт будь-якої фотографії на бічну"
+" панель і скиньте його на пункт іншої події."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
@@ -702,6 +728,9 @@ msgid ""
 "To create a new event, select the photos you would like in the new event and "
 "click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgstr ""
+"Щоб створити запис події, позначте усі фотографії, які ви хочете перенести до"
+" нової події, і виберіть пункт меню <guiseq><gui>Події</gui><gui>Створити"
+" запис події</gui></guiseq>."
 
 #. (itstool) path: section/p
 #: C/organize-event.page:39
@@ -711,6 +740,11 @@ msgid ""
 "merge in the main window area. Finally, click <guiseq><gui>Events</"
 "gui><gui>Merge Events</gui></guiseq>."
 msgstr ""
+"Щоб об'єднати записи події, виберіть пункт <guiseq><gui>Події</gui></guiseq>"
+" на бічній панелі, потім, утримуючи натиснутою клавішу <key>Ctrl</key>,"
+" клацніть в основній частині вікна на пунктах подій, які ви хочете об'єднати."
+" Нарешті, виберіть пункт меню <guiseq><gui>Події</gui><gui>Об'єднати події<"
+"/gui></guiseq>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:43
@@ -725,6 +759,11 @@ msgid ""
 "click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
 "either ascending or descending."
 msgstr ""
+"Події на бічній панелі буде показано у вигляді ієрархії, упорядковані за"
+" роком та місяцем найстарішої фотографії у події. Щоб змінити упорядкування"
+" подій, виберіть пункт меню <guiseq><gui>Перегляд</gui><gui>Упорядкувати"
+" події</gui></guiseq> і вкажіть варіант упорядкування — за зростаннями чи за"
+" спаданням."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:51
@@ -737,6 +776,9 @@ msgid ""
 "If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
 "photo which represents each event. This is called the key photo."
 msgstr ""
+"Якщо ви виберете пункт <gui>Події</gui> на бічній панелі, навпроти кожного"
+" запису події буде показано одну з фотографій запису. Ця фотографія"
+" називається ключовою фотографією."
 
 #. (itstool) path: section/p
 #: C/organize-event.page:55
@@ -745,12 +787,17 @@ msgid ""
 "use a different key photo, select the photo and choose <guiseq><gui>Photos</"
 "gui><gui>Make Key Photo for Event</gui></guiseq>."
 msgstr ""
+"Типово, Shotwell використовує першу фотографію кожної події як ключову. Щоб"
+" використати іншу ключову фотографію, позначте цю фотографію і скористайтеся"
+" пунктом меню <guiseq><gui>Фотографії</gui><gui>Зробити ключовою фотографією"
+" події</gui></guiseq>."
 
 #. (itstool) path: info/desc
 #: C/edit-enhance.page:7
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
+"Автоматичне виправлення яскравості і контрастності фотографії у Shotwell."
 
 #. (itstool) path: page/title
 #: C/edit-enhance.page:14
@@ -765,6 +812,11 @@ msgid ""
 "photo that is correctly exposed. You can also use it as a starting point and "
 "then improve the adjustments by clicking on the <gui>Adjust</gui> button."
 msgstr ""
+"Натискання кнопки <gui>Покращити</gui> є швидким способом автоматичного"
+" коригування яскравості і контрастності вашої фотографії. Часто результатом є"
+" фотографія із належним експонуванням. Ви також можете скористатися"
+" результатом як початковою позицією для подальшого удосконалення кольорів"
+" шляхом натискання кнопки <gui>Скоригувати</gui>."
 
 #. (itstool) path: info/desc
 #: C/other-multiple.page:7
@@ -772,6 +824,8 @@ msgid ""
 "You can open Shotwell with a different photo library by using the command "
 "line."
 msgstr ""
+"Ви можете відкрити у Shotwell іншу бібліотеку фотографій за допомогою"
+" командного рядка."
 
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
@@ -786,6 +840,9 @@ msgid ""
 "database in this directory contains a list of all the photos in the Shotwell "
 "library."
 msgstr ""
+"Зазвичай, Shotwell зберігає базу даних і мініатюри фотографій у каталозі <"
+"file>~/.shotwell</file>. У цьому каталозі не зберігаються самі фотографії, а"
+" лише база даних зі списком усіх фотографій у бібліотеці Shotwell."
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:16
@@ -795,6 +852,11 @@ msgid ""
 "own database directory. To launch Shotwell with an alternate library, "
 "specify an alternate database directory on the command line as follows:"
 msgstr ""
+"Додатковою можливістю програми є використання у Shotwell декількох бібліотек,"
+" у кожній з яких зберігатиметься власний набір фотографій. Для кожної"
+" бібліотеки потрібен власний каталог бази даних. Щоб запустити Shotwell із"
+" іншою бібліотекою, вкажіть каталог альтернативної бази даних у командному"
+" рядку, ось так:"
 
 #. (itstool) path: page/screen
 #: C/other-multiple.page:18
@@ -810,6 +872,7 @@ msgstr ""
 #: C/other-files.page:7
 msgid "Keep the Shotwell library in sync with photo files on disk."
 msgstr ""
+"Підтримання синхронізації бібліотеки Shotwell із файлами фотографій на диску."
 
 #. (itstool) path: page/title
 #: C/other-files.page:12
@@ -823,6 +886,10 @@ msgid ""
 "hard disk. Shotwell has several features which help you keep the Shotwell "
 "library and files on disk in sync."
 msgstr ""
+"Кожній фотографії у бібліотеці Shotwell відповідає власний файл, який"
+" зберігається на диску вашого комп'ютера. У Shotwell передбачено декілька"
+" можливостей, які допомагають Shotwell зберігати синхронізацію даних"
+" бібліотеки та файлів на диску."
 
 #. (itstool) path: section/title
 #: C/other-files.page:21
@@ -837,6 +904,12 @@ msgid ""
 "gui> settings in the <gui>Preferences</gui> dialog. You may use a "
 "preselected pattern, or choose <gui>Custom</gui> and type in your own."
 msgstr ""
+"Shotwell надає вам можливість вказати спосіб іменування каталогів у вашій"
+" бібліотеці. Зробити це можна зміною значень параметрів <gui>Структура"
+" каталогів</gui> та <gui>Шаблон</"
+"gui> у діалоговому вікні <gui>Налаштування</gui>. Ви можете скористатися"
+" наперед визначеним шаблоном або вибрати <gui>Нетиповий</gui> і вказати ваш"
+" власний шаблон."
 
 #. (itstool) path: section/p
 #: C/other-files.page:29
@@ -845,6 +918,10 @@ msgid ""
 "sign). The values these symbols produce are locale-dependent, so what you "
 "see on your computer may vary from the examples below."
 msgstr ""
+"Доступні символи-замінники у шаблоні назв каталогів починаються з % (символу"
+" відсотків). Значення цих символів є залежними від локалі, тому результат"
+" використання вказаних нижче прикладів може залежати від мови, яка"
+" використовується для перекладу системи."
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
@@ -1063,6 +1140,10 @@ msgid ""
 "\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
 "if you need one that isn't listed here."
 msgstr ""
+"Доступні також інші символи. Будь ласка, ознайомтеся зі <link"
+" href=\"man:strftime\">сторінкою підручника з strftime</link> за допомогою"
+" команди <cmd>man strftime</cmd>, якщо вам потрібні ще якісь"
+" символи-замінники, окрім описаних вище."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -1077,6 +1158,10 @@ msgid ""
 "directory in your home directory; you can change its location in in the "
 "<gui>Preferences</gui> window.)"
 msgstr ""
+"Shotwell може автоматично імпортувати нові фотографії, які з'являються у"
+" каталозі бібліотеки. (Типовим каталогом є каталог <file>Картинки</file> у"
+" домашньому каталозі користувача; змінити розташування типового каталогу"
+" можна за допомогою вікна <gui>Налаштування</gui>.)"
 
 #. (itstool) path: section/p
 #: C/other-files.page:86
@@ -1084,6 +1169,8 @@ msgid ""
 "To enable auto-import, check the box <gui>Watch library directory for new "
 "files</gui> in the <gui>Preferences</gui> window."
 msgstr ""
+"Щоб увімкнути автоматичне імпортування, позначте пункт <gui>Шукати нові файли"
+" у каталозі бібліотеки</gui> у вікні <gui>Налаштування</gui>."
 
 #. (itstool) path: note/p
 #: C/other-files.page:90
@@ -1091,6 +1178,8 @@ msgid ""
 "Shotwell can also follow symbolic links inside automatically-imported "
 "directories."
 msgstr ""
+"Крім того, Shotwell може переходити за символічними посиланнями у каталогах"
+" автоматичного імпортування."
 
 #. (itstool) path: section/title
 #: C/other-files.page:95
@@ -1107,6 +1196,11 @@ msgid ""
 "gui></guiseq>, and in the <gui>Preferences</gui> window, check the "
 "<gui>Rename imported files to lowercase</gui> box."
 msgstr ""
+"Shotwell може автоматично змінювати регістр символів назв файлів імпортованих"
+" фотографій на нижній. Щоб увімкнути цю можливість, виберіть пункт меню <"
+"guiseq><gui>Зміни</gui><gui>Налаштування</gui></guiseq> і у вікні <gui"
+">Налаштування</gui> позначте пункт <gui>Замінити літери у назвах імпортованих"
+" файлів на малі</gui>."
 
 #. (itstool) path: section/title
 #: C/other-files.page:107
@@ -1120,6 +1214,9 @@ msgid ""
 "or change their tags or titles. Shotwell records these changes in its own "
 "database only."
 msgstr ""
+"Типово, Shotwell не вносить змін до файлів фотографій, навіть коли ви"
+" редагуєте фотографії або вносите зміни до міток чи заголовків. Shotwell лише"
+" записує внесені зміни до власної бази даних."
 
 #. (itstool) path: section/p
 #: C/other-files.page:112
@@ -1129,6 +1226,11 @@ msgid ""
 "dialog. When this option is enabled, Shotwell will write the following "
 "metadata to most photo files whenever you change it in Shotwell:"
 msgstr ""
+"Щоб змінити таку поведінку, ви можете позначити пункт <gui>Записувати мітки,"
+" заголовки та інші метадані до файлів фотографій</gui> у вікні <gui"
+">Налаштування</gui>. Якщо позначено цей пункт, Shotwell записуватиме вказані"
+" нижче метадані до більшості файлів фотографій кожного разу, коли ви"
+" вноситимете зміни до файлів у Shotwell:"
 
 #. (itstool) path: item/p
 #: C/other-files.page:118
@@ -1162,11 +1264,15 @@ msgid ""
 "format. Note that Shotwell can write only to photo files in JPEG, PNG and "
 "TIFF format, not to BMP photos, RAW photos or to video files."
 msgstr ""
+"Shotwell зберігає ці дані до файлів фотографій у форматах EXIF, IPTC і/або"
+" XMP. Зауважте, що Shotwell може записувати лише файли фотографій у форматах"
+" JPEG, PNG і TIFF, але не у форматах BMP, цифрових негативів (RAW) або"
+" форматах відеофайлів."
 
 #. (itstool) path: section/title
 #: C/other-files.page:133
 msgid "Runtime monitoring"
-msgstr ""
+msgstr "Інтерактивне спостереження"
 
 #. (itstool) path: section/p
 #: C/other-files.page:135
@@ -1175,6 +1281,10 @@ msgid ""
 "externally. When a photo file changes, Shotwell rereads the file and updates "
 "your view of the photo and metadata."
 msgstr ""
+"Доки Shotwell працює, програма спостерігає за зовнішніми змінами, які внесено"
+" до будь-яких файлів фотографій. Якщо до файла фотографії вносяться зміни,"
+" Shotwell повторно виконує читання файла і оновлює дані для перегляду"
+" фотографії та метадані фотографії."
 
 #. (itstool) path: section/p
 #: C/other-files.page:139
@@ -1183,6 +1293,10 @@ msgid ""
 "photo files contained in the library directory are monitored in real time "
 "after startup. We hope to remove this limitation in a further release."
 msgstr ""
+"Зауважте, що Shotwell перевіряє усі файли фотографій на зміни під час запуску"
+" програми, але після запуску спостереження вестиметься лише за файлами"
+" фотографій, які зберігаються у каталозі бібліотеки. Сподіваємося, ми усунемо"
+" це обмеження у подальших випусках."
 
 #. (itstool) path: info/desc
 #: C/formats.page:7
@@ -1190,6 +1304,8 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and RAW photo files as "
 "well as video files."
 msgstr ""
+"У Shotwell передбачено підтримку файлів фотографій JPEG, PNG, TIFF, BMP, GIF,"
+" WebP та цифрових негативів (RAW), а також відеофайлів."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
@@ -1202,6 +1318,9 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-raw"
 "\">RAW</link> photo files."
 msgstr ""
+"У Shotwell передбачено підтримку файлів фотографій JPEG, PNG, TIFF, BMP, GIF,"
+" WebP та <link xref=\"other-raw"
+"\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -1212,6 +1331,13 @@ msgid ""
 "- you can only export edited photos as 8-bit files. Most supported formats "
 "can be used for export (JPEG, PNG, TIFF, BMP)."
 msgstr ""
+"Підтримка формату цифрових негативів (RAW) у поточній версії Shotwell є"
+" обмеженою. Коли ви переглядаєте фотографію RAW, ви насправді бачите файл"
+" JPEG, який створено на основі фотографії RAW, а не саму фотографію RAW. Крім"
+" того, процедурна редагування RAW не є повністю 16-бітовою — редаговані"
+" фотографії можна експортувати лише як 8-бітові файли. Для експортування"
+" даних цифрових негативів можна використовувати більшість підтримуваних"
+" форматів файлів (JPEG, PNG, TIFF, BMP)."
 
 #. (itstool) path: page/p
 #: C/formats.page:18
@@ -1219,6 +1345,8 @@ msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
+"Щоб дізнатися більше про роботу з цифровими негативами (RAW) у Shotwell, будь"
+" ласка, ознайомтеся із розділом щодо <link xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -1227,6 +1355,9 @@ msgid ""
 "media library on the system where Shotwell is running. This typically "
 "includes the following formats among others:"
 msgstr ""
+"Крім того, у Shotwell передбачено підтримку роботи із відеофайлами будь-яких"
+" форматів підтримуваних мультимедійною бібліотекою GStreamer у системі, де"
+" запущено Shotwell. Ось типовий список таких форматів:"
 
 #. (itstool) path: item/p
 #: C/formats.page:25
@@ -1240,6 +1371,9 @@ msgid ""
 "systems may not include all codecs listed here due to legal or licensing "
 "restrictions.</em>"
 msgstr ""
+"Кодеки: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Зауважте, що у деяких"
+" операційних системах ви не зможете скористатися деякими з кодеків через"
+" юридичні або ліцензійні обмеження.</em>"
 
 #. (itstool) path: page/p
 #: C/formats.page:30
@@ -1250,6 +1384,12 @@ msgid ""
 "flagging, rating, tagging, and publishing work both for photos and for "
 "videos."
 msgstr ""
+"У Shotwell передбачено підтримку роботи з фотографіями та відео, але для"
+" спрощення цієї документації ми вживатимемо слово «фотографії» на позначення"
+" фотографій та відео. Втім, багато дій у Shotwell можна застосовувати як до"
+" фотографій, так і до відео. Зокрема, створення записів подій, позначення,"
+" додавання оцінок, міток та оприлюднення працює як для фотографій, так і для"
+" відео."
 
 #. (itstool) path: info/desc
 #: C/organize-rating.page:7
@@ -1257,6 +1397,8 @@ msgid ""
 "Give photos a rating between 1 and 5 stars. You can reject bad photos, "
 "hiding them from view."
 msgstr ""
+"Надайте фотографіям оцінку від 1 до 5 зірочок. Так ви зможете відфільтрувати"
+" неякісні фотографії, приховавши їх на панелі перегляду."
 
 #. (itstool) path: page/title
 #: C/organize-rating.page:12
@@ -1269,11 +1411,16 @@ msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate "
 "it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
+"Ви можете пов'язати із кожною з фотографій оцінку у діапазоні від 1 до 5"
+" зірочок. Ви також можете позначити фотографії як «Відкинуті». Такі"
+" фотографії, типово, буде приховано на панелі перегляду у Shotwell."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:15
 msgid "You can rate a photo or a set of photos in any of these ways:"
 msgstr ""
+"Встановити оцінку фотографії або набору фотографій можна у будь-який з таких"
+" способів:"
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:18
@@ -1281,6 +1428,8 @@ msgid ""
 "Select the photo(s), then choose a rating from the top-level "
 "<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
 msgstr ""
+"Позначити фотографії, потім вибрати оцінку з меню верхнього рівня <guiseq><"
+"gui>Фотографії</gui><gui>Встановити оцінку</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:19
@@ -1288,6 +1437,8 @@ msgid ""
 "Right-click on the photo(s), then choose a rating from the Set Rating "
 "context menu."
 msgstr ""
+"Клацнути правою кнопкою миші на фотографії або наборі фотографій, потім"
+" вибрати оцінку із контекстного меню «Встановити оцінку»."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:20
@@ -1297,6 +1448,11 @@ msgid ""
 "Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
 "clear the rating(s)."
 msgstr ""
+"Позначити фотографію або фотографії, потім натиснути будь-яку з клавіш <key"
+">1</key>, <key>2</key>, <key>3</key>, <key>4</key> або <key>5</key> для"
+" призначення відповідної оцінки. "
+"Також можна натиснути клавішу <key>9</key> для позначення фотографій як"
+" «відкинутих» або клавішу <key>0</key> для зняття усіх оцінок."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:23
@@ -1308,6 +1464,14 @@ msgid ""
 "rejected. The Shotwell icon on the toolbar displays the current rating "
 "filter and can also be used to set the filter."
 msgstr ""
+"Зазвичай, Shotwell показує усі фотографії, окрім фотографій, які позначено як"
+" «Відкинуті». Ви можете встановити інший фільтр оцінок за допомогою пункту"
+" меню <guiseq><gui>Перегляд</gui><gui>Фільтрувати фотографії</gui></guiseq>."
+" Наприклад, ви можете наказати програмі показувати лише фотографії із оцінкою"
+" у 3 зірочки та вище, або наказати показувати усі фотографії, зокрема і"
+" відкинуті. Поточний фільтр оцінок буде показано на піктограмі панелі"
+" інструментів Shotwell. Цією ж піктограмою можна скористатися для"
+" встановлення фільтрування."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:26
@@ -1316,6 +1480,10 @@ msgid ""
 "corner. You can turn off the display of ratings using the <guiseq><gui>View</"
 "gui><gui>Ratings</gui></guiseq> menu item."
 msgstr ""
+"Зазвичай, Shotwell показує оцінку кожної з фотографій у нижньому лівому куті."
+" Ви можете вимкнути показ оцінок за допомогою пункту меню <guiseq><gui"
+">Перегляд</"
+"gui><gui>Оцінки</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:28
@@ -1325,17 +1493,25 @@ msgid ""
 "gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
 "<key>&lt;</key> and <key>&gt;</key>."
 msgstr ""
+"Збільшити або зменшити оцінку фотографії можна за допомогою пунктів меню <"
+"guiseq><gui>Встановити оцінку</gui><gui>Збільшити</gui></guiseq> та <guiseq><"
+"gui>Встановити оцінку</"
+"gui><gui>Зменшити</gui></guiseq> або натискання клавіш <key>&lt;</key> і <key"
+">&gt;</key>."
 
 #. (itstool) path: info/desc
 #: C/share-background.page:7
 msgid ""
 "Set your desktop background to a single photo or to a slideshow of photos."
 msgstr ""
+"Зробіть фоновим зображенням вашої стільниці якусь фотографію або навіть показ"
+" слайдів."
 
 #. (itstool) path: page/title
 #: C/share-background.page:12
 msgid "Set a desktop background or slideshow"
 msgstr ""
+"Встановлення фонового зображення стільниці — фотографії або показу слайдів"
 
 #. (itstool) path: page/p
 #: C/share-background.page:14
@@ -1343,6 +1519,9 @@ msgid ""
 "To set a single photo as your desktop background, select the photo and "
 "choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
+"Щоб зробити якусь із фотографій фоновим зображенням вашої стільниці, позначте"
+" цю фотографію і виберіть пункт меню <guiseq><gui>Файл</gui><gui>Зробити тлом"
+" стільниці</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/share-background.page:16
@@ -1358,12 +1537,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/edit-straighten.page:7
 msgid "Straighten a photo so that its horizon appears level."
-msgstr ""
+msgstr "Вирівнювання горизонту на фотографії."
 
 #. (itstool) path: page/title
 #: C/edit-straighten.page:12
 msgid "Straighten photos"
-msgstr ""
+msgstr "Вирівнювання фотографій"
 
 #. (itstool) path: page/p
 #: C/edit-straighten.page:14
