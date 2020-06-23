@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2020-05-22 20:51+0000\n"
-"PO-Revision-Date: 2020-05-22 23:53+0300\n"
+"PO-Revision-Date: 2020-06-23 19:12+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1675,7 +1675,7 @@ msgstr "_Обрізати"
 #: data/ui/direct.ui:146 data/ui/photo.ui:240
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
 msgid "_Straighten"
-msgstr "_Розтягнути"
+msgstr "Вип_рямити"
 
 #: data/ui/direct.ui:151 data/ui/photo.ui:245 src/Resources.vala:179
 msgid "_Red-eye"
@@ -6187,11 +6187,11 @@ msgstr "Обрізати фотографію"
 
 #: src/Resources.vala:176
 msgid "Straighten"
-msgstr "Розтягнути"
+msgstr "Випрямити"
 
 #: src/Resources.vala:177
 msgid "Straighten the photo"
-msgstr "Виправити фотографію"
+msgstr "Виправити нахил фотографії"
 
 #: src/Resources.vala:180
 msgid "Red-eye"
