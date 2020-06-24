@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "POT-Creation-Date: 2020-06-09 15:22+0000\n"
-"PO-Revision-Date: 2020-06-23 09:38+0300\n"
+"PO-Revision-Date: 2020-06-24 22:03+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -1533,6 +1533,13 @@ msgid ""
 "length. The background slideshow will proceed even when Shotwell is not "
 "running."
 msgstr ""
+"Ви також можете зробити фоновим зображенням стільниці показ слайдів з"
+" фотографій. Для цього позначте фотографії для показу слайдів і виберіть"
+" пункт меню <guiseq><gui>Файл</"
+"gui><gui>Зробити показом слайдів стільниці...</gui></guiseq>. Shotwell"
+" попросить вас вказати інтервал між слайдами, який може бути проміжком часу,"
+" аж до тривалості доби. Фоновий показ слайдів продовжуватиметься, навіть коли"
+" Shotwell не запущено."
 
 #. (itstool) path: info/desc
 #: C/edit-straighten.page:7
@@ -1550,6 +1557,8 @@ msgid ""
 "The straighten tools allows photos to be leveled and straightened. The "
 "straighten tool is only available in full-window or fullscreen mode."
 msgstr ""
+"Інструменти вирівнювання надають змогу вирівняти і випрямити зображення."
+" Інструментом вирівнювання можна скористатися лише у повноекранному режимі."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:18
@@ -1558,26 +1567,30 @@ msgid ""
 "Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
 "key></keyseq>."
 msgstr ""
+"Натисніть <gui>Випрямити</gui>. Буде показано повзунок виправлення нахилу."
+" Крім того, можна скористатися клавіатурним скороченням <keyseq><key>Ctrl<"
+"/key><key>A</"
+"key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:21
 msgid "Drag the slider to achieve the desired degree of straightening."
-msgstr ""
+msgstr "Перетягніть повзунок, щоб отримати бажаний кут нахилу."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:24
 msgid "Press <gui>Straighten</gui> when finished."
-msgstr ""
+msgstr "Натисніть <gui>Випрямити</gui>, коли бажаний кут буде вказано."
 
 #. (itstool) path: info/desc
 #: C/import-file.page:7
 msgid "Import photos that are already saved on your computer."
-msgstr ""
+msgstr "Імпортування фотографій, які вже зберігаються на вашому комп'ютері."
 
 #. (itstool) path: page/title
 #: C/import-file.page:12
 msgid "Importing from your hard disk"
-msgstr ""
+msgstr "Імпортування даних з жорсткого диска"
 
 #. (itstool) path: page/p
 #: C/import-file.page:14
@@ -1585,6 +1598,8 @@ msgid ""
 "To import photo files from your hard disk into Shotwell, just drag them from "
 "your file browser into the Shotwell window."
 msgstr ""
+"Щоб імпортувати файли фотографій з жорсткого диска до Shotwell, просто"
+" перетягніть їх з вашої програми для керування файлами до вікна Shotwell."
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
@@ -1595,6 +1610,12 @@ msgid ""
 "importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
 "on the bottom of the file dialog."
 msgstr ""
+"Крім того, можете скористатися пунктом меню <guiseq><gui>Файл</gui><gui"
+">Імпортувати з теки...</gui></guiseq> і вибрати теку, яка містить фотографії,"
+" які ви хочете імпортувати. Якщо ви не хочете, щоб Shotwell рекурсивно"
+" обробляла каталоги під час імпортування, ви можете зняти позначку з пункту <"
+"gui>Рекурсивно у підтеках</gui> у нижній частині діалогового вікна роботи з"
+" файлами."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
@@ -1603,6 +1624,9 @@ msgid ""
 "folder (usually this is the <file>Pictures</file> folder in your home "
 "directory) or to import them in place without copying the files."
 msgstr ""
+"Shotwell спитає вас, слід копіювати файли фотографій до вашої теки бібліотеки"
+" (зазвичай, це тека <file>Картинки</file> у вашому домашньому каталозі) чи"
+" слід імпортувати ці файли на місці, без копіювання."
 
 #. (itstool) path: page/p
 #: C/import-file.page:20
@@ -1612,6 +1636,11 @@ msgid ""
 "you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
 "dragging photos in, Shotwell will import the photos without copying them."
 msgstr ""
+"Якщо ви утримуватимете натиснутою клавішу <key>Ctrl</key> під час"
+" перетягування фотографій, Shotwell скопіює фотографії до теки бібліотеки без"
+" додаткових питань. Так само, якщо ви утримуватимете натиснутою комбінацію"
+" клавіш <keyseq><key>Ctrl</key><key>Shift</key></keyseq> під час"
+" перетягування фотографій, Shotwell імпортує їх без копіювання."
 
 #. (itstool) path: page/p
 #: C/import-file.page:22
@@ -1620,17 +1649,23 @@ msgid ""
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
+"Щойно імпортування буде завершено, ви з можете вибрати пункт <gui>Попереднє"
+" імпортування</gui> на бічній панелі, щоб переглянути усі успішно імпортовані"
+" фотографії. У списку подій також з'являться нові записи для дат, які"
+" відповідають імпортованим фотографіям."
 
 #. (itstool) path: info/desc
 #: C/view-sidebar.page:7
 msgid ""
 "The sidebar on the left of the window lists various views of your library."
 msgstr ""
+"На бічній панелі у лівій частині вікна буде показано список різноманітних"
+" варіантів перегляду вашої бібліотеки."
 
 #. (itstool) path: page/title
 #: C/view-sidebar.page:20
 msgid "The sidebar"
-msgstr ""
+msgstr "Бічна панель"
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:22
@@ -1639,6 +1674,10 @@ msgid ""
 "your library. Although you may see the same photo in multiple views, it's "
 "only stored once on your hard drive."
 msgstr ""
+"На бічній панелі у лівій частині вікна Shotwell буде показано список"
+" різноманітних режимів перегляду вашої бібліотеки. Хоча ви зможете бачити"
+" одну і ту саму фотографію у декількох режимах перегляду, їй відповідатиме"
+" лише один файл на диску комп'ютера."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:24
@@ -1646,17 +1685,24 @@ msgid ""
 "The <gui>Last Import</gui> view lists your last imported photos no matter if "
 "they are imported from F-Spot, your camera, a memory card or the hard disk."
 msgstr ""
+"У режимі перегляду <gui>Попереднє імпортування</gui> буде показано список"
+" останніх імпортованих фотографій, байдуже, звідки їх було імпортовано — з"
+" F-Spot, вашого фотоапарата, картки пам'яті чи з диска комп'ютера."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:26
 msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
 msgstr ""
+"У режимі <gui>Позначені</gui> програма покаже усі фотографії, які було раніше"
+" позначено прапорцями."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:28
 msgid ""
 "The <gui>Saved Search</gui> allows you to sort your library by many criteria."
 msgstr ""
+"За допомогою режиму <gui>Збережений пошук</gui> ви зможете упорядкувати вашу"
+" бібліотеку за багатьма критеріями."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:30
@@ -1664,6 +1710,8 @@ msgid ""
 "The <gui>Events</gui> folder lists all events in your library. An event is a "
 "group of photos that were taken at approximately the same time."
 msgstr ""
+"У теці <gui>Події</gui> програма покаже усі записи подій у вашій бібліотеці."
+" Подія — група фотографій, які було знято приблизно у той самий час."
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:32
@@ -1672,11 +1720,15 @@ msgid ""
 "can have multiple tags attached to them. When you click on the name of a tag "
 "in the sidebar, you will see all the photos associated with that tag."
 msgstr ""
+"У теці <gui>Мітки</gui> буде показано список усіх міток, які було пов'язано"
+" із фотографіями. Із кожною фотографією може бути пов'язано декілька міток."
+" Коли ви натискатимете назву мітки на бічній панелі, програма показуватиме"
+" усі фотографії, які пов'язано із відповідною міткою."
 
 #. (itstool) path: page/title
 #: C/privacy-policy.page:7
 msgid "Shotwell's privacy policy for Online Services"
-msgstr ""
+msgstr "Правила конфіденційності Shotwell для служб у мережі"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:8
@@ -1686,7 +1738,7 @@ msgstr "Google"
 #. (itstool) path: section/title
 #: C/privacy-policy.page:10 C/privacy-policy.page:42
 msgid "Information Shotwell Stores and Transmits About You"
-msgstr ""
+msgstr "Дані щодо вас, які Shotwell зберігає і передає"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:11
@@ -1694,6 +1746,8 @@ msgid ""
 "The Shotwell Connect application and its data store reside locally on your "
 "personal computer."
 msgstr ""
+"Програма Shotwell Connect та її дані зберігаються локально на вашому"
+" особистому комп'ютері."
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:12
@@ -1704,6 +1758,11 @@ msgid ""
 "of letters and numbers. It contains no password, user name, or other "
 "personal information."
 msgstr ""
+"Під час роботи Shotwell Connect може зберігати ключ розпізнавання, який вона"
+" отримує від YouTube і Google Фото на вашому комп'ютері. Цей ключ"
+" розпізнавання є простою послідовністю літер і цифр, яка ідентифікує сеанс. У"
+" ній не міститься ні пароля, ні імені користувача, ні якихось інших особистих"
+" даних."
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:13
@@ -1712,6 +1771,9 @@ msgid ""
 "foundation, the Software Freedom Convervancy or any of the developers of the "
 "Shotwell Connect Application for Google services."
 msgstr ""
+"Shotwell Connect ніколи не передає жодних даних до фундації GNOME, Software"
+" Freedom Convervancy або будь-яких інших розробників програми Shotwell"
+" Connect для служб Google."
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:15
@@ -1719,6 +1781,9 @@ msgid ""
 "For Google's own privacy policy, please refer to <link href=\"https://"
 "policies.google.com/privacy\">https://policies.google.com/privacy</link>"
 msgstr ""
+"Дані щодо власних правил конфіденційності Google можна знайти на сторінці <"
+"link href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</link>"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:18
@@ -1732,11 +1797,15 @@ msgid ""
 "google.com/youtube\">https://developers.google.com/youtube</link> for "
 "accessing your YouTube channel and upload the videos."
 msgstr ""
+"Shotwell використовує служби програмних інтерфейсів YouTube <link"
+" href=\"https://developers.google.com/youtube\""
+">https://developers.google.com/youtube</link> для доступу до вашого каналу"
+" YouTube та вивантаження відео."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:21
 msgid "YouTube terms and permissions"
-msgstr ""
+msgstr "Правила користування та права доступу до YouTube"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:22
@@ -1745,11 +1814,15 @@ msgid ""
 "Terms of Service as available at <link href=\"https://www.youtube.com/t/terms"
 "\">https://www.youtube.com/t/terms</link>"
 msgstr ""
+"Використовуючи Shotwell для доступу до YouTube, в погоджуєтеся дотримуватися"
+" правил користування YouTube у тому вигляді, у якому їх сформульовано на"
+" сторінці <link href=\"https://www.youtube.com/t/terms"
+"\">https://www.youtube.com/t/terms</link>"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:25
 msgid "Permissions you grant Shotwell for YouTube"
-msgstr ""
+msgstr "Права доступу, які ви надаєте Shotwell для YouTube"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:26
@@ -1759,11 +1832,15 @@ msgid ""
 "Shotwell does not insert, modify or remove any information from your YouTube "
 "account and channel."
 msgstr ""
+"Використовуючи Shotwell, ви надаєте програмі Shotwell Connect права доступу"
+" для оприлюднення відео на вашому каналі YouTube. Окрім вивантаження відео,"
+" Shotwell не вставлятиме, не змінюватиме і не вилучатиме жодних даних з"
+" вашого облікового запису на YouTube та каналу."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:31
 msgid "Google Photos"
-msgstr ""
+msgstr "Google Фото"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:32
@@ -1772,11 +1849,14 @@ msgid ""
 "google.com/photos/\">https://developers.google.com/photos/</link> for all "
 "interaction with your Google Photos data"
 msgstr ""
+"Shotwell використовує для взаємодії із Google Фото служби програмного"
+" інтерфейсу <link href=\"https://developers."
+"google.com/photos/\">https://developers.google.com/photos/</link>"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:34
 msgid "Permissions you Grant Shotwell for Google Photos"
-msgstr ""
+msgstr "Права доступу, які ви надаєте Shotwell для Google Фото"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:35
@@ -1788,6 +1868,12 @@ msgid ""
 "Shotwell does no modification whatsoever to the existing data on Google "
 "Photos"
 msgstr ""
+"Використовуючи Shotwell, ви надаєте програмі Shotwell Connect права доступу"
+" для оприлюднення фотографій на вашому обліковому записі Google Фото."
+" Програма отримає список доступних альбомів для уможливлення вибору наявного"
+" альбому для вивантаження даних, програма може створювати альбоми від вашого"
+" імені. Окрім створення альбомів та вивантаження фотографій, "
+"Shotwell не вноситиме змін до будь-яких наявних даних на Google Фото."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:40
@@ -1806,11 +1892,19 @@ msgid ""
 "the GNOME foundation, the Software Freedom Convervancy or any of the "
 "developers of the Shotwell Connect Application for Flickr."
 msgstr ""
+"Програма Shotwell Connect та її сховище даних зберігаються локально на вашому"
+" особистому комп'ютері. Під час роботи Shotwell Connect може зберігати"
+" отриманий нею від Flickr ключ розпізнавання на вашому комп'ютері. Цей ключ"
+" розпізнавання є простою послідовністю літер та цифр для розпізнавання"
+" сеансу. У ній не міститься ні пароля, ні імені користувача, ні якихось інших"
+" особистих даних. Shotwell Connect ніколи не передає жодних даних до фундації"
+" GNOME, Software Freedom Convervancy або будь-яких інших розробників програми"
+" Shotwell Connect для Flickr."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:47
 msgid "Permissions you grant Shotwell for Flickr"
-msgstr ""
+msgstr "Права доступу, які ви надаєте Shotwell для Flickr"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:48
@@ -1822,21 +1916,30 @@ msgid ""
 "uploading photos, Shotwell does not modification whatsoever to the existing "
 "data on your Flickr account."
 msgstr ""
+"Використовуючи Shotwell, ви надаєте програмі Shotwell Connect права доступу"
+" для оприлюднення фотографій на вашому обліковому записі Flickr. Програма"
+" отримає список доступних альбомів для уможливлення вибору наявного альбому"
+" для вивантаження даних, програма може створювати альбоми від вашого імені."
+" Окрім створення альбомів та вивантаження фотографій, "
+"Shotwell не вноситиме змін до будь-яких наявних даних на вашому обліковому"
+" записів Flickr."
 
 #. (itstool) path: info/desc
 #: C/import-memorycard.page:7
 msgid "Import photos from a digital camera's memory card."
-msgstr ""
+msgstr "Імпортування фотографій з картки пам'яті цифрової фотокамери"
 
 #. (itstool) path: page/title
 #: C/import-memorycard.page:12
 msgid "Importing from a memory card"
-msgstr ""
+msgstr "Імпортування з картки пам'яті"
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:14
 msgid "To import photos from a camera memory card:"
 msgstr ""
+"Щоб імпортувати фотографії з картки пам'яті вашої фотокамери, виконайте такі"
+" дії:"
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:18
@@ -1844,11 +1947,13 @@ msgid ""
 "Put the card into your card reader. Make sure the card reader is plugged in "
 "to the computer and switched on."
 msgstr ""
+"Вставте картку до пристрою для зчитування даних карток. Переконайтеся, що"
+" пристрій зчитування з'єднано із комп'ютером і увімкнено."
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:21
 msgid "The card reader and card should be detected automatically."
-msgstr ""
+msgstr "Пристрій для читання та картку має бути виявлено автоматично."
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:24
@@ -1858,6 +1963,10 @@ msgid ""
 "Folder...</gui></guiseq>, the memory card should be visible as a folder in "
 "the side bar of the file selection window."
 msgstr ""
+"Виконайте настанови щодо <link xref=\"import-file\">імпортування фотографій з"
+" диска вашої системи</link>. Якщо ви виберете пункт меню <guiseq><gui>Файл<"
+"/gui><gui>Імпортувати з теки...</gui></guiseq> — картка пам'яті має бути"
+" видимою як звичайна тека на бічній панелі вікна вибору файлів."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:28
@@ -1865,6 +1974,8 @@ msgid ""
 "Shotwell can import photos from any memory card that is compatible with your "
 "card reader."
 msgstr ""
+"Shotwell може імпортувати фотографії з будь-якої картки пам'яті, яка сумісна"
+" із вашим пристроєм для читання карток пам'яті."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:30
@@ -1875,11 +1986,16 @@ msgid ""
 "\"import-camera\">connecting your camera directly to the computer</link>, "
 "though."
 msgstr ""
+"Якщо картку не було виявлено автоматично, ймовірно, системі не вдалося"
+" розпізнати ваш пристрій для читання карток. Спробуйте від'єднати його від"
+" комп'ютера і з'єднати його з комп'ютером знову. Якщо це не спрацює, ви все"
+" ще зможете імпортувати фотографії <link xref=\"import-camera\">з'єднавши"
+" вашу камеру безпосередньо з комп'ютером</link>."
 
 #. (itstool) path: info/desc
 #: C/other-plugins.page:7
 msgid "Extend Shotwell's functionality dynamically."
-msgstr ""
+msgstr "Динамічне розширення функціональних можливостей Shotwell"
 
 #. (itstool) path: page/title
 #: C/other-plugins.page:12
@@ -1893,6 +2009,9 @@ msgid ""
 "libraries that can add support for new publishing destinations or new "
 "slideshow transitions."
 msgstr ""
+"Shotwell можна використовувати з <em>додатками</em>, які є супутніми"
+" бібліотеками спільного використання, які можуть додавати підтримку нових"
+" серверів для вивантаження даних або нових переходів у показах слайдів."
 
 #. (itstool) path: page/p
 #: C/other-plugins.page:18
@@ -1903,6 +2022,12 @@ msgid ""
 "installed plugins, each with a checkbox by it, and you may enable or disable "
 "each by selecting or deselecting the checkbox by its name."
 msgstr ""
+"Щоб переглянути список встановлених додатків, скористайтеся пунктом меню <"
+"guiseq><gui>Зміни</gui><gui>Налаштування</gui></guiseq> і у вікні <gui"
+">Налаштування</gui> натисніть вкладку <gui>Додатки</gui>. Програма покаже вам"
+" список встановлених додатків із пунктом для позначок поряд із кожним"
+" пунктом. Ви зможете вмикати або вимикати кожен із додатків за допомогою"
+" позначення або зняття позначення з відповідного пункту у списку."
 
 #. (itstool) path: note/p
 #: C/other-plugins.page:25
@@ -1911,6 +2036,10 @@ msgid ""
 "\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
 "wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
 msgstr ""
+"Із повною документацією щодо розробки нових додатків можна ознайомитися на"
+" сторінці <link href="
+"\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
+"wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -1918,11 +2047,13 @@ msgid ""
 "Learn about different ways of viewing your photos: in a grid, filling the "
 "main window, or filling the whole screen."
 msgstr ""
+"Дізнайтеся більше про різні режими перегляду ваших фотографій: у форматі"
+" таблиці, на усе вікно або на увесь екран комп'ютера."
 
 #. (itstool) path: page/title
 #: C/view-displaying.page:12
 msgid "Photo views"
-msgstr ""
+msgstr "Перегляд фотографій"
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:14
@@ -1933,6 +2064,13 @@ msgid ""
 "thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) "
 "or by pressing <key>Ctrl</key> while moving your mouse scroll wheel."
 msgstr ""
+"Коли ви позначаєте якусь збірку на бічній панелі, Shotwell показує усі"
+" фотографії у збірці на основній панелі головного вікна. У нижній правій"
+" частині вікна розташовано повзунок, за допомогою якого можна скоригувати"
+" видимий розмір мініатюр. Ви також можете скоригувати розмір мініатюр за"
+" допомогою натискання клавіш <key>+</key> та <key>-</key> або утримання"
+" натиснутою клавіші <key>Ctrl</key> із одночасним прокручуванням коліщатка"
+" миші."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:16
@@ -1942,6 +2080,11 @@ msgid ""
 "buttons. To return to the collection, double-click on the photo or press "
 "<key>Esc</key>."
 msgstr ""
+"Ви можете перевести перегляд фотографії у режим на усе вікно подвійним"
+" клацанням на ній. У повноекранному режимі ви можете переходити до інших"
+" фотографій у збірці за допомогою натискання клавіш «Назад» і «Далі». Щоб"
+" повернутися до збірки двічі клацніть на фотографії або натисніть клавішу <"
+"key>Esc</key>."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:18
@@ -1954,6 +2097,15 @@ msgid ""
 "and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen "
 "pixels)."
 msgstr ""
+"При перегляді фотографії у режимі на усе вікно можна керувати масштабом за"
+" допомогою повзунка на панелі інструментів. Панорамування можна виконувати"
+" перетягуванням фотографії за допомогою вказівника миші за будь-яке місце."
+" Крім того, ви можете змінювати масштаб прокручуванням коліщатка миші або"
+" натисканням відповідних клавіатурних скорочень: <keyseq><key>Ctrl</key>0<"
+"/keyseq> для заповнення вікна зображенням, <keyseq><key>Ctrl</key>1</keyseq>"
+" для масштабу у 100% (1 піксель фотографії = 1 піксель на екрані) і <keyseq><"
+"key>Ctrl</key>2</keyseq> для масштабу у 200% (1 піксель на фотографії = 2x2"
+" пікселі на екрані)."
 
 #. (itstool) path: page/p
 #: C/view-displaying.page:20
@@ -1965,11 +2117,19 @@ msgid ""
 "the toolbar down (so it isn't hidden when you move the mouse away), and to "
 "leave fullscreen view."
 msgstr ""
+"У Shotwell передбачено повноекранний режим перегляду фотографій. Щоб його"
+" увімкнути, виберіть пункт меню <guiseq><gui>Перегляд</gui><gui>На весь"
+" екран</gui></guiseq> або натисніть клавішу <key>F11</key>. Щоб наказати"
+" програмі показати панель інструментів у повноекранному режимі, пересуньте"
+" вказівник миші до нижнього краю екрана. На панелі інструментів буде показано"
+" кнопки для пересування збіркою, пришпилювання панелі інструментів (щоб її не"
+" було знову приховано, коли ви відведете вказівник миші) та кнопка для виходу"
+" з повноекранного режиму."
 
 #. (itstool) path: section/title
 #: C/view-displaying.page:23
 msgid "Viewing videos"
-msgstr ""
+msgstr "Перегляд відео"
 
 #. (itstool) path: section/p
 #: C/view-displaying.page:24
@@ -1978,11 +2138,15 @@ msgid ""
 "to play the video. It's not currently possible to display a video in full-"
 "window mode in Shotwell or to play the video within Shotwell itself."
 msgstr ""
+"Коли ви двічі клацатимете на відео, Shotwell запускатиме зовнішній програвач"
+" відео для відтворення відео. У поточній версії не передбачено показу відео у"
+" режимі заповнення вікна у Shotwell або відтворення відео у самій програмі"
+" Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
 msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr ""
+msgstr "Удосконалення композиції фотографії шляхом вирізання її частин."
 
 #. (itstool) path: page/title
 #: C/edit-crop.page:12
@@ -1996,6 +2160,9 @@ msgid ""
 "smaller portion of it, use the Crop tool. The crop tool is only available in "
 "full-window or fullscreen mode."
 msgstr ""
+"Щоб зменшити область фотографії і сконцентрувати увагу на якійсь меншій його"
+" частині, скористайтеся інструментом обрізання. Інструмент обрізання"
+" доступний лише у режимі заповнення вікна або повноекранному режимі."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:19
@@ -2003,6 +2170,9 @@ msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
+"Двічі клацніть на фотографії, щоб увійти у режим заповнення вікна, потім"
+" натисніть кнопку <gui>Обрізати</"
+"gui> на панелі інструментів."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:22
@@ -2011,6 +2181,9 @@ msgid ""
 "portion of the photo within the crop rectangle represents what the photo "
 "will look like when you crop it."
 msgstr ""
+"На фотографії з'явиться білий прямокутник обрізання. Світліша частина"
+" фотографії всередині прямокутника обрізання відповідає зображенню фотографії"
+" після її обрізання."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:25
@@ -2020,6 +2193,12 @@ msgid ""
 "move and adjust the crop box, you'll see four lines appear inside it, like a "
 "tic-tac-toe grid. These are <em>rule of thirds</em> lines."
 msgstr ""
+"Якщо ви розташуєте вказівник посередині прямокутника, натиснете ліву кнопку"
+" миші і пересунете вказівник, ви зможете пересунути прямокутник."
+" Перетягуванням країв прямокутника можна скоригувати розмір прямокутника. При"
+" пересуванні та коригуванні розмірів прямокутника обрізання програма"
+" показуватиме у ньому чотири лінії подібні до ліній хрестиків-нуликів. Це"
+" лінії <em>правила третин</em>."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:26
@@ -2043,6 +2222,8 @@ msgid ""
 "If you change your mind, press the <gui>Crop</gui> button again and fine-"
 "tune the crop."
 msgstr ""
+"Якщо ви зміните свою думку, натисніть кнопку <gui>Обрізати</gui> ще раз і"
+" скоригуйте обрізання."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:33
@@ -2050,11 +2231,14 @@ msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
+"Якщо ви натиснете кнопку <gui>Скасувати</gui> замість кнопки <gui"
+">Застосувати</gui>, Shotwell поверне фотографію до розмірностей, які вона"
+" мала до обрізання."
 
 #. (itstool) path: section/title
 #: C/edit-crop.page:38
 msgid "What is the rule of thirds?"
-msgstr ""
+msgstr "Що таке «правило третин»?"
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:39
@@ -2062,6 +2246,8 @@ msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
 msgstr ""
+"<em>Правило третин</em> допомагає вам вибрати приємну для споглядання"
+" композицію фотографії."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:40
@@ -2080,6 +2266,8 @@ msgid ""
 "Cropping a photo so that it conforms to the rule of thirds often results in "
 "a more visually appealing image."
 msgstr ""
+"Обрізання фотографії так, щоб вона відповідала правилу третин, часто робить"
+" фотографію гармонійнішою."
 
 #. (itstool) path: section/media
 #. This is a reference to an external file such as an image or video. When
@@ -2099,6 +2287,8 @@ msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
 msgstr ""
+"Обрізання фотографії за допомогою ліній «правила третин» для поліпшення"
+" композиції."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
