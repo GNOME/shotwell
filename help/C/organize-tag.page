@@ -37,7 +37,7 @@
 		Once you have created a tag, you can rename it by selecting that 
 		tag in the sidebar and choosing 
 		<guiseq><gui>Tags</gui><gui>Rename Tag "[name]"...</gui></guiseq>,
-		by rightclicking on it and choose <gui>Rename...</gui> or
+		by right-clicking on it and choose <gui>Rename...</gui> or
 		double-click on the tag in the sidebar.
 	</p>
     
@@ -72,14 +72,14 @@
     <section id="hierarchaicaltags">
         <title>Hierarchical Tags</title>
             <p>
-				Shotwell supports also hierarchial tags. You can 
+				Shotwell supports also hierarchical tags. You can 
 				rearrange your tags by drag and drop a tag onto another. 
 				To create a new subtag right-click on a tag and select 
 				<gui>New</gui>.
 			</p>
             
             <p>
-				Hierarchial tags can help you to sort your tag list in 
+				Hierarchical tags can help you to sort your tag list in 
 				ways that better match how you work or think; for example,
 				you can store location tags like "Mountains" or "Beach"
 				under a parent tag "Places", which itself can be placed
