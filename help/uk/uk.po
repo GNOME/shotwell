@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "POT-Creation-Date: 2020-06-09 15:22+0000\n"
-"PO-Revision-Date: 2020-06-25 22:13+0300\n"
+"PO-Revision-Date: 2020-06-26 16:58+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -2503,6 +2503,14 @@ msgid ""
 "rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
 "tag in the sidebar."
 msgstr ""
+"Коли ви скористаєтеся комбінацією клавіш <keyseq><key>Ctrl</key><key>T</key><"
+"/keyseq> або пунктом меню <guiseq><gui>Мітки</gui><gui>Додати мітки...</gui><"
+"/guiseq>, ви зможете ввести назви однієї або декількох міток, відокремлених"
+" комами. Щойно вами буде створено мітку, ви можете перейменувати її,"
+" позначивши мітку на бічній панелі і вибравши пункт меню <guiseq><gui>Мітки<"
+"/gui><gui>Перейменувати мітку «[назва]»...</gui></guiseq>, клацнувши правою"
+" кнопкою миші на пункті мітки і вибравши у контекстному меню пункт <gui"
+">Перейменувати...</gui> або двічі клацнувши на пункті мітки на бічній панелі."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:44
@@ -2516,6 +2524,16 @@ msgid ""
 "gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
 "\"[name]\" from Photos</gui>."
 msgstr ""
+"Щоб змінити те, які мітки пов'язано із певною фотографією, позначте"
+" фотографію, виберіть пункт меню <guiseq><gui>Мітки</gui><gui>Змінити"
+" мітки...</gui></guiseq> або клацніть правою кнопкою миші на фотографії і"
+" виберіть у контекстному меню пункт <gui>Змінити мітки...</gui> і виконайте"
+" редагування списку міток, відокремлених комами. Щоб вилучити мітку з однієї"
+" або декількох фотографій, спочатку позначте мітку на бічній панелі, потім"
+" позначте фотографії, з яких слід вилучити мітку, і виберіть пункт меню <"
+"guiseq><gui>Мітки</gui><gui>Вилучити мітку «[назва]» з фотографій</gui><"
+"/guiseq> або клацніть правою кнопкою миші на наборі фотографій і виберіть у"
+" контекстному меню <gui>Вилучити мітку «[назва]» з фотографій</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:58
@@ -2524,6 +2542,10 @@ msgid ""
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
 "click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
+"Щоб вилучити мітку повністю, позначте цю мітку на бічній панелі і виберіть"
+" пункт меню <guiseq><gui>Мітки</gui><gui>Вилучити мітку «[назва]»</gui><"
+"/guiseq> або клацніть правою кнопкою миші і виберіть у контекстному меню"
+" пункт <gui>Вилучити мітку «[назва]»</gui>."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:64
@@ -2533,6 +2555,11 @@ msgid ""
 "tags attached to them, and when you click on the name of a given tag in the "
 "sidebar, you will see all the photos associated with that tag."
 msgstr ""
+"Коли ви створюєте мітку, вона з'являється на бічній панелі у списку <gui"
+">Мітки</gui>, який буде приховано, якщо міток немає. З кожною фотографією"
+" можна пов'язати декілька міток, а коли ви клацнете на пункті із назвою мітки"
+" на бічній панелі, ви побачите усі фотографії, які пов'язано із відповідною"
+" міткою."
 
 #. (itstool) path: section/title
 #: C/organize-tag.page:73
@@ -2559,6 +2586,10 @@ msgid ""
 "\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
 "be placed under the tag \"Summer Holidays\"."
 msgstr ""
+"Ієрархічні мітки можуть допомогти вам в упорядковуванні списку міток таким"
+" чином, щоб він був придатнішим до вашого робочого процесу. Наприклад, ви"
+" можете зберігати мітки місць, зокрема «Гори» або «Берег» під батьківською"
+" міткою «Місця», яку також можна розташувати під міткою «Відпочинок влітку»."
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:89
@@ -2573,6 +2604,9 @@ msgid ""
 "Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
 msgstr ""
+"Виберіть пункт меню <guiseq><gui>Файл</gui><gui>Друкувати...</gui></guiseq>."
+" Щоб отримати доступ до додаткових параметрів друку, скористайтеся вкладкою <"
+"gui>Параметри сторінки</gui> діалогового вікна <gui>Друкувати</gui>."
 
 #. (itstool) path: page/title
 #: C/share-print.page:12
@@ -2598,6 +2632,12 @@ msgid ""
 "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
 "options under <gui>Autosize</gui>."
 msgstr ""
+"Крім того, Shotwell може друкувати декілька зображень на одному аркуші. Для"
+" такого режиму друку позначте декілька зображень, виберіть пункт меню <guiseq"
+"><gui>Файл</gui><gui>Друкувати...</gui></guiseq> і у діалоговому вікні <gui"
+">Друкувати</gui> перейдіть на вкладку <gui>Параметри зображення</gui>. На"
+" вкладці <gui>Параметри зображення</gui> виберіть один із варіантів друку"
+" декількох зображень на сторінці у списку <gui>Авторозміри</gui>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:23
@@ -2606,6 +2646,9 @@ msgid ""
 "choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
 "printing."
 msgstr ""
+"Якщо ви хочете встановити форматування, розмір паперу та параметри"
+" орієнтації, перейдіть на вкладку <gui>Параметри сторінки</gui> у діалоговому"
+" вікні <gui>Друкувати</gui>."
 
 #. (itstool) path: info/desc
 #: C/running.page:7
@@ -2640,6 +2683,13 @@ msgid ""
 "gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
+"Крім того, можна налаштувати Shotwell на автоматичний запуск, коли з"
+" комп'ютером з'єднується камера. Щоб перевірити, чи налаштовано систему на"
+" запуск Shotwell при виявленні камери, скористайтеся пунктом меню <guiseq><"
+"gui>Зміни</gui><gui>Параметри</gui></guiseq> у вікні Nautilus (програми для"
+" керування файлами) і перейдіть на вкладку <gui>Носії</gui>. Ви побачите"
+" спадний список із заголовком <gui>Фотографії:</gui>, за допомогою якого"
+" можна вибрати Shotwell як програму для обробки фотографій."
 
 #. (itstool) path: note/p
 #: C/running.page:25
@@ -2647,6 +2697,9 @@ msgid ""
 "Shotwell may also be executed directly from its build directory, although "
 "this is only recommended for testing out Shotwell or for developers."
 msgstr ""
+"Shotwell також можна запускати безпосередньо з каталогу збирання, хоча цей"
+" спосіб ми рекомендуємо лише для тестування Shotwell або для користування"
+" програму у режимі розробки."
 
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
@@ -2697,6 +2750,11 @@ msgid ""
 "computer's trash. If you delete it from your computer's trash the photo is "
 "finally and irretrievably deleted from your computer."
 msgstr ""
+"На цій діаграмі показано як фотографія, після вилучення, спершу потрапляє до"
+" смітника Shotwell. Якщо ви вилучите її зі смітника Shotwell, вона потрапить"
+" до смітника операційної системи. Якщо ви вилучите її зі смітника операційної"
+" системи, фотографію буде остаточно і майже безповоротно вилучено з вашого"
+" комп'ютера."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:18
@@ -2710,6 +2768,10 @@ msgid ""
 "Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
 "photos will be moved from your library to Shotwell's Trash."
 msgstr ""
+"Позначте фотографії, які слід вилучити і виберіть пункт меню <guiseq><gui"
+">Зміни</gui><gui>Пересунути до смітника</gui></guiseq>. (Ви також можете"
+" просто натиснути клавішу <key>Delete</key>.) Фотографії буде пересунуто із"
+" вашої бібліотеки до смітника Shotwell."
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:22
@@ -2719,6 +2781,10 @@ msgid ""
 "<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
 "files will be left in place on disk."
 msgstr ""
+"Якщо ви хочете вилучити фотографії з Shotwell без пересування їх до смітника,"
+" просто позначте фотографії, які слід вилучити, і виберіть пункт меню <guiseq"
+"><gui>Зміни</gui><gui>Вилучити з бібліотеки</gui></guiseq>. Самі фотографі"
+" лишаться зберігатися на диску."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:26
@@ -2732,6 +2798,9 @@ msgid ""
 "that have been marked for removal or deletion. In the Trash view, the "
 "following commands are available:"
 msgstr ""
+"Позначте пункт «Смітник» на бічній панелі, і Shotwell покаже усі фотографії,"
+" які було позначено для вилучення. На панелі перегляду смітника ви можете"
+" скористатися такими командами:"
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:29
@@ -2832,6 +2901,12 @@ msgid ""
 "Tags views, but will instead show them in a separate Missing Files view "
 "which will appear in the sidebar."
 msgstr ""
+"Під час кожного запуску Shotwell програма сканує вашу фотобібліотеку, щоб"
+" переконатися у тому, що усі файли фотографій усе ще існують на диску"
+" комп'ютера. Якщо Shotwell буде виявлено якісь файли, яких вже немає на"
+" диску, програма показуватиме їх не у списках звичайних фотографій, подій або"
+" міток, але у окремій категорії «Немає файлів», пункт якої буде показано на"
+" бічній панелі."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:16
@@ -2840,6 +2915,10 @@ msgid ""
 "collection (perhaps because you deleted them), go to the Missing Files view, "
 "select the photos and then click <gui>Remove From Library</gui>."
 msgstr ""
+"Якщо ви не хочете, щоб записи без файлів лишалися частиною вашої збірки"
+" Shotwell (наприклад, якщо ви вилучили відповідні файли), перейдіть у режимі"
+" «Немає файлів», позначте пункт фотографій і натисніть кнопку <gui>Вилучити з"
+" бібліотеки</gui>."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:18
@@ -2850,6 +2929,12 @@ msgid ""
 "if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
 "to learn how to copy files from removable disks onto your computer."
 msgstr ""
+"Якщо ви маєте фотографії на портативному диску, зокрема компакт-диску або"
+" флешці USB, та <link xref=\"index#import\">імпортувати</link> їх до Shotwell"
+" <em>без</em> копіювання фотографій на ваш комп'ютер, ці фотографії буде"
+" показано як фотографії без файлів, якщо ви від'єднаєте портативний диск від"
+" комп'ютера. Див. розділ <link xref=\"import-file\"/>, щоб дізнатися про те,"
+" як копіювати файли з портативних дисків на ваш комп'ютер."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:20
@@ -2858,6 +2943,9 @@ msgid ""
 "the next time it starts. The photos will once again appear in the Photos, "
 "Events and Tags views."
 msgstr ""
+"Якщо для якихось із фотографій буде відновлено доступ до файлів, Shotwell"
+" визначить це під час наступного запуску. Пункти таких фотографій знову"
+" з'являться у списках «Фотографії», «Події» та «Мітки»."
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
@@ -2876,6 +2964,9 @@ msgid ""
 "publish photos and videos to the following services, each of which requires "
 "an account:"
 msgstr ""
+"За допомогою використання <link xref=\"other-plugins\">додатків</link>"
+" Shotwell може оприлюднювати фотографії та відео на вказаних нижче службах."
+" Для доступу до цієї можливості вам знадобиться відповідний обліковий запис."
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
@@ -2917,6 +3008,16 @@ msgid ""
 "key></keyseq>. You will see a dialog that lets you select a publishing "
 "service. You will then need to log in or create an account."
 msgstr ""
+"Щоб оприлюднити позначені фотографії у збірці, виберіть пункт меню <guiseq><"
+"gui>Зміни</"
+"gui><gui>Налаштування</gui></guiseq> і перейдіть на вкладку <gui>Додатки</gui"
+">, щоб увімкнути додаток для служби, на якій ви плануєте оприлюднення"
+" фотографій. Далі, виберіть пункт <guiseq><gui>Файл</gui><gui>Оприлюднити<"
+"/gui></guiseq>, натисніть кнопку <gui>Оприлюднити</gui> на панелі"
+" інструментів або скористайтеся комбінацію клавіш <keyseq><key>Ctrl</key><key"
+">Shift</key><key>P</key></keyseq>. У відповідь буде показано діалогове вікно,"
+" за допомогою якого ви зможете вибрати службу для оприлюднення. Вам"
+" доведеться увійти до облікового запису або створити обліковий запис."
 
 #. (itstool) path: page/p
 #: C/share-upload.page:30
@@ -2944,6 +3045,10 @@ msgid ""
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
+"У деяких камерах передбачено можливість зберігати дані безпосередньо з"
+" оптичного датчика до файла. Такий файли містить додаткові дані щодо"
+" кольорів. Такі файли типово називають цифровими негативами, RAW або RAW"
+" фотоапарата. У Shotwell передбачено підтримку таких файлів."
 
 #. (itstool) path: page/p
 #: C/raw.page:18
@@ -2956,6 +3061,13 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
+"Оскільки цифрові негативи, зазвичай, не може бути показано безпосередньо — їх"
+" слід спочатку проявити, — тобто обробити додаткову інформацію і приготувати"
+" зображення до показу. У більшості фотокамер результат або вбудовується як"
+" JPEG до файла цифрового негатива, або разом із RAW під час створення знімка"
+" створюється JPEG. Останній варіант у цьому документі ми будемо називати"
+" RAW+JPEG. Якщо у ви імпортуєте пару RAW+JPEG, Shotwell зберігатиме зв'язок"
+" між цими файлами і показуватиме їх як один запис у вашій бібліотеці."
 
 #. (itstool) path: page/p
 #: C/raw.page:27
@@ -2964,6 +3076,10 @@ msgid ""
 "internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
 "gui><gui>Developer</gui></guiseq> in the menus."
 msgstr ""
+"Під час імпортування файла цифрового негатива ви можете або скористатися"
+" проявленому на внутрішньому рівні JPEG, або проявити файл у Shotwell за"
+" допомогою пункту меню <guiseq><gui>Фотографії</"
+"gui><gui>Проявник</gui></guiseq>."
 
 #. (itstool) path: note/p
 #: C/raw.page:33
@@ -2971,6 +3087,8 @@ msgid ""
 "Changing between developers will cause all edits made to a photograph to be "
 "discarded."
 msgstr ""
+"Зміна проявника призведе до відкидання усіх редагувань, які було виконано над"
+" фотографією."
 
 #. (itstool) path: page/p
 #: C/raw.page:39
@@ -2980,6 +3098,11 @@ msgid ""
 "or BMP format, and, when publishing, will internally export a JPEG version "
 "for you and publish that."
 msgstr ""
+"Щоб оприлюднити цифровий негатив RAW або скористатися ним у більшості"
+" програмного забезпечення, дані цифрового негатива слід спочатку"
+" експортувати. Shotwell може експортувати ваші цифрові негативи у форматах"
+" JPEG, PNG, TIFF та BMP і, при оприлюдненні, на внутрішньому рівні"
+" експортувати версію JPEG, яку, власне, і буде оприлюднено."
 
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
@@ -3021,6 +3144,10 @@ msgid ""
 "hold down the <key>Ctrl</key> key and click to select individual photos. You "
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
+"Якщо хочете, ви можете вибрати певний набір фотографій для імпортування. Для"
+" цього утримуйте натиснутою клавішу <key>Ctrl</key> і клацніть на потрібних"
+" вам фотографіях. Ви також можете натиснути і утримувати клавішу <key>Shift<"
+"/key>, щоб визначити клацанням діапазон фотографій."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:28
@@ -3028,6 +3155,9 @@ msgid ""
 "Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
 "will be copied from the camera and saved on your computer."
 msgstr ""
+"Клацніть або на пункті <gui>Імпортувати позначені</gui>, або на пункті <gui"
+">Імпортувати всі</gui>. Фотографії буде скопійовано з фотокамери і збережено"
+" на вашому комп'ютері."
 
 #. (itstool) path: page/p
 #: C/import-camera.page:32
@@ -3036,6 +3166,10 @@ msgid ""
 "(in the sidebar) to see all photos that were imported. The Events list (also "
 "in the sidebar) will also show the new photos, organized by date."
 msgstr ""
+"Щойно імпортування буде завершено, ви зможете відкрити список <gui>Попереднє"
+" імпортування</gui> (на бічній панелі), щоб переглянути усі фотографії, які"
+" було імпортовано. У списку «Події» (також на бічній панелі) також буде"
+" показано нові фотографії, упорядковані за датою."
 
 #. (itstool) path: info/title
 #: C/index.page:6
@@ -3141,6 +3275,13 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
 "menus of installed applications."
 msgstr ""
+"У вас може виникнути бажання скористатися зовнішнім редактором для додаткової"
+" обробки фотографії. Якщо встановлено GIMP і UFRaw, ці програми будуть"
+" типовими зовнішніми редакторами для фотографій та цифрових негативів,"
+" відповідно. Якщо ці програми не встановлено, вам слід вибрати бажані"
+" редактори за допомогою пункту меню <guiseq><gui>Зміни</"
+"gui><gui>Налаштування</gui></guiseq> з наступним вибором редакторів зі"
+" спадних меню встановлених програм."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:24
@@ -3151,6 +3292,14 @@ msgid ""
 "a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
 "guiseq> to edit the RAW file directly with the set RAW editor."
 msgstr ""
+"Щойно редактори буде визначено, ви зможете вибрати фотографію і скористатися"
+" пунктом меню <guiseq><gui>Фотографії</gui> <gui>Відкрити за допомогою"
+" зовнішнього редактора</gui></guiseq>, щоб відкрити фотографію у зовнішньому"
+" редакторі. Так само, якщо початковою фотографією є файл цифрового негатива"
+" (RAW), виберіть пункт меню <guiseq><gui>Фотографії</gui><gui>Відкрити за"
+" допомогою редактора цифрових негативів</gui></guiseq>, щоб виконати"
+" редагування файла цифрового негатива безпосередньо за допомогою"
+" встановленого редактора цифрових негативів."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:31
@@ -3160,6 +3309,11 @@ msgid ""
 "hold the <key>Shift</key> key in full-window view to show the original photo "
 "rather than the externally-edited one."
 msgstr ""
+"Коли ви завершите редагування та збережете файл, Shotwell виявить зміни і"
+" оновить дані фотографії. Після виконання зовнішніх редагувань ви можете"
+" натиснути і утримувати клавішу <key>Shift</key> у режимі на все вікно, щоб"
+" переглянути початкову версію фотографії, замість редагованої у зовнішньому"
+" редакторі."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:38
@@ -3173,6 +3327,10 @@ msgid ""
 "such as a JPEG or PNG, Shotwell cannot automatically determine that the "
 "original RAW and the new image should be paired."
 msgstr ""
+"Якщо ви виконали зовнішнє редагування цифрового негатива (RAW) і зберегли"
+" результат до іншого зображення, зокрема у форматі JPEG або PNG, Shotwell не"
+" зможе автоматично встановити потребу у пов'язуванні початкового цифрового"
+" негатива із новим зображенням."
 
 #. (itstool) path: note/p
 #: C/edit-external.page:49
@@ -3180,6 +3338,8 @@ msgid ""
 "If you want to work within the resulting image within Shotwell, you'll need "
 "to import it yourself."
 msgstr ""
+"Якщо ви хочете працювати із зображенням-результатом у Shotwell, вам"
+" доведеться імпортувати його власноруч."
 
 #. (itstool) path: info/desc
 #: C/share-send.page:7
@@ -3214,6 +3374,14 @@ msgid ""
 "email or instant messaging) and a destination. You can optionally choose to "
 "send the files in a compressed format."
 msgstr ""
+"Щоб надіслати фотографії, позначте їх у вікні Shotwell і скористайтеся"
+" пунктом меню <guiseq><gui>Файл</gui><gui>Надіслати...</gui></guiseq> або"
+" клацніть правою кнопкою миші на будь-якій з позначених фотографій і виберіть"
+" у контекстному меню пункт <gui>Надіслати...</gui>. У відповідь буде відкрито"
+" діалогове вікно <gui>Надіслати</gui>, за допомогою якого ви зможете вибрати"
+" механізм надсилання файлів (електронною поштою або службою миттєвого обміну"
+" повідомленнями) та отримувача. Ви також можете вказати, що файли слід"
+" надіслати у стисненому форматі."
 
 #. (itstool) path: info/desc
 #: C/edit-adjustments.page:7
@@ -3234,6 +3402,12 @@ msgid ""
 "intensity thresholds of the photograph, expanding the contrast of the middle "
 "range."
 msgstr ""
+"Натискання кнопки <gui>Скоригувати</gui> відкриває рухоме вікно із"
+" гістограмою та повзунками для коригування експонування, насиченості,"
+" затінення, температури та тіней фотографії. Крім того, на гістограмі"
+" передбачено повзунки для зменшення верхнього і нижнього порогових значень"
+" інтенсивності кольорів фотографії, що призведе до збільшення контрастності у"
+" середньому діапазоні."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:16
@@ -3241,6 +3415,8 @@ msgid ""
 "The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
 "improve the quality of a photo."
 msgstr ""
+"За допомогою кнопки <gui>Покращити</gui> можна скоригувати гістограму і"
+" повзунки тіней з метою поліпшення кості фотографії."
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:18
@@ -3249,6 +3425,10 @@ msgid ""
 "to save the changes. <gui>Reset</gui> will return the image to its original "
 "state. <gui>Cancel</gui> discards all changes you've made."
 msgstr ""
+"Коли буде досягнуто бажаних для вас кольорів і контрастності, натисніть"
+" кнопку <gui>Гаразд</gui>, щоб зберегти зміни. Натискання кнопки <gui"
+">Скинути</gui> поверне зображення до початкового стану. Натискання кнопки <"
+"gui>Скасувати</gui> призведе до відкидання усіх внесених вами змін."
 
 #. (itstool) path: section/title
 #: C/edit-adjustments.page:21
@@ -3266,6 +3446,9 @@ msgid ""
 "Changes the brightness to make it look like the photo was exposed for a "
 "longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
+"Змінює яскравість, надаючи фотографії такого вигляду, наче її було"
+" експоновано протягом більшого або меншого періоду часу. Скористайтеся цим"
+" параметром для виправлення недостатньо або надмірно експонованих фотографій."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
@@ -3278,6 +3461,9 @@ msgid ""
 "Changes the contrast of a photo. Use it to correct flat-looking photos or "
 "photos where the difference between bright and dark spots seems to big."
 msgstr ""
+"Змінює контрастність фотографії. Скористайтеся цим параметром для виправлення"
+" неконтрастних зображень або зображень, на яких різниця між яскравими і"
+" темними елементами є надто великою."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:32
@@ -3290,6 +3476,9 @@ msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
+"Змінює характер показу яскравих кольорів. Якщо ваша фотографія виглядає надто"
+" сірою і тьмяною, спробуйте збільшити насиченість. Якщо кольори виглядають"
+" надто яскраво, спробуйте зменшити насиченість."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:36
@@ -3304,6 +3493,12 @@ msgid ""
 "color cast. For example, photos taken outdoors with the white balance set to "
 "\"Tungsten\" may have a blue cast."
 msgstr ""
+"За допомогою цього параметра можна надати фотографії кольорового відтінку. Це"
+" корисно при виправленні фотографій, які створено із помилковими параметром"
+" балансу білого кольору, який, типово, призводить до неприродного набору"
+" кольорів. Наприклад, фотографії, які було знято на природі із параметром"
+" балансу білого, встановленим у значення «Лампа розжарювання», можуть мати"
+" синюватий відтінок."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:40
@@ -3316,6 +3511,9 @@ msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
+"Робить вигляд зображення «теплим» або «холодним». Скористайтеся цим"
+" параметром для того, щоб, наприклад, зробити холодні депресивні сцени трохи"
+" живішими."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:44
@@ -3328,6 +3526,8 @@ msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
 msgstr ""
+"За допомогою цього параметра можна зробити темні області світлішими."
+" Скористайтеся ним, якщо деякі бажані деталі на зображенні затінено."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:48
@@ -3341,3 +3541,7 @@ msgid ""
 "darkest black is. Use them to change the contrast of the photo. Photos which "
 "look washed out should particularly benefit from changing these settings."
 msgstr ""
+"Ці повзунки змінюють те, наскільки світлим є найсвітліший білий колір і"
+" наскільки темним є найтемніший чорний колір на зображенні. Скористайтеся"
+" ними для зміни контрастності фотографії. Зокрема, зміна цих параметрів має"
+" позитивно вплинути на вигляд фотографій, які виглядають вицвілими."
