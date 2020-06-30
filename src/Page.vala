@@ -13,13 +13,13 @@ public class InjectionGroup {
         }
         public string name;
         public string action;
-        public string? accellerator;
+        public string? accelerator;
         public ItemType kind;
 
-        public Element(string name, string? action, string? accellerator, ItemType kind) {
+        public Element(string name, string? action, string? accelerator, ItemType kind) {
             this.name = name;
             this.action = action != null ? action : name;
-            this.accellerator = accellerator;
+            this.accelerator = accelerator;
             this.kind = kind;
         }
     }
@@ -40,8 +40,8 @@ public class InjectionGroup {
         return elements;
     }
 
-    public void add_menu_item(string name, string? action = null, string? accellerator = null) {
-        elements.add(new Element(name, action, accellerator, Element.ItemType.MENUITEM));
+    public void add_menu_item(string name, string? action = null, string? accelerator = null) {
+        elements.add(new Element(name, action, accelerator, Element.ItemType.MENUITEM));
     }
 
     public void add_menu(string name, string? action = null) {
@@ -230,10 +230,10 @@ public abstract class Page : Gtk.ScrolledWindow {
                             case InjectionGroup.Element.ItemType.MENUITEM:
                                 var item = new GLib.MenuItem (element.name,
                                                               "win." + element.action);
-                                if (element.accellerator != null) {
+                                if (element.accelerator != null) {
                                     item.set_attribute ("accel",
                                                         "s",
-                                                        element.accellerator);
+                                                        element.accelerator);
                                 }
 
                                 menu.append_item (item);
@@ -650,7 +650,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         drag_end(context);
     }
     
-    // wierdly, Gtk 2.16.1 doesn't supply a drag_failed virtual method in the GtkWidget impl ...
+    // weirdly, Gtk 2.16.1 doesn't supply a drag_failed virtual method in the GtkWidget impl ...
     // Vala binds to it, but it's not available in gtkwidget.h, and so gcc complains.  Have to
     // makeshift one for now.
     // https://bugzilla.gnome.org/show_bug.cgi?id=584247

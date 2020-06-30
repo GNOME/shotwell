@@ -769,7 +769,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * This actions runs a REST transaction to create a new category in the
      * Piwigo library. It displays a wait pane with an information message
      * while the transaction is running. This action should only be called with
-     * a local cateogory, i.e. one that does not exist on the server and does
+     * a local category, i.e. one that does not exist on the server and does
      * not yet have an ID.
      *
      * @param category the new category to create on the server

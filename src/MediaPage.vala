@@ -887,7 +887,7 @@ public abstract class MediaPage : CheckerboardPage {
             case SortBy.EXPOSURE_DATE:
                 if (ascending)
                     comparator = Thumbnail.exposure_time_ascending_comparator;
-                else comparator = Thumbnail.exposure_time_desending_comparator;
+                else comparator = Thumbnail.exposure_time_descending_comparator;
                 predicate = Thumbnail.exposure_time_comparator_predicate;
                 break;
             
