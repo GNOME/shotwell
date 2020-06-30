@@ -30,6 +30,10 @@ namespace Shotwell.Plugins.Common {
 
         public override void constructed () {
             base.constructed ();
+            var ctx = WebKit.WebContext.get_default();
+            if (!ctx.get_sandbox_enabled()) {
+                ctx.set_sandbox_enabled(true);
+            }
 
             var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 4);
             this.widget = box;
