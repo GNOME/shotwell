@@ -26,7 +26,7 @@ shotwell_libs = [sw_graphics_processor]
 face_sources = []
 face_obj = ''
 
-if get_option('face-detection')
+if get_option('face_detection')
   face_sources = (['faces/FacesBranch.vala',
                      'faces/FacePage.vala',
                      'faces/FaceShape.vala',
