@@ -19,13 +19,8 @@ namespace Shotwell.Plugins.Common {
         private Gtk.Entry entry;
 
         public void clear() {
-            try {
-                debug("Clearing the data of WebKit...");
-                this.webview.get_website_data_manager().clear.begin(WebKit.WebsiteDataTypes.ALL, (GLib.TimeSpan)0);
-            } catch (Error e) {
-                // Do nothing
-                message("Failed to clear data: %s", e.message);
-            }
+            debug("Clearing the data of WebKit...");
+            this.webview.get_website_data_manager().clear.begin(WebKit.WebsiteDataTypes.ALL, (GLib.TimeSpan)0);
         }
 
         public override void constructed () {
