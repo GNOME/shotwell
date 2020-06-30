@@ -1,4 +1,4 @@
-if get_option('install-apport-hook')
+if get_option('install_apport_hook')
     subdir('apport')
 endif
 

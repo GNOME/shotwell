@@ -223,8 +223,8 @@
             "buildsystem" : "meson",
             "config-opts" : [
                 "-Dudev=false",
-                "-Dinstall-apport-hook=false",
-                "-Dface-detection=true",
+                "-Dinstall_apport_hook=false",
+                "-Dface_detection=true",
                 "-Dface_detection_helper_bus=private"
             ],
             "sources" : [
