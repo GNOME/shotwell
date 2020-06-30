@@ -176,7 +176,7 @@ public class Thumbnail : MediaSourceItem {
         return (result != 0) ? result : filename_ascending_comparator(a, b);
     }
     
-    public static int64 exposure_time_desending_comparator(void *a, void *b) {
+    public static int64 exposure_time_descending_comparator(void *a, void *b) {
         int64 result = exposure_time_ascending_comparator(b, a);
         
         return (result != 0) ? result : filename_descending_comparator(a, b);

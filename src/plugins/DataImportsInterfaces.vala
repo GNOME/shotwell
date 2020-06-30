@@ -416,7 +416,7 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
      * @param host_progress_delta the amount of progress the host should update
      * the progress bar during import preparation. Plugins should ensure that
      * a proportion of progress for each media item is set aside for the host
-     * in oder to ensure a smoother update to the progress bar.
+     * in order to ensure a smoother update to the progress bar.
      *
      * @param progress_message the text to be displayed below the progress bar. If that
      * parameter is null, the message will be left unchanged.
