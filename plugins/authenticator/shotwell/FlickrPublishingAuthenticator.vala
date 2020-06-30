@@ -234,7 +234,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
 
             debug("EVENT: fetching OAuth access token over the network succeeded");
 
-            do_extract_access_phase_credentials_from_reponse(txn.get_response());
+            do_extract_access_phase_credentials_from_response(txn.get_response());
         }
 
         private void on_access_token_fetch_error(Publishing.RESTSupport.Transaction txn,
@@ -248,7 +248,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             this.authentication_failed();
         }
 
-        private void do_extract_access_phase_credentials_from_reponse(string response) {
+        private void do_extract_access_phase_credentials_from_response(string response) {
             debug("ACTION: extracting access phase credentials from '%s'", response);
 
             string? token = null;
