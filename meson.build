@@ -73,7 +73,7 @@ webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
 
 unity_available = false
-if unity.found() and get_option('unity')
+if unity.found() and get_option('unity-support')
   unity_available = true
   add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
 endif
@@ -93,7 +93,7 @@ foreach measure : get_option('measure')
                        language : 'vala')
 endforeach
 
-if not get_option('dupe_detection')
+if not get_option('dupe-detection')
   add_global_arguments(['--define=NO_DUPE_DETECTION'], language : 'vala')
 endif
 
@@ -101,14 +101,14 @@ if get_option('udev') and gudev.found()
   add_global_arguments(['--define=HAVE_UDEV'], language : 'vala')
 endif
 
-if get_option('face_detection')
+if get_option('face-detection')
   add_global_arguments(['--define=ENABLE_FACES'], language : 'vala')
 
   if get_option('face_detection_helper_bus') == 'private'
       add_global_arguments(['--define=FACEDETECT_BUS_PRIVATE'], language : 'vala')
   endif
 
-  if get_option('face_detection_helper')
+  if get_option('face-detection-helper')
       subproject('shotwell-facedetect')
   endif
 endif
