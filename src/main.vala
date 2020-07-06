@@ -126,8 +126,6 @@ void library_exec(string[] mounts) {
     ThumbnailCache.init();
     Tombstone.init();
 
-    LibraryFiles.select_copy_function();
-    
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("LibraryPhoto.init");
     LibraryPhoto.init(monitor);
