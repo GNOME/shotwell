@@ -48,7 +48,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         } else {
             if (normed_key.contains(delimiter)) {
                 // check whether cursor is before last delimiter
-                int offset = normed_key.char_count(normed_key.last_index_of_char(delimiter[0]));
+                var offset = normed_key.char_count(normed_key.last_index_of_char(delimiter[0]));
                 int position = ((Gtk.Entry) get_entry()).get_position();
                 if (position <= offset)
                     return false; // TODO: Autocompletion for tags not last in list
