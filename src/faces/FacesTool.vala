@@ -78,19 +78,14 @@ public class FacesTool : EditingTools.EditingTool {
             if (name_entry.get_visible() == true)
                 return true;
 
-            // if is editing name in popover
-
             // if not edit name, just bold text and show rectangle
             activate_label();
 
-            // [TODO] this return false can change a lot
-//            if (face_shape.is_editable())
-//                return false;
-
-            // This check is necessary to avoid painting the face twice --see
-            // note in on_leave_notify_event.
-//            if (!face_shape.is_visible())
-//                face_shape.show();
+            // if is editing name in popover
+            if (face_shape.get_view_state() == FaceShape.ViewState.CONTOUR_AND_POPOVER)
+                return false;
+            else
+                face_shape.set_view_state(FaceShape.ViewState.CONTOUR);
 
             return true;
         }
@@ -101,16 +96,10 @@ public class FacesTool : EditingTools.EditingTool {
             // belongs to a widget that is a child of the widget that throws this
             // signal. So, this check is necessary to avoid "deactivation" of
             // the label if the pointer enters one of the buttons in this FaceWidget.
-            face_shape.set_view_state(FaceShape.ViewState.HIDE);
-/*            if (!is_pointer_over(get_window())) {
+            if (face_shape.get_view_state() != FaceShape.ViewState.CONTOUR_AND_POPOVER){
+                face_shape.set_view_state(FaceShape.ViewState.HIDE);
                 deactivate_label();
-
-                if (face_shape.is_editable())
-                    return false;
-
-                face_shape.hide();
-                face_hidden();
-            }*/
+            }
 
             return true;
         }
@@ -156,7 +145,7 @@ public class FacesTool : EditingTools.EditingTool {
                 face_shape.add_me_requested(face_shape);
                 return face_shape;
             } else {
-                return null; //do not need update
+                return null; //do not need to update
             }
         }
 
@@ -872,7 +861,6 @@ public class FacesTool : EditingTools.EditingTool {
             } else return;
 
             face_shape.hide();
-//            face_shape.set_editable(false);
 
             set_ok_button_sensitivity();
             release_face_shape();
