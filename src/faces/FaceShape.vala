@@ -169,7 +169,7 @@ public abstract class FaceShape : Object {
 
         if (this.view_state == ViewState.CONTOUR_AND_LABEL) {
             // remove label
-        }else if (this.view_state == ViewState.CONTOUR_AND_POPOVER) {
+        } else if (this.view_state == ViewState.CONTOUR_AND_POPOVER) {
             // remove popover
             face_window.popover.set_visible(false);
             set_entry_name(get_name());
@@ -179,8 +179,10 @@ public abstract class FaceShape : Object {
             // remove contour
             get_widget().deactivate_label();
             erase();
+        } else if (view_state == ViewState.CONTOUR) {
+            get_widget().activate_label();
+            paint();
         } else if (view_state == ViewState.CONTOUR_AND_LABEL) {
-            // [TODO] draw label in image
             get_widget().activate_label();
             this.view_state = view_state;
             paint();
@@ -394,7 +396,7 @@ public class FaceRectangle : FaceShape {
         canvas.erase_box(box.get_reduced(2));
         
         canvas.invalidate_area(box);
-
+     
         if (label_box != null)
             erase_label();
     }
@@ -426,6 +428,7 @@ public class FaceRectangle : FaceShape {
         ctx.move_to(x + LABEL_PADDING / 2, y + height + LABEL_PADDING / 2);
         ctx.show_text(get_name());
         
+        canvas.invalidate_area(label_box);
         ctx.restore();
     }
     
