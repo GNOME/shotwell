@@ -6447,7 +6447,7 @@ msgstr "Выбрать все"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:859
 msgid "%a %b %d, %Y"
-msgstr "%a, %е %B %Y"
+msgstr "%a, %e %B %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -6455,7 +6455,7 @@ msgstr "%a, %е %B %Y"
 #: src/Resources.vala:864
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a, %е %B"
+msgstr "%a, %e %B"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -6463,7 +6463,7 @@ msgstr "%a, %е %B"
 #: src/Resources.vala:869
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
-msgstr "%е, %Y"
+msgstr "%e, %Y"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -6471,7 +6471,7 @@ msgstr "%е, %Y"
 #: src/Resources.vala:874
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%a, %е %B"
+msgstr "%a, %e %B"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -6479,7 +6479,7 @@ msgstr "%a, %е %B"
 #: src/Resources.vala:879
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a, %е %B %Y"
+msgstr "%a, %e %B %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
