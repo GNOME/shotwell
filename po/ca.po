@@ -349,7 +349,7 @@ msgstr "Si s'ha d'utilitzar el tema fosc de GTK+ per al Shotwell o no"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:173
 msgid "background for transparent images"
-msgstr "Fons per les imatges transparents"
+msgstr "Fons per a les imatges transparents"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:174
 msgid "The background to use for transparent images"
@@ -361,15 +361,15 @@ msgstr "Color per al fons de transparència sòlida"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:180
 msgid "Color to use if background for transparent images is set to solid color"
-msgstr "Color a usar si el fons per imatges transparents està establert com a color sòlid"
+msgstr "Color a usar si el fons per a imatges transparents està establert com a color sòlid"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:185
 msgid "Selection state of “hide photos” option"
-msgstr "Estat de la selecció d'opció \"ocultar imatges\""
+msgstr "Estat de la selecció d'opció «amaga imatges»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:186
 msgid "Last used selection state of the “hide photos already imported” option in the import page"
-msgstr "Últim estat de selecció utilitzat de l'opció \"ocultar imatges ja importades\" en la pàgina d'importació"
+msgstr "Últim estat de selecció utilitzat de l'opció «amaga les fotografies que ja s'hagin importat» en la pàgina d'importació"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
 msgid "delay"
@@ -1842,7 +1842,7 @@ msgstr ""
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
-msgstr "Preparant-se per connectar..."
+msgstr "Preparant-se per a connectar..."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
@@ -4423,7 +4423,7 @@ msgstr "S'està important…"
 
 #: src/library/ImportQueuePage.vala:129
 msgid "Preparing to import…"
-msgstr "S'està preparant per importar…"
+msgstr "S'està preparant per a importar…"
 
 #: src/library/ImportQueuePage.vala:156
 #, c-format

@@ -1899,7 +1899,7 @@ msgid ""
 "display of titles beneath each photo. By default, a photo's title is its "
 "filename."
 msgstr ""
-"La casella de verificació <guiseq><gui>Vista</gui><gui>Títols</gui></guiseq>"
+"La casella de selecció <guiseq><gui>Vista</gui><gui>Títols</gui></guiseq>"
 " commuta la visualització dels títols a sota de cada foto. De manera "
 "predeterminada, el títol d'una foto és el seu nom de fitxer."
 
@@ -2717,7 +2717,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/share-export.page:24
 msgid "A format for export."
-msgstr "Un format per exportar."
+msgstr "Un format per a exportar."
 
 #. (itstool) path: item/p
 #: C/share-export.page:27
