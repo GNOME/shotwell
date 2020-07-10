@@ -844,14 +844,23 @@ public class AddTagsDialog : TagsDialog {
     }
 
     protected override bool on_modify_validate(string text) {
-        if (text.contains(Tag.PATH_SEPARATOR_STRING))
-            return false;
+//        if (text.contains(Tag.PATH_SEPARATOR_STRING))
+//            return false;
             
         // Can't simply call Tag.prep_tag_names().length because of this bug:
         // https://bugzilla.gnome.org/show_bug.cgi?id=602208
+
         string[] names = Tag.prep_tag_names(text.split(","));
-        
-        return names.length > 0;
+        if (names.length == 0)
+            return false;
+
+        // If allowing hierarchies, they have to start with a "/"
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].contains(Tag.PATH_SEPARATOR_STRING) && !names[i].strip().has_prefix(Tag.PATH_SEPARATOR_STRING))
+                return false;
+        }
+
+        return true;
     }
 }
 
@@ -908,7 +917,23 @@ public class ModifyTagsDialog : TagsDialog {
     }
     
     protected override bool on_modify_validate(string text) {
-        return (!text.contains(Tag.PATH_SEPARATOR_STRING));
+        // Can't simply call Tag.prep_tag_names().length because of this bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=602208
+
+        string[] names = Tag.prep_tag_names(text.split(","));
+        if (names.length == 0)
+            return false;
+
+        // If allowing hierarchies, they have to start with a "/"
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].contains(Tag.PATH_SEPARATOR_STRING) && !names[i].strip().has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+                print("Faliing test. for %s\n", text.strip());
+                return false;
+            }
+        }
+
+        return true;
+
     }
     
 }
