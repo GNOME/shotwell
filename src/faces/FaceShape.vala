@@ -16,16 +16,27 @@ public abstract class FaceShape : Object {
     public signal void add_me_requested(FaceShape face_shape);
     public signal void delete_me_requested();
     
-    protected FacesTool.EditingFaceToolWindow face_window;
-    protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
+    protected FacesTool.EditingFacePopover face_window;
+    protected Gdk.CursorType current_cursor_type = Gdk.CursorType.LEFT_PTR;
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
     protected double[] face_vec;
     
-    private bool editable = true;
-    private bool visible = true;
+    public enum ViewState{
+        HIDE,
+        CONTOUR,
+        CONTOUR_AND_LABEL,
+        CONTOUR_AND_POPOVER
+    }
+    
+    protected ViewState view_state = ViewState.HIDE;
+    
     private bool known = true;
     private double guess = 0.0;
+    
+    //face name to show in face rectangle label
+    //it is also used to reset popover entry text when cancel button is pressed
+    private string initial_name;
     
     private weak FacesTool.FaceWidget face_widget = null;
     
@@ -35,21 +46,20 @@ public abstract class FaceShape : Object {
         
         prepare_ctx(this.canvas.get_default_ctx(), this.canvas.get_surface_dim());
         
-        face_window = new FacesTool.EditingFaceToolWindow(this.canvas.get_container());
-        face_window.key_pressed.connect(key_press_event);
-        
-        face_window.show_all();
-        face_window.hide();
+        face_window = new FacesTool.EditingFacePopover(AppWindow.get_instance().get_current_page());
+        face_window.entry.activate.connect(popover_ok_button_pressed);
+        face_window.ok_button.clicked.connect(popover_ok_button_pressed);
+        face_window.cancel_button.clicked.connect(popover_cancel_button_pressed);
         
         this.face_vec = vec;
         this.canvas.set_cursor(current_cursor_type);
     }
     
     ~FaceShape() {
-        if (visible)
+        if (view_state != ViewState.HIDE)
             erase();
         
-        face_window.destroy();
+        face_window.popover.destroy();
         
         canvas.new_surface.disconnect(prepare_ctx);
         
@@ -77,10 +87,21 @@ public abstract class FaceShape : Object {
     }
     
     public void set_name(string face_name) {
+        initial_name = face_name;
+        face_window.entry.set_text(face_name);
+    }
+
+    public void set_entry_name(string face_name) {
         face_window.entry.set_text(face_name);
     }
     
     public string? get_name() {
+        string face_name = initial_name;
+        
+        return face_name == "" ? null : face_name;
+    }
+
+    public string? get_entry_name() {
         string face_name = face_window.entry.get_text();
         
         return face_name == "" ? null : face_name;
@@ -113,50 +134,71 @@ public abstract class FaceShape : Object {
     }
     
     public void hide() {
-        visible = false;
-        erase();
-        
-        if (editable)
-            face_window.hide();
-        
-        // make sure the cursor isn't set to a modify indicator
-        canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
+        this.set_view_state(ViewState.HIDE);
     }
     
     public void show() {
-        visible = true;
-        paint();
-        
-        if (editable) {
+        if (!known)
+            face_window.entry.select_region(0, -1);
+
+        if (view_state == ViewState.CONTOUR_AND_POPOVER) {
+            //[TODO] see better
             update_face_window_position();
-            face_window.show();
-            face_window.present();
-            
-            if (!known)
-                face_window.entry.select_region(0, -1);
+            face_window.popover.set_visible(true);
+            face_window.popover.popup();
+        } else if (view_state != ViewState.HIDE) {
+            view_state = ViewState.CONTOUR;
         }
+
+        paint();
     }
-    
-    public bool is_visible() {
-        return visible;
+
+    public ViewState get_view_state() {
+        return view_state;
     }
-    
-    public bool is_editable() {
-        return editable;
-    }
-    
-    public void set_editable(bool editable) {
-        if (visible && editable != is_editable()) {
-            hide();
-            this.editable = editable;
-            show();
-            
+
+    public void set_view_state(ViewState view_state) {
+        // need to remove last state element and after draw new one (s)
+
+        // remove elements of previous state
+        if (this.view_state == view_state) {
+            // do not need to repaint
+            // probably staying in HIDE
             return;
         }
+
+        if (this.view_state == ViewState.CONTOUR_AND_LABEL) {
+            // remove label
+        } else if (this.view_state == ViewState.CONTOUR_AND_POPOVER) {
+            // remove popover
+            face_window.popover.set_visible(false);
+            set_entry_name(get_name());
+        }
+
+        if (view_state == ViewState.HIDE) {
+            // remove contour
+            get_widget().deactivate_label();
+            erase();
+        } else if (view_state == ViewState.CONTOUR) {
+            get_widget().activate_label();
+            paint();
+        } else if (view_state == ViewState.CONTOUR_AND_LABEL) {
+            get_widget().activate_label();
+            this.view_state = view_state;
+            paint();
+            return;
+        } else if (view_state == ViewState.CONTOUR_AND_POPOVER) {
+            // pop popover
+            face_widget.face_tool_window_default_view();
+            update_face_window_position();
+            face_window.popover.set_visible(true);
+            face_window.popover.popup();
+            get_widget().activate_label();
+        }
         
-        this.editable = editable;
+        this.view_state = view_state;
     }
-    
+
     public bool key_press_event(Gdk.EventKey event) {
         switch (Gdk.keyval_name(event.keyval)) {
             case "Escape":
@@ -171,6 +213,14 @@ public abstract class FaceShape : Object {
         }
         
         return true;
+    }
+
+    public void popover_ok_button_pressed() {
+        add_me_requested(this);
+    }
+
+    public void popover_cancel_button_pressed() {
+        delete_me_requested();
     }
     
     public abstract string serialize(bool geometry_only = false);
@@ -203,6 +253,7 @@ public class FaceRectangle : FaceShape {
     private Cairo.Context thin_white_ctx = null;
     private int last_grab_x = -1;
     private int last_grab_y = -1;
+	private Box last_box;
     
     public FaceRectangle(EditingTools.PhotoCanvas canvas, int x, int y,
         int half_width = NULL_SIZE, int half_height = NULL_SIZE, double[] vec = {}) {
@@ -232,10 +283,11 @@ public class FaceRectangle : FaceShape {
         
             box = Box(x - half_width, y - half_height, right, bottom);
         }
+        last_box = box;
     }
     
     ~FaceRectangle() {
-        if (!is_editable())
+        if (label_box != null)
             erase_label();
     }
 
@@ -243,8 +295,8 @@ public class FaceRectangle : FaceShape {
         double[] empty_vec = new double[128];
         for (int i = 0; i < 128; i++) {
             empty_vec[i] = 0;
-	}
-	return empty_vec;
+        }
+	    return empty_vec;
     }
     
     public static new FaceRectangle from_serialized(EditingTools.PhotoCanvas canvas, string[] args)
@@ -310,7 +362,6 @@ public class FaceRectangle : FaceShape {
     
     public override void update_face_window_position() {
         AppWindow appWindow = AppWindow.get_instance();
-        Gtk.Allocation face_window_alloc;
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
         int x = 0;
         int y = 0;
@@ -318,13 +369,13 @@ public class FaceRectangle : FaceShape {
         if (canvas.get_container() == appWindow) {
             appWindow.get_current_page().get_window().get_origin(out x, out y);
         } else assert(canvas.get_container() is FullscreenWindow);
-        
-        face_window.get_allocation(out face_window_alloc);
-        
-        x += scaled_pixbuf_pos.x + box.left + ((box.get_width() - face_window_alloc.width) >> 1);
-        y += scaled_pixbuf_pos.y + box.bottom + FACE_WINDOW_MARGIN;
-        
-        face_window.move(x, y);
+
+        Gdk.Rectangle rect = Gdk.Rectangle();
+        rect.x = box.left + scaled_pixbuf_pos.x;
+        rect.y = box.bottom - box.get_height() + scaled_pixbuf_pos.y;
+        rect.width = box.get_width();
+        rect.height = box.get_height();
+        face_window.popover.set_pointing_to(rect);
     }
     
     protected override void paint() {
@@ -334,8 +385,9 @@ public class FaceRectangle : FaceShape {
         
         canvas.invalidate_area(box);
         
-        if (!is_editable())
+        if (view_state == ViewState.CONTOUR_AND_LABEL) {
             paint_label();
+        }
     }
     
     protected override void erase() {
@@ -344,8 +396,8 @@ public class FaceRectangle : FaceShape {
         canvas.erase_box(box.get_reduced(2));
         
         canvas.invalidate_area(box);
-        
-        if (!is_editable())
+     
+        if (label_box != null)
             erase_label();
     }
     
@@ -376,13 +428,13 @@ public class FaceRectangle : FaceShape {
         ctx.move_to(x + LABEL_PADDING / 2, y + height + LABEL_PADDING / 2);
         ctx.show_text(get_name());
         
+        canvas.invalidate_area(label_box);
         ctx.restore();
     }
     
     private void erase_label() {
-        if (label_box == null)
-            return;
-        
+        assert(label_box != null);
+
         Gdk.Rectangle scaled_pixbuf_pos = canvas.get_scaled_pixbuf_position();
         int x = scaled_pixbuf_pos.x + label_box.left;
         int y = scaled_pixbuf_pos.y + label_box.top;
@@ -508,162 +560,164 @@ public class FaceRectangle : FaceShape {
         else if (y >= scaled_pos.height)
             y = scaled_pos.height - 1;
         
-        // need to make manipulations outside of box structure, because its methods do sanity
-        // checking
-        int left = box.left;
-        int top = box.top;
-        int right = box.right;
-        int bottom = box.bottom;
-
-        // get extra geometric information needed to enforce constraints
-        int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
-        int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
+        int left, top, right, bottom;
         
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-                left = x;
-            break;
-
-            case BoxLocation.TOP_SIDE:
-                top = y;
-            break;
-
-            case BoxLocation.RIGHT_SIDE:
-                right = x;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-                bottom = y;
-            break;
-
-            case BoxLocation.TOP_LEFT:
-                top = y;
-                left = x;
-            break;
-
-            case BoxLocation.BOTTOM_LEFT:
-                bottom = y;
-                left = x;
-            break;
-
-            case BoxLocation.TOP_RIGHT:
-                top = y;
-                right = x;
-            break;
-
-            case BoxLocation.BOTTOM_RIGHT:
-                bottom = y;
-                right = x;
-            break;
-
-            case BoxLocation.INSIDE:
-                assert(last_grab_x >= 0);
-                assert(last_grab_y >= 0);
-                
-                int delta_x = (x - last_grab_x);
-                int delta_y = (y - last_grab_y);
-                
-                last_grab_x = x;
-                last_grab_y = y;
-
-                int width = right - left + 1;
-                int height = bottom - top + 1;
-                
-                left += delta_x;
-                top += delta_y;
-                right += delta_x;
-                bottom += delta_y;
-                
-                // bound box inside of photo
-                if (left < 0)
-                    left = 0;
-                
-                if (top < 0)
-                    top = 0;
-                
-                if (right >= scaled_pos.width)
-                    right = scaled_pos.width - 1;
-                
-                if (bottom >= scaled_pos.height)
-                    bottom = scaled_pos.height - 1;
-                
-                int adj_width = right - left + 1;
-                int adj_height = bottom - top + 1;
-                
-                // don't let adjustments affect the size of the box
-                if (adj_width != width) {
-                    if (delta_x < 0)
-                        right = left + width - 1;
-                    else left = right - width + 1;
-                }
-                
-                if (adj_height != height) {
-                    if (delta_y < 0)
-                        bottom = top + height - 1;
-                    else top = bottom - height + 1;
-                }
-            break;
+        if (in_manipulation == BoxLocation.INSIDE) {
+            left = box.left;
+            top = box.top;
+            right = box.right;
+            bottom = box.bottom;
             
-            default:
-                // do nothing, not even a repaint
-                return false;
-        }
-
-        // Check if the mouse has gone out of bounds, and if it has, make sure that the
-        // face shape edges stay within the photo bounds.
-        int width = right - left + 1;
-        int height = bottom - top + 1;
+            assert(last_grab_x >= 0);
+            assert(last_grab_y >= 0);
+            
+            int delta_x = (x - last_grab_x);
+            int delta_y = (y - last_grab_y);
+            
+            last_grab_x = x;
+            last_grab_y = y;
+            
+            int width = right - left + 1;
+            int height = bottom - top + 1;
+            
+            left += delta_x;
+            top += delta_y;
+            right += delta_x;
+            bottom += delta_y;
+            
+            // bound box inside of photo
+            if (left < 0)
+                left = 0;
+            
+            if (top < 0)
+                top = 0;
+            
+            if (right >= scaled_pos.width)
+                right = scaled_pos.width - 1;
+            
+            if (bottom >= scaled_pos.height)
+                bottom = scaled_pos.height - 1;
+            
+            int adj_width = right - left + 1;
+            int adj_height = bottom - top + 1;
+            
+            // don't let adjustments affect the size of the box
+            if (adj_width != width) {
+                if (delta_x < 0)
+                    right = left + width - 1;
+                else left = right - width + 1;
+            }
+            
+            if (adj_height != height) {
+                if (delta_y < 0)
+                    bottom = top + height - 1;
+                else top = bottom - height + 1;
+            }
         
-        if (left < 0)
-            left = 0;
-        if (top < 0)
-            top = 0;
-        if (right > photo_right_edge)
-            right = photo_right_edge;
-        if (bottom > photo_bottom_edge)
-            bottom = photo_bottom_edge;
-
-        width = right - left + 1;
-        height = bottom - top + 1;
-
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.BOTTOM_LEFT:
-                if (width < FACE_MIN_SIZE)
-                    left = right - FACE_MIN_SIZE;
-            break;
+        } else {
+            left = last_box.left;
+            top = last_box.top;
+            right = last_box.right;
+            bottom = last_box.bottom;
             
-            case BoxLocation.RIGHT_SIDE:
-            case BoxLocation.TOP_RIGHT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (width < FACE_MIN_SIZE)
-                    right = left + FACE_MIN_SIZE;
-            break;
-
-            default:
-            break;
-        }
-
-        switch (in_manipulation) {
-            case BoxLocation.TOP_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.TOP_RIGHT:
-                if (height < FACE_MIN_SIZE)
-                    top = bottom - FACE_MIN_SIZE;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-            case BoxLocation.BOTTOM_LEFT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (height < FACE_MIN_SIZE)
-                    bottom = top + FACE_MIN_SIZE;
-            break;
+            switch (in_manipulation) {
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.LEFT_SIDE:
+                case BoxLocation.BOTTOM_LEFT:
+                    left = x;
+                break;
+                case BoxLocation.TOP_RIGHT:
+                case BoxLocation.RIGHT_SIDE:
+                case BoxLocation.BOTTOM_RIGHT:
+                    right = x;
+                break;
+                default:
+                break;
+            }
+            switch (in_manipulation) {
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.TOP_SIDE:
+                case BoxLocation.TOP_RIGHT:
+                    top = y;
+                break;
+                case BoxLocation.BOTTOM_LEFT:
+                case BoxLocation.BOTTOM_SIDE:
+                case BoxLocation.BOTTOM_RIGHT:
+                    bottom = y;
+                break;
+                default:
+                break;
+            }
+            if (right < left || left > right) {//swap
+                int swap = right;
+                right = left;
+                left = swap;
+            }
+            if (bottom < top || top > bottom) {//swap
+                int swap = bottom;
+                bottom = top;
+                top = swap;
+            }
+            // need to make sure the rectangle is inside the photo and
+            // 
+            // get extra geometric information needed to enforce constraints
+            int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
+            int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
             
-            default:
-            break;
+            // Check if the mouse has gone out of bounds, and if it has, make sure that the
+            // face shape edges stay within the photo bounds.
+            if (left < 0)
+                left = 0;
+            if (top < 0)
+                top = 0;
+            if (right > photo_right_edge)
+                right = photo_right_edge;
+            if (bottom > photo_bottom_edge)
+                bottom = photo_bottom_edge;
+            
+            int width = right - left + 1;
+            int height = bottom - top + 1;
+            
+            switch (in_manipulation) {
+                case BoxLocation.LEFT_SIDE:
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.BOTTOM_LEFT:
+                    if (width < FACE_MIN_SIZE)
+                        left = right - FACE_MIN_SIZE;
+                break;
+                
+                case BoxLocation.RIGHT_SIDE:
+                case BoxLocation.TOP_RIGHT:
+                case BoxLocation.BOTTOM_RIGHT:
+                    if (width < FACE_MIN_SIZE)
+                        right = left + FACE_MIN_SIZE;
+                break;
+                
+                default:
+                break;
+            }
+            
+            switch (in_manipulation) {
+                case BoxLocation.TOP_SIDE:
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.TOP_RIGHT:
+                    if (height < FACE_MIN_SIZE)
+                        top = bottom - FACE_MIN_SIZE;
+                break;
+                
+                case BoxLocation.BOTTOM_SIDE:
+                case BoxLocation.BOTTOM_LEFT:
+                case BoxLocation.BOTTOM_RIGHT:
+                    if (height < FACE_MIN_SIZE)
+                        bottom = top + FACE_MIN_SIZE;
+                break;
+                 
+                default:
+                break;
+            }
+        
         }
-       
+        
         Box new_box = Box(left, top, right, bottom);
         
         if (!box.equals(new_box)) {
@@ -676,7 +730,7 @@ public class FaceRectangle : FaceShape {
             paint();
         }
         
-        if (is_editable())
+        if (view_state == ViewState.CONTOUR_AND_POPOVER)
             update_face_window_position();
         
         serialized = null;
@@ -769,6 +823,7 @@ public class FaceRectangle : FaceShape {
         in_manipulation = offset_scaled_box.approx_location(x, y);
         last_grab_x = x -= scaled_pixbuf_pos.x;
         last_grab_y = y -= scaled_pixbuf_pos.y;
+        last_box = box;
         
         return box.approx_location(x, y) != BoxLocation.OUTSIDE;
     }
@@ -780,10 +835,8 @@ public class FaceRectangle : FaceShape {
             return;
         }
         
-        if (is_editable()) {
-            face_window.show();
-            face_window.present();
-        }
+        if (view_state == ViewState.CONTOUR_AND_POPOVER)
+            face_window.popover.set_visible(true);
         
         // nothing to do if released outside of the face box
         if (in_manipulation == BoxLocation.OUTSIDE)
