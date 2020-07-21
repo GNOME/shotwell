@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2020-06-30 10:39+0000\n"
-"PO-Revision-Date: 2020-07-09 17:54+0200\n"
+"PO-Revision-Date: 2020-07-21 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -129,7 +129,7 @@ msgstr "amaga l'àlbum"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
 msgid "If true, hide the newly created Rajce album"
-msgstr "Si és veritat, amaga l'àlbum acabat de crear a Rajce."
+msgstr "Si és veritat, amaga l'àlbum acabat de crear a Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
 msgid "open album in web browser"
@@ -153,7 +153,7 @@ msgstr "mostra les propietats bàsiques"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise"
-msgstr "Veritat si es vol mostrar el panell de propietats bàsiques, fals en cas contrari."
+msgstr "Veritat si es vol mostrar el panell de propietats bàsiques, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:29
 msgid "display extended properties"
