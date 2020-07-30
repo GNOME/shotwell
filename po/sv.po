@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-01-27 16:38+0000\n"
-"PO-Revision-Date: 2019-01-27 22:16+0100\n"
+"POT-Creation-Date: 2020-07-18 10:03+0000\n"
+"PO-Revision-Date: 2020-07-30 13:13+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Project-Style: gnome\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
@@ -90,11 +90,6 @@ msgstr ""
 "album;kamera;kameror;beskär;redigera;förbättra;exportera;galleri;bild;bilder;"
 "importera;organisera;bild;foto;bilder;fotografier;skriv ut;publicera;rotera;"
 "dela;taggar;video;facebook;flickr;picasa;youtube;piwigo;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
-msgid "shotwell"
-msgstr "shotwell"
 
 #: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -1409,19 +1404,19 @@ msgstr ""
 "Klicka på Logga in för att logga in på Flickr med din webbläsare. Du måste "
 "specifikt godkänna att Shotwell Connect kan länka till ditt Flickr-konto."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:125
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
 msgstr "Förbereder inloggning…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:194
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
 msgstr "Misslyckades med Flickr-auktorisering"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:201
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
 msgstr "Verifierar behörighet…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1439,30 +1434,72 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
+"to log into the YouTube site at least once.\n"
+"\n"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på YouTube.\n"
 "\n"
-"Du måste redan ha registrerat ett Google-konto och konfigurerat det för "
-"användning med YouTube för att fortsätta. Du kan konfigurera de flesta "
-"konton genom att logga in på YouTube med din webbläsare."
+"Du måste ha registrerat ett Google-konto och konfigurera det för YouTube-"
+"användning för att fortsätta. Du kan konfigurera de flesta konton genom att "
+"använda din webbläsare för att logga in på YouTube-webbplatsen minst en "
+"gång.\n"
+"\n"
+"Shotwell använder YouTubes API-tjänster <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> för att komma åt din "
+"YouTube-kanal och skicka videoklippen. Genom att använda Shotwell för att "
+"komma åt YouTube så behöver du följa YouTubes användningsvillkor som finns "
+"på <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/"
+"terms</a>\n"
+"\n"
+"Shotwells sekretesspolicy kring användning av data relaterade till ditt "
+"Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a href="
+"\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>\n"
+"\n"
+"Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
+"com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data.You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
+"Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Du är för närvarande inte inloggad på Google Foto.\n"
 "\n"
-"Du måste redan ha registrerat ett Google-konto och konfigurerat det för "
-"användning med Google Foto.\n"
+"Du måste ha registrerat ett Google-konto och konfigurera det för användning "
+"med Google Foto. Shotwell använder Google Fotos API-tjänster <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> för all interaktion med dina Google Foto-data. Du kommer att "
+"behöva ge Shotwell åtkomst till ditt Google Foto-bibliotek.\n"
 "\n"
-"Du måste specifikt godkänna att Shotwell kan länka till ditt Google Foto-"
-"konto."
+"Shotwells sekretesspolicy kring användning av data relaterade till ditt "
+"Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a href="
+"\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>. Se <a "
+"href=\"https://policies.google.com/privacy\">https://policies.google.com/"
+"privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1489,12 +1526,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Fyll i användarnamn och lösenord för ditt Tumblr-konto."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid "Username and/or password invalid. Please try again"
 msgstr "Användarnamn och/eller lösenord ogiltigt. Var god försök igen"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1124
 msgid "Invalid User Name or Password"
 msgstr "Ogiltigt användarnamn eller lösenord"
 
@@ -1508,7 +1545,7 @@ msgstr "Kunde inte ladda användargränssnittet: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:605
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -1635,7 +1672,7 @@ msgstr "bildpunkter"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprungsstorlek"
@@ -1653,7 +1690,7 @@ msgstr "Längsta kanten"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:85
 msgid "_Logout"
 msgstr "_Logga ut"
 
@@ -1665,7 +1702,7 @@ msgstr "_Logga ut"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "_Publicera"
@@ -1899,7 +1936,7 @@ msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:61
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1195
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -1943,7 +1980,7 @@ msgstr "Bara jag"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Everyone"
 msgstr "Alla"
 
@@ -2007,24 +2044,24 @@ msgid "Friends only"
 msgstr "Endast vänner"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 bildpunkter"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 bildpunkter"
 
@@ -2165,18 +2202,18 @@ msgstr ""
 "stjäla eller ändra information som passerar till eller från denna webbplats "
 "(till exempel, privata meddelanden, kreditkortsinformation eller lösenord)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certifikat för %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
 #: src/Resources.vala:136 ui/multitextentrydialog.ui:40
 #: ui/slideshow_settings.ui:52
 msgid "_OK"
 msgstr "_OK"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2184,30 +2221,30 @@ msgstr ""
 "Skriv in länken till ditt Piwigo-bildbibliotek, samt ditt Piwigo-"
 "användarnamn och -lösenord."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
 msgstr ""
 "Shotwell kan inte nå ditt Piwigo-bildbibliotek. Kontrollera länkadressen igen"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1119
 msgid "Invalid URL"
 msgstr "Ogiltig länkadress"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administratörer, familj, vänner, kontakter"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends"
 msgstr "Administratörer, familj, vänner"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family"
 msgstr "Administratörer, familj"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins"
 msgstr "Administratörer"
 
@@ -2255,7 +2292,7 @@ msgstr ""
 "Du är inloggad på Tumblr som %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:41
 msgid "Video privacy _setting:"
 msgstr "_Sekretessinställningar för film:"
 
@@ -2379,7 +2416,7 @@ msgstr "Fäst verktygsfältet i öppet läge"
 msgid "Leave fullscreen"
 msgstr "Avsluta helskärmsläge"
 
-#: src/AppWindow.vala:530 src/AppWindow.vala:551 src/AppWindow.vala:568
+#: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:766
@@ -2390,7 +2427,7 @@ msgstr "Avsluta helskärmsläge"
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/AppWindow.vala:578
+#: src/AppWindow.vala:580
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2403,21 +2440,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:599
+#: src/AppWindow.vala:601
 msgid "Visit the Shotwell web site"
 msgstr "Besök Shotwells webbplats"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:614
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Kunde inte visa hjälp: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:622
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Det går inte att komma åt feldatabasen: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:630
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Kunde inte visa återkommande frågor: %s"
@@ -2982,7 +3019,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Databasfil:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:783
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:785
 msgid "_Import"
 msgstr "_Importera"
 
@@ -3846,19 +3883,19 @@ msgid_plural "_Modify original files"
 msgstr[0] "Än_dra originalfil"
 msgstr[1] "Än_dra originalfilerna"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:213
+#: src/dialogs/AdjustDateTimeDialog.vala:219
 msgid "Original: "
 msgstr "Original: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:214
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y-%m-%d, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:215
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y-%m-%d, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:312
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3867,7 +3904,7 @@ msgstr ""
 "Exponeringsögonblicket kommer att flyttas framåt med\n"
 "%d %s, %d %s, %d %s och %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:307
+#: src/dialogs/AdjustDateTimeDialog.vala:313
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3876,25 +3913,25 @@ msgstr ""
 "Exponeringsögonblicket kommer att flyttas bakåt med\n"
 "%d %s, %d %s, %d %s och %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:315
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dag"
 msgstr[1] "dagar"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:316
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "timme"
 msgstr[1] "timmar"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:317
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minut"
 msgstr[1] "minuter"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:318
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "sekund"
@@ -4443,7 +4480,7 @@ msgstr "Importerade %s"
 msgid "Last Import"
 msgstr "Senaste import"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:127
 #: ui/preferences_dialog.ui:465
 msgid "Library"
 msgstr "Bibliotek"
@@ -4456,23 +4493,23 @@ msgstr "Organisera och visa dina bilder"
 msgid "Photos"
 msgstr "Bilder"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:528
 msgid "Import From Folder"
 msgstr "Importera från mapp"
 
-#: src/library/LibraryWindow.vala:533
+#: src/library/LibraryWindow.vala:535
 msgid "Recurse Into Subfolders"
 msgstr "Gå rekursivt in i undermappar"
 
-#: src/library/LibraryWindow.vala:601 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:603 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Töm papperskorgen"
 
-#: src/library/LibraryWindow.vala:601
+#: src/library/LibraryWindow.vala:603
 msgid "Emptying Trash…"
 msgstr "Tömmer papperskorgen…"
 
-#: src/library/LibraryWindow.vala:780
+#: src/library/LibraryWindow.vala:782
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4485,33 +4522,33 @@ msgstr ""
 "inställningar</span>.\n"
 "Vill du fortsätta att importera bilder?"
 
-#: src/library/LibraryWindow.vala:783 ui/preferences_dialog.ui:86
+#: src/library/LibraryWindow.vala:785 ui/preferences_dialog.ui:86
 msgid "Library Location"
 msgstr "Biblioteksplats"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:796
+#: src/library/LibraryWindow.vala:798
 msgid "Photos cannot be imported from this directory."
 msgstr "Bilder kan inte importeras från denna mapp."
 
-#: src/library/LibraryWindow.vala:1076
+#: src/library/LibraryWindow.vala:1078
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1120 src/library/LibraryWindow.vala:1131
+#: src/library/LibraryWindow.vala:1122 src/library/LibraryWindow.vala:1133
 msgid "Updating library…"
 msgstr "Uppdaterar biblioteket…"
 
-#: src/library/LibraryWindow.vala:1137
+#: src/library/LibraryWindow.vala:1139
 msgid "Preparing to auto-import photos…"
 msgstr "Förbereder automatisk import av bilder…"
 
-#: src/library/LibraryWindow.vala:1142
+#: src/library/LibraryWindow.vala:1144
 msgid "Auto-importing photos…"
 msgstr "Importerar bilder automatiskt…"
 
-#: src/library/LibraryWindow.vala:1150
+#: src/library/LibraryWindow.vala:1152
 msgid "Writing metadata to files…"
 msgstr "Skriver metadata till filer…"
 
@@ -4713,7 +4750,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3770
+#: src/Photo.vala:3767
 msgid "modified"
 msgstr "ändrad"
 
@@ -6121,7 +6158,7 @@ msgid "untitled"
 msgstr "namnlös"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Exportera filmer"
 
@@ -6570,6 +6607,38 @@ msgstr "etikett"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Radera alla bilder från papperskorgen"
+
+#~ msgid "shotwell"
+#~ msgstr "shotwell"
+
+#~ msgid ""
+#~ "You are not currently logged into YouTube.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with YouTube to continue. You can set up most accounts by using your "
+#~ "browser to log into the YouTube site at least once."
+#~ msgstr ""
+#~ "Du är för närvarande inte inloggad på YouTube.\n"
+#~ "\n"
+#~ "Du måste redan ha registrerat ett Google-konto och konfigurerat det för "
+#~ "användning med YouTube för att fortsätta. Du kan konfigurera de flesta "
+#~ "konton genom att logga in på YouTube med din webbläsare."
+
+#~ msgid ""
+#~ "You are not currently logged into Google Photos.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with Google Photos.\n"
+#~ "\n"
+#~ "You will have to authorize Shotwell to link to your Google Photos account."
+#~ msgstr ""
+#~ "Du är för närvarande inte inloggad på Google Foto.\n"
+#~ "\n"
+#~ "Du måste redan ha registrerat ett Google-konto och konfigurerat det för "
+#~ "användning med Google Foto.\n"
+#~ "\n"
+#~ "Du måste specifikt godkänna att Shotwell kan länka till ditt Google Foto-"
+#~ "konto."
 
 #~ msgid "org.gnome.Shotwell"
 #~ msgstr "org.gnome.Shotwell"
