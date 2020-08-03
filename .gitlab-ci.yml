@@ -12,9 +12,6 @@ flatpak:
         RUNTIME_REPO: "https://sdk.gnome.org/gnome.flatpakrepo"
         # Replace with your application name, as written in the manifest
         FLATPAK_MODULE: "shotwell"
-        # Make sure to keep this in sync with the Flatpak manifest, all arguments
-        # are passed except the config-args because we build it ourselves
-        MESON_ARGS: "-Dudev=false -Dinstall-apport-hook=false -Dface-detection=true -Dface_detection_helper_bus=private"
         APP_ID: "org.gnome.Shotwell"
 
 nightly:
