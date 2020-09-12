@@ -2005,7 +2005,7 @@ msgstr "Constant d'escala:"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
 msgid "pixels"
-msgstr " píxels"
+msgstr "píxels"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158 plugins/shotwell-publishing/FlickrPublishing.vala:700 plugins/shotwell-publishing/PiwigoPublishing.vala:1331 src/Dimensions.vala:17
 msgid "Original size"
