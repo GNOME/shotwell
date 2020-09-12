@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2020-09-04 11:18+0000\n"
-"PO-Revision-Date: 2020-09-13 00:33+0200\n"
+"PO-Revision-Date: 2020-09-13 00:48+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -530,14 +530,14 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:199
 msgid "transition effect id"
-msgstr "átmenet effektus azonosító"
+msgstr "átmenethatás-azonosító"
 
 #: misc/org.yorba.shotwell.gschema.xml:200
 msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
 msgstr ""
-"Az átmeneti effektus azonosítója, amely a fényképek közti váltás során lesz "
+"Az átmenethatás azonosítója, amely a fényképek közti váltás során lesz "
 "használva diavetítéskor"
 
 #: misc/org.yorba.shotwell.gschema.xml:205
@@ -2200,7 +2200,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
 msgid "_Do no upload tags"
-msgstr "_Címkék ne legyenek feltöltve"
+msgstr "_Ne töltse fel a címkéket"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:255
 msgid "Logout"
@@ -3707,7 +3707,7 @@ msgstr "Eltávolítás a gyűjteményből"
 
 #: src/Dialogs.vala:939 src/PhotoPage.vala:2897
 msgid "Removing Photo From Library"
-msgstr "Fényképek eltávolítás a gyűjteményből"
+msgstr "Fénykép eltávolítás a gyűjteményből"
 
 #: src/Dialogs.vala:939
 msgid "Removing Photos From Library"
@@ -4211,11 +4211,11 @@ msgstr "Méret:"
 
 #: src/editing_tools/EditingTools.vala:1873
 msgid "Close the red-eye tool"
-msgstr "Vörösszem-effektus eszköz bezárása"
+msgstr "Vörösszemhatás eszköz bezárása"
 
 #: src/editing_tools/EditingTools.vala:1876
 msgid "Remove any red-eye effects in the selected region"
-msgstr "Minden vörösszem-effektus eltávolítása a kijelölt területről"
+msgstr "Minden vörösszemhatás eltávolítása a kijelölt területről"
 
 #: src/editing_tools/EditingTools.vala:2216
 #: src/editing_tools/StraightenTool.vala:102
@@ -5214,11 +5214,11 @@ msgstr "Vö_rösszem-hatás"
 
 #: src/Resources.vala:177
 msgid "Red-eye"
-msgstr "Vörösszem-hatás"
+msgstr "Vörösszemhatás"
 
 #: src/Resources.vala:178
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr "Vörösszem-hatás csökkentése vagy eltávolítása a fényképről"
+msgstr "Vörösszemhatás csökkentése vagy eltávolítása a fényképről"
 
 #: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:243
 msgid "_Adjust"
