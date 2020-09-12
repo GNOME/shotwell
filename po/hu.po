@@ -1,26 +1,26 @@
 # Hungarian translation for shotwell.
-# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
 # Gábor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015, 2016, 2017.
 # László Csordás <csola48 at gmail dot com>, 2012.
 # lsbeeler <lucas at yorba dot org>, 2011.
-# Balázs Úr <urbalazs at gmail dot com>, 2014, 2016, 2017, 2018, 2019.
-# Balázs Meskó <meskobalazs at gmail dot com>, 2016, 2017.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020.
+# Balázs Meskó <mesko.balazs at fsf dot hu>, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-01-27 16:38+0000\n"
-"PO-Revision-Date: 2019-01-28 23:32+0100\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"POT-Creation-Date: 2020-09-04 11:18+0000\n"
+"PO-Revision-Date: 2020-09-13 00:33+0200\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 19.12.3\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
@@ -88,11 +88,6 @@ msgstr ""
 "képek;importálás;rendszerezés;fénykép;fényképek;fotó;fotók;fotográfia;"
 "nyomtatás;közzététel;forgatás;megosztás;videó;facebook;flickr;picasa;youtube;"
 "piwigo;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
-msgid "shotwell"
-msgstr "shotwell"
 
 #: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -505,7 +500,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:179
 msgid "Selection state of “hide photos” option"
-msgstr "A „Fényképek elrejtése” beállítás bejelölési állapota."
+msgstr "A „Fényképek elrejtése” beállítás bejelölési állapota"
 
 #: misc/org.yorba.shotwell.gschema.xml:180
 msgid ""
@@ -531,7 +526,7 @@ msgstr "átmenet késleltetése"
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr ""
-"A fényképek közti átmenetek futásának ideje (másodpercekben) diavetítéskor."
+"A fényképek közti átmenetek futásának ideje (másodpercekben) diavetítéskor"
 
 #: misc/org.yorba.shotwell.gschema.xml:199
 msgid "transition effect id"
@@ -918,7 +913,7 @@ msgid ""
 "Photos Albums"
 msgstr ""
 "Numerikus kód, amely a Google Fényképek albumokba feltöltött fényképek "
-"alapértelmezett méretét képviseli."
+"alapértelmezett méretét képviseli"
 
 #: misc/org.yorba.shotwell.gschema.xml:504
 #: misc/org.yorba.shotwell.gschema.xml:598
@@ -929,8 +924,7 @@ msgstr "legutóbbi album"
 #: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
-"A legutóbbi album neve, ahová a felhasználó képeket töltött fel, ha van "
-"ilyen."
+"A legutóbbi album neve, ahová a felhasználó képeket töltött fel, ha van ilyen"
 
 #: misc/org.yorba.shotwell.gschema.xml:511
 msgid ""
@@ -1418,19 +1412,19 @@ msgstr ""
 "böngészőből. A bejelentkezés során jogosultságot kell adnia a Shotwell "
 "Connectnek, hogy hozzáférjen a Flickr fiókjához."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:125
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
 msgstr "Felkészülés a bejelentkezésre…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:194
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
 msgstr "A Flickr felhatalmazás meghiúsult"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:201
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
 msgstr "Felhatalmazás ellenőrzése…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1450,30 +1444,79 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Nincs bejelentkezve a YouTube-ra.\n"
+"to log into the YouTube site at least once.\n"
 "\n"
-"A folytatáshoz rendelkeznie kell egy Google fiókkal, és be kell azt "
-"állítania a YouTube-bal való használathoz. A legtöbb fiókot a böngészőből is "
-"beállíthatja, ha bejelentkezik a YouTube oldalon legalább egyszer."
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
+msgstr ""
+"Jelenleg nincs bejelentkezve a YouTube-ra.\n"
+"\n"
+"A folytatáshoz már rendelkeznie kell egy regisztrált Google-fiókkal, és be"
+" kell állítania a YouTube szolgáltatással való használatra. A legtöbb fiókot"
+" úgy állíthatja be, hogy a böngészője segítségével legalább egyszer"
+" bejelentkezik a YouTube webhelyére.\n"
+"\n"
+"A Shotwell a <a href=\"https://developers.google.com/youtube\""
+">https://developers.google.com/youtube</a> YouTube API szolgáltatásokat"
+" használja a YouTube csatornájához történő hozzáféréshez és a videók"
+" feltöltéséhez. A Shotwell használatával történő YouTube hozzáféréssel"
+" beleegyezik abba, hogy betartja a <a href=\"https://www.youtube.com/t/terms\""
+">https://www.youtube.com/t/terms</a> címen elérhető YouTube általános"
+" szerződési feltételeket.\n"
+"\n"
+"A Shotwell adatvédelmi irányelvei általánosan a Google-fiókjához és különösen"
+" a YouTube-hoz kapcsolódó adatok felhasználásával kapcsolatban megtalálhatók"
+" az <a href=\"help:shotwell/privacy-policy\">internetes szolgáltatások"
+" adatvédelmi irányelveinkben</a>.\n"
+"\n"
+"A Google saját adatvédelmi irányelveihez nézze meg a <a"
+" href=\"https://policies.google.com/privacy\""
+">https://policies.google.com/privacy</a> oldalt."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data.You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
+"Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Jelenleg nincs bejelentkezve a Google Fényképekbe.\n"
 "\n"
-"A folytatáshoz rendelkeznie kell egy regisztrált Google fiókkal, és be kell "
-"azt állítania a Google Fényképekkel való használathoz.\n"
+"Már rendelkeznie kell egy regisztrált Google-fiókkal, és be kell állítania a"
+" Google Fényképekkel való használatra. A Shotwell a <a"
+" href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> Google Fényképek API szolgáltatásokat használja a Google"
+" Fényképek adataival történő összes interakcióhoz. Hozzáférést kell adnia a"
+" Shotwell programnak a Google Fényképek könyvtárához való hozzáféréshez.\n"
 "\n"
-"Fel kell hatalmaznia a Shotwell programot, hogy összekapcsolja a Google "
-"Fényképek fiókkal."
+"A Shotwell adatvédelmi irányelvei általánosan a Google-fiókjához és különösen"
+" a Google Fényképekhez kapcsolódó adatok felhasználásával kapcsolatban"
+" megtalálhatók az <a href=\"help:shotwell/privacy-policy\">internetes"
+" szolgáltatások adatvédelmi irányelveinkben</a>.\n"
+"\n"
+"A Google saját adatvédelmi irányelveihez nézze meg a <a"
+" href=\"https://policies.google.com/privacy\""
+">https://policies.google.com/privacy</a> oldalt."
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1500,12 +1543,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Adja meg a Tumblr fiókjához tartozó felhasználónevet és jelszót."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid "Username and/or password invalid. Please try again"
 msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1124
 msgid "Invalid User Name or Password"
 msgstr "Érvénytelen felhasználónév vagy jelszó"
 
@@ -1519,7 +1562,7 @@ msgstr "A felület nem tölthető be: %s"
 msgid "Visit the Shotwell home page"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:603
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:605
 msgid "translator-credits"
 msgstr ""
 "Peter Bojtos <ptr at ulx dot hu>\n"
@@ -1528,7 +1571,7 @@ msgstr ""
 "Kelemen Gábor <kelemeng at gnome dot hu>\n"
 "Kökéndy Ákos https://launchpad.net/~kokendy-akos\n"
 "Robert Roth https://launchpad.net/~evfool\n"
-"Meskó Balázs <meskobalazs at gmail dot com>\n"
+"Meskó Balázs <mesko.balazs at fsf dot hu>\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Adamyno https://launchpad.net/~adam-pretz\n"
@@ -1656,7 +1699,7 @@ msgstr "képpont"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Eredeti méret"
@@ -1674,7 +1717,7 @@ msgstr "Leghosszabb él"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:85
 msgid "_Logout"
 msgstr "_Kijelentkezés"
 
@@ -1686,7 +1729,7 @@ msgstr "_Kijelentkezés"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "Közzé_tétel"
@@ -1921,7 +1964,7 @@ msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:61
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1195
 msgid "Shotwell Connect"
 msgstr "Shotwell kapcsolat"
 
@@ -1965,7 +2008,7 @@ msgstr "Csak én"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Everyone"
 msgstr "Mindenki"
 
@@ -2029,24 +2072,24 @@ msgid "Friends only"
 msgstr "Csak barátok"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 képpont"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 képpont"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 képpont"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 képpont"
 
@@ -2190,18 +2233,18 @@ msgstr ""
 "információkat (például privát üzeneteket, bankkártya-adatokat vagy "
 "jelszavakat)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s tanúsítványa"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
 #: src/Resources.vala:136 ui/multitextentrydialog.ui:40
 #: ui/slideshow_settings.ui:52
 msgid "_OK"
 msgstr "_OK"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2209,7 +2252,7 @@ msgstr ""
 "Adja meg a Piwigo fényképgyűjteményének URL-címét, valamint az ahhoz tartozó "
 "Piwigo fiókjának felhasználónevét és jelszavát."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2217,23 +2260,23 @@ msgstr ""
 "A Shotwell nem éri el a Piwigo fényképgyűjteményét. Ellenőrizze a megadott "
 "URL-címet."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1119
 msgid "Invalid URL"
 msgstr "Érvénytelen URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Adminok, család, barátok, partnerek"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends"
 msgstr "Adminok, család, barátok"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family"
 msgstr "Adminok, család"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins"
 msgstr "Adminok"
 
@@ -2281,7 +2324,7 @@ msgstr ""
 "Bejelentkezett a Tumblr-re %s néven.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:41
 msgid "Video privacy _setting:"
 msgstr "Videók _magánszféra-beállítása:"
 
@@ -2405,7 +2448,7 @@ msgstr "Eszköztár rögzítése nyitva"
 msgid "Leave fullscreen"
 msgstr "Teljes képernyő elhagyása"
 
-#: src/AppWindow.vala:530 src/AppWindow.vala:551 src/AppWindow.vala:568
+#: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:766
@@ -2416,7 +2459,7 @@ msgstr "Teljes képernyő elhagyása"
 msgid "_Cancel"
 msgstr "Mé_gse"
 
-#: src/AppWindow.vala:578
+#: src/AppWindow.vala:580
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2429,21 +2472,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:599
+#: src/AppWindow.vala:601
 msgid "Visit the Shotwell web site"
 msgstr "A Shotwell weboldalának meglátogatása"
 
-#: src/AppWindow.vala:612
+#: src/AppWindow.vala:614
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nem lehet megjeleníteni a súgót: %s"
 
-#: src/AppWindow.vala:620
+#: src/AppWindow.vala:622
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nem nyitható meg a hibaadatbázis: %s"
 
-#: src/AppWindow.vala:628
+#: src/AppWindow.vala:630
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nem jeleníthető meg a GyIK: %s"
@@ -3009,7 +3052,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Adatbázisfájl:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:783
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:785
 msgid "_Import"
 msgstr "_Importálás"
 
@@ -3853,19 +3896,19 @@ msgid_plural "_Modify original files"
 msgstr[0] "Eredeti fájl _módosítása"
 msgstr[1] "Eredeti fájlok _módosítása"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:213
+#: src/dialogs/AdjustDateTimeDialog.vala:219
 msgid "Original: "
 msgstr "Eredeti: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:214
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y. %m. %d., %k.%M.%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:215
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y. %m. %d., %l.%M.%S %p"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:312
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3874,7 +3917,7 @@ msgstr ""
 "A képek készítése előre lesz tolva ennyivel:\n"
 "%d %s, %d %s, %d %s, és %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:307
+#: src/dialogs/AdjustDateTimeDialog.vala:313
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3883,25 +3926,25 @@ msgstr ""
 "A képek készítése vissza lesz tolva ennyivel:\n"
 "%d %s, %d %s, %d %s, és %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:315
 msgid "day"
 msgid_plural "days"
 msgstr[0] "nap"
 msgstr[1] "nap"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:316
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "óra"
 msgstr[1] "óra"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:317
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "perc"
 msgstr[1] "perc"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:318
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "másodperc"
@@ -4453,7 +4496,7 @@ msgstr "%s importálva"
 msgid "Last Import"
 msgstr "Utolsó importálás"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:127
 #: ui/preferences_dialog.ui:465
 msgid "Library"
 msgstr "Gyűjtemény"
@@ -4466,23 +4509,23 @@ msgstr "Rendszerezze fényképeit és tallózzon köztük"
 msgid "Photos"
 msgstr "Fényképek"
 
-#: src/library/LibraryWindow.vala:526
+#: src/library/LibraryWindow.vala:528
 msgid "Import From Folder"
 msgstr "Importálás mappából"
 
-#: src/library/LibraryWindow.vala:533
+#: src/library/LibraryWindow.vala:535
 msgid "Recurse Into Subfolders"
 msgstr "Belépés az almappákba is"
 
-#: src/library/LibraryWindow.vala:601 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:603 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Kuka ürítése"
 
-#: src/library/LibraryWindow.vala:601
+#: src/library/LibraryWindow.vala:603
 msgid "Emptying Trash…"
 msgstr "Kuka ürítése…"
 
-#: src/library/LibraryWindow.vala:780
+#: src/library/LibraryWindow.vala:782
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4495,33 +4538,33 @@ msgstr ""
 "szerkesztése</span> alatt.\n"
 "Szeretné folytatni a fényképek importálását?"
 
-#: src/library/LibraryWindow.vala:783 ui/preferences_dialog.ui:86
+#: src/library/LibraryWindow.vala:785 ui/preferences_dialog.ui:86
 msgid "Library Location"
 msgstr "Gyűjtemény helye"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:796
+#: src/library/LibraryWindow.vala:798
 msgid "Photos cannot be imported from this directory."
 msgstr "Ebből a könyvtárból nem importálhatók fényképek."
 
-#: src/library/LibraryWindow.vala:1076
+#: src/library/LibraryWindow.vala:1078
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1120 src/library/LibraryWindow.vala:1131
+#: src/library/LibraryWindow.vala:1122 src/library/LibraryWindow.vala:1133
 msgid "Updating library…"
 msgstr "Gyűjtemény frissítése…"
 
-#: src/library/LibraryWindow.vala:1137
+#: src/library/LibraryWindow.vala:1139
 msgid "Preparing to auto-import photos…"
 msgstr "Felkészülés fényképek automatikus importáláshoz…"
 
-#: src/library/LibraryWindow.vala:1142
+#: src/library/LibraryWindow.vala:1144
 msgid "Auto-importing photos…"
 msgstr "Fényképek automatikus importálása…"
 
-#: src/library/LibraryWindow.vala:1150
+#: src/library/LibraryWindow.vala:1152
 msgid "Writing metadata to files…"
 msgstr "Metaadatok írása a fájlokba…"
 
@@ -4723,7 +4766,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3770
+#: src/Photo.vala:3767
 msgid "modified"
 msgstr "módosítva"
 
@@ -6125,7 +6168,7 @@ msgid "untitled"
 msgstr "névtelen"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Videók exportálása"
 
@@ -6575,3 +6618,34 @@ msgstr "címke"
 msgid "Delete all photos in the trash"
 msgstr "Minden fénykép törlése a Kukában"
 
+#~ msgid "shotwell"
+#~ msgstr "shotwell"
+
+#~ msgid ""
+#~ "You are not currently logged into YouTube.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with YouTube to continue. You can set up most accounts by using your "
+#~ "browser to log into the YouTube site at least once."
+#~ msgstr ""
+#~ "Nincs bejelentkezve a YouTube-ra.\n"
+#~ "\n"
+#~ "A folytatáshoz rendelkeznie kell egy Google fiókkal, és be kell azt "
+#~ "állítania a YouTube-bal való használathoz. A legtöbb fiókot a böngészőből "
+#~ "is beállíthatja, ha bejelentkezik a YouTube oldalon legalább egyszer."
+
+#~ msgid ""
+#~ "You are not currently logged into Google Photos.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with Google Photos.\n"
+#~ "\n"
+#~ "You will have to authorize Shotwell to link to your Google Photos account."
+#~ msgstr ""
+#~ "Jelenleg nincs bejelentkezve a Google Fényképekbe.\n"
+#~ "\n"
+#~ "A folytatáshoz rendelkeznie kell egy regisztrált Google fiókkal, és be "
+#~ "kell azt állítania a Google Fényképekkel való használathoz.\n"
+#~ "\n"
+#~ "Fel kell hatalmaznia a Shotwell programot, hogy összekapcsolja a Google "
+#~ "Fényképek fiókkal."
