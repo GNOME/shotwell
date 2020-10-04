@@ -13,7 +13,8 @@
     mode, and share them with others via social networking and more.</description>
 
   <homepage rdf:resource="https://wiki.gnome.org/Apps/Shotwell" />
-  <mailing-list rdf:resource="https://mail.gnome.org/mailman/listinfo/shotwell-list" />
+  <support-forum rdf:resource="https://discourse.gnome.org/tag/shotwell" />
+  <developer-forum rdf:resource="https://discourse.gnome.org/tag/shotwell" />
   <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/shotwell/issues" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <programming-language>Vala</programming-language>
