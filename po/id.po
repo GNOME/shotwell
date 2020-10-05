@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-05-30 10:35+0000\n"
-"PO-Revision-Date: 2020-05-30 21:19+0700\n"
+"POT-Creation-Date: 2020-10-04 12:27+0000\n"
+"PO-Revision-Date: 2020-10-05 09:01+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -94,7 +94,7 @@ msgstr "Nama blog baku pengguna, bila ada"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:46
 msgid "Rajce URL"
-msgstr "Rajce URL"
+msgstr "URL Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
 msgid "URL of the Rajce server"
@@ -1287,8 +1287,8 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
-msgid "Popular photo manager"
-msgstr "Manajer foto populer"
+msgid "Digital photo organizer"
+msgstr "Pengorganisasi foto digital"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:11
 msgid ""
