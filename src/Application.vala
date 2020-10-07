@@ -104,7 +104,7 @@ public class Application {
     }
 
     /**
-     * @brief Signal handler for GApplication's 'command-line' signal.
+     * @brief Signal handler for GApplication's 'activate' signal.
      *
      * The most likely scenario for this to be fired is if the user
      * either tried to run us twice in library mode, or we've just gotten
