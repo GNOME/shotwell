@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-07-21 10:38+0000\n"
-"PO-Revision-Date: 2020-07-30 13:11+0200\n"
+"POT-Creation-Date: 2020-10-04 12:27+0000\n"
+"PO-Revision-Date: 2020-10-09 19:37+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1281,8 +1281,8 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
-msgid "Popular photo manager"
-msgstr "Populär bildhanterare"
+msgid "Digital photo organizer"
+msgstr "Digital bildorganiserare"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:11
 msgid ""
@@ -6595,6 +6595,9 @@ msgstr "namnlös"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "Exportera filmer"
+
+#~ msgid "Popular photo manager"
+#~ msgstr "Populär bildhanterare"
 
 #~ msgid ""
 #~ "You are not currently logged into YouTube.\n"
