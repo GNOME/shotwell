@@ -23,12 +23,14 @@
       <attribute name="id">PrintPlaceholder</attribute>
       </section>
       <section>
-      <attribute name="id">PublishPlaceholder</attribute>
+        <attribute name="id">PublishPlaceholder</attribute>
+      </section>
+      <section>
         <item>
           <attribute name="label" translatable="yes">Send _To…</attribute>
           <attribute name="action">win.SendTo</attribute>
         </item>
-      <attribute name="id">SetBackgroundPlaceholder</attribute>
+        <attribute name="id">SetBackgroundPlaceholder</attribute>
       </section>
       <section>
         <item>
