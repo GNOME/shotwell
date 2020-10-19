@@ -365,7 +365,7 @@ msgid ""
 "enter a name for the search and select whether you want to meet Any, All, or"
 " None of the criteria in the following rows."
 msgstr ""
-"Creeu una cerca desada nova amb <guiseq><gui>Edita</gui><gui>Nova cerca "
+"Creeu una cerca desada nova amb <guiseq><gui>Edita</gui><gui>Cerca nova "
 "desada...</gui></guiseq> o prement "
 "<keyseq><key>Ctrl</key><key>S</key></keyseq>. El quadre de diàleg us permet "
 "introduir un nom per la cerca i seleccionar si voleu complir Algun, Tots o "
@@ -382,7 +382,7 @@ msgstr ""
 "Cada fila representa un criteri de cerca. Utilitzeu el botó <gui>+</gui> per"
 " afegir més files, i el botó <gui>-</gui> per suprimir una fila concreta. El"
 " quadre combinat de l'esquerra de cada fila selecciona el tipus de criteri. "
-"Els criteris s'han d'introduir correctament abans que el botó <gui>OK</gui> "
+"Els criteris s'han d'introduir correctament abans que el botó <gui>D'acord</gui> "
 "estigui disponible."
 
 #. (itstool) path: info/desc
@@ -1162,7 +1162,7 @@ msgid ""
 msgstr ""
 "Per activar l'autoimportació, marqueu el marcador <gui>Mireu el directori de"
 " la biblioteca per als fitxers nous</gui> a la finestra "
-"<gui>Preferències</gui> window."
+"<gui>Preferències</gui>."
 
 #. (itstool) path: note/p
 #: C/other-files.page:90
@@ -1366,7 +1366,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/formats.page:25
 msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr "Formats de contenidor: Ogg, QuickTime, MP4, AVI."
+msgstr "Formats contenidor: Ogg, QuickTime, MP4, AVI."
 
 #. (itstool) path: item/p
 #: C/formats.page:26
@@ -2571,9 +2571,9 @@ msgid ""
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by "
 "right-click and select <gui>Delete Tag \"[name]\"</gui>."
 msgstr ""
-"Per suprimir tota una etiqueta, seleccioneu aquesta etiqueta a la barra "
+"Per suprimir una etiqueta completament, seleccioneu aquesta etiqueta a la barra "
 "lateral i escolliu <guiseq><gui>Etiquetes</gui><gui>Suprimeix l'etiqueta "
-"\"[nom]\"</gui></guiseq> o fent-li clic amb el botó dret i seleccionant "
+"\"[nom]\"</gui></guiseq> o feu-li clic amb el botó dret i seleccioneu "
 "<gui>Suprimeix l'etiqueta \"[nom]\"</gui>."
 
 #. (itstool) path: page/p
@@ -2673,12 +2673,12 @@ msgid ""
 "tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page"
 " options under <gui>Autosize</gui>."
 msgstr ""
-"Shotwell pot imprimir múltiples imatges en una pàgina;per fer-ho, "
+"Shotwell pot imprimir múltiples imatges en una pàgina; per fer-ho, "
 "seleccioneu múltiples imatges, trieu "
 "<guiseq><gui>Fitxer</gui><gui>Imprimeix...</gui></guiseq>, i al diàleg "
-"<gui>Imprimeix</gui>, trieu la pestanya <gui>Configuració de la "
-"imatge</gui>. A <gui>Configuració de la imatge</gui>, trieu una de les "
-"multiple-image-per-page opcions a <gui>Mida automàtica</gui>."
+"<gui>Imprimeix</gui>, trieu la pestanya <gui>Paràmetres de la "
+"imatge</gui>. A <gui>Paràmetres de la imatge</gui>, trieu una de les "
+"múltiples opcions d'imatges per pàgina a <gui>Mida automàtica</gui>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:23
@@ -2697,7 +2697,7 @@ msgid ""
 "Find Shotwell in the Applications menu, or have it start automatically when "
 "you plug in a camera."
 msgstr ""
-"Trobareu Shotwell al menú Aplicacions, o engegueu-lo automàticament quan "
+"Trobeu Shotwell al menú Aplicacions, o engegueu-lo automàticament quan "
 "connecteu una càmera."
 
 #. (itstool) path: page/title
@@ -2741,7 +2741,7 @@ msgid ""
 "this is only recommended for testing out Shotwell or for developers."
 msgstr ""
 "Shotwell també es pot executar directament des del seu directori de creació,"
-" tot i que només es recomana utilitzar per testejar o per a desenvolupadors."
+" tot i que només es recomana utilitzar per testejar-lo o per a desenvolupadors."
 
 #. (itstool) path: info/desc
 #: C/organize-remove.page:7
@@ -3165,8 +3165,8 @@ msgid ""
 "Connect the camera to your computer and switch it on. Shotwell will detect "
 "it and list it in the sidebar."
 msgstr ""
-"Connecteu la càmera al vostre ordinador i engegueu-lo. Shotwell el detectarà"
-" i el mostrarà a la barra lateral."
+"Connecteu la càmera al vostre ordinador i engegueu-lo. Shotwell la detectarà"
+" i la mostrarà a la barra lateral."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:22

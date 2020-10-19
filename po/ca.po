@@ -1895,7 +1895,7 @@ msgstr "_Contrasenya"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104 plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120 plugins/shotwell-publishing-extras/RajcePublishing.vala:895 plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
-msgstr "Inici de sessió"
+msgstr "Inicia la sessió"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
 msgid "Enter the username and password associated with your Tumblr account."
@@ -2023,7 +2023,7 @@ msgstr "_Surt"
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216 plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220 plugins/shotwell-publishing-extras/RajcePublishing.vala:1018 plugins/shotwell-publishing-extras/yandex_publish_model.ui:159 plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122 plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94 src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
-msgstr "_Publica"
+msgstr "P_ublica"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
 msgid "Gallery3 publishing module"
