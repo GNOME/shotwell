@@ -2849,7 +2849,7 @@ msgstr "Suprimeix"
 #. (itstool) path: item/p
 #: C/organize-remove.page:29
 msgid "Delete the selected photos from the trash folder."
-msgstr "Esborrar les fotografies seleccionades de la carpeta escombraries."
+msgstr "Esborrar les fotografies seleccionades de la carpeta de la paperera."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:30
@@ -2864,17 +2864,17 @@ msgstr "Restaura les fotografies seleccionades a Shotwell."
 #. (itstool) path: item/title
 #: C/organize-remove.page:31
 msgid "Empty trash"
-msgstr "Buida les escombraries"
+msgstr "Buidar la paperera"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:31
 msgid "Delete all photos from the trash folder."
-msgstr "Esborrar totes les fotografies de la carpeta d'escombraries."
+msgstr "Esborrar totes les fotografies de la carpeta de la paperera."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:36
 msgid "Deleting or emptying Trash"
-msgstr "Elimina o buida les escombraries"
+msgstr "Elimina o buida la paperera"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:37
@@ -2882,7 +2882,7 @@ msgid ""
 "When you delete files from the Trash folder or empty the Trash folder, you "
 "will be given the following choices:"
 msgstr ""
-"Quan suprimiu els fitxers de la carpeta d'escombraries o la buideu, tindreu "
+"Quan suprimiu els fitxers de la carpeta de la paperera o la buideu, tindreu "
 "les següents opcions:"
 
 #. (itstool) path: item/title
@@ -2902,7 +2902,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/organize-remove.page:40
 msgid "Trash file"
-msgstr "Fitxer escombraries"
+msgstr "Fitxer de la paperera"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:40
