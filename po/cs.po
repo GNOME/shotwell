@@ -10,14 +10,14 @@
 # David Štancl <dstancl@gmail.com>, 2011, 2012
 # jui <appukonrad@gmail.com>, 2012
 # petr.simacek <petr.simacek@gmail.com>, 2012, 2013.
-# Marek Černocký <marek@manet.cz>, 2014, 2015, 2016, 2017, 2018, 2019.
+# Marek Černocký <marek@manet.cz>, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-09-09 13:38+0000\n"
-"PO-Revision-Date: 2019-09-14 21:52+0200\n"
+"POT-Creation-Date: 2020-09-12 22:50+0000\n"
+"PO-Revision-Date: 2020-10-28 16:33+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -62,7 +62,7 @@ msgid ""
 "Facebook, Flickr, Google Photos, and more."
 msgstr ""
 "Když máte vše připravené, může Shotwell nahrát vaše fotografie do různých "
-"webových služeb, jako je Facebook, Flickr, Google Photos a další."
+"webových služeb, jako je Facebook, Flickr, Fotky Google a další."
 
 #: misc/shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -107,7 +107,7 @@ msgstr "Ověřovací tiket"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in."
-msgstr "Ověřovací tiket pro Yandex-Fotki při přihlášení."
+msgstr "Ověřovací tiket pro Yandex-Fotki, když je uživatel přihlášen."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:14
 msgid "Token"
@@ -906,7 +906,7 @@ msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any."
 msgstr ""
-"Tiket protokolu OAuth používaný pro občerstvení sezení na Google Photos pro "
+"Tiket protokolu OAuth používaný pro občerstvení sezení na Fotkách Google pro "
 "právě přihlášeného uživatele, pokud existuje."
 
 #: misc/org.yorba.shotwell.gschema.xml:499
@@ -914,8 +914,8 @@ msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
 msgstr ""
-"Číselná hodnota představující výchozí velikost fotografií nahrávaných na "
-"Google Photos Albums."
+"Číselná hodnota představující výchozí velikost fotografií nahrávaných do alb "
+"Fotky Google."
 
 #: misc/org.yorba.shotwell.gschema.xml:504
 #: misc/org.yorba.shotwell.gschema.xml:598
@@ -934,7 +934,7 @@ msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
 msgstr ""
-"Zda se mají z obrázků nahrávaných na Google Photos nejdříve odstranit jejich "
+"Zda se mají z obrázků nahrávaných na Fotky Google nejdříve odstranit jejich "
 "metadata."
 
 #: misc/org.yorba.shotwell.gschema.xml:518
@@ -1218,13 +1218,13 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:726
 msgid "enable Google Photos publishing plugin"
-msgstr "Povolit zásuvný modul Publikování na Google Photos"
+msgstr "Povolit zásuvný modul Publikování na Fotky Google"
 
 #: misc/org.yorba.shotwell.gschema.xml:727
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
-"Když je zapnuto, je povolen zásuvný modul pro publikování na službě Google "
-"Photos."
+"Když je zapnuto, je povolen zásuvný modul pro publikování na službě Fotky "
+"Google."
 
 #: misc/org.yorba.shotwell.gschema.xml:732
 msgid "enable youtube publishing plugin"
@@ -1474,30 +1474,71 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
+"to log into the YouTube site at least once.\n"
+"\n"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
 "Nejste přihlášeni ke službě YouTube.\n"
 "\n"
 "Aby bylo možné pokračovat, musíte být přihlášeni k účtu Google a mít jej "
 "nastavený pro používání s YouTube. Ve svém webovém prohlížeči můžete "
-"nastavit většinu účtů, aby se přihlašovaly ke službě YouTube naráz."
+"nastavit většinu účtů tak, aby se přihlašovaly naráz i ke službě YouTube."
+"\n"
+"Shotwell používá pro přístup k vašemu kanálu YouTube a k nahrávání videí API "
+"YouTube <a href=\"https://developers.google.com/youtube\">https://developers."
+"google.com/youtube</a>. Používáním aplikace Shotwell pro přístup na YouTube "
+"souhlasíte se smluvními podmínkami používání služby, které najdete na <a href="
+"\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>.\n"
+"\n"
+"Zásady soukromí aplikace Shotwell týkající se použití dat souvisejících s "
+"účtem Google obecně, a YouTube konkrétně, můžete najít v našich <a href="
+"\"help:shotwell/privacy-policy\">zásadách soukromí služeb on-line</a>.\n"
+"\n"
+"Na vlastní zásady soukromí služeb Google se podívejte na <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data.You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
+"Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
-"Nejste přihlášeni ke službě Google Photos.\n"
+"Nejste přihlášeni ke službě Fotky Google.\n"
 "\n"
 "Aby bylo možné pokračovat, musíte být přihlášeni k účtu Google a mít jej "
-"nastavený pro používání s Google Photos.\n"
+"nastavený pro používání s Fotkami Google. Shotwell používá pro veškerou práci "
+"s vašimi daty z Fotek Google služeb API Google Photos <a href=\"https://"
+"developers.google.com/photos/\">https://developers.google.com/photos/</a>. "
+"Aplikaci Shotwell musíte udělit přístup k své knihovně Fotek Google.\n"
 "\n"
-"Budete muset také autorizovat Shotwell, aby byl propojený s účtem Google "
-"Photos."
+"Zásady soukromí aplikace Shotwell týkající se použití dat souvisejících s "
+"účtem Google obecně, a Fotky Google konkrétně, můžete najít v našich <a href="
+"\"help:shotwell/privacy-policy\">zásadách soukromí služeb on-line</a>.\n"
+"\n"
+"Na vlastní zásady soukromí služeb Google se podívejte na <a href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1686,7 +1727,7 @@ msgstr "Delší strana"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:85
 msgid "_Logout"
 msgstr "_Odhlásit"
 
@@ -1698,7 +1739,7 @@ msgstr "_Odhlásit"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "_Zveřejnit"
@@ -2069,7 +2110,7 @@ msgid ""
 "Google Photos account"
 msgstr ""
 "Shotwell může publikovat pouze do alb, která sám vytvoří, takže tento seznam "
-"může být prázdný navzdory tomu, že na Google Photos již nějaká alba máte."
+"může být prázdný navzdory tomu, že na Fotkách Google již nějaká alba máte."
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "Photo _size preset"
@@ -2108,7 +2149,7 @@ msgstr "Původní velikost"
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:59
 #, c-format
 msgid "You are logged into Google Photos as %s."
-msgstr "Jste přihlášeni ke službě Google Photos jako %s."
+msgstr "Jste přihlášeni ke službě Fotky Google jako %s."
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:64
 msgid "Videos will appear in:"
@@ -2290,7 +2331,7 @@ msgstr ""
 "Jste přihlášeni k Tumblr jako %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:41
 msgid "Video privacy _setting:"
 msgstr "Na_stavení soukromí videa:"
 
@@ -3933,19 +3974,19 @@ msgstr[0] "Z_měnit originální soubor"
 msgstr[1] "Z_měnit originální soubory"
 msgstr[2] "Z_měnit originální soubory"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:213
+#: src/dialogs/AdjustDateTimeDialog.vala:219
 msgid "Original: "
 msgstr "Originál:"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:214
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d.%m.%Y, %k∶%M∶%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:215
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d.%m.%Y, %l∶%M∶%S %p"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:312
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3954,7 +3995,7 @@ msgstr ""
 "Čas expozice bude posunut dopředu\n"
 "o %d %s, %d %s, %d %s a %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:307
+#: src/dialogs/AdjustDateTimeDialog.vala:313
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3963,28 +4004,28 @@ msgstr ""
 "Čas expozice bude posunut dozadu\n"
 "o %d %s, %d %s, %d %s a %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:315
 msgid "day"
 msgid_plural "days"
 msgstr[0] "den"
 msgstr[1] "dny"
 msgstr[2] "dní"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:316
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "hodinu"
 msgstr[1] "hodiny"
 msgstr[2] "hodin"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:317
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minutu"
 msgstr[1] "minuty"
 msgstr[2] "minut"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:318
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "sekundu"
