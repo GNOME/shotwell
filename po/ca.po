@@ -4509,17 +4509,17 @@ msgstr "S'estan suprimint les fotografies"
 #: src/main.vala:54
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please use the latest version of Shotwell."
-msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta versió és la %s (schema %d). Utilitzeu l'última versió del Shotwell."
+msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta versió és la %s (esquema %d). Utilitzeu l'última versió del Shotwell."
 
 #: src/main.vala:59
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d). For more information please check the Shotwell Wiki at %s"
-msgstr "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la versió %s (schema %d) a la %s (schema %d). Per obtenir més informació comproveu el Wiki del Shotwell a %s"
+msgstr "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la versió %s (esquema %d) a la %s (esquema %d). Per obtenir més informació comproveu el Wiki del Shotwell a %s"
 
 #: src/main.vala:65
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import your photos."
-msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del Shotwell. Sembla que es va crear amb el Shotwell %s (schema %d). Aquesta versió és la %s (schema %d). Netegeu la biblioteca mitjançant la supressió de %s i torneu a importar les fotografies."
+msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta versió és la %s (esquema %d). Netegeu la biblioteca mitjançant la supressió de %s i torneu a importar les fotografies."
 
 #: src/main.vala:71
 #, c-format
