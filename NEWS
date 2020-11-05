@@ -1,3 +1,41 @@
+Shotwell 0.30.11 - 05 Nov 2020
+ * Translation updates
+ * Add missing "Publish..." item in file menu
+ * Enable sandboxing for WebKitGTK
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/260
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/290
+
+All contributors to this release:
+ - sicklylife <translation@sicklylife.jp>
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Daniel Șerbănescu <daniel@serbanescu.dk>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+
+Added/updated translations:
+ - cs.po, courtesy of Marek Černocký
+ - uk.po, courtesy of Yuri Chornoivan
+ - ca.po, courtesy of Carles Ferrando Garcia
+ - cs.po, courtesy of Marek Černocký
+ - es.po, courtesy of Daniel Mustieles
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Andika Triwidada
+ - ja.po, courtesy of sicklylife
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - ro.po, courtesy of Florentina Mușat
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.30.10 - 22 May 2020
  * Modify web publishing authentication to comply with Google's requirements
 
