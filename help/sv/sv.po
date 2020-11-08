@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015, 2016, 2017, 2018, 2019 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2020 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2019-01-24 22:31+0000\n"
-"PO-Revision-Date: 2019-01-26 15:42+0100\n"
+"POT-Creation-Date: 2020-09-12 22:50+0000\n"
+"PO-Revision-Date: 2020-11-08 15:17+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -2452,14 +2452,207 @@ msgstr ""
 #: C/other-plugins.page:25
 msgid ""
 "Full documentation on how to develop new plugins is available at <link href="
-"\"http://redmine.yorba.org/projects/shotwell/wiki/ShotwellArchWritingPlugins"
-"\">http://redmine.yorba.org/projects/shotwell/wiki/"
-"ShotwellArchWritingPlugins</link>"
+"\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
+"wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
 msgstr ""
 "Fullständig dokumentation om hur du utvecklar nya insticksmoduler finns "
-"tillgänglig på <link href=\"http://redmine.yorba.org/projects/shotwell/wiki/"
-"ShotwellArchWritingPlugins\">http://redmine.yorba.org/projects/shotwell/wiki/"
-"ShotwellArchWritingPlugins</link>"
+"tillgänglig på <link href=\"https://wiki.gnome.org/Apps/Shotwell/"
+"Architecture/WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/"
+"Architecture/WritingPlugins</link>"
+
+#. (itstool) path: page/title
+#: C/privacy-policy.page:7
+msgid "Shotwell's privacy policy for Online Services"
+msgstr "Shotwells sekretesspolicy för nättjänster"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:8
+msgid "Google"
+msgstr "Google"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:10 C/privacy-policy.page:42
+msgid "Information Shotwell Stores and Transmits About You"
+msgstr "Information om dig som Shotwell lagrar och överför"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:11
+msgid ""
+"The Shotwell Connect application and its data store reside locally on your "
+"personal computer."
+msgstr ""
+"Programmet Shotwell Connect och dess datalagring sparas lokalt på din dator."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:12
+msgid ""
+"During the course of its operation, Shotwell Connect may store an "
+"authentication token that it receives from YouTube and Google Photos on your "
+"computer. This authentication token is simply a session-identifying sequence "
+"of letters and numbers. It contains no password, user name, or other "
+"personal information."
+msgstr ""
+"Under sitt arbete kan Shotwell Connect lagra en autentiseringstoken som det "
+"erhåller från YouTube och Google Foto på din dator. Denna "
+"autentiseringstoken är helt enkelt en sessionsidentifierande rad bokstäver "
+"och siffror. Den innehåller inga lösenord, användarnamn eller annan "
+"personlig information."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:13
+msgid ""
+"At no time does Shotwell Connect transmit any information to the GNOME "
+"foundation, the Software Freedom Convervancy or any of the developers of the "
+"Shotwell Connect Application for Google services."
+msgstr ""
+"Shotwell Connect överför aldrig någon information till GNOME-stiftelsen, the "
+"Software Freedom Convervancy eller någon av utvecklarna av programmet "
+"Shotwell Connect för Google-tjänster."
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:15
+msgid ""
+"For Google's own privacy policy, please refer to <link href=\"https://"
+"policies.google.com/privacy\">https://policies.google.com/privacy</link>"
+msgstr ""
+"För Googles egen sekretesspolicy, se <link href=\"https://policies.google."
+"com/privacy\">https://policies.google.com/privacy</link>"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:18
+msgid "YouTube"
+msgstr "YouTube"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:19
+msgid ""
+"Shotwell uses the YouTube API services <link href=\"https://developers."
+"google.com/youtube\">https://developers.google.com/youtube</link> for "
+"accessing your YouTube channel and upload the videos."
+msgstr ""
+"Shotwell använder YouTubes API-tjänster <link href=\"https://developers."
+"google.com/youtube\">https://developers.google.com/youtube</link> för att "
+"komma åt din YouTube-kanal och skicka videoklippen."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:21
+msgid "YouTube terms and permissions"
+msgstr "Villkor för YouTube"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:22
+msgid ""
+"By using Shotwell to access YouTube, you agree to be bound to the YouTube "
+"Terms of Service as available at <link href=\"https://www.youtube.com/t/terms"
+"\">https://www.youtube.com/t/terms</link>"
+msgstr ""
+"Genom att använda Shotwell för att ansluta till YouTube så godkänner du att "
+"följa YouTubes användningsvillkor så som de kan ses på <link href=\"https://"
+"www.youtube.com/t/terms\">https://www.youtube.com/t/terms</link>"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:25
+msgid "Permissions you grant Shotwell for YouTube"
+msgstr "Rättigheter som du ger Shotwell för YouTube"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:26
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application permission to "
+"publish videos to your YouTube channel. Other than uploading videos, "
+"Shotwell does not insert, modify or remove any information from your YouTube "
+"account and channel."
+msgstr ""
+"Genom att använda Shotwell ger du programmet Shotwell Connect rätt att "
+"publicera videoklipp på din YouTube-kanal. Förutom att Shotwell skickar "
+"videoklipp så varken infogar, ändrar eller tar det bort någon information "
+"från ditt konto och din kanal på YouTube."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:31
+msgid "Google Photos"
+msgstr "Google Foto"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:32
+msgid ""
+"Shotwell uses the Google Photos API services <link href=\"https://developers."
+"google.com/photos/\">https://developers.google.com/photos/</link> for all "
+"interaction with your Google Photos data"
+msgstr ""
+"Shotwell använder Google Fotos API-tjänster <link href=\"https://developers."
+"google.com/photos/\">https://developers.google.com/photos/</link> för all "
+"interaktion med dina Google Foto-data"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:34
+msgid "Permissions you Grant Shotwell for Google Photos"
+msgstr "Rättigheter som du ger Shotwell för Google Foto"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:35
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application to publish "
+"photos on your Google Photos account. It will download the list of available "
+"albums to allow you to chose an existing album to upload to, it can create "
+"albums on your behalf. Other than creating albums and uploading photos, "
+"Shotwell does no modification whatsoever to the existing data on Google "
+"Photos"
+msgstr ""
+"Genom att använda Shotwell ger du programmet Shotwell Connect rätt att "
+"publicera foton på ditt Google Foto-konto. Det kommer hämta listan över "
+"tillgängliga album för att låta dig välja ett album att skicka till, det kan "
+"skapa album åt dig. Förutom att skapa album och skicka foton så gör Shotwell "
+"inga ändringar överhuvudtaget till befintliga data på Google Foto"
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:40
+msgid "Flickr"
+msgstr "Flickr"
+
+#. (itstool) path: section/p
+#: C/privacy-policy.page:43
+msgid ""
+"The Shotwell Connect application and its data store reside locally on your "
+"personal computer. During the course of its operation, Shotwell Connect may "
+"store an authentication token that it receives from Flickr on your computer. "
+"This authentication token is simply a session-identifying sequence of "
+"letters and numbers. It contains no password, user name, or other personal "
+"information. At no time does Shotwell Connect transmit any information to "
+"the GNOME foundation, the Software Freedom Convervancy or any of the "
+"developers of the Shotwell Connect Application for Flickr."
+msgstr ""
+"Programmet Shotwell Connect och dess datalagring sparas lokalt på din dator. "
+"Under sitt arbete kan Shotwell Connect lagra en autentiseringstoken som det "
+"erhåller från Flickr på din dator. Denna autentiseringstoken är helt enkelt "
+"en sessionsidentifierande rad bokstäver och siffror. Den innehåller inga "
+"lösenord, användarnamn eller annan personlig information. Shotwell Connect "
+"överför aldrig någon information till GNOME-stiftelsen, the Software Freedom "
+"Convervancy eller någon av utvecklarna av programmet Shotwell Connect för "
+"Flickr."
+
+#. (itstool) path: section/title
+#: C/privacy-policy.page:47
+msgid "Permissions you grant Shotwell for Flickr"
+msgstr "Rättigheter som du ger Shotwell för Flickr"
+
+# TODO: choose, access; "does no modification"
+#. (itstool) path: section/p
+#: C/privacy-policy.page:48
+msgid ""
+"By using Shotwell, you grant the Shotwell Connect application acces to "
+"publish photos to your Flickr account. It will download the list of "
+"available albums to allow you to chose an existing album to upload to. It "
+"can also create new albums on your behalf. Other than creating albums and "
+"uploading photos, Shotwell does not modification whatsoever to the existing "
+"data on your Flickr account."
+msgstr ""
+"Genom att använda Shotwell ger du programmet Shotwell Connect rätt att "
+"publicera foton på ditt Flickr-konto. Det kommer att hämta listan över "
+"tillgängliga album för att låta dig välja ett befintligt album att skicka "
+"till. Det kan också skapa nya album åt dig. Förutom att skapa album och "
+"skicka foton så gör Shotwell inga ändringar överhuvudtaget till befintliga "
+"data på ditt Flickr-konto."
 
 #. (itstool) path: info/desc
 #: C/raw.page:7
@@ -2947,7 +3140,6 @@ msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-#| msgid "<link href=\"https://facebook.com\">Facebook</link>"
 msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
 msgstr "<link href=\"https://photos.google.com\">Google Foto</link>"
 
@@ -3291,9 +3483,6 @@ msgstr ""
 
 #~ msgid "Facebook"
 #~ msgstr "Facebook"
-
-#~ msgid "Flickr"
-#~ msgstr "Flickr"
 
 #~ msgid "Symbol"
 #~ msgstr "Symbol"
