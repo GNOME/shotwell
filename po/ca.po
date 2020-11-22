@@ -37,7 +37,7 @@ msgstr "testimoni d'autenticació"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
 msgid "Yandex-Fotki authentication token, if logged in"
-msgstr "Testimoni d'autenticació si et connectes a Yandex-Fotki"
+msgstr "Testimoni d'autenticació de Yandex-Fotki, si s'ha iniciat la sessió"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14 data/gsettings/org.gnome.shotwell.gschema.xml:427
 msgid "OAuth Access Phase Token"
@@ -89,7 +89,7 @@ msgstr "L'URL del servidor de Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
 msgid "Rajce username, if logged in"
-msgstr "Si estàs connectat amb nom d'usuari de Rajce"
+msgstr "Nom d'usuari de Rajce, si s'ha iniciat la sessió"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:58
 msgid "token"
@@ -121,7 +121,7 @@ msgstr "recorda"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
 msgid "If true, remember last login"
-msgstr "Si és veritat, recorda l'últim inici de sessió"
+msgstr "Si és cert, recorda l'últim inici de sessió"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:82
 msgid "hide album"
@@ -129,7 +129,7 @@ msgstr "amaga l'àlbum"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
 msgid "If true, hide the newly created Rajce album"
-msgstr "Si és veritat, amaga l'àlbum acabat de crear a Rajce"
+msgstr "Si és cert, amaga l'àlbum acabat de crear a Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
 msgid "open album in web browser"
@@ -137,7 +137,7 @@ msgstr "obre l'àlbum al navegador"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:89
 msgid "If true, open target album in the web browser just after uploading photos"
-msgstr "Si és veritat, obre l'àlbum de destí al navegador web solament després de pujar les fotografies"
+msgstr "Si és cert, obre l'àlbum de destí al navegador web solament després de pujar les fotografies"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94 data/gsettings/org.gnome.shotwell.gschema.xml:457 data/gsettings/org.gnome.shotwell.gschema.xml:483 data/gsettings/org.gnome.shotwell.gschema.xml:533 data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "remove sensitive info from uploads"
@@ -153,7 +153,7 @@ msgstr "mostra les propietats bàsiques"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise"
-msgstr "Veritat si es vol mostrar el panell de propietats bàsiques, fals en cas contrari"
+msgstr "Cert si es vol mostrar el panell de propietats bàsiques, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:29
 msgid "display extended properties"
@@ -161,7 +161,7 @@ msgstr "Mostra propietats ampliades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:30
 msgid "True if the extended properties window is to be displayed, false otherwise"
-msgstr "Veritat si es vol mostrar la finestra de propietats ampliades, fals en cas contrari"
+msgstr "Cert si es vol mostrar la finestra de propietats ampliades, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:35
 msgid "display sidebar"
@@ -169,7 +169,7 @@ msgstr "mostra la barra lateral"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:36
 msgid "True if the sidebar is to be displayed, false otherwise"
-msgstr "Veritat si es vol mostrar la barra lateral, fals en cas contrari"
+msgstr "Cert si es vol mostrar la barra lateral, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:41
 msgid "display toolbar"
@@ -177,7 +177,7 @@ msgstr "mostra la barra d'eines"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:42
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
-msgstr "Veritat si es vol mostrar la barra d'eines inferior, fals en cas contrari"
+msgstr "Cert si es vol mostrar la barra d'eines inferior, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:47
 msgid "display map widget"
@@ -193,7 +193,7 @@ msgstr "mostra la barra de cerca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:54
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
-msgstr "Veritat si la barra d'eines de cerca/filtre ha de ser mostrada, fals en cas contrari"
+msgstr "Cert si la barra d'eines de cerca/filtre ha de ser mostrada, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:59
 msgid "display photo titles"
@@ -201,7 +201,7 @@ msgstr "mostra els títols de la imatge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:60
 msgid "True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise"
-msgstr "Veritat si els títols de la fotografia s'ha de mostrar a sota de les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
+msgstr "Cert si els títols de la fotografia s'ha de mostrar a sota de les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:65
 msgid "display photo comments"
@@ -209,7 +209,7 @@ msgstr "mostra els comentaris de la fotografia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:66
 msgid "True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise"
-msgstr "Veritat si els comentaris de la fotografia s'han de mostrar a sota de les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
+msgstr "Cert si els comentaris de la fotografia s'han de mostrar a sota de les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:71
 msgid "display event comments"
@@ -217,7 +217,7 @@ msgstr "mostra els comentaris de l'esdeveniment"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:72
 msgid "True if event comments are to be displayed beneath thumbnails in event views, false otherwise"
-msgstr "Veritat si els comentaris d'esdeveniments s'han de mostrar a sota de les miniatures en les vistes d'esdeveniments, fals en cas contrari"
+msgstr "Cert si els comentaris d'esdeveniments s'han de mostrar a sota de les miniatures en les vistes d'esdeveniments, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:77
 msgid "display photo tags"
@@ -225,7 +225,7 @@ msgstr "mostra les etiquetes de la fotografia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:78
 msgid "True if photo tags are to be listed beneath thumbnails in collection views, false otherwise"
-msgstr "Veritat si les etiquetes de la fotografia apareixen a sota les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
+msgstr "Cert si les etiquetes de la fotografia apareixen a sota les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:83
 msgid "display photo ratings"
@@ -233,7 +233,7 @@ msgstr "mostra la puntuació de la fotografia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:84
 msgid "True if a photo’s rating should be displayed as overlaid trinket, false otherwise"
-msgstr "Veritat si la qualificació de la fotografia s'ha de mostrar com retall superposat, fals en cas contrari"
+msgstr "Cert si la qualificació de la fotografia s'ha de mostrar com retall superposat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid "rating filter level"
@@ -249,7 +249,7 @@ msgstr "Ordena esdeveniments de forma ascendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:96
 msgid "True if events should be sorted ascending, false if descending"
-msgstr "Veritat si els esdeveniments s'ordenen de forma ascendent, fals si és de forma descendent"
+msgstr "Cert si els esdeveniments s'ordenen de forma ascendent, fals si és de forma descendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "sort library photos ascending"
@@ -257,7 +257,7 @@ msgstr "Ordena les fotografies de la biblioteca de forma ascendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:102
 msgid "True if library photos should be sorted ascending, false if descending"
-msgstr "Veritat si les fotografies de la biblioteca s'han de classificar de forma ascendent, fals si és de forma descendent"
+msgstr "Cert si les fotografies de la biblioteca s'han de classificar de forma ascendent, fals si és de forma descendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:107
 msgid "sort library photos criteria"
@@ -273,7 +273,7 @@ msgstr "Ordena els esdeveniments de les fotografies de forma ascendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:114
 msgid "True if event photos should be sorted ascending, false if descending"
-msgstr "Veritat si les fotografies de l'esdeveniment s'han de classificar de forma ascendent, fals si és de forma descendent"
+msgstr "Cert si les fotografies de l'esdeveniment s'han de classificar de forma ascendent, fals si és de forma descendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:119
 msgid "sort event photos criteria"
@@ -289,7 +289,7 @@ msgstr "utilitza temps de vint-i-quatre hores"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:126
 msgid "True if should display times with a 24 hour clock, false if times should use AM/PM notation"
-msgstr "Veritat si el temps s'ha de mostrar com un rellotge de vint-i-quatre hores, fals si el temps s'ha d'utilitzar amb l'anotació d'AM/PM"
+msgstr "Cert si el temps s'ha de mostrar com un rellotge de vint-i-quatre hores, fals si el temps s'ha d'utilitzar amb l'anotació d'AM/PM"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:131
 msgid "keep relative time between photos"
@@ -297,7 +297,7 @@ msgstr "manté el temps relatiu entre fotografies"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:132
 msgid "True if when adjusting time/date of photos, relative time should be maintained. False if all photos should be set to the same time"
-msgstr "Veritat si s'ajusta l'hora/data de les fotografies, s'ha de mantenir el temps relativament. Fals si totes les imatges s'han de classificar al mateix temps"
+msgstr "Cert si s'ajusta l'hora/data de les fotografies, s'ha de mantenir el temps relativament. Fals si totes les imatges s'han de classificar al mateix temps"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:137
 msgid "modify original photo files"
@@ -305,7 +305,7 @@ msgstr "modifica els fitxers originals de les fotografies"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:138
 msgid "True if when adjusting time/date of photos, the original files should be modified as well. False if changes are made only in the database"
-msgstr "Veritat si a l'ajustar la data/hora de les fotografies, els fitxers originals també han de ser modificats. Fals si els canvis s'han de realitzar solament a la base de dades"
+msgstr "Cert si a l'ajustar la data/hora de les fotografies, els fitxers originals també han de ser modificats. Fals si els canvis s'han de realitzar solament a la base de dades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:143
 msgid "show welcome dialog on startup"
@@ -313,7 +313,7 @@ msgstr "Mostra diàleg de benvinguda a l'inici"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
 msgid "True if, when on startup, a welcome dialog should be shown. False if it should not be shown"
-msgstr "Veritat si, a l'iniciar-se, s'ha de mostrar un diàleg de benvinguda. Fals si no s'ha de mostrar"
+msgstr "Cert si, a l'iniciar-se, s'ha de mostrar un diàleg de benvinguda. Fals si no s'ha de mostrar"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:149
 msgid "sidebar position"
@@ -409,7 +409,7 @@ msgstr "maximitzar la finestra de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:220
 msgid "True if library application is maximized, false otherwise"
-msgstr "Veritat si l'aplicació de la biblioteca està maximitzada, fals en cas contrari"
+msgstr "Cert si l'aplicació de la biblioteca està maximitzada, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "width of library window"
@@ -433,7 +433,7 @@ msgstr "Maximitza la finestra d'edició directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:238
 msgid "True if direct-edit application is maximized, false otherwise"
-msgstr "Veritat si l'aplicació d'edició directa està maximitzada, fals en cas contrari"
+msgstr "Cert si l'aplicació d'edició directa està maximitzada, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "width of direct-edit window"
@@ -473,7 +473,7 @@ msgstr "veure el directori de la biblioteca per als fitxers nous"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:270
 msgid "If true, files added to the library directory are automatically imported"
-msgstr "Veritat si, els fitxers afegits al directori de la biblioteca s'importen automàticament"
+msgstr "Cert si, els fitxers afegits al directori de la biblioteca s'importen automàticament"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid "write metadata to master files"
@@ -481,7 +481,7 @@ msgstr "s'estan escrivint les metadades als fitxers mestres"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:276
 msgid "If true, changes to metadata (tags, titles, etc.) are written to the master photo file"
-msgstr "Veritat si, els canvis a les metadades (etiquetes, títols, etc.) s'escriuen en el fitxer de la imatge mestra"
+msgstr "Cert si, els canvis a les metadades (etiquetes, títols, etc.) s'escriuen en el fitxer de la imatge mestra"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid "use lowercase filenames"
@@ -489,7 +489,7 @@ msgstr "utilitza minúscules en noms de fitxer"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:282
 msgid "If true, Shotwell will convert all filenames to lowercase when importing photo files"
-msgstr "Veritat si, Shotwell converteix tots els noms de fitxer a minúscules en importar fitxers de fotografies"
+msgstr "Cert si, Shotwell converteix tots els noms de fitxer a minúscules en importar fitxers de fotografies"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid "directory pattern"
@@ -673,7 +673,7 @@ msgstr "Servidor URL del Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:498
 msgid "Piwigo username, if logged in"
-msgstr "Nom d'usuari Piwigo, si s'ha connectat"
+msgstr "Nom d'usuari Piwigo, si s'ha iniciat la sessió"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:503
 msgid "password"
@@ -681,7 +681,7 @@ msgstr "contrasenya"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:504
 msgid "Piwigo password, if logged in"
-msgstr "contrasenya Piwigo, si s'ha connectat"
+msgstr "Contrasenya Piwigo, si s'ha iniciat la sessió"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:509
 msgid "remember password"
@@ -689,7 +689,7 @@ msgstr "recorda la contrasenya"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:510
 msgid "If true, remember the Piwigo password"
-msgstr "Si és veritat, recorda la contrasenya de Piwigo"
+msgstr "Si és cert, recorda la contrasenya de Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:516
 msgid "The last selected Piwigo category"
@@ -865,7 +865,7 @@ msgstr "Imprimeix els títols de la imatge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:676
 msgid "True if the title of a photo should be printed when the photo is printed, false otherwise"
-msgstr "Veritat si el títol d'una imatge ha de ser impresa quan s'imprimeix, fals en cas contrari"
+msgstr "Cert si el títol d'una imatge ha de ser impresa quan s'imprimeix, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:681
 msgid "titles font"
@@ -881,7 +881,7 @@ msgstr "Habilita el complement de publicació de Facebook"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:694
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Facebook està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Facebook està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:699
 msgid "enable flickr publishing plugin"
@@ -889,7 +889,7 @@ msgstr "Habilita el complement de publicació de flickr"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:700
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Flickr està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Flickr està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:705
 msgid "enable Google Photos publishing plugin"
@@ -897,7 +897,7 @@ msgstr "habilita el complement de publicació de Google Photos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:706
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Google Photos està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Google Photos està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:711
 msgid "enable youtube publishing plugin"
@@ -905,7 +905,7 @@ msgstr "Habilita el complement de publicació de youtube"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:712
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de YouTube està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de YouTube està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:717
 msgid "enable piwigo publishing plugin"
@@ -913,7 +913,7 @@ msgstr "Habilita el complement de publicació de piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:718
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Piwigo està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Piwigo està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:723
 msgid "enable yandex publishing plugin"
@@ -921,7 +921,7 @@ msgstr "Habilita el complement de publicació de yandex"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:724
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Yandex.Fotki està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Yandex.Fotki està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:729
 msgid "enable tumblr publishing plugin"
@@ -929,7 +929,7 @@ msgstr "Habilita el complement de publicació de tumblr"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:730
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Tumblr està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Tumblr està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:735
 msgid "enable rajce publishing plugin"
@@ -937,7 +937,7 @@ msgstr "Habilita el complement de publicació de rajce"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:736
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Rajce està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Rajce està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:741
 msgid "enable gallery3 publishing plugin"
@@ -945,7 +945,7 @@ msgstr "Habilita el complement de publicació de gallery3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:742
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de Gallery3 està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de Gallery3 està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:747
 msgid "enable F-Spot import plugin"
@@ -953,7 +953,7 @@ msgstr "Habilita el complement de publicació de F-Spot"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:748
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr "Veritat si el complement de la publicació de F-Spot està habilitat, fals en cas contrari"
+msgstr "Cert si el complement de la publicació de F-Spot està habilitat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:753
 msgid "enable slideshow crumble transition"
@@ -961,7 +961,7 @@ msgstr "Activa la transició d'engruna de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:754
 msgid "True if the Crumble slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació de l'engruna està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació de l'engruna està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:759
 msgid "enable slideshow fade transition"
@@ -969,7 +969,7 @@ msgstr "Activa la transició de destenyir de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:760
 msgid "True if the Fade slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació de destenyir està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació de destenyir està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:765
 msgid "enable slideshow slide transition"
@@ -977,7 +977,7 @@ msgstr "Activa la transició de diapositiva de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:766
 msgid "True if the Slide slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació de la diapositiva està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació de la diapositiva està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:771
 msgid "enable slideshow clock transition"
@@ -985,7 +985,7 @@ msgstr "Activa la transició de rellotge de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:772
 msgid "True if the Clock slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació del rellotge està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació del rellotge està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:777
 msgid "enable slideshow circle transition"
@@ -993,7 +993,7 @@ msgstr "Activa la transició de cercle de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:778
 msgid "True if the Circle slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació del cercle està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació del cercle està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:783
 msgid "enable slideshow circles transition"
@@ -1001,7 +1001,7 @@ msgstr "Activa la transició de cercles de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:784
 msgid "True if the Circles slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació dels cercles està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació dels cercles està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:789
 msgid "enable slideshow blinds transition"
@@ -1009,7 +1009,7 @@ msgstr "Activa la transició de ceguera de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:790
 msgid "True if the Blinds slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació de la ceguera està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació de la ceguera està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:795
 msgid "enable slideshow squares transition"
@@ -1017,7 +1017,7 @@ msgstr "Activa la transició de quadrícula de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:796
 msgid "True if the Squares slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació de la quadrícula està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació de la quadrícula està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:801
 msgid "enable slideshow stripes transition"
@@ -1025,7 +1025,7 @@ msgstr "Activa la transició de ratlles de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:802
 msgid "True if the Stripes slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació de les ratlles està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació de les ratlles està activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:807
 msgid "enable slideshow chess transition"
@@ -1033,7 +1033,7 @@ msgstr "Activa la transició d'escacs de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:808
 msgid "True if the Chess-Board slideshow transition plugin is enabled, false otherwise"
-msgstr "Veritat si el connector de transició de la presentació del tauler d'escacs està activat, fals en cas contrari"
+msgstr "Cert si el connector de transició de la presentació del tauler d'escacs està activat, fals en cas contrari"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8 data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85 data/ui/event.ui:361 data/ui/event.ui:529 data/ui/faces.ui:356 data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:354 data/ui/tags.ui:361 plugins/shotwell-publishing-extras/GalleryConnector.vala:115 src/photos/RawSupport.vala:307
 msgid "Shotwell"
@@ -2226,8 +2226,8 @@ msgstr ""
 #| msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgid "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded a file"
 msgid_plural "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %d files"
-msgstr[0] "El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat un fitxer."
-msgstr[1] "El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat %d fitxers."
+msgstr[0] "El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat un fitxer"
+msgstr[1] "El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat %d fitxers"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -2332,7 +2332,7 @@ msgstr "Els vídeos apareixeran a:"
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:105
 msgid "Default album"
-msgstr "àlbum per defecte"
+msgstr "Àlbum per defecte"
 
 #: plugins/shotwell-publishing/PhotosService.vala:36
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
@@ -3283,7 +3283,7 @@ msgstr "Restricció d'e_scala:"
 
 #: src/dialogs/ExportDialog.vala:99
 msgid "_Pixels:"
-msgstr " _Píxels:"
+msgstr "_Píxels:"
 
 #: src/dialogs/ExportDialog.vala:103
 msgid "Export _metadata:"
