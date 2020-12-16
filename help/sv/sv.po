@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2020-09-12 22:50+0000\n"
-"PO-Revision-Date: 2020-11-08 15:17+0100\n"
+"POT-Creation-Date: 2020-11-08 14:26+0000\n"
+"PO-Revision-Date: 2020-12-16 01:31+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -25,464 +25,198 @@ msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016"
 
 #. (itstool) path: info/desc
-#: C/edit-adjustments.page:7
-msgid "Change the exposure, saturation, tint, and shadows of a photo."
-msgstr "Ändra exponering, mättnad, färgton och skuggorna för en bild."
+#: C/share-export.page:7
+msgid "Copy photos out of Shotwell so you can put them somewhere else."
+msgstr ""
+"Kopiera bilder från Shotwell så att du kan använda dem på andra ställen."
 
 #. (itstool) path: page/title
-#: C/edit-adjustments.page:12
-msgid "Color adjustments"
-msgstr "Färgjusteringar"
+#: C/share-export.page:12
+msgid "Exporting photos"
+msgstr "Exportera bilder"
 
 #. (itstool) path: page/p
-#: C/edit-adjustments.page:14
+#: C/share-export.page:14
 msgid ""
-"The <gui>Adjust</gui> button opens a floating window with a histogram and "
-"sliders to adjust a photo's exposure, saturation, tint, temperature, and "
-"shadows. The histogram also has sliders to reduce the upper and lower "
-"intensity thresholds of the photograph, expanding the contrast of the middle "
-"range."
+"To export photos from Shotwell via drag and drop, drag the photos from "
+"Shotwell onto a file manager window or your desktop. The new files will be "
+"full-sized copies of the photos in your library."
 msgstr ""
-"Knappen <gui>Justera</gui> öppnar ett fönster med ett histogram och "
-"skjutreglage för att justera en bilds exponering, mättnad, färgton, "
-"temperatur och skuggor. Histogrammet har också skjutreglaget för att minska "
-"de övre och lägre intensitetströsklarna för bilden, utökandes kontrasten för "
-"mittenområdet."
+"För att exportera bilder från Shotwell via dra-och-släpp, dra bilderna från "
+"Shotwell till ett filhanterarfönster eller ditt skrivbord. De nya filerna "
+"kommer att vara kopior av bilderna i ditt bibliotek."
 
 #. (itstool) path: page/p
-#: C/edit-adjustments.page:16
+#: C/share-export.page:18
 msgid ""
-"The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
-"improve the quality of a photo."
+"Alternatively, select a set of photos and choose the <guiseq><gui>File</"
+"gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
+"key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
+"you fine-tune the size and dimensions of your photo files. A window will "
+"appear allowing you to make several choices:"
 msgstr ""
-"Knappen <gui>Förbättra</gui> justerar histogram- och skuggskjutreglagen för "
-"att förbättra kvaliteten på en bild."
+"Alternativt kan du markera några bilder och välja <guiseq><gui>Arkiv</"
+"gui><gui>Exportera…</gui></guiseq>-kommandot eller trycka "
+"<keyseq><key>Skift</key><key>Ctrl</key><key>E</key></keyseq> som exporterar "
+"bilderna under tiden du finjusterar storlek och dimensioner på dina "
+"bildfiler. Ett fönster visas och låter dig göra följande val:"
+
+#. (itstool) path: item/p
+#: C/share-export.page:24
+msgid "A format for export."
+msgstr "Ett format för export."
+
+#. (itstool) path: item/p
+#: C/share-export.page:27
+msgid ""
+"Choose <gui>Unmodified</gui> to export photos in their original format "
+"without any edits made in Shotwell. RAW photos will be exported in their "
+"original RAW format."
+msgstr ""
+"Välj <gui>Oförändrad</gui> för att exportera bilderna i deras originalformat "
+"utan redigeringar gjorda i Shotwell. RAW-bilder kommer att exporteras i "
+"deras original-RAW-format."
+
+#. (itstool) path: item/p
+#: C/share-export.page:29
+msgid ""
+"Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
+"RAW photos will be exported in JPEG format if you have edited them in "
+"Shotwell, and otherwise in their original RAW format."
+msgstr ""
+"Välj <gui>Aktuellt</gui> för att exportera bilder med ändringar gjorda i "
+"Shotwell. RAW-bilder kommer att exporteras i JPEG-format om du har redigerat "
+"dem i Shotwell, annars i deras ursprungliga RAW-format."
+
+#. (itstool) path: item/p
+#: C/share-export.page:31
+msgid ""
+"Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
+"used for exporting. Any edits made in Shotwell will be included, and "
+"Shotwell will convert photos to the destination format."
+msgstr ""
+"Eller så kan du välja ett specifikt bildformat (JPEG, PNG, TIFF, BMP) för "
+"exporten. Ändringar gjorda i Shotwell kommer att inkluderas och Shotwell "
+"kommer att konvertera bilderna till målformatet."
+
+#. (itstool) path: item/p
+#: C/share-export.page:37
+msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
+msgstr "Bildkvaliteten för export (låg, mellan, hög eller maximal)"
+
+#. (itstool) path: item/p
+#: C/share-export.page:38
+msgid ""
+"A scaling constraint (which means how Shotwell will decide to scale the "
+"photos down), and the desired pixel size."
+msgstr ""
+"En skalningsbegränsning (vilket betyder hur Shotwell bestämmer hur bilderna "
+"ska skalas) och önskad bildpunktsstorlek."
+
+#. (itstool) path: item/title
+#: C/share-export.page:40
+msgid "Original size"
+msgstr "Ursprungsstorlek"
+
+#. (itstool) path: item/p
+#: C/share-export.page:40
+msgid "Image will be exported without any scaling applied"
+msgstr "Bilden kommer att exporteras utan att någon skalning tillämpas"
+
+#. (itstool) path: item/title
+#: C/share-export.page:41
+msgid "Longest edge"
+msgstr "Längsta kanten"
+
+#. (itstool) path: item/p
+#: C/share-export.page:41
+msgid ""
+"Image will be exported by having its longest edge scaled to <gui>Pixels</"
+"gui> and the other according to the aspect ratio"
+msgstr ""
+"Bilden kommer att exporteras med sin längsta kant skalad till "
+"<gui>Bildpunkter</gui> och den andra enligt bildförhållandet"
+
+#. (itstool) path: item/title
+#: C/share-export.page:42
+msgid "Width"
+msgstr "Bredd"
+
+#. (itstool) path: item/p
+#: C/share-export.page:42
+msgid ""
+"The image width will have its width scaled to the given pixel size and its "
+"height according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for landscape pictures."
+msgstr ""
+"Bildens bredd kommer att skalas till det angivna antalet bildpunkter och "
+"dess höjd enligt bildförhållandet. Detta är ekvivalent med <gui>Längsta "
+"kanten</gui> för liggande bilder."
+
+#. (itstool) path: item/title
+#: C/share-export.page:43
+msgid "Height"
+msgstr "Höjd"
+
+#. (itstool) path: item/p
+#: C/share-export.page:43
+msgid ""
+"The image height will have its height scaled to the given pixel size and its "
+"width according to the aspect ratio. This is equivalent to <gui>Longest "
+"Edge</gui> for portrait pictures."
+msgstr ""
+"Bildens höjd kommer att skalas till det angivna antalet bildpunkter och dess "
+"bredd enligt bildförhållandet. Detta är ekvivalent med <gui>Längsta kanten</"
+"gui> för stående bilder."
+
+#. (itstool) path: item/p
+#: C/share-export.page:46
+msgid ""
+"The option whether you like to export metadatas such as tags or ratings. "
+"This can help to save your privacy if you have geolocation tags or tags "
+"which shouldn't be seen by anyone."
+msgstr ""
+"Huruvida du vill exportera metadata som taggar eller betyg. Detta kan skydda "
+"din sekretess om du har geoplats-taggar eller taggar ingen bör se."
 
 #. (itstool) path: page/p
-#: C/edit-adjustments.page:18
+#: C/share-export.page:49
 msgid ""
-"When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
-"to save the changes. <gui>Reset</gui> will return the image to its original "
-"state. <gui>Cancel</gui> discards all changes you've made."
+"If selected, Shotwell will write tags, titles, and other metadata to the new "
+"files."
 msgstr ""
-"När du är nöjd med bildens färg och kontrast, tryck <gui>OK</gui> för att "
-"spara ändringarna. <gui>Återställ</gui> kommer att återställa bilden till "
-"dess ursprungliga tillstånd. <gui>Avbryt</gui> förkastar alla ändringar du "
-"har gjort."
-
-#. (itstool) path: section/title
-#: C/edit-adjustments.page:21
-msgid "What do the color adjustments do?"
-msgstr "Vad gör färgjusteringarna?"
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:24
-msgid "Exposure"
-msgstr "Exponering"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:25
-msgid ""
-"Changes the brightness to make it look like the photo was exposed for a "
-"longer or shorter time. Use this to correct under- or over-exposed photos."
-msgstr ""
-"Ändra ljusstyrkan för att få det att se ut som att bilden exponerades en "
-"längre eller kortare tid. Använd detta för att korrigera över- eller "
-"underexponerade bilder."
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:28
-msgid "Contrast"
-msgstr "Kontrast"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:29
-msgid ""
-"Changes the contrast of a photo. Use it to correct flat-looking photos or "
-"photos where the difference between bright and dark spots seems to big."
-msgstr ""
-"Ändrar kontrasten för en bild. Använd det för att korrigera bilder som ser "
-"platta ut eller bilder där skillnaden mellan ljusa och mörka partier verkar "
-"för stor."
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:32
-msgid "Saturation"
-msgstr "Mättnad"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:33
-msgid ""
-"Changes how vivid colors look. If your photo looks gray and washed out, try "
-"increasing the saturation. If colors look too bold, try decreasing it."
-msgstr ""
-"Ändrar hur levande färger uppfattas. Om din bild ser grå och urblekt ut, "
-"prova att öka mättnaden. Om färgerna är för starka, prova att minska den."
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:36
-msgid "Tint"
-msgstr "Tint"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:37
-msgid ""
-"This tints the photo with a color. It's useful for correcting photos taken "
-"with the wrong white balance setting, which typically have an unnatural "
-"color cast. For example, photos taken outdoors with the white balance set to "
-"\"Tungsten\" may have a blue cast."
-msgstr ""
-"Tonar bilden med en färg. Användbart för att korrigera bilder tagna med fel "
-"vitbalansinställning, som vanligen har en onaturlig färg. Exempelvis, bilder "
-"tagna utomhus med vitbalansen inställd till ”Tungsten” kan ha en blå toning."
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:40
-msgid "Temperature"
-msgstr "Temperatur"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:41
-msgid ""
-"Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
-"depressing scenes look more lively, for example."
-msgstr ""
-"Ändrar hur ”varm” eller ”kall” bilden ser ut. Använd exempelvis denna för "
-"att få kalla, deprimerande motiv att se mer levande ut."
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:44
-msgid "Shadows"
-msgstr "Skuggor"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:45
-msgid ""
-"This makes shadowy areas appear lighter. Use this to make detail more "
-"visible if it's obscured by the darkness of a shadow."
-msgstr ""
-"Får skuggområden att se ljusare ut. Använd denna för att få fram fler "
-"detaljer om något döljs av skuggor."
-
-#. (itstool) path: item/title
-#: C/edit-adjustments.page:48
-msgid "Intensity Threshold (sliders on the histogram)"
-msgstr "Intensitettröskelvärde (skjutreglage på histogrammet)"
-
-#. (itstool) path: item/p
-#: C/edit-adjustments.page:49
-msgid ""
-"These sliders change how light the brightest white is and how dark the "
-"darkest black is. Use them to change the contrast of the photo. Photos which "
-"look washed out should particularly benefit from changing these settings."
-msgstr ""
-"Skjutreglagen ändrar hur ljus den ljusaste vit är, och hur mörk den mörkaste "
-"svarta är. Använd dem för att ändra kontrasten på en bild. Speciellt bilder "
-"som ser urblekta ut bör ha nytta av att ändra dessa inställningar."
+"Om valt kommer Shotwell att skriva taggar, titlar och annan metadata till de "
+"nya filerna."
 
 #. (itstool) path: info/desc
-#: C/edit-crop.page:7
-msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr ""
-"Förbättra sammansättningen för en bild genom att klippa bort delar från den."
+#: C/organize-title.page:7
+msgid "Give titles to your photos."
+msgstr "Namnge dina bilder."
 
 #. (itstool) path: page/title
-#: C/edit-crop.page:12
-msgid "Cropping"
-msgstr "Beskär"
+#: C/organize-title.page:12
+msgid "Titles"
+msgstr "Namn"
 
 #. (itstool) path: page/p
-#: C/edit-crop.page:14
+#: C/organize-title.page:14
 msgid ""
-"To reduce the area of a photo and concentrate the viewer's attention on a "
-"smaller portion of it, use the Crop tool. The crop tool is only available in "
-"full-window or fullscreen mode."
+"The <guiseq><gui>View</gui><gui>Titles</gui></guiseq> checkbox toggles the "
+"display of titles beneath each photo. By default, a photo's title is its "
+"filename."
 msgstr ""
-"För att minska området för en bild och fånga betraktarens uppmärksamhet till "
-"ett mindre område, använd verktyget beskär. Verktyget beskär är endast "
-"tillgängligt i helfönster- eller helskärmsläge."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:19
-msgid ""
-"Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
-"gui> button on the toolbar."
-msgstr ""
-"Dubbelklicka på en bild för att ange helskärmsläge och tryck sedan på "
-"knappen <gui>Beskär</gui> i verktygsfältet."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:22
-msgid ""
-"A white box, the crop rectangle, will appear over the photo. The lighter "
-"portion of the photo within the crop rectangle represents what the photo "
-"will look like when you crop it."
-msgstr ""
-"En vit ruta, beskärningsrektangeln kommer att visas på bilden. Den ljusare "
-"delen av bilden inuti beskärningsrektangeln representerar hur bilden kommer "
-"att se ut efter att den är beskuren."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:25
-msgid ""
-"If you place your cursor in the middle of the box, you can move the box "
-"around. If you drag the edges of the box, you can adjust its size. As you "
-"move and adjust the crop box, you'll see four lines appear inside it, like a "
-"tic-tac-toe grid. These are <em>rule of thirds</em> lines."
-msgstr ""
-"Om du placerar din markör i mitten på rutan kan du också flytta runt rutan. "
-"Om du drar i kanterna på rutan kan du justera dess storlek. När du flyttar "
-"runt och justerar rutan kommer du att se fyra linjer inuti den, ungefär som "
-"ett rutnät i luffarschack. Det är linjer för <em>tredelningsregeln</em>."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:26
-msgid ""
-"You can also constrain the crop box to one of many common sizes. Choose a "
-"size from the drop-down list that suits your needs. If you press the flip "
-"button next to it, the orientation of the constraint will switch (from "
-"landscape to portrait)."
-msgstr ""
-"Du kan också begränsa beskärningsrutan till en av många vanliga storlekar. "
-"Välj en storlek från rullgardinsmenyn som passar dig. Om du trycker "
-"vändknappen bredvid den kommer riktningen av begränsningen att växla (från "
-"landskap till porträtt)."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:29
-msgid ""
-"When you're happy with your crop outline, apply it by pressing the "
-"<gui>Crop</gui> button. Shotwell will display the cropped photo."
-msgstr ""
-"Verkställ din beskärning när du är nöjd med den genom att trycka på knappen "
-"<gui>Beskär</gui>. Shotwell kommer att visa den beskurna bilden."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:32
-msgid ""
-"If you change your mind, press the <gui>Crop</gui> button again and fine-"
-"tune the crop."
-msgstr ""
-"Om du ändrar dig, tryck knappen <gui>Beskär</gui> igen och finjustera "
-"beskärningen."
-
-#. (itstool) path: item/p
-#: C/edit-crop.page:33
-msgid ""
-"If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
-"return to the photo's previous crop dimensions."
-msgstr ""
-"Om du trycker <gui>Avbryt</gui> istället för <gui>Verkställ</gui> kommer "
-"Shotwell att återgå till en bilds tidigare dimensioner."
-
-#. (itstool) path: section/title
-#: C/edit-crop.page:38
-msgid "What is the rule of thirds?"
-msgstr "Vad är tredelningsregeln?"
-
-#. (itstool) path: section/p
-#: C/edit-crop.page:39
-msgid ""
-"The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
-"photo."
-msgstr ""
-"<em>Tredelningsregeln</em> hjälper dig att välja en angenäm sammansättning "
-"för en bild."
-
-#. (itstool) path: section/p
-#: C/edit-crop.page:40
-msgid ""
-"Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
-"vertical lines and two equally-spaced horizontal lines. According to the "
-"rule, you're more likely to get a pleasing composition if you align major "
-"features (like the horizon, or a person's body) with one of the lines. "
-"Paying attention to the way features flow from one part of the grid to "
-"another can also help."
-msgstr ""
-"Föreställ dig att en scen delas upp i ett 3x3-rutnät med två vertikala "
-"linjer och två horisontella linjer, alla med samma avstånd sinsemellan. "
-"Enligt regeln får du en bättre sammansättning om du justerar större "
-"egenskaper (som horisonten eller en persons kropp) med en av linjerna. Att "
-"observera sättet egenskaper flödar från en del av rutnätet till ett annat "
-"kan också hjälpa."
-
-#. (itstool) path: section/p
-#: C/edit-crop.page:41
-msgid ""
-"Cropping a photo so that it conforms to the rule of thirds often results in "
-"a more visually appealing image."
-msgstr ""
-"Att beskära en bild så att den passar under tredelningsregeln ger ofta en "
-"visuellt tilltalande bild."
-
-#. (itstool) path: section/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/edit-crop.page:42
-msgctxt "_"
-msgid ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-msgstr ""
-"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
-
-#. (itstool) path: media/p
-#: C/edit-crop.page:43
-msgid ""
-"Cropping a photo, using the \"rule of thirds\" lines to improve the "
-"composition."
-msgstr ""
-"Att beskära en bild och använda ”tredelningsregeln” för att förbättra "
-"sammansättningen."
-
-#. (itstool) path: info/desc
-#: C/edit-date-time.page:7
-msgid "Change the date and time of photos if those details are incorrect."
-msgstr "Ändra datum och tid för bilder om de inte stämmer."
-
-#. (itstool) path: page/title
-#: C/edit-date-time.page:12
-msgid "Adjust the date and time of photos"
-msgstr "Justera datum och tid för bilder"
+"Kryssrutan <guiseq><gui>Visa</gui><gui>Titlar</gui></guiseq> aktiverar "
+"visningen av titlar under varje bild. Som standard är en bilds namn dess "
+"filnamn."
 
 #. (itstool) path: page/p
-#: C/edit-date-time.page:14
+#: C/organize-title.page:17
 msgid ""
-"To adjust the date and time of photos, select the photos you would like to "
-"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
-"guiseq> and select a new date and time."
+"To change a photo's title, select the photo and click <guiseq><gui>Photos</"
+"gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
 msgstr ""
-"För att justera datum och tid för bilder, markera de bilder du vill justera, "
-"välj <guiseq><gui>Bilder</gui><gui>Justera datum och tid…</gui></guiseq> och "
-"markera nytt datum och tid."
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:16
-msgid ""
-"If you are changing the date and time of multiple photos at once, you can "
-"choose to shift all the photos by the same amount of time or to set all the "
-"photos to the same time."
-msgstr ""
-"Om du ändrar datum och tid för flera bilder samtidigt kan du välja att ändra "
-"tiden för alla bilder eller ange samma tid för alla bilder samtidigt."
-
-#. (itstool) path: page/p
-#: C/edit-date-time.page:18
-msgid ""
-"By default, the date and time are only changed inside Shotwell. You can also "
-"choose to modify the date and time in the original file, but this cannot be "
-"undone once you exit Shotwell."
-msgstr ""
-"Som standard ändras datum och tid endast i Shotwell. Du kan också välja att "
-"ändra datum och tid i originalfilen, men det kan inte ångras när du väl har "
-"avslutat Shotwell."
-
-#. (itstool) path: info/desc
-#: C/edit-enhance.page:7
-msgid ""
-"Let Shotwell improve the brightness and contrast of a photo automatically."
-msgstr ""
-"Låt Shotwell förbättra ljusstyrka och kontrast för en bild automatiskt."
-
-#. (itstool) path: page/title
-#: C/edit-enhance.page:14
-msgid "Auto-enhance"
-msgstr "Autoförbättra"
-
-#. (itstool) path: page/p
-#: C/edit-enhance.page:16
-msgid ""
-"Clicking on the <gui>Enhance</gui> button is a quick way to automatically "
-"adjust the brightness and contrast of your photo. It will often give you a "
-"photo that is correctly exposed. You can also use it as a starting point and "
-"then improve the adjustments by clicking on the <gui>Adjust</gui> button."
-msgstr ""
-"Att klicka på knappen <gui>Förbättra</gui> är ett snabbt sätt att "
-"automatiskt justera ljusstyrkan och kontrasten för din bild. Det ger ofta en "
-"bild som är korrekt exponerad. Du kan också använda det som en startpunkt "
-"och sedan förbättra justeringarna genom att klicka på knappen <gui>Justera</"
-"gui>."
-
-#. (itstool) path: info/desc
-#: C/edit-external.page:7
-msgid "Use a different program to edit a photo."
-msgstr "Använda ett annat program för att redigera en bild."
-
-#. (itstool) path: page/title
-#: C/edit-external.page:12
-msgid "Edit photos with an external program"
-msgstr "Redigera bilder med ett externt program"
-
-#. (itstool) path: page/p
-#: C/edit-external.page:16
-msgid ""
-"You might want to use an external editor to do additional work on a photo. "
-"If installed, GIMP and UFRaw are the default external editors for photo and "
-"RAW editing, respectively. If these programs are not installed, you must "
-"select your preferred editors by choosing <guiseq><gui>Edit</"
-"gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
-"menus of installed applications."
-msgstr ""
-"Du kan vilja använda en extern redigerare för att utföra ytterligare arbete "
-"på en bild. Om installerade så är GIMP och UFRaw de externa "
-"standardredigerarna för bilder och RAW-redigering. Om dessa program inte är "
-"installerade måste du välja dina föredragna redigerare genom att välja "
-"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq> och markera "
-"redigerare från rullgardinsmenyn för installerade program."
-
-#. (itstool) path: page/p
-#: C/edit-external.page:24
-msgid ""
-"Once your editors have been set, select a photo and choose "
-"<guiseq><gui>Photos</gui> <gui>Open With External Editor</gui></guiseq> to "
-"open the photo with the external editor. Likewise, if the original photo is "
-"a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
-"guiseq> to edit the RAW file directly with the set RAW editor."
-msgstr ""
-"När redigerare väl har angetts, markera en bild och väljs "
-"<guiseq><gui>Bilder</gui> <gui>Öppna med extern redigerare</gui></guiseq> "
-"för att öppna bilden med den externa redigeraren. På samma sätt, om "
-"originalbilden är en RAW-fil, välj <guiseq><gui>Bilder</gui><gui>Öppna med "
-"RAW-redigerare</gui></guiseq> för att redigera RAW-filen med den valda RAW-"
-"redigeraren."
-
-#. (itstool) path: page/p
-#: C/edit-external.page:31
-msgid ""
-"When you complete your edits and save the file, Shotwell will detect the "
-"changes and update the photo. When external edits have been made, press and "
-"hold the <key>Shift</key> key in full-window view to show the original photo "
-"rather than the externally-edited one."
-msgstr ""
-"När du är klar med redigering och sparar filen kommer Shotwell att upptäcka "
-"ändringarna och uppdatera bilden. Om externa ändringar har skett, tryck och "
-"håll <key>Skift</key>-tangenten i helskärmsvyn för att visa originalbilden "
-"istället för den externt redigerade."
-
-#. (itstool) path: page/p
-#: C/edit-external.page:38
-msgid "Reverting to original will erase any external edits."
-msgstr "Återställning till originalet kommer att radera externa ändringar."
-
-#. (itstool) path: note/p
-#: C/edit-external.page:43
-msgid ""
-"If you externally edit a RAW photo and save the result to another image, "
-"such as a JPEG or PNG, Shotwell cannot automatically determine that the "
-"original RAW and the new image should be paired."
-msgstr ""
-"Om du externt redigerar en RAW-bild och sparar resultatet till en annan "
-"bild, som JPEG eller PNG, kan inte Shotwell automatiskt bestämma att den "
-"ursprungliga RAW-filen och den nya bilden ska kopplas samman."
-
-#. (itstool) path: note/p
-#: C/edit-external.page:49
-msgid ""
-"If you want to work within the resulting image within Shotwell, you'll need "
-"to import it yourself."
-msgstr ""
-"Om du vill arbeta med bildresultatet i Shotwell måste du importera det."
+"För att ändra en bilds titel, markera bilden och klicka <guiseq><gui>Bilder</"
+"gui><gui>Redigera titel…</gui></guiseq> eller tryck <key>F2</key>."
 
 #. (itstool) path: info/desc
 #: C/edit-nondestructive.page:7
@@ -534,6 +268,161 @@ msgstr ""
 "Observera att Shotwell valfritt kan skriva metadata (som taggar och namn) "
 "till bildfiler. För mer information, se avsnittet <link xref=\"other-files"
 "\">Bildfiler</link>."
+
+#. (itstool) path: info/desc
+#: C/organize-search.page:7
+msgid "Find photos and videos in your collection by a variety of criteria."
+msgstr "Hitta bilder och filmer i din samling med blandade kriterier."
+
+#. (itstool) path: page/title
+#: C/organize-search.page:12
+msgid "Searching"
+msgstr "Söka"
+
+#. (itstool) path: page/p
+#: C/organize-search.page:14
+msgid ""
+"There are two ways to search in Shotwell: the filter toolbar, and with a "
+"saved search. The search bar allows you to quickly search the current view "
+"for certain criteria. Saved Searches feature more complex search criteria "
+"and persist in the sidebar between sessions."
+msgstr ""
+"Det finns två sätt att söka på i Shotwell: filterverktygsfältet och med en "
+"sparad sökning. Sökfältet låter dig snabbt söka aktuell vy efter specifika "
+"kriterier. Sparade sökningar erbjuder komplexare sökningskriterier och "
+"lagring i sidopanelen mellan sessioner."
+
+#. (itstool) path: section/title
+#: C/organize-search.page:21
+msgid "Search bar"
+msgstr "Sökfältet"
+
+#. (itstool) path: section/p
+#: C/organize-search.page:22
+msgid ""
+"The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles "
+"the display of the search bar. You can also hit <keyseq><key>Ctrl</"
+"key><key>F</key></keyseq> or <key>F8</key> to bring up the search bar. From "
+"this bar, you can find, show and hide photos and videos based on title, tag, "
+"rating or other options."
+msgstr ""
+"Kryssrutan <guiseq><gui>Visa</gui><gui>Sökfält</gui></guiseq> visar eller "
+"döljer sökfältet. Du kan också trycka <keyseq><key>Ctrl</key><key>F</key></"
+"keyseq> eller <key>F8</key> för att lyfta fram sökfältet. Från detta fält "
+"kan du hitta, visa och dölja bilder och filmer baserat på namn, tagg, betyg "
+"eller andra alternativ."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:29
+msgid ""
+"To begin searching, simply enter a search keyword in the text box, or click "
+"on <gui>Flagged</gui>, <gui>Rating</gui> or <gui>Type</gui>. The text search "
+"matches your keywords across tag names, photo or video titles and photos' "
+"original filenames. The <gui>Flagged</gui>, <gui>Rating</gui> and <gui>Type</"
+"gui> buttons allow you to filter your collection by whether photos are "
+"flagged, their current number of stars, and whether the items shown are "
+"images, videos, or raw camera files, respectively."
+msgstr ""
+"För att börja söka, ange ett söknyckelord i textfältet, eller klicka på "
+"<gui>Flaggade</gui>, <gui>Betyg</gui> eller <gui>Typ</gui>. Textsökning "
+"matchar dina nyckelord över taggnamn, bild eller videonamn och bilders "
+"originalfilnamn. Knapparna <gui>Flaggade</gui>, <gui>Betyg</gui> och "
+"<gui>Typ</gui> låter dig filtrera din samling med flaggade bilder, deras "
+"aktuella nummer av stjärnor och huruvida objekten är bilder, filmer eller "
+"råa kamerafiler."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:38
+msgid ""
+"Disabling the search bar or exiting Shotwell automatically resets the search "
+"bar."
+msgstr ""
+"Att inaktivera sökfältet eller avsluta Shotwell automatiskt återställer "
+"sökfältet."
+
+#. (itstool) path: section/title
+#: C/organize-search.page:44
+msgid "Saved search"
+msgstr "Sparad sökning"
+
+#. (itstool) path: section/p
+#: C/organize-search.page:45
+msgid ""
+"A saved search persists across Shotwell sessions, and is updated as photos "
+"and videos are added and removed from your Shotwell library."
+msgstr ""
+"En sparad sökning lagras över Shotwell-sessioner och uppdateras då bilder "
+"och filmer läggs till och tas bort från ditt Shotwell-bibliotek."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:50
+msgid ""
+"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
+"Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>. The dialog box allows you to enter a name for the search and select "
+"whether you want to meet Any, All, or None of the criteria in the following "
+"rows."
+msgstr ""
+"Skapa en ny sparad sökning med <guiseq><gui>Redigera</gui><gui>Ny sökning…</"
+"gui></guiseq> eller genom att trycka <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>. Dialogrutan låter dig ange ett namn för sökningen och välja "
+"huruvida du vill uppfylla några, alla eller inga av kriterierna i följande "
+"rader."
+
+#. (itstool) path: section/p
+#: C/organize-search.page:56
+msgid ""
+"Each row represents a search criterion. Use the <gui>+</gui> button to add "
+"more rows, and the <gui>-</gui> button to remove a specific row. The combo "
+"box on the left of each row selects the type of criteria. Criteria must be "
+"entered correctly before the <gui>OK</gui> button becomes available."
+msgstr ""
+"Varje rad representerar ett sökkriterium. Använd <gui>+</gui>-knappen för "
+"att lägga till flera rader och <gui>-</gui>knappen för att ta bort en "
+"specifik rad. Komborutan till vänster för varje rad väljer kriterietyp. "
+"Kriterier måste anges korrekt innan <gui>OK</gui>-knappen blir tillgänglig."
+
+#. (itstool) path: info/desc
+#: C/edit-date-time.page:7
+msgid "Change the date and time of photos if those details are incorrect."
+msgstr "Ändra datum och tid för bilder om de inte stämmer."
+
+#. (itstool) path: page/title
+#: C/edit-date-time.page:12
+msgid "Adjust the date and time of photos"
+msgstr "Justera datum och tid för bilder"
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:14
+msgid ""
+"To adjust the date and time of photos, select the photos you would like to "
+"adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
+"guiseq> and select a new date and time."
+msgstr ""
+"För att justera datum och tid för bilder, markera de bilder du vill justera, "
+"välj <guiseq><gui>Bilder</gui><gui>Justera datum och tid…</gui></guiseq> och "
+"markera nytt datum och tid."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:16
+msgid ""
+"If you are changing the date and time of multiple photos at once, you can "
+"choose to shift all the photos by the same amount of time or to set all the "
+"photos to the same time."
+msgstr ""
+"Om du ändrar datum och tid för flera bilder samtidigt kan du välja att ändra "
+"tiden för alla bilder eller ange samma tid för alla bilder samtidigt."
+
+#. (itstool) path: page/p
+#: C/edit-date-time.page:18
+msgid ""
+"By default, the date and time are only changed inside Shotwell. You can also "
+"choose to modify the date and time in the original file, but this cannot be "
+"undone once you exit Shotwell."
+msgstr ""
+"Som standard ändras datum och tid endast i Shotwell. Du kan också välja att "
+"ändra datum och tid i originalfilen, men det kan inte ångras när du väl har "
+"avslutat Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-redeye.page:7
@@ -652,447 +541,62 @@ msgid ""
 msgstr "Om du väljer mer än en bild så kan du rotera dem samtidigt."
 
 #. (itstool) path: info/desc
-#: C/edit-straighten.page:7
-msgid "Straighten a photo so that its horizon appears level."
-msgstr "Räta ut en bild så att dess horisont blir rak."
+#: C/view-information.page:7
+msgid ""
+"View more detailed information about photos, like the exposure mode used by "
+"the camera."
+msgstr ""
+"Visa detaljerad information om bilder, som exponeringsläge använt av kameran."
 
 #. (itstool) path: page/title
-#: C/edit-straighten.page:12
-msgid "Straighten photos"
-msgstr "Räta ut bilder"
+#: C/view-information.page:12
+msgid "Basic and extended information"
+msgstr "Grundläggande och utökad information"
 
 #. (itstool) path: page/p
-#: C/edit-straighten.page:14
+#: C/view-information.page:14
 msgid ""
-"The straighten tools allows photos to be leveled and straightened. The "
-"straighten tool is only available in full-window or fullscreen mode."
+"The Basic Information pane appears at the bottom of the sidebar, and "
+"displays a brief summary of the photos you've selected. If no photos are "
+"selected, it displays a summary of the entire collection. You can toggle the "
+"display of this pane using the <guiseq><gui>View</gui><gui>Basic "
+"Information</gui></guiseq> command."
 msgstr ""
-"Verktygen för att räta ut bilder låter dem rätas ut och plattas till. "
-"Verktyget för att räta ut är endast tillgängligt i helskärms- eller "
-"helfönsterläge."
-
-#. (itstool) path: item/p
-#: C/edit-straighten.page:18
-msgid ""
-"Click <gui>Straighten</gui>. The straighten slider will appear. "
-"Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
-"key></keyseq>."
-msgstr ""
-"Klicka <gui>Räta ut</gui>. Skjutreglaget för att räta ut visas. Alternativt, "
-"använd tangentbordskombinationen <keyseq><key>Ctrl</key><key>A</key></"
-"keyseq>."
-
-#. (itstool) path: item/p
-#: C/edit-straighten.page:21
-msgid "Drag the slider to achieve the desired degree of straightening."
-msgstr "Dra i skjutreglaget för att uppnå önska grad av uträtning."
-
-#. (itstool) path: item/p
-#: C/edit-straighten.page:24
-msgid "Press <gui>Straighten</gui> when finished."
-msgstr "Tryck <gui>Räta ut</gui> när klar."
-
-#. (itstool) path: info/desc
-#: C/edit-undo.page:7
-msgid "Return a photo to its original, unedited form."
-msgstr "Återställa en bild till dess ursprungliga oredigerade skick."
-
-#. (itstool) path: page/title
-#: C/edit-undo.page:14
-msgid "Undoing changes"
-msgstr "Ånga ändringar"
+"Panelen för grundläggande information visas längst ned i sidopanelen och ger "
+"en kortfattad sammanfattning av de bilder du har markerat. Om inga bilder är "
+"markerade visar den en sammanfattning av hela samlingen. Du kan växla "
+"visningen av denna panel genom att använda <guiseq><gui>Visa</"
+"gui><gui>Grundläggande information</gui></guiseq>-kommandot."
 
 #. (itstool) path: page/p
-#: C/edit-undo.page:16
+#: C/view-information.page:16
 msgid ""
-"Because Shotwell is a non-destructive photo editor, you can undo any "
-"alterations you make to a photograph."
+"The map pane appears at the bottom of the sidebar as part of the Basic "
+"Information pane, and displays an overview map the photos you've selected. "
+"If no photos are selected, it displays an overview of the entire collection. "
+"You can toggle the display of this pane using the <guiseq><gui>View</"
+"gui><gui>Map Overview</gui></guiseq> command. Note that the map will only "
+"show when the Basic Information pane is displayed."
 msgstr ""
-"Eftersom Shotwell är en förlustfri bildredigerare kan du ångra ändringar du "
-"gjort i en bild."
+"Kartpanelen visas längst ned i sidopanelen som en del av panelen för "
+"grundläggande information, och visar en översiktskarta över de bilder du har "
+"markerat. Om inga bilder är markerade visar den en översikt över hela "
+"samlingen. Du kan växla visningen av denna panel genom att använda kommandot "
+"<guiseq><gui>Visa</gui><gui>Översiktskarta</gui></guiseq>. Observera att "
+"kartan bara kommer visas när panelen för grundläggande information visas."
 
 #. (itstool) path: page/p
-#: C/edit-undo.page:20
+#: C/view-information.page:18
 msgid ""
-"To completely undo all the changes you've made to a photo, click "
-"<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
-"exception is that time and date adjustments will not be reverted."
+"The floating Extended Information window displays more information about the "
+"selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
+"guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
+"keyseq> toggles the display of this window."
 msgstr ""
-"För att helt ångra alla dina ändringar till en bild, klicka "
-"<guiseq><gui>Bilder</gui><gui>Återställ till original</gui></guiseq>. Det "
-"enda undantaget är att tid- och datumjusteringar inte kommer att återställas."
-
-#. (itstool) path: info/desc
-#: C/formats.page:7
-msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
-"files."
-msgstr ""
-"Shotwell stödjer JPEG, PNG, TIFF, BMP och RAW-bilder såväl som filmfiler."
-
-#. (itstool) path: page/title
-#: C/formats.page:12
-msgid "Supported photo and video formats"
-msgstr "Bild- och videoformat som stöds"
-
-# TODO:format->formats?
-#. (itstool) path: page/p
-#: C/formats.page:14
-msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
-"link> photo files. Shotwell does not yet support other graphics format such "
-"as GIF."
-msgstr ""
-"Shotwell stödjer JPEG, PNG, TIFF, BMP och <link xref=\"other-raw\">RAW</"
-"link>-bildfiler. Shotwell stödjer inte ännu andra grafikformat som GIF."
-
-#. (itstool) path: page/p
-#: C/formats.page:16
-msgid ""
-"Shotwell's RAW format support is currently limited. When you view a RAW "
-"photo, you are actually viewing a JPEG derived from the RAW photo, not the "
-"RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
-"- you can only export edited photos as 8-bit files. All supported formats "
-"can be used for export (JPEG, PNG, TIFF, BMP)."
-msgstr ""
-"Shotwells RAW-formatstöd är för tillfället begränsat. När du visar en RAW-"
-"bild visar du egentligen en JPEG som härstammar från RAW-bilden, inte själva "
-"RAW-bilden. Dessutom är RAW-redigeringsflödet inte helt 16-bitars - du kan "
-"bara exportera redigerade bilder som 8-bitars filer. Alla format som stöds "
-"kan användas för export (JPEG, PNG, TIFF, BMP)."
-
-#. (itstool) path: page/p
-#: C/formats.page:18
-msgid ""
-"For more information about RAW-format photos in Shotwell, please see the "
-"<link xref=\"other-raw\">RAW</link> section."
-msgstr ""
-"För mer information om RAW-formatbilder i Shotwell, se avsnittet <link xref="
-"\"other-raw\">RAW</link>."
-
-#. (itstool) path: page/p
-#: C/formats.page:22
-msgid ""
-"Shotwell also supports video files in any format supported by the GStreamer "
-"media library on the system where Shotwell is running. This typically "
-"includes the following formats among others:"
-msgstr ""
-"Shotwell stödjer också filmfiler i format som GStreamer mediabibliotek "
-"stödjer, på systemet där Shotwell körs. Normalt inkluderar det följande "
-"format, bland andra:"
-
-#. (itstool) path: item/p
-#: C/formats.page:25
-msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr "Behållarformat: Ogg, QuickTime, MP4, AVI."
-
-#. (itstool) path: item/p
-#: C/formats.page:26
-msgid ""
-"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
-"systems may not include all codecs listed here due to legal or licensing "
-"restrictions.</em>"
-msgstr ""
-"Kodekar: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Observera att vissa "
-"operativsystem kanske inte inkluderar kodekarna listade här på grund av "
-"juridiska eller licensbaserade begränsningar.</em>"
-
-#. (itstool) path: page/p
-#: C/formats.page:30
-msgid ""
-"Shotwell supports both photos and videos, but for simplicity, this "
-"documentation uses just the term \"photos\" in most places. Many operations "
-"in Shotwell apply to both photos and videos, however. In particular, events, "
-"flagging, rating, tagging, and publishing work both for photos and for "
-"videos."
-msgstr ""
-"Shotwell stödjer både bilder och filmer, men för enkelhetens skull använder "
-"dokumentationen termen ”bilder” på de flesta ställen. Flera operationer i "
-"Shotwell gäller dock för bild och filmer. Speciellt händelser, att flagga, "
-"betygsätta, tagga och publicera fungerar för både bilder och filmer."
-
-#. (itstool) path: info/desc
-#: C/import-camera.page:7
-msgid "Copy photos from a digital camera."
-msgstr "Kopiera bilder från en digital kamera."
-
-#. (itstool) path: page/title
-#: C/import-camera.page:12
-msgid "Importing from a camera"
-msgstr "Importera från en kamera"
-
-#. (itstool) path: page/p
-#: C/import-camera.page:14
-msgid "To import photos from a digital camera:"
-msgstr "Att importera bilder från en digitalkamera:"
-
-#. (itstool) path: item/p
-#: C/import-camera.page:18
-msgid ""
-"Connect the camera to your computer and switch it on. Shotwell will detect "
-"it and list it in the sidebar."
-msgstr ""
-"Anslut kameran till din dator och slå på den. Shotwell kommer att upptäcka "
-"den och lista den i sidopanelen."
-
-#. (itstool) path: item/p
-#: C/import-camera.page:22
-msgid ""
-"Select the camera in the sidebar. Previews of each photo on the camera will "
-"be displayed."
-msgstr ""
-"Välj kameran i sidopanelen. Förhandsvisningar av varje bild på kameran "
-"kommer att visas."
-
-#. (itstool) path: item/p
-#: C/import-camera.page:25
-msgid ""
-"If you like, you can choose a set of specific photos to import. To do this, "
-"hold down the <key>Ctrl</key> key and click to select individual photos. You "
-"can hold down <key>Shift</key> and click to select a range of photos too."
-msgstr ""
-"Om du vill kan du välja en samling specifika bilder att importera. För att "
-"göra detta, håll ner tangenten <key>Ctrl</key> och klicka för att markera "
-"individuella bilder. Du kan också hålla ner <key>Skift</key> och klicka för "
-"att markera ett intervall av bilder."
-
-#. (itstool) path: item/p
-#: C/import-camera.page:28
-msgid ""
-"Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
-"will be copied from the camera and saved on your computer."
-msgstr ""
-"Klicka antingen <gui>Importera markerade</gui> eller <gui>Importera alla</"
-"gui>. Bilderna kommer att kopieras från kameran och sparas på din dator."
-
-#. (itstool) path: page/p
-#: C/import-camera.page:32
-msgid ""
-"Once the import is complete, you can open the <gui>Last Import</gui> view "
-"(in the sidebar) to see all photos that were imported. The Events list (also "
-"in the sidebar) will also show the new photos, organized by date."
-msgstr ""
-"När importen är klar kan du öppna vyn <gui>Senast importerade</gui> (i "
-"sidopanelen) för att se alla bilder som importerades. Händelselistan (också "
-"i sidopanelen) kommer att visa de nya bilderna, ordnade efter datum."
-
-#. (itstool) path: info/desc
-#: C/import-file.page:7
-msgid "Import photos that are already saved on your computer."
-msgstr "Importera bilder som redan är sparade på din dator."
-
-#. (itstool) path: page/title
-#: C/import-file.page:12
-msgid "Importing from your hard disk"
-msgstr "Importera från din hårddisk"
-
-#. (itstool) path: page/p
-#: C/import-file.page:14
-msgid ""
-"To import photo files from your hard disk into Shotwell, just drag them from "
-"your file browser into the Shotwell window."
-msgstr ""
-"För att importera bildfiler från din hårddisk till Shotwell, dra dem från "
-"din filhanterare till Shotwell-fönstret."
-
-#. (itstool) path: page/p
-#: C/import-file.page:16
-msgid ""
-"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
-"gui></guiseq> and select the folder containing the photos you want to "
-"import. If you do not want Shotwell to recurse into subfolders while "
-"importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
-"on the bottom of the file dialog."
-msgstr ""
-"Alternativt, klicka <guiseq><gui>Arkiv</gui><gui>Importera från mapp…</gui></"
-"guiseq> och markera mappen som innehåller de bilder du vill importera. Om du "
-"inte vill att Shotwell rekursivt ska gå in i undermappar under import kan du "
-"avmarkera kryssrutan <gui>Gå rekursivt in i undermappar</gui> längst ner i "
-"fildialogen."
-
-#. (itstool) path: page/p
-#: C/import-file.page:18
-msgid ""
-"Shotwell will ask whether you want to copy the photo files to your library "
-"folder (usually this is the <file>Pictures</file> folder in your home "
-"directory) or to import them in place without copying the files."
-msgstr ""
-"Shotwell kommer att fråga huruvida du vill kopiera bildfiler till din "
-"biblioteksmapp (vanligtvis mappen <file>Bilder</file> i din hemkatalog) "
-"eller importera dem direkt utan att kopiera filerna."
-
-#. (itstool) path: page/p
-#: C/import-file.page:20
-msgid ""
-"If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
-"copy the photos into your library folder without prompting. Similarly, if "
-"you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
-"dragging photos in, Shotwell will import the photos without copying them."
-msgstr ""
-"Om du håller ner <key>Ctrl</key> när du drar in bilder kommer Shotwell att "
-"kopiera bilderna till din biblioteksmapp utan att fråga. På samma sätt, om "
-"du håller ner <keyseq><key>Ctrl</key><key>Skift</key></keyseq> medan du drar "
-"in bilder kommer Shotwell att importera bilderna utan att kopiera dem."
-
-#. (itstool) path: page/p
-#: C/import-file.page:22
-msgid ""
-"Once the import is complete, you can select <gui>Last Import</gui> in the "
-"sidebar to see all photos successfully imported. The Events list will also "
-"show new entries for the dates corresponding to the imported photos."
-msgstr ""
-"När importen är färdig kan du välja <gui>Senaste import</gui> i sidopanelen "
-"för att se alla importerade bilder. Händelselistan kommer också att visa nya "
-"poster för datumen som motsvarar de importerade bilderna."
-
-#. (itstool) path: info/desc
-#: C/import-memorycard.page:7
-msgid "Import photos from a digital camera's memory card."
-msgstr "Importera bilder från en digitalkameras minneskort."
-
-#. (itstool) path: page/title
-#: C/import-memorycard.page:12
-msgid "Importing from a memory card"
-msgstr "Importera från ett minneskort"
-
-#. (itstool) path: page/p
-#: C/import-memorycard.page:14
-msgid "To import photos from a camera memory card:"
-msgstr "För att importera bilder från en kameras minneskort:"
-
-#. (itstool) path: item/p
-#: C/import-memorycard.page:18
-msgid ""
-"Put the card into your card reader. Make sure the card reader is plugged in "
-"to the computer and switched on."
-msgstr ""
-"Stoppa i kortet i din kortläsare. Försäkra dig om att kortläsaren är "
-"ansluten till datorn och påslagen."
-
-#. (itstool) path: item/p
-#: C/import-memorycard.page:21
-msgid "The card reader and card should be detected automatically."
-msgstr "Kortläsaren och kortet bör upptäckas automatiskt."
-
-#. (itstool) path: item/p
-#: C/import-memorycard.page:24
-msgid ""
-"Follow the instructions for <link xref=\"import-file\">importing photos from "
-"your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
-"Folder...</gui></guiseq>, the memory card should be visible as a folder in "
-"the side bar of the file selection window."
-msgstr ""
-"Följ instruktionerna för att <link xref=\"import-file\">importera bilder "
-"från din hårddisk</link>. Om du klickar <guiseq><gui>Arkiv</"
-"gui><gui>Importera från mapp…</gui></guiseq> bör minneskortet synas som en "
-"mapp i sidopanelen för filväljarfönstret."
-
-#. (itstool) path: page/p
-#: C/import-memorycard.page:28
-msgid ""
-"Shotwell can import photos from any memory card that is compatible with your "
-"card reader."
-msgstr ""
-"Shotwell kan importera bilder från minneskort som är kompatibla med din "
-"kortläsare."
-
-#. (itstool) path: page/p
-#: C/import-memorycard.page:30
-msgid ""
-"If the card is not detected automatically, your card reader may not have "
-"been recognized. Try unplugging it and then plugging it in again. If that "
-"doesn't work, you should still be able to import photos by <link xref="
-"\"import-camera\">connecting your camera directly to the computer</link>, "
-"though."
-msgstr ""
-"Om kortet inte upptäcks automatiskt kanske din kortläsare inte kände igen "
-"det. Prova att koppla från det och sedan ansluta det igen. Om det inte "
-"fungerar bör du ändå kunna importera bilder genom att ansluta <link xref="
-"\"import-camera\"> din kamera direkt till datorn </link>."
-
-#. (itstool) path: info/title
-#: C/index.page:6
-msgctxt "link"
-msgid "Shotwell"
-msgstr "Shotwell"
-
-#. (itstool) path: credit/name
-#: C/index.page:8
-msgid "Jim Nelson"
-msgstr "Jim Nelson"
-
-#. (itstool) path: credit/name
-#: C/index.page:10
-msgid "Allison Barlow"
-msgstr "Allison Barlow"
-
-#. (itstool) path: credit/name
-#: C/index.page:12
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#. (itstool) path: credit/name
-#: C/index.page:14
-msgid "Peter Smith"
-msgstr "Peter Smith"
-
-#. (itstool) path: credit/name
-#: C/index.page:16
-msgid "Phil Bull"
-msgstr "Phil Bull"
-
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:22
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
-#. (itstool) path: page/title
-#: C/index.page:22
-msgid ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-"Manager"
-msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
-"bildhanterare"
-
-#. (itstool) path: section/title
-#: C/index.page:25
-msgid "Importing Photos"
-msgstr "Importera bilder"
-
-#. (itstool) path: section/title
-#: C/index.page:29
-msgid "Viewing Photos"
-msgstr "Visa bilder"
-
-#. (itstool) path: section/title
-#: C/index.page:33
-msgid "Organizing Photos"
-msgstr "Ordna bilder"
-
-#. (itstool) path: section/title
-#: C/index.page:37
-msgid "Editing Photos"
-msgstr "Redigera bilder"
-
-#. (itstool) path: section/title
-#: C/index.page:41
-msgid "Sharing Photos"
-msgstr "Dela bilder"
-
-#. (itstool) path: section/title
-#: C/index.page:45
-msgid "Other Features"
-msgstr "Andra egenskaper"
+"Fönstret Utökad information visar mer information om den markerade bilden. "
+"Kommandot <guiseq><gui>Visa</gui><gui>Utökad information</gui></guiseq> "
+"eller <keyseq><key>Ctrl</key><key>Skift</key><key>X</key></keyseq> växlar "
+"visningen av detta fönster."
 
 #. (itstool) path: info/desc
 #: C/organize-event.page:7
@@ -1252,632 +756,80 @@ msgstr ""
 "<guiseq><gui>Bilder</gui><gui>Skapa nyckelbild för händelse</gui></guiseq>."
 
 #. (itstool) path: info/desc
-#: C/organize-flag.page:7
-msgid "Flag photos to mark them as special or to work with them as a set."
+#: C/edit-enhance.page:7
+msgid ""
+"Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
-"Flagga bilder för att markera dem som speciella eller för att arbeta med dem "
-"som en samling."
+"Låt Shotwell förbättra ljusstyrka och kontrast för en bild automatiskt."
 
 #. (itstool) path: page/title
-#: C/organize-flag.page:12
-msgid "Flagging photos"
-msgstr "Flagga bilder"
+#: C/edit-enhance.page:14
+msgid "Auto-enhance"
+msgstr "Autoförbättra"
 
 #. (itstool) path: page/p
-#: C/organize-flag.page:14
+#: C/edit-enhance.page:16
 msgid ""
-"Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
-"flag icon appears in its upper right corner. You can select the "
-"<gui>Flagged</gui> item in the sidebar to see all photos which have been "
-"flagged."
+"Clicking on the <gui>Enhance</gui> button is a quick way to automatically "
+"adjust the brightness and contrast of your photo. It will often give you a "
+"photo that is correctly exposed. You can also use it as a starting point and "
+"then improve the adjustments by clicking on the <gui>Adjust</gui> button."
 msgstr ""
-"Shotwell låter dig <em>flagga</em> bilder. När en bild flaggats kommer en "
-"liten flaggikon visas i dess övre högra hörn. Du kan markera <gui>Flaggade</"
-"gui> i sidopanelen för att se alla bilder som har flaggats."
-
-#. (itstool) path: page/p
-#: C/organize-flag.page:18
-msgid ""
-"Flagging a photo marks it as special. You can interpret this in any way you "
-"like. For example, you might flag all photos which need visual adjustment, "
-"or all photos which you want to share with a friend."
-msgstr ""
-"Att flagga en bild markerar den som speciell. Du kan tolka det som du vill. "
-"Till exempel kan du flagga alla bilder som kräver visuell justering, eller "
-"alla bilder som du vill dela med en vän."
-
-#. (itstool) path: page/p
-#: C/organize-flag.page:22
-msgid ""
-"Flagging is also useful because you can operate on all flagged photos as a "
-"set. For example, you can select the <gui>Flagged</gui> view and then upload "
-"all flagged photos to a publishing service."
-msgstr ""
-"Att flagga är användbart eftersom du kan jobba med alla flaggade bilder som "
-"en samling. Till exempel kan du markera vyn <gui>Flaggade</gui> och sedan "
-"skicka upp alla flaggade bilder till en publiceringstjänst."
-
-#. (itstool) path: section/title
-#: C/organize-flag.page:27
-msgid "To flag or unflag a photo"
-msgstr "Att flagga eller flagga av en bild"
-
-#. (itstool) path: section/p
-#: C/organize-flag.page:28
-msgid ""
-"To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
-"or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
-"key><key>G</key></keyseq> or <key>/</key> shortcut keys."
-msgstr ""
-"För att flagga eller flagga av en bild, högerklicka på bilden och välj "
-"<gui>Flagga</gui> eller <gui>Flagga av</gui> från snabbmenyn. Eller, använd "
-"snabbtangenterna <keyseq><key>Ctrl</key><key>G</key></keyseq> eller <key>/</"
-"key>."
+"Att klicka på knappen <gui>Förbättra</gui> är ett snabbt sätt att "
+"automatiskt justera ljusstyrkan och kontrasten för din bild. Det ger ofta en "
+"bild som är korrekt exponerad. Du kan också använda det som en startpunkt "
+"och sedan förbättra justeringarna genom att klicka på knappen <gui>Justera</"
+"gui>."
 
 #. (itstool) path: info/desc
-#: C/organize-rating.page:7
+#: C/other-multiple.page:7
 msgid ""
-"Give photos a rating between 1 and 5 stars. You can reject bad photos, "
-"hiding them from view."
+"You can open Shotwell with a different photo library by using the command "
+"line."
 msgstr ""
-"Ge bilderna ett betyg mellan en och fem stjärnor. Du kan avvisa dåliga "
-"bilder och dölja dem från visning."
+"Du kan öppna Shotwell med ett annat bildbibliotek genom att använda "
+"kommandoraden."
 
 #. (itstool) path: page/title
-#: C/organize-rating.page:12
-msgid "Ratings"
-msgstr "Betyg"
+#: C/other-multiple.page:12
+msgid "Multiple libraries"
+msgstr "Flera bibliotek"
 
 #. (itstool) path: page/p
-#: C/organize-rating.page:13
+#: C/other-multiple.page:14
 msgid ""
-"You can assign each photo a rating from 1-5 stars, or may alternatively rate "
-"it as Rejected, in which case Shotwell will hide the photo by default."
+"Shotwell normally stores its database and photo thumbnails in the directory "
+"<file>~/.shotwell</file> . This directory does not hold photos, but the "
+"database in this directory contains a list of all the photos in the Shotwell "
+"library."
 msgstr ""
-"Du kan ger varje bild ett betyg från 1-5 stjärnor, eller sätta den som "
-"avvisad, vilket medför att Shotwell som standard kommer att dölja bilden."
+"Shotwell lagrar normalt sin databas och sina miniatyrbilder i katalogen "
+"<file>~/.shotwell</file> . Denna katalog innehåller inte bilder, men "
+"databasen i denna katalog innehåller en lista över alla bilder i Shotwell-"
+"biblioteket."
 
 #. (itstool) path: page/p
-#: C/organize-rating.page:15
-msgid "You can rate a photo or a set of photos in any of these ways:"
-msgstr "Du kan betygsätta en bild eller en samling bilder på dessa sätt:"
-
-#. (itstool) path: item/p
-#: C/organize-rating.page:18
+#: C/other-multiple.page:16
 msgid ""
-"Select the photo(s), then choose a rating from the top-level "
-"<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
+"As an advanced feature, it's possible for you to have multiple Shotwell "
+"libraries, each of which has its own set of photos. Each library needs its "
+"own database directory. To launch Shotwell with an alternate library, "
+"specify an alternate database directory on the command line as follows:"
 msgstr ""
-"Markera bilden och välj sedan betygsätt från den översta menyn "
-"<guiseq><gui>Bilder</gui><gui>Betygsätt</gui></guiseq>."
+"Som en avancerad funktion är det möjligt för dig att ha flera Shotwell-"
+"bibliotek, var och en med dess egna grupp av bilder. Varje bibliotek behöver "
+"dess egna databaskatalog. För att starta Shotwell som ett alternativt "
+"bibliotek, ange en alternativ katalog på kommandoraden enligt:"
 
-#. (itstool) path: item/p
-#: C/organize-rating.page:19
+#. (itstool) path: page/screen
+#: C/other-multiple.page:18
+#, no-wrap
 msgid ""
-"Right-click on the photo(s), then choose a rating from the Set Rating "
-"context menu."
+"\n"
+"shotwell -d [library-directory]\n"
 msgstr ""
-"Högerklicka på bilden/rna och välj sedan ett betyg från snabbmenyn Betygsätt."
-
-#. (itstool) path: item/p
-#: C/organize-rating.page:20
-msgid ""
-"Select the photo(s), then press any of the shortcut keys <key>1</key>, "
-"<key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. "
-"Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
-"clear the rating(s)."
-msgstr ""
-"Markera bilden/erna och tryck sedan på någon av snabbtangenterna <key>1</"
-"key>, <key>2</key>, <key>3</key>, <key>4</key> eller <key>5</key> för att "
-"tilldela ett betyg. Eller, tryck <key>9</key> för att markera bilden/erna "
-"som avvisade eller <key>0</key> för att rensa betyg."
-
-#. (itstool) path: page/p
-#: C/organize-rating.page:23
-msgid ""
-"Normally Shotwell displays all photos except rejected photos. You can set a "
-"different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</"
-"gui></guiseq> menu - for example, you can display only photos rated with 3 "
-"stars or higher, or you can display all photos including those marked "
-"rejected. The Shotwell icon on the toolbar displays the current rating "
-"filter and can also be used to set the filter."
-msgstr ""
-"Vanligtvis visar Shotwell alla bilder förutom avvisade bilder. Du kan ange "
-"ett annat betygsfilter genom att använda <guiseq><gui>Visa</"
-"gui><gui>Filtrera bilder</gui></guiseq>-menyn - till exempel kan du visa "
-"bilder betygsatta med tre stjärnor eller högre, eller du kan visa alla "
-"bilder inklusive de som markerats avvisade. Shotwell-ikonen på "
-"verktygsfältet visar aktuellt betygsfilter och kan också användas för att "
-"aktivera filtret."
-
-#. (itstool) path: page/p
-#: C/organize-rating.page:26
-msgid ""
-"Shotwell normally displays each photo's rating in its lower left-hand "
-"corner. You can turn off the display of ratings using the <guiseq><gui>View</"
-"gui><gui>Ratings</gui></guiseq> menu item."
-msgstr ""
-"Shotwell visar som standard varje bilds betyg i nedre vänstra hörnet, Du kan "
-"stänga av visningen av betyg genom att nyttja <guiseq><gui>Visa</"
-"gui><gui>Betyg</gui></guiseq>-menyobjektet."
-
-#. (itstool) path: page/p
-#: C/organize-rating.page:28
-msgid ""
-"You can increase or decrease a photo's rating using the <guiseq><gui>Set "
-"Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</"
-"gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
-"<key>&lt;</key> and <key>&gt;</key>."
-msgstr ""
-"Du kan öka eller minska en bilds betyg genom att använda "
-"<guiseq><gui>Betygsätt</gui><gui>Höj</gui></guiseq> och "
-"<guiseq><gui>Betygsätt</gui><gui>Sänk</gui></guiseq>-kommandona, eller "
-"tangentbordsgenvägarna <key>&lt;</key> och <key>&gt;</key>."
-
-#. (itstool) path: info/desc
-#: C/organize-remove.page:7
-msgid ""
-"Remove photos from the library, or delete them from your computer entirely."
-msgstr ""
-"Ta bort bilder från biblioteket eller radera dem fullständigt från din dator."
-
-#. (itstool) path: page/title
-#: C/organize-remove.page:12
-msgid "Removing and deleting photos"
-msgstr "Ta bort och radera bilder"
-
-#. (itstool) path: page/p
-#: C/organize-remove.page:14
-msgid ""
-"You may remove photos from your library and you may additionally delete them "
-"entirely from your hard disk."
-msgstr ""
-"Du kan ta bort bilder från ditt bibliotek och du kan också radera dem "
-"fullständigt från din hårddisk."
-
-#. (itstool) path: page/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/organize-remove.page:15
-msgctxt "_"
-msgid ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-msgstr ""
-"external ref='figures/trash_process.png' "
-"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
-
-#. (itstool) path: media/p
-#: C/organize-remove.page:15
-msgid "Delete process"
-msgstr "Raderingsprocess"
-
-#. (itstool) path: page/p
-#: C/organize-remove.page:16
-msgid ""
-"This diagram shows how a photo, when deleted, is first put into Shotwell's "
-"trash. If you delete it from Shotwell's trash, it is put into your "
-"computer's trash. If you delete it from your computer's trash the photo is "
-"finally and irretrievably deleted from your computer."
-msgstr ""
-"Diagrammet visar hur en bild, när den raderas, först läggs i Shotwells "
-"papperskorg. Om du raderar den från Shotwells papperskorg läggs den i "
-"datorns papperskorg. Om du raderar den från din dators papperskorg är bilden "
-"oåterkalleligen raderat från din dator."
-
-#. (itstool) path: section/title
-#: C/organize-remove.page:18
-msgid "Removing photos from the library"
-msgstr "Ta bort bilder från biblioteket"
-
-#. (itstool) path: section/p
-#: C/organize-remove.page:19
-msgid ""
-"Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
-"Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
-"photos will be moved from your library to Shotwell's Trash."
-msgstr ""
-"Markera bilder att ta bort och välj <guiseq><gui>Redigera</gui><gui>Flytta "
-"till papperskorgen</gui></guiseq>. (Du kan också trycka <key>Delete</key>-"
-"tangenten.) Bilderna kommer att flyttas från ditt bibliotek till Shotwells "
-"papperskorg."
-
-#. (itstool) path: section/p
-#: C/organize-remove.page:22
-msgid ""
-"If you want to remove photos from Shotwell without having them pass through "
-"the trash, simply select the photos to be removed and choose "
-"<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
-"files will be left in place on disk."
-msgstr ""
-"Om du vill ta bort bilder från Shotwell utan att låta dem passera genom "
-"papperskorgen, markera bilderna att ta bort och välj <guiseq><gui>Redigera</"
-"gui><gui>Ta bort från bibliotek</gui></guiseq>. Bildfilerna kommer att vara "
-"kvar på disken."
-
-#. (itstool) path: section/title
-#: C/organize-remove.page:26
-msgid "Emptying or restoring the trash folder"
-msgstr "Rensa eller återställa papperskorgen"
-
-#. (itstool) path: section/p
-#: C/organize-remove.page:27
-msgid ""
-"Select the Trash entry in the Sidebar and Shotwell will display all photos "
-"that have been marked for removal or deletion. In the Trash view, the "
-"following commands are available:"
-msgstr ""
-"Välj papperskorgen i sidopanelen och Shotwell kommer att visa alla bilder "
-"som har markerats för borttagning eller radering. I vyn för papperskorgen är "
-"följande kommandon tillgängliga:"
-
-#. (itstool) path: item/title
-#: C/organize-remove.page:29
-msgid "Delete"
-msgstr "Radera"
-
-#. (itstool) path: item/p
-#: C/organize-remove.page:29
-msgid "Delete the selected photos from the trash folder."
-msgstr "Radera de markerade bilderna från papperskorgen."
-
-#. (itstool) path: item/title
-#: C/organize-remove.page:30
-msgid "Restore"
-msgstr "Återställ"
-
-#. (itstool) path: item/p
-#: C/organize-remove.page:30
-msgid "Restore the selected photos into Shotwell."
-msgstr "Återställ de markerade bilderna till Shotwell."
-
-#. (itstool) path: item/title
-#: C/organize-remove.page:31
-msgid "Empty trash"
-msgstr "Töm papperskorgen"
-
-#. (itstool) path: item/p
-#: C/organize-remove.page:31
-msgid "Delete all photos from the trash folder."
-msgstr "Radera alla bilder från papperskorgen."
-
-#. (itstool) path: section/title
-#: C/organize-remove.page:36
-msgid "Deleting or emptying Trash"
-msgstr "Radera eller tömma papperskorgen"
-
-#. (itstool) path: section/p
-#: C/organize-remove.page:37
-msgid ""
-"When you delete files from the Trash folder or empty the Trash folder, you "
-"will be given the following choices:"
-msgstr ""
-"När du raderar filer från papperskorgen, eller tömmer den, kommer du att ges "
-"följande val:"
-
-#. (itstool) path: item/title
-#: C/organize-remove.page:39
-msgid "Only Remove"
-msgstr "Endast ta bort"
-
-#. (itstool) path: item/p
-#: C/organize-remove.page:39
-msgid ""
-"Remove photos from the library but leave the photos in their location on the "
-"computer."
-msgstr ""
-"Tar bort bilder från biblioteket men lämnar kvar bilderna på deras plats i "
-"datorn."
-
-#. (itstool) path: item/title
-#: C/organize-remove.page:40
-msgid "Trash file"
-msgstr "Radera fil"
-
-#. (itstool) path: item/p
-#: C/organize-remove.page:40
-msgid "Remove photos from the library and delete them from the computer."
-msgstr "Tar bort bilder från biblioteket och raderar dem från datorn."
-
-#. (itstool) path: item/title
-#: C/organize-remove.page:41
-msgid "Cancel"
-msgstr "Avbryt"
-
-#. (itstool) path: item/p
-#: C/organize-remove.page:41
-msgid "Do nothing."
-msgstr "Gör inget."
-
-#. (itstool) path: info/desc
-#: C/organize-search.page:7
-msgid "Find photos and videos in your collection by a variety of criteria."
-msgstr "Hitta bilder och filmer i din samling med blandade kriterier."
-
-#. (itstool) path: page/title
-#: C/organize-search.page:12
-msgid "Searching"
-msgstr "Söka"
-
-#. (itstool) path: page/p
-#: C/organize-search.page:14
-msgid ""
-"There are two ways to search in Shotwell: the filter toolbar, and with a "
-"saved search. The search bar allows you to quickly search the current view "
-"for certain criteria. Saved Searches feature more complex search criteria "
-"and persist in the sidebar between sessions."
-msgstr ""
-"Det finns två sätt att söka på i Shotwell: filterverktygsfältet och med en "
-"sparad sökning. Sökfältet låter dig snabbt söka aktuell vy efter specifika "
-"kriterier. Sparade sökningar erbjuder komplexare sökningskriterier och "
-"lagring i sidopanelen mellan sessioner."
-
-#. (itstool) path: section/title
-#: C/organize-search.page:21
-msgid "Search bar"
-msgstr "Sökfältet"
-
-#. (itstool) path: section/p
-#: C/organize-search.page:22
-msgid ""
-"The <guiseq><gui>View</gui><gui>Search Bar</gui></guiseq> checkbox toggles "
-"the display of the search bar. You can also hit <keyseq><key>Ctrl</"
-"key><key>F</key></keyseq> or <key>F8</key> to bring up the search bar. From "
-"this bar, you can find, show and hide photos and videos based on title, tag, "
-"rating or other options."
-msgstr ""
-"Kryssrutan <guiseq><gui>Visa</gui><gui>Sökfält</gui></guiseq> visar eller "
-"döljer sökfältet. Du kan också trycka <keyseq><key>Ctrl</key><key>F</key></"
-"keyseq> eller <key>F8</key> för att lyfta fram sökfältet. Från detta fält "
-"kan du hitta, visa och dölja bilder och filmer baserat på namn, tagg, betyg "
-"eller andra alternativ."
-
-#. (itstool) path: section/p
-#: C/organize-search.page:29
-msgid ""
-"To begin searching, simply enter a search keyword in the text box, or click "
-"on <gui>Flagged</gui>, <gui>Rating</gui> or <gui>Type</gui>. The text search "
-"matches your keywords across tag names, photo or video titles and photos' "
-"original filenames. The <gui>Flagged</gui>, <gui>Rating</gui> and <gui>Type</"
-"gui> buttons allow you to filter your collection by whether photos are "
-"flagged, their current number of stars, and whether the items shown are "
-"images, videos, or raw camera files, respectively."
-msgstr ""
-"För att börja söka, ange ett söknyckelord i textfältet, eller klicka på "
-"<gui>Flaggade</gui>, <gui>Betyg</gui> eller <gui>Typ</gui>. Textsökning "
-"matchar dina nyckelord över taggnamn, bild eller videonamn och bilders "
-"originalfilnamn. Knapparna <gui>Flaggade</gui>, <gui>Betyg</gui> och "
-"<gui>Typ</gui> låter dig filtrera din samling med flaggade bilder, deras "
-"aktuella nummer av stjärnor och huruvida objekten är bilder, filmer eller "
-"råa kamerafiler."
-
-#. (itstool) path: section/p
-#: C/organize-search.page:38
-msgid ""
-"Disabling the search bar or exiting Shotwell automatically resets the search "
-"bar."
-msgstr ""
-"Att inaktivera sökfältet eller avsluta Shotwell automatiskt återställer "
-"sökfältet."
-
-#. (itstool) path: section/title
-#: C/organize-search.page:44
-msgid "Saved search"
-msgstr "Sparad sökning"
-
-#. (itstool) path: section/p
-#: C/organize-search.page:45
-msgid ""
-"A saved search persists across Shotwell sessions, and is updated as photos "
-"and videos are added and removed from your Shotwell library."
-msgstr ""
-"En sparad sökning lagras över Shotwell-sessioner och uppdateras då bilder "
-"och filmer läggs till och tas bort från ditt Shotwell-bibliotek."
-
-#. (itstool) path: section/p
-#: C/organize-search.page:50
-msgid ""
-"Create a new saved search with <guiseq><gui>Edit</gui><gui>New Saved "
-"Search...</gui></guiseq> or by hitting <keyseq><key>Ctrl</key><key>S</key></"
-"keyseq>. The dialog box allows you to enter a name for the search and select "
-"whether you want to meet Any, All, or None of the criteria in the following "
-"rows."
-msgstr ""
-"Skapa en ny sparad sökning med <guiseq><gui>Redigera</gui><gui>Ny sökning…</"
-"gui></guiseq> eller genom att trycka <keyseq><key>Ctrl</key><key>S</key></"
-"keyseq>. Dialogrutan låter dig ange ett namn för sökningen och välja "
-"huruvida du vill uppfylla några, alla eller inga av kriterierna i följande "
-"rader."
-
-#. (itstool) path: section/p
-#: C/organize-search.page:56
-msgid ""
-"Each row represents a search criterion. Use the <gui>+</gui> button to add "
-"more rows, and the <gui>-</gui> button to remove a specific row. The combo "
-"box on the left of each row selects the type of criteria. Criteria must be "
-"entered correctly before the <gui>OK</gui> button becomes available."
-msgstr ""
-"Varje rad representerar ett sökkriterium. Använd <gui>+</gui>-knappen för "
-"att lägga till flera rader och <gui>-</gui>knappen för att ta bort en "
-"specifik rad. Komborutan till vänster för varje rad väljer kriterietyp. "
-"Kriterier måste anges korrekt innan <gui>OK</gui>-knappen blir tillgänglig."
-
-#. (itstool) path: info/desc
-#: C/organize-tag.page:7
-msgid "Organize photos by labelling them."
-msgstr "Organisera bilder genom att sätta taggar på dem."
-
-#. (itstool) path: page/title
-#: C/organize-tag.page:14
-msgid "Tagging photos"
-msgstr "Tagga bilder"
-
-#. (itstool) path: page/p
-#: C/organize-tag.page:16
-msgid ""
-"You can assign one or more tags to selected photos. A tag can be one or more "
-"words that you want to associate with those photos."
-msgstr ""
-"Du kan tilldela en eller fler taggar för att markera bilder. En tagg kan "
-"vara en eller flera ord som du vill associera med dessa bilder."
-
-#. (itstool) path: page/p
-#: C/organize-tag.page:22
-msgid ""
-"To add new tags to photos, select the photos you would like to tag, then do "
-"any of the following:"
-msgstr ""
-"För att lägga till taggar till bilder, markera bilderna du skulle vilja "
-"lägga tagga, och gör sedan följande:"
-
-#. (itstool) path: item/p
-#: C/organize-tag.page:28
-msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
-msgstr ""
-"Markera <guiseq><gui>Taggar</gui><gui>Lägg till taggar…</gui></guiseq>."
-
-#. (itstool) path: item/p
-#: C/organize-tag.page:29
-msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
-msgstr "Skriv in <keyseq><key>Ctrl</key><key>T</key></keyseq>."
-
-#. (itstool) path: item/p
-#: C/organize-tag.page:30
-msgid "Drag the selected photos and drop them on the desired tag."
-msgstr "Dra de markerade bilderna och släpp dem på den önskade taggen."
-
-#. (itstool) path: page/p
-#: C/organize-tag.page:33
-msgid ""
-"When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-"<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
-"names of one or more tags, separated by commas. Once you have created a tag, "
-"you can rename it by selecting that tag in the sidebar and choosing "
-"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
-"rightclicking on it and choose <gui>Rename...</gui> or double-click on the "
-"tag in the sidebar."
-msgstr ""
-"När du använder <keyseq><key>Ctrl</key><key>T</key></keyseq> eller "
-"<guiseq><gui>Taggar</gui><gui>Lägg till taggar…</gui></guiseq> kan du skriva "
-"in namnen på en eller flera taggar separerade med komman. När du väl har "
-"skapat en tagg kan du byta namn på den genom att markera taggen i "
-"sidopanelen och välja <guiseq><gui>Taggar</gui><gui>Byt namn på taggen "
-"\"[namn]\"…</gui></guiseq> genom att högerklicka på den och markera <gui>Byt "
-"namn…</gui> eller dubbelklicka på taggen i sidopanelen."
-
-#. (itstool) path: page/p
-#: C/organize-tag.page:44
-msgid ""
-"To change which tags are associated with a particular photo, select that "
-"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
-"right-click on a photo and select <gui>Modify Tags...</gui> and edit the "
-"comma separated list. To remove a tag from one or more photos, first select "
-"that tag in the sidebar, then select the photos you would like to remove, "
-"and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
-"gui></guiseq> or right-click on the photos an select <gui>Remove Tag "
-"\"[name]\" from Photos</gui>."
-msgstr ""
-"För att ändra taggar associerade med en speciell bild, markera bilden, välj "
-"<guiseq><gui>Taggar</gui><gui>Ändra taggar…</gui></guiseq> eller högerklicka "
-"på en bild och markera <gui>Ändra taggar…</gui> och redigera den "
-"kommaseparerade listan. För att ta bort en tagg från en eller flera bilder, "
-"välj först taggen i sidopanelen och markera sedan de bilder du vill ta bort, "
-"samt välj <guiseq><gui>Taggar</gui><gui>Ta bort taggen \"[namn]\" från "
-"bilderna</gui></guiseq> eller högerklicka på bilderna och välj <gui>Ta bort "
-"taggen \"[namn]\" från bilderna</gui>."
-
-#. (itstool) path: page/p
-#: C/organize-tag.page:58
-msgid ""
-"To delete a tag entirely, select that tag in the sidebar and choose "
-"<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
-"click and select <gui>Delete Tag \"[name]\"</gui>."
-msgstr ""
-"För att fullständigt ta bort en tagg, markera taggen i sidopanelen och välj "
-"<guiseq><gui>Taggar</gui><gui>Ta bort tagg \"[namn]\"</gui></guiseq> eller "
-"högerklicka och välj <gui>Ta bort tagg \"[namn]\"</gui>."
-
-#. (itstool) path: page/p
-#: C/organize-tag.page:64
-msgid ""
-"When you create a tag, it will appear in the sidebar under the <gui>Tags</"
-"gui> item, which is hidden if there are no tags. Photos can have multiple "
-"tags attached to them, and when you click on the name of a given tag in the "
-"sidebar, you will see all the photos associated with that tag."
-msgstr ""
-"När du skapar en tagg kommer den att visas i sidopanelen under objektet "
-"<gui>Taggar</gui>, vilket döljs om det inte finns några taggar. Bilder kan "
-"ha flera taggar associerade med dem, och när du klickar på namnet för en "
-"given tagg i sidopanelen kommer du att se alla bilder associerade med denna "
-"tagg."
-
-#. (itstool) path: section/title
-#: C/organize-tag.page:73
-msgid "Hierarchical Tags"
-msgstr "Hierarkiska taggar"
-
-#. (itstool) path: section/p
-#: C/organize-tag.page:74
-msgid ""
-"Shotwell supports also hierarchial tags. You can rearrange your tags by drag "
-"and drop a tag onto another. To create a new subtag right-click on a tag and "
-"select <gui>New</gui>."
-msgstr ""
-"Shotwell stödjer också hierarkiska taggar. Du kan flytta om dina taggar "
-"genom att dra och släppa en tagg på en annan. För att skapa en ny undertagg, "
-"högerklicka på en tagg och markera <gui>Ny</gui>."
-
-#. (itstool) path: section/p
-#: C/organize-tag.page:81
-msgid ""
-"Hierarchial tags can help you to sort your tag list in ways that better "
-"match how you work or think; for example, you can store location tags like "
-"\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
-"be placed under the tag \"Summer Holidays\"."
-msgstr ""
-"Hierarkiska taggar kan hjälpa dig att sortera din tagglista på sätt som "
-"bättre matchar hur du tänker eller jobbar - exempelvis kan du lagra "
-"platstaggar som ”Berg” eller ”Strand” under en överordnad tagg ”Platser”, "
-"vilken i sig själv kan placeras under taggen ”Sommarsemester”."
-
-#. (itstool) path: section/p
-#: C/organize-tag.page:89
-msgid "Note that deleting a parent tag will also delete its child tags."
-msgstr ""
-"Observera att ta bort en överordnad tagg också kommer att bort underordnade "
-"taggar."
-
-#. (itstool) path: info/desc
-#: C/organize-title.page:7
-msgid "Give titles to your photos."
-msgstr "Namnge dina bilder."
-
-#. (itstool) path: page/title
-#: C/organize-title.page:12
-msgid "Titles"
-msgstr "Namn"
-
-#. (itstool) path: page/p
-#: C/organize-title.page:14
-msgid ""
-"The <guiseq><gui>View</gui><gui>Titles</gui></guiseq> checkbox toggles the "
-"display of titles beneath each photo. By default, a photo's title is its "
-"filename."
-msgstr ""
-"Kryssrutan <guiseq><gui>Visa</gui><gui>Titlar</gui></guiseq> aktiverar "
-"visningen av titlar under varje bild. Som standard är en bilds namn dess "
-"filnamn."
-
-#. (itstool) path: page/p
-#: C/organize-title.page:17
-msgid ""
-"To change a photo's title, select the photo and click <guiseq><gui>Photos</"
-"gui><gui>Edit Title...</gui></guiseq>, or press <key>F2</key>."
-msgstr ""
-"För att ändra en bilds titel, markera bilden och klicka <guiseq><gui>Bilder</"
-"gui><gui>Redigera titel…</gui></guiseq> eller tryck <key>F2</key>."
+"\n"
+"shotwell -d [bibliotekskatalog]\n"
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
@@ -2297,168 +1249,408 @@ msgstr ""
 "Vi hoppas kunna ta bort denna begränsning i en framtida utgåva."
 
 #. (itstool) path: info/desc
-#: C/other-missing.page:7
-msgid "If Shotwell can't find a photo in your library, it marks it as missing."
+#: C/formats.page:7
+msgid ""
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and RAW photo files as "
+"well as video files."
 msgstr ""
-"Om Shotwell inte kan hitta en bild i ditt bibliotek kommer det att markera "
-"den som saknad."
+"Shotwell stödjer JPEG, PNG, TIFF, BMP, GIF, WebP och RAW-bilder såväl som "
+"filmfiler."
 
 #. (itstool) path: page/title
-#: C/other-missing.page:12
-msgid "Missing photos"
-msgstr "Saknade bilder"
+#: C/formats.page:12
+msgid "Supported photo and video formats"
+msgstr "Bild- och videoformat som stöds"
 
 #. (itstool) path: page/p
-#: C/other-missing.page:14
+#: C/formats.page:14
 msgid ""
-"Each time Shotwell starts up, it scans your photo library to verify that all "
-"photo files still exist on your hard drive. If Shotwell finds that any photo "
-"files are missing, it will not display them in the normal Photos, Events and "
-"Tags views, but will instead show them in a separate Missing Files view "
-"which will appear in the sidebar."
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-raw"
+"\">RAW</link> photo files."
 msgstr ""
-"Var gång Shotwell startar söker det av ditt bildbibliotek för att verifiera "
-"att alla bilder fortfarande existerar på din hårddisk. Om Shotwell finner "
-"att det saknas filer, kommer dessa inte att visas i vyerna Bilder, Händelser "
-"eller Taggar, och istället visas de i separata vyn Saknade filer, vilken "
-"visas i sidopanelen."
+"Shotwell stödjer JPEG, PNG, TIFF, BMP, GIF, WebP och <link xref=\"other-raw"
+"\">RAW</link>-bildfiler."
 
 #. (itstool) path: page/p
-#: C/other-missing.page:16
+#: C/formats.page:16
 msgid ""
-"If you no longer want the missing files to be part of your Shotwell "
-"collection (perhaps because you deleted them), go to the Missing Files view, "
-"select the photos and then click <gui>Remove From Library</gui>."
+"Shotwell's RAW format support is currently limited. When you view a RAW "
+"photo, you are actually viewing a JPEG derived from the RAW photo, not the "
+"RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit "
+"- you can only export edited photos as 8-bit files. Most supported formats "
+"can be used for export (JPEG, PNG, TIFF, BMP)."
 msgstr ""
-"Om du inte längre vill att de saknade filerna ska vara en del av din "
-"Shotwell-samling (kanske för att du tog bort dem), gå till vyn Saknade "
-"filer, välj bilder och klicka sedan <gui>Ta bort från bibliotek</gui>."
+"Shotwells RAW-formatstöd är för tillfället begränsat. När du visar en RAW-"
+"bild visar du egentligen en JPEG som härstammar från RAW-bilden, inte själva "
+"RAW-bilden. Dessutom är RAW-redigeringsflödet inte helt 16-bitars - du kan "
+"bara exportera redigerade bilder som 8-bitars filer. De flesta format som "
+"stöds kan användas för export (JPEG, PNG, TIFF, BMP)."
 
 #. (itstool) path: page/p
-#: C/other-missing.page:18
+#: C/formats.page:18
 msgid ""
-"If you have photos on a removable disk, such as a CD or USB flash drive, and "
-"<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
-"em> copying the photos to your computer, they will show up as missing files "
-"if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
-"to learn how to copy files from removable disks onto your computer."
+"For more information about RAW-format photos in Shotwell, please see the "
+"<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
-"Om du har bilder på en flyttbar enhet, som en cd-skiva eller en usb-sticka, "
-"och <link xref=\"index#import\">importerar</link> dem till Shotwell "
-"<em>utan</em> att kopiera bilderna till din dator, kommer de att visas som "
-"saknade filer om du kopplar från den flyttbara enheten. Se <link xref="
-"\"import-file\"/> för att lära dig mer om att kopiera filer från en flyttbar "
-"enhet till din dator."
+"För mer information om RAW-formatbilder i Shotwell, se avsnittet <link xref="
+"\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
-#: C/other-missing.page:20
+#: C/formats.page:22
 msgid ""
-"If any missing photo files become available again, Shotwell will notice this "
-"the next time it starts. The photos will once again appear in the Photos, "
-"Events and Tags views."
+"Shotwell also supports video files in any format supported by the GStreamer "
+"media library on the system where Shotwell is running. This typically "
+"includes the following formats among others:"
 msgstr ""
-"Om några saknade bilder blir tillgängliga igen kommer Shotwell att märka det "
-"nästa gång programmet startar. Bilderna kommer åter igen att visas i vyerna "
-"Bilder, Händelser och Taggar."
+"Shotwell stödjer också filmfiler i format som GStreamer mediabibliotek "
+"stödjer, på systemet där Shotwell körs. Normalt inkluderar det följande "
+"format, bland andra:"
+
+#. (itstool) path: item/p
+#: C/formats.page:25
+msgid "Container formats: Ogg, QuickTime, MP4, AVI."
+msgstr "Behållarformat: Ogg, QuickTime, MP4, AVI."
+
+#. (itstool) path: item/p
+#: C/formats.page:26
+msgid ""
+"Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
+"systems may not include all codecs listed here due to legal or licensing "
+"restrictions.</em>"
+msgstr ""
+"Kodekar: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Observera att vissa "
+"operativsystem kanske inte inkluderar kodekarna listade här på grund av "
+"juridiska eller licensbaserade begränsningar.</em>"
+
+#. (itstool) path: page/p
+#: C/formats.page:30
+msgid ""
+"Shotwell supports both photos and videos, but for simplicity, this "
+"documentation uses just the term \"photos\" in most places. Many operations "
+"in Shotwell apply to both photos and videos, however. In particular, events, "
+"flagging, rating, tagging, and publishing work both for photos and for "
+"videos."
+msgstr ""
+"Shotwell stödjer både bilder och filmer, men för enkelhetens skull använder "
+"dokumentationen termen ”bilder” på de flesta ställen. Flera operationer i "
+"Shotwell gäller dock för bild och filmer. Speciellt händelser, att flagga, "
+"betygsätta, tagga och publicera fungerar för både bilder och filmer."
 
 #. (itstool) path: info/desc
-#: C/other-multiple.page:7
+#: C/organize-rating.page:7
 msgid ""
-"You can open Shotwell with a different photo library by using the command "
-"line."
+"Give photos a rating between 1 and 5 stars. You can reject bad photos, "
+"hiding them from view."
 msgstr ""
-"Du kan öppna Shotwell med ett annat bildbibliotek genom att använda "
-"kommandoraden."
+"Ge bilderna ett betyg mellan en och fem stjärnor. Du kan avvisa dåliga "
+"bilder och dölja dem från visning."
 
 #. (itstool) path: page/title
-#: C/other-multiple.page:12
-msgid "Multiple libraries"
-msgstr "Flera bibliotek"
+#: C/organize-rating.page:12
+msgid "Ratings"
+msgstr "Betyg"
 
 #. (itstool) path: page/p
-#: C/other-multiple.page:14
+#: C/organize-rating.page:13
 msgid ""
-"Shotwell normally stores its database and photo thumbnails in the directory "
-"<file>~/.shotwell</file> . This directory does not hold photos, but the "
-"database in this directory contains a list of all the photos in the Shotwell "
-"library."
+"You can assign each photo a rating from 1-5 stars, or may alternatively rate "
+"it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
-"Shotwell lagrar normalt sin databas och sina miniatyrbilder i katalogen "
-"<file>~/.shotwell</file> . Denna katalog innehåller inte bilder, men "
-"databasen i denna katalog innehåller en lista över alla bilder i Shotwell-"
-"biblioteket."
+"Du kan ger varje bild ett betyg från 1-5 stjärnor, eller sätta den som "
+"avvisad, vilket medför att Shotwell som standard kommer att dölja bilden."
 
 #. (itstool) path: page/p
-#: C/other-multiple.page:16
-msgid ""
-"As an advanced feature, it's possible for you to have multiple Shotwell "
-"libraries, each of which has its own set of photos. Each library needs its "
-"own database directory. To launch Shotwell with an alternate library, "
-"specify an alternate database directory on the command line as follows:"
-msgstr ""
-"Som en avancerad funktion är det möjligt för dig att ha flera Shotwell-"
-"bibliotek, var och en med dess egna grupp av bilder. Varje bibliotek behöver "
-"dess egna databaskatalog. För att starta Shotwell som ett alternativt "
-"bibliotek, ange en alternativ katalog på kommandoraden enligt:"
+#: C/organize-rating.page:15
+msgid "You can rate a photo or a set of photos in any of these ways:"
+msgstr "Du kan betygsätta en bild eller en samling bilder på dessa sätt:"
 
-#. (itstool) path: page/screen
-#: C/other-multiple.page:18
-#, no-wrap
+#. (itstool) path: item/p
+#: C/organize-rating.page:18
 msgid ""
-"\n"
-"shotwell -d [library-directory]\n"
+"Select the photo(s), then choose a rating from the top-level "
+"<guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu."
 msgstr ""
-"\n"
-"shotwell -d [bibliotekskatalog]\n"
+"Markera bilden och välj sedan betygsätt från den översta menyn "
+"<guiseq><gui>Bilder</gui><gui>Betygsätt</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:19
+msgid ""
+"Right-click on the photo(s), then choose a rating from the Set Rating "
+"context menu."
+msgstr ""
+"Högerklicka på bilden/rna och välj sedan ett betyg från snabbmenyn Betygsätt."
+
+#. (itstool) path: item/p
+#: C/organize-rating.page:20
+msgid ""
+"Select the photo(s), then press any of the shortcut keys <key>1</key>, "
+"<key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. "
+"Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
+"clear the rating(s)."
+msgstr ""
+"Markera bilden/erna och tryck sedan på någon av snabbtangenterna <key>1</"
+"key>, <key>2</key>, <key>3</key>, <key>4</key> eller <key>5</key> för att "
+"tilldela ett betyg. Eller, tryck <key>9</key> för att markera bilden/erna "
+"som avvisade eller <key>0</key> för att rensa betyg."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:23
+msgid ""
+"Normally Shotwell displays all photos except rejected photos. You can set a "
+"different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</"
+"gui></guiseq> menu - for example, you can display only photos rated with 3 "
+"stars or higher, or you can display all photos including those marked "
+"rejected. The Shotwell icon on the toolbar displays the current rating "
+"filter and can also be used to set the filter."
+msgstr ""
+"Vanligtvis visar Shotwell alla bilder förutom avvisade bilder. Du kan ange "
+"ett annat betygsfilter genom att använda <guiseq><gui>Visa</"
+"gui><gui>Filtrera bilder</gui></guiseq>-menyn - till exempel kan du visa "
+"bilder betygsatta med tre stjärnor eller högre, eller du kan visa alla "
+"bilder inklusive de som markerats avvisade. Shotwell-ikonen på "
+"verktygsfältet visar aktuellt betygsfilter och kan också användas för att "
+"aktivera filtret."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:26
+msgid ""
+"Shotwell normally displays each photo's rating in its lower left-hand "
+"corner. You can turn off the display of ratings using the <guiseq><gui>View</"
+"gui><gui>Ratings</gui></guiseq> menu item."
+msgstr ""
+"Shotwell visar som standard varje bilds betyg i nedre vänstra hörnet, Du kan "
+"stänga av visningen av betyg genom att nyttja <guiseq><gui>Visa</"
+"gui><gui>Betyg</gui></guiseq>-menyobjektet."
+
+#. (itstool) path: page/p
+#: C/organize-rating.page:28
+msgid ""
+"You can increase or decrease a photo's rating using the <guiseq><gui>Set "
+"Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</"
+"gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts "
+"<key>&lt;</key> and <key>&gt;</key>."
+msgstr ""
+"Du kan öka eller minska en bilds betyg genom att använda "
+"<guiseq><gui>Betygsätt</gui><gui>Höj</gui></guiseq> och "
+"<guiseq><gui>Betygsätt</gui><gui>Sänk</gui></guiseq>-kommandona, eller "
+"tangentbordsgenvägarna <key>&lt;</key> och <key>&gt;</key>."
 
 #. (itstool) path: info/desc
-#: C/other-plugins.page:7
-msgid "Extend Shotwell's functionality dynamically."
-msgstr "Utöka Shotwells funktionalitet dynamiskt."
+#: C/share-background.page:7
+msgid ""
+"Set your desktop background to a single photo or to a slideshow of photos."
+msgstr ""
+"Ställ in din skrivbordsbakgrund till att använda en enstaka bild eller ett "
+"bildspel."
 
 #. (itstool) path: page/title
-#: C/other-plugins.page:12
-msgid "Plugins"
-msgstr "Insticksmoduler"
+#: C/share-background.page:12
+msgid "Set a desktop background or slideshow"
+msgstr "Ange en skrivbordsbakgrund eller ett bildspel"
 
 #. (itstool) path: page/p
-#: C/other-plugins.page:13
+#: C/share-background.page:14
 msgid ""
-"Shotwell can be used with <em>plugins</em>, which are companion shared "
-"libraries that can add support for new publishing destinations or new "
-"slideshow transitions."
+"To set a single photo as your desktop background, select the photo and "
+"choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
-"Shotwell kan användas med <em>Insticksmoduler</em>, vilket är delade "
-"bibliotek som kan lägga till stöd för nya publiceringstyper eller nya "
-"övergångar vid bildspel."
+"För att ange en bild som din skrivbordsbakgrund, markera bilden och välj "
+"sedan <guiseq><gui>Arkiv</gui><gui>Använd som skrivbordsbakgrund</gui></"
+"guiseq>."
 
 #. (itstool) path: page/p
-#: C/other-plugins.page:18
+#: C/share-background.page:16
 msgid ""
-"To see a list of installed plugins, choose <guiseq><gui>Edit</"
-"gui><gui>Preferences</gui></guiseq>, and in the <gui>Preferences</gui> "
-"window, click on the <gui>Plugins</gui> tab. You'll see a list of currently-"
-"installed plugins, each with a checkbox by it, and you may enable or disable "
-"each by selecting or deselecting the checkbox by its name."
+"You can also set your background to a slideshow of photos. To do this, "
+"select the photos for the slideshow and choose <guiseq><gui>File</"
+"gui><gui>Set as Desktop Slideshow...</gui></guiseq>. Shotwell will prompt "
+"you for a slideshow delay, which can be any interval up to one day in "
+"length. The background slideshow will proceed even when Shotwell is not "
+"running."
 msgstr ""
-"För att se en lista över installerade insticksmoduler, välj "
-"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq>, och i fönstret "
-"<gui>Inställningar</gui>, klicka på fliken <gui>Insticksmoduler</gui>. Du "
-"kommer att se en lista av aktuella installerade insticksmoduler, var och en "
-"med en kryssruta vid sida av den, och du kan aktivera eller inaktivera var "
-"och en genom att kryssa eller kryssa av kryssrutan för dess namn."
+"Du kan också sätta din bakgrund till ett bildspel. För att göra detta, "
+"markera bilderna för bildspel och välj <guiseq><gui>Arkiv</gui><gui>Använd "
+"som bildspel för skrivbord…</gui></guiseq>. Shotwell kommer att fråga om "
+"bildspelsfördröjning, vilket kan vara vilket intervall som helst upp till en "
+"dags längd. Bildspelet i bakgrunden kommer att fortsätta även när Shotwell "
+"inte körs."
 
-#. (itstool) path: note/p
-#: C/other-plugins.page:25
+#. (itstool) path: info/desc
+#: C/edit-straighten.page:7
+msgid "Straighten a photo so that its horizon appears level."
+msgstr "Räta ut en bild så att dess horisont blir rak."
+
+#. (itstool) path: page/title
+#: C/edit-straighten.page:12
+msgid "Straighten photos"
+msgstr "Räta ut bilder"
+
+#. (itstool) path: page/p
+#: C/edit-straighten.page:14
 msgid ""
-"Full documentation on how to develop new plugins is available at <link href="
-"\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
-"wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
+"The straighten tools allows photos to be leveled and straightened. The "
+"straighten tool is only available in full-window or fullscreen mode."
 msgstr ""
-"Fullständig dokumentation om hur du utvecklar nya insticksmoduler finns "
-"tillgänglig på <link href=\"https://wiki.gnome.org/Apps/Shotwell/"
-"Architecture/WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/"
-"Architecture/WritingPlugins</link>"
+"Verktygen för att räta ut bilder låter dem rätas ut och plattas till. "
+"Verktyget för att räta ut är endast tillgängligt i helskärms- eller "
+"helfönsterläge."
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:18
+msgid ""
+"Click <gui>Straighten</gui>. The straighten slider will appear. "
+"Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
+"key></keyseq>."
+msgstr ""
+"Klicka <gui>Räta ut</gui>. Skjutreglaget för att räta ut visas. Alternativt, "
+"använd tangentbordskombinationen <keyseq><key>Ctrl</key><key>A</key></"
+"keyseq>."
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:21
+msgid "Drag the slider to achieve the desired degree of straightening."
+msgstr "Dra i skjutreglaget för att uppnå önska grad av uträtning."
+
+#. (itstool) path: item/p
+#: C/edit-straighten.page:24
+msgid "Press <gui>Straighten</gui> when finished."
+msgstr "Tryck <gui>Räta ut</gui> när klar."
+
+#. (itstool) path: info/desc
+#: C/import-file.page:7
+msgid "Import photos that are already saved on your computer."
+msgstr "Importera bilder som redan är sparade på din dator."
+
+#. (itstool) path: page/title
+#: C/import-file.page:12
+msgid "Importing from your hard disk"
+msgstr "Importera från din hårddisk"
+
+#. (itstool) path: page/p
+#: C/import-file.page:14
+msgid ""
+"To import photo files from your hard disk into Shotwell, just drag them from "
+"your file browser into the Shotwell window."
+msgstr ""
+"För att importera bildfiler från din hårddisk till Shotwell, dra dem från "
+"din filhanterare till Shotwell-fönstret."
+
+#. (itstool) path: page/p
+#: C/import-file.page:16
+msgid ""
+"Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
+"gui></guiseq> and select the folder containing the photos you want to "
+"import. If you do not want Shotwell to recurse into subfolders while "
+"importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
+"on the bottom of the file dialog."
+msgstr ""
+"Alternativt, klicka <guiseq><gui>Arkiv</gui><gui>Importera från mapp…</gui></"
+"guiseq> och markera mappen som innehåller de bilder du vill importera. Om du "
+"inte vill att Shotwell rekursivt ska gå in i undermappar under import kan du "
+"avmarkera kryssrutan <gui>Gå rekursivt in i undermappar</gui> längst ner i "
+"fildialogen."
+
+#. (itstool) path: page/p
+#: C/import-file.page:18
+msgid ""
+"Shotwell will ask whether you want to copy the photo files to your library "
+"folder (usually this is the <file>Pictures</file> folder in your home "
+"directory) or to import them in place without copying the files."
+msgstr ""
+"Shotwell kommer att fråga huruvida du vill kopiera bildfiler till din "
+"biblioteksmapp (vanligtvis mappen <file>Bilder</file> i din hemkatalog) "
+"eller importera dem direkt utan att kopiera filerna."
+
+#. (itstool) path: page/p
+#: C/import-file.page:20
+msgid ""
+"If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
+"copy the photos into your library folder without prompting. Similarly, if "
+"you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
+"dragging photos in, Shotwell will import the photos without copying them."
+msgstr ""
+"Om du håller ner <key>Ctrl</key> när du drar in bilder kommer Shotwell att "
+"kopiera bilderna till din biblioteksmapp utan att fråga. På samma sätt, om "
+"du håller ner <keyseq><key>Ctrl</key><key>Skift</key></keyseq> medan du drar "
+"in bilder kommer Shotwell att importera bilderna utan att kopiera dem."
+
+#. (itstool) path: page/p
+#: C/import-file.page:22
+msgid ""
+"Once the import is complete, you can select <gui>Last Import</gui> in the "
+"sidebar to see all photos successfully imported. The Events list will also "
+"show new entries for the dates corresponding to the imported photos."
+msgstr ""
+"När importen är färdig kan du välja <gui>Senaste import</gui> i sidopanelen "
+"för att se alla importerade bilder. Händelselistan kommer också att visa nya "
+"poster för datumen som motsvarar de importerade bilderna."
+
+#. (itstool) path: info/desc
+#: C/view-sidebar.page:7
+msgid ""
+"The sidebar on the left of the window lists various views of your library."
+msgstr ""
+"Sidopanelen till vänster om fönstret listar olika vyer över ditt bibliotek."
+
+#. (itstool) path: page/title
+#: C/view-sidebar.page:20
+msgid "The sidebar"
+msgstr "Sidopanelen"
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:22
+msgid ""
+"The sidebar on the left side of the Shotwell window lists various views of "
+"your library. Although you may see the same photo in multiple views, it's "
+"only stored once on your hard drive."
+msgstr ""
+"Sidopanelen på den vänstra sidan av Shotwell-fönstret listar olika vyer över "
+"ditt bibliotek. Fastän du kan se samma bild i olika vyer är den endast "
+"lagrad en gång på din hårddisk."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:24
+msgid ""
+"The <gui>Last Import</gui> view lists your last imported photos no matter if "
+"they are imported from F-Spot, your camera, a memory card or the hard disk."
+msgstr ""
+"Vyn <gui>Senaste import</gui> listar dina senast importerade bilder oavsett "
+"om de är importerade från F-Spot, din kamera, ett minneskort eller "
+"hårddisken."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:26
+msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
+msgstr "<gui>Flaggade</gui> listar alla bilder du tidigare flaggat."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:28
+msgid ""
+"The <gui>Saved Search</gui> allows you to sort your library by many criteria."
+msgstr ""
+"<gui>Sparad sökning</gui> låter dig sortera ditt bibliotek efter flera "
+"kriterier."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:30
+msgid ""
+"The <gui>Events</gui> folder lists all events in your library. An event is a "
+"group of photos that were taken at approximately the same time."
+msgstr ""
+"Mappen <gui>Händelser</gui> listar alla händelser i ditt bibliotek. En "
+"händelser är en grupp av bilder som tagits ungefär samtidigt."
+
+#. (itstool) path: page/p
+#: C/view-sidebar.page:32
+msgid ""
+"The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
+"can have multiple tags attached to them. When you click on the name of a tag "
+"in the sidebar, you will see all the photos associated with that tag."
+msgstr ""
+"Mappen <gui>Taggar</gui> listar alla taggar du tilldelat till bilder. Bilder "
+"kan ha flera taggar kopplade till dem. När du klickar på namnet på en tagg i "
+"sidopanelen kommer du att se alla bilder associerade med den taggen."
 
 #. (itstool) path: page/title
 #: C/privacy-policy.page:7
@@ -2502,11 +1694,11 @@ msgstr ""
 #: C/privacy-policy.page:13
 msgid ""
 "At no time does Shotwell Connect transmit any information to the GNOME "
-"foundation, the Software Freedom Convervancy or any of the developers of the "
+"foundation, the Software Freedom Conservancy or any of the developers of the "
 "Shotwell Connect Application for Google services."
 msgstr ""
 "Shotwell Connect överför aldrig någon information till GNOME-stiftelsen, the "
-"Software Freedom Convervancy eller någon av utvecklarna av programmet "
+"Software Freedom Conservancy eller någon av utvecklarna av programmet "
 "Shotwell Connect för Google-tjänster."
 
 #. (itstool) path: section/p
@@ -2619,7 +1811,7 @@ msgid ""
 "This authentication token is simply a session-identifying sequence of "
 "letters and numbers. It contains no password, user name, or other personal "
 "information. At no time does Shotwell Connect transmit any information to "
-"the GNOME foundation, the Software Freedom Convervancy or any of the "
+"the GNOME foundation, the Software Freedom Conservancy or any of the "
 "developers of the Shotwell Connect Application for Flickr."
 msgstr ""
 "Programmet Shotwell Connect och dess datalagring sparas lokalt på din dator. "
@@ -2628,7 +1820,7 @@ msgstr ""
 "en sessionsidentifierande rad bokstäver och siffror. Den innehåller inga "
 "lösenord, användarnamn eller annan personlig information. Shotwell Connect "
 "överför aldrig någon information till GNOME-stiftelsen, the Software Freedom "
-"Convervancy eller någon av utvecklarna av programmet Shotwell Connect för "
+"Conservancy eller någon av utvecklarna av programmet Shotwell Connect för "
 "Flickr."
 
 #. (itstool) path: section/title
@@ -2636,11 +1828,11 @@ msgstr ""
 msgid "Permissions you grant Shotwell for Flickr"
 msgstr "Rättigheter som du ger Shotwell för Flickr"
 
-# TODO: choose, access; "does no modification"
+# TODO: choose, "does no modification"
 #. (itstool) path: section/p
 #: C/privacy-policy.page:48
 msgid ""
-"By using Shotwell, you grant the Shotwell Connect application acces to "
+"By using Shotwell, you grant the Shotwell Connect application access to "
 "publish photos to your Flickr account. It will download the list of "
 "available albums to allow you to chose an existing album to upload to. It "
 "can also create new albums on your behalf. Other than creating albums and "
@@ -2655,561 +1847,118 @@ msgstr ""
 "data på ditt Flickr-konto."
 
 #. (itstool) path: info/desc
-#: C/raw.page:7
-msgid "More about RAW support in Shotwell."
-msgstr "Mer om RAW-stöd i Shotwell."
+#: C/import-memorycard.page:7
+msgid "Import photos from a digital camera's memory card."
+msgstr "Importera bilder från en digitalkameras minneskort."
 
 #. (itstool) path: page/title
-#: C/raw.page:12
-msgid "RAW support in Shotwell"
-msgstr "RAW-stöd i Shotwell"
+#: C/import-memorycard.page:12
+msgid "Importing from a memory card"
+msgstr "Importera från ett minneskort"
 
 #. (itstool) path: page/p
-#: C/raw.page:13
+#: C/import-memorycard.page:14
+msgid "To import photos from a camera memory card:"
+msgstr "För att importera bilder från en kameras minneskort:"
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:18
 msgid ""
-"Some cameras have the ability to store data directly off the sensor and into "
-"a file that contains extra color information; this is commonly referred to "
-"as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
+"Put the card into your card reader. Make sure the card reader is plugged in "
+"to the computer and switched on."
 msgstr ""
-"En del kameror har förmågan att lagra data direkt från sensorn till en fil "
-"som innehåller extra färginformation, känt som ”RAW” eller ”Kamera-RAW”, och "
-"Shotwell stödjer även dessa filer."
+"Stoppa i kortet i din kortläsare. Försäkra dig om att kortläsaren är "
+"ansluten till datorn och påslagen."
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:21
+msgid "The card reader and card should be detected automatically."
+msgstr "Kortläsaren och kortet bör upptäckas automatiskt."
+
+#. (itstool) path: item/p
+#: C/import-memorycard.page:24
+msgid ""
+"Follow the instructions for <link xref=\"import-file\">importing photos from "
+"your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
+"Folder...</gui></guiseq>, the memory card should be visible as a folder in "
+"the side bar of the file selection window."
+msgstr ""
+"Följ instruktionerna för att <link xref=\"import-file\">importera bilder "
+"från din hårddisk</link>. Om du klickar <guiseq><gui>Arkiv</"
+"gui><gui>Importera från mapp…</gui></guiseq> bör minneskortet synas som en "
+"mapp i sidopanelen för filväljarfönstret."
 
 #. (itstool) path: page/p
-#: C/raw.page:18
+#: C/import-memorycard.page:28
 msgid ""
-"Since RAW photographs normally cannot be displayed directly, but must be "
-"first developed - that is, have their extra information interpreted and "
-"readied for displaying - most cameras will either embed a JPEG inside a RAW-"
-"format file, or produce a JPEG alongside the RAW file at the time the "
-"snapshot is taken. The latter is referred to throughout this document as RAW"
-"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
-"treat them as one item in your library."
+"Shotwell can import photos from any memory card that is compatible with your "
+"card reader."
 msgstr ""
-"Eftersom RAW-bilder vanligtvis endast kan visas direkt, men först måste "
-"framkallas - det vill säga, tolka deras extra information och göra klart den "
-"för visning - kommer de flesta kameror att bädda in en JPEG inuti RAW-"
-"formatfilen, eller skapa en JPEG vid sidan av RAW-filen då ögonblicksbilden "
-"tas. Det senare refereras till i detta dokument som RAW+JPEG. Om du "
-"importerar ett RAW+JPEG-par kommer Shotwell att hålla dem sammankopplade och "
-"behandla dem som ett objekt i ditt bibliotek."
+"Shotwell kan importera bilder från minneskort som är kompatibla med din "
+"kortläsare."
 
 #. (itstool) path: page/p
-#: C/raw.page:27
+#: C/import-memorycard.page:30
 msgid ""
-"When you import a RAW file, you can choose to either use the camera's "
-"internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
-"gui><gui>Developer</gui></guiseq> in the menus."
+"If the card is not detected automatically, your card reader may not have "
+"been recognized. Try unplugging it and then plugging it in again. If that "
+"doesn't work, you should still be able to import photos by <link xref="
+"\"import-camera\">connecting your camera directly to the computer</link>, "
+"though."
 msgstr ""
-"När du importerar en RAW-fil kan du välja att antingen använda kamerans "
-"inbyggda JPEG eller Shotwells egna genom att markera <guiseq><gui>Bilder</"
-"gui><gui>Framkallare</gui></guiseq> i menyerna."
+"Om kortet inte upptäcks automatiskt kanske din kortläsare inte kände igen "
+"det. Prova att koppla från det och sedan ansluta det igen. Om det inte "
+"fungerar bör du ändå kunna importera bilder genom att ansluta <link xref="
+"\"import-camera\"> din kamera direkt till datorn </link>."
+
+#. (itstool) path: info/desc
+#: C/other-plugins.page:7
+msgid "Extend Shotwell's functionality dynamically."
+msgstr "Utöka Shotwells funktionalitet dynamiskt."
+
+#. (itstool) path: page/title
+#: C/other-plugins.page:12
+msgid "Plugins"
+msgstr "Insticksmoduler"
+
+#. (itstool) path: page/p
+#: C/other-plugins.page:13
+msgid ""
+"Shotwell can be used with <em>plugins</em>, which are companion shared "
+"libraries that can add support for new publishing destinations or new "
+"slideshow transitions."
+msgstr ""
+"Shotwell kan användas med <em>Insticksmoduler</em>, vilket är delade "
+"bibliotek som kan lägga till stöd för nya publiceringstyper eller nya "
+"övergångar vid bildspel."
+
+#. (itstool) path: page/p
+#: C/other-plugins.page:18
+msgid ""
+"To see a list of installed plugins, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq>, and in the <gui>Preferences</gui> "
+"window, click on the <gui>Plugins</gui> tab. You'll see a list of currently-"
+"installed plugins, each with a checkbox by it, and you may enable or disable "
+"each by selecting or deselecting the checkbox by its name."
+msgstr ""
+"För att se en lista över installerade insticksmoduler, välj "
+"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq>, och i fönstret "
+"<gui>Inställningar</gui>, klicka på fliken <gui>Insticksmoduler</gui>. Du "
+"kommer att se en lista av aktuella installerade insticksmoduler, var och en "
+"med en kryssruta vid sida av den, och du kan aktivera eller inaktivera var "
+"och en genom att kryssa eller kryssa av kryssrutan för dess namn."
 
 #. (itstool) path: note/p
-#: C/raw.page:33
+#: C/other-plugins.page:25
 msgid ""
-"Changing between developers will cause all edits made to a photograph to be "
-"discarded."
+"Full documentation on how to develop new plugins is available at <link href="
+"\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
+"wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
 msgstr ""
-"Ändringar mellan framkallare kommer att göra att alla redigeringar gjorda "
-"till en bild förkastas."
-
-#. (itstool) path: page/p
-#: C/raw.page:39
-msgid ""
-"In order to publish or use a RAW photograph in most other software, it has "
-"to be exported first. Shotwell can export your RAW photos in JPEG, PNG, TIFF "
-"or BMP format, and, when publishing, will internally export a JPEG version "
-"for you and publish that."
-msgstr ""
-"För att kunna publicera eller använda en RAW-bild i de flesta andra "
-"programmen måste den exporteras först. Shotwell kan exportera dina RAW-"
-"bilder i JPEG, PNG, TIFF eller BMP-format, och när du publicerar, exporterar "
-"de en JPEG-version för dig och publicerar den."
-
-#. (itstool) path: info/desc
-#: C/running.page:7
-msgid ""
-"Find Shotwell in the Applications menu, or have it start automatically when "
-"you plug in a camera."
-msgstr ""
-"Hitta Shotwell i programmenyn, eller låt det starta automatiskt när du "
-"stoppar i en kamera."
-
-#. (itstool) path: page/title
-#: C/running.page:14
-msgid "Running Shotwell"
-msgstr "Köra Shotwell"
-
-#. (itstool) path: page/p
-#: C/running.page:16
-msgid ""
-"Once installed, Shotwell is available in your <gui>Applications</gui> menu "
-"under <gui>Graphics</gui> or <gui>Photography</gui>."
-msgstr ""
-"När det väl är installerat är Shotwell tillgängligt i menyn <gui>Program</"
-"gui> under <gui>Grafik</gui> eller <gui>Bilder</gui>."
-
-#. (itstool) path: page/p
-#: C/running.page:18
-msgid ""
-"Shotwell may also be executed automatically when a camera is plugged in to "
-"your computer. To check that your system is set up to run Shotwell when a "
-"camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
-"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
-"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
-"you choose Shotwell as your photo handling application."
-msgstr ""
-"Shotwell kan också exekveras automatiskt när en kamera stoppas i din dator. "
-"För att kontrollera att ditt system är inställt på att köra Shotwell när en "
-"kamera upptäcks, gå till <guiseq><gui>Redigera</gui><gui>Inställningar</"
-"gui></guiseq> i ett Nautilus(filhanterare)-fönster och markera fliken "
-"<gui>Media</gui>. Du kommer att se en rullgardinsmeny som heter <gui>Bilder:"
-"</gui> vilken låter dig välja Shotwell som ditt program för bildhantering."
-
-#. (itstool) path: note/p
-#: C/running.page:25
-msgid ""
-"Shotwell may also be executed directly from its build directory, although "
-"this is only recommended for testing out Shotwell or for developers."
-msgstr ""
-"Shotwell kan också exekveras direkt från dess byggkatalog, men det "
-"rekommenderas bara för testning av Shotwell eller för utvecklare."
-
-#. (itstool) path: info/desc
-#: C/share-background.page:7
-msgid ""
-"Set your desktop background to a single photo or to a slideshow of photos."
-msgstr ""
-"Ställ in din skrivbordsbakgrund till att använda en enstaka bild eller ett "
-"bildspel."
-
-#. (itstool) path: page/title
-#: C/share-background.page:12
-msgid "Set a desktop background or slideshow"
-msgstr "Ange en skrivbordsbakgrund eller ett bildspel"
-
-#. (itstool) path: page/p
-#: C/share-background.page:14
-msgid ""
-"To set a single photo as your desktop background, select the photo and "
-"choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
-msgstr ""
-"För att ange en bild som din skrivbordsbakgrund, markera bilden och välj "
-"sedan <guiseq><gui>Arkiv</gui><gui>Använd som skrivbordsbakgrund</gui></"
-"guiseq>."
-
-#. (itstool) path: page/p
-#: C/share-background.page:16
-msgid ""
-"You can also set your background to a slideshow of photos. To do this, "
-"select the photos for the slideshow and choose <guiseq><gui>File</"
-"gui><gui>Set as Desktop Slideshow...</gui></guiseq>. Shotwell will prompt "
-"you for a slideshow delay, which can be any interval up to one day in "
-"length. The background slideshow will proceed even when Shotwell is not "
-"running."
-msgstr ""
-"Du kan också sätta din bakgrund till ett bildspel. För att göra detta, "
-"markera bilderna för bildspel och välj <guiseq><gui>Arkiv</gui><gui>Använd "
-"som bildspel för skrivbord…</gui></guiseq>. Shotwell kommer att fråga om "
-"bildspelsfördröjning, vilket kan vara vilket intervall som helst upp till en "
-"dags längd. Bildspelet i bakgrunden kommer att fortsätta även när Shotwell "
-"inte körs."
-
-#. (itstool) path: info/desc
-#: C/share-export.page:7
-msgid "Copy photos out of Shotwell so you can put them somewhere else."
-msgstr ""
-"Kopiera bilder från Shotwell så att du kan använda dem på andra ställen."
-
-#. (itstool) path: page/title
-#: C/share-export.page:12
-msgid "Exporting photos"
-msgstr "Exportera bilder"
-
-#. (itstool) path: page/p
-#: C/share-export.page:14
-msgid ""
-"To export photos from Shotwell via drag and drop, drag the photos from "
-"Shotwell onto a file manager window or your desktop. The new files will be "
-"full-sized copies of the photos in your library."
-msgstr ""
-"För att exportera bilder från Shotwell via dra-och-släpp, dra bilderna från "
-"Shotwell till ett filhanterarfönster eller ditt skrivbord. De nya filerna "
-"kommer att vara kopior av bilderna i ditt bibliotek."
-
-#. (itstool) path: page/p
-#: C/share-export.page:18
-msgid ""
-"Alternatively, select a set of photos and choose the <guiseq><gui>File</"
-"gui><gui>Export...</gui></guiseq> command or press <keyseq><key>Shift</"
-"key><key>Ctrl</key><key>E</key></keyseq>, which exports photos while letting "
-"you fine-tune the size and dimensions of your photo files. A window will "
-"appear allowing you to make several choices:"
-msgstr ""
-"Alternativt kan du markera några bilder och välja <guiseq><gui>Arkiv</"
-"gui><gui>Exportera…</gui></guiseq>-kommandot eller trycka "
-"<keyseq><key>Skift</key><key>Ctrl</key><key>E</key></keyseq> som exporterar "
-"bilderna under tiden du finjusterar storlek och dimensioner på dina "
-"bildfiler. Ett fönster visas och låter dig göra följande val:"
-
-#. (itstool) path: item/p
-#: C/share-export.page:24
-msgid "A format for export."
-msgstr "Ett format för export."
-
-#. (itstool) path: item/p
-#: C/share-export.page:27
-msgid ""
-"Choose <gui>Unmodified</gui> to export photos in their original format "
-"without any edits made in Shotwell. RAW photos will be exported in their "
-"original RAW format."
-msgstr ""
-"Välj <gui>Oförändrad</gui> för att exportera bilderna i deras originalformat "
-"utan redigeringar gjorda i Shotwell. RAW-bilder kommer att exporteras i "
-"deras original-RAW-format."
-
-#. (itstool) path: item/p
-#: C/share-export.page:29
-msgid ""
-"Choose <gui>Current</gui> to export photos including edits made in Shotwell. "
-"RAW photos will be exported in JPEG format if you have edited them in "
-"Shotwell, and otherwise in their original RAW format."
-msgstr ""
-"Välj <gui>Aktuellt</gui> för att exportera bilder med ändringar gjorda i "
-"Shotwell. RAW-bilder kommer att exporteras i JPEG-format om du har redigerat "
-"dem i Shotwell, annars i deras ursprungliga RAW-format."
-
-#. (itstool) path: item/p
-#: C/share-export.page:31
-msgid ""
-"Or you can choose a particular image format (JPEG, PNG, TIFF, BMP) to be "
-"used for exporting. Any edits made in Shotwell will be included, and "
-"Shotwell will convert photos to the destination format."
-msgstr ""
-"Eller så kan du välja ett specifikt bildformat (JPEG, PNG, TIFF, BMP) för "
-"exporten. Ändringar gjorda i Shotwell kommer att inkluderas och Shotwell "
-"kommer att konvertera bilderna till målformatet."
-
-#. (itstool) path: item/p
-#: C/share-export.page:37
-msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
-msgstr "Bildkvaliteten för export (låg, mellan, hög eller maximal)"
-
-#. (itstool) path: item/p
-#: C/share-export.page:38
-msgid ""
-"A scaling constraint (which means how Shotwell will decide to scale the "
-"photos down), and the desired pixel size."
-msgstr ""
-"En skalningsbegränsning (vilket betyder hur Shotwell bestämmer hur bilderna "
-"ska skalas) och önskad bildpunktsstorlek."
-
-#. (itstool) path: item/title
-#: C/share-export.page:40
-msgid "Original size"
-msgstr "Ursprungsstorlek"
-
-#. (itstool) path: item/p
-#: C/share-export.page:40
-msgid "Image will be exported without any scaling applied"
-msgstr "Bilden kommer att exporteras utan att någon skalning tillämpas"
-
-#. (itstool) path: item/title
-#: C/share-export.page:41
-msgid "Longest edge"
-msgstr "Längsta kanten"
-
-#. (itstool) path: item/p
-#: C/share-export.page:41
-msgid ""
-"Image will be exported by having its longest edge scaled to <gui>Pixels</"
-"gui> and the other according to the aspect ratio"
-msgstr ""
-"Bilden kommer att exporteras med sin längsta kant skalad till "
-"<gui>Bildpunkter</gui> och den andra enligt bildförhållandet"
-
-#. (itstool) path: item/title
-#: C/share-export.page:42
-msgid "Width"
-msgstr "Bredd"
-
-#. (itstool) path: item/p
-#: C/share-export.page:42
-msgid ""
-"The image width will have its width scaled to the given pixel size and its "
-"height according to the aspect ratio. This is equivalent to <gui>Longest "
-"Edge</gui> for landscape pictures."
-msgstr ""
-"Bildens bredd kommer att skalas till det angivna antalet bildpunkter och "
-"dess höjd enligt bildförhållandet. Detta är ekvivalent med <gui>Längsta "
-"kanten</gui> för liggande bilder."
-
-#. (itstool) path: item/title
-#: C/share-export.page:43
-msgid "Height"
-msgstr "Höjd"
-
-#. (itstool) path: item/p
-#: C/share-export.page:43
-msgid ""
-"The image height will have its height scaled to the given pixel size and its "
-"width according to the aspect ratio. This is equivalent to <gui>Longest "
-"Edge</gui> for portrait pictures."
-msgstr ""
-"Bildens höjd kommer att skalas till det angivna antalet bildpunkter och dess "
-"bredd enligt bildförhållandet. Detta är ekvivalent med <gui>Längsta kanten</"
-"gui> för stående bilder."
-
-#. (itstool) path: item/p
-#: C/share-export.page:46
-msgid ""
-"The option whether you like to export metadatas such as tags or ratings. "
-"This can help to save your privacy if you have geolocation tags or tags "
-"which shouldn't be seen by anyone."
-msgstr ""
-"Huruvida du vill exportera metadata som taggar eller betyg. Detta kan skydda "
-"din sekretess om du har geoplats-taggar eller taggar ingen bör se."
-
-#. (itstool) path: page/p
-#: C/share-export.page:49
-msgid ""
-"If selected, Shotwell will write tags, titles, and other metadata to the new "
-"files."
-msgstr ""
-"Om valt kommer Shotwell att skriva taggar, titlar och annan metadata till de "
-"nya filerna."
-
-#. (itstool) path: info/desc
-#: C/share-print.page:7
-msgid ""
-"Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
-"options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
-msgstr ""
-"Välj <guiseq><gui>Arkiv</gui><gui>Skriv ut…</gui></guiseq>. För fler "
-"utskriftsalternativ, välj fliken <gui>Sidinställning</gui> i dialogen "
-"<gui>Skriv ut</gui>."
-
-#. (itstool) path: page/title
-#: C/share-print.page:12
-msgid "Printing"
-msgstr "Skriva ut"
-
-#. (itstool) path: page/p
-#: C/share-print.page:14
-msgid ""
-"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
-"gui></guiseq>."
-msgstr ""
-"För att skriva ut en bild, markera den och välj <guiseq><gui>Arkiv</"
-"gui><gui>Skriv ut…</gui></guiseq>."
-
-#. (itstool) path: page/p
-#: C/share-print.page:16
-msgid ""
-"Shotwell can also print multiple images in one page; to do this, select "
-"multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
-"and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
-"tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
-"options under <gui>Autosize</gui>."
-msgstr ""
-"Shotwell kan också skriva ut flera bilder på en sida - för att göra detta, "
-"markera flera bilder, välj <guiseq><gui>Arkiv</gui><gui>Skriv ut…</gui></"
-"guiseq> och i dialogen <gui>Skriv ut</gui>, välj fliken "
-"<gui>Bildinställningar</gui>. I <gui>Bildinställningar</gui>, välj ett av "
-"alternativen för flera-bilder-per-sida under <gui>Automatisk storlek</gui>."
-
-#. (itstool) path: page/p
-#: C/share-print.page:23
-msgid ""
-"If you would like to set formatting, paper size, and orientation options, "
-"choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
-"printing."
-msgstr ""
-"Om du vill ställa in formatering, pappersstorlek och riktningsalternativ, "
-"välj fliken <gui>Sidinställning</gui> i dialogen <gui>Skriv ut</gui> innan "
-"utskrift."
-
-#. (itstool) path: info/desc
-#: C/share-send.page:7
-msgid "Send photos via email, instant messaging or in other ways."
-msgstr "Skicka bilder via e-post, snabbmeddelanden eller på andra sätt."
-
-#. (itstool) path: page/title
-#: C/share-send.page:12
-msgid "Sending photos"
-msgstr "Skicka bilder"
-
-#. (itstool) path: page/p
-#: C/share-send.page:14
-msgid ""
-"Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
-"lets you send photos via email, instant messaging or in other ways."
-msgstr ""
-"Shotwell kan skicka bilder genom GNOME-skrivbordets \"Skicka till\"-mekanism "
-"som låter dig skicka bilder via e-post, snabbmeddelanden eller på andra sätt."
-
-#. (itstool) path: page/p
-#: C/share-send.page:16
-msgid ""
-"To send photos, select them in Shotwell and choose <guiseq><gui>File</"
-"gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
-"<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
-"will appear which lets you choose a mechanism for sending the files (such as "
-"email or instant messaging) and a destination. You can optionally choose to "
-"send the files in a compressed format."
-msgstr ""
-"För att skicka bilder, visa dem i Shotwell och välj <guiseq><gui>Arkiv</"
-"gui><gui>Skicka till…</gui></guiseq>, eller högerklicka på bilderna och välj "
-"<gui>Skicka till…</gui> från snabbmenyn. En <gui>Skicka till</gui>-dialog "
-"kommer att visas vilken låter dig välja olika sätt att skicka filerna på "
-"(som e-post eller snabbmeddelanden) och en destination. Du kan också välja "
-"att skicka filerna i ett komprimerat format."
-
-#. (itstool) path: info/desc
-#: C/share-slideshow.page:7
-msgid "Watch a slideshow of your photos."
-msgstr "Se en bildpresentation av dina bilder."
-
-#. (itstool) path: page/title
-#: C/share-slideshow.page:12
-msgid "Slideshows"
-msgstr "Bildpresentationer"
-
-#. (itstool) path: page/p
-#: C/share-slideshow.page:14
-msgid ""
-"To see a sideshow of any collection in Shotwell, navigate to that collection "
-"and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> or press "
-"<key>F5</key>."
-msgstr ""
-"För att se ett bildspel över en samling i Shotwell, navigera över samlingen "
-"och markera <guiseq><gui>Visa</gui><gui>Bildspel</gui></guiseq> eller tryck "
-"<key>F5</key>."
-
-#. (itstool) path: page/p
-#: C/share-slideshow.page:16
-msgid "You can change some settings in a running slideshow:"
-msgstr "Du kan ändra en del inställningar i ett körande bildspel:"
-
-#. (itstool) path: item/p
-#: C/share-slideshow.page:19
-msgid "The duration how long an image should be shown: 1 - 30 seconds"
-msgstr "Hur länge en bild ska visas: 1 - 30 sekunder"
-
-#. (itstool) path: item/p
-#: C/share-slideshow.page:20
-msgid "You can select different transition effects."
-msgstr "Du kan välja olika övergångseffekter."
-
-#. (itstool) path: item/p
-#: C/share-slideshow.page:21
-msgid "The time for each transition effect: 0.1 - 1.0 seconds"
-msgstr "Tiden för övergångseffekter: 0,1 - 1,0 sekunder"
-
-#. (itstool) path: info/desc
-#: C/share-upload.page:7
-msgid "Publish photos to Flickr, Google Photos, or other sites."
-msgstr "Publicera bilder till Flickr, Google Foto eller andra webbplatser."
-
-#. (itstool) path: page/title
-#: C/share-upload.page:12
-msgid "Publishing to the Web"
-msgstr "Publicera på webben"
-
-#. (itstool) path: page/p
-#: C/share-upload.page:14
-msgid ""
-"Through the use of <link xref=\"other-plugins\">plugins</link>, Shotwell can "
-"publish photos and videos to the following services, each of which requires "
-"an account:"
-msgstr ""
-"Genom att använda <link xref=\"other-plugins\">insticksmoduler</link> kan "
-"Shotwell publicera bilder och filmer till följande tjänster, som var och en "
-"kräver ett konto:"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:18
-msgid "<link href=\"https://facebook.com\">Facebook</link>"
-msgstr "<link href=\"https://facebook.com\">Facebook</link>"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:19
-msgid "<link href=\"https://flickr.com\">Flickr</link>"
-msgstr "<link href=\"https://flickr.com\">Flickr</link>"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:20
-msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
-msgstr "<link href=\"https://photos.google.com\">Google Foto</link>"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:21
-msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"https://youtube.com\">YouTube</link> (endast video)"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:22
-msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
-msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (endast video)"
-
-#. (itstool) path: item/p
-#: C/share-upload.page:23
-msgid ""
-"Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
-"gallery software (photos only)"
-msgstr ""
-"Vilken webbplats som helst som kör <link href=\"http://piwigo.org\">Piwigo</"
-"link>-bildgalleriprogram (endast bilder)"
-
-#. (itstool) path: page/p
-#: C/share-upload.page:26
-msgid ""
-"To publish selected photos in a collection, choose <guiseq><gui>Edit</"
-"gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
-"to enable the plugin for the service you want to publish to. Next, choose, "
-"<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
-"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
-"key></keyseq>. You will see a dialog that lets you select a publishing "
-"service. You will then need to log in or create an account."
-msgstr ""
-"För att publicera markerade bilder i en samling, välj <guiseq><gui>Redigera</"
-"gui><gui>Inställningar</gui></guiseq> och klicka på fliken "
-"<gui>Insticksmoduler</gui> för att aktivera insticket för tjänsten du vill "
-"publicera till. Välj sedan <guiseq><gui>Arkiv</gui><gui>Publicera</gui></"
-"guiseq>, tryck verktygsfältsknappen <gui>Publicera</gui> eller använd "
-"<keyseq><key>Ctrl</key><key>Skift</key><key>P</key></keyseq>. Du får då upp "
-"en dialog som låter dig välja en publiceringstjänst. Du måste sedan logga in "
-"eller skapa ett konto."
-
-#. (itstool) path: page/p
-#: C/share-upload.page:31
-msgid ""
-"Publishing to Facebook requires you to grant certain permissions to the "
-"Shotwell Facebook application. You only need to grant these permissions "
-"once, when you first associate Shotwell with your Facebook account."
-msgstr ""
-"Att publicera till Facebook kräver att du ger tillstånd för programmet "
-"Shotwell för Facebook. Du behöver bara ge dessa tillstånd en gång, då du "
-"först associerar Shotwell med ditt Facebook-konto."
-
-#. (itstool) path: note/p
-#: C/share-upload.page:34
-msgid ""
-"You will be only able to publish images with at most the permission you "
-"granted to the Shotwell Facebook application"
-msgstr ""
-"Du kommer bara kunna publicera bilder med högst behörigheten du givit "
-"tillstånd till för programmet Shotwell för Facebook"
-
-#. (itstool) path: page/p
-#: C/share-upload.page:36
-msgid ""
-"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
-"log in and permit Shotwell Connect to access your account."
-msgstr ""
-"På liknande sätt kräver Flickr, YouTube eller Google Foto att du loggar in "
-"och tillåter Shotwell Connect att komma åt ditt konto."
+"Fullständig dokumentation om hur du utvecklar nya insticksmoduler finns "
+"tillgänglig på <link href=\"https://wiki.gnome.org/Apps/Shotwell/"
+"Architecture/WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/"
+"Architecture/WritingPlugins</link>"
 
 #. (itstool) path: info/desc
 #: C/view-displaying.page:7
@@ -3308,111 +2057,1372 @@ msgstr ""
 "själva Shotwell."
 
 #. (itstool) path: info/desc
-#: C/view-information.page:7
-msgid ""
-"View more detailed information about photos, like the exposure mode used by "
-"the camera."
+#: C/edit-crop.page:7
+msgid "Improve the composition of a photo by cutting out parts of it."
 msgstr ""
-"Visa detaljerad information om bilder, som exponeringsläge använt av kameran."
+"Förbättra sammansättningen för en bild genom att klippa bort delar från den."
 
 #. (itstool) path: page/title
-#: C/view-information.page:12
-msgid "Basic and extended information"
-msgstr "Grundläggande och utökad information"
+#: C/edit-crop.page:12
+msgid "Cropping"
+msgstr "Beskär"
 
 #. (itstool) path: page/p
-#: C/view-information.page:14
+#: C/edit-crop.page:14
 msgid ""
-"The Basic Information pane appears at the bottom of the sidebar, and "
-"displays a brief summary of the photos you've selected. If no photos are "
-"selected, it displays a summary of the entire collection. You can toggle the "
-"display of this pane using the <guiseq><gui>View</gui><gui>Basic "
-"Information</gui></guiseq> command."
+"To reduce the area of a photo and concentrate the viewer's attention on a "
+"smaller portion of it, use the Crop tool. The crop tool is only available in "
+"full-window or fullscreen mode."
 msgstr ""
-"Panelen för grundläggande information visas längst ned i sidopanelen och ger "
-"en kortfattad sammanfattning av de bilder du har markerat. Om inga bilder är "
-"markerade visar den en sammanfattning av hela samlingen. Du kan växla "
-"visningen av denna panel genom att använda <guiseq><gui>Visa</"
-"gui><gui>Grundläggande information</gui></guiseq>-kommandot."
+"För att minska området för en bild och fånga betraktarens uppmärksamhet till "
+"ett mindre område, använd verktyget beskär. Verktyget beskär är endast "
+"tillgängligt i helfönster- eller helskärmsläge."
 
-#. (itstool) path: page/p
-#: C/view-information.page:16
+#. (itstool) path: item/p
+#: C/edit-crop.page:19
 msgid ""
-"The floating Extended Information window displays more information about the "
-"selected photo. The <guiseq><gui>View</gui><gui>Extended Information</gui></"
-"guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
-"keyseq> toggles the display of this window."
+"Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
+"gui> button on the toolbar."
 msgstr ""
-"Fönstret Utökad information visar mer information om den markerade bilden. "
-"Kommandot <guiseq><gui>Visa</gui><gui>Utökad information</gui></guiseq> "
-"eller <keyseq><key>Ctrl</key><key>Skift</key><key>X</key></keyseq> växlar "
-"visningen av detta fönster."
+"Dubbelklicka på en bild för att ange helskärmsläge och tryck sedan på "
+"knappen <gui>Beskär</gui> i verktygsfältet."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:22
+msgid ""
+"A white box, the crop rectangle, will appear over the photo. The lighter "
+"portion of the photo within the crop rectangle represents what the photo "
+"will look like when you crop it."
+msgstr ""
+"En vit ruta, beskärningsrektangeln kommer att visas på bilden. Den ljusare "
+"delen av bilden inuti beskärningsrektangeln representerar hur bilden kommer "
+"att se ut efter att den är beskuren."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:25
+msgid ""
+"If you place your cursor in the middle of the box, you can move the box "
+"around. If you drag the edges of the box, you can adjust its size. As you "
+"move and adjust the crop box, you'll see four lines appear inside it, like a "
+"tic-tac-toe grid. These are <em>rule of thirds</em> lines."
+msgstr ""
+"Om du placerar din markör i mitten på rutan kan du också flytta runt rutan. "
+"Om du drar i kanterna på rutan kan du justera dess storlek. När du flyttar "
+"runt och justerar rutan kommer du att se fyra linjer inuti den, ungefär som "
+"ett rutnät i luffarschack. Det är linjer för <em>tredelningsregeln</em>."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:26
+msgid ""
+"You can also constrain the crop box to one of many common sizes. Choose a "
+"size from the drop-down list that suits your needs. If you press the flip "
+"button next to it, the orientation of the constraint will switch (from "
+"landscape to portrait)."
+msgstr ""
+"Du kan också begränsa beskärningsrutan till en av många vanliga storlekar. "
+"Välj en storlek från rullgardinsmenyn som passar dig. Om du trycker "
+"vändknappen bredvid den kommer riktningen av begränsningen att växla (från "
+"landskap till porträtt)."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:29
+msgid ""
+"When you're happy with your crop outline, apply it by pressing the "
+"<gui>Crop</gui> button. Shotwell will display the cropped photo."
+msgstr ""
+"Verkställ din beskärning när du är nöjd med den genom att trycka på knappen "
+"<gui>Beskär</gui>. Shotwell kommer att visa den beskurna bilden."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:32
+msgid ""
+"If you change your mind, press the <gui>Crop</gui> button again and fine-"
+"tune the crop."
+msgstr ""
+"Om du ändrar dig, tryck knappen <gui>Beskär</gui> igen och finjustera "
+"beskärningen."
+
+#. (itstool) path: item/p
+#: C/edit-crop.page:33
+msgid ""
+"If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
+"return to the photo's previous crop dimensions."
+msgstr ""
+"Om du trycker <gui>Avbryt</gui> istället för <gui>Verkställ</gui> kommer "
+"Shotwell att återgå till en bilds tidigare dimensioner."
+
+#. (itstool) path: section/title
+#: C/edit-crop.page:38
+msgid "What is the rule of thirds?"
+msgstr "Vad är tredelningsregeln?"
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:39
+msgid ""
+"The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
+"photo."
+msgstr ""
+"<em>Tredelningsregeln</em> hjälper dig att välja en angenäm sammansättning "
+"för en bild."
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:40
+msgid ""
+"Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
+"vertical lines and two equally-spaced horizontal lines. According to the "
+"rule, you're more likely to get a pleasing composition if you align major "
+"features (like the horizon, or a person's body) with one of the lines. "
+"Paying attention to the way features flow from one part of the grid to "
+"another can also help."
+msgstr ""
+"Föreställ dig att en scen delas upp i ett 3x3-rutnät med två vertikala "
+"linjer och två horisontella linjer, alla med samma avstånd sinsemellan. "
+"Enligt regeln får du en bättre sammansättning om du justerar större "
+"egenskaper (som horisonten eller en persons kropp) med en av linjerna. Att "
+"observera sättet egenskaper flödar från en del av rutnätet till ett annat "
+"kan också hjälpa."
+
+#. (itstool) path: section/p
+#: C/edit-crop.page:41
+msgid ""
+"Cropping a photo so that it conforms to the rule of thirds often results in "
+"a more visually appealing image."
+msgstr ""
+"Att beskära en bild så att den passar under tredelningsregeln ger ofta en "
+"visuellt tilltalande bild."
+
+#. (itstool) path: section/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/edit-crop.page:42
+msgctxt "_"
+msgid ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+msgstr ""
+"external ref='figures/crop_thirds.jpg' md5='4cf0a026bb812c7eab0c9db8210a9524'"
+
+#. (itstool) path: media/p
+#: C/edit-crop.page:43
+msgid ""
+"Cropping a photo, using the \"rule of thirds\" lines to improve the "
+"composition."
+msgstr ""
+"Att beskära en bild och använda ”tredelningsregeln” för att förbättra "
+"sammansättningen."
 
 #. (itstool) path: info/desc
-#: C/view-sidebar.page:7
-msgid ""
-"The sidebar on the left of the window lists various views of your library."
-msgstr ""
-"Sidopanelen till vänster om fönstret listar olika vyer över ditt bibliotek."
+#: C/edit-undo.page:7
+msgid "Return a photo to its original, unedited form."
+msgstr "Återställa en bild till dess ursprungliga oredigerade skick."
 
 #. (itstool) path: page/title
-#: C/view-sidebar.page:20
-msgid "The sidebar"
-msgstr "Sidopanelen"
+#: C/edit-undo.page:14
+msgid "Undoing changes"
+msgstr "Ånga ändringar"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:22
+#: C/edit-undo.page:16
 msgid ""
-"The sidebar on the left side of the Shotwell window lists various views of "
-"your library. Although you may see the same photo in multiple views, it's "
-"only stored once on your hard drive."
+"Because Shotwell is a non-destructive photo editor, you can undo any "
+"alterations you make to a photograph."
 msgstr ""
-"Sidopanelen på den vänstra sidan av Shotwell-fönstret listar olika vyer över "
-"ditt bibliotek. Fastän du kan se samma bild i olika vyer är den endast "
-"lagrad en gång på din hårddisk."
+"Eftersom Shotwell är en förlustfri bildredigerare kan du ångra ändringar du "
+"gjort i en bild."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:24
+#: C/edit-undo.page:20
 msgid ""
-"The <gui>Last Import</gui> view lists your last imported photos no matter if "
-"they are imported from F-Spot, your camera, a memory card or the hard disk."
+"To completely undo all the changes you've made to a photo, click "
+"<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
+"exception is that time and date adjustments will not be reverted."
 msgstr ""
-"Vyn <gui>Senaste import</gui> listar dina senast importerade bilder oavsett "
-"om de är importerade från F-Spot, din kamera, ett minneskort eller "
-"hårddisken."
+"För att helt ångra alla dina ändringar till en bild, klicka "
+"<guiseq><gui>Bilder</gui><gui>Återställ till original</gui></guiseq>. Det "
+"enda undantaget är att tid- och datumjusteringar inte kommer att återställas."
+
+#. (itstool) path: info/desc
+#: C/organize-flag.page:7
+msgid "Flag photos to mark them as special or to work with them as a set."
+msgstr ""
+"Flagga bilder för att markera dem som speciella eller för att arbeta med dem "
+"som en samling."
+
+#. (itstool) path: page/title
+#: C/organize-flag.page:12
+msgid "Flagging photos"
+msgstr "Flagga bilder"
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:26
-msgid "The <gui>Flagged</gui> lists all photos you had previous flagged."
-msgstr "<gui>Flaggade</gui> listar alla bilder du tidigare flaggat."
-
-#. (itstool) path: page/p
-#: C/view-sidebar.page:28
+#: C/organize-flag.page:14
 msgid ""
-"The <gui>Saved Search</gui> allows you to sort your library by many criteria."
+"Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
+"flag icon appears in its upper right corner. You can select the "
+"<gui>Flagged</gui> item in the sidebar to see all photos which have been "
+"flagged."
 msgstr ""
-"<gui>Sparad sökning</gui> låter dig sortera ditt bibliotek efter flera "
-"kriterier."
+"Shotwell låter dig <em>flagga</em> bilder. När en bild flaggats kommer en "
+"liten flaggikon visas i dess övre högra hörn. Du kan markera <gui>Flaggade</"
+"gui> i sidopanelen för att se alla bilder som har flaggats."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:30
+#: C/organize-flag.page:18
 msgid ""
-"The <gui>Events</gui> folder lists all events in your library. An event is a "
-"group of photos that were taken at approximately the same time."
+"Flagging a photo marks it as special. You can interpret this in any way you "
+"like. For example, you might flag all photos which need visual adjustment, "
+"or all photos which you want to share with a friend."
 msgstr ""
-"Mappen <gui>Händelser</gui> listar alla händelser i ditt bibliotek. En "
-"händelser är en grupp av bilder som tagits ungefär samtidigt."
+"Att flagga en bild markerar den som speciell. Du kan tolka det som du vill. "
+"Till exempel kan du flagga alla bilder som kräver visuell justering, eller "
+"alla bilder som du vill dela med en vän."
 
 #. (itstool) path: page/p
-#: C/view-sidebar.page:32
+#: C/organize-flag.page:22
 msgid ""
-"The <gui>Tags</gui> folder lists all tags you've assigned to photos. Photos "
-"can have multiple tags attached to them. When you click on the name of a tag "
-"in the sidebar, you will see all the photos associated with that tag."
+"Flagging is also useful because you can operate on all flagged photos as a "
+"set. For example, you can select the <gui>Flagged</gui> view and then upload "
+"all flagged photos to a publishing service."
 msgstr ""
-"Mappen <gui>Taggar</gui> listar alla taggar du tilldelat till bilder. Bilder "
-"kan ha flera taggar kopplade till dem. När du klickar på namnet på en tagg i "
-"sidopanelen kommer du att se alla bilder associerade med den taggen."
+"Att flagga är användbart eftersom du kan jobba med alla flaggade bilder som "
+"en samling. Till exempel kan du markera vyn <gui>Flaggade</gui> och sedan "
+"skicka upp alla flaggade bilder till en publiceringstjänst."
+
+#. (itstool) path: section/title
+#: C/organize-flag.page:27
+msgid "To flag or unflag a photo"
+msgstr "Att flagga eller flagga av en bild"
+
+#. (itstool) path: section/p
+#: C/organize-flag.page:28
+msgid ""
+"To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
+"or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
+"key><key>G</key></keyseq> or <key>/</key> shortcut keys."
+msgstr ""
+"För att flagga eller flagga av en bild, högerklicka på bilden och välj "
+"<gui>Flagga</gui> eller <gui>Flagga av</gui> från snabbmenyn. Eller, använd "
+"snabbtangenterna <keyseq><key>Ctrl</key><key>G</key></keyseq> eller <key>/</"
+"key>."
+
+#. (itstool) path: info/desc
+#: C/share-slideshow.page:7
+msgid "Watch a slideshow of your photos."
+msgstr "Se en bildpresentation av dina bilder."
+
+#. (itstool) path: page/title
+#: C/share-slideshow.page:12
+msgid "Slideshows"
+msgstr "Bildpresentationer"
+
+#. (itstool) path: page/p
+#: C/share-slideshow.page:14
+msgid ""
+"To see a slideshow of any collection in Shotwell, navigate to that "
+"collection and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> "
+"or press <key>F5</key>."
+msgstr ""
+"För att se ett bildspel över en samling i Shotwell, navigera till samlingen "
+"och markera <guiseq><gui>Visa</gui><gui>Bildspel</gui></guiseq> eller tryck "
+"<key>F5</key>."
+
+#. (itstool) path: page/p
+#: C/share-slideshow.page:16
+msgid "You can change some settings in a running slideshow:"
+msgstr "Du kan ändra en del inställningar i ett körande bildspel:"
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:19
+msgid "The duration how long an image should be shown: 1 - 30 seconds"
+msgstr "Hur länge en bild ska visas: 1 - 30 sekunder"
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:20
+msgid "You can select different transition effects."
+msgstr "Du kan välja olika övergångseffekter."
+
+#. (itstool) path: item/p
+#: C/share-slideshow.page:21
+msgid "The time for each transition effect: 0.1 - 1.0 seconds"
+msgstr "Tiden för övergångseffekter: 0,1 - 1,0 sekunder"
+
+#. (itstool) path: info/desc
+#: C/organize-tag.page:7
+msgid "Organize photos by labelling them."
+msgstr "Organisera bilder genom att sätta taggar på dem."
+
+#. (itstool) path: page/title
+#: C/organize-tag.page:14
+msgid "Tagging photos"
+msgstr "Tagga bilder"
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:16
+msgid ""
+"You can assign one or more tags to selected photos. A tag can be one or more "
+"words that you want to associate with those photos."
+msgstr ""
+"Du kan tilldela en eller fler taggar för att markera bilder. En tagg kan "
+"vara en eller flera ord som du vill associera med dessa bilder."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:22
+msgid ""
+"To add new tags to photos, select the photos you would like to tag, then do "
+"any of the following:"
+msgstr ""
+"För att lägga till taggar till bilder, markera bilderna du skulle vilja "
+"lägga tagga, och gör sedan följande:"
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:28
+msgid "Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>."
+msgstr ""
+"Markera <guiseq><gui>Taggar</gui><gui>Lägg till taggar…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:29
+msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+msgstr "Skriv in <keyseq><key>Ctrl</key><key>T</key></keyseq>."
+
+#. (itstool) path: item/p
+#: C/organize-tag.page:30
+msgid "Drag the selected photos and drop them on the desired tag."
+msgstr "Dra de markerade bilderna och släpp dem på den önskade taggen."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:33
+msgid ""
+"When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
+"<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
+"names of one or more tags, separated by commas. Once you have created a tag, "
+"you can rename it by selecting that tag in the sidebar and choosing "
+"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
+"right-clicking on it and choose <gui>Rename...</gui> or double-click on the "
+"tag in the sidebar."
+msgstr ""
+"När du använder <keyseq><key>Ctrl</key><key>T</key></keyseq> eller "
+"<guiseq><gui>Taggar</gui><gui>Lägg till taggar…</gui></guiseq> kan du skriva "
+"in namnen på en eller flera taggar separerade med komman. När du väl har "
+"skapat en tagg kan du byta namn på den genom att markera taggen i "
+"sidopanelen och välja <guiseq><gui>Taggar</gui><gui>Byt namn på taggen "
+"”[namn]”…</gui></guiseq>, genom att högerklicka på den och markera <gui>Byt "
+"namn…</gui> eller dubbelklicka på taggen i sidopanelen."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:44
+msgid ""
+"To change which tags are associated with a particular photo, select that "
+"photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
+"right-click on a photo and select <gui>Modify Tags...</gui> and edit the "
+"comma separated list. To remove a tag from one or more photos, first select "
+"that tag in the sidebar, then select the photos you would like to remove, "
+"and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from Photos</"
+"gui></guiseq> or right-click on the photos and select <gui>Remove Tag "
+"\"[name]\" from Photos</gui>."
+msgstr ""
+"För att ändra taggar associerade med en speciell bild, markera bilden, välj "
+"<guiseq><gui>Taggar</gui><gui>Ändra taggar…</gui></guiseq> eller högerklicka "
+"på en bild och markera <gui>Ändra taggar…</gui> och redigera den "
+"kommaseparerade listan. För att ta bort en tagg från en eller flera bilder, "
+"välj först taggen i sidopanelen och markera sedan de bilder du vill ta bort, "
+"samt välj <guiseq><gui>Taggar</gui><gui>Ta bort taggen ”[namn]” från "
+"bilderna</gui></guiseq> eller högerklicka på bilderna och välj <gui>Ta bort "
+"taggen ”[namn]” från bilderna</gui>."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:58
+msgid ""
+"To delete a tag entirely, select that tag in the sidebar and choose "
+"<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
+"click and select <gui>Delete Tag \"[name]\"</gui>."
+msgstr ""
+"För att fullständigt ta bort en tagg, markera taggen i sidopanelen och välj "
+"<guiseq><gui>Taggar</gui><gui>Ta bort tagg \"[namn]\"</gui></guiseq> eller "
+"högerklicka och välj <gui>Ta bort tagg \"[namn]\"</gui>."
+
+#. (itstool) path: page/p
+#: C/organize-tag.page:64
+msgid ""
+"When you create a tag, it will appear in the sidebar under the <gui>Tags</"
+"gui> item, which is hidden if there are no tags. Photos can have multiple "
+"tags attached to them, and when you click on the name of a given tag in the "
+"sidebar, you will see all the photos associated with that tag."
+msgstr ""
+"När du skapar en tagg kommer den att visas i sidopanelen under objektet "
+"<gui>Taggar</gui>, vilket döljs om det inte finns några taggar. Bilder kan "
+"ha flera taggar associerade med dem, och när du klickar på namnet för en "
+"given tagg i sidopanelen kommer du att se alla bilder associerade med denna "
+"tagg."
+
+#. (itstool) path: section/title
+#: C/organize-tag.page:73
+msgid "Hierarchical Tags"
+msgstr "Hierarkiska taggar"
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:74
+msgid ""
+"Shotwell supports also hierarchical tags. You can rearrange your tags by "
+"drag and drop a tag onto another. To create a new subtag right-click on a "
+"tag and select <gui>New</gui>."
+msgstr ""
+"Shotwell stödjer också hierarkiska taggar. Du kan flytta om dina taggar "
+"genom att dra och släppa en tagg på en annan. För att skapa en ny undertagg, "
+"högerklicka på en tagg och markera <gui>Ny</gui>."
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:81
+msgid ""
+"Hierarchical tags can help you to sort your tag list in ways that better "
+"match how you work or think; for example, you can store location tags like "
+"\"Mountains\" or \"Beach\" under a parent tag \"Places\", which itself can "
+"be placed under the tag \"Summer Holidays\"."
+msgstr ""
+"Hierarkiska taggar kan hjälpa dig att sortera din tagglista på sätt som "
+"bättre matchar hur du tänker eller jobbar - exempelvis kan du lagra "
+"platstaggar som ”Berg” eller ”Strand” under en överordnad tagg ”Platser”, "
+"vilken själv kan placeras under taggen ”Sommarsemester”."
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:89
+msgid "Note that deleting a parent tag will also delete its child tags."
+msgstr ""
+"Observera att ta bort en överordnad tagg också kommer att bort underordnade "
+"taggar."
+
+#. (itstool) path: info/desc
+#: C/share-print.page:7
+msgid ""
+"Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
+"options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
+msgstr ""
+"Välj <guiseq><gui>Arkiv</gui><gui>Skriv ut…</gui></guiseq>. För fler "
+"utskriftsalternativ, välj fliken <gui>Sidinställning</gui> i dialogen "
+"<gui>Skriv ut</gui>."
+
+#. (itstool) path: page/title
+#: C/share-print.page:12
+msgid "Printing"
+msgstr "Skriva ut"
+
+#. (itstool) path: page/p
+#: C/share-print.page:14
+msgid ""
+"To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
+"gui></guiseq>."
+msgstr ""
+"För att skriva ut en bild, markera den och välj <guiseq><gui>Arkiv</"
+"gui><gui>Skriv ut…</gui></guiseq>."
+
+#. (itstool) path: page/p
+#: C/share-print.page:16
+msgid ""
+"Shotwell can also print multiple images in one page; to do this, select "
+"multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
+"and in the <gui>Print</gui> dialog, choose the <gui>Image Settings</gui> "
+"tab. In <gui>Image Settings</gui>, choose one of the multiple-image-per-page "
+"options under <gui>Autosize</gui>."
+msgstr ""
+"Shotwell kan också skriva ut flera bilder på en sida - för att göra detta, "
+"markera flera bilder, välj <guiseq><gui>Arkiv</gui><gui>Skriv ut…</gui></"
+"guiseq> och i dialogen <gui>Skriv ut</gui>, välj fliken "
+"<gui>Bildinställningar</gui>. I <gui>Bildinställningar</gui>, välj ett av "
+"alternativen för flera-bilder-per-sida under <gui>Automatisk storlek</gui>."
+
+#. (itstool) path: page/p
+#: C/share-print.page:23
+msgid ""
+"If you would like to set formatting, paper size, and orientation options, "
+"choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
+"printing."
+msgstr ""
+"Om du vill ställa in formatering, pappersstorlek och riktningsalternativ, "
+"välj fliken <gui>Sidinställning</gui> i dialogen <gui>Skriv ut</gui> innan "
+"utskrift."
+
+#. (itstool) path: info/desc
+#: C/running.page:7
+msgid ""
+"Find Shotwell in the Applications menu, or have it start automatically when "
+"you plug in a camera."
+msgstr ""
+"Hitta Shotwell i programmenyn, eller låt det starta automatiskt när du "
+"stoppar i en kamera."
+
+#. (itstool) path: page/title
+#: C/running.page:14
+msgid "Running Shotwell"
+msgstr "Köra Shotwell"
+
+#. (itstool) path: page/p
+#: C/running.page:16
+msgid ""
+"Once installed, Shotwell is available in your <gui>Applications</gui> menu "
+"under <gui>Graphics</gui> or <gui>Photography</gui>."
+msgstr ""
+"När det väl är installerat är Shotwell tillgängligt i menyn <gui>Program</"
+"gui> under <gui>Grafik</gui> eller <gui>Bilder</gui>."
+
+#. (itstool) path: page/p
+#: C/running.page:18
+msgid ""
+"Shotwell may also be executed automatically when a camera is plugged in to "
+"your computer. To check that your system is set up to run Shotwell when a "
+"camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"you choose Shotwell as your photo handling application."
+msgstr ""
+"Shotwell kan också exekveras automatiskt när en kamera stoppas i din dator. "
+"För att kontrollera att ditt system är inställt på att köra Shotwell när en "
+"kamera upptäcks, gå till <guiseq><gui>Redigera</gui><gui>Inställningar</"
+"gui></guiseq> i ett Nautilus(filhanterare)-fönster och markera fliken "
+"<gui>Media</gui>. Du kommer att se en rullgardinsmeny som heter <gui>Bilder:"
+"</gui> vilken låter dig välja Shotwell som ditt program för bildhantering."
+
+#. (itstool) path: note/p
+#: C/running.page:25
+msgid ""
+"Shotwell may also be executed directly from its build directory, although "
+"this is only recommended for testing out Shotwell or for developers."
+msgstr ""
+"Shotwell kan också exekveras direkt från dess byggkatalog, men det "
+"rekommenderas bara för testning av Shotwell eller för utvecklare."
+
+#. (itstool) path: info/desc
+#: C/organize-remove.page:7
+msgid ""
+"Remove photos from the library, or delete them from your computer entirely."
+msgstr ""
+"Ta bort bilder från biblioteket eller radera dem fullständigt från din dator."
+
+#. (itstool) path: page/title
+#: C/organize-remove.page:12
+msgid "Removing and deleting photos"
+msgstr "Ta bort och radera bilder"
+
+#. (itstool) path: page/p
+#: C/organize-remove.page:14
+msgid ""
+"You may remove photos from your library and you may additionally delete them "
+"entirely from your hard disk."
+msgstr ""
+"Du kan ta bort bilder från ditt bibliotek och du kan också radera dem "
+"fullständigt från din hårddisk."
+
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/organize-remove.page:15
+msgctxt "_"
+msgid ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+msgstr ""
+"external ref='figures/trash_process.png' "
+"md5='ed596bda34c2f4a79a310fbc8bb51fd2'"
+
+#. (itstool) path: media/p
+#: C/organize-remove.page:15
+msgid "Delete process"
+msgstr "Raderingsprocess"
+
+#. (itstool) path: page/p
+#: C/organize-remove.page:16
+msgid ""
+"This diagram shows how a photo, when deleted, is first put into Shotwell's "
+"trash. If you delete it from Shotwell's trash, it is put into your "
+"computer's trash. If you delete it from your computer's trash the photo is "
+"finally and irretrievably deleted from your computer."
+msgstr ""
+"Diagrammet visar hur en bild, när den raderas, först läggs i Shotwells "
+"papperskorg. Om du raderar den från Shotwells papperskorg läggs den i "
+"datorns papperskorg. Om du raderar den från din dators papperskorg är bilden "
+"oåterkalleligen raderat från din dator."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:18
+msgid "Removing photos from the library"
+msgstr "Ta bort bilder från biblioteket"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:19
+msgid ""
+"Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
+"Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
+"photos will be moved from your library to Shotwell's Trash."
+msgstr ""
+"Markera bilder att ta bort och välj <guiseq><gui>Redigera</gui><gui>Flytta "
+"till papperskorgen</gui></guiseq>. (Du kan också trycka <key>Delete</key>-"
+"tangenten.) Bilderna kommer att flyttas från ditt bibliotek till Shotwells "
+"papperskorg."
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:22
+msgid ""
+"If you want to remove photos from Shotwell without having them pass through "
+"the trash, simply select the photos to be removed and choose "
+"<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
+"files will be left in place on disk."
+msgstr ""
+"Om du vill ta bort bilder från Shotwell utan att låta dem passera genom "
+"papperskorgen, markera bilderna att ta bort och välj <guiseq><gui>Redigera</"
+"gui><gui>Ta bort från bibliotek</gui></guiseq>. Bildfilerna kommer att vara "
+"kvar på disken."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:26
+msgid "Emptying or restoring the trash folder"
+msgstr "Rensa eller återställa papperskorgen"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:27
+msgid ""
+"Select the Trash entry in the Sidebar and Shotwell will display all photos "
+"that have been marked for removal or deletion. In the Trash view, the "
+"following commands are available:"
+msgstr ""
+"Välj papperskorgen i sidopanelen och Shotwell kommer att visa alla bilder "
+"som har markerats för borttagning eller radering. I vyn för papperskorgen är "
+"följande kommandon tillgängliga:"
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:29
+msgid "Delete"
+msgstr "Radera"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:29
+msgid "Delete the selected photos from the trash folder."
+msgstr "Radera de markerade bilderna från papperskorgen."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:30
+msgid "Restore"
+msgstr "Återställ"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:30
+msgid "Restore the selected photos into Shotwell."
+msgstr "Återställ de markerade bilderna till Shotwell."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:31
+msgid "Empty trash"
+msgstr "Töm papperskorgen"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:31
+msgid "Delete all photos from the trash folder."
+msgstr "Radera alla bilder från papperskorgen."
+
+#. (itstool) path: section/title
+#: C/organize-remove.page:36
+msgid "Deleting or emptying Trash"
+msgstr "Radera eller tömma papperskorgen"
+
+#. (itstool) path: section/p
+#: C/organize-remove.page:37
+msgid ""
+"When you delete files from the Trash folder or empty the Trash folder, you "
+"will be given the following choices:"
+msgstr ""
+"När du raderar filer från papperskorgen, eller tömmer den, kommer du att ges "
+"följande val:"
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:39
+msgid "Only Remove"
+msgstr "Endast ta bort"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:39
+msgid ""
+"Remove photos from the library but leave the photos in their location on the "
+"computer."
+msgstr ""
+"Tar bort bilder från biblioteket men lämnar kvar bilderna på deras plats i "
+"datorn."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:40
+msgid "Trash file"
+msgstr "Radera fil"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:40
+msgid "Remove photos from the library and delete them from the computer."
+msgstr "Tar bort bilder från biblioteket och raderar dem från datorn."
+
+#. (itstool) path: item/title
+#: C/organize-remove.page:41
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. (itstool) path: item/p
+#: C/organize-remove.page:41
+msgid "Do nothing."
+msgstr "Gör inget."
+
+#. (itstool) path: info/desc
+#: C/other-missing.page:7
+msgid "If Shotwell can't find a photo in your library, it marks it as missing."
+msgstr ""
+"Om Shotwell inte kan hitta en bild i ditt bibliotek kommer det att markera "
+"den som saknad."
+
+#. (itstool) path: page/title
+#: C/other-missing.page:12
+msgid "Missing photos"
+msgstr "Saknade bilder"
+
+#. (itstool) path: page/p
+#: C/other-missing.page:14
+msgid ""
+"Each time Shotwell starts up, it scans your photo library to verify that all "
+"photo files still exist on your hard drive. If Shotwell finds that any photo "
+"files are missing, it will not display them in the normal Photos, Events and "
+"Tags views, but will instead show them in a separate Missing Files view "
+"which will appear in the sidebar."
+msgstr ""
+"Var gång Shotwell startar söker det av ditt bildbibliotek för att verifiera "
+"att alla bilder fortfarande existerar på din hårddisk. Om Shotwell finner "
+"att det saknas filer, kommer dessa inte att visas i vyerna Bilder, Händelser "
+"eller Taggar, och istället visas de i separata vyn Saknade filer, vilken "
+"visas i sidopanelen."
+
+#. (itstool) path: page/p
+#: C/other-missing.page:16
+msgid ""
+"If you no longer want the missing files to be part of your Shotwell "
+"collection (perhaps because you deleted them), go to the Missing Files view, "
+"select the photos and then click <gui>Remove From Library</gui>."
+msgstr ""
+"Om du inte längre vill att de saknade filerna ska vara en del av din "
+"Shotwell-samling (kanske för att du tog bort dem), gå till vyn Saknade "
+"filer, välj bilder och klicka sedan <gui>Ta bort från bibliotek</gui>."
+
+#. (itstool) path: page/p
+#: C/other-missing.page:18
+msgid ""
+"If you have photos on a removable disk, such as a CD or USB flash drive, and "
+"<link xref=\"index#import\">import</link> them into Shotwell <em>without</"
+"em> copying the photos to your computer, they will show up as missing files "
+"if you then disconnect the removable disk. See <link xref=\"import-file\"/> "
+"to learn how to copy files from removable disks onto your computer."
+msgstr ""
+"Om du har bilder på en flyttbar enhet, som en cd-skiva eller en usb-sticka, "
+"och <link xref=\"index#import\">importerar</link> dem till Shotwell "
+"<em>utan</em> att kopiera bilderna till din dator, kommer de att visas som "
+"saknade filer om du kopplar från den flyttbara enheten. Se <link xref="
+"\"import-file\"/> för att lära dig mer om att kopiera filer från en flyttbar "
+"enhet till din dator."
+
+#. (itstool) path: page/p
+#: C/other-missing.page:20
+msgid ""
+"If any missing photo files become available again, Shotwell will notice this "
+"the next time it starts. The photos will once again appear in the Photos, "
+"Events and Tags views."
+msgstr ""
+"Om några saknade bilder blir tillgängliga igen kommer Shotwell att märka det "
+"nästa gång programmet startar. Bilderna kommer åter igen att visas i vyerna "
+"Bilder, Händelser och Taggar."
+
+#. (itstool) path: info/desc
+#: C/share-upload.page:7
+msgid "Publish photos to Flickr, Google Photos, or other sites."
+msgstr "Publicera bilder till Flickr, Google Foto eller andra webbplatser."
+
+#. (itstool) path: page/title
+#: C/share-upload.page:12
+msgid "Publishing to the Web"
+msgstr "Publicera på webben"
+
+#. (itstool) path: page/p
+#: C/share-upload.page:14
+msgid ""
+"Through the use of <link xref=\"other-plugins\">plugins</link>, Shotwell can "
+"publish photos and videos to the following services, each of which requires "
+"an account:"
+msgstr ""
+"Genom att använda <link xref=\"other-plugins\">insticksmoduler</link> kan "
+"Shotwell publicera bilder och filmer till följande tjänster, som var och en "
+"kräver ett konto:"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:18
+msgid "<link href=\"https://flickr.com\">Flickr</link>"
+msgstr "<link href=\"https://flickr.com\">Flickr</link>"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:19
+msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
+msgstr "<link href=\"https://photos.google.com\">Google Foto</link>"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:20
+msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (endast video)"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:21
+msgid "<link href=\"https://tumblr.com\">Tumblr</link> (Photos only)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (endast foton)"
+
+#. (itstool) path: item/p
+#: C/share-upload.page:22
+msgid ""
+"Any site running the <link href=\"http://piwigo.org\">Piwigo</link> photo "
+"gallery software (photos only)"
+msgstr ""
+"Vilken webbplats som helst som kör <link href=\"http://piwigo.org\">Piwigo</"
+"link>-bildgalleriprogram (endast bilder)"
+
+#. (itstool) path: page/p
+#: C/share-upload.page:25
+msgid ""
+"To publish selected photos in a collection, choose <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and click on the <gui>Plugins</gui> tab "
+"to enable the plugin for the service you want to publish to. Next, choose, "
+"<guiseq><gui>File</gui><gui>Publish</gui></guiseq>, press the <gui>Publish</"
+"gui> toolbar button or use <keyseq><key>Ctrl</key><key>Shift</key><key>P</"
+"key></keyseq>. You will see a dialog that lets you select a publishing "
+"service. You will then need to log in or create an account."
+msgstr ""
+"För att publicera markerade bilder i en samling, välj <guiseq><gui>Redigera</"
+"gui><gui>Inställningar</gui></guiseq> och klicka på fliken "
+"<gui>Insticksmoduler</gui> för att aktivera insticket för tjänsten du vill "
+"publicera till. Välj sedan <guiseq><gui>Arkiv</gui><gui>Publicera</gui></"
+"guiseq>, tryck verktygsfältsknappen <gui>Publicera</gui> eller använd "
+"<keyseq><key>Ctrl</key><key>Skift</key><key>P</key></keyseq>. Du får då upp "
+"en dialog som låter dig välja en publiceringstjänst. Du måste sedan logga in "
+"eller skapa ett konto."
+
+#. (itstool) path: page/p
+#: C/share-upload.page:30
+msgid ""
+"Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
+"log in and permit Shotwell Connect to access your account."
+msgstr ""
+"På liknande sätt kräver Flickr, YouTube eller Google Foto att du loggar in "
+"och tillåter Shotwell Connect att komma åt ditt konto."
+
+#. (itstool) path: info/desc
+#: C/raw.page:7
+msgid "More about RAW support in Shotwell."
+msgstr "Mer om RAW-stöd i Shotwell."
+
+#. (itstool) path: page/title
+#: C/raw.page:12
+msgid "RAW support in Shotwell"
+msgstr "RAW-stöd i Shotwell"
+
+#. (itstool) path: page/p
+#: C/raw.page:13
+msgid ""
+"Some cameras have the ability to store data directly off the sensor and into "
+"a file that contains extra color information; this is commonly referred to "
+"as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
+msgstr ""
+"En del kameror har förmågan att lagra data direkt från sensorn till en fil "
+"som innehåller extra färginformation, känt som ”RAW” eller ”Kamera-RAW”, och "
+"Shotwell stödjer även dessa filer."
+
+#. (itstool) path: page/p
+#: C/raw.page:18
+msgid ""
+"Since RAW photographs normally cannot be displayed directly, but must be "
+"first developed - that is, have their extra information interpreted and "
+"readied for displaying - most cameras will either embed a JPEG inside a RAW-"
+"format file, or produce a JPEG alongside the RAW file at the time the "
+"snapshot is taken. The latter is referred to throughout this document as RAW"
+"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
+"treat them as one item in your library."
+msgstr ""
+"Eftersom RAW-bilder vanligtvis endast kan visas direkt, men först måste "
+"framkallas - det vill säga, tolka deras extra information och göra klart den "
+"för visning - kommer de flesta kameror att bädda in en JPEG inuti RAW-"
+"formatfilen, eller skapa en JPEG vid sidan av RAW-filen då ögonblicksbilden "
+"tas. Det senare refereras till i detta dokument som RAW+JPEG. Om du "
+"importerar ett RAW+JPEG-par kommer Shotwell att hålla dem sammankopplade och "
+"behandla dem som ett objekt i ditt bibliotek."
+
+#. (itstool) path: page/p
+#: C/raw.page:27
+msgid ""
+"When you import a RAW file, you can choose to either use the camera's "
+"internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
+"gui><gui>Developer</gui></guiseq> in the menus."
+msgstr ""
+"När du importerar en RAW-fil kan du välja att antingen använda kamerans "
+"inbyggda JPEG eller Shotwells egna genom att markera <guiseq><gui>Bilder</"
+"gui><gui>Framkallare</gui></guiseq> i menyerna."
+
+#. (itstool) path: note/p
+#: C/raw.page:33
+msgid ""
+"Changing between developers will cause all edits made to a photograph to be "
+"discarded."
+msgstr ""
+"Ändringar mellan framkallare kommer att göra att alla redigeringar gjorda "
+"till en bild förkastas."
+
+#. (itstool) path: page/p
+#: C/raw.page:39
+msgid ""
+"In order to publish or use a RAW photograph in most other software, it has "
+"to be exported first. Shotwell can export your RAW photos in JPEG, PNG, TIFF "
+"or BMP format, and, when publishing, will internally export a JPEG version "
+"for you and publish that."
+msgstr ""
+"För att kunna publicera eller använda en RAW-bild i de flesta andra "
+"programmen måste den exporteras först. Shotwell kan exportera dina RAW-"
+"bilder i JPEG, PNG, TIFF eller BMP-format, och när du publicerar, exporterar "
+"de en JPEG-version för dig och publicerar den."
+
+#. (itstool) path: info/desc
+#: C/import-camera.page:7
+msgid "Copy photos from a digital camera."
+msgstr "Kopiera bilder från en digital kamera."
+
+#. (itstool) path: page/title
+#: C/import-camera.page:12
+msgid "Importing from a camera"
+msgstr "Importera från en kamera"
+
+#. (itstool) path: page/p
+#: C/import-camera.page:14
+msgid "To import photos from a digital camera:"
+msgstr "Att importera bilder från en digitalkamera:"
+
+#. (itstool) path: item/p
+#: C/import-camera.page:18
+msgid ""
+"Connect the camera to your computer and switch it on. Shotwell will detect "
+"it and list it in the sidebar."
+msgstr ""
+"Anslut kameran till din dator och slå på den. Shotwell kommer att upptäcka "
+"den och lista den i sidopanelen."
+
+#. (itstool) path: item/p
+#: C/import-camera.page:22
+msgid ""
+"Select the camera in the sidebar. Previews of each photo on the camera will "
+"be displayed."
+msgstr ""
+"Välj kameran i sidopanelen. Förhandsvisningar av varje bild på kameran "
+"kommer att visas."
+
+#. (itstool) path: item/p
+#: C/import-camera.page:25
+msgid ""
+"If you like, you can choose a set of specific photos to import. To do this, "
+"hold down the <key>Ctrl</key> key and click to select individual photos. You "
+"can hold down <key>Shift</key> and click to select a range of photos too."
+msgstr ""
+"Om du vill kan du välja en samling specifika bilder att importera. För att "
+"göra detta, håll ner tangenten <key>Ctrl</key> och klicka för att markera "
+"individuella bilder. Du kan också hålla ner <key>Skift</key> och klicka för "
+"att markera ett intervall av bilder."
+
+#. (itstool) path: item/p
+#: C/import-camera.page:28
+msgid ""
+"Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
+"will be copied from the camera and saved on your computer."
+msgstr ""
+"Klicka antingen <gui>Importera markerade</gui> eller <gui>Importera alla</"
+"gui>. Bilderna kommer att kopieras från kameran och sparas på din dator."
+
+#. (itstool) path: page/p
+#: C/import-camera.page:32
+msgid ""
+"Once the import is complete, you can open the <gui>Last Import</gui> view "
+"(in the sidebar) to see all photos that were imported. The Events list (also "
+"in the sidebar) will also show the new photos, organized by date."
+msgstr ""
+"När importen är klar kan du öppna vyn <gui>Senast importerade</gui> (i "
+"sidopanelen) för att se alla bilder som importerades. Händelselistan (också "
+"i sidopanelen) kommer att visa de nya bilderna, ordnade efter datum."
+
+#. (itstool) path: info/title
+#: C/index.page:6
+msgctxt "link"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:8
+msgid "Jim Nelson"
+msgstr "Jim Nelson"
+
+#. (itstool) path: credit/name
+#: C/index.page:12
+msgid "Allison Barlow"
+msgstr "Allison Barlow"
+
+#. (itstool) path: credit/name
+#: C/index.page:16
+msgid "Robert Ancell"
+msgstr "Robert Ancell"
+
+#. (itstool) path: credit/name
+#: C/index.page:20
+msgid "Peter Smith"
+msgstr "Peter Smith"
+
+#. (itstool) path: credit/name
+#: C/index.page:24
+msgid "Phil Bull"
+msgstr "Phil Bull"
+
+#. (itstool) path: title/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/index.page:30
+msgctxt "_"
+msgid ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
+msgstr ""
+"external ref='figures/shotwell_logo.png' "
+"md5='4b333499555b4e496b1a38f7899067f3'"
+
+#. (itstool) path: page/title
+#: C/index.page:30
+msgid ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+"Manager"
+msgstr ""
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
+"bildhanterare"
+
+#. (itstool) path: section/title
+#: C/index.page:33
+msgid "Importing Photos"
+msgstr "Importera bilder"
+
+#. (itstool) path: section/title
+#: C/index.page:37
+msgid "Viewing Photos"
+msgstr "Visa bilder"
+
+#. (itstool) path: section/title
+#: C/index.page:41
+msgid "Organizing Photos"
+msgstr "Ordna bilder"
+
+#. (itstool) path: section/title
+#: C/index.page:45
+msgid "Editing Photos"
+msgstr "Redigera bilder"
+
+#. (itstool) path: section/title
+#: C/index.page:49
+msgid "Sharing Photos"
+msgstr "Dela bilder"
+
+#. (itstool) path: section/title
+#: C/index.page:53
+msgid "Other Features"
+msgstr "Andra egenskaper"
+
+#. (itstool) path: info/desc
+#: C/edit-external.page:7
+msgid "Use a different program to edit a photo."
+msgstr "Använda ett annat program för att redigera en bild."
+
+#. (itstool) path: page/title
+#: C/edit-external.page:12
+msgid "Edit photos with an external program"
+msgstr "Redigera bilder med ett externt program"
+
+#. (itstool) path: page/p
+#: C/edit-external.page:16
+msgid ""
+"You might want to use an external editor to do additional work on a photo. "
+"If installed, GIMP and UFRaw are the default external editors for photo and "
+"RAW editing, respectively. If these programs are not installed, you must "
+"select your preferred editors by choosing <guiseq><gui>Edit</"
+"gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
+"menus of installed applications."
+msgstr ""
+"Du kan vilja använda en extern redigerare för att utföra ytterligare arbete "
+"på en bild. Om installerade så är GIMP och UFRaw de externa "
+"standardredigerarna för bilder och RAW-redigering. Om dessa program inte är "
+"installerade måste du välja dina föredragna redigerare genom att välja "
+"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq> och markera "
+"redigerare från rullgardinsmenyn för installerade program."
+
+#. (itstool) path: page/p
+#: C/edit-external.page:24
+msgid ""
+"Once your editors have been set, select a photo and choose "
+"<guiseq><gui>Photos</gui> <gui>Open With External Editor</gui></guiseq> to "
+"open the photo with the external editor. Likewise, if the original photo is "
+"a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
+"guiseq> to edit the RAW file directly with the set RAW editor."
+msgstr ""
+"När redigerare väl har angetts, markera en bild och väljs "
+"<guiseq><gui>Bilder</gui> <gui>Öppna med extern redigerare</gui></guiseq> "
+"för att öppna bilden med den externa redigeraren. På samma sätt, om "
+"originalbilden är en RAW-fil, välj <guiseq><gui>Bilder</gui><gui>Öppna med "
+"RAW-redigerare</gui></guiseq> för att redigera RAW-filen med den valda RAW-"
+"redigeraren."
+
+#. (itstool) path: page/p
+#: C/edit-external.page:31
+msgid ""
+"When you complete your edits and save the file, Shotwell will detect the "
+"changes and update the photo. When external edits have been made, press and "
+"hold the <key>Shift</key> key in full-window view to show the original photo "
+"rather than the externally-edited one."
+msgstr ""
+"När du är klar med redigering och sparar filen kommer Shotwell att upptäcka "
+"ändringarna och uppdatera bilden. Om externa ändringar har skett, tryck och "
+"håll <key>Skift</key>-tangenten i helskärmsvyn för att visa originalbilden "
+"istället för den externt redigerade."
+
+#. (itstool) path: page/p
+#: C/edit-external.page:38
+msgid "Reverting to original will erase any external edits."
+msgstr "Återställning till originalet kommer att radera externa ändringar."
+
+#. (itstool) path: note/p
+#: C/edit-external.page:43
+msgid ""
+"If you externally edit a RAW photo and save the result to another image, "
+"such as a JPEG or PNG, Shotwell cannot automatically determine that the "
+"original RAW and the new image should be paired."
+msgstr ""
+"Om du externt redigerar en RAW-bild och sparar resultatet till en annan "
+"bild, som JPEG eller PNG, kan inte Shotwell automatiskt bestämma att den "
+"ursprungliga RAW-filen och den nya bilden ska kopplas samman."
+
+#. (itstool) path: note/p
+#: C/edit-external.page:49
+msgid ""
+"If you want to work within the resulting image within Shotwell, you'll need "
+"to import it yourself."
+msgstr ""
+"Om du vill arbeta med bildresultatet i Shotwell måste du importera det."
+
+#. (itstool) path: info/desc
+#: C/share-send.page:7
+msgid "Send photos via email, instant messaging or in other ways."
+msgstr "Skicka bilder via e-post, snabbmeddelanden eller på andra sätt."
+
+#. (itstool) path: page/title
+#: C/share-send.page:12
+msgid "Sending photos"
+msgstr "Skicka bilder"
+
+#. (itstool) path: page/p
+#: C/share-send.page:14
+msgid ""
+"Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
+"lets you send photos via email, instant messaging or in other ways."
+msgstr ""
+"Shotwell kan skicka bilder genom GNOME-skrivbordets \"Skicka till\"-mekanism "
+"som låter dig skicka bilder via e-post, snabbmeddelanden eller på andra sätt."
+
+#. (itstool) path: page/p
+#: C/share-send.page:16
+msgid ""
+"To send photos, select them in Shotwell and choose <guiseq><gui>File</"
+"gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
+"<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
+"will appear which lets you choose a mechanism for sending the files (such as "
+"email or instant messaging) and a destination. You can optionally choose to "
+"send the files in a compressed format."
+msgstr ""
+"För att skicka bilder, visa dem i Shotwell och välj <guiseq><gui>Arkiv</"
+"gui><gui>Skicka till…</gui></guiseq>, eller högerklicka på bilderna och välj "
+"<gui>Skicka till…</gui> från snabbmenyn. En <gui>Skicka till</gui>-dialog "
+"kommer att visas vilken låter dig välja olika sätt att skicka filerna på "
+"(som e-post eller snabbmeddelanden) och en destination. Du kan också välja "
+"att skicka filerna i ett komprimerat format."
+
+#. (itstool) path: info/desc
+#: C/edit-adjustments.page:7
+msgid "Change the exposure, saturation, tint, and shadows of a photo."
+msgstr "Ändra exponering, mättnad, färgton och skuggorna för en bild."
+
+#. (itstool) path: page/title
+#: C/edit-adjustments.page:12
+msgid "Color adjustments"
+msgstr "Färgjusteringar"
+
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:14
+msgid ""
+"The <gui>Adjust</gui> button opens a floating window with a histogram and "
+"sliders to adjust a photo's exposure, saturation, tint, temperature, and "
+"shadows. The histogram also has sliders to reduce the upper and lower "
+"intensity thresholds of the photograph, expanding the contrast of the middle "
+"range."
+msgstr ""
+"Knappen <gui>Justera</gui> öppnar ett fönster med ett histogram och "
+"skjutreglage för att justera en bilds exponering, mättnad, färgton, "
+"temperatur och skuggor. Histogrammet har också skjutreglaget för att minska "
+"de övre och lägre intensitetströsklarna för bilden, utökandes kontrasten för "
+"mittenområdet."
+
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:16
+msgid ""
+"The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to "
+"improve the quality of a photo."
+msgstr ""
+"Knappen <gui>Förbättra</gui> justerar histogram- och skuggskjutreglagen för "
+"att förbättra kvaliteten på en bild."
+
+#. (itstool) path: page/p
+#: C/edit-adjustments.page:18
+msgid ""
+"When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
+"to save the changes. <gui>Reset</gui> will return the image to its original "
+"state. <gui>Cancel</gui> discards all changes you've made."
+msgstr ""
+"När du är nöjd med bildens färg och kontrast, tryck <gui>OK</gui> för att "
+"spara ändringarna. <gui>Återställ</gui> kommer att återställa bilden till "
+"dess ursprungliga tillstånd. <gui>Avbryt</gui> förkastar alla ändringar du "
+"har gjort."
+
+#. (itstool) path: section/title
+#: C/edit-adjustments.page:21
+msgid "What do the color adjustments do?"
+msgstr "Vad gör färgjusteringarna?"
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:24
+msgid "Exposure"
+msgstr "Exponering"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:25
+msgid ""
+"Changes the brightness to make it look like the photo was exposed for a "
+"longer or shorter time. Use this to correct under- or over-exposed photos."
+msgstr ""
+"Ändra ljusstyrkan för att få det att se ut som att bilden exponerades en "
+"längre eller kortare tid. Använd detta för att korrigera över- eller "
+"underexponerade bilder."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:28
+msgid "Contrast"
+msgstr "Kontrast"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:29
+msgid ""
+"Changes the contrast of a photo. Use it to correct flat-looking photos or "
+"photos where the difference between bright and dark spots seems to big."
+msgstr ""
+"Ändrar kontrasten för en bild. Använd det för att korrigera bilder som ser "
+"platta ut eller bilder där skillnaden mellan ljusa och mörka partier verkar "
+"för stor."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:32
+msgid "Saturation"
+msgstr "Mättnad"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:33
+msgid ""
+"Changes how vivid colors look. If your photo looks gray and washed out, try "
+"increasing the saturation. If colors look too bold, try decreasing it."
+msgstr ""
+"Ändrar hur levande färger uppfattas. Om din bild ser grå och urblekt ut, "
+"prova att öka mättnaden. Om färgerna är för starka, prova att minska den."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:36
+msgid "Tint"
+msgstr "Tint"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:37
+msgid ""
+"This tints the photo with a color. It's useful for correcting photos taken "
+"with the wrong white balance setting, which typically have an unnatural "
+"color cast. For example, photos taken outdoors with the white balance set to "
+"\"Tungsten\" may have a blue cast."
+msgstr ""
+"Tonar bilden med en färg. Användbart för att korrigera bilder tagna med fel "
+"vitbalansinställning, som vanligen har en onaturlig färg. Exempelvis, bilder "
+"tagna utomhus med vitbalansen inställd till ”Tungsten” kan ha en blå toning."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:40
+msgid "Temperature"
+msgstr "Temperatur"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:41
+msgid ""
+"Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
+"depressing scenes look more lively, for example."
+msgstr ""
+"Ändrar hur ”varm” eller ”kall” bilden ser ut. Använd exempelvis denna för "
+"att få kalla, deprimerande motiv att se mer levande ut."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:44
+msgid "Shadows"
+msgstr "Skuggor"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:45
+msgid ""
+"This makes shadowy areas appear lighter. Use this to make detail more "
+"visible if it's obscured by the darkness of a shadow."
+msgstr ""
+"Får skuggområden att se ljusare ut. Använd denna för att få fram fler "
+"detaljer om något döljs av skuggor."
+
+#. (itstool) path: item/title
+#: C/edit-adjustments.page:48
+msgid "Intensity Threshold (sliders on the histogram)"
+msgstr "Intensitettröskelvärde (skjutreglage på histogrammet)"
+
+#. (itstool) path: item/p
+#: C/edit-adjustments.page:49
+msgid ""
+"These sliders change how light the brightest white is and how dark the "
+"darkest black is. Use them to change the contrast of the photo. Photos which "
+"look washed out should particularly benefit from changing these settings."
+msgstr ""
+"Skjutreglagen ändrar hur ljus den ljusaste vit är, och hur mörk den mörkaste "
+"svarta är. Använd dem för att ändra kontrasten på en bild. Speciellt bilder "
+"som ser urblekta ut bör ha nytta av att ändra dessa inställningar."
+
+#~ msgid "<link href=\"https://facebook.com\">Facebook</link>"
+#~ msgstr "<link href=\"https://facebook.com\">Facebook</link>"
+
+#~ msgid ""
+#~ "Publishing to Facebook requires you to grant certain permissions to the "
+#~ "Shotwell Facebook application. You only need to grant these permissions "
+#~ "once, when you first associate Shotwell with your Facebook account."
+#~ msgstr ""
+#~ "Att publicera till Facebook kräver att du ger tillstånd för programmet "
+#~ "Shotwell för Facebook. Du behöver bara ge dessa tillstånd en gång, då du "
+#~ "först associerar Shotwell med ditt Facebook-konto."
+
+#~ msgid ""
+#~ "You will be only able to publish images with at most the permission you "
+#~ "granted to the Shotwell Facebook application"
+#~ msgstr ""
+#~ "Du kommer bara kunna publicera bilder med högst behörigheten du givit "
+#~ "tillstånd till för programmet Shotwell för Facebook"
 
 #~ msgid ""
 #~ "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
