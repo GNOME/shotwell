@@ -32,6 +32,10 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         
         this.active_publisher = service.create_publisher(this);
     }
+
+    public string get_current_profile_id() {
+        return Shotwell.ProfileManager.get_instance().id();
+    }
     
     private void on_login_clicked() {
         if (current_login_callback != null)

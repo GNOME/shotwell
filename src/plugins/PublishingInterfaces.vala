@@ -268,6 +268,8 @@ public interface PluginHost : GLib.Object, Spit.HostInterface {
         CANCEL = 1
     }
 
+    public abstract string get_current_profile_id();
+
     /**
      * Notifies the user that an unrecoverable publishing error has occurred and halts
      * the publishing process.

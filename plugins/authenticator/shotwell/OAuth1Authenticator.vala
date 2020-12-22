@@ -16,6 +16,7 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         private const string SECRET_TYPE_AUTH_TOKEN = "auth-token";
         private const string SECRET_TYPE_AUTH_TOKEN_SECRET = "auth-token-secret";
         private const string SCHEMA_KEY_ACCOUNTNAME = "accountname";
+        private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
         private string service = null;
         private string accountname = "default";
 
@@ -23,9 +24,10 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
             base();
             this.host = host;
             this.service = service;
-            this.schema = new Secret.Schema ("org.gnome.Shotwell." + service, Secret.SchemaFlags.NONE,
-                                             SCHEMA_KEY_ACCOUNTNAME, Secret.SchemaAttributeType.STRING,
-                                             "type", Secret.SchemaAttributeType.STRING);
+            this.schema = new Secret.Schema("org.gnome.Shotwell." + service, Secret.SchemaFlags.NONE,
+                SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
+                SCHEMA_KEY_ACCOUNTNAME, Secret.SchemaAttributeType.STRING,
+                "type", Secret.SchemaAttributeType.STRING);
 
             params = new GLib.HashTable<string, Variant>(str_hash, str_equal);
             params.insert("ConsumerKey", api_key);
@@ -62,6 +64,7 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
             set_persistent_access_phase_token_secret(null);
             set_persistent_access_phase_username(null);
         }
+
         protected bool is_persistent_session_valid() {
             return (get_persistent_access_phase_username() != null &&
                     get_persistent_access_phase_token() != null &&
@@ -71,7 +74,8 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected string? get_persistent_access_phase_username() {
             try {
                 return Secret.password_lookup_sync(this.schema, null,
-                            SCHEMA_KEY_ACCOUNTNAME, this.accountname, "type", SECRET_TYPE_USERNAME);
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    SCHEMA_KEY_ACCOUNTNAME, this.accountname, "type", SECRET_TYPE_USERNAME);
             } catch (Error err) {
                 critical("Failed to lookup username from password store: %s", err.message);
                 return null;
@@ -82,13 +86,15 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
             try {
                 if (username == null || username == "") {
                     Secret.password_clear_sync(this.schema, null,
-                                               SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                                               "type", SECRET_TYPE_USERNAME);
+                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                        SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                        "type", SECRET_TYPE_USERNAME);
                 } else {
                     Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                                               "Shotwell publishing (%s@%s)".printf(this.accountname, this.service),
-                                               username, null,
-                                               SCHEMA_KEY_ACCOUNTNAME, this.accountname, "type", SECRET_TYPE_USERNAME);
+                        "Shotwell publishing (%s@%s)".printf(this.accountname, this.service),
+                        username, null,
+                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                        SCHEMA_KEY_ACCOUNTNAME, this.accountname, "type", SECRET_TYPE_USERNAME);
                 }
             } catch (Error err) {
                 critical("Failed to store username in store: %s", err.message);
@@ -98,8 +104,9 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected string? get_persistent_access_phase_token() {
             try {
                 return Secret.password_lookup_sync(this.schema, null,
-                                                   SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                                                   "type", SECRET_TYPE_AUTH_TOKEN);
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                    "type", SECRET_TYPE_AUTH_TOKEN);
             } catch (Error err) {
                 critical("Failed to lookup auth-token from password store: %s", err.message);
                 return null;
@@ -110,14 +117,16 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
             try {
                 if (token == null || token == "") {
                     Secret.password_clear_sync(this.schema, null,
-                                               SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                                               "type", SECRET_TYPE_AUTH_TOKEN);
+                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                        SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                        "type", SECRET_TYPE_AUTH_TOKEN);
                 } else {
                     Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                                               "Shotwell publishing (%s@%s)".printf(this.accountname, this.service),
-                                               token, null,
-                                               SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                                               "type", SECRET_TYPE_AUTH_TOKEN);
+                        "Shotwell publishing (%s@%s)".printf(this.accountname, this.service),
+                        token, null,
+                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                        SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                        "type", SECRET_TYPE_AUTH_TOKEN);
                 }
             } catch (Error err) {
                 critical("Failed to store auth-token store: %s", err.message);
@@ -127,8 +136,9 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
         protected string? get_persistent_access_phase_token_secret() {
             try {
                 return Secret.password_lookup_sync(this.schema, null,
-                        SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                        "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                    "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
             } catch (Error err) {
                 critical("Failed to lookup auth-token-secret from password store: %s", err.message);
                 return null;
@@ -139,20 +149,21 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
             try {
                 if (secret == null || secret == "") {
                     Secret.password_clear_sync(this.schema, null,
-                                               SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                                               "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
+                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                        SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                        "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
                 } else {
                     Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
-                                               "Shotwell publishing (%s@%s)".printf(this.accountname, this.service),
-                                               secret, null,
-                                               SCHEMA_KEY_ACCOUNTNAME, this.accountname,
-                                               "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
+                        "Shotwell publishing (%s@%s)".printf(this.accountname, this.service),
+                        secret, null,
+                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                        SCHEMA_KEY_ACCOUNTNAME, this.accountname,
+                        "type", SECRET_TYPE_AUTH_TOKEN_SECRET);
                 }
             } catch (Error err) {
                 critical("Failed to store auth-token-secret store: %s", err.message);
             }
         }
-
 
         protected void on_session_authenticated() {
             params.insert("AuthToken", session.get_access_phase_token());
@@ -166,7 +177,5 @@ namespace Publishing.Authenticator.Shotwell.OAuth1 {
 
             this.authenticated();
         }
-
     }
-
 }

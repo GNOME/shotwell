@@ -800,6 +800,7 @@ private class GalleryUploadTransaction :
 
 public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
     private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Gallery3";
+    private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
     private const string BAD_FILE_MSG = _("\n\nThe file “%s” may not be supported by or may be too large for this instance of Gallery3.");
     private const string BAD_MOVIE_MSG = _("\nNote that Gallery3 only supports the video types that Flowplayer does.");
 
@@ -820,6 +821,7 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.host = host;
         this.session = new Session();
         this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                                        SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
                                         "url", Secret.SchemaAttributeType.STRING,
                                         "user", Secret.SchemaAttributeType.STRING);
     }
@@ -882,7 +884,9 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         var url = get_gallery_url();
 
         try {
-            return Secret.password_lookup_sync(this.schema, null, "url", url, "user", user);
+            return Secret.password_lookup_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+            "url", url, "user", user);
         } catch (Error err) {
             critical ("Failed to get api key for %s@%s: %s", user, url, err.message);
         }
@@ -895,12 +899,15 @@ public class GalleryPublisher : Spit.Publishing.Publisher, GLib.Object {
         var url = get_gallery_url();
         try {
             if (key == null | key == "") {
-                Secret.password_clear_sync(this.schema, null, "url", url, "user", user);
+                Secret.password_clear_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                "url", url, "user", user);
             } else {
                 Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
                                            "Shotwell publishing (Gallery3 account %s@%s)".printf(user, url),
                                            key,
                                            null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
                                            "url", url, "user", user);
             }
         } catch (Error err) {

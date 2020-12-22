@@ -125,6 +125,7 @@ internal class PublishingParameters {
 
 public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Piwigo";
+    private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
 
     private Spit.Publishing.Service service;
     private Spit.Publishing.PluginHost host;
@@ -143,6 +144,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.host = host;
         session = new Session();
         this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                                         SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
                                          "url", Secret.SchemaAttributeType.STRING,
                                          "user", Secret.SchemaAttributeType.STRING);
     }
@@ -212,7 +214,9 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     public string? get_persistent_password(string? url, string? user) {
         if (url != null && user != null) {
             try {
-                var pw = Secret.password_lookup_sync(this.schema, null, "url", url, "user", user);
+                var pw = Secret.password_lookup_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                "url", url, "user", user);
 
                 return pw;
             } catch (Error err) {
@@ -229,12 +233,15 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         try {
             if (password == null) {
                 // remove
-                Secret.password_clear_sync(this.schema, null, "url", url, "user", user);
+                Secret.password_clear_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                "url", url, "user", user);
             } else {
                 Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
                         "Shotwell publishing (Piwigo account %s@%s)".printf(user, url),
                         password,
                         null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
                         "url", url, "user", user);
             }
         } catch (Error err) {

@@ -66,6 +66,7 @@ namespace Publishing.Rajce
 public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
 {
     private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Rajce";
+    private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
     private Spit.Publishing.PluginHost host = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private Spit.Publishing.Service service = null;
@@ -94,6 +95,7 @@ public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
             media_type |= p.get_media_type();
 
         this.schema = new Secret.Schema(PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                                        SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
                                         "user", Secret.SchemaAttributeType.STRING);
     }
     
@@ -151,7 +153,9 @@ public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
             return null;
 
         try {
-            return Secret.password_lookup_sync(this.schema, null, "user", user);
+            return Secret.password_lookup_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+            "user", user);
         } catch (Error err) {
             critical("Failed to get token for user %s: %s", user, err.message);
         }
@@ -166,12 +170,15 @@ public class RajcePublisher : Spit.Publishing.Publisher, GLib.Object
 
         try {
             if (token == null || token == "") {
-                Secret.password_clear_sync(this.schema, null, "user", user);
+                Secret.password_clear_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                "user", user);
             } else {
                 Secret.password_store_sync(this.schema, Secret.COLLECTION_DEFAULT,
                                            "Shotwell publishing (Rajce user %s)".printf(user),
                                            token,
                                            null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
                                            "user", user);
             }
         } catch (Error err) {
