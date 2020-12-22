@@ -1,3 +1,63 @@
+Shotwell 0.31.3 - 22 Dec 2020
+  * Store publishing secrets using libsecret
+  * Fix rotation keybinding for viewer
+  * Fix a missing menu item
+  * Many translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/218
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/260
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/290
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/301
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/312
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/37
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/36
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/35
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Jordi Mas <jmas@softcatala.org>
+ - sicklylife <translation@sicklylife.jp>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Jordan Petridis <jpetridis@gnome.org>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Enrico Nicoletto <liverig@gmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Goran Vidović <trebelnik2@gmail.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+ - Florentina Mușat <emryslokadottir@gmail.com>
+
+Added/updated translations:
+ - ca.po, courtesy of Jaume Jorba
+ - cs.po, courtesy of Marek Černocký
+ - id.po, courtesy of Andika Triwidada
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - cs.po, courtesy of Marek Černocký
+ - es.po, courtesy of Daniel Mustieles
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Andika Triwidada
+ - ja.po, courtesy of sicklylife
+ - kk.po, courtesy of Baurzhan Muftakhidinov
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Enrico Nicoletto
+ - ro.po, courtesy of Florentina Mușat
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Emin Tufan Çetin
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.31.2 - 22 May 2020
   * Documentation updates and clean-up
   * Drop obsolete settings
