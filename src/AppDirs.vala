@@ -321,6 +321,16 @@ class AppDirs {
         return f;
     }
 
+    public static File get_metadata_helper() {
+        const string filename = "shotwell-video-metadata-handler";
+        File f = AppDirs.get_libexec_dir().get_child("video-support").get_child (filename);
+        if (!f.query_exists()) {
+            // If we're running installed.
+            f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
+        }
+        return f;
+    }
+
     public static File get_settings_migrator_bin() {
         const string filename = "shotwell-settings-migrator";
         File f = AppDirs.get_libexec_dir().get_child("settings-migrator").get_child (filename);

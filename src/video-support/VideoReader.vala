@@ -180,27 +180,36 @@ public class VideoReader {
             throw new VideoError.FILE("video file '%s' does not exist or is inaccessible".printf(
                 file.get_path()));
 
+        uint id = 0;
         try {
-            Gst.PbUtils.Discoverer d = new Gst.PbUtils.Discoverer((Gst.ClockTime) (Gst.SECOND * 5));
-            Gst.PbUtils.DiscovererInfo info = d.discover_uri(file.get_uri());
+            var cancellable = new Cancellable();
 
-            clip_duration = ((double) info.get_duration()) / 1000000000.0;
+            id = Timeout.add_seconds(10, () => {
+                cancellable.cancel();
+                id = 0;
 
-            // Get creation time.
-            // TODO: Note that TAG_DATE can be changed to TAG_DATE_TIME in the future
-            // (and the corresponding output struct) in order to implement #2836.
-            Date? video_date = null;
-            if (info.get_tags() != null && info.get_tags().get_date(Gst.Tags.DATE, out video_date)) {
-                // possible for get_date() to return true and a null Date
-                if (video_date != null) {
-                    timestamp = new DateTime.local(video_date.get_year(), video_date.get_month(),
-                        video_date.get_day(), 0, 0, 0);
-                }
-            }
+                return false;
+            });
+
+            Bytes stdout_buf = null;
+
+            var process = new GLib.Subprocess(GLib.SubprocessFlags.STDOUT_PIPE, AppDirs.get_metadata_helper().get_path(), file.get_uri());
+            process.communicate(null, cancellable, out stdout_buf, null);
+            string[] lines = ((string) stdout_buf.get_data()).split("\n");
+
+            var old = Intl.setlocale(GLib.LocaleCategory.NUMERIC, "C");
+            clip_duration = double.parse(lines[0]);
+            Intl.setlocale(GLib.LocaleCategory.NUMERIC, old);
+            if (lines[1] != "none")
+                timestamp = new DateTime.from_iso8601(lines[1], null);
         } catch (Error e) {
             debug("Video read error: %s", e.message);
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip information: %s"
                 .printf(e.message));
+        }
+
+        if (id != 0) {
+            Source.remove(id);
         }
     }
 
