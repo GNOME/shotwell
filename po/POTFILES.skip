@@ -110,4 +110,4 @@ src/slideshow/Slideshow.c
 src/slideshow/TransitionEffects.c
 src/Tag.c
 src/tags/TagsBranch.c
-src/VideoSupport.c
+src/video-support/Video.c

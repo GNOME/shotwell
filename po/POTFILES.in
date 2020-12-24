@@ -157,4 +157,4 @@ src/slideshow/Slideshow.vala
 src/slideshow/TransitionEffects.vala
 src/tags/TagsBranch.vala
 src/Tag.vala
-src/VideoSupport.vala
+src/video-support/Video.vala
