@@ -199,20 +199,6 @@ public string? get_file_info_id(FileInfo info) {
     return info.get_attribute_string(FileAttribute.ID_FILE);
 }
 
-// Breaks a uint64 skip amount into several smaller skips.
-public void skip_uint64(InputStream input, uint64 skip_amount) throws GLib.Error {
-    while (skip_amount > 0) {
-        // skip() throws an error if the amount is too large, so check against ssize_t.MAX
-        if (skip_amount >= ssize_t.MAX) {
-            input.skip(ssize_t.MAX);
-            skip_amount -= ssize_t.MAX;
-        } else {
-            input.skip((size_t) skip_amount);
-            skip_amount = 0;
-        }
-    }
-}
-
 // Returns the number of files (and/or directories) within a directory.
 public uint64 count_files_in_directory(File dir) throws GLib.Error {
     if (!query_is_directory(dir))
