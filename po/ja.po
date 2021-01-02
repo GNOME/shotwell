@@ -12,14 +12,14 @@
 # Hajime Taira <htaira@redhat.com>, 2012-2014.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2014.
 # Launchpad Contributions <Unknown>, 2018.
-# sicklylife <translation@sicklylife.jp>, 2019-2020.
+# sicklylife <translation@sicklylife.jp>, 2019-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-06-30 10:39+0000\n"
-"PO-Revision-Date: 2020-07-18 18:45+0900\n"
+"POT-Creation-Date: 2020-12-16 13:36+0000\n"
+"PO-Revision-Date: 2021-01-02 20:02+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -1236,8 +1236,8 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
-msgid "Popular photo manager"
-msgstr "ポピュラーな写真管理ツール"
+msgid "Digital photo organizer"
+msgstr "デジタル写真オーガナイザー"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:11
 msgid ""
@@ -1726,7 +1726,7 @@ msgstr "コメント(_C)"
 #: data/ui/offline.ui:168 data/ui/photo.ui:132 data/ui/tags.ui:248
 #: data/ui/trash.ui:177
 msgid "Sort _Events"
-msgstr "イベントを並べ替え(_E)"
+msgstr "イベントの並べ替え(_E)"
 
 #: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/event.ui:251
 #: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
@@ -1811,7 +1811,7 @@ msgstr "対象外のみ(_O)"
 #: data/ui/event.ui:211 data/ui/faces.ui:206 data/ui/media.ui:211
 #: data/ui/tags.ui:211
 msgid "Sort _Photos"
-msgstr "写真を並べ替え(_P)"
+msgstr "写真の並べ替え(_P)"
 
 #: data/ui/event.ui:214 data/ui/faces.ui:209 data/ui/media.ui:214
 #: data/ui/tags.ui:214
@@ -6432,6 +6432,9 @@ msgstr "タイトルなし"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "動画をエクスポート"
+
+#~ msgid "Popular photo manager"
+#~ msgstr "ポピュラーな写真管理ツール"
 
 #~ msgid "Videos and new photo albums _visible to:"
 #~ msgstr "動画と新しいフォトアルバムを公開する範囲(_V):"
