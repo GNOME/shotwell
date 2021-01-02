@@ -277,7 +277,7 @@ msgstr "Cert si les fotografies de l'esdeveniment s'han de classificar de forma 
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:119
 msgid "sort event photos criteria"
-msgstr "criteris per classificar fotografies d'esdeveniments"
+msgstr "criteris per a classificar fotografies d'esdeveniments"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:120
 msgid "Specifies the sort criteria for event photos"
@@ -497,7 +497,7 @@ msgstr "patró de directori"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:288
 msgid "A string encoding a naming pattern that will be used to name photo directories on import"
-msgstr "Una cadena que codifica un patró de nomenclatura que utilitzarà per anomenar directoris de la fotografia a la importació"
+msgstr "Una cadena que codifica un patró de nomenclatura que utilitzarà per a anomenar directoris de la fotografia a la importació"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid "directory pattern custom"
@@ -505,7 +505,7 @@ msgstr "patró de directori personalitzat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:294
 msgid "A string encoding a custom naming pattern that will be used to name photo directories on import"
-msgstr "Una cadena que codifica un patró de nomenclatura personalitzat que s'utilitza per anomenar directoris de la fotografia a la importació"
+msgstr "Una cadena que codifica un patró de nomenclatura personalitzat que s'utilitza per a anomenar directoris de la fotografia a la importació"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "RAW developer default"
@@ -565,7 +565,7 @@ msgstr "exporta les metadades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:377
 msgid "Setting in export dialog: option to export metadata"
-msgstr "Configuració de diàleg d'exportació: opció per exportar metadades"
+msgstr "Configuració de diàleg d'exportació: opció per a exportar metadades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:382
 msgid "format setting, special value"
@@ -617,7 +617,7 @@ msgstr "El testimoni d'autorització per a l'usuari actualment connectat a Flick
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:434
 msgid "The cryptographic secret used to sign requests against the authorization token for the currently logged in Flickr user, if any"
-msgstr "El secret criptogràfic utilitzat per signar peticions contra el testimoni d'autorització per a l'usuari actualment connectat a Flickr, si escau"
+msgstr "El secret criptogràfic utilitzat per a signar peticions contra el testimoni d'autorització per a l'usuari actualment connectat a Flickr, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid "default size code"
@@ -645,7 +645,7 @@ msgstr "testimoni d'actualització"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
 msgid "The OAuth token used to refresh the Google Photos session for the currently logged in user, if any"
-msgstr "El testimoni d'OAuth utilitzat per actualitzar la sessió de Google Photos per l'usuari actualment connectat, si escau"
+msgstr "El testimoni d'OAuth utilitzat per a actualitzar la sessió de Google Photos per l'usuari actualment connectat, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:472
 msgid "A numeric code representing the default size for photos uploaded to Google Photos Albums"
@@ -773,11 +773,11 @@ msgstr "Píxels de l'eix principal de la imatge carregada"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:596
 msgid "The pixels of the major axis of the picture to be uploaded; used only if scaling-constraint-id is an appropriate value"
-msgstr "Els píxels de l'eix principal de la imatge per ser carregats; utilitza només si un valor adequat és escalat en restriccions identificades"
+msgstr "Els píxels de l'eix principal de la imatge per a ser carregats; utilitza només si un valor adequat és escalat en restriccions identificades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
 msgid "The OAuth token used to refresh the YouTube session for the currently logged in user, if any"
-msgstr "El testimoni d'OAuth utilitzat per a actualitzar la sessió de YouTube per a l'usuari actualment connectat, si escau."
+msgstr "El testimoni d'OAuth utilitzat per a actualitzar la sessió de YouTube per a l'usuari actualment connectat, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:611
 msgid "last used import service"
@@ -1167,7 +1167,7 @@ msgstr "_Mou a la paperera"
 
 #: data/ui/collection.ui:148 src/Resources.vala:115
 msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "Gira les fotografies cap a la dreta (premeu Ctrl per girar cap a l'esquerra)"
+msgstr "Gira les fotografies cap a la dreta (premeu Ctrl per a girar cap a l'esquerra)"
 
 #: data/ui/collection.ui:151 src/Resources.vala:113 src/Resources.vala:118
 msgid "Rotate"
@@ -1838,7 +1838,7 @@ msgid ""
 msgstr ""
 "Actualment no esteu connectat al Flickr.\n"
 "\n"
-"Feu clic a connecta per connectar-vos al Flickr en el navegador web.  Haureu d'autoritzar al Shotwell Connect per enllaçar al vostre compte del Flickr."
+"Feu clic a connecta per a connectar-vos al Flickr en el navegador web.  Haureu d'autoritzar al Shotwell Connect per a enllaçar al vostre compte del Flickr."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
@@ -1860,7 +1860,7 @@ msgid ""
 msgstr ""
 "Ja us heu connectat i desconnectat als serveis de Google durant aquesta sessió del Shotwell.\n"
 "\n"
-"Per continuar publicant als serveis de Google, sortiu i reinicieu el Shotwell i proveu a publicar de nou."
+"Per a continuar publicant als serveis de Google, sortiu i reinicieu el Shotwell i proveu de publicar de nou."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
@@ -1961,7 +1961,7 @@ msgstr "⚫ La identificació d'aquest lloc web només és vàlida en dates futu
 
 #: plugins/common/RESTSupport.vala:552 plugins/shotwell-publishing/TumblrPublishing.vala:603
 msgid "A temporary file needed for publishing is unavailable"
-msgstr "No està disponible un fitxer temporal que cal per publicar"
+msgstr "No està disponible un fitxer temporal que cal per a publicar"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
 msgid "_Gallery3 URL:"
@@ -2037,7 +2037,7 @@ msgid ""
 msgstr ""
 "Actualment no esteu connectat a la vostra Gallery.\n"
 "\n"
-"Per completar el procés d'identificació heu d'estar inscrits a Gallery3 i tenir un compte per accedir-hi."
+"Per a completar el procés d'identificació heu d'estar inscrits a Gallery3 i tenir un compte per a accedir-hi."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
 msgid "Shotwell default directory"
@@ -2153,7 +2153,7 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
 msgid "Visit the Yandex.Fotki web site"
-msgstr "Vés al lloc web del Yandex.Fotki"
+msgstr "Ves al lloc web del Yandex.Fotki"
 
 #: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
 msgid "You are not currently logged into Yandex.Fotki."
@@ -2722,7 +2722,7 @@ msgstr "Mostra només les fotografies que no s'hagin importat"
 
 #: src/camera/ImportPage.vala:839
 msgid "The camera seems to be empty. No photos/videos found to import"
-msgstr "Sembla que la càmera està buida. No s'han trobat fotografies o vídeos per importar"
+msgstr "Sembla que la càmera està buida. No s'han trobat fotografies o vídeos per a importar"
 
 #: src/camera/ImportPage.vala:843
 msgid "No new photos/videos found on camera"
@@ -2731,7 +2731,7 @@ msgstr "No s'han trobat fotografies o vídeos nous a la càmera"
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:996
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it. Continue?"
-msgstr "Cal que el Shotwell desmunti la càmera del sistema de fitxers per poder-hi accedir. Voleu continuar?"
+msgstr "Cal que el Shotwell desmunti la càmera del sistema de fitxers per a poder-hi accedir. Voleu continuar?"
 
 #: src/camera/ImportPage.vala:1002
 msgid "_Unmount"
@@ -3090,7 +3090,7 @@ msgid ""
 msgstr ""
 "No teniu cap connector d'importació de dades activat.\n"
 "\n"
-"Per poder utilitzar la funcionalitat d'importació des d'una aplicació, heu de tenir com a mínim un connector d'importació de dades habilitat. Podeu habilitar els connectors al diàleg de preferències."
+"Per a poder utilitzar la funcionalitat d'importació des d'una aplicació, heu de tenir com a mínim un connector d'importació de dades habilitat. Podeu habilitar els connectors al diàleg de preferències."
 
 #: src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
@@ -3401,7 +3401,7 @@ msgstr "Exporta les fotografies"
 #: src/Dialogs.vala:125
 #, c-format
 msgid "Shotwell couldn’t create a file for editing this photo because you do not have permission to write to %s."
-msgstr "El Shotwell no ha pogut crear un fitxer per editar aquesta fotografia perquè no teniu permís per escriure a %s."
+msgstr "El Shotwell no ha pogut crear un fitxer per a editar aquesta fotografia perquè no teniu permís per a escriure a %s."
 
 #: src/Dialogs.vala:134
 msgid ""
@@ -3859,7 +3859,7 @@ msgstr "Suprimeix de la biblioteca"
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "S'està suprimint la fotografia de la biblioteca"
-msgstr[1] "S'està suprimint les fotografies de la biblioteca"
+msgstr[1] "S'estan suprimint les fotografies de la biblioteca"
 
 #: src/Dialogs.vala:951
 #, c-format
@@ -3943,7 +3943,7 @@ msgstr "Us donem la benvinguda al Shotwell!"
 
 #: src/dialogs/WelcomeDialog.vala:47
 msgid "To get started, import photos in any of these ways:"
-msgstr "Per començar, importeu fotografies de qualsevol de les següents formes:"
+msgstr "Per a començar, importeu fotografies de qualsevol de les següents formes:"
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
@@ -4352,7 +4352,7 @@ msgstr "Tanca l'eina Cares sense desar els canvis"
 
 #: src/faces/FacesTool.vala:153 src/faces/FacesTool.vala:185
 msgid "Click and drag to tag a face"
-msgstr "Feu clic i arrossegueu per etiquetar una cara"
+msgstr "Feu clic i arrossegueu per a etiquetar una cara"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
@@ -4461,7 +4461,7 @@ msgid ""
 "We recommend changing this in Edit %s Preferences.\n"
 "Do you want to continue importing photos?"
 msgstr ""
-"El Shotwell està configurat per importar les fotografies al vostre directori d'inici.\n"
+"El Shotwell està configurat per a importar les fotografies al vostre directori d'inici.\n"
 "Us recomanem el canvi d'aquesta configuració en les preferències %s\n"
 "Voleu continuar la importació de les fotografies?"
 
@@ -4514,7 +4514,7 @@ msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del S
 #: src/main.vala:59
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d). For more information please check the Shotwell Wiki at %s"
-msgstr "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la versió %s (esquema %d) a la %s (esquema %d). Per obtenir més informació comproveu el Wiki del Shotwell a %s"
+msgstr "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la versió %s (esquema %d) a la %s (esquema %d). Per a obtenir més informació comproveu el Wiki del Shotwell a %s"
 
 #: src/main.vala:65
 #, c-format
@@ -4578,7 +4578,7 @@ msgstr "[FITXER]"
 #: src/main.vala:390
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
-msgstr "Executeu «%s --help» per veure una llista completa de les opcions disponibles de la línia d'ordres.\n"
+msgstr "Executeu «%s --help» per a veure una llista completa de les opcions disponibles de la línia d'ordres.\n"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
@@ -4844,7 +4844,7 @@ msgstr "Programari:"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
-msgstr "S'està preparant per pujar"
+msgstr "S'està preparant per a pujar"
 
 #: src/publishing/PublishingPluginHost.vala:12
 #, c-format
@@ -4893,7 +4893,7 @@ msgstr "No s'ha pogut publicar"
 #: src/publishing/PublishingUI.vala:289
 #, c-format
 msgid "Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the <b>Plugins</b> tab."
-msgstr "El Shotwell no pot publicar els elements seleccionats perquè no teniu un connector de publicació compatible habilitat. Per corregir-ho, trieu Edita les preferències de %s i habiliteu un o més dels connectors de publicació a la pestanya <b>Connectors</b>."
+msgstr "El Shotwell no pot publicar els elements seleccionats perquè no teniu un connector de publicació compatible habilitat. Per a corregir-ho, trieu Edita les preferències de %s i habiliteu un o més dels connectors de publicació a la pestanya <b>Connectors</b>."
 
 # N.T.: Títol d'un grup de connectors
 #: src/publishing/Publishing.vala:15
@@ -5720,7 +5720,7 @@ msgstr "Fotografies RAW"
 
 #: src/SearchFilter.vala:1149
 msgid "Use a saved search to filter items in the current view"
-msgstr "Utilitza una cerca desada per filtrar els elements de la vista actual"
+msgstr "Utilitza una cerca desada per a filtrar els elements de la vista actual"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -5730,7 +5730,7 @@ msgstr "Fons"
 
 #: src/SlideshowPage.vala:138
 msgid "Go to the previous photo"
-msgstr "Vés a la fotografia anterior"
+msgstr "Ves a la fotografia anterior"
 
 #: src/SlideshowPage.vala:143 src/SlideshowPage.vala:250
 msgid "Pause"
@@ -5746,7 +5746,7 @@ msgstr "Següent"
 
 #: src/SlideshowPage.vala:152
 msgid "Go to the next photo"
-msgstr "Vés a la fotografia següent"
+msgstr "Ves a la fotografia següent"
 
 #: src/SlideshowPage.vala:160
 msgid "Change slideshow settings"
@@ -5793,70 +5793,3 @@ msgstr "sense títol"
 #: src/VideoSupport.vala:510
 msgid "Export Videos"
 msgstr "Exporta vídeos"
-
-#~ msgid "Token"
-#~ msgstr "Testimoni"
-
-#~ msgid "The token to access tumblr"
-#~ msgstr "El testimoni per accedir a tumblr"
-
-#~ msgid "Secret token"
-#~ msgstr "Testimoni secret"
-
-#~ msgid "The secret token to sign oauth requests"
-#~ msgstr "El testimoni secret per firmar les sol·licituds oauth"
-
-#~ msgid "access token"
-#~ msgstr "testimoni d'accés"
-
-#~ msgid "Facebook OAuth token for the currently logged in session, if any"
-#~ msgstr "Testimoni OAuth de Facebook per la sessió actualment connectada, si escau"
-
-#~ msgid "user i.d."
-#~ msgstr "ID d'usuari"
-
-#~ msgid "Facebook user i.d. for the currently logged in user, if any"
-#~ msgstr "ID d'usuari de Facebook per a l'usuari actualment connectat, si escau"
-
-#~ msgid "user name"
-#~ msgstr "nom d'usuari"
-
-#~ msgid "The name of the currently logged in Facebook user, if any"
-#~ msgstr "Nom de l'usuari de Facebook actualment connectat, si escau"
-
-#~ msgid "A numeric code representing the default size for photos published to Facebook"
-#~ msgstr "Un codi numèric que representa la mida per defecte per a les fotografies publicades a Facebook"
-
-#~ msgid "Whether images being uploaded to Facebook should have their metadata removed first"
-#~ msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Facebook"
-
-#~ msgid "Indicates whether images being uploaded to Gallery3 should have their metadata removed first"
-#~ msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Gallery3"
-
-#~ msgid ""
-#~ "You are not currently logged into YouTube.\n"
-#~ "\n"
-#~ "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once."
-#~ msgstr ""
-#~ "No esteu connectat al YouTube.\n"
-#~ "\n"
-#~ "Per continuar heu de tenir un compte al Google i configurar-lo per poder continuar utilitzant-lo amb el YouTube. Podeu configurar la majoria dels comptes utilitzant el navegador i entrant almenys un cop al YouTube."
-
-#~ msgid ""
-#~ "You are not currently logged into Google Photos.\n"
-#~ "\n"
-#~ "You must have already signed up for a Google account and set it up for use with Google Photos.\n"
-#~ "\n"
-#~ "You will have to authorize Shotwell to link to your Google Photos account."
-#~ msgstr ""
-#~ "No esteu connectat al Google Photos.\n"
-#~ "\n"
-#~ "Per continuar heu de tenir un compte al Google i configurar-lo per poder continuar utilitzant-lo amb el Google Photos.\n"
-#~ "\n"
-#~ "Haureu d'actualitzar al Shotwell a enllaçar-se amb el compte de Google Photos."
-
-#~ msgid "Removing Photos From Library"
-#~ msgstr "S'estan suprimint les fotografies de la biblioteca"
-
-#~ msgid "org.gnome.Shotwell"
-#~ msgstr "org.gnome.Shotwell"
