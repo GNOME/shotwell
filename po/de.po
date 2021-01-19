@@ -43,9 +43,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2019-02-25 09:06+0000\n"
-"PO-Revision-Date: 2019-03-02 21:57+0100\n"
-"Last-Translator: Bernd Homuth <dev@hmt.im>\n"
+"POT-Creation-Date: 2021-01-15 07:03+0000\n"
+"PO-Revision-Date: 2021-01-19 16:36+0100\n"
+"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr ""
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 #: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/faces.ui:356 ui/media.ui:356 ui/photo_context.ui:91
-#: ui/photo.ui:347 ui/tags.ui:356
+#: ui/photo.ui:349 ui/tags.ui:356
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -121,11 +121,6 @@ msgstr ""
 "Bild;Bilder;Importieren;Organisieren;Verwalten;Foto;Fotografien;Drucken;"
 "Veröffentlichen;Drehen;Teilen;Freigeben;Stichworte;Video;Facebook;Flickr;"
 "Picasa;Youtube;Piwigo;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: misc/shotwell.desktop.in:11 misc/shotwell-viewer.desktop.in:8
-msgid "shotwell"
-msgstr "shotwell"
 
 #: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -1485,19 +1480,19 @@ msgstr ""
 "anzumelden. Sie müssen »Shotwell Connect« autorisieren, um sich mit Flickr "
 "zu verbinden."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:126
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
 msgid "Preparing for login…"
 msgstr "Anmeldung wird vorbereitet …"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:195
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
 msgid "Flickr authorization failed"
 msgstr "Legitimierung für Flickr ist fehlgeschlagen"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:202
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
 msgstr "Legitimierung wird bestätigt …"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:138
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -1517,30 +1512,77 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use "
 "with YouTube to continue. You can set up most accounts by using your browser "
-"to log into the YouTube site at least once."
-msgstr ""
-"Sie sind gerade nicht bei YouTube angemeldet.\n"
+"to log into the YouTube site at least once.\n"
 "\n"
-"Sie müssen bereits ein Google-Konto besitzen und es für YouTube eingerichtet "
-"haben, um fortzufahren. Sie können die meisten Konten anlegen, indem Sie "
-"sich mindestens einmal auf der YouTube-Seite anmelden."
+"Shotwell uses the YouTube API services <a href=\"https://developers.google."
+"com/youtube\">https://developers.google.com/youtube</a> for accessing your "
+"YouTube channel and upload the videos. By using Shotwell to access YouTube, "
+"you agree to be bound to the YouTube Terms of Service as available at <a "
+"href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</"
+"a>\n"
+"\n"
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"\n"
+"For Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
+msgstr ""
+"Sie sind derzeit nicht bei YouTube angemeldet.\n"
+"\n"
+"Sie müssen bereits ein Google-Konto angelegt und es für einen Einsatz bei "
+"YouTube eingerichtet haben, um fortzufahren. Sie richten die meisten Konten "
+"ein, indem Sie sich mit einem Internet-Browser mindestens einmal bei YouTube "
+"anmelden.\n"
+"\n"
+"Shotwell verwendet die YouTube API-Dienste <a href=\"https://developers."
+"google.com/youtube\">https://developers.google.com/youtube</a>, um auf Ihren "
+"YouTube-Kanal zuzugreifen und die Videos hochzuladen. Wenn Sie Shotwell für "
+"den Zugriff auf YouTube einsetzen, stimmen Sie den Nutzungsbedingungen von "
+"YouTube zu, nachlesbar unter <a href=\"https://www.youtube.com/t/terms"
+"\">https://www.youtube.com/t/terms</a>\n"
+"\n"
+"Die Datenschutzrichtlinie von Shotwell hinsichtlich aller in Verbindung mit "
+"Ihrem Google-Konto stehenden Daten und im speziellen YouTube finden Sie in "
+"unseren <a href=\"help:shotwell/privacy-policy\">Datenschutzrichtlinien für "
+"Online-Dienste</a>\n"
+"\n"
+"Für die Datenschutzrichtlinie von Google verweisen wir Sie auf <a href="
+"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
+"a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:36
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos.\n"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"photos/</a> for all interaction with your Google Photos data.You will have "
+"to grant access Shotwell to your Google Photos library.\n"
 "\n"
-"You will have to authorize Shotwell to link to your Google Photos account."
+"Shotwell's privacy policy regarding the use of data related to your Google "
+"account in general and Google Photos in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
+"Google's own privacy policy, please refer to <a href=\"https://policies."
+"google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
-"Sie sind nicht bei Google Fotos angemeldet.\n"
+"Sie sind derzeit nicht bei Google Fotos angemeldet.\n"
 "\n"
-"Sie müssen bereits ein Google-Konto besitzen und es für Google Fotos "
-"eingerichtet haben.\n"
+"Sie müssen bereits ein Google-Konto angelegt haben und es für einen Einsatz "
+"bei Google Fotos einrichten, um fortzufahren. Shotwell verwendet die Google "
+"Fotos API-Dienste <a href=\"https://developers.google.com/photos/\">https://"
+"developers.google.com/photos/</a>, um auf Google Fotos zuzugreifen. Sie "
+"müssen Shotwell Zugriff auf Ihre Google Fotos-Bibliothek gewähren.\n"
 "\n"
-"Sie müssen Shotwell legitimieren, um Ihr Google Fotos-Konto verknüpfen zu "
-"können."
+"Die Datenschutzrichtlinie von Shotwell hinsichtlich aller in Verbindung mit "
+"Ihrem Google-Konto stehenden Daten und im speziellen Google Fotos finden Sie "
+"in unseren <a href=\"help:shotwell/privacy-policy\">Datenschutzrichtlinien "
+"für Online-Dienste</a>.\n"
+"\n"
+"Für die Datenschutzrichtlinie von Google verweisen wir Sie auf <a href="
+"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
+"a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1569,13 +1611,13 @@ msgstr ""
 "Konto ein."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1088
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Benutzername und/oder Passwort sind ungültig. Bitte versuchen Sie es erneut"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1120
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1124
 msgid "Invalid User Name or Password"
 msgstr "Ungültiger Benutzername oder Passwort"
 
@@ -1720,7 +1762,7 @@ msgstr "Pixel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprüngliche Größe"
@@ -1738,7 +1780,7 @@ msgstr "Längste Seite"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:105
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:99
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:85
 msgid "_Logout"
 msgstr "A_bmelden"
 
@@ -1750,7 +1792,7 @@ msgstr "A_bmelden"
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:115
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
 #: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "_Veröffentlichen"
@@ -1992,7 +2034,7 @@ msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:61
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1191
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1195
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -2036,7 +2078,7 @@ msgstr "Nur mich"
 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:889
 #: plugins/shotwell-publishing/FlickrPublishing.vala:661
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1293
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
 msgid "Everyone"
 msgstr "Alle"
 
@@ -2101,24 +2143,24 @@ msgid "Friends only"
 msgstr "Nur Freunde"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:683
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 Pixel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:684
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1306
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 Pixel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:685
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1307
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 Pixel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:686
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 Pixel"
 
@@ -2264,18 +2306,18 @@ msgstr ""
 "beeinflussen (zum Beispiel private Nachrichten, Kreditkartendaten oder "
 "Passwörter)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1051
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #, c-format
 msgid "Certificate of %s"
 msgstr "Zertifikat von %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1054
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
 #: src/Resources.vala:136 ui/multitextentrydialog.ui:40
 #: ui/slideshow_settings.ui:52
 msgid "_OK"
 msgstr "_OK"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1082
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1086
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2283,7 +2325,7 @@ msgstr ""
 "Geben Sie die Adresse Ihrer Piwigo-Fotobibliothek sowie Ihren Benutzernamen "
 "und Passwort für das mit Ihrer Bibliothek verbundene Piwigo-Benutzerkonto an."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1087
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2291,23 +2333,23 @@ msgstr ""
 "Shotwell kann sich nicht mit Ihrer Piwigo-Fotobibliothek verbinden. Bitte "
 "überprüfen Sie Ihre angegebene Adresse"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1115
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1119
 msgid "Invalid URL"
 msgstr "Ungültige Adresse"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1294
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1298
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Admins, Familie, Freunde, Kontakte"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1295
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1299
 msgid "Admins, Family, Friends"
 msgstr "Admins, Familie, Freunde"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1296
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1300
 msgid "Admins, Family"
 msgstr "Admins, Familie"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1297
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Admins"
 msgstr "Admins"
 
@@ -2355,7 +2397,7 @@ msgstr ""
 "Sie als %s bei Tumblr angemeldet.\n"
 "\n"
 
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:55
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:41
 msgid "Video privacy _setting:"
 msgstr "Privatsphärenein_stellungen für Videos:"
 
@@ -2595,7 +2637,7 @@ msgstr "Liste aller erkannten Kameras"
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/faces.ui:361
-#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:352 ui/tags.ui:361
+#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:354 ui/tags.ui:361
 msgid "Camera"
 msgstr "Kamera"
 
@@ -2761,7 +2803,7 @@ msgid "_Print"
 msgstr "_Drucken"
 
 #: src/CollectionPage.vala:83 src/Resources.vala:293 ui/collection.ui:128
-#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
+#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:30
 msgid "Send _To…"
 msgstr "Senden _an …"
 
@@ -2778,47 +2820,47 @@ msgstr "_Duplizieren"
 msgid "Fullscreen"
 msgstr "Vollbild"
 
-#: src/CollectionPage.vala:102 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:182
 msgid "S_lideshow"
 msgstr "_Diaschau"
 
 #: src/CollectionPage.vala:110 src/Resources.vala:109 ui/direct.ui:111
-#: ui/photo.ui:200
+#: ui/photo.ui:202
 msgid "Rotate _Right"
 msgstr "Nach _rechts drehen"
 
 #: src/CollectionPage.vala:113 src/Resources.vala:114 ui/direct.ui:116
-#: ui/photo.ui:205
+#: ui/photo.ui:207
 msgid "Rotate _Left"
 msgstr "Nach _links drehen"
 
 #: src/CollectionPage.vala:116 src/Resources.vala:119 ui/direct.ui:121
-#: ui/photo.ui:210
+#: ui/photo.ui:212
 msgid "Flip Hori_zontally"
 msgstr "Hori_zontal spiegeln"
 
 #: src/CollectionPage.vala:117 src/Resources.vala:122 ui/direct.ui:125
-#: ui/photo.ui:214
+#: ui/photo.ui:216
 msgid "Flip Verti_cally"
 msgstr "Verti_kal spiegeln"
 
 #: src/CollectionPage.vala:119 src/Resources.vala:156 ui/collection.ui:8
 #: ui/direct_context.ui:7 ui/direct.ui:134 ui/event.ui:447
-#: ui/photo_context.ui:6 ui/photo.ui:223
+#: ui/photo_context.ui:6 ui/photo.ui:225
 msgid "_Enhance"
 msgstr "_Verbessern"
 
 #: src/CollectionPage.vala:120 src/Resources.vala:184 ui/collection.ui:13
 #: ui/direct_context.ui:12 ui/direct.ui:161 ui/event.ui:452
-#: ui/photo_context.ui:11 ui/photo.ui:250
+#: ui/photo_context.ui:11 ui/photo.ui:252
 msgid "Re_vert to Original"
 msgstr "_Zurück zum Original"
 
-#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:258
 msgid "_Copy Color Adjustments"
 msgstr "Farbanpassungen _kopieren"
 
-#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:263
 msgid "_Paste Color Adjustments"
 msgstr "Farbanpassungen _einfügen"
 
@@ -2827,12 +2869,12 @@ msgid "Adjust Date and Time…"
 msgstr "Datum und Zeit anpassen …"
 
 #: src/CollectionPage.vala:143 src/Resources.vala:289 ui/collection.ui:108
-#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:361
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:363
 msgid "Open With E_xternal Editor"
 msgstr "Mit e_xternem Editor öffnen"
 
 #: src/CollectionPage.vala:146 src/Resources.vala:291 ui/collection.ui:113
-#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:366
+#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:368
 msgid "Open With RA_W Editor"
 msgstr "Mit RA_W-Editor öffnen"
 
@@ -3970,19 +4012,19 @@ msgid_plural "_Modify original files"
 msgstr[0] "Originaldatei _bearbeiten"
 msgstr[1] "Originaldateien _bearbeiten"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:213
+#: src/dialogs/AdjustDateTimeDialog.vala:219
 msgid "Original: "
 msgstr "Ursprüngliche Größe: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:214
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d.%m.%Y, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:215
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d.%m.%Y, %I:%M:%S %p"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:306
+#: src/dialogs/AdjustDateTimeDialog.vala:312
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3991,7 +4033,7 @@ msgstr ""
 "Aufnahmezeit wird um \n"
 "%d %s, %d %s, %d %s, und %d %s nach vorne verlegt."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:307
+#: src/dialogs/AdjustDateTimeDialog.vala:313
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -4000,25 +4042,25 @@ msgstr ""
 "Aufnahmezeit wird um \n"
 "%d %s, %d %s, %d %s, und %d %s nach hinten verlegt."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:309
+#: src/dialogs/AdjustDateTimeDialog.vala:315
 msgid "day"
 msgid_plural "days"
 msgstr[0] "Tag"
 msgstr[1] "Tage"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:310
+#: src/dialogs/AdjustDateTimeDialog.vala:316
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "Stunde"
 msgstr[1] "Stunden"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:311
+#: src/dialogs/AdjustDateTimeDialog.vala:317
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "Minute"
 msgstr[1] "Minuten"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:318
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "Sekunde"
@@ -4371,7 +4413,7 @@ msgid "Angle:"
 msgstr "Winkel:"
 
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:172
-#: ui/direct.ui:144 ui/photo.ui:233
+#: ui/direct.ui:144 ui/photo.ui:235
 msgid "_Straighten"
 msgstr "Au_srichten"
 
@@ -4575,7 +4617,7 @@ msgstr "%s importiert"
 msgid "Last Import"
 msgstr "Letzter Import"
 
-#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:130
+#: src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:127
 #: ui/preferences_dialog.ui:465
 msgid "Library"
 msgstr "Bibliothek"
@@ -4847,7 +4889,7 @@ msgstr "RAW"
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/Photo.vala:3770
+#: src/Photo.vala:3767
 msgid "modified"
 msgstr "verändert"
 
@@ -5141,7 +5183,7 @@ msgstr "Vertikal spiegeln"
 
 #: src/Resources.vala:125 ui/direct.ui:192 ui/events_directory.ui:168
 #: ui/event.ui:438 ui/faces.ui:448 ui/import_queue.ui:83 ui/import.ui:201
-#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:405
+#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:407
 #: ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "_Info"
@@ -5152,7 +5194,7 @@ msgstr "_Anwenden"
 
 #: src/Resources.vala:129 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/faces.ui:47 ui/import.ui:40 ui/media.ui:47
-#: ui/offline.ui:32 ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
+#: ui/offline.ui:32 ui/photo.ui:57 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -5161,7 +5203,7 @@ msgid "_Forward"
 msgstr "_Vor"
 
 #: src/Resources.vala:131 ui/direct.ui:62 ui/events_directory.ui:125
-#: ui/photo.ui:173
+#: ui/photo.ui:175
 msgid "Fulls_creen"
 msgstr "Bilds_chirmfüllend"
 
@@ -5169,8 +5211,8 @@ msgstr "Bilds_chirmfüllend"
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
 #: ui/event.ui:423 ui/faces.ui:430 ui/faces.ui:433 ui/import_queue.ui:65
 #: ui/import_queue.ui:68 ui/import.ui:183 ui/import.ui:186 ui/media.ui:403
-#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:387
-#: ui/photo.ui:390 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
+#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:389
+#: ui/photo.ui:392 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
 #: ui/trash.ui:192
 msgid "_Help"
 msgstr "_Hilfe"
@@ -5189,7 +5231,7 @@ msgstr "_Nächster"
 
 #: src/Resources.vala:138 src/Resources.vala:287 ui/events_directory.ui:65
 #: ui/event.ui:93 ui/faces.ui:93 ui/import.ui:68 ui/media.ui:93
-#: ui/offline.ui:72 ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
+#: ui/offline.ui:72 ui/photo.ui:91 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "_Einstellungen"
 
@@ -5199,7 +5241,7 @@ msgstr "_Vorheriger"
 
 #: src/Resources.vala:141 ui/direct.ui:37 ui/events_directory.ui:25
 #: ui/event.ui:40 ui/faces.ui:40 ui/import_queue.ui:31 ui/import.ui:33
-#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
+#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:50 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "_Beenden"
 
@@ -5240,12 +5282,12 @@ msgid "Best _Fit"
 msgstr "_Einpassen"
 
 #: src/Resources.vala:153 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
-#: ui/media.ui:260 ui/photo.ui:144 ui/tags.ui:260
+#: ui/media.ui:260 ui/photo.ui:146 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "Ver_größern"
 
 #: src/Resources.vala:154 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
-#: ui/media.ui:265 ui/photo.ui:149 ui/tags.ui:265
+#: ui/media.ui:265 ui/photo.ui:151 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "Ver_kleinern"
 
@@ -5273,7 +5315,7 @@ msgstr "Farbanpassungen einfügen"
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Die kopierten Farbanpassungen auf die gewählten Fotos anwenden"
 
-#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:228
+#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:230
 msgid "_Crop"
 msgstr "Zus_chneiden"
 
@@ -5293,7 +5335,7 @@ msgstr "Ausrichten"
 msgid "Straighten the photo"
 msgstr "Bild begradigen"
 
-#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:238
+#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:240
 msgid "_Red-eye"
 msgstr "_Rote Augen entfernen"
 
@@ -5305,7 +5347,7 @@ msgstr "Rote-Augen-Effekt"
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Den Rote-Augen-Effekt in diesem Foto vermindern oder beseitigen"
 
-#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:243
+#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:245
 msgid "_Adjust"
 msgstr "_Anpassen"
 
@@ -5339,7 +5381,7 @@ msgstr "Als Hintergrund-Bil_dvorführung setzen …"
 
 #: src/Resources.vala:194 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/faces.ui:50 ui/import.ui:43 ui/media.ui:50
-#: ui/offline.ui:35 ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
+#: ui/offline.ui:35 ui/photo.ui:60 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "_Rückgängig"
 
@@ -5349,7 +5391,7 @@ msgstr "Rückgängig"
 
 #: src/Resources.vala:197 ui/direct.ui:52 ui/events_directory.ui:40
 #: ui/event.ui:55 ui/faces.ui:55 ui/import.ui:48 ui/media.ui:55
-#: ui/offline.ui:40 ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
+#: ui/offline.ui:40 ui/photo.ui:65 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "_Wiederholen"
 
@@ -5400,7 +5442,7 @@ msgid "Combine events into a single event"
 msgstr "Mehrere Ereignisse zu einem Einzelereignis zusammenfassen"
 
 #: src/Resources.vala:216 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
-#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273
+#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:275
 #: ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "_Bewerten"
@@ -5414,7 +5456,7 @@ msgid "Change the rating of your photo"
 msgstr "Bewertung des Fotos ändern"
 
 #: src/Resources.vala:220 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
-#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313
+#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:315
 #: ui/tags.ui:326
 msgid "_Increase"
 msgstr "_Aufwerten"
@@ -5424,7 +5466,7 @@ msgid "Increase Rating"
 msgstr "Bewertung erhöhen"
 
 #: src/Resources.vala:223 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
-#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318
+#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:320
 #: ui/tags.ui:331
 msgid "_Decrease"
 msgstr "A_bwerten"
@@ -5434,7 +5476,7 @@ msgid "Decrease Rating"
 msgstr "Bewertung vermindern"
 
 #: src/Resources.vala:226 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
-#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301
+#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:303
 #: ui/tags.ui:314
 msgid "_Unrated"
 msgstr "_Nicht bewertet"
@@ -5456,7 +5498,7 @@ msgid "Remove any ratings"
 msgstr "Alle Bewertungen entfernen"
 
 #: src/Resources.vala:232 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
-#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306
+#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:308
 #: ui/tags.ui:319
 msgid "_Rejected"
 msgstr "A_bgelehnt"
@@ -5514,7 +5556,7 @@ msgid "Show all photos"
 msgstr "Alle Fotos anzeigen"
 
 #: src/Resources.vala:249 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
-#: ui/photo.ui:120 ui/tags.ui:144
+#: ui/photo.ui:122 ui/tags.ui:144
 msgid "_Ratings"
 msgstr "_Bewertungen"
 
@@ -5561,7 +5603,7 @@ msgid "Publish to various websites"
 msgstr "Das ausgewählte Foto auf verschiedenen Webseiten veröffentlichen"
 
 #: src/Resources.vala:268 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
-#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327
+#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:329
 #: ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "_Titel bearbeiten …"
@@ -5574,7 +5616,7 @@ msgstr "Titel bearbeiten"
 
 #: src/Resources.vala:272 ui/collection.ui:103 ui/events_directory.ui:144
 #: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
-#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332
+#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:334
 #: ui/tags.ui:345
 msgid "Edit _Comment…"
 msgstr "_Kommentar bearbeiten …"
@@ -5588,7 +5630,7 @@ msgstr "Kommentar bearbeiten"
 msgid "Edit Event _Comment…"
 msgstr "_Kommentar des Ereignisses bearbeiten …"
 
-#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:337
+#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:339
 msgid "_Adjust Date and Time…"
 msgstr "Datum und Zeit _anpassen …"
 
@@ -5597,7 +5639,7 @@ msgid "Adjust Date and Time"
 msgstr "Datum und Zeit anpassen"
 
 #: src/Resources.vala:282 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
-#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:375 ui/tags.ui:390
+#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:377 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "Stichwor_te hinzufügen …"
 
@@ -5702,7 +5744,7 @@ msgid "Rename Tag “%s” to “%s”"
 msgstr "Stichwort »%s« zu »%s« umbenennen"
 
 #: src/Resources.vala:354 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
-#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:380
+#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:382
 #: ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "Stichworte _ändern …"
@@ -5879,7 +5921,7 @@ msgstr "Die ausgewählten Bilder zurück in die Bibliothek verschieben"
 
 #: src/Resources.vala:768 ui/collection.ui:123 ui/direct_context.ui:18
 #: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
-#: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
+#: ui/photo_context.ui:130 ui/photo.ui:37 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Mit der Dateiverwaltun_g öffnen"
@@ -5895,13 +5937,13 @@ msgid "Unable to open in file manager: %s"
 msgstr "Speicherort konnte nicht in der Dateiverwaltung geöffnet werden: %s"
 
 #: src/Resources.vala:775 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
-#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77
+#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:79
 #: ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "Aus Bibliothek _entfernen"
 
 #: src/Resources.vala:777 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
-#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82
+#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:84
 #: ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "In den _Papierkorb verschieben"
@@ -6264,17 +6306,17 @@ msgid "untitled"
 msgstr "unbenannt"
 
 #. multiple videos
-#: src/VideoSupport.vala:521
+#: src/VideoSupport.vala:525
 msgid "Export Videos"
 msgstr "Videos exportieren"
 
 #: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/faces.ui:281
-#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
+#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:270 ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "Markierung _umschalten"
 
 #: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/faces.ui:353
-#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:344 ui/tags.ui:353
+#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:346 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Entwickler"
 
@@ -6295,47 +6337,47 @@ msgstr "Speichern _unter …"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99 ui/faces.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
+#: ui/photo.ui:97 ui/tags.ui:99 ui/trash.ui:87
 msgid "_View"
 msgstr "_Ansicht"
 
-#: ui/direct.ui:81 ui/photo.ui:156
+#: ui/direct.ui:81 ui/photo.ui:158
 msgid "Fit to _Page"
 msgstr "Auf S_eite einpassen"
 
-#: ui/direct.ui:86 ui/photo.ui:161
+#: ui/direct.ui:86 ui/photo.ui:163
 msgid "Zoom _100%"
 msgstr "_100 % Vergrößerung"
 
-#: ui/direct.ui:91 ui/photo.ui:166
+#: ui/direct.ui:91 ui/photo.ui:168
 msgid "Zoom _200%"
 msgstr "_200 % Vergrößerung"
 
-#: ui/direct.ui:98 ui/photo.ui:187
+#: ui/direct.ui:98 ui/photo.ui:189
 msgid "_Photo"
 msgstr "_Foto"
 
-#: ui/direct.ui:101 ui/photo.ui:190
+#: ui/direct.ui:101 ui/photo.ui:192
 msgid "_Previous Photo"
 msgstr "_Voriges Foto"
 
-#: ui/direct.ui:105 ui/photo.ui:194
+#: ui/direct.ui:105 ui/photo.ui:196
 msgid "_Next Photo"
 msgstr "_Nächstes Foto"
 
-#: ui/direct.ui:131 ui/photo.ui:220
+#: ui/direct.ui:131 ui/photo.ui:222
 msgid "T_ools"
 msgstr "_Werkzeuge"
 
 #: ui/direct.ui:182 ui/events_directory.ui:158 ui/event.ui:428 ui/faces.ui:438
 #: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
-#: ui/photo.ui:395 ui/tags.ui:430 ui/trash.ui:197
+#: ui/photo.ui:397 ui/tags.ui:430 ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "Oft gestellte _Fragen"
 
 #: ui/direct.ui:186 ui/events_directory.ui:162 ui/event.ui:432 ui/faces.ui:442
 #: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
-#: ui/photo.ui:399 ui/tags.ui:434 ui/trash.ui:201
+#: ui/photo.ui:401 ui/tags.ui:434 ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "_Ein Problem melden …"
 
@@ -6353,7 +6395,7 @@ msgstr "Importieren von _Anwendung …"
 
 #: ui/events_directory.ui:19 ui/event.ui:34 ui/faces.ui:34
 #: ui/import_queue.ui:25 ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19
-#: ui/photo.ui:42 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
+#: ui/photo.ui:44 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
 msgid "Empty T_rash"
 msgstr "Papierkorb lee_ren"
 
@@ -6363,19 +6405,19 @@ msgid "_Find"
 msgstr "_Suchen"
 
 #: ui/events_directory.ui:51 ui/event.ui:66 ui/faces.ui:66 ui/media.ui:66
-#: ui/offline.ui:51 ui/photo.ui:70 ui/search_sidebar_context.ui:6
+#: ui/offline.ui:51 ui/photo.ui:72 ui/search_sidebar_context.ui:6
 #: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
 msgid "Ne_w Saved Search…"
 msgstr "Neue _gespeicherte Suche …"
 
 #: ui/events_directory.ui:74 ui/event.ui:102 ui/faces.ui:102
 #: ui/import_queue.ui:41 ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81
-#: ui/photo.ui:98 ui/tags.ui:102 ui/trash.ui:90
+#: ui/photo.ui:100 ui/tags.ui:102 ui/trash.ui:90
 msgid "_Basic Information"
 msgstr "_Grundlegende Informationen"
 
 #: ui/events_directory.ui:79 ui/event.ui:107 ui/faces.ui:107 ui/import.ui:82
-#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:103 ui/tags.ui:107
+#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:105 ui/tags.ui:107
 #: ui/trash.ui:95
 msgid "E_xtended Information"
 msgstr "Er_weiterte Informationen"
@@ -6386,13 +6428,13 @@ msgid "_Search Bar"
 msgstr "_Suchleiste"
 
 #: ui/events_directory.ui:89 ui/event.ui:117 ui/faces.ui:117 ui/import.ui:92
-#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:108 ui/tags.ui:117
+#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:110 ui/tags.ui:117
 #: ui/trash.ui:105
 msgid "S_idebar"
 msgstr "S_eitenleiste"
 
 #: ui/events_directory.ui:94 ui/event.ui:122 ui/faces.ui:122 ui/import.ui:97
-#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:113 ui/tags.ui:122
+#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:115 ui/tags.ui:122
 #: ui/trash.ui:110
 msgid "T_oolbar"
 msgstr "_Werkzeugleiste"
@@ -6404,13 +6446,13 @@ msgstr "_Kommentare"
 
 #: ui/events_directory.ui:108 ui/event.ui:243 ui/faces.ui:243
 #: ui/import_queue.ui:48 ui/import.ui:166 ui/media.ui:243 ui/offline.ui:163
-#: ui/photo.ui:127 ui/tags.ui:243 ui/trash.ui:172
+#: ui/photo.ui:129 ui/tags.ui:243 ui/trash.ui:172
 msgid "Sort _Events"
 msgstr "_Ereignisse sortieren"
 
 #: ui/events_directory.ui:111 ui/event.ui:231 ui/event.ui:246 ui/faces.ui:231
 #: ui/faces.ui:246 ui/import_queue.ui:51 ui/import.ui:169 ui/media.ui:231
-#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:130 ui/tags.ui:231
+#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:132 ui/tags.ui:231
 #: ui/tags.ui:246 ui/trash.ui:175
 msgid "_Ascending"
 msgstr "_Aufsteigend"
@@ -6432,7 +6474,7 @@ msgid "_Titles"
 msgstr "_Titel"
 
 #: ui/event.ui:139 ui/event.ui:404 ui/faces.ui:139 ui/faces.ui:387
-#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:372 ui/tags.ui:139
+#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:374 ui/tags.ui:139
 #: ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "S_tichworte"
@@ -6458,7 +6500,7 @@ msgid "By _Rating"
 msgstr "Nach _Bewertung"
 
 #: ui/event.ui:251 ui/faces.ui:251 ui/import.ui:174 ui/media.ui:251
-#: ui/photo.ui:135 ui/tags.ui:251
+#: ui/photo.ui:137 ui/tags.ui:251
 msgid "_Descending"
 msgstr "A_bsteigend"
 
@@ -6715,6 +6757,38 @@ msgstr "Beschriftung"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Alle Fotos im Papierkorb löschen"
+
+#~ msgid "shotwell"
+#~ msgstr "shotwell"
+
+#~ msgid ""
+#~ "You are not currently logged into YouTube.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with YouTube to continue. You can set up most accounts by using your "
+#~ "browser to log into the YouTube site at least once."
+#~ msgstr ""
+#~ "Sie sind gerade nicht bei YouTube angemeldet.\n"
+#~ "\n"
+#~ "Sie müssen bereits ein Google-Konto besitzen und es für YouTube "
+#~ "eingerichtet haben, um fortzufahren. Sie können die meisten Konten "
+#~ "anlegen, indem Sie sich mindestens einmal auf der YouTube-Seite anmelden."
+
+#~ msgid ""
+#~ "You are not currently logged into Google Photos.\n"
+#~ "\n"
+#~ "You must have already signed up for a Google account and set it up for "
+#~ "use with Google Photos.\n"
+#~ "\n"
+#~ "You will have to authorize Shotwell to link to your Google Photos account."
+#~ msgstr ""
+#~ "Sie sind nicht bei Google Fotos angemeldet.\n"
+#~ "\n"
+#~ "Sie müssen bereits ein Google-Konto besitzen und es für Google Fotos "
+#~ "eingerichtet haben.\n"
+#~ "\n"
+#~ "Sie müssen Shotwell legitimieren, um Ihr Google Fotos-Konto verknüpfen zu "
+#~ "können."
 
 #~ msgid ""
 #~ "The OAuth token used to refresh the Picasa Web Albums session for the "
