@@ -10,7 +10,7 @@ namespace PublishingUI {
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/static_message_pane_widget.ui")]
 public class StaticMessagePane : Spit.Publishing.DialogPane, Gtk.Box {
     [GtkChild]
-    private Gtk.Label static_msg_label;
+    private unowned Gtk.Label static_msg_label;
 
     public Gtk.Widget get_widget() {
         return this;

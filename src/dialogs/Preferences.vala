@@ -19,49 +19,49 @@ public class PreferencesDialog : Gtk.Dialog {
     private static PreferencesDialog preferences_dialog;
 
     [GtkChild]
-    private Gtk.Switch switch_dark;
+    private unowned Gtk.Switch switch_dark;
 
     [GtkChild]
-    private Gtk.ComboBox photo_editor_combo;
+    private unowned Gtk.ComboBox photo_editor_combo;
     [GtkChild]
-    private Gtk.ComboBox raw_editor_combo;
+    private unowned Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     [GtkChild]
-    private Gtk.FileChooserButton library_dir_button;
+    private unowned Gtk.FileChooserButton library_dir_button;
     [GtkChild]
-    private Gtk.ComboBoxText dir_pattern_combo;
+    private unowned Gtk.ComboBoxText dir_pattern_combo;
     [GtkChild]
-    private Gtk.Entry dir_pattern_entry;
+    private unowned Gtk.Entry dir_pattern_entry;
     [GtkChild]
-    private Gtk.Label dir_pattern_example;
+    private unowned Gtk.Label dir_pattern_example;
     private bool allow_closing = false;
     private string? lib_dir = null;
     private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     [GtkChild]
-    private Gtk.CheckButton lowercase;
+    private unowned Gtk.CheckButton lowercase;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
     [GtkChild]
-    private Gtk.ComboBoxText default_raw_developer_combo;
+    private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
     [GtkChild]
-    private Gtk.CheckButton autoimport;
+    private unowned Gtk.CheckButton autoimport;
     [GtkChild]
-    private Gtk.CheckButton write_metadata;
+    private unowned Gtk.CheckButton write_metadata;
     [GtkChild]
-    private Gtk.Label pattern_help;
+    private unowned Gtk.Label pattern_help;
     [GtkChild]
-    private Gtk.Notebook preferences_notebook;
+    private unowned Gtk.Notebook preferences_notebook;
 
     [GtkChild]
-    private Gtk.RadioButton transparent_checker_radio;
+    private unowned Gtk.RadioButton transparent_checker_radio;
     [GtkChild]
-    private Gtk.RadioButton transparent_solid_radio;
+    private unowned Gtk.RadioButton transparent_solid_radio;
     [GtkChild]
-    private Gtk.ColorButton transparent_solid_color;
+    private unowned Gtk.ColorButton transparent_solid_color;
     [GtkChild]
-    private Gtk.RadioButton transparent_none_radio;
+    private unowned Gtk.RadioButton transparent_none_radio;
 
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());

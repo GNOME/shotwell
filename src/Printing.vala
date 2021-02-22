@@ -271,29 +271,29 @@ public class CustomPrintTab : Gtk.Box {
     private const int CENTIMETERS_COMBO_CHOICE = 1;
 
     [GtkChild]
-    private Gtk.RadioButton standard_size_radio;
+    private unowned Gtk.RadioButton standard_size_radio;
     [GtkChild]
-    private Gtk.RadioButton custom_size_radio;
+    private unowned Gtk.RadioButton custom_size_radio;
     [GtkChild]
-    private Gtk.RadioButton image_per_page_radio;
+    private unowned Gtk.RadioButton image_per_page_radio;
     [GtkChild]
-    private Gtk.ComboBoxText image_per_page_combo;
+    private unowned Gtk.ComboBoxText image_per_page_combo;
     [GtkChild]
-    private Gtk.ComboBoxText standard_sizes_combo;
+    private unowned Gtk.ComboBoxText standard_sizes_combo;
     [GtkChild]
-    private Gtk.ComboBoxText units_combo;
+    private unowned Gtk.ComboBoxText units_combo;
     [GtkChild]
-    private Gtk.Entry custom_width_entry;
+    private unowned Gtk.Entry custom_width_entry;
     [GtkChild]
-    private Gtk.Entry custom_height_entry;
+    private unowned Gtk.Entry custom_height_entry;
     [GtkChild]
-    private Gtk.Entry ppi_entry;
+    private unowned Gtk.Entry ppi_entry;
     [GtkChild]
-    private Gtk.CheckButton aspect_ratio_check;
+    private unowned Gtk.CheckButton aspect_ratio_check;
     [GtkChild]
-    private Gtk.CheckButton title_print_check;
+    private unowned Gtk.CheckButton title_print_check;
     [GtkChild]
-    private Gtk.FontButton title_print_font;
+    private unowned Gtk.FontButton title_print_font;
 
     private Measurement local_content_width = Measurement(5.0, MeasurementUnit.INCHES);
     private Measurement local_content_height = Measurement(5.0, MeasurementUnit.INCHES);

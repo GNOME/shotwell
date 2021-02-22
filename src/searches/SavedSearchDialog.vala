@@ -643,13 +643,13 @@ public class SavedSearchDialog : Gtk.Dialog {
     }
     
     [GtkChild]
-    private Gtk.Button add_criteria;
+    private unowned Gtk.Button add_criteria;
     [GtkChild]
-    private Gtk.ComboBoxText operator;
+    private unowned Gtk.ComboBoxText operator;
     [GtkChild]
-    private Gtk.Entry search_title;
+    private unowned Gtk.Entry search_title;
     [GtkChild]
-    private Gtk.ListBox row_listbox;
+    private unowned Gtk.ListBox row_listbox;
 
     private Gee.ArrayList<SearchRowContainer> row_list = new Gee.ArrayList<SearchRowContainer>();
     private bool edit_mode = false;

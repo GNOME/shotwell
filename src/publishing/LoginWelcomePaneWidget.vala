@@ -10,9 +10,9 @@ namespace PublishingUI {
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/login_welcome_pane_widget.ui")]
 public class LoginWelcomePane : Spit.Publishing.DialogPane, Gtk.Box {
     [GtkChild]
-    private Gtk.Button login_button;
+    private unowned Gtk.Button login_button;
     [GtkChild]
-    private Gtk.Label not_logged_in_label;
+    private unowned Gtk.Label not_logged_in_label;
 
     public Gtk.Widget get_widget() {
         return this;

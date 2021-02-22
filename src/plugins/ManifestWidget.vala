@@ -10,10 +10,10 @@ namespace Plugins {
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/manifest_widget.ui")]
 public class ManifestWidgetMediator : Gtk.Box {
     [GtkChild]
-    private Gtk.Button about_button;
+    private unowned Gtk.Button about_button;
     
     [GtkChild]
-    private Gtk.ScrolledWindow list_bin;
+    private unowned Gtk.ScrolledWindow list_bin;
     
     private ManifestListView list = new ManifestListView();
     
