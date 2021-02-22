@@ -12,10 +12,10 @@ public class TextEntryDialog : Gtk.Dialog {
     private unowned OnModifyValidateType on_modify_validate;
 
     [GtkChild]
-    private Gtk.Entry entry;
+    private unowned Gtk.Entry entry;
 
     [GtkChild]
-    private Gtk.Label label;
+    private unowned Gtk.Label label;
 
     public TextEntryDialog() {
         Object (use_header_bar: Resources.use_header_bar());

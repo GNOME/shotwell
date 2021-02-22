@@ -8,13 +8,13 @@
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/set_background_slideshow_dialog.ui")]
 public class SetBackgroundSlideshowDialog : Gtk.Dialog {
     [GtkChild]
-    private Gtk.CheckButton desktop_background_checkbox;
+    private unowned Gtk.CheckButton desktop_background_checkbox;
     [GtkChild]
-    private Gtk.CheckButton screensaver_checkbox;
+    private unowned Gtk.CheckButton screensaver_checkbox;
     [GtkChild]
-    private Gtk.Scale delay_scale;
+    private unowned Gtk.Scale delay_scale;
     [GtkChild]
-    private Gtk.Label delay_value_label;
+    private unowned Gtk.Label delay_value_label;
 
     private int delay_value = 0;
 

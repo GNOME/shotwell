@@ -11,7 +11,7 @@ public class MultiTextEntryDialog : Gtk.Dialog {
 
     private unowned OnModifyValidateType on_modify_validate;
     [GtkChild]
-    private Gtk.TextView entry;
+    private unowned Gtk.TextView entry;
 
     public MultiTextEntryDialog() {
         Object (use_header_bar: Resources.use_header_bar());

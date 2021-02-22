@@ -7,10 +7,10 @@
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/message_pane.ui")]
 private class PageMessagePane : Gtk.Box {
     [GtkChild]
-    public Gtk.Label label;
+    public unowned Gtk.Label label;
 
     [GtkChild]
-    public Gtk.Image icon_image;
+    public unowned Gtk.Image icon_image;
 
     public PageMessagePane() {
         Object();

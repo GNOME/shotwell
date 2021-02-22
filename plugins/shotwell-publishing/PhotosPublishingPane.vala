@@ -22,25 +22,25 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     };
 
     [GtkChild]
-    private Gtk.Button logout_button;
+    private unowned Gtk.Button logout_button;
     [GtkChild]
-    private Gtk.Button publish_button;
+    private unowned Gtk.Button publish_button;
     [GtkChild]
-    private Gtk.RadioButton existing_album_radio;
+    private unowned Gtk.RadioButton existing_album_radio;
     [GtkChild]
-    private Gtk.ComboBoxText existing_albums_combo;
+    private unowned Gtk.ComboBoxText existing_albums_combo;
     [GtkChild]
-    private Gtk.ComboBoxText size_combo;
+    private unowned Gtk.ComboBoxText size_combo;
     [GtkChild]
-    private Gtk.Label publish_to_label;
+    private unowned Gtk.Label publish_to_label;
     [GtkChild]
-    private Gtk.Label login_identity_label;
+    private unowned Gtk.Label login_identity_label;
     [GtkChild]
-    private Gtk.CheckButton strip_metadata_check;
+    private unowned Gtk.CheckButton strip_metadata_check;
     [GtkChild]
-    private Gtk.RadioButton new_album_radio;
+    private unowned Gtk.RadioButton new_album_radio;
     [GtkChild]
-    private Gtk.Entry new_album_entry;
+    private unowned Gtk.Entry new_album_entry;
 
     public signal void publish();
     public signal void logout();

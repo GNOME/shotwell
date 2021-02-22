@@ -26,19 +26,19 @@ class SlideshowPage : SinglePhotoPage {
     [GtkTemplate (ui = "/org/gnome/Shotwell/ui/slideshow_settings.ui")]
     private class SettingsDialog : Gtk.Dialog {
         [GtkChild]
-        Gtk.Adjustment delay_adjustment;
+        unowned Gtk.Adjustment delay_adjustment;
         [GtkChild]
-        Gtk.SpinButton delay_entry;
+        unowned Gtk.SpinButton delay_entry;
         [GtkChild]
-        Gtk.ComboBoxText transition_effect_selector;
+        unowned Gtk.ComboBoxText transition_effect_selector;
         [GtkChild]
-        Gtk.Scale transition_effect_hscale;
+        unowned Gtk.Scale transition_effect_hscale;
         [GtkChild]
-        Gtk.SpinButton transition_effect_entry;
+        unowned Gtk.SpinButton transition_effect_entry;
         [GtkChild]
-        Gtk.Adjustment transition_effect_adjustment;
+        unowned Gtk.Adjustment transition_effect_adjustment;
         [GtkChild]
-        Gtk.CheckButton show_title_button;
+        unowned Gtk.CheckButton show_title_button;
         
         public SettingsDialog() {
             Object (use_header_bar: Resources.use_header_bar());

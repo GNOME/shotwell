@@ -10,7 +10,7 @@ namespace PublishingUI {
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/progress_pane_widget.ui")]
 public class ProgressPane : Spit.Publishing.DialogPane, Gtk.Box {
     [GtkChild]
-    private Gtk.ProgressBar progress_bar;
+    private unowned Gtk.ProgressBar progress_bar;
 
     public Gtk.Widget get_widget() {
         return this;

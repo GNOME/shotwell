@@ -8,9 +8,9 @@
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/set_background_dialog.ui")]
 public class SetBackgroundPhotoDialog : Gtk.Dialog {
     [GtkChild]
-    private Gtk.CheckButton desktop_background_checkbox;
+    private unowned Gtk.CheckButton desktop_background_checkbox;
     [GtkChild]
-    private Gtk.CheckButton screensaver_checkbox;
+    private unowned Gtk.CheckButton screensaver_checkbox;
 
     public SetBackgroundPhotoDialog() {
         Object(use_header_bar: Resources.use_header_bar());
