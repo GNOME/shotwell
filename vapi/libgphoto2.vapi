@@ -53,7 +53,7 @@ namespace GPhoto {
         ref_function="GPHOTO_REF_CAMERA",
         unref_function="gp_camera_unref",
         free_function="gp_camera_free",
-        cheader_filename="gphoto2/gphoto2-camera.h,gphoto.h"
+        cheader_filename="gphoto2/gphoto2-camera.h,gphoto2.h"
     )]
     public class Camera {
         [CCode (cname="gp_camera_new")]
@@ -74,7 +74,7 @@ namespace GPhoto {
         [CCode (cname="gp_camera_folder_delete_all")]
         public Result delete_all_files(string folder, Context context);
         [CCode (cname="gp_camera_folder_put_file")]
-        public Result put_file(string folder, CameraFile file, Context context);
+        public Result put_file(string folder, string filename, CameraFileType type, CameraFile file, Context context);
         [CCode (cname="gp_camera_folder_make_dir")]
         public Result make_dir(string folder, string name, Context context);
         [CCode (cname="gp_camera_folder_remove_dir")]
@@ -99,7 +99,7 @@ namespace GPhoto {
         ref_function="GPHOTO_REF_FILE",
         unref_function="gp_file_unref",
         free_function="gp_file_free",
-        cheader_filename="gphoto2/gphoto2-file.h,gphoto.h"
+        cheader_filename="gphoto2/gphoto2-file.h,gphoto2.h"
     )]
     public class CameraFile {
         [CCode (cname="gp_file_new")]
@@ -140,7 +140,6 @@ namespace GPhoto {
     public enum CameraFileInfoFields {
         NONE,
         TYPE,
-        NAME,
         SIZE,
         WIDTH,
         HEIGHT,
@@ -159,7 +158,7 @@ namespace GPhoto {
         public CameraFileInfoFields fields;
         public CameraFileStatus status;
         public ulong size;
-        public string type;
+        public char type[64];
         public uint width;
         public uint height;
         public CameraFilePermissions permissions;
@@ -175,7 +174,7 @@ namespace GPhoto {
         public CameraFileInfoFields fields;
         public CameraFileStatus status;
         public ulong size;
-        public string type;
+        public char type[64];
         public uint width;
         public uint height;
     }
@@ -253,7 +252,7 @@ namespace GPhoto {
         ref_function="GPHOTO_REF_LIST",
         unref_function="gp_list_unref",
         free_function="gp_list_free",
-        cheader_filename="gphoto2/gphoto2-list.h,gphoto.h"
+        cheader_filename="gphoto2/gphoto2-list.h,gphoto2.h"
     )]
     public class CameraList {
         [CCode (cname="gp_list_new")]
@@ -262,7 +261,7 @@ namespace GPhoto {
         public Result append(string name, string value);
         public Result reset();
         public Result sort();
-        public Result find_by_name(out int? index, string name);
+        public Result find_by_name(out int index, string name);
         public Result get_name(int index, out unowned string name);
         public Result get_value(int index, out unowned string value);
         public Result set_name(int index, string name);
@@ -310,9 +309,9 @@ namespace GPhoto {
     )]
     public struct CameraStorageInformation {
         public CameraStorageInfoFields fields;
-        public string basedir;
-        public string label;
-        public string description;
+        public char basedir[256];
+        public char label[256];
+        public char description[256];
         public int type;
         public int fstype;
         public int access;
@@ -325,7 +324,7 @@ namespace GPhoto {
     [CCode (
         ref_function="GPHOTO_REF_CONTEXT",
         unref_function="gp_context_unref",
-        cheader_filename="gphoto2/gphoto2-context.h,gphoto.h"
+        cheader_filename="gphoto2/gphoto2-context.h,gphoto2.h"
     )]
     public class Context {
         [CCode (cname="gp_context_new")]
@@ -481,7 +480,7 @@ namespace GPhoto {
     
     [CCode (
         cheader_filename="gphoto2/gphoto2-version.h",
-        cprefix="GP_VERSION"
+        cprefix="GP_VERSION_"
     )]
     public enum VersionVerbosity {
         SHORT,
