@@ -159,7 +159,7 @@ namespace GPhoto {
         public CameraFileInfoFields fields;
         public CameraFileStatus status;
         public ulong size;
-        public string type;
+        public char type[64];
         public uint width;
         public uint height;
         public CameraFilePermissions permissions;
@@ -175,7 +175,7 @@ namespace GPhoto {
         public CameraFileInfoFields fields;
         public CameraFileStatus status;
         public ulong size;
-        public string type;
+        public char type[64];
         public uint width;
         public uint height;
     }
@@ -310,9 +310,9 @@ namespace GPhoto {
     )]
     public struct CameraStorageInformation {
         public CameraStorageInfoFields fields;
-        public string basedir;
-        public string label;
-        public string description;
+        public char basedir[256];
+        public char label[256];
+        public char description[256];
         public int type;
         public int fstype;
         public int access;
