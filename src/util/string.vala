@@ -237,6 +237,8 @@ public string remove_diacritics(string istring) {
             case UnicodeType.ENCLOSING_MARK:
             // Ignore those
                 continue;
+            default:
+                break;
         }
         builder.append_unichar(ch);
     }

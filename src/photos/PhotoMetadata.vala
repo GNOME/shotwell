@@ -390,6 +390,9 @@ public class PhotoMetadata : MediaMetadata {
             case MetadataDomain.IPTC:
                 tags = exiv2.get_iptc_tags();
             break;
+            default:
+            // Just ignore any other unknown tags
+            break;
         }
         
         if (tags == null || tags.length == 0)
@@ -792,6 +795,9 @@ public class PhotoMetadata : MediaMetadata {
             
             case MetadataDomain.IPTC:
                 exiv2.clear_iptc();
+            break;
+            default:
+                // Just ignore any unknown tags
             break;
         }
     }
