@@ -161,7 +161,6 @@ namespace GPhoto {
         public char type[64];
         public uint width;
         public uint height;
-        public string name;
         public CameraFilePermissions permissions;
         public time_t mtime;
     }
@@ -178,9 +177,6 @@ namespace GPhoto {
         public char type[64];
         public uint width;
         public uint height;
-        public string name;
-        public CameraFilePermissions permissions;
-        public time_t mtime;
     }
     
     [CCode (
