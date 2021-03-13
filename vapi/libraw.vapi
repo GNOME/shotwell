@@ -248,7 +248,7 @@ public struct Thumbnail {
     public uint tlength;
     public int tcolors;
     [CCode (array_length_cname="tlength")]
-    public uint8[] thumb;
+    public unowned uint8[] thumb;
 }
 
 [CCode (cname="enum LibRaw_thumbnail_formats", cprefix="LIBRAW_THUMBNAIL_")]
