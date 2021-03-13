@@ -1437,12 +1437,13 @@ public class ImportPage : CheckerboardPage {
                     import_list.add(video_source);
                 } else {
                     // determine file format from type, and then from file extension
-                    PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(info.file.type);               
+                    string file_type = (string)info.file.type;
+                    PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(file_type);               
                     if (file_format == PhotoFileFormat.UNKNOWN) {
                         file_format = PhotoFileFormat.get_by_basename_extension(filename);
                         if (file_format == PhotoFileFormat.UNKNOWN) {
                             message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
-                                filename, info.file.type);
+                                filename, file_type);
                             
                             continue;
                         }
