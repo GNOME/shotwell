@@ -1179,9 +1179,9 @@ public class ImportPage : CheckerboardPage {
         
         Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
         
-        GPhoto.CameraStorageInformation *sifs = null;
+        GPhoto.CameraStorageInformation[] sifs = null;
         int count = 0;
-        refresh_result = dcamera.gcamera.get_storageinfo(&sifs, out count, spin_idle_context.context);
+        refresh_result = dcamera.gcamera.get_storageinfo(out sifs, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             for (int fsid = 0; fsid < count; fsid++) {
                 // Check well-known video and image paths first to prevent accidental
@@ -1324,18 +1324,16 @@ public class ImportPage : CheckerboardPage {
     // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
     // between each mount
     public static string? get_fs_basedir(GPhoto.Camera camera, int fsid) {
-        GPhoto.CameraStorageInformation *sifs = null;
+        GPhoto.CameraStorageInformation[] sifs = null;
         int count = 0;
-        GPhoto.Result res = camera.get_storageinfo(&sifs, out count, null_context.context);
+        GPhoto.Result res = camera.get_storageinfo(out sifs, null_context.context);
         if (res != GPhoto.Result.OK)
             return null;
         
-        if (fsid >= count)
+        if (fsid >= sifs.length)
             return null;
         
-        GPhoto.CameraStorageInformation *ifs = sifs + fsid;
-        
-        return (ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0 ? ifs->basedir : "/";
+        return (sifs[fsid].fields & GPhoto.CameraStorageInfoFields.BASE) != 0 ? sifs[fsid].basedir : "/";
     }
     
     public static string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {
