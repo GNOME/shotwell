@@ -137,7 +137,6 @@ namespace GPhoto {
     public PhotoMetadata? get_fallback_metadata(Camera camera, Context context, string folder, string filename) {
         // Fixme: Why do we need to query get_storageinfo here first?
         GPhoto.CameraStorageInformation[] sifs = null;
-        int count = 0;
         camera.get_storageinfo(out sifs, context);
         
         GPhoto.PortInfo port_info;

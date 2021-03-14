@@ -408,6 +408,9 @@ public abstract class ConfigurationFacade : Object {
             case ConfigurableProperty.IMPORT_DIR:
                 import_directory_changed();
             break;
+            default:
+                // We do not support notification for the rest of the properties
+            break;
         }
     }
 

@@ -1180,7 +1180,6 @@ public class ImportPage : CheckerboardPage {
         Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
         
         GPhoto.CameraStorageInformation[] sifs = null;
-        int count = 0;
         refresh_result = dcamera.gcamera.get_storageinfo(out sifs, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             for (int fsid = 0; fsid < count; fsid++) {
