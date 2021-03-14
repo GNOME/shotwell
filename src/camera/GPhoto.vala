@@ -119,14 +119,10 @@ namespace GPhoto {
         // if buffer can be loaded into memory, return a Bytes class with
         // CameraFile being the owner of the data. This way, the CameraFile is freed
         // when the Bytes are freed
-        unowned uint8 *data;
-        ulong data_len;
-        var res = file.get_data_and_size(out data, out data_len);
+        unowned uint8[] buffer = null;
+        var res = file.get_data(out buffer);
         if (res != Result.OK)
             return null;
-
-        unowned uint8[] buffer = (uint8[]) data;
-        buffer.length = (int) data_len;
 
         return Bytes.new_with_owner<GPhoto.CameraFile>(buffer, file);
     }

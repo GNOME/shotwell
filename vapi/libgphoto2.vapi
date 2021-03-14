@@ -106,7 +106,8 @@ namespace GPhoto {
         public static Result create(out CameraFile file);
         [CCode (cname="gp_file_new_from_fd")]
         public static Result create_from_fd(out CameraFile file, int fd);
-        public Result get_data_and_size(out uint8 *data, out ulong data_len);
+        [CCode (cname="gp_file_get_data_and_size")]
+        public Result get_data([CCode (array_length_pos=1)]out unowned uint8[] data);
         public Result save(string filename);
         public Result slurp(uint8[] data, out size_t readlen);
     }
