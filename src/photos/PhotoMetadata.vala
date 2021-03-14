@@ -283,7 +283,7 @@ public class PhotoMetadata : MediaMetadata {
 #else
         exiv2.open_buf(buffer, length);
 #endif
-        exif = Exif.Data.new_from_data(buffer, length);
+        exif = Exif.Data.new_from_data(buffer);
         source_name = "<memory buffer %d bytes>".printf(length);
     }
     
@@ -294,7 +294,7 @@ public class PhotoMetadata : MediaMetadata {
 #if NEW_GEXIV2_API
         exiv2.from_app1_segment(buffer.get_data());
 #else
-        exif = Exif.Data.new_from_data(buffer.get_data(), buffer.get_size());
+        exif = Exif.Data.new_from_data(buffer.get_data());
 #endif
         source_name = "<app1 segment %zu bytes>".printf(buffer.get_size());
     }

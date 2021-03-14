@@ -64,7 +64,7 @@ namespace GPhoto {
         public Result set_port_info(PortInfo info);
         public Result get_abilities(out CameraAbilities abilities);
         public Result set_abilities(CameraAbilities abilities);
-        public Result get_storageinfo([CCode (array_length_pos=1)]out CameraStorageInformation[] sifs, Context context);
+        public Result get_storageinfo([CCode (array_length_pos=1.1)]out CameraStorageInformation[] sifs, Context context);
         
         // Folders
         [CCode (cname="gp_camera_folder_list_folders")]
@@ -107,7 +107,7 @@ namespace GPhoto {
         [CCode (cname="gp_file_new_from_fd")]
         public static Result create_from_fd(out CameraFile file, int fd);
         [CCode (cname="gp_file_get_data_and_size")]
-        public Result get_data([CCode (array_length_pos=1)]out unowned uint8[] data);
+        public Result get_data([CCode (array_length_pos=1.1, array_length_type="gulong")]out unowned uint8[] data);
         public Result save(string filename);
         public Result slurp(uint8[] data, out size_t readlen);
     }
