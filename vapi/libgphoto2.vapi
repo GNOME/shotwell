@@ -64,7 +64,7 @@ namespace GPhoto {
         public Result set_port_info(PortInfo info);
         public Result get_abilities(out CameraAbilities abilities);
         public Result set_abilities(CameraAbilities abilities);
-        public Result get_storageinfo(CameraStorageInformation **sifs, out int count, Context context);
+        public Result get_storageinfo([CCode (array_length_pos=1)]out CameraStorageInformation[] sifs, Context context);
         
         // Folders
         [CCode (cname="gp_camera_folder_list_folders")]
