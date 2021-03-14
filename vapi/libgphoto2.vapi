@@ -53,7 +53,7 @@ namespace GPhoto {
         ref_function="GPHOTO_REF_CAMERA",
         unref_function="gp_camera_unref",
         free_function="gp_camera_free",
-        cheader_filename="gphoto2/gphoto2-camera.h,gphoto2.h"
+        cheader_filename="gphoto2/gphoto2-camera.h,shotwell-gphoto-helper.h"
     )]
     public class Camera {
         [CCode (cname="gp_camera_new")]
@@ -99,7 +99,7 @@ namespace GPhoto {
         ref_function="GPHOTO_REF_FILE",
         unref_function="gp_file_unref",
         free_function="gp_file_free",
-        cheader_filename="gphoto2/gphoto2-file.h,gphoto2.h"
+        cheader_filename="gphoto2/gphoto2-file.h,shotwell-gphoto-helper.h"
     )]
     public class CameraFile {
         [CCode (cname="gp_file_new")]
@@ -252,7 +252,7 @@ namespace GPhoto {
         ref_function="GPHOTO_REF_LIST",
         unref_function="gp_list_unref",
         free_function="gp_list_free",
-        cheader_filename="gphoto2/gphoto2-list.h,gphoto2.h"
+        cheader_filename="gphoto2/gphoto2-list.h,shotwell-gphoto-helper.h"
     )]
     public class CameraList {
         [CCode (cname="gp_list_new")]
@@ -324,7 +324,7 @@ namespace GPhoto {
     [CCode (
         ref_function="GPHOTO_REF_CONTEXT",
         unref_function="gp_context_unref",
-        cheader_filename="gphoto2/gphoto2-context.h,gphoto2.h"
+        cheader_filename="gphoto2/gphoto2-context.h,shotwell-gphoto-helper.h"
     )]
     public class Context {
         [CCode (cname="gp_context_new")]
