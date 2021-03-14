@@ -82,3 +82,6 @@ virtualization/vagrant/config
 
 # Visual Studio Code
 .vscode
+
+# Stuff from running flatpak in-tree
+.flatpak-builder
