@@ -210,15 +210,19 @@ public class RawSniffer : PhotoFileSniffer {
 }
 
 public class RawReader : PhotoFileReader {
+    private PhotoMetadata? cached_metadata = null;
+
     public RawReader(string filepath) {
         base (filepath, PhotoFileFormat.RAW);
     }
     
     public override PhotoMetadata read_metadata() throws Error {
-        PhotoMetadata metadata = new PhotoMetadata();
-        metadata.read_from_file(get_file());
-        
-        return metadata;
+        if (cached_metadata == null) {
+            PhotoMetadata metadata = new PhotoMetadata();
+            metadata.read_from_file(get_file());
+            cached_metadata = metadata;
+        }
+        return cached_metadata;
     }
     
     public override Gdk.Pixbuf unscaled_read() throws Error {
