@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Shotwell/Publishing">
-      <file>piwigo.png</file>
+      <file>piwigo.svg</file>
       <file>youtube.png</file>
       <file>tumblr.png</file>
       <file>google-photos.svg</file>

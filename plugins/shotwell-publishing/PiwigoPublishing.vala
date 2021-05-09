@@ -5,7 +5,7 @@
  */
 
 public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "piwigo.png";
+    private const string ICON_FILENAME = "piwigo.svg";
 
     private static Gdk.Pixbuf[] icon_pixbuf_set = null;
     
