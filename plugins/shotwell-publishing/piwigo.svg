@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="36.070644mm"
+   height="38.568047mm"
+   viewBox="0 0 36.070644 38.568047"
+   version="1.1"
+   id="svg117"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="piwigo.svg">
+  <defs
+     id="defs111" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.0566338"
+     inkscape:cx="315.37246"
+     inkscape:cy="286.50299"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1530"
+     inkscape:window-height="1011"
+     inkscape:window-x="50"
+     inkscape:window-y="32"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata114">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-2.864242,-8.1819078)">
+    <g
+       id="g145"
+       transform="translate(85.911469,-9.5757352)">
+      <path
+         id="Tracé_3467"
+         data-name="Tracé 3467"
+         class="cls-2"
+         d="M -83.047227,46.768941 V 29.812324 a 9.5567499,9.5567499 0 0 1 9.55675,-9.55675 h 22.466035 l 2.743465,1.281113 1.304395,2.778125 v 22.454129 a 9.5567499,9.5567499 0 0 1 -9.557279,9.556749 h -16.956616 a 9.5567499,9.5567499 0 0 1 -9.55675,-9.556749 z"
+         style="fill:#ff7700;stroke-width:0.264583" />
+      <path
+         id="Tracé_3469"
+         data-name="Tracé 3469"
+         class="cls-2"
+         d="m -53.583227,17.757643 c 3.578754,0 6.601089,2.881842 6.601089,6.460596 0,3.578754 -3.022335,6.499489 -6.601089,6.499489 -3.578754,0 -16.150431,-10.454745 -15.863623,-10.456333 0.286808,-0.0016 -7.249583,-0.02011 2.427817,0 9.677399,0.02011 9.270999,-2.409825 13.435806,-2.503752 z"
+         style="fill:#ff7700;stroke-width:0.264583" />
+      <circle
+         id="Ellipse_69"
+         data-name="Ellipse 69"
+         class="cls-3"
+         cx="-53.440086"
+         cy="24.112671"
+         r="2.2640395"
+         style="fill:#ffffff;stroke-width:0.264583" />
+      <circle
+         id="Ellipse_67"
+         data-name="Ellipse 67"
+         class="cls-3"
+         cx="-65.012169"
+         cy="38.29063"
+         r="10.696045"
+         style="fill:#ffffff;stroke-width:0.264583" />
+      <circle
+         id="Ellipse_68"
+         data-name="Ellipse 68"
+         class="cls-1"
+         cx="-65.012169"
+         cy="38.290897"
+         r="7.5731683"
+         style="fill:#3c3c3c;stroke-width:0.264583" />
+    </g>
+  </g>
+</svg>
