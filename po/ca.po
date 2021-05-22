@@ -15,12 +15,12 @@
 # lsbeeler <lucas@yorba.org>, 2011.
 # Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2017.
 # Jordi Serratosa <jordis@softcatala.cat>, 2017.
-# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2019
+# Jordi Mas i Hernàndez <jmas@softcatala.org>, 2019, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-06-30 10:39+0000\n"
+"POT-Creation-Date: 2021-05-09 23:08+0000\n"
 "PO-Revision-Date: 2020-07-21 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -39,37 +39,54 @@ msgstr "testimoni d'autenticació"
 msgid "Yandex-Fotki authentication token, if logged in"
 msgstr "Testimoni d'autenticació de Yandex-Fotki, si s'ha iniciat la sessió"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14 data/gsettings/org.gnome.shotwell.gschema.xml:427
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14
+#: data/gsettings/org.gnome.shotwell.gschema.xml:427
 msgid "OAuth Access Phase Token"
 msgstr "Testimoni de la fase d'accés OAuth"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
-msgid "The authorization token for the currently logged in Tumblr user, if any"
-msgstr "El testimoni d'autorització per a l'usuari actualment connectat a Tumblr, si escau"
+msgid ""
+"The authorization token for the currently logged in Tumblr user, if any"
+msgstr ""
+"El testimoni d'autorització per a l'usuari actualment connectat a Tumblr, si"
+" escau"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:20 data/gsettings/org.gnome.shotwell.gschema.xml:433
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:20
+#: data/gsettings/org.gnome.shotwell.gschema.xml:433
 msgid "OAuth Access Phase Token Secret"
 msgstr "Testimoni de la fase d'accés secreta OAuth"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:21
-msgid "The cryptographic secret used to sign requests against the authorization token for the currently logged in Tumblr user, if any"
-msgstr "El secret criptogràfic utilitzat per s signar peticions contra el testimoni d'autorització per a l'usuari actualment connectat a Tumblr, si escau"
+msgid ""
+"The cryptographic secret used to sign requests against the authorization "
+"token for the currently logged in Tumblr user, if any"
+msgstr ""
+"El secret criptogràfic utilitzat per s signar peticions contra el testimoni "
+"d'autorització per a l'usuari actualment connectat a Tumblr, si escau"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:26 data/gsettings/org.gnome.shotwell-extras.gschema.xml:52 data/gsettings/org.gnome.shotwell.gschema.xml:439 data/gsettings/org.gnome.shotwell.gschema.xml:497 data/gsettings/org.gnome.shotwell.gschema.xml:559
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:26
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:52
+#: data/gsettings/org.gnome.shotwell.gschema.xml:439
+#: data/gsettings/org.gnome.shotwell.gschema.xml:497
+#: data/gsettings/org.gnome.shotwell.gschema.xml:559
 msgid "username"
 msgstr "nom d'usuari"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:27 data/gsettings/org.gnome.shotwell.gschema.xml:440
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:27
+#: data/gsettings/org.gnome.shotwell.gschema.xml:440
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "El nom d'usuari de l'usuari actualment connectat Flickr, si escau"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:32 data/gsettings/org.gnome.shotwell.gschema.xml:471
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:32
+#: data/gsettings/org.gnome.shotwell.gschema.xml:471
 msgid "default size"
 msgstr "mida per defecte"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:33
-msgid "A numeric code representing the default size for photos uploaded to Tumblr"
-msgstr "Un codi numèric que representa la mida per defecte de fotos pujades a Tumblr"
+msgid ""
+"A numeric code representing the default size for photos uploaded to Tumblr"
+msgstr ""
+"Un codi numèric que representa la mida per defecte de fotos pujades a Tumblr"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:38
 msgid "default blog"
@@ -99,7 +116,8 @@ msgstr "testimoni"
 msgid "user token, if remembered"
 msgstr "si recordaves el testimoni d'usuari"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:64 data/gsettings/org.gnome.shotwell.gschema.xml:515
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:64
+#: data/gsettings/org.gnome.shotwell.gschema.xml:515
 msgid "last category"
 msgstr "darrera categoria"
 
@@ -107,13 +125,18 @@ msgstr "darrera categoria"
 msgid "The last selected Rajce category"
 msgstr "La darrera categoria Rajce seleccionada"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:70 data/gsettings/org.gnome.shotwell.gschema.xml:527
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:70
+#: data/gsettings/org.gnome.shotwell.gschema.xml:527
 msgid "last photo size"
 msgstr "mida de la darrera imatge"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
-msgid "A numeric code representing the last photo size preset used when publishing to Rajce"
-msgstr "Un codi numèric que representa l'última mida de la imatge preestablerta utilitzada al publicar a Rajce"
+msgid ""
+"A numeric code representing the last photo size preset used when publishing "
+"to Rajce"
+msgstr ""
+"Un codi numèric que representa l'última mida de la imatge preestablerta "
+"utilitzada al publicar a Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:76
 msgid "remember"
@@ -136,15 +159,24 @@ msgid "open album in web browser"
 msgstr "obre l'àlbum al navegador"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:89
-msgid "If true, open target album in the web browser just after uploading photos"
-msgstr "Si és cert, obre l'àlbum de destí al navegador web solament després de pujar les fotografies"
+msgid ""
+"If true, open target album in the web browser just after uploading photos"
+msgstr ""
+"Si és cert, obre l'àlbum de destí al navegador web solament després de pujar"
+" les fotografies"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94 data/gsettings/org.gnome.shotwell.gschema.xml:457 data/gsettings/org.gnome.shotwell.gschema.xml:483 data/gsettings/org.gnome.shotwell.gschema.xml:533 data/gsettings/org.gnome.shotwell.gschema.xml:583
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94
+#: data/gsettings/org.gnome.shotwell.gschema.xml:457
+#: data/gsettings/org.gnome.shotwell.gschema.xml:483
+#: data/gsettings/org.gnome.shotwell.gschema.xml:533
+#: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "remove sensitive info from uploads"
 msgstr "suprimeix les dades confidencials de les pujades"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:95
-msgid "Whether images being uploaded to Rajce should have their metadata removed first"
+msgid ""
+"Whether images being uploaded to Rajce should have their metadata removed "
+"first"
 msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Rajce"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:23
@@ -153,15 +185,20 @@ msgstr "mostra les propietats bàsiques"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise"
-msgstr "Cert si es vol mostrar el panell de propietats bàsiques, fals en cas contrari"
+msgstr ""
+"Cert si es vol mostrar el panell de propietats bàsiques, fals en cas "
+"contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:29
 msgid "display extended properties"
 msgstr "Mostra propietats ampliades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:30
-msgid "True if the extended properties window is to be displayed, false otherwise"
-msgstr "Cert si es vol mostrar la finestra de propietats ampliades, fals en cas contrari"
+msgid ""
+"True if the extended properties window is to be displayed, false otherwise"
+msgstr ""
+"Cert si es vol mostrar la finestra de propietats ampliades, fals en cas "
+"contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:35
 msgid "display sidebar"
@@ -177,7 +214,8 @@ msgstr "mostra la barra d'eines"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:42
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
-msgstr "Cert si es vol mostrar la barra d'eines inferior, fals en cas contrari"
+msgstr ""
+"Cert si es vol mostrar la barra d'eines inferior, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:47
 msgid "display map widget"
@@ -193,55 +231,83 @@ msgstr "mostra la barra de cerca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:54
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
-msgstr "Cert si la barra d'eines de cerca/filtre ha de ser mostrada, fals en cas contrari"
+msgstr ""
+"Cert si la barra d'eines de cerca/filtre ha de ser mostrada, fals en cas "
+"contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:59
 msgid "display photo titles"
 msgstr "mostra els títols de la imatge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:60
-msgid "True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise"
-msgstr "Cert si els títols de la fotografia s'ha de mostrar a sota de les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
+msgid ""
+"True if photo titles are to be displayed beneath thumbnails in collection "
+"views, false otherwise"
+msgstr ""
+"Cert si els títols de la fotografia s'ha de mostrar a sota de les miniatures"
+" en les visualitzacions de la col·lecció, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:65
 msgid "display photo comments"
 msgstr "mostra els comentaris de la fotografia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:66
-msgid "True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise"
-msgstr "Cert si els comentaris de la fotografia s'han de mostrar a sota de les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
+msgid ""
+"True if photo comments are to be displayed beneath thumbnails in collection "
+"views, false otherwise"
+msgstr ""
+"Cert si els comentaris de la fotografia s'han de mostrar a sota de les "
+"miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:71
 msgid "display event comments"
 msgstr "mostra els comentaris de l'esdeveniment"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:72
-msgid "True if event comments are to be displayed beneath thumbnails in event views, false otherwise"
-msgstr "Cert si els comentaris d'esdeveniments s'han de mostrar a sota de les miniatures en les vistes d'esdeveniments, fals en cas contrari"
+msgid ""
+"True if event comments are to be displayed beneath thumbnails in event "
+"views, false otherwise"
+msgstr ""
+"Cert si els comentaris d'esdeveniments s'han de mostrar a sota de les "
+"miniatures en les vistes d'esdeveniments, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:77
 msgid "display photo tags"
 msgstr "mostra les etiquetes de la fotografia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:78
-msgid "True if photo tags are to be listed beneath thumbnails in collection views, false otherwise"
-msgstr "Cert si les etiquetes de la fotografia apareixen a sota les miniatures en les visualitzacions de la col·lecció, fals en cas contrari"
+msgid ""
+"True if photo tags are to be listed beneath thumbnails in collection views, "
+"false otherwise"
+msgstr ""
+"Cert si les etiquetes de la fotografia apareixen a sota les miniatures en "
+"les visualitzacions de la col·lecció, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:83
 msgid "display photo ratings"
 msgstr "mostra la puntuació de la fotografia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:84
-msgid "True if a photo’s rating should be displayed as overlaid trinket, false otherwise"
-msgstr "Cert si la qualificació de la fotografia s'ha de mostrar com retall superposat, fals en cas contrari"
+msgid ""
+"True if a photo’s rating should be displayed as overlaid trinket, false "
+"otherwise"
+msgstr ""
+"Cert si la qualificació de la fotografia s'ha de mostrar com retall "
+"superposat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid "rating filter level"
 msgstr "filtre de valoració de nivell"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:90
-msgid "Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better"
-msgstr "Determina com filtrar les fotografies segons la seva puntuació. 1: Rebutjat o millor, 2: Sense valoració o millor, 3: Un o millor, 4: Dos o millor, 5: Tres o millor, 6: Quatre o millor, 7: Cinc o millor"
+msgid ""
+"Determines how to filter photos based on their ratings. 1: Rejected or "
+"better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
+"or better, 6: Four or better, 7: Five or better"
+msgstr ""
+"Determina com filtrar les fotografies segons la seva puntuació. 1: Rebutjat "
+"o millor, 2: Sense valoració o millor, 3: Un o millor, 4: Dos o millor, 5: "
+"Tres o millor, 6: Quatre o millor, 7: Cinc o millor"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:95
 msgid "sort events ascending"
@@ -249,7 +315,9 @@ msgstr "Ordena esdeveniments de forma ascendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:96
 msgid "True if events should be sorted ascending, false if descending"
-msgstr "Cert si els esdeveniments s'ordenen de forma ascendent, fals si és de forma descendent"
+msgstr ""
+"Cert si els esdeveniments s'ordenen de forma ascendent, fals si és de forma "
+"descendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "sort library photos ascending"
@@ -257,15 +325,20 @@ msgstr "Ordena les fotografies de la biblioteca de forma ascendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:102
 msgid "True if library photos should be sorted ascending, false if descending"
-msgstr "Cert si les fotografies de la biblioteca s'han de classificar de forma ascendent, fals si és de forma descendent"
+msgstr ""
+"Cert si les fotografies de la biblioteca s'han de classificar de forma "
+"ascendent, fals si és de forma descendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:107
 msgid "sort library photos criteria"
 msgstr "Criteris de classificació de les fotografies de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:108
-msgid "A numeric code that specifies the sort criteria for photos in library views"
-msgstr "Un codi numèric que especifica els criteris de classificació per a les fotografies en les vistes de la biblioteca"
+msgid ""
+"A numeric code that specifies the sort criteria for photos in library views"
+msgstr ""
+"Un codi numèric que especifica els criteris de classificació per a les "
+"fotografies en les vistes de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:113
 msgid "sort event photos ascending"
@@ -273,7 +346,9 @@ msgstr "Ordena els esdeveniments de les fotografies de forma ascendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:114
 msgid "True if event photos should be sorted ascending, false if descending"
-msgstr "Cert si les fotografies de l'esdeveniment s'han de classificar de forma ascendent, fals si és de forma descendent"
+msgstr ""
+"Cert si les fotografies de l'esdeveniment s'han de classificar de forma "
+"ascendent, fals si és de forma descendent"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:119
 msgid "sort event photos criteria"
@@ -281,39 +356,58 @@ msgstr "criteris per a classificar fotografies d'esdeveniments"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:120
 msgid "Specifies the sort criteria for event photos"
-msgstr "Especifica els criteris de classificació de les fotografies de l'esdeveniment"
+msgstr ""
+"Especifica els criteris de classificació de les fotografies de "
+"l'esdeveniment"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:125
 msgid "use 24 hour time"
 msgstr "utilitza temps de vint-i-quatre hores"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:126
-msgid "True if should display times with a 24 hour clock, false if times should use AM/PM notation"
-msgstr "Cert si el temps s'ha de mostrar com un rellotge de vint-i-quatre hores, fals si el temps s'ha d'utilitzar amb l'anotació d'AM/PM"
+msgid ""
+"True if should display times with a 24 hour clock, false if times should use"
+" AM/PM notation"
+msgstr ""
+"Cert si el temps s'ha de mostrar com un rellotge de vint-i-quatre hores, "
+"fals si el temps s'ha d'utilitzar amb l'anotació d'AM/PM"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:131
 msgid "keep relative time between photos"
 msgstr "manté el temps relatiu entre fotografies"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:132
-msgid "True if when adjusting time/date of photos, relative time should be maintained. False if all photos should be set to the same time"
-msgstr "Cert si s'ajusta l'hora/data de les fotografies, s'ha de mantenir el temps relativament. Fals si totes les imatges s'han de classificar al mateix temps"
+msgid ""
+"True if when adjusting time/date of photos, relative time should be "
+"maintained. False if all photos should be set to the same time"
+msgstr ""
+"Cert si s'ajusta l'hora/data de les fotografies, s'ha de mantenir el temps "
+"relativament. Fals si totes les imatges s'han de classificar al mateix temps"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:137
 msgid "modify original photo files"
 msgstr "modifica els fitxers originals de les fotografies"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:138
-msgid "True if when adjusting time/date of photos, the original files should be modified as well. False if changes are made only in the database"
-msgstr "Cert si a l'ajustar la data/hora de les fotografies, els fitxers originals també han de ser modificats. Fals si els canvis s'han de realitzar solament a la base de dades"
+msgid ""
+"True if when adjusting time/date of photos, the original files should be "
+"modified as well. False if changes are made only in the database"
+msgstr ""
+"Cert si a l'ajustar la data/hora de les fotografies, els fitxers originals "
+"també han de ser modificats. Fals si els canvis s'han de realitzar solament "
+"a la base de dades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:143
 msgid "show welcome dialog on startup"
 msgstr "Mostra diàleg de benvinguda a l'inici"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
-msgid "True if, when on startup, a welcome dialog should be shown. False if it should not be shown"
-msgstr "Cert si, a l'iniciar-se, s'ha de mostrar un diàleg de benvinguda. Fals si no s'ha de mostrar"
+msgid ""
+"True if, when on startup, a welcome dialog should be shown. False if it "
+"should not be shown"
+msgstr ""
+"Cert si, a l'iniciar-se, s'ha de mostrar un diàleg de benvinguda. Fals si no"
+" s'ha de mostrar"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:149
 msgid "sidebar position"
@@ -360,16 +454,23 @@ msgid "color for solid transparency background"
 msgstr "Color per al fons de transparència sòlida"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:180
-msgid "Color to use if background for transparent images is set to solid color"
-msgstr "Color a usar si el fons per a imatges transparents està establert com a color sòlid"
+msgid ""
+"Color to use if background for transparent images is set to solid color"
+msgstr ""
+"Color a usar si el fons per a imatges transparents està establert com a "
+"color sòlid"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:185
 msgid "Selection state of “hide photos” option"
 msgstr "Estat de la selecció d'opció «amaga imatges»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:186
-msgid "Last used selection state of the “hide photos already imported” option in the import page"
-msgstr "Últim estat de selecció utilitzat de l'opció «amaga les fotografies que ja s'hagin importat» en la pàgina d'importació"
+msgid ""
+"Last used selection state of the “hide photos already imported” option in "
+"the import page"
+msgstr ""
+"Últim estat de selecció utilitzat de l'opció «amaga les fotografies que ja "
+"s'hagin importat» en la pàgina d'importació"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
 msgid "delay"
@@ -384,16 +485,23 @@ msgid "transition delay"
 msgstr "retard de transició"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:200
-msgid "The time (in seconds) that a transition runs between photos in a slideshow"
-msgstr "El temps (en segons) que s'executa una transició entre imatges en una presentació de diapositives"
+msgid ""
+"The time (in seconds) that a transition runs between photos in a slideshow"
+msgstr ""
+"El temps (en segons) que s'executa una transició entre imatges en una "
+"presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:205
 msgid "transition effect id"
 msgstr "identificador d'efecte de transició"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:206
-msgid "The name of the transition effect that will be used between photos when running a slideshow"
-msgstr "El nom de l'efecte de transició que s'utilitzarà entre les imatges quan s'executa una presentació de diapositives"
+msgid ""
+"The name of the transition effect that will be used between photos when "
+"running a slideshow"
+msgstr ""
+"El nom de l'efecte de transició que s'utilitzarà entre les imatges quan "
+"s'executa una presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Show title"
@@ -401,7 +509,8 @@ msgstr "Mostra el títol"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:212
 msgid "Whether to show the title of a photo during the slideshow"
-msgstr "Si es mostra el títol d'una fotografia durant la presentació de diapositives"
+msgstr ""
+"Si es mostra el títol d'una fotografia durant la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:219
 msgid "maximize library window"
@@ -409,7 +518,8 @@ msgstr "maximitzar la finestra de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:220
 msgid "True if library application is maximized, false otherwise"
-msgstr "Cert si l'aplicació de la biblioteca està maximitzada, fals en cas contrari"
+msgstr ""
+"Cert si l'aplicació de la biblioteca està maximitzada, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "width of library window"
@@ -417,7 +527,8 @@ msgstr "amplada de la finestra de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:226
 msgid "The last recorded width of the library application window"
-msgstr "L'última amplada registrada de la finestra de l'aplicació de la biblioteca"
+msgstr ""
+"L'última amplada registrada de la finestra de l'aplicació de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:231
 msgid "height of library window"
@@ -425,7 +536,8 @@ msgstr "alçada de la finestra de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:232
 msgid "The last recorded height of the library application window"
-msgstr "L'última amplada registrada de la finestra de l'aplicació de la biblioteca"
+msgstr ""
+"L'última amplada registrada de la finestra de l'aplicació de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "maximize direct-edit window"
@@ -433,7 +545,8 @@ msgstr "Maximitza la finestra d'edició directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:238
 msgid "True if direct-edit application is maximized, false otherwise"
-msgstr "Cert si l'aplicació d'edició directa està maximitzada, fals en cas contrari"
+msgstr ""
+"Cert si l'aplicació d'edició directa està maximitzada, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "width of direct-edit window"
@@ -441,7 +554,8 @@ msgstr "amplada de la finestra d'edició directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:244
 msgid "The last recorded width of the direct-edit application window"
-msgstr "L'última amplada registrada de la finestra de l'aplicació d'edició directa"
+msgstr ""
+"L'última amplada registrada de la finestra de l'aplicació d'edició directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:249
 msgid "height of direct-edit window"
@@ -449,15 +563,20 @@ msgstr "alçada de la finestra d'edició directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:250
 msgid "The last recorded height of the direct-edit application window"
-msgstr "L'última alçada registrada de la finestra de l'aplicació d'edició directa"
+msgstr ""
+"L'última alçada registrada de la finestra de l'aplicació d'edició directa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid "sidebar divider position"
 msgstr "posició del divisor de la barra lateral"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:256
-msgid "The last recorded position of the divider between the sidebar and view in library application window"
-msgstr "L'última posició registrada del divisor entre la barra lateral i la vista en la finestra de l'aplicació de la biblioteca"
+msgid ""
+"The last recorded position of the divider between the sidebar and view in "
+"library application window"
+msgstr ""
+"L'última posició registrada del divisor entre la barra lateral i la vista en"
+" la finestra de l'aplicació de la biblioteca"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:263
 msgid "import directory"
@@ -472,40 +591,59 @@ msgid "watch library directory for new files"
 msgstr "veure el directori de la biblioteca per als fitxers nous"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:270
-msgid "If true, files added to the library directory are automatically imported"
-msgstr "Cert si, els fitxers afegits al directori de la biblioteca s'importen automàticament"
+msgid ""
+"If true, files added to the library directory are automatically imported"
+msgstr ""
+"Cert si, els fitxers afegits al directori de la biblioteca s'importen "
+"automàticament"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid "write metadata to master files"
 msgstr "s'estan escrivint les metadades als fitxers mestres"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:276
-msgid "If true, changes to metadata (tags, titles, etc.) are written to the master photo file"
-msgstr "Cert si, els canvis a les metadades (etiquetes, títols, etc.) s'escriuen en el fitxer de la imatge mestra"
+msgid ""
+"If true, changes to metadata (tags, titles, etc.) are written to the master "
+"photo file"
+msgstr ""
+"Cert si, els canvis a les metadades (etiquetes, títols, etc.) s'escriuen en "
+"el fitxer de la imatge mestra"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid "use lowercase filenames"
 msgstr "utilitza minúscules en noms de fitxer"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:282
-msgid "If true, Shotwell will convert all filenames to lowercase when importing photo files"
-msgstr "Cert si, Shotwell converteix tots els noms de fitxer a minúscules en importar fitxers de fotografies"
+msgid ""
+"If true, Shotwell will convert all filenames to lowercase when importing "
+"photo files"
+msgstr ""
+"Cert si, Shotwell converteix tots els noms de fitxer a minúscules en "
+"importar fitxers de fotografies"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid "directory pattern"
 msgstr "patró de directori"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:288
-msgid "A string encoding a naming pattern that will be used to name photo directories on import"
-msgstr "Una cadena que codifica un patró de nomenclatura que utilitzarà per a anomenar directoris de la fotografia a la importació"
+msgid ""
+"A string encoding a naming pattern that will be used to name photo "
+"directories on import"
+msgstr ""
+"Una cadena que codifica un patró de nomenclatura que utilitzarà per a "
+"anomenar directoris de la fotografia a la importació"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid "directory pattern custom"
 msgstr "patró de directori personalitzat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:294
-msgid "A string encoding a custom naming pattern that will be used to name photo directories on import"
-msgstr "Una cadena que codifica un patró de nomenclatura personalitzat que s'utilitza per a anomenar directoris de la fotografia a la importació"
+msgid ""
+"A string encoding a custom naming pattern that will be used to name photo "
+"directories on import"
+msgstr ""
+"Una cadena que codifica un patró de nomenclatura personalitzat que "
+"s'utilitza per a anomenar directoris de la fotografia a la importació"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "RAW developer default"
@@ -513,31 +651,48 @@ msgstr "Desenvolupador RAW per defecte"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
 msgid "Default option for which RAW developer Shotwell will use"
-msgstr "Opció per defecte per al qual el desenvolupador RAW utilitzarà Shotwell"
+msgstr ""
+"Opció per defecte per al qual el desenvolupador RAW utilitzarà Shotwell"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:307
 msgid "Most-recently-used crop aspect ratio menu choice"
-msgstr "Més recentment utilitzat de l'escapçament de l'aspecte del menú a escollir"
+msgstr ""
+"Més recentment utilitzat de l'escapçament de l'aspecte del menú a escollir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:308
 msgid "A numeric code representing the last crop menu choice the user made"
-msgstr "Un codi numèric que representa l'última opció del menú d'escapçament que realitza de l'usuari"
+msgstr ""
+"Un codi numèric que representa l'última opció del menú d'escapçament que "
+"realitza de l'usuari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:312
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
-msgstr "Numerador de relació d'aspecte utilitzat més recentment en l'escapçament personalitzat"
+msgstr ""
+"Numerador de relació d'aspecte utilitzat més recentment en l'escapçament "
+"personalitzat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:313
-msgid "A nonzero, positive integer representing the width part of the last custom crop ratio the user entered"
-msgstr "Un nombre sencer positiu diferent de zero que representa la part ampla de l'última proporció de l'escapçament personalitzat que l'usuari va introduir"
+msgid ""
+"A nonzero, positive integer representing the width part of the last custom "
+"crop ratio the user entered"
+msgstr ""
+"Un nombre sencer positiu diferent de zero que representa la part ampla de "
+"l'última proporció de l'escapçament personalitzat que l'usuari va introduir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
-msgstr "Més recentment utilitzat de l'escapçament personalitzat de l'aspecte denominador"
+msgstr ""
+"Més recentment utilitzat de l'escapçament personalitzat de l'aspecte "
+"denominador"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:318
-msgid "A nonzero, positive integer representing the height part of the last custom crop ratio the user entered"
-msgstr "Un nombre sencer positiu diferent de zero, que representa la part de l'alçada de l'última proporció de l'escapçament personalitzat que l'usuari va introduir"
+msgid ""
+"A nonzero, positive integer representing the height part of the last custom "
+"crop ratio the user entered"
+msgstr ""
+"Un nombre sencer positiu diferent de zero, que representa la part de "
+"l'alçada de l'última proporció de l'escapçament personalitzat que l'usuari "
+"va introduir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:325
 msgid "external photo editor"
@@ -555,7 +710,8 @@ msgstr "Editor extern RAW"
 msgid "External application used to edit RAW photos"
 msgstr "Aplicació externa utilitzada per a l'edició de fotografies RAW"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:370 data/gsettings/org.gnome.shotwell.gschema.xml:371
+#: data/gsettings/org.gnome.shotwell.gschema.xml:370
+#: data/gsettings/org.gnome.shotwell.gschema.xml:371
 msgid "Setting in export dialog: how to trim images"
 msgstr "Configuració de diàleg d'exportació: com retallar imatges"
 
@@ -603,65 +759,102 @@ msgstr "Configuració de diàleg d'exportació: mida màxima de la imatge"
 msgid "last used publishing service"
 msgstr "últim servei de publicació utilitzat"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:409 data/gsettings/org.gnome.shotwell.gschema.xml:415
-msgid "A numeric code representing the last service to which photos were published"
-msgstr "Un codi numèric que representa l'últim servei al qual es van publicar les imatges"
+#: data/gsettings/org.gnome.shotwell.gschema.xml:409
+#: data/gsettings/org.gnome.shotwell.gschema.xml:415
+msgid ""
+"A numeric code representing the last service to which photos were published"
+msgstr ""
+"Un codi numèric que representa l'últim servei al qual es van publicar les "
+"imatges"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:414
 msgid "default publishing service"
 msgstr "serveis de publicació per defecte"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:428
-msgid "The authorization token for the currently logged in Flickr user, if any"
-msgstr "El testimoni d'autorització per a l'usuari actualment connectat a Flickr, si escau"
+msgid ""
+"The authorization token for the currently logged in Flickr user, if any"
+msgstr ""
+"El testimoni d'autorització per a l'usuari actualment connectat a Flickr, si"
+" escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:434
-msgid "The cryptographic secret used to sign requests against the authorization token for the currently logged in Flickr user, if any"
-msgstr "El secret criptogràfic utilitzat per a signar peticions contra el testimoni d'autorització per a l'usuari actualment connectat a Flickr, si escau"
+msgid ""
+"The cryptographic secret used to sign requests against the authorization "
+"token for the currently logged in Flickr user, if any"
+msgstr ""
+"El secret criptogràfic utilitzat per a signar peticions contra el testimoni "
+"d'autorització per a l'usuari actualment connectat a Flickr, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid "default size code"
 msgstr "codi de mida per defecte"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:446
-msgid "A numeric code representing the default size for photos published to Flickr"
-msgstr "Un codi numèric que representa la mida per defecte per a les imatges publicades a Flickr"
+msgid ""
+"A numeric code representing the default size for photos published to Flickr"
+msgstr ""
+"Un codi numèric que representa la mida per defecte per a les imatges "
+"publicades a Flickr"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:451
 msgid "default visibility"
 msgstr "visibilitat per defecte"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:452
-msgid "A numeric code representing the default visibility for photos published to Flickr"
-msgstr "Un codi numèric que representa la visibilitat predeterminada per les imatges publicades a Flickr"
+msgid ""
+"A numeric code representing the default visibility for photos published to "
+"Flickr"
+msgstr ""
+"Un codi numèric que representa la visibilitat predeterminada per les imatges"
+" publicades a Flickr"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:458
-msgid "Whether images being uploaded to Flickr should have their metadata removed first"
-msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Flickr"
+msgid ""
+"Whether images being uploaded to Flickr should have their metadata removed "
+"first"
+msgstr ""
+"Si s'han de suprimir les metadades abans de pujar les imatges a Flickr"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:465 data/gsettings/org.gnome.shotwell.gschema.xml:603
+#: data/gsettings/org.gnome.shotwell.gschema.xml:465
+#: data/gsettings/org.gnome.shotwell.gschema.xml:603
 msgid "refresh token"
 msgstr "testimoni d'actualització"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
-msgid "The OAuth token used to refresh the Google Photos session for the currently logged in user, if any"
-msgstr "El testimoni d'OAuth utilitzat per a actualitzar la sessió de Google Photos per l'usuari actualment connectat, si escau"
+msgid ""
+"The OAuth token used to refresh the Google Photos session for the currently "
+"logged in user, if any"
+msgstr ""
+"El testimoni d'OAuth utilitzat per a actualitzar la sessió de Google Photos "
+"per l'usuari actualment connectat, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:472
-msgid "A numeric code representing the default size for photos uploaded to Google Photos Albums"
-msgstr "Un codi numèric que representa la mida per defecte de les fotografies pujades als àlbums web de Picasa"
+msgid ""
+"A numeric code representing the default size for photos uploaded to Google "
+"Photos Albums"
+msgstr ""
+"Un codi numèric que representa la mida per defecte de les fotografies "
+"pujades als àlbums web de Picasa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:477 data/gsettings/org.gnome.shotwell.gschema.xml:577
+#: data/gsettings/org.gnome.shotwell.gschema.xml:477
+#: data/gsettings/org.gnome.shotwell.gschema.xml:577
 msgid "last album"
 msgstr "últim àlbum"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:478 data/gsettings/org.gnome.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:478
+#: data/gsettings/org.gnome.shotwell.gschema.xml:578
 msgid "The name of the last album the user published photos to, if any"
-msgstr "El nom de l'últim àlbum de fotografies que l'usuari publica per, si escau"
+msgstr ""
+"El nom de l'últim àlbum de fotografies que l'usuari publica per, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:484
-msgid "Whether images being uploaded to Google Photos should have their metadata removed first"
-msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Google Photos"
+msgid ""
+"Whether images being uploaded to Google Photos should have their metadata "
+"removed first"
+msgstr ""
+"Si s'han de suprimir les metadades abans de pujar les imatges a Google "
+"Photos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:491
 msgid "Piwigo URL"
@@ -704,36 +897,61 @@ msgid "The last chosen Piwigo permission level"
 msgstr "L'últim nivell de permís triat de Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:528
-msgid "A numeric code representing the last photo size preset used when publishing to Piwigo"
-msgstr "Un codi numèric que representa l'última mida de la foto predeterminada que s'utilitza en publicar a Piwigo"
+msgid ""
+"A numeric code representing the last photo size preset used when publishing "
+"to Piwigo"
+msgstr ""
+"Un codi numèric que representa l'última mida de la foto predeterminada que "
+"s'utilitza en publicar a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:534
-msgid "Whether images being uploaded to Piwigo should have their metadata removed first"
-msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Piwigo"
+msgid ""
+"Whether images being uploaded to Piwigo should have their metadata removed "
+"first"
+msgstr ""
+"Si s'han de suprimir les metadades abans de pujar les imatges a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:539
-msgid "if title is set and comment unset, use title as comment for uploads to Piwigo"
-msgstr "si el títol està conjunt i el comentari desactivat, utilitzeu títol com a comentari per pujades a Piwigo"
+msgid ""
+"if title is set and comment unset, use title as comment for uploads to "
+"Piwigo"
+msgstr ""
+"si el títol està conjunt i el comentari desactivat, utilitzeu títol com a "
+"comentari per pujades a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:540
-msgid "Whether images being uploaded to Piwigo should have their comment set from the title if title is set and comment unset"
-msgstr "Si les imatges que es pugen a Piwigo han de tenir el comentari establert des del títol o si el títol està establert i el comentari desactivat"
+msgid ""
+"Whether images being uploaded to Piwigo should have their comment set from "
+"the title if title is set and comment unset"
+msgstr ""
+"Si les imatges que es pugen a Piwigo han de tenir el comentari establert des"
+" del títol o si el títol està establert i el comentari desactivat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:545
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "No pugi etiquetes al pujar a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:546
-msgid "Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server"
-msgstr "Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en el servidor remot de Piwigo"
+msgid ""
+"Whether images being uploaded to Piwigo should have their tags removed on "
+"upload, such that these tags will not appear on the remote Piwigo server"
+msgstr ""
+"Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes "
+"eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en"
+" el servidor remot de Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "no pugeu etiquetes al pujar a Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
-msgid "Whether images being uploaded to Piwigo should have their ratings uploaded, such that these ratings will not appear on the remote Piwigo server"
-msgstr "Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en el servidor remot de Piwigo."
+msgid ""
+"Whether images being uploaded to Piwigo should have their ratings uploaded, "
+"such that these ratings will not appear on the remote Piwigo server"
+msgstr ""
+"Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes "
+"eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en"
+" el servidor remot de Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:560
 msgid "Gallery3 username"
@@ -756,8 +974,11 @@ msgid "Gallery3 site URL"
 msgstr "Lloc URL de Gallery3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:584
-msgid "Whether images being uploaded to Gallery3 should have their metadata removed first"
-msgstr "Si s'han de suprimir les metadades abans de pujar les imatges a Gallery3"
+msgid ""
+"Whether images being uploaded to Gallery3 should have their metadata removed"
+" first"
+msgstr ""
+"Si s'han de suprimir les metadades abans de pujar les imatges a Gallery3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:589
 msgid "scaling constraint of uploaded picture"
@@ -765,51 +986,73 @@ msgstr "restricció de la imatge escalada carregada"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:590
 msgid "The scaling constraint ID of the picture to be uploaded"
-msgstr "La identificació de l'escalat restringit de la imatge que es va a carregar"
+msgstr ""
+"La identificació de l'escalat restringit de la imatge que es va a carregar"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:595
 msgid "pixels of the major axis uploaded picture"
 msgstr "Píxels de l'eix principal de la imatge carregada"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:596
-msgid "The pixels of the major axis of the picture to be uploaded; used only if scaling-constraint-id is an appropriate value"
-msgstr "Els píxels de l'eix principal de la imatge per a ser carregats; utilitza només si un valor adequat és escalat en restriccions identificades"
+msgid ""
+"The pixels of the major axis of the picture to be uploaded; used only if "
+"scaling-constraint-id is an appropriate value"
+msgstr ""
+"Els píxels de l'eix principal de la imatge per a ser carregats; utilitza "
+"només si un valor adequat és escalat en restriccions identificades"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
-msgid "The OAuth token used to refresh the YouTube session for the currently logged in user, if any"
-msgstr "El testimoni d'OAuth utilitzat per a actualitzar la sessió de YouTube per a l'usuari actualment connectat, si escau"
+msgid ""
+"The OAuth token used to refresh the YouTube session for the currently logged"
+" in user, if any"
+msgstr ""
+"El testimoni d'OAuth utilitzat per a actualitzar la sessió de YouTube per a "
+"l'usuari actualment connectat, si escau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:611
 msgid "last used import service"
 msgstr "últim servei d'importació utilitzat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:612
-msgid "A numeric code representing the last service from which photos were imported"
-msgstr "Un codi numèric que representa l'últim servei del qual es van importar imatges"
+msgid ""
+"A numeric code representing the last service from which photos were imported"
+msgstr ""
+"Un codi numèric que representa l'últim servei del qual es van importar "
+"imatges"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:619
 msgid "interpreter state cookie"
 msgstr "estat de la galeta d'intèrpret"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:620
-msgid "A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr "Un codi numèric que captura l'estat del medi ambient del plug-in de GStreamer"
+msgid ""
+"A numeric code that captures the state of the GStreamer plug-in environment"
+msgstr ""
+"Un codi numèric que captura l'estat del medi ambient del plug-in de "
+"GStreamer"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:627
 msgid "content layout mode"
 msgstr "el mode del disseny del contingut"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:628
-msgid "A numeric code that describes how photos are laid out on the page during printing"
-msgstr "Un codi numèric que descriu com es disposen les imatges a la pàgina durant la impressió"
+msgid ""
+"A numeric code that describes how photos are laid out on the page during "
+"printing"
+msgstr ""
+"Un codi numèric que descriu com es disposen les imatges a la pàgina durant "
+"la impressió"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:633
 msgid "content ppi"
 msgstr "contingut ppi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:634
-msgid "The number of pixels per inch (ppi) sent to the printer during printing"
-msgstr "El nombre de píxels per polzada (ppi) envia a la impressora durant la impressió"
+msgid ""
+"The number of pixels per inch (ppi) sent to the printer during printing"
+msgstr ""
+"El nombre de píxels per polzada (ppi) envia a la impressora durant la "
+"impressió"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:639
 msgid "content width"
@@ -832,40 +1075,59 @@ msgid "content units"
 msgstr "els blocs del contingut"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:652
-msgid "A numeric code representing unit of measure (inches or centimeters) used when printing"
-msgstr "Un codi numèric que representa la unitat de mesura (polzades o centímetres) utilitzats en imprimir"
+msgid ""
+"A numeric code representing unit of measure (inches or centimeters) used "
+"when printing"
+msgstr ""
+"Un codi numèric que representa la unitat de mesura (polzades o centímetres) "
+"utilitzats en imprimir"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:657
 msgid "images per page code"
 msgstr "imatges per codi de la pàgina"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:658
-msgid "A numeric code representing the currently selected images per page mode used when printing"
-msgstr "Un codi numèric que representa les imatges seleccionades per la manera de pàgina que utilitza quan s'imprimeix"
+msgid ""
+"A numeric code representing the currently selected images per page mode used"
+" when printing"
+msgstr ""
+"Un codi numèric que representa les imatges seleccionades per la manera de "
+"pàgina que utilitza quan s'imprimeix"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:663
 msgid "size selection"
 msgstr "selecció de la mida"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:664
-msgid "The index of the current print size in a pre-defined list of standard sizes"
-msgstr "L'índex de la mida d'impressió actual en una llista predeterminada de mides estàndard"
+msgid ""
+"The index of the current print size in a pre-defined list of standard sizes"
+msgstr ""
+"L'índex de la mida d'impressió actual en una llista predeterminada de mides "
+"estàndard"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:669
 msgid "match aspect ratio"
 msgstr "relació d'aspecte de la imatge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:670
-msgid "Determines whether custom print sizes must match the aspect ratio of the original photo"
-msgstr "Determina si les mides d'impressió personalitzades han de coincidir amb la relació d'aspecte de la imatge original"
+msgid ""
+"Determines whether custom print sizes must match the aspect ratio of the "
+"original photo"
+msgstr ""
+"Determina si les mides d'impressió personalitzades han de coincidir amb la "
+"relació d'aspecte de la imatge original"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:675
 msgid "print titles"
 msgstr "Imprimeix els títols de la imatge"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:676
-msgid "True if the title of a photo should be printed when the photo is printed, false otherwise"
-msgstr "Cert si el títol d'una imatge ha de ser impresa quan s'imprimeix, fals en cas contrari"
+msgid ""
+"True if the title of a photo should be printed when the photo is printed, "
+"false otherwise"
+msgstr ""
+"Cert si el títol d'una imatge ha de ser impresa quan s'imprimeix, fals en "
+"cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:681
 msgid "titles font"
@@ -873,7 +1135,9 @@ msgstr "tipus de lletra dels títols"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:682
 msgid "The name of the font to use for photo titles when they are printed"
-msgstr "El nom del tipus de lletra que s'utilitza per als títols de les imatges quan s'imprimeixen"
+msgstr ""
+"El nom del tipus de lletra que s'utilitza per als títols de les imatges quan"
+" s'imprimeixen"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:693
 msgid "enable facebook publishing plugin"
@@ -881,7 +1145,9 @@ msgstr "Habilita el complement de publicació de Facebook"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:694
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Facebook està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Facebook està habilitat, fals en "
+"cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:699
 msgid "enable flickr publishing plugin"
@@ -889,15 +1155,20 @@ msgstr "Habilita el complement de publicació de flickr"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:700
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Flickr està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Flickr està habilitat, fals en cas"
+" contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:705
 msgid "enable Google Photos publishing plugin"
 msgstr "habilita el complement de publicació de Google Photos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:706
-msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Google Photos està habilitat, fals en cas contrari"
+msgid ""
+"True if the Google Photos publishing plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el complement de la publicació de Google Photos està habilitat, fals"
+" en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:711
 msgid "enable youtube publishing plugin"
@@ -905,7 +1176,9 @@ msgstr "Habilita el complement de publicació de youtube"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:712
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de YouTube està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de YouTube està habilitat, fals en "
+"cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:717
 msgid "enable piwigo publishing plugin"
@@ -913,7 +1186,9 @@ msgstr "Habilita el complement de publicació de piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:718
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Piwigo està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Piwigo està habilitat, fals en cas"
+" contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:723
 msgid "enable yandex publishing plugin"
@@ -921,7 +1196,9 @@ msgstr "Habilita el complement de publicació de yandex"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:724
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Yandex.Fotki està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Yandex.Fotki està habilitat, fals "
+"en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:729
 msgid "enable tumblr publishing plugin"
@@ -929,7 +1206,9 @@ msgstr "Habilita el complement de publicació de tumblr"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:730
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Tumblr està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Tumblr està habilitat, fals en cas"
+" contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:735
 msgid "enable rajce publishing plugin"
@@ -937,7 +1216,9 @@ msgstr "Habilita el complement de publicació de rajce"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:736
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Rajce està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Rajce està habilitat, fals en cas "
+"contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:741
 msgid "enable gallery3 publishing plugin"
@@ -945,7 +1226,9 @@ msgstr "Habilita el complement de publicació de gallery3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:742
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de Gallery3 està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de Gallery3 està habilitat, fals en "
+"cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:747
 msgid "enable F-Spot import plugin"
@@ -953,111 +1236,165 @@ msgstr "Habilita el complement de publicació de F-Spot"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:748
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr "Cert si el complement de la publicació de F-Spot està habilitat, fals en cas contrari"
+msgstr ""
+"Cert si el complement de la publicació de F-Spot està habilitat, fals en cas"
+" contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:753
 msgid "enable slideshow crumble transition"
 msgstr "Activa la transició d'engruna de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:754
-msgid "True if the Crumble slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació de l'engruna està activat, fals en cas contrari"
+msgid ""
+"True if the Crumble slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació de l'engruna està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:759
 msgid "enable slideshow fade transition"
 msgstr "Activa la transició de destenyir de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:760
-msgid "True if the Fade slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació de destenyir està activat, fals en cas contrari"
+msgid ""
+"True if the Fade slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació de destenyir està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:765
 msgid "enable slideshow slide transition"
 msgstr "Activa la transició de diapositiva de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:766
-msgid "True if the Slide slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació de la diapositiva està activat, fals en cas contrari"
+msgid ""
+"True if the Slide slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació de la diapositiva està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:771
 msgid "enable slideshow clock transition"
 msgstr "Activa la transició de rellotge de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:772
-msgid "True if the Clock slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació del rellotge està activat, fals en cas contrari"
+msgid ""
+"True if the Clock slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació del rellotge està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:777
 msgid "enable slideshow circle transition"
 msgstr "Activa la transició de cercle de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:778
-msgid "True if the Circle slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació del cercle està activat, fals en cas contrari"
+msgid ""
+"True if the Circle slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació del cercle està activat,"
+" fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:783
 msgid "enable slideshow circles transition"
 msgstr "Activa la transició de cercles de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:784
-msgid "True if the Circles slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació dels cercles està activat, fals en cas contrari"
+msgid ""
+"True if the Circles slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació dels cercles està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:789
 msgid "enable slideshow blinds transition"
 msgstr "Activa la transició de ceguera de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:790
-msgid "True if the Blinds slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació de la ceguera està activat, fals en cas contrari"
+msgid ""
+"True if the Blinds slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació de la ceguera està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:795
 msgid "enable slideshow squares transition"
 msgstr "Activa la transició de quadrícula de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:796
-msgid "True if the Squares slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació de la quadrícula està activat, fals en cas contrari"
+msgid ""
+"True if the Squares slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació de la quadrícula està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:801
 msgid "enable slideshow stripes transition"
 msgstr "Activa la transició de ratlles de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:802
-msgid "True if the Stripes slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació de les ratlles està activat, fals en cas contrari"
+msgid ""
+"True if the Stripes slideshow transition plugin is enabled, false otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació de les ratlles està "
+"activat, fals en cas contrari"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:807
 msgid "enable slideshow chess transition"
 msgstr "Activa la transició d'escacs de la presentació de diapositives"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:808
-msgid "True if the Chess-Board slideshow transition plugin is enabled, false otherwise"
-msgstr "Cert si el connector de transició de la presentació del tauler d'escacs està activat, fals en cas contrari"
+msgid ""
+"True if the Chess-Board slideshow transition plugin is enabled, false "
+"otherwise"
+msgstr ""
+"Cert si el connector de transició de la presentació del tauler d'escacs està"
+" activat, fals en cas contrari"
 
-#: data/org.gnome.Shotwell.appdata.xml.in:8 data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85 data/ui/event.ui:361 data/ui/event.ui:529 data/ui/faces.ui:356 data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:354 data/ui/tags.ui:361 plugins/shotwell-publishing-extras/GalleryConnector.vala:115 src/photos/RawSupport.vala:307
+#: data/org.gnome.Shotwell.appdata.xml.in:8
+#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
+#: data/ui/event.ui:361 data/ui/event.ui:529 data/ui/faces.ui:356
+#: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
+#: data/ui/tags.ui:361
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
+#: src/photos/RawSupport.vala:311
 msgid "Shotwell"
 msgstr "Shotwell"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:9
-msgid "Popular photo manager"
-msgstr "Gestor de fotografies popular"
+msgid "Digital photo organizer"
+msgstr "Organitzador de fotos digitals"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:11
 msgid ""
-"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME desktop. It allows you to import photos from your camera or disk, organize them by date and subject matter, even ratings. It also offers basic photo editing, like crop, red-eye correction, color adjustments, and straighten. Shotwell’s non-destructive photo editor does not alter your "
-"master photos, making it easy to experiment and correct errors."
+"Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
+"desktop. It allows you to import photos from your camera or disk, organize "
+"them by date and subject matter, even ratings. It also offers basic photo "
+"editing, like crop, red-eye correction, color adjustments, and straighten. "
+"Shotwell’s non-destructive photo editor does not alter your master photos, "
+"making it easy to experiment and correct errors."
 msgstr ""
-"Shotwell és un ràpid organitzador de fotografies fàcil d'usar, dissenyat per a l'escriptori GNOME. Es poden importar imatges des de la seva càmera o disc, organitzar-les per data i tema, fins i tot puntuar-les. També ofereix funcions bàsiques d'edició, com retallar, correcció d'ulls vermells, ajustaments de color, i redreçar. L'editor de fotografies "
-"Shotwell no destrueix ni altera les seves imatges mestres, per tant,  és fàcil d'experimentar i corregir errors."
+"Shotwell és un ràpid organitzador de fotografies fàcil d'usar, dissenyat per"
+" a l'escriptori GNOME. Es poden importar imatges des de la seva càmera o "
+"disc, organitzar-les per data i tema, fins i tot puntuar-les. També ofereix "
+"funcions bàsiques d'edició, com retallar, correcció d'ulls vermells, "
+"ajustaments de color, i redreçar. L'editor de fotografies Shotwell no "
+"destrueix ni altera les seves imatges mestres, per tant,  és fàcil "
+"d'experimentar i corregir errors."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
-msgid "When ready, Shotwell can upload your photos to various web sites, such as Facebook, Flickr, Google Photos, and more."
-msgstr "Quan estigui llest, Shotwell pot pujar les seves fotografies a diversos llocs web, com Facebook, Flickr, Google Photos, i més."
+msgid ""
+"When ready, Shotwell can upload your photos to various web sites, such as "
+"Facebook, Flickr, Google Photos, and more."
+msgstr ""
+"Quan estigui llest, Shotwell pot pujar les seves fotografies a diversos "
+"llocs web, com Facebook, Flickr, Google Photos, i més."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
-msgstr "Shotwell és compatible amb JPEG, PNG, TIFF, i una varietat de formats de fitxer RAW."
+msgstr ""
+"Shotwell és compatible amb JPEG, PNG, TIFF, i una varietat de formats de "
+"fitxer RAW."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:53
 msgid "The Shotwell developers"
@@ -1074,8 +1411,10 @@ msgstr "Organitzeu les vostres fotografies"
 #. Translators: Search terms to find this application. Do NOT translate or
 #. localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-msgid "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
-msgstr "àlbum;càmera;càmeres;escapçament;edició;millorar;exportació;galeria;imatge;imatges;importar;organitzar;foto;fotògrafs;fotos;imatge;imatges;fotografia;impressió;publicar;girar;compartir;etiquetes;vídeo;facebook;flickr;picasa;youtube;Piwigo;"
+msgid ""
+"album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+msgstr ""
+"àlbum;càmera;càmeres;escapçament;edició;millorar;exportació;galeria;imatge;imatges;importar;organitzar;foto;fotògrafs;fotos;imatge;imatges;fotografia;impressió;publicar;girar;compartir;etiquetes;vídeo;facebook;flickr;picasa;youtube;Piwigo;"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -1085,89 +1424,134 @@ msgstr "Visualitzador del Shotwell"
 msgid "Photo Viewer"
 msgstr "Visualitzador de fotografies"
 
-#: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136 data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:230 src/CollectionPage.vala:119 src/Resources.vala:159
+#: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
+#: data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:232
+#: src/CollectionPage.vala:119 src/Resources.vala:159
 msgid "_Enhance"
 msgstr "_Millora"
 
-#: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163 data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:257 src/CollectionPage.vala:120 src/Resources.vala:187
+#: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
+#: data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:259
+#: src/CollectionPage.vala:120 src/Resources.vala:187
 msgid "Re_vert to Original"
 msgstr "_Reverteix a l'original"
 
-#: data/ui/collection.ui:19 data/ui/event.ui:412 data/ui/event.ui:463 data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:382 data/ui/tags.ui:395 src/Resources.vala:285
+#: data/ui/collection.ui:19 data/ui/event.ui:412 data/ui/event.ui:463
+#: data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:384
+#: data/ui/tags.ui:395 src/Resources.vala:285
 msgid "Add _Tags…"
 msgstr "Afegeix e_tiquetes…"
 
-#: data/ui/collection.ui:24 data/ui/event.ui:417 data/ui/event.ui:468 data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22 data/ui/photo.ui:387 data/ui/tags.ui:400 src/Resources.vala:357
+#: data/ui/collection.ui:24 data/ui/event.ui:417 data/ui/event.ui:468
+#: data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22
+#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:357
 msgid "Modif_y Tags…"
 msgstr "_Modifica les etiquetes…"
 
-#: data/ui/collection.ui:33 data/ui/event.ui:286 data/ui/event.ui:477 data/ui/faces.ui:281 data/ui/media.ui:286 data/ui/photo_context.ui:30 data/ui/photo.ui:275 data/ui/tags.ui:286
+#: data/ui/collection.ui:33 data/ui/event.ui:286 data/ui/event.ui:477
+#: data/ui/faces.ui:281 data/ui/media.ui:286 data/ui/photo_context.ui:30
+#: data/ui/photo.ui:277 data/ui/tags.ui:286
 msgid "Toggle _Flag"
 msgstr "_Palanca marcada"
 
-#: data/ui/collection.ui:39 data/ui/event.ui:291 data/ui/event.ui:483 data/ui/faces.ui:286 data/ui/media.ui:291 data/ui/photo_context.ui:35 data/ui/photo.ui:280 data/ui/tags.ui:291 src/Resources.vala:219
+#: data/ui/collection.ui:39 data/ui/event.ui:291 data/ui/event.ui:483
+#: data/ui/faces.ui:286 data/ui/media.ui:291 data/ui/photo_context.ui:35
+#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:219
 msgid "_Set Rating"
 msgstr "E_stableix la puntuació"
 
-#: data/ui/collection.ui:62 data/ui/event.ui:319 data/ui/event.ui:506 data/ui/faces.ui:314 data/ui/media.ui:319 data/ui/photo_context.ui:63 data/ui/photo.ui:308 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/collection.ui:62 data/ui/event.ui:319 data/ui/event.ui:506
+#: data/ui/faces.ui:314 data/ui/media.ui:319 data/ui/photo_context.ui:63
+#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
 msgid "_Unrated"
 msgstr "_Sense puntuació"
 
-#: data/ui/collection.ui:66 data/ui/event.ui:324 data/ui/event.ui:510 data/ui/faces.ui:319 data/ui/media.ui:324 data/ui/photo_context.ui:68 data/ui/photo.ui:313 data/ui/tags.ui:324 src/Resources.vala:235
+#: data/ui/collection.ui:66 data/ui/event.ui:324 data/ui/event.ui:510
+#: data/ui/faces.ui:319 data/ui/media.ui:324 data/ui/photo_context.ui:68
+#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:235
 msgid "_Rejected"
 msgstr "_Rebutjada"
 
-#: data/ui/collection.ui:72 data/ui/event.ui:331 data/ui/event.ui:516 data/ui/faces.ui:326 data/ui/media.ui:331 data/ui/photo_context.ui:75 data/ui/photo.ui:320 data/ui/tags.ui:331 src/Resources.vala:223
+#: data/ui/collection.ui:72 data/ui/event.ui:331 data/ui/event.ui:516
+#: data/ui/faces.ui:326 data/ui/media.ui:331 data/ui/photo_context.ui:75
+#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:223
 msgid "_Increase"
 msgstr "_Incrementa"
 
-#: data/ui/collection.ui:76 data/ui/event.ui:336 data/ui/event.ui:520 data/ui/faces.ui:331 data/ui/media.ui:336 data/ui/photo_context.ui:80 data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:226
+#: data/ui/collection.ui:76 data/ui/event.ui:336 data/ui/event.ui:520
+#: data/ui/faces.ui:331 data/ui/media.ui:336 data/ui/photo_context.ui:80
+#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:226
 msgid "_Decrease"
 msgstr "Re_dueix"
 
-#: data/ui/collection.ui:82 data/ui/event.ui:358 data/ui/event.ui:526 data/ui/faces.ui:353 data/ui/media.ui:358 data/ui/photo_context.ui:88 data/ui/photo.ui:351 data/ui/tags.ui:358
+#: data/ui/collection.ui:82 data/ui/event.ui:358 data/ui/event.ui:526
+#: data/ui/faces.ui:353 data/ui/media.ui:358 data/ui/photo_context.ui:88
+#: data/ui/photo.ui:353 data/ui/tags.ui:358
 msgid "_Developer"
 msgstr "_Desenvolupador"
 
-#: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534 data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96 data/ui/photo.ui:359 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:310
+#: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
+#: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
+#: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
 msgid "Camera"
 msgstr "Càmera"
 
-#: data/ui/collection.ui:98 data/ui/event.ui:345 data/ui/event.ui:542 data/ui/faces.ui:340 data/ui/media.ui:345 data/ui/photo_context.ui:105 data/ui/photo.ui:334 data/ui/tags.ui:345 src/Resources.vala:271
+#: data/ui/collection.ui:98 data/ui/event.ui:345 data/ui/event.ui:542
+#: data/ui/faces.ui:340 data/ui/media.ui:345 data/ui/photo_context.ui:105
+#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:271
 msgid "Edit _Title…"
 msgstr "Edita el _títol…"
 
-#: data/ui/collection.ui:103 data/ui/events_directory.ui:149 data/ui/events_directory.ui:191 data/ui/event.ui:350 data/ui/event.ui:403 data/ui/event.ui:547 data/ui/faces.ui:345 data/ui/media.ui:350 data/ui/photo_context.ui:110 data/ui/photo.ui:339 data/ui/tags.ui:350 src/Resources.vala:275
+#: data/ui/collection.ui:103 data/ui/events_directory.ui:149
+#: data/ui/events_directory.ui:191 data/ui/event.ui:350 data/ui/event.ui:403
+#: data/ui/event.ui:547 data/ui/faces.ui:345 data/ui/media.ui:350
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:341 data/ui/tags.ui:350
+#: src/Resources.vala:275
 msgid "Edit _Comment…"
 msgstr "Edita el _comentari…"
 
-#: data/ui/collection.ui:108 data/ui/event.ui:552 data/ui/photo_context.ui:115 data/ui/photo.ui:368 src/CollectionPage.vala:143 src/Resources.vala:292
+#: data/ui/collection.ui:108 data/ui/event.ui:552 data/ui/photo_context.ui:115
+#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:292
 msgid "Open With E_xternal Editor"
 msgstr "Obre amb un editor e_xtern"
 
-#: data/ui/collection.ui:113 data/ui/event.ui:557 data/ui/photo_context.ui:120 data/ui/photo.ui:373 src/CollectionPage.vala:146 src/Resources.vala:294
+#: data/ui/collection.ui:113 data/ui/event.ui:557 data/ui/photo_context.ui:120
+#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:294
 msgid "Open With RA_W Editor"
 msgstr "Obre amb un editor d'imatges RA_W"
 
-#: data/ui/collection.ui:119 data/ui/event.ui:392 data/ui/event.ui:563 data/ui/faces.ui:381 data/ui/media.ui:386 data/ui/photo_context.ui:126 data/ui/tags.ui:386
+#: data/ui/collection.ui:119 data/ui/event.ui:392 data/ui/event.ui:563
+#: data/ui/faces.ui:381 data/ui/media.ui:386 data/ui/photo_context.ui:126
+#: data/ui/tags.ui:386
 msgid "View Eve_nt for Photo"
 msgstr "Visualitza l'esdeve_niment de la fotografia"
 
-#: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30 data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27 data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35 data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232 src/Resources.vala:785
+#: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30
+#: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
+#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
+#: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
+#: src/Resources.vala:785
 msgid "Show in File Mana_ger"
 msgstr "Mostra al nave_gador de fitxers"
 
-#: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23 data/ui/event.ui:572 data/ui/photo.ui:28 src/CollectionPage.vala:83 src/Resources.vala:296
+#: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
+#: data/ui/event.ui:572 data/ui/photo.ui:30 src/CollectionPage.vala:83
+#: src/Resources.vala:296
 msgid "Send _To…"
 msgstr "_Envia a…"
 
-#: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578 data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141 data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:794
+#: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
+#: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:794
 msgid "_Move to Trash"
 msgstr "_Mou a la paperera"
 
 #: data/ui/collection.ui:148 src/Resources.vala:115
 msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "Gira les fotografies cap a la dreta (premeu Ctrl per a girar cap a l'esquerra)"
+msgstr ""
+"Gira les fotografies cap a la dreta (premeu Ctrl per a girar cap a "
+"l'esquerra)"
 
 #: data/ui/collection.ui:151 src/Resources.vala:113 src/Resources.vala:118
 msgid "Rotate"
@@ -1185,284 +1569,402 @@ msgstr "Millora"
 msgid "Publish to various websites"
 msgstr "Publica a diversos llocs web"
 
-#: data/ui/collection.ui:192 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284 src/Resources.vala:268
+#: data/ui/collection.ui:192
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
+#: src/Resources.vala:268
 msgid "Publish"
 msgstr "Publica"
 
-#: data/ui/collection.ui:214 data/ui/offline.ui:241 data/ui/trash.ui:314 src/Resources.vala:301
+#: data/ui/collection.ui:214 data/ui/offline.ui:241 data/ui/trash.ui:314
+#: src/Resources.vala:301
 msgid "Find an image by typing text that appears in its name or tags"
-msgstr "Cerqueu una imatge escrivint text que aparegui en el seu nom o les seves etiquetes"
+msgstr ""
+"Cerqueu una imatge escrivint text que aparegui en el seu nom o les seves "
+"etiquetes"
 
-#: data/ui/collection.ui:217 data/ui/offline.ui:244 data/ui/trash.ui:317 src/Resources.vala:300
+#: data/ui/collection.ui:217 data/ui/offline.ui:244 data/ui/trash.ui:317
+#: src/Resources.vala:300
 msgid "Find"
 msgstr "Cerca"
 
-#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5 data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5 data/ui/media.ui:5 data/ui/offline.ui:5 data/ui/photo.ui:5 data/ui/tags.ui:5 data/ui/trash.ui:5
+#: data/ui/direct.ui:5 data/ui/events_directory.ui:5 data/ui/event.ui:5
+#: data/ui/faces.ui:5 data/ui/import_queue.ui:5 data/ui/import.ui:5
+#: data/ui/media.ui:5 data/ui/offline.ui:5 data/ui/photo.ui:5
+#: data/ui/tags.ui:5 data/ui/trash.ui:5
 msgid "_File"
 msgstr "_Fitxer"
 
-#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33 src/direct/DirectPhotoPage.vala:323 src/Resources.vala:148
+#: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
+#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:148
 msgid "_Save"
 msgstr "De_sa"
 
 #: data/ui/direct.ui:13
 msgid "Save _As…"
-msgstr "_Anomena i desa..."
+msgstr "_Anomena i desa…"
 
-#: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40 data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33 data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:48 data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:144
+#: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
+#: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
+#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
+#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:144
 msgid "_Quit"
 msgstr "_Surt"
 
-#: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47 data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47 data/ui/offline.ui:32 data/ui/photo.ui:55 data/ui/tags.ui:47 data/ui/trash.ui:37 src/Resources.vala:132
+#: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
+#: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
+#: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
+#: data/ui/trash.ui:37 src/Resources.vala:132
 msgid "_Edit"
 msgstr "_Edita"
 
-#: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50 data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50 data/ui/offline.ui:35 data/ui/photo.ui:58 data/ui/tags.ui:50 data/ui/trash.ui:40 src/Resources.vala:197
+#: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
+#: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
+#: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
+#: data/ui/trash.ui:40 src/Resources.vala:197
 msgid "_Undo"
 msgstr "_Desfés"
 
-#: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55 data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55 data/ui/offline.ui:40 data/ui/photo.ui:63 data/ui/tags.ui:55 data/ui/trash.ui:45 src/Resources.vala:200
+#: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
+#: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
+#: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
+#: data/ui/trash.ui:45 src/Resources.vala:200
 msgid "_Redo"
 msgstr "_Refés"
 
-#: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99 data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74 data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:95 data/ui/tags.ui:99 data/ui/trash.ui:87
+#: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99
+#: data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74
+#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:97
+#: data/ui/tags.ui:99 data/ui/trash.ui:87
 msgid "_View"
 msgstr "_Visualitza"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:178 src/Resources.vala:134
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:180
+#: src/Resources.vala:134
 msgid "Fulls_creen"
 msgstr "Pantalla _completa"
 
-#: data/ui/direct.ui:69 data/ui/event.ui:265 data/ui/faces.ui:260 data/ui/media.ui:265 data/ui/photo.ui:149 data/ui/tags.ui:265 src/Resources.vala:156
+#: data/ui/direct.ui:69 data/ui/event.ui:265 data/ui/faces.ui:260
+#: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
+#: src/Resources.vala:156
 msgid "Zoom _In"
 msgstr "_Amplia"
 
-#: data/ui/direct.ui:74 data/ui/event.ui:270 data/ui/faces.ui:265 data/ui/media.ui:270 data/ui/photo.ui:154 data/ui/tags.ui:270 src/Resources.vala:157
+#: data/ui/direct.ui:74 data/ui/event.ui:270 data/ui/faces.ui:265
+#: data/ui/media.ui:270 data/ui/photo.ui:156 data/ui/tags.ui:270
+#: src/Resources.vala:157
 msgid "Zoom _Out"
 msgstr "_Redueix"
 
-#: data/ui/direct.ui:81 data/ui/photo.ui:161
+#: data/ui/direct.ui:81 data/ui/photo.ui:163
 msgid "Fit to _Page"
 msgstr "Ajusta a l'amplada de la _pàgina"
 
-#: data/ui/direct.ui:86 data/ui/photo.ui:166
+#: data/ui/direct.ui:86 data/ui/photo.ui:168
 msgid "Zoom _100%"
 msgstr "Ampliació _100%"
 
-#: data/ui/direct.ui:91 data/ui/photo.ui:171
+#: data/ui/direct.ui:91 data/ui/photo.ui:173
 msgid "Zoom _200%"
 msgstr "Ampliació _200%"
 
-#: data/ui/direct.ui:98 data/ui/photo.ui:192
+#: data/ui/direct.ui:98 data/ui/photo.ui:194
 msgid "_Photo"
 msgstr "_Fotografia"
 
-#: data/ui/direct.ui:101 data/ui/photo.ui:195
+#: data/ui/direct.ui:101 data/ui/photo.ui:197
 msgid "_Previous Photo"
 msgstr "Fotografia an_terior"
 
-#: data/ui/direct.ui:106 data/ui/photo.ui:200
+#: data/ui/direct.ui:106 data/ui/photo.ui:202
 msgid "_Next Photo"
 msgstr "Fotografia següe_nt"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:207 src/CollectionPage.vala:110 src/Resources.vala:112
+#: data/ui/direct.ui:113 data/ui/photo.ui:209 src/CollectionPage.vala:110
+#: src/Resources.vala:112
 msgid "Rotate _Right"
 msgstr "Gi_ra a la dreta"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:212 src/CollectionPage.vala:113 src/Resources.vala:117
+#: data/ui/direct.ui:118 data/ui/photo.ui:214 src/CollectionPage.vala:113
+#: src/Resources.vala:117
 msgid "Rotate _Left"
 msgstr "Gira a _l'esquerra"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:217 src/CollectionPage.vala:116 src/Resources.vala:122
+#: data/ui/direct.ui:123 data/ui/photo.ui:219 src/CollectionPage.vala:116
+#: src/Resources.vala:122
 msgid "Flip Hori_zontally"
 msgstr "Inverteix horit_zontalment"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:221 src/CollectionPage.vala:117 src/Resources.vala:125
+#: data/ui/direct.ui:127 data/ui/photo.ui:223 src/CollectionPage.vala:117
+#: src/Resources.vala:125
 msgid "Flip Verti_cally"
 msgstr "Inverteix verti_calment"
 
-#: data/ui/direct.ui:133 data/ui/photo.ui:227
+#: data/ui/direct.ui:133 data/ui/photo.ui:229
 msgid "T_ools"
 msgstr "_Eines"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:235 src/Resources.vala:171
+#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:171
 msgid "_Crop"
 msgstr "Es_capça"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:240 src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
+#: data/ui/direct.ui:146 data/ui/photo.ui:242
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
 msgid "_Straighten"
 msgstr "_Redreça"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:245 src/Resources.vala:179
+#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:179
 msgid "_Red-eye"
 msgstr "Ulls ve_rmells"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:250 src/Resources.vala:183
+#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:183
 msgid "_Adjust"
 msgstr "_Ajusta"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:344 src/Resources.vala:282
+#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:282
 msgid "_Adjust Date and Time…"
 msgstr "_Ajusta la data i l'hora…"
 
-#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:155 data/ui/events_directory.ui:158 data/ui/event.ui:425 data/ui/event.ui:428 data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65 data/ui/import_queue.ui:68 data/ui/import.ui:188 data/ui/import.ui:191 data/ui/media.ui:408 data/ui/media.ui:411 data/ui/offline.ui:185
-#: data/ui/offline.ui:188 data/ui/photo.ui:394 data/ui/photo.ui:397 data/ui/tags.ui:427 data/ui/tags.ui:430 data/ui/trash.ui:194 data/ui/trash.ui:197 src/Resources.vala:135
+#: data/ui/direct.ui:176 data/ui/direct.ui:179 data/ui/events_directory.ui:155
+#: data/ui/events_directory.ui:158 data/ui/event.ui:425 data/ui/event.ui:428
+#: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
+#: data/ui/import_queue.ui:68 data/ui/import.ui:188 data/ui/import.ui:191
+#: data/ui/media.ui:408 data/ui/media.ui:411 data/ui/offline.ui:185
+#: data/ui/offline.ui:188 data/ui/photo.ui:396 data/ui/photo.ui:399
+#: data/ui/tags.ui:427 data/ui/tags.ui:430 data/ui/trash.ui:194
+#: data/ui/trash.ui:197 src/Resources.vala:135
 msgid "_Help"
 msgstr "A_juda"
 
-#: data/ui/direct.ui:184 data/ui/events_directory.ui:163 data/ui/event.ui:433 data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:196 data/ui/media.ui:416 data/ui/offline.ui:193 data/ui/photo.ui:402 data/ui/tags.ui:435 data/ui/trash.ui:202
+#: data/ui/direct.ui:184 data/ui/events_directory.ui:163 data/ui/event.ui:433
+#: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:196
+#: data/ui/media.ui:416 data/ui/offline.ui:193 data/ui/photo.ui:404
+#: data/ui/tags.ui:435 data/ui/trash.ui:202
 msgid "_Frequently Asked Questions"
 msgstr "Preguntes _freqüents"
 
-#: data/ui/direct.ui:188 data/ui/events_directory.ui:167 data/ui/event.ui:437 data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:200 data/ui/media.ui:420 data/ui/offline.ui:197 data/ui/photo.ui:406 data/ui/tags.ui:439 data/ui/trash.ui:206
+#: data/ui/direct.ui:188 data/ui/events_directory.ui:167 data/ui/event.ui:437
+#: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:200
+#: data/ui/media.ui:420 data/ui/offline.ui:197 data/ui/photo.ui:408
+#: data/ui/tags.ui:439 data/ui/trash.ui:206
 msgid "_Report a Problem…"
 msgstr "Info_rma d'un problema…"
 
-#: data/ui/direct.ui:194 data/ui/events_directory.ui:173 data/ui/event.ui:443 data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:206 data/ui/manifest_widget.ui:35 data/ui/media.ui:426 data/ui/offline.ui:203 data/ui/photo.ui:412 data/ui/tags.ui:445 data/ui/trash.ui:212 src/Resources.vala:128
+#: data/ui/direct.ui:194 data/ui/events_directory.ui:173 data/ui/event.ui:443
+#: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:206
+#: data/ui/manifest_widget.ui:35 data/ui/media.ui:426 data/ui/offline.ui:203
+#: data/ui/photo.ui:414 data/ui/tags.ui:445 data/ui/trash.ui:212
+#: src/Resources.vala:128
 msgid "_About"
 msgstr "Quant _a"
 
-#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8 data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8 data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:8
+#: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
+#: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
+#: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8
+#: data/ui/trash.ui:8
 msgid "_Import From Folder…"
 msgstr "_Importa des d'una carpeta…"
 
-#: data/ui/events_directory.ui:13 data/ui/event.ui:13 data/ui/faces.ui:13 data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13 data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13 data/ui/trash.ui:13
+#: data/ui/events_directory.ui:13 data/ui/event.ui:13 data/ui/faces.ui:13
+#: data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13
+#: data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13
+#: data/ui/trash.ui:13
 msgid "Import From _Application…"
 msgstr "Importa des de l'_aplicació…"
 
-#: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34 data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34 data/ui/offline.ui:19 data/ui/photo.ui:42 data/ui/tags.ui:34 data/ui/trash.ui:24 data/ui/trash.ui:239 data/ui/trash.ui:247
+#: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34
+#: data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34
+#: data/ui/offline.ui:19 data/ui/photo.ui:44 data/ui/tags.ui:34
+#: data/ui/trash.ui:24 data/ui/trash.ui:239 data/ui/trash.ui:247
 msgid "Empty T_rash"
 msgstr "Buida la pape_rera"
 
-#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62 data/ui/import.ui:55 data/ui/media.ui:62 data/ui/offline.ui:47 data/ui/tags.ui:62 data/ui/trash.ui:52
+#: data/ui/events_directory.ui:47 data/ui/event.ui:62 data/ui/faces.ui:62
+#: data/ui/import.ui:55 data/ui/media.ui:62 data/ui/offline.ui:47
+#: data/ui/tags.ui:62 data/ui/trash.ui:52
 msgid "_Find"
 msgstr "_Cerca"
 
-#: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66 data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:70 data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6 data/ui/tags.ui:66 data/ui/trash.ui:56
+#: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66
+#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:72
+#: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
+#: data/ui/tags.ui:66 data/ui/trash.ui:56
 msgid "Ne_w Saved Search…"
 msgstr "_Cerca nova desada…"
 
-#: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86 data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65 data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
+#: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
+#: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
 msgid "Select _All"
 msgstr "Seleccion_a-ho tot"
 
-#: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93 data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72 data/ui/photo.ui:89 data/ui/tags.ui:93 data/ui/trash.ui:81 src/Resources.vala:141 src/Resources.vala:290
+#: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
+#: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
+#: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
+#: src/Resources.vala:141 src/Resources.vala:290
 msgid "_Preferences"
 msgstr "_Preferències"
 
-#: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102 data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102 data/ui/offline.ui:81 data/ui/photo.ui:98 data/ui/tags.ui:102 data/ui/trash.ui:90
+#: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102
+#: data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102
+#: data/ui/offline.ui:81 data/ui/photo.ui:100 data/ui/tags.ui:102
+#: data/ui/trash.ui:90
 msgid "_Basic Information"
 msgstr "Informació _bàsica"
 
-#: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107 data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86 data/ui/photo.ui:103 data/ui/tags.ui:107 data/ui/trash.ui:95
+#: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107
+#: data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86
+#: data/ui/photo.ui:105 data/ui/tags.ui:107 data/ui/trash.ui:95
 msgid "E_xtended Information"
 msgstr "Informació am_pliada"
 
-#: data/ui/events_directory.ui:84 data/ui/event.ui:112 data/ui/faces.ui:112 data/ui/import.ui:87 data/ui/media.ui:112 data/ui/offline.ui:91 data/ui/tags.ui:112 data/ui/trash.ui:100
+#: data/ui/events_directory.ui:84 data/ui/event.ui:112 data/ui/faces.ui:112
+#: data/ui/import.ui:87 data/ui/media.ui:112 data/ui/offline.ui:91
+#: data/ui/tags.ui:112 data/ui/trash.ui:100
 msgid "_Search Bar"
 msgstr "Barra de _cerca"
 
-#: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117 data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96 data/ui/photo.ui:108 data/ui/tags.ui:117 data/ui/trash.ui:105
+#: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117
+#: data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96
+#: data/ui/photo.ui:110 data/ui/tags.ui:117 data/ui/trash.ui:105
 msgid "S_idebar"
 msgstr "_Barra lateral"
 
-#: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122 data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101 data/ui/photo.ui:113 data/ui/tags.ui:122 data/ui/trash.ui:110
+#: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122
+#: data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101
+#: data/ui/photo.ui:115 data/ui/tags.ui:122 data/ui/trash.ui:110
 msgid "T_oolbar"
 msgstr "_Barra d'eines"
 
-#: data/ui/events_directory.ui:99 data/ui/event.ui:127 data/ui/import.ui:102 data/ui/media.ui:127 data/ui/offline.ui:106 data/ui/photo.ui:118 data/ui/tags.ui:127 data/ui/trash.ui:115
+#: data/ui/events_directory.ui:99 data/ui/event.ui:127 data/ui/import.ui:102
+#: data/ui/media.ui:127 data/ui/offline.ui:106 data/ui/photo.ui:120
+#: data/ui/tags.ui:127 data/ui/trash.ui:115
 msgid "_Map Overview"
 msgstr "_Mapa general"
 
-#: data/ui/events_directory.ui:106 data/ui/event.ui:139 data/ui/faces.ui:134 data/ui/media.ui:139 data/ui/tags.ui:139
+#: data/ui/events_directory.ui:106 data/ui/event.ui:139 data/ui/faces.ui:134
+#: data/ui/media.ui:139 data/ui/tags.ui:139
 msgid "_Comments"
 msgstr "_Comentaris"
 
-#: data/ui/events_directory.ui:113 data/ui/event.ui:248 data/ui/faces.ui:243 data/ui/import_queue.ui:48 data/ui/import.ui:171 data/ui/media.ui:248 data/ui/offline.ui:168 data/ui/photo.ui:132 data/ui/tags.ui:248 data/ui/trash.ui:177
+#: data/ui/events_directory.ui:113 data/ui/event.ui:248 data/ui/faces.ui:243
+#: data/ui/import_queue.ui:48 data/ui/import.ui:171 data/ui/media.ui:248
+#: data/ui/offline.ui:168 data/ui/photo.ui:134 data/ui/tags.ui:248
+#: data/ui/trash.ui:177
 msgid "Sort _Events"
 msgstr "Ordena els _esdeveniments"
 
-#: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/event.ui:251 data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51 data/ui/import.ui:174 data/ui/media.ui:236 data/ui/media.ui:251 data/ui/offline.ui:171 data/ui/photo.ui:135 data/ui/tags.ui:236 data/ui/tags.ui:251 data/ui/trash.ui:180
+#: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/event.ui:251
+#: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
+#: data/ui/import.ui:174 data/ui/media.ui:236 data/ui/media.ui:251
+#: data/ui/offline.ui:171 data/ui/photo.ui:137 data/ui/tags.ui:236
+#: data/ui/tags.ui:251 data/ui/trash.ui:180
 msgid "_Ascending"
 msgstr "_Ascendent"
 
-#: data/ui/events_directory.ui:121 data/ui/event.ui:241 data/ui/faces.ui:236 data/ui/import_queue.ui:56 data/ui/media.ui:241 data/ui/offline.ui:176 data/ui/tags.ui:241 data/ui/trash.ui:185
+#: data/ui/events_directory.ui:121 data/ui/event.ui:241 data/ui/faces.ui:236
+#: data/ui/import_queue.ui:56 data/ui/media.ui:241 data/ui/offline.ui:176
+#: data/ui/tags.ui:241 data/ui/trash.ui:185
 msgid "D_escending"
 msgstr "D_escendent"
 
-#: data/ui/events_directory.ui:137 data/ui/event.ui:384 data/ui/faces.ui:373 data/ui/media.ui:378 data/ui/tags.ui:378
+#: data/ui/events_directory.ui:137 data/ui/event.ui:384 data/ui/faces.ui:373
+#: data/ui/media.ui:378 data/ui/tags.ui:378
 msgid "Even_ts"
 msgstr "Esdevenimen_ts"
 
-#: data/ui/events_directory.ui:140 data/ui/events_directory.ui:182 src/Resources.vala:215
+#: data/ui/events_directory.ui:140 data/ui/events_directory.ui:182
+#: src/Resources.vala:215
 msgid "_Merge Events"
 msgstr "Fusiona els esdeveni_ments"
 
-#: data/ui/events_directory.ui:144 data/ui/events_directory.ui:186 data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:203
+#: data/ui/events_directory.ui:144 data/ui/events_directory.ui:186
+#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:203
 msgid "Re_name Event…"
 msgstr "Canvia el _nom de l'esdeveniment…"
 
-#: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17 data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:263
+#: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
+#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:263
 msgid "_Export…"
 msgstr "_Exporta…"
 
-#: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74 data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229 data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:792
+#: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
+#: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:792
 msgid "R_emove From Library"
 msgstr "Suprim_eix de la biblioteca"
 
-#: data/ui/event.ui:134 data/ui/faces.ui:129 data/ui/import.ui:109 data/ui/media.ui:134 data/ui/tags.ui:134
+#: data/ui/event.ui:134 data/ui/faces.ui:129 data/ui/import.ui:109
+#: data/ui/media.ui:134 data/ui/tags.ui:134
 msgid "_Titles"
 msgstr "_Títols"
 
-#: data/ui/event.ui:144 data/ui/event.ui:409 data/ui/faces.ui:139 data/ui/faces.ui:387 data/ui/media.ui:144 data/ui/media.ui:392 data/ui/photo.ui:379 data/ui/tags.ui:144 data/ui/tags.ui:392
+#: data/ui/event.ui:144 data/ui/event.ui:409 data/ui/faces.ui:139
+#: data/ui/faces.ui:387 data/ui/media.ui:144 data/ui/media.ui:392
+#: data/ui/photo.ui:381 data/ui/tags.ui:144 data/ui/tags.ui:392
 msgid "Ta_gs"
 msgstr "Eti_quetes"
 
-#: data/ui/event.ui:149 data/ui/faces.ui:144 data/ui/media.ui:149 data/ui/photo.ui:125 data/ui/tags.ui:149 src/Resources.vala:252
+#: data/ui/event.ui:149 data/ui/faces.ui:144 data/ui/media.ui:149
+#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:252
 msgid "_Ratings"
 msgstr "_Puntuacions"
 
-#: data/ui/event.ui:156 data/ui/faces.ui:151 data/ui/import.ui:116 data/ui/media.ui:156 data/ui/offline.ui:113 data/ui/tags.ui:156 data/ui/trash.ui:122 src/Resources.vala:255
+#: data/ui/event.ui:156 data/ui/faces.ui:151 data/ui/import.ui:116
+#: data/ui/media.ui:156 data/ui/offline.ui:113 data/ui/tags.ui:156
+#: data/ui/trash.ui:122 src/Resources.vala:255
 msgid "_Filter Photos"
 msgstr "_Filtra les fotografies"
 
-#: data/ui/event.ui:189 data/ui/faces.ui:184 data/ui/import.ui:149 data/ui/media.ui:189 data/ui/offline.ui:146 data/ui/search_bar.ui:18 data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:248
+#: data/ui/event.ui:189 data/ui/faces.ui:184 data/ui/import.ui:149
+#: data/ui/media.ui:189 data/ui/offline.ui:146 data/ui/search_bar.ui:18
+#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:248
 msgid "_All Photos"
 msgstr "Totes les fotogr_afies"
 
-#: data/ui/event.ui:195 data/ui/faces.ui:190 data/ui/import.ui:155 data/ui/media.ui:195 data/ui/offline.ui:152 data/ui/search_bar.ui:12 data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:245
+#: data/ui/event.ui:195 data/ui/faces.ui:190 data/ui/import.ui:155
+#: data/ui/media.ui:195 data/ui/offline.ui:152 data/ui/search_bar.ui:12
+#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:245
 msgid "All + _Rejected"
 msgstr "Totes més les _rebutjades"
 
-#: data/ui/event.ui:201 data/ui/faces.ui:196 data/ui/import.ui:161 data/ui/media.ui:201 data/ui/offline.ui:158 data/ui/search_bar.ui:6 data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:241
+#: data/ui/event.ui:201 data/ui/faces.ui:196 data/ui/import.ui:161
+#: data/ui/media.ui:201 data/ui/offline.ui:158 data/ui/search_bar.ui:6
+#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:241
 msgid "Rejected _Only"
 msgstr "N_omés les rebutjades"
 
-#: data/ui/event.ui:211 data/ui/faces.ui:206 data/ui/media.ui:211 data/ui/tags.ui:211
+#: data/ui/event.ui:211 data/ui/faces.ui:206 data/ui/media.ui:211
+#: data/ui/tags.ui:211
 msgid "Sort _Photos"
 msgstr "Ordena les _fotografies"
 
-#: data/ui/event.ui:214 data/ui/faces.ui:209 data/ui/media.ui:214 data/ui/tags.ui:214
+#: data/ui/event.ui:214 data/ui/faces.ui:209 data/ui/media.ui:214
+#: data/ui/tags.ui:214
 msgid "By _Title"
 msgstr "Per _títol"
 
-#: data/ui/event.ui:219 data/ui/faces.ui:214 data/ui/media.ui:219 data/ui/tags.ui:219
+#: data/ui/event.ui:219 data/ui/faces.ui:214 data/ui/media.ui:219
+#: data/ui/tags.ui:219
 msgid "By _Filename"
 msgstr "Per nom de _fitxer"
 
-#: data/ui/event.ui:224 data/ui/faces.ui:219 data/ui/media.ui:224 data/ui/tags.ui:224
+#: data/ui/event.ui:224 data/ui/faces.ui:219 data/ui/media.ui:224
+#: data/ui/tags.ui:224
 msgid "By Exposure _Date"
 msgstr "Per _data d'exposició"
 
-#: data/ui/event.ui:229 data/ui/faces.ui:224 data/ui/media.ui:229 data/ui/tags.ui:229
+#: data/ui/event.ui:229 data/ui/faces.ui:224 data/ui/media.ui:229
+#: data/ui/tags.ui:229
 msgid "By _Rating"
 msgstr "Pe_r puntuació"
 
-#: data/ui/event.ui:256 data/ui/faces.ui:251 data/ui/import.ui:179 data/ui/media.ui:256 data/ui/photo.ui:140 data/ui/tags.ui:256
+#: data/ui/event.ui:256 data/ui/faces.ui:251 data/ui/import.ui:179
+#: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
 msgid "_Descending"
 msgstr "_Descendent"
 
-#: data/ui/event.ui:280 data/ui/faces.ui:275 data/ui/media.ui:280 data/ui/tags.ui:280
+#: data/ui/event.ui:280 data/ui/faces.ui:275 data/ui/media.ui:280
+#: data/ui/tags.ui:280
 msgid "_Photos"
 msgstr "_Fotografies"
 
@@ -1470,7 +1972,8 @@ msgstr "_Fotografies"
 msgid "Make _Key Photo for Event"
 msgstr "Fes la fotografia _principal de l'esdeveniment"
 
-#: data/ui/event.ui:387 data/ui/faces.ui:376 data/ui/media.ui:381 data/ui/tags.ui:381 src/Resources.vala:209
+#: data/ui/event.ui:387 data/ui/faces.ui:376 data/ui/media.ui:381
+#: data/ui/tags.ui:381 src/Resources.vala:209
 msgid "_New Event"
 msgstr "Esdeveniment _nou"
 
@@ -1478,7 +1981,8 @@ msgstr "Esdeveniment _nou"
 msgid "Edit Event _Comment…"
 msgstr "Edita el _comentari de l'esdeveniment…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:307 src/Resources.vala:308
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:307
+#: src/Resources.vala:308
 msgid "Faces"
 msgstr "Cares"
 
@@ -1502,16 +2006,24 @@ msgstr "Importa les _seleccionades"
 msgid "Import _All"
 msgstr "Import_a-les totes"
 
-#: data/ui/login_welcome_pane_widget.ui:35 plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
+#: data/ui/login_welcome_pane_widget.ui:35
+#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 msgid "_Log in"
 msgstr "_Connecta"
 
-#: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38 data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534 src/AppWindow.vala:551 src/data_imports/DataImportsUI.vala:302 src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764 src/Dialogs.vala:787
-#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403 src/Resources.vala:130
+#: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
+#: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
+#: src/AppWindow.vala:551 src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
+#: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:130
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52 plugins/shotwell-publishing/PiwigoPublishing.vala:1066 src/Resources.vala:139
+#: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
+#: src/Resources.vala:139
 msgid "_OK"
 msgstr "D'ac_ord"
 
@@ -1527,15 +2039,15 @@ msgstr "_Afegeix etiquetes…"
 msgid "Send T_o…"
 msgstr "_Envia a…"
 
-#: data/ui/photo.ui:185 src/CollectionPage.vala:102
+#: data/ui/photo.ui:187 src/CollectionPage.vala:102
 msgid "S_lideshow"
 msgstr "_Presentació de diapositives"
 
-#: data/ui/photo.ui:263 src/CollectionPage.vala:122 src/Resources.vala:163
+#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:163
 msgid "_Copy Color Adjustments"
 msgstr "_Copia els ajustaments de color"
 
-#: data/ui/photo.ui:268 src/CollectionPage.vala:125 src/Resources.vala:167
+#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:167
 msgid "_Paste Color Adjustments"
 msgstr "_Enganxa els ajustaments de color"
 
@@ -1578,7 +2090,8 @@ msgstr "Metadades"
 
 #: data/ui/preferences_dialog.ui:213
 msgid "Write tags, titles, and other _metadata to photo files"
-msgstr "Escriu etiquetes, títols i altres _metadades als fitxers de fotografies"
+msgstr ""
+"Escriu etiquetes, títols i altres _metadades als fitxers de fotografies"
 
 #: data/ui/preferences_dialog.ui:235
 msgid "RAW Developer"
@@ -1593,8 +2106,12 @@ msgid "_Pattern:"
 msgstr "_Patró:"
 
 #: data/ui/preferences_dialog.ui:339
-msgid "When viewing images that are transparent, they will be drawn against this background."
-msgstr "Quan es visualitzen imatges que són transparents es dibuixaran amb aquest fons."
+msgid ""
+"When viewing images that are transparent, they will be drawn against this "
+"background."
+msgstr ""
+"Quan es visualitzen imatges que són transparents es dibuixaran amb aquest "
+"fons."
 
 #: data/ui/preferences_dialog.ui:343
 msgid "Transparent Background:"
@@ -1616,7 +2133,8 @@ msgstr "Cap"
 msgid "Use dark theme:"
 msgstr "Utilitza tema fosc:"
 
-#: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30 src/library/LibraryBranch.vala:127
+#: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
+#: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Biblioteca"
 
@@ -1734,7 +2252,11 @@ msgstr "Ca_nvia el nom…"
 msgid "_Edit…"
 msgstr "_Edita…"
 
-#: data/ui/savedsearch.ui:14 data/ui/tags.ui:465 data/ui/trash.ui:63 data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732 src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343 src/Resources.vala:396 src/Resources.vala:778
+#: data/ui/savedsearch.ui:14 data/ui/tags.ui:465 data/ui/trash.ui:63
+#: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
+#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
+#: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
+#: src/Resources.vala:396 src/Resources.vala:778
 msgid "_Delete"
 msgstr "_Suprimeix"
 
@@ -1742,11 +2264,13 @@ msgstr "_Suprimeix"
 msgid "Set as Desktop Background"
 msgstr "Estableix com a fons d'escriptori"
 
-#: data/ui/set_background_dialog.ui:69 data/ui/set_background_slideshow_dialog.ui:132
+#: data/ui/set_background_dialog.ui:69
+#: data/ui/set_background_slideshow_dialog.ui:132
 msgid "Use for Desktop"
 msgstr "Utilitza per a l'escriptori"
 
-#: data/ui/set_background_dialog.ui:86 data/ui/set_background_slideshow_dialog.ui:149
+#: data/ui/set_background_dialog.ui:86
+#: data/ui/set_background_slideshow_dialog.ui:149
 msgid "Use for Lock Screen"
 msgstr "Utilitza per a la pantalla de bloqueig"
 
@@ -1810,7 +2334,8 @@ msgstr "_Canvia el nom…"
 msgid "label"
 msgstr "etiqueta"
 
-#: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278 src/Resources.vala:782
+#: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
+#: src/Resources.vala:782
 msgid "_Restore"
 msgstr "_Restaura"
 
@@ -1850,9 +2375,9 @@ msgstr "Ha fallat l'autorització de Flickr"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
-msgstr " Verificant l'autorització..."
+msgstr "Verificant l'autorització..."
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:164
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell session.\n"
 "\n"
@@ -1868,13 +2393,21 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.\n"
 "\n"
-"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www."
-"youtube.com/t/terms</a>\n"
+"Shotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
+"Actualment no esteu connectat a YouTube.\n"
+"\n"
+"Heu d'haver subscrit un compte de Google i tenir-lo configurat per a utilitzar-lo amb YouTube per a continuar. Podeu configurar la majoria de comptes utilitzant el vostre navegador per a iniciar sessió al lloc de YouTube almenys una vegada.\n"
+"\n"
+"Shotwell utilitza els serveis de l'API de YouTube <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> per a accedir al vostre canal de YouTube i pujar els vídeos. En utilitzar Shotwell per accedir a YouTube, accepteu estar vinculat als termes de servei de YouTube com està disponible a <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
+"\n"
+"La política de privadesa de Shotwell pel que fa a l'ús de dades relacionades amb el vostre compte de Google en general i YouTube en particular es pot trobar a la nostra <a href=\"help:shotwell/privacy-policy\">política de privacitat dels serveis en línia</a>\n"
+"\n"
+"Per a la pròpia política de privadesa de Google, consulteu <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
@@ -1884,32 +2417,50 @@ msgid ""
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 msgstr ""
+"Actualment no heu iniciat sessió a Google Photos.\n"
+"\n"
+"Heu d'haver subscrit un compte de Google i tenir-lo configurat per a utilitzar-lo amb Google Photos. Shotwell utilitza els serveis de l'API de Google Photos <a href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> per a tota la interacció amb les dades de Google Photos. Haureu de concedir accés a Shotwell a la biblioteca de fotografies de Google Photos.\n"
+"\n"
+"La política de privadesa de Shotwell pel que fa a l'ús de dades relacionades amb el vostre compte de Google en general i Google Photos en particular es pot trobar a la nostra <a href=\"help:shotwell/privacy-policy\">política de privacitat dels serveis en línia</a>. Per a la pròpia política de privadesa de Google, consulteu <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42 plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42 plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:935
 msgid "_Email address"
 msgstr "Adreça _electrònica"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82 plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82 plugins/shotwell-publishing-extras/RajcePublishing.vala:893 plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:936
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "_Contrasenya"
 
-#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104 plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120 plugins/shotwell-publishing-extras/RajcePublishing.vala:895 plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
+#: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:938
+#: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
 msgstr "Inicia la sessió"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
 msgid "Enter the username and password associated with your Tumblr account."
-msgstr "Introduïu el nom d'usuari i contrasenya associats amb el vostre compte de Tumblr."
+msgstr ""
+"Introduïu el nom d'usuari i contrasenya associats amb el vostre compte de "
+"Tumblr."
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26 plugins/shotwell-publishing/PiwigoPublishing.vala:1099
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1140
 msgid "Username and/or password invalid. Please try again"
 msgstr "El nom d'usuari i/o la contrasenya no són vàlids. Proveu de nou"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53 plugins/shotwell-publishing/PiwigoPublishing.vala:1135
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
 msgid "Invalid User Name or Password"
 msgstr "Nom d'usuari o contrasenya no són vàlides"
 
-#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72 plugins/shotwell-publishing/TumblrPublishing.vala:498
+#: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
+#: plugins/shotwell-publishing/TumblrPublishing.vala:498
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "No s'ha pogut carregar la interfície: %s"
@@ -1926,40 +2477,66 @@ msgstr ""
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:233
-msgid "⚫ This website presented identification that belongs to a different website."
-msgstr "⚫ Aquest lloc web presenta una identificació que pertany a un lloc web diferent."
+msgid ""
+"⚫ This website presented identification that belongs to a different website."
+msgstr ""
+"⚫ Aquest lloc web presenta una identificació que pertany a un lloc web "
+"diferent."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:238
-msgid "⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."
-msgstr "⚫ La identificació d'aquest lloc web és massa antic per a confiar-hi. Comprovi la data en el calendari del seu equip."
+msgid ""
+"⚫ This website’s identification is too old to trust. Check the date on your "
+"computer’s calendar."
+msgstr ""
+"⚫ La identificació d'aquest lloc web és massa antic per a confiar-hi. "
+"Comprovi la data en el calendari del seu equip."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:243
-msgid "⚫ This website’s identification was not issued by a trusted organization."
-msgstr "⚫ La identificació d'aquest lloc web no va ser emesa per una organització de confiança."
+msgid ""
+"⚫ This website’s identification was not issued by a trusted organization."
+msgstr ""
+"⚫ La identificació d'aquest lloc web no va ser emesa per una organització de"
+" confiança."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:248
-msgid "⚫ This website’s identification could not be processed. It may be corrupted."
-msgstr "⚫ La identificació d'aquest lloc web no es va poder processar. Pot estar danyat."
+msgid ""
+"⚫ This website’s identification could not be processed. It may be corrupted."
+msgstr ""
+"⚫ La identificació d'aquest lloc web no es va poder processar. Pot estar "
+"danyat."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:253
-msgid "⚫ This website’s identification has been revoked by the trusted organization that issued it."
-msgstr "⚫ La identificació d'aquest lloc web ha estat revocat per l'organització de confiança que el va emetre."
+msgid ""
+"⚫ This website’s identification has been revoked by the trusted organization"
+" that issued it."
+msgstr ""
+"⚫ La identificació d'aquest lloc web ha estat revocat per l'organització de "
+"confiança que el va emetre."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:258
-msgid "⚫ This website’s identification cannot be trusted because it uses very weak encryption."
-msgstr "⚫ La identificació d'aquest lloc web no pot ser de confiança, ja que utilitza el xifrat molt feble."
+msgid ""
+"⚫ This website’s identification cannot be trusted because it uses very weak "
+"encryption."
+msgstr ""
+"⚫ La identificació d'aquest lloc web no pot ser de confiança, ja que "
+"utilitza el xifrat molt feble."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:263
-msgid "⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."
-msgstr "⚫ La identificació d'aquest lloc web només és vàlida en dates futures. Comprovi la data al calendari del seu equip."
+msgid ""
+"⚫ This website’s identification is only valid for future dates. Check the "
+"date on your computer’s calendar."
+msgstr ""
+"⚫ La identificació d'aquest lloc web només és vàlida en dates futures. "
+"Comprovi la data al calendari del seu equip."
 
-#: plugins/common/RESTSupport.vala:552 plugins/shotwell-publishing/TumblrPublishing.vala:603
+#: plugins/common/RESTSupport.vala:552
+#: plugins/shotwell-publishing/TumblrPublishing.vala:603
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "No està disponible un fitxer temporal que cal per a publicar"
 
@@ -1997,7 +2574,9 @@ msgstr "Un àlbum _nou"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
 msgid "_Remove location, tag and camera-identifying data before uploading"
-msgstr "Sup_rimeix les dades d'ubicació, d'etiquetes i d'identificació de la càmera abans de la càrrega"
+msgstr ""
+"Sup_rimeix les dades d'ubicació, d'etiquetes i d'identificació de la càmera "
+"abans de la càrrega"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
 msgid "Scaling constraint:"
@@ -2007,21 +2586,38 @@ msgstr "Constant d'escala:"
 msgid "pixels"
 msgstr "píxels"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158 plugins/shotwell-publishing/FlickrPublishing.vala:700 plugins/shotwell-publishing/PiwigoPublishing.vala:1331 src/Dimensions.vala:17
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
+#: plugins/shotwell-publishing/FlickrPublishing.vala:700
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1372
+#: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Mida original"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159 src/Dimensions.vala:20
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
+#: src/Dimensions.vala:20
 msgid "Longest edge"
 msgstr "Vora més llarga"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203 plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39 plugins/shotwell-publishing-extras/RajcePublishing.vala:1019 plugins/shotwell-publishing-extras/yandex_publish_model.ui:145 plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106 plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1062
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
 msgid "_Logout"
 msgstr "_Surt"
 
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216 plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220 plugins/shotwell-publishing-extras/RajcePublishing.vala:1018 plugins/shotwell-publishing-extras/yandex_publish_model.ui:159 plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122 plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94 src/CollectionPage.vala:82 src/PhotoPage.vala:2492
+#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1061
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
 msgid "_Publish"
 msgstr "P_ublica"
 
@@ -2029,7 +2625,7 @@ msgstr "P_ublica"
 msgid "Gallery3 publishing module"
 msgstr "Mòdul de publicació Gallery3"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:114
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
@@ -2039,11 +2635,11 @@ msgstr ""
 "\n"
 "Per a completar el procés d'identificació heu d'estar inscrits a Gallery3 i tenir un compte per a accedir-hi."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
 msgid "Shotwell default directory"
 msgstr "Directori per defecte del Shotwell"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:801
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:804
 #, c-format
 msgid ""
 "\n"
@@ -2054,7 +2650,7 @@ msgstr ""
 "\n"
 "El fitxer «%s» pot no ser compatible o pot ser massa gran per a aquesta instància de Gallery3."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:805
 msgid ""
 "\n"
 "Note that Gallery3 only supports the video types that Flowplayer does."
@@ -2062,55 +2658,79 @@ msgstr ""
 "\n"
 "Tingueu en compte que Gallery3 només és compatible amb els mateixos tipus de vídeo que són compatibles amb el Flowplayer."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021 plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1057
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1809
 #, c-format
-msgid "A file required for publishing is unavailable. Publishing to %s can’t continue."
-msgstr "Un fitxer necessari per a la publicació no està disponible. No es pot continuar amb la publicació a %s."
+msgid ""
+"A file required for publishing is unavailable. Publishing to %s can’t "
+"continue."
+msgstr ""
+"Un fitxer necessari per a la publicació no està disponible. No es pot "
+"continuar amb la publicació a %s."
 
 #. populate any widgets whose contents are
 #. programmatically-generated
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1550
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
 #, c-format
 msgid "Publishing to %s as %s."
 msgstr "S'està publicant a %s com a %s."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
-msgid "Enter the URL for your Gallery3 site and the username and password (or API key) for your Gallery3 account."
-msgstr "Introduïu l'URL del vostre lloc Gallery3 i el nom d'usuari i contrasenya (o clau API) per al vostre compte de Gallery3."
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
+msgid ""
+"Enter the URL for your Gallery3 site and the username and password (or API "
+"key) for your Gallery3 account."
+msgstr ""
+"Introduïu l'URL del vostre lloc Gallery3 i el nom d'usuari i contrasenya (o "
+"clau API) per al vostre compte de Gallery3."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
-msgid "The username and password or API key were incorrect. To try again, re-enter your username and password below."
-msgstr "El nom d'usuari i contrasenya o la clau API són incorrectes. Proveu de nou, torneu a introduir el vostre nom d'usuari i contrasenya a continuació."
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
+msgid ""
+"The username and password or API key were incorrect. To try again, re-enter "
+"your username and password below."
+msgstr ""
+"El nom d'usuari i contrasenya o la clau API són incorrectes. Proveu de nou, "
+"torneu a introduir el vostre nom d'usuari i contrasenya a continuació."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
-msgid "The URL entered does not appear to be the main directory of a Gallery3 instance. Please make sure you typed it correctly and it does not have any trailing components (e.g., index.php)."
-msgstr "L'URL que s'ha introduït no forma part del directori principal d'una instància de Gallery3. Assegureu-vos que l'heu introduït correctament i que no conté cap component al final (per exemple, index.php)."
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
+msgid ""
+"The URL entered does not appear to be the main directory of a Gallery3 "
+"instance. Please make sure you typed it correctly and it does not have any "
+"trailing components (e.g., index.php)."
+msgstr ""
+"L'URL que s'ha introduït no forma part del directori principal d'una "
+"instància de Gallery3. Assegureu-vos que l'heu introduït correctament i que "
+"no conté cap component al final (per exemple, index.php)."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
 msgid "Unrecognized User"
 msgstr "Usuari no reconegut"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1913
 msgid " Site Not Found"
 msgstr "No s'ha trobat el lloc"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100 plugins/shotwell-publishing-extras/RajcePublishing.vala:894
+#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:937
 msgid "_Remember"
 msgstr "_Recorda"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104 plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1058
 msgid "An _existing album:"
 msgstr "Un àlbum e_xistent:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123 plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1059
 msgid "A _new album named:"
 msgstr "Un àlbum _nou anomenat:"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141 plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1049
 msgid "_Hide album"
 msgstr "A_maga l'àlbum"
 
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156 plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
+#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1060
 msgid "Open target _album in browser"
 msgstr "Obre l'_àlbum al navegador"
 
@@ -2118,28 +2738,32 @@ msgstr "Obre l'_àlbum al navegador"
 msgid "Copyright © 2013 rajce.net"
 msgstr "Copyright (C) 2013 rajce.net"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:787
 msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr "S'ha produït un error en publicar a Rajce. Proveu de nou."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:833
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:876
 msgid "Enter email and password associated with your Rajce account."
-msgstr "Introduïu l'adreça de correu i la contrasenya associades amb el vostre compte de Rajce."
+msgstr ""
+"Introduïu l'adreça de correu i la contrasenya associades amb el vostre "
+"compte de Rajce."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:834
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:877
 msgid "Invalid email and/or password. Please try again"
 msgstr "L'adreça electrònica o la contrasenya no són vàlides. Proveu de nou"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:865
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:908
 msgid "Invalid User Email or Password"
 msgstr "Nom d'usuari o contrasenya d'Email incorrectes"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1056
 #, c-format
 msgid "You are logged into Rajce as %s."
 msgstr "Actualment esteu connectat al Rajce com a %s."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014 plugins/shotwell-publishing/PhotosPublishingPane.vala:69 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1057
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
 msgid "Photos will appear in:"
 msgstr "Les imatges apareixeran a:"
 
@@ -2155,7 +2779,7 @@ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Ves al lloc web del Yandex.Fotki"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:629
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Actualment no esteu connectat al Yandex.Fotki."
 
@@ -2167,7 +2791,8 @@ msgstr "Públic"
 msgid "Friends"
 msgstr "Amics"
 
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:18 plugins/shotwell-publishing/YouTubePublishing.vala:378
+#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:18
+#: plugins/shotwell-publishing/YouTubePublishing.vala:378
 msgid "Private"
 msgstr "Privat"
 
@@ -2187,21 +2812,33 @@ msgstr "Inhabilita els _comentaris"
 msgid "_Forbid downloading original photo"
 msgstr "Prohibeix baixar la _fotografia original"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
 msgid "Photo _size"
 msgstr "_Mida de la fotografia"
 
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
-msgid "_Remove location, camera, and other identifying information before uploading"
-msgstr "Sup_rimeix la ubicació, càmera i qualsevol altra informació identificativa abans de la càrrega"
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:92
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:75
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:203
+msgid ""
+"_Remove location, camera, and other identifying information before uploading"
+msgstr ""
+"Sup_rimeix la ubicació, càmera i qualsevol altra informació identificativa "
+"abans de la càrrega"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:33 plugins/shotwell-publishing/PiwigoPublishing.vala:33 plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
+#: plugins/shotwell-publishing/FlickrPublishing.vala:33
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:33
+#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
-msgid "A file required for publishing is unavailable. Publishing to Flickr can’t continue."
-msgstr "Un fitxer requerit per a la publicació no està disponible. La publicació a Flickr no pot continuar."
+msgid ""
+"A file required for publishing is unavailable. Publishing to Flickr can’t "
+"continue."
+msgstr ""
+"Un fitxer requerit per a la publicació no està disponible. La publicació a "
+"Flickr no pot continuar."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:619
 #, c-format
@@ -2223,11 +2860,18 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:623
 #, c-format
-#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgid "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded a file"
-msgid_plural "Your Flickr Pro account entitles you to unlimited uploads. You have currently uploaded %d files"
-msgstr[0] "El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat un fitxer"
-msgstr[1] "El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat %d fitxers"
+msgid ""
+"Your Flickr Pro account entitles you to unlimited uploads. You have "
+"currently uploaded a file"
+msgid_plural ""
+"Your Flickr Pro account entitles you to unlimited uploads. You have "
+"currently uploaded %d files"
+msgstr[0] ""
+"El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat un"
+" fitxer"
+msgstr[1] ""
+"El vostre compte del Flickr Pro us permet pujades il·limitades. Heu pujat %d"
+" fitxers"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -2241,7 +2885,8 @@ msgstr "Vídeos són _visibles per"
 msgid "Photos and videos _visible to"
 msgstr "Les fotografies i els vídeos són _visibles per"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:674 plugins/shotwell-publishing/PiwigoPublishing.vala:1315
+#: plugins/shotwell-publishing/FlickrPublishing.vala:674
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1356
 msgid "Everyone"
 msgstr "Tothom"
 
@@ -2261,25 +2906,37 @@ msgstr "Només amics"
 msgid "Just me"
 msgstr "Només jo"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:696 plugins/shotwell-publishing/PiwigoPublishing.vala:1327 plugins/shotwell-publishing/TumblrPublishing.vala:103
+#: plugins/shotwell-publishing/FlickrPublishing.vala:696
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1368
+#: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 x 375 píxels"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:697 plugins/shotwell-publishing/PiwigoPublishing.vala:1328 plugins/shotwell-publishing/TumblrPublishing.vala:104
+#: plugins/shotwell-publishing/FlickrPublishing.vala:697
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1369
+#: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 píxels"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:698 plugins/shotwell-publishing/PiwigoPublishing.vala:1329
+#: plugins/shotwell-publishing/FlickrPublishing.vala:698
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1370
 msgid "2048 × 1536 pixels"
 msgstr "2048 x 1536 píxels"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:699 plugins/shotwell-publishing/PiwigoPublishing.vala:1330
+#: plugins/shotwell-publishing/FlickrPublishing.vala:699
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1371
 msgid "4096 × 3072 pixels"
 msgstr "4096 x 3072 píxels"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:66
-msgid "Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account"
-msgstr "Shotwell només pot publicar en àlbums que ha creat per si matei, de manera que aquesta llista podria estar buida malgrat que ja tingueu àlbums al vostre compte de Google Photos"
+msgid ""
+"Shotwell can only publish into albums that it created by itself, so this "
+"list might be empty despite the fact that you already have albums in your "
+"Google Photos account"
+msgstr ""
+"Shotwell només pot publicar en àlbums que ha creat per si matei, de manera "
+"que aquesta llista podria estar buida malgrat que ja tingueu àlbums al "
+"vostre compte de Google Photos"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
 msgid "Photo _size preset"
@@ -2293,7 +2950,8 @@ msgstr "Un àlbum existent"
 msgid "A new album named"
 msgstr "Un nou àlbum anomenat"
 
-#: plugins/shotwell-publishing/PhotosPublisher.vala:9 plugins/shotwell-publishing/PiwigoPublishing.vala:1206
+#: plugins/shotwell-publishing/PhotosPublisher.vala:9
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -2313,7 +2971,8 @@ msgstr "Recomanada (1600 x 1200 píxels)"
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 x 1536 píxels)"
 
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:21 src/editing_tools/EditingTools.vala:742
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
+#: src/editing_tools/EditingTools.vala:742
 msgid "Original Size"
 msgstr "Mida original"
 
@@ -2376,7 +3035,9 @@ msgstr "Mida de la fotografia"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:219
 msgid "_If a title is set and comment unset, use title as comment"
-msgstr "S_i el títol està definit i el comentari no ho està, es farà servir el títol com a comentari"
+msgstr ""
+"S_i el títol està definit i el comentari no ho està, es farà servir el títol"
+" com a comentari"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
 msgid "_Do no upload tags"
@@ -2390,51 +3051,66 @@ msgstr "_No pugis la puntuació"
 msgid "Logout"
 msgstr "Surt"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:782
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:823
 #, c-format
 msgid "Creating album %s…"
 msgstr "Creant l'àlbum %s..."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:959
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "S'ha produït un error en connectar-se a Piwigo. Proveu de nou."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1044
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 #, c-format
-msgid "This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords)."
-msgstr "Això no sembla real <b>%s</b>. Els atacants poden estar tractant de robar o alterar la informació que surt d'aquest lloc (per exemple, missatges privats, informació de targetes de crèdit o contrasenyes)."
+msgid ""
+"This does not look like the real %s. Attackers might be trying to steal or "
+"alter information going to or from this site (for example, private messages,"
+" credit card information, or passwords)."
+msgstr ""
+"Això no sembla real <b>%s</b>. Els atacants poden estar tractant de robar o "
+"alterar la informació que surt d'aquest lloc (per exemple, missatges "
+"privats, informació de targetes de crèdit o contrasenyes)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1063
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1104
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certificat de %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1097
-msgid "Enter the URL of your Piwigo photo library as well as the username and password associated with your Piwigo account for that library."
-msgstr "Introduïu l'URL de la vostra biblioteca d'imatges de Piwigo i també el nom d'usuari i contrasenya associats amb el vostre compte Piwigo per a aquesta biblioteca."
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
+msgid ""
+"Enter the URL of your Piwigo photo library as well as the username and "
+"password associated with your Piwigo account for that library."
+msgstr ""
+"Introduïu l'URL de la vostra biblioteca d'imatges de Piwigo i també el nom "
+"d'usuari i contrasenya associats amb el vostre compte Piwigo per a aquesta "
+"biblioteca."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1098
-msgid "Shotwell cannot contact your Piwigo photo library. Please verify the URL you entered"
-msgstr "El Shotwell no pot contactar amb la vostra biblioteca d'imatges de Piwigo. Comproveu l'URL que heu introduït"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
+msgid ""
+"Shotwell cannot contact your Piwigo photo library. Please verify the URL you"
+" entered"
+msgstr ""
+"El Shotwell no pot contactar amb la vostra biblioteca d'imatges de Piwigo. "
+"Comproveu l'URL que heu introduït"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1130
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
 msgid "Invalid URL"
 msgstr "URL invàlid"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1357
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administradors, Família, Amics, Contactes"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1358
 msgid "Admins, Family, Friends"
 msgstr "Administradors, Família, Amics"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1318
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1359
 msgid "Admins, Family"
 msgstr "Administradors, Família"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1319
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1360
 msgid "Admins"
 msgstr "Administradors"
 
@@ -2467,8 +3143,11 @@ msgid "1280 × 853 pixels"
 msgstr "1280 × 853 píxels"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:407
-msgid "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
-msgstr "TumblrPublisher: start( ): no es pot iniciar; aquesta publicació no es pot reiniciar."
+msgid ""
+"TumblrPublisher: start( ): can’t start; this publisher is not restartable."
+msgstr ""
+"TumblrPublisher: start( ): no es pot iniciar; aquesta publicació no es pot "
+"reiniciar."
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
@@ -2484,8 +3163,12 @@ msgid "Video privacy _setting"
 msgstr "Paràmetre_s de la privacitat dels vídeos"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
-msgid "A file required for publishing is unavailable. Publishing to YouTube can’t continue."
-msgstr "Un dels fitxers necessaris per a la publicació no està disponible. No es pot continuar amb la publicació a Youtube."
+msgid ""
+"A file required for publishing is unavailable. Publishing to YouTube can’t "
+"continue."
+msgstr ""
+"Un dels fitxers necessaris per a la publicació no està disponible. No es pot"
+" continuar amb la publicació a Youtube."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
@@ -2533,8 +3216,12 @@ msgid "Core Slideshow Transitions"
 msgstr "Transicions principals de la projecció de diapositives"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:76
-msgid "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy Inc."
-msgstr "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy Inc."
+msgid ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
+msgstr ""
+"Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
+"Inc."
 
 #: plugins/shotwell-transitions/SlideEffect.vala:20
 msgid "Slide"
@@ -2708,8 +3395,11 @@ msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:466
-msgid "Unable to unmount camera. Try unmounting the camera from the file manager."
-msgstr "No s'ha pogut desmuntar la càmera. Intenteu desmuntar-la des del gestor de fitxers."
+msgid ""
+"Unable to unmount camera. Try unmounting the camera from the file manager."
+msgstr ""
+"No s'ha pogut desmuntar la càmera. Intenteu desmuntar-la des del gestor de "
+"fitxers."
 
 #. hide duplicates checkbox
 #: src/camera/ImportPage.vala:761
@@ -2722,7 +3412,9 @@ msgstr "Mostra només les fotografies que no s'hagin importat"
 
 #: src/camera/ImportPage.vala:839
 msgid "The camera seems to be empty. No photos/videos found to import"
-msgstr "Sembla que la càmera està buida. No s'han trobat fotografies o vídeos per a importar"
+msgstr ""
+"Sembla que la càmera està buida. No s'han trobat fotografies o vídeos per a "
+"importar"
 
 #: src/camera/ImportPage.vala:843
 msgid "No new photos/videos found on camera"
@@ -2730,8 +3422,12 @@ msgstr "No s'han trobat fotografies o vídeos nous a la càmera"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:996
-msgid "Shotwell needs to unmount the camera from the filesystem in order to access it. Continue?"
-msgstr "Cal que el Shotwell desmunti la càmera del sistema de fitxers per a poder-hi accedir. Voleu continuar?"
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it. Continue?"
+msgstr ""
+"Cal que el Shotwell desmunti la càmera del sistema de fitxers per a poder-hi"
+" accedir. Voleu continuar?"
 
 #: src/camera/ImportPage.vala:1002
 msgid "_Unmount"
@@ -2742,8 +3438,14 @@ msgid "Please unmount the camera."
 msgstr "Desmunteu la càmera."
 
 #: src/camera/ImportPage.vala:1012
-msgid "The camera is locked by another application. Shotwell can only access the camera when it’s unlocked. Please close any other application using the camera and try again."
-msgstr "Una altra aplicació està blocant la càmera. El Shotwell només pot accedir a la càmera si no està blocada. Tanqueu qualsevol altra aplicació que estigueu utilitzant i torneu-ho a intentar."
+msgid ""
+"The camera is locked by another application. Shotwell can only access the "
+"camera when it’s unlocked. Please close any other application using the "
+"camera and try again."
+msgstr ""
+"Una altra aplicació està blocant la càmera. El Shotwell només pot accedir a "
+"la càmera si no està blocada. Tanqueu qualsevol altra aplicació que estigueu"
+" utilitzant i torneu-ho a intentar."
 
 #: src/camera/ImportPage.vala:1022
 msgid "Please close any other application using the camera."
@@ -2774,58 +3476,61 @@ msgstr "S'està iniciant la importació, espereu…"
 msgid "Fetching photo information"
 msgstr "S'està recollint la informació de les fotografies"
 
-#: src/camera/ImportPage.vala:1538
+#: src/camera/ImportPage.vala:1535
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "S'està recollint la previsualització de %s"
 
-#: src/camera/ImportPage.vala:1647
+#: src/camera/ImportPage.vala:1644
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "No es pot blocar la càmera: %s"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1729
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Voleu suprimir aquesta fotografia de la càmera?"
 msgstr[1] "Voleu suprimir aquestes %d fotografies de la càmera?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1732
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Voleu suprimir aquest vídeo de la càmera?"
 msgstr[1] "Voleu suprimir aquests %d vídeos de la càmera?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1735
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Voleu suprimir aquesta fotografia/vídeo de la càmera?"
 msgstr[1] "Voleu suprimir aquestes %d fotografies/vídeos de la càmera?"
 
-#: src/camera/ImportPage.vala:1741
+#: src/camera/ImportPage.vala:1738
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Voleu suprimir aquest fitxer de la càmera?"
 msgstr[1] "Voleu suprimir aquests %d fitxers de la càmera?"
 
-#: src/camera/ImportPage.vala:1749 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1746 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Manté"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1765
 msgid "Removing photos/videos from camera"
 msgstr "S'estan suprimint les fotografies/vídeos de la càmera"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1769
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
-msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
-msgstr[0] "No s'ha pogut suprimir %d fotografia/vídeo de la càmera a causa d'errors."
-msgstr[1] "No s'han pogut suprimir %d fotografies/vídeos de la càmera a causa d'errors."
+msgid_plural ""
+"Unable to delete %d photos/videos from the camera due to errors."
+msgstr[0] ""
+"No s'ha pogut suprimir %d fotografia/vídeo de la càmera a causa d'errors."
+msgstr[1] ""
+"No s'han pogut suprimir %d fotografies/vídeos de la càmera a causa d'errors."
 
 #: src/CheckerboardPage.vala:134
 msgid "No photos/videos"
@@ -2835,11 +3540,13 @@ msgstr "Cap fotografia/vídeo"
 msgid "No photos/videos found which match the current filter"
 msgstr "No s'han trobat fotos o vídeos que coincideixin amb el filtre actual"
 
-#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85 src/PhotoPage.vala:2487 src/Resources.vala:143
+#: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
+#: src/PhotoPage.vala:2487 src/Resources.vala:143
 msgid "_Print"
 msgstr "Im_primeix"
 
-#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90 src/PhotoPage.vala:2497 src/Resources.vala:193
+#: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
+#: src/PhotoPage.vala:2497 src/Resources.vala:193
 msgid "Set as _Desktop Background"
 msgstr "Estableix com a fons _d'escriptori"
 
@@ -2955,8 +3662,10 @@ msgstr "S'estan suprimint les fotografies duplicades"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "No s'ha pogut duplicar una fotografia a causa d'un error en el fitxer"
-msgstr[1] "No s'han pogut duplicar %d fotografies a causa d'errors en els fitxers"
+msgstr[0] ""
+"No s'ha pogut duplicar una fotografia a causa d'un error en el fitxer"
+msgstr[1] ""
+"No s'han pogut duplicar %d fotografies a causa d'errors en els fitxers"
 
 #: src/Commands.vala:1194
 msgid "Restoring previous rating"
@@ -3006,9 +3715,14 @@ msgstr "S'ha produït un error en ajustar l'hora"
 
 #: src/Commands.vala:1422
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural "Time adjustments could not be undone on the following photo files."
-msgstr[0] "L'ajustament de l'hora no s'ha pogut desfer en el fitxer de fotografia següent."
-msgstr[1] "Els ajustaments de l'hora no s'han pogut desfer en els fitxers de fotografies següents."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
+msgstr[0] ""
+"L'ajustament de l'hora no s'ha pogut desfer en el fitxer de fotografia "
+"següent."
+msgstr[1] ""
+"Els ajustaments de l'hora no s'han pogut desfer en els fitxers de "
+"fotografies següents."
 
 #: src/Commands.vala:1636 src/Commands.vala:1659
 msgid "Create Tag"
@@ -3068,19 +3782,23 @@ msgid "Unflag"
 msgstr "Desmarca"
 
 #. Send an empty job to the queue to mark the end of the import
-#: src/data_imports/DataImportsPluginHost.vala:65 src/data_imports/DataImportsPluginHost.vala:78
+#: src/data_imports/DataImportsPluginHost.vala:65
+#: src/data_imports/DataImportsPluginHost.vala:78
 #, c-format
 msgid "%s Database"
 msgstr "Base de dades %s"
 
-#: src/data_imports/DataImportsPluginHost.vala:148 src/data_imports/DataImportsPluginHost.vala:294
+#: src/data_imports/DataImportsPluginHost.vala:148
+#: src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
 msgid "Importing from %s can’t continue because an error occurred:"
-msgstr "No pot continuar la importació des de %s perquè s'ha produït un error:"
+msgstr ""
+"No pot continuar la importació des de %s perquè s'ha produït un error:"
 
 #: src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
-msgstr "Intenteu importar des d'un altre servei, seleccioneu-ne un del menú següent."
+msgstr ""
+"Intenteu importar des d'un altre servei, seleccioneu-ne un del menú següent."
 
 #: src/data_imports/DataImportsUI.vala:10
 msgid ""
@@ -3108,7 +3826,8 @@ msgstr "Importa des de l'Aplicació"
 msgid "Import media _from:"
 msgstr "_Importa mitjans de:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
+#: src/data_imports/DataImportsUI.vala:415
+#: src/publishing/PublishingUI.vala:398
 msgid "_Close"
 msgstr "_Tanca"
 
@@ -3119,7 +3838,9 @@ msgstr "Dades de les importacions"
 #: src/db/DatabaseTable.vala:37
 #, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "No s'ha pogut obrir o crear la base de dades de les fotografies %s: codi d'error %d"
+msgstr ""
+"No s'ha pogut obrir o crear la base de dades de les fotografies %s: codi "
+"d'error %d"
 
 #: src/db/DatabaseTable.vala:46
 #, c-format
@@ -3167,7 +3888,8 @@ msgstr "No s'ha pogut exportar el fons a %s: %s"
 #: src/DesktopIntegration.vala:311
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
-msgstr "No s'ha pogut preparar la presentació de diapositives de l'escriptori: %s"
+msgstr ""
+"No s'ha pogut preparar la presentació de diapositives de l'escriptori: %s"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:78
 msgid "AM"
@@ -3361,7 +4083,8 @@ msgstr "1 dia"
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Això suprimirà l'etiqueta «%s» d'una fotografia. Voleu continuar?"
-msgstr[1] "Això suprimirà l'etiqueta «%s» de %d les fotografies. Voleu continuar?"
+msgstr[1] ""
+"Això suprimirà l'etiqueta «%s» de %d les fotografies. Voleu continuar?"
 
 #: src/Dialogs.vala:25
 #, c-format
@@ -3369,10 +4092,18 @@ msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Això suprimirà la cerca desada «%s». Voleu continuar?"
 
 #: src/Dialogs.vala:36
-msgid "Switching developers will undo all changes you have made to this photo in Shotwell"
-msgid_plural "Switching developers will undo all changes you have made to these photos in Shotwell"
-msgstr[0] "En canviar els desenvolupadors es desfaran tots els canvis que heu fet a aquesta fotografia al Shotwell"
-msgstr[1] "En canviar els desenvolupadors es desfaran tots els canvis que heu fet a aquestes fotografies al Shotwell"
+msgid ""
+"Switching developers will undo all changes you have made to this photo in "
+"Shotwell"
+msgid_plural ""
+"Switching developers will undo all changes you have made to these photos in "
+"Shotwell"
+msgstr[0] ""
+"En canviar els desenvolupadors es desfaran tots els canvis que heu fet a "
+"aquesta fotografia al Shotwell"
+msgstr[1] ""
+"En canviar els desenvolupadors es desfaran tots els canvis que heu fet a "
+"aquestes fotografies al Shotwell"
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -3400,8 +4131,12 @@ msgstr "Exporta les fotografies"
 #. Yes - display an alternate error message here.
 #: src/Dialogs.vala:125
 #, c-format
-msgid "Shotwell couldn’t create a file for editing this photo because you do not have permission to write to %s."
-msgstr "El Shotwell no ha pogut crear un fitxer per a editar aquesta fotografia perquè no teniu permís per a escriure a %s."
+msgid ""
+"Shotwell couldn’t create a file for editing this photo because you do not "
+"have permission to write to %s."
+msgstr ""
+"El Shotwell no ha pogut crear un fitxer per a editar aquesta fotografia "
+"perquè no teniu permís per a escriure a %s."
 
 #: src/Dialogs.vala:134
 msgid ""
@@ -3470,26 +4205,37 @@ msgstr "duplica un element multimèdia existent"
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Fotos/Vídeos que no s'ha importat a causa d'errors de la càmera:"
 
-#: src/Dialogs.vala:257 src/Dialogs.vala:272 src/Dialogs.vala:287 src/Dialogs.vala:303 src/Dialogs.vala:318 src/Dialogs.vala:332
+#: src/Dialogs.vala:257 src/Dialogs.vala:272 src/Dialogs.vala:287
+#: src/Dialogs.vala:303 src/Dialogs.vala:318 src/Dialogs.vala:332
 msgid "error message:"
 msgstr "missatge d'error:"
 
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #: src/Dialogs.vala:268
-msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
-msgstr "Fitxers que no s'ha importat perquè no s'ha reconegut com a fotos o vídeos:"
+msgid ""
+"Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
+msgstr ""
+"Fitxers que no s'ha importat perquè no s'ha reconegut com a fotos o vídeos:"
 
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell
 #. Understands
 #: src/Dialogs.vala:283
-msgid "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell Understands:"
-msgstr "Fotos i vídeos que no s'ha importat perquè no estaven en un format que el Shotwell pugui comprendre:"
+msgid ""
+"Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
+"Understands:"
+msgstr ""
+"Fotos i vídeos que no s'ha importat perquè no estaven en un format que el "
+"Shotwell pugui comprendre:"
 
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its
 #. Library
 #: src/Dialogs.vala:298
-msgid "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its Library:"
-msgstr "Fotos i vídeos que no s'ha importat perquè el Shotwell no ha pogut copiar-los a la biblioteca:"
+msgid ""
+"Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
+"Library:"
+msgstr ""
+"Fotos i vídeos que no s'ha importat perquè el Shotwell no ha pogut copiar-"
+"los a la biblioteca:"
 
 #: src/Dialogs.vala:302
 #, c-format
@@ -3504,7 +4250,8 @@ msgstr ""
 #. Corrupt
 #: src/Dialogs.vala:314
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr "Fotos/Vídeos que no s'ha importat perquè els fitxers estan corromputs:"
+msgstr ""
+"Fotos/Vídeos que no s'ha importat perquè els fitxers estan corromputs:"
 
 #. Photos/Videos Not Imported for Other Reasons
 #: src/Dialogs.vala:329
@@ -3536,106 +4283,170 @@ msgstr[1] "No s'han importat %d fotografies/vídeos duplicats:\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] "Ha fallat la importació d'una fotografia a causa d'un error de fitxer o de maquinari:\n"
-msgstr[1] "Ha fallat la importació de %d fotografies a causa d'un error de fitxer o de maquinari:\n"
+msgstr[0] ""
+"Ha fallat la importació d'una fotografia a causa d'un error de fitxer o de "
+"maquinari:\n"
+msgstr[1] ""
+"Ha fallat la importació de %d fotografies a causa d'un error de fitxer o de "
+"maquinari:\n"
 
 #: src/Dialogs.vala:372
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] "Ha fallat la importació d'un vídeo a causa d'un error de fitxer o de maquinari:\n"
-msgstr[1] "Ha fallat la importació d'uns vídeos %d a causa d'un error de fitxer o de maquinari:\n"
+msgstr[0] ""
+"Ha fallat la importació d'un vídeo a causa d'un error de fitxer o de "
+"maquinari:\n"
+msgstr[1] ""
+"Ha fallat la importació d'uns vídeos %d a causa d'un error de fitxer o de "
+"maquinari:\n"
 
 #: src/Dialogs.vala:375
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
-msgid_plural "%d photos/videos failed to import due to a file or hardware error:\n"
-msgstr[0] "Ha fallat la importació d'una fotografia/vídeo a causa d'un error de fitxer o de maquinari:\n"
-msgstr[1] "Ha fallat la importació de %d fotografies/vídeos a causa d'un error de fitxer o de maquinari:\n"
+msgid_plural ""
+"%d photos/videos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+"Ha fallat la importació d'una fotografia/vídeo a causa d'un error de fitxer "
+"o de maquinari:\n"
+msgstr[1] ""
+"Ha fallat la importació de %d fotografies/vídeos a causa d'un error de "
+"fitxer o de maquinari:\n"
 
 #: src/Dialogs.vala:378
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] "Ha fallat la importació d'un fitxer a causa d'un error de fitxer o de maquinari:\n"
-msgstr[1] "Ha fallat la importació d'uns fitxers %d a causa d'un error de fitxer o de maquinari:\n"
+msgstr[0] ""
+"Ha fallat la importació d'un fitxer a causa d'un error de fitxer o de "
+"maquinari:\n"
+msgstr[1] ""
+"Ha fallat la importació d'uns fitxers %d a causa d'un error de fitxer o de "
+"maquinari:\n"
 
 #: src/Dialogs.vala:392
 #, c-format
-msgid "1 photo failed to import because the photo library folder was not writable:\n"
-msgid_plural "%d photos failed to import because the photo library folder was not writable:\n"
-msgstr[0] "Ha fallat la importació d'una fotografia perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
-msgstr[1] "Ha fallat la importació de %d fotografies perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
+msgid ""
+"1 photo failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Ha fallat la importació d'una fotografia perquè no es pot escriure a la "
+"carpeta de la biblioteca de fotografies:\n"
+msgstr[1] ""
+"Ha fallat la importació de %d fotografies perquè no es pot escriure a la "
+"carpeta de la biblioteca de fotografies:\n"
 
 #: src/Dialogs.vala:395
 #, c-format
-msgid "1 video failed to import because the photo library folder was not writable:\n"
-msgid_plural "%d videos failed to import because the photo library folder was not writable:\n"
-msgstr[0] "Ha fallat la importació d'un vídeo perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
-msgstr[1] "Ha fallat la importació d'uns vídeos %d perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
+msgid ""
+"1 video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Ha fallat la importació d'un vídeo perquè no es pot escriure a la carpeta de"
+" la biblioteca de fotografies:\n"
+msgstr[1] ""
+"Ha fallat la importació d'uns vídeos %d perquè no es pot escriure a la "
+"carpeta de la biblioteca de fotografies:\n"
 
 #: src/Dialogs.vala:398
 #, c-format
-msgid "1 photo/video failed to import because the photo library folder was not writable:\n"
-msgid_plural "%d photos/videos failed to import because the photo library folder was not writable:\n"
-msgstr[0] "Ha fallat la importació d'una fotografia/vídeo perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
-msgstr[1] "Ha fallat la importació de %d fotografies/vídeos perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
+msgid ""
+"1 photo/video failed to import because the photo library folder was not "
+"writable:\n"
+msgid_plural ""
+"%d photos/videos failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Ha fallat la importació d'una fotografia/vídeo perquè no es pot escriure a "
+"la carpeta de la biblioteca de fotografies:\n"
+msgstr[1] ""
+"Ha fallat la importació de %d fotografies/vídeos perquè no es pot escriure a"
+" la carpeta de la biblioteca de fotografies:\n"
 
 #: src/Dialogs.vala:401
 #, c-format
-msgid "1 file failed to import because the photo library folder was not writable:\n"
-msgid_plural "%d files failed to import because the photo library folder was not writable:\n"
-msgstr[0] "Ha fallat la importació d'un fitxer perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
-msgstr[1] "Ha fallat la importació d'uns fitxers %d perquè no es pot escriure a la carpeta de la biblioteca de fotografies:\n"
+msgid ""
+"1 file failed to import because the photo library folder was not writable:\n"
+msgid_plural ""
+"%d files failed to import because the photo library folder was not "
+"writable:\n"
+msgstr[0] ""
+"Ha fallat la importació d'un fitxer perquè no es pot escriure a la carpeta "
+"de la biblioteca de fotografies:\n"
+msgstr[1] ""
+"Ha fallat la importació d'uns fitxers %d perquè no es pot escriure a la "
+"carpeta de la biblioteca de fotografies:\n"
 
 #: src/Dialogs.vala:415
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "Ha fallat la importació d'una fotografia a causa d'un error de la càmera:\n"
-msgstr[1] "Ha fallat la importació de %d fotografies a causa d'un error de la càmera:\n"
+msgstr[0] ""
+"Ha fallat la importació d'una fotografia a causa d'un error de la càmera:\n"
+msgstr[1] ""
+"Ha fallat la importació de %d fotografies a causa d'un error de la càmera:\n"
 
 #: src/Dialogs.vala:418
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "Ha fallat la importació d'un vídeo a causa d'un error de la càmera:\n"
-msgstr[1] "Ha fallat la importació d'uns vídeos %d a causa d'un error de la càmera:\n"
+msgstr[0] ""
+"Ha fallat la importació d'un vídeo a causa d'un error de la càmera:\n"
+msgstr[1] ""
+"Ha fallat la importació d'uns vídeos %d a causa d'un error de la càmera:\n"
 
 #: src/Dialogs.vala:421
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "Ha fallat la importació d'una fotografia/vídeo a causa d'un error de la càmera:\n"
-msgstr[1] "Ha fallat la importació de %d fotografies/vídeos a causa d'un error de la càmera:\n"
+msgstr[0] ""
+"Ha fallat la importació d'una fotografia/vídeo a causa d'un error de la "
+"càmera:\n"
+msgstr[1] ""
+"Ha fallat la importació de %d fotografies/vídeos a causa d'un error de la "
+"càmera:\n"
 
 #: src/Dialogs.vala:424
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] "Ha fallat la importació d'un fitxer a causa d'un error de la càmera:\n"
-msgstr[1] "Ha fallat la importació d'uns fitxers %d a causa d'un error de la càmera:\n"
+msgstr[0] ""
+"Ha fallat la importació d'un fitxer a causa d'un error de la càmera:\n"
+msgstr[1] ""
+"Ha fallat la importació d'uns fitxers %d a causa d'un error de la càmera:\n"
 
 #: src/Dialogs.vala:438
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] "No s'ha pogut importar una fotografia perquè el fitxer està danyat:\n"
-msgstr[1] "No s'han pogut importar %d fotografies perquè els fitxers estan danyats:\n"
+msgstr[0] ""
+"No s'ha pogut importar una fotografia perquè el fitxer està danyat:\n"
+msgstr[1] ""
+"No s'han pogut importar %d fotografies perquè els fitxers estan danyats:\n"
 
 #: src/Dialogs.vala:441
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "No s'ha pogut importar un vídeo perquè el fitxer està danyat:\n"
-msgstr[1] "No s'ha pogut importar uns vídeos %d perquè els fitxers estan danyats:\n"
+msgstr[1] ""
+"No s'ha pogut importar uns vídeos %d perquè els fitxers estan danyats:\n"
 
 #: src/Dialogs.vala:444
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "No s'ha pogut importar una foto/vídeo perquè el fitxer està danyat:\n"
-msgstr[1] "No s'han pogut importar %d fotografies/vídeos perquè els fitxers estan danyats:\n"
+msgstr[0] ""
+"No s'ha pogut importar una foto/vídeo perquè el fitxer està danyat:\n"
+msgstr[1] ""
+"No s'han pogut importar %d fotografies/vídeos perquè els fitxers estan "
+"danyats:\n"
 
 #: src/Dialogs.vala:447
 #, c-format
@@ -3683,8 +4494,10 @@ msgstr[1] "S'han omès %d vídeos a causa de la cancel·lació de l'usuari:\n"
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "S'ha omès una fotografia/vídeo a causa de la cancel·lació de l'usuari:\n"
-msgstr[1] "S'han omès %d fotografies/vídeos a causa de la cancel·lació de l'usuari:\n"
+msgstr[0] ""
+"S'ha omès una fotografia/vídeo a causa de la cancel·lació de l'usuari:\n"
+msgstr[1] ""
+"S'han omès %d fotografies/vídeos a causa de la cancel·lació de l'usuari:\n"
 
 #: src/Dialogs.vala:499
 #, c-format
@@ -3777,9 +4590,12 @@ msgstr "Voleu revertir les edicions externes?"
 #: src/Dialogs.vala:756
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
-msgid_plural "This will destroy all changes made to %d external files. Continue?"
-msgstr[0] "Això suprimirà tots els canvis fets al fitxer extern. Voleu continuar?"
-msgstr[1] "Això suprimirà tots els canvis fets als fitxers %d externs. Voleu continuar?"
+msgid_plural ""
+"This will destroy all changes made to %d external files. Continue?"
+msgstr[0] ""
+"Això suprimirà tots els canvis fets al fitxer extern. Voleu continuar?"
+msgstr[1] ""
+"Això suprimirà tots els canvis fets als fitxers %d externs. Voleu continuar?"
 
 #: src/Dialogs.vala:760
 msgid "Re_vert External Edit"
@@ -3794,7 +4610,8 @@ msgstr "Re_verteix les edicions externes"
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Això suprimirà la fotografia de la biblioteca. Voleu continuar?"
-msgstr[1] "Això suprimirà les fotografies %d de la biblioteca. Voleu continuar?"
+msgstr[1] ""
+"Això suprimirà les fotografies %d de la biblioteca. Voleu continuar?"
 
 #: src/Dialogs.vala:788 src/Resources.vala:146
 msgid "_Remove"
@@ -3836,8 +4653,12 @@ msgstr "Etiquetes (separades per comes):"
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll)
 #. cancel.
 #: src/Dialogs.vala:919
-msgid "Shotwell can copy the photos into your library folder or it can import them without copying."
-msgstr "El Shotwell pot copiar les fotografies a la carpeta de la biblioteca o les pot importar sense copiar-les."
+msgid ""
+"Shotwell can copy the photos into your library folder or it can import them "
+"without copying."
+msgstr ""
+"El Shotwell pot copiar les fotografies a la carpeta de la biblioteca o les "
+"pot importar sense copiar-les."
 
 #: src/Dialogs.vala:924
 msgid "Co_py Photos"
@@ -3920,10 +4741,16 @@ msgstr[1] ""
 
 #: src/Dialogs.vala:991
 #, c-format
-msgid "The photo or video cannot be moved to your desktop trash. Delete this file?"
-msgid_plural "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
-msgstr[0] "La fotografia o el vídeo no es pot moure a la paperera de l'escriptori. Voleu suprimir aquest fitxer?"
-msgstr[1] "Les fotografies/vídeos %d no es poden moure a la paperera de l'escriptori. Voleu suprimir aquests fitxers?"
+msgid ""
+"The photo or video cannot be moved to your desktop trash. Delete this file?"
+msgid_plural ""
+"%d photos/videos cannot be moved to your desktop trash. Delete these files?"
+msgstr[0] ""
+"La fotografia o el vídeo no es pot moure a la paperera de l'escriptori. "
+"Voleu suprimir aquest fitxer?"
+msgstr[1] ""
+"Les fotografies/vídeos %d no es poden moure a la paperera de l'escriptori. "
+"Voleu suprimir aquests fitxers?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1008
@@ -3943,12 +4770,13 @@ msgstr "Us donem la benvinguda al Shotwell!"
 
 #: src/dialogs/WelcomeDialog.vala:47
 msgid "To get started, import photos in any of these ways:"
-msgstr "Per a començar, importeu fotografies de qualsevol de les següents formes:"
+msgstr ""
+"Per a començar, importeu fotografies de qualsevol de les següents formes:"
 
 #: src/dialogs/WelcomeDialog.vala:67
 #, c-format
 msgid "Choose File %s Import From Folder"
-msgstr "Trieu el fitxer %s a importar des d'una carpeta"
+msgstr "Trieu Fitxer %s Importa des d'una carpeta"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -3956,7 +4784,8 @@ msgstr "Arrossegueu i deixeu anar fotografies a la finestra del Shotwell"
 
 #: src/dialogs/WelcomeDialog.vala:69
 msgid "Connect a camera to your computer and import"
-msgstr "Connecteu una càmera al vostre ordinador i importeu-ne les fotografies"
+msgstr ""
+"Connecteu una càmera al vostre ordinador i importeu-ne les fotografies"
 
 #: src/dialogs/WelcomeDialog.vala:80
 #, c-format
@@ -4050,7 +4879,8 @@ msgstr "Estableix l'escapçament d'aquesta fotografia"
 
 #: src/editing_tools/EditingTools.vala:666
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr "Pivota el rectangle d'escapçament entre les orientacions vertical i apaïsada"
+msgstr ""
+"Pivota el rectangle d'escapçament entre les orientacions vertical i apaïsada"
 
 #: src/editing_tools/EditingTools.vala:739
 msgid "Unconstrained"
@@ -4064,7 +4894,10 @@ msgstr "Quadrat"
 msgid "Screen"
 msgstr "Pantalla"
 
-#: src/editing_tools/EditingTools.vala:743 src/editing_tools/EditingTools.vala:746 src/editing_tools/EditingTools.vala:756 src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:743
+#: src/editing_tools/EditingTools.vala:746
+#: src/editing_tools/EditingTools.vala:756
+#: src/editing_tools/EditingTools.vala:766
 msgid "-"
 msgstr "-"
 
@@ -4160,12 +4993,14 @@ msgstr "Tanca l'eina d'ulls vermells"
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Suprimeix tots els efectes d'ulls vermells de la regió seleccionada"
 
-#: src/editing_tools/EditingTools.vala:2210 src/editing_tools/StraightenTool.vala:102
+#: src/editing_tools/EditingTools.vala:2210
+#: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reinicia"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:452 src/Properties.vala:456 src/Properties.vala:463
+#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:452
+#: src/Properties.vala:456 src/Properties.vala:463
 msgid "Exposure:"
 msgstr "Exposició:"
 
@@ -4377,7 +5212,8 @@ msgstr "Detecció de cares"
 
 #: src/faces/FacesTool.vala:212
 msgid "If you don’t set the name of unknown faces they won’t be saved."
-msgstr "Si no establiu el nom de les cares desconegudes aquestes no es desaran."
+msgstr ""
+"Si no establiu el nom de les cares desconegudes aquestes no es desaran."
 
 #: src/faces/FacesTool.vala:233
 msgid "Save changes and close the Faces tool"
@@ -4389,7 +5225,9 @@ msgstr "No hi ha canvis a desar"
 
 #: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
-msgstr "S'ha produït un error en intentar llançar el programa de reconeixement facial:\n"
+msgstr ""
+"S'ha produït un error en intentar llançar el programa de reconeixement "
+"facial:\n"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Folders"
@@ -4412,7 +5250,8 @@ msgstr "Navegueu l'històric d'importació de la biblioteca"
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1126 src/SearchFilter.vala:1127
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1126
+#: src/SearchFilter.vala:1127
 msgid "Flagged"
 msgstr "Marcats"
 
@@ -4508,23 +5347,45 @@ msgstr "S'estan suprimint les fotografies"
 
 #: src/main.vala:54
 #, c-format
-msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please use the latest version of Shotwell."
-msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta versió és la %s (esquema %d). Utilitzeu l'última versió del Shotwell."
+msgid ""
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please use the latest version of Shotwell."
+msgstr ""
+"La biblioteca de fotografies no és compatible amb aquesta versió del "
+"Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta "
+"versió és la %s (esquema %d). Utilitzeu l'última versió del Shotwell."
 
 #: src/main.vala:59
 #, c-format
-msgid "Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d). For more information please check the Shotwell Wiki at %s"
-msgstr "El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la versió %s (esquema %d) a la %s (esquema %d). Per a obtenir més informació comproveu el Wiki del Shotwell a %s"
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s (schema "
+"%d) to %s (schema %d). For more information please check the Shotwell Wiki "
+"at %s"
+msgstr ""
+"El Shotwell no ha pogut actualitzar la biblioteca de fotografies de la "
+"versió %s (esquema %d) a la %s (esquema %d). Per a obtenir més informació "
+"comproveu el Wiki del Shotwell a %s"
 
 #: src/main.vala:65
 #, c-format
-msgid "Your photo library is not compatible with this version of Shotwell. It appears it was created by Shotwell %s (schema %d). This version is %s (schema %d). Please clear your library by deleting %s and re-import your photos."
-msgstr "La biblioteca de fotografies no és compatible amb aquesta versió del Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta versió és la %s (esquema %d). Netegeu la biblioteca mitjançant la supressió de %s i torneu a importar les fotografies."
+msgid ""
+"Your photo library is not compatible with this version of Shotwell. It "
+"appears it was created by Shotwell %s (schema %d). This version is %s "
+"(schema %d). Please clear your library by deleting %s and re-import your "
+"photos."
+msgstr ""
+"La biblioteca de fotografies no és compatible amb aquesta versió del "
+"Shotwell. Sembla que es va crear amb el Shotwell %s (esquema %d). Aquesta "
+"versió és la %s (esquema %d). Netegeu la biblioteca mitjançant la supressió "
+"de %s i torneu a importar les fotografies."
 
 #: src/main.vala:71
 #, c-format
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
-msgstr "S'ha produït un error desconegut en intentar verificar la base de dades del Shotwell: %s"
+msgstr ""
+"S'ha produït un error desconegut en intentar verificar la base de dades del "
+"Shotwell: %s"
 
 #: src/main.vala:112
 msgid "Loading Shotwell"
@@ -4540,7 +5401,8 @@ msgstr "DIRECTORI"
 
 #: src/main.vala:348
 msgid "Do not monitor library directory at runtime for changes"
-msgstr "No vigilis el directori de la biblioteca en mode d'execució per canvis"
+msgstr ""
+"No vigilis el directori de la biblioteca en mode d'execució per canvis"
 
 #: src/main.vala:349
 msgid "Don’t display startup progress meter"
@@ -4578,7 +5440,9 @@ msgstr "[FITXER]"
 #: src/main.vala:390
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
-msgstr "Executeu «%s --help» per a veure una llista completa de les opcions disponibles de la línia d'ordres.\n"
+msgstr ""
+"Executeu «%s --help» per a veure una llista completa de les opcions "
+"disponibles de la línia d'ordres.\n"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
@@ -4586,7 +5450,9 @@ msgstr "Millora aquest mapa"
 
 #: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
-msgstr "Bloqueja o desbloqueja el mapa per geoetiquetatge arrossegant imatges al mapa"
+msgstr ""
+"Bloqueja o desbloqueja el mapa per geoetiquetatge arrossegant imatges al "
+"mapa"
 
 #: src/MediaMonitor.vala:400
 #, c-format
@@ -4851,14 +5717,16 @@ msgstr "S'està preparant per a pujar"
 msgid "Uploading %d of %d"
 msgstr "S'està pujant %d de %d"
 
-#: src/publishing/PublishingPluginHost.vala:81
+#: src/publishing/PublishingPluginHost.vala:85
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "La publicació a %s no pot continuar perquè s'ha produït un error:"
 
-#: src/publishing/PublishingPluginHost.vala:84
+#: src/publishing/PublishingPluginHost.vala:88
 msgid "To try publishing to another service, select one from the above menu."
-msgstr "Si voleu intentar publicar les fotografies a un altre servei, seleccioneu-ne un del menú de sobre."
+msgstr ""
+"Si voleu intentar publicar les fotografies a un altre servei, seleccioneu-ne"
+" un del menú de sobre."
 
 #: src/publishing/PublishingUI.vala:69
 msgid "Publish Photos"
@@ -4892,8 +5760,16 @@ msgstr "No s'ha pogut publicar"
 
 #: src/publishing/PublishingUI.vala:289
 #, c-format
-msgid "Shotwell cannot publish the selected items because you do not have a compatible publishing plugin enabled. To correct this, choose Edit %s Preferences and enable one or more of the publishing plugins on the <b>Plugins</b> tab."
-msgstr "El Shotwell no pot publicar els elements seleccionats perquè no teniu un connector de publicació compatible habilitat. Per a corregir-ho, trieu Edita les preferències de %s i habiliteu un o més dels connectors de publicació a la pestanya <b>Connectors</b>."
+msgid ""
+"Shotwell cannot publish the selected items because you do not have a "
+"compatible publishing plugin enabled. To correct this, choose Edit %s "
+"Preferences and enable one or more of the publishing plugins on the "
+"<b>Plugins</b> tab."
+msgstr ""
+"El Shotwell no pot publicar els elements seleccionats perquè no teniu un "
+"connector de publicació compatible habilitat. Per a corregir-ho, trieu Edita"
+" les preferències de %s i habiliteu un o més dels connectors de publicació a"
+" la pestanya <b>Connectors</b>."
 
 # N.T.: Títol d'un grup de connectors
 #: src/publishing/Publishing.vala:15
@@ -5017,7 +5893,8 @@ msgstr "Enganxa els ajustaments de color"
 
 #: src/Resources.vala:169
 msgid "Apply copied color adjustments to the selected photos"
-msgstr "Aplica els ajustaments de color copiats a les fotografies seleccionades"
+msgstr ""
+"Aplica els ajustaments de color copiats a les fotografies seleccionades"
 
 #: src/Resources.vala:172
 msgid "Crop"
@@ -5323,12 +6200,15 @@ msgstr[1] "Suprimeix l'etiqueta «%s» de les fotografies"
 #: src/Resources.vala:385
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "No s'ha pogut canviar el nom de l'etiqueta a «%s» perquè l'etiqueta ja existeix."
+msgstr ""
+"No s'ha pogut canviar el nom de l'etiqueta a «%s» perquè l'etiqueta ja "
+"existeix."
 
 #: src/Resources.vala:389
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
-msgstr "No s'ha pogut canviar el nom de la cerca a «%s» perquè aquesta ja existeix."
+msgstr ""
+"No s'ha pogut canviar el nom de la cerca a «%s» perquè aquesta ja existeix."
 
 #. Saved search button
 #: src/Resources.vala:392 src/SearchFilter.vala:1148
@@ -5352,7 +6232,8 @@ msgstr "Suprimeix la cerca «%s»"
 #: src/Resources.vala:410
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr "No s'ha pogut canviar el nom de la cara «%s» perquè l'etiqueta ja existeix."
+msgstr ""
+"No s'ha pogut canviar el nom de la cara «%s» perquè l'etiqueta ja existeix."
 
 #: src/Resources.vala:414
 #, c-format
@@ -5512,7 +6393,8 @@ msgid "contains"
 msgstr "conté"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:171 src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:171
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is exactly"
 msgstr "és exactament"
 
@@ -5528,7 +6410,8 @@ msgstr "acaba amb"
 msgid "does not contain"
 msgstr "no conté"
 
-#: src/searches/SavedSearchDialog.vala:175 src/searches/SavedSearchDialog.vala:506
+#: src/searches/SavedSearchDialog.vala:175
+#: src/searches/SavedSearchDialog.vala:506
 msgid "is not set"
 msgstr "no està establert"
 
@@ -5537,7 +6420,9 @@ msgid "is set"
 msgstr "està establert"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:250 src/searches/SavedSearchDialog.vala:381 src/searches/SavedSearchDialog.vala:446
+#: src/searches/SavedSearchDialog.vala:250
+#: src/searches/SavedSearchDialog.vala:381
+#: src/searches/SavedSearchDialog.vala:446
 msgid "is"
 msgstr "és"
 
@@ -5655,7 +6540,8 @@ msgstr "Estat del senyalador"
 msgid "Photo state"
 msgstr "Estat de la fotografia"
 
-#: src/searches/SearchBoolean.vala:199 src/SearchFilter.vala:854 src/SearchFilter.vala:1138
+#: src/searches/SearchBoolean.vala:199 src/SearchFilter.vala:854
+#: src/SearchFilter.vala:1138
 msgid "Rating"
 msgstr "Valoració"
 
@@ -5720,7 +6606,8 @@ msgstr "Fotografies RAW"
 
 #: src/SearchFilter.vala:1149
 msgid "Use a saved search to filter items in the current view"
-msgstr "Utilitza una cerca desada per a filtrar els elements de la vista actual"
+msgstr ""
+"Utilitza una cerca desada per a filtrar els elements de la vista actual"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -5790,6 +6677,9 @@ msgid "untitled"
 msgstr "sense títol"
 
 #. multiple videos
-#: src/VideoSupport.vala:510
+#: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Exporta vídeos"
+
+#~ msgid "Popular photo manager"
+#~ msgstr "Gestor de fotografies popular"
