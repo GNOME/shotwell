@@ -1,3 +1,30 @@
+Shotwell 0.30.12 - 24 May 2021
+ - Translation updates
+ - Fix keybinding for image rotation
+ - Fix potential memory leak while importing from
+   camera
+ - Update Piwigo icon
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/301
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Gun Chleoc <fios@foramnagaidhlig.net>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+ - Christian Kirbach <Christian.Kirbach@gmail.com>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Andika Triwidada <atriwidada@gnome.org>
+
+Added/updated translations:
+ - id.po, courtesy of Andika Triwidada
+ - sv.po, courtesy of Anders Jonsson
+ - de.po, courtesy of Philipp Kiemle
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - gd.po, courtesy of GunChleoc
+ - sr.po, courtesy of Мирослав Николић
+
 Shotwell 0.30.11 - 05 Nov 2020
  * Translation updates
  * Add missing "Publish..." item in file menu
