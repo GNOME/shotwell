@@ -23,7 +23,7 @@ index 0e530b2..0c635f0 100644
 -Libs: -L${libdir} -lraw -lstdc++@PC_OPENMP@
 +Libs: -L${libdir} -lraw@PC_OPENMP@
 +Libs.private: -lstdc++
- Cflags: -I${includedir}/libraw
+ Cflags: -I${includedir}/libraw -I${includedir}
 diff --git a/libraw_r.pc.in b/libraw_r.pc.in
 index a7f4535..c4e6028 100644
 --- a/libraw_r.pc.in
@@ -38,6 +38,6 @@ index a7f4535..c4e6028 100644
 -Libs: -L${libdir} -lraw_r -lstdc++@PC_OPENMP@
 +Libs: -L${libdir} -lraw_r@PC_OPENMP@
 +Libs.private: -lstdc++
- Cflags: -I${includedir}/libraw
+ Cflags: -I${includedir}/libraw -I${includedir}
 --
 2.5.0
