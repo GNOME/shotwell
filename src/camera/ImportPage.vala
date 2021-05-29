@@ -1330,8 +1330,12 @@ public class ImportPage : CheckerboardPage {
         
         if (fsid >= sifs.length)
             return null;
-        
-        return (GPhoto.CameraStorageInfoFields.BASE in sifs[fsid].fields) ? (string) sifs[fsid].basedir : "/";
+
+        if (GPhoto.CameraStorageInfoFields.BASE in sifs[fsid].fields) {
+            return (string) sifs[fsid].basedir;
+        } else {
+            return "/";
+        }
     }
     
     public static string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {
