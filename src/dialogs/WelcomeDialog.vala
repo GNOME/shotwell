@@ -64,7 +64,7 @@ public class WelcomeDialog : Gtk.Dialog {
 
         instructions.set_markup(((indent_prefix + "&#8226; %s\n") + (indent_prefix + "&#8226; %s\n")
             + (indent_prefix + "&#8226; %s")).printf(
-            _("Choose “File %s Import From Folder” from the File menu").printf(arrow_glyph),
+            _("Choose “Import From Folder” from the File menu"),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
         instructions.xalign = 0.0f;
