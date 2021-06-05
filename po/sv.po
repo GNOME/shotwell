@@ -11,13 +11,15 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020, 2021.
+# Isak Bergdahl <isak.bergdahl@yahoo.com>, 2021.
+# Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-05-25 17:27+0000\n"
-"PO-Revision-Date: 2021-05-25 20:45+0200\n"
+"POT-Creation-Date: 2021-06-04 17:41+0000\n"
+"PO-Revision-Date: 2021-06-05 12:47+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -608,7 +610,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "RAW developer default"
-msgstr "standard-RAW-framkallare"
+msgstr "Standard-RAW-framkallare"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
 msgid "Default option for which RAW developer Shotwell will use"
@@ -3426,53 +3428,53 @@ msgstr "Påbörjar importen, var god vänta…"
 msgid "Fetching photo information"
 msgstr "Hämtar bildinformation"
 
-#: src/camera/ImportPage.vala:1535
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Hämtar förhandsvisning av %s"
 
-#: src/camera/ImportPage.vala:1644
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kunde inte låsa kameran: %s"
 
-#: src/camera/ImportPage.vala:1729
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Radera denna bild från kameran?"
 msgstr[1] "Radera dessa %d bilder från kameran?"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Radera denna film från kameran?"
 msgstr[1] "Radera dessa %d filmer från kameran?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Radera denna bild och film från kameran?"
 msgstr[1] "Radera dessa %d bilder och filmer från kameran?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Radera denna fil från kameran?"
 msgstr[1] "Radera dessa %d filer från kameran?"
 
-#: src/camera/ImportPage.vala:1746 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Behåll"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "Tar bort bilder och filmer från kameran"
 
-#: src/camera/ImportPage.vala:1769
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4714,9 +4716,8 @@ msgid "To get started, import photos in any of these ways:"
 msgstr "Importera bilder på något av dessa sätt för att komma igång:"
 
 #: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-msgid "Choose “File %s Import From Folder” from the File menu"
-msgstr "Välj ”Arkiv %s Importera från mapp” från menyn Arkiv"
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Välj ”Importera från mapp” från menyn Arkiv"
 
 #: src/dialogs/WelcomeDialog.vala:68
 msgid "Drag and drop photos onto the Shotwell window"
@@ -4966,7 +4967,7 @@ msgstr "Skuggor:"
 #. Differently (probably because it only has positive values)
 #: src/editing_tools/EditingTools.vala:2281
 msgid "Highlights:"
-msgstr "Höjdpunkter:"
+msgstr "Högdagrar:"
 
 #: src/editing_tools/EditingTools.vala:2338
 msgid "Reset Colors"
@@ -5002,7 +5003,7 @@ msgstr "Skuggor"
 
 #: src/editing_tools/EditingTools.vala:2774
 msgid "Highlights"
-msgstr "Höjdpunkter"
+msgstr "Högdagrar"
 
 #: src/editing_tools/EditingTools.vala:2784
 msgid "Contrast Expansion"
@@ -5607,11 +5608,11 @@ msgstr "Brännvidd:"
 
 #: src/Properties.vala:627
 msgid "Exposure date:"
-msgstr "Exponeringsögonblick:"
+msgstr "Exponeringsdatum:"
 
 #: src/Properties.vala:630
 msgid "Exposure time:"
-msgstr "Exponeringstid:"
+msgstr "Exponeringstidpunkt:"
 
 #: src/Properties.vala:633
 msgid "Exposure bias:"
@@ -5635,16 +5636,16 @@ msgstr "Upphovsrätt:"
 
 #: src/Properties.vala:652
 msgid "Software:"
-msgstr "Program:"
+msgstr "Programvara:"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
-msgstr "Förbereder att skicka upp"
+msgstr "Förbereder att skicka"
 
 #: src/publishing/PublishingPluginHost.vala:12
 #, c-format
 msgid "Uploading %d of %d"
-msgstr "Skickar upp %d av %d"
+msgstr "Skickar %d av %d"
 
 #: src/publishing/PublishingPluginHost.vala:85
 #, c-format
@@ -6353,7 +6354,7 @@ msgstr "valfri bild"
 
 #: src/searches/SavedSearchDialog.vala:258
 msgid "a raw photo"
-msgstr "en råfil"
+msgstr "en RAW-bild"
 
 #: src/searches/SavedSearchDialog.vala:259
 msgid "a video"
