@@ -190,7 +190,8 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         
         EventDirectoryItem item = (EventDirectoryItem) get_view().get_selected_at(0);
         
-        EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.event.get_comment());
+        EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.event.get_comment(),
+        true);
         string? new_comment = edit_comment_dialog.execute();
         if (new_comment == null)
             return;
