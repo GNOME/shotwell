@@ -396,7 +396,7 @@
         </item>
         <item>
           <attribute name="label" translatable="yes">Edit _Comment…</attribute>
-          <attribute name="action">win.EditComment</attribute>
+          <attribute name="action">win.EditEventComment</attribute>
         </item>
       </section>
     </submenu>

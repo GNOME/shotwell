@@ -50,7 +50,8 @@ public class EventPage : CollectionPage {
     private const GLib.ActionEntry[] entries = {
         { "MakePrimary", on_make_primary },
         { "Rename", on_rename },
-        { "EditEventComment", on_edit_comment }
+        { "EditComment", on_edit_comment },
+        { "EditEventComment", on_edit_event_comment }
     };
 
     protected override void add_actions(GLib.ActionMap map) {
@@ -96,19 +97,19 @@ public class EventPage : CollectionPage {
             set_page_name(page_event.get_name());
     }
     
-    protected override void on_edit_comment() {
-        if (get_view().get_selected_count() == 0) {
-            EditCommentDialog edit_comment_dialog = new EditCommentDialog(page_event.get_comment(),
-                true);
-            string? new_comment = edit_comment_dialog.execute();
-            if (new_comment == null)
-                return;
-            
-            EditEventCommentCommand command = new EditEventCommentCommand(page_event, new_comment);
-            get_command_manager().execute(command);
+    private void on_edit_event_comment() {
+        EditCommentDialog edit_comment_dialog = new EditCommentDialog(page_event.get_comment(),
+        true);
+        string? new_comment = edit_comment_dialog.execute();
+        if (new_comment == null)
             return;
-        }
         
+        EditEventCommentCommand command = new EditEventCommentCommand(page_event, new_comment);
+        get_command_manager().execute(command);
+        return;
+    }
+
+    protected override void on_edit_comment() {
         base.on_edit_comment();
     }
         
