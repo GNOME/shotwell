@@ -2,21 +2,20 @@
 # Copyright (C) 2020 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2020-06-30 11:28+0000\n"
-"PO-Revision-Date: 2020-06-30 17:14+0300\n"
+"POT-Creation-Date: 2021-06-14 09:59+0000\n"
+"PO-Revision-Date: 2021-06-14 17:53+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -1758,10 +1757,6 @@ msgstr ""
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:13
-#| msgid ""
-#| "At no time does Shotwell Connect transmit any information to the GNOME "
-#| "foundation, the Software Freedom Convervancy or any of the developers of "
-#| "the Shotwell Connect Application for Google services."
 msgid ""
 "At no time does Shotwell Connect transmit any information to the GNOME "
 "foundation, the Software Freedom Conservancy or any of the developers of the "
@@ -1877,15 +1872,6 @@ msgstr "Flickr"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:43
-#| msgid ""
-#| "The Shotwell Connect application and its data store reside locally on "
-#| "your personal computer. During the course of its operation, Shotwell "
-#| "Connect may store an authentication token that it receives from Flickr on "
-#| "your computer. This authentication token is simply a session-identifying "
-#| "sequence of letters and numbers. It contains no password, user name, or "
-#| "other personal information. At no time does Shotwell Connect transmit any "
-#| "information to the GNOME foundation, the Software Freedom Convervancy or "
-#| "any of the developers of the Shotwell Connect Application for Flickr."
 msgid ""
 "The Shotwell Connect application and its data store reside locally on your "
 "personal computer. During the course of its operation, Shotwell Connect may "
@@ -1912,13 +1898,6 @@ msgstr "Права доступу, які ви надаєте Shotwell для Fl
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:48
-#| msgid ""
-#| "By using Shotwell, you grant the Shotwell Connect application acces to "
-#| "publish photos to your Flickr account. It will download the list of "
-#| "available albums to allow you to chose an existing album to upload to. It "
-#| "can also create new albums on your behalf. Other than creating albums and "
-#| "uploading photos, Shotwell does not modification whatsoever to the "
-#| "existing data on your Flickr account."
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application access to "
 "publish photos to your Flickr account. It will download the list of "
@@ -2425,10 +2404,6 @@ msgstr "Покази слайдів"
 
 #. (itstool) path: page/p
 #: C/share-slideshow.page:14
-#| msgid ""
-#| "To see a sideshow of any collection in Shotwell, navigate to that "
-#| "collection and select <guiseq><gui>View</gui><gui>Slideshow</gui></"
-#| "guiseq> or press <key>F5</key>."
 msgid ""
 "To see a slideshow of any collection in Shotwell, navigate to that "
 "collection and select <guiseq><gui>View</gui><gui>Slideshow</gui></guiseq> "
@@ -2507,14 +2482,6 @@ msgstr "Перетягніть позначені фотографії і ски
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:33
-#| msgid ""
-#| "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-#| "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in "
-#| "the names of one or more tags, separated by commas. Once you have created "
-#| "a tag, you can rename it by selecting that tag in the sidebar and "
-#| "choosing <guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></"
-#| "guiseq>, by rightclicking on it and choose <gui>Rename...</gui> or double-"
-#| "click on the tag in the sidebar."
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
 "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
@@ -2536,15 +2503,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:44
-#| msgid ""
-#| "To change which tags are associated with a particular photo, select that "
-#| "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> "
-#| "or right-click on a photo and select <gui>Modify Tags...</gui> and edit "
-#| "the comma separated list. To remove a tag from one or more photos, first "
-#| "select that tag in the sidebar, then select the photos you would like to "
-#| "remove, and choose <guiseq><gui>Tags</gui><gui>Remove Tag \"[name]\" from "
-#| "Photos</gui></guiseq> or right-click on the photos an select <gui>Remove "
-#| "Tag \"[name]\" from Photos</gui>."
 msgid ""
 "To change which tags are associated with a particular photo, select that "
 "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
@@ -2599,10 +2557,6 @@ msgstr "Ієрархічні мітки"
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:74
-#| msgid ""
-#| "Shotwell supports also hierarchial tags. You can rearrange your tags by "
-#| "drag and drop a tag onto another. To create a new subtag right-click on a "
-#| "tag and select <gui>New</gui>."
 msgid ""
 "Shotwell supports also hierarchical tags. You can rearrange your tags by "
 "drag and drop a tag onto another. To create a new subtag right-click on a "
@@ -2615,11 +2569,6 @@ msgstr ""
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:81
-#| msgid ""
-#| "Hierarchial tags can help you to sort your tag list in ways that better "
-#| "match how you work or think; for example, you can store location tags "
-#| "like \"Mountains\" or \"Beach\" under a parent tag \"Places\", which "
-#| "itself can be placed under the tag \"Summer Holidays\"."
 msgid ""
 "Hierarchical tags can help you to sort your tag list in ways that better "
 "match how you work or think; for example, you can store location tags like "
@@ -2714,12 +2663,19 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/running.page:18
+#| msgid ""
+#| "Shotwell may also be executed automatically when a camera is plugged in "
+#| "to your computer. To check that your system is set up to run Shotwell "
+#| "when a camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</"
+#| "gui></guiseq> in any Nautilus (file browser) window and choose the "
+#| "<gui>Media</gui> tab.  You'll see a dropdown box entitled <gui>Photos:</"
+#| "gui> which lets you choose Shotwell as your photo handling application."
 msgid ""
 "Shotwell may also be executed automatically when a camera is plugged in to "
 "your computer. To check that your system is set up to run Shotwell when a "
 "camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
-"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
-"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab. You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
 "Крім того, можна налаштувати Shotwell на автоматичний запуск, коли з "
