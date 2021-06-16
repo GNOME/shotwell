@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015-2020 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2021 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2020-11-08 14:26+0000\n"
-"PO-Revision-Date: 2020-12-16 01:31+0100\n"
+"POT-Creation-Date: 2021-06-14 09:59+0000\n"
+"PO-Revision-Date: 2021-06-16 13:20+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -2570,14 +2570,14 @@ msgid ""
 "Shotwell may also be executed automatically when a camera is plugged in to "
 "your computer. To check that your system is set up to run Shotwell when a "
 "camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
-"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
-"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab. You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
 "Shotwell kan också exekveras automatiskt när en kamera stoppas i din dator. "
 "För att kontrollera att ditt system är inställt på att köra Shotwell när en "
 "kamera upptäcks, gå till <guiseq><gui>Redigera</gui><gui>Inställningar</"
-"gui></guiseq> i ett Nautilus(filhanterare)-fönster och markera fliken "
+"gui></guiseq> i ett filhanterarfönster (Nautilus) och välj fliken "
 "<gui>Media</gui>. Du kommer att se en rullgardinsmeny som heter <gui>Bilder:"
 "</gui> vilken låter dig välja Shotwell som ditt program för bildhantering."
 
@@ -3404,115 +3404,3 @@ msgstr ""
 "Skjutreglagen ändrar hur ljus den ljusaste vit är, och hur mörk den mörkaste "
 "svarta är. Använd dem för att ändra kontrasten på en bild. Speciellt bilder "
 "som ser urblekta ut bör ha nytta av att ändra dessa inställningar."
-
-#~ msgid "<link href=\"https://facebook.com\">Facebook</link>"
-#~ msgstr "<link href=\"https://facebook.com\">Facebook</link>"
-
-#~ msgid ""
-#~ "Publishing to Facebook requires you to grant certain permissions to the "
-#~ "Shotwell Facebook application. You only need to grant these permissions "
-#~ "once, when you first associate Shotwell with your Facebook account."
-#~ msgstr ""
-#~ "Att publicera till Facebook kräver att du ger tillstånd för programmet "
-#~ "Shotwell för Facebook. Du behöver bara ge dessa tillstånd en gång, då du "
-#~ "först associerar Shotwell med ditt Facebook-konto."
-
-#~ msgid ""
-#~ "You will be only able to publish images with at most the permission you "
-#~ "granted to the Shotwell Facebook application"
-#~ msgstr ""
-#~ "Du kommer bara kunna publicera bilder med högst behörigheten du givit "
-#~ "tillstånd till för programmet Shotwell för Facebook"
-
-#~ msgid ""
-#~ "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> and "
-#~ "<link href=\"http://plus.google.com\">Google+</link>"
-#~ msgstr ""
-#~ "<link href=\"https://picasaweb.google.com\">Picasa Web Albums</link> och "
-#~ "<link href=\"http://plus.google.com\">Google+</link>"
-
-#~ msgid ""
-#~ "If you have a Google account, but have not yet used Picasa Web Albums, "
-#~ "you will need to log in to Picasa using a browser once before you can "
-#~ "publish to this service."
-#~ msgstr ""
-#~ "Om du har ett Google-konto, men ännu inte använt Picasa Web Albums "
-#~ "behöver du logga in till Picasa med en webbläsare en gång innan du kan "
-#~ "publicera till tjänsten."
-
-#~ msgid ""
-#~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, a photo site "
-#~ "popular in Russia (photos only)"
-#~ msgstr ""
-#~ "<link href=\"http://fotki.yandex.ru\">Yandex.Fotki</link>, en populär "
-#~ "webbplats i Ryssland (endast bilder)"
-
-#~ msgctxt "text"
-#~ msgid "Shotwell"
-#~ msgstr "Shotwell"
-
-#~ msgid ""
-#~ "Shotwell can import all your photos and tags from the F-Spot photo "
-#~ "manager."
-#~ msgstr ""
-#~ "Shotwell kan importera alla dina bilder och taggar från bildhanteraren F-"
-#~ "Spot."
-
-#~ msgid "Importing from F-Spot"
-#~ msgstr "Importera från F-Spot"
-
-#~ msgid "To import an existing photo collection from F-Spot:"
-#~ msgstr "För att importera en befintlig bildsamling från F-Spot:"
-
-#~ msgid ""
-#~ "Select <guiseq><gui>File</gui><gui>Import From F-Spot</gui></guiseq>."
-#~ msgstr ""
-#~ "Välj <guiseq><gui>Arkiv</gui><gui>Importera från F-Spot</gui></guiseq>."
-
-#~ msgid ""
-#~ "Now choose either the default F-Spot library or another F-Spot database. "
-#~ "If importing from another F-Spot database, select a directory and file "
-#~ "from the chooser dialog box."
-#~ msgstr ""
-#~ "Välj nu antingen F-Spot-biblioteket eller en annan F-Spot-databas. Om "
-#~ "importen sker från en annan F-Spot-databas, välj katalog och fil från "
-#~ "valdialogrutan."
-
-#~ msgid ""
-#~ "Shotwell will import your photos, together with their tags and other "
-#~ "information. Once the import is complete, you can select <gui>Last "
-#~ "Import</gui> in the sidebar to see all photos successfully imported. The "
-#~ "Events list will also show new entries for the dates corresponding to the "
-#~ "imported photos."
-#~ msgstr ""
-#~ "Shotwell kommer att importera dina bilder tillsammans med deras taggar "
-#~ "och annan information. När importen är klar kan du välja <gui>Senaste "
-#~ "import</gui> i sidopanelen för att se alla bilder som importerades. "
-#~ "Händelselistan kommer också att visa nya angivelser för datum som "
-#~ "motsvarar de importerade bilderna."
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "Symbol"
-#~ msgstr "Symbol"
-
-#~ msgid ""
-#~ "@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-#~ msgstr ""
-#~ "@@image: 'figures/shotwell_logo.png'; md5=59de2b2c4fa64ea1497c98452c509dbd"
-
-#~ msgid "jim@yorba.org"
-#~ msgstr "jim@yorba.org"
-
-#~ msgid "allison@yorba.org"
-#~ msgstr "allison@yorba.org"
-
-#~ msgid "robert.ancell@canonical.com"
-#~ msgstr "robert.ancell@canonical.com"
-
-#~ msgid "pdo.smith@gmail.com"
-#~ msgstr "pdo.smith@gmail.com"
-
-#~ msgid "philbull@gmail.com"
-#~ msgstr "philbull@gmail.com"
