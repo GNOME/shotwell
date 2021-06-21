@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015-2020 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2021 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2020-09-12 22:50+0000\n"
-"PO-Revision-Date: 2020-11-08 15:17+0100\n"
+"POT-Creation-Date: 2021-06-21 18:17+0000\n"
+"PO-Revision-Date: 2021-06-22 01:26+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -2756,14 +2756,14 @@ msgid ""
 "Shotwell may also be executed automatically when a camera is plugged in to "
 "your computer. To check that your system is set up to run Shotwell when a "
 "camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
-"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
-"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab. You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
 "Shotwell kan också exekveras automatiskt när en kamera stoppas i din dator. "
 "För att kontrollera att ditt system är inställt på att köra Shotwell när en "
 "kamera upptäcks, gå till <guiseq><gui>Redigera</gui><gui>Inställningar</"
-"gui></guiseq> i ett Nautilus(filhanterare)-fönster och markera fliken "
+"gui></guiseq> i ett filhanterarfönster (Nautilus) och välj fliken "
 "<gui>Media</gui>. Du kommer att se en rullgardinsmeny som heter <gui>Bilder:"
 "</gui> vilken låter dig välja Shotwell som ditt program för bildhantering."
 
