@@ -131,7 +131,7 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
         for (var h = 0; h * MAX_BATCH_SIZE < this.upload_tokens.length; h++) {
             var offset = h * MAX_BATCH_SIZE;
             var difference = this.upload_tokens.length - offset;
-            var end;
+            int end;
 
             if (difference > MAX_BATCH_SIZE) {
                 end = offset + MAX_BATCH_SIZE;
