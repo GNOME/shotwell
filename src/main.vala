@@ -341,6 +341,7 @@ bool no_runtime_monitoring = false;
 bool fullscreen = false;
 bool show_metadata = false;
 string? profile = null;
+bool create_profile = false;
 bool list_profiles = false;
 
 const OptionEntry[] entries = {
@@ -351,6 +352,7 @@ const OptionEntry[] entries = {
     { "fullscreen", 'f', 0, OptionArg.NONE, ref fullscreen, N_("Start the application in fullscreen mode"), null },
     { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the metadata of the image file"), null },
     { "profile", 'i', 0, OptionArg.STRING, ref profile, N_("Name for a custom profile"), N_("PROFILE") },
+    { "create", 'c', 0, OptionArg.NONE, ref create_profile, N_("If PROFILE given with --profile does not exist, create it"), null },
     { "list-profiles", 'l', 0, OptionArg.NONE, ref list_profiles, N_("Show available profiles"), null },
     { null, 0, 0, 0, null, null, null }
 };
@@ -395,6 +397,14 @@ void main(string[] args) {
     // Setup profile manager
     if (CommandlineOptions.profile != null) {
         var manager = Shotwell.ProfileManager.get_instance();
+        if (!manager.has_profile (CommandlineOptions.profile)) {
+             if (!CommandlineOptions.create_profile) {
+                print(_("Profile %s does not exist. Did you mean to pass --create as well?"),
+                      CommandlineOptions.profile);
+                AppDirs.terminate();
+                return;
+             }
+        }
         manager.set_profile(CommandlineOptions.profile);
         CommandlineOptions.data_dir = manager.derive_data_dir(CommandlineOptions.data_dir);
     }

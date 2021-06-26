@@ -44,12 +44,17 @@ namespace Shotwell {
             }
         }
 
+        public bool has_profile (string profile, out string group_name = null) {
+            group_name = Base64.encode (profile.data);
+            return profiles.has_group(group_name);
+        }
+
         public void set_profile(string profile) {
             assert(this.profile == null);
 
             this.profile = profile;
-            group_name = Base64.encode(profile.data);
-            if (profiles.has_group(group_name))
+
+            if (has_profile (this.profile, out this.group_name))
                 return;
 
             try {
