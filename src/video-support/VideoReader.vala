@@ -192,16 +192,25 @@ public class VideoReader {
             });
 
             Bytes stdout_buf = null;
+            Bytes stderr_buf = null;
 
             var process = new GLib.Subprocess(GLib.SubprocessFlags.STDOUT_PIPE, AppDirs.get_metadata_helper().get_path(), file.get_uri());
-            process.communicate(null, cancellable, out stdout_buf, null);
-            string[] lines = ((string) stdout_buf.get_data()).split("\n");
+            var result = process.communicate(null, cancellable, out stdout_buf, out stderr_buf);
+            if (result && process.get_exit_status () == 0 && stdout_buf != null && stdout_buf.get_size() > 0) {
+                string[] lines = ((string) stdout_buf.get_data()).split("\n");
 
-            var old = Intl.setlocale(GLib.LocaleCategory.NUMERIC, "C");
-            clip_duration = double.parse(lines[0]);
-            Intl.setlocale(GLib.LocaleCategory.NUMERIC, old);
-            if (lines[1] != "none")
-                timestamp = new DateTime.from_iso8601(lines[1], null);
+                var old = Intl.setlocale(GLib.LocaleCategory.NUMERIC, "C");
+                clip_duration = double.parse(lines[0]);
+                Intl.setlocale(GLib.LocaleCategory.NUMERIC, old);
+                if (lines[1] != "none")
+                    timestamp = new DateTime.from_iso8601(lines[1], null);
+            } else {
+                string message = "";
+                if (stderr != null && stderr_buf.get_size() > 0) {
+                    message = (string) stderr_buf.get_data();
+                }
+                warning ("External Metadata helper failed");
+            }
         } catch (Error e) {
             debug("Video read error: %s", e.message);
             throw new VideoError.CONTENTS("GStreamer couldn't extract clip information: %s"
