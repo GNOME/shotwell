@@ -60,8 +60,6 @@ public class WelcomeDialog : Gtk.Dialog {
         Gtk.Label instructions = new Gtk.Label("");
         string indent_prefix = "   "; // we can't tell what the indent prefix is going to be so assume we need one
 
-        string arrow_glyph = (get_direction() == Gtk.TextDirection.RTL) ? "◂" : "▸";
-
         instructions.set_markup(((indent_prefix + "&#8226; %s\n") + (indent_prefix + "&#8226; %s\n")
             + (indent_prefix + "&#8226; %s")).printf(
             _("Choose “Import From Folder” from the File menu"),
