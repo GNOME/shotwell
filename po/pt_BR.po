@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-06-04 17:41+0000\n"
-"PO-Revision-Date: 2021-06-14 06:55-0300\n"
+"POT-Creation-Date: 2021-06-29 12:43+0000\n"
+"PO-Revision-Date: 2021-07-11 19:51-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -4793,33 +4793,32 @@ msgid "To get started, import photos in any of these ways:"
 msgstr "Para iniciar, importe fotos de alguma destas formas:"
 
 # %s é um glifo de seta -- Rafael
-#: src/dialogs/WelcomeDialog.vala:67
-#| msgid "Choose File %s Import From Folder"
+#: src/dialogs/WelcomeDialog.vala:65
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Escolha “Importar da pasta” a partir do menu Arquivo"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Arraste e solte fotos para dentro da janela do Shotwell"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr "Conectar uma câmera no seu computador e importe"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importar fotos de seu diretório %s"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr "Você também pode importar fotos de alguma destas formas:"
 
-#: src/dialogs/WelcomeDialog.vala:98
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "_Não mostrar esta mensagem novamente"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importar fotos de sua biblioteca %s"
@@ -5113,7 +5112,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d foto"
 msgstr[1] "%d fotos"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Nenhum Evento"
 
@@ -5133,19 +5132,19 @@ msgstr "Sem eventos"
 msgid "No events found"
 msgstr "Sem eventos encontrados"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Todos eventos"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Sem data"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5403,59 +5402,68 @@ msgstr "Erro desconhecido ao tentar verificar o banco de dados do Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Carregando Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Caminho para os dados privados do Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 "Não monitora o diretório da biblioteca durante o tempo de execução para "
 "mudanças"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Não exibe a medida do progresso de inicialização"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Mostra a versão do aplicativo"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Inicia o aplicativo em modo tela cheia"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Imprime os metadados do arquivo de imagem"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Nome para um perfil personalizado"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PERFIL"
 
-#: src/main.vala:354
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Se PERFIL dado com --profile não existir, cria-o"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Mostra perfis disponíveis"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[ARQUIVO]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Execute “%s --help” para ver uma lista completa de opções de linha de "
 "comando disponíveis.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr "O perfil %s não existe. Você pretendia passar --create também?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
