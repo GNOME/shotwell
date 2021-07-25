@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-05-09 23:08+0000\n"
+"POT-Creation-Date: 2021-07-11 22:53+0000\n"
 "PO-Revision-Date: 2020-07-21 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -924,7 +924,7 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr ""
-"Si les imatges que es pugen a Piwigo han de tenir el comentari establert des"
+"Si les imatges que pugen a Piwigo han de tenir el comentari establert des"
 " del títol o si el títol està establert i el comentari desactivat"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:545
@@ -936,7 +936,7 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
 msgstr ""
-"Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes "
+"Si les imatges que pugen a Piwigo han de tenir les seves etiquetes "
 "eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en"
 " el servidor remot de Piwigo"
 
@@ -949,7 +949,7 @@ msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
 msgstr ""
-"Si les imatges que es pugen a Piwigo han de tenir les seves etiquetes "
+"Si les imatges que pugen a Piwigo han de tenir les seves etiquetes "
 "eliminades en la càrrega, de manera que aquestes etiquetes no apareixeran en"
 " el servidor remot de Piwigo"
 
@@ -2403,7 +2403,7 @@ msgstr ""
 "\n"
 "Heu d'haver subscrit un compte de Google i tenir-lo configurat per a utilitzar-lo amb YouTube per a continuar. Podeu configurar la majoria de comptes utilitzant el vostre navegador per a iniciar sessió al lloc de YouTube almenys una vegada.\n"
 "\n"
-"Shotwell utilitza els serveis de l'API de YouTube <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> per a accedir al vostre canal de YouTube i pujar els vídeos. En utilitzar Shotwell per accedir a YouTube, accepteu estar vinculat als termes de servei de YouTube com està disponible a <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
+"Shotwell utilitza els serveis de l'API de YouTube <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> per a accedir al vostre canal de YouTube i pujar els vídeos. En utilitzar Shotwell per a accedir a YouTube, accepteu estar vinculat als termes de servei de YouTube com està disponible a <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "La política de privadesa de Shotwell pel que fa a l'ús de dades relacionades amb el vostre compte de Google en general i YouTube en particular es pot trobar a la nostra <a href=\"help:shotwell/privacy-policy\">política de privacitat dels serveis en línia</a>\n"
 "\n"
@@ -2934,7 +2934,7 @@ msgid ""
 "list might be empty despite the fact that you already have albums in your "
 "Google Photos account"
 msgstr ""
-"Shotwell només pot publicar en àlbums que ha creat per si matei, de manera "
+"Shotwell només pot publicar en àlbums que ha creat per si mateix, de manera "
 "que aquesta llista podria estar buida malgrat que ja tingueu àlbums al "
 "vostre compte de Google Photos"
 
@@ -3476,53 +3476,53 @@ msgstr "S'està iniciant la importació, espereu…"
 msgid "Fetching photo information"
 msgstr "S'està recollint la informació de les fotografies"
 
-#: src/camera/ImportPage.vala:1535
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "S'està recollint la previsualització de %s"
 
-#: src/camera/ImportPage.vala:1644
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "No es pot blocar la càmera: %s"
 
-#: src/camera/ImportPage.vala:1729
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Voleu suprimir aquesta fotografia de la càmera?"
 msgstr[1] "Voleu suprimir aquestes %d fotografies de la càmera?"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Voleu suprimir aquest vídeo de la càmera?"
 msgstr[1] "Voleu suprimir aquests %d vídeos de la càmera?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Voleu suprimir aquesta fotografia/vídeo de la càmera?"
 msgstr[1] "Voleu suprimir aquestes %d fotografies/vídeos de la càmera?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Voleu suprimir aquest fitxer de la càmera?"
 msgstr[1] "Voleu suprimir aquests %d fitxers de la càmera?"
 
-#: src/camera/ImportPage.vala:1746 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Manté"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "S'estan suprimint les fotografies/vídeos de la càmera"
 
-#: src/camera/ImportPage.vala:1769
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural ""
@@ -4773,34 +4773,33 @@ msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Per a començar, importeu fotografies de qualsevol de les següents formes:"
 
-#: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-msgid "Choose File %s Import From Folder"
-msgstr "Trieu Fitxer %s Importa des d'una carpeta"
+#: src/dialogs/WelcomeDialog.vala:65
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Trieu «Importa des d'una carpeta» des del menú fitxer"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Arrossegueu i deixeu anar fotografies a la finestra del Shotwell"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr ""
 "Connecteu una càmera al vostre ordinador i importeu-ne les fotografies"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importa les fotografies de la carpeta %s"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr "També podeu importar fotografies de qualsevol d'aquestes maneres:"
 
-#: src/dialogs/WelcomeDialog.vala:98
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "_No tornis a mostrar aquest missatge"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importa fotografies de la biblioteca %s"
@@ -5096,7 +5095,7 @@ msgid_plural "%d Photos"
 msgstr[0] "Una fotografia"
 msgstr[1] "%d fotografies"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Sense esdeveniment"
 
@@ -5116,19 +5115,19 @@ msgstr "Sense esdeveniments"
 msgid "No events found"
 msgstr "No s'han trobat esdeveniments"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Tots els esdeveniments"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Sense data"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5391,58 +5390,67 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr "S'està carregant el Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Camí a les dades privades del Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "DIRECTORI"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 "No vigilis el directori de la biblioteca en mode d'execució per canvis"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "No mostris la barra de progrés d'inici"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Mostra la versió de les aplicacions"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Inicia l'aplicació en mode de pantalla completa"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Imprimeix les metadades del fitxer d'imatge"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Nom per a un perfil personalitzat"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PROFILE"
 
-#: src/main.vala:354
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Si el perfil donat amb --profile no existeix, creeu-lo"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Mostra els perfils disponibles"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[FITXER]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Executeu «%s --help» per a veure una llista completa de les opcions "
 "disponibles de la línia d'ordres.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr "El perfil %s no existeix. Volíeu passar --create també?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
