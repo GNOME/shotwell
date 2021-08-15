@@ -13,21 +13,22 @@
 # Mohamad Hasan Al Banna, 2013
 # Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013
 # Andika Triwidada <andika@gmail.com>, 2011, 2014
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2020.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2021.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-05-25 17:27+0000\n"
-"PO-Revision-Date: 2021-05-31 13:48+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2021-07-25 16:23+0000\n"
+"PO-Revision-Date: 2021-08-15 20:08+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -2446,7 +2447,7 @@ msgstr ""
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
 "Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019-2021.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2020."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2021."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:233
@@ -3444,53 +3445,53 @@ msgstr "Mulai mengimpor, mohon tunggu…"
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1535
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1644
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1729
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Hapus %d foto ini dari kamera?"
 msgstr[1] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Hapus %d video ini dari kamera?"
 msgstr[1] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Hapus %d foto/video ini dari kamera?"
 msgstr[1] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Hapus %d berkas ini dari kamera?"
 msgstr[1] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1746 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1769
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4721,33 +4722,32 @@ msgstr "Selamat Datang di Shotwell!"
 msgid "To get started, import photos in any of these ways:"
 msgstr "Silakan memulai dengan mengimpor foto melalui cara berikut:"
 
-#: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-msgid "Choose “File %s Import From Folder” from the File menu"
-msgstr "Pilih \"Impor Berkas %s Dari Folder\" dari menu Berkas"
+#: src/dialogs/WelcomeDialog.vala:65
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Pilih \"Impor Dari Folder\" dari menu Berkas"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Ambil dan letakkan foto ke jendela Shotwell"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr "Sambungkan kamera ke komputer dan lakukan impor"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Impor foto dari folder %s"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr "Anda juga dapat mengimpor foto dengan cara berikut:"
 
-#: src/dialogs/WelcomeDialog.vala:98
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "Janga_n tampilkan pesan ini lagi"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Impor foto dari %s pustakamu"
@@ -5041,7 +5041,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d Foto"
 msgstr[1] "%d Foto"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Tidak Ada Rangkaian"
 
@@ -5061,19 +5061,19 @@ msgstr "Tidak ada rangkaian"
 msgid "No events found"
 msgstr "Tidak ada rangkaian ditemukan"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Semua Kejadian"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Tidak bertanggal"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5331,57 +5331,67 @@ msgstr "Kesalahan tak dikenal saat mencoba verifikasi basis data Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Menjalankan Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Path ke data privat Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Jangan pantau perubahan direktori pustaka saat runtime"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Jangan tampilkan meter kemajuan awal mula"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Tampilkan versi aplikasi"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Mulai aplikasi dalam mode layar penuh"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Cetak metadata dari berkas gambar"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Nama untuk profil khusus"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:354
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Jika PROFIL yang diberikan dengan --profile tidak ada, buatlah"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Tampilkan profil yang tersedia"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Jalankan \"%s --help\" untuk melihat daftar lengkap opsi baris perintah yang "
 "tersedia.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr ""
+"Profil %s tidak ada. Apakah Anda bermaksud untuk melewati --create juga?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
