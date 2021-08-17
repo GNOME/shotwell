@@ -1,3 +1,28 @@
+Shotwell 0.30.13 (stable) - 17 Aug 2021
+ - Translation updates
+ - Fix import from camera
+ - Fix editing event comment if photo is selected
+ - Fix uploading more than 50 images to Google Photos
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4927
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4929
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4929
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4930
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4930
+
+All contributors to this release:
+ - Eric <eric.daigle@zaclys.net>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Phred <fearphage@gmail.com>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Jens Georg <mail@jensge.org>
+
+Added/updated translations:
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.30.12 - 24 May 2021
  - Translation updates
  - Fix keybinding for image rotation
