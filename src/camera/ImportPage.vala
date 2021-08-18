@@ -1209,10 +1209,9 @@ public class ImportPage : CheckerboardPage {
         Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
         
         GPhoto.CameraStorageInformation[] sifs = null;
-        int count = 0;
         refresh_result = camera.get_storageinfo(out sifs, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
-            for (int fsid = 0; fsid < count; fsid++) {
+            for (int fsid = 0; fsid < sifs.length; fsid++) {
                 // Check well-known video and image paths first to prevent accidental
                 // scanning of undesired directories (which can cause user annoyance with
                 // some smartphones or camera-equipped media players)
@@ -1354,7 +1353,6 @@ public class ImportPage : CheckerboardPage {
     // between each mount
     public static string? get_fs_basedir(GPhoto.Camera camera, int fsid) {
         GPhoto.CameraStorageInformation[] sifs = null;
-        int count = 0;
         GPhoto.Result res = camera.get_storageinfo(out sifs, null_context.context);
         if (res != GPhoto.Result.OK)
             return null;
