@@ -1,3 +1,12 @@
+Shotwell 0.30.14 (stable) - 18 Aug 2021
+ - Fix import from camera, for real
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4937
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 0.30.13 (stable) - 17 Aug 2021
  - Translation updates
  - Fix import from camera
