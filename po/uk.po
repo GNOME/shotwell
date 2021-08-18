@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-06-26 10:57+0000\n"
-"PO-Revision-Date: 2021-06-26 15:40+0300\n"
+"POT-Creation-Date: 2021-08-18 11:10+0000\n"
+"PO-Revision-Date: 2021-08-18 15:15+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1343,12 +1343,15 @@ msgstr ""
 "та виправлення помилок."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
+#| msgid ""
+#| "When ready, Shotwell can upload your photos to various web sites, such as "
+#| "Facebook, Flickr, Google Photos, and more."
 msgid ""
-"When ready, Shotwell can upload your photos to various web sites, such as "
-"Facebook, Flickr, Google Photos, and more."
+"When ready, Shotwell can upload your photos to various web services, such as "
+"Flickr, Google Photos, and more."
 msgstr ""
 "Після обробки Shotwell може вивантажувати ваші фотографії на різноманітні "
-"сайти, зокрема Facebook, Flickr, Google Фото тощо."
+"вебслужби, зокрема Flickr, Google Фото тощо."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -5359,7 +5362,7 @@ msgstr[1] "%d фотографії"
 msgstr[2] "%d фотографія"
 msgstr[3] "%d фотографія"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Без події"
 
@@ -5379,19 +5382,19 @@ msgstr "Немає подій"
 msgid "No events found"
 msgstr "Подій не виявлено"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Всі події"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Оновлено"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5689,7 +5692,8 @@ msgstr "ПРОФІЛЬ"
 #: src/main.vala:355
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
-"Якщо профілю ПРОФІЛЬ, який задано за допомогою параметра --profile, не існує, створити його"
+"Якщо профілю ПРОФІЛЬ, який задано за допомогою параметра --profile, не "
+"існує, створити його"
 
 #: src/main.vala:356
 msgid "Show available profiles"
@@ -5710,8 +5714,7 @@ msgstr ""
 #: src/main.vala:402
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
-msgstr ""
-"Профілю %s не існує. Ви хотіли передати також параметр --create?"
+msgstr "Профілю %s не існує. Ви хотіли передати також параметр --create?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
