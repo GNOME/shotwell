@@ -1,4 +1,4 @@
-Shotwell 0.31.3 - 22 Dec 2020
+Shotwell 0.31.3 (development) - 22 Dec 2020
   * Store publishing secrets using libsecret
   * Fix rotation keybinding for viewer
   * Fix a missing menu item
