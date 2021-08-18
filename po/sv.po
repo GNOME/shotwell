@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-06-26 12:42+0000\n"
-"PO-Revision-Date: 2021-06-29 14:41+0200\n"
+"POT-Creation-Date: 2021-08-18 11:10+0000\n"
+"PO-Revision-Date: 2021-08-18 17:26+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1305,11 +1305,11 @@ msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
 msgid ""
-"When ready, Shotwell can upload your photos to various web sites, such as "
-"Facebook, Flickr, Google Photos, and more."
+"When ready, Shotwell can upload your photos to various web services, such as "
+"Flickr, Google Photos, and more."
 msgstr ""
-"Shotwell kan, om så önskas, skicka upp dina bilder till olika webbplatser "
-"som Facebook, Flickr, Google Foto med flera."
+"Shotwell kan, om så önskas, skicka dina bilder till olika webbtjänster som "
+"Flickr, Google Foto med flera."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -2826,11 +2826,11 @@ msgid_plural ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded %d files"
 msgstr[0] ""
-"Ditt Flickr Pro-konto låter dig skicka upp obegränsat med data. Du har för "
-"närvarande skickat upp en fil"
+"Ditt Flickr Pro-konto låter dig skicka obegränsat med data. Du har för "
+"närvarande skickat en fil"
 msgstr[1] ""
-"Ditt Flickr Pro-konto låter dig skicka upp obegränsat med data. Du har för "
-"närvarande skickat upp %d filer"
+"Ditt Flickr Pro-konto låter dig skicka obegränsat med data. Du har för "
+"närvarande skickat %d filer"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -6005,7 +6005,7 @@ msgstr "Gör en kopia av bilden"
 
 #: src/Resources.vala:265
 msgid "_Print…"
-msgstr "_Skriv _ut…"
+msgstr "Skriv _ut…"
 
 #: src/Resources.vala:267
 msgid "Pu_blish…"
