@@ -2,8 +2,8 @@
 # PO message string template file for Shotwell Core Components
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
-# 
-# 
+#
+#
 # Translators:
 # Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2011-2013
 # Alejandro Johnson C. <alejandrojohnson750@hotmail.com>, 2012
@@ -18,19 +18,19 @@
 # lsbeeler <lucas@yorba.org>, 2011
 # Matias Menich <und34d@gmail.com>, 2012
 # Rodrigo Cares <rcares@gmail.com>, 2012
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2014-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-02-15 00:53+0000\n"
-"PO-Revision-Date: 2021-02-15 11:08+0100\n"
+"POT-Creation-Date: 2021-08-18 17:38+0000\n"
+"PO-Revision-Date: 2021-08-29 15:40+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -1361,7 +1361,7 @@ msgstr ""
 #: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:307
+#: src/photos/RawSupport.vala:311
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1387,11 +1387,11 @@ msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
 msgid ""
-"When ready, Shotwell can upload your photos to various web sites, such as "
-"Facebook, Flickr, Google Photos, and more."
+"When ready, Shotwell can upload your photos to various web services, such as "
+"Flickr, Google Photos, and more."
 msgstr ""
-"Cuando esté preparado, Shotwell puede subir sus fotos a varios sitios web, "
-"tales como Facebook, Flickr, Google Photos y más"
+"Cuando esté preparado, Shotwell puede subir sus fotos a varios servicios "
+"web, tales como Flickr, Google Fotos y más."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -1498,7 +1498,7 @@ msgstr "_Revelador"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:310
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
 msgid "Camera"
 msgstr "Cámara"
 
@@ -3517,53 +3517,53 @@ msgstr "Iniciando la importación, espere un momento…"
 msgid "Fetching photo information"
 msgstr "Obteniendo información de la foto"
 
-#: src/camera/ImportPage.vala:1538
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Obteniendo previsualización para %s"
 
-#: src/camera/ImportPage.vala:1647
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "No se puede bloquear la cámara: %s"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "¿Quiere eliminar esta foto de la cámara?"
 msgstr[1] "¿Quiere eliminar estas %d fotos de la cámara?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "¿Quiere eliminar esta foto de la cámara?"
 msgstr[1] "¿Quiere eliminar estas %d fotos de la cámara?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "¿Quiere eliminar esta foto/vídeo de la cámara?"
 msgstr[1] "¿Quiere eliminar estas %d fotos/vídeos de la cámara?"
 
-#: src/camera/ImportPage.vala:1741
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "¿Eliminar este archivo de la cámara?"
 msgstr[1] "¿Eliminar estos %d archivos de la cámara?"
 
-#: src/camera/ImportPage.vala:1749 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Mantener"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "Eliminando fotos/vídeos de la cámara"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4791,33 +4791,32 @@ msgstr "Bienvenido/a a Shotwell."
 msgid "To get started, import photos in any of these ways:"
 msgstr "Para comenzar, importe fotos de cualquiera de las siguientes formas:"
 
-#: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-msgid "Choose File %s Import From Folder"
-msgstr "Elija Archivo %s Importar desde carpeta"
+#: src/dialogs/WelcomeDialog.vala:65
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Elija «Importar desde carpeta» en el menú Archivo"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Arrastre y suelte fotos en la ventana de Shotwell"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr "Conecte una cámara al equipo e importe"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importar fotos desde su carpeta %s"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr "También puede importar fotos en cualquiera de estas formas:"
 
-#: src/dialogs/WelcomeDialog.vala:98
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "_No mostrar este mensaje de nuevo"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importar fotos desde su colección %s"
@@ -5112,7 +5111,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d foto"
 msgstr[1] "%d fotos"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "No hay eventos"
 
@@ -5132,19 +5131,19 @@ msgstr "No hay eventos"
 msgid "No events found"
 msgstr "No se encontraron eventos"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Todos los eventos"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Sin fecha"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5401,59 +5400,68 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr "Cargando Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Ruta a los datos privados de Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "DIRECTORIO"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr ""
 "No monitorear el directorio de la colección en tiempo de ejecución para "
 "buscar cambios"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "No mostrar medidor de progreso de inicio"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Mostrar la versión de la aplicación"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Iniciar la aplicación en modo de pantalla completa"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Mostrar los metadatos del archivo de imagen"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Nokbre para un perfil personalizado"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PERFIL"
 
-#: src/main.vala:354
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Si un PERFIL proporcionado con --profile no existe, crearlo"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Mostrar los perfiles disponibles"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[ARCHIVO]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Ejecute «%s --help» para ver una lista completa de opciones de línea de "
 "órdenes.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr "El perfil %s no existe. ¿Quiere proporcionar --create también?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
