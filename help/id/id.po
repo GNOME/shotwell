@@ -6,30 +6,28 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.30\n"
-"POT-Creation-Date: 2020-05-22 10:47+0000\n"
-"PO-Revision-Date: 2020-02-15 10:19+0700\n"
+"POT-Creation-Date: 2021-08-18 17:38+0000\n"
+"PO-Revision-Date: 2021-09-03 15:16+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2020"
+msgstr "Andika Triwidada <andika@gmail.com>, 2020, 2021."
 
 #. (itstool) path: info/desc
 #: C/edit-adjustments.page:7
-#, fuzzy
 msgid "Change the exposure, saturation, tint, and shadows of a photo."
 msgstr "Mengubah eksposur, saturasi, warna, dan bayangan foto."
 
 #. (itstool) path: page/title
 #: C/edit-adjustments.page:12
-#, fuzzy
 msgid "Color adjustments"
 msgstr "Penyesuaian warna"
 
@@ -60,7 +58,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/edit-adjustments.page:18
-#, fuzzy
 msgid ""
 "When the photo's colors and contrast are to your liking, press <gui>OK</gui> "
 "to save the changes. <gui>Reset</gui> will return the image to its original "
@@ -73,26 +70,23 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/edit-adjustments.page:21
-#, fuzzy
 msgid "What do the color adjustments do?"
 msgstr "Apa yang dilakukan penyesuaian warna?"
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:24
-#, fuzzy
 msgid "Exposure"
 msgstr "Eksposur"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:25
-#, fuzzy
 msgid ""
 "Changes the brightness to make it look like the photo was exposed for a "
 "longer or shorter time. Use this to correct under- or over-exposed photos."
 msgstr ""
-"Mengubah kecerahan agar terlihat seperti foto terpapar untuk waktu yang "
-"lebih lama atau lebih singkat. Gunakan ini untuk mengoreksi foto di bawah "
-"atau atas yang terpapar."
+"Mengubah kecerahan agar terlihat seperti foto yang terpapar untuk waktu yang "
+"lebih lama atau lebih singkat. Gunakan ini untuk mengoreksi foto kurang atau "
+"lebih keterpaparannya."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:28
@@ -101,36 +95,33 @@ msgstr "Kontras"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:29
-#, fuzzy
 msgid ""
 "Changes the contrast of a photo. Use it to correct flat-looking photos or "
 "photos where the difference between bright and dark spots seems to big."
 msgstr ""
 "Mengubah kontras foto. Gunakan untuk mengoreksi foto atau foto yang terlihat "
-"datar di mana perbedaan antara bintik terang dan gelap tampak besar."
+"datar di mana perbedaan antara bintik terang dan gelap tampak terlalu besar."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:32
-#, fuzzy
 msgid "Saturation"
-msgstr "Saturation"
+msgstr "Saturasi"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:33
-#, fuzzy
 msgid ""
 "Changes how vivid colors look. If your photo looks gray and washed out, try "
 "increasing the saturation. If colors look too bold, try decreasing it."
 msgstr ""
 "Perubahan bagaimana warna hidup terlihat. Jika foto Anda terlihat kelabu dan "
-"dicuci, coba Tingkatkan saturasi. Jika warna terlihat terlalu tebal, coba "
-"menurunnya."
+"suram, coba tingkatkan saturasi. Jika warna terlihat terlalu tebal, cobalah "
+"menurunkannya."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:36
 #, fuzzy
 msgid "Tint"
-msgstr "Warna"
+msgstr "Tint"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:37
@@ -148,30 +139,26 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:40
-#, fuzzy
 msgid "Temperature"
-msgstr "Suhu"
+msgstr "Temperatur"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:41
-#, fuzzy
 msgid ""
 "Changes how \"warm\" or \"cool\" the picture looks. Use this to make cold, "
 "depressing scenes look more lively, for example."
 msgstr ""
-"Perubahan bagaimana \"hangat\" atau \"keren\" gambar terlihat. Gunakan ini "
+"Mengubah seberapa \"hangat\" atau \"dingin\" gambar terlihat. Gunakan ini "
 "untuk membuat adegan yang dingin dan menyedihkan terlihat lebih hidup, "
 "misalnya."
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:44
-#, fuzzy
 msgid "Shadows"
 msgstr "Bayangan"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:45
-#, fuzzy
 msgid ""
 "This makes shadowy areas appear lighter. Use this to make detail more "
 "visible if it's obscured by the darkness of a shadow."
@@ -181,27 +168,25 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:48
-#, fuzzy
 msgid "Intensity Threshold (sliders on the histogram)"
-msgstr "Ambang batas intensitas (penggeser pada histogram)"
+msgstr "Ambang Batas Intensitas (penggeser pada histogram)"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:49
-#, fuzzy
 msgid ""
 "These sliders change how light the brightest white is and how dark the "
 "darkest black is. Use them to change the contrast of the photo. Photos which "
 "look washed out should particularly benefit from changing these settings."
 msgstr ""
-"Slider ini mengubah bagaimana cahaya putih terang dan betapa gelap hitam "
-"yang paling gelap. Gunakan mereka untuk mengubah kontras foto. Foto yang "
-"terlihat dicuci harus sangat menguntungkan dari mengubah pengaturan ini."
+"Penggeser ini mengubah seberapa terang putih yang paling cerah dan seberapa "
+"kelam hitam yang paling gelap. Gunakan mereka untuk mengubah kontras foto. "
+"Foto yang terlihat pucat akan sangat diuntungkan dari pengubahan pengaturan "
+"ini."
 
 #. (itstool) path: info/desc
 #: C/edit-crop.page:7
-#, fuzzy
 msgid "Improve the composition of a photo by cutting out parts of it."
-msgstr "Tingkatkan komposisi foto dengan memotong bagiannya."
+msgstr "Memperbaiki komposisi foto dengan memotong sebagian darinya."
 
 #. (itstool) path: page/title
 #: C/edit-crop.page:12
@@ -210,41 +195,37 @@ msgstr "Memangkas"
 
 #. (itstool) path: page/p
 #: C/edit-crop.page:14
-#, fuzzy
 msgid ""
 "To reduce the area of a photo and concentrate the viewer's attention on a "
 "smaller portion of it, use the Crop tool. The crop tool is only available in "
 "full-window or fullscreen mode."
 msgstr ""
 "Untuk mengurangi area foto dan memusatkan perhatian pemirsa pada porsi yang "
-"lebih kecil, gunakan alat potong. Alat pemotong hanya tersedia dalam mode "
-"Full-Window atau fullscreen."
+"lebih kecil, gunakan alat Pangkas. Alat pangkas hanya tersedia dalam mode "
+"sepenuh jendela atau sepenuh layar."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:19
-#, fuzzy
 msgid ""
 "Double-click on a photo to enter full-window mode, then press the <gui>Crop</"
 "gui> button on the toolbar."
 msgstr ""
-"Klik dua kali pada foto untuk masuk ke mode jendela penuh, lalu tekan tombol "
-"<gui>crop</gui> di toolbar."
+"Klik ganda pada foto untuk masuk ke mode sepenuh jendela, lalu tekan tombol "
+"<gui>Pangkas</gui> di bilah alat."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:22
-#, fuzzy
 msgid ""
 "A white box, the crop rectangle, will appear over the photo. The lighter "
 "portion of the photo within the crop rectangle represents what the photo "
 "will look like when you crop it."
 msgstr ""
-"Kotak putih, persegi panjang tanaman, akan muncul di atas foto. Bagian yang "
-"lebih ringan dari foto dalam persegi panjang pemotongan mewakili seperti apa "
-"foto akan terlihat saat Anda memotongnya."
+"Suatu kotak putih, persegi panjang pemangkas, akan muncul di atas foto. "
+"Bagian yang lebih ringan dari foto dalam persegi panjang pangkas mewakili "
+"seperti apa foto akan terlihat saat Anda memangkasnya."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:25
-#, fuzzy
 msgid ""
 "If you place your cursor in the middle of the box, you can move the box "
 "around. If you drag the edges of the box, you can adjust its size. As you "
@@ -252,64 +233,58 @@ msgid ""
 "tic-tac-toe grid. These are <em>rule of thirds</em> lines."
 msgstr ""
 "Jika Anda menempatkan kursor di tengah kotak, Anda dapat memindahkan kotak "
-"di sekitar. Jika Anda menyeret tepi kotak, Anda dapat menyesuaikan "
-"ukurannya. Saat Anda memindahkan dan menyesuaikan kotak crop, Anda akan "
-"melihat empat garis muncul di dalamnya, seperti grid Tic-Tac-Toe. Ini adalah "
-"<em>aturan garis tiga</em> ."
+"ke mana pun. Jika Anda menyeret tepi kotak, Anda dapat menyesuaikan "
+"ukurannya. Saat Anda memindahkan dan menyesuaikan kotak pangkas, Anda akan "
+"melihat empat garis muncul di dalamnya, seperti kisi tic-tac-toe. Ini adalah "
+"garis <em>aturan sepertiga</em>."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:26
-#, fuzzy
 msgid ""
 "You can also constrain the crop box to one of many common sizes. Choose a "
 "size from the drop-down list that suits your needs. If you press the flip "
 "button next to it, the orientation of the constraint will switch (from "
 "landscape to portrait)."
 msgstr ""
-"Anda juga dapat membatasi kotak tanaman ke salah satu dari banyak ukuran "
+"Anda juga dapat membatasi kotak pangkas ke salah satu dari banyak ukuran "
 "umum. Pilih ukuran dari daftar drop-down yang sesuai dengan kebutuhan Anda. "
-"Jika Anda menekan tombol flip sebelahnya, orientasi constraint akan beralih "
-"(dari Landscape ke Portrait)."
+"Jika Anda menekan tombol balik di sebelahnya, orientasi konstrain akan "
+"beralih (dari lansekap ke potret)."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:29
-#, fuzzy
 msgid ""
 "When you're happy with your crop outline, apply it by pressing the "
 "<gui>Crop</gui> button. Shotwell will display the cropped photo."
 msgstr ""
-"Bila Anda puas dengan garis besar tanaman Anda, menerapkannya dengan menekan "
-"tombol <gui>crop</gui> . Shotwell akan menampilkan foto yang dipotong."
+"Bila Anda puas dengan kerangka pangkas Anda, terapkan itu dengan menekan "
+"tombol <gui>Pangkas</gui>. Shotwell akan menampilkan foto yang dipangkas."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:32
-#, fuzzy
 msgid ""
 "If you change your mind, press the <gui>Crop</gui> button again and fine-"
 "tune the crop."
 msgstr ""
-"Jika Anda berubah pikiran, tekan tombol <gui>crop</gui> lagi dan sempurnakan "
-"hasil panen."
+"Jika Anda berubah pikiran, tekan tombol <gui>Pangkas</gui> lagi dan "
+"sempurnakan pemangkasan."
 
 #. (itstool) path: item/p
 #: C/edit-crop.page:33
-#, fuzzy
 msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
-"Jika Anda menekan <gui>cancel</gui> daripada <gui>melamar</gui>, Shotwell "
-"akan kembali ke dimensi crop foto sebelumnya."
+"Jika Anda menekan <gui>Batal</gui> daripada <gui>Terapkan</gui>, Shotwell "
+"akan kembali ke dimensi pangkas foto sebelumnya."
 
 #. (itstool) path: section/title
 #: C/edit-crop.page:38
-#, fuzzy
 msgid "What is the rule of thirds?"
-msgstr "Apa aturan pertiga?"
+msgstr "Apa itu aturan sepertiga?"
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:39
-#, fuzzy
 msgid ""
 "The <em>rule of thirds</em> helps you to choose a pleasing composition for a "
 "photo."
@@ -319,7 +294,6 @@ msgstr ""
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:40
-#, fuzzy
 msgid ""
 "Imagine that the scene is divided up into a 3x3 grid by two equally-spaced "
 "vertical lines and two equally-spaced horizontal lines. According to the "
@@ -328,21 +302,20 @@ msgid ""
 "Paying attention to the way features flow from one part of the grid to "
 "another can also help."
 msgstr ""
-"Bayangkan bahwa adegan dibagi menjadi grid 3x3 oleh dua garis yang sama-"
-"spasi dan dua garis horizontal yang sama spasi. Menurut aturan, Anda akan "
-"lebih cenderung mendapatkan komposisi yang menyenangkan jika Anda "
-"menyelaraskan fitur utama (seperti cakrawala, atau tubuh seseorang) dengan "
-"salah satu garis. Memperhatikan cara fitur mengalir dari satu bagian grid "
-"yang lain juga dapat membantu."
+"Bayangkan bahwa adegan dibagi menjadi kisi 3x3 oleh dua garis vertikal "
+"dengan ruang sama besar dan dua garis horizontal dengan ruang sama besar. "
+"Menurut aturan, Anda akan lebih cenderung mendapatkan komposisi yang "
+"menyenangkan jika Anda menyelaraskan fitur utama (seperti cakrawala, atau "
+"tubuh seseorang) dengan salah satu garis. Memperhatikan bagaimana fitur "
+"mengalir dari satu bagian kisi ke yang lain juga dapat membantu."
 
 #. (itstool) path: section/p
 #: C/edit-crop.page:41
-#, fuzzy
 msgid ""
 "Cropping a photo so that it conforms to the rule of thirds often results in "
 "a more visually appealing image."
 msgstr ""
-"Memotong foto sehingga sesuai dengan aturan sepertiga sering menghasilkan "
+"Memangkas foto sehingga sesuai dengan aturan sepertiga sering menghasilkan "
 "gambar yang lebih menarik secara visual."
 
 #. (itstool) path: section/media
@@ -359,69 +332,62 @@ msgstr ""
 
 #. (itstool) path: media/p
 #: C/edit-crop.page:43
-#, fuzzy
 msgid ""
 "Cropping a photo, using the \"rule of thirds\" lines to improve the "
 "composition."
 msgstr ""
-"Memotong foto, menggunakan garis \"aturan sepertiga\" untuk menyempurnakan "
+"Memangkas foto, menggunakan garis \"aturan sepertiga\" untuk menyempurnakan "
 "komposisi."
 
 #. (itstool) path: info/desc
 #: C/edit-date-time.page:7
-#, fuzzy
 msgid "Change the date and time of photos if those details are incorrect."
 msgstr "Mengubah tanggal dan waktu foto jika detail tersebut tidak benar."
 
 #. (itstool) path: page/title
 #: C/edit-date-time.page:12
-#, fuzzy
 msgid "Adjust the date and time of photos"
 msgstr "Menyesuaikan tanggal dan waktu foto"
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:14
-#, fuzzy
 msgid ""
 "To adjust the date and time of photos, select the photos you would like to "
 "adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Date and Time...</gui></"
 "guiseq> and select a new date and time."
 msgstr ""
 "Untuk menyesuaikan tanggal dan waktu foto, pilih foto yang ingin Anda "
-"Sesuaikan, pilih <guiseq> <gui>foto</gui><gui>menyesuaikan tanggal dan "
-"waktu...</gui> </guiseq> dan pilih tanggal dan waktu baru."
+"sesuaikan, pilih <guiseq><gui>Foto</gui><gui>Sesuaikan Tanggal dan Waktu...</"
+"gui></guiseq> dan pilih tanggal dan waktu baru."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:16
-#, fuzzy
 msgid ""
 "If you are changing the date and time of multiple photos at once, you can "
 "choose to shift all the photos by the same amount of time or to set all the "
 "photos to the same time."
 msgstr ""
 "Jika Anda mengubah tanggal dan waktu dari beberapa foto sekaligus, Anda "
-"dapat memilih untuk menggeser semua foto dengan jumlah waktu yang sama atau "
+"dapat memilih untuk menggeser semua foto dengan selisih waktu yang sama atau "
 "untuk mengatur semua foto ke waktu yang sama."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:18
-#, fuzzy
 msgid ""
 "By default, the date and time are only changed inside Shotwell. You can also "
 "choose to modify the date and time in the original file, but this cannot be "
 "undone once you exit Shotwell."
 msgstr ""
-"Secara default, tanggal dan waktu hanya diubah di dalam Shotwell. Anda juga "
-"dapat memilih untuk mengubah tanggal dan waktu di file asli, namun tidak "
-"dapat dibatalkan setelah Anda keluar dari Shotwell."
+"Secara baku, tanggal dan waktu hanya diubah di dalam Shotwell. Anda juga "
+"dapat memilih untuk mengubah tanggal dan waktu di berkas asli, namun ini "
+"tidak dapat dibatalkan setelah Anda keluar dari Shotwell."
 
 #. (itstool) path: info/desc
 #: C/edit-enhance.page:7
-#, fuzzy
 msgid ""
 "Let Shotwell improve the brightness and contrast of a photo automatically."
 msgstr ""
-"Biarkan Shotwell meningkatkan kecerahan dan kontras foto secara otomatis."
+"Biarkan Shotwell memperbaiki kecerahan dan kontras foto secara otomatis."
 
 #. (itstool) path: page/title
 #: C/edit-enhance.page:14
@@ -446,19 +412,16 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/edit-external.page:7
-#, fuzzy
 msgid "Use a different program to edit a photo."
-msgstr "Gunakan program yang berbeda untuk mengedit foto."
+msgstr "Menggunakan program yang berbeda untuk menyunting foto."
 
 #. (itstool) path: page/title
 #: C/edit-external.page:12
-#, fuzzy
 msgid "Edit photos with an external program"
-msgstr "Mengedit foto dengan program eksternal"
+msgstr "Menyunting foto dengan program eksternal"
 
 #. (itstool) path: page/p
 #: C/edit-external.page:16
-#, fuzzy
 msgid ""
 "You might want to use an external editor to do additional work on a photo. "
 "If installed, GIMP and UFRaw are the default external editors for photo and "
@@ -467,16 +430,15 @@ msgid ""
 "gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down "
 "menus of installed applications."
 msgstr ""
-"Anda mungkin ingin menggunakan editor eksternal untuk melakukan pekerjaan "
-"tambahan pada foto. Jika diinstal, GIMP dan UFRaw adalah editor eksternal "
-"default untuk foto dan pengeditan RAW, masing-masing. Jika program ini tidak "
-"diinstal, Anda harus memilih editor pilihan Anda dengan memilih <guiseq> "
-"<gui>Edit</gui><gui>preferensi</gui> </guiseq> dan memilih editor dari menu "
-"drop-down aplikasi yang terinstal."
+"Anda mungkin ingin menggunakan penyunting eksternal untuk melakukan "
+"pekerjaan tambahan pada foto. Jika diinstal, GIMP dan UFRaw masing-masing "
+"adalah penyunting eksternal baku untuk foto dan penyuntingan RAW. Jika "
+"program ini tidak diinstal, Anda harus memilih penyunting pilihan Anda "
+"dengan memilih <guiseq><gui>Sunting</gui><gui>Preferensi</gui></guiseq> dan "
+"memilih penyunting dari menu tarik turun dari aplikasi yang terinstal."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:24
-#, fuzzy
 msgid ""
 "Once your editors have been set, select a photo and choose "
 "<guiseq><gui>Photos</gui> <gui>Open With External Editor</gui></guiseq> to "
@@ -484,72 +446,68 @@ msgid ""
 "a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
 "guiseq> to edit the RAW file directly with the set RAW editor."
 msgstr ""
-"Setelah editor ditetapkan, pilih foto dan pilih foto <guiseq> <gui></gui> "
-"<gui>terbuka dengan editor eksternal</gui> </guiseq> untuk membuka foto "
-"dengan editor eksternal. Demikian juga, jika foto asli adalah file RAW, "
-"pilih <guiseq> <gui>foto</gui><gui>terbuka dengan editor RAW</gui> </guiseq> "
-"untuk MENGEDIT file RAW langsung dengan editor Raw set."
+"Setelah penyunting ditetapkan, pilih foto dan pilih <guiseq><gui>Fota</gui> "
+"<gui>Buka Dengan Penyunting Eksternal</gui></guiseq> untuk membuka foto "
+"dengan penyunting eksternal. Demikian juga, jika foto asli adalah berkas "
+"RAW, pilih <guiseq><gui>Foto</gui><gui>Buka Dengan Penyunting RAW</gui></"
+"guiseq> untuk menyunting berkas RAW langsung dengan penyunting RAW yang "
+"diatur."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:31
-#, fuzzy
 msgid ""
 "When you complete your edits and save the file, Shotwell will detect the "
 "changes and update the photo. When external edits have been made, press and "
 "hold the <key>Shift</key> key in full-window view to show the original photo "
 "rather than the externally-edited one."
 msgstr ""
-"Setelah Anda menyelesaikan pengeditan dan menyimpan file, Shotwell akan "
-"mendeteksi perubahan dan memperbarui foto. Ketika pengeditan eksternal telah "
-"dibuat, tekan dan tahan tombol <key>Shift</key> dalam tampilan jendela penuh "
-"untuk menampilkan foto asli daripada yang diedit secara eksternal."
+"Setelah Anda menyelesaikan penyuntingan dan menyimpan berkas, Shotwell akan "
+"mendeteksi perubahan dan memperbarui foto. Ketika penyuntingan eksternal "
+"telah dilakukan, tekan dan tahan tombol <key>Shift</key> dalam tampilan "
+"jendela penuh untuk menampilkan foto asli daripada yang disunting secara "
+"eksternal."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:38
-#, fuzzy
 msgid "Reverting to original will erase any external edits."
-msgstr "Mengembalikan ke sumber asli akan menghapus pengeditan eksternal."
+msgstr "Mengembalikan ke yang asli akan menghapus penyuntingan eksternal."
 
 #. (itstool) path: note/p
 #: C/edit-external.page:43
-#, fuzzy
 msgid ""
 "If you externally edit a RAW photo and save the result to another image, "
 "such as a JPEG or PNG, Shotwell cannot automatically determine that the "
 "original RAW and the new image should be paired."
 msgstr ""
-"Jika Anda secara eksternal mengedit foto RAW dan menyimpan hasilnya ke "
+"Jika Anda secara eksternal menyunting foto RAW dan menyimpan hasilnya ke "
 "gambar lain, seperti JPEG atau PNG, Shotwell tidak dapat secara otomatis "
 "menentukan bahwa RAW asli dan gambar baru harus dipasangkan."
 
 #. (itstool) path: note/p
 #: C/edit-external.page:49
-#, fuzzy
 msgid ""
 "If you want to work within the resulting image within Shotwell, you'll need "
 "to import it yourself."
 msgstr ""
-"Jika Anda ingin bekerja dalam gambar yang dihasilkan di dalam Shotwell, Anda "
-"harus mengimpornya sendiri."
+"Jika Anda ingin bekerja dengan gambar yang dihasilkan di dalam Shotwell, "
+"Anda harus mengimpornya sendiri."
 
 #. (itstool) path: info/desc
 #: C/edit-nondestructive.page:7
-#, fuzzy
 msgid ""
 "Shotwell is a non-destructive photo editor - it does not modify your "
 "original photos."
 msgstr ""
-"Shotwell adalah editor foto non-destruktif-tidak memodifikasi foto asli Anda."
+"Shotwell adalah penyunting foto non-destruktif - itu tidak memodifikasi foto "
+"asli Anda."
 
 #. (itstool) path: page/title
 #: C/edit-nondestructive.page:12
-#, fuzzy
 msgid "What happens to the original when I edit a photo?"
-msgstr "Apa yang terjadi dengan yang asli saat saya mengedit foto?"
+msgstr "Apa yang terjadi dengan yang asli saat saya menyunting foto?"
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:14
-#, fuzzy
 msgid ""
 "Shotwell is a non-destructive photo editor. It does not modify your original "
 "photographs. That is to say, if you crop a photo or adjust its colors, the "
@@ -557,39 +515,37 @@ msgid ""
 "database and applies them on the fly as necessary. This means you can undo "
 "any alterations you make to a photograph."
 msgstr ""
-"Shotwell adalah editor foto non-destruktif. Ini tidak memodifikasi foto asli "
-"Anda. Artinya, jika Anda memotong foto atau menyesuaikan warnanya, file foto "
-"pada disk tetap tidak tersentuh. Shotwell menyimpan editan Anda dalam "
-"database dan menerapkannya dengan cepat jika diperlukan. Ini berarti Anda "
-"dapat membatalkan setiap perubahan yang Anda buat pada foto."
+"Shotwell adalah penyunting foto non-destruktif. Ini tidak memodifikasi foto "
+"asli Anda. Artinya, jika Anda memotong foto atau menyesuaikan warnanya, "
+"berkas foto pada disk tetap tidak tersentuh. Shotwell menyimpan suntingan "
+"Anda dalam sebuah basis data dan menerapkannya sambil berjalan jika "
+"diperlukan. Ini berarti Anda dapat membatalkan setiap perubahan yang Anda "
+"buat pada foto."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:16 C/edit-undo.page:18
-#, fuzzy
 msgid ""
 "If you want to see what a photo looked like before your modifications, press "
 "the <key>Shift</key> key. The original photo will be displayed as long as "
 "you hold the key down."
 msgstr ""
-"Jika Anda ingin melihat apa foto tampak seperti sebelum modifikasi Anda, "
-"tekan tombol <key>Shift</key> . Foto asli akan ditampilkan selama Anda "
-"menahan tombol ke bawah."
+"Jika Anda ingin melihat foto tampak seperti apa sebelum modifikasi Anda, "
+"tekan tombol <key>Shift</key>. Foto asli akan ditampilkan selama Anda "
+"menahan tombol."
 
 #. (itstool) path: page/p
 #: C/edit-nondestructive.page:18
-#, fuzzy
 msgid ""
 "Note that Shotwell can optionally write metadata (such as tags and titles) "
 "to photo files. For more information, see the section <link xref=\"other-"
 "files\">Photo files</link>."
 msgstr ""
 "Perhatikan bahwa Shotwell dapat secara opsional menulis metadata (seperti "
-"tag dan judul) ke file foto. Untuk informasi selengkapnya, lihat <link xref="
-"\"other-files\"> file foto bagian."
+"tag dan judul) ke berkas foto. Untuk informasi selengkapnya, lihat bagian "
+"<link xref=\"other-files\">Berkas foto</link>."
 
 #. (itstool) path: info/desc
 #: C/edit-redeye.page:7
-#, fuzzy
 msgid ""
 "Correct photos where people have red eyes because of the camera's flash."
 msgstr ""
@@ -597,122 +553,110 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/edit-redeye.page:12
-#, fuzzy
 msgid "Removing red-eye"
 msgstr "Menghapus mata merah"
 
 #. (itstool) path: page/p
 #: C/edit-redeye.page:14
-#, fuzzy
 msgid ""
 "Red-eye occurs when the camera's flash reflects off the pupil of someone's "
 "eye. To eliminate this in a photo, use the Red-eye tool."
 msgstr ""
-"Mata merah terjadi apabila lampu kilat kamera memantul dari pupil mata "
+"Mata merah terjadi apabila lampu kilat kamera memantul dari bola mata "
 "seseorang. Untuk menghilangkannya di foto, gunakan alat mata merah."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:17
-#, fuzzy
 msgid "Click <gui>Red-eye</gui>. A circle will appear on the photo."
-msgstr "Klik <gui>mata merah</gui>. Lingkaran akan muncul di foto."
+msgstr "Klik <gui>Mata merah</gui>. Lingkaran akan muncul di foto."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:20
-#, fuzzy
 msgid ""
 "Drag the circle over the affected pupil, adjust its size with the slider "
 "control, and press <gui>Apply</gui>. The redness will be removed."
 msgstr ""
-"Seret lingkaran di atas pupil yang terpengaruh, Sesuaikan ukurannya dengan "
-"kontrol slider, dan tekan <gui>Apply</gui>. Kemerahan akan dihilangkan."
+"Seret lingkaran di atas bola mata yang terpengaruh, sesuaikan ukurannya "
+"dengan penggeser, dan tekan <gui>Terapkan</gui>. Kemerahan akan dihilangkan."
 
 #. (itstool) path: item/p
 #: C/edit-redeye.page:23
-#, fuzzy
 msgid ""
 "Repeat this process for all red pupils in your photo. Press <gui>Close</gui> "
 "when finished."
 msgstr ""
-"Ulangi proses ini untuk semua murid merah di foto Anda. Tekan <gui>Close</"
-"gui> ketika selesai."
+"Ulangi proses ini untuk semua bola mata merah di foto Anda. Tekan "
+"<gui>Tutup</gui> ketika selesai."
 
 #. (itstool) path: info/desc
 #: C/edit-rotate.page:7
-#, fuzzy
 msgid ""
 "Click the <gui>Rotate</gui> button, or choose one of the commands in the "
 "<gui>Photo</gui> menu."
 msgstr ""
-"Klik tombol <gui>Rotate</gui> , atau pilih salah satu perintah di menu "
-"<gui>foto</gui> ."
+"Klik tombol <gui>Putar</gui>, atau pilih salah satu perintah di menu "
+"<gui>Foto</gui>."
 
 #. (itstool) path: page/title
 #: C/edit-rotate.page:12
-#, fuzzy
 msgid "Rotate or flip a photo"
 msgstr "Memutar atau membalik foto"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:14
-#, fuzzy
 msgid ""
 "You can rotate your photos left and right (clockwise and counterclockwise) "
 "with the <gui>Rotate</gui> button on the toolbar of most views. You can also "
 "make a mirror image of any photo."
 msgstr ""
 "Anda dapat memutar foto Anda ke kiri dan kanan (searah jarum jam dan "
-"berlawanan arah jarum jam) dengan tombol <gui>Rotate</gui> pada bilah alat "
-"yang paling banyak dilihat. Anda juga dapat membuat gambar cermin dari foto "
-"apapun."
+"berlawanan arah jarum jam) dengan tombol <gui>Putar</gui> pada bilah alat "
+"dalam kebanyakan tampilan. Anda juga dapat membuat gambar cermin dari foto "
+"apa pun."
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:16
-#, fuzzy
 msgid ""
 "To rotate right, click on the <gui>Rotate</gui> button. To rotate left, "
 "press and hold the <key>Ctrl</key> key and then click the button. Both "
 "commands are available in the <gui>Photos</gui> menu too. Alternatively, use "
 "the following keyboard shortcuts:"
 msgstr ""
-"Untuk memutar kanan, klik pada tombol <gui>Rotate</gui> . Untuk memutar ke "
+"Untuk memutar ke kanan, klik pada tombol <gui>Putar</gui>. Untuk memutar ke "
 "kiri, tekan dan tahan tombol <key>Ctrl</key> dan kemudian klik tombol. Kedua "
-"perintah tersedia di menu <gui>foto</gui> juga. Atau, Gunakan pintasan "
-"keyboard berikut:"
+"perintah tersedia di menu <gui>Foto</gui> juga. Atau, gunakan pintasan papan "
+"ketik berikut:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
-#, fuzzy
 msgid ""
 "rotate left: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> or "
 "<key>[</key>"
 msgstr ""
-"Putar kiri: <keyseq> <key>Shift</key><key>Ctrl</key><key>R</key> </keyseq> "
+"putar kiri: <keyseq><key>Shift</key><key>Ctrl</key><key>R</key></keyseq> "
 "atau <key>[</key>"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:19
-#, fuzzy
 msgid ""
 "rotate right: <keyseq><key>Ctrl</key><key>R</key></keyseq> or <key>]</key>"
 msgstr ""
-"Putar kanan: <keyseq> <key>Ctrl</key><key>R</key> </keyseq> atau <key>]</key>"
+"putar kanan: <keyseq><key>Ctrl</key><key>R</key> /keyseq> atau <key>]</key>"
 
 #. (itstool) path: page/p
 #: C/edit-rotate.page:21
-#, fuzzy
 msgid ""
 "To create a mirror image of a photo, use the <gui>Flip Horizontally</gui> "
 "command in the <gui>Photos</gui> menu. To flip an image vertically, use the "
 "<gui>Flip Vertically</gui> command in the same menu."
 msgstr ""
-"Untuk membuat gambar cermin foto, gunakan perintah <gui>flip horizontal</"
-"gui> di menu <gui>foto</gui> . Untuk membalik gambar secara vertikal, "
-"gunakan perintah <gui>flip Vertical</gui> Command pada menu yang sama."
+"Untuk membuat gambar cermin foto, gunakan perintah <gui>Balik Arah "
+"Horizontal</gui> di menu <gui>Foto</gui>. Untuk membalik gambar secara "
+"vertikal, gunakan perintah <gui>Balik Arah Vertikal</gui> pada menu yang "
+"sama."
 
 #. (itstool) path: note/p
 #: C/edit-rotate.page:24
-#, fuzzy
 msgid ""
 "If you select more than one image, you can rotate all of them at the same "
 "time."
@@ -722,113 +666,99 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/edit-straighten.page:7
-#, fuzzy
 msgid "Straighten a photo so that its horizon appears level."
-msgstr "Luruskan foto sehingga cakrawala muncul tingkat."
+msgstr "Luruskan foto sehingga cakrawalanya tampak rata."
 
 #. (itstool) path: page/title
 #: C/edit-straighten.page:12
-#, fuzzy
 msgid "Straighten photos"
 msgstr "Meluruskan foto"
 
 #. (itstool) path: page/p
 #: C/edit-straighten.page:14
-#, fuzzy
 msgid ""
 "The straighten tools allows photos to be leveled and straightened. The "
 "straighten tool is only available in full-window or fullscreen mode."
 msgstr ""
-"Alat yang meluruskan memungkinkan foto diratakan dan diluruskan. Alat "
-"meluruskan hanya tersedia dalam mode Full-Window atau fullscreen."
+"Alat pelurusan memungkinkan foto diratakan dan diluruskan. Alat pelurusan "
+"hanya tersedia dalam mode jendela-penuh atau layar-penuh."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:18
-#, fuzzy
 msgid ""
 "Click <gui>Straighten</gui>. The straighten slider will appear. "
 "Alternatively, use the keyboard shortcut <keyseq><key>Ctrl</key><key>A</"
 "key></keyseq>."
 msgstr ""
-"Klik <gui>Luruskan</gui>. Slider Luruskan akan muncul. Atau, Gunakan "
-"pintasan keyboard <keyseq> <key>Ctrl</key><key>A</key></keyseq>."
+"Klik <gui>Luruskan</gui>. Penggeser pelurusan akan muncul. Atau, gunakan "
+"pintasan papan ketik <keyseq><key>Ctrl</key><key>A</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:21
-#, fuzzy
 msgid "Drag the slider to achieve the desired degree of straightening."
-msgstr "Seret penggeser untuk mencapai tingkat pelurus yang diinginkan."
+msgstr "Seret penggeser untuk mencapai tingkat pelurusan yang diinginkan."
 
 #. (itstool) path: item/p
 #: C/edit-straighten.page:24
-#, fuzzy
 msgid "Press <gui>Straighten</gui> when finished."
 msgstr "Tekan <gui>Luruskan</gui> ketika selesai."
 
 #. (itstool) path: info/desc
 #: C/edit-undo.page:7
-#, fuzzy
 msgid "Return a photo to its original, unedited form."
-msgstr "Kembalikan foto ke bentuk aslinya yang belum diedit."
+msgstr "Mengembalikan foto ke bentuk asli yang belum disunting."
 
 #. (itstool) path: page/title
 #: C/edit-undo.page:14
-#, fuzzy
 msgid "Undoing changes"
 msgstr "Membatalkan perubahan"
 
 #. (itstool) path: page/p
 #: C/edit-undo.page:16
-#, fuzzy
 msgid ""
 "Because Shotwell is a non-destructive photo editor, you can undo any "
 "alterations you make to a photograph."
 msgstr ""
-"Karena Shotwell adalah editor foto non-destruktif, Anda dapat mengurungkan "
-"perubahan apa pun yang Anda buat pada foto."
+"Karena Shotwell adalah penyunting foto non-destruktif, Anda dapat "
+"mengurungkan perubahan apa pun yang Anda buat pada foto."
 
 #. (itstool) path: page/p
 #: C/edit-undo.page:20
-#, fuzzy
 msgid ""
 "To completely undo all the changes you've made to a photo, click "
 "<guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>. The only "
 "exception is that time and date adjustments will not be reverted."
 msgstr ""
 "Untuk sepenuhnya membatalkan semua perubahan yang Anda buat pada foto, klik "
-"<guiseq> <gui>foto</gui><gui>akan dikembalikan ke asli</gui></guiseq>. Satu-"
-"satunya pengecualian adalah penyesuaian waktu dan tanggal tidak akan "
-"dikembalikan."
+"<guiseq><gui>Foto</gui><gui>Pulihkan ke Asli</gui></guiseq>. Satu-satunya "
+"pengecualian adalah penyesuaian waktu dan tanggal tidak akan dikembalikan."
 
 #. (itstool) path: info/desc
 #: C/formats.page:7
-#, fuzzy
 msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and RAW photo files as well as video "
 "files."
 msgstr ""
-"Shotwell mendukung JPEG, PNG, TIFF, BMP dan RAW file foto serta file video."
+"Shotwell mendukung berkas foto JPEG, PNG, TIFF, BMP, dan RAW maupun berkas "
+"video."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
-#, fuzzy
 msgid "Supported photo and video formats"
 msgstr "Format foto dan video yang didukung"
 
 #. (itstool) path: page/p
 #: C/formats.page:14
-#, fuzzy
 msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP and <link xref=\"other-raw\">RAW</"
 "link> photo files. Shotwell does not yet support other graphics format such "
 "as GIF."
 msgstr ""
-"Shotwell mendukung JPEG, PNG, TIFF, BMP dan <link xref=\"other-raw\"> file "
-"foto RAW. Shotwell tidak belum mendukung format grafis lainnya seperti GIF."
+"Shotwell mendukung berkas foto JPEG, PNG, TIFF, BMP dan <link xref=\"other-"
+"raw\">RAW</link>. Shotwell belum mendukung format grafis lainnya seperti GIF."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
-#, fuzzy
 msgid ""
 "Shotwell's RAW format support is currently limited. When you view a RAW "
 "photo, you are actually viewing a JPEG derived from the RAW photo, not the "
@@ -838,53 +768,48 @@ msgid ""
 msgstr ""
 "Dukungan format RAW Shotwell saat ini terbatas. Ketika Anda melihat foto "
 "RAW, Anda sebenarnya melihat JPEG yang berasal dari foto RAW, bukan gambar "
-"RAW itu sendiri. Selain itu, pipa pengeditan RAW tidak sepenuhnya 16-bit-"
-"Anda hanya dapat mengekspor foto yang diedit sebagai file 8-bit. Semua "
+"RAW itu sendiri. Selain itu, pipa penyuntingan RAW tidak sepenuhnya 16-bit - "
+"Anda hanya dapat mengekspor foto yang disunting sebagai berkas 8-bit. Semua "
 "format yang didukung dapat digunakan untuk ekspor (JPEG, PNG, TIFF, BMP)."
 
 #. (itstool) path: page/p
 #: C/formats.page:18
-#, fuzzy
 msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
 "Untuk informasi lebih lanjut tentang foto format RAW di Shotwell, silakan "
-"lihat <link xref=\"other-raw\"> Bagian mentah."
+"lihat bagian <link xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
-#, fuzzy
 msgid ""
 "Shotwell also supports video files in any format supported by the GStreamer "
 "media library on the system where Shotwell is running. This typically "
 "includes the following formats among others:"
 msgstr ""
-"Shotwell juga mendukung file video dalam format apapun yang didukung oleh "
-"Perpustakaan media GStreamer pada sistem di mana Shotwell berjalan. Ini "
-"biasanya mencakup format berikut antara lain:"
+"Shotwell juga mendukung berkas video dalam format apa pun yang didukung oleh "
+"pustaka media GStreamer pada sistem di mana Shotwell berjalan. Ini biasanya "
+"mencakup format berikut antara lain:"
 
 #. (itstool) path: item/p
 #: C/formats.page:25
-#, fuzzy
 msgid "Container formats: Ogg, QuickTime, MP4, AVI."
-msgstr "Format kontainer: OGG, QuickTime, MP4, AVI."
+msgstr "Format kontainer: Ogg, QuickTime, MP4, AVI."
 
 #. (itstool) path: item/p
 #: C/formats.page:26
-#, fuzzy
 msgid ""
 "Codecs: Theora, Quicktime, MPEG-4, Motion JPEG. <em>Note that some operating "
 "systems may not include all codecs listed here due to legal or licensing "
 "restrictions.</em>"
 msgstr ""
-"Codec: Theora, QuickTime, MPEG-4, Motion JPEG. <em>Perhatikan bahwa beberapa "
-"sistem operasi mungkin tidak menyertakan semua codec yang tercantum di sini "
+"Kodek: Theora, QuickTime, MPEG-4, Motion JPEG. <em>Perhatikan bahwa beberapa "
+"sistem operasi mungkin tidak menyertakan semua kodek yang tercantum di sini "
 "karena pembatasan hukum atau lisensi.</em>"
 
 #. (itstool) path: page/p
 #: C/formats.page:30
-#, fuzzy
 msgid ""
 "Shotwell supports both photos and videos, but for simplicity, this "
 "documentation uses just the term \"photos\" in most places. Many operations "
@@ -892,111 +817,99 @@ msgid ""
 "flagging, rating, tagging, and publishing work both for photos and for "
 "videos."
 msgstr ""
-"Shotwell mendukung kedua foto dan video, tapi untuk kesederhanaan, "
-"dokumentasi ini hanya menggunakan istilah \"foto\" di sebagian besar tempat. "
-"Banyak operasi di Shotwell berlaku untuk foto dan video, namun. Secara "
-"khusus, peristiwa, penandaan, penilaian, pemberian tag, dan penerbitan "
-"berfungsi baik untuk foto maupun video."
+"Shotwell mendukung foto dan video, tapi untuk kesederhanaan, dokumentasi ini "
+"hanya menggunakan istilah \"foto\" di sebagian besar tempat. Namun banyak "
+"operasi di Shotwell berlaku untuk foto dan video. Secara khusus, peristiwa, "
+"penandaan, pemeringkatan, pemberian tag, dan penerbitan berfungsi baik untuk "
+"foto maupun video."
 
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
-#, fuzzy
 msgid "Copy photos from a digital camera."
 msgstr "Menyalin foto dari kamera digital."
 
 #. (itstool) path: page/title
 #: C/import-camera.page:12
-#, fuzzy
 msgid "Importing from a camera"
 msgstr "Mengimpor dari kamera"
 
 #. (itstool) path: page/p
 #: C/import-camera.page:14
-#, fuzzy
 msgid "To import photos from a digital camera:"
 msgstr "Untuk mengimpor foto dari kamera digital:"
 
 #. (itstool) path: item/p
 #: C/import-camera.page:18
-#, fuzzy
 msgid ""
 "Connect the camera to your computer and switch it on. Shotwell will detect "
 "it and list it in the sidebar."
 msgstr ""
 "Sambungkan kamera ke komputer dan hidupkan. Shotwell akan mendeteksi dan "
-"daftar di sidebar."
+"mendaftarkannya di bilah sisi."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:22
-#, fuzzy
 msgid ""
 "Select the camera in the sidebar. Previews of each photo on the camera will "
 "be displayed."
 msgstr ""
-"Pilih kamera di sidebar. Preview dari setiap foto pada kamera akan "
+"Pilih kamera di bilah sisi. Pratinjau dari setiap foto pada kamera akan "
 "ditampilkan."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:25
-#, fuzzy
 msgid ""
 "If you like, you can choose a set of specific photos to import. To do this, "
 "hold down the <key>Ctrl</key> key and click to select individual photos. You "
 "can hold down <key>Shift</key> and click to select a range of photos too."
 msgstr ""
 "Jika Anda suka, Anda dapat memilih satu set foto tertentu untuk diimpor. "
-"Untuk melakukannya, tekan terus tombol <key>Ctrl</key> dan klik untuk "
-"memilih masing-masing foto. Anda dapat menahan <key>Shift</key> dan klik "
-"untuk memilih berbagai foto juga."
+"Untuk melakukannya, tahan tombol <key>Ctrl</key> dan klik untuk memilih "
+"masing-masing foto. Anda dapat menahan <key>Shift</key> dan klik untuk "
+"memilih suatu rentang foto juga."
 
 #. (itstool) path: item/p
 #: C/import-camera.page:28
-#, fuzzy
 msgid ""
 "Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos "
 "will be copied from the camera and saved on your computer."
 msgstr ""
-"Klik <gui>impor dipilih</gui> atau <gui>impor semua</gui>. Foto akan disalin "
-"dari kamera dan disimpan pada komputer Anda."
+"Klik <gui>Impor yang Dipilih</gui> atau <gui>Impor Semua</gui>. Foto akan "
+"disalin dari kamera dan disimpan pada komputer Anda."
 
 #. (itstool) path: page/p
 #: C/import-camera.page:32
-#, fuzzy
 msgid ""
 "Once the import is complete, you can open the <gui>Last Import</gui> view "
 "(in the sidebar) to see all photos that were imported. The Events list (also "
 "in the sidebar) will also show the new photos, organized by date."
 msgstr ""
-"Setelah impor selesai, Anda dapat membuka tampilan <gui>terakhir impor</gui> "
-"(di sidebar) untuk melihat semua foto yang diimpor. The Events daftar (juga "
-"di sidebar) juga akan menampilkan foto baru, yang diselenggarakan oleh "
+"Setelah impor selesai, Anda dapat membuka tampilan <gui>Terakhir Impor</gui> "
+"(di bilah sisi) untuk melihat semua foto yang diimpor. Daftar Acara (juga di "
+"bilah sisi) juga akan menampilkan foto baru, diorganisasi berdasarkan "
 "tanggal."
 
 #. (itstool) path: info/desc
 #: C/import-file.page:7
-#, fuzzy
 msgid "Import photos that are already saved on your computer."
-msgstr "Impor foto yang sudah disimpan di komputer Anda."
+msgstr "Mengimpor foto yang sudah disimpan di komputer Anda."
 
 #. (itstool) path: page/title
 #: C/import-file.page:12
-#, fuzzy
 msgid "Importing from your hard disk"
 msgstr "Mengimpor dari hard disk Anda"
 
 #. (itstool) path: page/p
 #: C/import-file.page:14
-#, fuzzy
 msgid ""
 "To import photo files from your hard disk into Shotwell, just drag them from "
 "your file browser into the Shotwell window."
 msgstr ""
-"Untuk mengimpor file foto dari hard disk ke Shotwell, cukup seret mereka "
-"dari browser file Anda ke jendela Shotwell."
+"Untuk mengimpor berkas foto dari hard disk ke Shotwell, cukup seret mereka "
+"dari peramban berkas Anda ke jendela Shotwell."
 
 #. (itstool) path: page/p
 #: C/import-file.page:16
-#, fuzzy
 msgid ""
 "Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder...</"
 "gui></guiseq> and select the folder containing the photos you want to "
@@ -1004,74 +917,66 @@ msgid ""
 "importing, you can uncheck the <gui>Recurse Into Subfolders</gui> checkbox "
 "on the bottom of the file dialog."
 msgstr ""
-"Atau, klik <guiseq> <gui>file</gui><gui>impor dari folder...</gui> </guiseq> "
+"Atau, klik <guiseq><gui>Berkas</gui><gui>Impor Dari Folder...</gui></guiseq> "
 "dan pilih folder yang berisi foto yang ingin Anda impor. Jika Anda tidak "
-"ingin Shotwell untuk rekursif ke subfolder saat mengimpor, Anda dapat Hapus "
-"centang pada <gui>rekursif ke subfolder</gui> checkbox di bagian bawah "
-"dialog file."
+"ingin Shotwell untuk rekursif ke subfolder saat mengimpor, Anda dapat "
+"menghapus centang pada kotak centang <gui>Rekursif Ke Subfolder</gui> di "
+"bagian bawah dialog berkas."
 
 #. (itstool) path: page/p
 #: C/import-file.page:18
-#, fuzzy
 msgid ""
 "Shotwell will ask whether you want to copy the photo files to your library "
 "folder (usually this is the <file>Pictures</file> folder in your home "
 "directory) or to import them in place without copying the files."
 msgstr ""
-"Shotwell akan menanyakan apakah Anda ingin menyalin file foto ke folder "
-"perpustakaan Anda (biasanya ini adalah folder <file>gambar</file> di "
-"direktori Home Anda) atau untuk mengimpor mereka di tempat tanpa menyalin "
-"file."
+"Shotwell akan menanyakan apakah Anda ingin menyalin berkas foto ke folder "
+"perpustakaan Anda (biasanya ini adalah folder <file>Gambar</file> di "
+"direktori rumah Anda) atau untuk mengimpor mereka di tempat tanpa menyalin "
+"berkas."
 
 #. (itstool) path: page/p
 #: C/import-file.page:20
-#, fuzzy
 msgid ""
 "If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will "
 "copy the photos into your library folder without prompting. Similarly, if "
 "you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while "
 "dragging photos in, Shotwell will import the photos without copying them."
 msgstr ""
-"Jika Anda menahan <key>Ctrl</key> saat menyeret foto ke dalam, Shotwell akan "
-"menyalin foto ke folder perpustakaan Anda tanpa meminta persetujuan. "
-"Demikian pula, jika Anda menahan tombol <keyseq> <key>Ctrl</key><key>Shift</"
-"key> </keyseq> sambil menyeret foto ke dalam, Shotwell akan mengimpor foto "
-"tanpa menyalinnya."
+"Jika Anda menahan <key>Ctrl</key> saat menyeret foto, Shotwell akan menyalin "
+"foto ke folder perpustakaan Anda tanpa meminta persetujuan. Demikian pula, "
+"jika Anda menahan tombol <keyseq><key>Ctrl</key><key>Shift</key></keyseq> "
+"sambil menyeret foto, Shotwell akan mengimpor foto tanpa menyalinnya."
 
 #. (itstool) path: page/p
 #: C/import-file.page:22
-#, fuzzy
 msgid ""
 "Once the import is complete, you can select <gui>Last Import</gui> in the "
 "sidebar to see all photos successfully imported. The Events list will also "
 "show new entries for the dates corresponding to the imported photos."
 msgstr ""
-"Setelah proses impor selesai, Anda dapat memilih <gui>impor terakhir</gui> "
-"di bar samping untuk melihat semua foto yang berhasil diimpor. Daftar "
+"Setelah proses impor selesai, Anda dapat memilih <gui>Impor Terakhir</gui> "
+"di bilah sisi untuk melihat semua foto yang berhasil diimpor. Daftar "
 "peristiwa juga akan menampilkan entri baru untuk tanggal yang sesuai dengan "
 "foto yang diimpor."
 
 #. (itstool) path: info/desc
 #: C/import-memorycard.page:7
-#, fuzzy
 msgid "Import photos from a digital camera's memory card."
 msgstr "Mengimpor foto dari kartu memori kamera digital."
 
 #. (itstool) path: page/title
 #: C/import-memorycard.page:12
-#, fuzzy
 msgid "Importing from a memory card"
 msgstr "Mengimpor dari kartu memori"
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:14
-#, fuzzy
 msgid "To import photos from a camera memory card:"
 msgstr "Untuk mengimpor foto dari kartu memori kamera:"
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:18
-#, fuzzy
 msgid ""
 "Put the card into your card reader. Make sure the card reader is plugged in "
 "to the computer and switched on."
@@ -1081,27 +986,24 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:21
-#, fuzzy
 msgid "The card reader and card should be detected automatically."
 msgstr "Pembaca kartu dan kartu harus dideteksi secara otomatis."
 
 #. (itstool) path: item/p
 #: C/import-memorycard.page:24
-#, fuzzy
 msgid ""
 "Follow the instructions for <link xref=\"import-file\">importing photos from "
 "your hard disk</link>. If you click <guiseq><gui>File</gui><gui>Import From "
 "Folder...</gui></guiseq>, the memory card should be visible as a folder in "
 "the side bar of the file selection window."
 msgstr ""
-"Ikuti petunjuk untuk <link xref=\"import-file\"> mengimpor foto dari hard "
-"disk Anda. Jika Anda mengklik <guiseq> <gui>file</gui><gui>impor dari "
-"folder...</gui></guiseq>, kartu memori harus terlihat sebagai folder di "
-"bilah sisi jendela pilihan file."
+"Ikuti petunjuk untuk <link xref=\"import-file\">mengimpor foto dari hard "
+"disk Anda</link>. Jika Anda mengklik <guiseq><gui>Berkas</gui><gui>Impor "
+"Dari Folder...</gui></guiseq>, kartu memori harus terlihat sebagai folder di "
+"bilah sisi jendela pilihan berkas."
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:28
-#, fuzzy
 msgid ""
 "Shotwell can import photos from any memory card that is compatible with your "
 "card reader."
@@ -1111,7 +1013,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/import-memorycard.page:30
-#, fuzzy
 msgid ""
 "If the card is not detected automatically, your card reader may not have "
 "been recognized. Try unplugging it and then plugging it in again. If that "
@@ -1122,7 +1023,7 @@ msgstr ""
 "Jika kartu tidak terdeteksi secara otomatis, pembaca kartu Anda mungkin "
 "belum dikenali. Cobalah mencabut dan kemudian mencolokkan lagi. Jika itu "
 "tidak berhasil, Anda masih harus dapat mengimpor foto dengan <link xref="
-"\"import-camera\"> menyambungkan kamera langsung ke komputer."
+"\"import-camera\">menyambungkan kamera langsung ke komputer</link>."
 
 #. (itstool) path: info/title
 #: C/index.page:6
@@ -1137,9 +1038,8 @@ msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
 #: C/index.page:10
-#, fuzzy
 msgid "Allison Barlow"
-msgstr "Putri berlaras"
+msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
 #: C/index.page:12
@@ -1172,53 +1072,45 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/index.page:22
-#, fuzzy
 msgid ""
 "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
 "Manager"
 msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"></media>Manajer foto "
+"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Manajer Foto "
 "Shotwell"
 
 #. (itstool) path: section/title
 #: C/index.page:25
-#, fuzzy
 msgid "Importing Photos"
-msgstr "Mengimpor foto"
+msgstr "Mengimpor Foto"
 
 #. (itstool) path: section/title
 #: C/index.page:29
-#, fuzzy
 msgid "Viewing Photos"
-msgstr "Melihat foto"
+msgstr "Melihat Foto"
 
 #. (itstool) path: section/title
 #: C/index.page:33
-#, fuzzy
 msgid "Organizing Photos"
-msgstr "Mengatur foto"
+msgstr "Mengorganisasi Foto"
 
 #. (itstool) path: section/title
 #: C/index.page:37
-#, fuzzy
 msgid "Editing Photos"
-msgstr "Mengedit foto"
+msgstr "Menyunting Foto"
 
 #. (itstool) path: section/title
 #: C/index.page:41
-#, fuzzy
 msgid "Sharing Photos"
-msgstr "Berbagi foto"
+msgstr "Berbagi Foto"
 
 #. (itstool) path: section/title
 #: C/index.page:45
-#, fuzzy
 msgid "Other Features"
-msgstr "Fitur lainnya"
+msgstr "Fitur-fitur Lain"
 
 #. (itstool) path: info/desc
 #: C/organize-event.page:7
-#, fuzzy
 msgid ""
 "Group photos together that were taken at the same time. Learn how to rename, "
 "merge, and sort events."
@@ -1228,60 +1120,54 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/organize-event.page:12
-#, fuzzy
 msgid "Events"
 msgstr "Acara"
 
 #. (itstool) path: page/p
 #: C/organize-event.page:14
-#, fuzzy
 msgid ""
 "An event is a group of photos that were taken at approximately the same "
 "time. When you import photos, Shotwell checks when each photo was taken. It "
 "then groups the photos into events."
 msgstr ""
 "Sebuah acara adalah sekelompok foto yang diambil pada waktu yang kurang "
-"lebih sama. Ketika Anda mengimpor foto, Shotwell memeriksa Kapan setiap foto "
-"diambil. Kemudian kelompok foto ke dalam peristiwa."
+"lebih sama. Ketika Anda mengimpor foto, Shotwell memeriksa kapan setiap foto "
+"diambil. Kemudian mengelompokkan foto ke dalam acara."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:16
-#, fuzzy
 msgid ""
 "Choose <gui>Events</gui> from the sidebar to see your photos organized by "
 "date. If you select a month or year from the sidebar, a list of events will "
 "be displayed in the main window. Double-click an event to see all the photos "
 "that were taken around that time."
 msgstr ""
-"Pilih <gui>acara</gui> dari sidebar untuk melihat foto Anda yang diatur "
-"menurut tanggal. Jika Anda memilih bulan atau tahun dari sidebar, daftar "
-"acara akan ditampilkan di jendela utama. Klik dua kali acara untuk melihat "
+"Pilih <gui>Acara</gui> dari bilah sisi untuk melihat foto Anda yang diatur "
+"menurut tanggal. Jika Anda memilih bulan atau tahun dari bilah sisi, daftar "
+"acara akan ditampilkan di jendela utama. Klik ganda acara untuk melihat "
 "semua foto yang diambil sekitar waktu itu."
 
 #. (itstool) path: page/p
 #: C/organize-event.page:18
-#, fuzzy
 msgid ""
 "If a photo has no embedded date/time information, then Shotwell can't "
 "automatically place it in any event. In this case the photo will appear in "
 "the <gui>No Event</gui> view accessible from the sidebar. You can still move "
 "the photo to any event you like as described below."
 msgstr ""
-"Jika foto tidak memiliki informasi tanggal/waktu yang disematkan, maka "
+"Jika foto tidak memiliki informasi tanggal/waktu yang tertanam, maka "
 "Shotwell tidak dapat menempatkannya secara otomatis dalam acara apa pun. "
-"Dalam hal ini, foto akan muncul dalam tampilan <gui>tidak ada aktivitas</"
-"gui> yang dapat diakses dari sidebar. Anda masih dapat memindahkan foto ke "
+"Dalam hal ini, foto akan muncul dalam tampilan <gui>Tidak Ada Acara</gui> "
+"yang dapat diakses dari bilah sisi. Anda masih dapat memindahkan foto ke "
 "acara apa pun yang Anda suka seperti yang dijelaskan di bawah ini."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:25
-#, fuzzy
 msgid "Renaming events"
 msgstr "Mengganti nama acara"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:27
-#, fuzzy
 msgid ""
 "To give an event a name rather than referring to it by its date, select the "
 "event, click <guiseq><gui>Events</gui><gui>Rename Event...</gui></guiseq> "
@@ -1289,10 +1175,10 @@ msgid ""
 "its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
 "Untuk memberikan sebuah nama sebuah acara daripada merujuknya berdasarkan "
-"tanggalnya, pilih acara, klik acara <guiseq> <gui></gui><gui>rename event..."
-"</gui> </guiseq> dan masukkan nama baru. Cara lain untuk mengganti nama "
-"acara adalah dengan mengklik dua kali namanya di sidebar; Ketik nama baru "
-"dan kemudian tekan <key>Enter</key>."
+"tanggalnya, pilih acara, klik <guiseq><gui>Acara</gui><gui>Ubah Nama Acara..."
+"</gui></guiseq> dan masukkan nama baru. Cara lain untuk mengganti nama acara "
+"adalah dengan mengklik ganda namanya di bilah sisi; ketik nama baru dan "
+"kemudian tekan <key>Enter</key>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
@@ -1314,7 +1200,6 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
-#, fuzzy
 msgid "Creating and merging events"
 msgstr "Membuat dan menggabungkan acara"
 
@@ -1344,9 +1229,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-event.page:43
-#, fuzzy
 msgid "Sorting events"
-msgstr "Menyortir peristiwa"
+msgstr "Mengurutkan acara"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:45
@@ -1364,7 +1248,6 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-event.page:51
-#, fuzzy
 msgid "Change the photo used to represent each event"
 msgstr "Mengubah foto yang digunakan untuk mewakili setiap acara"
 
@@ -1401,7 +1284,6 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/organize-flag.page:12
-#, fuzzy
 msgid "Flagging photos"
 msgstr "Menandai foto"
 
@@ -1476,9 +1358,8 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/organize-rating.page:12
-#, fuzzy
 msgid "Ratings"
-msgstr "Penilaian"
+msgstr "Peringkat"
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:13
@@ -1588,9 +1469,8 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/organize-remove.page:12
-#, fuzzy
 msgid "Removing and deleting photos"
-msgstr "Menghapus dan menghapus foto"
+msgstr "Membuang dan menghapus foto"
 
 #. (itstool) path: page/p
 #: C/organize-remove.page:14
@@ -1618,9 +1498,8 @@ msgstr ""
 
 #. (itstool) path: media/p
 #: C/organize-remove.page:15
-#, fuzzy
 msgid "Delete process"
-msgstr "Hapus proses"
+msgstr "Proses hapus"
 
 #. (itstool) path: page/p
 #: C/organize-remove.page:16
@@ -1639,9 +1518,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:18
-#, fuzzy
 msgid "Removing photos from the library"
-msgstr "Menghapus foto dari Perpustakaan"
+msgstr "Menghapus foto dari pustaka"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:19
@@ -1695,15 +1573,13 @@ msgstr "Hapus"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:29
-#, fuzzy
 msgid "Delete the selected photos from the trash folder."
-msgstr "Menghapus foto yang dipilih dari folder sampah."
+msgstr "Hapus foto yang dipilih dari folder sampah."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:30
-#, fuzzy
 msgid "Restore"
-msgstr "Kembalikan"
+msgstr "Pulihkan"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:30
@@ -1713,21 +1589,18 @@ msgstr "Kembalikan foto yang dipilih ke Shotwell."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:31
-#, fuzzy
 msgid "Empty trash"
-msgstr "Kosongkan tong sampah"
+msgstr "Kosongkan tempat sampah"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:31
-#, fuzzy
 msgid "Delete all photos from the trash folder."
-msgstr "Hapus semua foto dari folder sampah."
+msgstr "Menghapus semua foto dari folder sampah."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:36
-#, fuzzy
 msgid "Deleting or emptying Trash"
-msgstr "Menghapus atau mengosongkan sampah"
+msgstr "Menghapus atau mengosongkan Sampah"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:37
@@ -1741,7 +1614,6 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:39
-#, fuzzy
 msgid "Only Remove"
 msgstr "Hanya Hapus"
 
@@ -1759,7 +1631,7 @@ msgstr ""
 #: C/organize-remove.page:40
 #, fuzzy
 msgid "Trash file"
-msgstr "Berkas sampah"
+msgstr "Tak bisa membuang berkas %s ke tong sampah: %s"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:40
@@ -1774,9 +1646,8 @@ msgstr "Batal"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:41
-#, fuzzy
 msgid "Do nothing."
-msgstr "Lakukan apa-apa."
+msgstr "Jangan lakukan apa pun."
 
 #. (itstool) path: info/desc
 #: C/organize-search.page:7
@@ -1786,7 +1657,6 @@ msgstr "Temukan foto dan video dalam koleksi Anda dengan berbagai kriteria."
 
 #. (itstool) path: page/title
 #: C/organize-search.page:12
-#, fuzzy
 msgid "Searching"
 msgstr "Mencari"
 
@@ -1806,7 +1676,6 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-search.page:21
-#, fuzzy
 msgid "Search bar"
 msgstr "Bilah pencarian"
 
@@ -1860,7 +1729,6 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-search.page:44
-#, fuzzy
 msgid "Saved search"
 msgstr "Pencarian tersimpan"
 
@@ -2072,7 +1940,6 @@ msgstr "Berikan judul pada foto Anda."
 
 #. (itstool) path: page/title
 #: C/organize-title.page:12
-#, fuzzy
 msgid "Titles"
 msgstr "Judul"
 
@@ -2106,9 +1973,8 @@ msgstr "Jauhkan Perpustakaan Shotwell sinkron dengan file foto pada disk."
 
 #. (itstool) path: page/title
 #: C/other-files.page:12
-#, fuzzy
 msgid "Photo files"
-msgstr "File foto"
+msgstr "Berkas foto"
 
 #. (itstool) path: page/p
 #: C/other-files.page:14
@@ -2157,19 +2023,16 @@ msgstr ""
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#, fuzzy
 msgid "<em>Symbol</em>"
 msgstr "<em>Simbol</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#, fuzzy
 msgid "<em>Meaning</em>"
 msgstr "<em>Makna</em>"
 
 #. (itstool) path: td/p
 #: C/other-files.page:38
-#, fuzzy
 msgid "<em>Example</em>"
 msgstr "<em>Contoh</em>"
 
@@ -2180,7 +2043,6 @@ msgstr "%Y"
 
 #. (itstool) path: td/p
 #: C/other-files.page:43
-#, fuzzy
 msgid "Year: full"
 msgstr "Tahun: penuh"
 
@@ -2196,7 +2058,6 @@ msgstr "%y"
 
 #. (itstool) path: td/p
 #: C/other-files.page:46
-#, fuzzy
 msgid "Year: two digit"
 msgstr "Tahun: dua digit"
 
@@ -2212,9 +2073,8 @@ msgstr "%d"
 
 #. (itstool) path: td/p
 #: C/other-files.page:49
-#, fuzzy
 msgid "Day of the month with leading zero"
-msgstr "Hari dalam sebulan dengan angka nol"
+msgstr "Hari dalam sebulan dengan awalan nol"
 
 #. (itstool) path: td/p
 #: C/other-files.page:49
@@ -2228,13 +2088,11 @@ msgstr "%A"
 
 #. (itstool) path: td/p
 #: C/other-files.page:52
-#, fuzzy
 msgid "Day name: full"
 msgstr "Nama hari: penuh"
 
 #. (itstool) path: td/p
 #: C/other-files.page:52
-#, fuzzy
 msgid "Wednesday"
 msgstr "Rabu"
 
@@ -2245,13 +2103,11 @@ msgstr "%a"
 
 #. (itstool) path: td/p
 #: C/other-files.page:55
-#, fuzzy
 msgid "Day name: abbreviated"
 msgstr "Nama hari: disingkat"
 
 #. (itstool) path: td/p
 #: C/other-files.page:55
-#, fuzzy
 msgid "Wed"
 msgstr "Rab"
 
@@ -2262,7 +2118,6 @@ msgstr "%m"
 
 #. (itstool) path: td/p
 #: C/other-files.page:58
-#, fuzzy
 msgid "Month number with leading zero"
 msgstr "Nomor bulan dengan awalan nol"
 
@@ -2278,7 +2133,6 @@ msgstr "%b"
 
 #. (itstool) path: td/p
 #: C/other-files.page:60
-#, fuzzy
 msgid "Month name: abbreviated"
 msgstr "Nama bulan: disingkat"
 
@@ -2294,13 +2148,11 @@ msgstr "%B"
 
 #. (itstool) path: td/p
 #: C/other-files.page:62
-#, fuzzy
 msgid "Month name: full"
 msgstr "Nama bulan: penuh"
 
 #. (itstool) path: td/p
 #: C/other-files.page:62
-#, fuzzy
 msgid "February"
 msgstr "Februari"
 
@@ -2311,7 +2163,6 @@ msgstr "%I"
 
 #. (itstool) path: td/p
 #: C/other-files.page:63
-#, fuzzy
 msgid "Hour: 12 hour format"
 msgstr "Jam: format 12 jam"
 
@@ -2327,7 +2178,6 @@ msgstr "%H"
 
 #. (itstool) path: td/p
 #: C/other-files.page:64
-#, fuzzy
 msgid "Hour: 24 hour format"
 msgstr "Jam: format 24 jam"
 
@@ -2343,7 +2193,6 @@ msgstr "%M"
 
 #. (itstool) path: td/p
 #: C/other-files.page:66
-#, fuzzy
 msgid "Minute"
 msgstr "Menit"
 
@@ -2359,9 +2208,8 @@ msgstr "%S"
 
 #. (itstool) path: td/p
 #: C/other-files.page:67
-#, fuzzy
 msgid "Second"
-msgstr "Kedua"
+msgstr "Detik"
 
 #. (itstool) path: td/p
 #: C/other-files.page:67
@@ -2375,15 +2223,13 @@ msgstr "%p"
 
 #. (itstool) path: td/p
 #: C/other-files.page:68
-#, fuzzy
 msgid "AM or PM"
 msgstr "AM atau PM"
 
 #. (itstool) path: td/p
 #: C/other-files.page:68
-#, fuzzy
 msgid "PM"
-msgstr "Pm"
+msgstr "PM"
 
 #. (itstool) path: section/p
 #: C/other-files.page:72
@@ -2498,25 +2344,21 @@ msgstr "Judul"
 
 #. (itstool) path: item/p
 #: C/other-files.page:119
-#, fuzzy
 msgid "tags"
 msgstr "tag"
 
 #. (itstool) path: item/p
 #: C/other-files.page:120
-#, fuzzy
 msgid "ratings"
 msgstr "peringkat"
 
 #. (itstool) path: item/p
 #: C/other-files.page:121
-#, fuzzy
 msgid "rotation information"
-msgstr "rotasi informasi"
+msgstr "informasi rotasi"
 
 #. (itstool) path: item/p
 #: C/other-files.page:122
-#, fuzzy
 msgid "time/date"
 msgstr "waktu/tanggal"
 
@@ -2648,9 +2490,8 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
-#, fuzzy
 msgid "Multiple libraries"
-msgstr "Beberapa perpustakaan"
+msgstr "Beberapa pustaka"
 
 #. (itstool) path: page/p
 #: C/other-multiple.page:14
@@ -2683,23 +2524,23 @@ msgstr ""
 
 #. (itstool) path: page/screen
 #: C/other-multiple.page:18
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "\n"
 "shotwell -d [library-directory]\n"
-msgstr "Shotwell-d [direktori Perpustakaan]"
+msgstr ""
+"\n"
+"shotwell -d [direktori-pustaka]\n"
 
 #. (itstool) path: info/desc
 #: C/other-plugins.page:7
-#, fuzzy
 msgid "Extend Shotwell's functionality dynamically."
 msgstr "Perluas fungsi Shotwell secara dinamis."
 
 #. (itstool) path: page/title
 #: C/other-plugins.page:12
-#, fuzzy
 msgid "Plugins"
-msgstr "Plugin"
+msgstr "Pengaya"
 
 #. (itstool) path: page/p
 #: C/other-plugins.page:13
@@ -2732,41 +2573,43 @@ msgstr ""
 
 #. (itstool) path: note/p
 #: C/other-plugins.page:25
-#, fuzzy
 msgid ""
 "Full documentation on how to develop new plugins is available at <link href="
 "\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
 "wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
 msgstr ""
-"Dokumentasi lengkap tentang cara mengembangkan plugin baru tersedia di <link "
-"href=\"http://redmine.yorba.org/projects/shotwell/wiki/"
-"ShotwellArchWritingPlugins\"> http://Redmine.Yorba.org/Projects/Shotwell/"
-"wiki/ShotwellArchWritingPlugins"
+"Dokumentasi lengkap tentang cara mengembangkan pengaya baru tersedia di "
+"<link href=\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins"
+"\">https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
 
 #. (itstool) path: page/title
 #: C/privacy-policy.page:7
 msgid "Shotwell's privacy policy for Online Services"
-msgstr ""
+msgstr "Kebijakan privasi Shotwell untuk Layanan Online"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:8
 msgid "Google"
-msgstr ""
+msgstr "Google"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:10 C/privacy-policy.page:42
 msgid "Information Shotwell Stores and Transmits About You"
-msgstr ""
+msgstr "Informasi yang Disimpan dan Ditransmisikan Shotwell Tentang Anda"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:11
+#, fuzzy
 msgid ""
 "The Shotwell Connect application and its data store reside locally on your "
 "personal computer."
 msgstr ""
+"Aplikasi Shotwell Connect dan penyimpanan datanya berada secara lokal di "
+"komputer pribadi Anda."
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:12
+#, fuzzy
 msgid ""
 "During the course of its operation, Shotwell Connect may store an "
 "authentication token that it receives from YouTube and Google Photos on your "
@@ -2774,83 +2617,111 @@ msgid ""
 "of letters and numbers. It contains no password, user name, or other "
 "personal information."
 msgstr ""
+"Selama pengoperasiannya, Shotwell Connect dapat menyimpan token autentikasi "
+"yang diterimanya dari YouTube dan Google Foto di komputer Anda. Token "
+"otentikasi ini hanyalah urutan huruf dan angka yang mengidentifikasi sesi. "
+"Tak memuat sandi, nama pengguna, atau informasi pribadi lainnya."
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:13
+#, fuzzy
 msgid ""
 "At no time does Shotwell Connect transmit any information to the GNOME "
 "foundation, the Software Freedom Convervancy or any of the developers of the "
 "Shotwell Connect Application for Google services."
 msgstr ""
+"Pada saat yang sama Shotwell Connect mengirimkan informasi apa pun ke "
+"yayasan GNOME, Software Freedom Convervancy, atau salah satu pengembang "
+"Aplikasi Shotwell Connect untuk layanan Google."
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:15
+#, fuzzy
 msgid ""
 "For Google's own privacy policy, please refer to <link href=\"https://"
 "policies.google.com/privacy\">https://policies.google.com/privacy</link>"
 msgstr ""
+"Untuk kebijakan privasi Google sendiri, silakan merujuk ke <link href="
+"\"https://policies.google.com/privacy\"> https://policies.google.com/privacy"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:18
 msgid "YouTube"
-msgstr ""
+msgstr "YouTube"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:19
+#, fuzzy
 msgid ""
 "Shotwell uses the YouTube API services <link href=\"https://developers."
 "google.com/youtube\">https://developers.google.com/youtube</link> for "
 "accessing your YouTube channel and upload the videos."
 msgstr ""
+"Shotwell menggunakan layanan YouTube API <link href=\"https://developers."
+"google.com/youtube\"> https://developers.google.com/youtube untuk mengakses "
+"channel YouTube anda dan mengupload video."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:21
 msgid "YouTube terms and permissions"
-msgstr ""
+msgstr "Persyaratan dan izin YouTube"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:22
+#, fuzzy
 msgid ""
 "By using Shotwell to access YouTube, you agree to be bound to the YouTube "
 "Terms of Service as available at <link href=\"https://www.youtube.com/t/terms"
 "\">https://www.youtube.com/t/terms</link>"
 msgstr ""
+"Dengan menggunakan Shotwell untuk mengakses YouTube, Anda setuju untuk "
+"terikat dengan Persyaratan Layanan YouTube sebagaimana tersedia <link href="
+"\"https://www.youtube.com/t/terms\"> https://www.youtube.com/t/terms"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:25
 msgid "Permissions you grant Shotwell for YouTube"
-msgstr ""
+msgstr "Izin yang Anda berikan kepada Shotwell untuk YouTube"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:26
+#, fuzzy
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application permission to "
 "publish videos to your YouTube channel. Other than uploading videos, "
 "Shotwell does not insert, modify or remove any information from your YouTube "
 "account and channel."
 msgstr ""
+"Dengan menggunakan Shotwell, Anda memberikan izin aplikasi Shotwell Connect "
+"untuk memublikasikan video ke channel YouTube Anda. Selain mengupload video, "
+"Shotwell tidak menyisipkan, memodifikasi, atau menghapus informasi apa pun "
+"dari akun dan channel YouTube Anda."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:31
-#, fuzzy
 msgid "Google Photos"
-msgstr "Mengimpor foto"
+msgstr "Google Photos"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:32
+#, fuzzy
 msgid ""
 "Shotwell uses the Google Photos API services <link href=\"https://developers."
 "google.com/photos/\">https://developers.google.com/photos/</link> for all "
 "interaction with your Google Photos data"
 msgstr ""
+"Shotwell menggunakan layanan Google Photos API <link href=\"https://"
+"developers.google.com/photos/\"> https://developers.google.com/photos/ semua "
+"interaksi dengan data Google Foto Anda"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:34
 msgid "Permissions you Grant Shotwell for Google Photos"
-msgstr ""
+msgstr "Izin yang Anda berikan kepada Shotwell untuk Google Photos"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:35
+#, fuzzy
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application to publish "
 "photos on your Google Photos account. It will download the list of available "
@@ -2859,14 +2730,21 @@ msgid ""
 "Shotwell does no modification whatsoever to the existing data on Google "
 "Photos"
 msgstr ""
+"Dengan menggunakan Shotwell, Anda memberikan aplikasi Shotwell Connect untuk "
+"memublikasikan foto di akun Google Foto Anda. Ini akan mengunduh daftar "
+"album yang tersedia untuk memungkinkan Anda memilih album yang ada untuk "
+"diunggah, itu dapat membuat album atas nama Anda. Selain membuat album dan "
+"mengunggah foto, Shotwell tidak melakukan modifikasi apa pun pada data yang "
+"ada di Google Foto"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:40
 msgid "Flickr"
-msgstr ""
+msgstr "Flickr"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:43
+#, fuzzy
 msgid ""
 "The Shotwell Connect application and its data store reside locally on your "
 "personal computer. During the course of its operation, Shotwell Connect may "
@@ -2877,14 +2755,23 @@ msgid ""
 "the GNOME foundation, the Software Freedom Convervancy or any of the "
 "developers of the Shotwell Connect Application for Flickr."
 msgstr ""
+"Aplikasi Shotwell Connect dan penyimpanan datanya berada secara lokal di "
+"komputer pribadi Anda. Selama pengoperasiannya, Shotwell Connect dapat "
+"menyimpan token autentikasi yang diterimanya dari Flickr di komputer Anda. "
+"Token otentikasi ini hanyalah urutan huruf dan angka yang mengidentifikasi "
+"sesi. Tak memuat sandi, nama pengguna, atau informasi pribadi lainnya. Pada "
+"saat yang sama Shotwell Connect mengirimkan informasi apa pun ke yayasan "
+"GNOME, Software Freedom Convervancy atau salah satu pengembang Aplikasi "
+"Shotwell Connect untuk Flickr."
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:47
 msgid "Permissions you grant Shotwell for Flickr"
-msgstr ""
+msgstr "Izin yang Anda berikan kepada Shotwell untuk Flickr"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:48
+#, fuzzy
 msgid ""
 "By using Shotwell, you grant the Shotwell Connect application acces to "
 "publish photos to your Flickr account. It will download the list of "
@@ -2893,35 +2780,37 @@ msgid ""
 "uploading photos, Shotwell does not modification whatsoever to the existing "
 "data on your Flickr account."
 msgstr ""
+"Dengan menggunakan Shotwell, Anda memberikan aplikasi Shotwell Connect untuk "
+"mempublikasikan foto ke akun Flickr Anda. Ini akan mengunduh daftar album "
+"yang tersedia untuk memungkinkan Anda memilih album yang ada untuk diunggah. "
+"Ini juga dapat membuat album baru atas nama Anda. Selain membuat album dan "
+"mengunggah foto, Shotwell tidak melakukan modifikasi apa pun ke data yang "
+"ada di akun Flickr Anda."
 
 #. (itstool) path: info/desc
 #: C/raw.page:7
-#, fuzzy
 msgid "More about RAW support in Shotwell."
 msgstr "Lebih lanjut tentang dukungan RAW di Shotwell."
 
 #. (itstool) path: page/title
 #: C/raw.page:12
-#, fuzzy
 msgid "RAW support in Shotwell"
 msgstr "Dukungan RAW di Shotwell"
 
 #. (itstool) path: page/p
 #: C/raw.page:13
-#, fuzzy
 msgid ""
 "Some cameras have the ability to store data directly off the sensor and into "
 "a file that contains extra color information; this is commonly referred to "
 "as 'RAW' or 'camera RAW', and Shotwell supports these files as well."
 msgstr ""
 "Beberapa kamera memiliki kemampuan untuk menyimpan data secara langsung dari "
-"sensor dan ke dalam file yang berisi informasi warna tambahan; Hal ini "
-"biasanya disebut sebagai ' RAW ' atau ' Camera RAW ', dan Shotwell juga "
+"sensor dan ke dalam berkas yang berisi informasi warna tambahan; hal ini "
+"biasanya disebut sebagai 'RAW' atau 'Camera RAW', dan Shotwell juga "
 "mendukung berkas ini."
 
 #. (itstool) path: page/p
 #: C/raw.page:18
-#, fuzzy
 msgid ""
 "Since RAW photographs normally cannot be displayed directly, but must be "
 "first developed - that is, have their extra information interpreted and "
@@ -2931,35 +2820,33 @@ msgid ""
 "+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
-"Sejak RAW foto biasanya tidak dapat ditampilkan secara langsung, tetapi "
-"harus terlebih dahulu dikembangkan-yaitu, memiliki informasi tambahan mereka "
-"ditafsirkan dan disiapkan untuk menampilkan-kebanyakan kamera akan baik "
-"menanamkan JPEG dalam Raw-format file, atau menghasilkan JPEG bersama File "
-"RAW pada saat snapshot diambil. Yang terakhir ini dirujuk ke seluruh dokumen "
-"ini sebagai RAW + JPEG. Jika Anda mengimpor pasangan RAW + JPEG, Shotwell "
-"akan membuat mereka berpasangan dan memperlakukannya sebagai satu item di "
-"perpustakaan Anda."
+"Karena foto RAW biasanya tidak dapat ditampilkan secara langsung, tetapi "
+"harus terlebih dahulu dikembangkan - yaitu, informasi tambahan mereka "
+"ditafsirkan dan disiapkan untuk ditampilkan - kebanyakan kamera akan "
+"menanamkan JPEG dalam berkas format RAW, atau menghasilkan JPEG bersama "
+"berkas RAW pada saat snapshot diambil. Yang terakhir ini dirujuk ke seluruh "
+"dokumen ini sebagai RAW+JPEG. Jika Anda mengimpor pasangan RAW+JPEG, "
+"Shotwell akan membuat mereka berpasangan dan memperlakukannya sebagai satu "
+"butir di perpustakaan Anda."
 
 #. (itstool) path: page/p
 #: C/raw.page:27
-#, fuzzy
 msgid ""
 "When you import a RAW file, you can choose to either use the camera's "
 "internally-developed JPEG or Shotwell's by selecting <guiseq><gui>Photos</"
 "gui><gui>Developer</gui></guiseq> in the menus."
 msgstr ""
-"Ketika mengimpor file RAW, Anda dapat memilih untuk menggunakan JPEG atau "
-"Shotwell yang dikembangkan secara internal oleh kamera dengan memilih "
-"<guiseq> <gui></gui><gui>pengembang</gui> foto</guiseq> di menu."
+"Ketika mengimpor berkas RAW, Anda dapat memilih untuk menggunakan JPEG yang "
+"dikembangkan secara internal oleh kamera atau dari Shotwell dengan memilih "
+"<guiseq><gui>Foto</gui><gui>Pengembang</gui></guiseq> di menu."
 
 #. (itstool) path: note/p
 #: C/raw.page:33
-#, fuzzy
 msgid ""
 "Changing between developers will cause all edits made to a photograph to be "
 "discarded."
 msgstr ""
-"Mengubah antara pengembang akan menyebabkan semua suntingan yang dibuat pada "
+"Berubah antara pengembang akan menyebabkan semua suntingan yang dibuat pada "
 "foto yang akan dibuang."
 
 #. (itstool) path: page/p
@@ -2989,7 +2876,6 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/running.page:14
-#, fuzzy
 msgid "Running Shotwell"
 msgstr "Menjalankan Shotwell"
 
@@ -3010,8 +2896,8 @@ msgid ""
 "Shotwell may also be executed automatically when a camera is plugged in to "
 "your computer. To check that your system is set up to run Shotwell when a "
 "camera is detected, go to <guiseq><gui>Edit</gui><gui>Preferences</gui></"
-"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
-"gui> tab.  You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
+"guiseq> in any Nautilus (file browser) window and choose the <gui>Media</"
+"gui> tab. You'll see a dropdown box entitled <gui>Photos:</gui> which lets "
 "you choose Shotwell as your photo handling application."
 msgstr ""
 "Shotwell juga dapat dijalankan secara otomatis ketika kamera dicolokkan ke "
@@ -3041,20 +2927,18 @@ msgstr "Setel latar belakang desktop Anda ke satu foto atau ke slideshow foto."
 
 #. (itstool) path: page/title
 #: C/share-background.page:12
-#, fuzzy
 msgid "Set a desktop background or slideshow"
-msgstr "Mengatur latar belakang desktop atau slideshow"
+msgstr "Mengatur latar belakang desktop atau pertunjukan salindia"
 
 #. (itstool) path: page/p
 #: C/share-background.page:14
-#, fuzzy
 msgid ""
 "To set a single photo as your desktop background, select the photo and "
 "choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>."
 msgstr ""
 "Untuk mengatur satu foto sebagai latar belakang desktop Anda, pilih foto dan "
-"pilih <guiseq> <gui>file</gui>yang<gui>ditetapkan sebagai latar belakang "
-"desktop</gui></guiseq>."
+"pilih <guiseq><gui>Berkas</gui><gui>Tetapkan sebagai Latar Belakang Desktop</"
+"gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/share-background.page:16
@@ -3083,7 +2967,6 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/share-export.page:12
-#, fuzzy
 msgid "Exporting photos"
 msgstr "Mengekspor foto"
 
@@ -3117,7 +3000,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-export.page:24
-#, fuzzy
 msgid "A format for export."
 msgstr "Format untuk ekspor."
 
@@ -3160,10 +3042,8 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/share-export.page:37
-#, fuzzy
 msgid "The image quality for exporting (Low, Medium, High, or Maximum)."
-msgstr ""
-"Kualitas gambar untuk mengekspor (rendah, sedang, tinggi, atau maksimum)."
+msgstr "Kualitas gambar untuk ekspor (Rendah, Sedang, Tinggi, atau Maksimum)."
 
 #. (itstool) path: item/p
 #: C/share-export.page:38
@@ -3177,41 +3057,35 @@ msgstr ""
 
 #. (itstool) path: item/title
 #: C/share-export.page:40
-#, fuzzy
 msgid "Original size"
 msgstr "Ukuran asli"
 
 #. (itstool) path: item/p
 #: C/share-export.page:40
-#, fuzzy
 msgid "Image will be exported without any scaling applied"
-msgstr "Gambar akan diekspor tanpa skala yang diterapkan"
+msgstr "Gambar akan diekspor tanpa menerapkan skala"
 
 #. (itstool) path: item/title
 #: C/share-export.page:41
-#, fuzzy
 msgid "Longest edge"
 msgstr "Tepi terpanjang"
 
 #. (itstool) path: item/p
 #: C/share-export.page:41
-#, fuzzy
 msgid ""
 "Image will be exported by having its longest edge scaled to <gui>Pixels</"
 "gui> and the other according to the aspect ratio"
 msgstr ""
-"Gambar akan diekspor dengan memiliki tepi terpanjang yang diskalakan menjadi "
-"<gui>pixels</gui> dan yang lainnya sesuai dengan rasio aspek"
+"Gambar akan diekspor dengan tepi terpanjang diskalakan menjadi <gui>Piksel</"
+"gui> dan yang lainnya sesuai dengan rasio aspek"
 
 #. (itstool) path: item/title
 #: C/share-export.page:42
-#, fuzzy
 msgid "Width"
 msgstr "Lebar"
 
 #. (itstool) path: item/p
 #: C/share-export.page:42
-#, fuzzy
 msgid ""
 "The image width will have its width scaled to the given pixel size and its "
 "height according to the aspect ratio. This is equivalent to <gui>Longest "
@@ -3219,17 +3093,15 @@ msgid ""
 msgstr ""
 "Lebar gambar akan memiliki lebar yang disesuaikan dengan ukuran piksel yang "
 "diberikan dan ketinggiannya sesuai dengan rasio aspek. Ini setara dengan "
-"<gui>tepi terpanjang</gui> untuk gambar lanskap."
+"<gui>Tepi Terpanjang</gui> untuk gambar lanskap."
 
 #. (itstool) path: item/title
 #: C/share-export.page:43
-#, fuzzy
 msgid "Height"
 msgstr "Tinggi"
 
 #. (itstool) path: item/p
 #: C/share-export.page:43
-#, fuzzy
 msgid ""
 "The image height will have its height scaled to the given pixel size and its "
 "width according to the aspect ratio. This is equivalent to <gui>Longest "
@@ -3237,40 +3109,37 @@ msgid ""
 msgstr ""
 "Tinggi gambar akan memiliki tinggi yang ditingkatkan ke ukuran piksel yang "
 "diberikan dan lebarnya sesuai dengan rasio aspek. Ini setara dengan "
-"<gui>tepi terpanjang</gui> untuk gambar potret."
+"<gui>Tepi Terpanjang</gui> untuk gambar potret."
 
 #. (itstool) path: item/p
 #: C/share-export.page:46
-#, fuzzy
 msgid ""
 "The option whether you like to export metadatas such as tags or ratings. "
 "This can help to save your privacy if you have geolocation tags or tags "
 "which shouldn't be seen by anyone."
 msgstr ""
-"Pilihan Apakah Anda ingin mengekspor metadatas seperti Tag atau peringkat. "
-"Ini dapat membantu untuk menyimpan privasi Anda jika Anda memiliki tag "
-"geolokasi atau tag yang tidak boleh dilihat oleh siapa pun."
+"Ospi apakah Anda ingin mengekspor metadata seperti tag atau peringkat. Ini "
+"dapat membantu untuk menyimpan privasi Anda jika Anda memiliki tag geolokasi "
+"atau tag yang tidak boleh dilihat oleh siapa pun."
 
 #. (itstool) path: page/p
 #: C/share-export.page:49
-#, fuzzy
 msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
 msgstr ""
-"Jika dipilih, Shotwell akan menulis tag, judul, dan metadata lainnya ke file "
-"baru."
+"Jika dipilih, Shotwell akan menulis tag, judul, dan metadata lainnya ke "
+"berkas baru."
 
 #. (itstool) path: info/desc
 #: C/share-print.page:7
-#, fuzzy
 msgid ""
 "Click <guiseq><gui>File</gui><gui>Print...</gui></guiseq>. For more printing "
 "options, select the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog."
 msgstr ""
-"Klik <guiseq> <gui>file</gui><gui>Print...</gui></guiseq>. Untuk opsi "
-"pencetakan lainnya, pilih tab <gui>penyiapan halaman</gui> dalam dialog "
-"<gui>cetak</gui> ."
+"Klik <guiseq><gui>Berkas</gui><gui>Cetak...</gui></guiseq>. Untuk opsi "
+"pencetakan lainnya, pilih tab <gui>Penyiapan Halaman</gui> dalam dialog "
+"<gui>Cetak</gui>."
 
 #. (itstool) path: page/title
 #: C/share-print.page:12
@@ -3279,17 +3148,15 @@ msgstr "Pencetakan"
 
 #. (itstool) path: page/p
 #: C/share-print.page:14
-#, fuzzy
 msgid ""
 "To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</"
 "gui></guiseq>."
 msgstr ""
-"Untuk mencetak foto, pilih dan pilih <guiseq> <gui>file</gui><gui>Print...</"
-"gui></guiseq>."
+"Untuk mencetak foto, pilih itu dan pilih <guiseq><gui>Berkas</"
+"gui><gui>Cetak...</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:16
-#, fuzzy
 msgid ""
 "Shotwell can also print multiple images in one page; to do this, select "
 "multiple images, choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq>, "
@@ -3298,49 +3165,45 @@ msgid ""
 "options under <gui>Autosize</gui>."
 msgstr ""
 "Shotwell juga dapat mencetak beberapa gambar dalam satu halaman; untuk "
-"melakukannya, pilih beberapa gambar, pilih cetak <guiseq> <gui>berkas</"
-"gui><gui>...</gui></guiseq>, dan di dialog <gui>cetak</gui> , pilih tab "
-"<gui>setelan gambar</gui> . Dalam <gui>pengaturan gambar</gui>, pilih salah "
-"satu pilihan Multiple-Image-per-Page di bawah <gui>autosize</gui>."
+"melakukannya, pilih beberapa gambar, pilih <guiseq><gui>Berkas</"
+"gui><gui>Cetak...</gui></guiseq>, dan di dialog <gui>Cetak</gui>, pilih tab "
+"<gui>Pengaturan Gambar</gui>. Dalam <gui>Pengaturan Gambar</gui>, pilih "
+"salah satu opsi beberapa gambar per halaman di bawah <gui>Ukuran Otomaris</"
+"gui>."
 
 #. (itstool) path: page/p
 #: C/share-print.page:23
-#, fuzzy
 msgid ""
 "If you would like to set formatting, paper size, and orientation options, "
 "choose the <gui>Page Setup</gui> tab in the <gui>Print</gui> dialog prior to "
 "printing."
 msgstr ""
 "Jika Anda ingin mengatur format, ukuran kertas, dan pilihan orientasi, pilih "
-"tab <gui>pengesetan halaman (Page setup</gui> ) pada dialog <gui>cetak</gui> "
-"sebelum mencetak."
+"tab <gui>Penyiapan Halaman</gui> pada dialog <gui>Cetak</gui> sebelum "
+"mencetak."
 
 #. (itstool) path: info/desc
 #: C/share-send.page:7
-#, fuzzy
 msgid "Send photos via email, instant messaging or in other ways."
-msgstr "Kirim foto melalui email, pesan instan atau dengan cara lain."
+msgstr "Kirim foto melalui surel, pesan instan, atau dengan cara lain."
 
 #. (itstool) path: page/title
 #: C/share-send.page:12
-#, fuzzy
 msgid "Sending photos"
 msgstr "Mengirim foto"
 
 #. (itstool) path: page/p
 #: C/share-send.page:14
-#, fuzzy
 msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email, instant messaging or in other ways."
 msgstr ""
-"Shotwell dapat mengirim foto dengan menggunakan desktop GNOME Send to "
-"mekanisme, yang memungkinkan Anda mengirim foto melalui email, pesan instan "
+"Shotwell dapat mengirim foto dengan menggunakan mekanisme desktop GNOME "
+"Kirim Ke, yang memungkinkan Anda mengirim foto melalui surel, pesan instan, "
 "atau dengan cara lain."
 
 #. (itstool) path: page/p
 #: C/share-send.page:16
-#, fuzzy
 msgid ""
 "To send photos, select them in Shotwell and choose <guiseq><gui>File</"
 "gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
@@ -3349,24 +3212,22 @@ msgid ""
 "email or instant messaging) and a destination. You can optionally choose to "
 "send the files in a compressed format."
 msgstr ""
-"Untuk mengirim foto, pilih mereka di Shotwell dan pilih <guiseq> <gui>file</"
-"gui><gui>Send to...</gui></guiseq>, atau klik kanan foto dan pilih "
-"<gui>kirim ke...</gui> dari menu konteks. Kotak dialog <gui>kirim ke</gui> "
-"akan muncul yang memungkinkan Anda memilih mekanisme untuk mengirim file "
-"(seperti email atau pesan instan) dan tujuan. Anda dapat memilih untuk "
-"mengirim file dalam format terkompresi."
+"Untuk mengirim foto, pilih mereka di Shotwell dan pilih <guiseq><gui>Berkas</"
+"gui><gui>Kirim Ke...</gui></guiseq>, atau klik kanan foto dan pilih "
+"<gui>Kirim Ke...</gui> dari menu konteks. Kotak dialog <gui>Kirim Ke</gui> "
+"akan muncul yang memungkinkan Anda memilih mekanisme untuk mengirim berkas "
+"(seperti surel atau pesan instan) dan tujuan. Anda dapat memilih untuk "
+"mengirim berkas dalam format terkompresi."
 
 #. (itstool) path: info/desc
 #: C/share-slideshow.page:7
-#, fuzzy
 msgid "Watch a slideshow of your photos."
-msgstr "Tonton tayangan slide foto Anda."
+msgstr "Menonton pertunjukan salindia foto Anda."
 
 #. (itstool) path: page/title
 #: C/share-slideshow.page:12
-#, fuzzy
 msgid "Slideshows"
-msgstr "Tayangan slide"
+msgstr "Pertunjukan Salindia"
 
 #. (itstool) path: page/p
 #: C/share-slideshow.page:14
@@ -3382,29 +3243,25 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-slideshow.page:16
-#, fuzzy
 msgid "You can change some settings in a running slideshow:"
 msgstr ""
-"Anda dapat mengubah beberapa pengaturan dalam tayangan slide yang sedang "
-"berjalan:"
+"Anda dapat mengubah beberapa pengaturan dalam pertunjukan salindia yang "
+"sedang berjalan:"
 
 #. (itstool) path: item/p
 #: C/share-slideshow.page:19
-#, fuzzy
 msgid "The duration how long an image should be shown: 1 - 30 seconds"
-msgstr "Durasi berapa lama gambar akan ditampilkan: 1-30 detik"
+msgstr "Durasi berapa lama gambar akan ditampilkan: 1 - 30 detik"
 
 #. (itstool) path: item/p
 #: C/share-slideshow.page:20
-#, fuzzy
 msgid "You can select different transition effects."
 msgstr "Anda dapat memilih efek transisi yang berbeda."
 
 #. (itstool) path: item/p
 #: C/share-slideshow.page:21
-#, fuzzy
 msgid "The time for each transition effect: 0.1 - 1.0 seconds"
-msgstr "Waktu untuk setiap efek transisi: 0,1-1,0 detik"
+msgstr "Waktu untuk setiap efek transisi: 0,1 - 1,0 detik"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
@@ -3414,9 +3271,8 @@ msgstr "Publikasikan foto ke Flickr, Google foto, atau situs lainnya."
 
 #. (itstool) path: page/title
 #: C/share-upload.page:12
-#, fuzzy
 msgid "Publishing to the Web"
-msgstr "Penerbitan ke web"
+msgstr "Penerbitan ke Web"
 
 #. (itstool) path: page/p
 #: C/share-upload.page:14
@@ -3448,15 +3304,13 @@ msgstr "<link href=\"https://photos.google.com\">Google foto"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
-#, fuzzy
 msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"https://youtube.com\">YouTube (hanya video)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (hanya video)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
-#, fuzzy
 msgid "<link href=\"https://tumblr.com\">Tumblr</link> (videos only)"
-msgstr "<link href=\"https://tumblr.com\">Tumblr (hanya video)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (hanya video)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:23
@@ -3609,7 +3463,6 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/view-displaying.page:23
-#, fuzzy
 msgid "Viewing videos"
 msgstr "Melihat video"
 
@@ -3683,9 +3536,8 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/view-sidebar.page:20
-#, fuzzy
 msgid "The sidebar"
-msgstr "Klik <gui>Pencetak</gui> di panel sisi untuk membuka panel."
+msgstr "Bilah sisi"
 
 #. (itstool) path: page/p
 #: C/view-sidebar.page:22
