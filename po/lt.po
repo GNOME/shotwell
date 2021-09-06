@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-10-04 12:27+0000\n"
-"PO-Revision-Date: 2021-03-15 23:16+0200\n"
+"POT-Creation-Date: 2021-09-05 07:36+0000\n"
+"PO-Revision-Date: 2021-09-06 14:23+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"X-Generator: Gtranslator 40.0\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 msgid "authentication token"
@@ -63,7 +63,6 @@ msgstr ""
 #: data/gsettings/org.gnome.shotwell.gschema.xml:439
 #: data/gsettings/org.gnome.shotwell.gschema.xml:497
 #: data/gsettings/org.gnome.shotwell.gschema.xml:559
-#| msgid "User _name"
 msgid "username"
 msgstr "naudotojo vardas"
 
@@ -113,7 +112,6 @@ msgstr "Naudotojo leksema, jei įsiminta"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:64
 #: data/gsettings/org.gnome.shotwell.gschema.xml:515
-#| msgid "within category:"
 msgid "last category"
 msgstr "paskutinė kategorija"
 
@@ -123,7 +121,6 @@ msgstr "Paskutinė pasirinkta Rajce kategorija"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:70
 #: data/gsettings/org.gnome.shotwell.gschema.xml:527
-#| msgid "Photo size:"
 msgid "last photo size"
 msgstr "paskutinės nuotraukos dydis"
 
@@ -136,7 +133,6 @@ msgstr ""
 "Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:76
-#| msgid "_Remember"
 msgid "remember"
 msgstr "atsiminti"
 
@@ -145,7 +141,6 @@ msgid "If true, remember last login"
 msgstr "Jei teigiama, įsiminti paskutinį prisijungimą"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:82
-#| msgid "_Hide album"
 msgid "hide album"
 msgstr "slėpti albumą"
 
@@ -154,7 +149,6 @@ msgid "If true, hide the newly created Rajce album"
 msgstr "Jei teigiama, slėpti naują sukurtą Rajce albumą"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
-#| msgid "Open target _album in browser"
 msgid "open album in web browser"
 msgstr "atverti albumą naršyklėje"
 
@@ -186,7 +180,6 @@ msgid "True if the basic properties pane is to be displayed, false otherwise"
 msgstr "Teigiama, jei pagrindinių savybių skydelis turi būti rodomas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:29
-#| msgid "Display extended information for the selection"
 msgid "display extended properties"
 msgstr "rodyti papildomas savybes"
 
@@ -196,7 +189,6 @@ msgid ""
 msgstr "Teigiama, jei papildomų savybių langas turi būti rodomas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:35
-#| msgid "Display the sidebar"
 msgid "display sidebar"
 msgstr "rodyti šoninę juostą"
 
@@ -205,7 +197,6 @@ msgid "True if the sidebar is to be displayed, false otherwise"
 msgstr "Teigiama, jei šoninė juosta turi būti rodoma"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:41
-#| msgid "Display the sidebar"
 msgid "display toolbar"
 msgstr "rodyti įrankinę"
 
@@ -222,7 +213,6 @@ msgid "True if the map widget is to be displayed, false otherwise"
 msgstr "Teigiama, jei žemėlapio valdiklis turi būti rodomas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:53
-#| msgid "Display the search bar"
 msgid "display search bar"
 msgstr "rodyti paieškos juostą"
 
@@ -231,7 +221,6 @@ msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
 msgstr "Teigiama, jei paieškos ir filtravimo įrankinė turi būti rodoma"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:59
-#| msgid "Display each photo's tags"
 msgid "display photo titles"
 msgstr "rodyti nuotraukų pavadinimus"
 
@@ -244,7 +233,6 @@ msgstr ""
 "kolekcijų rodiniuose"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:65
-#| msgid "Display each photo's tags"
 msgid "display photo comments"
 msgstr "rodyti nuotraukų komentarus"
 
@@ -257,7 +245,6 @@ msgstr ""
 "kolekcijų rodiniuose"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:71
-#| msgid "Edit Event Comment"
 msgid "display event comments"
 msgstr "rodyti įvykių komentarus"
 
@@ -270,7 +257,6 @@ msgstr ""
 "rodiniuose"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:77
-#| msgid "Display each photo's tags"
 msgid "display photo tags"
 msgstr "rodyti nuotraukų žymas"
 
@@ -283,7 +269,6 @@ msgstr ""
 "rodiniuose"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:83
-#| msgid "Display each photo's rating"
 msgid "display photo ratings"
 msgstr "rodyti nuotraukų įvertinimus"
 
@@ -308,7 +293,6 @@ msgstr ""
 "trys arba geriau, 6: keturi arba geriau, 7: penki arba geriau"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:95
-#| msgid "Sort _Descending"
 msgid "sort events ascending"
 msgstr "rikiuoti įvykius didėjimo tvarka"
 
@@ -319,7 +303,6 @@ msgstr ""
 "mažėjančia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:101
-#| msgid "Sort photos in an ascending order"
 msgid "sort library photos ascending"
 msgstr "rikiuoti biblioteką didėjimo tvarka"
 
@@ -341,7 +324,6 @@ msgstr ""
 "rodiniuose"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:113
-#| msgid "Sort photos in an ascending order"
 msgid "sort event photos ascending"
 msgstr "rikiuoti įvykių nuotraukas didėjimo tvarka"
 
@@ -352,7 +334,6 @@ msgstr ""
 "neigiama, jei mažėjančia"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:119
-#| msgid "Sort photos by title"
 msgid "sort event photos criteria"
 msgstr "įvykių nuotraukų rikiavimo kriterijus"
 
@@ -385,7 +366,6 @@ msgstr ""
 "išlaikytas. Neigiama, jei visoms nuotraukoms nustatomas tas pats laikas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:137
-#| msgid "_Modify original photo files"
 msgid "modify original photo files"
 msgstr "keisti originalius nuotraukų failus"
 
@@ -410,7 +390,6 @@ msgstr ""
 "Neigiama, jei jo nereikia rodyti"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:149
-#| msgid "Library Location"
 msgid "sidebar position"
 msgstr "šoninės juostos padėtis"
 
@@ -427,7 +406,6 @@ msgid "The scale of photo thumbnails, ranging from 72 to 360"
 msgstr "Nuotraukų miniatiūrų mastelis nuo 72 iki 360"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:161
-#| msgid "Pin the toolbar open"
 msgid "pin toolbar state"
 msgstr "prisegti įrankinės būseną"
 
@@ -474,7 +452,6 @@ msgstr ""
 "importavimo pulapyje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
-#| msgid "_Delay:"
 msgid "delay"
 msgstr "delsa"
 
@@ -483,7 +460,6 @@ msgid "Delay (in seconds) between photos in the slideshow"
 msgstr "Delsa (sekundėmis) tarp nuotraukų skaidrių rodinyje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:199
-#| msgid "Transition d_elay:"
 msgid "transition delay"
 msgstr "perėjimo delsa"
 
@@ -494,7 +470,6 @@ msgstr ""
 "Laikas (sekundėmis), kiek trunka perėjimai tarp nuotraukų skaidrių rodinyje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:205
-#| msgid "_Transition effect:"
 msgid "transition effect id"
 msgstr "perėjimo efekto id"
 
@@ -507,7 +482,6 @@ msgstr ""
 "pavadinimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:211
-#| msgid "Show t_itle"
 msgid "Show title"
 msgstr "Rodyti pavadinimą"
 
@@ -576,7 +550,6 @@ msgstr ""
 "programos lange"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:263
-#| msgid "Import to Library"
 msgid "import directory"
 msgstr "importo katalogas"
 
@@ -585,7 +558,6 @@ msgid "Directory in which imported photo files are placed"
 msgstr "Katalogas, kuriama saugomi importuojami nuotraukų failai"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:269
-#| msgid "_Watch library directory for new files"
 msgid "watch library directory for new files"
 msgstr "stebėti naujus failus bibliotekos aplanke"
 
@@ -597,7 +569,6 @@ msgstr ""
 "importuojami"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:275
-#| msgid "Writing metadata to files..."
 msgid "write metadata to master files"
 msgstr "įrašyti meta duomenis į pagrindinius failus"
 
@@ -622,7 +593,6 @@ msgstr ""
 "pavadinimus į mažąsias raides"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:287
-#| msgid "_Directory structure:"
 msgid "directory pattern"
 msgstr "aplankų šablonas"
 
@@ -647,7 +617,6 @@ msgstr ""
 "nuotraukų aplankų pavadinimams importuojant"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
-#| msgid "RAW Developer"
 msgid "RAW developer default"
 msgstr "RAW kūrėjo numatytieji"
 
@@ -690,17 +659,14 @@ msgstr ""
 "apkirpimo mastelio aukščio dalį"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:325
-#| msgid "E_xternal photo editor:"
 msgid "external photo editor"
 msgstr "išorinis nuotraukų redaktorius"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:326
-#| msgid "E_xternal photo editor:"
 msgid "External application used to edit photos"
 msgstr "Išorinė programa nuotraukų redagavimui"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:331
-#| msgid "External _RAW editor:"
 msgid "external raw editor"
 msgstr "išorinė RAW rengyklė"
 
@@ -714,7 +680,6 @@ msgid "Setting in export dialog: how to trim images"
 msgstr "Nuostata eksporto dialoge: kaip apkirpti paveikslėlius"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:376
-#| msgid "Export metadata"
 msgid "export metadata"
 msgstr "eksportuoti metaduomenis"
 
@@ -755,7 +720,6 @@ msgid "Setting in export dialog: maximal size of image"
 msgstr "Nuostata eksporto dialoge: didžiausias paveikslėlio dydis"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:408
-#| msgid "Core Publishing Services"
 msgid "last used publishing service"
 msgstr "paskutinė naudota viešinimo tarnyba"
 
@@ -768,7 +732,6 @@ msgstr ""
 "nuotraukos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:414
-#| msgid "Core Publishing Services"
 msgid "default publishing service"
 msgstr "numatytoji viešinimo tarnyba"
 
@@ -862,7 +825,6 @@ msgid "Piwigo username, if logged in"
 msgstr "Piwigo naudotojo vardas, jei prisijungta"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:503
-#| msgid "_Password"
 msgid "password"
 msgstr "slaptažodis"
 
@@ -871,7 +833,6 @@ msgid "Piwigo password, if logged in"
 msgstr "Piwigo slaptažodis, jei prisijungta"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:509
-#| msgid "_Remember Password"
 msgid "remember password"
 msgstr "atsiminti slaptažodį"
 
@@ -906,7 +867,6 @@ msgid ""
 msgstr "Ar prieš įkeliant paveikslėlius į Piwigo pašalinti jų metaduomenis"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:539
-#| msgid "_If a title is set and comment unset, use title as comment"
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
@@ -946,17 +906,14 @@ msgstr ""
 "nebūtų Piwigo serveryje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:560
-#| msgid "Gallery3 publishing module"
 msgid "Gallery3 username"
 msgstr "Gallery3 naudotojo vardas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:565
-#| msgid "API _Key:"
 msgid "API key"
 msgstr "API raktas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:566
-#| msgid "_Gallery3 URL:"
 msgid "Gallery3 API key"
 msgstr "Gallery3 API raktas"
 
@@ -965,7 +922,6 @@ msgid "URL"
 msgstr "URL"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:572
-#| msgid "_Gallery3 URL:"
 msgid "Gallery3 site URL"
 msgstr "Gallery3 tinklalapio URL"
 
@@ -1004,7 +960,6 @@ msgstr ""
 "naudotojui, jei yra"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:611
-#| msgid "Core Data Import Services"
 msgid "last used import service"
 msgstr "paskutinė naudota importo tarnyba"
 
@@ -1035,7 +990,6 @@ msgid ""
 msgstr "Skaitinis kodas, aprašantis, kaip išdėstyti nuotraukas spausdinant"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:633
-#| msgid "_Contents"
 msgid "content ppi"
 msgstr "turinio ppi"
 
@@ -1052,7 +1006,6 @@ msgid "The width of the printed emulsion on the page when printing"
 msgstr "Spausdinamos emulsijos plotis puslapyje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:645
-#| msgid "Rotate Right"
 msgid "content height"
 msgstr "turinio aukštis"
 
@@ -1061,7 +1014,6 @@ msgid "The height of the printed emulsion on the page when printing"
 msgstr "Spausdinamos emulsijos aukštis puslapyje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:651
-#| msgid "_Contents"
 msgid "content units"
 msgstr "turinio vienetai"
 
@@ -1074,7 +1026,6 @@ msgstr ""
 "centimetrus) spausdinant"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:657
-#| msgid "2 images per page"
 msgid "images per page code"
 msgstr "paveikslėlių puslapyje"
 
@@ -1096,7 +1047,6 @@ msgid ""
 msgstr "Dabartinio spausdinimo dydžio indeksas standartinių dydžių sąraše"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:669
-#| msgid "_Match photo aspect ratio"
 msgid "match aspect ratio"
 msgstr "išlaikyti proporcijas"
 
@@ -1109,7 +1059,6 @@ msgstr ""
 "nuotraukos proporcijas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:675
-#| msgid "Print image _title"
 msgid "print titles"
 msgstr "spausdinti pavadinimus"
 
@@ -1130,7 +1079,6 @@ msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Naudotino šrifto pavadinimas spausdinant nuotraukų pavadinimus"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:693
-#| msgid "Unable to publish"
 msgid "enable facebook publishing plugin"
 msgstr "įjungti skelbimo facebook įskiepį"
 
@@ -1155,7 +1103,6 @@ msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "Teigiama, jei skelbimo Google Photos įskiepis yra įjungtas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:711
-#| msgid "Unable to publish"
 msgid "enable youtube publishing plugin"
 msgstr "įjungti youtube skelbimo įskiepį"
 
@@ -1164,7 +1111,6 @@ msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Teigiama, jei skelbimo YouTube įskiepis yra įjungtas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:717
-#| msgid "Unable to publish"
 msgid "enable piwigo publishing plugin"
 msgstr "įjungti piwigo skelbimo įskiepį"
 
@@ -1181,7 +1127,6 @@ msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr "Teigiama, jei skelbimo Yandex.Fotki įskiepis yra įjungtas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:729
-#| msgid "Unable to publish"
 msgid "enable tumblr publishing plugin"
 msgstr "įjungti tumblr skelbimo įskiepį"
 
@@ -1190,7 +1135,6 @@ msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "Teigiama, jei skelbimo Tumblr įskiepis yra įjungtas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:735
-#| msgid "Gallery3 publishing module"
 msgid "enable rajce publishing plugin"
 msgstr "įjungti rajce skelbimo įskiepį"
 
@@ -1199,7 +1143,6 @@ msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr "Teigiama, jei skelbimo Rajce įskiepis yra įjungtas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:741
-#| msgid "Gallery3 publishing module"
 msgid "enable gallery3 publishing plugin"
 msgstr "įjungti gallery3 skelbimo įskiepį"
 
@@ -1216,7 +1159,6 @@ msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "Teigiama, jei F-Spot importo įskiepis yra įjungtas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:753
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow crumble transition"
 msgstr "įjungti skaidrių demonstracijos drebėjimo perėjimą"
 
@@ -1226,7 +1168,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos drebėjimo perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:759
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow fade transition"
 msgstr "įjungti skaidrių demonstracijos išnykimo perėjimą"
 
@@ -1236,7 +1177,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos išnykimo perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:765
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow slide transition"
 msgstr "įjungti skaidrių demonstracijos slinkimo perėjimą"
 
@@ -1246,7 +1186,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos slinkimo perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:771
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow clock transition"
 msgstr "įjungti skaidrių demonstracijos laikrodžio perėjimą"
 
@@ -1256,7 +1195,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos laikrodžio perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:777
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circle transition"
 msgstr "įjungti skaidrių demonstracijos skritulio perėjimą"
 
@@ -1266,7 +1204,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos skritulio perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:783
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow circles transition"
 msgstr "įjungti skaidrių demonstracijos skritulių perėjimą"
 
@@ -1276,7 +1213,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos skritulių perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:789
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow blinds transition"
 msgstr "įjungti skaidrių demonstracijos žaliuzių perėjimą"
 
@@ -1286,7 +1222,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos žaliuzių perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:795
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow squares transition"
 msgstr "įjungti skaidrių demonstracijos kvadratų perėjimą"
 
@@ -1296,7 +1231,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos kvadratų perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:801
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow stripes transition"
 msgstr "įjungti skaidrių demonstracijos juostelių perėjimą"
 
@@ -1306,7 +1240,6 @@ msgid ""
 msgstr "Teigiama, jei įjungtas skaidrių demonstracijos juostų perėjimas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:807
-#| msgid "Core Slideshow Transitions"
 msgid "enable slideshow chess transition"
 msgstr "įjungti skaidrių demonstracijos šachmatinį perėjimą"
 
@@ -1319,10 +1252,10 @@ msgstr "Teigiama, jei įjungtas skaidrių demonstracijos šachmatų perėjimas"
 #: data/org.gnome.Shotwell.appdata.xml.in:8
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
 #: data/ui/event.ui:361 data/ui/event.ui:529 data/ui/faces.ui:356
-#: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:354
+#: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:307
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
+#: src/photos/RawSupport.vala:311
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1348,19 +1281,21 @@ msgstr ""
 "klaidas."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
+#| msgid ""
+#| "When ready, Shotwell can upload your photos to various web sites, such as "
+#| "Facebook, Flickr, Google Photos, and more."
 msgid ""
-"When ready, Shotwell can upload your photos to various web sites, such as "
-"Facebook, Flickr, Google Photos, and more."
+"When ready, Shotwell can upload your photos to various web services, such as "
+"Flickr, Google Photos, and more."
 msgstr ""
-"Kai pasirengusi, Shotwell gali įkelti jūsų nuotraukas į įvairius "
-"tinklalapius, tokius kaip Facebook, Flickr, Google Photos ir daug kitų."
+"Kai pasirengusi, Shotwell gali įkelti jūsų nuotraukas į įvairias "
+"internetines tarnybas, tokias kaip Flickr, Google Photos ir daug kitų."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
 msgstr "Shotwell palaiko JPEG, PNG, TIFF ir įvairius RAW failų formatus."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:53
-#| msgid "Set Developer"
 msgid "The Shotwell developers"
 msgstr "Shotwell kūrėjai"
 
@@ -1369,7 +1304,6 @@ msgid "Photo Manager"
 msgstr "Nuotraukų tvarkytuvė"
 
 #: data/org.gnome.Shotwell.desktop.in:6
-#| msgid "any photo"
 msgid "Organize your photos"
 msgstr "Tvarkykite savo nuotraukas"
 
@@ -1386,7 +1320,6 @@ msgstr ""
 "piwigo;"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
-#| msgid "Photo Viewer"
 msgid "Shotwell Viewer"
 msgstr "Shotwell žiūryklė"
 
@@ -1395,103 +1328,99 @@ msgid "Photo Viewer"
 msgstr "Paveikslėlių peržiūra"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
-#: data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:230
+#: data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:232
 #: src/CollectionPage.vala:119 src/Resources.vala:159
 msgid "_Enhance"
 msgstr "Pa_gerinti"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
-#: data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:257
+#: data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:259
 #: src/CollectionPage.vala:120 src/Resources.vala:187
 msgid "Re_vert to Original"
 msgstr "A_tstatyti originalią"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:412 data/ui/event.ui:463
-#: data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:382
+#: data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:384
 #: data/ui/tags.ui:395 src/Resources.vala:285
-#| msgid "Add Tags"
 msgid "Add _Tags…"
 msgstr "Pridė_ti žymų…"
 
 #: data/ui/collection.ui:24 data/ui/event.ui:417 data/ui/event.ui:468
 #: data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:387 data/ui/tags.ui:400 src/Resources.vala:357
-#| msgid "Modify Tags"
+#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:357
 msgid "Modif_y Tags…"
 msgstr "Keisti ž_ymas…"
 
 #: data/ui/collection.ui:33 data/ui/event.ui:286 data/ui/event.ui:477
 #: data/ui/faces.ui:281 data/ui/media.ui:286 data/ui/photo_context.ui:30
-#: data/ui/photo.ui:275 data/ui/tags.ui:286
+#: data/ui/photo.ui:277 data/ui/tags.ui:286
 msgid "Toggle _Flag"
 msgstr "Per_jungti žymą"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:291 data/ui/event.ui:483
 #: data/ui/faces.ui:286 data/ui/media.ui:291 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:280 data/ui/tags.ui:291 src/Resources.vala:219
+#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:219
 msgid "_Set Rating"
 msgstr "Į_vertinti"
 
 #: data/ui/collection.ui:62 data/ui/event.ui:319 data/ui/event.ui:506
 #: data/ui/faces.ui:314 data/ui/media.ui:319 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:308 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
 msgid "_Unrated"
 msgstr "_Neįvertinta"
 
 #: data/ui/collection.ui:66 data/ui/event.ui:324 data/ui/event.ui:510
 #: data/ui/faces.ui:319 data/ui/media.ui:324 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:313 data/ui/tags.ui:324 src/Resources.vala:235
+#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:235
 msgid "_Rejected"
 msgstr "_Atmesta"
 
 #: data/ui/collection.ui:72 data/ui/event.ui:331 data/ui/event.ui:516
 #: data/ui/faces.ui:326 data/ui/media.ui:331 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:320 data/ui/tags.ui:331 src/Resources.vala:223
+#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:223
 msgid "_Increase"
 msgstr "_Padidinti"
 
 #: data/ui/collection.ui:76 data/ui/event.ui:336 data/ui/event.ui:520
 #: data/ui/faces.ui:331 data/ui/media.ui:336 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:325 data/ui/tags.ui:336 src/Resources.vala:226
+#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:226
 msgid "_Decrease"
 msgstr "_Sumažinti"
 
 #: data/ui/collection.ui:82 data/ui/event.ui:358 data/ui/event.ui:526
 #: data/ui/faces.ui:353 data/ui/media.ui:358 data/ui/photo_context.ui:88
-#: data/ui/photo.ui:351 data/ui/tags.ui:358
+#: data/ui/photo.ui:353 data/ui/tags.ui:358
 msgid "_Developer"
 msgstr "_Kūrėjas"
 
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
-#: data/ui/photo.ui:359 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:310
+#: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
 msgid "Camera"
 msgstr "Fotoaparatas"
 
 #: data/ui/collection.ui:98 data/ui/event.ui:345 data/ui/event.ui:542
 #: data/ui/faces.ui:340 data/ui/media.ui:345 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:334 data/ui/tags.ui:345 src/Resources.vala:271
-#| msgid "Edit Title"
+#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:271
 msgid "Edit _Title…"
 msgstr "_Taisyti pavadinimą…"
 
 #: data/ui/collection.ui:103 data/ui/events_directory.ui:149
 #: data/ui/events_directory.ui:191 data/ui/event.ui:350 data/ui/event.ui:403
 #: data/ui/event.ui:547 data/ui/faces.ui:345 data/ui/media.ui:350
-#: data/ui/photo_context.ui:110 data/ui/photo.ui:339 data/ui/tags.ui:350
+#: data/ui/photo_context.ui:110 data/ui/photo.ui:341 data/ui/tags.ui:350
 #: src/Resources.vala:275
-#| msgid "Edit Comment"
 msgid "Edit _Comment…"
 msgstr "Keisti _komentarą…"
 
 #: data/ui/collection.ui:108 data/ui/event.ui:552 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:368 src/CollectionPage.vala:143 src/Resources.vala:292
+#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:292
 msgid "Open With E_xternal Editor"
 msgstr "Atverti išoriniu _redaktoriumi"
 
 #: data/ui/collection.ui:113 data/ui/event.ui:557 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:373 src/CollectionPage.vala:146 src/Resources.vala:294
+#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:294
 msgid "Open With RA_W Editor"
 msgstr "Atverti RA_W rengyklėje"
 
@@ -1503,22 +1432,21 @@ msgstr "Rodyti šios nuotraukos į_vykį"
 
 #: data/ui/collection.ui:123 data/ui/direct_context.ui:18 data/ui/direct.ui:30
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
-#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:35
+#: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
 #: src/Resources.vala:785
 msgid "Show in File Mana_ger"
 msgstr "Rodyti failų _tvarkytuvėje"
 
 #: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
-#: data/ui/event.ui:572 data/ui/photo.ui:28 src/CollectionPage.vala:83
+#: data/ui/event.ui:572 data/ui/photo.ui:30 src/CollectionPage.vala:83
 #: src/Resources.vala:296
-#| msgid "Send To"
 msgid "Send _To…"
 msgstr "_Kam siųsti…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:82 data/ui/tags.ui:79 src/Resources.vala:794
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:794
 msgid "_Move to Trash"
 msgstr "_Perkelti į šiukšlinę"
 
@@ -1531,7 +1459,6 @@ msgid "Rotate"
 msgstr "Pasukti"
 
 #: data/ui/collection.ui:164 src/Resources.vala:161
-#| msgid "Automatically improve the photo's appearance"
 msgid "Automatically improve the photo’s appearance"
 msgstr "Automatiškai pagerinti nuotraukos vaizdą"
 
@@ -1572,129 +1499,127 @@ msgid "_Save"
 msgstr "Į_rašyti"
 
 #: data/ui/direct.ui:13
-#| msgid "Save _As"
 msgid "Save _As…"
 msgstr "Įrašyti k_aip…"
 
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
 #: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
-#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:48
+#: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
 #: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:144
 msgid "_Quit"
 msgstr "Iš_eiti"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
 #: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
-#: data/ui/offline.ui:32 data/ui/photo.ui:55 data/ui/tags.ui:47
+#: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
 #: data/ui/trash.ui:37 src/Resources.vala:132
 msgid "_Edit"
 msgstr "_Taisa"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
 #: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
-#: data/ui/offline.ui:35 data/ui/photo.ui:58 data/ui/tags.ui:50
+#: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
 #: data/ui/trash.ui:40 src/Resources.vala:197
 msgid "_Undo"
 msgstr "_Atšaukti"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
 #: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
-#: data/ui/offline.ui:40 data/ui/photo.ui:63 data/ui/tags.ui:55
+#: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
 #: data/ui/trash.ui:45 src/Resources.vala:200
 msgid "_Redo"
 msgstr "Paka_rtoti"
 
 #: data/ui/direct.ui:59 data/ui/events_directory.ui:71 data/ui/event.ui:99
 #: data/ui/faces.ui:99 data/ui/import_queue.ui:38 data/ui/import.ui:74
-#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:95
+#: data/ui/media.ui:99 data/ui/offline.ui:78 data/ui/photo.ui:97
 #: data/ui/tags.ui:99 data/ui/trash.ui:87
 msgid "_View"
 msgstr "_Rodymas"
 
-#: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:178
+#: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:180
 #: src/Resources.vala:134
 msgid "Fulls_creen"
 msgstr "_Visame ekrane"
 
 #: data/ui/direct.ui:69 data/ui/event.ui:265 data/ui/faces.ui:260
-#: data/ui/media.ui:265 data/ui/photo.ui:149 data/ui/tags.ui:265
+#: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
 #: src/Resources.vala:156
 msgid "Zoom _In"
 msgstr "_Didinti"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:270 data/ui/faces.ui:265
-#: data/ui/media.ui:270 data/ui/photo.ui:154 data/ui/tags.ui:270
+#: data/ui/media.ui:270 data/ui/photo.ui:156 data/ui/tags.ui:270
 #: src/Resources.vala:157
 msgid "Zoom _Out"
 msgstr "_Mažinti"
 
-#: data/ui/direct.ui:81 data/ui/photo.ui:161
+#: data/ui/direct.ui:81 data/ui/photo.ui:163
 msgid "Fit to _Page"
 msgstr "Sutalpinti _puslapyje"
 
-#: data/ui/direct.ui:86 data/ui/photo.ui:166
+#: data/ui/direct.ui:86 data/ui/photo.ui:168
 msgid "Zoom _100%"
 msgstr "_Tikrasis mastelis"
 
-#: data/ui/direct.ui:91 data/ui/photo.ui:171
+#: data/ui/direct.ui:91 data/ui/photo.ui:173
 msgid "Zoom _200%"
 msgstr "_Dvigubas dydis"
 
-#: data/ui/direct.ui:98 data/ui/photo.ui:192
+#: data/ui/direct.ui:98 data/ui/photo.ui:194
 msgid "_Photo"
 msgstr "_Nuotrauka"
 
-#: data/ui/direct.ui:101 data/ui/photo.ui:195
+#: data/ui/direct.ui:101 data/ui/photo.ui:197
 msgid "_Previous Photo"
 msgstr "_Ankstesnė nuotrauka"
 
-#: data/ui/direct.ui:106 data/ui/photo.ui:200
+#: data/ui/direct.ui:106 data/ui/photo.ui:202
 msgid "_Next Photo"
 msgstr "_Kita nuotrauka"
 
-#: data/ui/direct.ui:113 data/ui/photo.ui:207 src/CollectionPage.vala:110
+#: data/ui/direct.ui:113 data/ui/photo.ui:209 src/CollectionPage.vala:110
 #: src/Resources.vala:112
 msgid "Rotate _Right"
 msgstr "Pasukti _dešinėn"
 
-#: data/ui/direct.ui:118 data/ui/photo.ui:212 src/CollectionPage.vala:113
+#: data/ui/direct.ui:118 data/ui/photo.ui:214 src/CollectionPage.vala:113
 #: src/Resources.vala:117
 msgid "Rotate _Left"
 msgstr "Pasukti _kairėn"
 
-#: data/ui/direct.ui:123 data/ui/photo.ui:217 src/CollectionPage.vala:116
+#: data/ui/direct.ui:123 data/ui/photo.ui:219 src/CollectionPage.vala:116
 #: src/Resources.vala:122
 msgid "Flip Hori_zontally"
 msgstr "Apsukti hori_zontaliai"
 
-#: data/ui/direct.ui:127 data/ui/photo.ui:221 src/CollectionPage.vala:117
+#: data/ui/direct.ui:127 data/ui/photo.ui:223 src/CollectionPage.vala:117
 #: src/Resources.vala:125
 msgid "Flip Verti_cally"
 msgstr "Apsukti verti_kaliai"
 
-#: data/ui/direct.ui:133 data/ui/photo.ui:227
+#: data/ui/direct.ui:133 data/ui/photo.ui:229
 msgid "T_ools"
 msgstr "Į_rankiai"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:235 src/Resources.vala:171
+#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:171
 msgid "_Crop"
 msgstr "_Apkirpti"
 
-#: data/ui/direct.ui:146 data/ui/photo.ui:240
+#: data/ui/direct.ui:146 data/ui/photo.ui:242
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
 msgid "_Straighten"
 msgstr "Iš_tiesinti"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:245 src/Resources.vala:179
+#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:179
 msgid "_Red-eye"
 msgstr "_Raudonų akių efektas"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:250 src/Resources.vala:183
+#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:183
 msgid "_Adjust"
 msgstr "_Koreguoti"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:344 src/Resources.vala:282
-#| msgid "Adjust Date and Time"
+#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:282
 msgid "_Adjust Date and Time…"
 msgstr "T_aisyti datą ir laiką…"
 
@@ -1703,7 +1628,7 @@ msgstr "T_aisyti datą ir laiką…"
 #: data/ui/faces.ui:430 data/ui/faces.ui:433 data/ui/import_queue.ui:65
 #: data/ui/import_queue.ui:68 data/ui/import.ui:188 data/ui/import.ui:191
 #: data/ui/media.ui:408 data/ui/media.ui:411 data/ui/offline.ui:185
-#: data/ui/offline.ui:188 data/ui/photo.ui:394 data/ui/photo.ui:397
+#: data/ui/offline.ui:188 data/ui/photo.ui:396 data/ui/photo.ui:399
 #: data/ui/tags.ui:427 data/ui/tags.ui:430 data/ui/trash.ui:194
 #: data/ui/trash.ui:197 src/Resources.vala:135
 msgid "_Help"
@@ -1711,23 +1636,22 @@ msgstr "_Pagalba"
 
 #: data/ui/direct.ui:184 data/ui/events_directory.ui:163 data/ui/event.ui:433
 #: data/ui/faces.ui:438 data/ui/import_queue.ui:73 data/ui/import.ui:196
-#: data/ui/media.ui:416 data/ui/offline.ui:193 data/ui/photo.ui:402
+#: data/ui/media.ui:416 data/ui/offline.ui:193 data/ui/photo.ui:404
 #: data/ui/tags.ui:435 data/ui/trash.ui:202
 msgid "_Frequently Asked Questions"
 msgstr "_Dažniausiai užduodami klausimai"
 
 #: data/ui/direct.ui:188 data/ui/events_directory.ui:167 data/ui/event.ui:437
 #: data/ui/faces.ui:442 data/ui/import_queue.ui:77 data/ui/import.ui:200
-#: data/ui/media.ui:420 data/ui/offline.ui:197 data/ui/photo.ui:406
+#: data/ui/media.ui:420 data/ui/offline.ui:197 data/ui/photo.ui:408
 #: data/ui/tags.ui:439 data/ui/trash.ui:206
-#| msgid "_Report a Problem..."
 msgid "_Report a Problem…"
 msgstr "P_ranešti apie problemą…"
 
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:173 data/ui/event.ui:443
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:206
 #: data/ui/manifest_widget.ui:35 data/ui/media.ui:426 data/ui/offline.ui:203
-#: data/ui/photo.ui:412 data/ui/tags.ui:445 data/ui/trash.ui:212
+#: data/ui/photo.ui:414 data/ui/tags.ui:445 data/ui/trash.ui:212
 #: src/Resources.vala:128
 msgid "_About"
 msgstr "_Apie"
@@ -1735,7 +1659,6 @@ msgstr "_Apie"
 #: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
 #: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
 #: data/ui/offline.ui:8 data/ui/photo.ui:8 data/ui/tags.ui:8 data/ui/trash.ui:8
-#| msgid "Import From Folder"
 msgid "_Import From Folder…"
 msgstr "_Importuoti iš aplanko…"
 
@@ -1743,13 +1666,12 @@ msgstr "_Importuoti iš aplanko…"
 #: data/ui/import_queue.ui:19 data/ui/import.ui:21 data/ui/media.ui:13
 #: data/ui/offline.ui:13 data/ui/photo.ui:13 data/ui/tags.ui:13
 #: data/ui/trash.ui:13
-#| msgid "Import From Application"
 msgid "Import From _Application…"
 msgstr "Importuoti iš progr_amos…"
 
 #: data/ui/events_directory.ui:19 data/ui/event.ui:34 data/ui/faces.ui:34
 #: data/ui/import_queue.ui:25 data/ui/import.ui:27 data/ui/media.ui:34
-#: data/ui/offline.ui:19 data/ui/photo.ui:42 data/ui/tags.ui:34
+#: data/ui/offline.ui:19 data/ui/photo.ui:44 data/ui/tags.ui:34
 #: data/ui/trash.ui:24 data/ui/trash.ui:239 data/ui/trash.ui:247
 msgid "Empty T_rash"
 msgstr "Išvalyti ši_ukšlinę"
@@ -1761,10 +1683,9 @@ msgid "_Find"
 msgstr "_Rasti"
 
 #: data/ui/events_directory.ui:51 data/ui/event.ui:66 data/ui/faces.ui:66
-#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:70
+#: data/ui/media.ui:66 data/ui/offline.ui:51 data/ui/photo.ui:72
 #: data/ui/search_sidebar_context.ui:6 data/ui/sidebar_default_context.ui:6
 #: data/ui/tags.ui:66 data/ui/trash.ui:56
-#| msgid "Ne_w Saved Search..."
 msgid "Ne_w Saved Search…"
 msgstr "_Nauja įrašyta paieška…"
 
@@ -1776,21 +1697,21 @@ msgstr "P_asirinkti visas"
 
 #: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
 #: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
-#: data/ui/photo.ui:89 data/ui/tags.ui:93 data/ui/trash.ui:81
+#: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
 #: src/Resources.vala:141 src/Resources.vala:290
 msgid "_Preferences"
 msgstr "_Nustatymai"
 
 #: data/ui/events_directory.ui:74 data/ui/event.ui:102 data/ui/faces.ui:102
 #: data/ui/import_queue.ui:41 data/ui/import.ui:77 data/ui/media.ui:102
-#: data/ui/offline.ui:81 data/ui/photo.ui:98 data/ui/tags.ui:102
+#: data/ui/offline.ui:81 data/ui/photo.ui:100 data/ui/tags.ui:102
 #: data/ui/trash.ui:90
 msgid "_Basic Information"
 msgstr "_Pagrindinė informacija"
 
 #: data/ui/events_directory.ui:79 data/ui/event.ui:107 data/ui/faces.ui:107
 #: data/ui/import.ui:82 data/ui/media.ui:107 data/ui/offline.ui:86
-#: data/ui/photo.ui:103 data/ui/tags.ui:107 data/ui/trash.ui:95
+#: data/ui/photo.ui:105 data/ui/tags.ui:107 data/ui/trash.ui:95
 msgid "E_xtended Information"
 msgstr "_Papildoma informacija"
 
@@ -1802,19 +1723,18 @@ msgstr "_Paieškos juosta"
 
 #: data/ui/events_directory.ui:89 data/ui/event.ui:117 data/ui/faces.ui:117
 #: data/ui/import.ui:92 data/ui/media.ui:117 data/ui/offline.ui:96
-#: data/ui/photo.ui:108 data/ui/tags.ui:117 data/ui/trash.ui:105
+#: data/ui/photo.ui:110 data/ui/tags.ui:117 data/ui/trash.ui:105
 msgid "S_idebar"
 msgstr "Šoninį _juosta"
 
 #: data/ui/events_directory.ui:94 data/ui/event.ui:122 data/ui/faces.ui:122
 #: data/ui/import.ui:97 data/ui/media.ui:122 data/ui/offline.ui:101
-#: data/ui/photo.ui:113 data/ui/tags.ui:122 data/ui/trash.ui:110
-#| msgid "Pin Toolbar"
+#: data/ui/photo.ui:115 data/ui/tags.ui:122 data/ui/trash.ui:110
 msgid "T_oolbar"
 msgstr "Į_rankinė"
 
 #: data/ui/events_directory.ui:99 data/ui/event.ui:127 data/ui/import.ui:102
-#: data/ui/media.ui:127 data/ui/offline.ui:106 data/ui/photo.ui:118
+#: data/ui/media.ui:127 data/ui/offline.ui:106 data/ui/photo.ui:120
 #: data/ui/tags.ui:127 data/ui/trash.ui:115
 msgid "_Map Overview"
 msgstr "Že_mėlapio apžvalga"
@@ -1826,7 +1746,7 @@ msgstr "_Komentarai"
 
 #: data/ui/events_directory.ui:113 data/ui/event.ui:248 data/ui/faces.ui:243
 #: data/ui/import_queue.ui:48 data/ui/import.ui:171 data/ui/media.ui:248
-#: data/ui/offline.ui:168 data/ui/photo.ui:132 data/ui/tags.ui:248
+#: data/ui/offline.ui:168 data/ui/photo.ui:134 data/ui/tags.ui:248
 #: data/ui/trash.ui:177
 msgid "Sort _Events"
 msgstr "Rikiuoti į_vykius"
@@ -1834,7 +1754,7 @@ msgstr "Rikiuoti į_vykius"
 #: data/ui/events_directory.ui:116 data/ui/event.ui:236 data/ui/event.ui:251
 #: data/ui/faces.ui:231 data/ui/faces.ui:246 data/ui/import_queue.ui:51
 #: data/ui/import.ui:174 data/ui/media.ui:236 data/ui/media.ui:251
-#: data/ui/offline.ui:171 data/ui/photo.ui:135 data/ui/tags.ui:236
+#: data/ui/offline.ui:171 data/ui/photo.ui:137 data/ui/tags.ui:236
 #: data/ui/tags.ui:251 data/ui/trash.ui:180
 msgid "_Ascending"
 msgstr "_Didėjančiai"
@@ -1857,19 +1777,17 @@ msgstr "_Sujungti įvykius"
 
 #: data/ui/events_directory.ui:144 data/ui/events_directory.ui:186
 #: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:203
-#| msgid "Rename Event"
 msgid "Re_name Event…"
 msgstr "Per_vadinti įvykį…"
 
 #: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
 #: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:263
-#| msgid "Export"
 msgid "_Export…"
 msgstr "_Eksportuoti…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:77 data/ui/tags.ui:74 src/Resources.vala:792
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:792
 msgid "R_emove From Library"
 msgstr "_Pašalinti iš bibliotekos"
 
@@ -1880,12 +1798,12 @@ msgstr "_Antraštės"
 
 #: data/ui/event.ui:144 data/ui/event.ui:409 data/ui/faces.ui:139
 #: data/ui/faces.ui:387 data/ui/media.ui:144 data/ui/media.ui:392
-#: data/ui/photo.ui:379 data/ui/tags.ui:144 data/ui/tags.ui:392
+#: data/ui/photo.ui:381 data/ui/tags.ui:144 data/ui/tags.ui:392
 msgid "Ta_gs"
 msgstr "_Gairės"
 
 #: data/ui/event.ui:149 data/ui/faces.ui:144 data/ui/media.ui:149
-#: data/ui/photo.ui:125 data/ui/tags.ui:149 src/Resources.vala:252
+#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:252
 msgid "_Ratings"
 msgstr "Įve_rtinimai"
 
@@ -1939,8 +1857,7 @@ msgid "By _Rating"
 msgstr "Pagal į_vertinimą"
 
 #: data/ui/event.ui:256 data/ui/faces.ui:251 data/ui/import.ui:179
-#: data/ui/media.ui:256 data/ui/photo.ui:140 data/ui/tags.ui:256
-#| msgid "D_escending"
+#: data/ui/media.ui:256 data/ui/photo.ui:142 data/ui/tags.ui:256
 msgid "_Descending"
 msgstr "_Mažėjančiai"
 
@@ -1959,7 +1876,6 @@ msgid "_New Event"
 msgstr "_Naujas įvykis"
 
 #: data/ui/event.ui:597 src/Resources.vala:279
-#| msgid "Edit Event Comment"
 msgid "Edit Event _Comment…"
 msgstr "Keisit įvykio _komentarą…"
 
@@ -1969,7 +1885,6 @@ msgid "Faces"
 msgstr "Veidai"
 
 #: data/ui/faces.ui:465
-#| msgid "_Rename..."
 msgid "Rename…"
 msgstr "Pervadinti…"
 
@@ -1991,7 +1906,6 @@ msgstr "Importuoti _viską"
 
 #: data/ui/login_welcome_pane_widget.ui:35
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
-#| msgid "_Login"
 msgid "_Log in"
 msgstr "_Prisijungti"
 
@@ -2006,7 +1920,7 @@ msgid "_Cancel"
 msgstr "_Atšaukti"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1066
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_Gerai"
@@ -2016,24 +1930,22 @@ msgid "Remove the selected photos from the library"
 msgstr "Pašalinti pasirinktas nuotraukas iš bibliotekos"
 
 #: data/ui/photo_context.ui:17 src/Resources.vala:286
-#| msgid "Add Tags"
 msgid "_Add Tags…"
 msgstr "Pri_dėti žymų…"
 
 #: data/ui/photo_context.ui:135 src/Resources.vala:297
-#| msgid "Send To"
 msgid "Send T_o…"
 msgstr "Siųsti…"
 
-#: data/ui/photo.ui:185 src/CollectionPage.vala:102
+#: data/ui/photo.ui:187 src/CollectionPage.vala:102
 msgid "S_lideshow"
 msgstr "S_kaidrių rodymas"
 
-#: data/ui/photo.ui:263 src/CollectionPage.vala:122 src/Resources.vala:163
+#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:163
 msgid "_Copy Color Adjustments"
 msgstr "_Kopijuoti spalvų korekcijas"
 
-#: data/ui/photo.ui:268 src/CollectionPage.vala:125 src/Resources.vala:167
+#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:167
 msgid "_Paste Color Adjustments"
 msgstr "Į_dėti spalvų korekcijas"
 
@@ -2098,7 +2010,6 @@ msgid ""
 msgstr "Rodant permatomus paveikslėlius jie bus piešiami naudojant šį foną."
 
 #: data/ui/preferences_dialog.ui:343
-#| msgid "_Background:"
 msgid "Transparent Background:"
 msgstr "Permatomas fonas:"
 
@@ -2230,12 +2141,10 @@ msgid "of the following:"
 msgstr "vieną iš:"
 
 #: data/ui/savedsearch.ui:6 src/Resources.vala:398
-#| msgid "Re_name..."
 msgid "Re_name…"
 msgstr "Per_vadinti…"
 
 #: data/ui/savedsearch.ui:10 src/Resources.vala:397
-#| msgid "_Edit"
 msgid "_Edit…"
 msgstr "K_eisti…"
 
@@ -2282,7 +2191,6 @@ msgid "How long each photo is shown on the desktop background"
 msgstr "Kiek ilgai kiekviena nuotrauka yra rodoma darbalaukio fone"
 
 #: data/ui/sidebar_default_context.ui:11 data/ui/tag_sidebar_context.ui:6
-#| msgid "New _Tag..."
 msgid "New _Tag…"
 msgstr "Nauja _žyma…"
 
@@ -2315,7 +2223,6 @@ msgid "_New"
 msgstr "_Nauja"
 
 #: data/ui/tags.ui:461 src/Resources.vala:313 src/Resources.vala:355
-#| msgid "_Rename..."
 msgid "_Rename…"
 msgstr "Pe_rvadinti…"
 
@@ -2345,11 +2252,6 @@ msgid "Empty Trash"
 msgstr "Išvalyti šiukšlinę"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:17
-#| msgid ""
-#| "You are not currently logged into Flickr.\n"
-#| "\n"
-#| "Click Login to log into Flickr in your Web browser.  You will have to "
-#| "authorize Shotwell Connect to link to your Flickr account."
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
@@ -2363,7 +2265,6 @@ msgstr ""
 "paskyros."
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
-#| msgid "Preparing for login..."
 msgid "Preparing for login…"
 msgstr "Ruošiamasi prisijungti…"
 
@@ -2372,11 +2273,10 @@ msgid "Flickr authorization failed"
 msgstr "Flickr autorizacijos klaida"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
-#| msgid "Verifying authorization..."
 msgid "Verifying authorization…"
 msgstr "Tikrinama autorizacija…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:164
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -2462,22 +2362,21 @@ msgstr ""
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:935
 msgid "_Email address"
 msgstr "_El. pašto adresas"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:936
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "Sla_ptažodis"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:938
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
-#| msgid "Logging in..."
 msgid "Log in"
 msgstr "Prisijungti"
 
@@ -2486,13 +2385,13 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Įveskite su savo Tumblr paskyra susietą naudotojo vardą ir slaptažodį."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1099
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1140
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Naudotojo vardas ir (arba) slaptažodis neteisingas. Bandykite dar kartą"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1135
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
 msgid "Invalid User Name or Password"
 msgstr "Netinkamas naudotojo vardas arba slaptažodis"
 
@@ -2621,7 +2520,7 @@ msgstr " pikselių"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:700
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1331
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1372
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Pradinis dydis"
@@ -2633,7 +2532,7 @@ msgstr "Ilgiausia kraštinė"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1062
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
@@ -2644,7 +2543,7 @@ msgstr "_Atsijungti"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1061
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
@@ -2658,7 +2557,7 @@ msgstr "_Skelbti"
 msgid "Gallery3 publishing module"
 msgstr "Gallery3 viešinimo modulis"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:114
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
@@ -2670,17 +2569,12 @@ msgstr ""
 "Jau privalote būti užregistravę Gallery3 paskyrą, kad užbaigtumėte "
 "prisijungimo procesą."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
 msgid "Shotwell default directory"
 msgstr "Shotwell numatytasis katalogas"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:801
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:804
 #, c-format
-#| msgid ""
-#| "\n"
-#| "\n"
-#| "The file \"%s\" may not be supported by or may be too large for this "
-#| "instance of Gallery3."
 msgid ""
 "\n"
 "\n"
@@ -2692,7 +2586,7 @@ msgstr ""
 "Failas \"%s\" gali būti nepalaikomas arba gali būti per didelis šiam "
 "Gallery3 egzemplioriui."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:805
 msgid ""
 "\n"
 "Note that Gallery3 only supports the video types that Flowplayer does."
@@ -2701,12 +2595,9 @@ msgstr ""
 "Turėkite omenyje, kad Gallery3 palaiko tik tuos vaizdo įrašų tipus, kuriuos "
 "palaiko Flowplayer."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1057
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1809
 #, c-format
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to %s can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
@@ -2716,12 +2607,12 @@ msgstr ""
 
 #. populate any widgets whose contents are
 #. programmatically-generated
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1550
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
 #, c-format
 msgid "Publishing to %s as %s."
 msgstr "Skelbiama į %s kaip %s."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
@@ -2729,7 +2620,7 @@ msgstr ""
 "Įveskite savo Gallery3 svetainės URL bei savo Gallery3 paskyros naudotojo "
 "vardą ir slaptažodį (ar API raktą)."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
 msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
@@ -2738,7 +2629,7 @@ msgstr ""
 "bandytumėte dar kartą, žemiau iš naujo įveskite naudotojo vardą ir "
 "slaptažodį."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
 msgid ""
 "The URL entered does not appear to be the main directory of a Gallery3 "
 "instance. Please make sure you typed it correctly and it does not have any "
@@ -2748,66 +2639,65 @@ msgstr ""
 "Įsitikinkite, kad įvedėte jį teisingai ir, kad jo gale nėra jokių komponentų "
 "(pvz., index.php)."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
 msgid "Unrecognized User"
 msgstr "Neatpažintas naudotojas"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1913
 msgid " Site Not Found"
 msgstr " Svetainė nerasta"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:937
 msgid "_Remember"
 msgstr "_Atsiminti"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1058
 msgid "An _existing album:"
 msgstr "Jau _esančiame albume:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1059
 msgid "A _new album named:"
 msgstr "_Naujame albume pavadinimu:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1049
 msgid "_Hide album"
 msgstr "Slė_pti albumą"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1060
 msgid "Open target _album in browser"
 msgstr "Atverti paskirties _albumą naršyklėje"
 
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-#| msgid "Copyright (C) 2013 rajce.net"
 msgid "Copyright © 2013 rajce.net"
 msgstr "Autorių Teisės (C) 2013 rajce.net"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:787
 msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr "Viešinant į Rajce, įvyko klaida. Bandykite dar kartą."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:833
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:876
 msgid "Enter email and password associated with your Rajce account."
 msgstr "Įveskite su savo Rajce paskyra susietą el. paštą ir slaptažodį."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:834
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:877
 msgid "Invalid email and/or password. Please try again"
 msgstr "El. paštas ir/arba slaptažodis neteisingas. Bandykite dar kartą"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:865
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:908
 msgid "Invalid User Email or Password"
 msgstr "Netinkamas naudotojo el. paštas arba slaptažodis"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1056
 #, c-format
 msgid "You are logged into Rajce as %s."
 msgstr "Jūs esate prisijungę prie Rajce kaip %s."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1057
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
 msgid "Photos will appear in:"
@@ -2825,7 +2715,7 @@ msgstr "Autorinės teisės 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Aplankykite Yandex.Fotki tinklapį"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:629
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Šiuo metu nesate prisijungęs prie Yandex.Fotki."
 
@@ -2860,7 +2750,6 @@ msgstr "_Drausti parsiųsti originalią nuotrauką"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
-#| msgid "Photo _size:"
 msgid "Photo _size"
 msgstr "Nuotraukos _dydis"
 
@@ -2880,9 +2769,6 @@ msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Autorių teisės saugomos © 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Flickr can't "
-#| "continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2899,12 +2785,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
 #, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabyte remaining in your upload quota."
-#| msgid_plural ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %d megabytes remaining in your upload quota."
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
 "service.\n"
@@ -2915,7 +2795,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:623
 #, c-format
-#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded a file"
@@ -2933,22 +2812,19 @@ msgstr[2] ""
 "įkėlę %d failų"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
-#| msgid "Photos _visible to:"
 msgid "Photos _visible to"
 msgstr "Nuotraukas gali _matyti"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:630
-#| msgid "Videos _visible to:"
 msgid "Videos _visible to"
 msgstr "Vaizdo įrašus gali _matyti"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:633
-#| msgid "Photos and videos _visible to:"
 msgid "Photos and videos _visible to"
 msgstr "Nuotraukas ir vaizdo įrašus gali _matyti"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:674
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1356
 msgid "Everyone"
 msgstr "Visi"
 
@@ -2969,28 +2845,24 @@ msgid "Just me"
 msgstr "Tik aš"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:696
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1368
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
-#| msgid "500 x 375 pixels"
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pikselių"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:697
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1369
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
-#| msgid "1024 x 768 pixels"
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pikselių"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:698
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
-#| msgid "2048 x 1536 pixels"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1370
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pikselių"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:699
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1330
-#| msgid "4096 x 3072 pixels"
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1371
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pikselių"
 
@@ -3004,42 +2876,35 @@ msgstr ""
 "tuščias net jei jau turi albumų savo Google Photos paskyroje"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:96
-#| msgid "Photo _size preset:"
 msgid "Photo _size preset"
 msgstr "Nuotraukos _dydžio šablonas"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:117
-#| msgid "An _existing album"
 msgid "An existing album"
 msgstr "Esamame albumas"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:132
-#| msgid "A _new album named:"
 msgid "A new album named"
 msgstr "Naujame albume pavadinimu"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1206
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:17
-#| msgid "Small (640 x 480 pixels)"
 msgid "Small (640 × 480 pixels)"
 msgstr "Maža (640 × 480 pikselių)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:18
-#| msgid "Medium (1024 x 768 pixels)"
 msgid "Medium (1024 × 768 pixels)"
 msgstr "Vidutinė (1024 × 768 pikselių)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:19
-#| msgid "Recommended (1600 x 1200 pixels)"
 msgid "Recommended (1600 × 1200 pixels)"
 msgstr "Rekomenduojama (1600 × 1200 pikselių)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:20
-#| msgid "Google+ (2048 x 1536 pixels)"
 msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 × 1536 pikselių)"
 
@@ -3051,7 +2916,6 @@ msgstr "Pradinis dydis"
 #. populate any widgets whose contents are programmatically-generated.
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:59
 #, c-format
-#| msgid "You are logged into YouTube as %s."
 msgid "You are logged into Google Photos as %s."
 msgstr "Esate prisijungę prie Google Photos kaip %s."
 
@@ -3062,7 +2926,6 @@ msgstr "Vaizdo įrašai pasirodys:"
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:105
-#| msgid "De_fault:"
 msgid "Default album"
 msgstr "Numatytasis albumas"
 
@@ -3079,37 +2942,30 @@ msgid "User _name"
 msgstr "Naudotojo _vardas"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
-#| msgid "_Remember Password"
 msgid "Remember Password"
 msgstr "Atsiminti slaptažodį"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:36
-#| msgid "An _existing category:"
 msgid "An _existing category"
 msgstr "_Esama kategorija"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:110
-#| msgid "A _new album named:"
 msgid "A _new album named"
 msgstr "_Naujame albume pavadinimu"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:142
-#| msgid "within category:"
 msgid "within category"
 msgstr "kategorijoje"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:155
-#| msgid "Album comment:"
 msgid "Album comment"
 msgstr "Albumo komentaras"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:167
-#| msgid "Photos will be _visible by:"
 msgid "Photos will be _visible by"
 msgstr "Nuotraukas _matys"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:181
-#| msgid "Photo size:"
 msgid "Photo size"
 msgstr "Nuotraukos dydis"
 
@@ -3124,7 +2980,6 @@ msgid "_Do no upload tags"
 msgstr "_Neįkelti žymų"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
-#| msgid "_Do no upload tags"
 msgid "_Do not upload ratings"
 msgstr "_Neįkelti reitingų"
 
@@ -3132,18 +2987,17 @@ msgstr "_Neįkelti reitingų"
 msgid "Logout"
 msgstr "Atsijungti"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:782
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:823
 #, c-format
-#| msgid "Creating album %s..."
 msgid "Creating album %s…"
 msgstr "Kuriamas albumas %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:959
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Viešinant į Piwigo kilo klaida. Bandykite dar kartą."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1044
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -3154,12 +3008,12 @@ msgstr ""
 "tinklalapio gaunamą arba jam siunčiamą informaciją (pavyzdžiui privačias "
 "žinutes, kredito kortelių duomenis ar slaptažodžius)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1063
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1104
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s liudijimas"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1097
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3167,7 +3021,7 @@ msgstr ""
 "Įveskite savo Piwigo nuotraukų bibliotekos URL ir naudotojo vardą bei "
 "slaptažodį, susietus su jūsų Piwigo paskyra tai bibliotekai."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1098
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3175,23 +3029,23 @@ msgstr ""
 "Shotwell negali prisijungti prie jūsų Piwigo nuotraukų bibliotekos. "
 "Patikrinkite įvestą URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1130
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
 msgid "Invalid URL"
 msgstr "Netinkamas URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1357
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administratoriai, šeima, draugai, kontaktai"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1358
 msgid "Admins, Family, Friends"
 msgstr "Administratoriai, šeima, draugai"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1318
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1359
 msgid "Admins, Family"
 msgstr "Administratoriai, šeima"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1319
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1360
 msgid "Admins"
 msgstr "Administratoriai"
 
@@ -3212,7 +3066,6 @@ msgid "Core Publishing Services"
 msgstr "Pagrindinės viešinimo tarnybos"
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
-#| msgid "Blogs:"
 msgid "Blogs"
 msgstr "Žiniatinkliai"
 
@@ -3221,13 +3074,10 @@ msgid "Copyright 2012 BJA Electronics"
 msgstr "Autorinės teisės 2012 BJA Electronics"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:105
-#| msgid "1280 x 853 pixels"
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 pikseliai"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:407
-#| msgid ""
-#| "TumblrPublisher: start( ): can't start; this publisher is not restartable."
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
@@ -3244,14 +3094,10 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
-#| msgid "Video privacy _setting:"
 msgid "Video privacy _setting"
 msgstr "Vaizdo įrašų privatumo _nustatymas"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
-#| msgid ""
-#| "A file required for publishing is unavailable. Publishing to Youtube "
-#| "can't continue."
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -3304,7 +3150,6 @@ msgid "Core Slideshow Transitions"
 msgstr "Pagrindiniai skaidrių perėjimai"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:76
-#| msgid "Copyright 2010 Maxim Kartashev, Copyright 2011-2015 Yorba Foundation"
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -3373,11 +3218,6 @@ msgstr "Išjungti viso ekrano veikseną"
 
 #: src/AppWindow.vala:561
 #, c-format
-#| msgid ""
-#| "A fatal error occurred when accessing Shotwell's library.  Shotwell "
-#| "cannot continue.\n"
-#| "\n"
-#| "%s"
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
 "continue.\n"
@@ -3390,7 +3230,6 @@ msgstr ""
 "%s"
 
 #: src/AppWindow.vala:581
-#| msgid "Visit the Shotwell home page"
 msgid "Visit the Shotwell web site"
 msgstr "Aplankyti Shotwell internetinę svetainę"
 
@@ -3482,7 +3321,6 @@ msgstr "Išvardinti visus aptiktus fotoaparatus"
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GMount name, e.g. Mass storage camera (510MB volume)
 #: src/camera/DiscoveredCamera.vala:82 src/camera/DiscoveredCamera.vala:86
 #, c-format
-#| msgid "%s (%d%%)"
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
@@ -3491,9 +3329,6 @@ msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:466
-#| msgid ""
-#| "Unable to unmount camera.  Try unmounting the camera from the file "
-#| "manager."
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
@@ -3515,15 +3350,11 @@ msgstr ""
 "importavimui"
 
 #: src/camera/ImportPage.vala:843
-#| msgid "No photos/videos found"
 msgid "No new photos/videos found on camera"
 msgstr "Fotoaparate nerasta nuotraukų/vaizdo įrašų"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:996
-#| msgid ""
-#| "Shotwell needs to unmount the camera from the filesystem in order to "
-#| "access it.  Continue?"
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3540,10 +3371,6 @@ msgid "Please unmount the camera."
 msgstr "Atjunkite fotoaparatą."
 
 #: src/camera/ImportPage.vala:1012
-#| msgid ""
-#| "The camera is locked by another application.  Shotwell can only access "
-#| "the camera when it's unlocked.  Please close any other application using "
-#| "the camera and try again."
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3567,7 +3394,6 @@ msgstr ""
 "%s"
 
 #: src/camera/ImportPage.vala:1044
-#| msgid "Unmounting..."
 msgid "Unmounting…"
 msgstr "Atjungiama…"
 
@@ -3576,7 +3402,6 @@ msgid "Connecting to camera, please wait…"
 msgstr "Jungiamasi prie fotoaparato, palaukite…"
 
 #: src/camera/ImportPage.vala:1169
-#| msgid "Starting import, please wait..."
 msgid "Starting import, please wait…"
 msgstr "Pradedamas importas, palaukite…"
 
@@ -3584,17 +3409,17 @@ msgstr "Pradedamas importas, palaukite…"
 msgid "Fetching photo information"
 msgstr "Gaunama nuotraukų informacija"
 
-#: src/camera/ImportPage.vala:1538
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Gaunama %s peržiūra"
 
-#: src/camera/ImportPage.vala:1647
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nepavyko užrakinti fotoaparato: %s"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3602,7 +3427,7 @@ msgstr[0] "Ištrinti šią %d nuotrauką iš fotoaparato?"
 msgstr[1] "Ištrinti šias %d nuotraukas iš fotoaparato?"
 msgstr[2] "Ištrinti šias %d nuotraukų iš fotoaparato?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3610,7 +3435,7 @@ msgstr[0] "Pašalinti šiuos %d aizdo įrašus iš kameros?"
 msgstr[1] "Pašalinti šiuos %d vaizdo įrašų iš kameros?"
 msgstr[2] "Pašalinti šiuos %d vaizdo įrašų iš kameros?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3618,7 +3443,7 @@ msgstr[0] "Pašalinti šias %d nuotraukas ar vaizdo įrašus iš fotoaparato?"
 msgstr[1] "Pašalinti šias %d nuotraukų ar vaizdo įrašų iš fotoaparato?"
 msgstr[2] "Pašalinti šias %d nuotraukų ar vaizdo įrašų iš fotoaparato?"
 
-#: src/camera/ImportPage.vala:1741
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3626,15 +3451,15 @@ msgstr[0] "Ištrinti šį %d failą iš kameros?"
 msgstr[1] "Ištrinti šiuos %d failus iš kameros?"
 msgstr[2] "Ištrinti šiuos %d failų iš kameros?"
 
-#: src/camera/ImportPage.vala:1749 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Palikti"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "Nuotraukos ir video šalinamos iš fotoaparato (kameros)"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3668,12 +3493,10 @@ msgid "_Duplicate"
 msgstr "_Sukurti kopiją"
 
 #: src/CollectionPage.vala:100
-#| msgid "Fulls_creen"
 msgid "Fullscreen"
 msgstr "Visame ekrane"
 
 #: src/CollectionPage.vala:135
-#| msgid "Adjust Date and Time"
 msgid "Adjust Date and Time…"
 msgstr "Taisyti datą ir laiką…"
 
@@ -3682,7 +3505,6 @@ msgid "_Play"
 msgstr "R_odyti"
 
 #: src/CollectionPage.vala:410
-#| msgid "Export Photo/Video"
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Eksportuoti nuotraukas ar vaizdo įrašus"
@@ -3690,7 +3512,6 @@ msgstr[1] "Eksportuoti nuotraukas ar vaizdo įrašus"
 msgstr[2] "Eksportuoti nuotraukas ar vaizdo įrašus"
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
-#| msgid "Export Photo"
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Eksportuoti nuotraukas"
@@ -3846,7 +3667,6 @@ msgstr "Sukurti žymą"
 
 #: src/Commands.vala:1694
 #, c-format
-#| msgid "Move Tag \"%s\""
 msgid "Move Tag “%s”"
 msgstr "Perkelti žymą „%s“"
 
@@ -3908,7 +3728,6 @@ msgstr "Duomenų bazė %s"
 #: src/data_imports/DataImportsPluginHost.vala:148
 #: src/data_imports/DataImportsPluginHost.vala:294
 #, c-format
-#| msgid "Importing from %s can't continue because an error occurred:"
 msgid "Importing from %s can’t continue because an error occurred:"
 msgstr "Importavimo iš %s negalima tęsti, nes kilo klaida:"
 
@@ -3984,9 +3803,6 @@ msgstr ""
 
 #: src/db/DatabaseTable.vala:92
 #, c-format
-#| msgid ""
-#| "Unable to write to photo database file:\n"
-#| " %s"
 msgid "Unable to restore photo database %s"
 msgstr "Nepavyko atkurti nuotraukų duomenų bazės failo %s"
 
@@ -4030,7 +3846,6 @@ msgid "Set _all photos/videos to this time"
 msgstr "Nustatyti _visas nuotraukas/vaizdo įrašus į šį laiką"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:106
-#| msgid "_Modify original photo file"
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Keisti originalius nuotraukų failus"
@@ -4038,7 +3853,6 @@ msgstr[1] "_Keisti originalius nuotraukų failus"
 msgstr[2] "_Keisti originalius nuotraukų failus"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
-#| msgid "_Modify original file"
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Pakeisti originalius failus"
@@ -4132,7 +3946,6 @@ msgid "_Pixels:"
 msgstr "_Pikseliai:"
 
 #: src/dialogs/ExportDialog.vala:103
-#| msgid "Export metadata"
 msgid "Export _metadata:"
 msgstr "Eksportuoti _metaduomenis:"
 
@@ -4206,8 +4019,6 @@ msgstr "1 diena"
 
 #: src/Dialogs.vala:16
 #, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Bus pašalinta žyma „%s“ iš %d nuotraukos. Tęsti?"
@@ -4216,7 +4027,6 @@ msgstr[2] "Bus pašalinta žyma „%s“ iš %d nuotraukų. Tęsti?"
 
 #: src/Dialogs.vala:25
 #, c-format
-#| msgid "This will remove the saved search \"%s\".  Continue?"
 msgid "This will remove the saved search “%s”. Continue?"
 msgstr "Bus pašalinta įrašytą paieška „%s“. Tęsti?"
 
@@ -4243,8 +4053,6 @@ msgstr "_Keisti kūrėją"
 
 #: src/Dialogs.vala:54
 #, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] "Bus pašalinta žyma „%s“ iš %d nuotraukos. Tęsti?"
@@ -4266,9 +4074,6 @@ msgstr "Eksportuoti nuotraukas"
 #. Yes - display an alternate error message here.
 #: src/Dialogs.vala:125
 #, c-format
-#| msgid ""
-#| "Shotwell couldn't create a file for editing this photo because you do not "
-#| "have permission to write to %s."
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
@@ -4299,7 +4104,6 @@ msgid "Con_tinue"
 msgstr "_Tęsti"
 
 #: src/Dialogs.vala:151
-#| msgid "Save Details"
 msgid "Save Details…"
 msgstr "Įrašyti detales…"
 
@@ -4359,8 +4163,6 @@ msgstr "klaidos pranešimas:"
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
 #: src/Dialogs.vala:268
-#| msgid ""
-#| "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Failai neimportuoti, nes nebuvo atpažinti kaip nuotraukos ar vaizdo įrašai:"
@@ -4369,9 +4171,6 @@ msgstr ""
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
 #: src/Dialogs.vala:283
-#| msgid ""
-#| "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
-#| "Understands:"
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -4382,9 +4181,6 @@ msgstr ""
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
 #: src/Dialogs.vala:298
-#| msgid ""
-#| "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
-#| "Library:"
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
@@ -4394,9 +4190,6 @@ msgstr ""
 
 #: src/Dialogs.vala:302
 #, c-format
-#| msgid ""
-#| "couldn't copy %s\n"
-#| "\tto %s"
 msgid ""
 "couldn’t copy %s\n"
 "\tto %s"
@@ -4700,7 +4493,6 @@ msgstr "Pavadinimas:"
 
 #. Dialog title
 #: src/Dialogs.vala:672
-#| msgid "Edit Title"
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Taisyti antraštę"
@@ -4743,9 +4535,6 @@ msgstr "Atstatyti išorinius redagavimus?"
 
 #: src/Dialogs.vala:756
 #, c-format
-#| msgid "This will destroy all changes made to the external file.  Continue?"
-#| msgid_plural ""
-#| "This will destroy all changes made to %d external files.  Continue?"
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
@@ -4763,8 +4552,6 @@ msgstr "_Atstatyti išorinį redagavimą?"
 
 #: src/Dialogs.vala:781
 #, c-format
-#| msgid "This will remove the photo from the library.  Continue?"
-#| msgid_plural "This will remove %d photos from the library.  Continue?"
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Bus pašalinta %d nuotrauka iš bibliotekos. Tęsti?"
@@ -4837,7 +4624,6 @@ msgid "Remove From Library"
 msgstr "Pašalinti iš bibliotekos"
 
 #: src/Dialogs.vala:937 src/PhotoPage.vala:2897
-#| msgid "Removing Photo From Library"
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Šalinamos nuotraukos iš bibliotekos"
@@ -4846,16 +4632,6 @@ msgstr[2] "Šalinamos nuotraukos iš bibliotekos"
 
 #: src/Dialogs.vala:951
 #, c-format
-#| msgid ""
-#| "This will remove the photo/video from your Shotwell library.  Would you "
-#| "also like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos/videos from your Shotwell library.  Would you "
-#| "also like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
@@ -4886,16 +4662,6 @@ msgstr[2] ""
 
 #: src/Dialogs.vala:955
 #, c-format
-#| msgid ""
-#| "This will remove the video from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d videos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4924,16 +4690,6 @@ msgstr[2] ""
 
 #: src/Dialogs.vala:959
 #, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4962,12 +4718,6 @@ msgstr[2] ""
 
 #: src/Dialogs.vala:991
 #, c-format
-#| msgid ""
-#| "The photo or video cannot be moved to your desktop trash.  Delete this "
-#| "file?"
-#| msgid_plural ""
-#| "%d photos/videos cannot be moved to your desktop trash.  Delete these "
-#| "files?"
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
@@ -5004,35 +4754,33 @@ msgid "To get started, import photos in any of these ways:"
 msgstr ""
 "Pradėkite importuodami nuotraukas ar vaizdo įrašus bet kuriuo šių būdų:"
 
-#: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-#| msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgid "Choose File %s Import From Folder"
-msgstr "Pasirinkite Failas %s Importavimas iš aplanko"
+#: src/dialogs/WelcomeDialog.vala:65
+#| msgid "Choose File %s Import From Folder"
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Failo meniu pasirinkite „Importavimas ir aplanko“"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Vilkite ir numeskite nuotraukas ant Shotwell lango"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr "Prijunkite prie kompiuterio fotoaparatą ir importuokite"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Importuoti nuotraukas iš aplanko %s"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr "Nuotraukų taip pat galite importuoti šiais būdais:"
 
-#: src/dialogs/WelcomeDialog.vala:98
-#| msgid "_Don't show this message again"
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "_Daugiau neberodyti šio pranešimo"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Importuoti nuotraukas iš %s bibliotekos"
@@ -5064,10 +4812,6 @@ msgstr "%s nepalaiko %s failo formato."
 
 #: src/direct/DirectPhotoPage.vala:120
 #, c-format
-#| msgid ""
-#| "Unable to print photo:\n"
-#| "\n"
-#| "%s"
 msgid "Unable open photo %s. Sorry."
 msgstr "Nepavyko atverti nuotraukos %s. Atsiprašome."
 
@@ -5136,102 +4880,82 @@ msgid "-"
 msgstr "–"
 
 #: src/editing_tools/EditingTools.vala:744
-#| msgid "SD Video (4 : 3)"
 msgid "SD Video (4 ∶ 3)"
 msgstr "SD vaizdo įrašas (4 : 3)"
 
 #: src/editing_tools/EditingTools.vala:745
-#| msgid "HD Video (16 : 9)"
 msgid "HD Video (16 ∶ 9)"
 msgstr "HD vaizdo įrašas (16 : 9)"
 
 #: src/editing_tools/EditingTools.vala:747 src/Printing.vala:792
-#| msgid "Wallet (2 x 3 in.)"
 msgid "Wallet (2 × 3 in.)"
 msgstr "Piniginė (2 × 3 col.)"
 
 #: src/editing_tools/EditingTools.vala:748 src/Printing.vala:795
-#| msgid "Notecard (3 x 5 in.)"
 msgid "Notecard (3 × 5 in.)"
 msgstr "Užrašinė (3 × 5 col.)"
 
 #: src/editing_tools/EditingTools.vala:749 src/Printing.vala:798
-#| msgid "4 x 6 in."
 msgid "4 × 6 in."
 msgstr "4 × 6 col."
 
 #: src/editing_tools/EditingTools.vala:750 src/Printing.vala:801
-#| msgid "5 x 7 in."
 msgid "5 × 7 in."
 msgstr "5 × 7 col."
 
 #: src/editing_tools/EditingTools.vala:751 src/Printing.vala:804
-#| msgid "8 x 10 in."
 msgid "8 × 10 in."
 msgstr "8 × 10 col."
 
 #: src/editing_tools/EditingTools.vala:752
-#| msgid "Letter (8.5 x 11 in.)"
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Laiškas (8.5 × 11 colių)"
 
 #: src/editing_tools/EditingTools.vala:753 src/Printing.vala:807
-#| msgid "11 x 14 in."
 msgid "11 × 14 in."
 msgstr "11 × 14 col."
 
 #: src/editing_tools/EditingTools.vala:754
-#| msgid "Tabloid (11 x 17 in.)"
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Įrėminama (11 × 17 colių)"
 
 #: src/editing_tools/EditingTools.vala:755 src/Printing.vala:810
-#| msgid "16 x 20 in."
 msgid "16 × 20 in."
 msgstr "16 × 20 col."
 
 #: src/editing_tools/EditingTools.vala:757 src/Printing.vala:816
-#| msgid "Metric Wallet (9 x 13 cm)"
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Piniginė (dešimtainė) (9 × 13 cm)"
 
 #: src/editing_tools/EditingTools.vala:758 src/Printing.vala:819
-#| msgid "Postcard (10 x 15 cm)"
 msgid "Postcard (10 × 15 cm)"
 msgstr "Atvirukas (10 × 15 cm)"
 
 #: src/editing_tools/EditingTools.vala:759 src/Printing.vala:822
-#| msgid "13 x 18 cm"
 msgid "13 × 18 cm"
 msgstr "13 × 18 cm"
 
 #: src/editing_tools/EditingTools.vala:760 src/Printing.vala:825
-#| msgid "18 x 24 cm"
 msgid "18 × 24 cm"
 msgstr "18 × 24 cm"
 
 #: src/editing_tools/EditingTools.vala:761
-#| msgid "A4 (210 x 297 mm)"
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 × 297 mm)"
 
 #: src/editing_tools/EditingTools.vala:762 src/Printing.vala:828
-#| msgid "20 x 30 cm"
 msgid "20 × 30 cm"
 msgstr "20 × 30 cm"
 
 #: src/editing_tools/EditingTools.vala:763 src/Printing.vala:831
-#| msgid "24 x 40 cm"
 msgid "24 × 40 cm"
 msgstr "24 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:764 src/Printing.vala:834
-#| msgid "30 x 40 cm"
 msgid "30 × 40 cm"
 msgstr "30 × 40 cm"
 
 #: src/editing_tools/EditingTools.vala:765
-#| msgid "A3 (297 x 420 mm)"
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 × 420 mm)"
 
@@ -5301,7 +5025,6 @@ msgid "Tint"
 msgstr "Atspalvis"
 
 #: src/editing_tools/EditingTools.vala:2721
-#| msgid "Contrast Expansion"
 msgid "Contrast"
 msgstr "Kontrastas"
 
@@ -5353,7 +5076,7 @@ msgstr[0] "%d nuotrauka"
 msgstr[1] "%d nuotraukos"
 msgstr[2] "%d nuotraukų"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Jokio įvykio"
 
@@ -5373,19 +5096,19 @@ msgstr "Nėra įvykių"
 msgid "No events found"
 msgstr "Nerasta įvykių"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Visi įvykiai"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Be datos"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5406,7 +5129,6 @@ msgstr "Eksportuojama"
 
 #: src/Exporter.vala:317
 #, c-format
-#| msgid "File %s already exists.  Replace?"
 msgid "File %s already exists. Replace?"
 msgstr "Failas %s jau yra. Pakeisti?"
 
@@ -5431,7 +5153,6 @@ msgid "Detect faces…"
 msgstr "Aptikti veidus…"
 
 #: src/faces/FacesTool.vala:140
-#| msgid "Set the crop for this photo"
 msgid "Detect faces on this photo"
 msgstr "Aptikti veidus šioje nuotraukoje"
 
@@ -5465,7 +5186,6 @@ msgid "Move or modify the face shape or name and press Enter"
 msgstr "Perkelkite arba keiskite veido formą ar pavadinimą ir spauskite Enter"
 
 #: src/faces/FacesTool.vala:201
-#| msgid "Settings"
 msgid "Detecting faces"
 msgstr "Ieškoma veidų"
 
@@ -5478,7 +5198,6 @@ msgid "Save changes and close the Faces tool"
 msgstr "Įrašyti pakeitimus ir užverti veidų įrankį"
 
 #: src/faces/FacesTool.vala:235
-#| msgid "Lose changes to %s?"
 msgid "No changes to save"
 msgstr "Nėra pakeitimų"
 
@@ -5495,7 +5214,6 @@ msgid "Browse the library’s folder structure"
 msgstr "Naršyti bibliotekos aplankų struktūrą"
 
 #: src/import-roll/ImportRollBranch.vala:42
-#| msgid "_Import"
 msgid "Imports"
 msgstr "Importavimai"
 
@@ -5514,12 +5232,10 @@ msgid "Flagged"
 msgstr "Pažymėtas"
 
 #: src/library/ImportQueuePage.vala:8
-#| msgid "Importing"
 msgid "Importing…"
 msgstr "Importuojama…"
 
 #: src/library/ImportQueuePage.vala:129
-#| msgid "Preparing to import"
 msgid "Preparing to import…"
 msgstr "Ruošiamasi importui…"
 
@@ -5533,7 +5249,6 @@ msgid "Last Import"
 msgstr "Paskutinis importavimas"
 
 #: src/library/LibraryBranch.vala:30
-#| msgid "Change the rating of your photo"
 msgid "Organize and browse your photos"
 msgstr "Tvarkykite ir naršykite savo nuotraukas"
 
@@ -5550,17 +5265,11 @@ msgid "Recurse Into Subfolders"
 msgstr "Rekursyviai poaplankiams"
 
 #: src/library/LibraryWindow.vala:588
-#| msgid "Emptying Trash..."
 msgid "Emptying Trash…"
 msgstr "Išvaloma šiukšlinė…"
 
 #: src/library/LibraryWindow.vala:782
 #, c-format
-#| msgid ""
-#| "Shotwell is configured to import photos to your home directory.\n"
-#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-#| "span>.\n"
-#| "Do you want to continue importing photos?"
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
@@ -5576,22 +5285,18 @@ msgid "Photos cannot be imported from this directory."
 msgstr "Nuotraukų negalima importuoti iš šio aplanko."
 
 #: src/library/LibraryWindow.vala:1021 src/library/LibraryWindow.vala:1032
-#| msgid "Updating library..."
 msgid "Updating library…"
 msgstr "Atnaujinama biblioteka…"
 
 #: src/library/LibraryWindow.vala:1038
-#| msgid "Preparing to auto-import photos..."
 msgid "Preparing to auto-import photos…"
 msgstr "Ruošiamasi automatiškai importuoti nuotraukas…"
 
 #: src/library/LibraryWindow.vala:1043
-#| msgid "Auto-importing photos..."
 msgid "Auto-importing photos…"
 msgstr "Automatiškai impotuojamos nuotraukos…"
 
 #: src/library/LibraryWindow.vala:1051
-#| msgid "Writing metadata to files..."
 msgid "Writing metadata to files…"
 msgstr "Metainformacija rašoma į failus…"
 
@@ -5600,7 +5305,6 @@ msgid "Missing Files"
 msgstr "Trūkstami failai"
 
 #: src/library/OfflinePage.vala:110
-#| msgid "Deleting..."
 msgid "Deleting…"
 msgstr "Trinama…"
 
@@ -5618,10 +5322,6 @@ msgstr "Trinamos nuotraukos"
 
 #: src/main.vala:54
 #, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please use the latest version of Shotwell."
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
@@ -5633,10 +5333,6 @@ msgstr ""
 
 #: src/main.vala:59
 #, c-format
-#| msgid ""
-#| "Shotwell was unable to upgrade your photo library from version %s (schema "
-#| "%d) to %s (schema %d).  For more information please check the Shotwell "
-#| "Wiki at %s"
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
@@ -5648,11 +5344,6 @@ msgstr ""
 
 #: src/main.vala:65
 #, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#| "(schema %d).  Please clear your library by deleting %s and re-import your "
-#| "photos."
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
@@ -5666,7 +5357,6 @@ msgstr ""
 
 #: src/main.vala:71
 #, c-format
-#| msgid "Unknown error attempting to verify Shotwell's database: %s"
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Nežinoma klaida bandant patikrinti Shotwell duomenų bazę: %s"
 
@@ -5674,64 +5364,66 @@ msgstr "Nežinoma klaida bandant patikrinti Shotwell duomenų bazę: %s"
 msgid "Loading Shotwell"
 msgstr "Įkeliama Shotwell"
 
-#: src/main.vala:347
-#| msgid "Path to Shotwell's private data"
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Kelias iki Shotwell privačių duomenų"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "KATALOGAS"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Nestebėti bibliotekos aplanko pakeitimų"
 
-#: src/main.vala:349
-#| msgid "Don't display startup progress meter"
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Nerodyti paleidimo eigos"
 
-#: src/main.vala:350
-#| msgid "Show the application's version"
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Rodyti programos versiją"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Paleisti programą viso ekrano veiksena"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Spausdinti paveikslėlio failo metaduomenis"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Pasirinktinio profilio pavadinimas"
 
-#: src/main.vala:353
-#| msgid "[FILE]"
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PROFILIS"
 
-#: src/main.vala:354
-#| msgid "Show all photos"
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Jei naudojant --profile pateikto PROFILIO nėra, jį sukurti"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Rodyti visus profilius"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[FAILAS]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options.\n"
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Norėdami pamatyti visą galimų komandų eilutės parametrų sąrašą, paleiskite "
 "„%s --help“.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr "Profilio %s nėra. Ar taip pat norėjote nurodyti --create?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
@@ -5866,7 +5558,6 @@ msgid "Image Settings"
 msgstr "Paveikslėlio nustatymai"
 
 #: src/Printing.vala:864
-#| msgid "Printing..."
 msgid "Printing…"
 msgstr "Spausdinama…"
 
@@ -6008,13 +5699,12 @@ msgstr "Ruošiamasi nusiuntimui"
 msgid "Uploading %d of %d"
 msgstr "Nusiunčiama %d iš %d"
 
-#: src/publishing/PublishingPluginHost.vala:81
+#: src/publishing/PublishingPluginHost.vala:85
 #, c-format
-#| msgid "Publishing to %s can't continue because an error occurred:"
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "Viešinimas %s negali būti tęsiamas dėl klaidos:"
 
-#: src/publishing/PublishingPluginHost.vala:84
+#: src/publishing/PublishingPluginHost.vala:88
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 "Pabandykite skelbti naudodami kitą tarnybą, pasirinkite aukščiau esančiame "
@@ -6052,11 +5742,6 @@ msgstr "Nepavyko paskelbti"
 
 #: src/publishing/PublishingUI.vala:289
 #, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a "
-#| "compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-#| "Preferences</b> and enable one or more of the publishing plugins on the "
-#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
@@ -6072,19 +5757,16 @@ msgid "Publishing"
 msgstr "Paskelbiama"
 
 #: src/publishing/StaticMessagePaneWidget.vala:44
-#| msgid "Fetching account information..."
 msgid "Fetching account information…"
 msgstr "Gaunama paskyros informacija…"
 
 #: src/publishing/StaticMessagePaneWidget.vala:50
-#| msgid "Logging in..."
 msgid "Logging in…"
 msgstr "Jungiamasi…"
 
 #. Here, we check whether more than one item is being uploaded, and if so, display
 #. an alternate message.
 #: src/publishing/SuccessPaneWidget.vala:17
-#| msgid "The selected video was successfully published."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
 msgstr[0] "Pasirinkti vaizdo įrašai sėkmingai paskelbti."
@@ -6092,7 +5774,6 @@ msgstr[1] "Pasirinkti vaizdo įrašai sėkmingai paskelbti."
 msgstr[2] "Pasirinkti vaizdo įrašai sėkmingai paskelbti."
 
 #: src/publishing/SuccessPaneWidget.vala:22
-#| msgid "The selected photo was successfully published."
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
 msgstr[0] "Pasirinktos nuotraukos sėkmingai paskelbtos."
@@ -6200,7 +5881,6 @@ msgid "Crop"
 msgstr "Apkirpti"
 
 #: src/Resources.vala:173
-#| msgid "Crop the photo's size"
 msgid "Crop the photo’s size"
 msgstr "Apkirpti nuotraukos dydį"
 
@@ -6225,7 +5905,6 @@ msgid "Adjust"
 msgstr "Koreguoti"
 
 #: src/Resources.vala:185
-#| msgid "Adjust the photo's color and tone"
 msgid "Adjust the photo’s color and tone"
 msgstr "Koreguoti nuotraukos spalvą ir toną"
 
@@ -6246,7 +5925,6 @@ msgid "Set selected image to be the new desktop background"
 msgstr "Padaryti pasirinktą paveikslėlį naujuoju darbalaukio fonu"
 
 #: src/Resources.vala:195
-#| msgid "Set as Desktop Slideshow"
 msgid "Set as _Desktop Slideshow…"
 msgstr "Nustatyti kaip _darbalaukio fonų demonstraciją"
 
@@ -6339,7 +6017,6 @@ msgid "Show only rejected photos"
 msgstr "Rodyti tik atmestas nuotraukas"
 
 #: src/Resources.vala:246
-#| msgid "Show all photos, including rejected"
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Rodyti visas nuotraukas, įskaitant atmestas"
@@ -6350,7 +6027,6 @@ msgid "Show all photos"
 msgstr "Rodyti visas nuotraukas"
 
 #: src/Resources.vala:253
-#| msgid "Display each photo's rating"
 msgid "Display each photo’s rating"
 msgstr "Rodyti kiekvienos nuotraukos įvertinimą"
 
@@ -6371,18 +6047,15 @@ msgid "Make a duplicate of the photo"
 msgstr "Sukurti nuotraukos kopiją"
 
 #: src/Resources.vala:265
-#| msgid "_Print"
 msgid "_Print…"
 msgstr "S_pausdinti…"
 
 #: src/Resources.vala:267
-#| msgid "Publish"
 msgid "Pu_blish…"
 msgstr "_Viešinti…"
 
 #. Button label
 #: src/Resources.vala:273
-#| msgid "Edit Title"
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Taisyti antraštę"
@@ -6398,13 +6071,11 @@ msgstr "Taisyti datą ir laiką"
 
 #. Dialog title
 #: src/Resources.vala:288
-#| msgid "Add Tags"
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Pridėti žymų"
 
 #: src/Resources.vala:299
-#| msgid "_Find"
 msgid "_Find…"
 msgstr "_Rasti…"
 
@@ -6417,17 +6088,14 @@ msgid "Un_flag"
 msgstr "At_žymėti"
 
 #: src/Resources.vala:309
-#| msgid "Make a duplicate of the photo"
 msgid "Mark faces of people in the photo"
 msgstr "Žymėti žmonių veidus nuotraukoje"
 
 #: src/Resources.vala:310
-#| msgid "Modify Tags"
 msgid "Modify Faces"
 msgstr "Keisti veidus"
 
 #: src/Resources.vala:311
-#| msgid "Delete Tag"
 msgid "Delete Face"
 msgstr "Šalinti veidą"
 
@@ -6438,33 +6106,28 @@ msgstr "Nepavyko paleisti rengyklės: %s"
 
 #: src/Resources.vala:322
 #, c-format
-#| msgid "Add Tag \"%s\""
 msgid "Add Tag “%s”"
 msgstr "Pridėti žymą „%s“"
 
 #. Used when adding two tags to photo(s)
 #: src/Resources.vala:325
 #, c-format
-#| msgid "Add Tags \"%s\" and \"%s\""
 msgid "Add Tags “%s” and “%s”"
 msgstr "Pridėti žymas „%s“ ir „%s“"
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:330
-#| msgid "Add Tags"
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Pridėti žymų"
 
 #: src/Resources.vala:335
 #, c-format
-#| msgid "_Delete Tag \"%s\""
 msgid "_Delete Tag “%s”"
 msgstr "_Šalinti žymą „%s“"
 
 #: src/Resources.vala:339
 #, c-format
-#| msgid "Delete Tag \"%s\""
 msgid "Delete Tag “%s”"
 msgstr "Šalinti žymą „%s“"
 
@@ -6474,13 +6137,11 @@ msgstr "Šalinti žymą"
 
 #: src/Resources.vala:348
 #, c-format
-#| msgid "Re_name Tag \"%s\"..."
 msgid "Re_name Tag “%s”…"
 msgstr "Per_vadinti žymą „%s“…"
 
 #: src/Resources.vala:352
 #, c-format
-#| msgid "Rename Tag \"%s\" to \"%s\""
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Pervadinti žymą „%s“ į „%s“"
 
@@ -6490,7 +6151,6 @@ msgstr "Keisti žymą"
 
 #: src/Resources.vala:361
 #, c-format
-#| msgid "Tag Photo as \"%s\""
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Žymėti nuotraukas kaip „%s“"
@@ -6499,7 +6159,6 @@ msgstr[2] "Žymėti nuotraukas kaip „%s“"
 
 #: src/Resources.vala:367
 #, c-format
-#| msgid "Tag the selected photo as \"%s\""
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Žymėti pasirinktą nuotrauką kaip „%s“"
@@ -6508,7 +6167,6 @@ msgstr[2] "Žymėti pasirinktas nuotraukas kaip „%s“"
 
 #: src/Resources.vala:373
 #, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Pašalinti žymą „%s“ iš _nuotraukų"
@@ -6517,7 +6175,6 @@ msgstr[2] "Pašalinti žymą „%s“ iš _nuotraukų"
 
 #: src/Resources.vala:379
 #, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Pašalinti žymą „%s“ iš nuotraukų"
@@ -6526,13 +6183,11 @@ msgstr[2] "Pašalinti žymą „%s“ iš nuotraukų"
 
 #: src/Resources.vala:385
 #, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Nepavyko pervadinti žymos į „%s“, kadangi tokia žyma jau yra."
 
 #: src/Resources.vala:389
 #, c-format
-#| msgid "Unable to rename search to \"%s\" because the search already exists."
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Nepavyko pervadinti paieškos į „%s“, nes tokia paieška jau yra."
 
@@ -6547,25 +6202,21 @@ msgstr "Ištrinti paiešką"
 
 #: src/Resources.vala:401
 #, c-format
-#| msgid "Rename Search \"%s\" to \"%s\""
 msgid "Rename Search “%s” to “%s”"
 msgstr "Pervadinti paiešką „%s“ į „%s“"
 
 #: src/Resources.vala:405
 #, c-format
-#| msgid "Delete Search \"%s\""
 msgid "Delete Search “%s”"
 msgstr "Ištrinti paiešką „%s“"
 
 #: src/Resources.vala:410
 #, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "Nepavyko pervadinti žymos į „%s“, kadangi tokia žyma jau yra."
 
 #: src/Resources.vala:414
 #, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Pašalinti veidą „%s“ iš _nuotraukų"
@@ -6574,7 +6225,6 @@ msgstr[2] "Pašalinti veidą „%s“ iš _nuotraukų"
 
 #: src/Resources.vala:419
 #, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Pašalinti veidą „%s“ iš nuotraukos"
@@ -6594,19 +6244,16 @@ msgstr "Per_vadinti veidą „%s“…"
 
 #: src/Resources.vala:442
 #, c-format
-#| msgid "Rename Search \"%s\" to \"%s\""
 msgid "Rename Face “%s” to “%s”"
 msgstr "Pervadinti veidą „%s“ į „%s“"
 
 #: src/Resources.vala:446
 #, c-format
-#| msgid "_Delete Tag \"%s\""
 msgid "_Delete Face “%s”"
 msgstr "_Šalinti veidą „%s“"
 
 #: src/Resources.vala:450
 #, c-format
-#| msgid "Delete Search \"%s\""
 msgid "Delete Face “%s”"
 msgstr "Ištrinti veidą „%s“"
 
@@ -6651,7 +6298,6 @@ msgid "Only show photos with a rating of %s or better"
 msgstr "Rodyti nuotraukas, įvertintas %s ar geriau"
 
 #: src/Resources.vala:786
-#| msgid "Open the selected photo's directory in the file manager"
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Atverti pasirinktos nuotraukos aplanką failų tvarkytuvėje"
 
@@ -6681,7 +6327,6 @@ msgstr "%Y %b %d, %a"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:864
-#| msgid "%a %b %d"
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6690,7 +6335,6 @@ msgstr "%a %b %d"
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:869
-#| msgid "%d, %Y"
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6699,7 +6343,6 @@ msgstr "%d, %Y"
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:874
-#| msgid "%a %b %d"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -6708,7 +6351,6 @@ msgstr "%a %b %d"
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:879
-#| msgid "%a %b %d, %Y"
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%Y %b %d, %a"
@@ -6888,12 +6530,10 @@ msgid "Organize your saved searches"
 msgstr "Tvarkykite įrašytas paieškas"
 
 #: src/SearchFilter.vala:838
-#| msgid "Rating"
 msgid "★+ Rating"
 msgstr "★+ Reitingas"
 
 #: src/SearchFilter.vala:841
-#| msgid "Rating"
 msgid "★★+ Rating"
 msgstr "★★+ Reitingas"
 
@@ -6911,7 +6551,6 @@ msgstr "★★★★★+ Reitingas"
 
 #: src/SearchFilter.vala:1088
 #, c-format
-#| msgid "Error loading UI file %s: %s"
 msgid "Error loading search bar UI: %s"
 msgstr "Klaida įkeliant paieškos juostos sąsają: %s"
 
@@ -7009,7 +6648,7 @@ msgid "untitled"
 msgstr "nepavadinta"
 
 #. multiple videos
-#: src/VideoSupport.vala:510
+#: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Eksportuoti vaizdo įrašus"
 
