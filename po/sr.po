@@ -1,15 +1,15 @@
 # Serbian translation of shotwell.
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2011—2021.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2011–2021.
 # Copyright 2016 Software Freedom Conservancy Inc.
 # Mitko Krstev <m.krstev@hotmail.com>, 2011.
-# Nikola Radovanović <nrad@eunet.rs>, 2011—2013.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014—2021.
+# Nikola Radovanović <nrad@eunet.rs>, 2011–2013.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014–2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-01-19 07:11+0000\n"
-"PO-Revision-Date: 2021-01-19 20:59+0200\n"
+"POT-Creation-Date: 2021-09-05 07:36+0000\n"
+"PO-Revision-Date: 2021-09-18 07:19+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -25,7 +25,6 @@ msgid "authentication token"
 msgstr "Потврђивање идентитета"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
-#| msgid "Yandex-Fotki authentication token, if logged in."
 msgid "Yandex-Fotki authentication token, if logged in"
 msgstr "Потврђивање идентитета за Јандекс-Фотке, ако сте пријављени"
 
@@ -35,8 +34,6 @@ msgid "OAuth Access Phase Token"
 msgstr "Симбол отвореног потврђивања фазе приступа"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
-#| msgid ""
-#| "The authorization token for the currently logged in Flickr user, if any"
 msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr ""
 "Симбол потврђивања идентитета за тренутно пријављеног корисника Тамблра, ако "
@@ -48,9 +45,6 @@ msgid "OAuth Access Phase Token Secret"
 msgstr "Тајна симбола отвореног потврђивања фазе приступа"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:21
-#| msgid ""
-#| "The cryptographic secret used to sign requests against the authorization "
-#| "token for the currently logged in Flickr user, if any"
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Tumblr user, if any"
@@ -96,12 +90,10 @@ msgid "Rajce URL"
 msgstr "Адреса Рајцеа"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
-#| msgid "URL of the Rajce server."
 msgid "URL of the Rajce server"
 msgstr "Адреса Рајс сервера"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
-#| msgid "Rajce username, if logged in."
 msgid "Rajce username, if logged in"
 msgstr "Корисничко име за Рајс, ако сте пријављени"
 
@@ -110,7 +102,6 @@ msgid "token"
 msgstr "симбол"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:59
-#| msgid "user token, if remembered."
 msgid "user token, if remembered"
 msgstr "корисников симбол, ако је запамћен"
 
@@ -120,7 +111,6 @@ msgid "last category"
 msgstr "последња категорија"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:65
-#| msgid "The last selected Rajce category."
 msgid "The last selected Rajce category"
 msgstr "Последња изабрана Рајце категорија"
 
@@ -130,9 +120,6 @@ msgid "last photo size"
 msgstr "последња величина фотографије"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
-#| msgid ""
-#| "A numeric code representing the last photo size preset used when "
-#| "publishing to Rajce."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Rajce"
@@ -145,7 +132,6 @@ msgid "remember"
 msgstr "памти"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
-#| msgid "If true, remember last login."
 msgid "If true, remember last login"
 msgstr "Ако је изабрано, памтиће последње пријављивање"
 
@@ -154,7 +140,6 @@ msgid "hide album"
 msgstr "скрива албум"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
-#| msgid "If true, hide the newly created Rajce album."
 msgid "If true, hide the newly created Rajce album"
 msgstr "Ако је изабрано, скрива новостворен албум Рајса"
 
@@ -188,8 +173,6 @@ msgid "display basic properties"
 msgstr "приказује основна својства"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
-#| msgid ""
-#| "True if the basic properties pane is to be displayed, false otherwise."
 msgid "True if the basic properties pane is to be displayed, false otherwise"
 msgstr ""
 "Изабрано ако ће окно основних својстава бити приказано, у супротном поништено"
@@ -199,9 +182,6 @@ msgid "display extended properties"
 msgstr "приказује проширена својства"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:30
-#| msgid ""
-#| "True if the extended properties window is to be displayed, false "
-#| "otherwise."
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise"
 msgstr ""
@@ -213,7 +193,6 @@ msgid "display sidebar"
 msgstr "приказује бочну површ"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:36
-#| msgid "True if the sidebar is to be displayed, false otherwise."
 msgid "True if the sidebar is to be displayed, false otherwise"
 msgstr "Изабрано ако ће бочна површ бити приказана, у супротном поништено"
 
@@ -222,17 +201,14 @@ msgid "display toolbar"
 msgstr "приказује траку алата"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:42
-#| msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
 msgstr "Изабрано ако ће доња трака алата бити приказана, у супротном поништено"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:47
-#| msgid "display sidebar"
 msgid "display map widget"
 msgstr "приказује елемент карте"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:48
-#| msgid "True if the sidebar is to be displayed, false otherwise."
 msgid "True if the map widget is to be displayed, false otherwise"
 msgstr "Изабрано ако ће елемент карте бити приказан, у супротном поништено"
 
@@ -241,8 +217,6 @@ msgid "display search bar"
 msgstr "приказује траку претраге"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:54
-#| msgid ""
-#| "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
 msgstr ""
 "Изабрано ако ће трака претраге/филтера бити приказана, у супротном поништено"
@@ -252,9 +226,6 @@ msgid "display photo titles"
 msgstr "приказује наслове фотографија"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:60
-#| msgid ""
-#| "True if photo titles are to be displayed beneath thumbnails in collection "
-#| "views, false otherwise."
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -267,9 +238,6 @@ msgid "display photo comments"
 msgstr "приказује напомене фотографија"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:66
-#| msgid ""
-#| "True if photo comments are to be displayed beneath thumbnails in "
-#| "collection views, false otherwise."
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -282,9 +250,6 @@ msgid "display event comments"
 msgstr "приказује напомене догађаја"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:72
-#| msgid ""
-#| "True if event comments are to be displayed beneath thumbnails in event "
-#| "views, false otherwise."
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise"
@@ -297,9 +262,6 @@ msgid "display photo tags"
 msgstr "приказује ознаке фотографија"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:78
-#| msgid ""
-#| "True if photo tags are to be listed beneath thumbnails in collection "
-#| "views, false otherwise."
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise"
@@ -312,9 +274,6 @@ msgid "display photo ratings"
 msgstr "приказује оцене фотографија"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:84
-#| msgid ""
-#| "True if a photo’s rating should be displayed as overlaid trinket, false "
-#| "otherwise."
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise"
@@ -327,10 +286,6 @@ msgid "rating filter level"
 msgstr "ниво издвајања оцене"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:90
-#| msgid ""
-#| "Determines how to filter photos based on their ratings. 1: Rejected or "
-#| "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: "
-#| "Three or better, 6: Four or better, 7: Five or better."
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
@@ -345,7 +300,6 @@ msgid "sort events ascending"
 msgstr "ређа догађаје растућим редом"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:96
-#| msgid "True if events should be sorted ascending, false if descending."
 msgid "True if events should be sorted ascending, false if descending"
 msgstr ""
 "Изабрано ако ће догађаји бити поређани растућим редом, у супротном опадајућим"
@@ -355,8 +309,6 @@ msgid "sort library photos ascending"
 msgstr "ређа фотографије библиотеке растућим редом"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:102
-#| msgid ""
-#| "True if library photos should be sorted ascending, false if descending."
 msgid "True if library photos should be sorted ascending, false if descending"
 msgstr ""
 "Изабрано ако ће фотографије библиотеке бити поређане растућим редом, у "
@@ -367,9 +319,6 @@ msgid "sort library photos criteria"
 msgstr "мерило ређања фотографија библиотеке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:108
-#| msgid ""
-#| "A numeric code that specifies the sort criteria for photos in library "
-#| "views."
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views"
 msgstr ""
@@ -380,8 +329,6 @@ msgid "sort event photos ascending"
 msgstr "ређа фотографије догађаја растућим редом"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:114
-#| msgid ""
-#| "True if event photos should be sorted ascending, false if descending."
 msgid "True if event photos should be sorted ascending, false if descending"
 msgstr ""
 "Изабрано ако ће фотографије догађаја бити поређане растућим редом, у "
@@ -392,7 +339,6 @@ msgid "sort event photos criteria"
 msgstr "мерило ређања фотографија догађаја"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:120
-#| msgid "Specifies the sort criteria for event photos."
 msgid "Specifies the sort criteria for event photos"
 msgstr "Наводи мерило ређања за фотографије догађаја"
 
@@ -401,9 +347,6 @@ msgid "use 24 hour time"
 msgstr "користи 24-часовно време"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:126
-#| msgid ""
-#| "True if should display times with a 24 hour clock, false if times should "
-#| "use AM/PM notation."
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation"
@@ -416,9 +359,6 @@ msgid "keep relative time between photos"
 msgstr "задржава релативно време између фотографија"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:132
-#| msgid ""
-#| "True if when adjusting time/date of photos, relative time should be "
-#| "maintained. False if all photos should be set to the same time."
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time"
@@ -432,9 +372,6 @@ msgid "modify original photo files"
 msgstr "мења датотеке изворне фотографије"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:138
-#| msgid ""
-#| "True if when adjusting time/date of photos, the original files should be "
-#| "modified as well. False if changes are made only in the database."
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database"
@@ -448,9 +385,6 @@ msgid "show welcome dialog on startup"
 msgstr "приказује прозорче добродошлице при покретању"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
-#| msgid ""
-#| "True if, when on startup, a welcome dialog should be shown. False if it "
-#| "should not be shown."
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown"
@@ -471,7 +405,6 @@ msgid "photo thumbnail scale"
 msgstr "сразмера минијатуре фотографије"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:156
-#| msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgid "The scale of photo thumbnails, ranging from 72 to 360"
 msgstr "Сразмера минијатуре фотографије, у опсегу од 72 до 360"
 
@@ -480,7 +413,6 @@ msgid "pin toolbar state"
 msgstr "прибада стање траке алата"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:162
-#| msgid "Pin toolbar in fullscreen, or not."
 msgid "Pin toolbar in fullscreen, or not"
 msgstr "Прибада траку алата у пуном екрану, или не"
 
@@ -489,7 +421,6 @@ msgid "prefer GTK+’s dark theme"
 msgstr "даје предност Гтк*+ тамној теми"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:168
-#| msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not"
 msgstr "Да ли ће да користи тамну тему за Гтк+ за Фото-бунар или не"
 
@@ -498,7 +429,6 @@ msgid "background for transparent images"
 msgstr "позадина за провидне слике"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:174
-#| msgid "The background to use for transparent images."
 msgid "The background to use for transparent images"
 msgstr "Позадина која ће се користити за провидне слике"
 
@@ -515,9 +445,6 @@ msgid "Selection state of “hide photos” option"
 msgstr "Стање избора опције „сакриј фотографије“"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:186
-#| msgid ""
-#| "Last used selection state of the “hide photos already imported” option in "
-#| "the import page."
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page"
@@ -530,7 +457,6 @@ msgid "delay"
 msgstr "застој"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:194
-#| msgid "Delay (in seconds) between photos in the slideshow."
 msgid "Delay (in seconds) between photos in the slideshow"
 msgstr "Застој (у секундама) између фотографија у покретном приказу"
 
@@ -569,7 +495,6 @@ msgid "maximize library window"
 msgstr "увеличава прозор библитеке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:220
-#| msgid "True if library application is maximized, false otherwise."
 msgid "True if library application is maximized, false otherwise"
 msgstr "Изабрано ако је програм библиотеке увеличан, поништено у супротном"
 
@@ -578,7 +503,6 @@ msgid "width of library window"
 msgstr "ширина прозора библиотеке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:226
-#| msgid "The last recorded width of the library application window."
 msgid "The last recorded width of the library application window"
 msgstr "Последња прибележена ширина прозора програма библиотеке"
 
@@ -587,7 +511,6 @@ msgid "height of library window"
 msgstr "висина прозора библиотеке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:232
-#| msgid "The last recorded height of the library application window."
 msgid "The last recorded height of the library application window"
 msgstr "Последња прибележена висина прозора програма библиотеке"
 
@@ -596,7 +519,6 @@ msgid "maximize direct-edit window"
 msgstr "увеличава прозор непосредног уређивања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:238
-#| msgid "True if direct-edit application is maximized, false otherwise."
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr ""
 "Изабрано ако је програм непосредног уређивања увеличан, поништено у супротном"
@@ -606,7 +528,6 @@ msgid "width of direct-edit window"
 msgstr "ширина прозора непосредног уређивања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:244
-#| msgid "The last recorded width of the direct-edit application window."
 msgid "The last recorded width of the direct-edit application window"
 msgstr "Последња прибележена ширина прозора програма непосредног уређивања"
 
@@ -615,7 +536,6 @@ msgid "height of direct-edit window"
 msgstr "висина прозора непосредног уређивања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:250
-#| msgid "The last recorded height of the direct-edit application window."
 msgid "The last recorded height of the direct-edit application window"
 msgstr "Последња прибележена висина прозора програма непосредног уређивања"
 
@@ -624,9 +544,6 @@ msgid "sidebar divider position"
 msgstr "положај разделника бочне површи"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:256
-#| msgid ""
-#| "The last recorded position of the divider between the sidebar and view in "
-#| "library application window."
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
@@ -639,7 +556,6 @@ msgid "import directory"
 msgstr "директоријум увоза"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:264
-#| msgid "Directory in which imported photo files are placed."
 msgid "Directory in which imported photo files are placed"
 msgstr "Директоријум у коме се стављају датотеке увезених фотографија"
 
@@ -648,8 +564,6 @@ msgid "watch library directory for new files"
 msgstr "прати приспеће нових датотека у фасцикли фототеке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:270
-#| msgid ""
-#| "If true, files added to the library directory are automatically imported."
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
@@ -660,9 +574,6 @@ msgid "write metadata to master files"
 msgstr "уписује метаподатке у главне датотеке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:276
-#| msgid ""
-#| "If true, changes to metadata (tags, titles, etc.) are written to the "
-#| "master photo file."
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
@@ -687,9 +598,6 @@ msgid "directory pattern"
 msgstr "шаблон директоријума"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:288
-#| msgid ""
-#| "A string encoding a naming pattern that will be used to name photo "
-#| "directories on import."
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
@@ -702,9 +610,6 @@ msgid "directory pattern custom"
 msgstr "произвољни шаблон директоријума"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:294
-#| msgid ""
-#| "A string encoding a custom naming pattern that will be used to name photo "
-#| "directories on import."
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
@@ -717,31 +622,24 @@ msgid "RAW developer default"
 msgstr "основни сирови развијач"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
-#| msgid "Default option for which RAW developer Shotwell will use."
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr "Основна опција за коју ће сировог развијача Фото-бунар користити"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:307
-#| msgid "Most-recently-used crop aspect ratio menu choice."
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "Најчешће скоро коришћен избор изборника односа сразмере одсецања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:308
-#| msgid "A numeric code representing the last crop menu choice the user made."
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "Бројчани код који представља последњи избор изборника одсецања који је "
 "начинио корисник"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:312
-#| msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr "Најчешће скоро коришћен нумератор произвољног односа сразмере одсецања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:313
-#| msgid ""
-#| "A nonzero, positive integer representing the width part of the last "
-#| "custom crop ratio the user entered."
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
@@ -750,15 +648,11 @@ msgstr ""
 "произвољног одсецања који је унео корисник"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:317
-#| msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr ""
 "Најчешће скоро коришћен деномератор произвољног односа сразмере одсецања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:318
-#| msgid ""
-#| "A nonzero, positive integer representing the height part of the last "
-#| "custom crop ratio the user entered."
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
@@ -771,7 +665,6 @@ msgid "external photo editor"
 msgstr "спољни уређивач фотографија"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:326
-#| msgid "External application used to edit photos."
 msgid "External application used to edit photos"
 msgstr "Спољни програм коришћен за уређивање фотографија"
 
@@ -780,7 +673,6 @@ msgid "external raw editor"
 msgstr "спољни сирови уређивач"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:332
-#| msgid "External application used to edit RAW photos."
 msgid "External application used to edit RAW photos"
 msgstr "Спољни програм коришћен за уређивање сирових фотографија"
 
@@ -894,9 +786,6 @@ msgid "refresh token"
 msgstr "симбол освежавања"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
-#| msgid ""
-#| "The OAuth token used to refresh the Google Photos session for the "
-#| "currently logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -936,12 +825,10 @@ msgid "Piwigo URL"
 msgstr "Адреса Пивига"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:492
-#| msgid "URL of the Piwigo server."
 msgid "URL of the Piwigo server"
 msgstr "Адреса Пивиго сервера"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:498
-#| msgid "Piwigo username, if logged in."
 msgid "Piwigo username, if logged in"
 msgstr "Корисничко име за Пивиго, ако сте пријављени"
 
@@ -950,7 +837,6 @@ msgid "password"
 msgstr "лозинка"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:504
-#| msgid "Piwigo password, if logged in."
 msgid "Piwigo password, if logged in"
 msgstr "Лозинка за Пивиго, ако сте пријављени"
 
@@ -959,12 +845,10 @@ msgid "remember password"
 msgstr "запамти лозинку"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:510
-#| msgid "If true, remember the Piwigo password."
 msgid "If true, remember the Piwigo password"
 msgstr "Ако је изабрано, памтиће лозинку за Пивиго"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:516
-#| msgid "The last selected Piwigo category."
 msgid "The last selected Piwigo category"
 msgstr "Последња изабрана категорија за Пивиго"
 
@@ -973,14 +857,10 @@ msgid "last permission level"
 msgstr "последњи ниво овлашћења"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:522
-#| msgid "The last chosen Piwigo permission level."
 msgid "The last chosen Piwigo permission level"
 msgstr "Последњи изабрани ниво овлашћења за Пивиго"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:528
-#| msgid ""
-#| "A numeric code representing the last photo size preset used when "
-#| "publishing to Piwigo."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -1014,9 +894,6 @@ msgid "do not upload tags when uploading to Piwigo"
 msgstr "не отпрема ознаке када отпрема на Пивиго"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:546
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their tags removed on "
-#| "upload, such that these tags will not appear on the remote Piwigo server."
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -1025,14 +902,10 @@ msgstr ""
 "при отпремању, тако да се те ознаке неће појавити на удаљеном серверу Пивига"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:551
-#| msgid "do not upload tags when uploading to Piwigo"
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "не отпрема оцене када отпрема на Пивиго"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their tags removed on "
-#| "upload, such that these tags will not appear on the remote Piwigo server."
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -1061,9 +934,6 @@ msgid "Gallery3 site URL"
 msgstr "Адреса сајта Галерије 3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:584
-#| msgid ""
-#| "Whether images being uploaded to Rajce should have their metadata removed "
-#| "first"
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -1091,9 +961,6 @@ msgstr ""
 "сразмеравања одговарајућа вредност"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
-#| msgid ""
-#| "The OAuth token used to refresh the YouTube session for the currently "
-#| "logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -1208,9 +1075,6 @@ msgid "print titles"
 msgstr "штампа наслове"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:676
-#| msgid ""
-#| "True if the title of a photo should be printed when the photo is printed, "
-#| "false otherwise."
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
@@ -1223,7 +1087,6 @@ msgid "titles font"
 msgstr "слова наслова"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:682
-#| msgid "The name of the font to use for photo titles when they are printed."
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr ""
 "Назив словне групе која ће се користити за наслове фотографија приликом "
@@ -1444,7 +1307,7 @@ msgstr ""
 #: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:307
+#: src/photos/RawSupport.vala:311
 msgid "Shotwell"
 msgstr "Фото-бунар"
 
@@ -1470,12 +1333,15 @@ msgstr ""
 "исправљање грешака."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
+#| msgid ""
+#| "When ready, Shotwell can upload your photos to various web sites, such as "
+#| "Facebook, Flickr, Google Photos, and more."
 msgid ""
-"When ready, Shotwell can upload your photos to various web sites, such as "
-"Facebook, Flickr, Google Photos, and more."
+"When ready, Shotwell can upload your photos to various web services, such as "
+"Flickr, Google Photos, and more."
 msgstr ""
 "Када сте спремни, Фото-бунар може да отпреми ваше фотографије на разне веб "
-"сајтове, као што је Фејсбук, Фликр, Гугл Фотографије и многе друге."
+"услуге, као што је Фликр, Гугл Фотографије и многе друге."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -1581,7 +1447,7 @@ msgstr "_Развијач"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:310
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
 msgid "Camera"
 msgstr "Фото-апарат"
 
@@ -2518,21 +2384,6 @@ msgstr ""
 "policies.google.com/privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
-#| msgid ""
-#| "You are not currently logged into Google Photos.\n"
-#| "\n"
-#| "You must have already signed up for a Google account and set it up for "
-#| "use with Google Photos. Shotwell uses the Google Photos API services <a "
-#| "href=\"https://developers.google.com/photos/\">https://developers.google."
-#| "com/photos/</a> for all interaction with your Google Photos data.You will "
-#| "have to grant access Shotwell to your Google Photos library.\n"
-#| "\n"
-#| "Shotwell's privacy policy regarding the use of data related to your "
-#| "Google account in general and Google Photos in particular can be found in "
-#| "our <a href=\"help:shotwell/privacy-policy\">online services privacy "
-#| "policy</a>For Google's own privacy policy, please refer to <a href="
-#| "\"https://policies.google.com/privacy\">https://policies.google.com/"
-#| "privacy</a>"
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
@@ -2560,8 +2411,8 @@ msgstr ""
 "су повезани са вашим Гугл налогом уопште и Гугл Фотографијама понаособ "
 "можете наћи у нашој <a href=\"help:shotwell/privacy-policy\">политици "
 "приватности услуга на мрежи</a>. За Гуглову властиту политику приватности, "
-"погледајте <a href=\"https://policies.google.com/privacy\""
-">https://policies.google.com/privacy</a>"
+"погледајте <a href=\"https://policies.google.com/privacy\">https://policies."
+"google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -2951,7 +2802,6 @@ msgstr "_Забрани преузимање изворне фотографиј
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
-#| msgid "Photo _size:"
 msgid "Photo _size"
 msgstr "Величина _фотографије"
 
@@ -2987,9 +2837,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
 #, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %s remaining in your upload quota."
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
 "service.\n"
@@ -3001,7 +2848,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:623
 #, c-format
-#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded a file"
@@ -3022,17 +2868,14 @@ msgstr[3] ""
 "отпремили једну датотеку"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
-#| msgid "Photos _visible to:"
 msgid "Photos _visible to"
 msgstr "Фотографије могу _видети"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:630
-#| msgid "Videos _visible to:"
 msgid "Videos _visible to"
 msgstr "Видео снимке могу _видети"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:633
-#| msgid "Photos and videos _visible to:"
 msgid "Photos and videos _visible to"
 msgstr "Фотографије и снимке могу _видети"
 
@@ -3192,7 +3035,6 @@ msgid "_Do no upload tags"
 msgstr "_Не отпремај ознаке"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
-#| msgid "_Do no upload tags"
 msgid "_Do not upload ratings"
 msgstr "_Не отпремај оцене"
 
@@ -3212,10 +3054,6 @@ msgstr "Дошли је до грешке приликом објављивањ�
 #. %s is the host name that we tried to connect to
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 #, c-format
-#| msgid ""
-#| "This does not look like the real <b>%s</b>. Attackers might be trying to "
-#| "steal or alter information going to or from this site (for example, "
-#| "private messages, credit card information, or passwords)."
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
 "alter information going to or from this site (for example, private messages, "
@@ -3283,7 +3121,6 @@ msgid "Core Publishing Services"
 msgstr "Кључне услуге објављивања"
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
-#| msgid "Blogs:"
 msgid "Blogs"
 msgstr "Блогови"
 
@@ -3312,7 +3149,6 @@ msgstr ""
 "\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
-#| msgid "Video privacy _setting:"
 msgid "Video privacy _setting"
 msgstr "Подешавање _приватности снимка"
 
@@ -3628,17 +3464,17 @@ msgstr "Започињем увоз, сачекајте мало…"
 msgid "Fetching photo information"
 msgstr "Преузимам податке о фотографији"
 
-#: src/camera/ImportPage.vala:1538
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Преузимам претпреглед за „%s“"
 
-#: src/camera/ImportPage.vala:1647
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Не могу да закључам фото-апарат: %s"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3647,7 +3483,7 @@ msgstr[1] "Да обришем ове %d фотографије са фото-а
 msgstr[2] "Да обришем ових %d фотографија са фото-апарата?"
 msgstr[3] "Да обришем ову једну фотографију са фото-апарата?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3656,7 +3492,7 @@ msgstr[1] "Да обришем ова %d снимка са фото-апарат
 msgstr[2] "Да обришем ових %d снимака са фото-апарата?"
 msgstr[3] "Да обришем овај један снимак са фото-апарата?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3665,7 +3501,7 @@ msgstr[1] "Да обришем ове %d фотографије/снимка с�
 msgstr[2] "Да обришем ових %d фотографија/снимака са фото-апарата?"
 msgstr[3] "Да обришем ову %d фотографију/снимак са фото-апарата?"
 
-#: src/camera/ImportPage.vala:1741
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3674,15 +3510,15 @@ msgstr[1] "Да обришем ове %d датотеке са фото-апар
 msgstr[2] "Да обришем ових %d датотека са фото-апарата?"
 msgstr[3] "Да обришем ову %d датотеку са фото-апарата?"
 
-#: src/camera/ImportPage.vala:1749 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Задржи"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "Уклањам фотографије/снимке са фото-апарата"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4497,11 +4333,11 @@ msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
 "Нисам успео да увезем %d фотографију због грешке у датотеци или на уређају:\n"
 msgstr[1] ""
-"Нисам успео да увезем %d фотографије због грешке у датотекама или на уређају:"
-"\n"
+"Нисам успео да увезем %d фотографије због грешке у датотекама или на "
+"уређају:\n"
 msgstr[2] ""
-"Нисам успео да увезем %d фотографија због грешке у датотекама или на уређају:"
-"\n"
+"Нисам успео да увезем %d фотографија због грешке у датотекама или на "
+"уређају:\n"
 msgstr[3] ""
 "Нисам успео да увезем %d фотографију због грешке у датотеци или на уређају:\n"
 
@@ -4572,10 +4408,14 @@ msgid ""
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] "Нисам успео да увезем %d снимак јер фасцикла фототеке није уписива:\n"
-msgstr[1] "Нисам успео да увезем %d снимка јер фасцикла фототеке није уписива:\n"
-msgstr[2] "Нисам успео да увезем %d снимака јер фасцикла фототеке није уписива:\n"
-msgstr[3] "Нисам успео да увезем %d снимак јер фасцикла фототеке није уписива:\n"
+msgstr[0] ""
+"Нисам успео да увезем %d снимак јер фасцикла фототеке није уписива:\n"
+msgstr[1] ""
+"Нисам успео да увезем %d снимка јер фасцикла фототеке није уписива:\n"
+msgstr[2] ""
+"Нисам успео да увезем %d снимака јер фасцикла фототеке није уписива:\n"
+msgstr[3] ""
+"Нисам успео да увезем %d снимак јер фасцикла фототеке није уписива:\n"
 
 #: src/Dialogs.vala:398
 #, c-format
@@ -4605,10 +4445,14 @@ msgid ""
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] "Нисам успео да увезем %d датотеку јер фасцикла фототеке није уписива:\n"
-msgstr[1] "Нисам успео да увезем %d датотеке јер фасцикла фототеке није уписива:\n"
-msgstr[2] "Нисам успео да увезем %d датотека јер фасцикла фототеке није уписива:\n"
-msgstr[3] "Нисам успео да увезем %d датотеку јер фасцикла фототеке није уписива:\n"
+msgstr[0] ""
+"Нисам успео да увезем %d датотеку јер фасцикла фототеке није уписива:\n"
+msgstr[1] ""
+"Нисам успео да увезем %d датотеке јер фасцикла фототеке није уписива:\n"
+msgstr[2] ""
+"Нисам успео да увезем %d датотека јер фасцикла фототеке није уписива:\n"
+msgstr[3] ""
+"Нисам успео да увезем %d датотеку јер фасцикла фототеке није уписива:\n"
 
 #: src/Dialogs.vala:415
 #, c-format
@@ -4839,10 +4683,14 @@ msgstr "Да ли да вратим спољне измене?"
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
-msgstr[0] "Ова радња ће уништити све измене на %d спољној датотеци. Да наставим?"
-msgstr[1] "Ова радња ће уништити све измене на %d спољне датотеке. Да наставим?"
-msgstr[2] "Ова радња ће уништити све измене на %d спољних датотека. Да наставим?"
-msgstr[3] "Ова радња ће уништити све измене на %d спољној датотеци. Да наставим?"
+msgstr[0] ""
+"Ова радња ће уништити све измене на %d спољној датотеци. Да наставим?"
+msgstr[1] ""
+"Ова радња ће уништити све измене на %d спољне датотеке. Да наставим?"
+msgstr[2] ""
+"Ова радња ће уништити све измене на %d спољних датотека. Да наставим?"
+msgstr[3] ""
+"Ова радња ће уништити све измене на %d спољној датотеци. Да наставим?"
 
 #: src/Dialogs.vala:760
 msgid "Re_vert External Edit"
@@ -4931,7 +4779,6 @@ msgid "Remove From Library"
 msgstr "Уклоните из фототеке"
 
 #: src/Dialogs.vala:937 src/PhotoPage.vala:2897
-#| msgid "Removing Photo From Library"
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Уклањам фотографију из фототеке"
@@ -5044,10 +4891,14 @@ msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
-msgstr[0] "Не могу да преместим у смеће %d фотографију/снимак. Да ли да уклоним?"
-msgstr[1] "Не могу да преместим у смеће %d фотографије/снимка. Да ли да уклоним?"
-msgstr[2] "Не могу да преместим у смеће %d фотографија/снимака. Да ли да уклоним?"
-msgstr[3] "Не могу да преместим у смеће %d фотографију/снимак. Да ли да уклоним?"
+msgstr[0] ""
+"Не могу да преместим у смеће %d фотографију/снимак. Да ли да уклоним?"
+msgstr[1] ""
+"Не могу да преместим у смеће %d фотографије/снимка. Да ли да уклоним?"
+msgstr[2] ""
+"Не могу да преместим у смеће %d фотографија/снимака. Да ли да уклоним?"
+msgstr[3] ""
+"Не могу да преместим у смеће %d фотографију/снимак. Да ли да уклоним?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1008
@@ -5071,34 +4922,33 @@ msgstr "Добро дошли у Фото-бунар!"
 msgid "To get started, import photos in any of these ways:"
 msgstr "Да започнете, увезите фотографије на један од следећих начина:"
 
-#: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-#| msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgid "Choose File %s Import From Folder"
-msgstr "Изаберите увоз датотеке „%s“ из фасцикле"
+#: src/dialogs/WelcomeDialog.vala:65
+#| msgid "Choose File %s Import From Folder"
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Изаберите „Увези из фасцикле“ из изборника датотеке"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Превуците и убаците фотографију у прозор Фото-бунара"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr "Повежите фото-апарат на рачунар и увезите фотографије"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_Увези фотографије из фасцикле „%s“"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr "Можете увести фотографије на неки од следећих начина:"
 
-#: src/dialogs/WelcomeDialog.vala:98
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "_Не приказуј више ову поруку"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "Увезите фотографије из фототеке „%s“"
@@ -5398,7 +5248,7 @@ msgstr[1] "%d фотографије"
 msgstr[2] "%d фотографија"
 msgstr[3] "%d фотографија"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Без догађаја"
 
@@ -5418,19 +5268,19 @@ msgstr "Нема догађаја"
 msgid "No events found"
 msgstr "Нисам пронашао догађаје"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Сви догађаји"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Без датума"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y."
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5492,7 +5342,6 @@ msgstr "Клик и превлачење за означавање лица"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
-#| msgid "Click to edit face <i>%s</i>"
 msgid "Click to edit face “%s”"
 msgstr "Кликните да уредите лице „%s“"
 
@@ -5593,11 +5442,6 @@ msgstr "Празним корпу…"
 
 #: src/library/LibraryWindow.vala:782
 #, c-format
-#| msgid ""
-#| "Shotwell is configured to import photos to your home directory.\n"
-#| "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</"
-#| "span>.\n"
-#| "Do you want to continue importing photos?"
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
 "We recommend changing this in Edit %s Preferences.\n"
@@ -5691,60 +5535,67 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr "Учитавам Фото-бунар"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Путања до личних података Фото-бунара"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "ДИРЕКТОРИЈУМ"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Не прати директоријум фототеке за изменама у време покретања"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Не приказује мерач напредовања покретања"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Приказује издање програма"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Покреће програм у режиму преко целог екрана"
 
-#: src/main.vala:352
-#| msgid "write metadata to master files"
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Исписује метаподатке у датотеку слике"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Назив за произвољни профил"
 
-#: src/main.vala:353
-#| msgid "[FILE]"
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "ПРОФИЛ"
 
-#: src/main.vala:354
-#| msgid "Show all photos"
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Ако ПРОФИЛ дат са „--profile“ не постоји, направите га"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Приказује доступне профиле"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[ДАТОТЕКА]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Покрените „%s --help“ да видите потпун списак доступних опција линије "
 "наредби.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr ""
+"Профил „%s“ не постоји. Да ли сте такође мислили да проследите „--create“?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
@@ -6064,11 +5915,6 @@ msgstr "Објављивање није успело"
 
 #: src/publishing/PublishingUI.vala:289
 #, c-format
-#| msgid ""
-#| "Shotwell cannot publish the selected items because you do not have a "
-#| "compatible publishing plugin enabled. To correct this, choose <b>Edit %s "
-#| "Preferences</b> and enable one or more of the publishing plugins on the "
-#| "<b>Plugins</b> tab."
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
 "compatible publishing plugin enabled. To correct this, choose Edit %s "
@@ -6076,8 +5922,9 @@ msgid ""
 "<b>Plugins</b> tab."
 msgstr ""
 "Фото-бунар не може да објави изабране ставке јер немате укључен сагласан "
-"прикључак објављивања. Да исправите ово, изаберите уређивање поставки за „%s“"
-" и укључите један или више прикључака објављивања у језичку <b>Прикључци</b>."
+"прикључак објављивања. Да исправите ово, изаберите уређивање поставки за "
+"„%s“ и укључите један или више прикључака објављивања у језичку "
+"<b>Прикључци</b>."
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -6569,8 +6416,6 @@ msgstr[3] "Уклоните лице „%s“ са фотографије"
 #. Translators: This means to teach the face to the face recognition system
 #: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
-#| msgid "Remove Face “%s” From Photo"
-#| msgid_plural "Remove Face “%s” From Photos"
 msgid "_Train Face “%s” From Photo"
 msgstr "_Увежбај лице „%s“ са фотографије"
 
