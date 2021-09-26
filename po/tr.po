@@ -14,14 +14,14 @@
 # İşbaran Akçayır <isbaran@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2016.
 # Sabri Ünal <libreajans@gmail.com>, 2020.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2020.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-11-08 14:26+0000\n"
-"PO-Revision-Date: 2020-11-29 03:08+0300\n"
+"POT-Creation-Date: 2021-09-05 07:36+0000\n"
+"PO-Revision-Date: 2021-09-26 15:30+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -1282,8 +1282,8 @@ msgstr ""
 #: data/ui/event.ui:361 data/ui/event.ui:529 data/ui/faces.ui:356
 #: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#: src/photos/RawSupport.vala:307
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
+#: src/photos/RawSupport.vala:311
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1310,11 +1310,11 @@ msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
 msgid ""
-"When ready, Shotwell can upload your photos to various web sites, such as "
-"Facebook, Flickr, Google Photos, and more."
+"When ready, Shotwell can upload your photos to various web services, such as "
+"Flickr, Google Photos, and more."
 msgstr ""
 "Hazır olduğunda; Shotwell fotoğraflarınızı Facebook, Flickr, Google "
-"Fotoğraflar gibi daha çok web sitesine yükleyebilir."
+"Fotoğraflar gibi daha çok web servisine yükleyebilir."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -1421,7 +1421,7 @@ msgstr "_Geliştirici"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:310
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
 msgid "Camera"
 msgstr "Kamera"
 
@@ -1945,7 +1945,7 @@ msgid "_Cancel"
 msgstr "İ_ptal"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1066
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
 #: src/Resources.vala:139
 msgid "_OK"
 msgstr "_Tamam"
@@ -2298,7 +2298,7 @@ msgstr "Flick yetkilendirmesi başarısız"
 msgid "Verifying authorization…"
 msgstr "Yetkilendirme doğrulanıyor…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:144
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:164
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -2389,20 +2389,20 @@ msgstr ""
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:892
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:935
 msgid "_Email address"
 msgstr "_Eposta adresi"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:893
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:936
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "_Parola"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:938
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
 msgstr "Oturum aç"
@@ -2413,12 +2413,12 @@ msgstr ""
 "Lütfen Tumblr hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1099
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1140
 msgid "Username and/or password invalid. Please try again"
 msgstr "Kullanıcı adı ve/veya parola geçersiz. Lütfen yeniden deneyin"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1135
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
 msgid "Invalid User Name or Password"
 msgstr "Geçersiz Kullanıcı Adı veya Parola"
 
@@ -2545,7 +2545,7 @@ msgstr "piksel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:700
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1331
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1372
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Özgün boyut"
@@ -2557,7 +2557,7 @@ msgstr "En uzun köşe"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1019
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1062
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
@@ -2568,7 +2568,7 @@ msgstr "_Çıkış"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1018
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1061
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
@@ -2582,7 +2582,7 @@ msgstr "_Yayımla"
 msgid "Gallery3 publishing module"
 msgstr "Gallery3 yayımlama modülü"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:114
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
@@ -2594,11 +2594,11 @@ msgstr ""
 "Giriş sürecini tamamlamak için bir Gallery3 hesabına kaydolmuş olmanız "
 "gerekiyor."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:117
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
 msgid "Shotwell default directory"
 msgstr "Shotwell öntanımlı dizin"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:801
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:804
 #, c-format
 msgid ""
 "\n"
@@ -2610,7 +2610,7 @@ msgstr ""
 "\n"
 "“%s” dosyası bu Gallery3 örneği için çok büyük veya desteklenmiyor olabilir."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:802
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:805
 msgid ""
 "\n"
 "Note that Gallery3 only supports the video types that Flowplayer does."
@@ -2619,8 +2619,8 @@ msgstr ""
 "Gallery3’ün yalnızca Flowplayer’in desteklediği video türlerini "
 "desteklediğini unutmayın."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1021
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1773
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1057
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1809
 #, c-format
 msgid ""
 "A file required for publishing is unavailable. Publishing to %s can’t "
@@ -2631,12 +2631,12 @@ msgstr ""
 
 #. populate any widgets whose contents are
 #. programmatically-generated
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1550
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
 #, c-format
 msgid "Publishing to %s as %s."
 msgstr "%s’e %s olarak yayımlanıyor."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1817
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
@@ -2644,7 +2644,7 @@ msgstr ""
 "Gallery3 siteniz için URL ve Gallery3 hesabınız için kullanıcı ve parola "
 "(veya API anahtarı) girin."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1818
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
 msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
@@ -2652,7 +2652,7 @@ msgstr ""
 "Kullanıcı adı ve parola veya API anahtarı geçersizdi. Yeniden denemek için "
 "aşağıya kullanıcı adı ve parolanızı girin."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1819
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
 msgid ""
 "The URL entered does not appear to be the main directory of a Gallery3 "
 "instance. Please make sure you typed it correctly and it does not have any "
@@ -2661,36 +2661,36 @@ msgstr ""
 "Girilen URL bir Gallery3 örneğinin ana dizini gibi görünmüyor. Lütfen doğru "
 "yazdığınıza ve sonunda bileşen olmadığına (örn., index.php) emin olun."
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1872
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
 msgid "Unrecognized User"
 msgstr "Tanınmayan Kullanıcı"
 
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
+#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1913
 msgid " Site Not Found"
 msgstr " Site Bulunamadı"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:937
 msgid "_Remember"
 msgstr "_Anımsa"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1015
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1058
 msgid "An _existing album:"
 msgstr "_Var olan albüm:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1016
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1059
 msgid "A _new album named:"
 msgstr "Şu adda _yeni albüm:"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1006
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1049
 msgid "_Hide album"
 msgstr "Albümü _gizle"
 
 #: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1017
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1060
 msgid "Open target _album in browser"
 msgstr "Hedef _albümü tarayıcıda aç"
 
@@ -2698,29 +2698,29 @@ msgstr "Hedef _albümü tarayıcıda aç"
 msgid "Copyright © 2013 rajce.net"
 msgstr "Telif Hakkı © 2013 rajce.net"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:744
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:787
 msgid "An error message occurred when publishing to Rajce. Please try again."
 msgstr ""
 "Rajce’ye yayımlama sırasında bir hata iletisi oluştu. Lütfen yeniden deneyin."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:833
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:876
 msgid "Enter email and password associated with your Rajce account."
 msgstr "Rajce hesabınızla ilişkili e-posta ve parolanızı girin."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:834
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:877
 msgid "Invalid email and/or password. Please try again"
 msgstr "Geçersiz e-posta ve/veya parola. Lütfen yeniden deneyin"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:865
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:908
 msgid "Invalid User Email or Password"
 msgstr "Geçersiz Kullanıcı E-postası veya Parola"
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1013
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1056
 #, c-format
 msgid "You are logged into Rajce as %s."
 msgstr "Rajce’ye %s olarak giriş yapmış bulunmaktasınız."
 
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1014
+#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1057
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
 msgid "Photos will appear in:"
@@ -2738,7 +2738,7 @@ msgstr "Telif Hakkı 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
 msgid "Visit the Yandex.Fotki web site"
 msgstr "Yandex.Fotki web sitesini ziyaret edin"
 
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:609
+#: plugins/shotwell-publishing-extras/YandexPublishing.vala:629
 msgid "You are not currently logged into Yandex.Fotki."
 msgstr "Şu anda Yandex.Fotki için oturum açmış değilsiniz."
 
@@ -2842,7 +2842,7 @@ msgid "Photos and videos _visible to"
 msgstr "Fotoğraflar ve videolar _şunlara görülebilir"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:674
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1356
 msgid "Everyone"
 msgstr "Herkes"
 
@@ -2863,24 +2863,24 @@ msgid "Just me"
 msgstr "Yalnızca ben"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:696
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1327
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1368
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:697
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1328
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1369
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 piksel"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:698
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1329
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1370
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 benek"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:699
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1330
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1371
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 benek"
 
@@ -2907,7 +2907,7 @@ msgid "A new album named"
 msgstr "Şu adda yeni albüm"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1206
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
 msgid "Shotwell Connect"
 msgstr "Shotwell Bağlantısı"
 
@@ -3006,19 +3006,19 @@ msgstr "Puanlamaları _yükleme"
 msgid "Logout"
 msgstr "Çıkış"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:782
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:823
 #, c-format
 msgid "Creating album %s…"
 msgstr "%s albümü oluşturuluyor…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:959
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Piwigo’ya yayımlama sırasında bir hata iletisi oluştu. Lütfen yeniden "
 "deneyin."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1044
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -3029,12 +3029,12 @@ msgstr ""
 "bilgiyi (örneğin; özel iletiler, kredi kartı bilgisi veya parolalar gibi) "
 "çalmak veya başkalaştırmak istiyor olabilir."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1063
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1104
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s’in sertifikası"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1097
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3042,7 +3042,7 @@ msgstr ""
 "Piwigo fotoğraf kitaplığınızın URL’sinin yanı sıra bu kitaplık için Piwigo "
 "hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1098
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3050,23 +3050,23 @@ msgstr ""
 "Shotwell Piwigo fotoğraf kitaplığınızla bağlantı kuramıyor. Lüften "
 "girdiğiniz URL’yi denetleyin"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1130
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
 msgid "Invalid URL"
 msgstr "Geçersiz URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1357
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Yöneticiler, Aile, Arkadaşlar, Bağlantılar"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1358
 msgid "Admins, Family, Friends"
 msgstr "Yöneticiler, Aile, Arkadaşlar"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1318
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1359
 msgid "Admins, Family"
 msgstr "Yöneticiler, Aile"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1319
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1360
 msgid "Admins"
 msgstr "Yöneticiler"
 
@@ -3428,49 +3428,49 @@ msgstr "İçe aktarım başlıyor, lütfen bekleyin…"
 msgid "Fetching photo information"
 msgstr "Fotoğraf bilgisi alınıyor"
 
-#: src/camera/ImportPage.vala:1538
+#: src/camera/ImportPage.vala:1539
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "%s için önizleme alınıyor"
 
-#: src/camera/ImportPage.vala:1647
+#: src/camera/ImportPage.vala:1648
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera kilitlenemedi: %s"
 
-#: src/camera/ImportPage.vala:1732
+#: src/camera/ImportPage.vala:1733
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Bu %d fotoğraf kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1735
+#: src/camera/ImportPage.vala:1736
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Bu %d video kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1738
+#: src/camera/ImportPage.vala:1739
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Bu %d fotoğraf/video kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1741
+#: src/camera/ImportPage.vala:1742
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Bu %d dosya kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1749 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Koru"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1769
 msgid "Removing photos/videos from camera"
 msgstr "Fotoğraflar/Videolar kameradan kaldırılıyor"
 
-#: src/camera/ImportPage.vala:1772
+#: src/camera/ImportPage.vala:1773
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4610,34 +4610,33 @@ msgstr ""
 "Başlangıç olarak, fotoğraflarınızı şu yöntemlerden birini kullanarak içe "
 "aktarabilirsiniz:"
 
-#: src/dialogs/WelcomeDialog.vala:67
-#, c-format
-msgid "Choose File %s Import From Folder"
-msgstr "Dosya %s Dizinden İçeri Aktar’ı seçerek"
+#: src/dialogs/WelcomeDialog.vala:65
+msgid "Choose “Import From Folder” from the File menu"
+msgstr "Dosya menüsünden “Dizinden İçe Aktar”ı seçererek"
 
-#: src/dialogs/WelcomeDialog.vala:68
+#: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr "Fotoğrafları sürükleyip Shotwell penceresine bırakarak"
 
-#: src/dialogs/WelcomeDialog.vala:69
+#: src/dialogs/WelcomeDialog.vala:67
 msgid "Connect a camera to your computer and import"
 msgstr "Bilgisayarınıza kamera bağlayıp ve içe aktararak"
 
-#: src/dialogs/WelcomeDialog.vala:80
+#: src/dialogs/WelcomeDialog.vala:78
 #, c-format
 msgid "_Import photos from your %s folder"
 msgstr "_%s klasörünüzden fotoğrafları içe aktarın"
 
-#: src/dialogs/WelcomeDialog.vala:87
+#: src/dialogs/WelcomeDialog.vala:85
 msgid "You can also import photos in any of these ways:"
 msgstr ""
 "Ayrıca fotoğrafları şu yollardan herhangi biriyle içe aktarabilirsiniz:"
 
-#: src/dialogs/WelcomeDialog.vala:98
+#: src/dialogs/WelcomeDialog.vala:96
 msgid "_Don’t show this message again"
 msgstr "Bu iletiyi yeniden göster_me"
 
-#: src/dialogs/WelcomeDialog.vala:135
+#: src/dialogs/WelcomeDialog.vala:133
 #, c-format
 msgid "Import photos from your %s library"
 msgstr "%s kitaplığınızdan fotoğrafları içe aktarın"
@@ -4928,7 +4927,7 @@ msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d Fotoğraf"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Olay yok"
 
@@ -4948,19 +4947,19 @@ msgstr "Olaylar yok"
 msgid "No events found"
 msgstr "Hiçbir olay bulunamadı"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Tüm Olaylar"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Tarih Belirlenmemiş"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5215,57 +5214,66 @@ msgstr "Shotwell veri tabanını doğrulama denenirken bilinmeyen hata: %s"
 msgid "Loading Shotwell"
 msgstr "Shotwell Yükleniyor"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell’in gizli veri yolu"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "DİZİN"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Kitaplık dizinini çalışırken değişiklikler için izleme"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Başlangıç ilerleme metresini gösterme"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Uygulama sürümünü göster"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Uygulamayı tam ekran kipinde başlat"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Resim dosyasının üstverisini yazdır"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Özel profil adı"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:354
+#: src/main.vala:355
+msgid "If PROFILE given with --profile does not exist, create it"
+msgstr "Eğer --profile ile verilen PROFIL yoksa oluştur"
+
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Kullanılabilir profilleri gister"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:385
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[DOSYA]"
 
-#: src/main.vala:390
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Kullanılabilir komut satırı seçeneklerinin tam bir listesini görmek için “%s "
 "--help” komutunu çalıştır.\n"
+
+#: src/main.vala:402
+#, c-format
+msgid "Profile %s does not exist. Did you mean to pass --create as well?"
+msgstr "%s profili yok. Komuta --create eklemeyi düşünür müsünüz?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
@@ -5537,12 +5545,12 @@ msgstr "Yükleme için hazırlanıyor"
 msgid "Uploading %d of %d"
 msgstr "%d in %d si yükleniyor"
 
-#: src/publishing/PublishingPluginHost.vala:81
+#: src/publishing/PublishingPluginHost.vala:85
 #, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
 msgstr "%s’e yayımlamaya devam edilemiyor çünkü bir hata oluştu:"
 
-#: src/publishing/PublishingPluginHost.vala:84
+#: src/publishing/PublishingPluginHost.vala:88
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 "Başka bir serviste yayımlamayı denemek için yukarıdaki menüden bir tane "
@@ -6471,7 +6479,7 @@ msgid "untitled"
 msgstr "başlıksız"
 
 #. multiple videos
-#: src/VideoSupport.vala:510
+#: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
 
