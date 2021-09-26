@@ -127,31 +127,35 @@ msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Rajce"
 msgstr ""
+"Številčna koda, ki predstavlja zadnjo nastavitev velikosti fotografije, "
+"uporabljeno pri objavi na spletišče Rajce."
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:76
 msgid "remember"
-msgstr ""
+msgstr "zapomni si"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
 msgid "If true, remember last login"
-msgstr ""
+msgstr "Izbrana možnost omogoči zapomnjenje zadnje prijave."
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:82
 msgid "hide album"
-msgstr ""
+msgstr "skrij album"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
 msgid "If true, hide the newly created Rajce album"
-msgstr ""
+msgstr "Izbrana možnost omogoči skrivanje na novo ustvarjenega albuma Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
 msgid "open album in web browser"
-msgstr ""
+msgstr "odpri album v spletnem brskalniku"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:89
 msgid ""
 "If true, open target album in the web browser just after uploading photos"
 msgstr ""
+"Izbrana možnost določa, da bo ciljni album odprt v brskalniku tik pred "
+"pošiljanjem fotografij."
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94
 #: data/gsettings/org.gnome.shotwell.gschema.xml:457
@@ -159,21 +163,23 @@ msgstr ""
 #: data/gsettings/org.gnome.shotwell.gschema.xml:533
 #: data/gsettings/org.gnome.shotwell.gschema.xml:583
 msgid "remove sensitive info from uploads"
-msgstr ""
+msgstr "odstrani občutljive podatke iz datotek za pošiljanje"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:95
 msgid ""
 "Whether images being uploaded to Rajce should have their metadata removed "
 "first"
 msgstr ""
+"Ali naj se pred pošiljanjem datotek na spletnišče Rajce odstranijo "
+"metapodatki"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:23
 msgid "display basic properties"
-msgstr ""
+msgstr "pokaži osnovne lastnosti"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
 msgid "True if the basic properties pane is to be displayed, false otherwise"
-msgstr ""
+msgstr "Izbrana možnost določa prikaz okna z osnovnimi podatki."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:29
 msgid "display extended properties"
@@ -225,6 +231,8 @@ msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
 msgstr ""
+"Izbrana možnost določa, da bodo naslovi fotografij prikazani pod sličicami v "
+"pogledih zbirke."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:65
 msgid "display photo comments"
@@ -235,6 +243,8 @@ msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
 msgstr ""
+"Izbrana možnost določa, da bodo opombe k fotografijam prikazane pod "
+"sličicami v pogledih zbirke."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:71
 msgid "display event comments"
@@ -245,6 +255,8 @@ msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise"
 msgstr ""
+"Izbrana možnost določa, da bodo opombe k dogodkom prikazane pod sličicami v "
+"pogledih dogodkov"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:77
 msgid "display photo tags"
@@ -255,6 +267,8 @@ msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise"
 msgstr ""
+"Izbrana možnost določa, da bodo pod sličicami v pogledih zbirke navedene "
+"tudi oznake fotografij."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:83
 msgid "display photo ratings"
@@ -265,6 +279,8 @@ msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise"
 msgstr ""
+"Izbrana možnost določa, da bo ocena fotografije prikazana kot prekrivna "
+"sličica na sliki."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid "rating filter level"
@@ -276,6 +292,10 @@ msgid ""
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
 "or better, 6: Four or better, 7: Five or better"
 msgstr ""
+"Določa, kako filtrirati fotografije na podlagi njihovih ocen. 1: Zavrnjena "
+"ali bolje ocenjena, 2: Neocenjena ali bolje ocenjena, 3: Ena ali bolje "
+"ocenjena, 4: Dva ali bolje ocenjena, 5: Tri ali bolje ocenjena, 6: Štiri ali "
+"bolje ocenjena, 7: Pet ali bolje ocenjena."
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:95
 msgid "sort events ascending"
@@ -283,7 +303,7 @@ msgstr "razvrsti dogodke naraščajoče"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:96
 msgid "True if events should be sorted ascending, false if descending"
-msgstr ""
+msgstr "Izbrana možnost določa, da bodo dogodki razvrščeni naraščajoče"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "sort library photos ascending"
@@ -292,6 +312,7 @@ msgstr "razvrsti fotografije zbirke naraščajoče"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:102
 msgid "True if library photos should be sorted ascending, false if descending"
 msgstr ""
+"Izbrana možnost določa, da bodo fotografije zbirke razvrščene naraščajoče"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:107
 msgid "sort library photos criteria"
@@ -301,14 +322,18 @@ msgstr "kriterij razvrščanja fotografij zbirke"
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views"
 msgstr ""
+"Številčna koda, ki določa pogoje razvrščanja fotografij v pogledih knjižnice"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:113
 msgid "sort event photos ascending"
 msgstr "razvrsti fotografije dogodkov naraščajoče"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:114
+#, fuzzy
 msgid "True if event photos should be sorted ascending, false if descending"
 msgstr ""
+"Res je, če je treba fotografije dogodka razvrstiti naraščajoče, napačno, če "
+"se spuščajo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:119
 msgid "sort event photos criteria"
@@ -323,40 +348,52 @@ msgid "use 24 hour time"
 msgstr "uporabi 24 urni zapis časa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:126
+#, fuzzy
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation"
 msgstr ""
+"Res je, če bi prikazoval čase s 24-urno uro, neresnično, če bi časi "
+"uporabljali am/pm notacijo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:131
 msgid "keep relative time between photos"
 msgstr "ohrani relativne čase med fotografijami"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:132
+#, fuzzy
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time"
 msgstr ""
+"Res je, če je treba pri prilagajanju časa/datuma fotografij ohraniti "
+"relativni čas. Neresnično, če je treba vse fotografije nastaviti na isti čas"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:137
 msgid "modify original photo files"
 msgstr "spremeni izvirne datoteke fotografij"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:138
+#, fuzzy
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database"
 msgstr ""
+"Res je, če je treba pri prilagajanju časa/datuma fotografij spremeniti tudi "
+"izvirne datoteke. Neresnično, če so spremembe narejene samo v zbirki podatkov"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:143
 msgid "show welcome dialog on startup"
 msgstr "pokaži pozdravno okno ob zagonu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
+#, fuzzy
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown"
 msgstr ""
+"Res je, če je ob zagonu prikazano pogovorno okno dobrodošlice. Napačno, če "
+"ni prikazano"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:149
 msgid "sidebar position"
@@ -442,10 +479,13 @@ msgid "transition effect id"
 msgstr "id učinka prehoda"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:206
+#, fuzzy
 msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
 msgstr ""
+"Ime prehodnega učinka, ki bo uporabljen med fotografijami pri zagonu "
+"diaprojekcije"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Show title"
@@ -505,13 +545,16 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid "sidebar divider position"
-msgstr ""
+msgstr "položaj ločilnika stranske vrstice"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:256
+#, fuzzy
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
 msgstr ""
+"Zadnji zabeleženi položaj razdelka med stransko vrstico in pogledom v oknu "
+"aplikacije knjižnice"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:263
 msgid "import directory"
@@ -519,30 +562,34 @@ msgstr "uvozi mapo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:264
 msgid "Directory in which imported photo files are placed"
-msgstr ""
+msgstr "Mapa, v kateri so zbrane uvožene datoteke fotografij"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:269
 msgid "watch library directory for new files"
-msgstr ""
+msgstr "spremljaj mapo zbirke za nove datoteke"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:270
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
+"Izbrana možnost določa, da so datoteke, dodane v mapo zbirke, samodejno "
+"uvožene"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid "write metadata to master files"
-msgstr ""
+msgstr "zapiši metapodatke v glavne datoteke"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:276
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
 msgstr ""
+"Izbrana možnost določa, da se spremembe metapodatkov (oznake, naslovi ...) "
+"zapišejo v izvorno datoteko fotografije"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid "use lowercase filenames"
-msgstr ""
+msgstr "uporabi male črke za imena datotek"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:282
 msgid ""
@@ -554,27 +601,33 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid "directory pattern"
-msgstr ""
+msgstr "vzorec map"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:288
+#, fuzzy
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
 msgstr ""
+"Niz, ki kodiranje vzorca poimenovanja, ki se bo uporabljal za poimenovanje "
+"imenikov fotografij pri uvozu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid "directory pattern custom"
-msgstr ""
+msgstr "vzorec map po meri"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:294
+#, fuzzy
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
 msgstr ""
+"Niz, ki kodiranje vzorca poimenovanja po meri, ki bo uporabljen za "
+"poimenovanje imenikov fotografij pri uvozu"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "RAW developer default"
-msgstr ""
+msgstr "privzeti razvijalec RAW"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
 msgid "Default option for which RAW developer Shotwell will use"
@@ -582,7 +635,7 @@ msgstr "Privzeta možnost uporabe razvijalca RAW"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:307
 msgid "Most-recently-used crop aspect ratio menu choice"
-msgstr ""
+msgstr "Nazadnje uporabljeno razmerje obrezovanja v meniju izbire"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:308
 msgid "A numeric code representing the last crop menu choice the user made"
@@ -593,20 +646,26 @@ msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:313
+#, fuzzy
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
 msgstr ""
+"Nezero, pozitivno vse število, ki predstavlja del širine zadnjega razmerja "
+"obdelovalcev po meri, ki ga je vnesel uporabnik"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:318
+#, fuzzy
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
 msgstr ""
+"Nezero, pozitivno vse število, ki predstavlja del višine zadnjega razmerja "
+"pridelkov po meri, ki ga je vnesel uporabnik"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:325
 msgid "external photo editor"
@@ -631,11 +690,11 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:376
 msgid "export metadata"
-msgstr ""
+msgstr "izvozi metapodatke"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:377
 msgid "Setting in export dialog: option to export metadata"
-msgstr ""
+msgstr "Nastavitev v oknu za izvoz: možnost za izvoz metapodatkov"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:382
 msgid "format setting, special value"
@@ -688,10 +747,13 @@ msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:434
+#, fuzzy
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr ""
+"Kriptografska skrivnost, uporabljena za podpis zahtev proti žetonu za "
+"avtorizacijo za trenutno prijavljenega uporabnika Flickr, če obstaja"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:445
 msgid "default size code"
@@ -724,10 +786,13 @@ msgid "refresh token"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
+#, fuzzy
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
 msgstr ""
+"Žeton OAuth, ki se uporablja za osvežitev seje Google Photos za trenutno "
+"prijavljenega uporabnika, če obstaja"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:472
 msgid ""
@@ -819,20 +884,26 @@ msgid "do not upload tags when uploading to Piwigo"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:546
+#, fuzzy
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
 msgstr ""
+"Ali morajo slike, ki se nalagajo v Piwigo, odstraniti svoje oznake pri "
+"nalaganju, tako da te oznake ne bodo prikazane na oddaljenem strežniku Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:551
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
+#, fuzzy
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
 msgstr ""
+"Ali morajo biti slike, ki se nalagajo v Piwigo, naložene ocene, tako da te "
+"ocene ne bodo prikazane na oddaljenem strežniku Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:560
 msgid "Gallery3 username"
@@ -873,10 +944,13 @@ msgid "pixels of the major axis uploaded picture"
 msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:596
+#, fuzzy
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr ""
+"Piksle glavne osi slike, ki jo je treba naložiti; uporablja samo, če je id "
+"omejitev za razsežnost ustrezna vrednost"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
 msgid ""
@@ -922,11 +996,11 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:639
 msgid "content width"
-msgstr ""
+msgstr "širina vsebine"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:640
 msgid "The width of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Širina natisnjene emulzije na strani med printanjem"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:645
 msgid "content height"
@@ -934,7 +1008,7 @@ msgstr "višina vsebine"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:646
 msgid "The height of the printed emulsion on the page when printing"
-msgstr ""
+msgstr "Višina natisnjene emulzije na strani med printanjem"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:651
 msgid "content units"
@@ -1921,7 +1995,7 @@ msgstr "Zapiši oznake, naslove in druge _metapodatke slikovnih datotek"
 
 #: data/ui/preferences_dialog.ui:235
 msgid "RAW Developer"
-msgstr ""
+msgstr "Razvijalec RAW"
 
 #: data/ui/preferences_dialog.ui:252
 msgid "De_fault:"
@@ -2114,7 +2188,7 @@ msgstr "Prikaže vse fotografije"
 
 #: data/ui/set_background_slideshow_dialog.ui:92
 msgid "period of time"
-msgstr ""
+msgstr "časovno obdobje"
 
 #: data/ui/set_background_slideshow_dialog.ui:114
 #, fuzzy
@@ -2214,7 +2288,7 @@ msgstr "Overitev uporabe okolja Flicker je spodletela"
 
 #: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
 msgid "Verifying authorization…"
-msgstr ""
+msgstr "Poteka overjanje podatkov za overitev …"
 
 #: plugins/authenticator/shotwell/GoogleAuthenticator.vala:164
 #, fuzzy
@@ -2312,7 +2386,7 @@ msgstr ""
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
 msgid "Invalid User Name or Password"
-msgstr ""
+msgstr "Neveljavno uporabniško ime oziroma geslo"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
 #: plugins/shotwell-publishing/TumblrPublishing.vala:498
@@ -2382,7 +2456,7 @@ msgstr ""
 #: plugins/common/RESTSupport.vala:552
 #: plugins/shotwell-publishing/TumblrPublishing.vala:603
 msgid "A temporary file needed for publishing is unavailable"
-msgstr ""
+msgstr "Začasna datoteka, nujna za objavljanje, ni na voljo."
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
 msgid "_Gallery3 URL:"
@@ -2465,7 +2539,7 @@ msgstr "O_bjavi"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
 msgid "Gallery3 publishing module"
-msgstr ""
+msgstr "Modul za objavljanje Gallery3"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 #, fuzzy
@@ -2654,7 +2728,7 @@ msgstr "Zasebno"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:47
 msgid "_Albums (or write new):"
-msgstr ""
+msgstr "_Albumi (vpis novega):"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:85
 msgid "Access _type:"
@@ -2666,7 +2740,7 @@ msgstr "_Onemogoči opombe"
 
 #: plugins/shotwell-publishing-extras/yandex_publish_model.ui:123
 msgid "_Forbid downloading original photo"
-msgstr ""
+msgstr "_Zavrni prejemanje izvornih fotografij"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
@@ -2684,7 +2758,7 @@ msgstr ""
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
-msgstr ""
+msgstr "Avtorske pravice 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
 msgid ""
@@ -2730,16 +2804,12 @@ msgstr[2] "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
 msgstr[3] "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
-#, fuzzy
-#| msgid "Photos _visible to:"
 msgid "Photos _visible to"
-msgstr "Fotografije so _vidne:"
+msgstr "Fotografije so _vidne"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:630
-#, fuzzy
-#| msgid "Photos _visible to:"
 msgid "Videos _visible to"
-msgstr "Fotografije so _vidne:"
+msgstr "Videi so _vidni"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:633
 msgid "Photos and videos _visible to"
@@ -2862,11 +2932,11 @@ msgstr "Privzeti album"
 
 #: plugins/shotwell-publishing/PhotosService.vala:36
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
-msgstr ""
+msgstr "Avtorske pravice 2019 Jens Georg <mail@jensge.org>"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:44
 msgid "_URL of your Piwigo photo library"
-msgstr ""
+msgstr "Naslov _URL do zbirke slik Piwigo"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:94
 msgid "User _name"
@@ -2910,11 +2980,11 @@ msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:235
 msgid "_Do no upload tags"
-msgstr ""
+msgstr "_Ne pošiljaj oznak"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
 msgid "_Do not upload ratings"
-msgstr ""
+msgstr "_Ne pošiljaj ocen"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:271
 msgid "Logout"
@@ -2941,7 +3011,7 @@ msgstr ""
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1104
 #, c-format
 msgid "Certificate of %s"
-msgstr ""
+msgstr "Potrdilo %s"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
 msgid ""
@@ -2961,15 +3031,15 @@ msgstr "Neveljaven naslov URL"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1357
 msgid "Admins, Family, Friends, Contacts"
-msgstr ""
+msgstr "Skrbniki, Družina, Prijatelji, Stiki"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1358
 msgid "Admins, Family, Friends"
-msgstr ""
+msgstr "Skrbniki, Družina, Prijatelji"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1359
 msgid "Admins, Family"
-msgstr ""
+msgstr "Skrbniki, Družina"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1360
 msgid "Admins"
@@ -2977,19 +3047,19 @@ msgstr "Skrbniki"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:21
 msgid "This connection is not secure"
-msgstr ""
+msgstr "Trenutno vzpostavljena povezava ni varna."
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:75
 msgid "Show the certificate…"
-msgstr ""
+msgstr "Pokaži potrdilo …"
 
 #: plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui:88
 msgid "I understand, please _proceed."
-msgstr ""
+msgstr "Razumem, _želim nadaljevati."
 
 #: plugins/shotwell-publishing/shotwell-publishing.vala:53
 msgid "Core Publishing Services"
-msgstr ""
+msgstr "Osnovne storitve objavljanja"
 
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:45
 msgid "Blogs"
@@ -3022,7 +3092,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
 msgid "Video privacy _setting"
-msgstr ""
+msgstr "Nastavitev _zasebnosti videa"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
 msgid ""
@@ -3079,10 +3149,8 @@ msgid "Fade"
 msgstr "Pojemanje"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:28
-#, fuzzy
-#| msgid "Change slideshow settings"
 msgid "Core Slideshow Transitions"
-msgstr "Spremeni nastavitve diapredstavitve"
+msgstr "Osnovni prehodi predstavitve"
 
 #: plugins/shotwell-transitions/shotwell-transitions.vala:76
 msgid ""
@@ -3106,16 +3174,14 @@ msgid "Stripes"
 msgstr "Proge"
 
 #: src/AppDirs.vala:64 src/AppDirs.vala:115
-#, fuzzy, c-format
-#| msgid "Unable to launch editor: %s"
+#, c-format
 msgid "Unable to create cache directory %s: %s"
-msgstr "Ni mogoče zagnati urejevalnika: %s"
+msgstr "Ni mogoče ustvariti mape predpomnilnika %s: %s"
 
 #: src/AppDirs.vala:74 src/AppDirs.vala:104
-#, fuzzy, c-format
-#| msgid "Unable to export photo %s: %s"
+#, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr "Fotografije %s ni mogoče izvoziti: %s"
+msgstr "Ni mogoče ustvariti podatkovne mape %s: %s"
 
 #. If XDG yarfed, use ~/Pictures
 #: src/AppDirs.vala:168
@@ -3123,26 +3189,24 @@ msgid "Pictures"
 msgstr "Slike"
 
 #: src/AppDirs.vala:206
-#, fuzzy, c-format
-#| msgid "Unable to export %s: %s"
+#, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr "%s ni mogoče izvoziti: %s"
+msgstr "Ni mogoče ustvariti začasne mape %s: %s"
 
 #: src/AppDirs.vala:223 src/AppDirs.vala:254
-#, fuzzy, c-format
-#| msgid "Unable to export background to %s: %s"
+#, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr "Ozadja ni mogoče izvoziti v %s: %s"
+msgstr "Ni mogoče ustvariti podrejene mape %s: %s"
 
 #: src/AppDirs.vala:236
 #, c-format
 msgid "Could not make directory %s writable"
-msgstr ""
+msgstr "Mape %s ni mogoče pripraviti za zapisovanje."
 
 #: src/AppDirs.vala:239
 #, c-format
 msgid "Could not make directory %s writable: %s"
-msgstr ""
+msgstr "Mape %s ni mogoče pripraviti za zapisovanje: %s"
 
 #: src/AppWindow.vala:47
 msgid "Pin Toolbar"
@@ -3188,13 +3252,12 @@ msgstr "Ni mogoče prikazati pomoči: %s"
 #: src/AppWindow.vala:601
 #, c-format
 msgid "Unable to navigate to bug database: %s"
-msgstr ""
+msgstr "Ni se mogoče povezati s podatkovno zbirko hroščev: %s"
 
 #: src/AppWindow.vala:609
-#, fuzzy, c-format
-#| msgid "Unable to display help: %s"
+#, c-format
 msgid "Unable to display FAQ: %s"
-msgstr "Ni mogoče prikazati pomoči: %s"
+msgstr "Ni mogoče prikazati pogostih vprašanj: %s"
 
 #: src/BatchImport.vala:26
 msgid "Success"
@@ -3245,16 +3308,12 @@ msgid "Camera error"
 msgstr "Napaka fotoaparata"
 
 #: src/BatchImport.vala:62
-#, fuzzy
-#| msgid "File error"
 msgid "File write error"
-msgstr "Napaka datoteke"
+msgstr "Napaka zapisovanja datoteke"
 
 #: src/BatchImport.vala:65
-#, fuzzy
-#| msgid "Not an image file"
 msgid "Corrupt image file"
-msgstr "Ni slikovna datoteka"
+msgstr "Okvarjena slikovna datoteka"
 
 #: src/BatchImport.vala:68
 #, c-format
@@ -3267,7 +3326,7 @@ msgstr "Fotoaparati"
 
 #: src/camera/CameraBranch.vala:85
 msgid "List of all discovered camera devices"
-msgstr ""
+msgstr "Seznam vseh odkritih kamer"
 
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GVolume name, e.g. Mass storage camera (510MB volume)
 #. Translators: First %s is the name of camera as gotten from GPhoto, second is the GMount name, e.g. Mass storage camera (510MB volume)
@@ -3281,15 +3340,11 @@ msgid "RAW+JPEG"
 msgstr "RAW+JPEG"
 
 #: src/camera/ImportPage.vala:466
-#, fuzzy
-#| msgid ""
-#| "Unable to unmount camera.  Try unmounting the camera from the file "
-#| "manager."
 msgid ""
 "Unable to unmount camera. Try unmounting the camera from the file manager."
 msgstr ""
-"Fotoaparata ni mogoče odklopiti. Poskusite odklopiti fotoaparat v "
-"upravljalniku datotek."
+"Fotoaparata ni mogoče odklopiti. Poskusite ga odklopiti v upravljalniku "
+"datotek."
 
 #. hide duplicates checkbox
 #: src/camera/ImportPage.vala:761
@@ -3305,10 +3360,8 @@ msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr "Fotoaparat je videti prazen; ni slik ali posnetkov za uvoz"
 
 #: src/camera/ImportPage.vala:843
-#, fuzzy
-#| msgid "Removing photos from camera"
 msgid "No new photos/videos found on camera"
-msgstr "Odstranjevanje fotografij z digitalnega fotoaparata"
+msgstr "Na napravi ni mogoče najti novih fotografij in posnetkov"
 
 #. it's mounted, offer to unmount for the user
 #: src/camera/ImportPage.vala:996
@@ -3365,7 +3418,7 @@ msgstr "Odklapljanje …"
 
 #: src/camera/ImportPage.vala:1137
 msgid "Connecting to camera, please wait…"
-msgstr ""
+msgstr "Poteka vzpostavljanje povezave s kamero …"
 
 #: src/camera/ImportPage.vala:1169
 msgid "Starting import, please wait…"
@@ -3449,10 +3502,8 @@ msgstr[2] "Zaradi napak ni mogoče izbrisati %d fotografij."
 msgstr[3] "Zaradi napak ni mogoče izbrisati %d fotografij."
 
 #: src/CheckerboardPage.vala:134
-#, fuzzy
-#| msgid "No photos imported.\n"
 msgid "No photos/videos"
-msgstr "Fotografije niso bile uvožene.\n"
+msgstr "Ni fotografij in posnetkov"
 
 #: src/CheckerboardPage.vala:138
 msgid "No photos/videos found which match the current filter"
@@ -3669,7 +3720,7 @@ msgstr "Ustvari oznako"
 #: src/Commands.vala:1694
 #, c-format
 msgid "Move Tag “%s”"
-msgstr ""
+msgstr "Premakni oznako »%s«"
 
 #: src/Commands.vala:2346
 msgid "Move Photos to Trash"
@@ -3772,10 +3823,8 @@ msgid "Import From Application"
 msgstr "Uvozi iz programa"
 
 #: src/data_imports/DataImportsUI.vala:220
-#, fuzzy
-#| msgid "Imported %s"
 msgid "Import media _from:"
-msgstr "Uvoženo %s"
+msgstr "Uvozi predstavno vsebino _iz:"
 
 #: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
 msgid "_Close"
@@ -3972,42 +4021,38 @@ msgid "_Scaling constraint:"
 msgstr "Omejitev _spremembe velikosti:"
 
 #: src/dialogs/ExportDialog.vala:99
-#, fuzzy
-#| msgid " _pixels"
 msgid "_Pixels:"
-msgstr "_točk"
+msgstr "_Točke:"
 
 #: src/dialogs/ExportDialog.vala:103
 msgid "Export _metadata:"
-msgstr ""
+msgstr "Izvozi _metapodatke:"
 
 #. We're installed system-wide, so use the system help.
 #. We're being run from the build directory; we'll have to handle clicks to this
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
-#, fuzzy
-#| msgid "_Help"
 msgid "(Help)"
-msgstr "Pomo_č"
+msgstr "(Pomoč)"
 
 #: src/dialogs/Preferences.vala:116
 #, c-format
 msgid "Year%sMonth%sDay"
-msgstr ""
+msgstr "Leto%sMesec%sDan"
 
 #: src/dialogs/Preferences.vala:118
 #, c-format
 msgid "Year%sMonth"
-msgstr ""
+msgstr "Leto%sMesec"
 
 #: src/dialogs/Preferences.vala:120
 #, c-format
 msgid "Year%sMonth-Day"
-msgstr ""
+msgstr "Leto%sMesec-Dan"
 
 #: src/dialogs/Preferences.vala:122
 msgid "Year-Month-Day"
-msgstr ""
+msgstr "Leto-Mesec-Dan"
 
 #: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:767
 msgid "Custom"
@@ -4024,41 +4069,35 @@ msgid "%d%%"
 msgstr "%d%%"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:49
-#, fuzzy, c-format
-#| msgid "second"
-#| msgid_plural "seconds"
+#, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] "sekund"
-msgstr[1] "sekunda"
-msgstr[2] "sekundi"
-msgstr[3] "sekunde"
+msgstr[0] "%d sekund"
+msgstr[1] "%d sekunda"
+msgstr[2] "%d sekundi"
+msgstr[3] "%d sekunde"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:52
-#, fuzzy, c-format
-#| msgid "minute"
-#| msgid_plural "minutes"
+#, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] "minut"
-msgstr[1] "minuta"
-msgstr[2] "minuti"
-msgstr[3] "minute"
+msgstr[0] "%d minut"
+msgstr[1] "%d minuta"
+msgstr[2] "%d minuti"
+msgstr[3] "%d minute"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:56
-#, fuzzy, c-format
-#| msgid "hour"
-#| msgid_plural "hours"
+#, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] "ur"
-msgstr[1] "ura"
-msgstr[2] "uri"
-msgstr[3] "ure"
+msgstr[0] "%d ur"
+msgstr[1] "%d ura"
+msgstr[2] "%d uri"
+msgstr[3] "%d ure"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:59
 msgid "1 day"
-msgstr ""
+msgstr "1 dan"
 
 #: src/Dialogs.vala:16
 #, fuzzy, c-format
@@ -4163,10 +4202,8 @@ msgid "Save Details…"
 msgstr "Shrani podrobnosti …"
 
 #: src/Dialogs.vala:152
-#, fuzzy
-#| msgid "Save As"
 msgid "Save Details"
-msgstr "Shrani kot"
+msgstr "Shrani podrobnosti"
 
 #: src/Dialogs.vala:167
 #, c-format
@@ -4640,8 +4677,6 @@ msgstr "Ime:"
 
 #. Dialog title
 #: src/Dialogs.vala:672
-#, fuzzy
-#| msgid "Edit Title"
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Uredi naslov"
@@ -4748,16 +4783,10 @@ msgid "_Remove"
 msgstr "_Odstrani"
 
 #: src/Dialogs.vala:789
-#, fuzzy
-#| msgid "Remove Photo From Library"
-#| msgid_plural "Remove Photos From Library"
 msgid "Remove Photo From Library"
-msgstr "Odstrani fotografije iz knjižnice"
+msgstr "Odstrani fotografijo iz knjižnice"
 
 #: src/Dialogs.vala:789
-#, fuzzy
-#| msgid "Remove Photo From Library"
-#| msgid_plural "Remove Photos From Library"
 msgid "Remove Photos From Library"
 msgstr "Odstrani fotografije iz knjižnice"
 
@@ -4795,28 +4824,20 @@ msgstr "Oznake (ločene z vejicami):"
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
 #: src/Dialogs.vala:919
-#, fuzzy
-#| msgid ""
-#| "Shotwell can copy the photos into your library or it can link to the "
-#| "photos without duplicating them."
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr ""
-"Shotwell lahko kopira ali premakne fotografije v vašo knjižnico, ali pa "
-"ustvari povezavo do njih brez njihovega podvajanja."
+"Program Shotwell lahko kopira fotografije v vašo knjižnico, ali pa jih uvozi "
+"brez kopiranja"
 
 #: src/Dialogs.vala:924
-#, fuzzy
-#| msgid "_Photos"
 msgid "Co_py Photos"
-msgstr "_Fotografije"
+msgstr "_Kopiraj fotografije"
 
 #: src/Dialogs.vala:925
-#, fuzzy
-#| msgid "Import _Selected"
 msgid "_Import in Place"
-msgstr "Uvozi _izbrane"
+msgstr "_Uvozi iz mesta"
 
 #: src/Dialogs.vala:926
 msgid "Import to Library"
@@ -5018,16 +5039,13 @@ msgid "You can also import photos in any of these ways:"
 msgstr "Fotografije lahko uvozite tudi na enega od naslednjih načinov:"
 
 #: src/dialogs/WelcomeDialog.vala:96
-#, fuzzy
-#| msgid "_Don't show this message again"
 msgid "_Don’t show this message again"
 msgstr "_Sporočila ne pokaži več"
 
 #: src/dialogs/WelcomeDialog.vala:133
-#, fuzzy, c-format
-#| msgid "Import photos from your _F-Spot library"
+#, c-format
 msgid "Import photos from your %s library"
-msgstr "Uvozi fotografije iz vaše knjižnice _F-Spot"
+msgstr "Uvozi fotografije iz knjižnice %s"
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -5057,10 +5075,9 @@ msgstr ""
 "%s."
 
 #: src/direct/DirectPhotoPage.vala:120
-#, fuzzy, c-format
-#| msgid "Unable to export photo %s: %s"
+#, c-format
 msgid "Unable open photo %s. Sorry."
-msgstr "Fotografije %s ni mogoče izvoziti: %s"
+msgstr "Fotografije %s ni mogoče odpreti."
 
 #: src/direct/DirectPhotoPage.vala:323
 msgid "_Save a Copy"
@@ -5273,10 +5290,8 @@ msgid "Tint"
 msgstr "Črnilo"
 
 #: src/editing_tools/EditingTools.vala:2721
-#, fuzzy
-#| msgid "Contrast Expansion"
 msgid "Contrast"
-msgstr "Razširitev kontrasta"
+msgstr "Kontrast"
 
 #: src/editing_tools/EditingTools.vala:2735
 msgid "Saturation"
@@ -5291,10 +5306,8 @@ msgid "Shadows"
 msgstr "Sence"
 
 #: src/editing_tools/EditingTools.vala:2774
-#, fuzzy
-#| msgid "Height"
 msgid "Highlights"
-msgstr "Višina"
+msgstr "Poudarjanje"
 
 #: src/editing_tools/EditingTools.vala:2784
 msgid "Contrast Expansion"
@@ -5305,15 +5318,13 @@ msgid "Angle:"
 msgstr "Kot:"
 
 #: src/events/EventDirectoryItem.vala:97
-#, fuzzy, c-format
-#| msgid "%d Photo"
-#| msgid_plural "%d Photos"
+#, c-format
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
-msgstr[0] "%d fotografij"
-msgstr[1] "%d fotografija"
-msgstr[2] "%d fotografiji"
-msgstr[3] "%d fotografije"
+msgstr[0] "%d fotografij/posnetkov"
+msgstr[1] "%d fotografija/posnetkek"
+msgstr[2] "%d fotografiji/posnetka"
+msgstr[3] "%d fotografije/posnetki"
 
 #: src/events/EventDirectoryItem.vala:99 src/Properties.vala:371
 #, c-format
@@ -5334,10 +5345,8 @@ msgstr[2] "%d fotografiji"
 msgstr[3] "%d fotografije"
 
 #: src/events/EventPage.vala:129
-#, fuzzy
-#| msgid "New Event"
 msgid "No Event"
-msgstr "Nov dogodek"
+msgstr "Ni zabeleženih dogodkov"
 
 #: src/events/EventsBranch.vala:25
 msgid "Events"
@@ -5345,23 +5354,19 @@ msgstr "Dogodki"
 
 #: src/events/EventsBranch.vala:25
 msgid "Browse through your events"
-msgstr ""
+msgstr "Brskanje med dogodki"
 
 #: src/events/EventsDirectoryPage.vala:149
-#, fuzzy
-#| msgid "Events"
 msgid "No events"
-msgstr "Dogodki"
+msgstr "Ni dogodkov"
 
 #: src/events/EventsDirectoryPage.vala:153
 msgid "No events found"
 msgstr "Ni najdenih dogodkov"
 
 #: src/events/EventsDirectoryPage.vala:227
-#, fuzzy
-#| msgid "Events"
 msgid "All Events"
-msgstr "Dogodki"
+msgstr "Vsi dogodki"
 
 #: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
@@ -5377,10 +5382,9 @@ msgstr "%B"
 
 #. if no name, pretty up the start time
 #: src/Event.vala:753
-#, fuzzy, c-format
-#| msgid "Events"
+#, c-format
 msgid "Event %s"
-msgstr "Dogodki"
+msgstr "Dogodek %s"
 
 #: src/Exporter.vala:232
 #, fuzzy, c-format
@@ -5468,10 +5472,8 @@ msgid "Save changes and close the Faces tool"
 msgstr ""
 
 #: src/faces/FacesTool.vala:235
-#, fuzzy
-#| msgid "Lose changes to %s?"
 msgid "No changes to save"
-msgstr "Zavrzi spremembe %s?"
+msgstr "Ni sprememb za shranjevanje"
 
 #: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
@@ -5496,10 +5498,10 @@ msgid "Browse the library’s import history"
 msgstr ""
 
 #: src/library/BackgroundProgressBar.vala:74
-#, fuzzy, c-format
+#, c-format
 #| msgid "Low (%d%%)"
 msgid "%s (%d%%)"
-msgstr "Nizka (%d%%)"
+msgstr "%s (%d%%)"
 
 #: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1126
 #: src/SearchFilter.vala:1127
@@ -5507,16 +5509,12 @@ msgid "Flagged"
 msgstr "Označeno z zastavico"
 
 #: src/library/ImportQueuePage.vala:8
-#, fuzzy
-#| msgid "Importing..."
 msgid "Importing…"
-msgstr "Uvažanje ..."
+msgstr "Poteka uvažanje …"
 
 #: src/library/ImportQueuePage.vala:129
-#, fuzzy
-#| msgid "Preparing pictures for import..."
 msgid "Preparing to import…"
-msgstr "Pripravljanje slik za uvoz ..."
+msgstr "Poteka priprava na uvažanje slik …"
 
 #: src/library/ImportQueuePage.vala:156
 #, c-format
@@ -5567,11 +5565,11 @@ msgstr "Iz te mape ni mogoče uvoziti fotografij."
 
 #: src/library/LibraryWindow.vala:1021 src/library/LibraryWindow.vala:1032
 msgid "Updating library…"
-msgstr ""
+msgstr "Poteka posodabljanje knjižnice …"
 
 #: src/library/LibraryWindow.vala:1038
 msgid "Preparing to auto-import photos…"
-msgstr ""
+msgstr "Poteka priprava na samodejno uvažanje slik …"
 
 #: src/library/LibraryWindow.vala:1043
 #, fuzzy
@@ -5581,7 +5579,7 @@ msgstr "Zaustavi uvažanje fotografij"
 
 #: src/library/LibraryWindow.vala:1051
 msgid "Writing metadata to files…"
-msgstr ""
+msgstr "Poteka zapisovanje metapodatkov v datoteke …"
 
 #: src/library/OfflinePage.vala:8
 msgid "Missing Files"
@@ -5727,7 +5725,7 @@ msgstr ""
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
-msgstr ""
+msgstr "Izboljšaj zemljevid"
 
 #: src/MapWidget.vala:653
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
@@ -5824,10 +5822,8 @@ msgid "modified"
 msgstr "spremenjeno"
 
 #: src/Printing.vala:255
-#, fuzzy
-#| msgid "_Fill the entire page"
 msgid "Fill the entire page"
-msgstr "_Zapolni celotno stran"
+msgstr "Zapolni celotno stran"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
@@ -5918,10 +5914,10 @@ msgid "Duration:"
 msgstr "Trajanje:"
 
 #: src/Properties.vala:420
-#, fuzzy, c-format
+#, c-format
 #| msgid "seconds"
 msgid "%.1f seconds"
-msgstr "sekund"
+msgstr "%.1f sekund"
 
 #: src/Properties.vala:424
 msgid "Developer:"
@@ -5938,7 +5934,7 @@ msgstr "Velikost datoteke:"
 
 #: src/Properties.vala:611
 msgid "Current Development:"
-msgstr ""
+msgstr "Trenutni razvoj:"
 
 #: src/Properties.vala:613
 msgid "Original dimensions:"
@@ -5961,16 +5957,12 @@ msgid "Focal length:"
 msgstr "Goriščna razdalja:"
 
 #: src/Properties.vala:627
-#, fuzzy
-#| msgid "Exposure bias:"
 msgid "Exposure date:"
-msgstr "Pristranost osvetlitve:"
+msgstr "Datum osvetlitve:"
 
 #: src/Properties.vala:630
-#, fuzzy
-#| msgid "Exposure bias:"
 msgid "Exposure time:"
-msgstr "Pristranost osvetlitve:"
+msgstr "Čas osvetlitve:"
 
 #: src/Properties.vala:633
 msgid "Exposure bias:"
@@ -6028,28 +6020,20 @@ msgid "Publish photos _to:"
 msgstr "Objavi fotografije _na:"
 
 #: src/publishing/PublishingUI.vala:72
-#, fuzzy
-#| msgid "Publish Photos"
 msgid "Publish Videos"
-msgstr "Objavi fotografije"
+msgstr "Objavi posnetke"
 
 #: src/publishing/PublishingUI.vala:73
-#, fuzzy
-#| msgid "Publish photos _to:"
 msgid "Publish videos _to"
-msgstr "Objavi fotografije _na:"
+msgstr "Objavi posnetke _na"
 
 #: src/publishing/PublishingUI.vala:75
-#, fuzzy
-#| msgid "Publish Photos"
 msgid "Publish Photos and Videos"
-msgstr "Objavi fotografije"
+msgstr "Objavi fotografije in posnetke"
 
 #: src/publishing/PublishingUI.vala:76
-#, fuzzy
-#| msgid "Publish photos _to:"
 msgid "Publish photos and videos _to"
-msgstr "Objavi fotografije _na:"
+msgstr "Objavi fotografije in posnetke na"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
@@ -6075,10 +6059,8 @@ msgid ""
 msgstr ""
 
 #: src/publishing/Publishing.vala:15
-#, fuzzy
-#| msgid "Publish"
 msgid "Publishing"
-msgstr "Objavi"
+msgstr "Objavljanje"
 
 #: src/publishing/StaticMessagePaneWidget.vala:44
 #, fuzzy
@@ -6196,7 +6178,7 @@ msgstr "_Najboljše ujemanje"
 
 #: src/Resources.vala:164
 msgid "Copy Color Adjustments"
-msgstr ""
+msgstr "Kopiraj prilagoditve barve"
 
 #: src/Resources.vala:165
 msgid "Copy the color adjustments applied to the photo"
@@ -6204,7 +6186,7 @@ msgstr ""
 
 #: src/Resources.vala:168
 msgid "Paste Color Adjustments"
-msgstr ""
+msgstr "Prilepi prilagoditve barve"
 
 #: src/Resources.vala:169
 #, fuzzy
@@ -6217,8 +6199,6 @@ msgid "Crop"
 msgstr "Obreži"
 
 #: src/Resources.vala:173
-#, fuzzy
-#| msgid "Crop the photo's size"
 msgid "Crop the photo’s size"
 msgstr "Obreži velikost fotografije"
 
@@ -6363,11 +6343,9 @@ msgid "Show only rejected photos"
 msgstr "Pokaže le vaše priljubljene fotografije"
 
 #: src/Resources.vala:246
-#, fuzzy
-#| msgid "Show all photos, including rejected"
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
-msgstr "Pokaži vse fotografije vključno z zavrnjenimi"
+msgstr "Pokaže vse fotografije, vključno z zavrnjenimi"
 
 #. Button tooltip
 #: src/Resources.vala:250
@@ -6406,8 +6384,6 @@ msgstr "_Objavi …"
 
 #. Button label
 #: src/Resources.vala:273
-#, fuzzy
-#| msgid "Edit Title"
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Uredi naslov"
@@ -6423,8 +6399,6 @@ msgstr "Prilagodi datum in čas"
 
 #. Dialog title
 #: src/Resources.vala:288
-#, fuzzy
-#| msgid "Add Tags"
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Dodajanje oznak"
@@ -6442,22 +6416,16 @@ msgid "Un_flag"
 msgstr "_Odstrani zastavico"
 
 #: src/Resources.vala:309
-#, fuzzy
-#| msgid "Make a duplicate of the photo"
 msgid "Mark faces of people in the photo"
-msgstr "Ustvari dvojnik fotografije"
+msgstr "Označi obraze oseb na fotografijah"
 
 #: src/Resources.vala:310
-#, fuzzy
-#| msgid "Modify Tags"
 msgid "Modify Faces"
-msgstr "Spremeni oznake"
+msgstr "Spremeni obraze"
 
 #: src/Resources.vala:311
-#, fuzzy
-#| msgid "Delete Tag"
 msgid "Delete Face"
-msgstr "Izbriše oznako"
+msgstr "Izbriši obraze"
 
 #: src/Resources.vala:317
 #, c-format
@@ -6477,54 +6445,46 @@ msgstr "Dodaj oznaki »%s« in »%s«"
 
 #. Undo/Redo command name (in Edit menu)
 #: src/Resources.vala:330
-#, fuzzy
-#| msgid "Add Tags"
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Dodajanje oznak"
 
 #: src/Resources.vala:335
-#, fuzzy, c-format
-#| msgid "_Delete Tag \"%s\""
+#, c-format
 msgid "_Delete Tag “%s”"
-msgstr "_Izbriši oznako \"%s\""
+msgstr "_Izbriši oznako »%s«"
 
 #: src/Resources.vala:339
-#, fuzzy, c-format
-#| msgid "Delete Tag \"%s\""
+#, c-format
 msgid "Delete Tag “%s”"
-msgstr "Izbriše oznako \"%s\""
+msgstr "Izbriše oznako »%s«"
 
 #: src/Resources.vala:342
 msgid "Delete Tag"
 msgstr "Izbriši oznako"
 
 #: src/Resources.vala:348
-#, fuzzy, c-format
-#| msgid "Re_name Tag \"%s\"..."
+#, c-format
 msgid "Re_name Tag “%s”…"
-msgstr "Preime_nuj oznako \"%s\" ..."
+msgstr "_Preimenuj oznako »%s« …"
 
 #: src/Resources.vala:352
-#, fuzzy, c-format
-#| msgid "Rename Tag \"%s\" to \"%s\""
+#, c-format
 msgid "Rename Tag “%s” to “%s”"
-msgstr "Preimenuj oznako \"%s\" v \"%s\""
+msgstr "Preimenuj oznako »%s« v »%s«"
 
 #: src/Resources.vala:358
 msgid "Modify Tags"
 msgstr "Spremeni oznake"
 
 #: src/Resources.vala:361
-#, fuzzy, c-format
-#| msgid "Tag Photo as \"%s\""
-#| msgid_plural "Tag Photos as \"%s\""
+#, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
-msgstr[0] "Označi več fotografij kot \"%s\""
-msgstr[1] "Označi fotografijo kot \"%s\""
-msgstr[2] "Označi fotografiji kot \"%s\""
-msgstr[3] "Označi fotografije kot \"%s\""
+msgstr[0] "Označi več fotografij z oznako »%s«"
+msgstr[1] "Označi fotografijo z oznako »%s«"
+msgstr[2] "Označi fotografiji z oznako »%s«"
+msgstr[3] "Označi fotografije z oznako »%s«"
 
 #: src/Resources.vala:367
 #, fuzzy, c-format
@@ -6560,16 +6520,14 @@ msgstr[2] "Odstrani oznako \"%s\" iz fotografij"
 msgstr[3] "Odstrani oznako \"%s\" iz fotografij"
 
 #: src/Resources.vala:385
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
-msgstr "Oznake ni mogoče preimenovati v \"%s\", ker oznaka že obstaja."
+msgstr "Oznake ni mogoče preimenovati v »%s«, ker ta že obstaja."
 
 #: src/Resources.vala:389
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
-msgstr "Oznake ni mogoče preimenovati v \"%s\", ker oznaka že obstaja."
+msgstr "Iskanja ni mogoče preimenovati v »%s«, ker ta naziv že obstaja."
 
 #. Saved search button
 #: src/Resources.vala:392 src/SearchFilter.vala:1148
@@ -6583,18 +6541,17 @@ msgstr "Izbriši iskanje"
 #: src/Resources.vala:401
 #, c-format
 msgid "Rename Search “%s” to “%s”"
-msgstr ""
+msgstr "Preimenuj iskanje »%s« v »%s«"
 
 #: src/Resources.vala:405
 #, c-format
 msgid "Delete Search “%s”"
-msgstr ""
+msgstr "Izbriši iskanje »%s«"
 
 #: src/Resources.vala:410
-#, fuzzy, c-format
-#| msgid "Unable to rename tag to \"%s\" because the tag already exists."
+#, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
-msgstr "Oznake ni mogoče preimenovati v \"%s\", ker oznaka že obstaja."
+msgstr "Obraza ni mogoče preimenovati v »%s«, ker oznaka že obstaja."
 
 #: src/Resources.vala:414
 #, fuzzy, c-format
@@ -6627,25 +6584,22 @@ msgstr ""
 #: src/Resources.vala:438
 #, c-format
 msgid "Re_name Face “%s”…"
-msgstr ""
+msgstr "_Preimenuj obraz »%s« …"
 
 #: src/Resources.vala:442
-#, fuzzy, c-format
-#| msgid "Rename Tag \"%s\" to \"%s\""
+#, c-format
 msgid "Rename Face “%s” to “%s”"
-msgstr "Preimenuj oznako \"%s\" v \"%s\""
+msgstr "Preimenuj obraz »%s« v »%s«"
 
 #: src/Resources.vala:446
-#, fuzzy, c-format
-#| msgid "_Delete Tag \"%s\""
+#, c-format
 msgid "_Delete Face “%s”"
-msgstr "_Izbriši oznako \"%s\""
+msgstr "_Izbriši obraz »%s«"
 
 #: src/Resources.vala:450
-#, fuzzy, c-format
-#| msgid "Delete Tag \"%s\""
+#, c-format
 msgid "Delete Face “%s”"
-msgstr "Izbriše oznako \"%s\""
+msgstr "Izbriši obraz »%s«"
 
 #: src/Resources.vala:680
 #, c-format
@@ -6975,6 +6929,7 @@ msgstr "Slikovni zapis RAW"
 #: src/SearchFilter.vala:1149
 msgid "Use a saved search to filter items in the current view"
 msgstr ""
+"Uporabi shranjen iskalni niz za filtriranje predmetov trenutnega pogleda"
 
 #. Set up toolbar
 #. add toolbar buttons
