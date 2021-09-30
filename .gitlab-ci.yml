@@ -1,0 +1,31 @@
+image: ruby:2.6
+
+cache:
+  paths:
+  - _bundle/
+
+before_script:
+  - gem install bundler
+  - bundle install --path _bundle
+
+build:
+  stage: build
+  script:
+  - bundle exec jekyll b
+  - mv _site public
+  artifacts:
+    paths:
+    - public
+  except:
+  - master
+
+pages:
+  stage: deploy
+  script:
+  - bundle exec jekyll b
+  - mv _site public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

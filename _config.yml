@@ -1,0 +1,11 @@
+# Site settings
+title: website template
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "https://fixme.org" # the base hostname & protocol for your site
+sourceurl: "https://github.com/jimmac/os-component-website"
+description: "OS Template FIXME"
+
+permalink: /:title/
+
+# Build settings
+markdown: kramdown
