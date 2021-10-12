@@ -169,12 +169,19 @@ img {
 /* Singletons */
 #logo {
   display: block;
-  width: 130px; height: 26px;
-  color: rgba(0,0,0,0); /* make text transparent */
+  width: 251px; height: 26px;
   background: url('assets/page-logo.svg') no-repeat center;
   padding: 5rem 0 3rem;
   margin: 0 auto;
+  position: relative;
 }
+  #logo a {
+    display: block;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    color: rgba(0,0,0,0); /* make text transparent */
+    cursor: pointer;
+  }
 .page-logo > img {
   margin: 0 auto;
 }

@@ -19,7 +19,7 @@ Edit a bit of metadata and tweak some of the included graphics and have a site u
 
 The process of setting up the site locally consists of:
 
-- Install ruby [gem bundler](). On Fedora/in the [Toolbx](https://containertoolbx.org) you do:
+- Install ruby [gem bundler](https://bundler.io/). On [Fedora](https://getfedora.org/)/in the [Toolbx](https://containertoolbx.org) you do:
 
 ```
 toolbox enter
