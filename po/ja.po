@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2021-09-30 17:13+0000\n"
-"PO-Revision-Date: 2021-01-02 20:02+0900\n"
+"PO-Revision-Date: 2021-10-20 20:40+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
@@ -1256,16 +1256,12 @@ msgstr ""
 "ます。"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
-#, fuzzy
-#| msgid ""
-#| "When ready, Shotwell can upload your photos to various web sites, such as "
-#| "Facebook, Flickr, Google Photos, and more."
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
 msgstr ""
-"設定すれば、Shotwell で Facebook、Flickr、Google フォトなどのウェブサイトに写"
-"真をアップロードできます。"
+"設定すれば、Shotwell で Flickr や Google フォトといったウェブサービスに写真を"
+"アップロードできます。"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:22
 msgid "Shotwell supports JPEG, PNG, TIFF, and a variety of RAW file formats."
@@ -1274,7 +1270,7 @@ msgstr ""
 
 #: data/org.gnome.Shotwell.appdata.xml.in:53
 msgid "The Shotwell developers"
-msgstr ""
+msgstr "The Shotwell developers"
 
 #: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:16
 msgid "Photo Manager"
@@ -4574,10 +4570,8 @@ msgid "To get started, import photos in any of these ways:"
 msgstr "始めるには、いずれかの方法で写真をインポートしてください:"
 
 #: src/dialogs/WelcomeDialog.vala:65
-#, fuzzy
-#| msgid "Choose File %s Import From Folder"
 msgid "Choose “Import From Folder” from the File menu"
-msgstr "“ファイル %s フォルダーからインポート”を選択する"
+msgstr "“ファイル”メニューにある“フォルダーからインポート”を選択する"
 
 #: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
