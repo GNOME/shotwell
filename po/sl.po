@@ -2574,23 +2574,15 @@ msgid "Gallery3 publishing module"
 msgstr "Modul za objavljanje Gallery3"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-#, fuzzy
-#| msgid ""
-#| "You are not currently logged into Flickr.\n"
-#| "\n"
-#| "You must have already signed up for a Flickr account to complete the "
-#| "login process. During login you will have to specifically authorize "
-#| "Shotwell Connect to link to your Flickr account."
 msgid ""
 "You are not currently logged into your Gallery.\n"
 "\n"
 "You must have already signed up for a Gallery3 account to complete the login "
 "process."
 msgstr ""
-"Trenutno niste prijavljeni v Flickr.\n"
+"Trenutno niste prijavljeni v Gallery.\n"
 "\n"
-"Za dokončanje opravila prijave morate imeti Flickr račun. Med prijavo boste "
-"morali Povezavo Shotwell pooblastiti za povezavo s svojim računom Flickr."
+"Za dokončanje opravila prijave morate imeti dejaven račun Gallery3."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
 msgid "Shotwell default directory"
@@ -2624,40 +2616,41 @@ msgid ""
 "A file required for publishing is unavailable. Publishing to %s can’t "
 "continue."
 msgstr ""
+"Datoteka, uporabljena za objavljanje, ni na voljo. Objavljanja na mesto %s "
+"ni mogoče nadaljevati."
 
 #. populate any widgets whose contents are
 #. programmatically-generated
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
-#, fuzzy, c-format
-#| msgid "Publish to various websites"
+#, c-format
 msgid "Publishing to %s as %s."
-msgstr "Objavi na različnih spletnih straneh"
+msgstr "Poteka objavljanje na %s z računom %s."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
 msgid ""
 "Enter the URL for your Gallery3 site and the username and password (or API "
 "key) for your Gallery3 account."
 msgstr ""
+"Vnesite naslov URL za mesto Gallery3 ter uporabniško ime in geslo (ali ključ "
+"API) za račun Galerije3."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
-#, fuzzy
-#| msgid ""
-#| "Picasa Web Albums didn't recognize the email address and password you "
-#| "entered. To try again, re-enter your email address and password below."
 msgid ""
 "The username and password or API key were incorrect. To try again, re-enter "
 "your username and password below."
 msgstr ""
-"Spletni albumi Picasa niso prepoznali vpisanega naslova elektronske pošte in "
-"gesla. Za ponoven poskus spodaj ponovno vnesite svoj naslov elektronske "
-"pošte in geslo."
+"Uporabniško ime, geslo ali ključ API niso pravilni. Za ponoven poskus "
+"vnesite pravo uporabniško ime in geslo."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
+#, fuzzy
 msgid ""
 "The URL entered does not appear to be the main directory of a Gallery3 "
 "instance. Please make sure you typed it correctly and it does not have any "
 "trailing components (e.g., index.php)."
 msgstr ""
+"Vneseni URL ni glavni imenik primerka Galerije3. Prepričajte se, da ste ga "
+"pravilno vtipkali in da nima nobenih stranskih komponent (npr. indeks.php)."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
 msgid "Unrecognized User"
@@ -2789,10 +2782,13 @@ msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Avtorske pravice 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
+#, fuzzy
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
+"Datoteka, potrebna za objavo, ni na voljo. Objavljanje v flickr ne more "
+"nadaljevati."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:619
 #, c-format
@@ -3030,16 +3026,22 @@ msgid "Certificate of %s"
 msgstr "Potrdilo %s"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
+#, fuzzy
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
 msgstr ""
+"Vnesite URL knjižnice fotografij Piwigo ter uporabniško ime in geslo, "
+"povezano z računom Piwigo za to knjižnico."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
+#, fuzzy
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
 msgstr ""
+"Shotwell se ne more obrniti na knjižnico fotografij Piwigo. Preverite URL, "
+"ki ste ga vnesli"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
 msgid "Invalid URL"
@@ -3090,20 +3092,20 @@ msgid "1280 × 853 pixels"
 msgstr "1280 × 853 točk"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:407
+#, fuzzy
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
+"TumblrObjavalec: začetek( ): ne more zagnati; tega založnika ni mogoče znova "
+"zagnati."
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:480
-#, fuzzy, c-format
-#| msgid ""
-#| "You are logged into Flickr as %s.\n"
-#| "\n"
+#, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
 "\n"
 msgstr ""
-"V Flickr ste prijavljeni kot %s.\n"
+"V Tumblr ste prijavljeni kot %s.\n"
 "\n"
 
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:40
@@ -3111,10 +3113,13 @@ msgid "Video privacy _setting"
 msgstr "Nastavitev _zasebnosti videa"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
+#, fuzzy
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
+"Datoteka, potrebna za objavo, ni na voljo. Objavljanje v YouTubu se ne more "
+"nadaljevati."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:344
 #, c-format
@@ -3761,6 +3766,7 @@ msgstr ""
 "Poskusite uvoziti z druge storitve, ki je na voljo iz zgornjega menija."
 
 #: src/data_imports/DataImportsUI.vala:10
+#, fuzzy
 msgid ""
 "You do not have any data imports plugins enabled.\n"
 "\n"
@@ -3768,6 +3774,11 @@ msgid ""
 "at least one data imports plugin enabled. Plugins can be enabled in the "
 "Preferences dialog."
 msgstr ""
+"Vtičnikov za uvoz podatkov ni omogočen.\n"
+"\n"
+"Če želite uporabiti funkcijo Uvoz iz aplikacije, morate imeti omogočen vsaj "
+"en vtičnik za uvoz podatkov. Vtičnike lahko omogočite v pogovornem oknu "
+"Nastavitve."
 
 #: src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
@@ -4052,26 +4063,22 @@ msgid "1 day"
 msgstr "1 dan"
 
 #: src/Dialogs.vala:16
-#, fuzzy, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+#, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+"Odstranili boste oznako »%s« z %d fotografij. Ali želite nadaljevati?"
 msgstr[1] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografije. Ali želite nadaljevati?"
+"Odstranili boste oznako »%s« z %d fotografije. Ali želite nadaljevati?"
 msgstr[2] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+"Odstranili boste oznako »%s« z %d fotografij. Ali želite nadaljevati?"
 msgstr[3] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+"Odstranili boste oznako »%s« z %d fotografij. Ali želite nadaljevati?"
 
 #: src/Dialogs.vala:25
-#, fuzzy, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+#, c-format
 msgid "This will remove the saved search “%s”. Continue?"
-msgstr "Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+msgstr "Odstranili boste shranjen iskalni niz »%s«. Ali želite nadaljevati?"
 
 #: src/Dialogs.vala:36
 msgid ""
@@ -4087,7 +4094,7 @@ msgstr[3] ""
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
-msgstr ""
+msgstr "_Preklopi razvijalnik"
 
 #: src/Dialogs.vala:54
 #, fuzzy, c-format
@@ -4211,7 +4218,7 @@ msgstr "sporočilo napake:"
 #.
 #: src/Dialogs.vala:268
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
-msgstr ""
+msgstr "Zaradi neustrezne vrste neuvožene predstavne datoteke:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
@@ -4220,7 +4227,7 @@ msgstr ""
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
-msgstr ""
+msgstr "Zaradi nepoznanega zapisa neuvožene predstavne datoteke:"
 
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
@@ -4229,7 +4236,7 @@ msgstr ""
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
-msgstr ""
+msgstr "Zaradi napake kopiranja v zbirko neuvožene predstavne datoteke:"
 
 #: src/Dialogs.vala:302
 #, c-format
@@ -4238,21 +4245,21 @@ msgid ""
 "\tto %s"
 msgstr ""
 "ni mogoče kopirati %s\n"
-"v %s"
+"\tv %s"
 
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
 #: src/Dialogs.vala:314
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr ""
+msgstr "Zaradi okvare neuvožene predstavne datoteke:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
 #: src/Dialogs.vala:329
 msgid "Photos/Videos Not Imported for Other Reasons:"
-msgstr ""
+msgstr "Iz drugih razlogov neuvožene predstavne datoteke:"
 
 #: src/Dialogs.vala:349
 #, c-format
@@ -4264,33 +4271,29 @@ msgstr[2] "%d podvojeni fotografiji nista bili uvoženi:\n"
 msgstr[3] "%d podvojene fotografije niso bile uvožene:\n"
 
 #: src/Dialogs.vala:352
-#, fuzzy, c-format
-#| msgid "1 duplicate photo was not imported:\n"
-#| msgid_plural "%d duplicate photos were not imported:\n"
+#, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "%d podvojenih fotografij ni bilo uvoženih:\n"
-msgstr[1] "%d podvojena fotografija ni bila uvožena:\n"
-msgstr[2] "%d podvojeni fotografiji nista bili uvoženi:\n"
-msgstr[3] "%d podvojene fotografije niso bile uvožene:\n"
+msgstr[0] "%d podvojenih posnetkov ni bilo uvoženih:\n"
+msgstr[1] "%d podvojen posnetek ni bil uvožen:\n"
+msgstr[2] "%d podvojena posnetka nista bila uvožena:\n"
+msgstr[3] "%d posvojeni posnetki niso bili uvoženi:\n"
 
 #: src/Dialogs.vala:355
-#, fuzzy, c-format
-#| msgid "1 duplicate photo was not imported:\n"
-#| msgid_plural "%d duplicate photos were not imported:\n"
+#, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "%d podvojenih fotografij ni bilo uvoženih:\n"
-msgstr[1] "%d podvojena fotografija ni bila uvožena:\n"
-msgstr[2] "%d podvojeni fotografiji nista bili uvoženi:\n"
-msgstr[3] "%d podvojene fotografije niso bile uvožene:\n"
+msgstr[0] "%d podvojenih predstavnih datotek ni bilo uvoženih:\n"
+msgstr[1] "%d podvojena predstavna datoteka ni bila uvožena:\n"
+msgstr[2] "%d podvojeni predstavni datoteki nista bili uvoženi:\n"
+msgstr[3] "%d podvojene predstavne datoteke niso bile uvožene:\n"
 
 #: src/Dialogs.vala:369
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
+"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[1] ""
 "Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[2] ""
@@ -4299,91 +4302,85 @@ msgstr[3] ""
 "Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
 
 #: src/Dialogs.vala:372
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
+"Uvoz %d posnetkov je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d posnetka je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d posnetkov je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d posnetkov je spodletel zaradi napake datoteke ali strojne opreme:\n"
 
 #: src/Dialogs.vala:375
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
+"Uvoz %d predstavnih datotek je spodletel zaradi napake datoteke ali strojne "
+"opreme:\n"
 msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d predstavne datoteke je spodletel zaradi napake datoteke ali strojne "
+"opreme:\n"
 msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d predstavnih datotek je spodletel zaradi napake datoteke ali strojne "
+"opreme:\n"
 msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d predstavnih datotek je spodletel zaradi napake datoteke ali strojne "
+"opreme:\n"
 
 #: src/Dialogs.vala:378
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
+"Uvoz %d datotek je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d datoteke je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d datotek je spodletel zaradi napake datoteke ali strojne opreme:\n"
 msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d datotek je spodletel zaradi napake datoteke ali strojne opreme:\n"
 
 #: src/Dialogs.vala:392
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
-msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d fotografij je spodletel, ker mapa zbirke ni zapisljiva:\n"
+"\n"
+msgstr[1] "Uvoz %d fotografije je spodletel, ker mapa zbirke ni zapisljiva:\n"
 msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d fotografij je spodletel, ker mapa zbirke ni zapisljiva:\n"
+"\n"
 msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d fotografij je spodletel, ker mapa zbirke ni zapisljiva:\n"
+"\n"
 
 #: src/Dialogs.vala:395
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
+msgstr[0] "Uvoz %d posnetkov je spodletel, ker mapa zbirke ni zapisljiva:\n"
 msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d posnetka je spodletel, ker mapa zbirke ni zapisljiva:\n"
+"\n"
 msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
-msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d posnetkov je spodletel, ker mapa zbirke ni zapisljiva:\n"
+"\n"
+msgstr[3] "Uvoz %d posnetkov je spodletel, ker mapa zbirke ni zapisljiva:\n"
 
 #: src/Dialogs.vala:398
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
 "writable:\n"
@@ -4391,31 +4388,25 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
+"Uvoz %d predstavnih datotek je spodletel, ker mapa zbirke ni zapisljiva:\n"
 msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d predstavne datoteke je spodletel, ker mapa zbirke ni zapisljiva:\n"
 msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d predstavnih datotek je spodletel, ker mapa zbirke ni zapisljiva:\n"
 msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+"Uvoz %d predstavnih datotek je spodletel, ker mapa zbirke ni zapisljiva:\n"
 
 #: src/Dialogs.vala:401
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a file or hardware error:\n"
-#| msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+#, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
 msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
-msgstr[0] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme\n"
-msgstr[1] ""
-"Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme:\n"
-msgstr[2] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
-msgstr[3] ""
-"Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme:\n"
+msgstr[0] "Uvoz %d datotek je spodletel, ker mapa zbirke ni zapisljiva:\n"
+msgstr[1] "Uvoz %d datoteke je spodletel, ker mapa zbirke ni zapisljiva:\n"
+msgstr[2] "Uvoz %d datotek je spodletel, ker mapa zbirke ni zapisljiva:\n"
+msgstr[3] "Uvoz %d datotek je spodletel, ker mapa zbirke ni zapisljiva:\n"
 
 #: src/Dialogs.vala:415
 #, c-format
@@ -4427,31 +4418,29 @@ msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
 msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
 
 #: src/Dialogs.vala:418
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata:\n"
-msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
+msgstr[0] "Uvoz %d posnetkov je spodletel zaradi napake fotoaparata:\n"
+msgstr[1] "Uvoz %d posnetka je spodletel zaradi napake fotoaparata:\n"
+msgstr[2] "Uvoz %d posnetkov je spodletel zaradi napake fotoaparata:\n"
+msgstr[3] "Uvoz %d posnetkov je spodletel zaradi napake fotoaparata:\n"
 
 #: src/Dialogs.vala:421
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata:\n"
-msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
+msgstr[0] ""
+"Uvoz %d predstavnih datotek je spodletel zaradi napake fotoaparata:\n"
+msgstr[1] ""
+"Uvoz %d predstavne datoteke je spodletel zaradi napake fotoaparata:\n"
+msgstr[2] ""
+"Uvoz %d predstavnih datotek je spodletel zaradi napake fotoaparata:\n"
+msgstr[3] ""
+"Uvoz %d predstavnih datotek je spodletel zaradi napake fotoaparata:\n"
 
 #: src/Dialogs.vala:424
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
@@ -4460,48 +4449,54 @@ msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
 msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
 
 #: src/Dialogs.vala:438
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata:\n"
-msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
+msgstr[0] "Uvoz %d fotografij je spodletel, ker so okvarjene:\n"
+msgstr[1] ""
+"Uvoz %d fotografije je spodletel, ker je okvarjena:\n"
+"\n"
+msgstr[2] "Uvoz %d fotografij je spodletel, ker sta okvarjeni:\n"
+msgstr[3] "Uvoz %d fotografij je spodletel, ker so okvarjene:\n"
 
 #: src/Dialogs.vala:441
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata:\n"
-msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
+msgstr[0] "Uvoz %d posnetkov je spodletel, ker so okvarjeni:\n"
+msgstr[1] ""
+"Uvoz %d posnetka je spodletel, ker je okvarjen:\n"
+"\n"
+msgstr[2] ""
+"Uvoz %d posnetkov je spodletel, ker sta okvarjena:\n"
+"\n"
+msgstr[3] ""
+"Uvoz %d posnetkov je spodletel, ker so okvarjeni:\n"
+"\n"
 
 #: src/Dialogs.vala:444
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata:\n"
-msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
+msgstr[0] "Uvoz %d predstavnih datotek je spodletel, ker so okvarjene:\n"
+msgstr[1] "Uvoz %d predstavne datoteke je spodletel, ker je okvarjena:\n"
+msgstr[2] ""
+"Uvoz %d predstavnih datotek je spodletel, ker sta okvarjeni:\n"
+"\n"
+msgstr[3] ""
+"Uvoz %d predstavnih datotek je spodletel, ker so okvarjena:\n"
+"\n"
 
 #: src/Dialogs.vala:447
-#, fuzzy, c-format
-#| msgid "1 photo failed to import due to a camera error:\n"
-#| msgid_plural "%d photos failed to import due to a camera error:\n"
+#, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata:\n"
-msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
-msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
+msgstr[0] "Uvoz %d datotek je spodletel, ker so okvarjene:\n"
+msgstr[1] "Uvoz %d datoteke je spodletel, ker je okvarjena:\n"
+msgstr[2] ""
+"Uvoz %d datotek je spodletel, ker sta okvarjeni:\n"
+"\n"
+msgstr[3] "Uvoz %d datotek je spodletel, ker so okvarjene:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -4511,10 +4506,12 @@ msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata:\n"
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "%d nepodprtih fotografij je bilo izpuščenih:\n"
-msgstr[1] "%d nepodprta fotografija je izpuščena:\n"
-msgstr[2] "%d nepodprti fotografiji sta izpuščeni:\n"
-msgstr[3] "%d nepodprte fotografije so izpuščene:\n"
+msgstr[0] "Izpuščenih je bilo %d nepodprtih fotografij:\n"
+msgstr[1] "Izpuščena je bila %d nepodprta fotografija:\n"
+msgstr[2] ""
+"Izpuščeni sta bili %d nepodprti fotografiji:\n"
+"\n"
+msgstr[3] "Izpuščene so bile %d nepodprte fotografije:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
@@ -4522,89 +4519,103 @@ msgstr[3] "%d nepodprte fotografije so izpuščene:\n"
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "%d ne slikovnih datotek je izpuščenih.\n"
-msgstr[1] "%d ne slikovna datoteka je izpuščena.\n"
-msgstr[2] "%d ne slikovni datoteki sta izpuščeni.\n"
-msgstr[3] "%d ne slikovne datoteke so izpuščene.\n"
+msgstr[0] "Preskočenih je bilo %d neslikovnih datotek.\n"
+msgstr[1] "Preskočena je bila %d neslikovna datoteka.\n"
+msgstr[2] ""
+"Preskočeni sta bili %d neslikovni datoteki.\n"
+"\n"
+msgstr[3] "Preskočene so bile %d neslikovne datoteke.\n"
 
 #: src/Dialogs.vala:490
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "%d fotografij je izpuščenih zaradi preklica uporabnika:\n"
-msgstr[1] "%d fotografija je izpuščena zaradi preklica uporabnika:\n"
-msgstr[2] "%d fotografiji sta izpuščeni zaradi preklica uporabnika:\n"
-msgstr[3] "%d fotografije so izpuščene zaradi preklica uporabnika:\n"
+msgstr[0] "Zaradi preklica uporabnika je bilo izpuščenih %d fotografij:\n"
+msgstr[1] ""
+"Zaradi preklica uporabnika je bila izpuščena %d fotografija:\n"
+"\n"
+msgstr[2] ""
+"Zaradi preklica uporabnika sta bili izpuščeni %d fotografiji:\n"
+"\n"
+msgstr[3] "Zaradi preklica uporabnika so bile izpuščene %d fotografije:\n"
 
 #: src/Dialogs.vala:493
-#, fuzzy, c-format
-#| msgid "1 photo skipped due to user cancel:\n"
-#| msgid_plural "%d photos skipped due to user cancel:\n"
+#, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "%d fotografij je izpuščenih zaradi preklica uporabnika:\n"
-msgstr[1] "%d fotografija je izpuščena zaradi preklica uporabnika:\n"
-msgstr[2] "%d fotografiji sta izpuščeni zaradi preklica uporabnika:\n"
-msgstr[3] "%d fotografije so izpuščene zaradi preklica uporabnika:\n"
+msgstr[0] "Zaradi preklica uporabnika je bilo izpuščenih %d posnetkov:\n"
+msgstr[1] ""
+"Zaradi preklica uporabnika je bil izpuščen %d posnetek:\n"
+"\n"
+msgstr[2] ""
+"Zaradi preklica uporabnika sta bila izpuščena %d posnetka:\n"
+"\n"
+msgstr[3] ""
+"Zaradi preklica uporabnika so bili izpuščeni %d posnetki:\n"
+"\n"
 
 #: src/Dialogs.vala:496
-#, fuzzy, c-format
-#| msgid "1 photo skipped due to user cancel:\n"
-#| msgid_plural "%d photos skipped due to user cancel:\n"
+#, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "%d fotografij je izpuščenih zaradi preklica uporabnika:\n"
-msgstr[1] "%d fotografija je izpuščena zaradi preklica uporabnika:\n"
-msgstr[2] "%d fotografiji sta izpuščeni zaradi preklica uporabnika:\n"
-msgstr[3] "%d fotografije so izpuščene zaradi preklica uporabnika:\n"
+msgstr[0] ""
+"Zaradi preklica uporabnika je bilo izpuščenih %d predstavnih datotek:\n"
+msgstr[1] ""
+"Zaradi preklica uporabnika je bila izpuščena %d predstavna datoteka:\n"
+"\n"
+msgstr[2] ""
+"Zaradi preklica uporabnika sta bili izpuščeni %d predstavni datoteki:\n"
+"\n"
+msgstr[3] ""
+"Zaradi preklica uporabnika so bile izpuščene %d predstavne datoteke:\n"
 
 #: src/Dialogs.vala:499
-#, fuzzy, c-format
-#| msgid "1 photo skipped due to user cancel:\n"
-#| msgid_plural "%d photos skipped due to user cancel:\n"
+#, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] "%d fotografij je izpuščenih zaradi preklica uporabnika:\n"
-msgstr[1] "%d fotografija je izpuščena zaradi preklica uporabnika:\n"
-msgstr[2] "%d fotografiji sta izpuščeni zaradi preklica uporabnika:\n"
-msgstr[3] "%d fotografije so izpuščene zaradi preklica uporabnika:\n"
+msgstr[0] "Zaradi preklica uporabnika je bilo izpuščenih %d datotek:\n"
+msgstr[1] ""
+"Zaradi preklica uporabnika je bila izpuščena %d datoteka:\n"
+"\n"
+msgstr[2] "Zaradi preklica uporabnika sta bili izpuščeni %d datoteki:\n"
+msgstr[3] "Zaradi preklica uporabnika so bile izpuščene %d datoteke:\n"
 
 #: src/Dialogs.vala:513
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "%d fotografij je uspešno uvoženih.\n"
-msgstr[1] "%d fotografija je uspešno uvožena.\n"
-msgstr[2] "%d fotografiji sta uspešno uvoženi.\n"
-msgstr[3] "%d fotografije so uspešno uvožene.\n"
+msgstr[0] "Uspešno je uvoženih %d fotografij.\n"
+msgstr[1] "Uspešno je uvožena %d fotografija.\n"
+msgstr[2] "Uspešno sta uvoženi %d fotografiji.\n"
+msgstr[3] "Uspešno so uvožene%d fotografije.\n"
 
 #: src/Dialogs.vala:516
-#, fuzzy, c-format
-#| msgid "1 photo successfully imported.\n"
-#| msgid_plural "%d photos successfully imported.\n"
+#, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "%d fotografij je uspešno uvoženih.\n"
-msgstr[1] "%d fotografija je uspešno uvožena.\n"
-msgstr[2] "%d fotografiji sta uspešno uvoženi.\n"
-msgstr[3] "%d fotografije so uspešno uvožene.\n"
+msgstr[0] "Uspešno je uvoženih %d posnetkov.\n"
+msgstr[1] "Uspešno je uvožen %d posnetek.\n"
+msgstr[2] "Uspešno sta uvožena %d posnetka.\n"
+msgstr[3] "Uspešno so uvoženi %d posnetki.\n"
 
 #: src/Dialogs.vala:519
-#, fuzzy, c-format
-#| msgid "1 photo successfully imported.\n"
-#| msgid_plural "%d photos successfully imported.\n"
+#, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "%d fotografij je uspešno uvoženih.\n"
-msgstr[1] "%d fotografija je uspešno uvožena.\n"
-msgstr[2] "%d fotografiji sta uspešno uvoženi.\n"
-msgstr[3] "%d fotografije so uspešno uvožene.\n"
+msgstr[0] ""
+"Uspešno je uvoženih %d predstavnih datotek.\n"
+"\n"
+msgstr[1] "Uspešno je uvožena %d predstavna datoteka.\n"
+msgstr[2] ""
+"Uspešno sta uvoženi %d predstavni datoteki.\n"
+"\n"
+msgstr[3] "Uspešno so uvožene %d predstavne datoteke.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
 #: src/Dialogs.vala:535
 msgid "No photos or videos imported.\n"
-msgstr "Fotografije in videi niso bili uvoženi.\n"
+msgstr "Nobena fotografija ali video ni bila uvožena.\n"
 
 #: src/Dialogs.vala:542 src/Dialogs.vala:561
 msgid "Import Complete"
@@ -4915,19 +4926,25 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
+"%d predstavnih datotek ni mogoče premakniti v smeti. Ali jih želite "
+"izbrisati?"
 msgstr[1] ""
+"%d predstavne datoteke ni mogoče premakniti v smeti. Ali jo želite izbrisati?"
 msgstr[2] ""
+"%d predstavnih datotek ni mogoče premakniti v smeti. Ali ju želite izbrisati?"
 msgstr[3] ""
+"%d predstavnih datotek ni mogoče premakniti v smeti. Ali jih želite "
+"izbrisati?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1008
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%d predstavnih datotek ni mogoče izbrisati."
+msgstr[1] "%d predstavne datoteke ni mogoče izbrisati."
+msgstr[2] "%d predstavnih datotek ni mogoče izbrisati."
+msgstr[3] "%d predstavnih datotek ni mogoče izbrisati."
 
 #: src/dialogs/WelcomeDialog.vala:35
 msgid "Welcome!"
@@ -5383,12 +5400,14 @@ msgid "Detecting faces"
 msgstr "Zaznavanje obrazov"
 
 #: src/faces/FacesTool.vala:212
+#, fuzzy
 msgid "If you don’t set the name of unknown faces they won’t be saved."
-msgstr ""
+msgstr "Če ne nastavite imena neznanih obrazov, ne bodo shranjeni."
 
 #: src/faces/FacesTool.vala:233
+#, fuzzy
 msgid "Save changes and close the Faces tool"
-msgstr ""
+msgstr "Shranjevanje sprememb in zapiranje orodja Obrazi"
 
 #: src/faces/FacesTool.vala:235
 msgid "No changes to save"
@@ -5487,10 +5506,8 @@ msgid "Preparing to auto-import photos…"
 msgstr "Poteka priprava na samodejno uvažanje slik …"
 
 #: src/library/LibraryWindow.vala:1043
-#, fuzzy
-#| msgid "Stop importing photos"
 msgid "Auto-importing photos…"
-msgstr "Zaustavi uvažanje fotografij"
+msgstr "Samodejno uvažanje fotografij …"
 
 #: src/library/LibraryWindow.vala:1051
 msgid "Writing metadata to files…"
@@ -5562,11 +5579,9 @@ msgstr ""
 "fotografije."
 
 #: src/main.vala:71
-#, fuzzy, c-format
-#| msgid "Unknown error attempting to verify Shotwell's database: %d"
+#, c-format
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
-msgstr ""
-"Med poskusom preverjanja podatkovne zbirke Shotwell je prišlo do napake: %d"
+msgstr "Med poskusom preverjanja podatkovne zbirke je prišlo do napake: %s"
 
 #: src/main.vala:112
 msgid "Loading Shotwell"
@@ -5582,19 +5597,19 @@ msgstr "MAPA"
 
 #: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
-msgstr ""
+msgstr "Ne spremljajte knjižnic v času izvajanja za spremembe"
 
 #: src/main.vala:350
 msgid "Don’t display startup progress meter"
-msgstr ""
+msgstr "Ne prikaži merilnika poteka zagona"
 
 #: src/main.vala:351
 msgid "Show the application’s version"
-msgstr ""
+msgstr "Pokaži različico programa"
 
 #: src/main.vala:352
 msgid "Start the application in fullscreen mode"
-msgstr ""
+msgstr "Zaženi program v celozaslonskem načinu"
 
 #: src/main.vala:353
 msgid "Print the metadata of the image file"
@@ -5609,8 +5624,9 @@ msgid "PROFILE"
 msgstr "PROFIL"
 
 #: src/main.vala:355
+#, fuzzy
 msgid "If PROFILE given with --profile does not exist, create it"
-msgstr ""
+msgstr "Če profil s profilom --profile ne obstaja, ga ustvarite"
 
 #: src/main.vala:356
 msgid "Show available profiles"
@@ -5622,24 +5638,25 @@ msgid "[FILE]"
 msgstr "[DATOTEKA]"
 
 #: src/main.vala:392
-#, fuzzy, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options.\n"
+#, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
-msgstr "Za popoln seznam možnosti ukazne vrstice zaženite '%s --help'.\n"
+msgstr "Za popoln seznam možnosti ukazne vrstice zaženite ukaz »%s --help«.\n"
 
 #: src/main.vala:402
-#, c-format
+#, fuzzy, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
-msgstr ""
+msgstr "Profil %s ne obstaja. Si mislil, da bova tudi ti ustvarila?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
 msgstr "Izboljšaj zemljevid"
 
 #: src/MapWidget.vala:653
+#, fuzzy
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
 msgstr ""
+"Zaklenite ali odklenite zemljevid za geografsko označevanje tako, da "
+"povlečete slike na zemljevid"
 
 #: src/MediaMonitor.vala:400
 #, fuzzy, c-format
@@ -5652,12 +5669,13 @@ msgid "Adjust the size of the thumbnails"
 msgstr "Prilagodi velikost sličic"
 
 #: src/MediaPage.vala:419
-#, fuzzy, c-format
-#| msgid "Shotwell failed to load the database file"
+#, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
 "%s"
-msgstr "Nalaganje datoteke podatkovne zbirke je spodletelo"
+msgstr ""
+"Izbranega video posnetka ni mogoče predvajati:\n"
+"%s"
 
 #. previous button
 #: src/PhotoPage.vala:550
@@ -5907,10 +5925,9 @@ msgid "Uploading %d of %d"
 msgstr "Pošiljanje fotografije %d od %d"
 
 #: src/publishing/PublishingPluginHost.vala:85
-#, fuzzy, c-format
-#| msgid "Publishing to %s can't continue because an error occurred."
+#, c-format
 msgid "Publishing to %s can’t continue because an error occurred:"
-msgstr "Objavljanja na %s ni mogoče nadaljevati, ker je prišlo do napake."
+msgstr "Objavljanja na %s ni mogoče nadaljevati zaradi napake:"
 
 #: src/publishing/PublishingPluginHost.vala:88
 msgid "To try publishing to another service, select one from the above menu."
@@ -5955,6 +5972,9 @@ msgid ""
 "Preferences and enable one or more of the publishing plugins on the "
 "<b>Plugins</b> tab."
 msgstr ""
+"Izbranih predmetov ni mogoče objaviti, ker ni omogočenega ustreznega "
+"skladnega vstavka za objavljanje. Napako je mogoče odpraviti z urejanjem "
+"možnosti %s in omogočanjem ustreznih možnosti v zavihku <b>Vstavkov</b>"
 
 #: src/publishing/Publishing.vala:15
 msgid "Publishing"
@@ -5971,30 +5991,24 @@ msgstr "Poteka prijavljanje …"
 #. Here, we check whether more than one item is being uploaded, and if so, display
 #. an alternate message.
 #: src/publishing/SuccessPaneWidget.vala:17
-#, fuzzy
-#| msgid "The selected photos were successfully published."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
-msgstr[0] "Izbrane fotografije so bile uspešno objavljene."
-msgstr[1] "Izbrane fotografije so bile uspešno objavljene."
-msgstr[2] "Izbrane fotografije so bile uspešno objavljene."
-msgstr[3] "Izbrane fotografije so bile uspešno objavljene."
+msgstr[0] "Izbrani posnetki so bili uspešno objavljene."
+msgstr[1] "Izbrani posnetek je bil uspešno objavljen."
+msgstr[2] "Izbrana posnetka sta bila uspešno objavljena."
+msgstr[3] "Izbrani posnetki so bili uspešno objavljeni."
 
 #: src/publishing/SuccessPaneWidget.vala:22
-#, fuzzy
-#| msgid "The selected photos were successfully published."
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
 msgstr[0] "Izbrane fotografije so bile uspešno objavljene."
-msgstr[1] "Izbrane fotografije so bile uspešno objavljene."
-msgstr[2] "Izbrane fotografije so bile uspešno objavljene."
+msgstr[1] "Izbrana fotografija je bila uspešno objavljena."
+msgstr[2] "Izbrani fotografiji sta bili uspešno objavljeni."
 msgstr[3] "Izbrane fotografije so bile uspešno objavljene."
 
 #: src/publishing/SuccessPaneWidget.vala:28
-#, fuzzy
-#| msgid "The selected photos were successfully published."
 msgid "The selected photos/videos were successfully published."
-msgstr "Izbrane fotografije so bile uspešno objavljene."
+msgstr "Izbrane fotografije/posnetki so bili uspešno objavljeni."
 
 #: src/Resources.vala:114
 msgid "Rotate Right"
@@ -6371,37 +6385,31 @@ msgstr[2] "Označi fotografiji z oznako »%s«"
 msgstr[3] "Označi fotografije z oznako »%s«"
 
 #: src/Resources.vala:367
-#, fuzzy, c-format
-#| msgid "Tag the selected photo as \"%s\""
-#| msgid_plural "Tag the selected photos as \"%s\""
+#, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
-msgstr[0] "Označi več izbranih fotografij kot \"%s\""
-msgstr[1] "Označi izbrano fotografijo kot \"%s\""
-msgstr[2] "Označi izbrani fotografiji kot \"%s\""
-msgstr[3] "Označi izbrane fotografije kot \"%s\""
+msgstr[0] "Označi izbrane fotografije z oznako »%s«"
+msgstr[1] "Označi izbrano fotografijo z oznako »%s«"
+msgstr[2] "Označi izbrani fotografiji z oznako »%s«"
+msgstr[3] "Označi izbrane fotografije z oznako »%s«"
 
 #: src/Resources.vala:373
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
-#| msgid_plural "Remove Tag \"%s\" From _Photos"
+#, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
-msgstr[0] "Odstrani oznako \"%s\" iz _fotografij"
-msgstr[1] "Odstrani oznako \"%s\" iz fotografije"
-msgstr[2] "Odstrani oznako \"%s\" iz fotografij"
-msgstr[3] "Odstrani oznako \"%s\" iz fotografij"
+msgstr[0] "Odstrani oznako »%s« s _fotografij"
+msgstr[1] "Odstrani oznako »%s« s _fotografije"
+msgstr[2] "Odstrani oznako »%s« s _fotografij"
+msgstr[3] "Odstrani oznako »%s« s _fotografij"
 
 #: src/Resources.vala:379
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
-#| msgid_plural "Remove Tag \"%s\" From Photos"
+#, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
-msgstr[0] "Odstrani oznako \"%s\" iz fotografij"
-msgstr[1] "Odstrani oznako \"%s\" iz fotografije"
-msgstr[2] "Odstrani oznako \"%s\" iz fotografij"
-msgstr[3] "Odstrani oznako \"%s\" iz fotografij"
+msgstr[0] "Odstrani oznako »%s« s fotografij"
+msgstr[1] "Odstrani oznako »%s« s fotografije"
+msgstr[2] "Odstrani oznako »%s« s _fotografij"
+msgstr[3] "Odstrani oznako »%s« s _fotografij"
 
 #: src/Resources.vala:385
 #, c-format
@@ -6438,26 +6446,22 @@ msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "Obraza ni mogoče preimenovati v »%s«, ker oznaka že obstaja."
 
 #: src/Resources.vala:414
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From _Photo"
-#| msgid_plural "Remove Tag \"%s\" From _Photos"
+#, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
-msgstr[0] "Odstrani oznako \"%s\" iz _fotografij"
-msgstr[1] "Odstrani oznako \"%s\" iz fotografije"
-msgstr[2] "Odstrani oznako \"%s\" iz fotografij"
-msgstr[3] "Odstrani oznako \"%s\" iz fotografij"
+msgstr[0] "Odstrani obraz »%s« s _fotografij"
+msgstr[1] "Odstrani obraz »%s« s _fotografije"
+msgstr[2] "Odstrani obraz »%s« s _fotografij"
+msgstr[3] "Odstrani obraz »%s« s _fotografij"
 
 #: src/Resources.vala:419
-#, fuzzy, c-format
-#| msgid "Remove Tag \"%s\" From Photo"
-#| msgid_plural "Remove Tag \"%s\" From Photos"
+#, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
-msgstr[0] "Odstrani oznako \"%s\" iz fotografij"
-msgstr[1] "Odstrani oznako \"%s\" iz fotografije"
-msgstr[2] "Odstrani oznako \"%s\" iz fotografij"
-msgstr[3] "Odstrani oznako \"%s\" iz fotografij"
+msgstr[0] "Odstrani obraz »%s« s fotografij"
+msgstr[1] "OOdstrani obraz »%s« s fotografije"
+msgstr[2] "Odstrani obraz »%s« s fotografij"
+msgstr[3] "Odstrani obraz »%s« s fotografij"
 
 #. Translators: This means to teach the face to the face recognition system
 #: src/Resources.vala:425 src/Resources.vala:430
