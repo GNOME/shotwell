@@ -91,7 +91,7 @@ msgstr "Organitzeu les vostres fotografies"
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;organize;photo;photographs;photos;picture;pictures;photography;print;publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgstr ""
-"àlbum;càmera;càmeres;cultiu;edició;millorar;exportació;galeria;imatge;imatges;importar;organitzar;foto;fotògrafs;fotos;imatge;imatges;fotografia;impressió;publicar;girar;compartir;etiquetes;vídeo;facebook;flickr;picasa;youtube;Piwigo;"
+"àlbum;càmera;càmeres;escapçament;edició;millorar;exportació;galeria;imatge;imatges;importar;organitzar;foto;fotògrafs;fotos;imatge;imatges;fotografia;impressió;publicar;girar;compartir;etiquetes;vídeo;facebook;flickr;picasa;youtube;Piwigo;"
 
 #: misc/shotwell-viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -534,7 +534,7 @@ msgstr "Retard (en segons) entre imatges a la presentació."
 
 #: misc/org.yorba.shotwell.gschema.xml:193
 msgid "transition delay"
-msgstr "retard de transició:"
+msgstr "retard de transició"
 
 #: misc/org.yorba.shotwell.gschema.xml:194
 msgid ""
@@ -545,7 +545,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:199
 msgid "transition effect id"
-msgstr "identificació d'efecte de transició:"
+msgstr "identificació d'efecte de transició"
 
 #: misc/org.yorba.shotwell.gschema.xml:200
 msgid ""
@@ -653,7 +653,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:269
 msgid "write metadata to master files"
-msgstr "s'estan escrivint les metadades als fitxers mestres..."
+msgstr "s'estan escrivint les metadades als fitxers mestres"
 
 #: misc/org.yorba.shotwell.gschema.xml:270
 msgid ""
@@ -716,7 +716,7 @@ msgstr ""
 #: misc/org.yorba.shotwell.gschema.xml:302
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr ""
-"Un codi numèric que representa l'última opció del menú del cultiu que "
+"Un codi numèric que representa l'última opció del menú d'escapçament que "
 "realitza de l'usuari."
 
 #: misc/org.yorba.shotwell.gschema.xml:306
@@ -731,7 +731,7 @@ msgid ""
 "crop ratio the user entered."
 msgstr ""
 "Un nombre sencer positiu diferent de zero que representa la part ample de "
-"l'última proporció del cultiu personalitzat que l'usuari va introduir."
+"l'última proporció de l'escapçament que l'usuari va introduir."
 
 #: misc/org.yorba.shotwell.gschema.xml:311
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
@@ -745,7 +745,7 @@ msgid ""
 "crop ratio the user entered."
 msgstr ""
 "Un nombre sencer positiu diferent de zero, que representa la part de "
-"l'alçada de l'última proporció del cultiu personalitzat que l'usuari va "
+"l'alçada de l'última proporció de l'escapçament personalitzat que l'usuari va "
 "introduir."
 
 #: misc/org.yorba.shotwell.gschema.xml:319
@@ -955,7 +955,7 @@ msgstr "últim àlbum"
 #: misc/org.yorba.shotwell.gschema.xml:599
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
-"El nom del últim àlbum de fotografies que l'usuari publica per, si escau"
+"El nom de l'últim àlbum de fotografies que l'usuari publica per, si escau"
 
 #: misc/org.yorba.shotwell.gschema.xml:511
 msgid ""
@@ -1056,11 +1056,11 @@ msgstr "nom d'usuari de Gallery3"
 
 #: misc/org.yorba.shotwell.gschema.xml:586
 msgid "API key"
-msgstr "clau d'API:"
+msgstr "clau d'API"
 
 #: misc/org.yorba.shotwell.gschema.xml:587
 msgid "Gallery3 API key"
-msgstr "Clau d'API de Gallery3:"
+msgstr "Clau d'API de Gallery3"
 
 #: misc/org.yorba.shotwell.gschema.xml:592
 msgid "URL"
@@ -1229,7 +1229,7 @@ msgstr ""
 
 #: misc/org.yorba.shotwell.gschema.xml:702
 msgid "titles font"
-msgstr "títols de la font"
+msgstr "tipus de lletra dels títols"
 
 #: misc/org.yorba.shotwell.gschema.xml:703
 msgid "The name of the font to use for photo titles when they are printed."
@@ -1539,7 +1539,7 @@ msgstr "_Contrasenya"
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:895
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
-msgstr "inici de sessió"
+msgstr "Inicia la sessió"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:25
 msgid "Enter the username and password associated with your Tumblr account."
@@ -1687,7 +1687,7 @@ msgstr "Constant d'escala:"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
 msgid "pixels"
-msgstr " píxels"
+msgstr "píxels"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:687
@@ -2963,7 +2963,7 @@ msgstr "Crea una etiqueta"
 #: src/Commands.vala:1694
 #, c-format
 msgid "Move Tag “%s”"
-msgstr "Mou l'etiqueta «%s» "
+msgstr "Mou l'etiqueta «%s»"
 
 #: src/Commands.vala:2346
 msgid "Move Photos to Trash"
@@ -3316,21 +3316,21 @@ msgstr "Fotos/Vídeos que no s'ha importat per altres raons:"
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "No s'ha importat una fotografia duplicada:\n"
-msgstr[1] "No s'ha importat unes fotografies %d duplicades:\n"
+msgstr[1] "No s'ha importat %d fotografies duplicades:\n"
 
 #: src/Dialogs.vala:354
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "No s'ha importat un vídeo duplicat:\n"
-msgstr[1] "No s'ha importat uns vídeos %d duplicats:\n"
+msgstr[1] "No s'ha importat %d vídeos duplicats:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "No s'ha importat una fotografia/vídeo duplicat:\n"
-msgstr[1] "No s'ha importat unes fotografies/vídeos %d duplicats:\n"
+msgstr[1] "No s'ha importat %d fotografies/vídeos duplicats:\n"
 
 #: src/Dialogs.vala:371
 #, c-format
@@ -3904,8 +3904,8 @@ msgstr "Est_ableix totes les fotografies/vídeos a aquesta hora"
 #: src/dialogs/AdjustDateTimeDialog.vala:106
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
-msgstr[0] "_Modifica el fitxers de les imatges originals"
-msgstr[1] "_Modifica el fitxer de la imatge original"
+msgstr[0] "_Modifica el fitxer de la imatges original"
+msgstr[1] "_Modifica els fitxers de la imatge original"
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original file"
@@ -5878,7 +5878,7 @@ msgstr "Selecciona tots els elements"
 #. format
 #: src/Resources.vala:841
 msgid "%a %b %d, %Y"
-msgstr "%a %b %d %Y"
+msgstr "%a %-d %b de %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -5887,7 +5887,7 @@ msgstr "%a %b %d %Y"
 #: src/Resources.vala:846
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
-msgstr "%a %b %d"
+msgstr "%a %-d %b"
 
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
@@ -5905,7 +5905,7 @@ msgstr "%d de %Y"
 #: src/Resources.vala:856
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
-msgstr "%a, %b de %d"
+msgstr "%a, %-d %b"
 
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
@@ -5914,7 +5914,7 @@ msgstr "%a, %b de %d"
 #: src/Resources.vala:861
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a, %d %b de %Y"
+msgstr "%a %-d %b de %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
@@ -6244,7 +6244,7 @@ msgstr "_Fitxer"
 
 #: ui/direct.ui:13
 msgid "Save _As…"
-msgstr "Des_a com..."
+msgstr "_Anomena i desa…"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99 ui/faces.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
