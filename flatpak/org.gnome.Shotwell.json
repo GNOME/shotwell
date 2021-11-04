@@ -1,20 +1,21 @@
 {
     "app-id": "org.gnome.Shotwell",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.28",
+    "runtime-version": "41",
+    "branch": "stable",
     "sdk": "org.gnome.Sdk",
     "command" : "shotwell",
     "rename-desktop-file" : "shotwell.desktop",
     "rename-icon" : "shotwell",
     "rename-appdata-file" : "shotwell.appdata.xml",
-    "tags": [ "nightly" ],
-    "desktop-file-name-prefix": "(Nightly) ",
     "finish-args": [
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--filesystem=~/.config/dconf:ro",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=/media",
+        "--filesystem=/run/media",
         "--filesystem=xdg-download",
         "--filesystem=xdg-pictures",
-        "--filesystem=xdg-run/dconf",
         "--share=ipc",
         "--share=network",
         "--device=all",
@@ -24,30 +25,28 @@
         "--talk-name=org.freedesktop.FileManager1",
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.gtk.vfs",
-        "--talk-name=org.gtk.vfs.*"
+        "--talk-name=org.gtk.vfs.*",
+        "--env=GSETTINGS_BACKEND=dconf"
     ],
-
-    "cleanup" : ["/include", "/lib/pkconfig", "/share/pkgconfig", "/share/gtk-doc", "/share/man", "/share/vala", "/lib/girepository", "*.la", "*.a"],
-
+    "cleanup" : [
+        "/include",
+        "/lib/pkconfig",
+        "/share/pkgconfig",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/vala",
+        "/lib/girepository",
+        "*.la",
+        "*.a"
+    ],
     "modules" : [
-        {
-            "name": "libgee",
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/libgee/0.20/libgee-0.20.1.tar.xz",
-                    "sha256" : "bb2802d29a518e8c6d2992884691f06ccfcc25792a5686178575c7111fea4630"
-                }
-            ],
-            "config-opts" : ["--disable-introspection", "--disable-docs"]
-        },
         {
             "name": "libusb",
             "sources" : [
                 {
                 "type" : "archive",
-                "url" : "https://github.com/libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2",
-                "sha256" : "75aeb9d59a4fdb800d329a545c2e6799f732362193b465ea198f2aa275518157"
+                    "url" : "https://github.com/libusb/libusb/archive/v1.0.24.tar.gz",
+                    "sha256" : "b7724c272dfc5713dce88ff717efd60f021ca5b7c8e30f08ebb2c42d2eea08ae"
                 }
             ],
             "config-opts" : ["--disable-udev"]
@@ -58,57 +57,60 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://datapacket.dl.sourceforge.net/project/gphoto/libgphoto/2.5.18/libgphoto2-2.5.18.tar.bz2",
-                    "sha256" : "5b17b89d7ca0ec35c72c94ac3701e87d49e52371f9509b8e5c08c913ae57a7ec"
+                    "url" : "https://github.com/gphoto/libgphoto2/releases/download/v2.5.27/libgphoto2-2.5.27.tar.xz",
+                    "sha256" : "a7253bd18c6ef65352150ac36a668f883a5ad2634eb6455b3ca9aa6ac98d0073",
+                    "dest-filename" : "libgphoto2-2.5.27.tar.xz"
                 }
             ],
             "config-opts" : ["--disable-introspection", "--disable-docs"]
         },
-
         {
             "name": "liboauth",
+            "config-opts": [ "--enable-nss" ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "http://netix.dl.sourceforge.net/project/liboauth/liboauth-1.0.3.tar.gz",
-                    "sha256": "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f"
+                    "url" : "https://sourceforge.net/projects/liboauth/files/liboauth-1.0.3.tar.gz/download",
+                    "sha256" : "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f",
+                    "dest-filename" : "liboauth-1.0.3.tar.gz"
                 }
             ]
         },
         {
             "name": "libgdata",
+            "buildsystem" : "meson",
             "cleanup": ["/share/gtk-doc"],
-            "config-opts": [ "--disable-always-build-tests",
-                "--disable-introspection",
-                "--disable-Werror",
-                "--disable-static",
-                "--disable-goa" ],
+            "config-opts": [ "-Dintrospection=false", "-Dalways_build_tests=false", "-Dgoa=disabled", "-Dgtk_doc=false"],
                 "sources": [
                     {
                         "type": "archive",
-                        "url": "https://download.gnome.org/sources/libgdata/0.17/libgdata-0.17.9.tar.xz",
-                        "sha256": "85c4f7674c0098ffaf060ae01b6b832cb277b3673d54ace3bdedaad6b127453a"
+                        "url": "https://download.gnome.org/sources/libgdata/0.17/libgdata-0.17.13.tar.xz",
+                        "sha256": "eab9ef792c3c2b9ece19d45aea15225aba8df2521bc12785b1b2d3318d8c472e"
                     }
                 ]
         },
-
-
         {
             "name": "exiv2",
             "cleanup": [ "/bin" ],
-            "buildsystem": "cmake",
+            "buildsystem": "cmake-ninja",
+            "config-opts" : [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+                "-DEXIV2_BUILD_SAMPLES=OFF"
+            ],
             "sources": [
                 {
                     "type": "git",
                     "url": "https://github.com/Exiv2/exiv2/",
-                    "commit" : "e7ffd83af29187190da7f98dcbca8a4d70e19582"
+                    "commit" : "d3f7e92240a5e8bb827846c6094f46f9c7b53585"
                 }
             ]
         },
         {
             "name": "gexiv2",
+            "buildsystem" : "meson",
             "cleanup" : ["/lib/girepository-1.0", "/share/gir-1.0"],
-            "config-opts" : ["--without-python2-girdir", "--without-python3-girdir"],
+            "config-opts" : ["-Dpython2_girdir=no", "-Dpython3_girdir=no"],
             "build-options" : {
                 "env": {
                     "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
@@ -118,11 +120,11 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/gexiv2.git/"
+                    "url": "https://gitlab.gnome.org/GNOME/gexiv2.git/",
+                    "commit" : "e4d65b31cd77f28ef248117e161de9d8cc31d712"
                 }
             ]
         },
-
         {
             "name": "libraw",
             "config-opts": [ "--disable-examples", "--disable-static" ],
@@ -130,39 +132,24 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.libraw.org/data/LibRaw-0.18.13.tar.gz",
-                    "sha256": "cb1f9d0d1fabc8967d501d95c05d2b53d97a2b917345c66553b1abbea06757ca"
+                    "url" : "https://www.libraw.org/data/LibRaw-0.20.0.tar.gz",
+                    "sha256" : "1f0a383da2ce9f409087facd28261decbf6be72cc90c78cd003b0766e4d694a3"
                 },
                 {
                     "type": "patch",
-                    "path": "patches/libraw-pkgconfig.patch"
-                }
-            ]
-        },
-        {
-            "name": "opencv",
-            "buildsystem": "cmake",
-            "builddir": true,
-            "cleanup" : ["/share/OpenCV/*.cmake", "/share/OpenCV/*.supp"],
-            "config-opts" : ["-DBUILD_TESTS=OFF", "-DBUILD_EXAMPLES=OFF", "-DBUILD_PERF_TESTS=OFF", "-DWITH_FFMPEG=OFF", "-DWITH_GTK=OFF", "-DWITH_GSTREAMER=OFF", "-DBUILD_opencv_apps=OFF"],
-            "sources": [
-                {
-                    "type": "git",
-                    "tag": "3.4.1",
-                    "commit" : "6ffc48769ac60d53c4bd1913eac15117c9b1c9f7",
-                    "url": "https://github.com/opencv/opencv"
+                    "path": "libraw-pkgconfig.patch"
                 }
             ]
         },
         {
             "name": "shotwell",
             "buildsystem": "meson",
-            "config-opts" : ["-Dudev=false", "-Dinstall-apport-hook=false", "-Dface-detection=true"],
+            "config-opts" : ["-Dudev=false", "-Dinstall-apport-hook=false", "-Dface-detection=false", "-Dfatal_warnings=false"],
             "sources" : [
                 {
                     "type": "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/shotwell",
-                    "branch" : "master"
+                    "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
+                    "commit" : "382ac43b6b5fb688bf43a03601e48abd05925b89"
                 }
             ]
         }
