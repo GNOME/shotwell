@@ -151,6 +151,9 @@
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
                     "commit" : "382ac43b6b5fb688bf43a03601e48abd05925b89"
                 }
+            ],
+            "post-install" : [
+                "mv /app/share/applications/shotwell-viewer.desktop /app/share/applications/org.gnome.Shotwell.Viewer.desktop"
             ]
         }
     ]
