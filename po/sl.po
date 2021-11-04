@@ -1984,7 +1984,7 @@ msgstr "_Spremljaj mapo zbirke za nove datoteke"
 
 #: data/ui/preferences_dialog.ui:137
 msgid "Importing"
-msgstr "Uvažanje"
+msgstr "Poteka uvažanje …"
 
 #: data/ui/preferences_dialog.ui:154
 msgid "_Directory structure:"
@@ -2643,14 +2643,14 @@ msgstr ""
 "vnesite pravo uporabniško ime in geslo."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
-#, fuzzy
 msgid ""
 "The URL entered does not appear to be the main directory of a Gallery3 "
 "instance. Please make sure you typed it correctly and it does not have any "
 "trailing components (e.g., index.php)."
 msgstr ""
-"Vneseni URL ni glavni imenik primerka Galerije3. Prepričajte se, da ste ga "
-"pravilno vtipkali in da nima nobenih stranskih komponent (npr. indeks.php)."
+"Kaže, da vneseni naslov URL ni glavna mapa v strukturi Galerije3. "
+"Prepričajte se, da je ta pravilno vnesen in ni zapisan kot absolutni naslov "
+"(na primer z index.php)."
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
 msgid "Unrecognized User"
@@ -2782,12 +2782,11 @@ msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Avtorske pravice 2016 Software Freedom Conservancy Inc."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:340
-#, fuzzy
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
-"Datoteka, potrebna za objavo, ni na voljo. Objavljanje v flickr ne more "
+"Datoteka, nujna za objavo, ni na voljo. Objavljanja v flickr ni mogoče "
 "nadaljevati."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:619
@@ -2811,18 +2810,25 @@ msgstr ""
 "Do sedaj ste poslali %llu od skupaj %lld datotek."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:623
-#, fuzzy, c-format
-#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
+#, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded a file"
 msgid_plural ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded %d files"
-msgstr[0] "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
-msgstr[1] "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
-msgstr[2] "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
-msgstr[3] "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
+msgstr[0] ""
+"Naveden račun Flickr Pro omogoča neomejeno pošiljanje. Trenutno je poslanih "
+"%d datotek."
+msgstr[1] ""
+"Naveden račun Flickr Pro omogoča neomejeno pošiljanje. Trenutno je poslana "
+"%d datoteka."
+msgstr[2] ""
+"Naveden račun Flickr Pro omogoča neomejeno pošiljanje. Trenutno sta poslani "
+"%d datoteki."
+msgstr[3] ""
+"Naveden račun Flickr Pro omogoča neomejeno pošiljanje. Trenutno so poslane "
+"%d datoteke."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Photos _visible to"
@@ -3026,22 +3032,18 @@ msgid "Certificate of %s"
 msgstr "Potrdilo %s"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
-#, fuzzy
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
 msgstr ""
-"Vnesite URL knjižnice fotografij Piwigo ter uporabniško ime in geslo, "
-"povezano z računom Piwigo za to knjižnico."
+"Vpisati je treba naslov URL zbirke fotografij Piwigo ter uporabniško ime in "
+"geslo, povezano z računom Piwigo za to zbirko."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
-#, fuzzy
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
-msgstr ""
-"Shotwell se ne more obrniti na knjižnico fotografij Piwigo. Preverite URL, "
-"ki ste ga vnesli"
+msgstr "Povezava z zbirko Piwigo ni mogoča. Preverite vnesen naslov URL."
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
 msgid "Invalid URL"
@@ -3092,12 +3094,11 @@ msgid "1280 × 853 pixels"
 msgstr "1280 × 853 točk"
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:407
-#, fuzzy
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
-"TumblrObjavalec: začetek( ): ne more zagnati; tega založnika ni mogoče znova "
-"zagnati."
+"Objavljalnik Tumblr: start( ): programa ni mogoče zagnati, objavljalnik ne "
+"podpira te možnosti."
 
 #: plugins/shotwell-publishing/TumblrPublishing.vala:480
 #, c-format
@@ -3113,12 +3114,11 @@ msgid "Video privacy _setting"
 msgstr "Nastavitev _zasebnosti videa"
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:236
-#, fuzzy
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
-"Datoteka, potrebna za objavo, ni na voljo. Objavljanje v YouTubu se ne more "
+"Datoteka, zahtevana za objavo, ni na voljo. Objavljanja v YouTube ni mogoče "
 "nadaljevati."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:344
@@ -3766,7 +3766,6 @@ msgstr ""
 "Poskusite uvoziti z druge storitve, ki je na voljo iz zgornjega menija."
 
 #: src/data_imports/DataImportsUI.vala:10
-#, fuzzy
 msgid ""
 "You do not have any data imports plugins enabled.\n"
 "\n"
@@ -3774,11 +3773,10 @@ msgid ""
 "at least one data imports plugin enabled. Plugins can be enabled in the "
 "Preferences dialog."
 msgstr ""
-"Vtičnikov za uvoz podatkov ni omogočen.\n"
+"Ni omogočenega nobenega vstavka za uvoz podatkov.\n"
 "\n"
-"Če želite uporabiti funkcijo Uvoz iz aplikacije, morate imeti omogočen vsaj "
-"en vtičnik za uvoz podatkov. Vtičnike lahko omogočite v pogovornem oknu "
-"Nastavitve."
+"Za uporabo možnosti uvoza iz programa, je treba omogočiti vsaj en tak "
+"vstavek. Ti so zbrani v pogovornem oknu nastavitev."
 
 #: src/data_imports/DataImportsUI.vala:100
 msgid "Database file:"
@@ -4088,28 +4086,30 @@ msgid_plural ""
 "Switching developers will undo all changes you have made to these photos in "
 "Shotwell"
 msgstr[0] ""
+"S preklopom razvijalnika bodo razveljavljene vse spremembe z izbora."
 msgstr[1] ""
+"S preklopom razvijalnika bodo razveljavljene vse spremembe z izbora."
 msgstr[2] ""
+"S preklopom razvijalnika bodo razveljavljene vse spremembe z izbora."
 msgstr[3] ""
+"S preklopom razvijalnika bodo razveljavljene vse spremembe z izbora."
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
 msgstr "_Preklopi razvijalnik"
 
 #: src/Dialogs.vala:54
-#, fuzzy, c-format
-#| msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#| msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+#, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+"Oznaka »%s« bo odstranjena z označenih %d fotografij. Ali želite nadaljevati?"
 msgstr[1] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografije. Ali želite nadaljevati?"
+"Oznaka »%s« bo odstranjena z označene %d fotografije. Ali želite nadaljevati?"
 msgstr[2] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+"Oznaka »%s« bo odstranjena z označenih %d fotografij. Ali želite nadaljevati?"
 msgstr[3] ""
-"Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+"Oznaka »%s« bo odstranjena z označenih %d fotografij. Ali želite nadaljevati?"
 
 #: src/Dialogs.vala:74
 msgid "Export Video"
@@ -4130,6 +4130,8 @@ msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
+"Ni mogoče ustvariti datoteke za urejanje fotografije, ker ni ustreznih "
+"dovoljenj za zapisovanje v %s."
 
 #: src/Dialogs.vala:134
 msgid ""
@@ -4174,21 +4176,19 @@ msgstr "Uvozi poročilo rezultatov"
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Izveden je bil poskus uvoza %d datotek."
+msgstr[1] "Izveden je bil poskus uvoza %d datoteke."
+msgstr[2] "Izveden je bil poskus uvoza %d datotek."
+msgstr[3] "Izveden je bil poskus uvoza %d datotek."
 
 #: src/Dialogs.vala:227
-#, fuzzy, c-format
-#| msgid "1 photo successfully imported.\n"
-#| msgid_plural "%d photos successfully imported.\n"
+#, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
-msgstr[0] "%d fotografij je uspešno uvoženih.\n"
-msgstr[1] "%d fotografija je uspešno uvožena.\n"
-msgstr[2] "%d fotografiji sta uspešno uvoženi.\n"
-msgstr[3] "%d fotografije so uspešno uvožene.\n"
+msgstr[0] "Od teh je %d fotografij uspešno uvoženih."
+msgstr[1] "Od teh je %d fotografija uspešno uvožena."
+msgstr[2] "Od teh sta %d fotografiji uspešno uvoženi."
+msgstr[3] "Od teh so %d fotografije uspešno uvožene."
 
 #.
 #. Duplicates
@@ -4699,19 +4699,13 @@ msgid "Re_vert External Edits"
 msgstr "_Zavrzi zunanja urejanja"
 
 #: src/Dialogs.vala:781
-#, fuzzy, c-format
-#| msgid "This will remove the photo from the library.  Continue?"
-#| msgid_plural "This will remove %d photos from the library.  Continue?"
+#, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
-msgstr[0] ""
-"To bo odstranilo %d fotografij iz knjižnice. Ali naj program nadaljuje?"
-msgstr[1] ""
-"To bo odstranilo %d fotografijo iz knjižnice. Ali naj program nadaljuje?"
-msgstr[2] ""
-"To bo odstranilo %d fotografiji iz knjižnice. Ali naj program nadaljuje?"
-msgstr[3] ""
-"To bo odstranilo %d fotografije iz knjižnice. Ali naj program nadaljuje?"
+msgstr[0] "Iz zbirke bo odstranjenih %d fotografij. Ali želite nadaljevati?"
+msgstr[1] "Iz zbirke bo odstranjena %d fotografija. Ali želite nadaljevati?"
+msgstr[2] "Iz zbirke bosta odstranjeni %d fotografiji. Ali želite nadaljevati?"
+msgstr[3] "Iz zbirke bodo odstranjene %d fotografije. Ali želite nadaljevati?"
 
 #: src/Dialogs.vala:788 src/Resources.vala:146
 msgid "_Remove"
@@ -4791,17 +4785,7 @@ msgstr[2] "Odstranjevanje fotografij iz knjižnice"
 msgstr[3] "Odstranjevanje fotografij iz knjižnice"
 
 #: src/Dialogs.vala:951
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
 "like to move the file to your desktop trash?\n"
@@ -4813,38 +4797,28 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Odstranjenih bo %d fotografij iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bo odstranjenih %d predstavnih datotek. Ali naj bodo premaknjene v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[1] ""
-"Odstranjena bo %d fotografijo iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bo odstranjena %d predstavna datoteka. Ali naj bo premaknjena v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[2] ""
-"Odstranjeni bosta %d fotografiji iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bosta odstranjeni %d predstavni datoteki. Ali želite datoteki "
+"premakniti v smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[3] ""
-"Odstranjenie bodo %d fotografije iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bodo odstranjene %d predstavne datoteke. Ali naj bodo premaknjene "
+"v smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 
 #: src/Dialogs.vala:955
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4856,38 +4830,28 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Odstranjenih bo %d fotografij iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bo odstranjenih %d posnetkov. Ali želite datoteke premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[1] ""
-"Odstranjena bo %d fotografijo iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bo odstranjen %d posnetek. Ali želite datoteko premakniti v smeti "
+"namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[2] ""
-"Odstranjeni bosta %d fotografiji iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bosta odstranjena %d posnetka. Ali želite datoteki premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[3] ""
-"Odstranjenie bodo %d fotografije iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bodo odstranjene %d posnetki. Ali želite datoteke premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 
 #: src/Dialogs.vala:959
-#, fuzzy, c-format
-#| msgid ""
-#| "This will remove the photo from your Shotwell library.  Would you also "
-#| "like to move the file to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
-#| msgid_plural ""
-#| "This will remove %d photos from your Shotwell library.  Would you also "
-#| "like to move the files to your desktop trash?\n"
-#| "\n"
-#| "This action cannot be undone."
+#, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
 "to move the file to your desktop trash?\n"
@@ -4899,23 +4863,23 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Odstranjenih bo %d fotografij iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bo odstranjenih %d fotografij. Ali želite datoteke premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[1] ""
-"Odstranjena bo %d fotografijo iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bo odstranjena %d fotografija. Ali želite datoteko premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[2] ""
-"Odstranjeni bosta %d fotografiji iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bosta odstranjeni %d fotografiji. Ali želite datoteki premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 msgstr[3] ""
-"Odstranjenie bodo %d fotografije iz vaše knjižnice Shotwell. Ali želite "
-"datoteke tudi premakniti v smeti svojega namizja?\n"
+"Iz zbirke bodo odstranjene %d fotografije. Ali želite datoteke premakniti v "
+"smeti namizja?\n"
 "\n"
 "Tega dejanja ni mogoče razveljaviti."
 
@@ -4960,7 +4924,7 @@ msgstr "Za začetek uvozite fotografije na enega od naslednjih načinov:"
 
 #: src/dialogs/WelcomeDialog.vala:65
 msgid "Choose “Import From Folder” from the File menu"
-msgstr ""
+msgstr "Izberite možnost »Uvozi iz mape« iz menija Datoteke"
 
 #: src/dialogs/WelcomeDialog.vala:66
 msgid "Drag and drop photos onto the Shotwell window"
@@ -5384,7 +5348,7 @@ msgstr "Kliknite za urejanje obraza »%s«"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
-msgstr ""
+msgstr "Zaustavite poteg za dodajanje obraza in poimenovanje."
 
 #: src/faces/FacesTool.vala:193
 msgid "Type a name for this face, then press Enter"
@@ -5400,14 +5364,12 @@ msgid "Detecting faces"
 msgstr "Zaznavanje obrazov"
 
 #: src/faces/FacesTool.vala:212
-#, fuzzy
 msgid "If you don’t set the name of unknown faces they won’t be saved."
-msgstr "Če ne nastavite imena neznanih obrazov, ne bodo shranjeni."
+msgstr "Če ne nastavite imen neznanih obrazov, ti ne bodo shranjeni."
 
 #: src/faces/FacesTool.vala:233
-#, fuzzy
 msgid "Save changes and close the Faces tool"
-msgstr "Shranjevanje sprememb in zapiranje orodja Obrazi"
+msgstr "Shrani spremembe in zapri orodje za določanje obrazov"
 
 #: src/faces/FacesTool.vala:235
 msgid "No changes to save"
@@ -5415,7 +5377,7 @@ msgstr "Ni sprememb za shranjevanje"
 
 #: src/faces/FacesTool.vala:950
 msgid "Error trying to spawn face detection program:\n"
-msgstr ""
+msgstr "Prišlo je do napake med začenjanjem programa za zaznavo obrazov:\n"
 
 #: src/folders/FoldersBranch.vala:144
 msgid "Folders"
@@ -5534,48 +5496,38 @@ msgid "Deleting Photos"
 msgstr "Brisanje fotografij"
 
 #: src/main.vala:54
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s.  This version is %s.  Please use "
-#| "the latest version of Shotwell."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please use the latest version of Shotwell."
 msgstr ""
-"Vaša knjižnica fotografij ni združljiva s to različico programa Shotwell.  "
-"Videti je, da je bila ustvarjena z različico %s, uporabljate pa različico "
-"%s. Uporabite zadnjo različico Shotwell."
+"Trenutna zbirka fotografij ni združljiva s to različico programa Shotwell. "
+"Kaže, da je bila ustvarjena z različico %s (shema %d), uporabljate pa "
+"različico %s (shema %d). Priporočljivo je uporabiti najnovejšo različico "
+"programa."
 
 #: src/main.vala:59
-#, fuzzy, c-format
-#| msgid ""
-#| "Shotwell was unable to upgrade your photo library from version %s to %s.  "
-#| "For more information please check the Shotwell Wiki at %s"
+#, c-format
 msgid ""
 "Shotwell was unable to upgrade your photo library from version %s (schema "
 "%d) to %s (schema %d). For more information please check the Shotwell Wiki "
 "at %s"
 msgstr ""
-"S programom Shotwell ni mogoče posodobiti knjižnice fotografij iz različice "
-"%s na %s. Za več podrobnosti preverite wiki strani na %s"
+"S programom ni mogoče posodobiti zbirke fotografij iz različice %s (shema "
+"%d) na %s (shema %d). Več podrobnosti o tem je zapisanih na straneh wiki %s"
 
 #: src/main.vala:65
-#, fuzzy, c-format
-#| msgid ""
-#| "Your photo library is not compatible with this version of Shotwell.  It "
-#| "appears it was created by Shotwell %s.  This version is %s.  Please clear "
-#| "your library by deleting %s and re-import your photos."
+#, c-format
 msgid ""
 "Your photo library is not compatible with this version of Shotwell. It "
 "appears it was created by Shotwell %s (schema %d). This version is %s "
 "(schema %d). Please clear your library by deleting %s and re-import your "
 "photos."
 msgstr ""
-"Vaša knjižnica fotografij ni združljiva s to različico programa Shotwell. "
-"Videti je, da je bila ustvarjena z različico %s, uporabljate pa različico "
-"%s. Počistite svojo knjižnico z izbrisom %s in ponovno uvozite svoje "
+"Zbirka fotografij ni združljiva s trenutno različico programa Shotwell. "
+"Kaže, da je bila ustvarjena z različico %s (shema %d), trenutna različica pa "
+"je %s (shema %d). Počistite zbirko z izbrisom %s in ponovno uvozite "
 "fotografije."
 
 #: src/main.vala:71
@@ -5624,9 +5576,8 @@ msgid "PROFILE"
 msgstr "PROFIL"
 
 #: src/main.vala:355
-#, fuzzy
 msgid "If PROFILE given with --profile does not exist, create it"
-msgstr "Če profil s profilom --profile ne obstaja, ga ustvarite"
+msgstr "Če profil, podan z  zastavico --profile ne obstaja, ga ustvari"
 
 #: src/main.vala:356
 msgid "Show available profiles"
@@ -5643,26 +5594,25 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite ukaz »%s --help«.\n"
 
 #: src/main.vala:402
-#, fuzzy, c-format
+#, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
-msgstr "Profil %s ne obstaja. Si mislil, da bova tudi ti ustvarila?"
+msgstr ""
+"Profil %s ne obstaja. Ali želite poskusiti z ukazom --create za ustvarjanje?"
 
 #: src/MapWidget.vala:603
 msgid "Improve this map"
 msgstr "Izboljšaj zemljevid"
 
 #: src/MapWidget.vala:653
-#, fuzzy
 msgid "Lock or unlock map for geotagging by dragging pictures onto the map"
 msgstr ""
-"Zaklenite ali odklenite zemljevid za geografsko označevanje tako, da "
-"povlečete slike na zemljevid"
+"Zemljevid je mogoče zakleniti ali odkleniti zemljevid za geolokacijsko "
+"označevanje s potegom slik na zemljevid."
 
 #: src/MediaMonitor.vala:400
-#, fuzzy, c-format
-#| msgid "Unable to export photo %s: %s"
+#, c-format
 msgid "Unable to process monitoring updates: %s"
-msgstr "Fotografije %s ni mogoče izvoziti: %s"
+msgstr "Ni mogoče obdelati posodobitev spremljanja: %s"
 
 #: src/MediaPage.vala:76
 msgid "Adjust the size of the thumbnails"
@@ -6467,7 +6417,7 @@ msgstr[3] "Odstrani obraz »%s« s fotografij"
 #: src/Resources.vala:425 src/Resources.vala:430
 #, c-format
 msgid "_Train Face “%s” From Photo"
-msgstr ""
+msgstr "_Preuči obraz »%s« s fotografij"
 
 #: src/Resources.vala:438
 #, c-format
