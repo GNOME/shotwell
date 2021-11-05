@@ -6,7 +6,7 @@ variables:
 
 flatpak:
     extends: ['.flatpak']
-    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:40
+    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:41
     variables:
         MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
         RUNTIME_REPO: "https://flathub.org/repo/flathub.flatpakrepo"
