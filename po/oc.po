@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-06-21 17:32+0000\n"
+"POT-Creation-Date: 2021-08-18 17:37+0000\n"
 "PO-Revision-Date: 2021-08-18 19:36+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
@@ -285,8 +285,8 @@ msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
 msgstr ""
-"Se verai, les títols des photos son afichats jos las vinhetas dins les vues "
-"per collection."
+"Se verai, los títols de la fòtos son afichats jos las vinhetas dins las vistas "
+"per colleccion."
 
 #: misc/org.yorba.shotwell.gschema.xml:59
 msgid "display photo comments"
@@ -461,7 +461,7 @@ msgstr "escala de vinheta de las fòtos"
 
 #: misc/org.yorba.shotwell.gschema.xml:150
 msgid "The scale of photo thumbnails, ranging from 72 to 360."
-msgstr "L’escala des vinhetas de fòtos, de 72 a 360."
+msgstr "L’escala de las vinhetas de fòtos, de 72 a 360."
 
 #: misc/org.yorba.shotwell.gschema.xml:155
 msgid "pin toolbar state"
@@ -1195,7 +1195,7 @@ msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr ""
-"Determina se les talhas d’impression personalizadas devon correspondre a las "
+"Determina se las talhas d’impression personalizadas devon correspondre a las "
 "proporcions de la fòto d’origina"
 
 #: misc/org.yorba.shotwell.gschema.xml:696
@@ -2639,53 +2639,53 @@ msgstr "Aviada de l’importacion, pacientatz…"
 msgid "Fetching photo information"
 msgstr "Recuperacion de las informacions sus las fòtos"
 
-#: src/camera/ImportPage.vala:1566
+#: src/camera/ImportPage.vala:1564
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Recuperacion de l'apercebut de %s"
 
-#: src/camera/ImportPage.vala:1674
+#: src/camera/ImportPage.vala:1672
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Impossible de verrolhar l'aparelh de fòto : %s"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1757
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Suprimir aquesta fòto de l'aparelh fòto ?"
 msgstr[1] "Suprimir aquestas %d fòtos de l'aparelh fòto ?"
 
-#: src/camera/ImportPage.vala:1762
+#: src/camera/ImportPage.vala:1760
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Suprimir aquesta vidèo de l'aparelh fòto ?"
 msgstr[1] "Suprimir aquestas %d vidèos de l'aparelh fòto ?"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1763
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Suprimir aquesta fòto/vidèo de l'aparelh de fòto ?"
 msgstr[1] "Suprimir aquestas %d fòtos/vidèos de l'aparelh de fòto ?"
 
-#: src/camera/ImportPage.vala:1768
+#: src/camera/ImportPage.vala:1766
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Suprimir aquestes fichièrs de l'aparelh ?"
 msgstr[1] "Suprimir aquestes %d fichièrs de l'aparelh ?"
 
-#: src/camera/ImportPage.vala:1776 src/Dialogs.vala:733
+#: src/camera/ImportPage.vala:1774 src/Dialogs.vala:733
 msgid "_Keep"
 msgstr "_Gardar"
 
-#: src/camera/ImportPage.vala:1795
+#: src/camera/ImportPage.vala:1793
 msgid "Removing photos/videos from camera"
 msgstr "Supression de las fòtos/vidèos de l'aparelh de fòto"
 
-#: src/camera/ImportPage.vala:1799
+#: src/camera/ImportPage.vala:1797
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -4338,7 +4338,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d fòto"
 msgstr[1] "%d fòtos"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Pas cap d'eveniment"
 
@@ -4358,19 +4358,19 @@ msgstr "Pas cap d'eveniment"
 msgid "No events found"
 msgstr "Cap d'eveniment pas trobat"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Totes los eveniments"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Pas datada"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
