@@ -51,7 +51,7 @@ public class RawFileFormatDriver : PhotoFileFormatDriver {
 
 public class RawFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = {
-        "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
+        "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cr3", "cap", "iiq", "eip", "dcs", "dcr", "drf",
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
         "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f", "srw"
     };
@@ -63,6 +63,7 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     
         /* manufacturer blessed MIME types */
         "image/x-canon-cr2",
+        "image/x-canon-cr3",
         "image/x-canon-crw",
         "image/x-fuji-raf",
         "image/x-adobe-dng",
@@ -85,6 +86,7 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
         "image/x-bay",
         "image/x-crw",
         "image/x-cr2",
+        "image/x-cr3",
         "image/x-cap",
         "image/x-iiq",
         "image/x-eip",

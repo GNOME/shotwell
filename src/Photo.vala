@@ -183,7 +183,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         "pns", "jps", "mpo",
         
         // RAW extensions
-        "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
+        "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cr3", "cap", "iiq", "eip", "dcs", "dcr", "drf",
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
         "pxn", "r3d", "raf", "raw", "rw2", "rwl", "rwz", "x3f", "srw"
     };
