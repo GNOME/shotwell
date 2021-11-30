@@ -1,3 +1,14 @@
-[CCode (cheader_filename="version.h")]
-extern const string? _GIT_VERSION;
-
+[CCode (cheader_filename = "version.h")]
+public const string? _GIT_VERSION;
+[CCode (cheader_filename = "config.h")]
+public const string _PREFIX;
+[CCode (cheader_filename = "config.h")]
+public const string _VERSION;
+[CCode (cheader_filename = "config.h")]
+public const string GETTEXT_PACKAGE;
+[CCode (cheader_filename = "config.h")]
+public const string _LIB;
+[CCode (cheader_filename = "config.h")]
+public const string _LIBEXECDIR;
+[CCode (cheader_filename = "config.h")]
+public const string _LANG_SUPPORT_DIR;
