@@ -4,8 +4,6 @@
  * See the COPYING file in this distribution.
  */
 
-extern const string _LANG_SUPPORT_DIR;
-
 public const string TRANSLATABLE = "translatable";
 
 namespace InternationalSupport {
