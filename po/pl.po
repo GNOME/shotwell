@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-08-18 17:38+0000\n"
+"POT-Creation-Date: 2021-11-15 17:58+0000\n"
 "PO-Revision-Date: 2021-08-22 12:20+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:143
 msgid "show welcome dialog on startup"
-msgstr "wyświetlanie okna powitanego podczas uruchamiania"
+msgstr "wyświetlanie okna powitalnego podczas uruchamiania"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
 msgid ""
