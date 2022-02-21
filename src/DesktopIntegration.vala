@@ -6,7 +6,6 @@
 
 namespace DesktopIntegration {
 
-private const string SENDTO_EXEC = "nautilus-sendto";
 private const string DESKTOP_SLIDESHOW_XML_FILENAME = "wallpaper.xml";
 
 private int init_count = 0;
@@ -22,8 +21,6 @@ private bool set_screensaver = false;
 public void init() {
     if (init_count++ != 0)
         return;
-    
-    send_to_installed = Environment.find_program_in_path(SENDTO_EXEC) != null;
 }
 
 public void terminate() {
@@ -93,33 +90,46 @@ public bool is_send_to_installed() {
     return send_to_installed;
 }
 
-public void files_send_to(File[] files) {
+public async void files_send_to(File[] files) {
     if (files.length == 0)
         return;
     
-    string[] argv = new string[files.length + 1];
-    argv[0] = SENDTO_EXEC;
-    
-    for (int ctr = 0; ctr < files.length; ctr++)
-        argv[ctr + 1] = files[ctr].get_path();
-    
-    try {
-        AppWindow.get_instance().set_busy_cursor();
-        
-        Pid child_pid;
-        Process.spawn_async(
-            "/",
-            argv,
-            null, // environment
-            SpawnFlags.SEARCH_PATH,
-            null, // child setup
-            out child_pid);
-        
-        AppWindow.get_instance().set_normal_cursor();
-    } catch (Error err) {
-        AppWindow.get_instance().set_normal_cursor();
-        AppWindow.error_message(_("Unable to launch Nautilus Send-To: %s").printf(err.message));
+    var file_names = new StringBuilder();
+    var files_builder = new VariantBuilder (new VariantType ("ah"));
+    var file_descriptors = new UnixFDList ();
+    for (int i=0; i<files.length; i++){
+        var fd = Posix.open (files[i].get_path (), Posix.O_RDONLY | Posix.O_CLOEXEC);
+        if (fd == -1) {
+            warning ("Send to: cannot open file: '%s'", files[i].get_path ());
+            continue;
+        }
+        try {
+            files_builder.add ("h", file_descriptors.append (fd));
+        } catch (Error e) {
+            warning ("Send to: cannot append file %s to file descriptor list: %s",
+            files[i].get_path(), e.message);
+        }
+        file_names.append(files[i].get_basename());
+        if(i<files.length-1){
+            file_names.append(", ");
+        }
     }
+
+    var options = new HashTable<string, Variant> (str_hash, str_equal);
+    options.insert ("subject", _("Send files per Mail: ") + file_names.str);
+    options.insert ("attachment_fds", files_builder.end());
+    options.insert ("addresses", new Variant ("as", null));
+    AppWindow.get_instance().set_busy_cursor();
+    try{
+        var response = yield Portal.get_instance().compose_email (options, file_descriptors);
+        if (response == null){
+            throw new DBusError.FAILED("Did not get response");
+        }
+    } catch (Error e){
+        AppWindow.error_message(_("Unable to send file %s, %s").printf(
+        file_names.str, e.message));
+    }
+    AppWindow.get_instance().set_normal_cursor();
 }
 
 public void send_to(Gee.Collection<MediaSource> media) {
@@ -150,7 +160,7 @@ public void send_to(Gee.Collection<MediaSource> media) {
 
 private void on_send_to_export_completed(Exporter exporter, bool is_cancelled) {
     if (!is_cancelled)
-        files_send_to(exporter.get_exported_files());
+        files_send_to.begin(exporter.get_exported_files());
     
     send_to_exporter = null;
 }
