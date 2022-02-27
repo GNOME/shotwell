@@ -1,17 +1,17 @@
 # Polish translation for shotwell.
-# Copyright © 2011-2021 the shotwell authors.
+# Copyright © 2011-2022 the shotwell authors.
 # This file is distributed under the same license as the shotwell package.
 # verayin <vera@yorba.org>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2021.
-# Aviary.pl <community-poland@mozilla.org>, 2014-2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2022.
+# Aviary.pl <community-poland@mozilla.org>, 2014-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-11-15 17:58+0000\n"
-"PO-Revision-Date: 2021-08-22 12:20+0200\n"
+"POT-Creation-Date: 2022-02-21 19:01+0000\n"
+"PO-Revision-Date: 2022-02-27 14:22+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1312,7 +1312,7 @@ msgstr ""
 #: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:311
+#: src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1354,7 +1354,7 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Programiści projektu Shotwell"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:16
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Menedżer zdjęć"
 
@@ -1382,31 +1382,31 @@ msgstr ""
 msgid "Shotwell Viewer"
 msgstr "Przeglądarka Shotwell"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:17
+#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Przeglądarka zdjęć"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
 #: data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:232
-#: src/CollectionPage.vala:119 src/Resources.vala:159
+#: src/CollectionPage.vala:119 src/Resources.vala:152
 msgid "_Enhance"
 msgstr "_Uwydatnij"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
 #: data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:259
-#: src/CollectionPage.vala:120 src/Resources.vala:187
+#: src/CollectionPage.vala:120 src/Resources.vala:180
 msgid "Re_vert to Original"
 msgstr "Przy_wróć oryginalne"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:412 data/ui/event.ui:463
 #: data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:384
-#: data/ui/tags.ui:395 src/Resources.vala:285
+#: data/ui/tags.ui:395 src/Resources.vala:278
 msgid "Add _Tags…"
 msgstr "Dodaj e_tykiety…"
 
 #: data/ui/collection.ui:24 data/ui/event.ui:417 data/ui/event.ui:468
 #: data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:357
+#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:350
 msgid "Modif_y Tags…"
 msgstr "M_odyfikuj etykiety…"
 
@@ -1418,31 +1418,31 @@ msgstr "_Przełącz flagę"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:291 data/ui/event.ui:483
 #: data/ui/faces.ui:286 data/ui/media.ui:291 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:219
+#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:212
 msgid "_Set Rating"
 msgstr "U_staw ocenę"
 
 #: data/ui/collection.ui:62 data/ui/event.ui:319 data/ui/event.ui:506
 #: data/ui/faces.ui:314 data/ui/media.ui:319 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:222
 msgid "_Unrated"
 msgstr "_Bez oceny"
 
 #: data/ui/collection.ui:66 data/ui/event.ui:324 data/ui/event.ui:510
 #: data/ui/faces.ui:319 data/ui/media.ui:324 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:235
+#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:228
 msgid "_Rejected"
 msgstr "_Odrzucona"
 
 #: data/ui/collection.ui:72 data/ui/event.ui:331 data/ui/event.ui:516
 #: data/ui/faces.ui:326 data/ui/media.ui:331 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:223
+#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:216
 msgid "_Increase"
 msgstr "Z_większ"
 
 #: data/ui/collection.ui:76 data/ui/event.ui:336 data/ui/event.ui:520
 #: data/ui/faces.ui:331 data/ui/media.ui:336 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:226
+#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:219
 msgid "_Decrease"
 msgstr "_Zmniejsz"
 
@@ -1455,13 +1455,13 @@ msgstr "_Wywoływacz"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Aparat"
 
 #: data/ui/collection.ui:98 data/ui/event.ui:345 data/ui/event.ui:542
 #: data/ui/faces.ui:340 data/ui/media.ui:345 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:271
+#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:264
 msgid "Edit _Title…"
 msgstr "Mo_dyfikuj tytuł…"
 
@@ -1469,17 +1469,17 @@ msgstr "Mo_dyfikuj tytuł…"
 #: data/ui/events_directory.ui:191 data/ui/event.ui:350 data/ui/event.ui:403
 #: data/ui/event.ui:547 data/ui/faces.ui:345 data/ui/media.ui:350
 #: data/ui/photo_context.ui:110 data/ui/photo.ui:341 data/ui/tags.ui:350
-#: src/Resources.vala:275
+#: src/Resources.vala:268
 msgid "Edit _Comment…"
 msgstr "Modyfikuj _komentarz…"
 
 #: data/ui/collection.ui:108 data/ui/event.ui:552 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:292
+#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:285
 msgid "Open With E_xternal Editor"
 msgstr "_Otwórz za pomocą zewnętrznego edytora"
 
 #: data/ui/collection.ui:113 data/ui/event.ui:557 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:294
+#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:287
 msgid "Open With RA_W Editor"
 msgstr "Otwórz za pomocą edytora plików _RAW"
 
@@ -1493,57 +1493,57 @@ msgstr "Wyświetl wydarze_nie dla zdjęcia"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:785
+#: src/Resources.vala:778
 msgid "Show in File Mana_ger"
 msgstr "Wyświetl w mene_dżerze plików"
 
 #: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
 #: data/ui/event.ui:572 data/ui/photo.ui:30 src/CollectionPage.vala:83
-#: src/Resources.vala:296
+#: src/Resources.vala:289
 msgid "Send _To…"
 msgstr "Wyślij _do…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:794
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:787
 msgid "_Move to Trash"
 msgstr "Przenieś do _kosza"
 
-#: data/ui/collection.ui:148 src/Resources.vala:115
+#: data/ui/collection.ui:148 src/Resources.vala:108
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Obraca zdjęcia w prawo (naciśnięcie klawisza Ctrl obraca w lewo)"
 
-#: data/ui/collection.ui:151 src/Resources.vala:113 src/Resources.vala:118
+#: data/ui/collection.ui:151 src/Resources.vala:106 src/Resources.vala:111
 msgid "Rotate"
 msgstr "Obróć"
 
-#: data/ui/collection.ui:164 src/Resources.vala:161
+#: data/ui/collection.ui:164 src/Resources.vala:154
 msgid "Automatically improve the photo’s appearance"
 msgstr "Automatycznie ulepsza wygląd zdjęcia"
 
-#: data/ui/collection.ui:167 src/Resources.vala:160
+#: data/ui/collection.ui:167 src/Resources.vala:153
 msgid "Enhance"
 msgstr "Uwydatnij"
 
-#: data/ui/collection.ui:189 src/Resources.vala:269
+#: data/ui/collection.ui:189 src/Resources.vala:262
 msgid "Publish to various websites"
 msgstr "Publikuje na różnych witrynach WWW"
 
 #: data/ui/collection.ui:192
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
-#: src/Resources.vala:268
+#: src/Resources.vala:261
 msgid "Publish"
 msgstr "Opublikuj"
 
 #: data/ui/collection.ui:214 data/ui/offline.ui:241 data/ui/trash.ui:314
-#: src/Resources.vala:301
+#: src/Resources.vala:294
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Wyszukuje obraz przez wpisanie tekstu pojawiającego się w jego nazwie lub "
 "etykietach"
 
 #: data/ui/collection.ui:217 data/ui/offline.ui:244 data/ui/trash.ui:317
-#: src/Resources.vala:300
+#: src/Resources.vala:293
 msgid "Find"
 msgstr "Wyszukiwanie"
 
@@ -1555,7 +1555,7 @@ msgid "_File"
 msgstr "_Plik"
 
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:148
+#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:141
 msgid "_Save"
 msgstr "Zapi_sz"
 
@@ -1566,28 +1566,28 @@ msgstr "Z_apisz jako…"
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
 #: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
 #: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:144
+#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:137
 msgid "_Quit"
 msgstr "Za_kończ"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
 #: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
 #: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:132
+#: data/ui/trash.ui:37 src/Resources.vala:125
 msgid "_Edit"
 msgstr "_Edycja"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
 #: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
 #: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:197
+#: data/ui/trash.ui:40 src/Resources.vala:190
 msgid "_Undo"
 msgstr "Cof_nij"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
 #: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
 #: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:200
+#: data/ui/trash.ui:45 src/Resources.vala:193
 msgid "_Redo"
 msgstr "P_onów"
 
@@ -1599,19 +1599,19 @@ msgid "_View"
 msgstr "_Widok"
 
 #: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:180
-#: src/Resources.vala:134
+#: src/Resources.vala:127
 msgid "Fulls_creen"
 msgstr "_Pełny ekran"
 
 #: data/ui/direct.ui:69 data/ui/event.ui:265 data/ui/faces.ui:260
 #: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
-#: src/Resources.vala:156
+#: src/Resources.vala:149
 msgid "Zoom _In"
 msgstr "Pow_iększ"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:270 data/ui/faces.ui:265
 #: data/ui/media.ui:270 data/ui/photo.ui:156 data/ui/tags.ui:270
-#: src/Resources.vala:157
+#: src/Resources.vala:150
 msgid "Zoom _Out"
 msgstr "P_omniejsz"
 
@@ -1640,22 +1640,22 @@ msgid "_Next Photo"
 msgstr "_Następne zdjęcie"
 
 #: data/ui/direct.ui:113 data/ui/photo.ui:209 src/CollectionPage.vala:110
-#: src/Resources.vala:112
+#: src/Resources.vala:105
 msgid "Rotate _Right"
 msgstr "Obróć w p_rawo"
 
 #: data/ui/direct.ui:118 data/ui/photo.ui:214 src/CollectionPage.vala:113
-#: src/Resources.vala:117
+#: src/Resources.vala:110
 msgid "Rotate _Left"
 msgstr "Obróć w _lewo"
 
 #: data/ui/direct.ui:123 data/ui/photo.ui:219 src/CollectionPage.vala:116
-#: src/Resources.vala:122
+#: src/Resources.vala:115
 msgid "Flip Hori_zontally"
 msgstr "Odwróć po_ziomo"
 
 #: data/ui/direct.ui:127 data/ui/photo.ui:223 src/CollectionPage.vala:117
-#: src/Resources.vala:125
+#: src/Resources.vala:118
 msgid "Flip Verti_cally"
 msgstr "Odwróć pi_onowo"
 
@@ -1663,24 +1663,24 @@ msgstr "Odwróć pi_onowo"
 msgid "T_ools"
 msgstr "_Narzędzia"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:171
+#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:164
 msgid "_Crop"
 msgstr "Przyt_nij"
 
 #: data/ui/direct.ui:146 data/ui/photo.ui:242
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:168
 msgid "_Straighten"
 msgstr "_Wyrównaj"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:179
+#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:172
 msgid "_Red-eye"
 msgstr "_Czerwone oczy"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:183
+#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:176
 msgid "_Adjust"
 msgstr "_Dopasuj"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:282
+#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:275
 msgid "_Adjust Date and Time…"
 msgstr "Dostosuj d_atę i czas…"
 
@@ -1691,7 +1691,7 @@ msgstr "Dostosuj d_atę i czas…"
 #: data/ui/media.ui:408 data/ui/media.ui:411 data/ui/offline.ui:185
 #: data/ui/offline.ui:188 data/ui/photo.ui:396 data/ui/photo.ui:399
 #: data/ui/tags.ui:427 data/ui/tags.ui:430 data/ui/trash.ui:194
-#: data/ui/trash.ui:197 src/Resources.vala:135
+#: data/ui/trash.ui:197 src/Resources.vala:128
 msgid "_Help"
 msgstr "Pomo_c"
 
@@ -1713,7 +1713,7 @@ msgstr "_Zgłoś problem…"
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:206
 #: data/ui/manifest_widget.ui:35 data/ui/media.ui:426 data/ui/offline.ui:203
 #: data/ui/photo.ui:414 data/ui/tags.ui:445 data/ui/trash.ui:212
-#: src/Resources.vala:128
+#: src/Resources.vala:121
 msgid "_About"
 msgstr "_O programie"
 
@@ -1752,14 +1752,14 @@ msgstr "No_we zapisane wyszukiwanie…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:789
 msgid "Select _All"
 msgstr "Z_aznacz wszystkie"
 
 #: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
 #: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
 #: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
-#: src/Resources.vala:141 src/Resources.vala:290
+#: src/Resources.vala:134 src/Resources.vala:283
 msgid "_Preferences"
 msgstr "_Preferencje"
 
@@ -1832,23 +1832,23 @@ msgid "Even_ts"
 msgstr "Wy_darzenia"
 
 #: data/ui/events_directory.ui:140 data/ui/events_directory.ui:182
-#: src/Resources.vala:215
+#: src/Resources.vala:208
 msgid "_Merge Events"
 msgstr "_Połącz wydarzenia"
 
 #: data/ui/events_directory.ui:144 data/ui/events_directory.ui:186
-#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:203
+#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:196
 msgid "Re_name Event…"
 msgstr "Zmień _nazwę wydarzenia…"
 
 #: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:263
+#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:256
 msgid "_Export…"
 msgstr "Wy_eksportuj…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:792
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:785
 msgid "R_emove From Library"
 msgstr "_Usuń z kolekcji"
 
@@ -1864,31 +1864,31 @@ msgid "Ta_gs"
 msgstr "_Etykiety"
 
 #: data/ui/event.ui:149 data/ui/faces.ui:144 data/ui/media.ui:149
-#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:252
+#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:245
 msgid "_Ratings"
 msgstr "O_ceny"
 
 #: data/ui/event.ui:156 data/ui/faces.ui:151 data/ui/import.ui:116
 #: data/ui/media.ui:156 data/ui/offline.ui:113 data/ui/tags.ui:156
-#: data/ui/trash.ui:122 src/Resources.vala:255
+#: data/ui/trash.ui:122 src/Resources.vala:248
 msgid "_Filter Photos"
 msgstr "_Filtruj zdjęcia"
 
 #: data/ui/event.ui:189 data/ui/faces.ui:184 data/ui/import.ui:149
 #: data/ui/media.ui:189 data/ui/offline.ui:146 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:248
+#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:241
 msgid "_All Photos"
 msgstr "_Wszystkie zdjęcia"
 
 #: data/ui/event.ui:195 data/ui/faces.ui:190 data/ui/import.ui:155
 #: data/ui/media.ui:195 data/ui/offline.ui:152 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:245
+#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:238
 msgid "All + _Rejected"
 msgstr "Wszystkie + _odrzucone"
 
 #: data/ui/event.ui:201 data/ui/faces.ui:196 data/ui/import.ui:161
 #: data/ui/media.ui:201 data/ui/offline.ui:158 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:241
+#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:234
 msgid "Rejected _Only"
 msgstr "Tylko _odrzucone"
 
@@ -1927,21 +1927,21 @@ msgstr "Mal_ejąco"
 msgid "_Photos"
 msgstr "_Zdjęcia"
 
-#: data/ui/event.ui:378 data/ui/event.ui:585 src/Resources.vala:206
+#: data/ui/event.ui:378 data/ui/event.ui:585 src/Resources.vala:199
 msgid "Make _Key Photo for Event"
 msgstr "Utwórz _kluczowe zdjęcie dla wydarzenia"
 
 #: data/ui/event.ui:387 data/ui/faces.ui:376 data/ui/media.ui:381
-#: data/ui/tags.ui:381 src/Resources.vala:209
+#: data/ui/tags.ui:381 src/Resources.vala:202
 msgid "_New Event"
 msgstr "_Nowe wydarzenie"
 
-#: data/ui/event.ui:597 src/Resources.vala:279
+#: data/ui/event.ui:597 src/Resources.vala:272
 msgid "Edit Event _Comment…"
 msgstr "Modyfikuj _komentarz wydarzenia…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:307
-#: src/Resources.vala:308
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:300
+#: src/Resources.vala:301
 msgid "Faces"
 msgstr "Twarze"
 
@@ -1976,25 +1976,25 @@ msgstr "Za_loguj"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
 #: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:130
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Anuluj"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
-#: src/Resources.vala:139
+#: src/Resources.vala:132
 msgid "_OK"
 msgstr "_OK"
 
-#: data/ui/offline.ui:226 src/Resources.vala:780
+#: data/ui/offline.ui:226 src/Resources.vala:773
 msgid "Remove the selected photos from the library"
 msgstr "Usuwa wybrane zdjęcia z kolekcji"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:286
+#: data/ui/photo_context.ui:17 src/Resources.vala:279
 msgid "_Add Tags…"
 msgstr "_Dodaj etykiety…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:297
+#: data/ui/photo_context.ui:135 src/Resources.vala:290
 msgid "Send T_o…"
 msgstr "Wyślij d_o…"
 
@@ -2002,11 +2002,11 @@ msgstr "Wyślij d_o…"
 msgid "S_lideshow"
 msgstr "Pokaz s_lajdów"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:163
+#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:156
 msgid "_Copy Color Adjustments"
 msgstr "S_kopiuj dostosowania kolorów"
 
-#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:167
+#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:160
 msgid "_Paste Color Adjustments"
 msgstr "_Wklej dostosowania kolorów"
 
@@ -2199,19 +2199,19 @@ msgstr "brak"
 msgid "of the following:"
 msgstr "następujących:"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:398
+#: data/ui/savedsearch.ui:6 src/Resources.vala:391
 msgid "Re_name…"
 msgstr "Zmień _nazwę…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:397
+#: data/ui/savedsearch.ui:10 src/Resources.vala:390
 msgid "_Edit…"
 msgstr "_Modyfikuj…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:465 data/ui/trash.ui:63
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
-#: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:778
+#: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
+#: src/Resources.vala:389 src/Resources.vala:771
 msgid "_Delete"
 msgstr "_Usuń"
 
@@ -2277,11 +2277,11 @@ msgstr "Wyświetlanie tyt_ułu"
 msgid "seconds"
 msgstr "s"
 
-#: data/ui/tags.ui:455 src/Resources.vala:137 src/Resources.vala:345
+#: data/ui/tags.ui:455 src/Resources.vala:130 src/Resources.vala:338
 msgid "_New"
 msgstr "_Nowa"
 
-#: data/ui/tags.ui:461 src/Resources.vala:313 src/Resources.vala:355
+#: data/ui/tags.ui:461 src/Resources.vala:306 src/Resources.vala:348
 msgid "_Rename…"
 msgstr "_Zmień nazwę…"
 
@@ -2290,15 +2290,15 @@ msgid "label"
 msgstr "etykieta"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:782
+#: src/Resources.vala:775
 msgid "_Restore"
 msgstr "P_rzywróć"
 
-#: data/ui/trash.ui:260 src/Resources.vala:779
+#: data/ui/trash.ui:260 src/Resources.vala:772
 msgid "Remove the selected photos from the trash"
 msgstr "Usuwa wybrane zdjęcia z kosza"
 
-#: data/ui/trash.ui:275 src/Resources.vala:783
+#: data/ui/trash.ui:275 src/Resources.vala:776
 msgid "Move the selected photos back into the library"
 msgstr "Przenosi wybrane zdjęcia z powrotem do kolekcji"
 
@@ -2476,8 +2476,8 @@ msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
 "lsbeeler <lucas@yorba.org>, 2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2011-2021\n"
-"Aviary.pl <community-poland@mozilla.org>, 2014-2021"
+"Piotr Drąg <piotrdrag@gmail.com>, 2011-2022\n"
+"Aviary.pl <community-poland@mozilla.org>, 2014-2022"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:233
@@ -2831,7 +2831,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
+#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
@@ -3548,16 +3548,16 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Nie odnaleziono zdjęć/nagrań wideo pasujących do bieżącego filtra"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2487 src/Resources.vala:143
+#: src/PhotoPage.vala:2487 src/Resources.vala:136
 msgid "_Print"
 msgstr "Wy_drukuj"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2497 src/Resources.vala:193
+#: src/PhotoPage.vala:2497 src/Resources.vala:186
 msgid "Set as _Desktop Background"
 msgstr "Ustaw jako tło p_ulpitu"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:259
+#: src/CollectionPage.vala:92 src/Resources.vala:252
 msgid "_Duplicate"
 msgstr "Utwórz _kopię"
 
@@ -3569,7 +3569,7 @@ msgstr "Pełny ekran"
 msgid "Adjust Date and Time…"
 msgstr "Dostosuj datę i czas…"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:140
+#: src/CollectionPage.vala:149 src/Resources.vala:133
 msgid "_Play"
 msgstr "Od_twórz"
 
@@ -3879,21 +3879,25 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Nie można przywrócić bazy danych zdjęć %s"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Nie można uruchomić rozszerzenia „Wyślij do” programu Nautilus: %s"
+#: src/DesktopIntegration.vala:119
+msgid "Send files per Mail: "
+msgstr "Wyślij pliki pocztą: "
 
 #: src/DesktopIntegration.vala:129
+#, c-format
+msgid "Unable to send file %s, %s"
+msgstr "Nie można wysłać pliku %s, %s"
+
+#: src/DesktopIntegration.vala:139
 msgid "Send To"
 msgstr "Wyślij do"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:184
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Nie można wyeksportować tła do %s: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:321
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Nie można przygotować pokazu slajdów pulpitu: %s"
@@ -4621,7 +4625,7 @@ msgstr "Nie zaimportowano żadnych zdjęć lub nagrań wideo.\n"
 msgid "Import Complete"
 msgstr "Ukończono importowanie"
 
-#: src/Dialogs.vala:661 src/Resources.vala:204
+#: src/Dialogs.vala:661 src/Resources.vala:197
 msgid "Rename Event"
 msgstr "Zmień nazwę wydarzenia"
 
@@ -4640,7 +4644,7 @@ msgid "Title:"
 msgstr "Tytuł:"
 
 #. Dialog title
-#: src/Dialogs.vala:689 src/Resources.vala:280
+#: src/Dialogs.vala:689 src/Resources.vala:273
 msgid "Edit Event Comment"
 msgstr "Modyfikuj komentarz wydarzenia"
 
@@ -4701,7 +4705,7 @@ msgstr[0] "Zdjęcie zostanie usunięte z kolekcji. Kontynuować?"
 msgstr[1] "%d zdjęcia zostaną usunięte z kolekcji. Kontynuować?"
 msgstr[2] "%d zdjęć zostaną usuniętych z kolekcji. Kontynuować?"
 
-#: src/Dialogs.vala:788 src/Resources.vala:146
+#: src/Dialogs.vala:788 src/Resources.vala:139
 msgid "_Remove"
 msgstr "_Usuń"
 
@@ -5650,7 +5654,7 @@ msgstr "Maksymalne (%d%%)"
 msgid "PNG"
 msgstr "PNG"
 
-#: src/photos/RawSupport.vala:134
+#: src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "RAW"
 
@@ -5926,372 +5930,372 @@ msgstr[2] "Wybrane zdjęcia zostały pomyślnie opublikowane."
 msgid "The selected photos/videos were successfully published."
 msgstr "Wybrane zdjęcia/nagrania wideo zostały pomyślnie opublikowane."
 
-#: src/Resources.vala:114
+#: src/Resources.vala:107
 msgid "Rotate Right"
 msgstr "Obróć w prawo"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:112
 msgid "Rotate Left"
 msgstr "Obróć w lewo"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:113
 msgid "Rotate the photos left"
 msgstr "Obraca zdjęcia w lewo"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:116
 msgid "Flip Horizontally"
 msgstr "Odwróć poziomo"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:119
 msgid "Flip Vertically"
 msgstr "Odwróć pionowo"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:122
 msgid "_Apply"
 msgstr "_Zastosuj"
 
-#: src/Resources.vala:133
+#: src/Resources.vala:126
 msgid "_Forward"
 msgstr "_Dalej"
 
-#: src/Resources.vala:136
+#: src/Resources.vala:129
 msgid "Leave _Fullscreen"
 msgstr "Opuść p_ełny ekran"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:131
 msgid "_Next"
 msgstr "_Dalej"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:135
 msgid "_Previous"
 msgstr "_Wstecz"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:138
 msgid "_Refresh"
 msgstr "_Odśwież"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:140
 msgid "_Revert"
 msgstr "P_rzywróć"
 
-#: src/Resources.vala:149
+#: src/Resources.vala:142
 msgid "Save _As"
 msgstr "Z_apisz jako"
 
-#: src/Resources.vala:150
+#: src/Resources.vala:143
 msgid "Sort _Ascending"
 msgstr "Porządkowanie _rosnąco"
 
-#: src/Resources.vala:151
+#: src/Resources.vala:144
 msgid "Sort _Descending"
 msgstr "Porządkowanie mal_ejąco"
 
-#: src/Resources.vala:152
+#: src/Resources.vala:145
 msgid "_Stop"
 msgstr "_Zatrzymaj"
 
-#: src/Resources.vala:153
+#: src/Resources.vala:146
 msgid "_Undelete"
 msgstr "_Cofnij usunięcie"
 
-#: src/Resources.vala:154
+#: src/Resources.vala:147
 msgid "_Normal Size"
 msgstr "Z_wykły rozmiar"
 
-#: src/Resources.vala:155
+#: src/Resources.vala:148
 msgid "Best _Fit"
 msgstr "_Najlepsze dopasowanie"
 
-#: src/Resources.vala:164
+#: src/Resources.vala:157
 msgid "Copy Color Adjustments"
 msgstr "Skopiuj dostosowania kolorów"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:158
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Kopiuje dostosowania kolorów zastosowane na zdjęciu"
 
-#: src/Resources.vala:168
+#: src/Resources.vala:161
 msgid "Paste Color Adjustments"
 msgstr "Wklej dostosowania kolorów"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:162
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Wkleja skopiowane dostosowania kolorów zastosowane na zdjęciu"
 
-#: src/Resources.vala:172
+#: src/Resources.vala:165
 msgid "Crop"
 msgstr "Przytnij"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:166
 msgid "Crop the photo’s size"
 msgstr "Przycina rozmiar zdjęcia"
 
-#: src/Resources.vala:176
+#: src/Resources.vala:169
 msgid "Straighten"
 msgstr "Wyrównaj"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:170
 msgid "Straighten the photo"
 msgstr "Wyrównuje zdjęcie"
 
-#: src/Resources.vala:180
+#: src/Resources.vala:173
 msgid "Red-eye"
 msgstr "Czerwone oczy"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:174
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Zmniejsza lub usuwa wszystkie efekty czerwonych oczu na zdjęciu"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:177
 msgid "Adjust"
 msgstr "Dopasuj"
 
-#: src/Resources.vala:185
+#: src/Resources.vala:178
 msgid "Adjust the photo’s color and tone"
 msgstr "Dopasowuje kolor i tonację zdjęcia"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:181
 msgid "Revert to Original"
 msgstr "Przywróć oryginalne"
 
-#: src/Resources.vala:190
+#: src/Resources.vala:183
 msgid "Revert External E_dits"
 msgstr "Odwróć zewnętrzne mo_dyfikacje"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:184
 msgid "Revert to the master photo"
 msgstr "Przywraca pierwotne zdjęcie"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:187
 msgid "Set selected image to be the new desktop background"
 msgstr "Ustawia wybrany obraz jako nowe tło pulpitu"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:188
 msgid "Set as _Desktop Slideshow…"
 msgstr "Ustaw jako pokaz slaj_dów pulpitu…"
 
-#: src/Resources.vala:198
+#: src/Resources.vala:191
 msgid "Undo"
 msgstr "Cofnij"
 
-#: src/Resources.vala:201
+#: src/Resources.vala:194
 msgid "Redo"
 msgstr "Ponów"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:200
 msgid "Make Key Photo for Event"
 msgstr "Tworzy kluczowe zdjęcie dla wydarzenia"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:203
 msgid "New Event"
 msgstr "Nowe wydarzenie"
 
-#: src/Resources.vala:212
+#: src/Resources.vala:205
 msgid "Move Photos"
 msgstr "Przenieś zdjęcia"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:206
 msgid "Move photos to an event"
 msgstr "Przenosi zdjęcia do innego wydarzenia"
 
-#: src/Resources.vala:216
+#: src/Resources.vala:209
 msgid "Merge"
 msgstr "Połącz"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:210
 msgid "Combine events into a single event"
 msgstr "Łączy wydarzenia w jedno"
 
-#: src/Resources.vala:220
+#: src/Resources.vala:213
 msgid "Set Rating"
 msgstr "Ustaw ocenę"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:214
 msgid "Change the rating of your photo"
 msgstr "Zmienia ocenę zdjęcia"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:217
 msgid "Increase Rating"
 msgstr "Zwiększ ocenę"
 
-#: src/Resources.vala:227
+#: src/Resources.vala:220
 msgid "Decrease Rating"
 msgstr "Zmniejsz ocenę"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:223
 msgid "Unrated"
 msgstr "Bez oceny"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:224
 msgid "Rate Unrated"
 msgstr "Ustaw jako bez oceny"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:225
 msgid "Setting as unrated"
 msgstr "Ustawianie jako bez oceny"
 
-#: src/Resources.vala:233
+#: src/Resources.vala:226
 msgid "Remove any ratings"
 msgstr "Usuwa wszystkie oceny"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:229
 msgid "Rejected"
 msgstr "Odrzucona"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:230
 msgid "Rate Rejected"
 msgstr "Odrzucona ocena"
 
-#: src/Resources.vala:238
+#: src/Resources.vala:231
 msgid "Setting as rejected"
 msgstr "Ustawianie jako odrzucona"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:232
 msgid "Set rating to rejected"
 msgstr "Ustawia ocenę jako odrzuconą"
 
-#: src/Resources.vala:242
+#: src/Resources.vala:235
 msgid "Rejected Only"
 msgstr "Tylko odrzucone"
 
-#: src/Resources.vala:243
+#: src/Resources.vala:236
 msgid "Show only rejected photos"
 msgstr "Wyświetla tylko odrzucone zdjęcia"
 
-#: src/Resources.vala:246
+#: src/Resources.vala:239
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Wyświetla wszystkie zdjęcia, w tym odrzucone"
 
 #. Button tooltip
-#: src/Resources.vala:250
+#: src/Resources.vala:243
 msgid "Show all photos"
 msgstr "Wyświetla wszystkie zdjęcia"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:246
 msgid "Display each photo’s rating"
 msgstr "Wyświetla oceny każdego zdjęcia"
 
-#: src/Resources.vala:256
+#: src/Resources.vala:249
 msgid "Filter Photos"
 msgstr "Filtruj zdjęcia"
 
-#: src/Resources.vala:257
+#: src/Resources.vala:250
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Ogranicza liczbę wyświetlanych zdjęć na podstawie filtru"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:253
 msgid "Duplicate"
 msgstr "Utwórz kopię"
 
-#: src/Resources.vala:261
+#: src/Resources.vala:254
 msgid "Make a duplicate of the photo"
 msgstr "Tworzy kopię zdjęcia"
 
-#: src/Resources.vala:265
+#: src/Resources.vala:258
 msgid "_Print…"
 msgstr "Wy_drukuj…"
 
-#: src/Resources.vala:267
+#: src/Resources.vala:260
 msgid "Pu_blish…"
 msgstr "Opu_blikuj…"
 
 #. Button label
-#: src/Resources.vala:273
+#: src/Resources.vala:266
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Modyfikuj tytuł"
 
 #. Button label
-#: src/Resources.vala:277
+#: src/Resources.vala:270
 msgid "Edit Comment"
 msgstr "Modyfikacja komentarza"
 
-#: src/Resources.vala:283
+#: src/Resources.vala:276
 msgid "Adjust Date and Time"
 msgstr "Dostosowuje datę i czas"
 
 #. Dialog title
-#: src/Resources.vala:288
+#: src/Resources.vala:281
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Dodanie etykiet"
 
-#: src/Resources.vala:299
+#: src/Resources.vala:292
 msgid "_Find…"
 msgstr "_Znajdź…"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:296
 msgid "_Flag"
 msgstr "_Dodaj flagę"
 
-#: src/Resources.vala:305
+#: src/Resources.vala:298
 msgid "Un_flag"
 msgstr "_Usuń flagę"
 
-#: src/Resources.vala:309
+#: src/Resources.vala:302
 msgid "Mark faces of people in the photo"
 msgstr "Oznacza twarze osób na zdjęciu"
 
-#: src/Resources.vala:310
+#: src/Resources.vala:303
 msgid "Modify Faces"
 msgstr "Modyfikuj twarze"
 
-#: src/Resources.vala:311
+#: src/Resources.vala:304
 msgid "Delete Face"
 msgstr "Usuń twarz"
 
-#: src/Resources.vala:317
+#: src/Resources.vala:310
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Nie można uruchomić edytora: %s"
 
-#: src/Resources.vala:322
+#: src/Resources.vala:315
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Dodaj etykietę „%s”"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:325
+#: src/Resources.vala:318
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Dodaj etykiety „%s” i „%s”"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:330
+#: src/Resources.vala:323
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Dodaj etykiety"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:328
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "_Usuń etykietę „%s”"
 
-#: src/Resources.vala:339
+#: src/Resources.vala:332
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Usuń etykietę „%s”"
 
-#: src/Resources.vala:342
+#: src/Resources.vala:335
 msgid "Delete Tag"
 msgstr "Usuń etykietę"
 
-#: src/Resources.vala:348
+#: src/Resources.vala:341
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "Zmień _nazwę etykiety „%s”…"
 
-#: src/Resources.vala:352
+#: src/Resources.vala:345
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Zmień nazwę etykiety „%s” na „%s”"
 
-#: src/Resources.vala:358
+#: src/Resources.vala:351
 msgid "Modify Tags"
 msgstr "Modyfikuj etykiety"
 
-#: src/Resources.vala:361
+#: src/Resources.vala:354
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
@@ -6299,7 +6303,7 @@ msgstr[0] "Dodaj etykietę „%s” do zdjęcia"
 msgstr[1] "Dodaj etykietę „%s” do zdjęć"
 msgstr[2] "Dodaj etykietę „%s” do zdjęć"
 
-#: src/Resources.vala:367
+#: src/Resources.vala:360
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
@@ -6307,7 +6311,7 @@ msgstr[0] "Dodaje etykietę „%s” do wybranego zdjęcia"
 msgstr[1] "Dodaje etykietę „%s” do wybranych zdjęć"
 msgstr[2] "Dodaje etykietę „%s” do wybranych zdjęć"
 
-#: src/Resources.vala:373
+#: src/Resources.vala:366
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
@@ -6315,7 +6319,7 @@ msgstr[0] "Usuń etykietę „%s” ze _zdjęcia"
 msgstr[1] "Usuń etykietę „%s” ze _zdjęć"
 msgstr[2] "Usuń etykietę „%s” ze _zdjęć"
 
-#: src/Resources.vala:379
+#: src/Resources.vala:372
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
@@ -6323,13 +6327,13 @@ msgstr[0] "Usuń etykietę „%s” ze zdjęcia"
 msgstr[1] "Usuń etykietę „%s” ze zdjęć"
 msgstr[2] "Usuń etykietę „%s” ze zdjęć"
 
-#: src/Resources.vala:385
+#: src/Resources.vala:378
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 "Nie można zmienić nazwy etykiety na „%s”, ponieważ ta etykieta już istnieje."
 
-#: src/Resources.vala:389
+#: src/Resources.vala:382
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
@@ -6337,31 +6341,31 @@ msgstr ""
 "już istnieje."
 
 #. Saved search button
-#: src/Resources.vala:392 src/SearchFilter.vala:1148
+#: src/Resources.vala:385 src/SearchFilter.vala:1148
 msgid "Saved Search"
 msgstr "Zapisane wyszukiwanie"
 
-#: src/Resources.vala:394
+#: src/Resources.vala:387
 msgid "Delete Search"
 msgstr "Usunięcie wyszukiwania"
 
-#: src/Resources.vala:401
+#: src/Resources.vala:394
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Zmienia nazwę wyszukiwania z „%s” na „%s”"
 
-#: src/Resources.vala:405
+#: src/Resources.vala:398
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Usuwa wyszukiwanie „%s”"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 "Nie można zmienić nazwy twarzy na „%s”, ponieważ ta twarz już istnieje."
 
-#: src/Resources.vala:414
+#: src/Resources.vala:407
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
@@ -6369,7 +6373,7 @@ msgstr[0] "Usuń twarz „%s” ze _zdjęcia"
 msgstr[1] "Usuń twarz „%s” ze _zdjęć"
 msgstr[2] "Usuń twarz „%s” ze _zdjęć"
 
-#: src/Resources.vala:419
+#: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
@@ -6378,81 +6382,81 @@ msgstr[1] "Usuń twarz „%s” ze zdjęć"
 msgstr[2] "Usuń twarz „%s” ze zdjęć"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:425 src/Resources.vala:430
+#: src/Resources.vala:418 src/Resources.vala:423
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "_Naucz twarz „%s” ze zdjęcia"
 
-#: src/Resources.vala:438
+#: src/Resources.vala:431
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Zmień _nazwę twarzy „%s”…"
 
-#: src/Resources.vala:442
+#: src/Resources.vala:435
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Zmień nazwę twarzy „%s” na „%s”"
 
-#: src/Resources.vala:446
+#: src/Resources.vala:439
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Usuń twarz „%s”"
 
-#: src/Resources.vala:450
+#: src/Resources.vala:443
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Usuń twarz „%s”"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:673
 #, c-format
 msgid "Rate %s"
 msgstr "Ocena %s"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:674
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ustaw ocenę na %s"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:675
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Ustawianie oceny na %s"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:677
 #, c-format
 msgid "Display %s"
 msgstr "Wyświetlanie %s"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:678
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Wyświetla tylko z oceną %s"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:679
 #, c-format
 msgid "%s or Better"
 msgstr "%s lub lepszą"
 
-#: src/Resources.vala:687
+#: src/Resources.vala:680
 #, c-format
 msgid "Display %s or Better"
 msgstr "Wyświetlanie %s lub lepszych"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:681
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Wyświetla tylko zdjęcia z oceną %s lub lepszą"
 
-#: src/Resources.vala:786
+#: src/Resources.vala:779
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Otwiera wybrany katalog zdjęć w menedżerze plików"
 
-#: src/Resources.vala:789
+#: src/Resources.vala:782
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Nie można otworzyć w menedżerze plików: %s"
 
-#: src/Resources.vala:797
+#: src/Resources.vala:790
 msgid "Select all items"
 msgstr "Zaznacza wszystkie elementy"
 
@@ -6465,14 +6469,14 @@ msgstr "Zaznacza wszystkie elementy"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:859
+#: src/Resources.vala:852
 msgid "%a %b %d, %Y"
 msgstr "%a, %-d %b %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:864
+#: src/Resources.vala:857
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %-d %b"
@@ -6480,7 +6484,7 @@ msgstr "%a, %-d %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:869
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%-d, %Y"
@@ -6488,7 +6492,7 @@ msgstr "%-d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:874
+#: src/Resources.vala:867
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %-d %b"
@@ -6496,7 +6500,7 @@ msgstr "%a, %-d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:879
+#: src/Resources.vala:872
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %-d %b %Y"
