@@ -3,15 +3,15 @@
 # Copyright 2016 Software Freedom Conservancy Inc.
 # Mitko Krstev <m.krstev@hotmail.com>, 2011.
 # Nikola Radovanović <nrad@eunet.rs>, 2011–2013.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014–2021.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014–2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-09-05 07:36+0000\n"
-"PO-Revision-Date: 2021-09-18 07:19+0200\n"
+"POT-Creation-Date: 2022-02-21 19:01+0000\n"
+"PO-Revision-Date: 2022-03-04 05:44+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: српски <gnome-sr@googlegroups.org>\n"
+"Language-Team: Serbian <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1307,7 +1307,7 @@ msgstr ""
 #: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:311
+#: src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Фото-бунар"
 
@@ -1333,9 +1333,6 @@ msgstr ""
 "исправљање грешака."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
-#| msgid ""
-#| "When ready, Shotwell can upload your photos to various web sites, such as "
-#| "Facebook, Flickr, Google Photos, and more."
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1351,7 +1348,7 @@ msgstr "Фото-бунар подржава ЈПЕГ, ПНГ, ТИФФ и ра�
 msgid "The Shotwell developers"
 msgstr "Програмери Фото-бунара"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:16
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Управник фотографија"
 
@@ -1374,31 +1371,31 @@ msgstr ""
 msgid "Shotwell Viewer"
 msgstr "Фото-бунар прегледач фотографија"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:17
+#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Прегледач фотографија"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
 #: data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:232
-#: src/CollectionPage.vala:119 src/Resources.vala:159
+#: src/CollectionPage.vala:119 src/Resources.vala:152
 msgid "_Enhance"
 msgstr "_Побољшај"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
 #: data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:259
-#: src/CollectionPage.vala:120 src/Resources.vala:187
+#: src/CollectionPage.vala:120 src/Resources.vala:180
 msgid "Re_vert to Original"
 msgstr "_Врати на изворно"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:412 data/ui/event.ui:463
 #: data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:384
-#: data/ui/tags.ui:395 src/Resources.vala:285
+#: data/ui/tags.ui:395 src/Resources.vala:278
 msgid "Add _Tags…"
 msgstr "Додај _ознаке…"
 
 #: data/ui/collection.ui:24 data/ui/event.ui:417 data/ui/event.ui:468
 #: data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:357
+#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:350
 msgid "Modif_y Tags…"
 msgstr "Измени _ознаке…"
 
@@ -1410,31 +1407,31 @@ msgstr "Окини _заставицу"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:291 data/ui/event.ui:483
 #: data/ui/faces.ui:286 data/ui/media.ui:291 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:219
+#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:212
 msgid "_Set Rating"
 msgstr "_Оцени"
 
 #: data/ui/collection.ui:62 data/ui/event.ui:319 data/ui/event.ui:506
 #: data/ui/faces.ui:314 data/ui/media.ui:319 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:222
 msgid "_Unrated"
 msgstr "_Без оцене"
 
 #: data/ui/collection.ui:66 data/ui/event.ui:324 data/ui/event.ui:510
 #: data/ui/faces.ui:319 data/ui/media.ui:324 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:235
+#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:228
 msgid "_Rejected"
 msgstr "_Одбачене"
 
 #: data/ui/collection.ui:72 data/ui/event.ui:331 data/ui/event.ui:516
 #: data/ui/faces.ui:326 data/ui/media.ui:331 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:223
+#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:216
 msgid "_Increase"
 msgstr "_Повећај"
 
 #: data/ui/collection.ui:76 data/ui/event.ui:336 data/ui/event.ui:520
 #: data/ui/faces.ui:331 data/ui/media.ui:336 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:226
+#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:219
 msgid "_Decrease"
 msgstr "_Смањи"
 
@@ -1447,13 +1444,13 @@ msgstr "_Развијач"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Фото-апарат"
 
 #: data/ui/collection.ui:98 data/ui/event.ui:345 data/ui/event.ui:542
 #: data/ui/faces.ui:340 data/ui/media.ui:345 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:271
+#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:264
 msgid "Edit _Title…"
 msgstr "Измени _наслов…"
 
@@ -1461,17 +1458,17 @@ msgstr "Измени _наслов…"
 #: data/ui/events_directory.ui:191 data/ui/event.ui:350 data/ui/event.ui:403
 #: data/ui/event.ui:547 data/ui/faces.ui:345 data/ui/media.ui:350
 #: data/ui/photo_context.ui:110 data/ui/photo.ui:341 data/ui/tags.ui:350
-#: src/Resources.vala:275
+#: src/Resources.vala:268
 msgid "Edit _Comment…"
 msgstr "Измени _напомену…"
 
 #: data/ui/collection.ui:108 data/ui/event.ui:552 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:292
+#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:285
 msgid "Open With E_xternal Editor"
 msgstr "_Отвори спољним уређивачем"
 
 #: data/ui/collection.ui:113 data/ui/event.ui:557 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:294
+#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:287
 msgid "Open With RA_W Editor"
 msgstr "Отвори уређивачем _сирових"
 
@@ -1485,55 +1482,55 @@ msgstr "Прегледај _догађај за фотографију"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:785
+#: src/Resources.vala:778
 msgid "Show in File Mana_ger"
 msgstr "Прикажи у _управнику датотека"
 
 #: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
 #: data/ui/event.ui:572 data/ui/photo.ui:30 src/CollectionPage.vala:83
-#: src/Resources.vala:296
+#: src/Resources.vala:289
 msgid "Send _To…"
 msgstr "Пошаљи _у…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:794
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:787
 msgid "_Move to Trash"
 msgstr "_Премести у корпу"
 
-#: data/ui/collection.ui:148 src/Resources.vala:115
+#: data/ui/collection.ui:148 src/Resources.vala:108
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Окрените фотографије на десно (притисните Ктрл да окренете на лево)"
 
-#: data/ui/collection.ui:151 src/Resources.vala:113 src/Resources.vala:118
+#: data/ui/collection.ui:151 src/Resources.vala:106 src/Resources.vala:111
 msgid "Rotate"
 msgstr "Окрените"
 
-#: data/ui/collection.ui:164 src/Resources.vala:161
+#: data/ui/collection.ui:164 src/Resources.vala:154
 msgid "Automatically improve the photo’s appearance"
 msgstr "Самостално унапредите изглед фотографије"
 
-#: data/ui/collection.ui:167 src/Resources.vala:160
+#: data/ui/collection.ui:167 src/Resources.vala:153
 msgid "Enhance"
 msgstr "Побољшајте"
 
-#: data/ui/collection.ui:189 src/Resources.vala:269
+#: data/ui/collection.ui:189 src/Resources.vala:262
 msgid "Publish to various websites"
 msgstr "Објавите изабране фотографије на разним сајтовима"
 
 #: data/ui/collection.ui:192
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
-#: src/Resources.vala:268
+#: src/Resources.vala:261
 msgid "Publish"
 msgstr "Објави"
 
 #: data/ui/collection.ui:214 data/ui/offline.ui:241 data/ui/trash.ui:314
-#: src/Resources.vala:301
+#: src/Resources.vala:294
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Пронађите фотографије на основу назива или ознаке"
 
 #: data/ui/collection.ui:217 data/ui/offline.ui:244 data/ui/trash.ui:317
-#: src/Resources.vala:300
+#: src/Resources.vala:293
 msgid "Find"
 msgstr "Пронађите"
 
@@ -1545,7 +1542,7 @@ msgid "_File"
 msgstr "_Датотека"
 
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:148
+#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:141
 msgid "_Save"
 msgstr "_Сачувај"
 
@@ -1556,28 +1553,28 @@ msgstr "Сачувај _као…"
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
 #: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
 #: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:144
+#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:137
 msgid "_Quit"
 msgstr "_Изађи"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
 #: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
 #: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:132
+#: data/ui/trash.ui:37 src/Resources.vala:125
 msgid "_Edit"
 msgstr "_Уређивање"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
 #: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
 #: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:197
+#: data/ui/trash.ui:40 src/Resources.vala:190
 msgid "_Undo"
 msgstr "_Опозови"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
 #: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
 #: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:200
+#: data/ui/trash.ui:45 src/Resources.vala:193
 msgid "_Redo"
 msgstr "_Понови"
 
@@ -1589,19 +1586,19 @@ msgid "_View"
 msgstr "_Преглед"
 
 #: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:180
-#: src/Resources.vala:134
+#: src/Resources.vala:127
 msgid "Fulls_creen"
 msgstr "Преко _целог екрана"
 
 #: data/ui/direct.ui:69 data/ui/event.ui:265 data/ui/faces.ui:260
 #: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
-#: src/Resources.vala:156
+#: src/Resources.vala:149
 msgid "Zoom _In"
 msgstr "У_већај"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:270 data/ui/faces.ui:265
 #: data/ui/media.ui:270 data/ui/photo.ui:156 data/ui/tags.ui:270
-#: src/Resources.vala:157
+#: src/Resources.vala:150
 msgid "Zoom _Out"
 msgstr "У_мањи"
 
@@ -1630,22 +1627,22 @@ msgid "_Next Photo"
 msgstr "_Следећа фотографија"
 
 #: data/ui/direct.ui:113 data/ui/photo.ui:209 src/CollectionPage.vala:110
-#: src/Resources.vala:112
+#: src/Resources.vala:105
 msgid "Rotate _Right"
 msgstr "Окрени на _десно"
 
 #: data/ui/direct.ui:118 data/ui/photo.ui:214 src/CollectionPage.vala:113
-#: src/Resources.vala:117
+#: src/Resources.vala:110
 msgid "Rotate _Left"
 msgstr "Окрени на _лево"
 
 #: data/ui/direct.ui:123 data/ui/photo.ui:219 src/CollectionPage.vala:116
-#: src/Resources.vala:122
+#: src/Resources.vala:115
 msgid "Flip Hori_zontally"
 msgstr "Изврни _водоравно"
 
 #: data/ui/direct.ui:127 data/ui/photo.ui:223 src/CollectionPage.vala:117
-#: src/Resources.vala:125
+#: src/Resources.vala:118
 msgid "Flip Verti_cally"
 msgstr "Изврни _усправно"
 
@@ -1653,24 +1650,24 @@ msgstr "Изврни _усправно"
 msgid "T_ools"
 msgstr "_Алати"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:171
+#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:164
 msgid "_Crop"
 msgstr "_Исеци"
 
 #: data/ui/direct.ui:146 data/ui/photo.ui:242
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:168
 msgid "_Straighten"
 msgstr "_Исправи"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:179
+#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:172
 msgid "_Red-eye"
 msgstr "_Црвене очи"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:183
+#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:176
 msgid "_Adjust"
 msgstr "_Дотерај"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:282
+#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:275
 msgid "_Adjust Date and Time…"
 msgstr "_Подеси датум и време…"
 
@@ -1681,7 +1678,7 @@ msgstr "_Подеси датум и време…"
 #: data/ui/media.ui:408 data/ui/media.ui:411 data/ui/offline.ui:185
 #: data/ui/offline.ui:188 data/ui/photo.ui:396 data/ui/photo.ui:399
 #: data/ui/tags.ui:427 data/ui/tags.ui:430 data/ui/trash.ui:194
-#: data/ui/trash.ui:197 src/Resources.vala:135
+#: data/ui/trash.ui:197 src/Resources.vala:128
 msgid "_Help"
 msgstr "По_моћ"
 
@@ -1703,7 +1700,7 @@ msgstr "_Пријави проблем…"
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:206
 #: data/ui/manifest_widget.ui:35 data/ui/media.ui:426 data/ui/offline.ui:203
 #: data/ui/photo.ui:414 data/ui/tags.ui:445 data/ui/trash.ui:212
-#: src/Resources.vala:128
+#: src/Resources.vala:121
 msgid "_About"
 msgstr "_О програму"
 
@@ -1742,14 +1739,14 @@ msgstr "Нова _сачувана претрага…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:789
 msgid "Select _All"
 msgstr "Изабери _све"
 
 #: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
 #: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
 #: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
-#: src/Resources.vala:141 src/Resources.vala:290
+#: src/Resources.vala:134 src/Resources.vala:283
 msgid "_Preferences"
 msgstr "_Поставке"
 
@@ -1822,23 +1819,23 @@ msgid "Even_ts"
 msgstr "_Догађаји"
 
 #: data/ui/events_directory.ui:140 data/ui/events_directory.ui:182
-#: src/Resources.vala:215
+#: src/Resources.vala:208
 msgid "_Merge Events"
 msgstr "_Спој догађаје"
 
 #: data/ui/events_directory.ui:144 data/ui/events_directory.ui:186
-#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:203
+#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:196
 msgid "Re_name Event…"
 msgstr "_Преименуј догађај…"
 
 #: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:263
+#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:256
 msgid "_Export…"
 msgstr "_Извези…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:792
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:785
 msgid "R_emove From Library"
 msgstr "Уклони из _фототеке"
 
@@ -1854,31 +1851,31 @@ msgid "Ta_gs"
 msgstr "_Ознаке"
 
 #: data/ui/event.ui:149 data/ui/faces.ui:144 data/ui/media.ui:149
-#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:252
+#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:245
 msgid "_Ratings"
 msgstr "_Оцене"
 
 #: data/ui/event.ui:156 data/ui/faces.ui:151 data/ui/import.ui:116
 #: data/ui/media.ui:156 data/ui/offline.ui:113 data/ui/tags.ui:156
-#: data/ui/trash.ui:122 src/Resources.vala:255
+#: data/ui/trash.ui:122 src/Resources.vala:248
 msgid "_Filter Photos"
 msgstr "_Издвој фотографије"
 
 #: data/ui/event.ui:189 data/ui/faces.ui:184 data/ui/import.ui:149
 #: data/ui/media.ui:189 data/ui/offline.ui:146 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:248
+#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:241
 msgid "_All Photos"
 msgstr "_Све фотографије"
 
 #: data/ui/event.ui:195 data/ui/faces.ui:190 data/ui/import.ui:155
 #: data/ui/media.ui:195 data/ui/offline.ui:152 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:245
+#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:238
 msgid "All + _Rejected"
 msgstr "Све + _одбачене"
 
 #: data/ui/event.ui:201 data/ui/faces.ui:196 data/ui/import.ui:161
 #: data/ui/media.ui:201 data/ui/offline.ui:158 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:241
+#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:234
 msgid "Rejected _Only"
 msgstr "Само _одбачене"
 
@@ -1917,21 +1914,21 @@ msgstr "_Опадајуће"
 msgid "_Photos"
 msgstr "_Фотографије"
 
-#: data/ui/event.ui:378 data/ui/event.ui:585 src/Resources.vala:206
+#: data/ui/event.ui:378 data/ui/event.ui:585 src/Resources.vala:199
 msgid "Make _Key Photo for Event"
 msgstr "Направи _кључну фотографију догађаја"
 
 #: data/ui/event.ui:387 data/ui/faces.ui:376 data/ui/media.ui:381
-#: data/ui/tags.ui:381 src/Resources.vala:209
+#: data/ui/tags.ui:381 src/Resources.vala:202
 msgid "_New Event"
 msgstr "_Нови догађај"
 
-#: data/ui/event.ui:597 src/Resources.vala:279
+#: data/ui/event.ui:597 src/Resources.vala:272
 msgid "Edit Event _Comment…"
 msgstr "Измени _напомену догађаја…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:307
-#: src/Resources.vala:308
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:300
+#: src/Resources.vala:301
 msgid "Faces"
 msgstr "Лица"
 
@@ -1966,25 +1963,25 @@ msgstr "_Пријави ме"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
 #: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:130
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Откажи"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
-#: src/Resources.vala:139
+#: src/Resources.vala:132
 msgid "_OK"
 msgstr "У _реду"
 
-#: data/ui/offline.ui:226 src/Resources.vala:780
+#: data/ui/offline.ui:226 src/Resources.vala:773
 msgid "Remove the selected photos from the library"
 msgstr "Уклоните изабране фотографије из фототеке"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:286
+#: data/ui/photo_context.ui:17 src/Resources.vala:279
 msgid "_Add Tags…"
 msgstr "Додај _ознаке…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:297
+#: data/ui/photo_context.ui:135 src/Resources.vala:290
 msgid "Send T_o…"
 msgstr "Пошаљи _у…"
 
@@ -1992,11 +1989,11 @@ msgstr "Пошаљи _у…"
 msgid "S_lideshow"
 msgstr "_Покретни приказ"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:163
+#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:156
 msgid "_Copy Color Adjustments"
 msgstr "_Умножи дотеривања боје"
 
-#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:167
+#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:160
 msgid "_Paste Color Adjustments"
 msgstr "_Убаци дотеривања боје"
 
@@ -2190,19 +2187,19 @@ msgstr "ништа"
 msgid "of the following:"
 msgstr "од следећег:"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:398
+#: data/ui/savedsearch.ui:6 src/Resources.vala:391
 msgid "Re_name…"
 msgstr "_Преименуј…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:397
+#: data/ui/savedsearch.ui:10 src/Resources.vala:390
 msgid "_Edit…"
 msgstr "_Уреди…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:465 data/ui/trash.ui:63
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
-#: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:778
+#: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
+#: src/Resources.vala:389 src/Resources.vala:771
 msgid "_Delete"
 msgstr "_Избриши"
 
@@ -2269,11 +2266,11 @@ msgstr "Прикажи _наслов"
 msgid "seconds"
 msgstr "секунде"
 
-#: data/ui/tags.ui:455 src/Resources.vala:137 src/Resources.vala:345
+#: data/ui/tags.ui:455 src/Resources.vala:130 src/Resources.vala:338
 msgid "_New"
 msgstr "_Ново"
 
-#: data/ui/tags.ui:461 src/Resources.vala:313 src/Resources.vala:355
+#: data/ui/tags.ui:461 src/Resources.vala:306 src/Resources.vala:348
 msgid "_Rename…"
 msgstr "_Преименуј…"
 
@@ -2282,15 +2279,15 @@ msgid "label"
 msgstr "натпис"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:782
+#: src/Resources.vala:775
 msgid "_Restore"
 msgstr "_Поврати"
 
-#: data/ui/trash.ui:260 src/Resources.vala:779
+#: data/ui/trash.ui:260 src/Resources.vala:772
 msgid "Remove the selected photos from the trash"
 msgstr "Уклоните изабране фотографије из корпе"
 
-#: data/ui/trash.ui:275 src/Resources.vala:783
+#: data/ui/trash.ui:275 src/Resources.vala:776
 msgid "Move the selected photos back into the library"
 msgstr "Преместите изабране фотографије назад у фототеку"
 
@@ -2814,7 +2811,7 @@ msgstr "_Уклони место, фото-апарат, и друге пода�
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
+#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Ауторска права 2016 Друштво за Очување Слободе Софтвера Инк."
 
@@ -3540,16 +3537,16 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Нисам пронашао фотографије/снимке који одговарају текућем филтеру"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2487 src/Resources.vala:143
+#: src/PhotoPage.vala:2487 src/Resources.vala:136
 msgid "_Print"
 msgstr "_Штампај"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2497 src/Resources.vala:193
+#: src/PhotoPage.vala:2497 src/Resources.vala:186
 msgid "Set as _Desktop Background"
 msgstr "Постави за _позадину"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:259
+#: src/CollectionPage.vala:92 src/Resources.vala:252
 msgid "_Duplicate"
 msgstr "_Удвостручи"
 
@@ -3561,7 +3558,7 @@ msgstr "Преко целог екрана"
 msgid "Adjust Date and Time…"
 msgstr "Подесите датум и време…"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:140
+#: src/CollectionPage.vala:149 src/Resources.vala:133
 msgid "_Play"
 msgstr "Пу_сти"
 
@@ -3878,21 +3875,26 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Не могу да вратим базу података фотографија „%s“"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Не могу да покренем „Наутилус пошаљи у“: %s"
+#: src/DesktopIntegration.vala:119
+msgid "Send files per Mail: "
+msgstr "Пошаљи датотеке поштом: "
 
 #: src/DesktopIntegration.vala:129
+#, c-format
+#| msgid "Unable to decode file"
+msgid "Unable to send file %s, %s"
+msgstr "Не могу да пошаљем датотеку „%s“, „%s“"
+
+#: src/DesktopIntegration.vala:139
 msgid "Send To"
 msgstr "Пошаљи у"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:184
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Не могу да извезем позадину у „%s“: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:321
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Не могу да припремим смењивање позадине радне површине: %s"
@@ -4627,7 +4629,7 @@ msgstr "Није увезена ниједна фотографија ни сн�
 msgid "Import Complete"
 msgstr "Увоз је завршен"
 
-#: src/Dialogs.vala:661 src/Resources.vala:204
+#: src/Dialogs.vala:661 src/Resources.vala:197
 msgid "Rename Event"
 msgstr "Преименујте догађај"
 
@@ -4646,7 +4648,7 @@ msgid "Title:"
 msgstr "Наслов:"
 
 #. Dialog title
-#: src/Dialogs.vala:689 src/Resources.vala:280
+#: src/Dialogs.vala:689 src/Resources.vala:273
 msgid "Edit Event Comment"
 msgstr "Уредите напомену догађаја"
 
@@ -4709,7 +4711,7 @@ msgstr[1] "Ово ће уклонити %d фотографије из фото�
 msgstr[2] "Ово ће уклонити %d фотографија из фототеке. Да наставим?"
 msgstr[3] "Ово ће уклонити %d фотографију из фототеке. Да наставим?"
 
-#: src/Dialogs.vala:788 src/Resources.vala:146
+#: src/Dialogs.vala:788 src/Resources.vala:139
 msgid "_Remove"
 msgstr "_Уклони"
 
@@ -4923,7 +4925,6 @@ msgid "To get started, import photos in any of these ways:"
 msgstr "Да започнете, увезите фотографије на један од следећих начина:"
 
 #: src/dialogs/WelcomeDialog.vala:65
-#| msgid "Choose File %s Import From Folder"
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Изаберите „Увези из фасцикле“ из изборника датотеке"
 
@@ -5681,7 +5682,7 @@ msgstr "Највећи (%d%%)"
 msgid "PNG"
 msgstr "ПНГ"
 
-#: src/photos/RawSupport.vala:134
+#: src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "Сирово"
 
@@ -5960,372 +5961,372 @@ msgstr[3] "Изабрана фотографија је успешно обја�
 msgid "The selected photos/videos were successfully published."
 msgstr "Изабране фотографије/снимци су успешно објављени."
 
-#: src/Resources.vala:114
+#: src/Resources.vala:107
 msgid "Rotate Right"
 msgstr "Окрените на десно"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:112
 msgid "Rotate Left"
 msgstr "Окрените на лево"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:113
 msgid "Rotate the photos left"
 msgstr "Окрените фотографије на лево"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:116
 msgid "Flip Horizontally"
 msgstr "Изврните водоравно"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:119
 msgid "Flip Vertically"
 msgstr "Изврните усправно"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:122
 msgid "_Apply"
 msgstr "_Примени"
 
-#: src/Resources.vala:133
+#: src/Resources.vala:126
 msgid "_Forward"
 msgstr "Просл_еди"
 
-#: src/Resources.vala:136
+#: src/Resources.vala:129
 msgid "Leave _Fullscreen"
 msgstr "Напусти приказ преко _целог екрана"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:131
 msgid "_Next"
 msgstr "_Следеће"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:135
 msgid "_Previous"
 msgstr "_Претходно"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:138
 msgid "_Refresh"
 msgstr "_Освежи"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:140
 msgid "_Revert"
 msgstr "_Врати"
 
-#: src/Resources.vala:149
+#: src/Resources.vala:142
 msgid "Save _As"
 msgstr "Сачувај _као"
 
-#: src/Resources.vala:150
+#: src/Resources.vala:143
 msgid "Sort _Ascending"
 msgstr "Поређај _растућим редом"
 
-#: src/Resources.vala:151
+#: src/Resources.vala:144
 msgid "Sort _Descending"
 msgstr "Поређај _опадајућим редом"
 
-#: src/Resources.vala:152
+#: src/Resources.vala:145
 msgid "_Stop"
 msgstr "_Заустави"
 
-#: src/Resources.vala:153
+#: src/Resources.vala:146
 msgid "_Undelete"
 msgstr "_Поништи брисање"
 
-#: src/Resources.vala:154
+#: src/Resources.vala:147
 msgid "_Normal Size"
 msgstr "_Уобичајена величина"
 
-#: src/Resources.vala:155
+#: src/Resources.vala:148
 msgid "Best _Fit"
 msgstr "_Најбоље уклапање"
 
-#: src/Resources.vala:164
+#: src/Resources.vala:157
 msgid "Copy Color Adjustments"
 msgstr "Умножите дотеривања боје"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:158
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Умножите дотеривања боје примењена на фотографији"
 
-#: src/Resources.vala:168
+#: src/Resources.vala:161
 msgid "Paste Color Adjustments"
 msgstr "Убаците дотеривања боје"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:162
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Примените умножена дотеривања боје на изабраним фотографијама"
 
-#: src/Resources.vala:172
+#: src/Resources.vala:165
 msgid "Crop"
 msgstr "Исеците"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:166
 msgid "Crop the photo’s size"
 msgstr "Исеците величину фотографије"
 
-#: src/Resources.vala:176
+#: src/Resources.vala:169
 msgid "Straighten"
 msgstr "Исправите"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:170
 msgid "Straighten the photo"
 msgstr "Исправите фотографију"
 
-#: src/Resources.vala:180
+#: src/Resources.vala:173
 msgid "Red-eye"
 msgstr "Уклоните црвене очи"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:174
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Умањите или уклоните дејства црвених очију са фотографије"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:177
 msgid "Adjust"
 msgstr "Дотерајте"
 
-#: src/Resources.vala:185
+#: src/Resources.vala:178
 msgid "Adjust the photo’s color and tone"
 msgstr "Дотерајте боје и тоналитет фотографије"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:181
 msgid "Revert to Original"
 msgstr "Вратите на изворно"
 
-#: src/Resources.vala:190
+#: src/Resources.vala:183
 msgid "Revert External E_dits"
 msgstr "Врати спољне _измене"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:184
 msgid "Revert to the master photo"
 msgstr "Вратите изворну фотографију"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:187
 msgid "Set selected image to be the new desktop background"
 msgstr "Поставите изабрану фотографију за позадину ваше радне површи"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:188
 msgid "Set as _Desktop Slideshow…"
 msgstr "Постави као смењиву позадину _радне површи…"
 
-#: src/Resources.vala:198
+#: src/Resources.vala:191
 msgid "Undo"
 msgstr "Опозовите"
 
-#: src/Resources.vala:201
+#: src/Resources.vala:194
 msgid "Redo"
 msgstr "Поновите"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:200
 msgid "Make Key Photo for Event"
 msgstr "Направите кључну фотографију за овај догађај"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:203
 msgid "New Event"
 msgstr "Нови догађај"
 
-#: src/Resources.vala:212
+#: src/Resources.vala:205
 msgid "Move Photos"
 msgstr "Премести фотографије"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:206
 msgid "Move photos to an event"
 msgstr "Преместите фотографије у догађај"
 
-#: src/Resources.vala:216
+#: src/Resources.vala:209
 msgid "Merge"
 msgstr "Спојите"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:210
 msgid "Combine events into a single event"
 msgstr "Обједините догађаје у један"
 
-#: src/Resources.vala:220
+#: src/Resources.vala:213
 msgid "Set Rating"
 msgstr "Оцените"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:214
 msgid "Change the rating of your photo"
 msgstr "Измените оцену фотографије"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:217
 msgid "Increase Rating"
 msgstr "Повећајте оцену"
 
-#: src/Resources.vala:227
+#: src/Resources.vala:220
 msgid "Decrease Rating"
 msgstr "Смањите оцену"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:223
 msgid "Unrated"
 msgstr "Неоцењене"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:224
 msgid "Rate Unrated"
 msgstr "Оцените неоцењене"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:225
 msgid "Setting as unrated"
 msgstr "Означите да фотографија није оцењена"
 
-#: src/Resources.vala:233
+#: src/Resources.vala:226
 msgid "Remove any ratings"
 msgstr "Уклоните било какве оцене"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:229
 msgid "Rejected"
 msgstr "Одбачене"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:230
 msgid "Rate Rejected"
 msgstr "Оцените одбачене"
 
-#: src/Resources.vala:238
+#: src/Resources.vala:231
 msgid "Setting as rejected"
 msgstr "Означавам да је фотографија одбачена"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:232
 msgid "Set rating to rejected"
 msgstr "Означите да је фотографија одбачена"
 
-#: src/Resources.vala:242
+#: src/Resources.vala:235
 msgid "Rejected Only"
 msgstr "Само одбачене"
 
-#: src/Resources.vala:243
+#: src/Resources.vala:236
 msgid "Show only rejected photos"
 msgstr "Прикажите само одбачене фотографије"
 
-#: src/Resources.vala:246
+#: src/Resources.vala:239
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Прикажите све фотографије, укључујући и одбачене"
 
 #. Button tooltip
-#: src/Resources.vala:250
+#: src/Resources.vala:243
 msgid "Show all photos"
 msgstr "Прикажите све фотографије"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:246
 msgid "Display each photo’s rating"
 msgstr "Прикажите оцене свих фотографија"
 
-#: src/Resources.vala:256
+#: src/Resources.vala:249
 msgid "Filter Photos"
 msgstr "Издвојте фотографије"
 
-#: src/Resources.vala:257
+#: src/Resources.vala:250
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Ограничите број приказаних фотографија на основу пропусника"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:253
 msgid "Duplicate"
 msgstr "Удвостручи"
 
-#: src/Resources.vala:261
+#: src/Resources.vala:254
 msgid "Make a duplicate of the photo"
 msgstr "Направите умножак фотографије"
 
-#: src/Resources.vala:265
+#: src/Resources.vala:258
 msgid "_Print…"
 msgstr "_Штампај…"
 
-#: src/Resources.vala:267
+#: src/Resources.vala:260
 msgid "Pu_blish…"
 msgstr "_Објави…"
 
 #. Button label
-#: src/Resources.vala:273
+#: src/Resources.vala:266
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Уреди наслов"
 
 #. Button label
-#: src/Resources.vala:277
+#: src/Resources.vala:270
 msgid "Edit Comment"
 msgstr "Измените напомену"
 
-#: src/Resources.vala:283
+#: src/Resources.vala:276
 msgid "Adjust Date and Time"
 msgstr "Подесите датум и време"
 
 #. Dialog title
-#: src/Resources.vala:288
+#: src/Resources.vala:281
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Додајте ознаке"
 
-#: src/Resources.vala:299
+#: src/Resources.vala:292
 msgid "_Find…"
 msgstr "_Нађи…"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:296
 msgid "_Flag"
 msgstr "_Постави обележје"
 
-#: src/Resources.vala:305
+#: src/Resources.vala:298
 msgid "Un_flag"
 msgstr "_Уклони обележје"
 
-#: src/Resources.vala:309
+#: src/Resources.vala:302
 msgid "Mark faces of people in the photo"
 msgstr "Означите лица људи на слици"
 
-#: src/Resources.vala:310
+#: src/Resources.vala:303
 msgid "Modify Faces"
 msgstr "Измени лица"
 
-#: src/Resources.vala:311
+#: src/Resources.vala:304
 msgid "Delete Face"
 msgstr "Обриши лице"
 
-#: src/Resources.vala:317
+#: src/Resources.vala:310
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Не могу да покренем уређивача: %s"
 
-#: src/Resources.vala:322
+#: src/Resources.vala:315
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Додај ознаку „%s“"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:325
+#: src/Resources.vala:318
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Додај ознаку „%s“ и „%s“"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:330
+#: src/Resources.vala:323
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Додај ознаке"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:328
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "_Обриши ознаку „%s“"
 
-#: src/Resources.vala:339
+#: src/Resources.vala:332
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Обришите ознаку „%s“"
 
-#: src/Resources.vala:342
+#: src/Resources.vala:335
 msgid "Delete Tag"
 msgstr "Обришите ознаку"
 
-#: src/Resources.vala:348
+#: src/Resources.vala:341
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "_Преименуј ознаку „%s“…"
 
-#: src/Resources.vala:352
+#: src/Resources.vala:345
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Преименујте ознаку „%s“ у „%s“"
 
-#: src/Resources.vala:358
+#: src/Resources.vala:351
 msgid "Modify Tags"
 msgstr "Измените ознаке"
 
-#: src/Resources.vala:361
+#: src/Resources.vala:354
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
@@ -6334,7 +6335,7 @@ msgstr[1] "Означи фотографије као „%s“"
 msgstr[2] "Означи фотографије као „%s“"
 msgstr[3] "Означи фотографије као „%s“"
 
-#: src/Resources.vala:367
+#: src/Resources.vala:360
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
@@ -6343,7 +6344,7 @@ msgstr[1] "Означи изабране фотографије као „%s“"
 msgstr[2] "Означи изабране фотографије као „%s“"
 msgstr[3] "Означи изабрану фотографију као „%s“"
 
-#: src/Resources.vala:373
+#: src/Resources.vala:366
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
@@ -6352,7 +6353,7 @@ msgstr[1] "Уклони ознаку „%s“ са _фотографија"
 msgstr[2] "Уклони ознаку „%s“ са _фотографија"
 msgstr[3] "Уклони ознаку „%s“ са _фотографије"
 
-#: src/Resources.vala:379
+#: src/Resources.vala:372
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
@@ -6361,41 +6362,41 @@ msgstr[1] "Уклоните ознаку „%s“ са фотографија"
 msgstr[2] "Уклоните ознаку „%s“ са фотографија"
 msgstr[3] "Уклоните ознаку „%s“ са фотографије"
 
-#: src/Resources.vala:385
+#: src/Resources.vala:378
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Не могу да преименујем ознаку „%s“ јер већ постоји та ознака."
 
-#: src/Resources.vala:389
+#: src/Resources.vala:382
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Не могу да преименујем претрагу „%s“ јер већ постоји та претрага."
 
 #. Saved search button
-#: src/Resources.vala:392 src/SearchFilter.vala:1148
+#: src/Resources.vala:385 src/SearchFilter.vala:1148
 msgid "Saved Search"
 msgstr "Сачуване претраге"
 
-#: src/Resources.vala:394
+#: src/Resources.vala:387
 msgid "Delete Search"
 msgstr "Избриши претрагу"
 
-#: src/Resources.vala:401
+#: src/Resources.vala:394
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Преименуј претрагу „%s“ у „%s“"
 
-#: src/Resources.vala:405
+#: src/Resources.vala:398
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Избриши претрагу „%s“"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "Не могу да преименујем лице у „%s“ јер већ постоји то лице."
 
-#: src/Resources.vala:414
+#: src/Resources.vala:407
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
@@ -6404,7 +6405,7 @@ msgstr[1] "Уклони лице „%s“ са _фотографија"
 msgstr[2] "Уклони лице „%s“ са _фотографија"
 msgstr[3] "Уклони лице „%s“ са _фотографије"
 
-#: src/Resources.vala:419
+#: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
@@ -6414,81 +6415,81 @@ msgstr[2] "Уклоните лице „%s“ са фотографија"
 msgstr[3] "Уклоните лице „%s“ са фотографије"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:425 src/Resources.vala:430
+#: src/Resources.vala:418 src/Resources.vala:423
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "_Увежбај лице „%s“ са фотографије"
 
-#: src/Resources.vala:438
+#: src/Resources.vala:431
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "_Преименуј лице „%s“…"
 
-#: src/Resources.vala:442
+#: src/Resources.vala:435
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Преименујте лице „%s“ у „%s“"
 
-#: src/Resources.vala:446
+#: src/Resources.vala:439
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Обриши лице „%s“"
 
-#: src/Resources.vala:450
+#: src/Resources.vala:443
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Обришите лице „%s“"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:673
 #, c-format
 msgid "Rate %s"
 msgstr "Оцени „%s“"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:674
 #, c-format
 msgid "Set rating to %s"
 msgstr "Поставите оцену на „%s“"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:675
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Постављам оцену на „%s“"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:677
 #, c-format
 msgid "Display %s"
 msgstr "Прикажи „%s“"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:678
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Прикажите само фотографије са оценом „%s“"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:679
 #, c-format
 msgid "%s or Better"
 msgstr "%s или боље"
 
-#: src/Resources.vala:687
+#: src/Resources.vala:680
 #, c-format
 msgid "Display %s or Better"
 msgstr "Прикажи %s или боље"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:681
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Прикажите само фотографије са оценом %s или бољом"
 
-#: src/Resources.vala:786
+#: src/Resources.vala:779
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Отворите директоријум изабраних фотографија у управнику датотека"
 
-#: src/Resources.vala:789
+#: src/Resources.vala:782
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Не могу да отворим управника датотека: %s"
 
-#: src/Resources.vala:797
+#: src/Resources.vala:790
 msgid "Select all items"
 msgstr "Изаберите све ставке"
 
@@ -6501,14 +6502,14 @@ msgstr "Изаберите све ставке"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:859
+#: src/Resources.vala:852
 msgid "%a %b %d, %Y"
 msgstr "%A, %d. %B %Y."
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:864
+#: src/Resources.vala:857
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%A, %d. %B"
@@ -6516,7 +6517,7 @@ msgstr "%A, %d. %B"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:869
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d., %Y."
@@ -6524,7 +6525,7 @@ msgstr "%d., %Y."
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:874
+#: src/Resources.vala:867
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%A, %d. %B"
@@ -6532,7 +6533,7 @@ msgstr "%A, %d. %B"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:879
+#: src/Resources.vala:872
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%A, %d. %B %Y."
@@ -6833,6 +6834,9 @@ msgstr "безимено"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Извезите снимке"
+
+#~ msgid "Unable to launch Nautilus Send-To: %s"
+#~ msgstr "Не могу да покренем „Наутилус пошаљи у“: %s"
 
 #~ msgid "Popular photo manager"
 #~ msgstr "Популарни управник фотографија"
