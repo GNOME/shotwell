@@ -18,22 +18,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell 0.30\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-05-30 10:35+0000\n"
-"PO-Revision-Date: 2020-05-30 21:10+0700\n"
+"POT-Creation-Date: 2022-03-12 13:31+0000\n"
+"PO-Revision-Date: 2022-03-12 21:18+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 #: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/faces.ui:356 ui/media.ui:356 ui/photo_context.ui:91
-#: ui/photo.ui:347 ui/tags.ui:356
+#: ui/photo.ui:349 ui/tags.ui:356
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1567,7 +1567,7 @@ msgstr ""
 "Malsasa <teknoloid@gmail.com>, 2012\n"
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
-"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2020.\n"
+"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2020, 2022.\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2018, 2019."
 
 #. Possible error message when a site presents a bad certificate.
@@ -2547,7 +2547,7 @@ msgstr "Daftar semua peranti kamera yang ditemukan"
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/faces.ui:361
-#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:352 ui/tags.ui:361
+#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:354 ui/tags.ui:361
 msgid "Camera"
 msgstr "Kamera"
 
@@ -2649,59 +2649,53 @@ msgstr "Mulai mengimpor, mohon tunggu…"
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1563
+#: src/camera/ImportPage.vala:1564
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1671
+#: src/camera/ImportPage.vala:1672
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1756
+#: src/camera/ImportPage.vala:1757
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] "Hapus foto ini dari kamera?"
-msgstr[1] "Hapus %d foto ini dari kamera?"
+msgstr[0] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1760
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
-msgstr[0] "Hapus video ini dari kamera?"
-msgstr[1] "Hapus %d video ini dari kamera?"
+msgstr[0] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1762
+#: src/camera/ImportPage.vala:1763
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
-msgstr[0] "Hapus foto/video ini dari kamera?"
-msgstr[1] "Hapus %d foto/video ini dari kamera?"
+msgstr[0] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1766
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
-msgstr[0] "Hapus berkas ini dari kamera?"
-msgstr[1] "Hapus %d berkas ini dari kamera?"
+msgstr[0] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1773 src/Dialogs.vala:733
+#: src/camera/ImportPage.vala:1774 src/Dialogs.vala:733
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1792
+#: src/camera/ImportPage.vala:1793
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1796
+#: src/camera/ImportPage.vala:1797
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
-"Tidak dapat menghapus %d foto/video dari kamera karena adanya kesalahan."
-msgstr[1] ""
 "Tidak dapat menghapus %d foto/video dari kamera karena adanya kesalahan."
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
@@ -2710,7 +2704,7 @@ msgid "_Print"
 msgstr "_Cetak"
 
 #: src/CollectionPage.vala:83 src/Resources.vala:293 ui/collection.ui:128
-#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
+#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:30
 msgid "Send _To…"
 msgstr "Kirim _Ke…"
 
@@ -2727,47 +2721,47 @@ msgstr "_Gandakan"
 msgid "Fullscreen"
 msgstr "Layar penuh"
 
-#: src/CollectionPage.vala:102 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:182
 msgid "S_lideshow"
 msgstr "Sa_lindia"
 
 #: src/CollectionPage.vala:110 src/Resources.vala:109 ui/direct.ui:111
-#: ui/photo.ui:200
+#: ui/photo.ui:202
 msgid "Rotate _Right"
 msgstr "Puta_r Kanan"
 
 #: src/CollectionPage.vala:113 src/Resources.vala:114 ui/direct.ui:116
-#: ui/photo.ui:205
+#: ui/photo.ui:207
 msgid "Rotate _Left"
 msgstr "Putar _Kiri"
 
 #: src/CollectionPage.vala:116 src/Resources.vala:119 ui/direct.ui:121
-#: ui/photo.ui:210
+#: ui/photo.ui:212
 msgid "Flip Hori_zontally"
 msgstr "Balik hori_zontal"
 
 #: src/CollectionPage.vala:117 src/Resources.vala:122 ui/direct.ui:125
-#: ui/photo.ui:214
+#: ui/photo.ui:216
 msgid "Flip Verti_cally"
 msgstr "Balik Verti_kal"
 
 #: src/CollectionPage.vala:119 src/Resources.vala:156 ui/collection.ui:8
 #: ui/direct_context.ui:7 ui/direct.ui:134 ui/event.ui:447
-#: ui/photo_context.ui:6 ui/photo.ui:223
+#: ui/photo_context.ui:6 ui/photo.ui:225
 msgid "_Enhance"
 msgstr "Taja_mkan"
 
 #: src/CollectionPage.vala:120 src/Resources.vala:184 ui/collection.ui:13
 #: ui/direct_context.ui:12 ui/direct.ui:161 ui/event.ui:452
-#: ui/photo_context.ui:11 ui/photo.ui:250
+#: ui/photo_context.ui:11 ui/photo.ui:252
 msgid "Re_vert to Original"
 msgstr "K_embalikan ke Asal"
 
-#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:258
 msgid "_Copy Color Adjustments"
 msgstr "Salin Penyetelan _Warna"
 
-#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:263
 msgid "_Paste Color Adjustments"
 msgstr "Tem_pel Penyetelan Warna"
 
@@ -2776,12 +2770,12 @@ msgid "Adjust Date and Time…"
 msgstr "Atur Jam dan Tanggal…"
 
 #: src/CollectionPage.vala:143 src/Resources.vala:289 ui/collection.ui:108
-#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:361
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:363
 msgid "Open With E_xternal Editor"
 msgstr "Buka Oleh Penyunting E_ksternal"
 
 #: src/CollectionPage.vala:146 src/Resources.vala:291 ui/collection.ui:113
-#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:366
+#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:368
 msgid "Open With RA_W Editor"
 msgstr "Buka Dengan Penyunting RA_W"
 
@@ -2793,13 +2787,11 @@ msgstr "_Putar"
 msgid "Export Photo/Video"
 msgid_plural "Export Photos/Videos"
 msgstr[0] "Ekspor Foto/Video"
-msgstr[1] ""
 
 #: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Ekspor Foto"
-msgstr[1] ""
 
 #: src/CollectionPage.vala:499 src/CollectionPage.vala:515
 msgid "Rotating"
@@ -2885,9 +2877,7 @@ msgstr "Hapus foto ganda"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] ""
-"Ada satu foto yang tidak dapat digandakan karena ada kesalahan berkas"
-msgstr[1] "Ada %d foto yang tidak dapat digandakan karena ada kesalahan berkas"
+msgstr[0] "Tidak bisa menggandakan %d foto karena ada kesalahan berkas"
 
 #: src/Commands.vala:1194
 msgid "Restoring previous rating"
@@ -2929,7 +2919,6 @@ msgstr "Batalkan Pengaturan Tanggal dan Jam"
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Foto asli ini tidak dapat diatur."
-msgstr[1] ""
 
 #: src/Commands.vala:1400 src/Commands.vala:1424
 msgid "Time Adjustment Error"
@@ -2941,7 +2930,6 @@ msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 "Penyesuaian jam tidak dapat dikembalikan pada berkas-berkas foto berikut."
-msgstr[1] ""
 
 #: src/Commands.vala:1636 src/Commands.vala:1659
 msgid "Create Tag"
@@ -3088,21 +3076,25 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Gagal memulihkan basis data foto %s"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Gagal menjalankan Nautilus Send-To: %s"
+#: src/DesktopIntegration.vala:126
+msgid "Send files per Mail: "
+msgstr "Kirim berkas melalui surel: "
 
-#: src/DesktopIntegration.vala:129
+#: src/DesktopIntegration.vala:136
+#, c-format
+msgid "Unable to send file %s, %s"
+msgstr "Tak bisa mengirim berkas %s, %s"
+
+#: src/DesktopIntegration.vala:146
 msgid "Send To"
 msgstr "Kirim Ke"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:191
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Gambar latar tidak dapat diekspor ke %s: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:328
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Gagal menyiapkan salindia destop: %s"
@@ -3111,8 +3103,7 @@ msgstr "Gagal menyiapkan salindia destop: %s"
 #, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] "Ini akan menghapus tag \"%s\" dari satu foto. Teruskan?"
-msgstr[1] "Ini akan menghapus tag \"%s\" dari %d foto. Teruskan?"
+msgstr[0] "Ini akan menghapus tag \"%s\" dari %d foto. Teruskan?"
 
 #: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58
 #: src/Dialogs.vala:734 src/Resources.vala:128 src/Resources.vala:309
@@ -3137,7 +3128,6 @@ msgid_plural ""
 msgstr[0] ""
 "Mengganti pengembang akan membatalkan perubahan yang kamu buat ke foto ini "
 "di Shotwell"
-msgstr[1] ""
 
 #: src/Dialogs.vala:40
 msgid "_Switch Developer"
@@ -3147,8 +3137,7 @@ msgstr "_Ganti Pengembang"
 #, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
-msgstr[0] "Ini akan menghapus wajah \"%s\" dari satu foto. Teruskan?"
-msgstr[1] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
+msgstr[0] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
 
 #: src/Dialogs.vala:74
 msgid "Export Video"
@@ -3216,14 +3205,12 @@ msgstr "Impor Laporan Hasil"
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Mencoba mengimpor %d berkas."
-msgstr[1] "Mencoba mengimpor %d berkas."
 
 #: src/Dialogs.vala:229
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
 msgstr[0] "Dari sekian banyak, %d berkas sukses diimpor."
-msgstr[1] "Dari sekian banyak, %d berkas sukses diimpor."
 
 #.
 #. Duplicates
@@ -3305,30 +3292,25 @@ msgstr "Foto Video Yang Tak Diimpor Karena Alasan Lain:"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "1 foto duplikat tidak diimpor:\n"
-msgstr[1] "%d foto duplikat tidak diimpor:\n"
+msgstr[0] "%d foto duplikat tidak diimpor:\n"
 
 #: src/Dialogs.vala:354
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
-msgstr[0] "1 video duplikat tidak diimpor:\n"
-msgstr[1] "%d video duplikat tidak diimpor:\n"
+msgstr[0] "%d video duplikat tidak diimpor:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
-msgstr[0] "1 foto/video duplikat tidak diimpor:\n"
-msgstr[1] "%d foto/video duplikat tidak diimpor:\n"
+msgstr[0] "%d foto/video duplikat tidak diimpor:\n"
 
 #: src/Dialogs.vala:371
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"1 foto gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
-msgstr[1] ""
 "%d foto gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
 
 #: src/Dialogs.vala:374
@@ -3336,8 +3318,6 @@ msgstr[1] ""
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"1 video gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
-msgstr[1] ""
 "%d video gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
 
 #: src/Dialogs.vala:377
@@ -3346,10 +3326,7 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"1 foto/video gagal diimpor karena kesalahan pada berkas atau perangkat "
-"keras:\n"
-msgstr[1] ""
-"Ada %d foto/video gagal diimpor karena kesalahan pada berkas atau perangkat "
+"%d foto/video gagal diimpor karena kesalahan pada berkas atau perangkat "
 "keras:\n"
 
 #: src/Dialogs.vala:380
@@ -3357,10 +3334,7 @@ msgstr[1] ""
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"1 berkas gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
-msgstr[1] ""
-"Ada %d berkas gagal diimpor karena kesalahan pada berkas atau perangkat "
-"keras:\n"
+"%d berkas gagal diimpor karena kesalahan pada berkas atau perangkat keras:\n"
 
 #: src/Dialogs.vala:394
 #, c-format
@@ -3370,8 +3344,6 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"1 foto tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
-msgstr[1] ""
 "%d foto tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
 
 #: src/Dialogs.vala:397
@@ -3382,8 +3354,6 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"1 video tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
-msgstr[1] ""
 "%d video tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
 
 #: src/Dialogs.vala:400
@@ -3395,9 +3365,6 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"1 foto/video tidak dapat diimpor karena folder album foto tidak dapat "
-"ditulisi:\n"
-msgstr[1] ""
 "%d foto/video tidak dapat diimpor karena folder album foto tidak dapat "
 "ditulisi:\n"
 
@@ -3409,8 +3376,6 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"1 berkas tidak dapat diimpor karena folder album foto tidak dapat ditulisi:\n"
-msgstr[1] ""
 "%d berkas tidak dapat diimpor karena folder album foto tidak dapat "
 "ditulisi:\n"
 
@@ -3418,57 +3383,49 @@ msgstr[1] ""
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "1 foto gagal diimpor karena kesalahan pada kamera:\n"
-msgstr[1] "%d foto gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "%d foto gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:420
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "1 video gagal diimpor karena kesalahan pada kamera:\n"
-msgstr[1] "%d video gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "%d video gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:423
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] "1 foto/video gagal diimpor karena kesalahan pada kamera:\n"
-msgstr[1] "%d foto/video gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "%d foto/video gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:426
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] "1 berkas gagal diimpor karena kesalahan pada kamera:\n"
-msgstr[1] "%d berkas gagal diimpor karena kesalahan pada kamera:\n"
+msgstr[0] "%d berkas gagal diimpor karena kesalahan pada kamera:\n"
 
 #: src/Dialogs.vala:440
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] "1 foto gagal diimpor karena rusak:\n"
-msgstr[1] "%d foto gagal diimpor karena rusak:\n"
+msgstr[0] "%d foto gagal diimpor karena rusak:\n"
 
 #: src/Dialogs.vala:443
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
-msgstr[0] "1 video gagal diimpor karena rusak:\n"
-msgstr[1] "%d video gagal diimpor karena rusak:\n"
+msgstr[0] "%d video gagal diimpor karena rusak:\n"
 
 #: src/Dialogs.vala:446
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "1 foto/video gagal diimpor karena rusak:\n"
-msgstr[1] "%d foto/video gagal diimpor karena rusak:\n"
+msgstr[0] "%d foto/video gagal diimpor karena rusak:\n"
 
 #: src/Dialogs.vala:449
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
-msgstr[0] "1 berkas gagal diimpor karena rusak:\n"
-msgstr[1] "%d berkas gagal diimpor karena rusak:\n"
+msgstr[0] "%d berkas gagal diimpor karena rusak:\n"
 
 #. we have no notion of "unsupported" video files right now in Shotwell (all
 #. standard container formats are supported, it's just that the streams in them
@@ -3478,8 +3435,7 @@ msgstr[1] "%d berkas gagal diimpor karena rusak:\n"
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "1 foto yang tidak dapat dibuka:\n"
-msgstr[1] "%d foto yang tidak dapat dibuka:\n"
+msgstr[0] "%d foto yang tidak dapat dibuka:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
@@ -3487,57 +3443,49 @@ msgstr[1] "%d foto yang tidak dapat dibuka:\n"
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "1 berkas bukan foto dilewati.\n"
-msgstr[1] "%d berkas bukan foto dilewati.\n"
+msgstr[0] "%d berkas bukan foto dilewati.\n"
 
 #: src/Dialogs.vala:492
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "1 foto dilewati karena pengguna membatalkan:\n"
-msgstr[1] "%d foto dilewati karena pengguna membatalkan:\n"
+msgstr[0] "%d foto dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:495
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "1 video dilewati karena pengguna membatalkan:\n"
-msgstr[1] "%d video dilewati karena pengguna membatalkan:\n"
+msgstr[0] "%d video dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:498
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "1 foto/video dilewati karena pengguna membatalkan:\n"
-msgstr[1] "%d foto/video dilewati karena pengguna membatalkan:\n"
+msgstr[0] "%d foto/video dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:501
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] "1 berkas dilewati karena pengguna membatalkan:\n"
-msgstr[1] "%d berkas dilewati karena pengguna membatalkan:\n"
+msgstr[0] "%d berkas dilewati karena pengguna membatalkan:\n"
 
 #: src/Dialogs.vala:515
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "1 foto telah berhasil diimpor.\n"
-msgstr[1] "%d foto telah berhasil diimpor.\n"
+msgstr[0] "%d foto telah berhasil diimpor.\n"
 
 #: src/Dialogs.vala:518
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
-msgstr[0] "1 video telah berhasil diimpor.\n"
-msgstr[1] "%d video telah berhasil diimpor.\n"
+msgstr[0] "%d video telah berhasil diimpor.\n"
 
 #: src/Dialogs.vala:521
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
-msgstr[0] "1 foto/video telah berhasil diimpor.\n"
-msgstr[1] "%d foto/video telah berhasil diimpor.\n"
+msgstr[0] "%d foto/video telah berhasil diimpor.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
@@ -3584,7 +3532,6 @@ msgstr "Komentar:"
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Hapus dan _Buang Berkas"
-msgstr[1] ""
 
 #: src/Dialogs.vala:713
 msgid "_Remove From Library"
@@ -3604,9 +3551,6 @@ msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
 msgstr[0] ""
-"Ini akan menghancurkan semua perubahan yang telah dibuat pada berkas "
-"eksternal. Lanjutan?"
-msgstr[1] ""
 "Ini akan menghancurkan semua perubahan yang telah dibuat pada %d berkas "
 "eksternal. Lanjutan?"
 
@@ -3622,8 +3566,7 @@ msgstr "_Batalkan Penyuntingan Eksternal"
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
-msgstr[0] "Ini akan menghapus foto dari pustaka. Lanjutkan?"
-msgstr[1] "Ini akan menghapus %d foto dari pustaka. Lanjutkan?"
+msgstr[0] "Ini akan menghapus %d foto dari pustaka. Lanjutkan?"
 
 #: src/Dialogs.vala:790 src/Resources.vala:143
 msgid "_Remove"
@@ -3648,10 +3591,6 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
-"\n"
-"\n"
-"Dan %d lainnya."
-msgstr[1] ""
 "\n"
 "\n"
 "Dan %d lainnya."
@@ -3707,13 +3646,8 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Ini akan menghapus foto/video dari pustaka Shotwell Anda. Apakah Anda juga "
-"hendak memindahkan berkas tersebut ke tong sampah desktop?\n"
-"\n"
-"Aksi ini tidak dapat dibatalkan."
-msgstr[1] ""
 "Ini akan menghapus %d foto/video dari pustaka Shotwell Anda. Apakah Anda "
-"juga hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
+"juga hendak memindahkan berkas tersebut ke tong sampah desktop?\n"
 "\n"
 "Aksi ini tidak dapat dibatalkan."
 
@@ -3730,13 +3664,8 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Ini akan menghapus video dari pustaka Shotwell Anda. Apakah Anda juga hendak "
-"memindahkan berkas tersebut ke tong sampah desktop?\n"
-"\n"
-"Aksi ini tidak dapat dibatalkan."
-msgstr[1] ""
 "Ini akan menghapus %d video dari pustaka Shotwell Anda. Apakah Anda juga "
-"hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
+"hendak memindahkan berkas tersebut ke tong sampah desktop?\n"
 "\n"
 "Aksi ini tidak dapat dibatalkan."
 
@@ -3753,13 +3682,8 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Ini akan menghapus foto dari pustaka Shotwell Anda. Apakah Anda juga hendak "
-"memindahkan berkas tersebut ke tong sampah desktop?\n"
-"\n"
-"Aksi ini tidak dapat dibatalkan."
-msgstr[1] ""
 "Ini akan menghapus %d foto dari pustaka Shotwell Anda. Apakah Anda juga "
-"hendak memindahkan berkas-berkas tersebut ke tong sampah desktop?\n"
+"hendak memindahkan berkas tersebut ke tong sampah desktop?\n"
 "\n"
 "Aksi ini tidak dapat dibatalkan."
 
@@ -3770,19 +3694,15 @@ msgid ""
 msgid_plural ""
 "%d photos/videos cannot be moved to your desktop trash. Delete these files?"
 msgstr[0] ""
-"Foto/video tidak dapat dipindahkan ke tong sampah desktop Anda. Hapus berkas "
-"ini?"
-msgstr[1] ""
 "%d foto/video tidak dapat dipindahkan ke tong sampah desktop Anda. Hapus "
-"berkas-berkas ini?"
+"berkas ini?"
 
 #. Alert the user that the files were not removed.
 #: src/Dialogs.vala:1010
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
-msgstr[0] "Foto/video tidak dapat dihapus."
-msgstr[1] "%d foto/video tidak dapat dihapus."
+msgstr[0] "%d foto/video tidak dapat dihapus."
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -3873,13 +3793,11 @@ msgstr "Atur semu_a foto/video ke waktu ini"
 msgid "_Modify original photo file"
 msgid_plural "_Modify original photo files"
 msgstr[0] "_Modifikasi berkas asli foto"
-msgstr[1] ""
 
 #: src/dialogs/AdjustDateTimeDialog.vala:110
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Modifikasi berkas asli"
-msgstr[1] ""
 
 #: src/dialogs/AdjustDateTimeDialog.vala:219
 msgid "Original: "
@@ -3915,25 +3833,21 @@ msgstr ""
 msgid "day"
 msgid_plural "days"
 msgstr[0] "hari"
-msgstr[1] ""
 
 #: src/dialogs/AdjustDateTimeDialog.vala:316
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "jam"
-msgstr[1] ""
 
 #: src/dialogs/AdjustDateTimeDialog.vala:317
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "menit"
-msgstr[1] ""
 
 #: src/dialogs/AdjustDateTimeDialog.vala:318
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "detik"
-msgstr[1] ""
 
 #. "Unmodified" and "Current," though they appear in the "Format:" popup menu, really
 #. aren't formats so much as they are operating modes that determine specific formats.
@@ -4012,21 +3926,18 @@ msgstr "%d%%"
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] "%d detik"
-msgstr[1] "%d detik"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:52
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d menit"
-msgstr[1] "%d menit"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:56
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d jam"
-msgstr[1] "%d jam"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:59
 msgid "1 day"
@@ -4280,7 +4191,7 @@ msgid "Angle:"
 msgstr "Sudut:"
 
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:172
-#: ui/direct.ui:144 ui/photo.ui:233
+#: ui/direct.ui:144 ui/photo.ui:235
 msgid "_Straighten"
 msgstr "_Luruskan"
 
@@ -4289,23 +4200,20 @@ msgstr "_Luruskan"
 msgid "%d Photo/Video"
 msgid_plural "%d Photos/Videos"
 msgstr[0] "%d Foto/Video"
-msgstr[1] "%d Foto/Video"
 
 #: src/events/EventDirectoryItem.vala:99 src/Properties.vala:362
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
 msgstr[0] "%d Video"
-msgstr[1] "%d Video"
 
 #: src/events/EventDirectoryItem.vala:101 src/Properties.vala:360
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
 msgstr[0] "%d Foto"
-msgstr[1] "%d Foto"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Tidak Ada Rangkaian"
 
@@ -4325,19 +4233,19 @@ msgstr "Tidak ada rangkaian"
 msgid "No events found"
 msgstr "Tidak ada rangkaian ditemukan"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Semua Kejadian"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Tidak bertanggal"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -4817,7 +4725,6 @@ msgstr "Jumlah Foto:"
 msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d Kejadian"
-msgstr[1] "%d Kejadian"
 
 #. display only one date if start and end are the same
 #: src/Properties.vala:384
@@ -4941,13 +4848,11 @@ msgstr "Pilih dari menu untuk menggunakan layanan lain."
 msgid "The selected video was successfully published."
 msgid_plural "The selected videos were successfully published."
 msgstr[0] "Video yang dipilih telah berhasil dipublikasikan."
-msgstr[1] ""
 
 #: src/publishing/PublishingUI.vala:109
 msgid "The selected photo was successfully published."
 msgid_plural "The selected photos were successfully published."
 msgstr[0] "Foto yang dipilih telah berhasil dipublikasikan."
-msgstr[1] ""
 
 #: src/publishing/PublishingUI.vala:115
 msgid "The selected photos/videos were successfully published."
@@ -5038,7 +4943,7 @@ msgstr "Balik Vertikal"
 
 #: src/Resources.vala:125 ui/direct.ui:192 ui/events_directory.ui:168
 #: ui/event.ui:438 ui/faces.ui:448 ui/import_queue.ui:83 ui/import.ui:201
-#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:405
+#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:407
 #: ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "Tent_ang"
@@ -5049,7 +4954,7 @@ msgstr "Ter_apkan"
 
 #: src/Resources.vala:129 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/faces.ui:47 ui/import.ui:40 ui/media.ui:47
-#: ui/offline.ui:32 ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
+#: ui/offline.ui:32 ui/photo.ui:57 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "S_unting"
 
@@ -5058,7 +4963,7 @@ msgid "_Forward"
 msgstr "Ma_ju"
 
 #: src/Resources.vala:131 ui/direct.ui:62 ui/events_directory.ui:125
-#: ui/photo.ui:173
+#: ui/photo.ui:175
 msgid "Fulls_creen"
 msgstr "Layar _Penuh"
 
@@ -5066,8 +4971,8 @@ msgstr "Layar _Penuh"
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
 #: ui/event.ui:423 ui/faces.ui:430 ui/faces.ui:433 ui/import_queue.ui:65
 #: ui/import_queue.ui:68 ui/import.ui:183 ui/import.ui:186 ui/media.ui:403
-#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:387
-#: ui/photo.ui:390 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
+#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:389
+#: ui/photo.ui:392 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
 #: ui/trash.ui:192
 msgid "_Help"
 msgstr "Ba_ntuan"
@@ -5086,7 +4991,7 @@ msgstr "Sela_njutnya"
 
 #: src/Resources.vala:138 src/Resources.vala:287 ui/events_directory.ui:65
 #: ui/event.ui:93 ui/faces.ui:93 ui/import.ui:68 ui/media.ui:93
-#: ui/offline.ui:72 ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
+#: ui/offline.ui:72 ui/photo.ui:91 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "_Pengaturan"
 
@@ -5096,7 +5001,7 @@ msgstr "Se_belumnya"
 
 #: src/Resources.vala:141 ui/direct.ui:37 ui/events_directory.ui:25
 #: ui/event.ui:40 ui/faces.ui:40 ui/import_queue.ui:31 ui/import.ui:33
-#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
+#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:50 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "_Keluar"
 
@@ -5137,12 +5042,12 @@ msgid "Best _Fit"
 msgstr "_Pas Terbaik"
 
 #: src/Resources.vala:153 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
-#: ui/media.ui:260 ui/photo.ui:144 ui/tags.ui:260
+#: ui/media.ui:260 ui/photo.ui:146 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "Zum _Masuk"
 
 #: src/Resources.vala:154 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
-#: ui/media.ui:265 ui/photo.ui:149 ui/tags.ui:265
+#: ui/media.ui:265 ui/photo.ui:151 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "Zum _Keluar"
 
@@ -5170,7 +5075,7 @@ msgstr "Tempel Penyetelan Warna"
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Terapkan penyetelan warna yang disalin ke foto yang dipilih"
 
-#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:228
+#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:230
 msgid "_Crop"
 msgstr "_Pangkas"
 
@@ -5190,7 +5095,7 @@ msgstr "Luruskan"
 msgid "Straighten the photo"
 msgstr "Luruskan foto"
 
-#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:238
+#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:240
 msgid "_Red-eye"
 msgstr "Mata-me_rah"
 
@@ -5202,7 +5107,7 @@ msgstr "Mata-merah"
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Hilangkan efek mata merah pada foto"
 
-#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:243
+#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:245
 msgid "_Adjust"
 msgstr "_Atur"
 
@@ -5236,7 +5141,7 @@ msgstr "Atur sebagai Salindia _Desktop…"
 
 #: src/Resources.vala:194 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/faces.ui:50 ui/import.ui:43 ui/media.ui:50
-#: ui/offline.ui:35 ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
+#: ui/offline.ui:35 ui/photo.ui:60 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "_Tak Jadi"
 
@@ -5246,7 +5151,7 @@ msgstr "Batalkan"
 
 #: src/Resources.vala:197 ui/direct.ui:52 ui/events_directory.ui:40
 #: ui/event.ui:55 ui/faces.ui:55 ui/import.ui:48 ui/media.ui:55
-#: ui/offline.ui:40 ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
+#: ui/offline.ui:40 ui/photo.ui:65 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "_Jadi Lagi"
 
@@ -5297,7 +5202,7 @@ msgid "Combine events into a single event"
 msgstr "Gabungkan acara-acara ke satu acara"
 
 #: src/Resources.vala:216 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
-#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273
+#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:275
 #: ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "_Atur Rating"
@@ -5311,7 +5216,7 @@ msgid "Change the rating of your photo"
 msgstr "Ubah rating foto"
 
 #: src/Resources.vala:220 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
-#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313
+#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:315
 #: ui/tags.ui:326
 msgid "_Increase"
 msgstr "_Naik"
@@ -5321,7 +5226,7 @@ msgid "Increase Rating"
 msgstr "Naikkan Rating"
 
 #: src/Resources.vala:223 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
-#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318
+#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:320
 #: ui/tags.ui:331
 msgid "_Decrease"
 msgstr "_Turun"
@@ -5331,7 +5236,7 @@ msgid "Decrease Rating"
 msgstr "Turunkan Rating"
 
 #: src/Resources.vala:226 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
-#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301
+#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:303
 #: ui/tags.ui:314
 msgid "_Unrated"
 msgstr "_Tanpa Rating"
@@ -5353,7 +5258,7 @@ msgid "Remove any ratings"
 msgstr "Hapus rating"
 
 #: src/Resources.vala:232 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
-#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306
+#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:308
 #: ui/tags.ui:319
 msgid "_Rejected"
 msgstr "_Ditolak"
@@ -5411,7 +5316,7 @@ msgid "Show all photos"
 msgstr "Tunjukkan semua foto"
 
 #: src/Resources.vala:249 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
-#: ui/photo.ui:120 ui/tags.ui:144
+#: ui/photo.ui:122 ui/tags.ui:144
 msgid "_Ratings"
 msgstr "_Rating"
 
@@ -5458,7 +5363,7 @@ msgid "Publish to various websites"
 msgstr "Kirim foto ini ke beragam situs"
 
 #: src/Resources.vala:268 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
-#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327
+#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:329
 #: ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "Sun_ting Judul…"
@@ -5471,7 +5376,7 @@ msgstr "Sunting Judul"
 
 #: src/Resources.vala:272 ui/collection.ui:103 ui/events_directory.ui:144
 #: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
-#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332
+#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:334
 #: ui/tags.ui:345
 msgid "Edit _Comment…"
 msgstr "Sunting _Komentar…"
@@ -5485,7 +5390,7 @@ msgstr "Sunting Komentar"
 msgid "Edit Event _Comment…"
 msgstr "Sunting Komentar Peristiwa…"
 
-#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:337
+#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:339
 msgid "_Adjust Date and Time…"
 msgstr "_Atur Jam dan Tanggal…"
 
@@ -5494,7 +5399,7 @@ msgid "Adjust Date and Time"
 msgstr "Atur Jam dan Tanggal"
 
 #: src/Resources.vala:282 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
-#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:375 ui/tags.ui:390
+#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:377 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "_Tambah Tag…"
 
@@ -5597,7 +5502,7 @@ msgid "Rename Tag “%s” to “%s”"
 msgstr "Ubah Nama Tag \"%s\" menjadi \"%s\""
 
 #: src/Resources.vala:354 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
-#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:380
+#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:382
 #: ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "U_bah Tag…"
@@ -5611,28 +5516,24 @@ msgstr "Ubah Tag"
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Tag Foto sebagai \"%s\""
-msgstr[1] "Tag Foto sebagai \"%s\""
 
 #: src/Resources.vala:364
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Tag foto terpilih sebagai \"%s\""
-msgstr[1] "Tag foto terpilih sebagai \"%s\""
 
 #: src/Resources.vala:370
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Hapus Tag \"%s\" Dari _Foto"
-msgstr[1] "Hapus Tag \"%s\" Dari _Foto"
 
 #: src/Resources.vala:376
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Hapus Tag \"%s\" Dari Foto"
-msgstr[1] "Hapus Tag \"%s\" Dari Foto"
 
 #: src/Resources.vala:382
 #, c-format
@@ -5682,14 +5583,12 @@ msgstr ""
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Hapus Wajah \"%s\" Dari _Foto"
-msgstr[1] "Hapus Wajah \"%s\" Dari _Foto"
 
 #: src/Resources.vala:416
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Hapus Wajah \"%s\" Dari Foto"
-msgstr[1] "Hapus Wajah \"%s\" Dari Foto"
 
 #: src/Resources.vala:421
 #, c-format
@@ -5769,7 +5668,7 @@ msgstr "Kembalikan foto-foto ke album"
 
 #: src/Resources.vala:768 ui/collection.ui:123 ui/direct_context.ui:18
 #: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
-#: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
+#: ui/photo_context.ui:130 ui/photo.ui:37 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Lihat di Program Pengatur Berkas"
@@ -5784,13 +5683,13 @@ msgid "Unable to open in file manager: %s"
 msgstr "Program pengatur berkas tidak dapat dibuka: %s"
 
 #: src/Resources.vala:775 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
-#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77
+#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:79
 #: ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "Hapus _Dari Album"
 
 #: src/Resources.vala:777 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
-#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82
+#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:84
 #: ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "Pindahkan ke Tempat Pembuangan"
@@ -6158,12 +6057,12 @@ msgid "Export Videos"
 msgstr "Ekspor Video"
 
 #: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/faces.ui:281
-#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
+#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:270 ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "Jungki_tkan Bendera"
 
 #: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/faces.ui:353
-#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:344 ui/tags.ui:353
+#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:346 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Developer"
 
@@ -6184,47 +6083,47 @@ msgstr "Simpan Seb_agai…"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99 ui/faces.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
+#: ui/photo.ui:97 ui/tags.ui:99 ui/trash.ui:87
 msgid "_View"
 msgstr "_Tampilkan"
 
-#: ui/direct.ui:81 ui/photo.ui:156
+#: ui/direct.ui:81 ui/photo.ui:158
 msgid "Fit to _Page"
 msgstr "_Pas ke Laman"
 
-#: ui/direct.ui:86 ui/photo.ui:161
+#: ui/direct.ui:86 ui/photo.ui:163
 msgid "Zoom _100%"
 msgstr "Zum _100%"
 
-#: ui/direct.ui:91 ui/photo.ui:166
+#: ui/direct.ui:91 ui/photo.ui:168
 msgid "Zoom _200%"
 msgstr "Zum _200%"
 
-#: ui/direct.ui:98 ui/photo.ui:187
+#: ui/direct.ui:98 ui/photo.ui:189
 msgid "_Photo"
 msgstr "_Foto"
 
-#: ui/direct.ui:101 ui/photo.ui:190
+#: ui/direct.ui:101 ui/photo.ui:192
 msgid "_Previous Photo"
 msgstr "Foto Se_belumnya"
 
-#: ui/direct.ui:105 ui/photo.ui:194
+#: ui/direct.ui:105 ui/photo.ui:196
 msgid "_Next Photo"
 msgstr "Foto B_erikutnya"
 
-#: ui/direct.ui:131 ui/photo.ui:220
+#: ui/direct.ui:131 ui/photo.ui:222
 msgid "T_ools"
 msgstr "P_eralatan"
 
 #: ui/direct.ui:182 ui/events_directory.ui:158 ui/event.ui:428 ui/faces.ui:438
 #: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
-#: ui/photo.ui:395 ui/tags.ui:430 ui/trash.ui:197
+#: ui/photo.ui:397 ui/tags.ui:430 ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "_Pertanyaan Sering Ditanyakan"
 
 #: ui/direct.ui:186 ui/events_directory.ui:162 ui/event.ui:432 ui/faces.ui:442
 #: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
-#: ui/photo.ui:399 ui/tags.ui:434 ui/trash.ui:201
+#: ui/photo.ui:401 ui/tags.ui:434 ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "Lapo_r Masalah…"
 
@@ -6242,7 +6141,7 @@ msgstr "Impor Dari _Aplikasi…"
 
 #: ui/events_directory.ui:19 ui/event.ui:34 ui/faces.ui:34
 #: ui/import_queue.ui:25 ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19
-#: ui/photo.ui:42 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
+#: ui/photo.ui:44 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
 msgid "Empty T_rash"
 msgstr "Hapus Pe_rmanen Foto Buangan"
 
@@ -6252,19 +6151,19 @@ msgid "_Find"
 msgstr "_Cari"
 
 #: ui/events_directory.ui:51 ui/event.ui:66 ui/faces.ui:66 ui/media.ui:66
-#: ui/offline.ui:51 ui/photo.ui:70 ui/search_sidebar_context.ui:6
+#: ui/offline.ui:51 ui/photo.ui:72 ui/search_sidebar_context.ui:6
 #: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
 msgid "Ne_w Saved Search…"
 msgstr "Pencarian Tersimpan B_aru…"
 
 #: ui/events_directory.ui:74 ui/event.ui:102 ui/faces.ui:102
 #: ui/import_queue.ui:41 ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81
-#: ui/photo.ui:98 ui/tags.ui:102 ui/trash.ui:90
+#: ui/photo.ui:100 ui/tags.ui:102 ui/trash.ui:90
 msgid "_Basic Information"
 msgstr "Informasi _Dasar"
 
 #: ui/events_directory.ui:79 ui/event.ui:107 ui/faces.ui:107 ui/import.ui:82
-#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:103 ui/tags.ui:107
+#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:105 ui/tags.ui:107
 #: ui/trash.ui:95
 msgid "E_xtended Information"
 msgstr "Informasi _Lanjut"
@@ -6275,13 +6174,13 @@ msgid "_Search Bar"
 msgstr "_Bilah Pencarian"
 
 #: ui/events_directory.ui:89 ui/event.ui:117 ui/faces.ui:117 ui/import.ui:92
-#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:108 ui/tags.ui:117
+#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:110 ui/tags.ui:117
 #: ui/trash.ui:105
 msgid "S_idebar"
 msgstr "Bilah S_isi"
 
 #: ui/events_directory.ui:94 ui/event.ui:122 ui/faces.ui:122 ui/import.ui:97
-#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:113 ui/tags.ui:122
+#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:115 ui/tags.ui:122
 #: ui/trash.ui:110
 msgid "T_oolbar"
 msgstr "Bil_ah Alat"
@@ -6293,13 +6192,13 @@ msgstr "_Komentar"
 
 #: ui/events_directory.ui:108 ui/event.ui:243 ui/faces.ui:243
 #: ui/import_queue.ui:48 ui/import.ui:166 ui/media.ui:243 ui/offline.ui:163
-#: ui/photo.ui:127 ui/tags.ui:243 ui/trash.ui:172
+#: ui/photo.ui:129 ui/tags.ui:243 ui/trash.ui:172
 msgid "Sort _Events"
 msgstr "_Rangkaian Dengan Urutan"
 
 #: ui/events_directory.ui:111 ui/event.ui:231 ui/event.ui:246 ui/faces.ui:231
 #: ui/faces.ui:246 ui/import_queue.ui:51 ui/import.ui:169 ui/media.ui:231
-#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:130 ui/tags.ui:231
+#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:132 ui/tags.ui:231
 #: ui/tags.ui:246 ui/trash.ui:175
 msgid "_Ascending"
 msgstr "N_aik"
@@ -6321,7 +6220,7 @@ msgid "_Titles"
 msgstr "_Judul"
 
 #: ui/event.ui:139 ui/event.ui:404 ui/faces.ui:139 ui/faces.ui:387
-#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:372 ui/tags.ui:139
+#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:374 ui/tags.ui:139
 #: ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "Tan_da"
@@ -6347,7 +6246,7 @@ msgid "By _Rating"
 msgstr "Berdasarkan _Rating"
 
 #: ui/event.ui:251 ui/faces.ui:251 ui/import.ui:174 ui/media.ui:251
-#: ui/photo.ui:135 ui/tags.ui:251
+#: ui/photo.ui:137 ui/tags.ui:251
 msgid "_Descending"
 msgstr "T_urun"
 
