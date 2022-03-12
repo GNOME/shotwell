@@ -21,6 +21,12 @@ private bool set_screensaver = false;
 public void init() {
     if (init_count++ != 0)
         return;
+    try{
+        Portal.get_instance();
+        send_to_installed =  true;
+    } catch (Error error) {
+        send_to_installed = false;
+    }
 }
 
 public void terminate() {
@@ -87,6 +93,7 @@ public string? get_app_open_command(AppInfo app_info) {
 }
 
 public bool is_send_to_installed() {
+    // FIXME: Check if portal is available
     return send_to_installed;
 }
 
