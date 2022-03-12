@@ -45,7 +45,7 @@ public class Portal : GLib.Object {
 
     private static string generate_handle () {
         return "%s_%i".printf (
-            GLib.Application.get_default ().application_id.replace (".", "_"),
+            GLib.Application.get_default ().application_id.replace (".", "_").replace("-", "_"),
             Random.int_range (0, int32.MAX)
         );
     }
