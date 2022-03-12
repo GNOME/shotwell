@@ -10,13 +10,14 @@
 # verayin <vera@yorba.org>, 2011
 # lsbeeler <lucas@yorba.org>, 2011
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2022.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2020-07-18 10:03+0000\n"
-"PO-Revision-Date: 2020-07-30 13:13+0200\n"
+"POT-Creation-Date: 2022-03-12 14:19+0000\n"
+"PO-Revision-Date: 2022-03-12 15:53+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -24,14 +25,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
 #: src/photos/RawSupport.vala:308 ui/collection.ui:85 ui/event.ui:356
 #: ui/event.ui:524 ui/faces.ui:356 ui/media.ui:356 ui/photo_context.ui:91
-#: ui/photo.ui:347 ui/tags.ui:356
+#: ui/photo.ui:349 ui/tags.ui:356
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1444,8 +1445,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -1465,8 +1466,8 @@ msgstr ""
 "terms</a>\n"
 "\n"
 "Shotwells sekretesspolicy kring användning av data relaterade till ditt "
-"Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a href="
-"\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>\n"
+"Google-konto i allmänhet och YouTube i synnerhet kan ses i vår <a "
+"href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>\n"
 "\n"
 "Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
 "com/privacy</a> för Googles egen sekretesspolicy"
@@ -1476,8 +1477,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data.You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -1490,16 +1491,16 @@ msgstr ""
 "Du är för närvarande inte inloggad på Google Foto.\n"
 "\n"
 "Du måste ha registrerat ett Google-konto och konfigurera det för användning "
-"med Google Foto. Shotwell använder Google Fotos API-tjänster <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"med Google Foto. Shotwell använder Google Fotos API-tjänster <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> för all interaktion med dina Google Foto-data. Du kommer att "
 "behöva ge Shotwell åtkomst till ditt Google Foto-bibliotek.\n"
 "\n"
 "Shotwells sekretesspolicy kring användning av data relaterade till ditt "
-"Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a href="
-"\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>. Se <a "
-"href=\"https://policies.google.com/privacy\">https://policies.google.com/"
-"privacy</a> för Googles egen sekretesspolicy"
+"Google-konto i allmänhet och Google Foto i synnerhet kan ses i vår <a "
+"href=\"help:shotwell/privacy-policy\">sekretesspolicy för nättjänster</a>. "
+"Se <a href=\"https://policies.google.com/privacy\">https://policies.google."
+"com/privacy</a> för Googles egen sekretesspolicy"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
@@ -1590,8 +1591,8 @@ msgstr ""
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:240
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Den här webbplatsens identifiering har återkallats av den betrodda "
 "organisation som utfärdade den."
@@ -2531,7 +2532,7 @@ msgstr "Lista över identifierade kameraenheter"
 #: src/camera/CameraBranch.vala:99 src/camera/ImportPage.vala:711
 #: src/camera/ImportPage.vala:727 src/photos/RawSupport.vala:311
 #: ui/collection.ui:90 ui/event.ui:361 ui/event.ui:529 ui/faces.ui:361
-#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:352 ui/tags.ui:361
+#: ui/media.ui:361 ui/photo_context.ui:96 ui/photo.ui:354 ui/tags.ui:361
 msgid "Camera"
 msgstr "Kamera"
 
@@ -2633,53 +2634,53 @@ msgstr "Påbörjar importen, var god vänta…"
 msgid "Fetching photo information"
 msgstr "Hämtar bildinformation"
 
-#: src/camera/ImportPage.vala:1563
+#: src/camera/ImportPage.vala:1564
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Hämtar förhandsvisning av %s"
 
-#: src/camera/ImportPage.vala:1671
+#: src/camera/ImportPage.vala:1672
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kunde inte låsa kameran: %s"
 
-#: src/camera/ImportPage.vala:1756
+#: src/camera/ImportPage.vala:1757
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Radera denna bild från kameran?"
 msgstr[1] "Radera dessa %d bilder från kameran?"
 
-#: src/camera/ImportPage.vala:1759
+#: src/camera/ImportPage.vala:1760
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Radera denna film från kameran?"
 msgstr[1] "Radera dessa %d filmer från kameran?"
 
-#: src/camera/ImportPage.vala:1762
+#: src/camera/ImportPage.vala:1763
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Radera denna bild och film från kameran?"
 msgstr[1] "Radera dessa %d bilder och filmer från kameran?"
 
-#: src/camera/ImportPage.vala:1765
+#: src/camera/ImportPage.vala:1766
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Radera denna fil från kameran?"
 msgstr[1] "Radera dessa %d filer från kameran?"
 
-#: src/camera/ImportPage.vala:1773 src/Dialogs.vala:733
+#: src/camera/ImportPage.vala:1774 src/Dialogs.vala:733
 msgid "_Keep"
 msgstr "_Behåll"
 
-#: src/camera/ImportPage.vala:1792
+#: src/camera/ImportPage.vala:1793
 msgid "Removing photos/videos from camera"
 msgstr "Tar bort bilder och filmer från kameran"
 
-#: src/camera/ImportPage.vala:1796
+#: src/camera/ImportPage.vala:1797
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2694,7 +2695,7 @@ msgid "_Print"
 msgstr "Skriv _ut"
 
 #: src/CollectionPage.vala:83 src/Resources.vala:293 ui/collection.ui:128
-#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:28
+#: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:30
 msgid "Send _To…"
 msgstr "Skicka t_ill…"
 
@@ -2711,47 +2712,47 @@ msgstr "_Duplicera"
 msgid "Fullscreen"
 msgstr "Helskärm"
 
-#: src/CollectionPage.vala:102 ui/photo.ui:180
+#: src/CollectionPage.vala:102 ui/photo.ui:182
 msgid "S_lideshow"
 msgstr "_Bildspel"
 
 #: src/CollectionPage.vala:110 src/Resources.vala:109 ui/direct.ui:111
-#: ui/photo.ui:200
+#: ui/photo.ui:202
 msgid "Rotate _Right"
 msgstr "Rotera åt _höger"
 
 #: src/CollectionPage.vala:113 src/Resources.vala:114 ui/direct.ui:116
-#: ui/photo.ui:205
+#: ui/photo.ui:207
 msgid "Rotate _Left"
 msgstr "Rotera åt _vänster"
 
 #: src/CollectionPage.vala:116 src/Resources.vala:119 ui/direct.ui:121
-#: ui/photo.ui:210
+#: ui/photo.ui:212
 msgid "Flip Hori_zontally"
 msgstr "Vänd hor_isontellt"
 
 #: src/CollectionPage.vala:117 src/Resources.vala:122 ui/direct.ui:125
-#: ui/photo.ui:214
+#: ui/photo.ui:216
 msgid "Flip Verti_cally"
 msgstr "Vänd verti_kalt"
 
 #: src/CollectionPage.vala:119 src/Resources.vala:156 ui/collection.ui:8
 #: ui/direct_context.ui:7 ui/direct.ui:134 ui/event.ui:447
-#: ui/photo_context.ui:6 ui/photo.ui:223
+#: ui/photo_context.ui:6 ui/photo.ui:225
 msgid "_Enhance"
 msgstr "Förbä_ttra"
 
 #: src/CollectionPage.vala:120 src/Resources.vala:184 ui/collection.ui:13
 #: ui/direct_context.ui:12 ui/direct.ui:161 ui/event.ui:452
-#: ui/photo_context.ui:11 ui/photo.ui:250
+#: ui/photo_context.ui:11 ui/photo.ui:252
 msgid "Re_vert to Original"
 msgstr "_Återställ till original"
 
-#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:256
+#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:258
 msgid "_Copy Color Adjustments"
 msgstr "_Kopiera färgjusteringar"
 
-#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:261
+#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:263
 msgid "_Paste Color Adjustments"
 msgstr "_Klistra in färgjusteringar"
 
@@ -2760,12 +2761,12 @@ msgid "Adjust Date and Time…"
 msgstr "Justera datum och tid…"
 
 #: src/CollectionPage.vala:143 src/Resources.vala:289 ui/collection.ui:108
-#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:361
+#: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:363
 msgid "Open With E_xternal Editor"
 msgstr "Öppna med e_xtern redigerare"
 
 #: src/CollectionPage.vala:146 src/Resources.vala:291 ui/collection.ui:113
-#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:366
+#: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:368
 msgid "Open With RA_W Editor"
 msgstr "Öppna i RA_W-redigerare"
 
@@ -3073,21 +3074,25 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Kunde inte återställa bilddatabasen %s"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Kunde inte starta Nautilus Skicka-till: %s"
+#: src/DesktopIntegration.vala:126
+msgid "Send files per Mail: "
+msgstr "Skicka filer via e-post: "
 
-#: src/DesktopIntegration.vala:129
+#: src/DesktopIntegration.vala:136
+#, c-format
+msgid "Unable to send file %s, %s"
+msgstr "Kunde inte skicka filen %s, %s"
+
+#: src/DesktopIntegration.vala:146
 msgid "Send To"
 msgstr "Skicka till"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:191
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Kunde inte exportera bakgrund till %s: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:328
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Kunde inte förbereda skrivbordsbildspel: %s"
@@ -4282,7 +4287,7 @@ msgid "Angle:"
 msgstr "Vinkel:"
 
 #: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:172
-#: ui/direct.ui:144 ui/photo.ui:233
+#: ui/direct.ui:144 ui/photo.ui:235
 msgid "_Straighten"
 msgstr "_Räta ut"
 
@@ -4307,7 +4312,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d bild"
 msgstr[1] "%d bilder"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Ingen händelse"
 
@@ -4327,19 +4332,19 @@ msgstr "Inga händelser"
 msgid "No events found"
 msgstr "Inga händelser hittades"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Alla händelser"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Odaterade"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -5042,7 +5047,7 @@ msgstr "Vänd vertikalt"
 
 #: src/Resources.vala:125 ui/direct.ui:192 ui/events_directory.ui:168
 #: ui/event.ui:438 ui/faces.ui:448 ui/import_queue.ui:83 ui/import.ui:201
-#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:405
+#: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:407
 #: ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "_Om"
@@ -5053,7 +5058,7 @@ msgstr "_Verkställ"
 
 #: src/Resources.vala:129 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/faces.ui:47 ui/import.ui:40 ui/media.ui:47
-#: ui/offline.ui:32 ui/photo.ui:55 ui/tags.ui:47 ui/trash.ui:37
+#: ui/offline.ui:32 ui/photo.ui:57 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Redigera"
 
@@ -5062,7 +5067,7 @@ msgid "_Forward"
 msgstr "_Framåt"
 
 #: src/Resources.vala:131 ui/direct.ui:62 ui/events_directory.ui:125
-#: ui/photo.ui:173
+#: ui/photo.ui:175
 msgid "Fulls_creen"
 msgstr "_Helskärm"
 
@@ -5070,8 +5075,8 @@ msgstr "_Helskärm"
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
 #: ui/event.ui:423 ui/faces.ui:430 ui/faces.ui:433 ui/import_queue.ui:65
 #: ui/import_queue.ui:68 ui/import.ui:183 ui/import.ui:186 ui/media.ui:403
-#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:387
-#: ui/photo.ui:390 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
+#: ui/media.ui:406 ui/offline.ui:180 ui/offline.ui:183 ui/photo.ui:389
+#: ui/photo.ui:392 ui/tags.ui:422 ui/tags.ui:425 ui/trash.ui:189
 #: ui/trash.ui:192
 msgid "_Help"
 msgstr "_Hjälp"
@@ -5090,7 +5095,7 @@ msgstr "_Nästa"
 
 #: src/Resources.vala:138 src/Resources.vala:287 ui/events_directory.ui:65
 #: ui/event.ui:93 ui/faces.ui:93 ui/import.ui:68 ui/media.ui:93
-#: ui/offline.ui:72 ui/photo.ui:89 ui/tags.ui:93 ui/trash.ui:81
+#: ui/offline.ui:72 ui/photo.ui:91 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "_Inställningar"
 
@@ -5100,7 +5105,7 @@ msgstr "_Föregående"
 
 #: src/Resources.vala:141 ui/direct.ui:37 ui/events_directory.ui:25
 #: ui/event.ui:40 ui/faces.ui:40 ui/import_queue.ui:31 ui/import.ui:33
-#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:48 ui/tags.ui:40 ui/trash.ui:30
+#: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:50 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "_Avsluta"
 
@@ -5141,12 +5146,12 @@ msgid "Best _Fit"
 msgstr "_Passa"
 
 #: src/Resources.vala:153 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
-#: ui/media.ui:260 ui/photo.ui:144 ui/tags.ui:260
+#: ui/media.ui:260 ui/photo.ui:146 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "_Förstora"
 
 #: src/Resources.vala:154 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
-#: ui/media.ui:265 ui/photo.ui:149 ui/tags.ui:265
+#: ui/media.ui:265 ui/photo.ui:151 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "_Förminska"
 
@@ -5174,7 +5179,7 @@ msgstr "Klistra in färgjusteringar"
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Verkställ kopierade färgjusteringar till de markerade bilderna"
 
-#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:228
+#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:230
 msgid "_Crop"
 msgstr "_Beskär"
 
@@ -5194,7 +5199,7 @@ msgstr "Räta ut"
 msgid "Straighten the photo"
 msgstr "Räta ut bilden"
 
-#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:238
+#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:240
 msgid "_Red-eye"
 msgstr "_Röda ögon"
 
@@ -5206,7 +5211,7 @@ msgstr "Röda ögon"
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Minska eller ta bort röda ögon i bilden"
 
-#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:243
+#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:245
 msgid "_Adjust"
 msgstr "_Justera"
 
@@ -5240,7 +5245,7 @@ msgstr "Ange som _skrivbordsbildspel…"
 
 #: src/Resources.vala:194 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/faces.ui:50 ui/import.ui:43 ui/media.ui:50
-#: ui/offline.ui:35 ui/photo.ui:58 ui/tags.ui:50 ui/trash.ui:40
+#: ui/offline.ui:35 ui/photo.ui:60 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "_Ångra"
 
@@ -5250,7 +5255,7 @@ msgstr "Ångra"
 
 #: src/Resources.vala:197 ui/direct.ui:52 ui/events_directory.ui:40
 #: ui/event.ui:55 ui/faces.ui:55 ui/import.ui:48 ui/media.ui:55
-#: ui/offline.ui:40 ui/photo.ui:63 ui/tags.ui:55 ui/trash.ui:45
+#: ui/offline.ui:40 ui/photo.ui:65 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "_Gör om"
 
@@ -5301,7 +5306,7 @@ msgid "Combine events into a single event"
 msgstr "Lägg samman händelser till en enskild händelse"
 
 #: src/Resources.vala:216 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
-#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:273
+#: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:275
 #: ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "_Betygsätt"
@@ -5315,7 +5320,7 @@ msgid "Change the rating of your photo"
 msgstr "Ändra betyget för din bild"
 
 #: src/Resources.vala:220 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
-#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:313
+#: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:315
 #: ui/tags.ui:326
 msgid "_Increase"
 msgstr "_Höj"
@@ -5325,7 +5330,7 @@ msgid "Increase Rating"
 msgstr "Höj betyg"
 
 #: src/Resources.vala:223 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
-#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:318
+#: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:320
 #: ui/tags.ui:331
 msgid "_Decrease"
 msgstr "_Sänk"
@@ -5335,7 +5340,7 @@ msgid "Decrease Rating"
 msgstr "Sänk betyg"
 
 #: src/Resources.vala:226 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
-#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:301
+#: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:303
 #: ui/tags.ui:314
 msgid "_Unrated"
 msgstr "_Ej betygsatt"
@@ -5357,7 +5362,7 @@ msgid "Remove any ratings"
 msgstr "Ta bort eventuella betyg"
 
 #: src/Resources.vala:232 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
-#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:306
+#: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:308
 #: ui/tags.ui:319
 msgid "_Rejected"
 msgstr "_Avvisad"
@@ -5415,7 +5420,7 @@ msgid "Show all photos"
 msgstr "Visa alla bilder"
 
 #: src/Resources.vala:249 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
-#: ui/photo.ui:120 ui/tags.ui:144
+#: ui/photo.ui:122 ui/tags.ui:144
 msgid "_Ratings"
 msgstr "_Betyg"
 
@@ -5462,7 +5467,7 @@ msgid "Publish to various websites"
 msgstr "Publicera till olika webbplatser"
 
 #: src/Resources.vala:268 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
-#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:327
+#: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:329
 #: ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "_Redigera titel…"
@@ -5475,7 +5480,7 @@ msgstr "Redigera titel"
 
 #: src/Resources.vala:272 ui/collection.ui:103 ui/events_directory.ui:144
 #: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
-#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:332
+#: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:334
 #: ui/tags.ui:345
 msgid "Edit _Comment…"
 msgstr "Redigera _kommentar…"
@@ -5489,7 +5494,7 @@ msgstr "Redigera kommentar"
 msgid "Edit Event _Comment…"
 msgstr "Redigera _händelsekommentar…"
 
-#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:337
+#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:339
 msgid "_Adjust Date and Time…"
 msgstr "_Justera datum och tid…"
 
@@ -5498,7 +5503,7 @@ msgid "Adjust Date and Time"
 msgstr "Justera datum och tid"
 
 #: src/Resources.vala:282 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
-#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:375 ui/tags.ui:390
+#: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:377 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "Lägg till _taggar…"
 
@@ -5602,7 +5607,7 @@ msgid "Rename Tag “%s” to “%s”"
 msgstr "Byt namn på taggen ”%s” till ”%s”"
 
 #: src/Resources.vala:354 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
-#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:380
+#: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:382
 #: ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "_Ändra taggar…"
@@ -5775,7 +5780,7 @@ msgstr "Flytta tillbaka markerade bilder till biblioteket"
 
 #: src/Resources.vala:768 ui/collection.ui:123 ui/direct_context.ui:18
 #: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
-#: ui/photo_context.ui:130 ui/photo.ui:35 ui/tags.ui:27 ui/trash.ui:19
+#: ui/photo_context.ui:130 ui/photo.ui:37 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Öppna med _filhanteraren"
@@ -5790,13 +5795,13 @@ msgid "Unable to open in file manager: %s"
 msgstr "Kunde inte öppna i filhanterare: %s"
 
 #: src/Resources.vala:775 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
-#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:77
+#: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:79
 #: ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "Ta _bort från biblioteket"
 
 #: src/Resources.vala:777 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
-#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:82
+#: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:84
 #: ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "_Flytta till papperskorgen"
@@ -6163,12 +6168,12 @@ msgid "Export Videos"
 msgstr "Exportera filmer"
 
 #: ui/collection.ui:33 ui/event.ui:281 ui/event.ui:472 ui/faces.ui:281
-#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:268 ui/tags.ui:281
+#: ui/media.ui:281 ui/photo_context.ui:30 ui/photo.ui:270 ui/tags.ui:281
 msgid "Toggle _Flag"
 msgstr "_Växla flagga"
 
 #: ui/collection.ui:82 ui/event.ui:353 ui/event.ui:521 ui/faces.ui:353
-#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:344 ui/tags.ui:353
+#: ui/media.ui:353 ui/photo_context.ui:88 ui/photo.ui:346 ui/tags.ui:353
 msgid "_Developer"
 msgstr "_Framkallare"
 
@@ -6189,47 +6194,47 @@ msgstr "_Spara som…"
 
 #: ui/direct.ui:59 ui/events_directory.ui:71 ui/event.ui:99 ui/faces.ui:99
 #: ui/import_queue.ui:38 ui/import.ui:74 ui/media.ui:99 ui/offline.ui:78
-#: ui/photo.ui:95 ui/tags.ui:99 ui/trash.ui:87
+#: ui/photo.ui:97 ui/tags.ui:99 ui/trash.ui:87
 msgid "_View"
 msgstr "_Visa"
 
-#: ui/direct.ui:81 ui/photo.ui:156
+#: ui/direct.ui:81 ui/photo.ui:158
 msgid "Fit to _Page"
 msgstr "_Anpassa till sidan"
 
-#: ui/direct.ui:86 ui/photo.ui:161
+#: ui/direct.ui:86 ui/photo.ui:163
 msgid "Zoom _100%"
 msgstr "_Visa 100%"
 
-#: ui/direct.ui:91 ui/photo.ui:166
+#: ui/direct.ui:91 ui/photo.ui:168
 msgid "Zoom _200%"
 msgstr "_Visa 200%"
 
-#: ui/direct.ui:98 ui/photo.ui:187
+#: ui/direct.ui:98 ui/photo.ui:189
 msgid "_Photo"
 msgstr "_Bild"
 
-#: ui/direct.ui:101 ui/photo.ui:190
+#: ui/direct.ui:101 ui/photo.ui:192
 msgid "_Previous Photo"
 msgstr "_Föregående bild"
 
-#: ui/direct.ui:105 ui/photo.ui:194
+#: ui/direct.ui:105 ui/photo.ui:196
 msgid "_Next Photo"
 msgstr "_Nästa bild"
 
-#: ui/direct.ui:131 ui/photo.ui:220
+#: ui/direct.ui:131 ui/photo.ui:222
 msgid "T_ools"
 msgstr "_Verktyg"
 
 #: ui/direct.ui:182 ui/events_directory.ui:158 ui/event.ui:428 ui/faces.ui:438
 #: ui/import_queue.ui:73 ui/import.ui:191 ui/media.ui:411 ui/offline.ui:188
-#: ui/photo.ui:395 ui/tags.ui:430 ui/trash.ui:197
+#: ui/photo.ui:397 ui/tags.ui:430 ui/trash.ui:197
 msgid "_Frequently Asked Questions"
 msgstr "_Återkommande frågor"
 
 #: ui/direct.ui:186 ui/events_directory.ui:162 ui/event.ui:432 ui/faces.ui:442
 #: ui/import_queue.ui:77 ui/import.ui:195 ui/media.ui:415 ui/offline.ui:192
-#: ui/photo.ui:399 ui/tags.ui:434 ui/trash.ui:201
+#: ui/photo.ui:401 ui/tags.ui:434 ui/trash.ui:201
 msgid "_Report a Problem…"
 msgstr "_Rapportera ett problem…"
 
@@ -6247,7 +6252,7 @@ msgstr "Importera från _program…"
 
 #: ui/events_directory.ui:19 ui/event.ui:34 ui/faces.ui:34
 #: ui/import_queue.ui:25 ui/import.ui:27 ui/media.ui:34 ui/offline.ui:19
-#: ui/photo.ui:42 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
+#: ui/photo.ui:44 ui/tags.ui:34 ui/trash.ui:24 ui/trash.ui:234 ui/trash.ui:242
 msgid "Empty T_rash"
 msgstr "_Töm papperskorgen"
 
@@ -6257,19 +6262,19 @@ msgid "_Find"
 msgstr "_Sök"
 
 #: ui/events_directory.ui:51 ui/event.ui:66 ui/faces.ui:66 ui/media.ui:66
-#: ui/offline.ui:51 ui/photo.ui:70 ui/search_sidebar_context.ui:6
+#: ui/offline.ui:51 ui/photo.ui:72 ui/search_sidebar_context.ui:6
 #: ui/sidebar_default_context.ui:6 ui/tags.ui:66 ui/trash.ui:56
 msgid "Ne_w Saved Search…"
 msgstr "_Ny sparad sökning…"
 
 #: ui/events_directory.ui:74 ui/event.ui:102 ui/faces.ui:102
 #: ui/import_queue.ui:41 ui/import.ui:77 ui/media.ui:102 ui/offline.ui:81
-#: ui/photo.ui:98 ui/tags.ui:102 ui/trash.ui:90
+#: ui/photo.ui:100 ui/tags.ui:102 ui/trash.ui:90
 msgid "_Basic Information"
 msgstr "_Grundläggande information"
 
 #: ui/events_directory.ui:79 ui/event.ui:107 ui/faces.ui:107 ui/import.ui:82
-#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:103 ui/tags.ui:107
+#: ui/media.ui:107 ui/offline.ui:86 ui/photo.ui:105 ui/tags.ui:107
 #: ui/trash.ui:95
 msgid "E_xtended Information"
 msgstr "_Utökad Information"
@@ -6280,13 +6285,13 @@ msgid "_Search Bar"
 msgstr "_Sökfält"
 
 #: ui/events_directory.ui:89 ui/event.ui:117 ui/faces.ui:117 ui/import.ui:92
-#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:108 ui/tags.ui:117
+#: ui/media.ui:117 ui/offline.ui:96 ui/photo.ui:110 ui/tags.ui:117
 #: ui/trash.ui:105
 msgid "S_idebar"
 msgstr "S_idofält"
 
 #: ui/events_directory.ui:94 ui/event.ui:122 ui/faces.ui:122 ui/import.ui:97
-#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:113 ui/tags.ui:122
+#: ui/media.ui:122 ui/offline.ui:101 ui/photo.ui:115 ui/tags.ui:122
 #: ui/trash.ui:110
 msgid "T_oolbar"
 msgstr "V_erktygsfält"
@@ -6298,13 +6303,13 @@ msgstr "_Kommentarer"
 
 #: ui/events_directory.ui:108 ui/event.ui:243 ui/faces.ui:243
 #: ui/import_queue.ui:48 ui/import.ui:166 ui/media.ui:243 ui/offline.ui:163
-#: ui/photo.ui:127 ui/tags.ui:243 ui/trash.ui:172
+#: ui/photo.ui:129 ui/tags.ui:243 ui/trash.ui:172
 msgid "Sort _Events"
 msgstr "_Sortera händelser"
 
 #: ui/events_directory.ui:111 ui/event.ui:231 ui/event.ui:246 ui/faces.ui:231
 #: ui/faces.ui:246 ui/import_queue.ui:51 ui/import.ui:169 ui/media.ui:231
-#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:130 ui/tags.ui:231
+#: ui/media.ui:246 ui/offline.ui:166 ui/photo.ui:132 ui/tags.ui:231
 #: ui/tags.ui:246 ui/trash.ui:175
 msgid "_Ascending"
 msgstr "_Stigande"
@@ -6326,7 +6331,7 @@ msgid "_Titles"
 msgstr "_Titlar"
 
 #: ui/event.ui:139 ui/event.ui:404 ui/faces.ui:139 ui/faces.ui:387
-#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:372 ui/tags.ui:139
+#: ui/media.ui:139 ui/media.ui:387 ui/photo.ui:374 ui/tags.ui:139
 #: ui/tags.ui:387
 msgid "Ta_gs"
 msgstr "Ta_ggar"
@@ -6352,7 +6357,7 @@ msgid "By _Rating"
 msgstr "Efter _betyg"
 
 #: ui/event.ui:251 ui/faces.ui:251 ui/import.ui:174 ui/media.ui:251
-#: ui/photo.ui:135 ui/tags.ui:251
+#: ui/photo.ui:137 ui/tags.ui:251
 msgid "_Descending"
 msgstr "_Fallande"
 
@@ -6607,6 +6612,9 @@ msgstr "etikett"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Radera alla bilder från papperskorgen"
+
+#~ msgid "Unable to launch Nautilus Send-To: %s"
+#~ msgstr "Kunde inte starta Nautilus Skicka-till: %s"
 
 #~ msgid "shotwell"
 #~ msgstr "shotwell"
@@ -7058,15 +7066,6 @@ msgstr "Radera alla bilder från papperskorgen"
 
 #~ msgid "Visit the Yorba web site"
 #~ msgstr "Besök Yorbas webbplats"
-
-#, fuzzy
-#~| msgid ""
-#~| "A file required for publishing is unavailable. Publishing to Flickr "
-#~| "can't continue."
-#~ msgid "A file required for publishing is unavailable. Publishing to "
-#~ msgstr ""
-#~ "En fil som krävs för publiceringen saknas. Därför kan publiceringen till "
-#~ "Flickr inte fortsätta."
 
 #~ msgid "Only _Remove"
 #~ msgstr "Ta _endast bort"
