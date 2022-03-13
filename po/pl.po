@@ -1,17 +1,17 @@
 # Polish translation for shotwell.
-# Copyright © 2011-2020 the shotwell authors.
+# Copyright © 2011-2022 the shotwell authors.
 # This file is distributed under the same license as the shotwell package.
 # verayin <vera@yorba.org>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2020.
-# Aviary.pl <community-poland@mozilla.org>, 2014-2020.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2022.
+# Aviary.pl <community-poland@mozilla.org>, 2014-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-11-15 17:57+0000\n"
-"PO-Revision-Date: 2020-05-24 12:50+0200\n"
+"POT-Creation-Date: 2022-03-12 14:19+0000\n"
+"PO-Revision-Date: 2022-03-13 12:32+010\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1600,8 +1600,8 @@ msgid "translator-credits"
 msgstr ""
 "verayin <vera@yorba.org>, 2011\n"
 "lsbeeler <lucas@yorba.org>, 2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2011-2020\n"
-"Aviary.pl <community-poland@mozilla.org>, 2014-2020"
+"Piotr Drąg <piotrdrag@gmail.com>, 2011-2022\n"
+"Aviary.pl <community-poland@mozilla.org>, 2014-2022"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:220
@@ -3137,21 +3137,25 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Nie można przywrócić bazy danych zdjęć %s"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Nie można uruchomić rozszerzenia „Wyślij do” programu Nautilus: %s"
+#: src/DesktopIntegration.vala:126
+msgid "Send files per Mail: "
+msgstr "Wyślij pliki pocztą: "
 
-#: src/DesktopIntegration.vala:129
+#: src/DesktopIntegration.vala:136
+#, c-format
+msgid "Unable to send file %s, %s"
+msgstr "Nie można wysłać pliku %s, %s"
+
+#: src/DesktopIntegration.vala:146
 msgid "Send To"
 msgstr "Wyślij do"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:191
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Nie można wyeksportować tła do %s: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:328
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Nie można przygotować pokazu slajdów pulpitu: %s"
