@@ -4,7 +4,7 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://fixme.org" # the base hostname & protocol for your site
 sourceurl: "https://github.com/jimmac/os-component-website"
 description: "OS Template FIXME"
-
+issuesurl: "https://github.com/jimmac/os-component-website/issues"
 permalink: /:title/
 
 # Build settings
