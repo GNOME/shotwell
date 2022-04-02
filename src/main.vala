@@ -384,7 +384,7 @@ void main(string[] args) {
 
     // init GTK (valac has already called g_threads_init())
     try {
-        GtkClutter.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
+        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
             Resources.APP_GETTEXT_PACKAGE);
 
     } catch (Error e) {

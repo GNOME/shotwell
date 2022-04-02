@@ -175,13 +175,9 @@ private class BasicProperties : Properties {
     private double clip_duration;
     private string raw_developer;
     private string raw_assoc;
-    private MapWidget map_widget;
 
     public BasicProperties() {
         base();
-
-        map_widget = MapWidget.get_instance();
-        pack_end(map_widget, true, true, 0);
     }
 
     protected override void clear_properties() {
@@ -464,8 +460,6 @@ private class BasicProperties : Properties {
                 }
             }
         }
-
-        map_widget.set_page(page);
     }
 }
 

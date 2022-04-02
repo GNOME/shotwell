@@ -20,7 +20,6 @@ public abstract class CheckerboardPage : Page {
     private bool autoscroll_scheduled = false;
     private CheckerboardItem activated_item = null;
     private Gee.ArrayList<CheckerboardItem> previously_selected = null;
-    private MapWidget map_widget = null;
 
     public enum Activator {
         KEYBOARD,
@@ -77,8 +76,6 @@ public abstract class CheckerboardPage : Page {
 
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-
-        map_widget = MapWidget.get_instance();
     }
 
     public void init_item_context_menu(string path) {
@@ -536,7 +533,6 @@ public abstract class CheckerboardPage : Page {
         // either something new is highlighted or now hovering over empty space, so dim old item
         if (current_hovered_item != null) {
             current_hovered_item.handle_mouse_leave();
-            map_widget.unhighlight_position_marker(current_hovered_item);
             current_hovered_item = null;
         }
 
@@ -547,7 +543,6 @@ public abstract class CheckerboardPage : Page {
         // brighten the new item
         current_hovered_item = item;
         current_hovered_item.handle_mouse_enter();
-        map_widget.highlight_position_marker(item);
 
         return true;
     }
