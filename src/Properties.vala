@@ -143,8 +143,12 @@ private abstract class Properties : Gtk.Box {
     }
 
     protected virtual void clear_properties() {
-        //foreach (Gtk.Widget child in grid.get_children())
-        //    grid.remove(child);
+        var iter = grid.get_first_child ();
+        while (iter != null) {
+            var next = iter.get_next_sibling ();
+            grid.remove (iter);
+            iter = next;
+        }
 
         line_count = 0;
     }

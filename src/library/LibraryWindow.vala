@@ -344,7 +344,7 @@ public class LibraryWindow : AppWindow {
 
         var basic_properties_action = get_current_page ().get_common_action
             ("CommonDisplayBasicProperties");
-        //assert(basic_properties_action != null);
+        assert(basic_properties_action != null);
 
         if (!basic_properties_action.get_state().get_boolean())
             bottom_frame.hide();
@@ -1081,7 +1081,6 @@ public class LibraryWindow : AppWindow {
         basic_properties.halign = Gtk.Align.FILL;
         basic_properties.valign = Gtk.Align.CENTER;
         basic_properties.hexpand = true;
-        basic_properties.vexpand = true;
         basic_properties.margin_top = 10;
         basic_properties.margin_bottom = 10;
         basic_properties.margin_start = 6;
@@ -1097,7 +1096,7 @@ public class LibraryWindow : AppWindow {
 
         sidebar_paned.set_start_child(top_section);
         sidebar_paned.set_end_child(bottom_frame);
-        sidebar_paned.set_position(1000);
+        sidebar_paned.set_position(700);
         
         right_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         right_vbox.append(search_toolbar);
