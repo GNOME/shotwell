@@ -132,6 +132,7 @@ executable(
         'events/EventPage.vala',
         'events/EventDirectoryItem.vala',
         'tags/Tags.vala',
+        'tags/TagsBranch.vala',
         'tags/TagPage.vala',
         'tags/HierarchicalTagIndex.vala',
         'tags/HierarchicalTagUtilities.vala',

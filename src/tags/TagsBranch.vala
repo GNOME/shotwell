@@ -123,9 +123,9 @@ public class Tags.Branch : Sidebar.Branch {
 }
 
 public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
-    Sidebar.InternalDragSourceEntry, Sidebar.Contextable {
+    Sidebar.Contextable {
     private Gtk.Builder builder;
-    private Gtk.Menu? context_menu = null;
+    private Gtk.PopoverMenu? context_menu = null;
     
     public Header() {
         base (_("Tags"), _("Organize and browse your photo’s tags"));
@@ -137,7 +137,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
         try {
             this.builder.add_from_resource(Resources.get_ui("tag_sidebar_context.ui"));
             var model = builder.get_object ("popup-menu") as GLib.MenuModel;
-            this.context_menu = new Gtk.Menu.from_model (model);
+            this.context_menu = new Gtk.PopoverMenu.from_model (model);
         } catch (Error error) {
             AppWindow.error_message("Error loading UI resource: %s".printf(
                 error.message));
@@ -156,6 +156,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
         return true;
     }
 
+#if 0
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
@@ -177,15 +178,16 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     public void prepare_selection_data(Gtk.SelectionData data) {
         ;
     }
+    #endif
 
-    public Gtk.Menu? get_sidebar_context_menu(Gdk.EventButton? event) {
+    public Gtk.PopoverMenu? get_sidebar_context_menu() {
         return context_menu;
     }
 }
 
 public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntry,
-    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry,
-    Sidebar.InternalDragSourceEntry {
+    Sidebar.DestroyableEntry, Sidebar.InternalDropTargetEntry, Sidebar.ExpandableEntry
+     {
     private string single_tag_icon = Resources.ICON_ONE_TAG;
     
     private Tag tag;
@@ -248,6 +250,7 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         return true;
     }
 
+#if 0
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         if (data.get_data_type().name() == LibraryWindow.TAG_PATH_MIME_TYPE) {
             string old_tag_path = (string) data.get_data();
@@ -278,14 +281,18 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
         
         return false;
     }
+    #endif
 
     public bool expand_on_select() {
         return false;
     }
 
+
+#if 0
     public void prepare_selection_data(Gtk.SelectionData data) {
         data.set(Gdk.Atom.intern_static_string(LibraryWindow.TAG_PATH_MIME_TYPE), 0,
             tag.get_path().data);
     }
+    #endif
 }
 

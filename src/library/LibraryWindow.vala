@@ -107,8 +107,8 @@ public class LibraryWindow : AppWindow {
     // Sidebar tree and roots (ordered by SidebarRootPosition)
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
-#if DOES_NOT_WORK_WITH_GTK4
     private Tags.Branch tags_branch = new Tags.Branch();
+#if DOES_NOT_WORK_WITH_GTK4
     private Folders.Branch folders_branch = new Folders.Branch();
     private Faces.Branch faces_branch = new Faces.Branch();
     private Events.Branch events_branch = new Events.Branch();
@@ -160,8 +160,8 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.selected_entry_removed.connect(on_sidebar_selected_entry_removed);
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
-        #if 0
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
+        #if 0
         sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
 #if ENABLE_FACES   
         sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
@@ -381,13 +381,11 @@ public class LibraryWindow : AppWindow {
     }
     
     public void rename_tag_in_sidebar(Tag tag) {
-    #if 0
         Tags.SidebarEntry? entry = tags_branch.get_entry_for_tag(tag);
         if (entry != null)
             sidebar_tree.rename_entry_in_place(entry);
         else
             debug("No tag entry found for rename");
-            #endif
     }
 
     public void rename_event_in_sidebar(Event event) {
@@ -931,9 +929,9 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_tag(Tag tag) {
-        //Tags.SidebarEntry? entry = tags_branch.get_entry_for_tag(tag);
-        //if (entry != null)
-            //switch_to_page(entry.get_page());
+        Tags.SidebarEntry? entry = tags_branch.get_entry_for_tag(tag);
+        if (entry != null)
+            switch_to_page(entry.get_page());
     }
     
     public void switch_to_saved_search(SavedSearch search) {
@@ -1067,8 +1065,9 @@ public class LibraryWindow : AppWindow {
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow();
+        scrolled_sidebar.vexpand = true;
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
-        //scrolled_sidebar.set_child(sidebar_tree);
+        scrolled_sidebar.set_child(sidebar_tree);
         
         background_progress_frame.set_child(background_progress_bar);
         background_progress_frame.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP);
@@ -1109,7 +1108,7 @@ public class LibraryWindow : AppWindow {
         
         client_paned = new Gtk.Paned(Gtk.Orientation.HORIZONTAL);
         client_paned.set_start_child(sidebar_paned);
-        //sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
+        sidebar_tree.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.set_end_child(right_vbox);
         client_paned.set_position(Config.Facade.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
@@ -1175,10 +1174,8 @@ public class LibraryWindow : AppWindow {
             
             // see note below about why the sidebar is uneditable while the LibraryPhotoPage is
             // visible
-            #if 0
             if (current_page is LibraryPhotoPage)
                 sidebar_tree.enable_editing();
-                #endif
             
             // old page unsubscribes to these signals (new page subscribes below)
             unsubscribe_from_basic_information(current_page);
@@ -1194,16 +1191,13 @@ public class LibraryWindow : AppWindow {
         // renaming in the sidebar because a single click while in the LibraryPhotoPage indicates
         // the user wants to return to the controlling page ... that is, in this special case, the
         // sidebar cursor is set not to the 'current' page, but the page the user came from
-        #if 0
         if (page is LibraryPhotoPage)
             sidebar_tree.disable_editing();
-            #endif
         
         // Update search filter to new page.
         toggle_search_bar(should_show_search_bar(), page as CheckerboardPage);
         
         // Not all pages have sidebar entries
-        #if 0
         Sidebar.Entry? entry = page_map.get(page);
         if (entry != null) {
             // if the corresponding sidebar entry is an expandable entry and wants to be
@@ -1214,7 +1208,6 @@ public class LibraryWindow : AppWindow {
 
             sidebar_tree.place_cursor(entry, true);
         }
-        #endif
         
         on_update_properties();
         
