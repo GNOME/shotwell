@@ -105,9 +105,9 @@ public class LibraryWindow : AppWindow {
     private bool notify_library_is_home_dir = true;
     
     // Sidebar tree and roots (ordered by SidebarRootPosition)
-#if DOES_NOT_WORK_WITH_GTK4
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
+#if DOES_NOT_WORK_WITH_GTK4
     private Tags.Branch tags_branch = new Tags.Branch();
     private Folders.Branch folders_branch = new Folders.Branch();
     private Faces.Branch faces_branch = new Faces.Branch();
@@ -116,8 +116,8 @@ public class LibraryWindow : AppWindow {
     private Searches.Branch saved_search_branch = new Searches.Branch();
     private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
     
-    private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
 #endif
+    private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
     private bool page_switching_enabled = true;
     
     private LibraryPhotoPage photo_page = null;
@@ -152,9 +152,7 @@ public class LibraryWindow : AppWindow {
         base();
 
         // prep sidebar and add roots
-        #if 0
-        sidebar_tree = new Sidebar.Tree(DND_TARGET_ENTRIES, Gdk.DragAction.ASK,
-            external_drop_handler);
+        sidebar_tree = new Sidebar.Tree();
         
         sidebar_tree.page_created.connect(on_page_created);
         sidebar_tree.destroying_page.connect(on_destroying_page);
@@ -162,6 +160,7 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.selected_entry_removed.connect(on_sidebar_selected_entry_removed);
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
+        #if 0
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
         sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
 #if ENABLE_FACES   
@@ -183,7 +182,7 @@ public class LibraryWindow : AppWindow {
 
         // create the main layout & start at the Library page
         basic_properties = new BasicProperties();
-        //create_layout(library_branch.photos_entry.get_page());
+        create_layout(library_branch.photos_entry.get_page());
         
         // settings that should persist between sessions
         load_configuration();
@@ -1267,7 +1266,6 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    #if 0
     private void on_page_created(Sidebar.PageRepresentative entry, Page page) {
         assert(!page_map.has_key(page));
         page_map.set(page, entry);
@@ -1295,7 +1293,7 @@ public class LibraryWindow : AppWindow {
     private void on_sidebar_selected_entry_removed(Sidebar.SelectableEntry selectable) {
         // if the currently selected item is removed, want to jump to fallback page (which
         // depends on the item that was selected)
-        
+        #if 0
         Library.LastImportSidebarEntry last_import_entry = library_branch.last_imported_entry;
         
         // Importing... -> Last Import (if available)
@@ -1318,11 +1316,11 @@ public class LibraryWindow : AppWindow {
             
             return;
         }
+        #endif
         
         // basic all-around default: jump to the Library page
         switch_to_page(library_branch.photos_entry.get_page());
     }
-    #endif
     
     private void subscribe_for_basic_information(Page page) {
         ViewCollection view = page.get_view();

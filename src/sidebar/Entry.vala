@@ -70,6 +70,8 @@ public interface Sidebar.InternalDropTargetEntry : Sidebar.Entry {
     #endif
 }
 
+#if 0
 public interface Sidebar.InternalDragSourceEntry : Sidebar.Entry {
     public abstract void prepare_selection_data(Gtk.SelectionData data);
 }
+#endif
