@@ -328,22 +328,24 @@ public abstract class CheckerboardPage : Page {
 
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+    #endif
 
-    protected override bool on_left_click(Gdk.EventButton event) {
+    protected override bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         // only interested in single-click and double-clicks for now
-        if ((event.type != Gdk.EventType.BUTTON_PRESS) && (event.type != Gdk.EventType.2BUTTON_PRESS))
+        if (press != 1 && press != 2)
             return false;
 
         // mask out the modifiers we're interested in
-        uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
+        var state = event.get_current_event_state () &
+                (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
 
         // use clicks for multiple selection and activation only; single selects are handled by
         // button release, to allow for multiple items to be selected then dragged ...
-        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(x, y);
         if (item != null) {
             // ... however, there is no dragging if the user clicks on an interactive part of the
             // CheckerboardItem (e.g. a tag)
-            if (layout.handle_left_click(item, event.x, event.y, event.state))
+            if (layout.handle_left_click(item, x, y, event.get_current_event_state()))
                 return true;
 
             switch (state) {
@@ -355,7 +357,7 @@ public abstract class CheckerboardPage : Page {
 
                     if (item.is_selected()) {
                         anchor = item;
-                        cursor = item;
+                        current_cursor = item;
                     }
                 break;
 
@@ -367,7 +369,7 @@ public abstract class CheckerboardPage : Page {
 
                     select_between_items(anchor, item);
 
-                    cursor = item;
+                    current_cursor = item;
                 break;
 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
@@ -380,11 +382,11 @@ public abstract class CheckerboardPage : Page {
 
                     select_between_items(anchor, item);
 
-                    cursor = item;
+                    current_cursor = item;
                 break;
 
                 default:
-                    if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+                    if (press == 2) {
                         activated_item = item;
                     } else {
                         // if the user has selected one or more items and is preparing for a drag,
@@ -400,7 +402,7 @@ public abstract class CheckerboardPage : Page {
                     }
 
                     anchor = item;
-                    cursor = item;
+                    current_cursor = item;
                 break;
             }
             layout.set_cursor(item);
@@ -415,7 +417,7 @@ public abstract class CheckerboardPage : Page {
             foreach (DataView view in get_view().get_selected())
                 previously_selected.add((CheckerboardItem) view);
 
-            layout.set_drag_select_origin((int) event.x, (int) event.y);
+            layout.set_drag_select_origin((int) x, (int) y);
 
             return true;
         }
@@ -426,19 +428,19 @@ public abstract class CheckerboardPage : Page {
         return get_view().get_selected_count() == 0;
     }
 
-    protected override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         previously_selected = null;
 
         // if drag-selecting, stop here and do nothing else
         if (layout.is_drag_select_active()) {
             layout.clear_drag_select();
-            anchor = cursor;
+            anchor = current_cursor;
 
             return true;
         }
 
         // only interested in non-modified button releases
-        if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
+        if ((event.get_current_event_state() & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
             return false;
 
         // if the item was activated in the double-click, report it now
@@ -449,13 +451,13 @@ public abstract class CheckerboardPage : Page {
             return true;
         }
 
-        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(x, y);
         if (item == null) {
             // released button on "dead" area
             return true;
         }
 
-        if (cursor != item) {
+        if (current_cursor != item) {
             // user released mouse button after moving it off the initial item, or moved from dead
             // space onto one.  either way, unselect everything
             get_view().unselect_all();
@@ -471,6 +473,7 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
 
+#if 0
     protected override bool on_right_click(Gdk.EventButton event) {
         // only interested in single-clicks for now
         if (event.type != Gdk.EventType.BUTTON_PRESS)

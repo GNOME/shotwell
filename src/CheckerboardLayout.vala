@@ -83,6 +83,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // CheckerboardItems offer tooltips
         has_tooltip = true;
         set_draw_func (on_draw);
+
+        var focus_controller = new Gtk.EventControllerFocus ();
+        focus_controller.set_name ("CheckerboardLayout focus watcher");
+        add_controller (focus_controller);
+        focus_controller.enter.connect (focus_in_event);
+        focus_controller.leave.connect (focus_out_event);
     }
     
     ~CheckerboardLayout() {
@@ -1072,25 +1078,21 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
 
     private void set_colors(bool in_focus = true) {
-    #if 0
         // set up selected/unselected colors
         var ctx = get_style_context();
         ctx.save();
         ctx.add_class("view");
-        var val = ctx.get_property("border-color", Gtk.StateFlags.NORMAL);
-        focus_color = *(Gdk.RGBA*)val.get_boxed();
+        ctx.set_state (Gtk.StateFlags.NORMAL);
+        ctx.lookup_color("borders", out focus_color);
+        ctx.lookup_color("theme_fg_color", out unselected_color);
 
-        val = ctx.get_property("border-color", Gtk.StateFlags.FOCUSED);
-        border_color = *(Gdk.RGBA*)val.get_boxed();
+        ctx.set_state (Gtk.StateFlags.FOCUSED);
+        ctx.lookup_color("borders", out border_color);
 
         // Checked in GtkIconView - The selection is drawn using render_background
-        val = ctx.get_property("background-color", Gtk.StateFlags.FOCUSED | Gtk.StateFlags.SELECTED);
-        selected_color = *(Gdk.RGBA*)val.get_boxed();
-
-        val = ctx.get_property("color", Gtk.StateFlags.NORMAL);
-        unselected_color = *(Gdk.RGBA*)val.get_boxed();
+        ctx.set_state (Gtk.StateFlags.FOCUSED | Gtk.StateFlags.SELECTED);
+        ctx.lookup_color("theme_selected_bg_color", out selected_color);
         ctx.restore();
-        #endif
     }
     
     public override void size_allocate(int a, int b, int c)  {
@@ -1172,19 +1174,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
 
-#if 0
-    public override bool focus_in_event(Gdk.EventFocus event) {
+    public void focus_in_event() {
         set_colors(true);
         items_dirty("focus_in_event", view.get_selected());
-        
-        return base.focus_in_event(event);
     }
 
-    public override bool focus_out_event(Gdk.EventFocus event) {
+    public void focus_out_event() {
         set_colors(false);
         items_dirty("focus_out_event", view.get_selected());
-        
-        return base.focus_out_event(event);
     }
-    #endif
 }

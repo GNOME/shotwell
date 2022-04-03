@@ -86,6 +86,9 @@ public abstract class Page : Gtk.Box {
     private int cursor_hide_time_cached = 0;
     private bool are_actions_attached = false;
     private OneShotScheduler? update_actions_scheduler = null;
+
+    // Event controllers
+    private Gtk.GestureClick clicks;
     
     protected Page(string page_name) {
         Object (orientation: Gtk.Orientation.HORIZONTAL);
@@ -172,12 +175,21 @@ public abstract class Page : Gtk.Box {
     }
     
     public void set_event_source(Gtk.Widget event_source) {
-    #if 0
         assert(this.event_source == null);
 
         this.event_source = event_source;
-        event_source.set_can_focus(true);
+        event_source.focusable = true;
 
+        clicks = new Gtk.GestureClick();
+        clicks.set_name ("CheckerboardPage click source");
+        clicks.set_button (0); // Listen to all buttons
+        clicks.set_exclusive (true); // TODO: Need to be true or false?
+        event_source.add_controller (clicks);
+
+        clicks.pressed.connect (on_button_pressed_internal);
+        clicks.released.connect (on_button_released_internal);
+
+#if 0
         // interested in mouse button and motion events on the event source
         event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
             | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK
@@ -193,10 +205,13 @@ public abstract class Page : Gtk.Box {
     }
     
     private void detach_event_source() {
-    #if 0
         if (event_source == null)
             return;
+
+        event_source.remove_controller (clicks);
+        clicks = null;
         
+    #if 0
         event_source.button_press_event.disconnect(on_button_pressed_internal);
         event_source.button_release_event.disconnect(on_button_released_internal);
         event_source.motion_notify_event.disconnect(on_motion_internal);
@@ -661,73 +676,104 @@ public abstract class Page : Gtk.Box {
         return true;
     }
     
-    #if 0
-    protected virtual bool on_left_click(Gdk.EventButton event) {
+    protected virtual bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         return false;
     }
     
-    protected virtual bool on_middle_click(Gdk.EventButton event) {
+    protected virtual bool on_middle_click(Gtk.EventController event, int press, double x, double y) {
         return false;
     }
     
-    protected virtual bool on_right_click(Gdk.EventButton event) {
+    protected virtual bool on_right_click(Gtk.EventController event, int press, double x, double y) {
         return false;
     }
     
-    protected virtual bool on_left_released(Gdk.EventButton event) {
+    protected virtual bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         return false;
     }
     
-    protected virtual bool on_middle_released(Gdk.EventButton event) {
+    protected virtual bool on_middle_released(Gtk.EventController event, int press, double x, double y) {
         return false;
     }
     
-    protected virtual bool on_right_released(Gdk.EventButton event) {
+    protected virtual bool on_right_released(Gtk.EventController event, int press, double x, double y) {
         return false;
     }
     
-    private bool on_button_pressed_internal(Gdk.EventButton event) {
-        switch (event.button) {
+    private void on_button_pressed_internal(Gtk.GestureClick gesture, int press, double x, double y) {
+        var sequence = gesture.get_current_sequence ();
+        var event = gesture.get_last_event (sequence);
+
+        if (press != 1)
+            return;
+
+        bool result = false;
+
+        switch (gesture.get_current_button()) {
             case 1:
                 if (event_source != null)
                     event_source.grab_focus();
                 
                 // stash location of mouse down for drag fixups
-                last_down.x = (int) event.x;
-                last_down.y = (int) event.y;
+                last_down.x = (int) x;
+                last_down.y = (int) y;
                 
-                return on_left_click(event);
+                result = on_left_click(gesture, press, x, y);
+                break;
 
             case 2:
-                return on_middle_click(event);
+                result = on_middle_click(gesture, press, x, y);
+                break;
             
             case 3:
-                return on_right_click(event);
+                result = on_right_click(gesture, press, x, y);
+                break;
             
             default:
-                return false;
+                break;
+        }
+
+        if (result) {
+            gesture.set_sequence_state (sequence, Gtk.EventSequenceState.CLAIMED);
         }
     }
     
-    private bool on_button_released_internal(Gdk.EventButton event) {
-        switch (event.button) {
+    private void on_button_released_internal(Gtk.GestureClick gesture, int press, double x, double y) {
+        var sequence = gesture.get_current_sequence ();
+        var event = gesture.get_last_event (sequence);
+
+        bool result = false;
+
+        switch (gesture.get_current_button()) {
             case 1:
-                // clear when button released, only for drag fixups
-                last_down = { -1, -1 };
+                if (event_source != null)
+                    event_source.grab_focus();
                 
-                return on_left_released(event);
-            
+                // stash location of mouse down for drag fixups
+                last_down.x = -1;
+                last_down.y = -1;
+                
+                result = on_left_released(gesture, press, x, y);
+                break;
+
             case 2:
-                return on_middle_released(event);
+                result = on_middle_released(gesture, press, x, y);
+                break;
             
             case 3:
-                return on_right_released(event);
+                result = on_right_released(gesture, press, x, y);
+                break;
             
             default:
-                return false;
+                break;
+        }
+
+        if (result) {
+            gesture.set_sequence_state (sequence, Gtk.EventSequenceState.CLAIMED);
         }
     }
 
+#if 0
     protected virtual bool on_ctrl_pressed(Gdk.EventKey? event) {
         return false;
     }
