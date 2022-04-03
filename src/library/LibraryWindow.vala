@@ -131,7 +131,7 @@ public class LibraryWindow : AppWindow {
     // own UIManager which will suck up the accelerators, and we want them to be associated with
     // AppWindows instead.
     private SearchFilterActions search_actions = new SearchFilterActions();
-    private SearchFilterToolbar search_toolbar;
+    private Gtk.Revealer search_toolbar;
     
     private Gtk.Box top_section = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.Revealer background_progress_frame = new Gtk.Revealer();
@@ -178,7 +178,8 @@ public class LibraryWindow : AppWindow {
             on_update_properties_now);
 
         // setup search bar and add its accelerators to the window
-        search_toolbar = new SearchFilterToolbar(search_actions);
+        search_toolbar = new Gtk.Revealer();
+        search_toolbar.set_child (new SearchFilterToolbar(search_actions));
 
         // create the main layout & start at the Library page
         basic_properties = new BasicProperties();
@@ -344,7 +345,7 @@ public class LibraryWindow : AppWindow {
 
         var basic_properties_action = get_current_page ().get_common_action
             ("CommonDisplayBasicProperties");
-        assert(basic_properties_action != null);
+        //assert(basic_properties_action != null);
 
         if (!basic_properties_action.get_state().get_boolean())
             bottom_frame.hide();
@@ -646,7 +647,7 @@ public class LibraryWindow : AppWindow {
         action.change_state (true);
 
         // give it focus (which should move cursor to the text entry control)
-        search_toolbar.take_focus();
+        ((SearchFilterToolbar)search_toolbar.get_child()).take_focus();
     }
     
     private void on_media_altered() {
@@ -1245,7 +1246,7 @@ public class LibraryWindow : AppWindow {
     }
 
     private void init_view_filter(CheckerboardPage page) {
-        search_toolbar.set_view_filter(page.get_search_view_filter());
+        ((SearchFilterToolbar)search_toolbar.get_child()).set_view_filter(page.get_search_view_filter());
         page.get_view().install_view_filter(page.get_search_view_filter());
     }
 
@@ -1258,7 +1259,7 @@ public class LibraryWindow : AppWindow {
         search_toolbar.set_reveal_child(show);
         if (show) {
             assert(null != page);
-            search_toolbar.set_view_filter(page.get_search_view_filter());
+            ((SearchFilterToolbar)search_toolbar.get_child()).set_view_filter(page.get_search_view_filter());
             page.get_view().install_view_filter(page.get_search_view_filter());
         } else {
             if (page != null)

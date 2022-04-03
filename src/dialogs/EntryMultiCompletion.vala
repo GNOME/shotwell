@@ -7,18 +7,22 @@
 
 // Entry completion for values separated by separators (e.g. comma in the case of tags)
 // Partly inspired by the class of the same name in gtkmm-utils by Marko Anastasov
-public class EntryMultiCompletion : Gtk.EntryCompletion {
+public class EntryMultiCompletion : Object {
     private string delimiter;
+    private Gtk.EntryCompletion completion;
 
     public EntryMultiCompletion(Gee.Collection<string> completion_list, string? delimiter) {
+        completion = new Gtk.EntryCompletion();
         assert(delimiter == null || delimiter.length == 1);
         this.delimiter = delimiter;
 
-        set_model(create_completion_store(completion_list));
-        set_text_column(0);
-        set_match_func(match_func);
-        match_selected.connect(on_match_selected);
+        completion.set_model(create_completion_store(completion_list));
+        completion.set_text_column(0);
+        completion.set_match_func(match_func);
+        completion.match_selected.connect(on_match_selected);
     }
+
+    public Gtk.EntryCompletion get_completion () { return completion; }
 
     private static Gtk.ListStore create_completion_store(Gee.Collection<string> completion_list) {
         Gtk.ListStore completion_store = new Gtk.ListStore(1, typeof(string));
@@ -50,7 +54,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
             if (normed_key.contains(delimiter)) {
                 // check whether cursor is before last delimiter
                 int offset = normed_key.char_count(normed_key.last_index_of_char(delimiter[0]));
-                int position = ((Gtk.Entry) get_entry()).get_position();
+                int position = ((Gtk.Entry) completion.get_entry()).get_position();
                 if (position <= offset)
                     return false; // TODO: Autocompletion for tags not last in list
             }
@@ -68,7 +72,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         string match;
         model.get(iter, 0, out match);
 
-        Gtk.Entry entry = (Gtk.Entry)get_entry();
+        Gtk.Entry entry = (Gtk.Entry)completion.get_entry();
 
         string old_text = entry.get_text().normalize(-1, NormalizeMode.ALL_COMPOSE);
         if (old_text.length > 0) {

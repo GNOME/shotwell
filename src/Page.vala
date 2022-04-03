@@ -55,9 +55,10 @@ public class InjectionGroup {
     }
 }
 
-public abstract class Page : Gtk.ScrolledWindow {
+public abstract class Page : Gtk.Box {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
+    protected Gtk.ScrolledWindow scrolled;
     protected Gtk.Builder builder = new Gtk.Builder ();
     protected Gtk.Box toolbar;
     protected bool in_view = false;
@@ -87,17 +88,23 @@ public abstract class Page : Gtk.ScrolledWindow {
     private OneShotScheduler? update_actions_scheduler = null;
     
     protected Page(string page_name) {
+        Object (orientation: Gtk.Orientation.HORIZONTAL);
+
+        scrolled = new Gtk.ScrolledWindow();
+        append(scrolled);
+        scrolled.hexpand = true;
+        scrolled.vexpand = true;
         this.page_name = page_name;
         
         view = new ViewCollection("ViewCollection for Page %s".printf(page_name));
         
         last_down = { -1, -1 };
         
-        set_can_focus(true);
+        scrolled.set_can_focus(true);
 
         //popup_menu.connect(on_context_keypress);
         
-        realize.connect(attach_view_signals);
+        scrolled.realize.connect(attach_view_signals);
     }
     
     ~Page() {
@@ -129,7 +136,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         is_destroyed = true;
         
-        base.destroy();
+        base.dispose();
         
         debug("Page %s Destroyed", get_page_name());
     }

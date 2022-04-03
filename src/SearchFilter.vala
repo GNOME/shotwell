@@ -619,8 +619,7 @@ public class SearchFilterActions {
     }
 }
 
-public class SearchFilterToolbar : Gtk.Revealer {
-    private Gtk.Box toolbar;
+public class SearchFilterToolbar : Gtk.Box {
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
     private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
     private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
@@ -1071,12 +1070,12 @@ public class SearchFilterToolbar : Gtk.Revealer {
     private ToggleActionToolButton toolbtn_flag;
     
     public SearchFilterToolbar(SearchFilterActions actions) {
+        Object(orientation: Gtk.Orientation.HORIZONTAL, spacing: 6);
         this.actions = actions;
-        toolbar = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
         actions.media_context_changed.connect(on_media_context_changed);
         search_box = new SearchBox(actions.text);
         
-        toolbar.set_name("search-filter-toolbar");
+        set_name("search-filter-toolbar");
         
         try {
             this.builder.add_from_resource (Resources.get_ui("search_bar.ui"));
@@ -1099,7 +1098,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
        
         // Type label and toggles
         label_type = new LabelToolItem(_("Type"), 10, 5);
-        toolbar.append(label_type);
+        append(label_type);
         
         toolbtn_photos = new ToggleActionToolButton("win.display.photos");
         toolbtn_photos.set_tooltip_text (_("Photos"));
@@ -1110,9 +1109,9 @@ public class SearchFilterToolbar : Gtk.Revealer {
         toolbtn_raw = new ToggleActionToolButton("win.display.raw");
         toolbtn_raw.set_tooltip_text(_("RAW Photos"));
         
-        toolbar.append(toolbtn_photos);
-        toolbar.append(toolbtn_videos);
-        toolbar.append(toolbtn_raw);
+        append(toolbtn_photos);
+        append(toolbtn_videos);
+        append(toolbtn_raw);
         
         // separator
         
@@ -1122,7 +1121,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         toolbtn_flag.set_label(_("Flagged"));
         toolbtn_flag.set_tooltip_text(_("Flagged"));
         
-        toolbar.append(toolbtn_flag);
+        append(toolbtn_flag);
         
         // separator
         
@@ -1130,7 +1129,7 @@ public class SearchFilterToolbar : Gtk.Revealer {
         var model = this.builder.get_object ("popup-menu") as GLib.MenuModel;
         rating_button = new RatingFilterButton (model);
         rating_button.set_label(_("Rating"));
-        toolbar.append(rating_button);
+        append(rating_button);
         
         // separator
 
@@ -1138,15 +1137,13 @@ public class SearchFilterToolbar : Gtk.Revealer {
 		saved_search_button.set_label(_("Saved Search"));
         saved_search_button.set_tooltip_text(_("Use a saved search to filter items in the current view"));
         saved_search_button.clicked.connect(on_saved_search_button_clicked);
-        toolbar.append(saved_search_button);
+        append(saved_search_button);
 
         // Separator to right-align the text box
         
         // Search box.
-        toolbar.append(search_box);
+        append(search_box);
 
-        set_child (toolbar);
-        
         // hook up signals to actions to be notified when they change
         actions.flagged_toggled.connect(on_flagged_toggled);
         actions.photos_toggled.connect(on_photos_toggled);

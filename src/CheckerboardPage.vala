@@ -58,9 +58,9 @@ public abstract class CheckerboardPage : Page {
 
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
         // run first ... otherwise, the thumbnails draw late
-        layout.set_adjustments(get_hadjustment(), get_vadjustment());
+        layout.set_adjustments(scrolled.get_hadjustment(), scrolled.get_vadjustment());
 
-        set_child(viewport);
+        scrolled.set_child(viewport);
 
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden.connect(on_items_hidden);
@@ -69,7 +69,7 @@ public abstract class CheckerboardPage : Page {
         get_view().items_visibility_changed.connect(on_items_visibility_changed);
 
         // scrollbar policy
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
 
     public void init_item_context_menu(string path) {
@@ -154,7 +154,7 @@ public abstract class CheckerboardPage : Page {
     }
 
     public void scroll_to_item(CheckerboardItem item) {
-        Gtk.Adjustment vadj = get_vadjustment();
+        Gtk.Adjustment vadj = scrolled.get_vadjustment();
         if (!(get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
               && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))) {
 
@@ -611,7 +611,7 @@ public abstract class CheckerboardPage : Page {
         }
 
         // as the viewport never scrolls horizontally, only interested in vertical
-        Gtk.Adjustment vadj = get_vadjustment();
+        Gtk.Adjustment vadj = scrolled.get_vadjustment();
 
         int x, y;
         Gdk.ModifierType mask;

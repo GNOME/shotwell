@@ -37,7 +37,7 @@ public class TextEntryDialog : Gtk.Dialog {
         if (completion_list != null) { // Textfield with autocompletion
             EntryMultiCompletion completion = new EntryMultiCompletion(completion_list,
                 completion_delimiter);
-            entry.set_completion(completion);
+            entry.set_completion(completion.get_completion());
         }
 
         set_default_response(Gtk.ResponseType.OK);

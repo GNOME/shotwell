@@ -45,11 +45,11 @@ public abstract class SinglePhotoPage : Page {
 
         // With the current code automatically resizing the image to the viewport, scrollbars
         // should never be shown, but this may change if/when zooming is supported
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         viewport.set_child(canvas);
 
-        set_child(viewport);
+        scrolled.set_child(viewport);
 
 #if 0
         canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
@@ -204,7 +204,7 @@ public abstract class SinglePhotoPage : Page {
         // scrollbar policy in fullscreen mode needs to be auto/auto, else the pixbuf will shift
         // off the screen
         if (container is FullscreenWindow)
-            set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+            scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
 
     // max_dim represents the maximum size of the original pixbuf (i.e. pixbuf may be scaled and
