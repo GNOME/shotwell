@@ -618,14 +618,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         selection_band = Box.from_points(drag_origin, drag_endpoint).get_rectangle();
         
         // force repaint of the union of the old and new, which covers the band reducing in size
-        #if 0
-        if (get_window() != null) {
             Gdk.Rectangle union;
             selection_band.union(old_selection_band, out union);
-            
-            queue_draw_area(union.x, union.y, union.width, union.height);
-        }
-        #endif
         queue_draw();
     }
     

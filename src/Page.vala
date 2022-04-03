@@ -89,6 +89,7 @@ public abstract class Page : Gtk.Box {
 
     // Event controllers
     private Gtk.GestureClick clicks;
+    private Gtk.EventControllerMotion motion;
     
     protected Page(string page_name) {
         Object (orientation: Gtk.Orientation.HORIZONTAL);
@@ -186,6 +187,12 @@ public abstract class Page : Gtk.Box {
         clicks.set_exclusive (true); // TODO: Need to be true or false?
         event_source.add_controller (clicks);
 
+        motion = new Gtk.EventControllerMotion ();
+        motion.set_name ("CheckerboardPage motion source");
+        motion.motion.connect(on_motion_internal);
+        motion.leave.connect(on_leave_notify_event);
+        event_source.add_controller (motion);
+
         clicks.pressed.connect (on_button_pressed_internal);
         clicks.released.connect (on_button_released_internal);
 
@@ -210,6 +217,8 @@ public abstract class Page : Gtk.Box {
 
         event_source.remove_controller (clicks);
         clicks = null;
+        event_source.remove_controller (motion);
+        motion = null;
         
     #if 0
         event_source.button_press_event.disconnect(on_button_pressed_internal);
@@ -1006,33 +1015,22 @@ public abstract class Page : Gtk.Box {
         return false;
     }
     
-    #if 0
-    protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected virtual bool on_motion(Gtk.EventControllerMotion event, double x, double y, Gdk.ModifierType mask) {
         check_cursor_hiding();
 
         return false;
     }
-    #endif
     
-    protected virtual bool on_leave_notify_event() {
-        return false;
-    }
-    
-    #if 0
-    private bool on_motion_internal(Gdk.EventMotion event) {
-        int x, y;
-        Gdk.ModifierType mask;
-        if (event.is_hint == 1) {
-            get_event_source_pointer(out x, out y, out mask);
-        } else {
-            x = (int) event.x;
-            y = (int) event.y;
-            mask = event.state;
-        }
-        
-        return on_motion(event, x, y, mask);
+    protected virtual void on_leave_notify_event(Gtk.EventControllerMotion controller) {
+        // Do nothing
     }
 
+    private void on_motion_internal(Gtk.EventControllerMotion controller, double x, double y) {
+        bool result = on_motion(controller, x, y, controller.get_current_event_state());
+        // todo: stop propagation?
+    }
+
+    #if 0
     private bool on_mousewheel_internal(Gdk.EventScroll event) {
         switch (event.direction) {
             case Gdk.ScrollDirection.UP:

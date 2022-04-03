@@ -517,6 +517,7 @@ public abstract class CheckerboardPage : Page {
         Gtk.Menu context_menu = get_context_menu();
         return popup_context_menu(context_menu, event);
     }
+    #endif
 
     protected virtual bool on_mouse_over(CheckerboardItem? item, int x, int y, Gdk.ModifierType mask) {
         if (item != null)
@@ -544,9 +545,9 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
 
-    protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected override bool on_motion(Gtk.EventControllerMotion event, double x, double y, Gdk.ModifierType mask) {
         // report what item the mouse is hovering over
-        if (!on_mouse_over(get_item_at_pixel(x, y), x, y, mask))
+        if (!on_mouse_over(get_item_at_pixel(x, y), (int)x, (int)y, mask))
             return false;
 
         // go no further if not drag-selecting
@@ -554,13 +555,13 @@ public abstract class CheckerboardPage : Page {
             return false;
 
         // set the new endpoint of the drag selection
-        layout.set_drag_select_endpoint(x, y);
+        layout.set_drag_select_endpoint((int)x, (int)y);
 
         updated_selection_band();
 
         // if out of bounds, schedule a check to auto-scroll the viewport
         if (!autoscroll_scheduled 
-            && get_adjustment_relation(get_vadjustment(), y) != AdjustmentRelation.IN_RANGE) {
+            && get_adjustment_relation(scrolled.get_vadjustment(), (int)y) != AdjustmentRelation.IN_RANGE) {
             Timeout.add(AUTOSCROLL_TICKS_MSEC, selection_autoscroll);
             autoscroll_scheduled = true;
         }
@@ -568,7 +569,6 @@ public abstract class CheckerboardPage : Page {
         // return true to stop a potential drag-and-drop operation
         return true;
     }
-    #endif
 
     private void updated_selection_band() {
         assert(layout.is_drag_select_active());
