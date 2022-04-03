@@ -51,6 +51,7 @@ public class Portal : GLib.Object {
     }
 
     private static async string get_parent_window () {
+    #if 0
         var window = AppWindow.get_instance().get_window ();
 
         if (window is Gdk.Wayland.Window) {
@@ -67,5 +68,7 @@ public class Portal : GLib.Object {
             warning ("Could not get parent window");
             return "";
         }
+        #endif
+        return "";
     }
 }

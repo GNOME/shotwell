@@ -691,7 +691,7 @@ public class MetadataWriter : Object {
             job.photo.set_master_metadata_dirty(false);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
-        }
+        } catch (Error err) { }
         
         LibraryPhoto.global.transaction_controller.commit();
         

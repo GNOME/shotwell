@@ -17,6 +17,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         set_model(create_completion_store(completion_list));
         set_text_column(0);
         set_match_func(match_func);
+        match_selected.connect(on_match_selected);
     }
 
     private static Gtk.ListStore create_completion_store(Gee.Collection<string> completion_list) {
@@ -63,7 +64,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         }
     }
 
-    public override bool match_selected(Gtk.TreeModel model, Gtk.TreeIter iter) {
+    public bool on_match_selected(Gtk.TreeModel model, Gtk.TreeIter iter) {
         string match;
         model.get(iter, 0, out match);
 

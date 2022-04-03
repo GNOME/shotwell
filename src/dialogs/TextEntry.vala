@@ -24,7 +24,7 @@ public class TextEntryDialog : Gtk.Dialog {
     public void setup(OnModifyValidateType? modify_validate, string title, string label,
         string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
-        set_parent_window(AppWindow.get_instance().get_parent_window());
+        //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
 
@@ -49,9 +49,9 @@ public class TextEntryDialog : Gtk.Dialog {
         // validate entry to start with
         set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
 
-        show_all();
+        show();
 
-        if (run() == Gtk.ResponseType.OK)
+        if (0 == Gtk.ResponseType.OK)
             text = entry.get_text();
 
         entry.changed.disconnect(on_entry_changed);

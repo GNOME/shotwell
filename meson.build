@@ -28,6 +28,7 @@ add_global_arguments(
         '--vapidir=@0@'.format(join_paths(meson.current_source_dir(), 'vapi')),
         '--enable-checking',
         '--enable-experimental',
+        '--enable-deprecated',
     ],
     language : 'vala'
 )
@@ -44,7 +45,7 @@ endif
 version_h = vcs_tag(command: ['git', 'rev-parse', 'HEAD'], input: 'version.h.in', output: 'version.h', fallback: '')
 version = declare_dependency(sources : version_h, include_directories : include_directories('.'))
 
-gtk = dependency('gtk+-3.0', version : '>= 3.22')
+gtk = dependency('gtk4', version : '>= 4.4')
 gio = dependency('gio-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
 gio_unix = dependency('gio-unix-2.0', version: '>= 2.40')
@@ -53,7 +54,6 @@ webkit = dependency('webkit2gtk-4.1', version: '>= 2.26')
 soup = dependency('libsoup-3.0')
 json_glib = dependency('json-glib-1.0')
 xml = dependency('libxml-2.0')
-gdk = dependency('gdk-3.0', version : '>= 3.22')
 gdk_pixbuf = dependency('gdk-pixbuf-2.0')
 sqlite = dependency('sqlite3', version : '>= 3.5.9')
 gstreamer = dependency('gstreamer-1.0', version : '>= 1.0')
@@ -65,8 +65,7 @@ libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
 secret = dependency('libsecret-1', required: true)
-gdk = [ dependency('gdk-x11-3.0'), dependency('gdk-wayland-3.0') ]
- 
+pangocairo = dependency('pangocairo', required: true)
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
 
@@ -120,7 +119,7 @@ posix = valac.find_library('posix')
 
 subdir('data')
 subdir('src')
-subdir('plugins')
+#subdir('plugins')
 subdir('po')
 subdir('help')
 subdir('thumbnailer')

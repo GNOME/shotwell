@@ -36,8 +36,8 @@ public enum Direction {
 }
 
 public void spin_event_loop() {
-    while (Gtk.events_pending())
-        Gtk.main_iteration();
+    while (MainContext.default().pending())
+        MainContext.default().iteration(true);
 }
 
 public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {
@@ -77,10 +77,7 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
     return (field 
         & (Gdk.ModifierType.SHIFT_MASK 
         | Gdk.ModifierType.CONTROL_MASK
-        | Gdk.ModifierType.MOD1_MASK
-        | Gdk.ModifierType.MOD3_MASK
-        | Gdk.ModifierType.MOD4_MASK
-        | Gdk.ModifierType.MOD5_MASK
+        | Gdk.ModifierType.ALT_MASK
         | Gdk.ModifierType.SUPER_MASK
         | Gdk.ModifierType.HYPER_MASK
         | Gdk.ModifierType.META_MASK)) == mask;

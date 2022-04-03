@@ -7,11 +7,11 @@
 namespace Events {
 
 public void init() throws Error {
-    Events.Branch.init();
+    //Events.Branch.init();
 }
 
 public void terminate() {
-    Events.Branch.terminate();
+    //Events.Branch.terminate();
 }
 
 }

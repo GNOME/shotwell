@@ -1722,6 +1722,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             AppWindow.database_error(err);
             
             return;
+        } catch (Error err) {
         }
         
         if (is_master_baseline())
@@ -1731,7 +1732,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     }
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
-    public void update_editable_modification_time(FileInfo info) throws DatabaseError {
+    public void update_editable_modification_time(FileInfo info) throws DatabaseError, Error {
         TimeVal modification = info.get_modification_time();
         
         bool altered = false;
@@ -1750,7 +1751,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     
     // Most useful if the appropriate SourceCollection is frozen while calling this.
     public static void update_many_editable_timestamps(Gee.Map<Photo, FileInfo> map)
-        throws DatabaseError {
+        throws DatabaseError, Error {
         DatabaseTable.begin_transaction();
         foreach (Photo photo in map.keys)
             photo.update_editable_modification_time(map.get(photo));
@@ -1868,6 +1869,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             }
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
+        } catch (Error err) {
         }
         
         if (altered) {
@@ -1921,6 +1923,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             }
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
+        } catch (Error err) {
+            // TODO
         }
         
         if (altered) {
@@ -2182,7 +2186,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
     }
     
-    public void set_master_metadata_dirty(bool dirty) throws DatabaseError {
+    public void set_master_metadata_dirty(bool dirty) throws DatabaseError, Error {
         bool committed = false;
         lock (row) {
             if (row.metadata_dirty != dirty) {
@@ -3023,6 +3027,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     }    
     
     // All instances are against the coordinate system of the unscaled, unrotated photo.
+    #if 0
     private EditingTools.RedeyeInstance[] get_raw_redeye_instances() {
         KeyValueMap map = get_transformation("redeye");
         if (map == null)
@@ -3041,7 +3046,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             string center_key = "center%d".printf(i);
             string radius_key = "radius%d".printf(i);
 
-            res[i].center = map.get_point(center_key, default_point);
+            //res[i].center = map.get_point(center_key, default_point);
             assert(res[i].center.x != default_point.x);
             assert(res[i].center.y != default_point.y);
 
@@ -3080,6 +3085,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         if (set_transformation(map))
             notify_altered(new Alteration("image", "redeye"));
     }
+    #endif
 
     // Pixbuf generation
     
@@ -3440,7 +3446,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         Dimensions scaled_to_viewport;
         Dimensions original = Dimensions();
         Dimensions scaled = Dimensions();
-        EditingTools.RedeyeInstance[] redeye_instances = null;
+        //EditingTools.RedeyeInstance[] redeye_instances = null;
         Box crop;
         double straightening_angle;
         PixelTransformer transformer = null;
@@ -3453,7 +3459,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             
             is_scaled = !(get_dimensions().equals(scaled));
                         
-            redeye_instances = get_raw_redeye_instances();
+            //redeye_instances = get_raw_redeye_instances();
             
             is_cropped = get_raw_crop(out crop);
 
@@ -3481,9 +3487,11 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
+#if 0
             foreach (EditingTools.RedeyeInstance instance in redeye_instances) {
                 pixbuf = do_redeye(pixbuf, instance);
             }
+            #endif
 #if MEASURE_PIPELINE
             redeye_time = timer.elapsed();
 #endif
@@ -4096,6 +4104,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                 }
             } catch (DatabaseError err) {
                 warning("Unable to remove editable from PhotoTable: %s", err.message);
+            } catch (Error err) {
+                // TODO
             }
             
             try {
@@ -4284,6 +4294,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         set_raw_straighten(theta);
     }
     
+    #if 0
     private Gdk.Pixbuf do_redeye(Gdk.Pixbuf pixbuf, EditingTools.RedeyeInstance inst) {
         /* we remove redeye within a circular region called the "effect
            extent." the effect extent is inscribed within its "bounding
@@ -4347,6 +4358,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         
         return pixbuf;
     }
+    #endif
 
     private Gdk.Pixbuf red_reduce_pixel(Gdk.Pixbuf pixbuf, int x, int y) {
         int px_start_byte_offset = (y * pixbuf.get_rowstride()) +

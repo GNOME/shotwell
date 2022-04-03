@@ -6,7 +6,7 @@ sw_graphics_processor = static_library('shotwell-graphics-processor',
                 '_transformation.c'],
                vala_header : 'shotwell-graphics-processor.h',
                vala_vapi : 'shotwell-graphics-processor.vapi',
-               dependencies : [gio, gee, gdk],
+               dependencies : [gio, gee, gdk_pixbuf],
                include_directories : config_incdir,
                c_args : '-DG_DISABLE_CAST_CHECKS',
                vala_args : '--disable-assert',
@@ -14,12 +14,8 @@ sw_graphics_processor = static_library('shotwell-graphics-processor',
 
 processor = executable('shotwell-graphics-processor',
                        ['graphics-processor.vala'],
-                       dependencies: [gio, gdk, gee],
+                       dependencies: [gio, gee, gdk_pixbuf],
                        link_with: sw_graphics_processor)
-
-shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                 libraw, libexif, sw_plugin]
 
 shotwell_libs = [sw_graphics_processor]
 
@@ -27,7 +23,7 @@ face_sources = []
 face_obj = ''
 
 if get_option('face_detection')
-  face_sources = (['faces/FacesBranch.vala',
+  face_sources = ([
                      'faces/FacePage.vala',
                      'faces/FaceShape.vala',
                      'faces/FaceDetect.vala',
@@ -37,7 +33,7 @@ endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule, unity,
-                 libraw, libexif, sw_plugin, webpdemux, webp, version, gdk ]
+                 libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo ]
 
 subdir('metadata')
 subdir('publishing')
@@ -69,9 +65,6 @@ executable(
         'db/VideoTable.vala',
         'db/VersionTable.vala',
         'db/SavedSearchDBTable.vala',
-        'editing_tools/EditingTools.vala',
-        'editing_tools/RGBHistogramManipulator.vala',
-        'editing_tools/StraightenTool.vala',
         'faces/Face.vala',
         'faces/FaceLocation.vala',
         'slideshow/Slideshow.vala',
@@ -101,12 +94,6 @@ executable(
             'library/BackgroundProgressBar.vala',
         'library/Library.vala',
         'library/LibraryWindow.vala',
-        'library/LibraryBranch.vala',
-        'library/TrashSidebarEntry.vala',
-        'library/OfflineSidebarEntry.vala',
-        'library/FlaggedSidebarEntry.vala',
-        'library/LastImportSidebarEntry.vala',
-        'library/ImportQueueSidebarEntry.vala',
         'library/FlaggedPage.vala',
         'library/ImportQueuePage.vala',
         'library/LastImportPage.vala',
@@ -134,45 +121,28 @@ executable(
         'core/DataViewTypes.vala',
         'core/Tracker.vala',
         'core/SourceInterfaces.vala',
-        'sidebar/Sidebar.vala',
-        'sidebar/Branch.vala',
-        'sidebar/Entry.vala',
-        'sidebar/Tree.vala',
-        'sidebar/common.vala',
         'events/Events.vala',
-        'events/EventsBranch.vala',
         'events/EventsDirectoryPage.vala',
         'events/EventPage.vala',
         'events/EventDirectoryItem.vala',
         'tags/Tags.vala',
-        'tags/TagsBranch.vala',
         'tags/TagPage.vala',
         'tags/HierarchicalTagIndex.vala',
         'tags/HierarchicalTagUtilities.vala',
         'camera/Camera.vala',
-        'camera/CameraBranch.vala',
         'camera/CameraTable.vala',
             'camera/DiscoveredCamera.vala',
         'camera/GPhoto.vala',
         'camera/ImportPage.vala',
         'searches/Searches.vala',
-        'searches/SearchesBranch.vala',
         'searches/SearchBoolean.vala',
         'searches/SavedSearchPage.vala',
         'searches/SavedSearchDialog.vala',
         'config/Config.vala',
         'config/ConfigurationInterfaces.vala',
         'config/GSettingsEngine.vala',
-        'data_imports/DataImports.vala',
-        'data_imports/DataImportsPluginHost.vala',
-        'data_imports/DataImportsUI.vala',
-        'data_imports/DataImportJob.vala',
-        'data_imports/DataImportSource.vala',
         'folders/Folders.vala',
-        'folders/FoldersBranch.vala',
         'folders/FoldersPage.vala',
-        'import-roll/ImportRollBranch.vala',
-        'import-roll/ImportRollEntry.vala',
         'main.vala',
         'AppWindow.vala',
         'CollectionPage.vala',
@@ -186,7 +156,6 @@ executable(
         'Page.vala',
         'SinglePhotoPage.vala',
         'CheckerboardPage.vala',
-        'DragAndDropHandler.vala',
         'PageMessagePane.vala',
         'SortedList.vala',
         'Dimensions.vala',

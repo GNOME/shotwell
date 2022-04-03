@@ -35,9 +35,12 @@ public class Library.FlaggedSidebarEntry : Library.HideablePageEntry, Sidebar.In
         return true;
     }
     
+
+#if 0
     public bool internal_drop_received_arbitrary(Gtk.SelectionData data) {
         return false;
     }
+#endif
 
     private void on_flagged_contents_altered() {
         visible = (get_total_flagged() != 0);

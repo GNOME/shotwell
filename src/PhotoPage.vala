@@ -371,18 +371,20 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public const int PIXBUF_CACHE_COUNT = 5;
     public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
     
-    private class EditingHostCanvas : EditingTools.PhotoCanvas {
+    private class EditingHostCanvas : Object { //EditingTools.PhotoCanvas {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
+        #if 0
             base(host_page.get_container(), host_page.canvas.get_window(), host_page.get_photo(),
                 host_page.get_cairo_context(), host_page.get_surface_dim(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
+            #endif
             this.host_page = host_page;
         }
         
-        public override void repaint() {
+        public /* override */ void repaint() {
             host_page.repaint();
         }
     }
@@ -391,25 +393,29 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ViewCollection? parent_view = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
-    private Gtk.ToolButton rotate_button = null;
-    private Gtk.ToggleToolButton crop_button = null;
-    private Gtk.ToggleToolButton redeye_button = null;
-    private Gtk.ToggleToolButton adjust_button = null;
-    private Gtk.ToggleToolButton straighten_button = null;
+    private Gtk.Button rotate_button = null;
+    private Gtk.ToggleButton crop_button = null;
+    private Gtk.ToggleButton redeye_button = null;
+    private Gtk.ToggleButton adjust_button = null;
+    private Gtk.ToggleButton straighten_button = null;
 #if ENABLE_FACES
-    private Gtk.ToggleToolButton faces_button = null;
+    private Gtk.ToggleButton faces_button = null;
 #endif
-    private Gtk.ToolButton enhance_button = null;
+    private Gtk.Button enhance_button = null;
     private Gtk.Scale zoom_slider = null;
-    private Gtk.ToolButton prev_button = new Gtk.ToolButton(null, Resources.PREVIOUS_LABEL);
-    private Gtk.ToolButton next_button = new Gtk.ToolButton(null, Resources.NEXT_LABEL);
+    private Gtk.Button prev_button = new Gtk.Button.with_label(Resources.PREVIOUS_LABEL);
+    private Gtk.Button next_button = new Gtk.Button.with_label(Resources.NEXT_LABEL);
+    # if 0
     private EditingTools.EditingTool current_tool = null;
-    private Gtk.ToggleToolButton current_editing_toggle = null;
+    #endif 
+    private Gtk.ToggleButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private bool photo_missing = false;
     private PixbufCache cache = null;
     private PixbufCache master_cache = null;
+    #if 0
     private DragAndDropHandler dnd_handler = null;
+    #endif
     private bool enable_interactive_zoom_refresh = false;
     private Gdk.Point zoom_pan_start_point;
     private bool is_pan_in_progress = false;
@@ -431,132 +437,109 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // the viewport can change size independent of the window being resized (when the searchbar
         // disappears, for example)
-        viewport.size_allocate.connect(on_viewport_resized);
+        //viewport.resize.connect(on_viewport_resized);
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
-        Gtk.Toolbar toolbar = get_toolbar();
+        var toolbar = get_toolbar();
         
         // rotate tool
-        rotate_button = new Gtk.ToolButton (null, Resources.ROTATE_CW_LABEL);
+        rotate_button = new Gtk.Button.with_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked.connect(on_rotate_clockwise);
-        rotate_button.is_important = true;
-        toolbar.insert(rotate_button, -1);
+        toolbar.append(rotate_button);
+        #if 0
         unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
         Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
         Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
+        #endif
         
         // crop tool
-        crop_button = new Gtk.ToggleToolButton ();
+        crop_button = new Gtk.ToggleButton ();
         crop_button.set_icon_name("image-crop-symbolic");
         crop_button.set_label(Resources.CROP_LABEL);
         crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
-        crop_button.toggled.connect(on_crop_toggled);
-        crop_button.is_important = true;
-        toolbar.insert(crop_button, -1);
+//        crop_button.toggled.connect(on_crop_toggled);
+        toolbar.append(crop_button);
 
         // straightening tool
-        straighten_button = new Gtk.ToggleToolButton ();
+        straighten_button = new Gtk.ToggleButton ();
         straighten_button.set_icon_name(Resources.STRAIGHTEN);
         straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
         straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
-        straighten_button.toggled.connect(on_straighten_toggled);
-        straighten_button.is_important = true;
-        toolbar.insert(straighten_button, -1);
+//        straighten_button.toggled.connect(on_straighten_toggled);
+        toolbar.append(straighten_button);
 
         // redeye reduction tool
-        redeye_button = new Gtk.ToggleToolButton ();
+        redeye_button = new Gtk.ToggleButton ();
         redeye_button.set_icon_name("stock-eye-symbolic");
         redeye_button.set_label(Resources.RED_EYE_LABEL);
         redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
-        redeye_button.toggled.connect(on_redeye_toggled);
-        redeye_button.is_important = true;
-        toolbar.insert(redeye_button, -1);
+//        redeye_button.toggled.connect(on_redeye_toggled;
+        toolbar.append(redeye_button);
         
         // adjust tool
-        adjust_button = new Gtk.ToggleToolButton();
+        adjust_button = new Gtk.ToggleButton();
         adjust_button.set_icon_name(Resources.ADJUST);
         adjust_button.set_label(Resources.ADJUST_LABEL);
         adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
-        adjust_button.toggled.connect(on_adjust_toggled);
-        adjust_button.is_important = true;
-        toolbar.insert(adjust_button, -1);
+//        adjust_button.toggled.connect(on_adjust_toggled);
+        toolbar.append(adjust_button);
 
         // enhance tool
-        enhance_button = new Gtk.ToolButton(null, Resources.ENHANCE_LABEL);
+        enhance_button = new Gtk.Button.with_label (Resources.ENHANCE_LABEL);
         enhance_button.set_icon_name(Resources.ENHANCE);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
-        enhance_button.clicked.connect(on_enhance);
-        enhance_button.is_important = true;
-        toolbar.insert(enhance_button, -1);
+//        enhance_button.clicked.connect(on_enhance);
+        toolbar.append (enhance_button);
         
 #if ENABLE_FACES
         // faces tool
         insert_faces_button(toolbar);
-        faces_button = new Gtk.ToggleToolButton();
+        faces_button = new Gtk.ToggleButton();
         //face_button
 #endif
 
         // separator to force next/prev buttons to right side of toolbar
-        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_expand(true);
-        separator.set_draw(false);
-        toolbar.insert(separator, -1);
         
         Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         
-        Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        Gtk.EventBox zoom_out_box = new Gtk.EventBox();
-        zoom_out_box.set_above_child(true);
-        zoom_out_box.set_visible_window(false);
-        zoom_out_box.add(zoom_out);
+        Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
+        //zoom_out.button_press_event.connect(on_zoom_out_pressed);
 
-        zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
-
-        zoom_group.pack_start(zoom_out_box, false, false, 0);
+        zoom_group.append(zoom_out);
 
         // zoom slider
         zoom_slider = new Gtk.Scale(Gtk.Orientation.HORIZONTAL, new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
         zoom_slider.set_draw_value(false);
         zoom_slider.set_size_request(120, -1);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        #if 0
         zoom_slider.button_press_event.connect(on_zoom_slider_drag_begin);
         zoom_slider.button_release_event.connect(on_zoom_slider_drag_end);
         zoom_slider.key_press_event.connect(on_zoom_slider_key_press);
+        #endif
 
-        zoom_group.pack_start(zoom_slider, false, false, 0);
+        zoom_group.prepend(zoom_slider);
         
-        Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        Gtk.EventBox zoom_in_box = new Gtk.EventBox();
-        zoom_in_box.set_above_child(true);
-        zoom_in_box.set_visible_window(false);
-        zoom_in_box.add(zoom_in);
-        
-        zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
+        Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic");
+        //zoom_in.button_press_event.connect(on_zoom_in_pressed);
 
-        zoom_group.pack_start(zoom_in_box, false, false, 0);
+        zoom_group.prepend(zoom_in);
 
-        Gtk.ToolItem group_wrapper = new Gtk.ToolItem();
-        group_wrapper.add(zoom_group);
-
-        toolbar.insert(group_wrapper, -1);
-
-        separator = new Gtk.SeparatorToolItem();
-        separator.set_draw(false);
-        toolbar.insert(separator, -1);
+        toolbar.append(zoom_group);
 
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
         prev_button.set_icon_name("go-previous-symbolic");
         prev_button.clicked.connect(on_previous_photo);
-        toolbar.insert(prev_button, -1);
+        toolbar.append(prev_button);
         
         // next button
         next_button.set_tooltip_text(_("Next photo"));
         next_button.set_icon_name("go-next-symbolic");
         next_button.clicked.connect(on_next_photo);
-        toolbar.insert(next_button, -1);
+        toolbar.append(next_button);
     }
     
     ~EditingHostPage() {
@@ -586,6 +569,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_cursor_for_zoom_context();
     }
 
+# if 0
     private bool on_zoom_slider_drag_begin(Gdk.EventButton event) {
         enable_interactive_zoom_refresh = true;
         
@@ -618,7 +602,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         snap_zoom_to_max();
         return true;
     }
+    #endif
 
+# if 0
     private Gdk.Point get_cursor_wrt_viewport(Gdk.EventScroll event) {
         Gdk.Point cursor_wrt_canvas = {0};
         cursor_wrt_canvas.x = (int) event.x;
@@ -654,6 +640,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         return add_points(viewport_center_iso, cursor_wrt_center_iso);
     }
+    #endif
 
     private double snap_interpolation_factor(double interp) {
         if (interp < 0.03)
@@ -668,6 +655,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return snap_interpolation_factor(get_zoom_state().get_interpolation_factor() + adjustment);
     }
 
+#if 0
     private void zoom_about_event_cursor_point(Gdk.EventScroll event, double zoom_increment) {
         if (photo_missing)
             return;
@@ -701,6 +689,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         update_cursor_for_zoom_context();
     }
+    #endif
 
     protected void snap_zoom_to_min() {
         zoom_slider.set_value(0.0);
@@ -715,6 +704,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.set_value(iso_state.get_interpolation_factor());
     }
 
+#if 0
     protected virtual bool on_zoom_slider_key_press(Gdk.EventKey event) {
         switch (Gdk.keyval_name(event.keyval)) {
             case "equal":
@@ -740,6 +730,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         return false;
     }
+    #endif
 
     protected virtual void on_increase_size() {
         zoom_slider.set_value(adjust_interpolation_factor(ZOOM_INCREMENT_SIZE));
@@ -758,6 +749,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return zoom_buffer;
     }
     
+    #if 0
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
         if (get_zoom_state().is_max() || !zoom_slider.get_sensitive())
             return false;
@@ -773,6 +765,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_about_event_cursor_point(event, -ZOOM_INCREMENT_SIZE);
         return true;
     }
+    #endif
 
     protected override void restore_zoom_state() {
         base.restore_zoom_state();
@@ -790,8 +783,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.set_container(container);
         
         // DnD not available in fullscreen mode
-        if (!(container is FullscreenWindow))
-            dnd_handler = new DragAndDropHandler(this);
+        //if (!(container is FullscreenWindow))
+          //  dnd_handler = new DragAndDropHandler(this);
     }
     
     public ViewCollection? get_parent_view() {
@@ -871,7 +864,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         cancel_zoom();
         is_pan_in_progress = false;
         
-        deactivate_tool();
+        //deactivate_tool();
 
         // Ticket #3255 - Checkerboard page didn't `remember` what was selected
         // when the user went into and out of the photo page without navigating 
@@ -889,7 +882,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public override void switching_to_fullscreen(FullscreenWindow fsw) {
         base.switching_to_fullscreen(fsw);
         
-        deactivate_tool();
+        //deactivate_tool();
         
         cancel_zoom();
         is_pan_in_progress = false;
@@ -976,6 +969,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
             // displayed
             Dimensions max_dim = photo.get_dimensions();
+            #if 0
             if (current_tool != null) {
                 try {
                     Dimensions tool_pixbuf_dim;
@@ -993,6 +987,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                     return;
                 }
             }
+            #endif
             
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
@@ -1106,7 +1101,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.sensitive = sensitivity;
         zoom_slider.sensitive = sensitivity;
 
-        deactivate_tool();
+        ////deactivate_tool();
     }
     
     // This should only be called when it's known that the photo is actually missing.
@@ -1177,7 +1172,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             }
         }
         if (pixbuf == null) {
-            pixbuf = get_placeholder_pixbuf();
+            //pixbuf = get_placeholder_pixbuf();
             get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
         }
         return pixbuf;
@@ -1199,7 +1194,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 return;
         }
 
-        deactivate_tool();
+        //deactivate_tool();
         
         // swap out new photo and old photo and process change
         Photo old_photo = get_photo();
@@ -1244,8 +1239,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // a left pointer in case it had been a hand-grip cursor indicating that panning
         // was possible; the null guards are required because zoom can be cancelled at
         // any time
-        if (canvas != null && canvas.get_window() != null)
-            set_page_cursor(Gdk.CursorType.LEFT_PTR);
+        if (canvas != null /*&& canvas.get_window() != null*/)
+            set_page_cursor("default");
         
         repaint();
     }
@@ -1292,8 +1287,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         try {
             Dimensions tool_pixbuf_dim = {0};
-            if (current_tool != null)
-                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out tool_pixbuf_dim);
+            //if (current_tool != null)
+            //    pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out tool_pixbuf_dim);
                 
             if (pixbuf != null)
                 max_dim = tool_pixbuf_dim;                
@@ -1323,7 +1318,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         return false;
     }
-    
+  #if 0  
     protected override void on_resize(Gdk.Rectangle rect) {
         base.on_resize(rect);
 
@@ -1339,6 +1334,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         update_pixbuf();
     }
+    #endif
     
     private void on_viewport_resized() {
         // this means the viewport (the display area) has changed, but not necessarily the
@@ -1360,6 +1356,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         rotate_button.sensitive = ((photo != null) && (!photo_missing) && photo.check_can_rotate()) ?
             is_rotate_available(photo) : false;
+            #if 0
         crop_button.sensitive = ((photo != null) && (!photo_missing)) ?
             EditingTools.CropTool.is_available(photo, scaling) : false;
         redeye_button.sensitive = ((photo != null) && (!photo_missing)) ?
@@ -1370,10 +1367,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             is_enhance_available(photo) : false;
         straighten_button.sensitive = ((photo != null) && (!photo_missing)) ?
             EditingTools.StraightenTool.is_available(photo, scaling) : false;
+            #endif
                     
         base.update_actions(selected_count, count);
     }
     
+    #if 0
     protected override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
         if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed() && has_photo())
@@ -1402,6 +1401,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         return base.on_alt_released(event);
     }
+    #endif
 
     private void swap_in_original() {
         Gdk.Pixbuf original;
@@ -1437,6 +1437,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
 
+#if 0
     private void activate_tool(EditingTools.EditingTool tool) {
         // cancel any zoom -- we don't currently allow tools to be used when an image is zoomed,
         // though we may at some point in the future.
@@ -1486,7 +1487,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // repaint entire view, with the tool now hooked in
         repaint();
     }
+    #endif
     
+    #if 0
     private void deactivate_tool(Command? command = null, Gdk.Pixbuf? new_pixbuf = null, 
         Dimensions new_max_dim = Dimensions(), bool needs_improvement = false) {
         if (current_tool == null)
@@ -1621,6 +1624,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override bool on_right_click(Gdk.EventButton event) {
         return on_context_buttonpress(event);
     }
+    #endif
     
     private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
         if (!map.has_key(get_photo()))
@@ -1660,12 +1664,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void update_cursor_for_zoom_context() {
         if (is_panning_possible())
-            set_page_cursor(Gdk.CursorType.FLEUR);
+            set_page_cursor("move");
         else
-            set_page_cursor(Gdk.CursorType.LEFT_PTR);
+            set_page_cursor("default");
     }
     
     // Return true to block the DnD handler from activating a drag
+    #if 0
     protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         if (current_tool != null) {
             current_tool.on_motion(x, y, mask);
@@ -1814,21 +1819,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+    #endif
     
     protected override void new_surface(Cairo.Context default_ctx, Dimensions dim) {
         // if tool is open, update its canvas object
-        if (current_tool != null)
-            current_tool.canvas.set_surface(default_ctx, dim);
+        //if (current_tool != null)
+        //    current_tool.canvas.set_surface(default_ctx, dim);
     }
     
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
         Dimensions old_dim) {
         // only purpose here is to inform editing tool of change and drop the cancelled
         // pixbuf, which is now sized incorrectly
+        #if 0
         if (current_tool != null && reason != SinglePhotoPage.UpdateReason.QUALITY_IMPROVEMENT) {
             current_tool.canvas.resized_pixbuf(old_dim, pixbuf, get_scaled_pixbuf_position());
             cancel_editing_pixbuf = null;
         }
+        #endif
     }
     
     protected virtual Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
@@ -1848,11 +1856,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void paint(Cairo.Context ctx, Dimensions ctx_dim) {
+        #if 0
         if (current_tool != null) {
             current_tool.paint(ctx);
             
             return;
         }
+        #endif
         
         if (photo_missing && has_photo()) {
             set_source_color_from_string(ctx, "#000");
@@ -1915,7 +1925,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void rotate(Rotation rotation, string name, string description) {
         cancel_zoom();
 
-        deactivate_tool();
+        //deactivate_tool();
         
         if (!has_photo())
             return;
@@ -1945,7 +1955,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (photo_missing)
             return;
 
-        deactivate_tool();
+        //deactivate_tool();
         
         if (!has_photo())
             return;
@@ -2028,6 +2038,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
 
+#if 0
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
@@ -2168,6 +2179,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EnhanceSingleCommand command = new EnhanceSingleCommand(get_photo());
         get_command_manager().execute(command);
     }
+    #endif
     
     public void on_copy_adjustments() {
         if (!has_photo())
@@ -2186,6 +2198,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
+#if 0
     private void place_tool_window() {
         if (current_tool == null)
             return;
@@ -2261,9 +2274,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool_window.show();
         tool_window.present();
     }
+    #endif
     
     protected override void on_next_photo() {
-        deactivate_tool();
+        //deactivate_tool();
         
         if (!has_photo())
             return;
@@ -2296,7 +2310,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void on_previous_photo() {
-        deactivate_tool();
+        //deactivate_tool();
         
         if (!has_photo())
             return;
@@ -2329,7 +2343,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     public bool has_current_tool() {
-        return (current_tool != null);
+        return false; //(current_tool != null);
     }
     
     protected void unset_view_collection() {
@@ -2340,7 +2354,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // it in LibraryPhotoPage, since FacesTool must only be present in
     // LibraryMode, but it need to be called from constructor of EditingHostPage
     // to place it correctly in the toolbar.
-    protected virtual void insert_faces_button(Gtk.Toolbar toolbar) {
+    protected virtual void insert_faces_button(Gtk.Box toolbar) {
         ;
     }
 }
@@ -2420,13 +2434,13 @@ public class LibraryPhotoPage : EditingHostPage {
         { "RotateCounterclockwise", on_rotate_counterclockwise },
         { "FlipHorizontally", on_flip_horizontally },
         { "FlipVertically", on_flip_vertically },
-        { "Enhance", on_enhance },
+        //{ "Enhance", on_enhance },
         { "CopyColorAdjustments", on_copy_adjustments },
         { "PasteColorAdjustments", on_paste_adjustments },
-        { "Crop", toggle_crop },
-        { "Straighten", toggle_straighten },
-        { "RedEye", toggle_redeye },
-        { "Adjust", toggle_adjust },
+        //{ "Crop", toggle_crop },
+        //{ "Straighten", toggle_straighten },
+        //{ "RedEye", toggle_redeye },
+        //{ "Adjust", toggle_adjust },
         { "Revert", on_revert },
         { "EditTitle", on_edit_title },
         { "EditComment", on_edit_comment },
@@ -2546,9 +2560,9 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("FlipVertically", rotate_possible);
 
         if (has_photo()) {
-            set_action_sensitive("Crop", EditingTools.CropTool.is_available(get_photo(), Scaling.for_original()));
-            set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
-                Scaling.for_original()));
+//            set_action_sensitive("Crop", EditingTools.CropTool.is_available(get_photo(), Scaling.for_original()));
+//            set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
+//                Scaling.for_original()));
         }
                  
         update_flag_action();
@@ -2615,7 +2629,8 @@ public class LibraryPhotoPage : EditingHostPage {
     public void display_for_collection(CollectionPage return_page, Photo photo, 
         ViewCollection? view = null) {
         this.return_page = return_page;
-        return_page.destroy.connect(on_page_destroyed);
+        //return_page.destroy.connect(on_page_destroyed);
+        //TODO
         
         display_copy_of(view != null ? view : return_page.get_view(), photo);
     }
@@ -2693,6 +2708,7 @@ public class LibraryPhotoPage : EditingHostPage {
         update_zoom_menu_item_sensitivity();
     }
 
+#if 0
     protected override bool on_zoom_slider_key_press(Gdk.EventKey event) {
         if (base.on_zoom_slider_key_press(event))
             return true;
@@ -2704,6 +2720,7 @@ public class LibraryPhotoPage : EditingHostPage {
             return false;
         }
     }
+    #endif
 
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
@@ -2756,6 +2773,7 @@ public class LibraryPhotoPage : EditingHostPage {
         base.notify_photo_backing_missing(photo, missing);
     }
     
+    #if 0
     public override bool key_press_event(Gdk.EventKey event) {
         if (base.key_press_event != null && base.key_press_event(event) == true)
             return true;
@@ -2873,9 +2891,10 @@ public class LibraryPhotoPage : EditingHostPage {
 
         return true;
     }
+    #endif
 
     protected override bool on_context_keypress() {
-        popup_context_menu(get_context_menu());
+        //popup_context_menu(get_context_menu());
         
         return true;
     }

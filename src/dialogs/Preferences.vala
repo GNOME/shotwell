@@ -28,7 +28,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private SortedList<AppInfo> external_raw_apps;
     private SortedList<AppInfo> external_photo_apps;
     [GtkChild]
-    private unowned Gtk.FileChooserButton library_dir_button;
+    private unowned Gtk.Button library_dir_button;
     [GtkChild]
     private unowned Gtk.ComboBoxText dir_pattern_combo;
     [GtkChild]
@@ -55,20 +55,20 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.Notebook preferences_notebook;
 
     [GtkChild]
-    private unowned Gtk.RadioButton transparent_checker_radio;
+    private unowned Gtk.ToggleButton transparent_checker_radio;
     [GtkChild]
-    private unowned Gtk.RadioButton transparent_solid_radio;
+    private unowned Gtk.ToggleButton transparent_solid_radio;
     [GtkChild]
     private unowned Gtk.ColorButton transparent_solid_color;
     [GtkChild]
-    private unowned Gtk.RadioButton transparent_none_radio;
+    private unowned Gtk.ToggleButton transparent_none_radio;
 
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
 
-        set_parent_window(AppWindow.get_instance().get_parent_window());
+        //set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
-        delete_event.connect(on_delete);
+        close_request.connect(on_delete);
         response.connect(on_close);
 
         transparent_checker_radio.toggled.connect(on_radio_changed);
@@ -126,7 +126,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        ((Gtk.Container) preferences_notebook.get_nth_page (2)).add (plugins_mediator);
+        //preferences_notebook.get_nth_page (2).set_child (plugins_mediator);
         ((Gtk.Container) preferences_notebook.get_nth_page (3)).add (new Shotwell.ProfileBrowser());
 
 
@@ -228,11 +228,13 @@ public class PreferencesDialog : Gtk.Dialog {
                         ((FileIcon) app_icon).get_file().get_path()), Resources.DEFAULT_ICON_SCALE,
                         Gdk.InterpType.BILINEAR, false));
                 } else if (app_icon is ThemedIcon) {
+                #if 0
                     Gdk.Pixbuf icon_pixbuf =
                         Gtk.IconTheme.get_default().load_icon(((ThemedIcon) app_icon).get_names()[0],
                         Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
 
                     combo_store.set_value(iter, 0, icon_pixbuf);
+                    #endif
                 }
             } catch (GLib.Error error) {
                 warning("Error loading icon pixbuf: " + error.message);
@@ -287,8 +289,8 @@ public class PreferencesDialog : Gtk.Dialog {
             preferences_dialog = new PreferencesDialog();
 
         preferences_dialog.populate_preference_options();
-        preferences_dialog.show_all();
-        preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
+        preferences_dialog.show();
+        //TODO preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
         // from the menus a second time.
@@ -318,7 +320,7 @@ public class PreferencesDialog : Gtk.Dialog {
             return true;
 
         commit_on_close();
-        return hide_on_delete(); //prevent widgets from getting destroyed
+        return true; //hide_on_delete(); //prevent widgets from getting destroyed
     }
 
     private void on_close() {
@@ -411,9 +413,10 @@ public class PreferencesDialog : Gtk.Dialog {
     }
 
     private void on_current_folder_changed() {
-        lib_dir = library_dir_button.get_filename();
+        //lib_dir = library_dir_button.get_filename();
     }
 
+#if 0
     public override bool map_event(Gdk.EventAny event) {
         var result = base.map_event(event);
         // Set the signal for the lib dir button after the dialog is displayed,
@@ -424,6 +427,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         return result;
     }
+    #endif
 
     private void add_to_dir_formats(string name, string? pattern) {
         PathFormat pf = new PathFormat(name, pattern);

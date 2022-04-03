@@ -285,9 +285,11 @@ class ImportPreview : MediaSourceItem {
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
             if (placeholder_preview == null) {
+            #if 0
                 placeholder_preview = get_placeholder_pixbuf();
                 placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
                     Gdk.InterpType.BILINEAR, true);
+                    #endif
             }
             
             pixbuf = placeholder_preview;
@@ -753,75 +755,56 @@ public class ImportPage : CheckerboardPage {
         Video.global.contents_altered.disconnect(on_media_added_removed);
     }
     
-    public override Gtk.Toolbar get_toolbar() {
+    public override Gtk.Box get_toolbar() {
         if (toolbar == null) {
             base.get_toolbar();
 
             // hide duplicates checkbox
             hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
             hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
-            hide_imported.clicked.connect(on_hide_imported);
+            hide_imported.toggled.connect(on_hide_imported);
             hide_imported.sensitive = false;
             hide_imported.active = Config.Facade.get_instance().get_hide_photos_already_imported();
-            Gtk.ToolItem hide_item = new Gtk.ToolItem();
-            hide_item.is_important = true;
-            hide_item.add(hide_imported);
             
-            toolbar.insert(hide_item, -1);
-            
-            // separator to force buttons to right side of toolbar
-            Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-            separator.set_draw(false);
-            
-            toolbar.insert(separator, -1);
+            toolbar.append(hide_imported);
             
             // progress bar in center of toolbar
             progress_bar.set_orientation(Gtk.Orientation.HORIZONTAL);
             progress_bar.visible = false;
-            Gtk.ToolItem progress_item = new Gtk.ToolItem();
-            progress_item.set_expand(true);
-            progress_item.add(progress_bar);
             progress_bar.set_show_text(true);
             
-            toolbar.insert(progress_item, -1);
+            toolbar.append(progress_bar);
             
             // Find button
-            Gtk.ToggleToolButton find_button = new Gtk.ToggleToolButton();
+            Gtk.ToggleButton find_button = new Gtk.ToggleButton();
             find_button.set_icon_name("edit-find-symbolic");
             find_button.set_action_name ("win.CommonDisplaySearchbar");
             
-            toolbar.insert(find_button, -1);
-            
-            // Separator
-            toolbar.insert(new Gtk.SeparatorToolItem(), -1);
+            toolbar.append(find_button);
             
             // Import selected
-            Gtk.ToolButton import_selected_button = new Gtk.ToolButton(null, null);
-            import_selected_button.set_icon_name(Resources.IMPORT);
+            Gtk.Button import_selected_button = new Gtk.Button.from_icon_name(Resources.IMPORT);
             import_selected_button.set_label(_("Import _Selected"));
-            import_selected_button.is_important = true;
             import_selected_button.use_underline = true;
             import_selected_button.set_action_name ("win.ImportSelected");
             
-            toolbar.insert(import_selected_button, -1);
+            toolbar.append(import_selected_button);
             
             // Import all
-            Gtk.ToolButton import_all_button = new Gtk.ToolButton(null, null);
-            import_all_button.set_icon_name(Resources.IMPORT_ALL);
+            Gtk.Button import_all_button = new Gtk.Button.from_icon_name(Resources.IMPORT_ALL);
             import_all_button.set_label(_("Import _All"));
-            import_all_button.is_important = true;
             import_all_button.use_underline = true;
             import_all_button.set_action_name ("win.ImportAll");
             
-            toolbar.insert(import_all_button, -1);
+            toolbar.append(import_all_button);
 
             // restrain the recalcitrant rascal!  prevents the progress bar from being added to the
             // show_all queue so we have more control over its visibility
-            progress_bar.set_no_show_all(true);
+            progress_bar.set_visible(true);
             
             update_toolbar_state();
             
-            show_all();
+            show();
         }
         
         return toolbar;
@@ -1000,7 +983,7 @@ public class ImportPage : CheckerboardPage {
                         Gtk.ButtonsType.CANCEL, "%s", mounted_message);
                     dialog.title = Resources.APP_TITLE;
                     dialog.add_button(_("_Unmount"), Gtk.ResponseType.YES);
-                    int dialog_res = dialog.run();
+                    int dialog_res = 0; // TODO dialog.run();
                     dialog.destroy();
                     
                     if (dialog_res != Gtk.ResponseType.YES) {
@@ -1016,7 +999,7 @@ public class ImportPage : CheckerboardPage {
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
                         Gtk.ButtonsType.OK, "%s", locked_message);
                     dialog.title = Resources.APP_TITLE;
-                    dialog.run();
+                    // TODO dialog.run();
                     dialog.destroy();
                     
                     set_page_message(_("Please close any other application using the camera."));

@@ -31,7 +31,7 @@ public class StaticMessagePane : Spit.Publishing.DialogPane, Gtk.Box {
 
         if (enable_markup) {
             static_msg_label.set_markup(message_string);
-            static_msg_label.set_line_wrap(true);
+            static_msg_label.set_wrap(true);
             static_msg_label.set_use_markup(true);
         } else {
             static_msg_label.set_label(message_string);

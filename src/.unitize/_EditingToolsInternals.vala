@@ -16,14 +16,14 @@ public void init_entry() throws Error {
 
     Unit.init_entry();
 
-    EditingTools.init();
+    //EditingTools.init();
 }
 
 public void terminate_entry() {
     if (_unit_init_count == 0 || --_unit_init_count != 0)
         return;
 
-    EditingTools.terminate();
+    //EditingTools.terminate();
 
     Unit.terminate_entry();
 }

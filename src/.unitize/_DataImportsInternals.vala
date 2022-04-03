@@ -16,14 +16,14 @@ public void init_entry() throws Error {
 
     Unit.init_entry();
 
-    DataImports.init();
+    //DataImports.init();
 }
 
 public void terminate_entry() {
     if (_unit_init_count == 0 || --_unit_init_count != 0)
         return;
 
-    DataImports.terminate();
+    //DataImports.terminate();
 
     Unit.terminate_entry();
 }

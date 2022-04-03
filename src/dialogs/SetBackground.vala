@@ -25,8 +25,8 @@ public class SetBackgroundPhotoDialog : Gtk.Dialog {
     }
 
     public bool execute(out bool desktop_background, out bool screensaver) {
-        this.show_all();
-        var result = this.run() == Gtk.ResponseType.OK;
+        this.show();
+        var result = false; //this.run() == Gtk.ResponseType.OK;
         this.hide ();
 
         desktop_background = desktop_background_checkbox.active;

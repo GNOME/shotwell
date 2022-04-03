@@ -13,7 +13,7 @@ private abstract class Properties : Gtk.Box {
 
         grid.row_spacing = 6;
         grid.column_spacing = 12;
-        pack_start(grid, false, false, 0);
+        append(grid);
     }
 
     protected void add_line(string label_text, string info_text, bool multi_line = false, string? href = null) {
@@ -26,8 +26,7 @@ private abstract class Properties : Gtk.Box {
         label.set_markup(GLib.Markup.printf_escaped("<span font_weight=\"bold\">%s</span>", label_text));
 
         if (multi_line) {
-            Gtk.ScrolledWindow info_scroll = new Gtk.ScrolledWindow(null, null);
-            info_scroll.shadow_type = Gtk.ShadowType.NONE;
+            Gtk.ScrolledWindow info_scroll = new Gtk.ScrolledWindow();
             Gtk.TextView view = new Gtk.TextView();
             // by default TextView widgets have a white background, which
             // makes sense during editing. In this instance we only *show*
@@ -39,7 +38,7 @@ private abstract class Properties : Gtk.Box {
             view.set_editable(false);
             view.buffer.text = is_string_empty(info_text) ? "" : info_text;
             view.hexpand = true;
-            info_scroll.add(view);
+            info_scroll.set_child(view);
             label.halign = Gtk.Align.END;
             label.valign = Gtk.Align.START;
             info = (Gtk.Widget) info_scroll;
@@ -144,8 +143,8 @@ private abstract class Properties : Gtk.Box {
     }
 
     protected virtual void clear_properties() {
-        foreach (Gtk.Widget child in grid.get_children())
-            grid.remove(child);
+        //foreach (Gtk.Widget child in grid.get_children())
+        //    grid.remove(child);
 
         line_count = 0;
     }
@@ -153,7 +152,7 @@ private abstract class Properties : Gtk.Box {
     public void update_properties(Page page) {
         clear_properties();
         internal_update_properties(page);
-        show_all();
+        show();
     }
 
     public virtual void internal_update_properties(Page page) {

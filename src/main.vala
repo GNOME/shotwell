@@ -81,7 +81,7 @@ void library_exec(string[] mounts) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", errormsg);
         dialog.title = Resources.APP_TITLE;
-        dialog.run();
+        dialog.show(); //TODO dialog.run();
         dialog.destroy();
         
         DatabaseTable.terminate();
@@ -113,7 +113,7 @@ void library_exec(string[] mounts) {
             progress_dialog.update_display_every(100);
             progress_dialog.set_minimum_on_screen_time_msec(250);
             try {
-                progress_dialog.icon = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/hicolor/scalable/org.gnome.Shotwell.svg");
+                //progress_dialog.icon = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/hicolor/scalable/org.gnome.Shotwell.svg");
             } catch (Error err) {
                 debug("Warning - could not load application icon for loading window: %s", err.message);
             }
@@ -185,7 +185,7 @@ void library_exec(string[] mounts) {
     foreach (string mount in mounts)
         library_window.mounted_camera_shell_notification(mount, true);
 
-    library_window.show_all();
+    library_window.show();
 
     WelcomeServiceEntry[] selected_import_entries = new WelcomeServiceEntry[0];
     if (Config.Facade.get_instance().get_show_welcome_dialog() &&
@@ -313,7 +313,7 @@ void editing_exec(string filename, bool fullscreen) {
     //       we'll need to register DirectPhoto.global with the MediaCollectionRegistry
     
     DirectWindow direct_window = new DirectWindow(initial_file);
-    direct_window.show_all();
+    direct_window.show();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
 
@@ -386,8 +386,8 @@ void main(string[] args) {
 
     // init GTK (valac has already called g_threads_init())
     try {
-        Gtk.init_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
-            Resources.APP_GETTEXT_PACKAGE);
+        Gtk.init (); //_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
+            // TODO Resources.APP_GETTEXT_PACKAGE);
 
     } catch (Error e) {
         print(e.message + "\n");

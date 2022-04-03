@@ -38,7 +38,7 @@
                 <property name="row-spacing">4</property>
                 <property name="column-spacing">8</property>
                 <child>
-                  <object class="GtkFileChooserButton" id="library_dir_button">
+                  <object class="GtkButton" id="library_dir_button">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="action">select-folder</property>
@@ -354,7 +354,7 @@
                     <property name="can-focus">False</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkRadioButton" id="transparent_checker_radio">
+                      <object class="GtkToggleButton" id="transparent_checker_radio">
                         <property name="label" translatable="yes">Checkered</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -375,7 +375,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <child>
-                          <object class="GtkRadioButton" id="transparent_solid_radio">
+                          <object class="GtkToggleButton" id="transparent_solid_radio">
                             <property name="label" translatable="yes">Solid color</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
@@ -411,7 +411,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="transparent_none_radio">
+                      <object class="GtkToggleButton" id="transparent_none_radio">
                         <property name="label" translatable="yes">None</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>

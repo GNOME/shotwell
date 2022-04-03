@@ -24,17 +24,17 @@ void set_source_color_from_string(Cairo.Context ctx, string spec) {
 private const int MIN_SCALED_WIDTH = 10;
 private const int MIN_SCALED_HEIGHT = 10;
 
-Gdk.Pixbuf get_placeholder_pixbuf () {
+Gdk.Paintable get_placeholder_pixbuf () {
     // Create empty pixbuf.
-    Gdk.Pixbuf? pixbuf = null;
+    Gdk.Paintable? pixbuf = null;
 
     try {
-        var icon_theme = Gtk.IconTheme.get_default ();
-        pixbuf = icon_theme.load_icon("image-missing",
-                Gtk.IconSize.DIALOG, 0);
+        var icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default());
+        pixbuf = icon_theme.lookup_icon("image-missing", null,
+                Gtk.IconSize.LARGE, 0, Gtk.TextDirection.NONE, 0);
     } catch (Error error) {
         try {
-            pixbuf = new Gdk.Pixbuf.from_resource("/org/gnome/Shotwell/icons/image-missing.png");
+            pixbuf = Gdk.Texture.from_resource("/org/gnome/Shotwell/icons/image-missing.png");
         } catch (Error err) {
             warning("Could not load fall-back icon: %s", err.message);
         }

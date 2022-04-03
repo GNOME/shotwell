@@ -44,7 +44,7 @@ async void show_file_in_filemanager(File file) throws Error {
         yield manager.show_items({file.get_uri()}, id);
     } catch (Error e) {
         warning("Failed to launch file manager using DBus, using fall-back: %s", e.message);
-        Gtk.show_uri_on_window(AppWindow.get_instance(), file.get_parent().get_uri(), Gdk.CURRENT_TIME);
+        Gtk.show_uri(AppWindow.get_instance(), file.get_parent().get_uri(), Gdk.CURRENT_TIME);
     }
 }
 

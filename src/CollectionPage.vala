@@ -37,38 +37,28 @@ public abstract class CollectionPage : MediaPage {
         init_item_context_menu("CollectionContextMenu");
         init_toolbar("CollectionToolbar");
         
-        show_all();
+        show();
 
         // watch for updates to the external app settings
         Config.Facade.get_instance().external_app_changed.connect(on_external_app_changed);
     }
 
-    public override Gtk.Toolbar get_toolbar() {
+    public override Gtk.Box get_toolbar() {
         if (toolbar == null) {
             base.get_toolbar();
 
-            // separator to force slider to right side of toolbar
-            Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-            separator.set_expand(true);
-            separator.set_draw(false);
-            get_toolbar().insert(separator, -1);
-
-            Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
-            drawn_separator.set_expand(false);
-            drawn_separator.set_draw(true);
-            
-            get_toolbar().insert(drawn_separator, -1);
-            
             // zoom slider assembly
             MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
             connect_slider(zoom_slider_assembly);
-            get_toolbar().insert(zoom_slider_assembly, -1);
+            get_toolbar().append(zoom_slider_assembly);
 
-            Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+            Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
+            #if 0
+            is this even necessary?
             unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(rotate_button.get_class());
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.KP_Space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
             Gtk.BindingEntry.add_signal(binding_set, Gdk.Key.space, Gdk.ModifierType.CONTROL_MASK, "clicked", 0);
-
+#endif
         }
         
         return toolbar;
@@ -355,6 +345,7 @@ public abstract class CollectionPage : MediaPage {
         }
     }
     
+    #if 0
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
@@ -384,6 +375,7 @@ public abstract class CollectionPage : MediaPage {
         
         return handled ? true : base.on_app_key_pressed(event);
     }
+    #endif
 
     protected override void on_export() {
         if (exporter != null)
@@ -698,6 +690,7 @@ public abstract class CollectionPage : MediaPage {
             photo));
     }
     
+    #if 0
     protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
         Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
         if (rotate_button != null) {
@@ -719,6 +712,7 @@ public abstract class CollectionPage : MediaPage {
 
         return base.on_ctrl_released(event);
     }
+    #endif
     
     public override SearchViewFilter get_search_view_filter() {
         return search_filter;

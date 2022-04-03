@@ -316,8 +316,8 @@ public struct Scaling {
     }
     
     public static Dimensions get_screen_dimensions(Gtk.Window window) {
-        var display = window.get_window().get_display();
-        var monitor = display.get_monitor_at_window(window.get_window());
+        var display = window.get_root().get_display();
+        var monitor = display.get_monitor_at_surface(window.get_surface());
         var geom = monitor.get_geometry();
         
         return Dimensions(geom.width, geom.height);

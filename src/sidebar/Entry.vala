@@ -65,7 +65,9 @@ public interface Sidebar.DestroyableEntry : Sidebar.Entry {
 public interface Sidebar.InternalDropTargetEntry : Sidebar.Entry {
     // Returns true if drop was successful
     public abstract bool internal_drop_received(Gee.List<MediaSource> sources);
+    #if 0
     public abstract bool internal_drop_received_arbitrary(Gtk.SelectionData data);
+    #endif
 }
 
 public interface Sidebar.InternalDragSourceEntry : Sidebar.Entry {

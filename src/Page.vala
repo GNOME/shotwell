@@ -59,7 +59,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
     protected Gtk.Builder builder = new Gtk.Builder ();
-    protected Gtk.Toolbar toolbar;
+    protected Gtk.Box toolbar;
     protected bool in_view = false;
     
     private string page_name;
@@ -78,7 +78,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool alt_pressed = false;
     private bool shift_pressed = false;
     private bool super_pressed = false;
-    private Gdk.CursorType last_cursor = Gdk.CursorType.LEFT_PTR;
+    private string last_cursor = "default";
     private bool cursor_hidden = false;
     private int cursor_hide_msec = 0;
     private uint last_timeout_id = 0;
@@ -95,7 +95,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         set_can_focus(true);
 
-        popup_menu.connect(on_context_keypress);
+        //popup_menu.connect(on_context_keypress);
         
         realize.connect(attach_view_signals);
     }
@@ -108,7 +108,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
-    public override void destroy() {
+    public override void dispose() {
         if (is_destroyed)
             return;
         
@@ -165,6 +165,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public void set_event_source(Gtk.Widget event_source) {
+    #if 0
         assert(this.event_source == null);
 
         this.event_source = event_source;
@@ -181,9 +182,11 @@ public abstract class Page : Gtk.ScrolledWindow {
         event_source.leave_notify_event.connect(on_leave_notify_event);
         event_source.scroll_event.connect(on_mousewheel_internal);
         event_source.realize.connect(on_event_source_realize);
+        #endif 
     }
     
     private void detach_event_source() {
+    #if 0
         if (event_source == null)
             return;
         
@@ -194,6 +197,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         event_source.scroll_event.disconnect(on_mousewheel_internal);
         
         event_source = null;
+        #endif
     }
     
     public Gtk.Widget? get_event_source() {
@@ -249,18 +253,17 @@ public abstract class Page : Gtk.ScrolledWindow {
         return model;
     }
 
-    public virtual Gtk.Toolbar get_toolbar() {
+    public virtual Gtk.Box get_toolbar() {
         if (toolbar == null) {
-            toolbar = toolbar_path == null ? new Gtk.Toolbar() :
+            toolbar = toolbar_path == null ? new Gtk.Box(Gtk.Orientation.HORIZONTAL, 9) :
                                              builder.get_object (toolbar_path)
-                                             as Gtk.Toolbar;
+                                             as Gtk.Box;
             toolbar.get_style_context().add_class("bottom-toolbar");  // for elementary theme
-            toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR);
         }
         return toolbar;
     }
     
-    public virtual Gtk.Menu? get_page_context_menu() {
+    public virtual Gtk.PopoverMenu? get_page_context_menu() {
         return null;
     }
     
@@ -337,14 +340,7 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         action.set_enabled (sensitive);
     }
-    
-    public void activate_action(string name) {
-        var action = get_action(name);
-
-        if (action != null)
-            action.activate (null);
-    }
-    
+   
     public GLib.Action? get_common_action(string name, bool log_warning = true) {
         var action = get_action (name);
 
@@ -401,6 +397,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     private bool get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
+    #if 0
         if (AppWindow.get_instance().get_window() == null) {
             ctrl = false;
             alt = false;
@@ -421,6 +418,8 @@ public abstract class Page : Gtk.ScrolledWindow {
         super = (mask & Gdk.ModifierType.MOD4_MASK) != 0; // not SUPER_MASK
         
         return true;
+        #endif
+        return false;
     }
 
     private void update_modifiers() {
@@ -431,6 +430,7 @@ public abstract class Page : Gtk.ScrolledWindow {
             return;
         }
         
+        #if 0
         if (ctrl_pressed && !ctrl_currently_pressed)
             on_ctrl_released(null);
         else if (!ctrl_pressed && ctrl_currently_pressed)
@@ -450,6 +450,7 @@ public abstract class Page : Gtk.ScrolledWindow {
             on_super_released(null);
         else if (!super_pressed && super_currently_pressed)
             on_super_pressed(null);
+            #endif
         
         ctrl_pressed = ctrl_currently_pressed;
         alt_pressed = alt_currently_pressed;
@@ -590,6 +591,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected virtual void update_actions(int selected_count, int count) {
     }
     
+    #if 0
     private void on_drag_begin(Gdk.DragContext context) {
         drag_begin(context);
     }
@@ -618,6 +620,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool on_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
         return source_drag_failed(context, drag_result);
     }
+    #endif
     
     // Use this function rather than GDK or GTK's get_pointer, especially if called during a 
     // button-down mouse drag (i.e. a window grab).
@@ -633,7 +636,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         }
         
         var seat = Gdk.Display.get_default().get_default_seat();
-        event_source.get_window().get_device_position(seat.get_pointer(), out x, out y, out mask);
+        //event_source.get_window().get_device_position(seat.get_pointer(), out x, out y, out mask);
         
         if (last_down.x < 0 || last_down.y < 0)
             return true;
@@ -651,6 +654,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         return true;
     }
     
+    #if 0
     protected virtual bool on_left_click(Gdk.EventButton event) {
         return false;
     }
@@ -922,6 +926,7 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         return on_configure(event, rect);
     }
+    #endif
     
     private bool check_configure_halted() {
         if (is_destroyed)
@@ -933,11 +938,13 @@ public abstract class Page : Gtk.ScrolledWindow {
         Gtk.Allocation allocation;
         get_allocation(out allocation);
         
+        #if 0
         if (report_move_finished)
             on_move_finished((Gdk.Rectangle) allocation);
         
         if (report_resize_finished)
             on_resize_finished((Gdk.Rectangle) allocation);
+            #endif
         
         last_configure_ms = 0;
         report_move_finished = false;
@@ -946,16 +953,19 @@ public abstract class Page : Gtk.ScrolledWindow {
         return false;
     }
     
+    #if 0
     protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         check_cursor_hiding();
 
         return false;
     }
+    #endif
     
     protected virtual bool on_leave_notify_event() {
         return false;
     }
     
+    #if 0
     private bool on_motion_internal(Gdk.EventMotion event) {
         int x, y;
         Gdk.ModifierType mask;
@@ -1021,19 +1031,24 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected virtual bool on_mousewheel_right(Gdk.EventScroll event) {
         return false;
     }
+    #endif
     
     protected virtual bool on_context_keypress() {
         return false;
     }
     
+    #if 0
     protected virtual bool on_context_buttonpress(Gdk.EventButton event) {
         return false;
     }
+    #endif
     
+
     protected virtual bool on_context_invoked() {
         return true;
     }
 
+#if 0
     protected bool popup_context_menu(Gtk.Menu? context_menu,
         Gdk.EventButton? event = null) {
 
@@ -1044,7 +1059,10 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         return true;
     }
+    #endif
 
+
+#if 0
     protected void on_event_source_realize() {
         assert(event_source.get_window() != null); // the realize event means the Widget has a window
 
@@ -1062,6 +1080,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         if (parent_window != null)
             last_cursor = parent_window.get_cursor().get_cursor_type();
     }
+    #endif
 
     public void set_cursor_hide_time(int hide_time) {
         cursor_hide_msec = hide_time;
@@ -1095,12 +1114,11 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
 
     // Use this method to set the cursor for a page, NOT window.set_cursor(...)
-    protected virtual void set_page_cursor(Gdk.CursorType cursor_type) {
+    protected virtual void set_page_cursor(string cursor_type) {
         last_cursor = cursor_type;
 
         if (!cursor_hidden && event_source != null) {
-            var display = event_source.get_window ().get_display ();
-            event_source.get_window().set_cursor(new Gdk.Cursor.for_display(display, cursor_type));
+            event_source.set_cursor (new Gdk.Cursor.from_name (cursor_type, null));
         }
     }
 
@@ -1121,8 +1139,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         cursor_hidden = true;
 
         if (event_source != null) {
-            var display = event_source.get_window().get_display ();
-            event_source.get_window().set_cursor(new Gdk.Cursor.for_display(display, Gdk.CursorType.BLANK_CURSOR));
+            event_source.set_cursor (new Gdk.Cursor.from_name ("none", null));
         }
 
         // We remove the timeout so reset the id

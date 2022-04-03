@@ -25,24 +25,23 @@ public class ProgressDialog : Gtk.Window {
         if (owner != null)
             set_transient_for(owner);
         set_modal(true);
-        set_type_hint(Gdk.WindowTypeHint.DIALOG);
 
         progress_bar.set_size_request(300, -1);
         progress_bar.set_show_text(true);
 
         Gtk.Box vbox_bar = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        vbox_bar.pack_start(progress_bar, true, false, 0);
+        vbox_bar.prepend(progress_bar);
 
         if (cancellable != null) {
             cancel_button = new Gtk.Button.with_mnemonic(Resources.CANCEL_LABEL);
             cancel_button.clicked.connect(on_cancel);
-            delete_event.connect(on_window_closed);
+            close_request.connect(on_window_closed);
         }
 
         Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-        hbox.pack_start(vbox_bar, true, false, 0);
+        hbox.prepend(vbox_bar);
         if (cancel_button != null)
-            hbox.pack_end(cancel_button, false, false, 0);
+            hbox.append(cancel_button);
 
         Gtk.Label primary_text_label = new Gtk.Label("");
         primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
@@ -50,8 +49,8 @@ public class ProgressDialog : Gtk.Window {
         primary_text_label.yalign = 0.5f;
 
         Gtk.Box vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
-        vbox.pack_start(primary_text_label, false, false, 0);
-        vbox.pack_start(hbox, true, false, 0);
+        vbox.prepend(primary_text_label);
+        vbox.prepend(hbox);
         vbox.halign = Gtk.Align.CENTER;
         vbox.valign = Gtk.Align.CENTER;
         vbox.hexpand = true;
@@ -61,7 +60,7 @@ public class ProgressDialog : Gtk.Window {
         vbox.margin_top = 12;
         vbox.margin_bottom = 12;
 
-        add(vbox);
+        set_child(vbox);
 
         time_started = now_ms();
     }
@@ -70,8 +69,8 @@ public class ProgressDialog : Gtk.Window {
         base.realize();
 
         // if unable to cancel the progress bar, remove the close button
-        if (cancellable == null)
-            get_window().set_functions(Gdk.WMFunction.MOVE);
+        //if (cancellable == null)
+            //get_window().set_functions(Gdk.WMFunction.MOVE);
     }
 
     public void update_display_every(int update_every) {
@@ -109,7 +108,7 @@ public class ProgressDialog : Gtk.Window {
         //UnityProgressBar: try to draw progress bar
         uniprobar.set_visible(true);
 #endif
-        show_all();
+        show();
     }
 
     // This can be used as a ProgressMonitor delegate.
@@ -170,7 +169,7 @@ public class ProgressDialog : Gtk.Window {
                 //UnityProgressBar: try to draw progress bar
                 uniprobar.set_visible(true);
 #endif
-                show_all();
+                show();
                 spin_event_loop();
             }
         }

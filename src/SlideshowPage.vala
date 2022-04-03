@@ -11,8 +11,8 @@ class SlideshowPage : SinglePhotoPage {
     private SourceCollection sources;
     private ViewCollection controller;
     private Photo current;
-    private Gtk.ToolButton play_pause_button;
-    private Gtk.ToolButton settings_button;
+    private Gtk.Button play_pause_button;
+    private Gtk.Button settings_button;
     private PixbufCache cache = null;
     private Timer timer = new Timer();
     private bool playing = true;
@@ -130,38 +130,37 @@ class SlideshowPage : SinglePhotoPage {
         update_transition_effect();
         
         // Set up toolbar
-        Gtk.Toolbar toolbar = get_toolbar();
+        var toolbar = get_toolbar();
         
         // add toolbar buttons
-        Gtk.ToolButton previous_button = new Gtk.ToolButton(null, _("Back"));
+        Gtk.Button previous_button = new Gtk.Button.with_label(_("Back"));
         previous_button.set_icon_name("go-previous-symbolic");
         previous_button.set_tooltip_text(_("Go to the previous photo"));
         previous_button.clicked.connect(on_previous_photo);
         
-        toolbar.insert(previous_button, -1);
+        toolbar.append(previous_button);
         
-        play_pause_button = new Gtk.ToolButton(null, _("Pause"));
+        play_pause_button = new Gtk.Button.with_label( _("Pause"));
         play_pause_button.set_icon_name("media-playback-pause-symbolic");
         play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         play_pause_button.clicked.connect(on_play_pause);
         
-        toolbar.insert(play_pause_button, -1);
+        toolbar.append(play_pause_button);
         
-        Gtk.ToolButton next_button = new Gtk.ToolButton(null, _("Next"));
+        Gtk.Button next_button = new Gtk.Button.with_label(_("Next"));
         next_button.set_icon_name("go-next-symbolic");
         next_button.set_tooltip_text(_("Go to the next photo"));
         next_button.clicked.connect(on_next_photo);
         
-        toolbar.insert(next_button, -1);
+        toolbar.append(next_button);
 
-        settings_button = new Gtk.ToolButton(null, null);
+        settings_button = new Gtk.Button();
         settings_button.set_icon_name("preferences-system-symbolic");
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked.connect(on_change_settings);
-        settings_button.is_important = true;
         
-        toolbar.insert(settings_button, -1);
+        toolbar.append(settings_button);
 
         screensaver = new Screensaver();
     }
@@ -337,6 +336,7 @@ class SlideshowPage : SinglePhotoPage {
         return true;
     }
     
+    #if 0
     public override bool key_press_event(Gdk.EventKey event) {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
@@ -360,16 +360,18 @@ class SlideshowPage : SinglePhotoPage {
         
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+    #endif
 
     private void on_change_settings() {
         SettingsDialog settings_dialog = new SettingsDialog();
-        settings_dialog.show_all();
+        settings_dialog.show();
         
         bool slideshow_playing = playing;
         playing = false;
         hide_toolbar();
         suspend_cursor_hiding();
-        
+        #if 0
+        // TODO
         if (settings_dialog.run() == Gtk.ResponseType.OK) {
             // sync with the config setting so it will persist
             Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
@@ -380,6 +382,7 @@ class SlideshowPage : SinglePhotoPage {
             
             update_transition_effect();
         }
+        #endif
         
         settings_dialog.destroy();
         restore_cursor_hiding();

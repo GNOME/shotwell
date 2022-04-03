@@ -15,7 +15,7 @@ public abstract class CheckerboardPage : Page {
     private string page_context_menu_path = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected CheckerboardItem anchor = null;
-    protected CheckerboardItem cursor = null;
+    protected CheckerboardItem current_cursor = null;
     private CheckerboardItem current_hovered_item = null;
     private bool autoscroll_scheduled = false;
     private CheckerboardItem activated_item = null;
@@ -54,19 +54,13 @@ public abstract class CheckerboardPage : Page {
 
         set_event_source(layout);
 
-        set_border_width(0);
-        set_shadow_type(Gtk.ShadowType.NONE);
-
-        viewport.set_border_width(0);
-        viewport.set_shadow_type(Gtk.ShadowType.NONE);
-
-        viewport.add(stack);
+        viewport.set_child(stack);
 
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
         // run first ... otherwise, the thumbnails draw late
         layout.set_adjustments(get_hadjustment(), get_vadjustment());
 
-        add(viewport);
+        set_child(viewport);
 
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden.connect(on_items_hidden);
@@ -86,41 +80,40 @@ public abstract class CheckerboardPage : Page {
         page_context_menu_path = path;
     }
 
-    public Gtk.Menu? get_context_menu() {
+    public Gtk.PopoverMenu? get_context_menu() {
         // show page context menu if nothing is selected
         return (get_view().get_selected_count() != 0) ? get_item_context_menu() :
             get_page_context_menu();
     }
 
-    private Gtk.Menu item_context_menu;
-    public virtual Gtk.Menu? get_item_context_menu() {
+    private Gtk.PopoverMenu item_context_menu;
+    public virtual Gtk.PopoverMenu? get_item_context_menu() {
         if (item_context_menu == null) {
             var model = this.builder.get_object (item_context_menu_path)
                 as GLib.MenuModel;
-            item_context_menu = new Gtk.Menu.from_model (model);
-            item_context_menu.attach_to_widget (this, null);
+            item_context_menu = new Gtk.PopoverMenu.from_model (model);
         }
 
         return item_context_menu;
     }
 
-    private Gtk.Menu page_context_menu;
-    public override Gtk.Menu? get_page_context_menu() {
+    private Gtk.PopoverMenu page_context_menu;
+    public override Gtk.PopoverMenu? get_page_context_menu() {
         if (page_context_menu_path == null)
             return null;
 
         if (page_context_menu == null) {
             var model = this.builder.get_object (page_context_menu_path)
                 as GLib.MenuModel;
-            page_context_menu = new Gtk.Menu.from_model (model);
-            page_context_menu.attach_to_widget (this, null);
+            page_context_menu = new Gtk.PopoverMenu.from_model (model);
         }
 
         return page_context_menu;
     }
 
     protected override bool on_context_keypress() {
-        return popup_context_menu(get_context_menu());
+        //return popup_context_menu(get_context_menu());
+        return true;
     }
 
     protected virtual string get_view_empty_icon() {
@@ -255,14 +248,15 @@ public abstract class CheckerboardPage : Page {
             if (anchor == item)
                 anchor = null;
 
-            if (cursor == item)
-                cursor = null;
+            if (current_cursor == item)
+                current_cursor = null;
 
             if (current_hovered_item == item)
                 current_hovered_item = null;
         }
     }
 
+#if 0
     protected override bool key_press_event(Gdk.EventKey event) {
         bool handled = true;
 
@@ -571,6 +565,7 @@ public abstract class CheckerboardPage : Page {
         // return true to stop a potential drag-and-drop operation
         return true;
     }
+    #endif
 
     private void updated_selection_band() {
         assert(layout.is_drag_select_active());
@@ -600,8 +595,8 @@ public abstract class CheckerboardPage : Page {
             else
                 to_unselect.mark(item);
 
-            if (cursor == null)
-                cursor = item;
+            if (current_cursor == null)
+                current_cursor = item;
         }
 
         get_view().select_marked(to_select);
@@ -660,7 +655,7 @@ public abstract class CheckerboardPage : Page {
     public void cursor_to_item(CheckerboardItem item) {
         assert(get_view().contains(item));
 
-        cursor = item;
+        current_cursor = item;
 
         if (!get_ctrl_pressed()) {
             get_view().unselect_all();
@@ -679,7 +674,7 @@ public abstract class CheckerboardPage : Page {
         // if there is no better starting point, simply select the first and exit
         // The right half of the or is related to Bug #732334, the cursor might be non-null and still not contained in
         // the view, if the user dragged a full screen Photo off screen
-        if (cursor == null && layout.get_cursor() == null || cursor != null && !get_view().contains(cursor)) {
+        if (cursor == null && layout.get_cursor() == null || cursor != null && !get_view().contains(current_cursor)) {
             CheckerboardItem item = layout.get_item_at_coordinate(0, 0);
             cursor_to_item(item);
             anchor = item;
@@ -688,20 +683,20 @@ public abstract class CheckerboardPage : Page {
         }
 
         if (cursor == null) {
-            cursor = layout.get_cursor() as CheckerboardItem;
+            current_cursor = layout.get_cursor() as CheckerboardItem;
         }
 
         // move the cursor relative to the "first" item
-        CheckerboardItem? item = layout.get_item_relative_to(cursor, point);
+        CheckerboardItem? item = layout.get_item_relative_to(current_cursor, point);
         if (item != null)
             cursor_to_item(item);
    }
 
-    public void set_cursor(CheckerboardItem item) {
+    public new void set_cursor(CheckerboardItem item) {
         Marker marker = get_view().mark(item);
         get_view().select_marked(marker);
 
-        cursor = item;
+        current_cursor = item;
         anchor = item;
    }
 
@@ -736,9 +731,9 @@ public abstract class CheckerboardPage : Page {
 
         if (state == Gdk.ModifierType.SHIFT_MASK) {
             get_view().unselect_all();
-            select_between_items(anchor, cursor);
+            select_between_items(anchor, current_cursor);
         } else {
-            anchor = cursor;
+            anchor = current_cursor;
         }
     }
 

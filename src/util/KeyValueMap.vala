@@ -4,6 +4,14 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+namespace Gdk {
+    [Compact]
+    public struct Point {
+        int x;
+        int y;
+    }
+}
+
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>();
@@ -91,7 +99,7 @@ public class KeyValueMap {
         
         return (value != null) ? bool.parse(value) : def;
     }
-    
+
     // REDEYE: redeye reduction operates on circular regions defined by
     //         (Gdk.Point, int) pairs, where the Gdk.Point specifies the
     //         bounding circle's center and the the int specifies the circle's

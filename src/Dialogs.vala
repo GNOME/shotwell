@@ -39,7 +39,10 @@ public bool confirm_warn_developer_changed(int number) {
     dialog.add_buttons(Resources.CANCEL_LABEL, Gtk.ResponseType.CANCEL);
     dialog.add_buttons(_("_Switch Developer"), Gtk.ResponseType.YES);
     
-    int response = dialog.run();
+    dialog.show();
+    // TODO
+
+    int response = 0; //dialog.run();
     
     dialog.destroy();
     
@@ -75,14 +78,17 @@ public File? choose_file(string current_file_basename) {
         
     var chooser = new Gtk.FileChooserNative(file_chooser_title,
         AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.SAVE_LABEL, Resources.CANCEL_LABEL);
-    chooser.set_do_overwrite_confirmation(true);
-    chooser.set_current_folder(current_export_dir.get_path());
+        try {
+            chooser.set_current_folder(current_export_dir);
+        } catch (Error error) {
+        }
     chooser.set_current_name(current_file_basename);
-    chooser.set_local_only(false);
     
     File file = null;
-    if (chooser.run() == Gtk.ResponseType.ACCEPT) {
-        file = File.new_for_path(chooser.get_filename());
+    chooser.show();
+    int response = Gtk.ResponseType.OK;
+    if (response == Gtk.ResponseType.ACCEPT) {
+        file = chooser.get_file();
         current_export_dir = file.get_parent();
     }
     chooser.destroy();
@@ -99,13 +105,15 @@ public File? choose_dir(string? user_title = null) {
 
     var chooser = new Gtk.FileChooserNative(user_title,
         AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
-    chooser.set_current_folder(current_export_dir.get_path());
-    chooser.set_local_only(false);
+    try {
+        chooser.set_current_folder(current_export_dir);
+    } catch (Error error) {
+    }
     
     File dir = null;
-    if (chooser.run() == Gtk.ResponseType.ACCEPT) {
-        dir = File.new_for_path(chooser.get_filename());
-        current_export_dir = dir;
+    int response = Gtk.ResponseType.CANCEL;
+    if (response == Gtk.ResponseType.ACCEPT) {
+        current_export_dir = chooser.get_file ();
     }
     
     chooser.destroy();
@@ -544,10 +552,10 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
             ImportUI.SAVE_RESULTS_RESPONSE_ID);
         save_results_button.set_visible(manifest.success.size < manifest.all.size);
         Gtk.Widget ok_button = dialog.add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
-        dialog.set_default(ok_button);
+        dialog.set_default_widget(ok_button);
         
         Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
-        dialog_response = dialog.run();
+        dialog_response = 0; // TODO dialog.run();
         dialog.destroy();
         
         if (dialog_response == ImportUI.SAVE_RESULTS_RESPONSE_ID)
@@ -564,12 +572,12 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         save_results_button.set_visible(manifest.success.size < manifest.all.size);
         Gtk.Widget no_button = dialog.add_button(question.no_button, Gtk.ResponseType.NO);
         dialog.add_button(question.yes_button, Gtk.ResponseType.YES);
-        dialog.set_default(no_button);
+        dialog.set_default_widget(no_button);
         
-        dialog_response = dialog.run();
+        dialog_response = 0; //TODO dialog.run();
         while (dialog_response == ImportUI.SAVE_RESULTS_RESPONSE_ID) {
             save_import_results(dialog, create_result_report_from_manifest(manifest));
-            dialog_response = dialog.run();
+            dialog_response = 0;  // TODO dialog.run();
         }
         
         dialog.hide();
@@ -583,12 +591,13 @@ internal void save_import_results(Gtk.Window? chooser_dialog_parent, string resu
     var chooser_dialog = new Gtk.FileChooserNative(
         ImportUI.SAVE_RESULTS_FILE_CHOOSER_TITLE, chooser_dialog_parent, Gtk.FileChooserAction.SAVE,
         Resources.SAVE_AS_LABEL, Resources.CANCEL_LABEL);
-    chooser_dialog.set_do_overwrite_confirmation(true);
-    chooser_dialog.set_current_folder(Environment.get_home_dir());
+        try {
+    chooser_dialog.set_current_folder(File.new_for_commandline_arg (Environment.get_home_dir()));
+    } catch (Error err) {
+    }
     chooser_dialog.set_current_name("Shotwell Import Log.txt");
-    chooser_dialog.set_local_only(false);
     
-    int dialog_result = chooser_dialog.run();
+    int dialog_result = 0; // TODOchooser_dialog.run();
     File? chosen_file = chooser_dialog.get_file();
     chooser_dialog.hide();
     chooser_dialog.destroy();
@@ -716,7 +725,8 @@ public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string titl
     // using the message as the secondary text.
     dialog.set_markup(build_alert_body_text(title, user_message));
     
-    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    // TODO
+    Gtk.ResponseType result = (Gtk.ResponseType) 0;//dialog.run();
     
     dialog.destroy();
     
@@ -734,7 +744,8 @@ public Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string t
    
     dialog.set_markup(build_alert_body_text(title, user_message));
     
-    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    // TODO
+    Gtk.ResponseType result = (Gtk.ResponseType) 0; //dialog.run();
     
     dialog.destroy();
     
@@ -766,7 +777,7 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
 
     dialog.set_markup(build_alert_body_text(headline, msg));
     
-    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    Gtk.ResponseType result = (Gtk.ResponseType) 0; // TODO dialog.run();
     
     dialog.destroy();
     
@@ -788,7 +799,7 @@ public bool remove_offline_dialog(Gtk.Window owner, int count) {
     dialog.add_button(_("_Remove"), Gtk.ResponseType.OK);
     dialog.title = (count == 1) ? _("Remove Photo From Library") : _("Remove Photos From Library");
     
-    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    Gtk.ResponseType result = (Gtk.ResponseType) 0; // TODO dialog.run();
     
     dialog.destroy();
     
@@ -815,7 +826,8 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
     
     dialog.title = title;
     
-    dialog.run();
+    dialog.show();
+    // TODO
     dialog.destroy();
 }
 
@@ -925,7 +937,7 @@ public Gtk.ResponseType copy_files_dialog() {
     dialog.add_button(_("_Import in Place"), Gtk.ResponseType.REJECT);
     dialog.title = _("Import to Library");
 
-    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    Gtk.ResponseType result = (Gtk.ResponseType) 0; //dialog.run();
     
     dialog.destroy();
 

@@ -25,28 +25,18 @@ public class ImportQueuePage : SinglePhotoPage {
         base (NAME, false);
         
         // Set up toolbar
-        Gtk.Toolbar toolbar = get_toolbar();
+        var toolbar = get_toolbar();
         
         // Stop button
-        Gtk.ToolButton stop_button = new Gtk.ToolButton(null, null);
-        stop_button.set_icon_name("process-stop-symbolic");
+        var stop_button = new Gtk.Button.from_icon_name ("process-stop-symbolic");
         stop_button.set_action_name ("win.Stop");
         
-        toolbar.insert(stop_button, -1);
+        toolbar.append(stop_button);
 
-        // separator to force progress bar to right side of toolbar
-        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_draw(false);
-        
-        toolbar.insert(separator, -1);
-        
         // Progress bar
-        Gtk.ToolItem progress_item = new Gtk.ToolItem();
-        progress_item.set_expand(true);
-        progress_item.add(progress_bar);
         progress_bar.set_show_text(true);
         
-        toolbar.insert(progress_item, -1);
+        toolbar.append(progress_bar);
 #if UNITY_SUPPORT
         //UnityProgressBar: try to draw progress bar
         uniprobar.set_visible(true);

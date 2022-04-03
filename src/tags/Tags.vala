@@ -7,11 +7,11 @@
 namespace Tags {
 
 public void init() throws Error {
-    Tags.SidebarEntry.init();
+    //Tags.SidebarEntry.init();
 }
 
 public void terminate() {
-    Tags.SidebarEntry.terminate();
+    //Tags.SidebarEntry.terminate();
 }
 
 }

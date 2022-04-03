@@ -10,9 +10,9 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
     private Gtk.Overlay overlay = new Gtk.Overlay();
-    private Gtk.Toolbar toolbar = null;
-    private Gtk.ToolButton close_button = new Gtk.ToolButton(null, null);
-    private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
+    private Gtk.Box toolbar = null;
+    private Gtk.Button close_button = new Gtk.Button();
+    private Gtk.ToggleButton pin_button = new Gtk.ToggleButton();
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
@@ -32,13 +32,13 @@ public class FullscreenWindow : PageWindow {
         const string[] accels = { "F11", null };
         Application.set_accels_for_action ("win.LeaveFullscreen", accels);
 
-        set_screen(AppWindow.get_instance().get_screen());
+        //set_screen(AppWindow.get_instance().get_screen());
         
         // Needed so fullscreen will occur on correct monitor in multi-monitor setups
         Gdk.Rectangle monitor = get_monitor_geometry();
-        move(monitor.x, monitor.y);
+        //move(monitor.x, monitor.y);
         
-        set_border_width(0);
+        //set_border_width(0);
 
         // restore pin state
         is_toolbar_dismissal_enabled = Config.Facade.get_instance().get_pin_toolbar_state();
@@ -54,10 +54,10 @@ public class FullscreenWindow : PageWindow {
         close_button.set_action_name ("win.LeaveFullscreen");
         
         toolbar = page.get_toolbar();
-        toolbar.set_show_arrow(false);
+        //toolbar.set_show_arrow(false);
         toolbar.valign = Gtk.Align.END;
         toolbar.halign = Gtk.Align.CENTER;
-        toolbar.expand = false;
+        //toolbar.expand = false;
         toolbar.opacity = Resources.TRANSIENT_WINDOW_OPACITY;
 
         if (page is SlideshowPage) {
@@ -65,16 +65,16 @@ public class FullscreenWindow : PageWindow {
             ((SlideshowPage) page).hide_toolbar.connect(hide_toolbar);
         } else {
             // only non-slideshow pages should have pin button
-            toolbar.insert(pin_button, -1); 
+            toolbar.append(pin_button);
         }
 
         page.set_cursor_hide_time(TOOLBAR_DISMISSAL_SEC * 1000);
         page.start_cursor_hiding();
 
-        toolbar.insert(close_button, -1);
+        toolbar.append(close_button);
         
-        add(overlay);
-        overlay.add(page);
+        set_child(overlay);
+        overlay.set_child(page);
         overlay.add_overlay (toolbar);
 
         // call to set_default_size() saves one repaint caused by changing
@@ -84,10 +84,10 @@ public class FullscreenWindow : PageWindow {
         
         // need to create a Gdk.Window to set masks
         fullscreen();
-        show_all();
+        show();
 
         // capture motion events to show the toolbar
-        add_events(Gdk.EventMask.POINTER_MOTION_MASK);
+        //add_events(Gdk.EventMask.POINTER_MOTION_MASK);
         
         // If toolbar is enabled in "normal" ui OR was pinned in
         // fullscreen, start off with toolbar invoked, as a clue for the
@@ -115,10 +115,15 @@ public class FullscreenWindow : PageWindow {
     }
 
     private Gdk.Rectangle get_monitor_geometry() {
+        #if 0
         var monitor = get_display().get_monitor_at_window(AppWindow.get_instance().get_window());
         return monitor.get_geometry();
+        #endif
+
+        return Gdk.Rectangle();
     }
     
+    #if 0
     public override bool configure_event(Gdk.EventConfigure event) {
         bool result = base.configure_event(event);
         
@@ -145,6 +150,7 @@ public class FullscreenWindow : PageWindow {
         // ... then propagate to the underlying window hidden behind this fullscreen one
         return AppWindow.get_instance().key_press_event(event);
     }
+    #endif
     
     private void on_close() {
         Config.Facade.get_instance().set_pin_toolbar_state(is_toolbar_dismissal_enabled);
@@ -157,7 +163,7 @@ public class FullscreenWindow : PageWindow {
         on_close();
     }
     
-    public override void destroy() {
+    public override void dispose() {
         Page? page = get_current_page();
         clear_current_page();
         
@@ -166,16 +172,17 @@ public class FullscreenWindow : PageWindow {
             page.switching_from();
         }
         
-        base.destroy();
+        base.dispose();
     }
     
-    public override bool delete_event(Gdk.EventAny event) {
+    public override bool close_request() {
         on_close();
         AppWindow.get_instance().destroy();
         
         return true;
     }
     
+    #if 0
     public override bool motion_notify_event(Gdk.EventMotion event) {
         if (!is_toolbar_shown) {
             // if pointer is in toolbar height range without the mouse down (i.e. in the middle of
@@ -189,6 +196,7 @@ public class FullscreenWindow : PageWindow {
         
         return (base.motion_notify_event != null) ? base.motion_notify_event(event) : false;
     }
+    #endif
     
     private bool is_pointer_in_toolbar() {
         var seat = get_display().get_default_seat();
@@ -198,6 +206,7 @@ public class FullscreenWindow : PageWindow {
             return false;
         }
         
+        #if 0
         int py;
         seat.get_pointer().get_position(null, null, out py);
         
@@ -205,6 +214,8 @@ public class FullscreenWindow : PageWindow {
         toolbar.get_window().get_geometry(null, out wy, null, null);
 
         return (py >= wy);
+        #endif
+        return false;
     }
     
     private bool on_check_toolbar_invocation() {
@@ -222,7 +233,7 @@ public class FullscreenWindow : PageWindow {
     }
     
     private void invoke_toolbar() {
-        toolbar.show_all();
+        toolbar.show();
 
         is_toolbar_shown = true;
         
@@ -287,9 +298,12 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         Object (application: Application.get_instance().get_system_app ());
 
         // the current page needs to know when modifier keys are pressed
+        #if 0
         add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
             | Gdk.EventMask.STRUCTURE_MASK);
+            #endif
         set_show_menubar (true);
+
     }
     
     public Page? get_current_page() {
@@ -317,6 +331,7 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         switched_pages(old_page, null);
     }
     
+    #if 0
     public override bool key_press_event(Gdk.EventKey event) {
         if (get_focus() is Gtk.Entry && get_focus().key_press_event(event))
             return true;
@@ -359,14 +374,13 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
 
         return (base.configure_event != null) ? base.configure_event(event) : false;
     }
+    #endif
 
     public void set_busy_cursor() {
         if (busy_counter++ > 0)
             return;
 
-        var display = get_window ().get_display ();
-        var cursor = new Gdk.Cursor.for_display (display, Gdk.CursorType.WATCH);
-        get_window().set_cursor (cursor);
+        set_cursor (new Gdk.Cursor.from_name ("wait", null));
     }
     
     public void set_normal_cursor() {
@@ -376,10 +390,8 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         } else if (--busy_counter > 0) {
             return;
         }
-        
-        var display = get_window ().get_display ();
-        var cursor = new Gdk.Cursor.for_display (display, Gdk.CursorType.LEFT_PTR);
-        get_window().set_cursor (cursor);
+
+        set_cursor (new Gdk.Cursor.from_name ("default", null));
     }
     
 }
@@ -400,7 +412,6 @@ public abstract class AppWindow : PageWindow {
     
     // the AppWindow maintains its own UI manager because the first UIManager an action group is
     // added to is the one that claims its accelerators
-    protected bool maximized = false;
     protected Dimensions dimensions;
     protected int pos_x = 0;
     protected int pos_y = 0;
@@ -416,16 +427,18 @@ public abstract class AppWindow : PageWindow {
         set_default_icon_name("org.gnome.Shotwell");
 
         // restore previous size and maximization state
+
+        bool was_maximized;
         if (this is LibraryWindow) {
-            Config.Facade.get_instance().get_library_window_state(out maximized, out dimensions);
+            Config.Facade.get_instance().get_library_window_state(out was_maximized, out dimensions);
         } else {
             assert(this is DirectWindow);
-            Config.Facade.get_instance().get_direct_window_state(out maximized, out dimensions);
+            Config.Facade.get_instance().get_direct_window_state(out was_maximized, out dimensions);
         }
 
         set_default_size(dimensions.width, dimensions.height);
 
-        if (maximized)
+        if (was_maximized)
             maximize();
 
         assert(command_manager == null);
@@ -439,6 +452,8 @@ public abstract class AppWindow : PageWindow {
         // with each ActionGroup while we're adding the groups to the UIManager.
 
         add_actions ();
+
+        notify["maximized"].connect(on_maximized);
     }
 
     private const GLib.ActionEntry[] common_actions = {
@@ -484,8 +499,8 @@ public abstract class AppWindow : PageWindow {
         dialog.set_markup(build_alert_body_text(title, message, should_escape));
 
         dialog.use_markup = true;
-        dialog.run();
-        dialog.destroy();
+        dialog.show();
+        dialog.response.connect(() => dialog.destroy());
     }
     
     public static bool negate_affirm_question(string message, string negative, string affirmative,
@@ -495,9 +510,8 @@ public abstract class AppWindow : PageWindow {
 
         dialog.set_markup(build_alert_body_text(title, message));
         dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES);
-        dialog.set_urgency_hint(true);
         
-        bool response = (dialog.run() == Gtk.ResponseType.YES);
+        bool response = false; // TODO (dialog.run() == Gtk.ResponseType.YES);
 
         dialog.destroy();
         
@@ -516,7 +530,7 @@ public abstract class AppWindow : PageWindow {
         dialog.set_markup(build_alert_body_text(title, message));
         dialog.use_markup = true;
 
-        int response = dialog.run();
+        int response = 0; //dialog.run();
         
         dialog.destroy();
         
@@ -534,7 +548,9 @@ public abstract class AppWindow : PageWindow {
         dialog.add_buttons(affirmative, Gtk.ResponseType.YES, _("_Cancel"),
             Gtk.ResponseType.CANCEL);
         
-        int response = dialog.run();
+        dialog.show();
+        //int response = dialog.run();
+        int response = Gtk.ResponseType.OK;
         
         dialog.destroy();
         
@@ -549,7 +565,7 @@ public abstract class AppWindow : PageWindow {
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
         dialog.add_buttons(alt1, 1, alt2, 2, alt3, 3, alt4, 4, alt5, 5, alt6, 6);
         
-        int response = dialog.run();
+        int response = Gtk.ResponseType.CANCEL;//dialog.run();
         
         dialog.destroy();
         
@@ -629,8 +645,10 @@ public abstract class AppWindow : PageWindow {
         }
     }
     
-    protected override void destroy() {
+    protected override bool close_request() {
         on_quit();
+
+        return false;
     }
     
     public void show_file_uri(File file) throws Error {
@@ -638,7 +656,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public void show_uri(string url) throws Error {
-        Gtk.show_uri_on_window(this, url, Gdk.CURRENT_TIME);
+        Gtk.show_uri(this, url, Gdk.CURRENT_TIME);
     }
     
     protected virtual void add_actions () {
@@ -653,7 +671,7 @@ public abstract class AppWindow : PageWindow {
             return;
         }
 
-        get_position(out pos_x, out pos_y);
+        //get_position(out pos_x, out pos_y);
         hide();
         
         FullscreenWindow fsw = new FullscreenWindow(page);
@@ -669,9 +687,9 @@ public abstract class AppWindow : PageWindow {
         if (fullscreen_window == null)
             return;
         
-        move(pos_x, pos_y);
+        //move(pos_x, pos_y);
 
-        show_all();
+        show();
         
         if (get_current_page() != null)
             get_current_page().returning_from_fullscreen(fullscreen_window);
@@ -857,13 +875,11 @@ public abstract class AppWindow : PageWindow {
             page.get_view().unselect_all();
     }
     
-    public override bool configure_event(Gdk.EventConfigure event) {
-        maximized = (get_window().get_state() == Gdk.WindowState.MAXIMIZED);
-
-        if (!maximized)
-            get_size(out dimensions.width, out dimensions.height);
-
-        return base.configure_event(event);
+    public void on_maximized() {
+        if (!maximized) {
+            dimensions.width = get_size (Gtk.Orientation.HORIZONTAL);
+            dimensions.height = get_size (Gtk.Orientation.VERTICAL);
+        }
     }
     
 }

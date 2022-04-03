@@ -20,7 +20,7 @@ public class ManifestWidgetMediator : Gtk.Box {
     public ManifestWidgetMediator() {
         Object();
 
-        list_bin.add(list);
+        list_bin.set_child(list);
         
         about_button.clicked.connect(on_about);
         list.get_selection().changed.connect(on_selection_changed);
@@ -64,17 +64,19 @@ public class ManifestWidgetMediator : Gtk.Box {
         about_dialog.copyright = info.copyright;
         about_dialog.license = info.license;
         about_dialog.wrap_license = info.is_license_wordwrapped;
+        #if 0
         about_dialog.logo = (info.icons != null && info.icons.length > 0) ? info.icons[0] :
             Resources.get_icon(Resources.ICON_GENERIC_PLUGIN);
+            #endif
         about_dialog.program_name = get_pluggable_name(id);
         about_dialog.translator_credits = info.translators;
         about_dialog.version = info.version;
         about_dialog.website = info.website_url;
         about_dialog.website_label = info.website_name;
+        about_dialog.set_modal (true);
         
-        about_dialog.run();
-        
-        about_dialog.destroy();
+        // TODO about_dialog.run();
+        Gtk.show_about_dialog(about_dialog);
     }
     
     private void on_selection_changed() {
@@ -121,7 +123,6 @@ private class ManifestListView : Gtk.TreeView {
         checkbox_renderer.activatable = true;
         
         Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
-        icon_renderer.stock_size = Gtk.IconSize.MENU;
         icon_renderer.xpad = ICON_X_PADDING;
         icon_renderer.ypad = ICON_Y_PADDING;
         
@@ -148,7 +149,7 @@ private class ManifestListView : Gtk.TreeView {
         set_grid_lines(Gtk.TreeViewGridLines.NONE);
         get_selection().set_mode(Gtk.SelectionMode.BROWSE);
         
-        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
+        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default());
         
         // create a list of plugins (sorted by name) that are separated by extension points (sorted
         // by name)
@@ -156,17 +157,10 @@ private class ManifestListView : Gtk.TreeView {
             Gtk.TreeIter category_iter;
             store.append(out category_iter, null);
             
-            Gdk.Pixbuf? icon = null;
+            Gdk.Paintable? icon = null;
             if (extension_point.icon_name != null) {
-                Gtk.IconInfo? icon_info = icon_theme.lookup_by_gicon(
-                    new ThemedIcon(extension_point.icon_name), ICON_SIZE, 0);
-                if (icon_info != null) {
-                    try {
-                        icon = icon_info.load_icon();
-                    } catch (Error err) {
-                        warning("Unable to load icon %s: %s", extension_point.icon_name, err.message);
-                    }
-                }
+                icon = icon_theme.lookup_by_gicon(
+                    new ThemedIcon(extension_point.icon_name), ICON_SIZE, 0, Gtk.TextDirection.NONE, 0);
             }
             
             store.set(category_iter, Column.NAME, extension_point.name, Column.CAN_ENABLE, false,
@@ -182,9 +176,11 @@ private class ManifestListView : Gtk.TreeView {
                 Spit.PluggableInfo info = Spit.PluggableInfo();
                 pluggable.get_info(ref info);
                 
+                #if 0
                 icon = (info.icons != null && info.icons.length > 0) 
                     ? info.icons[0]
                     : Resources.get_icon(Resources.ICON_GENERIC_PLUGIN, ICON_SIZE);
+                    #endif
                 
                 Gtk.TreeIter plugin_iter;
                 store.append(out plugin_iter, category_iter);
@@ -229,6 +225,7 @@ private class ManifestListView : Gtk.TreeView {
     //
     // The only way found to work around this is to capture the button-down event and do our own
     // hit-testing.
+    #if DOES_NOT_WORK_WITH_GTK4
     public override bool button_press_event(Gdk.EventButton event) {
         Gtk.TreePath path;
         Gtk.TreeViewColumn col;
@@ -261,6 +258,7 @@ private class ManifestListView : Gtk.TreeView {
         
         return true;
     }
+    #endif
 }
 
 }

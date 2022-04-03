@@ -64,8 +64,8 @@ public class SetBackgroundSlideshowDialog : Gtk.Dialog {
     }
 
     public bool execute(out int delay_value, out bool desktop_background, out bool screensaver) {
-        this.show_all();
-        var result = this.run() == Gtk.ResponseType.OK;
+        this.show();
+        var result = false; //this.run() == Gtk.ResponseType.OK;
         this.hide ();
 
         delay_value = this.delay_value;

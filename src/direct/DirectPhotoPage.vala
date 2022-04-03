@@ -50,11 +50,11 @@ public class DirectPhotoPage : EditingHostPage {
         { "RotateCounterclockwise", on_rotate_counterclockwise },
         { "FlipHorizontally", on_flip_horizontally },
         { "FlipVertically", on_flip_vertically },
-        { "Enhance", on_enhance },
-        { "Crop", toggle_crop },
-        { "Straighten", toggle_straighten },
-        { "RedEye", toggle_redeye },
-        { "Adjust", toggle_adjust },
+        //{ "Enhance", on_enhance },
+        //{ "Crop", toggle_crop },
+        //{ "Straighten", toggle_straighten },
+        //{ "RedEye", toggle_redeye },
+        //{ "Adjust", toggle_adjust },
         { "Revert", on_revert },
         { "AdjustDateTime", on_adjust_date_time },
         { "SetBackground", on_set_background },
@@ -145,6 +145,7 @@ public class DirectPhotoPage : EditingHostPage {
         return get_photo().get_file();
     }
 
+#if 0
     protected override bool on_context_buttonpress(Gdk.EventButton event) {
         popup_context_menu(get_context_menu(), event);
 
@@ -163,6 +164,7 @@ public class DirectPhotoPage : EditingHostPage {
 
         return this.context_menu;
     }
+    #endif
 
     private void update_zoom_menu_item_sensitivity() {
         set_action_sensitive("IncreaseSize", !get_zoom_state().is_max() && !get_photo_missing());
@@ -212,6 +214,7 @@ public class DirectPhotoPage : EditingHostPage {
         get_command_manager().reset();
     }
     
+    #if 0
     protected override bool on_double_click(Gdk.EventButton event) {
         FullscreenWindow? fs = get_container() as FullscreenWindow;
         if (fs != null) {
@@ -229,6 +232,7 @@ public class DirectPhotoPage : EditingHostPage {
         
         return base.on_double_click(event);
     }
+    #endif
     
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
@@ -272,7 +276,7 @@ public class DirectPhotoPage : EditingHostPage {
         bool revert_possible = has_photo() ? get_photo().has_transformations() 
             && !get_photo_missing() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
+        bool enhance_possible = false; //has_photo() ? is_enhance_available(get_photo()) : false;
         
         set_action_sensitive("PrevPhoto", multiple);
         set_action_sensitive("NextPhoto", multiple);
@@ -286,9 +290,9 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("SetBackground", has_photo());
         
         if (has_photo()) {
-            set_action_sensitive("Crop", EditingTools.CropTool.is_available(get_photo(), Scaling.for_original()));
-            set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
-                Scaling.for_original()));
+            //set_action_sensitive("Crop", EditingTools.CropTool.is_available(get_photo(), Scaling.for_original()));
+            //set_action_sensitive("RedEye", EditingTools.RedeyeTool.is_available(get_photo(), 
+            //    Scaling.for_original()));
         }
 
         // can't write to raws, and trapping the output JPEG here is tricky,
@@ -412,22 +416,23 @@ public class DirectPhotoPage : EditingHostPage {
             AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.OK_LABEL, Resources.CANCEL_LABEL);
         save_as_dialog.set_select_multiple(false);
         save_as_dialog.set_current_name(filename);
-        save_as_dialog.set_current_folder(current_save_dir.get_path());
+        try {
+        save_as_dialog.set_current_folder(current_save_dir);
+        } catch (Error error) {
+        }
         save_as_dialog.add_filter(output_format_filter);
-        save_as_dialog.set_do_overwrite_confirmation(true);
-        save_as_dialog.set_local_only(false);
         
-        int response = save_as_dialog.run();
+        int response = 0; //save_as_dialog.run();
         if (response == Gtk.ResponseType.ACCEPT) {
             // flag to prevent asking user about losing changes to the old file (since they'll be
             // loaded right into the new one)
             drop_if_dirty = true;
-            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, export_params.quality,
+            save(save_as_dialog.get_file(), scale, constraint, export_params.quality,
                 effective_export_format, export_params.mode == ExportFormatMode.UNMODIFIED, 
                 export_params.export_metadata);
             drop_if_dirty = false;
 
-            current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());
+            current_save_dir = save_as_dialog.get_current_folder();
         }
         
         save_as_dialog.destroy();
@@ -438,6 +443,7 @@ public class DirectPhotoPage : EditingHostPage {
             DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
     }
     
+    #if 0
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
         
@@ -457,6 +463,7 @@ public class DirectPhotoPage : EditingHostPage {
         
         return handled ? true : base.on_app_key_pressed(event);
     }
+    #endif
     
     private void on_print() {
         if (get_view().get_selected_count() > 0) {

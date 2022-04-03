@@ -180,6 +180,7 @@ public Gee.List<PhotoID?>? unserialize_photo_ids(uchar* serialized, int size) {
 }
 
 public uchar[] serialize_media_sources(Gee.Collection<MediaSource> media) {
+#if 0
     Gdk.Atom[] atoms = new Gdk.Atom[media.size];
     int ctr = 0;
     foreach (MediaSource current_media in media)
@@ -188,11 +189,14 @@ public uchar[] serialize_media_sources(Gee.Collection<MediaSource> media) {
     size_t bytes = media.size * sizeof(Gdk.Atom);
     uchar[] serialized = new uchar[bytes];
     Memory.copy(serialized, atoms, bytes);
-    
     return serialized;
+    #endif
+
+    return new uchar[0];
 }
 
 public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int size) {
+#if 0
     size_t count = (size / sizeof(Gdk.Atom));
     if (count <= 0 || serialized == null)
         return null;
@@ -208,6 +212,8 @@ public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int s
     }
 
     return list;
+    #endif
+    return null;
 }
 
 public string format_local_datespan(Time from_date, Time to_date) {

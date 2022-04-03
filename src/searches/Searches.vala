@@ -20,11 +20,11 @@ public void preconfigure() {
 }
 
 public void init() throws Error {
-    Searches.SidebarEntry.init();
+    //Searches.SidebarEntry.init();
 }
 
 public void terminate() {
-    Searches.SidebarEntry.terminate();
+    //Searches.SidebarEntry.terminate();
 }
 
 }

@@ -45,23 +45,21 @@ public abstract class MediaPage : CheckerboardPage {
         MAX = 4
     }
 
-    protected class ZoomSliderAssembly : Gtk.ToolItem {
+    protected class ZoomSliderAssembly : Gtk.Box {
         private Gtk.Scale slider;
         private Gtk.Adjustment adjustment;
         
         public signal void zoom_changed();
 
         public ZoomSliderAssembly() {
-            Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Object (orientation : Gtk.Orientation.HORIZONTAL, spacing : 9);
 
-            Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            Gtk.EventBox zoom_out_box = new Gtk.EventBox();
-            zoom_out_box.set_above_child(true);
-            zoom_out_box.set_visible_window(false);
-            zoom_out_box.add(zoom_out);
+            Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
+            #if 0
             zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
+            #endif
             
-            zoom_group.pack_start(zoom_out_box, false, false, 0);
+            prepend(zoom_out);
 
             // virgin ZoomSliderAssemblies are created such that they have whatever value is
             // persisted in the configuration system for the photo thumbnail scale
@@ -75,18 +73,14 @@ public abstract class MediaPage : CheckerboardPage {
             slider.set_size_request(200, -1);
             slider.set_tooltip_text(_("Adjust the size of the thumbnails"));
 
-            zoom_group.pack_start(slider, false, false, 0);
+            prepend(slider);
 
-            Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            Gtk.EventBox zoom_in_box = new Gtk.EventBox();
-            zoom_in_box.set_above_child(true);
-            zoom_in_box.set_visible_window(false);
-            zoom_in_box.add(zoom_in);
+            Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic");
+            #if 0
             zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
+            #endif
 
-            zoom_group.pack_start(zoom_in_box, false, false, 0);
-
-            add(zoom_group);
+            prepend(zoom_in);
         }
         
         public static double scale_to_slider(int value) {
@@ -102,6 +96,7 @@ public abstract class MediaPage : CheckerboardPage {
             return res;
         }
 
+#if 0
         private bool on_zoom_out_pressed(Gdk.EventButton event) {
             snap_to_min();
             return true;
@@ -111,6 +106,7 @@ public abstract class MediaPage : CheckerboardPage {
             snap_to_max();
             return true;
         }
+        #endif
         
         private void on_slider_changed() {
             zoom_changed();
@@ -155,7 +151,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
     
     private ZoomSliderAssembly? connected_slider = null;
-    private DragAndDropHandler dnd_handler = null;
+    //private DragAndDropHandler dnd_handler = null;
     private MediaViewTracker tracker;
     
     protected MediaPage(string page_name) {
@@ -178,7 +174,7 @@ public abstract class MediaPage : CheckerboardPage {
         get_view().thaw_notifications();
 
         // enable drag-and-drop export of media
-        dnd_handler = new DragAndDropHandler(this);
+        //TODO dnd_handler = new DragAndDropHandler(this);
     }
    
     private static int compute_zoom_scale_increase(int current_scale) {
@@ -380,6 +376,7 @@ public abstract class MediaPage : CheckerboardPage {
         return new ZoomSliderAssembly();
     }
 
+#if 0
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
         if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
             increase_zoom_level();
@@ -397,6 +394,7 @@ public abstract class MediaPage : CheckerboardPage {
             return base.on_mousewheel_down(event);
         }
     }
+    #endif
     
     private void on_send_to() {
         DesktopIntegration.send_to((Gee.Collection<MediaSource>) get_view().get_selected_sources());
@@ -418,6 +416,7 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
 
+#if 0
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
@@ -480,6 +479,7 @@ public abstract class MediaPage : CheckerboardPage {
         
         return handled ? true : base.on_app_key_pressed(event);
     }
+    #endif
 
     public override void switched_to() {
         base.switched_to();
@@ -686,7 +686,7 @@ public abstract class MediaPage : CheckerboardPage {
         CheckerboardItem? restore_point = null;
 
         if (cursor != null) {
-            restore_point = get_view().get_next(cursor) as CheckerboardItem;
+            restore_point = get_view().get_next(current_cursor) as CheckerboardItem;
         }
 
         var sources = get_view().get_selected_sources();
@@ -937,10 +937,10 @@ public abstract class MediaPage : CheckerboardPage {
         set_view_comparator(sort_by, sort_ascending);
     }
 
-    public override void destroy() {
+    public override void dispose() {
         disconnect_slider();
         
-        base.destroy();
+        base.dispose();
     }
 
     public void increase_zoom_level() {

@@ -55,7 +55,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private bool flow_scheduled = false;
     private bool exposure_dirty = true;
     private CheckerboardItem? anchor = null;
-    private CheckerboardItem? cursor = null;
+    private CheckerboardItem? current_cursor = null;
     private bool in_center_on_anchor = false;
     private bool size_allocate_due_to_reflow = false;
     private bool is_in_view = false;
@@ -82,6 +82,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
+        set_draw_func (on_draw);
     }
     
     ~CheckerboardLayout() {
@@ -105,8 +106,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (vadjustment != null)
             vadjustment.value_changed.disconnect(on_viewport_shifted);
         
+        #if 0
         if (parent != null)
             parent.size_allocate.disconnect(on_viewport_resized);
+            #endif
 
         Config.Facade.get_instance().colors_changed.disconnect(on_colors_changed);
     }
@@ -120,7 +123,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         vadjustment.value_changed.connect(on_viewport_shifted);
         
         // monitor parent's size changes for a similar reason
-        parent.size_allocate.connect(on_viewport_resized);
+        //parent.resized.connect(on_viewport_resized);
     }
     
     // This method allows for some optimizations to occur in reflow() by using the known max.
@@ -133,7 +136,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return scale;
     }
     
-    public void set_name(string name) {
+    public new void set_name(string name) {
         page_name = name;
     }
     
@@ -224,23 +227,23 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         in_center_on_anchor = false;
     }
 
-    public void set_cursor(CheckerboardItem item) {
+    public new void set_cursor(CheckerboardItem item) {
         Gee.HashSet<DataView> collection = new Gee.HashSet<DataView>();
         if (cursor != null) {
-            cursor.set_is_cursor(false);
+            current_cursor.set_is_cursor(false);
             // Bug #732334, the cursor DataView might have disappeared when user drags a full screen Photo to another event
-            if (view.contains(cursor)) {
-                collection.add(cursor);
+            if (view.contains(current_cursor)) {
+                collection.add(current_cursor);
             }
         }
         item.set_is_cursor(true);
-        cursor = item;
+        current_cursor = item;
         collection.add(item);
         on_items_state_changed(collection);
     }
     
-    public CheckerboardItem get_cursor() {
-        return cursor;
+    public new CheckerboardItem get_cursor() {
+        return current_cursor;
     }
     
     
@@ -609,12 +612,15 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         selection_band = Box.from_points(drag_origin, drag_endpoint).get_rectangle();
         
         // force repaint of the union of the old and new, which covers the band reducing in size
+        #if 0
         if (get_window() != null) {
             Gdk.Rectangle union;
             selection_band.union(old_selection_band, out union);
             
             queue_draw_area(union.x, union.y, union.width, union.height);
         }
+        #endif
+        queue_draw();
     }
     
     public Gee.List<CheckerboardItem>? items_in_selection_band() {
@@ -1054,7 +1060,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             debug("items_dirty %s (%s): Queuing draw of dirty area %s on visible_page %s",
                 page_name, reason, rectangle_to_string(dirty), rectangle_to_string(visible_page));
 #endif
-            queue_draw_area(dirty.x, dirty.y, dirty.width, dirty.height);
+            //queue_draw_area(dirty.x, dirty.y, dirty.width, dirty.height);
+            queue_draw();
         }
     }
     
@@ -1065,6 +1072,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
 
     private void set_colors(bool in_focus = true) {
+    #if 0
         // set up selected/unselected colors
         var ctx = get_style_context();
         ctx.save();
@@ -1082,15 +1090,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         val = ctx.get_property("color", Gtk.StateFlags.NORMAL);
         unselected_color = *(Gdk.RGBA*)val.get_boxed();
         ctx.restore();
+        #endif
     }
     
-    public override void size_allocate(Gtk.Allocation allocation) {
-        base.size_allocate(allocation);
+    public override void size_allocate(int a, int b, int c)  {
+        base.size_allocate(a, b, c);
         
         viewport_resized();
     }
     
-    public override bool draw(Cairo.Context ctx) {
+    public void on_draw(Gtk.DrawingArea da, Cairo.Context ctx, int width, int height) {
         // Note: It's possible for draw to be called when in_view is false; this happens
         // when pages are switched prior to switched_to() being called, and some of the other
         // controls allow for events to be processed while they are orienting themselves.  Since
@@ -1115,12 +1124,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 border_color, focus_color);
         }
         
-        bool result = (base.draw != null) ? base.draw(ctx) : true;
-        
         // draw the selection band last, so it appears floating over everything else
         draw_selection_band(ctx);
-        
-        return result;
     }
     
     private void draw_selection_band(Cairo.Context ctx) {
@@ -1138,7 +1143,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         visible_page.intersect(selection_band, out visible_band);
         
         get_style_context().save();
-        get_style_context().add_class(Gtk.STYLE_CLASS_RUBBERBAND);
+        get_style_context().add_class("rubberband");
         // pixelate selection rectangle interior
         if (visible_band.width > 1 && visible_band.height > 1) {
             get_style_context().render_background(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
@@ -1167,6 +1172,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
 
+#if 0
     public override bool focus_in_event(Gdk.EventFocus event) {
         set_colors(true);
         items_dirty("focus_in_event", view.get_selected());
@@ -1180,4 +1186,5 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         return base.focus_out_event(event);
     }
+    #endif
 }

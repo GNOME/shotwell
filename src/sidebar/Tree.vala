@@ -90,7 +90,7 @@ public class Sidebar.Tree : Gtk.TreeView {
     
     public signal void destroying_page(Sidebar.PageRepresentative entry, Page page);
     
-    public Tree(Gtk.TargetEntry[] target_entries, Gdk.DragAction actions,
+    public Tree(Gdk.ContentFormats[] target_entries, Gdk.DragAction actions,
         ExternalDropHandler drop_handler) {
         set_model(store);
         

@@ -47,15 +47,11 @@ public abstract class SinglePhotoPage : Page {
         // should never be shown, but this may change if/when zooming is supported
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
-        set_border_width(0);
-        set_shadow_type(Gtk.ShadowType.NONE);
+        viewport.set_child(canvas);
 
-        viewport.set_shadow_type(Gtk.ShadowType.NONE);
-        viewport.set_border_width(0);
-        viewport.add(canvas);
+        set_child(viewport);
 
-        add(viewport);
-
+#if 0
         canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
             | Gdk.EventMask.SUBSTRUCTURE_MASK);
 
@@ -63,6 +59,7 @@ public abstract class SinglePhotoPage : Page {
         canvas.draw.connect(on_canvas_exposed);
 
         set_event_source(canvas);
+        #endif
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
     }
 
@@ -285,13 +282,11 @@ public abstract class SinglePhotoPage : Page {
     }
 
     public void invalidate(Gdk.Rectangle rect) {
-        if (canvas.get_window() != null)
-            canvas.get_window().invalidate_rect(rect, false);
+        queue_draw();
     }
 
     public void invalidate_all() {
-        if (canvas.get_window() != null)
-            canvas.get_window().invalidate_rect(null, false);
+        canvas.queue_draw ();
     }
 
     private void on_viewport_resize() {
@@ -299,12 +294,15 @@ public abstract class SinglePhotoPage : Page {
         internal_repaint(true, null);
     }
 
+#if 0
+// TODO
     protected override void on_resize_finished(Gdk.Rectangle rect) {
         base.on_resize_finished(rect);
 
         // when the resize is completed, do a high-quality repaint
         repaint();
     }
+    #endif
 
     private bool on_canvas_exposed(Cairo.Context exposed_ctx) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
@@ -366,7 +364,7 @@ public abstract class SinglePhotoPage : Page {
         }
 
         // no image or window, no painting
-        if (unscaled == null || canvas.get_window() == null)
+        if (unscaled == null /*|| canvas.get_window() == null*/)
             return;
 
         Gtk.Allocation allocation;
@@ -451,7 +449,7 @@ public abstract class SinglePhotoPage : Page {
 
     private void init_pixmap(int width, int height) {
         assert(unscaled != null);
-        assert(canvas.get_window() != null);
+        //assert(canvas.get_window() != null);
 
         // Cairo backing surface (manual double-buffering)
         pixmap = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
@@ -474,7 +472,8 @@ public abstract class SinglePhotoPage : Page {
     }
 
     protected override bool on_context_keypress() {
-        return popup_context_menu(get_page_context_menu());
+        //return popup_context_menu(get_page_context_menu());
+        return true;
     }
 
     protected virtual void on_previous_photo() {
@@ -483,6 +482,7 @@ public abstract class SinglePhotoPage : Page {
     protected virtual void on_next_photo() {
     }
 
+#if 0
     public override bool key_press_event(Gdk.EventKey event) {
         // if the user holds the arrow keys down, we will receive a steady stream of key press
         // events for an operation that isn't designed for a rapid succession of output ... 
@@ -519,6 +519,7 @@ public abstract class SinglePhotoPage : Page {
 
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+    #endif
 
     private void on_colors_changed() {
         invalidate_transparent_background();
