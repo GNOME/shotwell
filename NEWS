@@ -1,3 +1,43 @@
+Shotwell 0.30.15 (stable) - 4 Apr 2022
+ - Drop nautilus-sendto
+ - Improve compatibility with Vala 0.56
+ - Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/111
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Marek Černocký <marek@manet.cz>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Matheus Barbosa <mdpb.matheus@gmail.com>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Yosef Or Boczko <yoseforb@gnome.org>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Niklas Srich <sirniklax@gmail.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - Alexey Rubtsov <rushills@gmail.com>
+
+Added/updated translations:
+ - cs.po, courtesy of Marek Černocký
+ - id.po, courtesy of Andika Triwidada
+ - ca.po, courtesy of Carles Ferrando Garcia
+ - cs.po, courtesy of Marek Černocký
+ - es.po, courtesy of Daniel Mustieles García
+ - he.po, courtesy of Yosef Or Boczko
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Andika Triwidada
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Matheus Barbosa
+ - ru.po, courtesy of Alexey Rubtsov
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.30.14 (stable) - 18 Aug 2021
  - Fix import from camera, for real
 
