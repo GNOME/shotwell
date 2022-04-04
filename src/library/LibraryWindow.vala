@@ -94,7 +94,7 @@ public class LibraryWindow : AppWindow {
         }
     }
 
-    private string import_dir = Environment.get_home_dir();
+    private GLib.File import_dir = File.new_for_commandline_arg(Environment.get_home_dir());
     private bool import_recursive = true;
 
     private Gtk.Paned sidebar_paned = new Gtk.Paned(Gtk.Orientation.VERTICAL);
@@ -525,15 +525,24 @@ public class LibraryWindow : AppWindow {
     private void on_file_import() {
         var import_dialog = new Gtk.FileChooserNative(_("Import From Folder"), null,
             Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
+
+        import_dialog.set_modal(true);
+        import_dialog.set_transient_for(this);
         import_dialog.set_select_multiple(true);
         try {
-        import_dialog.set_current_folder(File.new_for_commandline_arg(import_dir));
-        } catch (Error err) { }
+            import_dialog.set_current_folder(import_dir);
+        } catch (Error err) {
+            debug("Failed to set dialog to old import dir : %s", err.message);
+        }
 
-        var recursive = new Gtk.CheckButton.with_label(_("Recurse Into Subfolders"));
-        recursive.active = import_recursive;
-        //import_dialog.set_extra_widget(recursive);
-        
+        import_dialog.add_choice("recursive-import", _("Recurse Into Subfolders"), null, null);
+        import_dialog.set_choice("recursive-import", import_recursive.to_string());
+        import_dialog.show();
+        import_dialog.response.connect((dialog, response) => {
+            import_dir = import_dialog.get_current_folder();
+            import_dialog.destroy();
+        });
+#if 0        
         int response = 0; //import_dialog.run();
         
         if (response == Gtk.ResponseType.ACCEPT) {
@@ -555,6 +564,7 @@ public class LibraryWindow : AppWindow {
         import_dir = import_dialog.get_current_folder().get_path();
         import_recursive = recursive.active;
         import_dialog.destroy();
+ #endif
     }
     
     private void on_external_library_import() {
