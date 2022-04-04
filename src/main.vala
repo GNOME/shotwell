@@ -384,11 +384,12 @@ void main(string[] args) {
             "/data/gsettings", true);
     }
 
-    // init GTK (valac has already called g_threads_init())
+    Gtk.init();
     try {
-        Gtk.init (); //_with_args(ref args, _("[FILE]"), CommandlineOptions.entries,
-            // TODO Resources.APP_GETTEXT_PACKAGE);
-
+        // TODO: Let GApplication handle the arguments
+        var context = new GLib.OptionContext("");
+        context.add_main_entries (CommandlineOptions.entries, Resources.APP_GETTEXT_PACKAGE);
+        context.parse(ref args);
     } catch (Error e) {
         print(e.message + "\n");
         print(_("Run “%s --help” to see a full list of available command line options.\n"), args[0]);
