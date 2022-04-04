@@ -25,17 +25,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-09-05 07:36+0000\n"
-"PO-Revision-Date: 2021-09-30 18:56+0300\n"
-"Last-Translator: Melman <Alexmelman88@gmail.com>\n"
+"POT-Creation-Date: 2022-03-18 01:00+0000\n"
+"PO-Revision-Date: 2022-03-19 08:27+1000\n"
+"Last-Translator: Ser82-png <sw@atrus.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Gtranslator 40.0\n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.3\n"
 "X-DL-Team: ru\n"
 "X-DL-Module: shotwell\n"
 "X-DL-Branch: master\n"
@@ -47,7 +47,6 @@ msgid "authentication token"
 msgstr "маркер аутентификации"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
-#| msgid "Yandex-Fotki authentication token, if logged in."
 msgid "Yandex-Fotki authentication token, if logged in"
 msgstr "Маркер аутентификации сервиса Яндекс.Фотки, если выполнен вход"
 
@@ -57,8 +56,6 @@ msgid "OAuth Access Phase Token"
 msgstr "Маркер этапа доступа OAuth"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
-#| msgid ""
-#| "The authorization token for the currently logged in Flickr user, if any"
 msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "Маркер авторизации для текущего пользователя Tumblr (если имеется)"
 
@@ -68,9 +65,6 @@ msgid "OAuth Access Phase Token Secret"
 msgstr "Секрет маркера этапа доступа OAuth"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:21
-#| msgid ""
-#| "The cryptographic secret used to sign requests against the authorization "
-#| "token for the currently logged in Flickr user, if any"
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Tumblr user, if any"
@@ -116,12 +110,10 @@ msgid "Rajce URL"
 msgstr "URL Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
-#| msgid "URL of the Rajce server."
 msgid "URL of the Rajce server"
 msgstr "URL-адрес сервера Rajce"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
-#| msgid "Rajce username, if logged in."
 msgid "Rajce username, if logged in"
 msgstr "Имя пользователя Rajce, если выполнен вход"
 
@@ -130,7 +122,6 @@ msgid "token"
 msgstr "маркер"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:59
-#| msgid "user token, if remembered."
 msgid "user token, if remembered"
 msgstr "маркер пользователя, если сохранён"
 
@@ -140,7 +131,6 @@ msgid "last category"
 msgstr "последняя категория"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:65
-#| msgid "The last selected Rajce category."
 msgid "The last selected Rajce category"
 msgstr "Последняя выбранная категория Rajce"
 
@@ -150,9 +140,6 @@ msgid "last photo size"
 msgstr "последний размер фотографии"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
-#| msgid ""
-#| "A numeric code representing the last photo size preset used when "
-#| "publishing to Rajce."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Rajce"
@@ -165,7 +152,6 @@ msgid "remember"
 msgstr "запомнить"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
-#| msgid "If true, remember last login."
 msgid "If true, remember last login"
 msgstr "Если значение — True, данные последнего входа будут сохранены"
 
@@ -174,7 +160,6 @@ msgid "hide album"
 msgstr "скрыть альбом"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
-#| msgid "If true, hide the newly created Rajce album."
 msgid "If true, hide the newly created Rajce album"
 msgstr "Если значение — True, только что созданный альбом Rajce будет скрыт"
 
@@ -209,8 +194,6 @@ msgid "display basic properties"
 msgstr "показывать основные свойства"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:24
-#| msgid ""
-#| "True if the basic properties pane is to be displayed, false otherwise."
 msgid "True if the basic properties pane is to be displayed, false otherwise"
 msgstr ""
 "Значение True, если панель основных свойств должна отображаться. Если нет — "
@@ -221,9 +204,6 @@ msgid "display extended properties"
 msgstr "показывать расширенные свойства"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:30
-#| msgid ""
-#| "True if the extended properties window is to be displayed, false "
-#| "otherwise."
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise"
 msgstr ""
@@ -235,7 +215,6 @@ msgid "display sidebar"
 msgstr "показывать боковую панель"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:36
-#| msgid "True if the sidebar is to be displayed, false otherwise."
 msgid "True if the sidebar is to be displayed, false otherwise"
 msgstr ""
 "Значение True, если боковая панель должна отображаться. Если нет — False"
@@ -245,7 +224,6 @@ msgid "display toolbar"
 msgstr "показывать панель инструментов"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:42
-#| msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
 msgstr ""
 "Значение True, если нижняя панель инструментов должна отображаться. Если нет "
@@ -256,7 +234,6 @@ msgid "display map widget"
 msgstr "показывать мини-приложение карты"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:48
-#| msgid "True if the map widget is to be displayed, false otherwise."
 msgid "True if the map widget is to be displayed, false otherwise"
 msgstr "Значение True, если виджет карты должен отображаться. Если нет — False"
 
@@ -265,8 +242,6 @@ msgid "display search bar"
 msgstr "показывать панель поиска"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:54
-#| msgid ""
-#| "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
 msgstr ""
 "Значение True, если панель инструментов поиска/фильтрации должна "
@@ -277,9 +252,6 @@ msgid "display photo titles"
 msgstr "показывать названия фотографий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:60
-#| msgid ""
-#| "True if photo titles are to be displayed beneath thumbnails in collection "
-#| "views, false otherwise."
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -292,9 +264,6 @@ msgid "display photo comments"
 msgstr "показывать комментарии к фотографиям"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:66
-#| msgid ""
-#| "True if photo comments are to be displayed beneath thumbnails in "
-#| "collection views, false otherwise."
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -307,9 +276,6 @@ msgid "display event comments"
 msgstr "показывать комментарии к событиям"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:72
-#| msgid ""
-#| "True if event comments are to be displayed beneath thumbnails in event "
-#| "views, false otherwise."
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise"
@@ -322,9 +288,6 @@ msgid "display photo tags"
 msgstr "показывать метки фотографий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:78
-#| msgid ""
-#| "True if photo tags are to be listed beneath thumbnails in collection "
-#| "views, false otherwise."
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise"
@@ -337,9 +300,6 @@ msgid "display photo ratings"
 msgstr "показывать оценки фотографий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:84
-#| msgid ""
-#| "True if a photo’s rating should be displayed as overlaid trinket, false "
-#| "otherwise."
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise"
@@ -352,10 +312,6 @@ msgid "rating filter level"
 msgstr "уровень фильтрации по рейтингу"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:90
-#| msgid ""
-#| "Determines how to filter photos based on their ratings. 1: Rejected or "
-#| "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: "
-#| "Three or better, 6: Four or better, 7: Five or better."
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
@@ -371,7 +327,6 @@ msgid "sort events ascending"
 msgstr "сортировать события по возрастанию"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:96
-#| msgid "True if events should be sorted ascending, false if descending."
 msgid "True if events should be sorted ascending, false if descending"
 msgstr ""
 "Значение True, если события следует сортировать по возрастанию. Если их "
@@ -382,8 +337,6 @@ msgid "sort library photos ascending"
 msgstr "сортировать фотографии библиотеки по возрастанию"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:102
-#| msgid ""
-#| "True if library photos should be sorted ascending, false if descending."
 msgid "True if library photos should be sorted ascending, false if descending"
 msgstr ""
 "Значение True, если фотографии библиотеки следует сортировать по "
@@ -394,9 +347,6 @@ msgid "sort library photos criteria"
 msgstr "критерии сортировки фотографий библиотеки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:108
-#| msgid ""
-#| "A numeric code that specifies the sort criteria for photos in library "
-#| "views."
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views"
 msgstr ""
@@ -408,8 +358,6 @@ msgid "sort event photos ascending"
 msgstr "сортировать фотографии событий по возрастанию"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:114
-#| msgid ""
-#| "True if event photos should be sorted ascending, false if descending."
 msgid "True if event photos should be sorted ascending, false if descending"
 msgstr ""
 "Значение True, если фотографии событий следует сортировать по возрастанию. "
@@ -420,7 +368,6 @@ msgid "sort event photos criteria"
 msgstr "критерии сортировки фотографий событий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:120
-#| msgid "Specifies the sort criteria for event photos."
 msgid "Specifies the sort criteria for event photos"
 msgstr "Определяет критерии сортировки фотографий событий"
 
@@ -429,9 +376,6 @@ msgid "use 24 hour time"
 msgstr "использовать 24-часовой формат времени"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:126
-#| msgid ""
-#| "True if should display times with a 24 hour clock, false if times should "
-#| "use AM/PM notation."
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation"
@@ -444,9 +388,6 @@ msgid "keep relative time between photos"
 msgstr "сохранять относительное время между фотографиями"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:132
-#| msgid ""
-#| "True if when adjusting time/date of photos, relative time should be "
-#| "maintained. False if all photos should be set to the same time."
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time"
@@ -460,9 +401,6 @@ msgid "modify original photo files"
 msgstr "изменять оригиналы фотографий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:138
-#| msgid ""
-#| "True if when adjusting time/date of photos, the original files should be "
-#| "modified as well. False if changes are made only in the database."
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database"
@@ -476,9 +414,6 @@ msgid "show welcome dialog on startup"
 msgstr "показывать диалог приветствия при запуске"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:144
-#| msgid ""
-#| "True if, when on startup, a welcome dialog should be shown. False if it "
-#| "should not be shown."
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown"
@@ -499,7 +434,6 @@ msgid "photo thumbnail scale"
 msgstr "масштаб миниатюр фотографий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:156
-#| msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgid "The scale of photo thumbnails, ranging from 72 to 360"
 msgstr "Масштаб миниатюр фотографий, от 72 до 360"
 
@@ -508,7 +442,6 @@ msgid "pin toolbar state"
 msgstr "состояние прикрепления панели инструментов"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:162
-#| msgid "Pin toolbar in fullscreen, or not."
 msgid "Pin toolbar in fullscreen, or not"
 msgstr "Следует ли прикреплять панель инструментов в полноэкранном режиме"
 
@@ -517,7 +450,6 @@ msgid "prefer GTK+’s dark theme"
 msgstr "предпочитать тёмную тему GTK+"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:168
-#| msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not"
 msgstr "Следует ли использовать для Shotwell тёмную тему GTK+"
 
@@ -526,7 +458,6 @@ msgid "background for transparent images"
 msgstr "фон для прозрачных изображений"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:174
-#| msgid "The background to use for transparent images."
 msgid "The background to use for transparent images"
 msgstr "Фон, который используется для прозрачных изображений"
 
@@ -545,9 +476,6 @@ msgid "Selection state of “hide photos” option"
 msgstr "Состояние параметра «скрывать фотографии»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:186
-#| msgid ""
-#| "Last used selection state of the “hide photos already imported” option in "
-#| "the import page."
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page"
@@ -560,7 +488,6 @@ msgid "delay"
 msgstr "задержка"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:194
-#| msgid "Delay (in seconds) between photos in the slideshow."
 msgid "Delay (in seconds) between photos in the slideshow"
 msgstr "Задержка (в секундах) между фотографиями в слайд-шоу"
 
@@ -600,7 +527,6 @@ msgid "maximize library window"
 msgstr "развернуть окно библиотеки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:220
-#| msgid "True if library application is maximized, false otherwise."
 msgid "True if library application is maximized, false otherwise"
 msgstr ""
 "Значение True, если окно приложения библиотеки должно быть развёрнуто. Если "
@@ -611,7 +537,6 @@ msgid "width of library window"
 msgstr "ширина окна библиотеки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:226
-#| msgid "The last recorded width of the library application window."
 msgid "The last recorded width of the library application window"
 msgstr "Последняя сохраненная ширина окна приложения библиотеки"
 
@@ -620,7 +545,6 @@ msgid "height of library window"
 msgstr "высота окна библиотеки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:232
-#| msgid "The last recorded height of the library application window."
 msgid "The last recorded height of the library application window"
 msgstr "Последняя сохраненная высота окна приложения библиотеки"
 
@@ -629,7 +553,6 @@ msgid "maximize direct-edit window"
 msgstr "развернуть окно прямого редактирования"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:238
-#| msgid "True if direct-edit application is maximized, false otherwise."
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr ""
 "Значение True, если окно прямого редактирования должно быть развёрнуто. Если "
@@ -640,7 +563,6 @@ msgid "width of direct-edit window"
 msgstr "ширина окна прямого редактирования"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:244
-#| msgid "The last recorded width of the direct-edit application window."
 msgid "The last recorded width of the direct-edit application window"
 msgstr "Последняя сохраненная ширина окна приложения прямого редактирования"
 
@@ -649,7 +571,6 @@ msgid "height of direct-edit window"
 msgstr "высота окна прямого редактирования"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:250
-#| msgid "The last recorded height of the direct-edit application window."
 msgid "The last recorded height of the direct-edit application window"
 msgstr "Последняя сохраненная высота окна приложения прямого редактирования"
 
@@ -658,9 +579,6 @@ msgid "sidebar divider position"
 msgstr "положение разделителя боковой панели"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:256
-#| msgid ""
-#| "The last recorded position of the divider between the sidebar and view in "
-#| "library application window."
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
@@ -673,7 +591,6 @@ msgid "import directory"
 msgstr "каталог импорта"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:264
-#| msgid "Directory in which imported photo files are placed."
 msgid "Directory in which imported photo files are placed"
 msgstr "Каталог, в котором размещаются импортированные файлы фотографий"
 
@@ -682,8 +599,6 @@ msgid "watch library directory for new files"
 msgstr "следить за появлением новых файлов в каталоге библиотеки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:270
-#| msgid ""
-#| "If true, files added to the library directory are automatically imported."
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
@@ -695,9 +610,6 @@ msgid "write metadata to master files"
 msgstr "записывать метаданные в исходные файлы"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:276
-#| msgid ""
-#| "If true, changes to metadata (tags, titles, etc.) are written to the "
-#| "master photo file."
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
@@ -722,9 +634,6 @@ msgid "directory pattern"
 msgstr "шаблон каталога"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:288
-#| msgid ""
-#| "A string encoding a naming pattern that will be used to name photo "
-#| "directories on import."
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
@@ -737,9 +646,6 @@ msgid "directory pattern custom"
 msgstr "пользовательский шаблон каталога"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:294
-#| msgid ""
-#| "A string encoding a custom naming pattern that will be used to name photo "
-#| "directories on import."
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
@@ -752,34 +658,27 @@ msgid "RAW developer default"
 msgstr "Обработчик RAW по умолчанию"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
-#| msgid "Default option for which RAW developer Shotwell will use."
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr ""
 "Обработчик RAW, который программа Shotwell будет использовать по умолчанию"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:307
-#| msgid "Most-recently-used crop aspect ratio menu choice."
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "Последний использованный вариант соотношения сторон рамки обрезки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:308
-#| msgid "A numeric code representing the last crop menu choice the user made."
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "Числовой код, представляющий последний выбранный пользователем вариант "
 "обрезки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:312
-#| msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr ""
 "Последний использованный числитель пользовательского соотношения сторон "
 "рамки обрезки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:313
-#| msgid ""
-#| "A nonzero, positive integer representing the width part of the last "
-#| "custom crop ratio the user entered."
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
@@ -788,16 +687,12 @@ msgstr ""
 "введённого пользователем значения параметра обрезки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:317
-#| msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr ""
 "Последний использованный знаменатель пользовательского соотношения сторон "
 "рамки обрезки"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:318
-#| msgid ""
-#| "A nonzero, positive integer representing the height part of the last "
-#| "custom crop ratio the user entered."
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
@@ -810,7 +705,6 @@ msgid "external photo editor"
 msgstr "внешний редактор изображений"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:326
-#| msgid "External application used to edit photos."
 msgid "External application used to edit photos"
 msgstr "Внешнее приложение, которое используется для редактирования фотографий"
 
@@ -819,7 +713,6 @@ msgid "external raw editor"
 msgstr "внешний редактор RAW"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:332
-#| msgid "External application used to edit RAW photos."
 msgid "External application used to edit RAW photos"
 msgstr ""
 "Внешнее приложение, которое используется для редактирования RAW фотографий"
@@ -933,9 +826,6 @@ msgid "refresh token"
 msgstr "маркер обновления"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
-#| msgid ""
-#| "The OAuth token used to refresh the Google Photos session for the "
-#| "currently logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -976,12 +866,10 @@ msgid "Piwigo URL"
 msgstr "URL Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:492
-#| msgid "URL of the Piwigo server."
 msgid "URL of the Piwigo server"
 msgstr "URL-адрес сервера Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:498
-#| msgid "Piwigo username, if logged in."
 msgid "Piwigo username, if logged in"
 msgstr "Имя пользователя Piwigo, если выполнен вход"
 
@@ -990,7 +878,6 @@ msgid "password"
 msgstr "пароль"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:504
-#| msgid "Piwigo password, if logged in."
 msgid "Piwigo password, if logged in"
 msgstr "Пароль пользователя Piwigo, если выполнен вход"
 
@@ -999,12 +886,10 @@ msgid "remember password"
 msgstr "запомнить пароль"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:510
-#| msgid "If true, remember the Piwigo password."
 msgid "If true, remember the Piwigo password"
 msgstr "Если значение — True, пароль Piwigo будет сохранён"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:516
-#| msgid "The last selected Piwigo category."
 msgid "The last selected Piwigo category"
 msgstr "Последняя выбранная категория Piwigo"
 
@@ -1013,14 +898,10 @@ msgid "last permission level"
 msgstr "последний уровень разрешений"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:522
-#| msgid "The last chosen Piwigo permission level."
 msgid "The last chosen Piwigo permission level"
 msgstr "Последний выбранный уровень разрешений Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:528
-#| msgid ""
-#| "A numeric code representing the last photo size preset used when "
-#| "publishing to Piwigo."
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -1055,9 +936,6 @@ msgid "do not upload tags when uploading to Piwigo"
 msgstr "не отправлять метки при отправке на сервис Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:546
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their tags removed on "
-#| "upload, such that these tags will not appear on the remote Piwigo server."
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -1066,14 +944,10 @@ msgstr ""
 "чтобы они не отображались на удалённом сервере Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:551
-#| msgid "do not upload tags when uploading to Piwigo"
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "не отправлять рейтинги при отправке на сервис Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
-#| msgid ""
-#| "Whether images being uploaded to Piwigo should have their tags removed on "
-#| "upload, such that these tags will not appear on the remote Piwigo server."
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -1102,9 +976,6 @@ msgid "Gallery3 site URL"
 msgstr "URL-адрес сайта Gallery3"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:584
-#| msgid ""
-#| "Whether images being uploaded to Rajce should have their metadata removed "
-#| "first"
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -1134,9 +1005,6 @@ msgstr ""
 "подходящее значение"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
-#| msgid ""
-#| "The OAuth token used to refresh the YouTube session for the currently "
-#| "logged in user, if any."
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -1254,9 +1122,6 @@ msgid "print titles"
 msgstr "печатать названия"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:676
-#| msgid ""
-#| "True if the title of a photo should be printed when the photo is printed, "
-#| "false otherwise."
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
@@ -1269,7 +1134,6 @@ msgid "titles font"
 msgstr "шрифт названий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:682
-#| msgid "The name of the font to use for photo titles when they are printed."
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr ""
 "Имя шрифта, который будет использоваться для названий фотографий при их "
@@ -1490,7 +1354,7 @@ msgstr ""
 #: data/ui/media.ui:361 data/ui/photo_context.ui:91 data/ui/photo.ui:356
 #: data/ui/tags.ui:361
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:311
+#: src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1517,9 +1381,6 @@ msgstr ""
 "экспериментировать и исправлять ошибки редактирования."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
-#| msgid ""
-#| "When ready, Shotwell can upload your photos to various web sites, such as "
-#| "Facebook, Flickr, Google Photos, and more."
 msgid ""
 "When ready, Shotwell can upload your photos to various web services, such as "
 "Flickr, Google Photos, and more."
@@ -1538,7 +1399,7 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Разработчики программы Shotwell"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:16
+#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Менеджер фотографий"
 
@@ -1564,31 +1425,31 @@ msgstr ""
 msgid "Shotwell Viewer"
 msgstr "Программа просмотра фотографий Shotwell"
 
-#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:17
+#: data/org.gnome.Shotwell-Viewer.desktop.in:5 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Программа просмотра фотографий"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
 #: data/ui/event.ui:452 data/ui/photo_context.ui:6 data/ui/photo.ui:232
-#: src/CollectionPage.vala:119 src/Resources.vala:159
+#: src/CollectionPage.vala:119 src/Resources.vala:152
 msgid "_Enhance"
 msgstr "_Автокоррекция"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
 #: data/ui/event.ui:457 data/ui/photo_context.ui:11 data/ui/photo.ui:259
-#: src/CollectionPage.vala:120 src/Resources.vala:187
+#: src/CollectionPage.vala:120 src/Resources.vala:180
 msgid "Re_vert to Original"
 msgstr "Отменить автокоррек_цию"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:412 data/ui/event.ui:463
 #: data/ui/faces.ui:390 data/ui/media.ui:395 data/ui/photo.ui:384
-#: data/ui/tags.ui:395 src/Resources.vala:285
+#: data/ui/tags.ui:395 src/Resources.vala:278
 msgid "Add _Tags…"
 msgstr "Добавить _метки…"
 
 #: data/ui/collection.ui:24 data/ui/event.ui:417 data/ui/event.ui:468
 #: data/ui/faces.ui:395 data/ui/media.ui:400 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:357
+#: data/ui/photo.ui:389 data/ui/tags.ui:400 src/Resources.vala:350
 msgid "Modif_y Tags…"
 msgstr "Изменить _метки…"
 
@@ -1600,31 +1461,31 @@ msgstr "Установить или снять _отметку"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:291 data/ui/event.ui:483
 #: data/ui/faces.ui:286 data/ui/media.ui:291 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:219
+#: data/ui/photo.ui:282 data/ui/tags.ui:291 src/Resources.vala:212
 msgid "_Set Rating"
 msgstr "_Оценить"
 
 #: data/ui/collection.ui:62 data/ui/event.ui:319 data/ui/event.ui:506
 #: data/ui/faces.ui:314 data/ui/media.ui:319 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
+#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:222
 msgid "_Unrated"
 msgstr "_Без оценки"
 
 #: data/ui/collection.ui:66 data/ui/event.ui:324 data/ui/event.ui:510
 #: data/ui/faces.ui:319 data/ui/media.ui:324 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:235
+#: data/ui/photo.ui:315 data/ui/tags.ui:324 src/Resources.vala:228
 msgid "_Rejected"
 msgstr "_Отклонённые"
 
 #: data/ui/collection.ui:72 data/ui/event.ui:331 data/ui/event.ui:516
 #: data/ui/faces.ui:326 data/ui/media.ui:331 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:223
+#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:216
 msgid "_Increase"
 msgstr "По_высить"
 
 #: data/ui/collection.ui:76 data/ui/event.ui:336 data/ui/event.ui:520
 #: data/ui/faces.ui:331 data/ui/media.ui:336 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:226
+#: data/ui/photo.ui:327 data/ui/tags.ui:336 src/Resources.vala:219
 msgid "_Decrease"
 msgstr "По_низить"
 
@@ -1637,13 +1498,13 @@ msgstr "_Обработчик"
 #: data/ui/collection.ui:90 data/ui/event.ui:366 data/ui/event.ui:534
 #: data/ui/faces.ui:361 data/ui/media.ui:366 data/ui/photo_context.ui:96
 #: data/ui/photo.ui:361 data/ui/tags.ui:366 src/camera/CameraBranch.vala:99
-#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:314
+#: src/camera/ImportPage.vala:709 src/photos/RawSupport.vala:316
 msgid "Camera"
 msgstr "Камера"
 
 #: data/ui/collection.ui:98 data/ui/event.ui:345 data/ui/event.ui:542
 #: data/ui/faces.ui:340 data/ui/media.ui:345 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:271
+#: data/ui/photo.ui:336 data/ui/tags.ui:345 src/Resources.vala:264
 msgid "Edit _Title…"
 msgstr "Изменить _название…"
 
@@ -1651,17 +1512,17 @@ msgstr "Изменить _название…"
 #: data/ui/events_directory.ui:191 data/ui/event.ui:350 data/ui/event.ui:403
 #: data/ui/event.ui:547 data/ui/faces.ui:345 data/ui/media.ui:350
 #: data/ui/photo_context.ui:110 data/ui/photo.ui:341 data/ui/tags.ui:350
-#: src/Resources.vala:275
+#: src/Resources.vala:268
 msgid "Edit _Comment…"
 msgstr "Изменить _комментарий…"
 
 #: data/ui/collection.ui:108 data/ui/event.ui:552 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:292
+#: data/ui/photo.ui:370 src/CollectionPage.vala:143 src/Resources.vala:285
 msgid "Open With E_xternal Editor"
 msgstr "Открыть с помощью внешнего _редактора"
 
 #: data/ui/collection.ui:113 data/ui/event.ui:557 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:294
+#: data/ui/photo.ui:375 src/CollectionPage.vala:146 src/Resources.vala:287
 msgid "Open With RA_W Editor"
 msgstr "Открыть с помощью редактора _RAW"
 
@@ -1675,56 +1536,56 @@ msgstr "Показать _событие для фотографии"
 #: data/ui/event.ui:27 data/ui/event.ui:567 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:232
-#: src/Resources.vala:785
+#: src/Resources.vala:778
 msgid "Show in File Mana_ger"
 msgstr "Открыть в _файловом менеджере"
 
 #: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
 #: data/ui/event.ui:572 data/ui/photo.ui:30 src/CollectionPage.vala:83
-#: src/Resources.vala:296
+#: src/Resources.vala:289
 msgid "Send _To…"
 msgstr "Отправить_…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:578
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:794
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:787
 msgid "_Move to Trash"
 msgstr "_Переместить в корзину"
 
-#: data/ui/collection.ui:148 src/Resources.vala:115
+#: data/ui/collection.ui:148 src/Resources.vala:108
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Повернуть изображение вправо (нажмите Ctrl для поворота влево)"
 
-#: data/ui/collection.ui:151 src/Resources.vala:113 src/Resources.vala:118
+#: data/ui/collection.ui:151 src/Resources.vala:106 src/Resources.vala:111
 msgid "Rotate"
 msgstr "Поворот"
 
-#: data/ui/collection.ui:164 src/Resources.vala:161
+#: data/ui/collection.ui:164 src/Resources.vala:154
 msgid "Automatically improve the photo’s appearance"
 msgstr "Автоматически откорректировать цвет и тон изображения"
 
-#: data/ui/collection.ui:167 src/Resources.vala:160
+#: data/ui/collection.ui:167 src/Resources.vala:153
 msgid "Enhance"
 msgstr "Автокоррекция"
 
-#: data/ui/collection.ui:189 src/Resources.vala:269
+#: data/ui/collection.ui:189 src/Resources.vala:262
 msgid "Publish to various websites"
 msgstr "Опубликовать на различных сайтах"
 
 #: data/ui/collection.ui:192
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
-#: src/Resources.vala:268
+#: src/Resources.vala:261
 msgid "Publish"
 msgstr "Опубликовать"
 
 #: data/ui/collection.ui:214 data/ui/offline.ui:241 data/ui/trash.ui:314
-#: src/Resources.vala:301
+#: src/Resources.vala:294
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr ""
 "Найти изображения по указанной строке из названий или меток изображений"
 
 #: data/ui/collection.ui:217 data/ui/offline.ui:244 data/ui/trash.ui:317
-#: src/Resources.vala:300
+#: src/Resources.vala:293
 msgid "Find"
 msgstr "Поиск"
 
@@ -1736,7 +1597,7 @@ msgid "_File"
 msgstr "_Файл"
 
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:148
+#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:141
 msgid "_Save"
 msgstr "_Сохранить"
 
@@ -1747,28 +1608,28 @@ msgstr "Сохранить _как…"
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
 #: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
 #: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:144
+#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:137
 msgid "_Quit"
 msgstr "_Завершить"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
 #: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
 #: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:132
+#: data/ui/trash.ui:37 src/Resources.vala:125
 msgid "_Edit"
 msgstr "_Правка"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
 #: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
 #: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:197
+#: data/ui/trash.ui:40 src/Resources.vala:190
 msgid "_Undo"
 msgstr "_Отменить"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
 #: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
 #: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:200
+#: data/ui/trash.ui:45 src/Resources.vala:193
 msgid "_Redo"
 msgstr "_Вернуть"
 
@@ -1780,19 +1641,19 @@ msgid "_View"
 msgstr "_Вид"
 
 #: data/ui/direct.ui:62 data/ui/events_directory.ui:130 data/ui/photo.ui:180
-#: src/Resources.vala:134
+#: src/Resources.vala:127
 msgid "Fulls_creen"
 msgstr "_Полноэкранный режим"
 
 #: data/ui/direct.ui:69 data/ui/event.ui:265 data/ui/faces.ui:260
 #: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
-#: src/Resources.vala:156
+#: src/Resources.vala:149
 msgid "Zoom _In"
 msgstr "_Увеличить"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:270 data/ui/faces.ui:265
 #: data/ui/media.ui:270 data/ui/photo.ui:156 data/ui/tags.ui:270
-#: src/Resources.vala:157
+#: src/Resources.vala:150
 msgid "Zoom _Out"
 msgstr "_Уменьшить"
 
@@ -1821,22 +1682,22 @@ msgid "_Next Photo"
 msgstr "_Следующее фото"
 
 #: data/ui/direct.ui:113 data/ui/photo.ui:209 src/CollectionPage.vala:110
-#: src/Resources.vala:112
+#: src/Resources.vala:105
 msgid "Rotate _Right"
 msgstr "Повернуть в_право"
 
 #: data/ui/direct.ui:118 data/ui/photo.ui:214 src/CollectionPage.vala:113
-#: src/Resources.vala:117
+#: src/Resources.vala:110
 msgid "Rotate _Left"
 msgstr "Повернуть в_лево"
 
 #: data/ui/direct.ui:123 data/ui/photo.ui:219 src/CollectionPage.vala:116
-#: src/Resources.vala:122
+#: src/Resources.vala:115
 msgid "Flip Hori_zontally"
 msgstr "Отразить по _горизонтали"
 
 #: data/ui/direct.ui:127 data/ui/photo.ui:223 src/CollectionPage.vala:117
-#: src/Resources.vala:125
+#: src/Resources.vala:118
 msgid "Flip Verti_cally"
 msgstr "Отразить по _вертикали"
 
@@ -1844,24 +1705,24 @@ msgstr "Отразить по _вертикали"
 msgid "T_ools"
 msgstr "_Инструменты"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:171
+#: data/ui/direct.ui:141 data/ui/photo.ui:237 src/Resources.vala:164
 msgid "_Crop"
 msgstr "_Обрезать"
 
 #: data/ui/direct.ui:146 data/ui/photo.ui:242
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:175
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:168
 msgid "_Straighten"
 msgstr "_Выровнять"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:179
+#: data/ui/direct.ui:151 data/ui/photo.ui:247 src/Resources.vala:172
 msgid "_Red-eye"
 msgstr "_Удаление эффекта «красных глаз»"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:183
+#: data/ui/direct.ui:156 data/ui/photo.ui:252 src/Resources.vala:176
 msgid "_Adjust"
 msgstr "_Коррекция"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:282
+#: data/ui/direct.ui:169 data/ui/photo.ui:346 src/Resources.vala:275
 msgid "_Adjust Date and Time…"
 msgstr "_Изменить дату и время…"
 
@@ -1872,7 +1733,7 @@ msgstr "_Изменить дату и время…"
 #: data/ui/media.ui:408 data/ui/media.ui:411 data/ui/offline.ui:185
 #: data/ui/offline.ui:188 data/ui/photo.ui:396 data/ui/photo.ui:399
 #: data/ui/tags.ui:427 data/ui/tags.ui:430 data/ui/trash.ui:194
-#: data/ui/trash.ui:197 src/Resources.vala:135
+#: data/ui/trash.ui:197 src/Resources.vala:128
 msgid "_Help"
 msgstr "_Справка"
 
@@ -1894,7 +1755,7 @@ msgstr "_Сообщить об ошибке…"
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:206
 #: data/ui/manifest_widget.ui:35 data/ui/media.ui:426 data/ui/offline.ui:203
 #: data/ui/photo.ui:414 data/ui/tags.ui:445 data/ui/trash.ui:212
-#: src/Resources.vala:128
+#: src/Resources.vala:121
 msgid "_About"
 msgstr "_О программе"
 
@@ -1933,14 +1794,14 @@ msgstr "Н_овый сохранённый поисковый запрос…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:796
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:789
 msgid "Select _All"
 msgstr "Выбрать _все"
 
 #: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
 #: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
 #: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
-#: src/Resources.vala:141 src/Resources.vala:290
+#: src/Resources.vala:134 src/Resources.vala:283
 msgid "_Preferences"
 msgstr "_Параметры"
 
@@ -2013,23 +1874,23 @@ msgid "Even_ts"
 msgstr "Со_бытия"
 
 #: data/ui/events_directory.ui:140 data/ui/events_directory.ui:182
-#: src/Resources.vala:215
+#: src/Resources.vala:208
 msgid "_Merge Events"
 msgstr "_Объединение событий"
 
 #: data/ui/events_directory.ui:144 data/ui/events_directory.ui:186
-#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:203
+#: data/ui/event.ui:398 data/ui/event.ui:593 src/Resources.vala:196
 msgid "Re_name Event…"
 msgstr "_Переименовать событие…"
 
 #: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:263
+#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:256
 msgid "_Export…"
 msgstr "_Экспортировать…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:212 data/ui/offline.ui:229
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:792
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:785
 msgid "R_emove From Library"
 msgstr "_Удалить из библиотеки"
 
@@ -2045,31 +1906,31 @@ msgid "Ta_gs"
 msgstr "_Метки"
 
 #: data/ui/event.ui:149 data/ui/faces.ui:144 data/ui/media.ui:149
-#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:252
+#: data/ui/photo.ui:127 data/ui/tags.ui:149 src/Resources.vala:245
 msgid "_Ratings"
 msgstr "_Оценки"
 
 #: data/ui/event.ui:156 data/ui/faces.ui:151 data/ui/import.ui:116
 #: data/ui/media.ui:156 data/ui/offline.ui:113 data/ui/tags.ui:156
-#: data/ui/trash.ui:122 src/Resources.vala:255
+#: data/ui/trash.ui:122 src/Resources.vala:248
 msgid "_Filter Photos"
 msgstr "_Фильтровать фото"
 
 #: data/ui/event.ui:189 data/ui/faces.ui:184 data/ui/import.ui:149
 #: data/ui/media.ui:189 data/ui/offline.ui:146 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:248
+#: data/ui/tags.ui:189 data/ui/trash.ui:155 src/Resources.vala:241
 msgid "_All Photos"
 msgstr "_Все фотографии"
 
 #: data/ui/event.ui:195 data/ui/faces.ui:190 data/ui/import.ui:155
 #: data/ui/media.ui:195 data/ui/offline.ui:152 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:245
+#: data/ui/tags.ui:195 data/ui/trash.ui:161 src/Resources.vala:238
 msgid "All + _Rejected"
 msgstr "Все и _отклонённые"
 
 #: data/ui/event.ui:201 data/ui/faces.ui:196 data/ui/import.ui:161
 #: data/ui/media.ui:201 data/ui/offline.ui:158 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:241
+#: data/ui/tags.ui:201 data/ui/trash.ui:167 src/Resources.vala:234
 msgid "Rejected _Only"
 msgstr "Только _отклонённые"
 
@@ -2108,21 +1969,21 @@ msgstr "По _убыванию"
 msgid "_Photos"
 msgstr "_Фотографии"
 
-#: data/ui/event.ui:378 data/ui/event.ui:585 src/Resources.vala:206
+#: data/ui/event.ui:378 data/ui/event.ui:585 src/Resources.vala:199
 msgid "Make _Key Photo for Event"
 msgstr "Сделать _ключевой фотографией для события"
 
 #: data/ui/event.ui:387 data/ui/faces.ui:376 data/ui/media.ui:381
-#: data/ui/tags.ui:381 src/Resources.vala:209
+#: data/ui/tags.ui:381 src/Resources.vala:202
 msgid "_New Event"
 msgstr "_Новое событие"
 
-#: data/ui/event.ui:597 src/Resources.vala:279
+#: data/ui/event.ui:597 src/Resources.vala:272
 msgid "Edit Event _Comment…"
 msgstr "Изменить _комментарий к событию…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:307
-#: src/Resources.vala:308
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:300
+#: src/Resources.vala:301
 msgid "Faces"
 msgstr "Лица"
 
@@ -2157,25 +2018,25 @@ msgstr "_Войти"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
 #: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:130
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Отмена"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
-#: src/Resources.vala:139
+#: src/Resources.vala:132
 msgid "_OK"
 msgstr "_ОК"
 
-#: data/ui/offline.ui:226 src/Resources.vala:780
+#: data/ui/offline.ui:226 src/Resources.vala:773
 msgid "Remove the selected photos from the library"
 msgstr "Удалить выбранные фотографии из библиотеки"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:286
+#: data/ui/photo_context.ui:17 src/Resources.vala:279
 msgid "_Add Tags…"
 msgstr "_Добавить метки…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:297
+#: data/ui/photo_context.ui:135 src/Resources.vala:290
 msgid "Send T_o…"
 msgstr "О_тправить…"
 
@@ -2183,11 +2044,11 @@ msgstr "О_тправить…"
 msgid "S_lideshow"
 msgstr "_Слайд-шоу"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:163
+#: data/ui/photo.ui:265 src/CollectionPage.vala:122 src/Resources.vala:156
 msgid "_Copy Color Adjustments"
 msgstr "_Копировать настройки цвета"
 
-#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:167
+#: data/ui/photo.ui:270 src/CollectionPage.vala:125 src/Resources.vala:160
 msgid "_Paste Color Adjustments"
 msgstr "_Вставить настройки цвета"
 
@@ -2380,19 +2241,19 @@ msgstr "ни один"
 msgid "of the following:"
 msgstr "из следующих:"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:398
+#: data/ui/savedsearch.ui:6 src/Resources.vala:391
 msgid "Re_name…"
 msgstr "П_ереименовать…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:397
+#: data/ui/savedsearch.ui:10 src/Resources.vala:390
 msgid "_Edit…"
 msgstr "_Изменить…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:465 data/ui/trash.ui:63
 #: data/ui/trash.ui:221 data/ui/trash.ui:263 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
-#: src/Resources.vala:131 src/Resources.vala:312 src/Resources.vala:343
-#: src/Resources.vala:396 src/Resources.vala:778
+#: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
+#: src/Resources.vala:389 src/Resources.vala:771
 msgid "_Delete"
 msgstr "_Удалить"
 
@@ -2458,11 +2319,11 @@ msgstr "Показывать _название"
 msgid "seconds"
 msgstr "секунд"
 
-#: data/ui/tags.ui:455 src/Resources.vala:137 src/Resources.vala:345
+#: data/ui/tags.ui:455 src/Resources.vala:130 src/Resources.vala:338
 msgid "_New"
 msgstr "_Создать"
 
-#: data/ui/tags.ui:461 src/Resources.vala:313 src/Resources.vala:355
+#: data/ui/tags.ui:461 src/Resources.vala:306 src/Resources.vala:348
 msgid "_Rename…"
 msgstr "_Переименовать…"
 
@@ -2471,15 +2332,15 @@ msgid "label"
 msgstr "метка"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:226 data/ui/trash.ui:278
-#: src/Resources.vala:782
+#: src/Resources.vala:775
 msgid "_Restore"
 msgstr "_Восстановить"
 
-#: data/ui/trash.ui:260 src/Resources.vala:779
+#: data/ui/trash.ui:260 src/Resources.vala:772
 msgid "Remove the selected photos from the trash"
 msgstr "Удалить выбранные фотографии из корзины"
 
-#: data/ui/trash.ui:275 src/Resources.vala:783
+#: data/ui/trash.ui:275 src/Resources.vala:776
 msgid "Move the selected photos back into the library"
 msgstr "Вернуть выбранные фотографии в библиотеку"
 
@@ -2653,8 +2514,8 @@ msgstr "Посетить веб-сайт Shotwell"
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:584
 msgid "translator-credits"
 msgstr ""
-"Stas Solovey <whats_up@tut.by>, 2015-2019. \n"
-"Olesya Gerasimenko <gammaray@basealt.ru>, 2019."
+"Stas Solovey <whats_up@tut.by>, 2015-2019\n"
+"Olesya Gerasimenko <gammaray@basealt.ru>, 2019"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:233
@@ -3011,7 +2872,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:22
+#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Авторское право © 2016 Software Freedom Conservancy Inc."
 
@@ -3034,9 +2895,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:621
 #, c-format
-#| msgid ""
-#| "Your free Flickr account limits how much data you can upload per month.\n"
-#| "This month you have %s remaining in your upload quota."
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
 "service.\n"
@@ -3048,7 +2906,6 @@ msgstr ""
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:623
 #, c-format
-#| msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
 "currently uploaded a file"
@@ -3235,7 +3092,6 @@ msgid "_Do no upload tags"
 msgstr "_Не публиковать теги"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
-#| msgid "_Do no upload tags"
 msgid "_Do not upload ratings"
 msgstr "_Не публиковать рейтинги"
 
@@ -3732,16 +3588,16 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Фотографии/видео, соответствующие текущему фильтру, не найдены"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2487 src/Resources.vala:143
+#: src/PhotoPage.vala:2487 src/Resources.vala:136
 msgid "_Print"
 msgstr "_Печать"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2497 src/Resources.vala:193
+#: src/PhotoPage.vala:2497 src/Resources.vala:186
 msgid "Set as _Desktop Background"
 msgstr "Сделать _фоном рабочего стола"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:259
+#: src/CollectionPage.vala:92 src/Resources.vala:252
 msgid "_Duplicate"
 msgstr "_Дублировать"
 
@@ -3753,7 +3609,7 @@ msgstr "Полноэкранный режим"
 msgid "Adjust Date and Time…"
 msgstr "Изменить дату и время…"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:140
+#: src/CollectionPage.vala:149 src/Resources.vala:133
 msgid "_Play"
 msgstr "_Воспроизвести"
 
@@ -4065,21 +3921,25 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Невозможно восстановить базу данных фотографий %s"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Невозможно отправить через Nautilus: %s"
+#: src/DesktopIntegration.vala:126
+msgid "Send files per Mail: "
+msgstr "Отправить файлы по почте: "
 
-#: src/DesktopIntegration.vala:129
+#: src/DesktopIntegration.vala:136
+#, c-format
+msgid "Unable to send file %s, %s"
+msgstr "Невозможно отправить файл %s, %s"
+
+#: src/DesktopIntegration.vala:146
 msgid "Send To"
 msgstr "Отправить"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:191
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Невозможно экспортировать фон в %s: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:328
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Невозможно подготовить слайд-шоу рабочего стола: %s"
@@ -4777,7 +4637,7 @@ msgstr "Нет импортированных фотографий или вид
 msgid "Import Complete"
 msgstr "Импорт завершён"
 
-#: src/Dialogs.vala:661 src/Resources.vala:204
+#: src/Dialogs.vala:661 src/Resources.vala:197
 msgid "Rename Event"
 msgstr "Переименовать событие"
 
@@ -4796,7 +4656,7 @@ msgid "Title:"
 msgstr "Название:"
 
 #. Dialog title
-#: src/Dialogs.vala:689 src/Resources.vala:280
+#: src/Dialogs.vala:689 src/Resources.vala:273
 msgid "Edit Event Comment"
 msgstr "Изменить комментарий к событию"
 
@@ -4857,7 +4717,7 @@ msgstr[0] "Это действие удалит %d фотографию из б�
 msgstr[1] "Это действие удалит %d фотографии из библиотеки. Продолжить?"
 msgstr[2] "Это действие удалит %d фотографий из библиотеки. Продолжить?"
 
-#: src/Dialogs.vala:788 src/Resources.vala:146
+#: src/Dialogs.vala:788 src/Resources.vala:139
 msgid "_Remove"
 msgstr "_Удалить"
 
@@ -4923,7 +4783,6 @@ msgid "Remove From Library"
 msgstr "Удалить из библиотеки"
 
 #: src/Dialogs.vala:937 src/PhotoPage.vala:2897
-#| msgid "Removing Photo From Library"
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Удаление фотографии из библиотеки"
@@ -5049,7 +4908,6 @@ msgid "To get started, import photos in any of these ways:"
 msgstr "Начните работу, импортировав фотографии любым из следующих способов:"
 
 #: src/dialogs/WelcomeDialog.vala:65
-#| msgid "Choose File %s Import From Folder"
 msgid "Choose “Import From Folder” from the File menu"
 msgstr "Выберите \"Импортировать из папки\" в меню Файл"
 
@@ -5811,7 +5669,7 @@ msgstr "Максимальное (%d%%)"
 msgid "PNG"
 msgstr "PNG"
 
-#: src/photos/RawSupport.vala:134
+#: src/photos/RawSupport.vala:136
 msgid "RAW"
 msgstr "RAW"
 
@@ -6089,372 +5947,372 @@ msgstr[2] "Выбранные фотографии были успешно оп�
 msgid "The selected photos/videos were successfully published."
 msgstr "Выбранные фотографии/видео были успешно опубликованы."
 
-#: src/Resources.vala:114
+#: src/Resources.vala:107
 msgid "Rotate Right"
 msgstr "Повернуть вправо"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:112
 msgid "Rotate Left"
 msgstr "Повернуть влево"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:113
 msgid "Rotate the photos left"
 msgstr "Повернуть изображение влево"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:116
 msgid "Flip Horizontally"
 msgstr "Отразить по горизонтали"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:119
 msgid "Flip Vertically"
 msgstr "Отразить по вертикали"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:122
 msgid "_Apply"
 msgstr "_Применить"
 
-#: src/Resources.vala:133
+#: src/Resources.vala:126
 msgid "_Forward"
 msgstr "_Далее"
 
-#: src/Resources.vala:136
+#: src/Resources.vala:129
 msgid "Leave _Fullscreen"
 msgstr "Выйти из _полноэкранного режима"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:131
 msgid "_Next"
 msgstr "_Следующее"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:135
 msgid "_Previous"
 msgstr "_Предыдущее"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:138
 msgid "_Refresh"
 msgstr "_Обновить"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:140
 msgid "_Revert"
 msgstr "_Вернуть"
 
-#: src/Resources.vala:149
+#: src/Resources.vala:142
 msgid "Save _As"
 msgstr "Сохранить _как"
 
-#: src/Resources.vala:150
+#: src/Resources.vala:143
 msgid "Sort _Ascending"
 msgstr "Сортировать по _возрастанию"
 
-#: src/Resources.vala:151
+#: src/Resources.vala:144
 msgid "Sort _Descending"
 msgstr "Сортировать по _убыванию"
 
-#: src/Resources.vala:152
+#: src/Resources.vala:145
 msgid "_Stop"
 msgstr "Ос_тановить"
 
-#: src/Resources.vala:153
+#: src/Resources.vala:146
 msgid "_Undelete"
 msgstr "Восст_ановить"
 
-#: src/Resources.vala:154
+#: src/Resources.vala:147
 msgid "_Normal Size"
 msgstr "_Исходный размер"
 
-#: src/Resources.vala:155
+#: src/Resources.vala:148
 msgid "Best _Fit"
 msgstr "В_писать"
 
-#: src/Resources.vala:164
+#: src/Resources.vala:157
 msgid "Copy Color Adjustments"
 msgstr "Копировать настройки цвета"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:158
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Скопировать настройки цвета, применённые к фотографии"
 
-#: src/Resources.vala:168
+#: src/Resources.vala:161
 msgid "Paste Color Adjustments"
 msgstr "Вставить настройки цвета"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:162
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Применить скопированные настройки цвета к выбранным фотографиям"
 
-#: src/Resources.vala:172
+#: src/Resources.vala:165
 msgid "Crop"
 msgstr "Обрезка"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:166
 msgid "Crop the photo’s size"
 msgstr "Обрезать фотографию"
 
-#: src/Resources.vala:176
+#: src/Resources.vala:169
 msgid "Straighten"
 msgstr "Выравнивание"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:170
 msgid "Straighten the photo"
 msgstr "Выровнять изображение"
 
-#: src/Resources.vala:180
+#: src/Resources.vala:173
 msgid "Red-eye"
 msgstr "Удаление эффекта «красных глаз»"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:174
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Уменьшение или полное устранение эффекта «красных глаз» на фотографиях"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:177
 msgid "Adjust"
 msgstr "Коррекция"
 
-#: src/Resources.vala:185
+#: src/Resources.vala:178
 msgid "Adjust the photo’s color and tone"
 msgstr "Настроить цвет или тон фотографии"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:181
 msgid "Revert to Original"
 msgstr "Отменить автокоррекцию"
 
-#: src/Resources.vala:190
+#: src/Resources.vala:183
 msgid "Revert External E_dits"
 msgstr "Отменить и_зменения внешнего редактора"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:184
 msgid "Revert to the master photo"
 msgstr "Вернуться к исходному изображению"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:187
 msgid "Set selected image to be the new desktop background"
 msgstr "Сделать выбранное изображение фоном рабочего стола"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:188
 msgid "Set as _Desktop Slideshow…"
 msgstr "Установить _в качестве слайд-шоу рабочего стола…"
 
-#: src/Resources.vala:198
+#: src/Resources.vala:191
 msgid "Undo"
 msgstr "Отменить"
 
-#: src/Resources.vala:201
+#: src/Resources.vala:194
 msgid "Redo"
 msgstr "Вернуть"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:200
 msgid "Make Key Photo for Event"
 msgstr "Сделать ключевой фотографией для события"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:203
 msgid "New Event"
 msgstr "Новое событие"
 
-#: src/Resources.vala:212
+#: src/Resources.vala:205
 msgid "Move Photos"
 msgstr "Переместить фотографии"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:206
 msgid "Move photos to an event"
 msgstr "Переместить фотографии в событие"
 
-#: src/Resources.vala:216
+#: src/Resources.vala:209
 msgid "Merge"
 msgstr "Объединить"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:210
 msgid "Combine events into a single event"
 msgstr "Собрать события в одно"
 
-#: src/Resources.vala:220
+#: src/Resources.vala:213
 msgid "Set Rating"
 msgstr "Поставить оценку фотографии"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:214
 msgid "Change the rating of your photo"
 msgstr "Изменить оценку фотографии"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:217
 msgid "Increase Rating"
 msgstr "Повысить оценку"
 
-#: src/Resources.vala:227
+#: src/Resources.vala:220
 msgid "Decrease Rating"
 msgstr "Понизить оценку"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:223
 msgid "Unrated"
 msgstr "Без оценки"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:224
 msgid "Rate Unrated"
 msgstr "Оценить «Без оценки»"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:225
 msgid "Setting as unrated"
 msgstr "Простановка оценки «Без оценки»"
 
-#: src/Resources.vala:233
+#: src/Resources.vala:226
 msgid "Remove any ratings"
 msgstr "Удалить все оценки"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:229
 msgid "Rejected"
 msgstr "Отклонённые"
 
-#: src/Resources.vala:237
+#: src/Resources.vala:230
 msgid "Rate Rejected"
 msgstr "Оценить «Отклонённые»"
 
-#: src/Resources.vala:238
+#: src/Resources.vala:231
 msgid "Setting as rejected"
 msgstr "Простановка оценки «Отклонённые»"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:232
 msgid "Set rating to rejected"
 msgstr "Поставить оценку «Отклонённые»"
 
-#: src/Resources.vala:242
+#: src/Resources.vala:235
 msgid "Rejected Only"
 msgstr "Только отклонённые"
 
-#: src/Resources.vala:243
+#: src/Resources.vala:236
 msgid "Show only rejected photos"
 msgstr "Показать только отклонённые фотографии"
 
-#: src/Resources.vala:246
+#: src/Resources.vala:239
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Показать все фотографии, включая отклонённые"
 
 #. Button tooltip
-#: src/Resources.vala:250
+#: src/Resources.vala:243
 msgid "Show all photos"
 msgstr "Показать все фотографии"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:246
 msgid "Display each photo’s rating"
 msgstr "Показывать оценку каждой фотографии"
 
-#: src/Resources.vala:256
+#: src/Resources.vala:249
 msgid "Filter Photos"
 msgstr "Фильтровать фотографии"
 
-#: src/Resources.vala:257
+#: src/Resources.vala:250
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Ограничить с помощью фильтра число показываемых фотографий"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:253
 msgid "Duplicate"
 msgstr "Дублировать"
 
-#: src/Resources.vala:261
+#: src/Resources.vala:254
 msgid "Make a duplicate of the photo"
 msgstr "Сделать дубликат фотографии"
 
-#: src/Resources.vala:265
+#: src/Resources.vala:258
 msgid "_Print…"
 msgstr "_Печать…"
 
-#: src/Resources.vala:267
+#: src/Resources.vala:260
 msgid "Pu_blish…"
 msgstr "О_публиковать…"
 
 #. Button label
-#: src/Resources.vala:273
+#: src/Resources.vala:266
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Изменить название"
 
 #. Button label
-#: src/Resources.vala:277
+#: src/Resources.vala:270
 msgid "Edit Comment"
 msgstr "Изменить комментарий"
 
-#: src/Resources.vala:283
+#: src/Resources.vala:276
 msgid "Adjust Date and Time"
 msgstr "Изменить дату и время"
 
 #. Dialog title
-#: src/Resources.vala:288
+#: src/Resources.vala:281
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Добавить метки"
 
-#: src/Resources.vala:299
+#: src/Resources.vala:292
 msgid "_Find…"
 msgstr "_Найти…"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:296
 msgid "_Flag"
 msgstr "_Отметить"
 
-#: src/Resources.vala:305
+#: src/Resources.vala:298
 msgid "Un_flag"
 msgstr "_Снять отметку"
 
-#: src/Resources.vala:309
+#: src/Resources.vala:302
 msgid "Mark faces of people in the photo"
 msgstr "Отметить лица людей на фотографии"
 
-#: src/Resources.vala:310
+#: src/Resources.vala:303
 msgid "Modify Faces"
 msgstr "Изменить метки лиц"
 
-#: src/Resources.vala:311
+#: src/Resources.vala:304
 msgid "Delete Face"
 msgstr "Удалить метку лица"
 
-#: src/Resources.vala:317
+#: src/Resources.vala:310
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Невозможно запустить редактор: %s"
 
-#: src/Resources.vala:322
+#: src/Resources.vala:315
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Добавить метку «%s»"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:325
+#: src/Resources.vala:318
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Добавить метки «%s» и «%s»"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:330
+#: src/Resources.vala:323
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Добавить метки"
 
-#: src/Resources.vala:335
+#: src/Resources.vala:328
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "_Удалить метку «%s»"
 
-#: src/Resources.vala:339
+#: src/Resources.vala:332
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Удалить метку «%s»"
 
-#: src/Resources.vala:342
+#: src/Resources.vala:335
 msgid "Delete Tag"
 msgstr "Удалить метку"
 
-#: src/Resources.vala:348
+#: src/Resources.vala:341
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "П_ереименовать метку «%s»…"
 
-#: src/Resources.vala:352
+#: src/Resources.vala:345
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Переименовать метку «%s» в «%s»"
 
-#: src/Resources.vala:358
+#: src/Resources.vala:351
 msgid "Modify Tags"
 msgstr "Изменить метки"
 
-#: src/Resources.vala:361
+#: src/Resources.vala:354
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
@@ -6462,7 +6320,7 @@ msgstr[0] "Добавить к фотографии метку «%s»"
 msgstr[1] "Добавить к фотографиям метку «%s»"
 msgstr[2] "Добавить к фотографиям метку «%s»"
 
-#: src/Resources.vala:367
+#: src/Resources.vala:360
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
@@ -6470,7 +6328,7 @@ msgstr[0] "Добавить к выбранной фотографии метк�
 msgstr[1] "Добавить к выбранным фотографиям метку «%s»"
 msgstr[2] "Добавить к выбранным фотографиям метку «%s»"
 
-#: src/Resources.vala:373
+#: src/Resources.vala:366
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
@@ -6478,7 +6336,7 @@ msgstr[0] "Снять с _фотографии метку «%s»"
 msgstr[1] "Снять с _фотографий метку «%s»"
 msgstr[2] "Снять с _фотографий метку «%s»"
 
-#: src/Resources.vala:379
+#: src/Resources.vala:372
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
@@ -6486,13 +6344,13 @@ msgstr[0] "Снять с фотографии метку «%s»"
 msgstr[1] "Снять с фотографий метку «%s»"
 msgstr[2] "Снять с фотографий метку «%s»"
 
-#: src/Resources.vala:385
+#: src/Resources.vala:378
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr ""
 "Невозможно переименовать метку в «%s», потому что такая метка уже существует."
 
-#: src/Resources.vala:389
+#: src/Resources.vala:382
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr ""
@@ -6500,32 +6358,32 @@ msgstr ""
 "существует."
 
 #. Saved search button
-#: src/Resources.vala:392 src/SearchFilter.vala:1148
+#: src/Resources.vala:385 src/SearchFilter.vala:1148
 msgid "Saved Search"
 msgstr "Сохранённый поисковый запрос"
 
-#: src/Resources.vala:394
+#: src/Resources.vala:387
 msgid "Delete Search"
 msgstr "Удалить поисковый запрос"
 
-#: src/Resources.vala:401
+#: src/Resources.vala:394
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Переименовать поисковый запрос «%s» в «%s»"
 
-#: src/Resources.vala:405
+#: src/Resources.vala:398
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Удалить поисковый запрос «%s»"
 
-#: src/Resources.vala:410
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 "Невозможно переименовать метку лица в «%s», потому что такая метка лица уже "
 "существует."
 
-#: src/Resources.vala:414
+#: src/Resources.vala:407
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
@@ -6533,7 +6391,7 @@ msgstr[0] "Снять метку лица «%s» с _фотографии"
 msgstr[1] "Снять метку лица «%s» с _фотографий"
 msgstr[2] "Снять метку лица «%s» с _фотографий"
 
-#: src/Resources.vala:419
+#: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
@@ -6542,85 +6400,85 @@ msgstr[1] "Снять метку лица «%s» с фотографий"
 msgstr[2] "Снять метку лица «%s» с фотографий"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:425 src/Resources.vala:430
+#: src/Resources.vala:418 src/Resources.vala:423
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr ""
 "_Использовать метку лица «%s» с фотографии для обучения системы "
 "распознавания лиц"
 
-#: src/Resources.vala:438
+#: src/Resources.vala:431
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Пе_реименовать метку лица «%s»…"
 
-#: src/Resources.vala:442
+#: src/Resources.vala:435
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Переименовать метку лица «%s» в «%s»"
 
-#: src/Resources.vala:446
+#: src/Resources.vala:439
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Удалить метку лица «%s»"
 
-#: src/Resources.vala:450
+#: src/Resources.vala:443
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Удалить метку лица «%s»"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:673
 #, c-format
 msgid "Rate %s"
 msgstr "Оценить %s"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:674
 #, c-format
 msgid "Set rating to %s"
 msgstr "Оценить на %s"
 
-#: src/Resources.vala:682
+#: src/Resources.vala:675
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Простановка оценки на %s"
 
-#: src/Resources.vala:684
+#: src/Resources.vala:677
 #, c-format
 msgid "Display %s"
 msgstr "Показать %s"
 
-#: src/Resources.vala:685
+#: src/Resources.vala:678
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Показывать только фотографии с оценкой %s"
 
-#: src/Resources.vala:686
+#: src/Resources.vala:679
 #, c-format
 msgid "%s or Better"
 msgstr "%s или лучше"
 
-#: src/Resources.vala:687
+#: src/Resources.vala:680
 #, c-format
 msgid "Display %s or Better"
 msgstr "Показывать с оценкой %s или лучшей"
 
-#: src/Resources.vala:688
+#: src/Resources.vala:681
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Показывать только фотографии с оценкой %s или лучшей"
 
-#: src/Resources.vala:786
+#: src/Resources.vala:779
 msgid "Open the selected photo’s directory in the file manager"
 msgstr ""
 "Открыть каталог, в котором находится выбранная фотография, в файловом "
 "менеджере"
 
-#: src/Resources.vala:789
+#: src/Resources.vala:782
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Невозможно открыть в файловом менеджере: %s"
 
-#: src/Resources.vala:797
+#: src/Resources.vala:790
 msgid "Select all items"
 msgstr "Выбрать все"
 
@@ -6636,14 +6494,14 @@ msgstr "Выбрать все"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:859
+#: src/Resources.vala:852
 msgid "%a %b %d, %Y"
 msgstr "%a, %е %B %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:864
+#: src/Resources.vala:857
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a, %е %B"
@@ -6651,7 +6509,7 @@ msgstr "%a, %е %B"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:869
+#: src/Resources.vala:862
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%е, %Y"
@@ -6659,7 +6517,7 @@ msgstr "%е, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:874
+#: src/Resources.vala:867
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a, %е %B"
@@ -6667,7 +6525,7 @@ msgstr "%a, %е %B"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:879
+#: src/Resources.vala:872
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a, %е %B %Y"
@@ -6970,6 +6828,9 @@ msgstr "безымянный"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Экспортировать видео"
+
+#~ msgid "Unable to launch Nautilus Send-To: %s"
+#~ msgstr "Невозможно отправить через Nautilus: %s"
 
 #~ msgid "Token"
 #~ msgstr "Маркер"
