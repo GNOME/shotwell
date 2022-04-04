@@ -369,6 +369,13 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
             converted_val = "file://" + val;
         }
 
+        try {
+            if (p == ConfigurableProperty.DESKTOP_BACKGROUND_FILE) {
+                set_gs_string(schema_names[p], key_names[p] + "-dark", converted_val);
+            }
+        } catch (Error error) {
+            // Do nothing, the setting does not exist (yet)
+        }
         set_gs_string(schema_names[p], key_names[p], converted_val);
         property_changed(p);
     }
