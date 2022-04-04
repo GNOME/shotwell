@@ -63,15 +63,10 @@ gudev = dependency('gudev-1.0', version : '>= 145', required: false)
 gexiv2 = dependency('gexiv2', version: '>= 0.12.3')
 libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
-unity = dependency('unity', required : false)
 secret = dependency('libsecret-1', required: true)
 pangocairo = dependency('pangocairo', required: true)
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')
-
-if unity.found() and get_option('unity_support')
-  add_global_arguments(['--define=UNITY_SUPPORT'], language : 'vala')
-endif
 
 foreach publisher : get_option('publishers')
   add_global_arguments(['--define=HAVE_@0@'.format(publisher.to_upper())],

@@ -32,7 +32,7 @@ if get_option('face_detection')
 endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule, unity,
+                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo ]
 
 subdir('metadata')
@@ -202,7 +202,6 @@ executable(
         'VideoMonitor.vala',
         'SearchFilter.vala',
         'MediaViewTracker.vala',
-        'UnityProgressBar.vala',
         'Upgrades.vala',
         'dialogs/AdjustDateTimeDialog.vala',
         'dialogs/EntryMultiCompletion.vala',

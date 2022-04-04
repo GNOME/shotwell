@@ -41,7 +41,7 @@ public class PreferencesDialog : Gtk.Dialog {
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     [GtkChild]
     private unowned Gtk.CheckButton lowercase;
-    private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+    //private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
     [GtkChild]
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
