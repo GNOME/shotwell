@@ -34,7 +34,7 @@ void help() {
 void detectFaces(Mat &img, CascadeClassifier &cascade, double scale) {
 
 	Mat gray;
-	cvtColor(img, gray, CV_BGR2GRAY);
+	cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 
 	Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
 	Size smallImgSize = smallImg.size();
@@ -43,7 +43,7 @@ void detectFaces(Mat &img, CascadeClassifier &cascade, double scale) {
 	equalizeHist(smallImg, smallImg);
 
 	vector<Rect> faces;
-	cascade.detectMultiScale(smallImg, faces, 1.1, 2, CV_HAAR_SCALE_IMAGE, Size(30, 30));
+	cascade.detectMultiScale(smallImg, faces, 1.1, 2, cv::CASCADE_SCALE_IMAGE, Size(30, 30));
 
 	int i = 0;
 	for (vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); r++, i++) {
@@ -117,7 +117,7 @@ int main(int argc, const char** argv) {
 
 	}
 
-	Mat image = imread(inputName, 1);
+	Mat image = cv::imread(inputName, 1);
 
 	if (image.empty()) {
 
