@@ -10,10 +10,6 @@
           <attribute name="action">win.CommonFileImport</attribute>
         </item>
         <item>
-          <attribute name="label" translatable="yes">Import From _Application…</attribute>
-          <attribute name="action">win.ExternalLibraryImport</attribute>
-        </item>
-        <item>
           <attribute name="label" translatable="yes">_Export…</attribute>
           <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;e</attribute>
           <attribute name="action">win.Export</attribute>

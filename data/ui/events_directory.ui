@@ -9,10 +9,6 @@
           <attribute name="accel">&lt;Primary&gt;i</attribute>
           <attribute name="action">win.CommonFileImport</attribute>
         </item>
-        <item>
-          <attribute name="label" translatable="yes">Import From _Application…</attribute>
-          <attribute name="action">win.ExternalLibraryImport</attribute>
-        </item>
       </section>
       <section>
         <item>
