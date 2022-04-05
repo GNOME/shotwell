@@ -17,6 +17,10 @@
                   <object class="GtkGrid" id="table1">
                     <property name="hexpand">1</property>
                     <property name="vexpand">1</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
                     <property name="row_spacing">4</property>
                     <property name="column_spacing">8</property>
                     <child>
@@ -280,22 +284,22 @@
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkToggleButton" id="transparent_checker_radio">
+                          <object class="GtkCheckButton" id="transparent_checker_radio">
                             <property name="label" translatable="yes">Checkered</property>
                             <property name="focusable">1</property>
                             <property name="halign">start</property>
-                            <property name="active">1</property>
+                            <property name="active">0</property>
                             <property name="group">transparent_solid_radio</property>
                           </object>
                         </child>
                         <child>
                           <object class="GtkBox" id="box1">
                             <child>
-                              <object class="GtkToggleButton" id="transparent_solid_radio">
+                              <object class="GtkCheckButton" id="transparent_solid_radio">
                                 <property name="label" translatable="yes">Solid color</property>
                                 <property name="focusable">1</property>
                                 <property name="halign">start</property>
-                                <property name="active">1</property>
+                                <property name="active">0</property>
                               </object>
                             </child>
                             <child>
@@ -307,11 +311,11 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkToggleButton" id="transparent_none_radio">
+                          <object class="GtkCheckButton" id="transparent_none_radio">
                             <property name="label" translatable="yes">None</property>
                             <property name="focusable">1</property>
                             <property name="halign">start</property>
-                            <property name="active">1</property>
+                            <property name="active">0</property>
                             <property name="group">transparent_solid_radio</property>
                           </object>
                         </child>

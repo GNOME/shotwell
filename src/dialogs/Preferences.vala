@@ -55,13 +55,13 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.Notebook preferences_notebook;
 
     [GtkChild]
-    private unowned Gtk.ToggleButton transparent_checker_radio;
+    private unowned Gtk.CheckButton transparent_checker_radio;
     [GtkChild]
-    private unowned Gtk.ToggleButton transparent_solid_radio;
+    private unowned Gtk.CheckButton transparent_solid_radio;
     [GtkChild]
     private unowned Gtk.ColorButton transparent_solid_color;
     [GtkChild]
-    private unowned Gtk.ToggleButton transparent_none_radio;
+    private unowned Gtk.CheckButton transparent_none_radio;
 
     private PreferencesDialog() {
         Object (use_header_bar: Resources.use_header_bar());
