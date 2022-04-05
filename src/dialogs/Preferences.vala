@@ -210,14 +210,14 @@ public class PreferencesDialog : Gtk.Dialog {
         // populate application ComboBox with app names and icons
         Gtk.CellRendererPixbuf pixbuf_renderer = new Gtk.CellRendererPixbuf();
         Gtk.CellRendererText text_renderer = new Gtk.CellRendererText();
+        pixbuf_renderer.xpad = 6;
         combo_box.clear();
         combo_box.pack_start(pixbuf_renderer, false);
         combo_box.pack_start(text_renderer, false);
-        combo_box.add_attribute(pixbuf_renderer, "pixbuf", 0);
+        combo_box.add_attribute(pixbuf_renderer, "gicon", 0);
         combo_box.add_attribute(text_renderer, "text", 1);
 
-        // TODO: need more space between icons and text
-        Gtk.ListStore combo_store = new Gtk.ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
+        Gtk.ListStore combo_store = new Gtk.ListStore(2, typeof(GLib.Object), typeof(string));
         Gtk.TreeIter iter;
 
         int current_app = -1;
@@ -225,26 +225,11 @@ public class PreferencesDialog : Gtk.Dialog {
         foreach (AppInfo app in external_apps) {
             combo_store.append(out iter);
 
-            Icon app_icon = app.get_icon();
-            try {
-                if (app_icon is FileIcon) {
-                    combo_store.set_value(iter, 0, scale_pixbuf(new Gdk.Pixbuf.from_file(
-                        ((FileIcon) app_icon).get_file().get_path()), Resources.DEFAULT_ICON_SCALE,
-                        Gdk.InterpType.BILINEAR, false));
-                } else if (app_icon is ThemedIcon) {
-                #if 0
-                    Gdk.Pixbuf icon_pixbuf =
-                        Gtk.IconTheme.get_default().load_icon(((ThemedIcon) app_icon).get_names()[0],
-                        Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
-
-                    combo_store.set_value(iter, 0, icon_pixbuf);
-                    #endif
-                }
-            } catch (GLib.Error error) {
-                warning("Error loading icon pixbuf: " + error.message);
-            }
-
-            combo_store.set_value(iter, 1, app.get_name());
+            Icon? app_icon = app.get_icon();
+            if (app_icon != null)
+                combo_store.set (iter, 0, app_icon, 1, app.get_name());
+            else
+                combo_store.set (iter, 1, app.get_name());
 
             if (app.get_commandline() == current_app_executable)
                 current_app = external_apps.index_of(app);
