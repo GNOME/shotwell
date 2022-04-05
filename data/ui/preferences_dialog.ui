@@ -361,6 +361,10 @@
                 <property name="child">
                   <object class="GtkBox" id="hbox4">
                     <property name="valign">start</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
                     <child>
                       <object class="GtkBox" id="vbox2">
                         <property name="hexpand">1</property>
