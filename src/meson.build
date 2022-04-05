@@ -201,6 +201,7 @@ executable(
         'PhotoMonitor.vala',
         'VideoMonitor.vala',
         'SearchFilter.vala',
+        'SavedSearchPopover.vala',
         'MediaViewTracker.vala',
         'Upgrades.vala',
         'dialogs/AdjustDateTimeDialog.vala',

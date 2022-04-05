@@ -646,27 +646,38 @@ public class SearchFilterToolbar : Gtk.Box {
     
     private class ToggleActionToolButton : Gtk.Box {
         private Gtk.ToggleButton button;
+        private Gtk.Image image;
+        private Gtk.Label label;
 
         public ToggleActionToolButton(string action) {
+            var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            image = new Gtk.Image();
+            label = new Gtk.Label(null);
+            content.prepend(image);
+            content.append(label);
+            image.set_visible(false);
+            label.set_visible(false);
             button = new Gtk.ToggleButton();
             button.set_can_focus(false);
             button.set_action_name (action);
             button.set_has_tooltip(true);
             button.set_margin_start(2);
+            button.set_child(content);
             
             this.append (button);
         }
         
         public void set_icon_name(string icon_name) {
-            Gtk.Image? image = null;
-            image = new Gtk.Image.from_icon_name(icon_name);
             if (button.get_label() != "" && button.get_label() != null) {
                 image.margin_end = 6;
             }
+            image.set_from_icon_name(icon_name);
+            image.set_visible(true);
         }
 
         public void set_label(string label) {
-            button.set_label(label);
+            this.label.set_text(label);
+            this.label.set_visible(true);
         }
 
     }
@@ -882,7 +893,7 @@ public class SearchFilterToolbar : Gtk.Box {
 
             Gtk.Image? image = new Gtk.Image.from_icon_name("edit-find-symbolic");
             image.set_margin_end(6);
-            //button.set_image(image);
+            this.prepend (image);
             button.set_can_focus(false);
 
             button.clicked.connect(on_clicked);
@@ -915,145 +926,6 @@ public class SearchFilterToolbar : Gtk.Box {
         }
     }
 
-    protected class SavedSearchPopover {
-        private Gtk.Popover popover = null;
-        private Gtk.ListBox list_box = null;
-        private DataButton[] edit_buttons = null;
-        private DataButton[] delete_buttons = null;
-        Gtk.Button add = null;
-
-        public signal void search_activated(SavedSearch search);
-        public signal void edit_clicked(SavedSearch search);
-        public signal void delete_clicked(SavedSearch search);
-        public signal void add_clicked();
-
-        public signal void closed();
-
-        private class DataButton : Gtk.Box {
-            private Gtk.Button button = null;
-            public SavedSearch search { get; private set; }
-
-            public signal void clicked(SavedSearch search);
-
-            public DataButton(SavedSearch search, string name) {
-                button = new Gtk.Button.from_icon_name(name);
-                this.search = search;
-                this.append(button);
-
-                restyle();
-
-                button.clicked.connect(on_click);
-            }
-
-            ~DataButton() {
-                button.clicked.disconnect(on_click);
-            }
-
-            public void restyle() {
-                button.set_size_request(24, 24);
-            }
-
-            private void on_click() {
-                clicked(this.search);
-            }
-        }
-
-        public SavedSearchPopover(Gtk.Widget relative_to) {
-            popover = new Gtk.Popover();
-            popover.closed.connect(on_popover_closed);
-            list_box = new Gtk.ListBox();
-            edit_buttons = new DataButton[0];
-            delete_buttons = new DataButton[0];
-
-            foreach (SavedSearch search in SavedSearchTable.get_instance().get_all()) {
-                Gtk.Box row = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 1);
-                row.set_homogeneous(false);
-                Gtk.Label label = new Gtk.Label(search.get_name());
-                label.halign = Gtk.Align.START;
-                row.append(label);
-
-                DataButton delete_button = new DataButton(search, "edit-delete-symbolic");
-                row.append(delete_button);
-                delete_button.clicked.connect(on_delete_click);
-                delete_buttons += delete_button;
-
-                DataButton edit_button = new DataButton(search, "text-editor-symbolic");
-                row.append(edit_button);
-                edit_button.clicked.connect(on_edit_click);
-                edit_buttons += edit_button;
-
-                list_box.insert(row, -1);
-            }
-            add = new Gtk.Button.from_icon_name("list-add-symbolic");
-            add.clicked.connect(on_add_click);
-            list_box.insert(add, -1);
-            list_box.row_activated.connect(on_activate_row);
-            list_box.selection_mode = Gtk.SelectionMode.NONE;
-            popover.set_child(list_box);
-
-            restyle();
-        }
-
-        ~SavedSearchPopover() {
-            foreach (DataButton button in edit_buttons) button.clicked.disconnect(on_edit_click);
-            foreach (DataButton button in delete_buttons) button.clicked.disconnect(on_delete_click);
-            add.clicked.disconnect(on_add_click);
-            list_box.row_activated.disconnect(on_activate_row);
-            popover.closed.disconnect(on_popover_closed);
-        }
-
-        public void restyle() {
-            foreach (DataButton button in edit_buttons) button.restyle();
-            foreach (DataButton button in delete_buttons) button.restyle();
-        }
-
-        private bool is_search_row(Gtk.ListBoxRow? row) {
-            if (row == null) return false;
-            if (row.get_child() is Gtk.Button) return false;
-            return true;
-        }
-
-        private SavedSearch? get_search(Gtk.ListBoxRow row) {
-            #if 0
-            var box = (Gtk.Box) row.get_child();
-            DataButton button; // = box.get_children().last().data as DataButton;
-            return button.search;
-            #endif
-
-            return null;
-        }
-
-        private void on_activate_row(Gtk.ListBoxRow? row) {
-            if (is_search_row(row))
-                search_activated(get_search(row));
-            popover.hide();
-        }
-
-        private void on_edit_click(SavedSearch search) {
-            edit_clicked(search);
-        }
-
-        private void on_delete_click(SavedSearch search) {
-            delete_clicked(search);
-        }
-
-        private void on_add_click() {
-            add_clicked();
-        }
-
-        private void on_popover_closed() {
-            closed();
-        }
-
-        public void show_all() {
-            popover.show();
-        }
-
-        public void hide() {
-            popover.hide();
-        }
-    }
-    
     public Gtk.Builder builder = new Gtk.Builder ();
     
     private SearchFilterActions actions;
@@ -1074,6 +946,7 @@ public class SearchFilterToolbar : Gtk.Box {
         this.actions = actions;
         actions.media_context_changed.connect(on_media_context_changed);
         search_box = new SearchBox(actions.text);
+        add_css_class("toolbar");
         
         set_name("search-filter-toolbar");
         
@@ -1114,6 +987,7 @@ public class SearchFilterToolbar : Gtk.Box {
         append(toolbtn_raw);
         
         // separator
+        append(new Gtk.Separator(Gtk.Orientation.VERTICAL));
         
         // Flagged button
         
@@ -1124,6 +998,7 @@ public class SearchFilterToolbar : Gtk.Box {
         append(toolbtn_flag);
         
         // separator
+        append(new Gtk.Separator(Gtk.Orientation.VERTICAL));
         
         // Rating button
         var model = this.builder.get_object ("popup-menu") as GLib.MenuModel;
@@ -1132,6 +1007,7 @@ public class SearchFilterToolbar : Gtk.Box {
         append(rating_button);
         
         // separator
+        append(new Gtk.Separator(Gtk.Orientation.VERTICAL));
 
         // Saved search button
 		saved_search_button.set_label(_("Saved Search"));
@@ -1139,7 +1015,11 @@ public class SearchFilterToolbar : Gtk.Box {
         saved_search_button.clicked.connect(on_saved_search_button_clicked);
         append(saved_search_button);
 
-        // Separator to right-align the text box
+        // separator
+        var separator = new Gtk.Separator(Gtk.Orientation.VERTICAL);
+        separator.hexpand = true;
+        separator.halign = Gtk.Align.START;
+        append(separator);
         
         // Search box.
         append(search_box);
@@ -1354,8 +1234,11 @@ public class SearchFilterToolbar : Gtk.Box {
 
     private void delete_dialog(SavedSearch search) {
         saved_search_button.filter_popup.hide();
-        if (Dialogs.confirm_delete_saved_search(search))
-            AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+        Dialogs.confirm_delete_saved_search.begin(search, (source, res) => {
+            if (Dialogs.confirm_delete_saved_search.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+            }
+        });
     }
 
     private void add_dialog() {
@@ -1370,6 +1253,7 @@ public class SearchFilterToolbar : Gtk.Box {
         saved_search_button.filter_popup.hide();
     }
 
+    
     private void on_saved_search_button_clicked() {
         if (elide_showing_again && saved_search == null) {
         } else if (saved_search != null) {
@@ -1384,13 +1268,13 @@ public class SearchFilterToolbar : Gtk.Box {
                 saved_search_button.filter_popup.add_clicked.disconnect(add_dialog);
                 saved_search_button.filter_popup.closed.disconnect(on_popover_closed);
             }
-            saved_search_button.filter_popup = new SavedSearchPopover(saved_search_button);
+            saved_search_button.filter_popup = new SavedSearchPopover();
+            saved_search_button.filter_popup.popover.set_parent(saved_search_button);
             saved_search_button.filter_popup.edit_clicked.connect(edit_dialog);
             saved_search_button.filter_popup.search_activated.connect(on_savedsearch_selected);
             saved_search_button.filter_popup.delete_clicked.connect(delete_dialog);
             saved_search_button.filter_popup.add_clicked.connect(add_dialog);
             saved_search_button.filter_popup.closed.connect(on_popover_closed);
-
             saved_search_button.filter_popup.show_all();
         }
         elide_showing_again = false;

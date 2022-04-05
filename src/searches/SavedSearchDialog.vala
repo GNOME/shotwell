@@ -667,6 +667,7 @@ public class SavedSearchDialog : Gtk.Dialog {
 
         show();
         set_valid(false);
+        response.connect (() => {destroy();});
     }
     
     public SavedSearchDialog.edit_existing(SavedSearch saved_search) {
@@ -705,14 +706,6 @@ public class SavedSearchDialog : Gtk.Dialog {
             ((Gtk.Box)box.get_parent()).remove(box);
             ((Gtk.HeaderBar) get_header_bar()).set_title_widget(search_title);
         }
-    }
-    
-    // Displays the dialog.
-    public new void show() {
-        //run();
-        base.show();
-        // TODO
-        destroy();
     }
     
     double upper;

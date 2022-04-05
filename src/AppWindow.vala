@@ -503,7 +503,7 @@ public abstract class AppWindow : PageWindow {
         dialog.response.connect(() => dialog.destroy());
     }
     
-    public static bool negate_affirm_question(string message, string negative, string affirmative,
+    public static async bool negate_affirm_question(string message, string negative, string affirmative,
         string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", build_alert_body_text(title, message));
@@ -511,11 +511,18 @@ public abstract class AppWindow : PageWindow {
         dialog.set_markup(build_alert_body_text(title, message));
         dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES);
         
-        bool response = false; // TODO (dialog.run() == Gtk.ResponseType.YES);
+        dialog.show();
 
-        dialog.destroy();
-        
-        return response;
+        int response_id = 0;
+        SourceFunc callback = negate_affirm_question.callback;
+        dialog.response.connect((source, resp) => {
+            response_id = resp;
+            dialog.destroy();
+            callback();
+        });
+        yield;
+
+        return response_id == Gtk.ResponseType.YES;
     }
 
     public static Gtk.ResponseType negate_affirm_cancel_question(string message, string negative,

@@ -68,8 +68,11 @@ public class SavedSearchPage : CollectionPage {
 
 
     private void on_delete_search() {
-        if (Dialogs.confirm_delete_saved_search(search))
-            AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+        Dialogs.confirm_delete_saved_search.begin(search, (source, res) => {
+            if (Dialogs.confirm_delete_saved_search.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteSavedSearchCommand(search));
+            }
+        });
     }
     
     private void on_rename_search() {

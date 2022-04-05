@@ -8,7 +8,7 @@
 // place: https://bugzilla.gnome.org/show_bug.cgi?id=717659
 namespace Dialogs {
 
-public bool confirm_delete_tag(Tag tag) {
+public async bool confirm_delete_tag(Tag tag) {
     int count = tag.get_sources_count();
     if (count == 0)
         return true;
@@ -17,15 +17,15 @@ public bool confirm_delete_tag(Tag tag) {
         "This will remove the tag “%s” from %d photos. Continue?",
         count).printf(tag.get_user_visible_name(), count);
     
-    return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+    return yield AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
         Resources.DELETE_TAG_TITLE);
 }
 
-public bool confirm_delete_saved_search(SavedSearch search) {
+public async bool confirm_delete_saved_search(SavedSearch search) {
     string msg = _("This will remove the saved search “%s”. Continue?")
         .printf(search.get_name());
     
-    return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+    return yield AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
         Resources.DELETE_SAVED_SEARCH_DIALOG_TITLE);
 }
 

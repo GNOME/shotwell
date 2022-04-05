@@ -239,8 +239,11 @@ public class Tags.SidebarEntry : Sidebar.SimplePageEntry, Sidebar.RenameableEntr
     }
     
     public void destroy_source() {
-        if (Dialogs.confirm_delete_tag(tag))
-            AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
+        Dialogs.confirm_delete_tag.begin(tag, (source, res) => {
+            if (Dialogs.confirm_delete_tag.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
+            }
+        });
     }
     
     public bool internal_drop_received(Gee.List<MediaSource> media) {

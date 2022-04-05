@@ -109,8 +109,11 @@ public class TagPage : CollectionPage {
     }
     
     private void on_delete_tag() {
-        if (Dialogs.confirm_delete_tag(tag))
-            AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
+        Dialogs.confirm_delete_tag.begin(tag, (source, res) => {
+            if (Dialogs.confirm_delete_tag.end(res)) {
+                AppWindow.get_command_manager().execute(new DeleteTagCommand(tag));
+            }
+        });
     }
     
     private void on_remove_tag_from_photos() {
