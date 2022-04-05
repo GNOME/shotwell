@@ -96,6 +96,8 @@ public class PreferencesDialog : Gtk.Dialog {
             break;
         }
 
+        library_dir_button.clicked.connect(on_library_button_clicked);
+
         // Ticket #3162 - Move dir pattern blurb into Gnome help.
         // Because specifying a particular snippet of the help requires
         // us to know where its located, we can't hardcode a URL anymore;
@@ -153,6 +155,8 @@ public class PreferencesDialog : Gtk.Dialog {
 
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(),
             Config.Facade.get_instance().get_external_raw_app(), out external_raw_apps);
+
+        library_dir_button.set_label(AppDirs.get_import_dir().get_path());
 
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
 
@@ -412,22 +416,27 @@ public class PreferencesDialog : Gtk.Dialog {
         Config.Facade.get_instance().set_default_raw_developer(raw_developer_from_combo());
     }
 
-    private void on_current_folder_changed() {
-        //lib_dir = library_dir_button.get_filename();
+    private void on_library_button_clicked() {
+        var file_chooser = new Gtk.FileChooserNative(_("Select Library Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, null, null);
+        var filter = new Gtk.FileFilter();
+        filter.name = _("Folders");
+        filter.add_mime_type ("inode/directory");
+        file_chooser.add_filter(filter);
+        try {
+            file_chooser.set_current_folder(AppDirs.get_import_dir());
+        } catch (Error error) {
+            debug("Failed to set current import dir to file chooser: %s", error.message);
+        }
+        file_chooser.set_modal (true);
+        file_chooser.show ();
+        file_chooser.response.connect ((foo, response) => {
+            print(foo.get_type().name());
+            var path = file_chooser.get_current_folder().get_path();
+            AppDirs.set_import_dir(file_chooser.get_current_folder().get_path());
+            library_dir_button.set_label (path);
+            file_chooser.destroy();
+        });
     }
-
-#if 0
-    public override bool map_event(Gdk.EventAny event) {
-        var result = base.map_event(event);
-        // Set the signal for the lib dir button after the dialog is displayed,
-        // because the FileChooserButton has a nasty habit of selecting a
-        // different folder when displayed if the provided path doesn't exist.
-        // See ticket #3000 for more info.
-        library_dir_button.current_folder_changed.connect(on_current_folder_changed);
-
-        return result;
-    }
-    #endif
 
     private void add_to_dir_formats(string name, string? pattern) {
         PathFormat pf = new PathFormat(name, pattern);
