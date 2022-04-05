@@ -25,6 +25,24 @@
                     <property name="column_spacing">8</property>
                     <child>
                       <object class="GtkButton" id="library_dir_button">
+                        <child>
+                          <object class="GtkBox">
+                            <property name="orientation">horizontal</property>
+                            <property name="spacing">6</property>
+                            <child type="start">
+                              <object class="GtkImage">
+                                <property name="icon-name">folder-symbolic</property>
+                                <property name="halign">start</property>
+                              </object>
+                            </child>
+                            <child type="end">
+                              <object class="GtkLabel" id="library_dir_text">
+                                <property name="halign">start</property>
+                                <property name="hexpand">true</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                         <layout>
                           <property name="column">1</property>
                           <property name="row">4</property>

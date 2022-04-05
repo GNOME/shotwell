@@ -30,6 +30,8 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.Button library_dir_button;
     [GtkChild]
+    private unowned Gtk.Label library_dir_text;
+    [GtkChild]
     private unowned Gtk.ComboBoxText dir_pattern_combo;
     [GtkChild]
     private unowned Gtk.Entry dir_pattern_entry;
@@ -156,7 +158,7 @@ public class PreferencesDialog : Gtk.Dialog {
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(),
             Config.Facade.get_instance().get_external_raw_app(), out external_raw_apps);
 
-        library_dir_button.set_label(AppDirs.get_import_dir().get_path());
+        library_dir_text.set_label(AppDirs.get_import_dir().get_path());
 
         setup_dir_pattern(dir_pattern_combo, dir_pattern_entry);
 
@@ -279,7 +281,6 @@ public class PreferencesDialog : Gtk.Dialog {
 
         preferences_dialog.populate_preference_options();
         preferences_dialog.show();
-        //TODO preferences_dialog.library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
 
         // Ticket #3001: Cause the dialog to become active if the user chooses 'Preferences'
         // from the menus a second time.
@@ -416,9 +417,9 @@ public class PreferencesDialog : Gtk.Dialog {
         file_chooser.show ();
         file_chooser.response.connect ((foo, response) => {
             print(foo.get_type().name());
-            var path = file_chooser.get_current_folder().get_path();
-            AppDirs.set_import_dir(file_chooser.get_current_folder().get_path());
-            library_dir_button.set_label (path);
+            var path = file_chooser.get_file().get_path();
+            AppDirs.set_import_dir(path);
+            library_dir_text.set_label (path);
             file_chooser.destroy();
         });
     }
