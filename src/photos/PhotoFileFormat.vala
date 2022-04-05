@@ -233,6 +233,7 @@ public enum PhotoFileFormat {
                 return PhotoFileFormat.GIF;
 
             case "heif/avif":
+            case "avif":
                 return PhotoFileFormat.AVIF;
 
             default:
