@@ -324,7 +324,7 @@ public class PreferencesDialog : Gtk.Dialog {
             return true;
 
         commit_on_close();
-        return true; //hide_on_delete(); //prevent widgets from getting destroyed
+        return false; //hide_on_delete(); //prevent widgets from getting destroyed
     }
 
     private void on_close() {
