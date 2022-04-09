@@ -376,9 +376,8 @@ public abstract class MediaPage : CheckerboardPage {
         return new ZoomSliderAssembly();
     }
 
-#if 0
-    protected override bool on_mousewheel_up(Gdk.EventScroll event) {
-        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+    protected override bool on_mousewheel_up(Gtk.EventControllerScroll event) {
+        if ((event.get_current_event_state() & Gdk.ModifierType.CONTROL_MASK) != 0) {
             increase_zoom_level();
             return true;
         } else {
@@ -386,15 +385,14 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
 
-    protected override bool on_mousewheel_down(Gdk.EventScroll event) {
-        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+    protected override bool on_mousewheel_down(Gtk.EventControllerScroll event) {
+        if ((event.get_current_event_state() & Gdk.ModifierType.CONTROL_MASK) != 0) {
             decrease_zoom_level();
             return true;
         } else {
             return base.on_mousewheel_down(event);
         }
     }
-    #endif
     
     private void on_send_to() {
         DesktopIntegration.send_to((Gee.Collection<MediaSource>) get_view().get_selected_sources());

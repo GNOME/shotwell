@@ -90,6 +90,7 @@ public abstract class Page : Gtk.Box {
     // Event controllers
     private Gtk.GestureClick clicks;
     private Gtk.EventControllerMotion motion;
+    private Gtk.EventControllerScroll scroll;
     
     protected Page(string page_name) {
         Object (orientation: Gtk.Orientation.HORIZONTAL);
@@ -185,6 +186,8 @@ public abstract class Page : Gtk.Box {
         clicks.set_name ("CheckerboardPage click source");
         clicks.set_button (0); // Listen to all buttons
         clicks.set_exclusive (true); // TODO: Need to be true or false?
+        clicks.pressed.connect (on_button_pressed_internal);
+        clicks.released.connect (on_button_released_internal);
         event_source.add_controller (clicks);
 
         motion = new Gtk.EventControllerMotion ();
@@ -193,8 +196,10 @@ public abstract class Page : Gtk.Box {
         motion.leave.connect(on_leave_notify_event);
         event_source.add_controller (motion);
 
-        clicks.pressed.connect (on_button_pressed_internal);
-        clicks.released.connect (on_button_released_internal);
+        scroll = new Gtk.EventControllerScroll(Gtk.EventControllerScrollFlags.BOTH_AXES
+            | Gtk.EventControllerScrollFlags.DISCRETE);
+        scroll.scroll.connect(on_mousewheel_internal);
+        event_source.add_controller(scroll);
 
 #if 0
         // interested in mouse button and motion events on the event source
@@ -202,11 +207,6 @@ public abstract class Page : Gtk.Box {
             | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK
             | Gdk.EventMask.BUTTON_MOTION_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK
             | Gdk.EventMask.SCROLL_MASK | Gdk.EventMask.SMOOTH_SCROLL_MASK);
-        event_source.button_press_event.connect(on_button_pressed_internal);
-        event_source.button_release_event.connect(on_button_released_internal);
-        event_source.motion_notify_event.connect(on_motion_internal);
-        event_source.leave_notify_event.connect(on_leave_notify_event);
-        event_source.scroll_event.connect(on_mousewheel_internal);
         event_source.realize.connect(on_event_source_realize);
         #endif 
     }
@@ -219,16 +219,13 @@ public abstract class Page : Gtk.Box {
         clicks = null;
         event_source.remove_controller (motion);
         motion = null;
+        event_source.remove_controller (scroll);
+        scroll = null;
         
     #if 0
-        event_source.button_press_event.disconnect(on_button_pressed_internal);
-        event_source.button_release_event.disconnect(on_button_released_internal);
-        event_source.motion_notify_event.disconnect(on_motion_internal);
-        event_source.leave_notify_event.disconnect(on_leave_notify_event);
-        event_source.scroll_event.disconnect(on_mousewheel_internal);
         
-        event_source = null;
         #endif
+        event_source = null;
     }
     
     public Gtk.Widget? get_event_source() {
@@ -937,16 +934,19 @@ public abstract class Page : Gtk.Box {
     
     protected virtual void on_move_finished(Gdk.Rectangle rect) {
     }
+    #endif    
     
     protected virtual void on_resize(Gdk.Rectangle rect) {
     }
     
     protected virtual void on_resize_start(Gdk.Rectangle rect) {
     }
-    
+
     protected virtual void on_resize_finished(Gdk.Rectangle rect) {
     }
-    
+
+    #if 0
+
     protected virtual bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
         return false;
     }
@@ -1001,10 +1001,10 @@ public abstract class Page : Gtk.Box {
         #if 0
         if (report_move_finished)
             on_move_finished((Gdk.Rectangle) allocation);
+            #endif
         
         if (report_resize_finished)
             on_resize_finished((Gdk.Rectangle) allocation);
-            #endif
         
         last_configure_ms = 0;
         report_move_finished = false;
@@ -1028,87 +1028,59 @@ public abstract class Page : Gtk.Box {
         // todo: stop propagation?
     }
 
-    #if 0
-    private bool on_mousewheel_internal(Gdk.EventScroll event) {
-        switch (event.direction) {
-            case Gdk.ScrollDirection.UP:
-                return on_mousewheel_up(event);
-
-            case Gdk.ScrollDirection.DOWN:
-                return on_mousewheel_down(event);
-            
-            case Gdk.ScrollDirection.LEFT:
-                return on_mousewheel_left(event);
-
-            case Gdk.ScrollDirection.RIGHT:
-                return on_mousewheel_right(event);
-
-            case Gdk.ScrollDirection.SMOOTH:
-                {
-                    double dx, dy;
-                    event.get_scroll_deltas(out dx, out dy);
-
+    private bool on_mousewheel_internal(Gtk.EventControllerScroll event, double dx, double dy) {
                     if (dy < 0)
-                        return on_mousewheel_up(event);
+            return on_mousewheel_up(event);
                     else if (dy > 0)
-                        return on_mousewheel_down(event);
+            return on_mousewheel_down(event);
                     else if (dx < 0)
-                        return on_mousewheel_left(event);
+            return on_mousewheel_left(event);
                     else if (dx > 0)
-                        return on_mousewheel_right(event);
-                    else
+            return on_mousewheel_right(event);
+        else
                         return false;
-                }
-           
-            default:
-                return false;
-        }
+            return false;
     }
     
-    protected virtual bool on_mousewheel_up(Gdk.EventScroll event) {
+    protected virtual bool on_mousewheel_up(Gtk.EventControllerScroll event) {
         return false;
     }
     
-    protected virtual bool on_mousewheel_down(Gdk.EventScroll event) {
+    protected virtual bool on_mousewheel_down(Gtk.EventControllerScroll event) {
         return false;
     }
     
-    protected virtual bool on_mousewheel_left(Gdk.EventScroll event) {
+    protected virtual bool on_mousewheel_left(Gtk.EventControllerScroll event) {
         return false;
     }
     
-    protected virtual bool on_mousewheel_right(Gdk.EventScroll event) {
+    protected virtual bool on_mousewheel_right(Gtk.EventControllerScroll event) {
         return false;
     }
-    #endif
     
     protected virtual bool on_context_keypress() {
         return false;
     }
     
-    #if 0
-    protected virtual bool on_context_buttonpress(Gdk.EventButton event) {
+    protected virtual bool on_context_buttonpress(Gtk.EventController event, double x, double y) {
         return false;
     }
-    #endif
     
 
     protected virtual bool on_context_invoked() {
         return true;
     }
 
-#if 0
-    protected bool popup_context_menu(Gtk.Menu? context_menu,
-        Gdk.EventButton? event = null) {
+    protected bool popup_context_menu(Gtk.PopoverMenu? context_menu, double x, double y) {
 
         if (context_menu == null || !on_context_invoked())
             return false;
 
-        context_menu.popup_at_pointer(event);
+        context_menu.set_pointing_to ({(int)x, (int)y, 1, 1});
+        context_menu.popup();
 
         return true;
     }
-    #endif
 
 
 #if 0

@@ -51,7 +51,6 @@ public abstract class SinglePhotoPage : Page {
 
         scrolled.set_child(viewport);
 
-#if 0
         canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
             | Gdk.EventMask.SUBSTRUCTURE_MASK);
 
@@ -294,17 +293,14 @@ public abstract class SinglePhotoPage : Page {
         internal_repaint(true, null);
     }
 
-#if 0
-// TODO
     protected override void on_resize_finished(Gdk.Rectangle rect) {
         base.on_resize_finished(rect);
 
         // when the resize is completed, do a high-quality repaint
         repaint();
     }
-    #endif
 
-    private bool on_canvas_exposed(Cairo.Context exposed_ctx) {
+    private void on_canvas_exposed(Gtk.DrawingArea da, Cairo.Context exposed_ctx, int width, int height) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
         if (pixmap != null)
@@ -314,8 +310,6 @@ public abstract class SinglePhotoPage : Page {
 
         exposed_ctx.rectangle(0, 0, get_allocated_width(), get_allocated_height());
         exposed_ctx.paint();
-
-        return true;
     }
 
     protected virtual void new_surface(Cairo.Context ctx, Dimensions ctx_dim) {
@@ -473,7 +467,7 @@ public abstract class SinglePhotoPage : Page {
 
     protected override bool on_context_keypress() {
         //return popup_context_menu(get_page_context_menu());
-        return true;
+        return false;
     }
 
     protected virtual void on_previous_photo() {

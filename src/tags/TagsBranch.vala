@@ -124,25 +124,11 @@ public class Tags.Branch : Sidebar.Branch {
 
 public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry, 
     Sidebar.Contextable {
-    private Gtk.Builder builder;
     private Gtk.PopoverMenu? context_menu = null;
     
     public Header() {
         base (_("Tags"), _("Organize and browse your photo’s tags"));
-        setup_context_menu();
-    }
-
-    private void setup_context_menu() {
-        this.builder = new Gtk.Builder ();
-        try {
-            this.builder.add_from_resource(Resources.get_ui("tag_sidebar_context.ui"));
-            var model = builder.get_object ("popup-menu") as GLib.MenuModel;
-            this.context_menu = new Gtk.PopoverMenu.from_model (model);
-        } catch (Error error) {
-            AppWindow.error_message("Error loading UI resource: %s".printf(
-                error.message));
-            Application.get_instance().panic();
-        }
+        this.context_menu = get_popover_menu_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu", null);
     }
 
     public bool internal_drop_received(Gee.List<MediaSource> media) {

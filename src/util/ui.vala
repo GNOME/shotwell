@@ -59,6 +59,23 @@ public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vad
     return rect;
 }
 
+Gtk.PopoverMenu get_popover_menu_from_resource(string path, string id, Gtk.Widget? parent) {
+    var builder = new Gtk.Builder.from_resource(path);
+    return get_popover_menu_from_builder(builder, id, parent);
+}
+
+Gtk.PopoverMenu get_popover_menu_from_builder(Gtk.Builder builder, string id, Gtk.Widget? parent) {
+    var model = builder.get_object (id) as GLib.MenuModel;
+    var popover = new Gtk.PopoverMenu.from_model (model);
+    if (parent != null) {
+        popover.set_parent (parent);
+    }
+    popover.set_has_arrow(false);
+
+    return popover;
+}
+
+
 // Verifies that only the mask bits are set in the modifier field, disregarding mouse and 
 // key modifiers that are not normally of concern (i.e. Num Lock, Caps Lock, etc.).  Mask can be
 // one or more bits set, but should only consist of these values:

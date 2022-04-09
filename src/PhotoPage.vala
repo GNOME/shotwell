@@ -608,11 +608,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     #endif
 
-# if 0
-    private Gdk.Point get_cursor_wrt_viewport(Gdk.EventScroll event) {
+    private Gdk.Point get_cursor_wrt_viewport(Gtk.EventControllerScroll event) {
         Gdk.Point cursor_wrt_canvas = {0};
-        cursor_wrt_canvas.x = (int) event.x;
-        cursor_wrt_canvas.y = (int) event.y;
+        double x;
+        double y;
+        event.get_current_event().get_position(out x, out y);
+        cursor_wrt_canvas.x = (int) x;
+        cursor_wrt_canvas.y = (int) y;
 
         Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
         Gdk.Point result = {0};
@@ -624,7 +626,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return result;
     }
 
-    private Gdk.Point get_cursor_wrt_viewport_center(Gdk.EventScroll event) {
+    private Gdk.Point get_cursor_wrt_viewport_center(Gtk.EventControllerScroll event) {
         Gdk.Point cursor_wrt_viewport = get_cursor_wrt_viewport(event);
         Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
         
@@ -635,7 +637,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return subtract_points(cursor_wrt_viewport, viewport_center);
     }
 
-    private Gdk.Point get_iso_pixel_under_cursor(Gdk.EventScroll event) {
+    private Gdk.Point get_iso_pixel_under_cursor(Gtk.EventControllerScroll event) {
         Gdk.Point viewport_center_iso = scale_point(get_zoom_state().get_viewport_center(),
             1.0 / get_zoom_state().get_zoom_factor());
 
@@ -644,7 +646,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         return add_points(viewport_center_iso, cursor_wrt_center_iso);
     }
-    #endif
 
     private double snap_interpolation_factor(double interp) {
         if (interp < 0.03)
@@ -659,8 +660,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return snap_interpolation_factor(get_zoom_state().get_interpolation_factor() + adjustment);
     }
 
-#if 0
-    private void zoom_about_event_cursor_point(Gdk.EventScroll event, double zoom_increment) {
+    private void zoom_about_event_cursor_point(Gtk.EventControllerScroll event, double zoom_increment) {
         if (photo_missing)
             return;
 
@@ -693,7 +693,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         update_cursor_for_zoom_context();
     }
-    #endif
 
     protected void snap_zoom_to_min() {
         zoom_slider.set_value(0.0);
@@ -753,8 +752,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return zoom_buffer;
     }
     
-    #if 0
-    protected override bool on_mousewheel_up(Gdk.EventScroll event) {
+    protected override bool on_mousewheel_up(Gtk.EventControllerScroll event) {
         if (get_zoom_state().is_max() || !zoom_slider.get_sensitive())
             return false;
 
@@ -762,14 +760,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return true;
     }
     
-    protected override bool on_mousewheel_down(Gdk.EventScroll event) {
+    protected override bool on_mousewheel_down(Gtk.EventControllerScroll event) {
         if (get_zoom_state().is_min() || !zoom_slider.get_sensitive())
             return false;
         
         zoom_about_event_cursor_point(event, -ZOOM_INCREMENT_SIZE);
         return true;
     }
-    #endif
 
     protected override void restore_zoom_state() {
         base.restore_zoom_state();
@@ -1322,11 +1319,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         return false;
     }
-  #if 0  
+
     protected override void on_resize(Gdk.Rectangle rect) {
         base.on_resize(rect);
 
-        track_tool_window();
+        //track_tool_window();
     }
     
     protected override void on_resize_finished(Gdk.Rectangle rect) {
@@ -1338,7 +1335,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         update_pixbuf();
     }
-    #endif
     
     private void on_viewport_resized() {
         // this means the viewport (the display area) has changed, but not necessarily the
@@ -1553,33 +1549,38 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (command != null)
             get_command_manager().execute(command);
     }
+    #endif
     
     // This virtual method is called only when the user double-clicks on the page and no tool
     // is active
-    protected virtual bool on_double_click(Gdk.EventButton event) {
+    protected virtual bool on_double_click(Gtk.EventController event, double x, double y) {
         return false;
     }
     
     // Return true to block the DnD handler from activating a drag
-    protected override bool on_left_click(Gdk.EventButton event) {
+    protected override bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         // report double-click if no tool is active, otherwise all double-clicks are eaten
+        #if 0
         if (event.type == Gdk.EventType.2BUTTON_PRESS)
             return (current_tool == null) ? on_double_click(event) : false;
+        #else
+            if (press == 2) {
+                on_double_click (event, x, y);
+            }
+        #endif
         
-        int x = (int) event.x;
-        int y = (int) event.y;
-
         // if no editing tool, then determine whether we should start a pan operation over the
         // zoomed photo or fall through to the default DnD behavior if we're not zoomed
-        if ((current_tool == null) && (zoom_slider.get_value() != 0.0)) {
-            zoom_pan_start_point.x = (int) event.x;
-            zoom_pan_start_point.y = (int) event.y;
+        if (/*(current_tool == null) && */(zoom_slider.get_value() != 0.0)) {
+            zoom_pan_start_point.x = (int) x;
+            zoom_pan_start_point.y = (int) y;
             is_pan_in_progress = true;
             suspend_cursor_hiding();
 
             return true;
         }
 
+#if 0
         // default behavior when photo isn't zoomed -- return false to start DnD operation
         if (current_tool == null) {
             return false;
@@ -1594,13 +1595,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // block DnD handlers if tool is enabled
         return true;
+#else
+        return false;
+#endif
     }
     
-    protected override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
         if (is_pan_in_progress) {
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
-            int delta_x = ((int) event.x) - zoom_pan_start_point.x;
-            int delta_y = ((int) event.y) - zoom_pan_start_point.y;
+            int delta_x = ((int) x) - zoom_pan_start_point.x;
+            int delta_y = ((int) y) - zoom_pan_start_point.y;
             viewport_center.x -= delta_x;
             viewport_center.y -= delta_y;
 
@@ -1612,6 +1616,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             restore_cursor_hiding();
         }
 
+#if 0
         // report all releases, as it's possible the user click and dragged from inside the
         // pixbuf to the gutters
         if (current_tool == null)
@@ -1621,14 +1626,20 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         if (current_tool.get_tool_window() != null)
             current_tool.get_tool_window().present();
+#endif
         
         return false;
     }
     
-    protected override bool on_right_click(Gdk.EventButton event) {
-        return on_context_buttonpress(event);
+    protected override bool on_right_click(Gtk.EventController event, int press, double x, double y) {
+        if (press != 1) return false;
+        var sequence = ((Gtk.GestureSingle)event).get_current_sequence();
+        var last_event = ((Gtk.Gesture)event).get_last_event(sequence);
+
+        if (!last_event.triggers_context_menu()) return false;
+
+        return on_context_buttonpress(event, x, y);
     }
-    #endif
     
     private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
         if (!map.has_key(get_photo()))
@@ -1674,8 +1685,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     // Return true to block the DnD handler from activating a drag
-    #if 0
-    protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected override bool on_motion(Gtk.EventControllerMotion event, double x, double y, Gdk.ModifierType mask) {
+        #if 0
         if (current_tool != null) {
             current_tool.on_motion(x, y, mask);
 
@@ -1684,12 +1695,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
             return true;
         }
+        #endif
         
         update_cursor_for_zoom_context();
         
         if (is_pan_in_progress) {
-            int delta_x = ((int) event.x) - zoom_pan_start_point.x;
-            int delta_y = ((int) event.y) - zoom_pan_start_point.y;
+            int delta_x = (int)x - zoom_pan_start_point.x;
+            int delta_y = (int)y - zoom_pan_start_point.y;
 
             Gdk.Point viewport_center = get_zoom_state().get_viewport_center();
             viewport_center.x -= delta_x;
@@ -1704,13 +1716,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_motion(event, x, y, mask);
     }
     
-    protected override bool on_leave_notify_event() {
+    protected override void on_leave_notify_event(Gtk.EventControllerMotion event) {
+        #if 0
         if (current_tool != null)
             return current_tool.on_leave_notify_event();
+            #endif
         
-        return base.on_leave_notify_event();
+        base.on_leave_notify_event(event);
     }
     
+    #if 0
     private void track_tool_window() {
         // if editing tool window is present and the user hasn't touched it, it moves with the window
         if (current_tool != null) {
@@ -2876,26 +2891,23 @@ public class LibraryPhotoPage : EditingHostPage {
         
         return base.on_left_released(event);
     }
+    #endif
 
-    private Gtk.Menu context_menu;
+    private Gtk.PopoverMenu context_menu;
 
-    private Gtk.Menu get_context_menu() {
+    private Gtk.PopoverMenu get_context_menu() {
         if (context_menu == null) {
-            var model = this.builder.get_object ("PhotoContextMenu")
-                as GLib.MenuModel;
-            context_menu = new Gtk.Menu.from_model (model);
-            context_menu.attach_to_widget (this, null);
+            context_menu = get_popover_menu_from_builder (this.builder, "PhotoContextMenu", this);
         }
 
         return this.context_menu;
     }
     
-    protected override bool on_context_buttonpress(Gdk.EventButton event) {
-        popup_context_menu(get_context_menu(), event);
+    protected override bool on_context_buttonpress(Gtk.EventController event, double x, double y) {
+        popup_context_menu(get_context_menu(), x, y);
 
         return true;
     }
-    #endif
 
     protected override bool on_context_keypress() {
         //popup_context_menu(get_context_menu());

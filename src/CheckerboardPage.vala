@@ -89,9 +89,7 @@ public abstract class CheckerboardPage : Page {
     private Gtk.PopoverMenu item_context_menu;
     public virtual Gtk.PopoverMenu? get_item_context_menu() {
         if (item_context_menu == null) {
-            var model = this.builder.get_object (item_context_menu_path)
-                as GLib.MenuModel;
-            item_context_menu = new Gtk.PopoverMenu.from_model (model);
+            item_context_menu = get_popover_menu_from_builder (this.builder, item_context_menu_path, this);
         }
 
         return item_context_menu;
@@ -103,9 +101,7 @@ public abstract class CheckerboardPage : Page {
             return null;
 
         if (page_context_menu == null) {
-            var model = this.builder.get_object (page_context_menu_path)
-                as GLib.MenuModel;
-            page_context_menu = new Gtk.PopoverMenu.from_model (model);
+            page_context_menu = get_popover_menu_from_builder (this.builder, page_context_menu_path, this);
         }
 
         return page_context_menu;
@@ -473,17 +469,16 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
 
-#if 0
-    protected override bool on_right_click(Gdk.EventButton event) {
+    protected override bool on_right_click(Gtk.EventController event, int press, double x, double y) {
         // only interested in single-clicks for now
-        if (event.type != Gdk.EventType.BUTTON_PRESS)
+        if (press != 1)
             return false;
 
         // get what's right-clicked upon
-        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(x, y);
         if (item != null) {
             // mask out the modifiers we're interested in
-            switch (event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
+            switch (event.get_current_event_state() & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
                 case Gdk.ModifierType.CONTROL_MASK:
                     // chosen item is toggled
                     Marker marker = get_view().mark(item);
@@ -514,10 +509,9 @@ public abstract class CheckerboardPage : Page {
             get_view().unselect_all();
         }
 
-        Gtk.Menu context_menu = get_context_menu();
-        return popup_context_menu(context_menu, event);
+        Gtk.PopoverMenu context_menu = get_context_menu();
+        return popup_context_menu(context_menu, x, y);
     }
-    #endif
 
     protected virtual bool on_mouse_over(CheckerboardItem? item, int x, int y, Gdk.ModifierType mask) {
         if (item != null)
