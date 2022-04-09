@@ -289,7 +289,8 @@ public abstract class Page : Gtk.Box {
             toolbar = toolbar_path == null ? new Gtk.Box(Gtk.Orientation.HORIZONTAL, 9) :
                                              builder.get_object (toolbar_path)
                                              as Gtk.Box;
-            toolbar.get_style_context().add_class("bottom-toolbar");  // for elementary theme
+            toolbar.add_css_class("bottom-toolbar");  // for elementary theme
+            toolbar.add_css_class("toolbar");
         }
         return toolbar;
     }

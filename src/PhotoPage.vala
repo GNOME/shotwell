@@ -501,6 +501,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #endif
 
         // separator to force next/prev buttons to right side of toolbar
+        var separator = new Gtk.Separator(Gtk.Orientation.VERTICAL);
+        separator.hexpand = true;
+        separator.halign = Gtk.Align.START;
+        toolbar.append(separator);
         
         Gtk.Box zoom_group = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         
