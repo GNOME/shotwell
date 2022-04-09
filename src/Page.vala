@@ -714,9 +714,6 @@ public abstract class Page : Gtk.Box {
         var sequence = gesture.get_current_sequence ();
         var event = gesture.get_last_event (sequence);
 
-        if (press != 1)
-            return;
-
         bool result = false;
 
         switch (gesture.get_current_button()) {
