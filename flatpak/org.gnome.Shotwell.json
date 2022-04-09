@@ -220,7 +220,8 @@
                 "-Dudev=false",
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection=true",
-                "-Dface_detection_helper_bus=private"
+                "-Dface_detection_helper_bus=private",
+                "-Dfatal_warnings=false"
             ],
             "sources" : [
                 {
