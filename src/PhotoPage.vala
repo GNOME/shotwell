@@ -437,7 +437,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // the viewport can change size independent of the window being resized (when the searchbar
         // disappears, for example)
-        //viewport.resize.connect(on_viewport_resized);
+        viewport.notify["default-height"].connect(on_viewport_resized);
+        viewport.notify["default-width"].connect(on_viewport_resized);
+        viewport.notify["maximized"].connect(on_viewport_resized);
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         var toolbar = get_toolbar();
