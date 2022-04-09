@@ -51,14 +51,12 @@ public abstract class SinglePhotoPage : Page {
 
         scrolled.set_child(viewport);
 
-        canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
-            | Gdk.EventMask.SUBSTRUCTURE_MASK);
+        viewport.notify["default-width"].connect(on_viewport_resize);
+        viewport.notify["default-height"].connect(on_viewport_resize);
+        viewport.notify["maximized"].connect(on_viewport_resize);
 
-        viewport.size_allocate.connect(on_viewport_resize);
-        canvas.draw.connect(on_canvas_exposed);
-
+        canvas.set_draw_func(on_canvas_exposed);
         set_event_source(canvas);
-        #endif
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
     }
 
