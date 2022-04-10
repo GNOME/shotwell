@@ -2393,7 +2393,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
 #if ENABLE_FACES
-    private Gtk.ToggleToolButton faces_button = null;
+    private Gtk.ToggleButton faces_button = null;
 #endif
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
@@ -3208,21 +3208,20 @@ public class LibraryPhotoPage : EditingHostPage {
 
 #if ENABLE_FACES       
     private void on_faces_toggled() {
-        on_tool_button_toggled(faces_button, FacesTool.factory);
+        //on_tool_button_toggled(faces_button, FacesTool.factory);
     }
     
     protected void toggle_faces() {
         faces_button.set_active(!faces_button.get_active());
     }
     
-    protected override void insert_faces_button(Gtk.Toolbar toolbar) {
-        faces_button = new Gtk.ToggleToolButton();
+    protected override void insert_faces_button(Gtk.Box toolbar) {
+        faces_button = new Gtk.ToggleButton();
         faces_button.set_icon_name(Resources.ICON_FACES);
         faces_button.set_label(Resources.FACES_LABEL);
         faces_button.set_tooltip_text(Resources.FACES_TOOLTIP);
         faces_button.toggled.connect(on_faces_toggled);
-        faces_button.is_important = true;
-        toolbar.insert(faces_button, -1);
+        toolbar.append(faces_button);
     }
 #endif
 }

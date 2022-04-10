@@ -17,7 +17,7 @@ public abstract class FaceShape : Object {
     public signal void delete_me_requested();
     
     protected FacesTool.EditingFaceToolWindow face_window;
-    protected Gdk.CursorType current_cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
+    protected string current_cursor_type = "se-resize";
     protected EditingTools.PhotoCanvas canvas;
     protected string serialized = null;
     protected double[] face_vec;

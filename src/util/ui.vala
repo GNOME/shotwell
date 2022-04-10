@@ -101,7 +101,8 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
 }
 
 #if ENABLE_FACES
-bool is_pointer_over(Gdk.Window window) {
+bool is_pointer_over(Gtk.Window window) {
+    #if 0
     var seat = window.get_display().get_default_seat();
     if (seat == null) {
         debug("No seat for display");
@@ -113,6 +114,8 @@ bool is_pointer_over(Gdk.Window window) {
     seat.get_pointer().get_position(null, out x, out y);
     
     return x >= 0 && y >= 0 && x < window.get_width() && y < window.get_height();
+    #endif
+    return false;
 }
 #endif
 

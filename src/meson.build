@@ -23,12 +23,13 @@ face_sources = []
 face_obj = ''
 
 if get_option('face_detection')
-  face_sources = ([
+  face_sources = [
                      'faces/FacePage.vala',
-                     'faces/FaceShape.vala',
+                     #'faces/FaceShape.vala',
                      'faces/FaceDetect.vala',
-                     'faces/Faces.vala',
-                     'faces/FacesTool.vala'])
+                     'faces/Faces.vala'
+                     #'faces/FacesTool.vala'
+                     ]
 endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
