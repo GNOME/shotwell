@@ -646,8 +646,8 @@ public abstract class MultiTextEntryDialogMediator {
         return true;
     }
 
-    protected string? _execute() {
-        return dialog.execute();
+    protected async string? _execute() {
+        return yield dialog.execute();
     }
 }
 
@@ -700,8 +700,8 @@ public class EditCommentDialog : MultiTextEntryDialogMediator {
         base(title_tmp, _("Comment:"), comment);
     }
     
-    public virtual string? execute() {
-        return MediaSource.prep_comment(_execute());
+    public async virtual string? execute() {
+        return MediaSource.prep_comment(yield _execute());
     }
     
     protected override bool on_modify_validate(string text) {

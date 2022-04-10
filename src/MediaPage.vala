@@ -722,12 +722,18 @@ public abstract class MediaPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
+            print ("==============>\n ");
         Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(media_sources[0].get_comment());
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment != null)
-            get_command_manager().execute(new EditMultipleCommentsCommand(media_sources, new_comment));
+
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            get_command_manager().execute(new EditMultipleCommentsCommand(media_sources, new_comment));    
+        });
     }
 
     protected virtual void on_display_titles(GLib.SimpleAction action, Variant? value) {

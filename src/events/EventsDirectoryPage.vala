@@ -191,12 +191,16 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.event.get_comment(),
         true);
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment == null)
-            return;
-        
-        EditEventCommentCommand command = new EditEventCommentCommand(item.event, new_comment);
-        get_command_manager().execute(command);
+
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            EditEventCommentCommand command = new EditEventCommentCommand(item.event, new_comment);
+            get_command_manager().execute(command);
+    
+        });
     }
     
     private void on_merge() {

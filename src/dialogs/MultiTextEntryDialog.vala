@@ -28,16 +28,22 @@ public class MultiTextEntryDialog : Gtk.Dialog {
         entry.grab_focus();
     }
 
-    public string? execute() {
+    public async string? execute() {
         string? text = null;
 
         show();
 
-        #if 0
-        // TODO
-        if (run() == Gtk.ResponseType.OK)
-            text = entry.buffer.text;
-            #endif
+        SourceFunc continue_async = execute.callback;
+
+        response.connect((source, response_id) => {
+            if (response_id == Gtk.ResponseType.OK) {
+                text = entry.buffer.text;
+            }
+
+            continue_async();
+        });
+
+        yield;
 
         destroy();
 

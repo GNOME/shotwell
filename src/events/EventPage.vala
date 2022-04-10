@@ -102,13 +102,15 @@ public class EventPage : CollectionPage {
     private void on_edit_event_comment() {
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(page_event.get_comment(),
         true);
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment == null)
-            return;
-        
-        EditEventCommentCommand command = new EditEventCommentCommand(page_event, new_comment);
-        get_command_manager().execute(command);
-        return;
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            EditEventCommentCommand command = new EditEventCommentCommand(page_event, new_comment);
+            get_command_manager().execute(command);
+    
+        });
     }
 
     protected override void on_edit_comment() {

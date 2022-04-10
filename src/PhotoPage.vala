@@ -2022,12 +2022,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         EditCommentDialog edit_comment_dialog = new EditCommentDialog(item.get_comment());
-        string? new_comment = edit_comment_dialog.execute();
-        if (new_comment == null)
-            return;
-        
-        EditCommentCommand command = new EditCommentCommand(item, new_comment);
-        get_command_manager().execute(command);
+        edit_comment_dialog.execute.begin((source, res) => {
+            string? new_comment = edit_comment_dialog.execute.end(res);
+            if (new_comment == null)
+                return;
+            
+            EditCommentCommand command = new EditCommentCommand(item, new_comment);
+            get_command_manager().execute(command);
+        });
     }
 
     public void on_adjust_date_time() {
