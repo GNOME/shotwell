@@ -7,11 +7,11 @@
 namespace Camera {
 
 public void init() throws Error {
-    //Camera.Branch.init();
+    Camera.Branch.init();
 }
 
 public void terminate() {
-    //Camera.Branch.terminate();
+    Camera.Branch.terminate();
 }
 
 }

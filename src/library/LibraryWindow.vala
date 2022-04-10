@@ -109,11 +109,11 @@ public class LibraryWindow : AppWindow {
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
     private Events.Branch events_branch = new Events.Branch();
+    private Camera.Branch camera_branch = new Camera.Branch();
+    private Searches.Branch saved_search_branch = new Searches.Branch();
 #if DOES_NOT_WORK_WITH_GTK4
     private Folders.Branch folders_branch = new Folders.Branch();
     private Faces.Branch faces_branch = new Faces.Branch();
-    private Camera.Branch camera_branch = new Camera.Branch();
-    private Searches.Branch saved_search_branch = new Searches.Branch();
     private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
     
 #endif
@@ -169,9 +169,9 @@ public class LibraryWindow : AppWindow {
 #endif
 
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
-        #if 0
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
+        #if 0
         sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
         #endif
         
@@ -399,13 +399,11 @@ public class LibraryWindow : AppWindow {
     }
 
     public void rename_search_in_sidebar(SavedSearch search) {
-    #if 0
         Searches.SidebarEntry? entry = saved_search_branch.get_entry_for_saved_search(search);
         if (entry != null)
             sidebar_tree.rename_entry_in_place(entry);
         else
             debug("No search entry found for rename");
-            #endif
     }
     
 #if ENABLE_FACES
@@ -943,9 +941,9 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_saved_search(SavedSearch search) {
-        //Searches.SidebarEntry? entry = saved_search_branch.get_entry_for_saved_search(search);
-        //if (entry != null)
-        //    switch_to_page(entry.get_page());
+        Searches.SidebarEntry? entry = saved_search_branch.get_entry_for_saved_search(search);
+        if (entry != null)
+            switch_to_page(entry.get_page());
     }
     
     public void switch_to_photo_page(CollectionPage controller, Photo current) {
@@ -968,7 +966,6 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_camera_added(DiscoveredCamera camera) {
-    #if 0
         Camera.SidebarEntry? entry = camera_branch.get_entry_for_camera(camera);
         if (entry == null)
             return;
@@ -987,7 +984,6 @@ public class LibraryWindow : AppWindow {
         } else {
             switch_to_page(page);
         }
-        #endif
     }
 
     // This should only be called by LibraryWindow and PageStub.
