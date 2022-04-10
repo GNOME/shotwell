@@ -444,7 +444,7 @@
               <object class="GtkNotebookPage">
                 <property name="position">2</property>
                 <property name="child">
-                  <object class="GtkBox">
+                  <object class="GtkBox" id="plugins_box">
                     <property name="orientation">vertical</property>
                     <child>
                       <placeholder/>

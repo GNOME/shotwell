@@ -43,7 +43,9 @@ public class PreferencesDialog : Gtk.Dialog {
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     [GtkChild]
     private unowned Gtk.CheckButton lowercase;
-    //private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+    private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
+    [GtkChild]
+    private Gtk.Box plugins_box;
     [GtkChild]
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
@@ -130,7 +132,7 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        //preferences_notebook.get_nth_page (2).set_child (plugins_mediator);
+        plugins_box.append (plugins_mediator);
         ((Gtk.Container) preferences_notebook.get_nth_page (3)).add (new Shotwell.ProfileBrowser());
 
 

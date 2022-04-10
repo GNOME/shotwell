@@ -110,7 +110,7 @@ private class ManifestListView : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(Column.N_COLUMNS,
         typeof(bool),       // ENABLED
         typeof(bool),       // CAN_ENABLE
-        typeof(Gdk.Pixbuf), // ICON
+        typeof(Gdk.Paintable), // ICON
         typeof(string),     // NAME
         typeof(string)      // ID
     );
@@ -160,7 +160,7 @@ private class ManifestListView : Gtk.TreeView {
             Gdk.Paintable? icon = null;
             if (extension_point.icon_name != null) {
                 icon = icon_theme.lookup_by_gicon(
-                    new ThemedIcon(extension_point.icon_name), ICON_SIZE, 0, Gtk.TextDirection.NONE, 0);
+                    new ThemedIcon(extension_point.icon_name), ICON_SIZE, 1, Gtk.TextDirection.NONE, 0);
             }
             
             store.set(category_iter, Column.NAME, extension_point.name, Column.CAN_ENABLE, false,
