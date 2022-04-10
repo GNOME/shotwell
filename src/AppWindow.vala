@@ -603,7 +603,7 @@ public abstract class AppWindow : PageWindow {
             "license", Resources.LICENSE,
             "website-label", _("Visit the Shotwell web site"),
             "authors", Resources.AUTHORS,
-            "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1),
+            "logo-icon-name", "shotwell",
             "translator-credits", _("translator-credits"),
             null
         );

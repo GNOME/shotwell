@@ -176,7 +176,7 @@ public struct PluggableInfo {
      * An icon representing this plugin at one or more sizes. Shotwell may select an icon 
      * according to the size that closest fits the control its being drawn in.
      */
-    public Gdk.Pixbuf[]? icons;
+    public string icon;
 }
 
 /**

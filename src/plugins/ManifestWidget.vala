@@ -175,13 +175,7 @@ private class ManifestListView : Gtk.TreeView {
                 
                 Spit.PluggableInfo info = Spit.PluggableInfo();
                 pluggable.get_info(ref info);
-                
-                #if 0
-                icon = (info.icons != null && info.icons.length > 0) 
-                    ? info.icons[0]
-                    : Resources.get_icon(Resources.ICON_GENERIC_PLUGIN, ICON_SIZE);
-                    #endif
-                
+                                
                 Gtk.TreeIter plugin_iter;
                 store.append(out plugin_iter, category_iter);
                 
