@@ -108,10 +108,10 @@ public class LibraryWindow : AppWindow {
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
+    private Events.Branch events_branch = new Events.Branch();
 #if DOES_NOT_WORK_WITH_GTK4
     private Folders.Branch folders_branch = new Folders.Branch();
     private Faces.Branch faces_branch = new Faces.Branch();
-    private Events.Branch events_branch = new Events.Branch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
     private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
@@ -166,8 +166,10 @@ public class LibraryWindow : AppWindow {
 #if ENABLE_FACES   
         sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
 #endif
+#endif
 
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
+        #if 0
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
         sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
@@ -389,13 +391,11 @@ public class LibraryWindow : AppWindow {
     }
 
     public void rename_event_in_sidebar(Event event) {
-    #if 0
         Events.EventEntry? entry = events_branch.get_entry_for_event(event);
         if (entry != null)
             sidebar_tree.rename_entry_in_place(entry);
         else
             debug("No event entry found for rename");
-            #endif
     }
 
     public void rename_search_in_sidebar(SavedSearch search) {
@@ -469,7 +469,6 @@ public class LibraryWindow : AppWindow {
             if (event == null)
                 return false;
 
-#if 0
             Events.EventEntry? entry = events_branch.get_entry_for_event(event);
             if (entry == null)
                 return false;
@@ -481,7 +480,6 @@ public class LibraryWindow : AppWindow {
             
             start = photo;
             view_collection = null;
-            #endif
             
             return false;
         }
@@ -933,9 +931,9 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_event(Event event) {
-        //Events.EventEntry? entry = events_branch.get_entry_for_event(event);
-        //if (entry != null)
-        //    switch_to_page(entry.get_page());
+        Events.EventEntry? entry = events_branch.get_entry_for_event(event);
+        if (entry != null)
+            switch_to_page(entry.get_page());
     }
     
     public void switch_to_tag(Tag tag) {
@@ -1304,6 +1302,7 @@ public class LibraryWindow : AppWindow {
             
             return;
         }
+        #endif
         
         // Event page -> Events (master event directory)
         if (selectable is Events.EventEntry && events_branch.get_show_branch()) {
@@ -1318,7 +1317,6 @@ public class LibraryWindow : AppWindow {
             
             return;
         }
-        #endif
         
         // basic all-around default: jump to the Library page
         switch_to_page(library_branch.photos_entry.get_page());
