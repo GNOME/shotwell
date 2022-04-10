@@ -629,8 +629,8 @@ public abstract class TextEntryDialogMediator {
         return true;
     }
 
-    protected string? _execute() {
-        return dialog.execute();
+    protected async string? _execute() {
+        return yield dialog.execute();
     }
 }
 
@@ -670,8 +670,8 @@ public class EventRenameDialog : TextEntryDialogMediator {
         base (_("Rename Event"), _("Name:"), event_name);
     }
 
-    public virtual string? execute() {
-        return Event.prep_event_name(_execute());
+    public async virtual string? execute() {
+        return Event.prep_event_name(yield _execute());
     }
 }
 
@@ -682,8 +682,8 @@ public class EditTitleDialog : TextEntryDialogMediator {
             _("Title:"), photo_title);
     }
     
-    public virtual string? execute() {
-        return MediaSource.prep_title(_execute());
+    public virtual async string? execute() {
+        return MediaSource.prep_title(yield _execute());
     }
     
     protected override bool on_modify_validate(string text) {
@@ -845,8 +845,8 @@ public class AddTagsDialog : TagsDialog {
         base (title, _("Tags (separated by commas):"));
     }
 
-    public string[]? execute() {
-        string? text = _execute();
+    public async string[]? execute() {
+        string? text = yield _execute();
         if (text == null)
             return null;
         
@@ -897,8 +897,8 @@ public class ModifyTagsDialog : TagsDialog {
         return text;
     }
     
-    public Gee.ArrayList<Tag>? execute() {
-        string? text = _execute();
+    public async Gee.ArrayList<Tag>? execute() {
+        string? text = yield _execute();
         if (text == null)
             return null;
         

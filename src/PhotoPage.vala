@@ -2006,12 +2006,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         EditTitleDialog edit_title_dialog = new EditTitleDialog(item.get_title());
-        string? new_title = edit_title_dialog.execute();
-        if (new_title == null)
-            return;
-        
-        EditTitleCommand command = new EditTitleCommand(item, new_title);
-        get_command_manager().execute(command);
+        edit_title_dialog.execute.begin((source, res) => {
+            string? new_title = edit_title_dialog.execute.end(res);
+            if (new_title != null)
+                get_command_manager().execute(new EditTitleCommand(item, new_title));
+    
+        });
     }
 
     public void on_edit_comment() {
@@ -3186,24 +3186,27 @@ public class LibraryPhotoPage : EditingHostPage {
 
     private void on_add_tags() {
         AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
-        if (names != null) {
-            get_command_manager().execute(new AddTagsCommand(
-                HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names), 
-                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
-        }
+        dialog.execute.begin((source, res) => {
+            string[]? names = dialog.execute.end(res);
+            if (names != null) {
+                get_command_manager().execute(new AddTagsCommand(
+                    HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names), 
+                    (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
+            }
+            });
     }
 
     private void on_modify_tags() {
         LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
         
         ModifyTagsDialog dialog = new ModifyTagsDialog(photo);
-        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+        dialog.execute.begin((source, res) => {
+            var new_tags = dialog.execute.end(res);
+            if (new_tags == null)
+                return;
         
-        if (new_tags == null)
-            return;
-        
-        get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
+            get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
+        });
     }
 
 #if ENABLE_FACES       

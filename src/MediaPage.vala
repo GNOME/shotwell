@@ -560,13 +560,15 @@ public abstract class MediaPage : CheckerboardPage {
             return;
         
         AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
+        dialog.execute.begin((source, res) => {
+            string[]? names = dialog.execute.end(res);
         
-        if (names != null) {
-            get_command_manager().execute(new AddTagsCommand(
-                HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names),
-                (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
-        }
+            if (names != null) {
+                get_command_manager().execute(new AddTagsCommand(
+                    HierarchicalTagIndex.get_global_index().get_paths_for_names_array(names),
+                    (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
+            }
+        });
     }
 
     private void on_modify_tags() {
@@ -576,12 +578,13 @@ public abstract class MediaPage : CheckerboardPage {
         MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
         
         ModifyTagsDialog dialog = new ModifyTagsDialog(media);
-        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+
+        dialog.execute.begin((source, res) => {
+            Gee.ArrayList<Tag>? new_tags = dialog.execute.end(res);
+            if (new_tags != null)
+                get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
+        });
         
-        if (new_tags == null)
-            return;
-        
-        get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
     }
 
     private void set_display_tags(bool display) {
@@ -707,9 +710,12 @@ public abstract class MediaPage : CheckerboardPage {
         Gee.List<MediaSource> media_sources = (Gee.List<MediaSource>) get_view().get_selected_sources();
         
         EditTitleDialog edit_title_dialog = new EditTitleDialog(media_sources[0].get_title());
-        string? new_title = edit_title_dialog.execute();
-        if (new_title != null)
-            get_command_manager().execute(new EditMultipleTitlesCommand(media_sources, new_title));
+        edit_title_dialog.execute.begin((source, res) => {
+            string? new_title = edit_title_dialog.execute.end(res);
+            if (new_title != null)
+                get_command_manager().execute(new EditMultipleTitlesCommand(media_sources, new_title));
+    
+        });
     }
 
     protected virtual void on_edit_comment() {

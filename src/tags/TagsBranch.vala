@@ -133,11 +133,12 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
 
     public bool internal_drop_received(Gee.List<MediaSource> media) {
         AddTagsDialog dialog = new AddTagsDialog();
-        string[]? names = dialog.execute();
-        if (names == null || names.length == 0)
-            return false;
-        
-        AppWindow.get_command_manager().execute(new AddTagsCommand(names, media));
+        dialog.execute.begin((source, res) => {
+            string[]? tags = dialog.execute.end(res);
+            if (tags != null && tags.length > 0) {
+                AppWindow.get_command_manager().execute(new AddTagsCommand(tags, media));
+            }
+        });
         
         return true;
     }

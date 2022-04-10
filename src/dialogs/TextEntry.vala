@@ -43,7 +43,7 @@ public class TextEntryDialog : Gtk.Dialog {
         set_default_response(Gtk.ResponseType.OK);
     }
 
-    public string? execute() {
+    public async string? execute() {
         string? text = null;
 
         // validate entry to start with
@@ -51,11 +51,20 @@ public class TextEntryDialog : Gtk.Dialog {
 
         show();
 
-        if (0 == Gtk.ResponseType.OK)
-            text = entry.get_text();
+        SourceFunc continue_async = execute.callback;
+        int response_id = 0;
 
-        entry.changed.disconnect(on_entry_changed);
-        destroy();
+        response.connect((source, res) => {
+            response_id = res;
+            entry.changed.disconnect(on_entry_changed);
+            destroy();    
+            continue_async();
+        });
+
+        yield;
+
+        if (response_id == Gtk.ResponseType.OK)
+            text = entry.get_text();
 
         return text;
     }

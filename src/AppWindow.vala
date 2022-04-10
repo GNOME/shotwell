@@ -497,6 +497,7 @@ public abstract class AppWindow : PageWindow {
             
         // Occasionally, with_markup doesn't actually do anything, but set_markup always works.
         dialog.set_markup(build_alert_body_text(title, message, should_escape));
+        dialog.set_transient_for(parent != null ? parent : get_instance());
 
         dialog.use_markup = true;
         dialog.show();

@@ -173,12 +173,13 @@ public abstract class EventsDirectoryPage : CheckerboardPage {
         EventDirectoryItem item = (EventDirectoryItem) get_view().get_selected_at(0);
         
         EventRenameDialog rename_dialog = new EventRenameDialog(item.event.get_raw_name());
-        string? new_name = rename_dialog.execute();
-        if (new_name == null)
-            return;
-        
-        RenameEventCommand command = new RenameEventCommand(item.event, new_name);
-        get_command_manager().execute(command);
+        rename_dialog.execute.begin((source, res) => {
+            var new_name = rename_dialog.execute.end(res);
+            if (new_name != null) {
+                RenameEventCommand command = new RenameEventCommand(item.event, new_name);
+                get_command_manager().execute(command);        
+            }
+        });
     }
     
     protected void on_edit_comment() {
