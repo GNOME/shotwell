@@ -63,6 +63,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     public CheckerboardLayout(ViewCollection view) {
         set_css_name("content-view");
+
         this.view = view;
         
         clear_drag_select();

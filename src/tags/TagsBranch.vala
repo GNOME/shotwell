@@ -129,6 +129,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
     public Header() {
         base (_("Tags"), _("Organize and browse your photo’s tags"));
         this.context_menu = get_popover_menu_from_resource(Resources.get_ui("tag_sidebar_context.ui"), "popup-menu", null);
+        print("\t%p\n", this.context_menu.get_parent());
     }
 
     public bool internal_drop_received(Gee.List<MediaSource> media) {
@@ -139,7 +140,7 @@ public class Tags.Header : Sidebar.Header, Sidebar.InternalDropTargetEntry,
                 AppWindow.get_command_manager().execute(new AddTagsCommand(tags, media));
             }
         });
-        
+
         return true;
     }
 
