@@ -62,7 +62,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private bool reflow_needed = false;
     
     public CheckerboardLayout(ViewCollection view) {
-        this.get_style_context().add_class("content-view");
+        set_css_name("content-view");
         this.view = view;
         
         clear_drag_select();
@@ -1124,6 +1124,21 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         draw_selection_band(ctx);
     }
     
+    class RubberbandProxy : Gtk.Widget {
+        public RubberbandProxy(Gtk.Widget parent) {
+            Object();
+            set_parent(parent);
+        }
+
+        ~RubberbandProxy() {
+            unparent();
+        }
+
+        static construct {
+            set_css_name("rubberband");
+        }
+    }
+
     private void draw_selection_band(Cairo.Context ctx) {
         // no selection band, nothing to draw
         if (selection_band.width <= 1 || selection_band.height <= 1)
@@ -1138,16 +1153,17 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         Gdk.Rectangle visible_band = Gdk.Rectangle();
         visible_page.intersect(selection_band, out visible_band);
         
-        get_style_context().save();
-        get_style_context().add_class("rubberband");
+        var style = new RubberbandProxy(this).get_style_context();
+
+        style.save();
         // pixelate selection rectangle interior
         if (visible_band.width > 1 && visible_band.height > 1) {
-            get_style_context().render_background(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
+            style.render_background(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
         }
         
         // border
-        get_style_context().render_frame(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
-        get_style_context().restore();
+        style.render_frame(ctx, visible_band.x, visible_band.y, visible_band.width, visible_band.height);
+        style.restore();
     }
     
     public override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
