@@ -111,8 +111,8 @@ public class LibraryWindow : AppWindow {
     private Events.Branch events_branch = new Events.Branch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
-#if DOES_NOT_WORK_WITH_GTK4
     private Folders.Branch folders_branch = new Folders.Branch();
+#if DOES_NOT_WORK_WITH_GTK4
     private Faces.Branch faces_branch = new Faces.Branch();
     private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
     
@@ -161,11 +161,9 @@ public class LibraryWindow : AppWindow {
         
         sidebar_tree.graft(library_branch, SidebarRootPosition.LIBRARY);
         sidebar_tree.graft(tags_branch, SidebarRootPosition.TAGS);
-        #if 0
         sidebar_tree.graft(folders_branch, SidebarRootPosition.FOLDERS);
 #if ENABLE_FACES   
         sidebar_tree.graft(faces_branch, SidebarRootPosition.FACES);
-#endif
 #endif
 
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);

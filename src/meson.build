@@ -153,6 +153,7 @@ executable(
         'config/ConfigurationInterfaces.vala',
         'config/GSettingsEngine.vala',
         'folders/Folders.vala',
+        'folders/FoldersBranch.vala',
         'folders/FoldersPage.vala',
         'main.vala',
         'AppWindow.vala',
