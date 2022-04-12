@@ -533,17 +533,20 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         if (can_revert_editable_selected()) {
-            if (!revert_editable_dialog(AppWindow.get_instance(),
-                (Gee.Collection<Photo>) get_view().get_selected_sources())) {
-                return;
-            }
-            
-            foreach (DataObject object in get_view().get_selected_sources())
-                ((Photo) object).revert_to_master();
+            revert_editable_dialog.begin(AppWindow.get_instance(),
+                (Gee.Collection<Photo>) get_view().get_selected_sources(), (source, res) => {
+                    if (revert_editable_dialog.end(res)) {
+                        foreach (DataObject object in get_view().get_selected_sources())
+                            ((Photo) object).revert_to_master();
+                        
+                        RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
+                        get_command_manager().execute(command);
+                    }
+                });
+        } else {
+            RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
+            get_command_manager().execute(command);    
         }
-        
-        RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
-        get_command_manager().execute(command);
     }
     
     public void on_copy_adjustments() {

@@ -1390,17 +1390,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         old_times = new Gee.HashMap<Dateable, time_t?>();
     }
 
-    public override void execute() {
-        error_list = new Gee.ArrayList<Dateable>();
-        base.execute();
-        
-        if (error_list.size > 0) {
-            multiple_object_error_dialog(error_list, 
-                ngettext("One original photo could not be adjusted.",
-                "The following original photos could not be adjusted.", error_list.size), 
-                _("Time Adjustment Error"));
-        }
-
+    private void continue_execute() {
         ViewCollection all_events = new ViewCollection("tmp");
 
         foreach (Dateable d in prev_events.keys) {
@@ -1414,12 +1404,29 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         }
     }
 
+    public override void execute() {
+        error_list = new Gee.ArrayList<Dateable>();
+        base.execute();
+        
+        if (error_list.size > 0) {
+            multiple_object_error_dialog.begin(error_list, 
+                ngettext("One original photo could not be adjusted.",
+                "The following original photos could not be adjusted.", error_list.size), 
+                _("Time Adjustment Error"), (source, res) => {
+                    multiple_object_error_dialog.end(res);
+                    continue_execute();
+            });
+        } else {
+            continue_execute();
+        }
+    }
+
     public override void undo() {
         error_list = new Gee.ArrayList<Dateable>();
         base.undo();
 
         if (error_list.size > 0) {
-            multiple_object_error_dialog(error_list, 
+            multiple_object_error_dialog.begin(error_list, 
                 ngettext("Time adjustments could not be undone on the following photo file.",
                 "Time adjustments could not be undone on the following photo files.", 
                 error_list.size), _("Time Adjustment Error"));

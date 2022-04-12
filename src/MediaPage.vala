@@ -680,7 +680,7 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     private void on_remove_from_library() {
-        remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
+        remove_photos_from_library.begin((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
     }
 
     protected virtual void on_move_to_trash() {

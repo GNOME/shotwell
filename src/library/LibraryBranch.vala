@@ -10,11 +10,13 @@ public class Library.Branch : Sidebar.Branch {
     public Library.PhotosEntry photos_entry { get; private set; }
     #if 0
     public Library.FlaggedSidebarEntry flagged_entry { get; private set; }
+    #endif
     public Library.LastImportSidebarEntry last_imported_entry { get; private set; }
+    #if 0
     public Library.ImportQueueSidebarEntry import_queue_entry { get; private set; }
     public Library.OfflineSidebarEntry offline_entry { get; private set; }
-    public Library.TrashSidebarEntry trash_entry { get; private set; }
     #endif
+    public Library.TrashSidebarEntry trash_entry { get; private set; }
     
     // This lists the order of the library items in the sidebar. To re-order, simply move
     // the item in this list to a new position. These numbers should *not* persist anywhere
@@ -33,22 +35,22 @@ public class Library.Branch : Sidebar.Branch {
             Sidebar.Branch.Options.STARTUP_OPEN_GROUPING, comparator);
 
         photos_entry = new Library.PhotosEntry();
-        #if 0
         trash_entry = new Library.TrashSidebarEntry();
         last_imported_entry = new Library.LastImportSidebarEntry();
+        #if 0
         flagged_entry = new Library.FlaggedSidebarEntry();
         offline_entry = new Library.OfflineSidebarEntry();
         import_queue_entry = new Library.ImportQueueSidebarEntry();
         #endif
 
         insert(photos_entry, EntryPosition.PHOTOS);
-        //insert(trash_entry, EntryPosition.TRASH);
+        insert(trash_entry, EntryPosition.TRASH);
 
         //flagged_entry.visibility_changed.connect(on_flagged_visibility_changed);
         //on_flagged_visibility_changed();
 
-        //last_imported_entry.visibility_changed.connect(on_last_imported_visibility_changed);
-        //on_last_imported_visibility_changed();
+        last_imported_entry.visibility_changed.connect(on_last_imported_visibility_changed);
+        on_last_imported_visibility_changed();
 
         //import_queue_entry.visibility_changed.connect(on_import_queue_visibility_changed);
         //on_import_queue_visibility_changed();
@@ -67,7 +69,7 @@ public class Library.Branch : Sidebar.Branch {
     }
 
     private void on_last_imported_visibility_changed() {
-        //update_entry_visibility(last_imported_entry, EntryPosition.LAST_IMPORTED);
+        update_entry_visibility(last_imported_entry, EntryPosition.LAST_IMPORTED);
     }
 
     private void on_import_queue_visibility_changed() {

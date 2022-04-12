@@ -711,30 +711,36 @@ public class EditCommentDialog : MultiTextEntryDialogMediator {
 
 // Returns: Gtk.ResponseType.YES (trash photos), Gtk.ResponseType.NO (only remove photos) and
 // Gtk.ResponseType.CANCEL.
-public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title,
+public async Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title,
     string user_message, int count) {
     string trash_action = ngettext("Remove and _Trash File", "Remove and _Trash Files", count);
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", user_message);
+    dialog.set_transient_for(owner);
     dialog.add_button(_("_Remove From Library"), Gtk.ResponseType.NO);
     dialog.add_button(trash_action, Gtk.ResponseType.YES);
-
     // This dialog was previously created outright; we now 'hijack' 
     // dialog's old title and use it as the primary text, along with
     // using the message as the secondary text.
     dialog.set_markup(build_alert_body_text(title, user_message));
-    
-    // TODO
-    Gtk.ResponseType result = (Gtk.ResponseType) 0;//dialog.run();
-    
-    dialog.destroy();
+    dialog.show();
+
+    int result =  0;
+    SourceFunc continue_cb = remove_from_library_dialog.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        dialog.destroy();
+        continue_cb();
+    });
+    yield;
     
     return result;
 }
 
 // Returns: Gtk.ResponseType.YES (delete photos), Gtk.ResponseType.NO (keep photos)
-public Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string title,
+public async Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string title,
     string user_message) {
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", user_message);
@@ -743,16 +749,22 @@ public Gtk.ResponseType remove_from_filesystem_dialog(Gtk.Window owner, string t
     dialog.set_default_response( Gtk.ResponseType.NO);
    
     dialog.set_markup(build_alert_body_text(title, user_message));
+    dialog.show();
     
-    // TODO
-    Gtk.ResponseType result = (Gtk.ResponseType) 0; //dialog.run();
-    
-    dialog.destroy();
+    int result =  0;
+    SourceFunc continue_cb = remove_from_filesystem_dialog.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        dialog.destroy();
+        continue_cb();
+    });
+    yield;
     
     return result;
 }
 
-public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photos) {
+public async bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photos) {
     int count = 0;
     foreach (Photo photo in photos) {
         if (photo.has_editable())
@@ -774,17 +786,25 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
     dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
     dialog.add_button(action, Gtk.ResponseType.YES);
+    dialog.set_transient_for(owner);
 
     dialog.set_markup(build_alert_body_text(headline, msg));
-    
-    Gtk.ResponseType result = (Gtk.ResponseType) 0; // TODO dialog.run();
-    
-    dialog.destroy();
+    dialog.show();
+
+    int result =  0;
+    SourceFunc continue_cb = revert_editable_dialog.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        dialog.destroy();
+        continue_cb();
+    });
+    yield;    
     
     return result == Gtk.ResponseType.YES;
 }
 
-public bool remove_offline_dialog(Gtk.Window owner, int count) {
+public async bool remove_offline_dialog(Gtk.Window owner, int count) {
     if (count == 0)
         return false;
     
@@ -798,16 +818,24 @@ public bool remove_offline_dialog(Gtk.Window owner, int count) {
     dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
     dialog.add_button(_("_Remove"), Gtk.ResponseType.OK);
     dialog.title = (count == 1) ? _("Remove Photo From Library") : _("Remove Photos From Library");
+    dialog.set_transient_for (owner);
+    dialog.show();
     
-    Gtk.ResponseType result = (Gtk.ResponseType) 0; // TODO dialog.run();
-    
-    dialog.destroy();
+    int result =  0;
+    SourceFunc continue_cb = remove_offline_dialog.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        dialog.destroy();
+        continue_cb();
+    });
+    yield;    
     
     return result == Gtk.ResponseType.OK;
 }
 
 public const int MAX_OBJECTS_DISPLAYED = 3;
-public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, string message, 
+public async void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, string message, 
     string title) {
     string dialog_message = message + "\n";
 
@@ -825,10 +853,18 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
         Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", dialog_message);
     
     dialog.title = title;
-    
+    dialog.set_transient_for (AppWindow.get_instance());
     dialog.show();
-    // TODO
-    dialog.destroy();
+    
+    int result =  0;
+    SourceFunc continue_cb = multiple_object_error_dialog.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        dialog.destroy();
+        continue_cb();
+    });
+    yield;    
 }
 
 public abstract class TagsDialog : TextEntryDialogMediator {
@@ -927,7 +963,7 @@ public class ModifyTagsDialog : TagsDialog {
 
 // This function is used to determine whether or not files should be copied or linked when imported.
 // Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-public Gtk.ResponseType copy_files_dialog() {
+public async Gtk.ResponseType copy_files_dialog() {
     string msg = _("Shotwell can copy the photos into your library folder or it can import them without copying.");
 
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
@@ -936,20 +972,28 @@ public Gtk.ResponseType copy_files_dialog() {
     dialog.add_button(_("Co_py Photos"), Gtk.ResponseType.ACCEPT);
     dialog.add_button(_("_Import in Place"), Gtk.ResponseType.REJECT);
     dialog.title = _("Import to Library");
-
-    Gtk.ResponseType result = (Gtk.ResponseType) 0; //dialog.run();
+    dialog.set_transient_for(AppWindow.get_instance());
+    dialog.show();
     
-    dialog.destroy();
+    int result =  0;
+    SourceFunc continue_cb = copy_files_dialog.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        dialog.destroy();
+        continue_cb();
+    });
+    yield;    
 
     return result;
 }
 
-public void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
-    remove_from_app(photos, _("Remove From Library"),
+public async void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
+    yield remove_from_app(photos, _("Remove From Library"),
         ngettext("Removing Photo From Library", "Removing Photos From Library", photos.size));
 }
 
-public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
+public async void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
     string progress_dialog_text) {
     if (sources.size == 0)
         return;
@@ -973,7 +1017,7 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
              sources.size).printf(sources.size);
     }
     
-    Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
+    Gtk.ResponseType result = yield remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
         user_message, sources.size);
     if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
         return;
@@ -1003,7 +1047,7 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
             ngettext("The photo or video cannot be moved to your desktop trash. Delete this file?",
                 "%d photos/videos cannot be moved to your desktop trash. Delete these files?",
                 num_not_removed).printf(num_not_removed);
-        Gtk.ResponseType result_delete = remove_from_filesystem_dialog(AppWindow.get_instance(), 
+        Gtk.ResponseType result_delete = yield remove_from_filesystem_dialog(AppWindow.get_instance(), 
             dialog_title, not_deleted_message);
             
         if (Gtk.ResponseType.YES == result_delete) {

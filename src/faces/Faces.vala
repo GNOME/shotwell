@@ -9,11 +9,11 @@
 namespace Faces {
 
 public void init() throws Error {
-    //Faces.SidebarEntry.init();
+    Faces.SidebarEntry.init();
 }
 
 public void terminate() {
-    //Faces.SidebarEntry.terminate();
+    Faces.SidebarEntry.terminate();
 }
 
 }

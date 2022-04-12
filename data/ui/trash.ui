@@ -1,5 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface domain="shotwell">
+  <requires lib="gtk" version="4.0"/>
   <menu id="MenuBar">
     <submenu>
       <attribute name="label" translatable="yes">_File</attribute>
@@ -240,79 +241,67 @@
       </item>
     </section>
   </menu>
-  <object class="GtkToolbar" id="TrashToolbar">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="toolbar_style">both-horiz</property>
+  <object class="GtkBox" id="TrashToolbar">
+    <style>
+      <class name="toolbar"/>
+    </style>
+    <property name="can_focus">0</property>
     <child>
-      <object class="GtkToolButton" id="ToolDelete">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolDelete">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Remove the selected photos from the trash</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.Delete</property>
         <property name="label" translatable="yes">_Delete</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolRestore">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolRestore">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Move the selected photos back into the library</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.Restore</property>
         <property name="label" translatable="yes">_Restore</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolEmptyTrash">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolEmptyTrash">
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Delete all photos in the trash</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.CommonEmptyTrash</property>
         <property name="label" translatable="yes">Empty Trash</property>
-        <property name="use_underline">True</property>
+        <property name="use_underline">1</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkSeparatorToolItem">
-        <property name="can_focus">False</property>
+      <object class="GtkSeparator">
+        <property name="orientation">vertical</property>
+        <property name="can_focus">0</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">False</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolButton" id="ToolFind">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
+      <object class="GtkButton" id="ToolFind">
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">horizontal</property>
+            <property name="spacing">6</property>
+            <child type="start">
+              <object class="GtkImage">
+                <property name="icon_name">edit-find-symbolic</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">Find</property>
+                <property name="use_underline">1</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <property name="can_focus">0</property>
         <property name="tooltip_text" translatable="yes">Find an image by typing text that appears in its name or tags</property>
-        <property name="is_important">True</property>
         <property name="action_name">win.CommonDisplaySearchbar</property>
-        <property name="label" translatable="yes">Find</property>
-        <property name="use_underline">True</property>
-        <property name="icon_name">edit-find-symbolic</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="homogeneous">True</property>
-      </packing>
     </child>
   </object>
 </interface>

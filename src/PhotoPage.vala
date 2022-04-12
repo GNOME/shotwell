@@ -1972,6 +1972,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate(Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, "");
     }
     
+    private void do_revert () {
+        cancel_zoom();
+
+        set_photo_missing(false);
+        
+        RevertSingleCommand command = new RevertSingleCommand(get_photo());
+        get_command_manager().execute(command);
+
+    }
+
     public void on_revert() {
         if (photo_missing)
             return;
@@ -1982,20 +1992,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
 
         if (get_photo().has_editable()) {
-            if (!revert_editable_dialog(AppWindow.get_instance(), 
-                (Gee.Collection<Photo>) get_view().get_sources())) {
-                return;
-            }
-            
-            get_photo().revert_to_master();
-        }
-        
-        cancel_zoom();
-
-        set_photo_missing(false);
-        
-        RevertSingleCommand command = new RevertSingleCommand(get_photo());
-        get_command_manager().execute(command);
+            revert_editable_dialog.begin(AppWindow.get_instance(),
+                (Gee.Collection<Photo>) get_view().get_sources(), (source, res) => {
+                    if (revert_editable_dialog.end(res)) {
+                        get_photo().revert_to_master();
+                        do_revert();
+                    }
+                });
+        } else {
+            do_revert ();
+        }        
     }
     
     public void on_edit_title() {
@@ -2933,7 +2939,7 @@ public class LibraryPhotoPage : EditingHostPage {
         Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         photos.add(photo);
         
-        remove_from_app(photos, GLib.dpgettext2(null, "Dialog Title", "Remove From Library"),
+        remove_from_app.begin(photos, GLib.dpgettext2(null, "Dialog Title", "Remove From Library"),
             GLib.dpgettext2(null, "Dialog Title", "Removing Photo From Library"));
     }
     

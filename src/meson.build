@@ -24,6 +24,7 @@ face_obj = ''
 
 if get_option('face_detection')
   face_sources = [
+    'faces/FacesBranch.vala',
                      'faces/FacePage.vala',
                      #'faces/FaceShape.vala',
                      'faces/FaceDetect.vala',
@@ -96,6 +97,11 @@ executable(
         'library/Library.vala',
         'library/LibraryWindow.vala',
         'library/LibraryBranch.vala',
+        'library/TrashSidebarEntry.vala',
+        'library/OfflineSidebarEntry.vala',
+        'library/FlaggedSidebarEntry.vala',
+        'library/LastImportSidebarEntry.vala',
+        'library/ImportQueueSidebarEntry.vala',        
         'library/FlaggedPage.vala',
         'library/ImportQueuePage.vala',
         'library/LastImportPage.vala',
@@ -155,6 +161,8 @@ executable(
         'folders/Folders.vala',
         'folders/FoldersBranch.vala',
         'folders/FoldersPage.vala',
+        'import-roll/ImportRollBranch.vala',
+        'import-roll/ImportRollEntry.vala',        
         'main.vala',
         'AppWindow.vala',
         'CollectionPage.vala',

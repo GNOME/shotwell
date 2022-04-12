@@ -108,17 +108,18 @@ public class LibraryWindow : AppWindow {
     private Sidebar.Tree sidebar_tree;
     private Library.Branch library_branch = new Library.Branch();
     private Tags.Branch tags_branch = new Tags.Branch();
+    private Folders.Branch folders_branch = new Folders.Branch();
+#if ENABLE_FACES
+    private Faces.Branch faces_branch = new Faces.Branch();    
+#endif
     private Events.Branch events_branch = new Events.Branch();
     private Camera.Branch camera_branch = new Camera.Branch();
     private Searches.Branch saved_search_branch = new Searches.Branch();
-    private Folders.Branch folders_branch = new Folders.Branch();
-#if DOES_NOT_WORK_WITH_GTK4
-    private Faces.Branch faces_branch = new Faces.Branch();
     private ImportRoll.Branch import_roll_branch = new ImportRoll.Branch();
-    
-#endif
-    private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
+
     private bool page_switching_enabled = true;
+
+    private Gee.HashMap<Page, Sidebar.Entry> page_map = new Gee.HashMap<Page, Sidebar.Entry>();
     
     private LibraryPhotoPage photo_page = null;
     
@@ -169,9 +170,7 @@ public class LibraryWindow : AppWindow {
         sidebar_tree.graft(events_branch, SidebarRootPosition.EVENTS);
         sidebar_tree.graft(camera_branch, SidebarRootPosition.CAMERAS);
         sidebar_tree.graft(saved_search_branch, SidebarRootPosition.SAVED_SEARCH);
-        #if 0
         sidebar_tree.graft(import_roll_branch, SidebarRootPosition.IMPORT_ROLL);
-        #endif
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
@@ -223,10 +222,10 @@ public class LibraryWindow : AppWindow {
     }
 
     ~LibraryWindow() {
-        //sidebar_tree.page_created.disconnect(on_page_created);
-        //sidebar_tree.destroying_page.disconnect(on_destroying_page);
-        //sidebar_tree.entry_selected.disconnect(on_sidebar_entry_selected);
-        //sidebar_tree.selected_entry_removed.disconnect(on_sidebar_selected_entry_removed);
+        sidebar_tree.page_created.disconnect(on_page_created);
+        sidebar_tree.destroying_page.disconnect(on_destroying_page);
+        sidebar_tree.entry_selected.disconnect(on_sidebar_entry_selected);
+        sidebar_tree.selected_entry_removed.disconnect(on_sidebar_selected_entry_removed);
         
         unsubscribe_from_basic_information(get_current_page());
 
@@ -605,9 +604,10 @@ public class LibraryWindow : AppWindow {
         to_remove.add_all(LibraryPhoto.global.get_trashcan_contents());
         to_remove.add_all(Video.global.get_trashcan_contents());
         
-        remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash…"));
-        
-        AppWindow.get_command_manager().reset();
+        remove_from_app.begin(to_remove, _("Empty Trash"),  _("Emptying Trash…"), (source, res) => {
+            remove_from_app.end(res);
+            AppWindow.get_command_manager().reset();
+        });
     }
     
     private void on_new_search() {
@@ -923,7 +923,7 @@ public class LibraryWindow : AppWindow {
     #endif
     
     public void switch_to_library_page() {
-        //switch_to_page(library_branch.photos_entry.get_page());
+        switch_to_page(library_branch.photos_entry.get_page());
     }
     
     public void switch_to_event(Event event) {
@@ -1287,7 +1287,6 @@ public class LibraryWindow : AppWindow {
     private void on_sidebar_selected_entry_removed(Sidebar.SelectableEntry selectable) {
         // if the currently selected item is removed, want to jump to fallback page (which
         // depends on the item that was selected)
-        #if 0
         Library.LastImportSidebarEntry last_import_entry = library_branch.last_imported_entry;
         
         // Importing... -> Last Import (if available)
@@ -1296,7 +1295,6 @@ public class LibraryWindow : AppWindow {
             
             return;
         }
-        #endif
         
         // Event page -> Events (master event directory)
         if (selectable is Events.EventEntry && events_branch.get_show_branch()) {
