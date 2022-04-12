@@ -13,9 +13,6 @@ public class ProgressDialog : Gtk.Window {
     private int update_every = 1;
     private int minimum_on_screen_time_msec = 500;
     private ulong time_started;
-#if UNITY_SUPPORT
-    UnityProgressBar uniprobar = UnityProgressBar.get_instance();
-#endif
 
     public ProgressDialog(Gtk.Window? owner, string text, Cancellable? cancellable = null) {
         this.cancellable = cancellable;
@@ -94,20 +91,11 @@ public class ProgressDialog : Gtk.Window {
 
         progress_bar.set_fraction(pct);
         progress_bar.set_text(_("%d%%").printf((int) (pct * 100.0)));
-
-#if UNITY_SUPPORT
-        //UnityProgressBar: set progress
-        uniprobar.set_progress(pct);
-#endif
     }
 
     public void set_status(string text) {
         progress_bar.set_text(text);
 
-#if UNITY_SUPPORT
-        //UnityProgressBar: try to draw progress bar
-        uniprobar.set_visible(true);
-#endif
         show();
     }
 
@@ -133,10 +121,6 @@ public class ProgressDialog : Gtk.Window {
     }
 
     public new void close() {
-#if UNITY_SUPPORT
-        //UnityProgressBar: reset
-        uniprobar.reset();
-#endif
         hide();
         destroy();
     }
@@ -165,10 +149,6 @@ public class ProgressDialog : Gtk.Window {
             // If there is still more work to do for at least MINIMUM_ON_SCREEN_TIME_MSEC,
             // finally display the dialog.
             if (ttc > minimum_on_screen_time_msec) {
-#if UNITY_SUPPORT
-                //UnityProgressBar: try to draw progress bar
-                uniprobar.set_visible(true);
-#endif
                 show();
                 spin_event_loop();
             }
