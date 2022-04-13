@@ -979,14 +979,16 @@ public class ImportPage : CheckerboardPage {
                         Gtk.ButtonsType.CANCEL, "%s", mounted_message);
                     dialog.title = Resources.APP_TITLE;
                     dialog.add_button(_("_Unmount"), Gtk.ResponseType.YES);
-                    int dialog_res = 0; // TODO dialog.run();
-                    dialog.destroy();
-                    
-                    if (dialog_res != Gtk.ResponseType.YES) {
-                        set_page_message(_("Please unmount the camera."));
-                    } else {
-                        unmount_camera(mount);
-                    }
+                    dialog.set_transient_for(AppWindow.get_instance());
+                    dialog.show();
+                    dialog.response.connect((source, res) => {
+                        if (res != Gtk.ResponseType.YES) {
+                            set_page_message(_("Please unmount the camera."));
+                        } else {
+                            unmount_camera(mount);
+                        }
+                        dialog.destroy();
+                    });
                 } else {
                     string locked_message = _("The camera is locked by another application. Shotwell can only access the camera when it’s unlocked. Please close any other application using the camera and try again.");
 
@@ -995,10 +997,12 @@ public class ImportPage : CheckerboardPage {
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
                         Gtk.ButtonsType.OK, "%s", locked_message);
                     dialog.title = Resources.APP_TITLE;
-                    // TODO dialog.run();
-                    dialog.destroy();
-                    
-                    set_page_message(_("Please close any other application using the camera."));
+                    dialog.set_transient_for(AppWindow.get_instance());
+                    dialog.show();
+                    dialog.response.connect((source, res) => {                    
+                        set_page_message(_("Please close any other application using the camera."));
+                        dialog.destroy();
+                    });
                 }
             break;
             
