@@ -226,7 +226,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     StringBuilder builder = new StringBuilder();
     
     string header = _("Import Results Report") + " (Shotwell " + Resources.APP_VERSION + " @ " +
-        TimeVal().to_iso8601() + ")\n\n";
+        new DateTime.now_local().format_iso8601() + ")\n\n";
     builder.append(header);
     
     string subhead = (ngettext("Attempted to import %d file.", "Attempted to import %d files.",
@@ -349,7 +349,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
 
 // Summarizes the contents of an import manifest in an on-screen message window. Returns
 // true if the user selected the yes action, false otherwise.
-public bool report_manifest(ImportManifest manifest, bool show_dest_id, 
+public async bool report_manifest(ImportManifest manifest, bool show_dest_id, 
     QuestionParams? question = null) {
     string message = "";
     
@@ -543,70 +543,75 @@ public bool report_manifest(ImportManifest manifest, bool show_dest_id,
         message += _("No photos or videos imported.\n");
     
     Gtk.MessageDialog dialog = null;
-    int dialog_response = Gtk.ResponseType.NONE;
-    if (question == null) {
-        dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.INFO, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.title = _("Import Complete");
-        Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
-            ImportUI.SAVE_RESULTS_RESPONSE_ID);
-        save_results_button.set_visible(manifest.success.size < manifest.all.size);
-        Gtk.Widget ok_button = dialog.add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
-        dialog.set_default_widget(ok_button);
-        
-        Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
-        dialog_response = 0; // TODO dialog.run();
-        dialog.destroy();
-        
-        if (dialog_response == ImportUI.SAVE_RESULTS_RESPONSE_ID)
-            save_import_results(dialog_parent, create_result_report_from_manifest(manifest));
+    dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
+    Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
+    dialog.title = _("Import Complete");
+    Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
+    ImportUI.SAVE_RESULTS_RESPONSE_ID);
+    save_results_button.set_visible(manifest.success.size < manifest.all.size);
+    Gtk.Window dialog_parent = (Gtk.Window) dialog.get_parent();
+    dialog.set_transient_for(AppWindow.get_instance());
 
+    if (question == null) {
+        var ok_button = dialog.add_button(Resources.OK_LABEL, Gtk.ResponseType.OK);
+        dialog.set_default_widget(ok_button);
     } else {
         message += ("\n" + question.question);
         
-        dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.title = _("Import Complete");
-        Gtk.Widget save_results_button = dialog.add_button(ImportUI.SAVE_RESULTS_BUTTON_NAME,
-            ImportUI.SAVE_RESULTS_RESPONSE_ID);
-        save_results_button.set_visible(manifest.success.size < manifest.all.size);
-        Gtk.Widget no_button = dialog.add_button(question.no_button, Gtk.ResponseType.NO);
+        var no_button = dialog.add_button(question.no_button, Gtk.ResponseType.NO);
         dialog.add_button(question.yes_button, Gtk.ResponseType.YES);
-        dialog.set_default_widget(no_button);
-        
-        dialog_response = 0; //TODO dialog.run();
-        while (dialog_response == ImportUI.SAVE_RESULTS_RESPONSE_ID) {
-            save_import_results(dialog, create_result_report_from_manifest(manifest));
-            dialog_response = 0;  // TODO dialog.run();
-        }
-        
-        dialog.hide();
-        dialog.destroy();
+        dialog.set_default_widget(no_button);        
     }
+    dialog.text = message;
+    dialog.show();
+    SourceFunc async_cb = report_manifest.callback;
+    bool result = false;
+    dialog.response.connect((source, res) => {
+        if (res == ImportUI.SAVE_RESULTS_RESPONSE_ID) {
+            save_import_results.begin(dialog, create_result_report_from_manifest(manifest));
+        }
+
+        result = res == Gtk.ResponseType.YES;
+        if (res != ImportUI.SAVE_RESULTS_RESPONSE_ID || question == null) {
+            async_cb();
+        }
+    });
+
+    yield;
+    dialog.destroy();
     
-    return (dialog_response == Gtk.ResponseType.YES);
+    return result;
 }
 
-internal void save_import_results(Gtk.Window? chooser_dialog_parent, string results_log) {
+internal async void save_import_results(Gtk.Window? chooser_dialog_parent, string results_log) {
     var chooser_dialog = new Gtk.FileChooserNative(
         ImportUI.SAVE_RESULTS_FILE_CHOOSER_TITLE, chooser_dialog_parent, Gtk.FileChooserAction.SAVE,
         Resources.SAVE_AS_LABEL, Resources.CANCEL_LABEL);
-        try {
-    chooser_dialog.set_current_folder(File.new_for_commandline_arg (Environment.get_home_dir()));
+    try {
+        chooser_dialog.set_current_folder(File.new_for_commandline_arg (Environment.get_home_dir()));
     } catch (Error err) {
     }
     chooser_dialog.set_current_name("Shotwell Import Log.txt");
+    chooser_dialog.set_transient_for(chooser_dialog_parent);
     
-    int dialog_result = 0; // TODOchooser_dialog.run();
+    int dialog_result =  0;
+    chooser_dialog.show();
+    SourceFunc continue_cb = save_import_results.callback;
+    chooser_dialog.response.connect((source, res) => {
+        chooser_dialog.hide();
+        dialog_result = res;
+        continue_cb();
+    });
+    yield;
+    
     File? chosen_file = chooser_dialog.get_file();
-    chooser_dialog.hide();
     chooser_dialog.destroy();
     
     if (dialog_result == Gtk.ResponseType.ACCEPT && chosen_file != null) {
         try {
-            FileOutputStream outstream = chosen_file.replace(null, false, FileCreateFlags.NONE);
-            outstream.write(results_log.data);
-            outstream.close();
+            FileOutputStream outstream = yield chosen_file.replace_async(null, false, FileCreateFlags.NONE);
+            yield outstream.write_async(results_log.data);
+            yield outstream.close_async();
         } catch (Error err) {
             critical("couldn't save import results to log file %s: %s", chosen_file.get_path(),
                 err.message);

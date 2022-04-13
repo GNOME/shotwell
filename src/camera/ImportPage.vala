@@ -1697,34 +1697,39 @@ public class ImportPage : CheckerboardPage {
         // until this function returns (at any time)
         ImportPage? local_ref = this.local_ref;
         this.local_ref = null;
-        
-        if (manifest.success.size > 0) {
-            string photos_string = (ngettext("Delete this photo from camera?",
-                "Delete these %d photos from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
-            string videos_string = (ngettext("Delete this video from camera?",
-                "Delete these %d videos from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
-            string both_string = (ngettext("Delete this photo/video from camera?",
-                "Delete these %d photos/videos from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
-            string neither_string = (ngettext("Delete these files from camera?",
-                "Delete these %d files from camera?", 
-                manifest.success.size)).printf(manifest.success.size);
 
-            string question_string = ImportUI.get_media_specific_string(manifest.success,
-                photos_string, videos_string, both_string, neither_string);
-
-            ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-                question_string, Resources.DELETE_LABEL, _("_Keep"));
-        
-            if (!ImportUI.report_manifest(manifest, false, question))
-                return;
-        } else {
-            ImportUI.report_manifest(manifest, false, null);
+        if (manifest.success.size <= 0) {
+            ImportUI.report_manifest.begin(manifest, false, null);
             return;
         }
         
+        string photos_string = (ngettext("Delete this photo from camera?",
+            "Delete these %d photos from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+        string videos_string = (ngettext("Delete this video from camera?",
+            "Delete these %d videos from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+        string both_string = (ngettext("Delete this photo/video from camera?",
+            "Delete these %d photos/videos from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+        string neither_string = (ngettext("Delete these files from camera?",
+            "Delete these %d files from camera?", 
+            manifest.success.size)).printf(manifest.success.size);
+
+        string question_string = ImportUI.get_media_specific_string(manifest.success,
+            photos_string, videos_string, both_string, neither_string);
+
+        ImportUI.QuestionParams question = new ImportUI.QuestionParams(
+            question_string, Resources.DELETE_LABEL, _("_Keep"));
+
+        ImportUI.report_manifest.begin(manifest, false, question, (source, res) => {
+            if (ImportUI.report_manifest.end(res)) {
+                delete_from_camera(manifest);
+            }
+        });
+    }
+
+    void delete_from_camera(ImportManifest manifest) {
         // delete the photos from the camera and the SourceCollection... for now, this is an 
         // all-or-nothing deal
         Marker marker = import_sources.start_marking();

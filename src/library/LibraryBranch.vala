@@ -12,8 +12,8 @@ public class Library.Branch : Sidebar.Branch {
     public Library.FlaggedSidebarEntry flagged_entry { get; private set; }
     #endif
     public Library.LastImportSidebarEntry last_imported_entry { get; private set; }
-    #if 0
     public Library.ImportQueueSidebarEntry import_queue_entry { get; private set; }
+    #if 0
     public Library.OfflineSidebarEntry offline_entry { get; private set; }
     #endif
     public Library.TrashSidebarEntry trash_entry { get; private set; }
@@ -40,8 +40,8 @@ public class Library.Branch : Sidebar.Branch {
         #if 0
         flagged_entry = new Library.FlaggedSidebarEntry();
         offline_entry = new Library.OfflineSidebarEntry();
-        import_queue_entry = new Library.ImportQueueSidebarEntry();
         #endif
+        import_queue_entry = new Library.ImportQueueSidebarEntry();
 
         insert(photos_entry, EntryPosition.PHOTOS);
         insert(trash_entry, EntryPosition.TRASH);
@@ -52,8 +52,8 @@ public class Library.Branch : Sidebar.Branch {
         last_imported_entry.visibility_changed.connect(on_last_imported_visibility_changed);
         on_last_imported_visibility_changed();
 
-        //import_queue_entry.visibility_changed.connect(on_import_queue_visibility_changed);
-        //on_import_queue_visibility_changed();
+        import_queue_entry.visibility_changed.connect(on_import_queue_visibility_changed);
+        on_import_queue_visibility_changed();
 
         //offline_entry.visibility_changed.connect(on_offline_visibility_changed);
         //on_offline_visibility_changed();
@@ -73,7 +73,7 @@ public class Library.Branch : Sidebar.Branch {
     }
 
     private void on_import_queue_visibility_changed() {
-        //update_entry_visibility(import_queue_entry, EntryPosition.IMPORT_QUEUE);
+        update_entry_visibility(import_queue_entry, EntryPosition.IMPORT_QUEUE);
     }
 
     private void on_offline_visibility_changed() {

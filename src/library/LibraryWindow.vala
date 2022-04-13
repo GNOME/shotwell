@@ -515,6 +515,14 @@ public class LibraryWindow : AppWindow {
         go_fullscreen(fs_photo);
     }
 
+    async void do_file_import(ListModel files, bool recursive) {
+        var result = yield copy_files_dialog();
+        if (result != Gtk.ResponseType.CANCEL) {
+            dispatch_import_jobs(files, "folders",
+                result == Gtk.ResponseType.ACCEPT, recursive);
+        }
+    }
+
     private void on_file_import() {
         var import_dialog = new Gtk.FileChooserNative(_("Import From Folder"), null,
             Gtk.FileChooserAction.SELECT_FOLDER, Resources.OK_LABEL, Resources.CANCEL_LABEL);
@@ -533,31 +541,10 @@ public class LibraryWindow : AppWindow {
         import_dialog.show();
         import_dialog.response.connect((dialog, response) => {
             import_dir = import_dialog.get_current_folder();
+            import_recursive = bool.parse(import_dialog.get_choice("recursive-import"));
+            do_file_import.begin(import_dialog.get_files(), import_recursive);
             import_dialog.destroy();
         });
-#if 0        
-        int response = 0; //import_dialog.run();
-        
-        if (response == Gtk.ResponseType.ACCEPT) {
-            import_dialog.hide();
-            // force file linking if directory is inside current library directory
-            Gtk.ResponseType copy_files_response =
-                AppDirs.is_in_import_dir(import_dialog.get_file())
-                    ? Gtk.ResponseType.REJECT : copy_files_dialog();
-            
-            if (copy_files_response != Gtk.ResponseType.CANCEL) {
-            // TODO
-            #if 0
-                dispatch_import_jobs(import_dialog.get_uris(), "folders",
-                    copy_files_response == Gtk.ResponseType.ACCEPT, recursive.active);
-                    #endif
-            }
-        }
-        
-        import_dir = import_dialog.get_current_folder().get_path();
-        import_recursive = recursive.active;
-        import_dialog.destroy();
- #endif
     }
     
     private void on_external_library_import() {
@@ -774,14 +761,14 @@ public class LibraryWindow : AppWindow {
     }
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
-        //library_branch.import_queue_entry.enqueue_and_schedule(batch_import, allow_user_cancel);
+        library_branch.import_queue_entry.enqueue_and_schedule(batch_import, allow_user_cancel);
     }
     
     private void import_reporter(ImportManifest manifest) {
-        ImportUI.report_manifest(manifest, true);
+        ImportUI.report_manifest.begin(manifest, true);
     }
     
-    private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library, bool recurse) {
+    private void dispatch_import_jobs(ListModel uris, string job_name, bool copy_to_library, bool recurse) {
         if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
             Gtk.ResponseType response = AppWindow.affirm_cancel_question(
                 _("Shotwell is configured to import photos to your home directory.\n" + 
@@ -796,8 +783,8 @@ public class LibraryWindow : AppWindow {
         }
         
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
-        foreach (string uri in uris) {
-            File file_or_dir = File.new_for_uri(uri);
+        for (var i = 0; i < uris.get_n_items(); i++) {
+            var file_or_dir = (File) uris.get_item(i);
             if (file_or_dir.get_path() == null) {
                 // TODO: Specify which directory/file.
                 AppWindow.error_message(_("Photos cannot be imported from this directory."));
@@ -805,7 +792,7 @@ public class LibraryWindow : AppWindow {
                 continue;
             }
 
-            jobs.add(new FileImportJob(file_or_dir, copy_to_library, recurse));
+            jobs.add(new FileImportJob(file_or_dir, copy_to_library && !AppDirs.is_in_import_dir(file_or_dir), recurse));
         }
         
         if (jobs.size > 0) {
@@ -960,7 +947,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_import_queue_page() {
-        //switch_to_page(library_branch.import_queue_entry.get_page());
+        switch_to_page(library_branch.import_queue_entry.get_page());
     }
     
     private void on_camera_added(DiscoveredCamera camera) {

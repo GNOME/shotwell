@@ -260,7 +260,7 @@ private void report_system_pictures_import(ImportManifest manifest, BatchImportR
     if (do_external_import && (manifest.all.size == 0))
         return;
 
-    ImportUI.report_manifest(manifest, true);
+    ImportUI.report_manifest.begin(manifest, true);
 }
 
 void dump_tags (GExiv2.Metadata metadata, string[] tags) throws Error {
