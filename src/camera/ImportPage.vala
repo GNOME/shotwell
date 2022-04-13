@@ -1223,6 +1223,10 @@ public class ImportPage : CheckerboardPage {
                     enumerate_files(fsid, "/PRIVATE/SONY", import_list);
                     got_well_known_dir = true;
                 }
+                if (check_directory_exists(fsid, "/PRIVATE/M4ROOT/", "CLIP")) {
+                    enumerate_files(fsid, "/PRIVATE/M4ROOT/CLIP", import_list);
+                    got_well_known_dir = true;
+                }
                 if (check_directory_exists(fsid, "/private/", "sony")) {
                     enumerate_files(fsid, "/private/sony", import_list);
                     got_well_known_dir = true;
