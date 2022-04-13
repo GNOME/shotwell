@@ -1175,7 +1175,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             }
         }
         if (pixbuf == null) {
-            //pixbuf = get_placeholder_pixbuf();
+            pixbuf = get_placeholder_pixbuf();
             get_canvas_scaling().perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
         }
         return pixbuf;

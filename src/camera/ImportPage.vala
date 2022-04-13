@@ -280,16 +280,16 @@ class ImportPreview : MediaSourceItem {
         } catch (Error err) {
             warning("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
         }
+
+        print ("======> pixbuf? %p\n", pixbuf);
         
         // use placeholder if no preview available
         bool using_placeholder = (pixbuf == null);
         if (pixbuf == null) {
             if (placeholder_preview == null) {
-            #if 0
                 placeholder_preview = get_placeholder_pixbuf();
                 placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
                     Gdk.InterpType.BILINEAR, true);
-                    #endif
             }
             
             pixbuf = placeholder_preview;
