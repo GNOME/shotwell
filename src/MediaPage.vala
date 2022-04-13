@@ -806,6 +806,13 @@ public abstract class MediaPage : CheckerboardPage {
         action.set_state (value);
     }
 
+    void switch_developer(Gee.ArrayList<DataView> to_set, RawDeveloper rd) {
+        SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
+        get_command_manager().execute(command);
+
+        update_development_menu_item_sensitivity();
+    }
+
     protected virtual void developer_changed(RawDeveloper rd) {
         if (get_view().get_selected_count() == 0)
             return;
@@ -827,12 +834,14 @@ public abstract class MediaPage : CheckerboardPage {
                 }
             }
         }
-        
-        if (!need_warn || Dialogs.confirm_warn_developer_changed(to_set.size)) {
-            SetRawDeveloperCommand command = new SetRawDeveloperCommand(to_set, rd);
-            get_command_manager().execute(command);
-
-            update_development_menu_item_sensitivity();
+        if (!need_warn) {
+            switch_developer(to_set, rd);
+        } else {
+            Dialogs.confirm_warn_developer_changed.begin(to_set.size, (source, res) => {
+                if (Dialogs.confirm_warn_developer_changed.end(res)) {
+                    switch_developer(to_set, rd);
+                }
+            });
         }
     }
 

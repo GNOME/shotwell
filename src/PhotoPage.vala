@@ -2628,6 +2628,13 @@ public class LibraryPhotoPage : EditingHostPage {
         action.set_state (value);
     }
     
+    void switch_developer(RawDeveloper rd) {
+        var command = new SetRawDeveloperCommand(get_view().get_selected(), rd);
+        get_command_manager().execute(command);
+
+        update_development_menu_item_sensitivity();
+    }
+
     protected virtual void developer_changed(RawDeveloper rd) {
         if (get_view().get_selected_count() != 1)
             return;
@@ -2638,12 +2645,14 @@ public class LibraryPhotoPage : EditingHostPage {
         
         // Check if any photo has edits
         // Display warning only when edits could be destroyed
-        if (!photo.has_transformations() || Dialogs.confirm_warn_developer_changed(1)) {
-            SetRawDeveloperCommand command = new SetRawDeveloperCommand(get_view().get_selected(),
-                rd);
-            get_command_manager().execute(command);
-            
-            update_development_menu_item_sensitivity();
+        if (!photo.has_transformations()) {
+            switch_developer(rd);
+        } else {
+            Dialogs.confirm_warn_developer_changed.begin(1, (source, res) => {
+                if (Dialogs.confirm_warn_developer_changed.end(res)) {
+                    switch_developer(rd);
+                }
+            });
         }
     }
     

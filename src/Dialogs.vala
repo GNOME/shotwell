@@ -29,7 +29,7 @@ public async bool confirm_delete_saved_search(SavedSearch search) {
         Resources.DELETE_SAVED_SEARCH_DIALOG_TITLE);
 }
 
-public bool confirm_warn_developer_changed(int number) {
+public async bool confirm_warn_developer_changed(int number) {
     Gtk.MessageDialog dialog = new Gtk.MessageDialog.with_markup(AppWindow.get_instance(),
         Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE,
         "<span weight=\"bold\" size=\"larger\">%s</span>",
@@ -40,13 +40,17 @@ public bool confirm_warn_developer_changed(int number) {
     dialog.add_buttons(_("_Switch Developer"), Gtk.ResponseType.YES);
     
     dialog.show();
-    // TODO
-
-    int response = 0; //dialog.run();
-    
+    int result =  0;
+    SourceFunc continue_cb = confirm_warn_developer_changed.callback;
+    dialog.response.connect((source, res) => {
+        dialog.hide();
+        result = res;
+        continue_cb();
+    });
+    yield;
     dialog.destroy();
     
-    return response == Gtk.ResponseType.YES;
+    return result == Gtk.ResponseType.YES;
 }
 
 #if ENABLE_FACES   
