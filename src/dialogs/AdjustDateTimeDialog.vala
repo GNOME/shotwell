@@ -102,7 +102,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         batch_radio_button.sensitive = display_options && photo_count > 1;
         batch_radio_button.toggled.connect(on_time_changed);
 
-        if (contains_video) {
+        if (!contains_video) {
             var text = ngettext ("_Modify original photo file", "_Modify original photo files",
                                  photo_count);
             modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(text);
