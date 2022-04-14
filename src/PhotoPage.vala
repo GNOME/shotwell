@@ -2044,15 +2044,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(get_photo(), 1, !(this is DirectPhotoPage));
 
-        int64 time_shift;
-        bool keep_relativity, modify_originals;
-        if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
-            get_view().get_selected();
+        dialog.execute.begin((source, res) => {
+            int64 time_shift;
+            bool keep_relativity, modify_originals;
+                if (dialog.execute.end(res, out time_shift, out keep_relativity, out modify_originals)) {
+                get_view().get_selected();
             
-            AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(get_photo(),
-                time_shift, modify_originals);
-            get_command_manager().execute(command);
-        }
+                AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(get_photo(),
+                    time_shift, modify_originals);
+                get_command_manager().execute(command);    
+            }
+        });
     }
     
     public void on_set_background() {

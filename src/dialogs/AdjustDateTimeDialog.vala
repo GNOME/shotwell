@@ -21,8 +21,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     Gtk.SpinButton minute;
     Gtk.SpinButton second;
     Gtk.ComboBoxText system;
-    Gtk.ToggleButton relativity_radio_button;
-    Gtk.ToggleButton batch_radio_button;
+    Gtk.CheckButton relativity_radio_button;
+    Gtk.CheckButton batch_radio_button;
     Gtk.CheckButton modify_originals_check_button;
     Gtk.Label notification;
 
@@ -50,6 +50,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         calendar = new Gtk.Calendar();
         calendar.show_heading = false;
+        calendar.notify["year"].connect(on_time_changed);
+        calendar.notify["month"].connect(on_time_changed);
         calendar.day_selected.connect(on_time_changed);
         calendar.next_month.connect(on_time_changed);
         calendar.prev_month.connect(on_time_changed);
@@ -92,12 +94,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         set_default_response(Gtk.ResponseType.OK);
 
-        relativity_radio_button = new Gtk.ToggleButton.with_mnemonic(
+        relativity_radio_button = new Gtk.CheckButton.with_mnemonic(
             _("_Shift photos/videos by the same amount"));
         relativity_radio_button.set_active(Config.Facade.get_instance().get_keep_relativity());
         relativity_radio_button.sensitive = display_options && photo_count > 1;
 
-        batch_radio_button = new Gtk.ToggleButton.with_mnemonic(
+        batch_radio_button = new Gtk.CheckButton.with_mnemonic(
             _("Set _all photos/videos to this time"));
         batch_radio_button.set_group (relativity_radio_button);
         batch_radio_button.set_active(!Config.Facade.get_instance().get_keep_relativity());
@@ -121,6 +123,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         Gtk.Box time_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 5);
 
         var picker = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
+        picker.hexpand = true;
+        picker.homogeneous = true;
         var combo = new Gtk.ComboBoxText();
         for (int i = 0; i < 12; i++){
             var dt = new DateTime.from_unix_utc(i * 2764800);
@@ -131,12 +135,14 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
             combo.append_text(month_string);
         }
-        picker.append(combo);
+        picker.prepend(combo);
         // Limits taken from GtkCalendar
         var spin = new Gtk.SpinButton.with_range(0, int.MAX >> 9, 1);
         picker.append(spin);
         spin.bind_property("value", calendar, "year", GLib.BindingFlags.BIDIRECTIONAL);
         combo.bind_property("active", calendar, "month", GLib.BindingFlags.BIDIRECTIONAL);
+        combo.halign = Gtk.Align.START;
+        spin.halign = Gtk.Align.END;
 
         time_content.append(picker);
         time_content.append(calendar);
@@ -159,27 +165,34 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         Gtk.Box image_content = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         image_content.set_valign(Gtk.Align.START);
-        image_content.set_homogeneous(true);
-        Gtk.Image image = (preview != null) ? new Gtk.Image.from_pixbuf(preview) : new Gtk.Image();
+        image_content.set_homogeneous(false);
+        Gtk.Picture image = (preview != null) ? new Gtk.Picture.for_pixbuf(preview) : new Gtk.Picture();
         original_time_label = new Gtk.Label(null);
-        image_content.append (image);
+        image_content.append(image);
         image_content.append(original_time_label);
 
         Gtk.Box hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
-        hbox.append(image_content);
+        hbox.prepend(image_content);
         hbox.append(time_content);
         hbox.halign = Gtk.Align.CENTER;
         hbox.valign = Gtk.Align.CENTER;
         hbox.hexpand = false;
         hbox.vexpand = false;
 
-        ((Gtk.Box) get_content_area()).append(hbox);
+        var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+        set_child(box);
+        box.append(hbox);
 
         notification = new Gtk.Label("");
         notification.set_wrap(true);
         notification.set_justify(Gtk.Justification.CENTER);
+        notification.visible = false;
 
-        ((Gtk.Box) get_content_area()).append(notification);
+        box.append(notification);
+        box.margin_start = 6;
+        box.margin_end = 6;
+        box.margin_bottom = 6;
+        box.margin_end = 6;
 
         original_time = source.get_exposure_time();
 
@@ -236,7 +249,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         var dt = calendar.get_date();
         dt.get_ymd (out year, out month, out day);
         time.year = ((int) year) - YEAR_OFFSET;
-        time.month = (int) month;
+        time.month = (int) month - 1;
         time.day = (int) day;
 
         time.isdst = -1;
@@ -244,14 +257,23 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         return time.mktime();
     }
 
-    public bool execute(out int64 time_shift, out bool keep_relativity,
+    public async bool execute(out int64 time_shift, out bool keep_relativity,
         out bool modify_originals) {
         show();
 
+        int dialog_result = Gtk.ResponseType.CANCEL;
+        SourceFunc execute_cb = execute.callback;
+        response.connect((source, res) => {
+            hide();
+
+            dialog_result = res;
+            execute_cb();
+        });
+        yield;
+
         bool response = false;
 
-        // TODO
-        if (-6 == Gtk.ResponseType.OK) {
+        if (dialog_result == Gtk.ResponseType.OK) {
             if (no_original_time)
                 time_shift = (int64) get_time();
             else
@@ -289,8 +311,6 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     private void on_time_changed() {
         int64 time_shift = ((int64) get_time() - (int64) original_time);
-        calendar.notify_property("year");
-        calendar.notify_property("month");
 
         previous_time_system = (TimeSystem) system.get_active();
 

@@ -603,13 +603,15 @@ public abstract class CollectionPage : MediaPage {
         AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(photo_source,
             get_view().get_selected_count(), true, selected_has_videos, only_videos_selected);
 
-        int64 time_shift;
-        bool keep_relativity, modify_originals;
-        if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
-            AdjustDateTimePhotosCommand command = new AdjustDateTimePhotosCommand(
-                get_view().get_selected(), time_shift, keep_relativity, modify_originals);
-            get_command_manager().execute(command);
-        }
+        dialog.execute.begin((source, res) => {
+            int64 time_shift;
+            bool keep_relativity, modify_originals;
+            if (dialog.execute.end(res, out time_shift, out keep_relativity, out modify_originals)) {
+                AdjustDateTimePhotosCommand command = new AdjustDateTimePhotosCommand(
+                    get_view().get_selected(), time_shift, keep_relativity, modify_originals);
+                get_command_manager().execute(command);
+            }    
+        });
     }
     
     private void on_external_edit() {
