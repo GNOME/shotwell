@@ -925,16 +925,7 @@ public abstract class Page : Gtk.Box {
     public bool notify_app_focus_out(Gdk.EventFocus event) {
         return false;
     }
-    
-    protected virtual void on_move(Gdk.Rectangle rect) {
-    }
-    
-    protected virtual void on_move_start(Gdk.Rectangle rect) {
-    }
-    
-    protected virtual void on_move_finished(Gdk.Rectangle rect) {
-    }
-    #endif    
+    #endif
     
     protected virtual void on_resize(Gdk.Rectangle rect) {
     }
@@ -945,26 +936,19 @@ public abstract class Page : Gtk.Box {
     protected virtual void on_resize_finished(Gdk.Rectangle rect) {
     }
 
-    #if 0
-
-    protected virtual bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
+    protected virtual bool on_configure(Gdk.Rectangle rect) {
         return false;
     }
-    
-    public bool notify_configure_event(Gdk.EventConfigure event) {
+
+    public bool notify_configure_event(int width, int height) {
         Gdk.Rectangle rect = Gdk.Rectangle();
-        rect.x = event.x;
-        rect.y = event.y;
-        rect.width = event.width;
-        rect.height = event.height;
+        rect.x = 0;
+        rect.y = 0;
+        rect.width = width;
+        rect.height = height;
         
         // special case events, to report when a configure first starts (and appears to end)
-        if (last_configure_ms == 0) {
-            if (last_position.x != rect.x || last_position.y != rect.y) {
-                on_move_start(rect);
-                report_move_finished = true;
-            }
-            
+        if (last_configure_ms == 0) {            
             if (last_position.width != rect.width || last_position.height != rect.height) {
                 on_resize_start(rect);
                 report_resize_finished = true;
@@ -974,20 +958,16 @@ public abstract class Page : Gtk.Box {
             // wait time before it's noticed
             Timeout.add(CONSIDER_CONFIGURE_HALTED_MSEC / 8, check_configure_halted);
         }
-        
-        if (last_position.x != rect.x || last_position.y != rect.y)
-            on_move(rect);
-        
+                
         if (last_position.width != rect.width || last_position.height != rect.height)
             on_resize(rect);
         
         last_position = rect;
         last_configure_ms = now_ms();
 
-        return on_configure(event, rect);
+        return on_configure(rect);
     }
-    #endif
-    
+
     private bool check_configure_halted() {
         if (is_destroyed)
             return false;
@@ -997,12 +977,7 @@ public abstract class Page : Gtk.Box {
         
         Gtk.Allocation allocation;
         get_allocation(out allocation);
-        
-        #if 0
-        if (report_move_finished)
-            on_move_finished((Gdk.Rectangle) allocation);
-            #endif
-        
+                
         if (report_resize_finished)
             on_resize_finished((Gdk.Rectangle) allocation);
         

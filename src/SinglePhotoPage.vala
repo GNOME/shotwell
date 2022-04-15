@@ -55,6 +55,7 @@ public abstract class SinglePhotoPage : Page {
         viewport.notify["default-height"].connect(on_viewport_resize);
         viewport.notify["maximized"].connect(on_viewport_resize);
 
+        canvas.resize.connect(on_viewport_resize);
         canvas.set_draw_func(on_canvas_exposed);
         set_event_source(canvas);
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
@@ -287,6 +288,7 @@ public abstract class SinglePhotoPage : Page {
     }
 
     private void on_viewport_resize() {
+        print("Viewport resized!");
         // do fast repaints while resizing
         internal_repaint(true, null);
     }

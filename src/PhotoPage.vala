@@ -1728,26 +1728,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     #if 0
-    private void track_tool_window() {
-        // if editing tool window is present and the user hasn't touched it, it moves with the window
-        if (current_tool != null) {
-            EditingTools.EditingToolWindow tool_window = current_tool.get_tool_window();
-            if (tool_window != null && !tool_window.has_user_moved())
-                place_tool_window();
-        }
-    }
-    
-    protected override void on_move(Gdk.Rectangle rect) {
-        track_tool_window();
-        
-        base.on_move(rect);
-    }
-
-    protected override void on_move_finished(Gdk.Rectangle rect) {
-        last_locations.clear();
-
-        base.on_move_finished(rect);
-    }
 
     private bool on_keyboard_pan_event(Gdk.EventKey event) {
         ZoomState current_zoom_state = get_zoom_state();

@@ -165,6 +165,8 @@ executable(
         'import-roll/ImportRollEntry.vala',        
         'main.vala',
         'AppWindow.vala',
+        'FullscreenWindow.vala',
+        'PageWindow.vala',
         'CollectionPage.vala',
         'NaturalCollate.vala',
         'Thumbnail.vala',
