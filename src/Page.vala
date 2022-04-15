@@ -999,7 +999,7 @@ public abstract class Page : Gtk.Box {
     }
 
     private void on_motion_internal(Gtk.EventControllerMotion controller, double x, double y) {
-        bool result = on_motion(controller, x, y, controller.get_current_event_state());
+        on_motion(controller, x, y, controller.get_current_event_state());
         // todo: stop propagation?
     }
 

@@ -12,6 +12,8 @@ public class FullscreenWindow : PageWindow {
     private time_t left_toolbar_time = 0;
     private bool switched_to = false;
     private bool is_toolbar_dismissal_enabled;
+    private bool pointer_in_toolbar = false;
+    Gtk.Allocation toolbar_alloc;
 
     private const GLib.ActionEntry[] entries = {
         { "LeaveFullscreen", on_close }
@@ -25,14 +27,6 @@ public class FullscreenWindow : PageWindow {
         this.add_action_entries (entries, this);
         const string[] accels = { "F11", null };
         Application.set_accels_for_action ("win.LeaveFullscreen", accels);
-
-        //set_screen(AppWindow.get_instance().get_screen());
-        
-        // Needed so fullscreen will occur on correct monitor in multi-monitor setups
-        Gdk.Rectangle monitor = get_monitor_geometry();
-        //move(monitor.x, monitor.y);
-        
-        //set_border_width(0);
 
         // restore pin state
         is_toolbar_dismissal_enabled = Config.Facade.get_instance().get_pin_toolbar_state();
@@ -48,10 +42,8 @@ public class FullscreenWindow : PageWindow {
         close_button.set_action_name ("win.LeaveFullscreen");
         
         toolbar = page.get_toolbar();
-        //toolbar.set_show_arrow(false);
         toolbar.valign = Gtk.Align.END;
         toolbar.halign = Gtk.Align.CENTER;
-        //toolbar.expand = false;
         toolbar.opacity = Resources.TRANSIENT_WINDOW_OPACITY;
 
         if (page is SlideshowPage) {
@@ -74,7 +66,7 @@ public class FullscreenWindow : PageWindow {
         // call to set_default_size() saves one repaint caused by changing
         // size from default to full screen. In slideshow mode, this change
         // also causes pixbuf cache updates, so it really saves some work.
-        set_default_size(monitor.width, monitor.height);
+        //set_default_size(monitor.width, monitor.height);
         
         // need to create a Gdk.Window to set masks
         fullscreen();
@@ -82,6 +74,20 @@ public class FullscreenWindow : PageWindow {
 
         // capture motion events to show the toolbar
         //add_events(Gdk.EventMask.POINTER_MOTION_MASK);
+
+        var motion = new Gtk.EventControllerMotion();
+        motion.enter.connect(() => {
+            pointer_in_toolbar = true;
+        });
+        motion.leave.connect(() => {
+            pointer_in_toolbar = false;
+        });
+        toolbar.add_controller(motion);
+
+        motion = new Gtk.EventControllerMotion();
+        motion.motion.connect(motion_notify_event);
+        page.add_controller(motion);
+
         
         // If toolbar is enabled in "normal" ui OR was pinned in
         // fullscreen, start off with toolbar invoked, as a clue for the
@@ -108,15 +114,6 @@ public class FullscreenWindow : PageWindow {
         is_toolbar_dismissal_enabled = !pin_button.get_active();
     }
 
-    private Gdk.Rectangle get_monitor_geometry() {
-        #if 0
-        var monitor = get_display().get_monitor_at_window(AppWindow.get_instance().get_window());
-        return monitor.get_geometry();
-        #endif
-
-        return Gdk.Rectangle();
-    }
-    
     public override bool configure_event(int width, int height) {
         bool result = base.configure_event(width, height);
         
@@ -176,8 +173,7 @@ public class FullscreenWindow : PageWindow {
         return true;
     }
     
-    #if 0
-    public override bool motion_notify_event(Gdk.EventMotion event) {
+    public void motion_notify_event(double x, double y) {
         if (!is_toolbar_shown) {
             // if pointer is in toolbar height range without the mouse down (i.e. in the middle of
             // an edit operation) and it stays there the necessary amount of time, invoke the
@@ -187,12 +183,13 @@ public class FullscreenWindow : PageWindow {
                 waiting_for_invoke = true;
             }
         }
-        
-        return (base.motion_notify_event != null) ? base.motion_notify_event(event) : false;
     }
-    #endif
     
     private bool is_pointer_in_toolbar() {
+        if (toolbar.visible) {
+            return pointer_in_toolbar;
+        }
+        
         var seat = get_display().get_default_seat();
         if (seat == null) {
             debug("No seat for display");
@@ -200,16 +197,10 @@ public class FullscreenWindow : PageWindow {
             return false;
         }
         
-        #if 0
-        int py;
-        seat.get_pointer().get_position(null, null, out py);
+        double py = 0;
+        get_surface().get_device_position(seat.get_pointer(), null, out py, null);
         
-        int wy;
-        toolbar.get_window().get_geometry(null, out wy, null, null);
-
-        return (py >= wy);
-        #endif
-        return false;
+        return py >= toolbar_alloc.y;
     }
     
     private bool on_check_toolbar_invocation() {
@@ -269,6 +260,8 @@ public class FullscreenWindow : PageWindow {
     }
     
     private void hide_toolbar() {
+        // Save location of toolbar before hiding
+        toolbar.get_allocation(out toolbar_alloc);
         toolbar.hide();
         is_toolbar_shown = false;
     }

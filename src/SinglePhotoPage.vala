@@ -284,7 +284,7 @@ public abstract class SinglePhotoPage : Page {
     }
 
     public void invalidate_all() {
-        canvas.queue_draw ();
+        canvas.queue_draw();
     }
 
     private void on_viewport_resize() {
@@ -312,11 +312,9 @@ public abstract class SinglePhotoPage : Page {
         exposed_ctx.paint();
     }
 
-    protected virtual void new_surface(Cairo.Context ctx, Dimensions ctx_dim) {
-    }
+    protected virtual void new_surface(Cairo.Context ctx, Dimensions ctx_dim) {}
 
-    protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
-    }
+    protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {}
 
     protected virtual void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
@@ -443,7 +441,7 @@ public abstract class SinglePhotoPage : Page {
 
     private void init_pixmap(int width, int height) {
         assert(unscaled != null);
-        //assert(canvas.get_window() != null);
+        // assert(canvas.get_window() != null);
 
         // Cairo backing surface (manual double-buffering)
         pixmap = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
@@ -466,20 +464,18 @@ public abstract class SinglePhotoPage : Page {
     }
 
     protected override bool on_context_keypress() {
-        //return popup_context_menu(get_page_context_menu());
+        // return popup_context_menu(get_page_context_menu());
         return false;
     }
 
-    protected virtual void on_previous_photo() {
-    }
+    protected virtual void on_previous_photo() {}
 
-    protected virtual void on_next_photo() {
-    }
+    protected virtual void on_next_photo() {}
 
 #if 0
     public override bool key_press_event(Gdk.EventKey event) {
         // if the user holds the arrow keys down, we will receive a steady stream of key press
-        // events for an operation that isn't designed for a rapid succession of output ... 
+        // events for an operation that isn't designed for a rapid succession of output ...
         // we staunch the supply of new photos to under a quarter second (#533)
         bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
 
@@ -513,6 +509,7 @@ public abstract class SinglePhotoPage : Page {
 
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+
     #endif
 
     private void on_colors_changed() {

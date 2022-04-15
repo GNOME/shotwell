@@ -365,29 +365,30 @@ class SlideshowPage : SinglePhotoPage {
     private void on_change_settings() {
         SettingsDialog settings_dialog = new SettingsDialog();
         settings_dialog.show();
+        settings_dialog.set_transient_for(get_container());
         
         bool slideshow_playing = playing;
         playing = false;
         hide_toolbar();
         suspend_cursor_hiding();
-        #if 0
-        // TODO
-        if (settings_dialog.run() == Gtk.ResponseType.OK) {
-            // sync with the config setting so it will persist
-            Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
-            
-            Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
-            Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
-            Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
-            
-            update_transition_effect();
-        }
-        #endif
-        
-        settings_dialog.destroy();
-        restore_cursor_hiding();
-        playing = slideshow_playing;
-        timer.start();
+        settings_dialog.show();
+        settings_dialog.response.connect((source, res) => {
+            if (res == Gtk.ResponseType.OK) {
+
+                // sync with the config setting so it will persist
+                Config.Facade.get_instance().set_slideshow_delay(settings_dialog.get_delay());
+                
+                Config.Facade.get_instance().set_slideshow_transition_delay(settings_dialog.get_transition_delay());
+                Config.Facade.get_instance().set_slideshow_transition_effect_id(settings_dialog.get_transition_effect_id());
+                Config.Facade.get_instance().set_slideshow_show_title(settings_dialog.get_show_title());
+                
+                update_transition_effect();
+                restore_cursor_hiding();
+                playing = slideshow_playing;
+                timer.start();    
+            }
+            settings_dialog.destroy();
+        });
     }
     
     private void update_transition_effect() {
@@ -412,8 +413,13 @@ class SlideshowPage : SinglePhotoPage {
         string? title = current.get_title();
         
         // If the photo doesn't have a title, don't paint anything
-        if (title == null || title == "")
+        if (title == null || title == "") {
+            title = current.get_name();
+        }
+
+        if (title == null || title == "") {
             return;
+        }
         
         Pango.Layout layout = create_pango_layout(title);
         Pango.AttrList list = new Pango.AttrList();
