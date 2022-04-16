@@ -468,8 +468,7 @@ private void data_import_reporter(ImportManifest manifest, BatchImportRoll impor
         }
     } else {
         DataImportsUI.DataImportsDialog.terminate_instance();
-        ImportUI.report_manifest(meta_manifest, true);
-        meta_manifest = null;
+        ImportUI.report_manifest.begin(meta_manifest, true, null, () => { meta_manifest = null; });
     }
 }
 

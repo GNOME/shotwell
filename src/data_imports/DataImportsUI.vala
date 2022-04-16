@@ -34,15 +34,15 @@ public class ConcreteDialogPane : Spit.DataImports.DialogPane, GLib.Object {
 public class StaticMessagePane : ConcreteDialogPane {
     public StaticMessagePane(string message_string) {
         Gtk.Label message_label = new Gtk.Label(message_string);
-        ((Gtk.Box) get_widget()).pack_start(message_label, true, true, 0);
+        ((Gtk.Box) get_widget()).prepend(message_label);
     }
     
     public StaticMessagePane.with_pango(string msg) {
         Gtk.Label label = new Gtk.Label(null);
         label.set_markup(msg);
-        label.set_line_wrap(true);
+        label.set_wrap(true);
         
-        ((Gtk.Box) get_widget()).pack_start(label, true, true, 0);
+        ((Gtk.Box) get_widget()).prepend(label);
     }
 }
 
@@ -51,7 +51,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
     private Spit.DataImports.ImportableLibrary? selected_library = null;
     private File? selected_file = null;
     private Gtk.Button import_button;
-    private Gtk.RadioButton? file_radio = null;
+    private Gtk.CheckButton? file_radio = null;
     
     public LibrarySelectionPane(
         Spit.DataImports.PluginHost host,
@@ -68,9 +68,9 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         content_box.set_margin_end(30);
         Gtk.Label welcome_label = new Gtk.Label(null);
         welcome_label.set_markup(welcome_message);
-        welcome_label.set_line_wrap(true);
+        welcome_label.set_wrap(true);
         welcome_label.set_halign(Gtk.Align.START);
-        content_box.pack_start(welcome_label, true, true, 6);
+        content_box.prepend(welcome_label);
         
         // margins for buttons
         int radio_margin_left = 20;
@@ -78,7 +78,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         int chooser_margin_left = radio_margin_left;
         int chooser_margin_right = radio_margin_right;
         
-        Gtk.RadioButton lib_radio = null;
+        Gtk.CheckButton lib_radio = null;
         if (discovered_libraries.length > 0) {
             chooser_margin_left = radio_margin_left + 20;
             foreach (Spit.DataImports.ImportableLibrary library in discovered_libraries) {
@@ -97,16 +97,25 @@ public class LibrarySelectionPane : ConcreteDialogPane {
             }
         }
         if (file_select_label != null) {
-            Gtk.FileChooserButton file_chooser = new Gtk.FileChooserButton(_("Database file:"), Gtk.FileChooserAction.OPEN);
-            file_chooser.selection_changed.connect(() => {
-                selected_file = file_chooser.get_file();
-                if (file_radio != null)
-                    file_radio.active = true;
-                set_import_button_sensitivity();
+            Gtk.Button file_chooser_button = new Gtk.Button.with_label(_("Database file"));
+            file_chooser_button.clicked.connect(() => {
+                var file_chooser = new Gtk.FileChooserNative(_("Database file"), null, Gtk.FileChooserAction.OPEN, null, null);
+                file_chooser.show();
+                file_chooser.response.connect((source, res) => {
+                    file_chooser.hide();
+                    if (res == Gtk.ResponseType.OK) {
+                        selected_file = file_chooser.get_file();
+                        if (file_radio != null)
+                            file_radio.active = true;
+                        set_import_button_sensitivity();        
+                    }
+                    file_chooser_button.set_label(selected_file.get_path());
+                    file_chooser.destroy();
+                });
             });
-            file_chooser.set_margin_start(chooser_margin_left);
-            file_chooser.set_margin_end(chooser_margin_right);
-            content_box.pack_start(file_chooser, false, false, 6);
+            file_chooser_button.set_margin_start(chooser_margin_left);
+            file_chooser_button.set_margin_end(chooser_margin_right);
+            content_box.append(file_chooser_button);
         }
         
         import_button = new Gtk.Button.with_mnemonic(_("_Import"));
@@ -118,24 +127,25 @@ public class LibrarySelectionPane : ConcreteDialogPane {
             else
                 debug("LibrarySelectionPane: Library or file should be selected.");
         });
-        Gtk.ButtonBox button_box = new Gtk.ButtonBox(Gtk.Orientation.HORIZONTAL);
-        button_box.layout_style = Gtk.ButtonBoxStyle.CENTER;
-        button_box.add(import_button);
-        content_box.pack_end(button_box, true, false, 6);
+        Gtk.Box button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+        button_box.append(import_button);
+        content_box.append(button_box);
         
-        ((Gtk.Box) get_widget()).pack_start(content_box, true, true, 0);
+        ((Gtk.Box) get_widget()).append(content_box);
         
         set_import_button_sensitivity();
     }
     
-    private Gtk.RadioButton create_radio_button(
-        Gtk.Box box, Gtk.RadioButton? group, Spit.DataImports.ImportableLibrary? library, string label,
+    private Gtk.CheckButton create_radio_button(
+        Gtk.Box box, Gtk.CheckButton? group, Spit.DataImports.ImportableLibrary? library, string label,
         int margin_left, int margin_right
     ) {
-        var button = new Gtk.RadioButton.with_label_from_widget (group, label);
+        var button = new Gtk.CheckButton.with_label (label);
         if (group == null) { // first radio button is active
             button.active = true;
             selected_library = library;
+        } else {
+            button.set_group(group);
         }
         button.toggled.connect (() => {
             if (button.active) {
@@ -146,7 +156,7 @@ public class LibrarySelectionPane : ConcreteDialogPane {
         });
         button.set_margin_start(margin_left);
         button.set_margin_end(margin_right);
-        box.pack_start(button, false, false, 6);
+        box.append(button);
         return button;
     }
     
@@ -171,13 +181,13 @@ public class ProgressPane : ConcreteDialogPane {
     public ProgressPane(string message) {
         Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 8);
         message_label = new Gtk.Label(message);
-        content_box.pack_start(message_label, true, true, 6);
+        content_box.append(message_label);
         progress_bar = new Gtk.ProgressBar();
-        content_box.pack_start(progress_bar, false, true, 6);
+        content_box.append(progress_bar);
         progress_label = new Gtk.Label("");
-        content_box.pack_start(progress_label, false, true, 6);
+        content_box.append(progress_label);
         
-        ((Gtk.Container) get_widget()).add(content_box);
+        ((Gtk.Box) get_widget()).append(content_box);
     }
     
     public void update_progress(double progress, string? progress_message) {
@@ -211,10 +221,10 @@ public class DataImportsDialog : Gtk.Dialog {
         bool use_header = Resources.use_header_bar() == 1;
         Object(use_header_bar: Resources.use_header_bar());
         if (use_header)
-            ((Gtk.HeaderBar) get_header_bar()).set_show_close_button(false);
+            ((Gtk.HeaderBar) get_header_bar()).set_show_title_buttons(false);
 
         resizable = false;
-        delete_event.connect(on_window_close);
+        close_request.connect(on_window_close);
         
         string title = _("Import From Application");
         string label = _("Import media _from:");
@@ -266,33 +276,31 @@ public class DataImportsDialog : Gtk.Dialog {
                 service_selector_box.vexpand = false;
 
                 Gtk.Box service_selector_layouter = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-                service_selector_layouter.set_border_width(12);
-                service_selector_layouter.add(service_selector_box_label);
-                service_selector_layouter.pack_start(service_selector_box, true, true, 0);
+                service_selector_layouter.append(service_selector_box_label);
+                service_selector_layouter.prepend(service_selector_box);
 
                 /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
                    rest of the dialog */
                 Gtk.Box service_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-                service_area_layouter.pack_start(service_selector_layouter, true, true, 0);
+                service_area_layouter.prepend(service_selector_layouter);
                 Gtk.Separator service_central_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
-                service_area_layouter.add(service_central_separator);
+                service_area_layouter.append(service_central_separator);
                 service_area_layouter.halign = Gtk.Align.FILL;
                 service_area_layouter.valign = Gtk.Align.START;
                 service_area_layouter.hexpand = true;
                 service_area_layouter.vexpand = false;
 
-                ((Gtk.Box) get_content_area()).pack_start(service_area_layouter, false, false, 0);
+                ((Gtk.Box) get_content_area()).prepend(service_area_layouter);
             }
         }
         
         // Install the central area in all cases
         central_area_layouter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-        ((Gtk.Box) get_content_area()).pack_start(central_area_layouter, true, true, 0);
+        ((Gtk.Box) get_content_area()).prepend(central_area_layouter);
         
 
         if (use_header) {
             close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
-            close_cancel_button.set_can_default(true);
             ((Gtk.HeaderBar) get_header_bar()).pack_start(close_cancel_button);
             if (service_selector_box != null) {
                 ((Gtk.HeaderBar) get_header_bar()).pack_end(service_selector_box);
@@ -315,7 +323,7 @@ public class DataImportsDialog : Gtk.Dialog {
             set_close_button_mode();
         }
         
-        show_all();
+        show();
     }
     
     public static DataImportsDialog get_or_create_instance() {
@@ -332,7 +340,7 @@ public class DataImportsDialog : Gtk.Dialog {
         instance = null;
     }
     
-    private bool on_window_close(Gdk.EventAny evt) {
+    private bool on_window_close() {
         debug("DataImportsDialog: on_window_close( ): invoked.");
         terminate();
         
@@ -413,7 +421,6 @@ public class DataImportsDialog : Gtk.Dialog {
 
     public void set_close_button_mode() {
         close_cancel_button.set_label(_("_Close"));
-        set_default(close_cancel_button);
     }
 
     public void set_cancel_button_mode() {
@@ -438,8 +445,8 @@ public class DataImportsDialog : Gtk.Dialog {
             central_area_layouter.remove(active_pane.get_widget());
         }
 
-        central_area_layouter.pack_start(pane.get_widget(), true, true, 0);
-        show_all();
+        central_area_layouter.prepend(pane.get_widget());
+        show();
 
         Spit.DataImports.DialogPane.GeometryOptions geometry_options =
             pane.get_preferred_geometry();
