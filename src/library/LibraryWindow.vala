@@ -271,7 +271,6 @@ public class LibraryWindow : AppWindow {
     private const GLib.ActionEntry[] common_actions = {
         // Normal actions
         { "CommonFileImport", on_file_import },
-        { "ExternalLibraryImport", on_external_library_import },
         { "CommonPreferences", on_preferences },
         { "CommonEmptyTrash", on_empty_trash },
         { "CommonJumpToEvent", on_jump_to_event },
@@ -545,12 +544,6 @@ public class LibraryWindow : AppWindow {
             do_file_import.begin(import_dialog.get_files(), import_recursive);
             import_dialog.destroy();
         });
-    }
-    
-    private void on_external_library_import() {
-        //Gtk.Dialog import_dialog = DataImportsUI.DataImportsDialog.get_or_create_instance();
-        
-        //import_dialog.run();
     }
     
     protected override void update_common_action_availability(Page? old_page, Page? new_page) {
