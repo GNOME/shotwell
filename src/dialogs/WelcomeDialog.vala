@@ -24,6 +24,7 @@ public class WelcomeDialog : Gtk.Dialog {
     //Spit.DataImports.WelcomeImportMetaHost import_meta_host;
     bool import_content_already_installed = false;
     bool ok_clicked = false;
+    GLib.MainLoop loop;
 
     public WelcomeDialog(Gtk.Window owner) {
         Object(use_header_bar : Resources.use_header_bar());
@@ -146,7 +147,7 @@ public class WelcomeDialog : Gtk.Dialog {
             ok_clicked = true;
         }
         hide();
-        // TODO Gtk.main_quit();
+        loop.quit();
     }
 
     public bool execute(out WelcomeServiceEntry[] selected_import_entries, out bool do_system_pictures_import) {
@@ -158,7 +159,9 @@ public class WelcomeDialog : Gtk.Dialog {
         // this will block the thread we're in until a matching call
         // to main_quit() is encountered; this happens when either the window
         // is closed or OK is clicked.
-        // TODO Gtk.main();
+
+        loop = new MainLoop();
+        loop.run();
 
         // at this point, the inner main loop will have been exited.
         // we've got the response, so we don't need this signal anymore.
