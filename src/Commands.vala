@@ -864,7 +864,7 @@ public class AdjustColorsMultipleCommand : MultiplePhotoTransformationCommand {
         ((Photo) source).set_color_adjustments(transformations);
     }
 }
-#if 0
+
 public class RedeyeCommand : GenericPhotoTransformationCommand {
     private EditingTools.RedeyeInstance redeye_instance;
     
@@ -879,7 +879,6 @@ public class RedeyeCommand : GenericPhotoTransformationCommand {
         photo.add_redeye_instance(redeye_instance);
     }
 }
-#endif
 
 public abstract class MovePhotosCommand : Command {
     // Piggyback on a private command so that processing to determine new_event can occur before

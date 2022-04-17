@@ -3027,7 +3027,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     }    
     
     // All instances are against the coordinate system of the unscaled, unrotated photo.
-    #if 0
     private EditingTools.RedeyeInstance[] get_raw_redeye_instances() {
         KeyValueMap map = get_transformation("redeye");
         if (map == null)
@@ -3085,7 +3084,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         if (set_transformation(map))
             notify_altered(new Alteration("image", "redeye"));
     }
-    #endif
 
     // Pixbuf generation
     
