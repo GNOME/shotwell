@@ -371,20 +371,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public const int PIXBUF_CACHE_COUNT = 5;
     public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
     
-    private class EditingHostCanvas : Object { //EditingTools.PhotoCanvas {
+    private class EditingHostCanvas : EditingTools.PhotoCanvas {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
-        #if 0
-            base(host_page.get_container(), host_page.canvas.get_window(), host_page.get_photo(),
+            base(host_page.get_container(), host_page.canvas.get_native().get_surface(), host_page.get_photo(),
                 host_page.get_cairo_context(), host_page.get_surface_dim(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
-            #endif
             this.host_page = host_page;
         }
         
-        public /* override */ void repaint() {
+        public override  void repaint() {
             host_page.repaint();
         }
     }
@@ -405,9 +403,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.Scale zoom_slider = null;
     private Gtk.Button prev_button = new Gtk.Button.with_label(Resources.PREVIOUS_LABEL);
     private Gtk.Button next_button = new Gtk.Button.with_label(Resources.NEXT_LABEL);
-    # if 0
     private EditingTools.EditingTool current_tool = null;
-    #endif 
     private Gtk.ToggleButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private bool photo_missing = false;
@@ -461,7 +457,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         crop_button.set_icon_name("image-crop-symbolic");
         crop_button.set_label(Resources.CROP_LABEL);
         crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
-//        crop_button.toggled.connect(on_crop_toggled);
+        crop_button.toggled.connect(on_crop_toggled);
         toolbar.append(crop_button);
 
         // straightening tool
@@ -469,7 +465,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         straighten_button.set_icon_name(Resources.STRAIGHTEN);
         straighten_button.set_label(Resources.STRAIGHTEN_LABEL);
         straighten_button.set_tooltip_text(Resources.STRAIGHTEN_TOOLTIP);
-//        straighten_button.toggled.connect(on_straighten_toggled);
+        straighten_button.toggled.connect(on_straighten_toggled);
         toolbar.append(straighten_button);
 
         // redeye reduction tool
@@ -477,7 +473,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         redeye_button.set_icon_name("stock-eye-symbolic");
         redeye_button.set_label(Resources.RED_EYE_LABEL);
         redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
-//        redeye_button.toggled.connect(on_redeye_toggled;
+        redeye_button.toggled.connect(on_redeye_toggled);
         toolbar.append(redeye_button);
         
         // adjust tool
@@ -485,14 +481,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button.set_icon_name(Resources.ADJUST);
         adjust_button.set_label(Resources.ADJUST_LABEL);
         adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
-//        adjust_button.toggled.connect(on_adjust_toggled);
+        adjust_button.toggled.connect(on_adjust_toggled);
         toolbar.append(adjust_button);
 
         // enhance tool
         enhance_button = new Gtk.Button.with_label (Resources.ENHANCE_LABEL);
         enhance_button.set_icon_name(Resources.ENHANCE);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
-//        enhance_button.clicked.connect(on_enhance);
+        enhance_button.clicked.connect(on_enhance);
         toolbar.append (enhance_button);
         
 #if ENABLE_FACES
@@ -867,7 +863,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         cancel_zoom();
         is_pan_in_progress = false;
         
-        //deactivate_tool();
+        deactivate_tool();
 
         // Ticket #3255 - Checkerboard page didn't `remember` what was selected
         // when the user went into and out of the photo page without navigating 
@@ -885,7 +881,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public override void switching_to_fullscreen(FullscreenWindow fsw) {
         base.switching_to_fullscreen(fsw);
         
-        //deactivate_tool();
+        deactivate_tool();
         
         cancel_zoom();
         is_pan_in_progress = false;
@@ -1104,7 +1100,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.sensitive = sensitivity;
         zoom_slider.sensitive = sensitivity;
 
-        ////deactivate_tool();
+        //deactivate_tool();
     }
     
     // This should only be called when it's known that the photo is actually missing.
@@ -1197,7 +1193,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 return;
         }
 
-        //deactivate_tool();
+        deactivate_tool();
         
         // swap out new photo and old photo and process change
         Photo old_photo = get_photo();
@@ -1358,7 +1354,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         rotate_button.sensitive = ((photo != null) && (!photo_missing) && photo.check_can_rotate()) ?
             is_rotate_available(photo) : false;
-            #if 0
         crop_button.sensitive = ((photo != null) && (!photo_missing)) ?
             EditingTools.CropTool.is_available(photo, scaling) : false;
         redeye_button.sensitive = ((photo != null) && (!photo_missing)) ?
@@ -1369,7 +1364,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             is_enhance_available(photo) : false;
         straighten_button.sensitive = ((photo != null) && (!photo_missing)) ?
             EditingTools.StraightenTool.is_available(photo, scaling) : false;
-            #endif
                     
         base.update_actions(selected_count, count);
     }
@@ -1439,7 +1433,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
 
-#if 0
     private void activate_tool(EditingTools.EditingTool tool) {
         // cancel any zoom -- we don't currently allow tools to be used when an image is zoomed,
         // though we may at some point in the future.
@@ -1489,9 +1482,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // repaint entire view, with the tool now hooked in
         repaint();
     }
-    #endif
     
-    #if 0
     private void deactivate_tool(Command? command = null, Gdk.Pixbuf? new_pixbuf = null, 
         Dimensions new_max_dim = Dimensions(), bool needs_improvement = false) {
         if (current_tool == null)
@@ -1500,6 +1491,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EditingTools.EditingTool tool = current_tool;
         current_tool = null;
 
+        #if 0
         // save the position of the tool
         EditingTools.EditingToolWindow? tool_window = tool.get_tool_window();
         if (tool_window != null && tool_window.has_user_moved()) {
@@ -1508,6 +1500,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             last_locations[tool.name + "_x"] = last_location_x;
             last_locations[tool.name + "_y"] = last_location_y;
         }
+        #endif
         
         // deactivate with the tool taken out of the hooks and
         // disconnect any signals we may have connected on activating
@@ -1551,7 +1544,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (command != null)
             get_command_manager().execute(command);
     }
-    #endif
     
     // This virtual method is called only when the user double-clicks on the page and no tool
     // is active
@@ -1857,13 +1849,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void paint(Cairo.Context ctx, Dimensions ctx_dim) {
-        #if 0
         if (current_tool != null) {
             current_tool.paint(ctx);
             
             return;
         }
-        #endif
         
         if (photo_missing && has_photo()) {
             set_source_color_from_string(ctx, "#000");
@@ -2075,8 +2065,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         return base.on_ctrl_released(event);
     }
+    #endif
     
-    protected void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTools.EditingTool.Factory factory) {
+    protected void on_tool_button_toggled(Gtk.ToggleButton toggle, EditingTools.EditingTool.Factory factory) {
         // if the button is an activate, deactivate any current tool running; if the button is
         // a deactivate, deactivate the current tool and exit
         bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
@@ -2190,7 +2181,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         EnhanceSingleCommand command = new EnhanceSingleCommand(get_photo());
         get_command_manager().execute(command);
     }
-    #endif
     
     public void on_copy_adjustments() {
         if (!has_photo())
@@ -2209,7 +2199,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
-#if 0
     private void place_tool_window() {
         if (current_tool == null)
             return;
@@ -2220,9 +2209,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // do this so window size is properly allocated, but window not shown
         tool_window.set_transient_for(AppWindow.get_instance());
-        tool_window.show_all();
-        tool_window.hide();
+        tool_window.show();
+        tool_window.present();
         
+        #if 0
         Gtk.Allocation tool_alloc;
         tool_window.get_allocation(out tool_alloc);
         int x, y;
@@ -2284,11 +2274,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool_window.move(x, y);
         tool_window.show();
         tool_window.present();
+        #endif
     }
-    #endif
     
     protected override void on_next_photo() {
-        //deactivate_tool();
+        deactivate_tool();
         
         if (!has_photo())
             return;
@@ -2321,7 +2311,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void on_previous_photo() {
-        //deactivate_tool();
+        deactivate_tool();
         
         if (!has_photo())
             return;
@@ -2445,13 +2435,13 @@ public class LibraryPhotoPage : EditingHostPage {
         { "RotateCounterclockwise", on_rotate_counterclockwise },
         { "FlipHorizontally", on_flip_horizontally },
         { "FlipVertically", on_flip_vertically },
-        //{ "Enhance", on_enhance },
+        { "Enhance", on_enhance },
         { "CopyColorAdjustments", on_copy_adjustments },
         { "PasteColorAdjustments", on_paste_adjustments },
-        //{ "Crop", toggle_crop },
-        //{ "Straighten", toggle_straighten },
-        //{ "RedEye", toggle_redeye },
-        //{ "Adjust", toggle_adjust },
+        { "Crop", toggle_crop },
+        { "Straighten", toggle_straighten },
+        { "RedEye", toggle_redeye },
+        { "Adjust", toggle_adjust },
         { "Revert", on_revert },
         { "EditTitle", on_edit_title },
         { "EditComment", on_edit_comment },
@@ -3210,7 +3200,7 @@ public class LibraryPhotoPage : EditingHostPage {
 
 #if ENABLE_FACES       
     private void on_faces_toggled() {
-        //on_tool_button_toggled(faces_button, FacesTool.factory);
+        on_tool_button_toggled(faces_button, FacesTool.factory);
     }
     
     protected void toggle_faces() {

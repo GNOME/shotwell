@@ -3444,7 +3444,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         Dimensions scaled_to_viewport;
         Dimensions original = Dimensions();
         Dimensions scaled = Dimensions();
-        //EditingTools.RedeyeInstance[] redeye_instances = null;
+        EditingTools.RedeyeInstance[] redeye_instances = null;
         Box crop;
         double straightening_angle;
         PixelTransformer transformer = null;
@@ -3457,7 +3457,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             
             is_scaled = !(get_dimensions().equals(scaled));
                         
-            //redeye_instances = get_raw_redeye_instances();
+            redeye_instances = get_raw_redeye_instances();
             
             is_cropped = get_raw_crop(out crop);
 
@@ -3485,11 +3485,9 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-#if 0
             foreach (EditingTools.RedeyeInstance instance in redeye_instances) {
                 pixbuf = do_redeye(pixbuf, instance);
             }
-            #endif
 #if MEASURE_PIPELINE
             redeye_time = timer.elapsed();
 #endif
@@ -4292,7 +4290,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         set_raw_straighten(theta);
     }
     
-    #if 0
     private Gdk.Pixbuf do_redeye(Gdk.Pixbuf pixbuf, EditingTools.RedeyeInstance inst) {
         /* we remove redeye within a circular region called the "effect
            extent." the effect extent is inscribed within its "bounding
@@ -4356,7 +4353,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         
         return pixbuf;
     }
-    #endif
 
     private Gdk.Pixbuf red_reduce_pixel(Gdk.Pixbuf pixbuf, int x, int y) {
         int px_start_byte_offset = (y * pixbuf.get_rowstride()) +

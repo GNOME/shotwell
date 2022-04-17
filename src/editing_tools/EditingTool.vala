@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
-public abstract class EditingTool {
+public abstract class EditingTools.EditingTool {
     public PhotoCanvas canvas = null;
 
     private EditingToolWindow tool_window = null;

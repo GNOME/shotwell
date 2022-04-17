@@ -73,6 +73,7 @@ executable(
         'editing_tools/CropTool.vala',
         'editing_tools/PhotoCanvas.vala',
         'editing_tools/RedeyeTool.vala',
+        'editing_tools/StraightenTool.vala',
         'editing_tools/EditingToolWindow.vala',
         'editing_tools/RGBHistogramManipulator.vala',
         'faces/Face.vala',

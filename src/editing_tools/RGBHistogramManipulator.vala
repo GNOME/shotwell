@@ -34,6 +34,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     public RGBHistogramManipulator( ) {
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
         can_focus = true;
+        focusable = true;
 
         var focus = new Gtk.EventControllerFocus();
         focus.leave.connect(queue_draw);
@@ -55,6 +56,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         add_controller(motion);
 
         this.resize.connect(on_resize);
+        set_draw_func(on_draw);
     }
 
     private void on_resize(int width, int height) {
@@ -204,7 +206,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         return true;
     }
     
-    public void draw(Cairo.Context ctx, int width, int height) {
+    public void on_draw(Gtk.DrawingArea self, Cairo.Context ctx, int width, int height) {
         var sctx = get_style_context();
         sctx.save();
         sctx.set_state (Gtk.StateFlags.NORMAL);

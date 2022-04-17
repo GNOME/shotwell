@@ -2,7 +2,7 @@
 // The PhotoCanvas is an interface object between an EditingTool and its host.  It provides objects
 // and primitives for an EditingTool to obtain information about the image, to draw on the host's
 // canvas, and to be signalled when the canvas and its pixbuf changes (is resized).
-public abstract class PhotoCanvas {
+public abstract class EditingTools.PhotoCanvas {
     private Gtk.Window container;
     private Gdk.Surface drawing_window;
     private Photo photo;

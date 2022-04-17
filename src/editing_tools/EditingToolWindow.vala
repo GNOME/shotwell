@@ -1,5 +1,5 @@
 // SPDX-License-Identifier:LGPL-2.1-or-later
-public abstract class EditingToolWindow : Gtk.Window {
+public abstract class EditingTools.EditingToolWindow : Gtk.Window {
     private const int FRAME_BORDER = 6;
 
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
@@ -16,6 +16,7 @@ public abstract class EditingToolWindow : Gtk.Window {
         // add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focusable = true;
         set_can_focus(true);
+        ((Gtk.Widget) this).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
     }
 
     ~EditingToolWindow() {
@@ -29,7 +30,6 @@ public abstract class EditingToolWindow : Gtk.Window {
         return user_moved;
     }
 
-    public signal             
     #if 0
     public override bool key_press_event(Gdk.EventKey event) {
         if (base.key_press_event(event)) {
@@ -49,14 +49,6 @@ public abstract class EditingToolWindow : Gtk.Window {
         return true;
     }
     #endif
-
-
-    public override void realize() {
-        // Force the use of gtk_widget_set_opacity; gtk_window_set_opacity is deprecated
-        ((Gtk.Widget) this).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
-        
-        base.realize();
-    }
 
     private void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
         // do nothing.
