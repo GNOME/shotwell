@@ -843,7 +843,7 @@ public class EditingTools.CropTool : EditingTool {
             break;
 
             case BoxLocation.BOTTOM_RIGHT:
-                cursor_type = "ne-resize";
+                cursor_type = "se-resize";
             break;
 
             case BoxLocation.INSIDE:
