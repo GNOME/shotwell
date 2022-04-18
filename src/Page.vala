@@ -79,7 +79,7 @@ public abstract class Page : Gtk.Box {
     private bool alt_pressed = false;
     private bool shift_pressed = false;
     private bool super_pressed = false;
-    private string last_cursor = "default";
+    private string? last_cursor = null;
     private bool cursor_hidden = false;
     private int cursor_hide_msec = 0;
     private uint last_timeout_id = 0;
@@ -1110,11 +1110,11 @@ public abstract class Page : Gtk.Box {
     }
 
     // Use this method to set the cursor for a page, NOT window.set_cursor(...)
-    protected virtual void set_page_cursor(string cursor_type) {
+    protected virtual void set_page_cursor(string? cursor_type) {
         last_cursor = cursor_type;
 
         if (!cursor_hidden && event_source != null) {
-            event_source.set_cursor (new Gdk.Cursor.from_name (cursor_type, null));
+            event_source.set_cursor_from_name (cursor_type);
         }
     }
 
@@ -1135,7 +1135,7 @@ public abstract class Page : Gtk.Box {
         cursor_hidden = true;
 
         if (event_source != null) {
-            event_source.set_cursor (new Gdk.Cursor.from_name ("none", null));
+            event_source.set_cursor_from_name ("none");
         }
 
         // We remove the timeout so reset the id

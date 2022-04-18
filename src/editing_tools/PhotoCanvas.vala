@@ -335,8 +335,8 @@ public abstract class EditingTools.PhotoCanvas {
         //drawing_window.invalidate_rect(rect, false);
     }
 
-    public void set_cursor(string cursor_type) {
-        get_drawing_window().set_cursor(new Gdk.Cursor.from_name(cursor_type, null));
+    public void set_cursor(string? cursor_type) {
+        get_container().set_cursor_from_name(cursor_type);
     }
 
     private Cairo.Surface pixbuf_to_surface(Cairo.Context default_ctx, Gdk.Pixbuf pixbuf,

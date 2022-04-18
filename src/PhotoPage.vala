@@ -382,7 +382,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             this.host_page = host_page;
         }
         
-        public override  void repaint() {
+        public override void repaint() {
             host_page.repaint();
         }
     }
@@ -968,7 +968,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
             // displayed
             Dimensions max_dim = photo.get_dimensions();
-            #if 0
             if (current_tool != null) {
                 try {
                     Dimensions tool_pixbuf_dim;
@@ -986,7 +985,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
                     return;
                 }
             }
-            #endif
             
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
@@ -1239,7 +1237,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // was possible; the null guards are required because zoom can be cancelled at
         // any time
         if (canvas != null /*&& canvas.get_window() != null*/)
-            set_page_cursor("default");
+            set_page_cursor(null);
         
         repaint();
     }
@@ -1286,8 +1284,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         try {
             Dimensions tool_pixbuf_dim = {0};
-            //if (current_tool != null)
-            //    pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out tool_pixbuf_dim);
+            if (current_tool != null)
+                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out tool_pixbuf_dim);
                 
             if (pixbuf != null)
                 max_dim = tool_pixbuf_dim;                
@@ -1554,18 +1552,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // Return true to block the DnD handler from activating a drag
     protected override bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         // report double-click if no tool is active, otherwise all double-clicks are eaten
-        #if 0
-        if (event.type == Gdk.EventType.2BUTTON_PRESS)
-            return (current_tool == null) ? on_double_click(event) : false;
-        #else
-            if (press == 2) {
-                on_double_click (event, x, y);
-            }
-        #endif
-        
+        if (press == 2) {
+            return (current_tool == null) ? on_double_click (event, x, y) : false;
+        }
+
         // if no editing tool, then determine whether we should start a pan operation over the
         // zoomed photo or fall through to the default DnD behavior if we're not zoomed
-        if (/*(current_tool == null) && */(zoom_slider.get_value() != 0.0)) {
+        if ((current_tool == null) && (zoom_slider.get_value() != 0.0)) {
             zoom_pan_start_point.x = (int) x;
             zoom_pan_start_point.y = (int) y;
             is_pan_in_progress = true;
@@ -1574,7 +1567,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return true;
         }
 
-#if 0
         // default behavior when photo isn't zoomed -- return false to start DnD operation
         if (current_tool == null) {
             return false;
@@ -1582,16 +1574,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // only concerned about mouse-downs on the pixbuf ... return true prevents DnD when the
         // user drags outside the displayed photo
-        if (!is_inside_pixbuf(x, y))
+        if (!is_inside_pixbuf((int)x, (int)y))
             return true;
 
-        current_tool.on_left_click(x, y);
+        current_tool.on_left_click((int)x, (int)y);
         
         // block DnD handlers if tool is enabled
         return true;
-#else
-        return false;
-#endif
     }
     
     protected override bool on_left_released(Gtk.EventController event, int press, double x, double y) {
@@ -1610,17 +1599,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
             restore_cursor_hiding();
         }
 
-#if 0
         // report all releases, as it's possible the user click and dragged from inside the
         // pixbuf to the gutters
         if (current_tool == null)
             return false;
         
-        current_tool.on_left_released((int) event.x, (int) event.y);
+        current_tool.on_left_released((int) x, (int) y);
 
         if (current_tool.get_tool_window() != null)
             current_tool.get_tool_window().present();
-#endif
         
         return false;
     }
@@ -1675,21 +1662,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (is_panning_possible())
             set_page_cursor("move");
         else
-            set_page_cursor("default");
+            set_page_cursor(null);
     }
     
     // Return true to block the DnD handler from activating a drag
     protected override bool on_motion(Gtk.EventControllerMotion event, double x, double y, Gdk.ModifierType mask) {
-        #if 0
         if (current_tool != null) {
-            current_tool.on_motion(x, y, mask);
-
-            // this requests more events after "hints"
-            Gdk.Event.request_motions(event);
+            current_tool.on_motion((int)x, (int)y, mask);
 
             return true;
         }
-        #endif
         
         update_cursor_for_zoom_context();
         
@@ -1711,10 +1693,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override void on_leave_notify_event(Gtk.EventControllerMotion event) {
-        #if 0
         if (current_tool != null)
-            return current_tool.on_leave_notify_event();
-            #endif
+            current_tool.on_leave_notify_event();
         
         base.on_leave_notify_event(event);
     }
@@ -1816,20 +1796,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     protected override void new_surface(Cairo.Context default_ctx, Dimensions dim) {
         // if tool is open, update its canvas object
-        //if (current_tool != null)
-        //    current_tool.canvas.set_surface(default_ctx, dim);
+        if (current_tool != null)
+            current_tool.canvas.set_surface(default_ctx, dim);
     }
     
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
         Dimensions old_dim) {
         // only purpose here is to inform editing tool of change and drop the cancelled
         // pixbuf, which is now sized incorrectly
-        #if 0
         if (current_tool != null && reason != SinglePhotoPage.UpdateReason.QUALITY_IMPROVEMENT) {
             current_tool.canvas.resized_pixbuf(old_dim, pixbuf, get_scaled_pixbuf_position());
             cancel_editing_pixbuf = null;
         }
-        #endif
     }
     
     protected virtual Gdk.Pixbuf? get_bottom_left_trinket(int scale) {
@@ -2344,7 +2322,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     public bool has_current_tool() {
-        return false; //(current_tool != null);
+        return (current_tool != null);
     }
     
     protected void unset_view_collection() {

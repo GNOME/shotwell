@@ -661,7 +661,7 @@ public class EditingTools.CropTool : EditingTool {
 
         // make sure the cursor isn't set to a modify indicator
         if (canvas != null) {
-            canvas.set_cursor ("default");
+            canvas.set_cursor (null);
         }
 
         crop_surface = null;
@@ -812,7 +812,7 @@ public class EditingTools.CropTool : EditingTool {
         Gdk.Rectangle scaled_pos = canvas.get_scaled_pixbuf_position();
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
 
-        string cursor_type = "default";
+        string? cursor_type = null;
         switch (offset_scaled_crop.approx_location(x, y)) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = "w-resize";

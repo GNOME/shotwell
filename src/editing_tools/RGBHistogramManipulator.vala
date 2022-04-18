@@ -171,7 +171,6 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     }
 
     public bool on_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
-
         int delta = 0;
 
         if (keyval == Gdk.Key.Left || keyval == Gdk.Key.Up) {

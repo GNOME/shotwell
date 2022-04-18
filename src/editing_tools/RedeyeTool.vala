@@ -346,7 +346,7 @@ public class EditingTools.RedeyeTool : EditingTool {
             if (coord_in_rectangle(x, y, bounds)) {
                 canvas.set_cursor("move");
             } else {
-                canvas.set_cursor("default");
+                canvas.set_cursor(null);
             }
         }
     }

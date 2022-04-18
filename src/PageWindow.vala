@@ -119,7 +119,7 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         if (busy_counter++ > 0)
             return;
 
-        set_cursor(new Gdk.Cursor.from_name("wait", null));
+        set_cursor_from_name("wait");
     }
 
     public void set_normal_cursor() {
@@ -130,6 +130,6 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
             return;
         }
 
-        set_cursor(new Gdk.Cursor.from_name("default", null));
+        set_cursor_from_name("default");
     }
 }

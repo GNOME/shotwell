@@ -57,6 +57,7 @@ public abstract class SinglePhotoPage : Page {
 
         canvas.resize.connect(on_viewport_resize);
         canvas.set_draw_func(on_canvas_exposed);
+        canvas.set_name ("SinglePhoto drawing");
         set_event_source(canvas);
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
     }
