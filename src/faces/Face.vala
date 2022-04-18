@@ -380,6 +380,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
 #if ENABLE_FACES       
     private static void start_facedetect_process() {
         message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
+        message("Using dnn from %s", AppDirs.get_openface_dnn_dir().get_path());
         // Start the watcher, process started via DBus service
         FaceDetect.init(AppDirs.get_openface_dnn_dir().get_path());
     }

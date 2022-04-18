@@ -56,45 +56,45 @@ public class FacesTool : EditingTools.EditingTool {
             label.ellipsize = Pango.EllipsizeMode.END;
             label.width_chars = FACE_LABEL_MAX_CHARS;
 
-            pack_start(label, true);
-            pack_start(edit_button, false);
-            pack_start(delete_button, false);
+            append(label);
+            append(edit_button);
+            append(delete_button);
 
             this.face_shape = face_shape;
             face_shape.set_widget(this);
         }
 
-        public bool on_enter_notify_event() {
+        public void on_enter_notify_event() {
             activate_label();
 
             if (face_shape.is_editable())
-                return false;
+                return;
 
             // This check is necessary to avoid painting the face twice --see
             // note in on_leave_notify_event.
             if (!face_shape.is_visible())
                 face_shape.show();
-
-            return true;
         }
 
-        public bool on_leave_notify_event() {
+        public void on_leave_notify_event() {
             // This check is necessary because GTK+ will throw enter/leave_notify
             // events when the pointer passes though windows, even if one window
             // belongs to a widget that is a child of the widget that throws this
             // signal. So, this check is necessary to avoid "deactivation" of
             // the label if the pointer enters one of the buttons in this FaceWidget.
+            #if 0
             if (!is_pointer_over(get_window())) {
                 deactivate_label();
 
                 if (face_shape.is_editable())
-                    return false;
+                    return;
 
                 face_shape.hide();
                 face_hidden();
             }
+            #endif
 
-            return true;
+            return;
         }
 
         public void activate_label() {
@@ -140,32 +140,28 @@ public class FacesTool : EditingTools.EditingTool {
             detection_button.set_tooltip_text(_("Detect faces on this photo"));
 
             cancel_detection_button.set_tooltip_text(_("Cancel face detection"));
-            cancel_detection_button.set_image_position(Gtk.PositionType.LEFT);
             cancel_detection_button.clicked.connect(on_cancel_detection);
 
             cancel_button.set_tooltip_text(_("Close the Faces tool without saving changes"));
-            cancel_button.set_image_position(Gtk.PositionType.LEFT);
-
-            ok_button.set_image_position(Gtk.PositionType.LEFT);
 
             face_widgets_layout = new Gtk.Box(Gtk.Orientation.VERTICAL, CONTROL_SPACING);
 
             help_text = new Gtk.Label(_("Click and drag to tag a face"));
             help_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
-            help_layout.pack_start(help_text, true);
+            help_layout.append(help_text);
 
             response_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
-            response_layout.add(detection_button);
-            response_layout.add(cancel_button);
-            response_layout.add(ok_button);
+            response_layout.append(detection_button);
+            response_layout.append(cancel_button);
+            response_layout.append(ok_button);
 
             layout = new Gtk.Box(Gtk.Orientation.VERTICAL, CONTROL_SPACING);
-            layout.pack_start(face_widgets_layout, false);
-            layout.pack_start(help_layout, false);
-            layout.pack_start(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), false);
-            layout.pack_start(response_layout, false);
+            layout.append(face_widgets_layout);
+            layout.append(help_layout);
+            layout.append(new Gtk.Separator(Gtk.Orientation.HORIZONTAL));
+            layout.append(response_layout);
 
-            add(layout);
+            set_child(layout);
         }
 
         public void set_editing_phase(EditingPhase phase, FaceShape? face_shape = null) {
@@ -201,7 +197,7 @@ public class FacesTool : EditingTools.EditingTool {
                     help_text.set_text(_("Detecting faces"));
 
                     if (cancel_detection_button.get_parent() == null)
-                        help_layout.pack_start(cancel_detection_button, false);
+                        help_layout.append(cancel_detection_button);
 
                     detection_button.set_sensitive(false);
                     cancel_detection_button.set_sensitive(true);
@@ -244,20 +240,18 @@ public class FacesTool : EditingTools.EditingTool {
             face_widget.edit_button.clicked.connect(edit_face);
             face_widget.delete_button.clicked.connect(delete_face);
 
-            Gtk.EventBox event_box = new Gtk.EventBox();
-            event_box.add(face_widget);
-            event_box.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-            event_box.enter_notify_event.connect(face_widget.on_enter_notify_event);
-            event_box.leave_notify_event.connect(face_widget.on_leave_notify_event);
-
-            face_widgets_layout.pack_start(event_box, false);
+            face_widgets_layout.append(face_widget);
+            var focus = new Gtk.EventControllerFocus();
+            focus.enter.connect(face_widget.on_enter_notify_event);
+            focus.leave.connect(face_widget.on_leave_notify_event);
+            face_widget.add_controller(focus);
 
             if (buttons_text_separator == null) {
                 buttons_text_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
-                face_widgets_layout.pack_end(buttons_text_separator, false);
+                face_widgets_layout.append(buttons_text_separator);
             }
 
-            face_widgets_layout.show_all();
+            face_widgets_layout.show();
         }
 
         private void edit_face(Gtk.Button button) {
@@ -273,10 +267,12 @@ public class FacesTool : EditingTools.EditingTool {
 
             widget.get_parent().destroy();
 
+            #if 0
             if (face_widgets_layout.get_children().length() == 1) {
                 buttons_text_separator.destroy();
                 buttons_text_separator = null;
             }
+            #endif
         }
 
         private void on_face_hidden() {
@@ -289,7 +285,7 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     public class EditingFaceToolWindow : EditingTools.EditingToolWindow {
-        public signal bool key_pressed(Gdk.EventKey event);
+        public signal bool key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers);
 
         public Gtk.Entry entry;
 
@@ -301,13 +297,17 @@ public class FacesTool : EditingTools.EditingTool {
             entry = new Gtk.Entry();
 
             layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
-            layout.add(entry);
+            layout.append(entry);
 
-            add(layout);
+            set_child(layout);
+
+            var controller = new Gtk.EventControllerKey();
+            ((Gtk.Widget)this).add_controller(controller);
+            controller.key_pressed.connect(on_keypress);
         }
 
-        public override bool key_press_event(Gdk.EventKey event) {
-            return key_pressed(event) || base.key_press_event(event);
+        public bool on_keypress(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+            return key_pressed(event, keyval, keycode, modifiers);
         }
     }
 
@@ -469,7 +469,6 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     private void bind_window_handlers() {
-        faces_tool_window.key_press_event.connect(on_keypress);
         faces_tool_window.ok_button.clicked.connect(on_faces_ok);
         faces_tool_window.cancel_button.clicked.connect(notify_cancel);
         faces_tool_window.detection_button.clicked.connect(detect_faces);
@@ -480,7 +479,6 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     private void unbind_window_handlers() {
-        faces_tool_window.key_press_event.disconnect(on_keypress);
         faces_tool_window.ok_button.clicked.disconnect(on_faces_ok);
         faces_tool_window.cancel_button.clicked.disconnect(notify_cancel);
         faces_tool_window.detection_button.clicked.disconnect(detect_faces);
@@ -512,15 +510,15 @@ public class FacesTool : EditingTools.EditingTool {
                 face_shape.on_resized_pixbuf(old_dim, scaled);
     }
 
-    public override bool on_keypress(Gdk.EventKey event) {
-        string event_keyval = Gdk.keyval_name(event.keyval);
+    public override bool on_keypress(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        string event_keyval = Gdk.keyval_name(keyval);
 
         if (event_keyval == "Return" || event_keyval == "KP_Enter") {
             on_faces_ok();
             return true;
         }
 
-        return base.on_keypress(event);
+        return base.on_keypress(event, keyval, keycode, modifiers);
     }
 
     public override void on_left_click(int x, int y) {
@@ -597,10 +595,12 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     public override bool on_leave_notify_event() {
+        #if 0
         // This check is a workaround for bug #3896.
         if (is_pointer_over(canvas.get_drawing_window()) &&
             !is_pointer_over(faces_tool_window.get_window()))
             return false;
+        #endif
 
         if (editing_face_shape != null)
             return base.on_leave_notify_event();

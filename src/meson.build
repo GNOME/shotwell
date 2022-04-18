@@ -26,10 +26,10 @@ if get_option('face_detection')
   face_sources = [
     'faces/FacesBranch.vala',
                      'faces/FacePage.vala',
-                     #'faces/FaceShape.vala',
+                     'faces/FaceShape.vala',
                      'faces/FaceDetect.vala',
-                     'faces/Faces.vala'
-                     #'faces/FacesTool.vala'
+                     'faces/Faces.vala',
+                     'faces/FacesTool.vala'
                      ]
 endif
 

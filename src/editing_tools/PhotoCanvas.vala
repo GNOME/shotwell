@@ -332,7 +332,7 @@ public abstract class EditingTools.PhotoCanvas {
         rect.x += scaled_position.x;
         rect.y += scaled_position.y;
 
-        //drawing_window.invalidate_rect(rect, false);
+       container.queue_draw();
     }
 
     public void set_cursor(string? cursor_type) {

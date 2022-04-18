@@ -49,8 +49,4 @@ public abstract class EditingTools.EditingToolWindow : Gtk.Window {
         return true;
     }
     #endif
-
-    private void suppress_warnings(string? log_domain, LogLevelFlags log_levels, string message) {
-        // do nothing.
-    }
 }
