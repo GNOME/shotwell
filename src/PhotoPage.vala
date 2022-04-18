@@ -2006,15 +2006,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public void on_set_background() {
-        if (has_photo()) {
-            SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+        if (!has_photo())
+            return;
+
+        SetBackgroundPhotoDialog dialog = new SetBackgroundPhotoDialog();
+        dialog.execute.begin((source, res) => {
             bool desktop, screensaver;
-            if (dialog.execute(out desktop, out screensaver)) {
+            if (dialog.execute.end(res, out desktop, out screensaver)) {
                 AppWindow.get_instance().set_busy_cursor();
                 DesktopIntegration.set_background(get_photo(), desktop, screensaver);
                 AppWindow.get_instance().set_normal_cursor();
             }
-        }
+        });
     }
 
 #if 0
