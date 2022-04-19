@@ -17,6 +17,10 @@ public abstract class EditingTools.EditingToolWindow : Gtk.Window {
         focusable = true;
         set_can_focus(true);
         ((Gtk.Widget) this).set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        ((Gtk.Widget)this).add_controller(key);
     }
 
     ~EditingToolWindow() {
@@ -30,14 +34,11 @@ public abstract class EditingTools.EditingToolWindow : Gtk.Window {
         return user_moved;
     }
 
-    #if 0
-    public override bool key_press_event(Gdk.EventKey event) {
-        if (base.key_press_event(event)) {
-            return true;
-        }
-        return AppWindow.get_instance().key_press_event(event);
+    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        return event.forward(AppWindow.get_instance());
     }
-
+    
+    #if 0
     public override bool button_press_event(Gdk.EventButton event) {
         // LMB only
         if (event.button != 1)

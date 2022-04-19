@@ -29,6 +29,10 @@ public class DirectWindow : AppWindow {
         Application.set_menubar (direct_photo_page.get_menubar ());
 
         set_child(layout);
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        ((Gtk.Widget)this).add_controller(key);
     }
     
     public static DirectWindow get_app() {
@@ -81,18 +85,15 @@ public class DirectWindow : AppWindow {
         return false;
     }
 
-#if 0
-    public override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         // check for an escape
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
+        if (Gdk.keyval_name(keyval) == "Escape") {
             on_quit();
             
             return true;
         }
-        
-       // ...then let the base class take over
-       return (base.key_press_event != null) ? base.key_press_event(event) : false;
+
+        return base.key_press_event(event, keyval, keycode, modifiers);
     }
-    #endif
 }
 

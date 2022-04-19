@@ -1361,23 +1361,21 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    #if 0
-    public override bool key_press_event(Gdk.EventKey event) {
-        if (sidebar_tree.has_focus && sidebar_tree.is_keypress_interpreted(event)
-            && sidebar_tree.key_press_event(event)) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if (sidebar_tree.has_focus && sidebar_tree.is_keypress_interpreted(event, keyval, keycode, modifiers)
+            && event.forward(sidebar_tree)) {
             return true;
         }
         
-        if (base.key_press_event(event))
+        if (base.key_press_event(event, keyval, keycode, modifiers))
             return true;
-        
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
+
+        if (Gdk.keyval_name(keyval) == "Escape") {
             on_clear_search();
             return true;
         }
         
         return false;
     }
-    #endif
 }
 

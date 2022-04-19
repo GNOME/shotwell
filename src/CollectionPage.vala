@@ -357,8 +357,7 @@ public abstract class CollectionPage : MediaPage {
             case "KP_Home":
             case "End":
             case "KP_End":
-                // TODO: Should be forwarded
-                handled = false;
+                event.forward(this);
             break;
             case "bracketright":
                 activate_action("RotateClockwise", format);

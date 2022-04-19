@@ -144,13 +144,16 @@ public class Sidebar.Tree : Gtk.TreeView {
         #endif
 
         var click = new Gtk.GestureClick();
-        click.set_name ("CheckerboardPage click source");
+        click.set_name ("Sidebar Tree click source");
         click.set_button (0); // Listen to all buttons
         //click.set_exclusive (true); // TODO: Need to be true or false?
         click.pressed.connect (on_click_pressed);
         add_controller(click);
 
-        
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        add_controller(key);
+
         //popup_menu.connect(on_context_menu_keypress);
         
         setup_default_context_menu();
@@ -969,9 +972,8 @@ public class Sidebar.Tree : Gtk.TreeView {
         old_path_ref = new Gtk.TreeRowReference(store, path);
     }
     
-    #if 0
-    public bool is_keypress_interpreted(Gdk.EventKey event) {
-        switch (Gdk.keyval_name(event.keyval)) {
+    public bool is_keypress_interpreted(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        switch (Gdk.keyval_name(keyval)) {
             case "F2":
             case "Delete":
             case "Return":
@@ -982,9 +984,9 @@ public class Sidebar.Tree : Gtk.TreeView {
                 return false;
         }
     }
-    
-    public override bool key_press_event(Gdk.EventKey event) {
-        switch (Gdk.keyval_name(event.keyval)) {
+
+    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Return":
             case "KP_Enter":
                 Gtk.TreePath? path = get_current_path();
@@ -1002,9 +1004,8 @@ public class Sidebar.Tree : Gtk.TreeView {
                 return (path != null) ? destroy_path(path) : false;
         }
         
-        return base.key_press_event(event);
+        return false;
     }
-    #endif
     
     public bool rename_entry_in_place(Sidebar.Entry entry) {
         if (!expand_to_entry(entry))

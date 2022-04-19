@@ -336,10 +336,9 @@ class SlideshowPage : SinglePhotoPage {
         return true;
     }
     
-    #if 0
-    public override bool key_press_event(Gdk.EventKey event) {
+    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             // Block activating the toolbar on key down
             // FIXME: Why is SinglePhotoPage not a PhotoPage which already does this?
             case "Down":
@@ -355,12 +354,8 @@ class SlideshowPage : SinglePhotoPage {
             break;
         }
         
-        if (handled)
-            return true;
-        
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return handled;
     }
-    #endif
 
     private void on_change_settings() {
         SettingsDialog settings_dialog = new SettingsDialog();

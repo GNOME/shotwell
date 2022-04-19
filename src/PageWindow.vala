@@ -79,7 +79,10 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         switched_pages(old_page, null);
     }
 
-    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+    public virtual bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if ((get_focus() is Gtk.Entry) && event.forward(get_focus())) 
+            return true;
+
         if (current_page != null && current_page.notify_app_key_pressed(event, keyval, keycode, modifiers))
             return true;
 
@@ -87,6 +90,9 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
     }
 
     public void key_release_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if ((get_focus() is Gtk.Entry) && event.forward(get_focus()))
+            return;
+
         if (current_page != null)
             current_page.notify_app_key_released(event, keyval, keycode, modifiers);
     }

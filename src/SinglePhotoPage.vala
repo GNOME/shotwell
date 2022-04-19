@@ -60,6 +60,10 @@ public abstract class SinglePhotoPage : Page {
         canvas.set_name ("SinglePhoto drawing");
         set_event_source(canvas);
         Config.Facade.get_instance().colors_changed.connect(on_colors_changed);
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        add_controller(key);
     }
 
     ~SinglePhotoPage() {
@@ -473,21 +477,20 @@ public abstract class SinglePhotoPage : Page {
 
     protected virtual void on_next_photo() {}
 
-#if 0
-    public override bool key_press_event(Gdk.EventKey event) {
+    public virtual bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         // if the user holds the arrow keys down, we will receive a steady stream of key press
         // events for an operation that isn't designed for a rapid succession of output ...
         // we staunch the supply of new photos to under a quarter second (#533)
-        bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
+        bool nav_ok = (event.get_current_event_time() - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
 
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Left":
             case "KP_Left":
             case "BackSpace":
                 if (nav_ok) {
                     on_previous_photo();
-                    last_nav_key = event.time;
+                    last_nav_key = event.get_current_event_time();
                 }
             break;
 
@@ -496,7 +499,7 @@ public abstract class SinglePhotoPage : Page {
             case "space":
                 if (nav_ok) {
                     on_next_photo();
-                    last_nav_key = event.time;
+                    last_nav_key = event.get_current_event_time();
                 }
             break;
 
@@ -505,13 +508,8 @@ public abstract class SinglePhotoPage : Page {
             break;
         }
 
-        if (handled)
-            return true;
-
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return handled;
     }
-
-    #endif
 
     private void on_colors_changed() {
         invalidate_transparent_background();

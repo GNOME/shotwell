@@ -70,6 +70,10 @@ public abstract class CheckerboardPage : Page {
 
         // scrollbar policy
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+
+        var key_controller = new Gtk.EventControllerKey();
+        key_controller.key_pressed.connect(key_press_event);
+        add_controller (key_controller);
     }
 
     public void init_item_context_menu(string path) {
@@ -252,14 +256,13 @@ public abstract class CheckerboardPage : Page {
         }
     }
 
-#if 0
-    protected override bool key_press_event(Gdk.EventKey event) {
+    protected bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
 
         // mask out the modifiers we're interested in
-        uint state = event.state & Gdk.ModifierType.SHIFT_MASK;
+        uint state = modifiers & Gdk.ModifierType.SHIFT_MASK;
 
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Up":
             case "KP_Up":
                 move_cursor(CompassPoint.NORTH);
@@ -319,12 +322,8 @@ public abstract class CheckerboardPage : Page {
             break;
         }
 
-        if (handled)
-            return true;
-
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+        return handled;
     }
-    #endif
 
     protected override bool on_left_click(Gtk.EventController event, int press, double x, double y) {
         // only interested in single-click and double-clicks for now

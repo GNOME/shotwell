@@ -73,8 +73,6 @@ public class FullscreenWindow : PageWindow {
         show();
 
         // capture motion events to show the toolbar
-        //add_events(Gdk.EventMask.POINTER_MOTION_MASK);
-
         var motion = new Gtk.EventControllerMotion();
         motion.enter.connect(() => {
             pointer_in_toolbar = true;
@@ -88,6 +86,10 @@ public class FullscreenWindow : PageWindow {
         motion.motion.connect(motion_notify_event);
         page.add_controller(motion);
 
+
+        var key = new Gtk.EventControllerKey();
+        key.key_pressed.connect(key_press_event);
+        ((Gtk.Widget)this).add_controller(key);
         
         // If toolbar is enabled in "normal" ui OR was pinned in
         // fullscreen, start off with toolbar invoked, as a clue for the
@@ -125,23 +127,20 @@ public class FullscreenWindow : PageWindow {
         return result;
     }
 
-    #if 0
-    public override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         // check for an escape/abort 
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
+        if (Gdk.keyval_name(keyval) == "Escape") {
             on_close();
             
             return true;
         }
-        
-        // propagate to this (fullscreen) window respecting "stop propagation" result...
-        if (base.key_press_event != null && base.key_press_event(event))
+
+        if (base.key_press_event(event, keyval, keycode, modifiers))
             return true;
-        
+                
         // ... then propagate to the underlying window hidden behind this fullscreen one
-        return AppWindow.get_instance().key_press_event(event);
+        return event.forward (AppWindow.get_instance());
     }
-    #endif
     
     private void on_close() {
         Config.Facade.get_instance().set_pin_toolbar_state(is_toolbar_dismissal_enabled);
