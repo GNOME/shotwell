@@ -426,8 +426,7 @@ public abstract class Page : Gtk.Box {
     }
 
     private bool get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
-    #if 0
-        if (AppWindow.get_instance().get_window() == null) {
+        if (AppWindow.get_instance().get_surface() == null) {
             ctrl = false;
             alt = false;
             shift = false;
@@ -436,19 +435,17 @@ public abstract class Page : Gtk.Box {
             return false;
         }
         
-        int x, y;
+        double x, y;
         Gdk.ModifierType mask;
         var seat = Gdk.Display.get_default().get_default_seat();
-        AppWindow.get_instance().get_window().get_device_position(seat.get_pointer(), out x, out y, out mask);
+        AppWindow.get_instance().get_surface().get_device_position(seat.get_pointer(), out x, out y, out mask);
 
         ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
-        alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
+        alt = (mask & Gdk.ModifierType.ALT_MASK) != 0;
         shift = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
-        super = (mask & Gdk.ModifierType.MOD4_MASK) != 0; // not SUPER_MASK
+        super = (mask & Gdk.ModifierType.SUPER_MASK) != 0; // not SUPER_MASK
         
         return true;
-        #endif
-        return false;
     }
 
     private void update_modifiers() {
@@ -459,27 +456,25 @@ public abstract class Page : Gtk.Box {
             return;
         }
         
-        #if 0
         if (ctrl_pressed && !ctrl_currently_pressed)
-            on_ctrl_released(null);
+            on_ctrl_released();
         else if (!ctrl_pressed && ctrl_currently_pressed)
-            on_ctrl_pressed(null);
+            on_ctrl_pressed();
 
         if (alt_pressed && !alt_currently_pressed)
-            on_alt_released(null);
+            on_alt_released();
         else if (!alt_pressed && alt_currently_pressed)
-            on_alt_pressed(null);
+            on_alt_pressed();
 
         if (shift_pressed && !shift_currently_pressed)
-            on_shift_released(null);
+            on_shift_released();
         else if (!shift_pressed && shift_currently_pressed)
-            on_shift_pressed(null);
+            on_shift_pressed();
 
         if(super_pressed && !super_currently_pressed)
-            on_super_released(null);
+            on_super_released();
         else if (!super_pressed && super_currently_pressed)
-            on_super_pressed(null);
-            #endif
+            on_super_pressed();
         
         ctrl_pressed = ctrl_currently_pressed;
         alt_pressed = alt_currently_pressed;
@@ -777,54 +772,53 @@ public abstract class Page : Gtk.Box {
         }
     }
 
-#if 0
-    protected virtual bool on_ctrl_pressed(Gdk.EventKey? event) {
+    protected virtual bool on_ctrl_pressed() {
         return false;
     }
     
-    protected virtual bool on_ctrl_released(Gdk.EventKey? event) {
+    protected virtual bool on_ctrl_released() {
         return false;
     }
     
-    protected virtual bool on_alt_pressed(Gdk.EventKey? event) {
+    protected virtual bool on_alt_pressed() {
         return false;
     }
     
-    protected virtual bool on_alt_released(Gdk.EventKey? event) {
+    protected virtual bool on_alt_released() {
         return false;
     }
     
-    protected virtual bool on_shift_pressed(Gdk.EventKey? event) {
+    protected virtual bool on_shift_pressed() {
         return false;
     }
     
-    protected virtual bool on_shift_released(Gdk.EventKey? event) {
+    protected virtual bool on_shift_released() {
         return false;
     }
 
-    protected virtual bool on_super_pressed(Gdk.EventKey? event) {
+    protected virtual bool on_super_pressed() {
         return false;
     }
     
-    protected virtual bool on_super_released(Gdk.EventKey? event) {
+    protected virtual bool on_super_released() {
         return false;
     }
     
-    protected virtual bool on_app_key_pressed(Gdk.EventKey event) {
+    protected virtual bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         return false;
     }
     
-    protected virtual bool on_app_key_released(Gdk.EventKey event) {
+    protected virtual bool on_app_key_released(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         return false;
     }
     
-    public bool notify_app_key_pressed(Gdk.EventKey event) {
+    public bool notify_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
             super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
             out shift_currently_pressed, out super_currently_pressed);
 
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Control_L":
             case "Control_R":
                 if (!ctrl_currently_pressed || ctrl_pressed)
@@ -832,7 +826,7 @@ public abstract class Page : Gtk.Box {
 
                 ctrl_pressed = true;
                 
-                return on_ctrl_pressed(event);
+                return on_ctrl_pressed();
 
             case "Meta_L":
             case "Meta_R":
@@ -843,7 +837,7 @@ public abstract class Page : Gtk.Box {
 
                 alt_pressed = true;
                 
-                return on_alt_pressed(event);
+                return on_alt_pressed();
             
             case "Shift_L":
             case "Shift_R":
@@ -852,7 +846,7 @@ public abstract class Page : Gtk.Box {
 
                 shift_pressed = true;
                 
-                return on_shift_pressed(event);
+                return on_shift_pressed();
             
             case "Super_L":
             case "Super_R":
@@ -861,19 +855,19 @@ public abstract class Page : Gtk.Box {
                 
                 super_pressed = true;
                 
-                return on_super_pressed(event);
+                return on_super_pressed();
         }
         
-        return on_app_key_pressed(event);
+        return on_app_key_pressed(event, keycode, keyval, modifiers);
     }
     
-    public bool notify_app_key_released(Gdk.EventKey event) {
+    public bool notify_app_key_released(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
             super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
             out shift_currently_pressed, out super_currently_pressed);
 
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "Control_L":
             case "Control_R":
                 if (ctrl_currently_pressed || !ctrl_pressed)
@@ -881,7 +875,7 @@ public abstract class Page : Gtk.Box {
 
                 ctrl_pressed = false;
                 
-                return on_ctrl_released(event);
+                return on_ctrl_released();
             
             case "Meta_L":
             case "Meta_R":
@@ -892,7 +886,7 @@ public abstract class Page : Gtk.Box {
 
                 alt_pressed = false;
                 
-                return on_alt_released(event);
+                return on_alt_released();
             
             case "Shift_L":
             case "Shift_R":
@@ -901,7 +895,7 @@ public abstract class Page : Gtk.Box {
 
                 shift_pressed = false;
                 
-                return on_shift_released(event);
+                return on_shift_released();
 
             case "Super_L":
             case "Super_R":
@@ -910,12 +904,13 @@ public abstract class Page : Gtk.Box {
 
                 super_pressed = false;
                 
-                return on_super_released(event);
+                return on_super_released();
         }
         
-        return on_app_key_released(event);
+        return on_app_key_released(event, keycode, keyval, modifiers);
     }
-    
+
+    #if 0
     public bool notify_app_focus_in(Gdk.EventFocus event) {
         update_modifiers();
         

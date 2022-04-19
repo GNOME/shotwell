@@ -345,10 +345,10 @@ public abstract class CollectionPage : MediaPage {
         }
     }
     
-    #if 0
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+    protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        string? format = null;
+        switch (Gdk.keyval_name(keyval)) {
             case "Page_Up":
             case "KP_Page_Up":
             case "Page_Down":
@@ -357,15 +357,15 @@ public abstract class CollectionPage : MediaPage {
             case "KP_Home":
             case "End":
             case "KP_End":
-                key_press_event(event);
+                // TODO: Should be forwarded
+                handled = false;
             break;
-            
             case "bracketright":
-                activate_action("RotateClockwise");
+                activate_action("RotateClockwise", format);
             break;
             
             case "bracketleft":
-                activate_action("RotateCounterclockwise");
+                activate_action("RotateCounterclockwise", format);
             break;
             
             default:
@@ -373,9 +373,8 @@ public abstract class CollectionPage : MediaPage {
             break;
         }
         
-        return handled ? true : base.on_app_key_pressed(event);
+        return handled ? true : base.on_app_key_pressed(event, keyval, keycode, modifiers);
     }
-    #endif
 
     protected override void on_export() {
         if (exporter != null)
@@ -700,29 +699,27 @@ public abstract class CollectionPage : MediaPage {
             photo));
     }
     
-    #if 0
-    protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
-        Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+    protected override bool on_ctrl_pressed() {
+        Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
         if (rotate_button != null) {
             rotate_button.set_action_name ("win.RotateCounterclockwise");
             rotate_button.set_icon_name (Resources.COUNTERCLOCKWISE);
             rotate_button.set_tooltip_text (Resources.ROTATE_CCW_TOOLTIP);
         }
 
-        return base.on_ctrl_pressed(event);
+        return base.on_ctrl_pressed();
     }
     
-    protected override bool on_ctrl_released(Gdk.EventKey? event) {
-        Gtk.ToolButton? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.ToolButton;
+    protected override bool on_ctrl_released() {
+        Gtk.Button? rotate_button = this.builder.get_object ("ToolRotate") as Gtk.Button;
         if (rotate_button != null) {
             rotate_button.set_action_name ("win.RotateClockwise");
             rotate_button.set_icon_name (Resources.CLOCKWISE);
             rotate_button.set_tooltip_text (Resources.ROTATE_CW_TOOLTIP);
         }
 
-        return base.on_ctrl_released(event);
+        return base.on_ctrl_released();
     }
-    #endif
     
     public override SearchViewFilter get_search_view_filter() {
         return search_filter;

@@ -438,17 +438,17 @@ public class DirectPhotoPage : EditingHostPage {
             DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
     }
     
-    #if 0
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+    protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
+        string? format = null;
         
-        switch (Gdk.keyval_name(event.keyval)) {
+        switch (Gdk.keyval_name(keyval)) {
             case "bracketright":
-                activate_action("RotateClockwise");
+                activate_action("RotateClockwise", format);
             break;
             
             case "bracketleft":
-                activate_action("RotateCounterclockwise");
+                activate_action("RotateCounterclockwise", format);
             break;
             
             default:
@@ -456,9 +456,8 @@ public class DirectPhotoPage : EditingHostPage {
             break;
         }
         
-        return handled ? true : base.on_app_key_pressed(event);
+        return handled ? true : base.on_app_key_pressed(event, keyval, keycode, modifiers);
     }
-    #endif
     
     private void on_print() {
         if (get_view().get_selected_count() > 0) {

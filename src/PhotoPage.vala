@@ -2020,8 +2020,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         });
     }
 
-#if 0
-    protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
+    protected override bool on_ctrl_pressed() {
         rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
@@ -2031,10 +2030,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null)
             swap_out_original();
 
-        return base.on_ctrl_pressed(event);
+        return base.on_ctrl_pressed();
     }
     
-    protected override bool on_ctrl_released(Gdk.EventKey? event) {
+    protected override bool on_ctrl_released() {
         rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
@@ -2044,9 +2043,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool == null && get_shift_pressed() && !get_alt_pressed())
             swap_in_original();
         
-        return base.on_ctrl_released(event);
+        return base.on_ctrl_released();
     }
-    #endif
     
     protected void on_tool_button_toggled(Gtk.ToggleButton toggle, EditingTools.EditingTool.Factory factory) {
         // if the button is an activate, deactivate any current tool running; if the button is

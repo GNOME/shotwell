@@ -414,60 +414,60 @@ public abstract class MediaPage : CheckerboardPage {
         }
     }
 
-#if 0
-    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+    protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
+        string? format = null; // Workaround for missing annotation
+        switch (Gdk.keyval_name(keyval)) {
             case "equal":
             case "plus":
             case "KP_Add":
-                activate_action("IncreaseSize");
+                activate_action("IncreaseSize", format);
             break;
             
             case "minus":
             case "underscore":
             case "KP_Subtract":
-                activate_action("DecreaseSize");
+                activate_action("DecreaseSize", format);
             break;
             
             case "period":
-                activate_action("IncreaseRating");
+                activate_action("IncreaseRating", format);
             break;
             
             case "comma":
-                activate_action("DecreaseRating");
+                activate_action("DecreaseRating", format);
             break;
             
             case "KP_1":
-                activate_action("RateOne");
+                activate_action("RateOne", format);
             break;
             
             case "KP_2":
-                activate_action("RateTwo");
+                activate_action("RateTwo", format);
             break;
             
             case "KP_3":
-                activate_action("RateThree");
+                activate_action("RateThree", format);
             break;
             
             case "KP_4":
-                activate_action("RateFour");
+                activate_action("RateFour", format);
             break;
             
             case "KP_5":
-                activate_action("RateFive");
+                activate_action("RateFive", format);
             break;
             
             case "KP_0":
-                activate_action("RateUnrated");
+                activate_action("RateUnrated", format);
             break;
             
             case "KP_9":
-                activate_action("RateRejected");
+                activate_action("RateRejected", format);
             break;
             
             case "slash":
-                activate_action("Flag");
+                activate_action("Flag", format);
             break;
             
             default:
@@ -475,9 +475,8 @@ public abstract class MediaPage : CheckerboardPage {
             break;
         }
         
-        return handled ? true : base.on_app_key_pressed(event);
+        return handled ? true : base.on_app_key_pressed(event, keyval, keycode, modifiers);
     }
-    #endif
 
     public override void switched_to() {
         base.switched_to();

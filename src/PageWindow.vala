@@ -17,16 +17,17 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         Object(application: Application.get_instance().get_system_app());
 
         // the current page needs to know when modifier keys are pressed
-        #if 0
-        add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
-            | Gdk.EventMask.STRUCTURE_MASK);
-            #endif
         set_show_menubar(true);
 
         notify["maximized"].connect(synthesize_configure_event);
         notify["default-width"].connect(synthesize_configure_event);
         notify["default-height"].connect(synthesize_configure_event);
         notify["fullscreened"].connect(synthesize_configure_event);
+
+        var key_controller = new Gtk.EventControllerKey();
+        key_controller.key_pressed.connect(key_press_event);
+        key_controller.key_released.connect(key_release_event);
+        ((Gtk.Widget)this).add_controller(key_controller);
     }
 
     private void synthesize_configure_event() {
@@ -78,27 +79,19 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         switched_pages(old_page, null);
     }
 
+    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if (current_page != null && current_page.notify_app_key_pressed(event, keyval, keycode, modifiers))
+            return true;
+
+        return false;
+    }
+
+    public void key_release_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if (current_page != null)
+            current_page.notify_app_key_released(event, keyval, keycode, modifiers);
+    }
+
     #if 0
-    public override bool key_press_event(Gdk.EventKey event) {
-        if (get_focus() is Gtk.Entry && get_focus().key_press_event(event))
-            return true;
-
-        if (current_page != null && current_page.notify_app_key_pressed(event))
-            return true;
-
-        return (base.key_press_event != null) ? base.key_press_event(event) : false;
-    }
-
-    public override bool key_release_event(Gdk.EventKey event) {
-        if (get_focus() is Gtk.Entry && get_focus().key_release_event(event))
-            return true;
-
-        if (current_page != null && current_page.notify_app_key_released(event))
-            return true;
-
-        return (base.key_release_event != null) ? base.key_release_event(event) : false;
-    }
-
     public override bool focus_in_event(Gdk.EventFocus event) {
         if (current_page != null && current_page.notify_app_focus_in(event))
             return true;
@@ -130,6 +123,6 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
             return;
         }
 
-        set_cursor_from_name("default");
+        set_cursor_from_name(null);
     }
 }
