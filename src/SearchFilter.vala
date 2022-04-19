@@ -692,15 +692,18 @@ public class SearchFilterToolbar : Gtk.Box {
 
     // Text search box.
     protected class SearchBox : Gtk.Box {
-        private Gtk.SearchEntry search_entry;
+        private Gtk.Entry search_entry;
         private TextAction action;
         
         public SearchBox(TextAction action) {
             this.action = action;
-            search_entry = new Gtk.SearchEntry();
+            search_entry = new Gtk.Entry();
             
             search_entry.width_chars = 23;
-            //search_entry.key_press_event.connect(on_escape_key); 
+            search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY, "edit-find-symbolic");
+            var event = new Gtk.EventControllerKey();
+            search_entry.add_controller(event);
+            event.key_pressed.connect(on_escape_key);
             append(search_entry);
             
             set_nullable_text(action.value);
@@ -709,8 +712,8 @@ public class SearchFilterToolbar : Gtk.Box {
             action.sensitivity_changed.connect(on_sensitivity_changed);
             action.visibility_changed.connect(on_visibility_changed);
             
-            search_entry.delete_text.connect(on_entry_changed);
-            search_entry.insert_text.connect(on_entry_changed);
+            search_entry.get_buffer().deleted_text.connect(on_entry_changed);
+            search_entry.get_buffer().inserted_text.connect(on_entry_changed);
         }
         
         ~SearchBox() {
@@ -718,33 +721,29 @@ public class SearchFilterToolbar : Gtk.Box {
             action.sensitivity_changed.disconnect(on_sensitivity_changed);
             action.visibility_changed.disconnect(on_visibility_changed);
             
-            search_entry.delete_text.disconnect(on_entry_changed);
-            search_entry.insert_text.disconnect(on_entry_changed);
+            search_entry.get_buffer().deleted_text.disconnect(on_entry_changed);
+            search_entry.get_buffer().inserted_text.disconnect(on_entry_changed);
         }
         
         public void get_focus() {
         }
         
 
-        #if 0
-        // Ticket #3124 - user should be able to clear 
-        // the search textbox by typing 'Esc'. 
-        private bool on_escape_key(Gdk.EventKey e) { 
-            if(Gdk.keyval_name(e.keyval) == "Escape")
+        private bool on_escape_key(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) { 
+            if(Gdk.keyval_name(keyval) == "Escape")
                 action.clear();
             
            // Continue processing this event, since the 
            // text entry functionality needs to see it too. 
             return false; 
         }
-        #endif
         
         private void on_action_text_changed(string? text) {
-            //search_entry.get_buffer().buffer.deleted_text.disconnect(on_entry_changed);
-            //search_entry.get_buffer().inserted_text.disconnect(on_entry_changed);
+            search_entry.get_buffer().deleted_text.disconnect(on_entry_changed);
+            search_entry.get_buffer().inserted_text.disconnect(on_entry_changed);
             set_nullable_text(text);
-            //search_entry.buffer.deleted_text.connect(on_entry_changed);
-            //search_entry.buffer.inserted_text.connect(on_entry_changed);
+            search_entry.get_buffer().deleted_text.connect(on_entry_changed);
+            search_entry.get_buffer().inserted_text.connect(on_entry_changed);
         }
         
         private void on_entry_changed() {
