@@ -12,7 +12,7 @@ conf.set('_VERSION', '"@0@"'.format(meson.project_version()))
 conf.set('_PREFIX', '"@0@"'.format(get_option('prefix')))
 conf.set('_LANG_SUPPORT_DIR', '"@0@"'.format(join_paths(get_option('prefix'), get_option('localedir'))))
 conf.set('_LIBEXECDIR', '"@0@"'.format(join_paths(get_option('prefix'), get_option('libexecdir'))))
-conf.set('_LIB', '"@0@"'.format(join_paths(get_option('prefix'), get_option('libdir'))))
+conf.set('_LIB', '"@0@"'.format(get_option('libdir')))
 configure_file(output : 'config.h', configuration: conf)
 
 config_incdir = include_directories('.')
