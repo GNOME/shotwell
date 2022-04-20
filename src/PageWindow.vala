@@ -28,6 +28,10 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
         key_controller.key_pressed.connect(key_press_event);
         key_controller.key_released.connect(key_release_event);
         ((Gtk.Widget)this).add_controller(key_controller);
+
+        var focus_controller = new Gtk.EventControllerFocus();
+        focus_controller.enter.connect(focus_in_event);
+        ((Gtk.Widget)this).add_controller(focus_controller);
     }
 
     private void synthesize_configure_event() {
@@ -97,22 +101,10 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
             current_page.notify_app_key_released(event, keyval, keycode, modifiers);
     }
 
-    #if 0
-    public override bool focus_in_event(Gdk.EventFocus event) {
-        if (current_page != null && current_page.notify_app_focus_in(event))
-            return true;
-
-        return (base.focus_in_event != null) ? base.focus_in_event(event) : false;
+    public void focus_in_event(Gtk.EventControllerFocus event) {
+        if (current_page != null)
+            current_page.notify_app_focus_in();
     }
-
-    public override bool focus_out_event(Gdk.EventFocus event) {
-        if (current_page != null && current_page.notify_app_focus_out(event))
-            return true;
-
-        return (base.focus_out_event != null) ? base.focus_out_event(event) : false;
-    }
-
-    #endif
 
     public void set_busy_cursor() {
         if (busy_counter++ > 0)

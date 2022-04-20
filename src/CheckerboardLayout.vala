@@ -147,7 +147,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         page_name = name;
     }
     
-    private void on_viewport_resized() {
+    public void on_viewport_resized() {
         Gtk.Requisition req;
         get_preferred_size(null, out req);
         

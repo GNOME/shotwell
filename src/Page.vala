@@ -901,17 +901,9 @@ public abstract class Page : Gtk.Box {
         return on_app_key_released(event, keycode, keyval, modifiers);
     }
 
-    #if 0
-    public bool notify_app_focus_in(Gdk.EventFocus event) {
+    public void notify_app_focus_in() {
         update_modifiers();
-        
-        return false;
     }
-
-    public bool notify_app_focus_out(Gdk.EventFocus event) {
-        return false;
-    }
-    #endif
     
     protected virtual void on_resize(Gdk.Rectangle rect) {
     }
