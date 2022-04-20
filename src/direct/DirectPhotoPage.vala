@@ -209,8 +209,7 @@ public class DirectPhotoPage : EditingHostPage {
         get_command_manager().reset();
     }
     
-    #if 0
-    protected override bool on_double_click(Gdk.EventButton event) {
+    protected override bool on_double_click(Gtk.EventController event, double x, double y) {
         FullscreenWindow? fs = get_container() as FullscreenWindow;
         if (fs != null) {
             fs.close();
@@ -225,9 +224,8 @@ public class DirectPhotoPage : EditingHostPage {
             }
         }
         
-        return base.on_double_click(event);
+        return base.on_double_click(event, x, y);
     }
-    #endif
     
     protected override void update_ui(bool missing) {
         bool sensitivity = !missing;
