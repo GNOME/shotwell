@@ -76,6 +76,12 @@ public abstract class CheckerboardPage : Page {
         add_controller (key_controller);
     }
 
+    protected override bool on_configure(Gdk.Rectangle rect) {
+        layout.on_viewport_resized();
+
+        return false;
+    }
+
     public void init_item_context_menu(string path) {
         item_context_menu_path = path;
     }

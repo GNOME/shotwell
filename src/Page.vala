@@ -200,15 +200,6 @@ public abstract class Page : Gtk.Box {
             | Gtk.EventControllerScrollFlags.DISCRETE);
         scroll.scroll.connect(on_mousewheel_internal);
         event_source.add_controller(scroll);
-
-#if 0
-        // interested in mouse button and motion events on the event source
-        event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
-            | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK
-            | Gdk.EventMask.BUTTON_MOTION_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK
-            | Gdk.EventMask.SCROLL_MASK | Gdk.EventMask.SMOOTH_SCROLL_MASK);
-        event_source.realize.connect(on_event_source_realize);
-        #endif 
     }
     
     private void detach_event_source() {
