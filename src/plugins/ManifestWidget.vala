@@ -210,49 +210,6 @@ private class ManifestListView : Gtk.TreeView {
         
         return id;
     }
-
-    // Because we want each row to left-align and not for each column to line up in a grid
-    // (otherwise the checkboxes -- hidden or not -- would cause the rest of the row to line up
-    // along the icon's left edge), we put all the renderers into a single column.  However, the
-    // checkbox renderer then triggers its "toggle" signal any time the row is single-clicked,
-    // whether or not the actual checkbox hit-tests.
-    //
-    // The only way found to work around this is to capture the button-down event and do our own
-    // hit-testing.
-    #if DOES_NOT_WORK_WITH_GTK4
-    public override bool button_press_event(Gdk.EventButton event) {
-        Gtk.TreePath path;
-        Gtk.TreeViewColumn col;
-        int cellx;
-        int celly;
-        if (!get_path_at_pos((int) event.x, (int) event.y, out path, out col, out cellx,
-            out celly))
-            return base.button_press_event(event);
-        
-        // Perform custom hit testing as described above. The first cell in the column is offset
-        // from the left edge by whatever size the group description icon is allocated (including
-        // padding).
-        if (cellx < (ICON_SIZE + ICON_X_PADDING) || cellx > (2 * (ICON_X_PADDING + ICON_SIZE)))
-            return base.button_press_event(event);
-
-        Gtk.TreeIter iter;
-        string? id = get_id_at_path(path, out iter);
-        if (id == null)
-            return base.button_press_event(event);
-        
-        bool enabled;
-        if (!get_pluggable_enabled(id, out enabled))
-            return base.button_press_event(event);
-        
-        // toggle and set
-        enabled = !enabled;
-        set_pluggable_enabled(id, enabled);
-        
-        store.set(iter, Column.ENABLED, enabled);
-        
-        return true;
-    }
-    #endif
 }
 
 }
