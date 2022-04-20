@@ -12,7 +12,7 @@ conf.set_quoted('_VERSION', meson.project_version())
 conf.set_quoted('_PREFIX', get_option('prefix'))
 conf.set_quoted('_LANG_SUPPORT_DIR', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set_quoted('_LIBEXECDIR', join_paths(get_option('prefix'), get_option('libexecdir')))
-conf.set_quoted('_LIB', join_paths(get_option('prefix'), get_option('libdir')))
+conf.set_quoted('_LIB', get_option('libdir'))
 configure_file(output : 'config.h', configuration: conf)
 
 config_incdir = include_directories('.')
