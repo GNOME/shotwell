@@ -271,11 +271,11 @@ public class CustomPrintTab : Gtk.Box {
     private const int CENTIMETERS_COMBO_CHOICE = 1;
 
     [GtkChild]
-    private unowned Gtk.ToggleButton standard_size_radio;
+    private unowned Gtk.CheckButton standard_size_radio;
     [GtkChild]
-    private unowned Gtk.ToggleButton custom_size_radio;
+    private unowned Gtk.CheckButton custom_size_radio;
     [GtkChild]
-    private unowned Gtk.ToggleButton image_per_page_radio;
+    private unowned Gtk.CheckButton image_per_page_radio;
     [GtkChild]
     private unowned Gtk.ComboBoxText image_per_page_combo;
     [GtkChild]
@@ -304,9 +304,9 @@ public class CustomPrintTab : Gtk.Box {
     public CustomPrintTab(PrintJob source_job) {
         this.source_job = source_job;
 
-        standard_size_radio.clicked.connect(on_radio_group_click);
-        custom_size_radio.clicked.connect(on_radio_group_click);
-        image_per_page_radio.clicked.connect(on_radio_group_click);
+        standard_size_radio.toggled.connect(on_radio_group_click);
+        custom_size_radio.toggled.connect(on_radio_group_click);
+        image_per_page_radio.toggled.connect(on_radio_group_click);
 
         foreach (PrintLayout layout in PrintLayout.get_all()) {
             image_per_page_combo.append_text(layout.to_string());
@@ -320,17 +320,23 @@ public class CustomPrintTab : Gtk.Box {
 
         standard_sizes_combo.set_active(9 * Resources.get_default_measurement_unit());
 
+        var focus = new Gtk.EventControllerFocus();
+        focus.leave.connect(on_width_entry_focus_out);
+        custom_width_entry.add_controller(focus);
         custom_width_entry.insert_text.connect(on_entry_insert_text);
-        //custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
 
+        focus = new Gtk.EventControllerFocus();
+        focus.leave.connect(on_height_entry_focus_out);
+        custom_height_entry.add_controller(focus);
         custom_height_entry.insert_text.connect(on_entry_insert_text);
-        //custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
 
         units_combo.changed.connect(on_units_combo_changed);
         units_combo.set_active(Resources.get_default_measurement_unit());
 
         ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
-        //ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
+        focus = new Gtk.EventControllerFocus();
+        focus.leave.connect(on_ppi_entry_focus_out);
+        ppi_entry.add_controller(focus);
 
         sync_state_from_job(source_job);
 
@@ -349,11 +355,10 @@ public class CustomPrintTab : Gtk.Box {
         }
     }
 
-#if 0
-    private bool on_width_entry_focus_out(Gdk.EventFocus event) {
+    private void on_width_entry_focus_out(Gtk.EventControllerFocus event) {
         if (custom_width_entry.get_text() == (format_measurement_as(local_content_width,
             get_user_unit_choice())))
-            return false;
+            return;
 
         Measurement new_width = get_width_entry_value();
         Measurement min_width = source_job.get_local_settings().get_minimum_content_dimension();
@@ -361,7 +366,7 @@ public class CustomPrintTab : Gtk.Box {
 
         if (new_width.is_less_than(min_width) || new_width.is_greater_than(max_width)) {
             custom_width_entry.set_text(format_measurement(local_content_width));
-            return false;
+            return;
         }
 
         if (is_match_aspect_ratio_enabled()) {
@@ -374,9 +379,8 @@ public class CustomPrintTab : Gtk.Box {
 
         local_content_width = new_width;
         custom_width_entry.set_text(format_measurement(new_width));
-        return false;
+        return;
     }
-    #endif
 
     private string format_measurement(Measurement measurement) {
         return "%.2f".printf(measurement.value);
@@ -388,12 +392,9 @@ public class CustomPrintTab : Gtk.Box {
         return format_measurement(converted_measurement);
     }
 
-#if 0
-    private bool on_ppi_entry_focus_out(Gdk.EventFocus event) {
+    private void on_ppi_entry_focus_out(Gtk.EventControllerFocus event) {
         set_content_ppi(int.parse(ppi_entry.get_text()));
-        return false;
     }
-    #endif
 
     private void on_ppi_entry_insert_text(Gtk.Editable editable, string text, int length,
         ref int position) {
@@ -421,11 +422,10 @@ public class CustomPrintTab : Gtk.Box {
         is_text_insertion_in_progress = false;
     }
 
-#if 0
-    private bool on_height_entry_focus_out(Gdk.EventFocus event) {
+    private void on_height_entry_focus_out(Gtk.EventControllerFocus event) {
         if (custom_height_entry.get_text() == (format_measurement_as(local_content_height,
             get_user_unit_choice())))
-            return false;
+            return;
 
         Measurement new_height = get_height_entry_value();
         Measurement min_height = source_job.get_local_settings().get_minimum_content_dimension();
@@ -433,7 +433,7 @@ public class CustomPrintTab : Gtk.Box {
 
         if (new_height.is_less_than(min_height) || new_height.is_greater_than(max_height)) {
             custom_height_entry.set_text(format_measurement(local_content_height));
-            return false;
+            return;
         }
 
         if (is_match_aspect_ratio_enabled()) {
@@ -446,9 +446,7 @@ public class CustomPrintTab : Gtk.Box {
 
         local_content_height = new_height;
         custom_height_entry.set_text(format_measurement(new_height));
-        return false;
     }
-    #endif
 
     private MeasurementUnit get_user_unit_choice() {
         if (units_combo.get_active() == INCHES_COMBO_CHOICE) {
@@ -531,10 +529,7 @@ public class CustomPrintTab : Gtk.Box {
         set_print_titles_font(job.get_local_settings().get_print_titles_font());
     }
 
-    private void on_radio_group_click(Gtk.Button b) {
-    #if 0
-        Gtk.RadioButton sender = (Gtk.RadioButton) b;
-        
+    private void on_radio_group_click(Gtk.CheckButton sender) {
         if (sender == standard_size_radio) {
             set_content_layout_control_state(ContentLayout.STANDARD_SIZE);
             standard_sizes_combo.grab_focus();
@@ -544,7 +539,6 @@ public class CustomPrintTab : Gtk.Box {
         } else if (sender == image_per_page_radio) {
             set_content_layout_control_state(ContentLayout.IMAGE_PER_PAGE);
         }
-        #endif
     }
 
     private void on_units_combo_changed() {

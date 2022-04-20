@@ -47,7 +47,7 @@ public class ProgressDialog : Gtk.Window {
 
         Gtk.Box vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 12);
         vbox.prepend(primary_text_label);
-        vbox.prepend(hbox);
+        vbox.append(hbox);
         vbox.halign = Gtk.Align.CENTER;
         vbox.valign = Gtk.Align.CENTER;
         vbox.hexpand = true;
@@ -60,14 +60,10 @@ public class ProgressDialog : Gtk.Window {
         set_child(vbox);
 
         time_started = now_ms();
-    }
-
-    public override void realize() {
-        base.realize();
-
-        // if unable to cancel the progress bar, remove the close button
-        //if (cancellable == null)
-            //get_window().set_functions(Gdk.WMFunction.MOVE);
+        set_titlebar(new Gtk.HeaderBar());
+        if (cancellable == null) {
+            ((Gtk.HeaderBar)get_titlebar()).set_show_title_buttons(false);
+        }
     }
 
     public void update_display_every(int update_every) {
