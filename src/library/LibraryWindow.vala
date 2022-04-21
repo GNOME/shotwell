@@ -1144,8 +1144,7 @@ public class LibraryWindow : AppWindow {
         
         Page current_page = get_current_page();
         if (current_page != null) {
-            set_show_menubar (false);
-            Application.set_menubar (null);
+            set_menubar(null);
 
             var toolbar = current_page.get_toolbar();
             if (toolbar != null)
@@ -1202,8 +1201,7 @@ public class LibraryWindow : AppWindow {
         
         page.switched_to();
 
-        Application.set_menubar (page.get_menubar ());
-        set_show_menubar (true);
+        set_menubar (page.get_menubar ());
         var old = get_settings().gtk_shell_shows_menubar;
         get_settings().gtk_shell_shows_menubar = !old;
         get_settings().gtk_shell_shows_menubar = old;

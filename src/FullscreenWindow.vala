@@ -103,9 +103,6 @@ public class FullscreenWindow : PageWindow {
 
         // Toolbar steals keyboard focus from page, put it back again
         page.grab_focus ();
-
-        // Do not show menubar in fullscreen
-        set_show_menubar (false);
     }
 
     public void disable_toolbar_dismissal() {

@@ -26,7 +26,7 @@ public class DirectWindow : AppWindow {
         layout.prepend(direct_photo_page);
         layout.append(direct_photo_page.get_toolbar());
         
-        Application.set_menubar (direct_photo_page.get_menubar ());
+        set_menubar(direct_photo_page.get_menubar ());
 
         set_child(layout);
 

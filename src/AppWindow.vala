@@ -17,6 +17,10 @@ public abstract class AppWindow : PageWindow {
     
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
+
+    private Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+    private Gtk.PopoverMenuBar menu_bar;
+    private Gtk.Revealer menu_revealer = new Gtk.Revealer();
     
     // the AppWindow maintains its own UI manager because the first UIManager an action group is
     // added to is the one that claims its accelerators
@@ -24,8 +28,32 @@ public abstract class AppWindow : PageWindow {
     protected int pos_x = 0;
     protected int pos_y = 0;
     
+    public new void set_child(Gtk.Widget child) {
+        content_box.append(child);
+    }
+
+    public void set_menubar(GLib.MenuModel? menu_model) {
+        // TODO: Obey Gtk.Settings:gtk-shell-shows-menubar
+        if (menu_model == null) {
+            menu_revealer.set_reveal_child(false);
+            menu_revealer.set_child(null);
+            menu_bar = null;
+
+            return;
+        }
+
+        menu_bar = new Gtk.PopoverMenuBar.from_model(menu_model);
+        menu_revealer.set_child(menu_bar);
+        menu_revealer.set_reveal_child(true);
+    }
+
     protected AppWindow() {
         base();
+
+        menu_revealer.vexpand = false;
+        menu_revealer.hexpand = true;
+        content_box.append(menu_revealer);
+        base.set_child(content_box);
 
         // although there are multiple AppWindow types, only one may exist per-process
         assert(instance == null);

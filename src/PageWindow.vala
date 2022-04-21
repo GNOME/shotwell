@@ -16,9 +16,6 @@ public abstract class PageWindow : Gtk.ApplicationWindow {
     protected PageWindow() {
         Object(application: Application.get_instance().get_system_app());
 
-        // the current page needs to know when modifier keys are pressed
-        set_show_menubar(true);
-
         notify["maximized"].connect(synthesize_configure_event);
         notify["default-width"].connect(synthesize_configure_event);
         notify["default-height"].connect(synthesize_configure_event);
