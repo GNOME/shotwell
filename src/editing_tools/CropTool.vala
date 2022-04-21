@@ -74,7 +74,9 @@ public class EditingTools.CropTool : EditingTool {
         public Gtk.Box layout = null;
         public int normal_width = -1;
         public int normal_height = -1;
-
+        public Gtk.EventControllerFocus custom_width_focus;
+        public Gtk.EventControllerFocus custom_height_focus;
+        
         public CropToolWindow(Gtk.Window container) {
             base(container);
 
@@ -110,6 +112,11 @@ public class EditingTools.CropTool : EditingTool {
             layout.append(response_layout);
 
             add(layout);
+
+            custom_width_focus = new Gtk.EventControllerFocus();
+            custom_width_entry.add_controller(custom_width_focus);
+            custom_height_focus = new Gtk.EventControllerFocus();
+            custom_height_entry.add_controller(custom_height_focus);    
         }
 
         private static bool constraint_combo_separator_func(Gtk.TreeModel model, Gtk.TreeIter iter) {
@@ -230,18 +237,17 @@ public class EditingTools.CropTool : EditingTool {
         return result;
     }
 
-    #if 0
-    private bool on_width_entry_focus_out(Gdk.EventFocus event) {
+    private void on_width_entry_focus_out(Gtk.EventControllerFocus event) {
         crop_tool_window.most_recently_edited = crop_tool_window.custom_width_entry;
-        return on_custom_entry_focus_out(event);
+        on_custom_entry_focus_out(event);
     }
 
-    private bool on_height_entry_focus_out(Gdk.EventFocus event) {
+    private void on_height_entry_focus_out(Gtk.EventControllerFocus event) {
         crop_tool_window.most_recently_edited = crop_tool_window.custom_height_entry;
-        return on_custom_entry_focus_out(event);
+        on_custom_entry_focus_out(event);
     }
 
-    private bool on_custom_entry_focus_out(Gdk.EventFocus event) {
+    private void on_custom_entry_focus_out(Gtk.EventControllerFocus event) {
         int width = int.parse(crop_tool_window.custom_width_entry.text);
         int height = int.parse(crop_tool_window.custom_height_entry.text);
 
@@ -256,7 +262,7 @@ public class EditingTools.CropTool : EditingTool {
         }
 
         if ((width == custom_width) && (height == custom_height))
-            return false;
+            return;
 
         custom_aspect_ratio = ((float) width) / ((float) height);
 
@@ -289,10 +295,7 @@ public class EditingTools.CropTool : EditingTool {
 
         custom_width = width;
         custom_height = height;
-
-        return false;
     }
-    #endif
 
     private void on_width_insert_text(string text, int length, ref int position) {
         on_entry_insert_text(crop_tool_window.custom_width_entry, text, length, ref position);
@@ -600,10 +603,8 @@ public class EditingTools.CropTool : EditingTool {
         crop_tool_window.pivot_reticle_button.clicked.connect(on_pivot_button_clicked);
 
         // set up the custom width and height entry boxes
-        #if 0
-        crop_tool_window.custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
-        crop_tool_window.custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
-        #endif
+        crop_tool_window.custom_width_focus.leave.connect(on_width_entry_focus_out);
+        crop_tool_window.custom_height_focus.leave.connect(on_height_entry_focus_out);
         crop_tool_window.custom_width_entry.insert_text.connect(on_width_insert_text);
         crop_tool_window.custom_height_entry.insert_text.connect(on_height_insert_text);
     }
@@ -615,10 +616,8 @@ public class EditingTools.CropTool : EditingTool {
         crop_tool_window.pivot_reticle_button.clicked.disconnect(on_pivot_button_clicked);
 
         // set up the custom width and height entry boxes
-        #if 0
-        crop_tool_window.custom_width_entry.focus_out_event.disconnect(on_width_entry_focus_out);
-        crop_tool_window.custom_height_entry.focus_out_event.disconnect(on_height_entry_focus_out);
-        #endif
+        crop_tool_window.custom_width_focus.leave.disconnect(on_width_entry_focus_out);
+        crop_tool_window.custom_height_focus.leave.disconnect(on_height_entry_focus_out);
         crop_tool_window.custom_width_entry.insert_text.disconnect(on_width_insert_text);
     }
 

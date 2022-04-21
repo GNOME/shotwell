@@ -442,11 +442,11 @@ public class DirectPhotoPage : EditingHostPage {
         
         switch (Gdk.keyval_name(keyval)) {
             case "bracketright":
-                activate_action("RotateClockwise", format);
+                activate_action("win.RotateClockwise", format);
             break;
             
             case "bracketleft":
-                activate_action("RotateCounterclockwise", format);
+                activate_action("win.RotateCounterclockwise", format);
             break;
             
             default:

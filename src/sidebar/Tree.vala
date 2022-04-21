@@ -1193,7 +1193,6 @@ public class Sidebar.Tree : Gtk.TreeView {
         text_entry.editable = false;
         
         text_entry.editing_done.disconnect(on_editing_done);
-        //text_entry.focus_out_event.disconnect(on_editing_focus_out);
     }
     
     private void on_editing_done() {
@@ -1207,17 +1206,7 @@ public class Sidebar.Tree : Gtk.TreeView {
         }
         
         text_entry.editing_done.disconnect(on_editing_done);
-        //text_entry.focus_out_event.disconnect(on_editing_focus_out);
     }
-
-#if 0
-    private bool on_editing_focus_out(Gdk.EventFocus event) {
-        // We'll return false here, in case other parts of the app
-        // want to know if the button press event that caused
-        // us to lose focus have been fully handled.
-        return false;
-    }
-    #endif
     
     private void on_new_search() {
         (new SavedSearchDialog()).show();

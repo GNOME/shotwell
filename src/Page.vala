@@ -849,7 +849,7 @@ public abstract class Page : Gtk.Box {
                 return on_super_pressed();
         }
         
-        return on_app_key_pressed(event, keycode, keyval, modifiers);
+        return on_app_key_pressed(event, keyval, keycode, modifiers);
     }
     
     public bool notify_app_key_released(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
@@ -898,7 +898,7 @@ public abstract class Page : Gtk.Box {
                 return on_super_released();
         }
         
-        return on_app_key_released(event, keycode, keyval, modifiers);
+        return on_app_key_released(event, keyval, keycode, modifiers);
     }
 
     public void notify_app_focus_in() {

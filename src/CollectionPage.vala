@@ -360,11 +360,11 @@ public abstract class CollectionPage : MediaPage {
                 event.forward(this);
             break;
             case "bracketright":
-                activate_action("RotateClockwise", format);
+                activate_action("win.RotateClockwise", format);
             break;
             
             case "bracketleft":
-                activate_action("RotateCounterclockwise", format);
+                activate_action("win.RotateCounterclockwise", format);
             break;
             
             default:

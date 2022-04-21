@@ -55,11 +55,12 @@ public abstract class MediaPage : CheckerboardPage {
             Object (orientation : Gtk.Orientation.HORIZONTAL, spacing : 9);
 
             Gtk.Image zoom_out = new Gtk.Image.from_icon_name("image-zoom-out-symbolic");
-            #if 0
-            zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
-            #endif
+            var click = new Gtk.GestureClick();
+            click.set_exclusive(true);
+            zoom_out.add_controller(click);
+            click.pressed.connect(() => { snap_to_min();});
             
-            prepend(zoom_out);
+            append(zoom_out);
 
             // virgin ZoomSliderAssemblies are created such that they have whatever value is
             // persisted in the configuration system for the photo thumbnail scale
@@ -73,14 +74,15 @@ public abstract class MediaPage : CheckerboardPage {
             slider.set_size_request(200, -1);
             slider.set_tooltip_text(_("Adjust the size of the thumbnails"));
 
-            prepend(slider);
+            append(slider);
 
             Gtk.Image zoom_in = new Gtk.Image.from_icon_name("image-zoom-in-symbolic");
-            #if 0
-            zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
-            #endif
+            click = new Gtk.GestureClick();
+            click.set_exclusive(true);
+            zoom_in.add_controller(click);
+            click.pressed.connect(() => {snap_to_max();});
 
-            prepend(zoom_in);
+            append(zoom_in);
         }
         
         public static double scale_to_slider(int value) {
@@ -95,18 +97,6 @@ public abstract class MediaPage : CheckerboardPage {
             
             return res;
         }
-
-#if 0
-        private bool on_zoom_out_pressed(Gdk.EventButton event) {
-            snap_to_min();
-            return true;
-        }
-        
-        private bool on_zoom_in_pressed(Gdk.EventButton event) {
-            snap_to_max();
-            return true;
-        }
-        #endif
         
         private void on_slider_changed() {
             zoom_changed();
@@ -415,59 +405,60 @@ public abstract class MediaPage : CheckerboardPage {
     }
 
     protected override bool on_app_key_pressed(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        print("On_App_key_pressed: %s\n", Gdk.keyval_name(keyval));
         bool handled = true;
         string? format = null; // Workaround for missing annotation
         switch (Gdk.keyval_name(keyval)) {
             case "equal":
             case "plus":
             case "KP_Add":
-                activate_action("IncreaseSize", format);
+                activate_action("win.IncreaseSize", format);
             break;
             
             case "minus":
             case "underscore":
             case "KP_Subtract":
-                activate_action("DecreaseSize", format);
+                activate_action("win.DecreaseSize", format);
             break;
             
             case "period":
-                activate_action("IncreaseRating", format);
+                activate_action("win.IncreaseRating", format);
             break;
             
             case "comma":
-                activate_action("DecreaseRating", format);
+                activate_action("win.DecreaseRating", format);
             break;
             
             case "KP_1":
-                activate_action("RateOne", format);
+                activate_action("win.RateOne", format);
             break;
             
             case "KP_2":
-                activate_action("RateTwo", format);
+                activate_action("win.RateTwo", format);
             break;
             
             case "KP_3":
-                activate_action("RateThree", format);
+                activate_action("win.RateThree", format);
             break;
             
             case "KP_4":
-                activate_action("RateFour", format);
+                activate_action("win.RateFour", format);
             break;
             
             case "KP_5":
-                activate_action("RateFive", format);
+                activate_action("win.RateFive", format);
             break;
             
             case "KP_0":
-                activate_action("RateUnrated", format);
+                activate_action("win.RateUnrated", format);
             break;
             
             case "KP_9":
-                activate_action("RateRejected", format);
+                activate_action("win.RateRejected", format);
             break;
             
             case "slash":
-                activate_action("Flag", format);
+                activate_action("win.Flag", format);
             break;
             
             default:
