@@ -193,8 +193,6 @@ public abstract class Page : Gtk.ScrolledWindow {
         event_source.leave_notify_event.disconnect(on_leave_notify_event);
         event_source.scroll_event.disconnect(on_mousewheel_internal);
         
-        disable_drag_source();
-        
         event_source = null;
     }
     
