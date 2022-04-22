@@ -17,6 +17,7 @@ public abstract class AppWindow : PageWindow {
     
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
+    private Gtk.ShortcutController shortcut_controller = new Gtk.ShortcutController();
 
     private Gtk.Box content_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     private Gtk.PopoverMenuBar menu_bar;
@@ -32,7 +33,45 @@ public abstract class AppWindow : PageWindow {
         content_box.append(child);
     }
 
+    private void extract_accels_from_menu_item (GLib.MenuModel model, int item, Gtk.ShortcutController controller) {
+        var iter = model.iterate_item_attributes (item);
+        string key;
+        Variant value;
+        Gtk.ShortcutAction? action = null;
+        Gtk.ShortcutTrigger? trigger = null;
+        while (iter.get_next(out key, out value)) {
+            if (key == "action") {
+                action = new Gtk.NamedAction(value.get_string());
+            } else if (key == "accel") {
+                trigger = Gtk.ShortcutTrigger.parse_string(value.get_string());
+            }
+        }
+
+        if (action != null && trigger != null) {
+            controller.add_shortcut(new Gtk.Shortcut(trigger, action));
+        }
+    }
+
+    private void get_accels_from_menu (GLib.MenuModel model, Gtk.ShortcutController controller) {
+        for (var i = 0; i < model.get_n_items(); i++) {
+            extract_accels_from_menu_item (model, i, controller);
+            GLib.MenuModel sub_model;
+
+            var iter = model.iterate_item_links (i);
+            while (iter.get_next(null, out sub_model)) {
+                get_accels_from_menu (sub_model, controller);
+            }
+        }
+    }
+
+    private Gtk.ShortcutController? menu_shortcuts = null;
     public void set_menubar(GLib.MenuModel? menu_model) {
+        // Unregister the old shortcuts
+        if (menu_shortcuts != null) {
+            ((Gtk.Widget)this).remove_controller(menu_shortcuts);
+            menu_shortcuts = null;
+        }
+
         // TODO: Obey Gtk.Settings:gtk-shell-shows-menubar
         if (menu_model == null) {
             menu_revealer.set_reveal_child(false);
@@ -42,9 +81,13 @@ public abstract class AppWindow : PageWindow {
             return;
         }
 
+        // Collect shortcuts from menu
+        menu_shortcuts = new Gtk.ShortcutController();
+        get_accels_from_menu(menu_model, menu_shortcuts);
         menu_bar = new Gtk.PopoverMenuBar.from_model(menu_model);
         menu_revealer.set_child(menu_bar);
         menu_revealer.set_reveal_child(true);
+        ((Gtk.Widget)this).add_controller(menu_shortcuts);
     }
 
     protected AppWindow() {
