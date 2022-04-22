@@ -606,12 +606,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         drag_origin.y = y.clamp(0, allocation.height);
     }
     
-    public void set_drag_select_endpoint(int x, int y) {
+    public void set_drag_select_endpoint(double x, double y) {
         Gtk.Allocation allocation;
         get_allocation(out allocation);
         
-        drag_endpoint.x = x.clamp(0, allocation.width);
-        drag_endpoint.y = y.clamp(0, allocation.height);
+        drag_endpoint.x = (int) x.clamp(0, allocation.width);
+        drag_endpoint.y = (int) y.clamp(0, allocation.height);
         
         // drag_origin and drag_endpoint are maintained only to generate selection_band; all reporting
         // and drawing functions refer to it, not drag_origin and drag_endpoint

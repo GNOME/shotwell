@@ -615,7 +615,7 @@ public abstract class CheckerboardPage : Page {
         // as the viewport never scrolls horizontally, only interested in vertical
         Gtk.Adjustment vadj = scrolled.get_vadjustment();
 
-        int x, y;
+        double x, y;
         Gdk.ModifierType mask;
         get_event_source_pointer(out x, out y, out mask);
 

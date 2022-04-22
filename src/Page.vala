@@ -641,7 +641,7 @@ public abstract class Page : Gtk.Box {
     // button-down mouse drag (i.e. a window grab).
     //
     // For more information, see: https://bugzilla.gnome.org/show_bug.cgi?id=599937
-    public bool get_event_source_pointer(out int x, out int y, out Gdk.ModifierType mask) {
+    public bool get_event_source_pointer(out double x, out double y, out Gdk.ModifierType mask) {
         if (event_source == null) {
             x = 0;
             y = 0;
@@ -651,7 +651,9 @@ public abstract class Page : Gtk.Box {
         }
         
         var seat = Gdk.Display.get_default().get_default_seat();
-        //event_source.get_window().get_device_position(seat.get_pointer(), out x, out y, out mask);
+        double win_x, win_y;
+        event_source.get_native().get_surface().get_device_position(seat.get_pointer(), out win_x, out win_y, out mask);
+        event_source.get_native().translate_coordinates(event_source, win_x, win_y, out x, out y);
         
         if (last_down.x < 0 || last_down.y < 0)
             return true;

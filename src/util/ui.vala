@@ -40,10 +40,10 @@ public void spin_event_loop() {
         MainContext.default().iteration(true);
 }
 
-public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {
-    if (value < (int) adjustment.get_value())
+public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, double value) {
+    if (value < adjustment.get_value())
         return AdjustmentRelation.BELOW;
-    else if (value > (int) (adjustment.get_value() + adjustment.get_page_size()))
+    else if (value > (adjustment.get_value() + adjustment.get_page_size()))
         return AdjustmentRelation.ABOVE;
     else
         return AdjustmentRelation.IN_RANGE;
