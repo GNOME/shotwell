@@ -80,6 +80,7 @@ public class SetBackgroundSlideshowDialog : Gtk.Dialog {
 
         desktop_background = desktop_background_checkbox.active;
         screensaver = screensaver_checkbox.active;
+        delay_value = (int)delay_scale.adjustment.value;
 
         this.destroy();
         return result;
