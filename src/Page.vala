@@ -592,47 +592,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected virtual void update_actions(int selected_count, int count) {
     }
     
-    // This method enables drag-and-drop on the event source and routes its events through this
-    // object
-    public void enable_drag_source(Gdk.DragAction actions, Gtk.TargetEntry[] source_target_entries) {
-        if (dnd_enabled)
-            return;
-            
-        assert(event_source != null);
-        
-        Gtk.drag_source_set(event_source, Gdk.ModifierType.BUTTON1_MASK, source_target_entries, actions);
-        
-        // hook up handlers which route the event_source's DnD signals to the Page's (necessary
-        // because Page is a NO_WINDOW widget and cannot support DnD on its own).
-        event_source.drag_begin.connect(on_drag_begin);
-        event_source.drag_data_get.connect(on_drag_data_get);
-        event_source.drag_data_delete.connect(on_drag_data_delete);
-        event_source.drag_end.connect(on_drag_end);
-        event_source.drag_failed.connect(on_drag_failed);
-        
-        dnd_enabled = true;
-    }
-    
-    public void disable_drag_source() {
-        if (!dnd_enabled)
-            return;
-
-        assert(event_source != null);
-        
-        event_source.drag_begin.disconnect(on_drag_begin);
-        event_source.drag_data_get.disconnect(on_drag_data_get);
-        event_source.drag_data_delete.disconnect(on_drag_data_delete);
-        event_source.drag_end.disconnect(on_drag_end);
-        event_source.drag_failed.disconnect(on_drag_failed);
-        Gtk.drag_source_unset(event_source);
-        
-        dnd_enabled = false;
-    }
-    
-    public bool is_dnd_enabled() {
-        return dnd_enabled;
-    }
-    
     private void on_drag_begin(Gdk.DragContext context) {
         drag_begin(context);
     }
