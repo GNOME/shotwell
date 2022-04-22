@@ -2331,10 +2331,6 @@ public class LibraryPhotoPage : EditingHostPage {
         get_view().install_view_filter(filter);
         LibraryPhoto.global.items_unlinking.connect(on_photo_unlinking);
         LibraryPhoto.global.items_relinked.connect(on_photo_relinked);
-
-        var key = new Gtk.EventControllerKey();
-        key.key_pressed.connect(key_press_event);
-        add_controller(key);
     }
     
     ~LibraryPhotoPage() {
@@ -2708,12 +2704,10 @@ public class LibraryPhotoPage : EditingHostPage {
         base.notify_photo_backing_missing(photo, missing);
     }
     
-    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
-        #if 0
-        if (base.key_press_event != null && base.key_press_event(event) == true)
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+        if (base.key_press_event(event, keyval, keycode, modifiers))
             return true;
-        #endif
-        
+
         bool handled = true;
         string? format = null;
         switch (Gdk.keyval_name(keyval)) {

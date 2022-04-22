@@ -336,7 +336,7 @@ class SlideshowPage : SinglePhotoPage {
         return true;
     }
     
-    public bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
+    public override bool key_press_event(Gtk.EventControllerKey event, uint keyval, uint keycode, Gdk.ModifierType modifiers) {
         bool handled = true;
         switch (Gdk.keyval_name(keyval)) {
             // Block activating the toolbar on key down
