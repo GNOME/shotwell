@@ -794,9 +794,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string SELECT_ALL_MENU = _("Select _All");
     public const string SELECT_ALL_TOOLTIP = _("Select all items");
     
-    private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
-    Gee.HashMap<string, Gdk.Pixbuf> scaled_icon_cache = null;
-    
     private string HH_MM_FORMAT_STRING = null;
     private string HH_MM_SS_FORMAT_STRING = null;
     private string LONG_DATE_FORMAT_STRING = null;

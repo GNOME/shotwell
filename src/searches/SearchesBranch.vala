@@ -61,7 +61,6 @@ public class Searches.Branch : Sidebar.Branch {
 }
 
 public class Searches.Header : Sidebar.Header, Sidebar.Contextable {
-    private Gtk.Builder builder;
     private Gtk.PopoverMenu? context_menu = null;
     
     public Header() {
