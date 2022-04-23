@@ -233,9 +233,9 @@ public class Transaction {
 
     private void on_wrote_body_data(Soup.Message message, uint chunk_size) {
         bytes_written += chunk_size;
-        while (Gtk.events_pending()) {
-            Gtk.main_iteration();
-        }
+        //TODO: NEEDS TO GO
+        while (MainContext.default().pending())
+            MainContext.default().iteration(true);
         chunk_transmitted(bytes_written, (uint)request_length);
     }
 

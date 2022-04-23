@@ -1007,6 +1007,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         Gtk.IconTheme icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons");
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons/hicolor");
+        icon_theme.add_resource_path("/org/gnome/Shotwell/Transitions/icons");
     }
     
     // Get the directory where our help files live.  Returns a string

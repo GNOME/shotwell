@@ -52,14 +52,7 @@ public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
 
 // Base class for all transition descriptors in this module
 public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions.Descriptor {
-    private const string ICON_FILENAME = "slideshow-plugin.png";
-
-    private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-    
     protected ShotwellTransitionDescriptor(GLib.File resource_directory) {
-        if (icon_pixbuf_set == null)
-            icon_pixbuf_set =
-                Resources.load_from_resource(Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -80,7 +73,7 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
+        info.icon = "slideshow-plugin";
     }
     
     public void activation(bool enabled) {

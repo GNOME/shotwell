@@ -3,6 +3,8 @@ project('shotwell', ['vala', 'c'],
         meson_version : '>= 0.43.0',
         default_options : ['buildtype=debugoptimized'])
 
+so_version = '0.33'
+
 gnome = import('gnome')
 i18n = import('i18n')
 
@@ -114,7 +116,7 @@ posix = valac.find_library('posix')
 
 subdir('data')
 subdir('src')
-#subdir('plugins')
+subdir('plugins')
 subdir('po')
 subdir('help')
 subdir('thumbnailer')

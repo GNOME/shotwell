@@ -58,25 +58,20 @@ public class ManifestWidgetMediator : Gtk.Box {
             }
         }
         
-        Gtk.AboutDialog about_dialog = new Gtk.AboutDialog();
-        about_dialog.authors = authors;
-        about_dialog.comments = info.brief_description;
-        about_dialog.copyright = info.copyright;
-        about_dialog.license = info.license;
-        about_dialog.wrap_license = info.is_license_wordwrapped;
-        #if 0
-        about_dialog.logo = (info.icons != null && info.icons.length > 0) ? info.icons[0] :
-            Resources.get_icon(Resources.ICON_GENERIC_PLUGIN);
-            #endif
-        about_dialog.program_name = get_pluggable_name(id);
-        about_dialog.translator_credits = info.translators;
-        about_dialog.version = info.version;
-        about_dialog.website = info.website_url;
-        about_dialog.website_label = info.website_name;
-        about_dialog.set_modal (true);
-        
-        // TODO about_dialog.run();
-        Gtk.show_about_dialog(about_dialog);
+        Gtk.show_about_dialog((Gtk.Window)this.get_native(),
+            "version", info.version,
+            "authors", authors,
+            "comments", info.brief_description,
+            "copyright", info.copyright,
+            "wrap-license", info.is_license_wordwrapped,
+            "program-name", get_pluggable_name(id),
+            "translator-credits", info.translators,
+            "version", info.version,
+            "website", info.website_url,
+            "website-label", info.website_name,
+            "logo-icon-name", info.icon,
+            null
+        );
     }
     
     private void on_selection_changed() {
@@ -110,7 +105,7 @@ private class ManifestListView : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(Column.N_COLUMNS,
         typeof(bool),       // ENABLED
         typeof(bool),       // CAN_ENABLE
-        typeof(Gdk.Paintable), // ICON
+        typeof(string), // ICON
         typeof(string),     // NAME
         typeof(string)      // ID
     );
@@ -136,7 +131,7 @@ private class ManifestListView : Gtk.TreeView {
         
         column.add_attribute(checkbox_renderer, "active", Column.ENABLED);
         column.add_attribute(checkbox_renderer, "visible", Column.CAN_ENABLE);
-        column.add_attribute(icon_renderer, "pixbuf", Column.ICON);
+        column.add_attribute(icon_renderer, "icon-name", Column.ICON);
         column.add_attribute(text_renderer, "text", Column.NAME);
         
         append_column(column);
@@ -157,14 +152,10 @@ private class ManifestListView : Gtk.TreeView {
             Gtk.TreeIter category_iter;
             store.append(out category_iter, null);
             
-            Gdk.Paintable? icon = null;
-            if (extension_point.icon_name != null) {
-                icon = icon_theme.lookup_by_gicon(
-                    new ThemedIcon(extension_point.icon_name), ICON_SIZE, 1, Gtk.TextDirection.NONE, 0);
-            }
-            
             store.set(category_iter, Column.NAME, extension_point.name, Column.CAN_ENABLE, false,
-                Column.ICON, icon);
+                Column.ICON, extension_point.icon_name);
+
+            print ("%s\n", extension_point.icon_name);
             
             Gee.Collection<Spit.Pluggable> pluggables = get_pluggables_for_type(
                 extension_point.pluggable_type, compare_pluggable_names, true);
@@ -180,8 +171,9 @@ private class ManifestListView : Gtk.TreeView {
                 store.append(out plugin_iter, category_iter);
                 
                 store.set(plugin_iter, Column.ENABLED, enabled, Column.NAME, pluggable.get_pluggable_name(),
-                    Column.ID, pluggable.get_id(), Column.CAN_ENABLE, true, Column.ICON, icon);
-            }
+                    Column.ID, pluggable.get_id(), Column.CAN_ENABLE, true, Column.ICON, info.icon);
+                    print ("%s\n", info.icon);
+                }
         }
         
         expand_all();
