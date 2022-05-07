@@ -8,6 +8,7 @@ flatpak:
     extends: ['.flatpak']
     image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:41
     variables:
+        BRANCH: testing
         MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
         RUNTIME_REPO: "https://flathub.org/repo/flathub.flatpakrepo"
         # Replace with your application name, as written in the manifest

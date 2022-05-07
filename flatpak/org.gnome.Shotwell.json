@@ -2,12 +2,15 @@
     "app-id": "org.gnome.Shotwell",
     "runtime": "org.gnome.Platform",
     "runtime-version": "41",
-    "branch": "stable",
+    "branch": "testing",
     "sdk": "org.gnome.Sdk",
     "command" : "shotwell",
     "rename-desktop-file" : "shotwell.desktop",
     "rename-icon" : "shotwell",
     "rename-appdata-file" : "shotwell.appdata.xml",
+    "tags" : [
+        "testing"
+    ],
     "finish-args": [
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
         "--filesystem=~/.config/dconf:ro",
