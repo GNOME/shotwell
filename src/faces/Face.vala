@@ -346,20 +346,18 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         global.add_many(faces);
         global.init_add_many_unlinked(unlinked);
 
-#if ENABLE_FACES       
+#if ENABLE_FACE_DETECTION
         // Start the face detection background process
         // FaceTool talks to it over DBus
         start_facedetect_process();
 #endif
     }
     
-#if ENABLE_FACES
     public static void terminate() {
         try {
             FaceDetect.interface.terminate();
         } catch(Error e) {}
     }
-#endif
     
     public static int compare_names(void *a, void *b) {
         Face *aface = (Face *) a;
@@ -377,7 +375,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         return String.collated_equals(a, b);
     }
 
-#if ENABLE_FACES       
+#if ENABLE_FACE_DETECTION
     private static void start_facedetect_process() {
         message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
         // Start the watcher, process started via DBus service
@@ -705,4 +703,3 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         base.destroy();
     }
 }
-

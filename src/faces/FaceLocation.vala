@@ -9,7 +9,6 @@ public struct FaceLocationData {
     public string geometry;
     public string vec;
 }
-
 public class FaceLocation : Object {
     
     private static Gee.Map<FaceID?, Gee.Map<PhotoID?, FaceLocation>> face_photos_map;
@@ -221,4 +220,3 @@ public class FaceLocation : Object {
         this.face_data = face_data;
     }
 }
-

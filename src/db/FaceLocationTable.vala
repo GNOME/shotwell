@@ -222,7 +222,6 @@ public class FaceLocationTable : DatabaseTable {
         if (res != Sqlite.DONE)
             throw_error("FaceLocationTable.update_face_location_serialized_geometry", res);
     }
-
     public Gee.List<FaceLocationRow?> get_face_ref_vecs(Gee.List<FaceRow?> face_rows)
         throws DatabaseError {
         Sqlite.Statement stmt;

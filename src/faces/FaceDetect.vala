@@ -69,6 +69,7 @@ public class FaceDetect {
         connected = false;
     }
 
+#if FACEDETECT_BUS_PRIVATE
     private static bool on_new_connection(DBusServer server, DBusConnection connection) {
         try {
             interface = connection.get_proxy_sync(null, DBUS_PATH,
@@ -97,6 +98,7 @@ public class FaceDetect {
             return false;
         }
     }
+#endif
     
     public static void init(string net_file) {
         FaceDetect.net_file = net_file;

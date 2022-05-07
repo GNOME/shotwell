@@ -23,17 +23,12 @@ shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
 
 shotwell_libs = [sw_graphics_processor]
 
-face_sources = []
-face_obj = ''
-
-if get_option('face_detection')
-  face_sources = (['faces/FacesBranch.vala',
+face_sources = (['faces/FacesBranch.vala',
                      'faces/FacePage.vala',
                      'faces/FaceShape.vala',
                      'faces/FaceDetect.vala',
                      'faces/Faces.vala',
                      'faces/FacesTool.vala'])
-endif
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule, unity,

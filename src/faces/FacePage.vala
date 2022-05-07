@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES
-
 public class FacePage : CollectionPage {
     private Face face;
     
@@ -137,5 +135,3 @@ public class FacePage : CollectionPage {
         }
     }
 }
-
-#endif

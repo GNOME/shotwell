@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES
-
 public abstract class FaceShape : Object {
     public const string SHAPE_TYPE = null;
     
@@ -823,5 +821,3 @@ public class FaceRectangle : FaceShape {
         return Math.sqrt((center_x - x) * (center_x - x) + (center_y - y) * (center_y - y));
     }
 }
-
-#endif
