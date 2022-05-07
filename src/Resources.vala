@@ -390,7 +390,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Delete Search “%s”").printf(name);
     }
 
-#if ENABLE_FACES
     public static string rename_face_exists_message(string name) {
         return _("Unable to rename face to “%s” because the face already exists.").printf(name);
     }
@@ -420,7 +419,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public string delete_face_label(string name) {
         return _("Delete Face “%s”").printf(name);
     }
-#endif
     
     private unowned string rating_label(Rating rating) {
         switch (rating) {

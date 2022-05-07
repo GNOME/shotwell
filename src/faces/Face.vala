@@ -4,7 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES
 public class FaceSourceCollection : ContainerSourceCollection {
     private Gee.HashMap<string, Face> name_map = new Gee.HashMap<string, Face>
         ((Gee.HashDataFunc)Face.hash_name_string, (Gee.EqualDataFunc)Face.equal_name_strings);
@@ -677,5 +676,3 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         base.destroy();
     }
 }
-
-#endif

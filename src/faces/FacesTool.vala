@@ -4,7 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES
 public errordomain FaceShapeError {
     CANT_CREATE
 }
@@ -155,7 +154,9 @@ public class FacesTool : EditingTools.EditingTool {
             help_layout.pack_start(help_text, true);
 
             response_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            #if ENABLE_FACE_DETECTION
             response_layout.add(detection_button);
+            #endif
             response_layout.add(cancel_button);
             response_layout.add(ok_button);
 
@@ -348,10 +349,12 @@ public class FacesTool : EditingTools.EditingTool {
                 if (line.length == 0)
                     continue;
 
+                debug("shotwell-facedetect: %s", line);
+
                 string[] type_and_serialized = line.split(";");
                 if (type_and_serialized.length != 2) {
-                    critical("Wrong serialized line in face detection program output.");
-                    assert_not_reached();
+                    // Pass on external helper log output as our debug log
+                    continue;
                 }
 
                 switch (type_and_serialized[0]) {
@@ -373,7 +376,7 @@ public class FacesTool : EditingTools.EditingTool {
                         assert_not_reached();
 
                     default:
-                        assert_not_reached();
+                        break;
                 }
             }
         }
@@ -973,5 +976,3 @@ public class FacesTool : EditingTools.EditingTool {
         face_detection.cancel();
     }
 }
-
-#endif

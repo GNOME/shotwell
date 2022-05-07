@@ -46,8 +46,6 @@ public bool confirm_warn_developer_changed(int number) {
     return response == Gtk.ResponseType.YES;
 }
 
-#if ENABLE_FACES   
-
 public bool confirm_delete_face(Face face) {
     int count = face.get_sources_count();
     string msg = ngettext(
@@ -58,8 +56,6 @@ public bool confirm_delete_face(Face face) {
     return AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
         Resources.DELETE_FACE_TITLE);
 }
-
-#endif
 
 }
 

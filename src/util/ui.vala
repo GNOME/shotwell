@@ -86,7 +86,6 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
         | Gdk.ModifierType.META_MASK)) == mask;
 }
 
-#if ENABLE_FACES
 bool is_pointer_over(Gdk.Window window) {
     Gdk.DeviceManager? devmgr = window.get_display().get_device_manager();
     if (devmgr == null) {
@@ -101,5 +100,4 @@ bool is_pointer_over(Gdk.Window window) {
     
     return x >= 0 && y >= 0 && x < window.get_width() && y < window.get_height();
 }
-#endif
 

@@ -96,7 +96,7 @@ if get_option('udev') and gudev.found()
 endif
 
 if get_option('face-detection')
-  add_global_arguments(['--define=ENABLE_FACES'], language : 'vala')
+  add_global_arguments(['--define=ENABLE_FACE_DETECTION'], language : 'vala')
   subdir('facedetect')
 endif
 

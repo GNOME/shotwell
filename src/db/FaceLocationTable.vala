@@ -4,8 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES   
-
 public struct FaceLocationID {
     public const int64 INVALID = -1;
 
@@ -198,5 +196,3 @@ public class FaceLocationTable : DatabaseTable {
             throw_error("FaceLocationTable.update_face_location_serialized_geometry", res);
     }
 }
-
-#endif
