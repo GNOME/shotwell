@@ -14,7 +14,3 @@ flatpak:
         FLATPAK_MODULE: "shotwell"
         APP_ID: "org.gnome.Shotwell"
 
-nightly:
-    extends: '.publish_nightly'
-    dependencies: ['flatpak']
-    needs: ['flatpak']
