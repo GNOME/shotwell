@@ -1,0 +1,20 @@
+include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+
+variables:
+    BUNDLE: "org.gnome.Shotwell.Devel.flatpak"
+    GIT_SUBMODULE_STRATEGY: recursive
+
+flatpak:
+    extends: ['.flatpak']
+    image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:41
+    variables:
+        MANIFEST_PATH: "flatpak/org.gnome.Shotwell.json"
+        RUNTIME_REPO: "https://flathub.org/repo/flathub.flatpakrepo"
+        # Replace with your application name, as written in the manifest
+        FLATPAK_MODULE: "shotwell"
+        APP_ID: "org.gnome.Shotwell"
+
+nightly:
+    extends: '.publish_nightly'
+    dependencies: ['flatpak']
+    needs: ['flatpak']
