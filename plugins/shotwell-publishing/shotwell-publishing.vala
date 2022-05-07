@@ -30,22 +30,22 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
 
 #if HAVE_FLICKR
         if (authenicators.contains("flickr")) {
-            pluggables += new FlickrService(resource_directory);
+            //pluggables += new FlickrService(resource_directory);
         }
 #endif
 
 #if HAVE_YOUTUBE
         if (authenicators.contains("youtube")) {
-            pluggables += new YouTubeService(resource_directory);
+            //pluggables += new YouTubeService(resource_directory);
         }
 #endif
 
 #if HAVE_PIWIGO
-        pluggables += new PiwigoService(resource_directory);
+        pluggables += new PiwigoService();
 #endif
 
 #if HAVE_TUMBLR
-        pluggables += new TumblrService(module_file.get_parent());
+        pluggables += new TumblrService();
 #endif
     }
     

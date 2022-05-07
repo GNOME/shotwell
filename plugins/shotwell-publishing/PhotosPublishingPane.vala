@@ -26,7 +26,7 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     [GtkChild]
     private unowned Gtk.Button publish_button;
     [GtkChild]
-    private unowned Gtk.RadioButton existing_album_radio;
+    private unowned Gtk.CheckButton existing_album_radio;
     [GtkChild]
     private unowned Gtk.ComboBoxText existing_albums_combo;
     [GtkChild]
@@ -38,7 +38,7 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
     [GtkChild]
     private unowned Gtk.CheckButton strip_metadata_check;
     [GtkChild]
-    private unowned Gtk.RadioButton new_album_radio;
+    private unowned Gtk.CheckButton new_album_radio;
     [GtkChild]
     private unowned Gtk.Entry new_album_entry;
 
@@ -52,7 +52,7 @@ internal class PublishingOptionsPane : Gtk.Box, Spit.Publishing.DialogPane {
         this.parameters = parameters;
 
         if (!can_logout) {
-            logout_button.parent.remove(logout_button);
+            logout_button.unparent();
         }
 
         // populate any widgets whose contents are programmatically-generated.

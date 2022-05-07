@@ -16,8 +16,8 @@ sw_plugin_common = library('shotwell-plugin-common',
 sw_plugin_common_dep = declare_dependency(include_directories : include_directories('.'),
                                           link_with : sw_plugin_common)
 
-#subdir('authenticator')
-#subdir('shotwell-publishing')
+subdir('authenticator')
+subdir('shotwell-publishing')
 #if get_option('extra_plugins')
 #  subdir('shotwell-publishing-extras')
 #endif

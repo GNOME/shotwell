@@ -69,8 +69,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "4.5.2",
-                    "commit" : "69357b1e88680658a07cffde7678a4d697469f03",
+                    "tag" : "4.5.5",
+                    "commit" : "dad26339a975b49cfb6c7dbe4bd5276c9dcb36e2",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
@@ -210,6 +210,30 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/gexiv2.git/"
+                }
+            ]
+        },
+        {
+            "name" : "gcr4",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dgtk4=true",
+                "-Dgtk3=false",
+                "-Dgtk_doc=false",
+                "-Dssh_agent=false",
+                "-Dsystemd=disabled"
+            ],
+            "build-options" : {
+                "env" : {
+                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR" : "/app/share/gir-1.0",
+                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR" : "/app/lib/girepository-1.0"
+                }
+            },
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url": "file:///home/jens/Source/gcr",
+                    "branch" : "phako/install-gcr-gtk4.h"
                 }
             ]
         },

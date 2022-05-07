@@ -6,15 +6,8 @@
  */
 
 public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "tumblr.png";
-
-    private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-
-    public TumblrService(GLib.File resource_directory) {
-        if (icon_pixbuf_set == null)
-            icon_pixbuf_set =
-                Resources.load_from_resource(Resources.RESOURCE_PATH + "/" +
-                        ICON_FILENAME);
+    public TumblrService() {
+        Object();
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -39,7 +32,7 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
+        info.icon = "tumblr";
     }
 
     public void activation(bool enabled) {
@@ -464,7 +457,6 @@ namespace Publishing.Tumblr {
                     builder = new Gtk.Builder();
                     builder.add_from_resource (Resources.RESOURCE_PATH +
                             "/tumblr_publishing_options_pane.ui");
-                    builder.connect_signals(null);
 
                     // pull in the necessary widgets from the glade file
                     pane_widget = (Gtk.Box) this.builder.get_object("tumblr_pane");
@@ -499,17 +491,11 @@ namespace Publishing.Tumblr {
                 }
             }
 
-
-
-
-
             private void on_logout_clicked() {
                 logout();
             }
 
             private void on_publish_clicked() {
-
-
                 publish();
             }
 

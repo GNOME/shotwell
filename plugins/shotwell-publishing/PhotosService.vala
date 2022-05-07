@@ -8,14 +8,6 @@
 namespace Publishing.GooglePhotos {
 
 public class Service : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "google-photos.svg";
-
-    private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-
-    static construct {
-        icon_pixbuf_set = Resources.load_from_resource(Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
-    }
-
     public Service(GLib.File resource_directory) {}
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -40,7 +32,7 @@ public class Service : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
+        info.icon = "google-photos";
     }
 
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
