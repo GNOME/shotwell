@@ -100,7 +100,6 @@ public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask)
         | Gdk.ModifierType.META_MASK)) == mask;
 }
 
-#if ENABLE_FACES
 bool is_pointer_over(Gtk.Window window) {
     #if 0
     var seat = window.get_display().get_default_seat();
@@ -117,5 +116,4 @@ bool is_pointer_over(Gtk.Window window) {
     #endif
     return false;
 }
-#endif
 

@@ -78,9 +78,7 @@ public class SavedSearchDialog : Gtk.Dialog {
                 case SearchCondition.SearchType.ANY_TEXT:
                 case SearchCondition.SearchType.EVENT_NAME:
                 case SearchCondition.SearchType.FILE_NAME:
-#if ENABLE_FACES
                 case SearchCondition.SearchType.FACE:
-#endif
                 case SearchCondition.SearchType.TAG:
                 case SearchCondition.SearchType.COMMENT:
                 case SearchCondition.SearchType.TITLE:

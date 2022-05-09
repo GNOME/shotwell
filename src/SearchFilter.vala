@@ -223,9 +223,7 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
             Gee.List<Tag>? tags = Tag.global.fetch_for_source(source);
             int tags_size = (tags != null) ? tags.size : 0;
  
-#if ENABLE_FACES           
             Gee.List<Face>? faces = Face.global.fetch_for_source(source);
-#endif
             
             foreach (unowned string word in get_search_filter_words()) {
                 if (media_keywords != null && media_keywords.contains(word))
@@ -249,7 +247,6 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
                         continue;
                 }
                 
-#if ENABLE_FACES
                 if (faces != null) {
                     bool found = false;
                     foreach (Face f in faces) {
@@ -264,7 +261,7 @@ public abstract class DefaultSearchViewFilter : SearchViewFilter {
                     if (found)
                         continue;
                 }
-#endif                
+
                 // failed all tests (this even works if none of the Indexables have strings,
                 // as they fail the implicit AND test)
                 return false;

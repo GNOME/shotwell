@@ -14,11 +14,13 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
 	if (inputName.empty()) {
         std::cout << "error;You must specify the file to process." << std::endl;
+        return {};
 	}
 
     cv::Mat img = cv::imread(inputName, 1);
 	if (img.empty()) {
         std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
+        return {};
 	}
 
     std::vector<cv::Rect> faces;

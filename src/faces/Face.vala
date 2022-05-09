@@ -346,20 +346,18 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         global.add_many(faces);
         global.init_add_many_unlinked(unlinked);
 
-#if ENABLE_FACES       
         // Start the face detection background process
         // FaceTool talks to it over DBus
+#if ENABLE_FACE_DETECTION
         start_facedetect_process();
 #endif
     }
     
-#if ENABLE_FACES
     public static void terminate() {
         try {
             FaceDetect.interface.terminate();
         } catch(Error e) {}
     }
-#endif
     
     public static int compare_names(void *a, void *b) {
         Face *aface = (Face *) a;
@@ -377,14 +375,12 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         return String.collated_equals(a, b);
     }
 
-#if ENABLE_FACES       
     private static void start_facedetect_process() {
         message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
         message("Using dnn from %s", AppDirs.get_openface_dnn_dir().get_path());
         // Start the watcher, process started via DBus service
         FaceDetect.init(AppDirs.get_openface_dnn_dir().get_path());
     }
-#endif
     
     // Returns a Face for the name, creating a new empty one if it does not already exist.
     // name should have already been prepared by prep_face_name.

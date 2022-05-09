@@ -396,9 +396,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleButton redeye_button = null;
     private Gtk.ToggleButton adjust_button = null;
     private Gtk.ToggleButton straighten_button = null;
-#if ENABLE_FACES
     private Gtk.ToggleButton faces_button = null;
-#endif
     private Gtk.Button enhance_button = null;
     private Gtk.Scale zoom_slider = null;
     private Gtk.Button prev_button = new Gtk.Button.with_label(Resources.PREVIOUS_LABEL);
@@ -491,12 +489,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.clicked.connect(on_enhance);
         toolbar.append (enhance_button);
         
-#if ENABLE_FACES
         // faces tool
         insert_faces_button(toolbar);
         faces_button = new Gtk.ToggleButton();
         //face_button
-#endif
 
         // separator to force next/prev buttons to right side of toolbar
         var separator = new Gtk.Separator(Gtk.Orientation.VERTICAL);
@@ -2307,9 +2303,7 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-#if ENABLE_FACES
     private Gtk.ToggleButton faces_button = null;
-#endif
     private CollectionPage? return_page = null;
     private bool return_to_collection_on_release = false;
     private LibraryPhotoPageViewFilter filter = new LibraryPhotoPageViewFilter();
@@ -3118,7 +3112,6 @@ public class LibraryPhotoPage : EditingHostPage {
         });
     }
 
-#if ENABLE_FACES       
     private void on_faces_toggled() {
         on_tool_button_toggled(faces_button, FacesTool.factory);
     }
@@ -3135,6 +3128,5 @@ public class LibraryPhotoPage : EditingHostPage {
         faces_button.toggled.connect(on_faces_toggled);
         toolbar.append(faces_button);
     }
-#endif
 }
 

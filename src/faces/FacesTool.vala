@@ -4,7 +4,6 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-#if ENABLE_FACES
 public errordomain FaceShapeError {
     CANT_CREATE
 }
@@ -151,7 +150,9 @@ public class FacesTool : EditingTools.EditingTool {
             help_layout.append(help_text);
 
             response_layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, CONTROL_SPACING);
+            #if ENABLE_FACE_DETECTION
             response_layout.append(detection_button);
+            #endif
             response_layout.append(cancel_button);
             response_layout.append(ok_button);
 
@@ -967,5 +968,3 @@ public class FacesTool : EditingTools.EditingTool {
         face_detection.cancel();
     }
 }
-
-#endif

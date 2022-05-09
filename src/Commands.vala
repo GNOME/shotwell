@@ -2514,7 +2514,6 @@ public class FlagUnflagCommand : MultipleDataSourceAtOnceCommand {
     }
 }
 
-#if ENABLE_FACES
 public class RemoveFacesFromPhotosCommand : SimpleProxyableCommand {
     private Gee.Map<MediaSource, string> map_source_geometry = new Gee.HashMap<MediaSource, string>();
     
@@ -2750,5 +2749,3 @@ public class ModifyFacesCommand : SingleDataSourceCommand {
         get_command_manager().reset();
     }
 }
-
-#endif

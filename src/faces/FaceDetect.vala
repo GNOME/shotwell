@@ -136,8 +136,10 @@ public class FaceDetect {
             interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
             interface.load_net(net_file);
         } catch(IOError e) {
+            print("%s\n", e.message);
             AppWindow.error_message(ERROR_MESSAGE);
         } catch(DBusError e) {
+            print("%s\n", e.message);
             AppWindow.error_message(ERROR_MESSAGE);
         }
         connected = true;
