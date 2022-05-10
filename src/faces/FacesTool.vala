@@ -47,7 +47,7 @@ public class FacesTool : EditingTools.EditingTool {
         public FaceWidget (FaceShape face_shape) {
             spacing = CONTROL_SPACING;
 
-            delete_button = new Gtk.Button.from_icon_name("user-trash", Gtk.IconSize.BUTTON);
+            delete_button = new Gtk.Button.from_icon_name("user-trash-symbolic", Gtk.IconSize.BUTTON);
             delete_button.set_use_underline(true);
 
             label = new Gtk.Label(face_shape.get_name());
@@ -58,10 +58,10 @@ public class FacesTool : EditingTools.EditingTool {
 
             name_entry = new Gtk.Entry();
 
-            ok_button = new Gtk.Button.from_icon_name("emblem-default", Gtk.IconSize.BUTTON);
+            ok_button = new Gtk.Button.from_icon_name("emblem-default-symbolic", Gtk.IconSize.BUTTON);
             ok_button.set_use_underline(true);
 
-            cancel_button = new Gtk.Button.from_icon_name("edit-undo", Gtk.IconSize.BUTTON);
+            cancel_button = new Gtk.Button.from_icon_name("edit-undo-symbolic", Gtk.IconSize.BUTTON);
             cancel_button.set_use_underline(true);
             cancel_button.clicked.connect(set_default_view);
 
