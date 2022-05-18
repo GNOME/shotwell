@@ -1,3 +1,22 @@
+Shotwell 0.30.16 (stable) - 18 May 2022
+ - Fix issue with dark mode wallpapers
+ - Fix compatibility with OpenCV 4
+ - Fix import of videos from Sony A7C
+ - Fix mixed up label in Adjust Date/Time
+ - Fix _LIB dir (missing plugins)
+ - Always enable face tagging functionality
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/1965812
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/1965812
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/54
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Richard B. Kreckel <rbk@in.terlu.de>
+
 Shotwell 0.30.15 (stable) - 4 Apr 2022
  - Drop nautilus-sendto
  - Improve compatibility with Vala 0.56
