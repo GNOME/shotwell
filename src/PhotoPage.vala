@@ -2894,7 +2894,8 @@ public class LibraryPhotoPage : EditingHostPage {
         Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         photos.add(photo);
         
-        remove_from_app(photos, _("Remove From Library"), _("Removing Photo From Library"));
+        remove_from_app(photos, GLib.dpgettext2(null, "Dialog Title", "Remove From Library"),
+            GLib.dpgettext2(null, "Dialog Title", "Removing Photo From Library"));
     }
     
     private void on_move_to_trash() {        
@@ -3018,7 +3019,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_photo())
             return;
         
-        ExportDialog export_dialog = new ExportDialog(_("Export Photo"));
+        ExportDialog export_dialog = new ExportDialog(GLib.dpgettext2(null, "Dialog Title", "Export Photo"));
         
         int scale;
         ScaleConstraint constraint;

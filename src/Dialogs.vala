@@ -71,7 +71,7 @@ public File? choose_file(string current_file_basename) {
         current_export_dir = File.new_for_path(Environment.get_home_dir());
 
     string file_chooser_title = VideoReader.is_supported_video_filename(current_file_basename) ?
-        _("Export Video") : _("Export Photo");
+        _("Export Video") : GLib.dpgettext2 (null, "Dialog Title", "Export Photo");
         
     var chooser = new Gtk.FileChooserNative(file_chooser_title,
         AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Resources.SAVE_LABEL, Resources.CANCEL_LABEL);
