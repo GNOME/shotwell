@@ -133,6 +133,7 @@ public async void files_send_to(File[] files) {
             throw new DBusError.FAILED("Did not get response");
         }
     } catch (Error e){
+        // Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
         AppWindow.error_message(_("Unable to send file %s, %s").printf(
         file_names.str, e.message));
     }
