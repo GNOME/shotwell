@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-04-02 12:49+0000\n"
-"PO-Revision-Date: 2022-04-02 16:12+0200\n"
+"POT-Creation-Date: 2022-05-29 16:44+0000\n"
+"PO-Revision-Date: 2022-05-29 19:34+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -3422,53 +3422,53 @@ msgstr "Påbörjar importen, var god vänta…"
 msgid "Fetching photo information"
 msgstr "Hämtar bildinformation"
 
-#: src/camera/ImportPage.vala:1539
+#: src/camera/ImportPage.vala:1543
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Hämtar förhandsvisning av %s"
 
-#: src/camera/ImportPage.vala:1648
+#: src/camera/ImportPage.vala:1652
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kunde inte låsa kameran: %s"
 
-#: src/camera/ImportPage.vala:1733
+#: src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Radera denna bild från kameran?"
 msgstr[1] "Radera dessa %d bilder från kameran?"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1740
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Radera denna film från kameran?"
 msgstr[1] "Radera dessa %d filmer från kameran?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1743
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Radera denna bild och film från kameran?"
 msgstr[1] "Radera dessa %d bilder och filmer från kameran?"
 
-#: src/camera/ImportPage.vala:1742
+#: src/camera/ImportPage.vala:1746
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Radera denna fil från kameran?"
 msgstr[1] "Radera dessa %d filer från kameran?"
 
-#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Behåll"
 
-#: src/camera/ImportPage.vala:1769
+#: src/camera/ImportPage.vala:1773
 msgid "Removing photos/videos from camera"
 msgstr "Tar bort bilder och filmer från kameran"
 
-#: src/camera/ImportPage.vala:1773
+#: src/camera/ImportPage.vala:1777
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3517,7 +3517,7 @@ msgid_plural "Export Photos/Videos"
 msgstr[0] "Exportera bild/film"
 msgstr[1] "Exportera bilder/filmer"
 
-#: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
+#: src/CollectionPage.vala:412
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Exportera bild"
@@ -3815,21 +3815,22 @@ msgstr "Kunde inte återställa bilddatabasen %s"
 msgid "Send files per Mail: "
 msgstr "Skicka filer via e-post: "
 
-#: src/DesktopIntegration.vala:136
+#. Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
+#: src/DesktopIntegration.vala:137
 #, c-format
 msgid "Unable to send file %s, %s"
 msgstr "Kunde inte skicka filen %s, %s"
 
-#: src/DesktopIntegration.vala:146
+#: src/DesktopIntegration.vala:147
 msgid "Send To"
 msgstr "Skicka till"
 
-#: src/DesktopIntegration.vala:191
+#: src/DesktopIntegration.vala:192
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Kunde inte exportera bakgrund till %s: %s"
 
-#: src/DesktopIntegration.vala:328
+#: src/DesktopIntegration.vala:329
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Kunde inte förbereda skrivbordsbildspel: %s"
@@ -4061,6 +4062,11 @@ msgstr[1] ""
 #: src/Dialogs.vala:74
 msgid "Export Video"
 msgstr "Exportera film"
+
+#: src/Dialogs.vala:74 src/PhotoPage.vala:3022
+msgctxt "Dialog Title"
+msgid "Export Photo"
+msgstr "Exportera bild"
 
 #: src/Dialogs.vala:98
 msgid "Export Photos"
@@ -4601,11 +4607,11 @@ msgstr "_Importera på plats"
 msgid "Import to Library"
 msgstr "Importera till biblioteket"
 
-#: src/Dialogs.vala:936 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:936
 msgid "Remove From Library"
 msgstr "Ta bort från biblioteket"
 
-#: src/Dialogs.vala:937 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:937
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Tar bort bild från bibliotek"
@@ -5424,7 +5430,17 @@ msgstr "Nästa bild"
 msgid "Photo source file missing: %s"
 msgstr "Källfilen för bilden saknas: %s"
 
-#: src/PhotoPage.vala:3041
+#: src/PhotoPage.vala:2897
+msgctxt "Dialog Title"
+msgid "Remove From Library"
+msgstr "Ta bort från bibliotek"
+
+#: src/PhotoPage.vala:2898
+msgctxt "Dialog Title"
+msgid "Removing Photo From Library"
+msgstr "Tar bort bild från bibliotek"
+
+#: src/PhotoPage.vala:3042
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Kunde inte exportera %s: %s"
