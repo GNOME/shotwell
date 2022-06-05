@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-04-02 12:49+0000\n"
-"PO-Revision-Date: 2022-02-27 14:22+0100\n"
+"POT-Creation-Date: 2022-06-01 22:05+0000\n"
+"PO-Revision-Date: 2022-06-05 14:25+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -3474,17 +3474,17 @@ msgstr "Rozpoczynanie importowania, proszę czekać…"
 msgid "Fetching photo information"
 msgstr "Pobieranie informacji o zdjęciach"
 
-#: src/camera/ImportPage.vala:1539
+#: src/camera/ImportPage.vala:1543
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Pobieranie podglądu dla %s"
 
-#: src/camera/ImportPage.vala:1648
+#: src/camera/ImportPage.vala:1652
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie można zablokować aparatu: %s"
 
-#: src/camera/ImportPage.vala:1733
+#: src/camera/ImportPage.vala:1737
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3492,7 +3492,7 @@ msgstr[0] "Usunąć to zdjęcie z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć z aparatu?"
 
-#: src/camera/ImportPage.vala:1736
+#: src/camera/ImportPage.vala:1740
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3500,7 +3500,7 @@ msgstr[0] "Usunąć to nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1739
+#: src/camera/ImportPage.vala:1743
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3508,7 +3508,7 @@ msgstr[0] "Usunąć to zdjęcie/nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia/nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć/nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1742
+#: src/camera/ImportPage.vala:1746
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3516,15 +3516,15 @@ msgstr[0] "Usunąć te pliki z aparatu?"
 msgstr[1] "Usunąć %d pliki z aparatu?"
 msgstr[2] "Usunąć %d plików z aparatu?"
 
-#: src/camera/ImportPage.vala:1750 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:731
 msgid "_Keep"
 msgstr "_Zatrzymaj"
 
-#: src/camera/ImportPage.vala:1769
+#: src/camera/ImportPage.vala:1773
 msgid "Removing photos/videos from camera"
 msgstr "Usuwanie zdjęć/nagrań wideo z aparatu"
 
-#: src/camera/ImportPage.vala:1773
+#: src/camera/ImportPage.vala:1777
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3574,7 +3574,7 @@ msgstr[0] "Eksport zdjęcia/nagrania wideo"
 msgstr[1] "Eksport zdjęć/nagrań wideo"
 msgstr[2] "Eksport zdjęć/nagrań wideo"
 
-#: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
+#: src/CollectionPage.vala:412
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Eksport zdjęcia"
@@ -3877,21 +3877,22 @@ msgstr "Nie można przywrócić bazy danych zdjęć %s"
 msgid "Send files per Mail: "
 msgstr "Wyślij pliki pocztą: "
 
-#: src/DesktopIntegration.vala:136
+#. Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
+#: src/DesktopIntegration.vala:137
 #, c-format
 msgid "Unable to send file %s, %s"
-msgstr "Nie można wysłać pliku %s, %s"
+msgstr "Nie można wysłać pliku %s: %s"
 
-#: src/DesktopIntegration.vala:146
+#: src/DesktopIntegration.vala:147
 msgid "Send To"
 msgstr "Wyślij do"
 
-#: src/DesktopIntegration.vala:191
+#: src/DesktopIntegration.vala:192
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Nie można wyeksportować tła do %s: %s"
 
-#: src/DesktopIntegration.vala:328
+#: src/DesktopIntegration.vala:329
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Nie można przygotować pokazu slajdów pulpitu: %s"
@@ -4133,6 +4134,11 @@ msgstr[2] "Twarz „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 #: src/Dialogs.vala:74
 msgid "Export Video"
 msgstr "Eksport nagrań wideo"
+
+#: src/Dialogs.vala:74 src/PhotoPage.vala:3022
+msgctxt "Dialog Title"
+msgid "Export Photo"
+msgstr "Eksport zdjęcia"
 
 #: src/Dialogs.vala:98
 msgid "Export Photos"
@@ -4760,11 +4766,11 @@ msgstr "_Zaimportuj"
 msgid "Import to Library"
 msgstr "Import do kolekcji"
 
-#: src/Dialogs.vala:936 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:936
 msgid "Remove From Library"
 msgstr "Usuń z kolekcji"
 
-#: src/Dialogs.vala:937 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:937
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Usuwanie zdjęcia z kolekcji"
@@ -5607,7 +5613,17 @@ msgstr "Następne zdjęcie"
 msgid "Photo source file missing: %s"
 msgstr "Brak pliku źródłowego zdjęcia: %s"
 
-#: src/PhotoPage.vala:3041
+#: src/PhotoPage.vala:2897
+msgctxt "Dialog Title"
+msgid "Remove From Library"
+msgstr "Usunięcie z kolekcji"
+
+#: src/PhotoPage.vala:2898
+msgctxt "Dialog Title"
+msgid "Removing Photo From Library"
+msgstr "Usuwanie zdjęcia z kolekcji"
+
+#: src/PhotoPage.vala:3042
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nie można wyeksportować: %s: %s"
