@@ -40,13 +40,14 @@
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2016.
 # Tim Sabsch <tim@sabsch.com>, 2018.
 # Jürgen Benvenuti <gastornis@posteo.org>, 2022.
+# Philipp Kiemle <philipp.kiemle@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-05-18 09:54+0000\n"
-"PO-Revision-Date: 2022-05-28 23:37+0200\n"
+"POT-Creation-Date: 2022-05-28 21:39+0000\n"
+"PO-Revision-Date: 2022-05-29 12:04+0200\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -1641,7 +1642,8 @@ msgstr ""
 "Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>\n"
 "Tim Sabsch <tim@sabsch.com>\n"
 "Bernd Homuth <dev@hmt.im>\n"
-"Jürgen Benvenuti <gastornis@posteo.org>"
+"Jürgen Benvenuti <gastornis@posteo.org>\n"
+"Philipp Kiemle <philipp.kiemle@gmail.com>"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:220
@@ -3195,9 +3197,9 @@ msgstr "Dateien via E-Mail senden: "
 
 # Siehe https://gitlab.gnome.org/GNOME/shotwell/-/issues/4977 - pk
 #: src/DesktopIntegration.vala:136
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to send file %s, %s"
-msgstr "Die Datei %s, %s kann nicht gesendet werden"
+msgstr "Die Datei »%s« konnte nicht gesendet werden: %s"
 
 #: src/DesktopIntegration.vala:146
 msgid "Send To"
