@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-05-07 09:11+0000\n"
-"PO-Revision-Date: 2022-06-01 23:02+0100\n"
+"POT-Creation-Date: 2022-06-07 17:35+0000\n"
+"PO-Revision-Date: 2022-06-16 22:18+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Pedro Albuquerque\n"
 "Language: pt\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 "X-Project-Style: gnome\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
@@ -35,8 +35,8 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: misc/shotwell.appdata.xml.in:9
-msgid "Popular photo manager"
-msgstr "Gestor de fotografias popular"
+msgid "Digital photo organizer and viewer"
+msgstr "Organizador e visualizador de fotografia digital"
 
 #: misc/shotwell.appdata.xml.in:11
 msgid ""
@@ -1865,7 +1865,7 @@ msgstr "Utilizador não reconhecido"
 
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:1877
 msgid " Site Not Found"
-msgstr "Site não encontrado"
+msgstr " Site não encontrado"
 
 #: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
 #: plugins/shotwell-publishing-extras/RajcePublishing.vala:894
@@ -6678,6 +6678,9 @@ msgstr "etiqueta"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Eliminar todas as fotografias no lixo"
+
+#~ msgid "Popular photo manager"
+#~ msgstr "Gestor de fotografias popular"
 
 #~| msgid "Shotwell"
 #~ msgid "shotwell"
