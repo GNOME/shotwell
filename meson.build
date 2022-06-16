@@ -106,7 +106,6 @@ if get_option('face_detection')
 endif
 
 json_glib = dependency('json-glib-1.0')
-# gdata = dependency('libgdata')
 gcr = dependency('gcr-4')
 gcr_ui = dependency('gcr-4-gtk4')
 cairo = dependency('cairo')

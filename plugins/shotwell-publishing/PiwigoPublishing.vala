@@ -1090,6 +1090,7 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         var info = this.get_builder ().get_object ("default") as Gtk.Button;
         if (cert != null) {
             info.clicked.connect (() => {
+            #if 0
                 var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
                 var widget = new Gcr.CertificateWidget (simple_cert);
                 bool use_header = true;
@@ -1112,6 +1113,7 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
                 dialog.response.connect(() => {
                     dialog.destroy();
                 });
+            #endif
             });
         } else {
             info.unparent();
