@@ -1,3 +1,128 @@
+Shotwell 0.31.4 (development) - 21 Jun 2022
+  * Move video meta-data reading into external process
+  * Fix memory leak while importing from camera
+  * Speed up raw meta-data reading
+  * Improve Welcome Dialog wording
+  * Improve google photos upload for > 50 photos
+  * Support CR3 files
+  * Use mail portal instead of nautilus-sendto
+  * Support AVIF files
+  * Fix import from SONY A7C
+  * Remove Map widget
+  * Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/111
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/111
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/128
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/199
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/286
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/286
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/286
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4927
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4927
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4929
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4929
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4929
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4930
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4930
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4930
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4946
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4977
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/55
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/53
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/52
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/51
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/50
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/48
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/47
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/46
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/45
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/44
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/42
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/40
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/39
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Matej Urbančič <mateju@src.gnome.org>
+ - Jordi Mas <jmas@softcatala.org>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Marek Černocký <marek@manet.cz>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - sicklylife <translation@sicklylife.jp>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Phred <fearphage@gmail.com>
+ - Hugo Carvalho <hugokarvalho@hotmail.com>
+ - Philipp Kiemle <philipp.kiemle@gmail.com>
+ - Boyuan Yang <073plan@gmail.com>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Goran Vidović <trebelnik2@gmail.com>
+ - Daniel Mustieles <daniel.mustieles@gmail.com>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - Eric <eric.daigle@zaclys.net>
+ - Sergej A <asvmail.as@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Richard B. Kreckel <rbk@in.terlu.de>
+ - Sergej A <sw@atrus.ru>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+ - Yosef Or Boczko <yoseforb@gnome.org>
+ - Mike Auty <mike.auty@gmail.com>
+ - Matheus Barbosa <mdpb.matheus@gmail.com>
+ - Niklas Srich <sirniklax@gmail.com>
+ - Claude Paroz <claude@2xlibre.net>
+ - Eli Schwartz <eschwartz@archlinux.org>
+ - Aleksandr Melman <Alexmelman88@gmail.com>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+ - Rodrigo Lledó <rodhos92@gmail.com>
+ - Isak Bergdahl <isak.bergdahl@yahoo.com>
+ - Dz Chen <wsxy162@gmail.com>
+ - Gun Chleoc <fios@foramnagaidhlig.net>
+ - Ngọc Quân Trần <vnwildman@gmail.com>
+ - Joseph Bylund <joseph.bylund@gmail.com>
+ - Andre Klapper <a9016009@gmx.de>
+ - Florentina Mușat <florentina.musat.28@gmail.com>
+
+Added/updated translations:
+ - ca.po, courtesy of Jaume Jorba
+ - cs.po, courtesy of Marek Černocký
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - cs.po, courtesy of Marek Černocký
+ - da.po, courtesy of Alan Mortensen
+ - de.po, courtesy of Philipp Kiemle
+ - es.po, courtesy of Daniel Mustieles García
+ - fr.po, courtesy of J-Paul Bérard
+ - gd.po, courtesy of GunChleoc
+ - he.po, courtesy of Yosef Or Boczko
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Kukuh Syafaat
+ - ja.po, courtesy of sicklylife
+ - lt.po, courtesy of Aurimas Černius
+ - pl.po, courtesy of Piotr Drąg
+ - pt.po, courtesy of Hugo Carvalho
+ - pt_BR.po, courtesy of Matheus Barbosa
+ - ro.po, courtesy of Florentina Mușat
+ - ru.po, courtesy of Ser82-png
+ - sl.po, courtesy of Matej Urbančič
+ - sr.po, courtesy of Мирослав Николић
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Emin Tufan Çetin
+ - uk.po, courtesy of Yuri Chornoivan
+ - vi.po, courtesy of Trần Ngọc Quân
+ - zh_CN.po, courtesy of Boyuan Yang
+ - zh_TW.po, courtesy of Cheng-Chia Tseng
+
 Shotwell 0.31.3 (development) - 22 Dec 2020
   * Store publishing secrets using libsecret
   * Fix rotation keybinding for viewer
