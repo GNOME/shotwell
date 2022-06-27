@@ -25,7 +25,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-06-05 19:27+0000\n"
+"POT-Creation-Date: 2022-06-26 10:34+0000\n"
 "PO-Revision-Date: 2022-06-08 22:08+1000\n"
 "Last-Translator: Ser82-png <sw@atrus.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -4182,8 +4182,6 @@ msgid "Export Video"
 msgstr "Экспортировать видео"
 
 #: src/Dialogs.vala:74 src/PhotoPage.vala:3022
-#| msgid "Export Photo"
-#| msgid_plural "Export Photos"
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Экспортировать фотографию"
@@ -5631,14 +5629,11 @@ msgid "Photo source file missing: %s"
 msgstr "Исходный файл не найден: %s"
 
 #: src/PhotoPage.vala:2897
-#| msgid "Remove From Library"
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Удалить из библиотеки"
 
 #: src/PhotoPage.vala:2898
-#| msgid "Removing Photo From Library"
-#| msgid_plural "Removing Photos From Library"
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Удаление фотографии из библиотеки"
@@ -6515,7 +6510,7 @@ msgstr "Выбрать все"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #: src/Resources.vala:852
 msgid "%a %b %d, %Y"
-msgstr "%a, %е %B %Y"
+msgstr "%a, %e %B %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
@@ -6547,7 +6542,7 @@ msgstr "%a, %е %B"
 #: src/Resources.vala:872
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
-msgstr "%a, %е %B %Y"
+msgstr "%a, %e %B %Y"
 
 #: src/Screensaver.vala:18 src/SlideshowPage.vala:117
 msgid "Slideshow"
