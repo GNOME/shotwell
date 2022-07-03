@@ -6,20 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell shotwell-0.30\n"
-"POT-Creation-Date: 2021-08-18 17:38+0000\n"
-"PO-Revision-Date: 2021-09-03 15:16+0700\n"
+"POT-Creation-Date: 2022-07-03 05:00+0000\n"
+"PO-Revision-Date: 2022-07-03 17:04+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2020, 2021."
+msgstr "Andika Triwidada <andika@gmail.com>, 2020-2022."
 
 #. (itstool) path: info/desc
 #: C/edit-adjustments.page:7
@@ -1182,21 +1182,19 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-event.page:31
-#, fuzzy
 msgid "Moving photos between events"
-msgstr "Memindahkan foto antaracara"
+msgstr "Memindahkan foto antar acara"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:33
-#, fuzzy
 msgid ""
 "Even though photos are initially grouped into events by their date, you can "
 "move photos between events. To do this, drag any photo to the sidebar and "
 "drop it on an event."
 msgstr ""
 "Meskipun foto awalnya dikelompokkan ke dalam acara berdasarkan tanggal, Anda "
-"dapat memindahkan foto antaracara. Untuk melakukan ini, seret foto apa pun "
-"ke sidebar dan jatuhkan di acara."
+"dapat memindahkan foto antar acara. Untuk melakukan ini, seret foto apa pun "
+"ke bilah sisi dan jatuhkan di suatu acara."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:37
@@ -1205,27 +1203,25 @@ msgstr "Membuat dan menggabungkan acara"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:38
-#, fuzzy
 msgid ""
 "To create a new event, select the photos you would like in the new event and "
 "click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgstr ""
 "Untuk membuat acara baru, pilih foto yang Anda inginkan di acara baru dan "
-"klik acara acara <guiseq> <gui></gui><gui>baru</gui></guiseq>."
+"klik <guiseq>Acara<gui></gui><gui>Acara Baru</gui></guiseq>."
 
 #. (itstool) path: section/p
 #: C/organize-event.page:39
-#, fuzzy
 msgid ""
 "To merge events, select <guiseq><gui>Events</gui></guiseq> from the sidebar, "
 "then, while holding down <key>Ctrl</key> click on the events you want to "
 "merge in the main window area. Finally, click <guiseq><gui>Events</"
 "gui><gui>Merge Events</gui></guiseq>."
 msgstr ""
-"Untuk menggabungkan acara, pilih <guiseq><gui>acara</gui></guiseq> dari "
-"sidebar, kemudian, sambil menekan <key>Ctrl</key> klik pada peristiwa yang "
-"ingin Anda gabungkan di area jendela utama. Akhirnya, klik peristiwa "
-"<guiseq> <gui></gui><gui>penggabungan</gui>acara</guiseq>."
+"Untuk menggabungkan acara, pilih <guiseq><gui>Acara</gui></guiseq> dari "
+"bilah sisi, kemudian, sambil menekan <key>Ctrl</key> klik pada acara yang "
+"ingin Anda gabungkan di area jendela utama. Akhirnya, klik "
+"<guiseq>Acara<gui></gui><gui>Gabung Acara</gui></guiseq>."
 
 #. (itstool) path: section/title
 #: C/organize-event.page:43
@@ -1234,16 +1230,15 @@ msgstr "Mengurutkan acara"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:45
-#, fuzzy
 msgid ""
 "Events are displayed in a tree in the sidebar, organized by the year and "
 "month of the earliest photo in the event. To change the event sort order, "
 "click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select "
 "either ascending or descending."
 msgstr ""
-"Acara ditampilkan di pohon di sidebar, yang diselenggarakan oleh tahun dan "
-"bulan dari foto awal dalam acara. Untuk mengubah urutan peristiwa, klik "
-"<guiseq> <gui>tampilan</gui><gui>Urutkan peristiwa</gui> </guiseq> dan pilih "
+"Acara ditampilkan di pohon di bilah sisi, yang diorganisasi berdasarkan "
+"tahun dan bulan dari foto awal dalam acara. Untuk mengubah urutan acara, "
+"klik <guiseq><gui>Tampilan</gui><gui>Urutkan Acara</gui> </guiseq> dan pilih "
 "baik naik atau turun."
 
 #. (itstool) path: section/title
@@ -1253,30 +1248,27 @@ msgstr "Mengubah foto yang digunakan untuk mewakili setiap acara"
 
 #. (itstool) path: section/p
 #: C/organize-event.page:53
-#, fuzzy
 msgid ""
 "If you select the <gui>Events</gui> item in the sidebar, you'll see a single "
 "photo which represents each event. This is called the key photo."
 msgstr ""
-"Jika Anda memilih item <gui>peristiwa</gui> di bar samping, Anda akan "
-"melihat satu foto yang mewakili setiap peristiwa. Ini disebut foto kunci."
+"Jika Anda memilih item <gui>Acara</gui> di bilah sisi, Anda akan melihat "
+"satu foto yang mewakili setiap acara. Ini disebut foto kunci."
 
 #. (itstool) path: section/p
 #: C/organize-event.page:55
-#, fuzzy
 msgid ""
 "By default, Shotwell uses the first photo in each event as its key photo. To "
 "use a different key photo, select the photo and choose <guiseq><gui>Photos</"
 "gui><gui>Make Key Photo for Event</gui></guiseq>."
 msgstr ""
-"Secara default, Shotwell menggunakan foto pertama di setiap peristiwa "
-"sebagai foto kuncinya. Untuk menggunakan foto utama yang berbeda, pilih foto "
-"dan pilih foto <guiseq> <gui></gui><gui>membuat foto utama untuk acara</"
-"gui></guiseq>."
+"Secara baku, Shotwell menggunakan foto pertama di setiap acara sebagai foto "
+"kuncinya. Untuk menggunakan foto utama yang berbeda, pilih foto tersebut dan "
+"pilih <guiseq>Foto<gui></gui><gui>Jadikan Foto Utama untuk Acara</gui></"
+"guiseq>."
 
 #. (itstool) path: info/desc
 #: C/organize-flag.page:7
-#, fuzzy
 msgid "Flag photos to mark them as special or to work with them as a set."
 msgstr ""
 "Tandai foto untuk menandai mereka sebagai khusus atau untuk bekerja dengan "
@@ -1289,34 +1281,31 @@ msgstr "Menandai foto"
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:14
-#, fuzzy
 msgid ""
 "Shotwell lets you <em>flag</em> photos. When a photo is flagged, a small "
 "flag icon appears in its upper right corner. You can select the "
 "<gui>Flagged</gui> item in the sidebar to see all photos which have been "
 "flagged."
 msgstr ""
-"Shotwell memungkinkan Anda <em>bendera</em> foto. Ketika foto ditandai, ikon "
-"bendera kecil muncul di sudut kanan atas. Anda dapat memilih item "
-"<gui>bertanda</gui> di bar samping untuk melihat semua foto yang telah "
+"Shotwell memungkinkan Anda <em>menandani</em> foto. Ketika foto ditandai, "
+"ikon bendera kecil muncul di sudut kanan atas. Anda dapat memilih item "
+"<gui>Bertanda</gui> di bilah sisi untuk melihat semua foto yang telah "
 "ditandai."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:18
-#, fuzzy
 msgid ""
 "Flagging a photo marks it as special. You can interpret this in any way you "
 "like. For example, you might flag all photos which need visual adjustment, "
 "or all photos which you want to share with a friend."
 msgstr ""
-"Menandai foto itu sebagai istimewa. Anda dapat menafsirkan ini dengan cara "
+"Menandai foto membuatnya istimewa. Anda dapat menafsirkan ini dengan cara "
 "apapun yang Anda suka. Misalnya, Anda dapat menandai semua foto yang "
 "memerlukan penyesuaian visual, atau semua foto yang ingin Anda bagikan "
 "dengan teman."
 
 #. (itstool) path: page/p
 #: C/organize-flag.page:22
-#, fuzzy
 msgid ""
 "Flagging is also useful because you can operate on all flagged photos as a "
 "set. For example, you can select the <gui>Flagged</gui> view and then upload "
@@ -1324,37 +1313,34 @@ msgid ""
 msgstr ""
 "Penandaan juga berguna karena Anda dapat beroperasi pada semua foto yang "
 "ditandai sebagai satu set. Misalnya, Anda dapat memilih tampilan "
-"<gui>bertanda</gui> dan kemudian mengunggah semua foto yang ditandai ke "
+"<gui>Bertanda</gui> dan kemudian mengunggah semua foto yang ditandai ke "
 "layanan penerbitan."
 
 #. (itstool) path: section/title
 #: C/organize-flag.page:27
-#, fuzzy
 msgid "To flag or unflag a photo"
-msgstr "Menandai atau membatalkan bendera foto"
+msgstr "Menandai atau membatalkan tanda foto"
 
 #. (itstool) path: section/p
 #: C/organize-flag.page:28
-#, fuzzy
 msgid ""
 "To flag or unflag a photo, right-click the photo and choose <gui>Flag</gui> "
 "or <gui>Unflag</gui> from the context menu. Or use the <keyseq><key>Ctrl</"
 "key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
-"Untuk menandai atau membatalkan bendera foto, klik kanan foto dan pilih "
-"<gui>Tandai</gui> atau <gui>unflag</gui> dari menu konteks. Atau gunakan "
-"tombol <keyseq> <key>Ctrl</key><key>G</key> </keyseq> atau <key>/</key> "
-"Shortcut."
+"Untuk menandai atau membatalkan tanda foto, klik kanan foto dan pilih "
+"<gui>Tandai</gui> atau <gui>Hapus Tanda</gui> dari menu konteks. Atau "
+"gunakan tombol pintas <keyseq><key>Ctrl</key><key>G</key></keyseq> atau "
+"<key>/</key>."
 
 #. (itstool) path: info/desc
 #: C/organize-rating.page:7
-#, fuzzy
 msgid ""
 "Give photos a rating between 1 and 5 stars. You can reject bad photos, "
 "hiding them from view."
 msgstr ""
-"Berikan rating foto antara 1 hingga 5 bintang. Anda dapat menolak foto yang "
-"buruk, menyembunyikannya dari tampilan."
+"Berikan peringkat foto antara 1 hingga 5 bintang. Anda dapat menolak foto "
+"yang buruk, menyembunyikannya dari tampilan."
 
 #. (itstool) path: page/title
 #: C/organize-rating.page:12
@@ -1363,21 +1349,20 @@ msgstr "Peringkat"
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:13
-#, fuzzy
 msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate "
 "it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
-"Anda dapat menetapkan setiap foto peringkat dari 1-5 bintang, atau dapat "
-"menilai sebagai ditolak, dalam hal ini Shotwell akan menyembunyikan foto "
-"secara default."
+"Anda dapat menetapkan ke setiap foto peringkat dari 1-5 bintang, atau dapat "
+"menilai sebagai Ditolak, dalam hal ini Shotwell akan menyembunyikan foto "
+"secara baku."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:15
-#, fuzzy
 msgid "You can rate a photo or a set of photos in any of these ways:"
 msgstr ""
-"Anda dapat menilai foto atau sekumpulan foto dengan salah satu cara berikut:"
+"Anda dapat memeringkat foto atau sekumpulan foto dengan salah satu cara "
+"berikut:"
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:18
@@ -1474,13 +1459,12 @@ msgstr "Membuang dan menghapus foto"
 
 #. (itstool) path: page/p
 #: C/organize-remove.page:14
-#, fuzzy
 msgid ""
 "You may remove photos from your library and you may additionally delete them "
 "entirely from your hard disk."
 msgstr ""
-"Anda dapat menghapus foto dari perpustakaan Anda dan Anda dapat juga "
-"menghapusnya sepenuhnya dari hard disk Anda."
+"Anda dapat menghapus foto dari pustaka Anda dan Anda dapat juga menghapusnya "
+"sepenuhnya dari hard disk Anda."
 
 #. (itstool) path: page/media
 #. This is a reference to an external file such as an image or video. When
@@ -1503,7 +1487,6 @@ msgstr "Proses hapus"
 
 #. (itstool) path: page/p
 #: C/organize-remove.page:16
-#, fuzzy
 msgid ""
 "This diagram shows how a photo, when deleted, is first put into Shotwell's "
 "trash. If you delete it from Shotwell's trash, it is put into your "
@@ -1511,10 +1494,10 @@ msgid ""
 "finally and irretrievably deleted from your computer."
 msgstr ""
 "Diagram ini menunjukkan bagaimana foto, ketika dihapus, pertama kali "
-"dimasukkan ke dalam sampah Shotwell. Jika Anda menghapusnya dari sampah "
-"Shotwell, itu dimasukkan ke dalam sampah komputer Anda. Jika Anda "
-"menghapusnya dari sampah komputer, foto akan dihapus dan tidak dapat diambil "
-"lagi dari komputer."
+"dimasukkan ke dalam tong sampah Shotwell. Jika Anda menghapusnya dari tong "
+"sampah Shotwell, itu dimasukkan ke dalam tong sampah komputer Anda. Jika "
+"Anda menghapusnya dari tong sampah komputer, foto akan dihapus dan tidak "
+"dapat diambil lagi dari komputer."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:18
@@ -1523,48 +1506,44 @@ msgstr "Menghapus foto dari pustaka"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:19
-#, fuzzy
 msgid ""
 "Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to "
 "Trash</gui></guiseq>. (You can also press the <key>Delete</key> key.) The "
 "photos will be moved from your library to Shotwell's Trash."
 msgstr ""
-"Pilih foto untuk dihapus, lalu pilih <guiseq> <gui>Edit</gui><gui>Pindahkan "
-"ke sampah</gui></guiseq>. (Anda juga dapat menekan tombol <key>Delete</"
-"key> .) Foto akan dipindahkan dari perpustakaan Anda ke tempat sampah "
-"Shotwell."
+"Pilih foto untuk dihapus, lalu pilih <guiseq><gui>Sunting</"
+"gui><gui>Pindahkan ke Tong Sampah</gui></guiseq>. (Anda juga dapat menekan "
+"tombol <key>Delete</key>.) Foto akan dipindahkan dari pustaka Anda ke Tong "
+"Sampah Shotwell."
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:22
-#, fuzzy
 msgid ""
 "If you want to remove photos from Shotwell without having them pass through "
 "the trash, simply select the photos to be removed and choose "
 "<guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>. The photo "
 "files will be left in place on disk."
 msgstr ""
-"Jika Anda ingin menghapus foto dari Shotwell tanpa harus melewati tempat "
-"sampah, cukup pilih foto yang akan dihapus dan pilih <guiseq> <gui>Edit</"
-"gui><gui>Remove from Library</gui></guiseq>. File foto akan dibiarkan di "
+"Jika Anda ingin menghapus foto dari Shotwell tanpa harus melewati tong "
+"sampah, cukup pilih foto yang akan dihapus dan pilih <guiseq><gui>Sunting</"
+"gui><gui>Hapus Dari Pustaka</gui></guiseq>. Berkas foto akan dibiarkan di "
 "tempat pada disk."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:26
-#, fuzzy
 msgid "Emptying or restoring the trash folder"
-msgstr "Mengosongkan atau memulihkan Folder sampah"
+msgstr "Mengosongkan atau memulihkan folder tong sampah"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:27
-#, fuzzy
 msgid ""
 "Select the Trash entry in the Sidebar and Shotwell will display all photos "
 "that have been marked for removal or deletion. In the Trash view, the "
 "following commands are available:"
 msgstr ""
-"Pilih entri Trash di sidebar dan Shotwell akan menampilkan semua foto yang "
-"telah ditandai untuk dihapus atau dihapus. Dalam tampilan tong sampah, "
-"perintah berikut tersedia:"
+"Pilih entri Tong Sampah di bilah sisi dan Shotwell akan menampilkan semua "
+"foto yang telah ditandai untuk dibuang atau dihapus. Dalam tampilan Tong "
+"Sampah, perintah berikut tersedia:"
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:29
@@ -1583,9 +1562,8 @@ msgstr "Pulihkan"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:30
-#, fuzzy
 msgid "Restore the selected photos into Shotwell."
-msgstr "Kembalikan foto yang dipilih ke Shotwell."
+msgstr "Memulihkan foto yang dipilih ke Shotwell."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:31
@@ -1604,13 +1582,12 @@ msgstr "Menghapus atau mengosongkan Sampah"
 
 #. (itstool) path: section/p
 #: C/organize-remove.page:37
-#, fuzzy
 msgid ""
 "When you delete files from the Trash folder or empty the Trash folder, you "
 "will be given the following choices:"
 msgstr ""
-"Bila Anda menghapus file dari Folder Trash atau mengosongkan Folder Trash, "
-"Anda akan diberi pilihan berikut:"
+"Bila Anda menghapus berkas dari folder Tong Sampah atau mengosongkan folder "
+"Tong Sampah, Anda akan diberi pilihan berikut:"
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:39
@@ -1619,25 +1596,22 @@ msgstr "Hanya Hapus"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:39
-#, fuzzy
 msgid ""
 "Remove photos from the library but leave the photos in their location on the "
 "computer."
 msgstr ""
-"Menghapus foto dari perpustakaan tetapi meninggalkan foto di lokasi mereka "
-"di komputer."
+"Menghapus foto dari pustaka tetapi membiarkan foto di lokasi mereka di "
+"komputer."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:40
-#, fuzzy
 msgid "Trash file"
-msgstr "Tak bisa membuang berkas %s ke tong sampah: %s"
+msgstr "Sampahkan berkas"
 
 #. (itstool) path: item/p
 #: C/organize-remove.page:40
-#, fuzzy
 msgid "Remove photos from the library and delete them from the computer."
-msgstr "Menghapus foto dari perpustakaan dan menghapusnya dari komputer."
+msgstr "Menghapus foto dari pustaka dan menghapusnya dari komputer."
 
 #. (itstool) path: item/title
 #: C/organize-remove.page:41
@@ -1651,7 +1625,6 @@ msgstr "Jangan lakukan apa pun."
 
 #. (itstool) path: info/desc
 #: C/organize-search.page:7
-#, fuzzy
 msgid "Find photos and videos in your collection by a variety of criteria."
 msgstr "Temukan foto dan video dalam koleksi Anda dengan berbagai kriteria."
 
@@ -1662,17 +1635,17 @@ msgstr "Mencari"
 
 #. (itstool) path: page/p
 #: C/organize-search.page:14
-#, fuzzy
 msgid ""
 "There are two ways to search in Shotwell: the filter toolbar, and with a "
 "saved search. The search bar allows you to quickly search the current view "
 "for certain criteria. Saved Searches feature more complex search criteria "
 "and persist in the sidebar between sessions."
 msgstr ""
-"Ada dua cara untuk mencari di Shotwell: Toolbar filter, dan dengan pencarian "
-"tersimpan. Bilah pencarian memungkinkan Anda untuk cepat mencari tampilan "
-"saat ini untuk kriteria tertentu. Pencarian tersimpan menampilkan kriteria "
-"pencarian yang lebih kompleks dan bertahan di sidebar antara sesi."
+"Ada dua cara untuk mencari di Shotwell: bilah alat filter, dan dengan "
+"pencarian tersimpan. Bilah pencarian memungkinkan Anda untuk cepat mencari "
+"tampilan saat ini untuk kriteria tertentu. Pencarian tersimpan menampilkan "
+"kriteria pencarian yang lebih kompleks dan bertahan di bilah sisi antara "
+"sesi."
 
 #. (itstool) path: section/title
 #: C/organize-search.page:21
@@ -1782,7 +1755,6 @@ msgstr "Mengatur foto dengan label mereka."
 
 #. (itstool) path: page/title
 #: C/organize-tag.page:14
-#, fuzzy
 msgid "Tagging photos"
 msgstr "Menandai foto"
 
@@ -1814,9 +1786,8 @@ msgstr "Pilih <guiseq> <gui>tag</gui><gui>Add Tags...</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:29
-#, fuzzy
 msgid "Type <keyseq><key>Ctrl</key><key>T</key></keyseq>."
-msgstr "Ketik <keyseq> <key>Ctrl</key><key>T</key></keyseq>."
+msgstr "Ketik <keyseq><key>Ctrl</key><key>T</key></keyseq>."
 
 #. (itstool) path: item/p
 #: C/organize-tag.page:30
@@ -1895,9 +1866,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/organize-tag.page:73
-#, fuzzy
 msgid "Hierarchical Tags"
-msgstr "Tag hierarkis"
+msgstr "Tag Hirarkis"
 
 #. (itstool) path: section/p
 #: C/organize-tag.page:74
@@ -1934,9 +1904,8 @@ msgstr "Perhatikan bahwa menghapus tag induk juga akan menghapus tag anaknya."
 
 #. (itstool) path: info/desc
 #: C/organize-title.page:7
-#, fuzzy
 msgid "Give titles to your photos."
-msgstr "Berikan judul pada foto Anda."
+msgstr "Memberi judul pada foto Anda."
 
 #. (itstool) path: page/title
 #: C/organize-title.page:12
@@ -1967,9 +1936,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
-#, fuzzy
 msgid "Keep the Shotwell library in sync with photo files on disk."
-msgstr "Jauhkan Perpustakaan Shotwell sinkron dengan file foto pada disk."
+msgstr "Menjaga pustaka Shotwell sinkron dengan berkas foto pada disk."
 
 #. (itstool) path: page/title
 #: C/other-files.page:12
@@ -1990,9 +1958,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/other-files.page:21
-#, fuzzy
 msgid "Using a custom directory pattern"
-msgstr "Menggunakan pola direktori kustom"
+msgstr "Memakai pola direktori ubahan"
 
 #. (itstool) path: section/p
 #: C/other-files.page:22
@@ -2245,7 +2212,6 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
-#, fuzzy
 msgid "Automatically importing photos"
 msgstr "Mengimpor foto secara otomatis"
 
@@ -2285,9 +2251,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/other-files.page:95
-#, fuzzy
 msgid "Automatically renaming imported photos to lowercase"
-msgstr "Secara otomatis mengubah nama foto diimpor ke huruf kecil"
+msgstr "Secara otomatis mengubah nama foto yang diimpor ke huruf kecil"
 
 #. (itstool) path: section/p
 #: C/other-files.page:97
@@ -2305,9 +2270,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/other-files.page:107
-#, fuzzy
 msgid "Writing metadata on the fly"
-msgstr "Menulis metadata dengan cepat"
+msgstr "Menulis metadata sambil jalan"
 
 #. (itstool) path: section/p
 #: C/other-files.page:109
@@ -2338,9 +2302,8 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/other-files.page:118
-#, fuzzy
 msgid "titles"
-msgstr "Judul"
+msgstr "judul"
 
 #. (itstool) path: item/p
 #: C/other-files.page:119
@@ -2377,9 +2340,8 @@ msgstr ""
 
 #. (itstool) path: section/title
 #: C/other-files.page:133
-#, fuzzy
 msgid "Runtime monitoring"
-msgstr "Pemantauan Runtime"
+msgstr "Pemantauan runtime"
 
 #. (itstool) path: section/p
 #: C/other-files.page:135
@@ -2408,15 +2370,13 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/other-missing.page:7
-#, fuzzy
 msgid "If Shotwell can't find a photo in your library, it marks it as missing."
 msgstr ""
-"Jika Shotwell tidak dapat menemukan foto di perpustakaan Anda, itu "
-"menandakannya sebagai hilang."
+"Jika Shotwell tidak dapat menemukan foto di pustaka Anda, itu menandainya "
+"sebagai hilang."
 
 #. (itstool) path: page/title
 #: C/other-missing.page:12
-#, fuzzy
 msgid "Missing photos"
 msgstr "Foto yang hilang"
 
@@ -2700,24 +2660,23 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/privacy-policy.page:31
 msgid "Google Photos"
-msgstr "Google Photos"
+msgstr "Google Foto"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:32
-#, fuzzy
 msgid ""
 "Shotwell uses the Google Photos API services <link href=\"https://developers."
 "google.com/photos/\">https://developers.google.com/photos/</link> for all "
 "interaction with your Google Photos data"
 msgstr ""
-"Shotwell menggunakan layanan Google Photos API <link href=\"https://"
-"developers.google.com/photos/\"> https://developers.google.com/photos/ semua "
-"interaksi dengan data Google Foto Anda"
+"Shotwell menggunakan layanan API Google Foto <link href=\"https://developers."
+"google.com/photos/\">https://developers.google.com/photos/</link> untuk "
+"semua interaksi dengan data Google Foto Anda"
 
 #. (itstool) path: section/title
 #: C/privacy-policy.page:34
 msgid "Permissions you Grant Shotwell for Google Photos"
-msgstr "Izin yang Anda berikan kepada Shotwell untuk Google Photos"
+msgstr "Izin yang Anda Berikan kepada Shotwell untuk Google Foto"
 
 #. (itstool) path: section/p
 #: C/privacy-policy.page:35
@@ -3265,9 +3224,8 @@ msgstr "Waktu untuk setiap efek transisi: 0,1 - 1,0 detik"
 
 #. (itstool) path: info/desc
 #: C/share-upload.page:7
-#, fuzzy
 msgid "Publish photos to Flickr, Google Photos, or other sites."
-msgstr "Publikasikan foto ke Flickr, Google foto, atau situs lainnya."
+msgstr "Publikasikan foto ke Flickr, Google Foto, atau situs lainnya."
 
 #. (itstool) path: page/title
 #: C/share-upload.page:12
@@ -3276,15 +3234,14 @@ msgstr "Penerbitan ke Web"
 
 #. (itstool) path: page/p
 #: C/share-upload.page:14
-#, fuzzy
 msgid ""
 "Through the use of <link xref=\"other-plugins\">plugins</link>, Shotwell can "
 "publish photos and videos to the following services, each of which requires "
 "an account:"
 msgstr ""
-"Melalui penggunaan <link xref=\"other-plugins\"> plugin, Shotwell dapat "
-"mempublikasikan foto dan video ke layanan berikut, yang masing-masing "
-"membutuhkan account:"
+"Melalui penggunaan <link xref=\"other-plugins\">pengaya</link>, Shotwell "
+"dapat mempublikasikan foto dan video ke layanan berikut, yang masing-masing "
+"membutuhkan akun:"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:18
@@ -3298,9 +3255,8 @@ msgstr "<link href=\"https://flickr.com\">Flickr</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:20
-#, fuzzy
 msgid "<link href=\"https://photos.google.com\">Google Photos</link>"
-msgstr "<link href=\"https://photos.google.com\">Google foto"
+msgstr "<link href=\"https://photos.google.com\">Google Foto</link>"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
@@ -3367,13 +3323,12 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-upload.page:36
-#, fuzzy
 msgid ""
 "Similarly, publishing to Flickr, YouTube or Google Photos requires you to "
 "log in and permit Shotwell Connect to access your account."
 msgstr ""
-"Demikian pula, penerbitan ke Flickr, YouTube atau Google Photos mengharuskan "
-"Anda untuk login dan mengizinkan Shotwell terhubung untuk mengakses akun "
+"Demikian pula, penerbitan ke Flickr, YouTube, atau Google Foto mengharuskan "
+"Anda untuk log masuk dan mengizinkan Shotwell terhubung untuk mengakses akun "
 "Anda."
 
 #. (itstool) path: info/desc
@@ -3388,7 +3343,6 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/view-displaying.page:12
-#, fuzzy
 msgid "Photo views"
 msgstr "Tampilan foto"
 
@@ -3491,7 +3445,6 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/view-information.page:12
-#, fuzzy
 msgid "Basic and extended information"
 msgstr "Informasi dasar dan perluasan"
 
