@@ -339,9 +339,14 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
     private void do_show_ssl_downgrade_pane (SessionLoginTransaction trans,
                                              string url) {
-        var uri = new Soup.URI (url);
+        string host_name = "";
+        try {
+            host_name = GLib.Uri.parse (url, GLib.UriFlags.NONE).get_host();
+        } catch (Error err) {
+            debug("Failed to parse URL: %s", err.message);
+        }
         host.set_service_locked (false);
-        var ssl_pane = new SSLErrorPane (trans, uri.get_host ());
+        var ssl_pane = new SSLErrorPane (trans, host_name);
         ssl_pane.proceed.connect (() => {
             debug ("SSL: User wants us to retry with broken certificate");
             this.session = new Session ();
@@ -1080,7 +1085,7 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         base.constructed ();
 
         var label = this.get_builder ().get_object ("main_text") as Gtk.Label;
-        var bold_host = "<b>%s</b".printf(host);
+        var bold_host = "<b>%s</b>".printf(host);
         // %s is the host name that we tried to connect to
         label.set_text (_("This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf(bold_host));
         label.use_markup = true;
@@ -1847,7 +1852,7 @@ private class ImagesAddTransaction : Publishing.RESTSupport.UploadTransaction {
             !basename.down().has_suffix(".jpg")) {
             basename += ".jpg";
         }
-        disposition_table.insert("filename",  Soup.URI.encode(basename, null));
+        disposition_table.insert("filename", GLib.Uri.escape_string(basename, null));
         disposition_table.insert("name", "image");
 
         set_binary_disposition_table(disposition_table);
@@ -1882,7 +1887,7 @@ private class ImagesAddRating : Publishing.RESTSupport.UploadTransaction {
         try {
             base.execute();
         } catch (Spit.Publishing.PublishingError err) {
-            debug("Rating upload error");
+            debug("Rating upload error. Ignored.");
         }
     }
 }

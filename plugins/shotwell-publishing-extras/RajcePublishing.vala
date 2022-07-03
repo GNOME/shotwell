@@ -1363,7 +1363,7 @@ internal class LiveApiRequest
         delete doc;
 		if( urlencode )
 		{
-        	return Soup.URI.encode( xmlstr, "&;" );
+        	return GLib.Uri.escape_string( xmlstr, "&;" );
 		}
 		return xmlstr;
     }
@@ -1586,7 +1586,7 @@ private class AddPhotoTransaction : Publishing.RESTSupport.UploadTransaction
 		
         GLib.HashTable<string, string> disposition_table = new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
         disposition_table.insert("name", "photo");
-        disposition_table.insert("filename", Soup.URI.encode( basename, null ) );
+        disposition_table.insert("filename", GLib.Uri.escape_string( basename, null ) );
         set_binary_disposition_table( disposition_table );
     }
 

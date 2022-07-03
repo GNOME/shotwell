@@ -80,9 +80,9 @@ namespace Publishing.RESTSupport.OAuth1 {
                 signing_key = consumer_secret + "&";
             }
 
-            string signature_base_string = http_method + "&" + Soup.URI.encode(
+            string signature_base_string = http_method + "&" + GLib.Uri.escape_string(
                     txn.get_endpoint_url(), ENCODE_RFC_3986_EXTRA) + "&" +
-                Soup.URI.encode(arguments_string, ENCODE_RFC_3986_EXTRA);
+                GLib.Uri.escape_string (arguments_string, ENCODE_RFC_3986_EXTRA);
 
             debug("signature base string = '%s'", signature_base_string);
 
@@ -90,7 +90,7 @@ namespace Publishing.RESTSupport.OAuth1 {
 
             // compute the signature
             string signature = RESTSupport.hmac_sha1(signing_key, signature_base_string);
-            signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
+            signature = GLib.Uri.escape_string(signature, ENCODE_RFC_3986_EXTRA);
 
             debug("signature = '%s'", signature);
 

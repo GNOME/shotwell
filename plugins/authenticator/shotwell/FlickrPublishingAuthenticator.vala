@@ -64,10 +64,16 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
                 return;
             }
 
-            var uri = new Soup.URI(get_view().get_uri());
-            if (uri.scheme == "shotwell-auth" && this.auth_code == null) {
-                var form_data = Soup.Form.decode (uri.query);
-                this.auth_code = form_data.lookup("oauth_verifier");
+            try {
+                var uri = GLib.Uri.parse(get_view().get_uri(), GLib.UriFlags.NONE);
+                if (uri.get_scheme() == "shotwell-auth" && this.auth_code == null) {
+                    var form_data = Soup.Form.decode (uri.get_query());
+                    this.auth_code = form_data.lookup("oauth_verifier");
+                }
+            } catch (Error err) {
+                this.error();
+
+                return;
             }
 
             if (this.auth_code != null) {
@@ -76,9 +82,13 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         }
 
         private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
-            var uri = new Soup.URI(request.get_uri());
-            var form_data = Soup.Form.decode (uri.query);
-            this.auth_code = form_data.lookup("oauth_verifier");
+            try {
+                var uri = GLib.Uri.parse(request.get_uri(), GLib.UriFlags.NONE);
+                var form_data = Soup.Form.decode (uri.get_query());
+                this.auth_code = form_data.lookup("oauth_verifier");
+            } catch (Error err) {
+                debug ("Failed to parse URI %s: %s", request.get_uri(), err.message);
+            }
 
             var response = "";
             var mins = new MemoryInputStream.from_data(response.data, null);

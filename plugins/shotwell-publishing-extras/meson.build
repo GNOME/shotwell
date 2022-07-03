@@ -2,7 +2,6 @@ shotwell_publishing_extra_sources = [
     'GalleryConnector.vala',
     'RajcePublishing.vala',
     'shotwell-publishing-extras.vala',
-    'YandexPublishing.vala'
     ]
 
 shotwell_publishing_extra_resources = gnome.compile_resources('publishing-extra-resource',
