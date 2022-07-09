@@ -453,7 +453,7 @@ public class Transaction {
             old_url = message.get_uri();
             url_with_query = get_endpoint_url() + "?" + formdata_string.str;
             try {
-                message.set_uri(GLib.Uri.parse(url_with_query, GLib.UriFlags.NONE));
+                message.set_uri(GLib.Uri.parse(url_with_query, GLib.UriFlags.ENCODED));
             } catch (Error err) {
                 error ("Invalid uri for service: %s", err.message);
             }
