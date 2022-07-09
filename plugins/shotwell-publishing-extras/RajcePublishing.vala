@@ -1363,7 +1363,7 @@ internal class LiveApiRequest
         delete doc;
 		if( urlencode )
 		{
-        	return GLib.Uri.escape_string( xmlstr, "&;" );
+        	return GLib.Uri.escape_string( xmlstr );
 		}
 		return xmlstr;
     }

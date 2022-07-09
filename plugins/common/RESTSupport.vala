@@ -183,7 +183,7 @@ public class Argument {
 
     public string to_string (bool escape = false, bool encode = false) {
         return "%s=%s%s%s".printf (this.key, escape ? "\"" : "",
-            encode ? GLib.Uri.escape_string(this.value, OAuth1.ENCODE_RFC_3986_EXTRA) : this.value,
+            encode ? GLib.Uri.escape_string(this.value) : this.value,
             escape ? "\"" : "");
     }
 }
