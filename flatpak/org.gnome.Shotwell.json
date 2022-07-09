@@ -170,23 +170,6 @@
             ]
         },
         {
-            "name" : "libchamplain",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dvapi=true",
-                "-Dintrospection=true",
-                "-Dwidgetry=true"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "tag" : "LIBCHAMPLAIN_0_12_20",
-                    "commit" : "145e417f32e507b63c21ad4e915b808a6174099e",
-                    "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git"
-                }
-            ]
-        },
-        {
             "name" : "exiv2",
             "cleanup" : [
                 "/bin"
