@@ -199,7 +199,6 @@
                 "/share/gir-1.0"
             ],
             "config-opts" : [
-                "-Dpython2_girdir=no",
                 "-Dpython3_girdir=no"
             ],
             "build-options" : {
