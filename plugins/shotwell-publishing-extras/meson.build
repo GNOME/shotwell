@@ -1,6 +1,5 @@
 shotwell_publishing_extra_sources = [
     'GalleryConnector.vala',
-    'RajcePublishing.vala',
     'shotwell-publishing-extras.vala',
     ]
 

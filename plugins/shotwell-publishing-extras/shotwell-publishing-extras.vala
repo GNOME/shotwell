@@ -10,13 +10,6 @@ private class ShotwellPublishingExtraServices : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
     public ShotwellPublishingExtraServices(GLib.File module_file) {
-#if HAVE_YANDEX
-        pluggables += new YandexService();
-#endif
-
-#if HAVE_RAJCE
-        pluggables += new RajceService(module_file.get_parent());
-#endif
 
 #if HAVE_GALLERY3
         pluggables += new Gallery3Service(module_file.get_parent());

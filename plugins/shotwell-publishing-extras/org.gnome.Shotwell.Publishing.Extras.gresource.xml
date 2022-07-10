@@ -2,10 +2,7 @@
 <gresources>
     <gresource prefix="/org/gnome/Shotwell/Publishing/Extras">
         <file>gallery3.png</file>
-        <file>rajce.png</file>
         <file>gallery3_authentication_pane.ui</file>
         <file>gallery3_publishing_options_pane.ui</file>
-        <file>rajce_authentication_pane.ui</file>
-        <file>rajce_publishing_options_pane.ui</file>
     </gresource>
 </gresources>
