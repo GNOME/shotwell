@@ -60,10 +60,23 @@ private const string DEVELOPER_KEY =
 private enum PrivacySetting {
     PUBLIC,
     UNLISTED,
-    PRIVATE
+    PRIVATE;
+
+    public string to_string() {
+        switch (this) {
+            case PUBLIC:
+                return "public";
+            case UNLISTED:
+                return "unlisted";
+            case PRIVATE:
+                return "private";
+            default:
+                assert_not_reached();
+        }
+    }
 }
 
-private class PublishingParameters {
+internal class PublishingParameters {
     private PrivacySetting privacy;
     private string? user_name;
 
@@ -89,44 +102,14 @@ private class PublishingParameters {
     }
 }
 
-internal class YouTubeAuthorizer : GData.Authorizer, Object {
-    private RESTSupport.GoogleSession session;
-    private Spit.Publishing.Authenticator authenticator;
-
-    public YouTubeAuthorizer(RESTSupport.GoogleSession session, Spit.Publishing.Authenticator authenticator) {
-        this.session = session;
-        this.authenticator = authenticator;
-    }
-
-    public bool is_authorized_for_domain(GData.AuthorizationDomain domain) {
-        return domain.scope.has_suffix ("auth/youtube");
-    }
-
-    public void process_request(GData.AuthorizationDomain? domain,
-                                Soup.Message message) {
-        if (domain == null) {
-            return;
-        }
-
-        var header = "Bearer %s".printf(session.get_access_token());
-        message.request_headers.replace("Authorization", header);
-    }
-
-    public bool refresh_authorization (GLib.Cancellable? cancellable = null) throws GLib.Error {
-        this.authenticator.refresh();
-        return true;
-    }
-}
-
 public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
     private bool running;
     private PublishingParameters publishing_parameters;
     private Spit.Publishing.ProgressCallback? progress_reporter;
     private Spit.Publishing.Authenticator authenticator;
-    private GData.YouTubeService youtube_service;
 
     public YouTubePublisher(Spit.Publishing.Service service, Spit.Publishing.PluginHost host) {
-        base(service, host, "https://gdata.youtube.com/");
+        base(service, host, "https://www.googleapis.com/upload/youtube/v3/videos");
 
         this.running = false;
         this.publishing_parameters = new PublishingParameters();
@@ -161,8 +144,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         
         publishing_parameters.set_user_name(get_session().get_user_name());
         
-        this.youtube_service = new GData.YouTubeService(DEVELOPER_KEY,
-                new YouTubeAuthorizer(get_session(), this.authenticator));
         do_show_publishing_options_pane();
     }
 
@@ -261,7 +242,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             return;
 
         Spit.Publishing.Publishable[] publishables = get_host().get_publishables();
-        Uploader uploader = new Uploader(this.youtube_service, get_session(), publishables, publishing_parameters);
+        Uploader uploader = new Uploader(get_session(), publishables, publishing_parameters);
 
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
@@ -397,104 +378,20 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
     }
 }
 
-internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
-    private const string ENDPOINT_URL = "https://uploads.gdata.youtube.com/feeds/api/users/default/uploads";
-    private PublishingParameters parameters;
-    private Publishing.RESTSupport.GoogleSession session;
-    private Spit.Publishing.Publishable publishable;
-    private GData.YouTubeService youtube_service;
-
-    public UploadTransaction(GData.YouTubeService youtube_service, Publishing.RESTSupport.GoogleSession session,
-        PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
-        base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.POST);
-        assert(session.is_authenticated());
-        this.session = session;
-        this.parameters = parameters;
-        this.publishable = publishable;
-        this.youtube_service = youtube_service;
-    }
-
-    public override void execute() throws Spit.Publishing.PublishingError {
-        var video = new GData.YouTubeVideo(null);
-
-        var slug = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
-        // Set title to publishing name, but if that's empty default to filename.
-        string title = publishable.get_publishing_name();
-        if (title == "") {
-            title = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
-        }
-        video.title = title;
-
-        video.is_private = (parameters.get_privacy() == PrivacySetting.PRIVATE);
-
-        if (parameters.get_privacy() == PrivacySetting.UNLISTED) {
-            video.set_access_control("list", GData.YouTubePermission.DENIED);
-        } else if (!video.is_private) {
-            video.set_access_control("list", GData.YouTubePermission.ALLOWED);
-        }
-
-        var file = publishable.get_serialized_file();
-
-        try {
-            var info = file.query_info(FileAttribute.STANDARD_CONTENT_TYPE + "," +
-                                       FileAttribute.STANDARD_SIZE, FileQueryInfoFlags.NONE);
-            var upload_stream = this.youtube_service.upload_video(video, slug,
-                    info.get_content_type());
-            var input_stream = file.read();
-
-            // Yuck...
-            var loop = new MainLoop(null, false);
-            this.splice_with_progress.begin(info, input_stream, upload_stream, (obj, res) => {
-                try {
-                    this.splice_with_progress.end(res);
-                } catch (Error error) {
-                    critical("Failed to upload: %s", error.message);
-                }
-                loop.quit();
-            });
-            loop.run();
-            video = this.youtube_service.finish_video_upload(upload_stream);
-        } catch (Error error) {
-            critical("Upload failed: %s", error.message);
-        }
-    }
-
-    private async void splice_with_progress(GLib.FileInfo info, GLib.InputStream input, GLib.OutputStream output) throws Error {
-        var total_bytes = info.get_size();
-        var bytes_to_write = total_bytes;
-        uint8 buffer[8192];
-
-        while (bytes_to_write > 0) {
-            var bytes_read = yield input.read_async(buffer);
-            if (bytes_read == 0)
-                break;
-
-            var bytes_written = yield output.write_async(buffer[0:bytes_read]);
-            bytes_to_write -= bytes_written;
-            chunk_transmitted((int)(total_bytes - bytes_to_write), (int) total_bytes);
-        }
-
-        yield output.close_async();
-        yield input.close_async();
-    }
-}
-
 internal class Uploader : Publishing.RESTSupport.BatchUploader {
     private PublishingParameters parameters;
-    private GData.YouTubeService youtube_service;
 
-    public Uploader(GData.YouTubeService youtube_service, Publishing.RESTSupport.GoogleSession session,
+    public Uploader(Publishing.RESTSupport.GoogleSession session,
         Spit.Publishing.Publishable[] publishables, PublishingParameters parameters) {
         base(session, publishables);
 
         this.parameters = parameters;
-        this.youtube_service = youtube_service;
     }
 
     protected override Publishing.RESTSupport.Transaction create_transaction(
         Spit.Publishing.Publishable publishable) {
-        return new UploadTransaction(this.youtube_service, (Publishing.RESTSupport.GoogleSession) get_session(),
-            parameters, get_current_publishable());
+        return new UploadTransaction((Publishing.RESTSupport.GoogleSession) get_session(),
+                                         parameters, get_current_publishable());
     }
 }
 

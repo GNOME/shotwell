@@ -39,7 +39,6 @@ namespace Shotwell.Plugins.Common {
             box.pack_start (entry, false, false, 6);
 
             this.webview = new WebKit.WebView ();
-            this.webview.get_settings ().enable_plugins = false;
 
             this.webview.load_changed.connect (this.on_page_load_changed);
             this.webview.load_failed.connect (this.on_page_load_failed);

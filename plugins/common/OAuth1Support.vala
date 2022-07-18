@@ -6,7 +6,6 @@
  */
 
 namespace Publishing.RESTSupport.OAuth1 {
-    internal const string ENCODE_RFC_3986_EXTRA = "!*'();:@&=+$,/?%#[] \\";
 
     public class Session : Publishing.RESTSupport.Session {
         private string? request_phase_token = null;
@@ -80,9 +79,9 @@ namespace Publishing.RESTSupport.OAuth1 {
                 signing_key = consumer_secret + "&";
             }
 
-            string signature_base_string = http_method + "&" + Soup.URI.encode(
-                    txn.get_endpoint_url(), ENCODE_RFC_3986_EXTRA) + "&" +
-                Soup.URI.encode(arguments_string, ENCODE_RFC_3986_EXTRA);
+            string signature_base_string = http_method + "&" + GLib.Uri.escape_string(
+                    txn.get_endpoint_url()) + "&" +
+                GLib.Uri.escape_string (arguments_string);
 
             debug("signature base string = '%s'", signature_base_string);
 
@@ -90,7 +89,7 @@ namespace Publishing.RESTSupport.OAuth1 {
 
             // compute the signature
             string signature = RESTSupport.hmac_sha1(signing_key, signature_base_string);
-            signature = Soup.URI.encode(signature, ENCODE_RFC_3986_EXTRA);
+            signature = GLib.Uri.escape_string(signature);
 
             debug("signature = '%s'", signature);
 

@@ -30,10 +30,15 @@ namespace Publishing.Authenticator.Shotwell.Google {
                 return;
             }
 
-            var uri = new Soup.URI(get_view().get_uri());
-            if (uri.scheme == REVERSE_CLIENT_ID && this.auth_code == null) {
-                var form_data = Soup.Form.decode (uri.query);
-                this.auth_code = form_data.lookup("code");
+            try {
+                var uri = GLib.Uri.parse(get_view().get_uri(), UriFlags.NONE);
+                if (uri.get_scheme() == REVERSE_CLIENT_ID && this.auth_code == null) {
+                    var form_data = Soup.Form.decode (uri.get_query());
+                    this.auth_code = form_data.lookup("code");
+                }
+            } catch (Error err) {
+                debug ("Failed to parse auth code from URI %s: %s", get_view().get_uri(),
+                    err.message);
             }
 
             if (this.auth_code != null) {
@@ -42,10 +47,14 @@ namespace Publishing.Authenticator.Shotwell.Google {
         }
 
         private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
-            var uri = new Soup.URI(request.get_uri());
-            debug("URI: %s", request.get_uri());
-            var form_data = Soup.Form.decode (uri.query);
-            this.auth_code = form_data.lookup("code");
+            try {
+                var uri = GLib.Uri.parse(request.get_uri(), GLib.UriFlags.NONE);
+                debug("URI: %s", request.get_uri());
+                var form_data = Soup.Form.decode (uri.get_query());
+                this.auth_code = form_data.lookup("code");
+            } catch (Error err) {
+                debug("Failed to parse request URI: %s", err.message);
+            }
 
             var response = "";
             var mins = new MemoryInputStream.from_data(response.data, null);
@@ -200,9 +209,9 @@ namespace Publishing.Authenticator.Shotwell.Google {
             string user_authorization_url = "https://accounts.google.com/o/oauth2/auth?" +
                 "response_type=code&" +
                 "client_id=" + OAUTH_CLIENT_ID + "&" +
-                "redirect_uri=" + Soup.URI.encode(OAUTH_CALLBACK_URI, null) + "&" +
-                "scope=" + Soup.URI.encode(this.scope, null) + "+" +
-                Soup.URI.encode("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
+                "redirect_uri=" + GLib.Uri.escape_string(OAUTH_CALLBACK_URI, null) + "&" +
+                "scope=" + GLib.Uri.escape_string(this.scope, null) + "+" +
+                GLib.Uri.escape_string("https://www.googleapis.com/auth/userinfo.profile", null) + "&" +
                 "state=connect&" +
                 "access_type=offline&" +
                 "approval_prompt=force";

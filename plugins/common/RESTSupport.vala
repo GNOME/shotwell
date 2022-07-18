@@ -26,6 +26,9 @@ public abstract class Session {
     private string? endpoint_url = null;
     private Soup.Session soup_session = null;
     private bool transactions_stopped = false;
+    private Bytes? body = null;
+    private Error? transport_error= null;
+    private bool insecure = false;
     
     public signal void wire_message_unqueued(Soup.Message message);
     public signal void authenticated();
@@ -35,9 +38,8 @@ public abstract class Session {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.Session ();
         if (Environment.get_variable("SHOTWELL_SOUP_LOG") != null) {
-            soup_session.add_feature (new Soup.Logger (Soup.LoggerLogLevel.BODY, -1));
+            soup_session.add_feature (new Soup.Logger (Soup.LoggerLogLevel.BODY));
         }
-        this.soup_session.ssl_use_system_ca_file = true;
     }
     
     protected void notify_wire_message_unqueued(Soup.Message message) {
@@ -71,15 +73,33 @@ public abstract class Session {
         if (are_transactions_stopped())
             return;
 
-        soup_session.request_unqueued.connect(notify_wire_message_unqueued);
-        soup_session.send_message(message);
-        
-        soup_session.request_unqueued.disconnect(notify_wire_message_unqueued);
+        this.body = null;
+        this.transport_error = null;
+        try {
+            debug ("===================================== Send and read...");
+            this.body = soup_session.send_and_read(message, null);
+            debug ("====================================== This.body: %p", this.body);
+        } catch (Error error) {
+            debug ("Failed to send_and_read: %s", error.message);
+            this.transport_error = error;
+        }
+        notify_wire_message_unqueued(message);
     }
 
     public void set_insecure () {
-        this.soup_session.ssl_use_system_ca_file = false;
-        this.soup_session.ssl_strict = false;
+        this.insecure = true;
+    }
+
+    public bool get_is_insecure() {
+        return this.insecure;
+    }
+
+    public Error? get_transport_error() {
+        return this.transport_error;
+    }
+
+    public Bytes? get_body() {
+        return this.body;
     }
 }
 
@@ -163,7 +183,7 @@ public class Argument {
 
     public string to_string (bool escape = false, bool encode = false) {
         return "%s=%s%s%s".printf (this.key, escape ? "\"" : "",
-            encode ? Soup.URI.encode(this.value, OAuth1.ENCODE_RFC_3986_EXTRA) : this.value,
+            encode ? GLib.Uri.escape_string(this.value) : this.value,
             escape ? "\"" : "");
     }
 }
@@ -173,12 +193,13 @@ public class Transaction {
     private bool is_executed = false;
     private weak Session parent_session = null;
     private Soup.Message message = null;
-    private int bytes_written = 0;
+    private uint bytes_written = 0;
+    private ulong request_length;
     private Spit.Publishing.PublishingError? err = null;
     private string? endpoint_url = null;
     private bool use_custom_payload;
     
-    public signal void chunk_transmitted(int bytes_written_so_far, int total_bytes);
+    public signal void chunk_transmitted(uint bytes_written_so_far, uint total_bytes);
     public signal void network_error(Spit.Publishing.PublishingError err);
     public signal void completed();
 
@@ -201,12 +222,12 @@ public class Transaction {
         message = new Soup.Message(method.to_string(), endpoint_url);
     }
 
-    private void on_wrote_body_data(Soup.Buffer written_data) {
-        bytes_written += (int) written_data.length;
+    private void on_wrote_body_data(Soup.Message message, uint chunk_size) {
+        bytes_written += chunk_size;
         while (Gtk.events_pending()) {
             Gtk.main_iteration();
         }
-        chunk_transmitted(bytes_written, (int) message.request_body.length);
+        chunk_transmitted(bytes_written, (uint)request_length);
     }
 
     private void on_message_unqueued(Soup.Message message) {
@@ -225,7 +246,8 @@ public class Transaction {
     /* Texts copied from epiphany */
     public string detailed_error_from_tls_flags (out TlsCertificate cert) {
         TlsCertificateFlags tls_errors;
-        this.message.get_https_status (out cert, out tls_errors);
+        cert = this.message.get_tls_peer_certificate();
+        tls_errors = this.message.get_tls_peer_certificate_errors();
 
         var list = new Gee.ArrayList<string> ();
         if (TlsCertificateFlags.BAD_IDENTITY in tls_errors) {
@@ -276,38 +298,38 @@ public class Transaction {
   }
 
     protected void check_response(Soup.Message message) throws Spit.Publishing.PublishingError {
+        var transport_error = parent_session.get_transport_error();
+        if (transport_error != null) {
+            if (transport_error is GLib.ResolverError) {
+                throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)",
+                get_endpoint_url(), message.status_code);
+            }
+            if (transport_error is GLib.IOError) {
+                throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)",
+                    get_endpoint_url(), message.status_code);
+            }
+            if (transport_error is GLib.TlsError) {
+                throw new Spit.Publishing.PublishingError.SSL_FAILED ("Unable to connect to %s: Secure connection failed",
+                    get_endpoint_url ());
+            }
+
+            throw new Spit.Publishing.PublishingError.NO_ANSWER("Failure communicating with %s (error code %u)",
+            get_endpoint_url(), message.status_code);
+}
         switch (message.status_code) {
             case Soup.Status.OK:
             case Soup.Status.CREATED: // HTTP code 201 (CREATED) signals that a new
                                                // resource was created in response to a PUT or POST
             break;
             
-            case Soup.Status.CANT_RESOLVE:
-            case Soup.Status.CANT_RESOLVE_PROXY:
-                throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)",
-                    get_endpoint_url(), message.status_code);
-            
-            case Soup.Status.CANT_CONNECT:
-            case Soup.Status.CANT_CONNECT_PROXY:
-                throw new Spit.Publishing.PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)",
-                    get_endpoint_url(), message.status_code);
-            case Soup.Status.SSL_FAILED:
-                throw new Spit.Publishing.PublishingError.SSL_FAILED ("Unable to connect to %s: Secure connection failed",
-                    get_endpoint_url ());
-            
             default:
-                // status codes below 100 are used by Soup, 100 and above are defined HTTP codes
-                if (message.status_code >= 100) {
-                    throw new Spit.Publishing.PublishingError.NO_ANSWER("Service %s returned HTTP status code %u %s",
-                        get_endpoint_url(), message.status_code, message.reason_phrase);
-                } else {
-                    throw new Spit.Publishing.PublishingError.NO_ANSWER("Failure communicating with %s (error code %u)",
-                        get_endpoint_url(), message.status_code);
-                }
+                throw new Spit.Publishing.PublishingError.NO_ANSWER("Service %s returned HTTP status code %u %s",
+                    get_endpoint_url(), message.status_code, message.reason_phrase);            
         }
         
         // All valid communication involves body data in the response
-        if (message.response_body.data == null || message.response_body.data.length == 0)
+        var body = parent_session.get_body();
+        if (body == null || body.get_size() == 0)
             throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("No response data from %s",
                 get_endpoint_url());
     }
@@ -324,13 +346,20 @@ public class Transaction {
         this.is_executed = is_executed;
     }
 
+    private bool on_accecpt_certificate(Soup.Message message, TlsCertificate cert, TlsCertificateFlags errors) {
+        debug ("HTTPS connect error. Will ignore? %s", this.parent_session.get_is_insecure().to_string());
+        return this.parent_session.get_is_insecure();
+    }
+
     protected void send() throws Spit.Publishing.PublishingError {
         parent_session.wire_message_unqueued.connect(on_message_unqueued);
         message.wrote_body_data.connect(on_wrote_body_data);
+        message.accept_certificate.connect(on_accecpt_certificate);
         parent_session.send_wire_message(message);
         
         parent_session.wire_message_unqueued.disconnect(on_message_unqueued);
         message.wrote_body_data.disconnect(on_wrote_body_data);
+        message.accept_certificate.disconnect(on_accecpt_certificate);
         
         if (err != null)
             network_error(err);
@@ -367,7 +396,8 @@ public class Transaction {
         }
         
         ulong length = (payload_length > 0) ? payload_length : custom_payload.length;
-        message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload.data[0:length]);
+        message.set_request_body_from_bytes(payload_content_type, new Bytes (custom_payload.data[0:length]));
+        this.request_length = length;
 
         use_custom_payload = true;
     }
@@ -377,8 +407,9 @@ public class Transaction {
     // alone and let the Transaction class manage it for you. You should only need
     // to install a new message if your subclass has radically different behavior from
     // normal Transactions -- like multipart encoding.
-    protected void set_message(Soup.Message message) {
+    protected void set_message(Soup.Message message, ulong request_length) {
         this.message = message;
+        this.request_length = request_length;
     }
     
     public bool get_is_executed() {
@@ -406,42 +437,45 @@ public class Transaction {
             assert(arguments.length > 0);
 
         // concatenate the REST arguments array into an HTTP formdata string
-        string formdata_string = "";
+        var formdata_string = new StringBuilder("");
         for (int i = 0; i < arguments.length; i++) {
-            formdata_string += arguments[i].to_string ();
+            formdata_string.append(arguments[i].to_string());
             if (i < arguments.length - 1)
-                formdata_string += "&";
+                formdata_string.append("&");
         }
         
         // for GET requests with arguments, append the formdata string to the endpoint url after a
         // query divider ('?') -- but make sure to save the old (caller-specified) endpoint URL
         // and restore it after the GET so that the underlying Soup message remains consistent
-        string old_url = null;
+        GLib.Uri? old_url = null;
         string url_with_query = null;
         if (get_method() == HttpMethod.GET && arguments.length > 0) {
-            old_url = message.get_uri().to_string(false);
-            url_with_query = get_endpoint_url() + "?" + formdata_string;
-            message.set_uri(new Soup.URI(url_with_query));
+            old_url = message.get_uri();
+            url_with_query = get_endpoint_url() + "?" + formdata_string.str;
+            try {
+                message.set_uri(GLib.Uri.parse(url_with_query, GLib.UriFlags.ENCODED));
+            } catch (Error err) {
+                error ("Invalid uri for service: %s", err.message);
+            }
         } else {
-            message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-                formdata_string.data);
+            message.set_request_body_from_bytes("application/x-www-form-urlencoded", StringBuilder.free_to_bytes((owned)formdata_string));
         }
 
         is_executed = true;
 
         try {
-            debug("sending message to URI = '%s'", message.get_uri().to_string(false));
+            debug("sending message to URI = '%s'", message.get_uri().to_string());
             send();
         } finally {
             // if old_url is non-null, then restore it
             if (old_url != null)
-                message.set_uri(new Soup.URI(old_url));
+                message.set_uri(old_url);
         }
     }
 
     public string get_response() {
         assert(get_is_executed());
-        return (string) message.response_body.data;
+        return parent_session.get_body() == null ? "" : (string) parent_session.get_body().get_data();
     }
     
     public unowned Soup.MessageHeaders get_response_headers() {
@@ -523,7 +557,7 @@ public class UploadTransaction : Transaction {
         GLib.HashTable<string, string> result =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
 
-        result.insert("filename", Soup.URI.encode(publishable.get_serialized_file().get_basename(),
+        result.insert("filename", GLib.Uri.escape_string(publishable.get_serialized_file().get_basename(),
             null));
 
         return result;
@@ -542,37 +576,33 @@ public class UploadTransaction : Transaction {
         foreach (Argument arg in request_arguments)
             message_parts.append_form_string(arg.key, arg.value);
 
-        string payload;
-        size_t payload_length;
+        MappedFile? mapped_file = null;
         try {
-            FileUtils.get_contents(publishable.get_serialized_file().get_path(), out payload,
-                out payload_length);
-        } catch (FileError e) {
+            mapped_file = new MappedFile(publishable.get_serialized_file().get_path(), false);
+        } catch (Error e) {
             throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(
                 _("A temporary file needed for publishing is unavailable"));
         }
 
-        int payload_part_num = message_parts.get_length();
-
-        var bindable_data = new Soup.Buffer.take(payload.data[0:payload_length]);
         message_parts.append_form_file("", publishable.get_serialized_file().get_path(), mime_type,
-            bindable_data);
+            mapped_file.get_bytes());
 
         unowned Soup.MessageHeaders image_part_header;
-        unowned Soup.Buffer image_part_body;
+        unowned Bytes image_part_body;
+        int payload_part_num = message_parts.get_length() - 1;
         message_parts.get_part(payload_part_num, out image_part_header, out image_part_body);
+        debug ("Image part header %p", image_part_header);
         image_part_header.set_content_disposition("form-data", binary_disposition_table);
 
-        Soup.Message outbound_message =
-            Soup.Form.request_new_from_multipart(get_endpoint_url(), message_parts);
-        // TODO: there must be a better way to iterate over a map
+        var outbound_message = new Soup.Message.from_multipart(get_endpoint_url(), message_parts);
+
         Gee.MapIterator<string, string> i = message_headers.map_iterator();
         bool cont = i.next();
         while(cont) {
             outbound_message.request_headers.append(i.get_key(), i.get_value());
             cont = i.next();
         }
-        set_message(outbound_message);
+        set_message(outbound_message, mapped_file.get_length());
         
         set_is_executed(true);
         send();
@@ -742,7 +772,7 @@ public abstract class BatchUploader {
             upload_complete(current_file);
     }
     
-    private void on_chunk_transmitted(int bytes_written_so_far, int total_bytes) {
+    private void on_chunk_transmitted(uint bytes_written_so_far, uint total_bytes) {
         double file_span = 1.0 / publishables.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
         double fraction_complete = (current_file * file_span) + (this_file_fraction_complete *
