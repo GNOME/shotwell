@@ -612,7 +612,9 @@ namespace Publishing.Tumblr {
                 }
                 assert(form.size() > 0);
 
-                var outbound_message = Soup.Form.request_new_from_hash ("POST", get_endpoint_url(), form);
+                var outbound_message = new Soup.Message ("POST", get_endpoint_url());
+                var body = new Bytes(Soup.Form.encode_hash(form).data);
+                outbound_message.set_request_body_from_bytes(Soup.FORM_MIME_TYPE_URLENCODED, body);
 
                 // TODO: there must be a better way to iterate over a map
                 Gee.MapIterator<string, string> i = base.message_headers.map_iterator();
@@ -621,7 +623,7 @@ namespace Publishing.Tumblr {
                     outbound_message.request_headers.append(i.get_key(), i.get_value());
                     cont = i.next();
                 }
-                set_message(outbound_message);
+                set_message(outbound_message, body.length);
 
                 set_is_executed(true);
 

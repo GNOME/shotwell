@@ -11,7 +11,7 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
     private PublishingParameters parameters;
     private Publishing.RESTSupport.GoogleSession session;
     private Spit.Publishing.Publishable publishable;
-    private MappedFile mapped_file;
+    private InputStream mapped_file;
 
     public UploadTransaction(Publishing.RESTSupport.GoogleSession session,
         PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
@@ -30,26 +30,20 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
 
     public override void execute() throws Spit.Publishing.PublishingError {
         var basename = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
+        int64 mapped_file_size = -1;
 
         // attempt to map the binary image data from disk into memory
         try {
-            mapped_file = new MappedFile(publishable.get_serialized_file().get_path(), false);
-        } catch (FileError e) {
+            mapped_file = publishable.get_serialized_file().read(null);
+            var info = ((FileInputStream)mapped_file).query_info("standard::size", null);
+            mapped_file_size = info.get_size();
+        } catch (Error e) {
             string msg = "Google Photos: couldn't read data from %s: %s".printf(
                 publishable.get_serialized_file().get_path(), e.message);
             warning("%s", msg);
 
             throw new Spit.Publishing.PublishingError.LOCAL_FILE_ERROR(msg);
         }
-
-        unowned uint8[] photo_data = (uint8[]) mapped_file.get_contents();
-        photo_data.length = (int) mapped_file.get_length();
-
-        // bind the binary image data read from disk into a Soup.Buffer object so that we
-        // can attach it to the multipart request, then actaully append the buffer
-        // to the multipart request. Then, set the MIME type for this part.
-        // FIXME: Passing no free function here only works because we are sync
-        Soup.Buffer bindable_data = new Soup.Buffer.with_owner(photo_data, mapped_file, null);
 
         // create a message that can be sent over the wire whose payload is the multipart container
         // that we've been building up
@@ -59,8 +53,8 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         outbound_message.request_headers.append("X-Goog-Upload-File-Name", basename);
         outbound_message.request_headers.append("X-Goog-Upload-Protocol", "raw");
         outbound_message.request_headers.set_content_type("application/octet-stream", null);
-        outbound_message.request_body.append_buffer (bindable_data);
-        set_message(outbound_message);
+        outbound_message.set_request_body(null, mapped_file, (ssize_t)mapped_file_size);
+        set_message(outbound_message, (ulong)mapped_file_size);
 
         // send the message and get its response
         set_is_executed(true);
