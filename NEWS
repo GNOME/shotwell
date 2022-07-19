@@ -1,3 +1,19 @@
+Shotwell 0.31.5 (development) - 19 Jul 2022
+ * Port to libsoup3
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/56
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Julia Dronova <juliette.tux@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+
+Added/updated translations:
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - ru.po, courtesy of Ser82-png
+
 Shotwell 0.31.4 (development) - 21 Jun 2022
   * Move video meta-data reading into external process
   * Fix memory leak while importing from camera
