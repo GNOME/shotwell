@@ -44,12 +44,7 @@ plugins/common/RESTSupport.vala
 plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui
 plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui
 plugins/shotwell-publishing-extras/GalleryConnector.vala
-plugins/shotwell-publishing-extras/rajce_authentication_pane.ui
-plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui
-plugins/shotwell-publishing-extras/RajcePublishing.vala
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala
-plugins/shotwell-publishing-extras/YandexPublishing.vala
-plugins/shotwell-publishing-extras/yandex_publish_model.ui
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
@@ -66,6 +61,7 @@ plugins/shotwell-publishing/tumblr_publishing_options_pane.ui
 plugins/shotwell-publishing/TumblrPublishing.vala
 plugins/shotwell-publishing/youtube_publishing_options_pane.ui
 plugins/shotwell-publishing/YouTubePublishing.vala
+plugins/shotwell-publishing/YoutubeUploader.vala
 plugins/shotwell-transitions/BlindsEffect.vala
 plugins/shotwell-transitions/ChessEffect.vala
 plugins/shotwell-transitions/CircleEffect.vala

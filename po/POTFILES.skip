@@ -7,9 +7,7 @@ plugins/authenticator/shotwell/TumblrAuthenticator.c
 plugins/common/Resources.c
 plugins/common/RESTSupport.c
 plugins/shotwell-publishing-extras/GalleryConnector.c
-plugins/shotwell-publishing-extras/RajcePublishing.c
 plugins/shotwell-publishing-extras/shotwell-publishing-extras.c
-plugins/shotwell-publishing-extras/YandexPublishing.c
 plugins/shotwell-publishing/FlickrPublishing.c
 plugins/shotwell-publishing/PhotosPublisher.c
 plugins/shotwell-publishing/PhotosPublishingPane.c
@@ -19,6 +17,7 @@ plugins/shotwell-publishing/PiwigoPublishing.c
 plugins/shotwell-publishing/shotwell-publishing.c
 plugins/shotwell-publishing/TumblrPublishing.c
 plugins/shotwell-publishing/YouTubePublishing.c
+plugins/shotwell-publishing/YoutubeUploader.c
 plugins/shotwell-transitions/BlindsEffect.c
 plugins/shotwell-transitions/ChessEffect.c
 plugins/shotwell-transitions/CircleEffect.c
