@@ -82,6 +82,7 @@ html, body {
   font-family: "Inter Var", sans-serif;
   font-weight: 400;
   line-height: 1.6;
+  scroll-behavior: smooth;
 }
 body {
   color: #241f31;
