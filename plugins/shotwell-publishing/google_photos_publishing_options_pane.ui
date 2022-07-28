@@ -14,7 +14,6 @@
     </child>
     <child>
       <object class="GtkLabel" id="login_identity_label">
-        <property name="visible">0</property>
         <property name="halign">start</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">32</property>
@@ -23,21 +22,18 @@
     </child>
     <child>
       <object class="GtkBox" id="album_gallery_layout_box">
-        <property name="visible">0</property>
         <property name="margin_start">32</property>
         <property name="margin_end">32</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="publish_to_label">
-            <property name="visible">0</property>
-            <property name="vexpand">1</property>
+            <property name="vexpand">0</property>
             <property name="halign">start</property>
             <property name="label">$mediatype will appear in (populated in code)</property>
           </object>
         </child>
         <child>
           <object class="GtkGrid" id="album_choice_area_grid">
-            <property name="visible">0</property>
             <property name="margin_start">24</property>
             <property name="margin_end">24</property>
             <property name="row_spacing">6</property>
@@ -45,7 +41,6 @@
             <property name="column_homogeneous">1</property>
             <child>
               <object class="GtkComboBoxText" id="existing_albums_combo">
-                <property name="visible">0</property>
                 <property name="tooltip_text" translatable="yes">Shotwell can only publish into albums that it created by itself, so this list might be empty despite the fact that you already have albums in your Google Photos account</property>
                 <layout>
                   <property name="column">1</property>
@@ -55,7 +50,6 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="strip_metadata_check">
-                <property name="visible">0</property>
                 <property name="label" translatable="yes">_Remove location, camera, and other identifying information before uploading</property>
                 <property name="focusable">1</property>
                 <property name="halign">start</property>
@@ -71,7 +65,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="visible">0</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Photo _size preset</property>
                 <property name="use_underline">1</property>
@@ -84,7 +77,6 @@
             </child>
             <child>
               <object class="GtkComboBoxText" id="size_combo">
-                <property name="visible">0</property>
                 <layout>
                   <property name="column">1</property>
                   <property name="row">2</property>
@@ -93,7 +85,6 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="existing_album_radio">
-                <property name="visible">0</property>
                 <property name="label" translatable="yes">An existing album</property>
                 <property name="halign">end</property>
                 <property name="active">1</property>
@@ -105,10 +96,9 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="new_album_radio">
-                <property name="visible">0</property>
                 <property name="label" translatable="yes">A new album named</property>
                 <property name="halign">end</property>
-                <property name="active">1</property>
+                <property name="active">0</property>
                 <property name="group">existing_album_radio</property>
                 <layout>
                   <property name="column">0</property>
@@ -118,7 +108,6 @@
             </child>
             <child>
               <object class="GtkEntry" id="new_album_entry">
-                <property name="visible">0</property>
                 <property name="focusable">1</property>
                 <layout>
                   <property name="column">1</property>
@@ -135,10 +124,8 @@
     </child>
     <child>
       <object class="GtkBox">
-        <property name="visible">0</property>
         <child>
           <object class="GtkButton" id="logout_button">
-            <property name="visible">0</property>
             <property name="label" translatable="yes">_Logout</property>
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
@@ -147,7 +134,6 @@
         </child>
         <child>
           <object class="GtkButton" id="publish_button">
-            <property name="visible">0</property>
             <property name="label" translatable="yes">_Publish</property>
             <property name="focusable">1</property>
             <property name="receives_default">1</property>

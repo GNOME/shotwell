@@ -1,7 +1,7 @@
 authenticator_shotwell_sources = [
         'ShotwellAuthenticatorFactory.vala',
         'FlickrPublishingAuthenticator.vala',
-#        'GoogleAuthenticator.vala',
+        'GoogleAuthenticator.vala',
         'OAuth1Authenticator.vala',
         'TumblrAuthenticator.vala'
         ]

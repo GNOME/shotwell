@@ -37,7 +37,6 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
     }
 
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
@@ -319,7 +318,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         privacy_label = this.builder.get_object("privacy_label") as Gtk.Label;
 
         if (!authenticator.can_logout()) {
-            logout_button.parent.remove(logout_button);
+            logout_button.unparent();
         }
 
         login_identity_label.set_label(_("You are logged into YouTube as %s.").printf(

@@ -36,7 +36,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
 
 #if HAVE_YOUTUBE
         if (authenicators.contains("youtube")) {
-            //pluggables += new YouTubeService(resource_directory);
+            pluggables += new YouTubeService(resource_directory);
         }
 #endif
 
