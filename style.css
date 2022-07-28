@@ -100,15 +100,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: 100;
   font-style: normal;
-  margin: 3rem 0 2rem;
+  margin: 3rem 0 1rem;
 }
 
 @media screen and (min-width: 650px) {
   h1 {
-    font-size: 38px;
+    font-size: 1.6rem;
   }
 }
 h2 {
