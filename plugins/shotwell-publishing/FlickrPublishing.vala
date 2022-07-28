@@ -31,7 +31,6 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = null;
     }
 
     public void activation(bool enabled) {
@@ -600,7 +599,7 @@ internal class PublishingOptionsPane : Spit.Publishing.DialogPane, GLib.Object {
         strip_metadata_check = (Gtk.CheckButton) this.builder.get_object("strip_metadata_check");
 
         if (!publisher.get_authenticator().can_logout()) {
-            logout_button.parent.remove(logout_button);
+            logout_button.unparent();
         }
 
         this.parameters = parameters;

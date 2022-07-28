@@ -30,7 +30,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
 
 #if HAVE_FLICKR
         if (authenicators.contains("flickr")) {
-            //pluggables += new FlickrService(resource_directory);
+            pluggables += new FlickrService(resource_directory);
         }
 #endif
 

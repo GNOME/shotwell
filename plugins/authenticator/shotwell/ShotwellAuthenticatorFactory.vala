@@ -25,8 +25,7 @@ namespace Publishing.Authenticator {
                                                      Spit.Publishing.PluginHost host) {
             switch (provider) {
                 case "flickr":
-                    //return new Shotwell.Flickr.Flickr(host);
-                    return null;
+                    return new Shotwell.Flickr.Flickr(host);
                 case "youtube":
                     //return new Shotwell.Google.Google("https://www.googleapis.com/auth/youtube", _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.\n\nShotwell uses the YouTube API services <a href=\"https://developers.google.com/youtube\">https://developers.google.com/youtube</a> for accessing your YouTube channel and upload the videos. By using Shotwell to access YouTube, you agree to be bound to the YouTube Terms of Service as available at <a href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a>\n\nShotwell's privacy policy regarding the use of data related to your Google account in general and YouTube in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n\nFor Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"), host);
                     return null;
