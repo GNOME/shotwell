@@ -1090,9 +1090,12 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         var info = this.get_builder ().get_object ("default") as Gtk.Button;
         if (cert != null) {
             info.clicked.connect (() => {
-            #if 0
                 var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
+                var scrollable = new Gtk.ScrolledWindow();
+                scrollable.set_vexpand(true);
                 var widget = new Gcr.CertificateWidget (simple_cert);
+                widget.set_vexpand(true);
+                scrollable.set_child(widget);
                 bool use_header = true;
                 Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
                 var flags = (Gtk.DialogFlags) 0;
@@ -1105,15 +1108,14 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
                                 null,
                                 flags,
                                 _("_OK"), Gtk.ResponseType.OK);
-                dialog.get_content_area ().append (widget);
+                dialog.get_content_area ().append (scrollable);
                 dialog.set_default_response (Gtk.ResponseType.OK);
-                dialog.set_default_size (640, -1);
+                dialog.set_default_size (640, 480);
                 dialog.show ();
                 dialog.set_modal(true);
                 dialog.response.connect(() => {
                     dialog.destroy();
                 });
-            #endif
             });
         } else {
             info.unparent();
