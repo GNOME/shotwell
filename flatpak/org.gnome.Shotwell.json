@@ -232,8 +232,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url": "file:///home/jens/Source/gcr",
-                    "branch" : "phako/install-gcr-gtk4.h"
+                    "url" : "https://gitlab.gnome.org/GNOME/gcr.git/"
                 }
             ]
         },
