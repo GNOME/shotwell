@@ -43,8 +43,9 @@ Shotwell project page:      https://wiki.gnome.org/Apps/Shotwell
 Shotwell documentation:     http://shotwell-project.org/doc/html/
 GNOME Gitlab Project:       https://gitlab.gnome.org/GNOME/shotwell
 
-We also encourage you to join the Shotwell mailing list. See
-https://mail.gnome.org/mailman/listinfo/shotwell-list for how to subscribe
-to the mailing list.
+The place for discussions with other users of Shotwell is GNOME's discourse,
+using the Application category and the tag "shotwell":
+
+https://discourse.gnome.org/tag/shotwell
 
     Copyright 2016 Software Freedom Conservancy Inc.
