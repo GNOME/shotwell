@@ -541,7 +541,7 @@ public abstract class AppWindow : PageWindow {
         return (Gtk.ResponseType) response;
     }
     
-	public static int six_alt_question(string message,
+	public static int export_overwrite_or_replace_question(string message,
 		string alt1, string alt2, string alt3, string alt4, string alt5, string alt6,
         string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),

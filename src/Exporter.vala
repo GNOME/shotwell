@@ -344,8 +344,8 @@ public class ExporterUI {
     private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
         progress_dialog.set_modal(false);
         string question = _("File %s already exists. Replace?").printf(file.get_basename());
-        int response = AppWindow.six_alt_question(question, 
-                                                  _("_Skip"), _("Rename"), _("Rename All"),_("_Replace"), _("Replace _All"), _("_Cancel"), _("Export"));
+        int response = AppWindow.export_overwrite_or_replace_question(question, 
+            _("_Skip"), _("Rename"), _("Rename All"),_("_Replace"), _("Replace _All"), _("_Cancel"), _("Export"));
         
         progress_dialog.set_modal(true);
 
