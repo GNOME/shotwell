@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-05-29 16:44+0000\n"
-"PO-Revision-Date: 2022-05-29 21:23+0300\n"
+"POT-Creation-Date: 2022-07-31 07:31+0000\n"
+"PO-Revision-Date: 2022-07-31 12:53+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -39,7 +39,8 @@ msgid "OAuth Access Phase Token"
 msgstr "Ключ фази доступу OAuth"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
-msgid "The authorization token for the currently logged in Tumblr user, if any"
+msgid ""
+"The authorization token for the currently logged in Tumblr user, if any"
 msgstr ""
 "Ключ уповноваження для поточного сеансу у системі Tumblr, якщо такий існує"
 
@@ -446,7 +447,8 @@ msgid "color for solid transparency background"
 msgstr "колір для суцільного прозорого тла"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:180
-msgid "Color to use if background for transparent images is set to solid color"
+msgid ""
+"Color to use if background for transparent images is set to solid color"
 msgstr ""
 "Колір, яким слід скористатися, якщо для заповнення тла прозорих зображень "
 "вибрано суцільний колір"
@@ -758,7 +760,8 @@ msgid "default publishing service"
 msgstr "типова служба оприлюднення"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:428
-msgid "The authorization token for the currently logged in Flickr user, if any"
+msgid ""
+"The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 "Ключ уповноваження для поточного сеансу у системі Flickr, якщо такий існує"
 
@@ -1029,7 +1032,8 @@ msgid "content ppi"
 msgstr "ppi даних"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:634
-msgid "The number of pixels per inch (ppi) sent to the printer during printing"
+msgid ""
+"The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr ""
 "Кількість пікселів на дюйм (ppi) у даних, які буде надіслано на принтер під "
 "час друку"
@@ -1138,7 +1142,8 @@ msgid "enable Google Photos publishing plugin"
 msgstr "увімкнути додаток оприлюднення на Google Фото"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:706
-msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
+msgid ""
+"True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "True, якщо додаток оприлюднення на Google Фото увімкнено; false, якщо ні"
 
@@ -1971,16 +1976,17 @@ msgstr "_Увійти"
 
 #: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
 #: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
-#: src/AppWindow.vala:551 src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348
+#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
+#: src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Скасувати"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 #: src/Resources.vala:132
 msgid "_OK"
 msgstr "_Гаразд"
@@ -2324,19 +2330,19 @@ msgstr ""
 "інтернету. Вам слід уповноважити інструмент Shotwell Connect, щоб встановити "
 "зв’язок програми з вашим обліковим записом Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:148
 msgid "Preparing for login…"
 msgstr "Приготування до входу…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:221
 msgid "Flickr authorization failed"
 msgstr "Не вдалося пройти розпізнавання на Flickr"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:228
 msgid "Verifying authorization…"
 msgstr "Перевіряємо уповноваження…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:164
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:173
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -2429,21 +2435,15 @@ msgstr ""
 "a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:935
 msgid "_Email address"
 msgstr "_Адреса ел. пошти"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:936
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "_Пароль"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:938
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
 msgstr "Увійти"
@@ -2455,14 +2455,14 @@ msgstr ""
 "Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1140
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1145
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Некоректні значення імені користувача і/або пароля. Будь ласка, повторіть "
 "спробу."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1181
 msgid "Invalid User Name or Password"
 msgstr "Некоректне ім’я користувача або пароль"
 
@@ -2476,19 +2476,19 @@ msgstr "Не вдалося завантажити інтерфейс: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Відвідати домашню сторінку Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:584
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:233
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 "⚫ Цим сайтом надано дані щодо розпізнавання, які належать іншому сайту."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:238
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2497,13 +2497,14 @@ msgstr ""
 "Перевірте, чи правильно вказано дату на календарі вашого комп’ютера."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:243
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
-msgstr "⚫ Дані розпізнавання цього сайта не було видано надійною організацією."
+msgstr ""
+"⚫ Дані розпізнавання цього сайта не було видано надійною організацією."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:248
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2511,7 +2512,7 @@ msgstr ""
 "пошкоджено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:253
+#: plugins/common/RESTSupport.vala:275
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -2520,7 +2521,7 @@ msgstr ""
 "їх було випущено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:258
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2529,7 +2530,7 @@ msgstr ""
 "використовується дуже слабкий спосіб шифрування."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:263
+#: plugins/common/RESTSupport.vala:285
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2537,8 +2538,9 @@ msgstr ""
 "⚫ Дані розпізнавання сайта набудуть чинності лише у майбутньому. Перевірте, "
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
-#: plugins/common/RESTSupport.vala:552
+#: plugins/common/RESTSupport.vala:584
 #: plugins/shotwell-publishing/TumblrPublishing.vala:603
+#: plugins/shotwell-publishing/YoutubeUploader.vala:69
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Тимчасовий файл, потрібний для оприлюднення, недоступний"
 
@@ -2590,7 +2592,7 @@ msgstr "пікселів"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:700
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1372
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1377
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Початковий розмір"
@@ -2601,9 +2603,6 @@ msgid "Longest edge"
 msgstr "Найдовший край"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1062
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
@@ -2612,9 +2611,6 @@ msgid "_Logout"
 msgstr "Ви_йти з системи"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1061
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
@@ -2717,112 +2713,9 @@ msgstr "Нерозпізнаний користувач"
 msgid " Site Not Found"
 msgstr " Сайт не знайдено"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:937
-msgid "_Remember"
-msgstr "_Запам’ятати"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1058
-msgid "An _existing album:"
-msgstr "_Існуючому альбомі:"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1059
-msgid "A _new album named:"
-msgstr "_Новому альбомі з назвою:"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1049
-msgid "_Hide album"
-msgstr "При_ховати альбом"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1060
-msgid "Open target _album in browser"
-msgstr "Відкрити _альбом призначення у навігаторі"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-msgid "Copyright © 2013 rajce.net"
-msgstr "© rajce.net, 2013"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:787
-msgid "An error message occurred when publishing to Rajce. Please try again."
-msgstr ""
-"Під час спроби оприлюднення даних на Rajce сталася помилка. Будь ласка, "
-"повторіть спробу."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:876
-msgid "Enter email and password associated with your Rajce account."
-msgstr ""
-"Вкажіть адресу електронної пошти і пароль, пов’язані з вашим обліковим "
-"записом Rajce."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:877
-msgid "Invalid email and/or password. Please try again"
-msgstr ""
-"Некоректні значення адреси електронної пошти і/або пароля. Будь ласка, "
-"повторіть спробу."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:908
-msgid "Invalid User Email or Password"
-msgstr "Некоректна адреса ел. пошти користувача або пароль"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1056
-#, c-format
-msgid "You are logged into Rajce as %s."
-msgstr "Ви увійшли до облікового запису %s на Rajce."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1057
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
-msgid "Photos will appear in:"
-msgstr "Фотографії з’являться у:"
-
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:27
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
 msgid "Shotwell Extra Publishing Services"
 msgstr "Додаткові служби оприлюднення Shotwell"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
-msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "© Evgeniy Polyakov <zbr@ioremap.net>, 2010+"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
-msgid "Visit the Yandex.Fotki web site"
-msgstr "Відвідати сайт Yandex.Fotki"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:629
-msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Ви ще не увійшли до системи Yandex.Fotki."
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:12
-msgid "Public"
-msgstr "Відкритий доступ"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:15
-msgid "Friends"
-msgstr "Друзі"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:18
-#: plugins/shotwell-publishing/YouTubePublishing.vala:378
-msgid "Private"
-msgstr "Конфіденційне"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:47
-msgid "_Albums (or write new):"
-msgstr "_Альбоми (або створити новий):"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:85
-msgid "Access _type:"
-msgstr "_Тип доступу:"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:106
-msgid "Disable _comments"
-msgstr "Вимкнути _коментування"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:123
-msgid "_Forbid downloading original photo"
-msgstr "За_боронити звантаження початкових версій фотографій"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
@@ -2906,7 +2799,7 @@ msgid "Photos and videos _visible to"
 msgstr "Фотографії і відео зможуть _бачити"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:674
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1356
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1361
 msgid "Everyone"
 msgstr "Будь-хто"
 
@@ -2927,24 +2820,24 @@ msgid "Just me"
 msgstr "Лише я"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:696
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1368
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1373
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 пікселів"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:697
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1369
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1374
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 пікселів"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:698
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1370
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1375
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 пікселів"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:699
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1371
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1376
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 пікселів"
 
@@ -2971,7 +2864,7 @@ msgid "A new album named"
 msgstr "Новому альбомі з назвою"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1252
 msgid "Shotwell Connect"
 msgstr "З’єднувач Shotwell"
 
@@ -3005,6 +2898,11 @@ msgstr "Ви увійшли до облікового запису %s на Googl
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:64
 msgid "Videos will appear in:"
 msgstr "Відео з’являться у:"
+
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
+msgid "Photos will appear in:"
+msgstr "Фотографії з’являться у:"
 
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
@@ -3070,19 +2968,19 @@ msgstr "_Не вивантажувати оцінки"
 msgid "Logout"
 msgstr "Вийти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:823
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:828
 #, c-format
 msgid "Creating album %s…"
 msgstr "Створюємо альбом %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1005
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Під час спроби оприлюднення даних на Piwigo сталася помилка. Будь ласка, "
 "повторіть спробу."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -3093,12 +2991,12 @@ msgstr ""
 "інформацію, яка надходить до цього сайта або з нього (це стосується, "
 "наприклад, особистих повідомлень, даних щодо кредитних карток або паролів)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1104
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1109
 #, c-format
 msgid "Certificate of %s"
 msgstr "Сертифікат %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1143
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3107,7 +3005,7 @@ msgstr ""
 "і пароль, пов’язані з вашим обліковим записом Piwigo, до якого прив’язано "
 "бібліотеку."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1144
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3115,23 +3013,23 @@ msgstr ""
 "Shotwell не вдалося встановити зв’язок з вашою бібліотекою фотографій "
 "Piwigo. Будь ласка, перевірте, чи правильно вказано адресу."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
 msgid "Invalid URL"
 msgstr "Некоректна адреса"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1357
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1362
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Адміністратори, родичі, друзі, контакти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1358
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1363
 msgid "Admins, Family, Friends"
 msgstr "Адміністратори, родичі, друзі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1359
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1364
 msgid "Admins, Family"
 msgstr "Адміністратори, родичі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1360
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1365
 msgid "Admins"
 msgstr "Адміністратори"
 
@@ -3183,7 +3081,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "_Конфіденційність відео"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:236
+#: plugins/shotwell-publishing/YouTubePublishing.vala:217
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -3191,18 +3089,22 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Youtube неможливе."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:344
+#: plugins/shotwell-publishing/YouTubePublishing.vala:325
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:376
+#: plugins/shotwell-publishing/YouTubePublishing.vala:357
 msgid "Public listed"
 msgstr "Відкрите у списку"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:377
+#: plugins/shotwell-publishing/YouTubePublishing.vala:358
 msgid "Public unlisted"
 msgstr "Відкрите без показу у списку"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:359
+msgid "Private"
+msgstr "Конфіденційне"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3301,7 +3203,7 @@ msgstr "Зафіксувати панель відкритою"
 msgid "Leave fullscreen"
 msgstr "Вийти з повноекранного режиму"
 
-#: src/AppWindow.vala:561
+#: src/AppWindow.vala:560
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3314,21 +3216,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:581
+#: src/AppWindow.vala:580
 msgid "Visit the Shotwell web site"
 msgstr "Відвідати сайт Shotwell"
 
-#: src/AppWindow.vala:593
+#: src/AppWindow.vala:592
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Не вдалося показати довідку: %s"
 
-#: src/AppWindow.vala:601
+#: src/AppWindow.vala:600
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Не вдалося перейти до сторінки бази даних вад: %s"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:608
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Не вдалося показати сторінку поширених питань: %s"
@@ -3555,7 +3457,8 @@ msgstr "Вилучення фотографій або відео з фотоа�
 #: src/camera/ImportPage.vala:1777
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
-msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
+msgid_plural ""
+"Unable to delete %d photos/videos from the camera due to errors."
 msgstr[0] ""
 "Не вдалося вилучити з фотоапарата %d фотографію або відео через помилки."
 msgstr[1] ""
@@ -4198,8 +4101,6 @@ msgid "Export Video"
 msgstr "Експортування відео"
 
 #: src/Dialogs.vala:74 src/PhotoPage.vala:3022
-#| msgid "Export Photo"
-#| msgid_plural "Export Photos"
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Експортування фотографій"
@@ -4308,7 +4209,8 @@ msgstr "повідомлення про помилку:"
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
 #: src/Dialogs.vala:268
-msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
+msgid ""
+"Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr ""
 "Файли, які не було імпортовано через те, що ці файли не є файлами фотографій "
 "або відео:"
@@ -4349,7 +4251,8 @@ msgstr ""
 #.
 #: src/Dialogs.vala:314
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
-msgstr "Фотографії та відео, які не було імпортовано через пошкодження файлів:"
+msgstr ""
+"Фотографії та відео, які не було імпортовано через пошкодження файлів:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
@@ -5259,7 +5162,8 @@ msgstr "Закрити вікно інструменту усування ефе
 
 #: src/editing_tools/EditingTools.vala:1876
 msgid "Remove any red-eye effects in the selected region"
-msgstr "Вилучити будь-які наслідки ефекту «червоних очей» у позначеній області"
+msgstr ""
+"Вилучити будь-які наслідки ефекту «червоних очей» у позначеній області"
 
 #: src/editing_tools/EditingTools.vala:2210
 #: src/editing_tools/StraightenTool.vala:102
@@ -5411,33 +5315,43 @@ msgstr "%B"
 msgid "Event %s"
 msgstr "Подія %s"
 
-#: src/Exporter.vala:232
+#: src/Exporter.vala:236 src/Exporter.vala:291
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "Не вдалося створити файл тимчасових даних для %s: %s"
 
-#: src/Exporter.vala:299
+#: src/Exporter.vala:328
 msgid "Exporting"
 msgstr "Експортування"
 
-#: src/Exporter.vala:317
+#: src/Exporter.vala:346
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "Файл з назвою %s вже існує. Замінити його?"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "_Skip"
 msgstr "Пр_опустити"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
+#| msgid "Rename…"
+msgid "Rename"
+msgstr "Перейменувати"
+
+#: src/Exporter.vala:348
+#| msgid "Rename Event"
+msgid "Rename All"
+msgstr "Перейменувати все"
+
+#: src/Exporter.vala:348
 msgid "_Replace"
 msgstr "_Замінити"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Replace _All"
 msgstr "Замінити вс_і"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Export"
 msgstr "Експорт"
 
@@ -5713,7 +5627,8 @@ msgstr "[ФАЙЛ]"
 
 #: src/main.vala:392
 #, c-format
-msgid "Run “%s --help” to see a full list of available command line options.\n"
+msgid ""
+"Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
 "команду «%s --help».\n"
@@ -5767,14 +5682,11 @@ msgid "Photo source file missing: %s"
 msgstr "Не виявлено файла джерела фотографії: %s"
 
 #: src/PhotoPage.vala:2897
-#| msgid "Remove From Library"
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Вилучення з бібліотеки"
 
 #: src/PhotoPage.vala:2898
-#| msgid "Removing Photo From Library"
-#| msgid_plural "Removing Photos From Library"
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Вилучення фотографій з бібліотеки"
@@ -6985,6 +6897,74 @@ msgstr "без назви"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid "_Remember"
+#~ msgstr "_Запам’ятати"
+
+#~ msgid "An _existing album:"
+#~ msgstr "_Існуючому альбомі:"
+
+#~ msgid "A _new album named:"
+#~ msgstr "_Новому альбомі з назвою:"
+
+#~ msgid "_Hide album"
+#~ msgstr "При_ховати альбом"
+
+#~ msgid "Open target _album in browser"
+#~ msgstr "Відкрити _альбом призначення у навігаторі"
+
+#~ msgid "Copyright © 2013 rajce.net"
+#~ msgstr "© rajce.net, 2013"
+
+#~ msgid ""
+#~ "An error message occurred when publishing to Rajce. Please try again."
+#~ msgstr ""
+#~ "Під час спроби оприлюднення даних на Rajce сталася помилка. Будь ласка, "
+#~ "повторіть спробу."
+
+#~ msgid "Enter email and password associated with your Rajce account."
+#~ msgstr ""
+#~ "Вкажіть адресу електронної пошти і пароль, пов’язані з вашим обліковим "
+#~ "записом Rajce."
+
+#~ msgid "Invalid email and/or password. Please try again"
+#~ msgstr ""
+#~ "Некоректні значення адреси електронної пошти і/або пароля. Будь ласка, "
+#~ "повторіть спробу."
+
+#~ msgid "Invalid User Email or Password"
+#~ msgstr "Некоректна адреса ел. пошти користувача або пароль"
+
+#, c-format
+#~ msgid "You are logged into Rajce as %s."
+#~ msgstr "Ви увійшли до облікового запису %s на Rajce."
+
+#~ msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
+#~ msgstr "© Evgeniy Polyakov <zbr@ioremap.net>, 2010+"
+
+#~ msgid "Visit the Yandex.Fotki web site"
+#~ msgstr "Відвідати сайт Yandex.Fotki"
+
+#~ msgid "You are not currently logged into Yandex.Fotki."
+#~ msgstr "Ви ще не увійшли до системи Yandex.Fotki."
+
+#~ msgid "Public"
+#~ msgstr "Відкритий доступ"
+
+#~ msgid "Friends"
+#~ msgstr "Друзі"
+
+#~ msgid "_Albums (or write new):"
+#~ msgstr "_Альбоми (або створити новий):"
+
+#~ msgid "Access _type:"
+#~ msgstr "_Тип доступу:"
+
+#~ msgid "Disable _comments"
+#~ msgstr "Вимкнути _коментування"
+
+#~ msgid "_Forbid downloading original photo"
+#~ msgstr "За_боронити звантаження початкових версій фотографій"
 
 #~ msgid "_Map Overview"
 #~ msgstr "Огляд _карти"
