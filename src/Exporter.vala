@@ -55,7 +55,9 @@ public class Exporter : Object {
         YES,
         NO,
         CANCEL,
-        REPLACE_ALL
+        REPLACE_ALL,
+        RENAME,
+        RENAME_ALL,
     }
     
     public delegate void CompletionCallback(Exporter exporter, bool is_cancelled);
@@ -116,6 +118,7 @@ public class Exporter : Object {
     private unowned ProgressMonitor? monitor = null;
     private Cancellable cancellable;
     private bool replace_all = false;
+    private bool rename_all = false;
     private bool aborted = false;
     private ExportFormatParameters export_params;
 
@@ -193,6 +196,7 @@ public class Exporter : Object {
     
     private bool process_queue() {
         int submitted = 0;
+        Gee.HashSet<string> used = new Gee.HashSet<string>();
         foreach (MediaSource source in to_export) {
             File? use_source_file = null;
             PhotoFileFormat real_export_format = PhotoFileFormat.get_system_default_format();
@@ -227,7 +231,7 @@ public class Exporter : Object {
             if (export_dir == null) {
                 try {
                     bool collision;
-                    dest = generate_unique_file(AppDirs.get_temp_dir(), basename, out collision);
+                    dest = generate_unique_file(AppDirs.get_temp_dir(), basename, out collision, used);
                 } catch (Error err) {
                     AppWindow.error_message(_("Unable to generate a temporary file for %s: %s").printf(
                         source.get_file().get_basename(), err.message));
@@ -236,17 +240,30 @@ public class Exporter : Object {
                 }
             } else {
                 dest = dir.get_child(basename);
+				bool rename = false;
                 
-                if (!replace_all && dest.query_exists(null)) {
-                    switch (overwrite_callback(this, dest)) {
+                if (!replace_all && (dest.query_exists(null) || used.contains(basename))) {
+                    if (rename_all) {
+                        rename = true;
+                    } else {
+                        switch (overwrite_callback(this, dest)) {
                         case Overwrite.YES:
                             // continue
-                        break;
+                            break;
                         
                         case Overwrite.REPLACE_ALL:
                             replace_all = true;
-                        break;
-                        
+                            break;
+
+                        case Overwrite.RENAME:
+                            rename = true;
+                            break;
+
+                        case Overwrite.RENAME_ALL:
+                            rename = true;
+                            rename_all = true;
+                            break;
+
                         case Overwrite.CANCEL:
                             cancellable.cancel();
                             
@@ -264,10 +281,22 @@ public class Exporter : Object {
                             }
                             
                             continue;
+                        }
+                    }
+                    if (rename) {
+                        try {
+                            bool collision;
+                            dest = generate_unique_file(dir, basename, out collision, used);
+                        } catch (Error err) {
+                            AppWindow.error_message(_("Unable to generate a temporary file for %s: %s").printf(
+                                                        source.get_file().get_basename(), err.message));
+                            break;
+                        }
                     }
                 }
             }
 
+            used.add(dest.get_basename());
             workers.enqueue(new ExportJob(this, source, dest, scaling, export_params.quality,
                 real_export_format, cancellable, export_params.mode == ExportFormatMode.UNMODIFIED, export_params.export_metadata));
             submitted++;
@@ -315,24 +344,30 @@ public class ExporterUI {
     private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
         progress_dialog.set_modal(false);
         string question = _("File %s already exists. Replace?").printf(file.get_basename());
-        Gtk.ResponseType response = AppWindow.negate_affirm_all_cancel_question(question, 
-            _("_Skip"), _("_Replace"), _("Replace _All"), _("Export"));
+        int response = AppWindow.export_overwrite_or_replace_question(question, 
+            _("_Skip"), _("Rename"), _("Rename All"),_("_Replace"), _("Replace _All"), _("_Cancel"), _("Export"));
         
         progress_dialog.set_modal(true);
 
         switch (response) {
-            case Gtk.ResponseType.APPLY:
-                return Exporter.Overwrite.REPLACE_ALL;
+        case 2:
+            return Exporter.Overwrite.RENAME;
             
-            case Gtk.ResponseType.YES:
-                return Exporter.Overwrite.YES;
+        case 3:
+            return Exporter.Overwrite.RENAME_ALL;
             
-            case Gtk.ResponseType.CANCEL:
-                return Exporter.Overwrite.CANCEL;
+        case 4:
+            return Exporter.Overwrite.YES;
             
-            case Gtk.ResponseType.NO:
-            default:
-                return Exporter.Overwrite.NO;
+        case 5:
+            return Exporter.Overwrite.REPLACE_ALL;
+            
+        case 6:
+            return Exporter.Overwrite.CANCEL;
+            
+        case 1:
+        default:
+            return Exporter.Overwrite.NO;
         }
     }
     
@@ -340,4 +375,3 @@ public class ExporterUI {
         return export_error_dialog(file, remaining > 0) != Gtk.ResponseType.CANCEL;
     }
 }
-

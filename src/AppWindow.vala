@@ -541,22 +541,21 @@ public abstract class AppWindow : PageWindow {
         return (Gtk.ResponseType) response;
     }
     
-    public static Gtk.ResponseType negate_affirm_all_cancel_question(string message, 
-        string negative, string affirmative, string affirmative_all, string? title = null,
-        Gtk.Window? parent = null) {
+	public static int export_overwrite_or_replace_question(string message,
+		string alt1, string alt2, string alt3, string alt4, string alt5, string alt6,
+        string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
-        dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES,
-            affirmative_all, Gtk.ResponseType.APPLY,  _("_Cancel"), Gtk.ResponseType.CANCEL);
+        dialog.add_buttons(alt1, 1, alt2, 2, alt3, 3, alt4, 4, alt5, 5, alt6, 6);
         
         int response = dialog.run();
         
         dialog.destroy();
         
-        return (Gtk.ResponseType) response;
+        return response;
     }
-    
+
     public static void database_error(DatabaseError err) {
         panic(_("A fatal error occurred when accessing Shotwell’s library. Shotwell cannot continue.\n\n%s").printf(
             err.message));

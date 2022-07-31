@@ -31,9 +31,11 @@ public bool claim_file(File file) throws Error {
 // same or similar as what has been requested (adds numerals to the end of the name until a unique
 // one has been found).  The file may exist when this function returns, and it should be
 // overwritten.  It does *not* attempt to create the parent directory, however.
+// The used parameter allows you to pass in a collection of names which should be deemed to be
+// already claimed but which may not yet exist in the file system.
 //
 // This function is thread-safe.
-public File? generate_unique_file(File dir, string basename, out bool collision) throws Error {
+public File? generate_unique_file(File dir, string basename, out bool collision, Gee.Collection<string>? used = null) throws Error {
     // create the file to atomically "claim" it
     File file = dir.get_child(basename);
     if (claim_file(file)) {
@@ -51,7 +53,9 @@ public File? generate_unique_file(File dir, string basename, out bool collision)
     // generate a unique filename
     for (int ctr = 1; ctr < int.MAX; ctr++) {
         string new_name = (ext != null) ? "%s_%d.%s".printf(name, ctr, ext) : "%s_%d".printf(name, ctr);
-        
+        if (used != null && used.contains(new_name)) {
+            continue;
+        }
         file = dir.get_child(new_name);
         if (claim_file(file))
             return file;
