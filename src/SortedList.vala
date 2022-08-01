@@ -142,7 +142,7 @@ public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Co
         return list.get(index);
     }
     
-    private int binary_search(G search, EqualFunc? equal_func) {
+    private int binary_search(G search, EqualFunc<G>? equal_func) {
         assert(cmp != null);
         
         int min = 0;
@@ -181,7 +181,7 @@ public class SortedList<G> : Object, Gee.Traversable<G>, Gee.Iterable<G>, Gee.Co
     }
     
     // See notes at index_of for the difference between this method and it.
-    public int locate(G search, bool altered, EqualFunc equal_func = direct_equal) {
+    public int locate(G search, bool altered, EqualFunc<G> equal_func = direct_equal) {
         if (cmp == null || altered) {
             int count = list.size;
             for (int ctr = 0; ctr < count; ctr++) {

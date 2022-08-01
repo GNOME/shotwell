@@ -13,13 +13,13 @@ public inline bool is_string_empty(string? s) {
 }
 
 // utf8 case sensitive compare
-public int utf8_cs_compare(void *a, void *b) {
-    return ((string) a).collate((string) b);
+public int utf8_cs_compare(string a, string b) {
+    return a.collate(b);
 }
 
 // utf8 case insensitive compare
-public int utf8_ci_compare(void *a, void *b) {
-    return ((string) a).down().collate(((string) b).down());
+public int utf8_ci_compare(string a, string b) {
+    return a.down().collate(b.down());
 }
 
 // utf8 array to string
