@@ -225,7 +225,7 @@ public string? get_pluggable_module_id(Spit.Pluggable needle) {
     return (module_rep != null) ? module_rep.spit_module.get_id() : null;
 }
 
-public Gee.Collection<ExtensionPoint> get_extension_points(owned CompareDataFunc? compare_func = null) {
+public Gee.Collection<ExtensionPoint> get_extension_points(owned CompareDataFunc<ExtensionPoint>? compare_func = null) {
     Gee.Collection<ExtensionPoint> sorted = new Gee.TreeSet<ExtensionPoint>((owned) compare_func);
     sorted.add_all(extension_points.values);
     
@@ -233,7 +233,7 @@ public Gee.Collection<ExtensionPoint> get_extension_points(owned CompareDataFunc
 }
 
 public Gee.Collection<Spit.Pluggable> get_pluggables_for_type(Type type,
-    owned CompareDataFunc? compare_func = null, bool include_disabled = false) {
+    owned CompareDataFunc<Spit.Pluggable>? compare_func = null, bool include_disabled = false) {
     // if this triggers it means the extension point didn't register itself at init() time
     assert(extension_points.has_key(type));
     
@@ -294,18 +294,12 @@ public File get_pluggable_module_file(Spit.Pluggable pluggable) {
     return (module_rep != null) ? module_rep.file : null;
 }
 
-public int compare_pluggable_names(void *a, void *b) {
-    Spit.Pluggable *apluggable = (Spit.Pluggable *) a;
-    Spit.Pluggable *bpluggable = (Spit.Pluggable *) b;
-    
-    return apluggable->get_pluggable_name().collate(bpluggable->get_pluggable_name());
+public int compare_pluggable_names(Spit.Pluggable a, Spit.Pluggable b) {
+    return a.get_pluggable_name().collate(b.get_pluggable_name());
 }
 
-public int compare_extension_point_names(void *a, void *b) {
-    ExtensionPoint *apoint = (ExtensionPoint *) a;
-    ExtensionPoint *bpoint = (ExtensionPoint *) b;
-    
-    return apoint->name.collate(bpoint->name);
+public int compare_extension_point_names(ExtensionPoint a, ExtensionPoint b) {
+    return a.name.collate(b.name);
 }
 
 private bool is_shared_library(File file) {

@@ -50,7 +50,7 @@ public class TimedQueue<G> {
     // finding a workaround, namely using a delegate:
     // https://bugzilla.gnome.org/show_bug.cgi?id=628639
     public TimedQueue(uint hold_msec, DequeuedCallback<G> callback,
-        owned Gee.EqualDataFunc? equal_func = null, int priority = Priority.DEFAULT) {
+        owned Gee.EqualDataFunc<G>? equal_func = null, int priority = Priority.DEFAULT) {
         this.hold_msec = hold_msec;
         this.callback = callback;
         
