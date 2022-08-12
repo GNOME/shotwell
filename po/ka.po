@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-07-25 09:58+0000\n"
-"PO-Revision-Date: 2022-07-27 09:41+0200\n"
+"POT-Creation-Date: 2022-08-02 22:59+0000\n"
+"PO-Revision-Date: 2022-08-12 06:40+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -1766,7 +1766,7 @@ msgstr "სახელის გადარქმევა…"
 
 #: data/ui/faces.ui:469 src/library/TrashPage.vala:114
 msgid "Delete"
-msgstr ""
+msgstr "წაშლა"
 
 #: data/ui/import_queue.ui:8
 msgid "_Stop Import"
@@ -1787,11 +1787,12 @@ msgstr ""
 
 #: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
 #: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
-#: src/AppWindow.vala:551 src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348
+#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
+#: src/Resources.vala:123
 msgid "_Cancel"
 msgstr "გაუქმება"
 
@@ -1799,7 +1800,7 @@ msgstr "გაუქმება"
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 #: src/Resources.vala:132
 msgid "_OK"
-msgstr ""
+msgstr "_დიახ"
 
 #: data/ui/offline.ui:221 src/Resources.vala:773
 msgid "Remove the selected photos from the library"
@@ -2232,7 +2233,7 @@ msgstr ""
 msgid "Visit the Shotwell home page"
 msgstr ""
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:584
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
 
@@ -2298,7 +2299,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:68
 msgid "_Password:"
-msgstr ""
+msgstr "_პაროლი:"
 
 #: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
 msgid "Go _Back"
@@ -2619,7 +2620,7 @@ msgstr ""
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:94
 msgid "User _name"
-msgstr ""
+msgstr "_მომხმარებლის სახელი"
 
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:133
 msgid "Remember Password"
@@ -2793,7 +2794,7 @@ msgstr ""
 
 #: plugins/shotwell-transitions/ChessEffect.vala:20
 msgid "Chess"
-msgstr ""
+msgstr "ჭადრაკი"
 
 #: plugins/shotwell-transitions/CircleEffect.vala:20
 msgid "Circle"
@@ -2884,7 +2885,7 @@ msgstr ""
 msgid "Leave fullscreen"
 msgstr "სრული ეკრანიდან გასვლა"
 
-#: src/AppWindow.vala:561
+#: src/AppWindow.vala:560
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -2893,21 +2894,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/AppWindow.vala:581
+#: src/AppWindow.vala:580
 msgid "Visit the Shotwell web site"
 msgstr ""
 
-#: src/AppWindow.vala:593
+#: src/AppWindow.vala:592
 #, c-format
 msgid "Unable to display help: %s"
 msgstr ""
 
-#: src/AppWindow.vala:601
+#: src/AppWindow.vala:600
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr ""
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:608
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr ""
@@ -2918,7 +2919,7 @@ msgstr "წარმატება"
 
 #: src/BatchImport.vala:29
 msgid "File error"
-msgstr ""
+msgstr "ფაილის შეცდომა"
 
 #: src/BatchImport.vala:32
 msgid "Unable to decode file"
@@ -3579,7 +3580,7 @@ msgstr ""
 #. link manually ourselves, due to a limitation of help: URIs.
 #: src/dialogs/Preferences.vala:108 src/dialogs/Preferences.vala:112
 msgid "(Help)"
-msgstr ""
+msgstr "(დახმარება)"
 
 #: src/dialogs/Preferences.vala:116
 #, c-format
@@ -3612,7 +3613,7 @@ msgstr ""
 #: src/dialogs/ProgressDialog.vala:97
 #, c-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: src/dialogs/SetBackgroundSlideshow.vala:49
 #, c-format
@@ -3674,7 +3675,7 @@ msgstr[1] ""
 
 #: src/Dialogs.vala:74
 msgid "Export Video"
-msgstr ""
+msgstr "ვიდეოს გატანა"
 
 #: src/Dialogs.vala:74 src/PhotoPage.vala:3022
 msgctxt "Dialog Title"
@@ -4046,7 +4047,7 @@ msgstr ""
 
 #: src/Dialogs.vala:661
 msgid "Name:"
-msgstr ""
+msgstr "სახელი:"
 
 #. Dialog title
 #: src/Dialogs.vala:672
@@ -4325,7 +4326,7 @@ msgstr ""
 
 #: src/direct/DirectPhotoPage.vala:390 src/direct/DirectPhotoPage.vala:411
 msgid "Save As"
-msgstr ""
+msgstr "შენახვა, როგორც"
 
 #. verify this is a directory
 #: src/DirectoryMonitor.vala:891
@@ -4604,33 +4605,41 @@ msgstr ""
 msgid "Event %s"
 msgstr ""
 
-#: src/Exporter.vala:232
+#: src/Exporter.vala:236 src/Exporter.vala:291
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr ""
 
-#: src/Exporter.vala:299
+#: src/Exporter.vala:328
 msgid "Exporting"
 msgstr "გატანა"
 
-#: src/Exporter.vala:317
+#: src/Exporter.vala:346
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr ""
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "_Skip"
 msgstr "_გამოტოვება"
 
-#: src/Exporter.vala:319
-msgid "_Replace"
-msgstr ""
+#: src/Exporter.vala:348
+msgid "Rename"
+msgstr "სახელის გადარქმევა"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
+msgid "Rename All"
+msgstr "ყველას გადარქმევა"
+
+#: src/Exporter.vala:348
+msgid "_Replace"
+msgstr "_ჩანაცვლება"
+
+#: src/Exporter.vala:348
 msgid "Replace _All"
 msgstr "ყველ_აფრის ჩანაცვლება"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Export"
 msgstr ""
 
@@ -5518,7 +5527,7 @@ msgstr ""
 
 #: src/Resources.vala:258
 msgid "_Print…"
-msgstr ""
+msgstr "_ბეჭდვა…"
 
 #: src/Resources.vala:260
 msgid "Pu_blish…"
