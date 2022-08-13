@@ -51,16 +51,6 @@ static gboolean on_handle_load_net(ShotwellFaces1 *object, GDBusMethodInvocation
     return TRUE;
 }
 
-static gboolean on_handle_face_to_vec(ShotwellFaces1 *object, GDBusMethodInvocation *invocation, const gchar *arg_image)
-{
-    auto vec = faceToVec(arg_image);
-
-    shotwell_faces1_complete_face_to_vec(
-        object, invocation, g_variant_new_fixed_array(G_VARIANT_TYPE_DOUBLE, vec.data(), vec.size(), sizeof(double)));
-
-    return TRUE;
-}
-
 static gboolean on_handle_terminate(ShotwellFaces1 *object,
                                     GDBusMethodInvocation *invocation,
                                     gpointer user_data) {
@@ -79,7 +69,6 @@ static void on_name_acquired(GDBusConnection *connection,
     g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), nullptr);
     g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), user_data);
     g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), nullptr);
-    g_signal_connect(interface, "handle-face-to-vec", G_CALLBACK (on_handle_face_to_vec), nullptr);
 
     g_autoptr(GError) error = nullptr;
     g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, FACEDETECT_PATH, &error);

@@ -172,20 +172,3 @@ std::vector<double> faceToVecMat(cv::Mat img) {
     return ret;
 }
 #endif
-
-std::vector<double> faceToVec(cv::String inputName) {
-    std::vector<double> ret;
-    cv::Mat img = cv::imread(inputName, 1);
-	if (img.empty()) {
-        std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
-        ret.assign(128, 0);
-        return ret;
-    }
-#ifdef HAS_OPENCV_DNN
-    ret = faceToVecMat(img);
-#else
-    ret.assign(128, 0);
-#endif
-    return ret;
-}
-
