@@ -8,6 +8,8 @@
     #include <opencv2/dnn.hpp>
 #endif
 
+#include <iostream>
+
 // Global variable for DNN to generate vector out of face
 #ifdef HAS_OPENCV_DNN
 static cv::dnn::Net faceRecogNet;

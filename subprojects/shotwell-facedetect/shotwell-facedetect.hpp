@@ -11,9 +11,9 @@
 
 #include <opencv2/core/core.hpp>
 
-#include <algorithm>
-#include <iostream>
-#include <stdio.h>
+#include <gio/gio.h>
+
+#include <vector>
 
 struct FaceRect {
     FaceRect()
@@ -25,6 +25,8 @@ struct FaceRect {
     float width{ 0.0F };
     float height{ 0.0F };
     std::vector<double> vec;
+
+    GVariant *serialize() const;
 };
 
 bool loadNet(cv::String netFile);
