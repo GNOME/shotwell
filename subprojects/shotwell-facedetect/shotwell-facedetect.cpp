@@ -21,14 +21,8 @@ const char* FACEDETECT_PATH = "/org/gnome/shotwell/faces";
 
 GVariant *FaceRect::serialize() const
 {
-    GVariantBuilder *arr_builder = g_variant_builder_new(G_VARIANT_TYPE("ad"));
-    for(std::vector<double>::const_iterator v = vec.begin(); v != vec.end(); v++) {
-        GVariant *d = g_variant_new("d", *v);
-        g_variant_builder_add(arr_builder, "d", d);
-    }
-    GVariant *vec = g_variant_new("ad", arr_builder);
-    g_variant_builder_unref(arr_builder);
-    return g_variant_new("(dddd@ad)", x, y, width, height, vec);
+    return g_variant_new("(dddd@ad)", x, y, width, height,
+                         g_variant_new_fixed_array(G_VARIANT_TYPE_DOUBLE, vec.data(), vec.size(), sizeof(double)));
 }
 
 // DBus binding functions
