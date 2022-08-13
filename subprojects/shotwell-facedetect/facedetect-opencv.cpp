@@ -79,11 +79,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
             cv::Mat colourImg;
             cv::resize(img, colourImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
             i.vec = faceToVecMat(colourImg(*r)); // Run vector conversion on the face
-        } else {
-            i.vec.assign(128, 0);
         }
-#else
-        i.vec.assign(128, 0);
 #endif
         scaled.push_back(i);
     }
