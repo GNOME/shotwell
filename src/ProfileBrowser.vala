@@ -44,20 +44,33 @@ namespace Shotwell {
             box.margin_bottom = 6;
             box.margin_start = 6;
             box.margin_end = 6;
-            box.halign = Gtk.Align.START;
 
             var a = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
             a.hexpand = true;
 
             var label = new Gtk.Label(null);
-            label.set_markup("<b>%s</b>".printf(p.name));
-            label.halign = Gtk.Align.START;
+            label.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>".printf(p.name));
             label.xalign = 0.0f;
             a.pack_start(label);
 
-            label = new Gtk.Label(p.data_dir);
+
+            // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
+            // and that even is not yet initialized
+            string settings_path;
+            if (p.id == Profile.SYSTEM) {
+                settings_path = "/org/gnome/shotwell/preferences/files/";
+            } else {
+                settings_path = "/org/gnome/shotwell/profiles/" + p.id + "/preferences/files/";
+            }
+
+            var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
+            var import_dir = settings.get_string("import-dir");
+            if (import_dir == "") {
+                import_dir = Environment.get_user_special_dir(UserDirectory.PICTURES);
+            }
+
+            label = new Gtk.Label(import_dir);
             label.get_style_context().add_class("dim-label");
-            label.halign = Gtk.Align.START;
             label.xalign = 0.0f;
             a.pack_end(label);
             label.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
@@ -79,9 +92,8 @@ namespace Shotwell {
             i.margin_end = 6;
             i.hexpand = false;
 
-            box.pack_start(i);
-
-            box.pack_start(a);
+            box.pack_start(i, false, false, 0);
+            box.pack_start(a, true, true, 0);
 
             if (p.id != Profile.SYSTEM && ! p.active) {
                 var b = new Gtk.Button.from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON);
@@ -93,7 +105,7 @@ namespace Shotwell {
                 b.hexpand = false;
                 b.halign = Gtk.Align.END;
                 b.get_style_context().add_class("flat");
-                box.pack_end(b);
+                box.pack_end(b, false, false, 0);
                 b.clicked.connect(() => {
                     var flags = Gtk.DialogFlags.DESTROY_WITH_PARENT | Gtk.DialogFlags.MODAL;
                     if (Resources.use_header_bar() == 1) {

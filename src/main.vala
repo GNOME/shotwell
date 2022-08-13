@@ -405,7 +405,7 @@ void main(string[] args) {
             window.response(Gtk.ResponseType.OK);
         });
         window.get_content_area().add(browser);
-        window.set_default_size(800, 600);
+        window.set_size_request(430, 560);
         var response = window.run();
         window.destroy();
         // Anything else than selecting an entry in the list will stop shotwell from starting
