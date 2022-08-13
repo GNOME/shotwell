@@ -38,8 +38,6 @@ public interface FaceDetectInterface : DBusProxy {
         throws IOError, DBusError;
     public abstract bool load_net(string netFile)
         throws IOError, DBusError;
-    public abstract double[] face_to_vec(string inputName)
-        throws IOError, DBusError;
     public abstract void terminate() throws IOError, DBusError;
 }
 

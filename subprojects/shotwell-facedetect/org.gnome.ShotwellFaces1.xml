@@ -33,16 +33,6 @@
     </method>
 
     <!--
-        FaceToVec
-        @image: Image of face to convert
-        Returns 128 element vector
-    -->
-    <method name="FaceToVec">
-      <arg type="s" name="image" direction="in" />
-      <arg type="ad" name="vec" direction="out" />
-    </method>
-
-    <!--
         Terminate
     -->
     <method name="Terminate">
