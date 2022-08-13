@@ -11,8 +11,25 @@
 #include "shotwell-facedetect.hpp"
 #include "dbus-interface.h"
 
+#include <gio/gio.h>
+#include <glib.h>
+
+#include <iostream>
+
 const char* FACEDETECT_INTERFACE_NAME = "org.gnome.Shotwell.Faces1";
 const char* FACEDETECT_PATH = "/org/gnome/shotwell/faces";
+
+GVariant *FaceRect::serialize() const
+{
+    GVariantBuilder *arr_builder = g_variant_builder_new(G_VARIANT_TYPE("ad"));
+    for(std::vector<double>::const_iterator v = vec.begin(); v != vec.end(); v++) {
+        GVariant *d = g_variant_new("d", *v);
+        g_variant_builder_add(arr_builder, "d", d);
+    }
+    GVariant *vec = g_variant_new("ad", arr_builder);
+    g_variant_builder_unref(arr_builder);
+    return g_variant_new("(dddd@ad)", x, y, width, height, vec);
+}
 
 // DBus binding functions
 static gboolean on_handle_detect_faces(ShotwellFaces1 *object,
@@ -28,15 +45,7 @@ static gboolean on_handle_detect_faces(ShotwellFaces1 *object,
     // Construct return value
     builder = g_variant_builder_new(G_VARIANT_TYPE ("a(ddddad)"));
     for (std::vector<FaceRect>::const_iterator r = rects.begin(); r != rects.end(); r++) {
-        GVariantBuilder *arr_builder = g_variant_builder_new(G_VARIANT_TYPE ("ad"));
-        for (std::vector<double>::const_iterator v = r->vec.begin(); v != r->vec.end(); v++) {
-            GVariant *d = g_variant_new("d", *v);
-            g_variant_builder_add(arr_builder, "d", d);
-        }
-        GVariant *vec = g_variant_new("ad", arr_builder);
-        g_variant_builder_unref(arr_builder);
-        GVariant *rect = g_variant_new("(dddd@ad)", r->x, r->y, r->width, r->height, vec);
-        g_variant_builder_add(builder, "@(ddddad)", rect);
+	g_variant_builder_add(builder, "@(ddddad)", r->serialize());
         g_debug("Returning %f,%f-%f", r->x, r->y, r->vec.back());
     }
     faces = g_variant_new("a(ddddad)", builder);
