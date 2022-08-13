@@ -54,21 +54,13 @@ static gboolean on_handle_load_net(ShotwellFaces1 *object,
     return TRUE;
 }
 
-static gboolean on_handle_face_to_vec(ShotwellFaces1 *object,
-                                      GDBusMethodInvocation *invocation,
-                                      const gchar *arg_image) {
-    GVariantBuilder *builder;
-    GVariant *ret;
-    std::vector<double> vec = faceToVec(arg_image);
-    builder = g_variant_builder_new(G_VARIANT_TYPE ("ad"));
-    for (std::vector<double>::const_iterator r = vec.begin(); r != vec.end(); r++) {
-        GVariant *v = g_variant_new("d", *r);
-        g_variant_builder_add(builder, "d", v);
-    }
-    ret = g_variant_new("ad", builder);
-    g_variant_builder_unref(builder);
-    shotwell_faces1_complete_face_to_vec(object, invocation,
-                                         ret);
+static gboolean on_handle_face_to_vec(ShotwellFaces1 *object, GDBusMethodInvocation *invocation, const gchar *arg_image)
+{
+    auto vec = faceToVec(arg_image);
+
+    shotwell_faces1_complete_face_to_vec(
+        object, invocation, g_variant_new_fixed_array(G_VARIANT_TYPE_DOUBLE, vec.data(), vec.size(), sizeof(double)));
+
     return TRUE;
 }
 
