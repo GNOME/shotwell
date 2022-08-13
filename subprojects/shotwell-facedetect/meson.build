@@ -1,4 +1,4 @@
-project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++14'])
+project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++17'])
 gnome = import('gnome')
 facedetect_dep = dependency('opencv4', version : ['>= 4.0.0'], required : false)
 if not facedetect_dep.found()
