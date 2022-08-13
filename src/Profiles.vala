@@ -5,7 +5,45 @@
  */
 
 namespace Shotwell {
-    class ProfileManager : Object {
+    class Profile : Object {
+        public Profile(string name, string id, string data_dir, bool active) {
+            Object(name: name, id: id, data_dir: data_dir, active: active);
+        }
+        public string name {get; construct;}
+        public string id {get; construct;}
+        public string data_dir {get; construct;}
+        public bool active {get; construct;}
+    }
+
+    class ProfileManager : Object, GLib.ListModel {
+        // ListModel implementations
+        Type get_item_type() {
+            return typeof(Profile);
+        }
+
+        uint get_n_items() {
+            // All that is in the ini file plus one for the default profile
+            return profiles.get_groups().length + 1;
+        }
+
+        GLib.Object? get_item (uint position) {
+            if (position == 0) {
+                return new Profile(_("System Profile"), "__shotwell_default_system",
+                            Path.build_path(Path.DIR_SEPARATOR_S, Environment.get_user_data_dir(), "shotwell"),
+                            this.profile == null);
+            }
+
+            var group = profiles.get_groups()[position - 1];
+            var id = profiles.get_value(group, "Id");
+            var name = profiles.get_value(group, "Name");
+            var active = this.profile == name;
+            return new Profile(profiles.get_value(group, "Name"),
+                               id,
+                               get_data_dir_for_profile(id, group),
+                               active);
+
+        }
+
         private static ProfileManager instance;
         public static ProfileManager get_instance() {
             if (instance == null)
@@ -50,6 +88,7 @@ namespace Shotwell {
         }
 
         public void set_profile(string profile) {
+            message("Using profile %s for this session", profile);
             assert(this.profile == null);
 
             this.profile = profile;
@@ -91,13 +130,21 @@ namespace Shotwell {
 
         public string id() {
             // We are not running on any profile
-            if (profile == null)
+            if (profile == null || profile == "")
                 return "";
 
             try {
                 return profiles.get_string(group_name, "Id");
             } catch (Error error) {
                 assert_not_reached();
+            }
+        }
+
+        private string get_data_dir_for_profile(string id, string group) {
+            if ("DataDir" in profiles.get_keys(group)) {
+                return profiles.get_value(group, "DataDir");
+            } else {
+                return Path.build_filename(Environment.get_user_data_dir(), "shotwell", "profiles", id);
             }
         }
 
@@ -109,15 +156,41 @@ namespace Shotwell {
                     print("Profile name: %s\n", profiles.get_value(group, "Name"));
                     var id = profiles.get_value(group, "Id");
                     print("Profile Id: %s\n", id);
-                    if ("DataDir" in profiles.get_keys(group)) {
-                        print("Data dir: %s\n", profiles.get_value(group, "DataDir"));
-                    } else {
-                        print("Data dir: %s\n", Path.build_filename(Environment.get_user_data_dir(), "profiles", id));
-                    }
+                    print("Data dir: %s\n", get_data_dir_for_profile(id, group));
                     print("\n");
                 }
             } catch (Error error) {
                 print("Failed to print profiles: %s", error.message);
+            }
+        }
+
+        public void remove(string id, bool remove_all) {
+            debug("Request to remove profile %s, with files? %s", id, remove_all.to_string());
+            int index = 1;
+            string group = null;
+            bool found = false;
+            foreach (var g in profiles.get_groups()) {
+                if (profiles.get_value(g, "Id") == id) {
+                    group = g;
+                    break;
+                }
+                index++;
+            }
+
+            if (group != null) {
+                // Remove profile
+                var data_dir = get_data_dir_for_profile(id, group);
+                profiles.remove_comment(group, null);
+                profiles.remove_group(group);
+
+                // TODO: Remove gsettings
+
+                if (remove_all) {
+                // TODO: Remove folder
+                }
+
+                items_changed(index, 1, 0);
+                write();
             }
         }
     }

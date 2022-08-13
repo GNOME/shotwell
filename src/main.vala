@@ -343,6 +343,7 @@ bool show_metadata = false;
 string? profile = null;
 bool create_profile = false;
 bool list_profiles = false;
+bool browse_profiles = false;
 
 const OptionEntry[] entries = {
     { "datadir", 'd', 0, OptionArg.FILENAME, ref data_dir, N_("Path to Shotwell’s private data"), N_("DIRECTORY") },
@@ -352,6 +353,7 @@ const OptionEntry[] entries = {
     { "fullscreen", 'f', 0, OptionArg.NONE, ref fullscreen, N_("Start the application in fullscreen mode"), null },
     { "show-metadata", 'p', 0, OptionArg.NONE, ref show_metadata, N_("Print the metadata of the image file"), null },
     { "profile", 'i', 0, OptionArg.STRING, ref profile, N_("Name for a custom profile"), N_("PROFILE") },
+    { "profile-browser", 'b', 0, OptionArg.NONE, ref browse_profiles, N_("Start with a browser of available profiles"), null },
     { "create", 'c', 0, OptionArg.NONE, ref create_profile, N_("If PROFILE given with --profile does not exist, create it"), null },
     { "list-profiles", 'l', 0, OptionArg.NONE, ref list_profiles, N_("Show available profiles"), null },
     { null, 0, 0, 0, null, null, null }
@@ -394,6 +396,20 @@ void main(string[] args) {
         return;
     }
 
+    if (CommandlineOptions.browse_profiles) {
+        var window = new Gtk.Dialog();
+        window.set_title (_("Choose Shotwell's profile"));
+        var browser = new Shotwell.ProfileBrowser();
+        browser.profile_activated.connect((profile) => {
+            CommandlineOptions.profile = profile;
+            window.response(Gtk.ResponseType.OK);
+        });
+        window.get_content_area().add(browser);
+        window.set_default_size(800, 600);
+        var response = window.run();
+        window.destroy();
+    }
+
     // Setup profile manager
     if (CommandlineOptions.profile != null) {
         var manager = Shotwell.ProfileManager.get_instance();
@@ -407,6 +423,8 @@ void main(string[] args) {
         }
         manager.set_profile(CommandlineOptions.profile);
         CommandlineOptions.data_dir = manager.derive_data_dir(CommandlineOptions.data_dir);
+    } else {
+        message("Starting session with system profile");
     }
 
     if (CommandlineOptions.show_version) {
