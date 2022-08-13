@@ -1,9 +1,24 @@
 #include "shotwell-facedetect.hpp"
 
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/objdetect/objdetect.hpp>
 
-#define OPENFACE_RECOG_TORCH_NET "openface.nn4.small2.v1.t7"
-#define RESNET_DETECT_CAFFE_NET "res10_300x300_ssd_iter_140000_fp16.caffemodel"
+#ifdef HAS_OPENCV_DNN
+    #include <opencv2/dnn.hpp>
+#endif
+
+// Global variable for DNN to generate vector out of face
+#ifdef HAS_OPENCV_DNN
+static cv::dnn::Net faceRecogNet;
+static cv::dnn::Net faceDetectNet;
+#endif
+
+constexpr char OPENFACE_RECOG_TORCH_NET[]{ "openface.nn4.small2.v1.t7" };
+constexpr char RESNET_DETECT_CAFFE_NET[]{ "res10_300x300_ssd_iter_140000_fp16.caffemodel" };
+
+std::vector<cv::Rect> detectFacesMat(cv::Mat img);
+std::vector<double> faceToVecMat(cv::Mat img);
 
 // Detect faces in a photo
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer = false) {

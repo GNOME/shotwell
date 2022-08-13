@@ -7,30 +7,26 @@
  * Header file for facedetect/recognition routines
  */
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#ifdef HAS_OPENCV_DNN
-#include <opencv2/dnn.hpp>
-#endif
+#pragma once
 
+#include <opencv2/core/core.hpp>
+
+#include <algorithm>
 #include <iostream>
 #include <stdio.h>
-#include <algorithm>
 
-typedef struct {
-    float x, y, width, height;
+struct FaceRect {
+    FaceRect()
+      : vec(128, 0)
+    {
+    }
+    float x{ 0.0F };
+    float y{ 0.0F };
+    float width{ 0.0F };
+    float height{ 0.0F };
     std::vector<double> vec;
-} FaceRect;
-
-// Global variable for DNN to generate vector out of face
-#ifdef HAS_OPENCV_DNN
-static cv::dnn::Net faceRecogNet;
-static cv::dnn::Net faceDetectNet;
-#endif
+};
 
 bool loadNet(cv::String netFile);
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer);
-std::vector<cv::Rect> detectFacesMat(cv::Mat img);
-std::vector<double> faceToVecMat(cv::Mat img);
 std::vector<double> faceToVec(cv::String inputName);
