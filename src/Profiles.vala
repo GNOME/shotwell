@@ -6,6 +6,7 @@
 
 namespace Shotwell {
     class Profile : Object {
+        public const string SYSTEM = "__shotwell_default_system";
         public Profile(string name, string id, string data_dir, bool active) {
             Object(name: name, id: id, data_dir: data_dir, active: active);
         }
@@ -28,7 +29,7 @@ namespace Shotwell {
 
         GLib.Object? get_item (uint position) {
             if (position == 0) {
-                return new Profile(_("System Profile"), "__shotwell_default_system",
+                return new Profile(_("System Profile"), Profile.SYSTEM,
                             Path.build_path(Path.DIR_SEPARATOR_S, Environment.get_user_data_dir(), "shotwell"),
                             this.profile == null);
             }

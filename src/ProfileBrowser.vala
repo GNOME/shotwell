@@ -19,7 +19,7 @@ namespace Shotwell {
             list_box.row_activated.connect((list_box, row) => {
                 var index = row.get_index();
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
-                if (profile.id == "__shotwell_default_system") {
+                if (profile.id == Profile.SYSTEM) {
                     profile_activated(null);
                 } else {
                     profile_activated(profile.name);
@@ -83,7 +83,7 @@ namespace Shotwell {
 
             box.pack_start(a);
 
-            if (p.id != "__shotwell_default_system" && ! p.active) {
+            if (p.id != Profile.SYSTEM && ! p.active) {
                 var b = new Gtk.Button.from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON);
                 b.margin_top = 6;
                 b.margin_bottom = 6;
