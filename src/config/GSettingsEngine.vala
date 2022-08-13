@@ -186,7 +186,7 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         if (!this.settings_cache.has_key(schema)) {
             if (schema.has_prefix (ROOT_SCHEMA_NAME)) {
                 var path = schema.replace(ROOT_SCHEMA_NAME, "");
-                path = "/org/gnome/shotwell/%s%s/".printf(profile == null ? "" : "profiles/" + profile, path.replace(".", "/"));
+                path = "/org/gnome/shotwell/%s%s/".printf(profile == "" ? "" : "profiles/" + profile, path.replace(".", "/"));
                 path = path.replace("//", "/");
                 this.settings_cache[schema] = new Settings.with_path (schema, path);
             } else {
