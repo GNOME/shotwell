@@ -408,6 +408,10 @@ void main(string[] args) {
         window.set_default_size(800, 600);
         var response = window.run();
         window.destroy();
+        // Anything else than selecting an entry in the list will stop shotwell from starting
+        if (response != Gtk.ResponseType.OK) {
+            return;
+        }
     }
 
     // Setup profile manager
