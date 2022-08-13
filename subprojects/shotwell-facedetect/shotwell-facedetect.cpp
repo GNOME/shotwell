@@ -51,12 +51,11 @@ static gboolean on_handle_load_net(ShotwellFaces1 *object, GDBusMethodInvocation
     return TRUE;
 }
 
-static gboolean on_handle_terminate(ShotwellFaces1 *object,
-                                    GDBusMethodInvocation *invocation,
-                                    gpointer user_data) {
+static gboolean on_handle_terminate(ShotwellFaces1 *object, GDBusMethodInvocation *invocation, gpointer user_data)
+{
     g_debug("Exiting...");
     shotwell_faces1_complete_terminate(object, invocation);
-    g_main_loop_quit(reinterpret_cast<GMainLoop *>(user_data));
+    g_main_loop_quit(static_cast<GMainLoop *>(user_data));
 
     return TRUE;
 }
@@ -84,7 +83,7 @@ static void on_name_lost(GDBusConnection *connection,
     } else {
         g_debug("Connection for name %s disconnected", name);
     }
-    g_main_loop_quit((GMainLoop *)user_data);
+    g_main_loop_quit(static_cast<GMainLoop *>(user_data));
 }
 
 static char* address = nullptr;
