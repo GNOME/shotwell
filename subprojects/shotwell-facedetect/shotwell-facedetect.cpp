@@ -75,17 +75,16 @@ static void on_name_acquired(GDBusConnection *connection,
                              const gchar *name, gpointer user_data) {
     g_debug("Got name %s", name);
 
-    ShotwellFaces1 *interface = shotwell_faces1_skeleton_new();
+    auto *interface = shotwell_faces1_skeleton_new();
     g_signal_connect(interface, "handle-detect-faces", G_CALLBACK (on_handle_detect_faces), nullptr);
     g_signal_connect(interface, "handle-terminate", G_CALLBACK (on_handle_terminate), user_data);
     g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), nullptr);
     g_signal_connect(interface, "handle-face-to-vec", G_CALLBACK (on_handle_face_to_vec), nullptr);
 
-    GError *error = nullptr;
+    g_autoptr(GError) error = nullptr;
     g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, FACEDETECT_PATH, &error);
     if (error != nullptr) {
         g_print("Failed to export interface: %s", error->message);
-        g_clear_error(&error);
     }
 }
 
@@ -106,39 +105,30 @@ static GOptionEntry entries[] = {
     { nullptr }
 };
 
-static gboolean
-on_authorize_authenticated_peer (GIOStream *iostream,
-                                 GCredentials *credentials,
-                                 gpointer user_data)
+static gboolean on_authorize_authenticated_peer([[maybe_unused]] GIOStream *iostream, GCredentials *credentials,
+                                                [[maybe_unused]] gpointer user_data)
 {
-    GCredentials *own_credentials = nullptr;
-    gboolean ret_val = FALSE;
+    g_autoptr(GCredentials) own_credentials = nullptr;
 
-    g_debug("Authorizing peer with credentials %s\n", g_credentials_to_string (credentials));
+    g_debug("Authorizing peer with credentials %s\n", g_credentials_to_string(credentials));
 
-    if (credentials == nullptr)
-        goto out;
+    if(credentials == nullptr) {
+        return FALSE;
+    }
 
-    own_credentials = g_credentials_new ();
+    own_credentials = g_credentials_new();
 
     {
-        GError* error = nullptr;
+        g_autoptr(GError) error = nullptr;
 
-        if (!g_credentials_is_same_user (credentials, own_credentials, &error))
-        {
-            g_warning ("Unable to authorize peer: %s", error->message);
-            g_clear_error (&error);
+        if(g_credentials_is_same_user(credentials, own_credentials, &error) == FALSE) {
+            g_warning("Unable to authorize peer: %s", error->message);
 
-            goto out;
+            return FALSE;
         }
     }
 
-    ret_val = TRUE;
-
-out:
-    g_clear_object (&own_credentials);
-
-    return ret_val;
+    return TRUE;
 }
 
 int main(int argc, char **argv) {
