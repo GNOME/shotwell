@@ -44,13 +44,10 @@ static gboolean on_handle_detect_faces(ShotwellFaces1 *object, GDBusMethodInvoca
     return TRUE;
 }
 
-static gboolean on_handle_load_net(ShotwellFaces1 *object,
-                                   GDBusMethodInvocation *invocation,
-                                   const gchar *arg_net) {
-    bool ret = loadNet(arg_net);
+static gboolean on_handle_load_net(ShotwellFaces1 *object, GDBusMethodInvocation *invocation, const gchar *arg_net)
+{
     // Call return
-    shotwell_faces1_complete_load_net(object, invocation,
-                                      ret);
+    shotwell_faces1_complete_load_net(object, invocation, loadNet(arg_net) ? TRUE : FALSE);
     return TRUE;
 }
 
@@ -151,7 +148,7 @@ int main(int argc, char **argv) {
 
     context = g_option_context_new ("- Shotwell face detection helper service");
     g_option_context_add_main_entries (context, entries, "shotwell");
-    if (!g_option_context_parse (context, &argc, &argv, &error)) {
+    if (g_option_context_parse (context, &argc, &argv, &error) == FALSE) {
         g_print ("Failed to parse options: %s\n", error->message);
         exit(1);
     }
