@@ -333,7 +333,7 @@ public class FacesTool : EditingTools.EditingTool {
             }
             FaceRect[] rects;
             try {
-                rects = FaceDetect.interface.detect_faces(image_path,
+                rects = FaceDetect.face_detect_proxy.detect_faces(image_path,
                                                           AppDirs.get_haarcascade_file().get_path(), scale, true);
             } catch(Error e) {
                 spawnError = "DBus error: " + e.message + "!\n";

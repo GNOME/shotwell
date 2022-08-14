@@ -356,7 +356,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
 #if ENABLE_FACES
     public static void terminate() {
         try {
-            FaceDetect.interface.terminate();
+            FaceDetect.face_detect_proxy.terminate();
         } catch(Error e) {}
     }
 #endif
