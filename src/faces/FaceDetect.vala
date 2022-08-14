@@ -59,6 +59,18 @@ public class FaceDetect {
     public static void create_interface(DBusConnection connection, string bus_name, string owner) {
         if (bus_name == DBUS_NAME) {
             message("Dbus name %s available", bus_name);
+
+            try {
+                // Service file should automatically run the facedetect binary
+                interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
+                interface.load_net(net_file);
+            } catch(IOError e) {
+                AppWindow.error_message(ERROR_MESSAGE);
+            } catch(DBusError e) {
+                AppWindow.error_message(ERROR_MESSAGE);
+            }
+            connected = true;
+
         }
     }
 
@@ -131,16 +143,6 @@ public class FaceDetect {
 #else
         Bus.watch_name(BusType.SESSION, DBUS_NAME, BusNameWatcherFlags.NONE,
                        create_interface, interface_gone);
-        try {
-            // Service file should automatically run the facedetect binary
-            interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
-            interface.load_net(net_file);
-        } catch(IOError e) {
-            AppWindow.error_message(ERROR_MESSAGE);
-        } catch(DBusError e) {
-            AppWindow.error_message(ERROR_MESSAGE);
-        }
-        connected = true;
 #endif
     }
 
