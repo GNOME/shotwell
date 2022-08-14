@@ -10,8 +10,9 @@
     <!--
         DetectFaces
         @image: Image file to run face detection on
-        @cascade: Cascade XML file
+        @cascade: Cascade XML file - unused
         @scale: Scaling to apply on image
+        @infer: Provide an
         Returns an array of face bounding boxes (x,y,w,h) in dimensionless units
     -->
     <method name="DetectFaces">
@@ -24,7 +25,7 @@
 
     <!--
         LoadNet
-        @net: Torch t7 net file
+        @net: path to folder containing the DNN
         Returns non-zero on any error
     -->
     <method name="LoadNet">
