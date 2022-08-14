@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-// DBus interface definition
+// DBus face_detect_proxy definition
 public struct FaceRect {
     public double x;
     public double y;
@@ -49,21 +49,21 @@ public class FaceDetect {
     public static string net_file;
     public const string ERROR_MESSAGE = "Unable to connect to facedetect service";
     
-    public static FaceDetectInterface interface;
+    public static FaceDetectInterface face_detect_proxy;
 
 #if FACEDETECT_BUS_PRIVATE
     private static GLib.DBusServer dbus_server;
     private static Subprocess process;
 #endif
 
-    public static void create_interface(DBusConnection connection, string bus_name, string owner) {
+    public static void create_face_detect_proxy(DBusConnection connection, string bus_name, string owner) {
         if (bus_name == DBUS_NAME) {
             message("Dbus name %s available", bus_name);
 
             try {
                 // Service file should automatically run the facedetect binary
-                interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
-                interface.load_net(net_file);
+                face_detect_proxy = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
+                face_detect_proxy.load_net(net_file);
                 connected = true;
             } catch(IOError e) {
                 AppWindow.error_message(ERROR_MESSAGE);
@@ -76,18 +76,19 @@ public class FaceDetect {
     public static void interface_gone(DBusConnection connection, string bus_name) {
         message("Dbus name %s gone", bus_name);
         connected = false;
+        face_detect_proxy = null;
     }
 
 #if FACEDETECT_BUS_PRIVATE
     private static bool on_new_connection(DBusServer server, DBusConnection connection) {
         try {
-            interface = connection.get_proxy_sync(null, DBUS_PATH,
+            face_detect_proxy = connection.get_proxy_sync(null, DBUS_PATH,
                                                   DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
                                                   | DBusProxyFlags.DO_NOT_CONNECT_SIGNALS,
                                                   null);
             Idle.add(() => {
                 try {
-                    interface.load_net(net_file);
+                    face_detect_proxy.load_net(net_file);
                     connected = true;
                 } catch (Error error) {
                     critical("Failed to call load_net: %s", error.message);
@@ -98,7 +99,7 @@ public class FaceDetect {
 
             return true;
         } catch (Error error) {
-            critical("Failed to create interface for face detect: %s", error.message);
+            critical("Failed to create face_detect_proxy for face detect: %s", error.message);
             AppWindow.error_message(ERROR_MESSAGE);
 
             return false;
@@ -138,7 +139,7 @@ public class FaceDetect {
         }
 #else
         Bus.watch_name(BusType.SESSION, DBUS_NAME, BusNameWatcherFlags.NONE,
-                       create_interface, interface_gone);
+                       create_face_detect_proxy, interface_gone);
 #endif
     }
 
