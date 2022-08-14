@@ -131,13 +131,18 @@ bool loadNet(cv::String baseDir) {
     try {
         faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
                                                   baseDir + "/" + RESNET_DETECT_CAFFE_NET);
-        faceRecogNet = cv::dnn::readNetFromTorch(baseDir + "/" + OPENFACE_RECOG_TORCH_NET);
     } catch(cv::Exception &e) {
         std::cout << "File load failed: " << e.msg << std::endl;
         disableDnn = true;
     }
 
-    if (faceRecogNet.empty() || faceDetectNet.empty()) {
+    try {
+        faceRecogNet = cv::dnn::readNetFromTorch(baseDir + "/" + OPENFACE_RECOG_TORCH_NET);
+    } catch(cv::Exception &e) {
+        std::cout << "File load failed: " << e.msg << std::endl;
+    }
+
+    if (faceDetectNet.empty()) {
         std::cout << "Loading open-face net failed!" << std::endl;
         disableDnn = true;
         return false;
