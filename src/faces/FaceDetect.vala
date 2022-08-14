@@ -64,13 +64,12 @@ public class FaceDetect {
                 // Service file should automatically run the facedetect binary
                 interface = Bus.get_proxy_sync (BusType.SESSION, DBUS_NAME, DBUS_PATH);
                 interface.load_net(net_file);
+                connected = true;
             } catch(IOError e) {
                 AppWindow.error_message(ERROR_MESSAGE);
             } catch(DBusError e) {
                 AppWindow.error_message(ERROR_MESSAGE);
             }
-            connected = true;
-
         }
     }
 
@@ -88,11 +87,8 @@ public class FaceDetect {
                                                   null);
             Idle.add(() => {
                 try {
-                    if (interface.load_net(net_file))
-                        connected = true;
-                    else {
-                        AppWindow.error_message(ERROR_MESSAGE);
-                    }
+                    interface.load_net(net_file);
+                    connected = true;
                 } catch (Error error) {
                     critical("Failed to call load_net: %s", error.message);
                     AppWindow.error_message(ERROR_MESSAGE);
