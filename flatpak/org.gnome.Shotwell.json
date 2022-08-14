@@ -282,29 +282,7 @@
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
                     "branch" : "master"
-                },
-                {
-                    "type" : "extra-data",
-                    "filename" : "openface.nn4.small2.v1.t7",
-                    "url" : "https://storage.cmusatyalab.org/openface-models/nn4.small2.v1.t7",
-                    "sha256" : "9b72d54aeb24a64a8135dca8e792f7cc675c99a884a6940350a6cedcf7b7ba08",
-                    "size" : 31510785
-                },
-                {
-                    "type" : "extra-data",
-                    "filename" : "res10_300x300_ssd_iter_140000_fp16.caffemodel",
-                    "url" : "https://raw.githubusercontent.com/opencv/opencv_3rdparty/dnn_samples_face_detector_20180205_fp16/res10_300x300_ssd_iter_140000_fp16.caffemodel",
-                    "sha256" : "510ffd2471bd81e3fcc88a5beb4eae4fb445ccf8333ebc54e7302b83f4158a76",
-                    "size" : 5351047
-                },
-                {
-                    "type" : "extra-data",
-                    "filename" : "deploy.prototxt",
-                    "url" : "https://raw.githubusercontent.com/opencv/opencv/master/samples/dnn/face_detector/deploy.prototxt",
-                    "sha256" : "dcd661dc48fc9de0a341db1f666a2164ea63a67265c7f779bc12d6b3f2fa67e9",
-                    "size" : 28104
                 }
-
             ]
         }
     ]
