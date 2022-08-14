@@ -17,11 +17,13 @@ static cv::dnn::Net faceDetectNet;
 #endif
 
 static cv::CascadeClassifier cascade;
+static cv::CascadeClassifier cascade_profile;
 static bool disableDnn{ true };
 
 constexpr char OPENFACE_RECOG_TORCH_NET[]{ "openface.nn4.small2.v1.t7" };
 constexpr char RESNET_DETECT_CAFFE_NET[]{ "res10_300x300_ssd_iter_140000_fp16.caffemodel" };
 constexpr char HAARCASCADE[]{ "haarcascade_frontalface_alt.xml" };
+constexpr char HAARCASCADE_PROFILE[]{ "haarcascade_profileface.xml" };
 
 std::vector<cv::Rect> detectFacesMat(cv::Mat img);
 std::vector<double> faceToVecMat(cv::Mat img);
@@ -40,7 +42,8 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
     cv::Mat img = cv::imread(inputName, 1);
 	if (img.empty()) {
-        std::cout << "error;Could not load the file to process. Filename: \"" << inputName << "\"" << std::endl;
+        g_warning("Failed to load the image file: %s", inputName.c_str());
+        return {};
 	}
 
     std::vector<cv::Rect> faces;
@@ -56,12 +59,30 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         cv::Mat gray;
         cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 
+        scale = 1.0;
         cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
         smallImgSize = smallImg.size();
 
         cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
         cv::equalizeHist(smallImg, smallImg);
         cascade.detectMultiScale(smallImg, faces, 1.1, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
+
+        // Run the cascade for profile faces, if available
+        if(not cascade_profile.empty()) {
+            g_debug("Running haarcascade detection for profile faces");
+            std::vector<cv::Rect> profiles;
+            cascade_profile.detectMultiScale(smallImg, profiles, 1.05, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
+            if(not profiles.empty()) {
+                faces.insert(faces.end(), profiles.begin(), profiles.end());
+            }
+
+            // Duplicate all rectangles so we can safely run groupRectangles with minmum 1 on it - otherwise
+            // OpenCV does weird things
+            faces.insert(faces.end(), faces.begin(), faces.end());
+
+            // Try to merge all overlapping rectangles
+            cv::groupRectangles(faces, 1);
+        }
     } else {
 #ifdef HAS_OPENCV_DNN
         // DNN based face detection
@@ -77,6 +98,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         i.y = (float) r->y / smallImgSize.height;
         i.width = (float) r->width / smallImgSize.width;
         i.height = (float) r->height / smallImgSize.height;
+
 #ifdef HAS_OPENCV_DNN
         if (infer && !faceRecogNet.empty()) {
             // Get colour image for vector generation
@@ -99,6 +121,12 @@ bool loadNet(cv::String baseDir) {
     } else {
         g_debug("Successfully loaded haarcascade %s/%s", baseDir.c_str(), HAARCASCADE);
     }
+    cascade_profile.load(baseDir + "/" + HAARCASCADE_PROFILE);
+    if(cascade_profile.empty()) {
+        g_warning("Failed to load haarcascade file: %s/%s", baseDir.c_str(), HAARCASCADE_PROFILE);
+    } else {
+        g_debug("Successfully loaded haarcascade %s/%s", baseDir.c_str(), HAARCASCADE_PROFILE);
+    }
 #ifdef HAS_OPENCV_DNN
     try {
         faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
@@ -113,10 +141,10 @@ bool loadNet(cv::String baseDir) {
         std::cout << "Loading open-face net failed!" << std::endl;
         disableDnn = true;
         return false;
-    } else {
-        disableDnn = false;
-        return true;
     }
+
+    disableDnn = false;
+    return true;
 #else
     return not cascade.empty();
 #endif
