@@ -42,7 +42,7 @@ executable('shotwell-facedetect',
            install : true,
            include_directories: config_incdir,
            install_dir : libexecdir)
-install_data('facedetect-haarcascade.xml',
+install_data('haarcascade_frontalface_alt.xml',
               install_dir : join_paths(get_option('datadir'), 'shotwell'))
 
 configure_file(

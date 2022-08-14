@@ -16,21 +16,26 @@ static cv::dnn::Net faceRecogNet;
 static cv::dnn::Net faceDetectNet;
 #endif
 
+static cv::CascadeClassifier cascade;
+static bool disableDnn{ true };
+
 constexpr char OPENFACE_RECOG_TORCH_NET[]{ "openface.nn4.small2.v1.t7" };
 constexpr char RESNET_DETECT_CAFFE_NET[]{ "res10_300x300_ssd_iter_140000_fp16.caffemodel" };
+constexpr char HAARCASCADE[]{ "haarcascade_frontalface_alt.xml" };
 
 std::vector<cv::Rect> detectFacesMat(cv::Mat img);
 std::vector<double> faceToVecMat(cv::Mat img);
 
 // Detect faces in a photo
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer = false) {
-    cv::CascadeClassifier cascade;
-	if (!cascade.load(cascadeName)) {
-        std::cout << "error;Could not load classifier cascade. Filename: \"" << cascadeName << "\"" << std::endl;
-	}
+    if(cascade.empty()) {
+        g_warning("No cascade file loaded. Did you call loadNet()?");
+        return {};
+    }
 
 	if (inputName.empty()) {
-        std::cout << "error;You must specify the file to process." << std::endl;
+        g_warning("No file to process. aborting");
+        return {};
 	}
 
     cv::Mat img = cv::imread(inputName, 1);
@@ -40,7 +45,6 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
     std::vector<cv::Rect> faces;
     cv::Size smallImgSize;
-    static bool disableDnn;
 
 #ifdef HAS_OPENCV_DNN
     disableDnn = faceDetectNet.empty();
@@ -89,6 +93,12 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
 // Load network into global var
 bool loadNet(cv::String baseDir) {
+    cascade.load(baseDir + "/" + HAARCASCADE);
+    if(cascade.empty()) {
+        g_warning("Failed to load haarcascade file: %s/%s", baseDir.c_str(), HAARCASCADE);
+    } else {
+        g_debug("Successfully loaded haarcascade %s/%s", baseDir.c_str(), HAARCASCADE);
+    }
 #ifdef HAS_OPENCV_DNN
     try {
         faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
@@ -96,16 +106,19 @@ bool loadNet(cv::String baseDir) {
         faceRecogNet = cv::dnn::readNetFromTorch(baseDir + "/" + OPENFACE_RECOG_TORCH_NET);
     } catch(cv::Exception &e) {
         std::cout << "File load failed: " << e.msg << std::endl;
-        return false;
+        disableDnn = true;
     }
+
     if (faceRecogNet.empty() || faceDetectNet.empty()) {
         std::cout << "Loading open-face net failed!" << std::endl;
+        disableDnn = true;
         return false;
     } else {
+        disableDnn = false;
         return true;
     }
 #else
-    return true;
+    return not cascade.empty();
 #endif
 }
 
