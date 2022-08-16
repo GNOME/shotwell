@@ -115,8 +115,6 @@ class ShotwellThumbnailer {
                 }
             }
 
-            stderr.printf("Oritentation: %s\n", direction.to_string());
-
             // Save the pixbuf.
             if (direction != Gdk.PixbufRotation.NONE) {
                 pixbuf = pixbuf.rotate_simple(direction);
