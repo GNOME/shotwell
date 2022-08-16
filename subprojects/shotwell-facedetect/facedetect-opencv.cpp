@@ -47,7 +47,6 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
 	if (inputName.empty()) {
         g_warning("No file to process. aborting");
         return {};
-        return {};
 	}
 
     cv::Mat const img = cv::imread(inputName, 1);
@@ -120,12 +119,12 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
     }
 
     std::vector<FaceRect> scaled;
-    for (std::vector<cv::Rect>::const_iterator r = faces.begin(); r != faces.end(); r++) {
+    for (const auto &r : faces) {
         FaceRect i;
-        i.x = (float) r->x / smallImgSize.width;
-        i.y = (float) r->y / smallImgSize.height;
-        i.width = (float) r->width / smallImgSize.width;
-        i.height = (float) r->height / smallImgSize.height;
+        i.x = (float) r.x / smallImgSize.width;
+        i.y = (float) r.y / smallImgSize.height;
+        i.width = (float) r.width / smallImgSize.width;
+        i.height = (float) r.height / smallImgSize.height;
 
 #ifdef HAS_OPENCV_DNN
         try {
@@ -133,7 +132,7 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
                 // Get colour image for vector generation
                 cv::Mat colourImg;
                 cv::resize(img, colourImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
-                i.vec = faceToVecMat(colourImg(*r)); // Run vector conversion on the face
+                i.vec = faceToVecMat(colourImg(r)); // Run vector conversion on the face
             }
         } catch (cv::Exception& ex) {
             g_warning("Face recognition failed: %s", ex.what());

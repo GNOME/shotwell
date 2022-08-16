@@ -27,7 +27,7 @@ GVariant *FaceRect::serialize() const
 
 // DBus binding functions
 static gboolean on_handle_detect_faces(ShotwellFaces1 *object, GDBusMethodInvocation *invocation,
-                                       [[maybe_unused]]const gchar *arg_image, const gchar *arg_cascade, gdouble arg_scale,
+                                       const gchar *arg_image, [[maybe_unused]] const gchar *arg_cascade, gdouble arg_scale,
                                        gboolean arg_infer)
 {
     g_auto(GVariantBuilder) builder = G_VARIANT_BUILDER_INIT(G_VARIANT_TYPE("a(ddddad)"));
@@ -127,18 +127,16 @@ static gboolean on_authorize_authenticated_peer([[maybe_unused]] GIOStream *iost
 }
 
 int main(int argc, char **argv) {
-    GMainLoop *loop;
-    GError *error = nullptr;
-    GOptionContext *context;
+    g_autoptr(GError) error = nullptr;
 
-    context = g_option_context_new ("- Shotwell face detection helper service");
+    g_autoptr(GOptionContext) context = g_option_context_new ("- Shotwell face detection helper service");
     g_option_context_add_main_entries (context, entries, "shotwell");
     if (g_option_context_parse (context, &argc, &argv, &error) == FALSE) {
         g_print ("Failed to parse options: %s\n", error->message);
         exit(1);
     }
 
-    loop = g_main_loop_new (nullptr, FALSE);
+    g_autoptr(GMainLoop) loop = g_main_loop_new (nullptr, FALSE);
 
 
     // We are running on the session bus
