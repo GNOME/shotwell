@@ -70,7 +70,6 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
             cv::Mat gray;
             cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 
-            scale = 1.0;
             cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
             smallImgSize = smallImg.size();
 
