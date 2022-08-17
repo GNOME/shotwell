@@ -2,6 +2,110 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
 
 namespace Shotwell {
+    class ProfileEditor : Gtk.Dialog {
+        public string profile_name {get; set;}
+        public string id{get; default = Uuid.string_random();}
+        public string library_folder{get; set;}
+        public string data_folder{get; set;}
+
+        public ProfileEditor() {
+            Object(use_header_bar : Resources.use_header_bar());
+        }
+
+        public override void constructed() {
+            base.constructed();
+
+            set_size_request(640, -1);
+
+            add_buttons(_("Create"), Gtk.ResponseType.OK, _("Cancel"), Gtk.ResponseType.CANCEL, null);
+            var create_button = get_widget_for_response(Gtk.ResponseType.OK);
+            create_button.get_style_context().add_class("suggested-action");
+            create_button.sensitive = false;
+            set_title(_("Create new Profile"));
+
+            data_folder = Path.build_filename(Environment.get_user_data_dir(), "shotwell", "profiles", id);
+            library_folder = Environment.get_user_special_dir(UserDirectory.PICTURES);
+
+            var grid = new Gtk.Grid();
+            grid.hexpand = true;
+            grid.vexpand = true;
+            grid.margin = 6;
+            grid.set_row_spacing(12);
+            grid.set_column_spacing(12);
+            var label = new Gtk.Label(_("Name"));
+            label.get_style_context().add_class("dim-label");
+            label.halign = Gtk.Align.END;
+            grid.attach(label, 0, 0, 1, 1);
+
+            var entry = new Gtk.Entry();
+            entry.hexpand = true;
+            entry.bind_property("text", this, "profile-name", GLib.BindingFlags.DEFAULT);
+            entry.bind_property("text", create_button, "sensitive", GLib.BindingFlags.DEFAULT, (binding, from, ref to) => {
+                to = from.get_string() != "";
+                return true;
+            });
+            grid.attach(entry, 1, 0, 2, 1);
+
+            label = new Gtk.Label(_("Library Folder"));
+            label.get_style_context().add_class("dim-label");
+            label.halign = Gtk.Align.END;
+            grid.attach(label, 0, 1, 1, 1);
+
+            entry = new Gtk.Entry();
+            entry.hexpand = true;
+            grid.attach(entry, 1, 1, 1, 1);
+            bind_property("library-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+
+            var button = new Gtk.Button.from_icon_name("folder-symbolic", Gtk.IconSize.BUTTON);
+            button.hexpand = false;
+            button.vexpand = false;
+            button.halign = Gtk.Align.FILL;
+            button.clicked.connect(() => {
+                var dialog = new Gtk.FileChooserNative(_("Choose Library Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, _("_OK"), _("_Cancel"));
+                dialog.set_current_folder(library_folder);
+                var result = dialog.run();
+                dialog.hide();
+                if (result == Gtk.ResponseType.ACCEPT) {
+                    library_folder = dialog.get_current_folder_file().get_path();
+                }
+                dialog.destroy();
+            });
+            grid.attach(button, 2, 1, 1, 1);
+
+
+            label = new Gtk.Label(_("Data Folder"));
+            label.get_style_context().add_class("dim-label");
+            label.halign = Gtk.Align.END;
+            grid.attach(label, 0, 2, 1, 1);
+
+            entry = new Gtk.Entry();
+            entry.set_text(Environment.get_user_special_dir(UserDirectory.PICTURES));
+            entry.hexpand = true;
+            bind_property("data-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+            grid.attach(entry, 1, 2, 1, 1);
+
+            button = new Gtk.Button.from_icon_name("folder-symbolic", Gtk.IconSize.BUTTON);
+            button.hexpand = false;
+            button.vexpand = false;
+            button.halign = Gtk.Align.FILL;
+            button.clicked.connect(() => {
+                var dialog = new Gtk.FileChooserNative(_("Choose Data Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, _("_OK"), _("_Cancel"));
+                dialog.set_current_folder(data_folder);
+                var result = dialog.run();
+                dialog.hide();
+                if (result == Gtk.ResponseType.ACCEPT) {
+                    data_folder = dialog.get_current_folder_file().get_path();
+                }
+                dialog.destroy();
+            });
+
+            grid.attach(button, 2, 2, 1, 1);
+
+            get_content_area().add(grid);
+
+            show_all();
+        }
+    }
     class ProfileBrowser : Gtk.Box {
         public ProfileBrowser() {
             Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true);
@@ -32,6 +136,19 @@ namespace Shotwell {
             list_box.bind_model(ProfileManager.get_instance(), on_widget_create);
             list_box.set_header_func(on_header);
 
+            var button = new Gtk.Button.with_label(_("Create new Profile"));
+            pack_start(button, false, false, 6);
+            button.clicked.connect(() => {
+                var editor = new ProfileEditor();
+                editor.set_transient_for((Gtk.Window)get_ancestor(typeof(Gtk.Window)));
+                var result = editor.run();
+                editor.hide();
+                if (result == Gtk.ResponseType.OK) {
+                    debug("Request to add new profile: %s %s %s %s", editor.id, editor.profile_name, editor.library_folder, editor.data_folder);
+                    ProfileManager.get_instance().add_profile(editor.id, editor.profile_name, editor.library_folder, editor.data_folder);
+                }
+                editor.destroy();
+            });
             add(scrollable);
             show_all();
         }
@@ -62,6 +179,8 @@ namespace Shotwell {
             } else {
                 settings_path = "/org/gnome/shotwell/profiles/" + p.id + "/preferences/files/";
             }
+
+            print ("Showing settings at path %s\n", settings_path);
 
             var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
             var import_dir = settings.get_string("import-dir");
@@ -126,6 +245,8 @@ namespace Shotwell {
                     }
                 });
             }
+
+            box.show_all();
 
             row.add (box);
 

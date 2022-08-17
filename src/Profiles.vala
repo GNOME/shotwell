@@ -34,8 +34,11 @@ namespace Shotwell {
                             this.profile == null);
             }
 
+            print("Get item called for position %u", position);
+
             var group = profiles.get_groups()[position - 1];
             var id = profiles.get_value(group, "Id");
+            print ("Id: %s\n", id);
             var name = profiles.get_value(group, "Name");
             var active = this.profile == name;
             return new Profile(profiles.get_value(group, "Name"),
@@ -71,6 +74,8 @@ namespace Shotwell {
         private string group_name;
 
         public override void constructed() {
+            base.constructed();
+
             profiles = new KeyFile();
             path = Path.build_filename(Environment.get_user_config_dir(), "shotwell");
             DirUtils.create_with_parents(path, 0700);
@@ -94,19 +99,45 @@ namespace Shotwell {
 
             this.profile = profile;
 
-            if (has_profile (this.profile, out this.group_name))
+            add_profile(Uuid.string_random(), profile, null, null);
+        }
+
+        public void add_profile(string id, string name, string? library_folder, string? data_folder) {
+            string  group_name;
+
+            if (has_profile(name, out group_name)) {
                 return;
+            }
 
             try {
-                profiles.set_string(group_name, "Name", profile);
-                profiles.set_string(group_name, "Id", Uuid.string_random());
+                profiles.set_string(group_name, "Name", name);
+                profiles.set_string(group_name, "Id", id);
+                if (data_folder != null) {
+                    profiles.set_string(group_name, "DataDir", data_folder);
+                }
 
                 // Need to set comment after setting keys since it does not create the group
-                profiles.set_comment(group_name, null, "Profile settings for \"%s\"".printf(profile));
+                profiles.set_comment(group_name, null, "Profile settings for \"%s\"".printf(name));
+
+                write();
+            } catch (Error err) {
+                error("Failed to create profile: %s", err.message);                
+            }
+
+            try {
+                if (library_folder != null) {
+                    var settings_path = "/org/gnome/shotwell/profiles/" + id + "/preferences/files/";
+                    print ("writing settings at path %s\n", settings_path);
+
+        
+                    var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
+                    settings.set_string("import-dir", library_folder);
+                }
             } catch (Error err) {
                 error("Failed to create profile: %s", err.message);
             }
-            write();
+            
+            items_changed(profiles.get_groups().length, 0, 1);
         }
 
         public string derive_data_dir(string? data_dir) {
@@ -190,7 +221,11 @@ namespace Shotwell {
                 // TODO: Remove folder
                 }
 
-                items_changed(index, 1, 0);
+                Idle.add(() => {
+                    items_changed(index, 1, 0);
+
+                    return false;
+                });
                 write();
             }
         }
