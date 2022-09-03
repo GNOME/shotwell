@@ -103,9 +103,7 @@ namespace Shotwell {
         }
 
         public void add_profile(string id, string name, string? library_folder, string? data_folder) {
-            string  group_name;
-
-            if (has_profile(name, out group_name)) {
+            if (has_profile(name, out this.group_name)) {
                 return;
             }
 
