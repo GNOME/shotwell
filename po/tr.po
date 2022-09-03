@@ -20,16 +20,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-07-19 09:44+0000\n"
-"PO-Revision-Date: 2022-07-25 12:54+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2022-08-22 11:38+0000\n"
+"PO-Revision-Date: 2022-09-02 14:28+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-POOTLE-MTIME: 1427298590.000000\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -1930,11 +1930,12 @@ msgstr "_Oturum aç"
 
 #: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
 #: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
-#: src/AppWindow.vala:551 src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348
+#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
+#: src/Resources.vala:123
 msgid "_Cancel"
 msgstr "İ_ptal"
 
@@ -2303,8 +2304,8 @@ msgstr ""
 "Bu Shotwell oturumu boyunca zaten bir Google servisine giriş çıkış "
 "yaptınız.\n"
 "\n"
-"Google servislerine yayımlamayı sürdürmek için, çıkın ve Shotwell’i "
-"yeniden başlatın, ardından yeniden yayımlamayı deneyin."
+"Google servislerine yayımlamayı sürdürmek için, çıkın ve Shotwell’i yeniden "
+"başlatın, ardından yeniden yayımlamayı deneyin."
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:30
 msgid ""
@@ -2420,7 +2421,7 @@ msgstr "Kullanıcı arayüzü yüklenemedi: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Shotwell ev sayfasınnı ziyaret et"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:584
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
 msgid "translator-credits"
 msgstr ""
 "Yiğit Ateş <yigitates52@gmail.com>\n"
@@ -2676,7 +2677,8 @@ msgstr "Telif Hakkı 2016 Software Freedom Conservancy Inc."
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
-msgstr "Yayımlama için gerekli bir dosya kullanılamıyor. Flickr’da yayımlanamıyor."
+msgstr ""
+"Yayımlama için gerekli bir dosya kullanılamıyor. Flickr’da yayımlanamıyor."
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:619
 #, c-format
@@ -3008,7 +3010,8 @@ msgstr "Video gizlilik _ayarları"
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
-msgstr "Yayımlama için gerekli bir dosya kullanılamıyor. YouTube’da yayımlanamıyor."
+msgstr ""
+"Yayımlama için gerekli bir dosya kullanılamıyor. YouTube’da yayımlanamıyor."
 
 #: plugins/shotwell-publishing/YouTubePublishing.vala:325
 #, c-format
@@ -3126,7 +3129,7 @@ msgstr "Araç çubuğunu açık olarak sabitle"
 msgid "Leave fullscreen"
 msgstr "Tam ekrandan çık"
 
-#: src/AppWindow.vala:561
+#: src/AppWindow.vala:560
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3139,21 +3142,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:581
+#: src/AppWindow.vala:580
 msgid "Visit the Shotwell web site"
 msgstr "Shotwell web sitesini ziyaret et"
 
-#: src/AppWindow.vala:593
+#: src/AppWindow.vala:592
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Yardım görüntülenemiyor: %s"
 
-#: src/AppWindow.vala:601
+#: src/AppWindow.vala:600
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Hata veri tabanına yönlendirme başarısız: %s"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:608
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "SSS gösterilemiyor: %s"
@@ -3895,8 +3898,7 @@ msgstr "1 gün"
 #, c-format
 msgid "This will remove the tag “%s” from one photo. Continue?"
 msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
-msgstr[0] ""
-"Bu işlem “%s” etiketini %d fotoğraftan kaldıracak. Sürdürülsün mü?"
+msgstr[0] "Bu işlem “%s” etiketini %d fotoğraftan kaldıracak. Sürdürülsün mü?"
 
 #: src/Dialogs.vala:25
 #, c-format
@@ -4342,7 +4344,9 @@ msgstr "Dış Düzenlemeleri Geri Döndür?"
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
 "This will destroy all changes made to %d external files. Continue?"
-msgstr[0] "Bu işlem %d dış dosyaya yapılan tüm değişiklikleri yok edecek. Sürdürülsün mü?"
+msgstr[0] ""
+"Bu işlem %d dış dosyaya yapılan tüm değişiklikleri yok edecek. Sürdürülsün "
+"mü?"
 
 #: src/Dialogs.vala:760
 msgid "Re_vert External Edit"
@@ -4864,33 +4868,41 @@ msgstr "%B"
 msgid "Event %s"
 msgstr "Olay %s"
 
-#: src/Exporter.vala:232
+#: src/Exporter.vala:236 src/Exporter.vala:291
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "%s: %s için geçici bir dosya oluşturulamıyor"
 
-#: src/Exporter.vala:299
+#: src/Exporter.vala:328
 msgid "Exporting"
 msgstr "Dışa Aktarılıyor"
 
-#: src/Exporter.vala:317
+#: src/Exporter.vala:346
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "%s dosyası zaten var. Yer değiştirilsin mi?"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "_Skip"
 msgstr "_Atla"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
+msgid "Rename"
+msgstr "Yeniden Adlandır"
+
+#: src/Exporter.vala:348
+msgid "Rename All"
+msgstr "Tümünü Yeniden Adlandır"
+
+#: src/Exporter.vala:348
 msgid "_Replace"
 msgstr "_Değiştir"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Replace _All"
 msgstr "_Tümünü Değiştir"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Export"
 msgstr "Dışa Aktar"
 
@@ -5461,7 +5473,8 @@ msgstr "%s’e yayımlanamıyor çünkü hata oluştu:"
 
 #: src/publishing/PublishingPluginHost.vala:88
 msgid "To try publishing to another service, select one from the above menu."
-msgstr "Başka serviste yayımlamayı denemek için yukarıdaki menüden seçim yapın."
+msgstr ""
+"Başka serviste yayımlamayı denemek için yukarıdaki menüden seçim yapın."
 
 #: src/publishing/PublishingUI.vala:69
 msgid "Publish Photos"
@@ -6389,67 +6402,3 @@ msgstr "başlıksız"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
-
-#~ msgid "_Remember"
-#~ msgstr "_Anımsa"
-
-#~ msgid "An _existing album:"
-#~ msgstr "_Var olan albüm:"
-
-#~ msgid "A _new album named:"
-#~ msgstr "Şu adda _yeni albüm:"
-
-#~ msgid "_Hide album"
-#~ msgstr "Albümü _gizle"
-
-#~ msgid "Open target _album in browser"
-#~ msgstr "Hedef _albümü tarayıcıda aç"
-
-#~ msgid "Copyright © 2013 rajce.net"
-#~ msgstr "Telif Hakkı © 2013 rajce.net"
-
-#~ msgid ""
-#~ "An error message occurred when publishing to Rajce. Please try again."
-#~ msgstr ""
-#~ "Rajce’ye yayımlama sırasında bir hata iletisi oluştu. Lütfen yeniden "
-#~ "deneyin."
-
-#~ msgid "Enter email and password associated with your Rajce account."
-#~ msgstr "Rajce hesabınızla ilişkili e-posta ve parolanızı girin."
-
-#~ msgid "Invalid email and/or password. Please try again"
-#~ msgstr "Geçersiz e-posta ve/veya parola. Lütfen yeniden deneyin"
-
-#~ msgid "Invalid User Email or Password"
-#~ msgstr "Geçersiz Kullanıcı E-postası veya Parola"
-
-#, c-format
-#~ msgid "You are logged into Rajce as %s."
-#~ msgstr "Rajce’ye %s olarak giriş yapmış bulunmaktasınız."
-
-#~ msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-#~ msgstr "Telif Hakkı 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#~ msgid "Visit the Yandex.Fotki web site"
-#~ msgstr "Yandex.Fotki web sitesini ziyaret edin"
-
-#~ msgid "You are not currently logged into Yandex.Fotki."
-#~ msgstr "Şu anda Yandex.Fotki için oturum açmış değilsiniz."
-
-#~ msgid "Public"
-#~ msgstr "Genel"
-
-#~ msgid "Friends"
-#~ msgstr "Arkadaşlar"
-
-#~ msgid "_Albums (or write new):"
-#~ msgstr "_Albümler (ya da yeni bir tane yaz):"
-
-#~ msgid "Access _type:"
-#~ msgstr "Erişim _türü:"
-
-#~ msgid "Disable _comments"
-#~ msgstr "Yorumları devre _dışı bırak"
-
-#~ msgid "_Forbid downloading original photo"
-#~ msgstr "_Özgün fotoğrafı indirmeyi yasakla"
