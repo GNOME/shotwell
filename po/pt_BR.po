@@ -20,16 +20,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-06-16 21:19+0000\n"
-"PO-Revision-Date: 2022-06-26 07:29-0300\n"
+"POT-Creation-Date: 2022-09-03 06:10+0000\n"
+"PO-Revision-Date: 2022-09-05 22:18-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
@@ -640,7 +640,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "RAW developer default"
-msgstr "desenvolvedor RAW padrão"
+msgstr "Padrão de desenvolvedor RAW"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:300
 msgid "Default option for which RAW developer Shotwell will use"
@@ -736,7 +736,7 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:394
 msgid "JPEG quality option"
-msgstr "opção de qualidade JPEG"
+msgstr "Opção de qualidade JPEG"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:395
 msgid "Setting in export dialog: jpeg quality option"
@@ -829,7 +829,7 @@ msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
 msgstr ""
-"um código numérico representando o tamanho padrão para fotos enviadas ao "
+"Um código numérico representando o tamanho padrão para fotos enviadas ao "
 "Google Fotos"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:477
@@ -1994,16 +1994,17 @@ msgstr "A_utenticar"
 
 #: data/ui/multitextentrydialog.ui:25 data/ui/slideshow_settings.ui:38
 #: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
-#: src/AppWindow.vala:551 src/data_imports/DataImportsUI.vala:302
+#: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348
+#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
+#: src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Cancelar"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1107
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
 #: src/Resources.vala:132
 msgid "_OK"
 msgstr "_OK"
@@ -2347,19 +2348,19 @@ msgstr ""
 "Clique em Autenticar para entrar no Flickr no seu navegador de internet. "
 "Você terá que autorizar o Shotwell para conectar a sua conta do Flickr."
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:138
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:148
 msgid "Preparing for login…"
 msgstr "Preparando para iniciar sessão…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:211
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:221
 msgid "Flickr authorization failed"
 msgstr "Falha de autorização no Flickr"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:218
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:228
 msgid "Verifying authorization…"
 msgstr "Verificando autorização…"
 
-#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:164
+#: plugins/authenticator/shotwell/GoogleAuthenticator.vala:173
 msgid ""
 "You have already logged in and out of a Google service during this Shotwell "
 "session.\n"
@@ -2389,8 +2390,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a "
-"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2421,8 +2422,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2435,34 +2436,28 @@ msgstr ""
 "No momento, você não está conectado ao Google Fotos.\n"
 "\n"
 "Você já deve criado uma conta do Google e configurado-a para usar com o "
-"Google Fotos. Shotwell usa os serviços da API do Google Fotos <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"Google Fotos. Shotwell usa os serviços da API do Google Fotos <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> para todas as interações com seus dados do Google Fotos. Você "
 "terá que conceder acesso ao Shotwell para sua biblioteca do Google Fotos.\n"
 "\n"
 "A política de privacidade da Shotwell em relação ao uso de dados "
 "relacionados à sua conta do Google em geral e ao Google Fotos em particular "
-"pode ser encontrada em nossa <a href=\"help:shotwell/privacy-"
-"policy\">política de privacidade de serviços on-line</a>. Para a própria "
-"política de privacidade do Google, consulte <a href=\"https://policies."
-"google.com/privacy\">https://policies.google.com/privacy</a>"
+"pode ser encontrada em nossa <a href=\"help:shotwell/privacy-policy"
+"\">política de privacidade de serviços on-line</a>. Para a própria política "
+"de privacidade do Google, consulte <a href=\"https://policies.google.com/"
+"privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:42
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:935
 msgid "_Email address"
 msgstr "_Endereço de e-mail"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:82
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:936
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:119
 msgid "_Password"
 msgstr "_Senha"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:104
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:120
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:938
 #: plugins/shotwell-publishing/piwigo_authentication_pane.ui:154
 msgid "Log in"
 msgstr "Autenticar"
@@ -2472,12 +2467,12 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Digite o nome de usuário e senha associados à sua conta Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1140
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1145
 msgid "Username and/or password invalid. Please try again"
 msgstr "Nome de usuário e/ou senha inválida. Por favor, tente novamente"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1181
 msgid "Invalid User Name or Password"
 msgstr "Usuário ou senha inválida"
 
@@ -2491,7 +2486,7 @@ msgstr "Não foi possível carregar a UI: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Visitar o site do Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:584
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
 msgid "translator-credits"
 msgstr ""
 "Djavan Fagundes <djavan@comum.org>\n"
@@ -2507,14 +2502,13 @@ msgstr ""
 "Matheus Barbosa <mdpb.matheus@gmail.com>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:233
+#: plugins/common/RESTSupport.vala:255
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
-msgstr ""
-"⚫ Este site apresentou identificação que pertence a um site diferente."
+msgstr "⚫ Este site apresentou identificação que pertence a um site diferente."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:238
+#: plugins/common/RESTSupport.vala:260
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2523,14 +2517,14 @@ msgstr ""
 "data no calendário de seu computador."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:243
+#: plugins/common/RESTSupport.vala:265
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 "⚫ A identificação deste site não foi emitida por uma organização confiável."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:248
+#: plugins/common/RESTSupport.vala:270
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2538,16 +2532,16 @@ msgstr ""
 "corrompida."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:253
+#: plugins/common/RESTSupport.vala:275
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted "
-"organization that issued it."
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
 msgstr ""
 "⚫ A identificação deste site foi revogada pela organização confiável que a "
 "emitiu."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:258
+#: plugins/common/RESTSupport.vala:280
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2556,16 +2550,17 @@ msgstr ""
 "codificação muito fraca."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:263
+#: plugins/common/RESTSupport.vala:285
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
-"⚫ A identificação deste site somente é válida para datas futuras. Por "
-"favor, verifique a data no calendário do seu computador."
+"⚫ A identificação deste site somente é válida para datas futuras. Por favor, "
+"verifique a data no calendário do seu computador."
 
-#: plugins/common/RESTSupport.vala:552
+#: plugins/common/RESTSupport.vala:584
 #: plugins/shotwell-publishing/TumblrPublishing.vala:603
+#: plugins/shotwell-publishing/YoutubeUploader.vala:69
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Um arquivo temporário necessário para a publicação não está disponível"
 
@@ -2617,7 +2612,7 @@ msgstr "pixels"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
 #: plugins/shotwell-publishing/FlickrPublishing.vala:700
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1372
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1377
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Tamanho original"
@@ -2628,9 +2623,6 @@ msgid "Longest edge"
 msgstr "Borda longa"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:39
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1062
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:145
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
@@ -2639,9 +2631,6 @@ msgid "_Logout"
 msgstr "_Sair"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:220
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1061
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:159
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
@@ -2743,107 +2732,9 @@ msgstr "Usuário não reconhecido"
 msgid " Site Not Found"
 msgstr " Site não encontrado"
 
-#: plugins/shotwell-publishing-extras/rajce_authentication_pane.ui:100
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:937
-msgid "_Remember"
-msgstr "Lemb_rar"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:104
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1058
-msgid "An _existing album:"
-msgstr "Um álbum _existente:"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:123
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1059
-msgid "A _new album named:"
-msgstr "Um _novo álbum chamado:"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1049
-msgid "_Hide album"
-msgstr "_Ocultar álbum"
-
-#: plugins/shotwell-publishing-extras/rajce_publishing_options_pane.ui:156
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1060
-msgid "Open target _album in browser"
-msgstr "_Abrir álbum alvo no navegador"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:40
-msgid "Copyright © 2013 rajce.net"
-msgstr "Copyright © 2013 rajce.net"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:787
-msgid "An error message occurred when publishing to Rajce. Please try again."
-msgstr ""
-"Ocorreu uma mensagem de erro ao publicar o Rajce. Por favor tente novamente."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:876
-msgid "Enter email and password associated with your Rajce account."
-msgstr "Digite o e-mail e senha associados à sua conta Rajce."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:877
-msgid "Invalid email and/or password. Please try again"
-msgstr "E-mail e/ou senha inválida. Por favor, tente novamente"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:908
-msgid "Invalid User Email or Password"
-msgstr "E-mail de usuário ou senha inválidos"
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1056
-#, c-format
-msgid "You are logged into Rajce as %s."
-msgstr "Você está autenticado no Rajce como %s."
-
-#: plugins/shotwell-publishing-extras/RajcePublishing.vala:1057
-#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
-#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
-msgid "Photos will appear in:"
-msgstr "As fotos irão aparecer em:"
-
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:27
+#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
 msgid "Shotwell Extra Publishing Services"
 msgstr "Serviços extras de publicação do Shotwell"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:22
-msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:25
-msgid "Visit the Yandex.Fotki web site"
-msgstr "Visite o site do Yandex.Fotki"
-
-#: plugins/shotwell-publishing-extras/YandexPublishing.vala:629
-msgid "You are not currently logged into Yandex.Fotki."
-msgstr "Você não está atualmente autenticado em Yandex.Fotki."
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:12
-msgid "Public"
-msgstr "Público"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:15
-msgid "Friends"
-msgstr "Amigos"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:18
-#: plugins/shotwell-publishing/YouTubePublishing.vala:378
-msgid "Private"
-msgstr "Privado"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:47
-msgid "_Albums (or write new):"
-msgstr "Á_lbuns (ou gravar novo):"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:85
-msgid "Access _type:"
-msgstr "_Tipo de acesso:"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:106
-msgid "Disable _comments"
-msgstr "Desabilitar _comentários"
-
-#: plugins/shotwell-publishing-extras/yandex_publish_model.ui:123
-msgid "_Forbid downloading original photo"
-msgstr "Proibir o _download da foto original"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
@@ -2921,7 +2812,7 @@ msgid "Photos and videos _visible to"
 msgstr "Fotos e vídeos _visíveis para"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:674
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1356
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1361
 msgid "Everyone"
 msgstr "Todos"
 
@@ -2942,24 +2833,24 @@ msgid "Just me"
 msgstr "Somente para mim"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:696
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1368
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1373
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 pixels"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:697
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1369
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1374
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 pixels"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:698
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1370
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1375
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 pixels"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:699
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1371
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1376
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 pixels"
 
@@ -2986,7 +2877,7 @@ msgid "A new album named"
 msgstr "Um novo álbum chamado"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1247
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1252
 msgid "Shotwell Connect"
 msgstr "Conexão do Shotwell"
 
@@ -3020,6 +2911,11 @@ msgstr "Você está autenticado no Google Fotos como %s."
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:64
 msgid "Videos will appear in:"
 msgstr "Os vídeos irão aparecer em:"
+
+#: plugins/shotwell-publishing/PhotosPublishingPane.vala:69
+#: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:20
+msgid "Photos will appear in:"
+msgstr "As fotos irão aparecer em:"
 
 #. Activate last known album id. If none was chosen, either use the old default (Shotwell connect)
 #. or the new "Default album" album for Google Photos
@@ -3084,18 +2980,18 @@ msgstr "Não enviar _avaliações"
 msgid "Logout"
 msgstr "Encerrar sessão"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:823
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:828
 #, c-format
 msgid "Creating album %s…"
 msgstr "Criando álbum %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1000
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1005
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Ocorreu uma mensagem de erro ao publicar o Piwigo. Por favor tente novamente."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -3106,12 +3002,12 @@ msgstr ""
 "alterar informações indo para ou vindo deste site (por exemplo, mensagens "
 "privadas, informações de cartões de crédito ou senhas)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1104
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1109
 #, c-format
 msgid "Certificate of %s"
 msgstr "Certificado de %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1138
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1143
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -3119,7 +3015,7 @@ msgstr ""
 "Digite a URL de sua biblioteca de fotos Piwigo, bem como o nome de usuário e "
 "senha associados à sua conta Piwigo para essa biblioteca."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1139
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1144
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -3127,23 +3023,23 @@ msgstr ""
 "Shotwell não pode acessar sua biblioteca de fotos Piwigo. Por favor, "
 "verifique a URL digitada"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1171
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
 msgid "Invalid URL"
 msgstr "URL inválida"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1357
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1362
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Administradores, Família, Amigos, Contatos"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1358
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1363
 msgid "Admins, Family, Friends"
 msgstr "Administradores, Família, Amigos"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1359
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1364
 msgid "Admins, Family"
 msgstr "Administradores, Família"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1360
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1365
 msgid "Admins"
 msgstr "Administradores"
 
@@ -3194,7 +3090,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "De_finições de privacidade de vídeo"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:236
+#: plugins/shotwell-publishing/YouTubePublishing.vala:217
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -3202,18 +3098,22 @@ msgstr ""
 "O arquivo necessário para a publicação não está disponível. A publicação "
 "para o YouTube não pode continuar."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:344
+#: plugins/shotwell-publishing/YouTubePublishing.vala:325
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Você está autenticado no Youtube como %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:376
+#: plugins/shotwell-publishing/YouTubePublishing.vala:357
 msgid "Public listed"
 msgstr "Público listado"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:377
+#: plugins/shotwell-publishing/YouTubePublishing.vala:358
 msgid "Public unlisted"
 msgstr "Público não listado"
+
+#: plugins/shotwell-publishing/YouTubePublishing.vala:359
+msgid "Private"
+msgstr "Privado"
 
 #: plugins/shotwell-transitions/BlindsEffect.vala:20
 msgid "Blinds"
@@ -3314,7 +3214,7 @@ msgstr "Fixar a barra de ferramentas aberta"
 msgid "Leave fullscreen"
 msgstr "Sai da tela cheia"
 
-#: src/AppWindow.vala:561
+#: src/AppWindow.vala:560
 #, c-format
 msgid ""
 "A fatal error occurred when accessing Shotwell’s library. Shotwell cannot "
@@ -3327,21 +3227,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:581
+#: src/AppWindow.vala:580
 msgid "Visit the Shotwell web site"
 msgstr "Visitar o página web do Shotwell"
 
-#: src/AppWindow.vala:593
+#: src/AppWindow.vala:592
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Não foi possível exibir a ajuda: %s"
 
-#: src/AppWindow.vala:601
+#: src/AppWindow.vala:600
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Não foi possível navegar no banco de dados de bugs: %s"
 
-#: src/AppWindow.vala:609
+#: src/AppWindow.vala:608
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Não foi possível exibir FAQ: %s"
@@ -4145,8 +4045,6 @@ msgid "Export Video"
 msgstr "Exportar vídeo"
 
 #: src/Dialogs.vala:74 src/PhotoPage.vala:3022
-#| msgid "Export Photo"
-#| msgid_plural "Export Photos"
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Exportar foto"
@@ -5163,33 +5061,41 @@ msgstr "%B"
 msgid "Event %s"
 msgstr "Evento %s"
 
-#: src/Exporter.vala:232
+#: src/Exporter.vala:236 src/Exporter.vala:291
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
 msgstr "Não foi possível gerar um arquivo temporário para %s: %s"
 
-#: src/Exporter.vala:299
+#: src/Exporter.vala:328
 msgid "Exporting"
 msgstr "Exportando"
 
-#: src/Exporter.vala:317
+#: src/Exporter.vala:346
 #, c-format
 msgid "File %s already exists. Replace?"
 msgstr "%s já existe. Sobrescrever?"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "_Skip"
 msgstr "_Ignorar"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
+msgid "Rename"
+msgstr "Renomear"
+
+#: src/Exporter.vala:348
+msgid "Rename All"
+msgstr "Renomear tudo"
+
+#: src/Exporter.vala:348
 msgid "_Replace"
 msgstr "_Substituir"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Replace _All"
 msgstr "Sobrescrever _todas"
 
-#: src/Exporter.vala:319
+#: src/Exporter.vala:348
 msgid "Export"
 msgstr "Exportar"
 
@@ -5518,14 +5424,11 @@ msgid "Photo source file missing: %s"
 msgstr "Faltando arquivo fonte da foto: %s"
 
 #: src/PhotoPage.vala:2897
-#| msgid "Remove From Library"
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Remover da biblioteca"
 
 #: src/PhotoPage.vala:2898
-#| msgid "Removing Photo From Library"
-#| msgid_plural "Removing Photos From Library"
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Removendo foto da biblioteca"
@@ -6711,1221 +6614,3 @@ msgstr "sem título"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Exportar vídeos"
-
-#~ msgid "_Map Overview"
-#~ msgstr "Visão geral do _mapa"
-
-#~ msgid "Unable to launch Nautilus Send-To: %s"
-#~ msgstr "Não é possível iniciar o Nautilus Enviar-Para: %s"
-
-#~ msgid "Popular photo manager"
-#~ msgstr "Organizador popular de fotos"
-
-#~ msgid ""
-#~ "You are not currently logged into YouTube.\n"
-#~ "\n"
-#~ "You must have already signed up for a Google account and set it up for "
-#~ "use with YouTube to continue. You can set up most accounts by using your "
-#~ "browser to log into the YouTube site at least once."
-#~ msgstr ""
-#~ "Você atualmente não está autenticado nos Youtube.\n"
-#~ "\n"
-#~ "Você precisa ter uma conta do Google configurada para usar o Youtube "
-#~ "antes de continuar. Você pode configurar sua conta usando seu navegador "
-#~ "para entrar no site do Youtube."
-
-#~ msgid ""
-#~ "You are not currently logged into Google Photos.\n"
-#~ "\n"
-#~ "You must have already signed up for a Google account and set it up for "
-#~ "use with Google Photos.\n"
-#~ "\n"
-#~ "You will have to authorize Shotwell to link to your Google Photos account."
-#~ msgstr ""
-#~ "Você atualmente não está autenticado nos Google Fotos.\n"
-#~ "\n"
-#~ "Você precisa ter uma conta do Google configurada para usar o Google "
-#~ "Fotos.\n"
-#~ "\n"
-#~ "Você terá que autorizar o Shotwell a se vincular a sua conta do Google "
-#~ "Fotos."
-
-#~ msgid "Removing Photos From Library"
-#~ msgstr "Removendo fotos da biblioteca"
-
-#~ msgid "Token"
-#~ msgstr "Token"
-
-#~ msgid "The token to access tumblr"
-#~ msgstr "O token para acessar tumblr"
-
-#~ msgid "Secret token"
-#~ msgstr "Token secreto"
-
-#~ msgid "The secret token to sign oauth requests"
-#~ msgstr "O token secreto para assinar requisições oauth"
-
-#~ msgid "access token"
-#~ msgstr "token de acesso"
-
-#~ msgid "Facebook OAuth token for the currently logged in session, if any"
-#~ msgstr ""
-#~ "Token de Oauth do Facebook para a sessão atualmente autenticada, se houver"
-
-#~ msgid "user i.d."
-#~ msgstr "id do usuário"
-
-#~ msgid "Facebook user i.d. for the currently logged in user, if any"
-#~ msgstr ""
-#~ "id do usuário do Facebook para o usuário atualmente autenticado, se houver"
-
-#~ msgid "user name"
-#~ msgstr "nome de usuário"
-
-#~ msgid "The name of the currently logged in Facebook user, if any"
-#~ msgstr "O nome do usuário Facebook atualmente autenticado, se houver"
-
-#~ msgid ""
-#~ "A numeric code representing the default size for photos published to "
-#~ "Facebook"
-#~ msgstr ""
-#~ "Um código numérico representando o tamanho padrão para fotos publicadas "
-#~ "ao Facebook"
-
-#~ msgid ""
-#~ "Whether images being uploaded to Facebook should have their metadata "
-#~ "removed first"
-#~ msgstr ""
-#~ "Se as imagens sendo enviadas para Facebook devem possuir seus metadados "
-#~ "removidos primeiro"
-
-#~ msgid ""
-#~ "Indicates whether images being uploaded to Gallery3 should have their "
-#~ "metadata removed first"
-#~ msgstr ""
-#~ "Indica se as imagens sendo enviadas para Gallery3 devem ter seus "
-#~ "metadados removidos primeiro"
-
-#~ msgid "org.gnome.Shotwell"
-#~ msgstr "org.gnome.Shotwell"
-
-#~ msgid ""
-#~ "You are not currently logged into Facebook.\n"
-#~ "\n"
-#~ "If you don’t yet have a Facebook account, you can create one during the "
-#~ "login process. During login, Shotwell Connect may ask you for permission "
-#~ "to upload photos and publish to your feed. These permissions are required "
-#~ "for Shotwell Connect to function."
-#~ msgstr ""
-#~ "Você atualmente não está conectado ao Facebook.\n"
-#~ "\n"
-#~ "Se você ainda não possui uma conta no Facebook, você pode criar uma "
-#~ "durante o processo de autenticação. Durante o processo, o Shotwell pode "
-#~ "perguntar você sobre permissão de envio de fotos e publicação para seus "
-#~ "feeds. Estas permissões são necessárias para o a conexão do Shotwell "
-#~ "funcionar."
-
-#~ msgid ""
-#~ "You have already logged in and out of Facebook during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Facebook, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "Você já se autenticou e saiu do Facebook durante esta sessão do "
-#~ "Shotwell.\n"
-#~ "Para continuar publicando no Facebook, encerre e abra novamente o "
-#~ "Shotwell, e então tente publicar novamente."
-
-#~ msgid "Publish to an e_xisting album:"
-#~ msgstr "Publicar em um álbum e_xistente:"
-
-#~ msgid "Create a _new album named:"
-#~ msgstr "Criar um _novo álbum chamado:"
-
-#~ msgid "Upload _size:"
-#~ msgstr "Tama_nho de upload:"
-
-#~ msgid "Videos and new photo albums _visible to:"
-#~ msgstr "Vídeos e álbuns de fotos novos _visível para:"
-
-#~ msgid "Standard (720 pixels)"
-#~ msgstr "Padrão (720 pixels)"
-
-#~ msgid "Large (2048 pixels)"
-#~ msgstr "Largo (2048 pixels)"
-
-#~ msgid "Creating album…"
-#~ msgstr "Criando álbum…"
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Facebook "
-#~ "can’t continue."
-#~ msgstr ""
-#~ "O arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para o Facebook não pode continuar."
-
-#~ msgid ""
-#~ "You are logged into Facebook as %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Você está autenticado no Facebook como %s.\n"
-#~ "\n"
-
-#~ msgid "Where would you like to publish the selected photos?"
-#~ msgstr "Onde você gostaria de publicar as fotos selecionadas?"
-
-#~ msgid ""
-#~ "The OAuth token used to refresh the Picasa Web Albums session for the "
-#~ "currently logged in user, if any."
-#~ msgstr ""
-#~ "O token Oauth usado para atualizar a sessão do Picasa Web Albums para o "
-#~ "usuário atualmente autenticado, se houver."
-
-#~ msgid ""
-#~ "Whether images being uploaded to Picasa should have their metadata "
-#~ "removed first"
-#~ msgstr ""
-#~ "Se imagens sendo enviadas para o Picasa devem ter primeiro seus metadados "
-#~ "removidos"
-
-#~ msgid "enable picasa publishing plugin"
-#~ msgstr "habilitar plug-in de publicação no picasa"
-
-#~ msgid ""
-#~ "True if the Picasa Web Albums publishing plugin is enabled, false "
-#~ "otherwise"
-#~ msgstr ""
-#~ "Verdadeiro se plug-in de publicação no Picasa Web Albums está habilitado; "
-#~ "do contrário, falso"
-
-#~ msgid ""
-#~ "You are not currently logged into Picasa Web Albums.\n"
-#~ "\n"
-#~ "Click Log in to log into Picasa Web Albums in your Web browser. You will "
-#~ "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#~ "account."
-#~ msgstr ""
-#~ "Você não está autenticado no Picasa Web Albums.\n"
-#~ "\n"
-#~ "Clique em Autenticar para entrar no Picasa Web Albums em seu navegador. "
-#~ "Você terá que autorizar a conexão do Shotwell à sua conta Picasa Web "
-#~ "Albums."
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Picasa can’t "
-#~ "continue."
-#~ msgstr ""
-#~ "O arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para o Picasa não pode continuar."
-
-#~ msgid "You are logged into Picasa Web Albums as %s."
-#~ msgstr "Você está autenticado nos Álbuns da Web do Picasa como %s."
-
-#~ msgid "shotwell"
-#~ msgstr "shotwell"
-
-#~ msgid "Extended Information"
-#~ msgstr "Informações estendidas"
-
-#~ msgid "background color"
-#~ msgstr "cor do plano de fundo"
-
-#~ msgid "A grayscale color for use as the background color."
-#~ msgstr "Uma cor em escala de cinza para usar como plano de fundo."
-
-#~ msgid "white"
-#~ msgstr "branco"
-
-#~ msgid "black"
-#~ msgstr "﻿preto"
-
-#~ msgid "_Background:"
-#~ msgstr "_Plano de fundo:"
-
-#~ msgid ""
-#~ "Enter the confirmation number which appears after you log into Flickr in "
-#~ "your Web browser."
-#~ msgstr ""
-#~ "Insira o número de confirmação que apareceu depois que você efetuou login "
-#~ "no Flickr no navegador de internet."
-
-#~ msgid "Authorization _Number:"
-#~ msgstr "_Número de autorização:"
-
-#~ msgid "Width or height"
-#~ msgstr "Largura ou altura"
-
-#~ msgid "“%s” isn’t a valid response to an OAuth authentication request"
-#~ msgstr "“%s” não é uma resposta válida para o pedido de autenticação OAuth"
-
-#~ msgid "Export Photos/Videos"
-#~ msgstr "Exportar fotos/vídeos"
-
-#~ msgid "Open with E_xternal Editor"
-#~ msgstr "Abrir com editor e_xterno"
-
-#~ msgid "R_emove from Library"
-#~ msgstr "R_emover da biblioteca"
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select a library to import, either by selecting one of the "
-#~ "existing libraries found by Shotwell or by selecting an alternative F-"
-#~ "Spot database file."
-#~ msgstr ""
-#~ "Bem-vindo ao serviço de importação de biblioteca F-Spot .\n"
-#~ "\n"
-#~ "Por favor, selecione uma biblioteca para importação, selecionando uma das "
-#~ "bibliotecas existentes encontrados pelo Shotwell ou selecionando um "
-#~ "arquivo de banco de dados alternativo F-Spot."
-
-#~ msgid ""
-#~ "Welcome to the F-Spot library import service.\n"
-#~ "\n"
-#~ "Please select an F-Spot database file."
-#~ msgstr ""
-#~ "Bem vindo ao serviço de importação de biblioteca do F-Spot.\n"
-#~ "\n"
-#~ "Por favor selecione um banco de dados do F-Spot."
-
-#~ msgid "Manually select an F-Spot database file to import:"
-#~ msgstr "Selecionar manualmente um banco de dados do F-Spot para importar:"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: the file does not exist or "
-#~ "is not an F-Spot database"
-#~ msgstr ""
-#~ "Não é possível abrir o arquivo de banco de dados F-Spot selecionado: o "
-#~ "arquivo não existe ou não é um banco de dados F-Spot"
-
-#~ msgid ""
-#~ "Cannot open the selected F-Spot database file: this version of the F-Spot "
-#~ "database is not supported by Shotwell"
-#~ msgstr ""
-#~ "Não é possível abrir o arquivo de banco de dados F-Spot selecionado: esta "
-#~ "versão do banco de dados F-Spot não é suportado pelo Shotwell"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading tags "
-#~ "table"
-#~ msgstr ""
-#~ "Não é possível ler o arquivo de banco de dados F-Spot selecionado: Erro "
-#~ "ao ler tabela etiquetas"
-
-#~ msgid ""
-#~ "Cannot read the selected F-Spot database file: error while reading photos "
-#~ "table"
-#~ msgstr ""
-#~ "Não é possível ler o arquivo de banco de dados F-Spot selecionado: Erro "
-#~ "ao ler tabela de fotos"
-
-#~ msgid ""
-#~ "Shotwell has found %d photos in the F-Spot library and is currently "
-#~ "importing them. Duplicates will be automatically detected and removed.\n"
-#~ "\n"
-#~ "You can close this dialog and start using Shotwell while the import is "
-#~ "taking place in the background."
-#~ msgstr ""
-#~ "Shotwell encontrou %d fotos na biblioteca F-Spot e está atualmente a "
-#~ "importá-los. Duplicatas serão automaticamente detectadas e removidas.\n"
-#~ "\n"
-#~ "Você pode fechar este diálogo e começar a usar o Shotwell enquanto a "
-#~ "importação é feita em segundo plano."
-
-#~ msgid "F-Spot library: %s"
-#~ msgstr "Biblioteca F-Spot: %s"
-
-#~ msgid "Preparing to import"
-#~ msgstr "Preparando para importar"
-
-#~ msgid "Core Data Import Services"
-#~ msgstr "Núcleo serviços de importação de dados"
-
-#~ msgid "Testing connection to Facebook…"
-#~ msgstr "Testando conexão com o Facebook…"
-
-#~ msgid ""
-#~ "You have already logged in and out of Flickr during this Shotwell "
-#~ "session.\n"
-#~ "To continue publishing to Flickr, quit and restart Shotwell, then try "
-#~ "publishing again."
-#~ msgstr ""
-#~ "Você já entrou e saiu do Flickr durante esta sessão do Shotwell.\n"
-#~ "Para continuar publicando no Flickr, reinicie o Shotwell, e então tente "
-#~ "publicar novamente."
-
-#~ msgid "L_ist album in public gallery"
-#~ msgstr "L_istar os álbuns na galeria pública"
-
-#~ msgid "Videos will appear in “%s”"
-#~ msgstr "Os vídeos irão aparecer em “%s”"
-
-#~ msgid "DirectContextMenu"
-#~ msgstr "DirectContextMenu"
-
-#~ msgid "SearchContextMenu"
-#~ msgstr "SearchContextMenu"
-
-#~ msgid ""
-#~ "Shotwell is an easy-to-use, fast photo organizer designed for the GNOME "
-#~ "desktop. It allows you to import photos from your camera or disk, "
-#~ "organize them by date and subject matter, even ratings. It also offers "
-#~ "basic photo editing, like crop, red-eye correction, color adjustments, "
-#~ "and straighten. Shotwell's non-destructive photo editor does not alter "
-#~ "your master photos, making it easy to experiment and correct errors."
-#~ msgstr ""
-#~ "Shotwell é um organizador de fotos rápido e fácil de usar, projetado para "
-#~ "o ambiente GNOME. Ele permite que você importe fotos de sua câmera ou sue "
-#~ "disco, organize-os por data e assunto, e até mesmo avalie-as. Também "
-#~ "oferece edição básica de fotos, como corte, correção de olho vermelho, "
-#~ "ajuste de cor e correções. O editor de fotos não-destrutível do Shotwell "
-#~ "não altera suas fotos mestres, tornando mais fácil experimentar e "
-#~ "corrigir erros."
-
-#~ msgid ""
-#~ "True if a photo's rating should be displayed as overlaid trinket, false "
-#~ "otherwise."
-#~ msgstr ""
-#~ "Verdadeiro se a avaliação de uma foto deve ser exibida em sobreposição; "
-#~ "do contrário, falso."
-
-#~ msgid "Selection state of \"hide photos\" option"
-#~ msgstr "Estado de seleção da opção “ocultar fotos”"
-
-#~ msgid ""
-#~ "Last used selection state of the \"hide photos already imported\" option "
-#~ "in the import page."
-#~ msgstr ""
-#~ "Estado da última seleção usada da opção “ocultar fotos já importadas” na "
-#~ "página de importação."
-
-#~ msgid "Most-recently-used crop custom aspect ratio's numerator."
-#~ msgstr ""
-#~ "Numerador da proporção de aspecto personalizado de corte usado mais "
-#~ "recentemente."
-
-#~ msgid "Most-recently-used crop custom aspect ratio's denominator."
-#~ msgstr ""
-#~ "Denominador da proporção de aspecto personalizado de corte usado mais "
-#~ "recentemente."
-
-#~ msgid "_Login"
-#~ msgstr "A_utenticar"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The file \"%s\" may not be supported by or may be too large for this "
-#~ "instance of Gallery3."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "O arquivo “%s” pode não ter suporte no ou ser muito grande para essa "
-#~ "instalação do Gallery3."
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to %s can't "
-#~ "continue."
-#~ msgstr ""
-#~ "Um arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para %s não pode continuar."
-
-#~ msgid "Login"
-#~ msgstr "Iniciar sessão"
-
-#~ msgid "Copyright (C) 2013 rajce.net"
-#~ msgstr "Copyright (C) 2013 rajce.net"
-
-#~ msgid "500 x 375 pixels"
-#~ msgstr "500 x 375 pixels"
-
-#~ msgid "1024 x 768 pixels"
-#~ msgstr "1024 x 768 pixels"
-
-#~ msgid "1280 x 853 pixels"
-#~ msgstr "1280 x 853 pixels"
-
-#~ msgid "“%s” isn't a valid response to an OAuth authentication request"
-#~ msgstr "“%s” não é uma resposta válida para o pedido de autenticação OAuth"
-
-#~ msgid ""
-#~ "TumblrPublisher: start( ): can't start; this publisher is not restartable."
-#~ msgstr ""
-#~ "TumblrPublisher: start( ): não pode iniciar, o editor não é reiniciável."
-
-#~ msgid ""
-#~ "You are not currently logged into Facebook.\n"
-#~ "\n"
-#~ "If you don't yet have a Facebook account, you can create one during the "
-#~ "login process. During login, Shotwell Connect may ask you for permission "
-#~ "to upload photos and publish to your feed. These permissions are required "
-#~ "for Shotwell Connect to function."
-#~ msgstr ""
-#~ "Você atualmente não está conectado ao Facebook.\n"
-#~ "\n"
-#~ "Se você ainda não possui uma conta no Facebook, você pode criar uma "
-#~ "durante o processo de autenticação. Durante o processo, o Shotwell pode "
-#~ "perguntar você sobre permissão de envio de fotos e publicação para seus "
-#~ "feeds. Estas permissões são necessárias para o a conexão do Shotwell "
-#~ "funcionar."
-
-#~ msgid "Testing connection to Facebook..."
-#~ msgstr "Testando conexão com o Facebook…"
-
-#~ msgid "Creating album..."
-#~ msgstr "Criando álbum…"
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Facebook "
-#~ "can't continue."
-#~ msgstr ""
-#~ "O arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para o Facebook não pode continuar."
-
-#~ msgid ""
-#~ "You are not currently logged into Flickr.\n"
-#~ "\n"
-#~ "Click Login to log into Flickr in your Web browser.  You will have to "
-#~ "authorize Shotwell Connect to link to your Flickr account."
-#~ msgstr ""
-#~ "Você não está conectado no Flickr.\n"
-#~ "\n"
-#~ "Clique em Login para entrar no Flickr no seu navegador de internet. Você "
-#~ "terá que autorizar o Shotwell para conectar a sua conta do Flickr."
-
-#~ msgid "Preparing for login..."
-#~ msgstr "Preparando para iniciar sessão…"
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Flickr can't "
-#~ "continue."
-#~ msgstr ""
-#~ "O arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para o Flickr não pode continuar."
-
-#~ msgid "Verifying authorization..."
-#~ msgstr "Verificando autorização…"
-
-#~ msgid "2048 x 1536 pixels"
-#~ msgstr "2048 x 1536 pixels"
-
-#~ msgid "4096 x 3072 pixels"
-#~ msgstr "4096 x 3072 pixels"
-
-#~ msgid ""
-#~ "You are not currently logged into Picasa Web Albums.\n"
-#~ "\n"
-#~ "Click Login to log into Picasa Web Albums in your Web browser. You will "
-#~ "have to authorize Shotwell Connect to link to your Picasa Web Albums "
-#~ "account."
-#~ msgstr ""
-#~ "Você não está autenticado no Picasa Web Albums.\n"
-#~ "\n"
-#~ "Clique em Login para entrar no Picasa Web Albums em seu navegador. Você "
-#~ "terá que autorizar a conexão do Shotwell à sua conta Picasa Web Albums."
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Picasa can't "
-#~ "continue."
-#~ msgstr ""
-#~ "O arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para o Picasa não pode continuar."
-
-#~ msgid "Small (640 x 480 pixels)"
-#~ msgstr "Pequeno (640 x 480 pixels)"
-
-#~ msgid "Medium (1024 x 768 pixels)"
-#~ msgstr "Médio (1024 x 768 pixels)"
-
-#~ msgid "Recommended (1600 x 1200 pixels)"
-#~ msgstr "Recomendado (1600 x 1200 pixels)"
-
-#~ msgid "Google+ (2048 x 1536 pixels)"
-#~ msgstr "Google+ (2048 x 1536 pixels)"
-
-#~ msgid "_Remember Password"
-#~ msgstr "Lemb_rar senha"
-
-#~ msgid "An _existing category:"
-#~ msgstr "Uma categoria _existente:"
-
-#~ msgid "Photos will be _visible by:"
-#~ msgstr "As fotos estarão _visíveis por:"
-
-#~ msgid "Photo size:"
-#~ msgstr "Tamanho da foto:"
-
-#~ msgid "within category:"
-#~ msgstr "com categoria:"
-
-#~ msgid "Album comment:"
-#~ msgstr "Comentário do álbum:"
-
-#~ msgid "Creating album %s..."
-#~ msgstr "Criando álbum %s…"
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to Youtube "
-#~ "can't continue."
-#~ msgstr ""
-#~ "O arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para o Youtube não pode continuar."
-
-#~ msgid "Videos will appear in '%s'"
-#~ msgstr "Os vídeos irão aparecer em “%s”"
-
-#~ msgid "_Contents"
-#~ msgstr "_Conteúdo"
-
-#~ msgid "_Report a Problem..."
-#~ msgstr "_Relate um Problema…"
-
-#~ msgid ""
-#~ "A fatal error occurred when accessing Shotwell's library.  Shotwell "
-#~ "cannot continue.\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Um erro fatal ocorreu ao acessar a biblioteca do Shotwell. O Shotwell não "
-#~ "pode continuar.\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Unable to unmount camera.  Try unmounting the camera from the file "
-#~ "manager."
-#~ msgstr ""
-#~ "Não foi possível desmontar a câmera. Tente desmontando a câmera no "
-#~ "gerenciador de arquivos."
-
-#~ msgid "Display the title of each photo"
-#~ msgstr "Exibe o título de cada foto"
-
-#~ msgid "Import the selected photos into your library"
-#~ msgstr "Importar as fotos selecionadas para a sua biblioteca"
-
-#~ msgid "Import all the photos into your library"
-#~ msgstr "Importar todas as fotos para sua biblioteca"
-
-#~ msgid ""
-#~ "Shotwell needs to unmount the camera from the filesystem in order to "
-#~ "access it.  Continue?"
-#~ msgstr ""
-#~ "Shotwell precisa desmontar a câmera do sistema de arquivos para acessá-"
-#~ "la.  Continuar?"
-
-#~ msgid ""
-#~ "The camera is locked by another application.  Shotwell can only access "
-#~ "the camera when it's unlocked.  Please close any other application using "
-#~ "the camera and try again."
-#~ msgstr ""
-#~ "A câmera está travada por outro aplicativo. O Shotwell somente pode "
-#~ "acessar a câmera quando ela está destravada. Por favor, feche qualquer "
-#~ "outro aplicativo que estiver usando a câmera e tente novamente."
-
-#~ msgid "Unmounting..."
-#~ msgstr "Desmontando…"
-
-#~ msgid "Starting import, please wait..."
-#~ msgstr "Iniciando importação, por favor, aguarde…"
-
-#~ msgid "Play a slideshow"
-#~ msgstr "Exibir apresentação de slides"
-
-#~ msgid "Move Tag \"%s\""
-#~ msgstr "Mover etiqueta “%s”"
-
-#~ msgid "Importing from %s can't continue because an error occurred:"
-#~ msgstr "A importação de %s não pode continuar porque ocorreu um erro:"
-
-#~ msgid "This will remove the tag \"%s\" from one photo.  Continue?"
-#~ msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-#~ msgstr[0] "Isto irá remover a etiqueta “%s” de uma foto. Continuar?"
-#~ msgstr[1] "Isto irá remover a etiqueta “%s” de %d fotos. Continuar?"
-
-#~ msgid "This will remove the saved search \"%s\".  Continue?"
-#~ msgstr "Isto irá remover a pesquisa salva “%s”. Continuar?"
-
-#~ msgid ""
-#~ "Shotwell couldn't create a file for editing this photo because you do not "
-#~ "have permission to write to %s."
-#~ msgstr ""
-#~ "O Shotwell não pôde criar um arquivo para edição desta foto pelo fato de "
-#~ "você não possuir permissão de gravação em %s."
-
-#~ msgid "Export metadata"
-#~ msgstr "Exportar metadados"
-
-#~ msgid "Save Details..."
-#~ msgstr "Salvar Detalhes…"
-
-#~ msgid ""
-#~ "Files Not Imported Because They Weren't Recognized as Photos or Videos:"
-#~ msgstr ""
-#~ "Arquivos não foram importados porque não foram reconhecidos como Fotos ou "
-#~ "Vídeos:"
-
-#~ msgid ""
-#~ "Photos/Videos Not Imported Because They Weren't in a Format Shotwell "
-#~ "Understands:"
-#~ msgstr ""
-#~ "As Fotos/Vídeos Não foram Importados pois não estavam em um formato que o "
-#~ "Shotwell entendesse:"
-
-#~ msgid ""
-#~ "Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its "
-#~ "Library:"
-#~ msgstr ""
-#~ "As Fotos/Vídeos não foram importadas pois o Shotwell não pôde copiá-las "
-#~ "para sua Biblioteca:"
-
-#~ msgid ""
-#~ "couldn't copy %s\n"
-#~ "\tto %s"
-#~ msgstr ""
-#~ "não foi possível copiar %s\n"
-#~ "\tpara %s"
-
-#~ msgid "This will destroy all changes made to the external file.  Continue?"
-#~ msgid_plural ""
-#~ "This will destroy all changes made to %d external files.  Continue?"
-#~ msgstr[0] ""
-#~ "Isto irá destruir todas as alterações feitas para o arquivo externo. "
-#~ "Continuar?"
-#~ msgstr[1] ""
-#~ "Isto irá destruir todas as alterações feitas para %d arquivos externos. "
-#~ "Continuar?"
-
-#~ msgid "This will remove the photo from the library.  Continue?"
-#~ msgid_plural "This will remove %d photos from the library.  Continue?"
-#~ msgstr[0] "Isto irá remover a foto da biblioteca. Continuar?"
-#~ msgstr[1] "Isto irá remover %d fotos da biblioteca. Continuar?"
-
-#~ msgid "_Modify original photo files"
-#~ msgstr "_Modificar arquivos originais da foto"
-
-#~ msgid "_Modify original files"
-#~ msgstr "_Modificar arquivos originais"
-
-#~ msgid "_Don't show this message again"
-#~ msgstr "Não exibir mais es_ta mensagem"
-
-#~ msgid ""
-#~ "This will remove the photo/video from your Shotwell library.  Would you "
-#~ "also like to move the file to your desktop trash?\n"
-#~ "\n"
-#~ "This action cannot be undone."
-#~ msgid_plural ""
-#~ "This will remove %d photos/videos from your Shotwell library.  Would you "
-#~ "also like to move the files to your desktop trash?\n"
-#~ "\n"
-#~ "This action cannot be undone."
-#~ msgstr[0] ""
-#~ "Isto irá remover a foto/vídeo da sua biblioteca Shotwell. Você também "
-#~ "gostaria de mover este arquivo para lixeira?\n"
-#~ "\n"
-#~ "Essa ação não poderá ser desfeita."
-#~ msgstr[1] ""
-#~ "Isto irá remover %d fotos/vídeos da sua biblioteca Shotwell. Você também "
-#~ "gostaria de mover estes arquivos para lixeira?\n"
-#~ "\n"
-#~ "Essa ação não poderá ser desfeita."
-
-#~ msgid ""
-#~ "This will remove the video from your Shotwell library.  Would you also "
-#~ "like to move the file to your desktop trash?\n"
-#~ "\n"
-#~ "This action cannot be undone."
-#~ msgid_plural ""
-#~ "This will remove %d videos from your Shotwell library.  Would you also "
-#~ "like to move the files to your desktop trash?\n"
-#~ "\n"
-#~ "This action cannot be undone."
-#~ msgstr[0] ""
-#~ "Isto irá remover o vídeo da sua biblioteca Shotwell. Você também gostaria "
-#~ "de mover este arquivo para lixeira?\n"
-#~ "\n"
-#~ "Essa ação não poderá ser desfeita."
-#~ msgstr[1] ""
-#~ "Isto irá remover %d vídeos da sua biblioteca Shotwell. Você também "
-#~ "gostaria de mover estes arquivos para lixeira?\n"
-#~ "\n"
-#~ "Essa ação não poderá ser desfeita."
-
-#~ msgid ""
-#~ "This will remove the photo from your Shotwell library.  Would you also "
-#~ "like to move the file to your desktop trash?\n"
-#~ "\n"
-#~ "This action cannot be undone."
-#~ msgid_plural ""
-#~ "This will remove %d photos from your Shotwell library.  Would you also "
-#~ "like to move the files to your desktop trash?\n"
-#~ "\n"
-#~ "This action cannot be undone."
-#~ msgstr[0] ""
-#~ "Isto irá remover a foto da sua biblioteca do Shotwell. Você gostaria "
-#~ "também de mover o arquivo para a lixeira?\n"
-#~ "\n"
-#~ "Esta ação não poderá ser desfeita."
-#~ msgstr[1] ""
-#~ "Isto irá remover %d fotos da sua biblioteca do Shotwell. Você gostaria "
-#~ "também mover os arquivos para a lixeira?\n"
-#~ "\n"
-#~ "Esta ação não poderá ser desfeita."
-
-#~ msgid ""
-#~ "The photo or video cannot be moved to your desktop trash.  Delete this "
-#~ "file?"
-#~ msgid_plural ""
-#~ "%d photos/videos cannot be moved to your desktop trash.  Delete these "
-#~ "files?"
-#~ msgstr[0] ""
-#~ "A foto ou vídeo não pode ser movido para lixeira. Excluir esse arquivo?"
-#~ msgstr[1] ""
-#~ "%d fotos/vídeos não podem ser movidos para lixeira. Excluir esses "
-#~ "arquivos?"
-
-#~ msgid "Save photo"
-#~ msgstr "Salvar foto"
-
-#~ msgid "Save _As..."
-#~ msgstr "Salvar _como…"
-
-#~ msgid "Save photo with a different name"
-#~ msgstr "Salva a foto com um nome diferente"
-
-#~ msgid "Print the photo to a printer connected to your computer"
-#~ msgstr "Imprime a foto em uma impressora conectada em seu computador"
-
-#~ msgid "Previous Photo"
-#~ msgstr "Foto anterior"
-
-#~ msgid "Next Photo"
-#~ msgstr "Próxima foto"
-
-#~ msgid "Increase the magnification of the photo"
-#~ msgstr "Aumentar a ampliação da foto"
-
-#~ msgid "Decrease the magnification of the photo"
-#~ msgstr "Diminuir a ampliação da foto"
-
-#~ msgid "Zoom the photo to fit on the screen"
-#~ msgstr "Ampliar a foto para se adaptar à tela"
-
-#~ msgid "Zoom the photo to 100% magnification"
-#~ msgstr "Ampliar a foto em 100%"
-
-#~ msgid "Zoom the photo to 200% magnification"
-#~ msgstr "Ampliar a foto em 200%"
-
-#~ msgid "SD Video (4 : 3)"
-#~ msgstr "SD Video (4 : 3)"
-
-#~ msgid "HD Video (16 : 9)"
-#~ msgstr "HD Video (16 : 9)"
-
-#~ msgid "Wallet (2 x 3 in.)"
-#~ msgstr "Carteira (2 x 3 pol.)"
-
-#~ msgid "Notecard (3 x 5 in.)"
-#~ msgstr "Cartão de notas (3 x 5 pol.)"
-
-#~ msgid "4 x 6 in."
-#~ msgstr "4 x 6 pol."
-
-#~ msgid "5 x 7 in."
-#~ msgstr "5 x 7 pol."
-
-#~ msgid "8 x 10 in."
-#~ msgstr "8 x 10 pol."
-
-#~ msgid "Letter (8.5 x 11 in.)"
-#~ msgstr "Carta (8.5 x 11 in.)"
-
-#~ msgid "11 x 14 in."
-#~ msgstr "11 x 14 pol."
-
-#~ msgid "Tabloid (11 x 17 in.)"
-#~ msgstr "Tabloide (11 x 17 in.)"
-
-#~ msgid "16 x 20 in."
-#~ msgstr "16 x 20 pol."
-
-#~ msgid "Metric Wallet (9 x 13 cm)"
-#~ msgstr "Carteira Métrica (9 x 13 cm)"
-
-#~ msgid "Postcard (10 x 15 cm)"
-#~ msgstr "Cartão postal (10 x 15 cm)"
-
-#~ msgid "13 x 18 cm"
-#~ msgstr "13 x 18 cm"
-
-#~ msgid "18 x 24 cm"
-#~ msgstr "18 x 24 cm"
-
-#~ msgid "A4 (210 x 297 mm)"
-#~ msgstr "A4 (210 x 297 mm)"
-
-#~ msgid "20 x 30 cm"
-#~ msgstr "20 x 30 cm"
-
-#~ msgid "24 x 40 cm"
-#~ msgstr "24 x 40 cm"
-
-#~ msgid "30 x 40 cm"
-#~ msgstr "30 x 40 cm"
-
-#~ msgid "A3 (297 x 420 mm)"
-#~ msgstr "A4 (210 x 297 mm)"
-
-#~ msgid "Display the comment of each event"
-#~ msgstr "Exibir o comentário de cada evento"
-
-#~ msgid "File %s already exists.  Replace?"
-#~ msgstr "%s já existe. Sobrescrever?"
-
-#~ msgid "Importing..."
-#~ msgstr "Importando…"
-
-#~ msgid "Stop importing photos"
-#~ msgstr "Parar importação de fotos"
-
-#~ msgid "Preparing to import..."
-#~ msgstr "Preparando para importar…"
-
-#~ msgid "_Import From Folder..."
-#~ msgstr "_Importar da pasta…"
-
-#~ msgid "Import photos from disk to library"
-#~ msgstr "Importar fotos do disco para a biblioteca"
-
-#~ msgid "Import From _Application..."
-#~ msgstr "Importação de _aplicativo…"
-
-#~ msgid "Find photos and videos by search criteria"
-#~ msgstr "Localiza fotos e vídeos através de pesquisa"
-
-#~ msgid "Ne_w Saved Search..."
-#~ msgstr "No_va pesquisa salva…"
-
-#~ msgid "Display basic information for the selection"
-#~ msgstr "Exibe informações básicas para a seleção"
-
-#~ msgid "Display extended information for the selection"
-#~ msgstr "Exibe informações estendidas para a seleção"
-
-#~ msgid "Display the search bar"
-#~ msgstr "Exibe a barra de pesquisa"
-
-#~ msgid "Display the sidebar"
-#~ msgstr "Exibe a barra lateral"
-
-#~ msgid "Display the tool bar"
-#~ msgstr "Exibe a barra ferramentas"
-
-#~ msgid "Sort photos in an ascending order"
-#~ msgstr "Ordena as fotos em ordem ascendente"
-
-#~ msgid "Sort photos in a descending order"
-#~ msgstr "Ordena as fotos em ordem descendente"
-
-#~ msgid "Emptying Trash..."
-#~ msgstr "Esvaziando lixeira…"
-
-#~ msgid "Updating library..."
-#~ msgstr "Atualizando biblioteca…"
-
-#~ msgid "Preparing to auto-import photos..."
-#~ msgstr "Preparando para auto-importação de fotos…"
-
-#~ msgid "Auto-importing photos..."
-#~ msgstr "Auto-importação de fotos…"
-
-#~ msgid "Writing metadata to files..."
-#~ msgstr "Escrevendo metadados para arquivos…"
-
-#~ msgid "Deleting..."
-#~ msgstr "Apagando…"
-
-#~ msgid ""
-#~ "Your photo library is not compatible with this version of Shotwell.  It "
-#~ "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#~ "(schema %d).  Please use the latest version of Shotwell."
-#~ msgstr ""
-#~ "Sua biblioteca de fotos não é compatível com essa versão do Shotwell.  "
-#~ "Parece que ele foi criado pelo Shotwell %s (schema %d).  Essa versão é %s "
-#~ "(schema %d).  Por favor use a última versão do Shotwell."
-
-#~ msgid ""
-#~ "Shotwell was unable to upgrade your photo library from version %s (schema "
-#~ "%d) to %s (schema %d).  For more information please check the Shotwell "
-#~ "Wiki at %s"
-#~ msgstr ""
-#~ "O Shotwell não foi capaz de atualizar sua biblioteca de fotos da versão "
-#~ "%s (schema %d) para %s (schema %d).  Para maiores informações consulte o "
-#~ "Wiki do Shotwell Wiki em %s"
-
-#~ msgid ""
-#~ "Your photo library is not compatible with this version of Shotwell.  It "
-#~ "appears it was created by Shotwell %s (schema %d).  This version is %s "
-#~ "(schema %d).  Please clear your library by deleting %s and re-import your "
-#~ "photos."
-#~ msgstr ""
-#~ "Sua biblioteca de fotos não é compatível com essa versão do Shotwell.  "
-#~ "Parece que ele foi criado pelo Shotwell %s (schema %d).  Essa versão é %s "
-#~ "(schema %d).  Por favor limpe sua biblioteca excluindo %s e importe "
-#~ "novamente suas fotos."
-
-#~ msgid "Unknown error attempting to verify Shotwell's database: %s"
-#~ msgstr ""
-#~ "Erro desconhecido ao tentar verificar o banco de dados do Shotwell: %s"
-
-#~ msgid "Path to Shotwell's private data"
-#~ msgstr "Caminho para os dados privados do Shotwell"
-
-#~ msgid "Don't display startup progress meter"
-#~ msgstr "Não exibe a medida do progresso de inicialização"
-
-#~ msgid "Show the application's version"
-#~ msgstr "Exibe a versão do aplicativo"
-
-#~ msgid ""
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Digite “%s --help” para ver a lista completa das opções de linha de "
-#~ "comando.\n"
-
-#~ msgid "Increase the magnification of the thumbnails"
-#~ msgstr "Aumentar a ampliação das miniaturas"
-
-#~ msgid "Decrease the magnification of the thumbnails"
-#~ msgstr "Diminuir a ampliação das miniaturas"
-
-#~ msgid "_Play Video"
-#~ msgstr "_Reproduzir vídeo"
-
-#~ msgid "Open the selected videos in the system video player"
-#~ msgstr "Abra os vídeos selecionados no reprodutor de vídeo do sistema"
-
-#~ msgid "Display the comment of each photo"
-#~ msgstr "Exibe o comentário de cada foto"
-
-#~ msgid "Display each photo's tags"
-#~ msgstr "Exibe as etiquetas de cada foto"
-
-#~ msgid "Sort photos by title"
-#~ msgstr "Ordena as fotos por título"
-
-#~ msgid "Sort photos by exposure date"
-#~ msgstr "Ordena as fotos por data de exposição"
-
-#~ msgid "Sort photos by rating"
-#~ msgstr "Ordena as fotos por avaliação"
-
-#~ msgid "Sort photos by filename"
-#~ msgstr "Ordena as fotos por nome do arquivo"
-
-#~ msgid "Printing..."
-#~ msgstr "Imprimindo…"
-
-#~ msgid "Publishing to %s can't continue because an error occurred:"
-#~ msgstr "A publicação para %s não pôde continuar, ocorreu um erro:"
-
-#~ msgid "The selected videos were successfully published."
-#~ msgstr "Os vídeos selecionados foram publicados com sucesso."
-
-#~ msgid "The selected photos were successfully published."
-#~ msgstr "As fotos selecionadas foram publicadas com sucesso."
-
-#~ msgid "Fetching account information..."
-#~ msgstr "Obtendo informação da conta…"
-
-#~ msgid "Logging in..."
-#~ msgstr "Autenticando…"
-
-#~ msgid "Automatically improve the photo's appearance"
-#~ msgstr "Melhora automaticamente a aparência da foto"
-
-#~ msgid "Crop the photo's size"
-#~ msgstr "Corta o tamanho da foto"
-
-#~ msgid "Adjust the photo's color and tone"
-#~ msgstr "Ajusta a cor e os tons das fotos"
-
-#~ msgid "Set as _Desktop Slideshow..."
-#~ msgstr "Definir como apresentação de sli_des da área de trabalho…"
-
-#~ msgid "Re_name Event..."
-#~ msgstr "Re_nomear evento…"
-
-#~ msgid "Display each photo's rating"
-#~ msgstr "Exibe as avaliações de cada foto"
-
-#~ msgid "_Export..."
-#~ msgstr "_Exportar…"
-
-#~ msgid "_Print..."
-#~ msgstr "Imprimi_r…"
-
-#~ msgid "Pu_blish..."
-#~ msgstr "Pu_blicar…"
-
-#~ msgid "Edit _Title..."
-#~ msgstr "Editar _título…"
-
-#~ msgid "Edit _Comment..."
-#~ msgstr "Editar _comentário…"
-
-#~ msgid "Edit Event _Comment..."
-#~ msgstr "Editar _comentário de evento…"
-
-#~ msgid "_Adjust Date and Time..."
-#~ msgstr "_Ajustar data e hora…"
-
-#~ msgid "Add _Tags..."
-#~ msgstr "Adicionar e_tiquetas…"
-
-#~ msgid "_Add Tags..."
-#~ msgstr "_Adicionar etiquetas…"
-
-#~ msgid "Send _To..."
-#~ msgstr "Enviar _para…"
-
-#~ msgid "Send T_o..."
-#~ msgstr "Enviar p_ara…"
-
-#~ msgid "_Find..."
-#~ msgstr "_Localizar…"
-
-#~ msgid "Add Tag \"%s\""
-#~ msgstr "Adicionar etiqueta “%s”"
-
-#~ msgid "Add Tags \"%s\" and \"%s\""
-#~ msgstr "Adicionar etiquetas “%s” e “%s”"
-
-#~ msgid "_Delete Tag \"%s\""
-#~ msgstr "A_pagar etiqueta “%s”"
-
-#~ msgid "Delete Tag \"%s\""
-#~ msgstr "Apagar etiqueta “%s”"
-
-#~ msgid "Re_name Tag \"%s\"..."
-#~ msgstr "Re_nomear etiqueta “%s”…"
-
-#~ msgid "Rename Tag \"%s\" to \"%s\""
-#~ msgstr "Renomear a etiqueta “%s” para “%s”"
-
-#~ msgid "_Rename..."
-#~ msgstr "_Renomear…"
-
-#~ msgid "Modif_y Tags..."
-#~ msgstr "_Modificar etiquetas…"
-
-#~ msgid "Tag Photo as \"%s\""
-#~ msgstr "Etiquetar fotos como “%s”"
-
-#~ msgid "Tag Photos as \"%s\""
-#~ msgstr "Etiquetar foto como “%s”"
-
-#~ msgid "Tag the selected photo as \"%s\""
-#~ msgstr "Etiquetar as fotos selecionadas como “%s”"
-
-#~ msgid "Tag the selected photos as \"%s\""
-#~ msgstr "Etiquetar as fotos selecionadas como “%s”"
-
-#~ msgid "Remove Tag \"%s\" From _Photo"
-#~ msgstr "Remover etiqueta “%s” da _foto"
-
-#~ msgid "Remove Tag \"%s\" From _Photos"
-#~ msgstr "Remover etiqueta “%s” das _fotos"
-
-#~ msgid "Remove Tag \"%s\" From Photo"
-#~ msgstr "Remove a etiqueta “%s” da foto"
-
-#~ msgid "Remove Tag \"%s\" From Photos"
-#~ msgstr "Remove a etiqueta “%s” das fotos"
-
-#~ msgid "Unable to rename tag to \"%s\" because the tag already exists."
-#~ msgstr ""
-#~ "Não foi possível renomear a etiqueta para “%s” pelo fato da etiqueta já "
-#~ "existir."
-
-#~ msgid "Unable to rename search to \"%s\" because the search already exists."
-#~ msgstr ""
-#~ "Não foi possível renomear a pesquisa para “%s” pelo fato da pesquisa já "
-#~ "existir."
-
-#~ msgid "_Edit..."
-#~ msgstr "_Editar…"
-
-#~ msgid "Re_name..."
-#~ msgstr "Re_nomear…"
-
-#~ msgid "Rename Search \"%s\" to \"%s\""
-#~ msgstr "Renomeia a pesquisa “%s” para “%s”"
-
-#~ msgid "Delete Search \"%s\""
-#~ msgstr "Apagar pesquisa “%s”"
-
-#~ msgid "Open the selected photo's directory in the file manager"
-#~ msgstr "Abre o diretório da foto selecionada no gerenciador de arquivos"
-
-#~ msgid "RAW photos"
-#~ msgstr "Fotos RAW"
-
-#~ msgid "Error loading UI file %s: %s"
-#~ msgstr "Erro ao carregar arquivo de UI %s: %s"
-
-#~ msgid "New _Tag..."
-#~ msgstr "Nova etique_ta…"
-
-# Translated with 24-hour time - default in Brazil. i.e.: 20:31 -- Rafael
-#~ msgid "%-I:%M %p"
-#~ msgstr "%-H:%M"
-
-# Translated with 24-hour time - default in Brazil. i.e.: 20:31:42 -- Rafael
-#~ msgid "%-I:%M:%S %p"
-#~ msgstr "%-H:%M:%S"
-
-#~ msgid "Intro message replaced at runtime"
-#~ msgstr "Mensagem de introdução substituída em tempo real"
-
-#~ msgid "'Publishing to $url as $username' (populated in application code)"
-#~ msgstr ""
-#~ "'Publicação para a $url como $username' (populado no código do aplicativo)"
-
-#~ msgid "you are logged in rajce as $name"
-#~ msgstr "você está autenticado no rajce como $name"
-
-#~ msgid "$mediatype will appear in"
-#~ msgstr "$mediatype irão aparecer em"
-
-#~ msgid "Copyright 2009-2015 Yorba Foundation"
-#~ msgstr "Copyright 2009-2015 Yorba Foundation"
-
-#~ msgid "Visit the Yorba web site"
-#~ msgstr "Visite o site da Yorba"
-
-#~ msgid "A file required for publishing is unavailable. Publishing to "
-#~ msgstr ""
-#~ "Um arquivo necessário para a publicação não está disponível. A publicação "
-#~ "para "
-
-#~ msgid "Only _Remove"
-#~ msgstr "_Remover somente"
-
-#~ msgid "Shotwell is configured to import photos to your home directory.\n"
-#~ msgstr ""
-#~ "Shotwell está configurado para importar fotos para seu diretório home.\n"
-
-#~ msgid ""
-#~ "You are logged into Tumblr as (name).\n"
-#~ "\n"
-#~ "(this label's string is populated and set inside the code, \n"
-#~ "so changes made here will not display)"
-#~ msgstr ""
-#~ "Você está logado no Tumblr como (nome).\n"
-#~ "\n"
-#~ "(este rótulo é preenchido e definido dentro do código, \n"
-#~ "portanto as alterações feitas aqui não serão exibidas)"
