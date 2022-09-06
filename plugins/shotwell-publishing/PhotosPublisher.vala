@@ -7,7 +7,6 @@
 
 namespace Publishing.GooglePhotos {
 internal const string DEFAULT_ALBUM_NAME = N_("Shotwell Connect");
-internal const int MAX_BATCH_SIZE = 50;
 
 internal class Album {
     public string name;
@@ -128,41 +127,28 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
     }
 
     public override void execute () throws Spit.Publishing.PublishingError {
-        for (var h = 0; h * MAX_BATCH_SIZE < this.upload_tokens.length; h++) {
-            var offset = h * MAX_BATCH_SIZE;
-            var difference = this.upload_tokens.length - offset;
-            int end;
-
-            if (difference > MAX_BATCH_SIZE) {
-                end = offset + MAX_BATCH_SIZE;
-            }
-            else {
-                end = offset + difference;
-            }
-
-            var builder = new Json.Builder();
+        var builder = new Json.Builder();
+        builder.begin_object();
+        builder.set_member_name("albumId");
+        builder.add_string_value(this.album_id);
+        builder.set_member_name("newMediaItems");
+        builder.begin_array();
+        for (var i = 0; i < this.upload_tokens.length; i++) {
             builder.begin_object();
-            builder.set_member_name("albumId");
-            builder.add_string_value(this.album_id);
-            builder.set_member_name("newMediaItems");
-            builder.begin_array();
-            for (var i = offset; i < end; i++) {
-                builder.begin_object();
-                builder.set_member_name("description");
-                builder.add_string_value(this.titles[i]);
-                builder.set_member_name("simpleMediaItem");
-                builder.begin_object();
-                builder.set_member_name("uploadToken");
-                builder.add_string_value(this.upload_tokens[i]);
-                builder.end_object();
-                builder.end_object();
-            }
-            builder.end_array();
+            builder.set_member_name("description");
+            builder.add_string_value(this.titles[i]);
+            builder.set_member_name("simpleMediaItem");
+            builder.begin_object();
+            builder.set_member_name("uploadToken");
+            builder.add_string_value(this.upload_tokens[i]);
             builder.end_object();
-            set_custom_payload(Json.to_string (builder.get_root (), false), "application/json");
-
-            base.execute();
+            builder.end_object();
         }
+        builder.end_array();
+        builder.end_object();
+        set_custom_payload(Json.to_string (builder.get_root (), false), "application/json");
+
+        base.execute();
     }
 }
 
