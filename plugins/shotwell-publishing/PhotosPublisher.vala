@@ -7,6 +7,7 @@
 
 namespace Publishing.GooglePhotos {
 internal const string DEFAULT_ALBUM_NAME = N_("Shotwell Connect");
+internal const int MAX_BATCH_SIZE = 50;
 
 internal class Album {
     public string name;
@@ -234,6 +235,7 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
     private bool running = false;
     private PublishingParameters publishing_parameters;
     private Spit.Publishing.ProgressCallback progress_reporter;
+    private size_t creation_offset = 0;
 
     public Publisher(Spit.Publishing.Service service,
                      Spit.Publishing.PluginHost host) {
@@ -464,15 +466,33 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
 
+        do_media_creation_batch(uploader);
+    }
+
+    private void do_media_creation_batch(Publishing.RESTSupport.BatchUploader uploader) {
+        var u = (Uploader) uploader;
+
+        if (creation_offset >= u.upload_tokens.length) {
+            on_media_creation_complete();
+            return;
+        }
+
+        var end = creation_offset + MAX_BATCH_SIZE < u.upload_tokens.length ? 
+                    creation_offset + MAX_BATCH_SIZE : u.upload_tokens.length;
+        
         var txn = new MediaCreationTransaction(get_session(),
-                                               ((Uploader) uploader).upload_tokens,
-                                               ((Uploader) uploader).titles,
+                                               u.upload_tokens[creation_offset:end],
+                                               u.titles[creation_offset:end],
                                                publishing_parameters.get_target_album_entry_id());
 
-        txn.completed.connect(on_media_creation_complete);
+        txn.completed.connect(() => {
+            do_media_creation_batch(uploader);
+        });
+
         txn.network_error.connect(on_media_creation_error);
 
         try {
+            creation_offset = end;
             txn.execute();
         } catch (Spit.Publishing.PublishingError error) {
             on_media_creation_error(txn, error);
@@ -492,10 +512,7 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         get_host().post_error(err);
     }
 
-    private void on_media_creation_complete(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_media_creation_complete);
-        txn.network_error.disconnect(on_media_creation_error);
-
+    private void on_media_creation_complete() {
         if (!is_running())
             return;
 
