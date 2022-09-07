@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2022-09-06 20:58+0000\n"
-"PO-Revision-Date: 2022-09-07 02:03+0200\n"
+"PO-Revision-Date: 2022-09-07 02:05+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -4529,8 +4529,8 @@ msgstr "Eltávolítás a gyűjteményből"
 #: src/Dialogs.vala:937
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
-msgstr[0] "Fénykép eltávolítás a gyűjteményből"
-msgstr[1] "Fényképek eltávolítás a gyűjteményből"
+msgstr[0] "Fénykép eltávolítása a gyűjteményből"
+msgstr[1] "Fényképek eltávolítása a gyűjteményből"
 
 #: src/Dialogs.vala:951
 #, c-format
@@ -5367,7 +5367,7 @@ msgstr "Eltávolítás a gyűjteményből"
 #| msgid_plural "Removing Photos From Library"
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
-msgstr "Fénykép eltávolítás a gyűjteményből"
+msgstr "Fénykép eltávolítása a gyűjteményből"
 
 #: src/PhotoPage.vala:3042
 #, c-format
