@@ -1161,19 +1161,24 @@ public class PhotoMetadata : MediaMetadata {
     
     public bool get_gps(out double longitude, out string long_ref, out double latitude, out string lat_ref,
         out double altitude) {
-        if (!exiv2.get_gps_info(out longitude, out latitude, out altitude)) {
+        longitude = 0.0;
+        latitude = 0.0;
+        altitude = 0.0;
+        if (!exiv2.get_gps_longitude(out longitude) || !exiv2.get_gps_latitude(out latitude)) {
             long_ref = null;
             lat_ref = null;
             
             return false;
         }
+
+        exiv2.get_gps_altitude(out altitude);
         
         long_ref = get_string("Exif.GPSInfo.GPSLongitudeRef");
         lat_ref = get_string("Exif.GPSInfo.GPSLatitudeRef");
         
         return true;
     }
-    
+
     public bool get_exposure(out MetadataRational exposure) {
         return get_rational("Exif.Photo.ExposureTime", out exposure);
     }
