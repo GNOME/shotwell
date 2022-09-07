@@ -135,7 +135,7 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
                 debug("attempt start: a persistent session is available; using it");
 
                 session.authenticate_from_persistent_credentials(get_persistent_access_phase_token(),
-                        get_persistent_access_phase_token_secret(), "");
+                        get_persistent_access_phase_token_secret(), "unused");
             } else {
                 debug("attempt start: no persistent session available; showing login welcome pane");
 
