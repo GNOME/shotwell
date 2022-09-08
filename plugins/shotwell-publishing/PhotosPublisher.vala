@@ -127,7 +127,7 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
         this.titles = titles;
     }
 
-    public override void execute () throws Spit.Publishing.PublishingError {
+    public override async void execute_async () throws Spit.Publishing.PublishingError {
         var builder = new Json.Builder();
         builder.begin_object();
         builder.set_member_name("albumId");
@@ -149,7 +149,7 @@ private class MediaCreationTransaction : Publishing.RESTSupport.GooglePublisher.
         builder.end_object();
         set_custom_payload(Json.to_string (builder.get_root (), false), "application/json");
 
-        base.execute();
+        yield base.execute_async();
     }
 }
 
@@ -163,7 +163,7 @@ private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.
         this.title = title;
     }
 
-    public override void execute () throws Spit.Publishing.PublishingError {
+    public override async void execute_async() throws Spit.Publishing.PublishingError {
         var builder = new Json.Builder();
         builder.begin_object();
         builder.set_member_name("album");
@@ -174,7 +174,7 @@ private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.
         builder.end_object();
         set_custom_payload(Json.to_string (builder.get_root (), false), "application/json");
 
-        base.execute();
+        yield base.execute_async();
     }
 }
 
@@ -213,14 +213,12 @@ private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher
             if (pagination_token_node != null) {
                 this.set_argument ("pageToken", pagination_token_node.get_string ());
                 Signal.stop_emission_by_name (this, "completed");
-                Idle.add(() => {
+                this.execute_async.begin((source, res) =>{
                     try {
-                        this.execute();
-                    } catch (Spit.Publishing.PublishingError error) {
-                        this.network_error(error);
+                        this.execute_async.end(res);
+                    } catch (Spit.Publishing.PublishingError err) {
+                        this.network_error(err);
                     }
-
-                    return false;
                 });
             }
         } catch (Error error) {
@@ -264,6 +262,10 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
     }
 
     protected override void on_login_flow_complete() {
+        do_publishing_process.begin();
+    }
+
+    private async void do_publishing_process() {
         debug("EVENT: OAuth login flow complete.");
         this.publishing_parameters.set_user_name (this.authenticator.get_authentication_parameter()["UserName"].get_string());
 
@@ -271,44 +273,24 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         get_host().set_service_locked(true);
 
         AlbumDirectoryTransaction txn = new AlbumDirectoryTransaction(get_session());
-        txn.completed.connect(on_initial_album_fetch_complete);
-        txn.network_error.connect(on_initial_album_fetch_error);
-
         try {
-            txn.execute();
-        } catch (Spit.Publishing.PublishingError error) {
-            on_initial_album_fetch_error(txn, error);
-        }
-    }
+            yield txn.execute_async();
 
-    private void on_initial_album_fetch_complete(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_initial_album_fetch_complete);
-        txn.network_error.disconnect(on_initial_album_fetch_error);
+            if (!is_running())
+                return;
 
-        if (!is_running())
-            return;
+            debug("EVENT: finished fetching album information.");
+            display_account_information((AlbumDirectoryTransaction)txn);    
+        } catch (Error err) {
+            debug("EVENT: fetching album information failed; response = '%s'.",
+            txn.get_response());
 
-        debug("EVENT: finished fetching album information.");
-
-        display_account_information((AlbumDirectoryTransaction)txn);
-    }
-
-    private void on_initial_album_fetch_error(Publishing.RESTSupport.Transaction txn,
-                                              Spit.Publishing.PublishingError error) {
-        txn.completed.disconnect(on_initial_album_fetch_complete);
-        txn.network_error.disconnect(on_initial_album_fetch_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: fetching album information failed; response = '%s'.",
-              txn.get_response());
-
-        if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
-            do_logout();
-        } else {
-            // If we get any other kind of error, we can't recover, so just post it to the user
-            get_host().post_error(error);
+            if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
+                do_logout();
+            } else {
+                // If we get any other kind of error, we can't recover, so just post it to the user
+                get_host().post_error(err);
+            }
         }
     }
 
@@ -348,65 +330,43 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         save_parameters_to_configuration_system(publishing_parameters);
 
         if (publishing_parameters.get_target_album_entry_id () != null) {
-            do_upload();
+            do_upload.begin();
         } else {
-            do_create_album();
+            do_create_album.begin();
         }
     }
 
-    private void do_create_album() {
+    private async void do_create_album() {
         debug("ACTION: Creating album");
         assert(publishing_parameters.get_target_album_entry_id () == null);
 
         get_host().set_service_locked(true);
 
         var txn = new AlbumCreationTransaction(get_session(), publishing_parameters.get_target_album_name());
-        txn.completed.connect(on_album_create_complete);
-        txn.network_error.connect(on_album_create_error);
 
         try {
-            txn.execute();
-        } catch (Spit.Publishing.PublishingError error) {
-            on_album_create_error(txn, error);
-        }
-    }
+            yield txn.execute_async();
 
-    private void on_album_create_complete(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_album_create_complete);
-        txn.network_error.disconnect(on_album_create_error);
+            if (!is_running())
+                return;
 
-        if (!is_running())
-            return;
+            debug("EVENT: finished creating album information: %s", txn.get_response());
 
-        debug("EVENT: finished creating album information: %s", txn.get_response());
-
-        try {
             var node = Json.from_string(txn.get_response());
             var object = node.get_object();
             publishing_parameters.set_target_album_entry_id (object.get_string_member ("id"));
 
-            do_upload();
-        } catch (Error error) {
-            on_album_create_error(txn, new Spit.Publishing.PublishingError.MALFORMED_RESPONSE (error.message));
-        }
-    }
+            yield do_upload();    
+        } catch (Error err) {
+            debug("EVENT: creating album failed; response = '%s'.",
+            txn.get_response());
 
-    private void on_album_create_error(Publishing.RESTSupport.Transaction txn,
-                                       Spit.Publishing.PublishingError error) {
-        txn.completed.disconnect(on_initial_album_fetch_complete);
-        txn.network_error.disconnect(on_initial_album_fetch_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: creating album failed; response = '%s'.",
-              txn.get_response());
-
-        if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
-            do_logout();
-        } else {
-            // If we get any other kind of error, we can't recover, so just post it to the user
-            get_host().post_error(error);
+            if (txn.get_status_code() == 403 || txn.get_status_code() == 404) {
+                do_logout();
+            } else {
+                // If we get any other kind of error, we can't recover, so just post it to the user
+                get_host().post_error(err);
+            }
         }
     }
 
@@ -420,7 +380,7 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         }
     }
 
-    private void do_upload() {
+    private async void do_upload() {
         debug("ACTION: uploading media items to remote server.");
 
         get_host().set_service_locked(true);
@@ -439,10 +399,17 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         Spit.Publishing.Publishable[] publishables = get_host().get_publishables();
         Uploader uploader = new Uploader(get_session(), publishables, publishing_parameters);
 
-        uploader.upload_complete.connect(on_upload_complete);
-        uploader.upload_error.connect(on_upload_error);
+        try {
+            yield uploader.upload_async(on_upload_status_updated);
+            yield do_media_creation_batch(uploader);
+        } catch (Error err) {
+            if (!is_running())
+                return;
 
-        uploader.upload(on_upload_status_updated);
+            debug("EVENT: uploader reports upload error = '%s'.", err.message);
+
+            get_host().post_error(err);
+        }
     }
 
     private void on_upload_status_updated(int file_number, double completed_fraction) {
@@ -456,83 +423,37 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
         progress_reporter(file_number, completed_fraction);
     }
 
-    private void on_upload_complete(Publishing.RESTSupport.BatchUploader uploader,
-                                    int num_published) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload complete; %d items published.", num_published);
-
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        do_media_creation_batch(uploader);
-    }
-
-    private void do_media_creation_batch(Publishing.RESTSupport.BatchUploader uploader) {
+    private async void do_media_creation_batch(Publishing.RESTSupport.BatchUploader uploader) {
         var u = (Uploader) uploader;
 
-        if (creation_offset >= u.upload_tokens.length) {
-            on_media_creation_complete();
-            return;
-        }
+        while (creation_offset < u.upload_tokens.length) {
+            var end = creation_offset + MAX_BATCH_SIZE < u.upload_tokens.length ? 
+                        creation_offset + MAX_BATCH_SIZE : u.upload_tokens.length;
+            
+            var txn = new MediaCreationTransaction(get_session(),
+                                                u.upload_tokens[creation_offset:end],
+                                                u.titles[creation_offset:end],
+                                                publishing_parameters.get_target_album_entry_id());
 
-        var end = creation_offset + MAX_BATCH_SIZE < u.upload_tokens.length ? 
-                    creation_offset + MAX_BATCH_SIZE : u.upload_tokens.length;
-        
-        var txn = new MediaCreationTransaction(get_session(),
-                                               u.upload_tokens[creation_offset:end],
-                                               u.titles[creation_offset:end],
-                                               publishing_parameters.get_target_album_entry_id());
-
-        txn.completed.connect(() => {
-            do_media_creation_batch(uploader);
-        });
-
-        txn.network_error.connect(on_media_creation_error);
-
-        try {
             creation_offset = end;
-            txn.execute();
-        } catch (Spit.Publishing.PublishingError error) {
-            on_media_creation_error(txn, error);
+            try {
+                yield txn.execute_async();
+                if (!is_running())
+                    return;
+        
+                debug("EVENT: Media creation reports success.");
+        
+                get_host().set_service_locked(false);
+                get_host().install_success_pane();
+            } catch (Spit.Publishing.PublishingError err) {
+                if (!is_running())
+                    return;
+    
+                debug("EVENT: Media creation reports error: %s", err.message);
+                
+                get_host().post_error(err);
+            }
         }
-    }
-
-    private void on_upload_error(Publishing.RESTSupport.BatchUploader uploader,
-                                 Spit.Publishing.PublishingError err) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload error = '%s'.", err.message);
-
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        get_host().post_error(err);
-    }
-
-    private void on_media_creation_complete() {
-        if (!is_running())
-            return;
-
-        debug("EVENT: Media creation reports success.");
-
-        get_host().set_service_locked(false);
-        get_host().install_success_pane();
-    }
-
-    private void on_media_creation_error(Publishing.RESTSupport.Transaction txn,
-                                         Spit.Publishing.PublishingError err) {
-        txn.completed.disconnect(on_media_creation_complete);
-        txn.network_error.disconnect(on_media_creation_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: Media creation reports error: %s", err.message);
-
-        get_host().post_error(err);
     }
 
     public override bool is_running() {

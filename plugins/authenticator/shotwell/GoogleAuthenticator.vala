@@ -89,7 +89,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
     }
 
     private class GetAccessTokensTransaction : Publishing.RESTSupport.Transaction {
-        private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
+        private const string ENDPOINT_URL = "https://oauth2.googleapis.com/token";
 
         public GetAccessTokensTransaction(Session session, string auth_code) {
             base.with_endpoint_url(session, ENDPOINT_URL);
@@ -103,7 +103,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
     }
 
     private class RefreshAccessTokenTransaction : Publishing.RESTSupport.Transaction {
-        private const string ENDPOINT_URL = "https://accounts.google.com/o/oauth2/token";
+        private const string ENDPOINT_URL = "https://oauth2.googleapis.com/token";
 
         public RefreshAccessTokenTransaction(Session session) {
             base.with_endpoint_url(session, ENDPOINT_URL);
@@ -162,7 +162,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
             }
             if (refresh_token != null && refresh_token != "") {
                 on_refresh_token_available(refresh_token);
-                do_exchange_refresh_token_for_access_token();
+                do_exchange_refresh_token_for_access_token.begin();
                 return;
             }
 
@@ -228,48 +228,31 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             debug("EVENT: user authorized scope %s with auth_code %s", scope, auth_code);
 
-            do_get_access_tokens(auth_code);
+            do_get_access_tokens.begin(auth_code);
         }
 
         private void on_web_auth_pane_error() {
             host.post_error(web_auth_pane.load_error);
         }
 
-        private void do_get_access_tokens(string auth_code) {
+        private async void do_get_access_tokens(string auth_code) {
             debug("ACTION: exchanging authorization code for access & refresh tokens");
 
             host.install_login_wait_pane();
 
             GetAccessTokensTransaction tokens_txn = new GetAccessTokensTransaction(session, auth_code);
-            tokens_txn.completed.connect(on_get_access_tokens_complete);
-            tokens_txn.network_error.connect(on_get_access_tokens_error);
 
             try {
-                tokens_txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
+                yield tokens_txn.execute_async();
+                debug("EVENT: network transaction to exchange authorization code for access tokens " +
+                "completed successfully.");
+                do_extract_tokens(tokens_txn.get_response());
+            } catch (Error err) {
+                debug("EVENT: network transaction to exchange authorization code for access tokens " +
+                "failed; response = '%s'", tokens_txn.get_response());
                 host.post_error(err);
             }
-        }
 
-        private void on_get_access_tokens_complete(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_get_access_tokens_complete);
-            txn.network_error.disconnect(on_get_access_tokens_error);
-
-            debug("EVENT: network transaction to exchange authorization code for access tokens " +
-                    "completed successfully.");
-
-            do_extract_tokens(txn.get_response());
-        }
-
-        private void on_get_access_tokens_error(Publishing.RESTSupport.Transaction txn,
-                Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_get_access_tokens_complete);
-            txn.network_error.disconnect(on_get_access_tokens_error);
-
-            debug("EVENT: network transaction to exchange authorization code for access tokens " +
-                    "failed; response = '%s'", txn.get_response());
-
-            host.post_error(err);
         }
 
         private void do_extract_tokens(string response_body) {
@@ -336,43 +319,26 @@ namespace Publishing.Authenticator.Shotwell.Google {
             session.access_token = token;
             this.params.insert("AccessToken", new Variant.string(token));
 
-            do_fetch_username();
+            do_fetch_username.begin();
         }
 
-        private void do_fetch_username() {
+        private async void do_fetch_username() {
             debug("ACTION: running network transaction to fetch username.");
 
             host.install_login_wait_pane();
             host.set_service_locked(true);
 
             UsernameFetchTransaction txn = new UsernameFetchTransaction(session);
-            txn.completed.connect(on_fetch_username_transaction_completed);
-            txn.network_error.connect(on_fetch_username_transaction_error);
 
             try {
-                txn.execute();
+                yield txn.execute_async();
+                debug("EVENT: username fetch transaction completed successfully.");
+                do_extract_username(txn.get_response());
             } catch (Error err) {
+                debug("EVENT: username fetch transaction caused a network error");
+
                 host.post_error(err);
             }
-        }
-
-        private void on_fetch_username_transaction_completed(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_fetch_username_transaction_completed);
-            txn.network_error.disconnect(on_fetch_username_transaction_error);
-
-            debug("EVENT: username fetch transaction completed successfully.");
-
-            do_extract_username(txn.get_response());
-        }
-
-        private void on_fetch_username_transaction_error(Publishing.RESTSupport.Transaction txn,
-                Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_fetch_username_transaction_completed);
-            txn.network_error.disconnect(on_fetch_username_transaction_error);
-
-            debug("EVENT: username fetch transaction caused a network error");
-
-            host.post_error(err);
         }
 
         private void do_extract_username(string response_body) {
@@ -421,61 +387,43 @@ namespace Publishing.Authenticator.Shotwell.Google {
             web_auth_pane.clear();
         }
 
-        private void do_exchange_refresh_token_for_access_token() {
+        private async void do_exchange_refresh_token_for_access_token() {
             debug("ACTION: exchanging OAuth refresh token for OAuth access token.");
 
             host.install_login_wait_pane();
 
             RefreshAccessTokenTransaction txn = new RefreshAccessTokenTransaction(session);
-
-            txn.completed.connect(on_refresh_access_token_transaction_completed);
-            txn.network_error.connect(on_refresh_access_token_transaction_error);
-
             try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
-                host.post_error(err);
-            }
-        }
+                yield txn.execute_async();
+                debug("EVENT: refresh access token transaction completed successfully.");
 
-        private void on_refresh_access_token_transaction_completed(Publishing.RESTSupport.Transaction
-                txn) {
-            txn.completed.disconnect(on_refresh_access_token_transaction_completed);
-            txn.network_error.disconnect(on_refresh_access_token_transaction_error);
+                if (session.is_authenticated()) // ignore these events if the session is already auth'd
+                    return;
+    
+                do_extract_tokens(txn.get_response());
+            } catch (Error err) {
+                debug("EVENT: refresh access token transaction caused a network error.");
 
-            debug("EVENT: refresh access token transaction completed successfully.");
+                if (session.is_authenticated()) // ignore these events if the session is already auth'd
+                    return;
 
-            if (session.is_authenticated()) // ignore these events if the session is already auth'd
-                return;
+                if (txn.get_status_code() == Soup.Status.BAD_REQUEST ||
+                    txn.get_status_code() == Soup.Status.UNAUTHORIZED) {
+                    // Refresh token invalid, starting over
+                    try {
+                        Secret.password_clear_sync(this.schema, null,
+                            SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                            SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", this.scope);
+                    } catch (Error err) {
+                        critical("Failed to remove password for accountname@scope %s@%s: %s", this.accountname, this.scope, err.message);
+                    }
 
-            do_extract_tokens(txn.get_response());
-        }
-
-        private void on_refresh_access_token_transaction_error(Publishing.RESTSupport.Transaction txn,
-                Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_refresh_access_token_transaction_completed);
-            txn.network_error.disconnect(on_refresh_access_token_transaction_error);
-
-            debug("EVENT: refresh access token transaction caused a network error.");
-
-            if (session.is_authenticated()) // ignore these events if the session is already auth'd
-                return;
-            if (txn.get_status_code() == Soup.Status.BAD_REQUEST ||
-                txn.get_status_code() == Soup.Status.UNAUTHORIZED) {
-                // Refresh token invalid, starting over
-                try {
-                    Secret.password_clear_sync(this.schema, null,
-                        SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                        SCHEMA_KEY_ACCOUNTNAME, this.accountname, "scope", this.scope);
-                } catch (Error err) {
-                    critical("Failed to remove password for accountname@scope %s@%s: %s", this.accountname, this.scope, err.message);
+                    Idle.add (() => { this.authenticate(); return false; });
                 }
 
-                Idle.add (() => { this.authenticate(); return false; });
+                web_auth_pane.clear();
+                host.post_error(err);
             }
-
-            web_auth_pane.clear();
-            host.post_error(err);
         }
 
         private void do_show_service_welcome_pane() {
@@ -489,7 +437,5 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             this.do_hosted_web_authentication();
         }
-
-
     }
 }

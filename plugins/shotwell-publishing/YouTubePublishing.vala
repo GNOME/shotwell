@@ -162,7 +162,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         if (!is_running())
             return;
 
-        do_upload();
+        do_upload.begin();
     }
 
     private void on_upload_status_updated(int file_number, double completed_fraction) {
@@ -174,32 +174,6 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
             return;
 
         progress_reporter(file_number, completed_fraction);
-    }
-
-    private void on_upload_complete(Publishing.RESTSupport.BatchUploader uploader,
-        int num_published) {
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-        
-        debug("EVENT: uploader reports upload complete; %d items published.", num_published);
-
-        if (!is_running())
-            return;
-
-        do_show_success_pane();
-    }
-
-    private void on_upload_error(Publishing.RESTSupport.BatchUploader uploader,
-        Spit.Publishing.PublishingError err) {
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload error = '%s'.", err.message);
-
-        get_host().post_error(err);
     }
 
     private void do_show_publishing_options_pane() {
@@ -226,7 +200,7 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         get_host().set_service_locked(false);
     }
 
-    private void do_upload() {
+    private async void do_upload() {
         debug("ACTION: uploading media items to remote server.");
 
         get_host().set_service_locked(true);
@@ -244,10 +218,22 @@ public class YouTubePublisher : Publishing.RESTSupport.GooglePublisher {
         Spit.Publishing.Publishable[] publishables = get_host().get_publishables();
         Uploader uploader = new Uploader(get_session(), publishables, publishing_parameters);
 
-        uploader.upload_complete.connect(on_upload_complete);
-        uploader.upload_error.connect(on_upload_error);
+        try {
+            var num_published = yield uploader.upload_async(on_upload_status_updated);
+            debug("EVENT: uploader reports upload complete; %d items published.", num_published);
 
-        uploader.upload(on_upload_status_updated);
+            if (!is_running())
+                return;
+    
+            do_show_success_pane();
+        } catch (Error err) {
+            if (!is_running())
+                return;
+
+            debug("EVENT: uploader reports upload error = '%s'.", err.message);
+
+            get_host().post_error(err);
+        }
     }
 
     private void do_show_success_pane() {

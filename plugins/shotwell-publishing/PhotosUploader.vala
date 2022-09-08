@@ -28,7 +28,7 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         return this.publishable;
     }
 
-    public override void execute() throws Spit.Publishing.PublishingError {
+    public override async void execute_async() throws Spit.Publishing.PublishingError {
         var basename = publishable.get_param_string(Spit.Publishing.Publishable.PARAM_STRING_BASENAME);
         int64 mapped_file_size = -1;
 
@@ -58,7 +58,7 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
 
         // send the message and get its response
         set_is_executed(true);
-        send();
+        yield send_async();
     }
 }
 

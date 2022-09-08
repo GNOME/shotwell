@@ -227,7 +227,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         
         if (session.is_authenticated()) {
             debug("PiwigoPublisher: session is authenticated.");
-            do_fetch_categories();
+            do_fetch_categories.begin();
         } else {
             debug("PiwigoPublisher: session is not authenticated.");
             string? persistent_url = get_persistent_url();
@@ -236,7 +236,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
             // This will only be null if either of the other two was null or the password did not exist
             if (persistent_url != null && persistent_username != null && persistent_password != null)
-                do_network_login(persistent_url, persistent_username,
+                do_network_login.begin(persistent_url, persistent_username,
                     persistent_password, get_remember_password());
             else
                 do_show_authentication_pane();
@@ -418,7 +418,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             string? persistent_username = get_persistent_username();
             string? persistent_password = get_persistent_password(persistent_url, persistent_username);
             if (persistent_url != null && persistent_username != null && persistent_password != null)
-                do_network_login(persistent_url, persistent_username,
+                do_network_login.begin(persistent_url, persistent_username,
                     persistent_password, get_remember_password());
             else
                 do_show_authentication_pane();
@@ -446,7 +446,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         if (!running)
             return;
 
-        do_network_login(url, username, password, remember_password);
+        do_network_login.begin(url, username, password, remember_password);
     }
     
     /**
@@ -460,7 +460,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * @param username the name of the Piwigo user used to login
      * @param password the password of the Piwigo user used to login
      */
-    private void do_network_login(string url, string username, string password, bool remember_password) {
+    private async void do_network_login(string url, string username, string password, bool remember_password) {
         debug("ACTION: logging in");
         host.set_service_locked(true);
         host.install_login_wait_pane();
@@ -474,11 +474,10 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         SessionLoginTransaction login_trans = new SessionLoginTransaction(
             session, normalise_url(url), username, password);
-        login_trans.network_error.connect(on_login_network_error);
-        login_trans.completed.connect(on_login_network_complete);
 
         try {
-            login_trans.execute();
+            yield login_trans.execute_async();
+            on_login_network_complete(login_trans);
         } catch (Spit.Publishing.PublishingError err) {
             if (err is Spit.Publishing.PublishingError.SSL_FAILED) {
                 debug ("ERROR: SSL connection problems");
@@ -552,7 +551,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         debug("Setting session pwg_id to %s", pwg_id);
         session.set_pwg_id(pwg_id);
 
-        do_fetch_session_status(endpoint_url, pwg_id);
+        do_fetch_session_status.begin(endpoint_url, pwg_id);
     }
     
     /**
@@ -590,18 +589,17 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * persisted. In this case, it will log the user in and confirm the
      * identity.
      */
-    private void do_fetch_session_status(string url = "", string pwg_id = "") {
+    private async void do_fetch_session_status(string url = "", string pwg_id = "") {
         debug("ACTION: fetching session status");
         host.set_service_locked(true);
         host.install_account_fetch_wait_pane();
         
         if (!session.is_authenticated()) {
             SessionGetStatusTransaction status_txn = new SessionGetStatusTransaction.unauthenticated(session, url, pwg_id);
-            status_txn.network_error.connect(on_session_get_status_error);
-            status_txn.completed.connect(on_session_get_status_complete);
 
             try {
-                status_txn.execute();
+                yield status_txn.execute_async();
+                on_session_get_status_complete(status_txn);
             } catch (Spit.Publishing.PublishingError err) {
                 debug("ERROR: do_fetch_session_status, not authenticated");
                 do_show_error(err);
@@ -612,7 +610,8 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             status_txn.completed.connect(on_session_get_status_complete);
 
             try {
-                status_txn.execute();
+                yield status_txn.execute_async();
+                on_session_get_status_complete(status_txn);
             } catch (Spit.Publishing.PublishingError err) {
                 debug("ERROR: do_fetch_session_status, authenticated");
                 do_show_error(err);
@@ -629,8 +628,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      */
     private void on_session_get_status_complete(Publishing.RESTSupport.Transaction txn) {
         debug("EVENT: on_session_get_status_complete");
-        txn.completed.disconnect(on_session_get_status_complete);
-        txn.network_error.disconnect(on_session_get_status_error);
 
         if (!session.is_authenticated()) {
             string endpoint_url = txn.get_endpoint_url();
@@ -650,7 +647,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
                     session.authenticate(endpoint_url, username, pwg_id);
                     set_persistent_url(session.get_pwg_url());
                     set_persistent_username(session.get_username());
-                    do_fetch_categories();
+                    do_fetch_categories.begin();
                 } catch (Spit.Publishing.PublishingError err2) {
                     debug("ERROR: on_session_get_status_complete, inner");
                     do_show_error(err2);
@@ -665,7 +662,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             // This should never happen as the session should not be
             // authenticated at that point so this call is a safeguard
             // against the interaction not happening properly.
-            do_fetch_categories();
+            do_fetch_categories.begin();
         }
     }
     
@@ -688,20 +685,20 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * This action fetches all categories from the Piwigo service in order
      * to populate the publishing pane presented to the user.
      */
-    private void do_fetch_categories() {
+    private async void do_fetch_categories() {
         debug("ACTION: fetching categories");
         host.set_service_locked(true);
         host.install_account_fetch_wait_pane();
 
         CategoriesGetListTransaction cat_trans = new CategoriesGetListTransaction(session);
-        cat_trans.network_error.connect(on_category_fetch_error);
-        cat_trans.completed.connect(on_category_fetch_complete);
         
         try {
-            cat_trans.execute();
+            yield cat_trans.execute_async();
+            on_category_fetch_complete(cat_trans);
         } catch (Spit.Publishing.PublishingError err) {
             debug("ERROR: do_fetch_categories");
             do_show_error(err);
+            return;
         }
     }
     
@@ -714,8 +711,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      */
     private void on_category_fetch_complete(Publishing.RESTSupport.Transaction txn) {
         debug("EVENT: on_category_fetch_complete");
-        txn.completed.disconnect(on_category_fetch_complete);
-        txn.network_error.disconnect(on_category_fetch_error);
         debug("PiwigoConnector: list of categories: %s", txn.get_response());
         // Empty the categories
         if (categories != null) {
@@ -771,20 +766,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     }
     
     /**
-     * Event triggered when the fetch categories transaction fails due to a
-     * network error.
-     */
-    private void on_category_fetch_error(
-        Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_category_fetch_error");
-        bad_txn.completed.disconnect(on_category_fetch_complete);
-        bad_txn.network_error.disconnect(on_category_fetch_error);
-        on_network_error(bad_txn, err);
-    }
-    
-    /**
      * Action that shows the publishing options pane.
      *
      * This action method shows the publishing options pane.
@@ -796,7 +777,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(
             this, categories, get_last_category(), get_last_permission_level(), get_last_photo_size(),
             get_last_title_as_comment(), get_last_no_upload_tags(), get_last_no_upload_ratings(), get_metadata_removal_choice());
-        opts_pane.logout.connect(on_publishing_options_pane_logout_clicked);
+        opts_pane.logout.connect(() => { on_publishing_options_pane_logout_clicked.begin(); });
         opts_pane.publish.connect(on_publishing_options_pane_publish_clicked);
         host.install_dialog_pane(opts_pane, Spit.Publishing.PluginHost.ButtonMode.CLOSE);
         host.set_dialog_default_widget(opts_pane.get_default_widget());
@@ -805,14 +786,12 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     /**
      * Event triggered when the user clicks logout in the publishing options pane.
      */
-    private void on_publishing_options_pane_logout_clicked() {
+    private async void on_publishing_options_pane_logout_clicked() {
         debug("EVENT: on_publishing_options_pane_logout_clicked");
-        SessionLogoutTransaction logout_trans = new SessionLogoutTransaction(session);
-        logout_trans.network_error.connect(on_logout_network_error);
-        logout_trans.completed.connect(on_logout_network_complete);
 
         try {
-            logout_trans.execute();
+            yield new SessionLogoutTransaction(session).execute_async();
+            on_logout_network_complete();
         } catch (Spit.Publishing.PublishingError err) {
             debug("ERROR: on_publishing_options_pane_logout_clicked");
             do_show_error(err);
@@ -825,29 +804,14 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      * This event de-authenticates the session and shows the authentication
      * pane again.
      */
-    private void on_logout_network_complete(Publishing.RESTSupport.Transaction txn) {
+    private void on_logout_network_complete() {
         debug("EVENT: on_logout_network_complete");
-        txn.completed.disconnect(on_logout_network_complete);
-        txn.network_error.disconnect(on_logout_network_error);
 
         session.deauthenticate();
 
         do_show_authentication_pane(AuthenticationPane.Mode.INTRO);
     }
-    
-    /**
-     * Event triggered when the logout action fails due to a network error.
-     */
-    private void on_logout_network_error(
-        Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_logout_network_error");
-        bad_txn.completed.disconnect(on_logout_network_complete);
-        bad_txn.network_error.disconnect(on_logout_network_error);
-        on_network_error(bad_txn, err);
-    }
-    
+        
     /**
      * Event triggered when the user clicks publish in the publishing options pane.
      *
@@ -865,9 +829,9 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         this.strip_metadata = strip_metadata;
 
         if (parameters.category.is_local()) {
-            do_create_category(parameters.category);
+            do_create_category.begin(parameters.category);
         } else {
-            do_upload(this.strip_metadata);
+            do_upload.begin(this.strip_metadata);
         }
     }
     
@@ -882,7 +846,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      *
      * @param category the new category to create on the server
      */
-    private void do_create_category(Category category) {
+    private async void do_create_category(Category category) {
         debug("ACTION: creating a new category: %s".printf(category.name));
         assert(category.is_local());
 
@@ -891,11 +855,10 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         CategoriesAddTransaction creation_trans = new CategoriesAddTransaction(
             session, category.name.strip(), int.parse(category.uppercats), category.comment);
-        creation_trans.network_error.connect(on_category_add_error);
-        creation_trans.completed.connect(on_category_add_complete);
         
         try {
-            creation_trans.execute();
+            yield creation_trans.execute_async();
+            on_category_add_complete(creation_trans);
         } catch (Spit.Publishing.PublishingError err) {
             debug("ERROR: do_create_category");
             do_show_error(err);
@@ -911,8 +874,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      */
     private void on_category_add_complete(Publishing.RESTSupport.Transaction txn) {
         debug("EVENT: on_category_add_complete");
-        txn.completed.disconnect(on_category_add_complete);
-        txn.network_error.disconnect(on_category_add_error);
 
         // Parse the response
         try {
@@ -925,30 +886,17 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             string id_string = id_node->get_content();
             int id = int.parse(id_string);
             parameters.category.id = id;
-            do_upload(strip_metadata);
+            do_upload.begin(strip_metadata);
         } catch (Spit.Publishing.PublishingError err) {
             debug("ERROR: on_category_add_complete");
             do_show_error(err);
         }
     }
-    
-    /**
-     * Event triggered when the add category action fails due to a network error.
-     */
-    private void on_category_add_error(
-        Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_category_add_error");
-        bad_txn.completed.disconnect(on_category_add_complete);
-        bad_txn.network_error.disconnect(on_category_add_error);
-        on_network_error(bad_txn, err);
-    }
-    
+        
     /**
      * Upload action: the big one, the one we've been waiting for!
      */
-    private void do_upload(bool strip_metadata) {
+    private async void do_upload(bool strip_metadata) {
         this.strip_metadata = strip_metadata;
         debug("ACTION: uploading pictures");
         
@@ -966,19 +914,20 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         Spit.Publishing.Publishable[] publishables = host.get_publishables();
         
         Uploader uploader = new Uploader(session, publishables, parameters);
-        uploader.upload_complete.connect(on_upload_complete);
-        uploader.upload_error.connect(on_upload_error);
-        uploader.upload(on_upload_status_updated);
+        try {
+            var num_published = yield uploader.upload_async(on_upload_status_updated);
+            on_upload_complete(num_published);
+        } catch (Spit.Publishing.PublishingError err) {
+            do_show_error(err);
+        }
     }
     
     /**
      * Event triggered when the batch uploader reports that at least one of the
      * network transactions encapsulating uploads has completed successfully
      */
-    private void on_upload_complete(Publishing.RESTSupport.BatchUploader uploader, int num_published) {
+    private void on_upload_complete(int num_published) {
         debug("EVENT: on_upload_complete");
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
         
         // TODO: should a message be displayed to the user if num_published is zero?
 
@@ -987,22 +936,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         do_show_success_pane();
     }
-    
-    /**
-     * Event triggered when the batch uploader reports that at least one of the
-     * network transactions encapsulating uploads has caused a network error
-     */
-    private void on_upload_error(
-        Publishing.RESTSupport.BatchUploader uploader,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_upload_error");
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        do_show_error(err);
-    }
-    
+        
     /**
      * Event triggered when upload progresses and the status needs to be updated.
      */
@@ -1946,11 +1880,7 @@ private class ImagesAddRating : Publishing.RESTSupport.UploadTransaction {
         add_argument("image_id", image_id);
         add_argument("rate", publishable.get_rating().to_string());
 
-        try {
-            base.execute();
-        } catch (Spit.Publishing.PublishingError err) {
-            debug("Rating upload error. Ignored.");
-        }
+        base.execute_async.begin();
     }
 }
 

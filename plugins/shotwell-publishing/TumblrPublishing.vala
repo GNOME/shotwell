@@ -189,72 +189,47 @@ namespace Publishing.Tumblr {
                     auth_token_secret.get_string(), "");
 
 
-            do_get_blogs();
+            do_get_blogs.begin();
         }
 
-        private void do_get_blogs() {
+        private async void do_get_blogs() {
             debug("ACTION: obtain all blogs of the tumblr user");
             UserInfoFetchTransaction txn = new UserInfoFetchTransaction(session);
-            txn.completed.connect(on_info_request_txn_completed);
-            txn.network_error.connect(on_info_request_txn_error);
 
             try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
-                host.post_error(err);
-            }
+                yield txn.execute_async();
+                if (!is_running())
+                    return;
 
-
-        }
-
-
-        private void on_info_request_txn_completed(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_info_request_txn_completed);
-            txn.network_error.disconnect(on_info_request_txn_error);
-
-            if (!is_running())
-                return;
-
-            debug("EVENT: user info request transaction completed; response = '%s'",
-                    txn.get_response());
-            do_parse_token_info_from_user_request(txn.get_response());
-            do_show_publishing_options_pane();
-        }
-
-
-        private void do_parse_token_info_from_user_request(string response) {
-            debug("ACTION: parsing info request response '%s' into list of available blogs", response);
-            try {
-                var parser = new Json.Parser();
-                parser.load_from_data (response, -1);
-                var root_object = parser.get_root().get_object();
-                this.username = root_object.get_object_member("response").get_object_member("user").get_string_member ("name");
-                debug("Got user name: %s",username);
-                foreach (var blognode in root_object.get_object_member("response").get_object_member("user").get_array_member("blogs").get_elements ()) {
-                    var blog = blognode.get_object ();
-                    string name = blog.get_string_member ("name");
-                    string url = blog.get_string_member ("url").replace("http://","").replace("https://", "").replace("/","");
-                    debug("Got blog name: %s and url: %s", name, url);
-                    this.blogs += new BlogEntry(name,url);
-                }
+                debug("EVENT: user info request transaction completed; response = '%s'",
+                        txn.get_response());
+                do_parse_token_info_from_user_request(txn.get_response());
+                do_show_publishing_options_pane();
             } catch (Error err) {
+                session.deauthenticate();
+                //invalidate_persistent_session();
+                debug("EVENT: user info request transaction caused a network error");
                 host.post_error(err);
             }
         }
 
-        private void on_info_request_txn_error(Publishing.RESTSupport.Transaction txn,
-                Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_info_request_txn_completed);
-            txn.network_error.disconnect(on_info_request_txn_error);
+        private void do_parse_token_info_from_user_request(string response) throws Error {
+            debug("ACTION: parsing info request response '%s' into list of available blogs", response);
 
-            if (!is_running())
-                return;
-
-            session.deauthenticate();
-            //invalidate_persistent_session();
-            debug("EVENT: user info request transaction caused a network error");
-            host.post_error(err);
+            var parser = new Json.Parser();
+            parser.load_from_data (response, -1);
+            var root_object = parser.get_root().get_object();
+            this.username = root_object.get_object_member("response").get_object_member("user").get_string_member ("name");
+            debug("Got user name: %s",username);
+            foreach (var blognode in root_object.get_object_member("response").get_object_member("user").get_array_member("blogs").get_elements ()) {
+                var blog = blognode.get_object ();
+                string name = blog.get_string_member ("name");
+                string url = blog.get_string_member ("url").replace("http://","").replace("https://", "").replace("/","");
+                debug("Got blog name: %s and url: %s", name, url);
+                this.blogs += new BlogEntry(name,url);
+            }
         }
+
 
         private void do_show_publishing_options_pane() {
             debug("ACTION: displaying publishing options pane");
@@ -328,7 +303,7 @@ namespace Publishing.Tumblr {
             Uploader uploader = new Uploader(session, sorted_list.to_array(),blog_url);
             uploader.upload_complete.connect(on_upload_complete);
             uploader.upload_error.connect(on_upload_error);
-            uploader.upload(on_upload_status_updated);
+            uploader.upload_async.begin(on_upload_status_updated);
         }
 
         private void do_show_success_pane() {
@@ -582,7 +557,7 @@ namespace Publishing.Tumblr {
 
             }
 
-            public override void execute() throws Spit.Publishing.PublishingError {
+            public override async void execute_async() throws Spit.Publishing.PublishingError {
                 string payload;
                 size_t payload_length;
                 try {
@@ -627,7 +602,7 @@ namespace Publishing.Tumblr {
 
                 set_is_executed(true);
 
-                send();
+                yield send_async();
             }
         }
 

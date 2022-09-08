@@ -138,45 +138,27 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         private void on_welcome_pane_login_clicked() {
             debug("EVENT: user clicked 'Login' button in the welcome pane");
 
-            do_run_authentication_request_transaction();
+            do_run_authentication_request_transaction.begin();
         }
 
-        private void do_run_authentication_request_transaction() {
+        private async void do_run_authentication_request_transaction() {
             debug("ACTION: running authentication request transaction");
 
             host.set_service_locked(true);
             host.install_static_message_pane(_("Preparing for login…"));
 
             AuthenticationRequestTransaction txn = new AuthenticationRequestTransaction(session);
-            txn.completed.connect(on_auth_request_txn_completed);
-            txn.network_error.connect(on_auth_request_txn_error);
-
             try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
+                yield txn.execute_async();
+                debug("EVENT: OAuth authentication request transaction completed; response = '%s'",
+                    txn.get_response());
+                do_parse_token_info_from_auth_request(txn.get_response());
+            } catch (Error err) {
+                debug("EVENT: OAuth authentication request transaction caused a network error");
                 host.post_error(err);
+
+                this.authentication_failed();
             }
-        }
-
-        private void on_auth_request_txn_completed(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_auth_request_txn_completed);
-            txn.network_error.disconnect(on_auth_request_txn_error);
-
-            debug("EVENT: OAuth authentication request transaction completed; response = '%s'",
-                txn.get_response());
-
-            do_parse_token_info_from_auth_request(txn.get_response());
-        }
-
-        private void on_auth_request_txn_error(Publishing.RESTSupport.Transaction txn,
-                Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_auth_request_txn_completed);
-            txn.network_error.disconnect(on_auth_request_txn_error);
-
-            debug("EVENT: OAuth authentication request transaction caused a network error");
-            host.post_error(err);
-
-            this.authentication_failed();
         }
 
         private void do_parse_token_info_from_auth_request(string response) {
@@ -209,7 +191,7 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
         private void do_web_authentication(string token) {
             pane = new WebAuthenticationPane(token);
             host.install_dialog_pane(pane);
-            pane.authorized.connect(this.do_verify_pin);
+            pane.authorized.connect((pin) => { this.do_verify_pin.begin(pin); });
             pane.error.connect(this.on_web_login_error);
         }
 
@@ -221,41 +203,25 @@ namespace Publishing.Authenticator.Shotwell.Flickr {
             host.post_error(new Spit.Publishing.PublishingError.PROTOCOL_ERROR(_("Flickr authorization failed")));
         }
 
-        private void do_verify_pin(string pin) {
+        private async void do_verify_pin(string pin) {
             debug("ACTION: validating authorization PIN %s", pin);
 
             host.set_service_locked(true);
             host.install_static_message_pane(_("Verifying authorization…"));
 
             AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session, pin);
-            txn.completed.connect(on_access_token_fetch_txn_completed);
-            txn.network_error.connect(on_access_token_fetch_error);
 
             try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
+                yield txn.execute_async();
+                debug("EVENT: fetching OAuth access token over the network succeeded");
+
+                do_extract_access_phase_credentials_from_response(txn.get_response());
+            } catch (Error err) {
+                debug("EVENT: fetching OAuth access token over the network caused an error.");
+
                 host.post_error(err);
+                this.authentication_failed();
             }
-        }
-
-        private void on_access_token_fetch_txn_completed(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_access_token_fetch_txn_completed);
-            txn.network_error.disconnect(on_access_token_fetch_error);
-
-            debug("EVENT: fetching OAuth access token over the network succeeded");
-
-            do_extract_access_phase_credentials_from_response(txn.get_response());
-        }
-
-        private void on_access_token_fetch_error(Publishing.RESTSupport.Transaction txn,
-                Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_access_token_fetch_txn_completed);
-            txn.network_error.disconnect(on_access_token_fetch_error);
-
-            debug("EVENT: fetching OAuth access token over the network caused an error.");
-
-            host.post_error(err);
-            this.authentication_failed();
         }
 
         private void do_extract_access_phase_credentials_from_response(string response) {

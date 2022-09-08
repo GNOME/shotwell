@@ -9,8 +9,13 @@ namespace PublishingUI {
 
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/static_message_pane_widget.ui")]
 public class StaticMessagePane : Spit.Publishing.DialogPane, Gtk.Box {
+    public bool show_spinner{get; construct; default=false; }
+
     [GtkChild]
     private unowned Gtk.Label static_msg_label;
+
+    [GtkChild]
+    private unowned Gtk.Spinner spinner;
 
     public Gtk.Widget get_widget() {
         return this;
@@ -26,8 +31,10 @@ public class StaticMessagePane : Spit.Publishing.DialogPane, Gtk.Box {
     public void on_pane_uninstalled() {
     }
 
-    public StaticMessagePane(string message_string, bool enable_markup = false) {
-        Object();
+    public StaticMessagePane(string message_string, bool enable_markup = false, bool show_spinner = false) {
+        Object(show_spinner: false);
+
+        spinner.active = show_spinner;
 
         if (enable_markup) {
             static_msg_label.set_markup(message_string);
@@ -41,13 +48,13 @@ public class StaticMessagePane : Spit.Publishing.DialogPane, Gtk.Box {
 
 public class AccountFetchWaitPane : StaticMessagePane {
     public AccountFetchWaitPane() {
-        base(_("Fetching account information…"));
+        base(_("Fetching account information…"), false, true);
     }
 }
 
 public class LoginWaitPane : StaticMessagePane {
     public LoginWaitPane() {
-        base(_("Logging in…"));
+        base(_("Logging in…"), false, true);
     }
 }
 

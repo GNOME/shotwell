@@ -150,30 +150,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         parameters.username = session.get_username();
 
-        do_fetch_account_info();
-    }
-
-    private void on_account_fetch_txn_completed(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_account_fetch_txn_completed);
-        txn.network_error.disconnect(on_account_fetch_txn_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: account fetch transaction response received over the network");
-        do_parse_account_info_from_xml(txn.get_response());
-    }
-
-    private void on_account_fetch_txn_error(Publishing.RESTSupport.Transaction txn,
-        Spit.Publishing.PublishingError err) {
-        txn.completed.disconnect(on_account_fetch_txn_completed);
-        txn.network_error.disconnect(on_account_fetch_txn_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: account fetch transaction caused a network error");
-        host.post_error(err);
+        do_fetch_account_info.begin();
     }
 
     private void on_account_info_available() {
@@ -192,7 +169,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: user clicked the 'Publish' button in the publishing options pane");
-        do_publish(strip_metadata);
+        do_publish.begin(strip_metadata);
     }
 
     private void on_publishing_options_pane_logout() {
@@ -218,45 +195,19 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         progress_reporter(file_number, completed_fraction);
     }
 
-    private void on_upload_complete(Publishing.RESTSupport.BatchUploader uploader,
-        int num_published) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload complete; %d items published.", num_published);
-
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        do_show_success_pane();
-    }
-
-    private void on_upload_error(Publishing.RESTSupport.BatchUploader uploader,
-        Spit.Publishing.PublishingError err) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload error = '%s'.", err.message);
-
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        host.post_error(err);
-    }
-
-    private void do_fetch_account_info() {
+    private async void do_fetch_account_info() {
         debug("ACTION: running network transaction to fetch account information");
 
         host.set_service_locked(true);
         host.install_account_fetch_wait_pane();
 
         AccountInfoFetchTransaction txn = new AccountInfoFetchTransaction(session);
-        txn.completed.connect(on_account_fetch_txn_completed);
-        txn.network_error.connect(on_account_fetch_txn_error);
-
         try {
-            txn.execute();
-        } catch (Spit.Publishing.PublishingError err) {
+            yield txn.execute_async();
+            debug("EVENT: account fetch transaction response received over the network");
+            do_parse_account_info_from_xml(txn.get_response());
+        } catch (Error err) {
+            debug("EVENT: account fetch transaction caused a network error");
             host.post_error(err);
         }
     }
@@ -347,7 +298,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         return a.get_exposure_date_time().compare(b.get_exposure_date_time());
     }
 
-    private void do_publish(bool strip_metadata) {
+    private async void do_publish(bool strip_metadata) {
         set_persistent_strip_metadata(strip_metadata);
         debug("ACTION: uploading media items to remote server.");
 
@@ -371,9 +322,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         sorted_list.sort(flickr_date_time_compare_func);
         
         Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters, strip_metadata);
-        uploader.upload_complete.connect(on_upload_complete);
-        uploader.upload_error.connect(on_upload_error);
-        uploader.upload(on_upload_status_updated);
+        try {
+            var num_published = yield uploader.upload_async(on_upload_status_updated);
+            debug("EVENT: uploader reports upload complete; %d items published.", num_published);
+            do_show_success_pane();
+        } catch (Error err) {
+            debug("EVENT: uploader reports upload error = '%s'.", err.message);
+            host.post_error(err);
+        }
     }
 
     private void do_show_success_pane() {
@@ -536,9 +492,9 @@ private class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransactio
         set_binary_disposition_table(disposition_table);
     }
 
-    public override void execute() throws Spit.Publishing.PublishingError {
+    public override async void execute_async() throws Spit.Publishing.PublishingError {
         this.authorize();
-        base.execute();
+        yield base.execute_async();
     }
 }
 
