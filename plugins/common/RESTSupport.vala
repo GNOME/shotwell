@@ -86,6 +86,19 @@ public abstract class Session {
         notify_wire_message_unqueued(message);
     }
 
+    public async void send_wire_message_async(Soup.Message message) {
+        if (are_transactions_stopped()) {
+            return;
+        }
+
+        try {
+            this.body = yield soup_session.send_and_read_async(message, GLib.Priority.DEFAULT, null);
+        } catch (Error error) {
+            debug ("Failed to send_and_read: %s", error.message);
+            this.transport_error = error;
+        }
+    }
+
     public void set_insecure () {
         this.insecure = true;
     }
@@ -368,7 +381,22 @@ public class Transaction {
         
         if (err != null)
             throw err;
-     }
+    }
+
+    protected async void send_async() throws Spit.Publishing.PublishingError {
+        var id = message.wrote_body_data.connect((message, chunk_size) => {
+            bytes_written = chunk_size;
+
+            chunk_transmitted(bytes_written, (uint)request_length);
+        });
+        message.accept_certificate.connect(on_accecpt_certificate);
+
+        yield parent_session.send_wire_message_async(message);
+        check_response(message);
+
+        message.disconnect(id);
+        message.accept_certificate.disconnect(on_accecpt_certificate);
+    }
 
     public HttpMethod get_method() {
         return HttpMethod.from_string(message.method);
@@ -421,17 +449,7 @@ public class Transaction {
         return message.status_code;
     }
 
-    public virtual void execute() throws Spit.Publishing.PublishingError {
-        // if a custom payload is being used, we don't need to peform the tasks that are necessary
-        // to prepare a traditional key-value pair REST request; Instead (since we don't
-        // know anything about the custom payload), we just put it on the wire and return
-        if (use_custom_payload) {
-            is_executed = true;
-            send();
-
-            return;
-         }
-         
+    private GLib.Uri? prepare_rest_message() {
         //  REST POST requests must transmit at least one argument
         if (get_method() == HttpMethod.POST)
             assert(arguments.length > 0);
@@ -462,6 +480,45 @@ public class Transaction {
         }
 
         is_executed = true;
+
+        return old_url;
+    }
+
+    public virtual async void execute_async() throws Spit.Publishing.PublishingError {
+        // if a custom payload is being used, we don't need to peform the tasks that are necessary
+        // to prepare a traditional key-value pair REST request; Instead (since we don't
+        // know anything about the custom payload), we just put it on the wire and return
+        if (use_custom_payload) {
+            is_executed = true;
+            yield send_async();
+
+            return;
+        }
+
+        var old_url = prepare_rest_message();
+         
+        try {
+            debug("sending message to URI = '%s'", message.get_uri().to_string());
+            yield send_async();
+        } finally {
+            // if old_url is non-null, then restore it
+            if (old_url != null)
+                message.set_uri(old_url);
+        }
+    }
+
+    public virtual void execute() throws Spit.Publishing.PublishingError {
+        // if a custom payload is being used, we don't need to peform the tasks that are necessary
+        // to prepare a traditional key-value pair REST request; Instead (since we don't
+        // know anything about the custom payload), we just put it on the wire and return
+        if (use_custom_payload) {
+            is_executed = true;
+            send();
+
+            return;
+        }
+
+        var old_url = prepare_rest_message();
 
         try {
             debug("sending message to URI = '%s'", message.get_uri().to_string());
@@ -567,7 +624,7 @@ public class UploadTransaction : Transaction {
         binary_disposition_table = new_disp_table;
     }
 
-    public override void execute() throws Spit.Publishing.PublishingError {
+    private void prepare_execution() throws Spit.Publishing.PublishingError {
         Argument[] request_arguments = get_arguments();
         assert(request_arguments.length > 0);
 
@@ -605,7 +662,15 @@ public class UploadTransaction : Transaction {
         set_message(outbound_message, mapped_file.get_length());
         
         set_is_executed(true);
+    }
+    public override void execute() throws Spit.Publishing.PublishingError {
+        prepare_execution();
         send();
+    }
+
+    public override async void execute_async() throws Spit.Publishing.PublishingError {
+        prepare_execution();
+        yield send_async();
     }
 }
 
@@ -771,7 +836,35 @@ public abstract class BatchUploader {
         if (!stop)
             upload_complete(current_file);
     }
-    
+
+    private async void send_files_async() throws Spit.Publishing.PublishingError {
+        current_file = 0;
+        bool stop = false;
+        foreach (Spit.Publishing.Publishable publishable in publishables) {
+            GLib.File? file = publishable.get_serialized_file();
+            
+            // if the current publishable hasn't been serialized, then skip it
+            if (file == null) {
+                current_file++;
+                continue;
+            }
+
+            double fraction_complete = ((double) current_file) / publishables.length;
+                if (status_updated != null)
+                    status_updated(current_file + 1, fraction_complete);
+
+            Transaction txn = create_transaction(publishables[current_file]);
+           
+            txn.chunk_transmitted.connect(on_chunk_transmitted);
+            
+            yield txn.execute_async();
+                
+            txn.chunk_transmitted.disconnect(on_chunk_transmitted);           
+                        
+            current_file++;
+        }
+    }
+
     private void on_chunk_transmitted(uint bytes_written_so_far, uint total_bytes) {
         double file_span = 1.0 / publishables.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
@@ -797,6 +890,15 @@ public abstract class BatchUploader {
 
         if (publishables.length > 0)
            send_files();
+    }
+
+    public async int upload_async(Spit.Publishing.ProgressCallback? status_updated = null)  throws Spit.Publishing.PublishingError {
+        this.status_updated = status_updated;
+
+        if (publishables.length > 0)
+           yield send_files_async();
+
+        return current_file;
     }
 }
 
