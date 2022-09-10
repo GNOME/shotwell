@@ -16,14 +16,14 @@ import photos from disk or camera, organize them in various ways, view them in f
 Show help options
 .RE
 
-.B \-d, \-\-datadir=DIRECTORY
+.B \-d, \-\-datadir=FOLDER
 .RS
-Path to Shotwell's private data
+Path to Shotwell's private data. Using \-d stand-alone without --profile --create is considered deprecated and should not be used anymore.
 .RE
 
 .B \-\-no-runtime-monitoring
 .RS
-Do not monitor library directory at runtime for changes
+Do not monitor library folder at runtime for changes
 .RE
 
 .B \-f, \-\-fullscreen
@@ -61,6 +61,10 @@ Start shotwell with a different profile. A profile consists of a set of settings
 Show the available profiles
 .RE
 
+.B \-b, \-\-profile-browser
+.RS
+Show the available profiles in a dialog, with managing capabilities and the ability to start Shotwell with a specific profile by double-clicking.
+.RE
 .SH "EXAMPLES"
 \fBshotwell
 .RS
