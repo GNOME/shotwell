@@ -194,6 +194,54 @@ namespace Shotwell {
             }
         }
 
+        const string SCHEMAS[] = {
+            "sharing",
+            "video",
+            "printing",
+            "plugins.enable-state",
+            "preferences.ui",
+            "preferences.slideshow",
+            "preferences.window",
+            "preferences.files",
+            "preferences.editing",
+            "preferences.export",        
+        };
+
+        void reset_all_keys(Settings settings) {
+            SettingsSchema schema;
+            ((Object)settings).get("settings-schema", out schema, null);
+        
+            foreach (var key in schema.list_keys()) {
+                debug("Resetting key %s", key);
+                settings.reset(key);
+            }
+        
+            foreach (var c in settings.list_children()) {
+                debug("Checking children %s", c);
+                var child = settings.get_child (c);
+                reset_all_keys (child);
+            }
+        }
+        
+        private void remove_settings_recursively(string id) {
+            var source = SettingsSchemaSource.get_default();
+            foreach (var schema in SCHEMAS) {
+                var path = "/org/gnome/shotwell/profiles/%s/%s/".printf(id, schema.replace(".", "/"));
+                var schema_name = "org.gnome.shotwell.%s".printf(schema);
+                debug("%s @ %s", schema_name, path);
+                var schema_definition = source.lookup(schema_name, false);
+                var settings = new Settings.full (schema_definition, null, path);
+                settings.delay();
+                reset_all_keys (settings);
+                foreach (var key in schema_definition.list_keys()) {
+                    debug("Resetting key %s", key);
+                    settings.reset(key);
+                }
+                settings.apply();
+                Settings.sync();
+            }        
+        }
+
         public void remove(string id, bool remove_all) {
             debug("Request to remove profile %s, with files? %s", id, remove_all.to_string());
             int index = 1;
@@ -213,7 +261,7 @@ namespace Shotwell {
                 profiles.remove_comment(group, null);
                 profiles.remove_group(group);
 
-                // TODO: Remove gsettings
+                remove_settings_recursively(id);
 
                 if (remove_all) {
                 // TODO: Remove folder
