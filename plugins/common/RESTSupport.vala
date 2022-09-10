@@ -38,6 +38,15 @@ public abstract class Session {
         this.endpoint_url = endpoint_url;
         soup_session = new Soup.Session ();
         if (Environment.get_variable("SHOTWELL_SOUP_LOG") != null) {
+            var logger = new Soup.Logger(Soup.LoggerLogLevel.BODY);
+            logger.set_request_filter((logger, msg) => {
+                var content_type = msg.get_request_headers().get_content_type(null);
+                if (content_type != null && content_type == "application/octet-stream") {
+                    return Soup.LoggerLogLevel.HEADERS;
+                }
+
+                return Soup.LoggerLogLevel.BODY;
+            });
             soup_session.add_feature (new Soup.Logger (Soup.LoggerLogLevel.BODY));
         }
     }
