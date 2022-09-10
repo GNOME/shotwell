@@ -244,7 +244,10 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
 
         Settings schema_object = get_settings(schema);
 
-        return schema_object.get_int(key);
+        var v = schema_object.get_int(key);
+        print("Getting int %s %s -> %d\n", schema, key, v);
+
+        return v;
     }
     
     private void set_gs_int(string schema, string key, int value) throws ConfigurationError {

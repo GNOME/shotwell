@@ -419,6 +419,8 @@
     <child name="gallery3" schema="org.gnome.shotwell.sharing.publishing-gallery3" />
     <child name="org-gnome-shotwell-publishing-google-photos" schema="org.gnome.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" />
     <child name="youtube" schema="org.gnome.shotwell.sharing.youtube" />
+    <child name="org-gnome-shotwell-publishing-piwigo" schema="org.gnome.shotwell.sharing.org-gnome-shotwell-publishing-piwigo" />
+    <child name="org-gnome-shotwell-publishing-tumblr" schema="org.gnome.shotwell.sharing.org-gnome-shotwell-publishing-tumblr" />
 </schema>
 
 <schema id="org.gnome.shotwell.sharing.flickr">
@@ -688,12 +690,6 @@
 </schema>
 
 <schema id="org.gnome.shotwell.plugins.enable-state">
-    <key name="publishing-facebook" type="b">
-        <default>true</default>
-        <summary>enable facebook publishing plugin</summary>
-        <description>True if the Facebook publishing plugin is enabled, false otherwise</description>
-    </key>
-
     <key name="publishing-flickr" type="b">
         <default>true</default>
         <summary>enable flickr publishing plugin</summary>
@@ -718,34 +714,16 @@
         <description>True if the Piwigo publishing plugin is enabled, false otherwise</description>
     </key>
 
-    <key name="publishing-yandex-fotki" type="b">
-        <default>false</default>
-        <summary>enable yandex publishing plugin</summary>
-        <description>True if the Yandex.Fotki publishing plugin is enabled, false otherwise</description>
-    </key>
-
     <key name="publishing-tumblr" type="b">
         <default>false</default>
         <summary>enable tumblr publishing plugin</summary>
         <description>True if the Tumblr publishing plugin is enabled, false otherwise</description>
     </key>
 
-    <key name="publishing-rajce" type="b">
-        <default>false</default>
-        <summary>enable rajce publishing plugin</summary>
-        <description>True if the Rajce publishing plugin is enabled, false otherwise</description>
-    </key>
-
     <key name="publishing-gallery3" type="b">
         <default>false</default>
         <summary>enable gallery3 publishing plugin</summary>
         <description>True if the Gallery3 publishing plugin is enabled, false otherwise</description>
-    </key>
-
-    <key name="dataimports-fspot" type="b">
-        <default>true</default>
-        <summary>enable F-Spot import plugin</summary>
-        <description>True if the F-Spot import plugin is enabled, false otherwise</description>
     </key>
 
     <key name="transitions-crumble" type="b">

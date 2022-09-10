@@ -239,6 +239,7 @@ executable(
         'dialogs/TextEntry.vala',
         'dialogs/WelcomeDialog.vala',
         'Profiles.vala',
+        'ProfileBrowser.vala',
         '.unitize/_UnitInternals.vala',
         '.unitize/_UtilInternals.vala',
         '.unitize/_ThreadsInternals.vala',
