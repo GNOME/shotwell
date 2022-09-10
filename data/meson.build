@@ -28,5 +28,12 @@ i18n.merge_file(input : 'org.gnome.Shotwell-Viewer.desktop.in',
                 install : true,
                 install_dir : join_paths(get_option('datadir'), 'applications'))
 
+i18n.merge_file(input : 'org.gnome.Shotwell-Profile-Browser.desktop.in',
+                output: 'org.gnome.Shotwell-Profile-Browser.desktop',
+                po_dir : podir,
+                type : 'desktop',
+                install : true,
+                install_dir : join_paths(get_option('datadir'), 'applications'))
+
 shotwell_resources = gnome.compile_resources('shotwell-resources',
         'org.gnome.Shotwell.gresource.xml')
