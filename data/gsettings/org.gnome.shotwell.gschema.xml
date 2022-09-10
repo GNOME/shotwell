@@ -190,20 +190,20 @@
 <schema id="org.gnome.shotwell.preferences.slideshow">
     <key name="delay" type="d">
         <default>3.0</default>
-        <summary>delay</summary>
-        <description>Delay (in seconds) between photos in the slideshow</description>
+        <summary>duration</summary>
+        <description>The time (in seconds) to show each photo in the slideshow</description>
     </key>
 
-    <key name="transition-delay" type="d">
+    <key name="transition-duration" type="d">
         <default>0.3</default>
-        <summary>transition delay</summary>
+        <summary>transition duration</summary>
         <description>The time (in seconds) that a transition runs between photos in a slideshow</description>
     </key>
 
     <key name="transition-effect-id" type="s">
         <default>""</default>
         <summary>transition effect id</summary>
-        <description>The name of the transition effect that will be used between photos when running a slideshow</description>
+        <description>The time (in seconds) to show each transition between photos in a slideshow</description>
     </key>
 
     <key name="show-title" type="b">

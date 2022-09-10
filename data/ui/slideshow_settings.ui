@@ -95,7 +95,8 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">end</property>
-                        <property name="label" translatable="yes">_Delay:</property>
+                        <property name="label" translatable="yes">_Duration:</property>
+                        <property name="tooltip-text" translatable="yes">The time (in seconds) to show each photo</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">delay_hscale</property>
                       </object>
@@ -123,7 +124,8 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">end</property>
-                        <property name="label" translatable="yes">Transition d_elay:</property>
+                        <property name="label" translatable="yes">Transition d_uration:</property>
+                        <property name="tooltip-text" translatable="yes">The time (in seconds) to show each transition between photos</property>
                         <property name="use_underline">True</property>
                       </object>
                       <packing>
