@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-09-10 07:22+0000\n"
-"PO-Revision-Date: 2022-09-10 11:26+0300\n"
+"POT-Creation-Date: 2022-09-10 09:59+0000\n"
+"PO-Revision-Date: 2022-09-10 16:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1868,15 +1868,15 @@ msgstr "_Увійти"
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/Exporter.vala:348
-#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
-#: src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348 src/ProfileBrowser.vala:64
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Скасувати"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
-#: src/Resources.vala:132
+#: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_Гаразд"
 
@@ -2067,7 +2067,8 @@ msgstr "пікселів на дюйм"
 msgid "Search"
 msgstr "Пошук"
 
-#: data/ui/saved_search_dialog.ui:26
+#: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
+#: src/ProfileBrowser.vala:239
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -5502,7 +5503,6 @@ msgid "PROFILE"
 msgstr "ПРОФІЛЬ"
 
 #: src/main.vala:356
-#| msgid "Show available profiles"
 msgid "Start with a browser of available profiles"
 msgstr "Починати з вибору доступних профілів"
 
@@ -5817,6 +5817,79 @@ msgstr "Авторські права:"
 #: src/Properties.vala:646
 msgid "Software:"
 msgstr "Програми:"
+
+#: src/ProfileBrowser.vala:20
+#| msgid "Create Tag"
+msgid "Create"
+msgstr "Створити"
+
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:139
+msgid "Create new Profile"
+msgstr "Створити профіль"
+
+#: src/ProfileBrowser.vala:35
+#| msgid "Name:"
+msgid "Name"
+msgstr "Назва"
+
+#: src/ProfileBrowser.vala:49
+#| msgid "Library"
+msgid "Library Folder"
+msgstr "Тека бібліотеки"
+
+#: src/ProfileBrowser.vala:64
+msgid "Choose Library Folder"
+msgstr "Виберіть теку бібліотеки"
+
+#: src/ProfileBrowser.vala:76
+#| msgid "Folders"
+msgid "Data Folder"
+msgstr "Тека даних"
+
+#: src/ProfileBrowser.vala:92
+msgid "Choose Data Folder"
+msgstr "Виберіть теку даних"
+
+#: src/ProfileBrowser.vala:200
+msgid "This is the currently active profile"
+msgstr "Це поточний активний профіль"
+
+#: src/ProfileBrowser.vala:223
+#| msgid "Improve this map"
+msgid "Remove this profile"
+msgstr "Вилучити цей профіль"
+
+#: src/ProfileBrowser.vala:235
+#, c-format
+#| msgid "Move Tag “%s”"
+msgid "Remove profile “%s”"
+msgstr "Вилучити профіль «%s»"
+
+#: src/ProfileBrowser.vala:236
+msgid ""
+"None of the options will remove any of the images associated with this "
+"profile"
+msgstr ""
+"Жоден з варіантів не вилучить жодних зображень, пов'язаних із цим профілем"
+
+#: src/ProfileBrowser.vala:237
+#, c-format
+msgid ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+msgstr ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+
+#: src/ProfileBrowser.vala:239
+#| msgid "Remove and _Trash File"
+#| msgid_plural "Remove and _Trash Files"
+msgid "Remove profile and files"
+msgstr "Вилучити профіль і файли"
+
+#: src/ProfileBrowser.vala:239
+msgid "Remove profile only"
+msgstr "Вилучити лише профіль"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
