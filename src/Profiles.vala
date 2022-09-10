@@ -170,7 +170,7 @@ namespace Shotwell {
             }
         }
 
-        private string get_data_dir_for_profile(string id, string group) {
+        private string get_data_dir_for_profile(string id, string group) throws KeyFileError {
             if ("DataDir" in profiles.get_keys(group)) {
                 return profiles.get_value(group, "DataDir");
             } else {
@@ -246,25 +246,42 @@ namespace Shotwell {
             debug("Request to remove profile %s, with files? %s", id, remove_all.to_string());
             int index = 1;
             string group = null;
-            bool found = false;
+
             foreach (var g in profiles.get_groups()) {
-                if (profiles.get_value(g, "Id") == id) {
-                    group = g;
-                    break;
+                try {
+                    if (profiles.get_value(g, "Id") == id) {
+                        group = g;
+                        break;
+                    }
+                    index++;
+                } catch (KeyFileError error) {
+                    assert_not_reached();
                 }
-                index++;
             }
 
             if (group != null) {
-                // Remove profile
-                var data_dir = get_data_dir_for_profile(id, group);
-                profiles.remove_comment(group, null);
-                profiles.remove_group(group);
+                string? data_dir = null;
+
+                try {
+                    data_dir = get_data_dir_for_profile(id, group);
+                    // Remove profile
+                    string? key = null;
+                    profiles.remove_comment(group, key);
+                    profiles.remove_group(group);
+                } catch (KeyFileError err) {
+                    // We checked the existence of the group above.
+                    assert_not_reached();
+                }
 
                 remove_settings_recursively(id);
 
                 if (remove_all) {
-                // TODO: Remove folder
+                    try {
+                        var file = File.new_for_commandline_arg(data_dir);
+                        file.trash();
+                    } catch (Error error) {
+                        warning("Failed to remove data folder: %s", error.message);
+                    }
                 }
 
                 Idle.add(() => {
