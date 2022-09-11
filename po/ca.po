@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2022-09-03 06:10+0000\n"
-"PO-Revision-Date: 2022-09-04 12:27+0200\n"
+"PO-Revision-Date: 2022-09-11 12:27+0200\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
@@ -2594,7 +2594,7 @@ msgstr "Vora més llarga"
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
 msgid "_Logout"
-msgstr "_Surt"
+msgstr "_Tanca la sessió"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
@@ -6615,76 +6615,3 @@ msgstr "sense títol"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Exporta vídeos"
-
-#~ msgid "_Map Overview"
-#~ msgstr "_Mapa general"
-
-#~ msgid "_Remember"
-#~ msgstr "_Recorda"
-
-#~ msgid "An _existing album:"
-#~ msgstr "Un àlbum e_xistent:"
-
-#~ msgid "A _new album named:"
-#~ msgstr "Un àlbum _nou anomenat:"
-
-#~ msgid "_Hide album"
-#~ msgstr "A_maga l'àlbum"
-
-#~ msgid "Open target _album in browser"
-#~ msgstr "Obre l'_àlbum al navegador"
-
-#~ msgid "Copyright © 2013 rajce.net"
-#~ msgstr "Copyright (C) 2013 rajce.net"
-
-#~ msgid "An error message occurred when publishing to Rajce. Please try again."
-#~ msgstr "S'ha produït un error en publicar a Rajce. Proveu de nou."
-
-#~ msgid "Enter email and password associated with your Rajce account."
-#~ msgstr ""
-#~ "Introduïu l'adreça de correu i la contrasenya associades amb el vostre "
-#~ "compte de Rajce."
-
-#~ msgid "Invalid email and/or password. Please try again"
-#~ msgstr "L'adreça electrònica o la contrasenya no són vàlides. Proveu de nou"
-
-#~ msgid "Invalid User Email or Password"
-#~ msgstr "Nom d'usuari o contrasenya d'Email incorrectes"
-
-#, c-format
-#~ msgid "You are logged into Rajce as %s."
-#~ msgstr "Actualment esteu connectat al Rajce com a %s."
-
-#~ msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-#~ msgstr "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#~ msgid "Visit the Yandex.Fotki web site"
-#~ msgstr "Ves al lloc web del Yandex.Fotki"
-
-#~ msgid "You are not currently logged into Yandex.Fotki."
-#~ msgstr "Actualment no esteu connectat al Yandex.Fotki."
-
-#~ msgid "Public"
-#~ msgstr "Públic"
-
-#~ msgid "Friends"
-#~ msgstr "Amics"
-
-#~ msgid "_Albums (or write new):"
-#~ msgstr "_Àlbums (o escriviu-ne un de nou):"
-
-#~ msgid "Access _type:"
-#~ msgstr "_Tipus d'accés:"
-
-#~ msgid "Disable _comments"
-#~ msgstr "Inhabilita els _comentaris"
-
-#~ msgid "_Forbid downloading original photo"
-#~ msgstr "Prohibeix baixar la _fotografia original"
-
-#, c-format
-#~ msgid "Unable to launch Nautilus Send-To: %s"
-#~ msgstr "No s'ha pogut executar el Nautilus Send-To: %s"
-
-#~ msgid "Popular photo manager"
-#~ msgstr "Gestor de fotografies popular"
