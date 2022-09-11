@@ -93,6 +93,7 @@ src/photos/WebPSupport.c
 src/Printing.c
 src/Properties.c
 src/ProfileBrowser.c
+src/Profiles.c
 src/publishing/Publishing.c
 src/publishing/PublishingPluginHost.c
 src/publishing/PublishingUI.c
