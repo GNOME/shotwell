@@ -12,13 +12,13 @@
 	<title>Sending photos</title>
 
     <p>Shotwell can send photos using the GNOME desktop's Send To mechanism, which
-    lets you send photos via email, instant messaging or in other ways.</p>
+    lets you send photos via email.</p>
     <p>To send photos, select them in Shotwell and choose
     <guiseq><gui>File</gui><gui>Send To...</gui></guiseq>,
     or right-click the photos and choose <gui>Send To...</gui> from the context menu.
-    A <gui>Send To</gui> dialog box will appear which lets you choose a mechanism for
-    sending the files (such as email or instant messaging) and a destination.  You can
-    optionally choose to send the files in a compressed format.
+    A <gui>Send To</gui> dialog box will appear which lets you optionally remove
+    any meta-data, scale it or change the format before passing it on to your configured
+    email client.
     </p>
     
 </page>
