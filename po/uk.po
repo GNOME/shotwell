@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-09-10 09:59+0000\n"
-"PO-Revision-Date: 2022-09-10 16:36+0300\n"
+"POT-Creation-Date: 2022-09-10 16:50+0000\n"
+"PO-Revision-Date: 2022-09-11 09:40+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -373,16 +373,19 @@ msgstr ""
 "імпортовано» на сторінці імпортування"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
-msgid "delay"
-msgstr "затримка"
+#| msgid "Duration:"
+msgid "duration"
+msgstr "тривалість"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:194
-msgid "Delay (in seconds) between photos in the slideshow"
-msgstr "Затримка (у секундах) між фотографіями у показі слайдів"
+#| msgid "Delay (in seconds) between photos in the slideshow"
+msgid "The time (in seconds) to show each photo in the slideshow"
+msgstr "Тривалість (у секундах) показу кожної фотографії у показі слайдів"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:199
-msgid "transition delay"
-msgstr "затримка переходу"
+#| msgid "transition delay"
+msgid "transition duration"
+msgstr "тривалість переходу"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:200
 msgid ""
@@ -395,10 +398,12 @@ msgid "transition effect id"
 msgstr "ідентифікатор ефекту переходу"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:206
+#| msgid ""
+#| "The time (in seconds) that a transition runs between photos in a slideshow"
 msgid ""
-"The name of the transition effect that will be used between photos when "
-"running a slideshow"
-msgstr "Назва ефекту переходу, який буде використано під час показу слайдів"
+"The time (in seconds) to show each transition between photos in a slideshow"
+msgstr ""
+"Тривалість (у секундах) переходу між фотографіями під час показу слайдів"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Show title"
@@ -2159,22 +2164,34 @@ msgid "Settings"
 msgstr "Параметри"
 
 #: data/ui/slideshow_settings.ui:98
-msgid "_Delay:"
-msgstr "За_тримка:"
+#| msgid "Duration:"
+msgid "_Duration:"
+msgstr "_Тривалість:"
 
-#: data/ui/slideshow_settings.ui:112
+#: data/ui/slideshow_settings.ui:99
+msgid "The time (in seconds) to show each photo"
+msgstr "Тривалість (у секундах) показу кожної фотографії"
+
+#: data/ui/slideshow_settings.ui:113
 msgid "_Transition effect:"
 msgstr "Е_фект переходу:"
 
-#: data/ui/slideshow_settings.ui:126
-msgid "Transition d_elay:"
-msgstr "Затри_мка переходу:"
+#: data/ui/slideshow_settings.ui:127
+#| msgid "Transition d_elay:"
+msgid "Transition d_uration:"
+msgstr "Т_ривалість переходу:"
 
-#: data/ui/slideshow_settings.ui:136
+#: data/ui/slideshow_settings.ui:128
+#| msgid ""
+#| "The time (in seconds) that a transition runs between photos in a slideshow"
+msgid "The time (in seconds) to show each transition between photos"
+msgstr "Тривалість (у секундах) переходу між фотографіями"
+
+#: data/ui/slideshow_settings.ui:138
 msgid "Show t_itle"
 msgstr "Показати за_головок"
 
-#: data/ui/slideshow_settings.ui:219 data/ui/slideshow_settings.ui:230
+#: data/ui/slideshow_settings.ui:221 data/ui/slideshow_settings.ui:232
 msgid "seconds"
 msgstr "секунд"
 
@@ -2375,14 +2392,14 @@ msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:255
+#: plugins/common/RESTSupport.vala:264
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 "⚫ Цим сайтом надано дані щодо розпізнавання, які належать іншому сайту."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:260
+#: plugins/common/RESTSupport.vala:269
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2391,14 +2408,14 @@ msgstr ""
 "Перевірте, чи правильно вказано дату на календарі вашого комп’ютера."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:265
+#: plugins/common/RESTSupport.vala:274
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 "⚫ Дані розпізнавання цього сайта не було видано надійною організацією."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:270
+#: plugins/common/RESTSupport.vala:279
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2406,7 +2423,7 @@ msgstr ""
 "пошкоджено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:275
+#: plugins/common/RESTSupport.vala:284
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -2415,7 +2432,7 @@ msgstr ""
 "їх було випущено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:280
+#: plugins/common/RESTSupport.vala:289
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2424,7 +2441,7 @@ msgstr ""
 "використовується дуже слабкий спосіб шифрування."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:285
+#: plugins/common/RESTSupport.vala:294
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2432,7 +2449,7 @@ msgstr ""
 "⚫ Дані розпізнавання сайта набудуть чинності лише у майбутньому. Перевірте, "
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
-#: plugins/common/RESTSupport.vala:584
+#: plugins/common/RESTSupport.vala:593
 #: plugins/shotwell-publishing/TumblrPublishing.vala:603
 #: plugins/shotwell-publishing/YoutubeUploader.vala:69
 msgid "A temporary file needed for publishing is unavailable"
@@ -5819,7 +5836,6 @@ msgid "Software:"
 msgstr "Програми:"
 
 #: src/ProfileBrowser.vala:20
-#| msgid "Create Tag"
 msgid "Create"
 msgstr "Створити"
 
@@ -5828,12 +5844,10 @@ msgid "Create new Profile"
 msgstr "Створити профіль"
 
 #: src/ProfileBrowser.vala:35
-#| msgid "Name:"
 msgid "Name"
 msgstr "Назва"
 
 #: src/ProfileBrowser.vala:49
-#| msgid "Library"
 msgid "Library Folder"
 msgstr "Тека бібліотеки"
 
@@ -5842,7 +5856,6 @@ msgid "Choose Library Folder"
 msgstr "Виберіть теку бібліотеки"
 
 #: src/ProfileBrowser.vala:76
-#| msgid "Folders"
 msgid "Data Folder"
 msgstr "Тека даних"
 
@@ -5855,13 +5868,11 @@ msgid "This is the currently active profile"
 msgstr "Це поточний активний профіль"
 
 #: src/ProfileBrowser.vala:223
-#| msgid "Improve this map"
 msgid "Remove this profile"
 msgstr "Вилучити цей профіль"
 
 #: src/ProfileBrowser.vala:235
 #, c-format
-#| msgid "Move Tag “%s”"
 msgid "Remove profile “%s”"
 msgstr "Вилучити профіль «%s»"
 
@@ -5882,8 +5893,6 @@ msgstr ""
 "<span weight=\"light\">%s</span>"
 
 #: src/ProfileBrowser.vala:239
-#| msgid "Remove and _Trash File"
-#| msgid_plural "Remove and _Trash Files"
 msgid "Remove profile and files"
 msgstr "Вилучити профіль і файли"
 
@@ -6870,6 +6879,17 @@ msgstr "без назви"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid "delay"
+#~ msgstr "затримка"
+
+#~ msgid ""
+#~ "The name of the transition effect that will be used between photos when "
+#~ "running a slideshow"
+#~ msgstr "Назва ефекту переходу, який буде використано під час показу слайдів"
+
+#~ msgid "_Delay:"
+#~ msgstr "За_тримка:"
 
 #~ msgid "authentication token"
 #~ msgstr "ключ розпізнавання"
