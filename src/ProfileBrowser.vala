@@ -180,8 +180,6 @@ namespace Shotwell {
                 settings_path = "/org/gnome/shotwell/profiles/" + p.id + "/preferences/files/";
             }
 
-            print ("Showing settings at path %s\n", settings_path);
-
             var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
             var import_dir = settings.get_string("import-dir");
             if (import_dir == "") {

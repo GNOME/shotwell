@@ -34,11 +34,8 @@ namespace Shotwell {
                             this.profile == null);
             }
 
-            print("Get item called for position %u", position);
-
             var group = profiles.get_groups()[position - 1];
             var id = profiles.get_value(group, "Id");
-            print ("Id: %s\n", id);
             var name = profiles.get_value(group, "Name");
             var active = this.profile == name;
             return new Profile(profiles.get_value(group, "Name"),
