@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-09-10 16:50+0000\n"
-"PO-Revision-Date: 2022-09-11 09:40+0300\n"
+"POT-Creation-Date: 2022-09-11 13:33+0000\n"
+"PO-Revision-Date: 2022-09-13 22:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -373,17 +373,14 @@ msgstr ""
 "імпортовано» на сторінці імпортування"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
-#| msgid "Duration:"
 msgid "duration"
 msgstr "тривалість"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:194
-#| msgid "Delay (in seconds) between photos in the slideshow"
 msgid "The time (in seconds) to show each photo in the slideshow"
 msgstr "Тривалість (у секундах) показу кожної фотографії у показі слайдів"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:199
-#| msgid "transition delay"
 msgid "transition duration"
 msgstr "тривалість переходу"
 
@@ -398,8 +395,6 @@ msgid "transition effect id"
 msgstr "ідентифікатор ефекту переходу"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:206
-#| msgid ""
-#| "The time (in seconds) that a transition runs between photos in a slideshow"
 msgid ""
 "The time (in seconds) to show each transition between photos in a slideshow"
 msgstr ""
@@ -1210,10 +1205,11 @@ msgstr ""
 "слайдів; false, якщо ні."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
-#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356
+#: data/org.gnome.Shotwell.desktop.in:4
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
+#: data/ui/collection.ui:85 data/ui/event.ui:356 data/ui/event.ui:524
+#: data/ui/faces.ui:356 data/ui/media.ui:356 data/ui/photo_context.ui:91
+#: data/ui/photo.ui:351 data/ui/tags.ui:356
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
 #: src/photos/RawSupport.vala:313
 msgid "Shotwell"
@@ -1260,16 +1256,19 @@ msgstr ""
 msgid "The Shotwell developers"
 msgstr "Розробники Shotwell"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Впорядник фотографій"
 
 #: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
 msgid "Organize your photos"
 msgstr "Впорядкуйте ваші фотографії"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -2164,7 +2163,6 @@ msgid "Settings"
 msgstr "Параметри"
 
 #: data/ui/slideshow_settings.ui:98
-#| msgid "Duration:"
 msgid "_Duration:"
 msgstr "_Тривалість:"
 
@@ -2177,13 +2175,10 @@ msgid "_Transition effect:"
 msgstr "Е_фект переходу:"
 
 #: data/ui/slideshow_settings.ui:127
-#| msgid "Transition d_elay:"
 msgid "Transition d_uration:"
 msgstr "Т_ривалість переходу:"
 
 #: data/ui/slideshow_settings.ui:128
-#| msgid ""
-#| "The time (in seconds) that a transition runs between photos in a slideshow"
 msgid "The time (in seconds) to show each transition between photos"
 msgstr "Тривалість (у секундах) переходу між фотографіями"
 
@@ -5899,6 +5894,11 @@ msgstr "Вилучити профіль і файли"
 #: src/ProfileBrowser.vala:239
 msgid "Remove profile only"
 msgstr "Вилучити лише профіль"
+
+#: src/Profiles.vala:32
+#| msgid "Profiles"
+msgid "System Profile"
+msgstr "Профіль системи"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
