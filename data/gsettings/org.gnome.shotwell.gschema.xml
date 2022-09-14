@@ -3,7 +3,6 @@
   <schema id="org.gnome.shotwell" path="/org/gnome/shotwell/">
     <child name="preferences" schema="org.gnome.shotwell.preferences" />
     <child name="sharing" schema="org.gnome.shotwell.sharing" />
-    <child name="video" schema="org.gnome.shotwell.video" />
     <child name="printing" schema="org.gnome.shotwell.printing" />
     <child name="plugins" schema="org.gnome.shotwell.plugins" />
 </schema>
@@ -612,14 +611,6 @@
         <default>""</default>
         <summary>last used import service</summary>
         <description>A numeric code representing the last service from which photos were imported</description>
-    </key>
-</schema>
-
-<schema id="org.gnome.shotwell.video">
-    <key name="interpreter-state-cookie" type="i">
-        <default>-1</default>
-        <summary>interpreter state cookie</summary>
-        <description>A numeric code that captures the state of the GStreamer plug-in environment</description>
     </key>
 </schema>
 

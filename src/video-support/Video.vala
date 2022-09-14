@@ -39,8 +39,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         }
     }
 
-    private static bool interpreter_state_changed;
-    private static int current_state;
     private static bool normal_regen_complete;
     private static bool offline_regen_complete;
     public static VideoSourceCollection global;
@@ -61,8 +59,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         // Must initialize static variables here.
         // TODO: set values at declaration time once the following Vala bug is fixed:
         //       https://bugzilla.gnome.org/show_bug.cgi?id=655594
-        interpreter_state_changed = false;
-        current_state = -1;
         normal_regen_complete = false;
         offline_regen_complete = false;
 
@@ -72,19 +68,9 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         Gst.init(ref args);
 
         var registry = Gst.Registry.@get ();
-        int saved_state = Config.Facade.get_instance().get_video_interpreter_state_cookie();
-        current_state = (int) registry.get_feature_list_cookie();
-        if (saved_state == Config.Facade.NO_VIDEO_INTERPRETER_STATE) {
-            message("interpreter state cookie not found; assuming all video thumbnails are out of date");
-            interpreter_state_changed = true;
-        } else if (saved_state != current_state) {
-            message("interpreter state has changed; video thumbnails may be out of date");
-            interpreter_state_changed = true;
-        }
 
-        /* First do the cookie state handling, then update our local registry
-         * to not include vaapi stuff. This is basically to work-around
-         * concurrent access to VAAPI/X11 which it doesn't like, cf
+        /* Update our local registr to not include vaapi stuff. This is basically to
+        * work-around concurrent access to VAAPI/X11 which it doesn't like, cf
          * https://bugzilla.gnome.org/show_bug.cgi?id=762416
          */
 
@@ -107,9 +93,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         for (int ctr = 0; ctr < count; ctr++) {
             Video video = new Video(all.get(ctr));
 
-            if (interpreter_state_changed)
-                video.set_is_interpretable(false);
-
             if (video.is_trashed())
                 trashed_videos.add(video);
             else if (video.is_offline())
@@ -126,10 +109,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         global.add_many(all_videos);
     }
 
-    public static bool has_interpreter_state_changed() {
-        return interpreter_state_changed;
-    }
-
     public static void notify_normal_thumbs_regenerated() {
         if (normal_regen_complete)
             return;
@@ -137,8 +116,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         message("normal video thumbnail regeneration completed");
 
         normal_regen_complete = true;
-        if (normal_regen_complete && offline_regen_complete)
-            save_interpreter_state();
     }
 
     public static void notify_offline_thumbs_regenerated() {
@@ -148,17 +125,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         message("offline video thumbnail regeneration completed");
 
         offline_regen_complete = true;
-        if (normal_regen_complete && offline_regen_complete)
-            save_interpreter_state();
-    }
-
-    private static void save_interpreter_state() {
-        if (interpreter_state_changed) {
-            message("saving video interpreter state to configuration system");
-
-            Config.Facade.get_instance().set_video_interpreter_state_cookie(current_state);
-            interpreter_state_changed = false;
-        }
     }
 
     public static void terminate() {
@@ -429,7 +395,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
     public override void mark_online() {
         remove_flags(FLAG_OFFLINE);
 
-        if ((!get_is_interpretable()) && has_interpreter_state_changed())
+        if ((!get_is_interpretable()))
             check_is_interpretable().foreground_finish();
     }
 
