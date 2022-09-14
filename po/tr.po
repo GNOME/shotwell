@@ -13,16 +13,16 @@
 # verayin <vera@yorba.org>, 2011
 # İşbaran Akçayır <isbaran@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2016.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2022.
 # Sabri Ünal <libreajans@gmail.com>, 2020, 2022.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-08-22 11:38+0000\n"
-"PO-Revision-Date: 2022-09-02 14:28+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2022-09-14 19:04+0000\n"
+"PO-Revision-Date: 2022-09-14 22:18+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -33,30 +33,22 @@ msgstr ""
 "X-POOTLE-MTIME: 1427298590.000000\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-msgid "authentication token"
-msgstr "yetkilendirme simgesi"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
-msgid "Yandex-Fotki authentication token, if logged in"
-msgstr "Eğer giriş yapıldıysa, Yandex-Fotki yetkilendirme simgesi"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14
-#: data/gsettings/org.gnome.shotwell.gschema.xml:427
+#: data/gsettings/org.gnome.shotwell.gschema.xml:428
 msgid "OAuth Access Phase Token"
 msgstr "OAuth Erişim Aşaması Simgesi"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
 msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr ""
 "Şu anda oturum açmış Tumblr kullanıcısı için yetkilendirme simgesi, eğer "
 "varsa"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:20
-#: data/gsettings/org.gnome.shotwell.gschema.xml:433
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
+#: data/gsettings/org.gnome.shotwell.gschema.xml:434
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth Erişim Aşaması Simgesi Gizi"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:21
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:13
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Tumblr user, if any"
@@ -64,178 +56,92 @@ msgstr ""
 "Giriş yapmış geçerli Tumblr kullanıcısı için istekleri yetkilendirme "
 "simgesine dayanarak imzalamada kullanılacak kriptografik giz"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:26
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:52
-#: data/gsettings/org.gnome.shotwell.gschema.xml:439
-#: data/gsettings/org.gnome.shotwell.gschema.xml:497
-#: data/gsettings/org.gnome.shotwell.gschema.xml:559
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
+#: data/gsettings/org.gnome.shotwell.gschema.xml:440
+#: data/gsettings/org.gnome.shotwell.gschema.xml:498
+#: data/gsettings/org.gnome.shotwell.gschema.xml:560
 msgid "username"
 msgstr "kullanıcı adı"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:27
-#: data/gsettings/org.gnome.shotwell.gschema.xml:440
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
+#: data/gsettings/org.gnome.shotwell.gschema.xml:441
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Şu anda oturum açmış Flickr kullanıcısının kullanıcı adı, eğer varsa"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:32
-#: data/gsettings/org.gnome.shotwell.gschema.xml:471
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
+#: data/gsettings/org.gnome.shotwell.gschema.xml:472
 msgid "default size"
 msgstr "öntanımlı boyut"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:33
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:25
 msgid ""
 "A numeric code representing the default size for photos uploaded to Tumblr"
 msgstr ""
 "Tumblr’a yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:38
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:30
 msgid "default blog"
 msgstr "öntanımlı blog"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:39
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:31
 msgid "The name of the default blog of the user, if any"
 msgstr "Eğer varsa, kullanıcının öntanımlı blogunun adı"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:46
-msgid "Rajce URL"
-msgstr "Rajce URL’si"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
-msgid "URL of the Rajce server"
-msgstr "Rajce sunucusunun URL’si"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
-msgid "Rajce username, if logged in"
-msgstr "Eğer giriş yapıldıysa, Rajce kullanıcı adı"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:58
-msgid "token"
-msgstr "simge"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:59
-msgid "user token, if remembered"
-msgstr "eğer anımsandıysa, kullanıcı simgesi"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:64
-#: data/gsettings/org.gnome.shotwell.gschema.xml:515
-msgid "last category"
-msgstr "son kategori"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:65
-msgid "The last selected Rajce category"
-msgstr "Son seçilen Rajce kategorisi"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:70
-#: data/gsettings/org.gnome.shotwell.gschema.xml:527
-msgid "last photo size"
-msgstr "son fotoğraf boyutu"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
-msgid ""
-"A numeric code representing the last photo size preset used when publishing "
-"to Rajce"
-msgstr ""
-"Rajce’ye yayımlanırken kullanılan son fotoğraf boyutu ön ayarını temsil eden "
-"sayısal kod"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:76
-msgid "remember"
-msgstr "anımsa"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
-msgid "If true, remember last login"
-msgstr "Eğer doğruysa, son oturum açmayı anımsa"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:82
-msgid "hide album"
-msgstr "albümü gizle"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
-msgid "If true, hide the newly created Rajce album"
-msgstr "Eğer doğruysa, yeni oluşturulan Rajce albümünü gizle"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
-msgid "open album in web browser"
-msgstr "albümü tarayıcıda aç"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:89
-msgid ""
-"If true, open target album in the web browser just after uploading photos"
-msgstr ""
-"Eğer doğruysa, fotoğraflar yüklendikten hemen sonra hedef albümü web "
-"tarayıcısında aç"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94
-#: data/gsettings/org.gnome.shotwell.gschema.xml:457
-#: data/gsettings/org.gnome.shotwell.gschema.xml:483
-#: data/gsettings/org.gnome.shotwell.gschema.xml:533
-#: data/gsettings/org.gnome.shotwell.gschema.xml:583
-msgid "remove sensitive info from uploads"
-msgstr "yüklemelerden hassas bilgiyi kaldır"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:95
-msgid ""
-"Whether images being uploaded to Rajce should have their metadata removed "
-"first"
-msgstr ""
-"Rajce’ye yüklenecek resimlerin öncelikle üstverilerinin kaldırılmasının "
-"gerekip gerekmediği"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:23
+#: data/gsettings/org.gnome.shotwell.gschema.xml:22
 msgid "display basic properties"
 msgstr "basit özellikleri göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:24
+#: data/gsettings/org.gnome.shotwell.gschema.xml:23
 msgid "True if the basic properties pane is to be displayed, false otherwise"
 msgstr "Eğer basit özellikler bölmesi gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:29
+#: data/gsettings/org.gnome.shotwell.gschema.xml:28
 msgid "display extended properties"
 msgstr "ayrıntılı özellikleri göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:30
+#: data/gsettings/org.gnome.shotwell.gschema.xml:29
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise"
 msgstr ""
 "Eğer ayrıntılı özellikler penceresi gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:35
+#: data/gsettings/org.gnome.shotwell.gschema.xml:34
 msgid "display sidebar"
 msgstr "kenar çubuğunu göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:36
+#: data/gsettings/org.gnome.shotwell.gschema.xml:35
 msgid "True if the sidebar is to be displayed, false otherwise"
 msgstr "Eğer kenar çubuğu gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:41
+#: data/gsettings/org.gnome.shotwell.gschema.xml:40
 msgid "display toolbar"
 msgstr "araç çubuğunu göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:42
+#: data/gsettings/org.gnome.shotwell.gschema.xml:41
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
 msgstr "Eğer alt araç çubuğu gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:47
+#: data/gsettings/org.gnome.shotwell.gschema.xml:46
 msgid "display map widget"
 msgstr "harita gerecini göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:48
+#: data/gsettings/org.gnome.shotwell.gschema.xml:47
 msgid "True if the map widget is to be displayed, false otherwise"
 msgstr "Harita gereci gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:53
+#: data/gsettings/org.gnome.shotwell.gschema.xml:52
 msgid "display search bar"
 msgstr "arama çubuğunu göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:54
+#: data/gsettings/org.gnome.shotwell.gschema.xml:53
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
 msgstr "Eğer Arama/Süzme Araç Çubuğu gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:59
+#: data/gsettings/org.gnome.shotwell.gschema.xml:58
 msgid "display photo titles"
 msgstr "fotoğraf başlıklarını göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:60
+#: data/gsettings/org.gnome.shotwell.gschema.xml:59
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -243,11 +149,11 @@ msgstr ""
 "Eğer koleksiyon görünümlerinde fotoğraf başlıkları küçük resimlerin altında "
 "gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:65
+#: data/gsettings/org.gnome.shotwell.gschema.xml:64
 msgid "display photo comments"
 msgstr "fotoğraf yorumlarını göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:66
+#: data/gsettings/org.gnome.shotwell.gschema.xml:65
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
@@ -255,11 +161,11 @@ msgstr ""
 "Eğer koleksiyon görünümlerinde fotoğraf yorumları küçük resimlerin altında "
 "gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:71
+#: data/gsettings/org.gnome.shotwell.gschema.xml:70
 msgid "display event comments"
 msgstr "olay yorumlarını göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:72
+#: data/gsettings/org.gnome.shotwell.gschema.xml:71
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise"
@@ -267,11 +173,11 @@ msgstr ""
 "Eğer etkinlik görünümlerinde etkinlik yorumları küçük resimlerin altında "
 "gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:77
+#: data/gsettings/org.gnome.shotwell.gschema.xml:76
 msgid "display photo tags"
 msgstr "fotoğraf etiketlerini göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:78
+#: data/gsettings/org.gnome.shotwell.gschema.xml:77
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise"
@@ -279,11 +185,11 @@ msgstr ""
 "Eğer koleksiyon görünümlerinde fotoğraf etiketleri küçük resimlerin altında "
 "gösterilecekse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:83
+#: data/gsettings/org.gnome.shotwell.gschema.xml:82
 msgid "display photo ratings"
 msgstr "fotoğraf puanlarını göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:84
+#: data/gsettings/org.gnome.shotwell.gschema.xml:83
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise"
@@ -291,11 +197,11 @@ msgstr ""
 "Eğer fotoğrafın oylaması kaplayan biblo olarak gösterilmeliyse doğru, "
 "değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:89
+#: data/gsettings/org.gnome.shotwell.gschema.xml:88
 msgid "rating filter level"
 msgstr "puan süzme düzeyi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:90
+#: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
@@ -305,56 +211,56 @@ msgstr ""
 "daha iyi, 2: Puansız veya daha iyi, 3: Bir veya daha iyi, 4: İki veya daha "
 "iyi, 5: Üç veya daha iyi, 6: Dört veya daha iyi, 7: Beş veya daha iyi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:95
+#: data/gsettings/org.gnome.shotwell.gschema.xml:94
 msgid "sort events ascending"
 msgstr "olayları artan biçimde sırala"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:96
+#: data/gsettings/org.gnome.shotwell.gschema.xml:95
 msgid "True if events should be sorted ascending, false if descending"
 msgstr "Eğer etkinlikler artan biçimde sıralanmalıysa doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:101
+#: data/gsettings/org.gnome.shotwell.gschema.xml:100
 msgid "sort library photos ascending"
 msgstr "kitaplık fotoğraflarını artan biçimde sırala"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:102
+#: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "True if library photos should be sorted ascending, false if descending"
 msgstr ""
 "Eğer kitaplık fotoğrafları artan biçimde sıralanmalıysa doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:107
+#: data/gsettings/org.gnome.shotwell.gschema.xml:106
 msgid "sort library photos criteria"
 msgstr "kitaplık fotoğraflarını sıralama ölçütü"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:108
+#: data/gsettings/org.gnome.shotwell.gschema.xml:107
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views"
 msgstr ""
 "Kitaplık görünümlerinde fotoğraflar için sıralama ölçütünü belirten sayısal "
 "kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:113
+#: data/gsettings/org.gnome.shotwell.gschema.xml:112
 msgid "sort event photos ascending"
 msgstr "olay fotoğraflarını artan biçimde sırala"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:114
+#: data/gsettings/org.gnome.shotwell.gschema.xml:113
 msgid "True if event photos should be sorted ascending, false if descending"
 msgstr ""
 "Eğer etkinlik fotoğrafları artan biçimde sıralanmalıysa doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:119
+#: data/gsettings/org.gnome.shotwell.gschema.xml:118
 msgid "sort event photos criteria"
 msgstr "olay fotoğraflarını sıralama ölçütü"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:120
+#: data/gsettings/org.gnome.shotwell.gschema.xml:119
 msgid "Specifies the sort criteria for event photos"
 msgstr "Etkinlik fotoğrafları için sıralama ölçütünü belirtir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:125
+#: data/gsettings/org.gnome.shotwell.gschema.xml:124
 msgid "use 24 hour time"
 msgstr "24 saat zamanı kullan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:126
+#: data/gsettings/org.gnome.shotwell.gschema.xml:125
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation"
@@ -362,11 +268,11 @@ msgstr ""
 "Eğer saatler 24 saatlik dilimle gösterilmeliyse doğru, eğer saatler ÖÖ/ÖS "
 "gösterimini kullanmalıysa yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:131
+#: data/gsettings/org.gnome.shotwell.gschema.xml:130
 msgid "keep relative time between photos"
 msgstr "fotoğraflar arası göreceli zaman tut"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:132
+#: data/gsettings/org.gnome.shotwell.gschema.xml:131
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time"
@@ -374,11 +280,11 @@ msgstr ""
 "Fotoğrafların zamanı/tarihi ayarlanırken göreceli zaman korunacaksa doğru. "
 "Tüm fotoğraflar aynı zamana ayarlanacaksa yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:137
+#: data/gsettings/org.gnome.shotwell.gschema.xml:136
 msgid "modify original photo files"
 msgstr "özgün fotoğraf dosyalarını değiştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:138
+#: data/gsettings/org.gnome.shotwell.gschema.xml:137
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database"
@@ -386,11 +292,11 @@ msgstr ""
 "Fotoğrafların zamanı/tarihi ayarlanırken özgün dosyalar da değiştirilecekse "
 "doğru. Değişiklikler yalnızca veri tabanında yapılacaksa yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:143
+#: data/gsettings/org.gnome.shotwell.gschema.xml:142
 msgid "show welcome dialog on startup"
 msgstr "başlangıçta karşılama kutusunu göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:144
+#: data/gsettings/org.gnome.shotwell.gschema.xml:143
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown"
@@ -398,61 +304,61 @@ msgstr ""
 "Eğer başlangıçta karşılama kutusu gösterilmeliyse doğru. Eğer "
 "gösterilmemeliyse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:149
+#: data/gsettings/org.gnome.shotwell.gschema.xml:148
 msgid "sidebar position"
 msgstr "kenar çubuğu konumu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:150
+#: data/gsettings/org.gnome.shotwell.gschema.xml:149
 msgid "The width, in pixels, of the sidebar"
 msgstr "Kenar çubuğunun piksel türünden genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:155
+#: data/gsettings/org.gnome.shotwell.gschema.xml:154
 msgid "photo thumbnail scale"
 msgstr "fotoğraf küçük resimi ölçeği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:156
+#: data/gsettings/org.gnome.shotwell.gschema.xml:155
 msgid "The scale of photo thumbnails, ranging from 72 to 360"
 msgstr "Fotoğraf küçük resimlerinin ölçeği, 72’den 360’a doğru değişir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:161
+#: data/gsettings/org.gnome.shotwell.gschema.xml:160
 msgid "pin toolbar state"
 msgstr "araç çubuğunu sabitleme durumu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:162
+#: data/gsettings/org.gnome.shotwell.gschema.xml:161
 msgid "Pin toolbar in fullscreen, or not"
 msgstr "Tam ekranda araç çubuğunu sabitle ya da sabitleme"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:167
+#: data/gsettings/org.gnome.shotwell.gschema.xml:166
 msgid "prefer GTK+’s dark theme"
 msgstr "GTK+ʼnın karanlık temasını yeğle"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:168
+#: data/gsettings/org.gnome.shotwell.gschema.xml:167
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not"
 msgstr "Shotwell için GTK+’nın karanlık temasının kullanılıp kullanılmayacağı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:173
+#: data/gsettings/org.gnome.shotwell.gschema.xml:172
 msgid "background for transparent images"
 msgstr "saydam fotoğraflar için arka plan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:174
+#: data/gsettings/org.gnome.shotwell.gschema.xml:173
 msgid "The background to use for transparent images"
 msgstr "Saydam resimler için kullanılacak arka plan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:179
+#: data/gsettings/org.gnome.shotwell.gschema.xml:178
 msgid "color for solid transparency background"
 msgstr "düz saydam arka plan için renk"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:180
+#: data/gsettings/org.gnome.shotwell.gschema.xml:179
 msgid "Color to use if background for transparent images is set to solid color"
 msgstr ""
 "Eğer saydam resimler için arka plan düz bir renge belirlendiyse kullanılacak "
 "renk"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:185
+#: data/gsettings/org.gnome.shotwell.gschema.xml:184
 msgid "Selection state of “hide photos” option"
 msgstr "“Fotoğrafları gizle” seçeneğinin seçim durumu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:186
+#: data/gsettings/org.gnome.shotwell.gschema.xml:185
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page"
@@ -460,98 +366,97 @@ msgstr ""
 "İçe aktarma sayfasındaki “içe aktarılmış fotoğrafları gizle” seçeneğinin son "
 "kullanılan seçim durumu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:193
-msgid "delay"
-msgstr "gecikme"
+#: data/gsettings/org.gnome.shotwell.gschema.xml:192
+msgid "duration"
+msgstr "süre"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:194
-msgid "Delay (in seconds) between photos in the slideshow"
-msgstr "Slayt gösterisindeki fotoğraflar arası gecikme (saniye türünde)"
+#: data/gsettings/org.gnome.shotwell.gschema.xml:193
+msgid "The time (in seconds) to show each photo in the slideshow"
+msgstr "Slayt gösterisinde her fotoğrafın gösterilme süresi (saniye türünden)"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:198
+msgid "transition duration"
+msgstr "geçiş süresi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:199
-msgid "transition delay"
-msgstr "geçiş gecikmesi"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:200
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
-msgstr "Slayt gösterisindeki fotoğraflar arası geçiş zamanı (saniye türünde)"
+msgstr "Slayt gösterisindeki fotoğraflar arası geçiş zamanı (saniye türünden)"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:205
+#: data/gsettings/org.gnome.shotwell.gschema.xml:204
 msgid "transition effect id"
 msgstr "geçiş etkisi kimliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:206
+#: data/gsettings/org.gnome.shotwell.gschema.xml:205
 msgid ""
-"The name of the transition effect that will be used between photos when "
-"running a slideshow"
+"The time (in seconds) to show each transition between photos in a slideshow"
 msgstr ""
-"Slayt gösterisi çalıştırılırken fotoğraflar arasında kullanılacak geçiş "
-"etkisinin adı"
+"Slayt gösterisinde fotoğraflar arasındaki her geçişin gösterim süresi "
+"(saniye türünden)"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:211
+#: data/gsettings/org.gnome.shotwell.gschema.xml:210
 msgid "Show title"
 msgstr "Başlığı göster"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:212
+#: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr ""
 "Slayt gösterisi sırasında bir fotoğrafın başlığının gösterilip "
 "gösterilmeyeceği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:219
+#: data/gsettings/org.gnome.shotwell.gschema.xml:218
 msgid "maximize library window"
 msgstr "kitaplık penceresini büyült"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:220
+#: data/gsettings/org.gnome.shotwell.gschema.xml:219
 msgid "True if library application is maximized, false otherwise"
 msgstr "Eğer kitaplık uygulaması büyültüldüyse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:225
+#: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "width of library window"
 msgstr "kitaplık penceresinin genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:226
+#: data/gsettings/org.gnome.shotwell.gschema.xml:225
 msgid "The last recorded width of the library application window"
 msgstr "Kitaplık uygulaması penceresinin kaydedilen son genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:231
+#: data/gsettings/org.gnome.shotwell.gschema.xml:230
 msgid "height of library window"
 msgstr "kitaplık penceresinin yüksekliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:232
+#: data/gsettings/org.gnome.shotwell.gschema.xml:231
 msgid "The last recorded height of the library application window"
 msgstr "Kitaplık uygulaması penceresinin kaydedilen son yüksekliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:237
+#: data/gsettings/org.gnome.shotwell.gschema.xml:236
 msgid "maximize direct-edit window"
 msgstr "doğrudan düzenleme penceresini büyült"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:238
+#: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr "Eğer doğrudan düzenleme penceresi büyültüldüyse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:243
+#: data/gsettings/org.gnome.shotwell.gschema.xml:242
 msgid "width of direct-edit window"
 msgstr "doğrudan düzenleme penceresinin genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:244
+#: data/gsettings/org.gnome.shotwell.gschema.xml:243
 msgid "The last recorded width of the direct-edit application window"
 msgstr "Doğrudan düzenleme uygulaması penceresinin son kaydedilen genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:249
+#: data/gsettings/org.gnome.shotwell.gschema.xml:248
 msgid "height of direct-edit window"
 msgstr "doğrudan düzenleme penceresinin yüksekliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:250
+#: data/gsettings/org.gnome.shotwell.gschema.xml:249
 msgid "The last recorded height of the direct-edit application window"
 msgstr "Doğrudan düzenleme uygulaması penceresinin son kaydedilen yüksekliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:255
+#: data/gsettings/org.gnome.shotwell.gschema.xml:254
 msgid "sidebar divider position"
 msgstr "kenar çubuğu bölücüsü konumu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:256
+#: data/gsettings/org.gnome.shotwell.gschema.xml:255
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window"
@@ -559,29 +464,29 @@ msgstr ""
 "Kenar çubuğu ve kitaplıkta gör uygulama penceresi arasındaki ayracın "
 "kaydedilen son konumu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:263
+#: data/gsettings/org.gnome.shotwell.gschema.xml:262
 msgid "import directory"
 msgstr "içe aktarma dizini"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:264
+#: data/gsettings/org.gnome.shotwell.gschema.xml:263
 msgid "Directory in which imported photo files are placed"
 msgstr "İçe aktarılan fotoğrafların konumlanacağı dizin"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:269
+#: data/gsettings/org.gnome.shotwell.gschema.xml:268
 msgid "watch library directory for new files"
 msgstr "yeni dosyalar için kitaplık dizinini gözle"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:270
+#: data/gsettings/org.gnome.shotwell.gschema.xml:269
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
 "Eğer doğruysa, kitaplık dizinine eklenen dosyalar kendiliğinden içe aktarılır"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:275
+#: data/gsettings/org.gnome.shotwell.gschema.xml:274
 msgid "write metadata to master files"
 msgstr "üstveriyi ana dosyalara yaz"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:276
+#: data/gsettings/org.gnome.shotwell.gschema.xml:275
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
@@ -589,11 +494,11 @@ msgstr ""
 "Eğer doğruysa, üst veriye yapılan değişiklikler (etiketler, başlıklar, vb.) "
 "ana fotoğraf dosyasına da yazılır"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:281
+#: data/gsettings/org.gnome.shotwell.gschema.xml:280
 msgid "use lowercase filenames"
 msgstr "küçük harfli dosya adları kullan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:282
+#: data/gsettings/org.gnome.shotwell.gschema.xml:281
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
@@ -601,11 +506,11 @@ msgstr ""
 "Eğer doğruysa, Shotwell fotoğraflar içe aktarırken tüm dosya adlarını küçük "
 "harfe çevirir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:287
+#: data/gsettings/org.gnome.shotwell.gschema.xml:286
 msgid "directory pattern"
 msgstr "dizin yapısı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:288
+#: data/gsettings/org.gnome.shotwell.gschema.xml:287
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import"
@@ -613,11 +518,11 @@ msgstr ""
 "İçe aktarılacak fotoğraf dizinlerini adlandırmada kullanılacak adlandırma "
 "yapısını kodlayan dizge"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:293
+#: data/gsettings/org.gnome.shotwell.gschema.xml:292
 msgid "directory pattern custom"
 msgstr "özel dizin yapısı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:294
+#: data/gsettings/org.gnome.shotwell.gschema.xml:293
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import"
@@ -625,28 +530,28 @@ msgstr ""
 "İçe aktarılacak fotoğraf dizinlerini adlandırmada kullanılacak özel "
 "adlandırma yapısını kodlayan dizge"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:299
+#: data/gsettings/org.gnome.shotwell.gschema.xml:298
 msgid "RAW developer default"
 msgstr "RAW geliştirici öntanımlısı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:300
+#: data/gsettings/org.gnome.shotwell.gschema.xml:299
 msgid "Default option for which RAW developer Shotwell will use"
 msgstr "Shotwell’in kullanacağı RAW geliştiricisi için öntanımlı seçenek"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:307
+#: data/gsettings/org.gnome.shotwell.gschema.xml:306
 msgid "Most-recently-used crop aspect ratio menu choice"
 msgstr "En son kullanılan kırpma en/boy oranı menü seçeneği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:308
+#: data/gsettings/org.gnome.shotwell.gschema.xml:307
 msgid "A numeric code representing the last crop menu choice the user made"
 msgstr ""
 "Kullanıcının yaptığı son kırpma menüsü seçimini temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:312
+#: data/gsettings/org.gnome.shotwell.gschema.xml:311
 msgid "Most-recently-used crop custom aspect ratio’s numerator"
 msgstr "En son kullanılan kırpma özel en boy oranının payı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:313
+#: data/gsettings/org.gnome.shotwell.gschema.xml:312
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered"
@@ -654,11 +559,11 @@ msgstr ""
 "Kullanıcının girdiği son özel kırpma oranının genişlik bölümünü temsil eden "
 "sıfır olmayan, pozitif tam sayı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:317
+#: data/gsettings/org.gnome.shotwell.gschema.xml:316
 msgid "Most-recently-used crop custom aspect ratio’s denominator"
 msgstr "En son kullanılan kırpma özel en boy oranının paydası"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:318
+#: data/gsettings/org.gnome.shotwell.gschema.xml:317
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered"
@@ -666,88 +571,88 @@ msgstr ""
 "Kullanıcının girdiği son özel kırpma oranının yükseklik bölümünü temsil eden "
 "sıfır olmayan, pozitif tam sayı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:325
+#: data/gsettings/org.gnome.shotwell.gschema.xml:324
 msgid "external photo editor"
 msgstr "dış fotoğraf düzenleyici"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:326
+#: data/gsettings/org.gnome.shotwell.gschema.xml:325
 msgid "External application used to edit photos"
 msgstr "Fotoğrafları düzenlemekte kullanılan dış uygulama"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:331
+#: data/gsettings/org.gnome.shotwell.gschema.xml:330
 msgid "external raw editor"
 msgstr "dış raw düzenleyici"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:332
+#: data/gsettings/org.gnome.shotwell.gschema.xml:331
 msgid "External application used to edit RAW photos"
 msgstr "RAW fotoğrafları düzenlemekte kullanılan dış uygulama"
 
+#: data/gsettings/org.gnome.shotwell.gschema.xml:369
 #: data/gsettings/org.gnome.shotwell.gschema.xml:370
-#: data/gsettings/org.gnome.shotwell.gschema.xml:371
 msgid "Setting in export dialog: how to trim images"
 msgstr "Dışa aktarma kutusunda ayar: resimler nasıl kırpılsın"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:376
+#: data/gsettings/org.gnome.shotwell.gschema.xml:375
 msgid "export metadata"
 msgstr "üstveriyi dışa aktar"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:377
+#: data/gsettings/org.gnome.shotwell.gschema.xml:376
 msgid "Setting in export dialog: option to export metadata"
 msgstr "Dışa aktarma kutusunda ayar: üstveriyi dışa aktarma seçeneği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:382
+#: data/gsettings/org.gnome.shotwell.gschema.xml:381
 msgid "format setting, special value"
 msgstr "biçim ayarı, özel değer"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:383
+#: data/gsettings/org.gnome.shotwell.gschema.xml:382
 msgid "Setting in export dialog: format setting, special value"
 msgstr "Dışa aktarma kutusunda ayar: biçim ayarı, özel değer"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:388
+#: data/gsettings/org.gnome.shotwell.gschema.xml:387
 msgid "format setting, type value"
 msgstr "biçim ayarı, tür değeri"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:389
+#: data/gsettings/org.gnome.shotwell.gschema.xml:388
 msgid "Setting in export dialog: format setting, type value"
 msgstr "Dışa aktarma kutusunda ayar: biçim ayarı, tür değeri"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:394
+#: data/gsettings/org.gnome.shotwell.gschema.xml:393
 msgid "JPEG quality option"
 msgstr "JPEG kalite seçeneği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:395
+#: data/gsettings/org.gnome.shotwell.gschema.xml:394
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "Dışa aktarma kutusunda ayar: jpeg kalitesi seçeneği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:400
+#: data/gsettings/org.gnome.shotwell.gschema.xml:399
 msgid "maximal size of image"
 msgstr "resmin en büyük boyutu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:401
+#: data/gsettings/org.gnome.shotwell.gschema.xml:400
 msgid "Setting in export dialog: maximal size of image"
 msgstr "Dışa aktarma kutusunda ayar: resmin en büyük boyutu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:408
+#: data/gsettings/org.gnome.shotwell.gschema.xml:407
 msgid "last used publishing service"
 msgstr "son kullanılan yayımlama hizmeti"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:409
-#: data/gsettings/org.gnome.shotwell.gschema.xml:415
+#: data/gsettings/org.gnome.shotwell.gschema.xml:408
+#: data/gsettings/org.gnome.shotwell.gschema.xml:414
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr "Fotoğrafların yayımlandığı son hizmeti temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:414
+#: data/gsettings/org.gnome.shotwell.gschema.xml:413
 msgid "default publishing service"
 msgstr "öntanımlı yayımlama hizmeti"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:428
+#: data/gsettings/org.gnome.shotwell.gschema.xml:429
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
 "Şu anda oturum açmış Flickr kullanıcısı için yetkilendirme simgesi, eğer "
 "varsa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:434
+#: data/gsettings/org.gnome.shotwell.gschema.xml:435
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -755,21 +660,21 @@ msgstr ""
 "Giriş yapmış geçerli Flick kullanıcısı için istekleri yetkilendirme "
 "simgesine dayanarak imzalamada kullanılacak kriptografik giz"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:445
+#: data/gsettings/org.gnome.shotwell.gschema.xml:446
 msgid "default size code"
 msgstr "öntanımlı boyut kodu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:446
+#: data/gsettings/org.gnome.shotwell.gschema.xml:447
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Flickr’a yüklenen fotoğraflar için öntanımlı boyutu temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:451
+#: data/gsettings/org.gnome.shotwell.gschema.xml:452
 msgid "default visibility"
 msgstr "öntanımlı görünürlük"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:452
+#: data/gsettings/org.gnome.shotwell.gschema.xml:453
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -778,6 +683,13 @@ msgstr ""
 "sayısal kod"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:458
+#: data/gsettings/org.gnome.shotwell.gschema.xml:484
+#: data/gsettings/org.gnome.shotwell.gschema.xml:534
+#: data/gsettings/org.gnome.shotwell.gschema.xml:584
+msgid "remove sensitive info from uploads"
+msgstr "yüklemelerden hassas bilgiyi kaldır"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:459
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
@@ -785,12 +697,12 @@ msgstr ""
 "Flickr’a yüklenecek resimlerin öncelikle üstverilerinin kaldırılmasının "
 "gerekip gerekmediği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:465
-#: data/gsettings/org.gnome.shotwell.gschema.xml:603
+#: data/gsettings/org.gnome.shotwell.gschema.xml:466
+#: data/gsettings/org.gnome.shotwell.gschema.xml:604
 msgid "refresh token"
 msgstr "simgeyi yenile"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:466
+#: data/gsettings/org.gnome.shotwell.gschema.xml:467
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -798,7 +710,7 @@ msgstr ""
 "Şu anda oturum açmış kullanıcı için Google Fotoğraflar oturumunu yenilemekte "
 "kullanılan OAuth simgesi, eğer varsa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:472
+#: data/gsettings/org.gnome.shotwell.gschema.xml:473
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -806,17 +718,17 @@ msgstr ""
 "Google Fotoğraf Albümleri’ne yüklenen fotoğraflar için öntanımlı boyutu "
 "temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:477
-#: data/gsettings/org.gnome.shotwell.gschema.xml:577
+#: data/gsettings/org.gnome.shotwell.gschema.xml:478
+#: data/gsettings/org.gnome.shotwell.gschema.xml:578
 msgid "last album"
 msgstr "son albüm"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:478
-#: data/gsettings/org.gnome.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:479
+#: data/gsettings/org.gnome.shotwell.gschema.xml:579
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Kullanıcının fotoğraflarını yayımladığı son albümün adı, eğer varsa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:484
+#: data/gsettings/org.gnome.shotwell.gschema.xml:485
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -824,47 +736,55 @@ msgstr ""
 "Google Fotoğraflar’a yüklenecek resimlerin öncelikle üstverilerinin "
 "kaldırılmasının gerekip gerekmediği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:491
+#: data/gsettings/org.gnome.shotwell.gschema.xml:492
 msgid "Piwigo URL"
 msgstr "Piwigo URL’si"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:492
+#: data/gsettings/org.gnome.shotwell.gschema.xml:493
 msgid "URL of the Piwigo server"
 msgstr "Piwigo sunucusunun URL’si"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:498
+#: data/gsettings/org.gnome.shotwell.gschema.xml:499
 msgid "Piwigo username, if logged in"
 msgstr "Eğer giriş yapıldıysa, Piwigo kullanıcı adı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:503
+#: data/gsettings/org.gnome.shotwell.gschema.xml:504
 msgid "password"
 msgstr "parola"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:504
+#: data/gsettings/org.gnome.shotwell.gschema.xml:505
 msgid "Piwigo password, if logged in"
 msgstr "Eğer giriş yapıldıysa, Piwigo parolası"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:509
+#: data/gsettings/org.gnome.shotwell.gschema.xml:510
 msgid "remember password"
 msgstr "parolayı anımsa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:510
+#: data/gsettings/org.gnome.shotwell.gschema.xml:511
 msgid "If true, remember the Piwigo password"
 msgstr "Eğer doğruysa, Piwigo parolasını anımsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:516
+msgid "last category"
+msgstr "son kategori"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:517
 msgid "The last selected Piwigo category"
 msgstr "Son seçilen Piwigo kategorisi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:521
+#: data/gsettings/org.gnome.shotwell.gschema.xml:522
 msgid "last permission level"
 msgstr "son izin düzeyi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:522
+#: data/gsettings/org.gnome.shotwell.gschema.xml:523
 msgid "The last chosen Piwigo permission level"
 msgstr "Son seçilen Piwigo izin düzeyi"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:528
+msgid "last photo size"
+msgstr "son fotoğraf boyutu"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:529
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -872,7 +792,7 @@ msgstr ""
 "Piwigo’ya yayımlanırken kullanılan son fotoğraf boyutu önayarını temsil eden "
 "sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:534
+#: data/gsettings/org.gnome.shotwell.gschema.xml:535
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
@@ -880,14 +800,14 @@ msgstr ""
 "Piwigo’ya yüklenecek resimlerin öncelikle üstverilerinin kaldırılmasının "
 "gerekip gerekmediği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:539
+#: data/gsettings/org.gnome.shotwell.gschema.xml:540
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "eğer başlık ayarlanmış ve bir yorum kaldırılmışsa, Piwigo’ya yüklemelerde "
 "başlığı yorum olarak kullan"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:540
+#: data/gsettings/org.gnome.shotwell.gschema.xml:541
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -895,11 +815,11 @@ msgstr ""
 "Eğer başlık ayarlı yorum değilse, Piwigo’ya yüklenecek resimlerin "
 "yorumlarının başlıktan belirlenip belirlenmeyeceği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:545
+#: data/gsettings/org.gnome.shotwell.gschema.xml:546
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "Piwigo’ya yüklerken etiketleri yükleme"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:546
+#: data/gsettings/org.gnome.shotwell.gschema.xml:547
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -907,11 +827,11 @@ msgstr ""
 "Piwigo’ya yüklenecek resimlerin etiketlerinin silinip silinmeyeceği, bu "
 "etiketler uzak Piwigo sunucusunda gözükmeyecektir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:551
+#: data/gsettings/org.gnome.shotwell.gschema.xml:552
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "Piwigo’ya yüklerken puanlamaları yükleme"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:552
+#: data/gsettings/org.gnome.shotwell.gschema.xml:553
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -919,27 +839,27 @@ msgstr ""
 "Piwigo’ya yüklenecek resimlerin puanlarının silinip silinmeyeceği, bu "
 "puanlar uzak Piwigo sunucusunda gözükmeyecektir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:560
+#: data/gsettings/org.gnome.shotwell.gschema.xml:561
 msgid "Gallery3 username"
 msgstr "Gallery3 kullanıcı adı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:565
+#: data/gsettings/org.gnome.shotwell.gschema.xml:566
 msgid "API key"
 msgstr "API anahtarı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:566
+#: data/gsettings/org.gnome.shotwell.gschema.xml:567
 msgid "Gallery3 API key"
 msgstr "Gallery3 API anahtarı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:571
+#: data/gsettings/org.gnome.shotwell.gschema.xml:572
 msgid "URL"
 msgstr "URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:572
+#: data/gsettings/org.gnome.shotwell.gschema.xml:573
 msgid "Gallery3 site URL"
 msgstr "Gallery3 site URL’si"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:584
+#: data/gsettings/org.gnome.shotwell.gschema.xml:585
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
@@ -947,19 +867,19 @@ msgstr ""
 "Gallery3’e yüklenecek resimlerin öncelikle üst verilerinin kaldırılmasının "
 "gerekip gerekmediği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:589
+#: data/gsettings/org.gnome.shotwell.gschema.xml:590
 msgid "scaling constraint of uploaded picture"
 msgstr "yüklenen resmin ölçek kısıtlaması"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:590
+#: data/gsettings/org.gnome.shotwell.gschema.xml:591
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "Yüklenecek resmin ölçek kısıtlama kimliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:595
+#: data/gsettings/org.gnome.shotwell.gschema.xml:596
 msgid "pixels of the major axis uploaded picture"
 msgstr "yüklenen resmin ana eksen pikselleri"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:596
+#: data/gsettings/org.gnome.shotwell.gschema.xml:597
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -967,7 +887,7 @@ msgstr ""
 "Yüklenecek resmin ana ekseninin pikselleri; yalnızca ölçek kısıtlama kimliği "
 "uygun bir değerse kullanılır"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:604
+#: data/gsettings/org.gnome.shotwell.gschema.xml:605
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -975,29 +895,20 @@ msgstr ""
 "Şu anda oturum açmış kullanıcı için YouTube oturumunu yenilemekte kullanılan "
 "OAuth simgesi, eğer varsa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:611
+#: data/gsettings/org.gnome.shotwell.gschema.xml:612
 msgid "last used import service"
 msgstr "son kullanılan içe aktarma hizmeti"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:612
+#: data/gsettings/org.gnome.shotwell.gschema.xml:613
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr "Fotoğrafların içe aktarıldığı son hizmeti temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:619
-msgid "interpreter state cookie"
-msgstr "yorumlayıcı durum çerezi"
-
 #: data/gsettings/org.gnome.shotwell.gschema.xml:620
-msgid ""
-"A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr "GStreamer eklenti ortamının durumunu yakalayan sayısal kod"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:627
 msgid "content layout mode"
 msgstr "içerik yerleşim kipi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:628
+#: data/gsettings/org.gnome.shotwell.gschema.xml:621
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -1005,35 +916,35 @@ msgstr ""
 "Yazdırma sırasında fotoğrafların sayfaya nasıl yerleştireceğini açıklayan "
 "sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:633
+#: data/gsettings/org.gnome.shotwell.gschema.xml:626
 msgid "content ppi"
 msgstr "içeriğin inç başına piksel sayısı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:634
+#: data/gsettings/org.gnome.shotwell.gschema.xml:627
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Yazdırma sırasında yazıcıya gönderilen inç başına piksel (ppi) sayısı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:639
+#: data/gsettings/org.gnome.shotwell.gschema.xml:632
 msgid "content width"
 msgstr "içerik genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:640
+#: data/gsettings/org.gnome.shotwell.gschema.xml:633
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Yazdırırken sayfada basılı emülsiyonun genişliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:645
+#: data/gsettings/org.gnome.shotwell.gschema.xml:638
 msgid "content height"
 msgstr "içerik yüksekliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:646
+#: data/gsettings/org.gnome.shotwell.gschema.xml:639
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Yazdırırken sayfada basılı emülsiyonun yüksekliği"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:651
+#: data/gsettings/org.gnome.shotwell.gschema.xml:644
 msgid "content units"
 msgstr "içerik birimleri"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:652
+#: data/gsettings/org.gnome.shotwell.gschema.xml:645
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -1041,33 +952,33 @@ msgstr ""
 "Yazdırma sırasıda kulanılan ölçü birimini (inç veya santimetre) temsil eden "
 "sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:657
+#: data/gsettings/org.gnome.shotwell.gschema.xml:650
 msgid "images per page code"
 msgstr "sayfa başına resim kodu"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:658
+#: data/gsettings/org.gnome.shotwell.gschema.xml:651
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr ""
 "Yazdırma sırasında sayfa başına seçilen resim kipini temsil eden sayısal kod"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:663
+#: data/gsettings/org.gnome.shotwell.gschema.xml:656
 msgid "size selection"
 msgstr "boyut seçimi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:664
+#: data/gsettings/org.gnome.shotwell.gschema.xml:657
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Standart boyutların önceden tanımlı listesindeki geçerli yazdırma boyutunun "
 "indeksi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:669
+#: data/gsettings/org.gnome.shotwell.gschema.xml:662
 msgid "match aspect ratio"
 msgstr "en-boy oranını eşleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:670
+#: data/gsettings/org.gnome.shotwell.gschema.xml:663
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1075,11 +986,11 @@ msgstr ""
 "Özel yazdırma boyutlarının, özgün fotoğrafın en-boy oranına eşleşmesinin "
 "gerekip gerekmediğini saptar"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:675
+#: data/gsettings/org.gnome.shotwell.gschema.xml:668
 msgid "print titles"
 msgstr "başlıkları yazdır"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:676
+#: data/gsettings/org.gnome.shotwell.gschema.xml:669
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
@@ -1087,189 +998,157 @@ msgstr ""
 "Eğer bir fotoğraf yazdırıldığında fotoğraf başlığı yazdırılmalıysa doğru, "
 "değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:681
+#: data/gsettings/org.gnome.shotwell.gschema.xml:674
 msgid "titles font"
 msgstr "başlıkların yazı tipi"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:682
+#: data/gsettings/org.gnome.shotwell.gschema.xml:675
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Baskı sırasında fotoğraf başlıkları için kullanılacak yazı tipinin adı"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:693
-msgid "enable facebook publishing plugin"
-msgstr "facebook’ta yayımlama eklentisini etkinleştir"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:694
-msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr "Eğer Facebook’a yayımlama eklentisi etkinse doğru, değilse yanlış"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:699
+#: data/gsettings/org.gnome.shotwell.gschema.xml:686
 msgid "enable flickr publishing plugin"
 msgstr "flickr’a yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:700
+#: data/gsettings/org.gnome.shotwell.gschema.xml:687
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "Eğer Flickr’e yayımlama eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:705
+#: data/gsettings/org.gnome.shotwell.gschema.xml:692
 msgid "enable Google Photos publishing plugin"
 msgstr "Google Fotoğraflar yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:706
+#: data/gsettings/org.gnome.shotwell.gschema.xml:693
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "Eğer Google Fotoğraflar eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:711
+#: data/gsettings/org.gnome.shotwell.gschema.xml:698
 msgid "enable youtube publishing plugin"
 msgstr "youtube’ta yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:712
+#: data/gsettings/org.gnome.shotwell.gschema.xml:699
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Eğer Youtube’a yayımlama eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:717
+#: data/gsettings/org.gnome.shotwell.gschema.xml:704
 msgid "enable piwigo publishing plugin"
 msgstr "piwigo’da yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:718
+#: data/gsettings/org.gnome.shotwell.gschema.xml:705
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "Eğer Piwigo’ya yayımlama eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:723
-msgid "enable yandex publishing plugin"
-msgstr "yandex’e yayımlama eklentisini etkinleştir"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:724
-msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr "Eğer Yandex.Fotki’ye yayımlama eklentisi etkinse doğru, değilse yanlış"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:729
+#: data/gsettings/org.gnome.shotwell.gschema.xml:710
 msgid "enable tumblr publishing plugin"
 msgstr "tumblr’da yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:730
+#: data/gsettings/org.gnome.shotwell.gschema.xml:711
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "Eğer Tumblr’a yayımlama eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:735
-msgid "enable rajce publishing plugin"
-msgstr "rajce’de yayımlama eklentisini etkinleştir"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:736
-msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr "Eğer Rajce’ye yayımlama eklentisi etkinse doğru, değilse yanlış"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:741
+#: data/gsettings/org.gnome.shotwell.gschema.xml:716
 msgid "enable gallery3 publishing plugin"
 msgstr "gallery3’de yayımlama eklentisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:742
+#: data/gsettings/org.gnome.shotwell.gschema.xml:717
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "Eğer Gallery3’e yayımlama eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:747
-msgid "enable F-Spot import plugin"
-msgstr "F-Spot’tan içe aktarma eklentisini etkinleştir"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:748
-msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr "Eğer F-Spot’tan içe aktarma eklentisi etkinse doğru, değilse yanlış"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:753
+#: data/gsettings/org.gnome.shotwell.gschema.xml:722
 msgid "enable slideshow crumble transition"
 msgstr "ufala slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:754
+#: data/gsettings/org.gnome.shotwell.gschema.xml:723
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Ufala slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:759
+#: data/gsettings/org.gnome.shotwell.gschema.xml:728
 msgid "enable slideshow fade transition"
 msgstr "soldur slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:760
+#: data/gsettings/org.gnome.shotwell.gschema.xml:729
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Soldur slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:765
+#: data/gsettings/org.gnome.shotwell.gschema.xml:734
 msgid "enable slideshow slide transition"
 msgstr "kaydır slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:766
+#: data/gsettings/org.gnome.shotwell.gschema.xml:735
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Kaydır slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:771
+#: data/gsettings/org.gnome.shotwell.gschema.xml:740
 msgid "enable slideshow clock transition"
 msgstr "saat slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:772
+#: data/gsettings/org.gnome.shotwell.gschema.xml:741
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Saat slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:777
+#: data/gsettings/org.gnome.shotwell.gschema.xml:746
 msgid "enable slideshow circle transition"
 msgstr "daire slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:778
+#: data/gsettings/org.gnome.shotwell.gschema.xml:747
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Daire slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:783
+#: data/gsettings/org.gnome.shotwell.gschema.xml:752
 msgid "enable slideshow circles transition"
 msgstr "çemberler slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:784
+#: data/gsettings/org.gnome.shotwell.gschema.xml:753
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Çemberler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:789
+#: data/gsettings/org.gnome.shotwell.gschema.xml:758
 msgid "enable slideshow blinds transition"
 msgstr "panjurlar slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:790
+#: data/gsettings/org.gnome.shotwell.gschema.xml:759
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Panjurlar slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:795
+#: data/gsettings/org.gnome.shotwell.gschema.xml:764
 msgid "enable slideshow squares transition"
 msgstr "kareler slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:796
+#: data/gsettings/org.gnome.shotwell.gschema.xml:765
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Kareler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:801
+#: data/gsettings/org.gnome.shotwell.gschema.xml:770
 msgid "enable slideshow stripes transition"
 msgstr "şeritler slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:802
+#: data/gsettings/org.gnome.shotwell.gschema.xml:771
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Eğer Şeritler slayt gösterisi geçiş eklentisi etkinse doğru, değilse yanlış"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:807
+#: data/gsettings/org.gnome.shotwell.gschema.xml:776
 msgid "enable slideshow chess transition"
 msgstr "satranç tahtası slayt gösterisi geçisini etkinleştir"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:808
+#: data/gsettings/org.gnome.shotwell.gschema.xml:777
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1278,10 +1157,11 @@ msgstr ""
 "yanlış"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
-#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356
+#: data/org.gnome.Shotwell.desktop.in:4
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
+#: data/ui/collection.ui:85 data/ui/event.ui:356 data/ui/event.ui:524
+#: data/ui/faces.ui:356 data/ui/media.ui:356 data/ui/photo_context.ui:91
+#: data/ui/photo.ui:351 data/ui/tags.ui:356
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
 #: src/photos/RawSupport.vala:313
 msgid "Shotwell"
@@ -1324,16 +1204,19 @@ msgstr "Shotwell; JPG, PNG, TIFF ve değişik RAW dosya biçimlerini destekler."
 msgid "The Shotwell developers"
 msgstr "Shotwell geliştiricileri"
 
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Fotoğraf Yöneticisi"
 
 #: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
 msgid "Organize your photos"
 msgstr "Fotoğraflarınızı yönetin"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -1933,15 +1816,15 @@ msgstr "_Oturum aç"
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/Exporter.vala:348
-#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
-#: src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348 src/ProfileBrowser.vala:64
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "İ_ptal"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
-#: src/Resources.vala:132
+#: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_Tamam"
 
@@ -1969,106 +1852,110 @@ msgstr "Renk Düzenlemelerini _Kopyala"
 msgid "_Paste Color Adjustments"
 msgstr "Renk Düzenlemelerini _Yapıştır"
 
-#: data/ui/preferences_dialog.ui:67
+#: data/ui/preferences_dialog.ui:68
 msgid "Display"
 msgstr "Göster"
 
-#: data/ui/preferences_dialog.ui:86 src/library/LibraryWindow.vala:768
+#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:768
 msgid "Library Location"
 msgstr "Kitaplık Konumu"
 
-#: data/ui/preferences_dialog.ui:103
+#: data/ui/preferences_dialog.ui:104
 msgid "_Import photos to:"
 msgstr "_Fotoğrafları şunun içine aktar:"
 
-#: data/ui/preferences_dialog.ui:114
+#: data/ui/preferences_dialog.ui:115
 msgid "_Watch library directory for new files"
 msgstr "_Yeni dosyalar için kitaplık dizinini gözle"
 
-#: data/ui/preferences_dialog.ui:137
+#: data/ui/preferences_dialog.ui:138
 msgid "Importing"
 msgstr "İçe Aktarılıyor"
 
-#: data/ui/preferences_dialog.ui:154
+#: data/ui/preferences_dialog.ui:155
 msgid "_Directory structure:"
 msgstr "_Dizin yapısı:"
 
-#: data/ui/preferences_dialog.ui:169
+#: data/ui/preferences_dialog.ui:170
 msgid "Example:"
 msgstr "Örnek:"
 
-#: data/ui/preferences_dialog.ui:178
+#: data/ui/preferences_dialog.ui:179
 msgid "R_ename imported files to lowercase"
 msgstr "İçe aktarılan dosyaları küçük harflerle y_eniden adlandır"
 
-#: data/ui/preferences_dialog.ui:200
+#: data/ui/preferences_dialog.ui:201
 msgid "Metadata"
 msgstr "Üstveri"
 
-#: data/ui/preferences_dialog.ui:213
+#: data/ui/preferences_dialog.ui:214
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "Fotoğraf dosyalarına etiketleri, başlıkları ve diğer _üstveriyi yaz"
 
-#: data/ui/preferences_dialog.ui:235
+#: data/ui/preferences_dialog.ui:236
 msgid "RAW Developer"
 msgstr "RAW Geliştirici"
 
-#: data/ui/preferences_dialog.ui:252
+#: data/ui/preferences_dialog.ui:253
 msgid "De_fault:"
 msgstr "Öntanım_lı:"
 
-#: data/ui/preferences_dialog.ui:306
+#: data/ui/preferences_dialog.ui:307
 msgid "_Pattern:"
 msgstr "_Şablon:"
 
-#: data/ui/preferences_dialog.ui:339
+#: data/ui/preferences_dialog.ui:340
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr "Saydam görüntüler gösterilirken bu arka planın üzerine çizilecekler."
 
-#: data/ui/preferences_dialog.ui:343
+#: data/ui/preferences_dialog.ui:344
 msgid "Transparent Background:"
 msgstr "Saydam Arka Plan:"
 
-#: data/ui/preferences_dialog.ui:357
+#: data/ui/preferences_dialog.ui:358
 msgid "Checkered"
 msgstr "Damalı"
 
-#: data/ui/preferences_dialog.ui:378
+#: data/ui/preferences_dialog.ui:379
 msgid "Solid color"
 msgstr "Katı renk"
 
-#: data/ui/preferences_dialog.ui:414 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:415 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "Hiçbiri"
 
-#: data/ui/preferences_dialog.ui:441
+#: data/ui/preferences_dialog.ui:442
 msgid "Use dark theme:"
 msgstr "Karanlık tema kullan:"
 
-#: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
+#: data/ui/preferences_dialog.ui:511 src/library/LibraryBranch.vala:30
 #: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Kitaplık"
 
-#: data/ui/preferences_dialog.ui:492
+#: data/ui/preferences_dialog.ui:538
 msgid "E_xternal photo editor:"
 msgstr "_Dış fotoğraf düzenleyici:"
 
-#: data/ui/preferences_dialog.ui:509
+#: data/ui/preferences_dialog.ui:555
 msgid "External _RAW editor:"
 msgstr "Dış _RAW düzenleyici:"
 
-#: data/ui/preferences_dialog.ui:570
+#: data/ui/preferences_dialog.ui:616
 msgid "External Editors"
 msgstr "Dış Düzenleyiciler"
 
-#: data/ui/preferences_dialog.ui:595
+#: data/ui/preferences_dialog.ui:641
 msgid "Plugins"
 msgstr "Eklentiler"
 
-#: data/ui/preferences_dialog.ui:621
+#: data/ui/preferences_dialog.ui:666
+msgid "Profiles"
+msgstr "Profiller"
+
+#: data/ui/preferences_dialog.ui:686
 msgid "Shotwell Preferences"
 msgstr "Shotwell Tercihleri"
 
@@ -2126,7 +2013,8 @@ msgstr "inç başına benek miktarı"
 msgid "Search"
 msgstr "Ara"
 
-#: data/ui/saved_search_dialog.ui:26
+#: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
+#: src/ProfileBrowser.vala:239
 msgid "Cancel"
 msgstr "İptal"
 
@@ -2217,22 +2105,30 @@ msgid "Settings"
 msgstr "Ayarlar"
 
 #: data/ui/slideshow_settings.ui:98
-msgid "_Delay:"
-msgstr "_Gecikme:"
+msgid "_Duration:"
+msgstr "_Süre:"
 
-#: data/ui/slideshow_settings.ui:112
+#: data/ui/slideshow_settings.ui:99
+msgid "The time (in seconds) to show each photo"
+msgstr "Her fotoğrafın gösterim süresi (saniye olarak)"
+
+#: data/ui/slideshow_settings.ui:113
 msgid "_Transition effect:"
 msgstr "_Geçiş etkisi:"
 
-#: data/ui/slideshow_settings.ui:126
-msgid "Transition d_elay:"
-msgstr "Geçiş G_ecikmesi:"
+#: data/ui/slideshow_settings.ui:127
+msgid "Transition d_uration:"
+msgstr "Geçiş s_üresi:"
 
-#: data/ui/slideshow_settings.ui:136
+#: data/ui/slideshow_settings.ui:128
+msgid "The time (in seconds) to show each transition between photos"
+msgstr "Fotoğraflar arasındaki her geçişin gösterim süresi (saniye türünden)"
+
+#: data/ui/slideshow_settings.ui:138
 msgid "Show t_itle"
 msgstr "Başlığı g_öster"
 
-#: data/ui/slideshow_settings.ui:219 data/ui/slideshow_settings.ui:230
+#: data/ui/slideshow_settings.ui:221 data/ui/slideshow_settings.ui:232
 msgid "seconds"
 msgstr "saniye"
 
@@ -2430,13 +2326,13 @@ msgstr ""
 "Emin Tufan Çetin <etcetin@gmail.com>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:255
+#: plugins/common/RESTSupport.vala:264
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr "⚫ Bu web sitesi başka web sitesinin kimliğini sundu."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:260
+#: plugins/common/RESTSupport.vala:269
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2445,20 +2341,20 @@ msgstr ""
 "takvimi gözden geçirin."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:265
+#: plugins/common/RESTSupport.vala:274
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 "⚫ Bu web sitesinin kimliği güvenilen bir kuruluş tarafından verilmemiş."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:270
+#: plugins/common/RESTSupport.vala:279
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr "⚫ Bu web sitesinin kimliği işlenemedi. Bozulmuş olabilir."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:275
+#: plugins/common/RESTSupport.vala:284
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted organization "
 "that issued it."
@@ -2467,7 +2363,7 @@ msgstr ""
 "edilmiş."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:280
+#: plugins/common/RESTSupport.vala:289
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2475,7 +2371,7 @@ msgstr ""
 "⚫ Bu web sitesinin kimliği güvenilmez çünkü çok düşük şifreleme kullanıyor."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:285
+#: plugins/common/RESTSupport.vala:294
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2483,7 +2379,7 @@ msgstr ""
 "⚫ Bu web sitesinin kimliği yalnızca ileri tarihler için geçerli. "
 "Bilgisayarınızdaki takvimi gözden geçirin."
 
-#: plugins/common/RESTSupport.vala:584
+#: plugins/common/RESTSupport.vala:593
 #: plugins/shotwell-publishing/TumblrPublishing.vala:603
 #: plugins/shotwell-publishing/YoutubeUploader.vala:69
 msgid "A temporary file needed for publishing is unavailable"
@@ -3300,7 +3196,7 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
-"Kameradan önizlemeler alınamadı:\n"
+"Kameradan ön izlemeler alınamadı:\n"
 "%s"
 
 #: src/camera/ImportPage.vala:1044
@@ -3322,7 +3218,7 @@ msgstr "Fotoğraf bilgisi alınıyor"
 #: src/camera/ImportPage.vala:1543
 #, c-format
 msgid "Fetching preview for %s"
-msgstr "%s için önizleme alınıyor"
+msgstr "%s için ön izleme alınıyor"
 
 #: src/camera/ImportPage.vala:1652
 #, c-format
@@ -3622,7 +3518,7 @@ msgstr "%s’den içe aktarım süremez çünkü hata oluştu:"
 #: src/data_imports/DataImportsPluginHost.vala:151
 msgid "To try importing from another service, select one from the above menu."
 msgstr ""
-"Başka hizmetten içe aktarmayı denemek için, yukarıdaki menüden seçim yapın."
+"Başka hizmetten içe aktarmayı denemek için yukarıdaki menüden seçim yapın."
 
 #: src/data_imports/DataImportsUI.vala:10
 msgid ""
@@ -3634,7 +3530,7 @@ msgid ""
 msgstr ""
 "Herhangi bir etkinleştirilmiş veri içe aktarma eklentiniz yok.\n"
 "\n"
-"Uygulamadan İçe Aktar işlevselliğini kullanmak için, en azından bir veri içe "
+"Uygulamadan İçe Aktar işlevselliğini kullanmak için en azından bir veri içe "
 "aktarma eklentiniz etkin olmalı. Eklentiler Tercihler bölümünden "
 "etkinleştirilebilinir."
 
@@ -3863,7 +3759,7 @@ msgid "Custom"
 msgstr "Özel"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:351
+#: src/dialogs/Preferences.vala:353
 msgid "Invalid pattern"
 msgstr "Geçersiz şablon"
 
@@ -3950,7 +3846,7 @@ msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
-"Shotwell bu fotoğrafı düzenlemek için bir dosya oluşturamıyor çünkü %s’e "
+"Shotwell bu fotoğrafı düzenlemek için dosya oluşturamıyor çünkü %s’e "
 "yazmaya izniniz yok."
 
 #: src/Dialogs.vala:134
@@ -4013,7 +3909,7 @@ msgstr "İçe Aktarılmayan Fotoğraf/Videoları çoğalt:"
 
 #: src/Dialogs.vala:243
 msgid "duplicates existing media item"
-msgstr "mevcut ortam ögesini çoğaltır"
+msgstr "var olan ortam ögesini çoğaltır"
 
 #.
 #. Files Not Imported Due to Camera Errors
@@ -4871,7 +4767,7 @@ msgstr "Olay %s"
 #: src/Exporter.vala:236 src/Exporter.vala:291
 #, c-format
 msgid "Unable to generate a temporary file for %s: %s"
-msgstr "%s: %s için geçici bir dosya oluşturulamıyor"
+msgstr "%s için geçici dosya oluşturulamıyor: %s"
 
 #: src/Exporter.vala:328
 msgid "Exporting"
@@ -4924,12 +4820,12 @@ msgstr "Yüzler aracını değişiklikleri kaydetmeden kapat"
 
 #: src/faces/FacesTool.vala:153 src/faces/FacesTool.vala:185
 msgid "Click and drag to tag a face"
-msgstr "Yüz etiketlemek için tıklayın ve sürükleyin"
+msgstr "Yüz etiketlemek için tıkla ve sürükle"
 
 #: src/faces/FacesTool.vala:180
 #, c-format
 msgid "Click to edit face “%s”"
-msgstr "“%s” yüzünü düzenlemek için tıklayın"
+msgstr "“%s” yüzünü düzenlemek için tıkla"
 
 #: src/faces/FacesTool.vala:189
 msgid "Stop dragging to add your face and name it."
@@ -4937,7 +4833,7 @@ msgstr "Yüzünüzü eklemek için sürüklemeyi durdurun ve adlandırın."
 
 #: src/faces/FacesTool.vala:193
 msgid "Type a name for this face, then press Enter"
-msgstr "Bu yüz için bir ad yazın, ardından Enterʼa basın"
+msgstr "Bu yüz için ad yazın, ardından Enterʼa basın"
 
 #: src/faces/FacesTool.vala:197
 msgid "Move or modify the face shape or name and press Enter"
@@ -4949,7 +4845,7 @@ msgstr "Yüzler tanınıyor"
 
 #: src/faces/FacesTool.vala:212
 msgid "If you don’t set the name of unknown faces they won’t be saved."
-msgstr "Bilinmeyen yüzlerin adını belirlemezseniz onlar kaydedilmeyecektir."
+msgstr "Bilinmeyen yüzlerin adını belirlemezseniz kaydedilmeyecektir."
 
 #: src/faces/FacesTool.vala:233
 msgid "Save changes and close the Faces tool"
@@ -4995,7 +4891,7 @@ msgstr "İçe aktarılıyor…"
 
 #: src/library/ImportQueuePage.vala:129
 msgid "Preparing to import…"
-msgstr "İçe aktarım için hazırlanıyor…"
+msgstr "İçe aktarıma hazırlanıyor…"
 
 #: src/library/ImportQueuePage.vala:156
 #, c-format
@@ -5121,63 +5017,71 @@ msgstr "Shotwell veri tabanını doğrulama denenirken bilinmeyen hata: %s"
 msgid "Loading Shotwell"
 msgstr "Shotwell Yükleniyor"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell’in gizli veri yolu"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "DIRECTORY"
 msgstr "DİZİN"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Kitaplık dizinini çalışırken değişiklikler için izleme"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Don’t display startup progress meter"
 msgstr "Başlangıç ilerleme metresini gösterme"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Show the application’s version"
 msgstr "Uygulama sürümünü göster"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Start the application in fullscreen mode"
 msgstr "Uygulamayı tam ekran kipinde başlat"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Print the metadata of the image file"
 msgstr "Resim dosyasının üstverisini yazdır"
 
-#: src/main.vala:354
+#: src/main.vala:355
 msgid "Name for a custom profile"
 msgstr "Özel profil adı"
 
-#: src/main.vala:354
+#: src/main.vala:355
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:355
+#: src/main.vala:356
+msgid "Start with a browser of available profiles"
+msgstr "Var olan profillere göz atmayla başla"
+
+#: src/main.vala:357
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Eğer --profile ile verilen PROFIL yoksa oluştur"
 
-#: src/main.vala:356
+#: src/main.vala:358
 msgid "Show available profiles"
 msgstr "Kullanılabilir profilleri gister"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:387
+#: src/main.vala:389
 msgid "[FILE]"
 msgstr "[DOSYA]"
 
-#: src/main.vala:392
+#: src/main.vala:394
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Kullanılabilir komut satırı seçeneklerinin tam bir listesini görmek için “%s "
 "--help” komutunu çalıştır.\n"
 
-#: src/main.vala:402
+#: src/main.vala:401
+msgid "Choose Shotwell's profile"
+msgstr "Shotwell profili seç"
+
+#: src/main.vala:422
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "%s profili yok. Komuta --create eklemeyi düşünür müsünüz?"
@@ -5199,7 +5103,7 @@ msgstr "İzleme güncellemeleri işlenemedi: %s"
 
 #: src/MediaPage.vala:76
 msgid "Adjust the size of the thumbnails"
-msgstr "Önizleme boyutunu ayarla"
+msgstr "Ön izleme boyutunu ayarla"
 
 #: src/MediaPage.vala:419
 #, c-format
@@ -5403,7 +5307,7 @@ msgstr "Dosya boyutu:"
 
 #: src/Properties.vala:605
 msgid "Current Development:"
-msgstr "Mevcut Geliştirme:"
+msgstr "Şu Anki Oluşum:"
 
 #: src/Properties.vala:607
 msgid "Original dimensions:"
@@ -5457,14 +5361,84 @@ msgstr "Telif hakkı:"
 msgid "Software:"
 msgstr "Yazılım:"
 
+#: src/ProfileBrowser.vala:20
+msgid "Create"
+msgstr "Oluştur"
+
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:139
+msgid "Create new Profile"
+msgstr "Yeni profil oluştur"
+
+#: src/ProfileBrowser.vala:35
+msgid "Name"
+msgstr "Ad"
+
+#: src/ProfileBrowser.vala:49
+msgid "Library Folder"
+msgstr "Kitaplık Klasörü"
+
+#: src/ProfileBrowser.vala:64
+msgid "Choose Library Folder"
+msgstr "Kitaplık Klasörü Seç"
+
+#: src/ProfileBrowser.vala:76
+msgid "Data Folder"
+msgstr "Veri Klasörü"
+
+#: src/ProfileBrowser.vala:92
+msgid "Choose Data Folder"
+msgstr "Veri Klasörü Seç"
+
+#: src/ProfileBrowser.vala:200
+msgid "This is the currently active profile"
+msgstr "Şu anda etkin olan profildir"
+
+#: src/ProfileBrowser.vala:223
+msgid "Remove this profile"
+msgstr "Bu profili kaldır"
+
+#: src/ProfileBrowser.vala:235
+#, c-format
+msgid "Remove profile “%s”"
+msgstr "“%s” profilini kaldır"
+
+#: src/ProfileBrowser.vala:236
+msgid ""
+"None of the options will remove any of the images associated with this "
+"profile"
+msgstr ""
+"Seçeneklerin hiçbiri bu profille ilişkili resimlerin hiçbirini "
+"kaldırmayacaktır"
+
+#: src/ProfileBrowser.vala:237
+#, c-format
+msgid ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+msgstr ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+
+#: src/ProfileBrowser.vala:239
+msgid "Remove profile and files"
+msgstr "Profili ve dosyaları kaldır"
+
+#: src/ProfileBrowser.vala:239
+msgid "Remove profile only"
+msgstr "Yalnızca profili kaldır"
+
+#: src/Profiles.vala:32
+msgid "System Profile"
+msgstr "Sistem Profili"
+
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
-msgstr "Yükleme için hazırlanıyor"
+msgstr "Yüklemeye hazırlanıyor"
 
 #: src/publishing/PublishingPluginHost.vala:12
 #, c-format
 msgid "Uploading %d of %d"
-msgstr "%d in %d si yükleniyor"
+msgstr "%d / %d yükleniyor"
 
 #: src/publishing/PublishingPluginHost.vala:85
 #, c-format
@@ -5721,7 +5695,7 @@ msgstr "Birleştir"
 
 #: src/Resources.vala:210
 msgid "Combine events into a single event"
-msgstr "Olayları tek bir olay içinde birleştir"
+msgstr "Olayları tek bir olayda birleştir"
 
 #: src/Resources.vala:213
 msgid "Set Rating"
@@ -6329,7 +6303,7 @@ msgstr "RAW Fotoğraflar"
 
 #: src/SearchFilter.vala:1149
 msgid "Use a saved search to filter items in the current view"
-msgstr "Geçerli görünümde ögeleri süzmek için kayıtlı bir arama kullan"
+msgstr "Geçerli görünümde ögeleri süzmek için kayıtlı arama kullan"
 
 #. Set up toolbar
 #. add toolbar buttons
@@ -6399,6 +6373,14 @@ msgid "untitled"
 msgstr "başlıksız"
 
 #. multiple videos
-#: src/video-support/Video.vala:205
+#: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
+
+#~ msgid "interpreter state cookie"
+#~ msgstr "yorumlayıcı durum çerezi"
+
+#~ msgid ""
+#~ "A numeric code that captures the state of the GStreamer plug-in "
+#~ "environment"
+#~ msgstr "GStreamer eklenti ortamının durumunu yakalayan sayısal kod"
