@@ -13,7 +13,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
     private const string FILES_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".files";
     private const string EDITING_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".editing";
     private const string EXPORT_PREFS_SCHEMA_NAME = PREFS_SCHEMA_NAME + ".export";
-    private const string VIDEO_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".video";
     private const string PRINTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".printing";
     private const string SHARING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".sharing";
     private const string IMPORTING_SCHEMA_NAME = ROOT_SCHEMA_NAME + ".dataimports";
@@ -100,7 +99,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         schema_names[ConfigurableProperty.SLIDESHOW_SHOW_TITLE] = SLIDESHOW_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.USE_24_HOUR_TIME] = UI_PREFS_SCHEMA_NAME;
         schema_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = FILES_PREFS_SCHEMA_NAME;
-        schema_names[ConfigurableProperty.VIDEO_INTERPRETER_STATE_COOKIE] = VIDEO_SCHEMA_NAME;
         
         key_names = new string[ConfigurableProperty.NUM_PROPERTIES];
         
@@ -174,7 +172,6 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
         key_names[ConfigurableProperty.SLIDESHOW_SHOW_TITLE] = "show-title";
         key_names[ConfigurableProperty.USE_24_HOUR_TIME] = "use-24-hour-time";
         key_names[ConfigurableProperty.USE_LOWERCASE_FILENAMES] = "use-lowercase-filenames";
-        key_names[ConfigurableProperty.VIDEO_INTERPRETER_STATE_COOKIE] = "interpreter-state-cookie";
     }
 
     private Settings get_settings(string schema) {

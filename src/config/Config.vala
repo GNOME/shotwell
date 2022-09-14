@@ -20,8 +20,6 @@ public class Facade : ConfigurationFacade {
     public const int HEIGHT_DEFAULT = 768;
     public const int SIDEBAR_MIN_POSITION = 180;
     public const int SIDEBAR_MAX_POSITION = 1000;
-    public const int NO_VIDEO_INTERPRETER_STATE = -1;
-
 
     private static Facade instance = null;
 

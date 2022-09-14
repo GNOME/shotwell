@@ -3,7 +3,6 @@
 <schema id="org.yorba.shotwell" path="/org/yorba/shotwell/">
     <child name="preferences" schema="org.yorba.shotwell.preferences" />
     <child name="sharing" schema="org.yorba.shotwell.sharing" />
-    <child name="video" schema="org.yorba.shotwell.video" />
     <child name="printing" schema="org.yorba.shotwell.printing" />
     <child name="plugins" schema="org.yorba.shotwell.plugins" />
 </schema>
@@ -631,14 +630,6 @@
         <default>""</default>
         <summary>last used import service</summary>
         <description>A numeric code representing the last service from which photos were imported</description>
-    </key>
-</schema>
-
-<schema id="org.yorba.shotwell.video" path="/org/yorba/shotwell/video/">
-    <key name="interpreter-state-cookie" type="i">
-        <default>-1</default>
-        <summary>interpreter state cookie</summary>
-        <description>A numeric code that captures the state of the GStreamer plug-in environment</description>
     </key>
 </schema>
 
