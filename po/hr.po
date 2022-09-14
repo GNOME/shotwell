@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-08-12 04:41+0000\n"
-"PO-Revision-Date: 2022-08-13 18:00+0200\n"
+"POT-Creation-Date: 2022-09-11 13:33+0000\n"
+"PO-Revision-Date: 2022-09-14 15:45+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -21,28 +21,20 @@ msgstr ""
 "X-Generator: Poedit 3.1.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
-msgid "authentication token"
-msgstr "token ovjere"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
-msgid "Yandex-Fotki authentication token, if logged in"
-msgstr "Yandex-Fotki token ovjere, ako ste prijavljeni"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:14
-#: data/gsettings/org.gnome.shotwell.gschema.xml:427
+#: data/gsettings/org.gnome.shotwell.gschema.xml:429
 msgid "OAuth Access Phase Token"
 msgstr "OAuth token pristupa"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:15
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
 msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr "Token ovjere za trenutno prijavljenog Tumblr korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:20
-#: data/gsettings/org.gnome.shotwell.gschema.xml:433
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
+#: data/gsettings/org.gnome.shotwell.gschema.xml:435
 msgid "OAuth Access Phase Token Secret"
 msgstr "Tajni token za prijavu oauth zahtjeva"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:21
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:13
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Tumblr user, if any"
@@ -50,120 +42,36 @@ msgstr ""
 "Kriptografska tajna koja se koristi za prijavu zahtjeva umjesto ovjere "
 "tokena za trenutno prijavljenog Tumblr korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:26
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:52
-#: data/gsettings/org.gnome.shotwell.gschema.xml:439
-#: data/gsettings/org.gnome.shotwell.gschema.xml:497
-#: data/gsettings/org.gnome.shotwell.gschema.xml:559
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
+#: data/gsettings/org.gnome.shotwell.gschema.xml:441
+#: data/gsettings/org.gnome.shotwell.gschema.xml:499
+#: data/gsettings/org.gnome.shotwell.gschema.xml:561
 msgid "username"
 msgstr "korisničko ime"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:27
-#: data/gsettings/org.gnome.shotwell.gschema.xml:440
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:19
+#: data/gsettings/org.gnome.shotwell.gschema.xml:442
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Korisničko ime trenutno prijavljenog Flickr korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:32
-#: data/gsettings/org.gnome.shotwell.gschema.xml:471
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:24
+#: data/gsettings/org.gnome.shotwell.gschema.xml:473
 msgid "default size"
 msgstr "zadana veličina"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:33
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:25
 msgid ""
 "A numeric code representing the default size for photos uploaded to Tumblr"
 msgstr ""
 "Brojčani kôd predstavlja zadanu veličinu za fotografije poslane na Tumblr"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:38
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:30
 msgid "default blog"
 msgstr "zadani blog"
 
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:39
+#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:31
 msgid "The name of the default blog of the user, if any"
 msgstr "Naziv zadanog bloga korisnika, ako postoji"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:46
-msgid "Rajce URL"
-msgstr "Rajce URL"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:47
-msgid "URL of the Rajce server"
-msgstr "URL Rajce poslužitelja"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:53
-msgid "Rajce username, if logged in"
-msgstr "Rajce korisničko ime, ako ste prijavljeni"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:58
-msgid "token"
-msgstr "token"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:59
-msgid "user token, if remembered"
-msgstr "korisnikov token , ako je zapamćen"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:64
-#: data/gsettings/org.gnome.shotwell.gschema.xml:515
-msgid "last category"
-msgstr "posljednja kategorija"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:65
-msgid "The last selected Rajce category"
-msgstr "Posljednja odabrana Rajce kategorija"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:70
-#: data/gsettings/org.gnome.shotwell.gschema.xml:527
-msgid "last photo size"
-msgstr "posljednja veličina fotografije"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:71
-msgid ""
-"A numeric code representing the last photo size preset used when publishing "
-"to Rajce"
-msgstr ""
-"Brojčani kôd predstavlja zadani predložak veličine za fotografije pri "
-"objavljivanju na Rajce"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:76
-msgid "remember"
-msgstr "zapamćeno"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:77
-msgid "If true, remember last login"
-msgstr "Ako je odabrano, zapamti posljednju prijavu"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:82
-msgid "hide album"
-msgstr "sakrij album"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:83
-msgid "If true, hide the newly created Rajce album"
-msgstr "Ako je odabrano, sakrij novostvoreni Rajce album"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:88
-msgid "open album in web browser"
-msgstr "otvori album u web pregledniku"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:89
-msgid ""
-"If true, open target album in the web browser just after uploading photos"
-msgstr ""
-"Ako je odabrano, otvori album u web pregledniku nakon slanja fotografije"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:94
-#: data/gsettings/org.gnome.shotwell.gschema.xml:457
-#: data/gsettings/org.gnome.shotwell.gschema.xml:483
-#: data/gsettings/org.gnome.shotwell.gschema.xml:533
-#: data/gsettings/org.gnome.shotwell.gschema.xml:583
-msgid "remove sensitive info from uploads"
-msgstr "ukloni osjetljive informacije iz slanja"
-
-#: data/gsettings/org.gnome.shotwell-extras.gschema.xml:95
-msgid ""
-"Whether images being uploaded to Rajce should have their metadata removed "
-"first"
-msgstr ""
-"Treba li sa slika koje se šalju na Rajce prvo ukloniti njihove metapodatke"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:23
 msgid "display basic properties"
@@ -447,16 +355,16 @@ msgstr ""
 "mogućnosti u stranici uvoza"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
-msgid "delay"
-msgstr "odgoda"
+msgid "duration"
+msgstr "trajanje"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:194
-msgid "Delay (in seconds) between photos in the slideshow"
-msgstr "Odgoda (u sekundama) između fotografija u prezentacijama"
+msgid "The time (in seconds) to show each photo in the slideshow"
+msgstr "Vrijeme (u sekundama) prikaza pojedine fotografije u prezentaciji"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:199
-msgid "transition delay"
-msgstr "odgoda prijelaza"
+msgid "transition duration"
+msgstr "trajanje prijelaza"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:200
 msgid ""
@@ -470,11 +378,10 @@ msgstr "id efekta prijelaza"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:206
 msgid ""
-"The name of the transition effect that will be used between photos when "
-"running a slideshow"
+"The time (in seconds) to show each transition between photos in a slideshow"
 msgstr ""
-"Naziv efekta prijelaza koji će se koristiti između fotografija kada je "
-"pokrenuta prezentacija"
+"Vrijeme (u sekundama) prikaza pojedinog prijelaza između fotografija u "
+"prezentaciji"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:211
 msgid "Show title"
@@ -728,11 +635,11 @@ msgstr ""
 msgid "default publishing service"
 msgstr "zadana usluga objavljivanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:428
+#: data/gsettings/org.gnome.shotwell.gschema.xml:430
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Token ovjere za trenutno prijavljenog Flickr korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:434
+#: data/gsettings/org.gnome.shotwell.gschema.xml:436
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
@@ -740,21 +647,21 @@ msgstr ""
 "Kriptografska tajna koja se koristi za prijavu zahtjeva umjesto ovjere "
 "tokena za trenutno prijavljenog Flickr korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:445
+#: data/gsettings/org.gnome.shotwell.gschema.xml:447
 msgid "default size code"
 msgstr "kôd zadane veličine"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:446
+#: data/gsettings/org.gnome.shotwell.gschema.xml:448
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr ""
 "Brojčani kôd predstavlja zadanu veličinu za fotografije objavljene na Flickru"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:451
+#: data/gsettings/org.gnome.shotwell.gschema.xml:453
 msgid "default visibility"
 msgstr "zadana vidljivost"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:452
+#: data/gsettings/org.gnome.shotwell.gschema.xml:454
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
@@ -762,19 +669,26 @@ msgstr ""
 "Brojčani kôd koji predstavlja zadanu vidljivost za fotografije objavljene na "
 "Flickru"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:458
+#: data/gsettings/org.gnome.shotwell.gschema.xml:459
+#: data/gsettings/org.gnome.shotwell.gschema.xml:485
+#: data/gsettings/org.gnome.shotwell.gschema.xml:535
+#: data/gsettings/org.gnome.shotwell.gschema.xml:585
+msgid "remove sensitive info from uploads"
+msgstr "ukloni osjetljive informacije iz slanja"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:460
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr ""
 "Treba li sa slika koje se šalju na Flickr prvo ukloniti njihove metapodatke"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:465
-#: data/gsettings/org.gnome.shotwell.gschema.xml:603
+#: data/gsettings/org.gnome.shotwell.gschema.xml:467
+#: data/gsettings/org.gnome.shotwell.gschema.xml:605
 msgid "refresh token"
 msgstr "token osvježavanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:466
+#: data/gsettings/org.gnome.shotwell.gschema.xml:468
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any"
@@ -782,7 +696,7 @@ msgstr ""
 "OAuth token korišten za osvježavanje sesije Google Fotografija za trenutno "
 "prijavljenog korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:472
+#: data/gsettings/org.gnome.shotwell.gschema.xml:474
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
@@ -790,19 +704,19 @@ msgstr ""
 "Brojčani kôd koji predstavlja zadanu veličinu za fotografije poslane na "
 "albume Google Fotografija"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:477
-#: data/gsettings/org.gnome.shotwell.gschema.xml:577
+#: data/gsettings/org.gnome.shotwell.gschema.xml:479
+#: data/gsettings/org.gnome.shotwell.gschema.xml:579
 msgid "last album"
 msgstr "posljednji album"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:478
-#: data/gsettings/org.gnome.shotwell.gschema.xml:578
+#: data/gsettings/org.gnome.shotwell.gschema.xml:480
+#: data/gsettings/org.gnome.shotwell.gschema.xml:580
 msgid "The name of the last album the user published photos to, if any"
 msgstr ""
 "Naziv posljednjeg albuma na kojemu je korisnik objavio fotografije, ako "
 "postoji"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:484
+#: data/gsettings/org.gnome.shotwell.gschema.xml:486
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
@@ -810,47 +724,55 @@ msgstr ""
 "Treba li sa slika koje se šalju na Google Fotografije prvo ukloniti njihove "
 "metapodatke"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:491
+#: data/gsettings/org.gnome.shotwell.gschema.xml:493
 msgid "Piwigo URL"
 msgstr "Piwigo URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:492
+#: data/gsettings/org.gnome.shotwell.gschema.xml:494
 msgid "URL of the Piwigo server"
 msgstr "URL Piwigo poslužitelja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:498
+#: data/gsettings/org.gnome.shotwell.gschema.xml:500
 msgid "Piwigo username, if logged in"
 msgstr "Piwigo korisničko ime, ako ste prijavljeni"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:503
+#: data/gsettings/org.gnome.shotwell.gschema.xml:505
 msgid "password"
 msgstr "lozinka"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:504
+#: data/gsettings/org.gnome.shotwell.gschema.xml:506
 msgid "Piwigo password, if logged in"
 msgstr "Piwigo lozinka, ako ste prijavljeni"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:509
+#: data/gsettings/org.gnome.shotwell.gschema.xml:511
 msgid "remember password"
 msgstr "zapamti lozinku"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:510
+#: data/gsettings/org.gnome.shotwell.gschema.xml:512
 msgid "If true, remember the Piwigo password"
 msgstr "Ako je odabrano, zapamti Piwigo lozinku"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:516
+#: data/gsettings/org.gnome.shotwell.gschema.xml:517
+msgid "last category"
+msgstr "posljednja kategorija"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:518
 msgid "The last selected Piwigo category"
 msgstr "Posljednja odabrana Piwigo kategorija"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:521
+#: data/gsettings/org.gnome.shotwell.gschema.xml:523
 msgid "last permission level"
 msgstr "posljednja razina dozvole"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:522
+#: data/gsettings/org.gnome.shotwell.gschema.xml:524
 msgid "The last chosen Piwigo permission level"
 msgstr "Posljednja odabrana Piwigo razina dozvole"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:528
+#: data/gsettings/org.gnome.shotwell.gschema.xml:529
+msgid "last photo size"
+msgstr "posljednja veličina fotografije"
+
+#: data/gsettings/org.gnome.shotwell.gschema.xml:530
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo"
@@ -858,21 +780,21 @@ msgstr ""
 "Brojčani kôd predstavlja zadani predložak veličine za fotografije pri "
 "objavljivanju na Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:534
+#: data/gsettings/org.gnome.shotwell.gschema.xml:536
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr ""
 "Treba li sa slika koje se šalju na Piwigo prvo ukloniti njihove metapodatke"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:539
+#: data/gsettings/org.gnome.shotwell.gschema.xml:541
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr ""
 "ako je naslov postavljen a komentar nije, koristi naslov kao komentar za "
 "slanje na Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:540
+#: data/gsettings/org.gnome.shotwell.gschema.xml:542
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
@@ -880,11 +802,11 @@ msgstr ""
 "Trebaju li slike poslane na Piwigo imati komentar postavljen iz naslova ako "
 "naslov postoji a komentar ne postoji"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:545
+#: data/gsettings/org.gnome.shotwell.gschema.xml:547
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "ne šalji oznake pri slanju na Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:546
+#: data/gsettings/org.gnome.shotwell.gschema.xml:548
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server"
@@ -892,11 +814,11 @@ msgstr ""
 "Trebaju li slike poslane na Piwigo ukloniti svoje oznake pri slanju, tada se "
 "oznake neće pojaviti na udaljenom Piwigo poslužitelju"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:551
+#: data/gsettings/org.gnome.shotwell.gschema.xml:553
 msgid "do not upload ratings when uploading to Piwigo"
 msgstr "ne šalji ocjene pri slanju na Piwigo"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:552
+#: data/gsettings/org.gnome.shotwell.gschema.xml:554
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
@@ -904,46 +826,46 @@ msgstr ""
 "Trebaju li slike poslane na Piwigo poslati i svoje ocjene, tada se ocjene "
 "neće pojaviti na udaljenom Piwigo poslužitelju"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:560
+#: data/gsettings/org.gnome.shotwell.gschema.xml:562
 msgid "Gallery3 username"
 msgstr "Gallery3 korisničko ime"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:565
+#: data/gsettings/org.gnome.shotwell.gschema.xml:567
 msgid "API key"
 msgstr "API ključ"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:566
+#: data/gsettings/org.gnome.shotwell.gschema.xml:568
 msgid "Gallery3 API key"
 msgstr "Gallery3 API ključ"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:571
+#: data/gsettings/org.gnome.shotwell.gschema.xml:573
 msgid "URL"
 msgstr "URL"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:572
+#: data/gsettings/org.gnome.shotwell.gschema.xml:574
 msgid "Gallery3 site URL"
 msgstr "Gallery3 URL stranice"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:584
+#: data/gsettings/org.gnome.shotwell.gschema.xml:586
 msgid ""
 "Whether images being uploaded to Gallery3 should have their metadata removed "
 "first"
 msgstr ""
 "Treba li sa slika koje se šalju na Gallery3 prvo ukloniti njihove metapodatke"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:589
+#: data/gsettings/org.gnome.shotwell.gschema.xml:591
 msgid "scaling constraint of uploaded picture"
 msgstr "ograničenje promjene veličine poslanih slika"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:590
+#: data/gsettings/org.gnome.shotwell.gschema.xml:592
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "ID ograničenja promjene veličine slika koje trebaju poslati"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:595
+#: data/gsettings/org.gnome.shotwell.gschema.xml:597
 msgid "pixels of the major axis uploaded picture"
 msgstr "pikseli glavne osi poslanih slika"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:596
+#: data/gsettings/org.gnome.shotwell.gschema.xml:598
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
@@ -951,7 +873,7 @@ msgstr ""
 "Pikseli glavne osi slika koje treba poslati; koristi se samo ako je ID "
 "ograničenja promjene veličine slika odgovarajuća vrijednost"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:604
+#: data/gsettings/org.gnome.shotwell.gschema.xml:606
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any"
@@ -959,31 +881,31 @@ msgstr ""
 "OAuth token korišten za osvježavanje YouTube sesije za trenutno prijavljenog "
 "korisnika, ako postoji"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:611
+#: data/gsettings/org.gnome.shotwell.gschema.xml:613
 msgid "last used import service"
 msgstr "posljedni korištena usluga uvoza"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:612
+#: data/gsettings/org.gnome.shotwell.gschema.xml:614
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr ""
 "Brojčani kôd koji predstavlja posljednju uslugu iz koje su fotografije "
 "uvezene"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:619
+#: data/gsettings/org.gnome.shotwell.gschema.xml:621
 msgid "interpreter state cookie"
 msgstr "kolačić stanja tumača"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:620
+#: data/gsettings/org.gnome.shotwell.gschema.xml:622
 msgid ""
 "A numeric code that captures the state of the GStreamer plug-in environment"
 msgstr "Brojčani kôd koji sprema stanje okruženja GStreamer priključka"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:627
+#: data/gsettings/org.gnome.shotwell.gschema.xml:629
 msgid "content layout mode"
 msgstr "način rasporeda sadržaja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:628
+#: data/gsettings/org.gnome.shotwell.gschema.xml:630
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
@@ -991,35 +913,35 @@ msgstr ""
 "Brojčani kôd koji koji opisuje kako su fotografije postavljene na stranici "
 "tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:633
+#: data/gsettings/org.gnome.shotwell.gschema.xml:635
 msgid "content ppi"
 msgstr "ppi sadržaja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:634
+#: data/gsettings/org.gnome.shotwell.gschema.xml:636
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Broj piksela po inču (ppi) poslanih u pisač tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:639
+#: data/gsettings/org.gnome.shotwell.gschema.xml:641
 msgid "content width"
 msgstr "širina sadržaja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:640
+#: data/gsettings/org.gnome.shotwell.gschema.xml:642
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Širina ispisane emulzije na stranici tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:645
+#: data/gsettings/org.gnome.shotwell.gschema.xml:647
 msgid "content height"
 msgstr "visina sadržaja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:646
+#: data/gsettings/org.gnome.shotwell.gschema.xml:648
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Visina ispisane emulzije na stranici tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:651
+#: data/gsettings/org.gnome.shotwell.gschema.xml:653
 msgid "content units"
 msgstr "jedinica sadržaja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:652
+#: data/gsettings/org.gnome.shotwell.gschema.xml:654
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
@@ -1027,33 +949,33 @@ msgstr ""
 "Brojčani kôd koji predstavlja mjernu jedinicu (inči ili centimetri) "
 "korištenu tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:657
+#: data/gsettings/org.gnome.shotwell.gschema.xml:659
 msgid "images per page code"
 msgstr "broj fotografija po stranici"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:658
+#: data/gsettings/org.gnome.shotwell.gschema.xml:660
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr ""
 "Brojčani kôd koji predstavlja broj fotografija po stranici tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:663
+#: data/gsettings/org.gnome.shotwell.gschema.xml:665
 msgid "size selection"
 msgstr "odabir veličine"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:664
+#: data/gsettings/org.gnome.shotwell.gschema.xml:666
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr ""
 "Sadržaj trenutne veličine ispisa u unaprijed određenom popisu standardnih "
 "veličina"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:669
+#: data/gsettings/org.gnome.shotwell.gschema.xml:671
 msgid "match aspect ratio"
 msgstr "poklapa sa omjerom slike"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:670
+#: data/gsettings/org.gnome.shotwell.gschema.xml:672
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
@@ -1061,11 +983,11 @@ msgstr ""
 "Određuje treba li se prilagođena veličina ispisa mora poklapati sa omjerom "
 "slike izvorne fotografije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:675
+#: data/gsettings/org.gnome.shotwell.gschema.xml:677
 msgid "print titles"
 msgstr "ispisuje naslove"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:676
+#: data/gsettings/org.gnome.shotwell.gschema.xml:678
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
@@ -1073,186 +995,154 @@ msgstr ""
 "Ako je odabrano, naslov fotografije će se ispisati kada se fotografija "
 "ispisuje"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:681
+#: data/gsettings/org.gnome.shotwell.gschema.xml:683
 msgid "titles font"
 msgstr "slova naslova"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:682
+#: data/gsettings/org.gnome.shotwell.gschema.xml:684
 msgid "The name of the font to use for photo titles when they are printed"
 msgstr "Naziv slova koja se koriste za naslove fotografija tijekom ispisa"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:693
-msgid "enable facebook publishing plugin"
-msgstr "omogući priključak facebook objvaljivanja"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:694
-msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-msgstr "Ako je odabrano, priključak Facebook objavljivanja je omogućen"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:699
+#: data/gsettings/org.gnome.shotwell.gschema.xml:695
 msgid "enable flickr publishing plugin"
 msgstr "omogući priključak flickr objvaljivanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:700
+#: data/gsettings/org.gnome.shotwell.gschema.xml:696
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak Flickr objavljivanja je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:705
+#: data/gsettings/org.gnome.shotwell.gschema.xml:701
 msgid "enable Google Photos publishing plugin"
 msgstr "omogući priključak objvaljivanja Google Fotografija"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:706
+#: data/gsettings/org.gnome.shotwell.gschema.xml:702
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
 "Ako je odabrano, priključak objavljivanja Google Fotografija je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:711
+#: data/gsettings/org.gnome.shotwell.gschema.xml:707
 msgid "enable youtube publishing plugin"
 msgstr "omogući priključak flickr objvaljivanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:712
+#: data/gsettings/org.gnome.shotwell.gschema.xml:708
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak YouTube objavljivanja je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:717
+#: data/gsettings/org.gnome.shotwell.gschema.xml:713
 msgid "enable piwigo publishing plugin"
 msgstr "omogući priključak piwigo objvaljivanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:718
+#: data/gsettings/org.gnome.shotwell.gschema.xml:714
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak Piwigo objavljivanja je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:723
-msgid "enable yandex publishing plugin"
-msgstr "omogući priključak yandex objvaljivanja"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:724
-msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-msgstr "Ako je odabrano, priključak Yandex.Fotki objavljivanja je omogućen"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:729
+#: data/gsettings/org.gnome.shotwell.gschema.xml:719
 msgid "enable tumblr publishing plugin"
 msgstr "omogući priključak tumblr objvaljivanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:730
+#: data/gsettings/org.gnome.shotwell.gschema.xml:720
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak Tumblr objavljivanja je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:735
-msgid "enable rajce publishing plugin"
-msgstr "omogući priključak rajce objvaljivanja"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:736
-msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-msgstr "Ako je odabrano, priključak Rajce objavljivanja je omogućen"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:741
+#: data/gsettings/org.gnome.shotwell.gschema.xml:725
 msgid "enable gallery3 publishing plugin"
 msgstr "omogući priključak gallery3 objvaljivanja"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:742
+#: data/gsettings/org.gnome.shotwell.gschema.xml:726
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak Gallery3 objavljivanja je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:747
-msgid "enable F-Spot import plugin"
-msgstr "omogući priključak F-Spot uvoza"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:748
-msgid "True if the F-Spot import plugin is enabled, false otherwise"
-msgstr "Ako je odabrano, priključak F-Spot objavljivanja je omogućen"
-
-#: data/gsettings/org.gnome.shotwell.gschema.xml:753
+#: data/gsettings/org.gnome.shotwell.gschema.xml:731
 msgid "enable slideshow crumble transition"
 msgstr "omogućuju raspad prijelaza prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:754
+#: data/gsettings/org.gnome.shotwell.gschema.xml:732
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak raspada prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:759
+#: data/gsettings/org.gnome.shotwell.gschema.xml:737
 msgid "enable slideshow fade transition"
 msgstr "omogući izbljeđivanje prijelaza prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:760
+#: data/gsettings/org.gnome.shotwell.gschema.xml:738
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Ako je odabrano, priključak izbljeđivanja prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:765
+#: data/gsettings/org.gnome.shotwell.gschema.xml:743
 msgid "enable slideshow slide transition"
 msgstr "omogući klizanje prijelaza prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:766
+#: data/gsettings/org.gnome.shotwell.gschema.xml:744
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Ako je odabrano, priključak klizanja prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:771
+#: data/gsettings/org.gnome.shotwell.gschema.xml:749
 msgid "enable slideshow clock transition"
 msgstr "omogući satni prijelaza prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:772
+#: data/gsettings/org.gnome.shotwell.gschema.xml:750
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak satnog prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:777
+#: data/gsettings/org.gnome.shotwell.gschema.xml:755
 msgid "enable slideshow circle transition"
 msgstr "omogući kružni prijelaza prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:778
+#: data/gsettings/org.gnome.shotwell.gschema.xml:756
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak kružnog prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:783
+#: data/gsettings/org.gnome.shotwell.gschema.xml:761
 msgid "enable slideshow circles transition"
 msgstr "omogućuju kružni prijelaz prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:784
+#: data/gsettings/org.gnome.shotwell.gschema.xml:762
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "Ako je odabrano, priključak kružnih prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:789
+#: data/gsettings/org.gnome.shotwell.gschema.xml:767
 msgid "enable slideshow blinds transition"
 msgstr "omogućuju zasjenjeni prijelaz prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:790
+#: data/gsettings/org.gnome.shotwell.gschema.xml:768
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Ako je odabrano, priključak zasjenjenog prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:795
+#: data/gsettings/org.gnome.shotwell.gschema.xml:773
 msgid "enable slideshow squares transition"
 msgstr "omogućuju kvadratni prijelaz prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:796
+#: data/gsettings/org.gnome.shotwell.gschema.xml:774
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Ako je odabrano, priključak kvadratnog prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:801
+#: data/gsettings/org.gnome.shotwell.gschema.xml:779
 msgid "enable slideshow stripes transition"
 msgstr "omogućuju trakasti prijelaz prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:802
+#: data/gsettings/org.gnome.shotwell.gschema.xml:780
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
 "Ako je odabrano, priključak trakastog prijelaza prezentacije je omogućen"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:807
+#: data/gsettings/org.gnome.shotwell.gschema.xml:785
 msgid "enable slideshow chess transition"
 msgstr "omogućuju šahovski prijelaza prezentacije"
 
-#: data/gsettings/org.gnome.shotwell.gschema.xml:808
+#: data/gsettings/org.gnome.shotwell.gschema.xml:786
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1260,10 +1150,11 @@ msgstr ""
 "Ako je odabrano, priključak šahovskog prijelaza prezentacije je omogućen"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8
-#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
-#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
-#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356
+#: data/org.gnome.Shotwell.desktop.in:4
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
+#: data/ui/collection.ui:85 data/ui/event.ui:356 data/ui/event.ui:524
+#: data/ui/faces.ui:356 data/ui/media.ui:356 data/ui/photo_context.ui:91
+#: data/ui/photo.ui:351 data/ui/tags.ui:356
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
 #: src/photos/RawSupport.vala:313
 msgid "Shotwell"
@@ -1307,16 +1198,19 @@ msgid "The Shotwell developers"
 msgstr "Shotwell razvijatelji"
 
 # GNOME Application Class ("Generic Name")
-#: data/org.gnome.Shotwell.desktop.in:5 src/Resources.vala:9
+#: data/org.gnome.Shotwell.desktop.in:5
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Upravitelj fotografija"
 
 #: data/org.gnome.Shotwell.desktop.in:6
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
 msgid "Organize your photos"
 msgstr "Organizirajte svoje fotografije"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -1916,15 +1810,15 @@ msgstr "_Prijava"
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/Exporter.vala:348
-#: src/publishing/PublishingUI.vala:177 src/publishing/PublishingUI.vala:403
-#: src/Resources.vala:123
+#: src/Dialogs.vala:787 src/Exporter.vala:348 src/ProfileBrowser.vala:64
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Odustani"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
-#: src/Resources.vala:132
+#: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_U redu"
 
@@ -1952,107 +1846,111 @@ msgstr "_Kopiraj prilagodbe boje"
 msgid "_Paste Color Adjustments"
 msgstr "_Zalijepi prilagodbe boje"
 
-#: data/ui/preferences_dialog.ui:67
+#: data/ui/preferences_dialog.ui:68
 msgid "Display"
 msgstr "Prikaz"
 
-#: data/ui/preferences_dialog.ui:86 src/library/LibraryWindow.vala:768
+#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:768
 msgid "Library Location"
 msgstr "Lokacija fototeke"
 
-#: data/ui/preferences_dialog.ui:103
+#: data/ui/preferences_dialog.ui:104
 msgid "_Import photos to:"
 msgstr "_Uvezi fotografije u:"
 
-#: data/ui/preferences_dialog.ui:114
+#: data/ui/preferences_dialog.ui:115
 msgid "_Watch library directory for new files"
 msgstr "_Nadziri mapu fototeke za nove datoteke"
 
-#: data/ui/preferences_dialog.ui:137
+#: data/ui/preferences_dialog.ui:138
 msgid "Importing"
 msgstr "Uvažanje"
 
-#: data/ui/preferences_dialog.ui:154
+#: data/ui/preferences_dialog.ui:155
 msgid "_Directory structure:"
 msgstr "_Struktura mape:"
 
-#: data/ui/preferences_dialog.ui:169
+#: data/ui/preferences_dialog.ui:170
 msgid "Example:"
 msgstr "Primjer:"
 
-#: data/ui/preferences_dialog.ui:178
+#: data/ui/preferences_dialog.ui:179
 msgid "R_ename imported files to lowercase"
 msgstr "P_reimenuj uvezene datoteke u mala slova"
 
-#: data/ui/preferences_dialog.ui:200
+#: data/ui/preferences_dialog.ui:201
 msgid "Metadata"
 msgstr "Metapodaci"
 
-#: data/ui/preferences_dialog.ui:213
+#: data/ui/preferences_dialog.ui:214
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "Zapiši oznake, naslove i ostale _metapodatke u fotografije"
 
-#: data/ui/preferences_dialog.ui:235
+#: data/ui/preferences_dialog.ui:236
 msgid "RAW Developer"
 msgstr "RAW razvijatelj"
 
-#: data/ui/preferences_dialog.ui:252
+#: data/ui/preferences_dialog.ui:253
 msgid "De_fault:"
 msgstr "_Uobičajeno:"
 
-#: data/ui/preferences_dialog.ui:306
+#: data/ui/preferences_dialog.ui:307
 msgid "_Pattern:"
 msgstr "_Uzorak:"
 
-#: data/ui/preferences_dialog.ui:339
+#: data/ui/preferences_dialog.ui:340
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr ""
 "Prilikom gledanja slika koje su prozirne, biti će izvučene na ovoj pozadini."
 
-#: data/ui/preferences_dialog.ui:343
+#: data/ui/preferences_dialog.ui:344
 msgid "Transparent Background:"
 msgstr "Prozirna pozadina:"
 
-#: data/ui/preferences_dialog.ui:357
+#: data/ui/preferences_dialog.ui:358
 msgid "Checkered"
 msgstr "Kockasta"
 
-#: data/ui/preferences_dialog.ui:378
+#: data/ui/preferences_dialog.ui:379
 msgid "Solid color"
 msgstr "Jednobojno"
 
-#: data/ui/preferences_dialog.ui:414 src/slideshow/TransitionEffects.vala:287
+#: data/ui/preferences_dialog.ui:415 src/slideshow/TransitionEffects.vala:287
 msgid "None"
 msgstr "Nepoznato"
 
-#: data/ui/preferences_dialog.ui:441
+#: data/ui/preferences_dialog.ui:442
 msgid "Use dark theme:"
 msgstr "Koristi tamnu temu:"
 
-#: data/ui/preferences_dialog.ui:465 src/library/LibraryBranch.vala:30
+#: data/ui/preferences_dialog.ui:511 src/library/LibraryBranch.vala:30
 #: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Fototeka"
 
-#: data/ui/preferences_dialog.ui:492
+#: data/ui/preferences_dialog.ui:538
 msgid "E_xternal photo editor:"
 msgstr "Vanjs_ki uređivač fotografija:"
 
-#: data/ui/preferences_dialog.ui:509
+#: data/ui/preferences_dialog.ui:555
 msgid "External _RAW editor:"
 msgstr "Vanjski uređivač _RAW datoteka:"
 
-#: data/ui/preferences_dialog.ui:570
+#: data/ui/preferences_dialog.ui:616
 msgid "External Editors"
 msgstr "Vanjski uređivači"
 
-#: data/ui/preferences_dialog.ui:595
+#: data/ui/preferences_dialog.ui:641
 msgid "Plugins"
 msgstr "Priključci"
 
-#: data/ui/preferences_dialog.ui:621
+#: data/ui/preferences_dialog.ui:666
+msgid "Profiles"
+msgstr "Profili"
+
+#: data/ui/preferences_dialog.ui:686
 msgid "Shotwell Preferences"
 msgstr "Shotwell osobitosti"
 
@@ -2110,7 +2008,8 @@ msgstr "piksela po inču"
 msgid "Search"
 msgstr "Pretraga"
 
-#: data/ui/saved_search_dialog.ui:26
+#: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
+#: src/ProfileBrowser.vala:239
 msgid "Cancel"
 msgstr "Odustani"
 
@@ -2202,22 +2101,30 @@ msgid "Settings"
 msgstr "Postavke"
 
 #: data/ui/slideshow_settings.ui:98
-msgid "_Delay:"
-msgstr "_Odgoda:"
+msgid "_Duration:"
+msgstr "_Trajanje:"
 
-#: data/ui/slideshow_settings.ui:112
+#: data/ui/slideshow_settings.ui:99
+msgid "The time (in seconds) to show each photo"
+msgstr "Vrijeme (u sekundama) za prikaz pojedine fotografije"
+
+#: data/ui/slideshow_settings.ui:113
 msgid "_Transition effect:"
 msgstr "Efekt _prijelaza:"
 
-#: data/ui/slideshow_settings.ui:126
-msgid "Transition d_elay:"
-msgstr "O_dgoda prijelaza:"
+#: data/ui/slideshow_settings.ui:127
+msgid "Transition d_uration:"
+msgstr "Trajanje p_rijelaza:"
 
-#: data/ui/slideshow_settings.ui:136
+#: data/ui/slideshow_settings.ui:128
+msgid "The time (in seconds) to show each transition between photos"
+msgstr "Vrijeme (u sekundama) za prikaz pojedinog prijelaza između fotografija"
+
+#: data/ui/slideshow_settings.ui:138
 msgid "Show t_itle"
 msgstr "Prikaži n_aslov"
 
-#: data/ui/slideshow_settings.ui:219 data/ui/slideshow_settings.ui:230
+#: data/ui/slideshow_settings.ui:221 data/ui/slideshow_settings.ui:232
 msgid "seconds"
 msgstr "sekunda"
 
@@ -2410,7 +2317,7 @@ msgstr ""
 "  gogo https://launchpad.net/~trebelnik-stefina"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:255
+#: plugins/common/RESTSupport.vala:264
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -2418,7 +2325,7 @@ msgstr ""
 "stranici."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:260
+#: plugins/common/RESTSupport.vala:269
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2427,7 +2334,7 @@ msgstr ""
 "Provjerite datum na svojemu računalu."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:265
+#: plugins/common/RESTSupport.vala:274
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
@@ -2435,14 +2342,14 @@ msgstr ""
 "organizacije."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:270
+#: plugins/common/RESTSupport.vala:279
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
 "⚫ Identifikacija ove web stranice se ne može nastaviti. Možda je oštećena."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:275
+#: plugins/common/RESTSupport.vala:284
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
@@ -2451,7 +2358,7 @@ msgstr ""
 "organizacije koja ju je izdala."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:280
+#: plugins/common/RESTSupport.vala:289
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2460,7 +2367,7 @@ msgstr ""
 "slabo šifriranje."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:285
+#: plugins/common/RESTSupport.vala:294
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2468,7 +2375,7 @@ msgstr ""
 "⚫ Identifikacija ove web stranice je valjana samo za buduće datume. "
 "Provjerite datum na svojemu računalu."
 
-#: plugins/common/RESTSupport.vala:584
+#: plugins/common/RESTSupport.vala:593
 #: plugins/shotwell-publishing/TumblrPublishing.vala:603
 #: plugins/shotwell-publishing/YoutubeUploader.vala:69
 msgid "A temporary file needed for publishing is unavailable"
@@ -3906,7 +3813,7 @@ msgid "Custom"
 msgstr "Prilagođena"
 
 #. Invalid pattern.
-#: src/dialogs/Preferences.vala:351
+#: src/dialogs/Preferences.vala:353
 msgid "Invalid pattern"
 msgstr "Neispravan uzorak"
 
@@ -5312,63 +5219,71 @@ msgstr "Nepoznata greška pri provjeri Shotwellove baze podataka: %s"
 msgid "Loading Shotwell"
 msgstr "Učitavanje Shotwella"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Path to Shotwell’s private data"
 msgstr "Putanja do Shotwellovih privatnih podataka"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "DIRECTORY"
 msgstr "MAPA"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne nadziri mapu fototeke u vremenu izvršavanja promjena"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Don’t display startup progress meter"
 msgstr "Ne prikazuj prikaz napretka pokretanja"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Show the application’s version"
 msgstr "Prikaži inačicu aplikacije"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Start the application in fullscreen mode"
 msgstr "Pokreni aplikaciju u cjelozaslonskom prikazu"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Print the metadata of the image file"
 msgstr "Ispiši metapodatke datoteke slike"
 
-#: src/main.vala:354
+#: src/main.vala:355
 msgid "Name for a custom profile"
 msgstr "Naziv prilagođenog profila"
 
-#: src/main.vala:354
+#: src/main.vala:355
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:355
+#: src/main.vala:356
+msgid "Start with a browser of available profiles"
+msgstr "Pokreni s preglednikom dostupnih profila"
+
+#: src/main.vala:357
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Ako PROFIL zadan sa --profile ne postoji, stvorite ga"
 
-#: src/main.vala:356
+#: src/main.vala:358
 msgid "Show available profiles"
 msgstr "Prikaži dostupne profile"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:387
+#: src/main.vala:389
 msgid "[FILE]"
 msgstr "[DATOTEKA]"
 
-#: src/main.vala:392
+#: src/main.vala:394
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Pokrenite '%s --help'  kako bi vidjeli popis svih dostupnih mogućnosti "
 "naredbenog redka.\n"
 
-#: src/main.vala:402
+#: src/main.vala:401
+msgid "Choose Shotwell's profile"
+msgstr "Odabir Shotwellovog profila"
+
+#: src/main.vala:422
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5650,6 +5565,74 @@ msgstr "Autorsko pravo:"
 #: src/Properties.vala:646
 msgid "Software:"
 msgstr "Softver:"
+
+#: src/ProfileBrowser.vala:20
+msgid "Create"
+msgstr "Stvori"
+
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:139
+msgid "Create new Profile"
+msgstr "Stvori novi profil"
+
+#: src/ProfileBrowser.vala:35
+msgid "Name"
+msgstr "Naziv"
+
+#: src/ProfileBrowser.vala:49
+msgid "Library Folder"
+msgstr "Mapa fototeke"
+
+#: src/ProfileBrowser.vala:64
+msgid "Choose Library Folder"
+msgstr "Odabir mape fototeke"
+
+#: src/ProfileBrowser.vala:76
+msgid "Data Folder"
+msgstr "Mape podataka"
+
+#: src/ProfileBrowser.vala:92
+msgid "Choose Data Folder"
+msgstr "Odabir mape podataka"
+
+#: src/ProfileBrowser.vala:200
+msgid "This is the currently active profile"
+msgstr "Ovo je trenutno aktivan profil"
+
+#: src/ProfileBrowser.vala:223
+msgid "Remove this profile"
+msgstr "Ukloni ovaj profil"
+
+#: src/ProfileBrowser.vala:235
+#, c-format
+msgid "Remove profile “%s”"
+msgstr "Ukloni profil “%s”"
+
+#: src/ProfileBrowser.vala:236
+msgid ""
+"None of the options will remove any of the images associated with this "
+"profile"
+msgstr "Nijedna mogućnost neće ukloniti nijednu sliku povezanu s ovim profilom"
+
+#: src/ProfileBrowser.vala:237
+#, c-format
+msgid ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+msgstr ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+
+#: src/ProfileBrowser.vala:239
+msgid "Remove profile and files"
+msgstr "Ukloni profil i datoteke"
+
+#: src/ProfileBrowser.vala:239
+msgid "Remove profile only"
+msgstr "Ukloni samo profil"
+
+#: src/Profiles.vala:32
+msgid "System Profile"
+msgstr "Profil sustava"
 
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
@@ -6612,6 +6595,101 @@ msgstr "neimenovano"
 #: src/video-support/Video.vala:205
 msgid "Export Videos"
 msgstr "Izvezi video snimke"
+
+#~ msgid "authentication token"
+#~ msgstr "token ovjere"
+
+#~ msgid "Yandex-Fotki authentication token, if logged in"
+#~ msgstr "Yandex-Fotki token ovjere, ako ste prijavljeni"
+
+#~ msgid "Rajce URL"
+#~ msgstr "Rajce URL"
+
+#~ msgid "URL of the Rajce server"
+#~ msgstr "URL Rajce poslužitelja"
+
+#~ msgid "Rajce username, if logged in"
+#~ msgstr "Rajce korisničko ime, ako ste prijavljeni"
+
+#~ msgid "token"
+#~ msgstr "token"
+
+#~ msgid "user token, if remembered"
+#~ msgstr "korisnikov token , ako je zapamćen"
+
+#~ msgid "The last selected Rajce category"
+#~ msgstr "Posljednja odabrana Rajce kategorija"
+
+#~ msgid ""
+#~ "A numeric code representing the last photo size preset used when "
+#~ "publishing to Rajce"
+#~ msgstr ""
+#~ "Brojčani kôd predstavlja zadani predložak veličine za fotografije pri "
+#~ "objavljivanju na Rajce"
+
+#~ msgid "remember"
+#~ msgstr "zapamćeno"
+
+#~ msgid "If true, remember last login"
+#~ msgstr "Ako je odabrano, zapamti posljednju prijavu"
+
+#~ msgid "hide album"
+#~ msgstr "sakrij album"
+
+#~ msgid "If true, hide the newly created Rajce album"
+#~ msgstr "Ako je odabrano, sakrij novostvoreni Rajce album"
+
+#~ msgid "open album in web browser"
+#~ msgstr "otvori album u web pregledniku"
+
+#~ msgid ""
+#~ "If true, open target album in the web browser just after uploading photos"
+#~ msgstr ""
+#~ "Ako je odabrano, otvori album u web pregledniku nakon slanja fotografije"
+
+#~ msgid ""
+#~ "Whether images being uploaded to Rajce should have their metadata removed "
+#~ "first"
+#~ msgstr ""
+#~ "Treba li sa slika koje se šalju na Rajce prvo ukloniti njihove metapodatke"
+
+#~ msgid "delay"
+#~ msgstr "odgoda"
+
+#~ msgid ""
+#~ "The name of the transition effect that will be used between photos when "
+#~ "running a slideshow"
+#~ msgstr ""
+#~ "Naziv efekta prijelaza koji će se koristiti između fotografija kada je "
+#~ "pokrenuta prezentacija"
+
+#~ msgid "enable facebook publishing plugin"
+#~ msgstr "omogući priključak facebook objvaljivanja"
+
+#~ msgid "True if the Facebook publishing plugin is enabled, false otherwise"
+#~ msgstr "Ako je odabrano, priključak Facebook objavljivanja je omogućen"
+
+#~ msgid "enable yandex publishing plugin"
+#~ msgstr "omogući priključak yandex objvaljivanja"
+
+#~ msgid ""
+#~ "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
+#~ msgstr "Ako je odabrano, priključak Yandex.Fotki objavljivanja je omogućen"
+
+#~ msgid "enable rajce publishing plugin"
+#~ msgstr "omogući priključak rajce objvaljivanja"
+
+#~ msgid "True if the Rajce publishing plugin is enabled, false otherwise"
+#~ msgstr "Ako je odabrano, priključak Rajce objavljivanja je omogućen"
+
+#~ msgid "enable F-Spot import plugin"
+#~ msgstr "omogući priključak F-Spot uvoza"
+
+#~ msgid "True if the F-Spot import plugin is enabled, false otherwise"
+#~ msgstr "Ako je odabrano, priključak F-Spot objavljivanja je omogućen"
+
+#~ msgid "_Delay:"
+#~ msgstr "_Odgoda:"
 
 #~ msgid "_Map Overview"
 #~ msgstr "_Prikaz karte"
