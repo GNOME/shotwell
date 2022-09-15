@@ -59,8 +59,9 @@ public struct Dimensions {
     public static Dimensions for_widget_allocation(Gtk.Widget widget) {
         Gtk.Allocation allocation;
         widget.get_allocation(out allocation);
+        var scale = widget.get_scale_factor();
         
-        return Dimensions(allocation.width, allocation.height);
+        return Dimensions(allocation.width * scale, allocation.height * scale);
     }
     
     public static Dimensions for_rectangle(Gdk.Rectangle rect) {
@@ -283,6 +284,7 @@ public struct Scaling {
     
     public static Scaling for_widget(Gtk.Widget widget, bool scale_up) {
         Dimensions viewport = Dimensions.for_widget_allocation(widget);
+        print("****** Viewport size: %s\n", viewport.to_string());
 
         // Because it seems that Gtk.Application realizes the main window and its
         // attendant widgets lazily, it's possible to get here with the PhotoPage's

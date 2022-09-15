@@ -990,6 +990,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 }
             }
             
+            print("Set_pixbuf on_pixbuf_fetched\n");
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
             
@@ -1249,6 +1250,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void quick_update_pixbuf() {
         Gdk.Pixbuf? pixbuf = cache.get_ready_pixbuf(get_photo());
         if (pixbuf != null) {
+            print("Set_pixbuf quick_update_pixbuf\n");
             set_pixbuf(pixbuf, get_photo().get_dimensions());
             pixbuf_dirty = false;
             
@@ -1262,6 +1264,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         try {
+            print("Set_pixbuf quick_update_pixbuf\n");
             set_pixbuf(get_photo().get_preview_pixbuf(scaling), get_photo().get_dimensions());
         } catch (Error err) {
             warning("%s", err.message);
@@ -1309,6 +1312,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     
         if (!photo_missing && pixbuf != null) {
+            print("Set_pixbuf update_pixbuf\n");
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
         }
@@ -1418,11 +1422,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cancel_zoom();
         }
         
+        print("Set_pixbuf swap_in_original\n");
         set_pixbuf(original, get_photo().get_master_dimensions());
     }
 
     private void swap_out_original() {
         if (swapped != null) {
+            print("Set_pixbuf swap_out_original\n");
             set_pixbuf(swapped, get_photo().get_dimensions());
             
             restore_zoom_state();
@@ -1466,8 +1472,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         }
 
-        if (unscaled != null)
+        if (unscaled != null) {
+            print("Set_pixbuf activate_tool\n");
             set_pixbuf(unscaled, max_dim);
+        }
         
         // create the PhotoCanvas object for a two-way interface to the tool
         EditingTools.PhotoCanvas photo_canvas = new EditingHostCanvas(this);
@@ -1528,8 +1536,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
             needs_improvement = true;
         }
         
-        if (replacement != null)
+        if (replacement != null) {
+            print("Set_pixbuf deactivate_tool\n");
             set_pixbuf(replacement, new_max_dim);
+        }
         cancel_editing_pixbuf = null;
         
         // if this is a rough pixbuf, schedule an improvement

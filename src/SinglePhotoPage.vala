@@ -216,6 +216,7 @@ public abstract class SinglePhotoPage : Page {
     // is used when scale_up_to_viewport is set to true.  Pass a Dimensions with no area if
     // max_dim should be ignored (i.e. scale_up_to_viewport is false).
     public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim, Direction? direction = null) {
+        print("New pixbuf: %s\n", max_dim.to_string());
         static_zoom_state = ZoomState(max_dim, pixmap_dim,
             static_zoom_state.get_interpolation_factor(),
             static_zoom_state.get_viewport_center());
@@ -310,13 +311,19 @@ public abstract class SinglePhotoPage : Page {
     private bool on_canvas_exposed(Cairo.Context exposed_ctx) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
-        if (pixmap != null)
+        if (pixmap != null) {
+            pixmap.set_device_scale(Application.get_scale(), Application.get_scale());
             exposed_ctx.set_source_surface(pixmap, 0, 0);
+        }
         else
             set_source_color_from_string(exposed_ctx, "#000");
 
         exposed_ctx.rectangle(0, 0, get_allocated_width(), get_allocated_height());
         exposed_ctx.paint();
+
+        if (pixmap != null) {
+            pixmap.set_device_scale(1.0, 1.0);
+        }
 
         return true;
     }
@@ -326,26 +333,32 @@ public abstract class SinglePhotoPage : Page {
 
     protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
     }
+    static int buffer_counter = 0;
 
     protected virtual void paint(Cairo.Context ctx, Dimensions ctx_dim) {
         if (is_zoom_supported() && (!static_zoom_state.is_default())) {
+            print("Render zoomed\n");
             set_source_color_from_string(ctx, "#000");
             ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
             ctx.fill();
 
             render_zoomed_to_pixmap(static_zoom_state);
         } else if (!transition_clock.paint(ctx, ctx_dim.width, ctx_dim.height)) {
+            print("Paint with background\n");
             // transition is not running, so paint the full image on a black background
             set_source_color_from_string(ctx, "#000");
 
             ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
             ctx.fill();
 
+            //scaled.save("src%010d.png".printf(buffer_counter), "png");
             paint_pixmap_with_background(ctx, scaled, scaled_pos.x, scaled_pos.y);
+            //pixmap.write_to_png("%010d.png".printf(buffer_counter++));
         }
     }
 
     private void repaint_pixmap() {
+        print("Repainting pixmap\n");
         if (pixmap_ctx == null)
             return;
 
@@ -383,6 +396,9 @@ public abstract class SinglePhotoPage : Page {
 
         // save if reporting an image being rescaled
         Dimensions old_scaled_dim = Dimensions.for_rectangle(scaled_pos);
+        print("Old scaled dimensions %s\n", old_scaled_dim.to_string());
+        print("Pixmap dimensions %s\n", pixmap_dim.to_string());
+
         Gdk.Rectangle old_scaled_pos = scaled_pos;
 
         // attempt to reuse pixmap
@@ -392,12 +408,14 @@ public abstract class SinglePhotoPage : Page {
         // if necessary, create a pixmap as large as the entire viewport
         bool new_pixmap = false;
         if (pixmap == null) {
-            init_pixmap(width, height);
+            init_pixmap(width * Application.get_scale(), height * Application.get_scale());
             new_pixmap = true;
         }
 
         if (new_pixbuf || new_pixmap) {
+            print("New pixbuf %s / new pixmap %s\n", new_pixbuf.to_string(), new_pixmap.to_string());
             Dimensions unscaled_dim = Dimensions.for_pixbuf(unscaled);
+            print("Unscaled dimensions %s\n", unscaled_dim.to_string());
 
             // determine scaled size of pixbuf ... if a max dimensions is set and not scaling up,
             // respect it
@@ -407,12 +425,14 @@ public abstract class SinglePhotoPage : Page {
             else
                 scaled_dim = unscaled_dim.get_scaled_proportional(pixmap_dim);
 
-            assert(width >= scaled_dim.width);
-            assert(height >= scaled_dim.height);
+            print("Scaled_dim: %s\n", scaled_dim.to_string());
+
+            //assert(width >= scaled_dim.width);
+            //assert(height >= scaled_dim.height);
 
             // center pixbuf on the canvas
-            scaled_pos.x = (width - scaled_dim.width) / 2;
-            scaled_pos.y = (height - scaled_dim.height) / 2;
+            scaled_pos.x = ((width * Application.get_scale()) - scaled_dim.width) / 2;
+            scaled_pos.y = ((height * Application.get_scale()) - scaled_dim.height) / 2;
             scaled_pos.width = scaled_dim.width;
             scaled_pos.height = scaled_dim.height;
         }
@@ -421,7 +441,9 @@ public abstract class SinglePhotoPage : Page {
 
         // rescale if canvas rescaled or better quality is requested
         if (scaled == null) {
+            print("Rescale...\n");
             scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), interp);
+            print("Rescale...%d %d\n", scaled.width, scaled.height);
 
             UpdateReason reason = UpdateReason.RESIZED_CANVAS;
             if (new_pixbuf)
@@ -455,6 +477,7 @@ public abstract class SinglePhotoPage : Page {
         assert(canvas.get_window() != null);
 
         // Cairo backing surface (manual double-buffering)
+        print("Init pixmap: Scale %d\n", Application.get_scale());
         pixmap = new Cairo.ImageSurface(Cairo.Format.ARGB32, width, height);
         pixmap_dim = Dimensions(width, height);
 
