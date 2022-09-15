@@ -343,7 +343,7 @@ private Cairo.Surface get_background_surface() {
         string color_b;
         var config = Config.Facade.get_instance();
 
-        var type = config.get_transparent_background_type();
+        var type = "checkered"; //config.get_transparent_background_type();
         switch (type) {
             case "checkered":
                 color_a = "#808080";
@@ -377,6 +377,8 @@ public void invalidate_transparent_background() {
     background_surface = null;
 }
 
+static int buffer_br = 0;
+
 public void paint_pixmap_with_background (Cairo.Context ctx, Gdk.Pixbuf pixbuf, int x, int y) {
     if (pixbuf.get_has_alpha()) {
         ctx.set_source_surface(get_background_surface(), 0, 0);
@@ -386,7 +388,8 @@ public void paint_pixmap_with_background (Cairo.Context ctx, Gdk.Pixbuf pixbuf, 
     }
 
     Gdk.cairo_set_source_pixbuf(ctx, pixbuf, x, y);
-    ctx.paint();
+    ctx.rectangle(x, y, pixbuf.width , pixbuf.height);
+    ctx.fill();
 }
 
 // Force an axially-aligned box to be inside a rotated rectangle.

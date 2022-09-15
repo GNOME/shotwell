@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
     loop = g_main_loop_new (nullptr, FALSE);
 
 
-    // We are running on the sesion bus
+    // We are running on the session bus
     if (address == nullptr) {
         g_debug("Starting %s on G_BUS_TYPE_SESSION", argv[0]);
         g_bus_own_name(G_BUS_TYPE_SESSION, FACEDETECT_INTERFACE_NAME, G_BUS_NAME_OWNER_FLAGS_NONE,

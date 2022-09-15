@@ -59,8 +59,9 @@ public struct Dimensions {
     public static Dimensions for_widget_allocation(Gtk.Widget widget) {
         Gtk.Allocation allocation;
         widget.get_allocation(out allocation);
+        var scale = widget.get_scale_factor();
         
-        return Dimensions(allocation.width, allocation.height);
+        return Dimensions(allocation.width * scale, allocation.height * scale);
     }
     
     public static Dimensions for_rectangle(Gdk.Rectangle rect) {

@@ -49,7 +49,6 @@ public class ThumbnailCache : Object {
         
         public static Size get_best_size(int scale) {
             var real_scale = Application.get_scale() * scale;
-            critical("=> real_scale %d, scale: %d", real_scale, scale);
 
             if (real_scale <= MEDIUM.get_scale())
                 return MEDIUM;
@@ -249,7 +248,6 @@ public class ThumbnailCache : Object {
     
     private static ThumbnailCache get_best_cache(int scale) {
         Size size = Size.get_best_size(scale);
-        critical ("Got thumbnail size: %s", size.to_string());
         if (size == Size.LARGE) {
             return large;
         } else if (size == Size.BIG) {
@@ -442,7 +440,6 @@ public class ThumbnailCache : Object {
         // we'll just create it and leave this.err as null if creation works.
         if (job.replace && job.unscaled != null) {
             try {
-                critical ("Will replace with %d", job.cache.size);
                 replace(job.source, job.cache.size, job.unscaled);
             } catch (Error err) {
                 job.err = err;
@@ -480,7 +477,6 @@ public class ThumbnailCache : Object {
         }
 
         LibraryPhoto photo = (LibraryPhoto) source;
-        critical("-> Import from source");
         save_thumbnail(file, photo.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true)), source);
         
         // See note in _import_with_pixbuf for reason why this is not maintained in in-memory
@@ -502,7 +498,6 @@ public class ThumbnailCache : Object {
             _remove(source);
         }
         
-        critical("-> Import thumbnail");
         save_thumbnail(get_source_cached_file(source), scaled, source);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
