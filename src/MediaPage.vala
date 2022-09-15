@@ -90,10 +90,7 @@ public abstract class MediaPage : CheckerboardPage {
         }
         
         public static double scale_to_slider(int value) {
-            assert(value >= Thumbnail.MIN_SCALE);
-            assert(value <= Thumbnail.MAX_SCALE);
-            
-            return (double) ((value - Thumbnail.MIN_SCALE) / SLIDER_STEPPING);
+            return (double) ((value.clamp(Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE) - Thumbnail.MIN_SCALE) / SLIDER_STEPPING);
         }
 
         public static int slider_to_scale(double value) {
