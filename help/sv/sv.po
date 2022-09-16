@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015-2021 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2022 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2021-06-14 09:59+0000\n"
-"PO-Revision-Date: 2021-06-16 13:20+0200\n"
+"POT-Creation-Date: 2022-09-14 19:22+0000\n"
+"PO-Revision-Date: 2022-09-16 17:22+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -266,8 +266,8 @@ msgid ""
 "files\">Photo files</link>."
 msgstr ""
 "Observera att Shotwell valfritt kan skriva metadata (som taggar och namn) "
-"till bildfiler. För mer information, se avsnittet <link xref=\"other-files"
-"\">Bildfiler</link>."
+"till bildfiler. För mer information, se avsnittet <link xref=\"other-"
+"files\">Bildfiler</link>."
 
 #. (itstool) path: info/desc
 #: C/organize-search.page:7
@@ -379,8 +379,9 @@ msgid ""
 msgstr ""
 "Varje rad representerar ett sökkriterium. Använd <gui>+</gui>-knappen för "
 "att lägga till flera rader och <gui>-</gui>knappen för att ta bort en "
-"specifik rad. Komborutan till vänster för varje rad väljer kriterietyp. "
-"Kriterier måste anges korrekt innan <gui>OK</gui>-knappen blir tillgänglig."
+"specifik rad. Kombinationsrutan till vänster för varje rad väljer "
+"kriterietyp. Kriterier måste anges korrekt innan <gui>OK</gui>-knappen blir "
+"tillgänglig."
 
 #. (itstool) path: info/desc
 #: C/edit-date-time.page:7
@@ -662,8 +663,8 @@ msgid ""
 "and enter a new name. Another way of renaming an event is to double-click "
 "its name in the sidebar; type a new name and then press <key>Enter</key>."
 msgstr ""
-"För att ge en händelse ett namn istället för att hänvisa till den med datum, "
-"markera händelsen, klicka <guiseq><gui>Redigera</gui><gui>Byt namn på "
+"För att ge en händelse ett namn i stället för att hänvisa till den med "
+"datum, markera händelsen, klicka <guiseq><gui>Redigera</gui><gui>Byt namn på "
 "händelse…</gui></guiseq> och ange ett nytt namn. Ett annat sätt att byta "
 "namn på en händelse är att dubbelklicka på dess namn i sidopanelen, skriva "
 "ett nytt namn och sedan trycka <key>Retur</key>."
@@ -1094,13 +1095,13 @@ msgstr "PM"
 #. (itstool) path: section/p
 #: C/other-files.page:72
 msgid ""
-"There are other symbols available; please check the <link href=\"man:strftime"
-"\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
-"if you need one that isn't listed here."
+"There are other symbols available; please check the <link href=\"man:"
+"strftime\">manual for strftime</link> by running the command <cmd>man "
+"strftime</cmd> if you need one that isn't listed here."
 msgstr ""
-"Det finns andra symboler tillgängliga, se <link href=\"man:strftime"
-"\">handboken för strftime</link> genom att köra kommandot <cmd>man strftime</"
-"cmd> om du behöver en som inte listas här."
+"Det finns andra symboler tillgängliga, se <link href=\"man:"
+"strftime\">handboken för strftime</link> genom att köra kommandot <cmd>man "
+"strftime</cmd> om du behöver en som inte listas här."
 
 #. (itstool) path: section/title
 #: C/other-files.page:79
@@ -1265,11 +1266,11 @@ msgstr "Bild- och videoformat som stöds"
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-raw"
-"\">RAW</link> photo files."
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-"
+"raw\">RAW</link> photo files."
 msgstr ""
-"Shotwell stödjer JPEG, PNG, TIFF, BMP, GIF, WebP och <link xref=\"other-raw"
-"\">RAW</link>-bildfiler."
+"Shotwell stödjer JPEG, PNG, TIFF, BMP, GIF, WebP och <link xref=\"other-"
+"raw\">RAW</link>-bildfiler."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -1292,8 +1293,8 @@ msgid ""
 "For more information about RAW-format photos in Shotwell, please see the "
 "<link xref=\"other-raw\">RAW</link> section."
 msgstr ""
-"För mer information om RAW-formatbilder i Shotwell, se avsnittet <link xref="
-"\"other-raw\">RAW</link>."
+"För mer information om RAW-formatbilder i Shotwell, se avsnittet <link "
+"xref=\"other-raw\">RAW</link>."
 
 #. (itstool) path: page/p
 #: C/formats.page:22
@@ -1356,7 +1357,7 @@ msgid ""
 "You can assign each photo a rating from 1-5 stars, or may alternatively rate "
 "it as Rejected, in which case Shotwell will hide the photo by default."
 msgstr ""
-"Du kan ger varje bild ett betyg från 1-5 stjärnor, eller sätta den som "
+"Du kan ge varje bild ett betyg från 1-5 stjärnor, eller sätta den som "
 "avvisad, vilket medför att Shotwell som standard kommer att dölja bilden."
 
 #. (itstool) path: page/p
@@ -1379,7 +1380,8 @@ msgid ""
 "Right-click on the photo(s), then choose a rating from the Set Rating "
 "context menu."
 msgstr ""
-"Högerklicka på bilden/rna och välj sedan ett betyg från snabbmenyn Betygsätt."
+"Högerklicka på bilden/bilderna och välj sedan ett betyg från snabbvalsmenyn "
+"Betygsätt."
 
 #. (itstool) path: item/p
 #: C/organize-rating.page:20
@@ -1389,10 +1391,10 @@ msgid ""
 "Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to "
 "clear the rating(s)."
 msgstr ""
-"Markera bilden/erna och tryck sedan på någon av snabbtangenterna <key>1</"
+"Markera bilden/bilderna och tryck sedan på någon av snabbtangenterna <key>1</"
 "key>, <key>2</key>, <key>3</key>, <key>4</key> eller <key>5</key> för att "
-"tilldela ett betyg. Eller, tryck <key>9</key> för att markera bilden/erna "
-"som avvisade eller <key>0</key> för att rensa betyg."
+"tilldela ett betyg. Eller, tryck <key>9</key> för att markera bilden/"
+"bilderna som avvisade eller <key>0</key> för att rensa betyg."
 
 #. (itstool) path: page/p
 #: C/organize-rating.page:23
@@ -1735,8 +1737,8 @@ msgstr "Villkor för YouTube"
 #: C/privacy-policy.page:22
 msgid ""
 "By using Shotwell to access YouTube, you agree to be bound to the YouTube "
-"Terms of Service as available at <link href=\"https://www.youtube.com/t/terms"
-"\">https://www.youtube.com/t/terms</link>"
+"Terms of Service as available at <link href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</link>"
 msgstr ""
 "Genom att använda Shotwell för att ansluta till YouTube så godkänner du att "
 "följa YouTubes användningsvillkor så som de kan ses på <link href=\"https://"
@@ -1902,14 +1904,14 @@ msgstr ""
 msgid ""
 "If the card is not detected automatically, your card reader may not have "
 "been recognized. Try unplugging it and then plugging it in again. If that "
-"doesn't work, you should still be able to import photos by <link xref="
-"\"import-camera\">connecting your camera directly to the computer</link>, "
-"though."
+"doesn't work, you should still be able to import photos by <link "
+"xref=\"import-camera\">connecting your camera directly to the computer</"
+"link>, though."
 msgstr ""
 "Om kortet inte upptäcks automatiskt kanske din kortläsare inte kände igen "
 "det. Prova att koppla från det och sedan ansluta det igen. Om det inte "
-"fungerar bör du ändå kunna importera bilder genom att ansluta <link xref="
-"\"import-camera\"> din kamera direkt till datorn </link>."
+"fungerar bör du ändå kunna importera bilder genom att ansluta <link "
+"xref=\"import-camera\"> din kamera direkt till datorn </link>."
 
 #. (itstool) path: info/desc
 #: C/other-plugins.page:7
@@ -1951,9 +1953,10 @@ msgstr ""
 #. (itstool) path: note/p
 #: C/other-plugins.page:25
 msgid ""
-"Full documentation on how to develop new plugins is available at <link href="
-"\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
-"wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
+"Full documentation on how to develop new plugins is available at <link "
+"href=\"https://wiki.gnome.org/Apps/Shotwell/Architecture/"
+"WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/Architecture/"
+"WritingPlugins</link>"
 msgstr ""
 "Fullständig dokumentation om hur du utvecklar nya insticksmoduler finns "
 "tillgänglig på <link href=\"https://wiki.gnome.org/Apps/Shotwell/"
@@ -2148,7 +2151,7 @@ msgid ""
 "If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will "
 "return to the photo's previous crop dimensions."
 msgstr ""
-"Om du trycker <gui>Avbryt</gui> istället för <gui>Verkställ</gui> kommer "
+"Om du trycker <gui>Avbryt</gui> i stället för <gui>Verkställ</gui> kommer "
 "Shotwell att återgå till en bilds tidigare dimensioner."
 
 #. (itstool) path: section/title
@@ -2301,9 +2304,9 @@ msgid ""
 "key><key>G</key></keyseq> or <key>/</key> shortcut keys."
 msgstr ""
 "För att flagga eller flagga av en bild, högerklicka på bilden och välj "
-"<gui>Flagga</gui> eller <gui>Flagga av</gui> från snabbmenyn. Eller, använd "
-"snabbtangenterna <keyseq><key>Ctrl</key><key>G</key></keyseq> eller <key>/</"
-"key>."
+"<gui>Flagga</gui> eller <gui>Flagga av</gui> från snabbvalsmenyn. Eller, "
+"använd snabbtangenterna <keyseq><key>Ctrl</key><key>G</key></keyseq> eller "
+"<key>/</key>."
 
 #. (itstool) path: info/desc
 #: C/share-slideshow.page:7
@@ -2791,7 +2794,7 @@ msgstr ""
 "Var gång Shotwell startar söker det av ditt bildbibliotek för att verifiera "
 "att alla bilder fortfarande existerar på din hårddisk. Om Shotwell finner "
 "att det saknas filer, kommer dessa inte att visas i vyerna Bilder, Händelser "
-"eller Taggar, och istället visas de i separata vyn Saknade filer, vilken "
+"eller Taggar, och i stället visas de i separata vyn Saknade filer, vilken "
 "visas i sidopanelen."
 
 #. (itstool) path: page/p
@@ -2817,9 +2820,9 @@ msgstr ""
 "Om du har bilder på en flyttbar enhet, som en cd-skiva eller en usb-sticka, "
 "och <link xref=\"index#import\">importerar</link> dem till Shotwell "
 "<em>utan</em> att kopiera bilderna till din dator, kommer de att visas som "
-"saknade filer om du kopplar från den flyttbara enheten. Se <link xref="
-"\"import-file\"/> för att lära dig mer om att kopiera filer från en flyttbar "
-"enhet till din dator."
+"saknade filer om du kopplar från den flyttbara enheten. Se <link "
+"xref=\"import-file\"/> för att lära dig mer om att kopiera filer från en "
+"flyttbar enhet till din dator."
 
 #. (itstool) path: page/p
 #: C/other-missing.page:20
@@ -2939,8 +2942,8 @@ msgid ""
 "first developed - that is, have their extra information interpreted and "
 "readied for displaying - most cameras will either embed a JPEG inside a RAW-"
 "format file, or produce a JPEG alongside the RAW file at the time the "
-"snapshot is taken. The latter is referred to throughout this document as RAW"
-"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
+"snapshot is taken. The latter is referred to throughout this document as "
+"RAW+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
 "Eftersom RAW-bilder vanligtvis endast kan visas direkt, men först måste "
@@ -3186,8 +3189,8 @@ msgid ""
 msgstr ""
 "När du är klar med redigering och sparar filen kommer Shotwell att upptäcka "
 "ändringarna och uppdatera bilden. Om externa ändringar har skett, tryck och "
-"håll <key>Skift</key>-tangenten i helskärmsvyn för att visa originalbilden "
-"istället för den externt redigerade."
+"håll <key>Skift</key>-tangenten i helskärmsvyn för att visa originalbilden i "
+"stället för den externt redigerade."
 
 #. (itstool) path: page/p
 #: C/edit-external.page:38
@@ -3227,10 +3230,10 @@ msgstr "Skicka bilder"
 #: C/share-send.page:14
 msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
-"lets you send photos via email, instant messaging or in other ways."
+"lets you send photos via email."
 msgstr ""
-"Shotwell kan skicka bilder genom GNOME-skrivbordets \"Skicka till\"-mekanism "
-"som låter dig skicka bilder via e-post, snabbmeddelanden eller på andra sätt."
+"Shotwell kan skicka bilder genom GNOME-skrivbordets ”Skicka till”-mekanism "
+"som låter dig skicka bilder via e-post."
 
 #. (itstool) path: page/p
 #: C/share-send.page:16
@@ -3238,16 +3241,15 @@ msgid ""
 "To send photos, select them in Shotwell and choose <guiseq><gui>File</"
 "gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
 "<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog box "
-"will appear which lets you choose a mechanism for sending the files (such as "
-"email or instant messaging) and a destination. You can optionally choose to "
-"send the files in a compressed format."
+"will appear which lets you optionally remove any meta-data, scale it or "
+"change the format before passing it on to your configured email client."
 msgstr ""
 "För att skicka bilder, visa dem i Shotwell och välj <guiseq><gui>Arkiv</"
 "gui><gui>Skicka till…</gui></guiseq>, eller högerklicka på bilderna och välj "
-"<gui>Skicka till…</gui> från snabbmenyn. En <gui>Skicka till</gui>-dialog "
-"kommer att visas vilken låter dig välja olika sätt att skicka filerna på "
-"(som e-post eller snabbmeddelanden) och en destination. Du kan också välja "
-"att skicka filerna i ett komprimerat format."
+"<gui>Skicka till…</gui> från snabbvalsmenyn. En <gui>Skicka till</gui>-"
+"dialog kommer att visas vilken valfritt låter dig ta bort eventuella "
+"metadata, skala bilden eller ändra formatet innan den skickas till din "
+"konfigurerade e-postklient."
 
 #. (itstool) path: info/desc
 #: C/edit-adjustments.page:7
