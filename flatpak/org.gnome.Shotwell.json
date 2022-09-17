@@ -81,8 +81,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://github.com/libusb/libusb/releases/download/v1.0.24/libusb-1.0.24.tar.bz2",
-                    "sha256" : "7efd2685f7b327326dcfb85cee426d9b871fd70e22caa15bb68d595ce2a2b12a"
+                    "url" : "https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2",
+                    "sha256" : "12ce7a61fc9854d1d2a1ffe095f7b5fac19ddba095c259e6067a46500381b5a5"
                 }
             ],
             "config-opts" : [
@@ -99,9 +99,9 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.27/libgphoto2-2.5.27.tar.bz2/download",
-                    "sha256" : "f8b85478c44948a0b0b52c4d4dfda2de1d7bcb7b262c76bd1ae306d9c63240d7",
-                    "dest-filename" : "libgphoto2-2.5.27.tar.bz2"
+                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.30/libgphoto2-2.5.30.tar.bz2/download",
+                    "sha256" : "ee61a1dac6ad5cf711d114e06b90a6d431961a6e7ec59f4b757a7cd77b1c0fb4",
+                    "dest-filename" : "libgphoto2-2.5.30.tar.bz2"
                 }
             ],
             "config-opts" : [
