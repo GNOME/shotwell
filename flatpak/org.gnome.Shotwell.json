@@ -25,7 +25,6 @@
         "--talk-name=ca.desrt.dconf",
         "--talk-name=org.freedesktop.FileManager1",
         "--talk-name=org.gnome.SettingsDaemon",
-        "--talk-name=org.gtk.vfs",
         "--talk-name=org.gtk.vfs.*",
         "--env=GSETTINGS_BACKEND=dconf",
         "--talk-name=org.freedesktop.secrets"
