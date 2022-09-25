@@ -1,3 +1,54 @@
+Shotwell 0.30.17 (stable) - 25 Sep 2022
+
+Known issues:
+ - Tumblr authentication fails when the password contains an &
+
+ - Update appdata summary
+ - Respect video orientation in thumbnailer
+ - Fix use of file portal in flatpak
+ - Fix upload of more than 50 images to Google Photos
+ - Fix issue of missing GPS coordinates if there is no
+   altitude in the image
+ - Let import from folder follow symlinks
+ - Remove video interpreter state handling
+ - Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/202
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4984
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4989
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4993
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4996
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Jürgen Benvenuti <gastornis@posteo.org>
+ - Hugo Carvalho <hugokarvalho@hotmail.com>
+ - Goran Vidović <trebelnik2@gmail.com>
+ - Alexey Rubtsov <rushills@gmail.com>
+ - Мирослав Николић <miroslavnikolic@rocketmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Philipp Kiemle <philipp.kiemle@gmail.com>
+
+Added/updated translations:
+ - id.po, courtesy of Andika Triwidada
+ - de.po, courtesy of Jürgen Benvenuti
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Andika Triwidada
+ - pl.po, courtesy of Piotr Drąg
+ - pt.po, courtesy of Hugo Carvalho
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - ru.po, courtesy of Alexey Rubtsov
+ - sr.po, courtesy of Мирослав Николић
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.30.16 (stable) - 18 May 2022
  - Fix issue with dark mode wallpapers
  - Fix compatibility with OpenCV 4
