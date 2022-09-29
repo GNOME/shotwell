@@ -192,7 +192,7 @@ img {
 }
 
   @media (prefers-color-scheme: dark) {
-    a.page-logo {
+    #logo {
       filter: invert(100%) hue-rotate(180deg); /* uninvert */
       background-image: url('assets/page-logo-i.svg');
     }
