@@ -445,12 +445,17 @@ tbody td {
 .highlighter-rouge {
   padding: 2px 1rem;
   border-radius: 5px;
-  background-color: white;
-
-  overflow: auto;
+  background-color: var(--light1);
+  max-width: 100%;
+  overflow-x: auto;
 }
+  @media only screen and (max-device-width : 480px) {
+  /*mobile*/
+  .highlighter-rouge { max-width: 80vw; }
+  }
+  
 .highlighter-rouge * {
-  background-color: white;
+  background-color: var(--light1);
 }
 
 /* Inline Code */
