@@ -1,9 +1,11 @@
 # Site settings
-title: website template
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "https://fixme.org" # the base hostname & protocol for your site
+title: Website Template
+baseurl: "/os-component-website" # the subpath of your site, e.g. /blog/
+                                 # usually empty. necessary for buidling absolute URIs
+                                 # for metadata header
+url: "https://jimmac.gihub.io"   # the base hostname & protocol for your site
 sourceurl: "https://github.com/jimmac/os-component-website"
-description: "OS Template FIXME"
+description: "Description of the OS Component website."
 issuesurl: "https://github.com/jimmac/os-component-website/issues"
 permalink: /:title/
 
