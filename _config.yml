@@ -4,10 +4,11 @@ baseurl: "/os-component-website" # the subpath of your site, e.g. /blog/
                                  # usually empty. necessary for buidling absolute URIs
                                  # for metadata header
 url: "https://jimmac.github.io"   # the base hostname & protocol for your site
-sourceurl: "https://github.com/jimmac/os-component-website"
+sourceurl: "https://github.com/jimmac/os-component-website" # "edit this website" link in the footer
 description: "Description of the OS Component website."
-issuesurl: "https://github.com/jimmac/os-component-website/issues"
+issuesurl: "https://github.com/jimmac/os-component-website/issues" # issue tracker for website
 permalink: /:title/
+primary-color: "#26a269" #used in ios theme. further color customization in style.css  
 
 # Build settings
 markdown: kramdown
