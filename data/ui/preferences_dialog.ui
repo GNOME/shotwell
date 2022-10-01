@@ -459,14 +459,25 @@
               </object>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Profiles</property>
+              <object class="GtkNotebookPage">
+                <property name="position">3</property>
+                <property name="child">
+                  <object class="GtkBox" id="profiles_box">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                </property>
+                <property name="tab">
+                  <object class="GtkLabel" id="profiles-tab">
+                    <property name="label" translatable="yes">Profiles</property>
+                  </object>
+                </property>
               </object>
+            </child>
+            <child>
+              <placeholder/>
             </child>
           </object>
         </child>

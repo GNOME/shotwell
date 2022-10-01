@@ -29,7 +29,10 @@ namespace Shotwell {
             var grid = new Gtk.Grid();
             grid.hexpand = true;
             grid.vexpand = true;
-            grid.margin = 6;
+            grid.margin_top = 6;
+            grid.margin_bottom = 6;
+            grid.margin_start = 6;
+            grid.margin_end = 6;
             grid.set_row_spacing(12);
             grid.set_column_spacing(12);
             var label = new Gtk.Label(_("Name"));
@@ -56,17 +59,17 @@ namespace Shotwell {
             grid.attach(entry, 1, 1, 1, 1);
             bind_property("library-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
 
-            var button = new Gtk.Button.from_icon_name("folder-symbolic", Gtk.IconSize.BUTTON);
+            var button = new Gtk.Button.from_icon_name("folder-symbolic");
             button.hexpand = false;
             button.vexpand = false;
             button.halign = Gtk.Align.FILL;
             button.clicked.connect(() => {
                 var dialog = new Gtk.FileChooserNative(_("Choose Library Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, _("_OK"), _("_Cancel"));
-                dialog.set_current_folder(library_folder);
-                var result = dialog.run();
+                dialog.set_current_folder(File.new_for_commandline_arg (library_folder));
+                var result = Gtk.ResponseType.OK; //dialog.run();
                 dialog.hide();
                 if (result == Gtk.ResponseType.ACCEPT) {
-                    library_folder = dialog.get_current_folder_file().get_path();
+                    library_folder = dialog.get_current_folder().get_path();
                 }
                 dialog.destroy();
             });
@@ -84,26 +87,26 @@ namespace Shotwell {
             bind_property("data-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
             grid.attach(entry, 1, 2, 1, 1);
 
-            button = new Gtk.Button.from_icon_name("folder-symbolic", Gtk.IconSize.BUTTON);
+            button = new Gtk.Button.from_icon_name("folder-symbolic");
             button.hexpand = false;
             button.vexpand = false;
             button.halign = Gtk.Align.FILL;
             button.clicked.connect(() => {
                 var dialog = new Gtk.FileChooserNative(_("Choose Data Folder"), this, Gtk.FileChooserAction.SELECT_FOLDER, _("_OK"), _("_Cancel"));
-                dialog.set_current_folder(data_folder);
-                var result = dialog.run();
+                dialog.set_current_folder(File.new_for_commandline_arg(data_folder));
+                var result = Gtk.ResponseType.OK; //dialog.run();
                 dialog.hide();
                 if (result == Gtk.ResponseType.ACCEPT) {
-                    data_folder = dialog.get_current_folder_file().get_path();
+                    data_folder = dialog.get_current_folder().get_path();
                 }
                 dialog.destroy();
             });
 
             grid.attach(button, 2, 2, 1, 1);
 
-            get_content_area().add(grid);
+            get_content_area().append(grid);
 
-            show_all();
+            show();
         }
     }
     class ProfileBrowser : Gtk.Box {
@@ -114,7 +117,7 @@ namespace Shotwell {
         public signal void profile_activated(string? profile);
 
         public override void constructed() {
-            var scrollable = new Gtk.ScrolledWindow(null, null);
+            var scrollable = new Gtk.ScrolledWindow();
             scrollable.hexpand = true;
             scrollable.vexpand = true;
 
@@ -132,16 +135,17 @@ namespace Shotwell {
             list_box.get_style_context().add_class("rich-list");
             list_box.hexpand = true;
             list_box.vexpand = true;
-            scrollable.add (list_box);
+            scrollable.set_child (list_box);
             list_box.bind_model(ProfileManager.get_instance(), on_widget_create);
             list_box.set_header_func(on_header);
 
             var button = new Gtk.Button.with_label(_("Create new Profile"));
-            pack_start(button, false, false, 6);
+            prepend(button);
             button.clicked.connect(() => {
                 var editor = new ProfileEditor();
                 editor.set_transient_for((Gtk.Window)get_ancestor(typeof(Gtk.Window)));
-                var result = editor.run();
+                //var result = editor.run();
+                var result = Gtk.ResponseType.CANCEL;
                 editor.hide();
                 if (result == Gtk.ResponseType.OK) {
                     debug("Request to add new profile: %s %s %s %s", editor.id, editor.profile_name, editor.library_folder, editor.data_folder);
@@ -149,8 +153,8 @@ namespace Shotwell {
                 }
                 editor.destroy();
             });
-            add(scrollable);
-            show_all();
+            append(scrollable);
+            show();
         }
 
         private Gtk.Widget on_widget_create(Object item) {
@@ -168,7 +172,7 @@ namespace Shotwell {
             var label = new Gtk.Label(null);
             label.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>".printf(p.name));
             label.xalign = 0.0f;
-            a.pack_start(label);
+            a.prepend(label);
 
 
             // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
@@ -189,12 +193,12 @@ namespace Shotwell {
             label = new Gtk.Label(import_dir);
             label.get_style_context().add_class("dim-label");
             label.xalign = 0.0f;
-            a.pack_end(label);
+            a.append(label);
             label.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
 
             Gtk.Image i;
             if (p.active) {
-                i = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                i = new Gtk.Image.from_icon_name ("emblem-default-symbolic");
                 i.set_tooltip_text(_("This is the currently active profile"));
             } else {
                 i = new Gtk.Image();
@@ -209,11 +213,11 @@ namespace Shotwell {
             i.margin_end = 6;
             i.hexpand = false;
 
-            box.pack_start(i, false, false, 0);
-            box.pack_start(a, true, true, 0);
+            box.prepend(a);
+            box.prepend(i);
 
             if (p.id != Profile.SYSTEM && ! p.active) {
-                var b = new Gtk.Button.from_icon_name("window-close-symbolic", Gtk.IconSize.BUTTON);
+                var b = new Gtk.Button.from_icon_name("window-close-symbolic");
                 b.margin_top = 6;
                 b.margin_bottom = 6;
                 b.margin_start = 6;
@@ -222,21 +226,22 @@ namespace Shotwell {
                 b.hexpand = false;
                 b.halign = Gtk.Align.END;
                 b.get_style_context().add_class("flat");
-                box.pack_end(b, false, false, 0);
+                box.append(b);
                 b.clicked.connect(() => {
                     var flags = Gtk.DialogFlags.DESTROY_WITH_PARENT | Gtk.DialogFlags.MODAL;
                     if (Resources.use_header_bar() == 1) {
                         flags |= Gtk.DialogFlags.USE_HEADER_BAR;
                     }
 
-                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_toplevel(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
+                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_root(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
                     var title = _("Remove profile “%s”").printf(p.name);
                     var subtitle = _("None of the options will remove any of the images associated with this profile");
                     d.set_markup(_("<b><span size=\"larger\">%s</span></b>\n<span weight=\"light\">%s</span>").printf(title, subtitle));
 
                     d.add_buttons(_("Remove profile and files"), Gtk.ResponseType.OK, _("Remove profile only"), Gtk.ResponseType.ACCEPT, _("Cancel"), Gtk.ResponseType.CANCEL);
                     d.get_widget_for_response(Gtk.ResponseType.OK).get_style_context().add_class("destructive-action");
-                    var response = d.run();
+                    //var response = d.run();
+                    var response = Gtk.ResponseType.OK;
                     d.destroy();
                     if (response == Gtk.ResponseType.OK || response == Gtk.ResponseType.ACCEPT) {
                         ProfileManager.get_instance().remove(p.id, response == Gtk.ResponseType.OK);
@@ -244,9 +249,9 @@ namespace Shotwell {
                 });
             }
 
-            box.show_all();
+            box.show();
 
-            row.add (box);
+            row.set_child(box);
 
             return row;
         }

@@ -133,7 +133,7 @@ public class PreferencesDialog : Gtk.Dialog {
         lowercase.toggled.connect(on_lowercase_toggled);
 
         plugins_box.append (plugins_mediator);
-        ((Gtk.Container) preferences_notebook.get_nth_page (3)).add (new Shotwell.ProfileBrowser());
+        ((Gtk.Box)preferences_notebook.get_nth_page (3)).append(new Shotwell.ProfileBrowser());
 
 
         populate_preference_options();

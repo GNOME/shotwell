@@ -34,14 +34,18 @@ namespace Shotwell {
                             this.profile == null);
             }
 
-            var group = profiles.get_groups()[position - 1];
-            var id = profiles.get_value(group, "Id");
-            var name = profiles.get_value(group, "Name");
-            var active = this.profile == name;
-            return new Profile(profiles.get_value(group, "Name"),
-                               id,
-                               get_data_dir_for_profile(id, group),
-                               active);
+            try {
+                var group = profiles.get_groups()[position - 1];
+                var id = profiles.get_value(group, "Id");
+                var name = profiles.get_value(group, "Name");
+                var active = this.profile == name;
+                return new Profile(profiles.get_value(group, "Name"),
+                                   id,
+                                   get_data_dir_for_profile(id, group),
+                                   active);
+            } catch (Error err) {
+                assert_not_reached();
+            }
 
         }
 

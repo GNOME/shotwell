@@ -395,9 +395,10 @@ void main(string[] args) {
             CommandlineOptions.profile = profile;
             window.response(Gtk.ResponseType.OK);
         });
-        window.get_content_area().add(browser);
+        window.get_content_area().append(browser);
         window.set_size_request(430, 560);
-        var response = window.run();
+
+        var response = Gtk.ResponseType.OK; //window.run();
         window.destroy();
         // Anything else than selecting an entry in the list will stop shotwell from starting
         if (response != Gtk.ResponseType.OK) {
