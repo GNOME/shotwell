@@ -241,9 +241,13 @@ public class PhotoMetadata : MediaMetadata {
         public override Bytes flatten() throws Error {
             unowned GExiv2.PreviewProperties?[] props = owner.exiv2.get_preview_properties();
             assert(props != null && props.length > number);
-            
-            return new
-                Bytes(owner.exiv2.get_preview_image(props[number]).get_data());
+           
+            try {
+                return new
+                    Bytes(owner.exiv2.try_get_preview_image(props[number]).get_data());
+            } catch (Error err) {
+                return new Bytes(null);
+            }
         }
     }
     
@@ -364,7 +368,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public bool has_tag(string tag) {
-        return exiv2.has_tag(tag);
+        try {
+            return exiv2.try_has_tag(tag);
+        } catch (Error error) {
+            return false;
+        }
     }
     
     private Gee.Set<string> create_string_set(owned CompareDataFunc<string>? compare_func) {
@@ -425,19 +433,35 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public string? get_tag_label(string tag) {
-        return GExiv2.Metadata.get_tag_label(tag);
+        try {
+            return GExiv2.Metadata.try_get_tag_label(tag);
+        } catch (Error error) {
+            return null;
+        }
     }
     
     public string? get_tag_description(string tag) {
-        return GExiv2.Metadata.get_tag_description(tag);
+        try {
+            return GExiv2.Metadata.try_get_tag_description(tag);
+        } catch (Error error) {
+            return null;
+        }
     }
     
     public string? get_string(string tag, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
-        return prepare_input_text(exiv2.get_tag_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+        try {
+            return prepare_input_text(exiv2.try_get_tag_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+        } catch (Error error) {
+            return null;
+        }
     }
     
     public string? get_string_interpreted(string tag, PrepareInputTextOptions options = PREPARE_STRING_OPTIONS) {
-        return prepare_input_text(exiv2.get_tag_interpreted_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+        try {
+            return prepare_input_text(exiv2.try_get_tag_interpreted_string(tag), options, DEFAULT_USER_TEXT_INPUT_LENGTH);
+        } catch (Error error) {
+            return null;
+        }
     }
     
     public string? get_first_string(string[] tags) {
@@ -467,24 +491,28 @@ public class PhotoMetadata : MediaMetadata {
     // (there or here), don't use this function to access EXIF.  See:
     // https://gitlab.gnome.org/GNOME/gexiv2/issues/10
     public Gee.List<string>? get_string_multiple(string tag) {
-        string[] values = exiv2.get_tag_multiple(tag);
-        if (values == null || values.length == 0)
-            return null;
-        
-        Gee.List<string> list = new Gee.ArrayList<string>();
-        
-        Gee.HashSet<string> collection = new Gee.HashSet<string>();
-        foreach (string value in values) {
-            string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS,
-                DEFAULT_USER_TEXT_INPUT_LENGTH);
-                
-            if (prepped != null && !collection.contains(prepped)) {
-                list.add(prepped);
-                collection.add(prepped);
+        try {
+            string[] values = exiv2.try_get_tag_multiple(tag);
+            if (values == null || values.length == 0)
+                return null;
+            
+            Gee.List<string> list = new Gee.ArrayList<string>();
+            
+            Gee.HashSet<string> collection = new Gee.HashSet<string>();
+            foreach (string value in values) {
+                string? prepped = prepare_input_text(value, PREPARE_STRING_OPTIONS,
+                    DEFAULT_USER_TEXT_INPUT_LENGTH);
+                    
+                if (prepped != null && !collection.contains(prepped)) {
+                    list.add(prepped);
+                    collection.add(prepped);
+                }
             }
+            
+            return list.size > 0 ? list : null;
+        } catch (Error error) {
+            return null;
         }
-        
-        return list.size > 0 ? list : null;
     }
     
     // Returns a List that has been filtered through a Set, so no duplicates will be found.
@@ -512,8 +540,11 @@ public class PhotoMetadata : MediaMetadata {
             return;
         }
         
-        if (!exiv2.set_tag_string(tag, prepped))
-            warning("Unable to set tag %s to string %s from source %s", tag, value, source_name);
+        try {
+            exiv2.try_set_tag_string(tag, prepped);
+        } catch (Error error) {
+            warning("Unable to set tag %s to string %s from source %s: %s", tag, value, source_name, error.message);
+        }
     }
     
     private delegate void SetGenericValue(string tag);
@@ -564,8 +595,11 @@ public class PhotoMetadata : MediaMetadata {
         // user-visible behavior seen in the Flickr Connector as a result of the former bug.
         values += null;
         
-        if (!exiv2.set_tag_multiple(tag, values))
-            warning("Unable to set %d strings to tag %s from source %s", values.length, tag, source_name);
+        try {
+            exiv2.try_set_tag_multiple(tag, values);
+        } catch (Error err) {
+            warning("Unable to set %d strings to tag %s from source %s: %s", values.length, tag, source_name, err.message);
+        }
     }
     
     public void set_all_string_multiple(string[] tags, Gee.Collection<string> values, SetOption option) {
@@ -579,7 +613,11 @@ public class PhotoMetadata : MediaMetadata {
             return false;
         }
         
-        value = exiv2.get_tag_long(tag);
+        try {
+            value = exiv2.try_get_tag_long(tag);
+        } catch (Error error) {
+            return false;
+        }
         
         return true;
     }
@@ -596,8 +634,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void set_long(string tag, long value) {
-        if (!exiv2.set_tag_long(tag, value))
-            warning("Unable to set tag %s to long %ld from source %s", tag, value, source_name);
+        try {
+            exiv2.try_set_tag_long(tag, value);
+        } catch (Error err) {
+            warning("Unable to set tag %s to long %ld from source %s: %s", tag, value, source_name, err.message);
+        }
     }
     
     public void set_all_long(string[] tags, long value, SetOption option) {
@@ -606,11 +647,14 @@ public class PhotoMetadata : MediaMetadata {
     
     public bool get_rational(string tag, out MetadataRational rational) {
         int numerator, denominator;
-        bool result = exiv2.get_exif_tag_rational(tag, out numerator, out denominator);
-        
-        rational = MetadataRational(numerator, denominator);
-        
-        return result;
+        try {
+            exiv2.try_get_exif_tag_rational(tag, out numerator, out denominator);
+            rational = MetadataRational(numerator, denominator);
+        } catch (Error error) {
+            return false;
+        }
+
+        return true;
     }
     
     public bool get_first_rational(string[] tags, out MetadataRational rational) {
@@ -625,9 +669,11 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void set_rational(string tag, MetadataRational rational) {
-        if (!exiv2.set_exif_tag_rational(tag, rational.numerator, rational.denominator)) {
-            warning("Unable to set tag %s to rational %s from source %s", tag, rational.to_string(),
-                source_name);
+        try {
+            exiv2.try_set_exif_tag_rational(tag, rational.numerator, rational.denominator);
+        } catch (Error err) {
+            warning("Unable to set tag %s to rational %s from source %s: %s", tag, rational.to_string(),
+                source_name, err.message);
         }
     }
     
@@ -766,7 +812,10 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void remove_exif_thumbnail() {
-        exiv2.erase_exif_thumbnail();
+        try {
+            exiv2.try_erase_exif_thumbnail();
+        } catch (Error err) { }
+
         if (exif != null) {
             Exif.Mem.new_default().free(exif.data);
             exif.data = null;
@@ -775,7 +824,9 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public void remove_tag(string tag) {
-        exiv2.clear_tag(tag);
+        try {
+            exiv2.try_clear_tag(tag);
+        } catch (Error err){}
     }
     
     public void remove_tags(string[] tags) {
@@ -1147,12 +1198,16 @@ public class PhotoMetadata : MediaMetadata {
     public Orientation get_orientation() {
         // GExiv2.Orientation is the same value-wise as Orientation, with one exception:
         // GExiv2.Orientation.UNSPECIFIED must be handled
-        GExiv2.Orientation orientation = exiv2.get_orientation();
-        if (orientation ==  GExiv2.Orientation.UNSPECIFIED || orientation < Orientation.MIN ||
-            orientation > Orientation.MAX)
+        try {
+            GExiv2.Orientation orientation = exiv2.try_get_orientation();
+            if (orientation ==  GExiv2.Orientation.UNSPECIFIED || orientation < Orientation.MIN ||
+                orientation > Orientation.MAX)
+                return Orientation.TOP_LEFT;
+            else
+                return (Orientation) orientation;
+        } catch (Error error) {
             return Orientation.TOP_LEFT;
-        else
-            return (Orientation) orientation;
+        }
     }
     
     public void set_orientation(Orientation orientation) {

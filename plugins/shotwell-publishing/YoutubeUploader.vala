@@ -5,7 +5,6 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
     private PublishingParameters parameters;
     private Publishing.RESTSupport.GoogleSession session;
     private Spit.Publishing.Publishable publishable;
-    private MappedFile mapped_file;
 
     public UploadTransaction(Publishing.RESTSupport.GoogleSession session,
         PublishingParameters parameters, Spit.Publishing.Publishable publishable) {
@@ -16,10 +15,6 @@ internal class UploadTransaction : Publishing.RESTSupport.GooglePublisher.Authen
         this.session = session;
         this.parameters = parameters;
         this.publishable = publishable;
-    }
-
-    public Spit.Publishing.Publishable get_publishable() {
-        return this.publishable;
     }
 
     public override void execute() throws Spit.Publishing.PublishingError {
