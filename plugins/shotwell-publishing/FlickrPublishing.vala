@@ -728,50 +728,62 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
         if (!publishable_metadata.has_iptc())
             return;
 
-        if (publishable_metadata.has_tag("Iptc.Application2.Caption"))
-            publishable_metadata.set_tag_string("Iptc.Application2.Caption",
-                Publishing.RESTSupport.asciify_string(publishable_metadata.get_tag_string(
-                "Iptc.Application2.Caption")));
+        try {
+            if (publishable_metadata.try_has_tag("Iptc.Application2.Caption"))
+                publishable_metadata.try_set_tag_string("Iptc.Application2.Caption",
+                    Publishing.RESTSupport.asciify_string(publishable_metadata.try_get_tag_string(
+                    "Iptc.Application2.Caption")));
+        } catch (Error err) {}
 
-        if (publishable_metadata.has_tag("Iptc.Application2.Headline"))
-            publishable_metadata.set_tag_string("Iptc.Application2.Headline",
-                Publishing.RESTSupport.asciify_string(publishable_metadata.get_tag_string(
-                "Iptc.Application2.Headline")));
+        try {
+            if (publishable_metadata.try_has_tag("Iptc.Application2.Headline"))
+                publishable_metadata.try_set_tag_string("Iptc.Application2.Headline",
+                    Publishing.RESTSupport.asciify_string(publishable_metadata.try_get_tag_string(
+                    "Iptc.Application2.Headline")));
+        } catch (Error error) {}
 
-        if (publishable_metadata.has_tag("Iptc.Application2.Keywords")) {
-            Gee.Set<string> keyword_set = new Gee.HashSet<string>();
-            string[] iptc_keywords = publishable_metadata.get_tag_multiple("Iptc.Application2.Keywords");
-            if (iptc_keywords != null)
-                foreach (string keyword in iptc_keywords)
-                    keyword_set.add(keyword);
+        try {
+            if (publishable_metadata.try_has_tag("Iptc.Application2.Keywords")) {
+                Gee.Set<string> keyword_set = new Gee.HashSet<string>();
+                string[] iptc_keywords = publishable_metadata.try_get_tag_multiple("Iptc.Application2.Keywords");
+                if (iptc_keywords != null)
+                    foreach (string keyword in iptc_keywords)
+                        keyword_set.add(keyword);
 
-            string[] xmp_keywords = publishable_metadata.get_tag_multiple("Xmp.dc.subject");
-            if (xmp_keywords != null)
-                foreach (string keyword in xmp_keywords)
-                    keyword_set.add(keyword);
+                string[] xmp_keywords = publishable_metadata.try_get_tag_multiple("Xmp.dc.subject");
+                if (xmp_keywords != null)
+                    foreach (string keyword in xmp_keywords)
+                        keyword_set.add(keyword);
 
-            string[] all_keywords = keyword_set.to_array();
-            // append a null pointer to the end of all_keywords -- this is a necessary workaround
-            // https://bugzilla.gnome.org/show_bug.cgi?id=712479. See also
-            // https://bugzilla.gnome.org/show_bug.cgi?id=717438 which describes the user-visible
-            // behavior seen in the Flickr Connector as a result of the former bug.
-            all_keywords += null;
+                string[] all_keywords = keyword_set.to_array();
+                // append a null pointer to the end of all_keywords -- this is a necessary workaround
+                // https://bugzilla.gnome.org/show_bug.cgi?id=712479. See also
+                // https://bugzilla.gnome.org/show_bug.cgi?id=717438 which describes the user-visible
+                // behavior seen in the Flickr Connector as a result of the former bug.
+                all_keywords += null;
 
-            string[] no_keywords = new string[1];
-            // append a null pointer to the end of no_keywords -- this is a necessary workaround
-            // for similar reasons as above.
-            no_keywords[0] = null;
-            
-            publishable_metadata.set_tag_multiple("Xmp.dc.subject", all_keywords);
-            publishable_metadata.set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
+                string[] no_keywords = new string[1];
+                // append a null pointer to the end of no_keywords -- this is a necessary workaround
+                // for similar reasons as above.
+                no_keywords[0] = null;
+                
+                try {
+                    publishable_metadata.try_set_tag_multiple("Xmp.dc.subject", all_keywords);
+                } catch (Error error) {
+                }
+                try {
+                    publishable_metadata.try_set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
+                } catch (Error error) {
+                }
 
-            try {
-                publishable_metadata.save_file(publishable.get_serialized_file().get_path());
-            } catch (GLib.Error err) {
-                warning("couldn't write metadata to file '%s' for upload preprocessing.",
-                    publishable.get_serialized_file().get_path());
+                try {
+                    publishable_metadata.save_file(publishable.get_serialized_file().get_path());
+                } catch (GLib.Error err) {
+                    warning("couldn't write metadata to file '%s' for upload preprocessing.",
+                        publishable.get_serialized_file().get_path());
+                }
             }
-        }
+        } catch (Error error) {}
     }
     
     protected override Publishing.RESTSupport.Transaction create_transaction(

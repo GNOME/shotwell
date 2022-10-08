@@ -15,7 +15,6 @@ internal class Publishing.YouTube.UploadTransaction : Publishing.RESTSupport.Goo
         this.parameters = parameters;
         this.publishable = publishable;
     }
-
     public override async void execute_async() throws Spit.Publishing.PublishingError {
         // Collect parameters
 
