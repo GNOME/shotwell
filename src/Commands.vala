@@ -2165,8 +2165,6 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         }
         
         foreach (string path in new_paths) {
-            assert(Tag.global.exists(path));
-
             SourceProxy proxy = Tag.for_path(path).get_proxy();
             to_add.add(proxy);
             proxy.broken.connect(on_proxy_broken);
