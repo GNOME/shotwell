@@ -32,11 +32,17 @@ int main(string[] args) {
         // TODO: Note that TAG_DATE can be changed to TAG_DATE_TIME in the future
         // (and the corresponding output struct) in order to implement #2836.
         Date? video_date = null;
-        if (info.get_tags() != null && info.get_tags().get_date(Gst.Tags.DATE, out video_date)) {
-            // possible for get_date() to return true and a null Date
-            if (video_date != null) {
-                timestamp = new GLib.DateTime.local(video_date.get_year(), video_date.get_month(),
-                    video_date.get_day(), 0, 0, 0);
+        var containers = info.get_container_streams();
+        foreach (var container in containers) {
+            if (container.get_tags() != null && container.get_tags().get_date(Gst.Tags.DATE, out video_date)) {
+                // possible for get_date() to return true and a null Date
+                if (video_date != null) {
+                    timestamp = new GLib.DateTime.local(video_date.get_year(), video_date.get_month(),
+                        video_date.get_day(), 0, 0, 0);
+
+                    // first one wins
+                    break;
+                }
             }
         }
 
