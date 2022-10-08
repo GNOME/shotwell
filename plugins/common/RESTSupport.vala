@@ -47,7 +47,7 @@ public abstract class Session {
 
                 return Soup.LoggerLogLevel.BODY;
             });
-            soup_session.add_feature (new Soup.Logger (Soup.LoggerLogLevel.BODY));
+            soup_session.add_feature (logger);
         }
     }
     
