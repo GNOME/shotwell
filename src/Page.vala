@@ -85,6 +85,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     private int cursor_hide_time_cached = 0;
     private bool are_actions_attached = false;
     private OneShotScheduler? update_actions_scheduler = null;
+
+    protected double wheel_factor = 0.0;
+    protected double modified_wheel_factor = 1.0;
     
     protected Page(string page_name) {
         this.page_name = page_name;
@@ -989,13 +992,13 @@ public abstract class Page : Gtk.ScrolledWindow {
                     double dx, dy;
                     event.get_scroll_deltas(out dx, out dy);
 
-                    if (dy < 0)
+                    if (dy < -1.0 * this.wheel_factor)
                         return on_mousewheel_up(event);
-                    else if (dy > 0)
+                    else if (dy > this.wheel_factor)
                         return on_mousewheel_down(event);
-                    else if (dx < 0)
+                    else if (dx < -1.0 * this.wheel_factor)
                         return on_mousewheel_left(event);
-                    else if (dx > 0)
+                    else if (dx > this.wheel_factor)
                         return on_mousewheel_right(event);
                     else
                         return false;

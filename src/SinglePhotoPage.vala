@@ -38,6 +38,7 @@ public abstract class SinglePhotoPage : Page {
 
     protected SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
+        this.wheel_factor = 0.9999;
 
         this.scale_up_to_viewport = scale_up_to_viewport;
 
