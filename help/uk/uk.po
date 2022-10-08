@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2022-09-14 19:22+0000\n"
-"PO-Revision-Date: 2022-09-15 17:06+0300\n"
+"POT-Creation-Date: 2022-10-08 06:49+0000\n"
+"PO-Revision-Date: 2022-10-08 17:06+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2483,19 +2483,30 @@ msgstr "Перетягніть позначені фотографії і ски
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:33
+#| msgid ""
+#| "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
+#| "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in "
+#| "the names of one or more tags, separated by commas. Once you have created "
+#| "a tag, you can rename it by selecting that tag in the sidebar and "
+#| "choosing <guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></"
+#| "guiseq>, by right-clicking on it and choose <gui>Rename...</gui> or "
+#| "double-click on the tag in the sidebar."
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
 "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
-"names of one or more tags, separated by commas. Once you have created a tag, "
-"you can rename it by selecting that tag in the sidebar and choosing "
-"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
-"right-clicking on it and choose <gui>Rename...</gui> or double-click on the "
-"tag in the sidebar."
+"names of one or more tags, separated by commas. You can also add tag "
+"hierarchies on the fly using <input>/</input> as if they were paths in the "
+"file system. Once you have created a tag, you can rename it by selecting "
+"that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "
+"\"[name]\"...</gui></guiseq>, by right-clicking on it and choose "
+"<gui>Rename...</gui> or double-click on the tag in the sidebar."
 msgstr ""
 "Коли ви скористаєтеся комбінацією клавіш <keyseq><key>Ctrl</key><key>T</"
 "key></keyseq> або пунктом меню <guiseq><gui>Мітки</gui><gui>Додати мітки...</"
 "gui></guiseq>, ви зможете ввести назви однієї або декількох міток, "
-"відокремлених комами. Щойно вами буде створено мітку, ви можете "
+"відокремлених комами.  Ви також можете додавати ієрархії міток на льоту за"
+" допомогою <input>/</input>, так, наче вони є шляхами у файловій системі."
+" Щойно вами буде створено мітку, ви можете "
 "перейменувати її, позначивши мітку на бічній панелі і вибравши пункт меню "
 "<guiseq><gui>Мітки</gui><gui>Перейменувати мітку «[назва]»...</gui></"
 "guiseq>, клацнувши правою кнопкою миші на пункті мітки і вибравши у "
@@ -2503,7 +2514,7 @@ msgstr ""
 "пункті мітки на бічній панелі."
 
 #. (itstool) path: page/p
-#: C/organize-tag.page:44
+#: C/organize-tag.page:46
 msgid ""
 "To change which tags are associated with a particular photo, select that "
 "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
@@ -2526,7 +2537,7 @@ msgstr ""
 "контекстному меню <gui>Вилучити мітку «[назва]» з фотографій</gui>."
 
 #. (itstool) path: page/p
-#: C/organize-tag.page:58
+#: C/organize-tag.page:60
 msgid ""
 "To delete a tag entirely, select that tag in the sidebar and choose "
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
@@ -2538,7 +2549,7 @@ msgstr ""
 "пункт <gui>Вилучити мітку «[назва]»</gui>."
 
 #. (itstool) path: page/p
-#: C/organize-tag.page:64
+#: C/organize-tag.page:66
 msgid ""
 "When you create a tag, it will appear in the sidebar under the <gui>Tags</"
 "gui> item, which is hidden if there are no tags. Photos can have multiple "
@@ -2552,12 +2563,12 @@ msgstr ""
 "відповідною міткою."
 
 #. (itstool) path: section/title
-#: C/organize-tag.page:73
+#: C/organize-tag.page:75
 msgid "Hierarchical Tags"
 msgstr "Ієрархічні мітки"
 
 #. (itstool) path: section/p
-#: C/organize-tag.page:74
+#: C/organize-tag.page:76
 msgid ""
 "Shotwell supports also hierarchical tags. You can rearrange your tags by "
 "drag and drop a tag onto another. To create a new subtag right-click on a "
@@ -2569,7 +2580,39 @@ msgstr ""
 "мітки і виберіть у контекстному меню пункт <gui>Створити</gui>."
 
 #. (itstool) path: section/p
-#: C/organize-tag.page:81
+#: C/organize-tag.page:82
+msgid ""
+"In all places where textual tag input is supported, tags can also be created "
+"using <input>/</input>. For example, using <input>/World/Africa/Togo/Lomé</"
+"input> will create or extend the tag tree"
+msgstr ""
+"Всюди, де передбачено підтримку введення текстових міток, мітки також може"
+" бути створено за допомогою символу <input>/</input>. Наприклад,"
+" використання мітки <input>/Світ/Африка/Того/Ломе</input> створить або"
+" розширить дерево міток"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:92
+msgid "Lomé"
+msgstr "Ломе"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:91
+msgid "Togo <_:item-1/>"
+msgstr "Того <_:item-1/>"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:90
+msgid "Africa <_:item-1/>"
+msgstr "Африка <_:item-1/>"
+
+#. (itstool) path: tree/item
+#: C/organize-tag.page:89
+msgid "World <_:item-1/>"
+msgstr "Світ <_:item-1/>"
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:98
 msgid ""
 "Hierarchical tags can help you to sort your tag list in ways that better "
 "match how you work or think; for example, you can store location tags like "
@@ -2582,7 +2625,7 @@ msgstr ""
 "міткою «Місця», яку також можна розташувати під міткою «Відпочинок влітку»."
 
 #. (itstool) path: section/p
-#: C/organize-tag.page:89
+#: C/organize-tag.page:106
 msgid "Note that deleting a parent tag will also delete its child tags."
 msgstr ""
 "Зауважте, що вилучення батьківської мітки призведе до вилучення усіх її "
@@ -3347,9 +3390,6 @@ msgstr "Надсилання фотографій"
 
 #. (itstool) path: page/p
 #: C/share-send.page:14
-#| msgid ""
-#| "Shotwell can send photos using the GNOME desktop's Send To mechanism, "
-#| "which lets you send photos via email, instant messaging or in other ways."
 msgid ""
 "Shotwell can send photos using the GNOME desktop's Send To mechanism, which "
 "lets you send photos via email."
@@ -3359,13 +3399,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/share-send.page:16
-#| msgid ""
-#| "To send photos, select them in Shotwell and choose <guiseq><gui>File</"
-#| "gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
-#| "<gui>Send To...</gui> from the context menu. A <gui>Send To</gui> dialog "
-#| "box will appear which lets you choose a mechanism for sending the files "
-#| "(such as email or instant messaging) and a destination. You can "
-#| "optionally choose to send the files in a compressed format."
 msgid ""
 "To send photos, select them in Shotwell and choose <guiseq><gui>File</"
 "gui><gui>Send To...</gui></guiseq>, or right-click the photos and choose "
@@ -3377,10 +3410,10 @@ msgstr ""
 "пунктом меню <guiseq><gui>Файл</gui><gui>Надіслати...</gui></guiseq> або "
 "клацніть правою кнопкою миші на будь-якій з позначених фотографій і виберіть "
 "у контекстному меню пункт <gui>Надіслати...</gui>. У відповідь буде відкрито "
-"діалогове вікно <gui>Надіслати</gui>, за допомогою якого ви зможете, якщо"
-" захочете, вилучити усі метадані, масштабувати зображення або змінити його"
-" формат перед передаванням налаштованому вами типовому клієнту електронної"
-" пошти."
+"діалогове вікно <gui>Надіслати</gui>, за допомогою якого ви зможете, якщо "
+"захочете, вилучити усі метадані, масштабувати зображення або змінити його "
+"формат перед передаванням налаштованому вами типовому клієнту електронної "
+"пошти."
 
 #. (itstool) path: info/desc
 #: C/edit-adjustments.page:7
