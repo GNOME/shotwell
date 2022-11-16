@@ -54,6 +54,21 @@
             ],
             "config-opts" : ["--disable-udev"]
         },
+	{
+            "name": "libportal",
+            "buildsystem": "meson",
+            "builddir": true,
+            "config-opts": [
+                 "--libdir=/app/lib",
+                "--buildtype=debugoptimized"
+            ],
+            "sources" : [
+                {
+                    "type": "git",
+                    "url": "https://github.com/flatpak/libportal.git"
+                }
+            ]
+	},
         {
             "name": "libghoto2",
             "cleanup" : ["/bin", "/lib/udev", "/share/doc"],
