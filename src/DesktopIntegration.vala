@@ -174,14 +174,15 @@ public void set_background(Photo photo, bool desktop, bool screensaver) {
         
         return;
     }
-    
-    if (desktop) {
-        Config.Facade.get_instance().set_desktop_background(save_as.get_path());
-    }
-    if (screensaver) {
-        Config.Facade.get_instance().set_screensaver(save_as.get_path());
-    }
-    
+
+    var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
+    var portal = new Xdp.Portal();
+    Xdp.WallpaperFlags flags = Xdp.WallpaperFlags.PREVIEW;
+    if (desktop) flags |= Xdp.WallpaperFlags.BACKGROUND;
+    if (screensaver) flags |= Xdp.WallpaperFlags.LOCKSCREEN;
+
+    portal.set_wallpaper.begin(parent, save_as.get_uri(), flags, null);
+
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
 
@@ -207,7 +208,7 @@ private class BackgroundSlideshowXMLBuilder {
     
     public void open() throws Error {
         outs = new DataOutputStream(tmp_file.replace(null, false, FileCreateFlags.NONE, null));
-        outs.put_string("<background>\n");
+        outs.put_string("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<background>\n");
     }
     
     private void write_transition(File from, File to) throws Error {
@@ -312,12 +313,13 @@ private void on_desktop_slideshow_exported(Exporter exporter, bool is_cancelled)
         return;
     }
     
-    if (set_desktop_background) {
-        Config.Facade.get_instance().set_desktop_background(xml_file.get_path());
-    }
-    if (set_screensaver) {
-        Config.Facade.get_instance().set_screensaver(xml_file.get_path());
-    }
+    var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
+    var portal = new Xdp.Portal();
+    Xdp.WallpaperFlags flags = Xdp.WallpaperFlags.PREVIEW;
+    if (set_desktop_background) flags |= Xdp.WallpaperFlags.BACKGROUND;
+    if (set_screensaver) flags |= Xdp.WallpaperFlags.LOCKSCREEN;
+
+    portal.set_wallpaper.begin(parent, xml_file.get_uri(), flags, null);
 }
 
 }
