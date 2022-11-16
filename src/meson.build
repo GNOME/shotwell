@@ -29,7 +29,7 @@ face_sources = (['faces/FacesBranch.vala',
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
-                 libraw, libexif, sw_plugin, gdk, version]
+                 libraw, libexif, sw_plugin, portal, version]
 if unity_available
     shotwell_deps += [unity]
 endif
@@ -194,7 +194,6 @@ executable('shotwell',
             'MediaPage.vala',
             'MediaDataRepresentation.vala',
             'DesktopIntegration.vala',
-        'Portal.vala',
             'MediaInterfaces.vala',
             'MediaMetadata.vala',
             'VideoMetadata.vala',
