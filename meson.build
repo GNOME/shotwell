@@ -65,7 +65,7 @@ libraw = dependency('libraw', version : '>= 0.13.2')
 libexif = dependency('libexif', version : '>= 0.6.16')
 unity = dependency('unity', required : false)
 secret = dependency('libsecret-1', required: true)
-gdk = [ dependency('gdk-x11-3.0'), dependency('gdk-wayland-3.0') ]
+portal = [ dependency('libportal', version: '>= 0.5'), dependency('libportal-gtk3', version: '>= 0.5')]
  
 webpdemux = dependency('libwebpdemux')
 webp = dependency('libwebp')

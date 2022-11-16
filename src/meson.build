@@ -32,7 +32,8 @@ face_sources = (['faces/FacesBranch.vala',
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
                  gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule, unity,
-                 libraw, libexif, sw_plugin, webpdemux, webp, version, gdk ]
+                 libraw, libexif, sw_plugin, webpdemux, webp, version,
+                 portal]
 
 subdir('metadata')
 subdir('publishing')
@@ -214,7 +215,6 @@ executable(
         'MediaPage.vala',
         'MediaDataRepresentation.vala',
         'DesktopIntegration.vala',
-        'Portal.vala',
         'MediaInterfaces.vala',
         'MediaMonitor.vala',
         'PhotoMonitor.vala',
