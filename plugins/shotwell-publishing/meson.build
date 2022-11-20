@@ -8,7 +8,9 @@ shotwell_publishing_sources = [
     'PhotosPublisher.vala',
     'PhotosService.vala',
     'PhotosPublishingPane.vala',
-    'PhotosUploader.vala'
+    'PhotosUploader.vala',
+    'mastodon/Publisher.vala',
+    'mastodon/Service.vala'
 ]
 
 shotwell_publishing_resources = gnome.compile_resources('publishing-resource',
