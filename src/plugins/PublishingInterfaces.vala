@@ -654,6 +654,7 @@ public interface Authenticator : Object {
     public abstract void set_accountname(string name);
 
     public abstract GLib.HashTable<string, Variant> get_authentication_parameter();
+
 }
 
 public interface AuthenticatorFactory : Object {

@@ -13,10 +13,10 @@ namespace Publishing.Authenticator {
         public Gee.List<string> get_available_authenticators() {
             var list = new Gee.ArrayList<string>();
             list.add("flickr");
-            list.add("facebook");
             list.add("youtube");
             list.add("tumblr");
             list.add("google-photos");
+            list.add("mastodon");
 
             return list;
         }
@@ -32,6 +32,8 @@ namespace Publishing.Authenticator {
                     return new Shotwell.Tumblr.Tumblr(host);
                 case "google-photos":
                     return new Shotwell.Google.Google("https://www.googleapis.com/auth/photoslibrary", _("You are not currently logged into Google Photos.\n\nYou must have already signed up for a Google account and set it up for use with Google Photos. Shotwell uses the Google Photos API services <a href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> for all interaction with your Google Photos data. You will have to grant access Shotwell to your Google Photos library.\n\nShotwell's privacy policy regarding the use of data related to your Google account in general and Google Photos in particular can be found in our <a href=\"help:shotwell/privacy-policy\">online services privacy policy</a>. For Google's own privacy policy, please refer to <a href=\"https://policies.google.com/privacy\">https://policies.google.com/privacy</a>"), host);
+                case "mastodon":
+                    return new Shotwell.Mastodon.Mastodon(host);
                default:
                     return null;
             }
