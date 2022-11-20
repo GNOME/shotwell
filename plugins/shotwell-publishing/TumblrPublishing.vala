@@ -230,8 +230,6 @@ namespace Publishing.Tumblr {
             host.install_dialog_pane(publishing_options_pane);
         }
 
-
-
         private void on_publishing_options_pane_publish() {
             if (publishing_options_pane != null) {
                 publishing_options_pane.publish.disconnect(on_publishing_options_pane_publish);
