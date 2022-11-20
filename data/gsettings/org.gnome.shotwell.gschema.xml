@@ -733,6 +733,12 @@
         <description>True if the Gallery3 publishing plugin is enabled, false otherwise</description>
     </key>
 
+    <key name="publishing-mastodon" type="b">
+        <default>true</default>
+        <summary>enable Mastodon/Pixelfed plugin</summary>
+        <description>True if the Mastodon/Pixelfed publishing plugin is enabled, false otherwise</description>
+    </key>
+
     <key name="transitions-crumble" type="b">
         <default>true</default>
         <summary>enable slideshow crumble transition</summary>

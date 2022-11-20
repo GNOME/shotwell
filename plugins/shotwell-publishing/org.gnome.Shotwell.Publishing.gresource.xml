@@ -6,6 +6,7 @@
       <file alias="icons/hicolor/24x24/apps/youtube.png">youtube.png</file>
       <file alias="icons/hicolor/scalable/apps/google-photos.svg">google-photos.svg</file>
       <file alias="icons/hicolor/scalable/apps/tumblr.svg">tumblr.svg</file>
+      <file alias="icons/hicolor/scalable/apps/mastodon.svg">mastodon/mastodon.svg</file>
 
       <file>flickr_publishing_options_pane.ui</file>
       <file>google_photos_publishing_options_pane.ui</file>
@@ -13,5 +14,6 @@
       <file>piwigo_publishing_options_pane.ui</file>
       <file>youtube_publishing_options_pane.ui</file>
       <file>tumblr_publishing_options_pane.ui</file>
+      <file alias="mastodon_publishing_options_pane.ui">mastodon/options.ui</file>
   </gresource>
 </gresources>
