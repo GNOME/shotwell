@@ -1,8 +1,25 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
- *
- * This software is licensed under the GNU Lesser General Public License
- * (version 2.1 or later).  See the COPYING file in this distribution.
- */
+// SPDX-License-Identifier: LGPL-2.1-or-later
+// SPDX-FileCopyrightText: 2016 Software Freedom Conservancy Inc.
+
+internal class Publishing.Piwigo.Account : Spit.Publishing.Account, Object {
+    public string server_uri;
+    public string user;
+
+    public Account(string server_uri, string user) {
+        this.server_uri = server_uri;
+        this.user = user;
+    }
+
+    public string display_name() {
+        try {
+           var uri = Uri.parse(server_uri, UriFlags.NONE);
+            return user + "@" + uri.get_host();
+        } catch (Error err) {
+            debug("Failed to parse uri in Piwigo account. %s", err.message);
+            return user + "@" + server_uri;
+        }
+    }
+}
 
 public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     private const string ICON_FILENAME = "piwigo.svg";
@@ -44,11 +61,40 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
     }
 
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {
-        return new Publishing.Piwigo.PiwigoPublisher(this, host);
+        return new Publishing.Piwigo.PiwigoPublisher(this, host, null);
+    }
+
+    public Spit.Publishing.Publisher create_publisher_with_account(Spit.Publishing.PluginHost host,
+                                                                   Spit.Publishing.Account? account) {
+        return new Publishing.Piwigo.PiwigoPublisher(this, host, account);
     }
     
     public Spit.Publishing.Publisher.MediaType get_supported_media() {
         return (Spit.Publishing.Publisher.MediaType.PHOTO);
+    }
+
+    public Gee.List<Spit.Publishing.Account>? get_accounts(string profile_id) {
+        var list = new Gee.ArrayList<Spit.Publishing.Account>();
+
+        // Always add the empty default account to allow new logins
+        list.add(new Spit.Publishing.DefaultAccount());
+
+        // Collect information from saved logins
+        var schema = new Secret.Schema (Publishing.Piwigo.PiwigoPublisher.PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
+                Publishing.Piwigo.PiwigoPublisher.SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
+                "url", Secret.SchemaAttributeType.STRING,
+                "user", Secret.SchemaAttributeType.STRING);
+
+        var attributes = new HashTable<string, string>(str_hash, str_equal);
+        attributes[Publishing.Piwigo.PiwigoPublisher.SCHEMA_KEY_PROFILE_ID] = profile_id;
+        var entries = Secret.password_searchv_sync(schema, attributes, Secret.SearchFlags.ALL, null);
+
+        foreach (var entry in entries) {
+            var found_attributes = entry.get_attributes();
+            list.add(new Publishing.Piwigo.Account(found_attributes["url"], found_attributes["user"]));
+        }
+
+        return list;
     }
 }
 
@@ -124,8 +170,8 @@ internal class PublishingParameters {
 }
 
 public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
-    private const string PASSWORD_SCHEME = "org.gnome.Shotwell.Piwigo";
-    private const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
+    internal const string PASSWORD_SCHEME = "org.gnome.Shotwell.Piwigo";
+    internal const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
 
     private Spit.Publishing.Service service;
     private Spit.Publishing.PluginHost host;
@@ -136,13 +182,21 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     private PublishingParameters parameters = null;
     private Spit.Publishing.ProgressCallback progress_reporter = null;
     private Secret.Schema? schema = null;
+    private Publishing.Piwigo.Account? account = null;
 
     public PiwigoPublisher(Spit.Publishing.Service service,
-        Spit.Publishing.PluginHost host) {
+        Spit.Publishing.PluginHost host,
+        Spit.Publishing.Account? account) {
         debug("PiwigoPublisher instantiated.");
         this.service = service;
         this.host = host;
         session = new Session();
+
+        // This should only ever be the default account which we don't care about
+        if (account is Publishing.Piwigo.Account) {
+            this.account = (Publishing.Piwigo.Account)account;
+        }
+
         this.schema = new Secret.Schema (PASSWORD_SCHEME, Secret.SchemaFlags.NONE,
                                          SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
                                          "url", Secret.SchemaAttributeType.STRING,
@@ -196,19 +250,27 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
     // Session and persistent data
     
     public string? get_persistent_url() {
-        return host.get_config_string("url", null);
+        if (account != null) {
+            return account.server_uri;
+        }
+
+        return null;
     }
     
     private void set_persistent_url(string url) {
-        host.set_config_string("url", url);
+        // Do nothing
     }
     
     public string? get_persistent_username() {
-        return host.get_config_string("username", null);
+        if (account != null) {
+            return account.user;
+        }
+
+        return null;
     }
     
     private void set_persistent_username(string username) {
-        host.set_config_string("username", username);
+        // Do nothing
     }
     
     public string? get_persistent_password(string? url, string? user) {

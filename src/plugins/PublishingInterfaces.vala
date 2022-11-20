@@ -585,6 +585,17 @@ public interface Publishable : GLib.Object {
     protected virtual void reserved7() {}
 }
 
+public interface Account : Object {
+    public abstract string display_name();
+}
+
+public class DefaultAccount : Spit.Publishing.Account, Object {
+    public string display_name() {
+        return "";
+    }
+}
+
+
 /**
  * Describes the features and capabilities of a remote publishing service.
  *
@@ -597,10 +608,26 @@ public interface Service : Object, Spit.Pluggable {
      */
     public abstract Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host);
 
+    public virtual Spit.Publishing.Publisher create_publisher_with_account(Spit.Publishing.PluginHost host,
+                                                              Spit.Publishing.Account? account) {
+        return this.create_publisher(host);
+    }
+
     /**
      * Returns the kinds of media that this service can work with.
      */
     public abstract Spit.Publishing.Publisher.MediaType get_supported_media();
+
+    /**
+     * Returns a list of accounts associated with the service
+     * Returns: null if there are no accounts, identifier
+     */
+    public virtual Gee.List<Account>? get_accounts(string profile_id) {
+        var list = new Gee.ArrayList<Account>();
+        list.add(new DefaultAccount());
+
+        return list;
+    }
     
     //
     // For future expansion.

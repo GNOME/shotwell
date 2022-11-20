@@ -22,7 +22,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         Spit.Publishing.Publisher.MediaType.NONE;
     
     public ConcretePublishingHost(Service service, PublishingUI.PublishingDialog dialog,
-        Publishable[] publishables) {
+        Publishable[] publishables, Account account) {
         base(service, "sharing");
         this.dialog = dialog;
         this.publishables = publishables;
@@ -30,7 +30,7 @@ public class ConcretePublishingHost : Plugins.StandardHostInterface,
         foreach (Publishable curr_publishable in publishables)
             this.media_type |= curr_publishable.get_media_type();
         
-        this.active_publisher = service.create_publisher(this);
+        this.active_publisher = service.create_publisher_with_account(this, account);
     }
 
     public string get_current_profile_id() {
