@@ -227,6 +227,9 @@ public class Transaction {
 
     private void on_wrote_body_data(Soup.Message message, uint chunk_size) {
         bytes_written += chunk_size;
+        #if 0
+        // TODO: FIXME, this massively breaks HTTP2
+        #endif
         chunk_transmitted(bytes_written, (uint)request_length);
     }
 

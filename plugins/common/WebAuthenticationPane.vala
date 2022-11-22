@@ -13,6 +13,8 @@ namespace Shotwell.Plugins.Common {
 
         public string login_uri { owned get; construct; }
         public Error load_error { get; private set; default = null; }
+        public bool insecure { get; set; default = false; }
+        public TlsCertificate accepted_certificate {get; set; default = null; }
 
         private WebKit.WebView webview;
         private Gtk.Widget widget;
@@ -25,6 +27,7 @@ namespace Shotwell.Plugins.Common {
 
         public override void constructed () {
             base.constructed ();
+            debug("WebPane with login uri %s", this.login_uri);
             var ctx = WebKit.WebContext.get_default();
             if (!ctx.get_sandbox_enabled()) {
                 ctx.set_sandbox_enabled(true);
@@ -44,6 +47,29 @@ namespace Shotwell.Plugins.Common {
             this.webview.load_failed.connect (this.on_page_load_failed);
             this.webview.context_menu.connect ( () => { return false; });
             this.webview.decide_policy.connect (this.on_decide_policy);
+            this.webview.load_failed_with_tls_errors.connect ((view, uri, certificate, errors) => {
+                // TODO: Show SSL error pane
+                if (!this.insecure) {
+                    return false;
+                }
+
+                var web_ctx = WebKit.WebContext.get_default ();
+                var parsed_uri = GLib.Uri.parse (uri, UriFlags.NONE);
+                if (certificate.is_same(accepted_certificate)) {
+                    web_ctx.allow_tls_certificate_for_host (certificate, parsed_uri.get_host());
+                    this.entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "channel-insecure-symbolic");
+                    this.entry.set_icon_tooltip_text (Gtk.EntryIconPosition.PRIMARY, _("The connection uses a certificate that has problems, but you choose to accept it anyway"));
+
+                    Idle.add(() =>{
+                        this.webview.load_uri (uri);
+                        return false;
+                    });
+                    return true;
+                }
+
+                // TODO: Certificate changed from the one the user accetped elsewhere
+                return false;
+            });
             this.webview.bind_property("uri", this.entry, "text", GLib.BindingFlags.DEFAULT);
             box.pack_end (this.webview);
         }
@@ -85,6 +111,10 @@ namespace Shotwell.Plugins.Common {
             // Do not set the load_error, but continue the error handling
             if (uri.has_prefix ("shotwell-auth://"))
                 return false;
+            
+            if (uri.contains("shotwell-auth")) {
+                return false;
+            }
 
             critical ("Failed to load uri %s: %s", uri, error.message);
             this.load_error = error;
