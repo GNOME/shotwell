@@ -139,6 +139,10 @@ internal class Account : Object, Spit.Publishing.Account {
             return client_id != null && client_secret != null && access_token != null;
         }
 
+        public bool is_client_authenticated() {
+            return client_id != null && client_id != "" && client_secret != null && client_secret != "";
+        }
+
         public void deauthenticate() {
             access_token = null;
         }
@@ -252,11 +256,8 @@ internal class Account : Object, Spit.Publishing.Account {
                 return;
             }
 
-            print("========================================= PAGE LOAD %s\n", get_view().get_uri());
-
             try {
                 var uri = GLib.Uri.parse(get_view().get_uri(), UriFlags.NONE);
-                print("--------------------------------- %s\n", uri.get_path());
                 if ((uri.get_scheme() == "shotwell-auth://" || uri.get_path() == "/shotwell-auth") && this.auth_code == null) {
                     var form_data = Soup.Form.decode (uri.get_query());
                     this.auth_code = form_data.lookup("code");
@@ -269,21 +270,6 @@ internal class Account : Object, Spit.Publishing.Account {
             if (this.auth_code != null) {
                 this.authorized(this.auth_code);
             }
-        }
-
-        private void on_shotwell_auth_request_cb(WebKit.URISchemeRequest request) {
-            try {
-                var uri = GLib.Uri.parse(request.get_uri(), GLib.UriFlags.NONE);
-                debug("URI: %s", request.get_uri());
-                var form_data = Soup.Form.decode (uri.get_query());
-                this.auth_code = form_data.lookup("code");
-            } catch (Error err) {
-                debug("Failed to parse request URI: %s", err.message);
-            }
-
-            var response = "";
-            var mins = new MemoryInputStream.from_data(response.data, null);
-            request.finish(mins, -1, "text/plain");
         }
 
         public signal void authorized(string auth_code);
@@ -301,8 +287,6 @@ internal class Account : Object, Spit.Publishing.Account {
         private Session session = null;
         private Secret.Schema? client_schema = null;
         private Secret.Schema? user_schema = null;
-        private string? instance = null;
-        private string? user = null;
         private Spit.Publishing.PluginHost host;
         private HashTable<string, Variant> params;
         private Account account;
@@ -316,10 +300,19 @@ internal class Account : Object, Spit.Publishing.Account {
             this.params = new HashTable<string, Variant>(str_hash, str_equal);
         }
 
-       public void authenticate() {
-            if (this.instance == null || this.user == null) {
-                do_show_instance_pane();
-                return;
+        public void authenticate() {
+            do_authentication_flow.begin();
+        }
+
+        private async void do_authentication_flow() {
+            try {
+                yield get_client_secret();
+                yield get_user_secret();
+
+                debug("Authentication flow complete. signalizing to caller");
+                this.authenticated();
+            } catch (Error err) {
+                host.post_error(err);
             }
         }
 
@@ -339,9 +332,9 @@ internal class Account : Object, Spit.Publishing.Account {
                 Secret.password_clear_sync(this.user_schema, null,
                     SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
                     USER_KEY_CLIENT_ID, session.client_id,
-                    USER_KEY_USERNAME_ID, this.user);
+                    USER_KEY_USERNAME_ID, this.account.user);
             } catch (Error err) {
-                critical("Failed to remove password for %s@%s: %s", this.user, this.instance, err.message);
+                critical("Failed to remove password for %s: %s", this.account.display_name(), err.message);
             }
 
             txn.execute_async.begin((_, res) => {
@@ -365,19 +358,7 @@ internal class Account : Object, Spit.Publishing.Account {
             session.instance = this.account.instance;
         }
 
-        private void do_show_instance_pane() {
-            var p = new InstancePane(null);
-            host.install_dialog_pane(p);
-            host.set_dialog_default_widget(p.get_default_widget());
-            p.login.connect((account) => {
-                this.account = account;
-                session.instance = this.account.instance;
-                debug("EVENT: login clicked");
-                do_get_client_id.begin();
-            });
-        }
-
-        private async void do_get_client_id() {
+        private async void do_get_client_id(bool do_downgrade = true) throws Error {
             host.set_service_locked(true);
             host.install_login_wait_pane();
 
@@ -387,18 +368,19 @@ internal class Account : Object, Spit.Publishing.Account {
 
             try {
                 yield txn.execute_async();
-                on_get_client_id_completed(txn);
+                yield on_get_client_id_completed(txn);
             } catch (Spit.Publishing.PublishingError err) {
-                if (err is Spit.Publishing.PublishingError.SSL_FAILED) {
+                if (do_downgrade && err is Spit.Publishing.PublishingError.SSL_FAILED) {
                     debug("ERROR: SSL: connection problems, proposing SSL downgrade");
-                    do_show_ssl_downgrade_pane((Transactions.GetClientId)txn, session.instance);
+                    yield do_show_ssl_downgrade_pane((Transactions.GetClientId)txn, session.instance);
+                    yield do_get_client_id(false);
                 } else {
-                    host.post_error(err);            
+                    throw err;
                 }
             }
         }
 
-        private void on_get_client_id_completed(Publishing.RESTSupport.Transaction txn) {
+        private async void on_get_client_id_completed(Publishing.RESTSupport.Transaction txn) {
             debug("EVENT: get client id transaction completed successfully");
             var response = txn.get_response();
             var parser = new Json.Parser();
@@ -424,21 +406,24 @@ internal class Account : Object, Spit.Publishing.Account {
             this.params.insert("ClientSecret", new Variant.string(session.client_secret));
 
             try {
-                Secret.password_store_sync(this.client_schema, Secret.COLLECTION_DEFAULT, "Shotwell publishing client_id @%s".printf(this.account.instance),
-                session.client_id, null, SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                CLIENT_KEY_INSTANCE_ID, this.account.instance, CLIENT_KEY_SECRET_ID, false);
-                Secret.password_store_sync(this.client_schema, Secret.COLLECTION_DEFAULT, "Shotwell publishing client_secret @%s".printf(this.account.instance),
-                session.client_secret, null, SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
-                CLIENT_KEY_INSTANCE_ID, this.account.instance, CLIENT_KEY_SECRET_ID, true);
+                yield Secret.password_store (this.client_schema, Secret.COLLECTION_DEFAULT,
+                    "Shotwell publishing client_id @%s".printf(this.account.instance),
+                    session.client_id, null, 
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    CLIENT_KEY_INSTANCE_ID, this.account.instance,
+                    CLIENT_KEY_SECRET_ID, false);
+                yield Secret.password_store (this.client_schema, Secret.COLLECTION_DEFAULT,
+                    "Shotwell publishing client_secret @%s".printf(this.account.instance),
+                    session.client_secret, null, 
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    CLIENT_KEY_INSTANCE_ID, this.account.instance, CLIENT_KEY_SECRET_ID, true);
             } catch (Error err) {
                 critical("Issue persisting client credentials: %s", err.message);
             }
-
-            do_show_web_login();
         }
 
-        private void do_show_ssl_downgrade_pane (Transactions.GetClientId trans,
-                                                string host_name) {
+        private async void do_show_ssl_downgrade_pane (Transactions.GetClientId trans,
+                                                       string host_name) {
             host.set_service_locked (false);
             var ssl_pane = new SSLErrorPane (trans, host_name);
             ssl_pane.proceed.connect (() => {
@@ -450,16 +435,124 @@ internal class Account : Object, Spit.Publishing.Account {
                 this.session.client_secret = old_session.client_secret;
                 this.session.set_insecure ();
                 this.session.accepted_certificate = ssl_pane.cert;
-
-                do_get_client_id.begin();
+                do_show_ssl_downgrade_pane.callback();
             });
+
             debug ("Showing SSL downgrade pane");
             host.install_dialog_pane (ssl_pane,
                                     Spit.Publishing.PluginHost.ButtonMode.CLOSE);
             host.set_dialog_default_widget (ssl_pane.get_default_widget ());
+
+            yield;
         }        
 
-        private void do_show_web_login() {
+
+        private async void fetch_user_auth_token(string auth_code) throws Error {
+            debug("ACTION: exchanging authorization code for access & refresh tokens");
+
+            host.install_login_wait_pane();
+
+            var tokens_txn = new Transactions.GetAccessToken(session, auth_code);
+
+            yield tokens_txn.execute_async();
+            debug("EVENT: network transaction to exchange authorization code for access tokens " +
+            "completed successfully.");
+
+            yield do_extract_tokens(tokens_txn.get_response());
+        }
+        
+        private async void do_extract_tokens(string response_body) throws Error {
+            debug("ACTION: extracting OAuth tokens from body of server response");
+
+            Json.Parser parser = new Json.Parser();
+
+            try {
+                parser.load_from_data(response_body);
+            } catch (Error err) {
+                throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                    "Couldn't parse JSON response: " + err.message);
+            }
+
+            Json.Object response_obj = parser.get_root().get_object();
+
+            if (!response_obj.has_member("access_token")) {
+                throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                    "No access token available in response");
+            }
+
+            string access_token = response_obj.get_string_member("access_token");
+
+            if (access_token == "") {
+                throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
+                    "Access token is empty in response");
+            }
+
+            session.access_token = access_token;
+            this.params.insert("AccessToken", new Variant.string(access_token));
+
+            assert(session.is_authenticated());
+            try {
+                yield Secret.password_store(this.user_schema, Secret.COLLECTION_DEFAULT,
+                    "Shotwell publishing (Mastodon account %s)".printf(this.account.display_name()),
+                    session.access_token, null,
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    USER_KEY_CLIENT_ID, session.client_id,
+                    USER_KEY_USERNAME_ID, account.user);
+            } catch (Error err) {
+                // Ignore that, user has to log in again then next time
+                critical("Failed store user credendtial for %s: %s", this.account.display_name(), err.message);
+            }
+        }
+
+        private async void get_account_details() {
+            var p = new InstancePane(this.account);
+            host.install_dialog_pane(p);
+            host.set_dialog_default_widget(p.get_default_widget());
+
+            p.login.connect((account) => {
+                this.account = account;
+                session.instance = this.account.instance;
+                debug("EVENT: login clicked");
+                get_account_details.callback();
+            });
+
+            yield;
+        }
+
+        private async void get_client_secret() throws Error {
+            if (this.account == null || (this.account.instance == null || this.account.user == null)) {
+                debug("We don't have any account configured, ask the user for an instance");
+                yield get_account_details();
+            }
+
+            debug("We have an account set: %s, checking if cached client credentials are available", account.display_name());
+            try {
+                this.session.client_id = yield Secret.password_lookup(this.client_schema, null,
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    CLIENT_KEY_INSTANCE_ID, this.account.instance, CLIENT_KEY_SECRET_ID, false);
+                this.session.client_secret = yield Secret.password_lookup(this.client_schema, null,
+                    SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
+                    CLIENT_KEY_INSTANCE_ID, this.account.instance, CLIENT_KEY_SECRET_ID, true);            
+                
+                debug("Got client credentials from store: %s/%s", this.session.client_id, this.session.client_secret);
+                if (!this.session.is_client_authenticated()) {
+                    debug("Missing one part of the client secrets, invalidating and fetching new ones");
+                    this.session.client_id = null;
+                    this.session.client_secret = null;
+                } else {
+                    // We are done here, proceed with next step
+                    this.params.insert("ClientId", new Variant.string(session.client_id));
+                    this.params.insert("ClientSecret", new Variant.string(session.client_secret));
+                    return;
+                }
+            } catch (Error err) {
+                debug("Error fetching client secrets from password store, requesting new secrets");
+            }
+
+            yield do_get_client_id();
+        }
+
+        private async string run_web_auth_flow() throws Error {
             debug("ACTION: running OAuth authentication flow in hosted web pane.");
 
             string user_authorization_url = "https://" + this.account.instance + "/oauth/authorize?" +
@@ -469,99 +562,54 @@ internal class Account : Object, Spit.Publishing.Account {
                 "scope=read+write";
 
             web_auth_pane = new WebAuthenticationPane(user_authorization_url, session);
-            web_auth_pane.authorized.connect(on_web_auth_pane_authorized);
-            web_auth_pane.error.connect(on_web_auth_pane_error);
+            string? received_auth_code = null;
+
+            web_auth_pane.authorized.connect((auth_code) =>{
+                received_auth_code = auth_code;
+                run_web_auth_flow.callback();
+            });
+
+            web_auth_pane.error.connect(() => {
+                run_web_auth_flow.callback();
+            });
 
             host.install_dialog_pane(web_auth_pane);
+            
+            yield;
+
+            if (web_auth_pane.load_error != null) {
+                throw web_auth_pane.load_error;
+            }
+
+            return received_auth_code;
         }
 
-        private void on_web_auth_pane_authorized(string auth_code) {
-            web_auth_pane.authorized.disconnect(on_web_auth_pane_authorized);
-            web_auth_pane.error.disconnect(on_web_auth_pane_error);
-
-            host.set_service_locked(true);
-            host.install_static_message_pane(_("Getting user access token..."));
-
-            debug("EVENT: user authorized scope %s with auth_code %s", this.account.display_name(), auth_code);
-
-            do_get_access_tokens.begin(auth_code);
-        }
-
-        private void on_web_auth_pane_error() {
-            host.post_error(web_auth_pane.load_error);
-        }
-
-        private async void do_get_access_tokens(string auth_code) {
-            debug("ACTION: exchanging authorization code for access & refresh tokens");
-
-            host.install_login_wait_pane();
-
-            var tokens_txn = new Transactions.GetAccessToken(session, auth_code);
-
+        private async void get_user_secret() throws Error {
             try {
-                yield tokens_txn.execute_async();
-                on_get_access_tokens_complete(tokens_txn);
-            } catch (Spit.Publishing.PublishingError err) {
-                debug("EVENT: network transaction to exchange authorization code for access tokens " +
-                    "failed; response = '%s'", tokens_txn.get_response());
-                host.post_error(err);
-            }
-        }
-
-        private void on_get_access_tokens_complete(Publishing.RESTSupport.Transaction txn) {
-            debug("EVENT: network transaction to exchange authorization code for access tokens " +
-                    "completed successfully.");
-
-            do_extract_tokens(txn.get_response());
-        }
-        
-        private void do_extract_tokens(string response_body) {
-            debug("ACTION: extracting OAuth tokens from body of server response");
-
-            Json.Parser parser = new Json.Parser();
-
-            try {
-                parser.load_from_data(response_body);
-            } catch (Error err) {
-                host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    "Couldn't parse JSON response: " + err.message));
-                return;
-            }
-
-            Json.Object response_obj = parser.get_root().get_object();
-
-            if ((!response_obj.has_member("access_token")) && (!response_obj.has_member("refresh_token"))) {
-                host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    "neither access_token nor refresh_token present in server response"));
-                return;
-            }
-
-            if (response_obj.has_member("access_token")) {
-                string access_token = response_obj.get_string_member("access_token");
-
-                if (access_token == "") {
-                    return;
-                }
-                session.access_token = access_token;
-                this.params.insert("AccessToken", new Variant.string(access_token));
-            } else {
-                return;
-            }
-
-            assert(session.is_authenticated());
-            try {
-                Secret.password_store_sync(this.user_schema, Secret.COLLECTION_DEFAULT,
-                    "Shotwell publishing (Mastodon account %s)".printf(this.account.display_name()),
-                    session.access_token, null,
+                this.session.access_token = yield Secret.password_lookup(this.user_schema, null,
                     SCHEMA_KEY_PROFILE_ID, host.get_current_profile_id(),
                     USER_KEY_CLIENT_ID, session.client_id,
                     USER_KEY_USERNAME_ID, account.user);
+                if (this.session.is_authenticated()) {
+                    this.params.insert("AccessToken", new Variant.string(this.session.access_token));
+                    debug("Found cached user credentials for %s: %s", this.account.display_name(), this.session.access_token);
+
+                    return;
+                }
+                debug("Did not find cached credentials for %s, proceeding with login flow", this.account.display_name());
             } catch (Error err) {
-                critical("Failed store user credendial for %s: %s", this.account.display_name(), err.message);
+                debug("Failed fetching user credendial for %s: %s, proceeding with login flow", this.account.display_name(), err.message);
             }
 
-            this.authenticated();
-            web_auth_pane.clear();            
+            var auth_code = yield run_web_auth_flow();
+            web_auth_pane.clear();
+
+            host.set_service_locked(true);
+
+            debug("EVENT: user authorized scope %s with auth_code %s", this.account.display_name(), auth_code);
+            host.install_static_message_pane(_("Getting user access token..."));
+
+            yield fetch_user_auth_token(auth_code);
         }
     }
 }
