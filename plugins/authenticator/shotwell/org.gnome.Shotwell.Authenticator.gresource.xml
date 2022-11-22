@@ -3,5 +3,6 @@
   <gresource prefix="/org/gnome/Shotwell/Authenticator">
       <file>tumblr_authentication_pane.ui</file>
       <file>mastodon_instance_pane.ui</file>
+      <file>piwigo_ssl_failure_pane.ui</file>
   </gresource>
 </gresources>
