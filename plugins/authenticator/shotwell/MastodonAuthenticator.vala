@@ -345,11 +345,16 @@ internal class Account : Object, Spit.Publishing.Account {
                 critical("Failed to remove password for %s@%s: %s", this.user, this.instance, err.message);
             }
 
-            try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
-                host.post_error(err);
-            }
+            txn.execute_async.begin((_, res) => {
+                try {
+                    txn.execute_async.end(res);
+                    host.install_static_message_pane("Successfully logged out from %s".printf(this.account.display_name()),
+                        Spit.Publishing.PluginHost.ButtonMode.CLOSE);
+                }
+                catch (Spit.Publishing.PublishingError err) {
+                    host.post_error(err);
+                }
+            });
         }
 
         public void refresh() {
@@ -369,22 +374,21 @@ internal class Account : Object, Spit.Publishing.Account {
                 this.account = account;
                 session.instance = this.account.instance;
                 debug("EVENT: login clicked");
-                do_get_client_id();
+                do_get_client_id.begin();
             });
         }
 
-        private void do_get_client_id() {
+        private async void do_get_client_id() {
             host.set_service_locked(true);
             host.install_login_wait_pane();
 
             session.instance = this.account.instance;
 
             var txn = new Transactions.GetClientId(this.session);
-            txn.completed.connect(on_get_client_id_completed);
-            txn.network_error.connect(on_get_client_id_failed);
 
             try {
-                txn.execute();
+                yield txn.execute_async();
+                on_get_client_id_completed(txn);
             } catch (Spit.Publishing.PublishingError err) {
                 if (err is Spit.Publishing.PublishingError.SSL_FAILED) {
                     debug("ERROR: SSL: connection problems, proposing SSL downgrade");
@@ -395,24 +399,7 @@ internal class Account : Object, Spit.Publishing.Account {
             }
         }
 
-        private void on_get_client_id_failed(Publishing.RESTSupport.Transaction txn,
-                                             Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_get_client_id_completed);
-            txn.network_error.disconnect(on_get_client_id_failed);
-
-            debug("EVENT: client id fetch transaction caused a network error");
-            if (err is Spit.Publishing.PublishingError.SSL_FAILED) {
-                debug("ERROR: SSL: connection problems, proposing SSL downgrade");
-                do_show_ssl_downgrade_pane((Transactions.GetClientId)txn, session.instance);
-            } else {
-                host.post_error(err);            
-            }
-        }
-
         private void on_get_client_id_completed(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_get_client_id_completed);
-            txn.network_error.disconnect(on_get_client_id_failed);
-
             debug("EVENT: get client id transaction completed successfully");
             var response = txn.get_response();
             var parser = new Json.Parser();
@@ -465,7 +452,7 @@ internal class Account : Object, Spit.Publishing.Account {
                 this.session.set_insecure ();
                 this.session.accepted_certificate = ssl_pane.cert;
 
-                do_get_client_id();
+                do_get_client_id.begin();
             });
             debug ("Showing SSL downgrade pane");
             host.install_dialog_pane (ssl_pane,
@@ -498,50 +485,37 @@ internal class Account : Object, Spit.Publishing.Account {
 
             debug("EVENT: user authorized scope %s with auth_code %s", this.account.display_name(), auth_code);
 
-            do_get_access_tokens(auth_code);
+            do_get_access_tokens.begin(auth_code);
         }
 
         private void on_web_auth_pane_error() {
             host.post_error(web_auth_pane.load_error);
         }
 
-        private void do_get_access_tokens(string auth_code) {
+        private async void do_get_access_tokens(string auth_code) {
             debug("ACTION: exchanging authorization code for access & refresh tokens");
 
             host.install_login_wait_pane();
 
             var tokens_txn = new Transactions.GetAccessToken(session, auth_code);
-            tokens_txn.completed.connect(on_get_access_tokens_complete);
-            tokens_txn.network_error.connect(on_get_access_tokens_error);
 
             try {
-                tokens_txn.execute();
+                yield tokens_txn.execute_async();
+                on_get_access_tokens_complete(tokens_txn);
             } catch (Spit.Publishing.PublishingError err) {
+                debug("EVENT: network transaction to exchange authorization code for access tokens " +
+                    "failed; response = '%s'", tokens_txn.get_response());
                 host.post_error(err);
             }
         }
 
         private void on_get_access_tokens_complete(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_get_access_tokens_complete);
-            txn.network_error.disconnect(on_get_access_tokens_error);
-
             debug("EVENT: network transaction to exchange authorization code for access tokens " +
                     "completed successfully.");
 
             do_extract_tokens(txn.get_response());
         }
         
-        private void on_get_access_tokens_error(Publishing.RESTSupport.Transaction txn,
-            Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_get_access_tokens_complete);
-            txn.network_error.disconnect(on_get_access_tokens_error);
-
-            debug("EVENT: network transaction to exchange authorization code for access tokens " +
-                    "failed; response = '%s'", txn.get_response());
-
-            host.post_error(err);
-        }
-
         private void do_extract_tokens(string response_body) {
             debug("ACTION: extracting OAuth tokens from body of server response");
 
