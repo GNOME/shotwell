@@ -41,6 +41,7 @@ plugins/authenticator/shotwell/tumblr_authentication_pane.ui
 plugins/authenticator/shotwell/TumblrAuthenticator.vala
 plugins/common/Resources.vala
 plugins/common/RESTSupport.vala
+plugins/shotwell-publishing/common/ssl_certificate_pane.ui
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
@@ -50,7 +51,6 @@ plugins/shotwell-publishing/PhotosService.vala
 plugins/shotwell-publishing/piwigo_authentication_pane.ui
 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
-plugins/shotwell-publishing/piwigo_ssl_failure_pane.ui
 plugins/shotwell-publishing/shotwell-publishing.vala
 plugins/shotwell-publishing/tumblr_publishing_options_pane.ui
 plugins/shotwell-publishing/TumblrPublishing.vala

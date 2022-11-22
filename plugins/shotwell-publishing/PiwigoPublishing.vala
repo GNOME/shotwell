@@ -405,7 +405,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             debug("Failed to parse URL: %s", err.message);
         }
         host.set_service_locked (false);
-        var ssl_pane = new SSLErrorPane (trans, host_name);
+        var ssl_pane = new Shotwell.Plugins.Common.SslCertificatePane(trans, host_name);
         ssl_pane.proceed.connect (() => {
             debug ("SSL: User wants us to retry with broken certificate");
             this.session = new Session ();
@@ -1001,76 +1001,6 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
 }
 
 // UI elements
-
-internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
-
-    public signal void proceed ();
-    public string host { owned get; construct; }
-    public TlsCertificate? cert { private get; construct; }
-    public string error_text { owned get; construct; }
-
-    public SSLErrorPane (SessionLoginTransaction transaction,
-                         string host) {
-        TlsCertificate cert;
-        var text = transaction.detailed_error_from_tls_flags (out cert);
-        Object (resource_path : Resources.RESOURCE_PATH +
-                                "/piwigo_ssl_failure_pane.ui",
-                default_id: "default",
-                cert : cert,
-                error_text : text,
-                host : host);
-    }
-
-    public override void constructed () {
-        base.constructed ();
-
-        var label = this.get_builder ().get_object ("main_text") as Gtk.Label;
-        var bold_host = "<b>%s</b>".printf(host);
-        // %s is the host name that we tried to connect to
-        label.set_text (_("This does not look like the real %s. Attackers might be trying to steal or alter information going to or from this site (for example, private messages, credit card information, or passwords).").printf(bold_host));
-        label.use_markup = true;
-
-        label = this.get_builder ().get_object ("ssl_errors") as Gtk.Label;
-        label.set_text (error_text);
-
-        var info = this.get_builder ().get_object ("default") as Gtk.Button;
-        if (cert != null) {
-            info.clicked.connect (() => {
-                //var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
-                var scrollable = new Gtk.ScrolledWindow();
-                scrollable.set_vexpand(true);
-                //var widget = new Gcr.CertificateWidget (simple_cert);
-                //widget.set_vexpand(true);
-                //scrollable.set_child(widget);
-                bool use_header = true;
-                Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
-                var flags = (Gtk.DialogFlags) 0;
-                if (use_header) {
-                    flags |= Gtk.DialogFlags.USE_HEADER_BAR;
-                }
-
-                var dialog = new Gtk.Dialog.with_buttons (
-                                _("Certificate of %s").printf (host),
-                                null,
-                                flags,
-                                _("_OK"), Gtk.ResponseType.OK);
-                dialog.get_content_area ().append (scrollable);
-                dialog.set_default_response (Gtk.ResponseType.OK);
-                dialog.set_default_size (640, 480);
-                dialog.show ();
-                dialog.set_modal(true);
-                dialog.response.connect(() => {
-                    dialog.destroy();
-                });
-            });
-        } else {
-            info.unparent();
-        }
-
-        var proceed = this.get_builder ().get_object ("proceed_button") as Gtk.Button;
-        proceed.clicked.connect (() => { this.proceed (); });
-    }
-}
 
 /**
  * The authentication pane used when asking service URL, user name and password
