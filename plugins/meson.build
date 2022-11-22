@@ -1,13 +1,20 @@
 # Plugin helper library
 
+shotwell_common_resources = gnome.compile_resources('common-resource',
+        'common/org.gnome.Shotwell.Publishing.Common.gresource.xml',
+        source_dir : meson.source_root())
+
 sw_plugin_common = library('shotwell-plugin-common',
                           ['common/RESTSupport.vala',
                            'common/Resources.vala',
                            'common/WebAuthenticationPane.vala',
                            'common/BuilderPane.vala',
-                           'common/OAuth1Support.vala'],
+                           'common/OAuth1Support.vala',
+                           'common/SSLCertificatePane.vala'] + shotwell_common_resources,
+                          c_args : ['-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Publishing/Common"',
+                        '-DGCR_API_SUBJECT_TO_CHANGE'],
                           version: meson.project_version(),
-                          dependencies : [gtk, gee, webkit, soup, xml, sw_plugin],
+                          dependencies : [gtk, gee, webkit, soup, xml, sw_plugin, gcr, gcr_ui],
                           vala_header : 'shotwell-plugin-common.h',
                           vala_vapi : 'shotwell-plugin-common.vapi',
                           include_directories : config_incdir,
