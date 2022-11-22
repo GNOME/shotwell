@@ -12,7 +12,7 @@ authenticator_shotwell_resources = gnome.compile_resources('authenticator-resour
         source_dir : meson.project_source_root())
 
 authenticator_shotwell_deps = [gee, gtk, gio, soup, json_glib, sw_plugin,
-                               sw_plugin_common_dep, json_glib, xml, secret]
+                               sw_plugin_common_dep, json_glib, xml, secret, gcr]
 
 authenticator = library('shotwell-authenticator',
                         authenticator_shotwell_sources + authenticator_shotwell_resources,
@@ -22,7 +22,8 @@ authenticator = library('shotwell-authenticator',
                         vala_args : ['--gresources',
                         'org.gnome.Shotwell.Authenticator.gresource.xml'],
                         c_args :
-                        '-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Authenticator"',
+                        ['-DPLUGIN_RESOURCE_PATH="/org/gnome/Shotwell/Authenticator"',
+                        '-DGCR_API_SUBJECT_TO_CHANGE'],
                         install: true)
 authenticator_dep = declare_dependency(include_directories : include_directories('.'),
                                        link_with : authenticator)

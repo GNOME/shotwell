@@ -212,7 +212,7 @@ namespace Publishing.Authenticator.Shotwell.Google {
 
             if ((!response_obj.has_member("access_token")) && (!response_obj.has_member("refresh_token"))) {
                 host.post_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(
-                    "neither access_token nor refresh_token not present in server response"));
+                    "neither access_token nor refresh_token present in server response"));
                 return;
             }
 
