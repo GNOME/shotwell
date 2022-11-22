@@ -211,7 +211,7 @@ internal class Account : Object, Spit.Publishing.Account {
         public signal void authorized(string auth_code);
 
         public WebAuthenticationPane(string auth_sequence_start_url, Session session) {
-            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate);
+            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate, allow_insecure: true);
         }
 
         public static bool is_cache_dirty() {
@@ -362,7 +362,7 @@ internal class Account : Object, Spit.Publishing.Account {
                                                        string host_name) {
             host.set_service_locked (false);
             var ssl_pane = new Common.SslCertificatePane(trans, host, host_name);
-            
+
             ssl_pane.proceed.connect (() => {
                 debug ("SSL: User wants us to retry with broken certificate");
                 var old_session = this.session;
@@ -539,8 +539,8 @@ internal class Account : Object, Spit.Publishing.Account {
             }
 
             var auth_code = yield run_web_auth_flow();
-            web_auth_pane.clear();
 
+            web_auth_pane.clear();
             host.set_service_locked(true);
 
             debug("EVENT: user authorized scope %s with auth_code %s", this.account.display_name(), auth_code);
