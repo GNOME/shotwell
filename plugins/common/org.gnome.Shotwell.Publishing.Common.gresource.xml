@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/org/gnome/Shotwell/Publishing/Common">
+      <file alias="ssl_certificate_pane.ui">plugins/common/ssl_certificate_pane.ui</file>
+  </gresource>
+</gresources>

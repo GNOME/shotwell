@@ -12,7 +12,6 @@
       <file>google_photos_publishing_options_pane.ui</file>
       <file>piwigo_authentication_pane.ui</file>
       <file>piwigo_publishing_options_pane.ui</file>
-      <file>piwigo_ssl_failure_pane.ui</file>
       <file>youtube_publishing_options_pane.ui</file>
       <file>tumblr_publishing_options_pane.ui</file>
       <file alias="mastodon_publishing_options_pane.ui">mastodon/options.ui</file>
