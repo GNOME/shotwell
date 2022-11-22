@@ -212,7 +212,7 @@ internal class Account : Object, Spit.Publishing.Account {
         public signal void authorized(string auth_code);
 
         public WebAuthenticationPane(string auth_sequence_start_url, Session session) {
-            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate);
+            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate, allow_insecure: true);
         }
 
         public static bool is_cache_dirty() {
@@ -363,7 +363,7 @@ internal class Account : Object, Spit.Publishing.Account {
                                                        string host_name) {
             host.set_service_locked (false);
             var ssl_pane = new Common.SslCertificatePane(trans, host_name);
-            
+
             ssl_pane.proceed.connect (() => {
                 debug ("SSL: User wants us to retry with broken certificate");
                 var old_session = this.session;
@@ -540,6 +540,13 @@ internal class Account : Object, Spit.Publishing.Account {
             }
 
             var auth_code = yield run_web_auth_flow();
+
+            // If we started with cached client credentials and connected to insecure TLS and the user accepted it
+            // copy that decision to the internal session
+            if (web_auth_pane.insecure) {
+                this.session.set_insecure();
+                this.session.accepted_certificate = web_auth_pane.accepted_certificate;
+            }
             web_auth_pane.clear();
 
             host.set_service_locked(true);

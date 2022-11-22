@@ -234,58 +234,10 @@ public class Transaction {
     }
 
     /* Texts copied from epiphany */
-    public string detailed_error_from_tls_flags (out TlsCertificate cert) {
-        TlsCertificateFlags tls_errors;
+    public TlsCertificateFlags get_tls_error_details (out TlsCertificate cert) {
         cert = this.message.get_tls_peer_certificate();
-        tls_errors = this.message.get_tls_peer_certificate_errors();
-
-        var list = new Gee.ArrayList<string> ();
-        if (TlsCertificateFlags.BAD_IDENTITY in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website presented identification that belongs to a different website."));
-        }
-
-        if (TlsCertificateFlags.EXPIRED in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."));
-        }
-
-        if (TlsCertificateFlags.UNKNOWN_CA in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website’s identification was not issued by a trusted organization."));
-        }
-
-        if (TlsCertificateFlags.GENERIC_ERROR in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website’s identification could not be processed. It may be corrupted."));
-        }
-
-        if (TlsCertificateFlags.REVOKED in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website’s identification has been revoked by the trusted organization that issued it."));
-        }
-
-        if (TlsCertificateFlags.INSECURE in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website’s identification cannot be trusted because it uses very weak encryption."));
-        }
-
-        if (TlsCertificateFlags.NOT_ACTIVATED in tls_errors) {
-            /* Possible error message when a site presents a bad certificate. */
-            list.add (_("⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."));
-        }
-
-        var builder = new StringBuilder ();
-        if (list.size == 1) {
-            builder.append (list.get (0));
-        } else {
-            foreach (var entry in list) {
-                builder.append_printf ("%s\n", entry);
-            }
-        }
-
-        return builder.str;
-  }
+        return this.message.get_tls_peer_certificate_errors();
+    }
 
     protected void check_response(Soup.Message message) throws Spit.Publishing.PublishingError {
         var transport_error = parent_session.get_transport_error();

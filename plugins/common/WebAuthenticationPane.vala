@@ -14,6 +14,7 @@ namespace Shotwell.Plugins.Common {
         public string login_uri { owned get; construct; }
         public Error load_error { get; private set; default = null; }
         public bool insecure { get; set; default = false; }
+        public bool allow_insecure {get; set; default = false; }
         public TlsCertificate accepted_certificate {get; set; default = null; }
 
         private WebKit.WebView webview;
@@ -48,22 +49,36 @@ namespace Shotwell.Plugins.Common {
             this.webview.context_menu.connect ( () => { return false; });
             this.webview.decide_policy.connect (this.on_decide_policy);
             this.webview.load_failed_with_tls_errors.connect ((view, uri, certificate, errors) => {
-                // TODO: Show SSL error pane
-                if (!this.insecure) {
+                if (!allow_insecure) {
                     return false;
                 }
 
-                var web_ctx = WebKit.WebContext.get_default ();
-                var parsed_uri = GLib.Uri.parse (uri, UriFlags.NONE);
-                if (certificate.is_same(accepted_certificate)) {
-                    web_ctx.allow_tls_certificate_for_host (certificate, parsed_uri.get_host());
-                    this.entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "channel-insecure-symbolic");
-                    this.entry.set_icon_tooltip_text (Gtk.EntryIconPosition.PRIMARY, _("The connection uses a certificate that has problems, but you choose to accept it anyway"));
+                Uri parsed_uri;
 
-                    Idle.add(() =>{
-                        this.webview.load_uri (uri);
-                        return false;
+                try {
+                    parsed_uri = GLib.Uri.parse (uri, UriFlags.NONE);
+                } catch (Error err) {
+                    assert_not_reached();
+                }
+
+                if (!this.insecure) {
+                    var pane = new SslCertificatePane.plain (certificate, errors, parsed_uri.get_host());
+                    var widget = pane.get_widget();
+                    this.webview.hide();
+                    box.pack_end (widget);
+                    widget.show_all();
+                    pane.proceed.connect(() => {
+                        accept_certificate(certificate, parsed_uri.get_host(), uri);
+                        widget.hide();
+                        this.webview.show_all();
+                        pane = null;
                     });
+
+                    return true;
+                }
+
+                if (certificate.is_same(accepted_certificate)) {
+                    accept_certificate(certificate, parsed_uri.get_host(), uri);
                     return true;
                 }
 
@@ -72,6 +87,18 @@ namespace Shotwell.Plugins.Common {
             });
             this.webview.bind_property("uri", this.entry, "text", GLib.BindingFlags.DEFAULT);
             box.pack_end (this.webview);
+        }
+
+        private void accept_certificate(TlsCertificate certificate, string host, string uri) {
+            this.insecure = true;
+            this.accepted_certificate = certificate;
+            var web_ctx = WebKit.WebContext.get_default ();
+            web_ctx.allow_tls_certificate_for_host (certificate, host);
+
+            Idle.add(() =>{
+                this.webview.load_uri (uri);
+                return false;
+            });
         }
 
         private bool on_decide_policy(WebKit.PolicyDecision decision, WebKit.PolicyDecisionType type) {
@@ -128,6 +155,15 @@ namespace Shotwell.Plugins.Common {
                 case WebKit.LoadEvent.REDIRECTED:
                     this.set_cursor (Gdk.CursorType.WATCH);
                     break;
+                case WebKit.LoadEvent.COMMITTED: {
+                    TlsCertificate cert;
+                    TlsCertificateFlags flags;
+
+                    if (this.webview.get_tls_info (out cert, out flags) && (flags != (TlsCertificateFlags)0)) {
+                        this.entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "channel-insecure-symbolic");
+                        this.entry.set_icon_tooltip_text (Gtk.EntryIconPosition.PRIMARY, _("The connection uses a certificate that has problems, but you choose to accept it anyway"));
+                    }
+                } break;
                 case WebKit.LoadEvent.FINISHED:
                     this.set_cursor (Gdk.CursorType.LEFT_PTR);
                     this.on_page_load ();

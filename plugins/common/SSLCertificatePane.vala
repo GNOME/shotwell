@@ -12,15 +12,27 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Common.BuilderPane {
     public string error_text { owned get; construct; }
 
     public SslCertificatePane (Publishing.RESTSupport.Transaction transaction,
-                         string host) {
+                               string host) {
         TlsCertificate cert;
-        var text = transaction.detailed_error_from_tls_flags (out cert);
+        var flags = transaction.get_tls_error_details(out cert);
+        var text = SslCertificatePane.get_certificate_error_details (flags);
         Object (resource_path : Resources.RESOURCE_PATH +
                                 "/ssl_certificate_pane.ui",
                 default_id: "default",
                 cert : cert,
                 error_text : text,
                 host : host);
+    }
+
+    public SslCertificatePane.plain (TlsCertificate cert, TlsCertificateFlags flags, string host) {
+        var text = SslCertificatePane.get_certificate_error_details (flags);
+
+        Object (resource_path : Resources.RESOURCE_PATH +
+                "/ssl_certificate_pane.ui",
+        default_id: "default",
+        cert : cert,
+        error_text : text,
+        host : host);
     }
 
     public override void constructed () {
@@ -66,4 +78,54 @@ public class Shotwell.Plugins.Common.SslCertificatePane : Common.BuilderPane {
         var proceed = this.get_builder ().get_object ("proceed_button") as Gtk.Button;
         proceed.clicked.connect (() => { this.proceed (); });
     }
+
+    public static string get_certificate_error_details(TlsCertificateFlags tls_errors) {
+        var list = new Gee.ArrayList<string> ();
+        if (TlsCertificateFlags.BAD_IDENTITY in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website presented identification that belongs to a different website."));
+        }
+
+        if (TlsCertificateFlags.EXPIRED in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification is too old to trust. Check the date on your computer’s calendar."));
+        }
+
+        if (TlsCertificateFlags.UNKNOWN_CA in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification was not issued by a trusted organization."));
+        }
+
+        if (TlsCertificateFlags.GENERIC_ERROR in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification could not be processed. It may be corrupted."));
+        }
+
+        if (TlsCertificateFlags.REVOKED in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification has been revoked by the trusted organization that issued it."));
+        }
+
+        if (TlsCertificateFlags.INSECURE in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification cannot be trusted because it uses very weak encryption."));
+        }
+
+        if (TlsCertificateFlags.NOT_ACTIVATED in tls_errors) {
+            /* Possible error message when a site presents a bad certificate. */
+            list.add (_("⚫ This website’s identification is only valid for future dates. Check the date on your computer’s calendar."));
+        }
+
+        var builder = new StringBuilder ();
+        if (list.size == 1) {
+            builder.append (list.get (0));
+        } else {
+            foreach (var entry in list) {
+                builder.append_printf ("%s\n", entry);
+            }
+        }
+
+        return builder.str;
+    }
+
 }
