@@ -14,6 +14,6 @@
       <file>piwigo_publishing_options_pane.ui</file>
       <file>youtube_publishing_options_pane.ui</file>
       <file>tumblr_publishing_options_pane.ui</file>
-      <file alias="mastodon_publishing_options_pane.ui">mastodon/options.ui</file>
+      <file>mastodon/options.ui</file>
   </gresource>
 </gresources>
