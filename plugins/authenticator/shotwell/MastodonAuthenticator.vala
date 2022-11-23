@@ -245,8 +245,8 @@ internal class Account : Object, Spit.Publishing.Account {
                 yield get_client_secret();
                 yield get_user_secret();
                 
-                this.params["User"] = this.account.user;
-                this.params["Instance"] = this.account.instance;
+                this.params["User"] = new Variant.string(this.account.user);
+                this.params["Instance"] = new Variant.string(this.account.instance);
     
                 debug("Authentication flow complete. signalizing to caller");
                 this.authenticated();
