@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.40.0 -->
 <interface domain="shotwell">
   <requires lib="gtk+" version="3.14"/>
-  <template class="PublishingMastodonOptionsPane" parent="GtkBox">
+  <template class="PublishingMastodonOptions" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="margin-start">18</property>
@@ -38,20 +38,7 @@
         <property name="margin-end">32</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLabel" id="publish_to_label">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">start</property>
-            <property name="label">$mediatype will appear in (populated in code)</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <!-- n-columns=3 n-rows=5 -->
+          <!-- n-columns=2 n-rows=7 -->
           <object class="GtkGrid" id="album_choice_area_grid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
@@ -73,7 +60,7 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">4</property>
+                <property name="top-attach">5</property>
                 <property name="width">2</property>
               </packing>
             </child>
@@ -81,32 +68,24 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="halign">end</property>
                 <property name="label" translatable="yes">ALT text</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkTextView">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
+                <property name="top-attach">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Text of post</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Post</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
+                <property name="top-attach">0</property>
               </packing>
             </child>
             <child>
@@ -119,7 +98,7 @@
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">3</property>
+                <property name="top-attach">4</property>
                 <property name="width">2</property>
               </packing>
             </child>
@@ -127,17 +106,40 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="halign">end</property>
                 <property name="label" translatable="yes">Content Warning</property>
               </object>
               <packing>
                 <property name="left-attach">0</property>
-                <property name="top-attach">2</property>
+                <property name="top-attach">3</property>
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="cw">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="post">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="max-length">500</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="alt_text">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="max-length">1500</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
@@ -145,7 +147,33 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkCheckButton" id="convert_tags">
+                <property name="label" translatable="yes">Convert image tags to hashtags</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="draw-indicator">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">6</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Hashtags</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="hashtags">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
               </object>
@@ -154,28 +182,16 @@
                 <property name="top-attach">1</property>
               </packing>
             </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="padding">4</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
       <packing>
