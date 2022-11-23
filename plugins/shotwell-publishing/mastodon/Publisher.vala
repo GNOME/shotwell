@@ -34,14 +34,30 @@ internal class Publishing.Mastodon.Options : Gtk.Box, Spit.Publishing.DialogPane
     [GtkChild]
     private unowned Gtk.Button logout_button;
 
+    [GtkChild]
+    private unowned Gtk.CheckButton sensitive_checkbox;
+
+    [GtkChild]
+    private unowned Gtk.Entry cw;
+
+    [GtkChild]
+    private unowned Gtk.Entry post;
+
+    [GtkChild]
+    private unowned Gtk.Entry alt_text;
+
     public signal void publish();
     public signal void logout();
+
+    private Parameters parameters;
 
     public Options(Parameters parameters) {
         Object();
 
         login_identity_label.set_text(_("Posting media as %s").printf(parameters.account.display_name()));
         publish_button.clicked.connect(on_publish_clicked);
+
+        this.parameters = parameters;
     }
 
     public Gtk.Widget get_widget() {
@@ -59,6 +75,10 @@ internal class Publishing.Mastodon.Options : Gtk.Box, Spit.Publishing.DialogPane
     }
 
     private void on_publish_clicked() {
+        parameters.sensitive = sensitive_checkbox.active;
+        parameters.post = post.get_text();
+        parameters.cw = cw.get_text();
+        parameters.alt_text = alt_text.get_text();
         publish();
     }
 }
@@ -73,7 +93,7 @@ namespace Publishing.Mastodon.Transactions {
             add_header("Authorization", "Bearer " + session.access_token);
 
             if (parameters.post != "") {
-                add_argument("status", "This+is+a+test+post");
+                add_argument("status", Uri.escape_string(parameters.post));
             }
 
             foreach (var arg in parameters.media_ids) {
@@ -85,7 +105,7 @@ namespace Publishing.Mastodon.Transactions {
             }
 
             if (parameters.cw != "") {
-                add_argument("spoiler_text", parameters.cw);
+                add_argument("spoiler_text", Uri.escape_string(parameters.cw));
             }
         }
     }
@@ -167,8 +187,8 @@ public class Publishing.Mastodon.Publisher : Spit.Publishing.Publisher, GLib.Obj
         }
 
         var params = this.authenticator.get_authentication_parameter();
-        this.account.user = params["User"].get_string();
-        this.account.instance = params["Instance"].get_string();
+
+        this.account = new Account(params["Instance"].get_string(), params["User"].get_string());
         this.session.access_token = params["AccessToken"].get_string();
 
         this.parameters.account = this.account;

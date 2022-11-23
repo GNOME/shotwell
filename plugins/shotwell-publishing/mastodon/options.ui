@@ -89,7 +89,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton">
+              <object class="GtkCheckButton" id="sensitive_checkbox">
                 <property name="label" translatable="yes">Mark media as sensitive</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -176,6 +176,7 @@
               <object class="GtkEntry" id="hashtags">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
+                <property name="editable">False</property>
               </object>
               <packing>
                 <property name="left-attach">1</property>
