@@ -245,7 +245,10 @@ internal class Account : Object, Spit.Publishing.Account {
             try {
                 yield get_client_secret();
                 yield get_user_secret();
-
+                
+                this.params["User"] = this.account.user;
+                this.params["Instance"] = this.account.instance;
+    
                 debug("Authentication flow complete. signalizing to caller");
                 this.authenticated();
             } catch (Error err) {

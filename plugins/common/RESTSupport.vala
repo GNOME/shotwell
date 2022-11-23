@@ -262,6 +262,7 @@ public class Transaction {
             case Soup.Status.OK:
             case Soup.Status.CREATED: // HTTP code 201 (CREATED) signals that a new
                                                // resource was created in response to a PUT or POST
+            case Soup.Status.ACCEPTED: // Mastodon will return accepted if the file was uploaded but not yet processed
             break;
             
             default:
@@ -306,6 +307,9 @@ public class Transaction {
 
         message.disconnect(id);
         message.accept_certificate.disconnect(on_accecpt_certificate);
+
+        // Still send the completed signal, this is the only hook-inpoint for batch upload
+        // transactions
         completed();
     }
 
@@ -435,6 +439,7 @@ public class Transaction {
    
     public void add_argument(string name, string value) {
         arguments += new Argument(name, value);
+        debug("Adding argument %s %s", name, value);
     }
 
     public void set_argument(string name, string value) {
@@ -704,7 +709,7 @@ public abstract class BatchUploader {
             yield txn.execute_async();
                 
             txn.chunk_transmitted.disconnect(on_chunk_transmitted);           
-                        
+            
             current_file++;
         }
     }
