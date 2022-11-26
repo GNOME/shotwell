@@ -98,7 +98,7 @@ internal class Account : Object, Spit.Publishing.Account {
          * Transaction to introspect information about the instance, stuff
          * like supported server version, file formats, size and rate limits
          */
-         private class InstanceInfo : global::Publishing:RESTSupport.Transaction {
+         private class InstanceInfo : global::Publishing.RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/api/v1/instance";
 
             /**
@@ -107,13 +107,14 @@ internal class Account : Object, Spit.Publishing.Account {
              * @session: A Publishing.RESTSupport.Session used to communicate
              */
              public InstanceInfo(Session session) {
-                base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance, HttpMethod.GET));
+                base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance,
+                                        Publishing.RESTSupport.HttpMethod.GET));
             }
 
             // There is no body, basically could just use a SoupMessage, but 
             // for consistency just go with this.
-            public override async void execute_async throws Spit.Publishing.PublishingError {
-                is_executed = true;
+            public override async void execute_async() throws Spit.Publishing.PublishingError {
+                set_is_executed(true);
                 yield send_async();
             }
         }
