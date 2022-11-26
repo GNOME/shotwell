@@ -22,9 +22,21 @@ internal class Account : Object, Spit.Publishing.Account {
 }
 
     namespace Transactions {
+        /**
+         * Call to register client with the instance.
+         * 
+         * For a normal OAuth2 flow, these ids would be provided by the site after
+         * a "complex review" of the application, but with Mastodon you can just
+         * request them from the instance.
+         */
         private class GetClientId : global::Publishing.RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/api/v1/apps";
 
+            /**
+             * Constructor.
+             * 
+             * @session: A Publishing.RESTSupport.Session used to communicate
+             */
             public GetClientId(Session session) {
                 base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance));
 
@@ -36,10 +48,20 @@ internal class Account : Object, Spit.Publishing.Account {
             }
         }
 
+        /**
+         * Call to exchange the user code that is returned from the web-bases authentication
+         * flow into the OAuth2 access token.
+         */
         private class GetAccessToken : global::Publishing.RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/oauth/token";
 
-            public GetAccessToken(Session session, string code) {
+            /**
+             * Constructor.
+             * 
+             * @session: A Publishing.RESTSupport.Session used to communicate
+             * @code: Result of the web authentication flow
+             */
+             public GetAccessToken(Session session, string code) {
                 base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance));
 
                 add_argument("client_id", session.client_id);
@@ -51,10 +73,19 @@ internal class Account : Object, Spit.Publishing.Account {
             }
         }
 
+        /**
+         * Transaction to revoke an access token (aka logout)
+         */
         private class RevokeAccessToken : global::Publishing.RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/oauth/revoke";
 
-            public RevokeAccessToken(Session session, string token) {
+            /**
+             * Constructor.
+             * 
+             * @session: A Publishing.RESTSupport.Session used to communicate
+             * @token: An user access token, as obtained by GetAccessToken
+             */
+             public RevokeAccessToken(Session session, string token) {
                 base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance));
 
                 add_argument("client_id", session.client_id);
@@ -67,10 +98,15 @@ internal class Account : Object, Spit.Publishing.Account {
          * Transaction to introspect information about the instance, stuff
          * like supported server version, file formats, size and rate limits
          */
-         private class InstanceInfo : global::Publishing.RESTSupport.Transaction {
+         private class InstanceInfo : global::Publishing:RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/api/v1/instance";
 
-            public InstanceInfo(Session session) {
+            /**
+             * Constructor.
+             * 
+             * @session: A Publishing.RESTSupport.Session used to communicate
+             */
+             public InstanceInfo(Session session) {
                 base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance,
                                         Publishing.RESTSupport.HttpMethod.GET));
             }
@@ -83,6 +119,11 @@ internal class Account : Object, Spit.Publishing.Account {
             }
         }
     }
+
+    /**
+     * Implementation of Publishing.RESTSupport.Session. Keeping track of information
+     * necessary during authentication flows.
+     */
     private class Session : Publishing.RESTSupport.Session {
         public string instance = null;
         public string client_id = null;
@@ -103,6 +144,9 @@ internal class Account : Object, Spit.Publishing.Account {
         }
     }
 
+    /**
+     * Ui panel to get basic instance infortmation (instance name and user)
+     */
     internal class InstancePane : Common.BuilderPane {
         public Account? account {get; set; default = null; }
         private Gtk.Button login_button;
@@ -161,9 +205,12 @@ internal class Account : Object, Spit.Publishing.Account {
         }
     }
 
+    // Information for the secret store
     private const string CLIENT_SCHEME_ID = "org.gnome.Shotwell.Mastodon.Client";
     private const string USER_SCHEME_ID = "org.gnome.Shotwell.Mastodon.Account";
+
     public const string SCHEMA_KEY_PROFILE_ID = "shotwell-profile-id";
+
     public const string CLIENT_KEY_INSTANCE_ID = "instance";
     public const string CLIENT_KEY_SECRET_ID = "id";
     public const string USER_KEY_CLIENT_ID = "client";
@@ -173,36 +220,36 @@ internal class Account : Object, Spit.Publishing.Account {
         return new Secret.Schema(CLIENT_SCHEME_ID,
                 Secret.SchemaFlags.NONE,
                 // Internal id of the shotwell profile
-                "shotwell-profile-id", Secret.SchemaAttributeType.STRING,
+                SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
                 // url of the instance
-                "instance", Secret.SchemaAttributeType.STRING,
+                CLIENT_KEY_INSTANCE_ID, Secret.SchemaAttributeType.STRING,
                 // TRUE: Client ID, FALSE: Client Secret - This is a bit abusive
                 // of Secret
-                "id", Secret.SchemaAttributeType.BOOLEAN);
+                CLIENT_KEY_SECRET_ID, Secret.SchemaAttributeType.BOOLEAN);
     }
 
     public static Secret.Schema get_user_schema() {
         return new Secret.Schema(USER_SCHEME_ID,
                 Secret.SchemaFlags.NONE,
                 // Internal id of the shotwell profile
-                "shotwell-profile-id", Secret.SchemaAttributeType.STRING,
+                SCHEMA_KEY_PROFILE_ID, Secret.SchemaAttributeType.STRING,
                 // Client-id as in the client_schema
-                "client", Secret.SchemaAttributeType.STRING,
+                USER_KEY_CLIENT_ID, Secret.SchemaAttributeType.STRING,
                 // Username as used when logging in
-                "username", Secret.SchemaAttributeType.STRING);
+                USER_KEY_USERNAME_ID, Secret.SchemaAttributeType.STRING);
     }
 
-
+    /**
+     * UI panel for the Web authentication flow
+     */
     private class WebAuthenticationPane : Common.WebAuthenticationPane {
-        public static bool cache_dirty = false;
         private string? auth_code = null;
 
+        public signal void authorized(string auth_code);
         public signal void error();
 
-        public override void constructed() {
-            base.constructed();
-
-            var ctx = WebKit.WebContext.get_default();
+        public WebAuthenticationPane(string auth_sequence_start_url, Session session) {
+            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate, allow_insecure: true);
         }
 
         public override void on_page_load() {
@@ -226,16 +273,6 @@ internal class Account : Object, Spit.Publishing.Account {
             if (this.auth_code != null) {
                 this.authorized(this.auth_code);
             }
-        }
-
-        public signal void authorized(string auth_code);
-
-        public WebAuthenticationPane(string auth_sequence_start_url, Session session) {
-            Object (login_uri : auth_sequence_start_url, insecure : session.get_is_insecure(), accepted_certificate: session.accepted_certificate, allow_insecure: true);
-        }
-
-        public static bool is_cache_dirty() {
-            return cache_dirty;
         }
     }
 
@@ -479,6 +516,15 @@ internal class Account : Object, Spit.Publishing.Account {
             yield;
         }
 
+        /**
+         * Fetch client secret for this instance.
+         * 
+         * If we do not have any information at all - for example if the authentiator was not
+         * called with a known account - it will show the instance selection account first.
+         * 
+         * When that is known, check for known secrets, otherwise run client secret
+         * obtaining flow.
+         */
         private async void get_client_secret() throws Error {
             if (this.account == null || (this.account.instance == null || this.account.user == null)) {
                 debug("We don't have any account configured, ask the user for an instance");
@@ -544,6 +590,11 @@ internal class Account : Object, Spit.Publishing.Account {
             return received_auth_code;
         }
 
+        /**
+         * Get the user secret
+         * 
+         * Check if there is a cached secret. If not, start web-based authentication flow. 
+         */
         private async void get_user_secret() throws Error {
             try {
                 this.session.access_token = yield Secret.password_lookup(this.user_schema, null,
