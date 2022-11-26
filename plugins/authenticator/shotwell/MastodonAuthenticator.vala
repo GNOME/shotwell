@@ -21,7 +21,6 @@ internal class Account : Object, Spit.Publishing.Account {
     }
 }
 
-
     namespace Transactions {
         private class GetClientId : global::Publishing.RESTSupport.Transaction {
             const string ENDPOINT_URL = "https://%s/api/v1/apps";
@@ -61,6 +60,21 @@ internal class Account : Object, Spit.Publishing.Account {
                 add_argument("client_id", session.client_id);
                 add_argument("client_secret", session.client_secret);
                 add_argument("token", token);
+            }
+        }
+
+        private class InstanceInfo : global::Publishing::RESTSupport.Transaction {
+            const string ENDPOINT_URL = "https://%s/api/v1/instance";
+
+            public InstanceInfo(Session session) {
+                base.with_endpoint_url(session, ENDPOINT_URL.printf(session.instance, HttpMethod.GET));
+            }
+
+            // There is no body, basically could just use a SoupMessage, but 
+            // for consistency just go with this.
+            public override async void execute_async throws Spit.Publishing.PublishingError {
+                is_executed = true;
+                yield send_async();
             }
         }
     }
