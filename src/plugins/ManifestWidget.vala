@@ -10,9 +10,6 @@ namespace Plugins {
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/manifest_widget.ui")]
 public class ManifestWidgetMediator : Gtk.Box {
     [GtkChild]
-    private unowned Gtk.Button about_button;
-    
-    [GtkChild]
     private unowned Gtk.ScrolledWindow list_bin;
     
     private ManifestListView list = new ManifestListView();
@@ -21,58 +18,7 @@ public class ManifestWidgetMediator : Gtk.Box {
         Object();
 
         list_bin.add(list);
-        
-        about_button.clicked.connect(on_about);
-        list.row_selected.connect(on_selection_changed);
-    }
-    
-    private void on_about() {
-        var pluggable = list.get_selected();
-        if (pluggable == null) {
-            return;
-        }
-        
-        Spit.PluggableInfo info = Spit.PluggableInfo();
-        pluggable.get_info(ref info);
-        
-        // prepare authors names (which are comma-delimited by the plugin) for the about box
-        // (which wants an array of names)
-        string[]? authors = null;
-        if (info.authors != null) {
-            string[] split = info.authors.split(",");
-            for (int ctr = 0; ctr < split.length; ctr++) {
-                string stripped = split[ctr].strip();
-                if (!is_string_empty(stripped)) {
-                    if (authors == null)
-                        authors = new string[0];
-                    
-                    authors += stripped;
-                }
-            }
-        }
-        
-        Gtk.AboutDialog about_dialog = new Gtk.AboutDialog();
-        about_dialog.authors = authors;
-        about_dialog.comments = info.brief_description;
-        about_dialog.copyright = info.copyright;
-        about_dialog.license = info.license;
-        about_dialog.wrap_license = info.is_license_wordwrapped;
-        about_dialog.logo = (info.icons != null && info.icons.length > 0) ? info.icons[0] :
-            Resources.get_icon(Resources.ICON_GENERIC_PLUGIN);
-        about_dialog.program_name = pluggable.get_pluggable_name();
-        about_dialog.translator_credits = info.translators;
-        about_dialog.version = info.version;
-        about_dialog.website = info.website_url;
-        about_dialog.website_label = info.website_name;
-        
-        about_dialog.run();
-        
-        about_dialog.destroy();
-    }
-    
-    private void on_selection_changed(Spit.Pluggable? pluggable) {
-        about_button.sensitive = pluggable != null;
-    }
+    }    
 }
 
 private class CollectionModel<G> : GLib.ListModel, Object {
@@ -124,14 +70,21 @@ private class Selection : Object {
 private class PluggableRow : Gtk.Box {
     public Spit.Pluggable pluggable { get; construct; }
     public bool enabled {get; construct; }
+
     public PluggableRow(Spit.Pluggable pluggable_, bool enable_) {
-        Object(orientation: Gtk.Orientation.HORIZONTAL, pluggable: pluggable_,
+        Object(orientation: Gtk.Orientation.VERTICAL, pluggable: pluggable_,
             enabled: enable_, margin_top: 6, margin_bottom:6, margin_start:6, margin_end:6);
     }
 
     public override void constructed() {
         base.constructed();
+        var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+        pack_start(content, true);
 
+        var revealer = new Gtk.Revealer();
+        revealer.margin_top = 6;
+        pack_end(revealer, true);
+        
         Spit.PluggableInfo info = Spit.PluggableInfo();
         pluggable.get_info(ref info);
         
@@ -140,31 +93,80 @@ private class PluggableRow : Gtk.Box {
             : Resources.get_icon(Resources.ICON_GENERIC_PLUGIN, 24);
 
         var image = new Gtk.Image.from_pixbuf(icon);
-        pack_start(image, false, false, 6);
+        content.pack_start(image, false, false, 6);
         image.hexpand = false;
 
         var label = new Gtk.Label(pluggable.get_pluggable_name());
         label.halign = Gtk.Align.START;
-        pack_start(label, true, true, 6);
+        content.pack_start(label, true, true, 6);
+
+        var button = new Gtk.ToggleButton();
+        button.get_style_context().add_class("flat");
+        content.pack_end(button, false, false, 6);
+        button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
+        image = new Gtk.Image.from_icon_name("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        button.add(image);
 
         var plugin_enabled = new Gtk.Switch();
         plugin_enabled.hexpand = false;
         plugin_enabled.vexpand = false;
         plugin_enabled.valign = Gtk.Align.CENTER;
         plugin_enabled.set_active(enabled);
-        pack_end(plugin_enabled, false, false, 6);
+
+        content.pack_end(plugin_enabled, false, false, 6);
         plugin_enabled.notify["active"].connect(() => {
             var id = pluggable.get_id();
             set_pluggable_enabled(id, plugin_enabled.active);
         });
 
         if (pluggable is Spit.Publishing.Service) {
-            var button = new Gtk.Button.from_icon_name("avatar-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            button.get_style_context().add_class("flat");
+            var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            manage.get_style_context().add_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-            button.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
-            pack_start(button, false, false, 6);
+            manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
+            content.pack_start(manage, false, false, 6);
         }
+
+        var grid = new Gtk.Grid();
+        grid.get_style_context().add_class("content");
+        grid.set_row_spacing(12);
+        grid.set_column_spacing(6);
+        revealer.add(grid);
+        label = new Gtk.Label(info.copyright);
+        label.hexpand = true;
+        label.halign = Gtk.Align.START;
+        grid.attach(label, 0, 0, 2, 1);
+        label = new Gtk.Label(_("Authors"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 1, 1, 1);
+        label = new Gtk.Label(info.authors);
+        label.halign = Gtk.Align.START;
+        label.hexpand = true;
+        grid.attach(label, 1, 1, 1, 1);
+
+        label = new Gtk.Label(_("Version"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 2, 1, 1);
+        label = new Gtk.Label(info.version);
+        label.halign = Gtk.Align.START;
+        label.hexpand = true;
+        grid.attach(label, 1, 2, 1, 1);
+
+        label = new Gtk.Label(_("Website"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 3, 1, 1);
+        var link = new Gtk.LinkButton.with_label(info.website_url, info.website_name);
+        link.halign = Gtk.Align.START;
+        // remove the annoying padding around the link
+        link.get_style_context().remove_class("text-button");
+        link.get_style_context().add_class("shotwell-plain-link");
+        grid.attach(link, 1, 3, 1, 1);
     }
 }
 
