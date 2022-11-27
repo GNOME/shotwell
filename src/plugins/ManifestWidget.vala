@@ -171,9 +171,8 @@ private class PluggableRow : Gtk.Box {
 }
 
 private class ManifestListView : Gtk.Box {
-    private Gtk.ListBox box = new Gtk.ListBox();
     public ManifestListView() {
-        Object(orientation: Gtk.Orientation.VERTICAL);
+        Object(orientation: Gtk.Orientation.VERTICAL, spacing: 6);
     }
 
     public signal void row_selected(Spit.Pluggable? pluggable);
@@ -181,18 +180,21 @@ private class ManifestListView : Gtk.Box {
     public override void constructed() {
         base.constructed();
 
-        this.pack_start(this.box);
         foreach (var extension_point in get_extension_points(compare_extension_point_names)) {
-            var row = new Gtk.ListBoxRow();
-            row.selectable = false;
-            row.activatable = false;
             var label = new Gtk.Label(null);
             label.set_markup("<span weight=\"bold\">%s</span>".printf(extension_point.name));
             label.halign = Gtk.Align.START;
-            row.add(label);
+            label.hexpand = true;
+            add(label);
 
-            box.insert(row, -1);
             var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
+            var box = new Gtk.ListBox();
+            box.set_selection_mode(Gtk.SelectionMode.NONE);
+            box.hexpand = true;
+            box.margin_start = 12;
+            box.margin_end = 12;
+
+            var added = 0;
             foreach (var pluggable in pluggables) {
                 bool enabled;
 
@@ -201,28 +203,15 @@ private class ManifestListView : Gtk.Box {
 
                 var pluggable_row = new PluggableRow(pluggable, enabled);
 
+                added++;
                 box.insert(pluggable_row, -1);
             }
-        }
-
-        box.row_selected.connect((row) => {
-            if (row != null) {
-                row_selected(((PluggableRow)row.get_child()).pluggable);
-            } else {
-                row_selected(null);
+            if (added > 0) {
+                add(box);
             }
-        });
+        }
 
         show_all();
-    }
-
-    public Spit.Pluggable? get_selected() {
-        var row = box.get_selected_row();        
-        if (row == null) {
-            return null;
-        }
-
-        return ((PluggableRow)row.get_child()).pluggable;
     }
 } 
 
