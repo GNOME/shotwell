@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.40.0 -->
 <interface domain="shotwell">
   <requires lib="gtk+" version="3.18"/>
   <template class="PluginsManifestWidgetMediator" parent="GtkBox">
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <property name="spacing">12</property>
     <child>
       <object class="GtkScrolledWindow" id="list_bin">
         <property name="visible">True</property>
-        <property name="can_focus">True</property>
+        <property name="can-focus">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
-        <property name="hscrollbar_policy">never</property>
-        <property name="shadow_type">etched-in</property>
+        <property name="hscrollbar-policy">never</property>
         <child>
           <placeholder/>
         </child>
@@ -26,16 +25,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButtonBox" id="hbuttonbox1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="layout_style">end</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">False</property>
-        <property name="position">1</property>
-      </packing>
+      <placeholder/>
     </child>
   </template>
 </interface>

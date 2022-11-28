@@ -52,7 +52,7 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.Label pattern_help;
     [GtkChild]
-    private unowned Gtk.Notebook preferences_notebook;
+    private unowned Gtk.Stack preferences_stack;
 
     [GtkChild]
     private unowned Gtk.RadioButton transparent_checker_radio;
@@ -126,8 +126,8 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        ((Gtk.Container) preferences_notebook.get_nth_page (2)).add (plugins_mediator);
-        ((Gtk.Container) preferences_notebook.get_nth_page (3)).add (new Shotwell.ProfileBrowser());
+        ((Gtk.Box)preferences_stack.get_child_by_name("plugins")).add(plugins_mediator);
+        ((Gtk.Box)preferences_stack.get_child_by_name("profiles")).add(new Shotwell.ProfileBrowser());
 
 
         populate_preference_options();
