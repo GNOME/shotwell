@@ -351,6 +351,7 @@ public class Transaction {
 
         message.disconnect(id);
         message.accept_certificate.disconnect(on_accecpt_certificate);
+        completed();
     }
 
     public HttpMethod get_method() {
