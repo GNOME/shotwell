@@ -180,50 +180,12 @@ private class AlbumCreationTransaction : Publishing.RESTSupport.GooglePublisher.
 
 private class AlbumDirectoryTransaction : Publishing.RESTSupport.GooglePublisher.AuthenticatedTransaction {
     private const string ENDPOINT_URL = "https://photoslibrary.googleapis.com/v1/albums";
-    private Album[] albums = new Album[0];
 
-    public AlbumDirectoryTransaction(Publishing.RESTSupport.GoogleSession session) {
+    public AlbumDirectoryTransaction(Publishing.RESTSupport.GoogleSession session, string? token) {
         base(session, ENDPOINT_URL, Publishing.RESTSupport.HttpMethod.GET);
-        this.completed.connect(on_internal_continue_pagination);
-    }
 
-    public Album[] get_albums() {
-        return this.albums;
-    }
-
-    private void on_internal_continue_pagination() {
-        try {
-            debug(this.get_response());
-            var json = Json.from_string (this.get_response());
-            var object = json.get_object ();
-            if (!object.has_member ("albums")) {
-                return;
-            }
-
-            var pagination_token_node = object.get_member ("nextPageToken");
-            var response_albums = object.get_member ("albums").get_array();
-            response_albums.foreach_element( (a, b, element) => {
-                var album = element.get_object();
-                var title = album.get_member("title");
-                var is_writable = album.get_member("isWriteable");
-                if (title != null && is_writable != null && is_writable.get_boolean())
-                    albums += new Album(title.get_string(), album.get_string_member("id"));
-            });
-
-            if (pagination_token_node != null) {
-                this.set_argument ("pageToken", pagination_token_node.get_string ());
-                Signal.stop_emission_by_name (this, "completed");
-                this.execute_async.begin((source, res) =>{
-                    try {
-                        this.execute_async.end(res);
-                    } catch (Spit.Publishing.PublishingError err) {
-                        this.network_error(err);
-                    }
-                });
-            }
-        } catch (Error error) {
-            critical ("Got error %s while trying to parse response, delegating", error.message);
-            this.network_error(new Spit.Publishing.PublishingError.MALFORMED_RESPONSE(error.message));
+        if (token != null) {
+            add_argument("pageToken", token);
         }
     }
 }
@@ -271,16 +233,48 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
 
         get_host().install_account_fetch_wait_pane();
         get_host().set_service_locked(true);
+        var albums = new Album[0];
 
-        AlbumDirectoryTransaction txn = new AlbumDirectoryTransaction(get_session());
+        AlbumDirectoryTransaction txn = new AlbumDirectoryTransaction(get_session(), null);
         try {
-            yield txn.execute_async();
+            string? pagination_token = null;
+            do {
+                yield txn.execute_async();
 
-            if (!is_running())
-                return;
+                if (!is_running())
+                    return;
+
+                var json = Json.from_string (txn.get_response());
+                var object = json.get_object ();
+                if (!object.has_member ("albums")) {
+                    throw new Spit.Publishing.PublishingError.MALFORMED_RESPONSE("Album fetch did not contain expected data");
+                }
+    
+                if (object.has_member("nextPageToken")) {
+                    pagination_token = object.get_member ("nextPageToken").get_string();
+                } else {
+                    pagination_token = null;
+                }
+
+                var response_albums = object.get_member ("albums").get_array();
+                response_albums.foreach_element( (a, b, element) => {
+                    var album = element.get_object();
+                    var title = album.get_member("title");
+                    var is_writable = album.get_member("isWriteable");
+                    if (title != null && is_writable != null && is_writable.get_boolean())
+                        albums += new Album(title.get_string(), album.get_string_member("id"));
+                });
+        
+                if (pagination_token != null) {
+                    debug("Not finished fetching all albums, getting more... %s", pagination_token);
+                    txn = new AlbumDirectoryTransaction(get_session(), pagination_token);
+                }
+            } while (pagination_token != null);
 
             debug("EVENT: finished fetching album information.");
-            display_account_information((AlbumDirectoryTransaction)txn);    
+            this.publishing_parameters.set_albums(albums);
+
+            show_publishing_options_pane();
         } catch (Error err) {
             debug("EVENT: fetching album information failed; response = '%s'.",
             txn.get_response());
@@ -292,13 +286,6 @@ public class Publisher : Publishing.RESTSupport.GooglePublisher {
                 get_host().post_error(err);
             }
         }
-    }
-
-    private void display_account_information(AlbumDirectoryTransaction txn) {
-        debug("ACTION: parsing album information");
-        this.publishing_parameters.set_albums(txn.get_albums());
-
-        show_publishing_options_pane();
     }
 
     private void show_publishing_options_pane() {

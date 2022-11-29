@@ -200,12 +200,10 @@ public class Transaction {
     private Soup.Message message = null;
     private uint bytes_written = 0;
     private ulong request_length;
-    private Spit.Publishing.PublishingError? err = null;
     private string? endpoint_url = null;
     private bool use_custom_payload;
     
     public signal void chunk_transmitted(uint bytes_written_so_far, uint total_bytes);
-    public signal void network_error(Spit.Publishing.PublishingError err);
     public signal void completed();
 
     
@@ -730,7 +728,6 @@ public abstract class BatchUploader {
 
     private async void send_files_async() throws Spit.Publishing.PublishingError {
         current_file = 0;
-        bool stop = false;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
             GLib.File? file = publishable.get_serialized_file();
             
