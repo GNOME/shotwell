@@ -521,8 +521,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
      */
     private void on_login_network_complete(Publishing.RESTSupport.Transaction txn) {
         debug("EVENT: on_login_network_complete");
-        txn.completed.disconnect(on_login_network_complete);
-        txn.network_error.disconnect(on_login_network_error);
         
         try {
             Publishing.RESTSupport.XmlDocument.parse_string(
@@ -570,8 +568,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         Spit.Publishing.PublishingError err
     ) {
         debug("EVENT: on_login_network_error");
-        bad_txn.completed.disconnect(on_login_network_complete);
-        bad_txn.network_error.disconnect(on_login_network_error);
 
         if (session.is_authenticated()) // ignore these events if the session is already auth'd
             return;
@@ -606,8 +602,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
             }
         } else {
             SessionGetStatusTransaction status_txn = new SessionGetStatusTransaction(session);
-            status_txn.network_error.connect(on_session_get_status_error);
-            status_txn.completed.connect(on_session_get_status_complete);
 
             try {
                 yield status_txn.execute_async();
@@ -674,8 +668,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         Spit.Publishing.PublishingError err
     ) {
         debug("EVENT: on_session_get_status_error");
-        bad_txn.completed.disconnect(on_session_get_status_complete);
-        bad_txn.network_error.disconnect(on_session_get_status_error);
         on_network_error(bad_txn, err);
     }
 
