@@ -67,6 +67,26 @@ private class Selection : Object {
     public signal void changed();
 }
 
+[GtkTemplate (ui = "/org/gnome/Shotwell/ui/account-browser.ui")]
+internal class AccountBrowser : Gtk.Dialog {
+    public Gee.Collection<Spit.Publishing.Account> accounts {get; construct;}
+
+    [GtkChild]
+    private unowned Gtk.ListBox accounts_listbox;
+
+    public AccountBrowser(Gee.Collection<Spit.Publishing.Account> accounts) {
+        Object(accounts: accounts, use_header_bar: Resources.use_header_bar());
+    }
+
+    public override void constructed() {
+        base.constructed();
+
+        accounts_listbox.bind_model(new CollectionModel<Spit.Publishing.Account>(accounts), (item) => {
+            return new Gtk.Label(((Spit.Publishing.Account)item).display_name());
+        });
+    }
+}
+
 private class PluggableRow : Gtk.Box {
     public Spit.Pluggable pluggable { get; construct; }
     public bool enabled {get; construct; }
@@ -120,6 +140,16 @@ private class PluggableRow : Gtk.Box {
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
             manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
             content.pack_start(manage, false, false, 6);
+            manage.clicked.connect(() => {
+                var list = new Gee.ArrayList<Spit.Publishing.Account>();
+                list.add(new Spit.Publishing.DefaultAccount());
+
+                var dialog = new AccountBrowser(list);
+                dialog.set_modal(true);
+                dialog.set_transient_for((Gtk.Window)(this.get_toplevel()));
+                dialog.response.connect(() => {dialog.destroy(); });
+                dialog.show();
+            });
         }
 
         var grid = new Gtk.Grid();
