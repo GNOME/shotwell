@@ -707,9 +707,6 @@ public abstract class BatchUploader {
                 
             txn.chunk_transmitted.disconnect(on_chunk_transmitted);           
             
-            if (stop)
-                break;
-
             current_file++;
         }
     }
