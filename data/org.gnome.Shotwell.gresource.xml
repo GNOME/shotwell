@@ -35,6 +35,8 @@
       <file preprocess="xml-stripblanks">ui/tags.ui</file>
       <file preprocess="xml-stripblanks">ui/textentrydialog.ui</file>
       <file preprocess="xml-stripblanks">ui/trash.ui</file>
+      <file preprocess="xml-stripblanks">ui/account-browser.ui</file>
+      <file preprocess="xml-stripblanks">ui/detailed-row.ui</file>
       <!-- Map icons -->
       <file>icons/hicolor/scalable/actions/gps-marker-highlighted.svg</file>
       <file>icons/hicolor/scalable/actions/gps-marker-selected.svg</file>
