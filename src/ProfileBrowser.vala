@@ -266,7 +266,6 @@ namespace Shotwell {
         }
 
         private Gtk.Widget on_widget_create(Object item) {
-            var p = (Profile) item;
             var row = new Gtk.ListBoxRow();
             row.add(new ProfileRow((Profile) item));
             row.show_all();
