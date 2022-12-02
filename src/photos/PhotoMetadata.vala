@@ -607,9 +607,8 @@ public class PhotoMetadata : MediaMetadata {
     }
     
     public bool get_long(string tag, out long value) {
+        value = 0;
         if (!has_tag(tag)) {
-            value = 0;
-            
             return false;
         }
         
@@ -651,6 +650,7 @@ public class PhotoMetadata : MediaMetadata {
             exiv2.try_get_exif_tag_rational(tag, out numerator, out denominator);
             rational = MetadataRational(numerator, denominator);
         } catch (Error error) {
+            rational = MetadataRational.invalid();
             return false;
         }
 

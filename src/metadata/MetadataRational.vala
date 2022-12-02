@@ -2,6 +2,11 @@ public struct MetadataRational {
     public int numerator;
     public int denominator;
 
+    public MetadataRational.invalid() {
+        this.numerator = -1;
+        this.denominator = -1;
+    }
+
     public MetadataRational(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
