@@ -35,23 +35,22 @@ public class PreferencesDialog : Gtk.Dialog {
     private unowned Gtk.Entry dir_pattern_entry;
     [GtkChild]
     private unowned Gtk.Label dir_pattern_example;
-    [GtkChild]
-    private unowned Gtk.Button help_button;
-
     private bool allow_closing = false;
     private string? lib_dir = null;
     private Gee.ArrayList<PathFormat> path_formats = new Gee.ArrayList<PathFormat>();
     private GLib.DateTime example_date = new GLib.DateTime.local(2009, 3, 10, 18, 16, 11);
     [GtkChild]
-    private unowned Gtk.Switch lowercase;
+    private unowned Gtk.CheckButton lowercase;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
     [GtkChild]
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
     [GtkChild]
-    private unowned Gtk.Switch autoimport;
+    private unowned Gtk.CheckButton autoimport;
     [GtkChild]
-    private unowned Gtk.Switch write_metadata;
+    private unowned Gtk.CheckButton write_metadata;
+    [GtkChild]
+    private unowned Gtk.Label pattern_help;
     [GtkChild]
     private unowned Gtk.Stack preferences_stack;
 
@@ -104,18 +103,15 @@ public class PreferencesDialog : Gtk.Dialog {
         // yelp to read from there, otherwise, we read from system-wide.
         string help_path = Resources.get_help_path();
 
-        dir_pattern_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, true);
-        help_button.clicked.connect(() => {
-            try {
-                if (help_path == null) {
-                    AppWindow.get_instance().show_uri(Resources.DIR_PATTERN_URI_SYSWIDE);
-                } else {
-                    Resources.launch_help(AppWindow.get_instance(), "other-files.page");
-                }
-            } catch (Error e) {
-                message("Unable to launch help: %s", e.message);
-            }
-        });
+        if (help_path == null) {
+            // We're installed system-wide, so use the system help.
+	    pattern_help.set_markup("<a href=\"%s\">%s</a>".printf(Resources.DIR_PATTERN_URI_SYSWIDE,  _("(Help)")));
+        } else {
+            // We're being run from the build directory; we'll have to handle clicks to this
+            // link manually ourselves, due to a limitation of help: URIs.
+	    pattern_help.set_markup("<a href=\"dummy:\">%s</a>".printf(_("(Help)")));
+            pattern_help.activate_link.connect(on_local_pattern_help);
+        }
 
         add_to_dir_formats(_("Year%sMonth%sDay").printf(Path.DIR_SEPARATOR_S, Path.DIR_SEPARATOR_S),
             "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d");
@@ -128,7 +124,7 @@ public class PreferencesDialog : Gtk.Dialog {
         dir_pattern_combo.changed.connect(on_dir_pattern_combo_changed);
         dir_pattern_entry.changed.connect(on_dir_pattern_entry_changed);
 
-        lowercase.notify["active"].connect(on_lowercase_toggled);
+        lowercase.toggled.connect(on_lowercase_toggled);
 
         ((Gtk.Box)preferences_stack.get_child_by_name("plugins")).add(plugins_mediator);
         ((Gtk.Box)preferences_stack.get_child_by_name("profiles")).add(new Shotwell.ProfileBrowser());
@@ -185,6 +181,17 @@ public class PreferencesDialog : Gtk.Dialog {
     private void on_color_changed() {
         var color = ((Gtk.ColorChooser) transparent_solid_color).rgba.to_string();
         Config.Facade.get_instance().set_transparent_background_color(color);
+    }
+
+    // Ticket #3162, part II - if we're not yet installed, then we have to manually launch
+    // the help viewer and specify the full path to the subsection we want...
+    private bool on_local_pattern_help(string ignore) {
+        try {
+            Resources.launch_help(AppWindow.get_instance(), "other-files.page");
+        } catch (Error e) {
+            message("Unable to launch help: %s", e.message);
+        }
+        return true;
     }
 
     private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,
