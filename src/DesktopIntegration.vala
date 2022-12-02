@@ -9,7 +9,6 @@ namespace DesktopIntegration {
 private const string DESKTOP_SLIDESHOW_XML_FILENAME = "wallpaper.xml";
 
 private int init_count = 0;
-private bool send_to_installed = false;
 private ExporterUI send_to_exporter = null;
 private ExporterUI desktop_slideshow_exporter = null;
 private double desktop_slideshow_transition = 0.0;
