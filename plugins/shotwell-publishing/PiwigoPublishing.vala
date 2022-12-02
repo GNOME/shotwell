@@ -555,30 +555,7 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         do_fetch_session_status.begin(endpoint_url, pwg_id);
     }
-    
-    /**
-     * Event triggered when a network login action fails due to a network error.
-     *
-     * This event triggered as a result of a network error during the login
-     * transaction. As a result, it assumes that the service URL entered in the
-     * authentication dialog is incorrect and re-presents the authentication
-     * dialog with FAILED_RETRY_URL mode.
-     *
-     * @param bad_txn the received REST transaction
-     * @param err the received error
-     */
-    private void on_login_network_error(
-        Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_login_network_error");
-
-        if (session.is_authenticated()) // ignore these events if the session is already auth'd
-            return;
-
-        do_show_authentication_pane(AuthenticationPane.Mode.FAILED_RETRY_URL);
-    }
-    
+        
     /**
      * Action to fetch the session status for a known Piwigo user.
      *
@@ -664,17 +641,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
         }
     }
     
-    /**
-     * Event triggered when the get session status fails due to a network error.
-     */
-    private void on_session_get_status_error(
-        Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_session_get_status_error");
-        on_network_error(bad_txn, err);
-    }
-
     /**
      * Action that fetches all available categories from the Piwigo service.
      *
@@ -955,17 +921,6 @@ public class PiwigoPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         host.set_service_locked(false);
         host.install_success_pane();
-    }
-    
-    /**
-     * Helper event to handle network errors.
-     */
-    private void on_network_error(
-        Publishing.RESTSupport.Transaction bad_txn,
-        Spit.Publishing.PublishingError err
-    ) {
-        debug("EVENT: on_network_error");
-        do_show_error(err);
     }
     
     /**
