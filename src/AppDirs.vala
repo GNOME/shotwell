@@ -364,15 +364,6 @@ class AppDirs {
         return f;
     }
 
-    public static File get_facedetect_bin() {
-        const string filename = "shotwell-facedetect";
-        File f = AppDirs.get_libexec_dir().get_parent().get_child("subprojects").get_child(filename).get_child (filename);
-        if (!f.query_exists()) {
-            f = AppDirs.get_libexec_dir().get_child("shotwell").get_child(filename);
-        }
-        return f;
-    }
-
     public static File get_haarcascade_file() {
         const string filename = "facedetect-haarcascade.xml";
         var f = AppDirs.get_resources_dir().get_parent().get_child("subprojects").get_child("shotwell-facedetect").get_child (filename);
@@ -382,6 +373,17 @@ class AppDirs {
         return get_resources_dir().get_child("facedetect-haarcascade.xml");
     }
 
+
+#if ENABLE_FACE_DETECTION
+    public static File get_facedetect_bin() {
+        const string filename = "shotwell-facedetect";
+        File f = AppDirs.get_libexec_dir().get_parent().get_child("subprojects").get_child(filename).get_child (filename);
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_child("shotwell").get_child(filename);
+        }
+        return f;
+    }
+
     public static File get_openface_dnn_dir() {
         var f = File.new_for_path("/app/extra");
         if (f.query_exists())
@@ -389,6 +391,6 @@ class AppDirs {
 
         return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
     }
-
+#endif
 }
 
