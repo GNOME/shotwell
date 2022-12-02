@@ -4,6 +4,40 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+ [GtkTemplate (ui = "/org/gnome/Shotwell/ui/detailed-row.ui")]
+internal class DetailedRow : Gtk.Box {
+    public string? icon_name { get; construct; default = null; }
+    public string? title { get; construct; default = null; }
+
+    [GtkChild]
+    private unowned Gtk.Label title_label;
+
+    [GtkChild]
+    private unowned Gtk.Image icon;
+    
+    [GtkChild]
+    private unowned Gtk.ToggleButton expand_details;
+
+    [GtkChild]
+    private unowned Gtk.Revealer revealer;
+
+    public override void constructed() {
+        base.constructed();
+
+        bind_property("title", title_label, "label", BindingFlags.SYNC_CREATE);
+        bind_property("icon-name", icon, "icon-name", BindingFlags.SYNC_CREATE);
+        bind_property("icon-name", icon, "visible", BindingFlags.SYNC_CREATE, () => { 
+            return icon_name != null;
+        });
+        expand_details.bind_property("active", revealer, "reveal-child", BindingFlags.SYNC_CREATE);
+    }
+
+    public void set_detail_widget(Gtk.Widget child) {
+        child.margin_top += 12;
+        revealer.add(child);
+    }
+}
+
 namespace Plugins {
 
 
@@ -67,6 +101,12 @@ private class Selection : Object {
     public signal void changed();
 }
 
+private class AccountRow : DetailedRow {
+    public AccountRow(Spit.Publishing.Account account) {
+        Object(title: account.display_name());
+    }
+}
+
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/account-browser.ui")]
 internal class AccountBrowser : Gtk.Dialog {
     public Gee.Collection<Spit.Publishing.Account> accounts {get; construct;}
@@ -82,7 +122,15 @@ internal class AccountBrowser : Gtk.Dialog {
         base.constructed();
 
         accounts_listbox.bind_model(new CollectionModel<Spit.Publishing.Account>(accounts), (item) => {
-            return new Gtk.Label(((Spit.Publishing.Account)item).display_name());
+            var row = new AccountRow((Spit.Publishing.Account)item);
+
+            var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            box.pack_start(new Gtk.Button.with_label(_("Log out")));
+            box.pack_end(new Gtk.Button.with_label(_("Remove account")));
+            box.show_all();
+            row.set_detail_widget(box);
+
+            return row;
         });
     }
 }
@@ -143,8 +191,8 @@ private class PluggableRow : Gtk.Box {
             content.pack_start(manage, false, false, 6);
 #endif
             manage.clicked.connect(() => {
-                var list = new Gee.ArrayList<Spit.Publishing.Account>();
-                list.add(new Spit.Publishing.DefaultAccount());
+                var service = (Spit.Publishing.Service) pluggable;
+                var list = service.get_accounts(Shotwell.ProfileManager.get_instance().id());
 
                 var dialog = new AccountBrowser(list);
                 dialog.set_modal(true);
@@ -209,6 +257,7 @@ private class PluggableRow : Gtk.Box {
         
     }
 }
+
 
 private class ManifestListView : Gtk.Box {
     public ManifestListView() {

@@ -598,7 +598,7 @@ public interface Account : Object {
 
 public class DefaultAccount : Spit.Publishing.Account, Object {
     public string display_name() {
-        return "";
+        return _("Default Account");
     }
 }
 
