@@ -689,7 +689,7 @@ public class MetadataWriter : Object {
         
         try {
             job.photo.set_master_metadata_dirty(false);
-        } catch (DatabaseError err) {
+        } catch (Error err) {
             AppWindow.database_error(err);
         }
         

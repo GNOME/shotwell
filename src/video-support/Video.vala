@@ -493,7 +493,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
                 VideoTable.get_instance().set_timestamp(backing_row.video_id, time_val.tv_sec);
                 backing_row.timestamp = time_val.tv_sec;
             }
-        } catch (DatabaseError err) {
+        } catch (Error err) {
             AppWindow.database_error(err);
 
             return;
@@ -685,7 +685,7 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
                 VideoTable.get_instance().set_filepath(backing_row.video_id, new_filepath);
                 backing_row.filepath = new_filepath;
             }
-        } catch (DatabaseError err) {
+        } catch (Error err) {
             AppWindow.database_error(err);
 
             return;

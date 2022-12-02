@@ -1718,7 +1718,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                 PhotoTable.get_instance().update_timestamp(row.photo_id, modification.tv_sec);
                 row.master.timestamp = modification.tv_sec;
             }
-        } catch (DatabaseError err) {
+        } catch (Error err) {
             AppWindow.database_error(err);
             
             return;
@@ -1731,7 +1731,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     }
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
-    public void update_editable_modification_time(FileInfo info) throws DatabaseError {
+    public void update_editable_modification_time(FileInfo info) throws Error {
         TimeVal modification = info.get_modification_time();
         
         bool altered = false;
@@ -1752,8 +1752,13 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     public static void update_many_editable_timestamps(Gee.Map<Photo, FileInfo> map)
         throws DatabaseError {
         DatabaseTable.begin_transaction();
-        foreach (Photo photo in map.keys)
-            photo.update_editable_modification_time(map.get(photo));
+        foreach (Photo photo in map.keys) {
+            try {
+                photo.update_editable_modification_time(map.get(photo));
+            } catch (Error err) {
+                debug("Failed to update modification time: %s", err.message);
+            }
+        }
         DatabaseTable.commit_transaction();
     }
     
@@ -1866,7 +1871,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                     }
                 }
             }
-        } catch (DatabaseError err) {
+        } catch (Error err) {
             AppWindow.database_error(err);
         }
         
@@ -1919,7 +1924,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                     }
                 }
             }
-        } catch (DatabaseError err) {
+        } catch (Error err) {
             AppWindow.database_error(err);
         }
         
@@ -2182,7 +2187,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
     }
     
-    public void set_master_metadata_dirty(bool dirty) throws DatabaseError {
+    public void set_master_metadata_dirty(bool dirty) throws Error {
         bool committed = false;
         lock (row) {
             if (row.metadata_dirty != dirty) {
@@ -4094,7 +4099,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                         PhotoTable.get_instance().detach_editable(row);
                     backing_photo_row = row.master;
                 }
-            } catch (DatabaseError err) {
+            } catch (Error err) {
                 warning("Unable to remove editable from PhotoTable: %s", err.message);
             }
             
