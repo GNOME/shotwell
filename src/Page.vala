@@ -68,7 +68,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     private string toolbar_path;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
-    private bool dnd_enabled = false;
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
@@ -591,35 +590,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     // and collection content altered events.  This can be used to both initialize Gtk.Actions and
     // update them when selection or visibility has been altered.
     protected virtual void update_actions(int selected_count, int count) {
-    }
-    
-    private void on_drag_begin(Gdk.DragContext context) {
-        drag_begin(context);
-    }
-    
-    private void on_drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
-        uint info, uint time) {
-        drag_data_get(context, selection_data, info, time);
-    }
-    
-    private void on_drag_data_delete(Gdk.DragContext context) {
-        drag_data_delete(context);
-    }
-    
-    private void on_drag_end(Gdk.DragContext context) {
-        drag_end(context);
-    }
-    
-    // weirdly, Gtk 2.16.1 doesn't supply a drag_failed virtual method in the GtkWidget impl ...
-    // Vala binds to it, but it's not available in gtkwidget.h, and so gcc complains.  Have to
-    // makeshift one for now.
-    // https://bugzilla.gnome.org/show_bug.cgi?id=584247
-    public virtual bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
-        return false;
-    }
-    
-    private bool on_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
-        return source_drag_failed(context, drag_result);
     }
     
     // Use this function rather than GDK or GTK's get_pointer, especially if called during a 
