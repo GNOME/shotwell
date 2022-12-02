@@ -87,11 +87,15 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
         var attributes = new HashTable<string, string>(str_hash, str_equal);
         attributes[Publishing.Piwigo.PiwigoPublisher.SCHEMA_KEY_PROFILE_ID] = profile_id;
-        var entries = Secret.password_searchv_sync(schema, attributes, Secret.SearchFlags.ALL, null);
+        try {
+            var entries = Secret.password_searchv_sync(schema, attributes, Secret.SearchFlags.ALL, null);
 
-        foreach (var entry in entries) {
-            var found_attributes = entry.get_attributes();
-            list.add(new Publishing.Piwigo.Account(found_attributes["url"], found_attributes["user"]));
+            foreach (var entry in entries) {
+                var found_attributes = entry.get_attributes();
+                list.add(new Publishing.Piwigo.Account(found_attributes["url"], found_attributes["user"]));
+            }
+        } catch (Error err) {
+            warning("Failed to look up accounts for Piwigo: %s", err.message);
         }
 
         return list;
