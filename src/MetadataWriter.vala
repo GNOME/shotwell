@@ -108,13 +108,13 @@ public class MetadataWriter : Object {
             }
             
             // exposure date/time
-            time_t current_exposure_time = photo.get_exposure_time();
-            time_t metadata_exposure_time = 0;
+            DateTime? current_exposure_time = photo.get_exposure_time();
+            DateTime? metadata_exposure_time = null;
             MetadataDateTime? metadata_exposure_date_time = metadata.get_exposure_date_time();
             if (metadata_exposure_date_time != null)
                 metadata_exposure_time = metadata_exposure_date_time.get_timestamp();
             if (current_exposure_time != metadata_exposure_time) {
-                metadata.set_exposure_date_time(current_exposure_time != 0
+                metadata.set_exposure_date_time(current_exposure_time != null
                     ? new MetadataDateTime(current_exposure_time)
                     : null);
                 changed = true;

@@ -210,14 +210,16 @@ public Gee.List<MediaSource>? unserialize_media_sources(uchar* serialized, int s
     return list;
 }
 
-public string format_local_datespan(Time from_date, Time to_date) {
+public string format_local_datespan(DateTime from_date, DateTime to_date) {
     string from_format, to_format;
    
     // Ticket #3240 - Change the way date ranges are pretty-
     // printed if the start and end date occur on consecutive days.    
-    if (from_date.year == to_date.year) {
+    if (from_date.get_year() == to_date.get_year()) {
         // are these consecutive dates?
-        if ((from_date.month == to_date.month) && (from_date.day == (to_date.day - 1))) {
+        // get_day_of_year() looks like it saves a bit of code, but then we would
+        // not recognize the change of months
+        if ((from_date.get_month() == to_date.get_month()) && (from_date.get_day_of_month() == (to_date.get_day_of_month() - 1))) {
             // Yes; display like so: Sat, July 4 - 5, 20X6
             from_format =  Resources.get_start_multiday_span_format_string();
             to_format = Resources.get_end_multiday_span_format_string();
@@ -238,7 +240,7 @@ public string format_local_datespan(Time from_date, Time to_date) {
         to_date.format(to_format)));
 }
 
-public string format_local_date(Time date) {
+public string format_local_date(DateTime date) {
     return String.strip_leading_zeroes(date.format(Resources.get_long_date_format_string()));
 }
 

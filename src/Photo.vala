@@ -210,7 +210,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     // Here, we cache the exposure time to avoid paying to access the row every time we
     // need to know it. This is initially set in the constructor, and updated whenever
     // the exposure time is set (please see set_exposure_time() for details).
-    private time_t cached_exposure_time;
+    private DateTime? cached_exposure_time;
     
     public enum Exception {
         NONE            = 0,
@@ -640,7 +640,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         File file = File.new_for_path(bpr.filepath);
         FileInfo info = file.query_info(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        TimeVal timestamp = info.get_modification_time();
+        var timestamp = info.get_modification_date_time();
         
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(
             file, PhotoFileSniffer.Options.GET_ALL);
@@ -655,7 +655,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         
         bpr.dim = detected.image_dim;
         bpr.filesize = info.get_size();
-        bpr.timestamp = timestamp.tv_sec;
+        bpr.timestamp = timestamp;
         bpr.original_orientation = detected.metadata != null ? detected.metadata.get_orientation() : 
             Orientation.TOP_LEFT;
         
@@ -1185,7 +1185,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
-        TimeVal timestamp = info.get_modification_time();
+        var timestamp = info.get_modification_date_time();
         
         // if all MD5s supplied, don't sniff for them
         if (params.exif_md5 != null && params.thumbnail_md5 != null && params.full_md5 != null)
@@ -1217,7 +1217,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
         
         Orientation orientation = Orientation.TOP_LEFT;
-        time_t exposure_time = 0;
+        DateTime? exposure_time = null;
         string title = "";
         GpsCoords gps_coords = GpsCoords();
         string comment = "";
@@ -1257,7 +1257,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         params.row.master.filepath = file.get_path();
         params.row.master.dim = detected.image_dim;
         params.row.master.filesize = info.get_size();
-        params.row.master.timestamp = timestamp.tv_sec;
+        params.row.master.timestamp = timestamp;
         params.row.exposure_time = exposure_time;
         params.row.orientation = orientation;
         params.row.master.original_orientation = orientation;
@@ -1299,8 +1299,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         params.row.master.filepath = file.get_path();
         params.row.master.dim = Dimensions(0,0);
         params.row.master.filesize = 0;
-        params.row.master.timestamp = 0;
-        params.row.exposure_time = 0;
+        params.row.master.timestamp = null;
+        params.row.exposure_time = null;
         params.row.orientation = Orientation.TOP_LEFT;
         params.row.master.original_orientation = Orientation.TOP_LEFT;
         params.row.import_id = params.import_id;
@@ -1354,10 +1354,10 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             return null;
         }
         
-        TimeVal modification_time = info.get_modification_time();
+        var modification_time = info.get_modification_date_time();
         
         backing.filepath = file.get_path();
-        backing.timestamp = modification_time.tv_sec;
+        backing.timestamp = modification_time;
         backing.filesize = info.get_size();
         backing.file_format = detected.file_format;
         backing.dim = detected.image_dim;
@@ -1708,15 +1708,15 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     
     // Use this only if the master file's modification time has been changed (i.e. touched)
     public void set_master_timestamp(FileInfo info) {
-        TimeVal modification = info.get_modification_time();
+        var modification = info.get_modification_date_time();
         
         try {
             lock (row) {
-                if (row.master.timestamp == modification.tv_sec)
+                if (row.master.timestamp.equal(modification))
                     return;
 
-                PhotoTable.get_instance().update_timestamp(row.photo_id, modification.tv_sec);
-                row.master.timestamp = modification.tv_sec;
+                PhotoTable.get_instance().update_timestamp(row.photo_id, modification);
+                row.master.timestamp = modification;
             }
         } catch (Error err) {
             AppWindow.database_error(err);
@@ -1732,14 +1732,14 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
     public void update_editable_modification_time(FileInfo info) throws Error {
-        TimeVal modification = info.get_modification_time();
+        var modification = info.get_modification_date_time();
         
         bool altered = false;
         lock (row) {
-            if (row.editable_id.is_valid() && editable.timestamp != modification.tv_sec) {
+            if (row.editable_id.is_valid() && !editable.timestamp.equal(modification)) {
                 BackingPhotoTable.get_instance().update_timestamp(row.editable_id,
-                    modification.tv_sec);
-                editable.timestamp = modification.tv_sec;
+                    modification);
+                editable.timestamp = modification;
                 altered = true;
             }
         }
@@ -2011,7 +2011,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
     }
     
-    public override time_t get_timestamp() {
+    public override DateTime? get_timestamp() {
         lock (row) {
             return backing_photo_row.timestamp;
         }
@@ -2295,7 +2295,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             error("Unable to read file information for %s: %s", to_string(), err.message);
         }
         
-        TimeVal timestamp = info.get_modification_time();
+        var timestamp = info.get_modification_date_time();
         
         // interrogate file for photo information
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
@@ -2315,7 +2315,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         bool success;
         lock (row) {
             success = PhotoTable.get_instance().master_exif_updated(get_photo_id(), info.get_size(),
-                timestamp.tv_sec, detected.md5, detected.exif_md5, detected.thumbnail_md5, row);
+                timestamp, detected.md5, detected.exif_md5, detected.thumbnail_md5, row);
         }
         
         if (success)
@@ -2342,7 +2342,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         }
     }
     
-    public override time_t get_exposure_time() {
+    public override DateTime? get_exposure_time() {
         return cached_exposure_time;
     }
    
@@ -2496,7 +2496,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         file_exif_updated();
     }
 
-    public void set_exposure_time(time_t time) {
+    public void set_exposure_time(DateTime time) {
         bool committed;
         lock (row) {
             committed = PhotoTable.get_instance().set_exposure_time(row.photo_id, time);
@@ -2510,7 +2510,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             notify_altered(new Alteration("metadata", "exposure-time"));
     }
     
-    public void set_exposure_time_persistent(time_t time) throws Error {
+    public void set_exposure_time_persistent(DateTime time) throws Error {
         PhotoFileReader source = get_source_reader();
         
         // Try to write to backing file
@@ -2804,7 +2804,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             // No, use file timestamp as date/time.
             lock (row) {
                 // Did we manually set an exposure date?
-                if(backing_photo_row.timestamp != row.exposure_time) {
+                if(!backing_photo_row.timestamp.equal(row.exposure_time)) {
                     // Yes, we need to save this.
                     return true;            
                 }
@@ -3660,7 +3660,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         
         debug("Updating metadata of %s", writer.get_filepath());
         
-        if (get_exposure_time() != 0)
+        if (get_exposure_time() != null)
             metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
         else
             metadata.set_exposure_date_time(null);
@@ -3756,7 +3756,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             metadata.set_comment(get_comment());
             metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
             
-            if (get_exposure_time() != 0)
+            if (get_exposure_time() != null)
                 metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
             else
                 metadata.set_exposure_date_time(null);
@@ -4012,15 +4012,15 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                 return;
             }
             
-            TimeVal timestamp = info.get_modification_time();
+            var timestamp = info.get_modification_date_time();
         
-            BackingPhotoTable.get_instance().update_attributes(editable_id, timestamp.tv_sec,
+            BackingPhotoTable.get_instance().update_attributes(editable_id, timestamp,
                 info.get_size());
             lock (row) {
-                timestamp_changed = editable.timestamp != timestamp.tv_sec;
+                timestamp_changed = !editable.timestamp.equal(timestamp);
                 filesize_changed = editable.filesize != info.get_size();
                 
-                editable.timestamp = timestamp.tv_sec;
+                editable.timestamp = timestamp;
                 editable.filesize = info.get_size();
             }
         } else {

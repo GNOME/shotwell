@@ -437,13 +437,13 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         }
     }
 
-    public override time_t get_exposure_time() {
+    public override DateTime? get_exposure_time() {
         lock (backing_row) {
             return backing_row.exposure_time;
         }
     }
 
-    public void set_exposure_time(time_t time) {
+    public void set_exposure_time(DateTime time) {
         lock (backing_row) {
             try {
                 VideoTable.get_instance().set_exposure_time(backing_row.video_id, time);
@@ -476,22 +476,22 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
         }
     }
 
-    public override time_t get_timestamp() {
+    public override DateTime? get_timestamp() {
         lock (backing_row) {
             return backing_row.timestamp;
         }
     }
 
     public void set_master_timestamp(FileInfo info) {
-        TimeVal time_val = info.get_modification_time();
+        var time_val = info.get_modification_date_time();
 
         try {
             lock (backing_row) {
-                if (backing_row.timestamp == time_val.tv_sec)
+                if (backing_row.timestamp.equal(time_val))
                     return;
 
-                VideoTable.get_instance().set_timestamp(backing_row.video_id, time_val.tv_sec);
-                backing_row.timestamp = time_val.tv_sec;
+                VideoTable.get_instance().set_timestamp(backing_row.video_id, time_val);
+                backing_row.timestamp = time_val;
             }
         } catch (Error err) {
             AppWindow.database_error(err);

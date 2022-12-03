@@ -96,12 +96,12 @@ public class VideoReader {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
 
-        TimeVal timestamp = info.get_modification_time();
+        var timestamp = info.get_modification_date_time();
 
         // make sure params has a valid md5
         assert(params.md5 != null);
 
-        time_t exposure_time = params.exposure_time_override;
+        DateTime exposure_time = params.exposure_time_override;
         string title = "";
         string comment = "";
 
@@ -126,7 +126,7 @@ public class VideoReader {
             VideoMetadata metadata = reader.read_metadata();
             MetadataDateTime? creation_date_time = metadata.get_creation_date_time();
 
-            if (creation_date_time != null && creation_date_time.get_timestamp() != 0)
+            if (creation_date_time != null && creation_date_time.get_timestamp() != null)
                 exposure_time = creation_date_time.get_timestamp();
 
             string? video_title = metadata.get_title();
@@ -139,16 +139,15 @@ public class VideoReader {
             warning("Unable to read video metadata: %s", err.message);
         }
 
-        if (exposure_time == 0) {
+        if (exposure_time == null) {
             // Use time reported by Gstreamer, if available.
-            exposure_time = (time_t) (reader.timestamp != null ?
-                reader.timestamp.to_unix() : 0);
+            exposure_time = reader.timestamp;
         }
 
         params.row.video_id = VideoID();
         params.row.filepath = file.get_path();
         params.row.filesize = info.get_size();
-        params.row.timestamp = timestamp.tv_sec;
+        params.row.timestamp = timestamp;
         params.row.width = preview_frame.width;
         params.row.height = preview_frame.height;
         params.row.clip_duration = clip_duration;

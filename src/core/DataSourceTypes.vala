@@ -72,9 +72,9 @@ public abstract class EventSource : ThumbnailSource {
         base (object_id);
     }
     
-    public abstract time_t get_start_time();
+    public abstract DateTime? get_start_time();
     
-    public abstract time_t get_end_time();
+    public abstract DateTime? get_end_time();
     
     public abstract uint64 get_total_filesize();
     

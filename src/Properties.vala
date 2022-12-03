@@ -77,7 +77,7 @@ private abstract class Properties : Gtk.Box {
         line_count++;
     }
     
-    protected string get_prettyprint_time(Time time) {
+    protected string get_prettyprint_time(DateTime time) {
         string timestring = time.format(Resources.get_hh_mm_format_string());
         
         if (timestring[0] == '0')
@@ -86,7 +86,7 @@ private abstract class Properties : Gtk.Box {
         return timestring;
     }
     
-    protected string get_prettyprint_time_with_seconds(Time time) {
+    protected string get_prettyprint_time_with_seconds(DateTime time) {
         string timestring = time.format(Resources.get_hh_mm_ss_format_string());
         
         if (timestring[0] == '0')
@@ -95,12 +95,12 @@ private abstract class Properties : Gtk.Box {
         return timestring;
     }
     
-    protected string get_prettyprint_date(Time date) {
+    protected string get_prettyprint_date(DateTime date) {
         string date_string = null;
-        Time today = Time.local(time_t());
-        if (date.day_of_year == today.day_of_year && date.year == today.year) {
+        var today = new DateTime.now_local();
+        if (date.get_day_of_year() == today.get_day_of_year() && date.get_year() == today.get_year()) {
             date_string = _("Today");
-        } else if (date.day_of_year == (today.day_of_year - 1) && date.year == today.year) {
+        } else if (date.get_day_of_year() == (today.get_day_of_year() - 1) && date.get_year() == today.get_year()) {
             date_string = _("Yesterday");
         } else {
             date_string = format_local_date(date);
@@ -163,8 +163,8 @@ private abstract class Properties : Gtk.Box {
 
 private class BasicProperties : Properties {
     private string title;
-    private time_t start_time = time_t();
-    private time_t end_time = time_t();
+    private DateTime? start_time = new DateTime.now_utc();
+    private DateTime? end_time = new DateTime.now_utc();
     private Dimensions dimensions;
     private int photo_count;
     private int event_count;
@@ -183,8 +183,8 @@ private class BasicProperties : Properties {
     protected override void clear_properties() {
         base.clear_properties();
         title = "";
-        start_time = 0;
-        end_time = 0;
+        start_time = null;
+        end_time = null;
         dimensions = Dimensions(0,0);
         photo_count = -1;
         event_count = -1;
@@ -276,15 +276,15 @@ private class BasicProperties : Properties {
             DataSource source = view.get_source();
 
             if (source is PhotoSource || source is PhotoImportSource) {
-                time_t exposure_time = (source is PhotoSource) ?
+                var exposure_time = (source is PhotoSource) ?
                     ((PhotoSource) source).get_exposure_time() :
                     ((PhotoImportSource) source).get_exposure_time();
 
-                if (exposure_time != 0) {
-                    if (start_time == 0 || exposure_time < start_time)
+                if (exposure_time != null) {
+                    if (start_time == null || exposure_time.compare(start_time) < 0)
                         start_time = exposure_time;
 
-                    if (end_time == 0 || exposure_time > end_time)
+                    if (end_time == null || exposure_time.compare(end_time) > 0)
                         end_time = exposure_time;
                 }
 
@@ -295,14 +295,14 @@ private class BasicProperties : Properties {
                 if (event_count == -1)
                     event_count = 0;
 
-                if ((start_time == 0 || event_source.get_start_time() < start_time) &&
-                    event_source.get_start_time() != 0 ) {
+                if ((start_time == null || event_source.get_start_time().compare(start_time) < 0) &&
+                    event_source.get_start_time() != null ) {
                     start_time = event_source.get_start_time();
                 }
-                if ((end_time == 0 || event_source.get_end_time() > end_time) &&
-                    event_source.get_end_time() != 0 ) {
+                if ((end_time == null || event_source.get_end_time().compare(end_time) > 0) &&
+                    event_source.get_end_time() != null ) {
                     end_time = event_source.get_end_time();
-                } else if (end_time == 0 || event_source.get_start_time() > end_time) {
+                } else if (end_time == null || event_source.get_start_time().compare(end_time) > 0) {
                     end_time = event_source.get_start_time();
                 }
 
@@ -315,15 +315,15 @@ private class BasicProperties : Properties {
                 video_count += event_video_count;
                 event_count++;
             } else if (source is VideoSource || source is VideoImportSource) {
-                time_t exposure_time = (source is VideoSource) ?
+                var exposure_time = (source is VideoSource) ?
                     ((VideoSource) source).get_exposure_time() :
                     ((VideoImportSource) source).get_exposure_time();
 
-                if (exposure_time != 0) {
-                    if (start_time == 0 || exposure_time < start_time)
+                if (exposure_time != null) {
+                    if (start_time == null || exposure_time.compare(start_time) < 0)
                         start_time = exposure_time;
 
-                    if (end_time == 0 || exposure_time > end_time)
+                    if (end_time == null || exposure_time.compare(end_time) > 0)
                         end_time = exposure_time;
                 }
 
@@ -335,9 +335,9 @@ private class BasicProperties : Properties {
     protected override void get_properties(Page current_page) {
         base.get_properties(current_page);
 
-        if (end_time == 0)
+        if (end_time == null)
             end_time = start_time;
-        if (start_time == 0)
+        if (start_time == null)
             start_time = end_time;
     }
 
@@ -378,11 +378,11 @@ private class BasicProperties : Properties {
                 add_line("", video_num_string);
         }
 
-        if (start_time != 0) {
-            string start_date = get_prettyprint_date(Time.local(start_time));
-            string start_time = get_prettyprint_time(Time.local(start_time));
-            string end_date = get_prettyprint_date(Time.local(end_time));
-            string end_time = get_prettyprint_time(Time.local(end_time));
+        if (start_time != null) {
+            string start_date = get_prettyprint_date(start_time.to_local());
+            string start_time = get_prettyprint_time(start_time.to_local());
+            string end_date = get_prettyprint_date(end_time.to_local());
+            string end_time = get_prettyprint_time(end_time.to_local());
 
             if (start_date == end_date) {
                 // display only one date if start and end are the same
@@ -579,9 +579,9 @@ private class ExtendedProperties : Properties {
             copyright = metadata.get_copyright();
             software = metadata.get_software();
             exposure_bias = metadata.get_exposure_bias();
-            time_t exposure_time_obj = metadata.get_exposure_date_time().get_timestamp();
-            exposure_date = get_prettyprint_date(Time.local(exposure_time_obj));
-            exposure_time = get_prettyprint_time_with_seconds(Time.local(exposure_time_obj));
+            DateTime exposure_time_obj = metadata.get_exposure_date_time().get_timestamp();
+            exposure_date = get_prettyprint_date(exposure_time_obj.to_local());
+            exposure_time = get_prettyprint_time_with_seconds(exposure_time_obj.to_local());
             comment = media.get_comment();
         } else if (source is EventSource) {
             Event event = (Event) source;

@@ -203,8 +203,8 @@ public abstract class BatchImportJob {
     
     // returns a non-zero time_t value if this has a valid exposure time override, returns zero
     // otherwise
-    public virtual time_t get_exposure_time_override() {
-        return 0;
+    public virtual DateTime? get_exposure_time_override() {
+        return null;
     }
 
     public virtual bool recurse() {

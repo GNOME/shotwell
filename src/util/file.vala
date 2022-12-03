@@ -155,11 +155,11 @@ public void delete_all_files(File dir, Gee.Set<string>? exceptions = null, Progr
     }
 }
 
-public time_t query_file_modified(File file) throws Error {
+public DateTime query_file_modified(File file) throws Error {
     FileInfo info = file.query_info(FileAttribute.TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
         null);
 
-    return info.get_modification_time().tv_sec;
+    return info.get_modification_date_time();
 }
 
 public bool query_is_directory(File file) {

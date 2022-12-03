@@ -11,7 +11,7 @@ public class QuickTimeMetadataLoader {
     }
 
     public MetadataDateTime? get_creation_date_time() {
-        return new MetadataDateTime((time_t) get_creation_date_time_for_quicktime());
+        return new MetadataDateTime(get_creation_date_time_for_quicktime());
     }
 
     public string? get_title() {
@@ -59,9 +59,9 @@ public class QuickTimeMetadataLoader {
         return ret;
     }
 
-    private ulong get_creation_date_time_for_quicktime() {
+    private DateTime? get_creation_date_time_for_quicktime() {
         QuickTimeAtom test = new QuickTimeAtom(file);
-        time_t timestamp = 0;
+        DateTime? timestamp = null;
 
         try {
             test.open_file();
@@ -84,7 +84,21 @@ public class QuickTimeMetadataLoader {
                             // Skip 4 bytes (version + flags)
                             child.read_uint32();
                             // Grab the timestamp.
-                            timestamp = child.read_uint32() - QUICKTIME_EPOCH_ADJUSTMENT;
+
+                            // Some Android phones package videos recorded with their internal cameras in a 3GP
+                            // container that looks suspiciously like a QuickTime container but really isn't -- for
+                            // the timestamps of these Android 3GP videos are relative to the UNIX epoch
+                            // (January 1, 1970) instead of the QuickTime epoch (January 1, 1904). So, if we detect a
+                            // QuickTime movie with a negative timestamp, we can be pretty sure it isn't a valid
+                            // QuickTime movie that was shot before 1904 but is instead a non-compliant 3GP video
+                            // file. If we detect such a video, we correct its time. See this Redmine ticket
+                            // (https://bugzilla.gnome.org/show_bug.cgi?id=717384) for more information.
+
+                            if ((child.read_uint32() - QUICKTIME_EPOCH_ADJUSTMENT) < 0) {
+                                timestamp = new DateTime.from_unix_utc(child.read_uint32());
+                            } else {
+                                timestamp = new DateTime.from_unix_utc(child.read_uint32() - QUICKTIME_EPOCH_ADJUSTMENT);
+                            }
                             done = true;
                             break;
                         }
@@ -103,17 +117,6 @@ public class QuickTimeMetadataLoader {
             debug("Error while closing Quicktime file: %s", e.message);
         }
 
-        // Some Android phones package videos recorded with their internal cameras in a 3GP
-        // container that looks suspiciously like a QuickTime container but really isn't -- for
-        // the timestamps of these Android 3GP videos are relative to the UNIX epoch
-        // (January 1, 1970) instead of the QuickTime epoch (January 1, 1904). So, if we detect a
-        // QuickTime movie with a negative timestamp, we can be pretty sure it isn't a valid
-        // QuickTime movie that was shot before 1904 but is instead a non-compliant 3GP video
-        // file. If we detect such a video, we correct its time. See this Redmine ticket
-        // (https://bugzilla.gnome.org/show_bug.cgi?id=717384) for more information.
-        if (timestamp < 0)
-            timestamp += QUICKTIME_EPOCH_ADJUSTMENT;
-
-        return (ulong) timestamp;
+        return timestamp;
     }
 }

@@ -38,12 +38,12 @@ public class VideoRow {
     public VideoID video_id;
     public string filepath;
     public int64 filesize;
-    public time_t timestamp;
+    public DateTime timestamp;
     public int width;
     public int height;
     public double clip_duration;
     public bool is_interpretable;
-    public time_t exposure_time;
+    public DateTime exposure_time;
     public ImportID import_id;
     public EventID event_id;
     public string md5;
@@ -133,9 +133,9 @@ public class VideoTable : DatabaseTable {
         assert(res == Sqlite.OK);       
         res = stmt.bind_int64(6, video_row.filesize);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(7, video_row.timestamp);
+        res = stmt.bind_int64(7, video_row.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(8, video_row.exposure_time);
+        res = stmt.bind_int64(8, video_row.exposure_time.to_unix());
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(9, video_row.import_id.id);
         assert(res == Sqlite.OK);
@@ -208,8 +208,8 @@ public class VideoTable : DatabaseTable {
         row.clip_duration = stmt.column_double(3);
         row.is_interpretable = (stmt.column_int(4) == 1);
         row.filesize = stmt.column_int64(5);
-        row.timestamp = (time_t) stmt.column_int64(6);
-        row.exposure_time = (time_t) stmt.column_int64(7);
+        row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(6));
+        row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(7));
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
         row.md5 = stmt.column_text(10);
@@ -244,8 +244,8 @@ public class VideoTable : DatabaseTable {
             row.clip_duration = stmt.column_double(4);
             row.is_interpretable = (stmt.column_int(5) == 1);
             row.filesize = stmt.column_int64(6);
-            row.timestamp = (time_t) stmt.column_int64(7);
-            row.exposure_time = (time_t) stmt.column_int64(8);
+            row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(7));
+            row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(8));
             row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
             row.md5 = stmt.column_text(11);
@@ -275,8 +275,8 @@ public class VideoTable : DatabaseTable {
        update_text_by_id_2(video_id.id, "comment", new_comment != null ? new_comment : "");
     }
     
-    public void set_exposure_time(VideoID video_id, time_t time) throws DatabaseError {
-        update_int64_by_id_2(video_id.id, "exposure_time", (int64) time);
+    public void set_exposure_time(VideoID video_id, DateTime time) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "exposure_time", time.to_unix());
     }
 
     public void set_rating(VideoID video_id, Rating rating) throws DatabaseError {
@@ -455,8 +455,8 @@ public class VideoTable : DatabaseTable {
         return result;
     }
     
-    public void set_timestamp(VideoID video_id, time_t timestamp) throws DatabaseError {
-        update_int64_by_id_2(video_id.id, "timestamp", (int64) timestamp);
+    public void set_timestamp(VideoID video_id, DateTime timestamp) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "timestamp", timestamp.to_unix());
     }
 }
 

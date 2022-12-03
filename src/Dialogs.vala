@@ -214,7 +214,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     StringBuilder builder = new StringBuilder();
     
     string header = _("Import Results Report") + " (Shotwell " + Resources.APP_VERSION + " @ " +
-        TimeVal().to_iso8601() + ")\n\n";
+        new DateTime.now_utc().format_iso8601() + ")\n\n";
     builder.append(header);
     
     string subhead = (ngettext("Attempted to import %d file.", "Attempted to import %d files.",

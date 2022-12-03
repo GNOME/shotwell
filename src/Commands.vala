@@ -1317,7 +1317,7 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     }
 
     public override void execute() {
-        set_time(dateable, dateable.get_exposure_time() + (time_t) time_shift);
+        set_time(dateable, dateable.get_exposure_time().add_seconds(time_shift));
 
         prev_event = dateable.get_event();
 
@@ -1333,12 +1333,12 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     }
 
     public override void undo() {
-        set_time(dateable, dateable.get_exposure_time() - (time_t) time_shift);
+        set_time(dateable, dateable.get_exposure_time().add_seconds(-1 * time_shift));
 
         dateable.set_event(prev_event);
     }
 
-    private void set_time(Dateable dateable, time_t exposure_time) {
+    private void set_time(Dateable dateable, DateTime exposure_time) {
         if (modify_original && dateable is Photo) {
             try {
                 ((Photo)dateable).set_exposure_time_persistent(exposure_time);
@@ -1358,8 +1358,8 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     private Gee.Map<Dateable, Event?> prev_events;
 
     // used when photos are batch changed instead of shifted uniformly
-    private time_t? new_time = null;
-    private Gee.HashMap<Dateable, time_t?> old_times;
+    private DateTime? new_time = null;
+    private Gee.HashMap<Dateable, DateTime?> old_times;
     private Gee.ArrayList<Dateable> error_list;
 
     public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
@@ -1380,13 +1380,12 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
             prev_events.set(view.get_source() as Dateable, ((MediaSource) view.get_source()).get_event());
             
             if (new_time == null) {
-                new_time = ((Dateable) view.get_source()).get_exposure_time() +
-                    (time_t) time_shift;
+                new_time = ((Dateable) view.get_source()).get_exposure_time().add_seconds(time_shift);
                 break;
             }
         }
 
-        old_times = new Gee.HashMap<Dateable, time_t?>();
+        old_times = new Gee.HashMap<Dateable, DateTime?>();
     }
 
     public override void execute() {
@@ -1425,7 +1424,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         }
     }
 
-    private void set_time(Dateable dateable, time_t exposure_time) {
+    private void set_time(Dateable dateable, DateTime exposure_time) {
         // set_exposure_time_persistent wouldn't work on videos,
         // since we can't actually write them from inside shotwell,
         // so check whether we're working on a Photo or a Video
@@ -1445,8 +1444,8 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     public override void execute_on_source(DataSource source) {
         Dateable dateable = ((Dateable) source);
 
-        if (keep_relativity && dateable.get_exposure_time() != 0) {
-            set_time(dateable, dateable.get_exposure_time() + (time_t) time_shift);
+        if (keep_relativity && dateable.get_exposure_time() != null) {
+            set_time(dateable, dateable.get_exposure_time().add_seconds(time_shift));
         } else {
             old_times.set(dateable, dateable.get_exposure_time());
             set_time(dateable, new_time);
@@ -1470,7 +1469,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
             set_time(photo, old_times.get(photo));
             old_times.unset(photo);
         } else {
-            set_time(photo, photo.get_exposure_time() - (time_t) time_shift);
+            set_time(photo, photo.get_exposure_time().add_seconds(-1 * time_shift));
         }
         
         ((MediaSource) source).set_event(prev_events.get(source as Dateable));

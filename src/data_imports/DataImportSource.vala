@@ -20,7 +20,7 @@ public class DataImportSource {
     private string? title = null;
     private string? preview_md5 = null;
     private uint64 file_size;
-    private time_t modification_time;
+    private DateTime modification_time;
     private MetadataDateTime? exposure_time;
     
     public DataImportSource(ImportableMediaItem db_photo) {
@@ -52,7 +52,7 @@ public class DataImportSource {
             if (title == null) {
                 title = (metadata != null) ? metadata.get_title() : null;
             }
-            time_t? date_time = db_photo.get_exposure_time();
+            var date_time = db_photo.get_exposure_time();
             if (date_time != null) {
                 exposure_time = new MetadataDateTime(date_time);
             } else {
@@ -110,7 +110,7 @@ public class DataImportSource {
         return get_name();
     }
     
-    public time_t get_exposure_time() {
+    public DateTime get_exposure_time() {
         return (exposure_time != null) ? exposure_time.get_timestamp() : modification_time;
     }
     

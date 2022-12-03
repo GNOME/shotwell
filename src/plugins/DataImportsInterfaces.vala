@@ -120,7 +120,7 @@ public interface ImportableMediaItem : GLib.Object {
     
     public abstract string get_filename();
 
-    public abstract time_t? get_exposure_time();
+    public abstract DateTime? get_exposure_time();
 }
 
 /**
