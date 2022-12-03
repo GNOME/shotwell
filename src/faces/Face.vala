@@ -355,7 +355,8 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
     
     public static void terminate() {
         try {
-            FaceDetect.interface.terminate();
+            if (FaceDetect.interface != null)
+                FaceDetect.interface.terminate();
         } catch(Error e) {}
     }
     
