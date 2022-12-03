@@ -193,7 +193,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     }
 
     private void set_time(DateTime time) {
-        calendar.select_month(time.get_month(), time.get_year());
+        calendar.select_month(time.get_month() - 1, time.get_year());
         calendar.select_day(time.get_day_of_month());
         calendar.notify_property("year");
         calendar.notify_property("month");
@@ -231,7 +231,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         uint year, month, day;
         calendar.get_date(out year, out month, out day);
 
-        return new DateTime.utc((int)year, (int)month, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
+        return new DateTime.utc((int)year, (int)month + 1, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
     }
 
     public bool execute(out TimeSpan time_shift, out bool keep_relativity,
@@ -241,10 +241,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool response = false;
 
         if (run() == Gtk.ResponseType.OK) {
-            if (no_original_time)
-                time_shift = get_time().difference(new DateTime.from_unix_utc(0));
-            else
-                time_shift = (get_time().difference(original_time));
+            // Difference returns microseconds, so divide by 1000000, we need seconds
+            if (no_original_time) {
+                time_shift = get_time().difference(new DateTime.from_unix_utc(0)) / 1000 / 1000;
+            } else {
+                time_shift = (get_time().difference(original_time)) / 1000 / 1000;
+            }
 
             keep_relativity = relativity_radio_button.get_active();
 

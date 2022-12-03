@@ -232,7 +232,11 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(5, photo_row.master.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(6, photo_row.exposure_time.to_unix());
+        if (photo_row.exposure_time == null) {
+            res = stmt.bind_null(6);
+        } else {
+            res = stmt.bind_int64(6, photo_row.exposure_time.to_unix());
+        }
         assert(res == Sqlite.OK);
         res = stmt.bind_int(7, photo_row.master.original_orientation);
         assert(res == Sqlite.OK);
@@ -312,7 +316,11 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(4, row.master.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(5, row.exposure_time.to_unix());
+        if (row.exposure_time == null) {
+            res = stmt.bind_null(5);
+        } else {
+            res = stmt.bind_int64(5, row.exposure_time.to_unix());
+        }
         assert(res == Sqlite.OK);
         res = stmt.bind_int(6, row.master.original_orientation);
         assert(res == Sqlite.OK);
@@ -426,7 +434,11 @@ public class PhotoTable : DatabaseTable {
         row.master.dim = Dimensions(stmt.column_int(1), stmt.column_int(2));
         row.master.filesize = stmt.column_int64(3);
         row.master.timestamp = new DateTime.from_unix_utc(stmt.column_int64(4));
-        row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(5));
+        if (stmt.column_type(5) == Sqlite.NULL) {
+            row.exposure_time = null;
+        } else {
+            row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(5));
+        }
         row.orientation = (Orientation) stmt.column_int(6);
         row.master.original_orientation = (Orientation) stmt.column_int(7);
         row.import_id.id = stmt.column_int64(8);
@@ -477,7 +489,11 @@ public class PhotoTable : DatabaseTable {
             row.master.dim = Dimensions(stmt.column_int(2), stmt.column_int(3));
             row.master.filesize = stmt.column_int64(4);
             row.master.timestamp = new DateTime.from_unix_utc(stmt.column_int64(5));
-            row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(6));
+            if (stmt.column_type(6) == Sqlite.NULL) {
+                row.exposure_time = null;
+            } else {
+                row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(6));
+            }    
             row.orientation = (Orientation) stmt.column_int(7);
             row.master.original_orientation = (Orientation) stmt.column_int(8);
             row.import_id.id = stmt.column_int64(9);
@@ -1088,6 +1104,16 @@ public class PhotoTable : DatabaseTable {
     
     public void remove_development(PhotoRow row, RawDeveloper rd) throws DatabaseError {
         update_raw_development(row, rd, BackingPhotoID());
+    }
+
+    public static void upgrade_for_unset_timestamp() throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE PhotoTable SET exposure_time = NULL WHERE exposure_time = '0'", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            throw_error("PhotoTable.upgrade_for_unset_timestamp", res);
+        }
     }
     
 }

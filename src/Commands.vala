@@ -1316,8 +1316,17 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
         this.modify_original = modify_original;
     }
 
+    private DateTime get_base_time() {
+        var exposure_time = dateable.get_exposure_time();
+        if (exposure_time == null) {
+            exposure_time = new DateTime.from_unix_utc(0);
+        }
+
+        return exposure_time;
+    }
+
     public override void execute() {
-        set_time(dateable, dateable.get_exposure_time().add_seconds(time_shift));
+        set_time(dateable, get_base_time().add_seconds(time_shift));
 
         prev_event = dateable.get_event();
 
@@ -1333,7 +1342,7 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     }
 
     public override void undo() {
-        set_time(dateable, dateable.get_exposure_time().add_seconds(-1 * time_shift));
+        set_time(dateable, get_base_time().add_seconds(-1 * time_shift));
 
         dateable.set_event(prev_event);
     }
@@ -1380,12 +1389,21 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
             prev_events.set(view.get_source() as Dateable, ((MediaSource) view.get_source()).get_event());
             
             if (new_time == null) {
-                new_time = ((Dateable) view.get_source()).get_exposure_time().add_seconds(time_shift);
+                new_time = get_base_time((Dateable)view.get_source()).add_seconds(time_shift);
                 break;
             }
         }
 
         old_times = new Gee.HashMap<Dateable, DateTime?>();
+    }
+
+    private DateTime get_base_time(Dateable dateable) {
+        var exposure_time = dateable.get_exposure_time();
+        if (exposure_time == null) {
+            exposure_time = new DateTime.from_unix_utc(0);
+        }
+
+        return exposure_time;
     }
 
     public override void execute() {

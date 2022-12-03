@@ -1471,7 +1471,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
 
         if (detected.metadata != null) {
             MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
-            if (date_time != null && updated_row.exposure_time != date_time.get_timestamp())
+            if (date_time != null && updated_row.exposure_time != null &&
+                !updated_row.exposure_time.equal(date_time.get_timestamp()))
                 list += "metadata:exposure-time";
             
             if (updated_row.title != detected.metadata.get_title())
@@ -2783,7 +2784,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         lock (row) {
             return row.transformations == null 
                 && (row.orientation != backing_photo_row.original_orientation 
-                || (date_time != null && row.exposure_time != date_time.get_timestamp()));
+                || (date_time != null && row.exposure_time != null &&
+                     !row.exposure_time.equal(date_time.get_timestamp())));
         }
     }
     
@@ -2814,7 +2816,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
         lock (row) {
             return row.transformations != null 
                 || row.orientation != backing_photo_row.original_orientation
-                || (date_time != null && row.exposure_time != date_time.get_timestamp())
+                || (date_time != null && !row.exposure_time.equal(date_time.get_timestamp()))
                 || (get_comment() != comment)
                 || (get_title() != title);
         }
