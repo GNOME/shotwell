@@ -100,8 +100,6 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
     
-    private const time_t TIME_T_DAY = 24 * 60 * 60;
-    
     private class EventSnapshot : SourceSnapshot {
         private EventRow row;
         private MediaSource primary_source;
@@ -804,7 +802,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         return committed;
     }
     
-    public time_t get_creation_time() {
+    public DateTime? get_creation_time() {
         return event_table.get_time_created(event_id);
     }
     

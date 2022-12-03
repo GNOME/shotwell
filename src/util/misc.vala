@@ -58,12 +58,8 @@ public ulong now_ms() {
     return (ulong) (GLib.get_real_time() / 1000);
 }
 
-public ulong now_sec() {
+public int64 now_sec() {
     return (ulong) (GLib.get_real_time() / Util.USEC_PER_SEC);
-}
-
-public inline time_t now_time_t() {
-    return (time_t) now_sec();
 }
 
 public string md5_file(File file) throws Error {

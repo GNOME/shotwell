@@ -201,7 +201,7 @@ public abstract class BatchImportJob {
         return false;
     }
     
-    // returns a non-zero time_t value if this has a valid exposure time override, returns zero
+    // returns a non-null DateTime value if this has a valid exposure time override, returns zero
     // otherwise
     public virtual DateTime? get_exposure_time_override() {
         return null;

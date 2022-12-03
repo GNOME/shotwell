@@ -27,7 +27,7 @@ public class TombstoneRow {
     public string filepath;
     public int64 filesize;
     public string? md5;
-    public time_t time_created;
+    public int64 time_created;
     public Tombstone.Reason reason;
 } 
 
@@ -71,7 +71,7 @@ public class TombstoneTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        time_t time_created = (time_t) now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, filepath);
         assert(res == Sqlite.OK);
@@ -124,7 +124,7 @@ public class TombstoneTable : DatabaseTable {
             row.filepath = stmt.column_text(1);
             row.filesize = stmt.column_int64(2);
             row.md5 = stmt.column_text(3);
-            row.time_created = (time_t) stmt.column_int64(4);
+            row.time_created = stmt.column_int64(4);
             row.reason = Tombstone.Reason.unserialize(stmt.column_int(5));
             
             rows[index++] = row;

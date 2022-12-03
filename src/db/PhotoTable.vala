@@ -78,14 +78,14 @@ public class PhotoRow {
     public string md5;
     public string thumbnail_md5;
     public string exif_md5;
-    public time_t time_created;
+    public int64 time_created;
     public uint64 flags;
     public Rating rating;
     public string title;
     public GpsCoords gps_coords;
     public string comment;
     public string? backlinks;
-    public time_t time_reimported;
+    public int64 time_reimported;
     public BackingPhotoID editable_id;
     public bool metadata_dirty;
     
@@ -220,7 +220,7 @@ public class PhotoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        ulong time_created = now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, photo_row.master.filepath);
         assert(res == Sqlite.OK);
@@ -285,7 +285,7 @@ public class PhotoTable : DatabaseTable {
         photo_row.photo_id = PhotoID(db.last_insert_rowid());
         photo_row.orientation = photo_row.master.original_orientation;
         photo_row.event_id = EventID();
-        photo_row.time_created = (time_t) time_created;
+        photo_row.time_created = time_created;
         photo_row.flags = 0;
         
         return photo_row.photo_id;
@@ -306,7 +306,7 @@ public class PhotoTable : DatabaseTable {
             + "WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
-        time_t time_reimported = (time_t) now_sec();
+        var time_reimported = now_sec();
         
         res = stmt.bind_int(1, row.master.dim.width);
         assert(res == Sqlite.OK);
@@ -447,13 +447,13 @@ public class PhotoTable : DatabaseTable {
         row.md5 = stmt.column_text(11);
         row.thumbnail_md5 = stmt.column_text(12);
         row.exif_md5 = stmt.column_text(13);
-        row.time_created = (time_t) stmt.column_int64(14);
+        row.time_created = stmt.column_int64(14);
         row.flags = stmt.column_int64(15);
         row.rating = Rating.unserialize(stmt.column_int(16));
         row.master.file_format = PhotoFileFormat.unserialize(stmt.column_int(17));
         row.title = stmt.column_text(18);
         row.backlinks = stmt.column_text(19);
-        row.time_reimported = (time_t) stmt.column_int64(20);
+        row.time_reimported = stmt.column_int64(20);
         row.editable_id = BackingPhotoID(stmt.column_int64(21));
         row.metadata_dirty = stmt.column_int(22) != 0;
         row.developer = stmt.column_text(23) != null ? RawDeveloper.from_string(stmt.column_text(23)) :
@@ -502,13 +502,13 @@ public class PhotoTable : DatabaseTable {
             row.md5 = stmt.column_text(12);
             row.thumbnail_md5 = stmt.column_text(13);
             row.exif_md5 = stmt.column_text(14);
-            row.time_created = (time_t) stmt.column_int64(15);
+            row.time_created = stmt.column_int64(15);
             row.flags = stmt.column_int64(16);
             row.rating = Rating.unserialize(stmt.column_int(17));
             row.master.file_format = PhotoFileFormat.unserialize(stmt.column_int(18));
             row.title = stmt.column_text(19);
             row.backlinks = stmt.column_text(20);
-            row.time_reimported = (time_t) stmt.column_int64(21);
+            row.time_reimported = stmt.column_int64(21);
             row.editable_id = BackingPhotoID(stmt.column_int64(22));
             row.metadata_dirty = stmt.column_int(23) != 0;
             row.developer = stmt.column_text(24) != null ? RawDeveloper.from_string(stmt.column_text(24)) :
@@ -1148,7 +1148,7 @@ public struct BackingPhotoID {
 
 public class BackingPhotoRow {
     public BackingPhotoID id;
-    public time_t time_created;
+    public int64 time_created;
     public string? filepath = null;
     public int64 filesize;
     public DateTime? timestamp;
@@ -1232,7 +1232,7 @@ public class BackingPhotoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        time_t time_created = (time_t) now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, state.filepath);
         assert(res == Sqlite.OK);
@@ -1283,7 +1283,7 @@ public class BackingPhotoTable : DatabaseTable {
         row.dim = Dimensions(stmt.column_int(3), stmt.column_int(4));
         row.original_orientation = (Orientation) stmt.column_int(5);
         row.file_format = PhotoFileFormat.unserialize(stmt.column_int(6));
-        row.time_created = (time_t) stmt.column_int64(7);
+        row.time_created = stmt.column_int64(7);
         
         return row;
     }

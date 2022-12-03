@@ -47,11 +47,11 @@ public class VideoRow {
     public ImportID import_id;
     public EventID event_id;
     public string md5;
-    public time_t time_created;
+    public int64 time_created;
     public Rating rating;
     public string title;
     public string? backlinks;
-    public time_t time_reimported;
+    public int64 time_reimported;
     public uint64 flags;
     public string comment;
 }
@@ -119,7 +119,7 @@ public class VideoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        ulong time_created = now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, video_row.filepath);
         assert(res == Sqlite.OK);
@@ -159,7 +159,7 @@ public class VideoTable : DatabaseTable {
         // fill in ignored fields with database values
         video_row.video_id = VideoID(db.last_insert_rowid());
         video_row.event_id = EventID();
-        video_row.time_created = (time_t) time_created;
+        video_row.time_created = time_created;
         video_row.flags = 0;
         
         return video_row.video_id;
@@ -213,11 +213,11 @@ public class VideoTable : DatabaseTable {
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
         row.md5 = stmt.column_text(10);
-        row.time_created = (time_t) stmt.column_int64(11);
+        row.time_created = stmt.column_int64(11);
         row.rating = Rating.unserialize(stmt.column_int(12));
         row.title = stmt.column_text(13);
         row.backlinks = stmt.column_text(14);
-        row.time_reimported = (time_t) stmt.column_int64(15);
+        row.time_reimported = stmt.column_int64(15);
         row.flags = stmt.column_int64(16);
         row.comment = stmt.column_text(17);
         
@@ -249,11 +249,11 @@ public class VideoTable : DatabaseTable {
             row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
             row.md5 = stmt.column_text(11);
-            row.time_created = (time_t) stmt.column_int64(12);
+            row.time_created = stmt.column_int64(12);
             row.rating = Rating.unserialize(stmt.column_int(13));
             row.title = stmt.column_text(14);
             row.backlinks = stmt.column_text(15);
-            row.time_reimported = (time_t) stmt.column_int64(16);
+            row.time_reimported = stmt.column_int64(16);
             row.flags = stmt.column_int64(17);
             row.comment = stmt.column_text(18);
             

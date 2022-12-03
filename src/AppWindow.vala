@@ -6,7 +6,7 @@
 
 public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_INVOCATION_MSEC = 250;
-    public const int TOOLBAR_DISMISSAL_SEC = 2;
+    public const int TOOLBAR_DISMISSAL_SEC = 2 * 1000000;
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
     private Gtk.Overlay overlay = new Gtk.Overlay();
@@ -15,7 +15,7 @@ public class FullscreenWindow : PageWindow {
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
-    private time_t left_toolbar_time = 0;
+    private int64 left_toolbar_time = 0;
     private bool switched_to = false;
     private bool is_toolbar_dismissal_enabled;
 
@@ -246,13 +246,13 @@ public class FullscreenWindow : PageWindow {
         
         // if this is the first time noticed, start the timer and keep checking
         if (left_toolbar_time == 0) {
-            left_toolbar_time = time_t();
+            left_toolbar_time = GLib.get_monotonic_time();
             
             return true;
         }
         
         // see if enough time has elapsed
-        time_t now = time_t();
+        int64 now = GLib.get_monotonic_time();
         assert(now >= left_toolbar_time);
 
         if (now - left_toolbar_time < TOOLBAR_DISMISSAL_SEC)

@@ -2,7 +2,7 @@ public class QuickTimeMetadataLoader {
 
     // Quicktime calendar date/time format is number of seconds since January 1, 1904.
     // This converts to UNIX time (66 years + 17 leap days).
-    public const time_t QUICKTIME_EPOCH_ADJUSTMENT = 2082844800;
+    public const int64 QUICKTIME_EPOCH_ADJUSTMENT = 2082844800;
 
     private File file = null;
 
