@@ -647,8 +647,12 @@ public class PhotoMetadata : MediaMetadata {
     public bool get_rational(string tag, out MetadataRational rational) {
         int numerator, denominator;
         try {
-            exiv2.try_get_exif_tag_rational(tag, out numerator, out denominator);
-            rational = MetadataRational(numerator, denominator);
+            if (exiv2.try_get_exif_tag_rational(tag, out numerator, out denominator)) {
+                rational = MetadataRational(numerator, denominator);
+            } else {
+                rational = MetadataRational.invalid();
+                return false;
+            }
         } catch (Error error) {
             rational = MetadataRational.invalid();
             return false;
