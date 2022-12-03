@@ -1,3 +1,10 @@
+Shotwell 0.31.7 (development) - 03 Dec 2022
+ * Actually run database upgrage necessary for date/time changes
+ * Fix comparing unset date/time values
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 0.31.6 (development) - 03 Dec 2022
  * Improved interaction when exporting files that end up
    with a similar name
