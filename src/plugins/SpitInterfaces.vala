@@ -159,24 +159,23 @@ public interface Module : Object {
 /**
  * A structure holding an assortment of information about a {@link Pluggable}.
  */
-public struct PluggableInfo {
-    public string? version;
-    public string? brief_description;
+public class PluggableInfo : Object {
+    public string? version {get; set; }
+    public string? brief_description {get; set; }
     /**
      * A comma-delimited list of the authors of this {@link Pluggable}.
      */
-    public string? authors;
-    public string? copyright;
-    public string? license;
-    public bool is_license_wordwrapped;
-    public string? website_url;
-    public string? website_name;
-    public string? translators;
-    /**
-     * An icon representing this plugin at one or more sizes. Shotwell may select an icon 
-     * according to the size that closest fits the control its being drawn in.
-     */
-    public Gdk.Pixbuf[]? icons;
+    public string? authors { get; set; }
+    public string? copyright {get; set; }
+    public string? license { get; set; }
+    public string? license_blurp { get; set; }
+    public bool is_license_wordwrapped {get; set; default = false; }
+    public string? website_url {get; set;  }
+    public string? website_name { get; set;  }
+    public string? translators {get; set; }
+
+    // Name of an icon in the theme, to be set the Pluggable implementation
+    public string icon_name {get; set; default = "application-x-addon-symbolic"; }
 }
 
 /**
@@ -225,7 +224,7 @@ public interface Pluggable : Object {
     /**
      * Returns extra information about the Pluggable that is used to identify it to the user.
      */
-    public abstract void get_info(ref PluggableInfo info);
+    public abstract PluggableInfo get_info();
     
     /**
      * Called when the Pluggable is enabled (activated) or disabled (deactivated).

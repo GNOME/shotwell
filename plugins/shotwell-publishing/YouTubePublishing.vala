@@ -28,7 +28,8 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "YouTube";
     }
 
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        var info = new Spit.PluggableInfo();
         info.authors = "Jani Monoses, Lucas Beeler";
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
@@ -37,7 +38,10 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
+        info.license_blurp = _("LGPL v2.1 or later");
+        info.icon_name = "youtube";
+
+        return info;
     }
 
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {

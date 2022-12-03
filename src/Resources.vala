@@ -1003,6 +1003,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default();
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons");
         icon_theme.add_resource_path("/org/gnome/Shotwell/icons/hicolor");
+        icon_theme.add_resource_path("/org/gnome/Shotwell/Publishing/icons");
+        icon_theme.add_resource_path("/org/gnome/Shotwell/Publishing/icons/hicolor");
+        icon_theme.add_resource_path("/org/gnome/Shotwell/Transitions/icons");
+        icon_theme.add_resource_path("/org/gnome/Shotwell/Transitions/icons/hicolor");
     }
     
     // This method returns a reference to a cached pixbuf that may be shared throughout the system.

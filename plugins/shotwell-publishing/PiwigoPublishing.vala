@@ -45,16 +45,20 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Piwigo";
     }
     
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        var info = new Spit.PluggableInfo();
+
         info.authors = "Bruno Girin";
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
         info.website_name = Resources.WEBSITE_NAME;
         info.website_url = Resources.WEBSITE_URL;
-        info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
+        info.license_blurp = _("LGPL v2.1 or later");
+        info.icon_name = "piwigo";
+
+        return info;
     }
 
     public void activation(bool enabled) {

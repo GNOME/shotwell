@@ -287,7 +287,8 @@ public class NullTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions
         return _("None");
     }
     
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        return new Spit.PluggableInfo();
     }
     
     public void activation(bool enabled) {
@@ -339,7 +340,8 @@ public class RandomEffectDescriptor : Object, Spit.Pluggable, Spit.Transitions.D
         return _("Random");
     }
 
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        return new Spit.PluggableInfo();
     }
     
     public void activation(bool enabled) {

@@ -256,12 +256,14 @@ public string? get_pluggable_name(string id) {
         ? pluggable_rep.pluggable.get_pluggable_name() : null;
 }
 
-public bool get_pluggable_info(string id, ref Spit.PluggableInfo info) {
+public bool get_pluggable_info(string id, out Spit.PluggableInfo info) {
     PluggableRep? pluggable_rep = pluggable_table.get(id);
-    if (pluggable_rep == null || !pluggable_rep.activated)
+    if (pluggable_rep == null || !pluggable_rep.activated) {
+        info = null;
         return false;
+    }
     
-    pluggable_rep.pluggable.get_info(ref info);
+    info = pluggable_rep.pluggable.get_info();
     
     return true;
 }
