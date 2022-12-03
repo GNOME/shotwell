@@ -6,8 +6,7 @@
 
 public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
-    public FlickrService(GLib.File resource_directory) {
-    }
+    public FlickrService() {}
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,
@@ -22,7 +21,8 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Flickr";
     }
     
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        var info = new Spit.PluggableInfo();
         info.authors = "Lucas Beeler";
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
@@ -31,7 +31,9 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = null;
+        info.license_blurp = _("LGPL v2.1 or later");
+
+        return info;
     }
 
     public void activation(bool enabled) {

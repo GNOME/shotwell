@@ -5,14 +5,7 @@
  */
 
 public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "youtube.png";
-
-    private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-
-    public YouTubeService(GLib.File resource_directory) {
-        if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_from_resource
-                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
+    public YouTubeService() {
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
@@ -28,7 +21,8 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "YouTube";
     }
 
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        var info = new Spit.PluggableInfo();
         info.authors = "Jani Monoses, Lucas Beeler";
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
@@ -37,7 +31,10 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.website_url = Resources.WEBSITE_URL;
         info.is_license_wordwrapped = false;
         info.license = Resources.LICENSE;
-        info.icons = icon_pixbuf_set;
+        info.license_blurp = _("LGPL v2.1 or later");
+        info.icon_name = "youtube";
+
+        return info;
     }
 
     public Spit.Publishing.Publisher create_publisher(Spit.Publishing.PluginHost host) {

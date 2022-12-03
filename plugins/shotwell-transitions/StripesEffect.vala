@@ -8,8 +8,8 @@
 using Spit;
 
 private class StripesEffectDescriptor : ShotwellTransitionDescriptor {
-    public StripesEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public StripesEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

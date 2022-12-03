@@ -13,39 +13,37 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
     // we need to get a module file handle because our pluggables have to load resources from the
     // module file directory
     public ShotwellPublishingCoreServices(GLib.File module_file) {
-        GLib.File resource_directory = module_file.get_parent();
         var factory = Publishing.Authenticator.Factory.get_instance();
         var authenicators = factory.get_available_authenticators();
 
         // Prevent vala complaining when all authenticators from this plugin
         // are disabled
-        debug("Looking for resources in %s", resource_directory.get_path());
         debug("Found %d authenicators", authenicators.size);
 
 #if HAVE_GOOGLEPHOTOS
         if (authenicators.contains("google-photos")) {
-            pluggables += new Publishing.GooglePhotos.Service(resource_directory);
+            pluggables += new Publishing.GooglePhotos.Service();
         }
 #endif
 
 #if HAVE_FLICKR
         if (authenicators.contains("flickr")) {
-            pluggables += new FlickrService(resource_directory);
+            pluggables += new FlickrService();
         }
 #endif
 
 #if HAVE_YOUTUBE
         if (authenicators.contains("youtube")) {
-            pluggables += new YouTubeService(resource_directory);
+            pluggables += new YouTubeService();
         }
 #endif
 
 #if HAVE_PIWIGO
-        pluggables += new PiwigoService(resource_directory);
+        pluggables += new PiwigoService();
 #endif
 
 #if HAVE_TUMBLR
-        pluggables += new TumblrService(module_file.get_parent());
+        pluggables += new TumblrService();
 #endif
     }
     

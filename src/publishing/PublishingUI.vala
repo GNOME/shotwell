@@ -77,13 +77,13 @@ public class PublishingDialog : Gtk.Dialog {
         }
         set_title(title);
 
-        service_selector_box_model = new Gtk.ListStore(3, typeof(Gdk.Pixbuf), typeof(string),
+        service_selector_box_model = new Gtk.ListStore(3, typeof(string), typeof(string),
             typeof(Spit.Publishing.Account));
         service_selector_box = new Gtk.ComboBox.with_model(service_selector_box_model);
 
         Gtk.CellRendererPixbuf renderer_pix = new Gtk.CellRendererPixbuf();
         service_selector_box.pack_start(renderer_pix,true);
-        service_selector_box.add_attribute(renderer_pix, "pixbuf", 0);
+        service_selector_box.add_attribute(renderer_pix, "icon-name", 0);
 
         Gtk.CellRendererText renderer_text = new Gtk.CellRendererText();
         service_selector_box.pack_start(renderer_text,true);
@@ -101,7 +101,7 @@ public class PublishingDialog : Gtk.Dialog {
         foreach (Spit.Publishing.Service service in loaded_services) {
             string curr_service_id = service.get_id();
 
-            service.get_info(ref info);
+            info = service.get_info();
 
             var accounts = service.get_accounts(Shotwell.ProfileManager.get_instance().id());
 
@@ -110,21 +110,9 @@ public class PublishingDialog : Gtk.Dialog {
 
                 var account_name = account.display_name();
                 var display_name = service.get_pluggable_name() + (account_name == "" ? "" : "/" + account_name);
-                print("Adding display name %s\n", display_name);
 
-                if (null != info.icons && 0 < info.icons.length) {
-                    // check if the icons object is set -- if set use that icon
-                    service_selector_box_model.set(iter, 0, info.icons[0], 1,
-                        display_name, 2, account);
-                    
-                    // in case the icons object is not set on the next iteration
-                    //info.icons[0] = Resources.get_icon(Resources.ICON_GENERIC_PLUGIN);
-                } else {
-                    // if icons object is null or zero length use a generic icon
-                    service_selector_box_model.set(iter, 0, Resources.get_icon(
-                        Resources.ICON_GENERIC_PLUGIN), 1, display_name, 2, account);
-                }
-                
+                service_selector_box_model.set(iter, 0, info.icon_name, 1, display_name, 2, account);
+
                 if (last_used_service == null) {
                     service_selector_box.set_active_iter(iter);
                     last_used_service = service.get_id();

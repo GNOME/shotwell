@@ -85,14 +85,9 @@ private class PluggableRow : Gtk.Box {
         revealer.margin_top = 6;
         pack_end(revealer, true);
         
-        Spit.PluggableInfo info = Spit.PluggableInfo();
-        pluggable.get_info(ref info);
+        var info = pluggable.get_info();
         
-        var icon = (info.icons != null && info.icons.length > 0) 
-            ? info.icons[0]
-            : Resources.get_icon(Resources.ICON_GENERIC_PLUGIN, 24);
-
-        var image = new Gtk.Image.from_pixbuf(icon);
+        var image = new Gtk.Image.from_icon_name(info.icon_name, Gtk.IconSize.BUTTON);
         content.pack_start(image, false, false, 6);
         image.hexpand = false;
 

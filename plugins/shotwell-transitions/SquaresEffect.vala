@@ -8,8 +8,8 @@
 using Spit;
 
 private class SquaresEffectDescriptor : ShotwellTransitionDescriptor {
-    public SquaresEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public SquaresEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {
