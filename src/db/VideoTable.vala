@@ -43,7 +43,7 @@ public class VideoRow {
     public int height;
     public double clip_duration;
     public bool is_interpretable;
-    public DateTime exposure_time;
+    public DateTime? exposure_time;
     public ImportID import_id;
     public EventID event_id;
     public string md5;
@@ -135,7 +135,11 @@ public class VideoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(7, video_row.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(8, video_row.exposure_time.to_unix());
+        if (video_row.exposure_time == null) {
+            stmt.bind_null(8);
+        } else {
+            res = stmt.bind_int64(8, video_row.exposure_time.to_unix());
+        }
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(9, video_row.import_id.id);
         assert(res == Sqlite.OK);
@@ -209,7 +213,11 @@ public class VideoTable : DatabaseTable {
         row.is_interpretable = (stmt.column_int(4) == 1);
         row.filesize = stmt.column_int64(5);
         row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(6));
-        row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(7));
+        if (row.exposure_time == null) {
+            stmt.bind_null(7);
+        } else {
+            res = stmt.bind_int64(7, row.exposure_time.to_unix());
+        }
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
         row.md5 = stmt.column_text(10);
@@ -245,7 +253,11 @@ public class VideoTable : DatabaseTable {
             row.is_interpretable = (stmt.column_int(5) == 1);
             row.filesize = stmt.column_int64(6);
             row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(7));
-            row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(8));
+            if (row.exposure_time == null) {
+                stmt.bind_null(8);
+            } else {
+                res = stmt.bind_int64(8, row.exposure_time.to_unix());
+            }    
             row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
             row.md5 = stmt.column_text(11);
@@ -458,5 +470,16 @@ public class VideoTable : DatabaseTable {
     public void set_timestamp(VideoID video_id, DateTime timestamp) throws DatabaseError {
         update_int64_by_id_2(video_id.id, "timestamp", timestamp.to_unix());
     }
+
+    public static void upgrade_for_unset_timestamp() throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE VideoTable SET exposure_time = NULL WHERE exposure_time = '0'", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            throw_error("VideoTable.upgrade_for_unset_timestamp", res);
+        }
+    }
+
 }
 
