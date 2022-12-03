@@ -133,7 +133,7 @@ public class Events.Branch : Sidebar.Branch {
             b = swap;
         }
         
-        int64 result = ((Events.EventEntry) a).get_event().get_start_time().compare( 
+        int64 result = nullsafe_date_time_comperator(((Events.EventEntry) a).get_event().get_start_time(),
             ((Events.EventEntry) b).get_event().get_start_time());
         
         // to stabilize sort (events with the same start time are allowed)

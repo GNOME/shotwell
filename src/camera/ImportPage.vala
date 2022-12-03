@@ -844,8 +844,8 @@ public class ImportPage : CheckerboardPage {
     }
 
     private static int64 preview_comparator(void *a, void *b) {
-        return ((ImportPreview *) a)->get_import_source().get_exposure_time().compare(
-            ((ImportPreview *) b)->get_import_source().get_exposure_time());
+        return nullsafe_date_time_comperator(((ImportPreview *) a)->get_import_source().get_exposure_time(),
+        ((ImportPreview *) b)->get_import_source().get_exposure_time());
     }
     
     private static bool preview_comparator_predicate(DataObject object, Alteration alteration) {
@@ -853,7 +853,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private int64 import_job_comparator(void *a, void *b) {
-        return ((CameraImportJob *) a)->get_exposure_time().compare(((CameraImportJob *) b)->get_exposure_time());
+        return nullsafe_date_time_comperator(((CameraImportJob *) a)->get_exposure_time(), ((CameraImportJob *) b)->get_exposure_time());
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {

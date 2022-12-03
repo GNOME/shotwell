@@ -301,8 +301,10 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     }
 
     private static int64 view_comparator(void *a, void *b) {
-        return ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time().compare(
-            ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time()) ;
+        var time_a = ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time();
+        var time_b = ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time();
+
+        return nullsafe_date_time_comperator(time_a, time_b);
     }
     
     private static bool view_comparator_predicate(DataObject object, Alteration alteration) {

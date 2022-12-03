@@ -169,9 +169,10 @@ public class Thumbnail : MediaSourceItem {
     }
     
     public static int64 exposure_time_ascending_comparator(void *a, void *b) {
-        int64 time_a = (int64) (((Thumbnail *) a)->media.get_exposure_time());
-        int64 time_b = (int64) (((Thumbnail *) b)->media.get_exposure_time());
-        int64 result = (time_a - time_b);
+        var time_a = (((Thumbnail *) a)->media.get_exposure_time());
+        var time_b = (((Thumbnail *) b)->media.get_exposure_time());
+
+        var result = nullsafe_date_time_comperator(time_a, time_b);
         
         return (result != 0) ? result : filename_ascending_comparator(a, b);
     }
