@@ -415,8 +415,6 @@ private VerifyResult upgrade_database(int input_version) {
         }
     }
 
-
-
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
