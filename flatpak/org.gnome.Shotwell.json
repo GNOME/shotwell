@@ -236,6 +236,7 @@
             "name" : "shotwell",
             "buildsystem" : "meson",
             "config-opts" : [
+                "-Dfatal_warnings=true",
                 "-Dudev=false",
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection=true",
