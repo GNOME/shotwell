@@ -15,7 +15,6 @@ data/ui/faces.ui
 data/ui/import_queue.ui
 data/ui/import.ui
 data/ui/login_welcome_pane_widget.ui
-data/ui/manifest_widget.ui
 data/ui/media.ui
 data/ui/multitextentrydialog.ui
 data/ui/offline.ui
@@ -42,17 +41,12 @@ plugins/authenticator/shotwell/tumblr_authentication_pane.ui
 plugins/authenticator/shotwell/TumblrAuthenticator.vala
 plugins/common/Resources.vala
 plugins/common/RESTSupport.vala
-plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui
-plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui
-plugins/shotwell-publishing-extras/GalleryConnector.vala
-plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala
 plugins/shotwell-publishing/flickr_publishing_options_pane.ui
 plugins/shotwell-publishing/FlickrPublishing.vala
 plugins/shotwell-publishing/google_photos_publishing_options_pane.ui
 plugins/shotwell-publishing/PhotosPublisher.vala
 plugins/shotwell-publishing/PhotosPublishingPane.vala
 plugins/shotwell-publishing/PhotosService.vala
-plugins/shotwell-publishing/PhotosUploader.vala
 plugins/shotwell-publishing/piwigo_authentication_pane.ui
 plugins/shotwell-publishing/piwigo_publishing_options_pane.ui
 plugins/shotwell-publishing/PiwigoPublishing.vala
@@ -78,7 +72,6 @@ src/AppDirs.vala
 src/AppWindow.vala
 src/BatchImport.vala
 src/camera/CameraBranch.vala
-src/camera/CameraTable.vala
 src/camera/DiscoveredCamera.vala
 src/camera/ImportPage.vala
 src/CheckerboardPage.vala
@@ -102,7 +95,6 @@ src/DirectoryMonitor.vala
 src/DragAndDropHandler.vala
 src/editing_tools/EditingTools.vala
 src/editing_tools/StraightenTool.vala
-src/events/EventDirectoryItem.vala
 src/events/EventPage.vala
 src/events/EventsBranch.vala
 src/events/EventsDirectoryPage.vala
@@ -124,9 +116,8 @@ src/main.vala
 src/MapWidget.vala
 src/MediaMonitor.vala
 src/MediaPage.vala
-src/Page.vala
-src/PageMessagePane.vala
 src/PhotoPage.vala
+src/photos/AvifSupport.vala
 src/photos/BmpSupport.vala
 src/photos/GifSupport.vala
 src/photos/JfifSupport.vala
@@ -134,12 +125,12 @@ src/photos/PngSupport.vala
 src/photos/RawSupport.vala
 src/photos/TiffSupport.vala
 src/photos/WebPSupport.vala
-src/photos/AvifSupport.vala
 src/Photo.vala
+src/plugins/ManifestWidget.vala
 src/Printing.vala
-src/Properties.vala
 src/ProfileBrowser.vala
 src/Profiles.vala
+src/Properties.vala
 src/publishing/PublishingPluginHost.vala
 src/publishing/PublishingUI.vala
 src/publishing/Publishing.vala
@@ -151,7 +142,6 @@ src/searches/SavedSearchDialog.vala
 src/searches/SearchBoolean.vala
 src/searches/SearchesBranch.vala
 src/SearchFilter.vala
-src/SinglePhotoPage.vala
 src/SlideshowPage.vala
 src/slideshow/Slideshow.vala
 src/slideshow/TransitionEffects.vala
