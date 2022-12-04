@@ -19,6 +19,7 @@
           <object class="GtkImage" id="icon">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="no-show-all">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
