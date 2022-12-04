@@ -1090,12 +1090,12 @@ internal class SSLErrorPane : Shotwell.Plugins.Common.BuilderPane {
         var info = this.get_builder ().get_object ("default") as Gtk.Button;
         if (cert != null) {
             info.clicked.connect (() => {
-                var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
+                //var simple_cert = new Gcr.SimpleCertificate (cert.certificate.data);
                 var scrollable = new Gtk.ScrolledWindow();
                 scrollable.set_vexpand(true);
-                var widget = new Gcr.CertificateWidget (simple_cert);
-                widget.set_vexpand(true);
-                scrollable.set_child(widget);
+                //var widget = new Gcr.CertificateWidget (simple_cert);
+                //widget.set_vexpand(true);
+                //scrollable.set_child(widget);
                 bool use_header = true;
                 Gtk.Settings.get_default ().get ("gtk-dialogs-use-header", out use_header);
                 var flags = (Gtk.DialogFlags) 0;
