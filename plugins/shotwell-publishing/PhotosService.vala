@@ -28,13 +28,6 @@ public class Service : Object, Spit.Pluggable, Spit.Publishing.Service {
 
         info.authors = "Jens Georg";
         info.copyright = _("Copyright 2019 Jens Georg <mail@jensge.org>");
-        info.translators = Resources.TRANSLATORS;
-        info.version = _VERSION;
-        info.website_name = Resources.WEBSITE_NAME;
-        info.website_url = Resources.WEBSITE_URL;
-        info.is_license_wordwrapped = false;
-        info.license = Resources.LICENSE;
-        info.license_blurp = _("LGPL v2.1 or later");
         info.icon_name = "google-photos";
 
         return info;

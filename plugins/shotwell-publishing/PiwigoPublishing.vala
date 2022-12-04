@@ -45,10 +45,6 @@ public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
         info.translators = Resources.TRANSLATORS;
         info.version = _VERSION;
-        info.website_name = Resources.WEBSITE_NAME;
-        info.website_url = Resources.WEBSITE_URL;
-        info.license = Resources.LICENSE;
-        info.license_blurp = _("LGPL v2.1 or later");
         info.icon_name = "piwigo";
 
         return info;
