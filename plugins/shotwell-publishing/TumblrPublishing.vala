@@ -35,13 +35,6 @@ public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
         info.authors = "Jeroen Arnoldus";
         info.copyright = _("Copyright 2012 BJA Electronics");
-        info.translators = Resources.TRANSLATORS;
-        info.version = _VERSION;
-        info.website_name = Resources.WEBSITE_NAME;
-        info.website_url = Resources.WEBSITE_URL;
-        info.is_license_wordwrapped = false;
-        info.license = Resources.LICENSE;
-        info.license_blurp = _("LGPL v2.1 or later");
         info.icon_name = "tumblr";
 
         return info;

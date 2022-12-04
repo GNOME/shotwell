@@ -32,13 +32,6 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
         var info = new Spit.PluggableInfo();
         info.authors = "Jani Monoses, Lucas Beeler";
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
-        info.translators = Resources.TRANSLATORS;
-        info.version = _VERSION;
-        info.website_name = Resources.WEBSITE_NAME;
-        info.website_url = Resources.WEBSITE_URL;
-        info.is_license_wordwrapped = false;
-        info.license = Resources.LICENSE;
-        info.license_blurp = _("LGPL v2.1 or later");
         info.icon_name = "youtube";
 
         return info;

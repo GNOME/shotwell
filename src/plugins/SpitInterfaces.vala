@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+private extern const string _VERSION;
+
 /**
  * Shotwell Pluggable Interface Technology (SPIT)
  *
@@ -156,25 +158,25 @@ public interface Module : Object {
     protected virtual void reserved7() {}
 }
 
+
 /**
  * A structure holding an assortment of information about a {@link Pluggable}.
  */
 public class PluggableInfo : Object {
-    public string? version {get; set; }
+    public string? version {get; set; default = _VERSION; }
     public string? brief_description {get; set; }
     /**
      * A comma-delimited list of the authors of this {@link Pluggable}.
      */
     public string? authors { get; set; }
     public string? copyright {get; set; }
-    public string? license { get; set; }
-    public string? license_blurp { get; set; }
-    public bool is_license_wordwrapped {get; set; default = false; }
-    public string? website_url {get; set;  }
-    public string? website_name { get; set;  }
-    public string? translators {get; set; }
+    public string? license_blurp { get; set; default = _("LGPL v2.1 or later"); }
+    public string? license_url { get; set; default = "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"; }
+    public string? website_url {get; set;  default = "https://wiki.gnome.org/Apps/Shotwell";}
+    public string? website_name { get; set;  default = _("Visit the Shotwell home page");}
+    public string? translators {get; set; default = _("translator-credits"); }
 
-    // Name of an icon in the theme, to be set the Pluggable implementation
+    // Name of an icon in the theme, to be set in the Pluggable implementation
     public string icon_name {get; set; default = "application-x-addon-symbolic"; }
 }
 
