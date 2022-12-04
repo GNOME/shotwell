@@ -23,8 +23,8 @@ public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
 
     public Spit.PluggableInfo get_info() {
         var info = new Spit.PluggableInfo();
-        info.authors = "Jani Monoses, Lucas Beeler";
-        info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
+        info.authors = "Jani Monoses, Lucas Beeler, Jens Georg";
+        info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.\nCopyright 2022 Jens Georg <mail@jensge.org>");
         info.icon_name = "youtube";
 
         return info;

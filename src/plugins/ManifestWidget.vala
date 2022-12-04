@@ -21,6 +21,9 @@ internal class DetailedRow : Gtk.Box {
     [GtkChild]
     private unowned Gtk.Revealer revealer;
 
+    [GtkChild]
+    private unowned Gtk.Box row_container;
+
     public override void constructed() {
         base.constructed();
 
@@ -30,6 +33,10 @@ internal class DetailedRow : Gtk.Box {
             return icon_name != null;
         });
         expand_details.bind_property("active", revealer, "reveal-child", BindingFlags.SYNC_CREATE);
+    }
+
+    public void append(Gtk.Widget widget) {
+        row_container.pack_end(widget, false, false, 6);
     }
 
     public void set_detail_widget(Gtk.Widget child) {
@@ -97,10 +104,6 @@ private class CollectionModel<G> : GLib.ListModel, Object {
 
 }
 
-private class Selection : Object {
-    public signal void changed();
-}
-
 private class AccountRow : DetailedRow {
     public AccountRow(Spit.Publishing.Account account) {
         Object(title: account.display_name());
@@ -135,52 +138,29 @@ internal class AccountBrowser : Gtk.Dialog {
     }
 }
 
-private class PluggableRow : Gtk.Box {
+private class PluggableRow : DetailedRow {
     public Spit.Pluggable pluggable { get; construct; }
     public bool enabled {get; construct; }
 
-    public PluggableRow(Spit.Pluggable pluggable_, bool enable_) {
-        Object(orientation: Gtk.Orientation.VERTICAL, pluggable: pluggable_,
-            enabled: enable_, margin_top: 6, margin_bottom:6, margin_start:6, margin_end:6);
+    public PluggableRow(Spit.Pluggable pluggable, bool enable) {
+        Object(pluggable: pluggable, enabled: enable,
+               icon_name: pluggable.get_info().icon_name,
+               title: pluggable.get_pluggable_name());
     }
 
     public override void constructed() {
         base.constructed();
-        var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-        pack_start(content, true);
 
-        var revealer = new Gtk.Revealer();
-        revealer.margin_top = 6;
-        pack_end(revealer, true);
-        
-        var info = pluggable.get_info();
-        
-        var image = new Gtk.Image.from_icon_name(info.icon_name, Gtk.IconSize.BUTTON);
-        content.pack_start(image, false, false, 6);
-        image.hexpand = false;
-
-        var label = new Gtk.Label(pluggable.get_pluggable_name());
-        label.halign = Gtk.Align.START;
-        content.pack_start(label, true, true, 6);
-
-        var button = new Gtk.ToggleButton();
-        button.get_style_context().add_class("flat");
-        content.pack_end(button, false, false, 6);
-        button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
-        image = new Gtk.Image.from_icon_name("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        button.add(image);
 
         var plugin_enabled = new Gtk.Switch();
-        plugin_enabled.hexpand = false;
-        plugin_enabled.vexpand = false;
+        plugin_enabled.halign = Gtk.Align.END;
         plugin_enabled.valign = Gtk.Align.CENTER;
-        plugin_enabled.set_active(enabled);
-
-        content.pack_end(plugin_enabled, false, false, 6);
+        bind_property("enabled", plugin_enabled, "active", BindingFlags.SYNC_CREATE);
         plugin_enabled.notify["active"].connect(() => {
             var id = pluggable.get_id();
             set_pluggable_enabled(id, plugin_enabled.active);
         });
+        append(plugin_enabled);
 
         if (pluggable is Spit.Publishing.Service) {
 #if 0
@@ -188,7 +168,7 @@ private class PluggableRow : Gtk.Box {
             manage.get_style_context().add_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
             manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
-            content.pack_start(manage, false, false, 6);
+            append(manage);
 #endif
             manage.clicked.connect(() => {
                 var service = (Spit.Publishing.Service) pluggable;
@@ -199,15 +179,17 @@ private class PluggableRow : Gtk.Box {
                 dialog.set_transient_for((Gtk.Window)(this.get_toplevel()));
                 dialog.response.connect(() => {dialog.destroy(); });
                 dialog.show();
-            });
+            });           
         }
+
+        var info = pluggable.get_info();
 
         var grid = new Gtk.Grid();
         grid.get_style_context().add_class("content");
         grid.set_row_spacing(12);
         grid.set_column_spacing(6);
-        revealer.add(grid);
-        label = new Gtk.Label(info.copyright);
+
+        var label = new Gtk.Label(info.copyright);
         label.hexpand = true;
         label.halign = Gtk.Align.START;
         grid.attach(label, 0, 0, 2, 1);
@@ -258,7 +240,6 @@ private class PluggableRow : Gtk.Box {
     }
 }
 
-
 private class ManifestListView : Gtk.Box {
     public ManifestListView() {
         Object(orientation: Gtk.Orientation.VERTICAL, spacing: 6);
@@ -295,6 +276,7 @@ private class ManifestListView : Gtk.Box {
                 added++;
                 box.insert(pluggable_row, -1);
             }
+
             if (added > 0) {
                 add(box);
             }

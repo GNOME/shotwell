@@ -64,7 +64,7 @@ public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spi
     public Spit.PluggableInfo get_info() {
         var info = new Spit.PluggableInfo();
         info.authors = "Maxim Kartashev";
-        info.copyright = _("Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy Inc.");
+        info.copyright = _("Copyright 2010 Maxim Kartashev\nCopyright 2016 Software Freedom Conservancy Inc.");
         info.icon_name = "slideshow-plugin";
 
         return info;
