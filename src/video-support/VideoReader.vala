@@ -195,7 +195,7 @@ public class VideoReader {
 
             var process = new GLib.Subprocess(GLib.SubprocessFlags.STDOUT_PIPE, AppDirs.get_metadata_helper().get_path(), file.get_uri());
             var result = process.communicate(null, cancellable, out stdout_buf, out stderr_buf);
-            if (result && process.get_exit_status () == 0 && stdout_buf != null && stdout_buf.get_size() > 0) {
+            if (result && process.get_if_exited() && process.get_exit_status () == 0 && stdout_buf != null && stdout_buf.get_size() > 0) {
                 string[] lines = ((string) stdout_buf.get_data()).split("\n");
 
                 var old = Intl.setlocale(GLib.LocaleCategory.NUMERIC, "C");
@@ -205,7 +205,7 @@ public class VideoReader {
                     timestamp = new DateTime.from_iso8601(lines[1], null);
             } else {
                 string message = "";
-                if (stderr != null && stderr_buf.get_size() > 0) {
+                if (stderr_buf != null && stderr_buf.get_size() > 0) {
                     message = (string) stderr_buf.get_data();
                 }
                 warning ("External Metadata helper failed");
