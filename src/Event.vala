@@ -100,8 +100,6 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
     
-    private const time_t TIME_T_DAY = 24 * 60 * 60;
-    
     private class EventSnapshot : SourceSnapshot {
         private EventRow row;
         private MediaSource primary_source;
@@ -303,8 +301,10 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     }
 
     private static int64 view_comparator(void *a, void *b) {
-        return ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time()
-            - ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time() ;
+        var time_a = ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time();
+        var time_b = ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time();
+
+        return nullsafe_date_time_comperator(time_a, time_b);
     }
     
     private static bool view_comparator_predicate(DataObject object, Alteration alteration) {
@@ -591,7 +591,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         return indexable_keywords;
     }
     
-    public bool is_in_starting_day(time_t time) {
+    public bool is_in_starting_day(DateTime time) {
         // it's possible the Event ref is held although it's been emptied
         // (such as the user removing items during an import, when events
         // are being generate on-the-fly) ... return false here and let
@@ -601,30 +601,25 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         
         // media sources are stored in ViewCollection from earliest to latest
         MediaSource earliest_media = (MediaSource) ((DataView) view.get_at(0)).get_source();
-        Time earliest_tm = Time.local(earliest_media.get_exposure_time());
+        var earliest_tm = earliest_media.get_exposure_time().to_local();
         
         // use earliest to generate the boundary hour for that day
-        Time start_boundary_tm = Time();
-        start_boundary_tm.second = 0;
-        start_boundary_tm.minute = 0;
-        start_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
-        start_boundary_tm.day = earliest_tm.day;
-        start_boundary_tm.month = earliest_tm.month;
-        start_boundary_tm.year = earliest_tm.year;
-        start_boundary_tm.isdst = -1;
-        
-        time_t start_boundary = start_boundary_tm.mktime();
-        
+        var start_boundary = new DateTime.utc(earliest_tm.get_year(),
+                                            earliest_tm.get_month(),
+                                            earliest_tm.get_day_of_month(),
+                                            EVENT_BOUNDARY_HOUR,
+                                            0,
+                                            0);        
         // if the earliest's exposure time was on the day but *before* the boundary hour,
         // step it back a day to the prior day's boundary
-        if (earliest_tm.hour < EVENT_BOUNDARY_HOUR) {
+        if (earliest_tm.get_hour() < EVENT_BOUNDARY_HOUR) {
             debug("Hour before boundary, shifting back one day");
-            start_boundary -= TIME_T_DAY;
+            start_boundary = start_boundary.add_days(-1);
         }
         
-        time_t end_boundary = (start_boundary + TIME_T_DAY - 1);
-        
-        return time >= start_boundary && time <= end_boundary;
+        var end_boundary = start_boundary.add_days(1).add_seconds(-1);
+
+        return time.compare(start_boundary) >= 0 && time.compare(end_boundary) <= 0;
     }
     
     // This method attempts to add a media source to an event in the supplied list that it would
@@ -632,9 +627,9 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     // photo).  Otherwise, a new Event is generated and the source is added to it and the list.
     private static Event? generate_event(MediaSource media, ViewCollection events_so_far,
         string? event_name, out bool new_event) {
-        time_t exposure_time = media.get_exposure_time();
+        DateTime? exposure_time = media.get_exposure_time();
         
-        if (exposure_time == 0 && event_name == null) {
+        if (exposure_time == null && event_name == null) {
             debug("Skipping event assignment to %s: no exposure time and no event name", media.to_string());
             new_event = false;
 
@@ -754,22 +749,20 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
     }
     
     public string? get_formatted_daterange() {
-        time_t start_time = get_start_time();
-        time_t end_time = get_end_time();
+        DateTime? start_time = get_start_time();
+        DateTime? end_time = get_end_time();
         
-        if (end_time == 0 && start_time == 0)
+        if (end_time == null && start_time == null)
             return null;
         
-        if (end_time == 0 && start_time != 0)
-            return format_local_date(Time.local(start_time));
+        if (end_time == null && start_time != null)
+            return format_local_date(start_time.to_local());
         
-        Time start = Time.local(start_time);
-        Time end = Time.local(end_time);
+        if (start_time.get_year() == end_time.get_year() &&
+            start_time.get_day_of_year() == end_time.get_day_of_year())
+            return format_local_date(start_time.to_local());
         
-        if (start.day == end.day && start.month == end.month && start.day == end.day)
-            return format_local_date(Time.local(start_time));
-        
-        return format_local_datespan(start, end);
+        return format_local_datespan(start_time.to_local(), end_time.to_local());
     }
     
     public string? get_raw_name() {
@@ -811,30 +804,30 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         return committed;
     }
     
-    public time_t get_creation_time() {
+    public DateTime? get_creation_time() {
         return event_table.get_time_created(event_id);
     }
     
-    public override time_t get_start_time() {
+    public override DateTime? get_start_time() {
         // Because the ViewCollection is sorted by a DateComparator, the start time is the
         // first item.  However, we keep looking if it has no start time.
         int count = view.get_count();
         for (int i = 0; i < count; i++) {
-            time_t time = ((MediaSource) (((DataView) view.get_at(i)).get_source())).get_exposure_time();
-            if (time != 0)
+            var time = ((MediaSource) (((DataView) view.get_at(i)).get_source())).get_exposure_time();
+            if (time != null)
                 return time;
         }
 
-        return 0;
+        return null;
     }
     
-    public override time_t get_end_time() {
+    public override DateTime? get_end_time() {
         int count = view.get_count();
         
         // Because the ViewCollection is sorted by a DateComparator, the end time is the
         // last item--no matter what.
         if (count == 0)
-            return 0;
+            return null;
        
         return  ((MediaSource) (((DataView) view.get_at(count - 1)).get_source())).get_exposure_time();
     }

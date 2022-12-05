@@ -1,3 +1,102 @@
+Shotwell 0.31.7 (development) - 03 Dec 2022
+ * Actually run database upgrage necessary for date/time changes
+ * Fix comparing unset date/time values
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+
+Shotwell 0.31.6 (development) - 03 Dec 2022
+ * Improved interaction when exporting files that end up
+   with a similar name
+ * Google Photos: Fix batch uploading
+ * Tumblr: Fix not remembering login credentials
+ * Improve handling of images that do not have a GPS altitude
+ * Have import from folder follow symlinks
+ * Add an user interface to interact with the new profile
+   feature
+ * Make a couple of UI strings clearer
+ * Remove video interpreter state handling - completely broken
+   and potentially responsible for causing indefinite re-checking
+   of video files
+ * Improve touchpad scaling vs scrolling
+ * Always enable face tagging. Face detection and recognition is 
+   still opt-in on compile time due to the rather large OpenCV
+   dependency
+ * Support creating hierarchical tags by using /a/sytax/with/slashes
+ * Use libportal to implement SendTo and Wallpaper settings
+ * Initial support for having multiple accounts per publishing service
+   So far only works for Piwigo instances
+ * Create a new plugin preferences panel (prepare for account management)
+ * Convert all publishing processes to async libsoup3. With HTTPS/2
+   becoming more prominent, the old method broke really hard and was
+   a bad habit anyway.
+ * Fix an issue with the Saturation slider
+ * Remove a bunch of deprecated calls
+ * Remove deprecated date/time handling. Use DateTime more or less everywhere.
+ * Allow media to have exposure dates before 1.1.1970 00:00
+ * Lots of translation updates
+
+Bugs fixed in this release:
+ - Closes: https://gitlab.gnome.org/GNOME/shotwell/-/issues/92
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/18
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/222
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/281
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/2830
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/326
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/44
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4947
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4978
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4984
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4985
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4989
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4990
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4993
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4996
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5014
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5015
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/92
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/24
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/61
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/60
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/58
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/59
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Sabri Ünal <libreajans@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Zurab Kargareteli <zuraxt@gmail.com>
+ - Aleksandr Melman <Alexmelman88@gmail.com>
+ - Goran Vidović <trebelnik2@gmail.com>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Enrico Nicoletto <hiko@duck.com>
+ - Jordi Mas <jmas@softcatala.org>
+ - maf <maf@tkrat.org>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Bartłomiej Piotrowski <b@bpiotrowski.pl>
+ - Emin Tufan Çetin <etcetin@gmail.com>
+
+Added/updated translations:
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Kukuh Syafaat
+ - ka.po, courtesy of Temuri Doghonadze
+ - pl.po, courtesy of Piotr Drąg
+ - pt_BR.po, courtesy of Enrico Nicoletto
+ - ru.po, courtesy of Aleksandr Melman
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Sabri Ünal
+ - uk.po, courtesy of Yuri Chornoivan
+
 Shotwell 0.31.5 (development) - 19 Jul 2022
  * Port to libsoup3
 

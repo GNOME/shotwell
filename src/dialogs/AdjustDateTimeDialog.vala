@@ -14,7 +14,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     private const int CALENDAR_THUMBNAIL_SCALE = 1;
 
-    time_t original_time;
+    DateTime? original_time;
     Gtk.Label original_time_label;
     Gtk.Calendar calendar;
     Gtk.SpinButton hour;
@@ -196,31 +196,32 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         original_time = source.get_exposure_time();
 
-        if (original_time == 0) {
-            original_time = time_t();
+        if (original_time == null) {
+            // This came from 
+            original_time = new DateTime.now_utc();
             no_original_time = true;
         }
 
-        set_time(Time.local(original_time));
+        set_time(original_time.to_local());
         set_original_time_label(Config.Facade.get_instance().get_use_24_hour_time());
     }
 
-    private void set_time(Time time) {
-        calendar.select_day(new DateTime.from_unix_local (time.mktime()));
+    private void set_time(DateTime time) {
+        calendar.select_day(time);
         calendar.notify_property("year");
         calendar.notify_property("month");
 
         if (Config.Facade.get_instance().get_use_24_hour_time()) {
             system.set_active(TimeSystem.24HR);
-            hour.set_value(time.hour);
+            hour.set_value(time.get_hour());
         } else {
-            int AMPM_hour = time.hour % 12;
+            int AMPM_hour = time.get_hour() % 12;
             hour.set_value((AMPM_hour == 0) ? 12 : AMPM_hour);
-            system.set_active((time.hour >= 12) ? TimeSystem.PM : TimeSystem.AM);
+            system.set_active((time.get_hour() >= 12) ? TimeSystem.PM : TimeSystem.AM);
         }
 
-        minute.set_value(time.minute);
-        second.set_value(time.second);
+        minute.set_value(time.get_minute());
+        second.set_value(time.get_second());
 
         previous_time_system = (TimeSystem) system.get_active();
     }
@@ -230,34 +231,24 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             return;
 
         original_time_label.set_text(_("Original: ") +
-            Time.local(original_time).format(use_24_hr_format ? _("%m/%d/%Y, %H:%M:%S") :
+            original_time.to_local().format(use_24_hr_format ? _("%m/%d/%Y, %H:%M:%S") :
             _("%m/%d/%Y, %I:%M:%S %p")));
     }
 
-    private time_t get_time() {
-        Time time = Time();
-
-        time.second = (int) second.get_value();
-        time.minute = (int) minute.get_value();
-
+    private DateTime get_time() {
         // convert to 24 hr
         int hour = (int) hour.get_value();
-        time.hour = (hour == 12 && system.get_active() != TimeSystem.24HR) ? 0 : hour;
-        time.hour += ((system.get_active() == TimeSystem.PM) ? 12 : 0);
+        hour = (hour == 12 && system.get_active() != TimeSystem.24HR) ? 0 : hour;
+        hour += ((system.get_active() == TimeSystem.PM) ? 12 : 0);
 
         uint year, month, day;
         var dt = calendar.get_date();
         dt.get_ymd (out year, out month, out day);
-        time.year = ((int) year) - YEAR_OFFSET;
-        time.month = (int) month - 1;
-        time.day = (int) day;
 
-        time.isdst = -1;
-
-        return time.mktime();
+        return new DateTime.utc((int)year, (int)month, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
     }
 
-    public async bool execute(out int64 time_shift, out bool keep_relativity,
+    public async bool execute(out TimeSpan time_shift, out bool keep_relativity,
         out bool modify_originals) {
         show();
 
@@ -274,10 +265,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool response = false;
 
         if (dialog_result == Gtk.ResponseType.OK) {
-            if (no_original_time)
-                time_shift = (int64) get_time();
-            else
-                time_shift = (int64) (get_time() - original_time);
+            // Difference returns microseconds, so divide by 1000000, we need seconds
+            if (no_original_time) {
+                time_shift = get_time().difference(new DateTime.from_unix_utc(0)) / 1000 / 1000;
+            } else {
+                time_shift = (get_time().difference(original_time)) / 1000 / 1000;
+            }
 
             keep_relativity = relativity_radio_button.get_active();
 

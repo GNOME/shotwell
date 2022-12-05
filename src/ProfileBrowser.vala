@@ -109,6 +109,118 @@ namespace Shotwell {
             show();
         }
     }
+
+    private class ProfileRow : Gtk.Box {
+        public Profile profile{get; construct; }
+
+        public ProfileRow(Profile profile) {
+            Object(orientation: Gtk.Orientation.VERTICAL,
+                profile: profile, margin_top: 6, margin_bottom:6, margin_start:6, margin_end:6);
+        }
+    
+        public override void constructed() {
+            base.constructed();
+            var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+            pack_start(content, true);
+    
+            var revealer = new Gtk.Revealer();
+            revealer.margin_top = 6;
+            pack_end(revealer, true);
+                
+            var label = new Gtk.Label(null);
+            label.set_markup("<span weight=\"bold\">%s</span>".printf(profile.name));
+            label.halign = Gtk.Align.START;
+            content.pack_start(label, true, true, 6);
+
+            Gtk.Image image;
+            if (profile.active) {
+                image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                image.set_tooltip_text(_("This is the currently active profile"));
+
+            } else {
+                image = new Gtk.Image();
+            }
+            content.pack_start(image, false, false, 6);
+
+            var button = new Gtk.ToggleButton();
+            button.get_style_context().add_class("flat");
+            content.pack_start(button, false, false, 6);
+            button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
+            image = new Gtk.Image.from_icon_name("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            button.add(image);
+
+            // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
+            // and that even is not yet initialized
+            string settings_path;
+            if (profile.id == Profile.SYSTEM) {
+                settings_path = "/org/gnome/shotwell/preferences/files/";
+            } else {
+                settings_path = "/org/gnome/shotwell/profiles/" + profile.id + "/preferences/files/";
+            }
+
+            var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
+            var import_dir = settings.get_string("import-dir");
+            if (import_dir == "") {
+                import_dir = Environment.get_user_special_dir(UserDirectory.PICTURES);
+            }
+
+            var grid = new Gtk.Grid();
+            grid.get_style_context().add_class("content");
+            grid.set_row_spacing(12);
+            grid.set_column_spacing(6);
+            revealer.add(grid);
+            label = new Gtk.Label(_("Library Folder"));
+            label.get_style_context().add_class("dim-label");
+            label.halign = Gtk.Align.END;
+            label.margin_start = 12;
+            grid.attach(label, 0, 0, 1, 1);
+            label = new Gtk.Label(import_dir);
+            label.halign = Gtk.Align.START;
+            label.set_ellipsize(Pango.EllipsizeMode.END);
+            grid.attach(label, 1, 0, 1, 1);
+    
+            label = new Gtk.Label(_("Data Folder"));
+            label.get_style_context().add_class("dim-label");
+            label.halign = Gtk.Align.END;
+            label.margin_start = 12;
+            grid.attach(label, 0, 1, 1, 1);
+            label = new Gtk.Label(profile.data_dir);
+            label.halign = Gtk.Align.START;
+            label.hexpand = true;
+            label.set_ellipsize(Pango.EllipsizeMode.END);
+            grid.attach(label, 1, 1, 1, 1);
+            
+            if (profile.id != Profile.SYSTEM && !profile.active) {
+                var remove_button = new Gtk.Button.with_label(_("Remove Profile"));
+                remove_button.get_style_context().add_class("destructive-action");
+                remove_button.set_tooltip_text(_("Remove this profile"));
+                remove_button.hexpand = false;
+                remove_button.halign = Gtk.Align.END;
+                grid.attach(remove_button, 1, 2, 1, 1);
+
+                remove_button.clicked.connect(() => {
+                    var flags = Gtk.DialogFlags.DESTROY_WITH_PARENT | Gtk.DialogFlags.MODAL;
+                    if (Resources.use_header_bar() == 1) {
+                        flags |= Gtk.DialogFlags.USE_HEADER_BAR;
+                    }
+
+                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_toplevel(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
+                    var title = _("Remove profile “%s”").printf(profile.name);
+                    var subtitle = _("None of the options will remove any of the images associated with this profile");
+                    d.set_markup(_("<b><span size=\"larger\">%s</span></b>\n<span weight=\"light\">%s</span>").printf(title, subtitle));
+
+                    d.add_buttons(_("Remove profile and files"), Gtk.ResponseType.OK, _("Remove profile only"), Gtk.ResponseType.ACCEPT, _("Cancel"), Gtk.ResponseType.CANCEL);
+                    d.get_widget_for_response(Gtk.ResponseType.OK).get_style_context().add_class("destructive-action");
+                    var response = d.run();
+                    d.destroy();
+                    if (response == Gtk.ResponseType.OK || response == Gtk.ResponseType.ACCEPT) {
+                        ProfileManager.get_instance().remove(profile.id, response == Gtk.ResponseType.OK);
+                    }
+                });
+            }
+        }
+    }
+
     class ProfileBrowser : Gtk.Box {
         public ProfileBrowser() {
             Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true);
@@ -158,100 +270,9 @@ namespace Shotwell {
         }
 
         private Gtk.Widget on_widget_create(Object item) {
-            var p = (Profile) item;
             var row = new Gtk.ListBoxRow();
-            var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-            box.margin_top = 6;
-            box.margin_bottom = 6;
-            box.margin_start = 6;
-            box.margin_end = 6;
-
-            var a = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
-            a.hexpand = true;
-
-            var label = new Gtk.Label(null);
-            label.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>".printf(p.name));
-            label.xalign = 0.0f;
-            a.prepend(label);
-
-
-            // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
-            // and that even is not yet initialized
-            string settings_path;
-            if (p.id == Profile.SYSTEM) {
-                settings_path = "/org/gnome/shotwell/preferences/files/";
-            } else {
-                settings_path = "/org/gnome/shotwell/profiles/" + p.id + "/preferences/files/";
-            }
-
-            var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
-            var import_dir = settings.get_string("import-dir");
-            if (import_dir == "") {
-                import_dir = Environment.get_user_special_dir(UserDirectory.PICTURES);
-            }
-
-            label = new Gtk.Label(import_dir);
-            label.get_style_context().add_class("dim-label");
-            label.xalign = 0.0f;
-            a.append(label);
-            label.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
-
-            Gtk.Image i;
-            if (p.active) {
-                i = new Gtk.Image.from_icon_name ("emblem-default-symbolic");
-                i.set_tooltip_text(_("This is the currently active profile"));
-            } else {
-                i = new Gtk.Image();
-            }
-
-            i.set_pixel_size(16);
-            i.valign = Gtk.Align.START;
-            i.halign = Gtk.Align.START;
-            i.margin_top = 6;
-            i.margin_bottom = 6;
-            i.margin_start = 6;
-            i.margin_end = 6;
-            i.hexpand = false;
-
-            box.prepend(a);
-            box.prepend(i);
-
-            if (p.id != Profile.SYSTEM && ! p.active) {
-                var b = new Gtk.Button.from_icon_name("window-close-symbolic");
-                b.margin_top = 6;
-                b.margin_bottom = 6;
-                b.margin_start = 6;
-                b.margin_end = 6;
-                b.set_tooltip_text(_("Remove this profile"));
-                b.hexpand = false;
-                b.halign = Gtk.Align.END;
-                b.get_style_context().add_class("flat");
-                box.append(b);
-                b.clicked.connect(() => {
-                    var flags = Gtk.DialogFlags.DESTROY_WITH_PARENT | Gtk.DialogFlags.MODAL;
-                    if (Resources.use_header_bar() == 1) {
-                        flags |= Gtk.DialogFlags.USE_HEADER_BAR;
-                    }
-
-                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_root(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
-                    var title = _("Remove profile “%s”").printf(p.name);
-                    var subtitle = _("None of the options will remove any of the images associated with this profile");
-                    d.set_markup(_("<b><span size=\"larger\">%s</span></b>\n<span weight=\"light\">%s</span>").printf(title, subtitle));
-
-                    d.add_buttons(_("Remove profile and files"), Gtk.ResponseType.OK, _("Remove profile only"), Gtk.ResponseType.ACCEPT, _("Cancel"), Gtk.ResponseType.CANCEL);
-                    d.get_widget_for_response(Gtk.ResponseType.OK).get_style_context().add_class("destructive-action");
-                    //var response = d.run();
-                    var response = Gtk.ResponseType.OK;
-                    d.destroy();
-                    if (response == Gtk.ResponseType.OK || response == Gtk.ResponseType.ACCEPT) {
-                        ProfileManager.get_instance().remove(p.id, response == Gtk.ResponseType.OK);
-                    }
-                });
-            }
-
-            box.show();
-
-            row.set_child(box);
+            row.add(new ProfileRow((Profile) item));
+            row.show_all();
 
             return row;
         }

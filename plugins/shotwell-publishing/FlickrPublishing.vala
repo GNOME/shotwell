@@ -22,15 +22,12 @@ public class FlickrService : Object, Spit.Pluggable, Spit.Publishing.Service {
         return "Flickr";
     }
     
-    public void get_info(ref Spit.PluggableInfo info) {
+    public Spit.PluggableInfo get_info() {
+        var info = new Spit.PluggableInfo();
         info.authors = "Lucas Beeler";
         info.copyright = _("Copyright 2016 Software Freedom Conservancy Inc.");
-        info.translators = Resources.TRANSLATORS;
-        info.version = _VERSION;
-        info.website_name = Resources.WEBSITE_NAME;
-        info.website_url = Resources.WEBSITE_URL;
-        info.is_license_wordwrapped = false;
-        info.license = Resources.LICENSE;
+
+        return info;
     }
 
     public void activation(bool enabled) {
@@ -149,30 +146,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
 
         parameters.username = session.get_username();
 
-        do_fetch_account_info();
-    }
-
-    private void on_account_fetch_txn_completed(Publishing.RESTSupport.Transaction txn) {
-        txn.completed.disconnect(on_account_fetch_txn_completed);
-        txn.network_error.disconnect(on_account_fetch_txn_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: account fetch transaction response received over the network");
-        do_parse_account_info_from_xml(txn.get_response());
-    }
-
-    private void on_account_fetch_txn_error(Publishing.RESTSupport.Transaction txn,
-        Spit.Publishing.PublishingError err) {
-        txn.completed.disconnect(on_account_fetch_txn_completed);
-        txn.network_error.disconnect(on_account_fetch_txn_error);
-
-        if (!is_running())
-            return;
-
-        debug("EVENT: account fetch transaction caused a network error");
-        host.post_error(err);
+        do_fetch_account_info.begin();
     }
 
     private void on_account_info_available() {
@@ -191,7 +165,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
             return;
 
         debug("EVENT: user clicked the 'Publish' button in the publishing options pane");
-        do_publish(strip_metadata);
+        do_publish.begin(strip_metadata);
     }
 
     private void on_publishing_options_pane_logout() {
@@ -217,45 +191,19 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         progress_reporter(file_number, completed_fraction);
     }
 
-    private void on_upload_complete(Publishing.RESTSupport.BatchUploader uploader,
-        int num_published) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload complete; %d items published.", num_published);
-
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        do_show_success_pane();
-    }
-
-    private void on_upload_error(Publishing.RESTSupport.BatchUploader uploader,
-        Spit.Publishing.PublishingError err) {
-        if (!is_running())
-            return;
-
-        debug("EVENT: uploader reports upload error = '%s'.", err.message);
-
-        uploader.upload_complete.disconnect(on_upload_complete);
-        uploader.upload_error.disconnect(on_upload_error);
-
-        host.post_error(err);
-    }
-
-    private void do_fetch_account_info() {
+    private async void do_fetch_account_info() {
         debug("ACTION: running network transaction to fetch account information");
 
         host.set_service_locked(true);
         host.install_account_fetch_wait_pane();
 
         AccountInfoFetchTransaction txn = new AccountInfoFetchTransaction(session);
-        txn.completed.connect(on_account_fetch_txn_completed);
-        txn.network_error.connect(on_account_fetch_txn_error);
-
         try {
-            txn.execute();
-        } catch (Spit.Publishing.PublishingError err) {
+            yield txn.execute_async();
+            debug("EVENT: account fetch transaction response received over the network");
+            do_parse_account_info_from_xml(txn.get_response());
+        } catch (Error err) {
+            debug("EVENT: account fetch transaction caused a network error");
             host.post_error(err);
         }
     }
@@ -346,7 +294,7 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         return a.get_exposure_date_time().compare(b.get_exposure_date_time());
     }
 
-    private void do_publish(bool strip_metadata) {
+    private async void do_publish(bool strip_metadata) {
         set_persistent_strip_metadata(strip_metadata);
         debug("ACTION: uploading media items to remote server.");
 
@@ -370,9 +318,14 @@ public class FlickrPublisher : Spit.Publishing.Publisher, GLib.Object {
         sorted_list.sort(flickr_date_time_compare_func);
         
         Uploader uploader = new Uploader(session, sorted_list.to_array(), parameters, strip_metadata);
-        uploader.upload_complete.connect(on_upload_complete);
-        uploader.upload_error.connect(on_upload_error);
-        uploader.upload(on_upload_status_updated);
+        try {
+            var num_published = yield uploader.upload_async(on_upload_status_updated);
+            debug("EVENT: uploader reports upload complete; %d items published.", num_published);
+            do_show_success_pane();
+        } catch (Error err) {
+            debug("EVENT: uploader reports upload error = '%s'.", err.message);
+            host.post_error(err);
+        }
     }
 
     private void do_show_success_pane() {
@@ -535,9 +488,9 @@ private class UploadTransaction : Publishing.RESTSupport.OAuth1.UploadTransactio
         set_binary_disposition_table(disposition_table);
     }
 
-    public override void execute() throws Spit.Publishing.PublishingError {
+    public override async void execute_async() throws Spit.Publishing.PublishingError {
         this.authorize();
-        base.execute();
+        yield base.execute_async();
     }
 }
 
@@ -771,50 +724,62 @@ internal class Uploader : Publishing.RESTSupport.BatchUploader {
         if (!publishable_metadata.has_iptc())
             return;
 
-        if (publishable_metadata.has_tag("Iptc.Application2.Caption"))
-            publishable_metadata.set_tag_string("Iptc.Application2.Caption",
-                Publishing.RESTSupport.asciify_string(publishable_metadata.get_tag_string(
-                "Iptc.Application2.Caption")));
+        try {
+            if (publishable_metadata.try_has_tag("Iptc.Application2.Caption"))
+                publishable_metadata.try_set_tag_string("Iptc.Application2.Caption",
+                    Publishing.RESTSupport.asciify_string(publishable_metadata.try_get_tag_string(
+                    "Iptc.Application2.Caption")));
+        } catch (Error err) {}
 
-        if (publishable_metadata.has_tag("Iptc.Application2.Headline"))
-            publishable_metadata.set_tag_string("Iptc.Application2.Headline",
-                Publishing.RESTSupport.asciify_string(publishable_metadata.get_tag_string(
-                "Iptc.Application2.Headline")));
+        try {
+            if (publishable_metadata.try_has_tag("Iptc.Application2.Headline"))
+                publishable_metadata.try_set_tag_string("Iptc.Application2.Headline",
+                    Publishing.RESTSupport.asciify_string(publishable_metadata.try_get_tag_string(
+                    "Iptc.Application2.Headline")));
+        } catch (Error error) {}
 
-        if (publishable_metadata.has_tag("Iptc.Application2.Keywords")) {
-            Gee.Set<string> keyword_set = new Gee.HashSet<string>();
-            string[] iptc_keywords = publishable_metadata.get_tag_multiple("Iptc.Application2.Keywords");
-            if (iptc_keywords != null)
-                foreach (string keyword in iptc_keywords)
-                    keyword_set.add(keyword);
+        try {
+            if (publishable_metadata.try_has_tag("Iptc.Application2.Keywords")) {
+                Gee.Set<string> keyword_set = new Gee.HashSet<string>();
+                string[] iptc_keywords = publishable_metadata.try_get_tag_multiple("Iptc.Application2.Keywords");
+                if (iptc_keywords != null)
+                    foreach (string keyword in iptc_keywords)
+                        keyword_set.add(keyword);
 
-            string[] xmp_keywords = publishable_metadata.get_tag_multiple("Xmp.dc.subject");
-            if (xmp_keywords != null)
-                foreach (string keyword in xmp_keywords)
-                    keyword_set.add(keyword);
+                string[] xmp_keywords = publishable_metadata.try_get_tag_multiple("Xmp.dc.subject");
+                if (xmp_keywords != null)
+                    foreach (string keyword in xmp_keywords)
+                        keyword_set.add(keyword);
 
-            string[] all_keywords = keyword_set.to_array();
-            // append a null pointer to the end of all_keywords -- this is a necessary workaround
-            // https://bugzilla.gnome.org/show_bug.cgi?id=712479. See also
-            // https://bugzilla.gnome.org/show_bug.cgi?id=717438 which describes the user-visible
-            // behavior seen in the Flickr Connector as a result of the former bug.
-            all_keywords += null;
+                string[] all_keywords = keyword_set.to_array();
+                // append a null pointer to the end of all_keywords -- this is a necessary workaround
+                // https://bugzilla.gnome.org/show_bug.cgi?id=712479. See also
+                // https://bugzilla.gnome.org/show_bug.cgi?id=717438 which describes the user-visible
+                // behavior seen in the Flickr Connector as a result of the former bug.
+                all_keywords += null;
 
-            string[] no_keywords = new string[1];
-            // append a null pointer to the end of no_keywords -- this is a necessary workaround
-            // for similar reasons as above.
-            no_keywords[0] = null;
-            
-            publishable_metadata.set_tag_multiple("Xmp.dc.subject", all_keywords);
-            publishable_metadata.set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
+                string[] no_keywords = new string[1];
+                // append a null pointer to the end of no_keywords -- this is a necessary workaround
+                // for similar reasons as above.
+                no_keywords[0] = null;
+                
+                try {
+                    publishable_metadata.try_set_tag_multiple("Xmp.dc.subject", all_keywords);
+                } catch (Error error) {
+                }
+                try {
+                    publishable_metadata.try_set_tag_multiple("Iptc.Application2.Keywords", no_keywords);
+                } catch (Error error) {
+                }
 
-            try {
-                publishable_metadata.save_file(publishable.get_serialized_file().get_path());
-            } catch (GLib.Error err) {
-                warning("couldn't write metadata to file '%s' for upload preprocessing.",
-                    publishable.get_serialized_file().get_path());
+                try {
+                    publishable_metadata.save_file(publishable.get_serialized_file().get_path());
+                } catch (GLib.Error err) {
+                    warning("couldn't write metadata to file '%s' for upload preprocessing.",
+                        publishable.get_serialized_file().get_path());
+                }
             }
-        }
+        } catch (Error error) {}
     }
     
     protected override Publishing.RESTSupport.Transaction create_transaction(

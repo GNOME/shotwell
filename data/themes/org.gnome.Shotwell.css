@@ -5,3 +5,5 @@ textview.shotwell-static text {
 label.map-attribution {
     font-size: 66%;
 }
+
+.shotwell-plain-link { padding: 0px; }

@@ -5,14 +5,19 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkLabel" id="static_msg_label">
-        <property name="margin_start">16</property>
-        <property name="margin_end">16</property>
-        <property name="margin_top">97</property>
-        <property name="margin_bottom">24</property>
+        <property name="margin-start">16</property>
+        <property name="margin-end">16</property>
+        <property name="margin-top">97</property>
+        <property name="margin-bottom">24</property>
         <property name="label" comments="This is a placeholder string and may be ignored.">This is populated from within the code;
 changes made here will not display.</property>
         <property name="wrap">1</property>
-        <property name="max_width_chars">70</property>
+        <property name="max-width-chars">70</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSpinner" id="spinner">
+        <property name="focusable">0</property>
       </object>
     </child>
   </template>

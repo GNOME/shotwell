@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2022-09-14 19:22+0000\n"
-"PO-Revision-Date: 2022-09-16 17:22+0200\n"
+"POT-Creation-Date: 2022-10-08 06:49+0000\n"
+"PO-Revision-Date: 2022-10-08 20:49+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -2398,22 +2398,25 @@ msgstr "Dra de markerade bilderna och släpp dem på den önskade taggen."
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
 "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
-"names of one or more tags, separated by commas. Once you have created a tag, "
-"you can rename it by selecting that tag in the sidebar and choosing "
-"<guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></guiseq>, by "
-"right-clicking on it and choose <gui>Rename...</gui> or double-click on the "
-"tag in the sidebar."
+"names of one or more tags, separated by commas. You can also add tag "
+"hierarchies on the fly using <input>/</input> as if they were paths in the "
+"file system. Once you have created a tag, you can rename it by selecting "
+"that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "
+"\"[name]\"...</gui></guiseq>, by right-clicking on it and choose "
+"<gui>Rename...</gui> or double-click on the tag in the sidebar."
 msgstr ""
 "När du använder <keyseq><key>Ctrl</key><key>T</key></keyseq> eller "
 "<guiseq><gui>Taggar</gui><gui>Lägg till taggar…</gui></guiseq> kan du skriva "
-"in namnen på en eller flera taggar separerade med komman. När du väl har "
-"skapat en tagg kan du byta namn på den genom att markera taggen i "
-"sidopanelen och välja <guiseq><gui>Taggar</gui><gui>Byt namn på taggen "
-"”[namn]”…</gui></guiseq>, genom att högerklicka på den och markera <gui>Byt "
-"namn…</gui> eller dubbelklicka på taggen i sidopanelen."
+"in namnen på en eller flera taggar separerade med komman. Du kan också "
+"direkt lägga till tagghierarkier med <input>/</input> som om de vore "
+"sökvägar i filsystemet. När du väl har skapat en tagg kan du byta namn på "
+"den genom att markera taggen i sidopanelen och välja <guiseq><gui>Taggar</"
+"gui><gui>Byt namn på taggen ”[namn]”…</gui></guiseq>, genom att högerklicka "
+"på den och markera <gui>Byt namn…</gui> eller dubbelklicka på taggen i "
+"sidopanelen."
 
 #. (itstool) path: page/p
-#: C/organize-tag.page:44
+#: C/organize-tag.page:46
 msgid ""
 "To change which tags are associated with a particular photo, select that "
 "photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> or "
@@ -2434,7 +2437,7 @@ msgstr ""
 "taggen ”[namn]” från bilderna</gui>."
 
 #. (itstool) path: page/p
-#: C/organize-tag.page:58
+#: C/organize-tag.page:60
 msgid ""
 "To delete a tag entirely, select that tag in the sidebar and choose "
 "<guiseq><gui>Tags</gui><gui>Delete Tag \"[name]\"</gui></guiseq> or by right-"
@@ -2445,7 +2448,7 @@ msgstr ""
 "högerklicka och välj <gui>Ta bort tagg \"[namn]\"</gui>."
 
 #. (itstool) path: page/p
-#: C/organize-tag.page:64
+#: C/organize-tag.page:66
 msgid ""
 "When you create a tag, it will appear in the sidebar under the <gui>Tags</"
 "gui> item, which is hidden if there are no tags. Photos can have multiple "
@@ -2459,12 +2462,12 @@ msgstr ""
 "tagg."
 
 #. (itstool) path: section/title
-#: C/organize-tag.page:73
+#: C/organize-tag.page:75
 msgid "Hierarchical Tags"
 msgstr "Hierarkiska taggar"
 
 #. (itstool) path: section/p
-#: C/organize-tag.page:74
+#: C/organize-tag.page:76
 msgid ""
 "Shotwell supports also hierarchical tags. You can rearrange your tags by "
 "drag and drop a tag onto another. To create a new subtag right-click on a "
@@ -2475,7 +2478,38 @@ msgstr ""
 "högerklicka på en tagg och markera <gui>Ny</gui>."
 
 #. (itstool) path: section/p
-#: C/organize-tag.page:81
+#: C/organize-tag.page:82
+msgid ""
+"In all places where textual tag input is supported, tags can also be created "
+"using <input>/</input>. For example, using <input>/World/Africa/Togo/Lomé</"
+"input> will create or extend the tag tree"
+msgstr ""
+"På alla platser där textinmatning av taggar stöds kan taggar också skapas "
+"genom att använda <input>/</input>. Exempelvis kommer att använda <input>/"
+"Världen/Afrika/Togo/Lomé</input> att skapa eller utöka taggträdet"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:92
+msgid "Lomé"
+msgstr "Lomé"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:91
+msgid "Togo <_:item-1/>"
+msgstr "Togo <_:item-1/>"
+
+#. (itstool) path: item/item
+#: C/organize-tag.page:90
+msgid "Africa <_:item-1/>"
+msgstr "Afrika <_:item-1/>"
+
+#. (itstool) path: tree/item
+#: C/organize-tag.page:89
+msgid "World <_:item-1/>"
+msgstr "Världen <_:item-1/>"
+
+#. (itstool) path: section/p
+#: C/organize-tag.page:98
 msgid ""
 "Hierarchical tags can help you to sort your tag list in ways that better "
 "match how you work or think; for example, you can store location tags like "
@@ -2488,7 +2522,7 @@ msgstr ""
 "vilken själv kan placeras under taggen ”Sommarsemester”."
 
 #. (itstool) path: section/p
-#: C/organize-tag.page:89
+#: C/organize-tag.page:106
 msgid "Note that deleting a parent tag will also delete its child tags."
 msgstr ""
 "Observera att ta bort en överordnad tagg också kommer att bort underordnade "

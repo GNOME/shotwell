@@ -16,7 +16,7 @@ public class AVIMetadataLoader {
     }
 
     public MetadataDateTime? get_creation_date_time() {
-        return new MetadataDateTime((time_t) get_creation_date_time_for_avi());
+        return new MetadataDateTime(get_creation_date_time_for_avi());
     }
 
     public string? get_title() {
@@ -138,16 +138,15 @@ public class AVIMetadataLoader {
     // Largely based on GStreamer's avi/gstavidemux.c
     // and the information here:
     // http://www.eden-foundation.org/products/code/film_date_stamp/index.html
-    private ulong parse_date(string sdate) {
+    private DateTime? parse_date(string sdate) {
         if (sdate.length == 0) {
-            return 0;
+            return null;
         }
 
-        Date date = Date();
-        uint seconds = 0;
         int year, month, day, hour, min, sec;
         char weekday[4];
         char monthstr[4];
+        DateTime parsed_date;
 
         if (sdate[0].isdigit()) {
             // Format is: 2005:08:17 11:42:43
@@ -158,33 +157,20 @@ public class AVIMetadataLoader {
             sec = 0;
             int result = tmp.scanf("%d %d %d %d %d %d", out year, out month, out day, out hour, out min, out sec);
             if(result < 5) {
-                return 0;
+                return null;
             }
-            date.set_dmy((DateDay) day, (DateMonth) month, (DateYear) year);
-            seconds = sec + min * 60 + hour * 3600;
+
+            parsed_date = new DateTime.utc(year, month, day, hour, min, sec);
         } else {
             // Format is: Mon Mar  3 09:44:56 2008
             if(7 != sdate.scanf("%3s %3s %d %d:%d:%d %d", weekday, monthstr, out day, out hour,
                   out min, out sec, out year)) {
-                return 0; // Error
+                return null; // Error
             }
-            date.set_dmy((DateDay) day, month_from_string((string) monthstr), (DateYear) year);
-            seconds = sec + min * 60 + hour * 3600;
+            parsed_date = new DateTime.utc(year, month_from_string((string)monthstr), day, hour, min, sec);
         }
 
-        Time time = Time();
-        date.to_time(out time);
-
-        // watch for overflow (happens on quasi-bogus dates, like Year 200)
-        time_t tm = time.mktime();
-        ulong result = tm + seconds;
-        if (result < tm) {
-            debug("Overflow for timestamp in video file %s", file.get_path());
-
-            return 0;
-        }
-
-        return result;
+        return parsed_date;
     }
 
     private DateMonth month_from_string(string s) {
@@ -217,9 +203,9 @@ public class AVIMetadataLoader {
         return DateMonth.BAD_MONTH;
     }
 
-    private ulong get_creation_date_time_for_avi() {
+    private DateTime? get_creation_date_time_for_avi() {
         AVIChunk chunk = new AVIChunk(file);
-        ulong timestamp = 0;
+        DateTime? timestamp = null;
         try {
             chunk.open_file();
             chunk.nonsection_skip(12); // Advance past 12 byte header.

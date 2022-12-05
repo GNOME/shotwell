@@ -43,10 +43,15 @@ namespace Shotwell {
                                    id,
                                    get_data_dir_for_profile(id, group),
                                    active);
-            } catch (Error err) {
-                assert_not_reached();
+            } catch (KeyFileError err) {
+                if (err is KeyFileError.GROUP_NOT_FOUND) {
+                    assert_not_reached();
+                }
+
+                warning("Profile configuration file corrupt: %s", err.message);
             }
 
+            return null;
         }
 
         private static ProfileManager instance;
@@ -123,17 +128,13 @@ namespace Shotwell {
                 error("Failed to create profile: %s", err.message);                
             }
 
-            try {
-                if (library_folder != null) {
-                    var settings_path = "/org/gnome/shotwell/profiles/" + id + "/preferences/files/";
-                    print ("writing settings at path %s\n", settings_path);
+            if (library_folder != null) {
+                var settings_path = "/org/gnome/shotwell/profiles/" + id + "/preferences/files/";
+                print ("writing settings at path %s\n", settings_path);
 
-        
-                    var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
-                    settings.set_string("import-dir", library_folder);
-                }
-            } catch (Error err) {
-                error("Failed to create profile: %s", err.message);
+    
+                var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
+                settings.set_string("import-dir", library_folder);
             }
             
             items_changed(profiles.get_groups().length, 0, 1);
@@ -197,7 +198,6 @@ namespace Shotwell {
 
         const string SCHEMAS[] = {
             "sharing",
-            "video",
             "printing",
             "plugins.enable-state",
             "preferences.ui",

@@ -403,6 +403,17 @@ private VerifyResult upgrade_database(int input_version) {
 
     version = 23;
 
+    if (input_version < 24) {
+        // Convert timestamp 0 to NULL to represent unset date and free 0 to be 1.1.1970 00:00
+        message("upgrade_database: Shifting times from 0 to null for unset times");
+        try {
+            PhotoTable.upgrade_for_unset_timestamp();
+            VideoTable.upgrade_for_unset_timestamp();
+            version = 24;
+        } catch (DatabaseError err) {
+            critical("Failed to upgrade database to version 24: %s", err.message);
+        }
+    }
 
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);

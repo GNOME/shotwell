@@ -47,7 +47,7 @@ public abstract class Session {
 
                 return Soup.LoggerLogLevel.BODY;
             });
-            soup_session.add_feature (new Soup.Logger (Soup.LoggerLogLevel.BODY));
+            soup_session.add_feature (logger);
         }
     }
     
@@ -78,21 +78,17 @@ public abstract class Session {
         return transactions_stopped;
     }
     
-    public void send_wire_message(Soup.Message message) {
-        if (are_transactions_stopped())
+    public async void send_wire_message_async(Soup.Message message) {
+        if (are_transactions_stopped()) {
             return;
+        }
 
-        this.body = null;
-        this.transport_error = null;
         try {
-            debug ("===================================== Send and read...");
-            this.body = soup_session.send_and_read(message, null);
-            debug ("====================================== This.body: %p", this.body);
+            this.body = yield soup_session.send_and_read_async(message, GLib.Priority.DEFAULT, null);
         } catch (Error error) {
             debug ("Failed to send_and_read: %s", error.message);
             this.transport_error = error;
         }
-        notify_wire_message_unqueued(message);
     }
 
     public void set_insecure () {
@@ -204,12 +200,10 @@ public class Transaction {
     private Soup.Message message = null;
     private uint bytes_written = 0;
     private ulong request_length;
-    private Spit.Publishing.PublishingError? err = null;
     private string? endpoint_url = null;
     private bool use_custom_payload;
     
     public signal void chunk_transmitted(uint bytes_written_so_far, uint total_bytes);
-    public signal void network_error(Spit.Publishing.PublishingError err);
     public signal void completed();
 
     
@@ -233,23 +227,7 @@ public class Transaction {
 
     private void on_wrote_body_data(Soup.Message message, uint chunk_size) {
         bytes_written += chunk_size;
-        //TODO: NEEDS TO GO
-        while (MainContext.default().pending())
-            MainContext.default().iteration(true);
         chunk_transmitted(bytes_written, (uint)request_length);
-    }
-
-    private void on_message_unqueued(Soup.Message message) {
-        if (this.message != message)
-            return;
-
-        try {
-            check_response(message);
-        } catch (Spit.Publishing.PublishingError err) {
-            warning("Publishing error: %s", err.message);
-            warning("response validation failed. bad response = '%s'.", get_response());
-            this.err = err;
-        }
     }
 
     /* Texts copied from epiphany */
@@ -323,8 +301,8 @@ public class Transaction {
             }
 
             throw new Spit.Publishing.PublishingError.NO_ANSWER("Failure communicating with %s (error code %u)",
-            get_endpoint_url(), message.status_code);
-}
+                get_endpoint_url(), message.status_code);
+        }
         switch (message.status_code) {
             case Soup.Status.OK:
             case Soup.Status.CREATED: // HTTP code 201 (CREATED) signals that a new
@@ -360,24 +338,21 @@ public class Transaction {
         return this.parent_session.get_is_insecure();
     }
 
-    protected void send() throws Spit.Publishing.PublishingError {
-        parent_session.wire_message_unqueued.connect(on_message_unqueued);
-        message.wrote_body_data.connect(on_wrote_body_data);
+    protected async void send_async() throws Spit.Publishing.PublishingError {
+        var id = message.wrote_body_data.connect((message, chunk_size) => {
+            bytes_written = chunk_size;
+
+            chunk_transmitted(bytes_written, (uint)request_length);
+        });
         message.accept_certificate.connect(on_accecpt_certificate);
-        parent_session.send_wire_message(message);
-        
-        parent_session.wire_message_unqueued.disconnect(on_message_unqueued);
-        message.wrote_body_data.disconnect(on_wrote_body_data);
+
+        yield parent_session.send_wire_message_async(message);
+        check_response(message);
+
+        message.disconnect(id);
         message.accept_certificate.disconnect(on_accecpt_certificate);
-        
-        if (err != null)
-            network_error(err);
-        else
-            completed();
-        
-        if (err != null)
-            throw err;
-     }
+        completed();
+    }
 
     public HttpMethod get_method() {
         return HttpMethod.from_string(message.method);
@@ -430,17 +405,7 @@ public class Transaction {
         return message.status_code;
     }
 
-    public virtual void execute() throws Spit.Publishing.PublishingError {
-        // if a custom payload is being used, we don't need to peform the tasks that are necessary
-        // to prepare a traditional key-value pair REST request; Instead (since we don't
-        // know anything about the custom payload), we just put it on the wire and return
-        if (use_custom_payload) {
-            is_executed = true;
-            send();
-
-            return;
-         }
-         
+    private GLib.Uri? prepare_rest_message() {
         //  REST POST requests must transmit at least one argument
         if (get_method() == HttpMethod.POST)
             assert(arguments.length > 0);
@@ -472,9 +437,25 @@ public class Transaction {
 
         is_executed = true;
 
+        return old_url;
+    }
+
+    public virtual async void execute_async() throws Spit.Publishing.PublishingError {
+        // if a custom payload is being used, we don't need to peform the tasks that are necessary
+        // to prepare a traditional key-value pair REST request; Instead (since we don't
+        // know anything about the custom payload), we just put it on the wire and return
+        if (use_custom_payload) {
+            is_executed = true;
+            yield send_async();
+
+            return;
+        }
+
+        var old_url = prepare_rest_message();
+         
         try {
             debug("sending message to URI = '%s'", message.get_uri().to_string());
-            send();
+            yield send_async();
         } finally {
             // if old_url is non-null, then restore it
             if (old_url != null)
@@ -576,7 +557,7 @@ public class UploadTransaction : Transaction {
         binary_disposition_table = new_disp_table;
     }
 
-    public override void execute() throws Spit.Publishing.PublishingError {
+    private void prepare_execution() throws Spit.Publishing.PublishingError {
         Argument[] request_arguments = get_arguments();
         assert(request_arguments.length > 0);
 
@@ -614,7 +595,11 @@ public class UploadTransaction : Transaction {
         set_message(outbound_message, mapped_file.get_length());
         
         set_is_executed(true);
-        send();
+    }
+
+    public override async void execute_async() throws Spit.Publishing.PublishingError {
+        prepare_execution();
+        yield send_async();
     }
 }
 
@@ -742,9 +727,8 @@ public abstract class BatchUploader {
         this.session = session;
     }
 
-    private void send_files() {
+    private async void send_files_async() throws Spit.Publishing.PublishingError {
         current_file = 0;
-        bool stop = false;
         foreach (Spit.Publishing.Publishable publishable in publishables) {
             GLib.File? file = publishable.get_serialized_file();
             
@@ -762,25 +746,14 @@ public abstract class BatchUploader {
            
             txn.chunk_transmitted.connect(on_chunk_transmitted);
             
-            try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
-                upload_error(err);
-                stop = true;
-            }
+            yield txn.execute_async();
                 
             txn.chunk_transmitted.disconnect(on_chunk_transmitted);           
-            
-            if (stop)
-                break;
-            
+                        
             current_file++;
         }
-        
-        if (!stop)
-            upload_complete(current_file);
     }
-    
+
     private void on_chunk_transmitted(uint bytes_written_so_far, uint total_bytes) {
         double file_span = 1.0 / publishables.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
@@ -800,12 +773,14 @@ public abstract class BatchUploader {
     }
     
     protected abstract Transaction create_transaction(Spit.Publishing.Publishable publishable);
-    
-    public void upload(Spit.Publishing.ProgressCallback? status_updated = null) {
+
+    public async int upload_async(Spit.Publishing.ProgressCallback? status_updated = null)  throws Spit.Publishing.PublishingError {
         this.status_updated = status_updated;
 
         if (publishables.length > 0)
-           send_files();
+           yield send_files_async();
+
+        return current_file;
     }
 }
 

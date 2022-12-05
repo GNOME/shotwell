@@ -10,9 +10,6 @@ namespace Plugins {
 [GtkTemplate (ui = "/org/gnome/Shotwell/ui/manifest_widget.ui")]
 public class ManifestWidgetMediator : Gtk.Box {
     [GtkChild]
-    private unowned Gtk.Button about_button;
-    
-    [GtkChild]
     private unowned Gtk.ScrolledWindow list_bin;
     
     private ManifestListView list = new ManifestListView();
@@ -21,188 +18,208 @@ public class ManifestWidgetMediator : Gtk.Box {
         Object();
 
         list_bin.set_child(list);
-        
-        about_button.clicked.connect(on_about);
-        list.get_selection().changed.connect(on_selection_changed);
-        
-        set_about_button_sensitivity();
-    }
-    
-    private void on_about() {
-        string[] ids = list.get_selected_ids();
-        if (ids.length == 0)
-            return;
-        
-        string id = ids[0];
-        
-        Spit.PluggableInfo info = Spit.PluggableInfo();
-        if (!get_pluggable_info(id, ref info)) {
-            warning("Unable to retrieve information for plugin %s", id);
-            
-            return;
+    }    
+}
+
+private class CollectionModel<G> : GLib.ListModel, Object {
+    private Gee.Collection<G> target;
+    private unowned Gee.List<G>? as_list = null;
+
+    public CollectionModel(Gee.Collection<G> target) {
+        Object();
+        this.target = target.read_only_view;
+        if (this.target is Gee.List) {
+            this.as_list = (Gee.List<G>)this.target;
         }
-        
-        // prepare authors names (which are comma-delimited by the plugin) for the about box
-        // (which wants an array of names)
-        string[]? authors = null;
-        if (info.authors != null) {
-            string[] split = info.authors.split(",");
-            for (int ctr = 0; ctr < split.length; ctr++) {
-                string stripped = split[ctr].strip();
-                if (!is_string_empty(stripped)) {
-                    if (authors == null)
-                        authors = new string[0];
-                    
-                    authors += stripped;
-                }
+    }
+
+    GLib.Object? get_item(uint position) {
+        if (position >= this.target.size) {
+            return null;
+        }
+
+        if (this.as_list != null) {
+            return (GLib.Object) this.as_list.@get((int) position);
+        }
+
+        var count = 0U;
+        foreach (var g in this.target) {
+            if (count == position) {
+                return (GLib.Object)g;
             }
+            count++;
         }
+
+        return null;
+    }
+
+    GLib.Type get_item_type() {
+        return typeof(G);
+    }
+
+    uint get_n_items() {
+        return this.target.size;
+    }
+
+}
+
+private class Selection : Object {
+    public signal void changed();
+}
+
+private class PluggableRow : Gtk.Box {
+    public Spit.Pluggable pluggable { get; construct; }
+    public bool enabled {get; construct; }
+
+    public PluggableRow(Spit.Pluggable pluggable_, bool enable_) {
+        Object(orientation: Gtk.Orientation.VERTICAL, pluggable: pluggable_,
+            enabled: enable_, margin_top: 6, margin_bottom:6, margin_start:6, margin_end:6);
+    }
+
+    public override void constructed() {
+        base.constructed();
+        var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+        pack_start(content, true);
+
+        var revealer = new Gtk.Revealer();
+        revealer.margin_top = 6;
+        column.add_attribute(icon_renderer, "icon-name", Column.ICON);
         
-        Gtk.show_about_dialog((Gtk.Window)this.get_native(),
-            "version", info.version,
-            "authors", authors,
-            "comments", info.brief_description,
-            "copyright", info.copyright,
-            "wrap-license", info.is_license_wordwrapped,
-            "program-name", get_pluggable_name(id),
-            "translator-credits", info.translators,
-            "version", info.version,
-            "website", info.website_url,
-            "website-label", info.website_name,
-            "logo-icon-name", info.icon,
-            null
-        );
-    }
-    
-    private void on_selection_changed() {
-        set_about_button_sensitivity();
-    }
-    
-    private void set_about_button_sensitivity() {
-        // have to get the array and then get its length rather than do so in one call due to a 
-        // bug in Vala 0.10:
-        //     list.get_selected_ids().length -> uninitialized value
-        // this appears to be fixed in Vala 0.11
-        string[] ids = list.get_selected_ids();
-        about_button.sensitive = (ids.length == 1);
+        var info = pluggable.get_info();
+        
+        var image = new Gtk.Image.from_icon_name(info.icon_name, Gtk.IconSize.BUTTON);
+        content.pack_start(image, false, false, 6);
+        image.hexpand = false;
+
+        var label = new Gtk.Label(pluggable.get_pluggable_name());
+        label.halign = Gtk.Align.START;
+        content.pack_start(label, true, true, 6);
+
+        var button = new Gtk.ToggleButton();
+        button.get_style_context().add_class("flat");
+        content.pack_end(button, false, false, 6);
+        button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
+        image = new Gtk.Image.from_icon_name("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        button.add(image);
+
+        var plugin_enabled = new Gtk.Switch();
+        plugin_enabled.hexpand = false;
+        plugin_enabled.vexpand = false;
+        plugin_enabled.valign = Gtk.Align.CENTER;
+        plugin_enabled.set_active(enabled);
+
+        content.pack_end(plugin_enabled, false, false, 6);
+        plugin_enabled.notify["active"].connect(() => {
+            var id = pluggable.get_id();
+            set_pluggable_enabled(id, plugin_enabled.active);
+        });
+
+        if (pluggable is Spit.Publishing.Service) {
+            var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            manage.get_style_context().add_class("flat");
+            // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
+            manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
+            content.pack_start(manage, false, false, 6);
+        }
+
+        var grid = new Gtk.Grid();
+        grid.get_style_context().add_class("content");
+        grid.set_row_spacing(12);
+        grid.set_column_spacing(6);
+        revealer.add(grid);
+        label = new Gtk.Label(info.copyright);
+        label.hexpand = true;
+        label.halign = Gtk.Align.START;
+        grid.attach(label, 0, 0, 2, 1);
+        label = new Gtk.Label(_("Authors"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 1, 1, 1);
+        label = new Gtk.Label(info.authors);
+        label.halign = Gtk.Align.START;
+        label.hexpand = true;
+        grid.attach(label, 1, 1, 1, 1);
+
+        label = new Gtk.Label(_("Version"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 2, 1, 1);
+        label = new Gtk.Label(info.version);
+        label.halign = Gtk.Align.START;
+        label.hexpand = true;
+        grid.attach(label, 1, 2, 1, 1);
+
+        label = new Gtk.Label(_("License"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 3, 1, 1);
+        var link = new Gtk.LinkButton.with_label(info.license_url, info.license_blurp);
+        link.halign = Gtk.Align.START;
+        // remove the annoying padding around the link
+        link.get_style_context().remove_class("text-button");
+        link.get_style_context().add_class("shotwell-plain-link");
+        grid.attach(link, 1, 3, 1, 1);
+
+        label = new Gtk.Label(_("Website"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 4, 1, 1);
+        link = new Gtk.LinkButton.with_label(info.website_url, info.website_name);
+        link.halign = Gtk.Align.START;
+        // remove the annoying padding around the link
+        link.get_style_context().remove_class("text-button");
+        link.get_style_context().add_class("shotwell-plain-link");
+        grid.attach(link, 1, 4, 1, 1);
+        
     }
 }
 
-private class ManifestListView : Gtk.TreeView {
-    private const int ICON_SIZE = 24;
-    private const int ICON_X_PADDING = 6;
-    private const int ICON_Y_PADDING = 2;
-    
-    private enum Column {
-        ENABLED,
-        CAN_ENABLE,
-        ICON,
-        NAME,
-        ID,
-        N_COLUMNS
-    }
-    
-    private Gtk.TreeStore store = new Gtk.TreeStore(Column.N_COLUMNS,
-        typeof(bool),       // ENABLED
-        typeof(bool),       // CAN_ENABLE
-        typeof(string), // ICON
-        typeof(string),     // NAME
-        typeof(string)      // ID
-    );
-    
+private class ManifestListView : Gtk.Box {
     public ManifestListView() {
-        set_model(store);
-        
-        Gtk.CellRendererToggle checkbox_renderer = new Gtk.CellRendererToggle();
-        checkbox_renderer.radio = false;
-        checkbox_renderer.activatable = true;
-        
-        Gtk.CellRendererPixbuf icon_renderer = new Gtk.CellRendererPixbuf();
-        icon_renderer.xpad = ICON_X_PADDING;
-        icon_renderer.ypad = ICON_Y_PADDING;
-        
-        Gtk.CellRendererText text_renderer = new Gtk.CellRendererText();
-        
-        Gtk.TreeViewColumn column = new Gtk.TreeViewColumn();
-        column.set_sizing(Gtk.TreeViewColumnSizing.AUTOSIZE);
-        column.pack_start(checkbox_renderer, false);
-        column.pack_start(icon_renderer, false);
-        column.pack_end(text_renderer, true);
-        
-        column.add_attribute(checkbox_renderer, "active", Column.ENABLED);
-        column.add_attribute(checkbox_renderer, "visible", Column.CAN_ENABLE);
-        column.add_attribute(icon_renderer, "icon-name", Column.ICON);
-        column.add_attribute(text_renderer, "text", Column.NAME);
-        
-        append_column(column);
-        
-        set_headers_visible(false);
-        set_enable_search(false);
-        set_show_expanders(true);
-        set_reorderable(false);
-        set_enable_tree_lines(false);
-        set_grid_lines(Gtk.TreeViewGridLines.NONE);
-        get_selection().set_mode(Gtk.SelectionMode.BROWSE);
-        
-        Gtk.IconTheme icon_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default());
-        
-        // create a list of plugins (sorted by name) that are separated by extension points (sorted
-        // by name)
-        foreach (ExtensionPoint extension_point in get_extension_points(compare_extension_point_names)) {
-            Gtk.TreeIter category_iter;
-            store.append(out category_iter, null);
-            
-            store.set(category_iter, Column.NAME, extension_point.name, Column.CAN_ENABLE, false,
-                Column.ICON, extension_point.icon_name);
+        Object(orientation: Gtk.Orientation.VERTICAL, spacing: 6);
+    }
 
-            print ("%s\n", extension_point.icon_name);
-            
-            Gee.Collection<Spit.Pluggable> pluggables = get_pluggables_for_type(
-                extension_point.pluggable_type, compare_pluggable_names, true);
-            foreach (Spit.Pluggable pluggable in pluggables) {
+    public signal void row_selected(Spit.Pluggable? pluggable);
+    public override void constructed() {
+        base.constructed();
+
+        foreach (var extension_point in get_extension_points(compare_extension_point_names)) {
+            var label = new Gtk.Label(null);
+            label.set_markup("<span weight=\"bold\">%s</span>".printf(extension_point.name));
+            label.halign = Gtk.Align.START;
+            label.hexpand = true;
+            add(label);
+            var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
+            var box = new Gtk.ListBox();
+            box.set_selection_mode(Gtk.SelectionMode.NONE);
+            box.hexpand = true;
+            box.margin_start = 12;
+            box.margin_end = 12;
+
+            var added = 0;
+            foreach (var pluggable in pluggables) {
                 bool enabled;
+
                 if (!get_pluggable_enabled(pluggable.get_id(), out enabled))
                     continue;
-                
-                Spit.PluggableInfo info = Spit.PluggableInfo();
-                pluggable.get_info(ref info);
-                                
-                Gtk.TreeIter plugin_iter;
-                store.append(out plugin_iter, category_iter);
-                
-                store.set(plugin_iter, Column.ENABLED, enabled, Column.NAME, pluggable.get_pluggable_name(),
-                    Column.ID, pluggable.get_id(), Column.CAN_ENABLE, true, Column.ICON, info.icon);
-                    print ("%s\n", info.icon);
-                }
+
+                var pluggable_row = new PluggableRow(pluggable, enabled);
+
+                added++;
+                box.insert(pluggable_row, -1);
+            }
+            if (added > 0) {
+                add(box);
+            }
         }
-        
-        expand_all();
+
+        show_all();
     }
-    
-    public string[] get_selected_ids() {
-        string[] ids = new string[0];
-        
-        List<Gtk.TreePath> selected = get_selection().get_selected_rows(null);
-        foreach (Gtk.TreePath path in selected) {
-            Gtk.TreeIter iter;
-            string? id = get_id_at_path(path, out iter);
-            if (id != null)
-                ids += id;
-        }
-        
-        return ids;
-    }
-    
-    private string? get_id_at_path(Gtk.TreePath path, out Gtk.TreeIter iter) {
-        if (!store.get_iter(out iter, path))
-            return null;
-        
-        unowned string id;
-        store.get(iter, Column.ID, out id);
-        
-        return id;
-    }
-}
+} 
 
 }
 

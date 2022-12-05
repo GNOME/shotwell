@@ -13,7 +13,7 @@ public class DataImportJob : BatchImportJob {
     private DataImportSource import_source;
     private File? src_file;
     private uint64 filesize;
-    private time_t exposure_time;
+    private DateTime? exposure_time;
     private DataImportJob? associated = null;
     private HierarchicalTagIndex? detected_htags = null;
     
@@ -48,7 +48,7 @@ public class DataImportJob : BatchImportJob {
         return (detected_htags.size > 0) ? HierarchicalTagIndex.from_paths(detected_htags) : null;
     }
     
-    public time_t get_exposure_time() {
+    public DateTime get_exposure_time() {
         return exposure_time;
     }
     
@@ -158,7 +158,7 @@ public class DataImportJob : BatchImportJob {
         if (title != null)
             photo.set_title(title);
         // exposure time
-        time_t? date_time = src_photo.get_exposure_time();
+        var date_time = src_photo.get_exposure_time();
         if (date_time != null)
             photo.set_exposure_time(date_time);
         // import ID

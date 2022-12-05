@@ -9,7 +9,6 @@ namespace DesktopIntegration {
 private const string DESKTOP_SLIDESHOW_XML_FILENAME = "wallpaper.xml";
 
 private int init_count = 0;
-private bool send_to_installed = false;
 private ExporterUI send_to_exporter = null;
 private ExporterUI desktop_slideshow_exporter = null;
 private double desktop_slideshow_transition = 0.0;
@@ -21,12 +20,6 @@ private bool set_screensaver = false;
 public void init() {
     if (init_count++ != 0)
         return;
-    try{
-        Portal.get_instance();
-        send_to_installed =  true;
-    } catch (Error error) {
-        send_to_installed = false;
-    }
 }
 
 public void terminate() {
@@ -93,45 +86,31 @@ public string? get_app_open_command(AppInfo app_info) {
 }
 
 public bool is_send_to_installed() {
-    // FIXME: Check if portal is available
-    return send_to_installed;
+    return true;
 }
 
 public async void files_send_to(File[] files) {
     if (files.length == 0)
         return;
-    
+    var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
+
     var file_names = new StringBuilder();
-    var files_builder = new VariantBuilder (new VariantType ("ah"));
-    var file_descriptors = new UnixFDList ();
+    var file_paths = new string[files.length];
     for (int i=0; i<files.length; i++){
-        var fd = Posix.open (files[i].get_path (), Posix.O_RDONLY | Posix.O_CLOEXEC);
-        if (fd == -1) {
-            warning ("Send to: cannot open file: '%s'", files[i].get_path ());
-            continue;
-        }
-        try {
-            files_builder.add ("h", file_descriptors.append (fd));
-        } catch (Error e) {
-            warning ("Send to: cannot append file %s to file descriptor list: %s",
-            files[i].get_path(), e.message);
-        }
         file_names.append(files[i].get_basename());
         if(i<files.length-1){
             file_names.append(", ");
         }
+        file_paths[i] = files[i].get_path();
     }
 
-    var options = new HashTable<string, Variant> (str_hash, str_equal);
-    options.insert ("subject", _("Send files per Mail: ") + file_names.str);
-    options.insert ("attachment_fds", files_builder.end());
-    options.insert ("addresses", new Variant ("as", null));
     AppWindow.get_instance().set_busy_cursor();
     try{
-        var response = yield Portal.get_instance().compose_email (options, file_descriptors);
-        if (response == null){
-            throw new DBusError.FAILED("Did not get response");
-        }
+        var portal = new Xdp.Portal();
+
+        // Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
+        yield portal.compose_email(parent, {null}, null, null,
+            _("Send files per Mail: ")  + file_names.str, null, file_paths, Xdp.EmailFlags.NONE, null);
     } catch (Error e){
         // Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
         AppWindow.error_message(_("Unable to send file %s, %s").printf(
@@ -194,14 +173,15 @@ public void set_background(Photo photo, bool desktop, bool screensaver) {
         
         return;
     }
-    
-    if (desktop) {
-        Config.Facade.get_instance().set_desktop_background(save_as.get_path());
-    }
-    if (screensaver) {
-        Config.Facade.get_instance().set_screensaver(save_as.get_path());
-    }
-    
+
+    var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
+    var portal = new Xdp.Portal();
+    Xdp.WallpaperFlags flags = Xdp.WallpaperFlags.PREVIEW;
+    if (desktop) flags |= Xdp.WallpaperFlags.BACKGROUND;
+    if (screensaver) flags |= Xdp.WallpaperFlags.LOCKSCREEN;
+
+    portal.set_wallpaper.begin(parent, save_as.get_uri(), flags, null);
+
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
 
@@ -227,7 +207,7 @@ private class BackgroundSlideshowXMLBuilder {
     
     public void open() throws Error {
         outs = new DataOutputStream(tmp_file.replace(null, false, FileCreateFlags.NONE, null));
-        outs.put_string("<background>\n");
+        outs.put_string("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<background>\n");
     }
     
     private void write_transition(File from, File to) throws Error {
@@ -332,12 +312,13 @@ private void on_desktop_slideshow_exported(Exporter exporter, bool is_cancelled)
         return;
     }
     
-    if (set_desktop_background) {
-        Config.Facade.get_instance().set_desktop_background(xml_file.get_path());
-    }
-    if (set_screensaver) {
-        Config.Facade.get_instance().set_screensaver(xml_file.get_path());
-    }
+    var parent = Xdp.parent_new_gtk(AppWindow.get_instance());
+    var portal = new Xdp.Portal();
+    Xdp.WallpaperFlags flags = Xdp.WallpaperFlags.PREVIEW;
+    if (set_desktop_background) flags |= Xdp.WallpaperFlags.BACKGROUND;
+    if (set_screensaver) flags |= Xdp.WallpaperFlags.LOCKSCREEN;
+
+    portal.set_wallpaper.begin(parent, xml_file.get_uri(), flags, null);
 }
 
 }

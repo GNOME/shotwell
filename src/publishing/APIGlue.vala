@@ -126,7 +126,7 @@ public class MediaSourcePublishableWrapper : Spit.Publishing.Publishable, GLib.O
     }
     
     public GLib.DateTime get_exposure_date_time() {
-        return new GLib.DateTime.from_unix_local(wrapped.get_exposure_time());
+        return wrapped.get_exposure_time().to_local();
     }
 
     public uint get_rating() {

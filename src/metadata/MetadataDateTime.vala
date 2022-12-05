@@ -5,9 +5,9 @@ public errordomain MetadataDateTimeError {
 
 public class MetadataDateTime {
 
-    private time_t timestamp;
+    private DateTime timestamp;
 
-    public MetadataDateTime(time_t timestamp) {
+    public MetadataDateTime(DateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -22,14 +22,14 @@ public class MetadataDateTime {
     }
 
     public MetadataDateTime.from_xmp(string label) throws MetadataDateTimeError {
-        TimeVal time_val = TimeVal();
-        if (!time_val.from_iso8601(label))
+        var dt = new DateTime.from_iso8601(label, new TimeZone.local());
+        if (dt == null)
             throw new MetadataDateTimeError.INVALID_FORMAT("%s is not XMP format date/time", label);
 
-        timestamp = time_val.tv_sec;
+        timestamp = dt;
     }
 
-    public time_t get_timestamp() {
+    public DateTime? get_timestamp() {
         return timestamp;
     }
 
@@ -40,15 +40,11 @@ public class MetadataDateTime {
     // TODO: get_iptc_date() and get_iptc_time()
 
     public string get_xmp_label() {
-        TimeVal time_val = TimeVal();
-        time_val.tv_sec = timestamp;
-        time_val.tv_usec = 0;
-
-        return time_val.to_iso8601();
+        return timestamp.format_iso8601();
     }
 
-    public static bool from_exif_date_time(string date_time, out time_t timestamp) {
-        timestamp = 0;
+    public static bool from_exif_date_time(string date_time, out DateTime? timestamp) {
+        timestamp = null;
 
         Time tm = Time();
 
@@ -67,17 +63,13 @@ public class MetadataDateTime {
         if (tm.year <= 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
             return false;
 
-        tm.year -= 1900;
-        tm.month--;
-        tm.isdst = -1;
-
-        timestamp = tm.mktime();
+        timestamp = new DateTime.utc(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second);
 
         return true;
     }
 
-    public static string to_exif_date_time(time_t timestamp) {
-        return Time.local(timestamp).format("%Y:%m:%d %H:%M:%S");
+    public static string to_exif_date_time(DateTime timestamp) {
+        return timestamp.to_local().format("%Y:%m:%d %H:%M:%S");
     }
 
     public string to_string() {

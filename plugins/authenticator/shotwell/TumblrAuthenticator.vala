@@ -185,7 +185,7 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
         private void on_authentication_pane_login_clicked( string username, string password ) {
             debug("EVENT: on_authentication_pane_login_clicked");
 
-            do_network_login(username, password);
+            do_network_login.begin(username, password);
         }
 
         /**
@@ -196,39 +196,22 @@ namespace Publishing.Authenticator.Shotwell.Tumblr {
          * @param username the name of the Tumblr user used to login
          * @param password the password of the Tumblr user used to login
          */
-        private void do_network_login(string username, string password) {
+        private async void do_network_login(string username, string password) {
             debug("ACTION: logging in");
             host.set_service_locked(true);
             host.install_login_wait_pane();
 
             AccessTokenFetchTransaction txn = new AccessTokenFetchTransaction(session,username,password);
-            txn.completed.connect(on_auth_request_txn_completed);
-            txn.network_error.connect(on_auth_request_txn_error);
-
             try {
-                txn.execute();
-            } catch (Spit.Publishing.PublishingError err) {
+                yield txn.execute_async();
+                debug("EVENT: OAuth authentication request transaction completed; response = '%s'",
+                txn.get_response());
+
+                do_parse_token_info_from_auth_request(txn.get_response());
+            } catch (Error err) {
+                debug("EVENT: OAuth authentication request transaction caused a network error");
                 host.post_error(err);
             }
-        }
-
-        private void on_auth_request_txn_completed(Publishing.RESTSupport.Transaction txn) {
-            txn.completed.disconnect(on_auth_request_txn_completed);
-            txn.network_error.disconnect(on_auth_request_txn_error);
-
-            debug("EVENT: OAuth authentication request transaction completed; response = '%s'",
-                  txn.get_response());
-
-            do_parse_token_info_from_auth_request(txn.get_response());
-        }
-
-        private void on_auth_request_txn_error(Publishing.RESTSupport.Transaction txn,
-                                               Spit.Publishing.PublishingError err) {
-            txn.completed.disconnect(on_auth_request_txn_completed);
-            txn.network_error.disconnect(on_auth_request_txn_error);
-
-            debug("EVENT: OAuth authentication request transaction caused a network error");
-            host.post_error(err);
         }
 
         private void do_parse_token_info_from_auth_request(string response) {

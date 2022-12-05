@@ -190,3 +190,12 @@ public bool null_progress_monitor(uint64 count, uint64 total) {
     return true;
 }
 
+public static int64 nullsafe_date_time_comperator(DateTime? time_a, DateTime? time_b) {
+    if (time_a == null && time_b == null) return 0;
+
+    if (time_a == null && time_b != null) return -1;
+    if (time_a != null && time_b == null) return 1;
+
+    return time_a.compare(time_b);
+
+}

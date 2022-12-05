@@ -77,7 +77,8 @@ public class PublishingDialog : Gtk.Dialog {
         }
         set_title(title);
 
-        service_selector_box_model = new Gtk.ListStore(2, typeof(string), typeof(string));
+        service_selector_box_model = new Gtk.ListStore(3, typeof(string), typeof(string),
+            typeof(Spit.Publishing.Account));
         service_selector_box = new Gtk.ComboBox.with_model(service_selector_box_model);
 
         Gtk.CellRendererPixbuf renderer_pix = new Gtk.CellRendererPixbuf();
@@ -98,30 +99,26 @@ public class PublishingDialog : Gtk.Dialog {
         Gtk.TreeIter iter;
 
         foreach (Spit.Publishing.Service service in loaded_services) {
-            service_selector_box_model.append(out iter);
-
             string curr_service_id = service.get_id();
 
-            service.get_info(ref info);
+            info = service.get_info();
 
-            if (info.icon != null) {
-                // check if the icons object is set -- if set use that icon
-                service_selector_box_model.set(iter, 0, info.icon, 1,
-                    service.get_pluggable_name());
-                
-                // in case the icons object is not set on the next iteration
-                info.icon = Resources.ICON_GENERIC_PLUGIN;
-            } else {
-                // if icons object is null or zero length use a generic icon
-                service_selector_box_model.set(iter, 0,
-                    Resources.ICON_GENERIC_PLUGIN, 1, service.get_pluggable_name());
-            }
-            
-            if (last_used_service == null) {
-                service_selector_box.set_active_iter(iter);
-                last_used_service = service.get_id();
-            } else if (last_used_service == curr_service_id) {
-                service_selector_box.set_active_iter(iter);
+            var accounts = service.get_accounts(Shotwell.ProfileManager.get_instance().id());
+
+            foreach (var account in accounts) {
+                service_selector_box_model.append(out iter);
+
+                var account_name = account.display_name();
+                var display_name = service.get_pluggable_name() + (account_name == "" ? "" : "/" + account_name);
+
+                service_selector_box_model.set(iter, 0, info.icon_name, 1, display_name, 2, account);
+
+                if (last_used_service == null) {
+                    service_selector_box.set_active_iter(iter);
+                    last_used_service = service.get_id();
+                } else if (last_used_service == curr_service_id) {
+                    service_selector_box.set_active_iter(iter);
+                }
             }
         }
 
@@ -330,14 +327,17 @@ public class PublishingDialog : Gtk.Dialog {
         }
         
         Value service_name_val;
+        Value account_val;
         service_selector_box_model.get_value(iter, 1, out service_name_val);
+        service_selector_box_model.get_value(iter, 2, out account_val);
         
         string service_name = (string) service_name_val;
-        
+        var service_account = (Spit.Publishing.Account) account_val;
+       
         Spit.Publishing.Service? selected_service = null;
         Spit.Publishing.Service[] services = load_all_services();
         foreach (Spit.Publishing.Service service in services) {
-            if (service.get_pluggable_name() == service_name) {
+             if (service_name.has_prefix(service.get_pluggable_name())) {
                 selected_service = service;
                 break;
             }
@@ -346,7 +346,7 @@ public class PublishingDialog : Gtk.Dialog {
 
         Config.Facade.get_instance().set_last_used_service(selected_service.get_id());
 
-        host = new Spit.Publishing.ConcretePublishingHost(selected_service, this, publishables);
+        host = new Spit.Publishing.ConcretePublishingHost(selected_service, this, publishables, service_account);
         host.start_publishing();
     }
     

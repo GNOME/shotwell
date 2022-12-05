@@ -136,7 +136,7 @@ public abstract class SearchCondition {
             
             else if (str == "FILE_NAME")
                 return SearchType.FILE_NAME;
-              
+
             else if (str == "FACE")
                 return SearchType.FACE;
 
@@ -178,7 +178,7 @@ public abstract class SearchCondition {
                 
                 case SearchType.FILE_NAME:
                     return _("File name");
-                 
+
                 case SearchType.FACE:
                     return _("Face");
 
@@ -776,11 +776,11 @@ public class SearchConditionDate : SearchCondition {
     
     // Determines whether the source is included.
     public override bool predicate(MediaSource source) {
-        time_t exposure_time = source.get_exposure_time();
-        if (exposure_time == 0)
+        var exposure_time = source.get_exposure_time();
+        if (exposure_time == null)
             return context == Context.IS_NOT_SET;
         
-        DateTime dt = new DateTime.from_unix_local(exposure_time);
+        var dt = exposure_time.to_local();
         switch (context) {
             case Context.EXACT:
                 DateTime second = date_one.add_days(1);

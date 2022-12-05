@@ -9,18 +9,10 @@
         <property name="focusable">1</property>
         <property name="hexpand">1</property>
         <property name="vexpand">1</property>
-        <property name="hscrollbar_policy">never</property>
+        <property name="hscrollbar-policy">never</property>
         <child>
           <placeholder/>
         </child>
-      </object>
-    </child>
-    <child type="end">
-      <object class="GtkButton" id="about_button">
-        <property name="label" translatable="yes">_About</property>
-        <property name="focusable">1</property>
-        <property name="receives_default">1</property>
-        <property name="use_underline">1</property>
       </object>
     </child>
   </template>

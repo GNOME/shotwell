@@ -26,18 +26,18 @@ public void select_copy_function() {
 // Thus, when the method returns success a file may exist already, and should be overwritten.
 //
 // This function is thread safe.
-public File? generate_unique_file(string basename, MediaMetadata? metadata, time_t ts, out bool collision)
+public File? generate_unique_file(string basename, MediaMetadata? metadata, DateTime ts, out bool collision)
     throws Error {
     // use exposure timestamp over the supplied one (which probably comes from the file's
     // modified time, or is simply time()), unless it's zero, in which case use current time
     
-    time_t timestamp = ts;
+    DateTime timestamp = ts;
     if (metadata != null) {
         MetadataDateTime? date_time = metadata.get_creation_date_time();
         if (date_time != null)
             timestamp = date_time.get_timestamp();
-        else if (timestamp == 0)
-            timestamp = time_t();
+        else if (timestamp == null)
+            timestamp = new DateTime.now_utc();
     }
     
     // build a directory tree inside the library
@@ -71,7 +71,7 @@ public string convert_basename(string basename) {
 
 // This function is thread-safe.
 private File duplicate(File src, FileProgressCallback? progress_callback, bool blacklist) throws Error {
-    time_t timestamp = 0;
+    DateTime? timestamp = null;
     try {
         timestamp = query_file_modified(src);
     } catch (Error err) {

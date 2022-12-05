@@ -174,12 +174,11 @@ namespace Publishing.RESTSupport.OAuth1 {
             }
         }
 
-
-        public override void execute() throws Spit.Publishing.PublishingError {
+        public override async void execute_async() throws Spit.Publishing.PublishingError {
             var signature = ((Session) get_parent_session()).sign_transaction(this);
             add_argument("oauth_signature", signature);
 
-            base.execute();
+            yield base.execute_async();
         }
     }
 

@@ -56,7 +56,7 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.Label pattern_help;
     [GtkChild]
-    private unowned Gtk.Notebook preferences_notebook;
+    private unowned Gtk.Stack preferences_stack;
 
     [GtkChild]
     private unowned Gtk.CheckButton transparent_checker_radio;
@@ -132,8 +132,8 @@ public class PreferencesDialog : Gtk.Dialog {
 
         lowercase.toggled.connect(on_lowercase_toggled);
 
-        plugins_box.append (plugins_mediator);
-        ((Gtk.Box)preferences_notebook.get_nth_page (3)).append(new Shotwell.ProfileBrowser());
+        ((Gtk.Box)preferences_stack.get_child_by_name("plugins")).append(plugins_mediator);
+        ((Gtk.Box)preferences_stack.get_child_by_name("profiles")).append(new Shotwell.ProfileBrowser());
 
 
         populate_preference_options();

@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
+private extern const string _VERSION;
+
 /**
  * Shotwell Pluggable Interface Technology (SPIT)
  *
@@ -156,27 +158,26 @@ public interface Module : Object {
     protected virtual void reserved7() {}
 }
 
+
 /**
  * A structure holding an assortment of information about a {@link Pluggable}.
  */
-public struct PluggableInfo {
-    public string? version;
-    public string? brief_description;
+public class PluggableInfo : Object {
+    public string? version {get; set; default = _VERSION; }
+    public string? brief_description {get; set; }
     /**
      * A comma-delimited list of the authors of this {@link Pluggable}.
      */
-    public string? authors;
-    public string? copyright;
-    public string? license;
-    public bool is_license_wordwrapped;
-    public string? website_url;
-    public string? website_name;
-    public string? translators;
-    /**
-     * An icon representing this plugin at one or more sizes. Shotwell may select an icon 
-     * according to the size that closest fits the control its being drawn in.
-     */
-    public string icon;
+    public string? authors { get; set; }
+    public string? copyright {get; set; }
+    public string? license_blurp { get; set; default = _("LGPL v2.1 or later"); }
+    public string? license_url { get; set; default = "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"; }
+    public string? website_url {get; set;  default = "https://wiki.gnome.org/Apps/Shotwell";}
+    public string? website_name { get; set;  default = _("Visit the Shotwell home page");}
+    public string? translators {get; set; default = _("translator-credits"); }
+
+    // Name of an icon in the theme, to be set in the Pluggable implementation
+    public string icon_name {get; set; default = "application-x-addon-symbolic"; }
 }
 
 /**
@@ -225,7 +226,7 @@ public interface Pluggable : Object {
     /**
      * Returns extra information about the Pluggable that is used to identify it to the user.
      */
-    public abstract void get_info(ref PluggableInfo info);
+    public abstract PluggableInfo get_info();
     
     /**
      * Called when the Pluggable is enabled (activated) or disabled (deactivated).

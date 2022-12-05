@@ -169,15 +169,14 @@ class AppDirs {
     }
     
     // Library folder + photo folder, based on user's preferred directory pattern.
-    public static File get_baked_import_dir(time_t tm) {
+    public static File get_baked_import_dir(DateTime tm) {
         string? pattern = Config.Facade.get_instance().get_directory_pattern();
         if (is_string_empty(pattern))
             pattern = Config.Facade.get_instance().get_directory_pattern_custom();
         if (is_string_empty(pattern))
             pattern = "%Y" + Path.DIR_SEPARATOR_S + "%m" + Path.DIR_SEPARATOR_S + "%d"; // default
             
-        DateTime date = new DateTime.from_unix_local(tm);
-        return File.new_for_path(get_import_dir().get_path() + Path.DIR_SEPARATOR_S + date.format(pattern));
+        return File.new_for_path(get_import_dir().get_path() + Path.DIR_SEPARATOR_S + tm.to_local().format(pattern));
     }
     
     // Returns true if the File is in or is equal to the library/import directory.
@@ -364,15 +363,6 @@ class AppDirs {
         return f;
     }
 
-    public static File get_facedetect_bin() {
-        const string filename = "shotwell-facedetect";
-        File f = AppDirs.get_libexec_dir().get_parent().get_child("subprojects").get_child(filename).get_child (filename);
-        if (!f.query_exists()) {
-            f = AppDirs.get_libexec_dir().get_child("shotwell").get_child(filename);
-        }
-        return f;
-    }
-
     public static File get_haarcascade_file() {
         const string filename = "facedetect-haarcascade.xml";
         var f = AppDirs.get_resources_dir().get_parent().get_child("subprojects").get_child("shotwell-facedetect").get_child (filename);
@@ -382,6 +372,17 @@ class AppDirs {
         return get_resources_dir().get_child("facedetect-haarcascade.xml");
     }
 
+
+#if ENABLE_FACE_DETECTION
+    public static File get_facedetect_bin() {
+        const string filename = "shotwell-facedetect";
+        File f = AppDirs.get_libexec_dir().get_parent().get_child("subprojects").get_child(filename).get_child (filename);
+        if (!f.query_exists()) {
+            f = AppDirs.get_libexec_dir().get_child("shotwell").get_child(filename);
+        }
+        return f;
+    }
+
     public static File get_openface_dnn_dir() {
         var f = File.new_for_path("/app/extra");
         if (f.query_exists())
@@ -389,6 +390,5 @@ class AppDirs {
 
         return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
     }
-
+#endif
 }
-

@@ -133,8 +133,8 @@ public class Events.Branch : Sidebar.Branch {
             b = swap;
         }
         
-        int64 result = ((Events.EventEntry) a).get_event().get_start_time() 
-            - ((Events.EventEntry) b).get_event().get_start_time();
+        int64 result = nullsafe_date_time_comperator(((Events.EventEntry) a).get_event().get_start_time(),
+            ((Events.EventEntry) b).get_event().get_start_time());
         
         // to stabilize sort (events with the same start time are allowed)
         if (result == 0) {
@@ -215,14 +215,14 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     private void add_event(Event event) {
-        time_t event_time = event.get_start_time();
-        if (event_time == 0) {
+        DateTime? event_time = event.get_start_time();
+        if (event_time == null) {
             add_undated_event(event);
             
             return;
         }
         
-        Time event_tm = Time.local(event_time);
+        var event_tm = event_time.to_local();
         
         Sidebar.Entry? year;
         Sidebar.Entry? month = find_event_month(event, event_tm, out year);
@@ -246,14 +246,14 @@ public class Events.Branch : Sidebar.Branch {
     }
     
     private void move_event(Event event) {
-        time_t event_time = event.get_start_time();
-        if (event_time == 0) {
+        DateTime? event_time = event.get_start_time();
+        if (event_time == null) {
             move_to_undated_event(event);
             
             return;
         }
         
-        Time event_tm = Time.local(event_time);
+        var event_tm = event_time.to_local();
         
         Sidebar.Entry? year;
         Sidebar.Entry? month = find_event_month(event, event_tm, out year);
@@ -296,13 +296,13 @@ public class Events.Branch : Sidebar.Branch {
         }
     }
     
-    private Sidebar.Entry? find_event_month(Event event, Time event_tm, out Sidebar.Entry found_year) {
+    private Sidebar.Entry? find_event_month(Event event, DateTime event_tm, out Sidebar.Entry found_year) {
         // find the year first
         found_year = find_event_year(event, event_tm);
         if (found_year == null)
             return null;
         
-        int event_month = event_tm.month + 1;
+        int event_month = event_tm.get_month();
         
         // found the year, traverse the months
         return find_first_child(found_year, (entry) => {
@@ -310,8 +310,8 @@ public class Events.Branch : Sidebar.Branch {
         });
     }
     
-    private Sidebar.Entry? find_event_year(Event event, Time event_tm) {
-        int event_year = event_tm.year + 1900;
+    private Sidebar.Entry? find_event_year(Event event, DateTime event_tm) {
+        int event_year = event_tm.get_year();
         
         return find_first_child(get_root(), (entry) => {
             if ((entry is Events.UndatedDirectoryEntry) || (entry is Events.NoEventEntry) || 
@@ -400,9 +400,9 @@ public class Events.MasterDirectoryEntry : Events.DirectoryEntry {
 
 public class Events.YearDirectoryEntry : Events.DirectoryEntry {
     private string name;
-    private Time tm;
+    private DateTime tm;
     
-    public YearDirectoryEntry(string name, Time tm) {
+    public YearDirectoryEntry(string name, DateTime tm) {
         this.name = name;
         this.tm = tm;
     }
@@ -412,7 +412,7 @@ public class Events.YearDirectoryEntry : Events.DirectoryEntry {
     }
     
     public int get_year() {
-        return tm.year + 1900;
+        return tm.get_year();
     }
     
     protected override Page create_page() {
@@ -422,9 +422,9 @@ public class Events.YearDirectoryEntry : Events.DirectoryEntry {
 
 public class Events.MonthDirectoryEntry : Events.DirectoryEntry {
     private string name;
-    private Time tm;
+    private DateTime tm;
     
-    public MonthDirectoryEntry(string name, Time tm) {
+    public MonthDirectoryEntry(string name, DateTime tm) {
         this.name = name;
         this.tm = tm;
     }
@@ -434,11 +434,11 @@ public class Events.MonthDirectoryEntry : Events.DirectoryEntry {
     }
     
     public int get_year() {
-        return tm.year + 1900;
+        return tm.get_year();
     }
     
     public int get_month() {
-        return tm.month + 1;
+        return tm.get_month();
     }
     
     protected override Page create_page() {
@@ -456,7 +456,7 @@ public class Events.UndatedDirectoryEntry : Events.DirectoryEntry {
     
     protected override Page create_page() {
         return new SubEventsDirectoryPage(SubEventsDirectoryPage.DirectoryType.UNDATED,
-            Time.local(0));
+            new DateTime.now_local());
     }
 }
 

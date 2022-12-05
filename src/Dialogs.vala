@@ -226,7 +226,7 @@ public string create_result_report_from_manifest(ImportManifest manifest) {
     StringBuilder builder = new StringBuilder();
     
     string header = _("Import Results Report") + " (Shotwell " + Resources.APP_VERSION + " @ " +
-        new DateTime.now_local().format_iso8601() + ")\n\n";
+        new DateTime.now_utc().format_iso8601() + ")\n\n";
     builder.append(header);
     
     string subhead = (ngettext("Attempted to import %d file.", "Attempted to import %d files.",
@@ -874,8 +874,10 @@ public async void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects
 
 public abstract class TagsDialog : TextEntryDialogMediator {
     protected TagsDialog(string title, string label, string? initial_text = null) {
-        base (title, label, initial_text, HierarchicalTagIndex.get_global_index().get_all_tags(),
-            ",");
+        var all = new Gee.ArrayList<string>();
+        all.add_all(HierarchicalTagIndex.get_global_index().get_all_tags());
+        all.add_all(HierarchicalTagIndex.get_global_index().get_all_paths());
+        base (title, label, initial_text, all, ",");
     }
 }
 
@@ -897,14 +899,24 @@ public class AddTagsDialog : TagsDialog {
     }
 
     protected override bool on_modify_validate(string text) {
-        if (text.contains(Tag.PATH_SEPARATOR_STRING))
-            return false;
-            
-        // Can't simply call Tag.prep_tag_names().length because of this bug:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=602208
         string[] names = Tag.prep_tag_names(text.split(","));
-        
-        return names.length > 0;
+        if (names.length == 0)
+            return false;
+
+        // If allowing hierarchies, they have to start with a "/"
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].contains(Tag.PATH_SEPARATOR_STRING) && !names[i].strip().has_prefix(Tag.PATH_SEPARATOR_STRING))
+                return false;
+
+            if (names[i].strip().has_prefix(Tag.PATH_SEPARATOR_STRING) && names[i].strip().length == 1)
+                return false;
+
+            if (names[i].strip().contains(Tag.PATH_SEPARATOR_STRING + Tag.PATH_SEPARATOR_STRING)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
@@ -961,7 +973,26 @@ public class ModifyTagsDialog : TagsDialog {
     }
     
     protected override bool on_modify_validate(string text) {
-        return (!text.contains(Tag.PATH_SEPARATOR_STRING));
+        string[] names = Tag.prep_tag_names(text.split(","));
+        if (names.length == 0)
+            return false;
+
+        // If allowing hierarchies, they have to start with a "/"
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].contains(Tag.PATH_SEPARATOR_STRING) && !names[i].strip().has_prefix(Tag.PATH_SEPARATOR_STRING)) {
+                return false;
+            }
+
+            if (names[i].strip().has_prefix(Tag.PATH_SEPARATOR_STRING) && names[i].strip().length == 1)
+                return false;
+
+            if (names[i].strip().contains(Tag.PATH_SEPARATOR_STRING + Tag.PATH_SEPARATOR_STRING)) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
     
 }

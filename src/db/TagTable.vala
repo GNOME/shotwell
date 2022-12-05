@@ -26,7 +26,7 @@ public class TagRow {
     public TagID tag_id;
     public string name;
     public Gee.Set<string>? source_id_list;
-    public time_t time_created;
+    public int64 time_created;
 }
 
 public class TagTable : DatabaseTable {
@@ -79,7 +79,7 @@ public class TagTable : DatabaseTable {
             out stmt);
         assert(res == Sqlite.OK);
         
-        time_t time_created = (time_t) now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, name);
         assert(res == Sqlite.OK);
@@ -151,7 +151,7 @@ public class TagTable : DatabaseTable {
         row.tag_id = tag_id;
         row.name = stmt.column_text(0);
         row.source_id_list = unserialize_source_ids(stmt.column_text(1));
-        row.time_created = (time_t) stmt.column_int64(2);
+        row.time_created = stmt.column_int64(2);
         
         return row;
     }
@@ -176,7 +176,7 @@ public class TagTable : DatabaseTable {
             row.tag_id = TagID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
             row.source_id_list = unserialize_source_ids(stmt.column_text(2));
-            row.time_created = (time_t) stmt.column_int64(3);
+            row.time_created = stmt.column_int64(3);
             
             rows.add(row);
         }

@@ -21,12 +21,12 @@ abstract class ImportSource : ThumbnailSource, Indexable {
     private string folder;
     private string filename;
     private ulong file_size;
-    private time_t modification_time;
+    private DateTime modification_time;
     private Gdk.Pixbuf? preview = null;
     private string? indexable_keywords = null;
     
     protected ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder,
-        string filename, ulong file_size, time_t modification_time) {
+        string filename, ulong file_size, DateTime modification_time) {
         this.camera_name =camera_name;
         this.camera = camera;
         this.fsid = fsid;
@@ -65,7 +65,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
         return file_size;
     }
     
-    public time_t get_modification_time() {
+    public DateTime get_modification_time() {
         return modification_time;
     }
     
@@ -73,7 +73,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
         return preview;
     }
 
-    public virtual time_t get_exposure_time() {
+    public virtual DateTime get_exposure_time() {
         return get_modification_time();
     }
 
@@ -110,7 +110,7 @@ abstract class ImportSource : ThumbnailSource, Indexable {
 
 class VideoImportSource : ImportSource {
     public VideoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
-        string filename, ulong file_size, time_t modification_time) {
+        string filename, ulong file_size, DateTime modification_time) {
         base(camera_name, camera, fsid, folder, filename, file_size, modification_time);
     }
     
@@ -159,7 +159,7 @@ class PhotoImportSource : ImportSource {
     private PhotoImportSource? associated = null; // JPEG source for RAW+JPEG
     
     public PhotoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
-        string filename, ulong file_size, time_t modification_time, PhotoFileFormat file_format) {
+        string filename, ulong file_size, DateTime modification_time, PhotoFileFormat file_format) {
         base(camera_name, camera, fsid, folder, filename, file_size, modification_time);
         this.file_format = file_format;
     }
@@ -200,7 +200,7 @@ class PhotoImportSource : ImportSource {
         this.exif_md5 = exif_md5;
     }
 
-    public override time_t get_exposure_time() {
+    public override DateTime get_exposure_time() {
         if (metadata == null)
             return get_modification_time();
         
@@ -342,10 +342,10 @@ class ImportPreview : MediaSourceItem {
                     if (duplicated_photo_id.is_valid()) {
                         // Check exposure timestamp
                         LibraryPhoto duplicated_photo = LibraryPhoto.global.fetch(duplicated_photo_id);
-                        time_t photo_exposure_time = photo_import_source.get_exposure_time();
-                        time_t duplicated_photo_exposure_time = duplicated_photo.get_exposure_time();
+                        DateTime photo_exposure_time = photo_import_source.get_exposure_time();
+                        DateTime duplicated_photo_exposure_time = duplicated_photo.get_exposure_time();
                         
-                        if (photo_exposure_time == duplicated_photo_exposure_time) {
+                        if (photo_exposure_time.equal(duplicated_photo_exposure_time)) {
                             duplicated_file = DuplicatedFile.create_from_photo_id(
                                 LibraryPhoto.global.get_basename_filesize_duplicate(
                                 get_import_source().get_filename(), (int64) filesize));
@@ -487,7 +487,7 @@ public class ImportPage : CheckerboardPage {
         private string filename;
         private uint64 filesize;
         private PhotoMetadata metadata;
-        private time_t exposure_time;
+        private DateTime exposure_time;
         private CameraImportJob? associated = null;
         private BackingPhotoRow? associated_file = null;
         private DuplicatedFile? duplicated_file;
@@ -511,7 +511,7 @@ public class ImportPage : CheckerboardPage {
             exposure_time = import_file.get_exposure_time();
         }
         
-        public time_t get_exposure_time() {
+        public DateTime get_exposure_time() {
             return exposure_time;
         }
         
@@ -519,8 +519,8 @@ public class ImportPage : CheckerboardPage {
             return duplicated_file;
         }
 
-        public override time_t get_exposure_time_override() {
-            return (import_file is VideoImportSource) ? get_exposure_time() : 0;
+        public override DateTime? get_exposure_time_override() {
+            return (import_file is VideoImportSource) ? get_exposure_time() : null;
         }
         
         public override string get_dest_identifier() {
@@ -823,8 +823,8 @@ public class ImportPage : CheckerboardPage {
     }
 
     private static int64 preview_comparator(void *a, void *b) {
-        return ((ImportPreview *) a)->get_import_source().get_exposure_time()
-            - ((ImportPreview *) b)->get_import_source().get_exposure_time();
+        return nullsafe_date_time_comperator(((ImportPreview *) a)->get_import_source().get_exposure_time(),
+        ((ImportPreview *) b)->get_import_source().get_exposure_time());
     }
     
     private static bool preview_comparator_predicate(DataObject object, Alteration alteration) {
@@ -832,7 +832,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private int64 import_job_comparator(void *a, void *b) {
-        return ((CameraImportJob *) a)->get_exposure_time() - ((CameraImportJob *) b)->get_exposure_time();
+        return nullsafe_date_time_comperator(((CameraImportJob *) a)->get_exposure_time(), ((CameraImportJob *) b)->get_exposure_time());
     }
     
     protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
@@ -1383,7 +1383,7 @@ public class ImportPage : CheckerboardPage {
                 
                 if (VideoReader.is_supported_video_filename(filename)) {
                     VideoImportSource video_source = new VideoImportSource(dcamera.display_name, dcamera.gcamera,
-                        fsid, dir, filename, info.file.size, info.file.mtime);
+                        fsid, dir, filename, info.file.size, new DateTime.from_unix_utc(info.file.mtime));
                     import_list.add(video_source);
                 } else {
                     // determine file format from type, and then from file extension
@@ -1399,7 +1399,7 @@ public class ImportPage : CheckerboardPage {
                         }
                     }
                     import_list.add(new PhotoImportSource(dcamera.display_name, dcamera.gcamera, fsid, dir, filename,
-                        info.file.size, info.file.mtime, file_format));
+                        info.file.size, new DateTime.from_unix_utc(info.file.mtime), file_format));
                 }
                 
                 progress_bar.pulse();

@@ -25,7 +25,7 @@ public struct EventID {
 public class EventRow {
     public EventID event_id;
     public string? name;
-    public time_t time_created;
+    public int64 time_created;
     public string? primary_source_id;
     public string? comment;
 }
@@ -80,7 +80,7 @@ public class EventTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        time_t time_created = (time_t) now_sec();
+        int64 time_created = now_sec();
         
         res = stmt.bind_text(1, primary_source_id);
         assert(res == Sqlite.OK);
@@ -151,7 +151,7 @@ public class EventTable : DatabaseTable {
         if (row.name != null && row.name.length == 0)
             row.name = null;
         row.primary_source_id = source_id_upgrade(stmt.column_int64(1), stmt.column_text(2));
-        row.time_created = (time_t) stmt.column_int64(3);
+        row.time_created = stmt.column_int64(3);
         row.comment = stmt.column_text(4);
         
         return row;
@@ -183,7 +183,7 @@ public class EventTable : DatabaseTable {
             row.event_id = EventID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
             row.primary_source_id = source_id_upgrade(stmt.column_int64(2), stmt.column_text(3));
-            row.time_created = (time_t) stmt.column_int64(4);            
+            row.time_created = stmt.column_int64(4);            
             row.comment = stmt.column_text(5);
 
             event_rows.add(row);
@@ -218,12 +218,12 @@ public class EventTable : DatabaseTable {
         return update_text_by_id(event_id.id, "primary_source_id", primary_source_id);
     }
     
-    public time_t get_time_created(EventID event_id) {
+    public DateTime? get_time_created(EventID event_id) {
         Sqlite.Statement stmt;
         if (!select_by_id(event_id.id, "time_created", out stmt))
-            return 0;
+            return null;
         
-        return (time_t) stmt.column_int64(0);
+        return new DateTime.from_unix_utc(stmt.column_int64(0));
     }
 
     public bool set_comment(EventID event_id, string new_comment) {

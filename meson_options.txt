@@ -1,5 +1,4 @@
 option('publishers', type: 'array', choices: ['flickr','googlephotos','piwigo','youtube','gallery3','tumblr'], value : ['flickr','googlephotos','piwigo','youtube','gallery3','tumblr'], description: 'The list of publishing plugins to build')
-option('extra_plugins', type : 'boolean', value : 'true', description: 'Enable building and installation of extra publishing plugins')
 option('trace', type: 'array', choices: ['dtors', 'import', 'md5', 'metadata-writer', 'monitoring', 'pixbuf-cache', 'reflow', 'reflow-items'], value : [], description: 'Enable various trace options')
 option('measure', type: 'array', choices: ['enhance', 'import', 'pipeline', 'view-filtering', 'thumbnail-cache'], value : [], description : 'Enable various timing measurements')
 option('dupe_detection', type: 'boolean', value : 'true', description: 'Disable duplicate checks')

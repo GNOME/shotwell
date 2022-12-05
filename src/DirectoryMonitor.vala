@@ -290,7 +290,7 @@ public class DirectoryMonitor : Object {
             
             // get all the interesting matchable items from the supplied FileInfo
             int64 match_size = match.get_size();
-            TimeVal match_time = match.get_modification_time();
+            var match_time = match.get_modification_date_time();
             
             foreach (File file in map.keys) {
                 FileInfo info = map.get(file);
@@ -303,9 +303,9 @@ public class DirectoryMonitor : Object {
                 if (match_size != info.get_size())
                     continue;
                 
-                TimeVal time = info.get_modification_time();
+                var time = info.get_modification_date_time();
                 
-                if (time.tv_sec != match_time.tv_sec)
+                if (!time.equal(match_time))
                     continue;
                 
                 return file;

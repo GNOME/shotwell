@@ -2,10 +2,9 @@
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
-# Copyright (C) 2017-2022 Shotwell'S COPYRIGHT HOLDER
+# Copyright (C) 2017-2022 Shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the Shotwell package.
 #
-# Translators:
 # Ferhat Tunctan <ferhattnctn66@gmail.com>, 2012
 # Huseyin Demirtaş <hsyn.demirtas@gmail.com>, 2011
 # Tayyip <m.tayyib.yel@gmail.com>, 2013
@@ -20,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-09-14 19:04+0000\n"
-"PO-Revision-Date: 2022-09-14 22:18+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2022-10-08 09:26+0000\n"
+"PO-Revision-Date: 2022-10-27 21:57+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -1157,11 +1156,10 @@ msgstr ""
 "yanlış"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8
-#: data/org.gnome.Shotwell.desktop.in:4
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-#: data/ui/collection.ui:85 data/ui/event.ui:356 data/ui/event.ui:524
-#: data/ui/faces.ui:356 data/ui/media.ui:356 data/ui/photo_context.ui:91
-#: data/ui/photo.ui:351 data/ui/tags.ui:356
+#: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
+#: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
+#: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
+#: data/ui/tags.ui:356
 #: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
 #: src/photos/RawSupport.vala:313
 msgid "Shotwell"
@@ -1210,7 +1208,6 @@ msgid "Photo Manager"
 msgstr "Fotoğraf Yöneticisi"
 
 #: data/org.gnome.Shotwell.desktop.in:6
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
 msgid "Organize your photos"
 msgstr "Fotoğraflarınızı yönetin"
 
@@ -1226,6 +1223,14 @@ msgstr ""
 "görüntüler;içe aktar;yerleştir;foto;fotoğraflar;fotolar;resim;resimler;"
 "fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;facebook;"
 "flickr;picasa;youtube;piwigo;"
+
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
+msgid "Shotwell Profile Browser"
+msgstr "Shotwell Profil Görüntüleyici"
+
+#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:6
+msgid "Manage Different Profiles In Shotwell"
+msgstr "Shotwellʼde Farklı Profilleri Yönet"
 
 #: data/org.gnome.Shotwell-Viewer.desktop.in:4
 msgid "Shotwell Viewer"
@@ -1342,7 +1347,7 @@ msgstr "Resmin Etki_nliğine Bak"
 #: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
-#: src/Resources.vala:778
+#: src/Resources.vala:776
 msgid "Show in File Mana_ger"
 msgstr "Dosya Yö_neticisinde Göster"
 
@@ -1354,7 +1359,7 @@ msgstr "_Gönder…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:787
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:785
 msgid "_Move to Trash"
 msgstr "_Çöpe Taşı"
 
@@ -1599,7 +1604,7 @@ msgstr "Ye_ni Kaydedilmiş Arama…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:789
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:787
 msgid "Select _All"
 msgstr "_Tümünü Seç"
 
@@ -1689,7 +1694,7 @@ msgstr "_Dışa Aktar…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:785
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:783
 msgid "R_emove From Library"
 msgstr "Kitaplıktan K_aldır"
 
@@ -1781,7 +1786,7 @@ msgstr "_Yeni Olay"
 msgid "Edit Event _Comment…"
 msgstr "Olay _Yorumunu Düzenle…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:89 src/Resources.vala:300
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:87 src/Resources.vala:300
 #: src/Resources.vala:301
 msgid "Faces"
 msgstr "Yüzler"
@@ -1815,8 +1820,8 @@ msgstr "_Oturum aç"
 #: data/ui/textentrydialog.ui:19 src/AppWindow.vala:513 src/AppWindow.vala:534
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:764
-#: src/Dialogs.vala:787 src/Exporter.vala:348 src/ProfileBrowser.vala:64
+#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
+#: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
 #: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
 #: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
@@ -1828,7 +1833,7 @@ msgstr "İ_ptal"
 msgid "_OK"
 msgstr "_Tamam"
 
-#: data/ui/offline.ui:221 src/Resources.vala:773
+#: data/ui/offline.ui:221 src/Resources.vala:771
 msgid "Remove the selected photos from the library"
 msgstr "Seçili fotoğrafları kitaplıktan çıkar"
 
@@ -1856,7 +1861,7 @@ msgstr "Renk Düzenlemelerini _Yapıştır"
 msgid "Display"
 msgstr "Göster"
 
-#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:768
+#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:759
 msgid "Library Location"
 msgstr "Kitaplık Konumu"
 
@@ -2014,7 +2019,7 @@ msgid "Search"
 msgstr "Ara"
 
 #: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:239
+#: src/ProfileBrowser.vala:237
 msgid "Cancel"
 msgstr "İptal"
 
@@ -2056,9 +2061,9 @@ msgstr "_Düzenle…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:460 data/ui/trash.ui:63
 #: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:732
+#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:728
 #: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
-#: src/Resources.vala:389 src/Resources.vala:771
+#: src/Resources.vala:389 src/Resources.vala:769
 msgid "_Delete"
 msgstr "_Sil"
 
@@ -2145,15 +2150,15 @@ msgid "label"
 msgstr "etiket"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
-#: src/Resources.vala:775
+#: src/Resources.vala:773
 msgid "_Restore"
 msgstr "_Geri Getir"
 
-#: data/ui/trash.ui:255 src/Resources.vala:772
+#: data/ui/trash.ui:255 src/Resources.vala:770
 msgid "Remove the selected photos from the trash"
 msgstr "Seçili fotoğrafları çöp kutusundan geri getir"
 
-#: data/ui/trash.ui:270 src/Resources.vala:776
+#: data/ui/trash.ui:270 src/Resources.vala:774
 msgid "Move the selected photos back into the library"
 msgstr "Seçili fotoğrafları kitaplığa geri taşı"
 
@@ -2161,7 +2166,7 @@ msgstr "Seçili fotoğrafları kitaplığa geri taşı"
 msgid "Delete all photos in the trash"
 msgstr "Çöp kutusundaki tüm fotoğrafları sil"
 
-#: data/ui/trash.ui:288 src/library/LibraryWindow.vala:586
+#: data/ui/trash.ui:288 src/library/LibraryWindow.vala:577
 msgid "Empty Trash"
 msgstr "Çöp Kutusunu Boşalt"
 
@@ -2430,7 +2435,7 @@ msgid "pixels"
 msgstr "piksel"
 
 #: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:700
+#: plugins/shotwell-publishing/FlickrPublishing.vala:694
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1377
 #: src/Dimensions.vala:17
 msgid "Original size"
@@ -2454,7 +2459,7 @@ msgstr "_Çıkış"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
 msgid "_Publish"
 msgstr "_Yayımla"
 
@@ -2563,20 +2568,20 @@ msgid ""
 "_Remove location, camera, and other identifying information before uploading"
 msgstr "Yüklemeden önce konum, kamera, ve diğer tanımlayıcı bilgileri _kaldır"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:33
+#: plugins/shotwell-publishing/FlickrPublishing.vala:27
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Telif Hakkı 2016 Software Freedom Conservancy Inc."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:340
+#: plugins/shotwell-publishing/FlickrPublishing.vala:334
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
 "Yayımlama için gerekli bir dosya kullanılamıyor. Flickr’da yayımlanamıyor."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:619
+#: plugins/shotwell-publishing/FlickrPublishing.vala:613
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2585,7 +2590,7 @@ msgstr ""
 "Flickr’da %s olarak oturum açtınız.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:621
+#: plugins/shotwell-publishing/FlickrPublishing.vala:615
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2596,7 +2601,7 @@ msgstr ""
 "sınırlandırır.\n"
 "%2$lld dosya sınırınızdan %1$llu kullandınız."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:623
+#: plugins/shotwell-publishing/FlickrPublishing.vala:617
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2608,57 +2613,57 @@ msgstr[0] ""
 "Flickr Pro hesabınız, sınırsız karşıya yükleme yapmanıza olanak tanır. Şu "
 "anda %d dosya yüklediniz"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:628
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
 msgid "Photos _visible to"
 msgstr "Fotoğraflar şunlara _görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:630
+#: plugins/shotwell-publishing/FlickrPublishing.vala:624
 msgid "Videos _visible to"
 msgstr "Videolar şunlara _görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:633
+#: plugins/shotwell-publishing/FlickrPublishing.vala:627
 msgid "Photos and videos _visible to"
 msgstr "Fotoğraflar ve videolar _şunlara görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:674
+#: plugins/shotwell-publishing/FlickrPublishing.vala:668
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1361
 msgid "Everyone"
 msgstr "Herkes"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:675
+#: plugins/shotwell-publishing/FlickrPublishing.vala:669
 msgid "Friends & family only"
 msgstr "Yalnızca aile & arkadaşlar"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:676
+#: plugins/shotwell-publishing/FlickrPublishing.vala:670
 msgid "Family only"
 msgstr "Aileye özel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:677
+#: plugins/shotwell-publishing/FlickrPublishing.vala:671
 msgid "Friends only"
 msgstr "Arkadaşlara özel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:678
+#: plugins/shotwell-publishing/FlickrPublishing.vala:672
 msgid "Just me"
 msgstr "Yalnızca ben"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:696
+#: plugins/shotwell-publishing/FlickrPublishing.vala:690
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1373
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 × 375 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:697
+#: plugins/shotwell-publishing/FlickrPublishing.vala:691
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1374
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:698
+#: plugins/shotwell-publishing/FlickrPublishing.vala:692
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1375
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 benek"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:699
+#: plugins/shotwell-publishing/FlickrPublishing.vala:693
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1376
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 benek"
@@ -3249,7 +3254,7 @@ msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Bu %d dosya kameradan silinsin mi?"
 
-#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:731
+#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:727
 msgid "_Keep"
 msgstr "_Koru"
 
@@ -3272,12 +3277,12 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Geçerli süzgeçle eşleşen video/fotoğraf yok"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2487 src/Resources.vala:136
+#: src/PhotoPage.vala:2481 src/Resources.vala:136
 msgid "_Print"
 msgstr "_Yazdır"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2497 src/Resources.vala:186
+#: src/PhotoPage.vala:2491 src/Resources.vala:186
 msgid "Set as _Desktop Background"
 msgstr "_Masaüstü Arkapılan olarak ayarla"
 
@@ -3454,51 +3459,51 @@ msgstr "Etiket Oluştur"
 msgid "Move Tag “%s”"
 msgstr "“%s” Etiketini Taşı"
 
-#: src/Commands.vala:2346
+#: src/Commands.vala:2344
 msgid "Move Photos to Trash"
 msgstr "Fotoğrafları Çöpe Taşı"
 
-#: src/Commands.vala:2346
+#: src/Commands.vala:2344
 msgid "Restore Photos from Trash"
 msgstr "Çöpteki Fotoğrafları Geri Getir"
 
-#: src/Commands.vala:2347
+#: src/Commands.vala:2345
 msgid "Move the photos to the Shotwell trash"
 msgstr "Fotoğrafları Shotwell çöp kutusuna taşı"
 
-#: src/Commands.vala:2347
+#: src/Commands.vala:2345
 msgid "Restore the photos back to the Shotwell library"
 msgstr "Shotwell kitaplığındaki fotoğrafları geri getir"
 
-#: src/Commands.vala:2366
+#: src/Commands.vala:2364
 msgid "Moving Photos to Trash"
 msgstr "Fotoğraflar Çöp Kutusuna Taşınıyor"
 
-#: src/Commands.vala:2366
+#: src/Commands.vala:2364
 msgid "Restoring Photos From Trash"
 msgstr "Fotoğraflar Çöp Kutusundan Geri Getiriliyor"
 
-#: src/Commands.vala:2452
+#: src/Commands.vala:2450
 msgid "Flag selected photos"
 msgstr "Seçili fotoğrafları işaretle"
 
-#: src/Commands.vala:2453
+#: src/Commands.vala:2451
 msgid "Unflag selected photos"
 msgstr "Seçili fotoğrafların işaretini kaldır"
 
-#: src/Commands.vala:2454
+#: src/Commands.vala:2452
 msgid "Flagging selected photos"
 msgstr "Seçili fotoğraflar işaretleniyor"
 
-#: src/Commands.vala:2455
+#: src/Commands.vala:2453
 msgid "Unflagging selected photos"
 msgstr "Seçili fotoğrafların işaretleri kaldırılıyor"
 
-#: src/Commands.vala:2462
+#: src/Commands.vala:2460
 msgid "Flag"
 msgstr "İşaretle"
 
-#: src/Commands.vala:2462
+#: src/Commands.vala:2460
 msgid "Unflag"
 msgstr "İşaretleme"
 
@@ -3538,7 +3543,7 @@ msgstr ""
 msgid "Database file:"
 msgstr "Veri tabanı dosyası:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:768
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:759
 msgid "_Import"
 msgstr "_İçe Aktar"
 
@@ -3816,22 +3821,22 @@ msgstr[0] ""
 msgid "_Switch Developer"
 msgstr "_Geliştirici Değiştir"
 
-#: src/Dialogs.vala:54
+#: src/Dialogs.vala:52
 #, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] "Bu işlem “%s” yüzünü %d fotoğraftan kaldıracak. Sürdürülsün mü?"
 
-#: src/Dialogs.vala:74
+#: src/Dialogs.vala:70
 msgid "Export Video"
 msgstr "Video Ihracatı"
 
-#: src/Dialogs.vala:74 src/PhotoPage.vala:3022
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3016
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Fotoğrafı Dışa Aktar"
 
-#: src/Dialogs.vala:98
+#: src/Dialogs.vala:94
 msgid "Export Photos"
 msgstr "Fotoğrafları Dışa Aktar"
 
@@ -3840,16 +3845,16 @@ msgstr "Fotoğrafları Dışa Aktar"
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: src/Dialogs.vala:125
+#: src/Dialogs.vala:121
 #, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr ""
-"Shotwell bu fotoğrafı düzenlemek için dosya oluşturamıyor çünkü %s’e "
-"yazmaya izniniz yok."
+"Shotwell bu fotoğrafı düzenlemek için dosya oluşturamıyor çünkü %s’e yazmaya "
+"izniniz yok."
 
-#: src/Dialogs.vala:134
+#: src/Dialogs.vala:130
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
@@ -3857,7 +3862,7 @@ msgstr ""
 "İzleyen fotoğraf bir dosya hatası nedeniyle dışa aktarılamadı.\n"
 "\n"
 
-#: src/Dialogs.vala:140
+#: src/Dialogs.vala:136
 msgid ""
 "\n"
 "\n"
@@ -3867,34 +3872,34 @@ msgstr ""
 "\n"
 "Dışa aktarmaya sürdürmek istiyor musunuz?"
 
-#: src/Dialogs.vala:141
+#: src/Dialogs.vala:137
 msgid "Con_tinue"
 msgstr "_Sürdür"
 
-#: src/Dialogs.vala:151
+#: src/Dialogs.vala:147
 msgid "Save Details…"
 msgstr "Ayrıntıları Kaydet…"
 
-#: src/Dialogs.vala:152
+#: src/Dialogs.vala:148
 msgid "Save Details"
 msgstr "Ayrıntıları Kaydet"
 
-#: src/Dialogs.vala:167
+#: src/Dialogs.vala:163
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(ve %d tane daha)\n"
 
-#: src/Dialogs.vala:220
+#: src/Dialogs.vala:216
 msgid "Import Results Report"
 msgstr "Sonuç Raporunu İçe Aktar"
 
-#: src/Dialogs.vala:224
+#: src/Dialogs.vala:220
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "%d dosya içe aktarılmaya çalışıldı."
 
-#: src/Dialogs.vala:227
+#: src/Dialogs.vala:223
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -3903,37 +3908,37 @@ msgstr[0] "Bunlardan, %d dosya başarıyla içe aktarıldı."
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:239
+#: src/Dialogs.vala:235
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "İçe Aktarılmayan Fotoğraf/Videoları çoğalt:"
 
-#: src/Dialogs.vala:243
+#: src/Dialogs.vala:239
 msgid "duplicates existing media item"
 msgstr "var olan ortam ögesini çoğaltır"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:254
+#: src/Dialogs.vala:250
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Kamera Hataları Sebebiyle İçe Aktarılmayan Fotoğraflar/Videolar:"
 
-#: src/Dialogs.vala:257 src/Dialogs.vala:272 src/Dialogs.vala:287
-#: src/Dialogs.vala:303 src/Dialogs.vala:318 src/Dialogs.vala:332
+#: src/Dialogs.vala:253 src/Dialogs.vala:268 src/Dialogs.vala:283
+#: src/Dialogs.vala:299 src/Dialogs.vala:314 src/Dialogs.vala:328
 msgid "error message:"
 msgstr "hata mesajı:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:268
+#: src/Dialogs.vala:264
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr "Fotoğraf Veya Video Olarak Tanınmadığı İçin İçe Aktarılmayan Dosyalar:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:283
+#: src/Dialogs.vala:279
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -3944,7 +3949,7 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:298
+#: src/Dialogs.vala:294
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
@@ -3952,7 +3957,7 @@ msgstr ""
 "Shotwell Kendi Kitaplığına Kopyalayamadığı İçin İçe Aktarılmayan Fotoğraflar/"
 "Videolar:"
 
-#: src/Dialogs.vala:302
+#: src/Dialogs.vala:298
 #, c-format
 msgid ""
 "couldn’t copy %s\n"
@@ -3964,50 +3969,50 @@ msgstr ""
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:314
+#: src/Dialogs.vala:310
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Dosyalar Bozuk Olduğundan Fotoğraflar/Videolar İçe Aktarılmadı:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:329
+#: src/Dialogs.vala:325
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Başka Sebeplerden İçe Aktarılmayan Fotoğraflar/Videolar:"
 
-#: src/Dialogs.vala:349
+#: src/Dialogs.vala:345
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "%d fotoğraf kopyası içe aktarılmadı:\n"
 
-#: src/Dialogs.vala:352
+#: src/Dialogs.vala:348
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "%d video kopyası içe aktarılmadı:\n"
 
-#: src/Dialogs.vala:355
+#: src/Dialogs.vala:351
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "%d fotoğraf/video kopyası içe aktarılmadı:\n"
 
-#: src/Dialogs.vala:369
+#: src/Dialogs.vala:365
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
 "%d fotoğrafın dosya veya donanım hatası dolayısıyla içe aktarımı başarısız:\n"
 
-#: src/Dialogs.vala:372
+#: src/Dialogs.vala:368
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
 "%d videonun dosya veya donanım hatası dolayısıyla içe aktarımı başarısız:\n"
 
-#: src/Dialogs.vala:375
+#: src/Dialogs.vala:371
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -4016,14 +4021,14 @@ msgstr[0] ""
 "%d fotoğrafın/videonun dosya veya donanım hatası dolayısıyla içe aktarımı "
 "başarısız:\n"
 
-#: src/Dialogs.vala:378
+#: src/Dialogs.vala:374
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] ""
 "%d dosyanın içe aktarımı dosya veya donanım hatası dolayısıyla başarısız:\n"
 
-#: src/Dialogs.vala:392
+#: src/Dialogs.vala:388
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -4034,7 +4039,7 @@ msgstr[0] ""
 "%d fotoğrafın içe aktarımı başarısız çünkü fotoğraf kitaplığı klasörü "
 "yazılabilir değildi:\n"
 
-#: src/Dialogs.vala:395
+#: src/Dialogs.vala:391
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -4045,7 +4050,7 @@ msgstr[0] ""
 "%d videonun içe aktarımı başarısız çünkü fotoğraf kitaplığı klasörü "
 "yazılabilir değildi:\n"
 
-#: src/Dialogs.vala:398
+#: src/Dialogs.vala:394
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -4057,7 +4062,7 @@ msgstr[0] ""
 "%d fotoğrafın/videonun içe aktarımı başarısız çünkü fotoğraf kitaplığı "
 "klasörü yazılabilir değildi:\n"
 
-#: src/Dialogs.vala:401
+#: src/Dialogs.vala:397
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -4068,50 +4073,50 @@ msgstr[0] ""
 "%d dosyanın içe aktarımı başarısız çünkü fotoğraf kitaplığı klasörü "
 "yazılabilir değildi:\n"
 
-#: src/Dialogs.vala:415
+#: src/Dialogs.vala:411
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "%d fotoğrafın içe aktarımı kamera hatası dolayısıyla başarısız:\n"
 
-#: src/Dialogs.vala:418
+#: src/Dialogs.vala:414
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "%d videonun içe aktarımı kamera hatası dolayısıyla başarısız:\n"
 
-#: src/Dialogs.vala:421
+#: src/Dialogs.vala:417
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] ""
 "%d fotoğrafın/videonun içe aktarımı kamera hatası dolayısıyla başarısız:\n"
 
-#: src/Dialogs.vala:424
+#: src/Dialogs.vala:420
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "%d dosyanın içe aktarımı kamera hatası dolayısıyla başarısız:\n"
 
-#: src/Dialogs.vala:438
+#: src/Dialogs.vala:434
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "%d fotoğraf bozuk olduğundan içe aktarılamadı:\n"
 
-#: src/Dialogs.vala:441
+#: src/Dialogs.vala:437
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "%d video bozuk olduğundan içe aktarılamadı:\n"
 
-#: src/Dialogs.vala:444
+#: src/Dialogs.vala:440
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] "%d fotoğraf/video bozuk olduğundan içe aktarılamadı:\n"
 
-#: src/Dialogs.vala:447
+#: src/Dialogs.vala:443
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -4121,7 +4126,7 @@ msgstr[0] "%d dosya bozuk olduğundan içe aktarılamadı:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:464
+#: src/Dialogs.vala:460
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -4129,49 +4134,49 @@ msgstr[0] "%d desteklenmeyen fotoğraf atlandı:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:479
+#: src/Dialogs.vala:475
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "%d resim olmayan dosya atlandı:\n"
 
-#: src/Dialogs.vala:490
+#: src/Dialogs.vala:486
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "%d fotoğraf kulanıcının iptali dolayısıyla atlandı:\n"
 
-#: src/Dialogs.vala:493
+#: src/Dialogs.vala:489
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "%d video kulanıcının iptali dolayısıyla atlandı:\n"
 
-#: src/Dialogs.vala:496
+#: src/Dialogs.vala:492
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "%d fotoğraf/video kulanıcının iptali dolayısıyla atlandı:\n"
 
-#: src/Dialogs.vala:499
+#: src/Dialogs.vala:495
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "%d dosya kulanıcının iptali dolayısıyla atlandı:\n"
 
-#: src/Dialogs.vala:513
+#: src/Dialogs.vala:509
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "%d fotoğraf başarıyla içe aktarıldı.\n"
 
-#: src/Dialogs.vala:516
+#: src/Dialogs.vala:512
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "%d video başarıyla içe aktarıldı.\n"
 
-#: src/Dialogs.vala:519
+#: src/Dialogs.vala:515
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -4179,63 +4184,63 @@ msgstr[0] "%d fotoğraf/video başarıyla içe aktarıldı.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:535
+#: src/Dialogs.vala:531
 msgid "No photos or videos imported.\n"
 msgstr "Alınan resim ve videolar yok.\n"
 
-#: src/Dialogs.vala:542 src/Dialogs.vala:561
+#: src/Dialogs.vala:538 src/Dialogs.vala:557
 msgid "Import Complete"
 msgstr "İçe Aktarma Tamamlandı"
 
-#: src/Dialogs.vala:661 src/Resources.vala:197
+#: src/Dialogs.vala:657 src/Resources.vala:197
 msgid "Rename Event"
 msgstr "Olayı Yeniden Adlandır"
 
-#: src/Dialogs.vala:661
+#: src/Dialogs.vala:657
 msgid "Name:"
 msgstr "Ad:"
 
 #. Dialog title
-#: src/Dialogs.vala:672
+#: src/Dialogs.vala:668
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Başlığı Düzenle"
 
-#: src/Dialogs.vala:673 src/Properties.vala:352
+#: src/Dialogs.vala:669 src/Properties.vala:352
 msgid "Title:"
 msgstr "Başlık:"
 
 #. Dialog title
-#: src/Dialogs.vala:689 src/Resources.vala:273
+#: src/Dialogs.vala:685 src/Resources.vala:273
 msgid "Edit Event Comment"
 msgstr "Olay Yorumunu Düzenle"
 
-#: src/Dialogs.vala:690
+#: src/Dialogs.vala:686
 msgid "Edit Photo/Video Comment"
 msgstr "Fotoğraf/Video Yorumu Düzenle"
 
-#: src/Dialogs.vala:691 src/Properties.vala:650
+#: src/Dialogs.vala:687 src/Properties.vala:650
 msgid "Comment:"
 msgstr "Yorum:"
 
-#: src/Dialogs.vala:707
+#: src/Dialogs.vala:703
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Dosyayı Sil ve _Çöpe Gönder"
 
-#: src/Dialogs.vala:711
+#: src/Dialogs.vala:707
 msgid "_Remove From Library"
 msgstr "_Kitaplıktan Kaldır"
 
-#: src/Dialogs.vala:754
+#: src/Dialogs.vala:750
 msgid "Revert External Edit?"
 msgstr "Dış Düzenlemeyi Geri Döndür?"
 
-#: src/Dialogs.vala:754
+#: src/Dialogs.vala:750
 msgid "Revert External Edits?"
 msgstr "Dış Düzenlemeleri Geri Döndür?"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:752
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
@@ -4244,33 +4249,33 @@ msgstr[0] ""
 "Bu işlem %d dış dosyaya yapılan tüm değişiklikleri yok edecek. Sürdürülsün "
 "mü?"
 
-#: src/Dialogs.vala:760
+#: src/Dialogs.vala:756
 msgid "Re_vert External Edit"
 msgstr "Dış Düzenlemeyi Geri D_öndür"
 
-#: src/Dialogs.vala:760
+#: src/Dialogs.vala:756
 msgid "Re_vert External Edits"
 msgstr "Dış Düzenlemeleri Geri D_öndür"
 
-#: src/Dialogs.vala:781
+#: src/Dialogs.vala:777
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Bu işlem %d fotoğrafı kitaplıktan kaldıracak. Sürdürülsün mü?"
 
-#: src/Dialogs.vala:788 src/Resources.vala:139
+#: src/Dialogs.vala:784 src/Resources.vala:139
 msgid "_Remove"
 msgstr "_Kaldır"
 
-#: src/Dialogs.vala:789
+#: src/Dialogs.vala:785
 msgid "Remove Photo From Library"
 msgstr "Fotoğrafı Kitaplıktan Kaldır"
 
-#: src/Dialogs.vala:789
+#: src/Dialogs.vala:785
 msgid "Remove Photos From Library"
 msgstr "Fotoğrafları Kitaplıktan Kaldır"
 
-#: src/Dialogs.vala:809
+#: src/Dialogs.vala:805
 #, c-format
 msgid ""
 "\n"
@@ -4285,13 +4290,13 @@ msgstr[0] ""
 "\n"
 "Ve diğer %d."
 
-#: src/Dialogs.vala:833 src/Dialogs.vala:860
+#: src/Dialogs.vala:831 src/Dialogs.vala:868
 msgid "Tags (separated by commas):"
 msgstr "Etiketler (virgülle ayrılmış):"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:919
+#: src/Dialogs.vala:946
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
@@ -4299,28 +4304,28 @@ msgstr ""
 "Shotwell fotoğrafları kitaplık klasörünün içine kopyalayabilir ya da "
 "kopyalama olmadan içe aktarabilir."
 
-#: src/Dialogs.vala:924
+#: src/Dialogs.vala:951
 msgid "Co_py Photos"
 msgstr "Fotoğrafları K_opyala"
 
-#: src/Dialogs.vala:925
+#: src/Dialogs.vala:952
 msgid "_Import in Place"
 msgstr "_Yerin İçine Aktar"
 
-#: src/Dialogs.vala:926
+#: src/Dialogs.vala:953
 msgid "Import to Library"
 msgstr "Kitaplığa Aktar"
 
-#: src/Dialogs.vala:936
+#: src/Dialogs.vala:963
 msgid "Remove From Library"
 msgstr "Kitaplıktan Kaldır"
 
-#: src/Dialogs.vala:937
+#: src/Dialogs.vala:964
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
 msgstr[0] "Fotoğraf(lar) Kitaplıktan Kaldırılıyor"
 
-#: src/Dialogs.vala:951
+#: src/Dialogs.vala:978
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -4338,7 +4343,7 @@ msgstr[0] ""
 "\n"
 "Bu eylem geri alınamaz."
 
-#: src/Dialogs.vala:955
+#: src/Dialogs.vala:982
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -4356,7 +4361,7 @@ msgstr[0] ""
 "\n"
 "Bu eylem geri alınamaz."
 
-#: src/Dialogs.vala:959
+#: src/Dialogs.vala:986
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -4374,7 +4379,7 @@ msgstr[0] ""
 "\n"
 "Bu eylem geri alınamaz."
 
-#: src/Dialogs.vala:991
+#: src/Dialogs.vala:1018
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -4385,7 +4390,7 @@ msgstr[0] ""
 "silinsin mi?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:1008
+#: src/Dialogs.vala:1035
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -4802,60 +4807,60 @@ msgstr "_Tümünü Değiştir"
 msgid "Export"
 msgstr "Dışa Aktar"
 
-#: src/faces/FacesTool.vala:115
+#: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
 msgstr "Yüzleri tanı…"
 
-#: src/faces/FacesTool.vala:140
+#: src/faces/FacesTool.vala:139
 msgid "Detect faces on this photo"
 msgstr "Bu fotoğraftaki yüzleri tanı"
 
-#: src/faces/FacesTool.vala:142
+#: src/faces/FacesTool.vala:141
 msgid "Cancel face detection"
 msgstr "Yüz tanımayı iptal et"
 
-#: src/faces/FacesTool.vala:146
+#: src/faces/FacesTool.vala:145
 msgid "Close the Faces tool without saving changes"
 msgstr "Yüzler aracını değişiklikleri kaydetmeden kapat"
 
-#: src/faces/FacesTool.vala:153 src/faces/FacesTool.vala:185
+#: src/faces/FacesTool.vala:152 src/faces/FacesTool.vala:186
 msgid "Click and drag to tag a face"
 msgstr "Yüz etiketlemek için tıkla ve sürükle"
 
-#: src/faces/FacesTool.vala:180
+#: src/faces/FacesTool.vala:181
 #, c-format
 msgid "Click to edit face “%s”"
 msgstr "“%s” yüzünü düzenlemek için tıkla"
 
-#: src/faces/FacesTool.vala:189
+#: src/faces/FacesTool.vala:190
 msgid "Stop dragging to add your face and name it."
 msgstr "Yüzünüzü eklemek için sürüklemeyi durdurun ve adlandırın."
 
-#: src/faces/FacesTool.vala:193
+#: src/faces/FacesTool.vala:194
 msgid "Type a name for this face, then press Enter"
 msgstr "Bu yüz için ad yazın, ardından Enterʼa basın"
 
-#: src/faces/FacesTool.vala:197
+#: src/faces/FacesTool.vala:198
 msgid "Move or modify the face shape or name and press Enter"
 msgstr "Yüz biçimini taşıyın veya düzenleyin, adı düzenleyin ve Enterʼa basın"
 
-#: src/faces/FacesTool.vala:201
+#: src/faces/FacesTool.vala:202
 msgid "Detecting faces"
 msgstr "Yüzler tanınıyor"
 
-#: src/faces/FacesTool.vala:212
+#: src/faces/FacesTool.vala:213
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr "Bilinmeyen yüzlerin adını belirlemezseniz kaydedilmeyecektir."
 
-#: src/faces/FacesTool.vala:233
+#: src/faces/FacesTool.vala:234
 msgid "Save changes and close the Faces tool"
 msgstr "Değişiklikleri kaydet ve Yüzler aracını kapat"
 
-#: src/faces/FacesTool.vala:235
+#: src/faces/FacesTool.vala:236
 msgid "No changes to save"
 msgstr "Kaydedilecek değişiklik yok"
 
-#: src/faces/FacesTool.vala:950
+#: src/faces/FacesTool.vala:951
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Yüz tanıma programı yaratılmaya çalışırken hata:\n"
 
@@ -4880,8 +4885,8 @@ msgstr "Kitaplığın içe aktarma geçmişine göz at"
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1126
-#: src/SearchFilter.vala:1127
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1123
+#: src/SearchFilter.vala:1124
 msgid "Flagged"
 msgstr "İşaretli"
 
@@ -4906,23 +4911,23 @@ msgstr "Son İçe Aktarılanlar"
 msgid "Organize and browse your photos"
 msgstr "Fotoğraflarınızı gözden geçirin ve düzenleyin"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1107
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1104
 msgid "Photos"
 msgstr "Fotoğraflar"
 
-#: src/library/LibraryWindow.vala:512
+#: src/library/LibraryWindow.vala:503
 msgid "Import From Folder"
 msgstr "Dizinden İçe Aktar"
 
-#: src/library/LibraryWindow.vala:518
+#: src/library/LibraryWindow.vala:509
 msgid "Recurse Into Subfolders"
 msgstr "Alt Klasörler İçine Yinele"
 
-#: src/library/LibraryWindow.vala:586
+#: src/library/LibraryWindow.vala:577
 msgid "Emptying Trash…"
 msgstr "Çöp Kutusu boşaltılıyor…"
 
-#: src/library/LibraryWindow.vala:765
+#: src/library/LibraryWindow.vala:756
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4934,23 +4939,23 @@ msgstr ""
 "ederiz. Fotoğrafları içe aktarmayı sürdürmek istiyor musunuz?"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:781
+#: src/library/LibraryWindow.vala:772
 msgid "Photos cannot be imported from this directory."
 msgstr "Fotoğraflar, bu dizinden içe aktarılamadı."
 
-#: src/library/LibraryWindow.vala:1004 src/library/LibraryWindow.vala:1015
+#: src/library/LibraryWindow.vala:995 src/library/LibraryWindow.vala:1006
 msgid "Updating library…"
 msgstr "Kitaplık güncelleniyor…"
 
-#: src/library/LibraryWindow.vala:1021
+#: src/library/LibraryWindow.vala:1012
 msgid "Preparing to auto-import photos…"
 msgstr "Fotoğraflar kendiliğinden içe aktarmaya hazırlanıyor…"
 
-#: src/library/LibraryWindow.vala:1026
+#: src/library/LibraryWindow.vala:1017
 msgid "Auto-importing photos…"
 msgstr "Fotoğraflar kendiliğinden içe aktarılıyor…"
 
-#: src/library/LibraryWindow.vala:1034
+#: src/library/LibraryWindow.vala:1025
 msgid "Writing metadata to files…"
 msgstr "Dosyalara üstveri yazılıyor…"
 
@@ -5013,75 +5018,75 @@ msgstr ""
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Shotwell veri tabanını doğrulama denenirken bilinmeyen hata: %s"
 
-#: src/main.vala:112
+#: src/main.vala:110
 msgid "Loading Shotwell"
 msgstr "Shotwell Yükleniyor"
 
-#: src/main.vala:349
+#: src/main.vala:343
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell’in gizli veri yolu"
 
-#: src/main.vala:349
+#: src/main.vala:343
 msgid "DIRECTORY"
 msgstr "DİZİN"
 
-#: src/main.vala:350
+#: src/main.vala:344
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Kitaplık dizinini çalışırken değişiklikler için izleme"
 
-#: src/main.vala:351
+#: src/main.vala:345
 msgid "Don’t display startup progress meter"
 msgstr "Başlangıç ilerleme metresini gösterme"
 
-#: src/main.vala:352
+#: src/main.vala:346
 msgid "Show the application’s version"
 msgstr "Uygulama sürümünü göster"
 
-#: src/main.vala:353
+#: src/main.vala:347
 msgid "Start the application in fullscreen mode"
 msgstr "Uygulamayı tam ekran kipinde başlat"
 
-#: src/main.vala:354
+#: src/main.vala:348
 msgid "Print the metadata of the image file"
 msgstr "Resim dosyasının üstverisini yazdır"
 
-#: src/main.vala:355
+#: src/main.vala:349
 msgid "Name for a custom profile"
 msgstr "Özel profil adı"
 
-#: src/main.vala:355
+#: src/main.vala:349
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:356
+#: src/main.vala:350
 msgid "Start with a browser of available profiles"
 msgstr "Var olan profillere göz atmayla başla"
 
-#: src/main.vala:357
+#: src/main.vala:351
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Eğer --profile ile verilen PROFIL yoksa oluştur"
 
-#: src/main.vala:358
+#: src/main.vala:352
 msgid "Show available profiles"
 msgstr "Kullanılabilir profilleri gister"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:389
+#: src/main.vala:383
 msgid "[FILE]"
 msgstr "[DOSYA]"
 
-#: src/main.vala:394
+#: src/main.vala:388
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Kullanılabilir komut satırı seçeneklerinin tam bir listesini görmek için “%s "
 "--help” komutunu çalıştır.\n"
 
-#: src/main.vala:401
+#: src/main.vala:395
 msgid "Choose Shotwell's profile"
 msgstr "Shotwell profili seç"
 
-#: src/main.vala:422
+#: src/main.vala:416
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "%s profili yok. Komuta --create eklemeyi düşünür müsünüz?"
@@ -5105,7 +5110,7 @@ msgstr "İzleme güncellemeleri işlenemedi: %s"
 msgid "Adjust the size of the thumbnails"
 msgstr "Ön izleme boyutunu ayarla"
 
-#: src/MediaPage.vala:419
+#: src/MediaPage.vala:416
 #, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
@@ -5113,31 +5118,31 @@ msgid ""
 msgstr "Shotwell seçili videoyu oynatamadı: %s"
 
 #. previous button
-#: src/PhotoPage.vala:550
+#: src/PhotoPage.vala:546
 msgid "Previous photo"
 msgstr "Önceki fotoğraf"
 
 #. next button
-#: src/PhotoPage.vala:556
+#: src/PhotoPage.vala:552
 msgid "Next photo"
 msgstr "Sonraki fotoğraf"
 
-#: src/PhotoPage.vala:1862
+#: src/PhotoPage.vala:1858
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Fotoğraf kaynağı bulunamadı: %s"
 
-#: src/PhotoPage.vala:2897
+#: src/PhotoPage.vala:2891
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Kitaplıktan Kaldır"
 
-#: src/PhotoPage.vala:2898
+#: src/PhotoPage.vala:2892
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Fotoğraf Kitaplıktan Kaldırılıyor"
 
-#: src/PhotoPage.vala:3042
+#: src/PhotoPage.vala:3036
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Dışa aktarılamadı %s: %s"
@@ -5389,20 +5394,20 @@ msgstr "Veri Klasörü"
 msgid "Choose Data Folder"
 msgstr "Veri Klasörü Seç"
 
-#: src/ProfileBrowser.vala:200
+#: src/ProfileBrowser.vala:198
 msgid "This is the currently active profile"
 msgstr "Şu anda etkin olan profildir"
 
-#: src/ProfileBrowser.vala:223
+#: src/ProfileBrowser.vala:221
 msgid "Remove this profile"
 msgstr "Bu profili kaldır"
 
-#: src/ProfileBrowser.vala:235
+#: src/ProfileBrowser.vala:233
 #, c-format
 msgid "Remove profile “%s”"
 msgstr "“%s” profilini kaldır"
 
-#: src/ProfileBrowser.vala:236
+#: src/ProfileBrowser.vala:234
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
@@ -5410,7 +5415,7 @@ msgstr ""
 "Seçeneklerin hiçbiri bu profille ilişkili resimlerin hiçbirini "
 "kaldırmayacaktır"
 
-#: src/ProfileBrowser.vala:237
+#: src/ProfileBrowser.vala:235
 #, c-format
 msgid ""
 "<b><span size=\"larger\">%s</span></b>\n"
@@ -5419,11 +5424,11 @@ msgstr ""
 "<b><span size=\"larger\">%s</span></b>\n"
 "<span weight=\"light\">%s</span>"
 
-#: src/ProfileBrowser.vala:239
+#: src/ProfileBrowser.vala:237
 msgid "Remove profile and files"
 msgstr "Profili ve dosyaları kaldır"
 
-#: src/ProfileBrowser.vala:239
+#: src/ProfileBrowser.vala:237
 msgid "Remove profile only"
 msgstr "Yalnızca profili kaldır"
 
@@ -5921,7 +5926,7 @@ msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Arama “%s” olarak yeniden adlandırılamıyor çünkü bu arama zaten var."
 
 #. Saved search button
-#: src/Resources.vala:385 src/SearchFilter.vala:1148
+#: src/Resources.vala:385 src/SearchFilter.vala:1145
 msgid "Saved Search"
 msgstr "Kayıtlı Arama"
 
@@ -5939,99 +5944,99 @@ msgstr "“%s” Aramasını “%s” Olarak Yeniden Adlandır"
 msgid "Delete Search “%s”"
 msgstr "“%s” Aramasını Sil"
 
-#: src/Resources.vala:403
+#: src/Resources.vala:402
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "Yüz “%s” olarak adlandırılamadı çünkü yüz zaten var."
 
-#: src/Resources.vala:407
+#: src/Resources.vala:406
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "“%s” Yüzünü _Fotoğraftan Kaldır"
 
-#: src/Resources.vala:412
+#: src/Resources.vala:411
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "“%s” Yüzünü Fotoğraftan Kaldır"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:418 src/Resources.vala:423
+#: src/Resources.vala:417 src/Resources.vala:422
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "“%s” Yüzünü Fotoğraftan _Öğren"
 
-#: src/Resources.vala:431
+#: src/Resources.vala:430
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "“%s” Yüzünü Yeniden _Adlandır…"
 
-#: src/Resources.vala:435
+#: src/Resources.vala:434
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "“%s” Yüzünü “%s” Olarak Yeniden Adlandır"
 
-#: src/Resources.vala:439
+#: src/Resources.vala:438
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "“%s” Yüzünü _Sil"
 
-#: src/Resources.vala:443
+#: src/Resources.vala:442
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "“%s” Yüzünü Sil"
 
-#: src/Resources.vala:673
+#: src/Resources.vala:671
 #, c-format
 msgid "Rate %s"
 msgstr "%sʼi Puanla"
 
-#: src/Resources.vala:674
+#: src/Resources.vala:672
 #, c-format
 msgid "Set rating to %s"
 msgstr "Puanı %s olarak ayarla"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:673
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Puan %s olarak ayarlanıyor"
 
-#: src/Resources.vala:677
+#: src/Resources.vala:675
 #, c-format
 msgid "Display %s"
 msgstr "%sʼi Göster"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:676
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Puanı yalnızca %s olan fotoğrafları göster"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:677
 #, c-format
 msgid "%s or Better"
 msgstr "%s veya Daha İyisi"
 
-#: src/Resources.vala:680
+#: src/Resources.vala:678
 #, c-format
 msgid "Display %s or Better"
 msgstr "%s veya Daha İyisini Göster"
 
-#: src/Resources.vala:681
+#: src/Resources.vala:679
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Puanı yalnızca %s veya daha iyisi olan fotoğrafları göster"
 
-#: src/Resources.vala:779
+#: src/Resources.vala:777
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Seçili fotoğrafın ait olduğu dizini dosya yöneticisinde aç"
 
-#: src/Resources.vala:782
+#: src/Resources.vala:780
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Dosya yöneticisinde açılamıyor: %s"
 
-#: src/Resources.vala:790
+#: src/Resources.vala:788
 msgid "Select all items"
 msgstr "Tüm ögeleri seç"
 
@@ -6044,14 +6049,14 @@ msgstr "Tüm ögeleri seç"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:852
+#: src/Resources.vala:850
 msgid "%a %b %d, %Y"
 msgstr "%d %b %Y %a"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:857
+#: src/Resources.vala:855
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%d %b %a"
@@ -6059,7 +6064,7 @@ msgstr "%d %b %a"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:862
+#: src/Resources.vala:860
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -6067,7 +6072,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:867
+#: src/Resources.vala:865
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%d %b %a"
@@ -6075,7 +6080,7 @@ msgstr "%d %b %a"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:872
+#: src/Resources.vala:870
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%d %b %Y %a"
@@ -6085,164 +6090,164 @@ msgid "Slideshow"
 msgstr "Slayt gösterisi"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:168
 msgid "contains"
 msgstr "içerir"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:171
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is exactly"
 msgstr "tam olarak"
 
-#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:170
 msgid "starts with"
 msgstr "ile başlar"
 
-#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:171
 msgid "ends with"
 msgstr "ile biter"
 
-#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:172
 msgid "does not contain"
 msgstr "içermez"
 
-#: src/searches/SavedSearchDialog.vala:175
-#: src/searches/SavedSearchDialog.vala:506
+#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:504
 msgid "is not set"
 msgstr "ayarlı değil"
 
-#: src/searches/SavedSearchDialog.vala:176
+#: src/searches/SavedSearchDialog.vala:174
 msgid "is set"
 msgstr "ayarlı"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:250
-#: src/searches/SavedSearchDialog.vala:381
-#: src/searches/SavedSearchDialog.vala:446
+#: src/searches/SavedSearchDialog.vala:248
+#: src/searches/SavedSearchDialog.vala:379
+#: src/searches/SavedSearchDialog.vala:444
 msgid "is"
 msgstr "dir"
 
-#: src/searches/SavedSearchDialog.vala:251
+#: src/searches/SavedSearchDialog.vala:249
 msgid "is not"
 msgstr "değildir"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:257
+#: src/searches/SavedSearchDialog.vala:255
 msgid "any photo"
 msgstr "herhangi bir fotoğraf"
 
-#: src/searches/SavedSearchDialog.vala:258
+#: src/searches/SavedSearchDialog.vala:256
 msgid "a raw photo"
 msgstr "işenmemiş (raw) bir fotoğraf"
 
-#: src/searches/SavedSearchDialog.vala:259
+#: src/searches/SavedSearchDialog.vala:257
 msgid "a video"
 msgstr "bir video"
 
-#: src/searches/SavedSearchDialog.vala:313
+#: src/searches/SavedSearchDialog.vala:311
 msgid "has"
 msgstr "içerir"
 
-#: src/searches/SavedSearchDialog.vala:314
+#: src/searches/SavedSearchDialog.vala:312
 msgid "has no"
 msgstr "içermez"
 
-#: src/searches/SavedSearchDialog.vala:319
+#: src/searches/SavedSearchDialog.vala:317
 msgid "modifications"
 msgstr "değişiklikler"
 
-#: src/searches/SavedSearchDialog.vala:320
+#: src/searches/SavedSearchDialog.vala:318
 msgid "internal modifications"
 msgstr "dahili değişiklikler"
 
-#: src/searches/SavedSearchDialog.vala:321
+#: src/searches/SavedSearchDialog.vala:319
 msgid "external modifications"
 msgstr "harici düzenlemeler"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:375
+#: src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
 msgstr "işaretli"
 
-#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
 msgstr "işaretsiz"
 
-#: src/searches/SavedSearchDialog.vala:439
+#: src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
 msgstr "ve daha yüksek"
 
-#: src/searches/SavedSearchDialog.vala:440
+#: src/searches/SavedSearchDialog.vala:438
 msgid "only"
 msgstr "yalnızca"
 
-#: src/searches/SavedSearchDialog.vala:441
+#: src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
 msgstr "ve daha alçak"
 
-#: src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is after"
 msgstr "sonradır"
 
-#: src/searches/SavedSearchDialog.vala:504
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is before"
 msgstr "öncedir"
 
-#: src/searches/SavedSearchDialog.vala:505
+#: src/searches/SavedSearchDialog.vala:503
 msgid "is between"
 msgstr "arasındadır"
 
-#: src/searches/SavedSearchDialog.vala:518
+#: src/searches/SavedSearchDialog.vala:516
 msgid "and"
 msgstr "ve"
 
-#: src/searches/SearchBoolean.vala:169
+#: src/searches/SearchBoolean.vala:165
 msgid "Any text"
 msgstr "Herhangi bir metin"
 
-#: src/searches/SearchBoolean.vala:172
+#: src/searches/SearchBoolean.vala:168
 msgid "Title"
 msgstr "Başlık"
 
-#: src/searches/SearchBoolean.vala:175
+#: src/searches/SearchBoolean.vala:171
 msgid "Tag"
 msgstr "Etiket"
 
-#: src/searches/SearchBoolean.vala:178
+#: src/searches/SearchBoolean.vala:174
 msgid "Comment"
 msgstr "Yorum"
 
-#: src/searches/SearchBoolean.vala:181
+#: src/searches/SearchBoolean.vala:177
 msgid "Event name"
 msgstr "Etkinlik adı"
 
-#: src/searches/SearchBoolean.vala:184
+#: src/searches/SearchBoolean.vala:180
 msgid "File name"
 msgstr "Dosya adı"
 
-#: src/searches/SearchBoolean.vala:187
+#: src/searches/SearchBoolean.vala:183
 msgid "Face"
 msgstr "Yüz"
 
-#: src/searches/SearchBoolean.vala:190
+#: src/searches/SearchBoolean.vala:186
 msgid "Media type"
 msgstr "Ortam türü"
 
-#: src/searches/SearchBoolean.vala:193
+#: src/searches/SearchBoolean.vala:189
 msgid "Flag state"
 msgstr "İşaret durumu"
 
-#: src/searches/SearchBoolean.vala:196
+#: src/searches/SearchBoolean.vala:192
 msgid "Photo state"
 msgstr "Fotoğraf durumu"
 
-#: src/searches/SearchBoolean.vala:199 src/SearchFilter.vala:854
-#: src/SearchFilter.vala:1138
+#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:851
+#: src/SearchFilter.vala:1135
 msgid "Rating"
 msgstr "Puan"
 
-#: src/searches/SearchBoolean.vala:202
+#: src/searches/SearchBoolean.vala:198
 msgid "Date"
 msgstr "Tarih"
 
@@ -6254,27 +6259,27 @@ msgstr "Kaydedilmiş Aramalar"
 msgid "Organize your saved searches"
 msgstr "Kaydedilmiş aramalarınızı düzenleyin"
 
-#: src/SearchFilter.vala:838
+#: src/SearchFilter.vala:835
 msgid "★+ Rating"
 msgstr "★+ Puan"
 
-#: src/SearchFilter.vala:841
+#: src/SearchFilter.vala:838
 msgid "★★+ Rating"
 msgstr "★★+ Puan"
 
-#: src/SearchFilter.vala:844
+#: src/SearchFilter.vala:841
 msgid "★★★+ Rating"
 msgstr "★★★+ Puan"
 
-#: src/SearchFilter.vala:847
+#: src/SearchFilter.vala:844
 msgid "★★★★+ Rating"
 msgstr "★★★★+ Puan"
 
-#: src/SearchFilter.vala:851
+#: src/SearchFilter.vala:848
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ Puan"
 
-#: src/SearchFilter.vala:1088
+#: src/SearchFilter.vala:1085
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Arama çubuğu kullanıcı arayüzü yüklenirken hata: %s"
@@ -6284,24 +6289,24 @@ msgstr "Arama çubuğu kullanıcı arayüzü yüklenirken hata: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1097
+#: src/SearchFilter.vala:1094
 msgid "Close"
 msgstr "Kapat"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1103
+#: src/SearchFilter.vala:1100
 msgid "Type"
 msgstr "Tür"
 
-#: src/SearchFilter.vala:1110
+#: src/SearchFilter.vala:1107
 msgid "Videos"
 msgstr "Videolar"
 
-#: src/SearchFilter.vala:1113
+#: src/SearchFilter.vala:1110
 msgid "RAW Photos"
 msgstr "RAW Fotoğraflar"
 
-#: src/SearchFilter.vala:1149
+#: src/SearchFilter.vala:1146
 msgid "Use a saved search to filter items in the current view"
 msgstr "Geçerli görünümde ögeleri süzmek için kayıtlı arama kullan"
 
@@ -6368,7 +6373,7 @@ msgstr "Etiketler"
 msgid "Organize and browse your photo’s tags"
 msgstr "Fotoğraflarınızın etiketlerini gözden geçirin ve düzenleyin"
 
-#: src/Tag.vala:830
+#: src/Tag.vala:832
 msgid "untitled"
 msgstr "başlıksız"
 
@@ -6376,11 +6381,3 @@ msgstr "başlıksız"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
-
-#~ msgid "interpreter state cookie"
-#~ msgstr "yorumlayıcı durum çerezi"
-
-#~ msgid ""
-#~ "A numeric code that captures the state of the GStreamer plug-in "
-#~ "environment"
-#~ msgstr "GStreamer eklenti ortamının durumunu yakalayan sayısal kod"

@@ -96,12 +96,12 @@ public class VideoReader {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
 
-        TimeVal timestamp = info.get_modification_time();
+        var timestamp = info.get_modification_date_time();
 
         // make sure params has a valid md5
         assert(params.md5 != null);
 
-        time_t exposure_time = params.exposure_time_override;
+        DateTime exposure_time = params.exposure_time_override;
         string title = "";
         string comment = "";
 
@@ -126,7 +126,7 @@ public class VideoReader {
             VideoMetadata metadata = reader.read_metadata();
             MetadataDateTime? creation_date_time = metadata.get_creation_date_time();
 
-            if (creation_date_time != null && creation_date_time.get_timestamp() != 0)
+            if (creation_date_time != null && creation_date_time.get_timestamp() != null)
                 exposure_time = creation_date_time.get_timestamp();
 
             string? video_title = metadata.get_title();
@@ -139,16 +139,15 @@ public class VideoReader {
             warning("Unable to read video metadata: %s", err.message);
         }
 
-        if (exposure_time == 0) {
+        if (exposure_time == null) {
             // Use time reported by Gstreamer, if available.
-            exposure_time = (time_t) (reader.timestamp != null ?
-                reader.timestamp.to_unix() : 0);
+            exposure_time = reader.timestamp;
         }
 
         params.row.video_id = VideoID();
         params.row.filepath = file.get_path();
         params.row.filesize = info.get_size();
-        params.row.timestamp = timestamp.tv_sec;
+        params.row.timestamp = timestamp;
         params.row.width = preview_frame.width;
         params.row.height = preview_frame.height;
         params.row.clip_duration = clip_duration;
@@ -196,7 +195,7 @@ public class VideoReader {
 
             var process = new GLib.Subprocess(GLib.SubprocessFlags.STDOUT_PIPE, AppDirs.get_metadata_helper().get_path(), file.get_uri());
             var result = process.communicate(null, cancellable, out stdout_buf, out stderr_buf);
-            if (result && process.get_exit_status () == 0 && stdout_buf != null && stdout_buf.get_size() > 0) {
+            if (result && process.get_if_exited() && process.get_exit_status () == 0 && stdout_buf != null && stdout_buf.get_size() > 0) {
                 string[] lines = ((string) stdout_buf.get_data()).split("\n");
 
                 var old = Intl.setlocale(GLib.LocaleCategory.NUMERIC, "C");
@@ -206,7 +205,7 @@ public class VideoReader {
                     timestamp = new DateTime.from_iso8601(lines[1], null);
             } else {
                 string message = "";
-                if (stderr != null && stderr_buf.get_size() > 0) {
+                if (stderr_buf != null && stderr_buf.get_size() > 0) {
                     message = (string) stderr_buf.get_data();
                 }
                 warning ("External Metadata helper failed");

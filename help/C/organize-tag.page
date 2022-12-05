@@ -33,7 +33,9 @@
     <p>
 		When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or 
 		<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type
-		in the names of one or more tags, separated by commas.
+		in the names of one or more tags, separated by commas. You can also
+		add tag hierarchies on the fly using <input>/</input> as if they
+		were paths in the file system.
 		Once you have created a tag, you can rename it by selecting that 
 		tag in the sidebar and choosing 
 		<guiseq><gui>Tags</gui><gui>Rename Tag "[name]"...</gui></guiseq>,
@@ -77,7 +79,22 @@
 				To create a new subtag right-click on a tag and select 
 				<gui>New</gui>.
 			</p>
-            
+			<p>
+				In all places where textual tag input is supported, tags
+				can also be created using <input>/</input>. For example,
+				using <input>/World/Africa/Togo/Lomé</input> will create
+				or extend the tag tree
+			</p>
+			<tree>
+				<item>World
+					<item>Africa
+						<item>Togo
+							<item>Lomé</item>
+						</item>
+					</item>
+				</item>
+			</tree>
+		
             <p>
 				Hierarchical tags can help you to sort your tag list in 
 				ways that better match how you work or think; for example,

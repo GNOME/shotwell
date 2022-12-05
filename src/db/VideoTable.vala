@@ -38,20 +38,20 @@ public class VideoRow {
     public VideoID video_id;
     public string filepath;
     public int64 filesize;
-    public time_t timestamp;
+    public DateTime timestamp;
     public int width;
     public int height;
     public double clip_duration;
     public bool is_interpretable;
-    public time_t exposure_time;
+    public DateTime? exposure_time;
     public ImportID import_id;
     public EventID event_id;
     public string md5;
-    public time_t time_created;
+    public int64 time_created;
     public Rating rating;
     public string title;
     public string? backlinks;
-    public time_t time_reimported;
+    public int64 time_reimported;
     public uint64 flags;
     public string comment;
 }
@@ -119,7 +119,7 @@ public class VideoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        ulong time_created = now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, video_row.filepath);
         assert(res == Sqlite.OK);
@@ -133,9 +133,13 @@ public class VideoTable : DatabaseTable {
         assert(res == Sqlite.OK);       
         res = stmt.bind_int64(6, video_row.filesize);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(7, video_row.timestamp);
+        res = stmt.bind_int64(7, video_row.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(8, video_row.exposure_time);
+        if (video_row.exposure_time == null) {
+            stmt.bind_null(8);
+        } else {
+            res = stmt.bind_int64(8, video_row.exposure_time.to_unix());
+        }
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(9, video_row.import_id.id);
         assert(res == Sqlite.OK);
@@ -159,7 +163,7 @@ public class VideoTable : DatabaseTable {
         // fill in ignored fields with database values
         video_row.video_id = VideoID(db.last_insert_rowid());
         video_row.event_id = EventID();
-        video_row.time_created = (time_t) time_created;
+        video_row.time_created = time_created;
         video_row.flags = 0;
         
         return video_row.video_id;
@@ -208,16 +212,20 @@ public class VideoTable : DatabaseTable {
         row.clip_duration = stmt.column_double(3);
         row.is_interpretable = (stmt.column_int(4) == 1);
         row.filesize = stmt.column_int64(5);
-        row.timestamp = (time_t) stmt.column_int64(6);
-        row.exposure_time = (time_t) stmt.column_int64(7);
+        row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(6));
+        if (row.exposure_time == null) {
+            stmt.bind_null(7);
+        } else {
+            res = stmt.bind_int64(7, row.exposure_time.to_unix());
+        }
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
         row.md5 = stmt.column_text(10);
-        row.time_created = (time_t) stmt.column_int64(11);
+        row.time_created = stmt.column_int64(11);
         row.rating = Rating.unserialize(stmt.column_int(12));
         row.title = stmt.column_text(13);
         row.backlinks = stmt.column_text(14);
-        row.time_reimported = (time_t) stmt.column_int64(15);
+        row.time_reimported = stmt.column_int64(15);
         row.flags = stmt.column_int64(16);
         row.comment = stmt.column_text(17);
         
@@ -244,16 +252,20 @@ public class VideoTable : DatabaseTable {
             row.clip_duration = stmt.column_double(4);
             row.is_interpretable = (stmt.column_int(5) == 1);
             row.filesize = stmt.column_int64(6);
-            row.timestamp = (time_t) stmt.column_int64(7);
-            row.exposure_time = (time_t) stmt.column_int64(8);
+            row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(7));
+            if (row.exposure_time == null) {
+                stmt.bind_null(8);
+            } else {
+                res = stmt.bind_int64(8, row.exposure_time.to_unix());
+            }    
             row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
             row.md5 = stmt.column_text(11);
-            row.time_created = (time_t) stmt.column_int64(12);
+            row.time_created = stmt.column_int64(12);
             row.rating = Rating.unserialize(stmt.column_int(13));
             row.title = stmt.column_text(14);
             row.backlinks = stmt.column_text(15);
-            row.time_reimported = (time_t) stmt.column_int64(16);
+            row.time_reimported = stmt.column_int64(16);
             row.flags = stmt.column_int64(17);
             row.comment = stmt.column_text(18);
             
@@ -275,8 +287,8 @@ public class VideoTable : DatabaseTable {
        update_text_by_id_2(video_id.id, "comment", new_comment != null ? new_comment : "");
     }
     
-    public void set_exposure_time(VideoID video_id, time_t time) throws DatabaseError {
-        update_int64_by_id_2(video_id.id, "exposure_time", (int64) time);
+    public void set_exposure_time(VideoID video_id, DateTime time) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "exposure_time", time.to_unix());
     }
 
     public void set_rating(VideoID video_id, Rating rating) throws DatabaseError {
@@ -455,8 +467,19 @@ public class VideoTable : DatabaseTable {
         return result;
     }
     
-    public void set_timestamp(VideoID video_id, time_t timestamp) throws DatabaseError {
-        update_int64_by_id_2(video_id.id, "timestamp", (int64) timestamp);
+    public void set_timestamp(VideoID video_id, DateTime timestamp) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "timestamp", timestamp.to_unix());
     }
+
+    public static void upgrade_for_unset_timestamp() throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE VideoTable SET exposure_time = NULL WHERE exposure_time = '0'", -1, out stmt);
+        assert(res == Sqlite.OK);
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            throw_error("VideoTable.upgrade_for_unset_timestamp", res);
+        }
+    }
+
 }
 

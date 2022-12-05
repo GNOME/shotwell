@@ -9,7 +9,7 @@ public class VideoImportParams {
     public File file;
     public ImportID import_id = ImportID();
     public string? md5;
-    public time_t exposure_time_override;
+    public DateTime? exposure_time_override;
 
     // IN/OUT:
     public Thumbnails? thumbnails;
@@ -18,7 +18,7 @@ public class VideoImportParams {
     public VideoRow row = new VideoRow();
 
     public VideoImportParams(File file, ImportID import_id, string? md5,
-        Thumbnails? thumbnails = null, time_t exposure_time_override = 0) {
+        Thumbnails? thumbnails = null, DateTime? exposure_time_override = null) {
         this.file = file;
         this.import_id = import_id;
         this.md5 = md5;

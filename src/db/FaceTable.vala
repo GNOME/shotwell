@@ -25,7 +25,7 @@ public struct FaceID {
 public class FaceRow {
     public FaceID face_id;
     public string name;
-    public time_t time_created;
+    public int64 time_created;
     public PhotoID ref;
     public string vec;
 }
@@ -65,7 +65,7 @@ public class FaceTable : DatabaseTable {
             out stmt);
         assert(res == Sqlite.OK);
         
-        time_t time_created = (time_t) now_sec();
+        var time_created = now_sec();
         
         res = stmt.bind_text(1, name);
         assert(res == Sqlite.OK);
@@ -132,7 +132,7 @@ public class FaceTable : DatabaseTable {
         FaceRow row = new FaceRow();
         row.face_id = face_id;
         row.name = stmt.column_text(0);
-        row.time_created = (time_t) stmt.column_int64(1);
+        row.time_created = stmt.column_int64(1);
         
         return row;
     }
@@ -156,7 +156,7 @@ public class FaceTable : DatabaseTable {
             FaceRow row = new FaceRow();
             row.face_id = FaceID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
-            row.time_created = (time_t) stmt.column_int64(2);
+            row.time_created = stmt.column_int64(2);
             
             rows.add(row);
         }
@@ -202,7 +202,7 @@ public class FaceTable : DatabaseTable {
             FaceRow row = new FaceRow();
             row.face_id = FaceID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
-            row.time_created = (time_t) stmt.column_int64(2);
+            row.time_created = stmt.column_int64(2);
             row.ref = PhotoID(stmt.column_int64(3));
             
             rows.add(row);
