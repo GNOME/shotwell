@@ -1723,9 +1723,8 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             AppWindow.database_error(err);
             
             return;
-        } catch (Error err) {
         }
-        
+
         if (is_master_baseline())
             notify_altered(new Alteration.from_list("metadata:master-timestamp,metadata:baseline-timestamp"));
         else
@@ -1875,7 +1874,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             }
         } catch (Error err) {
             AppWindow.database_error(err);
-        } catch (Error err) {
         }
         
         if (altered) {
@@ -1929,8 +1927,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             }
         } catch (Error err) {
             AppWindow.database_error(err);
-        } catch (Error err) {
-            // TODO
         }
         
         if (altered) {
@@ -4107,8 +4103,6 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
                 }
             } catch (Error err) {
                 warning("Unable to remove editable from PhotoTable: %s", err.message);
-            } catch (Error err) {
-                // TODO
             }
             
             try {

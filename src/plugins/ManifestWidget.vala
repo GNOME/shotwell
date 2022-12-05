@@ -35,13 +35,13 @@ internal class DetailedRow : Gtk.Box {
         expand_details.bind_property("active", revealer, "reveal-child", BindingFlags.SYNC_CREATE);
     }
 
-    public void append(Gtk.Widget widget) {
-        row_container.pack_end(widget, false, false, 6);
+    public void append_widget(Gtk.Widget widget) {
+        row_container.append(widget);
     }
 
     public void set_detail_widget(Gtk.Widget child) {
         child.margin_top += 12;
-        revealer.add(child);
+        revealer.set_child(child);
     }
 }
 
@@ -146,21 +146,21 @@ private class PluggableRow : DetailedRow {
             var id = pluggable.get_id();
             set_pluggable_enabled(id, plugin_enabled.active);
         });
-        append(plugin_enabled);
+        append_widget(plugin_enabled);
 
         if (pluggable is Spit.Publishing.Service) {
-            var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic");
             manage.get_style_context().add_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
             manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
-            append(manage);
+            append_widget(manage);
             manage.clicked.connect(() => {
                 var list = new Gee.ArrayList<Spit.Publishing.Account>();
                 list.add(new Spit.Publishing.DefaultAccount());
 
                 var dialog = new AccountBrowser(list);
                 dialog.set_modal(true);
-                dialog.set_transient_for((Gtk.Window)(this.get_toplevel()));
+                dialog.set_transient_for((Gtk.Window)(this.get_root()));
                 dialog.response.connect(() => {dialog.destroy(); });
                 dialog.show();
             });           
@@ -226,7 +226,7 @@ private class ManifestListView : Gtk.Box {
             label.set_markup("<span weight=\"bold\">%s</span>".printf(extension_point.name));
             label.halign = Gtk.Align.START;
             label.hexpand = true;
-            add(label);
+            append(label);
             var pluggables = get_pluggables_for_type(extension_point.pluggable_type, compare_pluggable_names, true);
             var box = new Gtk.ListBox();
             box.set_selection_mode(Gtk.SelectionMode.NONE);
@@ -248,11 +248,11 @@ private class ManifestListView : Gtk.Box {
             }
 
             if (added > 0) {
-                add(box);
+                append(box);
             }
         }
 
-        show_all();
+        show();
     }
 } 
 

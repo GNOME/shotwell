@@ -497,8 +497,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             AppWindow.database_error(err);
 
             return;
-        } catch (Error err) {
-        // TODO
         }
 
         notify_altered(new Alteration("metadata", "master-timestamp"));
@@ -691,8 +689,6 @@ public class Video : VideoSource, Flaggable, Monitorable, Dateable {
             AppWindow.database_error(err);
 
             return;
-        } catch (Error err) {
-            // TODO
         }
 
         assert(old_filepath != null);

@@ -121,33 +121,34 @@ namespace Shotwell {
         public override void constructed() {
             base.constructed();
             var content = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
-            pack_start(content, true);
+            content.vexpand = true;
+            append(content);
     
             var revealer = new Gtk.Revealer();
             revealer.margin_top = 6;
-            pack_end(revealer, true);
+            append(revealer);
                 
             var label = new Gtk.Label(null);
             label.set_markup("<span weight=\"bold\">%s</span>".printf(profile.name));
             label.halign = Gtk.Align.START;
-            content.pack_start(label, true, true, 6);
+            content.prepend(label);
 
             Gtk.Image image;
             if (profile.active) {
-                image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                image = new Gtk.Image.from_icon_name ("emblem-default-symbolic");
                 image.set_tooltip_text(_("This is the currently active profile"));
 
             } else {
                 image = new Gtk.Image();
             }
-            content.pack_start(image, false, false, 6);
+            content.prepend(image);
 
             var button = new Gtk.ToggleButton();
             button.get_style_context().add_class("flat");
-            content.pack_start(button, false, false, 6);
+            content.prepend(button);
             button.bind_property("active", revealer, "reveal-child", BindingFlags.DEFAULT);
-            image = new Gtk.Image.from_icon_name("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            button.add(image);
+            image = new Gtk.Image.from_icon_name("go-down-symbolic");
+            button.set_child(image);
 
             // FIXME: Would love to use the facade here, but this is currently hardwired to use a fixed profile
             // and that even is not yet initialized
@@ -165,12 +166,12 @@ namespace Shotwell {
             }
 
             var grid = new Gtk.Grid();
-            grid.get_style_context().add_class("content");
+            grid.add_css_class("content");
             grid.set_row_spacing(12);
             grid.set_column_spacing(6);
-            revealer.add(grid);
+            revealer.set_child(grid);
             label = new Gtk.Label(_("Library Folder"));
-            label.get_style_context().add_class("dim-label");
+            label.add_css_class("dim-label");
             label.halign = Gtk.Align.END;
             label.margin_start = 12;
             grid.attach(label, 0, 0, 1, 1);
@@ -180,7 +181,7 @@ namespace Shotwell {
             grid.attach(label, 1, 0, 1, 1);
     
             label = new Gtk.Label(_("Data Folder"));
-            label.get_style_context().add_class("dim-label");
+            label.add_css_class("dim-label");
             label.halign = Gtk.Align.END;
             label.margin_start = 12;
             grid.attach(label, 0, 1, 1, 1);
@@ -204,18 +205,21 @@ namespace Shotwell {
                         flags |= Gtk.DialogFlags.USE_HEADER_BAR;
                     }
 
-                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_toplevel(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
+                    var d = new Gtk.MessageDialog((Gtk.Window) this.get_root(), flags, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, null);
                     var title = _("Remove profile “%s”").printf(profile.name);
                     var subtitle = _("None of the options will remove any of the images associated with this profile");
                     d.set_markup(_("<b><span size=\"larger\">%s</span></b>\n<span weight=\"light\">%s</span>").printf(title, subtitle));
 
                     d.add_buttons(_("Remove profile and files"), Gtk.ResponseType.OK, _("Remove profile only"), Gtk.ResponseType.ACCEPT, _("Cancel"), Gtk.ResponseType.CANCEL);
-                    d.get_widget_for_response(Gtk.ResponseType.OK).get_style_context().add_class("destructive-action");
-                    var response = d.run();
-                    d.destroy();
-                    if (response == Gtk.ResponseType.OK || response == Gtk.ResponseType.ACCEPT) {
-                        ProfileManager.get_instance().remove(profile.id, response == Gtk.ResponseType.OK);
-                    }
+                    d.get_widget_for_response(Gtk.ResponseType.OK).add_css_class("destructive-action");
+                    d.set_transient_for((Gtk.Window)remove_button.get_root());
+                    d.set_modal(true);
+                    d.response.connect((response) => {
+                        if (response == Gtk.ResponseType.OK || response == Gtk.ResponseType.ACCEPT) {
+                            ProfileManager.get_instance().remove(profile.id, response == Gtk.ResponseType.OK);
+                        }    
+                        d.destroy();
+                    });
                 });
             }
         }
@@ -270,11 +274,7 @@ namespace Shotwell {
         }
 
         private Gtk.Widget on_widget_create(Object item) {
-            var row = new Gtk.ListBoxRow();
-            row.add(new ProfileRow((Profile) item));
-            row.show_all();
-
-            return row;
+            return new ProfileRow((Profile) item);
         }
 
         private void on_header(Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {

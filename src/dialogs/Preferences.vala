@@ -44,8 +44,7 @@ public class PreferencesDialog : Gtk.Dialog {
     [GtkChild]
     private unowned Gtk.CheckButton lowercase;
     private Plugins.ManifestWidgetMediator plugins_mediator = new Plugins.ManifestWidgetMediator();
-    [GtkChild]
-    private unowned Gtk.Box plugins_box;
+
     [GtkChild]
     private unowned Gtk.ComboBoxText default_raw_developer_combo;
 
