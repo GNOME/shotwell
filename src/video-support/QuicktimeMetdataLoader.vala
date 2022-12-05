@@ -11,7 +11,12 @@ public class QuickTimeMetadataLoader {
     }
 
     public MetadataDateTime? get_creation_date_time() {
-        return new MetadataDateTime(get_creation_date_time_for_quicktime());
+        var dt = get_creation_date_time_for_quicktime();
+        if (dt == null) {
+            return null;
+        } else {
+            return new MetadataDateTime(dt);
+        }
     }
 
     public string? get_title() {
