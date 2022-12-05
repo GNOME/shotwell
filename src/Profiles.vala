@@ -198,7 +198,6 @@ namespace Shotwell {
 
         const string SCHEMAS[] = {
             "sharing",
-            "video",
             "printing",
             "plugins.enable-state",
             "preferences.ui",
