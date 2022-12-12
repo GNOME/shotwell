@@ -80,13 +80,13 @@ public class StraightenTool : EditingTool {
             // different backgrounds.
             ctx.set_source_rgba(0.0, 0.0, 0.0, alpha);
             ctx.set_dash(GUIDE_DASH,  GUIDE_DASH[0] / 2);
-            ctx.move_to(x[0] + 0.5, y[0] + 0.5);
-            ctx.line_to(x[1] + 0.5, y[1] + 0.5);
+            ctx.move_to(x[0] * Application.get_scale() + 0.5, y[0]* Application.get_scale() + 0.5);
+            ctx.line_to(x[1] * Application.get_scale()+ 0.5, y[1]* Application.get_scale() + 0.5);
             ctx.stroke();
             ctx.set_dash(GUIDE_DASH, -GUIDE_DASH[0] / 2);
             ctx.set_source_rgba(1.0, 1.0, 1.0, alpha); 
-            ctx.move_to(x[0] + 0.5, y[0] + 0.5);
-            ctx.line_to(x[1] + 0.5, y[1] + 0.5);
+            ctx.move_to(x[0] * Application.get_scale()+ 0.5, y[0]* Application.get_scale() + 0.5);
+            ctx.line_to(x[1] * Application.get_scale()+ 0.5, y[1] * Application.get_scale()+ 0.5);
             ctx.stroke();
         }
     }
@@ -468,8 +468,8 @@ public class StraightenTool : EditingTool {
      *      it's not used.
      */
     public override void paint(Cairo.Context ctx) {
-        int w = canvas.get_drawing_window().get_width();
-        int h = canvas.get_drawing_window().get_height();
+        int w = canvas.get_drawing_window().get_width() * Application.get_scale();
+        int h = canvas.get_drawing_window().get_height() * Application.get_scale();
 
         // fill region behind the rotation surface with neutral color.
         canvas.get_default_ctx().identity_matrix();
