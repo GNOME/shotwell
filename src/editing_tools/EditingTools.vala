@@ -2107,13 +2107,17 @@ public class RedeyeTool : EditingTool {
     }
 
     public override void on_left_click(int x, int y) {
+        var scale = Application.get_scale();
+
         Gdk.Rectangle bounds_rect =
             RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-        if (coord_in_rectangle(x, y, bounds_rect)) {
+
+        if (coord_in_rectangle(x * scale, y * scale, bounds_rect)) {
+            print("Motion in progress!!\n");
             is_reticle_move_in_progress = true;
-            reticle_move_mouse_start_point.x = x;
-            reticle_move_mouse_start_point.y = y;
+            reticle_move_mouse_start_point.x = x * scale;
+            reticle_move_mouse_start_point.y = y * scale;
             reticle_move_anchor = user_interaction_instance.center;
         }
     }
@@ -2123,6 +2127,8 @@ public class RedeyeTool : EditingTool {
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        var scale = Application.get_scale();
+
         if (is_reticle_move_in_progress) {
 
             Gdk.Rectangle active_region_rect =
@@ -2139,8 +2145,8 @@ public class RedeyeTool : EditingTool {
                 active_region_rect.y + active_region_rect.height -
                 user_interaction_instance.radius - 1;
 
-            int delta_x = x - reticle_move_mouse_start_point.x;
-            int delta_y = y - reticle_move_mouse_start_point.y;
+            int delta_x = x * scale - reticle_move_mouse_start_point.x;
+            int delta_y = y * scale - reticle_move_mouse_start_point.y;
 
             user_interaction_instance.center.x = reticle_move_anchor.x +
                 delta_x;
@@ -2159,7 +2165,7 @@ public class RedeyeTool : EditingTool {
             Gdk.Rectangle bounds =
                 RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-            if (coord_in_rectangle(x, y, bounds)) {
+            if (coord_in_rectangle(x * scale, y * scale, bounds)) {
                 canvas.set_cursor(Gdk.CursorType.FLEUR);
             } else {
                 canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
