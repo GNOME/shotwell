@@ -1289,7 +1289,7 @@ public class CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pixbuf_pos.x, scaled_pixbuf_pos.y);
 
         // determine where the mouse down landed and store for future events
-        in_manipulation = offset_scaled_crop.approx_location(x, y);
+        in_manipulation = offset_scaled_crop.approx_location(x * Application.get_scale(), y * Application.get_scale());
         last_grab_x = x -= scaled_pixbuf_pos.x;
         last_grab_y = y -= scaled_pixbuf_pos.y;
 
@@ -1317,19 +1317,20 @@ public class CropTool : EditingTool {
         // only deal with manipulating the crop tool when click-and-dragging one of the edges
         // or the interior
         if (in_manipulation != BoxLocation.OUTSIDE)
-            on_canvas_manipulation(x, y);
+            on_canvas_manipulation(x * Application.get_scale(), y * Application.get_scale());
 
         update_cursor(x, y);
         canvas.repaint();
     }
 
     public override void paint(Cairo.Context default_ctx) {
+        var scale = Application.get_scale();
         // fill region behind the crop surface with neutral color
         int w = canvas.get_drawing_window().get_width();
         int h = canvas.get_drawing_window().get_height();
 
         default_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
-        default_ctx.rectangle(0, 0, w, h);
+        default_ctx.rectangle(0, 0, w * scale, h * scale);
         default_ctx.fill();
         default_ctx.paint();
 
@@ -1379,7 +1380,7 @@ public class CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
 
         Gdk.CursorType cursor_type = Gdk.CursorType.LEFT_PTR;
-        switch (offset_scaled_crop.approx_location(x, y)) {
+        switch (offset_scaled_crop.approx_location(x * Application.get_scale(), y * Application.get_scale())) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = Gdk.CursorType.LEFT_SIDE;
             break;
