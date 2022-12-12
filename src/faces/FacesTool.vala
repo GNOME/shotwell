@@ -525,6 +525,10 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     public override void on_left_click(int x, int y) {
+        var scale = Application.get_scale();
+        x *= scale;
+        y *= scale;
+        
         if (editing_face_shape != null && editing_face_shape.on_left_click(x, y))
             return;
 
@@ -541,6 +545,10 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     public override void on_left_released(int x, int y) {
+        var scale = Application.get_scale();
+        x *= scale;
+        y *= scale;
+
         if (editing_face_shape != null) {
             editing_face_shape.on_left_released(x, y);
 
@@ -550,6 +558,10 @@ public class FacesTool : EditingTools.EditingTool {
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        var scale = Application.get_scale();
+        x *= scale;
+        y *= scale;
+        
         if (editing_face_shape == null) {
             FaceShape to_show = null;
             double distance = 0;

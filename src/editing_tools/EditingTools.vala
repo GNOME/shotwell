@@ -382,12 +382,13 @@ public abstract class PhotoCanvas {
     }
 
     public void erase_horizontal_line(int x, int y, int width) {
+        var scale = Application.get_scale();
         default_ctx.save();
 
         default_ctx.set_operator(Cairo.Operator.SOURCE);
         default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
-            width - 1, 1);
+            width - 1, 1 * scale);
         default_ctx.fill();
 
         default_ctx.restore();
@@ -405,6 +406,8 @@ public abstract class PhotoCanvas {
     public void erase_vertical_line(int x, int y, int height) {
         default_ctx.save();
 
+        var scale = Application.get_scale();
+
         // Ticket #3146 - artifacting when moving the crop box or
         // enlarging it from the lower right.
         // We now no longer subtract one from the height before choosing
@@ -412,7 +415,7 @@ public abstract class PhotoCanvas {
         default_ctx.set_operator(Cairo.Operator.SOURCE);
         default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
-            1, height);
+            1 * scale, height);
         default_ctx.fill();
 
         default_ctx.restore();
@@ -428,6 +431,7 @@ public abstract class PhotoCanvas {
 
     public void invalidate_area(Box area) {
         Gdk.Rectangle rect = area.get_rectangle();
+
         rect.x += scaled_position.x;
         rect.y += scaled_position.y;
 
@@ -1247,20 +1251,22 @@ public class CropTool : EditingTool {
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        var scale = Application.get_scale();
         wide_black_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_black_ctx, "#000");
-        wide_black_ctx.set_line_width(1);
+        wide_black_ctx.set_line_width(1 * scale);
 
         wide_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_white_ctx, "#FFF");
-        wide_white_ctx.set_line_width(1);
+        wide_white_ctx.set_line_width(1 * scale);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
-        thin_white_ctx.set_line_width(0.5);
+        thin_white_ctx.set_line_width(0.5 * scale);
 
         text_ctx = new Cairo.Context(ctx.get_target());
         text_ctx.select_font_face("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
+        text_ctx.set_font_size(10.0 * scale);
     }
 
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
@@ -1289,7 +1295,7 @@ public class CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pixbuf_pos.x, scaled_pixbuf_pos.y);
 
         // determine where the mouse down landed and store for future events
-        in_manipulation = offset_scaled_crop.approx_location(x, y);
+        in_manipulation = offset_scaled_crop.approx_location(x * Application.get_scale(), y * Application.get_scale());
         last_grab_x = x -= scaled_pixbuf_pos.x;
         last_grab_y = y -= scaled_pixbuf_pos.y;
 
@@ -1317,19 +1323,20 @@ public class CropTool : EditingTool {
         // only deal with manipulating the crop tool when click-and-dragging one of the edges
         // or the interior
         if (in_manipulation != BoxLocation.OUTSIDE)
-            on_canvas_manipulation(x, y);
+            on_canvas_manipulation(x * Application.get_scale(), y * Application.get_scale());
 
         update_cursor(x, y);
         canvas.repaint();
     }
 
     public override void paint(Cairo.Context default_ctx) {
+        var scale = Application.get_scale();
         // fill region behind the crop surface with neutral color
         int w = canvas.get_drawing_window().get_width();
         int h = canvas.get_drawing_window().get_height();
 
         default_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
-        default_ctx.rectangle(0, 0, w, h);
+        default_ctx.rectangle(0, 0, w * scale, h * scale);
         default_ctx.fill();
         default_ctx.paint();
 
@@ -1379,7 +1386,7 @@ public class CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
 
         Gdk.CursorType cursor_type = Gdk.CursorType.LEFT_PTR;
-        switch (offset_scaled_crop.approx_location(x, y)) {
+        switch (offset_scaled_crop.approx_location(x * Application.get_scale(), y * Application.get_scale())) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = Gdk.CursorType.LEFT_SIDE;
             break;
@@ -1926,13 +1933,14 @@ public class RedeyeTool : EditingTool {
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        var scale = Application.get_scale();
         wider_gray_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wider_gray_ctx, "#111");
-        wider_gray_ctx.set_line_width(3);
+        wider_gray_ctx.set_line_width(3 * scale);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
-        thin_white_ctx.set_line_width(1);
+        thin_white_ctx.set_line_width(1 * scale);
     }
 
     private void draw_redeye_instance(RedeyeInstance inst) {
@@ -2106,13 +2114,17 @@ public class RedeyeTool : EditingTool {
     }
 
     public override void on_left_click(int x, int y) {
+        var scale = Application.get_scale();
+
         Gdk.Rectangle bounds_rect =
             RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-        if (coord_in_rectangle(x, y, bounds_rect)) {
+
+        if (coord_in_rectangle(x * scale, y * scale, bounds_rect)) {
+            print("Motion in progress!!\n");
             is_reticle_move_in_progress = true;
-            reticle_move_mouse_start_point.x = x;
-            reticle_move_mouse_start_point.y = y;
+            reticle_move_mouse_start_point.x = x * scale;
+            reticle_move_mouse_start_point.y = y * scale;
             reticle_move_anchor = user_interaction_instance.center;
         }
     }
@@ -2122,6 +2134,8 @@ public class RedeyeTool : EditingTool {
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        var scale = Application.get_scale();
+
         if (is_reticle_move_in_progress) {
 
             Gdk.Rectangle active_region_rect =
@@ -2138,8 +2152,8 @@ public class RedeyeTool : EditingTool {
                 active_region_rect.y + active_region_rect.height -
                 user_interaction_instance.radius - 1;
 
-            int delta_x = x - reticle_move_mouse_start_point.x;
-            int delta_y = y - reticle_move_mouse_start_point.y;
+            int delta_x = x * scale - reticle_move_mouse_start_point.x;
+            int delta_y = y * scale - reticle_move_mouse_start_point.y;
 
             user_interaction_instance.center.x = reticle_move_anchor.x +
                 delta_x;
@@ -2158,7 +2172,7 @@ public class RedeyeTool : EditingTool {
             Gdk.Rectangle bounds =
                 RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-            if (coord_in_rectangle(x, y, bounds)) {
+            if (coord_in_rectangle(x * scale, y * scale, bounds)) {
                 canvas.set_cursor(Gdk.CursorType.FLEUR);
             } else {
                 canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
