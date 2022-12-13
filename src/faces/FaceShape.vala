@@ -45,9 +45,7 @@ public abstract class FaceShape : Object {
         prepare_ctx(this.canvas.get_default_ctx(), this.canvas.get_surface_dim());
         
         face_window = new FacesTool.EditingFacePopover(AppWindow.get_instance().get_current_page());
-        face_window.entry.activate.connect(popover_ok_button_pressed);
-        face_window.ok_button.clicked.connect(popover_ok_button_pressed);
-        face_window.cancel_button.clicked.connect(popover_cancel_button_pressed);
+        face_window.response.connect(popover_ok_button_pressed);
         
         this.face_vec = vec;
         this.canvas.set_cursor(current_cursor_type);
@@ -57,7 +55,7 @@ public abstract class FaceShape : Object {
         if (view_state != ViewState.HIDE)
             erase();
         
-        face_window.popover.destroy();
+        face_window.destroy();
         
         canvas.new_surface.disconnect(prepare_ctx);
         
@@ -86,11 +84,11 @@ public abstract class FaceShape : Object {
     
     public void set_name(string face_name) {
         initial_name = face_name;
-        face_window.entry.set_text(face_name);
+        face_window.label = face_name;
     }
 
     public void set_entry_name(string face_name) {
-        face_window.entry.set_text(face_name);
+        face_window.label = face_name;
     }
     
     public string? get_name() {
@@ -100,7 +98,7 @@ public abstract class FaceShape : Object {
     }
 
     public string? get_entry_name() {
-        string face_name = face_window.entry.get_text();
+        string face_name = face_window.label;
         
         return face_name == "" ? null : face_name;
     }
@@ -136,14 +134,17 @@ public abstract class FaceShape : Object {
     }
     
     public void show() {
-        if (!known)
-            face_window.entry.select_region(0, -1);
+        if (!known) {
+            face_window.variant = FacesTool.EditingFacePopover.PopoverVariant.CREATE;
+        } else {
+            face_window.variant = FacesTool.EditingFacePopover.PopoverVariant.UPDATE;
+        }
 
         if (view_state == ViewState.CONTOUR_AND_POPOVER) {
             //[TODO] see better
             update_face_window_position();
-            face_window.popover.set_visible(true);
-            face_window.popover.popup();
+            face_window.set_visible(true);
+            face_window.popup();
         } else if (view_state != ViewState.HIDE) {
             view_state = ViewState.CONTOUR;
         }
@@ -169,7 +170,7 @@ public abstract class FaceShape : Object {
             // remove label
         } else if (this.view_state == ViewState.CONTOUR_AND_POPOVER) {
             // remove popover
-            face_window.popover.set_visible(false);
+            face_window.set_visible(false);
             set_entry_name(get_name());
         }
 
@@ -189,8 +190,8 @@ public abstract class FaceShape : Object {
             // pop popover
             face_widget.face_tool_window_default_view();
             update_face_window_position();
-            face_window.popover.set_visible(true);
-            face_window.popover.popup();
+            face_window.set_visible(true);
+            face_window.popup();
             get_widget().activate_label();
         }
         
@@ -213,12 +214,12 @@ public abstract class FaceShape : Object {
         return true;
     }
 
-    public void popover_ok_button_pressed() {
-        add_me_requested(this);
-    }
-
-    public void popover_cancel_button_pressed() {
-        delete_me_requested();
+    public void popover_ok_button_pressed(Gtk.ResponseType response) {
+        if (response == Gtk.ResponseType.OK) {
+            add_me_requested(this);
+        } else {
+            delete_me_requested();
+        }
     }
     
     public abstract string serialize(bool geometry_only = false);
@@ -373,7 +374,7 @@ public class FaceRectangle : FaceShape {
         rect.y = box.bottom - box.get_height() + scaled_pixbuf_pos.y;
         rect.width = box.get_width();
         rect.height = box.get_height();
-        face_window.popover.set_pointing_to(rect);
+        face_window.set_pointing_to(rect);
     }
     
     protected override void paint() {
@@ -834,7 +835,7 @@ public class FaceRectangle : FaceShape {
         }
         
         if (view_state == ViewState.CONTOUR_AND_POPOVER)
-            face_window.popover.set_visible(true);
+            face_window.set_visible(true);
         
         // nothing to do if released outside of the face box
         if (in_manipulation == BoxLocation.OUTSIDE)

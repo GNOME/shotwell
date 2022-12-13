@@ -352,38 +352,82 @@ public class FacesTool : EditingTools.EditingTool {
         }
     }
 
-    public class EditingFacePopover{
-        public Gtk.Popover popover;
-        public Gtk.Entry entry;
-        public Gtk.Button ok_button;
-        public Gtk.Button cancel_button;
+    public class EditingFacePopover : Gtk.Popover {
+        public enum PopoverVariant {
+            CREATE,
+            UPDATE,
+        }
+
+        public string label { get; set; default = ""; }
+        public PopoverVariant variant { get; set; default = PopoverVariant.CREATE; }
+        private Gtk.Entry entry;
+        private Gtk.Button ok_button;
+
+        public signal void response(Gtk.ResponseType response);
 
         public EditingFacePopover(Page? window){
-            entry = new Gtk.Entry();
-            ok_button = new Gtk.Button.with_label(Resources.OK_LABEL);
-            ok_button.set_use_underline(true);
-            cancel_button = new Gtk.Button.with_label(Resources.CANCEL_LABEL);
-            cancel_button.set_use_underline(true);
+            Object(relative_to: window);
 
-            Gtk.Box layoutH;
+
+            entry = new Gtk.Entry();
+            bind_property("label", entry, "text", BindingFlags.SYNC_CREATE | BindingFlags.BIDIRECTIONAL);
+            ok_button = new Gtk.Button();
+            ok_button.set_use_underline(true);
+            ok_button.get_style_context().add_class("suggested-action");
+
+            bind_property("variant", ok_button, "label", BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
+                switch (from.get_enum()) {
+                    case PopoverVariant.CREATE:
+                        to.set_string(_("Create"));
+                        break;
+                    case PopoverVariant.UPDATE:
+                        to.set_string(_("Update"));
+                        break;
+                    default:
+                        return false;
+                }
+
+                return true;
+            });
+
+            bind_property("variant", this, "label", BindingFlags.DEFAULT, (binding, from, ref to) => {
+                switch (from.get_enum()) {
+                    case PopoverVariant.CREATE:
+                        to.set_string("");
+                        break;
+                    case PopoverVariant.UPDATE:
+                        to.set_string(label);
+                        break;
+                    default:
+                        return false;
+                }
+
+                return true;
+            });
+
             Gtk.Box layoutV;
-            layoutV = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            layoutV.set_border_width(5);
+            layoutV = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            layoutV.set_border_width(6);
             layoutV.set_spacing(CONTROL_SPACING);
-            layoutH = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            layoutH.set_homogeneous(true);
-            layoutH.set_spacing(CONTROL_SPACING);
             layoutV.add(entry);
-            layoutV.add(layoutH);
-            layoutH.add(ok_button);
-            layoutH.add(cancel_button);
+            layoutV.add(ok_button);
             layoutV.set_can_default (true);
-            popover = new Gtk.Popover(window);
-            popover.add(layoutV);
-            popover.set_position(Gtk.PositionType.BOTTOM);
-            popover.show_all();
-            popover.hide();
-            popover.set_modal(false);
+            
+            add(layoutV);
+            set_position(Gtk.PositionType.BOTTOM);
+            show_all();
+            hide();
+            set_modal(false);
+
+            closed.connect(() => {
+                response(Gtk.ResponseType.CANCEL);
+            });
+
+            entry.activate.connect(() => {
+                response(Gtk.ResponseType.OK);
+            });
+
+            ok_button.clicked.connect(() => { response(Gtk.ResponseType.OK);});
         }
     }
 
