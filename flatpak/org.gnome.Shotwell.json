@@ -75,25 +75,27 @@
                 }
             ]
         },
-	{
+        {
             "name": "libportal",
             "buildsystem": "meson",
             "builddir": true,
             "config-opts": [
                  "--libdir=/app/lib",
                 "--buildtype=debugoptimized",
-		"-Dbackends=gtk3",
-		"-Ddocs=false",
-		"-Dtests=false"
+                "-Dbackend-gtk3=enabled",
+                "-Dbackend-gtk4=disabled",
+                "-Dbackend-qt5=disabled",
+                "-Ddocs=false",
+                "-Dtests=false"
             ],
             "sources" : [
                 {
                     "type": "git",
                     "url": "https://github.com/flatpak/libportal.git",
-		    "branch": "main"
+                    "branch": "main"
                 }
             ]
-	},
+        },
         {
             "name" : "libusb",
             "sources" : [
