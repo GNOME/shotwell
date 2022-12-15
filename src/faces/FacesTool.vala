@@ -374,6 +374,8 @@ public class FacesTool : EditingTools.EditingTool {
             ok_button = new Gtk.Button();
             ok_button.set_use_underline(true);
             ok_button.get_style_context().add_class("suggested-action");
+            ok_button.halign = Gtk.Align.END;
+            ok_button.hexpand = false;
 
             bind_property("variant", ok_button, "label", BindingFlags.SYNC_CREATE, (binding, from, ref to) => {
                 switch (from.get_enum()) {
@@ -406,7 +408,7 @@ public class FacesTool : EditingTools.EditingTool {
             });
 
             Gtk.Box layoutV;
-            layoutV = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            layoutV = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             layoutV.set_border_width(6);
             layoutV.set_spacing(CONTROL_SPACING);
             layoutV.add(entry);
@@ -420,6 +422,7 @@ public class FacesTool : EditingTools.EditingTool {
             set_modal(false);
 
             closed.connect(() => {
+                print("Sending cancel...\n");
                 response(Gtk.ResponseType.CANCEL);
             });
 
@@ -679,8 +682,6 @@ public class FacesTool : EditingTools.EditingTool {
             if (faces_tool_window.get_editing_phase() == EditingPhase.CREATING_DRAGGING) {
                 faces_tool_window.set_editing_phase(EditingPhase.CREATING_EDITING);
                 editing_face_shape.set_known(false);
-                face_shapes.set(editing_face_shape.get_name(), editing_face_shape);
-                faces_tool_window.add_face(editing_face_shape);
                 editing_face_shape.set_view_state(CONTOUR_AND_POPOVER);
             }
         }

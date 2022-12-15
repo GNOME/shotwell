@@ -145,6 +145,7 @@ public abstract class FaceShape : Object {
             update_face_window_position();
             face_window.set_visible(true);
             face_window.popup();
+            face_window.grab_focus();
         } else if (view_state != ViewState.HIDE) {
             view_state = ViewState.CONTOUR;
         }
@@ -188,11 +189,16 @@ public abstract class FaceShape : Object {
             return;
         } else if (view_state == ViewState.CONTOUR_AND_POPOVER) {
             // pop popover
-            face_widget.face_tool_window_default_view();
+            if (face_widget != null) {
+                face_widget.face_tool_window_default_view();
+            }
             update_face_window_position();
             face_window.set_visible(true);
             face_window.popup();
-            get_widget().activate_label();
+
+            if (face_widget != null) {
+                get_widget().activate_label();
+            }
         }
         
         this.view_state = view_state;
@@ -216,9 +222,11 @@ public abstract class FaceShape : Object {
 
     public void popover_ok_button_pressed(Gtk.ResponseType response) {
         if (response == Gtk.ResponseType.OK) {
+            print("===> ok_button pressed, will add\n");
             add_me_requested(this);
         } else {
             delete_me_requested();
+            print("===> cancel_button pressed, will remove\n");
         }
     }
     
