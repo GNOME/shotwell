@@ -46,7 +46,7 @@ private class ShotwellPublishingCoreServices : Object, Spit.Module {
         pluggables += new TumblrService();
 #endif
 
-        pluggables += new Publishing.Mastodon.Service(resource_directory);
+        pluggables += new Publishing.Mastodon.Service();
     }
     
     public unowned string get_module_name() {
