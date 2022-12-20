@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-10-08 09:26+0000\n"
-"PO-Revision-Date: 2022-10-08 21:59+0300\n"
-"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"POT-Creation-Date: 2022-12-09 18:40+0000\n"
+"PO-Revision-Date: 2022-12-18 12:33+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:428
@@ -98,8 +98,8 @@ msgstr "показывать основные свойства"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:23
 msgid "True if the basic properties pane is to be displayed, false otherwise"
 msgstr ""
-"Значение True, если панель основных свойств должна отображаться. Если нет — "
-"False"
+"Значение «True», если панель основных свойств должна отображаться. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:28
 msgid "display extended properties"
@@ -109,8 +109,8 @@ msgstr "показывать расширенные свойства"
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise"
 msgstr ""
-"Значение True, если окно расширенных свойств должно отображаться. Если нет — "
-"False"
+"Значение «True», если окно расширенных свойств должно отображаться. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:34
 msgid "display sidebar"
@@ -119,7 +119,7 @@ msgstr "показывать боковую панель"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:35
 msgid "True if the sidebar is to be displayed, false otherwise"
 msgstr ""
-"Значение True, если боковая панель должна отображаться. Если нет — False"
+"Значение «True», если боковая панель должна отображаться. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:40
 msgid "display toolbar"
@@ -128,8 +128,8 @@ msgstr "показывать панель инструментов"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:41
 msgid "True if the bottom toolbar is to be displayed, false otherwise"
 msgstr ""
-"Значение True, если нижняя панель инструментов должна отображаться. Если нет "
-"— False"
+"Значение «True», если нижняя панель инструментов должна отображаться. Если "
+"нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:46
 msgid "display map widget"
@@ -137,7 +137,8 @@ msgstr "показывать мини-приложение карты"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:47
 msgid "True if the map widget is to be displayed, false otherwise"
-msgstr "Значение True, если виджет карты должен отображаться. Если нет — False"
+msgstr ""
+"Значение «True», если виджет карты должен отображаться. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:52
 msgid "display search bar"
@@ -146,8 +147,8 @@ msgstr "показывать панель поиска"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:53
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise"
 msgstr ""
-"Значение True, если панель инструментов поиска/фильтрации должна "
-"отображаться. Если нет — False"
+"Значение «True», если панель инструментов поиска/фильтрации должна "
+"отображаться. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:58
 msgid "display photo titles"
@@ -158,8 +159,8 @@ msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
 msgstr ""
-"Значение True, если названия фотографий должны отображаться под миниатюрами "
-"в режиме просмотра коллекций. Если нет — False"
+"Значение «True», если названия фотографий должны отображаться под "
+"миниатюрами в режиме просмотра коллекций. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:64
 msgid "display photo comments"
@@ -170,8 +171,8 @@ msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise"
 msgstr ""
-"Значение True, если комментарии к фотографиям должны отображаться под "
-"миниатюрами в режиме просмотра коллекций. Если нет — False"
+"Значение «True», если комментарии к фотографиям должны отображаться под "
+"миниатюрами в режиме просмотра коллекций. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:70
 msgid "display event comments"
@@ -182,8 +183,8 @@ msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise"
 msgstr ""
-"Значение True, если комментарии к событиям должны отображаться под "
-"миниатюрами в режиме просмотра событий. Если нет — False"
+"Значение «True», если комментарии к событиям должны отображаться под "
+"миниатюрами в режиме просмотра событий. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:76
 msgid "display photo tags"
@@ -194,8 +195,8 @@ msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise"
 msgstr ""
-"Значение True, если метки фотографий должны быть перечислены под миниатюрами "
-"в режиме просмотра коллекций. Если нет — False"
+"Значение «True», если метки фотографий должны быть перечислены под "
+"миниатюрами в режиме просмотра коллекций. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:82
 msgid "display photo ratings"
@@ -206,12 +207,12 @@ msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise"
 msgstr ""
-"Значение True, если на фотографии должна «накладываться» оценка. Если нет — "
-"False"
+"Значение «True», если на фотографии должна «накладываться» оценка. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:88
 msgid "rating filter level"
-msgstr "уровень фильтрации по рейтингу"
+msgstr "уровень фильтрации по оценке"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:89
 msgid ""
@@ -219,10 +220,9 @@ msgid ""
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
 "or better, 6: Four or better, 7: Five or better"
 msgstr ""
-"Определяет, как фотографии фильтруются по рейтингу. 1: Отклонённые или "
-"лучше; 2: Без рейтинга или лучше; 3: Одна звезда или лучше; 4: Две звезды "
-"или лучше; 5: Три звезды или лучше; 6: Четыре звезды или лучше; 7: Пять "
-"звёзд или лучше"
+"Определяет, как фотографии фильтруются по оценке. 1: Отклонённые или лучше; "
+"2: Без оценки или лучше; 3: Одна звезда или лучше; 4: Две звезды или лучше; "
+"5: Три звезды или лучше; 6: Четыре звезды или лучше; 7: Пять звёзд или лучше"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:94
 msgid "sort events ascending"
@@ -231,8 +231,8 @@ msgstr "сортировать события по возрастанию"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:95
 msgid "True if events should be sorted ascending, false if descending"
 msgstr ""
-"Значение True, если события следует сортировать по возрастанию. Если их "
-"следует сортировать по убыванию — False"
+"Значение «True», если события следует сортировать по возрастанию. Если их "
+"следует сортировать по убыванию — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:100
 msgid "sort library photos ascending"
@@ -241,8 +241,8 @@ msgstr "сортировать фотографии библиотеки по в
 #: data/gsettings/org.gnome.shotwell.gschema.xml:101
 msgid "True if library photos should be sorted ascending, false if descending"
 msgstr ""
-"Значение True, если фотографии библиотеки следует сортировать по "
-"возрастанию. Если их следует сортировать по убыванию — False"
+"Значение «True», если фотографии библиотеки следует сортировать по "
+"возрастанию. Если их следует сортировать по убыванию — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:106
 msgid "sort library photos criteria"
@@ -262,8 +262,8 @@ msgstr "сортировать фотографии событий по возр
 #: data/gsettings/org.gnome.shotwell.gschema.xml:113
 msgid "True if event photos should be sorted ascending, false if descending"
 msgstr ""
-"Значение True, если фотографии событий следует сортировать по возрастанию. "
-"Если их следует сортировать по убыванию — False"
+"Значение «True», если фотографии событий следует сортировать по возрастанию. "
+"Если их следует сортировать по убыванию — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:118
 msgid "sort event photos criteria"
@@ -282,8 +282,8 @@ msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation"
 msgstr ""
-"Значение True, если время следует отображать в 24-часовом формате. Если его "
-"следует отображать в формате AM/PM — False"
+"Значение «True», если время следует отображать в 24-часовом формате. Если "
+"его следует отображать в формате AM/PM — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:130
 msgid "keep relative time between photos"
@@ -294,9 +294,9 @@ msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time"
 msgstr ""
-"Значение True, если при корректировке даты/времени фотографий следует "
+"Значение «True», если при корректировке даты/времени фотографий следует "
 "сохранять относительное время. Если для всех фотографий следует установить "
-"одно и то же время — False"
+"одно и то же время — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:136
 msgid "modify original photo files"
@@ -307,9 +307,9 @@ msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database"
 msgstr ""
-"Значение True, если при корректировке даты/времени фотографий следует "
+"Значение «True», если при корректировке даты/времени фотографий следует "
 "изменять и оригиналы фотографий. Если изменения следует выполнять только в "
-"базе данных — False"
+"базе данных — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:142
 msgid "show welcome dialog on startup"
@@ -320,8 +320,8 @@ msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown"
 msgstr ""
-"Значение True, если при запуске следует показывать диалог приветствия. Если "
-"его не следует показывать — False"
+"Значение «True», если при запуске следует показывать диалог приветствия. "
+"Если его не следует показывать — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:148
 msgid "sidebar position"
@@ -429,8 +429,8 @@ msgstr "развернуть окно библиотеки"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:219
 msgid "True if library application is maximized, false otherwise"
 msgstr ""
-"Значение True, если окно приложения библиотеки должно быть развёрнуто. Если "
-"нет — False"
+"Значение «True», если окно приложения библиотеки должно быть развёрнуто. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:224
 msgid "width of library window"
@@ -455,8 +455,8 @@ msgstr "развернуть окно прямого редактировани�
 #: data/gsettings/org.gnome.shotwell.gschema.xml:237
 msgid "True if direct-edit application is maximized, false otherwise"
 msgstr ""
-"Значение True, если окно прямого редактирования должно быть развёрнуто. Если "
-"нет — False"
+"Значение «True», если окно прямого редактирования должно быть развёрнуто. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:242
 msgid "width of direct-edit window"
@@ -502,7 +502,7 @@ msgstr "следить за появлением новых файлов в ка
 msgid ""
 "If true, files added to the library directory are automatically imported"
 msgstr ""
-"Если значение — True, добавленные в каталог библиотеки фотографии будут "
+"Если значение — «True», добавленные в каталог библиотеки фотографии будут "
 "автоматически импортированы"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:274
@@ -514,7 +514,7 @@ msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file"
 msgstr ""
-"Если значение — True, изменения метаданных (метки, названия и так далее) "
+"Если значение — «True», изменения метаданных (метки, названия и так далее) "
 "будут записаны в исходный файл фотографии"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:280
@@ -526,7 +526,7 @@ msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr ""
-"Если значение — True, программа Shotwell будет преобразовывать все имена "
+"Если значение — «True», программа Shotwell будет преобразовывать все имена "
 "файлов в нижний регистр при импорте файлов фотографий"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:286
@@ -794,7 +794,7 @@ msgstr "запомнить пароль"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:511
 msgid "If true, remember the Piwigo password"
-msgstr "Если значение — True, пароль Piwigo будет сохранён"
+msgstr "Если значение — «True», пароль Piwigo будет сохранён"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:516
 msgid "last category"
@@ -860,15 +860,15 @@ msgstr ""
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:552
 msgid "do not upload ratings when uploading to Piwigo"
-msgstr "не отправлять рейтинги при отправке на сервис Piwigo"
+msgstr "не отправлять оценки при отправке на сервис Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:553
 msgid ""
 "Whether images being uploaded to Piwigo should have their ratings uploaded, "
 "such that these ratings will not appear on the remote Piwigo server"
 msgstr ""
-"Следует ли при отправке изображений на сервис Piwigo удалять из них "
-"рейтинги, чтобы они не отображались на удалённом сервере Piwigo"
+"Следует ли при отправке изображений на сервис Piwigo удалять из них оценки, "
+"чтобы они не отображались на удалённом сервере Piwigo"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:561
 msgid "Gallery3 username"
@@ -1030,8 +1030,8 @@ msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise"
 msgstr ""
-"Значение True, если при печати фотографий должны печататься их названия. "
-"Если нет — False"
+"Значение «True», если при печати фотографий должны печататься их названия. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:674
 msgid "titles font"
@@ -1050,8 +1050,8 @@ msgstr "включить модуль публикации на сервисе F
 #: data/gsettings/org.gnome.shotwell.gschema.xml:687
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль публикации на сервисе Flickr включён. Если нет — "
-"False"
+"Значение «True», если модуль публикации на сервисе Flickr включён. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:692
 msgid "enable Google Photos publishing plugin"
@@ -1060,8 +1060,8 @@ msgstr "включить модуль публикации на сервисе G
 #: data/gsettings/org.gnome.shotwell.gschema.xml:693
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль публикации на сервисе Google Photos включён. Если "
-"нет — False"
+"Значение «True», если модуль публикации на сервисе Google Photos включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:698
 msgid "enable youtube publishing plugin"
@@ -1070,8 +1070,8 @@ msgstr "включить модуль публикации на сервисе Y
 #: data/gsettings/org.gnome.shotwell.gschema.xml:699
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль публикации на сервисе YouTube включён. Если нет — "
-"False"
+"Значение «True», если модуль публикации на сервисе YouTube включён. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:704
 msgid "enable piwigo publishing plugin"
@@ -1080,8 +1080,8 @@ msgstr "включить модуль публикации на сервисе P
 #: data/gsettings/org.gnome.shotwell.gschema.xml:705
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль публикации на сервисе Piwigo включён. Если нет — "
-"False"
+"Значение «True», если модуль публикации на сервисе Piwigo включён. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:710
 msgid "enable tumblr publishing plugin"
@@ -1090,8 +1090,8 @@ msgstr "включить модуль публикации на сервисе T
 #: data/gsettings/org.gnome.shotwell.gschema.xml:711
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль публикации на сервисе Tumblr включён. Если нет — "
-"False"
+"Значение «True», если модуль публикации на сервисе Tumblr включён. Если нет "
+"— «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:716
 msgid "enable gallery3 publishing plugin"
@@ -1100,8 +1100,8 @@ msgstr "включить модуль публикации на сервисе G
 #: data/gsettings/org.gnome.shotwell.gschema.xml:717
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль публикации на сервисе Gallery3 включён. Если нет "
-"— False"
+"Значение «True», если модуль публикации на сервисе Gallery3 включён. Если "
+"нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:722
 msgid "enable slideshow crumble transition"
@@ -1111,8 +1111,8 @@ msgstr "включить эффект перехода слайд-шоу «Ра�
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Распад» включён. Если "
-"нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Распад» включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:728
 msgid "enable slideshow fade transition"
@@ -1122,8 +1122,8 @@ msgstr "включить эффект перехода слайд-шоу «Уг�
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Угасание» включён. "
-"Если нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Угасание» включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:734
 msgid "enable slideshow slide transition"
@@ -1133,8 +1133,8 @@ msgstr "включить эффект перехода слайд-шоу «Ск�
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Скольжение» включён. "
-"Если нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Скольжение» "
+"включён. Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:740
 msgid "enable slideshow clock transition"
@@ -1144,8 +1144,8 @@ msgstr "включить эффект перехода слайд-шоу «Ча�
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Часы» включён. Если "
-"нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Часы» включён. Если "
+"нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:746
 msgid "enable slideshow circle transition"
@@ -1155,8 +1155,8 @@ msgstr "включить эффект перехода слайд-шоу «Кр�
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Круг» включён. Если "
-"нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Круг» включён. Если "
+"нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:752
 msgid "enable slideshow circles transition"
@@ -1166,8 +1166,8 @@ msgstr "включить эффект перехода слайд-шоу «Кр�
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Круги» включён. Если "
-"нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Круги» включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:758
 msgid "enable slideshow blinds transition"
@@ -1177,8 +1177,8 @@ msgstr "включить эффект перехода слайд-шоу «Жа�
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Жалюзи» включён. Если "
-"нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Жалюзи» включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:764
 msgid "enable slideshow squares transition"
@@ -1188,8 +1188,8 @@ msgstr "включить эффект перехода слайд-шоу «Кв�
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Квадраты» включён. "
-"Если нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Квадраты» включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:770
 msgid "enable slideshow stripes transition"
@@ -1199,8 +1199,8 @@ msgstr "включить эффект перехода слайд-шоу «По�
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Полоски» включён. "
-"Если нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Полоски» включён. "
+"Если нет — «False»"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:776
 msgid "enable slideshow chess transition"
@@ -1211,16 +1211,14 @@ msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
 msgstr ""
-"Значение True, если модуль эффекта перехода слайд-шоу «Шахматы» включён. "
-"Если нет — False"
+"Значение «True», если модуль эффекта перехода слайд-шоу «Шахматы» включён. "
+"Если нет — «False»"
 
 #: data/org.gnome.Shotwell.appdata.xml.in:8
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
 #: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
 #: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:313
+#: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1237,13 +1235,13 @@ msgid ""
 "Shotwell’s non-destructive photo editor does not alter your master photos, "
 "making it easy to experiment and correct errors."
 msgstr ""
-"Shotwell — удобная и простая в использовании программа для организации "
-"фотографий, предназначенная для рабочей среды GNOME. С её помощью можно "
+"Shotwell — удобное и простое в использовании приложение для организации "
+"фотографий, предназначенное для рабочей среды GNOME. С его помощью можно "
 "импортировать фотографии с камеры или диска, упорядочивать их по дате и "
-"теме, а также по рейтингу. Кроме того, программа позволяет редактировать "
-"фотографии, например, выполнять кадрирование, устранять эффект «красных "
-"глаз», корректировать цвета и выравнивать изображения. Фоторедактор "
-"программы Shotwell не изменяет исходные изображения; благодаря этому легко "
+"теме, а также по оценке. Кроме того, приложение позволяет редактировать "
+"фотографии, например, выполнять образку, устранять эффект «красных глаз», "
+"корректировать цвета и выравнивать изображения. Фоторедактор приложения "
+"Shotwell не изменяет исходные изображения; благодаря этому легко "
 "экспериментировать и исправлять ошибки редактирования."
 
 #: data/org.gnome.Shotwell.appdata.xml.in:18
@@ -1315,7 +1313,7 @@ msgstr "_Автокоррекция"
 #: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:254
 #: src/CollectionPage.vala:120 src/Resources.vala:180
 msgid "Re_vert to Original"
-msgstr "Отменить автокоррек_цию"
+msgstr "Ве_рнуться к оригиналу"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
 #: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:379
@@ -1629,11 +1627,10 @@ msgstr "_Сообщить об ошибке…"
 
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/manifest_widget.ui:35 data/ui/media.ui:421 data/ui/offline.ui:198
-#: data/ui/photo.ui:409 data/ui/tags.ui:440 data/ui/trash.ui:207
-#: src/Resources.vala:121
+#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
+#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:121
 msgid "_About"
-msgstr "_О программе"
+msgstr "_О приложении"
 
 #: data/ui/events_directory.ui:8 data/ui/event.ui:8 data/ui/faces.ui:8
 #: data/ui/import_queue.ui:14 data/ui/import.ui:8 data/ui/media.ui:8
@@ -1746,7 +1743,7 @@ msgstr "Со_бытия"
 #: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
 #: src/Resources.vala:208
 msgid "_Merge Events"
-msgstr "_Объединение событий"
+msgstr "_Объединить события"
 
 #: data/ui/events_directory.ui:139 data/ui/events_directory.ui:181
 #: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:196
@@ -1784,7 +1781,7 @@ msgstr "_Оценки"
 #: data/ui/media.ui:151 data/ui/offline.ui:108 data/ui/tags.ui:151
 #: data/ui/trash.ui:117 src/Resources.vala:248
 msgid "_Filter Photos"
-msgstr "_Фильтровать фото"
+msgstr "_Фильтровать фотографии"
 
 #: data/ui/event.ui:184 data/ui/faces.ui:184 data/ui/import.ui:144
 #: data/ui/media.ui:184 data/ui/offline.ui:141 data/ui/search_bar.ui:18
@@ -1827,7 +1824,7 @@ msgstr "По дате _съёмки"
 #: data/ui/event.ui:224 data/ui/faces.ui:224 data/ui/media.ui:224
 #: data/ui/tags.ui:224
 msgid "By _Rating"
-msgstr "По _рейтингу"
+msgstr "По _оценке"
 
 #: data/ui/event.ui:251 data/ui/faces.ui:251 data/ui/import.ui:174
 #: data/ui/media.ui:251 data/ui/photo.ui:137 data/ui/tags.ui:251
@@ -1878,7 +1875,6 @@ msgid "Import _All"
 msgstr "Импортировать _все"
 
 #: data/ui/login_welcome_pane_widget.ui:35
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 msgid "_Log in"
 msgstr "_Войти"
 
@@ -1888,13 +1884,13 @@ msgstr "_Войти"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
 #: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:186
+#: src/publishing/PublishingUI.vala:415 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Отмена"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1059
 #: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_ОК"
@@ -1923,110 +1919,111 @@ msgstr "_Копировать настройки цвета"
 msgid "_Paste Color Adjustments"
 msgstr "_Вставить настройки цвета"
 
-#: data/ui/preferences_dialog.ui:68
-msgid "Display"
-msgstr "Экран"
-
-#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
 msgid "Library Location"
 msgstr "Расположение библиотеки"
 
-#: data/ui/preferences_dialog.ui:104
+#: data/ui/preferences_dialog.ui:118
 msgid "_Import photos to:"
 msgstr "_Импортировать изображения в:"
 
-#: data/ui/preferences_dialog.ui:115
+#: data/ui/preferences_dialog.ui:129
 msgid "_Watch library directory for new files"
 msgstr "_Следить за появлением новых файлов в каталоге библиотеки"
 
-#: data/ui/preferences_dialog.ui:138
+#: data/ui/preferences_dialog.ui:151
 msgid "Importing"
 msgstr "Импорт"
 
-#: data/ui/preferences_dialog.ui:155
+#: data/ui/preferences_dialog.ui:167
 msgid "_Directory structure:"
 msgstr "_Структура каталога:"
 
-#: data/ui/preferences_dialog.ui:170
+#: data/ui/preferences_dialog.ui:181
 msgid "Example:"
 msgstr "Пример:"
 
-#: data/ui/preferences_dialog.ui:179
+#: data/ui/preferences_dialog.ui:190
 msgid "R_ename imported files to lowercase"
 msgstr "П_ереводить названия импортированных файлов в нижний регистр"
 
-#: data/ui/preferences_dialog.ui:201
+#: data/ui/preferences_dialog.ui:211
 msgid "Metadata"
 msgstr "Метаданные"
 
-#: data/ui/preferences_dialog.ui:214
+#: data/ui/preferences_dialog.ui:224
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "Записывать метки, названия и другие _метаданные в файлы фотографий"
 
-#: data/ui/preferences_dialog.ui:236
+#: data/ui/preferences_dialog.ui:245
 msgid "RAW Developer"
 msgstr "Обработчик RAW"
 
-#: data/ui/preferences_dialog.ui:253
+#: data/ui/preferences_dialog.ui:261
 msgid "De_fault:"
 msgstr "По _умолчанию:"
 
-#: data/ui/preferences_dialog.ui:307
+#: data/ui/preferences_dialog.ui:314
 msgid "_Pattern:"
 msgstr "_Шаблон:"
 
-#: data/ui/preferences_dialog.ui:340
+#: data/ui/preferences_dialog.ui:350
+msgid "Checkered"
+msgstr "Шашечки"
+
+#: data/ui/preferences_dialog.ui:370
+msgid "Solid color"
+msgstr "Сплошной цвет"
+
+#: data/ui/preferences_dialog.ui:406 src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Ничего"
+
+#: data/ui/preferences_dialog.ui:430
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr "При просмотре прозрачные изображения будут накладываться на этот фон."
 
-#: data/ui/preferences_dialog.ui:344
+#: data/ui/preferences_dialog.ui:433
 msgid "Transparent Background:"
 msgstr "Прозрачный фон:"
 
-#: data/ui/preferences_dialog.ui:358
-msgid "Checkered"
-msgstr "Шашечки"
+#: data/ui/preferences_dialog.ui:445
+msgid "Use dark theme"
+msgstr "Использовать тёмную тему"
 
-#: data/ui/preferences_dialog.ui:379
-msgid "Solid color"
-msgstr "Сплошной цвет"
+#: data/ui/preferences_dialog.ui:470
+msgid "Display"
+msgstr "Экран"
 
-#: data/ui/preferences_dialog.ui:415 src/slideshow/TransitionEffects.vala:287
-msgid "None"
-msgstr "Ничего"
-
-#: data/ui/preferences_dialog.ui:442
-msgid "Use dark theme:"
-msgstr "Использовать тёмную тему:"
-
-#: data/ui/preferences_dialog.ui:511 src/library/LibraryBranch.vala:30
+#: data/ui/preferences_dialog.ui:529 src/library/LibraryBranch.vala:30
 #: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Библиотека"
 
-#: data/ui/preferences_dialog.ui:538
-msgid "E_xternal photo editor:"
-msgstr "Внешний _редактор изображений:"
+#: data/ui/preferences_dialog.ui:553 src/library/LibraryBranch.vala:97
+#: src/SearchFilter.vala:1104
+msgid "Photos"
+msgstr "Фотографии"
 
-#: data/ui/preferences_dialog.ui:555
-msgid "External _RAW editor:"
-msgstr "_Внешний редактор RAW:"
+#: data/ui/preferences_dialog.ui:596 src/photos/RawSupport.vala:136
+msgid "RAW"
+msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:616
+#: data/ui/preferences_dialog.ui:626
 msgid "External Editors"
 msgstr "Внешние редакторы"
 
-#: data/ui/preferences_dialog.ui:641
+#: data/ui/preferences_dialog.ui:647
 msgid "Plugins"
 msgstr "Модули"
 
-#: data/ui/preferences_dialog.ui:666
+#: data/ui/preferences_dialog.ui:668
 msgid "Profiles"
 msgstr "Профили"
 
-#: data/ui/preferences_dialog.ui:686
+#: data/ui/preferences_dialog.ui:692
 msgid "Shotwell Preferences"
 msgstr "Параметры Shotwell"
 
@@ -2085,7 +2082,7 @@ msgid "Search"
 msgstr "Поиск"
 
 #: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:237
+#: src/ProfileBrowser.vala:209
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -2252,11 +2249,11 @@ msgstr ""
 msgid "Preparing for login…"
 msgstr "Подготовка к входу…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:221
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:203
 msgid "Flickr authorization failed"
 msgstr "Не удалось авторизоваться на сайте Flickr"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:228
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:210
 msgid "Verifying authorization…"
 msgstr "Проверка авторизации…"
 
@@ -2370,17 +2367,17 @@ msgstr ""
 "Введите имя пользователя и пароль, связанный с вашей учётной записью Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1145
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1092
 msgid "Username and/or password invalid. Please try again"
 msgstr "Неверное имя пользователя и/или пароль. Попробуйте ещё раз"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1181
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1128
 msgid "Invalid User Name or Password"
 msgstr "Неверное имя пользователя или пароль"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:498
+#: plugins/shotwell-publishing/TumblrPublishing.vala:473
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "Не удалось загрузить пользовательский интерфейс: %s"
@@ -2397,7 +2394,7 @@ msgstr ""
 "Aleksandr Melman, 2022"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:264
+#: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -2405,7 +2402,7 @@ msgstr ""
 "другому веб-сайту."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:269
+#: plugins/common/RESTSupport.vala:247
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2414,7 +2411,7 @@ msgstr ""
 "даты, установленной на вашем компьютере."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:274
+#: plugins/common/RESTSupport.vala:252
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
@@ -2422,7 +2419,7 @@ msgstr ""
 "организацией."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:279
+#: plugins/common/RESTSupport.vala:257
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2430,7 +2427,7 @@ msgstr ""
 "они повреждены."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:284
+#: plugins/common/RESTSupport.vala:262
 msgid ""
 "⚫ This website’s identification has been revoked by the trusted "
 "organization that issued it."
@@ -2439,7 +2436,7 @@ msgstr ""
 "организацией, которая их выдала."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:289
+#: plugins/common/RESTSupport.vala:267
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2448,7 +2445,7 @@ msgstr ""
 "шифрование, поэтому им нельзя доверять."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:294
+#: plugins/common/RESTSupport.vala:272
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2456,180 +2453,11 @@ msgstr ""
 "⚫ Идентификационные данные этого веб-сайта действительны только для дат в "
 "будущем. Проверьте параметры даты, установленной на вашем компьютере."
 
-#: plugins/common/RESTSupport.vala:593
-#: plugins/shotwell-publishing/TumblrPublishing.vala:603
-#: plugins/shotwell-publishing/YoutubeUploader.vala:69
+#: plugins/common/RESTSupport.vala:574
+#: plugins/shotwell-publishing/TumblrPublishing.vala:578
+#: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Временный файл, необходимый для публикации, недоступен"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
-msgid "_Gallery3 URL:"
-msgstr "URL _Gallery3:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:55
-msgid "_User name:"
-msgstr "_Имя пользователя:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:68
-msgid "_Password:"
-msgstr "_Пароль:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
-msgid "Go _Back"
-msgstr "_Назад"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
-msgid "API _Key:"
-msgstr "_Ключ API:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:180
-msgid "or"
-msgstr "или"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:34
-msgid "An _existing album"
-msgstr "_Существующий альбом"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:60
-msgid "A _new album"
-msgstr "Новый _альбом"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
-msgid "_Remove location, tag and camera-identifying data before uploading"
-msgstr "_Удалить местоположение, тег и информацию о камере перед публикацией"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
-msgid "Scaling constraint:"
-msgstr "Ограничение масштабирования:"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
-msgid "pixels"
-msgstr "пикселей"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:694
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1377
-#: src/Dimensions.vala:17
-msgid "Original size"
-msgstr "Исходный размер"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
-#: src/Dimensions.vala:20
-msgid "Longest edge"
-msgstr "Самый длинный край"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
-msgid "_Logout"
-msgstr "_Выйти"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
-msgid "_Publish"
-msgstr "_Опубликовать"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
-msgid "Gallery3 publishing module"
-msgstr "Сервис публикации Gallery3"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-msgid ""
-"You are not currently logged into your Gallery.\n"
-"\n"
-"You must have already signed up for a Gallery3 account to complete the login "
-"process."
-msgstr ""
-"В данный момент вы не авторизованы на сайте Gallery3.\n"
-"\n"
-"Для продолжения необходима уже созданная учётная запись Gallery3."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
-msgid "Shotwell default directory"
-msgstr "Каталог Shotwell по умолчанию"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:804
-#, c-format
-msgid ""
-"\n"
-"\n"
-"The file “%s” may not be supported by or may be too large for this instance "
-"of Gallery3."
-msgstr ""
-"\n"
-"\n"
-"Файл «%s» может не поддерживаться или быть слишком большим для этого "
-"экземпляра Gallery3."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:805
-msgid ""
-"\n"
-"Note that Gallery3 only supports the video types that Flowplayer does."
-msgstr ""
-"\n"
-"Обратите внимание, Gallery3 поддерживает только те типы видео, которые "
-"воспроизводятся Flowplayer."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1057
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1809
-#, c-format
-msgid ""
-"A file required for publishing is unavailable. Publishing to %s can’t "
-"continue."
-msgstr ""
-"Файл, необходимый для публикации, недоступен. Невозможно продолжить "
-"публикацию на сервисе %s."
-
-#. populate any widgets whose contents are
-#. programmatically-generated
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
-#, c-format
-msgid "Publishing to %s as %s."
-msgstr "Публикация в %s как %s."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
-msgid ""
-"Enter the URL for your Gallery3 site and the username and password (or API "
-"key) for your Gallery3 account."
-msgstr ""
-"Введите URL-адрес вашей страницы Gallery3, а также имя пользователя и пароль "
-"(или ключ API) для вашей учётной записи Gallery3."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
-msgid ""
-"The username and password or API key were incorrect. To try again, re-enter "
-"your username and password below."
-msgstr ""
-"Неверное имя пользователя, пароль или ключ API. Заново введите имя "
-"пользователя и пароль, затем повторите попытку."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
-msgid ""
-"The URL entered does not appear to be the main directory of a Gallery3 "
-"instance. Please make sure you typed it correctly and it does not have any "
-"trailing components (e.g., index.php)."
-msgstr ""
-"Указанный URL не выглядит как основной каталог экземпляра Gallery3. "
-"Убедитесь, что URL введён правильно и не имеет каких-либо замыкающих "
-"компонентов (например, index.php)."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
-msgid "Unrecognized User"
-msgstr "Нераспознанный пользователь"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1913
-msgid " Site Not Found"
-msgstr " сайт не найден"
-
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
-msgid "Shotwell Extra Publishing Services"
-msgstr "Дополнительные сервисы публикации Shotwell"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
@@ -2645,13 +2473,28 @@ msgstr ""
 "_Удалить местоположение, информацию о камере и другую идентифицирующую "
 "информацию перед публикацией"
 
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
+msgid "_Logout"
+msgstr "_Выйти"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+msgid "_Publish"
+msgstr "_Опубликовать"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:33
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:50
 #: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Авторское право © 2016 Software Freedom Conservancy Inc."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:334
+#: plugins/shotwell-publishing/FlickrPublishing.vala:285
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2659,7 +2502,7 @@ msgstr ""
 "Файл, необходимый для публикации, недоступен. Невозможно продолжить "
 "публикацию на сервисе Flickr."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:613
+#: plugins/shotwell-publishing/FlickrPublishing.vala:569
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2668,7 +2511,7 @@ msgstr ""
 "Вы вошли на сайт Flickr как %s.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:615
+#: plugins/shotwell-publishing/FlickrPublishing.vala:571
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2679,7 +2522,7 @@ msgstr ""
 "которые вы можете загрузить в сервис.\n"
 "Вы загрузили %llu из лимита %lld файлов."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:617
+#: plugins/shotwell-publishing/FlickrPublishing.vala:573
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2697,60 +2540,66 @@ msgstr[2] ""
 "Ваша учетная запись Flickr Pro дает вам право на неограниченное количество "
 "загрузок. В настоящее время вы загрузили %d файлов"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:622
+#: plugins/shotwell-publishing/FlickrPublishing.vala:578
 msgid "Photos _visible to"
 msgstr "Фотографии _видят"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:624
+#: plugins/shotwell-publishing/FlickrPublishing.vala:580
 msgid "Videos _visible to"
 msgstr "Видео _видят"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:627
+#: plugins/shotwell-publishing/FlickrPublishing.vala:583
 msgid "Photos and videos _visible to"
 msgstr "Фотографии и видео _видят"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:668
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1361
+#: plugins/shotwell-publishing/FlickrPublishing.vala:624
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
 msgid "Everyone"
 msgstr "Все"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:669
+#: plugins/shotwell-publishing/FlickrPublishing.vala:625
 msgid "Friends & family only"
 msgstr "Только друзья и семья"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:670
+#: plugins/shotwell-publishing/FlickrPublishing.vala:626
 msgid "Family only"
 msgstr "Только семья"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:671
+#: plugins/shotwell-publishing/FlickrPublishing.vala:627
 msgid "Friends only"
 msgstr "Только друзья"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:672
+#: plugins/shotwell-publishing/FlickrPublishing.vala:628
 msgid "Just me"
 msgstr "Только я"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:690
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1373
+#: plugins/shotwell-publishing/FlickrPublishing.vala:646
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1320
 #: plugins/shotwell-publishing/TumblrPublishing.vala:103
 msgid "500 × 375 pixels"
 msgstr "500 x 375 пикселей"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:691
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1374
+#: plugins/shotwell-publishing/FlickrPublishing.vala:647
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1321
 #: plugins/shotwell-publishing/TumblrPublishing.vala:104
 msgid "1024 × 768 pixels"
 msgstr "1024 x 768 пикселей"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:692
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1375
+#: plugins/shotwell-publishing/FlickrPublishing.vala:648
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1322
 msgid "2048 × 1536 pixels"
 msgstr "2048 x 1536 пикселей"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:693
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1376
+#: plugins/shotwell-publishing/FlickrPublishing.vala:649
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1323
 msgid "4096 × 3072 pixels"
 msgstr "4096 x 3072 пикселей"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:650
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1324
+#: src/Dimensions.vala:17
+msgid "Original size"
+msgstr "Исходный размер"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:66
 msgid ""
@@ -2775,7 +2624,7 @@ msgid "A new album named"
 msgstr "Новый альбом"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1252
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1199
 msgid "Shotwell Connect"
 msgstr "Менеджер подключений Shotwell"
 
@@ -2873,23 +2722,23 @@ msgstr "_Не публиковать теги"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:251
 msgid "_Do not upload ratings"
-msgstr "_Не публиковать рейтинги"
+msgstr "_Не публиковать оценки"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:271
 msgid "Logout"
 msgstr "Выйти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:828
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:816
 #, c-format
 msgid "Creating album %s…"
 msgstr "Создание альбома %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1005
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:952
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Произошла ошибка при публикации на сервисе Piwigo. Попробуйте ещё раз."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2900,12 +2749,12 @@ msgstr ""
 "изменить данные, поступающие на этот сайт или от него (например, личные "
 "сообщения, сведения о кредитной карте или пароли)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1109
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
 #, c-format
 msgid "Certificate of %s"
 msgstr "Сертификат %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1143
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2913,7 +2762,7 @@ msgstr ""
 "Введите URL-адрес вашей фотобиблиотеки на сайте Piwigo, а также имя "
 "пользователя и пароль, связанные с вашей учётной записью Piwigo."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1144
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1091
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2921,23 +2770,23 @@ msgstr ""
 "Shotwell не удалось подключиться к вашей фотобиблиотеке на сайте Piwigo. "
 "Проверьте правильность введённого URL-адреса"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1123
 msgid "Invalid URL"
 msgstr "Недопустимый URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1362
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Администраторы, семья, друзья, контакты"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1363
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
 msgid "Admins, Family, Friends"
 msgstr "Администраторы, семья, друзья"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1364
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
 msgid "Admins, Family"
 msgstr "Администраторы, семья"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1365
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
 msgid "Admins"
 msgstr "Администраторы"
 
@@ -2969,14 +2818,14 @@ msgstr "Авторское право © BJA Electronics, 2012"
 msgid "1280 × 853 pixels"
 msgstr "1280 x 853 пикселя"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:407
+#: plugins/shotwell-publishing/TumblrPublishing.vala:382
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): запуск невозможен; этот публикатор не имеет "
 "возможности перезапуска."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:480
+#: plugins/shotwell-publishing/TumblrPublishing.vala:455
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2989,7 +2838,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "_Установки конфиденциальности видео"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:217
+#: plugins/shotwell-publishing/YouTubePublishing.vala:191
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2997,20 +2846,20 @@ msgstr ""
 "Файл, необходимый для публикации, недоступен. Невозможно продолжить "
 "публикацию на сервисе YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:325
+#: plugins/shotwell-publishing/YouTubePublishing.vala:311
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Вы вошли на сайт YouTube как %s."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:357
+#: plugins/shotwell-publishing/YouTubePublishing.vala:343
 msgid "Public listed"
 msgstr "Общедоступное"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:358
+#: plugins/shotwell-publishing/YouTubePublishing.vala:344
 msgid "Public unlisted"
 msgstr "Не общедоступное"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:359
+#: plugins/shotwell-publishing/YouTubePublishing.vala:345
 msgid "Private"
 msgstr "Личное"
 
@@ -3081,22 +2930,22 @@ msgstr "Невозможно создать каталог данных %s: %s"
 msgid "Pictures"
 msgstr "Изображения"
 
-#: src/AppDirs.vala:206
+#: src/AppDirs.vala:205
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Невозможно создать временный каталог %s: %s"
 
-#: src/AppDirs.vala:223 src/AppDirs.vala:254
+#: src/AppDirs.vala:222 src/AppDirs.vala:253
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Невозможно создать подкаталог данных %s: %s"
 
-#: src/AppDirs.vala:236
+#: src/AppDirs.vala:235
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Не удалось сделать каталог %s доступным для записи"
 
-#: src/AppDirs.vala:239
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Не удалось сделать каталог %s доступным для записи: %s"
@@ -3523,30 +3372,30 @@ msgstr "Восстановление предыдущего обработчик
 msgid "Set Developer"
 msgstr "Задать обработчик"
 
-#: src/Commands.vala:1346
+#: src/Commands.vala:1355
 msgid "Original photo could not be adjusted."
 msgstr "Оригинал не может быть изменён."
 
-#: src/Commands.vala:1367
+#: src/Commands.vala:1376
 msgid "Adjusting Date and Time"
 msgstr "Изменение даты и времени"
 
-#: src/Commands.vala:1367
+#: src/Commands.vala:1376
 msgid "Undoing Date and Time Adjustment"
 msgstr "Отмена изменения даты и времени"
 
-#: src/Commands.vala:1398
+#: src/Commands.vala:1415
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Следующий оригинал фотографии не может быть изменён."
 msgstr[1] "Следующие оригиналы фотографий не могут быть изменены."
 msgstr[2] "Следующие оригиналы фотографий не могут быть изменены."
 
-#: src/Commands.vala:1400 src/Commands.vala:1424
+#: src/Commands.vala:1417 src/Commands.vala:1441
 msgid "Time Adjustment Error"
 msgstr "Ошибка изменения времени"
 
-#: src/Commands.vala:1422
+#: src/Commands.vala:1439
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
@@ -3557,60 +3406,60 @@ msgstr[1] ""
 msgstr[2] ""
 "Для этих фотографий операция изменения времени не может быть отменена."
 
-#: src/Commands.vala:1636 src/Commands.vala:1659
+#: src/Commands.vala:1653 src/Commands.vala:1676
 msgid "Create Tag"
 msgstr "Создать метку"
 
-#: src/Commands.vala:1694
+#: src/Commands.vala:1711
 #, c-format
 msgid "Move Tag “%s”"
 msgstr "Переместить метку «%s»"
 
-#: src/Commands.vala:2344
+#: src/Commands.vala:2361
 msgid "Move Photos to Trash"
 msgstr "Переместить фотографии в корзину"
 
-#: src/Commands.vala:2344
+#: src/Commands.vala:2361
 msgid "Restore Photos from Trash"
 msgstr "Восстановить фотографии из корзины"
 
-#: src/Commands.vala:2345
+#: src/Commands.vala:2362
 msgid "Move the photos to the Shotwell trash"
 msgstr "Переместить фотографии в корзину Shotwell"
 
-#: src/Commands.vala:2345
+#: src/Commands.vala:2362
 msgid "Restore the photos back to the Shotwell library"
 msgstr "Восстановить фотографии в библиотеку Shotwell"
 
-#: src/Commands.vala:2364
+#: src/Commands.vala:2381
 msgid "Moving Photos to Trash"
 msgstr "Перемещение фотографий в корзину"
 
-#: src/Commands.vala:2364
+#: src/Commands.vala:2381
 msgid "Restoring Photos From Trash"
 msgstr "Восстановление фотографий из корзины"
 
-#: src/Commands.vala:2450
+#: src/Commands.vala:2467
 msgid "Flag selected photos"
 msgstr "Отметить выбранные фотографии"
 
-#: src/Commands.vala:2451
+#: src/Commands.vala:2468
 msgid "Unflag selected photos"
 msgstr "Снять отметку с выбранных фотографий"
 
-#: src/Commands.vala:2452
+#: src/Commands.vala:2469
 msgid "Flagging selected photos"
 msgstr "Установка отметки на выбранные фотографии"
 
-#: src/Commands.vala:2453
+#: src/Commands.vala:2470
 msgid "Unflagging selected photos"
 msgstr "Снятие отметки с выбранных фотографий"
 
-#: src/Commands.vala:2460
+#: src/Commands.vala:2477
 msgid "Flag"
 msgstr "Отметить"
 
-#: src/Commands.vala:2460
+#: src/Commands.vala:2477
 msgid "Unflag"
 msgstr "Снять отметку"
 
@@ -3663,7 +3512,7 @@ msgstr "Импортировать из приложения"
 msgid "Import media _from:"
 msgstr "И_мпортировать данные из:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:410
 msgid "_Close"
 msgstr "_Закрыть"
 
@@ -3705,26 +3554,27 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Невозможно восстановить базу данных фотографий %s"
 
-#: src/DesktopIntegration.vala:126
+#. Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
+#: src/DesktopIntegration.vala:113
 msgid "Send files per Mail: "
 msgstr "Отправить файлы по почте: "
 
 #. Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
-#: src/DesktopIntegration.vala:137
+#: src/DesktopIntegration.vala:116
 #, c-format
 msgid "Unable to send file %s, %s"
 msgstr "Невозможно отправить файл %s, %s"
 
-#: src/DesktopIntegration.vala:147
+#: src/DesktopIntegration.vala:126
 msgid "Send To"
 msgstr "Отправить"
 
-#: src/DesktopIntegration.vala:192
+#: src/DesktopIntegration.vala:171
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Невозможно экспортировать фон в %s: %s"
 
-#: src/DesktopIntegration.vala:329
+#: src/DesktopIntegration.vala:309
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Невозможно подготовить слайд-шоу рабочего стола: %s"
@@ -3763,22 +3613,22 @@ msgstr[0] "_Изменить оригинал"
 msgstr[1] "_Изменить оригиналы"
 msgstr[2] "_Изменить оригиналы"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:219
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "Original: "
 msgstr "Оригинал: "
 
 # исправление даты
-#: src/dialogs/AdjustDateTimeDialog.vala:220
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%e %b %Y, %H:%M:%S"
 
 # исправление даты
-#: src/dialogs/AdjustDateTimeDialog.vala:221
+#: src/dialogs/AdjustDateTimeDialog.vala:222
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%e %b %Y, %I:%M:%S %p"
 
 # не про экспозицию, а про дату/время
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:305
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3788,7 +3638,7 @@ msgstr ""
 "%d %s, %d %s, %d %s и %d %s."
 
 # не про экспозицию, а про дату/время
-#: src/dialogs/AdjustDateTimeDialog.vala:313
+#: src/dialogs/AdjustDateTimeDialog.vala:306
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3797,28 +3647,28 @@ msgstr ""
 "Время съёмки будет смещаться назад на\n"
 "%d %s, %d %s, %d %s и %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:315
+#: src/dialogs/AdjustDateTimeDialog.vala:308
 msgid "day"
 msgid_plural "days"
 msgstr[0] "день"
 msgstr[1] "дня"
 msgstr[2] "дней"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:316
+#: src/dialogs/AdjustDateTimeDialog.vala:309
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "час"
 msgstr[1] "часа"
 msgstr[2] "часов"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:317
+#: src/dialogs/AdjustDateTimeDialog.vala:310
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "минута"
 msgstr[1] "минуты"
 msgstr[2] "минут"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:318
+#: src/dialogs/AdjustDateTimeDialog.vala:311
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "секунда"
@@ -4727,6 +4577,10 @@ msgstr "_Больше не показывать это сообщение"
 msgid "Import photos from your %s library"
 msgstr "Импортировать фотографии из библиотеки %s"
 
+#: src/Dimensions.vala:20
+msgid "Longest edge"
+msgstr "Самый длинный край"
+
 #: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Ширина"
@@ -4996,30 +4850,6 @@ msgstr "﻿Расширение контрастности"
 msgid "Angle:"
 msgstr "Угол:"
 
-#: src/events/EventDirectoryItem.vala:97
-#, c-format
-msgid "%d Photo/Video"
-msgid_plural "%d Photos/Videos"
-msgstr[0] "%d фотография/видео"
-msgstr[1] "%d фотографии/видео"
-msgstr[2] "%d фотографий/видео"
-
-#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:367
-#, c-format
-msgid "%d Video"
-msgid_plural "%d Videos"
-msgstr[0] "%d видео"
-msgstr[1] "%d видео"
-msgstr[2] "%d видео"
-
-#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:365
-#, c-format
-msgid "%d Photo"
-msgid_plural "%d Photos"
-msgstr[0] "%d фотография"
-msgstr[1] "%d фотографии"
-msgstr[2] "%d фотографий"
-
 #: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Нет события"
@@ -5057,7 +4887,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:753
+#: src/Event.vala:748
 #, c-format
 msgid "Event %s"
 msgstr "Событие %s"
@@ -5208,10 +5038,6 @@ msgstr "Последнее импортированное"
 msgid "Organize and browse your photos"
 msgstr "Упорядочение и просмотр фотографий"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1104
-msgid "Photos"
-msgstr "Фотографии"
-
 #: src/library/LibraryWindow.vala:503
 msgid "Import From Folder"
 msgstr "Импортировать из папки"
@@ -5320,73 +5146,73 @@ msgstr "Неизвестная ошибка при попытке проверк
 msgid "Loading Shotwell"
 msgstr "Загрузка Shotwell"
 
-#: src/main.vala:343
+#: src/main.vala:347
 msgid "Path to Shotwell’s private data"
 msgstr "Путь к базе персональных данных Shotwell"
 
-#: src/main.vala:343
+#: src/main.vala:347
 msgid "DIRECTORY"
 msgstr "КАТАЛОГ"
 
-#: src/main.vala:344
+#: src/main.vala:348
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Не отслеживать изменения в каталоге библиотеки во время работы"
 
-#: src/main.vala:345
+#: src/main.vala:349
 msgid "Don’t display startup progress meter"
 msgstr ""
 "Не показывать анимированный индикатор хода выполнения запуска программы"
 
-#: src/main.vala:346
+#: src/main.vala:350
 msgid "Show the application’s version"
 msgstr "Показывать версию приложения"
 
-#: src/main.vala:347
+#: src/main.vala:351
 msgid "Start the application in fullscreen mode"
 msgstr "Запускать приложение в полноэкранном режиме"
 
-#: src/main.vala:348
+#: src/main.vala:352
 msgid "Print the metadata of the image file"
 msgstr "Печатать метаданные файла изображения"
 
-#: src/main.vala:349
+#: src/main.vala:353
 msgid "Name for a custom profile"
 msgstr "Название пользовательского профиля"
 
-#: src/main.vala:349
+#: src/main.vala:353
 msgid "PROFILE"
 msgstr "ПРОФИЛЬ"
 
-#: src/main.vala:350
+#: src/main.vala:354
 msgid "Start with a browser of available profiles"
 msgstr "Начать с просмотра доступных профилей"
 
-#: src/main.vala:351
+#: src/main.vala:355
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Если ПРОФИЛЬ, заданный с помощью --profile, не существует, создайте его"
 
-#: src/main.vala:352
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Показать доступные профили"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:383
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[ФАЙЛ]"
 
-#: src/main.vala:388
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Введите «%s --help» для просмотра полного списка параметров командной "
 "строки.\n"
 
-#: src/main.vala:395
+#: src/main.vala:399
 msgid "Choose Shotwell's profile"
 msgstr "Выбрать профиль Shotwell"
 
-#: src/main.vala:416
+#: src/main.vala:420
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Профиль %s не существует. Вы хотите передать параметр --create?"
@@ -5449,6 +5275,10 @@ msgstr "Удаление фотографии из библиотеки"
 msgid "Unable to export %s: %s"
 msgstr "Невозможно экспортировать %s: %s"
 
+#: src/photos/AvifSupport.vala:30
+msgid "AVIF"
+msgstr "AVIF"
+
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
 msgstr "BMP"
@@ -5485,10 +5315,6 @@ msgstr "Максимальное (%d%%)"
 msgid "PNG"
 msgstr "PNG"
 
-#: src/photos/RawSupport.vala:136
-msgid "RAW"
-msgstr "RAW"
-
 #: src/photos/TiffSupport.vala:86
 msgid "TIFF"
 msgstr "TIFF"
@@ -5497,13 +5323,27 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/photos/AvifSupport.vala:30
-msgid "AVIF"
-msgstr "AVIF"
-
-#: src/Photo.vala:3804
+#: src/Photo.vala:3811
 msgid "modified"
 msgstr "изменено"
+
+#. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
+#: src/plugins/ManifestWidget.vala:126
+#, c-format
+msgid "Manage accounts for %s"
+msgstr "Управление учётными записями для %s"
+
+#: src/plugins/ManifestWidget.vala:139
+msgid "Authors"
+msgstr "Авторы"
+
+#: src/plugins/ManifestWidget.vala:149
+msgid "Version"
+msgstr "Версия"
+
+#: src/plugins/ManifestWidget.vala:159
+msgid "Website"
+msgstr "Веб-сайт"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -5552,6 +5392,80 @@ msgstr ""
 "\n"
 "%s"
 
+#: src/ProfileBrowser.vala:20
+msgid "Create"
+msgstr "Создать"
+
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:251
+msgid "Create new Profile"
+msgstr "Создать новый профиль"
+
+#: src/ProfileBrowser.vala:35
+msgid "Name"
+msgstr "Имя"
+
+#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:169
+msgid "Library Folder"
+msgstr "Папка библиотеки"
+
+#: src/ProfileBrowser.vala:64
+msgid "Choose Library Folder"
+msgstr "Выбрать папку библиотеки"
+
+#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:179
+msgid "Data Folder"
+msgstr "Папка данных"
+
+#: src/ProfileBrowser.vala:92
+msgid "Choose Data Folder"
+msgstr "Выбрать папку данных"
+
+#: src/ProfileBrowser.vala:135
+msgid "This is the currently active profile"
+msgstr "Это текущий активный профиль"
+
+#: src/ProfileBrowser.vala:191
+msgid "Remove Profile"
+msgstr "Удалить профиль"
+
+#: src/ProfileBrowser.vala:193
+msgid "Remove this profile"
+msgstr "Удалить этот профиль"
+
+#: src/ProfileBrowser.vala:205
+#, c-format
+msgid "Remove profile “%s”"
+msgstr "Удалить профиль \"%s\""
+
+#: src/ProfileBrowser.vala:206
+msgid ""
+"None of the options will remove any of the images associated with this "
+"profile"
+msgstr ""
+"Ни один из вариантов не удалит ни одно из изображений, связанных с этим "
+"профилем"
+
+#: src/ProfileBrowser.vala:207
+#, c-format
+msgid ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+msgstr ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+
+#: src/ProfileBrowser.vala:209
+msgid "Remove profile and files"
+msgstr "Удалить профиль и файлы"
+
+#: src/ProfileBrowser.vala:209
+msgid "Remove profile only"
+msgstr "Удалить только профиль"
+
+#: src/Profiles.vala:32
+msgid "System Profile"
+msgstr "Системный профиль"
+
 #: src/Properties.vala:102
 msgid "Today"
 msgstr "Сегодня"
@@ -5571,6 +5485,22 @@ msgid_plural "%d Events"
 msgstr[0] "%d событие"
 msgstr[1] "%d события"
 msgstr[2] "%d событий"
+
+#: src/Properties.vala:365
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d фотография"
+msgstr[1] "%d фотографии"
+msgstr[2] "%d фотографий"
+
+#: src/Properties.vala:367
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d видео"
+msgstr[1] "%d видео"
+msgstr[2] "%d видео"
 
 #. display only one date if start and end are the same
 #: src/Properties.vala:389
@@ -5672,76 +5602,6 @@ msgstr "Права:"
 msgid "Software:"
 msgstr "Программное обеспечение:"
 
-#: src/ProfileBrowser.vala:20
-msgid "Create"
-msgstr "Создать"
-
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:139
-msgid "Create new Profile"
-msgstr "Создать новый профиль"
-
-#: src/ProfileBrowser.vala:35
-msgid "Name"
-msgstr "Имя"
-
-#: src/ProfileBrowser.vala:49
-msgid "Library Folder"
-msgstr "Папка библиотеки"
-
-#: src/ProfileBrowser.vala:64
-msgid "Choose Library Folder"
-msgstr "Выбрать папку библиотеки"
-
-#: src/ProfileBrowser.vala:76
-msgid "Data Folder"
-msgstr "Папка данных"
-
-#: src/ProfileBrowser.vala:92
-msgid "Choose Data Folder"
-msgstr "Выбрать папку данных"
-
-#: src/ProfileBrowser.vala:198
-msgid "This is the currently active profile"
-msgstr "Это текущий активный профиль"
-
-#: src/ProfileBrowser.vala:221
-msgid "Remove this profile"
-msgstr "Удалить этот профиль"
-
-#: src/ProfileBrowser.vala:233
-#, c-format
-msgid "Remove profile “%s”"
-msgstr "Удалить профиль \"%s\""
-
-#: src/ProfileBrowser.vala:234
-msgid ""
-"None of the options will remove any of the images associated with this "
-"profile"
-msgstr ""
-"Ни один из вариантов не удалит ни одно из изображений, связанных с этим "
-"профилем"
-
-#: src/ProfileBrowser.vala:235
-#, c-format
-msgid ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-msgstr ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-
-#: src/ProfileBrowser.vala:237
-msgid "Remove profile and files"
-msgstr "Удалить профиль и файлы"
-
-#: src/ProfileBrowser.vala:237
-msgid "Remove profile only"
-msgstr "Удалить только профиль"
-
-#: src/Profiles.vala:32
-msgid "System Profile"
-msgstr "Системный профиль"
-
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
 msgstr "Подготовка к отправке"
@@ -5788,11 +5648,11 @@ msgstr "Опубликовать фотографии и видео _на"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:288
+#: src/publishing/PublishingUI.vala:297
 msgid "Unable to publish"
 msgstr "Невозможно опубликовать"
 
-#: src/publishing/PublishingUI.vala:289
+#: src/publishing/PublishingUI.vala:298
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5809,11 +5669,11 @@ msgstr ""
 msgid "Publishing"
 msgstr "Публикация"
 
-#: src/publishing/StaticMessagePaneWidget.vala:44
+#: src/publishing/StaticMessagePaneWidget.vala:51
 msgid "Fetching account information…"
 msgstr "Получение информации об учётной записи…"
 
-#: src/publishing/StaticMessagePaneWidget.vala:50
+#: src/publishing/StaticMessagePaneWidget.vala:57
 msgid "Logging in…"
 msgstr "Вход…"
 
@@ -5963,7 +5823,7 @@ msgstr "Настроить цвет или тон фотографии"
 
 #: src/Resources.vala:181
 msgid "Revert to Original"
-msgstr "Отменить автокоррекцию"
+msgstr "Вернуться к оригиналу"
 
 #: src/Resources.vala:183
 msgid "Revert External E_dits"
@@ -6330,7 +6190,7 @@ msgstr "Оценить на %s"
 #: src/Resources.vala:673
 #, c-format
 msgid "Setting rating to %s"
-msgstr "Простановка оценки на %s"
+msgstr "Постановка оценки на %s"
 
 #: src/Resources.vala:675
 #, c-format
@@ -6580,7 +6440,7 @@ msgstr "Состояние фотографии"
 #: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:851
 #: src/SearchFilter.vala:1135
 msgid "Rating"
-msgstr "Рейтинг"
+msgstr "Оценка"
 
 #: src/searches/SearchBoolean.vala:198
 msgid "Date"
@@ -6596,23 +6456,23 @@ msgstr "Упорядочение сохранённых поисковых за�
 
 #: src/SearchFilter.vala:835
 msgid "★+ Rating"
-msgstr "Рейтинг ★+"
+msgstr "Оценка ★+"
 
 #: src/SearchFilter.vala:838
 msgid "★★+ Rating"
-msgstr "Рейтинг ★★+"
+msgstr "Оценка ★★+"
 
 #: src/SearchFilter.vala:841
 msgid "★★★+ Rating"
-msgstr "Рейтинг ★★★+"
+msgstr "Оценка ★★★+"
 
 #: src/SearchFilter.vala:844
 msgid "★★★★+ Rating"
-msgstr "Рейтинг ★★★★+"
+msgstr "Оценка ★★★★+"
 
 #: src/SearchFilter.vala:848
 msgid "★★★★★+ Rating"
-msgstr "Рейтинг ★★★★★+"
+msgstr "Оценка ★★★★★+"
 
 #: src/SearchFilter.vala:1085
 #, c-format
@@ -6718,6 +6578,133 @@ msgstr "безымянный"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Экспортировать видео"
+
+#~ msgid "E_xternal photo editor:"
+#~ msgstr "Внешний _редактор изображений:"
+
+#~ msgid "External _RAW editor:"
+#~ msgstr "_Внешний редактор RAW:"
+
+#~ msgid "_Gallery3 URL:"
+#~ msgstr "URL _Gallery3:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Имя пользователя:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Пароль:"
+
+#~ msgid "Go _Back"
+#~ msgstr "_Назад"
+
+#~ msgid "API _Key:"
+#~ msgstr "_Ключ API:"
+
+#~ msgid "or"
+#~ msgstr "или"
+
+#~ msgid "An _existing album"
+#~ msgstr "_Существующий альбом"
+
+#~ msgid "A _new album"
+#~ msgstr "Новый _альбом"
+
+#~ msgid "_Remove location, tag and camera-identifying data before uploading"
+#~ msgstr ""
+#~ "_Удалить местоположение, тег и информацию о камере перед публикацией"
+
+#~ msgid "Scaling constraint:"
+#~ msgstr "Ограничение масштабирования:"
+
+#~ msgid "pixels"
+#~ msgstr "пикселей"
+
+#~ msgid "Gallery3 publishing module"
+#~ msgstr "Сервис публикации Gallery3"
+
+#~ msgid ""
+#~ "You are not currently logged into your Gallery.\n"
+#~ "\n"
+#~ "You must have already signed up for a Gallery3 account to complete the "
+#~ "login process."
+#~ msgstr ""
+#~ "В данный момент вы не авторизованы на сайте Gallery3.\n"
+#~ "\n"
+#~ "Для продолжения необходима уже созданная учётная запись Gallery3."
+
+#~ msgid "Shotwell default directory"
+#~ msgstr "Каталог Shotwell по умолчанию"
+
+#, c-format
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The file “%s” may not be supported by or may be too large for this "
+#~ "instance of Gallery3."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Файл «%s» может не поддерживаться или быть слишком большим для этого "
+#~ "экземпляра Gallery3."
+
+#~ msgid ""
+#~ "\n"
+#~ "Note that Gallery3 only supports the video types that Flowplayer does."
+#~ msgstr ""
+#~ "\n"
+#~ "Обратите внимание, Gallery3 поддерживает только те типы видео, которые "
+#~ "воспроизводятся Flowplayer."
+
+#, c-format
+#~ msgid ""
+#~ "A file required for publishing is unavailable. Publishing to %s can’t "
+#~ "continue."
+#~ msgstr ""
+#~ "Файл, необходимый для публикации, недоступен. Невозможно продолжить "
+#~ "публикацию на сервисе %s."
+
+#, c-format
+#~ msgid "Publishing to %s as %s."
+#~ msgstr "Публикация в %s как %s."
+
+#~ msgid ""
+#~ "Enter the URL for your Gallery3 site and the username and password (or "
+#~ "API key) for your Gallery3 account."
+#~ msgstr ""
+#~ "Введите URL-адрес вашей страницы Gallery3, а также имя пользователя и "
+#~ "пароль (или ключ API) для вашей учётной записи Gallery3."
+
+#~ msgid ""
+#~ "The username and password or API key were incorrect. To try again, re-"
+#~ "enter your username and password below."
+#~ msgstr ""
+#~ "Неверное имя пользователя, пароль или ключ API. Заново введите имя "
+#~ "пользователя и пароль, затем повторите попытку."
+
+#~ msgid ""
+#~ "The URL entered does not appear to be the main directory of a Gallery3 "
+#~ "instance. Please make sure you typed it correctly and it does not have "
+#~ "any trailing components (e.g., index.php)."
+#~ msgstr ""
+#~ "Указанный URL не выглядит как основной каталог экземпляра Gallery3. "
+#~ "Убедитесь, что URL введён правильно и не имеет каких-либо замыкающих "
+#~ "компонентов (например, index.php)."
+
+#~ msgid "Unrecognized User"
+#~ msgstr "Нераспознанный пользователь"
+
+#~ msgid " Site Not Found"
+#~ msgstr " сайт не найден"
+
+#~ msgid "Shotwell Extra Publishing Services"
+#~ msgstr "Дополнительные сервисы публикации Shotwell"
+
+#, c-format
+#~ msgid "%d Photo/Video"
+#~ msgid_plural "%d Photos/Videos"
+#~ msgstr[0] "%d фотография/видео"
+#~ msgstr[1] "%d фотографии/видео"
+#~ msgstr[2] "%d фотографий/видео"
 
 #~ msgid "authentication token"
 #~ msgstr "маркер аутентификации"
