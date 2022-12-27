@@ -60,12 +60,13 @@ public enum PhotoFileFormat {
     GIF,
     WEBP,
     AVIF,
+    HEIF,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
-        return { JFIF, RAW, PNG, TIFF, BMP, GIF, WEBP, AVIF };
+        return { JFIF, RAW, PNG, TIFF, BMP, GIF, WEBP, AVIF, HEIF };
     }
     
     public static PhotoFileFormat[] get_writeable() {
@@ -150,6 +151,9 @@ public enum PhotoFileFormat {
             case AVIF:
                 return 7;
 
+            case HEIF:
+                return 8;
+
             case UNKNOWN:
             default:
                 return -1;
@@ -182,6 +186,9 @@ public enum PhotoFileFormat {
 
             case 7:
                 return AVIF;
+
+            case 8:
+                return HEIF;
 
             default:
                 return UNKNOWN;
@@ -236,6 +243,9 @@ public enum PhotoFileFormat {
             case "avif":
                 return PhotoFileFormat.AVIF;
 
+            case "heif":
+                return PhotoFileFormat.HEIF;
+
             default:
                 return PhotoFileFormat.UNKNOWN;
         }
@@ -275,6 +285,10 @@ public enum PhotoFileFormat {
                 AvifFileFormatDriver.init();
                 break;
 
+            case HEIF:
+                HeifFileFormatDriver.init();
+                break;
+
             default:
                 error("Unsupported file format %s", this.to_string());
         }
@@ -305,6 +319,9 @@ public enum PhotoFileFormat {
 
             case AVIF:
                 return AvifFileFormatDriver.get_instance();
+
+            case HEIF:
+                return HeifFileFormatDriver.get_instance();
 
             default:
                 error("Unsupported file format %s", this.to_string());

@@ -112,13 +112,14 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         Gdk.Pixbuf? pixbuf = pixbuf_loader.get_pixbuf();
         if (pixbuf == null)
             return;
-        
+
         detected.colorspace = pixbuf.get_colorspace();
         detected.channels = pixbuf.get_n_channels();
         detected.bits_per_channel = pixbuf.get_bits_per_sample();
         
         unowned Gdk.PixbufFormat format = pixbuf_loader.get_format();
         detected.format_name = format.get_name();
+        debug("Pixbuf detected format name: %s", detected.format_name);
         detected.file_format = PhotoFileFormat.from_pixbuf_name(detected.format_name);
         
         area_prepared = true;
