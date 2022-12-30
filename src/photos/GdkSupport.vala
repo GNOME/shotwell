@@ -21,7 +21,30 @@ public abstract class GdkReader : PhotoFileReader {
     }
     
     public override Gdk.Pixbuf scaled_read(Dimensions full, Dimensions scaled) throws Error {
-        return new Gdk.Pixbuf.from_file_at_scale(get_filepath(), scaled.width, scaled.height, false);
+        Gdk.Pixbuf result = null;
+        /* if we encounter a situation where there are two orders of magnitude or more of
+           difference between the full image size and the scaled size, and if the full image
+           size has five or more decimal digits of precision, Gdk.Pixbuf.from_file_at_scale( ) can
+           fail due to what appear to be floating-point round-off issues. This isn't surprising,
+           since 32-bit floats only have 6-7 decimal digits of precision in their mantissa. In
+           this case, we prefetch the image at a larger scale and then downsample it to the
+           desired scale as a post-process step. This short-circuits Gdk.Pixbuf's buggy
+           scaling code. */
+        if (((full.width > 9999) || (full.height > 9999)) && ((scaled.width < 100) ||
+             (scaled.height < 100))) {
+            Dimensions prefetch_dimensions = full.get_scaled_by_constraint(1000,
+                ScaleConstraint.DIMENSIONS);
+                                  
+            result = new Gdk.Pixbuf.from_file_at_scale(get_filepath(), prefetch_dimensions.width,
+                prefetch_dimensions.height, false);
+
+            result = result.scale_simple(scaled.width, scaled.height, Gdk.InterpType.HYPER);
+        } else {
+            result = new Gdk.Pixbuf.from_file_at_scale(get_filepath(), scaled.width,
+                scaled.height, false);
+        }
+
+        return result;
     }
 }
 
