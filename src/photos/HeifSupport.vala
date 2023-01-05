@@ -97,6 +97,14 @@ public class HeifReader : GdkReader {
     public HeifReader(string filepath) {
         base (filepath, PhotoFileFormat.HEIF);
     }
+
+    public override PhotoMetadata read_metadata() throws Error {
+        PhotoMetadata metadata = new PhotoMetadata();
+        metadata.read_from_file(get_file());
+        metadata.set_orientation(Orientation.TOP_LEFT);
+        return metadata;
+    }
+
 }
 
 public class HeifMetadataWriter : PhotoFileMetadataWriter {
