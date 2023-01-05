@@ -88,6 +88,9 @@ public class HeifSniffer : GdkSniffer {
         if (detected.file_format == PhotoFileFormat.AVIF)
             detected.file_format = PhotoFileFormat.HEIF;
 
+        // Heif contains its own rotation information, so we need to ignore the EXIF rotation
+        detected.metadata.set_orientation(Orientation.TOP_LEFT);
+
         return (detected.file_format == PhotoFileFormat.HEIF) ? detected : null;
     }
 
@@ -97,6 +100,15 @@ public class HeifReader : GdkReader {
     public HeifReader(string filepath) {
         base (filepath, PhotoFileFormat.HEIF);
     }
+
+    public override PhotoMetadata read_metadata() throws Error {
+        PhotoMetadata metadata = new PhotoMetadata();
+        metadata.read_from_file(get_file());
+        // Heif contains its own rotation information, so we need to ignore the EXIF rotation
+        metadata.set_orientation(Orientation.TOP_LEFT);
+        return metadata;
+    }
+
 }
 
 public class HeifMetadataWriter : PhotoFileMetadataWriter {
