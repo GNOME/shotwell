@@ -7,13 +7,13 @@
 # verayin <vera@yorba.org>, 2011.
 # lsbeeler <lucas@yorba.org>, 2011.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014.
-# Asier Sarasua Garmendia <asier.sarasua@gmail.com>, 2011, 2012, 2013, 2019.
+# Asier Sarasua Garmendia <asier.sarasua@gmail.com>, 2011, 2012, 2013, 2019, 2023.
 #
 msgid ""
 msgstr "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2021-03-14 11:18+0000\n"
-"PO-Revision-Date: 2021-03-19 10:00+0100\n"
+"POT-Creation-Date: 2022-11-16 09:33+0000\n"
+"PO-Revision-Date: 2023-01-14 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -32,8 +32,8 @@ msgid "Shotwell"
 msgstr "Shotwell"
 
 #: misc/shotwell.appdata.xml.in:9
-msgid "Popular photo manager"
-msgstr "Argazkien kudeatzaile ospetsua"
+msgid "Digital photo organizer and viewer"
+msgstr "Argazki digitalen antolatzailea eta ikustailea"
 
 #: misc/shotwell.appdata.xml.in:11
 msgid ""
@@ -59,7 +59,7 @@ msgstr "Shotwell-ek JPEG, PNG, TIFF eta hainbat RAW fitxategi-formatu onartzen d
 msgid "The Shotwell developers"
 msgstr "Shotwell garatzaileak"
 
-#: misc/shotwell.desktop.in:5 src/Resources.vala:17
+#: misc/shotwell.desktop.in:5 src/Resources.vala:9
 msgid "Photo Manager"
 msgstr "Argazki-kudeatzailea"
 
@@ -79,7 +79,7 @@ msgstr "albuma;kamera;kamerak;moztu;editatu;hobetu;esportatu;galeria;irudia;irud
 msgid "Shotwell Viewer"
 msgstr "Shotwell ikustailea"
 
-#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:18
+#: misc/shotwell-viewer.desktop.in:5 src/Resources.vala:10
 msgid "Photo Viewer"
 msgstr "Argazki-ikustailea"
 
@@ -108,7 +108,7 @@ msgid "The secret token to sign oauth requests"
 msgstr "Oauth eskariak sinatzeko token sekretua"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:26
-#: misc/org.yorba.shotwell.gschema.xml:498
+#: misc/org.yorba.shotwell.gschema.xml:497
 msgid "default size"
 msgstr "tamaina lehenetsia"
 
@@ -134,9 +134,9 @@ msgid "URL of the Rajce server."
 msgstr "Rajce zerbitzariaren URLa."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:46
-#: misc/org.yorba.shotwell.gschema.xml:466
-#: misc/org.yorba.shotwell.gschema.xml:524
-#: misc/org.yorba.shotwell.gschema.xml:580
+#: misc/org.yorba.shotwell.gschema.xml:465
+#: misc/org.yorba.shotwell.gschema.xml:523
+#: misc/org.yorba.shotwell.gschema.xml:579
 msgid "username"
 msgstr "erabiltzaile-izena"
 
@@ -153,7 +153,7 @@ msgid "user token, if remembered."
 msgstr "erabiltzaile-tokena, gogoratzen bada."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:58
-#: misc/org.yorba.shotwell.gschema.xml:542
+#: misc/org.yorba.shotwell.gschema.xml:541
 msgid "last category"
 msgstr "azken kategoria"
 
@@ -162,7 +162,7 @@ msgid "The last selected Rajce category."
 msgstr "Hautatutako azken Rajce kategoria."
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:64
-#: misc/org.yorba.shotwell.gschema.xml:554
+#: misc/org.yorba.shotwell.gschema.xml:553
 msgid "last photo size"
 msgstr "azken argazki-tamaina"
 
@@ -198,11 +198,11 @@ msgid ""
 msgstr "Egia bada, ireki helburuko albuma web arakatzailean, justu argazkiak igo ondoren"
 
 #: misc/org.yorba.shotwell-extras.gschema.xml:88
-#: misc/org.yorba.shotwell.gschema.xml:446
-#: misc/org.yorba.shotwell.gschema.xml:484
-#: misc/org.yorba.shotwell.gschema.xml:510
-#: misc/org.yorba.shotwell.gschema.xml:560
-#: misc/org.yorba.shotwell.gschema.xml:604
+#: misc/org.yorba.shotwell.gschema.xml:445
+#: misc/org.yorba.shotwell.gschema.xml:483
+#: misc/org.yorba.shotwell.gschema.xml:509
+#: misc/org.yorba.shotwell.gschema.xml:559
+#: misc/org.yorba.shotwell.gschema.xml:603
 msgid "remove sensitive info from uploads"
 msgstr "kendu arriskutsua izan daitekeen informazioa igoeretatik"
 
@@ -212,1022 +212,1013 @@ msgid ""
 "first"
 msgstr "Rajce gunera igoko diren irudien metadatuak kenduko diren ala ez"
 
-#: misc/org.yorba.shotwell.gschema.xml:23
+#: misc/org.yorba.shotwell.gschema.xml:22
 msgid "display basic properties"
 msgstr "bistaratu oinarrizko propietateak"
 
-#: misc/org.yorba.shotwell.gschema.xml:24
+#: misc/org.yorba.shotwell.gschema.xml:23
 msgid "True if the basic properties pane is to be displayed, false otherwise."
 msgstr "Egia oinarrizko propietateen panela bistaratzeko, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:29
+#: misc/org.yorba.shotwell.gschema.xml:28
 msgid "display extended properties"
 msgstr "bistaratu propietate hedatuak"
 
-#: misc/org.yorba.shotwell.gschema.xml:30
+#: misc/org.yorba.shotwell.gschema.xml:29
 msgid ""
 "True if the extended properties window is to be displayed, false otherwise."
 msgstr "Egia propietate hedatuen leihoa bistaratzeko, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:35
+#: misc/org.yorba.shotwell.gschema.xml:34
 msgid "display sidebar"
 msgstr "bistaratu alboko barra"
 
-#: misc/org.yorba.shotwell.gschema.xml:36
+#: misc/org.yorba.shotwell.gschema.xml:35
 msgid "True if the sidebar is to be displayed, false otherwise."
 msgstr "Egia alboko barra bistaratzeko, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:41
+#: misc/org.yorba.shotwell.gschema.xml:40
 msgid "display toolbar"
 msgstr "bistaratu tresna-barra"
 
-#: misc/org.yorba.shotwell.gschema.xml:42
+#: misc/org.yorba.shotwell.gschema.xml:41
 msgid "True if the bottom toolbar is to be displayed, false otherwise."
 msgstr "Egia beheko tresna-barra bistaratzeko, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:47
+#: misc/org.yorba.shotwell.gschema.xml:46
 msgid "display search bar"
 msgstr "bistaratu bilaketa-barra"
 
-#: misc/org.yorba.shotwell.gschema.xml:48
+#: misc/org.yorba.shotwell.gschema.xml:47
 msgid "True if the Search/Filter Toolbar is to be displayed, false otherwise."
 msgstr "Egia bilaketen/iragazkien tresna-barra bistaratzeko, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:53
+#: misc/org.yorba.shotwell.gschema.xml:52
 msgid "display photo titles"
 msgstr "bistaratu argazkien tituluak"
 
-#: misc/org.yorba.shotwell.gschema.xml:54
+#: misc/org.yorba.shotwell.gschema.xml:53
 msgid ""
 "True if photo titles are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
 msgstr "Egia argazkien tituluak bistaratzeko miniaturen azpian bildumen bistetan, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:59
+#: misc/org.yorba.shotwell.gschema.xml:58
 msgid "display photo comments"
 msgstr "bistaratu argazkien iruzkinak"
 
-#: misc/org.yorba.shotwell.gschema.xml:60
+#: misc/org.yorba.shotwell.gschema.xml:59
 msgid ""
 "True if photo comments are to be displayed beneath thumbnails in collection "
 "views, false otherwise."
 msgstr "Egia argazkien iruzkinak bistaratzeko miniaturen azpian bildumen bistetan, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:65
+#: misc/org.yorba.shotwell.gschema.xml:64
 msgid "display event comments"
 msgstr "bistaratu gertaeren iruzkinak"
 
-#: misc/org.yorba.shotwell.gschema.xml:66
+#: misc/org.yorba.shotwell.gschema.xml:65
 msgid ""
 "True if event comments are to be displayed beneath thumbnails in event "
 "views, false otherwise."
 msgstr "Egia gertaeren iruzkinak bistaratzekominiaturen azpian gertaeren bistetan, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:71
+#: misc/org.yorba.shotwell.gschema.xml:70
 msgid "display photo tags"
 msgstr "bistaratu argazkien etiketak"
 
-#: misc/org.yorba.shotwell.gschema.xml:72
+#: misc/org.yorba.shotwell.gschema.xml:71
 msgid ""
 "True if photo tags are to be listed beneath thumbnails in collection views, "
 "false otherwise."
 msgstr "Egia argazkien etiketak zerrendatzeko miniaturen azpian bildumen bistetan, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:77
+#: misc/org.yorba.shotwell.gschema.xml:76
 msgid "display photo ratings"
 msgstr "bistaratu argazkien balorazioak"
 
-#: misc/org.yorba.shotwell.gschema.xml:78
+#: misc/org.yorba.shotwell.gschema.xml:77
 msgid ""
 "True if a photo’s rating should be displayed as overlaid trinket, false "
 "otherwise."
 msgstr "Egia argazki baten balorazioa bistaratzeko gainjarrita, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:83
+#: misc/org.yorba.shotwell.gschema.xml:82
 msgid "rating filter level"
 msgstr "balorazioen iragazki-maila"
 
-#: misc/org.yorba.shotwell.gschema.xml:84
+#: misc/org.yorba.shotwell.gschema.xml:83
 msgid ""
 "Determines how to filter photos based on their ratings. 1: Rejected or "
 "better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three "
 "or better, 6: Four or better, 7: Five or better."
 msgstr "Argazkiak balorazioen arabera nola iragaziko diren zehazten du. 1: Baztertua edo hobea, 2: Puntuaziorik gabea edo hobea, 3: Puntu bat edo hobea, 4: Bi puntu edo hobea, 5: Hiru puntu edo hobea, 6: Lau puntu edo hobea, 7: Bost puntu edo hobea."
 
-#: misc/org.yorba.shotwell.gschema.xml:89
+#: misc/org.yorba.shotwell.gschema.xml:88
 msgid "sort events ascending"
 msgstr "ordenatu gertaerak gorantz"
 
-#: misc/org.yorba.shotwell.gschema.xml:90
+#: misc/org.yorba.shotwell.gschema.xml:89
 msgid "True if events should be sorted ascending, false if descending."
 msgstr "Egia gertaerak gorantz ordenatzeko, faltsua beherantz ordenatzeko."
 
-#: misc/org.yorba.shotwell.gschema.xml:95
+#: misc/org.yorba.shotwell.gschema.xml:94
 msgid "sort library photos ascending"
 msgstr "ordenatu liburutegiko argazkiak gorantz"
 
-#: misc/org.yorba.shotwell.gschema.xml:96
+#: misc/org.yorba.shotwell.gschema.xml:95
 msgid "True if library photos should be sorted ascending, false if descending."
 msgstr "Egia liburutegiko argazkiak gorantz ordenatzeko, faltsua beherantz ordenatzeko"
 
-#: misc/org.yorba.shotwell.gschema.xml:101
+#: misc/org.yorba.shotwell.gschema.xml:100
 msgid "sort library photos criteria"
 msgstr "liburutegiko argazkiak ordenatzeko irizpidea"
 
-#: misc/org.yorba.shotwell.gschema.xml:102
+#: misc/org.yorba.shotwell.gschema.xml:101
 msgid ""
 "A numeric code that specifies the sort criteria for photos in library views."
 msgstr "Liburutegi-bistetako argazkiak ordenatzeko irizpidea zehazten duen zenbakizko kodea."
 
-#: misc/org.yorba.shotwell.gschema.xml:107
+#: misc/org.yorba.shotwell.gschema.xml:106
 msgid "sort event photos ascending"
 msgstr "ordenatu gertaerako argazkiak gorantz"
 
-#: misc/org.yorba.shotwell.gschema.xml:108
+#: misc/org.yorba.shotwell.gschema.xml:107
 msgid "True if event photos should be sorted ascending, false if descending."
 msgstr "Egia gertaerako argazkiak gorantz ordenatzeko, faltsua beherantz ordenatzeko"
 
-#: misc/org.yorba.shotwell.gschema.xml:113
+#: misc/org.yorba.shotwell.gschema.xml:112
 msgid "sort event photos criteria"
 msgstr "gertaerako argazkiak ordenatzeko irizpidea"
 
-#: misc/org.yorba.shotwell.gschema.xml:114
+#: misc/org.yorba.shotwell.gschema.xml:113
 msgid "Specifies the sort criteria for event photos."
 msgstr "Gertaerako argazkiak ordenatzeko irizpidea zehazten du."
 
-#: misc/org.yorba.shotwell.gschema.xml:119
+#: misc/org.yorba.shotwell.gschema.xml:118
 msgid "use 24 hour time"
 msgstr "erabili 24 orduko denbora"
 
-#: misc/org.yorba.shotwell.gschema.xml:120
+#: misc/org.yorba.shotwell.gschema.xml:119
 msgid ""
 "True if should display times with a 24 hour clock, false if times should use "
 "AM/PM notation."
 msgstr "Egia denbora 34 orduko formatuan bistaratzeko, faltsua denborak AM/PM notazioa erabiltzeko."
 
-#: misc/org.yorba.shotwell.gschema.xml:125
+#: misc/org.yorba.shotwell.gschema.xml:124
 msgid "keep relative time between photos"
 msgstr "mantendu denbora erlatiboa argazkien artean"
 
-#: misc/org.yorba.shotwell.gschema.xml:126
+#: misc/org.yorba.shotwell.gschema.xml:125
 msgid ""
 "True if when adjusting time/date of photos, relative time should be "
 "maintained. False if all photos should be set to the same time."
 msgstr "Egia argazkien ordua/data doitzean denbora erlatiboa mantentzeko. Faltsua argazki guztiek ordu bera izan dezaten."
 
-#: misc/org.yorba.shotwell.gschema.xml:131
+#: misc/org.yorba.shotwell.gschema.xml:130
 msgid "modify original photo files"
 msgstr "aldatu jatorrizko argazki-fitxategiak"
 
-#: misc/org.yorba.shotwell.gschema.xml:132
+#: misc/org.yorba.shotwell.gschema.xml:131
 msgid ""
 "True if when adjusting time/date of photos, the original files should be "
 "modified as well. False if changes are made only in the database."
 msgstr "Egia argazkien ordua/data doitzean jatorrizko fitxategiak ere aldatzeko. Faltsua aldaketak datu-basean soilik egiteko."
 
-#: misc/org.yorba.shotwell.gschema.xml:137
+#: misc/org.yorba.shotwell.gschema.xml:136
 msgid "show welcome dialog on startup"
 msgstr "erakutsi ongi etorriko elkarrizketa-koadroa abioan"
 
-#: misc/org.yorba.shotwell.gschema.xml:138
+#: misc/org.yorba.shotwell.gschema.xml:137
 msgid ""
 "True if, when on startup, a welcome dialog should be shown. False if it "
 "should not be shown."
 msgstr "Egia abioan ongi etorriko leihoa erakusteko. Faltsua ez erakusteko."
 
-#: misc/org.yorba.shotwell.gschema.xml:143
+#: misc/org.yorba.shotwell.gschema.xml:142
 msgid "sidebar position"
 msgstr "alboko barraren kokalekua"
 
-#: misc/org.yorba.shotwell.gschema.xml:144
+#: misc/org.yorba.shotwell.gschema.xml:143
 msgid "The width, in pixels, of the sidebar"
 msgstr "Alboko barraren zabalera, pixeletan"
 
-#: misc/org.yorba.shotwell.gschema.xml:149
+#: misc/org.yorba.shotwell.gschema.xml:148
 msgid "photo thumbnail scale"
 msgstr "argazki-miniaturen eskala"
 
-#: misc/org.yorba.shotwell.gschema.xml:150
+#: misc/org.yorba.shotwell.gschema.xml:149
 msgid "The scale of photo thumbnails, ranging from 72 to 360."
 msgstr "Argazki-miniaturen eskala, 72 eta 360 artean."
 
-#: misc/org.yorba.shotwell.gschema.xml:155
+#: misc/org.yorba.shotwell.gschema.xml:154
 msgid "pin toolbar state"
 msgstr "tresna-barraren finkatze-egoera"
 
-#: misc/org.yorba.shotwell.gschema.xml:156
+#: misc/org.yorba.shotwell.gschema.xml:155
 msgid "Pin toolbar in fullscreen, or not."
 msgstr "Finkatu tresna-barra pantaila osoan, edo ez."
 
-#: misc/org.yorba.shotwell.gschema.xml:161
+#: misc/org.yorba.shotwell.gschema.xml:160
 msgid "prefer GTK+’s dark theme"
 msgstr "hobetsi GTK+ gai ilua"
 
-#: misc/org.yorba.shotwell.gschema.xml:162
+#: misc/org.yorba.shotwell.gschema.xml:161
 msgid "Whether to use the dark theme of GTK+ for Shotwell or not."
 msgstr "GTK+ gai iluna erabiliko den ala ez."
 
-#: misc/org.yorba.shotwell.gschema.xml:167
+#: misc/org.yorba.shotwell.gschema.xml:166
 msgid "background for transparent images"
 msgstr "atzeko planoa irudi gardenetarako"
 
-#: misc/org.yorba.shotwell.gschema.xml:168
+#: misc/org.yorba.shotwell.gschema.xml:167
 msgid "The background to use for transparent images."
 msgstr "Irudi gardenekin erabiliko den atzeko planoa."
 
-#: misc/org.yorba.shotwell.gschema.xml:173
+#: misc/org.yorba.shotwell.gschema.xml:172
 msgid "color for solid transparency background"
 msgstr "atzeko plano garden solidoaren kolorea"
 
-#: misc/org.yorba.shotwell.gschema.xml:174
+#: misc/org.yorba.shotwell.gschema.xml:173
 msgid "Color to use if background for transparent images is set to solid color"
 msgstr "Irudi gardenen atzeko planoa kolore solidokoa izan dadin ezartzen bada erabiliko den kolorea"
 
-#: misc/org.yorba.shotwell.gschema.xml:179
+#: misc/org.yorba.shotwell.gschema.xml:178
 msgid "Selection state of “hide photos” option"
 msgstr "“Ezkutatu argazkiak” aukeraren hautapen-egoera"
 
-#: misc/org.yorba.shotwell.gschema.xml:180
+#: misc/org.yorba.shotwell.gschema.xml:179
 msgid ""
 "Last used selection state of the “hide photos already imported” option in "
 "the import page."
 msgstr "Inportazioen orriaren “Ezkutatu jadanik inportatu diren argazkiak” aukeran erabilitako azken hautatze-egoera"
 
-#: misc/org.yorba.shotwell.gschema.xml:187
+#: misc/org.yorba.shotwell.gschema.xml:186
 msgid "delay"
 msgstr "atzerapena"
 
-#: misc/org.yorba.shotwell.gschema.xml:188
+#: misc/org.yorba.shotwell.gschema.xml:187
 msgid "Delay (in seconds) between photos in the slideshow."
 msgstr "Atzerapena (segundoetan) aurkezpeneko argazkien artean."
 
-#: misc/org.yorba.shotwell.gschema.xml:193
+#: misc/org.yorba.shotwell.gschema.xml:192
 msgid "transition delay"
 msgstr "trantsizioaren atzerapena"
 
-#: misc/org.yorba.shotwell.gschema.xml:194
+#: misc/org.yorba.shotwell.gschema.xml:193
 msgid ""
 "The time (in seconds) that a transition runs between photos in a slideshow"
 msgstr "Aurkezpen bateko argazkien arteko trantsizioak iraungo duen denbora (segundoetan)"
 
-#: misc/org.yorba.shotwell.gschema.xml:199
+#: misc/org.yorba.shotwell.gschema.xml:198
 msgid "transition effect id"
 msgstr "trantsizio-efektuaren iIDa"
 
-#: misc/org.yorba.shotwell.gschema.xml:200
+#: misc/org.yorba.shotwell.gschema.xml:199
 msgid ""
 "The name of the transition effect that will be used between photos when "
 "running a slideshow"
 msgstr "Aurkezpen bat exekutatzen argazkien artean erabiliko den trantsizio-efektuaren izena"
 
-#: misc/org.yorba.shotwell.gschema.xml:205
+#: misc/org.yorba.shotwell.gschema.xml:204
 msgid "Show title"
 msgstr "Erakutsi titulua"
 
-#: misc/org.yorba.shotwell.gschema.xml:206
+#: misc/org.yorba.shotwell.gschema.xml:205
 msgid "Whether to show the title of a photo during the slideshow"
 msgstr "Argazki baten titulua erakutsiko den ala ez aurkezpenean"
 
-#: misc/org.yorba.shotwell.gschema.xml:213
+#: misc/org.yorba.shotwell.gschema.xml:212
 msgid "maximize library window"
 msgstr "maximizatu liburutegi-leihoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:214
+#: misc/org.yorba.shotwell.gschema.xml:213
 msgid "True if library application is maximized, false otherwise."
 msgstr "Egia liburutegi-aplikazioa maximizatuta badago, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:219
+#: misc/org.yorba.shotwell.gschema.xml:218
 msgid "width of library window"
 msgstr "liburutegi-leihoaren zabalera"
 
-#: misc/org.yorba.shotwell.gschema.xml:220
+#: misc/org.yorba.shotwell.gschema.xml:219
 msgid "The last recorded width of the library application window."
 msgstr "Liburutegi-aplikazioaren leihoan erregistratu den azken zabalera."
 
-#: misc/org.yorba.shotwell.gschema.xml:225
+#: misc/org.yorba.shotwell.gschema.xml:224
 msgid "height of library window"
 msgstr "liburutegi-leihoaren altuera"
 
-#: misc/org.yorba.shotwell.gschema.xml:226
+#: misc/org.yorba.shotwell.gschema.xml:225
 msgid "The last recorded height of the library application window."
 msgstr "Liburutegi-aplikazioaren leihoan erregistratu den azken altuera."
 
-#: misc/org.yorba.shotwell.gschema.xml:231
+#: misc/org.yorba.shotwell.gschema.xml:230
 msgid "maximize direct-edit window"
 msgstr "maximizatu edizio zuzeneko leihoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:232
+#: misc/org.yorba.shotwell.gschema.xml:231
 msgid "True if direct-edit application is maximized, false otherwise."
 msgstr "Egia edizio zuzeneko leihoa maximizatuta badago, bestela faltsua."
 
-#: misc/org.yorba.shotwell.gschema.xml:237
+#: misc/org.yorba.shotwell.gschema.xml:236
 msgid "width of direct-edit window"
 msgstr "edizio zuzeneko leihoaren zabalera"
 
-#: misc/org.yorba.shotwell.gschema.xml:238
+#: misc/org.yorba.shotwell.gschema.xml:237
 msgid "The last recorded width of the direct-edit application window."
 msgstr "Edizio zuzenerako aplikazioaren leihoan erregistratu den azken zabalera."
 
-#: misc/org.yorba.shotwell.gschema.xml:243
+#: misc/org.yorba.shotwell.gschema.xml:242
 msgid "height of direct-edit window"
 msgstr "edizio zuzeneko leihoaren altuera"
 
-#: misc/org.yorba.shotwell.gschema.xml:244
+#: misc/org.yorba.shotwell.gschema.xml:243
 msgid "The last recorded height of the direct-edit application window."
 msgstr "Edizio zuzenerako aplikazioaren leihoan erregistratu den azken altuera."
 
-#: misc/org.yorba.shotwell.gschema.xml:249
+#: misc/org.yorba.shotwell.gschema.xml:248
 msgid "sidebar divider position"
 msgstr "alboko barraren zatitzailearen posizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:250
+#: misc/org.yorba.shotwell.gschema.xml:249
 msgid ""
 "The last recorded position of the divider between the sidebar and view in "
 "library application window."
 msgstr "Liburutegi-aplikazioaren leihoan alboko barraren eta bistaren arteko zatitzailean erregistratu den azken posizioa."
 
-#: misc/org.yorba.shotwell.gschema.xml:257
+#: misc/org.yorba.shotwell.gschema.xml:256
 msgid "import directory"
 msgstr "inportatu direktorioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:258
+#: misc/org.yorba.shotwell.gschema.xml:257
 msgid "Directory in which imported photo files are placed."
 msgstr "Inportatutako argazki-fitxategiak kokatzeko erabiliko den direktorioa."
 
-#: misc/org.yorba.shotwell.gschema.xml:263
+#: misc/org.yorba.shotwell.gschema.xml:262
 msgid "watch library directory for new files"
 msgstr "behatu liburutegi-direktorioa fitxategi berriak aurkitzeko"
 
-#: misc/org.yorba.shotwell.gschema.xml:264
+#: misc/org.yorba.shotwell.gschema.xml:263
 msgid ""
 "If true, files added to the library directory are automatically imported."
 msgstr "Egia bada, liburutegi-direktorioari gehitutako fitxategiak automatikoki inportatuko dira."
 
-#: misc/org.yorba.shotwell.gschema.xml:269
+#: misc/org.yorba.shotwell.gschema.xml:268
 msgid "write metadata to master files"
 msgstr "idatzi metadatuak fitxategi maisuetan"
 
-#: misc/org.yorba.shotwell.gschema.xml:270
+#: misc/org.yorba.shotwell.gschema.xml:269
 msgid ""
 "If true, changes to metadata (tags, titles, etc.) are written to the master "
 "photo file."
 msgstr "Egia bada, metadatuei (etiketak, tituluak, etab.) egindako aldaketak argazki-fitxategi maisuan idatziko dira"
 
-#: misc/org.yorba.shotwell.gschema.xml:275
+#: misc/org.yorba.shotwell.gschema.xml:274
 msgid "use lowercase filenames"
 msgstr "erabili minuskulak fitxategi-izenetan"
 
-#: misc/org.yorba.shotwell.gschema.xml:276
+#: misc/org.yorba.shotwell.gschema.xml:275
 msgid ""
 "If true, Shotwell will convert all filenames to lowercase when importing "
 "photo files"
 msgstr "Egia bada, Shotwell-ek minuskula bihurtuko ditu fitxategi-izen guztiak, argazki-fitxategiak inportatzean"
 
-#: misc/org.yorba.shotwell.gschema.xml:281
+#: misc/org.yorba.shotwell.gschema.xml:280
 msgid "directory pattern"
 msgstr "direktorio-eredua"
 
-#: misc/org.yorba.shotwell.gschema.xml:282
+#: misc/org.yorba.shotwell.gschema.xml:281
 msgid ""
 "A string encoding a naming pattern that will be used to name photo "
 "directories on import."
 msgstr "Inportazioan, argazki-direktorioak izendatzeko erabiliko den izen-eredu bat kodetzen duen kate bat."
 
-#: misc/org.yorba.shotwell.gschema.xml:287
+#: misc/org.yorba.shotwell.gschema.xml:286
 msgid "directory pattern custom"
 msgstr "direktorio-eredu pertsonalizatua"
 
-#: misc/org.yorba.shotwell.gschema.xml:288
+#: misc/org.yorba.shotwell.gschema.xml:287
 msgid ""
 "A string encoding a custom naming pattern that will be used to name photo "
 "directories on import."
 msgstr "Inportazioan, argazki-direktorioak izendatzeko erabiliko den izen-eredu pertsonalizatu bat kodetzen duen kate bat."
 
-#: misc/org.yorba.shotwell.gschema.xml:293
+#: misc/org.yorba.shotwell.gschema.xml:292
 msgid "RAW developer default"
 msgstr "RAW garatzaile lehenetsia"
 
-#: misc/org.yorba.shotwell.gschema.xml:294
+#: misc/org.yorba.shotwell.gschema.xml:293
 msgid "Default option for which RAW developer Shotwell will use."
 msgstr "Shotwell-ek zein RAW garatzaile lehenetsi erabiliko duen."
 
-#: misc/org.yorba.shotwell.gschema.xml:301
+#: misc/org.yorba.shotwell.gschema.xml:300
 msgid "Most-recently-used crop aspect ratio menu choice."
 msgstr "Argazkiak mozteko azkena erabilitako aspektu-erlazioen menuaren aukera."
 
-#: misc/org.yorba.shotwell.gschema.xml:302
+#: misc/org.yorba.shotwell.gschema.xml:301
 msgid "A numeric code representing the last crop menu choice the user made."
 msgstr "Erabiltzaileak erabili duen mozte-menuaren azken aukera ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:306
+#: misc/org.yorba.shotwell.gschema.xml:305
 msgid "Most-recently-used crop custom aspect ratio’s numerator."
 msgstr "Oraintsuen erabilitako mozketaren aspektu-erlazio pertsonalizatuaren zenbakitzailea."
 
-#: misc/org.yorba.shotwell.gschema.xml:307
+#: misc/org.yorba.shotwell.gschema.xml:306
 msgid ""
 "A nonzero, positive integer representing the width part of the last custom "
 "crop ratio the user entered."
 msgstr "Erabiltzaileak sartu duen azken mozte-erlazio pertsonalizatuaren zabalera ordezkatzen duen zenbaki osoa, zero ez dena."
 
-#: misc/org.yorba.shotwell.gschema.xml:311
+#: misc/org.yorba.shotwell.gschema.xml:310
 msgid "Most-recently-used crop custom aspect ratio’s denominator."
 msgstr "Oraintsuen erabilitako mozketaren aspektu-erlazio pertsonalizatuaren izendatzailea."
 
-#: misc/org.yorba.shotwell.gschema.xml:312
+#: misc/org.yorba.shotwell.gschema.xml:311
 msgid ""
 "A nonzero, positive integer representing the height part of the last custom "
 "crop ratio the user entered."
 msgstr "Erabiltzaileak sartu duen azken mozte-erlazio pertsonalizatuaren altuera ordezkatzen duen zenbaki osoa, zero ez dena."
 
-#: misc/org.yorba.shotwell.gschema.xml:319
+#: misc/org.yorba.shotwell.gschema.xml:318
 msgid "external photo editor"
 msgstr "kanpoko argazki-editorea"
 
-#: misc/org.yorba.shotwell.gschema.xml:320
+#: misc/org.yorba.shotwell.gschema.xml:319
 msgid "External application used to edit photos."
 msgstr "Argazkiak editatzeko erabiliko den kanpoko aplikazioa."
 
-#: misc/org.yorba.shotwell.gschema.xml:325
+#: misc/org.yorba.shotwell.gschema.xml:324
 msgid "external raw editor"
 msgstr "kanpoko raw editorea"
 
-#: misc/org.yorba.shotwell.gschema.xml:326
+#: misc/org.yorba.shotwell.gschema.xml:325
 msgid "External application used to edit RAW photos."
 msgstr "RAW argazkiak editatzeko erabiliko den kanpoko aplikazioa."
 
+#: misc/org.yorba.shotwell.gschema.xml:363
 #: misc/org.yorba.shotwell.gschema.xml:364
-#: misc/org.yorba.shotwell.gschema.xml:365
 msgid "Setting in export dialog: how to trim images"
 msgstr "Ezarpena esportazio-koadroan: nola moztu irudiak"
 
-#: misc/org.yorba.shotwell.gschema.xml:370
+#: misc/org.yorba.shotwell.gschema.xml:369
 msgid "export metadata"
 msgstr "esportatu metadatuak"
 
-#: misc/org.yorba.shotwell.gschema.xml:371
+#: misc/org.yorba.shotwell.gschema.xml:370
 msgid "Setting in export dialog: option to export metadata"
 msgstr "Ezarpena esportazio-koadroan: metadatuak esportatzeko aukera"
 
-#: misc/org.yorba.shotwell.gschema.xml:376
+#: misc/org.yorba.shotwell.gschema.xml:375
 msgid "format setting, special value"
 msgstr "formatu-ezarpena, balio berezia"
 
-#: misc/org.yorba.shotwell.gschema.xml:377
+#: misc/org.yorba.shotwell.gschema.xml:376
 msgid "Setting in export dialog: format setting, special value"
 msgstr "Ezarpena esportazio-koadroan: formatu-ezarpena, balio berezia"
 
-#: misc/org.yorba.shotwell.gschema.xml:382
+#: misc/org.yorba.shotwell.gschema.xml:381
 msgid "format setting, type value"
 msgstr "formatu-ezarpena, mota balioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:383
+#: misc/org.yorba.shotwell.gschema.xml:382
 msgid "Setting in export dialog: format setting, type value"
 msgstr "Ezarpena esportazio-koadroan: formatu-ezarpena, mota balioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:388
+#: misc/org.yorba.shotwell.gschema.xml:387
 msgid "JPEG quality option"
 msgstr "JPEG kalitatearen aukera"
 
-#: misc/org.yorba.shotwell.gschema.xml:389
+#: misc/org.yorba.shotwell.gschema.xml:388
 msgid "Setting in export dialog: jpeg quality option"
 msgstr "Ezarpena esportazio-koadroan: JPEG kalitatearen aukera"
 
-#: misc/org.yorba.shotwell.gschema.xml:394
+#: misc/org.yorba.shotwell.gschema.xml:393
 msgid "maximal size of image"
 msgstr "irudiaren tamaina maximoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:395
+#: misc/org.yorba.shotwell.gschema.xml:394
 msgid "Setting in export dialog: maximal size of image"
 msgstr "Ezarpena esportazio-koadroan: irudiaren tamaina maximoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:402
+#: misc/org.yorba.shotwell.gschema.xml:401
 msgid "last used publishing service"
 msgstr "erabilitako azken argitaratze-zerbitzua"
 
-#: misc/org.yorba.shotwell.gschema.xml:403
-#: misc/org.yorba.shotwell.gschema.xml:409
+#: misc/org.yorba.shotwell.gschema.xml:402
+#: misc/org.yorba.shotwell.gschema.xml:408
 msgid ""
 "A numeric code representing the last service to which photos were published"
 msgstr "Argazkiak argitaratzeko erabili den azken zerbitzua ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:408
+#: misc/org.yorba.shotwell.gschema.xml:407
 msgid "default publishing service"
 msgstr "argitaratze-zerbitzu lehenetsia"
 
-#: misc/org.yorba.shotwell.gschema.xml:422
+#: misc/org.yorba.shotwell.gschema.xml:421
 msgid "access token"
 msgstr "sarbidetze-tokena"
 
-#: misc/org.yorba.shotwell.gschema.xml:423
+#: misc/org.yorba.shotwell.gschema.xml:422
 msgid "Facebook OAuth token for the currently logged in session, if any"
 msgstr "Facebook OAuth tokena unean hasita dagoen saiorako, halakorik badago"
 
-#: misc/org.yorba.shotwell.gschema.xml:428
+#: misc/org.yorba.shotwell.gschema.xml:427
 msgid "user i.d."
 msgstr "erabiltzailearen id-a"
 
-#: misc/org.yorba.shotwell.gschema.xml:429
+#: misc/org.yorba.shotwell.gschema.xml:428
 msgid "Facebook user i.d. for the currently logged in user, if any"
 msgstr "Facebook-eko erabiltzailearen id-a unean saioa hasita duen erabiltzailerako, halakorik badago"
 
-#: misc/org.yorba.shotwell.gschema.xml:434
+#: misc/org.yorba.shotwell.gschema.xml:433
 msgid "user name"
 msgstr "erabiltzaile-izena"
 
-#: misc/org.yorba.shotwell.gschema.xml:435
+#: misc/org.yorba.shotwell.gschema.xml:434
 msgid "The name of the currently logged in Facebook user, if any"
 msgstr "Facebook-eko erabiltzailearen izena, halakorik badago"
 
-#: misc/org.yorba.shotwell.gschema.xml:440
-#: misc/org.yorba.shotwell.gschema.xml:472
+#: misc/org.yorba.shotwell.gschema.xml:439
+#: misc/org.yorba.shotwell.gschema.xml:471
 msgid "default size code"
 msgstr "tamaina lehenetsiaren kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:441
+#: misc/org.yorba.shotwell.gschema.xml:440
 msgid ""
 "A numeric code representing the default size for photos published to Facebook"
 msgstr "Facebook-en argitaratuko diren argazkien tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:447
+#: misc/org.yorba.shotwell.gschema.xml:446
 msgid ""
 "Whether images being uploaded to Facebook should have their metadata removed "
 "first"
 msgstr "Facebook-era igotzen diren argazkien metadatuak kenduko diren ala ez"
 
-#: misc/org.yorba.shotwell.gschema.xml:454
+#: misc/org.yorba.shotwell.gschema.xml:453
 msgid "OAuth Access Phase Token"
 msgstr "OAuth Access Phase tokena"
 
-#: misc/org.yorba.shotwell.gschema.xml:455
+#: misc/org.yorba.shotwell.gschema.xml:454
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr "Flickr-en saioa hasita duen erabiltzailearen baimen-tokena, halakorik badago"
 
-#: misc/org.yorba.shotwell.gschema.xml:460
+#: misc/org.yorba.shotwell.gschema.xml:459
 msgid "OAuth Access Phase Token Secret"
 msgstr "OAuth Access Phase tokenaren sekretua"
 
-#: misc/org.yorba.shotwell.gschema.xml:461
+#: misc/org.yorba.shotwell.gschema.xml:460
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr "Flickr-en saioa hasita duen erabiltzailearen, halakorik badago, baimen-tokenaren aurka eskariak sinatzeko erabili den sekretu kriptografikoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:467
+#: misc/org.yorba.shotwell.gschema.xml:466
 msgid "The user name of the currently logged in Flickr user, if any"
 msgstr "Saioa hasita daukan Flikr-eko erabiltzailearen izena, halakorik badago"
 
-#: misc/org.yorba.shotwell.gschema.xml:473
+#: misc/org.yorba.shotwell.gschema.xml:472
 msgid ""
 "A numeric code representing the default size for photos published to Flickr"
 msgstr "Flickr-en argitaratuko diren argazkien tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:478
+#: misc/org.yorba.shotwell.gschema.xml:477
 msgid "default visibility"
 msgstr "ikusgaitasun lehenetsia"
 
-#: misc/org.yorba.shotwell.gschema.xml:479
+#: misc/org.yorba.shotwell.gschema.xml:478
 msgid ""
 "A numeric code representing the default visibility for photos published to "
 "Flickr"
 msgstr "Flickr-en argitaratuko diren argazkien ikusgaitasun lehenetsia ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:485
+#: misc/org.yorba.shotwell.gschema.xml:484
 msgid ""
 "Whether images being uploaded to Flickr should have their metadata removed "
 "first"
 msgstr "Flickr-era igotzen diren argazkien metadatuak kenduko diren ala ez"
 
-#: misc/org.yorba.shotwell.gschema.xml:492
-#: misc/org.yorba.shotwell.gschema.xml:624
+#: misc/org.yorba.shotwell.gschema.xml:491
+#: misc/org.yorba.shotwell.gschema.xml:623
 msgid "refresh token"
 msgstr "freskatu tokena"
 
-#: misc/org.yorba.shotwell.gschema.xml:493
+#: misc/org.yorba.shotwell.gschema.xml:492
 msgid ""
 "The OAuth token used to refresh the Google Photos session for the currently "
 "logged in user, if any."
 msgstr "Unean Google Photos-en saioa hasita duen erabiltzailearen saioa, halakorik badago, freskatzeko erabilitako OAuth tokena."
 
-#: misc/org.yorba.shotwell.gschema.xml:499
+#: misc/org.yorba.shotwell.gschema.xml:498
 msgid ""
 "A numeric code representing the default size for photos uploaded to Google "
 "Photos Albums"
 msgstr "Google Photos albumetara igotako argazkien tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:504
-#: misc/org.yorba.shotwell.gschema.xml:598
+#: misc/org.yorba.shotwell.gschema.xml:503
+#: misc/org.yorba.shotwell.gschema.xml:597
 msgid "last album"
 msgstr "azken albuma"
 
-#: misc/org.yorba.shotwell.gschema.xml:505
-#: misc/org.yorba.shotwell.gschema.xml:599
+#: misc/org.yorba.shotwell.gschema.xml:504
+#: misc/org.yorba.shotwell.gschema.xml:598
 msgid "The name of the last album the user published photos to, if any"
 msgstr "Erabiltzaileak argazkiak argitaratzeko erabili zuen azken albumaren izena, halakorik badago"
 
-#: misc/org.yorba.shotwell.gschema.xml:511
+#: misc/org.yorba.shotwell.gschema.xml:510
 msgid ""
 "Whether images being uploaded to Google Photos should have their metadata "
 "removed first"
 msgstr "Google Photos-era igotzen diren argazkien metadatuak kenduko diren ala ez"
 
-#: misc/org.yorba.shotwell.gschema.xml:518
+#: misc/org.yorba.shotwell.gschema.xml:517
 msgid "Piwigo URL"
 msgstr "Piwigo URLa"
 
-#: misc/org.yorba.shotwell.gschema.xml:519
+#: misc/org.yorba.shotwell.gschema.xml:518
 msgid "URL of the Piwigo server."
 msgstr "Piwigo zerbitzariaren URLa."
 
-#: misc/org.yorba.shotwell.gschema.xml:525
+#: misc/org.yorba.shotwell.gschema.xml:524
 msgid "Piwigo username, if logged in."
 msgstr "Piwigo erabiltzaile-izena, saioa hasita badago."
 
-#: misc/org.yorba.shotwell.gschema.xml:530
+#: misc/org.yorba.shotwell.gschema.xml:529
 msgid "password"
 msgstr "pasahitza"
 
-#: misc/org.yorba.shotwell.gschema.xml:531
+#: misc/org.yorba.shotwell.gschema.xml:530
 msgid "Piwigo password, if logged in."
 msgstr "Piwigo pasahitza, saioa hasita badago."
 
-#: misc/org.yorba.shotwell.gschema.xml:536
+#: misc/org.yorba.shotwell.gschema.xml:535
 msgid "remember password"
 msgstr "gogoratu pasahitza"
 
-#: misc/org.yorba.shotwell.gschema.xml:537
+#: misc/org.yorba.shotwell.gschema.xml:536
 msgid "If true, remember the Piwigo password."
 msgstr "Egia bada, gogoratu Piwigo pasahitza."
 
-#: misc/org.yorba.shotwell.gschema.xml:543
+#: misc/org.yorba.shotwell.gschema.xml:542
 msgid "The last selected Piwigo category."
 msgstr "Hautatutako azken Piwigo kategoria."
 
-#: misc/org.yorba.shotwell.gschema.xml:548
+#: misc/org.yorba.shotwell.gschema.xml:547
 msgid "last permission level"
 msgstr "azken baimen-maila"
 
-#: misc/org.yorba.shotwell.gschema.xml:549
+#: misc/org.yorba.shotwell.gschema.xml:548
 msgid "The last chosen Piwigo permission level."
 msgstr "Aukeratutako azken Piwigo baimen-maila."
 
-#: misc/org.yorba.shotwell.gschema.xml:555
+#: misc/org.yorba.shotwell.gschema.xml:554
 msgid ""
 "A numeric code representing the last photo size preset used when publishing "
 "to Piwigo."
 msgstr "Piwigo sarean argitaratzean argazkietarako erabilitako azken tamaina lehenetsia ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:561
+#: misc/org.yorba.shotwell.gschema.xml:560
 msgid ""
 "Whether images being uploaded to Piwigo should have their metadata removed "
 "first"
 msgstr "Piwigo-ra igotzen diren argazkien metadatuak kenduko diren ala ez"
 
-#: misc/org.yorba.shotwell.gschema.xml:566
+#: misc/org.yorba.shotwell.gschema.xml:565
 msgid ""
 "if title is set and comment unset, use title as comment for uploads to Piwigo"
 msgstr "Izenburua ezartzen bada eta iruzkina kentzen bada, erabili izenburua iruzkin gisa Piwigo-ra argazkiak igotzeko"
 
-#: misc/org.yorba.shotwell.gschema.xml:567
+#: misc/org.yorba.shotwell.gschema.xml:566
 msgid ""
 "Whether images being uploaded to Piwigo should have their comment set from "
 "the title if title is set and comment unset"
 msgstr "Piwigo-ra igotzen diren argazkiei iruzkina titulutik abiatuta ezarriko zaien, titulua ezarrita badago eta iruzkina ez"
 
-#: misc/org.yorba.shotwell.gschema.xml:572
+#: misc/org.yorba.shotwell.gschema.xml:571
 msgid "do not upload tags when uploading to Piwigo"
 msgstr "ez igo etiketak Piwigo-ra igotzean"
 
-#: misc/org.yorba.shotwell.gschema.xml:573
+#: misc/org.yorba.shotwell.gschema.xml:572
 msgid ""
 "Whether images being uploaded to Piwigo should have their tags removed on "
 "upload, such that these tags will not appear on the remote Piwigo server."
 msgstr "Piwigo-ra igotzen diren irudien etiketak kenduko diren ala ez, etiketa horiek Piwigo zerbitzariak ager ez daitezen"
 
-#: misc/org.yorba.shotwell.gschema.xml:581
+#: misc/org.yorba.shotwell.gschema.xml:580
 msgid "Gallery3 username"
 msgstr "Gallery3 erabiltzaile-izena"
 
-#: misc/org.yorba.shotwell.gschema.xml:586
+#: misc/org.yorba.shotwell.gschema.xml:585
 msgid "API key"
 msgstr "API gakoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:587
+#: misc/org.yorba.shotwell.gschema.xml:586
 msgid "Gallery3 API key"
 msgstr "Gallery3 API gakoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:592
+#: misc/org.yorba.shotwell.gschema.xml:591
 msgid "URL"
 msgstr "URLa"
 
-#: misc/org.yorba.shotwell.gschema.xml:593
+#: misc/org.yorba.shotwell.gschema.xml:592
 msgid "Gallery3 site URL"
 msgstr "Gallery3 guneran URLa"
 
-#: misc/org.yorba.shotwell.gschema.xml:605
+#: misc/org.yorba.shotwell.gschema.xml:604
 msgid ""
 "Indicates whether images being uploaded to Gallery3 should have their "
 "metadata removed first"
 msgstr "Gallery3-ra igotzen diren argazkien metadatuak kenduko diren ala ez adierazten du"
 
-#: misc/org.yorba.shotwell.gschema.xml:610
+#: misc/org.yorba.shotwell.gschema.xml:609
 msgid "scaling constraint of uploaded picture"
 msgstr "igotako argazkiaren eskala-murriztapena"
 
-#: misc/org.yorba.shotwell.gschema.xml:611
+#: misc/org.yorba.shotwell.gschema.xml:610
 msgid "The scaling constraint ID of the picture to be uploaded"
 msgstr "Igoko den argazkiaren eskala-murriztapenaren IDa"
 
-#: misc/org.yorba.shotwell.gschema.xml:616
+#: misc/org.yorba.shotwell.gschema.xml:615
 msgid "pixels of the major axis uploaded picture"
 msgstr "igotako argazkiaren ardatz nagusiaren pixelak"
 
-#: misc/org.yorba.shotwell.gschema.xml:617
+#: misc/org.yorba.shotwell.gschema.xml:616
 msgid ""
 "The pixels of the major axis of the picture to be uploaded; used only if "
 "scaling-constraint-id is an appropriate value"
 msgstr "Igotako argazkiaren ardatz nagusiaren pixelak; eskala-murriztapenaren IDa balio egokia bada soilik erabiliko da"
 
-#: misc/org.yorba.shotwell.gschema.xml:625
+#: misc/org.yorba.shotwell.gschema.xml:624
 msgid ""
 "The OAuth token used to refresh the YouTube session for the currently logged "
 "in user, if any."
 msgstr "Unean YouTube-n saioa hasita duen erabiltzailearen saioa, halakorik badago, freskatzeko erabilitako OAuth tokena."
 
-#: misc/org.yorba.shotwell.gschema.xml:632
+#: misc/org.yorba.shotwell.gschema.xml:631
 msgid "last used import service"
 msgstr "erabilitako azken inportazio-zerbitzua"
 
-#: misc/org.yorba.shotwell.gschema.xml:633
+#: misc/org.yorba.shotwell.gschema.xml:632
 msgid ""
 "A numeric code representing the last service from which photos were imported"
 msgstr "Argazkiak inportatzeko erabili den azken zerbitzua ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:640
-msgid "interpreter state cookie"
-msgstr "Interpretatzailearen egoeraren cookie-a"
-
-#: misc/org.yorba.shotwell.gschema.xml:641
-msgid ""
-"A numeric code that captures the state of the GStreamer plug-in environment"
-msgstr "GStreamer plugin-ingurunearen egoera kapturatzen duen zenbakizko kodea"
-
-#: misc/org.yorba.shotwell.gschema.xml:648
+#: misc/org.yorba.shotwell.gschema.xml:639
 msgid "content layout mode"
 msgstr "eduki-diseinuaren modua"
 
-#: misc/org.yorba.shotwell.gschema.xml:649
+#: misc/org.yorba.shotwell.gschema.xml:640
 msgid ""
 "A numeric code that describes how photos are laid out on the page during "
 "printing"
 msgstr "Inprimatzean, argazkiak orrian nola kokatzen diren deskribatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:654
+#: misc/org.yorba.shotwell.gschema.xml:645
 msgid "content ppi"
 msgstr "edukiaren ppl-ak"
 
-#: misc/org.yorba.shotwell.gschema.xml:655
+#: misc/org.yorba.shotwell.gschema.xml:646
 msgid "The number of pixels per inch (ppi) sent to the printer during printing"
 msgstr "Inprimagailura inprimatzean bidalitako ppl-ak (pixelak hazbeteko)"
 
-#: misc/org.yorba.shotwell.gschema.xml:660
+#: misc/org.yorba.shotwell.gschema.xml:651
 msgid "content width"
 msgstr "edukiaren zabalera"
 
-#: misc/org.yorba.shotwell.gschema.xml:661
+#: misc/org.yorba.shotwell.gschema.xml:652
 msgid "The width of the printed emulsion on the page when printing"
 msgstr "Inprimatzean, orrialdean inprimatutako emultsioaren zabalera"
 
-#: misc/org.yorba.shotwell.gschema.xml:666
+#: misc/org.yorba.shotwell.gschema.xml:657
 msgid "content height"
 msgstr "edukiaren altuera"
 
-#: misc/org.yorba.shotwell.gschema.xml:667
+#: misc/org.yorba.shotwell.gschema.xml:658
 msgid "The height of the printed emulsion on the page when printing"
 msgstr "Inprimatzean, orrialdean inprimatutako emultsioaren altuera"
 
-#: misc/org.yorba.shotwell.gschema.xml:672
+#: misc/org.yorba.shotwell.gschema.xml:663
 msgid "content units"
 msgstr "edukiaren unitateak"
 
-#: misc/org.yorba.shotwell.gschema.xml:673
+#: misc/org.yorba.shotwell.gschema.xml:664
 msgid ""
 "A numeric code representing unit of measure (inches or centimeters) used "
 "when printing"
 msgstr "Inprimatzean erabilitako neurketa-unitatea (hazbeteak edo zentimetroak) ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:678
+#: misc/org.yorba.shotwell.gschema.xml:669
 msgid "images per page code"
 msgstr "Irudiak orrialde-kodeko"
 
-#: misc/org.yorba.shotwell.gschema.xml:679
+#: misc/org.yorba.shotwell.gschema.xml:670
 msgid ""
 "A numeric code representing the currently selected images per page mode used "
 "when printing"
 msgstr "Inprimatzean erabilitako 'Irudiak orrialdeko' balioa ordezkatzen duen zenbakizko kodea"
 
-#: misc/org.yorba.shotwell.gschema.xml:684
+#: misc/org.yorba.shotwell.gschema.xml:675
 msgid "size selection"
 msgstr "tamaina-hautapena"
 
-#: misc/org.yorba.shotwell.gschema.xml:685
+#: misc/org.yorba.shotwell.gschema.xml:676
 msgid ""
 "The index of the current print size in a pre-defined list of standard sizes"
 msgstr "Uneko inprimatze-tamainaren indizea tamaina estandarren zerrenda aurredefinitu batean"
 
-#: misc/org.yorba.shotwell.gschema.xml:690
+#: misc/org.yorba.shotwell.gschema.xml:681
 msgid "match aspect ratio"
 msgstr "egin bat aspektu-erlazioarekin"
 
-#: misc/org.yorba.shotwell.gschema.xml:691
+#: misc/org.yorba.shotwell.gschema.xml:682
 msgid ""
 "Determines whether custom print sizes must match the aspect ratio of the "
 "original photo"
 msgstr "Inprimatze-tamaina pertsonalizatuak jatorrizko argazkiaren aspektu-erlazioarekin bat egin behar duten ala ez zehazten du"
 
-#: misc/org.yorba.shotwell.gschema.xml:696
+#: misc/org.yorba.shotwell.gschema.xml:687
 msgid "print titles"
 msgstr "inprimatu tituluak"
 
-#: misc/org.yorba.shotwell.gschema.xml:697
+#: misc/org.yorba.shotwell.gschema.xml:688
 msgid ""
 "True if the title of a photo should be printed when the photo is printed, "
 "false otherwise."
 msgstr "Egia argazki baten titulua inprimatzeko argazkia inprimatzean, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:702
+#: misc/org.yorba.shotwell.gschema.xml:693
 msgid "titles font"
 msgstr "tituluen letra-tipoa"
 
-#: misc/org.yorba.shotwell.gschema.xml:703
+#: misc/org.yorba.shotwell.gschema.xml:694
 msgid "The name of the font to use for photo titles when they are printed."
 msgstr "Argazki-tituluetan erabilitako letra-tipoaren izena, haiek inprimatzen direnean."
 
-#: misc/org.yorba.shotwell.gschema.xml:714
+#: misc/org.yorba.shotwell.gschema.xml:705
 msgid "enable facebook publishing plugin"
 msgstr "gaitu facebook-en argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:715
+#: misc/org.yorba.shotwell.gschema.xml:706
 msgid "True if the Facebook publishing plugin is enabled, false otherwise"
 msgstr "Egia Facebook-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:720
+#: misc/org.yorba.shotwell.gschema.xml:711
 msgid "enable flickr publishing plugin"
 msgstr "gaitu flickr-en argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:721
+#: misc/org.yorba.shotwell.gschema.xml:712
 msgid "True if the Flickr publishing plugin is enabled, false otherwise"
 msgstr "Egia Flickr-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:726
+#: misc/org.yorba.shotwell.gschema.xml:717
 msgid "enable Google Photos publishing plugin"
 msgstr "gaitu google photos-en argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:727
+#: misc/org.yorba.shotwell.gschema.xml:718
 msgid "True if the Google Photos publishing plugin is enabled, false otherwise"
 msgstr "Egia Google Photos-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:732
+#: misc/org.yorba.shotwell.gschema.xml:723
 msgid "enable youtube publishing plugin"
 msgstr "gaitu youtube-n argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:733
+#: misc/org.yorba.shotwell.gschema.xml:724
 msgid "True if the YouTube publishing plugin is enabled, false otherwise"
 msgstr "Egia YouTube-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:738
+#: misc/org.yorba.shotwell.gschema.xml:729
 msgid "enable piwigo publishing plugin"
 msgstr "gaitu piwigo-n argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:739
+#: misc/org.yorba.shotwell.gschema.xml:730
 msgid "True if the Piwigo publishing plugin is enabled, false otherwise"
 msgstr "Egia Piwigo-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:744
+#: misc/org.yorba.shotwell.gschema.xml:735
 msgid "enable yandex publishing plugin"
 msgstr "gaitu yandex-en argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:745
+#: misc/org.yorba.shotwell.gschema.xml:736
 msgid "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
 msgstr "Egia Yandex.Fotki-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:750
+#: misc/org.yorba.shotwell.gschema.xml:741
 msgid "enable tumblr publishing plugin"
 msgstr "gaitu tumblr-en argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:751
+#: misc/org.yorba.shotwell.gschema.xml:742
 msgid "True if the Tumblr publishing plugin is enabled, false otherwise"
 msgstr "Egia Tumblr-en argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:756
+#: misc/org.yorba.shotwell.gschema.xml:747
 msgid "enable rajce publishing plugin"
 msgstr "gaitu rajce-n argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:757
+#: misc/org.yorba.shotwell.gschema.xml:748
 msgid "True if the Rajce publishing plugin is enabled, false otherwise"
 msgstr "Egia Rajce-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:762
+#: misc/org.yorba.shotwell.gschema.xml:753
 msgid "enable gallery3 publishing plugin"
 msgstr "gaitu gallery3-n argitaratzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:763
+#: misc/org.yorba.shotwell.gschema.xml:754
 msgid "True if the Gallery3 publishing plugin is enabled, false otherwise"
 msgstr "Egia Gallery3-n argitaratzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:768
+#: misc/org.yorba.shotwell.gschema.xml:759
 msgid "enable F-Spot import plugin"
 msgstr "gaitu F-Spot aplikaziotik inportatzeko plugina"
 
-#: misc/org.yorba.shotwell.gschema.xml:769
+#: misc/org.yorba.shotwell.gschema.xml:760
 msgid "True if the F-Spot import plugin is enabled, false otherwise"
 msgstr "Egia F-Spot-etik inportatzeko plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:774
+#: misc/org.yorba.shotwell.gschema.xml:765
 msgid "enable slideshow crumble transition"
 msgstr "gaitu birrindu diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:775
+#: misc/org.yorba.shotwell.gschema.xml:766
 msgid ""
 "True if the Crumble slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia birrintzearen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:780
+#: misc/org.yorba.shotwell.gschema.xml:771
 msgid "enable slideshow fade transition"
 msgstr "gaitu iraungi diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:781
+#: misc/org.yorba.shotwell.gschema.xml:772
 msgid ""
 "True if the Fade slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia iraungitzearen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:786
+#: misc/org.yorba.shotwell.gschema.xml:777
 msgid "enable slideshow slide transition"
 msgstr "gaitu irristatu diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:787
+#: misc/org.yorba.shotwell.gschema.xml:778
 msgid ""
 "True if the Slide slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia irristatzearen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:792
+#: misc/org.yorba.shotwell.gschema.xml:783
 msgid "enable slideshow clock transition"
 msgstr "gaitu erlojua diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:793
+#: misc/org.yorba.shotwell.gschema.xml:784
 msgid ""
 "True if the Clock slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia erlojuaren diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:798
+#: misc/org.yorba.shotwell.gschema.xml:789
 msgid "enable slideshow circle transition"
 msgstr "gaitu zirkulua diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:799
+#: misc/org.yorba.shotwell.gschema.xml:790
 msgid ""
 "True if the Circle slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia zirkuluaren diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:804
+#: misc/org.yorba.shotwell.gschema.xml:795
 msgid "enable slideshow circles transition"
 msgstr "gaitu zirkuluak diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:805
+#: misc/org.yorba.shotwell.gschema.xml:796
 msgid ""
 "True if the Circles slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia zirkuluen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:810
+#: misc/org.yorba.shotwell.gschema.xml:801
 msgid "enable slideshow blinds transition"
 msgstr "gaitu pertsianak diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:811
+#: misc/org.yorba.shotwell.gschema.xml:802
 msgid ""
 "True if the Blinds slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia pertsianen diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:816
+#: misc/org.yorba.shotwell.gschema.xml:807
 msgid "enable slideshow squares transition"
 msgstr "gaitu laukiak diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:817
+#: misc/org.yorba.shotwell.gschema.xml:808
 msgid ""
 "True if the Squares slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia laukien diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:822
+#: misc/org.yorba.shotwell.gschema.xml:813
 msgid "enable slideshow stripes transition"
 msgstr "gaitu marrak diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:823
+#: misc/org.yorba.shotwell.gschema.xml:814
 msgid ""
 "True if the Stripes slideshow transition plugin is enabled, false otherwise"
 msgstr "Egia marren diapositiba-trantsizioaren plugina gaituta badago, bestela faltsua"
 
-#: misc/org.yorba.shotwell.gschema.xml:828
+#: misc/org.yorba.shotwell.gschema.xml:819
 msgid "enable slideshow chess transition"
 msgstr "gaitu xake-taula diapositiba-trantsizioa"
 
-#: misc/org.yorba.shotwell.gschema.xml:829
+#: misc/org.yorba.shotwell.gschema.xml:820
 msgid ""
 "True if the Chess-Board slideshow transition plugin is enabled, false "
 "otherwise"
@@ -1333,9 +1324,7 @@ msgid ""
 "href=\"help:shotwell/privacy-policy\">online services privacy policy</a>For "
 "Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
-msgstr ""
-
-"Ez duzu saioa hasi Google Photos aplikazioan.\n"
+msgstr "Ez duzu saioa hasi Google Photos aplikazioan.\n"
 "\n"
 "Google kontu bat eduki behar duzu eta hura Google Photosen erabiltzeko konfiguratuta eduki behar duzu jarraitzeko. Shotwellek Google Photosen API zerbitzuak <a href=\"https://developers.google.com/photos/\">https://developers.google.com/photos/</a> erabiltzen ditu zure Google Photos datuetara sartzeko. Shotwell aplikazioari zure Google Photos liburutegira sartzeko baimena eman beharko diozu.\n"
 "\n"
@@ -1522,7 +1511,7 @@ msgstr "A_maitu saioa"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:121
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:100
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2492
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
 msgid "_Publish"
 msgstr "_Argitaratu"
 
@@ -1734,7 +1723,7 @@ msgstr "_Kendu kokalekua. kamera eta bestelako informazio identifikatzailea igo 
 #: plugins/shotwell-publishing/FacebookPublishing.vala:33
 #: plugins/shotwell-publishing/FlickrPublishing.vala:33
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:33
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:27
+#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright-a © 2001-2014 Free Software Foundation, Inc."
 
@@ -1971,7 +1960,7 @@ msgid "Logout"
 msgstr "Amaitu saioa"
 
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:268
-#: src/Resources.vala:265 ui/collection.ui:192
+#: src/Resources.vala:253 ui/collection.ui:192
 msgid "Publish"
 msgstr "Argitaratu"
 
@@ -1999,7 +1988,7 @@ msgid "Certificate of %s"
 msgstr "%s(r)en ziurtagiria"
 
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1055
-#: src/Resources.vala:136 ui/multitextentrydialog.ui:40
+#: src/Resources.vala:124 ui/multitextentrydialog.ui:40
 #: ui/slideshow_settings.ui:52
 msgid "_OK"
 msgstr "_Ados"
@@ -2200,9 +2189,9 @@ msgstr "Irten _pantaila osotik"
 #: src/AppWindow.vala:532 src/AppWindow.vala:553 src/AppWindow.vala:570
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
-#: src/Dialogs.vala:28 src/Dialogs.vala:58 src/Dialogs.vala:766
-#: src/Dialogs.vala:789 src/publishing/PublishingUI.vala:305
-#: src/publishing/PublishingUI.vala:529 src/Resources.vala:127
+#: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
+#: src/Dialogs.vala:783 src/publishing/PublishingUI.vala:305
+#: src/publishing/PublishingUI.vala:529 src/Resources.vala:115
 #: ui/multitextentrydialog.ui:25 ui/slideshow_settings.ui:38
 #: ui/textentrydialog.ui:19
 msgid "_Cancel"
@@ -2404,53 +2393,53 @@ msgstr "Inportazioa hastera doa, itxaron…"
 msgid "Fetching photo information"
 msgstr "Argazkien informazioa eskuratzen"
 
-#: src/camera/ImportPage.vala:1562
+#: src/camera/ImportPage.vala:1568
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "%s-(e)ren aurrebista eskuratzen"
 
-#: src/camera/ImportPage.vala:1670
+#: src/camera/ImportPage.vala:1676
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Ezin izan da kamera blokeatu: %s"
 
-#: src/camera/ImportPage.vala:1755
+#: src/camera/ImportPage.vala:1761
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Argazki hau kameratik ezabatu nahi duzu?"
 msgstr[1] "%d argazki hauek kameratik ezabatu nahi dituzu?"
 
-#: src/camera/ImportPage.vala:1758
+#: src/camera/ImportPage.vala:1764
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Bideo hau kameratik ezabatu nahi duzu?"
 msgstr[1] "%d bideo hauek kameratik ezabatu nahi dituzu?"
 
-#: src/camera/ImportPage.vala:1761
+#: src/camera/ImportPage.vala:1767
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Argazki/bideo hau kameratik ezabatu nahi duzu?"
 msgstr[1] "%d argazki/bideo hauek kameratik ezabatu nahi dituzu?"
 
-#: src/camera/ImportPage.vala:1764
+#: src/camera/ImportPage.vala:1770
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Ezabatu fitxategi hauek kameratik?"
 msgstr[1] "Ezabatu %d argazki hauek kameratik?"
 
-#: src/camera/ImportPage.vala:1772 src/Dialogs.vala:733
+#: src/camera/ImportPage.vala:1778 src/Dialogs.vala:727
 msgid "_Keep"
 msgstr "_Mantendu"
 
-#: src/camera/ImportPage.vala:1791
+#: src/camera/ImportPage.vala:1797
 msgid "Removing photos/videos from camera"
 msgstr "Argazkiak/bideoak kameratik kentzen"
 
-#: src/camera/ImportPage.vala:1795
+#: src/camera/ImportPage.vala:1801
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -2458,21 +2447,21 @@ msgstr[0] "Ezin izan da argazki/bideo %d ezabatu kameratik erroreak gertatu dire
 msgstr[1] "Ezin izan dira %d argazki/bideo ezabatu kameratik erroreak gertatu direlako."
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2487 src/Resources.vala:140
+#: src/PhotoPage.vala:2481 src/Resources.vala:128
 msgid "_Print"
 msgstr "I_nprimatu"
 
-#: src/CollectionPage.vala:83 src/Resources.vala:293 ui/collection.ui:128
+#: src/CollectionPage.vala:83 src/Resources.vala:281 ui/collection.ui:128
 #: ui/direct_context.ui:23 ui/direct.ui:23 ui/event.ui:567 ui/photo.ui:30
 msgid "Send _To…"
 msgstr "Bidali _honi…"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2497 src/Resources.vala:190
+#: src/PhotoPage.vala:2491 src/Resources.vala:178
 msgid "Set as _Desktop Background"
 msgstr "Ezarri _mahaigainaren atzeko plano gisa"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:256
+#: src/CollectionPage.vala:92 src/Resources.vala:244
 msgid "_Duplicate"
 msgstr "_Bikoiztu"
 
@@ -2484,43 +2473,43 @@ msgstr "Pantaila osoa"
 msgid "S_lideshow"
 msgstr "_Diapositiba-aurkezpena"
 
-#: src/CollectionPage.vala:110 src/Resources.vala:109 ui/direct.ui:111
+#: src/CollectionPage.vala:110 src/Resources.vala:97 ui/direct.ui:111
 #: ui/photo.ui:202
 msgid "Rotate _Right"
 msgstr "Biratu e_skuinera"
 
-#: src/CollectionPage.vala:113 src/Resources.vala:114 ui/direct.ui:116
+#: src/CollectionPage.vala:113 src/Resources.vala:102 ui/direct.ui:116
 #: ui/photo.ui:207
 msgid "Rotate _Left"
 msgstr "Biratu e_zkerrera"
 
-#: src/CollectionPage.vala:116 src/Resources.vala:119 ui/direct.ui:121
+#: src/CollectionPage.vala:116 src/Resources.vala:107 ui/direct.ui:121
 #: ui/photo.ui:212
 msgid "Flip Hori_zontally"
 msgstr "Irauli _horizontalean"
 
-#: src/CollectionPage.vala:117 src/Resources.vala:122 ui/direct.ui:125
+#: src/CollectionPage.vala:117 src/Resources.vala:110 ui/direct.ui:125
 #: ui/photo.ui:216
 msgid "Flip Verti_cally"
 msgstr "Irauli _bertikalean"
 
-#: src/CollectionPage.vala:119 src/Resources.vala:156 ui/collection.ui:8
+#: src/CollectionPage.vala:119 src/Resources.vala:144 ui/collection.ui:8
 #: ui/direct_context.ui:7 ui/direct.ui:134 ui/event.ui:447
 #: ui/photo_context.ui:6 ui/photo.ui:225
 msgid "_Enhance"
 msgstr "H_obetu"
 
-#: src/CollectionPage.vala:120 src/Resources.vala:184 ui/collection.ui:13
+#: src/CollectionPage.vala:120 src/Resources.vala:172 ui/collection.ui:13
 #: ui/direct_context.ui:12 ui/direct.ui:161 ui/event.ui:452
 #: ui/photo_context.ui:11 ui/photo.ui:252
 msgid "Re_vert to Original"
 msgstr "_Leheneratu jatorrizkora"
 
-#: src/CollectionPage.vala:122 src/Resources.vala:160 ui/photo.ui:258
+#: src/CollectionPage.vala:122 src/Resources.vala:148 ui/photo.ui:258
 msgid "_Copy Color Adjustments"
 msgstr "_Kopiatu koloreen doikuntzak"
 
-#: src/CollectionPage.vala:125 src/Resources.vala:164 ui/photo.ui:263
+#: src/CollectionPage.vala:125 src/Resources.vala:152 ui/photo.ui:263
 msgid "_Paste Color Adjustments"
 msgstr "_Itsatsi koloreen doikuntzak"
 
@@ -2528,17 +2517,17 @@ msgstr "_Itsatsi koloreen doikuntzak"
 msgid "Adjust Date and Time…"
 msgstr "Doitu data eta ordua…"
 
-#: src/CollectionPage.vala:143 src/Resources.vala:289 ui/collection.ui:108
+#: src/CollectionPage.vala:143 src/Resources.vala:277 ui/collection.ui:108
 #: ui/event.ui:547 ui/photo_context.ui:115 ui/photo.ui:363
 msgid "Open With E_xternal Editor"
 msgstr "Ireki _kanpoko editore batekin"
 
-#: src/CollectionPage.vala:146 src/Resources.vala:291 ui/collection.ui:113
+#: src/CollectionPage.vala:146 src/Resources.vala:279 ui/collection.ui:113
 #: ui/event.ui:552 ui/photo_context.ui:120 ui/photo.ui:368
 msgid "Open With RA_W Editor"
 msgstr "Ireki RA_W editorearekin"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:137
+#: src/CollectionPage.vala:149 src/Resources.vala:125
 msgid "_Play"
 msgstr "_Erreproduzitu"
 
@@ -2548,7 +2537,7 @@ msgid_plural "Export Photos/Videos"
 msgstr[0] "Esportatu argazkia/bideoa"
 msgstr[1] "Esportatu argazkia/bideoa"
 
-#: src/CollectionPage.vala:412 src/Dialogs.vala:74 src/PhotoPage.vala:3021
+#: src/CollectionPage.vala:412 src/Dialogs.vala:70 src/PhotoPage.vala:3015
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Esportatu argazkia"
@@ -2783,7 +2772,7 @@ msgstr "Ez daukazu datuak inportatzeko pluginik gaituta.\n"
 msgid "Database file:"
 msgstr "Datu-basearen fitxategia:"
 
-#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:785
+#: src/data_imports/DataImportsUI.vala:112 src/library/LibraryWindow.vala:775
 msgid "_Import"
 msgstr "_Inportatu"
 
@@ -2835,21 +2824,26 @@ msgstr "Errorea datu-basearen fitxategia atzitzean:\n"
 msgid "Unable to restore photo database %s"
 msgstr "Ezin izan da argazkien %s datu-basea leheneratu"
 
-#: src/DesktopIntegration.vala:121
-#, c-format
-msgid "Unable to launch Nautilus Send-To: %s"
-msgstr "Ezin izan da Nautilus-en \"Bidali hona\" abiarazi: %s"
+#. Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
+#: src/DesktopIntegration.vala:114
+msgid "Send files per Mail: "
+msgstr "Bidali fitxategiak posta elektronikoz: "
 
-#: src/DesktopIntegration.vala:129
+#: src/DesktopIntegration.vala:116
+#, c-format
+msgid "Unable to send file %s, %s"
+msgstr "Ezin da %s fitxategia bidali, %s"
+
+#: src/DesktopIntegration.vala:126
 msgid "Send To"
 msgstr "Bidali honi:"
 
-#: src/DesktopIntegration.vala:174
+#: src/DesktopIntegration.vala:171
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Ezin izan da atzeko planoa esportatu %s-(e)ra: %s"
 
-#: src/DesktopIntegration.vala:311
+#: src/DesktopIntegration.vala:308
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Ezin da mahaigaineko diapositiba-aurkezpena prestatu: %s"
@@ -2861,9 +2855,9 @@ msgid_plural "This will remove the tag “%s” from %d photos. Continue?"
 msgstr[0] "Horrek “%s” etiketa kenduko du argazki batetik. Jarraitu?"
 msgstr[1] "Honek “%s” etiketa kenduko du %d argazkitatik. Jarraitu?"
 
-#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:58
-#: src/Dialogs.vala:734 src/Resources.vala:128 src/Resources.vala:309
-#: src/Resources.vala:340 src/Resources.vala:393 src/Resources.vala:761
+#: src/Dialogs.vala:20 src/Dialogs.vala:28 src/Dialogs.vala:56
+#: src/Dialogs.vala:728 src/Resources.vala:116 src/Resources.vala:297
+#: src/Resources.vala:328 src/Resources.vala:381 src/Resources.vala:747
 #: ui/savedsearch.ui:14 ui/tags.ui:460 ui/trash.ui:63 ui/trash.ui:216
 #: ui/trash.ui:258
 msgid "_Delete"
@@ -2888,18 +2882,18 @@ msgstr[1] "Garatzaileak txandakatzeak argazki hauei Shotwell-en egin dizkiezun a
 msgid "_Switch Developer"
 msgstr "_Txandakatu garatzailea"
 
-#: src/Dialogs.vala:54
+#: src/Dialogs.vala:52
 #, c-format
 msgid "This will remove the face “%s” from one photo. Continue?"
 msgid_plural "This will remove the face “%s” from %d photos. Continue?"
 msgstr[0] "Horrek “%s” aurpegia kenduko du argazki batetik. Jarraitu?"
 msgstr[1] "Honek “%s” etiketa kenduko du %d argazkitatik.  Jarraitu?"
 
-#: src/Dialogs.vala:74
+#: src/Dialogs.vala:70
 msgid "Export Video"
 msgstr "Esportatu bideoa"
 
-#: src/Dialogs.vala:99
+#: src/Dialogs.vala:94
 msgid "Export Photos"
 msgstr "Esportatu argazkia"
 
@@ -2908,21 +2902,21 @@ msgstr "Esportatu argazkia"
 #. if we can't copy an image over for editing in an external tool.
 #. Did we fail because we can't write to this directory?
 #. Yes - display an alternate error message here.
-#: src/Dialogs.vala:127
+#: src/Dialogs.vala:121
 #, c-format
 msgid ""
 "Shotwell couldn’t create a file for editing this photo because you do not "
 "have permission to write to %s."
 msgstr "Shotwell-ek ezin izan du fitxategia sortu argazki hau editatzeko, %s gunean idazteko baimenik ez duzulako."
 
-#: src/Dialogs.vala:136
+#: src/Dialogs.vala:130
 msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
 msgstr "Ezin izan da hurrengo argazkia esportatu fitxategi-errore baten erruz.\n"
 "\n"
 
-#: src/Dialogs.vala:142
+#: src/Dialogs.vala:136
 msgid ""
 "\n"
 "\n"
@@ -2931,35 +2925,35 @@ msgstr "\n"
 "\n"
 "Esportazioarekin jarraitu nahi al duzu?"
 
-#: src/Dialogs.vala:143
+#: src/Dialogs.vala:137
 msgid "Con_tinue"
 msgstr "Jarrai_tu"
 
-#: src/Dialogs.vala:153
+#: src/Dialogs.vala:147
 msgid "Save Details…"
 msgstr "Gorde xehetasunak…"
 
-#: src/Dialogs.vala:154
+#: src/Dialogs.vala:148
 msgid "Save Details"
 msgstr "Gorde xehetasunak"
 
-#: src/Dialogs.vala:169
+#: src/Dialogs.vala:163
 #, c-format
 msgid "(and %d more)\n"
 msgstr "(eta %d gehiago)\n"
 
-#: src/Dialogs.vala:222
+#: src/Dialogs.vala:216
 msgid "Import Results Report"
 msgstr "Inportazio-emaitzen txostena"
 
-#: src/Dialogs.vala:226
+#: src/Dialogs.vala:220
 #, c-format
 msgid "Attempted to import %d file."
 msgid_plural "Attempted to import %d files."
 msgstr[0] "Fitxategi %d inportatzeko saiakera egin da."
 msgstr[1] "%d fitxategi inportatzeko saiakera egin da."
 
-#: src/Dialogs.vala:229
+#: src/Dialogs.vala:223
 #, c-format
 msgid "Of these, %d file was successfully imported."
 msgid_plural "Of these, %d files were successfully imported."
@@ -2969,37 +2963,37 @@ msgstr[1] "Horietatik, %d fitxategi ongi inportatu dira."
 #.
 #. Duplicates
 #.
-#: src/Dialogs.vala:241
+#: src/Dialogs.vala:235
 msgid "Duplicate Photos/Videos Not Imported:"
 msgstr "Bikoiztu inportatu ez diren argazkiak/bideoak:"
 
-#: src/Dialogs.vala:245
+#: src/Dialogs.vala:239
 msgid "duplicates existing media item"
 msgstr "existitzen diren multimedia-elementuak bikoizten ditu"
 
 #.
 #. Files Not Imported Due to Camera Errors
 #.
-#: src/Dialogs.vala:256
+#: src/Dialogs.vala:250
 msgid "Photos/Videos Not Imported Due to Camera Errors:"
 msgstr "Kamera-erroreen erruz inportatu ez diren argazkiak/bideoak:"
 
-#: src/Dialogs.vala:259 src/Dialogs.vala:274 src/Dialogs.vala:289
-#: src/Dialogs.vala:305 src/Dialogs.vala:320 src/Dialogs.vala:334
+#: src/Dialogs.vala:253 src/Dialogs.vala:268 src/Dialogs.vala:283
+#: src/Dialogs.vala:299 src/Dialogs.vala:314 src/Dialogs.vala:328
 msgid "error message:"
 msgstr "errore-mezua:"
 
 #.
 #. Files Not Imported Because They Weren't Recognized as Photos or Videos
 #.
-#: src/Dialogs.vala:270
+#: src/Dialogs.vala:264
 msgid "Files Not Imported Because They Weren’t Recognized as Photos or Videos:"
 msgstr "Argazki edo bideo gisa ez ezagutzeagatik inportatu ez diren fitxategiak:"
 
 #.
 #. Photos/Videos Not Imported Because They Weren't in a Format Shotwell Understands
 #.
-#: src/Dialogs.vala:285
+#: src/Dialogs.vala:279
 msgid ""
 "Photos/Videos Not Imported Because They Weren’t in a Format Shotwell "
 "Understands:"
@@ -3008,13 +3002,13 @@ msgstr "Shotwell-ek ulertzen duen formatu batean ez egoteagatik inportatu ez dir
 #.
 #. Photos/Videos Not Imported Because Shotwell Couldn't Copy Them into its Library
 #.
-#: src/Dialogs.vala:300
+#: src/Dialogs.vala:294
 msgid ""
 "Photos/Videos Not Imported Because Shotwell Couldn’t Copy Them into its "
 "Library:"
 msgstr "Shotwell-ek bere liburutegira kopiatu ezin izateagatik inportatu ez diren argazkiak/bideoak:"
 
-#: src/Dialogs.vala:304
+#: src/Dialogs.vala:298
 #, c-format
 msgid ""
 "couldn’t copy %s\n"
@@ -3025,53 +3019,53 @@ msgstr "ezin izan da kopiatu %s\n"
 #.
 #. Photos/Videos Not Imported Because GDK Pixbuf Library Identified them as Corrupt
 #.
-#: src/Dialogs.vala:316
+#: src/Dialogs.vala:310
 msgid "Photos/Videos Not Imported Because Files Are Corrupt:"
 msgstr "Argazkiak/bideoak ez dira inportatu fitxategiak hondatuta daudelako:"
 
 #.
 #. Photos/Videos Not Imported for Other Reasons
 #.
-#: src/Dialogs.vala:331
+#: src/Dialogs.vala:325
 msgid "Photos/Videos Not Imported for Other Reasons:"
 msgstr "Beste arrazoi batzuengatik inportatu ez diren argazkiak/bideoak:"
 
-#: src/Dialogs.vala:351
+#: src/Dialogs.vala:345
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
 msgstr[0] "Ez da inportatu argazki bikoiztu bat:\n"
 msgstr[1] "Ez dira inportatu %d argazki bikoiztu:\n"
 
-#: src/Dialogs.vala:354
+#: src/Dialogs.vala:348
 #, c-format
 msgid "1 duplicate video was not imported:\n"
 msgid_plural "%d duplicate videos were not imported:\n"
 msgstr[0] "Ez da inportatu bideo bikoiztu bat:\n"
 msgstr[1] "Ez da inportatu %d bideo bikoiztu:\n"
 
-#: src/Dialogs.vala:357
+#: src/Dialogs.vala:351
 #, c-format
 msgid "1 duplicate photo/video was not imported:\n"
 msgid_plural "%d duplicate photos/videos were not imported:\n"
 msgstr[0] "Ez da inportatu argazki/bideo bikoiztu bat:\n"
 msgstr[1] "Ez dira inportatu %d argazki/bideo bikoiztu:\n"
 
-#: src/Dialogs.vala:371
+#: src/Dialogs.vala:365
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] "Argazki baten inportazioak huts egin du fitxategi- edo hardware-errore baten erruz:\n"
 msgstr[1] "%d argazkiren inportazioak huts egin du fitxategi- edo hardware-erroreen erruz:\n"
 
-#: src/Dialogs.vala:374
+#: src/Dialogs.vala:368
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
 msgstr[0] "Bideo baten inportazioak huts egin du fitxategi- edo hardware-errore baten erruz:\n"
 msgstr[1] "%d bideoren inportazioak huts egin du fitxategi- edo hardware-erroreen erruz:\n"
 
-#: src/Dialogs.vala:377
+#: src/Dialogs.vala:371
 #, c-format
 msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
@@ -3079,14 +3073,14 @@ msgid_plural ""
 msgstr[0] "Argazki/bideo baten inportazioak huts egin du fitxategi- edo hardware-errore baten erruz:\n"
 msgstr[1] "%d argazkiren/bideoren inportazioak huts egin du fitxategi- edo hardware-erroreen erruz:\n"
 
-#: src/Dialogs.vala:380
+#: src/Dialogs.vala:374
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
 msgstr[0] "Ezin izan da fitxategi 1 inportatu fitxategian edo hardwarean errorea egon delako:\n"
 msgstr[1] "Ezin izan dira %d fitxategi inportatu fitxategian edo hardwarean errorea egon delako:\n"
 
-#: src/Dialogs.vala:394
+#: src/Dialogs.vala:388
 #, c-format
 msgid ""
 "1 photo failed to import because the photo library folder was not writable:\n"
@@ -3096,7 +3090,7 @@ msgid_plural ""
 msgstr[0] "Argazki baten inportazioak huts egin du argazki-liburutegiaren karpetan idazteko baimen ezagatik:\n"
 msgstr[1] "%d argazkiren inportazioak huts egin du argazki-liburutegiaren karpetan idazteko baimen ezagatik:\n"
 
-#: src/Dialogs.vala:397
+#: src/Dialogs.vala:391
 #, c-format
 msgid ""
 "1 video failed to import because the photo library folder was not writable:\n"
@@ -3106,7 +3100,7 @@ msgid_plural ""
 msgstr[0] "Bideo baten inportazioak huts egin du argazki-liburutegiaren karpetan idazteko baimen ezagatik:\n"
 msgstr[1] "%d bideoren inportazioak huts egin du argazki-liburutegiaren karpetan idazteko baimen ezagatik:\n"
 
-#: src/Dialogs.vala:400
+#: src/Dialogs.vala:394
 #, c-format
 msgid ""
 "1 photo/video failed to import because the photo library folder was not "
@@ -3117,7 +3111,7 @@ msgid_plural ""
 msgstr[0] "Argazki/bideo baten inportazioak huts egin du argazki-liburutegiaren karpetan idazteko baimen ezagatik:\n"
 msgstr[1] "%d bideo/argazkiren inportazioak huts egin du argazki-liburutegiaren karpetan idazteko baimen ezagatik:\n"
 
-#: src/Dialogs.vala:403
+#: src/Dialogs.vala:397
 #, c-format
 msgid ""
 "1 file failed to import because the photo library folder was not writable:\n"
@@ -3127,56 +3121,56 @@ msgid_plural ""
 msgstr[0] "Ezin izan da fitxategi 1 inportatu argazki-liburutegiaren karpetan ezin delako idatzi:\n"
 msgstr[1] "Ezin izan dira %d fitxategi inportatu argazki-liburutegiaren karpetan ezin delako idatzi:\n"
 
-#: src/Dialogs.vala:417
+#: src/Dialogs.vala:411
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] "Argazki baten inportazioak huts egin du kamera-errore baten erruz:\n"
 msgstr[1] "%d argazkiren inportazioak huts egin du kamera-errore baten erruz:\n"
 
-#: src/Dialogs.vala:420
+#: src/Dialogs.vala:414
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
 msgstr[0] "Bideo baten inportazioak huts egin du kamera-errore baten erruz:\n"
 msgstr[1] "%d bideoren inportazioak huts egin du kamera-errore baten erruz:\n"
 
-#: src/Dialogs.vala:423
+#: src/Dialogs.vala:417
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
 msgstr[0] "Argazki/bideo baten inportazioak huts egin du kamera-errore baten erruz:\n"
 msgstr[1] "%d argazkiren/bideoren inportazioak huts egin du kamera-errore baten erruz:\n"
 
-#: src/Dialogs.vala:426
+#: src/Dialogs.vala:420
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
 msgstr[0] "Ezin izan da fitxategi 1 inportatu kameran errorea egon delako:\n"
 msgstr[1] "Ezin izan dira %d fitxategi inportatu kameran errorea egon delako:\n"
 
-#: src/Dialogs.vala:440
+#: src/Dialogs.vala:434
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
 msgstr[0] "Huts egin du argazki 1 inportatzean hondatuta dagoelako:\n"
 msgstr[1] "Huts egin du %d argazki inportatzean hondatuta daudelako:\n"
 
-#: src/Dialogs.vala:443
+#: src/Dialogs.vala:437
 #, c-format
 msgid "1 video failed to import because it was corrupt:\n"
 msgid_plural "%d videos failed to import because they were corrupt:\n"
 msgstr[0] "Huts egin du bideo 1 inportatzean hondatuta dagoelako:\n"
 msgstr[1] "Huts egin du %d bideo inportatzean hondatuta daudelako:\n"
 
-#: src/Dialogs.vala:446
+#: src/Dialogs.vala:440
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
 msgstr[0] "Huts egin du argazki/bideo 1 inportatzean hondatuta dagoelako:\n"
 msgstr[1] "Huts egin du %d argazki/bideo inportatzean hondatuta daudelako:\n"
 
-#: src/Dialogs.vala:449
+#: src/Dialogs.vala:443
 #, c-format
 msgid "1 file failed to import because it was corrupt:\n"
 msgid_plural "%d files failed to import because it was corrupt:\n"
@@ -3187,7 +3181,7 @@ msgstr[1] "Huts egin du %d fitxategi inportatzean hondatuta daudelako:\n"
 #. standard container formats are supported, it's just that the streams in them
 #. might or might not be interpretable), so this message does not need to be
 #. media specific
-#: src/Dialogs.vala:466
+#: src/Dialogs.vala:460
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
@@ -3196,56 +3190,56 @@ msgstr[1] "Onartzen ez diren %d argazki saltatu dira:\n"
 
 #. we have no notion of "non-video" video files right now in Shotwell, so this
 #. message doesn't need to be media specific
-#: src/Dialogs.vala:481
+#: src/Dialogs.vala:475
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
 msgstr[0] "Irudia ez den fitxategi bat saltatu da.\n"
 msgstr[1] "Irudiak ez diren %d fitxategi saltatu dira.\n"
 
-#: src/Dialogs.vala:492
+#: src/Dialogs.vala:486
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "Argazki bat saltatu da erabiltzaileak bertan behera utzi duelako:\n"
 msgstr[1] "%d argazki saltatu dira erabiltzaileak bertan behera utzi dituelako:\n"
 
-#: src/Dialogs.vala:495
+#: src/Dialogs.vala:489
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
 msgstr[0] "Bideo bat saltatu da erabiltzaileak bertan behera utzi duelako:\n"
 msgstr[1] "%d bideo saltatu dira erabiltzaileak bertan behera utzi dituelako:\n"
 
-#: src/Dialogs.vala:498
+#: src/Dialogs.vala:492
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
 msgstr[0] "Argazki/bideo bat saltatu da erabiltzaileak bertan behera utzi duelako:\n"
 msgstr[1] "%d argazki/bideo saltatu dira erabiltzaileak bertan behera utzi dituelako:\n"
 
-#: src/Dialogs.vala:501
+#: src/Dialogs.vala:495
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
 msgstr[0] "Fitxategi 1 saltatu da erabiltzaileak ekintza bertan behera utzi duelako:\n"
 msgstr[1] "%d fitxategi saltatu dira erabiltzaileak ekintza bertan behera utzi duelako:\n"
 
-#: src/Dialogs.vala:515
+#: src/Dialogs.vala:509
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "Argazki bat ongi inportatu da.\n"
 msgstr[1] "%d argazki ongi inportatu dira.\n"
 
-#: src/Dialogs.vala:518
+#: src/Dialogs.vala:512
 #, c-format
 msgid "1 video successfully imported.\n"
 msgid_plural "%d videos successfully imported.\n"
 msgstr[0] "Bideo bat ongi inportatu da.\n"
 msgstr[1] "%d bideo ongi inportatu dira.\n"
 
-#: src/Dialogs.vala:521
+#: src/Dialogs.vala:515
 #, c-format
 msgid "1 photo/video successfully imported.\n"
 msgid_plural "%d photos/videos successfully imported.\n"
@@ -3254,64 +3248,64 @@ msgstr[1] "%d bideo/argazki ongi inportatu dira.\n"
 
 #. if no media items were imported at all (i.e. an empty directory attempted), need to at least
 #. report that nothing was imported
-#: src/Dialogs.vala:537
+#: src/Dialogs.vala:531
 msgid "No photos or videos imported.\n"
 msgstr "Ez da ez argazkirik ez bideorik inportatu.\n"
 
-#: src/Dialogs.vala:544 src/Dialogs.vala:563
+#: src/Dialogs.vala:538 src/Dialogs.vala:557
 msgid "Import Complete"
 msgstr "Inportazioa osatu da"
 
-#: src/Dialogs.vala:663 src/Resources.vala:201
+#: src/Dialogs.vala:657 src/Resources.vala:189
 msgid "Rename Event"
 msgstr "Berrizendatu gertaera"
 
-#: src/Dialogs.vala:663
+#: src/Dialogs.vala:657
 msgid "Name:"
 msgstr "Izena:"
 
 #. Dialog title
-#: src/Dialogs.vala:674
+#: src/Dialogs.vala:668
 msgctxt "Dialog Title"
 msgid "Edit Title"
 msgstr "Editatu titulua"
 
-#: src/Dialogs.vala:675 src/Properties.vala:347
+#: src/Dialogs.vala:669 src/Properties.vala:347
 msgid "Title:"
 msgstr "Titulua:"
 
 #. Dialog title
-#: src/Dialogs.vala:691 src/Resources.vala:277
+#: src/Dialogs.vala:685 src/Resources.vala:265
 msgid "Edit Event Comment"
 msgstr "Editatu gertaeraren iruzkina"
 
-#: src/Dialogs.vala:692
+#: src/Dialogs.vala:686
 msgid "Edit Photo/Video Comment"
 msgstr "Editatu argazkiaren/bideoaren iruzkina"
 
-#: src/Dialogs.vala:693 src/Properties.vala:645
+#: src/Dialogs.vala:687 src/Properties.vala:645
 msgid "Comment:"
 msgstr "Iruzkina:"
 
-#: src/Dialogs.vala:709
+#: src/Dialogs.vala:703
 msgid "Remove and _Trash File"
 msgid_plural "Remove and _Trash Files"
 msgstr[0] "Kendu eta bota fitxategia _zakarrontzira"
 msgstr[1] "Kendu eta bota fitxategiak _zakarrontzira"
 
-#: src/Dialogs.vala:713
+#: src/Dialogs.vala:707
 msgid "_Remove From Library"
 msgstr "_Kendu liburutegitik"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:750
 msgid "Revert External Edit?"
 msgstr "Leheneratu kanpoko edizioak?"
 
-#: src/Dialogs.vala:756
+#: src/Dialogs.vala:750
 msgid "Revert External Edits?"
 msgstr "Leheneratu kanpo-edizioak?"
 
-#: src/Dialogs.vala:758
+#: src/Dialogs.vala:752
 #, c-format
 msgid "This will destroy all changes made to the external file. Continue?"
 msgid_plural ""
@@ -3319,34 +3313,34 @@ msgid_plural ""
 msgstr[0] "Honek kanpoko fitxategian egindako aldaketa guztiak suntsituko ditu. Jarraitu?"
 msgstr[1] "Honek %d kanpoko fitxategitan egindako aldaketa guztiak suntsituko ditu. Jarraitu?"
 
-#: src/Dialogs.vala:762
+#: src/Dialogs.vala:756
 msgid "Re_vert External Edit"
 msgstr "_Leheneratu kanpoko edizioa"
 
-#: src/Dialogs.vala:762
+#: src/Dialogs.vala:756
 msgid "Re_vert External Edits"
 msgstr "_Leheneratu kanpoko edizioak"
 
-#: src/Dialogs.vala:783
+#: src/Dialogs.vala:777
 #, c-format
 msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Horrek argazkia kenduko du liburutegitik. Jarraitu?"
 msgstr[1] "%d argazki liburutegitik kenduko dira.  Jarraitu?"
 
-#: src/Dialogs.vala:790 src/Resources.vala:143
+#: src/Dialogs.vala:784 src/Resources.vala:131
 msgid "_Remove"
 msgstr "_Kendu"
 
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:785
 msgid "Remove Photo From Library"
 msgstr "Kendu argazkia liburutegitik"
 
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:785
 msgid "Remove Photos From Library"
 msgstr "Kendu argazkiak liburutegitik"
 
-#: src/Dialogs.vala:811
+#: src/Dialogs.vala:805
 #, c-format
 msgid ""
 "\n"
@@ -3363,43 +3357,43 @@ msgstr[1] "\n"
 "\n"
 "Eta beste %d."
 
-#: src/Dialogs.vala:835 src/Dialogs.vala:862
+#: src/Dialogs.vala:829 src/Dialogs.vala:856
 msgid "Tags (separated by commas):"
 msgstr "Etiketak (koma bidez banandurik):"
 
 #. This function is used to determine whether or not files should be copied or linked when imported.
 #. Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
-#: src/Dialogs.vala:921
+#: src/Dialogs.vala:915
 msgid ""
 "Shotwell can copy the photos into your library folder or it can import them "
 "without copying."
 msgstr "Shotwell-ek argazkiak zure liburutegi-karpetan kopia ditzake edo haiek kopiatu gabe inporta ditzake."
 
-#: src/Dialogs.vala:926
+#: src/Dialogs.vala:920
 msgid "Co_py Photos"
 msgstr "Ko_piatu argazkiak"
 
-#: src/Dialogs.vala:927
+#: src/Dialogs.vala:921
 msgid "_Import in Place"
 msgstr "_Inportatu tokian"
 
-#: src/Dialogs.vala:928
+#: src/Dialogs.vala:922
 msgid "Import to Library"
 msgstr "Inportatu liburutegira"
 
-#: src/Dialogs.vala:938 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:932 src/PhotoPage.vala:2891
 msgid "Remove From Library"
 msgstr "Kendu liburutegitik"
 
-#: src/Dialogs.vala:939 src/PhotoPage.vala:2897
+#: src/Dialogs.vala:933 src/PhotoPage.vala:2891
 msgid "Removing Photo From Library"
 msgstr "Argazkia liburutegitik kentzen"
 
-#: src/Dialogs.vala:939
+#: src/Dialogs.vala:933
 msgid "Removing Photos From Library"
 msgstr "Argazkiak liburutegitik kentzen"
 
-#: src/Dialogs.vala:953
+#: src/Dialogs.vala:947
 #, c-format
 msgid ""
 "This will remove the photo/video from your Shotwell library. Would you also "
@@ -3418,7 +3412,7 @@ msgstr[1] "%d argazki/bideo zure Shotwell liburutegitik kenduko dira. Fitxategia
 "\n"
 "Ekintza hau ezin da desegin."
 
-#: src/Dialogs.vala:957
+#: src/Dialogs.vala:951
 #, c-format
 msgid ""
 "This will remove the video from your Shotwell library. Would you also like "
@@ -3437,7 +3431,7 @@ msgstr[1] "%d bideo zure Shotwell liburutegitik kenduko dira.  Fitxategiak zure 
 "\n"
 "Ekintza hau ezin da desegin."
 
-#: src/Dialogs.vala:961
+#: src/Dialogs.vala:955
 #, c-format
 msgid ""
 "This will remove the photo from your Shotwell library. Would you also like "
@@ -3456,7 +3450,7 @@ msgstr[1] "%d argazki zure Shotwell liburutegitik kenduko dira.  Fitxategiak zur
 "\n"
 "Ekintza hau ezin da desegin."
 
-#: src/Dialogs.vala:993
+#: src/Dialogs.vala:987
 #, c-format
 msgid ""
 "The photo or video cannot be moved to your desktop trash. Delete this file?"
@@ -3466,7 +3460,7 @@ msgstr[0] "Argazki/bideoa ezin da mugitu zure mahaigainaren zakarrontzira. Fitxa
 msgstr[1] "%d argazki/bideo ezin dira mugitu zure mahaigainaren zakarrontzira. Fitxategi horiek ezabatu nahi dituzu?"
 
 #. Alert the user that the files were not removed.
-#: src/Dialogs.vala:1010
+#: src/Dialogs.vala:1004
 #, c-format
 msgid "The photo or video cannot be deleted."
 msgid_plural "%d photos/videos cannot be deleted."
@@ -3503,7 +3497,7 @@ msgstr "%s-(e)k ez du onartzen %s-(r)en fitxategi-formatua."
 msgid "Unable open photo %s. Sorry."
 msgstr "Ezin izan da %s argazkia ireki."
 
-#: src/direct/DirectPhotoPage.vala:322 src/Resources.vala:145 ui/direct.ui:8
+#: src/direct/DirectPhotoPage.vala:322 src/Resources.vala:133 ui/direct.ui:8
 #: ui/textentrydialog.ui:33
 msgid "_Save"
 msgstr "_Gorde"
@@ -3964,7 +3958,7 @@ msgstr "Kontrastearen hedapena"
 msgid "Angle:"
 msgstr "Angelua:"
 
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:172
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:160
 #: ui/direct.ui:144 ui/photo.ui:235
 msgid "_Straighten"
 msgstr "Jarri _zuzen"
@@ -3990,7 +3984,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d argazki"
 msgstr[1] "%d argazki"
 
-#: src/events/EventPage.vala:128
+#: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Gertaerarik ez"
 
@@ -4010,19 +4004,19 @@ msgstr "Gertaerarik ez"
 msgid "No events found"
 msgstr "Ez da gertaerarik aurkitu"
 
-#: src/events/EventsDirectoryPage.vala:226
+#: src/events/EventsDirectoryPage.vala:227
 msgid "All Events"
 msgstr "Gertaera guztiak"
 
-#: src/events/EventsDirectoryPage.vala:240
+#: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Datarik gabea"
 
-#: src/events/EventsDirectoryPage.vala:241
+#: src/events/EventsDirectoryPage.vala:242
 msgid "%Y"
 msgstr "%Y"
 
-#: src/events/EventsDirectoryPage.vala:242
+#: src/events/EventsDirectoryPage.vala:243
 msgid "%B"
 msgstr "%B"
 
@@ -4062,65 +4056,65 @@ msgstr "Ordeztu _denak"
 msgid "Export"
 msgstr "Esportatu"
 
-#: src/faces/FacesBranch.vala:89 src/Resources.vala:304 src/Resources.vala:305
+#: src/faces/FacesBranch.vala:87 src/Resources.vala:292 src/Resources.vala:293
 #: ui/faces.ui:403
 msgid "Faces"
 msgstr "Aurpegiak"
 
-#: src/faces/FacesTool.vala:115
+#: src/faces/FacesTool.vala:114
 msgid "Detect faces…"
 msgstr "Detektatu aurpegiak…"
 
-#: src/faces/FacesTool.vala:140
+#: src/faces/FacesTool.vala:139
 msgid "Detect faces on this photo"
 msgstr "Detektatu aurpegiak argazki honetan"
 
-#: src/faces/FacesTool.vala:142
+#: src/faces/FacesTool.vala:141
 msgid "Cancel face detection"
 msgstr "Utzi aurpegien detekzioa"
 
-#: src/faces/FacesTool.vala:146
+#: src/faces/FacesTool.vala:145
 msgid "Close the Faces tool without saving changes"
 msgstr "Itxi aurpegien tresna aldaketak gorde gabe"
 
-#: src/faces/FacesTool.vala:153 src/faces/FacesTool.vala:185
+#: src/faces/FacesTool.vala:152 src/faces/FacesTool.vala:186
 msgid "Click and drag to tag a face"
 msgstr "Arrastatu eta jaregin aurpegi bat etiketatzeko"
 
-#: src/faces/FacesTool.vala:180
+#: src/faces/FacesTool.vala:181
 #, c-format
 msgid "Click to edit face <i>%s</i>"
 msgstr "Egin klik <i>%s</i> aurpegia editatzeko"
 
-#: src/faces/FacesTool.vala:189
+#: src/faces/FacesTool.vala:190
 msgid "Stop dragging to add your face and name it."
 msgstr "Gelditu arrastatzeko zure aurpegia gehitu eta hari izena emateko."
 
-#: src/faces/FacesTool.vala:193
+#: src/faces/FacesTool.vala:194
 msgid "Type a name for this face, then press Enter"
 msgstr "Idatzi izen bat aurpegi honentzako, gero sakatu Enter"
 
-#: src/faces/FacesTool.vala:197
+#: src/faces/FacesTool.vala:198
 msgid "Move or modify the face shape or name and press Enter"
 msgstr "Mugitu edo aldatu aurpegiaren forma edo izena eta sakatu Enter"
 
-#: src/faces/FacesTool.vala:201
+#: src/faces/FacesTool.vala:202
 msgid "Detecting faces"
 msgstr "Aurpegiak detektatzen"
 
-#: src/faces/FacesTool.vala:212
+#: src/faces/FacesTool.vala:213
 msgid "If you don’t set the name of unknown faces they won’t be saved."
 msgstr "Aurpegi ezezagunen izena ezartzen ez baduzu, ez dira gordeko."
 
-#: src/faces/FacesTool.vala:233
+#: src/faces/FacesTool.vala:234
 msgid "Save changes and close the Faces tool"
 msgstr "Gorde aldaketak eta itxi aurpegien tresna"
 
-#: src/faces/FacesTool.vala:235
+#: src/faces/FacesTool.vala:236
 msgid "No changes to save"
 msgstr "Ez dago gordetzeko aldaketarik"
 
-#: src/faces/FacesTool.vala:956
+#: src/faces/FacesTool.vala:959
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Errorea aurpegiak detektatzeko programa abiaraztean:\n"
 
@@ -4140,8 +4134,8 @@ msgstr "Inportazioak"
 msgid "Browse the library’s import history"
 msgstr "Arakatu liburutegiaren inportazioen historia"
 
-#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1124
-#: src/SearchFilter.vala:1125
+#: src/library/FlaggedPage.vala:8 src/SearchFilter.vala:1121
+#: src/SearchFilter.vala:1122
 msgid "Flagged"
 msgstr "Markatuta"
 
@@ -4171,27 +4165,27 @@ msgstr "Liburutegia"
 msgid "Organize and browse your photos"
 msgstr "Antolatu eta arakatu zure argazkiak"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1105
+#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1102
 msgid "Photos"
 msgstr "Argazkiak"
 
-#: src/library/LibraryWindow.vala:528
+#: src/library/LibraryWindow.vala:519
 msgid "Import From Folder"
 msgstr "Inportatu karpetatik"
 
-#: src/library/LibraryWindow.vala:535
+#: src/library/LibraryWindow.vala:525
 msgid "Recurse Into Subfolders"
 msgstr "Errekurtsiboki azpikarpetetan"
 
-#: src/library/LibraryWindow.vala:603 ui/trash.ui:288
+#: src/library/LibraryWindow.vala:593 ui/trash.ui:288
 msgid "Empty Trash"
 msgstr "Hustu zakarrontzia"
 
-#: src/library/LibraryWindow.vala:603
+#: src/library/LibraryWindow.vala:593
 msgid "Emptying Trash…"
 msgstr "Zakarrontzia husten…"
 
-#: src/library/LibraryWindow.vala:782
+#: src/library/LibraryWindow.vala:772
 #, c-format
 msgid ""
 "Shotwell is configured to import photos to your home directory.\n"
@@ -4202,33 +4196,33 @@ msgstr "Shotwell argazkiak zure karpeta nagusira inportatzeko konfiguratuta dago
 "<span weight=\"bold\">Editatu %s Hobespenak</span> menuan aldatzea gomendatzen dizugu.\n"
 "Argazkiak inportatzen jarraitzea nahi duzu?"
 
-#: src/library/LibraryWindow.vala:785 ui/preferences_dialog.ui:86
+#: src/library/LibraryWindow.vala:775 ui/preferences_dialog.ui:86
 msgid "Library Location"
 msgstr "Liburutegiaren kokalekua"
 
 #. TODO: Specify which directory/file.
-#: src/library/LibraryWindow.vala:798
+#: src/library/LibraryWindow.vala:788
 msgid "Photos cannot be imported from this directory."
 msgstr "Direktorio honetatik ezin dira argazkiak inportatu"
 
-#: src/library/LibraryWindow.vala:1078
+#: src/library/LibraryWindow.vala:1068
 #, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
-#: src/library/LibraryWindow.vala:1122 src/library/LibraryWindow.vala:1133
+#: src/library/LibraryWindow.vala:1112 src/library/LibraryWindow.vala:1123
 msgid "Updating library…"
 msgstr "Liburutegia eguneratzen…"
 
-#: src/library/LibraryWindow.vala:1139
+#: src/library/LibraryWindow.vala:1129
 msgid "Preparing to auto-import photos…"
 msgstr "Argazkiak automatikoki inportatzeko prestatzen…"
 
-#: src/library/LibraryWindow.vala:1144
+#: src/library/LibraryWindow.vala:1134
 msgid "Auto-importing photos…"
 msgstr "Argazkiak automatikoki inportatzen…"
 
-#: src/library/LibraryWindow.vala:1152
+#: src/library/LibraryWindow.vala:1142
 msgid "Writing metadata to files…"
 msgstr "Metadatuak fitxategietan idazten…"
 
@@ -4286,40 +4280,40 @@ msgstr "Zure argazki-liburutegia ez da bateragarria Shotwell-en bertsio honekin.
 msgid "Unknown error attempting to verify Shotwell’s database: %s"
 msgstr "Errore ezezaguna Shotwell-en datu-basea egiaztatzean: %s"
 
-#: src/main.vala:108
+#: src/main.vala:106
 msgid "Loading Shotwell"
 msgstr "Shotwell kargatzen"
 
-#: src/main.vala:320
+#: src/main.vala:314
 msgid "Path to Shotwell’s private data"
 msgstr "Shotwell-en datu pribatuetarako bidea"
 
-#: src/main.vala:320
+#: src/main.vala:314
 msgid "DIRECTORY"
 msgstr "DIREKTORIOA"
 
-#: src/main.vala:324
+#: src/main.vala:318
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ez monitorizatu liburutegien direktorioa aldaketen bila exekuzio-denboran"
 
-#: src/main.vala:328
+#: src/main.vala:322
 msgid "Don’t display startup progress meter"
 msgstr "Ez erakutsi abioaren aurrerapenaren neurgailua"
 
-#: src/main.vala:332
+#: src/main.vala:326
 msgid "Show the application’s version"
 msgstr "Erakutsi aplikazioaren bertsioa"
 
-#: src/main.vala:336
+#: src/main.vala:330
 msgid "Start the application in fullscreen mode"
 msgstr "Abiarazi aplikazioa pantaila osoko moduan"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:373
+#: src/main.vala:367
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:380
+#: src/main.vala:374
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko.\n"
@@ -4354,21 +4348,21 @@ msgid "Photos cannot be exported to this directory."
 msgstr "Argazkiak ezin dira direktorio honetara esportatu."
 
 #. previous button
-#: src/PhotoPage.vala:550
+#: src/PhotoPage.vala:546
 msgid "Previous photo"
 msgstr "Aurreko argazkia"
 
 #. next button
-#: src/PhotoPage.vala:556
+#: src/PhotoPage.vala:552
 msgid "Next photo"
 msgstr "Hurrengo argazkia"
 
-#: src/PhotoPage.vala:1862
+#: src/PhotoPage.vala:1858
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Argazkiaren jatorrizko fitxategia falta da: %s"
 
-#: src/PhotoPage.vala:3041
+#: src/PhotoPage.vala:3035
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Ezin izan da %s esportatu: %s"
@@ -4671,61 +4665,61 @@ msgstr "Shotwell-ek ezin ditu hautatutako elementuak argitaratu ez daukazulako g
 msgid "Publishing"
 msgstr "Argitaratzea"
 
-#: src/Resources.vala:110 src/Resources.vala:115 ui/collection.ui:151
+#: src/Resources.vala:98 src/Resources.vala:103 ui/collection.ui:151
 msgid "Rotate"
 msgstr "Biratu"
 
-#: src/Resources.vala:111
+#: src/Resources.vala:99
 msgid "Rotate Right"
 msgstr "Biratu eskuinera"
 
-#: src/Resources.vala:112 ui/collection.ui:148
+#: src/Resources.vala:100 ui/collection.ui:148
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Biratu argazkiak eskuinera (sakatu Ctrl ezkerrera biratzeko)"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:104
 msgid "Rotate Left"
 msgstr "Biratu ezkerrera"
 
-#: src/Resources.vala:117
+#: src/Resources.vala:105
 msgid "Rotate the photos left"
 msgstr "Biratu argazkiak ezkerrera"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:108
 msgid "Flip Horizontally"
 msgstr "Irauli horizontalean"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:111
 msgid "Flip Vertically"
 msgstr "Irauli bertikalean"
 
-#: src/Resources.vala:125 ui/direct.ui:192 ui/events_directory.ui:168
+#: src/Resources.vala:113 ui/direct.ui:192 ui/events_directory.ui:168
 #: ui/event.ui:438 ui/faces.ui:448 ui/import_queue.ui:83 ui/import.ui:201
 #: ui/manifest_widget.ui:35 ui/media.ui:421 ui/offline.ui:198 ui/photo.ui:407
 #: ui/tags.ui:440 ui/trash.ui:207
 msgid "_About"
 msgstr "Honi _buruz"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:114
 msgid "_Apply"
 msgstr "_Aplikatu"
 
-#: src/Resources.vala:129 ui/direct.ui:44 ui/events_directory.ui:32
+#: src/Resources.vala:117 ui/direct.ui:44 ui/events_directory.ui:32
 #: ui/event.ui:47 ui/faces.ui:47 ui/import.ui:40 ui/media.ui:47
 #: ui/offline.ui:32 ui/photo.ui:57 ui/tags.ui:47 ui/trash.ui:37
 msgid "_Edit"
 msgstr "_Editatu"
 
-#: src/Resources.vala:130
+#: src/Resources.vala:118
 msgid "_Forward"
 msgstr "A_urrera"
 
-#: src/Resources.vala:131 ui/direct.ui:62 ui/events_directory.ui:125
+#: src/Resources.vala:119 ui/direct.ui:62 ui/events_directory.ui:125
 #: ui/photo.ui:175
 msgid "Fulls_creen"
 msgstr "Pantaila o_soa"
 
-#: src/Resources.vala:132 ui/direct.ui:174 ui/direct.ui:177
+#: src/Resources.vala:120 ui/direct.ui:174 ui/direct.ui:177
 #: ui/events_directory.ui:150 ui/events_directory.ui:153 ui/event.ui:420
 #: ui/event.ui:423 ui/faces.ui:430 ui/faces.ui:433 ui/import_queue.ui:65
 #: ui/import_queue.ui:68 ui/import.ui:183 ui/import.ui:186 ui/media.ui:403
@@ -4735,404 +4729,404 @@ msgstr "Pantaila o_soa"
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: src/Resources.vala:133
+#: src/Resources.vala:121
 msgid "Leave _Fullscreen"
 msgstr "Utzi pantaila _osoan"
 
-#: src/Resources.vala:134 src/Resources.vala:342 ui/tags.ui:450
+#: src/Resources.vala:122 src/Resources.vala:330 ui/tags.ui:450
 msgid "_New"
 msgstr "_Berria"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:123
 msgid "_Next"
 msgstr "_Hurrengoa"
 
-#: src/Resources.vala:138 src/Resources.vala:287 ui/events_directory.ui:65
+#: src/Resources.vala:126 src/Resources.vala:275 ui/events_directory.ui:65
 #: ui/event.ui:93 ui/faces.ui:93 ui/import.ui:68 ui/media.ui:93
 #: ui/offline.ui:72 ui/photo.ui:91 ui/tags.ui:93 ui/trash.ui:81
 msgid "_Preferences"
 msgstr "_Hobespenak"
 
-#: src/Resources.vala:139
+#: src/Resources.vala:127
 msgid "_Previous"
 msgstr "_Aurrekoa"
 
-#: src/Resources.vala:141 ui/direct.ui:37 ui/events_directory.ui:25
+#: src/Resources.vala:129 ui/direct.ui:37 ui/events_directory.ui:25
 #: ui/event.ui:40 ui/faces.ui:40 ui/import_queue.ui:31 ui/import.ui:33
 #: ui/media.ui:40 ui/offline.ui:25 ui/photo.ui:50 ui/tags.ui:40 ui/trash.ui:30
 msgid "_Quit"
 msgstr "I_rten"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:130
 msgid "_Refresh"
 msgstr "_Freskatu"
 
-#: src/Resources.vala:144
+#: src/Resources.vala:132
 msgid "_Revert"
 msgstr "_Leheneratu"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:134
 msgid "Save _As"
 msgstr "Gorde _honela"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:135
 msgid "Sort _Ascending"
 msgstr "Ordenatu g_orantz"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:136
 msgid "Sort _Descending"
 msgstr "Ordenatu _beherantz"
 
-#: src/Resources.vala:149
+#: src/Resources.vala:137
 msgid "_Stop"
 msgstr "_Gelditu"
 
-#: src/Resources.vala:150
+#: src/Resources.vala:138
 msgid "_Undelete"
 msgstr "_Desezabatu"
 
-#: src/Resources.vala:151
+#: src/Resources.vala:139
 msgid "_Normal Size"
 msgstr "Tamaina _normala"
 
-#: src/Resources.vala:152
+#: src/Resources.vala:140
 msgid "Best _Fit"
 msgstr "_Egokiena"
 
-#: src/Resources.vala:153 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
+#: src/Resources.vala:141 ui/direct.ui:69 ui/event.ui:260 ui/faces.ui:260
 #: ui/media.ui:260 ui/photo.ui:146 ui/tags.ui:260
 msgid "Zoom _In"
 msgstr "_Zooma handiagotu"
 
-#: src/Resources.vala:154 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
+#: src/Resources.vala:142 ui/direct.ui:74 ui/event.ui:265 ui/faces.ui:265
 #: ui/media.ui:265 ui/photo.ui:151 ui/tags.ui:265
 msgid "Zoom _Out"
 msgstr "_Txikiagotu"
 
-#: src/Resources.vala:157 ui/collection.ui:167
+#: src/Resources.vala:145 ui/collection.ui:167
 msgid "Enhance"
 msgstr "Nabarmendu"
 
-#: src/Resources.vala:158 ui/collection.ui:164
+#: src/Resources.vala:146 ui/collection.ui:164
 msgid "Automatically improve the photo’s appearance"
 msgstr "Hobetu automatikoki argazkiaren itxura"
 
-#: src/Resources.vala:161
+#: src/Resources.vala:149
 msgid "Copy Color Adjustments"
 msgstr "Kopiatu koloreen doikuntzak"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:150
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Kopiatu koloreen doikuntzak argazkiari aplikatzeko"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:153
 msgid "Paste Color Adjustments"
 msgstr "Itsatsi koloreen doikuntzak"
 
-#: src/Resources.vala:166
+#: src/Resources.vala:154
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Aplikatu kopiatutako koloreen doikuntzak hautatutako argazkiei"
 
-#: src/Resources.vala:168 ui/direct.ui:139 ui/photo.ui:230
+#: src/Resources.vala:156 ui/direct.ui:139 ui/photo.ui:230
 msgid "_Crop"
 msgstr "_Moztu"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:157
 msgid "Crop"
 msgstr "Moztu"
 
-#: src/Resources.vala:170
+#: src/Resources.vala:158
 msgid "Crop the photo’s size"
 msgstr "Moztu argazkiaren tamaina"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:161
 msgid "Straighten"
 msgstr "Jarri zuzen"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:162
 msgid "Straighten the photo"
 msgstr "Jarri zuzen argazkia"
 
-#: src/Resources.vala:176 ui/direct.ui:149 ui/photo.ui:240
+#: src/Resources.vala:164 ui/direct.ui:149 ui/photo.ui:240
 msgid "_Red-eye"
 msgstr "Begi _gorriak"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:165
 msgid "Red-eye"
 msgstr "Begi gorriak"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:166
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Murriztu edo ezabatu begi gorrien efektua argazkitik"
 
-#: src/Resources.vala:180 ui/direct.ui:154 ui/photo.ui:245
+#: src/Resources.vala:168 ui/direct.ui:154 ui/photo.ui:245
 msgid "_Adjust"
 msgstr "_Doitu"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:169
 msgid "Adjust"
 msgstr "Doitu"
 
-#: src/Resources.vala:182
+#: src/Resources.vala:170
 msgid "Adjust the photo’s color and tone"
 msgstr "Doitu argazkiaren kolorea eta tonua"
 
-#: src/Resources.vala:185
+#: src/Resources.vala:173
 msgid "Revert to Original"
 msgstr "Leheneratu jatorrizkora"
 
-#: src/Resources.vala:187
+#: src/Resources.vala:175
 msgid "Revert External E_dits"
 msgstr "Leheneratu _kanpoko edizioak"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:176
 msgid "Revert to the master photo"
 msgstr "Leheneratu argazki maisura"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:179
 msgid "Set selected image to be the new desktop background"
 msgstr "Ezarri hautatutako irudia mahaigainaren atzeko planoa izan dadin"
 
-#: src/Resources.vala:192
+#: src/Resources.vala:180
 msgid "Set as _Desktop Slideshow…"
 msgstr "Ezarri mahaigainaren _diapositiba-aurkezpen gisa…"
 
-#: src/Resources.vala:194 ui/direct.ui:47 ui/events_directory.ui:35
+#: src/Resources.vala:182 ui/direct.ui:47 ui/events_directory.ui:35
 #: ui/event.ui:50 ui/faces.ui:50 ui/import.ui:43 ui/media.ui:50
 #: ui/offline.ui:35 ui/photo.ui:60 ui/tags.ui:50 ui/trash.ui:40
 msgid "_Undo"
 msgstr "_Desegin"
 
-#: src/Resources.vala:195
+#: src/Resources.vala:183
 msgid "Undo"
 msgstr "Desegin"
 
-#: src/Resources.vala:197 ui/direct.ui:52 ui/events_directory.ui:40
+#: src/Resources.vala:185 ui/direct.ui:52 ui/events_directory.ui:40
 #: ui/event.ui:55 ui/faces.ui:55 ui/import.ui:48 ui/media.ui:55
 #: ui/offline.ui:40 ui/photo.ui:65 ui/tags.ui:55 ui/trash.ui:45
 msgid "_Redo"
 msgstr "_Berregin"
 
-#: src/Resources.vala:198
+#: src/Resources.vala:186
 msgid "Redo"
 msgstr "Berregin"
 
-#: src/Resources.vala:200 ui/events_directory.ui:139 ui/events_directory.ui:181
+#: src/Resources.vala:188 ui/events_directory.ui:139 ui/events_directory.ui:181
 #: ui/event.ui:393 ui/event.ui:588
 msgid "Re_name Event…"
 msgstr "Aldatu gertaeraren _izena…"
 
-#: src/Resources.vala:203 ui/event.ui:373 ui/event.ui:580
+#: src/Resources.vala:191 ui/event.ui:373 ui/event.ui:580
 msgid "Make _Key Photo for Event"
 msgstr "Sortu gertaeraren argazki _gakoa"
 
-#: src/Resources.vala:204
+#: src/Resources.vala:192
 msgid "Make Key Photo for Event"
 msgstr "Sortu gertaeraren argazki gakoa"
 
-#: src/Resources.vala:206 ui/event.ui:382 ui/faces.ui:376 ui/media.ui:376
+#: src/Resources.vala:194 ui/event.ui:382 ui/faces.ui:376 ui/media.ui:376
 #: ui/tags.ui:376
 msgid "_New Event"
 msgstr "Gertaera _berria"
 
-#: src/Resources.vala:207
+#: src/Resources.vala:195
 msgid "New Event"
 msgstr "Gertaera berria"
 
-#: src/Resources.vala:209
+#: src/Resources.vala:197
 msgid "Move Photos"
 msgstr "Mugitu argazkiak"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:198
 msgid "Move photos to an event"
 msgstr "Mugitu argazkiak gertaera batera"
 
-#: src/Resources.vala:212 ui/events_directory.ui:135 ui/events_directory.ui:177
+#: src/Resources.vala:200 ui/events_directory.ui:135 ui/events_directory.ui:177
 msgid "_Merge Events"
 msgstr "Ba_tu gertaerak"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:201
 msgid "Merge"
 msgstr "Batu"
 
-#: src/Resources.vala:214
+#: src/Resources.vala:202
 msgid "Combine events into a single event"
 msgstr "Konbinatu gertaerak gertaera bakarrean"
 
-#: src/Resources.vala:216 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
+#: src/Resources.vala:204 ui/collection.ui:39 ui/event.ui:286 ui/event.ui:478
 #: ui/faces.ui:286 ui/media.ui:286 ui/photo_context.ui:35 ui/photo.ui:275
 #: ui/tags.ui:286
 msgid "_Set Rating"
 msgstr "E_zarri balorazioa"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:205
 msgid "Set Rating"
 msgstr "Ezarri balorazioa"
 
-#: src/Resources.vala:218
+#: src/Resources.vala:206
 msgid "Change the rating of your photo"
 msgstr "Aldatu zure argazkiaren balorazioa"
 
-#: src/Resources.vala:220 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
+#: src/Resources.vala:208 ui/collection.ui:72 ui/event.ui:326 ui/event.ui:511
 #: ui/faces.ui:326 ui/media.ui:326 ui/photo_context.ui:75 ui/photo.ui:315
 #: ui/tags.ui:326
 msgid "_Increase"
 msgstr "_Handitu"
 
-#: src/Resources.vala:221
+#: src/Resources.vala:209
 msgid "Increase Rating"
 msgstr "Handitu balorazioa"
 
-#: src/Resources.vala:223 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
+#: src/Resources.vala:211 ui/collection.ui:76 ui/event.ui:331 ui/event.ui:515
 #: ui/faces.ui:331 ui/media.ui:331 ui/photo_context.ui:80 ui/photo.ui:320
 #: ui/tags.ui:331
 msgid "_Decrease"
 msgstr "_Txikitu"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:212
 msgid "Decrease Rating"
 msgstr "Txikitu balorazioa"
 
-#: src/Resources.vala:226 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
+#: src/Resources.vala:214 ui/collection.ui:62 ui/event.ui:314 ui/event.ui:501
 #: ui/faces.ui:314 ui/media.ui:314 ui/photo_context.ui:63 ui/photo.ui:303
 #: ui/tags.ui:314
 msgid "_Unrated"
 msgstr "Ba_loratu gabea"
 
-#: src/Resources.vala:227
+#: src/Resources.vala:215
 msgid "Unrated"
 msgstr "Baloratu gabea"
 
-#: src/Resources.vala:228
+#: src/Resources.vala:216
 msgid "Rate Unrated"
 msgstr "Eman balorazioa"
 
-#: src/Resources.vala:229
+#: src/Resources.vala:217
 msgid "Setting as unrated"
 msgstr "Balorazioa kentzen"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:218
 msgid "Remove any ratings"
 msgstr "Kendu balorazio guztiak"
 
-#: src/Resources.vala:232 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
+#: src/Resources.vala:220 ui/collection.ui:66 ui/event.ui:319 ui/event.ui:505
 #: ui/faces.ui:319 ui/media.ui:319 ui/photo_context.ui:68 ui/photo.ui:308
 #: ui/tags.ui:319
 msgid "_Rejected"
 msgstr "_Ezetsia"
 
-#: src/Resources.vala:233
+#: src/Resources.vala:221
 msgid "Rejected"
 msgstr "Baztertua"
 
-#: src/Resources.vala:234
+#: src/Resources.vala:222
 msgid "Rate Rejected"
 msgstr "Eman ezetsiaren balorazioa"
 
-#: src/Resources.vala:235
+#: src/Resources.vala:223
 msgid "Setting as rejected"
 msgstr "Ezetsi modura ezartzen"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:224
 msgid "Set rating to rejected"
 msgstr "Ezarri ezetsiaren balorazioa"
 
-#: src/Resources.vala:238 ui/event.ui:196 ui/faces.ui:196 ui/import.ui:156
+#: src/Resources.vala:226 ui/event.ui:196 ui/faces.ui:196 ui/import.ui:156
 #: ui/media.ui:196 ui/offline.ui:153 ui/search_bar.ui:6 ui/tags.ui:196
 #: ui/trash.ui:162
 msgid "Rejected _Only"
 msgstr "Ezetsia _soilik"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:227
 msgid "Rejected Only"
 msgstr "Ezetsia soilik"
 
-#: src/Resources.vala:240
+#: src/Resources.vala:228
 msgid "Show only rejected photos"
 msgstr "Erakutsi ezetsitako argazkiak soilik"
 
-#: src/Resources.vala:242 ui/event.ui:190 ui/faces.ui:190 ui/import.ui:150
+#: src/Resources.vala:230 ui/event.ui:190 ui/faces.ui:190 ui/import.ui:150
 #: ui/media.ui:190 ui/offline.ui:147 ui/search_bar.ui:12 ui/tags.ui:190
 #: ui/trash.ui:156
 msgid "All + _Rejected"
 msgstr "Denak + _ezetsiak"
 
-#: src/Resources.vala:243
+#: src/Resources.vala:231
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Erakutsi argazki guztiak, ezetsiak barne"
 
-#: src/Resources.vala:245 ui/event.ui:184 ui/faces.ui:184 ui/import.ui:144
+#: src/Resources.vala:233 ui/event.ui:184 ui/faces.ui:184 ui/import.ui:144
 #: ui/media.ui:184 ui/offline.ui:141 ui/search_bar.ui:18 ui/tags.ui:184
 #: ui/trash.ui:150
 msgid "_All Photos"
 msgstr "_Argazki guztiak"
 
 #. Button tooltip
-#: src/Resources.vala:247
+#: src/Resources.vala:235
 msgid "Show all photos"
 msgstr "Erakutsi argazki guztiak"
 
-#: src/Resources.vala:249 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
+#: src/Resources.vala:237 ui/event.ui:144 ui/faces.ui:144 ui/media.ui:144
 #: ui/photo.ui:122 ui/tags.ui:144
 msgid "_Ratings"
 msgstr "_Balorazioak"
 
-#: src/Resources.vala:250
+#: src/Resources.vala:238
 msgid "Display each photo’s rating"
 msgstr "Erakutsi argazki bakoitzaren balorazioa"
 
-#: src/Resources.vala:252 ui/event.ui:151 ui/faces.ui:151 ui/import.ui:111
+#: src/Resources.vala:240 ui/event.ui:151 ui/faces.ui:151 ui/import.ui:111
 #: ui/media.ui:151 ui/offline.ui:108 ui/tags.ui:151 ui/trash.ui:117
 msgid "_Filter Photos"
 msgstr "_Iragazi argazkiak"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:241
 msgid "Filter Photos"
 msgstr "Iragazi argazkiak"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:242
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Mugatu erakutsiko diren argazkien kopurua iragazki baten bidez"
 
-#: src/Resources.vala:257
+#: src/Resources.vala:245
 msgid "Duplicate"
 msgstr "Bikoiztu"
 
-#: src/Resources.vala:258
+#: src/Resources.vala:246
 msgid "Make a duplicate of the photo"
 msgstr "Egin argazkiaren bikoizketa"
 
-#: src/Resources.vala:260 ui/event.ui:17 ui/faces.ui:17 ui/media.ui:17
+#: src/Resources.vala:248 ui/event.ui:17 ui/faces.ui:17 ui/media.ui:17
 #: ui/photo.ui:17 ui/tags.ui:17
 msgid "_Export…"
 msgstr "_Esportatu…"
 
-#: src/Resources.vala:262
+#: src/Resources.vala:250
 msgid "_Print…"
 msgstr "_Inprimatu…"
 
-#: src/Resources.vala:264
+#: src/Resources.vala:252
 msgid "Pu_blish…"
 msgstr "Ar_gitaratu…"
 
-#: src/Resources.vala:266 ui/collection.ui:189
+#: src/Resources.vala:254 ui/collection.ui:189
 msgid "Publish to various websites"
 msgstr "Argitaratu hainbat webgunetan"
 
-#: src/Resources.vala:268 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
+#: src/Resources.vala:256 ui/collection.ui:98 ui/event.ui:340 ui/event.ui:537
 #: ui/faces.ui:340 ui/media.ui:340 ui/photo_context.ui:105 ui/photo.ui:329
 #: ui/tags.ui:340
 msgid "Edit _Title…"
 msgstr "Editatu _titulua…"
 
 #. Button label
-#: src/Resources.vala:270
+#: src/Resources.vala:258
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Editatu titulua"
 
-#: src/Resources.vala:272 ui/collection.ui:103 ui/events_directory.ui:144
+#: src/Resources.vala:260 ui/collection.ui:103 ui/events_directory.ui:144
 #: ui/events_directory.ui:186 ui/event.ui:345 ui/event.ui:398 ui/event.ui:542
 #: ui/faces.ui:345 ui/media.ui:345 ui/photo_context.ui:110 ui/photo.ui:334
 #: ui/tags.ui:345
@@ -5140,330 +5134,330 @@ msgid "Edit _Comment…"
 msgstr "Editatu i_ruzkina…"
 
 #. Button label
-#: src/Resources.vala:274
+#: src/Resources.vala:262
 msgid "Edit Comment"
 msgstr "Editatu iruzkina"
 
-#: src/Resources.vala:276 ui/event.ui:592
+#: src/Resources.vala:264 ui/event.ui:592
 msgid "Edit Event _Comment…"
 msgstr "Editatu _gertaeraren iruzkina…"
 
-#: src/Resources.vala:279 ui/direct.ui:167 ui/photo.ui:339
+#: src/Resources.vala:267 ui/direct.ui:167 ui/photo.ui:339
 msgid "_Adjust Date and Time…"
 msgstr "Doitu data eta _ordua…"
 
-#: src/Resources.vala:280
+#: src/Resources.vala:268
 msgid "Adjust Date and Time"
 msgstr "Doitu data eta ordua"
 
-#: src/Resources.vala:282 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
+#: src/Resources.vala:270 ui/collection.ui:19 ui/event.ui:407 ui/event.ui:458
 #: ui/faces.ui:390 ui/media.ui:390 ui/photo.ui:377 ui/tags.ui:390
 msgid "Add _Tags…"
 msgstr "Gehitu _etiketak…"
 
-#: src/Resources.vala:283 ui/photo_context.ui:17
+#: src/Resources.vala:271 ui/photo_context.ui:17
 msgid "_Add Tags…"
 msgstr "_Gehitu etiketak…"
 
 #. Dialog title
-#: src/Resources.vala:285
+#: src/Resources.vala:273
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Gehitu etiketak"
 
-#: src/Resources.vala:294 ui/photo_context.ui:135
+#: src/Resources.vala:282 ui/photo_context.ui:135
 msgid "Send T_o…"
 msgstr "Bidali _hona…"
 
-#: src/Resources.vala:296
+#: src/Resources.vala:284
 msgid "_Find…"
 msgstr "_Bilatu…"
 
-#: src/Resources.vala:297 ui/collection.ui:217 ui/offline.ui:239
+#: src/Resources.vala:285 ui/collection.ui:217 ui/offline.ui:239
 #: ui/trash.ui:312
 msgid "Find"
 msgstr "Bilatu"
 
-#: src/Resources.vala:298 ui/collection.ui:214 ui/offline.ui:236
+#: src/Resources.vala:286 ui/collection.ui:214 ui/offline.ui:236
 #: ui/trash.ui:309
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Aurkitu irudi bat bere izenean edo etiketetan ageri den testuren bat idatziz"
 
-#: src/Resources.vala:300
+#: src/Resources.vala:288
 msgid "_Flag"
 msgstr "_Bandera"
 
-#: src/Resources.vala:302
+#: src/Resources.vala:290
 msgid "Un_flag"
 msgstr "_Kendu bandera"
 
-#: src/Resources.vala:306
+#: src/Resources.vala:294
 msgid "Mark faces of people in the photo"
 msgstr "Markatu pertsonen aurpegiak argazkian"
 
-#: src/Resources.vala:307
+#: src/Resources.vala:295
 msgid "Modify Faces"
 msgstr "Aldatu aurpegiak"
 
-#: src/Resources.vala:308
+#: src/Resources.vala:296
 msgid "Delete Face"
 msgstr "Ezabatu aurpegia"
 
-#: src/Resources.vala:310 src/Resources.vala:352 ui/tags.ui:456
+#: src/Resources.vala:298 src/Resources.vala:340 ui/tags.ui:456
 msgid "_Rename…"
 msgstr "Be_rrizendatu…"
 
-#: src/Resources.vala:314
+#: src/Resources.vala:302
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Ezin izan da editorea abiarazi: %s"
 
-#: src/Resources.vala:319
+#: src/Resources.vala:307
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Gehitu “%s” etiketa"
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:322
+#: src/Resources.vala:310
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Gehitu “%s” eta “%s” etiketak"
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:327
+#: src/Resources.vala:315
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Gehitu etiketak"
 
-#: src/Resources.vala:332
+#: src/Resources.vala:320
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "E_zabatu “%s” etiketa"
 
-#: src/Resources.vala:336
+#: src/Resources.vala:324
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Ezabatu “%s” etiketa"
 
-#: src/Resources.vala:339
+#: src/Resources.vala:327
 msgid "Delete Tag"
 msgstr "Ezabatu etiketa"
 
-#: src/Resources.vala:345
+#: src/Resources.vala:333
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "Aldatu “%s” etiketaren _izena…"
 
-#: src/Resources.vala:349
+#: src/Resources.vala:337
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Aldatu “%s” etiketaren izena eta ezarri “%s”"
 
-#: src/Resources.vala:354 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
+#: src/Resources.vala:342 ui/collection.ui:24 ui/event.ui:412 ui/event.ui:463
 #: ui/faces.ui:395 ui/media.ui:395 ui/photo_context.ui:22 ui/photo.ui:382
 #: ui/tags.ui:395
 msgid "Modif_y Tags…"
 msgstr "Al_datu etiketak…"
 
-#: src/Resources.vala:355
+#: src/Resources.vala:343
 msgid "Modify Tags"
 msgstr "Aldatu etiketak"
 
-#: src/Resources.vala:358
+#: src/Resources.vala:346
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Jarri “%s” etiketa argazkiari"
 msgstr[1] "Jarri “%s” etiketa argazkiari"
 
-#: src/Resources.vala:364
+#: src/Resources.vala:352
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Jarri “%s” etiketa hautatutako argazkiari"
 msgstr[1] "Jarri “%s” etiketa hautatutako argazkiari"
 
-#: src/Resources.vala:370
+#: src/Resources.vala:358
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Kendu “%s” etiketa _argazkitik"
 msgstr[1] "Kendu “%s” etiketa _argazkitik"
 
-#: src/Resources.vala:376
+#: src/Resources.vala:364
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Kendu “%s” etiketa argazkitik"
 msgstr[1] "Kendu “%s” etiketa argazkitik"
 
-#: src/Resources.vala:382
+#: src/Resources.vala:370
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Ezin izan da etiketaren izena aldatu eta “%s” jarri, etiketa hori jadanik existitzen delako."
 
-#: src/Resources.vala:386
+#: src/Resources.vala:374
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Ezin izan zaio bilaketari “%s” izena jarri, izen hori jadanik existitzen baita."
 
 #. Saved search button
-#: src/Resources.vala:389 src/SearchFilter.vala:1146
+#: src/Resources.vala:377 src/SearchFilter.vala:1143
 msgid "Saved Search"
 msgstr "Gordetako bilaketa"
 
-#: src/Resources.vala:391
+#: src/Resources.vala:379
 msgid "Delete Search"
 msgstr "Ezabatu bilaketa"
 
-#: src/Resources.vala:394 ui/savedsearch.ui:10
+#: src/Resources.vala:382 ui/savedsearch.ui:10
 msgid "_Edit…"
 msgstr "_Editatu…"
 
-#: src/Resources.vala:395 ui/savedsearch.ui:6
+#: src/Resources.vala:383 ui/savedsearch.ui:6
 msgid "Re_name…"
 msgstr "Al_datu izena…"
 
-#: src/Resources.vala:398
+#: src/Resources.vala:386
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Aldatu “%s” bilaketaren izena eta ezarri “%s”"
 
-#: src/Resources.vala:402
+#: src/Resources.vala:390
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Ezabatu “%s” bilaketa"
 
-#: src/Resources.vala:407
+#: src/Resources.vala:394
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr "Ezin izan da aurpegiaren izena aldatu eta “%s” jarri, aurpegi hori jadanik existitzen delako."
 
-#: src/Resources.vala:411
+#: src/Resources.vala:398
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Kendu “%s” aurpegia a_rgazkitik"
 msgstr[1] "Kendu “%s” etiketa _argazkitik"
 
-#: src/Resources.vala:416
+#: src/Resources.vala:403
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Kendu “%s” aurpegia argazkitik"
 msgstr[1] "Kendu “%s” etiketa argazkitik"
 
-#: src/Resources.vala:421
+#: src/Resources.vala:408
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Aldatu “%s” aurpegiaren _izena…"
 
-#: src/Resources.vala:425
+#: src/Resources.vala:412
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Aldatu “%s” aurpegiaren izena eta ezarri “%s”"
 
-#: src/Resources.vala:429
+#: src/Resources.vala:416
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "E_zabatu “%s” aurpegia"
 
-#: src/Resources.vala:433
+#: src/Resources.vala:420
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Ezabatu “%s” aurpegia"
 
-#: src/Resources.vala:663
+#: src/Resources.vala:649
 #, c-format
 msgid "Rate %s"
 msgstr "Eman balorazioa %s-(e)ri"
 
-#: src/Resources.vala:664
+#: src/Resources.vala:650
 #, c-format
 msgid "Set rating to %s"
 msgstr "Ezarri balorazioa %s-(e)ri"
 
-#: src/Resources.vala:665
+#: src/Resources.vala:651
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Balorazioa ezartzen %s-(e)ri"
 
-#: src/Resources.vala:667
+#: src/Resources.vala:653
 #, c-format
 msgid "Display %s"
 msgstr "Erakutsi %s"
 
-#: src/Resources.vala:668
+#: src/Resources.vala:654
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Erakutsi %s balorazioa duten argazkiak soilik"
 
-#: src/Resources.vala:669
+#: src/Resources.vala:655
 #, c-format
 msgid "%s or Better"
 msgstr "%s edo hobea"
 
-#: src/Resources.vala:670
+#: src/Resources.vala:656
 #, c-format
 msgid "Display %s or Better"
 msgstr "Erakutsi %s edo hobea"
 
-#: src/Resources.vala:671
+#: src/Resources.vala:657
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Erakutsi %s balorazioa edo hobea duten argazkiak soilik"
 
-#: src/Resources.vala:762 ui/trash.ui:255
+#: src/Resources.vala:748 ui/trash.ui:255
 msgid "Remove the selected photos from the trash"
 msgstr "Kendu hautatutako argazkiak zakarrontzitik"
 
-#: src/Resources.vala:763 ui/offline.ui:221
+#: src/Resources.vala:749 ui/offline.ui:221
 msgid "Remove the selected photos from the library"
 msgstr "Kendu hautatutako argazkiak liburutegitik"
 
-#: src/Resources.vala:765 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
+#: src/Resources.vala:751 ui/trash.ui:68 ui/trash.ui:221 ui/trash.ui:273
 msgid "_Restore"
 msgstr "_Berrezarri"
 
-#: src/Resources.vala:766 ui/trash.ui:270
+#: src/Resources.vala:752 ui/trash.ui:270
 msgid "Move the selected photos back into the library"
 msgstr "Mugitu hautatutako argazkiak berriro liburutegira"
 
-#: src/Resources.vala:768 ui/collection.ui:123 ui/direct_context.ui:18
+#: src/Resources.vala:754 ui/collection.ui:123 ui/direct_context.ui:18
 #: ui/direct.ui:30 ui/event.ui:27 ui/event.ui:562 ui/faces.ui:27 ui/media.ui:27
 #: ui/photo_context.ui:130 ui/photo.ui:37 ui/tags.ui:27 ui/trash.ui:19
 #: ui/trash.ui:227
 msgid "Show in File Mana_ger"
 msgstr "Erakutsi fitxategi-kudeat_zailean"
 
-#: src/Resources.vala:769
+#: src/Resources.vala:755
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Ireki hautatutako argazkiaren direktorioa fitxategi-kudeatzailean"
 
-#: src/Resources.vala:772
+#: src/Resources.vala:758
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Ezin izan da fitxategi-kudeatzailean ireki: %s"
 
-#: src/Resources.vala:775 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
+#: src/Resources.vala:761 ui/event.ui:74 ui/faces.ui:74 ui/media.ui:74
 #: ui/offline.ui:58 ui/offline.ui:207 ui/offline.ui:224 ui/photo.ui:79
 #: ui/tags.ui:74
 msgid "R_emove From Library"
 msgstr "Ke_ndu liburutegitik"
 
-#: src/Resources.vala:777 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
+#: src/Resources.vala:763 ui/collection.ui:134 ui/event.ui:79 ui/event.ui:573
 #: ui/faces.ui:79 ui/media.ui:79 ui/photo_context.ui:141 ui/photo.ui:84
 #: ui/tags.ui:79
 msgid "_Move to Trash"
 msgstr "_Bota zakarrontzira"
 
-#: src/Resources.vala:779 ui/events_directory.ui:58 ui/event.ui:86
+#: src/Resources.vala:765 ui/events_directory.ui:58 ui/event.ui:86
 #: ui/faces.ui:86 ui/import.ui:61 ui/media.ui:86 ui/offline.ui:65 ui/tags.ui:86
 #: ui/trash.ui:74
 msgid "Select _All"
 msgstr "Hautatu _dena"
 
-#: src/Resources.vala:780
+#: src/Resources.vala:766
 msgid "Select all items"
 msgstr "Hautatu elementu guztiak"
 
@@ -5476,14 +5470,14 @@ msgstr "Hautatu elementu guztiak"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:841
+#: src/Resources.vala:827
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:846
+#: src/Resources.vala:832
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5491,7 +5485,7 @@ msgstr "%a %b %d"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:851
+#: src/Resources.vala:837
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5499,7 +5493,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:856
+#: src/Resources.vala:842
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %b %d"
@@ -5507,7 +5501,7 @@ msgstr "%a %b %d"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:861
+#: src/Resources.vala:847
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -5517,164 +5511,164 @@ msgid "Slideshow"
 msgstr "Diapositiba-aurkezpena"
 
 #. Ordering must correspond with SearchConditionText.Context
-#: src/searches/SavedSearchDialog.vala:170
+#: src/searches/SavedSearchDialog.vala:168
 msgid "contains"
 msgstr "hau daukana"
 
 #. Ordering must correspond with Context
-#: src/searches/SavedSearchDialog.vala:171
-#: src/searches/SavedSearchDialog.vala:502
+#: src/searches/SavedSearchDialog.vala:169
+#: src/searches/SavedSearchDialog.vala:500
 msgid "is exactly"
 msgstr "zehatz-mehatz da:"
 
-#: src/searches/SavedSearchDialog.vala:172
+#: src/searches/SavedSearchDialog.vala:170
 msgid "starts with"
 msgstr "honela hasten da"
 
-#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:171
 msgid "ends with"
 msgstr "honela amaitzen da"
 
-#: src/searches/SavedSearchDialog.vala:174
+#: src/searches/SavedSearchDialog.vala:172
 msgid "does not contain"
 msgstr "hau ez daukana"
 
-#: src/searches/SavedSearchDialog.vala:175
-#: src/searches/SavedSearchDialog.vala:506
+#: src/searches/SavedSearchDialog.vala:173
+#: src/searches/SavedSearchDialog.vala:504
 msgid "is not set"
 msgstr "ez dago ezarria"
 
-#: src/searches/SavedSearchDialog.vala:176
+#: src/searches/SavedSearchDialog.vala:174
 msgid "is set"
 msgstr "ezarria dago"
 
 #. Ordering must correspond with SearchConditionMediaType.Context
-#: src/searches/SavedSearchDialog.vala:250
-#: src/searches/SavedSearchDialog.vala:381
-#: src/searches/SavedSearchDialog.vala:446
+#: src/searches/SavedSearchDialog.vala:248
+#: src/searches/SavedSearchDialog.vala:379
+#: src/searches/SavedSearchDialog.vala:444
 msgid "is"
 msgstr "da"
 
-#: src/searches/SavedSearchDialog.vala:251
+#: src/searches/SavedSearchDialog.vala:249
 msgid "is not"
 msgstr "ez da"
 
 #. Ordering must correspond with SearchConditionMediaType.MediaType
-#: src/searches/SavedSearchDialog.vala:257
+#: src/searches/SavedSearchDialog.vala:255
 msgid "any photo"
 msgstr "edozein argazki"
 
-#: src/searches/SavedSearchDialog.vala:258
+#: src/searches/SavedSearchDialog.vala:256
 msgid "a raw photo"
 msgstr "argazki gordina"
 
-#: src/searches/SavedSearchDialog.vala:259
+#: src/searches/SavedSearchDialog.vala:257
 msgid "a video"
 msgstr "bideoa"
 
-#: src/searches/SavedSearchDialog.vala:313
+#: src/searches/SavedSearchDialog.vala:311
 msgid "has"
 msgstr "dauka"
 
-#: src/searches/SavedSearchDialog.vala:314
+#: src/searches/SavedSearchDialog.vala:312
 msgid "has no"
 msgstr "ez dauka"
 
-#: src/searches/SavedSearchDialog.vala:319
+#: src/searches/SavedSearchDialog.vala:317
 msgid "modifications"
 msgstr "eraldaketak"
 
-#: src/searches/SavedSearchDialog.vala:320
+#: src/searches/SavedSearchDialog.vala:318
 msgid "internal modifications"
 msgstr "barneko eraldaketak"
 
-#: src/searches/SavedSearchDialog.vala:321
+#: src/searches/SavedSearchDialog.vala:319
 msgid "external modifications"
 msgstr "kanpoko eraldaketak"
 
 #. Ordering must correspond with SearchConditionFlagged.State
-#: src/searches/SavedSearchDialog.vala:375
+#: src/searches/SavedSearchDialog.vala:373
 msgid "flagged"
 msgstr "banderaduna"
 
-#: src/searches/SavedSearchDialog.vala:376
+#: src/searches/SavedSearchDialog.vala:374
 msgid "not flagged"
 msgstr "banderarik gabea"
 
-#: src/searches/SavedSearchDialog.vala:439
+#: src/searches/SavedSearchDialog.vala:437
 msgid "and higher"
 msgstr "eta altuagoa"
 
-#: src/searches/SavedSearchDialog.vala:440
+#: src/searches/SavedSearchDialog.vala:438
 msgid "only"
 msgstr "soilik"
 
-#: src/searches/SavedSearchDialog.vala:441
+#: src/searches/SavedSearchDialog.vala:439
 msgid "and lower"
 msgstr "eta baxuagoa"
 
-#: src/searches/SavedSearchDialog.vala:503
+#: src/searches/SavedSearchDialog.vala:501
 msgid "is after"
 msgstr "honen ondorengoa da"
 
-#: src/searches/SavedSearchDialog.vala:504
+#: src/searches/SavedSearchDialog.vala:502
 msgid "is before"
 msgstr "honen aurrekoa da"
 
-#: src/searches/SavedSearchDialog.vala:505
+#: src/searches/SavedSearchDialog.vala:503
 msgid "is between"
 msgstr "data hauen artean:"
 
-#: src/searches/SavedSearchDialog.vala:518
+#: src/searches/SavedSearchDialog.vala:516
 msgid "and"
 msgstr "eta"
 
-#: src/searches/SearchBoolean.vala:169
+#: src/searches/SearchBoolean.vala:165
 msgid "Any text"
 msgstr "Edozein testu"
 
-#: src/searches/SearchBoolean.vala:172
+#: src/searches/SearchBoolean.vala:168
 msgid "Title"
 msgstr "Titulua"
 
-#: src/searches/SearchBoolean.vala:175
+#: src/searches/SearchBoolean.vala:171
 msgid "Tag"
 msgstr "Etiketa"
 
-#: src/searches/SearchBoolean.vala:178
+#: src/searches/SearchBoolean.vala:174
 msgid "Comment"
 msgstr "Iruzkina"
 
-#: src/searches/SearchBoolean.vala:181
+#: src/searches/SearchBoolean.vala:177
 msgid "Event name"
 msgstr "Gertaera-izenak"
 
-#: src/searches/SearchBoolean.vala:184
+#: src/searches/SearchBoolean.vala:180
 msgid "File name"
 msgstr "Fitxategi-izena"
 
-#: src/searches/SearchBoolean.vala:187
+#: src/searches/SearchBoolean.vala:183
 msgid "Face"
 msgstr "Aurpegia"
 
-#: src/searches/SearchBoolean.vala:190
+#: src/searches/SearchBoolean.vala:186
 msgid "Media type"
 msgstr "Euskarri-mota"
 
-#: src/searches/SearchBoolean.vala:193
+#: src/searches/SearchBoolean.vala:189
 msgid "Flag state"
 msgstr "Bandera-egoera"
 
-#: src/searches/SearchBoolean.vala:196
+#: src/searches/SearchBoolean.vala:192
 msgid "Photo state"
 msgstr "Argazkiaren egoera"
 
-#: src/searches/SearchBoolean.vala:199 src/SearchFilter.vala:853
-#: src/SearchFilter.vala:1136
+#: src/searches/SearchBoolean.vala:195 src/SearchFilter.vala:850
+#: src/SearchFilter.vala:1133
 msgid "Rating"
 msgstr "Balorazioa"
 
-#: src/searches/SearchBoolean.vala:202
+#: src/searches/SearchBoolean.vala:198
 msgid "Date"
 msgstr "Data"
 
@@ -5686,27 +5680,27 @@ msgstr "Gordetako bilaketak"
 msgid "Organize your saved searches"
 msgstr "Antolatu gordetako zure bilaketak"
 
-#: src/SearchFilter.vala:837
+#: src/SearchFilter.vala:834
 msgid "★+ Rating"
 msgstr "★+ balorazioa"
 
-#: src/SearchFilter.vala:840
+#: src/SearchFilter.vala:837
 msgid "★★+ Rating"
 msgstr "★★+ balorazioa"
 
-#: src/SearchFilter.vala:843
+#: src/SearchFilter.vala:840
 msgid "★★★+ Rating"
 msgstr "★★★+ balorazioa"
 
-#: src/SearchFilter.vala:846
+#: src/SearchFilter.vala:843
 msgid "★★★★+ Rating"
 msgstr "★★★★+ balorazioa"
 
-#: src/SearchFilter.vala:850
+#: src/SearchFilter.vala:847
 msgid "★★★★★+ Rating"
 msgstr "★★★★★+ balorazioa"
 
-#: src/SearchFilter.vala:1086
+#: src/SearchFilter.vala:1083
 #, c-format
 msgid "Error loading search bar UI: %s"
 msgstr "Errorea bilaketa-barraren interfaze grafikoa kargatzean: %s"
@@ -5716,24 +5710,24 @@ msgstr "Errorea bilaketa-barraren interfaze grafikoa kargatzean: %s"
 #. Prepare the close menu for use, but don't
 #. display it yet; we'll connect it to secondary
 #. click later on.
-#: src/SearchFilter.vala:1095
+#: src/SearchFilter.vala:1092
 msgid "Close"
 msgstr "Itxi"
 
 #. Type label and toggles
-#: src/SearchFilter.vala:1101
+#: src/SearchFilter.vala:1098
 msgid "Type"
 msgstr "Mota"
 
-#: src/SearchFilter.vala:1108
+#: src/SearchFilter.vala:1105
 msgid "Videos"
 msgstr "Bideoak"
 
-#: src/SearchFilter.vala:1111
+#: src/SearchFilter.vala:1108
 msgid "RAW Photos"
 msgstr "RAW argazkiak"
 
-#: src/SearchFilter.vala:1147
+#: src/SearchFilter.vala:1144
 msgid "Use a saved search to filter items in the current view"
 msgstr "Erabili gordetako bilaketa bat uneko ikuspegiko elementuak iragazteko"
 
@@ -5813,7 +5807,7 @@ msgid "untitled"
 msgstr "izengabea"
 
 #. multiple videos
-#: src/VideoSupport.vala:525
+#: src/VideoSupport.vala:491
 msgid "Export Videos"
 msgstr "Esportatu bideoak"
 
@@ -6262,6 +6256,22 @@ msgstr "etiketa"
 #: ui/trash.ui:285
 msgid "Delete all photos in the trash"
 msgstr "Ezabatu zakarrontziko argazki guztiak"
+
+#~ msgid "Popular photo manager"
+#~ msgstr "Argazkien kudeatzaile ospetsua"
+
+#~ msgid "interpreter state cookie"
+#~ msgstr "Interpretatzailearen egoeraren cookie-a"
+
+#~ msgid ""
+#~ "A numeric code that captures the state of the GStreamer plug-in "
+#~ "environment"
+#~ msgstr ""
+#~ "GStreamer plugin-ingurunearen egoera kapturatzen duen zenbakizko kodea"
+
+#, c-format
+#~ msgid "Unable to launch Nautilus Send-To: %s"
+#~ msgstr "Ezin izan da Nautilus-en \"Bidali hona\" abiarazi: %s"
 
 #~ msgid ""
 #~ "You are not currently logged into YouTube.\n"
