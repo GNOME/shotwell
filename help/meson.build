@@ -45,7 +45,7 @@ yelp_pages = [
 yelp_media = [
     'figures/edit_toolbar.png',
     'figures/editing_overview.png',
-    'figures/shotwell_logo.png',
+    'figures/Shotwell.svg',
     'figures/crop_thirds.jpg',
     'figures/trash_process.png']
 
