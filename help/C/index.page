@@ -1,9 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      type="guide"
-      id="index">
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="guide" id="index">
 
 	<info>
+		<title type="link" role="trail">Shotwell</title>
 		<title type="link">Shotwell</title>
+		<title type="text">Shotwell</title>
+
 		<credit type="author">
 			<name>Jim Nelson</name>
 			<email>jim@yorba.org</email>
@@ -27,7 +30,10 @@
 	</info>
 
 
-	<title><media type="image" src="figures/shotwell_logo.png"></media>Shotwell Photo Manager</title>
+	<title>
+		<media type="image" width="48px" height="48px" its:translate="no"
+		src="figures/Shotwell.svg" /> Shotwell Photo Manager
+	</title>
 
     <section id="import" style="2column">
         <title>Importing Photos</title>
