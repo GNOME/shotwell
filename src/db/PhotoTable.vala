@@ -557,7 +557,11 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(5, original.master.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(6, original.exposure_time.to_unix());
+        if (original.exposure_time == null) { 
+            res = stmt.bind_null(6);
+        } else {
+            res = stmt.bind_int64(6, original.exposure_time.to_unix());
+        }
         assert(res == Sqlite.OK);
         res = stmt.bind_int(7, original.orientation);
         assert(res == Sqlite.OK);
