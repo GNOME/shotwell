@@ -212,11 +212,10 @@ public class VideoTable : DatabaseTable {
         row.clip_duration = stmt.column_double(3);
         row.is_interpretable = (stmt.column_int(4) == 1);
         row.filesize = stmt.column_int64(5);
-        row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(6));
-        if (row.exposure_time == null) {
-            stmt.bind_null(7);
+        if (stmt.column_type(6) == Sqlite.NULL) {
+            row.exposure_time = null;
         } else {
-            res = stmt.bind_int64(7, row.exposure_time.to_unix());
+            row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(6));
         }
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
@@ -253,12 +252,12 @@ public class VideoTable : DatabaseTable {
             row.is_interpretable = (stmt.column_int(5) == 1);
             row.filesize = stmt.column_int64(6);
             row.timestamp = new DateTime.from_unix_utc(stmt.column_int64(7));
-            if (row.exposure_time == null) {
-                stmt.bind_null(8);
+            if (stmt.column_type(8) == Sqlite.NULL) {
+                row.exposure_time = null;
             } else {
-                res = stmt.bind_int64(8, row.exposure_time.to_unix());
-            }    
-            row.import_id.id = stmt.column_int64(9);
+                row.exposure_time = new DateTime.from_unix_utc(stmt.column_int64(8));
+            }
+                row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
             row.md5 = stmt.column_text(11);
             row.time_created = stmt.column_int64(12);
