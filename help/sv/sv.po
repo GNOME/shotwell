@@ -1,13 +1,13 @@
 # Swedish translation for shotwell help
-# Copyright © 2015-2022 shotwell's COPYRIGHT HOLDER
+# Copyright © 2015-2023 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 # Josef Andersson <josef.andersson@fripost.org>, 2015.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2022-10-08 06:49+0000\n"
-"PO-Revision-Date: 2022-10-08 20:49+0200\n"
+"POT-Creation-Date: 2023-01-25 21:57+0000\n"
+"PO-Revision-Date: 2023-01-25 23:26+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -3088,85 +3088,79 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:6
+msgctxt "link:trail"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: info/title
+#: C/index.page:7
 msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: credit/name
+#. (itstool) path: info/title
 #: C/index.page:8
+msgctxt "text"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:11
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:12
+#: C/index.page:15
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:16
+#: C/index.page:19
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:20
+#: C/index.page:23
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:24
+#: C/index.page:27
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:30
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
 #. (itstool) path: page/title
-#: C/index.page:30
-msgid ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-"Manager"
-msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
-"bildhanterare"
+#: C/index.page:33
+msgid "<_:media-1/> Shotwell Photo Manager"
+msgstr "Shotwell Bildhanterare"
 
 #. (itstool) path: section/title
-#: C/index.page:33
+#: C/index.page:39
 msgid "Importing Photos"
 msgstr "Importera bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:37
+#: C/index.page:43
 msgid "Viewing Photos"
 msgstr "Visa bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:41
+#: C/index.page:47
 msgid "Organizing Photos"
 msgstr "Ordna bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:45
+#: C/index.page:51
 msgid "Editing Photos"
 msgstr "Redigera bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:49
+#: C/index.page:55
 msgid "Sharing Photos"
 msgstr "Dela bilder"
 
 #. (itstool) path: section/title
-#: C/index.page:53
+#: C/index.page:59
 msgid "Other Features"
 msgstr "Andra egenskaper"
 
@@ -3440,3 +3434,18 @@ msgstr ""
 "Skjutreglagen ändrar hur ljus den ljusaste vit är, och hur mörk den mörkaste "
 "svarta är. Använd dem för att ändra kontrasten på en bild. Speciellt bilder "
 "som ser urblekta ut bör ha nytta av att ändra dessa inställningar."
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+#~ msgstr ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+
+#~ msgid ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+#~ "Manager"
+#~ msgstr ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
+#~ "bildhanterare"
