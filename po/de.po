@@ -40,15 +40,15 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016-2019.
 # Tim Sabsch <tim@sabsch.com>, 2018-2019.
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2021-2022.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-12-09 18:40+0000\n"
-"PO-Revision-Date: 2023-01-15 21:06+0100\n"
-"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
+"POT-Creation-Date: 2023-01-25 21:57+0000\n"
+"PO-Revision-Date: 2023-01-26 16:30+0100\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1277,18 +1277,17 @@ msgstr "Ihre Fotos organisieren"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;Kamera;Kameras;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;Kamera;Kameras;"
 "Zuschneiden;Bearbeiten;Verbessern;Exportieren;Galerie;Bild;Bilder;"
 "Importieren;Organisieren;Foto;Fotografien;Fotos;Fotografie;Druck;"
-"Veröffentlichen;Drehen;Teilen;Video;Facebook;Flickr;Picasa;YouTube;Piwigo;"
+"Veröffentlichen;Drehen;Teilen;Stichworte;Video;Flickr;Picasa;YouTube;Piwigo;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
 msgid "Shotwell Profile Browser"
@@ -1888,13 +1887,13 @@ msgstr "_Anmelden"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
 #: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:186
-#: src/publishing/PublishingUI.vala:415 src/Resources.vala:123
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1059
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_OK"
@@ -2374,18 +2373,18 @@ msgstr ""
 "Konto ein."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1092
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Benutzername und/oder Passwort sind ungültig. Bitte versuchen Sie es erneut"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1128
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Ungültiger Benutzername oder Passwort"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:473
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "UI konnte nicht geladen werden: %s"
@@ -2467,7 +2466,7 @@ msgstr ""
 "Rechners."
 
 #: plugins/common/RESTSupport.vala:574
-#: plugins/shotwell-publishing/TumblrPublishing.vala:578
+#: plugins/shotwell-publishing/TumblrPublishing.vala:567
 #: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr ""
@@ -2505,12 +2504,12 @@ msgstr "_Veröffentlichen"
 
 # Ich würde lieber bei »Copyright« bleiben.
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:50
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:285
+#: plugins/shotwell-publishing/FlickrPublishing.vala:280
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2518,7 +2517,7 @@ msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
 "Veröffentlichung auf Flickr ist nicht möglich."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:569
+#: plugins/shotwell-publishing/FlickrPublishing.vala:564
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2527,7 +2526,7 @@ msgstr ""
 "Sie sind bei Flickr als %s angemeldet.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:571
+#: plugins/shotwell-publishing/FlickrPublishing.vala:566
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2538,7 +2537,7 @@ msgstr ""
 "hochladen können.\n"
 "Sie haben %llu von Ihrem %lld-Datei-Limit hochgeladen."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:573
+#: plugins/shotwell-publishing/FlickrPublishing.vala:568
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2553,63 +2552,63 @@ msgstr[1] ""
 "Ihr Flickr-Pro-Konto erlaubt unbeschränkte Uploads. Sie haben aktuell %d "
 "Dateien hochgeladen"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:578
+#: plugins/shotwell-publishing/FlickrPublishing.vala:573
 msgid "Photos _visible to"
 msgstr "Fotos _sichtbar für"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:580
+#: plugins/shotwell-publishing/FlickrPublishing.vala:575
 msgid "Videos _visible to"
 msgstr "Videos _sichtbar für"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:583
+#: plugins/shotwell-publishing/FlickrPublishing.vala:578
 msgid "Photos and videos _visible to"
 msgstr "Fotos und Videos _sichtbar für"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:624
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Everyone"
 msgstr "Alle"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:625
+#: plugins/shotwell-publishing/FlickrPublishing.vala:620
 msgid "Friends & family only"
 msgstr "Nur Freunde und Familie"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:626
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Family only"
 msgstr "Nur Familie"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:627
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
 msgid "Friends only"
 msgstr "Nur Freunde"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:628
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
 msgid "Just me"
 msgstr "Nur mich"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:646
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1320
-#: plugins/shotwell-publishing/TumblrPublishing.vala:103
+#: plugins/shotwell-publishing/FlickrPublishing.vala:641
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 Pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:647
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1321
-#: plugins/shotwell-publishing/TumblrPublishing.vala:104
+#: plugins/shotwell-publishing/FlickrPublishing.vala:642
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 Pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:648
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1322
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 Pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:649
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1323
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 Pixel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:650
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1324
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Ursprüngliche Größe"
@@ -2637,7 +2636,7 @@ msgid "A new album named"
 msgstr "Ein neues Album namens"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1199
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Shotwell Connect"
 
@@ -2683,7 +2682,7 @@ msgstr "Fotos werden erscheinen in:"
 msgid "Default album"
 msgstr "Voreingestelltes Album"
 
-#: plugins/shotwell-publishing/PhotosService.vala:36
+#: plugins/shotwell-publishing/PhotosService.vala:30
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "Copyright 2019 Jens Georg <mail@jensge.org>"
 
@@ -2741,19 +2740,19 @@ msgstr "_Keine Bewertungen hochladen"
 msgid "Logout"
 msgstr "Abmelden"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:816
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
 #, c-format
 msgid "Creating album %s…"
 msgstr "Album %s wird erstellt …"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:952
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Ein Fehler trat beim Veröffentlichen auf Piwigo auf. Bitte versuchen Sie "
 "erneut."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2765,12 +2764,12 @@ msgstr ""
 "beeinflussen (zum Beispiel private Nachrichten, Kreditkartendaten oder "
 "Passwörter)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
 #, c-format
 msgid "Certificate of %s"
 msgstr "Zertifikat von %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2778,7 +2777,7 @@ msgstr ""
 "Geben Sie die Adresse Ihrer Piwigo-Fotobibliothek sowie Ihren Benutzernamen "
 "und Passwort für das mit Ihrer Bibliothek verbundene Piwigo-Benutzerkonto an."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1091
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2786,23 +2785,23 @@ msgstr ""
 "Shotwell kann sich nicht mit Ihrer Piwigo-Fotobibliothek verbinden. Bitte "
 "überprüfen Sie Ihre angegebene Adresse"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1123
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Ungültige Adresse"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Admins, Familie, Freunde, Kontakte"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "Admins, Family, Friends"
 msgstr "Admins, Familie, Freunde"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Admins, Family"
 msgstr "Admins, Familie"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins"
 msgstr "Admins"
 
@@ -2818,7 +2817,7 @@ msgstr "Zertifikat anzeigen …"
 msgid "I understand, please _proceed."
 msgstr "Verstanden, bitte _fortfahren."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:53
+#: plugins/shotwell-publishing/shotwell-publishing.vala:51
 msgid "Core Publishing Services"
 msgstr "Standard-Veröffentlichungsdienste"
 
@@ -2826,22 +2825,22 @@ msgstr "Standard-Veröffentlichungsdienste"
 msgid "Blogs"
 msgstr "Blogs"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:35
+#: plugins/shotwell-publishing/TumblrPublishing.vala:28
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:94
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 Pixel"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:382
+#: plugins/shotwell-publishing/TumblrPublishing.vala:371
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): kann nicht gestartet werden; das Werkzeug zum "
 "Veröffentlichen ist nicht neu startbar."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:455
+#: plugins/shotwell-publishing/TumblrPublishing.vala:444
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2854,7 +2853,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "Privatsphärenein_stellungen für Videos"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:191
+#: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2862,20 +2861,20 @@ msgstr ""
 "Eine Datei, die veröffentlicht werden soll, ist nicht verfügbar. Die "
 "Veröffentlichung auf Youtube ist nicht möglich."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:311
+#: plugins/shotwell-publishing/YouTubePublishing.vala:301
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Sie sind bei YouTube als %s angemeldet."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:343
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "Public listed"
 msgstr "Öffentlich aufgeführt"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:344
+#: plugins/shotwell-publishing/YouTubePublishing.vala:334
 msgid "Public unlisted"
 msgstr "Nicht öffentlich aufgeführt"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:345
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Privat"
 
@@ -2907,12 +2906,12 @@ msgstr "Zerkrümeln"
 msgid "Fade"
 msgstr "Überblenden"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+#: plugins/shotwell-transitions/shotwell-transitions.vala:26
 msgid "Core Slideshow Transitions"
 msgstr "Standardübergänge für Diaschauen"
 
 # Ich würde lieber bei »Copyright« bleiben.
-#: plugins/shotwell-transitions/shotwell-transitions.vala:76
+#: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -3523,7 +3522,7 @@ msgstr "Importieren von Anwendung"
 msgid "Import media _from:"
 msgstr "Importieren _von:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:410
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
 msgid "_Close"
 msgstr "_Schließen"
 
@@ -5278,20 +5277,24 @@ msgid "modified"
 msgstr "verändert"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:126
+#: src/plugins/ManifestWidget.vala:121
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "Konten verwalten für %s"
 
-#: src/plugins/ManifestWidget.vala:139
+#: src/plugins/ManifestWidget.vala:134
 msgid "Authors"
 msgstr "Autoren"
 
-#: src/plugins/ManifestWidget.vala:149
+#: src/plugins/ManifestWidget.vala:144
 msgid "Version"
 msgstr "Version"
 
-#: src/plugins/ManifestWidget.vala:159
+#: src/plugins/ManifestWidget.vala:154
+msgid "License"
+msgstr "Lizenz"
+
+#: src/plugins/ManifestWidget.vala:166
 msgid "Website"
 msgstr "Webseite"
 
@@ -5595,11 +5598,11 @@ msgstr "Fotos und Videos veröffentlichen _auf"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:297
+#: src/publishing/PublishingUI.vala:285
 msgid "Unable to publish"
 msgstr "Veröffentlichen ist nicht möglich"
 
-#: src/publishing/PublishingUI.vala:298
+#: src/publishing/PublishingUI.vala:286
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -6493,7 +6496,7 @@ msgstr "Diaschau-Übergänge"
 msgid "(None)"
 msgstr "(Keine)"
 
-#: src/slideshow/TransitionEffects.vala:339
+#: src/slideshow/TransitionEffects.vala:340
 msgid "Random"
 msgstr "Zufällig"
 
