@@ -2,12 +2,12 @@
 # Copyright (C) 2020 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2022-10-08 06:49+0000\n"
-"PO-Revision-Date: 2022-10-08 17:06+0300\n"
+"POT-Creation-Date: 2023-01-25 21:57+0000\n"
+"PO-Revision-Date: 2023-01-27 17:10+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2483,14 +2483,6 @@ msgstr "Перетягніть позначені фотографії і ски
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:33
-#| msgid ""
-#| "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-#| "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in "
-#| "the names of one or more tags, separated by commas. Once you have created "
-#| "a tag, you can rename it by selecting that tag in the sidebar and "
-#| "choosing <guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></"
-#| "guiseq>, by right-clicking on it and choose <gui>Rename...</gui> or "
-#| "double-click on the tag in the sidebar."
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
 "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
@@ -2504,14 +2496,14 @@ msgstr ""
 "Коли ви скористаєтеся комбінацією клавіш <keyseq><key>Ctrl</key><key>T</"
 "key></keyseq> або пунктом меню <guiseq><gui>Мітки</gui><gui>Додати мітки...</"
 "gui></guiseq>, ви зможете ввести назви однієї або декількох міток, "
-"відокремлених комами.  Ви також можете додавати ієрархії міток на льоту за"
-" допомогою <input>/</input>, так, наче вони є шляхами у файловій системі."
-" Щойно вами буде створено мітку, ви можете "
-"перейменувати її, позначивши мітку на бічній панелі і вибравши пункт меню "
-"<guiseq><gui>Мітки</gui><gui>Перейменувати мітку «[назва]»...</gui></"
-"guiseq>, клацнувши правою кнопкою миші на пункті мітки і вибравши у "
-"контекстному меню пункт <gui>Перейменувати...</gui> або двічі клацнувши на "
-"пункті мітки на бічній панелі."
+"відокремлених комами.  Ви також можете додавати ієрархії міток на льоту за "
+"допомогою <input>/</input>, так, наче вони є шляхами у файловій системі. "
+"Щойно вами буде створено мітку, ви можете перейменувати її, позначивши мітку "
+"на бічній панелі і вибравши пункт меню <guiseq><gui>Мітки</"
+"gui><gui>Перейменувати мітку «[назва]»...</gui></guiseq>, клацнувши правою "
+"кнопкою миші на пункті мітки і вибравши у контекстному меню пункт "
+"<gui>Перейменувати...</gui> або двічі клацнувши на пункті мітки на бічній "
+"панелі."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:46
@@ -2586,10 +2578,10 @@ msgid ""
 "using <input>/</input>. For example, using <input>/World/Africa/Togo/Lomé</"
 "input> will create or extend the tag tree"
 msgstr ""
-"Всюди, де передбачено підтримку введення текстових міток, мітки також може"
-" бути створено за допомогою символу <input>/</input>. Наприклад,"
-" використання мітки <input>/Світ/Африка/Того/Ломе</input> створить або"
-" розширить дерево міток"
+"Всюди, де передбачено підтримку введення текстових міток, мітки також може "
+"бути створено за допомогою символу <input>/</input>. Наприклад, використання "
+"мітки <input>/Світ/Африка/Того/Ломе</input> створить або розширить дерево "
+"міток"
 
 #. (itstool) path: item/item
 #: C/organize-tag.page:92
@@ -3207,85 +3199,83 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:6
+#| msgctxt "link"
+#| msgid "Shotwell"
+msgctxt "link:trail"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: info/title
+#: C/index.page:7
 msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: credit/name
+#. (itstool) path: info/title
 #: C/index.page:8
+#| msgctxt "link"
+#| msgid "Shotwell"
+msgctxt "text"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:11
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:12
+#: C/index.page:15
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:16
+#: C/index.page:19
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:20
+#: C/index.page:23
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:24
+#: C/index.page:27
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:30
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
 #. (itstool) path: page/title
-#: C/index.page:30
-msgid ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-"Manager"
-msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Програма для "
-"керування фотографіями Shotwell"
+#: C/index.page:33
+msgid "<_:media-1/> Shotwell Photo Manager"
+msgstr "<_:media-1/> Програма для керування фотографіями Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:33
+#: C/index.page:39
 msgid "Importing Photos"
 msgstr "Імпортування фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:37
+#: C/index.page:43
 msgid "Viewing Photos"
 msgstr "Перегляд фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:41
+#: C/index.page:47
 msgid "Organizing Photos"
 msgstr "Упорядковування фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:45
+#: C/index.page:51
 msgid "Editing Photos"
 msgstr "Редагування фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:49
+#: C/index.page:55
 msgid "Sharing Photos"
 msgstr "Оприлюднення фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:53
+#: C/index.page:59
 msgid "Other Features"
 msgstr "Інші можливості"
 
@@ -3577,3 +3567,18 @@ msgstr ""
 "наскільки темним є найтемніший чорний колір на зображенні. Скористайтеся "
 "ними для зміни контрастності фотографії. Зокрема, зміна цих параметрів має "
 "позитивно вплинути на вигляд фотографій, які виглядають вицвілими."
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+#~ msgstr ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+
+#~ msgid ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+#~ "Manager"
+#~ msgstr ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Програма для "
+#~ "керування фотографіями Shotwell"
