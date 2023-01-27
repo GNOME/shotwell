@@ -7,14 +7,14 @@
 # Translators:
 # verayin <vera@yorba.org>, 2011.
 # Yuri Chornoivan <yurchor@ukr.net>, 2011-2013.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-12-09 18:40+0000\n"
-"PO-Revision-Date: 2022-12-10 08:45+0200\n"
+"POT-Creation-Date: 2023-01-25 21:57+0000\n"
+"PO-Revision-Date: 2023-01-27 19:28+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1255,19 +1255,22 @@ msgstr "Впорядкуйте ваші фотографії"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
+#| msgid ""
+#| "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
+#| "organize;photo;photographs;photos;picture;pictures;photography;print;"
+#| "publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;альбом;камера;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;альбом;камера;"
 "фотоапарат;камери;фотоапарати;обрізати;редагувати;виправити;експортувати;"
 "галерея;зображення;фото;імпортувати;імпорт;упорядкувати;упорядковування;"
 "фотографія;фотографії;картинка;картинки;друк;надрукувати;оприлюднити;"
-"обернути;обертання;поділитися;мітки;теґи;фейсбук;флікр;пікаса;ютьюб;півіго;"
+"обернути;обертання;поділитися;мітки;теґи;флікр;пікаса;ютьюб;півіго;"
 "півіґо;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
@@ -1866,13 +1869,13 @@ msgstr "_Увійти"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
 #: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:186
-#: src/publishing/PublishingUI.vala:415 src/Resources.vala:123
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Скасувати"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1059
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_Гаразд"
@@ -1974,7 +1977,6 @@ msgid "Transparent Background:"
 msgstr "Прозоре тло:"
 
 #: data/ui/preferences_dialog.ui:445
-#| msgid "Use dark theme:"
 msgid "Use dark theme"
 msgstr "Використовувати темну тему"
 
@@ -2356,19 +2358,19 @@ msgstr ""
 "Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1092
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Некоректні значення імені користувача і/або пароля. Будь ласка, повторіть "
 "спробу."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1128
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Некоректне ім’я користувача або пароль"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:473
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "Не вдалося завантажити інтерфейс: %s"
@@ -2440,7 +2442,7 @@ msgstr ""
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
 #: plugins/common/RESTSupport.vala:574
-#: plugins/shotwell-publishing/TumblrPublishing.vala:578
+#: plugins/shotwell-publishing/TumblrPublishing.vala:567
 #: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Тимчасовий файл, потрібний для оприлюднення, недоступний"
@@ -2475,12 +2477,12 @@ msgid "_Publish"
 msgstr "_Оприлюднити"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:50
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "© Software Freedom Conservancy Inc., 2016"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:285
+#: plugins/shotwell-publishing/FlickrPublishing.vala:280
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2488,7 +2490,7 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Flickr неможливе."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:569
+#: plugins/shotwell-publishing/FlickrPublishing.vala:564
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2497,7 +2499,7 @@ msgstr ""
 "Ви увійшли до облікового запису %s на Flickr.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:571
+#: plugins/shotwell-publishing/FlickrPublishing.vala:566
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2508,7 +2510,7 @@ msgstr ""
 "кількість фотографій, які ви можете вивантажувати.\n"
 "Вами вивантажено %llu (обмеження складає — %lld)."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:573
+#: plugins/shotwell-publishing/FlickrPublishing.vala:568
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2529,63 +2531,63 @@ msgstr[3] ""
 "За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
 "довільний об’єм даних. Зараз ви вивантажили один файл."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:578
+#: plugins/shotwell-publishing/FlickrPublishing.vala:573
 msgid "Photos _visible to"
 msgstr "Фотографії зможе _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:580
+#: plugins/shotwell-publishing/FlickrPublishing.vala:575
 msgid "Videos _visible to"
 msgstr "Відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:583
+#: plugins/shotwell-publishing/FlickrPublishing.vala:578
 msgid "Photos and videos _visible to"
 msgstr "Фотографії і відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:624
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Everyone"
 msgstr "Будь-хто"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:625
+#: plugins/shotwell-publishing/FlickrPublishing.vala:620
 msgid "Friends & family only"
 msgstr "Лише друзі і родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:626
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Family only"
 msgstr "Лише родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:627
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
 msgid "Friends only"
 msgstr "Лише друзі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:628
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
 msgid "Just me"
 msgstr "Лише я"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:646
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1320
-#: plugins/shotwell-publishing/TumblrPublishing.vala:103
+#: plugins/shotwell-publishing/FlickrPublishing.vala:641
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:647
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1321
-#: plugins/shotwell-publishing/TumblrPublishing.vala:104
+#: plugins/shotwell-publishing/FlickrPublishing.vala:642
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:648
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1322
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:649
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1323
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:650
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1324
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Початковий розмір"
@@ -2613,7 +2615,7 @@ msgid "A new album named"
 msgstr "Новому альбомі з назвою"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1199
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "З’єднувач Shotwell"
 
@@ -2659,7 +2661,7 @@ msgstr "Фотографії з’являться у:"
 msgid "Default album"
 msgstr "Типовий альбом"
 
-#: plugins/shotwell-publishing/PhotosService.vala:36
+#: plugins/shotwell-publishing/PhotosService.vala:30
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "© Jens Georg <mail@jensge.org>, 2019"
 
@@ -2717,19 +2719,19 @@ msgstr "_Не вивантажувати оцінки"
 msgid "Logout"
 msgstr "Вийти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:816
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
 #, c-format
 msgid "Creating album %s…"
 msgstr "Створюємо альбом %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:952
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Під час спроби оприлюднення даних на Piwigo сталася помилка. Будь ласка, "
 "повторіть спробу."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2740,12 +2742,12 @@ msgstr ""
 "інформацію, яка надходить до цього сайта або з нього (це стосується, "
 "наприклад, особистих повідомлень, даних щодо кредитних карток або паролів)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
 #, c-format
 msgid "Certificate of %s"
 msgstr "Сертифікат %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2754,7 +2756,7 @@ msgstr ""
 "і пароль, пов’язані з вашим обліковим записом Piwigo, до якого прив’язано "
 "бібліотеку."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1091
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2762,23 +2764,23 @@ msgstr ""
 "Shotwell не вдалося встановити зв’язок з вашою бібліотекою фотографій "
 "Piwigo. Будь ласка, перевірте, чи правильно вказано адресу."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1123
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Некоректна адреса"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Адміністратори, родичі, друзі, контакти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "Admins, Family, Friends"
 msgstr "Адміністратори, родичі, друзі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Admins, Family"
 msgstr "Адміністратори, родичі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins"
 msgstr "Адміністратори"
 
@@ -2794,7 +2796,7 @@ msgstr "Показати сертифікат…"
 msgid "I understand, please _proceed."
 msgstr "Зрозуміло, будь ласка, п_родовжуйте."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:53
+#: plugins/shotwell-publishing/shotwell-publishing.vala:51
 msgid "Core Publishing Services"
 msgstr "Основні служби оприлюднення"
 
@@ -2802,22 +2804,22 @@ msgstr "Основні служби оприлюднення"
 msgid "Blogs"
 msgstr "Блоги"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:35
+#: plugins/shotwell-publishing/TumblrPublishing.vala:28
 msgid "Copyright 2012 BJA Electronics"
 msgstr "© BJA Electronics, 2012"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:94
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 пікселів"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:382
+#: plugins/shotwell-publishing/TumblrPublishing.vala:371
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): не вдалося розпочати; цей засіб оприлюднення не "
 "можна перезапускати."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:455
+#: plugins/shotwell-publishing/TumblrPublishing.vala:444
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2830,7 +2832,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "_Конфіденційність відео"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:191
+#: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2838,20 +2840,20 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Youtube неможливе."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:311
+#: plugins/shotwell-publishing/YouTubePublishing.vala:301
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:343
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "Public listed"
 msgstr "Відкрите у списку"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:344
+#: plugins/shotwell-publishing/YouTubePublishing.vala:334
 msgid "Public unlisted"
 msgstr "Відкрите без показу у списку"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:345
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Конфіденційне"
 
@@ -2883,11 +2885,11 @@ msgstr "Розпад"
 msgid "Fade"
 msgstr "Згасання"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+#: plugins/shotwell-transitions/shotwell-transitions.vala:26
 msgid "Core Slideshow Transitions"
 msgstr "Основні переходи під час показу слайдів"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:76
+#: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -3529,7 +3531,7 @@ msgstr "Імпортування з програми"
 msgid "Import media _from:"
 msgstr "Імпортувати дані _з:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:410
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
 msgid "_Close"
 msgstr "За_крити"
 
@@ -5478,20 +5480,24 @@ msgid "modified"
 msgstr "змінено"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:126
+#: src/plugins/ManifestWidget.vala:121
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "Керування обліковими записами %s"
 
-#: src/plugins/ManifestWidget.vala:139
+#: src/plugins/ManifestWidget.vala:134
 msgid "Authors"
 msgstr "Автори"
 
-#: src/plugins/ManifestWidget.vala:149
+#: src/plugins/ManifestWidget.vala:144
 msgid "Version"
 msgstr "Версія"
 
-#: src/plugins/ManifestWidget.vala:159
+#: src/plugins/ManifestWidget.vala:154
+msgid "License"
+msgstr "Ліцензування"
+
+#: src/plugins/ManifestWidget.vala:166
 msgid "Website"
 msgstr "Сайт"
 
@@ -5575,7 +5581,6 @@ msgid "This is the currently active profile"
 msgstr "Це поточний активний профіль"
 
 #: src/ProfileBrowser.vala:191
-#| msgid "Remove this profile"
 msgid "Remove Profile"
 msgstr "Вилучити профіль"
 
@@ -5799,11 +5804,11 @@ msgstr "Оприлюднити фотографії і відео _на:"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:297
+#: src/publishing/PublishingUI.vala:285
 msgid "Unable to publish"
 msgstr "Не вдалося оприлюднити"
 
-#: src/publishing/PublishingUI.vala:298
+#: src/publishing/PublishingUI.vala:286
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -6712,7 +6717,7 @@ msgstr "Переходи показу слайдів"
 msgid "(None)"
 msgstr "(Немає)"
 
-#: src/slideshow/TransitionEffects.vala:339
+#: src/slideshow/TransitionEffects.vala:340
 msgid "Random"
 msgstr "Випадковий"
 
