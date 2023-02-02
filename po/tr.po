@@ -2,7 +2,7 @@
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
-# Copyright (C) 2017-2022 Shotwell's COPYRIGHT HOLDER
+# Copyright (C) 2017-2023 Shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the Shotwell package.
 #
 # Ferhat Tunctan <ferhattnctn66@gmail.com>, 2012
@@ -12,15 +12,15 @@
 # verayin <vera@yorba.org>, 2011
 # İşbaran Akçayır <isbaran@gmail.com>, 2015.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2016.
-# Sabri Ünal <libreajans@gmail.com>, 2020, 2022.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2022.
+# Sabri Ünal <libreajans@gmail.com>, 2020, 2022, 2023.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-12-09 18:40+0000\n"
-"PO-Revision-Date: 2022-12-11 14:18+0300\n"
+"POT-Creation-Date: 2023-01-25 21:57+0000\n"
+"PO-Revision-Date: 2023-01-28 00:10+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -1211,16 +1211,15 @@ msgstr "Fotoğraflarınızı yönetin"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
 "albüm;kamera;kameralar;kırp;düzenle;güzelleştir;dışa aktar;galeri;görüntü;"
 "görüntüler;içe aktar;yerleştir;foto;fotoğraflar;fotolar;resim;resimler;"
-"fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;facebook;"
-"flickr;picasa;youtube;piwigo;"
+"fotoğrafçılık;yazdır;baskı;yayımlamak;döndür;paylaş;etiketler;video;flickr;"
+"picasa;youtube;piwigo;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
 msgid "Shotwell Profile Browser"
@@ -1818,13 +1817,13 @@ msgstr "_Oturum aç"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
 #: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:186
-#: src/publishing/PublishingUI.vala:415 src/Resources.vala:123
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "İ_ptal"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1059
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_Tamam"
@@ -2300,17 +2299,17 @@ msgstr ""
 "Lütfen Tumblr hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1092
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid "Username and/or password invalid. Please try again"
 msgstr "Kullanıcı adı ve/veya parola geçersiz. Lütfen yeniden deneyin"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1128
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Geçersiz Kullanıcı Adı veya Parola"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:473
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "Kullanıcı arayüzü yüklenemedi: %s"
@@ -2382,7 +2381,7 @@ msgstr ""
 "Bilgisayarınızdaki takvimi gözden geçirin."
 
 #: plugins/common/RESTSupport.vala:574
-#: plugins/shotwell-publishing/TumblrPublishing.vala:578
+#: plugins/shotwell-publishing/TumblrPublishing.vala:567
 #: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Yayımlama için gerekli geçici bir dosya kullanılamıyor"
@@ -2415,19 +2414,19 @@ msgid "_Publish"
 msgstr "_Yayımla"
 
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:50
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Telif Hakkı 2016 Software Freedom Conservancy Inc."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:285
+#: plugins/shotwell-publishing/FlickrPublishing.vala:280
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
 msgstr ""
 "Yayımlama için gerekli bir dosya kullanılamıyor. Flickr’da yayımlanamıyor."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:569
+#: plugins/shotwell-publishing/FlickrPublishing.vala:564
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2436,7 +2435,7 @@ msgstr ""
 "Flickr’da %s olarak oturum açtınız.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:571
+#: plugins/shotwell-publishing/FlickrPublishing.vala:566
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2447,7 +2446,7 @@ msgstr ""
 "sınırlandırır.\n"
 "%2$lld dosya sınırınızdan %1$llu kullandınız."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:573
+#: plugins/shotwell-publishing/FlickrPublishing.vala:568
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2459,63 +2458,63 @@ msgstr[0] ""
 "Flickr Pro hesabınız, sınırsız karşıya yükleme yapmanıza olanak tanır. Şu "
 "anda %d dosya yüklediniz"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:578
+#: plugins/shotwell-publishing/FlickrPublishing.vala:573
 msgid "Photos _visible to"
 msgstr "Fotoğraflar şunlara _görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:580
+#: plugins/shotwell-publishing/FlickrPublishing.vala:575
 msgid "Videos _visible to"
 msgstr "Videolar şunlara _görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:583
+#: plugins/shotwell-publishing/FlickrPublishing.vala:578
 msgid "Photos and videos _visible to"
 msgstr "Fotoğraflar ve videolar _şunlara görülebilir"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:624
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1308
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Everyone"
 msgstr "Herkes"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:625
+#: plugins/shotwell-publishing/FlickrPublishing.vala:620
 msgid "Friends & family only"
 msgstr "Yalnızca aile & arkadaşlar"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:626
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Family only"
 msgstr "Aileye özel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:627
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
 msgid "Friends only"
 msgstr "Arkadaşlara özel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:628
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
 msgid "Just me"
 msgstr "Yalnızca ben"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:646
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1320
-#: plugins/shotwell-publishing/TumblrPublishing.vala:103
+#: plugins/shotwell-publishing/FlickrPublishing.vala:641
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:647
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1321
-#: plugins/shotwell-publishing/TumblrPublishing.vala:104
+#: plugins/shotwell-publishing/FlickrPublishing.vala:642
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 piksel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:648
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1322
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 benek"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:649
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1323
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 benek"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:650
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1324
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
 #: src/Dimensions.vala:17
 msgid "Original size"
 msgstr "Özgün boyut"
@@ -2543,7 +2542,7 @@ msgid "A new album named"
 msgstr "Şu adda yeni albüm"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1199
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Shotwell Bağlantısı"
 
@@ -2589,7 +2588,7 @@ msgstr "Fotoğrafların görüneceği yer:"
 msgid "Default album"
 msgstr "Öntanımlı albüm"
 
-#: plugins/shotwell-publishing/PhotosService.vala:36
+#: plugins/shotwell-publishing/PhotosService.vala:30
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "Telif Hakkı 2019 Jens Georg <mail@jensge.org>"
 
@@ -2647,19 +2646,19 @@ msgstr "Puanlamaları _yükleme"
 msgid "Logout"
 msgstr "Çıkış"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:816
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
 #, c-format
 msgid "Creating album %s…"
 msgstr "%s albümü oluşturuluyor…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:952
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Piwigo’ya yayımlama sırasında bir hata iletisi oluştu. Lütfen yeniden "
 "deneyin."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1037
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2670,12 +2669,12 @@ msgstr ""
 "bilgiyi (örneğin; özel iletiler, kredi kartı bilgisi veya parolalar gibi) "
 "çalmak veya başkalaştırmak istiyor olabilir."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1056
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s’in sertifikası"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2683,7 +2682,7 @@ msgstr ""
 "Piwigo fotoğraf kitaplığınızın URL’sinin yanı sıra bu kitaplık için Piwigo "
 "hesabınızla ilişkili kullanıcı adınızı ve parolanızı giriniz."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1091
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2691,23 +2690,23 @@ msgstr ""
 "Shotwell Piwigo fotoğraf kitaplığınızla bağlantı kuramıyor. Lüften "
 "girdiğiniz URL’yi denetleyin"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1123
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Geçersiz URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1309
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Yöneticiler, Aile, Arkadaşlar, Bağlantılar"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1310
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "Admins, Family, Friends"
 msgstr "Yöneticiler, Aile, Arkadaşlar"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1311
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Admins, Family"
 msgstr "Yöneticiler, Aile"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1312
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins"
 msgstr "Yöneticiler"
 
@@ -2723,7 +2722,7 @@ msgstr "Sertifikayı göster…"
 msgid "I understand, please _proceed."
 msgstr "Anlıyorum, lütfen _sürdür."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:53
+#: plugins/shotwell-publishing/shotwell-publishing.vala:51
 msgid "Core Publishing Services"
 msgstr "Çekirdek Yayımlama Hizmetleri"
 
@@ -2731,22 +2730,22 @@ msgstr "Çekirdek Yayımlama Hizmetleri"
 msgid "Blogs"
 msgstr "Bloglar"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:35
+#: plugins/shotwell-publishing/TumblrPublishing.vala:28
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Telif Hakkı 2012 BJA Electronics"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:94
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 piksel"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:382
+#: plugins/shotwell-publishing/TumblrPublishing.vala:371
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): başlatılamıyor; bu yayımcı yeniden başlatılabilir "
 "değildir."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:455
+#: plugins/shotwell-publishing/TumblrPublishing.vala:444
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2759,27 +2758,27 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "Video gizlilik _ayarları"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:191
+#: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
 msgstr ""
 "Yayımlama için gerekli bir dosya kullanılamıyor. YouTube’da yayımlanamıyor."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:311
+#: plugins/shotwell-publishing/YouTubePublishing.vala:301
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "YouTube’a %s olarak oturum açtınız."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:343
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "Public listed"
 msgstr "Genel listelenmiş"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:344
+#: plugins/shotwell-publishing/YouTubePublishing.vala:334
 msgid "Public unlisted"
 msgstr "Genel listelenmemiş"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:345
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Özel"
 
@@ -2811,11 +2810,11 @@ msgstr "Ufala"
 msgid "Fade"
 msgstr "Soldur"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+#: plugins/shotwell-transitions/shotwell-transitions.vala:26
 msgid "Core Slideshow Transitions"
 msgstr "Çekirdek Slayt Gösterisi Geçişleri"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:76
+#: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -3407,7 +3406,7 @@ msgstr "Uygulamadan İçe Aktar"
 msgid "Import media _from:"
 msgstr "Ortamı _şuradan içe aktar:"
 
-#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:410
+#: src/data_imports/DataImportsUI.vala:415 src/publishing/PublishingUI.vala:398
 msgid "_Close"
 msgstr "_Kapat"
 
@@ -5035,20 +5034,24 @@ msgid "modified"
 msgstr "değiştirilmiş"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:126
+#: src/plugins/ManifestWidget.vala:121
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "%s hesaplarını yönet"
 
-#: src/plugins/ManifestWidget.vala:139
+#: src/plugins/ManifestWidget.vala:134
 msgid "Authors"
 msgstr "Yazanlar"
 
-#: src/plugins/ManifestWidget.vala:149
+#: src/plugins/ManifestWidget.vala:144
 msgid "Version"
 msgstr "Sürüm"
 
-#: src/plugins/ManifestWidget.vala:159
+#: src/plugins/ManifestWidget.vala:154
+msgid "License"
+msgstr "Lisans"
+
+#: src/plugins/ManifestWidget.vala:166
 msgid "Website"
 msgstr "Web sitesi"
 
@@ -5346,11 +5349,11 @@ msgstr "Resimleri ve videoları _şuraya yayımla"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:297
+#: src/publishing/PublishingUI.vala:285
 msgid "Unable to publish"
 msgstr "Yayımlanamıyor"
 
-#: src/publishing/PublishingUI.vala:298
+#: src/publishing/PublishingUI.vala:286
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -6226,7 +6229,7 @@ msgstr "Slayt Gösterisi Geçişleri"
 msgid "(None)"
 msgstr "(Hiçbiri)"
 
-#: src/slideshow/TransitionEffects.vala:339
+#: src/slideshow/TransitionEffects.vala:340
 msgid "Random"
 msgstr "Rastgele"
 
@@ -6246,126 +6249,3 @@ msgstr "başlıksız"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Videoları Dışa Aktar"
-
-#~ msgid "E_xternal photo editor:"
-#~ msgstr "_Dış fotoğraf düzenleyici:"
-
-#~ msgid "External _RAW editor:"
-#~ msgstr "Dış _RAW düzenleyici:"
-
-#~ msgid "_Gallery3 URL:"
-#~ msgstr "_Gallery3 URL’si:"
-
-#~ msgid "_User name:"
-#~ msgstr "_Kullanıcı adı:"
-
-#~ msgid "_Password:"
-#~ msgstr "_Parola:"
-
-#~ msgid "Go _Back"
-#~ msgstr "Geri _Git"
-
-#~ msgid "API _Key:"
-#~ msgstr "API _Anahtarı:"
-
-#~ msgid "or"
-#~ msgstr "veya"
-
-#~ msgid "An _existing album"
-#~ msgstr "_Varolan bir albüm"
-
-#~ msgid "A _new album"
-#~ msgstr "Yeni _bir albüm"
-
-#~ msgid "_Remove location, tag and camera-identifying data before uploading"
-#~ msgstr "Yüklemeden önce konum, etiket ve kamera tanımlayıcı veriyi _kaldır"
-
-#~ msgid "Scaling constraint:"
-#~ msgstr "Ölçek kısıtlaması:"
-
-#~ msgid "pixels"
-#~ msgstr "piksel"
-
-#~ msgid "Gallery3 publishing module"
-#~ msgstr "Gallery3 yayımlama modülü"
-
-#~ msgid ""
-#~ "You are not currently logged into your Gallery.\n"
-#~ "\n"
-#~ "You must have already signed up for a Gallery3 account to complete the "
-#~ "login process."
-#~ msgstr ""
-#~ "Şu anda Galerinize oturum açmış bulunmuyorsunuz.\n"
-#~ "\n"
-#~ "Giriş sürecini tamamlamak için bir Gallery3 hesabına kaydolmuş olmanız "
-#~ "gerekiyor."
-
-#~ msgid "Shotwell default directory"
-#~ msgstr "Shotwell öntanımlı dizin"
-
-#, c-format
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The file “%s” may not be supported by or may be too large for this "
-#~ "instance of Gallery3."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "“%s” dosyası bu Gallery3 örneği için çok büyük veya desteklenmiyor "
-#~ "olabilir."
-
-#~ msgid ""
-#~ "\n"
-#~ "Note that Gallery3 only supports the video types that Flowplayer does."
-#~ msgstr ""
-#~ "\n"
-#~ "Gallery3’ün yalnızca Flowplayer’in desteklediği video türlerini "
-#~ "desteklediğini unutmayın."
-
-#, c-format
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to %s can’t "
-#~ "continue."
-#~ msgstr "Yayımlama için gerekli dosya kullanılamıyor. %s’e yayımlanamıyor."
-
-#, c-format
-#~ msgid "Publishing to %s as %s."
-#~ msgstr "%s’e %s olarak yayımlanıyor."
-
-#~ msgid ""
-#~ "Enter the URL for your Gallery3 site and the username and password (or "
-#~ "API key) for your Gallery3 account."
-#~ msgstr ""
-#~ "Gallery3 siteniz için URL ve Gallery3 hesabınız için kullanıcı ve parola "
-#~ "(veya API anahtarı) girin."
-
-#~ msgid ""
-#~ "The username and password or API key were incorrect. To try again, re-"
-#~ "enter your username and password below."
-#~ msgstr ""
-#~ "Kullanıcı adı ve parola veya API anahtarı geçersizdi. Yeniden denemek "
-#~ "için aşağıya kullanıcı adı ve parolanızı girin."
-
-#~ msgid ""
-#~ "The URL entered does not appear to be the main directory of a Gallery3 "
-#~ "instance. Please make sure you typed it correctly and it does not have "
-#~ "any trailing components (e.g., index.php)."
-#~ msgstr ""
-#~ "Girilen URL bir Gallery3 örneğinin ana dizini gibi görünmüyor. Lütfen "
-#~ "doğru yazdığınıza ve sonunda bileşen olmadığına (örn., index.php) emin "
-#~ "olun."
-
-#~ msgid "Unrecognized User"
-#~ msgstr "Tanınmayan Kullanıcı"
-
-#~ msgid " Site Not Found"
-#~ msgstr " Site Bulunamadı"
-
-#~ msgid "Shotwell Extra Publishing Services"
-#~ msgstr "Shotwell Ek Yayımlama Servisleri"
-
-#, c-format
-#~ msgid "%d Photo/Video"
-#~ msgid_plural "%d Photos/Videos"
-#~ msgstr[0] "%d Photoğraf/Video"
