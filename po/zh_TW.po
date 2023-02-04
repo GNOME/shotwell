@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
 "POT-Creation-Date: 2023-02-02 16:15+0000\n"
-"PO-Revision-Date: 2023-02-05 01:02+0800\n"
+"PO-Revision-Date: 2023-02-05 01:03+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
 "Language: zh_TW\n"
@@ -4944,7 +4944,7 @@ msgstr "資料的資料夾"
 
 #: src/ProfileBrowser.vala:92
 msgid "Choose Data Folder"
-msgstr "選擇資料夾"
+msgstr "選擇資料的資料夾"
 
 #: src/ProfileBrowser.vala:135
 msgid "This is the currently active profile"
