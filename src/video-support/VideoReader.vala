@@ -51,8 +51,10 @@ public class VideoReader {
     public static bool is_supported_video_filename(string filename) {
         string mime_type;
         mime_type = ContentType.guess(filename, new uchar[0], null);
-        // Guessed mp4 from filename has application/ as prefix, so check for mp4 in the end
-        if (mime_type.has_prefix ("video/") || mime_type.has_suffix("mp4")) {
+        // Guessed mp4/mxf from filename has application/ as prefix, so check for mp4/mxf in the end
+        if (mime_type.has_prefix ("video/") ||
+            mime_type.has_suffix("mp4") ||
+            mime_type.has_suffix("mxf")) {
             string? extension = null;
             string? name = null;
             disassemble_filename(filename, out name, out extension);
