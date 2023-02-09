@@ -31,18 +31,22 @@ int main(string[] args) {
         // Get creation time.
         // TODO: Note that TAG_DATE can be changed to TAG_DATE_TIME in the future
         // (and the corresponding output struct) in order to implement #2836.
-        Date? video_date = null;
-        var containers = info.get_container_streams();
-        foreach (var container in containers) {
-            if (container.get_tags() != null && container.get_tags().get_date(Gst.Tags.DATE, out video_date)) {
-                // possible for get_date() to return true and a null Date
-                if (video_date != null) {
-                    timestamp = new GLib.DateTime.local(video_date.get_year(), video_date.get_month(),
-                        video_date.get_day(), 0, 0, 0);
+        Gst.DateTime? video_date = null;
 
-                    // first one wins
-                    break;
-                }
+        Gst.TagList? tags = null;
+
+        var stream_info = info.get_stream_info();
+        if (stream_info is Gst.PbUtils.DiscovererContainerInfo) {
+            tags = ((Gst.PbUtils.DiscovererContainerInfo)stream_info).get_tags();
+        }
+        else if (stream_info is Gst.PbUtils.DiscovererStreamInfo) {
+            tags = ((Gst.PbUtils.DiscovererStreamInfo)stream_info).get_tags();
+        }
+
+        if (tags != null && tags.get_date_time(Gst.Tags.DATE_TIME, out video_date)) {
+            // possible for get_date() to return true and a null Date
+            if (video_date != null) {
+                timestamp = video_date.to_g_date_time().to_local();
             }
         }
 
