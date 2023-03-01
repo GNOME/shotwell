@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-01-25 21:57+0000\n"
-"PO-Revision-Date: 2023-01-28 00:10+0300\n"
+"POT-Creation-Date: 2023-02-02 12:42+0000\n"
+"PO-Revision-Date: 2023-02-23 07:31+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -2220,8 +2220,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a "
-"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a href="
+"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2252,8 +2252,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a "
-"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a href="
+"\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2357,11 +2357,11 @@ msgstr "⚫ Bu web sitesinin kimliği işlenemedi. Bozulmuş olabilir."
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted "
-"organization that issued it."
+"⚫ This website’s identification has been revoked by the trusted organization "
+"that issued it."
 msgstr ""
-"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından "
-"iptal edilmiş."
+"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından iptal "
+"edilmiş."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:267
@@ -3855,14 +3855,13 @@ msgstr[0] "%d fotoğraf/video kopyası içe aktarılmadı:\n"
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"%d fotoğrafın dosya veya donanım hatası dolayısıyla içe aktarımı başarısız:\n"
+"%d fotoğraf, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:368
 #, c-format
 msgid "1 video failed to import due to a file or hardware error:\n"
 msgid_plural "%d videos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d videonun dosya veya donanım hatası dolayısıyla içe aktarımı başarısız:\n"
+msgstr[0] "%d video, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:371
 #, c-format
@@ -3870,15 +3869,13 @@ msgid "1 photo/video failed to import due to a file or hardware error:\n"
 msgid_plural ""
 "%d photos/videos failed to import due to a file or hardware error:\n"
 msgstr[0] ""
-"%d fotoğrafın/videonun dosya veya donanım hatası dolayısıyla içe aktarımı "
-"başarısız:\n"
+"%d fotoğraf/video, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:374
 #, c-format
 msgid "1 file failed to import due to a file or hardware error:\n"
 msgid_plural "%d files failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d dosyanın içe aktarımı dosya veya donanım hatası dolayısıyla başarısız:\n"
+msgstr[0] "%d dosya, dosya veya donanım hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:388
 #, c-format
@@ -3888,8 +3885,8 @@ msgid_plural ""
 "%d photos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"%d fotoğrafın içe aktarımı başarısız çünkü fotoğraf kitaplığı klasörü "
-"yazılabilir değildi:\n"
+"%d fotoğraf, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
+"aktarılamadı:\n"
 
 #: src/Dialogs.vala:391
 #, c-format
@@ -3899,8 +3896,8 @@ msgid_plural ""
 "%d videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"%d videonun içe aktarımı başarısız çünkü fotoğraf kitaplığı klasörü "
-"yazılabilir değildi:\n"
+"%d video, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
+"aktarılamadı:\n"
 
 #: src/Dialogs.vala:394
 #, c-format
@@ -3911,8 +3908,8 @@ msgid_plural ""
 "%d photos/videos failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"%d fotoğrafın/videonun içe aktarımı başarısız çünkü fotoğraf kitaplığı "
-"klasörü yazılabilir değildi:\n"
+"%d fotoğraf/video, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
+"aktarılamadı:\n"
 
 #: src/Dialogs.vala:397
 #, c-format
@@ -3922,39 +3919,38 @@ msgid_plural ""
 "%d files failed to import because the photo library folder was not "
 "writable:\n"
 msgstr[0] ""
-"%d dosyanın içe aktarımı başarısız çünkü fotoğraf kitaplığı klasörü "
-"yazılabilir değildi:\n"
+"%d dosya, fotoğraf kitaplığı klasörü yazılabilir olmadığından içe "
+"aktarılamadı:\n"
 
 #: src/Dialogs.vala:411
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "%d fotoğrafın içe aktarımı kamera hatası dolayısıyla başarısız:\n"
+msgstr[0] "%d fotoğraf, kamera hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:414
 #, c-format
 msgid "1 video failed to import due to a camera error:\n"
 msgid_plural "%d videos failed to import due to a camera error:\n"
-msgstr[0] "%d videonun içe aktarımı kamera hatası dolayısıyla başarısız:\n"
+msgstr[0] "%d video, kamera hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:417
 #, c-format
 msgid "1 photo/video failed to import due to a camera error:\n"
 msgid_plural "%d photos/videos failed to import due to a camera error:\n"
-msgstr[0] ""
-"%d fotoğrafın/videonun içe aktarımı kamera hatası dolayısıyla başarısız:\n"
+msgstr[0] "%d fotoğraf/video, kamera hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:420
 #, c-format
 msgid "1 file failed to import due to a camera error:\n"
 msgid_plural "%d files failed to import due to a camera error:\n"
-msgstr[0] "%d dosyanın içe aktarımı kamera hatası dolayısıyla başarısız:\n"
+msgstr[0] "%d dosya, kamera hatası dolayısıyla içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:434
 #, c-format
 msgid "1 photo failed to import because it was corrupt:\n"
 msgid_plural "%d photos failed to import because they were corrupt:\n"
-msgstr[0] "%d fotoğraf bozuk olduğundan içe aktarılamadı:\n"
+msgstr[0] "%d fotoğraf, bozuk olduğundan içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:437
 #, c-format
@@ -3966,7 +3962,7 @@ msgstr[0] "%d video bozuk olduğundan içe aktarılamadı:\n"
 #, c-format
 msgid "1 photo/video failed to import because it was corrupt:\n"
 msgid_plural "%d photos/videos failed to import because they were corrupt:\n"
-msgstr[0] "%d fotoğraf/video bozuk olduğundan içe aktarılamadı:\n"
+msgstr[0] "%d fotoğraf/video, bozuk olduğundan içe aktarılamadı:\n"
 
 #: src/Dialogs.vala:443
 #, c-format
@@ -3996,25 +3992,25 @@ msgstr[0] "%d resim olmayan dosya atlandı:\n"
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "%d fotoğraf kulanıcının iptali dolayısıyla atlandı:\n"
+msgstr[0] "%d fotoğraf, kulanıcının iptali dolayısıyla atlandı:\n"
 
 #: src/Dialogs.vala:489
 #, c-format
 msgid "1 video skipped due to user cancel:\n"
 msgid_plural "%d videos skipped due to user cancel:\n"
-msgstr[0] "%d video kulanıcının iptali dolayısıyla atlandı:\n"
+msgstr[0] "%d video, kulanıcının iptali dolayısıyla atlandı:\n"
 
 #: src/Dialogs.vala:492
 #, c-format
 msgid "1 photo/video skipped due to user cancel:\n"
 msgid_plural "%d photos/videos skipped due to user cancel:\n"
-msgstr[0] "%d fotoğraf/video kulanıcının iptali dolayısıyla atlandı:\n"
+msgstr[0] "%d fotoğraf/video, kulanıcının iptali dolayısıyla atlandı:\n"
 
 #: src/Dialogs.vala:495
 #, c-format
 msgid "1 file skipped due to user cancel:\n"
 msgid_plural "%d file skipped due to user cancel:\n"
-msgstr[0] "%d dosya kulanıcının iptali dolayısıyla atlandı:\n"
+msgstr[0] "%d dosya, kulanıcının iptali dolayısıyla atlandı:\n"
 
 #: src/Dialogs.vala:509
 #, c-format
