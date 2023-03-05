@@ -93,6 +93,8 @@ src/photos/PngSupport.c
 src/photos/RawSupport.c
 src/photos/TiffSupport.c
 src/photos/WebPSupport.c
+src/plugins/ManifestWidget.c
+src/plugins/SpitInterfaces.c
 src/Printing.c
 src/Properties.c
 src/ProfileBrowser.c

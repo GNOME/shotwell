@@ -127,6 +127,7 @@ src/photos/TiffSupport.vala
 src/photos/WebPSupport.vala
 src/Photo.vala
 src/plugins/ManifestWidget.vala
+src/plugins/SpitInterfaces.vala
 src/Printing.vala
 src/ProfileBrowser.vala
 src/Profiles.vala
