@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-02-02 12:42+0000\n"
-"PO-Revision-Date: 2023-02-23 07:31+0300\n"
+"POT-Creation-Date: 2023-03-05 15:04+0000\n"
+"PO-Revision-Date: 2023-03-06 16:37+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -34,18 +34,17 @@ msgstr ""
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:6
 #: data/gsettings/org.gnome.shotwell.gschema.xml:428
 msgid "OAuth Access Phase Token"
-msgstr "OAuth Erişim Aşaması Simgesi"
+msgstr "OAuth Erişim Aşaması Jetonu"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:7
 msgid "The authorization token for the currently logged in Tumblr user, if any"
 msgstr ""
-"Şu anda oturum açmış Tumblr kullanıcısı için yetkilendirme simgesi, eğer "
-"varsa"
+"Şu anda oturum açmış Tumblr kullanıcısı için yetkilendirme jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:12
 #: data/gsettings/org.gnome.shotwell.gschema.xml:434
 msgid "OAuth Access Phase Token Secret"
-msgstr "OAuth Erişim Aşaması Simgesi Gizi"
+msgstr "OAuth Erişim Aşaması Jetonu Gizi"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:13
 msgid ""
@@ -53,7 +52,7 @@ msgid ""
 "token for the currently logged in Tumblr user, if any"
 msgstr ""
 "Giriş yapmış geçerli Tumblr kullanıcısı için istekleri yetkilendirme "
-"simgesine dayanarak imzalamada kullanılacak kriptografik giz"
+"jetonuna dayanarak imzalamada kullanılacak kriptografik giz"
 
 #: data/gsettings/org.gnome.shotwell-extras.gschema.xml:18
 #: data/gsettings/org.gnome.shotwell.gschema.xml:440
@@ -648,16 +647,15 @@ msgstr "öntanımlı yayımlama hizmeti"
 #: data/gsettings/org.gnome.shotwell.gschema.xml:429
 msgid "The authorization token for the currently logged in Flickr user, if any"
 msgstr ""
-"Şu anda oturum açmış Flickr kullanıcısı için yetkilendirme simgesi, eğer "
-"varsa"
+"Şu anda oturum açmış Flickr kullanıcısı için yetkilendirme jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:435
 msgid ""
 "The cryptographic secret used to sign requests against the authorization "
 "token for the currently logged in Flickr user, if any"
 msgstr ""
-"Giriş yapmış geçerli Flick kullanıcısı için istekleri yetkilendirme "
-"simgesine dayanarak imzalamada kullanılacak kriptografik giz"
+"Giriş yapmış geçerli Flick kullanıcısı için istekleri yetkilendirme jetonuna "
+"dayanarak imzalamada kullanılacak kriptografik giz"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:446
 msgid "default size code"
@@ -699,7 +697,7 @@ msgstr ""
 #: data/gsettings/org.gnome.shotwell.gschema.xml:466
 #: data/gsettings/org.gnome.shotwell.gschema.xml:604
 msgid "refresh token"
-msgstr "simgeyi yenile"
+msgstr "jetonu yenile"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:467
 msgid ""
@@ -707,7 +705,7 @@ msgid ""
 "logged in user, if any"
 msgstr ""
 "Şu anda oturum açmış kullanıcı için Google Fotoğraflar oturumunu yenilemekte "
-"kullanılan OAuth simgesi, eğer varsa"
+"kullanılan OAuth jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:473
 msgid ""
@@ -892,7 +890,7 @@ msgid ""
 "in user, if any"
 msgstr ""
 "Şu anda oturum açmış kullanıcı için YouTube oturumunu yenilemekte kullanılan "
-"OAuth simgesi, eğer varsa"
+"OAuth jetonu, eğer varsa"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:612
 msgid "last used import service"
@@ -2220,8 +2218,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2252,8 +2250,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2314,11 +2312,12 @@ msgstr "Geçersiz Kullanıcı Adı veya Parola"
 msgid "Could not load UI: %s"
 msgstr "Kullanıcı arayüzü yüklenemedi: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Shotwell ev sayfasınnı ziyaret et"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Yiğit Ateş <yigitates52@gmail.com>\n"
@@ -2357,11 +2356,11 @@ msgstr "⚫ Bu web sitesinin kimliği işlenemedi. Bozulmuş olabilir."
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
-"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından iptal "
-"edilmiş."
+"⚫ Bu web sitesinin kimliği, kimliği veren güvenilir kuruluş tarafından "
+"iptal edilmiş."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:267
@@ -5051,9 +5050,13 @@ msgstr "Lisans"
 msgid "Website"
 msgstr "Web sitesi"
 
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 ya da sonrası"
+
 #: src/Printing.vala:255
 msgid "Fill the entire page"
-msgstr "Sayfanın tamamını doldur"
+msgstr "Sayfanın tümünü doldur"
 
 #: src/Printing.vala:256
 msgid "2 images per page"
