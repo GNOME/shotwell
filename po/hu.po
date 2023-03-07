@@ -1,18 +1,18 @@
 # Hungarian translation for shotwell.
-# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the shotwell package.
 #
 # Gábor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2014, 2015, 2016, 2017.
 # László Csordás <csola48 at gmail dot com>, 2012.
 # lsbeeler <lucas at yorba dot org>, 2011.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2016, 2017, 2019, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-10-29 20:42+0000\n"
-"PO-Revision-Date: 2022-11-05 19:33+0100\n"
+"POT-Creation-Date: 2023-03-05 14:48+0000\n"
+"PO-Revision-Date: 2023-03-07 02:40+0100\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -363,17 +363,14 @@ msgstr ""
 "importálási oldalon"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:192
-#| msgid "Duration:"
 msgid "duration"
 msgstr "időtartam"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:193
-#| msgid "Delay (in seconds) between photos in the slideshow"
 msgid "The time (in seconds) to show each photo in the slideshow"
 msgstr "Az egyes fényképek megjelenítési ideje (másodpercekben) diavetítéskor"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:198
-#| msgid "transition delay"
 msgid "transition duration"
 msgstr "átmenet időtartama"
 
@@ -388,8 +385,6 @@ msgid "transition effect id"
 msgstr "átmenethatás-azonosító"
 
 #: data/gsettings/org.gnome.shotwell.gschema.xml:205
-#| msgid ""
-#| "The time (in seconds) that a transition runs between photos in a slideshow"
 msgid ""
 "The time (in seconds) to show each transition between photos in a slideshow"
 msgstr ""
@@ -1161,9 +1156,7 @@ msgstr ""
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
 #: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
 #: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:313
+#: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1217,19 +1210,20 @@ msgstr "Rendszerezze a fényképeit"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
+#| msgid ""
+#| "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
+#| "organize;photo;photographs;photos;picture;pictures;photography;print;"
+#| "publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
 "album;fényképezőgép;fényképezőgépek;vágás;szerkesztés;exportálás;galéria;kép;"
 "képek;importálás;rendszerezés;fénykép;fényképek;fotó;fotók;fotográfia;"
-"nyomtatás;közzététel;forgatás;megosztás;videó;facebook;flickr;picasa;youtube;"
-"piwigo;"
+"nyomtatás;közzététel;forgatás;megosztás;videó;flickr;picasa;youtube;piwigo;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-#| msgid "Shotwell Viewer"
 msgid "Shotwell Profile Browser"
 msgstr "Shotwell profilböngésző"
 
@@ -1568,9 +1562,8 @@ msgstr "_Hiba jelentése…"
 
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/manifest_widget.ui:35 data/ui/media.ui:421 data/ui/offline.ui:198
-#: data/ui/photo.ui:409 data/ui/tags.ui:440 data/ui/trash.ui:207
-#: src/Resources.vala:121
+#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
+#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:121
 msgid "_About"
 msgstr "_Névjegy"
 
@@ -1817,7 +1810,6 @@ msgid "Import _All"
 msgstr "Összes im_portálása"
 
 #: data/ui/login_welcome_pane_widget.ui:35
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 msgid "_Log in"
 msgstr "Bejele_ntkezés"
 
@@ -1827,13 +1819,13 @@ msgstr "Bejele_ntkezés"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
 #: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
 #: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "Mé_gse"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_OK"
@@ -1862,110 +1854,112 @@ msgstr "_Színbeállítások másolása"
 msgid "_Paste Color Adjustments"
 msgstr "_Színbeállítások beillesztése"
 
-#: data/ui/preferences_dialog.ui:68
-msgid "Display"
-msgstr "Megjelenítés"
-
-#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
 msgid "Library Location"
 msgstr "Gyűjtemény helye"
 
-#: data/ui/preferences_dialog.ui:104
+#: data/ui/preferences_dialog.ui:118
 msgid "_Import photos to:"
 msgstr "Fényképek i_mportálása ide:"
 
-#: data/ui/preferences_dialog.ui:115
+#: data/ui/preferences_dialog.ui:129
 msgid "_Watch library directory for new files"
 msgstr "Új _fájlok figyelése a gyűjteménykönyvtárban"
 
-#: data/ui/preferences_dialog.ui:138
+#: data/ui/preferences_dialog.ui:151
 msgid "Importing"
 msgstr "Importálás"
 
-#: data/ui/preferences_dialog.ui:155
+#: data/ui/preferences_dialog.ui:167
 msgid "_Directory structure:"
 msgstr "_Könyvtárszerkezet:"
 
-#: data/ui/preferences_dialog.ui:170
+#: data/ui/preferences_dialog.ui:181
 msgid "Example:"
 msgstr "Példa:"
 
-#: data/ui/preferences_dialog.ui:179
+#: data/ui/preferences_dialog.ui:190
 msgid "R_ename imported files to lowercase"
 msgstr "_Importált fájlok átnevezése kisbetűssé"
 
-#: data/ui/preferences_dialog.ui:201
+#: data/ui/preferences_dialog.ui:211
 msgid "Metadata"
 msgstr "Metaadatok"
 
-#: data/ui/preferences_dialog.ui:214
+#: data/ui/preferences_dialog.ui:224
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "_Címkék, címek és más metaadatok fényképfájlokba írása"
 
-#: data/ui/preferences_dialog.ui:236
+#: data/ui/preferences_dialog.ui:245
 msgid "RAW Developer"
 msgstr "RAW előhívó"
 
-#: data/ui/preferences_dialog.ui:253
+#: data/ui/preferences_dialog.ui:261
 msgid "De_fault:"
 msgstr "_Alapértelmezett:"
 
-#: data/ui/preferences_dialog.ui:307
+#: data/ui/preferences_dialog.ui:314
 msgid "_Pattern:"
 msgstr "_Minta:"
 
-#: data/ui/preferences_dialog.ui:340
+#: data/ui/preferences_dialog.ui:350
+msgid "Checkered"
+msgstr "Kockás"
+
+#: data/ui/preferences_dialog.ui:370
+msgid "Solid color"
+msgstr "Homogén szín"
+
+#: data/ui/preferences_dialog.ui:406 src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Nincs"
+
+#: data/ui/preferences_dialog.ui:430
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
 msgstr "Ha átlátszó képeket néz, akkor ezen a háttéren lesznek kirajzolva."
 
-#: data/ui/preferences_dialog.ui:344
+#: data/ui/preferences_dialog.ui:433
 msgid "Transparent Background:"
 msgstr "Átlátszó háttér:"
 
-#: data/ui/preferences_dialog.ui:358
-msgid "Checkered"
-msgstr "Kockás"
+#: data/ui/preferences_dialog.ui:445
+#| msgid "Use dark theme:"
+msgid "Use dark theme"
+msgstr "Sötét téma használata"
 
-#: data/ui/preferences_dialog.ui:379
-msgid "Solid color"
-msgstr "Homogén szín"
+#: data/ui/preferences_dialog.ui:470
+msgid "Display"
+msgstr "Megjelenítés"
 
-#: data/ui/preferences_dialog.ui:415 src/slideshow/TransitionEffects.vala:287
-msgid "None"
-msgstr "Nincs"
-
-#: data/ui/preferences_dialog.ui:442
-msgid "Use dark theme:"
-msgstr "Sötét téma használata:"
-
-#: data/ui/preferences_dialog.ui:511 src/library/LibraryBranch.vala:30
+#: data/ui/preferences_dialog.ui:529 src/library/LibraryBranch.vala:30
 #: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Gyűjtemény"
 
-#: data/ui/preferences_dialog.ui:538
-msgid "E_xternal photo editor:"
-msgstr "Külső _fényképszerkesztő:"
+#: data/ui/preferences_dialog.ui:553 src/library/LibraryBranch.vala:97
+#: src/SearchFilter.vala:1104
+msgid "Photos"
+msgstr "Fényképek"
 
-#: data/ui/preferences_dialog.ui:555
-msgid "External _RAW editor:"
-msgstr "Külső _RAW szerkesztő:"
+#: data/ui/preferences_dialog.ui:596 src/photos/RawSupport.vala:136
+msgid "RAW"
+msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:616
+#: data/ui/preferences_dialog.ui:626
 msgid "External Editors"
 msgstr "Külső szerkesztők"
 
-#: data/ui/preferences_dialog.ui:641
+#: data/ui/preferences_dialog.ui:647
 msgid "Plugins"
 msgstr "Bővítmények"
 
-#: data/ui/preferences_dialog.ui:666
+#: data/ui/preferences_dialog.ui:668
 msgid "Profiles"
 msgstr "Profilok"
 
-#: data/ui/preferences_dialog.ui:686
+#: data/ui/preferences_dialog.ui:692
 msgid "Shotwell Preferences"
 msgstr "Shotwell beállításai"
 
@@ -2024,7 +2018,7 @@ msgid "Search"
 msgstr "Keresés"
 
 #: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:237
+#: src/ProfileBrowser.vala:209
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -2115,7 +2109,6 @@ msgid "Settings"
 msgstr "Beállítások"
 
 #: data/ui/slideshow_settings.ui:98
-#| msgid "Duration:"
 msgid "_Duration:"
 msgstr "_Időtartam:"
 
@@ -2128,13 +2121,10 @@ msgid "_Transition effect:"
 msgstr "Átmenet_hatás:"
 
 #: data/ui/slideshow_settings.ui:127
-#| msgid "Transition d_elay:"
 msgid "Transition d_uration:"
 msgstr "Átmenet i_dőtartama:"
 
 #: data/ui/slideshow_settings.ui:128
-#| msgid ""
-#| "The time (in seconds) that a transition runs between photos in a slideshow"
 msgid "The time (in seconds) to show each transition between photos"
 msgstr "A fényképek közti egyes átmenetek megjelenítési ideje (másodpercekben)"
 
@@ -2196,11 +2186,11 @@ msgstr ""
 msgid "Preparing for login…"
 msgstr "Felkészülés a bejelentkezésre…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:221
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:203
 msgid "Flickr authorization failed"
 msgstr "A Flickr felhatalmazás meghiúsult"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:228
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:210
 msgid "Verifying authorization…"
 msgstr "Felhatalmazás ellenőrzése…"
 
@@ -2234,8 +2224,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2267,8 +2257,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2289,8 +2279,8 @@ msgstr ""
 "\n"
 "A Shotwell adatvédelmi irányelvei általánosan a Google-fiókjához és "
 "különösen a Google Fényképekhez kapcsolódó adatok felhasználásával "
-"kapcsolatban megtalálhatók az <a href=\"help:shotwell/privacy-policy"
-"\">internetes szolgáltatások adatvédelmi irányelveinkben</a>.\n"
+"kapcsolatban megtalálhatók az <a href=\"help:shotwell/privacy-"
+"policy\">internetes szolgáltatások adatvédelmi irányelveinkben</a>.\n"
 "\n"
 "A Google saját adatvédelmi irányelveihez nézze meg a <a href=\"https://"
 "policies.google.com/privacy\">https://policies.google.com/privacy</a> oldalt."
@@ -2314,26 +2304,27 @@ msgid "Enter the username and password associated with your Tumblr account."
 msgstr "Adja meg a Tumblr fiókjához tartozó felhasználónevet és jelszót."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1145
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid "Username and/or password invalid. Please try again"
 msgstr "A felhasználónév és/vagy jelszó érvénytelen. Próbálja újra"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1181
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Érvénytelen felhasználónév vagy jelszó"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:498
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "A felület nem tölthető be: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "A Shotwell weboldalának meglátogatása"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Peter Bojtos <ptr at ulx dot hu>\n"
@@ -2357,7 +2348,7 @@ msgstr ""
 "  csola48 https://launchpad.net/~mail-csordaslaszlo"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:264
+#: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
@@ -2365,7 +2356,7 @@ msgstr ""
 "tartozik."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:269
+#: plugins/common/RESTSupport.vala:247
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2374,28 +2365,28 @@ msgstr ""
 "Ellenőrizze a dátumot a számítógépe naptárában."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:274
+#: plugins/common/RESTSupport.vala:252
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr "⚫ A weboldal tanúsítványát nem egy megbízható szervezet állította ki."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:279
+#: plugins/common/RESTSupport.vala:257
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
 "⚫ A weboldal tanúsítványát nem sikerült feldolgozni. Lehet, hogy sérült."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:284
+#: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ A weboldal tanúsítványát visszavonta az azt kiállító megbízható szervezet."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:289
+#: plugins/common/RESTSupport.vala:267
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2404,7 +2395,7 @@ msgstr ""
 "titkosítást használ."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:294
+#: plugins/common/RESTSupport.vala:272
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2412,182 +2403,11 @@ msgstr ""
 "⚫ A weboldal tanúsítványa csak jövőbeli dátumokra érvényes. Ellenőrizze a "
 "dátumot a számítógépe naptárában."
 
-#: plugins/common/RESTSupport.vala:593
-#: plugins/shotwell-publishing/TumblrPublishing.vala:603
-#: plugins/shotwell-publishing/YoutubeUploader.vala:69
+#: plugins/common/RESTSupport.vala:574
+#: plugins/shotwell-publishing/TumblrPublishing.vala:567
+#: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "A közzétételhez szükséges ideiglenes fájl nem érhető el"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
-msgid "_Gallery3 URL:"
-msgstr "_Gallery3 URL:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:55
-msgid "_User name:"
-msgstr "_Felhasználónév:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:68
-msgid "_Password:"
-msgstr "_Jelszó:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
-msgid "Go _Back"
-msgstr "_Vissza"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
-msgid "API _Key:"
-msgstr "API _kulcs:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:180
-msgid "or"
-msgstr "vagy"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:34
-msgid "An _existing album"
-msgstr "_Egy létező album"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:60
-msgid "A _new album"
-msgstr "Új _album"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
-msgid "_Remove location, tag and camera-identifying data before uploading"
-msgstr ""
-"_Hely-, címke- és a fényképezőgép azonosításra alkalmas adatok eltávolítása "
-"a feltöltés előtt"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
-msgid "Scaling constraint:"
-msgstr "Méretezési megszorítás:"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
-msgid "pixels"
-msgstr "képpont"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:694
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1377
-#: src/Dimensions.vala:17
-msgid "Original size"
-msgstr "Eredeti méret"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
-#: src/Dimensions.vala:20
-msgid "Longest edge"
-msgstr "Leghosszabb él"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
-msgid "_Logout"
-msgstr "_Kijelentkezés"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
-msgid "_Publish"
-msgstr "Közzé_tétel"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
-msgid "Gallery3 publishing module"
-msgstr "Gallery3 közzétételi modul"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-msgid ""
-"You are not currently logged into your Gallery.\n"
-"\n"
-"You must have already signed up for a Gallery3 account to complete the login "
-"process."
-msgstr ""
-"Jelenleg nincs bejelentkezve a Gallery-ra\n"
-"\n"
-"A bejelentkezéshez rendelkeznie kell egy Gallery fiókkal."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
-msgid "Shotwell default directory"
-msgstr "Shotwell alapértelmezett könyvtár"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:804
-#, c-format
-msgid ""
-"\n"
-"\n"
-"The file “%s” may not be supported by or may be too large for this instance "
-"of Gallery3."
-msgstr ""
-"\n"
-"\n"
-"A(z) „%s” fájl lehet hogy nem támogatott, vagy túl nagy a Gallery3 ezen "
-"példányához."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:805
-msgid ""
-"\n"
-"Note that Gallery3 only supports the video types that Flowplayer does."
-msgstr ""
-"\n"
-"Ne feledje, hogy a Gallery3 csak a Flowplayer által támogatott "
-"videotípusokat támogatja."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1057
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1809
-#, c-format
-msgid ""
-"A file required for publishing is unavailable. Publishing to %s can’t "
-"continue."
-msgstr ""
-"Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel nem "
-"folytatódhat ide: %s."
-
-#. populate any widgets whose contents are
-#. programmatically-generated
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
-#, c-format
-msgid "Publishing to %s as %s."
-msgstr "Közzététel ide: %s, mint %s."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
-msgid ""
-"Enter the URL for your Gallery3 site and the username and password (or API "
-"key) for your Gallery3 account."
-msgstr ""
-"Adja meg a Gallery3 oldalának URL-címét, valamint az ahhoz tartozó Gallery3 "
-"fiókjának felhasználónevét és jelszavát (vagy API kulcsát)."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
-msgid ""
-"The username and password or API key were incorrect. To try again, re-enter "
-"your username and password below."
-msgstr ""
-"A felhasználónév és a jelszó vagy API kulcs helytelen. Az újrapróbálkozáshoz "
-"adja meg újra a felhasználónevét és jelszavát alább."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
-msgid ""
-"The URL entered does not appear to be the main directory of a Gallery3 "
-"instance. Please make sure you typed it correctly and it does not have any "
-"trailing components (e.g., index.php)."
-msgstr ""
-"A megadott URL nem tűnik egy Gallery3 telepítés gyökérkönyvtárának. "
-"Győződjön meg róla, hogy helyesen írta, és nem tartalmaz záró összetevőket "
-"(például: index.php)."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
-msgid "Unrecognized User"
-msgstr "Ismeretlen felhasználó"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1913
-msgid " Site Not Found"
-msgstr " Az oldal nem található"
-
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
-msgid "Shotwell Extra Publishing Services"
-msgstr "Shotwell extra közzétételi szolgáltatások"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
@@ -2603,13 +2423,28 @@ msgstr ""
 "_Hely-, fényképezőgép- és más azonosításra alkalmas adatok eltávolítása a "
 "feltöltés előtt"
 
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
+msgid "_Logout"
+msgstr "_Kijelentkezés"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+msgid "_Publish"
+msgstr "Közzé_tétel"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:33
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "Copyright 2016 Software Freedom Conservancy Inc."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:334
+#: plugins/shotwell-publishing/FlickrPublishing.vala:280
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2617,7 +2452,7 @@ msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Flickrre "
 "nem folytatódhat."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:613
+#: plugins/shotwell-publishing/FlickrPublishing.vala:564
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2626,7 +2461,7 @@ msgstr ""
 "Bejelentkezett a Flickr-re %s néven.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:615
+#: plugins/shotwell-publishing/FlickrPublishing.vala:566
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2637,7 +2472,7 @@ msgstr ""
 "szolgáltatásba.\n"
 "Eddig %llu mennyiséget töltött fel, a fájlkorlát %lld."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:617
+#: plugins/shotwell-publishing/FlickrPublishing.vala:568
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2652,60 +2487,66 @@ msgstr[1] ""
 "Az Ön Flickr Pro fiókja korlátlan feltöltést engedélyez. Jelenleg %d fájlt "
 "töltött fel"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:622
+#: plugins/shotwell-publishing/FlickrPublishing.vala:573
 msgid "Photos _visible to"
 msgstr "A _fényképeket láthatja"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:624
+#: plugins/shotwell-publishing/FlickrPublishing.vala:575
 msgid "Videos _visible to"
 msgstr "A _videókat láthatja"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:627
+#: plugins/shotwell-publishing/FlickrPublishing.vala:578
 msgid "Photos and videos _visible to"
 msgstr "A _fényképeket és videókat láthatja:"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:668
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1361
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Everyone"
 msgstr "Mindenki"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:669
+#: plugins/shotwell-publishing/FlickrPublishing.vala:620
 msgid "Friends & family only"
 msgstr "Csak barátok és család"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:670
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Family only"
 msgstr "Csak család"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:671
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
 msgid "Friends only"
 msgstr "Csak barátok"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:672
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
 msgid "Just me"
 msgstr "Csak én"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:690
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1373
-#: plugins/shotwell-publishing/TumblrPublishing.vala:103
+#: plugins/shotwell-publishing/FlickrPublishing.vala:641
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 képpont"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:691
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1374
-#: plugins/shotwell-publishing/TumblrPublishing.vala:104
+#: plugins/shotwell-publishing/FlickrPublishing.vala:642
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 képpont"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:692
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1375
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 képpont"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:693
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1376
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 képpont"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: src/Dimensions.vala:17
+msgid "Original size"
+msgstr "Eredeti méret"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:66
 msgid ""
@@ -2730,7 +2571,7 @@ msgid "A new album named"
 msgstr "Új album, a neve:"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1252
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "Shotwell kapcsolat"
 
@@ -2776,7 +2617,7 @@ msgstr "A fényképek itt fognak megjelenni:"
 msgid "Default album"
 msgstr "Alapértelmezett album"
 
-#: plugins/shotwell-publishing/PhotosService.vala:36
+#: plugins/shotwell-publishing/PhotosService.vala:30
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "Copyright 2019 Jens Georg <mail@jensge.org>"
 
@@ -2834,17 +2675,17 @@ msgstr "_Ne töltse fel az értékeléseket"
 msgid "Logout"
 msgstr "Kijelentkezés"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:828
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
 #, c-format
 msgid "Creating album %s…"
 msgstr "%s album létrehozása…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1005
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr "Hibaüzenet érkezett a Piwigon való közzététel során. Próbálja újra."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2855,12 +2696,12 @@ msgstr ""
 "megváltoztatni az oldalhoz menő, vagy az onnan jövő információkat (például "
 "privát üzeneteket, bankkártya-adatokat vagy jelszavakat)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1109
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
 #, c-format
 msgid "Certificate of %s"
 msgstr "%s tanúsítványa"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1143
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2868,7 +2709,7 @@ msgstr ""
 "Adja meg a Piwigo fényképgyűjteményének URL-címét, valamint az ahhoz tartozó "
 "Piwigo fiókjának felhasználónevét és jelszavát."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1144
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2876,23 +2717,23 @@ msgstr ""
 "A Shotwell nem éri el a Piwigo fényképgyűjteményét. Ellenőrizze a megadott "
 "URL-címet."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Érvénytelen URL"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1362
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Adminok, család, barátok, partnerek"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1363
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "Admins, Family, Friends"
 msgstr "Adminok, család, barátok"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1364
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Admins, Family"
 msgstr "Adminok, család"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1365
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins"
 msgstr "Adminok"
 
@@ -2908,7 +2749,7 @@ msgstr "Tanúsítvány megjelenítése…"
 msgid "I understand, please _proceed."
 msgstr "Megértettem, _folytatás."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:53
+#: plugins/shotwell-publishing/shotwell-publishing.vala:51
 msgid "Core Publishing Services"
 msgstr "Alap közzétételi szolgáltatások"
 
@@ -2916,22 +2757,22 @@ msgstr "Alap közzétételi szolgáltatások"
 msgid "Blogs"
 msgstr "Blogok"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:35
+#: plugins/shotwell-publishing/TumblrPublishing.vala:28
 msgid "Copyright 2012 BJA Electronics"
 msgstr "Copyright 2012 BJA Electronics"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:94
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 képpont"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:407
+#: plugins/shotwell-publishing/TumblrPublishing.vala:371
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): nem lehet elindítani, ez a közzétevő nem "
 "indítható újra."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:480
+#: plugins/shotwell-publishing/TumblrPublishing.vala:444
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2944,7 +2785,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "Videó _magánszféra-beállítása"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:217
+#: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2952,20 +2793,20 @@ msgstr ""
 "Egy, a közzétételhez szükséges fájl nem érhető el. A közzététel a Youtube-ra "
 "nem folytatódhat."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:325
+#: plugins/shotwell-publishing/YouTubePublishing.vala:301
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Bejelentkezett a YouTube-ra %s néven."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:357
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "Public listed"
 msgstr "Nyilvános, felsorolt"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:358
+#: plugins/shotwell-publishing/YouTubePublishing.vala:334
 msgid "Public unlisted"
 msgstr "Nyilvános, felsorolatlan"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:359
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Magánjellegű"
 
@@ -2997,11 +2838,11 @@ msgstr "Összecsuklás"
 msgid "Fade"
 msgstr "Elhalványodás"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+#: plugins/shotwell-transitions/shotwell-transitions.vala:26
 msgid "Core Slideshow Transitions"
 msgstr "Alap diaátmenetek"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:76
+#: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -3036,22 +2877,22 @@ msgstr "Nem hozható létre az adatkönyvtár (%s): %s"
 msgid "Pictures"
 msgstr "Képek"
 
-#: src/AppDirs.vala:206
+#: src/AppDirs.vala:205
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Nem hozható létre az ideiglenes könyvtár (%s): %s"
 
-#: src/AppDirs.vala:223 src/AppDirs.vala:254
+#: src/AppDirs.vala:222 src/AppDirs.vala:253
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Nem hozható létre az adatalkönyvtár (%s): %s"
 
-#: src/AppDirs.vala:236
+#: src/AppDirs.vala:235
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni"
 
-#: src/AppDirs.vala:239
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Nem sikerült a(z) %s könyvtárat írhatóvá tenni: %s"
@@ -3474,89 +3315,89 @@ msgstr "Előző RAW előhívó visszaállítása"
 msgid "Set Developer"
 msgstr "Az előhívó beállítása"
 
-#: src/Commands.vala:1346
+#: src/Commands.vala:1355
 msgid "Original photo could not be adjusted."
 msgstr "Az eredeti fénykép nem módosítható."
 
-#: src/Commands.vala:1367
+#: src/Commands.vala:1376
 msgid "Adjusting Date and Time"
 msgstr "Dátum és idő módosítása"
 
-#: src/Commands.vala:1367
+#: src/Commands.vala:1376
 msgid "Undoing Date and Time Adjustment"
 msgstr "Dátum és idő módosításának visszavonása"
 
-#: src/Commands.vala:1398
+#: src/Commands.vala:1415
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Az eredeti fénykép nem módosítható."
 msgstr[1] "A következő eredeti fényképek nem módosíthatók."
 
-#: src/Commands.vala:1400 src/Commands.vala:1424
+#: src/Commands.vala:1417 src/Commands.vala:1441
 msgid "Time Adjustment Error"
 msgstr "Hiba az idő megváltoztatásakor"
 
-#: src/Commands.vala:1422
+#: src/Commands.vala:1439
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] "Az időmódosítás nem vonható vissza a következő fényképen."
 msgstr[1] "Az időmódosítás nem vonható vissza a következő fényképeken."
 
-#: src/Commands.vala:1636 src/Commands.vala:1659
+#: src/Commands.vala:1653 src/Commands.vala:1676
 msgid "Create Tag"
 msgstr "Címke létrehozása"
 
-#: src/Commands.vala:1694
+#: src/Commands.vala:1711
 #, c-format
 msgid "Move Tag “%s”"
 msgstr "„%s” címke mozgatása"
 
-#: src/Commands.vala:2344
+#: src/Commands.vala:2361
 msgid "Move Photos to Trash"
 msgstr "Fényképek áthelyezése a Kukába"
 
-#: src/Commands.vala:2344
+#: src/Commands.vala:2361
 msgid "Restore Photos from Trash"
 msgstr "Fényképek visszaállítása a Kukából"
 
-#: src/Commands.vala:2345
+#: src/Commands.vala:2362
 msgid "Move the photos to the Shotwell trash"
 msgstr "Fényképek áthelyezése a Shotwell kukájába"
 
-#: src/Commands.vala:2345
+#: src/Commands.vala:2362
 msgid "Restore the photos back to the Shotwell library"
 msgstr "Fényképek visszaállítása a Shotwell gyűjteményébe"
 
-#: src/Commands.vala:2364
+#: src/Commands.vala:2381
 msgid "Moving Photos to Trash"
 msgstr "Fényképek áthelyezése a Kukába"
 
-#: src/Commands.vala:2364
+#: src/Commands.vala:2381
 msgid "Restoring Photos From Trash"
 msgstr "Fényképek visszaállítása a Kukából"
 
-#: src/Commands.vala:2450
+#: src/Commands.vala:2467
 msgid "Flag selected photos"
 msgstr "Kiválasztott fényképek megjelölése"
 
-#: src/Commands.vala:2451
+#: src/Commands.vala:2468
 msgid "Unflag selected photos"
 msgstr "Kiválasztott fényképek megjelölésének törlése"
 
-#: src/Commands.vala:2452
+#: src/Commands.vala:2469
 msgid "Flagging selected photos"
 msgstr "Kijelölt fényképek megjelölése"
 
-#: src/Commands.vala:2453
+#: src/Commands.vala:2470
 msgid "Unflagging selected photos"
 msgstr "Kijelölt fényképek megjelölésének visszavonása"
 
-#: src/Commands.vala:2460
+#: src/Commands.vala:2477
 msgid "Flag"
 msgstr "Megjelölés"
 
-#: src/Commands.vala:2460
+#: src/Commands.vala:2477
 msgid "Unflag"
 msgstr "Jelölés törlése"
 
@@ -3650,26 +3491,27 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "A(z) %s fényképadatbázis nem állítható helyre"
 
-#: src/DesktopIntegration.vala:126
+#. Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
+#: src/DesktopIntegration.vala:113
 msgid "Send files per Mail: "
 msgstr "Fájlok küldése levelenként: "
 
 #. Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
-#: src/DesktopIntegration.vala:137
+#: src/DesktopIntegration.vala:116
 #, c-format
 msgid "Unable to send file %s, %s"
 msgstr "Nem lehet elküldeni a(z) %s fájlt, %s"
 
-#: src/DesktopIntegration.vala:147
+#: src/DesktopIntegration.vala:126
 msgid "Send To"
 msgstr "Küldés"
 
-#: src/DesktopIntegration.vala:192
+#: src/DesktopIntegration.vala:171
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "A háttér exportálása sikertelen ide: %s: %s"
 
-#: src/DesktopIntegration.vala:329
+#: src/DesktopIntegration.vala:309
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Az asztali diavetítés nem készíthető elő: %s"
@@ -3706,19 +3548,19 @@ msgid_plural "_Modify original files"
 msgstr[0] "Eredeti fájl _módosítása"
 msgstr[1] "Eredeti fájlok _módosítása"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:219
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "Original: "
 msgstr "Eredeti: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:220
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y. %m. %d., %k.%M.%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:221
+#: src/dialogs/AdjustDateTimeDialog.vala:222
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y. %m. %d., %l.%M.%S %p"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:305
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3727,7 +3569,7 @@ msgstr ""
 "A képek készítése előre lesz tolva ennyivel:\n"
 "%d %s, %d %s, %d %s, és %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:313
+#: src/dialogs/AdjustDateTimeDialog.vala:306
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3736,25 +3578,25 @@ msgstr ""
 "A képek készítése vissza lesz tolva ennyivel:\n"
 "%d %s, %d %s, %d %s, és %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:315
+#: src/dialogs/AdjustDateTimeDialog.vala:308
 msgid "day"
 msgid_plural "days"
 msgstr[0] "nap"
 msgstr[1] "nap"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:316
+#: src/dialogs/AdjustDateTimeDialog.vala:309
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "óra"
 msgstr[1] "óra"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:317
+#: src/dialogs/AdjustDateTimeDialog.vala:310
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "perc"
 msgstr[1] "perc"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:318
+#: src/dialogs/AdjustDateTimeDialog.vala:311
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "másodperc"
@@ -4570,6 +4412,10 @@ msgstr "_Ne jelenjen meg ez az üzenet többé"
 msgid "Import photos from your %s library"
 msgstr "Fényképek importálása a(z) %s gyűjteményéből"
 
+#: src/Dimensions.vala:20
+msgid "Longest edge"
+msgstr "Leghosszabb él"
+
 #: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Szélesség"
@@ -4838,27 +4684,6 @@ msgstr "Kontraszt növelése"
 msgid "Angle:"
 msgstr "Szög:"
 
-#: src/events/EventDirectoryItem.vala:97
-#, c-format
-msgid "%d Photo/Video"
-msgid_plural "%d Photos/Videos"
-msgstr[0] "%d fénykép vagy videó"
-msgstr[1] "%d fénykép vagy videó"
-
-#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:367
-#, c-format
-msgid "%d Video"
-msgid_plural "%d Videos"
-msgstr[0] "%d videó"
-msgstr[1] "%d videó"
-
-#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:365
-#, c-format
-msgid "%d Photo"
-msgid_plural "%d Photos"
-msgstr[0] "%d fénykép"
-msgstr[1] "%d fénykép"
-
 #: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Nincs esemény"
@@ -4896,7 +4721,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:753
+#: src/Event.vala:748
 #, c-format
 msgid "Event %s"
 msgstr "%s események"
@@ -5043,10 +4868,6 @@ msgstr "Utolsó importálás"
 msgid "Organize and browse your photos"
 msgstr "Rendszerezze fényképeit és tallózzon köztük"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1104
-msgid "Photos"
-msgstr "Fényképek"
-
 #: src/library/LibraryWindow.vala:503
 msgid "Import From Folder"
 msgstr "Importálás mappából"
@@ -5156,73 +4977,72 @@ msgstr "Ismeretlen hiba a Shotwell adatbázisának ellenőrzésekor: %s"
 msgid "Loading Shotwell"
 msgstr "A Shotwell betöltése"
 
-#: src/main.vala:343
+#: src/main.vala:347
 msgid "Path to Shotwell’s private data"
 msgstr "A Shotwell privát adatainak útvonala"
 
-#: src/main.vala:343
+#: src/main.vala:347
 msgid "DIRECTORY"
 msgstr "KÖNYVTÁR"
 
-#: src/main.vala:344
+#: src/main.vala:348
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Ne figyelje a változásokat a gyűjteménykönyvtárban futás közben"
 
-#: src/main.vala:345
+#: src/main.vala:349
 msgid "Don’t display startup progress meter"
 msgstr "Ne jelenítse meg az indítási folyamatjelzőt"
 
-#: src/main.vala:346
+#: src/main.vala:350
 msgid "Show the application’s version"
 msgstr "Az alkalmazás verziószámának megjelenítése"
 
-#: src/main.vala:347
+#: src/main.vala:351
 msgid "Start the application in fullscreen mode"
 msgstr "Az alkalmazás indítása teljes képernyős módban"
 
-#: src/main.vala:348
+#: src/main.vala:352
 msgid "Print the metadata of the image file"
 msgstr "A képfájl metaadatainak nyomtatása"
 
-#: src/main.vala:349
+#: src/main.vala:353
 msgid "Name for a custom profile"
 msgstr "Egy egyéni profil neve"
 
-#: src/main.vala:349
+#: src/main.vala:353
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:350
-#| msgid "Show available profiles"
+#: src/main.vala:354
 msgid "Start with a browser of available profiles"
 msgstr "Indítás az elérhető profilok böngészőjével"
 
-#: src/main.vala:351
+#: src/main.vala:355
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Ha a --profile kapcsolóval megadott PROFIL nem létezik, akkor létrehozza"
 
-#: src/main.vala:352
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Elérhető profilok megjelenítése"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:383
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[FÁJL]"
 
-#: src/main.vala:388
+#: src/main.vala:392
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "A parancssori paraméterek teljes listája a „%s --help” paranccsal íratható "
 "ki.\n"
 
-#: src/main.vala:395
+#: src/main.vala:399
 msgid "Choose Shotwell's profile"
 msgstr "A Shotwell profiljának kiválasztása"
 
-#: src/main.vala:416
+#: src/main.vala:420
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -5286,6 +5106,10 @@ msgstr "Fénykép eltávolítása a gyűjteményből"
 msgid "Unable to export %s: %s"
 msgstr "%s exportálása sikertelen: %s"
 
+#: src/photos/AvifSupport.vala:30
+msgid "AVIF"
+msgstr "AVIF"
+
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
 msgstr "BMP"
@@ -5322,10 +5146,6 @@ msgstr "Maximum (%d%%)"
 msgid "PNG"
 msgstr "PNG"
 
-#: src/photos/RawSupport.vala:136
-msgid "RAW"
-msgstr "RAW"
-
 #: src/photos/TiffSupport.vala:86
 msgid "TIFF"
 msgstr "TIFF"
@@ -5334,13 +5154,35 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/photos/AvifSupport.vala:30
-msgid "AVIF"
-msgstr "AVIF"
-
-#: src/Photo.vala:3804
+#: src/Photo.vala:3811
 msgid "modified"
 msgstr "módosítva"
+
+#. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
+#: src/plugins/ManifestWidget.vala:121
+#, c-format
+msgid "Manage accounts for %s"
+msgstr "Fiókok kezelése ennél: %s"
+
+#: src/plugins/ManifestWidget.vala:134
+msgid "Authors"
+msgstr "Szerzők"
+
+#: src/plugins/ManifestWidget.vala:144
+msgid "Version"
+msgstr "Verzió"
+
+#: src/plugins/ManifestWidget.vala:154
+msgid "License"
+msgstr "Licenc"
+
+#: src/plugins/ManifestWidget.vala:166
+msgid "Website"
+msgstr "Weboldal"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL 2.1-es vagy későbbi verzió"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -5389,6 +5231,81 @@ msgstr ""
 "\n"
 "%s"
 
+#: src/ProfileBrowser.vala:20
+msgid "Create"
+msgstr "Létrehozás"
+
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:251
+msgid "Create new Profile"
+msgstr "Új profil létrehozása"
+
+#: src/ProfileBrowser.vala:35
+msgid "Name"
+msgstr "Név"
+
+#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:169
+msgid "Library Folder"
+msgstr "Gyűjteménymappa"
+
+#: src/ProfileBrowser.vala:64
+msgid "Choose Library Folder"
+msgstr "Gyűjteménymappa kiválasztása"
+
+#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:179
+msgid "Data Folder"
+msgstr "Adatmappa"
+
+#: src/ProfileBrowser.vala:92
+msgid "Choose Data Folder"
+msgstr "Adatmappa kiválasztása"
+
+#: src/ProfileBrowser.vala:135
+msgid "This is the currently active profile"
+msgstr "Ez a jelenleg aktív profil"
+
+#: src/ProfileBrowser.vala:191
+#| msgid "Remove this profile"
+msgid "Remove Profile"
+msgstr "Profil eltávolítása"
+
+#: src/ProfileBrowser.vala:193
+msgid "Remove this profile"
+msgstr "Ezen profil eltávolítása"
+
+#: src/ProfileBrowser.vala:205
+#, c-format
+msgid "Remove profile “%s”"
+msgstr "A(z) „%s” profil eltávolítása"
+
+#: src/ProfileBrowser.vala:206
+msgid ""
+"None of the options will remove any of the images associated with this "
+"profile"
+msgstr ""
+"Ezen lehetőségek egyike sem fogja eltávolítani a profilhoz hozzárendelt "
+"képeket"
+
+#: src/ProfileBrowser.vala:207
+#, c-format
+msgid ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+msgstr ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+
+#: src/ProfileBrowser.vala:209
+msgid "Remove profile and files"
+msgstr "Profil és fájlok eltávolítása"
+
+#: src/ProfileBrowser.vala:209
+msgid "Remove profile only"
+msgstr "Csak a profil eltávolítása"
+
+#: src/Profiles.vala:32
+msgid "System Profile"
+msgstr "Rendszerprofil"
+
 #: src/Properties.vala:102
 msgid "Today"
 msgstr "Ma"
@@ -5407,6 +5324,20 @@ msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d esemény"
 msgstr[1] "%d esemény"
+
+#: src/Properties.vala:365
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d fénykép"
+msgstr[1] "%d fénykép"
+
+#: src/Properties.vala:367
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d videó"
+msgstr[1] "%d videó"
 
 #. display only one date if start and end are the same
 #: src/Properties.vala:389
@@ -5506,84 +5437,6 @@ msgstr "Copyright:"
 msgid "Software:"
 msgstr "Szoftver:"
 
-#: src/ProfileBrowser.vala:20
-#| msgid "Create Tag"
-msgid "Create"
-msgstr "Létrehozás"
-
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:139
-msgid "Create new Profile"
-msgstr "Új profil létrehozása"
-
-#: src/ProfileBrowser.vala:35
-#| msgid "Name:"
-msgid "Name"
-msgstr "Név"
-
-#: src/ProfileBrowser.vala:49
-#| msgid "Library"
-msgid "Library Folder"
-msgstr "Gyűjteménymappa"
-
-#: src/ProfileBrowser.vala:64
-msgid "Choose Library Folder"
-msgstr "Gyűjteménymappa kiválasztása"
-
-#: src/ProfileBrowser.vala:76
-#| msgid "Folders"
-msgid "Data Folder"
-msgstr "Adatmappa"
-
-#: src/ProfileBrowser.vala:92
-msgid "Choose Data Folder"
-msgstr "Adatmappa kiválasztása"
-
-#: src/ProfileBrowser.vala:198
-msgid "This is the currently active profile"
-msgstr "Ez a jelenleg aktív profil"
-
-#: src/ProfileBrowser.vala:221
-#| msgid "Improve this map"
-msgid "Remove this profile"
-msgstr "Ezen profil eltávolítása"
-
-#: src/ProfileBrowser.vala:233
-#, c-format
-#| msgid "Move Tag “%s”"
-msgid "Remove profile “%s”"
-msgstr "A(z) „%s” profil eltávolítása"
-
-#: src/ProfileBrowser.vala:234
-msgid ""
-"None of the options will remove any of the images associated with this "
-"profile"
-msgstr ""
-"Ezen lehetőségek egyike sem fogja eltávolítani a profilhoz hozzárendelt"
-" képeket"
-
-#: src/ProfileBrowser.vala:235
-#, c-format
-msgid ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-msgstr ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-
-#: src/ProfileBrowser.vala:237
-#| msgid "Remove and _Trash File"
-#| msgid_plural "Remove and _Trash Files"
-msgid "Remove profile and files"
-msgstr "Profil és fájlok eltávolítása"
-
-#: src/ProfileBrowser.vala:237
-msgid "Remove profile only"
-msgstr "Csak a profil eltávolítása"
-
-#: src/Profiles.vala:32
-msgid "System Profile"
-msgstr "Rendszerprofil"
-
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
 msgstr "Előkészítés a feltöltéshez"
@@ -5629,11 +5482,11 @@ msgstr "Fényképek és vi_deók közzététele ide:"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:288
+#: src/publishing/PublishingUI.vala:285
 msgid "Unable to publish"
 msgstr "Nem sikerült közzétenni"
 
-#: src/publishing/PublishingUI.vala:289
+#: src/publishing/PublishingUI.vala:286
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5650,11 +5503,11 @@ msgstr ""
 msgid "Publishing"
 msgstr "Közzététel"
 
-#: src/publishing/StaticMessagePaneWidget.vala:44
+#: src/publishing/StaticMessagePaneWidget.vala:51
 msgid "Fetching account information…"
 msgstr "Fiókinformációk letöltése…"
 
-#: src/publishing/StaticMessagePaneWidget.vala:50
+#: src/publishing/StaticMessagePaneWidget.vala:57
 msgid "Logging in…"
 msgstr "Bejelentkezés…"
 
@@ -6517,7 +6370,7 @@ msgstr "Diavetítés átmenetei"
 msgid "(None)"
 msgstr "(Nincs)"
 
-#: src/slideshow/TransitionEffects.vala:339
+#: src/slideshow/TransitionEffects.vala:340
 msgid "Random"
 msgstr "Véletlenszerű"
 
