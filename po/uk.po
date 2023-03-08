@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-01-25 21:57+0000\n"
-"PO-Revision-Date: 2023-01-27 19:28+0200\n"
+"POT-Creation-Date: 2023-03-05 14:48+0000\n"
+"PO-Revision-Date: 2023-03-08 08:19+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1255,10 +1255,6 @@ msgstr "Впорядкуйте ваші фотографії"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#| msgid ""
-#| "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
-#| "organize;photo;photographs;photos;picture;pictures;photography;print;"
-#| "publish;rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
@@ -1270,8 +1266,7 @@ msgstr ""
 "фотоапарат;камери;фотоапарати;обрізати;редагувати;виправити;експортувати;"
 "галерея;зображення;фото;імпортувати;імпорт;упорядкувати;упорядковування;"
 "фотографія;фотографії;картинка;картинки;друк;надрукувати;оприлюднити;"
-"обернути;обертання;поділитися;мітки;теґи;флікр;пікаса;ютьюб;півіго;"
-"півіґо;"
+"обернути;обертання;поділитися;мітки;теґи;флікр;пікаса;ютьюб;півіго;півіґо;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
 msgid "Shotwell Profile Browser"
@@ -2275,8 +2270,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2288,8 +2283,8 @@ msgstr ""
 "записів, увійшовши до облікового запису на сайті YouTube принаймні один "
 "раз.\n"
 "\n"
-"Shotwell використовує служби програмних інтерфейсів YouTube <a href="
-"\"https://developers.google.com/youtube\">https://developers.google.com/"
+"Shotwell використовує служби програмних інтерфейсів YouTube <a "
+"href=\"https://developers.google.com/youtube\">https://developers.google.com/"
 "youtube</a> для доступу до вашого каналу YouTube та вивантаження відео. "
 "Користуючись Shotwell для доступу до YouTube, ви погоджуєтеся із умовами "
 "надання послуг YouTube, які викладено на сторінці <a href=\"https://www."
@@ -2301,16 +2296,16 @@ msgstr ""
 "інтернет-служб</a>\n"
 "\n"
 "Щоб ознайомитися із власними правилами конфіденційності Google, будь ласка, "
-"зверніться до сторінки <a href=\"https://policies.google.com/privacy"
-"\">https://policies.google.com/privacy</a>"
+"зверніться до сторінки <a href=\"https://policies.google.com/"
+"privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2333,9 +2328,9 @@ msgstr ""
 "обліковим записом Google загалом та Google Фото зокрема, наведено на нашій "
 "<a href=\"help:shotwell/privacy-policy\">сторінці правил конфіденційності "
 "щодо інтернет-служб</a>. Щоб ознайомитися із власними правилами "
-"конфіденційності Google, будь ласка, зверніться до сторінки <a href="
-"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
-"a>"
+"конфіденційності Google, будь ласка, зверніться до сторінки <a "
+"href=\"https://policies.google.com/privacy\">https://policies.google.com/"
+"privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 msgid "_Email address"
@@ -2375,11 +2370,12 @@ msgstr "Некоректне ім’я користувача або парол�
 msgid "Could not load UI: %s"
 msgstr "Не вдалося завантажити інтерфейс: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Відвідати домашню сторінку Shotwell"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
@@ -2417,8 +2413,8 @@ msgstr ""
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Дані розпізнавання цього сайта було відкликано службою сертифікації, якою "
 "їх було випущено."
@@ -5500,6 +5496,10 @@ msgstr "Ліцензування"
 #: src/plugins/ManifestWidget.vala:166
 msgid "Website"
 msgstr "Сайт"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 або пізніша"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
