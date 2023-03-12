@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-01-25 21:57+0000\n"
-"PO-Revision-Date: 2023-01-25 23:17+0100\n"
+"POT-Creation-Date: 2023-03-05 14:48+0000\n"
+"PO-Revision-Date: 2023-03-05 15:54+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -2303,11 +2303,12 @@ msgstr "Ogiltigt användarnamn eller lösenord"
 msgid "Could not load UI: %s"
 msgstr "Kunde inte ladda användargränssnittet: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Besök Shotwells webbplats"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander <po@danielnylander.se>\n"
@@ -5163,6 +5164,10 @@ msgstr "Licens"
 #: src/plugins/ManifestWidget.vala:166
 msgid "Website"
 msgstr "Webbplats"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 eller senare"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
