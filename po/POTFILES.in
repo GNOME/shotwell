@@ -119,6 +119,7 @@ src/MediaPage.vala
 src/PhotoPage.vala
 src/photos/AvifSupport.vala
 src/photos/BmpSupport.vala
+src/photos/HeifSupport.vala
 src/photos/GifSupport.vala
 src/photos/JfifSupport.vala
 src/photos/PngSupport.vala

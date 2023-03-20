@@ -4,22 +4,22 @@
  * See the COPYING file in this distribution.
  */
 
-class AvifFileFormatProperties : PhotoFileFormatProperties {
-    private static string[] KNOWN_EXTENSIONS = { "avif" };
-    private static string[] KNOWN_MIME_TYPES = { "image/avif" };
+class HeifFileFormatProperties : PhotoFileFormatProperties {
+    private static string[] KNOWN_EXTENSIONS = { "heif", "heic" };
+    private static string[] KNOWN_MIME_TYPES = { "image/heif" };
 
-    private static AvifFileFormatProperties instance = null;
+    private static HeifFileFormatProperties instance = null;
 
     public static void init() {
-        instance = new AvifFileFormatProperties();
+        instance = new HeifFileFormatProperties();
     }
     
-    public static AvifFileFormatProperties get_instance() {
+    public static HeifFileFormatProperties get_instance() {
         return instance;
     }
     
     public override PhotoFileFormat get_file_format() {
-        return PhotoFileFormat.AVIF;
+        return PhotoFileFormat.HEIF;
     }
     
     public override PhotoFileFormatFlags get_flags() {
@@ -27,7 +27,7 @@ class AvifFileFormatProperties : PhotoFileFormatProperties {
     }
 
     public override string get_user_visible_name() {
-        return _("AVIF");
+        return _("HEIF");
     }
 
     public override string get_default_extension() {
@@ -47,14 +47,14 @@ class AvifFileFormatProperties : PhotoFileFormatProperties {
     }
 }
 
-public class AvifSniffer : GdkSniffer {
-    private const uint8[] MAGIC_SEQUENCE = { 102, 116, 121, 112, 97, 118, 105, 102 };
+public class HeifSniffer : GdkSniffer {
+    private const uint8[] MAGIC_SEQUENCE = { 102, 116, 121, 112, 104, 101, 105, 99 };
 
-    public AvifSniffer(File file, PhotoFileSniffer.Options options) {
+    public HeifSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
     }
 
-    private static bool is_avif_file(File file) throws Error {
+    private static bool is_heif_file(File file) throws Error {
         FileInputStream instream = file.read(null);
 
         // Read out first four bytes
@@ -78,36 +78,42 @@ public class AvifSniffer : GdkSniffer {
         // Rely on GdkSniffer to detect corruption
         is_corrupted = false;
         
-        if (!is_avif_file(file))
+        if (!is_heif_file(file))
             return null;
         
         DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
         if (detected == null)
             return null;
-        
-        return (detected.file_format == PhotoFileFormat.AVIF) ? detected : null;
+
+        if (detected.file_format == PhotoFileFormat.AVIF)
+            detected.file_format = PhotoFileFormat.HEIF;
+
+        // Heif contains its own rotation information, so we need to ignore the EXIF rotation
+        detected.metadata.set_orientation(Orientation.TOP_LEFT);
+
+        return (detected.file_format == PhotoFileFormat.HEIF) ? detected : null;
     }
+
 }
 
-public class AvifReader : GdkReader {
-    public AvifReader(string filepath) {
-        base (filepath, PhotoFileFormat.AVIF);
+public class HeifReader : GdkReader {
+    public HeifReader(string filepath) {
+        base (filepath, PhotoFileFormat.HEIF);
     }
+
+    public override PhotoMetadata read_metadata() throws Error {
+        PhotoMetadata metadata = new PhotoMetadata();
+        metadata.read_from_file(get_file());
+        // Heif contains its own rotation information, so we need to ignore the EXIF rotation
+        metadata.set_orientation(Orientation.TOP_LEFT);
+        return metadata;
+    }
+
 }
 
-public class AvifWriter : PhotoFileWriter {
-    public AvifWriter(string filepath) {
-        base (filepath, PhotoFileFormat.AVIF);
-    }
-    
-    public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        pixbuf.save(get_filepath(), "avif", "quality", "90", null);
-    }
-}
-
-public class AvifMetadataWriter : PhotoFileMetadataWriter {
-    public AvifMetadataWriter(string filepath) {
-        base (filepath, PhotoFileFormat.AVIF);
+public class HeifMetadataWriter : PhotoFileMetadataWriter {
+    public HeifMetadataWriter(string filepath) {
+        base (filepath, PhotoFileFormat.HEIF);
     }
     
     public override void write_metadata(PhotoMetadata metadata) throws Error {
@@ -115,28 +121,28 @@ public class AvifMetadataWriter : PhotoFileMetadataWriter {
     }
 }
 
-public class AvifFileFormatDriver : PhotoFileFormatDriver {
-    private static AvifFileFormatDriver instance = null;
+public class HeifFileFormatDriver : PhotoFileFormatDriver {
+    private static HeifFileFormatDriver instance = null;
     
     public static void init() {
-        instance = new AvifFileFormatDriver();
-        AvifFileFormatProperties.init();
+        instance = new HeifFileFormatDriver();
+        HeifFileFormatProperties.init();
     }
     
-    public static AvifFileFormatDriver get_instance() {
+    public static HeifFileFormatDriver get_instance() {
         return instance;
     }
     
     public override PhotoFileFormatProperties get_properties() {
-        return AvifFileFormatProperties.get_instance();
+        return HeifFileFormatProperties.get_instance();
     }
     
     public override PhotoFileReader create_reader(string filepath) {
-        return new AvifReader(filepath);
+        return new HeifReader(filepath);
     }
     
     public override bool can_write_image() {
-        return true;
+        return false;
     }
     
     public override bool can_write_metadata() {
@@ -144,15 +150,15 @@ public class AvifFileFormatDriver : PhotoFileFormatDriver {
     }
     
     public override PhotoFileWriter? create_writer(string filepath) {
-        return new AvifWriter(filepath);
+        return null;
     }
     
     public override PhotoFileMetadataWriter? create_metadata_writer(string filepath) {
-        return new AvifMetadataWriter(filepath);
+        return new HeifMetadataWriter(filepath);
     }
     
     public override PhotoFileSniffer create_sniffer(File file, PhotoFileSniffer.Options options) {
-        return new AvifSniffer(file, options);
+        return new HeifSniffer(file, options);
     }
     
     public override PhotoMetadata create_metadata() {
