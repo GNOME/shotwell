@@ -88,8 +88,10 @@ public class HeifSniffer : GdkSniffer {
         if (detected.file_format == PhotoFileFormat.AVIF)
             detected.file_format = PhotoFileFormat.HEIF;
 
-        // Heif contains its own rotation information, so we need to ignore the EXIF rotation
-        detected.metadata.set_orientation(Orientation.TOP_LEFT);
+        // Heif contains its own rotation information, so we need to ignore the EXIF rotation+
+        if (detected.metadata != null) {
+            detected.metadata.set_orientation(Orientation.TOP_LEFT);
+        }
 
         return (detected.file_format == PhotoFileFormat.HEIF) ? detected : null;
     }
