@@ -2,7 +2,6 @@
 # Copyright 2016 Software Freedom Conservancy Inc.
 # See COPYING for license.
 #
-#
 # Translators:
 # Mohammad Anwari <mdamt@di.blankon.in>, 2010
 # verayin <vera@yorba.org>, 2011
@@ -12,16 +11,16 @@
 # Malsasa <teknoloid@gmail.com>, 2012
 # Mohamad Hasan Al Banna, 2013
 # Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013
-# Andika Triwidada <andika@gmail.com>, 2011, 2014
+# Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019-2021, 2023.
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-02-02 12:42+0000\n"
-"PO-Revision-Date: 2023-02-05 16:18+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2023-03-20 22:58+0000\n"
+"PO-Revision-Date: 2023-03-21 08:24+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -2225,8 +2224,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2241,8 +2240,8 @@ msgstr ""
 "com/youtube\">https://developers.google.com/youtube</a> untuk mengakses "
 "saluran YouTube Anda dan mengunggah video. Dengan menggunakan Shotwell untuk "
 "mengakses YouTube, Anda setuju untuk terikat pada persyaratan layanan "
-"YouTube sebagaimana tersedia di <a href=\"https://www.youtube.com/t/terms"
-"\">https://www.youtube.com/t/terms</a>\n"
+"YouTube sebagaimana tersedia di <a href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</a>\n"
 "\n"
 "Kebijakan privasi Shotwell mengenai penggunaan data yang terkait dengan akun "
 "Google Anda secara umum dan YouTube pada khususnya dapat ditemukan di <a "
@@ -2257,8 +2256,8 @@ msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2271,17 +2270,17 @@ msgstr ""
 "Saat ini Anda tidak masuk ke Google foto.\n"
 "\n"
 "Anda harus sudah mendaftar ke akun Google dan mengaturnya untuk digunakan "
-"dengan Google foto. Shotwell menggunakan layanan Google Photos API <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"dengan Google foto. Shotwell menggunakan layanan Google Photos API <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> untuk semua interaksi dengan data Google Photos Anda. Anda harus "
 "memberikan akses Shotwell ke pustaka Google Photos.\n"
 "\n"
 "Kebijakan privasi Shotwell mengenai penggunaan data yang terkait dengan akun "
 "Google Anda secara umum dan Google Photos secara khusus dapat ditemukan di "
 "<a href=\"help:shotwell/privacy-policy\">kebijakan privasi layanan daring</"
-"a>kami. Untuk Kebijakan Privasi Google sendiri, silakan merujuk ke <a href="
-"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
-"a>"
+"a>kami. Untuk Kebijakan Privasi Google sendiri, silakan merujuk ke <a "
+"href=\"https://policies.google.com/privacy\">https://policies.google.com/"
+"privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 msgid "_Email address"
@@ -2319,11 +2318,12 @@ msgstr "Nama Pengguna atau Kata Sandi Tak Valid"
 msgid "Could not load UI: %s"
 msgstr "Tidak dapat membuka UI: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Kunjungi laman serambi Shotwell"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
 "Mohammad Anwari <mdamt@di.blankon.in>, 2010\n"
@@ -2334,7 +2334,7 @@ msgstr ""
 "Malsasa <teknoloid@gmail.com>, 2012\n"
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
-"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019-2021.\n"
+"Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019-2021, 2023.\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023."
 
 #. Possible error message when a site presents a bad certificate.
@@ -2349,8 +2349,8 @@ msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
 msgstr ""
-"⚫ Identifikasi situs web ini terlalu tua untuk dipercaya. Periksalah tanggal "
-"pada kalender komputer Anda."
+"⚫ Identifikasi situs web ini terlalu tua untuk dipercaya. Periksalah "
+"tanggal pada kalender komputer Anda."
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:252
@@ -2369,8 +2369,8 @@ msgstr "⚫ Identifikasi situs web ini tak dapat diproses. Mungkin itu rusak."
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Identifikasi situs web ini telah dicabut oleh organisasi terpercaya yang "
 "menerbitkannya."
@@ -2390,8 +2390,8 @@ msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
 msgstr ""
-"⚫ Identifikasi situs web ini hanya valid pada tanggal di masa depan. Periksa "
-"tanggal pada kalender komputer Anda."
+"⚫ Identifikasi situs web ini hanya valid pada tanggal di masa depan. "
+"Periksa tanggal pada kalender komputer Anda."
 
 #: plugins/common/RESTSupport.vala:574
 #: plugins/shotwell-publishing/TumblrPublishing.vala:567
@@ -5007,6 +5007,10 @@ msgstr "AVIF"
 msgid "BMP"
 msgstr "BMP"
 
+#: src/photos/HeifSupport.vala:30
+msgid "HEIF"
+msgstr "HEIF"
+
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
 msgstr "GIF"
@@ -5072,6 +5076,10 @@ msgstr "Lisensi"
 #: src/plugins/ManifestWidget.vala:166
 msgid "Website"
 msgstr "Situs Web"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 atau setelahnya"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -6269,300 +6277,3 @@ msgstr "tanpa judul"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Ekspor Video"
-
-#~ msgid "E_xternal photo editor:"
-#~ msgstr "Penyunting foto e_ksternal:"
-
-#~ msgid "External _RAW editor:"
-#~ msgstr "Penyunting _RAW eksternal:"
-
-#~ msgid "_Gallery3 URL:"
-#~ msgstr "URL _Gallery3:"
-
-#~ msgid "_User name:"
-#~ msgstr "Nama pengg_una:"
-
-#~ msgid "_Password:"
-#~ msgstr "_Sandi:"
-
-#~ msgid "Go _Back"
-#~ msgstr "_Mundur"
-
-#~ msgid "API _Key:"
-#~ msgstr "_Kunci API:"
-
-#~ msgid "or"
-#~ msgstr "atau"
-
-#~ msgid "An _existing album"
-#~ msgstr "Album _yang ada"
-
-#~ msgid "A _new album"
-#~ msgstr "Sebuah album _baru"
-
-#~ msgid "_Remove location, tag and camera-identifying data before uploading"
-#~ msgstr ""
-#~ "Hapus lokasi, tag, dan data pengidentifikasian kameda sebelum mengunggah"
-
-#~ msgid "Scaling constraint:"
-#~ msgstr "Kendala penskalaan:"
-
-#~ msgid "pixels"
-#~ msgstr "piksel"
-
-#~ msgid "Gallery3 publishing module"
-#~ msgstr "Modul publikasi Gallery3"
-
-#~ msgid ""
-#~ "You are not currently logged into your Gallery.\n"
-#~ "\n"
-#~ "You must have already signed up for a Gallery3 account to complete the "
-#~ "login process."
-#~ msgstr ""
-#~ "Anda tidak sedang masuk ke Gallery.\n"
-#~ "\n"
-#~ "Anda harus telah mendaftar akun Gallery3 untuk melengkapi proses masuk."
-
-#~ msgid "Shotwell default directory"
-#~ msgstr "Direktori baku Shotwell"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The file “%s” may not be supported by or may be too large for this "
-#~ "instance of Gallery3."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Berkas \"%s\" mungkin tidak didukung atau mungkin terlalu besar bagi "
-#~ "instansi Gallery3 ini."
-
-#~ msgid ""
-#~ "\n"
-#~ "Note that Gallery3 only supports the video types that Flowplayer does."
-#~ msgstr ""
-#~ "\n"
-#~ "Perhatikan bahwa Gallery3 hanya mendukung tipe video yang didukung oleh "
-#~ "Flowplayer."
-
-#~ msgid ""
-#~ "A file required for publishing is unavailable. Publishing to %s can’t "
-#~ "continue."
-#~ msgstr ""
-#~ "Sebuah berkas yang diperlukan untuk penerbitan tidak tersedia. Tak bisa "
-#~ "melanjutkan menerbitkan ke %s."
-
-#~ msgid "Publishing to %s as %s."
-#~ msgstr "Menerbitkan ke %s sebagai %s."
-
-#~ msgid ""
-#~ "Enter the URL for your Gallery3 site and the username and password (or "
-#~ "API key) for your Gallery3 account."
-#~ msgstr ""
-#~ "Masukkan URL untuk situs Gallery3 dan nama pengguna serta sandi (atau "
-#~ "kunci API) bagi akun Gallery3 Anda."
-
-#~ msgid ""
-#~ "The username and password or API key were incorrect. To try again, re-"
-#~ "enter your username and password below."
-#~ msgstr ""
-#~ "Nama pengguna dan sandi atau kunci API salah. Untuk mencoba lagi, "
-#~ "masukkan lagi nama pengguna dan sandi di bawah."
-
-#~ msgid ""
-#~ "The URL entered does not appear to be the main directory of a Gallery3 "
-#~ "instance. Please make sure you typed it correctly and it does not have "
-#~ "any trailing components (e.g., index.php)."
-#~ msgstr ""
-#~ "URL yang dimasukkan nampaknya bukan direktori utama dari suatu instansi "
-#~ "Gallery3. Harap pastikan bahwa Anda mengetikkannya dengan benar dan itu "
-#~ "tak memiliki sebarang komponen ekor (mis., index.php)."
-
-#~ msgid "Unrecognized User"
-#~ msgstr "Pengguna Tak Dikenal"
-
-#~ msgid " Site Not Found"
-#~ msgstr " Situs Tidak Ditemukan"
-
-#~ msgid "Shotwell Extra Publishing Services"
-#~ msgstr "Layanan Penerbit Ekstra Shotwell"
-
-#~ msgid "%d Photo/Video"
-#~ msgid_plural "%d Photos/Videos"
-#~ msgstr[0] "%d Foto/Video"
-
-#~ msgid "authentication token"
-#~ msgstr "token autentikasi"
-
-#~ msgid "Yandex-Fotki authentication token, if logged in"
-#~ msgstr "Token autentikasi Yandex-Fotki, bila masuk"
-
-#~ msgid "Rajce URL"
-#~ msgstr "URL Rajce"
-
-#~ msgid "URL of the Rajce server"
-#~ msgstr "URL dari peladen Rajce"
-
-#~ msgid "Rajce username, if logged in"
-#~ msgstr "Nama pengguna Rajce, bila masuk"
-
-#~ msgid "token"
-#~ msgstr "token"
-
-#~ msgid "user token, if remembered"
-#~ msgstr "token pengguna, jika ingat"
-
-#~ msgid "The last selected Rajce category"
-#~ msgstr "Kategori Racje yang terakhir dipilih"
-
-#~ msgid ""
-#~ "A numeric code representing the last photo size preset used when "
-#~ "publishing to Rajce"
-#~ msgstr ""
-#~ "Kode numerik yang mewakili pratat ukuran foto terakhir yang dipakai "
-#~ "ketika mempublikasikan ke Rajce"
-
-#~ msgid "remember"
-#~ msgstr "ingat"
-
-#~ msgid "If true, remember last login"
-#~ msgstr "Jika bernilai true, maka akan mengingat terakhir kali masuk"
-
-#~ msgid "hide album"
-#~ msgstr "sembunyikan album"
-
-#~ msgid "If true, hide the newly created Rajce album"
-#~ msgstr "Bila bernilai true, menyembunyikan album Rajce yang baru dibuat"
-
-#~ msgid "open album in web browser"
-#~ msgstr "buka album dalam peramban web"
-
-#~ msgid ""
-#~ "If true, open target album in the web browser just after uploading photos"
-#~ msgstr ""
-#~ "Jika bernilai true, maka buka album target dalam peramban hanya setelah "
-#~ "mengunggah foto"
-
-#~ msgid ""
-#~ "Whether images being uploaded to Rajce should have their metadata removed "
-#~ "first"
-#~ msgstr ""
-#~ "Apakah gambar yang sedang diunggah ke Rajce mesti terlebih dahulu dihapus "
-#~ "metadatanya"
-
-#~ msgid "delay"
-#~ msgstr "tundaan"
-
-#~ msgid ""
-#~ "The name of the transition effect that will be used between photos when "
-#~ "running a slideshow"
-#~ msgstr ""
-#~ "Nama efek transisi yang akan digunakan ketika menjalankan pertunjukan "
-#~ "salindia"
-
-#~ msgid "interpreter state cookie"
-#~ msgstr "cookie keadaan interpreter"
-
-#~ msgid ""
-#~ "A numeric code that captures the state of the GStreamer plug-in "
-#~ "environment"
-#~ msgstr ""
-#~ "Kode numerik yang menangkap keadaan dari lingkungan pengaya GStreamer"
-
-#~ msgid "enable facebook publishing plugin"
-#~ msgstr "aktifkan pengaya penerbitan facebook"
-
-#~ msgid "True if the Facebook publishing plugin is enabled, false otherwise"
-#~ msgstr "True bila pengaya publikasi Facebook difungsikan, false bila tidak"
-
-#~ msgid "enable yandex publishing plugin"
-#~ msgstr "aktifkan pengaya penerbitan yandex"
-
-#~ msgid ""
-#~ "True if the Yandex.Fotki publishing plugin is enabled, false otherwise"
-#~ msgstr ""
-#~ "True bila pengaya publikasi Yandex.Fotki difungsikan, false bila tidak"
-
-#~ msgid "enable rajce publishing plugin"
-#~ msgstr "aktifkan pengaya penerbitan rajce"
-
-#~ msgid "True if the Rajce publishing plugin is enabled, false otherwise"
-#~ msgstr "True bila pengaya publikasi Rajce difungsikan, false bila tidak"
-
-#~ msgid "enable F-Spot import plugin"
-#~ msgstr "aktifkan pengaya impor F-Spot"
-
-#~ msgid "True if the F-Spot import plugin is enabled, false otherwise"
-#~ msgstr "True bila pengaya impor F-Spot difungsikan, false bila tidak"
-
-#~ msgid "_Delay:"
-#~ msgstr "Tun_daan:"
-
-#~ msgid "_Remember"
-#~ msgstr "_Ingat"
-
-#~ msgid "An _existing album:"
-#~ msgstr "Album _yang ada:"
-
-#~ msgid "A _new album named:"
-#~ msgstr "Nama album _baru:"
-
-#~ msgid "_Hide album"
-#~ msgstr "Sembuny_ikan album"
-
-#~ msgid "Open target _album in browser"
-#~ msgstr "Buka _album target dalam peramban"
-
-#~ msgid "Copyright © 2013 rajce.net"
-#~ msgstr "Hak Cipta © 2013 rajce.net"
-
-#~ msgid ""
-#~ "An error message occurred when publishing to Rajce. Please try again."
-#~ msgstr ""
-#~ "Terjadi pesan kesalahan ketika mempublikasikan ke Rajce. Harap coba lagi."
-
-#~ msgid "Enter email and password associated with your Rajce account."
-#~ msgstr ""
-#~ "Masukkan nama pengguna dan sandi yang berhubungan dengan akun Rajce Anda."
-
-#~ msgid "Invalid email and/or password. Please try again"
-#~ msgstr "Surel dan/atau sandi tak valid. Harap coba lagi"
-
-#~ msgid "Invalid User Email or Password"
-#~ msgstr "Sandi atau Surel Pengguna Tak Valid"
-
-#~ msgid "You are logged into Rajce as %s."
-#~ msgstr "Anda masuk  ke Rajce sebagai %s."
-
-#~ msgid "Copyright 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-#~ msgstr "Hak Cipta 2010+ Evgeniy Polyakov <zbr@ioremap.net>"
-
-#~ msgid "Visit the Yandex.Fotki web site"
-#~ msgstr "Kunjungi situs Yandex.Fotki"
-
-#~ msgid "You are not currently logged into Yandex.Fotki."
-#~ msgstr "Anda belum masuk ke Yandex.Fotki."
-
-#~ msgid "Public"
-#~ msgstr "Publik"
-
-#~ msgid "Friends"
-#~ msgstr "Teman"
-
-#~ msgid "_Albums (or write new):"
-#~ msgstr "_Album (atau tulis baru):"
-
-#~ msgid "Access _type:"
-#~ msgstr "Jenis _akses:"
-
-#~ msgid "Disable _comments"
-#~ msgstr "Nonaktifkan _komentar"
-
-#~ msgid "_Forbid downloading original photo"
-#~ msgstr "_Dilarang mengunduh foto asli"
-
-#~ msgid "_Map Overview"
-#~ msgstr "Ikhtisar _Peta"
-
-#~ msgid "Unable to launch Nautilus Send-To: %s"
-#~ msgstr "Gagal menjalankan Nautilus Send-To: %s"
