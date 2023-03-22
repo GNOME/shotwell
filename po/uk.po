@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-03-05 14:48+0000\n"
-"PO-Revision-Date: 2023-03-08 08:19+0200\n"
+"POT-Creation-Date: 2023-03-20 22:58+0000\n"
+"PO-Revision-Date: 2023-03-22 18:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -5430,6 +5430,10 @@ msgstr "AVIF"
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
 msgstr "BMP"
+
+#: src/photos/HeifSupport.vala:30
+msgid "HEIF"
+msgstr "HEIF"
 
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
