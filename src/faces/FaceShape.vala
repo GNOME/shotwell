@@ -44,8 +44,9 @@ public abstract class FaceShape : Object {
     }
     
     ~FaceShape() {
-        if (visible)
+        if (visible) {
             erase();
+        }
         
         face_window.destroy();
         
@@ -198,7 +199,6 @@ public class FaceRectangle : FaceShape {
     private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
     private Cairo.Context wide_black_ctx = null;
     private Cairo.Context wide_white_ctx = null;
-    private Cairo.Context thin_white_ctx = null;
     private int last_grab_x = -1;
     private int last_grab_y = -1;
     
@@ -251,6 +251,9 @@ public class FaceRectangle : FaceShape {
         
         Photo photo = canvas.get_photo();
         Dimensions raw_dim = photo.get_raw_dimensions();
+
+        // 1, 2 is the center of the rectangle, 3, 4 is the half width / height of the rectangle,
+        // normalized
         int x = (int) (raw_dim.width * double.parse(args[1]));
         int y = (int) (raw_dim.height * double.parse(args[2]));
         int half_width = (int) (raw_dim.width * double.parse(args[3]));
@@ -319,32 +322,32 @@ public class FaceRectangle : FaceShape {
         
         face_window.get_allocation(out face_window_alloc);
         
-        x += scaled_pixbuf_pos.x + box.left + ((box.get_width() - face_window_alloc.width) >> 1);
-        y += scaled_pixbuf_pos.y + box.bottom + FACE_WINDOW_MARGIN;
+        var scale = Application.get_scale();
+        x += ((scaled_pixbuf_pos.x + box.left) / scale  + ((box.get_width() / scale - face_window_alloc.width) >> 1));
+        y += (scaled_pixbuf_pos.y + box.bottom) / scale + FACE_WINDOW_MARGIN;
         
         face_window.move(x, y);
     }
     
     protected override void paint() {
+        // The box is in image coordinates. Need to scale down to device coordinates
         canvas.draw_box(wide_black_ctx, box);
         canvas.draw_box(wide_white_ctx, box.get_reduced(1));
         canvas.draw_box(wide_white_ctx, box.get_reduced(2));
         
-        canvas.invalidate_area(box);
+        //canvas.invalidate_area(box);
         
         if (!is_editable())
             paint_label();
     }
     
     protected override void erase() {
-        canvas.erase_box(box);
-        canvas.erase_box(box.get_reduced(1));
-        canvas.erase_box(box.get_reduced(2));
-        
         canvas.invalidate_area(box);
         
         if (!is_editable())
             erase_label();
+
+//        canvas.repaint();
     }
     
     private void paint_label() {
@@ -481,12 +484,8 @@ public class FaceRectangle : FaceShape {
         wide_black_ctx.set_line_width(1);
         
         wide_white_ctx = new Cairo.Context(ctx.get_target());
-        set_source_color_from_string(wide_black_ctx, "#FFF");
+        set_source_color_from_string(wide_white_ctx, "#FFF");
         wide_white_ctx.set_line_width(1);
-        
-        thin_white_ctx = new Cairo.Context(ctx.get_target());
-        set_source_color_from_string(wide_black_ctx, "#FFF");
-        thin_white_ctx.set_line_width(0.5);
     }
     
     private bool on_canvas_manipulation(int x, int y) {
@@ -665,17 +664,20 @@ public class FaceRectangle : FaceShape {
         Box new_box = Box(left, top, right, bottom);
         
         if (!box.equals(new_box)) {
-            erase();
+            canvas.invalidate_area(box);
             
             if (in_manipulation != BoxLocation.INSIDE)
                 check_resized_box(new_box);
             
             box = new_box;
             paint();
+            canvas.invalidate_area(new_box);
         }
         
         if (is_editable())
             update_face_window_position();
+
+            canvas.repaint();
         
         serialized = null;
         

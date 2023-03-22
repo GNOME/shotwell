@@ -382,12 +382,13 @@ public abstract class PhotoCanvas {
     }
 
     public void erase_horizontal_line(int x, int y, int width) {
+        var scale = Application.get_scale();
         default_ctx.save();
 
         default_ctx.set_operator(Cairo.Operator.SOURCE);
         default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
-            width - 1, 1);
+            width - 1, 1 * scale);
         default_ctx.fill();
 
         default_ctx.restore();
@@ -405,6 +406,8 @@ public abstract class PhotoCanvas {
     public void erase_vertical_line(int x, int y, int height) {
         default_ctx.save();
 
+        var scale = Application.get_scale();
+
         // Ticket #3146 - artifacting when moving the crop box or
         // enlarging it from the lower right.
         // We now no longer subtract one from the height before choosing
@@ -412,7 +415,7 @@ public abstract class PhotoCanvas {
         default_ctx.set_operator(Cairo.Operator.SOURCE);
         default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
-            1, height);
+            1 * scale, height);
         default_ctx.fill();
 
         default_ctx.restore();
@@ -428,6 +431,7 @@ public abstract class PhotoCanvas {
 
     public void invalidate_area(Box area) {
         Gdk.Rectangle rect = area.get_rectangle();
+
         rect.x += scaled_position.x;
         rect.y += scaled_position.y;
 
@@ -1247,20 +1251,22 @@ public class CropTool : EditingTool {
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        var scale = Application.get_scale();
         wide_black_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_black_ctx, "#000");
-        wide_black_ctx.set_line_width(1);
+        wide_black_ctx.set_line_width(1 * scale);
 
         wide_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_white_ctx, "#FFF");
-        wide_white_ctx.set_line_width(1);
+        wide_white_ctx.set_line_width(1 * scale);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
-        thin_white_ctx.set_line_width(0.5);
+        thin_white_ctx.set_line_width(0.5 * scale);
 
         text_ctx = new Cairo.Context(ctx.get_target());
         text_ctx.select_font_face("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
+        text_ctx.set_font_size(10.0 * scale);
     }
 
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
@@ -1927,6 +1933,7 @@ public class RedeyeTool : EditingTool {
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        var scale = Application.get_scale();
         wider_gray_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wider_gray_ctx, "#111");
         wider_gray_ctx.set_line_width(3);
