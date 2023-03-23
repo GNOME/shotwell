@@ -129,8 +129,14 @@ namespace Shotwell {
             }
 
             if (library_folder != null) {
+                errno = 0;
+                var f = File.new_for_commandline_arg(library_folder);
+                try {
+                    f.make_directory_with_parents();
+                } catch (Error err) {
+                    warning ("Failed to create library folder: %s", err.message);
+                }
                 var settings_path = "/org/gnome/shotwell/profiles/" + id + "/preferences/files/";
-                print ("writing settings at path %s\n", settings_path);
 
     
                 var settings = new Settings.with_path("org.gnome.shotwell.preferences.files", settings_path);
