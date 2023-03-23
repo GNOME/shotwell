@@ -231,7 +231,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         uint year, month, day;
         calendar.get_date(out year, out month, out day);
 
-        return new DateTime.utc((int)year, (int)month + 1, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
+        return new DateTime.local((int)year, (int)month + 1, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
     }
 
     public bool execute(out TimeSpan time_shift, out bool keep_relativity,

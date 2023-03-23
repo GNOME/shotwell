@@ -167,7 +167,7 @@ public class AVIMetadataLoader {
                   out min, out sec, out year)) {
                 return null; // Error
             }
-            parsed_date = new DateTime.utc(year, month_from_string((string)monthstr), day, hour, min, sec);
+            parsed_date = new DateTime.local(year, month_from_string((string)monthstr), day, hour, min, sec);
         }
 
         return parsed_date;
