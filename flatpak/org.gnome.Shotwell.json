@@ -222,6 +222,51 @@
             ]
         },
         {
+            "name": "de256",
+            "buildsystem": "cmake",
+            "config-opts" : [
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_DECODER=Off",
+                "-DENABLE_ENCODER=OfF"
+            ],
+            "sources" : [
+                {
+                    "type": "git",
+                    "url" : "https://github.com/strukturag/libde265.git",
+                    "tag" : "v1.0.11",
+                    "commit" : "e255f0571a46935955deef15808e52b18043788c"
+                }
+            ]
+        },
+        {
+            "name" : "libheif",
+            "buildsystem" : "cmake",
+            "config-opts": [
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DLIBDE265=On",
+                "-DWITH_DAV1D=Off",
+                "-DWITH_AOM_ENCODER=Off",
+                "-DWITH_AOM_DECODER=Off",
+                "-DWITH_SvtEnc=Off",
+                "-DWITH_RAV1E=Off",
+                "-DWITH_ENABLE_PLUGIN_LOADING=On",
+                "-DWITH_EXAMPLES=Off"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/strukturag/libheif",
+                    "tag" : "v1.15.1",
+                    "commit" : "06f6acfe735379b9c3bcf865285f6dba80611e90"
+                }
+            ],
+            "post-install" :  [
+                "gdk-pixbuf-query-loaders gdk-pixbuf-query-loaders /app/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/*  > /app/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+            ]
+        },
+        {
             "name" : "shotwell",
             "buildsystem" : "meson",
             "config-opts" : [
@@ -229,7 +274,8 @@
                 "-Dudev=false",
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection=true",
-                "-Dface_detection_helper_bus=private"
+                "-Dface_detection_helper_bus=private",
+                "-Dextra_pixbuf_loaders_path=/app/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0"
             ],
             "sources" : [
                 {
