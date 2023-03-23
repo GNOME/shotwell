@@ -12,3 +12,5 @@ public const string _LIB;
 public const string _LIBEXECDIR;
 [CCode (cheader_filename = "config.h")]
 public const string _LANG_SUPPORT_DIR;
+[CCode (cheader_filename = "config.h")]
+public const string _PIXBUF_LOADER_PATH;

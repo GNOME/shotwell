@@ -24,6 +24,7 @@ namespace Resources {
     private const string LIBEXECDIR = _LIBEXECDIR;
 
     public const string PREFIX = _PREFIX;
+    public const string PIXBUF_LOADER_PATH = _PIXBUF_LOADER_PATH;
 
     public const double TRANSIENT_WINDOW_OPACITY = 0.90;
     

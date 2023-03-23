@@ -9,3 +9,4 @@ option('face_detection', type:'boolean', value:false, description: 'Enable face 
 option('face_detection_helper', type : 'boolean', value : 'true', description : 'If face-detection is enabled, build the external helper tool')
 option('face_detection_helper_bus', type:'combo', choices: ['private', 'session'], value : 'session', description: 'Which DBus bus to use for external helper tool')
 option('fatal_warnings', type:'boolean', value:false)
+option('extra_pixbuf_loaders_path', type:'string', value: '')
