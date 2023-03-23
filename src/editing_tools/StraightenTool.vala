@@ -456,7 +456,7 @@ public class StraightenTool : EditingTool {
      */
     private void update_rotated_surface() {        
         draw_rotated_source(photo_surf, rotate_ctx, view_width, view_height, photo_angle);
-        rotate_ctx.set_line_width(1.0);
+        rotate_ctx.set_line_width(1.0 * Application.get_scale());
         draw_superimposed_grid(rotate_ctx, view_width, view_height);
     }
 

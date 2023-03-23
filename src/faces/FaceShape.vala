@@ -356,6 +356,9 @@ public class FaceRectangle : FaceShape {
         
         ctx.save();
         
+        ctx.select_font_face("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
+        ctx.set_font_size(10.0 * Application.get_scale());
+
         Cairo.TextExtents text_extents = Cairo.TextExtents();
         ctx.text_extents(get_name(), out text_extents);
         
@@ -481,11 +484,11 @@ public class FaceRectangle : FaceShape {
     public override void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
         wide_black_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_black_ctx, "#000");
-        wide_black_ctx.set_line_width(1);
+        wide_black_ctx.set_line_width(1 * Application.get_scale());
         
         wide_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_white_ctx, "#FFF");
-        wide_white_ctx.set_line_width(1);
+        wide_white_ctx.set_line_width(1 * Application.get_scale());
     }
     
     private bool on_canvas_manipulation(int x, int y) {

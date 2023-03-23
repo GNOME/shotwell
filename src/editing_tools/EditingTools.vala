@@ -1936,11 +1936,11 @@ public class RedeyeTool : EditingTool {
         var scale = Application.get_scale();
         wider_gray_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wider_gray_ctx, "#111");
-        wider_gray_ctx.set_line_width(3);
+        wider_gray_ctx.set_line_width(3 * scale);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
-        thin_white_ctx.set_line_width(1);
+        thin_white_ctx.set_line_width(1 * scale);
     }
 
     private void draw_redeye_instance(RedeyeInstance inst) {
