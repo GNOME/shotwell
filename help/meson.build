@@ -43,11 +43,9 @@ yelp_pages = [
     'view-sidebar.page']
 
 yelp_media = [
-    'figures/edit_toolbar.png',
-    'figures/editing_overview.png',
     'figures/Shotwell.svg',
-    'figures/crop_thirds.jpg',
-    'figures/trash_process.png']
+    'figures/trash_process.png',
+    'figures/trash_process.svg']
 
 gnome.yelp('shotwell',
            sources : yelp_pages,
