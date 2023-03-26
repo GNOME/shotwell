@@ -323,8 +323,11 @@ public class FaceRectangle : FaceShape {
         face_window.get_allocation(out face_window_alloc);
         
         var scale = Application.get_scale();
-        x += ((scaled_pixbuf_pos.x + box.left) / scale  + ((box.get_width() / scale - face_window_alloc.width) >> 1));
-        y += (scaled_pixbuf_pos.y + box.bottom) / scale + FACE_WINDOW_MARGIN;
+        var left = (int)Math.lround((scaled_pixbuf_pos.x + box.left) / scale);
+        var width = (int)Math.lround(box.get_width() / scale);
+        var top = (int)Math.lround((scaled_pixbuf_pos.y + box.bottom) / scale);
+        x += (left  + ((width - face_window_alloc.width) >> 1));
+        y += top + FACE_WINDOW_MARGIN;
         
         face_window.move(x, y);
     }

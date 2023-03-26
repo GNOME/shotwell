@@ -468,8 +468,8 @@ public class StraightenTool : EditingTool {
      *      it's not used.
      */
     public override void paint(Cairo.Context ctx) {
-        int w = canvas.get_drawing_window().get_width() * Application.get_scale();
-        int h = canvas.get_drawing_window().get_height() * Application.get_scale();
+        var w = canvas.get_drawing_window().get_width() * Application.get_scale();
+        var h = canvas.get_drawing_window().get_height() * Application.get_scale();
 
         // fill region behind the rotation surface with neutral color.
         canvas.get_default_ctx().identity_matrix();

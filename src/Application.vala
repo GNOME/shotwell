@@ -69,12 +69,12 @@ public class Application {
         system_app.startup.connect(on_activated);
     }
 
-    public static int get_scale() {
+    public static double get_scale() {
         var instance = get_instance().system_app;
         unowned GLib.List<Gtk.Window> windows = instance.get_windows();
 
         if (windows == null)
-            return 1;
+            return 1.0;
 
         return windows.data.get_scale_factor();
     }

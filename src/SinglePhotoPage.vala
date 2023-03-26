@@ -282,7 +282,8 @@ public abstract class SinglePhotoPage : Page {
     }
 
     public bool is_inside_pixbuf(int x, int y) {
-        return coord_in_rectangle(x * Application.get_scale(), y * Application.get_scale(), scaled_pos);
+        return coord_in_rectangle((int)Math.lround(x * Application.get_scale()),
+        (int)Math.lround(y * Application.get_scale()), scaled_pos);
     }
 
     public void invalidate(Gdk.Rectangle rect) {
@@ -401,7 +402,7 @@ public abstract class SinglePhotoPage : Page {
         // if necessary, create a pixmap as large as the entire viewport
         bool new_pixmap = false;
         if (pixmap == null) {
-            init_pixmap(width * Application.get_scale(), height * Application.get_scale());
+            init_pixmap((int)Math.lround(width * Application.get_scale()), (int)Math.lround(height * Application.get_scale()));
             new_pixmap = true;
         }
 
@@ -417,8 +418,8 @@ public abstract class SinglePhotoPage : Page {
                 scaled_dim = unscaled_dim.get_scaled_proportional(pixmap_dim);
 
             // center pixbuf on the canvas
-            scaled_pos.x = ((width * Application.get_scale()) - scaled_dim.width) / 2;
-            scaled_pos.y = ((height * Application.get_scale()) - scaled_dim.height) / 2;
+            scaled_pos.x = (int)Math.lround(((width * Application.get_scale()) - scaled_dim.width) / 2.0);
+            scaled_pos.y = (int)Math.lround(((height * Application.get_scale()) - scaled_dim.height) / 2.0);
             scaled_pos.width = scaled_dim.width;
             scaled_pos.height = scaled_dim.height;
         }
