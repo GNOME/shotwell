@@ -49,7 +49,7 @@ public class ThumbnailCache : Object {
         
         public static Size get_best_size(int scale) {
             var real_scale = Application.get_scale() * scale;
-            critical("=> real_scale %d, scale: %d", real_scale, scale);
+            critical("=> real_scale %f, scale: %f", real_scale, scale);
 
             if (real_scale <= MEDIUM.get_scale())
                 return MEDIUM;

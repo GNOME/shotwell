@@ -1295,7 +1295,8 @@ public class CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pixbuf_pos.x, scaled_pixbuf_pos.y);
 
         // determine where the mouse down landed and store for future events
-        in_manipulation = offset_scaled_crop.approx_location(x * Application.get_scale(), y * Application.get_scale());
+        in_manipulation = offset_scaled_crop.approx_location((int)Math.lround(x * Application.get_scale()),
+        (int)Math.lround(y * Application.get_scale()));
         last_grab_x = x -= scaled_pixbuf_pos.x;
         last_grab_y = y -= scaled_pixbuf_pos.y;
 
@@ -1323,7 +1324,8 @@ public class CropTool : EditingTool {
         // only deal with manipulating the crop tool when click-and-dragging one of the edges
         // or the interior
         if (in_manipulation != BoxLocation.OUTSIDE)
-            on_canvas_manipulation(x * Application.get_scale(), y * Application.get_scale());
+            on_canvas_manipulation((int)Math.lround(x * Application.get_scale()),
+            (int)Math.lround(y * Application.get_scale()));
 
         update_cursor(x, y);
         canvas.repaint();
@@ -1386,7 +1388,8 @@ public class CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
 
         Gdk.CursorType cursor_type = Gdk.CursorType.LEFT_PTR;
-        switch (offset_scaled_crop.approx_location(x * Application.get_scale(), y * Application.get_scale())) {
+        switch (offset_scaled_crop.approx_location((int)Math.lround(x * Application.get_scale()),
+        (int)Math.lround(y * Application.get_scale()))) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = Gdk.CursorType.LEFT_SIDE;
             break;
@@ -2120,11 +2123,11 @@ public class RedeyeTool : EditingTool {
             RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
 
-        if (coord_in_rectangle(x * scale, y * scale, bounds_rect)) {
+        if (coord_in_rectangle((int)Math.lround(x * scale), (int)Math.lround(y * scale), bounds_rect)) {
             print("Motion in progress!!\n");
             is_reticle_move_in_progress = true;
-            reticle_move_mouse_start_point.x = x * scale;
-            reticle_move_mouse_start_point.y = y * scale;
+            reticle_move_mouse_start_point.x = (int)Math.lround(x * scale);
+            reticle_move_mouse_start_point.y = (int)Math.lround(y * scale);
             reticle_move_anchor = user_interaction_instance.center;
         }
     }
@@ -2152,8 +2155,8 @@ public class RedeyeTool : EditingTool {
                 active_region_rect.y + active_region_rect.height -
                 user_interaction_instance.radius - 1;
 
-            int delta_x = x * scale - reticle_move_mouse_start_point.x;
-            int delta_y = y * scale - reticle_move_mouse_start_point.y;
+            int delta_x = (int)Math.lround(x * scale) - reticle_move_mouse_start_point.x;
+            int delta_y = (int)Math.lround(y * scale) - reticle_move_mouse_start_point.y;
 
             user_interaction_instance.center.x = reticle_move_anchor.x +
                 delta_x;
@@ -2172,7 +2175,7 @@ public class RedeyeTool : EditingTool {
             Gdk.Rectangle bounds =
                 RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-            if (coord_in_rectangle(x * scale, y * scale, bounds)) {
+            if (coord_in_rectangle((int)Math.lround(x * scale), (int)Math.lround(y * scale), bounds)) {
                 canvas.set_cursor(Gdk.CursorType.FLEUR);
             } else {
                 canvas.set_cursor(Gdk.CursorType.LEFT_PTR);
