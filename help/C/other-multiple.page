@@ -4,20 +4,26 @@
 
     <info>
         <link type="guide" xref="index#other"/>
-        <desc>You can open Shotwell with a different photo library by using the command line.</desc>
+        <desc>You can open Shotwell with a different photo library.</desc>
         
         <link type="next" xref="other-files"/>
     </info>
 
 	<title>Multiple libraries</title>
 
-<p>Shotwell normally stores its database and photo thumbnails in the directory <file>~/.shotwell</file> . This directory does not hold photos, but the database in this directory contains a list of all the photos in the Shotwell library.</p>
+    <p>Shotwell supports multiple libraries on the same computer with the concept of profiles. A profile is a set of meta-data and settings associated with
+        a library folder.
+    </p>
+    <p>All profiles are completely isolated from each other. While it is possible to use the same library folder for different profiles, it is not recommended.</p>
 
-<p>As an advanced feature, it's possible for you to have multiple Shotwell libraries, each of which has its own set of photos. Each library needs its own database directory. To launch Shotwell with an alternate library, specify an alternate database directory on the command line as follows:</p>
-
-<screen>
-shotwell -d [library-directory]
-</screen>
-
+    <section id="managing">
+        <title>Managing profiles</title>
+        <p>Profiles can either be created using the dedicated <app>Shotwell Profile Manager</app>, calling <cmd>shotwell --profile-browser</cmd> from the command
+            line or the <gui style="tab">Profiles</gui> section of the settings <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq></p>    
+    </section>
+    <section id="using">
+        <title>Selecting a profile</title>
+        <p>A profile can only be selected during start-up and cannot be switched during run-time.</p>
+        <p>To select a profile, start the Shotwell Profile Manager and select a profile using double-click, or calling <cmd>shotwell --profile <var>name</var></cmd></p>    
+    </section>
 </page>
-
