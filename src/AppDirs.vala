@@ -388,6 +388,11 @@ class AppDirs {
         if (f.query_exists())
             return f;
 
+        f = AppDirs.get_resources_dir().get_parent().get_child("subprojects").get_child("shotwell-facedetect");
+        if (f.query_exists()) {//testing meson builddir
+            return f;
+        }
+
         return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
     }
 #endif
