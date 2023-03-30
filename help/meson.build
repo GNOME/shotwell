@@ -45,6 +45,7 @@ yelp_pages = [
 yelp_media = [
     'figures/Shotwell.svg',
     'figures/trash_process.png',
+    'figures/crop_thirds.jpg',
     'figures/trash_process.svg']
 
 gnome.yelp('shotwell',
