@@ -1,3 +1,26 @@
+Shotwell 0.30.18 (stable) - 1 Apr 2023
+
+ - Fix issues with setting wallpaper in flatpak
+ - Add missing value to saturation slider
+ - Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4978
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/4990
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5014
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Hugo Carvalho <hugokarvalho@hotmail.com>
+ - Martin <miles@filmsi.net>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+
+Added/updated translations:
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - pt.po, courtesy of Hugo Carvalho
+ - sl.po, courtesy of Martin Srebotnjak
+
 Shotwell 0.30.17 (stable) - 25 Sep 2022
 
 Known issues:
