@@ -43,11 +43,15 @@ executable('shotwell-facedetect',
            include_directories: config_incdir,
            install_dir : libexecdir)
 install_data('haarcascade_frontalface_alt.xml',
-              install_dir : join_paths(get_option('datadir'), 'shotwell'))
+              install_dir : join_paths(get_option('datadir'), 'shotwell', 'facedetect'))
+install_data('haarcascade_profileface.xml',
+              install_dir : join_paths(get_option('datadir'), 'shotwell', 'facedetect'))
 install_data(
   'openface.nn4.small2.v1.t7',
-  install_dir: join_paths(get_option('datadir'), 'shotwell')
+  install_dir: join_paths(get_option('datadir'), 'shotwell', 'facedetect')
 )
+
+install_data('deploy.prototxt', install_dir: join_paths(get_option('datadir'), 'shotwell', 'facedetect'))
 
 configure_file(
     input : 'org.gnome.Shotwell.Faces1.service.in',
