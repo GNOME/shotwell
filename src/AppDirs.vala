@@ -313,8 +313,6 @@ class AppDirs {
             f = AppDirs.get_libexec_dir().get_parent().get_child("thumbnailer").get_child(filename);
         }
 
-        warning("==============> %s", f.get_path());
-
         return f;
     }
 
