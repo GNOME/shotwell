@@ -32,7 +32,7 @@
     <title>Automatic detection of faces</title>
     <p>It is possible to use automatic face detection to simplify the process of marking the faces. To trigger the face detection
     algorithm, click on <gui>Detect faces...</gui></p>
-    <p>If reference images for images are defined, this will also try to match any found faces in the current image with known references.</p>
+    <p>If reference images for faces are defined, this will also try to match any found faces in the current image with known references.</p>
   </section>
   <section id="automatic-recognition">
     <title>Automatic recognition of faces</title>
