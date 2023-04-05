@@ -384,6 +384,10 @@ class AppDirs {
     }
 
     public static File get_openface_dnn_dir() {
+        return File.new_for_path(Environment.get_user_data_dir()).get_child(DEFAULT_DATA_DIR).get_child("facedetect");
+    }
+
+    public static File get_openface_dnn_system_dir() {
         var f = File.new_for_path("/app/extra");
         if (f.query_exists())
             return f;
@@ -392,8 +396,9 @@ class AppDirs {
         if (f.query_exists()) {//testing meson builddir
             return f;
         }
-
-        return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
+    
+        return AppDirs.get_resources_dir().get_child("facedetect");
     }
+
 #endif
 }
