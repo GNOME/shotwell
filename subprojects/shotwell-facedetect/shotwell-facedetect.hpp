@@ -30,4 +30,4 @@ struct FaceRect {
 };
 
 bool loadNet(const cv::String& netFile);
-std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer);
+std::vector<FaceRect> detectFaces(const cv::String& inputName, double scale, bool infer);

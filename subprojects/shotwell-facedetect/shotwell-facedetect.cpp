@@ -16,8 +16,8 @@
 
 #include <iostream>
 
-const char* FACEDETECT_INTERFACE_NAME = "org.gnome.Shotwell.Faces1";
-const char* FACEDETECT_PATH = "/org/gnome/shotwell/faces";
+constexpr std::string_view FACEDETECT_INTERFACE_NAME{ "org.gnome.Shotwell.Faces1" };
+constexpr std::string_view FACEDETECT_PATH{ "/org/gnome/shotwell/faces" };
 
 GVariant *FaceRect::serialize() const
 {
@@ -27,11 +27,11 @@ GVariant *FaceRect::serialize() const
 
 // DBus binding functions
 static gboolean on_handle_detect_faces(ShotwellFaces1 *object, GDBusMethodInvocation *invocation,
-                                       const gchar *arg_image, const gchar *arg_cascade, gdouble arg_scale,
+                                       [[maybe_unused]]const gchar *arg_image, const gchar *arg_cascade, gdouble arg_scale,
                                        gboolean arg_infer)
 {
     g_auto(GVariantBuilder) builder = G_VARIANT_BUILDER_INIT(G_VARIANT_TYPE("a(ddddad)"));
-    auto rects = detectFaces(arg_image, arg_cascade, arg_scale, arg_infer == TRUE);
+    auto rects = detectFaces(arg_image, arg_scale, arg_infer == TRUE);
 
     // Construct return value
     for(const auto &rect : rects) {
@@ -70,7 +70,7 @@ static void on_name_acquired(GDBusConnection *connection,
     g_signal_connect(interface, "handle-load-net", G_CALLBACK (on_handle_load_net), nullptr);
 
     g_autoptr(GError) error = nullptr;
-    g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, FACEDETECT_PATH, &error);
+    g_dbus_interface_skeleton_export(G_DBUS_INTERFACE_SKELETON(interface), connection, FACEDETECT_PATH.data(), &error);
     if (error != nullptr) {
         g_print("Failed to export interface: %s", error->message);
     }
@@ -137,7 +137,7 @@ int main(int argc, char **argv) {
     // We are running on the session bus
     if (address == nullptr) {
         g_debug("Starting %s on G_BUS_TYPE_SESSION", argv[0]);
-        g_bus_own_name(G_BUS_TYPE_SESSION, FACEDETECT_INTERFACE_NAME, G_BUS_NAME_OWNER_FLAGS_NONE,
+        g_bus_own_name(G_BUS_TYPE_SESSION, FACEDETECT_INTERFACE_NAME.data(), G_BUS_NAME_OWNER_FLAGS_NONE,
                 nullptr, on_name_acquired, on_name_lost, loop, nullptr);
 
     } else {
@@ -151,8 +151,9 @@ int main(int argc, char **argv) {
                                                              observer,
                                                              nullptr,
                                                              &error);
-        if (connection != nullptr)
-            on_name_acquired(connection, FACEDETECT_INTERFACE_NAME, loop);
+        if (connection != nullptr) {
+            on_name_acquired (connection, FACEDETECT_INTERFACE_NAME.data (), loop);
+        }
     }
 
     if (error != nullptr) {

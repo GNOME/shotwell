@@ -30,11 +30,11 @@ constexpr std::string_view RESNET_DETECT_CAFFE_NET{ "res10_300x300_ssd_iter_1400
 constexpr std::string_view HAARCASCADE{ "haarcascade_frontalface_alt.xml" };
 constexpr std::string_view HAARCASCADE_PROFILE{ "haarcascade_profileface.xml" };
 
-std::vector<cv::Rect> detectFacesMat(cv::Mat img);
-std::vector<double> faceToVecMat(cv::Mat img);
+std::vector<cv::Rect> detectFacesMat(const cv::Mat &img);
+std::vector<double> faceToVecMat(const cv::Mat& img);
 
 // Detect faces in a photo
-std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer = false) {
+std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, bool infer = false) {
     if(cascade.empty()) {
         g_warning("No cascade file loaded. Did you call loadNet()?");
         return {};
@@ -70,18 +70,32 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 
         cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
         cv::equalizeHist(smallImg, smallImg);
-        cascade.detectMultiScale(smallImg, faces, 1.1, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
+        constexpr double SCALE_FACTOR_FRONTAL{ 1.1 };
+        constexpr double SCALE_FACTOR_PROFILE{ 1.05 };
+        constexpr int MIN_NEIGHBOURS{ 2 };
+        constexpr int MIN_SIZE{ 30 };
+        cascade.detectMultiScale (smallImg,
+                                  faces,
+                                  SCALE_FACTOR_FRONTAL,
+                                  MIN_NEIGHBOURS,
+                                  cv::CASCADE_SCALE_IMAGE,
+                                  cv::Size (MIN_SIZE, MIN_SIZE));
 
         // Run the cascade for profile faces, if available
         if(not cascade_profile.empty()) {
             g_debug("Running haarcascade detection for profile faces");
             std::vector<cv::Rect> profiles;
-            cascade_profile.detectMultiScale(smallImg, profiles, 1.05, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
+            cascade_profile.detectMultiScale (smallImg,
+                                              profiles,
+                                              SCALE_FACTOR_PROFILE,
+                                              MIN_NEIGHBOURS,
+                                              cv::CASCADE_SCALE_IMAGE,
+                                              cv::Size (MIN_SIZE, MIN_SIZE));
             if(not profiles.empty()) {
                 faces.insert(faces.end(), profiles.begin(), profiles.end());
             }
 
-            // Duplicate all rectangles so we can safely run groupRectangles with minmum 1 on it - otherwise
+            // Duplicate all rectangles so we can safely run groupRectangles with minimum 1 on it - otherwise
             // OpenCV does weird things
             faces.insert(faces.end(), faces.begin(), faces.end());
 
@@ -190,10 +204,10 @@ bool loadNet(const cv::String &baseDir)
 // Face detector
 // Adapted from OpenCV example:
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
-std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
+std::vector<cv::Rect> detectFacesMat(const cv::Mat& img) {
     std::vector<cv::Rect> faces;
 #ifdef HAS_OPENCV_DNN
-    cv::Mat blob = cv::dnn::blobFromImage(img, 1.0, cv::Size(128*8, 96*8),
+    const cv::Mat blob = cv::dnn::blobFromImage(img, 1.0, cv::Size(128*8, 96*8),
                                           cv::Scalar(104, 177, 123, 0), false, false);
     faceDetectNet.setInput(blob);
     cv::Mat out = faceDetectNet.forward();
@@ -201,23 +215,29 @@ std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
     // n - number of results
     assert(out.dims == 4);
     int outIdx[4] = { 0, 0, 0, 0 };
-    for (int i = 0, n = out.size[2]; i < n; i++) {
+    auto result_size = out.size[2];
+    for (auto i = 0; i < result_size; i++) {
         outIdx[2] = i; outIdx[3] = 2;
-        float confidence = out.at<float>(outIdx);
+        const auto confidence = out.at<float>(outIdx);
         outIdx[3]++;
-        float left = out.at<float>(outIdx) * img.cols;
+        auto left = out.at<float>(outIdx) * (double)img.cols;
         outIdx[3]++;
-        float top = out.at<float>(outIdx) * img.rows;
+        auto top = out.at<float>(outIdx) * (double)img.rows;
         outIdx[3]++;
-        float right = out.at<float>(outIdx) * img.cols;
+        auto right = out.at<float>(outIdx) * (double)img.cols;
         outIdx[3]++;
-        float bottom = out.at<float>(outIdx) * img.rows;
-        left = std::min(std::max(0.0f, left), (float)img.cols - 1);
-        right = std::min(std::max(0.0f, right), (float)img.cols - 1);
-        bottom = std::min(std::max(0.0f, bottom), (float)img.rows - 1);
-        top = std::min(std::max(0.0f, top), (float)img.rows - 1);
-        if (confidence > 0.98 && left < right && top < bottom) {
-            cv::Rect rect(left, top, right - left, bottom - top);
+        auto bottom = out.at<float> (outIdx) * (double)img.rows;
+        left = std::clamp (left, 0.0, (double) img.cols - 1);
+        right = std::clamp (right, 0.0, (double) img.cols - 1);
+        bottom = std::clamp (bottom, 0.0, (double) img.rows - 1);
+        top = std::clamp (top, 0.0, (double) img.rows - 1);
+
+        constexpr double CONFIDENCE_THRESHOLD{ 0.98 };
+        if (confidence > CONFIDENCE_THRESHOLD && left < right && top < bottom) {
+            const cv::Rect rect (static_cast<int> (left),
+                                 static_cast<int> (top),
+                                 static_cast<int> (right - left),
+                                 static_cast<int> (bottom - top));
             faces.push_back(rect);
         }
     }
@@ -225,24 +245,27 @@ std::vector<cv::Rect> detectFacesMat(cv::Mat img) {
     return faces;
 }
 
-// Face to vector convertor
+// Face to vector converter
 // Adapted from OpenCV example:
 // https://github.com/opencv/opencv/blob/master/samples/dnn/js_face_recognition.html
 #ifdef HAS_OPENCV_DNN
-std::vector<double> faceToVecMat(cv::Mat img) {
+std::vector<double> faceToVecMat(const cv::Mat &img) {
     std::vector<double> ret;
-    cv::Mat smallImg(96, 96, CV_8UC1);
-    cv::Size smallImgSize = smallImg.size();
+    constexpr int SMALL_IMAGE_SIZE{ 96 };
+    cv::Mat smallImg(SMALL_IMAGE_SIZE, SMALL_IMAGE_SIZE, CV_8UC1);
+    const cv::Size smallImgSize = smallImg.size();
 
     cv::resize(img, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
     // Generate 128 element face vector using DNN
-    cv::Mat blob = cv::dnn::blobFromImage(smallImg, 1.0 / 255, smallImgSize,
-                                          cv::Scalar(), true, false);
+    constexpr double SCALE_FACTOR{ 1.0 / 255.0 };
+    const cv::Mat blob = cv::dnn::blobFromImage (smallImg, SCALE_FACTOR, smallImgSize, cv::Scalar (), true, false);
+
     faceRecogNet.setInput(blob);
     cv::Mat vec = faceRecogNet.forward();
     // Return vector
-    for (int i = 0; i < vec.rows; ++i)
+    for (int i = 0; i < vec.rows; ++i) {
         ret.insert(ret.end(), vec.ptr<float>(i), vec.ptr<float>(i) + vec.cols);
+    }
     return ret;
 }
 #endif
