@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: LGPL-2.1-or-later
+
 #include "shotwell-facedetect.hpp"
 
 #include <opencv2/imgcodecs.hpp>
@@ -9,6 +11,8 @@
 #endif
 
 #include <iostream>
+#include <string>
+#include <filesystem>
 
 // Global variable for DNN to generate vector out of face
 #ifdef HAS_OPENCV_DNN
@@ -20,10 +24,11 @@ static cv::CascadeClassifier cascade;
 static cv::CascadeClassifier cascade_profile;
 static bool disableDnn{ true };
 
-constexpr char OPENFACE_RECOG_TORCH_NET[]{ "openface.nn4.small2.v1.t7" };
-constexpr char RESNET_DETECT_CAFFE_NET[]{ "res10_300x300_ssd_iter_140000_fp16.caffemodel" };
-constexpr char HAARCASCADE[]{ "haarcascade_frontalface_alt.xml" };
-constexpr char HAARCASCADE_PROFILE[]{ "haarcascade_profileface.xml" };
+constexpr std::string_view PROTOTEXT_FILE{ "deploy.prototxt" };
+constexpr std::string_view OPENFACE_RECOG_TORCH_NET{ "openface.nn4.small2.v1.t7" };
+constexpr std::string_view RESNET_DETECT_CAFFE_NET{ "res10_300x300_ssd_iter_140000_fp16.caffemodel" };
+constexpr std::string_view HAARCASCADE{ "haarcascade_frontalface_alt.xml" };
+constexpr std::string_view HAARCASCADE_PROFILE{ "haarcascade_profileface.xml" };
 
 std::vector<cv::Rect> detectFacesMat(cv::Mat img);
 std::vector<double> faceToVecMat(cv::Mat img);
@@ -40,7 +45,7 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
         return {};
 	}
 
-    cv::Mat img = cv::imread(inputName, 1);
+    cv::Mat const img = cv::imread(inputName, 1);
 	if (img.empty()) {
         g_warning("Failed to load the image file: %s", inputName.c_str());
         return {};
@@ -114,44 +119,71 @@ std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, 
 }
 
 // Load network into global var
-bool loadNet(cv::String baseDir) {
-    cascade.load(baseDir + "/" + HAARCASCADE);
-    if(cascade.empty()) {
-        g_warning("Failed to load haarcascade file: %s/%s", baseDir.c_str(), HAARCASCADE);
-    } else {
-        g_debug("Successfully loaded haarcascade %s/%s", baseDir.c_str(), HAARCASCADE);
-    }
-    cascade_profile.load(baseDir + "/" + HAARCASCADE_PROFILE);
-    if(cascade_profile.empty()) {
-        g_warning("Failed to load haarcascade file: %s/%s", baseDir.c_str(), HAARCASCADE_PROFILE);
-    } else {
-        g_debug("Successfully loaded haarcascade %s/%s", baseDir.c_str(), HAARCASCADE_PROFILE);
-    }
-#ifdef HAS_OPENCV_DNN
-    try {
-        faceDetectNet = cv::dnn::readNetFromCaffe(baseDir + "/deploy.prototxt",
-                                                  baseDir + "/" + RESNET_DETECT_CAFFE_NET);
-    } catch(cv::Exception &e) {
-        std::cout << "File load failed: " << e.msg << std::endl;
-        disableDnn = true;
+bool loadNet(const cv::String &baseDir)
+{
+    // Split baseDir into multiple search paths
+    std::stringstream iss{ baseDir };
+    std::string path;
+    while(std::getline(iss, path, ':')) {
+        g_debug("Looking for face detection data files in %s", path.c_str());
+
+        std::filesystem::path const base_path{ path };
+
+        auto haarcascade = base_path / HAARCASCADE;
+        if(cascade.empty()) {
+            cascade.load(haarcascade);
+        }
+
+        if(cascade.empty()) {
+            g_info("%s not found", haarcascade.c_str());
+        }
+
+        auto haarcascade_profile = base_path / HAARCASCADE_PROFILE;
+        if(cascade_profile.empty()) {
+            cascade_profile.load(haarcascade_profile);
+        }
+
+        if(cascade_profile.empty()) {
+            g_info("%s not found", haarcascade_profile.c_str());
+        }
+
+#if HAS_OPENCV_DNN
+
+        if(faceDetectNet.empty()) {
+            try {
+                faceDetectNet =
+                    cv::dnn::readNetFromCaffe(base_path / PROTOTEXT_FILE, base_path / RESNET_DETECT_CAFFE_NET);
+            } catch(cv::Exception &e) {
+                g_info("Failed to load face detect net: %s", e.what());
+            }
+        }
+
+        if(faceRecogNet.empty()) {
+            try {
+                faceRecogNet = cv::dnn::readNetFromTorch(base_path / OPENFACE_RECOG_TORCH_NET);
+            } catch(cv::Exception &e) {
+                g_info("Failed to load face recognition net: %s", e.what());
+            }
+        }
+#endif
     }
 
-    try {
-        faceRecogNet = cv::dnn::readNetFromTorch(baseDir + "/" + OPENFACE_RECOG_TORCH_NET);
-    } catch(cv::Exception &e) {
-        std::cout << "File load failed: " << e.msg << std::endl;
-    }
-
-    if (faceDetectNet.empty()) {
-        std::cout << "Loading open-face net failed!" << std::endl;
-        disableDnn = true;
+    if(cascade.empty() && cascade_profile.empty() && faceDetectNet.empty()) {
+        g_warning("No face detection method detected. Face detection fill not work.");
         return false;
     }
 
-    disableDnn = false;
+#if HAS_OPENCV_DNN
+    // If there is no detection model, disable advanced face detection
+    disableDnn = faceDetectNet.empty();
+
+    if(faceRecogNet.empty()) {
+        g_warning("Face recognition net not available, disabling recognition");
+    }
+
     return true;
 #else
-    return not cascade.empty();
+    return not cascade.empty() && not cascade_profile.empty();
 #endif
 }
 

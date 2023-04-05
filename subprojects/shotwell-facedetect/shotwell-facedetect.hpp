@@ -29,5 +29,5 @@ struct FaceRect {
     GVariant *serialize() const;
 };
 
-bool loadNet(cv::String netFile);
+bool loadNet(const cv::String& netFile);
 std::vector<FaceRect> detectFaces(cv::String inputName, cv::String cascadeName, double scale, bool infer);
