@@ -341,26 +341,6 @@ class AppDirs {
         return f;
     }
 
-    public static File get_settings_migrator_v2_bin() {
-        const string filename = "shotwell-settings-migrator-v2";
-        File f = AppDirs.get_libexec_dir().get_child("settings-migrator").get_child (filename);
-        if (!f.query_exists()) {
-            // If we're running installed.
-            f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
-        }
-
-        if (!f.query_exists()) {
-            f = AppDirs.get_libexec_dir().get_parent().get_child("settings-migrator").get_child(filename);
-        }
-
-        if (!f.query_exists()) {
-            f = AppDirs.get_libexec_dir().get_parent().get_parent().get_child("settings-migrator").get_child(filename);
-        }
-
-
-        return f;
-    }
-
     public static File get_haarcascade_file() {
         const string filename = "facedetect-haarcascade.xml";
         var f = AppDirs.get_resources_dir().get_parent().get_child("subprojects").get_child("shotwell-facedetect").get_child (filename);

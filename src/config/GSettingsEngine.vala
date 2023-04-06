@@ -532,14 +532,54 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
      *  over newer data by accident.
      */
     public static void run_gsettings_migrator_v2() {
-        string cmd_line = "sh " + AppDirs.get_settings_migrator_v2_bin().get_path();
-
-        try {
-            Process.spawn_command_line_sync(cmd_line);
-        } catch (Error err) {
-            message("Error running shotwell-settings-migrator: %s", err.message);
-        }
+        var source = SettingsSchemaSource.get_default();
+        var schema = source.lookup("org.yorba.shotwell", true);
+        var settings = new Settings.full(schema, null, null);
+    
+        copy_schema(settings);
+    
+        Settings.sync();
     }
 
-
+    static void copy_schema(Settings settings) {
+        SettingsSchema schema;
+        ((Object)settings).get("settings-schema", out schema, null);
+        var id = schema.get_id();
+        var path = schema.get_path();
+    
+        var new_id = id.replace("org.yorba.shotwell", "org.gnome.shotwell");
+        var new_path = path.replace("/org/yorba/shotwell", "/org/gnome/shotwell");
+    
+        var new_schema = SettingsSchemaSource.get_default().lookup(new_id, true);
+    
+        // If we cannot find this schema, we cannot migrate the keys anyway, so skip it
+        if (new_schema != null) {
+            var new_settings = new Settings.with_path(new_id, new_path);
+            new_settings.delay();
+    
+            foreach (var k in schema.list_keys()) {
+                var key = schema.get_key(k);
+                var default_value = key.get_default_value();
+                var val = settings.get_value(k);
+                if (val.equal(default_value)) {
+                    debug("%s is default value, skipping", k);
+                    continue;
+                }
+    
+                debug("Will migrate %s %s @ %s -> %s:%s %s", k, id, path, new_id, new_path, val.print(true));
+                if (!new_settings.set_value(k, val)) {
+                    debug(" Failed...");
+                }
+            }
+            new_settings.apply();
+        }
+        else {
+            debug("%s does not exist, skipping\n", new_id);
+        }
+    
+        foreach (var c in schema.list_children()) {
+            var child = settings.get_child(c);
+            copy_schema(child);
+        }
+    }
 }

@@ -1,0 +1,95 @@
+<schemalist gettext-domain="shotwell">
+
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-yandex-fotki" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-yandex-fotki/">
+    <key name="auth-token" type="s">
+        <default>""</default>
+        <summary>authentication token</summary>
+        <description>Yandex-Fotki authentication token, if logged in.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-tumblr" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-tumblr/">
+    <key name="token" type="s">
+        <default>""</default>
+        <summary>Token</summary>
+        <description>The token to access tumblr</description>
+    </key>
+    
+    <key name="token-secret" type="s">
+        <default>""</default>
+        <summary>Secret token</summary>
+        <description>The secret token to sign oauth requests</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size</summary>
+        <description>A numeric code representing the default size for photos uploaded to Tumblr</description>
+    </key>
+    
+    <key name="default-blog" type="i">
+        <default>0</default>
+        <summary>default blog</summary>
+        <description>The name of the default blog of the user, if any</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-rajce" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-rajce/">
+    <key name="url" type="s">
+        <default>"http://rajce.net/"</default>
+        <summary>Rajce URL</summary>
+        <description>URL of the Rajce server.</description>
+    </key>
+    
+    <key name="username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>Rajce username, if logged in.</description>
+    </key>
+    
+    <key name="token" type="s">
+        <default>""</default>
+        <summary>token</summary>
+        <description>user token, if remembered.</description>
+    </key>
+
+    <key name="last-category" type="i">
+        <default>-1</default>
+        <summary>last category</summary>
+        <description>The last selected Rajce category.</description>
+    </key>
+    
+    <key name="last-photo-size" type="i">
+        <default>-1</default>
+        <summary>last photo size</summary>
+        <description>A numeric code representing the last photo size preset used when publishing to Rajce.</description>
+    </key>
+    
+    <key name="remember" type="b">
+        <default>false</default>
+        <summary>remember</summary>
+        <description>If true, remember last login.</description>
+    </key>
+    
+    <key name="hide-album" type="b">
+        <default>false</default>
+        <summary>hide album</summary>
+        <description>If true, hide the newly created Rajce album.</description>
+    </key>
+
+    <key name="show-album" type="b">
+        <default>false</default>
+        <summary>open album in web browser</summary>
+        <description>If true, open target album in the web browser just after uploading photos</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Rajce should have their metadata removed first</description>
+    </key>
+
+</schema>
+
+</schemalist>
+

@@ -125,5 +125,6 @@ subdir('po')
 subdir('help')
 subdir('thumbnailer')
 subdir('test')
+subdir('settings-migrator')
 
 meson.add_install_script('build-aux/meson/postinstall.py')

@@ -1,0 +1,825 @@
+<schemalist gettext-domain="shotwell">
+
+<schema id="org.yorba.shotwell" path="/org/yorba/shotwell/">
+    <child name="preferences" schema="org.yorba.shotwell.preferences" />
+    <child name="sharing" schema="org.yorba.shotwell.sharing" />
+    <child name="printing" schema="org.yorba.shotwell.printing" />
+    <child name="plugins" schema="org.yorba.shotwell.plugins" />
+</schema>
+
+<schema id="org.yorba.shotwell.preferences" path="/org/yorba/shotwell/preferences/">
+    <child name="ui" schema="org.yorba.shotwell.preferences.ui" />
+    <child name="slideshow" schema="org.yorba.shotwell.preferences.slideshow" />
+    <child name="window" schema="org.yorba.shotwell.preferences.window" />
+    <child name="files" schema="org.yorba.shotwell.preferences.files" />
+    <child name="editing" schema="org.yorba.shotwell.preferences.editing" />
+    <child name="export" schema="org.yorba.shotwell.preferences.export" />
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.ui" path="/org/yorba/shotwell/preferences/ui/">
+    <key name="display-basic-properties" type="b">
+        <default>true</default>
+        <summary>display basic properties</summary>
+        <description>True if the basic properties pane is to be displayed, false otherwise.</description>
+    </key>
+    
+    <key name="display-extended-properties" type="b">
+        <default>false</default>
+        <summary>display extended properties</summary>
+        <description>True if the extended properties window is to be displayed, false otherwise.</description>
+    </key>
+    
+    <key name="display-sidebar" type="b">
+        <default>true</default>
+        <summary>display sidebar</summary>
+        <description>True if the sidebar is to be displayed, false otherwise.</description>
+    </key>
+    
+    <key name="display-toolbar" type="b">
+        <default>true</default>
+        <summary>display toolbar</summary>
+        <description>True if the bottom toolbar is to be displayed, false otherwise.</description>
+    </key>
+
+    <key name="display-search-bar" type="b">
+        <default>false</default>
+        <summary>display search bar</summary>
+        <description>True if the Search/Filter Toolbar is to be displayed, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-titles" type="b">
+        <default>false</default>
+        <summary>display photo titles</summary>
+        <description>True if photo titles are to be displayed beneath thumbnails in collection views, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-comments" type="b">
+        <default>false</default>
+        <summary>display photo comments</summary>
+        <description>True if photo comments are to be displayed beneath thumbnails in collection views, false otherwise.</description>
+    </key>
+    
+    <key name="display-event-comments" type="b">
+        <default>false</default>
+        <summary>display event comments</summary>
+        <description>True if event comments are to be displayed beneath thumbnails in event views, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-tags" type="b">
+        <default>true</default>
+        <summary>display photo tags</summary>
+        <description>True if photo tags are to be listed beneath thumbnails in collection views, false otherwise.</description>
+    </key>
+    
+    <key name="display-photo-ratings" type="b">
+        <default>true</default>
+        <summary>display photo ratings</summary>
+        <description>True if a photo’s rating should be displayed as overlaid trinket, false otherwise.</description>
+    </key>
+    
+    <key name="photo-rating-filter" type="i">
+        <default>0</default>
+        <summary>rating filter level</summary>
+        <description>Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better.</description>
+    </key>
+    
+    <key name="events-sort-ascending" type="b">
+        <default>false</default>
+        <summary>sort events ascending</summary>
+        <description>True if events should be sorted ascending, false if descending.</description>
+    </key>
+    
+    <key name="library-photos-sort-ascending" type="b">
+        <default>false</default>
+        <summary>sort library photos ascending</summary>
+        <description>True if library photos should be sorted ascending, false if descending.</description>
+    </key>
+        
+    <key name="library-photos-sort-by" type="i">
+        <default>2</default>
+        <summary>sort library photos criteria</summary>
+        <description>A numeric code that specifies the sort criteria for photos in library views.</description>
+    </key>
+    
+    <key name="event-photos-sort-ascending" type="b">
+        <default>true</default>
+        <summary>sort event photos ascending</summary>
+        <description>True if event photos should be sorted ascending, false if descending.</description>
+    </key>
+    
+    <key name="event-photos-sort-by" type="i">
+        <default>2</default>
+        <summary>sort event photos criteria</summary>
+        <description>Specifies the sort criteria for event photos.</description>
+    </key>
+    
+    <key name="use-24-hour-time" type="b">
+        <default>false</default>
+        <summary>use 24 hour time</summary>
+        <description>True if should display times with a 24 hour clock, false if times should use AM/PM notation.</description>
+    </key>
+    
+    <key name="keep-relativity" type="b">
+        <default>true</default>
+        <summary>keep relative time between photos</summary>
+        <description>True if when adjusting time/date of photos, relative time should be maintained.  False if all photos should be set to the same time.</description>
+    </key>
+    
+    <key name="modify-originals" type="b">
+        <default>false</default>
+        <summary>modify original photo files</summary>
+        <description>True if when adjusting time/date of photos, the original files should be modified as well.  False if changes are made only in the database.</description>
+    </key>
+    
+    <key name="show-welcome-dialog" type="b">
+        <default>true</default>
+        <summary>show welcome dialog on startup</summary>
+        <description>True if, when on startup, a welcome dialog should be shown.  False if it should not be shown.</description>
+    </key>
+
+    <key name="sidebar-position" type="i">
+        <default>180</default>
+        <summary>sidebar position</summary>
+        <description>The width, in pixels, of the sidebar</description>
+    </key>
+
+    <key name="photo-thumbnail-scale" type="i">
+        <default>128</default>
+        <summary>photo thumbnail scale</summary>
+        <description>The scale of photo thumbnails, ranging from 72 to 360.</description>
+    </key>
+
+    <key name="pin-toolbar-state" type="b">
+        <default>false</default>
+        <summary>pin toolbar state</summary>
+        <description>Pin toolbar in fullscreen, or not.</description>
+    </key>
+    
+    <key name="use-dark-theme" type="b">
+        <default>true</default>
+        <summary>prefer GTK+’s dark theme</summary>
+        <description>Whether to use the dark theme of GTK+ for Shotwell or not.</description>
+    </key>
+
+    <key name="transparent-background-type" type="s">
+        <default>'checkered'</default>
+        <summary>background for transparent images</summary>
+        <description>The background to use for transparent images.</description>
+    </key>
+
+    <key name="transparent-background-color" type="s">
+        <default>'#444'</default>
+        <summary>color for solid transparency background</summary>
+        <description>Color to use if background for transparent images is set to solid color</description>
+    </key>
+
+    <key name="hide-photos-already-imported" type="b">
+        <default>false</default>
+        <summary>Selection state of “hide photos” option</summary>
+        <description>Last used selection state of the “hide photos already imported” option in the import page.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.slideshow" path="/org/yorba/shotwell/preferences/slideshow/">
+    <key name="delay" type="d">
+        <default>3.0</default>
+        <summary>delay</summary>
+        <description>Delay (in seconds) between photos in the slideshow.</description>
+    </key>
+
+    <key name="transition-delay" type="d">
+        <default>0.3</default>
+        <summary>transition delay</summary>
+        <description>The time (in seconds) that a transition runs between photos in a slideshow</description>
+    </key>
+
+    <key name="transition-effect-id" type="s">
+        <default>""</default>
+        <summary>transition effect id</summary>
+        <description>The name of the transition effect that will be used between photos when running a slideshow</description>
+    </key>
+    
+    <key name="show-title" type="b">
+        <default>false</default>
+        <summary>Show title</summary>
+        <description>Whether to show the title of a photo during the slideshow</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.window" path="/org/yorba/shotwell/preferences/window/">
+    <key name="library-maximize" type="b">
+        <default>false</default>
+        <summary>maximize library window</summary>
+        <description>True if library application is maximized, false otherwise.</description>
+    </key>
+    
+    <key name="library-width" type="i">
+        <default>1024</default>
+        <summary>width of library window</summary>
+        <description>The last recorded width of the library application window.</description>
+    </key>
+    
+    <key name="library-height" type="i">
+        <default>768</default>
+        <summary>height of library window</summary>
+        <description>The last recorded height of the library application window.</description>
+    </key>
+    
+    <key name="direct-maximize" type="b">
+        <default>false</default>
+        <summary>maximize direct-edit window</summary>
+        <description>True if direct-edit application is maximized, false otherwise.</description>
+    </key>
+    
+    <key name="direct-width" type="i">
+        <default>1024</default>
+        <summary>width of direct-edit window</summary>
+        <description>The last recorded width of the direct-edit application window.</description>
+    </key>
+    
+    <key name="direct-height" type="i">
+        <default>768</default>
+        <summary>height of direct-edit window</summary>
+        <description>The last recorded height of the direct-edit application window.</description>
+    </key>
+    
+    <key name="sidebar-position" type="i">
+        <default>180</default>
+        <summary>sidebar divider position</summary>
+        <description>The last recorded position of the divider between the sidebar and view in library application window.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.files" path="/org/yorba/shotwell/preferences/files/">
+    <key name="import-dir" type="s">
+        <default>""</default>
+        <summary>import directory</summary>
+        <description>Directory in which imported photo files are placed.</description>
+    </key>
+    
+    <key name="auto-import" type="b">
+        <default>false</default>
+        <summary>watch library directory for new files</summary>
+        <description>If true, files added to the library directory are automatically imported.</description>
+    </key>
+    
+    <key name="commit-metadata" type="b">
+        <default>false</default>
+        <summary>write metadata to master files</summary>
+        <description>If true, changes to metadata (tags, titles, etc.) are written to the master photo file.</description>
+    </key>
+
+    <key name="use-lowercase-filenames" type="b">
+        <default>false</default>
+        <summary>use lowercase filenames</summary>
+        <description>If true, Shotwell will convert all filenames to lowercase when importing photo files</description>
+    </key>
+
+    <key name="directory-pattern" type="s">
+        <default>""</default>
+        <summary>directory pattern</summary>
+        <description>A string encoding a naming pattern that will be used to name photo directories on import.</description>
+    </key>
+
+    <key name="directory-pattern-custom" type="s">
+        <default>""</default>
+        <summary>directory pattern custom</summary>
+        <description>A string encoding a custom naming pattern that will be used to name photo directories on import.</description>
+    </key>
+    
+    <key name="raw-developer-default" type="s">
+        <default>'CAMERA'</default>
+        <summary>RAW developer default</summary>
+        <description>Default option for which RAW developer Shotwell will use.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.crop-settings" path="/org/yorba/shotwell/crop-settings/">
+    <key name="last-crop-menu-choice" type="i">
+        <default>1</default>
+        <summary>Most-recently-used crop aspect ratio menu choice.</summary>
+        <description>A numeric code representing the last crop menu choice the user made.</description>
+    </key>
+    <key name="last-crop-width" type="i">
+        <default>1</default>
+        <summary>Most-recently-used crop custom aspect ratio’s numerator.</summary>
+        <description>A nonzero, positive integer representing the width part of the last custom crop ratio the user entered.</description>
+    </key>
+    <key name="last-crop-height" type="i">
+        <default>1</default>
+        <summary>Most-recently-used crop custom aspect ratio’s denominator.</summary>
+        <description>A nonzero, positive integer representing the height part of the last custom crop ratio the user entered.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.preferences.editing" path="/org/yorba/shotwell/preferences/editing/">
+    <key name="external-photo-editor" type="s">
+        <default>""</default>
+        <summary>external photo editor</summary>
+        <description>External application used to edit photos.</description>
+    </key>
+    
+    <key name="external-raw-editor" type="s">
+        <default>""</default>
+        <summary>external raw editor</summary>
+        <description>External application used to edit RAW photos.</description>
+    </key>
+</schema>
+
+<enum id="org.yorba.shotwell.ScaleConstraint">
+    <value value="0" nick="ORIGINAL" />
+    <value value="1" nick="DIMENSIONS" />
+    <value value="2" nick="WIDTH" />
+    <value value="3" nick="HEIGHT" />
+    <value value="4" nick="FILL_VIEWPORT" />
+</enum>
+
+<enum id="org.yorba.shotwell.ExportFormatMode">
+    <value value="0" nick="UNMODIFIED" />
+    <value value="1" nick="CURRENT" />
+    <value value="2" nick="SPECIFIED" />
+    <value value="3" nick="LAST" />
+</enum>
+
+<enum id="org.yorba.shotwell.PhotoFileFormat">
+    <value value="0" nick="JFIF" />
+    <value value="1" nick="RAW" />
+    <value value="2" nick="PNG" />
+    <value value="3" nick="TIFF" />
+    <value value="4" nick="BMP" />
+    <value value="5" nick="UNKNOWN" />
+</enum>
+
+<enum id="org.yorba.shotwell.JpegQuality">
+    <value value="50" nick="LOW" />
+    <value value="75" nick="MEDIUM" />
+    <value value="90" nick="HIGH" />
+    <value value="100" nick="MAXIMUM" />
+</enum>
+
+<schema id="org.yorba.shotwell.preferences.export" path="/org/yorba/shotwell/preferences/export/">
+    <key name="constraint" enum="org.yorba.shotwell.ScaleConstraint">
+        <default>'ORIGINAL'</default>
+        <summary>Setting in export dialog: how to trim images</summary>
+        <description>Setting in export dialog: how to trim images</description>
+    </key>
+
+    <key name="export-metadata" type="b">
+        <default>true</default>
+        <summary>export metadata</summary>
+        <description>Setting in export dialog: option to export metadata</description>
+    </key>
+
+    <key name="export-format-mode" enum="org.yorba.shotwell.ExportFormatMode">
+        <default>'CURRENT'</default>
+        <summary>format setting, special value</summary>
+        <description>Setting in export dialog: format setting, special value</description>
+    </key>
+
+    <key name="photo-file-format" enum="org.yorba.shotwell.PhotoFileFormat">
+        <default>'JFIF'</default>
+        <summary>format setting, type value</summary>
+        <description>Setting in export dialog: format setting, type value</description>
+    </key>
+
+    <key name="quality" enum="org.yorba.shotwell.JpegQuality">
+        <default>'HIGH'</default>
+        <summary>JPEG quality option</summary>
+        <description>Setting in export dialog: jpeg quality option</description>
+    </key>
+
+    <key name="scale" type="i">
+        <default>1200</default>
+        <summary>maximal size of image</summary>
+        <description>Setting in export dialog: maximal size of image</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing" path="/org/yorba/shotwell/sharing/">
+    <key name="last-used-service" type="s">
+        <default>""</default>
+        <summary>last used publishing service</summary>
+        <description>A numeric code representing the last service to which photos were published</description>
+    </key>
+    
+    <key name="default-service" type="i">
+        <default>1</default>
+        <summary>default publishing service</summary>
+        <description>A numeric code representing the last service to which photos were published</description>
+    </key>
+    
+    <child name="facebook" schema="org.yorba.shotwell.sharing.facebook" />
+    <child name="flickr" schema="org.yorba.shotwell.sharing.flickr" />
+    <child name="gallery3" schema="org.yorba.shotwell.sharing.publishing-gallery3" />
+    <child name="org-gnome-shotwell-publishing-google-photos" schema="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" />
+    <child name="youtube" schema="org.yorba.shotwell.sharing.youtube" />
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.facebook" path="/org/yorba/shotwell/sharing/facebook/">
+    <key name="access-token" type="s">
+        <default>""</default>
+        <summary>access token</summary>
+        <description>Facebook OAuth token for the currently logged in session, if any</description>
+    </key>
+
+    <key name="uid" type="s">
+        <default>""</default>
+        <summary>user i.d.</summary>
+        <description>Facebook user i.d. for the currently logged in user, if any</description>
+    </key>
+    
+    <key name="user-name" type="s">
+        <default>""</default>
+        <summary>user name</summary>
+        <description>The name of the currently logged in Facebook user, if any</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>0</default>
+        <summary>default size code</summary>
+        <description>A numeric code representing the default size for photos published to Facebook</description>
+    </key>
+    
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Facebook should have their metadata removed first</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.flickr" path="/org/yorba/shotwell/sharing/flickr/">
+    <key name="access-phase-token" type="s">
+        <default>""</default>
+        <summary>OAuth Access Phase Token</summary>
+        <description>The authorization token for the currently logged in Flickr user, if any</description>
+    </key>
+
+    <key name="access-phase-token-secret" type="s">
+        <default>""</default>
+        <summary>OAuth Access Phase Token Secret</summary>
+        <description>The cryptographic secret used to sign requests against the authorization token for the currently logged in Flickr user, if any</description>
+    </key>
+
+    <key name="access-phase-username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>The user name of the currently logged in Flickr user, if any</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size code</summary>
+        <description>A numeric code representing the default size for photos published to Flickr</description>
+    </key>
+    
+    <key name="visibility" type="i">
+        <default>1</default>
+        <summary>default visibility</summary>
+        <description>A numeric code representing the default visibility for photos published to Flickr</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Flickr should have their metadata removed first</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.org-gnome-shotwell-publishing-google-photos" path="/org/yorba/shotwell/sharing/org-gnome-shotwell-publishing-google-photos/">
+    <key name="refresh-token" type="s">
+        <default>""</default>
+        <summary>refresh token</summary>
+        <description>The OAuth token used to refresh the Google Photos session for the currently logged in user, if any.</description>
+    </key>
+    
+    <key name="default-size" type="i">
+        <default>2</default>
+        <summary>default size</summary>
+        <description>A numeric code representing the default size for photos uploaded to Google Photos Albums</description>
+    </key>
+    
+    <key name="last-album" type="s">
+        <default>""</default>
+        <summary>last album</summary>
+        <description>The name of the last album the user published photos to, if any</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Google Photos should have their metadata removed first</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.org-yorba-shotwell-publishing-piwigo" path="/org/yorba/shotwell/sharing/org-yorba-shotwell-publishing-piwigo/">
+    <key name="url" type="s">
+        <default>""</default>
+        <summary>Piwigo URL</summary>
+        <description>URL of the Piwigo server.</description>
+    </key>
+    
+    <key name="username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>Piwigo username, if logged in.</description>
+    </key>
+    
+    <key name="password" type="s">
+        <default>""</default>
+        <summary>password</summary>
+        <description>Piwigo password, if logged in.</description>
+    </key>
+    
+    <key name="remember-password" type="b">
+        <default>false</default>
+        <summary>remember password</summary>
+        <description>If true, remember the Piwigo password.</description>
+    </key>
+    
+    <key name="last-category" type="i">
+        <default>-1</default>
+        <summary>last category</summary>
+        <description>The last selected Piwigo category.</description>
+    </key>
+    
+    <key name="last-permission-level" type="i">
+        <default>-1</default>
+        <summary>last permission level</summary>
+        <description>The last chosen Piwigo permission level.</description>
+    </key>
+    
+    <key name="last-photo-size" type="i">
+        <default>-1</default>
+        <summary>last photo size</summary>
+        <description>A numeric code representing the last photo size preset used when publishing to Piwigo.</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Whether images being uploaded to Piwigo should have their metadata removed first</description>
+    </key>
+
+    <key name="last-title-as-comment" type="b">
+        <default>false</default>
+        <summary>if title is set and comment unset, use title as comment for uploads to Piwigo</summary>
+        <description>Whether images being uploaded to Piwigo should have their comment set from the title if title is set and comment unset</description>
+    </key>
+
+    <key name="last-no-upload-tags" type="b">
+        <default>false</default>
+        <summary>do not upload tags when uploading to Piwigo</summary>
+        <description>Whether images being uploaded to Piwigo should have their tags removed on upload, such that these tags will not appear on the remote Piwigo server.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.publishing-gallery3" path="/org/yorba/shotwell/sharing/gallery3/">
+    <key name="username" type="s">
+        <default>""</default>
+        <summary>username</summary>
+        <description>Gallery3 username</description>
+    </key>
+
+    <key name="api-key" type="s">
+        <default>""</default>
+        <summary>API key</summary>
+        <description>Gallery3 API key</description>
+    </key>
+
+    <key name="url" type="s">
+        <default>""</default>
+        <summary>URL</summary>
+        <description>Gallery3 site URL</description>
+    </key>
+
+    <key name="last-album" type="s">
+        <default>""</default>
+        <summary>last album</summary>
+        <description>The name of the last album the user published photos to, if any</description>
+    </key>
+
+    <key name="strip-metadata" type="b">
+        <default>false</default>
+        <summary>remove sensitive info from uploads</summary>
+        <description>Indicates whether images being uploaded to Gallery3 should have their metadata removed first</description>
+    </key>
+
+    <key name="scaling-constraint-id" type="i">
+        <default>0</default>
+        <summary>scaling constraint of uploaded picture</summary>
+        <description>The scaling constraint ID of the picture to be uploaded</description>
+    </key>
+
+    <key name="scaling-pixels" type="i">
+        <default>1024</default>
+        <summary>pixels of the major axis uploaded picture</summary>
+        <description>The pixels of the major axis of the picture to be uploaded; used only if scaling-constraint-id is an appropriate value</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.sharing.youtube" path="/org/yorba/shotwell/sharing/youtube/">
+    <key name="refresh-token" type="s">
+        <default>""</default>
+        <summary>refresh token</summary>
+        <description>The OAuth token used to refresh the YouTube session for the currently logged in user, if any.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.dataimports" path="/org/yorba/shotwell/dataimports/">
+    <key name="last-used-dataimports-service" type="s">
+        <default>""</default>
+        <summary>last used import service</summary>
+        <description>A numeric code representing the last service from which photos were imported</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.printing" path="/org/yorba/shotwell/printing/">
+    <key name="content-layout" type="i">
+        <default>3</default>
+        <summary>content layout mode</summary>
+        <description>A numeric code that describes how photos are laid out on the page during printing</description>
+    </key>
+    
+    <key name="content-ppi" type="i">
+        <default>600</default>
+        <summary>content ppi</summary>
+        <description>The number of pixels per inch (ppi) sent to the printer during printing</description>
+    </key>
+    
+    <key name="content-width" type="d">
+        <default>7.0</default>
+        <summary>content width</summary>
+        <description>The width of the printed emulsion on the page when printing</description>
+    </key>
+    
+    <key name="content-height" type="d">
+        <default>5.0</default>
+        <summary>content height</summary>
+        <description>The height of the printed emulsion on the page when printing</description>
+    </key>
+    
+    <key name="content-units" type="i">
+        <default>1</default>
+        <summary>content units</summary>
+        <description>A numeric code representing unit of measure (inches or centimeters) used when printing</description>
+    </key>
+
+    <key name="images-per-page" type="i">
+        <default>1</default>
+        <summary>images per page code</summary>
+        <description>A numeric code representing the currently selected images per page mode used when printing</description>
+    </key>
+
+    <key name="size-selection" type="i">
+        <default>-1</default>
+        <summary>size selection</summary>
+        <description>The index of the current print size in a pre-defined list of standard sizes</description>
+    </key>
+    
+    <key name="match-aspect-ratio" type="b">
+        <default>true</default>
+        <summary>match aspect ratio</summary>
+        <description>Determines whether custom print sizes must match the aspect ratio of the original photo</description>
+    </key>
+
+    <key name="print-titles" type="b">
+        <default>false</default>
+        <summary>print titles</summary>
+        <description>True if the title of a photo should be printed when the photo is printed, false otherwise.</description>
+    </key>
+    
+    <key name="titles-font" type="s">
+        <default>"Sans Bold 12"</default>
+        <summary>titles font</summary>
+        <description>The name of the font to use for photo titles when they are printed.</description>
+    </key>
+</schema>
+
+<schema id="org.yorba.shotwell.plugins" path="/org/yorba/shotwell/plugins/" >
+    <child name="enable-state" schema="org.yorba.shotwell.plugins.enable-state" />
+</schema>
+
+<schema id="org.yorba.shotwell.plugins.enable-state" path="/org/yorba/shotwell/plugins/enable-state/" >
+    <key name="publishing-facebook" type="b">
+        <default>true</default>
+        <summary>enable facebook publishing plugin</summary>
+        <description>True if the Facebook publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-flickr" type="b">
+        <default>true</default>
+        <summary>enable flickr publishing plugin</summary>
+        <description>True if the Flickr publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="org-gnome-shotwell-publishing-google-photos" type="b">
+        <default>true</default>
+        <summary>enable Google Photos publishing plugin</summary>
+        <description>True if the Google Photos publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-youtube" type="b">
+        <default>true</default>
+        <summary>enable youtube publishing plugin</summary>
+        <description>True if the YouTube publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-piwigo" type="b">
+        <default>true</default>
+        <summary>enable piwigo publishing plugin</summary>
+        <description>True if the Piwigo publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-yandex-fotki" type="b">
+        <default>false</default>
+        <summary>enable yandex publishing plugin</summary>
+        <description>True if the Yandex.Fotki publishing plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="publishing-tumblr" type="b">
+        <default>false</default>
+        <summary>enable tumblr publishing plugin</summary>
+        <description>True if the Tumblr publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="publishing-rajce" type="b">
+        <default>false</default>
+        <summary>enable rajce publishing plugin</summary>
+        <description>True if the Rajce publishing plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="publishing-gallery3" type="b">
+        <default>false</default>
+        <summary>enable gallery3 publishing plugin</summary>
+        <description>True if the Gallery3 publishing plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="dataimports-fspot" type="b">
+        <default>true</default>
+        <summary>enable F-Spot import plugin</summary>
+        <description>True if the F-Spot import plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-crumble" type="b">
+        <default>true</default>
+        <summary>enable slideshow crumble transition</summary>
+        <description>True if the Crumble slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-fade" type="b">
+        <default>true</default>
+        <summary>enable slideshow fade transition</summary>
+        <description>True if the Fade slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-slide" type="b">
+        <default>true</default>
+        <summary>enable slideshow slide transition</summary>
+        <description>True if the Slide slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-clock" type="b">
+        <default>true</default>
+        <summary>enable slideshow clock transition</summary>
+        <description>True if the Clock slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-circle" type="b">
+        <default>true</default>
+        <summary>enable slideshow circle transition</summary>
+        <description>True if the Circle slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-circles" type="b">
+        <default>true</default>
+        <summary>enable slideshow circles transition</summary>
+        <description>True if the Circles slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+    
+    <key name="transitions-blinds" type="b">
+        <default>true</default>
+        <summary>enable slideshow blinds transition</summary>
+        <description>True if the Blinds slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-squares" type="b">
+        <default>true</default>
+        <summary>enable slideshow squares transition</summary>
+        <description>True if the Squares slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-stripes" type="b">
+        <default>true</default>
+        <summary>enable slideshow stripes transition</summary>
+        <description>True if the Stripes slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+
+    <key name="transitions-chess" type="b">
+        <default>true</default>
+        <summary>enable slideshow chess transition</summary>
+        <description>True if the Chess-Board slideshow transition plugin is enabled, false otherwise</description>
+    </key>
+</schema>
+
+</schemalist>
+
