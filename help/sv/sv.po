@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2023-01-25 21:57+0000\n"
-"PO-Revision-Date: 2023-01-25 23:26+0100\n"
+"POT-Creation-Date: 2023-04-05 19:24+0000\n"
+"PO-Revision-Date: 2023-04-06 18:03+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -55,11 +55,11 @@ msgid ""
 "you fine-tune the size and dimensions of your photo files. A window will "
 "appear allowing you to make several choices:"
 msgstr ""
-"Alternativt kan du markera några bilder och välja <guiseq><gui>Arkiv</"
-"gui><gui>Exportera…</gui></guiseq>-kommandot eller trycka "
+"Alternativt kan du markera några bilder och välja kommandot "
+"<guiseq><gui>Arkiv</gui><gui>Exportera…</gui></guiseq> eller trycka "
 "<keyseq><key>Skift</key><key>Ctrl</key><key>E</key></keyseq> som exporterar "
-"bilderna under tiden du finjusterar storlek och dimensioner på dina "
-"bildfiler. Ett fönster visas och låter dig göra följande val:"
+"bilderna och låter dig finjustera storlek och dimensionen på dina bildfiler. "
+"Ett fönster visas och låter dig göra följande val:"
 
 #. (itstool) path: item/p
 #: C/share-export.page:24
@@ -73,9 +73,9 @@ msgid ""
 "without any edits made in Shotwell. RAW photos will be exported in their "
 "original RAW format."
 msgstr ""
-"Välj <gui>Oförändrad</gui> för att exportera bilderna i deras originalformat "
-"utan redigeringar gjorda i Shotwell. RAW-bilder kommer att exporteras i "
-"deras original-RAW-format."
+"Välj <gui>Oförändrad</gui> för att exportera bilderna i deras "
+"ursprungsformat utan att några redigeringar görs i Shotwell. RAW-bilder "
+"kommer att exporteras i sitt ursprungliga RAW-format."
 
 #. (itstool) path: item/p
 #: C/share-export.page:29
@@ -86,7 +86,7 @@ msgid ""
 msgstr ""
 "Välj <gui>Aktuellt</gui> för att exportera bilder med ändringar gjorda i "
 "Shotwell. RAW-bilder kommer att exporteras i JPEG-format om du har redigerat "
-"dem i Shotwell, annars i deras ursprungliga RAW-format."
+"dem i Shotwell, annars i sitt ursprungliga RAW-format."
 
 #. (itstool) path: item/p
 #: C/share-export.page:31
@@ -177,7 +177,7 @@ msgid ""
 "which shouldn't be seen by anyone."
 msgstr ""
 "Huruvida du vill exportera metadata som taggar eller betyg. Detta kan skydda "
-"din sekretess om du har geoplats-taggar eller taggar ingen bör se."
+"din sekretess om du har platstaggar eller taggar ingen bör se."
 
 #. (itstool) path: page/p
 #: C/share-export.page:49
@@ -185,7 +185,7 @@ msgid ""
 "If selected, Shotwell will write tags, titles, and other metadata to the new "
 "files."
 msgstr ""
-"Om valt kommer Shotwell att skriva taggar, titlar och annan metadata till de "
+"Om valt kommer Shotwell att skriva taggar, titlar och andra metadata till de "
 "nya filerna."
 
 #. (itstool) path: info/desc
@@ -241,7 +241,7 @@ msgid ""
 "database and applies them on the fly as necessary. This means you can undo "
 "any alterations you make to a photograph."
 msgstr ""
-"Shotwell är en förlustfri bildredigerare. Det ändrar inte dina "
+"Shotwell är en förlustfri bildredigerare. Den ändrar inte dina "
 "originalbilder. Det betyder att om du beskär en bild, eller ändrar dess färg "
 "kommer bildfilerna på disk att bevaras orörda. Shotwell lagrar dina "
 "ändringar i en databas och verkställer dem direkt eftersom. Det betyder att "
@@ -377,8 +377,8 @@ msgid ""
 "box on the left of each row selects the type of criteria. Criteria must be "
 "entered correctly before the <gui>OK</gui> button becomes available."
 msgstr ""
-"Varje rad representerar ett sökkriterium. Använd <gui>+</gui>-knappen för "
-"att lägga till flera rader och <gui>-</gui>knappen för att ta bort en "
+"Varje rad representerar ett sökkriterium. Använd knappen <gui>+</gui> för "
+"att lägga till flera rader och knappen <gui>-</gui> för att ta bort en "
 "specifik rad. Kombinationsrutan till vänster för varje rad väljer "
 "kriterietyp. Kriterier måste anges korrekt innan <gui>OK</gui>-knappen blir "
 "tillgänglig."
@@ -402,7 +402,7 @@ msgid ""
 msgstr ""
 "För att justera datum och tid för bilder, markera de bilder du vill justera, "
 "välj <guiseq><gui>Bilder</gui><gui>Justera datum och tid…</gui></guiseq> och "
-"markera nytt datum och tid."
+"välj nytt datum och tid."
 
 #. (itstool) path: page/p
 #: C/edit-date-time.page:16
@@ -505,7 +505,7 @@ msgstr ""
 "För att rotera höger, klicka på knappen <gui>Rotera</gui>. För att rotera "
 "vänster, tryck och håll ner tangenten <key>Ctrl</key> och klicka sedan på "
 "knappen. Båda kommandona är också tillgängliga i menyn <gui>Bilder</gui>. "
-"Alternativt, använd följande tangentbordsgenvägar:"
+"Använd alternativt följande tangentbordsgenvägar:"
 
 #. (itstool) path: item/p
 #: C/edit-rotate.page:18
@@ -539,7 +539,7 @@ msgstr ""
 msgid ""
 "If you select more than one image, you can rotate all of them at the same "
 "time."
-msgstr "Om du väljer mer än en bild så kan du rotera dem samtidigt."
+msgstr "Om du markerar mer än en bild så kan du rotera dem samtidigt."
 
 #. (itstool) path: info/desc
 #: C/view-information.page:7
@@ -566,8 +566,8 @@ msgstr ""
 "Panelen för grundläggande information visas längst ned i sidopanelen och ger "
 "en kortfattad sammanfattning av de bilder du har markerat. Om inga bilder är "
 "markerade visar den en sammanfattning av hela samlingen. Du kan växla "
-"visningen av denna panel genom att använda <guiseq><gui>Visa</"
-"gui><gui>Grundläggande information</gui></guiseq>-kommandot."
+"visningen av denna panel genom att använda kommandot <guiseq><gui>Visa</"
+"gui><gui>Grundläggande information</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/view-information.page:16
@@ -594,7 +594,7 @@ msgid ""
 "guiseq> command or <keyseq><key>Ctrl</key><key>Shift</key><key>X</key></"
 "keyseq> toggles the display of this window."
 msgstr ""
-"Fönstret Utökad information visar mer information om den markerade bilden. "
+"Fönstret Utökad information visar mer information om den valda bilden. "
 "Kommandot <guiseq><gui>Visa</gui><gui>Utökad information</gui></guiseq> "
 "eller <keyseq><key>Ctrl</key><key>Skift</key><key>X</key></keyseq> växlar "
 "visningen av detta fönster."
@@ -696,8 +696,8 @@ msgid ""
 "To create a new event, select the photos you would like in the new event and "
 "click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>."
 msgstr ""
-"För att skapa nya händelser, markera de bilder du skulle vilja ha i en ny "
-"händelse och klicka <guiseq><gui>Händelser</gui><gui>Ny händelse</gui></"
+"För att skapa nya händelser, markera de bilder du skulle vilja ha i den nya "
+"händelsen och klicka <guiseq><gui>Händelser</gui><gui>Ny händelse</gui></"
 "guiseq>."
 
 #. (itstool) path: section/p
@@ -710,7 +710,7 @@ msgid ""
 msgstr ""
 "För att sammanfoga händelser, välj <guiseq><gui>Händelser</gui></guiseq> "
 "från sidopanelen och sedan, medan du håller ner <key>Ctrl</key>, klicka på "
-"händelserna du vill sammanfoga i huvudfönstret. Slutligen, klicka på "
+"händelserna du vill sammanfoga i huvudfönstret. Klicka slutligen på "
 "<guiseq><gui>Händelser</gui><gui>Sammanfoga händelser</gui></guiseq>."
 
 #. (itstool) path: section/title
@@ -784,12 +784,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/other-multiple.page:7
-msgid ""
-"You can open Shotwell with a different photo library by using the command "
-"line."
-msgstr ""
-"Du kan öppna Shotwell med ett annat bildbibliotek genom att använda "
-"kommandoraden."
+msgid "You can open Shotwell with a different photo library."
+msgstr "Du kan öppna Shotwell med ett annat bildbibliotek."
 
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
@@ -799,38 +795,65 @@ msgstr "Flera bibliotek"
 #. (itstool) path: page/p
 #: C/other-multiple.page:14
 msgid ""
-"Shotwell normally stores its database and photo thumbnails in the directory "
-"<file>~/.shotwell</file> . This directory does not hold photos, but the "
-"database in this directory contains a list of all the photos in the Shotwell "
-"library."
+"Shotwell supports multiple libraries on the same computer with the concept "
+"of profiles. A profile is a set of meta-data and settings associated with a "
+"library folder."
 msgstr ""
-"Shotwell lagrar normalt sin databas och sina miniatyrbilder i katalogen "
-"<file>~/.shotwell</file> . Denna katalog innehåller inte bilder, men "
-"databasen i denna katalog innehåller en lista över alla bilder i Shotwell-"
-"biblioteket."
+"Shotwell stödjer att ha flera bibliotek på samma dator med profilkonceptet. "
+"En profil är en uppsättning metadata och inställningar som associeras med en "
+"biblioteksmapp."
 
 #. (itstool) path: page/p
-#: C/other-multiple.page:16
+#: C/other-multiple.page:17
 msgid ""
-"As an advanced feature, it's possible for you to have multiple Shotwell "
-"libraries, each of which has its own set of photos. Each library needs its "
-"own database directory. To launch Shotwell with an alternate library, "
-"specify an alternate database directory on the command line as follows:"
+"All profiles are completely isolated from each other. While it is possible "
+"to use the same library folder for different profiles, it is not recommended."
 msgstr ""
-"Som en avancerad funktion är det möjligt för dig att ha flera Shotwell-"
-"bibliotek, var och en med dess egna grupp av bilder. Varje bibliotek behöver "
-"dess egna databaskatalog. För att starta Shotwell som ett alternativt "
-"bibliotek, ange en alternativ katalog på kommandoraden enligt:"
+"Alla profiler är fullständigt isolerade från varandra. Även om det är "
+"möjligt att ha samma biblioteksmapp för olika profiler så rekommenderas det "
+"inte."
 
-#. (itstool) path: page/screen
-#: C/other-multiple.page:18
-#, no-wrap
+#. (itstool) path: section/title
+#: C/other-multiple.page:20
+msgid "Managing profiles"
+msgstr "Hantera profiler"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:21
 msgid ""
-"\n"
-"shotwell -d [library-directory]\n"
+"Profiles can either be created using the dedicated <app>Shotwell Profile "
+"Manager</app>, calling <cmd>shotwell --profile-browser</cmd> from the "
+"command line or the <gui style=\"tab\">Profiles</gui> section of the "
+"settings <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>"
 msgstr ""
-"\n"
-"shotwell -d [bibliotekskatalog]\n"
+"Profiler kan antingen skapas med den därtill avsedda <app>Shotwells "
+"profilbläddrare</app>, genom att anropa <cmd>shotwell --profile-browser</"
+"cmd> från kommandoraden eller avsnittet <gui style=\"tab\">Profiler</gui> i "
+"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/other-multiple.page:25
+msgid "Selecting a profile"
+msgstr "Välja en profil"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:26
+msgid ""
+"A profile can only be selected during start-up and cannot be switched during "
+"run-time."
+msgstr ""
+"En profil kan endast väljas vid uppstart och kan inte växlas under körning."
+
+# TODO: Shotwell Profile Browser
+#. (itstool) path: section/p
+#: C/other-multiple.page:27
+msgid ""
+"To select a profile, start the Shotwell Profile Manager and select a profile "
+"using double-click, or calling <cmd>shotwell --profile <var>name</var></cmd>"
+msgstr ""
+"För att välja en profil startar du Shotwells profilbläddrare och väljer en "
+"profil med dubbelklick, eller anropar <cmd>shotwell --profile <var>namn</"
+"var></cmd>"
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
@@ -879,7 +902,7 @@ msgid ""
 "see on your computer may vary from the examples below."
 msgstr ""
 "De tillgängliga symbolerna för katalogmönstren börjar med ett % "
-"(procenttecken). Värdena dessa symboler producerar är lokal-beroende, så vad "
+"(procenttecken). Värdena dessa symboler producerar är lokalberoende, så vad "
 "du ser på din dator kan variera jämfört med följande exempel."
 
 #. (itstool) path: td/p
@@ -995,7 +1018,7 @@ msgstr "%b"
 #. (itstool) path: td/p
 #: C/other-files.page:60
 msgid "Month name: abbreviated"
-msgstr "Månadsnummer: förkortat"
+msgstr "Månadsnamn: förkortat"
 
 #. (itstool) path: td/p
 #: C/other-files.page:60
@@ -1010,7 +1033,7 @@ msgstr "%B"
 #. (itstool) path: td/p
 #: C/other-files.page:62
 msgid "Month name: full"
-msgstr "Månadsnummer: helt"
+msgstr "Månadsnamn: helt"
 
 #. (itstool) path: td/p
 #: C/other-files.page:62
@@ -1218,9 +1241,9 @@ msgid ""
 "format. Note that Shotwell can write only to photo files in JPEG, PNG and "
 "TIFF format, not to BMP photos, RAW photos or to video files."
 msgstr ""
-"Shotwell lagrar denna information i bildfiler i EXIF, IPTC och/eller XMP-"
-"format. Observera att Shotwell endast kan skriva till bildfiler i JPEG, PNG "
-"och TIFF-format, inte till BMP-bilder, RAW-bilder eller till videofiler."
+"Shotwell lagrar denna information i bildfiler i EXIF-, IPTC- och/eller XMP-"
+"format. Observera att Shotwell endast kan skriva till bildfiler i JPEG-, "
+"PNG- och TIFF-format, inte till BMP-bilder, RAW-bilder eller till videofiler."
 
 #. (itstool) path: section/title
 #: C/other-files.page:133
@@ -1255,8 +1278,8 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and RAW photo files as "
 "well as video files."
 msgstr ""
-"Shotwell stödjer JPEG, PNG, TIFF, BMP, GIF, WebP och RAW-bilder såväl som "
-"filmfiler."
+"Shotwell stödjer JPEG-, PNG-, TIFF-, BMP-, GIF-, WebP- och RAW-bilder såväl "
+"som filmfiler."
 
 #. (itstool) path: page/title
 #: C/formats.page:12
@@ -1269,8 +1292,8 @@ msgid ""
 "Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-"
 "raw\">RAW</link> photo files."
 msgstr ""
-"Shotwell stödjer JPEG, PNG, TIFF, BMP, GIF, WebP och <link xref=\"other-"
-"raw\">RAW</link>-bildfiler."
+"Shotwell stödjer JPEG-, PNG-, TIFF-, BMP-, GIF-, WebP- och <link "
+"xref=\"other-raw\">RAW</link>-bildfiler."
 
 #. (itstool) path: page/p
 #: C/formats.page:16
@@ -1911,7 +1934,7 @@ msgstr ""
 "Om kortet inte upptäcks automatiskt kanske din kortläsare inte kände igen "
 "det. Prova att koppla från det och sedan ansluta det igen. Om det inte "
 "fungerar bör du ändå kunna importera bilder genom att ansluta <link "
-"xref=\"import-camera\"> din kamera direkt till datorn </link>."
+"xref=\"import-camera\">din kamera direkt till datorn</link>."
 
 #. (itstool) path: info/desc
 #: C/other-plugins.page:7
@@ -2412,7 +2435,7 @@ msgstr ""
 "sökvägar i filsystemet. När du väl har skapat en tagg kan du byta namn på "
 "den genom att markera taggen i sidopanelen och välja <guiseq><gui>Taggar</"
 "gui><gui>Byt namn på taggen ”[namn]”…</gui></guiseq>, genom att högerklicka "
-"på den och markera <gui>Byt namn…</gui> eller dubbelklicka på taggen i "
+"på den och välja <gui>Byt namn…</gui> eller dubbelklicka på taggen i "
 "sidopanelen."
 
 #. (itstool) path: page/p
@@ -2429,7 +2452,7 @@ msgid ""
 msgstr ""
 "För att ändra taggar associerade med en speciell bild, markera bilden, välj "
 "<guiseq><gui>Taggar</gui><gui>Ändra taggar…</gui></guiseq> eller högerklicka "
-"på en bild och markera <gui>Ändra taggar…</gui> och redigera den "
+"på en bild och välj <gui>Ändra taggar…</gui> och redigera den "
 "kommaseparerade listan. För att ta bort en tagg från en eller flera bilder, "
 "välj först taggen i sidopanelen och markera sedan de bilder du vill ta bort, "
 "samt välj <guiseq><gui>Taggar</gui><gui>Ta bort taggen ”[namn]” från "
@@ -2678,7 +2701,7 @@ msgstr ""
 "Diagrammet visar hur en bild, när den raderas, först läggs i Shotwells "
 "papperskorg. Om du raderar den från Shotwells papperskorg läggs den i "
 "datorns papperskorg. Om du raderar den från din dators papperskorg är bilden "
-"oåterkalleligen raderat från din dator."
+"oåterkalleligen raderad från din dator."
 
 #. (itstool) path: section/title
 #: C/organize-remove.page:18
@@ -2903,12 +2926,12 @@ msgstr "<link href=\"https://photos.google.com\">Google Foto</link>"
 #. (itstool) path: item/p
 #: C/share-upload.page:20
 msgid "<link href=\"https://youtube.com\">YouTube</link> (videos only)"
-msgstr "<link href=\"https://youtube.com\">YouTube</link> (endast video)"
+msgstr "<link href=\"https://youtube.com\">YouTube</link> (endast videoklipp)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:21
 msgid "<link href=\"https://tumblr.com\">Tumblr</link> (Photos only)"
-msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (endast foton)"
+msgstr "<link href=\"https://tumblr.com\">Tumblr</link> (endast bilder)"
 
 #. (itstool) path: item/p
 #: C/share-upload.page:22
@@ -3022,6 +3045,224 @@ msgstr ""
 "de en JPEG-version för dig och publicerar den."
 
 #. (itstool) path: info/desc
+#: C/organize-face-tagging.page:7
+msgid "Marking faces in photos"
+msgstr "Markera ansikten i bilder"
+
+#. (itstool) path: page/title
+#: C/organize-face-tagging.page:12
+msgid "Faces in photos"
+msgstr "Ansikten i bilder"
+
+#. (itstool) path: page/p
+#: C/organize-face-tagging.page:13
+msgid ""
+"Shotwell supports tagging images using faces of persons and assigning a name "
+"to them. If enabled, Shotwell also supports automatic detection of faces in "
+"images and recognition of already known faces in new images"
+msgstr ""
+"Shotwell stödjer taggning av bilder med personers ansikten och att tilldela "
+"dem ett namn. Om aktiverat stödjer Shotwell också automatisk upptäckt av "
+"ansikten i bilder och igenkänning av redan kända ansikten i nya bilder"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:16
+msgid "Manual creation and modification of named faces"
+msgstr "Manuellt skapande och ändring av namngivna ansikten"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:18
+msgid ""
+"Double-click on an image in the collection, then press the <gui>Faces</gui> "
+"button on the toolbar"
+msgstr ""
+"Dubbelklicka på en bild i samlingen och tryck sedan på knappen "
+"<gui>Ansikten</gui> i verktygsfältet"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:19
+msgid ""
+"Start dragging a rectangle around the face you are tagging using your left "
+"mouse button"
+msgstr "Börja dra en rektangel runt ansiktet du taggar med vänster musknapp"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:20
+msgid ""
+"You can also drag the rectangle by clicking into it or resize it by clicking "
+"on one of the borders"
+msgstr ""
+"Du kan också dra rektangeln genom att klicka i den eller ändra storlek på "
+"den genom att klicka på en av kanterna"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:21
+msgid ""
+"Once satisfied, enter a name in the text box below the rectangle and press "
+"<key>Enter</key> to assign the name to the marked face"
+msgstr ""
+"Mata när du är nöjd in ett namn i textrutan under rektangeln och tryck "
+"<key>Retur</key> för att tilldela namnet till det markerade ansiktet"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:22
+msgid "Repeat this process for as many faces as you want to mark"
+msgstr "Upprepa denna process för alla ansikten som du vill markera"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:23
+msgid ""
+"After you marked all faces, click on <gui>Ok</gui> to save the marked faces."
+msgstr ""
+"Efter att ha markerat alla ansiktena klickar på du <gui>OK</gui> för att "
+"spara de markerade ansiktena."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:27
+msgid "Modifying or removing existing named faces"
+msgstr "Ändra eller ta bort befintliga namngivna ansikten"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:28
+msgid ""
+"An existing named face can be either be removed from an image using "
+"<guiseq><gui>Faces</gui><gui>Remove Face from Photo</gui></guiseq>, by "
+"pressing <keyseq><key>Ctrl</key><key>R</key></keyseq> while in the face "
+"browser or by clicking <gui>Delete</gui> in the Faces tool"
+msgstr ""
+"Ett befintligt namngivet ansikte kan antingen tas bort från en bild med "
+"<guiseq><gui>Ansikten</gui><gui>Ta bort ansiktet från bild</gui></guiseq>, "
+"genom att trycka <keyseq><key>Ctrl</key><key>R</key></keyseq> i "
+"ansiktsbläddraren eller genom att klicka på <gui>Ta bort</gui> i verktyget "
+"Ansikten"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:29
+msgid ""
+"To rename the face, use <guiseq><gui>Faces</gui><gui>Rename Face...</gui></"
+"guiseq> or press <keyseq><key>Ctrl</key><key>E</key></keyseq> or by clicking "
+"on <gui>Edit</gui> in the Faces tool."
+msgstr ""
+"Använd <guiseq><gui>Ansikten</gui><gui>Byt namn på ansiktet…</gui></guiseq> "
+"för att byta namn på ansiktet eller tryck <keyseq><key>Ctrl</key><key>E</"
+"key></keyseq> eller klicka på <gui>Redigera</gui> i verktyget Ansikten."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:32
+msgid "Automatic detection of faces"
+msgstr "Automatisk upptäckt av ansikten"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:33
+msgid ""
+"It is possible to use automatic face detection to simplify the process of "
+"marking the faces. To trigger the face detection algorithm, click on "
+"<gui>Detect faces...</gui>"
+msgstr ""
+"Det är möjligt att använda automatisk upptäckt av ansikten för att förenkla "
+"processen med att markera ansiktena. För att starta "
+"ansiktsupptäcktsalgoritmen klickar du på <gui>Upptäck ansikten…</gui>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:35
+msgid ""
+"If reference images for faces are defined, this will also try to match any "
+"found faces in the current image with known references."
+msgstr ""
+"Om referensbilder för ansikten har definierats kommer detta också försöka "
+"matcha eventuella ansikten som hittas i aktuell bild med kända referenser."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:38
+msgid "Automatic recognition of faces"
+msgstr "Automatisk igenkänning av ansikten"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:39
+msgid ""
+"A named face on a photo can be set as a reference for this particular name. "
+"Future calls to the automatic face detection will try to associate similar "
+"faces the same name if considered matching."
+msgstr ""
+"Ett namngivet ansikte i en bild kan ställas in som en referens för detta "
+"specifika namn. Framtida anrop till den automatiska ansiktsigenkänningen "
+"kommer försöka associera liknande ansikten till samma namn om de anses "
+"matcha."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:41
+msgid "To declare a face as the reference for its name use these steps"
+msgstr ""
+"Använd dessa steg för att deklarera ett ansikte som referensen för dess namn"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:44
+msgid ""
+"Switch to the face browser by clicking on a face name in the navigation tree."
+msgstr ""
+"Växla till ansiktsbläddraren genom att klicka på ett ansiktsnamn i "
+"navigationsträdet."
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:45
+msgid ""
+"Select an image that contains the representation of the face you want to "
+"make a reference"
+msgstr ""
+"Välj en bild som innehåller representationen av ansiktet som du vill göra en "
+"referens för"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:46
+msgid ""
+"Click on <guiseq><gui>Faces</gui><gui>Train Face from Photo</gui></guiseq>"
+msgstr ""
+"Klicka på <guiseq><gui>Ansikten</gui><gui>Träna ansikte från bild</gui></"
+"guiseq>"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:50
+msgid "Improving face recognition"
+msgstr "Förbättra ansiktsigenkänning"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:51
+msgid ""
+"By default, Shotwell uses cascade classifier to find faces in images. There "
+"is a method to use a deep neural network to improve detection rates "
+"significantly, but due to certain uncertainties with the licensing of the "
+"trained model it is not included by default."
+msgstr ""
+"Som standard använder Shotwell kaskadklassificerare för att hitta ansikten i "
+"bilder. Det finns en metod för att använda ett djupt neuralt nätverk för att "
+"förbättra upptäcktsnivåerna markant, men på grund av vissa osäkerheter vad "
+"gäller licens för den tränade modellen så inkluderas den inte som standard."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:54
+msgid ""
+"To enable DNN-based face detection, download the "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> from the <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">OpenCV third-party repository</"
+"link>"
+msgstr ""
+"För att aktivera DNN-baserad ansiktsigenkänning hämtar du "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> från <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">tredjepartsarkivet för OpenCV</"
+"link>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:55
+msgid ""
+"Copy the file into your local data folder, usually <file>$HOME/.local/share/"
+"shotwell</file> and restart Shotwell"
+msgstr ""
+"Kopiera filen till din lokala datamapp, vanligen <file>$HOME/.local/share/"
+"shotwell</file> och starta om Shotwell"
+
+#. (itstool) path: info/desc
 #: C/import-camera.page:7
 msgid "Copy photos from a digital camera."
 msgstr "Kopiera bilder från en digital kamera."
@@ -3132,7 +3373,7 @@ msgstr "Phil Bull"
 #. (itstool) path: page/title
 #: C/index.page:33
 msgid "<_:media-1/> Shotwell Photo Manager"
-msgstr "Shotwell Bildhanterare"
+msgstr "<_:media-1/> Shotwell Bildhanterare"
 
 #. (itstool) path: section/title
 #: C/index.page:39
@@ -3188,7 +3429,7 @@ msgstr ""
 "på en bild. Om installerade så är GIMP och UFRaw de externa "
 "standardredigerarna för bilder och RAW-redigering. Om dessa program inte är "
 "installerade måste du välja dina föredragna redigerare genom att välja "
-"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq> och markera "
+"<guiseq><gui>Redigera</gui><gui>Inställningar</gui></guiseq> och välja "
 "redigerare från rullgardinsmenyn för installerade program."
 
 #. (itstool) path: page/p
@@ -3200,11 +3441,11 @@ msgid ""
 "a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></"
 "guiseq> to edit the RAW file directly with the set RAW editor."
 msgstr ""
-"När redigerare väl har angetts, markera en bild och väljs "
+"När redigerare väl har angetts, markera en bild och välj "
 "<guiseq><gui>Bilder</gui> <gui>Öppna med extern redigerare</gui></guiseq> "
-"för att öppna bilden med den externa redigeraren. På samma sätt, om "
-"originalbilden är en RAW-fil, välj <guiseq><gui>Bilder</gui><gui>Öppna med "
-"RAW-redigerare</gui></guiseq> för att redigera RAW-filen med den valda RAW-"
+"för att öppna bilden med den externa redigeraren. På samma sätt väljer du om "
+"originalbilden är en RAW-fil <guiseq><gui>Bilder</gui><gui>Öppna med RAW-"
+"redigerare</gui></guiseq> för att redigera RAW-filen med den valda RAW-"
 "redigeraren."
 
 #. (itstool) path: page/p
@@ -3377,7 +3618,7 @@ msgstr ""
 #. (itstool) path: item/title
 #: C/edit-adjustments.page:36
 msgid "Tint"
-msgstr "Tint"
+msgstr "Färgton"
 
 #. (itstool) path: item/p
 #: C/edit-adjustments.page:37
@@ -3434,18 +3675,3 @@ msgstr ""
 "Skjutreglagen ändrar hur ljus den ljusaste vit är, och hur mörk den mörkaste "
 "svarta är. Använd dem för att ändra kontrasten på en bild. Speciellt bilder "
 "som ser urblekta ut bör ha nytta av att ändra dessa inställningar."
-
-#~ msgctxt "_"
-#~ msgid ""
-#~ "external ref='figures/shotwell_logo.png' "
-#~ "md5='4b333499555b4e496b1a38f7899067f3'"
-#~ msgstr ""
-#~ "external ref='figures/shotwell_logo.png' "
-#~ "md5='4b333499555b4e496b1a38f7899067f3'"
-
-#~ msgid ""
-#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-#~ "Manager"
-#~ msgstr ""
-#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell "
-#~ "bildhanterare"
