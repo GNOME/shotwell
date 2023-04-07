@@ -115,11 +115,13 @@ private class PluggableRow : Gtk.Box {
         });
 
         if (pluggable is Spit.Publishing.Service) {
+#if 0
             var manage = new Gtk.Button.from_icon_name("avatar-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             manage.get_style_context().add_class("flat");
             // TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
             manage.set_tooltip_text(_("Manage accounts for %s").printf(pluggable.get_pluggable_name()));
             content.pack_start(manage, false, false, 6);
+#endif
         }
 
         var grid = new Gtk.Grid();
