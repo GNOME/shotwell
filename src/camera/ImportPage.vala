@@ -811,7 +811,11 @@ public class ImportPage : CheckerboardPage {
     }
 
     protected override string get_view_empty_icon() {
-        return this.dcamera.icon;
+        if (this.dcamera.icon != null) {
+            return this.dcamera.icon;
+        }
+
+        return "camera-photo-symbolic";
     }
 
     protected override string get_view_empty_message() {

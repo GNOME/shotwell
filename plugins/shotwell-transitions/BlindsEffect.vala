@@ -8,8 +8,8 @@
 using Spit;
 
 private class BlindsEffectDescriptor : ShotwellTransitionDescriptor {
-    public BlindsEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public BlindsEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

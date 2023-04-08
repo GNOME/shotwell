@@ -1597,6 +1597,11 @@ private class WorkSniffer : BackgroundImportJob {
     }
     
     public void search_dir(BatchImportJob job, File dir, bool copy_to_library, bool recurse) throws Error {
+        if (dir.get_child(".nomedia").query_exists()) {
+            debug("Folder %s contains \".nomedia\" file, ignoring.", dir.get_path());
+            return;
+        }
+
         FileEnumerator enumerator = dir.enumerate_children("standard::*",
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         

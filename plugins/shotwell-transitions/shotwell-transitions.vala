@@ -9,19 +9,17 @@ extern const string _VERSION;
 private class ShotwellTransitions : Object, Spit.Module {
     private Spit.Pluggable[] pluggables = new Spit.Pluggable[0];
 
-    public ShotwellTransitions(GLib.File module_file) {
-        GLib.File resource_directory = module_file.get_parent();
-
-        pluggables += new FadeEffectDescriptor(resource_directory);
-        pluggables += new SlideEffectDescriptor(resource_directory);
-        pluggables += new CrumbleEffectDescriptor(resource_directory);
-        pluggables += new BlindsEffectDescriptor(resource_directory);
-        pluggables += new CircleEffectDescriptor(resource_directory);
-        pluggables += new CirclesEffectDescriptor(resource_directory);
-        pluggables += new ClockEffectDescriptor(resource_directory);
-        pluggables += new SquaresEffectDescriptor(resource_directory);
-        pluggables += new ChessEffectDescriptor(resource_directory);
-        pluggables += new StripesEffectDescriptor(resource_directory);
+    public ShotwellTransitions() {
+        pluggables += new FadeEffectDescriptor();
+        pluggables += new SlideEffectDescriptor();
+        pluggables += new CrumbleEffectDescriptor();
+        pluggables += new BlindsEffectDescriptor();
+        pluggables += new CircleEffectDescriptor();
+        pluggables += new CirclesEffectDescriptor();
+        pluggables += new ClockEffectDescriptor();
+        pluggables += new SquaresEffectDescriptor();
+        pluggables += new ChessEffectDescriptor();
+        pluggables += new StripesEffectDescriptor();
     }
     
     public unowned string get_module_name() {
@@ -47,13 +45,12 @@ public Spit.Module? spit_entry_point(Spit.EntryPointParams *params) {
         params->host_max_spit_interface, Spit.CURRENT_INTERFACE);
     
     return (params->module_spit_interface != Spit.UNSUPPORTED_INTERFACE)
-        ? new ShotwellTransitions(params->module_file) : null;
+        ? new ShotwellTransitions() : null;
 }
 
 // Base class for all transition descriptors in this module
 public abstract class ShotwellTransitionDescriptor : Object, Spit.Pluggable, Spit.Transitions.Descriptor {
-    protected ShotwellTransitionDescriptor(GLib.File resource_directory) {
-    }
+    protected ShotwellTransitionDescriptor() {}
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,

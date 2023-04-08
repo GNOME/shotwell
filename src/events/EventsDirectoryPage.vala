@@ -242,8 +242,8 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
     }
     
     public const string UNDATED_PAGE_NAME = _("Undated");
-    public const string YEAR_FORMAT = _("%Y");
-    public const string MONTH_FORMAT = _("%B");
+    public const string YEAR_FORMAT = "%Y";
+    public const string MONTH_FORMAT = "%0B";
     
     private class SubEventDirectoryManager : EventsDirectoryPage.EventDirectoryManager {
         private int month = 0;
@@ -292,7 +292,21 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
             page_name = UNDATED_PAGE_NAME;
         } else {
-            page_name = time.format((type == DirectoryType.YEAR) ? YEAR_FORMAT : MONTH_FORMAT);
+            switch (type) {
+                case DirectoryType.MONTH: {
+                    page_name = time.format(MONTH_FORMAT);
+                    if (page_name.index_of("%0B") != -1) {
+                        page_name = time.format("%B");
+                    }
+                }
+                break;
+                case DirectoryType.YEAR: {
+                    page_name = time.format(YEAR_FORMAT);
+                }
+                break;
+                default:
+                    assert_not_reached();
+            }
         }
 
         base(page_name, new SubEventDirectoryManager(type, time), null); 

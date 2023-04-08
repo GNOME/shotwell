@@ -2806,7 +2806,7 @@ public abstract class Photo : PhotoSource, Dateable, Positionable {
             // No, use file timestamp as date/time.
             lock (row) {
                 // Did we manually set an exposure date?
-                if(!backing_photo_row.timestamp.equal(row.exposure_time)) {
+                if(nullsafe_date_time_comperator(backing_photo_row.timestamp, row.exposure_time) != 0) {
                     // Yes, we need to save this.
                     return true;            
                 }

@@ -22,7 +22,7 @@ public class MetadataDateTime {
     }
 
     public MetadataDateTime.from_xmp(string label) throws MetadataDateTimeError {
-        var dt = new DateTime.from_iso8601(label, new TimeZone.local());
+        var dt = new DateTime.from_iso8601(label, null);
         if (dt == null)
             throw new MetadataDateTimeError.INVALID_FORMAT("%s is not XMP format date/time", label);
 
@@ -63,7 +63,7 @@ public class MetadataDateTime {
         if (tm.year <= 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
             return false;
 
-        timestamp = new DateTime.utc(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second);
+        timestamp = new DateTime.local(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second);
 
         return true;
     }

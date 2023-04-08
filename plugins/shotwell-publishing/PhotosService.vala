@@ -8,7 +8,7 @@
 namespace Publishing.GooglePhotos {
 
 public class Service : Object, Spit.Pluggable, Spit.Publishing.Service {
-    public Service(GLib.File resource_directory) {}
+    public Service() {}
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,

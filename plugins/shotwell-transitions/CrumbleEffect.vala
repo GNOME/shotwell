@@ -8,8 +8,8 @@
 using Spit;
 
 private class CrumbleEffectDescriptor : ShotwellTransitionDescriptor {
-    public CrumbleEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public CrumbleEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

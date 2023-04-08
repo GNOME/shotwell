@@ -8,8 +8,8 @@
 using Spit;
 
 private class CircleEffectDescriptor : ShotwellTransitionDescriptor {
-    public CircleEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public CircleEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

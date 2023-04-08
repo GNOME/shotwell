@@ -8,8 +8,8 @@
 using Spit;
 
 private class ClockEffectDescriptor : ShotwellTransitionDescriptor {
-    public ClockEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public ClockEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

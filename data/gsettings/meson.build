@@ -1,6 +1,8 @@
 schema_xml = files(
     'org.gnome.shotwell-extras.gschema.xml',
-    'org.gnome.shotwell.gschema.xml'
+    'org.gnome.shotwell.gschema.xml',
+    'org.yorba.shotwell-extras.gschema.xml',
+    'org.yorba.shotwell.gschema.xml'
 )
 
 install_data(schema_xml,

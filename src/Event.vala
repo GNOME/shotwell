@@ -604,7 +604,7 @@ public class Event : EventSource, ContainerSource, Proxyable, Indexable {
         var earliest_tm = earliest_media.get_exposure_time().to_local();
         
         // use earliest to generate the boundary hour for that day
-        var start_boundary = new DateTime.utc(earliest_tm.get_year(),
+        var start_boundary = new DateTime.local(earliest_tm.get_year(),
                                             earliest_tm.get_month(),
                                             earliest_tm.get_day_of_month(),
                                             EVENT_BOUNDARY_HOUR,

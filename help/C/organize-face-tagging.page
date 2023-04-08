@@ -1,0 +1,57 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="face-tagging">
+
+      <info>
+        <link type="guide" xref="index#organize"/>
+        <desc>Marking faces in photos</desc>
+        
+        <link type="next" xref="tag"/>
+    </info>
+
+	<title>Faces in photos</title>
+  <p>Shotwell supports tagging images using faces of persons and assigning a name to them. If enabled, Shotwell also supports
+    automatic detection of faces in images and recognition of already known faces in new images</p>
+  <section id="manual">
+    <title>Manual creation and modification of named faces</title>
+    <steps>
+      <item><p>Double-click on an image in the collection, then press the <gui>Faces</gui> button on the toolbar</p></item>
+      <item><p>Start dragging a rectangle around the face you are tagging using your left mouse button</p>
+        <p>You can also drag the rectangle by clicking into it or resize it by clicking on one of the borders </p></item>
+      <item><p>Once satisfied, enter a name in the text box below the rectangle and press <key>Enter</key> to assign the name to the marked face</p></item>
+      <item><p>Repeat this process for as many faces as you want to mark</p></item>
+      <item><p>After you marked all faces, click on <gui>Ok</gui> to save the marked faces.</p></item>
+    </steps>
+  </section>
+  <section id="modifying">
+    <title>Modifying or removing existing named faces</title>
+    <p>An existing named face can be either be removed from an image using <guiseq><gui>Faces</gui><gui>Remove Face from Photo</gui></guiseq>, by pressing <keyseq><key>Ctrl</key><key>R</key></keyseq> while in the face browser or by clicking <gui>Delete</gui> in the Faces tool</p>
+    <p>To rename the face, use <guiseq><gui>Faces</gui><gui>Rename Face...</gui></guiseq> or press <keyseq><key>Ctrl</key><key>E</key></keyseq> or by clicking on <gui>Edit</gui> in the Faces tool.</p>
+  </section>
+  <section id="automatic-detection">
+    <title>Automatic detection of faces</title>
+    <p>It is possible to use automatic face detection to simplify the process of marking the faces. To trigger the face detection
+    algorithm, click on <gui>Detect faces...</gui></p>
+    <p>If reference images for faces are defined, this will also try to match any found faces in the current image with known references.</p>
+  </section>
+  <section id="automatic-recognition">
+    <title>Automatic recognition of faces</title>
+    <p>A named face on a photo can be set as a reference for this particular name. Future calls to
+      the automatic face detection will try to associate similar faces the same name if considered matching.</p>
+    <p>To declare a face as the reference for its name use these steps</p>
+
+      <steps>
+        <item><p>Switch to the face browser by clicking on a face name in the navigation tree.</p></item>
+        <item><p>Select an image that contains the representation of the face you want to make a reference</p></item>
+        <item><p>Click on <guiseq><gui>Faces</gui><gui>Train Face from Photo</gui></guiseq></p></item>
+      </steps>
+  </section>
+  <section id="improved-detection">
+    <title>Improving face recognition</title>
+    <p>By default, Shotwell uses cascade classifier to find faces in images. There is a method to use a deep neural network to improve
+      detection rates significantly, but due to certain uncertainties with the licensing of the trained model it is not included by default.
+    </p>
+    <p>To enable DNN-based face detection, download the <file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> from the <link href="https://github.com/opencv/opencv_3rdparty/tree/dnn_samples_face_detector_20180205_fp16">OpenCV third-party repository</link></p>
+    <p>Copy the file into your local data folder, usually <file>$HOME/.local/share/shotwell</file> and restart Shotwell</p>
+  </section>
+</page>

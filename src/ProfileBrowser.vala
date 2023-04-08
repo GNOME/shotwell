@@ -58,6 +58,10 @@ namespace Shotwell {
             entry.hexpand = true;
             grid.attach(entry, 1, 1, 1, 1);
             bind_property("library-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+            entry.bind_property("text", create_button, "sensitive", GLib.BindingFlags.DEFAULT, (binding, from, ref to) => {
+                to = from.get_string() != "";
+                return true;
+            });
 
             var button = new Gtk.Button.from_icon_name("folder-symbolic");
             button.hexpand = false;
@@ -85,6 +89,10 @@ namespace Shotwell {
             entry.set_text(Environment.get_user_special_dir(UserDirectory.PICTURES));
             entry.hexpand = true;
             bind_property("data-folder", entry, "text", GLib.BindingFlags.SYNC_CREATE | GLib.BindingFlags.BIDIRECTIONAL);
+            entry.bind_property("text", create_button, "sensitive", GLib.BindingFlags.DEFAULT, (binding, from, ref to) => {
+                to = from.get_string() != "";
+                return true;
+            });
             grid.attach(entry, 1, 2, 1, 1);
 
             button = new Gtk.Button.from_icon_name("folder-symbolic");

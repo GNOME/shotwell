@@ -8,8 +8,8 @@
 using Spit;
 
 private class ChessEffectDescriptor : ShotwellTransitionDescriptor {
-    public ChessEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public ChessEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

@@ -1407,8 +1407,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         }
 
-        if (unscaled != null)
+        if (unscaled != null) {
             set_pixbuf(unscaled, max_dim);
+        }
         
         // create the PhotoCanvas object for a two-way interface to the tool
         EditingTools.PhotoCanvas photo_canvas = new EditingHostCanvas(this);
@@ -1471,8 +1472,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
             needs_improvement = true;
         }
         
-        if (replacement != null)
+        if (replacement != null) {
             set_pixbuf(replacement, new_max_dim);
+        }
         cancel_editing_pixbuf = null;
         
         // if this is a rough pixbuf, schedule an improvement

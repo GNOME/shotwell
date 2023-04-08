@@ -197,7 +197,7 @@ private class PluggableRow : DetailedRow {
         label.hexpand = true;
         grid.attach(label, 1, 2, 1, 1);
 
-        label = new Gtk.Label(_("Website"));
+        label = new Gtk.Label(_("License"));
         label.get_style_context().add_class("dim-label");
         label.halign = Gtk.Align.END;
         label.margin_start = 12;
@@ -208,6 +208,19 @@ private class PluggableRow : DetailedRow {
         link.get_style_context().remove_class("text-button");
         link.get_style_context().add_class("shotwell-plain-link");
         grid.attach(link, 1, 3, 1, 1);
+
+        label = new Gtk.Label(_("Website"));
+        label.get_style_context().add_class("dim-label");
+        label.halign = Gtk.Align.END;
+        label.margin_start = 12;
+        grid.attach(label, 0, 4, 1, 1);
+        link = new Gtk.LinkButton.with_label(info.website_url, info.website_name);
+        link.halign = Gtk.Align.START;
+        // remove the annoying padding around the link
+        link.get_style_context().remove_class("text-button");
+        link.get_style_context().add_class("shotwell-plain-link");
+        grid.attach(link, 1, 4, 1, 1);
+        
         set_detail_widget(grid);
     }
 }

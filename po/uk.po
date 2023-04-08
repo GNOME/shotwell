@@ -7,14 +7,14 @@
 # Translators:
 # verayin <vera@yorba.org>, 2011.
 # Yuri Chornoivan <yurchor@ukr.net>, 2011-2013.
-# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2013, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # lsbeeler <lucas@yorba.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.15\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-10-08 09:26+0000\n"
-"PO-Revision-Date: 2022-10-08 17:02+0300\n"
+"POT-Creation-Date: 2023-03-20 22:58+0000\n"
+"PO-Revision-Date: 2023-03-22 18:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1199,9 +1199,7 @@ msgstr ""
 #: data/org.gnome.Shotwell.desktop.in:4 data/ui/collection.ui:85
 #: data/ui/event.ui:356 data/ui/event.ui:524 data/ui/faces.ui:356
 #: data/ui/media.ui:356 data/ui/photo_context.ui:91 data/ui/photo.ui:351
-#: data/ui/tags.ui:356
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:116
-#: src/photos/RawSupport.vala:313
+#: data/ui/tags.ui:356 src/photos/RawSupport.vala:313
 msgid "Shotwell"
 msgstr "Shotwell"
 
@@ -1257,23 +1255,20 @@ msgstr "Впорядкуйте ваші фотографії"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Shotwell.desktop.in:8
-#: data/org.gnome.Shotwell-Profile-Browser.desktop.in:8
 msgid ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;"
 msgstr ""
 "album;camera;cameras;crop;edit;enhance;export;gallery;image;images;import;"
 "organize;photo;photographs;photos;picture;pictures;photography;print;publish;"
-"rotate;share;tags;video;facebook;flickr;picasa;youtube;piwigo;альбом;камера;"
+"rotate;share;tags;video;flickr;picasa;youtube;piwigo;альбом;камера;"
 "фотоапарат;камери;фотоапарати;обрізати;редагувати;виправити;експортувати;"
 "галерея;зображення;фото;імпортувати;імпорт;упорядкувати;упорядковування;"
 "фотографія;фотографії;картинка;картинки;друк;надрукувати;оприлюднити;"
-"обернути;обертання;поділитися;мітки;теґи;фейсбук;флікр;пікаса;ютьюб;півіго;"
-"півіґо;"
+"обернути;обертання;поділитися;мітки;теґи;флікр;пікаса;ютьюб;півіго;півіґо;"
 
 #: data/org.gnome.Shotwell-Profile-Browser.desktop.in:4
-#| msgid "Shotwell Viewer"
 msgid "Shotwell Profile Browser"
 msgstr "Навігатор профілями Shotwell"
 
@@ -1612,9 +1607,8 @@ msgstr "_Повідомити про проблему…"
 
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
-#: data/ui/manifest_widget.ui:35 data/ui/media.ui:421 data/ui/offline.ui:198
-#: data/ui/photo.ui:409 data/ui/tags.ui:440 data/ui/trash.ui:207
-#: src/Resources.vala:121
+#: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
+#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:121
 msgid "_About"
 msgstr "_Про програму"
 
@@ -1861,7 +1855,6 @@ msgid "Import _All"
 msgstr "Імпортувати _всі"
 
 #: data/ui/login_welcome_pane_widget.ui:35
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:125
 msgid "_Log in"
 msgstr "_Увійти"
 
@@ -1871,13 +1864,13 @@ msgstr "_Увійти"
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
 #: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:177
+#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
 #: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
 msgid "_Cancel"
 msgstr "_Скасувати"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1112
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
 #: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
 msgid "_OK"
 msgstr "_Гаразд"
@@ -1906,59 +1899,67 @@ msgstr "_Копіювати коригування кольорів"
 msgid "_Paste Color Adjustments"
 msgstr "_Вставити коригування кольорів"
 
-#: data/ui/preferences_dialog.ui:68
-msgid "Display"
-msgstr "Показ"
-
-#: data/ui/preferences_dialog.ui:87 src/library/LibraryWindow.vala:759
+#: data/ui/preferences_dialog.ui:102 src/library/LibraryWindow.vala:759
 msgid "Library Location"
 msgstr "Розташування бібліотеки"
 
-#: data/ui/preferences_dialog.ui:104
+#: data/ui/preferences_dialog.ui:118
 msgid "_Import photos to:"
 msgstr "_Імпортувати фотографії до:"
 
-#: data/ui/preferences_dialog.ui:115
+#: data/ui/preferences_dialog.ui:129
 msgid "_Watch library directory for new files"
 msgstr "_Шукати нові файли у каталозі бібліотеки"
 
-#: data/ui/preferences_dialog.ui:138
+#: data/ui/preferences_dialog.ui:151
 msgid "Importing"
 msgstr "Імпортування"
 
-#: data/ui/preferences_dialog.ui:155
+#: data/ui/preferences_dialog.ui:167
 msgid "_Directory structure:"
 msgstr "Стр_уктура каталогів:"
 
-#: data/ui/preferences_dialog.ui:170
+#: data/ui/preferences_dialog.ui:181
 msgid "Example:"
 msgstr "Приклад:"
 
-#: data/ui/preferences_dialog.ui:179
+#: data/ui/preferences_dialog.ui:190
 msgid "R_ename imported files to lowercase"
 msgstr "За_мінити літери у назвах імпортованих файлів на малі"
 
-#: data/ui/preferences_dialog.ui:201
+#: data/ui/preferences_dialog.ui:211
 msgid "Metadata"
 msgstr "Метадані"
 
-#: data/ui/preferences_dialog.ui:214
+#: data/ui/preferences_dialog.ui:224
 msgid "Write tags, titles, and other _metadata to photo files"
 msgstr "Записувати мітки, заголовки та інші _метадані до файлів фотографій"
 
-#: data/ui/preferences_dialog.ui:236
+#: data/ui/preferences_dialog.ui:245
 msgid "RAW Developer"
 msgstr "Обробник RAW"
 
-#: data/ui/preferences_dialog.ui:253
+#: data/ui/preferences_dialog.ui:261
 msgid "De_fault:"
 msgstr "_Типовий:"
 
-#: data/ui/preferences_dialog.ui:307
+#: data/ui/preferences_dialog.ui:314
 msgid "_Pattern:"
 msgstr "_Шаблон:"
 
-#: data/ui/preferences_dialog.ui:340
+#: data/ui/preferences_dialog.ui:350
+msgid "Checkered"
+msgstr "Картате"
+
+#: data/ui/preferences_dialog.ui:370
+msgid "Solid color"
+msgstr "Суцільний колір"
+
+#: data/ui/preferences_dialog.ui:406 src/slideshow/TransitionEffects.vala:287
+msgid "None"
+msgstr "Немає"
+
+#: data/ui/preferences_dialog.ui:430
 msgid ""
 "When viewing images that are transparent, they will be drawn against this "
 "background."
@@ -1966,52 +1967,45 @@ msgstr ""
 "Під час перегляду зображень із прозорими ділянками для прозорих ділянок буде "
 "використано це тло."
 
-#: data/ui/preferences_dialog.ui:344
+#: data/ui/preferences_dialog.ui:433
 msgid "Transparent Background:"
 msgstr "Прозоре тло:"
 
-#: data/ui/preferences_dialog.ui:358
-msgid "Checkered"
-msgstr "Картате"
+#: data/ui/preferences_dialog.ui:445
+msgid "Use dark theme"
+msgstr "Використовувати темну тему"
 
-#: data/ui/preferences_dialog.ui:379
-msgid "Solid color"
-msgstr "Суцільний колір"
+#: data/ui/preferences_dialog.ui:470
+msgid "Display"
+msgstr "Показ"
 
-#: data/ui/preferences_dialog.ui:415 src/slideshow/TransitionEffects.vala:287
-msgid "None"
-msgstr "Немає"
-
-#: data/ui/preferences_dialog.ui:442
-msgid "Use dark theme:"
-msgstr "Темна тема:"
-
-#: data/ui/preferences_dialog.ui:511 src/library/LibraryBranch.vala:30
+#: data/ui/preferences_dialog.ui:529 src/library/LibraryBranch.vala:30
 #: src/library/LibraryBranch.vala:127
 msgid "Library"
 msgstr "Бібліотека"
 
-#: data/ui/preferences_dialog.ui:538
-msgid "E_xternal photo editor:"
-msgstr "З_овнішній фоторедактор:"
+#: data/ui/preferences_dialog.ui:553 src/library/LibraryBranch.vala:97
+#: src/SearchFilter.vala:1104
+msgid "Photos"
+msgstr "Фотографії"
 
-#: data/ui/preferences_dialog.ui:555
-msgid "External _RAW editor:"
-msgstr "Зовнішній редактор н_егативів:"
+#: data/ui/preferences_dialog.ui:596 src/photos/RawSupport.vala:136
+msgid "RAW"
+msgstr "RAW"
 
-#: data/ui/preferences_dialog.ui:616
+#: data/ui/preferences_dialog.ui:626
 msgid "External Editors"
 msgstr "Зовнішні редактори"
 
-#: data/ui/preferences_dialog.ui:641
+#: data/ui/preferences_dialog.ui:647
 msgid "Plugins"
 msgstr "Додатки"
 
-#: data/ui/preferences_dialog.ui:666
+#: data/ui/preferences_dialog.ui:668
 msgid "Profiles"
 msgstr "Профілі"
 
-#: data/ui/preferences_dialog.ui:686
+#: data/ui/preferences_dialog.ui:692
 msgid "Shotwell Preferences"
 msgstr "Налаштування Shotwell"
 
@@ -2070,7 +2064,7 @@ msgid "Search"
 msgstr "Пошук"
 
 #: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:237
+#: src/ProfileBrowser.vala:209
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -2238,11 +2232,11 @@ msgstr ""
 msgid "Preparing for login…"
 msgstr "Приготування до входу…"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:221
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:203
 msgid "Flickr authorization failed"
 msgstr "Не вдалося пройти розпізнавання на Flickr"
 
-#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:228
+#: plugins/authenticator/shotwell/FlickrPublishingAuthenticator.vala:210
 msgid "Verifying authorization…"
 msgstr "Перевіряємо уповноваження…"
 
@@ -2276,8 +2270,8 @@ msgid ""
 "a>\n"
 "\n"
 "Shotwell's privacy policy regarding the use of data related to your Google "
-"account in general and YouTube in particular can be found in our <a href="
-"\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
+"account in general and YouTube in particular can be found in our <a "
+"href=\"help:shotwell/privacy-policy\">online services privacy policy</a>\n"
 "\n"
 "For Google's own privacy policy, please refer to <a href=\"https://policies."
 "google.com/privacy\">https://policies.google.com/privacy</a>"
@@ -2289,8 +2283,8 @@ msgstr ""
 "записів, увійшовши до облікового запису на сайті YouTube принаймні один "
 "раз.\n"
 "\n"
-"Shotwell використовує служби програмних інтерфейсів YouTube <a href="
-"\"https://developers.google.com/youtube\">https://developers.google.com/"
+"Shotwell використовує служби програмних інтерфейсів YouTube <a "
+"href=\"https://developers.google.com/youtube\">https://developers.google.com/"
 "youtube</a> для доступу до вашого каналу YouTube та вивантаження відео. "
 "Користуючись Shotwell для доступу до YouTube, ви погоджуєтеся із умовами "
 "надання послуг YouTube, які викладено на сторінці <a href=\"https://www."
@@ -2302,16 +2296,16 @@ msgstr ""
 "інтернет-служб</a>\n"
 "\n"
 "Щоб ознайомитися із власними правилами конфіденційності Google, будь ласка, "
-"зверніться до сторінки <a href=\"https://policies.google.com/privacy"
-"\">https://policies.google.com/privacy</a>"
+"зверніться до сторінки <a href=\"https://policies.google.com/"
+"privacy\">https://policies.google.com/privacy</a>"
 
 #: plugins/authenticator/shotwell/ShotwellAuthenticatorFactory.vala:34
 msgid ""
 "You are not currently logged into Google Photos.\n"
 "\n"
 "You must have already signed up for a Google account and set it up for use "
-"with Google Photos. Shotwell uses the Google Photos API services <a href="
-"\"https://developers.google.com/photos/\">https://developers.google.com/"
+"with Google Photos. Shotwell uses the Google Photos API services <a "
+"href=\"https://developers.google.com/photos/\">https://developers.google.com/"
 "photos/</a> for all interaction with your Google Photos data. You will have "
 "to grant access Shotwell to your Google Photos library.\n"
 "\n"
@@ -2334,9 +2328,9 @@ msgstr ""
 "обліковим записом Google загалом та Google Фото зокрема, наведено на нашій "
 "<a href=\"help:shotwell/privacy-policy\">сторінці правил конфіденційності "
 "щодо інтернет-служб</a>. Щоб ознайомитися із власними правилами "
-"конфіденційності Google, будь ласка, зверніться до сторінки <a href="
-"\"https://policies.google.com/privacy\">https://policies.google.com/privacy</"
-"a>"
+"конфіденційності Google, будь ласка, зверніться до сторінки <a "
+"href=\"https://policies.google.com/privacy\">https://policies.google.com/"
+"privacy</a>"
 
 #: plugins/authenticator/shotwell/tumblr_authentication_pane.ui:42
 msgid "_Email address"
@@ -2359,40 +2353,41 @@ msgstr ""
 "Tumblr."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:26
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1145
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1085
 msgid "Username and/or password invalid. Please try again"
 msgstr ""
 "Некоректні значення імені користувача і/або пароля. Будь ласка, повторіть "
 "спробу."
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:53
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1181
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1121
 msgid "Invalid User Name or Password"
 msgstr "Некоректне ім’я користувача або пароль"
 
 #: plugins/authenticator/shotwell/TumblrAuthenticator.vala:72
-#: plugins/shotwell-publishing/TumblrPublishing.vala:498
+#: plugins/shotwell-publishing/TumblrPublishing.vala:462
 #, c-format
 msgid "Could not load UI: %s"
 msgstr "Не вдалося завантажити інтерфейс: %s"
 
-#: plugins/common/Resources.vala:12
+#: plugins/common/Resources.vala:12 src/plugins/SpitInterfaces.vala:176
 msgid "Visit the Shotwell home page"
 msgstr "Відвідати домашню сторінку Shotwell"
 
 #: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:264
+#: plugins/common/RESTSupport.vala:242
 msgid ""
 "⚫ This website presented identification that belongs to a different website."
 msgstr ""
 "⚫ Цим сайтом надано дані щодо розпізнавання, які належать іншому сайту."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:269
+#: plugins/common/RESTSupport.vala:247
 msgid ""
 "⚫ This website’s identification is too old to trust. Check the date on your "
 "computer’s calendar."
@@ -2401,14 +2396,14 @@ msgstr ""
 "Перевірте, чи правильно вказано дату на календарі вашого комп’ютера."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:274
+#: plugins/common/RESTSupport.vala:252
 msgid ""
 "⚫ This website’s identification was not issued by a trusted organization."
 msgstr ""
 "⚫ Дані розпізнавання цього сайта не було видано надійною організацією."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:279
+#: plugins/common/RESTSupport.vala:257
 msgid ""
 "⚫ This website’s identification could not be processed. It may be corrupted."
 msgstr ""
@@ -2416,16 +2411,16 @@ msgstr ""
 "пошкоджено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:284
+#: plugins/common/RESTSupport.vala:262
 msgid ""
-"⚫ This website’s identification has been revoked by the trusted organization "
-"that issued it."
+"⚫ This website’s identification has been revoked by the trusted "
+"organization that issued it."
 msgstr ""
 "⚫ Дані розпізнавання цього сайта було відкликано службою сертифікації, якою "
 "їх було випущено."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:289
+#: plugins/common/RESTSupport.vala:267
 msgid ""
 "⚫ This website’s identification cannot be trusted because it uses very weak "
 "encryption."
@@ -2434,7 +2429,7 @@ msgstr ""
 "використовується дуже слабкий спосіб шифрування."
 
 #. Possible error message when a site presents a bad certificate.
-#: plugins/common/RESTSupport.vala:294
+#: plugins/common/RESTSupport.vala:272
 msgid ""
 "⚫ This website’s identification is only valid for future dates. Check the "
 "date on your computer’s calendar."
@@ -2442,184 +2437,11 @@ msgstr ""
 "⚫ Дані розпізнавання сайта набудуть чинності лише у майбутньому. Перевірте, "
 "чи правильно вказано дату на календарі вашого комп’ютера."
 
-#: plugins/common/RESTSupport.vala:593
-#: plugins/shotwell-publishing/TumblrPublishing.vala:603
-#: plugins/shotwell-publishing/YoutubeUploader.vala:69
+#: plugins/common/RESTSupport.vala:574
+#: plugins/shotwell-publishing/TumblrPublishing.vala:567
+#: plugins/shotwell-publishing/YoutubeUploader.vala:62
 msgid "A temporary file needed for publishing is unavailable"
 msgstr "Тимчасовий файл, потрібний для оприлюднення, недоступний"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:28
-msgid "_Gallery3 URL:"
-msgstr "_Адреса Gallery3:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:55
-msgid "_User name:"
-msgstr "_Користувач:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:68
-msgid "_Password:"
-msgstr "_Пароль:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:108
-msgid "Go _Back"
-msgstr "_Назад"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:154
-msgid "API _Key:"
-msgstr "_Ключ API:"
-
-#: plugins/shotwell-publishing-extras/gallery3_authentication_pane.ui:180
-msgid "or"
-msgstr "або"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:34
-msgid "An _existing album"
-msgstr "_Наявному альбомі"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:60
-msgid "A _new album"
-msgstr "_Новому альбомі"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:86
-msgid "_Remove location, tag and camera-identifying data before uploading"
-msgstr ""
-"Ви_лучити дані щодо місця, мітки та інші ідентифікаційні дані перед "
-"вивантаженням"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:108
-msgid "Scaling constraint:"
-msgstr "Обмеження масштабування:"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:124
-msgid "pixels"
-msgstr "пікселів"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:158
-#: plugins/shotwell-publishing/FlickrPublishing.vala:694
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1377
-#: src/Dimensions.vala:17
-msgid "Original size"
-msgstr "Початковий розмір"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:159
-#: src/Dimensions.vala:20
-msgid "Longest edge"
-msgstr "Найдовший край"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:203
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
-msgid "_Logout"
-msgstr "Ви_йти з системи"
-
-#: plugins/shotwell-publishing-extras/gallery3_publishing_options_pane.ui:216
-#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
-#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
-#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
-#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
-msgid "_Publish"
-msgstr "_Оприлюднити"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:41
-msgid "Gallery3 publishing module"
-msgstr "Модуль оприлюднення на Gallery3"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:115
-msgid ""
-"You are not currently logged into your Gallery.\n"
-"\n"
-"You must have already signed up for a Gallery3 account to complete the login "
-"process."
-msgstr ""
-"Ви ще не увійшли до системи Gallery.\n"
-"\n"
-"Щоб завершити процес входу, вам слід мати зареєстрований обліковий запис "
-"Galery."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:118
-msgid "Shotwell default directory"
-msgstr "Типовий каталог Shotwell"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:804
-#, c-format
-msgid ""
-"\n"
-"\n"
-"The file “%s” may not be supported by or may be too large for this instance "
-"of Gallery3."
-msgstr ""
-"\n"
-"\n"
-"Можливо, підтримки файлів типу «%s» у цьому екземплярі Gallery3 не "
-"передбачено або файл є надто великим."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:805
-msgid ""
-"\n"
-"Note that Gallery3 only supports the video types that Flowplayer does."
-msgstr ""
-"\n"
-"Зауважте, що у Gallery3 передбачено підтримку лише тих типів відео, які "
-"підтримуються Flowplayer."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1057
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1809
-#, c-format
-msgid ""
-"A file required for publishing is unavailable. Publishing to %s can’t "
-"continue."
-msgstr ""
-"Не виявлено потрібного для оприлюднення файла. Продовження дій з "
-"оприлюднення на %s неможливе."
-
-#. populate any widgets whose contents are
-#. programmatically-generated
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1586
-#, c-format
-msgid "Publishing to %s as %s."
-msgstr "Оприлюднення на %s як %s."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1853
-msgid ""
-"Enter the URL for your Gallery3 site and the username and password (or API "
-"key) for your Gallery3 account."
-msgstr ""
-"Вкажіть адресу вашого сайта Gallery3, ім’я користувача і пароль (або ключ "
-"API) до вашого облікового запису на Gallery3."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1854
-msgid ""
-"The username and password or API key were incorrect. To try again, re-enter "
-"your username and password below."
-msgstr ""
-"Вказані ім’я користувача і пароль або ключ до програмного інтерфейсу "
-"виявилися помилковими. Щоб повторити спробу, повторно вкажіть ваше ім’я "
-"користувача і пароль у розташованих нижче полях."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1855
-msgid ""
-"The URL entered does not appear to be the main directory of a Gallery3 "
-"instance. Please make sure you typed it correctly and it does not have any "
-"trailing components (e.g., index.php)."
-msgstr ""
-"Вказана адреса, здається, не є адресою основного каталогу екземпляра "
-"Gallery3. Будь ласка, переконайтеся, що адресу введено правильно і у ній "
-"немає зайвих частин наприкінці (наприклад, index.php)."
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1908
-msgid "Unrecognized User"
-msgstr "Нерозпізнаний користувач"
-
-#: plugins/shotwell-publishing-extras/GalleryConnector.vala:1913
-msgid " Site Not Found"
-msgstr " Сайт не знайдено"
-
-#: plugins/shotwell-publishing-extras/shotwell-publishing-extras.vala:20
-msgid "Shotwell Extra Publishing Services"
-msgstr "Додаткові служби оприлюднення Shotwell"
 
 #: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:61
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:60
@@ -2635,13 +2457,28 @@ msgstr ""
 "Ви_лучити дані щодо місця, фотоапарата та інші ідентифікаційні дані перед "
 "вивантаженням"
 
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:125
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:181
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:106
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:80
+msgid "_Logout"
+msgstr "Ви_йти з системи"
+
+#: plugins/shotwell-publishing/flickr_publishing_options_pane.ui:141
+#: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
+#: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
+#: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+msgid "_Publish"
+msgstr "_Оприлюднити"
+
 #: plugins/shotwell-publishing/FlickrPublishing.vala:27
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:33
-#: plugins/shotwell-publishing/YouTubePublishing.vala:33 src/Resources.vala:15
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:45
+#: plugins/shotwell-publishing/YouTubePublishing.vala:27 src/Resources.vala:15
 msgid "Copyright 2016 Software Freedom Conservancy Inc."
 msgstr "© Software Freedom Conservancy Inc., 2016"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:334
+#: plugins/shotwell-publishing/FlickrPublishing.vala:280
 msgid ""
 "A file required for publishing is unavailable. Publishing to Flickr can’t "
 "continue."
@@ -2649,7 +2486,7 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Flickr неможливе."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:613
+#: plugins/shotwell-publishing/FlickrPublishing.vala:564
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -2658,7 +2495,7 @@ msgstr ""
 "Ви увійшли до облікового запису %s на Flickr.\n"
 "\n"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:615
+#: plugins/shotwell-publishing/FlickrPublishing.vala:566
 #, c-format
 msgid ""
 "Your free Flickr account limits how many photos you can upload to the "
@@ -2669,7 +2506,7 @@ msgstr ""
 "кількість фотографій, які ви можете вивантажувати.\n"
 "Вами вивантажено %llu (обмеження складає — %lld)."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:617
+#: plugins/shotwell-publishing/FlickrPublishing.vala:568
 #, c-format
 msgid ""
 "Your Flickr Pro account entitles you to unlimited uploads. You have "
@@ -2690,60 +2527,66 @@ msgstr[3] ""
 "За допомогою вашого облікового запису Flickr Pro ви зможете вивантажувати "
 "довільний об’єм даних. Зараз ви вивантажили один файл."
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:622
+#: plugins/shotwell-publishing/FlickrPublishing.vala:573
 msgid "Photos _visible to"
 msgstr "Фотографії зможе _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:624
+#: plugins/shotwell-publishing/FlickrPublishing.vala:575
 msgid "Videos _visible to"
 msgstr "Відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:627
+#: plugins/shotwell-publishing/FlickrPublishing.vala:578
 msgid "Photos and videos _visible to"
 msgstr "Фотографії і відео зможуть _бачити"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:668
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1361
+#: plugins/shotwell-publishing/FlickrPublishing.vala:619
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1301
 msgid "Everyone"
 msgstr "Будь-хто"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:669
+#: plugins/shotwell-publishing/FlickrPublishing.vala:620
 msgid "Friends & family only"
 msgstr "Лише друзі і родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:670
+#: plugins/shotwell-publishing/FlickrPublishing.vala:621
 msgid "Family only"
 msgstr "Лише родичі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:671
+#: plugins/shotwell-publishing/FlickrPublishing.vala:622
 msgid "Friends only"
 msgstr "Лише друзі"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:672
+#: plugins/shotwell-publishing/FlickrPublishing.vala:623
 msgid "Just me"
 msgstr "Лише я"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:690
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1373
-#: plugins/shotwell-publishing/TumblrPublishing.vala:103
+#: plugins/shotwell-publishing/FlickrPublishing.vala:641
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1313
+#: plugins/shotwell-publishing/TumblrPublishing.vala:92
 msgid "500 × 375 pixels"
 msgstr "500 × 375 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:691
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1374
-#: plugins/shotwell-publishing/TumblrPublishing.vala:104
+#: plugins/shotwell-publishing/FlickrPublishing.vala:642
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1314
+#: plugins/shotwell-publishing/TumblrPublishing.vala:93
 msgid "1024 × 768 pixels"
 msgstr "1024 × 768 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:692
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1375
+#: plugins/shotwell-publishing/FlickrPublishing.vala:643
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1315
 msgid "2048 × 1536 pixels"
 msgstr "2048 × 1536 пікселів"
 
-#: plugins/shotwell-publishing/FlickrPublishing.vala:693
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1376
+#: plugins/shotwell-publishing/FlickrPublishing.vala:644
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1316
 msgid "4096 × 3072 pixels"
 msgstr "4096 × 3072 пікселів"
+
+#: plugins/shotwell-publishing/FlickrPublishing.vala:645
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1317
+#: src/Dimensions.vala:17
+msgid "Original size"
+msgstr "Початковий розмір"
 
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:66
 msgid ""
@@ -2768,7 +2611,7 @@ msgid "A new album named"
 msgstr "Новому альбомі з назвою"
 
 #: plugins/shotwell-publishing/PhotosPublisher.vala:9
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1252
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1192
 msgid "Shotwell Connect"
 msgstr "З’єднувач Shotwell"
 
@@ -2814,7 +2657,7 @@ msgstr "Фотографії з’являться у:"
 msgid "Default album"
 msgstr "Типовий альбом"
 
-#: plugins/shotwell-publishing/PhotosService.vala:36
+#: plugins/shotwell-publishing/PhotosService.vala:30
 msgid "Copyright 2019 Jens Georg <mail@jensge.org>"
 msgstr "© Jens Georg <mail@jensge.org>, 2019"
 
@@ -2872,19 +2715,19 @@ msgstr "_Не вивантажувати оцінки"
 msgid "Logout"
 msgstr "Вийти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:828
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:809
 #, c-format
 msgid "Creating album %s…"
 msgstr "Створюємо альбом %s…"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1005
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:945
 msgid "An error message occurred when publishing to Piwigo. Please try again."
 msgstr ""
 "Під час спроби оприлюднення даних на Piwigo сталася помилка. Будь ласка, "
 "повторіть спробу."
 
 #. %s is the host name that we tried to connect to
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1090
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1030
 #, c-format
 msgid ""
 "This does not look like the real %s. Attackers might be trying to steal or "
@@ -2895,12 +2738,12 @@ msgstr ""
 "інформацію, яка надходить до цього сайта або з нього (це стосується, "
 "наприклад, особистих повідомлень, даних щодо кредитних карток або паролів)."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1109
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1049
 #, c-format
 msgid "Certificate of %s"
 msgstr "Сертифікат %s"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1143
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1083
 msgid ""
 "Enter the URL of your Piwigo photo library as well as the username and "
 "password associated with your Piwigo account for that library."
@@ -2909,7 +2752,7 @@ msgstr ""
 "і пароль, пов’язані з вашим обліковим записом Piwigo, до якого прив’язано "
 "бібліотеку."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1144
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1084
 msgid ""
 "Shotwell cannot contact your Piwigo photo library. Please verify the URL you "
 "entered"
@@ -2917,23 +2760,23 @@ msgstr ""
 "Shotwell не вдалося встановити зв’язок з вашою бібліотекою фотографій "
 "Piwigo. Будь ласка, перевірте, чи правильно вказано адресу."
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1176
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1116
 msgid "Invalid URL"
 msgstr "Некоректна адреса"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1362
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1302
 msgid "Admins, Family, Friends, Contacts"
 msgstr "Адміністратори, родичі, друзі, контакти"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1363
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1303
 msgid "Admins, Family, Friends"
 msgstr "Адміністратори, родичі, друзі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1364
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1304
 msgid "Admins, Family"
 msgstr "Адміністратори, родичі"
 
-#: plugins/shotwell-publishing/PiwigoPublishing.vala:1365
+#: plugins/shotwell-publishing/PiwigoPublishing.vala:1305
 msgid "Admins"
 msgstr "Адміністратори"
 
@@ -2949,7 +2792,7 @@ msgstr "Показати сертифікат…"
 msgid "I understand, please _proceed."
 msgstr "Зрозуміло, будь ласка, п_родовжуйте."
 
-#: plugins/shotwell-publishing/shotwell-publishing.vala:53
+#: plugins/shotwell-publishing/shotwell-publishing.vala:51
 msgid "Core Publishing Services"
 msgstr "Основні служби оприлюднення"
 
@@ -2957,22 +2800,22 @@ msgstr "Основні служби оприлюднення"
 msgid "Blogs"
 msgstr "Блоги"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:35
+#: plugins/shotwell-publishing/TumblrPublishing.vala:28
 msgid "Copyright 2012 BJA Electronics"
 msgstr "© BJA Electronics, 2012"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:105
+#: plugins/shotwell-publishing/TumblrPublishing.vala:94
 msgid "1280 × 853 pixels"
 msgstr "1280 × 853 пікселів"
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:407
+#: plugins/shotwell-publishing/TumblrPublishing.vala:371
 msgid ""
 "TumblrPublisher: start( ): can’t start; this publisher is not restartable."
 msgstr ""
 "TumblrPublisher: start( ): не вдалося розпочати; цей засіб оприлюднення не "
 "можна перезапускати."
 
-#: plugins/shotwell-publishing/TumblrPublishing.vala:480
+#: plugins/shotwell-publishing/TumblrPublishing.vala:444
 #, c-format
 msgid ""
 "You are logged into Tumblr as %s.\n"
@@ -2985,7 +2828,7 @@ msgstr ""
 msgid "Video privacy _setting"
 msgstr "_Конфіденційність відео"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:217
+#: plugins/shotwell-publishing/YouTubePublishing.vala:181
 msgid ""
 "A file required for publishing is unavailable. Publishing to YouTube can’t "
 "continue."
@@ -2993,20 +2836,20 @@ msgstr ""
 "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
 "оприлюднення на Youtube неможливе."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:325
+#: plugins/shotwell-publishing/YouTubePublishing.vala:301
 #, c-format
 msgid "You are logged into YouTube as %s."
 msgstr "Ви увійшли до облікового запису %s на YouTube."
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:357
+#: plugins/shotwell-publishing/YouTubePublishing.vala:333
 msgid "Public listed"
 msgstr "Відкрите у списку"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:358
+#: plugins/shotwell-publishing/YouTubePublishing.vala:334
 msgid "Public unlisted"
 msgstr "Відкрите без показу у списку"
 
-#: plugins/shotwell-publishing/YouTubePublishing.vala:359
+#: plugins/shotwell-publishing/YouTubePublishing.vala:335
 msgid "Private"
 msgstr "Конфіденційне"
 
@@ -3038,11 +2881,11 @@ msgstr "Розпад"
 msgid "Fade"
 msgstr "Згасання"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:28
+#: plugins/shotwell-transitions/shotwell-transitions.vala:26
 msgid "Core Slideshow Transitions"
 msgstr "Основні переходи під час показу слайдів"
 
-#: plugins/shotwell-transitions/shotwell-transitions.vala:76
+#: plugins/shotwell-transitions/shotwell-transitions.vala:67
 msgid ""
 "Copyright 2010 Maxim Kartashev, Copyright 2016 Software Freedom Conservancy "
 "Inc."
@@ -3075,22 +2918,22 @@ msgstr "Не вдалося створити каталог даних %s: %s"
 msgid "Pictures"
 msgstr "Фотографії"
 
-#: src/AppDirs.vala:206
+#: src/AppDirs.vala:205
 #, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "Не вдалося створити тимчасовий каталог %s: %s"
 
-#: src/AppDirs.vala:223 src/AppDirs.vala:254
+#: src/AppDirs.vala:222 src/AppDirs.vala:253
 #, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "Не вдалося створити підкаталог даних %s: %s"
 
-#: src/AppDirs.vala:236
+#: src/AppDirs.vala:235
 #, c-format
 msgid "Could not make directory %s writable"
 msgstr "Не вдалося зробити каталог %s придатним до запису"
 
-#: src/AppDirs.vala:239
+#: src/AppDirs.vala:238
 #, c-format
 msgid "Could not make directory %s writable: %s"
 msgstr "Не вдалося зробити каталог %s придатним до запису: %s"
@@ -3537,19 +3380,19 @@ msgstr "Відновлення попереднього значення обр�
 msgid "Set Developer"
 msgstr "Вказати проявника"
 
-#: src/Commands.vala:1346
+#: src/Commands.vala:1355
 msgid "Original photo could not be adjusted."
 msgstr "Не вдалося скоригувати початкову фотографію."
 
-#: src/Commands.vala:1367
+#: src/Commands.vala:1376
 msgid "Adjusting Date and Time"
 msgstr "Коригування дати і часу"
 
-#: src/Commands.vala:1367
+#: src/Commands.vala:1376
 msgid "Undoing Date and Time Adjustment"
 msgstr "Скасування коригування дати і часу"
 
-#: src/Commands.vala:1398
+#: src/Commands.vala:1415
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Фотографії з наведеними нижче назвами не вдалося скоригувати."
@@ -3557,11 +3400,11 @@ msgstr[1] "Фотографії з наведеними нижче назвам�
 msgstr[2] "Фотографії з наведеними нижче назвами не вдалося скоригувати."
 msgstr[3] "Не вдалося скоригувати одну фотографію."
 
-#: src/Commands.vala:1400 src/Commands.vala:1424
+#: src/Commands.vala:1417 src/Commands.vala:1441
 msgid "Time Adjustment Error"
 msgstr "Помилка коригування часу"
 
-#: src/Commands.vala:1422
+#: src/Commands.vala:1439
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
@@ -3578,60 +3421,60 @@ msgstr[3] ""
 "Для файла фотографії з наведеного нижче списку не вдалося скасувати "
 "коригування часу."
 
-#: src/Commands.vala:1636 src/Commands.vala:1659
+#: src/Commands.vala:1653 src/Commands.vala:1676
 msgid "Create Tag"
 msgstr "Створити мітку"
 
-#: src/Commands.vala:1694
+#: src/Commands.vala:1711
 #, c-format
 msgid "Move Tag “%s”"
 msgstr "Пересунути мітку «%s»"
 
-#: src/Commands.vala:2344
+#: src/Commands.vala:2361
 msgid "Move Photos to Trash"
 msgstr "Пересунути фотографії до смітника"
 
-#: src/Commands.vala:2344
+#: src/Commands.vala:2361
 msgid "Restore Photos from Trash"
 msgstr "Відновити фотографії зі смітника"
 
-#: src/Commands.vala:2345
+#: src/Commands.vala:2362
 msgid "Move the photos to the Shotwell trash"
 msgstr "Пересунути фотографії до смітника Shotwell"
 
-#: src/Commands.vala:2345
+#: src/Commands.vala:2362
 msgid "Restore the photos back to the Shotwell library"
 msgstr "Відновити фотографії у бібліотеці Shotwell"
 
-#: src/Commands.vala:2364
+#: src/Commands.vala:2381
 msgid "Moving Photos to Trash"
 msgstr "Пересування фотографій до смітника"
 
-#: src/Commands.vala:2364
+#: src/Commands.vala:2381
 msgid "Restoring Photos From Trash"
 msgstr "Відновлення фотографій зі смітника"
 
-#: src/Commands.vala:2450
+#: src/Commands.vala:2467
 msgid "Flag selected photos"
 msgstr "Позначити вибрані фотографії"
 
-#: src/Commands.vala:2451
+#: src/Commands.vala:2468
 msgid "Unflag selected photos"
 msgstr "Зняти позначення з вибраних фотографій"
 
-#: src/Commands.vala:2452
+#: src/Commands.vala:2469
 msgid "Flagging selected photos"
 msgstr "Позначаємо фотографії прапорцем"
 
-#: src/Commands.vala:2453
+#: src/Commands.vala:2470
 msgid "Unflagging selected photos"
 msgstr "Скасовуємо позначення фотографій прапорцем"
 
-#: src/Commands.vala:2460
+#: src/Commands.vala:2477
 msgid "Flag"
 msgstr "Позначити"
 
-#: src/Commands.vala:2460
+#: src/Commands.vala:2477
 msgid "Unflag"
 msgstr "Зняти позначення"
 
@@ -3727,26 +3570,27 @@ msgstr ""
 msgid "Unable to restore photo database %s"
 msgstr "Не вдалося відновити базу даних фотографій %s"
 
-#: src/DesktopIntegration.vala:126
+#. Use empty list for addresses instead of null to word around bug in xdg-desktop-portal-gtk
+#: src/DesktopIntegration.vala:113
 msgid "Send files per Mail: "
 msgstr "Надіслати файли поштою: "
 
 #. Translators: The first %s is the name of the file, the second %s is the reason why it could not be sent
-#: src/DesktopIntegration.vala:137
+#: src/DesktopIntegration.vala:116
 #, c-format
 msgid "Unable to send file %s, %s"
 msgstr "Не вдалося надіслати файл %s, %s"
 
-#: src/DesktopIntegration.vala:147
+#: src/DesktopIntegration.vala:126
 msgid "Send To"
 msgstr "Надіслати"
 
-#: src/DesktopIntegration.vala:192
+#: src/DesktopIntegration.vala:171
 #, c-format
 msgid "Unable to export background to %s: %s"
 msgstr "Не вдалося експортувати тло до %s: %s"
 
-#: src/DesktopIntegration.vala:329
+#: src/DesktopIntegration.vala:309
 #, c-format
 msgid "Unable to prepare desktop slideshow: %s"
 msgstr "Не вдалося створити показ слайдів на стільниці: %s"
@@ -3787,19 +3631,19 @@ msgstr[1] "З_мінити початковий файл"
 msgstr[2] "З_мінити початковий файл"
 msgstr[3] "З_мінити початковий файл"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:219
+#: src/dialogs/AdjustDateTimeDialog.vala:220
 msgid "Original: "
 msgstr "Початкове: "
 
-#: src/dialogs/AdjustDateTimeDialog.vala:220
+#: src/dialogs/AdjustDateTimeDialog.vala:221
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%d %m %Y, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:221
+#: src/dialogs/AdjustDateTimeDialog.vala:222
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%d %m %Y, %H:%M:%S"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:312
+#: src/dialogs/AdjustDateTimeDialog.vala:305
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -3808,7 +3652,7 @@ msgstr ""
 "Час зйомки буде зсунуто вперед на\n"
 "%d %s, %d %s, %d %s і %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:313
+#: src/dialogs/AdjustDateTimeDialog.vala:306
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -3817,7 +3661,7 @@ msgstr ""
 "Час зйомки буде зсунуто назад на\n"
 "%d %s, %d %s, %d %s і %d %s."
 
-#: src/dialogs/AdjustDateTimeDialog.vala:315
+#: src/dialogs/AdjustDateTimeDialog.vala:308
 msgid "day"
 msgid_plural "days"
 msgstr[0] "день"
@@ -3825,7 +3669,7 @@ msgstr[1] "дні"
 msgstr[2] "день"
 msgstr[3] "день"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:316
+#: src/dialogs/AdjustDateTimeDialog.vala:309
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "година"
@@ -3833,7 +3677,7 @@ msgstr[1] "години"
 msgstr[2] "година"
 msgstr[3] "година"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:317
+#: src/dialogs/AdjustDateTimeDialog.vala:310
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "хвилина"
@@ -3841,7 +3685,7 @@ msgstr[1] "хвилини"
 msgstr[2] "хвилина"
 msgstr[3] "хвилина"
 
-#: src/dialogs/AdjustDateTimeDialog.vala:318
+#: src/dialogs/AdjustDateTimeDialog.vala:311
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "секунда"
@@ -4880,6 +4724,10 @@ msgstr "_Не показувати надалі це повідомлення"
 msgid "Import photos from your %s library"
 msgstr "Імпортувати фотографії з вашої бібліотеки %s"
 
+#: src/Dimensions.vala:20
+msgid "Longest edge"
+msgstr "Найдовший край"
+
 #: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Ширина"
@@ -5150,33 +4998,6 @@ msgstr "Розширення контрастності"
 msgid "Angle:"
 msgstr "Кут:"
 
-#: src/events/EventDirectoryItem.vala:97
-#, c-format
-msgid "%d Photo/Video"
-msgid_plural "%d Photos/Videos"
-msgstr[0] "%d фотографія/відео"
-msgstr[1] "%d фотографії/відео"
-msgstr[2] "%d фотографій/відео"
-msgstr[3] "%d фотографія/відео"
-
-#: src/events/EventDirectoryItem.vala:99 src/Properties.vala:367
-#, c-format
-msgid "%d Video"
-msgid_plural "%d Videos"
-msgstr[0] "%d відео"
-msgstr[1] "%d відео"
-msgstr[2] "%d відео"
-msgstr[3] "%d відео"
-
-#: src/events/EventDirectoryItem.vala:101 src/Properties.vala:365
-#, c-format
-msgid "%d Photo"
-msgid_plural "%d Photos"
-msgstr[0] "%d фотографія"
-msgstr[1] "%d фотографії"
-msgstr[2] "%d фотографія"
-msgstr[3] "%d фотографія"
-
 #: src/events/EventPage.vala:129
 msgid "No Event"
 msgstr "Без події"
@@ -5214,7 +5035,7 @@ msgid "%B"
 msgstr "%B"
 
 #. if no name, pretty up the start time
-#: src/Event.vala:753
+#: src/Event.vala:748
 #, c-format
 msgid "Event %s"
 msgstr "Подія %s"
@@ -5362,10 +5183,6 @@ msgstr "Попереднє імпортування"
 msgid "Organize and browse your photos"
 msgstr "Впорядкуйте ваші фотографії і переглядайте їх"
 
-#: src/library/LibraryBranch.vala:97 src/SearchFilter.vala:1104
-msgid "Photos"
-msgstr "Фотографії"
-
 #: src/library/LibraryWindow.vala:503
 msgid "Import From Folder"
 msgstr "Імпортувати з теки"
@@ -5476,62 +5293,62 @@ msgstr "Невідома помилка під час спроби переві�
 msgid "Loading Shotwell"
 msgstr "Завантаження Shotwell"
 
-#: src/main.vala:343
+#: src/main.vala:347
 msgid "Path to Shotwell’s private data"
 msgstr "Шлях до конфіденційних даних Shotwell"
 
-#: src/main.vala:343
+#: src/main.vala:347
 msgid "DIRECTORY"
 msgstr "КАТАЛОГ"
 
-#: src/main.vala:344
+#: src/main.vala:348
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Не стежити за змінами у каталозі бібліотеки під час роботи програми"
 
-#: src/main.vala:345
+#: src/main.vala:349
 msgid "Don’t display startup progress meter"
 msgstr "Не показувати панель поступу під час завантаження"
 
-#: src/main.vala:346
+#: src/main.vala:350
 msgid "Show the application’s version"
 msgstr "Показати дані щодо версії програми"
 
-#: src/main.vala:347
+#: src/main.vala:351
 msgid "Start the application in fullscreen mode"
 msgstr "Запускати програму у повноекранному режимі"
 
-#: src/main.vala:348
+#: src/main.vala:352
 msgid "Print the metadata of the image file"
 msgstr "Надрукувати метадані файла зображення"
 
-#: src/main.vala:349
+#: src/main.vala:353
 msgid "Name for a custom profile"
 msgstr "Назва нетипового профілю"
 
-#: src/main.vala:349
+#: src/main.vala:353
 msgid "PROFILE"
 msgstr "ПРОФІЛЬ"
 
-#: src/main.vala:350
+#: src/main.vala:354
 msgid "Start with a browser of available profiles"
 msgstr "Починати з вибору доступних профілів"
 
-#: src/main.vala:351
+#: src/main.vala:355
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr ""
 "Якщо профілю ПРОФІЛЬ, який задано за допомогою параметра --profile, не "
 "існує, створити його"
 
-#: src/main.vala:352
+#: src/main.vala:356
 msgid "Show available profiles"
 msgstr "Показати доступні профілі"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:383
+#: src/main.vala:387
 msgid "[FILE]"
 msgstr "[ФАЙЛ]"
 
-#: src/main.vala:388
+#: src/main.vala:392
 #, c-format
 msgid ""
 "Run “%s --help” to see a full list of available command line options.\n"
@@ -5539,11 +5356,11 @@ msgstr ""
 "Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
 "команду «%s --help».\n"
 
-#: src/main.vala:395
+#: src/main.vala:399
 msgid "Choose Shotwell's profile"
 msgstr "Виберіть профіль Shotwell"
 
-#: src/main.vala:416
+#: src/main.vala:420
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Профілю %s не існує. Ви хотіли передати також параметр --create?"
@@ -5606,9 +5423,17 @@ msgstr "Вилучення фотографій з бібліотеки"
 msgid "Unable to export %s: %s"
 msgstr "Не вдалося експортувати %s: %s"
 
+#: src/photos/AvifSupport.vala:30
+msgid "AVIF"
+msgstr "AVIF"
+
 #: src/photos/BmpSupport.vala:32
 msgid "BMP"
 msgstr "BMP"
+
+#: src/photos/HeifSupport.vala:30
+msgid "HEIF"
+msgstr "HEIF"
 
 #: src/photos/GifSupport.vala:32
 msgid "GIF"
@@ -5642,10 +5467,6 @@ msgstr "Максимальна (%d%%)"
 msgid "PNG"
 msgstr "PNG"
 
-#: src/photos/RawSupport.vala:136
-msgid "RAW"
-msgstr "RAW"
-
 #: src/photos/TiffSupport.vala:86
 msgid "TIFF"
 msgstr "TIFF"
@@ -5654,13 +5475,35 @@ msgstr "TIFF"
 msgid "WebP"
 msgstr "WebP"
 
-#: src/photos/AvifSupport.vala:30
-msgid "AVIF"
-msgstr "AVIF"
-
-#: src/Photo.vala:3804
+#: src/Photo.vala:3811
 msgid "modified"
 msgstr "змінено"
+
+#. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
+#: src/plugins/ManifestWidget.vala:121
+#, c-format
+msgid "Manage accounts for %s"
+msgstr "Керування обліковими записами %s"
+
+#: src/plugins/ManifestWidget.vala:134
+msgid "Authors"
+msgstr "Автори"
+
+#: src/plugins/ManifestWidget.vala:144
+msgid "Version"
+msgstr "Версія"
+
+#: src/plugins/ManifestWidget.vala:154
+msgid "License"
+msgstr "Ліцензування"
+
+#: src/plugins/ManifestWidget.vala:166
+msgid "Website"
+msgstr "Сайт"
+
+#: src/plugins/SpitInterfaces.vala:173
+msgid "LGPL v2.1 or later"
+msgstr "LGPL v2.1 або пізніша"
 
 #: src/Printing.vala:255
 msgid "Fill the entire page"
@@ -5709,6 +5552,79 @@ msgstr ""
 "\n"
 "%s"
 
+#: src/ProfileBrowser.vala:20
+msgid "Create"
+msgstr "Створити"
+
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:251
+msgid "Create new Profile"
+msgstr "Створити профіль"
+
+#: src/ProfileBrowser.vala:35
+msgid "Name"
+msgstr "Назва"
+
+#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:169
+msgid "Library Folder"
+msgstr "Тека бібліотеки"
+
+#: src/ProfileBrowser.vala:64
+msgid "Choose Library Folder"
+msgstr "Виберіть теку бібліотеки"
+
+#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:179
+msgid "Data Folder"
+msgstr "Тека даних"
+
+#: src/ProfileBrowser.vala:92
+msgid "Choose Data Folder"
+msgstr "Виберіть теку даних"
+
+#: src/ProfileBrowser.vala:135
+msgid "This is the currently active profile"
+msgstr "Це поточний активний профіль"
+
+#: src/ProfileBrowser.vala:191
+msgid "Remove Profile"
+msgstr "Вилучити профіль"
+
+#: src/ProfileBrowser.vala:193
+msgid "Remove this profile"
+msgstr "Вилучити цей профіль"
+
+#: src/ProfileBrowser.vala:205
+#, c-format
+msgid "Remove profile “%s”"
+msgstr "Вилучити профіль «%s»"
+
+#: src/ProfileBrowser.vala:206
+msgid ""
+"None of the options will remove any of the images associated with this "
+"profile"
+msgstr ""
+"Жоден з варіантів не вилучить жодних зображень, пов'язаних із цим профілем"
+
+#: src/ProfileBrowser.vala:207
+#, c-format
+msgid ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+msgstr ""
+"<b><span size=\"larger\">%s</span></b>\n"
+"<span weight=\"light\">%s</span>"
+
+#: src/ProfileBrowser.vala:209
+msgid "Remove profile and files"
+msgstr "Вилучити профіль і файли"
+
+#: src/ProfileBrowser.vala:209
+msgid "Remove profile only"
+msgstr "Вилучити лише профіль"
+
+#: src/Profiles.vala:32
+msgid "System Profile"
+msgstr "Профіль системи"
+
 #: src/Properties.vala:102
 msgid "Today"
 msgstr "Сьогодні"
@@ -5729,6 +5645,24 @@ msgstr[0] "%d подія"
 msgstr[1] "%d події"
 msgstr[2] "%d подій"
 msgstr[3] "%d подія"
+
+#: src/Properties.vala:365
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d фотографія"
+msgstr[1] "%d фотографії"
+msgstr[2] "%d фотографія"
+msgstr[3] "%d фотографія"
+
+#: src/Properties.vala:367
+#, c-format
+msgid "%d Video"
+msgid_plural "%d Videos"
+msgstr[0] "%d відео"
+msgstr[1] "%d відео"
+msgstr[2] "%d відео"
+msgstr[3] "%d відео"
 
 #. display only one date if start and end are the same
 #: src/Properties.vala:389
@@ -5828,75 +5762,6 @@ msgstr "Авторські права:"
 msgid "Software:"
 msgstr "Програми:"
 
-#: src/ProfileBrowser.vala:20
-msgid "Create"
-msgstr "Створити"
-
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:139
-msgid "Create new Profile"
-msgstr "Створити профіль"
-
-#: src/ProfileBrowser.vala:35
-msgid "Name"
-msgstr "Назва"
-
-#: src/ProfileBrowser.vala:49
-msgid "Library Folder"
-msgstr "Тека бібліотеки"
-
-#: src/ProfileBrowser.vala:64
-msgid "Choose Library Folder"
-msgstr "Виберіть теку бібліотеки"
-
-#: src/ProfileBrowser.vala:76
-msgid "Data Folder"
-msgstr "Тека даних"
-
-#: src/ProfileBrowser.vala:92
-msgid "Choose Data Folder"
-msgstr "Виберіть теку даних"
-
-#: src/ProfileBrowser.vala:198
-msgid "This is the currently active profile"
-msgstr "Це поточний активний профіль"
-
-#: src/ProfileBrowser.vala:221
-msgid "Remove this profile"
-msgstr "Вилучити цей профіль"
-
-#: src/ProfileBrowser.vala:233
-#, c-format
-msgid "Remove profile “%s”"
-msgstr "Вилучити профіль «%s»"
-
-#: src/ProfileBrowser.vala:234
-msgid ""
-"None of the options will remove any of the images associated with this "
-"profile"
-msgstr ""
-"Жоден з варіантів не вилучить жодних зображень, пов'язаних із цим профілем"
-
-#: src/ProfileBrowser.vala:235
-#, c-format
-msgid ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-msgstr ""
-"<b><span size=\"larger\">%s</span></b>\n"
-"<span weight=\"light\">%s</span>"
-
-#: src/ProfileBrowser.vala:237
-msgid "Remove profile and files"
-msgstr "Вилучити профіль і файли"
-
-#: src/ProfileBrowser.vala:237
-msgid "Remove profile only"
-msgstr "Вилучити лише профіль"
-
-#: src/Profiles.vala:32
-msgid "System Profile"
-msgstr "Профіль системи"
-
 #: src/publishing/PublishingPluginHost.vala:11
 msgid "Preparing for upload"
 msgstr "Приготування до вивантаження"
@@ -5943,11 +5808,11 @@ msgstr "Оприлюднити фотографії і відео _на:"
 
 #. There are no enabled publishing services that accept this media type,
 #. warn the user.
-#: src/publishing/PublishingUI.vala:288
+#: src/publishing/PublishingUI.vala:285
 msgid "Unable to publish"
 msgstr "Не вдалося оприлюднити"
 
-#: src/publishing/PublishingUI.vala:289
+#: src/publishing/PublishingUI.vala:286
 #, c-format
 msgid ""
 "Shotwell cannot publish the selected items because you do not have a "
@@ -5964,11 +5829,11 @@ msgstr ""
 msgid "Publishing"
 msgstr "Оприлюднення"
 
-#: src/publishing/StaticMessagePaneWidget.vala:44
+#: src/publishing/StaticMessagePaneWidget.vala:51
 msgid "Fetching account information…"
 msgstr "Отримання відомостей щодо облікового запису…"
 
-#: src/publishing/StaticMessagePaneWidget.vala:50
+#: src/publishing/StaticMessagePaneWidget.vala:57
 msgid "Logging in…"
 msgstr "Вхід до системи…"
 
@@ -6856,7 +6721,7 @@ msgstr "Переходи показу слайдів"
 msgid "(None)"
 msgstr "(Немає)"
 
-#: src/slideshow/TransitionEffects.vala:339
+#: src/slideshow/TransitionEffects.vala:340
 msgid "Random"
 msgstr "Випадковий"
 
@@ -6876,6 +6741,137 @@ msgstr "без назви"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Експорт відео"
+
+#~ msgid "E_xternal photo editor:"
+#~ msgstr "З_овнішній фоторедактор:"
+
+#~ msgid "External _RAW editor:"
+#~ msgstr "Зовнішній редактор н_егативів:"
+
+#~ msgid "_Gallery3 URL:"
+#~ msgstr "_Адреса Gallery3:"
+
+#~ msgid "_User name:"
+#~ msgstr "_Користувач:"
+
+#~ msgid "_Password:"
+#~ msgstr "_Пароль:"
+
+#~ msgid "Go _Back"
+#~ msgstr "_Назад"
+
+#~ msgid "API _Key:"
+#~ msgstr "_Ключ API:"
+
+#~ msgid "or"
+#~ msgstr "або"
+
+#~ msgid "An _existing album"
+#~ msgstr "_Наявному альбомі"
+
+#~ msgid "A _new album"
+#~ msgstr "_Новому альбомі"
+
+#~ msgid "_Remove location, tag and camera-identifying data before uploading"
+#~ msgstr ""
+#~ "Ви_лучити дані щодо місця, мітки та інші ідентифікаційні дані перед "
+#~ "вивантаженням"
+
+#~ msgid "Scaling constraint:"
+#~ msgstr "Обмеження масштабування:"
+
+#~ msgid "pixels"
+#~ msgstr "пікселів"
+
+#~ msgid "Gallery3 publishing module"
+#~ msgstr "Модуль оприлюднення на Gallery3"
+
+#~ msgid ""
+#~ "You are not currently logged into your Gallery.\n"
+#~ "\n"
+#~ "You must have already signed up for a Gallery3 account to complete the "
+#~ "login process."
+#~ msgstr ""
+#~ "Ви ще не увійшли до системи Gallery.\n"
+#~ "\n"
+#~ "Щоб завершити процес входу, вам слід мати зареєстрований обліковий запис "
+#~ "Galery."
+
+#~ msgid "Shotwell default directory"
+#~ msgstr "Типовий каталог Shotwell"
+
+#, c-format
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The file “%s” may not be supported by or may be too large for this "
+#~ "instance of Gallery3."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Можливо, підтримки файлів типу «%s» у цьому екземплярі Gallery3 не "
+#~ "передбачено або файл є надто великим."
+
+#~ msgid ""
+#~ "\n"
+#~ "Note that Gallery3 only supports the video types that Flowplayer does."
+#~ msgstr ""
+#~ "\n"
+#~ "Зауважте, що у Gallery3 передбачено підтримку лише тих типів відео, які "
+#~ "підтримуються Flowplayer."
+
+#, c-format
+#~ msgid ""
+#~ "A file required for publishing is unavailable. Publishing to %s can’t "
+#~ "continue."
+#~ msgstr ""
+#~ "Не виявлено потрібного для оприлюднення файла. Продовження дій з "
+#~ "оприлюднення на %s неможливе."
+
+#, c-format
+#~ msgid "Publishing to %s as %s."
+#~ msgstr "Оприлюднення на %s як %s."
+
+#~ msgid ""
+#~ "Enter the URL for your Gallery3 site and the username and password (or "
+#~ "API key) for your Gallery3 account."
+#~ msgstr ""
+#~ "Вкажіть адресу вашого сайта Gallery3, ім’я користувача і пароль (або ключ "
+#~ "API) до вашого облікового запису на Gallery3."
+
+#~ msgid ""
+#~ "The username and password or API key were incorrect. To try again, re-"
+#~ "enter your username and password below."
+#~ msgstr ""
+#~ "Вказані ім’я користувача і пароль або ключ до програмного інтерфейсу "
+#~ "виявилися помилковими. Щоб повторити спробу, повторно вкажіть ваше ім’я "
+#~ "користувача і пароль у розташованих нижче полях."
+
+#~ msgid ""
+#~ "The URL entered does not appear to be the main directory of a Gallery3 "
+#~ "instance. Please make sure you typed it correctly and it does not have "
+#~ "any trailing components (e.g., index.php)."
+#~ msgstr ""
+#~ "Вказана адреса, здається, не є адресою основного каталогу екземпляра "
+#~ "Gallery3. Будь ласка, переконайтеся, що адресу введено правильно і у ній "
+#~ "немає зайвих частин наприкінці (наприклад, index.php)."
+
+#~ msgid "Unrecognized User"
+#~ msgstr "Нерозпізнаний користувач"
+
+#~ msgid " Site Not Found"
+#~ msgstr " Сайт не знайдено"
+
+#~ msgid "Shotwell Extra Publishing Services"
+#~ msgstr "Додаткові служби оприлюднення Shotwell"
+
+#, c-format
+#~ msgid "%d Photo/Video"
+#~ msgid_plural "%d Photos/Videos"
+#~ msgstr[0] "%d фотографія/відео"
+#~ msgstr[1] "%d фотографії/відео"
+#~ msgstr[2] "%d фотографій/відео"
+#~ msgstr[3] "%d фотографія/відео"
 
 #~ msgid "interpreter state cookie"
 #~ msgstr "кука стану інтерпретатора"

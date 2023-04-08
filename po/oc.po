@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2022-09-14 19:07+0000\n"
-"PO-Revision-Date: 2022-10-29 22:41+0200\n"
+"POT-Creation-Date: 2022-10-29 20:41+0000\n"
+"PO-Revision-Date: 2022-12-28 16:42+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Launchpad-Export-Date: 2016-04-18 17:00+0000\n"
 
 #: misc/shotwell.appdata.xml.in:8 misc/shotwell.desktop.in:4
@@ -29,7 +29,7 @@ msgstr "Shotwell"
 
 #: misc/shotwell.appdata.xml.in:9
 msgid "Digital photo organizer and viewer"
-msgstr ""
+msgstr "Organizador e visionador de fòtos numericas"
 
 #: misc/shotwell.appdata.xml.in:11
 msgid ""

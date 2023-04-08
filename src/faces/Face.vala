@@ -355,8 +355,8 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
     
     public static void terminate() {
         try {
-            if (FaceDetect.interface != null)
-                FaceDetect.interface.terminate();
+            if (FaceDetect.face_detect_proxy != null)
+                FaceDetect.face_detect_proxy.terminate();
         } catch(Error e) {}
     }
     
@@ -381,7 +381,7 @@ public class Face : DataSource, ContainerSource, Proxyable, Indexable {
         message("Launching facedetect process: %s", AppDirs.get_facedetect_bin().get_path());
         message("Using dnn from %s", AppDirs.get_openface_dnn_dir().get_path());
         // Start the watcher, process started via DBus service
-        FaceDetect.init(AppDirs.get_openface_dnn_dir().get_path());
+        FaceDetect.init(AppDirs.get_openface_dnn_system_dir().get_path() + ":" + AppDirs.get_openface_dnn_dir().get_path());
     }
 #endif
     

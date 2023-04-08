@@ -8,8 +8,8 @@
 using Spit;
 
 private class SlideEffectDescriptor : ShotwellTransitionDescriptor {
-    public SlideEffectDescriptor(GLib.File resource_directory) {
-        base(resource_directory);
+    public SlideEffectDescriptor() {
+        base();
     }
 
     public override unowned string get_id() {

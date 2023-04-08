@@ -245,7 +245,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         var dt = calendar.get_date();
         dt.get_ymd (out year, out month, out day);
 
-        return new DateTime.utc((int)year, (int)month, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
+        return new DateTime.local((int)year, (int)month + 1, (int)day, hour, (int)minute.get_value(), (int)second.get_value());
     }
 
     public async bool execute(out TimeSpan time_shift, out bool keep_relativity,
@@ -303,7 +303,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     }
 
     private void on_time_changed() {
-        int64 time_shift = ((int64) get_time() - (int64) original_time);
+        var time_shift = get_time().difference (original_time);
 
         previous_time_system = (TimeSystem) system.get_active();
 
@@ -316,12 +316,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
             time_shift = time_shift.abs();
 
-            days = (int) (time_shift / SECONDS_IN_DAY);
-            time_shift = time_shift % SECONDS_IN_DAY;
-            hours = (int) (time_shift / SECONDS_IN_HOUR);
-            time_shift = time_shift % SECONDS_IN_HOUR;
-            minutes = (int) (time_shift / SECONDS_IN_MINUTE);
-            seconds = (int) (time_shift % SECONDS_IN_MINUTE);
+            days = (int) (time_shift / TimeSpan.DAY);
+            time_shift = time_shift % TimeSpan.DAY;
+            hours = (int) (time_shift / TimeSpan.HOUR);
+            time_shift = time_shift % TimeSpan.HOUR;
+            minutes = (int) (time_shift / TimeSpan.MINUTE);
+            seconds = (int) ((time_shift % TimeSpan.MINUTE) / TimeSpan.SECOND);
 
             string shift_status = (forward) ?
                 _("Exposure time will be shifted forward by\n%d %s, %d %s, %d %s, and %d %s.") :

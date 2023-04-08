@@ -2,12 +2,12 @@
 # Copyright (C) 2020 shotwell's COPYRIGHT HOLDER
 # This file is distributed under the same license as the shotwell package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2022-10-08 06:49+0000\n"
-"PO-Revision-Date: 2022-10-08 17:06+0300\n"
+"POT-Creation-Date: 2023-04-05 19:24+0000\n"
+"PO-Revision-Date: 2023-04-06 20:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -818,12 +818,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/other-multiple.page:7
-msgid ""
-"You can open Shotwell with a different photo library by using the command "
-"line."
-msgstr ""
-"Ви можете відкрити у Shotwell іншу бібліотеку фотографій за допомогою "
-"командного рядка."
+msgid "You can open Shotwell with a different photo library."
+msgstr "Ви можете відкрити Shotwell із іншою фотобібліотекою."
 
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
@@ -833,38 +829,66 @@ msgstr "Декілька бібліотек"
 #. (itstool) path: page/p
 #: C/other-multiple.page:14
 msgid ""
-"Shotwell normally stores its database and photo thumbnails in the directory "
-"<file>~/.shotwell</file> . This directory does not hold photos, but the "
-"database in this directory contains a list of all the photos in the Shotwell "
-"library."
+"Shotwell supports multiple libraries on the same computer with the concept "
+"of profiles. A profile is a set of meta-data and settings associated with a "
+"library folder."
 msgstr ""
-"Зазвичай, Shotwell зберігає базу даних і мініатюри фотографій у каталозі "
-"<file>~/.shotwell</file>. У цьому каталозі не зберігаються самі фотографії, "
-"а лише база даних зі списком усіх фотографій у бібліотеці Shotwell."
+"У Shotwell передбачено підтримку роботи з декількома бібліотеками на одному "
+"комп'ютері на основі поняття профілів. Профіль — набір метаданих та "
+"параметрів, які пов'язано із текою бібліотеки."
 
 #. (itstool) path: page/p
-#: C/other-multiple.page:16
+#: C/other-multiple.page:17
 msgid ""
-"As an advanced feature, it's possible for you to have multiple Shotwell "
-"libraries, each of which has its own set of photos. Each library needs its "
-"own database directory. To launch Shotwell with an alternate library, "
-"specify an alternate database directory on the command line as follows:"
+"All profiles are completely isolated from each other. While it is possible "
+"to use the same library folder for different profiles, it is not recommended."
 msgstr ""
-"Додатковою можливістю програми є використання у Shotwell декількох "
-"бібліотек, у кожній з яких зберігатиметься власний набір фотографій. Для "
-"кожної бібліотеки потрібен власний каталог бази даних. Щоб запустити "
-"Shotwell із іншою бібліотекою, вкажіть каталог альтернативної бази даних у "
-"командному рядку, ось так:"
+"Усі профілі повністю ізольовано один від одного. Хоча можна користуватися "
+"однією бібліотекою з тієї самої теки для різних профілів, ми не рекомендуємо "
+"це робити."
 
-#. (itstool) path: page/screen
-#: C/other-multiple.page:18
-#, no-wrap
+#. (itstool) path: section/title
+#: C/other-multiple.page:20
+msgid "Managing profiles"
+msgstr "Керування профілями"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:21
 msgid ""
-"\n"
-"shotwell -d [library-directory]\n"
+"Profiles can either be created using the dedicated <app>Shotwell Profile "
+"Manager</app>, calling <cmd>shotwell --profile-browser</cmd> from the "
+"command line or the <gui style=\"tab\">Profiles</gui> section of the "
+"settings <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>"
 msgstr ""
-"\n"
-"shotwell -d [каталог бібліотеки]\n"
+"Профілі можна створювати за допомогою спеціалізованого <app>Засобу керування "
+"профілями Shotwell</app>, викликом команди <cmd>shotwell --profile-browser</"
+"cmd> з командного рядка або за допомогою розділу параметрів <gui "
+"style=\"tab\">Профілю</gui> у вікні, яке відкриває пункт меню "
+"<guiseq><gui>Зміни</gui><gui>Налаштування</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/other-multiple.page:25
+msgid "Selecting a profile"
+msgstr "Вибір профілю"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:26
+msgid ""
+"A profile can only be selected during start-up and cannot be switched during "
+"run-time."
+msgstr ""
+"Профіль можна вибрати лише під час запуску програми. Його не можна "
+"перемикати під час її роботи."
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:27
+msgid ""
+"To select a profile, start the Shotwell Profile Manager and select a profile "
+"using double-click, or calling <cmd>shotwell --profile <var>name</var></cmd>"
+msgstr ""
+"Щоб вибрати профіль, запустіть «Засіб керування профілями Shotwell» і "
+"виберіть профіль подвійним клацанням, або скористайтеся командою "
+"<cmd>shotwell --profile <var>назва</var></cmd>"
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
@@ -1133,9 +1157,9 @@ msgstr "ПО"
 #. (itstool) path: section/p
 #: C/other-files.page:72
 msgid ""
-"There are other symbols available; please check the <link href=\"man:strftime"
-"\">manual for strftime</link> by running the command <cmd>man strftime</cmd> "
-"if you need one that isn't listed here."
+"There are other symbols available; please check the <link href=\"man:"
+"strftime\">manual for strftime</link> by running the command <cmd>man "
+"strftime</cmd> if you need one that isn't listed here."
 msgstr ""
 "Доступні також інші символи. Будь ласка, ознайомтеся зі <link href=\"man:"
 "strftime\">сторінкою підручника з strftime</link> за допомогою команди "
@@ -1312,8 +1336,8 @@ msgstr "Підтримувані формати фотографій та від
 #. (itstool) path: page/p
 #: C/formats.page:14
 msgid ""
-"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-raw"
-"\">RAW</link> photo files."
+"Shotwell supports JPEG, PNG, TIFF, BMP, GIF, WebP and <link xref=\"other-"
+"raw\">RAW</link> photo files."
 msgstr ""
 "У Shotwell передбачено підтримку файлів фотографій JPEG, PNG, TIFF, BMP, "
 "GIF, WebP та <link xref=\"other-raw\">RAW</link>."
@@ -1789,8 +1813,8 @@ msgid ""
 "google.com/youtube\">https://developers.google.com/youtube</link> for "
 "accessing your YouTube channel and upload the videos."
 msgstr ""
-"Shotwell використовує служби програмних інтерфейсів YouTube <link href="
-"\"https://developers.google.com/youtube\">https://developers.google.com/"
+"Shotwell використовує служби програмних інтерфейсів YouTube <link "
+"href=\"https://developers.google.com/youtube\">https://developers.google.com/"
 "youtube</link> для доступу до вашого каналу YouTube та вивантаження відео."
 
 #. (itstool) path: section/title
@@ -1802,8 +1826,8 @@ msgstr "Правила користування та права доступу �
 #: C/privacy-policy.page:22
 msgid ""
 "By using Shotwell to access YouTube, you agree to be bound to the YouTube "
-"Terms of Service as available at <link href=\"https://www.youtube.com/t/terms"
-"\">https://www.youtube.com/t/terms</link>"
+"Terms of Service as available at <link href=\"https://www.youtube.com/t/"
+"terms\">https://www.youtube.com/t/terms</link>"
 msgstr ""
 "Використовуючи Shotwell для доступу до YouTube, в погоджуєтеся дотримуватися "
 "правил користування YouTube у тому вигляді, у якому їх сформульовано на "
@@ -1972,9 +1996,9 @@ msgstr ""
 msgid ""
 "If the card is not detected automatically, your card reader may not have "
 "been recognized. Try unplugging it and then plugging it in again. If that "
-"doesn't work, you should still be able to import photos by <link xref="
-"\"import-camera\">connecting your camera directly to the computer</link>, "
-"though."
+"doesn't work, you should still be able to import photos by <link "
+"xref=\"import-camera\">connecting your camera directly to the computer</"
+"link>, though."
 msgstr ""
 "Якщо картку не було виявлено автоматично, ймовірно, системі не вдалося "
 "розпізнати ваш пристрій для читання карток. Спробуйте від'єднати його від "
@@ -2022,9 +2046,10 @@ msgstr ""
 #. (itstool) path: note/p
 #: C/other-plugins.page:25
 msgid ""
-"Full documentation on how to develop new plugins is available at <link href="
-"\"https://wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins\">https://"
-"wiki.gnome.org/Apps/Shotwell/Architecture/WritingPlugins</link>"
+"Full documentation on how to develop new plugins is available at <link "
+"href=\"https://wiki.gnome.org/Apps/Shotwell/Architecture/"
+"WritingPlugins\">https://wiki.gnome.org/Apps/Shotwell/Architecture/"
+"WritingPlugins</link>"
 msgstr ""
 "Із повною документацією щодо розробки нових додатків можна ознайомитися на "
 "сторінці <link href=\"https://wiki.gnome.org/Apps/Shotwell/Architecture/"
@@ -2483,14 +2508,6 @@ msgstr "Перетягніть позначені фотографії і ски
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:33
-#| msgid ""
-#| "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
-#| "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in "
-#| "the names of one or more tags, separated by commas. Once you have created "
-#| "a tag, you can rename it by selecting that tag in the sidebar and "
-#| "choosing <guiseq><gui>Tags</gui><gui>Rename Tag \"[name]\"...</gui></"
-#| "guiseq>, by right-clicking on it and choose <gui>Rename...</gui> or "
-#| "double-click on the tag in the sidebar."
 msgid ""
 "When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or "
 "<guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the "
@@ -2504,14 +2521,14 @@ msgstr ""
 "Коли ви скористаєтеся комбінацією клавіш <keyseq><key>Ctrl</key><key>T</"
 "key></keyseq> або пунктом меню <guiseq><gui>Мітки</gui><gui>Додати мітки...</"
 "gui></guiseq>, ви зможете ввести назви однієї або декількох міток, "
-"відокремлених комами.  Ви також можете додавати ієрархії міток на льоту за"
-" допомогою <input>/</input>, так, наче вони є шляхами у файловій системі."
-" Щойно вами буде створено мітку, ви можете "
-"перейменувати її, позначивши мітку на бічній панелі і вибравши пункт меню "
-"<guiseq><gui>Мітки</gui><gui>Перейменувати мітку «[назва]»...</gui></"
-"guiseq>, клацнувши правою кнопкою миші на пункті мітки і вибравши у "
-"контекстному меню пункт <gui>Перейменувати...</gui> або двічі клацнувши на "
-"пункті мітки на бічній панелі."
+"відокремлених комами.  Ви також можете додавати ієрархії міток на льоту за "
+"допомогою <input>/</input>, так, наче вони є шляхами у файловій системі. "
+"Щойно вами буде створено мітку, ви можете перейменувати її, позначивши мітку "
+"на бічній панелі і вибравши пункт меню <guiseq><gui>Мітки</"
+"gui><gui>Перейменувати мітку «[назва]»...</gui></guiseq>, клацнувши правою "
+"кнопкою миші на пункті мітки і вибравши у контекстному меню пункт "
+"<gui>Перейменувати...</gui> або двічі клацнувши на пункті мітки на бічній "
+"панелі."
 
 #. (itstool) path: page/p
 #: C/organize-tag.page:46
@@ -2586,10 +2603,10 @@ msgid ""
 "using <input>/</input>. For example, using <input>/World/Africa/Togo/Lomé</"
 "input> will create or extend the tag tree"
 msgstr ""
-"Всюди, де передбачено підтримку введення текстових міток, мітки також може"
-" бути створено за допомогою символу <input>/</input>. Наприклад,"
-" використання мітки <input>/Світ/Африка/Того/Ломе</input> створить або"
-" розширить дерево міток"
+"Всюди, де передбачено підтримку введення текстових міток, мітки також може "
+"бути створено за допомогою символу <input>/</input>. Наприклад, використання "
+"мітки <input>/Світ/Африка/Того/Ломе</input> створить або розширить дерево "
+"міток"
 
 #. (itstool) path: item/item
 #: C/organize-tag.page:92
@@ -3090,8 +3107,8 @@ msgid ""
 "first developed - that is, have their extra information interpreted and "
 "readied for displaying - most cameras will either embed a JPEG inside a RAW-"
 "format file, or produce a JPEG alongside the RAW file at the time the "
-"snapshot is taken. The latter is referred to throughout this document as RAW"
-"+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
+"snapshot is taken. The latter is referred to throughout this document as "
+"RAW+JPEG. If you import a RAW+JPEG pair, Shotwell will keep them paired and "
 "treat them as one item in your library."
 msgstr ""
 "Оскільки цифрові негативи, зазвичай, не може бути показано безпосередньо — "
@@ -3137,6 +3154,233 @@ msgstr ""
 "експортувати. Shotwell може експортувати ваші цифрові негативи у форматах "
 "JPEG, PNG, TIFF та BMP і, при оприлюдненні, на внутрішньому рівні "
 "експортувати версію JPEG, яку, власне, і буде оприлюднено."
+
+#. (itstool) path: info/desc
+#: C/organize-face-tagging.page:7
+msgid "Marking faces in photos"
+msgstr "Позначення облич на фотографіях"
+
+#. (itstool) path: page/title
+#: C/organize-face-tagging.page:12
+msgid "Faces in photos"
+msgstr "Обличчя на фотографіях"
+
+#. (itstool) path: page/p
+#: C/organize-face-tagging.page:13
+msgid ""
+"Shotwell supports tagging images using faces of persons and assigning a name "
+"to them. If enabled, Shotwell also supports automatic detection of faces in "
+"images and recognition of already known faces in new images"
+msgstr ""
+"У Shotwell передбачено підтримку позначення зображень із обличчями мітками "
+"та пов'язування з ними імені. Якщо увімкнено відповідну можливість, у "
+"Shotwell також передбачено автоматичне виявлення облич на зображеннях і "
+"розпізнавання вже відомих облич на нових зображеннях"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:16
+msgid "Manual creation and modification of named faces"
+msgstr ""
+"Створення вручну пов'язаних з іменами даних облич і внесення до них змін"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:18
+msgid ""
+"Double-click on an image in the collection, then press the <gui>Faces</gui> "
+"button on the toolbar"
+msgstr ""
+"Двічі клацніть на фотографії зі збірки, потім натисніть кнопку <gui>Обличчя</"
+"gui> на панелі інструментів."
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:19
+msgid ""
+"Start dragging a rectangle around the face you are tagging using your left "
+"mouse button"
+msgstr ""
+"Почніть перетягування прямокутника навколо обличчя, яке ви позначаєте, за "
+"допомогою лівої кнопки миші"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:20
+msgid ""
+"You can also drag the rectangle by clicking into it or resize it by clicking "
+"on one of the borders"
+msgstr ""
+"Ви також можете перетягнути прямокутник, клацнувши на ньому, або змінити "
+"його розмір, клацнувши на одній з його сторін"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:21
+msgid ""
+"Once satisfied, enter a name in the text box below the rectangle and press "
+"<key>Enter</key> to assign the name to the marked face"
+msgstr ""
+"Щойно результату буде досягнуто, введіть ім'я у текстовому полі під "
+"прямокутником і натисніть клавішу <key>Enter</key> для пов'язування імені із "
+"позначеним обличчям"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:22
+msgid "Repeat this process for as many faces as you want to mark"
+msgstr "Повторіть цю процедуру для усіх облич, які ви хочете позначити"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:23
+msgid ""
+"After you marked all faces, click on <gui>Ok</gui> to save the marked faces."
+msgstr ""
+"Коли усі обличчя буде позначено, натисніть кнопку <gui>Гаразд</gui>, щоб "
+"зберегти дані позначених облич."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:27
+msgid "Modifying or removing existing named faces"
+msgstr ""
+"Внесення змін до наявних іменованих зображень облич та вилучення цих "
+"зображень"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:28
+msgid ""
+"An existing named face can be either be removed from an image using "
+"<guiseq><gui>Faces</gui><gui>Remove Face from Photo</gui></guiseq>, by "
+"pressing <keyseq><key>Ctrl</key><key>R</key></keyseq> while in the face "
+"browser or by clicking <gui>Delete</gui> in the Faces tool"
+msgstr ""
+"Наявне іменоване обличчя можна або вилучити з зображення за допомогою пункту "
+"<guiseq><gui>Обличчя</gui><gui>Вилучити обличчя з фотографії</gui></guiseq>, "
+"комбінації клавіш <keyseq><key>Ctrl</key><key>R</key></keyseq> у режимі "
+"навігатор обличчями або натискання пункту <gui>Вилучити</gui> в інструменті "
+"«Обличчя»"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:29
+msgid ""
+"To rename the face, use <guiseq><gui>Faces</gui><gui>Rename Face...</gui></"
+"guiseq> or press <keyseq><key>Ctrl</key><key>E</key></keyseq> or by clicking "
+"on <gui>Edit</gui> in the Faces tool."
+msgstr ""
+"Щоб перейменувати запис обличчя, скористайтеся пунктом <guiseq><gui>Обличчя</"
+"gui><gui>Перейменувати обличчя...</gui></guiseq>, натисніть комбінацію "
+"клавіш <keyseq><key>Ctrl</key><key>E</key></keyseq> або натисніть кнопку "
+"<gui>Редагувати</gui> в інструментів «Обличчя»."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:32
+msgid "Automatic detection of faces"
+msgstr "Автоматичне виявлення облич"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:33
+msgid ""
+"It is possible to use automatic face detection to simplify the process of "
+"marking the faces. To trigger the face detection algorithm, click on "
+"<gui>Detect faces...</gui>"
+msgstr ""
+"Для спрощення процедури позначення облич можна скористатися автоматичним "
+"виявленням облич. Щоб запустити алгоритм виявлення облич, натисніть кнопку "
+"<gui>Виявити обличчя...</gui>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:35
+#| msgid ""
+#| "If reference images for images are defined, this will also try to match "
+#| "any found faces in the current image with known references."
+msgid ""
+"If reference images for faces are defined, this will also try to match any "
+"found faces in the current image with known references."
+msgstr ""
+"Якщо визначено еталонні зображення для облич, це надасть змогу "
+"спробувати встановити відповідність усіх виявлених облич на поточному "
+"зображенні із відомими еталонами."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:38
+msgid "Automatic recognition of faces"
+msgstr "Автоматичне розпізнавання облич"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:39
+msgid ""
+"A named face on a photo can be set as a reference for this particular name. "
+"Future calls to the automatic face detection will try to associate similar "
+"faces the same name if considered matching."
+msgstr ""
+"Іменоване обличчя на фотографії може бути встановлено як еталонне для "
+"певного імені. Під час наступних викликів автоматичного розпізнавання облич "
+"програма спробує пов'язати подібні обличчя із тим самим іменем, якщо буде "
+"встановлено відповідність."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:41
+msgid "To declare a face as the reference for its name use these steps"
+msgstr "Щоб зробити обличчя еталонним для певного імені, виконайте такі кроки"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:44
+msgid ""
+"Switch to the face browser by clicking on a face name in the navigation tree."
+msgstr ""
+"Перемкніться на навігатор облич натисканням імені обличчя на панелі ієрархії."
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:45
+msgid ""
+"Select an image that contains the representation of the face you want to "
+"make a reference"
+msgstr ""
+"Виберіть зображення, яке містить обличчя, яке ви хочете зробити еталонним"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:46
+msgid ""
+"Click on <guiseq><gui>Faces</gui><gui>Train Face from Photo</gui></guiseq>"
+msgstr ""
+"Натисніть на пункті <guiseq><gui>Обличчя</gui><gui>Вивчити обличчя з "
+"фотографії</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:50
+msgid "Improving face recognition"
+msgstr "Удосконалення розпізнавання облич"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:51
+msgid ""
+"By default, Shotwell uses cascade classifier to find faces in images. There "
+"is a method to use a deep neural network to improve detection rates "
+"significantly, but due to certain uncertainties with the licensing of the "
+"trained model it is not included by default."
+msgstr ""
+"Типово, для пошуку облич на зображеннях у Shotwell використано каскадний "
+"класифікатор. Існує спосіб скористатися глибинними нейронними мережами для "
+"значного поліпшення виявлення, але через певні невизначені моменти із "
+"ліцензуванням моделі, яка є результатом навчання, цей спосіб не включено до "
+"основного пакунка програми."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:54
+msgid ""
+"To enable DNN-based face detection, download the "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> from the <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">OpenCV third-party repository</"
+"link>"
+msgstr ""
+"Щоб увімкнути засноване на DNN виявлення облич, отримайте "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> зі <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">стороннього сховища OpenCV</link>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:55
+msgid ""
+"Copy the file into your local data folder, usually <file>$HOME/.local/share/"
+"shotwell</file> and restart Shotwell"
+msgstr ""
+"Скопіюйте файл до вашої локальної теки даних, зазвичай, <file>$HOME/.local/"
+"share/shotwell</file>, і перезапустіть Shotwell"
 
 #. (itstool) path: info/desc
 #: C/import-camera.page:7
@@ -3207,85 +3451,79 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:6
+msgctxt "link:trail"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: info/title
+#: C/index.page:7
 msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: credit/name
+#. (itstool) path: info/title
 #: C/index.page:8
+msgctxt "text"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:11
 msgid "Jim Nelson"
 msgstr "Jim Nelson"
 
 #. (itstool) path: credit/name
-#: C/index.page:12
+#: C/index.page:15
 msgid "Allison Barlow"
 msgstr "Allison Barlow"
 
 #. (itstool) path: credit/name
-#: C/index.page:16
+#: C/index.page:19
 msgid "Robert Ancell"
 msgstr "Robert Ancell"
 
 #. (itstool) path: credit/name
-#: C/index.page:20
+#: C/index.page:23
 msgid "Peter Smith"
 msgstr "Peter Smith"
 
 #. (itstool) path: credit/name
-#: C/index.page:24
+#: C/index.page:27
 msgid "Phil Bull"
 msgstr "Phil Bull"
 
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:30
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
 #. (itstool) path: page/title
-#: C/index.page:30
-msgid ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-"Manager"
-msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Програма для "
-"керування фотографіями Shotwell"
+#: C/index.page:33
+msgid "<_:media-1/> Shotwell Photo Manager"
+msgstr "<_:media-1/> Програма для керування фотографіями Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:33
+#: C/index.page:39
 msgid "Importing Photos"
 msgstr "Імпортування фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:37
+#: C/index.page:43
 msgid "Viewing Photos"
 msgstr "Перегляд фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:41
+#: C/index.page:47
 msgid "Organizing Photos"
 msgstr "Упорядковування фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:45
+#: C/index.page:51
 msgid "Editing Photos"
 msgstr "Редагування фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:49
+#: C/index.page:55
 msgid "Sharing Photos"
 msgstr "Оприлюднення фотографій"
 
 #. (itstool) path: section/title
-#: C/index.page:53
+#: C/index.page:59
 msgid "Other Features"
 msgstr "Інші можливості"
 
@@ -3577,3 +3815,49 @@ msgstr ""
 "наскільки темним є найтемніший чорний колір на зображенні. Скористайтеся "
 "ними для зміни контрастності фотографії. Зокрема, зміна цих параметрів має "
 "позитивно вплинути на вигляд фотографій, які виглядають вицвілими."
+
+#~ msgid ""
+#~ "Shotwell normally stores its database and photo thumbnails in the "
+#~ "directory <file>~/.shotwell</file> . This directory does not hold photos, "
+#~ "but the database in this directory contains a list of all the photos in "
+#~ "the Shotwell library."
+#~ msgstr ""
+#~ "Зазвичай, Shotwell зберігає базу даних і мініатюри фотографій у каталозі "
+#~ "<file>~/.shotwell</file>. У цьому каталозі не зберігаються самі "
+#~ "фотографії, а лише база даних зі списком усіх фотографій у бібліотеці "
+#~ "Shotwell."
+
+#~ msgid ""
+#~ "As an advanced feature, it's possible for you to have multiple Shotwell "
+#~ "libraries, each of which has its own set of photos. Each library needs "
+#~ "its own database directory. To launch Shotwell with an alternate library, "
+#~ "specify an alternate database directory on the command line as follows:"
+#~ msgstr ""
+#~ "Додатковою можливістю програми є використання у Shotwell декількох "
+#~ "бібліотек, у кожній з яких зберігатиметься власний набір фотографій. Для "
+#~ "кожної бібліотеки потрібен власний каталог бази даних. Щоб запустити "
+#~ "Shotwell із іншою бібліотекою, вкажіть каталог альтернативної бази даних "
+#~ "у командному рядку, ось так:"
+
+#, no-wrap
+#~ msgid ""
+#~ "\n"
+#~ "shotwell -d [library-directory]\n"
+#~ msgstr ""
+#~ "\n"
+#~ "shotwell -d [каталог бібліотеки]\n"
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+#~ msgstr ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+
+#~ msgid ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+#~ "Manager"
+#~ msgstr ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Програма для "
+#~ "керування фотографіями Shotwell"

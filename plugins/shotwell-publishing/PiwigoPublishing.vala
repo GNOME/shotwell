@@ -21,9 +21,8 @@ internal class Publishing.Piwigo.Account : Spit.Publishing.Account, Object {
     }
 }
 
-public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {
+public class PiwigoService : Object, Spit.Pluggable, Spit.Publishing.Service {    
     public PiwigoService() {
-        Object();
     }
     
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {

@@ -230,7 +230,11 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(4, photo_row.master.filesize);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(5, photo_row.master.timestamp.to_unix());
+        if (photo_row.master.timestamp == null) {
+            res = stmt.bind_null(5);
+        } else {
+            res = stmt.bind_int64(5, photo_row.master.timestamp.to_unix());
+        }
         assert(res == Sqlite.OK);
         if (photo_row.exposure_time == null) {
             res = stmt.bind_null(6);
@@ -557,7 +561,11 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(5, original.master.timestamp.to_unix());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(6, original.exposure_time.to_unix());
+        if (original.exposure_time == null) { 
+            res = stmt.bind_null(6);
+        } else {
+            res = stmt.bind_int64(6, original.exposure_time.to_unix());
+        }
         assert(res == Sqlite.OK);
         res = stmt.bind_int(7, original.orientation);
         assert(res == Sqlite.OK);

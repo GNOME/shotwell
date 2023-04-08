@@ -313,8 +313,6 @@ class AppDirs {
             f = AppDirs.get_libexec_dir().get_parent().get_child("thumbnailer").get_child(filename);
         }
 
-        warning("==============> %s", f.get_path());
-
         return f;
     }
 
@@ -343,26 +341,6 @@ class AppDirs {
         return f;
     }
 
-    public static File get_settings_migrator_v2_bin() {
-        const string filename = "shotwell-settings-migrator-v2";
-        File f = AppDirs.get_libexec_dir().get_child("settings-migrator").get_child (filename);
-        if (!f.query_exists()) {
-            // If we're running installed.
-            f = AppDirs.get_libexec_dir () .get_child ("shotwell").get_child (filename);
-        }
-
-        if (!f.query_exists()) {
-            f = AppDirs.get_libexec_dir().get_parent().get_child("settings-migrator").get_child(filename);
-        }
-
-        if (!f.query_exists()) {
-            f = AppDirs.get_libexec_dir().get_parent().get_parent().get_child("settings-migrator").get_child(filename);
-        }
-
-
-        return f;
-    }
-
     public static File get_haarcascade_file() {
         const string filename = "facedetect-haarcascade.xml";
         var f = AppDirs.get_resources_dir().get_parent().get_child("subprojects").get_child("shotwell-facedetect").get_child (filename);
@@ -384,11 +362,21 @@ class AppDirs {
     }
 
     public static File get_openface_dnn_dir() {
+        return File.new_for_path(Environment.get_user_data_dir()).get_child(DEFAULT_DATA_DIR).get_child("facedetect");
+    }
+
+    public static File get_openface_dnn_system_dir() {
         var f = File.new_for_path("/app/extra");
         if (f.query_exists())
             return f;
 
-        return get_data_subdir("data"); //get_child("openface.nn4.small2.v1.t7");
+        f = AppDirs.get_resources_dir().get_parent().get_child("subprojects").get_child("shotwell-facedetect");
+        if (f.query_exists()) {//testing meson builddir
+            return f;
+        }
+    
+        return AppDirs.get_resources_dir().get_child("facedetect");
     }
+
 #endif
 }

@@ -5,14 +5,7 @@
  */
 
 public class YouTubeService : Object, Spit.Pluggable, Spit.Publishing.Service {
-    private const string ICON_FILENAME = "youtube.png";
-
-    private static Gdk.Pixbuf[] icon_pixbuf_set = null;
-
-    public YouTubeService(GLib.File resource_directory) {
-        if (icon_pixbuf_set == null)
-            icon_pixbuf_set = Resources.load_from_resource
-                (Resources.RESOURCE_PATH + "/" + ICON_FILENAME);
+    public YouTubeService() {
     }
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {

@@ -1,4 +1,4 @@
-project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++14'])
+project('shotwell-facedetect', ['c', 'cpp'], default_options : ['cpp_std=c++17'])
 gnome = import('gnome')
 facedetect_dep = dependency('opencv4', version : ['>= 4.0.0'], required : false)
 if not facedetect_dep.found()
@@ -42,8 +42,16 @@ executable('shotwell-facedetect',
            install : true,
            include_directories: config_incdir,
            install_dir : libexecdir)
-install_data('facedetect-haarcascade.xml',
-              install_dir : join_paths(get_option('datadir'), 'shotwell'))
+install_data('haarcascade_frontalface_alt.xml',
+              install_dir : join_paths(get_option('datadir'), 'shotwell', 'facedetect'))
+install_data('haarcascade_profileface.xml',
+              install_dir : join_paths(get_option('datadir'), 'shotwell', 'facedetect'))
+install_data(
+  'openface.nn4.small2.v1.t7',
+  install_dir: join_paths(get_option('datadir'), 'shotwell', 'facedetect')
+)
+
+install_data('deploy.prototxt', install_dir: join_paths(get_option('datadir'), 'shotwell', 'facedetect'))
 
 configure_file(
     input : 'org.gnome.Shotwell.Faces1.service.in',

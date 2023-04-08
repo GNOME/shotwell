@@ -6,10 +6,6 @@
 
 namespace Plugins {
 
-// GModule doesn't have a truly generic way to determine if a file is a shared library by extension,
-// so these are hard-coded
-private const string[] SHARED_LIB_EXTS = { "so", "la" };
-
 // Although not expecting this system to last very long, these ranges declare what versions of this
 // interface are supported by the current implementation.
 private const int MIN_SPIT_INTERFACE = 0;
@@ -307,13 +303,8 @@ public int compare_extension_point_names(ExtensionPoint a, ExtensionPoint b) {
 private bool is_shared_library(File file) {
     string name, ext;
     disassemble_filename(file.get_basename(), out name, out ext);
-    
-    foreach (string shared_ext in SHARED_LIB_EXTS) {
-        if (ext == shared_ext)
-            return true;
-    }
-    
-    return false;
+
+    return ext == Module.SUFFIX;
 }
 
 private void search_for_plugins(File dir) throws Error {

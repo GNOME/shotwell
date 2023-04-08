@@ -308,6 +308,7 @@ void editing_exec(string filename, bool fullscreen) {
     
     DirectWindow direct_window = new DirectWindow(initial_file);
     direct_window.show();
+    direct_window.maximize();
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
 
@@ -368,6 +369,16 @@ void main(string[] args) {
     // Set GExiv2 log level to DEBUG, filtering will be done through Shotwell
     // logging mechanisms
     GExiv2.log_set_level(GExiv2.LogLevel.DEBUG);
+
+    // If set to non-empty, initialize GdkPixbuf with an additional loader path
+    if (Resources.PIXBUF_LOADER_PATH != "") {
+        debug("Trying to set module path to %s", Resources.PIXBUF_LOADER_PATH);
+        try {
+            Gdk.Pixbuf.init_modules(Resources.PIXBUF_LOADER_PATH);
+        } catch (Error err) {
+            message("Failed to set additional pixbuf loader path: %s", err.message);
+        }
+    }
 
     // following the GIO programming guidelines at http://developer.gnome.org/gio/2.26/ch03.html,
     // set the GSETTINGS_SCHEMA_DIR environment variable to allow us to load GSettings schemas from 

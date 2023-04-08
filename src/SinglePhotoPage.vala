@@ -281,7 +281,8 @@ public abstract class SinglePhotoPage : Page {
     }
 
     public bool is_inside_pixbuf(int x, int y) {
-        return coord_in_rectangle(x, y, scaled_pos);
+        return coord_in_rectangle((int)Math.lround(x * Application.get_scale()),
+        (int)Math.lround(y * Application.get_scale()), scaled_pos);
     }
 
     public void invalidate(Gdk.Rectangle rect) {
@@ -308,8 +309,10 @@ public abstract class SinglePhotoPage : Page {
     private void on_canvas_exposed(Gtk.DrawingArea da, Cairo.Context exposed_ctx, int width, int height) {
         // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
         // (so either old image or contents of another page is not left on screen)
-        if (pixmap != null)
+        if (pixmap != null) {
+            pixmap.set_device_scale(Application.get_scale(), Application.get_scale());
             exposed_ctx.set_source_surface(pixmap, 0, 0);
+        }
         else
             set_source_color_from_string(exposed_ctx, "#000");
 
@@ -335,7 +338,9 @@ public abstract class SinglePhotoPage : Page {
             ctx.rectangle(0, 0, pixmap_dim.width, pixmap_dim.height);
             ctx.fill();
 
+            //scaled.save("src%010d.png".printf(buffer_counter), "png");
             paint_pixmap_with_background(ctx, scaled, scaled_pos.x, scaled_pos.y);
+            //pixmap.write_to_png("%010d.png".printf(buffer_counter++));
         }
     }
 
@@ -377,6 +382,7 @@ public abstract class SinglePhotoPage : Page {
 
         // save if reporting an image being rescaled
         Dimensions old_scaled_dim = Dimensions.for_rectangle(scaled_pos);
+
         Gdk.Rectangle old_scaled_pos = scaled_pos;
 
         // attempt to reuse pixmap
@@ -386,7 +392,7 @@ public abstract class SinglePhotoPage : Page {
         // if necessary, create a pixmap as large as the entire viewport
         bool new_pixmap = false;
         if (pixmap == null) {
-            init_pixmap(width, height);
+            init_pixmap((int)Math.lround(width * Application.get_scale()), (int)Math.lround(height * Application.get_scale()));
             new_pixmap = true;
         }
 
@@ -401,12 +407,9 @@ public abstract class SinglePhotoPage : Page {
             else
                 scaled_dim = unscaled_dim.get_scaled_proportional(pixmap_dim);
 
-            assert(width >= scaled_dim.width);
-            assert(height >= scaled_dim.height);
-
             // center pixbuf on the canvas
-            scaled_pos.x = (width - scaled_dim.width) / 2;
-            scaled_pos.y = (height - scaled_dim.height) / 2;
+            scaled_pos.x = (int)Math.lround(((width * Application.get_scale()) - scaled_dim.width) / 2.0);
+            scaled_pos.y = (int)Math.lround(((height * Application.get_scale()) - scaled_dim.height) / 2.0);
             scaled_pos.width = scaled_dim.width;
             scaled_pos.height = scaled_dim.height;
         }

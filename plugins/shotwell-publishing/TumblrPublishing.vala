@@ -6,9 +6,7 @@
  */
 
 public class TumblrService : Object, Spit.Pluggable, Spit.Publishing.Service {
-    public TumblrService() {
-        Object();
-    }
+    public TumblrService() {}
 
     public int get_pluggable_interface(int min_host_interface, int max_host_interface) {
         return Spit.negotiate_interfaces(min_host_interface, max_host_interface,

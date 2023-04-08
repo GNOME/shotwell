@@ -9,24 +9,20 @@
     ],
     "desktop-file-name-prefix" : "(Nightly) ",
     "finish-args" : [
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
-        "--filesystem=~/.config/dconf:ro",
         "--filesystem=/media",
         "--filesystem=/run/media",
         "--filesystem=xdg-download",
         "--filesystem=xdg-pictures",
-        "--filesystem=xdg-run/dconf",
+        "--filesystem=xdg-run/gvfsd",
         "--share=ipc",
         "--share=network",
         "--device=all",
         "--device=dri",
         "--socket=wayland",
-        "--socket=x11",
-        "--talk-name=ca.desrt.dconf",
+        "--socket=fallback-x11",
         "--talk-name=org.freedesktop.FileManager1",
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.gtk.vfs.*",
-        "--env=GSETTINGS_BACKEND=dconf",
         "--talk-name=org.freedesktop.secrets"
     ],
     "cleanup" : [
@@ -69,8 +65,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "4.5.5",
-                    "commit" : "dad26339a975b49cfb6c7dbe4bd5276c9dcb36e2",
+                    "tag" : "4.7.0",
+                    "commit" : "725e440d278aca07d35a5e8963ef990572b07316",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
@@ -82,7 +78,9 @@
             "config-opts": [
                  "--libdir=/app/lib",
                 "--buildtype=debugoptimized",
-                "-Dbackends=gtk3",
+                "-Dbackend-gtk3=disabled",
+                "-Dbackend-gtk4=enabled",
+                "-Dbackend-qt5=disabled",
                 "-Ddocs=false",
                 "-Dtests=false"
             ],
@@ -142,47 +140,23 @@
             ]
         },
         {
-            "name" : "libgdata",
-            "buildsystem" : "meson",
-            "cleanup": ["/share/gtk-doc"],
-            "config-opts": [ "-Dintrospection=false", "-Dalways_build_tests=false", "-Dgoa=disabled", "-Dgtk_doc=false"],
-            "sources" : [
+            "name": "libraw",
+            "config-opts": [ "--disable-examples", "--disable-static" ],
+            "cleanup": [ "/share/doc" ],
+            "sources": [
                 {
-                    "type" : "archive",
-                        "url": "https://download.gnome.org/sources/libgdata/0.18/libgdata-0.18.1.tar.xz",
-                        "sha256": "dd8592eeb6512ad0a8cf5c8be8c72e76f74bfe6b23e4dd93f0756ee0716804c7"
-                }
-            ]
-        },
-        {
-            "name" : "libraw",
-            "config-opts" : [
-                "--disable-examples",
-                "--disable-jasper",
-                "--disable-static",
-                "--enable-jpeg",
-                "--enable-lcms",
-                "--enable-openmp"
-            ],
-            "rm-configure" : true,
-            "cleanup" : [
-                "/share/doc"
-            ],
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://www.libraw.org/data/LibRaw-0.20.2.tar.gz",
-                    "sha256" : "dc1b486c2003435733043e4e05273477326e51c3ea554c6864a4eafaff1004a6"
+                    "type": "archive",
+                    "url" : "https://www.libraw.org/data/LibRaw-0.21.1.tar.gz",
+                    "sha256" : "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
                 },
                 {
-                    "type" : "patch",
-                    "path" : "patches/libraw-pkgconfig.patch"
+                    "type": "patch",
+                    "path": "patches/libraw-pkgconfig.patch"
                 },
                 {
-                    "type": "script",
-                    "dest-filename": "autogen.sh",
+                    "type": "shell",
                     "commands": [
-                        "autoreconf -vfi"
+                        "autoreconf -fiv"
                     ]
                 }
             ]
@@ -192,7 +166,7 @@
             "cleanup" : [
                 "/bin"
             ],
-            "buildsystem" : "cmake",
+            "buildsystem" : "cmake-ninja",
             "config-opts" : [
                 "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
@@ -233,24 +207,50 @@
             ]
         },
         {
-            "name" : "gcr4",
-            "buildsystem" : "meson",
+            "name": "de256",
+            "buildsystem": "cmake-ninja",
             "config-opts" : [
-                "-Dgtk_doc=false",
-                "-Dssh_agent=false",
-                "-Dsystemd=disabled"
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_DECODER=Off",
+                "-DENABLE_ENCODER=OfF"
             ],
-            "build-options" : {
-                "env" : {
-                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR" : "/app/share/gir-1.0",
-                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR" : "/app/lib/girepository-1.0"
+            "sources" : [
+                {
+                    "type": "git",
+                    "url" : "https://github.com/strukturag/libde265.git",
+                    "tag" : "v1.0.11",
+                    "commit" : "e255f0571a46935955deef15808e52b18043788c"
                 }
-            },
+            ]
+        },
+        {
+            "name" : "libheif",
+            "buildsystem" : "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_INSTALL_LIBDIR=lib",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DLIBDE265=On",
+                "-DWITH_DAV1D=Off",
+                "-DWITH_AOM_ENCODER=Off",
+                "-DWITH_AOM_DECODER=Off",
+                "-DWITH_SvtEnc=Off",
+                "-DWITH_RAV1E=Off",
+                "-DWITH_ENABLE_PLUGIN_LOADING=On",
+                "-DWITH_EXAMPLES=Off"
+            ],
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/gcr.git/"
+                    "url" : "https://github.com/strukturag/libheif",
+                    "tag" : "v1.15.1",
+                    "commit" : "06f6acfe735379b9c3bcf865285f6dba80611e90"
                 }
+            ],
+            "post-install" :  [
+                "mkdir -p /app/lib/gdk-pixbuf-2.0/2.10.0/loaders",
+                "mv $(pkg-config --define-variable=prefix=/app --variable=gdk_pixbuf_moduledir gdk-pixbuf-2.0)/* /app/lib/gdk-pixbuf-2.0/2.10.0/loaders",
+                "gdk-pixbuf-query-loaders /app/lib/gdk-pixbuf-2.0/2.10.0/loaders/*  > /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
             ]
         },
         {
@@ -260,8 +260,9 @@
                 "-Dfatal_warnings=true",
                 "-Dudev=false",
                 "-Dinstall_apport_hook=false",
-                "-Dface_detection=true",
                 "-Dface_detection_helper_bus=private",
+                "-Dface_detection=true",
+                "-Dextra_pixbuf_loaders_path=/app/lib/gdk-pixbuf-2.0/2.10.0"
                 "-Dfatal_warnings=false"
             ],
             "sources" : [
@@ -269,29 +270,7 @@
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
                     "branch" : "master"
-                },
-                {
-                    "type" : "extra-data",
-                    "filename" : "openface.nn4.small2.v1.t7",
-                    "url" : "https://storage.cmusatyalab.org/openface-models/nn4.small2.v1.t7",
-                    "sha256" : "9b72d54aeb24a64a8135dca8e792f7cc675c99a884a6940350a6cedcf7b7ba08",
-                    "size" : 31510785
-                },
-                {
-                    "type" : "extra-data",
-                    "filename" : "res10_300x300_ssd_iter_140000_fp16.caffemodel",
-                    "url" : "https://raw.githubusercontent.com/opencv/opencv_3rdparty/dnn_samples_face_detector_20180205_fp16/res10_300x300_ssd_iter_140000_fp16.caffemodel",
-                    "sha256" : "510ffd2471bd81e3fcc88a5beb4eae4fb445ccf8333ebc54e7302b83f4158a76",
-                    "size" : 5351047
-                },
-                {
-                    "type" : "extra-data",
-                    "filename" : "deploy.prototxt",
-                    "url" : "https://raw.githubusercontent.com/opencv/opencv/master/samples/dnn/face_detector/deploy.prototxt",
-                    "sha256" : "dcd661dc48fc9de0a341db1f666a2164ea63a67265c7f779bc12d6b3f2fa67e9",
-                    "size" : 28104
                 }
-
             ]
         }
     ]

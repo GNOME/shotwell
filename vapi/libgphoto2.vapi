@@ -340,19 +340,40 @@ namespace GPhoto {
         public void set_message_func([CCode (delegate_target_pos=3.1)] ContextMessageFunc messageFunc);
     }
     
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate void ContextIdleFunc(Context context);
     
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate void ContextErrorFunc(Context context, string text);
     
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate void ContextStatusFunc(Context context, string text);
     
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate void ContextMessageFunc(Context context, string text);
     
     // TODO: Support for va_args in Vala, esp. for delegates?
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate uint ContextProgressStartFunc(Context context, float target, string text);
     
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate void ContextProgressUpdateFunc(Context context, uint id, float current);
     
+    [CCode (
+        cheader_filename="gphoto2/gphoto2-context.h"
+    )]
     public delegate void ContextProgressStopFunc(Context context, uint id);
     
     [CCode (
