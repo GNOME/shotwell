@@ -259,7 +259,9 @@
                 }
             ],
             "post-install" :  [
-                "gdk-pixbuf-query-loaders gdk-pixbuf-query-loaders /app/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/*  > /app/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+                "mkdir -p /app/lib/gdk-pixbuf-2.0/2.10.0/loaders",
+                "mv $(pkg-config --define-variable=prefix=/app --variable=gdk_pixbuf_moduledir gdk-pixbuf-2.0)/* /app/lib/gdk-pixbuf-2.0/2.10.0/loaders",
+                "gdk-pixbuf-query-loaders /app/lib/gdk-pixbuf-2.0/2.10.0/loaders/*  > /app/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
             ]
         },
         {
@@ -269,9 +271,9 @@
                 "-Dfatal_warnings=true",
                 "-Dudev=false",
                 "-Dinstall_apport_hook=false",
-                "-Dface_detection=true",
                 "-Dface_detection_helper_bus=private",
-                "-Dextra_pixbuf_loaders_path=/app/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0"
+                "-Dface_detection=true",
+                "-Dextra_pixbuf_loaders_path=/app/lib/gdk-pixbuf-2.0/2.10.0"
             ],
             "sources" : [
                 {
