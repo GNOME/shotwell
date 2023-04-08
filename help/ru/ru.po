@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
-"POT-Creation-Date: 2022-11-20 22:53+0000\n"
-"PO-Revision-Date: 2022-12-18 17:43+1000\n"
+"POT-Creation-Date: 2023-04-05 20:04+0000\n"
+"PO-Revision-Date: 2023-04-06 23:14+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -21,7 +21,7 @@ msgstr ""
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Ser82-png <sw@atrus.ru>, 2022"
+msgstr "Ser82-png <asvmail.as@gmail.com>, 2022-2023"
 
 #. (itstool) path: info/desc
 #: C/share-export.page:7
@@ -821,12 +821,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/other-multiple.page:7
-msgid ""
-"You can open Shotwell with a different photo library by using the command "
-"line."
-msgstr ""
-"Вы можете открыть Shotwell с другой библиотекой фотографий воспользовавшись "
-"командной строкой."
+msgid "You can open Shotwell with a different photo library."
+msgstr "Вы можете открыть Shotwell с другой библиотекой фотографий."
 
 #. (itstool) path: page/title
 #: C/other-multiple.page:12
@@ -836,38 +832,65 @@ msgstr "Несколько библиотек"
 #. (itstool) path: page/p
 #: C/other-multiple.page:14
 msgid ""
-"Shotwell normally stores its database and photo thumbnails in the directory "
-"<file>~/.shotwell</file> . This directory does not hold photos, but the "
-"database in this directory contains a list of all the photos in the Shotwell "
-"library."
+"Shotwell supports multiple libraries on the same computer with the concept "
+"of profiles. A profile is a set of meta-data and settings associated with a "
+"library folder."
 msgstr ""
-"Shotwell обычно хранит свою базу данных и эскизы фотографий в каталоге "
-"<file>~/.shotwell</file>. В этом каталоге нет файлов фотографий, но в базе "
-"данных содержится список всех фотографий, имеющихся в библиотеке Shotwell."
+"В Shotwell предусмотрена поддержка работы с несколькими библиотеками на "
+"одном компьютере с помощью концепции профилей. Профиль - это набор "
+"метаданных и настроек, связанных с папкой библиотеки."
 
 #. (itstool) path: page/p
-#: C/other-multiple.page:16
+#: C/other-multiple.page:17
 msgid ""
-"As an advanced feature, it's possible for you to have multiple Shotwell "
-"libraries, each of which has its own set of photos. Each library needs its "
-"own database directory. To launch Shotwell with an alternate library, "
-"specify an alternate database directory on the command line as follows:"
+"All profiles are completely isolated from each other. While it is possible "
+"to use the same library folder for different profiles, it is not recommended."
 msgstr ""
-"Дополнительной возможностью Shotwell является использование нескольких "
-"библиотек, каждая из которых хранит собственный набор фотографий. Для каждой "
-"библиотеки требуется собственный каталог базы данных. Чтобы запустить "
-"Shotwell с другой библиотекой, укажите альтернативный каталог базы данных в "
-"командной строке:"
+"Все профили полностью изолированы друг от друга. Хотя можно использовать "
+"одну и ту же папку библиотеки для разных профилей, но этого делать не "
+"рекомендуется."
 
-#. (itstool) path: page/screen
-#: C/other-multiple.page:18
-#, no-wrap
+#. (itstool) path: section/title
+#: C/other-multiple.page:20
+msgid "Managing profiles"
+msgstr "Управление профилями"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:21
 msgid ""
-"\n"
-"shotwell -d [library-directory]\n"
+"Profiles can either be created using the dedicated <app>Shotwell Profile "
+"Manager</app>, calling <cmd>shotwell --profile-browser</cmd> from the "
+"command line or the <gui style=\"tab\">Profiles</gui> section of the "
+"settings <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq>"
 msgstr ""
-"\n"
-"shotwell -d [каталог-библиотеки]\n"
+"Профили можно создавать либо с помощью специального <app>Менеджера профилей "
+"Shotwell</app>, вызвав его из командной строки <cmd>shotwell --profile-"
+"browser</cmd>, либо с помощью раздела <gui style=\"tab\">Профили</gui> в "
+"пункте меню <guiseq><gui>Правка</gui><gui>Параметры</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/other-multiple.page:25
+msgid "Selecting a profile"
+msgstr "Выбор профиля"
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:26
+msgid ""
+"A profile can only be selected during start-up and cannot be switched during "
+"run-time."
+msgstr ""
+"Профиль может быть выбран только при запуске приложения и его нельзя "
+"переключить во время работы."
+
+#. (itstool) path: section/p
+#: C/other-multiple.page:27
+msgid ""
+"To select a profile, start the Shotwell Profile Manager and select a profile "
+"using double-click, or calling <cmd>shotwell --profile <var>name</var></cmd>"
+msgstr ""
+"Чтобы выбрать профиль, запустите диспетчер профилей Shotwell и выберите "
+"профиль двойным щелчком мыши или воспользуйтесь командой <cmd>shotwell --"
+"profile <var>название</var></cmd>"
 
 #. (itstool) path: info/desc
 #: C/other-files.page:7
@@ -3119,6 +3142,230 @@ msgstr ""
 "автоматически экспортировать в JPEG."
 
 #. (itstool) path: info/desc
+#: C/organize-face-tagging.page:7
+msgid "Marking faces in photos"
+msgstr "Обозначение лиц на фотографиях"
+
+#. (itstool) path: page/title
+#: C/organize-face-tagging.page:12
+msgid "Faces in photos"
+msgstr "Лица на фотографиях"
+
+#. (itstool) path: page/p
+#: C/organize-face-tagging.page:13
+msgid ""
+"Shotwell supports tagging images using faces of persons and assigning a name "
+"to them. If enabled, Shotwell also supports automatic detection of faces in "
+"images and recognition of already known faces in new images"
+msgstr ""
+"В Shotwell предусмотрена пометка изображений с использованием лиц людей и "
+"присвоение им имени. Если включена соответствующая функция, в Shotwell также "
+"предусмотрено автоматическое обнаружение лиц на изображениях и распознавание "
+"уже известных лиц на новых изображениях"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:16
+msgid "Manual creation and modification of named faces"
+msgstr "Создание вручную и внесение изменений в данные связанные с именами лиц"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:18
+msgid ""
+"Double-click on an image in the collection, then press the <gui>Faces</gui> "
+"button on the toolbar"
+msgstr ""
+"Дважды щёлкните на изображении в коллекции, затем нажмите кнопку <gui>Лица</"
+"gui> на панели инструментов"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:19
+msgid ""
+"Start dragging a rectangle around the face you are tagging using your left "
+"mouse button"
+msgstr ""
+"Начните перетаскивать прямоугольник вокруг лица, которое вы помечаете, с "
+"помощью левой кнопки мыши"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:20
+msgid ""
+"You can also drag the rectangle by clicking into it or resize it by clicking "
+"on one of the borders"
+msgstr ""
+"Вы также можете перетащить прямоугольник, щёлкнув на нем мышью или изменить "
+"его размер, щёлкнув мышью по одной из его сторон"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:21
+msgid ""
+"Once satisfied, enter a name in the text box below the rectangle and press "
+"<key>Enter</key> to assign the name to the marked face"
+msgstr ""
+"Когда все будет готово, в текстовое поле под прямоугольником введите имя и "
+"нажмите <key>Enter</key>, чтобы присвоить его отмеченному лицу"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:22
+msgid "Repeat this process for as many faces as you want to mark"
+msgstr "Повторите эту процедуру для всех лиц, которые вы хотите отметить"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:23
+msgid ""
+"After you marked all faces, click on <gui>Ok</gui> to save the marked faces."
+msgstr ""
+"После того, как вы отметили все лица, нажмите <gui>Ok</gui>, чтобы сохранить "
+"данные по отмеченным лицам."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:27
+msgid "Modifying or removing existing named faces"
+msgstr ""
+"Внесение изменений и удаление данных, связанных с проименованными лицами"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:28
+msgid ""
+"An existing named face can be either be removed from an image using "
+"<guiseq><gui>Faces</gui><gui>Remove Face from Photo</gui></guiseq>, by "
+"pressing <keyseq><key>Ctrl</key><key>R</key></keyseq> while in the face "
+"browser or by clicking <gui>Delete</gui> in the Faces tool"
+msgstr ""
+"Существующее именование лица можно удалить с изображения воспользовавшись "
+"пунктом <guiseq><gui>Лица</gui><gui>Снять метку лица с фотографии</gui></"
+"guiseq>, или нажав <keyseq><key>Ctrl</key><key>R</key></keyseq> находясь в "
+"режиме обзора лиц, или с помощью пункта <gui>Удалить</gui> в инструменте "
+"«Лица»"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:29
+msgid ""
+"To rename the face, use <guiseq><gui>Faces</gui><gui>Rename Face...</gui></"
+"guiseq> or press <keyseq><key>Ctrl</key><key>E</key></keyseq> or by clicking "
+"on <gui>Edit</gui> in the Faces tool."
+msgstr ""
+"Чтобы переименовать лицо, воспользуйтесь пунктом <guiseq><gui>Лица</"
+"gui><gui>Переименовать метку лица...</gui></guiseq> или нажмите "
+"<keyseq><key>Ctrl</key><key>E</key></keyseq>, или используйте пункт "
+"<gui>Редактировать</gui> в инструменте «Лица»."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:32
+msgid "Automatic detection of faces"
+msgstr "Автоматическое обнаружение лиц"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:33
+msgid ""
+"It is possible to use automatic face detection to simplify the process of "
+"marking the faces. To trigger the face detection algorithm, click on "
+"<gui>Detect faces...</gui>"
+msgstr ""
+"Для упрощения процесса маркировки лиц можно использовать автоматическое "
+"обнаружение лиц. Чтобы запустить алгоритм обнаружения лиц, нажмите кнопку "
+"<gui>Определить лица...</gui>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:35
+msgid ""
+"If reference images for faces are defined, this will also try to match any "
+"found faces in the current image with known references."
+msgstr ""
+"Если определены эталонные изображения для лиц, то это позволит попытаться "
+"сопоставить любые найденные лица на текущем изображении с известными "
+"эталонами."
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:38
+msgid "Automatic recognition of faces"
+msgstr "Автоматическое распознавание лиц"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:39
+msgid ""
+"A named face on a photo can be set as a reference for this particular name. "
+"Future calls to the automatic face detection will try to associate similar "
+"faces the same name if considered matching."
+msgstr ""
+"Именованное лицо на фотографии может быть установлено как эталонное для "
+"конкретного имени. Во время последующих вызовов автоматического "
+"распознавания лиц приложение попытается связать похожие лица с одним и тем "
+"же именем, если будет установлено их соответствие."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:41
+msgid "To declare a face as the reference for its name use these steps"
+msgstr ""
+"Чтобы заявить лицо в качестве эталонного для определённого имени, выполните "
+"следующие действия"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:44
+msgid ""
+"Switch to the face browser by clicking on a face name in the navigation tree."
+msgstr ""
+"Переключитесь в режим обзора лиц, щёлкнув по имени лица в дереве навигации."
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:45
+msgid ""
+"Select an image that contains the representation of the face you want to "
+"make a reference"
+msgstr ""
+"Выберите изображение, содержащее лицо, которое вы хотите сделать эталонным"
+
+#. (itstool) path: item/p
+#: C/organize-face-tagging.page:46
+msgid ""
+"Click on <guiseq><gui>Faces</gui><gui>Train Face from Photo</gui></guiseq>"
+msgstr ""
+"Щёлкните на пункт <guiseq><gui>Лица</gui><gui>Использовать метку лица с "
+"фотографии</gui></guiseq>"
+
+#. (itstool) path: section/title
+#: C/organize-face-tagging.page:50
+msgid "Improving face recognition"
+msgstr "Усовершенствование распознавания лиц"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:51
+msgid ""
+"By default, Shotwell uses cascade classifier to find faces in images. There "
+"is a method to use a deep neural network to improve detection rates "
+"significantly, but due to certain uncertainties with the licensing of the "
+"trained model it is not included by default."
+msgstr ""
+"По умолчанию Shotwell использует каскадный классификатор для поиска лиц на "
+"изображениях. Существует метод использования глубокой нейронной сети для "
+"значительного повышения скорости обнаружения, но из-за различных "
+"неопределенностей с лицензированием обученной модели он не может быть "
+"включён по умолчанию в пакет приложения."
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:54
+msgid ""
+"To enable DNN-based face detection, download the "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> from the <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">OpenCV third-party repository</"
+"link>"
+msgstr ""
+"Чтобы включить распознавание лиц на основе DNN, загрузите "
+"<file>res10_300x300_ssd_iter_140000_fp16.caffemodel</file> из <link "
+"href=\"https://github.com/opencv/opencv_3rdparty/tree/"
+"dnn_samples_face_detector_20180205_fp16\">OpenCV third-party repository</"
+"link>"
+
+#. (itstool) path: section/p
+#: C/organize-face-tagging.page:55
+msgid ""
+"Copy the file into your local data folder, usually <file>$HOME/.local/share/"
+"shotwell</file> and restart Shotwell"
+msgstr ""
+"Скопируйте файл в локальную папку данных, как правило, <file>$HOME/.local/"
+"share/shotwell</file>, и перезапустите Shotwell"
+
+#. (itstool) path: info/desc
 #: C/import-camera.page:7
 msgid "Copy photos from a digital camera."
 msgstr "Копируйте фотографии с цифровой камеры."
@@ -3187,85 +3434,79 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:6
+msgctxt "link:trail"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: info/title
+#: C/index.page:7
 msgctxt "link"
 msgid "Shotwell"
 msgstr "Shotwell"
 
-#. (itstool) path: credit/name
+#. (itstool) path: info/title
 #: C/index.page:8
+msgctxt "text"
+msgid "Shotwell"
+msgstr "Shotwell"
+
+#. (itstool) path: credit/name
+#: C/index.page:11
 msgid "Jim Nelson"
 msgstr "Джим Нельсон (Jim Nelson)"
 
 #. (itstool) path: credit/name
-#: C/index.page:12
+#: C/index.page:15
 msgid "Allison Barlow"
 msgstr "Эллисон Барлоу (Allison Barlow)"
 
 #. (itstool) path: credit/name
-#: C/index.page:16
+#: C/index.page:19
 msgid "Robert Ancell"
 msgstr "Роберт Анселл (Robert Ancell)"
 
 #. (itstool) path: credit/name
-#: C/index.page:20
+#: C/index.page:23
 msgid "Peter Smith"
 msgstr "Питер Смит (Peter Smith)"
 
 #. (itstool) path: credit/name
-#: C/index.page:24
+#: C/index.page:27
 msgid "Phil Bull"
 msgstr "Фил Булл (Phil Bull)"
 
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:30
-msgctxt "_"
-msgid ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-msgstr ""
-"external ref='figures/shotwell_logo.png' "
-"md5='4b333499555b4e496b1a38f7899067f3'"
-
 #. (itstool) path: page/title
-#: C/index.page:30
-msgid ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
-"Manager"
-msgstr ""
-"<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Менеджер фотографий "
-"Shotwell"
+#: C/index.page:33
+msgid "<_:media-1/> Shotwell Photo Manager"
+msgstr "<_:media-1/> Менеджер фотографий Shotwell"
 
 #. (itstool) path: section/title
-#: C/index.page:33
+#: C/index.page:39
 msgid "Importing Photos"
 msgstr "Импорт фотографий"
 
 #. (itstool) path: section/title
-#: C/index.page:37
+#: C/index.page:43
 msgid "Viewing Photos"
 msgstr "Просмотр фотографий"
 
 #. (itstool) path: section/title
-#: C/index.page:41
+#: C/index.page:47
 msgid "Organizing Photos"
 msgstr "Упорядочивание фотографий"
 
 #. (itstool) path: section/title
-#: C/index.page:45
+#: C/index.page:51
 msgid "Editing Photos"
 msgstr "Редактирование фотографий"
 
 #. (itstool) path: section/title
-#: C/index.page:49
+#: C/index.page:55
 msgid "Sharing Photos"
 msgstr "Публикация фотографий"
 
 #. (itstool) path: section/title
-#: C/index.page:53
+#: C/index.page:59
 msgid "Other Features"
 msgstr "Другие возможности"
 
@@ -3552,3 +3793,49 @@ msgstr ""
 "белый цвет, и насколько тёмным будет самый тёмный чёрный цвет. Используйте "
 "их, чтобы изменить контрастность фотографии. Особенно выиграют от изменения "
 "этих настроек блеклые фотографии."
+
+#~ msgid ""
+#~ "Shotwell normally stores its database and photo thumbnails in the "
+#~ "directory <file>~/.shotwell</file> . This directory does not hold photos, "
+#~ "but the database in this directory contains a list of all the photos in "
+#~ "the Shotwell library."
+#~ msgstr ""
+#~ "Shotwell обычно хранит свою базу данных и эскизы фотографий в каталоге "
+#~ "<file>~/.shotwell</file>. В этом каталоге нет файлов фотографий, но в "
+#~ "базе данных содержится список всех фотографий, имеющихся в библиотеке "
+#~ "Shotwell."
+
+#~ msgid ""
+#~ "As an advanced feature, it's possible for you to have multiple Shotwell "
+#~ "libraries, each of which has its own set of photos. Each library needs "
+#~ "its own database directory. To launch Shotwell with an alternate library, "
+#~ "specify an alternate database directory on the command line as follows:"
+#~ msgstr ""
+#~ "Дополнительной возможностью Shotwell является использование нескольких "
+#~ "библиотек, каждая из которых хранит собственный набор фотографий. Для "
+#~ "каждой библиотеки требуется собственный каталог базы данных. Чтобы "
+#~ "запустить Shotwell с другой библиотекой, укажите альтернативный каталог "
+#~ "базы данных в командной строке:"
+
+#, no-wrap
+#~ msgid ""
+#~ "\n"
+#~ "shotwell -d [library-directory]\n"
+#~ msgstr ""
+#~ "\n"
+#~ "shotwell -d [каталог-библиотеки]\n"
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+#~ msgstr ""
+#~ "external ref='figures/shotwell_logo.png' "
+#~ "md5='4b333499555b4e496b1a38f7899067f3'"
+
+#~ msgid ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Shotwell Photo "
+#~ "Manager"
+#~ msgstr ""
+#~ "<media type=\"image\" src=\"figures/shotwell_logo.png\"/>Менеджер "
+#~ "фотографий Shotwell"
