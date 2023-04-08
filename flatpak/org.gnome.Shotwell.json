@@ -166,7 +166,7 @@
             "cleanup" : [
                 "/bin"
             ],
-            "buildsystem" : "cmake",
+            "buildsystem" : "cmake-ninja",
             "config-opts" : [
                 "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
@@ -208,7 +208,7 @@
         },
         {
             "name": "de256",
-            "buildsystem": "cmake",
+            "buildsystem": "cmake-ninja",
             "config-opts" : [
                 "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
@@ -226,7 +226,7 @@
         },
         {
             "name" : "libheif",
-            "buildsystem" : "cmake",
+            "buildsystem" : "cmake-ninja",
             "config-opts": [
                 "-DCMAKE_INSTALL_LIBDIR=lib",
                 "-DCMAKE_BUILD_TYPE=Release",
