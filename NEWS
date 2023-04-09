@@ -1,3 +1,102 @@
+Shotwell 0.31.90 (beta) - 04 Apr 2023
+ * Fix display of f-number
+ * Fix several issues with unset exposure times
+ * Properly read exposure time from video files with GStreamer
+ * Fix display of time shift in AdjustDateTime dialog
+ * Support HEIF/HEVC files
+ * Support MXF files
+ * Fix issues with continously shifting images by time zone offset
+ * Minor UX enhancements with profile editor
+ * Fix alternate month names in sidebar
+ * Support .nomedia files when importing from folder
+ * Fix missing icon on import page
+ * Enable face recognition
+ * Clean up face detection and recognition helper
+ * Update haarcascade file
+ * Support profile haarcascade
+ * Support HiDPI for photo viewer and tools
+ * Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/124
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/162
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/203
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/220
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/289
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/336
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5000
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5017
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5022
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5024
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5027
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5028
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5029
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/66
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/68
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/69
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/67
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/66
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Sabri Ünal <libreajans@gmail.com>
+ - Mike Auty <mike.auty@gmail.com>
+ - Sergej A <asvmail.as@gmail.com>
+ - Aleksandr Melman <Alexmelman88@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Cheng-Chia Tseng <pswo10680@gmail.com>
+ - Asier Sarasua Garmendia <asiersarasua@ni.eus>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Jürgen Benvenuti <jbenvenuti@gnome.org>
+ - Irénée THIRION <irenee.thirion@e.email>
+ - Jordi Mas <jmas@softcatala.org>
+ - Andika Triwidada <atriwidada@gnome.org>
+ - Balázs Úr <balazs@urbalazs.hu>
+ - Aurimas Černius <aurisc4@gmail.com>
+ - Hugo Carvalho <hugokarvalho@hotmail.com>
+ - Martin <miles@filmsi.net>
+ - Yosef Or Boczko <yoseforb@gnome.org>
+ - Rico Tzschichholz <ricotz@ubuntu.com>
+ - Mike Playle <mike@mythik.co.uk>
+ - Ngọc Quân Trần <vnwildman@gmail.com>
+ - Goran Vidović <trebelnik2@gmail.com>
+ - Alan Mortensen <alanmortensen.am@gmail.com>
+ - Rafael Fontenelle <rafaelff@gnome.org>
+ - Quentin PAGÈS <pages_quentin@hotmail.com>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Olga Smirnova <mistresssilvara@hotmail.com>
+
+Added/updated translations:
+ - ru.po, courtesy of Ser82-png
+ - sv.po, courtesy of Anders Jonsson
+ - uk.po, courtesy of Yuri Chornoivan
+ - ca.po, courtesy of Jordi Mas i Hernàndez
+ - da.po, courtesy of Alan Mortensen
+ - de.po, courtesy of Jürgen Benvenuti
+ - eu.po, courtesy of Asier Sarasua Garmendia
+ - fr.po, courtesy of Irénée Thirion
+ - he.po, courtesy of Yosef Or Boczko
+ - hr.po, courtesy of gogo
+ - hu.po, courtesy of Balázs Úr
+ - id.po, courtesy of Andika Triwidada
+ - ie.po, courtesy of OIS
+ - ka.po, courtesy of Ekaterine Papava
+ - lt.po, courtesy of Aurimas Černius
+ - pl.po, courtesy of Piotr Drąg
+ - pt.po, courtesy of Hugo Carvalho
+ - pt_BR.po, courtesy of Rafael Fontenelle
+ - ru.po, courtesy of Aleksandr Melman
+ - sl.po, courtesy of Martin Srebotnjak
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Sabri Ünal
+ - uk.po, courtesy of Yuri Chornoivan
+ - vi.po, courtesy of Trần Ngọc Quân
+ - zh_TW.po, courtesy of Cheng-Chia Tseng
+ 
 Shotwell 0.31.7 (development) - 03 Dec 2022
  * Actually run database upgrage necessary for date/time changes
  * Fix comparing unset date/time values
