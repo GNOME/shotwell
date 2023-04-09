@@ -87,6 +87,7 @@ public class EditingTools.AdjustTool : EditingTool {
             slider_organizer.attach(saturation_label, 0, 2, 1, 1);
             slider_organizer.attach(saturation_slider, 1, 2, 1, 1);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
+            saturation_slider.set_value_pos(Gtk.PositionType.RIGHT);
             saturation_slider.set_margin_end(0);
             saturation_click.set_button(Gdk.BUTTON_PRIMARY);
             saturation_click.set_touch_only(false);

@@ -283,12 +283,13 @@ public abstract class EditingTools.PhotoCanvas {
     }
 
     public void erase_horizontal_line(int x, int y, int width) {
+        var scale = Application.get_scale();
         default_ctx.save();
 
         default_ctx.set_operator(Cairo.Operator.SOURCE);
         default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
-            width - 1, 1);
+            width - 1, 1 * scale);
         default_ctx.fill();
 
         default_ctx.restore();
@@ -306,6 +307,8 @@ public abstract class EditingTools.PhotoCanvas {
     public void erase_vertical_line(int x, int y, int height) {
         default_ctx.save();
 
+        var scale = Application.get_scale();
+
         // Ticket #3146 - artifacting when moving the crop box or
         // enlarging it from the lower right.
         // We now no longer subtract one from the height before choosing
@@ -313,7 +316,7 @@ public abstract class EditingTools.PhotoCanvas {
         default_ctx.set_operator(Cairo.Operator.SOURCE);
         default_ctx.set_source_surface(scaled, scaled_position.x, scaled_position.y);
         default_ctx.rectangle(scaled_position.x + x, scaled_position.y + y,
-            1, height);
+            1 * scale, height);
         default_ctx.fill();
 
         default_ctx.restore();
@@ -329,6 +332,7 @@ public abstract class EditingTools.PhotoCanvas {
 
     public void invalidate_area(Box area) {
         Gdk.Rectangle rect = area.get_rectangle();
+
         rect.x += scaled_position.x;
         rect.y += scaled_position.y;
 

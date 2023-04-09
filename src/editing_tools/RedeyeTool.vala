@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: LGPL-2.1-or-later
-
 public struct EditingTools.RedeyeInstance {
     public const int MIN_RADIUS = 4;
     public const int MAX_RADIUS = 32;
@@ -111,13 +110,14 @@ public class EditingTools.RedeyeTool : EditingTool {
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        var scale = Application.get_scale();
         wider_gray_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wider_gray_ctx, "#111");
-        wider_gray_ctx.set_line_width(3);
+        wider_gray_ctx.set_line_width(3 * scale);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
-        thin_white_ctx.set_line_width(1);
+        thin_white_ctx.set_line_width(1 * scale);
     }
 
     private void draw_redeye_instance(RedeyeInstance inst) {
@@ -291,13 +291,17 @@ public class EditingTools.RedeyeTool : EditingTool {
     }
 
     public override void on_left_click(int x, int y) {
+        var scale = Application.get_scale();
+
         Gdk.Rectangle bounds_rect =
             RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-        if (coord_in_rectangle(x, y, bounds_rect)) {
+
+        if (coord_in_rectangle((int)Math.lround(x * scale), (int)Math.lround(y * scale), bounds_rect)) {
+            print("Motion in progress!!\n");
             is_reticle_move_in_progress = true;
-            reticle_move_mouse_start_point.x = x;
-            reticle_move_mouse_start_point.y = y;
+            reticle_move_mouse_start_point.x = (int)Math.lround(x * scale);
+            reticle_move_mouse_start_point.y = (int)Math.lround(y * scale);
             reticle_move_anchor = user_interaction_instance.center;
         }
     }
@@ -307,6 +311,8 @@ public class EditingTools.RedeyeTool : EditingTool {
     }
 
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        var scale = Application.get_scale();
+
         if (is_reticle_move_in_progress) {
 
             Gdk.Rectangle active_region_rect =
@@ -323,8 +329,8 @@ public class EditingTools.RedeyeTool : EditingTool {
                 active_region_rect.y + active_region_rect.height -
                 user_interaction_instance.radius - 1;
 
-            int delta_x = x - reticle_move_mouse_start_point.x;
-            int delta_y = y - reticle_move_mouse_start_point.y;
+            int delta_x = (int)Math.lround(x * scale) - reticle_move_mouse_start_point.x;
+            int delta_y = (int)Math.lround(y * scale) - reticle_move_mouse_start_point.y;
 
             user_interaction_instance.center.x = reticle_move_anchor.x +
                 delta_x;
@@ -343,7 +349,7 @@ public class EditingTools.RedeyeTool : EditingTool {
             Gdk.Rectangle bounds =
                 RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
-            if (coord_in_rectangle(x, y, bounds)) {
+            if (coord_in_rectangle((int)Math.lround(x * scale), (int)Math.lround(y * scale), bounds)) {
                 canvas.set_cursor("move");
             } else {
                 canvas.set_cursor(null);

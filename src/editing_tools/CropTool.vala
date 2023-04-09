@@ -680,20 +680,22 @@ public class EditingTools.CropTool : EditingTool {
     }
 
     private void prepare_ctx(Cairo.Context ctx, Dimensions dim) {
+        var scale = Application.get_scale();
         wide_black_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_black_ctx, "#000");
-        wide_black_ctx.set_line_width(1);
+        wide_black_ctx.set_line_width(1 * scale);
 
         wide_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(wide_white_ctx, "#FFF");
-        wide_white_ctx.set_line_width(1);
+        wide_white_ctx.set_line_width(1 * scale);
 
         thin_white_ctx = new Cairo.Context(ctx.get_target());
         set_source_color_from_string(thin_white_ctx, "#FFF");
-        thin_white_ctx.set_line_width(0.5);
+        thin_white_ctx.set_line_width(0.5 * scale);
 
         text_ctx = new Cairo.Context(ctx.get_target());
         text_ctx.select_font_face("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
+        text_ctx.set_font_size(10.0 * scale);
     }
 
     private void on_resized_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
@@ -722,7 +724,8 @@ public class EditingTools.CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pixbuf_pos.x, scaled_pixbuf_pos.y);
 
         // determine where the mouse down landed and store for future events
-        in_manipulation = offset_scaled_crop.approx_location(x, y);
+        in_manipulation = offset_scaled_crop.approx_location((int)Math.lround(x * Application.get_scale()),
+        (int)Math.lround(y * Application.get_scale()));
         last_grab_x = x -= scaled_pixbuf_pos.x;
         last_grab_y = y -= scaled_pixbuf_pos.y;
 
@@ -750,19 +753,21 @@ public class EditingTools.CropTool : EditingTool {
         // only deal with manipulating the crop tool when click-and-dragging one of the edges
         // or the interior
         if (in_manipulation != BoxLocation.OUTSIDE)
-            on_canvas_manipulation(x, y);
+            on_canvas_manipulation((int)Math.lround(x * Application.get_scale()),
+            (int)Math.lround(y * Application.get_scale()));
 
         update_cursor(x, y);
         canvas.repaint();
     }
 
     public override void paint(Cairo.Context default_ctx) {
+        var scale = Application.get_scale();
         // fill region behind the crop surface with neutral color
         int w = canvas.get_drawing_window().get_width();
         int h = canvas.get_drawing_window().get_height();
 
         default_ctx.set_source_rgba(0.0, 0.0, 0.0, 1.0);
-        default_ctx.rectangle(0, 0, w, h);
+        default_ctx.rectangle(0, 0, w * scale, h * scale);
         default_ctx.fill();
         default_ctx.paint();
 
@@ -812,7 +817,8 @@ public class EditingTools.CropTool : EditingTool {
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
 
         string? cursor_type = null;
-        switch (offset_scaled_crop.approx_location(x, y)) {
+        switch (offset_scaled_crop.approx_location((int)Math.lround(x * Application.get_scale()),
+        (int)Math.lround(y * Application.get_scale()))) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = "w-resize";
             break;
