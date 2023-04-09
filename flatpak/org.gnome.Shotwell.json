@@ -262,14 +262,14 @@
                 "-Dinstall_apport_hook=false",
                 "-Dface_detection_helper_bus=private",
                 "-Dface_detection=true",
-                "-Dextra_pixbuf_loaders_path=/app/lib/gdk-pixbuf-2.0/2.10.0"
+                "-Dextra_pixbuf_loaders_path=/app/lib/gdk-pixbuf-2.0/2.10.0",
                 "-Dfatal_warnings=false"
             ],
             "sources" : [
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/shotwell.git/",
-                    "branch" : "master"
+                    "branch" : "wip/gtk4"
                 }
             ]
         }
