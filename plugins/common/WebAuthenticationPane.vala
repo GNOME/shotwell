@@ -20,15 +20,11 @@ namespace Shotwell.Plugins.Common {
 
         public void clear() {
             debug("Clearing the data of WebKit...");
-            this.webview.get_website_data_manager().clear.begin(WebKit.WebsiteDataTypes.ALL, (GLib.TimeSpan)0);
+            //this.webview.get_website_data_manager().clear.begin(WebKit.WebsiteDataTypes.ALL, (GLib.TimeSpan)0);
         }
 
         public override void constructed () {
             base.constructed ();
-            var ctx = WebKit.WebContext.get_default();
-            if (!ctx.get_sandbox_enabled()) {
-                ctx.set_sandbox_enabled(true);
-            }
 
             var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 4);
             this.widget = box;

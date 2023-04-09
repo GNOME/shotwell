@@ -53,7 +53,7 @@ gio = dependency('gio-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
 gio_unix = dependency('gio-unix-2.0', version: '>= 2.40')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
-webkit = dependency('webkit2gtk-5.0', version: '>= 2.26')
+webkit = [dependency('webkitgtk-6.0', version: '>= 2.26'), dependency('javascriptcoregtk-6.0')]
 soup = dependency('libsoup-3.0')
 json_glib = dependency('json-glib-1.0')
 xml = dependency('libxml-2.0')
