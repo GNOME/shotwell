@@ -22,3 +22,28 @@ nightly@x86_64:
 nightly@aarch64:
     extends: '.publish_nightly'
     needs: ['flatpak@aarch64']
+
+pages:
+  image: 'quay.io/gnome_infrastructure/gnome-runtime-images:gnome-master'
+  stage: 'deploy'
+  timeout: '100m'
+  script:
+    - tar xf repo.tar
+    - ostree checkout --repo repo app/org.gnome.Shotwell/x86_64/master ostree-checkout -U
+    - cp -rL ostree-checkout/files/share/help help-input
+    - rm -rf ostree-checkout
+
+    - for i in help-input/* ; do lang=$(basename $i) ; echo "Generating HTML doc for language $lang" ; mkdir -p doc/$lang/html ; ( cd doc/$lang/html ; yelp-build html ../../../help-input/$lang/shotwell ; cp -a ../../../help-input/$lang/shotwell/figures ) ; done 
+    - mkdir public
+    - mv doc public
+  artifacts:
+    paths:
+       - 'public'
+  needs:
+    - 'flatpak@x86_64'
+  only:
+    refs:
+      - 'master'
+      - 'main'
+      - 'mainline'
+      - '/^wip\/(.*\/)?ci.*$/'
