@@ -1,4 +1,7 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+include:
+    - remote: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+    - remote: "https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/0c312d9c7255f46e741d43bcd1930f09cd12efe7/templates/ci-fairy.yml"
+    - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/0c312d9c7255f46e741d43bcd1930f09cd12efe7/templates/fedora.yml'
 
 .vars-devel:
   variables:
@@ -24,7 +27,16 @@ nightly@aarch64:
     needs: ['flatpak@aarch64']
 
 pages:
-  image: 'quay.io/gnome_infrastructure/gnome-runtime-images:gnome-master'
+  variables:
+    BASE_TAG: '2023-04-09.0'
+    FDO_UPSTREAM_REPO: GNOME/shotwell
+    FDO_DISTRIBUTION_PACKAGES: 'yelp-tools ostree'
+    FDO_DISTRIBUTION_VERSION : 37
+    FDO_DISTRIBUTION_EXEC: |
+      dnf clean all
+    FDO_DISTRIBUTION_TAG: "x86_64-${BASE_TAG}"
+  extends: .fdo.container-build@fedora
+
   stage: 'deploy'
   timeout: '100m'
   script:
