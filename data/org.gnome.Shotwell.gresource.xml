@@ -72,6 +72,7 @@
       <file preprocess="xml-stripblanks" alias="icons/shotwell.svg">icons/hicolor/scalable/apps/org.gnome.Shotwell.svg</file>
       <file preprocess="xml-stripblanks" alias="icons/shotwell-symbolic.svg">icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg</file>
       <file>icons/shotwell-street.jpg</file>
+      <file>icons/Delmenhorst_Rathaus.jpg</file>
       <file>icons/slideshow-extension-point.png</file>
       <file>icons/hicolor/scalable/actions/straighten-symbolic.svg</file>
       <file>themes/org.gnome.Shotwell.css</file>
