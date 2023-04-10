@@ -18,7 +18,7 @@ processor = executable('shotwell-graphics-processor',
                        link_with: sw_graphics_processor)
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
+                 gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin]
 
 shotwell_libs = [sw_graphics_processor]
@@ -31,7 +31,7 @@ face_sources = (['faces/FacesBranch.vala',
                      'faces/FacesTool.vala'])
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule, unity,
+                 gstreamer_pbu, gudev, gexiv2, gmodule, unity,
                  libraw, libexif, sw_plugin, webpdemux, webp, version,
                  portal]
 

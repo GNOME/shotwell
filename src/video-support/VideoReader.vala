@@ -22,7 +22,7 @@ public class VideoReader {
     private double clip_duration = UNKNOWN_CLIP_DURATION;
     private Gdk.Pixbuf preview_frame = null;
     private File file = null;
-    private GLib.Pid thumbnailer_pid = 0;
+    private Subprocess thumbnailer_process = null;
     public DateTime? timestamp { get; private set; default = null; }
 
     public VideoReader(File file) {
@@ -226,13 +226,8 @@ public class VideoReader {
     // Used by thumbnailer() to kill the external process if need be.
     private bool on_thumbnailer_timer() {
         debug("Thumbnailer timer called");
-        if (thumbnailer_pid != 0) {
-            debug("Killing thumbnailer process: %d", thumbnailer_pid);
-#if VALA_0_40
-            Posix.kill(thumbnailer_pid, Posix.Signal.KILL);
-#else
-            Posix.kill(thumbnailer_pid, Posix.SIGKILL);
-#endif
+        if (thumbnailer_process != null) {
+            thumbnailer_process.force_exit();
         }
         return false; // Don't call again.
     }
@@ -242,48 +237,49 @@ public class VideoReader {
     private Gdk.Pixbuf? thumbnailer(string video_file) {
         // Use Shotwell's thumbnailer, redirect output to stdout.
         debug("Launching thumbnailer process: %s", AppDirs.get_thumbnailer_bin().get_path());
-        string[] argv = {AppDirs.get_thumbnailer_bin().get_path(), video_file};
-        int child_stdout;
+        FileIOStream stream;
+        File output_file;
         try {
-            GLib.Process.spawn_async_with_pipes(null, argv, null, GLib.SpawnFlags.SEARCH_PATH |
-                GLib.SpawnFlags.DO_NOT_REAP_CHILD, null, out thumbnailer_pid, null, out child_stdout,
-                null);
-            debug("Spawned thumbnailer, child pid: %d", (int) thumbnailer_pid);
+            output_file = File.new_tmp(null, out stream);
+        } catch (Error e) {
+            debug("Failed to create temporary file: %s", e.message);
+            return null;
+        }
+
+        try {
+            thumbnailer_process = new Subprocess(SubprocessFlags.NONE,
+                AppDirs.get_thumbnailer_bin().get_path(), video_file, output_file.get_path());
         } catch (Error e) {
             debug("Error spawning process: %s", e.message);
-            if (thumbnailer_pid != 0)
-                GLib.Process.close_pid(thumbnailer_pid);
             return null;
         }
 
         // Start timer.
         Timeout.add(THUMBNAILER_TIMEOUT, on_thumbnailer_timer);
 
-        // Read pixbuf from stream.
-        Gdk.Pixbuf? buf = null;
-        try {
-            GLib.UnixInputStream unix_input = new GLib.UnixInputStream(child_stdout, true);
-            buf = new Gdk.Pixbuf.from_stream(unix_input, null);
-        } catch (Error e) {
-            debug("Error creating pixbuf: %s", e.message);
-            buf = null;
-        }
-
         // Make sure process exited properly.
-        int child_status = 0;
-        int ret_waitpid = Posix.waitpid(thumbnailer_pid, out child_status, 0);
-        if (ret_waitpid < 0) {
-            debug("waitpid returned error code: %d", ret_waitpid);
-            buf = null;
-        } else if (0 != Process.exit_status(child_status)) {
-            debug("Thumbnailer exited with error code: %d",
-                    Process.exit_status(child_status));
-            buf = null;
+        try {
+            thumbnailer_process.wait_check();
+
+            // Read pixbuf from stream.
+            Gdk.Pixbuf? buf = null;
+            try {
+                buf = new Gdk.Pixbuf.from_stream(stream.get_input_stream(), null);
+                return buf;
+            } catch (Error e) {
+                debug("Error creating pixbuf: %s", e.message);
+            }
+        } catch (Error err) {
+            debug("Thumbnailer process exited with error: %s", err.message);
         }
 
-        GLib.Process.close_pid(thumbnailer_pid);
-        thumbnailer_pid = 0;
-        return buf;
+        try {
+            output_file.delete(null);
+        } catch (Error err) {
+            debug("Failed to remove temporary file: %s", err.message);
+        }
+        
+        return null;
     }
 
     private bool does_file_exist() {
