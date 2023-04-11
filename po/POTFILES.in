@@ -122,6 +122,7 @@ src/photos/BmpSupport.vala
 src/photos/HeifSupport.vala
 src/photos/GifSupport.vala
 src/photos/JfifSupport.vala
+src/photos/JpegXLSupport.vala
 src/photos/PngSupport.vala
 src/photos/RawSupport.vala
 src/photos/TiffSupport.vala

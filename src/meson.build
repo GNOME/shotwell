@@ -88,6 +88,7 @@ executable(
         'photos/WebPSupport.vala',
         'photos/AvifSupport.vala',
         'photos/HeifSupport.vala',
+        'photos/JpegXLSupport.vala',
         'plugins/Plugins.vala',
         'plugins/StandardHostInterface.vala',
         'plugins/ManifestWidget.vala',
