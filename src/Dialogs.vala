@@ -819,7 +819,11 @@ public abstract class TagsDialog : TextEntryDialogMediator {
     protected TagsDialog(string title, string label, string? initial_text = null) {
         var all = new Gee.ArrayList<string>();
         all.add_all(HierarchicalTagIndex.get_global_index().get_all_tags());
-        all.add_all(HierarchicalTagIndex.get_global_index().get_all_paths());
+        var paths = HierarchicalTagIndex.get_global_index().get_all_paths();
+        foreach (var p in paths) {
+            if (p.has_prefix("/")) all.add(p);
+        }
+        
         base (title, label, initial_text, all, ",");
     }
 }
