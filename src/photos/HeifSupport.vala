@@ -48,37 +48,17 @@ class HeifFileFormatProperties : PhotoFileFormatProperties {
 }
 
 public class HeifSniffer : GdkSniffer {
-    private const uint8[] MAGIC_SEQUENCE = { 102, 116, 121, 112, 104, 101, 105, 99 };
+    private const string[] MAGIC_SEQUENCES = { "heic", "heix", "hevc", "heim", "heis", "hevm", "hevs", "mif1", "msf1"};
 
     public HeifSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
-    }
-
-    private static bool is_heif_file(File file) throws Error {
-        FileInputStream instream = file.read(null);
-
-        // Read out first four bytes
-        uint8[] unknown_start = new uint8[4];
-
-        instream.read(unknown_start, null);
-
-        uint8[] file_lead_sequence = new uint8[MAGIC_SEQUENCE.length];
-
-        instream.read(file_lead_sequence, null);
-
-        for (int i = 0; i < MAGIC_SEQUENCE.length; i++) {
-            if (file_lead_sequence[i] != MAGIC_SEQUENCE[i])
-                return false;
-        }
-
-        return true;
     }
 
     public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
         // Rely on GdkSniffer to detect corruption
         is_corrupted = false;
         
-        if (!is_heif_file(file))
+        if (!is_supported_bmff_with_variants(file, MAGIC_SEQUENCES))
             return null;
         
         DetectedPhotoInformation? detected = base.sniff(out is_corrupted);
