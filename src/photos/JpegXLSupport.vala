@@ -48,7 +48,10 @@ class JpegXLFileFormatProperties : PhotoFileFormatProperties {
 }
 
 public class JpegXLSniffer : GdkSniffer {
-    private const uint8[] MAGIC_SEQUENCE = { 255, 10 };
+    // See https://github.com/ImageMagick/jpeg-xl/blob/main/doc/format_overview.md#file-format
+    private const uint8[] CODESTREAM_MAGIC_SEQUENCE = { 0xff, 0x0a };
+    private const uint8[] BMFF_MAGIC_SEQUENCE = {0x00, 0x00, 0x00, 0x0C, 0x4A, 0x58, 0x4C, 0x20, 0x0D, 0x0A, 0x87, 0x0A};
+
 
     public JpegXLSniffer(File file, PhotoFileSniffer.Options options) {
         base (file, options);
@@ -58,16 +61,13 @@ public class JpegXLSniffer : GdkSniffer {
         FileInputStream instream = file.read(null);
 
         // Read out first four bytes
-        uint8[] file_lead_sequence = new uint8[MAGIC_SEQUENCE.length];
+        uint8[] file_lead_sequence = new uint8[BMFF_MAGIC_SEQUENCE.length];
 
         instream.read(file_lead_sequence, null);
 
-        for (int i = 0; i < MAGIC_SEQUENCE.length; i++) {
-            if (file_lead_sequence[i] != MAGIC_SEQUENCE[i])
-                return false;
-        }
+        return Memory.cmp(CODESTREAM_MAGIC_SEQUENCE, file_lead_sequence, CODESTREAM_MAGIC_SEQUENCE.length) == 0 ||
+                Memory.cmp(BMFF_MAGIC_SEQUENCE, file_lead_sequence, BMFF_MAGIC_SEQUENCE.length) == 0;
 
-        return true;
     }
 
     public override DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error {
