@@ -63,10 +63,10 @@ public class JpegXLSniffer : GdkSniffer {
         // Read out first four bytes
         uint8[] file_lead_sequence = new uint8[BMFF_MAGIC_SEQUENCE.length];
 
-        instream.read(file_lead_sequence, null);
+        var size = instream.read(file_lead_sequence, null);
 
-        return Memory.cmp(CODESTREAM_MAGIC_SEQUENCE, file_lead_sequence, CODESTREAM_MAGIC_SEQUENCE.length) == 0 ||
-                Memory.cmp(BMFF_MAGIC_SEQUENCE, file_lead_sequence, BMFF_MAGIC_SEQUENCE.length) == 0;
+        return size == BMFF_MAGIC_SEQUENCE.length && (Memory.cmp(CODESTREAM_MAGIC_SEQUENCE, file_lead_sequence, CODESTREAM_MAGIC_SEQUENCE.length) == 0 ||
+                Memory.cmp(BMFF_MAGIC_SEQUENCE, file_lead_sequence, BMFF_MAGIC_SEQUENCE.length) == 0);
 
     }
 
