@@ -27,7 +27,7 @@ face_sources = (['faces/FacesBranch.vala',
                      'faces/FacesTool.vala'])
 
 shotwell_deps = [gio, gee, sqlite, gtk, sqlite, posix, gphoto2,
-                 gstreamer_pbu, gio_unix, gudev, gexiv2, gmodule,
+                 gstreamer_pbu, gudev, gexiv2, gmodule,
                  libraw, libexif, sw_plugin, webpdemux, webp, version, pangocairo,
                  portal]
 
@@ -90,6 +90,7 @@ executable(
         'photos/WebPSupport.vala',
         'photos/AvifSupport.vala',
         'photos/HeifSupport.vala',
+        'photos/JpegXLSupport.vala',
         'plugins/Plugins.vala',
         'plugins/StandardHostInterface.vala',
         'plugins/ManifestWidget.vala',
@@ -280,7 +281,7 @@ executable(
         '--pkg', 'libexif',
         '--pkg', 'version',
         '--gresources',
-        join_paths(meson.source_root(), 'data',
+        join_paths(meson.project_source_root(), 'data',
         'org.gnome.Shotwell.gresource.xml')
     ],
     link_with: [

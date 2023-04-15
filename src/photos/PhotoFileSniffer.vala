@@ -47,6 +47,34 @@ public abstract class PhotoFileSniffer {
     }
     
     public abstract DetectedPhotoInformation? sniff(out bool is_corrupted) throws Error;
+
+    protected static bool is_supported_bmff_with_variants(File file, string[] variants) throws Error {
+        
+        FileInputStream instream = file.read(null);
+
+        // Skip the first four bytes
+        if (instream.skip(4) != 4) {
+            return false;
+        }
+
+        // The next four bytes need to be ftyp
+        var buf = new uint8[4];
+        if (instream.read(buf, null) != 4) {
+            return false;
+        }
+
+        if (Memory.cmp("ftyp".data, buf, 4) != 0) {
+            return false;
+        }
+
+        if (instream.read(buf, null) != 4) {
+            return false;
+        }
+
+        buf += '\0';
+
+        return (string)buf in variants;
+    }
 }
 
 //

@@ -16,7 +16,7 @@ libsw_publishing_gui = static_library(
     ],
     vala_args : [
         '--gresources',
-        join_paths(meson.source_root(), 'data',
+        join_paths(meson.project_source_root(), 'data',
         'org.gnome.Shotwell.gresource.xml')
     ]
 )

@@ -1,6 +1,6 @@
 project('shotwell', ['vala', 'c'],
         version : '33.alpha',
-        meson_version : '>= 0.43.0',
+        meson_version : '>= 0.56.0',
         default_options : ['buildtype=debugoptimized'])
 
 so_version = '0.33'
@@ -51,7 +51,6 @@ version = declare_dependency(sources : version_h, include_directories : include_
 gtk = dependency('gtk4', version : '>= 4.4')
 gio = dependency('gio-2.0', version: '>= 2.40')
 gmodule = dependency('gmodule-2.0', version: '>= 2.40')
-gio_unix = dependency('gio-unix-2.0', version: '>= 2.40')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
 webkit = [dependency('webkitgtk-6.0', version: '>= 2.26'), dependency('javascriptcoregtk-6.0')]
 soup = dependency('libsoup-3.0')

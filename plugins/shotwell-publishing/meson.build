@@ -13,7 +13,7 @@ shotwell_publishing_sources = [
 
 shotwell_publishing_resources = gnome.compile_resources('publishing-resource',
         'org.gnome.Shotwell.Publishing.gresource.xml',
-        source_dir : meson.source_root())
+        source_dir : meson.project_source_root())
 
 shared_module('shotwell-publishing',
               shotwell_publishing_sources + shotwell_publishing_resources,

@@ -274,8 +274,13 @@ public abstract class AppWindow : PageWindow {
     public abstract string get_app_role();
 
     protected void on_about() {
+        var hash = "";
+        if (Resources.GIT_VERSION != "") {
+            hash = " (%s)".printf(Resources.GIT_VERSION.substring(0,7));
+        }
+        string[] artists = {"Image of the Delmenhorst Town Hall by Charlie1965nrw, source: https://commons.wikimedia.org/wiki/File:Delmenhorst_Rathaus.jpg", null};
         Gtk.show_about_dialog(this,
-            "version", Resources.APP_VERSION + (Resources.GIT_VERSION != "" ? " — " + Resources.GIT_VERSION : ""),
+            "version", Resources.APP_VERSION + hash + " — Delmenhorst",
             "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.HOME_URL,
@@ -284,6 +289,7 @@ public abstract class AppWindow : PageWindow {
             "authors", Resources.AUTHORS,
             "logo-icon-name", "shotwell",
             "translator-credits", _("translator-credits"),
+            "artists", artists,
             null
         );
     }

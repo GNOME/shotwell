@@ -19,7 +19,21 @@ class ShotwellThumbnailer {
         uint8[]? pngdata;
         int64 duration, position;
         Gst.StateChangeReturn ret;
-        var out = FileStream.fdopen(Posix.dup(stdout.fileno()), "wb");
+        OutputStream out;
+
+        if (args.length != 3) {
+            stdout.printf("usage: %s <filename> <output> \n Writes video thumbnail to output\n", args[0]);
+            return 1;
+        }
+
+        var out_file = File.new_for_commandline_arg (args[2]);
+        try {
+            out = out_file.append_to(FileCreateFlags.NONE);
+            debug("Writing thumbnail to %s", args[2]);
+        } catch (Error err) {
+            warning("Failed to append to image file %s", err.message);
+            return 1;
+        }
 
         if (Posix.nice (19) < 0) {
             debug ("Failed to reduce thumbnailer nice level. Continuing anyway");
@@ -37,10 +51,6 @@ class ShotwellThumbnailer {
             registry.remove_feature (feature);
         }
 
-        if (args.length != 2) {
-            stdout.printf("usage: %s [filename]\n Writes video thumbnail to stdout\n", args[0]);
-            return 1;
-        }
         
         descr = "playbin uri=\"%s\" audio-sink=fakesink video-sink=\"gdkpixbufsink name=sink\"".printf(File.new_for_commandline_arg(args[1]).get_uri());
         
