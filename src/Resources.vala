@@ -570,6 +570,31 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return null;
     }
 
+    private Gdk.Pixbuf? get_icon_trinket(string icon_name, int scale) {
+        try {
+            var theme = Gtk.IconTheme.get_for_display(AppWindow.get_instance().get_display());
+            var paintable = theme.lookup_icon(icon_name, null, 1, scale * 2, Gtk.TextDirection.NONE, Gtk.IconLookupFlags.PRELOAD);
+
+            var snapshot = new Gtk.Snapshot();
+            paintable.snapshot_symbolic(snapshot, scale * 2, scale * 2, {{0.8f, 0.8f, 0.8f, 1.0f}});
+            var node = snapshot.free_to_node();
+            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, scale * 2, scale * 2);
+            var ctx = new Cairo.Context(surface);
+            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
+            ctx.rectangle(0, 0, scale * 2, scale * 2);
+            ctx.fill();
+            ctx.move_to(0,0);
+            node.draw(ctx);
+            ctx.paint();
+
+            return Gdk.pixbuf_get_from_surface(surface, 0, 0, scale * 2, scale * 2);
+        } catch (Error err) {
+            critical ("%s", err.message);
+
+            return null;
+        }        
+    }
+
     public Gdk.Pixbuf? get_video_trinket(int scale) {
         int cache_key = scale << 18;
         var cached_pixbuf = get_cached_trinket(cache_key);
@@ -577,28 +602,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (cached_pixbuf != null)
             return cached_pixbuf;
 
-        try {
-        #if 0
-            var theme = Gtk.IconTheme.get_default();
-            var info = theme.lookup_icon ("filter-videos-symbolic", (int)(scale * 2), Gtk.IconLookupFlags.GENERIC_FALLBACK);
-            var icon = info.load_symbolic({0.8, 0.8, 0.8, 1.0}, null, null, null);
-            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, icon.width, icon.height);
-            var ctx = new Cairo.Context(surface);
-            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
-            ctx.rectangle(0, 0, icon.width, icon.height);
-            ctx.fill();
-            Gdk.cairo_set_source_pixbuf(ctx, icon, 0, 0);
-            ctx.paint();
+        var trinket = get_icon_trinket("filter-videos-symbolic", scale);
+        if (trinket != null) {
 
-            trinket_cache[cache_key] = Gdk.pixbuf_get_from_surface(surface, 0, 0, icon.width, icon.height);
+            trinket_cache[cache_key] = trinket;
             return trinket_cache[cache_key];
-            #endif
-            return null;
-        } catch (Error err) {
-            critical ("%s", err.message);
-
-            return null;
         }
+
+        return null;
     }
 
     public Gdk.Pixbuf? get_flagged_trinket(int scale) {
@@ -608,27 +619,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (cached_pixbuf != null)
             return cached_pixbuf;
 
-        try {
-        #if 0
-            var theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default());
-            var icon = theme.lookup_icon ("filter-flagged-symbolic", null, -1, Gtk.TextDirection.NONE, (int)(scale * 1.33), 0);
-            var surface = new Cairo.ImageSurface(Cairo.Format.ARGB32, icon.width, icon.height);
-            var ctx = new Cairo.Context(surface);
-            ctx.set_source_rgba(0.0, 0.0, 0.0, 0.35);
-            ctx.rectangle(0, 0, icon.width, icon.height);
-            ctx.fill();
-            Gdk.cairo_set_source_pixbuf(ctx, icon, 0, 0);
-            ctx.paint();
+        var trinket = get_icon_trinket("filter-flagged-symbolic", scale);
+        if (trinket != null) {
 
-            trinket_cache[cache_key] = Gdk.pixbuf_get_from_surface(surface, 0, 0, icon.width, icon.height);
+            trinket_cache[cache_key] = trinket;
             return trinket_cache[cache_key];
-            #endif
-            return null;
-        } catch (Error err) {
-            critical ("%s", err.message);
-
-            return null;
         }
+
+        return null;
     }
 
     private Gdk.Pixbuf? get_rating_trinket(Rating rating, int scale) {
