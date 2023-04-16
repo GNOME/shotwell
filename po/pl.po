@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-03-23 21:50+0000\n"
+"POT-Creation-Date: 2023-04-12 18:51+0000\n"
 "PO-Revision-Date: 2023-03-26 14:43+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
@@ -2352,7 +2352,7 @@ msgstr "Nie można wczytać interfejsu użytkownika: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Witryna programu Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:588
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2447,7 +2447,7 @@ msgstr "_Wyloguj"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2488
 msgid "_Publish"
 msgstr "Opu_blikuj"
 
@@ -2604,7 +2604,7 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048×1536 pikseli)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
-#: src/editing_tools/EditingTools.vala:742
+#: src/editing_tools/EditingTools.vala:746
 msgid "Original Size"
 msgstr "Oryginalny rozmiar"
 
@@ -2936,21 +2936,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:585
 msgid "Visit the Shotwell web site"
 msgstr "Witryna programu Shotwell"
 
-#: src/AppWindow.vala:592
+#: src/AppWindow.vala:598
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Nie można wyświetlić pomocy: %s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:606
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Nie można przejść do bazy danych błędów: %s"
 
-#: src/AppWindow.vala:608
+#: src/AppWindow.vala:614
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Nie można wyświetlić dokumentu FAQ: %s"
@@ -3051,18 +3051,18 @@ msgstr "Ukrywa już zaimportowane zdjęcia"
 msgid "Only display photos that have not been imported"
 msgstr "Wyświetla tylko zdjęcia, które nie zostały jeszcze zaimportowane"
 
-#: src/camera/ImportPage.vala:839
+#: src/camera/ImportPage.vala:843
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Aparat jest pusty. Nie odnaleziono żadnych zdjęć/nagrań wideo do "
 "zaimportowania"
 
-#: src/camera/ImportPage.vala:843
+#: src/camera/ImportPage.vala:847
 msgid "No new photos/videos found on camera"
 msgstr "Nie odnaleziono nowych zdjęć/nagrań wideo w aparacie"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:996
+#: src/camera/ImportPage.vala:1000
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3070,15 +3070,15 @@ msgstr ""
 "Program Shotwell musi odmontować aparat z systemu plików, aby uzyskać do "
 "niego dostęp. Kontynuować?"
 
-#: src/camera/ImportPage.vala:1002
+#: src/camera/ImportPage.vala:1006
 msgid "_Unmount"
 msgstr "Odmont_uj"
 
-#: src/camera/ImportPage.vala:1007
+#: src/camera/ImportPage.vala:1011
 msgid "Please unmount the camera."
 msgstr "Proszę odmontować aparat."
 
-#: src/camera/ImportPage.vala:1012
+#: src/camera/ImportPage.vala:1016
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3088,11 +3088,11 @@ msgstr ""
 "dostęp do aparatu tylko wtedy, kiedy nie jest zablokowany. Proszę zamknąć "
 "wszystkie pozostałe programy używające aparatu i spróbować ponownie."
 
-#: src/camera/ImportPage.vala:1022
+#: src/camera/ImportPage.vala:1026
 msgid "Please close any other application using the camera."
 msgstr "Proszę zamknąć inne programy używające aparatu."
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1031
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3101,33 +3101,33 @@ msgstr ""
 "Nie można pobrać podglądu z aparatu:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1048
 msgid "Unmounting…"
 msgstr "Odmontowywanie…"
 
-#: src/camera/ImportPage.vala:1137
+#: src/camera/ImportPage.vala:1141
 msgid "Connecting to camera, please wait…"
 msgstr "Łączenie z aparatem, proszę czekać…"
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1173
 msgid "Starting import, please wait…"
 msgstr "Rozpoczynanie importowania, proszę czekać…"
 
-#: src/camera/ImportPage.vala:1175
+#: src/camera/ImportPage.vala:1179
 msgid "Fetching photo information"
 msgstr "Pobieranie informacji o zdjęciach"
 
-#: src/camera/ImportPage.vala:1543
+#: src/camera/ImportPage.vala:1547
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Pobieranie podglądu dla %s"
 
-#: src/camera/ImportPage.vala:1652
+#: src/camera/ImportPage.vala:1656
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie można zablokować aparatu: %s"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1741
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -3135,7 +3135,7 @@ msgstr[0] "Usunąć to zdjęcie z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć z aparatu?"
 
-#: src/camera/ImportPage.vala:1740
+#: src/camera/ImportPage.vala:1744
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
@@ -3143,7 +3143,7 @@ msgstr[0] "Usunąć to nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1743
+#: src/camera/ImportPage.vala:1747
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
@@ -3151,7 +3151,7 @@ msgstr[0] "Usunąć to zdjęcie/nagranie wideo z aparatu?"
 msgstr[1] "Usunąć te %d zdjęcia/nagrania wideo z aparatu?"
 msgstr[2] "Usunąć te %d zdjęć/nagrań wideo z aparatu?"
 
-#: src/camera/ImportPage.vala:1746
+#: src/camera/ImportPage.vala:1750
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
@@ -3159,15 +3159,15 @@ msgstr[0] "Usunąć te pliki z aparatu?"
 msgstr[1] "Usunąć %d pliki z aparatu?"
 msgstr[2] "Usunąć %d plików z aparatu?"
 
-#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:727
+#: src/camera/ImportPage.vala:1758 src/Dialogs.vala:727
 msgid "_Keep"
 msgstr "_Zatrzymaj"
 
-#: src/camera/ImportPage.vala:1773
+#: src/camera/ImportPage.vala:1777
 msgid "Removing photos/videos from camera"
 msgstr "Usuwanie zdjęć/nagrań wideo z aparatu"
 
-#: src/camera/ImportPage.vala:1777
+#: src/camera/ImportPage.vala:1781
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3185,12 +3185,12 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Nie odnaleziono zdjęć/nagrań wideo pasujących do bieżącego filtra"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2481 src/Resources.vala:137
+#: src/PhotoPage.vala:2483 src/Resources.vala:137
 msgid "_Print"
 msgstr "Wy_drukuj"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2491 src/Resources.vala:187
+#: src/PhotoPage.vala:2493 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Ustaw jako tło p_ulpitu"
 
@@ -3691,7 +3691,7 @@ msgstr "Rok%sMiesiąc-Dzień"
 msgid "Year-Month-Day"
 msgstr "Rok-Miesiąc-Dzień"
 
-#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:767
+#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:771
 msgid "Custom"
 msgstr "Niestandardowy"
 
@@ -3779,7 +3779,7 @@ msgstr[2] "Twarz „%s” zostanie usunięta z %d zdjęć. Kontynuować?"
 msgid "Export Video"
 msgstr "Eksport nagrań wideo"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3016
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3018
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Eksport zdjęcia"
@@ -4638,203 +4638,203 @@ msgstr "Nie można monitorować %s: nie jest katalogiem (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Nie można eksportować zdjęć do tego katalogu."
 
-#: src/editing_tools/EditingTools.vala:651
+#: src/editing_tools/EditingTools.vala:655
 msgid "Return to current photo dimensions"
 msgstr "Powraca do bieżących wymiarów zdjęcia"
 
-#: src/editing_tools/EditingTools.vala:654
+#: src/editing_tools/EditingTools.vala:658
 msgid "Set the crop for this photo"
 msgstr "Ustawia przycięcie tego zdjęcia"
 
-#: src/editing_tools/EditingTools.vala:666
+#: src/editing_tools/EditingTools.vala:670
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "Obraca prostokąt przycięcia między orientacją poziomą a pionową"
 
-#: src/editing_tools/EditingTools.vala:739
+#: src/editing_tools/EditingTools.vala:743
 msgid "Unconstrained"
 msgstr "Niewymuszony"
 
-#: src/editing_tools/EditingTools.vala:740
+#: src/editing_tools/EditingTools.vala:744
 msgid "Square"
 msgstr "Kwadratowy"
 
-#: src/editing_tools/EditingTools.vala:741
+#: src/editing_tools/EditingTools.vala:745
 msgid "Screen"
 msgstr "Ekran"
 
-#: src/editing_tools/EditingTools.vala:743
-#: src/editing_tools/EditingTools.vala:746
-#: src/editing_tools/EditingTools.vala:756
-#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:747
+#: src/editing_tools/EditingTools.vala:750
+#: src/editing_tools/EditingTools.vala:760
+#: src/editing_tools/EditingTools.vala:770
 msgid "-"
 msgstr "-"
 
-#: src/editing_tools/EditingTools.vala:744
+#: src/editing_tools/EditingTools.vala:748
 msgid "SD Video (4 ∶ 3)"
 msgstr "Plik wideo SD (4∶3)"
 
-#: src/editing_tools/EditingTools.vala:745
+#: src/editing_tools/EditingTools.vala:749
 msgid "HD Video (16 ∶ 9)"
 msgstr "Plik wideo HD (16∶9)"
 
-#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:792
+#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Portfel (2×3 cale)"
 
-#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:795
+#: src/editing_tools/EditingTools.vala:752 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
 msgstr "Notatka (3×5 cali)"
 
-#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:798
+#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4×6 cali"
 
-#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:801
+#: src/editing_tools/EditingTools.vala:754 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5×7 cali"
 
-#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:804
+#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8×10 cali"
 
-#: src/editing_tools/EditingTools.vala:752
+#: src/editing_tools/EditingTools.vala:756
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8,5×11 cali)"
 
-#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:807
+#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11×14 cali"
 
-#: src/editing_tools/EditingTools.vala:754
+#: src/editing_tools/EditingTools.vala:758
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11×17 cali)"
 
-#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:810
+#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16×20 cali"
 
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:816
+#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Portfel metryczny (9×13 cm)"
 
-#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:819
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Kartka pocztowa (10×15 cm)"
 
-#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:822
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13×18 cm"
 
-#: src/editing_tools/EditingTools.vala:760 src/Printing.vala:825
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18×24 cm"
 
-#: src/editing_tools/EditingTools.vala:761
+#: src/editing_tools/EditingTools.vala:765
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210×297 mm)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:828
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20×30 cm"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:831
+#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24×40 cm"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:834
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30×40 cm"
 
-#: src/editing_tools/EditingTools.vala:765
+#: src/editing_tools/EditingTools.vala:769
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297×420 mm)"
 
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:407
+#: src/editing_tools/EditingTools.vala:1868 src/Properties.vala:407
 msgid "Size:"
 msgstr "Rozmiar:"
 
-#: src/editing_tools/EditingTools.vala:1873
+#: src/editing_tools/EditingTools.vala:1883
 msgid "Close the red-eye tool"
 msgstr "Zamyka narzędzie usuwania czerwonych oczu"
 
-#: src/editing_tools/EditingTools.vala:1876
+#: src/editing_tools/EditingTools.vala:1886
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Usuwa wszystkie efekty czerwonych oczu na wybranym obszarze"
 
-#: src/editing_tools/EditingTools.vala:2210
+#: src/editing_tools/EditingTools.vala:2227
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "P_rzywróć"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2241 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Ekspozycja:"
 
-#: src/editing_tools/EditingTools.vala:2233
+#: src/editing_tools/EditingTools.vala:2250
 msgid "Contrast:"
 msgstr "Kontrast:"
 
-#: src/editing_tools/EditingTools.vala:2242
+#: src/editing_tools/EditingTools.vala:2259
 msgid "Saturation:"
 msgstr "Nasycenie:"
 
-#: src/editing_tools/EditingTools.vala:2251
+#: src/editing_tools/EditingTools.vala:2268
 msgid "Tint:"
 msgstr "Odcień:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2278
 msgid "Temperature:"
 msgstr "Temperatura:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2287
 msgid "Shadows:"
 msgstr "Cienie:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2281
+#: src/editing_tools/EditingTools.vala:2298
 msgid "Highlights:"
 msgstr "Wyróżnienia:"
 
-#: src/editing_tools/EditingTools.vala:2338
+#: src/editing_tools/EditingTools.vala:2355
 msgid "Reset Colors"
 msgstr "Przywróć kolory"
 
-#: src/editing_tools/EditingTools.vala:2338
+#: src/editing_tools/EditingTools.vala:2355
 msgid "Reset all color adjustments to original"
 msgstr "Przywraca wszystkie dostosowania kolorów do oryginalnych"
 
-#: src/editing_tools/EditingTools.vala:2697
+#: src/editing_tools/EditingTools.vala:2714
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: src/editing_tools/EditingTools.vala:2709
+#: src/editing_tools/EditingTools.vala:2726
 msgid "Tint"
 msgstr "Odcień"
 
-#: src/editing_tools/EditingTools.vala:2721
+#: src/editing_tools/EditingTools.vala:2738
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/editing_tools/EditingTools.vala:2735
+#: src/editing_tools/EditingTools.vala:2752
 msgid "Saturation"
 msgstr "Nasycenie"
 
-#: src/editing_tools/EditingTools.vala:2748
+#: src/editing_tools/EditingTools.vala:2765
 msgid "Exposure"
 msgstr "Ekspozycja"
 
-#: src/editing_tools/EditingTools.vala:2761
+#: src/editing_tools/EditingTools.vala:2778
 msgid "Shadows"
 msgstr "Cienie"
 
-#: src/editing_tools/EditingTools.vala:2774
+#: src/editing_tools/EditingTools.vala:2791
 msgid "Highlights"
 msgstr "Wyróżnienia"
 
-#: src/editing_tools/EditingTools.vala:2784
+#: src/editing_tools/EditingTools.vala:2801
 msgid "Contrast Expansion"
 msgstr "Rozszerzenie kontrastu"
 
@@ -4969,7 +4969,7 @@ msgstr "Zapisuje zmiany i zamyka narzędzie wykrywania twarzy"
 msgid "No changes to save"
 msgstr "Brak zmian do zapisania"
 
-#: src/faces/FacesTool.vala:951
+#: src/faces/FacesTool.vala:963
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Błąd podczas wywoływania programu do wykrywania twarzy:\n"
 
@@ -5130,71 +5130,71 @@ msgstr ""
 msgid "Loading Shotwell"
 msgstr "Wczytywanie programu Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Ścieżka do prywatnych danych programu Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "KATALOG"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Bez monitorowania zmian w katalogu kolekcji podczas uruchamiania"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Bez wyświetlania paska postępu uruchamiania"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Wyświetla wersję programu"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Uruchamia program w trybie pełnoekranowym"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Wyświetla metadane pliku obrazu"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Nazwa niestandardowego profilu"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:354
+#: src/main.vala:355
 msgid "Start with a browser of available profiles"
 msgstr "Uruchamia przeglądarkę dostępnych profili"
 
-#: src/main.vala:355
+#: src/main.vala:356
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Jeśli PROFIL podany za pomocą --profile nie istnieje, to go tworzy"
 
-#: src/main.vala:356
+#: src/main.vala:357
 msgid "Show available profiles"
 msgstr "Wyświetla dostępne profile"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:397
+#: src/main.vala:398
 msgid "[FILE]"
 msgstr "[PLIK]"
 
-#: src/main.vala:402
+#: src/main.vala:403
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Polecenie „%s --help” wyświetli pełną listę dostępnych opcji wiersza "
 "poleceń.\n"
 
-#: src/main.vala:409
+#: src/main.vala:410
 msgid "Choose Shotwell's profile"
 msgstr "Wybór profilu programu"
 
-#: src/main.vala:430
+#: src/main.vala:431
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr "Profil %s nie istnieje. Czy zamierzano przekazać także --create?"
@@ -5236,22 +5236,22 @@ msgstr "Poprzednie zdjęcie"
 msgid "Next photo"
 msgstr "Następne zdjęcie"
 
-#: src/PhotoPage.vala:1858
+#: src/PhotoPage.vala:1860
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Brak pliku źródłowego zdjęcia: %s"
 
-#: src/PhotoPage.vala:2891
+#: src/PhotoPage.vala:2893
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Usunięcie z kolekcji"
 
-#: src/PhotoPage.vala:2892
+#: src/PhotoPage.vala:2894
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Usuwanie zdjęcia z kolekcji"
 
-#: src/PhotoPage.vala:3036
+#: src/PhotoPage.vala:3038
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nie można wyeksportować: %s: %s"
@@ -5296,6 +5296,10 @@ msgstr "Wysokie (%d%%)"
 msgid "Maximum (%d%%)"
 msgstr "Maksymalne (%d%%)"
 
+#: src/photos/JpegXLSupport.vala:30
+msgid "JPEGXL"
+msgstr "JPEG XL"
+
 #: src/photos/PngSupport.vala:30
 msgid "PNG"
 msgstr "PNG"
@@ -5313,24 +5317,24 @@ msgid "modified"
 msgstr "zmodyfikowany"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:121
+#: src/plugins/ManifestWidget.vala:122
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "Zarządza kontami w serwisie %s"
 
-#: src/plugins/ManifestWidget.vala:134
+#: src/plugins/ManifestWidget.vala:136
 msgid "Authors"
 msgstr "Autorzy"
 
-#: src/plugins/ManifestWidget.vala:144
+#: src/plugins/ManifestWidget.vala:146
 msgid "Version"
 msgstr "Wersja"
 
-#: src/plugins/ManifestWidget.vala:154
+#: src/plugins/ManifestWidget.vala:156
 msgid "License"
 msgstr "Licencja"
 
-#: src/plugins/ManifestWidget.vala:166
+#: src/plugins/ManifestWidget.vala:168
 msgid "Website"
 msgstr "Strona WWW"
 
