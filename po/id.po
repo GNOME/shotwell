@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/shotwell/issues\n"
-"POT-Creation-Date: 2023-03-20 22:58+0000\n"
-"PO-Revision-Date: 2023-03-21 08:24+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2023-04-12 18:51+0000\n"
+"PO-Revision-Date: 2023-04-18 10:25+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -1241,25 +1241,25 @@ msgstr "Penampil Foto"
 
 #: data/ui/collection.ui:8 data/ui/direct_context.ui:7 data/ui/direct.ui:136
 #: data/ui/event.ui:447 data/ui/photo_context.ui:6 data/ui/photo.ui:227
-#: src/CollectionPage.vala:119 src/Resources.vala:152
+#: src/CollectionPage.vala:119 src/Resources.vala:153
 msgid "_Enhance"
 msgstr "Taja_mkan"
 
 #: data/ui/collection.ui:13 data/ui/direct_context.ui:12 data/ui/direct.ui:163
 #: data/ui/event.ui:452 data/ui/photo_context.ui:11 data/ui/photo.ui:254
-#: src/CollectionPage.vala:120 src/Resources.vala:180
+#: src/CollectionPage.vala:120 src/Resources.vala:181
 msgid "Re_vert to Original"
 msgstr "K_embalikan ke Asal"
 
 #: data/ui/collection.ui:19 data/ui/event.ui:407 data/ui/event.ui:458
 #: data/ui/faces.ui:390 data/ui/media.ui:390 data/ui/photo.ui:379
-#: data/ui/tags.ui:390 src/Resources.vala:278
+#: data/ui/tags.ui:390 src/Resources.vala:279
 msgid "Add _Tags…"
 msgstr "_Tambah Tag…"
 
 #: data/ui/collection.ui:24 data/ui/event.ui:412 data/ui/event.ui:463
 #: data/ui/faces.ui:395 data/ui/media.ui:395 data/ui/photo_context.ui:22
-#: data/ui/photo.ui:384 data/ui/tags.ui:395 src/Resources.vala:350
+#: data/ui/photo.ui:384 data/ui/tags.ui:395 src/Resources.vala:351
 msgid "Modif_y Tags…"
 msgstr "U_bah Tag…"
 
@@ -1271,31 +1271,31 @@ msgstr "Jungki_tkan Bendera"
 
 #: data/ui/collection.ui:39 data/ui/event.ui:286 data/ui/event.ui:478
 #: data/ui/faces.ui:286 data/ui/media.ui:286 data/ui/photo_context.ui:35
-#: data/ui/photo.ui:277 data/ui/tags.ui:286 src/Resources.vala:212
+#: data/ui/photo.ui:277 data/ui/tags.ui:286 src/Resources.vala:213
 msgid "_Set Rating"
 msgstr "_Atur Rating"
 
 #: data/ui/collection.ui:62 data/ui/event.ui:314 data/ui/event.ui:501
 #: data/ui/faces.ui:314 data/ui/media.ui:314 data/ui/photo_context.ui:63
-#: data/ui/photo.ui:305 data/ui/tags.ui:314 src/Resources.vala:222
+#: data/ui/photo.ui:305 data/ui/tags.ui:314 src/Resources.vala:223
 msgid "_Unrated"
 msgstr "_Tanpa Rating"
 
 #: data/ui/collection.ui:66 data/ui/event.ui:319 data/ui/event.ui:505
 #: data/ui/faces.ui:319 data/ui/media.ui:319 data/ui/photo_context.ui:68
-#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:228
+#: data/ui/photo.ui:310 data/ui/tags.ui:319 src/Resources.vala:229
 msgid "_Rejected"
 msgstr "_Ditolak"
 
 #: data/ui/collection.ui:72 data/ui/event.ui:326 data/ui/event.ui:511
 #: data/ui/faces.ui:326 data/ui/media.ui:326 data/ui/photo_context.ui:75
-#: data/ui/photo.ui:317 data/ui/tags.ui:326 src/Resources.vala:216
+#: data/ui/photo.ui:317 data/ui/tags.ui:326 src/Resources.vala:217
 msgid "_Increase"
 msgstr "_Naik"
 
 #: data/ui/collection.ui:76 data/ui/event.ui:331 data/ui/event.ui:515
 #: data/ui/faces.ui:331 data/ui/media.ui:331 data/ui/photo_context.ui:80
-#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:219
+#: data/ui/photo.ui:322 data/ui/tags.ui:331 src/Resources.vala:220
 msgid "_Decrease"
 msgstr "_Turun"
 
@@ -1314,7 +1314,7 @@ msgstr "Kamera"
 
 #: data/ui/collection.ui:98 data/ui/event.ui:340 data/ui/event.ui:537
 #: data/ui/faces.ui:340 data/ui/media.ui:340 data/ui/photo_context.ui:105
-#: data/ui/photo.ui:331 data/ui/tags.ui:340 src/Resources.vala:264
+#: data/ui/photo.ui:331 data/ui/tags.ui:340 src/Resources.vala:265
 msgid "Edit _Title…"
 msgstr "Sun_ting Judul…"
 
@@ -1322,17 +1322,17 @@ msgstr "Sun_ting Judul…"
 #: data/ui/events_directory.ui:186 data/ui/event.ui:345 data/ui/event.ui:398
 #: data/ui/event.ui:542 data/ui/faces.ui:345 data/ui/media.ui:345
 #: data/ui/photo_context.ui:110 data/ui/photo.ui:336 data/ui/tags.ui:345
-#: src/Resources.vala:268
+#: src/Resources.vala:269
 msgid "Edit _Comment…"
 msgstr "Sunting _Komentar…"
 
 #: data/ui/collection.ui:108 data/ui/event.ui:547 data/ui/photo_context.ui:115
-#: data/ui/photo.ui:365 src/CollectionPage.vala:143 src/Resources.vala:285
+#: data/ui/photo.ui:365 src/CollectionPage.vala:143 src/Resources.vala:286
 msgid "Open With E_xternal Editor"
 msgstr "Buka Oleh Penyunting E_ksternal"
 
 #: data/ui/collection.ui:113 data/ui/event.ui:552 data/ui/photo_context.ui:120
-#: data/ui/photo.ui:370 src/CollectionPage.vala:146 src/Resources.vala:287
+#: data/ui/photo.ui:370 src/CollectionPage.vala:146 src/Resources.vala:288
 msgid "Open With RA_W Editor"
 msgstr "Buka Dengan Penyunting RA_W"
 
@@ -1346,55 +1346,55 @@ msgstr "Lihat Eve_nt Foto"
 #: data/ui/event.ui:27 data/ui/event.ui:562 data/ui/faces.ui:27
 #: data/ui/media.ui:27 data/ui/photo_context.ui:130 data/ui/photo.ui:37
 #: data/ui/tags.ui:27 data/ui/trash.ui:19 data/ui/trash.ui:227
-#: src/Resources.vala:776
+#: src/Resources.vala:777
 msgid "Show in File Mana_ger"
 msgstr "Lihat di Program Pengatur Berkas"
 
 #: data/ui/collection.ui:128 data/ui/direct_context.ui:23 data/ui/direct.ui:23
 #: data/ui/event.ui:567 data/ui/photo.ui:30 src/CollectionPage.vala:83
-#: src/Resources.vala:289
+#: src/Resources.vala:290
 msgid "Send _To…"
 msgstr "Kirim _Ke…"
 
 #: data/ui/collection.ui:134 data/ui/event.ui:79 data/ui/event.ui:573
 #: data/ui/faces.ui:79 data/ui/media.ui:79 data/ui/photo_context.ui:141
-#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:785
+#: data/ui/photo.ui:84 data/ui/tags.ui:79 src/Resources.vala:786
 msgid "_Move to Trash"
 msgstr "Pindahkan ke Tempat Pembuangan"
 
-#: data/ui/collection.ui:148 src/Resources.vala:108
+#: data/ui/collection.ui:148 src/Resources.vala:109
 msgid "Rotate the photos right (press Ctrl to rotate left)"
 msgstr "Putar foto ke kanan (tekan Ctrl untuk putar ke kiri)"
 
-#: data/ui/collection.ui:151 src/Resources.vala:106 src/Resources.vala:111
+#: data/ui/collection.ui:151 src/Resources.vala:107 src/Resources.vala:112
 msgid "Rotate"
 msgstr "Putar"
 
-#: data/ui/collection.ui:164 src/Resources.vala:154
+#: data/ui/collection.ui:164 src/Resources.vala:155
 msgid "Automatically improve the photo’s appearance"
 msgstr "Secara otomatis memperbaiki penampilan foto"
 
-#: data/ui/collection.ui:167 src/Resources.vala:153
+#: data/ui/collection.ui:167 src/Resources.vala:154
 msgid "Enhance"
 msgstr "Tajamkan"
 
-#: data/ui/collection.ui:189 src/Resources.vala:262
+#: data/ui/collection.ui:189 src/Resources.vala:263
 msgid "Publish to various websites"
 msgstr "Kirim foto ini ke beragam situs"
 
 #: data/ui/collection.ui:192
 #: plugins/shotwell-publishing/piwigo_publishing_options_pane.ui:284
-#: src/Resources.vala:261
+#: src/Resources.vala:262
 msgid "Publish"
 msgstr "Kirim"
 
 #: data/ui/collection.ui:214 data/ui/offline.ui:236 data/ui/trash.ui:309
-#: src/Resources.vala:294
+#: src/Resources.vala:295
 msgid "Find an image by typing text that appears in its name or tags"
 msgstr "Cari foto dengan mengetikkan teks yang muncul di nama atau tanda"
 
 #: data/ui/collection.ui:217 data/ui/offline.ui:239 data/ui/trash.ui:312
-#: src/Resources.vala:293
+#: src/Resources.vala:294
 msgid "Find"
 msgstr "Cari"
 
@@ -1406,7 +1406,7 @@ msgid "_File"
 msgstr "_Berkas"
 
 #: data/ui/direct.ui:8 data/ui/textentrydialog.ui:33
-#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:141
+#: src/direct/DirectPhotoPage.vala:323 src/Resources.vala:142
 msgid "_Save"
 msgstr "_Simpan"
 
@@ -1417,28 +1417,28 @@ msgstr "Simpan Seb_agai…"
 #: data/ui/direct.ui:37 data/ui/events_directory.ui:25 data/ui/event.ui:40
 #: data/ui/faces.ui:40 data/ui/import_queue.ui:31 data/ui/import.ui:33
 #: data/ui/media.ui:40 data/ui/offline.ui:25 data/ui/photo.ui:50
-#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:137
+#: data/ui/tags.ui:40 data/ui/trash.ui:30 src/Resources.vala:138
 msgid "_Quit"
 msgstr "_Keluar"
 
 #: data/ui/direct.ui:44 data/ui/events_directory.ui:32 data/ui/event.ui:47
 #: data/ui/faces.ui:47 data/ui/import.ui:40 data/ui/media.ui:47
 #: data/ui/offline.ui:32 data/ui/photo.ui:57 data/ui/tags.ui:47
-#: data/ui/trash.ui:37 src/Resources.vala:125
+#: data/ui/trash.ui:37 src/Resources.vala:126
 msgid "_Edit"
 msgstr "S_unting"
 
 #: data/ui/direct.ui:47 data/ui/events_directory.ui:35 data/ui/event.ui:50
 #: data/ui/faces.ui:50 data/ui/import.ui:43 data/ui/media.ui:50
 #: data/ui/offline.ui:35 data/ui/photo.ui:60 data/ui/tags.ui:50
-#: data/ui/trash.ui:40 src/Resources.vala:190
+#: data/ui/trash.ui:40 src/Resources.vala:191
 msgid "_Undo"
 msgstr "_Tak Jadi"
 
 #: data/ui/direct.ui:52 data/ui/events_directory.ui:40 data/ui/event.ui:55
 #: data/ui/faces.ui:55 data/ui/import.ui:48 data/ui/media.ui:55
 #: data/ui/offline.ui:40 data/ui/photo.ui:65 data/ui/tags.ui:55
-#: data/ui/trash.ui:45 src/Resources.vala:193
+#: data/ui/trash.ui:45 src/Resources.vala:194
 msgid "_Redo"
 msgstr "_Jadi Lagi"
 
@@ -1450,19 +1450,19 @@ msgid "_View"
 msgstr "_Tampilkan"
 
 #: data/ui/direct.ui:62 data/ui/events_directory.ui:125 data/ui/photo.ui:175
-#: src/Resources.vala:127
+#: src/Resources.vala:128
 msgid "Fulls_creen"
 msgstr "Layar _Penuh"
 
 #: data/ui/direct.ui:69 data/ui/event.ui:260 data/ui/faces.ui:260
 #: data/ui/media.ui:260 data/ui/photo.ui:146 data/ui/tags.ui:260
-#: src/Resources.vala:149
+#: src/Resources.vala:150
 msgid "Zoom _In"
 msgstr "Zum _Masuk"
 
 #: data/ui/direct.ui:74 data/ui/event.ui:265 data/ui/faces.ui:265
 #: data/ui/media.ui:265 data/ui/photo.ui:151 data/ui/tags.ui:265
-#: src/Resources.vala:150
+#: src/Resources.vala:151
 msgid "Zoom _Out"
 msgstr "Zum _Keluar"
 
@@ -1491,22 +1491,22 @@ msgid "_Next Photo"
 msgstr "Foto B_erikutnya"
 
 #: data/ui/direct.ui:113 data/ui/photo.ui:204 src/CollectionPage.vala:110
-#: src/Resources.vala:105
+#: src/Resources.vala:106
 msgid "Rotate _Right"
 msgstr "Puta_r Kanan"
 
 #: data/ui/direct.ui:118 data/ui/photo.ui:209 src/CollectionPage.vala:113
-#: src/Resources.vala:110
+#: src/Resources.vala:111
 msgid "Rotate _Left"
 msgstr "Putar _Kiri"
 
 #: data/ui/direct.ui:123 data/ui/photo.ui:214 src/CollectionPage.vala:116
-#: src/Resources.vala:115
+#: src/Resources.vala:116
 msgid "Flip Hori_zontally"
 msgstr "Balik hori_zontal"
 
 #: data/ui/direct.ui:127 data/ui/photo.ui:218 src/CollectionPage.vala:117
-#: src/Resources.vala:118
+#: src/Resources.vala:119
 msgid "Flip Verti_cally"
 msgstr "Balik Verti_kal"
 
@@ -1514,24 +1514,24 @@ msgstr "Balik Verti_kal"
 msgid "T_ools"
 msgstr "P_eralatan"
 
-#: data/ui/direct.ui:141 data/ui/photo.ui:232 src/Resources.vala:164
+#: data/ui/direct.ui:141 data/ui/photo.ui:232 src/Resources.vala:165
 msgid "_Crop"
 msgstr "_Pangkas"
 
 #: data/ui/direct.ui:146 data/ui/photo.ui:237
-#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:168
+#: src/editing_tools/StraightenTool.vala:100 src/Resources.vala:169
 msgid "_Straighten"
 msgstr "_Luruskan"
 
-#: data/ui/direct.ui:151 data/ui/photo.ui:242 src/Resources.vala:172
+#: data/ui/direct.ui:151 data/ui/photo.ui:242 src/Resources.vala:173
 msgid "_Red-eye"
 msgstr "Mata-me_rah"
 
-#: data/ui/direct.ui:156 data/ui/photo.ui:247 src/Resources.vala:176
+#: data/ui/direct.ui:156 data/ui/photo.ui:247 src/Resources.vala:177
 msgid "_Adjust"
 msgstr "_Atur"
 
-#: data/ui/direct.ui:169 data/ui/photo.ui:341 src/Resources.vala:275
+#: data/ui/direct.ui:169 data/ui/photo.ui:341 src/Resources.vala:276
 msgid "_Adjust Date and Time…"
 msgstr "_Atur Jam dan Tanggal…"
 
@@ -1542,7 +1542,7 @@ msgstr "_Atur Jam dan Tanggal…"
 #: data/ui/media.ui:403 data/ui/media.ui:406 data/ui/offline.ui:180
 #: data/ui/offline.ui:183 data/ui/photo.ui:391 data/ui/photo.ui:394
 #: data/ui/tags.ui:422 data/ui/tags.ui:425 data/ui/trash.ui:189
-#: data/ui/trash.ui:192 src/Resources.vala:128
+#: data/ui/trash.ui:192 src/Resources.vala:129
 msgid "_Help"
 msgstr "Ba_ntuan"
 
@@ -1563,7 +1563,7 @@ msgstr "Lapo_r Masalah…"
 #: data/ui/direct.ui:194 data/ui/events_directory.ui:168 data/ui/event.ui:438
 #: data/ui/faces.ui:448 data/ui/import_queue.ui:83 data/ui/import.ui:201
 #: data/ui/media.ui:421 data/ui/offline.ui:198 data/ui/photo.ui:409
-#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:121
+#: data/ui/tags.ui:440 data/ui/trash.ui:207 src/Resources.vala:122
 msgid "_About"
 msgstr "Tent_ang"
 
@@ -1602,14 +1602,14 @@ msgstr "Pencarian Tersimpan B_aru…"
 
 #: data/ui/events_directory.ui:58 data/ui/event.ui:86 data/ui/faces.ui:86
 #: data/ui/import.ui:61 data/ui/media.ui:86 data/ui/offline.ui:65
-#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:787
+#: data/ui/tags.ui:86 data/ui/trash.ui:74 src/Resources.vala:788
 msgid "Select _All"
 msgstr "Pilih semu_a"
 
 #: data/ui/events_directory.ui:65 data/ui/event.ui:93 data/ui/faces.ui:93
 #: data/ui/import.ui:68 data/ui/media.ui:93 data/ui/offline.ui:72
 #: data/ui/photo.ui:91 data/ui/tags.ui:93 data/ui/trash.ui:81
-#: src/Resources.vala:134 src/Resources.vala:283
+#: src/Resources.vala:135 src/Resources.vala:284
 msgid "_Preferences"
 msgstr "_Pengaturan"
 
@@ -1676,23 +1676,23 @@ msgid "Even_ts"
 msgstr "Peris_tiwa"
 
 #: data/ui/events_directory.ui:135 data/ui/events_directory.ui:177
-#: src/Resources.vala:208
+#: src/Resources.vala:209
 msgid "_Merge Events"
 msgstr "_Gabungkan Rangkaian"
 
 #: data/ui/events_directory.ui:139 data/ui/events_directory.ui:181
-#: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:196
+#: data/ui/event.ui:393 data/ui/event.ui:588 src/Resources.vala:197
 msgid "Re_name Event…"
 msgstr "Ubah _Nama Peristiwa…"
 
 #: data/ui/event.ui:17 data/ui/faces.ui:17 data/ui/media.ui:17
-#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:256
+#: data/ui/photo.ui:17 data/ui/tags.ui:17 src/Resources.vala:257
 msgid "_Export…"
 msgstr "_Ekspor…"
 
 #: data/ui/event.ui:74 data/ui/faces.ui:74 data/ui/media.ui:74
 #: data/ui/offline.ui:58 data/ui/offline.ui:207 data/ui/offline.ui:224
-#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:783
+#: data/ui/photo.ui:79 data/ui/tags.ui:74 src/Resources.vala:784
 msgid "R_emove From Library"
 msgstr "Hapus _Dari Album"
 
@@ -1708,31 +1708,31 @@ msgid "Ta_gs"
 msgstr "Tan_da"
 
 #: data/ui/event.ui:144 data/ui/faces.ui:144 data/ui/media.ui:144
-#: data/ui/photo.ui:122 data/ui/tags.ui:144 src/Resources.vala:245
+#: data/ui/photo.ui:122 data/ui/tags.ui:144 src/Resources.vala:246
 msgid "_Ratings"
 msgstr "_Rating"
 
 #: data/ui/event.ui:151 data/ui/faces.ui:151 data/ui/import.ui:111
 #: data/ui/media.ui:151 data/ui/offline.ui:108 data/ui/tags.ui:151
-#: data/ui/trash.ui:117 src/Resources.vala:248
+#: data/ui/trash.ui:117 src/Resources.vala:249
 msgid "_Filter Photos"
 msgstr "_Saring Foto"
 
 #: data/ui/event.ui:184 data/ui/faces.ui:184 data/ui/import.ui:144
 #: data/ui/media.ui:184 data/ui/offline.ui:141 data/ui/search_bar.ui:18
-#: data/ui/tags.ui:184 data/ui/trash.ui:150 src/Resources.vala:241
+#: data/ui/tags.ui:184 data/ui/trash.ui:150 src/Resources.vala:242
 msgid "_All Photos"
 msgstr "Semu_a foto"
 
 #: data/ui/event.ui:190 data/ui/faces.ui:190 data/ui/import.ui:150
 #: data/ui/media.ui:190 data/ui/offline.ui:147 data/ui/search_bar.ui:12
-#: data/ui/tags.ui:190 data/ui/trash.ui:156 src/Resources.vala:238
+#: data/ui/tags.ui:190 data/ui/trash.ui:156 src/Resources.vala:239
 msgid "All + _Rejected"
 msgstr "Semua + _Ditolak"
 
 #: data/ui/event.ui:196 data/ui/faces.ui:196 data/ui/import.ui:156
 #: data/ui/media.ui:196 data/ui/offline.ui:153 data/ui/search_bar.ui:6
-#: data/ui/tags.ui:196 data/ui/trash.ui:162 src/Resources.vala:234
+#: data/ui/tags.ui:196 data/ui/trash.ui:162 src/Resources.vala:235
 msgid "Rejected _Only"
 msgstr "_Hanya Ditolak"
 
@@ -1771,21 +1771,21 @@ msgstr "T_urun"
 msgid "_Photos"
 msgstr "_Foto-foto"
 
-#: data/ui/event.ui:373 data/ui/event.ui:580 src/Resources.vala:199
+#: data/ui/event.ui:373 data/ui/event.ui:580 src/Resources.vala:200
 msgid "Make _Key Photo for Event"
 msgstr "Jadi_kan Foto Utama Untuk Rangkaian Ini"
 
 #: data/ui/event.ui:382 data/ui/faces.ui:376 data/ui/media.ui:376
-#: data/ui/tags.ui:376 src/Resources.vala:202
+#: data/ui/tags.ui:376 src/Resources.vala:203
 msgid "_New Event"
 msgstr "Rangkaia_n Baru"
 
-#: data/ui/event.ui:592 src/Resources.vala:272
+#: data/ui/event.ui:592 src/Resources.vala:273
 msgid "Edit Event _Comment…"
 msgstr "Sunting Komentar Peristiwa…"
 
-#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:87 src/Resources.vala:300
-#: src/Resources.vala:301
+#: data/ui/faces.ui:403 src/faces/FacesBranch.vala:87 src/Resources.vala:301
+#: src/Resources.vala:302
 msgid "Faces"
 msgstr "Wajah"
 
@@ -1818,27 +1818,28 @@ msgstr "_Log masuk"
 #: src/data_imports/DataImportsUI.vala:302
 #: src/data_imports/DataImportsUI.vala:420 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:760
-#: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:64
-#: src/ProfileBrowser.vala:92 src/publishing/PublishingUI.vala:174
-#: src/publishing/PublishingUI.vala:403 src/Resources.vala:123
+#: src/Dialogs.vala:783 src/Exporter.vala:348 src/ProfileBrowser.vala:68
+#: src/ProfileBrowser.vala:100 src/publishing/PublishingUI.vala:174
+#: src/publishing/PublishingUI.vala:403 src/Resources.vala:124
 msgid "_Cancel"
 msgstr "_Batal"
 
 #: data/ui/multitextentrydialog.ui:40 data/ui/slideshow_settings.ui:52
 #: plugins/shotwell-publishing/PiwigoPublishing.vala:1052
-#: src/ProfileBrowser.vala:64 src/ProfileBrowser.vala:92 src/Resources.vala:132
+#: src/ProfileBrowser.vala:68 src/ProfileBrowser.vala:100
+#: src/Resources.vala:133
 msgid "_OK"
 msgstr "_OK"
 
-#: data/ui/offline.ui:221 src/Resources.vala:771
+#: data/ui/offline.ui:221 src/Resources.vala:772
 msgid "Remove the selected photos from the library"
 msgstr "Hapus foto-foto terpilih dari album"
 
-#: data/ui/photo_context.ui:17 src/Resources.vala:279
+#: data/ui/photo_context.ui:17 src/Resources.vala:280
 msgid "_Add Tags…"
 msgstr "T_ambah Tag…"
 
-#: data/ui/photo_context.ui:135 src/Resources.vala:290
+#: data/ui/photo_context.ui:135 src/Resources.vala:291
 msgid "Send T_o…"
 msgstr "_Kirim Ke…"
 
@@ -1846,11 +1847,11 @@ msgstr "_Kirim Ke…"
 msgid "S_lideshow"
 msgstr "Sa_lindia"
 
-#: data/ui/photo.ui:260 src/CollectionPage.vala:122 src/Resources.vala:156
+#: data/ui/photo.ui:260 src/CollectionPage.vala:122 src/Resources.vala:157
 msgid "_Copy Color Adjustments"
 msgstr "Salin Penyetelan _Warna"
 
-#: data/ui/photo.ui:265 src/CollectionPage.vala:125 src/Resources.vala:160
+#: data/ui/photo.ui:265 src/CollectionPage.vala:125 src/Resources.vala:161
 msgid "_Paste Color Adjustments"
 msgstr "Tem_pel Penyetelan Warna"
 
@@ -2019,7 +2020,7 @@ msgid "Search"
 msgstr "Pencarian"
 
 #: data/ui/saved_search_dialog.ui:26 src/ProfileBrowser.vala:20
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:217
 msgid "Cancel"
 msgstr "Batal"
 
@@ -2051,19 +2052,19 @@ msgstr "tidak ada"
 msgid "of the following:"
 msgstr "yang berikut ini:"
 
-#: data/ui/savedsearch.ui:6 src/Resources.vala:391
+#: data/ui/savedsearch.ui:6 src/Resources.vala:392
 msgid "Re_name…"
 msgstr "Ganti _nama…"
 
-#: data/ui/savedsearch.ui:10 src/Resources.vala:390
+#: data/ui/savedsearch.ui:10 src/Resources.vala:391
 msgid "_Edit…"
 msgstr "S_unting…"
 
 #: data/ui/savedsearch.ui:14 data/ui/tags.ui:460 data/ui/trash.ui:63
 #: data/ui/trash.ui:216 data/ui/trash.ui:258 src/Dialogs.vala:20
 #: src/Dialogs.vala:28 src/Dialogs.vala:56 src/Dialogs.vala:728
-#: src/Resources.vala:124 src/Resources.vala:305 src/Resources.vala:336
-#: src/Resources.vala:389 src/Resources.vala:769
+#: src/Resources.vala:125 src/Resources.vala:306 src/Resources.vala:337
+#: src/Resources.vala:390 src/Resources.vala:770
 msgid "_Delete"
 msgstr "_Hapus"
 
@@ -2137,11 +2138,11 @@ msgstr "Tampilkan _judul"
 msgid "seconds"
 msgstr "detik"
 
-#: data/ui/tags.ui:450 src/Resources.vala:130 src/Resources.vala:338
+#: data/ui/tags.ui:450 src/Resources.vala:131 src/Resources.vala:339
 msgid "_New"
 msgstr "_Baru"
 
-#: data/ui/tags.ui:456 src/Resources.vala:306 src/Resources.vala:348
+#: data/ui/tags.ui:456 src/Resources.vala:307 src/Resources.vala:349
 msgid "_Rename…"
 msgstr "_Ubah Nama…"
 
@@ -2150,15 +2151,15 @@ msgid "label"
 msgstr "label"
 
 #: data/ui/trash.ui:68 data/ui/trash.ui:221 data/ui/trash.ui:273
-#: src/Resources.vala:773
+#: src/Resources.vala:774
 msgid "_Restore"
 msgstr "_Kembalikan"
 
-#: data/ui/trash.ui:255 src/Resources.vala:770
+#: data/ui/trash.ui:255 src/Resources.vala:771
 msgid "Remove the selected photos from the trash"
 msgstr "Hapus foto-foto terpilih dari tempat pembuangan"
 
-#: data/ui/trash.ui:270 src/Resources.vala:774
+#: data/ui/trash.ui:270 src/Resources.vala:775
 msgid "Move the selected photos back into the library"
 msgstr "Kembalikan foto-foto ke album"
 
@@ -2322,7 +2323,7 @@ msgstr "Tidak dapat membuka UI: %s"
 msgid "Visit the Shotwell home page"
 msgstr "Kunjungi laman serambi Shotwell"
 
-#: plugins/common/Resources.vala:31 src/AppWindow.vala:583
+#: plugins/common/Resources.vala:31 src/AppWindow.vala:588
 #: src/plugins/SpitInterfaces.vala:177
 msgid "translator-credits"
 msgstr ""
@@ -2335,7 +2336,7 @@ msgstr ""
 "Mohamad Hasan Al Banna, 2013\n"
 "Rahman Yusri Aftian <aftian@yahoo.com>, 2012, 2013\n"
 "Andika Triwidada <andika@gmail.com>, 2011, 2014, 2017, 2019-2021, 2023.\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023."
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023.\"n"
 
 #. Possible error message when a site presents a bad certificate.
 #: plugins/common/RESTSupport.vala:242
@@ -2423,7 +2424,7 @@ msgstr "_Keluar"
 #: plugins/shotwell-publishing/google_photos_publishing_options_pane.ui:195
 #: plugins/shotwell-publishing/tumblr_publishing_options_pane.ui:122
 #: plugins/shotwell-publishing/youtube_publishing_options_pane.ui:94
-#: src/CollectionPage.vala:82 src/PhotoPage.vala:2486
+#: src/CollectionPage.vala:82 src/PhotoPage.vala:2488
 msgid "_Publish"
 msgstr "_Terbitkan"
 
@@ -2578,7 +2579,7 @@ msgid "Google+ (2048 × 1536 pixels)"
 msgstr "Google+ (2048 x 1536 pixel)"
 
 #: plugins/shotwell-publishing/PhotosPublishingPane.vala:21
-#: src/editing_tools/EditingTools.vala:742
+#: src/editing_tools/EditingTools.vala:746
 msgid "Original Size"
 msgstr "Ukuran Asli"
 
@@ -2907,21 +2908,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/AppWindow.vala:580
+#: src/AppWindow.vala:585
 msgid "Visit the Shotwell web site"
 msgstr "Kunjungi situs web Shotwell"
 
-#: src/AppWindow.vala:592
+#: src/AppWindow.vala:598
 #, c-format
 msgid "Unable to display help: %s"
 msgstr "Pedoman penggunaan tidak dapat ditampilkan: %s"
 
-#: src/AppWindow.vala:600
+#: src/AppWindow.vala:606
 #, c-format
 msgid "Unable to navigate to bug database: %s"
 msgstr "Gagal menavigasi basis data bug: %s"
 
-#: src/AppWindow.vala:608
+#: src/AppWindow.vala:614
 #, c-format
 msgid "Unable to display FAQ: %s"
 msgstr "Gagal menampilkan FAQ: %s"
@@ -3021,17 +3022,17 @@ msgstr "Sembunyikan foto yang sudah selesai diimpor"
 msgid "Only display photos that have not been imported"
 msgstr "Hanya tampilkan foto yang belum diimpor"
 
-#: src/camera/ImportPage.vala:839
+#: src/camera/ImportPage.vala:843
 msgid "The camera seems to be empty. No photos/videos found to import"
 msgstr ""
 "Kamera tampaknya kosong. Tidak ada foto/video yang ditemukan untuk diimpor"
 
-#: src/camera/ImportPage.vala:843
+#: src/camera/ImportPage.vala:847
 msgid "No new photos/videos found on camera"
 msgstr "Tidak ditemukan foto/video baru pada kamera"
 
 #. it's mounted, offer to unmount for the user
-#: src/camera/ImportPage.vala:996
+#: src/camera/ImportPage.vala:1000
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it. Continue?"
@@ -3039,15 +3040,15 @@ msgstr ""
 "Shotwell perlu melepaskan kamera dari sistem berkas agar dapat mengaksesnya. "
 "Lanjutkan?"
 
-#: src/camera/ImportPage.vala:1002
+#: src/camera/ImportPage.vala:1006
 msgid "_Unmount"
 msgstr "_Lepas"
 
-#: src/camera/ImportPage.vala:1007
+#: src/camera/ImportPage.vala:1011
 msgid "Please unmount the camera."
 msgstr "Silakan lepaskan kamera."
 
-#: src/camera/ImportPage.vala:1012
+#: src/camera/ImportPage.vala:1016
 msgid ""
 "The camera is locked by another application. Shotwell can only access the "
 "camera when it’s unlocked. Please close any other application using the "
@@ -3057,11 +3058,11 @@ msgstr ""
 "pada saat tidak terkunci. Silakan matikan aplikasi yang sedang menggunakan "
 "kamera ini dan coba kembali."
 
-#: src/camera/ImportPage.vala:1022
+#: src/camera/ImportPage.vala:1026
 msgid "Please close any other application using the camera."
 msgstr "Mohon segera mematikan aplikasi lain yang sedang menggunakan kamera."
 
-#: src/camera/ImportPage.vala:1027
+#: src/camera/ImportPage.vala:1031
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -3070,65 +3071,65 @@ msgstr ""
 "Gambar pratayang tidak dapat diambil dari kamera:\n"
 "%s"
 
-#: src/camera/ImportPage.vala:1044
+#: src/camera/ImportPage.vala:1048
 msgid "Unmounting…"
 msgstr "Melepas kaitan…"
 
-#: src/camera/ImportPage.vala:1137
+#: src/camera/ImportPage.vala:1141
 msgid "Connecting to camera, please wait…"
 msgstr "Menyambung ke kamera, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1169
+#: src/camera/ImportPage.vala:1173
 msgid "Starting import, please wait…"
 msgstr "Mulai mengimpor, mohon tunggu…"
 
-#: src/camera/ImportPage.vala:1175
+#: src/camera/ImportPage.vala:1179
 msgid "Fetching photo information"
 msgstr "Mengambil informasi foto"
 
-#: src/camera/ImportPage.vala:1543
+#: src/camera/ImportPage.vala:1547
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Mengambil gambar pratayang %s"
 
-#: src/camera/ImportPage.vala:1652
+#: src/camera/ImportPage.vala:1656
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kamera tidak dapat dikunci: %s"
 
-#: src/camera/ImportPage.vala:1737
+#: src/camera/ImportPage.vala:1741
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Hapus %d foto ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1740
+#: src/camera/ImportPage.vala:1744
 #, c-format
 msgid "Delete this video from camera?"
 msgid_plural "Delete these %d videos from camera?"
 msgstr[0] "Hapus %d video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1743
+#: src/camera/ImportPage.vala:1747
 #, c-format
 msgid "Delete this photo/video from camera?"
 msgid_plural "Delete these %d photos/videos from camera?"
 msgstr[0] "Hapus %d foto/video ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1746
+#: src/camera/ImportPage.vala:1750
 #, c-format
 msgid "Delete these files from camera?"
 msgid_plural "Delete these %d files from camera?"
 msgstr[0] "Hapus %d berkas ini dari kamera?"
 
-#: src/camera/ImportPage.vala:1754 src/Dialogs.vala:727
+#: src/camera/ImportPage.vala:1758 src/Dialogs.vala:727
 msgid "_Keep"
 msgstr "_Simpan"
 
-#: src/camera/ImportPage.vala:1773
+#: src/camera/ImportPage.vala:1777
 msgid "Removing photos/videos from camera"
 msgstr "Menghapus foto/video dari kamera"
 
-#: src/camera/ImportPage.vala:1777
+#: src/camera/ImportPage.vala:1781
 #, c-format
 msgid "Unable to delete %d photo/video from the camera due to errors."
 msgid_plural "Unable to delete %d photos/videos from the camera due to errors."
@@ -3144,16 +3145,16 @@ msgid "No photos/videos found which match the current filter"
 msgstr "Tidak ditemukan foto/video yang cocok dengan penyaring saat ini"
 
 #: src/CollectionPage.vala:80 src/direct/DirectPhotoPage.vala:85
-#: src/PhotoPage.vala:2481 src/Resources.vala:136
+#: src/PhotoPage.vala:2483 src/Resources.vala:137
 msgid "_Print"
 msgstr "_Cetak"
 
 #: src/CollectionPage.vala:84 src/direct/DirectPhotoPage.vala:90
-#: src/PhotoPage.vala:2491 src/Resources.vala:186
+#: src/PhotoPage.vala:2493 src/Resources.vala:187
 msgid "Set as _Desktop Background"
 msgstr "Atur sebagai Latar _Destop"
 
-#: src/CollectionPage.vala:92 src/Resources.vala:252
+#: src/CollectionPage.vala:92 src/Resources.vala:253
 msgid "_Duplicate"
 msgstr "_Gandakan"
 
@@ -3165,7 +3166,7 @@ msgstr "Layar penuh"
 msgid "Adjust Date and Time…"
 msgstr "Atur Jam dan Tanggal…"
 
-#: src/CollectionPage.vala:149 src/Resources.vala:133
+#: src/CollectionPage.vala:149 src/Resources.vala:134
 msgid "_Play"
 msgstr "_Putar"
 
@@ -3625,7 +3626,7 @@ msgstr "Tahun%sBulan-Hari"
 msgid "Year-Month-Day"
 msgstr "Tahun-Bulan-Hari"
 
-#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:767
+#: src/dialogs/Preferences.vala:123 src/editing_tools/EditingTools.vala:771
 msgid "Custom"
 msgstr "Bebas"
 
@@ -3697,7 +3698,7 @@ msgstr[0] "Ini akan menghapus wajah \"%s\" dari %d foto. Teruskan?"
 msgid "Export Video"
 msgstr "Ekspor Video"
 
-#: src/Dialogs.vala:70 src/PhotoPage.vala:3016
+#: src/Dialogs.vala:70 src/PhotoPage.vala:3018
 msgctxt "Dialog Title"
 msgid "Export Photo"
 msgstr "Ekspor Foto"
@@ -4059,7 +4060,7 @@ msgstr "Tidak ada foto atau video yang diimpor.\n"
 msgid "Import Complete"
 msgstr "Impor Selesai"
 
-#: src/Dialogs.vala:657 src/Resources.vala:197
+#: src/Dialogs.vala:657 src/Resources.vala:198
 msgid "Rename Event"
 msgstr "Ubah Nama Peristiwa"
 
@@ -4078,7 +4079,7 @@ msgid "Title:"
 msgstr "Judul:"
 
 #. Dialog title
-#: src/Dialogs.vala:685 src/Resources.vala:273
+#: src/Dialogs.vala:685 src/Resources.vala:274
 msgid "Edit Event Comment"
 msgstr "Sunting Komentar Peristiwa"
 
@@ -4130,7 +4131,7 @@ msgid "This will remove the photo from the library. Continue?"
 msgid_plural "This will remove %d photos from the library. Continue?"
 msgstr[0] "Ini akan menghapus %d foto dari pustaka. Lanjutkan?"
 
-#: src/Dialogs.vala:784 src/Resources.vala:139
+#: src/Dialogs.vala:784 src/Resources.vala:140
 msgid "_Remove"
 msgstr "_Hapus"
 
@@ -4373,203 +4374,203 @@ msgstr "Gagal memantau %s: Bukan direktori (%s)"
 msgid "Photos cannot be exported to this directory."
 msgstr "Foto tidak dapat diekspor ke direktori tersebut."
 
-#: src/editing_tools/EditingTools.vala:651
+#: src/editing_tools/EditingTools.vala:655
 msgid "Return to current photo dimensions"
 msgstr "Kembalikan ukuran foto saat ini"
 
-#: src/editing_tools/EditingTools.vala:654
+#: src/editing_tools/EditingTools.vala:658
 msgid "Set the crop for this photo"
 msgstr "Atur pemotongan foto ini"
 
-#: src/editing_tools/EditingTools.vala:666
+#: src/editing_tools/EditingTools.vala:670
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "Atur kotak pemotongan antara orientasi mendatar dan berdiri"
 
-#: src/editing_tools/EditingTools.vala:739
+#: src/editing_tools/EditingTools.vala:743
 msgid "Unconstrained"
 msgstr "Tanpa batas"
 
-#: src/editing_tools/EditingTools.vala:740
+#: src/editing_tools/EditingTools.vala:744
 msgid "Square"
 msgstr "Kotak"
 
-#: src/editing_tools/EditingTools.vala:741
+#: src/editing_tools/EditingTools.vala:745
 msgid "Screen"
 msgstr "Seukuran Layar"
 
-#: src/editing_tools/EditingTools.vala:743
-#: src/editing_tools/EditingTools.vala:746
-#: src/editing_tools/EditingTools.vala:756
-#: src/editing_tools/EditingTools.vala:766
+#: src/editing_tools/EditingTools.vala:747
+#: src/editing_tools/EditingTools.vala:750
+#: src/editing_tools/EditingTools.vala:760
+#: src/editing_tools/EditingTools.vala:770
 msgid "-"
 msgstr "-"
 
-#: src/editing_tools/EditingTools.vala:744
+#: src/editing_tools/EditingTools.vala:748
 msgid "SD Video (4 ∶ 3)"
 msgstr "Video SD (4:3)"
 
-#: src/editing_tools/EditingTools.vala:745
+#: src/editing_tools/EditingTools.vala:749
 msgid "HD Video (16 ∶ 9)"
 msgstr "Video HD (16:9)"
 
-#: src/editing_tools/EditingTools.vala:747 src/Printing.vala:792
+#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:792
 msgid "Wallet (2 × 3 in.)"
 msgstr "Dompet (2 x 3 in.)"
 
-#: src/editing_tools/EditingTools.vala:748 src/Printing.vala:795
+#: src/editing_tools/EditingTools.vala:752 src/Printing.vala:795
 msgid "Notecard (3 × 5 in.)"
 msgstr "Kertas catatan (3 x 5 in.)"
 
-#: src/editing_tools/EditingTools.vala:749 src/Printing.vala:798
+#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:798
 msgid "4 × 6 in."
 msgstr "4 x 6 in."
 
-#: src/editing_tools/EditingTools.vala:750 src/Printing.vala:801
+#: src/editing_tools/EditingTools.vala:754 src/Printing.vala:801
 msgid "5 × 7 in."
 msgstr "5 x 7 in."
 
-#: src/editing_tools/EditingTools.vala:751 src/Printing.vala:804
+#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:804
 msgid "8 × 10 in."
 msgstr "8 x 10 in."
 
-#: src/editing_tools/EditingTools.vala:752
+#: src/editing_tools/EditingTools.vala:756
 msgid "Letter (8.5 × 11 in.)"
 msgstr "Letter (8.5 x 11 in.)"
 
-#: src/editing_tools/EditingTools.vala:753 src/Printing.vala:807
+#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:807
 msgid "11 × 14 in."
 msgstr "11 x 14 in."
 
-#: src/editing_tools/EditingTools.vala:754
+#: src/editing_tools/EditingTools.vala:758
 msgid "Tabloid (11 × 17 in.)"
 msgstr "Tabloid (11 x 17 in.)"
 
-#: src/editing_tools/EditingTools.vala:755 src/Printing.vala:810
+#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:810
 msgid "16 × 20 in."
 msgstr "16 × 20 in."
 
-#: src/editing_tools/EditingTools.vala:757 src/Printing.vala:816
+#: src/editing_tools/EditingTools.vala:761 src/Printing.vala:816
 msgid "Metric Wallet (9 × 13 cm)"
 msgstr "Dompet Metrik (9 x 13 cm)"
 
-#: src/editing_tools/EditingTools.vala:758 src/Printing.vala:819
+#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:819
 msgid "Postcard (10 × 15 cm)"
 msgstr "Kartupos (10 x 15 cm)"
 
-#: src/editing_tools/EditingTools.vala:759 src/Printing.vala:822
+#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:822
 msgid "13 × 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/editing_tools/EditingTools.vala:760 src/Printing.vala:825
+#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:825
 msgid "18 × 24 cm"
 msgstr "18 x 24 cm"
 
-#: src/editing_tools/EditingTools.vala:761
+#: src/editing_tools/EditingTools.vala:765
 msgid "A4 (210 × 297 mm)"
 msgstr "A4 (210 x 297 mm)"
 
-#: src/editing_tools/EditingTools.vala:762 src/Printing.vala:828
+#: src/editing_tools/EditingTools.vala:766 src/Printing.vala:828
 msgid "20 × 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/editing_tools/EditingTools.vala:763 src/Printing.vala:831
+#: src/editing_tools/EditingTools.vala:767 src/Printing.vala:831
 msgid "24 × 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/editing_tools/EditingTools.vala:764 src/Printing.vala:834
+#: src/editing_tools/EditingTools.vala:768 src/Printing.vala:834
 msgid "30 × 40 cm"
 msgstr "30 x 40 cm"
 
-#: src/editing_tools/EditingTools.vala:765
+#: src/editing_tools/EditingTools.vala:769
 msgid "A3 (297 × 420 mm)"
 msgstr "A3 (297 x 420 mm)"
 
-#: src/editing_tools/EditingTools.vala:1858 src/Properties.vala:407
+#: src/editing_tools/EditingTools.vala:1868 src/Properties.vala:407
 msgid "Size:"
 msgstr "Ukuran:"
 
-#: src/editing_tools/EditingTools.vala:1873
+#: src/editing_tools/EditingTools.vala:1883
 msgid "Close the red-eye tool"
 msgstr "Tutup penghilang mata merah"
 
-#: src/editing_tools/EditingTools.vala:1876
+#: src/editing_tools/EditingTools.vala:1886
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Hilangkan efek mata merah pada area yang diinginkan"
 
-#: src/editing_tools/EditingTools.vala:2210
+#: src/editing_tools/EditingTools.vala:2227
 #: src/editing_tools/StraightenTool.vala:102
 msgid "_Reset"
 msgstr "_Reset"
 
 #. fit both on the top line, emit and move on
-#: src/editing_tools/EditingTools.vala:2224 src/Properties.vala:448
+#: src/editing_tools/EditingTools.vala:2241 src/Properties.vala:448
 #: src/Properties.vala:452 src/Properties.vala:459
 msgid "Exposure:"
 msgstr "Bukaan:"
 
-#: src/editing_tools/EditingTools.vala:2233
+#: src/editing_tools/EditingTools.vala:2250
 msgid "Contrast:"
 msgstr "Kontras:"
 
-#: src/editing_tools/EditingTools.vala:2242
+#: src/editing_tools/EditingTools.vala:2259
 msgid "Saturation:"
 msgstr "Saturasi:"
 
-#: src/editing_tools/EditingTools.vala:2251
+#: src/editing_tools/EditingTools.vala:2268
 msgid "Tint:"
 msgstr "Tint:"
 
-#: src/editing_tools/EditingTools.vala:2261
+#: src/editing_tools/EditingTools.vala:2278
 msgid "Temperature:"
 msgstr "Suhu:"
 
-#: src/editing_tools/EditingTools.vala:2270
+#: src/editing_tools/EditingTools.vala:2287
 msgid "Shadows:"
 msgstr "Kegelapan:"
 
 #. FIXME: Hack to make the slider the same length as the other. Find out why it is aligned
 #. Differently (probably because it only has positive values)
-#: src/editing_tools/EditingTools.vala:2281
+#: src/editing_tools/EditingTools.vala:2298
 msgid "Highlights:"
 msgstr "Highlight:"
 
-#: src/editing_tools/EditingTools.vala:2338
+#: src/editing_tools/EditingTools.vala:2355
 msgid "Reset Colors"
 msgstr "Reset Warna"
 
-#: src/editing_tools/EditingTools.vala:2338
+#: src/editing_tools/EditingTools.vala:2355
 msgid "Reset all color adjustments to original"
 msgstr "Kembalikan warna ke nilai aslinya"
 
-#: src/editing_tools/EditingTools.vala:2697
+#: src/editing_tools/EditingTools.vala:2714
 msgid "Temperature"
 msgstr "Suhu"
 
-#: src/editing_tools/EditingTools.vala:2709
+#: src/editing_tools/EditingTools.vala:2726
 msgid "Tint"
 msgstr "Tint"
 
-#: src/editing_tools/EditingTools.vala:2721
+#: src/editing_tools/EditingTools.vala:2738
 msgid "Contrast"
 msgstr "Kontras"
 
-#: src/editing_tools/EditingTools.vala:2735
+#: src/editing_tools/EditingTools.vala:2752
 msgid "Saturation"
 msgstr "Saturasi"
 
-#: src/editing_tools/EditingTools.vala:2748
+#: src/editing_tools/EditingTools.vala:2765
 msgid "Exposure"
 msgstr "Bukaan"
 
-#: src/editing_tools/EditingTools.vala:2761
+#: src/editing_tools/EditingTools.vala:2778
 msgid "Shadows"
 msgstr "Kegelapan"
 
-#: src/editing_tools/EditingTools.vala:2774
+#: src/editing_tools/EditingTools.vala:2791
 msgid "Highlights"
 msgstr "Highlight"
 
-#: src/editing_tools/EditingTools.vala:2784
+#: src/editing_tools/EditingTools.vala:2801
 msgid "Contrast Expansion"
 msgstr "Naikkan Kontras"
 
@@ -4604,14 +4605,6 @@ msgstr "Semua Kejadian"
 #: src/events/EventsDirectoryPage.vala:241
 msgid "Undated"
 msgstr "Tidak bertanggal"
-
-#: src/events/EventsDirectoryPage.vala:242
-msgid "%Y"
-msgstr "%Y"
-
-#: src/events/EventsDirectoryPage.vala:243
-msgid "%B"
-msgstr "%B"
 
 #. if no name, pretty up the start time
 #: src/Event.vala:748
@@ -4712,7 +4705,7 @@ msgstr "Simpan perubahan dan tutup alat Wajah"
 msgid "No changes to save"
 msgstr "Tidak ada perubahan untuk disimpan"
 
-#: src/faces/FacesTool.vala:951
+#: src/faces/FacesTool.vala:963
 msgid "Error trying to spawn face detection program:\n"
 msgstr "Galat saat mencoba memunculkan program deteksi wajah:\n"
 
@@ -4871,71 +4864,71 @@ msgstr "Kesalahan tak dikenal saat mencoba verifikasi basis data Shotwell: %s"
 msgid "Loading Shotwell"
 msgstr "Menjalankan Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "Path to Shotwell’s private data"
 msgstr "Path ke data privat Shotwell"
 
-#: src/main.vala:347
+#: src/main.vala:348
 msgid "DIRECTORY"
 msgstr "DIREKTORI"
 
-#: src/main.vala:348
+#: src/main.vala:349
 msgid "Do not monitor library directory at runtime for changes"
 msgstr "Jangan pantau perubahan direktori pustaka saat runtime"
 
-#: src/main.vala:349
+#: src/main.vala:350
 msgid "Don’t display startup progress meter"
 msgstr "Jangan tampilkan meter kemajuan awal mula"
 
-#: src/main.vala:350
+#: src/main.vala:351
 msgid "Show the application’s version"
 msgstr "Tampilkan versi aplikasi"
 
-#: src/main.vala:351
+#: src/main.vala:352
 msgid "Start the application in fullscreen mode"
 msgstr "Mulai aplikasi dalam mode layar penuh"
 
-#: src/main.vala:352
+#: src/main.vala:353
 msgid "Print the metadata of the image file"
 msgstr "Cetak metadata dari berkas gambar"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "Name for a custom profile"
 msgstr "Nama untuk profil khusus"
 
-#: src/main.vala:353
+#: src/main.vala:354
 msgid "PROFILE"
 msgstr "PROFIL"
 
-#: src/main.vala:354
+#: src/main.vala:355
 msgid "Start with a browser of available profiles"
 msgstr "Mulailah dengan peramban profil yang tersedia"
 
-#: src/main.vala:355
+#: src/main.vala:356
 msgid "If PROFILE given with --profile does not exist, create it"
 msgstr "Jika PROFIL yang diberikan dengan --profile tidak ada, buatlah"
 
-#: src/main.vala:356
+#: src/main.vala:357
 msgid "Show available profiles"
 msgstr "Tampilkan profil yang tersedia"
 
 #. init GTK (valac has already called g_threads_init())
-#: src/main.vala:387
+#: src/main.vala:398
 msgid "[FILE]"
 msgstr "[FILE]"
 
-#: src/main.vala:392
+#: src/main.vala:403
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options.\n"
 msgstr ""
 "Jalankan \"%s --help\" untuk melihat daftar lengkap opsi baris perintah yang "
 "tersedia.\n"
 
-#: src/main.vala:399
+#: src/main.vala:410
 msgid "Choose Shotwell's profile"
 msgstr "Pilih profil Shotwell"
 
-#: src/main.vala:420
+#: src/main.vala:431
 #, c-format
 msgid "Profile %s does not exist. Did you mean to pass --create as well?"
 msgstr ""
@@ -4979,22 +4972,22 @@ msgstr "Foto sebelumnya"
 msgid "Next photo"
 msgstr "Foto berikutnya"
 
-#: src/PhotoPage.vala:1858
+#: src/PhotoPage.vala:1860
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Sumber foto asli hilang: %s"
 
-#: src/PhotoPage.vala:2891
+#: src/PhotoPage.vala:2893
 msgctxt "Dialog Title"
 msgid "Remove From Library"
 msgstr "Hapus Dari Album"
 
-#: src/PhotoPage.vala:2892
+#: src/PhotoPage.vala:2894
 msgctxt "Dialog Title"
 msgid "Removing Photo From Library"
 msgstr "Menghapus Foto Dari Album"
 
-#: src/PhotoPage.vala:3036
+#: src/PhotoPage.vala:3038
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Proses ekspor %s gagal: %s"
@@ -5039,6 +5032,10 @@ msgstr "Tinggi (%d%%)"
 msgid "Maximum (%d%%)"
 msgstr "Maksimum (%d%%)"
 
+#: src/photos/JpegXLSupport.vala:30
+msgid "JPEGXL"
+msgstr "JPEGXL"
+
 #: src/photos/PngSupport.vala:30
 msgid "PNG"
 msgstr "PNG"
@@ -5056,24 +5053,24 @@ msgid "modified"
 msgstr "berubah"
 
 #. TRANSLATORS: %s is the name of an online service such as YouTube, Mastodon, ...
-#: src/plugins/ManifestWidget.vala:121
+#: src/plugins/ManifestWidget.vala:122
 #, c-format
 msgid "Manage accounts for %s"
 msgstr "Kelola akun untuk %s"
 
-#: src/plugins/ManifestWidget.vala:134
+#: src/plugins/ManifestWidget.vala:136
 msgid "Authors"
 msgstr "Penulis"
 
-#: src/plugins/ManifestWidget.vala:144
+#: src/plugins/ManifestWidget.vala:146
 msgid "Version"
 msgstr "Versi"
 
-#: src/plugins/ManifestWidget.vala:154
+#: src/plugins/ManifestWidget.vala:156
 msgid "License"
 msgstr "Lisensi"
 
-#: src/plugins/ManifestWidget.vala:166
+#: src/plugins/ManifestWidget.vala:168
 msgid "Website"
 msgstr "Situs Web"
 
@@ -5132,7 +5129,7 @@ msgstr ""
 msgid "Create"
 msgstr "Buat"
 
-#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:251
+#: src/ProfileBrowser.vala:24 src/ProfileBrowser.vala:259
 msgid "Create new Profile"
 msgstr "Buat Profil baru"
 
@@ -5140,40 +5137,40 @@ msgstr "Buat Profil baru"
 msgid "Name"
 msgstr "Nama"
 
-#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:169
+#: src/ProfileBrowser.vala:49 src/ProfileBrowser.vala:177
 msgid "Library Folder"
 msgstr "Folder Pustaka"
 
-#: src/ProfileBrowser.vala:64
+#: src/ProfileBrowser.vala:68
 msgid "Choose Library Folder"
 msgstr "Pilih Folder Pustaka"
 
-#: src/ProfileBrowser.vala:76 src/ProfileBrowser.vala:179
+#: src/ProfileBrowser.vala:80 src/ProfileBrowser.vala:187
 msgid "Data Folder"
 msgstr "Folder Data"
 
-#: src/ProfileBrowser.vala:92
+#: src/ProfileBrowser.vala:100
 msgid "Choose Data Folder"
 msgstr "Pilih Folder Data"
 
-#: src/ProfileBrowser.vala:135
+#: src/ProfileBrowser.vala:143
 msgid "This is the currently active profile"
 msgstr "Ini adalah profil yang saat ini aktif"
 
-#: src/ProfileBrowser.vala:191
+#: src/ProfileBrowser.vala:199
 msgid "Remove Profile"
 msgstr "Hapus Profil"
 
-#: src/ProfileBrowser.vala:193
+#: src/ProfileBrowser.vala:201
 msgid "Remove this profile"
 msgstr "Hapus profil ini"
 
-#: src/ProfileBrowser.vala:205
+#: src/ProfileBrowser.vala:213
 #, c-format
 msgid "Remove profile “%s”"
 msgstr "Hapus profil \"%s\""
 
-#: src/ProfileBrowser.vala:206
+#: src/ProfileBrowser.vala:214
 msgid ""
 "None of the options will remove any of the images associated with this "
 "profile"
@@ -5181,7 +5178,7 @@ msgstr ""
 "Tidak ada opsi yang akan menghapus gambar apa pun yang terkait dengan profil "
 "ini"
 
-#: src/ProfileBrowser.vala:207
+#: src/ProfileBrowser.vala:215
 #, c-format
 msgid ""
 "<b><span size=\"larger\">%s</span></b>\n"
@@ -5190,11 +5187,11 @@ msgstr ""
 "<b><span size=\"larger\">%s</span></b>\n"
 "<span weight=\"light\">%s</span>"
 
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:217
 msgid "Remove profile and files"
 msgstr "Hapus profil dan berkas"
 
-#: src/ProfileBrowser.vala:209
+#: src/ProfileBrowser.vala:217
 msgid "Remove profile only"
 msgstr "Hapus profil saja"
 
@@ -5419,518 +5416,518 @@ msgstr[0] "Foto yang dipilih telah berhasil dipublikasikan."
 msgid "The selected photos/videos were successfully published."
 msgstr "Foto/video yang dipilih telah berhasil dipublikasikan."
 
-#: src/Resources.vala:107
+#: src/Resources.vala:108
 msgid "Rotate Right"
 msgstr "Putar Kanan"
 
-#: src/Resources.vala:112
+#: src/Resources.vala:113
 msgid "Rotate Left"
 msgstr "Putar Kiri"
 
-#: src/Resources.vala:113
+#: src/Resources.vala:114
 msgid "Rotate the photos left"
 msgstr "Putar foto ke kiri"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:117
 msgid "Flip Horizontally"
 msgstr "Balik Horizontal"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:120
 msgid "Flip Vertically"
 msgstr "Balik Vertikal"
 
-#: src/Resources.vala:122
+#: src/Resources.vala:123
 msgid "_Apply"
 msgstr "Ter_apkan"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:127
 msgid "_Forward"
 msgstr "Ma_ju"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:130
 msgid "Leave _Fullscreen"
 msgstr "Layar _Biasa"
 
-#: src/Resources.vala:131
+#: src/Resources.vala:132
 msgid "_Next"
 msgstr "Sela_njutnya"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:136
 msgid "_Previous"
 msgstr "Se_belumnya"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:139
 msgid "_Refresh"
 msgstr "Sega_rkan"
 
-#: src/Resources.vala:140
+#: src/Resources.vala:141
 msgid "_Revert"
 msgstr "Puli_hkan"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:143
 msgid "Save _As"
 msgstr "Simpan Seb_agai"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:144
 msgid "Sort _Ascending"
 msgstr "Urutkan N_aik"
 
-#: src/Resources.vala:144
+#: src/Resources.vala:145
 msgid "Sort _Descending"
 msgstr "Urut _Turun"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:146
 msgid "_Stop"
 msgstr "_Berhenti"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:147
 msgid "_Undelete"
 msgstr "Tak Jadi Hap_us"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:148
 msgid "_Normal Size"
 msgstr "Ukuran _Normal"
 
-#: src/Resources.vala:148
+#: src/Resources.vala:149
 msgid "Best _Fit"
 msgstr "_Pas Terbaik"
 
-#: src/Resources.vala:157
+#: src/Resources.vala:158
 msgid "Copy Color Adjustments"
 msgstr "Salin Penyetelan Warna"
 
-#: src/Resources.vala:158
+#: src/Resources.vala:159
 msgid "Copy the color adjustments applied to the photo"
 msgstr "Salin penyetelan warna yang diterapkan ke foto"
 
-#: src/Resources.vala:161
+#: src/Resources.vala:162
 msgid "Paste Color Adjustments"
 msgstr "Tempel Penyetelan Warna"
 
-#: src/Resources.vala:162
+#: src/Resources.vala:163
 msgid "Apply copied color adjustments to the selected photos"
 msgstr "Terapkan penyetelan warna yang disalin ke foto yang dipilih"
 
-#: src/Resources.vala:165
+#: src/Resources.vala:166
 msgid "Crop"
 msgstr "Pangkas"
 
-#: src/Resources.vala:166
+#: src/Resources.vala:167
 msgid "Crop the photo’s size"
 msgstr "Pangkas ukuran foto"
 
-#: src/Resources.vala:169
+#: src/Resources.vala:170
 msgid "Straighten"
 msgstr "Luruskan"
 
-#: src/Resources.vala:170
+#: src/Resources.vala:171
 msgid "Straighten the photo"
 msgstr "Luruskan foto"
 
-#: src/Resources.vala:173
+#: src/Resources.vala:174
 msgid "Red-eye"
 msgstr "Mata-merah"
 
-#: src/Resources.vala:174
+#: src/Resources.vala:175
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Hilangkan efek mata merah pada foto"
 
-#: src/Resources.vala:177
+#: src/Resources.vala:178
 msgid "Adjust"
 msgstr "Atur"
 
-#: src/Resources.vala:178
+#: src/Resources.vala:179
 msgid "Adjust the photo’s color and tone"
 msgstr "Atur warna dan tonal foto"
 
-#: src/Resources.vala:181
+#: src/Resources.vala:182
 msgid "Revert to Original"
 msgstr "Kembalikan ke Asal"
 
-#: src/Resources.vala:183
+#: src/Resources.vala:184
 msgid "Revert External E_dits"
 msgstr "Kembalikan Suntingan E_ksternal"
 
-#: src/Resources.vala:184
+#: src/Resources.vala:185
 msgid "Revert to the master photo"
 msgstr "Abaikan perubahan dan kembalikan ke foto asal"
 
-#: src/Resources.vala:187
+#: src/Resources.vala:188
 msgid "Set selected image to be the new desktop background"
 msgstr "Jadikan foto ini menjadi gambar latar destop"
 
-#: src/Resources.vala:188
+#: src/Resources.vala:189
 msgid "Set as _Desktop Slideshow…"
 msgstr "Atur sebagai Salindia _Destop…"
 
-#: src/Resources.vala:191
+#: src/Resources.vala:192
 msgid "Undo"
 msgstr "Batalkan"
 
-#: src/Resources.vala:194
+#: src/Resources.vala:195
 msgid "Redo"
 msgstr "Jadikan"
 
-#: src/Resources.vala:200
+#: src/Resources.vala:201
 msgid "Make Key Photo for Event"
 msgstr "Jadikan Foto Utama Untuk Rangkaian Ini"
 
-#: src/Resources.vala:203
+#: src/Resources.vala:204
 msgid "New Event"
 msgstr "Rangkaian Baru"
 
-#: src/Resources.vala:205
+#: src/Resources.vala:206
 msgid "Move Photos"
 msgstr "Pindahkan Foto"
 
-#: src/Resources.vala:206
+#: src/Resources.vala:207
 msgid "Move photos to an event"
 msgstr "Pindahkan foto ke sebuah rangkaian"
 
-#: src/Resources.vala:209
+#: src/Resources.vala:210
 msgid "Merge"
 msgstr "Gabungkan"
 
-#: src/Resources.vala:210
+#: src/Resources.vala:211
 msgid "Combine events into a single event"
 msgstr "Gabungkan acara-acara ke satu acara"
 
-#: src/Resources.vala:213
+#: src/Resources.vala:214
 msgid "Set Rating"
 msgstr "Atur Rating"
 
-#: src/Resources.vala:214
+#: src/Resources.vala:215
 msgid "Change the rating of your photo"
 msgstr "Ubah rating foto"
 
-#: src/Resources.vala:217
+#: src/Resources.vala:218
 msgid "Increase Rating"
 msgstr "Naikkan Rating"
 
-#: src/Resources.vala:220
+#: src/Resources.vala:221
 msgid "Decrease Rating"
 msgstr "Turunkan Rating"
 
-#: src/Resources.vala:223
+#: src/Resources.vala:224
 msgid "Unrated"
 msgstr "Tanpa Rating"
 
-#: src/Resources.vala:224
+#: src/Resources.vala:225
 msgid "Rate Unrated"
 msgstr "Belum Dirating"
 
-#: src/Resources.vala:225
+#: src/Resources.vala:226
 msgid "Setting as unrated"
 msgstr "Atur sebagai Tanpa Rating"
 
-#: src/Resources.vala:226
+#: src/Resources.vala:227
 msgid "Remove any ratings"
 msgstr "Hapus rating"
 
-#: src/Resources.vala:229
+#: src/Resources.vala:230
 msgid "Rejected"
 msgstr "Ditolak"
 
-#: src/Resources.vala:230
+#: src/Resources.vala:231
 msgid "Rate Rejected"
 msgstr "Rating Ditolak"
 
-#: src/Resources.vala:231
+#: src/Resources.vala:232
 msgid "Setting as rejected"
 msgstr "Atur ke ditolak"
 
-#: src/Resources.vala:232
+#: src/Resources.vala:233
 msgid "Set rating to rejected"
 msgstr "Atur rating ke ditolak"
 
-#: src/Resources.vala:235
+#: src/Resources.vala:236
 msgid "Rejected Only"
 msgstr "Hanya Ditolak"
 
-#: src/Resources.vala:236
+#: src/Resources.vala:237
 msgid "Show only rejected photos"
 msgstr "Tampilkan hanya foto yang ditolak"
 
-#: src/Resources.vala:239
+#: src/Resources.vala:240
 msgctxt "Tooltip"
 msgid "Show all photos, including rejected"
 msgstr "Tampilkan semua foto, termasuk yang ditolak"
 
 #. Button tooltip
-#: src/Resources.vala:243
+#: src/Resources.vala:244
 msgid "Show all photos"
 msgstr "Tunjukkan semua foto"
 
-#: src/Resources.vala:246
+#: src/Resources.vala:247
 msgid "Display each photo’s rating"
 msgstr "Tampilkan rating tiap foto"
 
-#: src/Resources.vala:249
+#: src/Resources.vala:250
 msgid "Filter Photos"
 msgstr "Saring Foto"
 
-#: src/Resources.vala:250
+#: src/Resources.vala:251
 msgid "Limit the number of photos displayed based on a filter"
 msgstr "Batasi jumlah foto yang tampil berdasarkan penyaringan"
 
-#: src/Resources.vala:253
+#: src/Resources.vala:254
 msgid "Duplicate"
 msgstr "Gandakan"
 
-#: src/Resources.vala:254
+#: src/Resources.vala:255
 msgid "Make a duplicate of the photo"
 msgstr "Gandakan foto-foto ini"
 
-#: src/Resources.vala:258
+#: src/Resources.vala:259
 msgid "_Print…"
 msgstr "_Cetak…"
 
-#: src/Resources.vala:260
+#: src/Resources.vala:261
 msgid "Pu_blish…"
 msgstr "Pu_blikasikan…"
 
 #. Button label
-#: src/Resources.vala:266
+#: src/Resources.vala:267
 msgctxt "Button Label"
 msgid "Edit Title"
 msgstr "Sunting Judul"
 
 #. Button label
-#: src/Resources.vala:270
+#: src/Resources.vala:271
 msgid "Edit Comment"
 msgstr "Sunting Komentar"
 
-#: src/Resources.vala:276
+#: src/Resources.vala:277
 msgid "Adjust Date and Time"
 msgstr "Atur Jam dan Tanggal"
 
 #. Dialog title
-#: src/Resources.vala:281
+#: src/Resources.vala:282
 msgctxt "Dialog Title"
 msgid "Add Tags"
 msgstr "Tambah Tag"
 
-#: src/Resources.vala:292
+#: src/Resources.vala:293
 msgid "_Find…"
 msgstr "_Cari…"
 
-#: src/Resources.vala:296
+#: src/Resources.vala:297
 msgid "_Flag"
 msgstr "_Tanda"
 
-#: src/Resources.vala:298
+#: src/Resources.vala:299
 msgid "Un_flag"
 msgstr "Lepas _tanda"
 
-#: src/Resources.vala:302
+#: src/Resources.vala:303
 msgid "Mark faces of people in the photo"
 msgstr "Tandai wajah orang-orang di foto"
 
-#: src/Resources.vala:303
+#: src/Resources.vala:304
 msgid "Modify Faces"
 msgstr "Ubah Wajah"
 
-#: src/Resources.vala:304
+#: src/Resources.vala:305
 msgid "Delete Face"
 msgstr "Hapus Wajah"
 
-#: src/Resources.vala:310
+#: src/Resources.vala:311
 #, c-format
 msgid "Unable to launch editor: %s"
 msgstr "Program penyunting tidak dapat dijalankan: %s"
 
-#: src/Resources.vala:315
+#: src/Resources.vala:316
 #, c-format
 msgid "Add Tag “%s”"
 msgstr "Tambah Tag \"%s\""
 
 #. Used when adding two tags to photo(s)
-#: src/Resources.vala:318
+#: src/Resources.vala:319
 #, c-format
 msgid "Add Tags “%s” and “%s”"
 msgstr "Tambah Tag \"%s\" dan \"%s\""
 
 #. Undo/Redo command name (in Edit menu)
-#: src/Resources.vala:323
+#: src/Resources.vala:324
 msgctxt "UndoRedo menu entry"
 msgid "Add Tags"
 msgstr "Tambah Tag"
 
-#: src/Resources.vala:328
+#: src/Resources.vala:329
 #, c-format
 msgid "_Delete Tag “%s”"
 msgstr "_Hapus Tag \"%s\""
 
-#: src/Resources.vala:332
+#: src/Resources.vala:333
 #, c-format
 msgid "Delete Tag “%s”"
 msgstr "Hapus Tag \"%s\""
 
-#: src/Resources.vala:335
+#: src/Resources.vala:336
 msgid "Delete Tag"
 msgstr "Hapus Tag"
 
-#: src/Resources.vala:341
+#: src/Resources.vala:342
 #, c-format
 msgid "Re_name Tag “%s”…"
 msgstr "Ubah _Nama Tag \"%s\"…"
 
-#: src/Resources.vala:345
+#: src/Resources.vala:346
 #, c-format
 msgid "Rename Tag “%s” to “%s”"
 msgstr "Ubah Nama Tag \"%s\" menjadi \"%s\""
 
-#: src/Resources.vala:351
+#: src/Resources.vala:352
 msgid "Modify Tags"
 msgstr "Ubah Tag"
 
-#: src/Resources.vala:354
+#: src/Resources.vala:355
 #, c-format
 msgid "Tag Photo as “%s”"
 msgid_plural "Tag Photos as “%s”"
 msgstr[0] "Tag Foto sebagai \"%s\""
 
-#: src/Resources.vala:360
+#: src/Resources.vala:361
 #, c-format
 msgid "Tag the selected photo as “%s”"
 msgid_plural "Tag the selected photos as “%s”"
 msgstr[0] "Tag foto terpilih sebagai \"%s\""
 
-#: src/Resources.vala:366
+#: src/Resources.vala:367
 #, c-format
 msgid "Remove Tag “%s” From _Photo"
 msgid_plural "Remove Tag “%s” From _Photos"
 msgstr[0] "Hapus Tag \"%s\" Dari _Foto"
 
-#: src/Resources.vala:372
+#: src/Resources.vala:373
 #, c-format
 msgid "Remove Tag “%s” From Photo"
 msgid_plural "Remove Tag “%s” From Photos"
 msgstr[0] "Hapus Tag \"%s\" Dari Foto"
 
-#: src/Resources.vala:378
+#: src/Resources.vala:379
 #, c-format
 msgid "Unable to rename tag to “%s” because the tag already exists."
 msgstr "Tag tidak dapat diubah menjadi \"%s\" karena sudah ada."
 
-#: src/Resources.vala:382
+#: src/Resources.vala:383
 #, c-format
 msgid "Unable to rename search to “%s” because the search already exists."
 msgstr "Tidak bisa mengubah nama pencarian ke \"%s\" karena sudah ada."
 
 #. Saved search button
-#: src/Resources.vala:385 src/SearchFilter.vala:1145
+#: src/Resources.vala:386 src/SearchFilter.vala:1145
 msgid "Saved Search"
 msgstr "Pencarian Tersimpan"
 
-#: src/Resources.vala:387
+#: src/Resources.vala:388
 msgid "Delete Search"
 msgstr "Hapus Pencarian"
 
-#: src/Resources.vala:394
+#: src/Resources.vala:395
 #, c-format
 msgid "Rename Search “%s” to “%s”"
 msgstr "Ubah Nama Pencarian \"%s\" menjadi \"%s\""
 
-#: src/Resources.vala:398
+#: src/Resources.vala:399
 #, c-format
 msgid "Delete Search “%s”"
 msgstr "Hapus Pencarian \"%s\""
 
-#: src/Resources.vala:402
+#: src/Resources.vala:403
 #, c-format
 msgid "Unable to rename face to “%s” because the face already exists."
 msgstr ""
 "Tidak dapat mengganti nama wajah menjadi \"%s\" karena wajah sudah ada."
 
-#: src/Resources.vala:406
+#: src/Resources.vala:407
 #, c-format
 msgid "Remove Face “%s” From _Photo"
 msgid_plural "Remove Face “%s” From _Photos"
 msgstr[0] "Hapus Wajah \"%s\" Dari _Foto"
 
-#: src/Resources.vala:411
+#: src/Resources.vala:412
 #, c-format
 msgid "Remove Face “%s” From Photo"
 msgid_plural "Remove Face “%s” From Photos"
 msgstr[0] "Hapus Wajah \"%s\" Dari Foto"
 
 #. Translators: This means to teach the face to the face recognition system
-#: src/Resources.vala:417 src/Resources.vala:422
+#: src/Resources.vala:418 src/Resources.vala:423
 #, c-format
 msgid "_Train Face “%s” From Photo"
 msgstr "La_tih Wajah \"%s\" Dari Foto"
 
-#: src/Resources.vala:430
+#: src/Resources.vala:431
 #, c-format
 msgid "Re_name Face “%s”…"
 msgstr "Ubah _Nama Wajah \"%s\"…"
 
-#: src/Resources.vala:434
+#: src/Resources.vala:435
 #, c-format
 msgid "Rename Face “%s” to “%s”"
 msgstr "Ubah Nama Wajah \"%s\" menjadi \"%s\""
 
-#: src/Resources.vala:438
+#: src/Resources.vala:439
 #, c-format
 msgid "_Delete Face “%s”"
 msgstr "_Hapus Wajah \"%s\""
 
-#: src/Resources.vala:442
+#: src/Resources.vala:443
 #, c-format
 msgid "Delete Face “%s”"
 msgstr "Hapus Wajah \"%s\""
 
-#: src/Resources.vala:671
+#: src/Resources.vala:672
 #, c-format
 msgid "Rate %s"
 msgstr "Nilai %s"
 
-#: src/Resources.vala:672
+#: src/Resources.vala:673
 #, c-format
 msgid "Set rating to %s"
 msgstr "Atur nilai rating ke %s"
 
-#: src/Resources.vala:673
+#: src/Resources.vala:674
 #, c-format
 msgid "Setting rating to %s"
 msgstr "Mengatur rating ke %s"
 
-#: src/Resources.vala:675
+#: src/Resources.vala:676
 #, c-format
 msgid "Display %s"
 msgstr "Tampilkan %s"
 
-#: src/Resources.vala:676
+#: src/Resources.vala:677
 #, c-format
 msgid "Only show photos with a rating of %s"
 msgstr "Hanya tampilkan foto dengan rating %s"
 
-#: src/Resources.vala:677
+#: src/Resources.vala:678
 #, c-format
 msgid "%s or Better"
 msgstr "%s atau lebih baik"
 
-#: src/Resources.vala:678
+#: src/Resources.vala:679
 #, c-format
 msgid "Display %s or Better"
 msgstr "Tampilkan %s atau lebih baik"
 
-#: src/Resources.vala:679
+#: src/Resources.vala:680
 #, c-format
 msgid "Only show photos with a rating of %s or better"
 msgstr "Hanya tampilkan foto dengan rating %s atau lebih baik"
 
-#: src/Resources.vala:777
+#: src/Resources.vala:778
 msgid "Open the selected photo’s directory in the file manager"
 msgstr "Buka direktori foto yang dipilih dalam manajer berkas"
 
-#: src/Resources.vala:780
+#: src/Resources.vala:781
 #, c-format
 msgid "Unable to open in file manager: %s"
 msgstr "Program pengatur berkas tidak dapat dibuka: %s"
 
-#: src/Resources.vala:788
+#: src/Resources.vala:789
 msgid "Select all items"
 msgstr "Pilih semua item"
 
@@ -5943,14 +5940,14 @@ msgstr "Pilih semua item"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
 #. / Locale-specific calendar date format, i.e. "Tue Mar 08, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:850
+#: src/Resources.vala:851
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
 
 #. / Locale-specific starting date format for multi-date strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:855
+#: src/Resources.vala:856
 msgctxt "MultidayFormat"
 msgid "%a %b %d"
 msgstr "%a %d %b"
@@ -5958,7 +5955,7 @@ msgstr "%a %d %b"
 #. / Locale-specific ending date format for multi-date strings,
 #. / i.e. the "10, 2006" in "Tue Mar 08 - 10, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:860
+#: src/Resources.vala:861
 msgctxt "MultidayFormat"
 msgid "%d, %Y"
 msgstr "%d, %Y"
@@ -5966,7 +5963,7 @@ msgstr "%d, %Y"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Tue Mar 08" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:865
+#: src/Resources.vala:866
 msgctxt "MultimonthFormat"
 msgid "%a %b %d"
 msgstr "%a %d %b"
@@ -5974,7 +5971,7 @@ msgstr "%a %d %b"
 #. / Locale-specific calendar date format for multi-month strings,
 #. / i.e. the "Mon Apr 06, 2006" in "Tue Mar 08 to Mon Apr 06, 2006"
 #. / See http://developer.gnome.org/glib/2.32/glib-GDateTime.html#g-date-time-format
-#: src/Resources.vala:870
+#: src/Resources.vala:871
 msgctxt "MultimonthFormat"
 msgid "%a %b %d, %Y"
 msgstr "%a %d %b, %Y"
@@ -6277,3 +6274,9 @@ msgstr "tanpa judul"
 #: src/video-support/Video.vala:171
 msgid "Export Videos"
 msgstr "Ekspor Video"
+
+#~ msgid "%Y"
+#~ msgstr "%Y"
+
+#~ msgid "%B"
+#~ msgstr "%B"
