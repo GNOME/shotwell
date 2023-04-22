@@ -1,4 +1,39 @@
-Shotwell 0.31.90 (beta) - 04 Apr 2023
+Shotwell 0.32.0 (stable) - 22 Apr 2023
+ * Fix generating video thumbnails if debugging is enabled
+ * Add JPEG XL support
+ * Fix display of duplicate tags in suggestion popup
+ * Support more variants of HEIF
+ * Translation updates
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5034
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/72
+
+All contributors to this release:
+ - Jens Georg <mail@jensge.org>
+ - Philipp Kiemle <philipp.kiemle@gmail.com>
+ - Kukuh Syafaat <kukuhsyafaat@gnome.org>
+ - Sabri Ünal <libreajans@gmail.com>
+ - Piotr Drąg <piotrdrag@gmail.com>
+ - Aleksandr Melman <Alexmelman88@gmail.com>
+ - Yuri Chornoivan <yurchor@ukr.net>
+ - Ekaterine Papava <papava.e@gtu.ge>
+ - Anders Jonsson <anders.jonsson@norsjovallen.se>
+ - Mike Auty <mike.auty@gmail.com>
+
+Added/updated translations:
+ - de.po, courtesy of Philipp Kiemle
+ - id.po, courtesy of Kukuh Syafaat
+ - ka.po, courtesy of Ekaterine Papava
+ - pl.po, courtesy of Piotr Drąg
+ - ru.po, courtesy of Aleksandr Melman
+ - sv.po, courtesy of Anders Jonsson
+ - tr.po, courtesy of Sabri Ünal
+ - uk.po, courtesy of Yuri Chornoivan
+
+ Shotwell 0.31.90 (beta) - 04 Apr 2023
  * Fix display of f-number
  * Fix several issues with unset exposure times
  * Properly read exposure time from video files with GStreamer
