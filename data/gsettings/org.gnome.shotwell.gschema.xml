@@ -353,7 +353,12 @@
     <value value="2" nick="PNG" />
     <value value="3" nick="TIFF" />
     <value value="4" nick="BMP" />
-    <value value="5" nick="UNKNOWN" />
+    <value value="4" nick="BMP" />
+    <value value="5" nick="GIF" />
+    <value value="6" nick="WEBP" />
+    <value value="7" nick="HEIF" />
+    <value value="8" nick="AVIF" />
+    <value value="9" nick="UNKNOWN" />
 </enum>
 
 <enum id="org.gnome.shotwell.JpegQuality">
