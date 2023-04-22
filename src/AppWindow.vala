@@ -572,7 +572,7 @@ public abstract class AppWindow : PageWindow {
 
     protected void on_about() {
         var hash = "";
-        if (Resources.GIT_VERSION != "") {
+        if (Resources.GIT_VERSION != null && Resources.GIT_VERSION != "" && Resources.GIT_VERSION != Resources.APP_VERSION) {
             hash = " (%s)".printf(Resources.GIT_VERSION.substring(0,7));
         }
         string[] artists = {"Image of the Delmenhorst Town Hall by Charlie1965nrw, source: https://commons.wikimedia.org/wiki/File:Delmenhorst_Rathaus.jpg", null};
