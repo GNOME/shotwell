@@ -126,20 +126,6 @@
             ]
         },
         {
-            "name" : "liboauth",
-            "config-opts" : [
-                "--enable-nss"
-            ],
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://sourceforge.net/projects/liboauth/files/liboauth-1.0.3.tar.gz/download",
-                    "sha256" : "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f",
-                    "dest-filename" : "liboauth-1.0.3.tar.gz"
-                }
-            ]
-        },
-        {
             "name": "libraw",
             "config-opts": [ "--disable-examples", "--disable-static" ],
             "cleanup": [ "/share/doc" ],
@@ -243,8 +229,8 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/strukturag/libheif",
-                    "tag" : "v1.15.1",
-                    "commit" : "06f6acfe735379b9c3bcf865285f6dba80611e90"
+                    "tag" : "v1.15.2",
+                    "commit" : "516ef5522680c7cb62768a34ecb24f3b165ec8b4"
                 }
             ],
             "post-install" :  [
