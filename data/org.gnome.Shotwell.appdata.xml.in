@@ -53,6 +53,10 @@
   <developer_name>The Shotwell developers</developer_name>
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
+  <releases>
+      <release version="0.32.0" date="2023-04-22" urgency="medium" type="stable" />
+      <release version="0.30.18" date="2023-04-01" urgency="low" type="stable" />
+  </releases>
 
   <!--GNOME Projects usually have no per-app donation page-->
   <url type="donation">http://www.gnome.org/friends/</url>
