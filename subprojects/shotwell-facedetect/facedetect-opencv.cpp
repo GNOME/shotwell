@@ -59,55 +59,60 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
 #else
     disableDnn = true;
 #endif
-    if (disableDnn) {
-        // Classical face detection
-        cv::Mat gray;
-        cvtColor(img, gray, cv::COLOR_BGR2GRAY);
+    try {
+        if (disableDnn) {
+            // Classical face detection
+            cv::Mat gray;
+            cvtColor(img, gray, cv::COLOR_BGR2GRAY);
 
-        scale = 1.0;
-        cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
-        smallImgSize = smallImg.size();
+            scale = 1.0;
+            cv::Mat smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
+            smallImgSize = smallImg.size();
 
-        cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
-        cv::equalizeHist(smallImg, smallImg);
-        constexpr double SCALE_FACTOR_FRONTAL{ 1.1 };
-        constexpr double SCALE_FACTOR_PROFILE{ 1.05 };
-        constexpr int MIN_NEIGHBOURS{ 2 };
-        constexpr int MIN_SIZE{ 30 };
-        cascade.detectMultiScale (smallImg,
-                                  faces,
-                                  SCALE_FACTOR_FRONTAL,
-                                  MIN_NEIGHBOURS,
-                                  cv::CASCADE_SCALE_IMAGE,
-                                  cv::Size (MIN_SIZE, MIN_SIZE));
+            cv::resize(gray, smallImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
+            cv::equalizeHist(smallImg, smallImg);
+            constexpr double SCALE_FACTOR_FRONTAL{ 1.1 };
+            constexpr double SCALE_FACTOR_PROFILE{ 1.05 };
+            constexpr int MIN_NEIGHBOURS{ 2 };
+            constexpr int MIN_SIZE{ 30 };
+            cascade.detectMultiScale (smallImg,
+                                    faces,
+                                    SCALE_FACTOR_FRONTAL,
+                                    MIN_NEIGHBOURS,
+                                    cv::CASCADE_SCALE_IMAGE,
+                                    cv::Size (MIN_SIZE, MIN_SIZE));
 
-        // Run the cascade for profile faces, if available
-        if(not cascade_profile.empty()) {
-            g_debug("Running haarcascade detection for profile faces");
-            std::vector<cv::Rect> profiles;
-            cascade_profile.detectMultiScale (smallImg,
-                                              profiles,
-                                              SCALE_FACTOR_PROFILE,
-                                              MIN_NEIGHBOURS,
-                                              cv::CASCADE_SCALE_IMAGE,
-                                              cv::Size (MIN_SIZE, MIN_SIZE));
-            if(not profiles.empty()) {
-                faces.insert(faces.end(), profiles.begin(), profiles.end());
+            // Run the cascade for profile faces, if available
+            if(not cascade_profile.empty()) {
+                g_debug("Running haarcascade detection for profile faces");
+                std::vector<cv::Rect> profiles;
+                cascade_profile.detectMultiScale (smallImg,
+                                                profiles,
+                                                SCALE_FACTOR_PROFILE,
+                                                MIN_NEIGHBOURS,
+                                                cv::CASCADE_SCALE_IMAGE,
+                                                cv::Size (MIN_SIZE, MIN_SIZE));
+                if(not profiles.empty()) {
+                    faces.insert(faces.end(), profiles.begin(), profiles.end());
+                }
+
+                // Duplicate all rectangles so we can safely run groupRectangles with minimum 1 on it - otherwise
+                // OpenCV does weird things
+                faces.insert(faces.end(), faces.begin(), faces.end());
+
+                // Try to merge all overlapping rectangles
+                cv::groupRectangles(faces, 1);
             }
-
-            // Duplicate all rectangles so we can safely run groupRectangles with minimum 1 on it - otherwise
-            // OpenCV does weird things
-            faces.insert(faces.end(), faces.begin(), faces.end());
-
-            // Try to merge all overlapping rectangles
-            cv::groupRectangles(faces, 1);
+        } else {
+    #ifdef HAS_OPENCV_DNN
+            // DNN based face detection
+            faces = detectFacesMat(img);
+            smallImgSize = img.size(); // Not using the small image here
+    #endif
         }
-    } else {
-#ifdef HAS_OPENCV_DNN
-        // DNN based face detection
-        faces = detectFacesMat(img);
-        smallImgSize = img.size(); // Not using the small image here
-#endif
+    } catch (cv::Exception& ex) {
+        g_warning("Face detection failed: %s", ex.what());
+        return {};
     }
 
     std::vector<FaceRect> scaled;
@@ -119,11 +124,16 @@ std::vector<FaceRect> detectFaces(const cv::String &inputName, double scale, boo
         i.height = (float) r->height / smallImgSize.height;
 
 #ifdef HAS_OPENCV_DNN
-        if (infer && !faceRecogNet.empty()) {
-            // Get colour image for vector generation
-            cv::Mat colourImg;
-            cv::resize(img, colourImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
-            i.vec = faceToVecMat(colourImg(*r)); // Run vector conversion on the face
+        try {
+            if (infer && !faceRecogNet.empty()) {
+                // Get colour image for vector generation
+                cv::Mat colourImg;
+                cv::resize(img, colourImg, smallImgSize, 0, 0, cv::INTER_LINEAR);
+                i.vec = faceToVecMat(colourImg(*r)); // Run vector conversion on the face
+            }
+        } catch (cv::Exception& ex) {
+            g_warning("Face recognition failed: %s", ex.what());
+            i.vec = {};
         }
 #endif
         scaled.push_back(i);
