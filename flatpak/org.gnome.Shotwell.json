@@ -45,6 +45,10 @@
                 "/share/OpenCV/*.cmake",
                 "/share/OpenCV/*.supp"
             ],
+            "build-options" : {
+                "cxxflags" : "-Wp,-U_GLIBCXX_ASSERTIONS",
+                "cflags" : "-Wp,-U_GLIBCXX_ASSERTIONS"
+            },
             "config-opts" : [
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DOPENCV_GENERATE_PKGCONFIG=ON",
@@ -65,8 +69,7 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "tag" : "4.7.0",
-                    "commit" : "725e440d278aca07d35a5e8963ef990572b07316",
+                    "commit" : "6dbc5e032fa851d1a25fb4a895d735ed3441975b",
                     "url" : "https://github.com/opencv/opencv"
                 }
             ]
