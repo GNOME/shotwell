@@ -697,6 +697,12 @@
         <description>True if the Google Photos publishing plugin is enabled, false otherwise</description>
     </key>
 
+    <key name="org-gnome-shotwell-publishing-google-photos" type="b">
+        <default>true</default>
+        <summary>enable Google Photos publishing plugin</summary>
+        <description>True if the Google Photos publishing plugin is enabled, false otherwise</description>
+    </key>
+
     <key name="publishing-youtube" type="b">
         <default>true</default>
         <summary>enable youtube publishing plugin</summary>
