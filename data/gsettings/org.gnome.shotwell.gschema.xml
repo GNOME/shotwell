@@ -193,7 +193,7 @@
         <description>The time (in seconds) to show each photo in the slideshow</description>
     </key>
 
-    <key name="transition-duration" type="d">
+    <key name="transition-delay" type="d">
         <default>0.3</default>
         <summary>transition duration</summary>
         <description>The time (in seconds) that a transition runs between photos in a slideshow</description>
