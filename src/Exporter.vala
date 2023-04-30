@@ -121,6 +121,7 @@ public class Exporter : Object {
     private bool rename_all = false;
     private bool aborted = false;
     private ExportFormatParameters export_params;
+    private static File? USE_TEMPORARY_EXPORT_FOLDER = null; 
 
     public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
         ExportFormatParameters export_params, bool auto_replace_all = false) {
@@ -134,7 +135,7 @@ public class Exporter : Object {
     public Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
         ExportFormatParameters export_params) {
         this.to_export.add_all(to_export);
-        this.dir = null;
+        this.dir = USE_TEMPORARY_EXPORT_FOLDER;
         this.scaling = scaling;
         this.export_params = export_params;
     }
