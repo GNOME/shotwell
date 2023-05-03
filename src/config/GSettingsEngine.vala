@@ -565,7 +565,12 @@ public class GSettingsConfigurationEngine : ConfigurationEngine, GLib.Object {
                     debug("%s is default value, skipping", k);
                     continue;
                 }
-    
+
+                if (!new_schema.has_key(k)) {
+                    debug("Cannot migrate %s as it does not exist", k);
+                    continue;
+                }
+
                 debug("Will migrate %s %s @ %s -> %s:%s %s", k, id, path, new_id, new_path, val.print(true));
                 if (!new_settings.set_value(k, val)) {
                     debug(" Failed...");
