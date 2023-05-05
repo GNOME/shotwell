@@ -151,6 +151,9 @@ private class TiffMetadataWriter : PhotoFileMetadataWriter {
     }
 }
 
+private const uint16 FILE_MARKER_TIFF = 42;
+private const uint16 FILE_MARKER_BIGTIFF = 43;
+
 public bool is_tiff(File file, Cancellable? cancellable = null) throws Error {
     DataInputStream dins = new DataInputStream(file.read());
     
@@ -173,8 +176,9 @@ public bool is_tiff(File file, Cancellable? cancellable = null) throws Error {
     
     // second two bytes: some random number
     uint16 lue = dins.read_uint16(cancellable);
-    if (lue != 42)
+    if (lue != FILE_MARKER_TIFF && lue != FILE_MARKER_BIGTIFF) {
         return false;
+    }
     
     // remaining bytes are offset of first IFD, which doesn't matter for our purposes
     return true;
