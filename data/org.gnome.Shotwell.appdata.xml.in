@@ -54,6 +54,7 @@
 
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/shotwell/issues</url>
   <releases>
+      <release version="0.32.1" date="2023-05-09" urgency="medium" type="stable" />
       <release version="0.32.0" date="2023-04-22" urgency="medium" type="stable" />
       <release version="0.30.18" date="2023-04-01" urgency="low" type="stable" />
   </releases>

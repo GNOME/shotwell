@@ -1,3 +1,22 @@
+Shotwell 0.32.1 (stable) - 09 May 2023
+ * Fix version display in about dialog when not building from git
+ * Fix settings schema migration when source is using obsolete
+   keys 
+ * Fix setting slideshow duration settings
+ * Make facedetect helper somewhat more robust if opencv calls
+   fail
+ * Explicitly handle BigTIFF
+
+Bugs fixed in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/issues/5040
+
+Merge requests included in this release:
+ - https://gitlab.gnome.org/GNOME/shotwell/merge_requests/73
+
+All contributors to this release:
+ - Matt Turner <mattst88@gmail.com>
+ - Jens Georg <mail@jensge.org>
+
 Shotwell 0.32.0 (stable) - 22 Apr 2023
  * Fix generating video thumbnails if debugging is enabled
  * Add JPEG XL support
