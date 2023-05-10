@@ -28,7 +28,7 @@ import time
 import argparse
 import ssl
 
-from OpenSSL import crypto, SSL
+from OpenSSL import crypto
 
 def cert_gen(
     emailAddress="emailAddress",
@@ -73,6 +73,15 @@ def cert_gen(
 # for testing publishing in offline-situations
 
 class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
+    _REPLY_TEMPLATE = b'<?xml version="1.0"?><piwigo stat="ok">%s</piwigo>'
+
+    def reply_ok(self, content=b''):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/xml')
+        self.send_header('Set-Cookie', 'pwg_id="12345"')
+        self.end_headers()
+        self.wfile.write(SimpleRequestHandler._REPLY_TEMPLATE % content)
+
     def do_POST(self):
         self.log_message("Got POST request for path " + self.path)
         ctype, pdict = cgi.parse_header(self.headers['content-type'])
@@ -90,68 +99,51 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
 
         try:
             method = postvars[b'method'][0]
-        except:
+        except KeyError:
             method = postvars['method'][0]
 
         # Make sure we have a utf8 string
         try:
             method = method.decode()
-        except:
+        except AttributeError:
+            # Already was a string "has no attribute 'decode'"
             pass
 
         self.log_message("Received method call for " + str(method))
         time.sleep(1)
 
-        if self.path == '/ws.php':
-            try:
-                if method == 'pwg.session.login':
-                    self.send_response(200)
-                    self.send_header('Content-type', 'text/xml')
-                    self.send_header('Set-Cookie', 'pwg_id="12345"')
-                    self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"></piwigo>')
-                    return
-                elif method == 'pwg.session.getStatus':
-                    self.send_response(200)
-                    self.send_header('Content-type', 'text/xml')
-                    self.send_header('Set-Cookie', 'pwg_id="12345"')
-                    self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><username>test</username></piwigo>')
-                    return
-                elif method == 'pwg.categories.getList':
-                    self.send_response(200)
-                    self.send_header('Content-type', 'text/xml')
-                    self.send_header('Set-Cookie', 'pwg_id="12345"')
-                    self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><categories></categories></piwigo>')
-                    return
-                elif method == 'pwg.categories.add':
-                    self.send_response(200)
-                    self.send_header('Set-Cookie', 'pwg_id="12345"')
-                    self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><id>765</id></piwigo>')
-                    return
-                elif method == 'pwg.images.addSimple':
-                    self.send_response(200)
-                    self.send_header('Set-Cookie', 'pwg_id="12345"')
-                    self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><image_id>2387</image_id></piwigo>')
-                    return
-                elif method == 'pwg.images.rate':
-                    self.send_response(200)
-                    self.send_header('Set-Cookie', 'pwg_id="12345"')
-                    self.end_headers()
-                    self.wfile.write(b'<?xml version="1.0"?><piwigo stat="ok"><image_id>2387</image_id></piwigo>')
-                    return
-            except:
-                self.log_error('Unknown method {0}'.format(postvars[b'method']))
-                pass
+        if self.path != '/ws.php':
+            self.log_error(f'Unknown page: {self.path}')
+            self.send_response(404)
+            return
+
+
+        if method == 'pwg.session.login':
+            self.reply_ok()
+            return
+        elif method == 'pwg.session.getStatus':
+            self.reply_ok()
+            return
+        elif method == 'pwg.categories.getList':
+            self.reply_ok(b'<categories></categories>')
+            return
+        elif method == 'pwg.categories.add':
+            self.reply_ok(b'<id>765</id>')
+            return
+        elif method == 'pwg.images.addSimple':
+            self.reply_ok(b'<image_id>2387</image_id>')
+            return
+        elif method == 'pwg.images.rate':
+            self.reply_ok(b'<image_id>2387</image_id>')
+            return
+        else:
+            self.log_error('Unknown method {0}'.format(method))
 
         self.send_response(500)
 
-def run(server_class = http.server.HTTPServer, handler_class = SimpleRequestHandler, port=8080, do_ssl=False):
+def run(port=8080, do_ssl=False):
     server_address = ('127.0.0.1', port)
-    httpd = server_class(server_address, handler_class)
+    httpd = http.server.HTTPServer(server_address, SimpleRequestHandler)
     if do_ssl:
         cert_gen()
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
