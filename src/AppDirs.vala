@@ -196,14 +196,21 @@ class AppDirs {
     
     public static File get_temp_dir() {
         if (tmp_dir == null) {
-            tmp_dir = File.new_for_path(DirUtils.mkdtemp (Environment.get_tmp_dir() + "/shotwell-XXXXXX"));
+            var basedir = Environment.get_tmp_dir();
+            var flatpak_canary = File.new_for_path("/.flatpak-info");
+            if (flatpak_canary.query_exists() && basedir == "/tmp") {
+                basedir = Environment.get_user_cache_dir() + "/tmp";
+            }
+
+            tmp_dir = File.new_for_path(DirUtils.mkdtemp (basedir + "/shotwell-XXXXXX"));
             
             try {
-                if (!tmp_dir.query_exists(null))
-                    tmp_dir.make_directory_with_parents(null);
+                tmp_dir.make_directory_with_parents(null);
             } catch (Error err) {
-                AppWindow.panic(_("Unable to create temporary directory %s: %s").printf(
-                    tmp_dir.get_path(), err.message));
+                if (!(err is GLib.IOError.EXISTS)) {
+                    AppWindow.panic(_("Unable to create temporary directory %s: %s").printf(
+                        tmp_dir.get_path(), err.message));
+                }
             }
         }
         
