@@ -231,7 +231,7 @@ namespace Shotwell {
             Object(orientation: Gtk.Orientation.VERTICAL, vexpand: true, hexpand: true);
         }
 
-        public signal void profile_activated(string? profile);
+        public signal void profile_activated(Profile profile);
 
         public override void constructed() {
             var scrollable = new Gtk.ScrolledWindow(null, null);
@@ -243,11 +243,7 @@ namespace Shotwell {
             list_box.row_activated.connect((list_box, row) => {
                 var index = row.get_index();
                 var profile = (Profile) ProfileManager.get_instance().get_item(index);
-                if (profile.id == Profile.SYSTEM) {
-                    profile_activated(null);
-                } else {
-                    profile_activated(profile.name);
-                }
+                profile_activated(profile);
             });
             list_box.get_style_context().add_class("rich-list");
             list_box.hexpand = true;

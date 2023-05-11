@@ -410,7 +410,12 @@ void main(string[] args) {
         window.set_title (_("Choose Shotwell's profile"));
         var browser = new Shotwell.ProfileBrowser();
         browser.profile_activated.connect((profile) => {
-            CommandlineOptions.profile = profile;
+            if (profile.id != Shotwell.Profile.SYSTEM) {
+                CommandlineOptions.profile = profile.name;
+                CommandlineOptions.data_dir = profile.data_dir;
+            } else {
+                CommandlineOptions.profile = null;
+            }
             window.response(Gtk.ResponseType.OK);
         });
         window.get_content_area().add(browser);
