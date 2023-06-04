@@ -16,7 +16,7 @@
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">label</property>
+        <property name="label" translatable="no">label</property>
         <style>
           <class name="dim-label"/>
         </style>
@@ -33,7 +33,7 @@
         <property name="can-focus">False</property>
         <property name="halign">start</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">label</property>
+        <property name="label" translatable="no">label</property>
       </object>
       <packing>
         <property name="expand">True</property>
