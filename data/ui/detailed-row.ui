@@ -17,7 +17,7 @@
           <object class="GtkLabel" id="title_label">
             <property name="hexpand">1</property>
             <property name="halign">start</property>
-            <property name="label" translatable="1">label</property>
+            <property name="label">label</property>
           </object>
         </child>
         <child>
